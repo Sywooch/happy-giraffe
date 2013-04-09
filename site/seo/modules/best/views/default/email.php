@@ -12,11 +12,19 @@ $i = 1;
 ?>
 <div class="block">
     <?php foreach ($days as $day): ?>
-        <div class="clearfix<?php if ($day == date("Y-m-d")) echo ' b-best__today' ?>">
-            <div class="b-best">
-                <div class="clearfix margin-b20">
-                    <div class="b-date"><?= Yii::app()->dateFormatter->format('d MMMM yyyy', strtotime($day)) ?></div>
-                </div>
+        <div class="clearfix">
+            <div class="b-best<?php if ($day == date("Y-m-d")) echo ' b-best__today' ?>">
+                <?php if ($day == date("Y-m-d")):?>
+                    <div class="b-best_t">
+                        <span class="b-best_t-date"><?= Yii::app()->dateFormatter->format('d MMMM yyyy', strtotime($day)) ?></span>
+                        СЕГОДНЯ
+                    </div>
+                <?php endif ?>
+                <?php if ($day != date("Y-m-d")):?>
+                    <div class="clearfix margin-b20">
+                        <div class="b-date"><?= Yii::app()->dateFormatter->format('d MMMM yyyy', strtotime($day)) ?></div>
+                    </div>
+                <?php endif ?>
                 <div class="best-list best-list__mail">
                     <ul id="sortable<?= $i ?>" class="best-list_ul" data-date="<?= $day ?>">
                         <?php $models = Favourites::getListByDate(Favourites::WEEKLY_MAIL, $day) ?>

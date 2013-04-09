@@ -241,6 +241,6 @@ class Favourites extends EMongoDocument
      */
     public function getArticle()
     {
-        return CActiveRecord::model($this->entity)->full()->findByPk($this->entity_id);
+        return CActiveRecord::model($this->entity)->resetScope()->full()->findByPk($this->entity_id);
     }
 }

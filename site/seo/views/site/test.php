@@ -16,5 +16,5 @@ echo count($cols).'<br>';
 foreach($cols as $col){
     $phrase = PagesSearchPhrase::model()->findByPk($col);
     if (strpos($phrase->page->url, '/cook/recipe/'))
-        echo $phrase->page->url.' - '. $phrase->keyword->wordstat.'<br>';
+        echo $phrase->page->url.' - '. $phrase->keyword->name.' - '.$phrase->keyword->wordstat.'<br>';
 }

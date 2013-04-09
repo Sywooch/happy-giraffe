@@ -72,6 +72,8 @@ class CommunityController extends MController
             'criteria' => array(
                 'order' => 't.created DESC',
                 'scopes' => array('active', 'full'),
+                'condition' => 'author_id = :user_id',
+                'params' => array(':user_id' => $user_id),
             ),
             'pagination' => array(
                 'pageSize' => 3,

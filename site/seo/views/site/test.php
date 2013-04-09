@@ -6,10 +6,9 @@
  */
 
 $cols = Yii::app()->db_seo->createCommand()
-    ->select('search_phrase_id')
+    ->selectDistinct('search_phrase_id')
     ->from('pages_search_phrases_positions')
     ->where('se_id = 2 AND position > 10 AND position < 30')
-    ->limit(1000)
     ->queryColumn();
 
 echo count($cols).'<br>';

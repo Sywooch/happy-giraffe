@@ -152,7 +152,11 @@ class SeoCommand extends CConsoleCommand
         //каждой записи Favourites назначим дату и добавим index
         $models = Favourites::model()->findAll();
         foreach($models as $model){
-            $model->date = date("Y-m-d", $model->created);
+            if ($model->block == Favourites::WEEKLY_MAIL){
+                $model->date = date("Y-m-d", strtotime('next monday', $model->created));
+            }
+            else
+                $model->date = date("Y-m-d", $model->created);
             $model->save();
         }
     }

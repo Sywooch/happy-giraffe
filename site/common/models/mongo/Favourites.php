@@ -137,11 +137,12 @@ class Favourites extends EMongoDocument
         $models = CommunityContent::model()->findAll($criteria);
 
         $sorted_models = array();
-        foreach($ids as $id)
-            foreach($models as $model){
+        foreach ($ids as $id) {
+            foreach ($models as $model) {
                 if ($model->id == $id)
                     $sorted_models[] = $model;
             }
+        }
 
         return $sorted_models;
     }
@@ -167,7 +168,7 @@ class Favourites extends EMongoDocument
     {
         $criteria = new EMongoCriteria;
         $criteria->block('==', (int)$index);
-        $criteria->sort('index', EMongoCriteria::SORT_ASC);
+        $criteria->date('==', date("Y-m-d", strtotime('+1 day')));
         $criteria->limit(self::getLimit($index));
         #TODO добавить ограничения чтобы не комментировали те, которые уже неактуальны, например в email-рассылке
 

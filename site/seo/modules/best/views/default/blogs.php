@@ -22,7 +22,14 @@ $i = 1;
                             <li class="best-list_li b-best_i" id="<?= $model->_id ?>">
                                 <b class="best-list_t"><a href=""><?= $article->title ?></a></b>
 
-                                <div class="best-list_tx"><?= $article->getShort(100); ?></div>
+                                <?php $photo = $article->content->getPhoto(); ?>
+                                <?php if (!empty($photo)):?>
+                                    <?php $src = implode('/', array(Yii::app()->params['photos_url'],'thumbs','700x',$photo->author_id,$photo->fs_name)); ?>
+                                    <div class="best-list_tx"><img src="<?=$src ?>" alt="" width="100"/></div>
+                                <?php else: ?>
+                                    <div class="best-list_tx"><?= $article->getContentText(100); ?></div>
+                                <?php endif ?>
+
                                 <div class="b-best_overlay">
                                     <div class="b-best_overlay-tx">
                                         Вы можете переместить или удалить. <br>

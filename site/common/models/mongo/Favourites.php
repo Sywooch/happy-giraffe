@@ -36,6 +36,15 @@ class Favourites extends EMongoDocument
     }
 
     /**
+     * Соединение с базой данных
+     * @return EMongoDB
+     */
+    public function getMongoDBComponent()
+    {
+        return Yii::app()->getComponent('mongodb_production');
+    }
+
+    /**
      * Добавить в список если нет или удалить если есть в списке
      *
      * @param $model CActiveRecord

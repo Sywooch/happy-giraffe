@@ -5,7 +5,16 @@
  *
  */
 
-$k = Keyword::model()->findByPk(498727040);
-echo $k->name."<br>";
-$k = Keyword::model()->findByPk(498727031);
-echo $k->name."<br>";
+$cols = Yii::app()->db_seo->createCommand()
+    ->select('search_phrase_id')
+    ->from('pages_search_phrases_positions')
+    ->where('se_id = 2 AND position > 10 AND position < 30')
+    ->queryColumn();
+
+echo count($cols).'<br>';
+
+foreach($cols as $col){
+    $phrase = PagesSearchPhrase::model()->findByPk($col);
+    if (strpos($phrase->page->url, '/cook/recipe/'))
+        echo $phrase->page->url.'<br>';
+}

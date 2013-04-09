@@ -5,7 +5,7 @@
  *
  */
 
-$k = Keyword::model()->findByPk(24084);
+$k = Keyword::model()->findByPk(498727040);
 echo $k->name."<br>";
-$k = Keyword::model()->findByPk(15083);
+$k = Keyword::model()->findByPk(498727031);
 echo $k->name."<br>";

@@ -121,8 +121,8 @@ class Favourites extends EMongoDocument
 
     /**
      * Возворащает список статей на дату, сортирует модели по их позиции
-     * @param $index
-     * @param $date
+     * @param $index int блок
+     * @param $date string дата
      * @param $limit
      * @return CommunityContent[]
      */
@@ -156,6 +156,12 @@ class Favourites extends EMongoDocument
         return $sorted_models;
     }
 
+    /**
+     * Возвращает модели на определенную дату для определенного блока
+     * @param $index int блок
+     * @param $date string дата
+     * @return Favourites[]
+     */
     public static function getListByDate($index, $date)
     {
         $criteria = new EMongoCriteria;
@@ -177,9 +183,10 @@ class Favourites extends EMongoDocument
     {
         $criteria = new EMongoCriteria;
         $criteria->block('==', (int)$index);
-        $criteria->date('==', date("Y-m-d", strtotime('+1 day')));
-        $criteria->limit(self::getLimit($index));
-        #TODO добавить ограничения чтобы не комментировали те, которые уже неактуальны, например в email-рассылке
+        if ($index == self::WEEKLY_MAIL)
+            $criteria->date('==', date("Y-m-d", strtotime('next monday')));
+        else
+            $criteria->date('==', date("Y-m-d", strtotime('+1 day')));
 
         $models = self::model()->findAll($criteria);
         $ids = array();
@@ -187,28 +194,6 @@ class Favourites extends EMongoDocument
             $ids [] = $model->entity_id;
 
         return $ids;
-    }
-
-    /**
-     * Возвращает лимит постов для комментирования
-     *
-     * @param $index тип блока
-     * @return int
-     */
-    public static function getLimit($index)
-    {
-        switch ($index) {
-            case self::BLOCK_BLOGS:
-                return 12;
-            case self::BLOCK_INTERESTING:
-                return 4;
-            case self::BLOCK_SOCIAL_NETWORKS:
-                return 10;
-            case self::WEEKLY_MAIL:
-                return 6;
-        }
-
-        return 1;
     }
 
     /**
@@ -251,6 +236,7 @@ class Favourites extends EMongoDocument
     }
 
     /**
+     * Возвращает связанную с модель статью
      * @return CActiveRecord
      */
     public function getArticle()

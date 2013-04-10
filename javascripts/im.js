@@ -10,6 +10,7 @@ $(window).load(function() {
     var imMinHeight = 460;
 
     var container = $('.layout-container');
+    var im = $(".im");
     var imSidebar = $('.im-sidebar');
     var imUserList = $('.im-user-list');
     var imWrapper = $('.im-message-w');
@@ -27,18 +28,9 @@ $(window).load(function() {
     /* Высчитывание ширины контейнера .layout-container без браузерного скрола */
     scrollFix();
 
-    /* Проверка есть ли окно чата */
-    var im = $(".im");
+    imWrapper.css('top',  -imHeight + imViewHeight);
 
-
-    imWrapper.css('bottom', imBottomHeight);
-
-    /* Высота видимой части сообщений */
-    if (imHeight > imViewHeight) {
-        imHold.height(imHeight);
-    } else {
-        imHold.height(imViewHeight);
-    }
+    imHoldHeights ();
 
     /* Высота sidebar списка собеседников */
     imSidebarHeight(0, headerHeight);
@@ -77,7 +69,7 @@ $(window).load(function() {
             if (imBottomMarg > 11 && imBottomMarg < windowHeight - imBottomHold.height() - imMinHeight) {
                 imBottomHold.stop().animate({'margin-bottom': imBottomMarg},10);
                 imBottomHeight = imBottom.height();
-                imMiddle.css('padding-top', imBottomHeight);
+                imMiddle.css('padding-bottom', imBottomHeight);
             }
         });
 
@@ -96,14 +88,9 @@ $(window).load(function() {
 
         containerScroll = container.scrollTop();
         windowHeight = $(window).height();
-
+        imHoldHeights ();
             /* Высота видимой части сообщений */
             imViewHeight = windowHeight - imTopHeight - imBottomHeight - headerHeight - topLineMenuHeight;
-    if (imHeight > imViewHeight) {
-        imHold.height(imHeight);
-    } else {
-        imHold.height(imViewHeight);
-    }
 
         scrollIm (containerScroll);
         imSidebarHeight(containerScroll);
@@ -128,8 +115,11 @@ $(window).load(function() {
             /* Класс управления фиксед элементами */
             im.addClass("im__fixed");
             /* Позиция блока сообщений */
-            var imTopScroll = imBottomHeight - containerScroll + headerHeight;
-            imWrapper.css('bottom', imTopScroll);
+            var imTopScroll = -imHeight + imViewHeight + containerScroll*2 - headerHeight ;
+                imWrapper.css('top', imTopScroll);
+
+            /*imTopScroll = messagesHeight - messagesViewHeight - contanerScroll*2 - headerHeight - imBottomHeight;
+            imWrapper.css('bottom', imTopScroll);*/
 
         } else {
             /* Класс управления фиксед элементами */
@@ -137,12 +127,21 @@ $(window).load(function() {
 
             /* Высота sidebar списка собеседников */
             imSidebarHeight(containerScroll, headerHeight);
+
             /* Позиция блока сообщений */
-            var imTopScroll = imBottomHeight;
-            imWrapper.css('bottom', imTopScroll);
+            /*imTopScroll = imBottomHeight;
+            imWrapper.css('bottom', imTopScroll);*/
 
              /* заглушка */
              $('.im-cap').css('top', headerHeight + imTabsHeight - containerScroll);
+        }
+    }
+
+    function imHoldHeights () {
+        if (imHeight > imViewHeight) {
+            imHold.height(imHeight);
+        } else {
+            imHold.height(imViewHeight);
         }
     }
 

@@ -192,7 +192,286 @@
 				
 				<div class="im-center_middle">
 					<div class="im-center_middle-hold">
-					
+						<div class="im-message-w">
+							<div class="im_message-loader">
+								<img src="/images/ico/ajax-loader.gif" alt="">
+								<span class="im-message-loader_tx">Загрузка ранних сообщений</span>
+							</div>
+							<div class="im-message clearfix">
+								<div class="im-message_icons">
+									<div class="im-message_icons-i">
+										<a href="" class="im-message_ico im-message_ico__warning im-tooltipsy" title="Пожаловаться"></a>
+										
+										<div class="im-tooltip-popup">
+											<div class="im-tooltip-popup_t">Укажите вид нарушения:</div>
+											<label for="im-tooltip-popup_radio" class="im-tooltip-popup_label clearfix">
+											<!-- id у input должны быть все разные, приведен пример для связки label с input
+											атрибут name у каждого выпадающего окношка должен быть разный
+											  -->
+												<input type="radio" name="im-tooltip-popup_radio" id="im-tooltip-popup_radio" class="im-tooltip-popup_radio">
+												Спам или реклама
+											</label>
+											<label for="" class="im-tooltip-popup_label clearfix">
+												<input type="radio" name="im-tooltip-popup_radio" id="" class="im-tooltip-popup_radio">
+												Мошенничество
+											</label>
+											<label for="" class="im-tooltip-popup_label clearfix">
+												<input type="radio" name="im-tooltip-popup_radio" id="" class="im-tooltip-popup_radio">
+												Грубость, угрозы
+											</label>
+											<label for="" class="im-tooltip-popup_label clearfix">
+												<input type="radio" name="im-tooltip-popup_radio" id="" class="im-tooltip-popup_radio">
+												Интимный характер
+											</label>
+											<label for="" class="im-tooltip-popup_label clearfix">
+												<input type="radio" name="im-tooltip-popup_radio" id="" class="im-tooltip-popup_radio">
+												Другое
+											</label>
+											<label for="" class="im-tooltip-popup_label clearfix">
+												<input type="radio" name="im-tooltip-popup_radio" id="" class="im-tooltip-popup_radio">
+												<input type="text" name="" id="" class="im-tooltip-popup_itx" placeholder="Другое">
+											</label>
+											<div class="clearfix textalign-c">
+												<button class="btn-green btn-inactive">Пожаловаться</button>
+												<button class="btn-gray">Отменить</button>
+											</div>
+										</div>
+									</div>
+									<div class="im-message_icons-i">
+										<a href="" class="im-message_ico im-message_ico__del im-tooltipsy" title="Удалить"></a>
+									</div>
+								</div>
+								<a class="ava small female" href="">
+									<img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg">
+								</a>
+								<div class="im-message_hold">
+									<div class="im-message_t">
+										<a href="" class="im-message_user">Олег</a>
+										<em class="im-message_date">28 янв 2012, 13:45</em>
+										<div class="im-message_status im-message_status__read">Сообщение прочитано</div>
+									</div>
+									<div class="im-message_tx">
+										<!-- Текст может быть отформатирован с помощью абзацев или переводов строки br -->
+										Привет! У меня родился сын! Вот фото! 
+										<img src="/images/example/w220-h165-1.jpg" alt="">
+										Уже два года назад стала просматриваться тенденция на неоновые оттенки. <br>  Сначала яркие цвета разнообразили привычные тона лаков для ногтей, и красивые пальчики молодых девушек стали выделяться благодаря красочному маникюру, а потом и губы модниц засветились 
+									</div>
+								</div>
+							</div>
+							<div class="im-message clearfix">
+								<div class="im-message_icons">
+									<div class="im-message_icons-i">
+										<a href="" class="im-message_ico im-message_ico__warning im-tooltipsy" title="Пожаловаться"></a>
+										
+										<div class="im-tooltip-popup">
+											<div class="im-tooltip-popup_t">Укажите вид нарушения:</div>
+											<label for="im-tooltip-popup_radio" class="im-tooltip-popup_label clearfix">
+											<!-- id у input должны быть все разные, приведен пример для связки label с input
+											атрибут name у каждого выпадающего окношка должен быть разный
+											  -->
+												<input type="radio" name="im-tooltip-popup_radio" id="im-tooltip-popup_radio" class="im-tooltip-popup_radio">
+												Спам или реклама
+											</label>
+											<label for="" class="im-tooltip-popup_label clearfix">
+												<input type="radio" name="im-tooltip-popup_radio" id="" class="im-tooltip-popup_radio">
+												Мошенничество
+											</label>
+											<label for="" class="im-tooltip-popup_label clearfix">
+												<input type="radio" name="im-tooltip-popup_radio" id="" class="im-tooltip-popup_radio">
+												Грубость, угрозы
+											</label>
+											<label for="" class="im-tooltip-popup_label clearfix">
+												<input type="radio" name="im-tooltip-popup_radio" id="" class="im-tooltip-popup_radio">
+												Интимный характер
+											</label>
+											<label for="" class="im-tooltip-popup_label clearfix">
+												<input type="radio" name="im-tooltip-popup_radio" id="" class="im-tooltip-popup_radio">
+												Другое
+											</label>
+											<label for="" class="im-tooltip-popup_label clearfix">
+												<input type="radio" name="im-tooltip-popup_radio" id="" class="im-tooltip-popup_radio">
+												<input type="text" name="" id="" class="im-tooltip-popup_itx" placeholder="Другое">
+											</label>
+											<div class="clearfix textalign-c">
+												<button class="btn-green btn-inactive">Пожаловаться</button>
+												<button class="btn-gray">Отменить</button>
+											</div>
+										</div>
+									</div>
+									<div class="im-message_icons-i">
+										<a href="" class="im-message_ico im-message_ico__del im-tooltipsy" title="Удалить"></a>
+									</div>
+								</div>
+								<a class="ava small female" href="">
+									<img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg">
+								</a>
+								<div class="im-message_hold">
+									<div class="im-message_t">
+										<a href="" class="im-message_user">Олег</a>
+										<em class="im-message_date">28 янв 2012, 13:45</em>
+										<div class="im-message_status im-message_status__read">Сообщение  прочитано</div>
+									</div>
+									<div class="im-message_tx">Красивые пальчики молодых девушек стали выделяться благодаря красочному маникюру, а потом и губы модниц засветились 
+									</div>
+								</div>
+							</div>
+							<div class="im-message clearfix">
+								<div class="im-message_icons">
+									<div class="im-message_icons-i">
+										<a href="" class="im-message_ico im-message_ico__warning im-tooltipsy" title="Пожаловаться"></a>
+										
+										<div class="im-tooltip-popup">
+											<div class="im-tooltip-popup_t">Укажите вид нарушения:</div>
+											<label for="im-tooltip-popup_radio" class="im-tooltip-popup_label clearfix">
+											<!-- id у input должны быть все разные, приведен пример для связки label с input
+											атрибут name у каждого выпадающего окношка должен быть разный
+											  -->
+												<input type="radio" name="im-tooltip-popup_radio" id="im-tooltip-popup_radio" class="im-tooltip-popup_radio">
+												Спам или реклама
+											</label>
+											<label for="" class="im-tooltip-popup_label clearfix">
+												<input type="radio" name="im-tooltip-popup_radio" id="" class="im-tooltip-popup_radio">
+												Мошенничество
+											</label>
+											<label for="" class="im-tooltip-popup_label clearfix">
+												<input type="radio" name="im-tooltip-popup_radio" id="" class="im-tooltip-popup_radio">
+												Грубость, угрозы
+											</label>
+											<label for="" class="im-tooltip-popup_label clearfix">
+												<input type="radio" name="im-tooltip-popup_radio" id="" class="im-tooltip-popup_radio">
+												Интимный характер
+											</label>
+											<label for="" class="im-tooltip-popup_label clearfix">
+												<input type="radio" name="im-tooltip-popup_radio" id="" class="im-tooltip-popup_radio">
+												Другое
+											</label>
+											<label for="" class="im-tooltip-popup_label clearfix">
+												<input type="radio" name="im-tooltip-popup_radio" id="" class="im-tooltip-popup_radio">
+												<input type="text" name="" id="" class="im-tooltip-popup_itx" placeholder="Другое">
+											</label>
+											<div class="clearfix textalign-c">
+												<button class="btn-green btn-inactive">Пожаловаться</button>
+												<button class="btn-gray">Отменить</button>
+											</div>
+										</div>
+									</div>
+									<div class="im-message_icons-i">
+										<a href="" class="im-message_ico im-message_ico__del im-tooltipsy" title="Удалить"></a>
+									</div>
+								</div>
+								<a class="ava small female" href="">
+									<img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg">
+								</a>
+								<div class="im-message_hold">
+									<div class="im-message_t">
+										<a href="" class="im-message_user">Анастасия</a>
+										<em class="im-message_date">28 янв 2012, 13:45</em>
+										<div class="im-message_status im-message_status__noread">Сообщение не прочитано</div>
+										<a href="" class="im-message_ico im-message_ico__edit im-tooltipsy" title="Редактировать"></a>
+									</div>
+									<div class="im-message_tx">и красивые пальчики молодых девушек стали выделяться благодаря красочному маникюру, а потом и губы модниц засветились 
+									</div>
+								</div>
+							</div>
+							
+							<div class="im-message clearfix">
+								<div class="im-message_icons">
+									<div class="im-message_icons-i">
+										<a href="" class="im-message_ico im-message_ico__warning im-tooltipsy" title="Пожаловаться"></a>
+										
+										<div class="im-tooltip-popup">
+											<div class="im-tooltip-popup_t">Укажите вид нарушения:</div>
+											<label for="im-tooltip-popup_radio" class="im-tooltip-popup_label clearfix">
+											<!-- id у input должны быть все разные, приведен пример для связки label с input
+											атрибут name у каждого выпадающего окношка должен быть разный
+											  -->
+												<input type="radio" name="im-tooltip-popup_radio" id="im-tooltip-popup_radio" class="im-tooltip-popup_radio">
+												Спам или реклама
+											</label>
+											<label for="" class="im-tooltip-popup_label clearfix">
+												<input type="radio" name="im-tooltip-popup_radio" id="" class="im-tooltip-popup_radio">
+												Мошенничество
+											</label>
+											<label for="" class="im-tooltip-popup_label clearfix">
+												<input type="radio" name="im-tooltip-popup_radio" id="" class="im-tooltip-popup_radio">
+												Грубость, угрозы
+											</label>
+											<label for="" class="im-tooltip-popup_label clearfix">
+												<input type="radio" name="im-tooltip-popup_radio" id="" class="im-tooltip-popup_radio">
+												Интимный характер
+											</label>
+											<label for="" class="im-tooltip-popup_label clearfix">
+												<input type="radio" name="im-tooltip-popup_radio" id="" class="im-tooltip-popup_radio">
+												Другое
+											</label>
+											<label for="" class="im-tooltip-popup_label clearfix">
+												<input type="radio" name="im-tooltip-popup_radio" id="" class="im-tooltip-popup_radio">
+												<input type="text" name="" id="" class="im-tooltip-popup_itx" placeholder="Другое">
+											</label>
+											<div class="clearfix textalign-c">
+												<button class="btn-green btn-inactive">Пожаловаться</button>
+												<button class="btn-gray">Отменить</button>
+											</div>
+										</div>
+									</div>
+									<div class="im-message_icons-i">
+										<a href="" class="im-message_ico im-message_ico__del im-tooltipsy" title="Удалить"></a>
+									</div>
+								</div>
+								<a class="ava small female" href="">
+									<img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg">
+								</a>
+								<div class="im-message_hold">
+									<div class="im-message_t">
+										<a href="" class="im-message_user">Олег</a>
+										<em class="im-message_date">28 янв 2012, 13:45</em>
+										<div class="im-message_status im-message_status__read">Сообщение прочитано</div>
+									</div>
+									<div class="im-message_tx">
+										Привет! У меня родился сын! Вот фото!
+										<img src="/images/example/w220-h165-1.jpg" alt="">
+										Уже два года назад стала просматриваться тенденция на неоновые оттенки. Сначала яркие цвета разнообразили привычные тона лаков для ногтей, и красивые пальчики молодых девушек стали выделяться благодаря красочному маникюру, а потом и губы модниц засветились 
+									</div>
+								</div>
+							</div>
+							
+							
+							<div class="im-message im-message__edited clearfix">
+								<div class="im-message_icons">
+									<div class="im-message_icons-i">
+										<a href="" class="im-message_ico im-message_ico__del im-tooltipsy" title="Удалить"></a>
+									</div>
+								</div>
+								<a class="ava small female" href="">
+									<img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg">
+								</a>
+								<div class="im-message_hold">
+									<div class="im-message_t">
+										<a href="" class="im-message_user">Анастасия</a>
+										<em class="im-message_date">28 янв 2012, 13:45</em>
+										<div class="im-message_status im-message_status__noread">Сообщение не прочитано</div>
+										<a href="" class="im-message_ico im-message_ico__edit im-tooltipsy" title="Редактировать"></a>
+									</div>
+									<div class="im-message_tx">
+										<!-- Текст может быть отформатирован с помощью абзацев или переносов строки br -->
+										<p>Привет! У меня родился сын! Вот фото!</p>
+										<p>Уже два года назад стала просматриваться тенденция на неоновые оттенки. Сначала яркие цвета разнообразили привычные тона лаков для ногтей, и красивые пальчики молодых девушек стали выделяться благодаря красочному маникюру, а потом и губы модниц засветились </p>
+									</div>
+								</div>
+							</div>
+							
+							<div class="im_message-loader">
+								<img src="/images/ico/ajax-loader.gif" alt="">
+								<span class="im-message-loader_tx">Отправляем сообщение</span>
+							</div>
+							<div class="im_message-loader">
+								<span class="im-message-loader_tx">Олег печатает вам сообщение</span>
+								<img src="/images/im/im_message-write-loader.png" alt="" class="im_message-loader-anim">
+							</div>
+							<div class="im_message-loader">
+								Вы можете  <a href="">Отменить</a>  данное сообщение или отредактировать его ниже
+							</div>
+						</div>
 						
 					</div>
 				</div>
@@ -256,286 +535,6 @@
 		
 	</div>
 </div>
-</div>
-<div class="im-message-w">
-	<div class="im_message-loader">
-		<img src="/images/ico/ajax-loader.gif" alt="">
-		<span class="im-message-loader_tx">Загрузка ранних сообщений</span>
-	</div>
-	<div class="im-message clearfix">
-		<div class="im-message_icons">
-			<div class="im-message_icons-i">
-				<a href="" class="im-message_ico im-message_ico__warning im-tooltipsy" title="Пожаловаться"></a>
-				
-				<div class="im-tooltip-popup">
-					<div class="im-tooltip-popup_t">Укажите вид нарушения:</div>
-					<label for="im-tooltip-popup_radio" class="im-tooltip-popup_label clearfix">
-					<!-- id у input должны быть все разные, приведен пример для связки label с input
-					атрибут name у каждого выпадающего окношка должен быть разный
-					  -->
-						<input type="radio" name="im-tooltip-popup_radio" id="im-tooltip-popup_radio" class="im-tooltip-popup_radio">
-						Спам или реклама
-					</label>
-					<label for="" class="im-tooltip-popup_label clearfix">
-						<input type="radio" name="im-tooltip-popup_radio" id="" class="im-tooltip-popup_radio">
-						Мошенничество
-					</label>
-					<label for="" class="im-tooltip-popup_label clearfix">
-						<input type="radio" name="im-tooltip-popup_radio" id="" class="im-tooltip-popup_radio">
-						Грубость, угрозы
-					</label>
-					<label for="" class="im-tooltip-popup_label clearfix">
-						<input type="radio" name="im-tooltip-popup_radio" id="" class="im-tooltip-popup_radio">
-						Интимный характер
-					</label>
-					<label for="" class="im-tooltip-popup_label clearfix">
-						<input type="radio" name="im-tooltip-popup_radio" id="" class="im-tooltip-popup_radio">
-						Другое
-					</label>
-					<label for="" class="im-tooltip-popup_label clearfix">
-						<input type="radio" name="im-tooltip-popup_radio" id="" class="im-tooltip-popup_radio">
-						<input type="text" name="" id="" class="im-tooltip-popup_itx" placeholder="Другое">
-					</label>
-					<div class="clearfix textalign-c">
-						<button class="btn-green btn-inactive">Пожаловаться</button>
-						<button class="btn-gray">Отменить</button>
-					</div>
-				</div>
-			</div>
-			<div class="im-message_icons-i">
-				<a href="" class="im-message_ico im-message_ico__del im-tooltipsy" title="Удалить"></a>
-			</div>
-		</div>
-		<a class="ava small female" href="">
-			<img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg">
-		</a>
-		<div class="im-message_hold">
-			<div class="im-message_t">
-				<a href="" class="im-message_user">Олег</a>
-				<em class="im-message_date">28 янв 2012, 13:45</em>
-				<div class="im-message_status im-message_status__read">Сообщение прочитано</div>
-			</div>
-			<div class="im-message_tx">
-				<!-- Текст может быть отформатирован с помощью абзацев или переводов строки br -->
-				Привет! У меня родился сын! Вот фото! 
-				<img src="/images/example/w220-h165-1.jpg" alt="">
-				Уже два года назад стала просматриваться тенденция на неоновые оттенки. <br>  Сначала яркие цвета разнообразили привычные тона лаков для ногтей, и красивые пальчики молодых девушек стали выделяться благодаря красочному маникюру, а потом и губы модниц засветились 
-			</div>
-		</div>
-	</div>
-	<div class="im-message clearfix">
-		<div class="im-message_icons">
-			<div class="im-message_icons-i">
-				<a href="" class="im-message_ico im-message_ico__warning im-tooltipsy" title="Пожаловаться"></a>
-				
-				<div class="im-tooltip-popup">
-					<div class="im-tooltip-popup_t">Укажите вид нарушения:</div>
-					<label for="im-tooltip-popup_radio" class="im-tooltip-popup_label clearfix">
-					<!-- id у input должны быть все разные, приведен пример для связки label с input
-					атрибут name у каждого выпадающего окношка должен быть разный
-					  -->
-						<input type="radio" name="im-tooltip-popup_radio" id="im-tooltip-popup_radio" class="im-tooltip-popup_radio">
-						Спам или реклама
-					</label>
-					<label for="" class="im-tooltip-popup_label clearfix">
-						<input type="radio" name="im-tooltip-popup_radio" id="" class="im-tooltip-popup_radio">
-						Мошенничество
-					</label>
-					<label for="" class="im-tooltip-popup_label clearfix">
-						<input type="radio" name="im-tooltip-popup_radio" id="" class="im-tooltip-popup_radio">
-						Грубость, угрозы
-					</label>
-					<label for="" class="im-tooltip-popup_label clearfix">
-						<input type="radio" name="im-tooltip-popup_radio" id="" class="im-tooltip-popup_radio">
-						Интимный характер
-					</label>
-					<label for="" class="im-tooltip-popup_label clearfix">
-						<input type="radio" name="im-tooltip-popup_radio" id="" class="im-tooltip-popup_radio">
-						Другое
-					</label>
-					<label for="" class="im-tooltip-popup_label clearfix">
-						<input type="radio" name="im-tooltip-popup_radio" id="" class="im-tooltip-popup_radio">
-						<input type="text" name="" id="" class="im-tooltip-popup_itx" placeholder="Другое">
-					</label>
-					<div class="clearfix textalign-c">
-						<button class="btn-green btn-inactive">Пожаловаться</button>
-						<button class="btn-gray">Отменить</button>
-					</div>
-				</div>
-			</div>
-			<div class="im-message_icons-i">
-				<a href="" class="im-message_ico im-message_ico__del im-tooltipsy" title="Удалить"></a>
-			</div>
-		</div>
-		<a class="ava small female" href="">
-			<img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg">
-		</a>
-		<div class="im-message_hold">
-			<div class="im-message_t">
-				<a href="" class="im-message_user">Олег</a>
-				<em class="im-message_date">28 янв 2012, 13:45</em>
-				<div class="im-message_status im-message_status__read">Сообщение  прочитано</div>
-			</div>
-			<div class="im-message_tx">Красивые пальчики молодых девушек стали выделяться благодаря красочному маникюру, а потом и губы модниц засветились 
-			</div>
-		</div>
-	</div>
-	<div class="im-message clearfix">
-		<div class="im-message_icons">
-			<div class="im-message_icons-i">
-				<a href="" class="im-message_ico im-message_ico__warning im-tooltipsy" title="Пожаловаться"></a>
-				
-				<div class="im-tooltip-popup">
-					<div class="im-tooltip-popup_t">Укажите вид нарушения:</div>
-					<label for="im-tooltip-popup_radio" class="im-tooltip-popup_label clearfix">
-					<!-- id у input должны быть все разные, приведен пример для связки label с input
-					атрибут name у каждого выпадающего окношка должен быть разный
-					  -->
-						<input type="radio" name="im-tooltip-popup_radio" id="im-tooltip-popup_radio" class="im-tooltip-popup_radio">
-						Спам или реклама
-					</label>
-					<label for="" class="im-tooltip-popup_label clearfix">
-						<input type="radio" name="im-tooltip-popup_radio" id="" class="im-tooltip-popup_radio">
-						Мошенничество
-					</label>
-					<label for="" class="im-tooltip-popup_label clearfix">
-						<input type="radio" name="im-tooltip-popup_radio" id="" class="im-tooltip-popup_radio">
-						Грубость, угрозы
-					</label>
-					<label for="" class="im-tooltip-popup_label clearfix">
-						<input type="radio" name="im-tooltip-popup_radio" id="" class="im-tooltip-popup_radio">
-						Интимный характер
-					</label>
-					<label for="" class="im-tooltip-popup_label clearfix">
-						<input type="radio" name="im-tooltip-popup_radio" id="" class="im-tooltip-popup_radio">
-						Другое
-					</label>
-					<label for="" class="im-tooltip-popup_label clearfix">
-						<input type="radio" name="im-tooltip-popup_radio" id="" class="im-tooltip-popup_radio">
-						<input type="text" name="" id="" class="im-tooltip-popup_itx" placeholder="Другое">
-					</label>
-					<div class="clearfix textalign-c">
-						<button class="btn-green btn-inactive">Пожаловаться</button>
-						<button class="btn-gray">Отменить</button>
-					</div>
-				</div>
-			</div>
-			<div class="im-message_icons-i">
-				<a href="" class="im-message_ico im-message_ico__del im-tooltipsy" title="Удалить"></a>
-			</div>
-		</div>
-		<a class="ava small female" href="">
-			<img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg">
-		</a>
-		<div class="im-message_hold">
-			<div class="im-message_t">
-				<a href="" class="im-message_user">Анастасия</a>
-				<em class="im-message_date">28 янв 2012, 13:45</em>
-				<div class="im-message_status im-message_status__noread">Сообщение не прочитано</div>
-				<a href="" class="im-message_ico im-message_ico__edit im-tooltipsy" title="Редактировать"></a>
-			</div>
-			<div class="im-message_tx">и красивые пальчики молодых девушек стали выделяться благодаря красочному маникюру, а потом и губы модниц засветились 
-			</div>
-		</div>
-	</div>
-	
-	<div class="im-message clearfix">
-		<div class="im-message_icons">
-			<div class="im-message_icons-i">
-				<a href="" class="im-message_ico im-message_ico__warning im-tooltipsy" title="Пожаловаться"></a>
-				
-				<div class="im-tooltip-popup">
-					<div class="im-tooltip-popup_t">Укажите вид нарушения:</div>
-					<label for="im-tooltip-popup_radio" class="im-tooltip-popup_label clearfix">
-					<!-- id у input должны быть все разные, приведен пример для связки label с input
-					атрибут name у каждого выпадающего окношка должен быть разный
-					  -->
-						<input type="radio" name="im-tooltip-popup_radio" id="im-tooltip-popup_radio" class="im-tooltip-popup_radio">
-						Спам или реклама
-					</label>
-					<label for="" class="im-tooltip-popup_label clearfix">
-						<input type="radio" name="im-tooltip-popup_radio" id="" class="im-tooltip-popup_radio">
-						Мошенничество
-					</label>
-					<label for="" class="im-tooltip-popup_label clearfix">
-						<input type="radio" name="im-tooltip-popup_radio" id="" class="im-tooltip-popup_radio">
-						Грубость, угрозы
-					</label>
-					<label for="" class="im-tooltip-popup_label clearfix">
-						<input type="radio" name="im-tooltip-popup_radio" id="" class="im-tooltip-popup_radio">
-						Интимный характер
-					</label>
-					<label for="" class="im-tooltip-popup_label clearfix">
-						<input type="radio" name="im-tooltip-popup_radio" id="" class="im-tooltip-popup_radio">
-						Другое
-					</label>
-					<label for="" class="im-tooltip-popup_label clearfix">
-						<input type="radio" name="im-tooltip-popup_radio" id="" class="im-tooltip-popup_radio">
-						<input type="text" name="" id="" class="im-tooltip-popup_itx" placeholder="Другое">
-					</label>
-					<div class="clearfix textalign-c">
-						<button class="btn-green btn-inactive">Пожаловаться</button>
-						<button class="btn-gray">Отменить</button>
-					</div>
-				</div>
-			</div>
-			<div class="im-message_icons-i">
-				<a href="" class="im-message_ico im-message_ico__del im-tooltipsy" title="Удалить"></a>
-			</div>
-		</div>
-		<a class="ava small female" href="">
-			<img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg">
-		</a>
-		<div class="im-message_hold">
-			<div class="im-message_t">
-				<a href="" class="im-message_user">Олег</a>
-				<em class="im-message_date">28 янв 2012, 13:45</em>
-				<div class="im-message_status im-message_status__read">Сообщение прочитано</div>
-			</div>
-			<div class="im-message_tx">
-				Привет! У меня родился сын! Вот фото!
-				<img src="/images/example/w220-h165-1.jpg" alt="">
-				Уже два года назад стала просматриваться тенденция на неоновые оттенки. Сначала яркие цвета разнообразили привычные тона лаков для ногтей, и красивые пальчики молодых девушек стали выделяться благодаря красочному маникюру, а потом и губы модниц засветились 
-			</div>
-		</div>
-	</div>
-	
-	
-	<div class="im-message im-message__edited clearfix">
-		<div class="im-message_icons">
-			<div class="im-message_icons-i">
-				<a href="" class="im-message_ico im-message_ico__del im-tooltipsy" title="Удалить"></a>
-			</div>
-		</div>
-		<a class="ava small female" href="">
-			<img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg">
-		</a>
-		<div class="im-message_hold">
-			<div class="im-message_t">
-				<a href="" class="im-message_user">Анастасия</a>
-				<em class="im-message_date">28 янв 2012, 13:45</em>
-				<div class="im-message_status im-message_status__noread">Сообщение не прочитано</div>
-				<a href="" class="im-message_ico im-message_ico__edit im-tooltipsy" title="Редактировать"></a>
-			</div>
-			<div class="im-message_tx">
-				<!-- Текст может быть отформатирован с помощью абзацев или переносов строки br -->
-				<p>Привет! У меня родился сын! Вот фото!</p>
-				<p>Уже два года назад стала просматриваться тенденция на неоновые оттенки. Сначала яркие цвета разнообразили привычные тона лаков для ногтей, и красивые пальчики молодых девушек стали выделяться благодаря красочному маникюру, а потом и губы модниц засветились </p>
-			</div>
-		</div>
-	</div>
-	
-	<div class="im_message-loader">
-		<img src="/images/ico/ajax-loader.gif" alt="">
-		<span class="im-message-loader_tx">Отправляем сообщение</span>
-	</div>
-	<div class="im_message-loader">
-		<span class="im-message-loader_tx">Олег печатает вам сообщение</span>
-		<img src="/images/im/im_message-write-loader.png" alt="" class="im_message-loader-anim">
-	</div>
-	<div class="im_message-loader">
-		Вы можете  <a href="">Отменить</a>  данное сообщение или отредактировать его ниже
-	</div>
 </div>
 </body>
 </html>

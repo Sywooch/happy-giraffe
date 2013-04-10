@@ -194,7 +194,25 @@
 				
 				<div class="im-center_middle">
 					<div class="im-center_middle-hold">
-					
+						<div class="im-message-w">
+		
+							<div class="im-message clearfix">
+								<a class="ava small female" href="">
+									<img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg">
+								</a>
+								<div class="im-message_hold">
+									<div class="im-message_t">
+										<a href="" class="im-message_user">Олег</a>
+										<em class="im-message_date">28 янв 2012, 13:45</em>
+										<div class="im-message_status im-message_status__read">Сообщение прочитано</div>
+									</div>
+									<div class="im-message_tx">
+										Привет! У меня родился сын! Вот фото!красочному маникюру, а потом и губы модниц засветились 
+									</div>
+								</div>
+							</div>
+							
+						</div>
 					</div>
 				</div>
 	<script type="text/javascript">
@@ -262,25 +280,6 @@
 		
 	</div>
 </div>
-</div>
-<div class="im-message-w">
-	
-	<div class="im-message clearfix">
-		<a class="ava small female" href="">
-			<img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg">
-		</a>
-		<div class="im-message_hold">
-			<div class="im-message_t">
-				<a href="" class="im-message_user">Олег</a>
-				<em class="im-message_date">28 янв 2012, 13:45</em>
-				<div class="im-message_status im-message_status__read">Сообщение прочитано</div>
-			</div>
-			<div class="im-message_tx">
-				Привет! У меня родился сын! Вот фото!красочному маникюру, а потом и губы модниц засветились 
-			</div>
-		</div>
-	</div>
-	
 </div>
 </body>
 </html>

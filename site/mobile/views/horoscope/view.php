@@ -46,12 +46,10 @@
                </div>
         <?php endif; ?>
         <?php if ($type == 'year'): ?>
-        <p class="lineheight-big">
-            <p><strong>Здоровье.</strong> <?=$model->health?></p>
-            <p><strong>Карьера.</strong> <?=$model->career?></p>
-            <p><strong>Финансы.</strong> <?=$model->finance?></p>
-            <p><strong>Личная жизнь.</strong> <?=$model->personal?></p>
-        </p>
+        <p class="lineheight-big margin-b10"><span class="color-chestnut">Здоровье</span> <?=$model->health?></p>
+        <p class="lineheight-big margin-b10"><span class="color-chestnut">Карьера.</span> <?=$model->career?></p>
+        <p class="lineheight-big margin-b10"><span class="color-chestnut">Финансы.</span> <?=$model->finance?></p>
+        <p class="lineheight-big margin-b10"><span class="color-chestnut">Личная жизнь. </span> <?=$model->personal?></p>
         <?php else: ?>
         <p class="lineheight-big"><?=Str::strToParagraph($model->text)?></p>
         <?php endif; ?>

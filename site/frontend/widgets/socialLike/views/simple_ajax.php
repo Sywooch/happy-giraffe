@@ -2,7 +2,9 @@
 if(isset($this->model) && method_exists($this->model, 'isValentinePost') && $this->model->isValentinePost()){
     //костыль для валентина 2
    $url = $this->model->getUrl(false, true);
-} else
+} elseif (!empty($this->url)){
+    $url = $this->url;
+}else
     $url = 'http://' . $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
 ?>
 <script type="text/javascript">

@@ -51,7 +51,7 @@
         <p class="lineheight-big margin-b10"><span class="color-chestnut">Финансы.</span> <?=$model->finance?></p>
         <p class="lineheight-big margin-b10"><span class="color-chestnut">Личная жизнь. </span> <?=$model->personal?></p>
         <?php else: ?>
-        <p class="lineheight-big"><?=Str::strToParagraph($model->text)?></p>
+        <div class="lineheight-big"><?=Str::strToParagraph($model->text)?></div>
         <?php endif; ?>
     </div>
 

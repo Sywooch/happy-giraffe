@@ -81,14 +81,16 @@ class SitemapGenerator
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd"
-         xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+         xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 </urlset> 
 XML;
 		$xml_index=<<<XMLINDEX
 <?xml version='1.0' encoding='UTF-8'?>
 <sitemapindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/siteindex.xsd"
-         xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+         xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 </sitemapindex>
 XMLINDEX;
 		if (!class_exists('SimpleXMLElement'))
@@ -292,7 +294,7 @@ XMLINDEX;
 		if (!isset($params['params']))
 			$params['params']=$this->default_model_params;
 		
-		$attr_params['params']=$this->parseModelAttr($params['params'],'/^[\w\,]+$/ui');
+		$attr_params['params']=$this->parseModelAttr($params['params'],'/^[\w\,:]+$/ui');
 			
 		$model_data_name=substr($params['dataSource'],6);
 		
@@ -542,6 +544,8 @@ XMLINDEX;
 			$xmlurl->addChild('lastmod',$this->formatDatetime($params['lastmod']));
 			$xmlurl->addChild('changefreq',$params['changefreq']);
 			$xmlurl->addChild('priority',$params['priority']);
+			$images = $xmlurl->addChild('image:image', null, 'image');
+            $images->addChild('image:loc', $params['image:image']['image:loc'], 'image');
 			++$this->_url_counter;
 		} catch (Exception $e) {
 			self::logExceptionError($e);

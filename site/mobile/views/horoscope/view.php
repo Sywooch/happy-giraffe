@@ -28,7 +28,7 @@
                 <a href="<?=$this->createUrl('view', array('type' => 'month', 'zodiac' => $model->getZodiacSlug()))?>" class="horoscope-links_a">На месяц</a>
             </div>
             <div class="horoscope-links_i">
-                <a href="<?=$this->createUrl('view', array('type' => 'year', 'zodiac' => $model->getZodiacSlug()))?>" class="horoscope-links_a">На 2012</a>
+                <a href="<?=$this->createUrl('view', array('type' => 'year', 'zodiac' => $model->getZodiacSlug()))?>" class="horoscope-links_a">На 2013</a>
             </div>
         </div>
     </div>

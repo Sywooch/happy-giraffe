@@ -45,7 +45,14 @@
                    <div class="horoscope-paper_month"><?=$model->year?></div>
                </div>
         <?php endif; ?>
+        <?php if ($type == 'year'): ?>
+        <p class="lineheight-big"><strong>Здоровье.</strong><?=$model->health?></p>
+        <p class="lineheight-big"><strong>Карьера.</strong><?=$model->career?></p>
+        <p class="lineheight-big"><strong>Финансы.</strong><?=$model->finance?></p>
+        <p class="lineheight-big"><strong>Личная жизнь.</strong><?=$model->personal?></p>
+        <?php else: ?>
         <p class="lineheight-big"><?=Str::strToParagraph($model->text)?></p>
+        <?php endif; ?>
     </div>
 
     <div class="margin-b10">

@@ -14,6 +14,15 @@ class CommunityController extends MController
             'criteria' => array(
                 'order' => 't.created DESC',
                 'scopes' => array('active', 'full'),
+                'with' => array(
+                    'rubric' => array(
+                        'with' => array(
+                            'community' => array(
+                                'scopes' => array('public'),
+                            ),
+                        ),
+                    ),
+                ),
             ),
             'pagination' => array(
                 'pageSize' => 5,

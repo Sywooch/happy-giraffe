@@ -8,7 +8,7 @@
  */
 class UserController extends MController
 {
-    public function actionIndex($user_id, $show = null)
+    public function actionIndex($user_id, $show = 'all')
     {
         $user = User::model()->findByPk($user_id);
 

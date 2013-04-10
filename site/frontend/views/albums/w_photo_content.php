@@ -59,6 +59,7 @@
                 'image' => $photo->getPreviewUrl(180, 180),
                 'description' => $photo->w_description,
             ),
+            'url'=>$this->createAbsoluteUrl('/cook/decor/index', array('id'=>'photo'.$photo->id))
         ));
     }
 

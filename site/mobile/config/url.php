@@ -17,6 +17,7 @@ return array(
         'community/<content_id:\d+>/comments' => 'community/comments',
 
         'user/<user_id:\d+>/blog/post<content_id:\d+>' => 'blog/view',
+        'user/<user_id:\d+>' => 'community/user',
 
         'cook/recipe/tag/<tag:\d+>/type/<type:\d+>' => array('cook/recipe/tag', 'defaultParams' => array('section' => 0)),
         'cook/recipe/tag/<tag:\d+>' => array('cook/recipe/tag', 'defaultParams' => array('section' => 0)),

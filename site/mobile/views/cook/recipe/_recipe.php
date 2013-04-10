@@ -5,7 +5,7 @@
         <div class="recipe-photo">
 
             <div class="recipe-photo_hold">
-                <?=CHtml::image($recipe->mainPhoto->getPreviewUrl(460, null, Image::WIDTH), $recipe->mainPhoto->title, array('class' => 'recipe-photo'))?>
+                <?=CHtml::image($data->mainPhoto->getPreviewUrl(460, null, Image::WIDTH), $data->mainPhoto->title, array('class' => 'recipe-photo'))?>
             </div>
 
         </div>

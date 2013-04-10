@@ -34,10 +34,17 @@
     </div>
 
     <div class="layout-hold margin-b10 clearfix">
-        <div class="horoscope-paper">
-            <div class="horoscope-paper_date">20</div>
-            <div class="horoscope-paper_month">МАР</div>
-        </div>
+        <?php if ($type == 'today' || $type == 'tomorrow'): ?>
+            <div class="horoscope-paper">
+                <div class="horoscope-paper_date"><?=date("j", strtotime($model->date)) ?></div>
+                <div class="horoscope-paper_month"><?=HDate::ruMonthShort(date("n", strtotime($model->date)))?></div>
+            </div>
+        <?php elseif ($type == 'month'): ?>
+               <div class="horoscope-paper">
+                   <div class="horoscope-paper_date"><?=HDate::ruMonthShort($model->month)?></div>
+                   <div class="horoscope-paper_month"><?=$model->year?></div>
+               </div>
+        <?php endif; ?>
         <p class="lineheight-big"><?=Str::strToParagraph($model->text)?></p>
     </div>
 

@@ -8,6 +8,7 @@
  */
 class MController extends CController
 {
+    public $releaseId = 1;
     public $communities = array();
 
     public function init()

@@ -13,7 +13,7 @@ class CommunityController extends MController
         $dp = new CActiveDataProvider('CommunityContent', array(
             'criteria' => array(
                 'order' => 't.created DESC',
-                'scopes' => array('active', 'full', 'public'),
+                'scopes' => array('active', 'full'),
             ),
             'pagination' => array(
                 'pageSize' => 5,

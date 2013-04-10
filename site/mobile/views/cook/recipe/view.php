@@ -107,22 +107,24 @@
 
 </div>
 
-<div class="margin-10 textalign-c clearfix">
-    <a href="<?=$next[0]->url?>" class="btn-green btn-medium">Следующий <i class="ico-arrow ico-arrow__right"></i></a>
-</div>
+<?php if (! empty($next)): ?>
+    <div class="margin-10 textalign-c clearfix">
+        <a href="<?=$next[0]->url?>" class="btn-green btn-medium">Следующий <i class="ico-arrow ico-arrow__right"></i></a>
+    </div>
 
-<div class="interesting">
-    <div class="interesting_t">Еще вкусненькое</div>
-    <ul>
-        <?php foreach ($next as $n): ?>
-            <li class="interesting_i clearfix">
-                <a href="<?=$n->url?>">
-                    <?php if ($n->mainPhoto): ?>
-                        <span class="interesting_img"><?=CHtml::image($n->mainPhoto->getPreviewUrl(47, 42, Image::WIDTH, true, AlbumPhoto::CROP_SIDE_CENTER), $n->title)?></span>
-                    <?php endif; ?>
-                    <?=$n->title?>
-                </a>
-            </li>
-        <?php endforeach; ?>
-    </ul>
-</div>
+    <div class="interesting">
+        <div class="interesting_t">Еще вкусненькое</div>
+        <ul>
+            <?php foreach ($next as $n): ?>
+                <li class="interesting_i clearfix">
+                    <a href="<?=$n->url?>">
+                        <?php if ($n->mainPhoto): ?>
+                            <span class="interesting_img"><?=CHtml::image($n->mainPhoto->getPreviewUrl(47, 42, Image::WIDTH, true, AlbumPhoto::CROP_SIDE_CENTER), $n->title)?></span>
+                        <?php endif; ?>
+                        <?=$n->title?>
+                    </a>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+<?php endif; ?>

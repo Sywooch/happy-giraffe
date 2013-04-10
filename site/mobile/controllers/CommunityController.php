@@ -15,14 +15,10 @@ class CommunityController extends MController
                 'order' => 't.created DESC',
                 'scopes' => array('active', 'full'),
                 'with' => array(
-                    'rubric' => array(
-                        'with' => array(
-                            'community' => array(
-                                'scopes' => array('public'),
-                            ),
-                        ),
-                    ),
+                    'rubric',
                 ),
+                'condition' => 'rubric.community_id != :news_community AND rubric.community_id != :valentine',
+                'params' => array(':news_community' => self::COMMUNITY_NEWS, ':valentine' => self::COMMUNITY_VALENTINE),
             ),
             'pagination' => array(
                 'pageSize' => 5,

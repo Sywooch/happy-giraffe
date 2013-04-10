@@ -48,20 +48,19 @@
     }
 
     //костыль для украшений блюд
-//    if (get_class($model) == 'CookDecorationCategory'){
-//        //$post = CookDecoration::model()->findByAttributes(array('photo_id' => $photo->id));
-//        $this->widget('site.frontend.widgets.socialLike.SocialLikeWidget', array(
-//            'title' => 'Вам понравилось фото?',
-//            'notice' => '',
-//            'model' => $photo,
-//            'type' => 'simple_ajax',
-//            'options' => array(
-//                'title' => CHtml::encode($photo->w_title),
-//                'image' => $photo->getPreviewUrl(180, 180),
-//                'description' => $photo->w_description,
-//            ),
-//        ));
-//    }
+    if (get_class($model) == 'CookDecorationCategory'){
+        $this->widget('site.frontend.widgets.socialLike.SocialLikeWidget', array(
+            'title' => 'Вам понравилось фото?',
+            'notice' => '',
+            'model' => $photo,
+            'type' => 'simple_ajax',
+            'options' => array(
+                'title' => CHtml::encode($photo->w_title),
+                'image' => $photo->getPreviewUrl(180, 180),
+                'description' => $photo->w_description,
+            ),
+        ));
+    }
 
      $this->widget('site.frontend.widgets.commentWidget.CommentWidget', array(
         'model' => $post,

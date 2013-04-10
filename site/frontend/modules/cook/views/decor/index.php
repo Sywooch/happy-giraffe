@@ -144,7 +144,29 @@
         effect : "fadeIn",
         container: $(".layout-container")
     });
+    $(function() {
+        if (typeof twttr == 'undefined')
+            window.twttr = (function (d, s, id) {
+                var t, js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) return;
+                js = d.createElement(s);
+                js.id = id;
+                js.src = "//platform.twitter.com/widgets.js";
+                fjs.parentNode.insertBefore(js, fjs);
+                return window.twttr || (t = { _e:[], ready:function (f) {
+                    t._e.push(f)
+                } });
+            }(document, "script", "twitter-wjs"));
+    });
 </script>
+<?php
+
+Yii::app()->clientScript
+    ->registerScriptFile('http://vk.com/js/api/share.js?11')
+    ->registerCssFile('http://stg.odnoklassniki.ru/share/odkl_share.css')
+    ->registerScriptFile('http://stg.odnoklassniki.ru/share/odkl_share.js');
+
+?>
 
 
 

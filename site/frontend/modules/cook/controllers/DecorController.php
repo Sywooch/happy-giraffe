@@ -30,12 +30,15 @@ class DecorController extends HController
         $this->render('index', compact('id', 'category', 'dataProvider'));
     }
 
+    /**
+     * Карта сайта
+     * @return array
+     */
     public function sitemap()
     {
         $models = Yii::app()->db->createCommand()
             ->select('photo_id')
             ->from('cook__decorations')
-            ->limit(100)
             ->queryAll();
 
         $data = array();

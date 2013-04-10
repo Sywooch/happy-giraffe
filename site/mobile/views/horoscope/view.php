@@ -1,4 +1,4 @@
-<div class="horoscope">
+<div class="horoscope" xmlns="http://www.w3.org/1999/html">
     <div class="margin-b10">
 				<span class="color-lilac">
 				&larr;  <a href="<?=$this->createUrl('/horoscope/index')?>" class="color-lilac text-small">Гороскоп все знаки</a>
@@ -46,10 +46,12 @@
                </div>
         <?php endif; ?>
         <?php if ($type == 'year'): ?>
-        <p class="lineheight-big"><strong>Здоровье.</strong><?=$model->health?></p>
-        <p class="lineheight-big"><strong>Карьера.</strong><?=$model->career?></p>
-        <p class="lineheight-big"><strong>Финансы.</strong><?=$model->finance?></p>
-        <p class="lineheight-big"><strong>Личная жизнь.</strong><?=$model->personal?></p>
+        <p class="lineheight-big">
+            <p><strong>Здоровье.</strong><?=$model->health?></p>
+            <p><strong>Карьера.</strong><?=$model->career?></p>
+            <p><strong>Финансы.</strong><?=$model->finance?></p>
+            <p><strong>Личная жизнь.</strong><?=$model->personal?></p>
+        </p>
         <?php else: ?>
         <p class="lineheight-big"><?=Str::strToParagraph($model->text)?></p>
         <?php endif; ?>

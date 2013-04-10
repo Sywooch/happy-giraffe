@@ -1,4 +1,4 @@
-<div class="horoscope">
+<div class="horoscope" xmlns="http://www.w3.org/1999/html">
     <div class="margin-b10">
 				<span class="color-lilac">
 				&larr;  <a href="<?=$this->createUrl('/horoscope/index')?>" class="color-lilac text-small">Гороскоп все знаки</a>
@@ -28,17 +28,31 @@
                 <a href="<?=$this->createUrl('view', array('type' => 'month', 'zodiac' => $model->getZodiacSlug()))?>" class="horoscope-links_a">На месяц</a>
             </div>
             <div class="horoscope-links_i">
-                <a href="<?=$this->createUrl('view', array('type' => 'year', 'zodiac' => $model->getZodiacSlug()))?>" class="horoscope-links_a">На 2012</a>
+                <a href="<?=$this->createUrl('view', array('type' => 'year', 'zodiac' => $model->getZodiacSlug()))?>" class="horoscope-links_a">На 2013</a>
             </div>
         </div>
     </div>
 
     <div class="layout-hold margin-b10 clearfix">
-        <div class="horoscope-paper">
-            <div class="horoscope-paper_date">20</div>
-            <div class="horoscope-paper_month">МАР</div>
-        </div>
+        <?php if ($type == 'today' || $type == 'tomorrow'): ?>
+            <div class="horoscope-paper">
+                <div class="horoscope-paper_date"><?=date("j", strtotime($model->date)) ?></div>
+                <div class="horoscope-paper_month"><?=HDate::ruMonthShort(date("n", strtotime($model->date)))?></div>
+            </div>
+        <?php elseif ($type == 'month'): ?>
+               <div class="horoscope-paper">
+                   <div class="horoscope-paper_date"><?=HDate::ruMonthShort($model->month)?></div>
+                   <div class="horoscope-paper_month"><?=$model->year?></div>
+               </div>
+        <?php endif; ?>
+        <?php if ($type == 'year'): ?>
+        <p class="lineheight-big margin-b10"><span class="color-chestnut">Здоровье</span> <?=$model->health?></p>
+        <p class="lineheight-big margin-b10"><span class="color-chestnut">Карьера.</span> <?=$model->career?></p>
+        <p class="lineheight-big margin-b10"><span class="color-chestnut">Финансы.</span> <?=$model->finance?></p>
+        <p class="lineheight-big margin-b10"><span class="color-chestnut">Личная жизнь. </span> <?=$model->personal?></p>
+        <?php else: ?>
         <p class="lineheight-big"><?=Str::strToParagraph($model->text)?></p>
+        <?php endif; ?>
     </div>
 
     <div class="margin-b10">

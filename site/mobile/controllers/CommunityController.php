@@ -16,7 +16,7 @@ class CommunityController extends MController
                 'scopes' => array('active', 'full'),
             ),
             'pagination' => array(
-                'pageSize' => 3,
+                'pageSize' => 5,
             ),
         ));
 

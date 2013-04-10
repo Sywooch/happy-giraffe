@@ -38,7 +38,7 @@ class HoroscopeController extends MController
                 $titleSuffix = 'месяц';
                 break;
             case 'year':
-                $attributes = array('zodiac' => $zodiac, 'year' => 2012, 'month' => null);
+                $attributes = array('zodiac' => $zodiac, 'year' => 2013, 'month' => null);
                 $titleSuffix = 'год';
                 break;
         }

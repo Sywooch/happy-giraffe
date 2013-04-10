@@ -418,6 +418,11 @@ return array(
                             'application.modules.cook.controllers.RecipeController',
                         ),
                     ),
+                    'sitemapDecor.xml' => array(
+                        'aliases' => array(
+                            'application.modules.cook.controllers.DecorController',
+                        ),
+                    ),
                     'sitemapRoutes1.xml' => array(
                         'aliases' => array(
                             'application.modules.routes.controllers.DefaultController',

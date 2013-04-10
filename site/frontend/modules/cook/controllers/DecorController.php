@@ -1,6 +1,9 @@
 <?php
 class DecorController extends HController
 {
+    /**
+     * @sitemap dataSource=sitemap
+     */
     public function actionIndex($id = false)
     {
 //        $model = new CookDecorationCategory;
@@ -25,5 +28,30 @@ class DecorController extends HController
             );
 
         $this->render('index', compact('id', 'category', 'dataProvider'));
+    }
+
+    public function sitemap()
+    {
+        $models = Yii::app()->db->createCommand()
+            ->select('photo_id')
+            ->from('cook__decorations')
+            ->limit(100)
+            ->queryAll();
+
+        $data = array();
+        foreach ($models as $model) {
+            $photo = AlbumPhoto::model()->findByPk($model['photo_id']);
+            $data[] = array(
+                'params' => array(
+                    'id' => 'photo'.$model['photo_id'],
+                ),
+                'image:image'=>array(
+                    'image:loc'=>$photo->getPreviewUrl(960, 627, Image::HEIGHT, true)
+                ),
+                'changefreq' => 'weekly'
+            );
+        }
+
+        return $data;
     }
 }

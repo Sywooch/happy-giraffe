@@ -30,10 +30,9 @@
     <?php
 
     $post = $photo;
-        Yii::import('site.common.models.forms.PhotoViewComment');
+    Yii::import('site.common.models.forms.PhotoViewComment');
     //костыль для велентина
-    if (isset($model->content) && method_exists($model->content, 'isValentinePost') && $model->content->isValentinePost()){?>
-        <?php
+    if (isset($model->content) && method_exists($model->content, 'isValentinePost') && $model->content->isValentinePost()){
         $post = $model->content;
         $this->widget('site.frontend.widgets.socialLike.SocialLikeWidget', array(
             'title' => 'Вам понравилось фото?',
@@ -47,6 +46,22 @@
             ),
         ));
     }
+
+    //костыль для украшений блюд
+//    if (get_class($model) == 'CookDecorationCategory'){
+//        //$post = CookDecoration::model()->findByAttributes(array('photo_id' => $photo->id));
+//        $this->widget('site.frontend.widgets.socialLike.SocialLikeWidget', array(
+//            'title' => 'Вам понравилось фото?',
+//            'notice' => '',
+//            'model' => $photo,
+//            'type' => 'simple_ajax',
+//            'options' => array(
+//                'title' => CHtml::encode($photo->w_title),
+//                'image' => $photo->getPreviewUrl(180, 180),
+//                'description' => $photo->w_description,
+//            ),
+//        ));
+//    }
 
      $this->widget('site.frontend.widgets.commentWidget.CommentWidget', array(
         'model' => $post,

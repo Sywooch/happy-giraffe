@@ -10,12 +10,12 @@
 
     <?php if (Yii::app()->controller->route == 'community/view'): ?>
     <!-- Яндекс.Директ -->
-    <div id="yandex_ad"></div>
+    <div id="yandex_ad_community_header"></div>
     <script type="text/javascript">
         (function(w, d, n, s, t) {
             w[n] = w[n] || [];
             w[n].push(function() {
-                Ya.Direct.insertInto(87026, "yandex_ad", {
+                Ya.Direct.insertInto(87026, "yandex_ad_community_header", {
                     site_charset: "utf-8",
                     ad_format: "direct",
                     font_size: 1,
@@ -30,7 +30,7 @@
                     favicon: true
                 });
             });
-            t = d.documentElement.firstChild;
+            t = d.getElementsByTagName('head')[0];
             s = d.createElement("script");
             s.type = "text/javascript";
             s.src = "http://an.yandex.ru/system/context.js";

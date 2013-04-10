@@ -9,12 +9,12 @@ $this->renderPartial('_prev_next', array('data' => $data));
 ?>
 
 <!-- Яндекс.Директ -->
-<div id="yandex_ad"></div>
+<div id="yandex_ad_community_comments"></div>
 <script type="text/javascript">
     (function(w, d, n, s, t) {
         w[n] = w[n] || [];
         w[n].push(function() {
-            Ya.Direct.insertInto(87026, "yandex_ad", {
+            Ya.Direct.insertInto(87026, "yandex_ad_community_comments", {
                 stat_id: 2,
                 site_charset: "utf-8",
                 ad_format: "direct",
@@ -31,7 +31,7 @@ $this->renderPartial('_prev_next', array('data' => $data));
                 favicon: true
             });
         });
-        t = d.documentElement.firstChild;
+        t = d.getElementsByTagName('head')[0];
         s = d.createElement("script");
         s.type = "text/javascript";
         s.src = "http://an.yandex.ru/system/context.js";

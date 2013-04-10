@@ -48,6 +48,6 @@ class HoroscopeController extends MController
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
         $this->pageTitle = $title;
-        $this->render('view', compact('model', 'title'));
+        $this->render('view', compact('model', 'title', 'type'));
     }
 }

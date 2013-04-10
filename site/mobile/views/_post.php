@@ -11,7 +11,9 @@
     <div class="entry-content wysiwyg-content clearfix">
         <?=($full) ? $data->content->purified->text : $data->purified->preview?>
         <?php if ($data->type_id == CommunityContent::TYPE_VIDEO): ?>
-            <?=$data->video->getEmbed()?>
+            <div class="video-fluid">
+                <?=$data->video->getEmbed()?>
+            </div>
         <?php endif; ?>
     </div>
 

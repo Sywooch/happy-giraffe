@@ -60,7 +60,7 @@ class RecipeController extends MController
                 'order' => 't.id DESC',
                 'condition' => 't.id < :current_id AND type = :type AND section = :section',
                 'params' => array(':current_id' => $recipe->id, ':type' => $recipe->type, ':section' => $recipe->section),
-                'limit' => 3,
+                'limit' => 5,
             )
         );
 

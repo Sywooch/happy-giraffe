@@ -7,15 +7,8 @@
         <meta content="telephone=no" name="format-detection">
         <meta content="176" name="/Optimized">
         <title><?=$this->pageTitle?></title>
-        <!--
-        CSS
-        Конечному пользователю нужно отправлять скомпилированный файл css
         <link rel="stylesheet" href="/css/all.css" type="text/css" />
-         -->
-        <link rel="stylesheet" href="/css/all-dev.css" type="text/css" />
-
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
-
     </head>
     <body>
         <div class="layout-page">

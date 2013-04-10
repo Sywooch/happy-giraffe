@@ -14,9 +14,14 @@ class CommunityController extends MController
             'criteria' => array(
                 'order' => 't.created DESC',
                 'scopes' => array('active', 'full'),
+                'with' => array(
+                    'rubric',
+                ),
+                'condition' => 'rubric.community_id != :news_community AND rubric.community_id != :valentine',
+                'params' => array(':news_community' => Community::COMMUNITY_NEWS, ':valentine' => Community::COMMUNITY_VALENTINE),
             ),
             'pagination' => array(
-                'pageSize' => 3,
+                'pageSize' => 5,
             ),
         ));
 
@@ -62,25 +67,5 @@ class CommunityController extends MController
 
         $this->pageTitle = 'Блоги на Веселом Жирафе';
         $this->render('list', compact('dp'));
-    }
-
-    public function actionUser($user_id)
-    {
-        $user = User::model()->findByPk($user_id);
-
-        $dp = new CActiveDataProvider('CommunityContent', array(
-            'criteria' => array(
-                'order' => 't.created DESC',
-                'scopes' => array('active', 'full'),
-                'condition' => 'author_id = :user_id',
-                'params' => array(':user_id' => $user_id),
-            ),
-            'pagination' => array(
-                'pageSize' => 3,
-            ),
-        ));
-
-        $this->pageTitle = $user->fullName . ' на Веселом Жирафе';
-        $this->render('user', compact('user', 'dp'));
     }
 }

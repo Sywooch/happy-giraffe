@@ -10,6 +10,7 @@ class MPager extends CBasePager
 {
     public function run()
     {
-        $this->render('MPager');
+        echo '|' . $this->getPageCount() . '|';
+            $this->render('MPager');
     }
 }

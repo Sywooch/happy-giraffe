@@ -55,7 +55,7 @@
             'model' => $photo,
             'type' => 'simple_ajax',
             'options' => array(
-                'title' => CHtml::encode($photo->w_title),
+                'title' => CHtml::encode('Оформления блюд на Веселом Жирафе - '.$photo->title),
                 'image' => $photo->getPreviewUrl(180, 180),
                 'description' => $photo->w_description,
             ),

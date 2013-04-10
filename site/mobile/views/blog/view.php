@@ -1,4 +1,4 @@
-<?php $this->renderPartial('_post', array('data' => $content, 'full' => true)); ?>
+<?php $this->renderPartial('/_post', array('data' => $content, 'full' => true)); ?>
 
 <?php if (! empty($next)): ?>
     <div class="margin-10 textalign-c clearfix">

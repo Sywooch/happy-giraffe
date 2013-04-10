@@ -1,6 +1,7 @@
 .im {
   position: relative;
   margin: -20px -20px -50px;
+  min-height: 470px;
 }
 .im:after,
 .im:before {
@@ -18,11 +19,11 @@
 }
 .im__fixed .im-sidebar {
   position: fixed;
-  top: 43px;
+  top: 42px;
 }
 .im__fixed .im-center_top {
   position: fixed;
-  top: 54px;
+  top: 53px;
 }
 .im__fixed .im-center_bottom {
   position: fixed;
@@ -32,7 +33,7 @@
 }
 .im__fixed:before {
   position: fixed;
-  top: 43px;
+  top: 42px;
 }
 .ie8 .im__fixed:after,
 .ie8 .im__fixed:before {
@@ -76,6 +77,7 @@
   height: 11px;
   margin: 0 0 0 -26px;
   background: url(/images/im/im-toggle.png) no-repeat 0 -11px;
+  cursor: s-resize;
 }
 .im_message-loader {
   min-height: 30px;
@@ -177,6 +179,11 @@
   width: 685px;
   z-index: 101;
   background: #fff;
+  -moz-user-select: -moz-none;
+  -o-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
 }
 .ie8 .im-center_top {
   margin-top: -11px;
@@ -190,15 +197,19 @@
 }
 .im-center_middle-w {
   position: absolute;
-  top: -340px;
-  width: 100%;
+  width: 685px;
+  padding: 0 0 0 285px;
+  margin: 0 auto;
+  z-index: 2;
+  left: 0;
+  right: 0;
 }
 .im-center_bottom {
   position: fixed;
   bottom: 0;
   width: 685px;
   background: #fff;
-  z-index: 101;
+  z-index: 100;
 }
 .im-center_bottom-hold {
   background: #999;
@@ -380,6 +391,14 @@
 }
 .im-panel-ico__del:hover {
   background-position: -60px -21px;
+}
+.im-message-w {
+  position: absolute;
+  width: 685px;
+  padding: 0 0 0 285px;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
 }
 .im-message {
   margin: 3px 0;
@@ -613,9 +632,6 @@
   background: #ebf4ff;
   position: relative;
   min-height: 87px;
-}
-.im-editor-b .im_toggle {
-  cursor: s-resize;
 }
 .im-editor-b_ava {
   margin-right: 6px;

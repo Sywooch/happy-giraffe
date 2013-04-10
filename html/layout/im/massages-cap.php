@@ -5,11 +5,13 @@
 <!--[if gt IE 9]><!--> <html class="top-nav-fixed"> <!--<![endif]-->
 <head>
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/head.php'; ?>
+	<script type="text/javascript" src="/javascripts/im.js"></script>
 
 </head>
 <body class="body-club">
 
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/top-line-menu.php'; ?>
+
 	
 <div class="layout-container">
 <div class="layout-container_hold">
@@ -40,7 +42,8 @@
 			</div>
 			
 		</div>
-			
+		
+		<div class="layout-content">	
 		<div class="im im__cap">
 		<div class="im_hold clearfix">
 			<div class="im-sidebar">
@@ -185,32 +188,13 @@
 								<a href="">Фото</a><sup class="count">999</sup>
 							</div>
 						</div>
-						<a href="" class="im_toggle"></a>
+						<span class="im_toggle"></span>
 					</div>
 				</div>
 				
 				<div class="im-center_middle">
 					<div class="im-center_middle-hold">
 					
-						<div class="im-center_middle-w">
-							
-							<div class="im-message clearfix">
-								<a class="ava small female" href="">
-									<img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg">
-								</a>
-								<div class="im-message_hold">
-									<div class="im-message_t">
-										<a href="" class="im-message_user">Олег</a>
-										<em class="im-message_date">28 янв 2012, 13:45</em>
-										<div class="im-message_status im-message_status__read">Сообщение прочитано</div>
-									</div>
-									<div class="im-message_tx">
-										Привет! У меня родился сын! Вот фото!красочному маникюру, а потом и губы модниц засветились 
-									</div>
-								</div>
-							</div>
-							
-						</div>
 					</div>
 				</div>
 	<script type="text/javascript">
@@ -254,7 +238,7 @@
 									<button class="btn-green">Отправить</button>
 								</div>
 							</div>
-							<a href="" class="im_toggle"></a>
+							<span class="im_toggle"></span>
 						</div>
 					</div>
 				</div>
@@ -273,10 +257,30 @@
 				</div>
 			</div>
 		</div>
-		</div>  	
+		</div>
+		</div>	
 		
 	</div>
 </div>
+</div>
+<div class="im-message-w">
+	
+	<div class="im-message clearfix">
+		<a class="ava small female" href="">
+			<img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg">
+		</a>
+		<div class="im-message_hold">
+			<div class="im-message_t">
+				<a href="" class="im-message_user">Олег</a>
+				<em class="im-message_date">28 янв 2012, 13:45</em>
+				<div class="im-message_status im-message_status__read">Сообщение прочитано</div>
+			</div>
+			<div class="im-message_tx">
+				Привет! У меня родился сын! Вот фото!красочному маникюру, а потом и губы модниц засветились 
+			</div>
+		</div>
+	</div>
+	
 </div>
 </body>
 </html>

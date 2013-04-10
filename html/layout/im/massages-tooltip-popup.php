@@ -5,12 +5,14 @@
 <!--[if gt IE 9]><!--> <html class="top-nav-fixed"> <!--<![endif]-->
 <head>
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/head.php'; ?>
+	<script type="text/javascript" src="/javascripts/im.js"></script>
 
 </head>
 <body class="body-club">
 
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/top-line-menu.php'; ?>
-	
+
+
 <div class="layout-container">
 <div class="layout-container_hold">
 	<div class="layout-wrapper">
@@ -41,6 +43,7 @@
 			
 		</div>
 			
+		<div class="layout-content">
 		<div class="im">
 		<div class="im_hold clearfix">
 			<div class="im-sidebar">
@@ -50,6 +53,132 @@
 					<button class="im-sidebar_search-btn"></button>
 				</div>
 				<div class="im-user-list">
+					<div class="im-user-list_i">
+						<div class="im-user-settings clearfix">
+							<div class="im-user-settings_online-status-small im-user-settings_online-status-small__offline"></div>
+							<a class="ava female" href="">
+								<img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg">
+							</a>
+							<div class="im-user-settings_user">
+								<a href="" class="">Арина Поплавская</a>
+							</div>
+						</div>
+						<div class="im_watch im-tooltipsy" title="Скрыть диалог"></div>
+						<div class="im_count im-tooltipsy" title="Отметить как прочитанное">2</div>
+					</div>
+					
+					<div class="im-user-list_i active">
+						<div class="im-user-settings clearfix">
+							<div class="im-user-settings_online-status-small"></div>
+							<a class="ava female" href="">
+								<img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg">
+							</a>
+							<div class="im-user-settings_user">
+								<a href="" class="">Архистратиг Богоявленгоявленский</a>
+							</div>
+						</div>
+						<div class="im_watch im-tooltipsy" title="Скрыть диалог"></div>
+						<div class="im_count im-tooltipsy" title="Отметить как прочитанное">4562</div>
+					</div>
+					
+					<div class="im-user-list_i">
+						<div class="im-user-settings clearfix">
+							<div class="im-user-settings_online-status-small im-user-settings_online-status-small__offline"></div>
+							<a class="ava female" href="">
+								<img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg">
+							</a>
+							<div class="im-user-settings_user">
+								<a href="" class="">Арина Поплавская</a>
+							</div>
+						</div>
+						
+						<div class="im_watch im-tooltipsy" title="Скрыть диалог"></div>
+						<div class="im_count im_count__read im-tooltipsy" title="Отметить как не прочитанное">44784</div>
+					</div>
+					<div class="im-user-list_i">
+						<div class="im-user-settings clearfix">
+							<div class="im-user-settings_online-status-small im-user-settings_online-status-small__offline"></div>
+							<a class="ava female" href="">
+								<img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg">
+							</a>
+							<div class="im-user-settings_user">
+								<a href="" class="">Арина Поплавская</a>
+							</div>
+						</div>
+						<div class="im_watch im-tooltipsy" title="Скрыть диалог"></div>
+						<div class="im_count im-tooltipsy" title="Отметить как прочитанное">2</div>
+					</div>
+					
+					<div class="im-user-list_i active">
+						<div class="im-user-settings clearfix">
+							<div class="im-user-settings_online-status-small"></div>
+							<a class="ava female" href="">
+								<img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg">
+							</a>
+							<div class="im-user-settings_user">
+								<a href="" class="">Архистратиг Богоявленгоявленский</a>
+							</div>
+						</div>
+						<div class="im_watch im-tooltipsy" title="Скрыть диалог"></div>
+						<div class="im_count im-tooltipsy" title="Отметить как прочитанное">4562</div>
+					</div>
+					
+					<div class="im-user-list_i">
+						<div class="im-user-settings clearfix">
+							<div class="im-user-settings_online-status-small im-user-settings_online-status-small__offline"></div>
+							<a class="ava female" href="">
+								<img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg">
+							</a>
+							<div class="im-user-settings_user">
+								<a href="" class="">Арина Поплавская</a>
+							</div>
+						</div>
+						
+						<div class="im_watch im-tooltipsy" title="Скрыть диалог"></div>
+						<div class="im_count im_count__read im-tooltipsy" title="Отметить как не прочитанное">44784</div>
+					</div>
+					<div class="im-user-list_i">
+						<div class="im-user-settings clearfix">
+							<div class="im-user-settings_online-status-small im-user-settings_online-status-small__offline"></div>
+							<a class="ava female" href="">
+								<img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg">
+							</a>
+							<div class="im-user-settings_user">
+								<a href="" class="">Арина Поплавская</a>
+							</div>
+						</div>
+						<div class="im_watch im-tooltipsy" title="Скрыть диалог"></div>
+						<div class="im_count im-tooltipsy" title="Отметить как прочитанное">2</div>
+					</div>
+					
+					<div class="im-user-list_i active">
+						<div class="im-user-settings clearfix">
+							<div class="im-user-settings_online-status-small"></div>
+							<a class="ava female" href="">
+								<img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg">
+							</a>
+							<div class="im-user-settings_user">
+								<a href="" class="">Архистратиг Богоявленгоявленский</a>
+							</div>
+						</div>
+						<div class="im_watch im-tooltipsy" title="Скрыть диалог"></div>
+						<div class="im_count im-tooltipsy" title="Отметить как прочитанное">4562</div>
+					</div>
+					
+					<div class="im-user-list_i">
+						<div class="im-user-settings clearfix">
+							<div class="im-user-settings_online-status-small im-user-settings_online-status-small__offline"></div>
+							<a class="ava female" href="">
+								<img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg">
+							</a>
+							<div class="im-user-settings_user">
+								<a href="" class="">Арина Поплавская</a>
+							</div>
+						</div>
+						
+						<div class="im_watch im-tooltipsy" title="Скрыть диалог"></div>
+						<div class="im_count im_count__read im-tooltipsy" title="Отметить как не прочитанное">44784</div>
+					</div>
 					<div class="im-user-list_i">
 						<div class="im-user-settings clearfix">
 							<div class="im-user-settings_online-status-small im-user-settings_online-status-small__offline"></div>
@@ -185,77 +314,13 @@
 								<a href="">Фото</a><sup class="count">999</sup>
 							</div>
 						</div>
-						<a href="" class="im_toggle"></a>
+						<span class="im_toggle"></span>
 					</div>
 				</div>
 				
 				<div class="im-center_middle">
 					<div class="im-center_middle-hold">
 					
-						<div class="im-center_middle-w">
-							<div class="im-message clearfix">
-								<div class="im-message_icons active">
-									<div class="im-message_icons-i active">
-										<a href="" class="im-message_ico im-message_ico__warning im-tooltipsy" title="Пожаловаться"></a>
-										
-										<div class="im-tooltip-popup">
-											<div class="im-tooltip-popup_t">Укажите вид нарушения:</div>
-											<label for="" class="im-tooltip-popup_label clearfix">
-											<!-- id у input должны быть все разные, приведен пример для связки label с input
-											атрибут name у каждого выпадающего окношка должен быть разный
-											  -->
-												<input type="radio" name="im-tooltip-popup_radio" id="" class="im-tooltip-popup_radio">
-												Спам или реклама
-											</label>
-											<label for="" class="im-tooltip-popup_label clearfix">
-												<input type="radio" name="im-tooltip-popup_radio" id="" class="im-tooltip-popup_radio">
-												Мошенничество
-											</label>
-											<label for="" class="im-tooltip-popup_label clearfix">
-												<input type="radio" name="im-tooltip-popup_radio" id="" class="im-tooltip-popup_radio">
-												Грубость, угрозы
-											</label>
-											<label for="" class="im-tooltip-popup_label clearfix">
-												<input type="radio" name="im-tooltip-popup_radio" id="" class="im-tooltip-popup_radio">
-												Интимный характер
-											</label>
-											<label for="" class="im-tooltip-popup_label clearfix">
-												<input type="radio" name="im-tooltip-popup_radio" id="" class="im-tooltip-popup_radio">
-												Другое
-											</label>
-											<label for="" class="im-tooltip-popup_label clearfix">
-												<input type="radio" name="im-tooltip-popup_radio" id="" class="im-tooltip-popup_radio">
-												<input type="text" name="" id="" class="im-tooltip-popup_itx" placeholder="Другое">
-											</label>
-											<div class="clearfix textalign-c">
-												<button class="btn-green">Пожаловаться</button>
-												<button class="btn-gray">Отменить</button>
-											</div>
-										</div>
-									</div>
-									<div class="im-message_icons-i">
-										<a href="" class="im-message_ico im-message_ico__del im-tooltipsy" title="Удалить"></a>
-									</div>
-								</div>
-								<a class="ava small female" href="">
-									<img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg">
-								</a>
-								<div class="im-message_hold">
-									<div class="im-message_t">
-										<a href="" class="im-message_user">Олег</a>
-										<em class="im-message_date">28 янв 2012, 13:45</em>
-										<div class="im-message_status im-message_status__read">Сообщение прочитано</div>
-									</div>
-									<div class="im-message_tx">
-										Привет! У меня родился сын! Вот фото!
-										Уже два года назад стала просматриваться тенденция на неоновые оттенки. Сначала яркие цвета разнообразили привычные тона лаков для ногтей, и красивые пальчики молодых девушек стали выделяться благодаря красочному маникюру, а потом и губы модниц засветились 
-									</div>
-								</div>
-							</div>
-							
-							<div class="im_message-loader">
-							</div>
-						</div>
 					</div>
 				</div>
 	<script type="text/javascript">
@@ -306,17 +371,81 @@
 									<button class="btn-green">Отправить</button>
 								</div>
 							</div>
-							<a href="" class="im_toggle"></a>
+							<span class="im_toggle"></span>
 						</div>
 					</div>
 				</div>
 				
 			</div>
 		</div>
+		</div>
 		</div>  	
 		
 	</div>
 </div>
+</div>
+<div class="im-message-w">
+	<div class="im-message clearfix">
+		<div class="im-message_icons active">
+			<div class="im-message_icons-i active">
+				<a href="" class="im-message_ico im-message_ico__warning im-tooltipsy" title="Пожаловаться"></a>
+				
+				<div class="im-tooltip-popup">
+					<div class="im-tooltip-popup_t">Укажите вид нарушения:</div>
+					<label for="" class="im-tooltip-popup_label clearfix">
+					<!-- id у input должны быть все разные, приведен пример для связки label с input
+					атрибут name у каждого выпадающего окношка должен быть разный
+					  -->
+						<input type="radio" name="im-tooltip-popup_radio" id="" class="im-tooltip-popup_radio">
+						Спам или реклама
+					</label>
+					<label for="" class="im-tooltip-popup_label clearfix">
+						<input type="radio" name="im-tooltip-popup_radio" id="" class="im-tooltip-popup_radio">
+						Мошенничество
+					</label>
+					<label for="" class="im-tooltip-popup_label clearfix">
+						<input type="radio" name="im-tooltip-popup_radio" id="" class="im-tooltip-popup_radio">
+						Грубость, угрозы
+					</label>
+					<label for="" class="im-tooltip-popup_label clearfix">
+						<input type="radio" name="im-tooltip-popup_radio" id="" class="im-tooltip-popup_radio">
+						Интимный характер
+					</label>
+					<label for="" class="im-tooltip-popup_label clearfix">
+						<input type="radio" name="im-tooltip-popup_radio" id="" class="im-tooltip-popup_radio">
+						Другое
+					</label>
+					<label for="" class="im-tooltip-popup_label clearfix">
+						<input type="radio" name="im-tooltip-popup_radio" id="" class="im-tooltip-popup_radio">
+						<input type="text" name="" id="" class="im-tooltip-popup_itx" placeholder="Другое">
+					</label>
+					<div class="clearfix textalign-c">
+						<button class="btn-green">Пожаловаться</button>
+						<button class="btn-gray">Отменить</button>
+					</div>
+				</div>
+			</div>
+			<div class="im-message_icons-i">
+				<a href="" class="im-message_ico im-message_ico__del im-tooltipsy" title="Удалить"></a>
+			</div>
+		</div>
+		<a class="ava small female" href="">
+			<img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg">
+		</a>
+		<div class="im-message_hold">
+			<div class="im-message_t">
+				<a href="" class="im-message_user">Олег</a>
+				<em class="im-message_date">28 янв 2012, 13:45</em>
+				<div class="im-message_status im-message_status__read">Сообщение прочитано</div>
+			</div>
+			<div class="im-message_tx">
+				Привет! У меня родился сын! Вот фото!
+			</div>
+		</div>
+	</div>
+	
+	<div class="im_message-loader">
+	</div>
 </div>
 </body>
 </html>

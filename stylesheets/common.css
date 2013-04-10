@@ -11225,6 +11225,7 @@ body.gallery {
   left: 0;
   width: 100%;
   height: 42px;
+  border-bottom: 1px solid #fff;
 }
 .top-nav-fixed .top-line-menu {
   background: #a17dc4;

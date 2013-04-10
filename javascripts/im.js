@@ -1,118 +1,158 @@
-$(function() {
 
-const topLineMenuHeight = 60;
-const imTabsHeight = 53;
-const imUserListIndentFix = 198;
-const imUserListIndent = 189;
 /* im - instant messeger for user */
 $(window).load(function() {
+
+    var topLineMenuHeight = 100;
+    var imTabsHeight = 53;
+    var imMinHeight = 50;
+    var imUserListIndentFix = 198;
+    var imUserListIndent = 189;
+    var imMinHeight = 460;
+
+    var container = $('.layout-container');
+    var imSidebar = $('.im-sidebar');
+    var imUserList = $('.im-user-list');
+    var imWrapper = $('.im-message-w');
+    var imHold = $('.im-center_middle-hold');
+    var imBottom = $('.im-center_bottom');
+    var im__fixed = $(".im__fixed");
+
+    var windowHeight = $(window).height();
+    var headerHeight = $('#header-new').height();
+    var imBottomHeight = $('.im-center_bottom').height();
+    var imTopHeight = $('.im-center_bottom').height();
+    var imHeight = imWrapper.height();
+    var imViewHeight = windowHeight - imTopHeight - imBottomHeight - headerHeight - topLineMenuHeight; 
+
     /* Высчитывание ширины контейнера .layout-container без браузерного скрола */
     scrollFix();
 
     /* Проверка есть ли окно чата */
     var im = $(".im");
-    if (im.length > 0) {
 
-        
-        $('.im-tooltipsy').tooltipsy({
-            offset:[0, -8],
-            className: 'tooltipsy-im'
-        });
 
-        var headerHeight = $('#header-new').height();
-        var massageWrapper = $('.im-center_middle-w')
-        var messagesHeight = massageWrapper.height();
-        /* 43 - высота top-line-menu */
-        var messagesViewHeight = $(window).height() - $('.im-center_top').height() - $('.im-center_bottom').height() - headerHeight - topLineMenuHeight; 
-        var massageHold = $('.im-center_middle-hold');
+    imWrapper.css('bottom', imBottomHeight);
 
-        if (messagesHeight > messagesViewHeight) {
-            $('.im-center_middle-hold').height(messagesHeight);
-            massageWrapper.css('top', -messagesHeight + messagesViewHeight );
-        } else {
-            $('.im-center_middle-hold').height(messagesHeight);
-            massageWrapper.css('top',  -messagesHeight + messagesViewHeight);
-        }
-
-        /* Высота sidebar списка собеседников */
-        imSidebarHeight(0,headerHeight );
-
-        var contaner = $('.layout-container');
-        contaner.scroll(function () {
-            var contanerScroll = contaner.scrollTop();
-            
-            if (contanerScroll > headerHeight ) {
-                /* Класс управления фиксед элементами */
-                im.addClass("im__fixed");
-                /* Позиция top у сообщений */
-                var messageTopScroll = -messagesHeight + messagesViewHeight + contanerScroll*2 - headerHeight ;
-                massageWrapper.css('top', messageTopScroll);
-                /* Высота sidebar списка собеседников */
-                imSidebarHeight(contanerScroll, headerHeight);
-
-            } else {
-                /* Класс управления фиксед элементами */
-                im.removeClass("im__fixed");
-                /* Позиция top у сообщений */
-                var messageTopScroll = -messagesHeight + messagesViewHeight + contanerScroll  ;
-                 massageWrapper.css('top', messageTopScroll );
-                 imSidebarHeight(contanerScroll, headerHeight);
-                 /* заглушка */
-                 $('.im-cap').css('top', $('#header-new').height() + imTabsHeight - contanerScroll);
-            }
-
-        });
+    /* Высота видимой части сообщений */
+    if (imHeight > imViewHeight) {
+        imHold.height(imHeight);
+    } else {
+        imHold.height(imViewHeight);
     }
 
-    $('.im-panel .im_toggle').click(function () {
-        $('.im-panel').toggleClass('im-panel__big');
-        /* при смене высоты учитывать разницу для блока с сообщениями */
-        if($('.im-panel').hasClass('im-panel__big')) {
-            $('.im-center_middle').css('padding-top', '190px');
-        } else {
-            $('.im-center_middle').css('padding-top', '140px');
-        }
-        return false;
-    })
+    /* Высота sidebar списка собеседников */
+    imSidebarHeight(0, headerHeight);
 
+    container.bind('scroll', function () {
+        var containerScroll = container.scrollTop();
+        scrollIm (containerScroll, headerHeight);
+    });
+
+
+    /* Подсказки при наведении */
+    $('.im-tooltipsy').tooltipsy({
+        offset:[0, -8],
+        className: 'tooltipsy-im'
+    });
+
+    /* toggle блок инфо собедника .im-panel */
+    var mousePosY = false;
+    im.on("mousedown", ".im-panel .im_toggle", function(e) {
+        e.preventDefault();
+        mousePosY = e.pageY;
+    }).on("mouseup", function(e) {
+        if (mousePosY!=false) {
+            $('.im-panel').toggleClass('im-panel__big');
+        }
+        mousePosY = false;
+    });
+
+    /* Изменение отступа от wysywig до конца стрнаицы */
+    im.on("mousedown", ".im-center_bottom .im_toggle", function(e) {
+        e.preventDefault();
+        var imBottomHold = $('.im-center_bottom-hold');
+        var imMiddle = $('.im-center_middle');
+        im.on("mousemove", function(e) {
+            imBottomMarg = windowHeight - e.pageY - 15;
+            if (imBottomMarg > 11 && imBottomMarg < windowHeight - imBottomHold.height() - imMinHeight) {
+                imBottomHold.stop().animate({'margin-bottom': imBottomMarg},10);
+                imBottomHeight = imBottom.height();
+                imMiddle.css('padding-top', imBottomHeight);
+            }
+        });
+
+    }).on("mouseup", function(e) {
+        im.off("mousemove");
+    });
+
+    /* Список скрытых пользователей в сайдбаре */
     $(".im-user-list_hide-a").click(function () {
       $(".im-user-list_hide-b").toggle("slow");
       return false;
-    }); 
-    
-});
+    });
 
+    $(window).resize(function() {
+        scrollFix();
 
-$(window).resize(function() {
-    scrollFix();
-    /* Высота sidebar списка собеседников */
-    var contanerScroll = $('.layout-container').scrollTop();
-    imSidebarHeight(contanerScroll);
-});
+        containerScroll = container.scrollTop();
+        windowHeight = $(window).height();
 
-/* Высота sidebar списка собеседников */
-function imSidebarHeight(contanerScroll, headerHeight) {
-    /* Класс управления фиксед элементами */
-    
-    if (im__fixed.length > 0) {
-        imUserList.height(imSidebar.height() - imUserListIndent);
+            /* Высота видимой части сообщений */
+            imViewHeight = windowHeight - imTopHeight - imBottomHeight - headerHeight - topLineMenuHeight;
+    if (imHeight > imViewHeight) {
+        imHold.height(imHeight);
     } else {
-        imUserList.height(windowHeight - headerHeight - imUserListIndent + contanerScroll);
+        imHold.height(imViewHeight);
     }
 
-}
+        scrollIm (containerScroll);
+        imSidebarHeight(containerScroll);
+    });
 
-/* Высчитывание ширины контейнера .layout-container без браузерного скрола */
-function scrollFix() {
-    
-    var widthFixBlock = $('.layout-container_hold')
-    var widthFix = widthFixBlock.parent().width();
-    widthFixBlock.width(widthFix - getScrollBarWidth() + 'px'); 
-}
+    /* Высота в sidebar списка собеседников */
+    function imSidebarHeight(containerScroll, headerHeight) {
+        
+        /* Класс управления фиксед элементами */
+        var im__fixed = $(".im__fixed");
+        if (im__fixed.length > 0) {
+            imUserList.height(imSidebar.height() - imUserListIndentFix);
+        } else {
+            imUserList.height(windowHeight - headerHeight - imUserListIndent + containerScroll);
+        }
 
-var windowHeight = $(window).height();
-var im__fixed = $(".im__fixed");
-var imSidebar = $('.im-sidebar');
-var imUserList = $('.im-user-list');
+    }
+
+    /* Поизиция скрола */
+    function scrollIm (containerScroll){
+        if (containerScroll > headerHeight ) {
+            /* Класс управления фиксед элементами */
+            im.addClass("im__fixed");
+            /* Позиция блока сообщений */
+            var imTopScroll = imBottomHeight - containerScroll + headerHeight;
+            imWrapper.css('bottom', imTopScroll);
+
+        } else {
+            /* Класс управления фиксед элементами */
+            im.removeClass("im__fixed");
+
+            /* Высота sidebar списка собеседников */
+            imSidebarHeight(containerScroll, headerHeight);
+            /* Позиция блока сообщений */
+            var imTopScroll = imBottomHeight;
+            imWrapper.css('bottom', imTopScroll);
+
+             /* заглушка */
+             $('.im-cap').css('top', headerHeight + imTabsHeight - containerScroll);
+        }
+    }
+
+    /* Высчитывание ширины контейнера .layout-container без браузерного скрола */
+    function scrollFix() {
+        
+        var widthFixBlock = $('.layout-container_hold')
+        var widthFix = widthFixBlock.parent().width();
+        widthFixBlock.width(widthFix - getScrollBarWidth() + 'px'); 
+    }
+
 
 });

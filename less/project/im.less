@@ -1,6 +1,7 @@
 .im {
 	position: relative;
 	margin: -20px -20px -50px;
+	min-height: 470px;
 	&:after,
 	&:before {
 		content:'';
@@ -17,18 +18,18 @@
 	}
 	&__fixed .im-sidebar {
 		position: fixed;
-		top: 43px;
+		top: 42px;
 	}
 	&__fixed .im-center_top {
 		position: fixed;
-		top: 54px;
+		top: 53px;
 	}
 
 	&__fixed .im-center_bottom {position: fixed;}
 	&__fixed:after {position: fixed;}
 	&__fixed:before {
 		position: fixed;
-		top: 43px;
+		top: 42px;
 	}
 	.ie8 &__fixed:after,
 	.ie8 &__fixed:before {display: none;}
@@ -61,6 +62,7 @@
 		height: 11px;
 		margin: 0 0 0 -26px;
 		background: url(/images/im/im-toggle.png) no-repeat 0 -11px;
+		cursor: s-resize;
 	}
 	&_message-loader {
 		min-height: 30px;
@@ -129,6 +131,11 @@
 		width: 685px;
 		z-index: 101;
 		background: #fff;
+		-moz-user-select: -moz-none;
+		-o-user-select: none;
+		-khtml-user-select: none;
+		-webkit-user-select: none;
+		user-select: none;
 	}
 	.ie8 &_top {margin-top: -11px;padding-top: 11px;}
 	&_middle {
@@ -137,15 +144,20 @@
 	&_middle-hold {position: relative;}
 	&_middle-w {
 		position: absolute;
-		top: -340px;
-		width: 100%;
+		
+		width: 685px;
+		padding: 0 0 0 285px;
+		margin: 0 auto;
+		z-index: 2;
+		left: 0;
+		right: 0;
 	}
 	&_bottom {
 		position: fixed;
 		bottom: 0;
 		width: 685px;
 		background: #fff;
-		z-index: 101;
+		z-index: 100;
 	}
 	&_bottom-hold {
 		background: #999;
@@ -281,6 +293,15 @@
 	&__del:hover       {background-position: -60px -21px;}
 }
 
+.im-message-w {
+	position: absolute;
+	
+	width: 685px;
+	padding: 0 0 0 285px;
+	margin: 0 auto;
+	left: 0;
+	right: 0;
+}
 .im-message {
 	margin: 3px 0;
 	padding: 10px 20px 20px;
@@ -452,7 +473,6 @@
 	background: #ebf4ff;
 	position: relative;
 	min-height: 87px;
-	.im_toggle {cursor: s-resize;}
 
 	&_ava {margin-right: 6px;}
 	&_w {

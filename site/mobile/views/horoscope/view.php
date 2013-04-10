@@ -47,10 +47,10 @@
         <?php endif; ?>
         <?php if ($type == 'year'): ?>
         <p class="lineheight-big">
-            <p><strong>Здоровье.</strong><?=$model->health?></p>
-            <p><strong>Карьера.</strong><?=$model->career?></p>
-            <p><strong>Финансы.</strong><?=$model->finance?></p>
-            <p><strong>Личная жизнь.</strong><?=$model->personal?></p>
+            <p><strong>Здоровье.</strong> <?=$model->health?></p>
+            <p><strong>Карьера.</strong> <?=$model->career?></p>
+            <p><strong>Финансы.</strong> <?=$model->finance?></p>
+            <p><strong>Личная жизнь.</strong> <?=$model->personal?></p>
         </p>
         <?php else: ?>
         <p class="lineheight-big"><?=Str::strToParagraph($model->text)?></p>

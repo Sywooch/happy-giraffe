@@ -30,7 +30,7 @@ class HoroscopeController extends MController
                 $titleSuffix = 'сегодня';
                 break;
             case 'tomorrow':
-                $attributes = array('zodiac' => $zodiac, 'date' => date("Y-m-d", strtotime('-1 day')));
+                $attributes = array('zodiac' => $zodiac, 'date' => date("Y-m-d", strtotime('+1 day')));
                 $titleSuffix = 'завтра';
                 break;
             case 'month':

@@ -65,7 +65,11 @@
 
         </div>
 
-        <?=CHtml::image($photo->getPreviewUrl(960, 627, Image::HEIGHT), '', array('itemprop' => 'contentUrl'))?>
+        <?php if ($photo->w_title): ?>
+            <?=CHtml::image($photo->getPreviewUrl(960, 627, Image::HEIGHT, true), $photo->w_title, array('itemprop' => 'contentURL', 'title'=>$photo->w_title))?>
+        <?php else: ?>
+            <?=CHtml::image($photo->getPreviewUrl(960, 627, Image::HEIGHT, true), '', array('itemprop' => 'contentURL'))?>
+        <?php endif; ?>
 
         <meta itemprop="width" content="<?=$photo->width?> px">
         <meta itemprop="height" content="<?=$photo->height?> px">
@@ -111,6 +115,17 @@ else {
             'description' => $photo->w_description,
         ),
     ));
+
+    if (isset($decor)){?>
+        <div class="entry-nav clearfix">
+            <div class="next">
+                <?=$decor->nextLink() ?>
+            </div>
+            <div class="prev">
+                <?=$decor->prevLink() ?>
+            </div>
+        </div>
+    <?php }
 
     $this->widget('site.frontend.widgets.commentWidget.CommentWidget', array(
         'model' => $photo,

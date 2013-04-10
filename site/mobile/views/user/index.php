@@ -5,11 +5,11 @@
         <div class="clearfix">
             <div class="author-info_record">
                 <div class="author-info_record-t">Записей <br />в клубах</div>
-                <a href="" class="btn-lilac btn-medium"><?=$user->communityPostsCount?></a>
+                <a href="<?=$this->createUrl('index', array('user_id' => $user->id, 'show' => 'community'))?>" class="btn-lilac btn-medium"><?=$user->communityPostsCount?></a>
             </div>
             <div class="author-info_record">
                 <div class="author-info_record-t">Записей <br />в блоге</div>
-                <a href="" class="btn-green btn-medium"><?=$user->blogPostsCount?></a>
+                <a href="<?=$this->createUrl('index', array('user_id' => $user->id, 'show' => 'blog'))?>" class="btn-green btn-medium"><?=$user->blogPostsCount?></a>
             </div>
         </div>
     </div>

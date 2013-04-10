@@ -17,7 +17,7 @@
         <div class="user-info">
             <?php $this->widget('AvatarWidget', array('user' => $data->author)); ?>
             <div class="user-info_details">
-                <?=CHtml::link($data->author->fullName, array('/community/user', 'user_id' => $data->author_id), array('class' => 'user-info_name textdec-onhover'))?>
+                <?=CHtml::link($data->author->fullName, array('user/index', 'user_id' => $data->author_id), array('class' => 'user-info_name textdec-onhover'))?>
                 <div class="user-info_time"><?=HDate::GetFormattedTime($data->created, ', ')?></div>
             </div>
         </div>

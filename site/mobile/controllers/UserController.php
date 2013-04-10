@@ -13,7 +13,7 @@ class UserController extends MController
         $user = User::model()->findByPk($user_id);
 
         $scopes = array('active', 'full');
-        if ($show !== null)
+        if ($show != 'all')
             $scopes[] = $show;
         $dp = new CActiveDataProvider('CommunityContent', array(
             'criteria' => array(

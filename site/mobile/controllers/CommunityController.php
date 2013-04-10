@@ -18,7 +18,7 @@ class CommunityController extends MController
                     'rubric',
                 ),
                 'condition' => 'rubric.community_id != :news_community AND rubric.community_id != :valentine',
-                'params' => array(':news_community' => self::COMMUNITY_NEWS, ':valentine' => self::COMMUNITY_VALENTINE),
+                'params' => array(':news_community' => Community::COMMUNITY_NEWS, ':valentine' => Community::COMMUNITY_VALENTINE),
             ),
             'pagination' => array(
                 'pageSize' => 5,

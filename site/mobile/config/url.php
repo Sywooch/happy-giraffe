@@ -37,6 +37,6 @@ return array(
 
         '' => 'community/index',
 
-        '(.*)' => 'site/index',
+        '(.*)' => 'community/index',
     ),
 );

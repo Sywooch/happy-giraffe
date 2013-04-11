@@ -48,7 +48,7 @@ class HController extends CController
 
     protected function beforeAction($action)
     {
-        //$this->_mobileRedirect();
+        $this->_mobileRedirect();
 
         // отключение повторной подгрузки jquery
         /* if (Yii::app()->request->isAjaxRequest) {

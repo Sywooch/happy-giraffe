@@ -555,6 +555,9 @@
   top: 20px;
   right: 10px;
 }
+.im-user-list .im_count__read {
+  display: none;
+}
 .im-user-list .im_watch {
   position: absolute;
   top: 5px;
@@ -578,6 +581,9 @@
 }
 .im-user-list_i:hover {
   background: #f8fbff;
+}
+.im-user-list_i:hover .im_count__read {
+  display: block;
 }
 .im-user-list_i a {
   text-decoration: none;
@@ -649,7 +655,7 @@
   color: #8bb0ca;
 }
 .tooltipsy-im {
-  position: relative;
+  position: absolute;
   padding: 4px 8px;
   background: #614477;
   font-size: 12px;

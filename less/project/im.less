@@ -415,6 +415,7 @@
 		top: 20px;
 		right: 10px;
 	}
+	.im_count__read {display: none;}
 	.im_watch {
 		position: absolute;
 		top: 5px;
@@ -435,6 +436,7 @@
 		cursor: pointer;
 	}
 	&_i:hover {background: #f8fbff;}
+	&_i:hover .im_count__read {display: block;}
 	&_i a {text-decoration: none;}
 	&_i.active {background: #5e93d5;}
 	&_i.active a {color: #fff;font-weight: bold;}
@@ -486,7 +488,7 @@
 }
 
 .tooltipsy-im {
-	position: relative;
+	position: absolute;
 	padding: 4px 8px;
 	background: #614477;
 	font-size: 12px;

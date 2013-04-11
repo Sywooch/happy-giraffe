@@ -137,9 +137,9 @@ class YandexMetrica
      */
     public function Popular()
     {
-        $date1 = date("Ymd", strtotime('-1 month'));
-        $date2 = date("Ymd");
-        $next = 'http://api-metrika.yandex.ru/stat/content/popular?date1=' . $date1 . '&date2=' . $date2
+        $date1 = '20130301';
+        $date2 = '20130331';
+        $next = 'http://api-metrika.yandex.ru/stat/content/entrance?date1=' . $date1 . '&date2=' . $date2
             . '&id=' . $this->counter_id . '&oauth_token=' . $this->token;
 
         $count = 0;
@@ -156,13 +156,11 @@ class YandexMetrica
                         && strpos($query['url'], 'CommunityContent_page') === FALSE
                         && strpos($query['url'], '/photo') === FALSE
                     ) {
-                        $result [] = array($query['url'], $query['entrance']);
-                        //echo $query['url'] . ' - ' . $query['entrance'] . '<br>';
+                        PageStatistics::add($query);
                         $count++;
                     }
                     if (strpos($query['url'], '/blog/post') !== FALSE) {
-                        $result [] = array($query['url'], $query['entrance']);
-                        //echo $query['url'] . ' - ' . $query['entrance'] . '<br>';
+                        PageStatistics::add($query);
                         $count++;
                     }
                 }

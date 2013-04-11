@@ -84,6 +84,7 @@ class PageStatistics extends EMongoDocument
             'sort' => array('visits' => EMongoCriteria::SORT_DESC),
         ));
         $pages = $this->model()->findAll($criteria);
+        echo count($pages)."\n";
         $i = 1;
         foreach ($pages as $page) {
             echo $i."\n";

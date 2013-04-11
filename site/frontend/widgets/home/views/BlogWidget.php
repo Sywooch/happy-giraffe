@@ -16,10 +16,11 @@
             <b><?=CHtml::link($model->title, $model->url)?></b>
             <div class="img">
                 <?php
-                $image = $model->getContentImage(200);
-                if ($image)
+                $photo = $model->content->getPhoto();
+                if ($photo !== null) {
+                    $image = $photo->getPreviewUrl(133, 133, Image::WIDTH, true);
                     echo CHtml::link(CHtml::image($image, $model->title), $model->url);
-                else
+                } else
                     echo '<p>' . $model->getContentText(250) . '</p>';
                 ?>
             </div>

@@ -10,7 +10,7 @@ class OptimisationCommand extends CConsoleCommand
 {
     public function actionAvatars(){
         Yii::import('site.frontend.extensions.EPhpThumb.*');
-        for($i=22214;$i<=22214;$i++){
+        for($i=1;$i<=80000;$i++){
             $user = User::model()->findByPk($i);
             if ($user !== null && !empty($user->avatar_id)){
                 $photo = $user->avatar;
@@ -27,7 +27,7 @@ class OptimisationCommand extends CConsoleCommand
                 $image->save($file_name);
             }
 
-            if ($i % 1000 == 0)
+            if ($i % 100 == 0)
                 echo $i;
         }
     }

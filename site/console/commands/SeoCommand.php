@@ -143,16 +143,44 @@ class SeoCommand extends CConsoleCommand
         TrafficStatisctic::model()->parse();
     }
 
-    public function actionParseSeTraffic(){
+    public function actionParseSeTraffic()
+    {
         Yii::import('site.frontend.helpers.*');
         Yii::import('site.frontend.extensions.*');
         PageStatistics::model()->parseSe();
+    }
 
+    public function actionExport()
+    {
+        Yii::import('site.frontend.helpers.*');
+        Yii::import('site.frontend.extensions.*');
+        PageStatistics::model()->export();
     }
 
     public function actionTest()
     {
+        $rubrics = LiSiteRubric::model()->findAll();
 
+        $li_sites = LiSite::model()->findAll('type=' . LiSite::TYPE_LI . ' AND public=1 AND rubric_id IS NULL');
+        $i = 1;
+        foreach ($li_sites as $li_site) {
+            $html = file_get_contents('http://www.liveinternet.ru/stat/' . $li_site->url . '/');
+            $document = phpQuery::newDocument($html);
+            $link = $document->find('div:eq(3) a:eq(2)');
+            $cat = trim(str_replace('/rating/ru/', '', pq($link)->attr('href')), '/');
+            foreach ($rubrics as $rubric)
+                if ($rubric->url == $cat) {
+                    $li_site->rubric_id = $rubric->id;
+                    $li_site->save();
+                }
+            if (empty($cat)){
+                $li_site->public = 0;
+                $li_site->save();
+            }
+
+            $i++;
+            echo $i."\n";
+        }
     }
 }
 

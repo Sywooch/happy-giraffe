@@ -42,9 +42,11 @@ $(window).load(function() {
 
 
     /* Подсказки при наведении */
-    $('.im-tooltipsy').tooltipsy({
-        offset:[0, -8],
-        className: 'tooltipsy-im'
+    $('.im-tooltipsy').powerTip({
+        placement: 'n',
+        smartPlacement: true,
+        popupId: 'tooltipsy-im',
+        offset: 8
     });
 
     /* toggle блок инфо собедника .im-panel */

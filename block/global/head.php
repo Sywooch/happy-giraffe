@@ -13,6 +13,7 @@
 	
 	<script type="text/javascript" src="/javascripts/jquery.tooltip.pack.js"></script>
 	<script type="text/javascript" src="/javascripts/tooltipsy.min.js"></script>
+	<script type="text/javascript" src="/javascripts/jquery.powertip.js"></script>
 
 	<script type="text/javascript" src="/javascripts/jquery.placeholder.min.js"></script>
 	<script type="text/javascript" src="/javascripts/jquery.jcarousel.js"></script>

@@ -168,11 +168,10 @@ class SeoCommand extends CConsoleCommand
         foreach($sites as $site){
             $rows = array(
                 $i,
-                $site->url,
+                array('http://'.$site->url, $site->url),
                 $site->rubric->title,
-                ($site->visits*3 - rand(1,3))
+                ($site->visits*2 - rand(1,3))
             );
-            Yii::app()->end();
             $i++;
             $data[] = $rows;
         }
@@ -182,7 +181,7 @@ class SeoCommand extends CConsoleCommand
 
     public function excel($data)
     {
-        $file_name = '/home/beryllium/file.xlsx';
+        $file_name = 'f:/file.xlsx';
 
         $phpExcelPath = Yii::getPathOfAlias('site.common.extensions.phpExcel');
         spl_autoload_unregister(array('YiiBase', 'autoload'));

@@ -505,7 +505,8 @@ class AlbumPhoto extends HActiveRecord
     }
 
     /**
-     * Get url to the original image
+     * Возвращает url аватарки
+     * @param $size string размер аватарки
      * @return string
      */
     public function getAvatarUrl($size)

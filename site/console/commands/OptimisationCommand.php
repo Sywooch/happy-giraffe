@@ -10,7 +10,7 @@ class OptimisationCommand extends CConsoleCommand
 {
     public function actionAvatars(){
         Yii::import('site.frontend.extensions.EPhpThumb.*');
-        for($i=1;$i<=80000;$i++){
+        for($i=11;$i<=80000;$i++){
             $user = User::model()->findByPk($i);
             if ($user !== null && !empty($user->avatar_id)){
                 $photo = $user->avatar;

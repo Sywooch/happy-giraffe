@@ -11,7 +11,12 @@ class PageStatistics extends EMongoDocument
     public $page_views;
     public $depth;
     public $visit_time;
+    public $se_visits = array();
 
+    /**
+     * @param string $className
+     * @return PageStatistics
+     */
     public static function model($className = __CLASS__)
     {
         return parent::model($className);
@@ -59,7 +64,6 @@ class PageStatistics extends EMongoDocument
             $rows[3] = $page->visits;
             $rows[5] = round($page->depth, 2);
 
-
             $data [] = $rows;
             if ($i >= 2000)
                 break;
@@ -67,6 +71,23 @@ class PageStatistics extends EMongoDocument
         }
 
         $this->excel($data);
+    }
+
+    public function parseSe(){
+        $criteria = new EMongoCriteria();
+        $criteria->setSort(array('visits', EMongoCriteria::SORT_DESC));
+        $criteria->se_visits('notExists');
+        $criteria->limit(200);
+        $pages = $this->model()->findAll($criteria);
+        foreach ($pages as $page) {
+            $url = str_replace('http://happy-giraffe.ru', '', $page->url);
+            $url = str_replace('http://www.happy-giraffe.ru', '', $url);
+            $page->se_visits = array();
+            echo $url."\n";
+            $page->se_visits['2013-02'] = (int)GApi::model()->organicSearches($url, '2013-02-01', '2013-02-28');
+            $page->se_visits['2013-03'] = (int)GApi::model()->organicSearches($url, '2013-03-01', '2013-03-31');
+            $page->save();
+        }
     }
 
     public function excel($data)

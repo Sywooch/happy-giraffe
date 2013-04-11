@@ -4,9 +4,10 @@
  * This is the model class for table "li_sites".
  *
  * The followings are the available columns in table 'li_sites':
- * @property string $id
+ * @property integer $id
  * @property string $url
  * @property string $site_url
+ * @property integer $rubric_id
  * @property integer $visits
  * @property string $password
  * @property integer $public

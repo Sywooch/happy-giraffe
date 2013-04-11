@@ -143,13 +143,16 @@ class SeoCommand extends CConsoleCommand
         TrafficStatisctic::model()->parse();
     }
 
-    public function actionLoadStats(){
-        $p = new YandexMetrica;
-        $p->Popular();
+    public function actionParseSeTraffic(){
+        Yii::import('site.frontend.helpers.*');
+        Yii::import('site.frontend.extensions.*');
+        PageStatistics::model()->parseSe();
+
     }
 
-    public function actionTest(){
-        PageStatistics::model()->export();
+    public function actionTest()
+    {
+
     }
 }
 

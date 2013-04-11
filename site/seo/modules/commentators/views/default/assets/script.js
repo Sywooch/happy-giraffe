@@ -81,7 +81,7 @@ function EditorTask(data) {
         $.post('/commentators/pause/', {id: self.id}, function (response) {
             if (response.status) {
                 if (self.status() == 1)
-                    self.status(0);
+                    self.status(2);
                 else
                     self.status(1);
                 refreshOdd('table.task-tb_tb tr', 'task-tb_odd');
@@ -89,12 +89,12 @@ function EditorTask(data) {
         }, 'json');
     };
     self.activeClass = ko.computed(function () {
-        if (self.status() == 0)
+        if (self.status() == 2)
             return 'task-tb_task-inactive';
         return '';
     });
     self.statusClass = ko.computed(function () {
-        if (self.status() == 0)
+        if (self.status() == 2)
             return 'task-tb_playerbar__play';
         return '';
     });

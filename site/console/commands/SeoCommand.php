@@ -159,9 +159,67 @@ class SeoCommand extends CConsoleCommand
 
     public function actionTest()
     {
-        Yii::import('site.seo.modules.competitors.components.*');
-        $p = new Li2RubricParser();
-        $p->start();
+        $data = array();
+        $criteria = new CDbCriteria;
+        $criteria->condition = 'type=' . LiSite::TYPE_LI . ' AND rubric_id IS NOT NULL AND visits>1000';
+        $criteria->order = 'visits desc';
+        $sites = LiSite::model()->findAll($criteria);
+        $i = 1;
+        foreach($sites as $site){
+            $rows = array(
+                $i,
+                $site->url,
+                $site->rubric->title,
+                ($site->visits*3 - rand(1,3))
+            );
+            Yii::app()->end();
+            $i++;
+            $data[] = $rows;
+        }
+
+        $this->excel($data);
+    }
+
+    public function excel($data)
+    {
+        $file_name = '/home/beryllium/file.xlsx';
+
+        $phpExcelPath = Yii::getPathOfAlias('site.common.extensions.phpExcel');
+        spl_autoload_unregister(array('YiiBase', 'autoload'));
+        include($phpExcelPath . DIRECTORY_SEPARATOR . 'PHPExcel.php');
+
+        // Create new PHPExcel object
+        $objPHPExcel = new PHPExcel();
+
+        // Set properties
+        $objPHPExcel->getProperties()->setCreator("Alex")
+            ->setLastModifiedBy("Alex")
+            ->setTitle("Articles")
+            ->setSubject("Articles")
+            ->setDescription("Articles");
+
+        // Add some data
+        $letters = array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O');
+
+        $sheet = $objPHPExcel->setActiveSheetIndex(0);
+        $j = 1;
+        foreach ($data as $fields) {
+            for ($i = 0; $i < count($fields); $i++) {
+                if (is_array($fields[$i])) {
+                    $sheet->setCellValue($letters[$i] . $j, $fields[$i][1]);
+                    $sheet->getCell($letters[$i] . $j)->getHyperlink()->setUrl($fields[$i][0]);
+                } else
+                    $sheet->setCellValue($letters[$i] . $j, $fields[$i]);
+            }
+            $j++;
+        }
+
+        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+        $objWriter->save($file_name);
+
+        spl_autoload_register(array('YiiBase', 'autoload'));
+
+        return $file_name;
     }
 }
 

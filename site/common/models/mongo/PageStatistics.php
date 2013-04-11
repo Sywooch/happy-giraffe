@@ -49,20 +49,24 @@ class PageStatistics extends EMongoDocument
             $page->url = str_replace('http://happy-giraffe.ru/', 'http://www.happy-giraffe.ru/', $page->url);
             list($entity, $entity_id) = Page::ParseUrl($page->url);
             $article = CActiveRecord::model($entity)->resetScope()->findByPk($entity_id);
+            if ($article === null)
+                continue;
 
             $rows = array();
             $rows[0] = $i;
             $rows[1] = array($page->url, $article->title);
-            $rows[4] = '';
+            $rows[6] = '';
             if ($entity == 'CommunityContent') {
                 $rows[2] = $article->rubric->community->title;
                 if (isset($article->gallery))
-                    $rows[4] = 'да';
+                    $rows[6] = 'да';
             } else {
                 $rows[2] = 'личный блог';
             }
             $rows[3] = $page->visits;
-            $rows[5] = round($page->depth, 2);
+            $rows[4] = isset($page->se_visits['2013-02'])?$page->se_visits['2013-02']:'';
+            $rows[5] = isset($page->se_visits['2013-03'])?$page->se_visits['2013-03']:'';
+            $rows[7] = round($page->depth, 2);
 
             $data [] = $rows;
             if ($i >= 2000)
@@ -77,7 +81,6 @@ class PageStatistics extends EMongoDocument
     {
         $criteria = new EMongoCriteria(array(
             'conditions' => array('se_visits' => array('notExists')),
-            'limit' => 200,
             'sort' => array('visits' => EMongoCriteria::SORT_DESC),
         ));
         $pages = $this->model()->findAll($criteria);

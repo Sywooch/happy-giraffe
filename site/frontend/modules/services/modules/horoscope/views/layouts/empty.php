@@ -1,7 +1,6 @@
 <html>
 <head>
     <meta name="robots" content="noindex,nofollow">
-    <?php Yii::app()->clientScript->registerCoreScript('jquery'); ?>
     <script type="text/javascript">
         function openPopup(el) {window.open($(el).attr('href'),'','toolbar=0,status=0,width=626,height=436');return false;}
     </script>

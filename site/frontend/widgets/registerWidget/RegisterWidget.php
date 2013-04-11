@@ -28,6 +28,8 @@ class RegisterWidget extends CWidget
             if ($this->show_form)
                 Yii::app()->user->setState('register_window_shown', 1);
 
+            $this->show_form = false;
+
             $model = new User;
             $this->render('form', array(
                 'model' => $model,

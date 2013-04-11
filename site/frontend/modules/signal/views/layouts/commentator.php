@@ -25,7 +25,7 @@
         ->registerScriptFile('/javascripts/comet.js')
 
         ->registerScriptFile('/javascripts/knockout-2.2.1.js')
-        ->registerCssFile('/stylesheets/seo2/all.css?r=14')
+        ->registerCssFile('/stylesheets/seo2/all.css')
         ->registerScriptFile('/javascripts/dklab_realplexor.js')
         ->registerScriptFile('/javascripts/seo2/jquery.fancybox.pack.js')
         ->registerScriptFile('/javascripts/seo2/main.js')

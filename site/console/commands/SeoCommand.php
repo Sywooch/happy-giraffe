@@ -144,21 +144,7 @@ class SeoCommand extends CConsoleCommand
     }
 
     public function actionTest(){
-        echo Yii::app()->db->createCommand()->delete('comments', 'text LIKE  "%http://www.happy-giraffe.ru/contest/7/photo290798/поддержите%"')."\n";
-        echo Yii::app()->db->createCommand()->delete('comments', 'text LIKE  "%http://www.happy-giraffe.ru/contest/4/photo178811/%"')."\n";
-    }
-
-    public function actionPrepareBest(){
-        //каждой записи Favourites назначим дату и добавим index
-        $models = Favourites::model()->findAll();
-        foreach($models as $model){
-            if ($model->block == Favourites::WEEKLY_MAIL){
-                $model->date = date("Y-m-d", strtotime('next monday', $model->created));
-            }
-            else
-                $model->date = date("Y-m-d", $model->created + 3600*24);
-            $model->save();
-        }
+        PageStatistics::model()->export();
     }
 }
 

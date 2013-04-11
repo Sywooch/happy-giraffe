@@ -10,6 +10,7 @@ class GApi
 
     private function __construct()
     {
+        Yii::import('site.frontend.extensions.GoogleAnalytics');
         $this->ga = new GoogleAnalytics('alexk984@gmail.com', Yii::app()->params['gaPass']);
         $this->ga->setProfile('ga:53688414');
     }

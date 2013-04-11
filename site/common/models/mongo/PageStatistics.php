@@ -39,7 +39,7 @@ class PageStatistics extends EMongoDocument
     public function export()
     {
         $criteria = new EMongoCriteria();
-        $criteria->setSort(array('visits', EMongoCriteria::SORT_DESC));
+        $criteria->setSort(array('visits' => EMongoCriteria::SORT_DESC));
         $pages = $this->model()->findAll($criteria);
 
         $i = 1;

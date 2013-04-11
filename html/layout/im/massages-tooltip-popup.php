@@ -320,7 +320,7 @@
 				
 				<div class="im-center_middle">
 					<div class="im-center_middle-hold">
-						<div class="im-message-w">
+						<div class="im-center_middle-w">
 							<div class="im-message clearfix">
 								<div class="im-message_icons active">
 									<div class="im-message_icons-i active">

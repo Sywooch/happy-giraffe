@@ -198,11 +198,6 @@
 .im-center_middle-w {
   position: absolute;
   width: 685px;
-  padding: 0 0 0 285px;
-  margin: 0 auto;
-  z-index: 2;
-  left: 0;
-  right: 0;
 }
 .im-center_bottom {
   position: fixed;
@@ -391,10 +386,6 @@
 }
 .im-panel-ico__del:hover {
   background-position: -60px -21px;
-}
-.im-message-w {
-  position: absolute;
-  width: 685px;
 }
 .im-message {
   margin: 3px 0;

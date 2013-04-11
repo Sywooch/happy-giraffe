@@ -192,7 +192,7 @@
 				
 				<div class="im-center_middle">
 					<div class="im-center_middle-hold">
-						<div class="im-message-w">
+						<div class="im-center_middle-w">
 							<div class="im_message-loader">
 								<img src="/images/ico/ajax-loader.gif" alt="">
 								<span class="im-message-loader_tx">Загрузка ранних сообщений</span>

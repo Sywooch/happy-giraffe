@@ -13,8 +13,8 @@ $(window).load(function() {
     var im = $(".im");
     var imSidebar = $('.im-sidebar');
     var imUserList = $('.im-user-list');
-    var imWrapper = $('.im-message-w');
     var imHold = $('.im-center_middle-hold');
+    var imWrapper = $('.im-center_middle-w');
     var imBottom = $('.im-center_bottom');
     var im__fixed = $(".im__fixed");
 
@@ -115,8 +115,8 @@ $(window).load(function() {
             /* Класс управления фиксед элементами */
             im.addClass("im__fixed");
             /* Позиция блока сообщений */
-            var imTopScroll = -imHeight + imViewHeight + containerScroll*2 - headerHeight ;
-                imWrapper.css('top', imTopScroll);
+            imTopScroll = -imHeight + imViewHeight + containerScroll*2 - headerHeight;
+            imWrapper.css('top', imTopScroll);
 
             /*imTopScroll = messagesHeight - messagesViewHeight - contanerScroll*2 - headerHeight - imBottomHeight;
             imWrapper.css('bottom', imTopScroll);*/
@@ -129,8 +129,8 @@ $(window).load(function() {
             imSidebarHeight(containerScroll, headerHeight);
 
             /* Позиция блока сообщений */
-            /*imTopScroll = imBottomHeight;
-            imWrapper.css('bottom', imTopScroll);*/
+            imTopScroll = -imHeight + imViewHeight + containerScroll;
+            imWrapper.css('top', imTopScroll);
 
              /* заглушка */
              $('.im-cap').css('top', headerHeight + imTabsHeight - containerScroll);

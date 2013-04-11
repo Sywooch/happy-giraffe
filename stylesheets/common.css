@@ -2708,6 +2708,22 @@ div.scrollbarpaper-drag {-moz-border-radius:3px;-webkit-border-radius:3px;border
 /* fast-like-block */
 
 .fast-like-block {margin:5px auto 20px;text-align:center;background:none;width:auto;}
+.fast-like-block__hg {
+	border: 1px solid #d8ebff;
+	border-width: 1px 0;
+	padding: 30px 30px;
+	margin: 60px 0 -40px;
+}
+.fast-like-block__hg .box-1 {min-width: inherit !important;}
+.fast-like-block__hg.fast-like-block .share_button {margin: 0 10px;}
+.fast-like-block_t-hg {
+	display: inline-block;*zoom:1;*display:inline;
+	vertical-align: middle;
+	margin-left: 10px;
+	font-size: 22px;
+	color: #aa82d1;
+}
+.fast-like-block__hg .btn-icon.heart.active {vertical-align: middle;display: inline-block;*zoom:1;*display:inline;}
 
 .fast-like-block .contest-winners_place.place-big {margin-right:310px;}
 .fast-like-block .box-1 {text-align:center;display:inline-block;*zoom:1;*display:inline;vertical-align:top;margin-top: 15px;min-width:500px;}
@@ -6423,6 +6439,28 @@ label {
 /* /Page moderation rules moder-rule */
 /* /layout project
 -------------------------------------------------------------------- */
+
+.like-hg-popup {
+	text-align: center;
+	margin: 0 50px;
+	width: auto;
+}
+.like-hg-popup .fast-like-block .share_button {margin: 0 25px;}
+.like-hg-popup_heart {width:43px;height:41px;background:url(/images/like_heart.png);display: inline-block;*zoom:1;*display:inline;}
+.like-hg-popup_t {
+	margin: 15px 0 20px;
+	font-size: 40px;
+	line-height: 44px;
+	color: #aa82d1;
+}
+.like-hg-popup_row {margin: 20px 0;}
+.like-hg-popup_row-i {
+	display: inline-block;*zoom:1;*display:inline;
+	padding: 1px 4px;
+	color: #6b6b6b;
+	font-size: 15px;
+	background: #fffbc9;
+}
 
 /* start page */
 

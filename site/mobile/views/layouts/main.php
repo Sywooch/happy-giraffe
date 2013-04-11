@@ -2,8 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head title="Весёлый жираф - мобильная версия">
 
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
         <meta content="width=device-width, initial-scale=1.0, user-scalable=yes" name="viewport">
-        <meta content="text/html; charset=utf-8" http-equiv="content-type">
         <meta content="telephone=no" name="format-detection">
         <meta content="176" name="/Optimized">
         <title><?=$this->pageTitle?></title>

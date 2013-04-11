@@ -16,7 +16,7 @@
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
     <meta content="width=device-width, initial-scale=1.0, user-scalable=yes" name="viewport">
-    <meta content="text/html; charset=utf-8" http-equiv="content-type">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta content="telephone=no" name="format-detection">
     <meta content="176" name="/Optimized">
 

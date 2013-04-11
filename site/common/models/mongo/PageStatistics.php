@@ -73,20 +73,24 @@ class PageStatistics extends EMongoDocument
         $this->excel($data);
     }
 
-    public function parseSe(){
-        $criteria = new EMongoCriteria();
-        $criteria->setSort(array('visits', EMongoCriteria::SORT_DESC));
-        $criteria->se_visits('notExists');
-        $criteria->limit(200);
+    public function parseSe()
+    {
+        $criteria = new EMongoCriteria(array(
+            'conditions' => array('se_visits' => array('notExists')),
+            'limit' => 200,
+            'sort' => array('visits' => EMongoCriteria::SORT_DESC),
+        ));
         $pages = $this->model()->findAll($criteria);
+        $i = 1;
         foreach ($pages as $page) {
+            echo $i."\n";
             $url = str_replace('http://happy-giraffe.ru', '', $page->url);
             $url = str_replace('http://www.happy-giraffe.ru', '', $url);
             $page->se_visits = array();
-            echo $url."\n";
             $page->se_visits['2013-02'] = (int)GApi::model()->organicSearches($url, '2013-02-01', '2013-02-28');
             $page->se_visits['2013-03'] = (int)GApi::model()->organicSearches($url, '2013-03-01', '2013-03-31');
             $page->save();
+            $i++;
         }
     }
 

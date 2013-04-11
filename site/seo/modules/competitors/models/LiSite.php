@@ -19,44 +19,51 @@ class LiSite extends HActiveRecord
     const TYPE_LI = 1;
     const TYPE_MAIL = 2;
 
-	/**
-	 * Returns the static model of the specified AR class.
-	 * @param string $className active record class name.
-	 * @return LiSite the static model class
-	 */
-	public static function model($className=__CLASS__)
-	{
-		return parent::model($className);
-	}
+    /**
+     * Returns the static model of the specified AR class.
+     * @param string $className active record class name.
+     * @return LiSite the static model class
+     */
+    public static function model($className = __CLASS__)
+    {
+        return parent::model($className);
+    }
 
-	/**
-	 * @return CDbConnection database connection
-	 */
-	public function getDbConnection()
-	{
-		return Yii::app()->db_seo;
-	}
+    /**
+     * @return CDbConnection database connection
+     */
+    public function getDbConnection()
+    {
+        return Yii::app()->db_seo;
+    }
 
-	/**
-	 * @return string the associated database table name
-	 */
-	public function tableName()
-	{
-		return 'li_sites';
-	}
+    /**
+     * @return string the associated database table name
+     */
+    public function tableName()
+    {
+        return 'li_sites';
+    }
 
-	/**
-	 * @return array validation rules for model attributes.
-	 */
-	public function rules()
-	{
-		return array(
-			array('url, site_url', 'required'),
-			array('visits, public, active', 'numerical', 'integerOnly'=>true),
-			array('url, site_url, password', 'length', 'max'=>100),
+    /**
+     * @return array validation rules for model attributes.
+     */
+    public function rules()
+    {
+        return array(
+            array('url, site_url', 'required'),
+            array('visits, public, active', 'numerical', 'integerOnly' => true),
+            array('url, site_url, password', 'length', 'max' => 100),
 
-		);
-	}
+        );
+    }
+
+    public function relations()
+    {
+        return array(
+            'rubric'=>array(self::BELONGS_TO, 'LiSiteRubric', 'rubric_id')
+        );
+    }
 
     public function attributeLabels()
     {
@@ -79,17 +86,17 @@ class LiSite extends HActiveRecord
         // Warning: Please modify the following code to remove attributes that
         // should not be searched.
 
-        $criteria=new CDbCriteria;
+        $criteria = new CDbCriteria;
 
-        $criteria->compare('id',$this->id,true);
-        $criteria->compare('url',$this->url,true);
-        $criteria->compare('site_url',$this->site_url,true);
-        $criteria->compare('password',$this->password,true);
-        $criteria->compare('public',$this->public);
-        $criteria->compare('active',$this->active);
+        $criteria->compare('id', $this->id, true);
+        $criteria->compare('url', $this->url, true);
+        $criteria->compare('site_url', $this->site_url, true);
+        $criteria->compare('password', $this->password, true);
+        $criteria->compare('public', $this->public);
+        $criteria->compare('active', $this->active);
 
         return new CActiveDataProvider($this, array(
-            'criteria'=>$criteria,
+            'criteria' => $criteria,
             'pagination' => array('pageSize' => 100),
         ));
     }
@@ -110,13 +117,13 @@ class LiSite extends HActiveRecord
                     $li_site->rubric_id = $rubric->id;
                     $li_site->save();
                 }
-            if (empty($cat)){
+            if (empty($cat)) {
                 $li_site->public = 0;
                 $li_site->save();
             }
 
             $i++;
-            echo $i."\n";
+            echo $i . "\n";
         }
     }
 }

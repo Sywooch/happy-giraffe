@@ -89,39 +89,14 @@ class ThreadsController extends HController
      *
      * @param $threadId
      * @param int $offset
-     * @param bool $withInterlocutor
-     * @param null $interlocutorId
      */
-    public function actionGet($threadId, $offset = 0, $withInterlocutor = false, $interlocutorId = null)
+    public function actionGetMessages($threadId, $offset = 0)
     {
         $thread = MessagingThread::model();
         $thread->id = $threadId;
-
         $messages = $thread->getMessages(self::MESSAGES_PER_PAGE, $offset);
 
-        $data = compact('messages');
-
-        if ($withInterlocutor !== false) {
-            if ($interlocutorId === null)
-                $interlocutorId = $thread->getInterlocutorIdFor(Yii::app()->user->id);
-            $interlocutorModel = User::model()->with('avatar')->findByPk($interlocutorId);
-
-            $interlocutor = array(
-                'id' => (int) $interlocutorModel->id,
-                'firstName' => $interlocutorModel->first_name,
-                'lastName' => $interlocutorModel->last_name,
-                'online' => (bool) $interlocutorModel->online,
-                'avatar' => $interlocutorModel->getAva(),
-                'blogPostsCount' => (int) $interlocutorModel->blogPostsCount,
-                'photosCount' => (int) $interlocutorModel->photosCount,
-                'isFriend' => (bool) $interlocutorModel->isFriend(Yii::app()->user->id),
-            );
-
-            $data['interlocutor'] = $interlocutor;
-        }
-
-        $data = CJSON::encode($data);
-
+        $data = CJSON::encode(compact('messages'));
         $this->render('/default/index', compact('data'));
     }
 }

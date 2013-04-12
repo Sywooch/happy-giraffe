@@ -40,6 +40,10 @@ $this->renderPartial('_prev_next', array('data' => $data));
     })(window, document, "yandex_context_callbacks");
 </script>
 
+<?php if ($data->rubric->community->id == 24): ?>
+    <?php $this->renderPartial('/banners/community_24_700x346'); ?>
+<?php endif; ?>
+
 <?php
 
 $this->widget('application.widgets.commentWidget.CommentWidget', array('model' => $data));

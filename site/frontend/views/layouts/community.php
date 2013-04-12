@@ -197,6 +197,10 @@
 
             </div>
 
+            <?php if ($this->community->id == 24): ?>
+                <?php $this->renderPartial('/banners/community_24_240x400'); ?>
+            <?php endif; ?>
+
             <div class="recent-topics">
 
                 <div class="title">Последние темы</div>

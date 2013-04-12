@@ -12,6 +12,7 @@
 
         <?php
             $this->widget('zii.widgets.CListView', array(
+                'cssFile'=>false,
                 'id' => 'recipesList',
                 'dataProvider' => $recipes,
                 'itemView' => '_search_result',

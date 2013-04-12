@@ -8664,10 +8664,10 @@ textarea.error,
   padding-top: 42px;
 }
 #header-new .header-in {
-  background: url(/images/bg_header.gif) repeat-y bottom;
+  background: url(/images/bg_header.png) repeat-y bottom;
 }
 #header-new.guest .header-in {
-  background-image: url(/images/bg_header_guest.gif);
+  background-image: url(/images/bg_header_guest.png);
 }
 #header-new .logo-box {
   float: left;

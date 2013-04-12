@@ -32,4 +32,4 @@ if (document.referrer) document.write ("&amp;referer=" + escape(document.referre
 if (document.context) document.write ("&context=" + escape(document.context));
 if (document.mmm_fo) document.write ("&amp;mmm_fo=1");
 document.write ("'><\/scr"+"ipt>");
-//]]>--></script><noscript><a href='http://openx.happy-giraffe.ru/www/delivery/ck.php?n=a2b35a1f&amp;cb=INSERT_RANDOM_NUMBER_HERE' target='_top'><img src='http://openx.happy-giraffe.ru/www/delivery/avw.php?zoneid=2&amp;cb=INSERT_RANDOM_NUMBER_HERE&amp;n=a2b35a1f' border='0' alt='' /></a></noscript>
+//]]>--></script><noscript><a href='http://openx.happy-giraffe.ru/www/delivery/ck.php?n=a6e2bf33&amp;cb=INSERT_RANDOM_NUMBER_HERE' target='_top'><img src='http://openx.happy-giraffe.ru/www/delivery/avw.php?zoneid=2&amp;cb=INSERT_RANDOM_NUMBER_HERE&amp;n=a6e2bf33' border='0' alt='' /></a></noscript>

@@ -75,7 +75,7 @@ class WordstatCommand extends CConsoleCommand
             $ids = Yii::app()->db_keywords->createCommand()
                 ->select('id')
                 ->from('keywords')
-                ->where('wordstat >= 1000')
+                ->where('wordstat >= 100 AND status IS NULL')
                 ->limit(1000)
                 ->offset($i * 1000)
                 ->queryColumn();

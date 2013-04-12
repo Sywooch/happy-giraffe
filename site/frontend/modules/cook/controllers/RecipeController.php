@@ -340,6 +340,7 @@ class RecipeController extends HController
         $this->pageTitle = 'Поиск рецептов';
         $this->currentType = $type;
         $text = urldecode($text);
+        Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
 
         $this->breadcrumbs = array(
             'Кулинария' => array('/cook'),

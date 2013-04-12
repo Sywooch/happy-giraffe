@@ -100,6 +100,7 @@
 
 
             $this->widget('zii.widgets.CListView', array(
+                'cssFile'=>false,
                 'id' => 'decorlv',
                 'dataProvider' => $dataProvider,
                 'itemView' => '_decoration',

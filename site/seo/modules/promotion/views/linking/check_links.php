@@ -1,11 +1,12 @@
 <div>
     <?php $this->widget('zii.widgets.CListView', array(
-    'dataProvider' => $link->search(),
-    'itemView' => '_link',
-    'sortableAttributes' => array(
-        'title',
-        'create_time' => 'Post Time',
-    ),
+        'cssFile'=>false,
+        'dataProvider' => $link->search(),
+        'itemView' => '_link',
+        'sortableAttributes' => array(
+            'title',
+            'create_time' => 'Post Time',
+        ),
 ));
 
     ?>

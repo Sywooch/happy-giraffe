@@ -8,7 +8,7 @@ $this->renderPartial('_post', array('data' => $data, 'full' => true));
 $this->renderPartial('_prev_next', array('data' => $data));
 ?>
 
-<div class="margin-b30">
+<div style="margin-top: 40px; margin-bottom: 40px;">
     <!-- Яндекс.Директ -->
     <div id="yandex_ad_2"></div>
     <script type="text/javascript">

@@ -198,7 +198,9 @@
             </div>
 
             <?php if ($this->community->id == 24): ?>
-                <?php $this->renderPartial('/banners/community_24_240x400'); ?>
+                <div class="margin-b30">
+                    <?php $this->renderPartial('/banners/community_24_240x400'); ?>
+                </div>
             <?php endif; ?>
 
             <div class="recent-topics">

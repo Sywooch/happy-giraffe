@@ -656,23 +656,6 @@
 }
 .tooltipsy-im {
   position: absolute;
-  padding: 4px 8px;
-  background: #614477;
-  font-size: 12px;
-  line-height: 14px;
-  color: #fff;
-}
-.tooltipsy-im:after {
-  content: "";
-  position: absolute;
-  bottom: -7px;
-  left: 50%;
-  height: 0;
-  width: 0;
-  margin-left: -6px;
-  border: 0 solid transparent;
-  border-width: 7px 6px 0;
-  border-top-color: #614477;
 }
 .im-tooltip-popup {
   display: none;
@@ -764,6 +747,37 @@
 .im-cap_tx {
   margin: 30px 10px 20px;
   color: #898989;
+}
+#tooltipsy-im {
+  display: none;
+  position: absolute;
+  cursor: default;
+  padding: 4px 8px;
+  background: #614477;
+  font-size: 12px;
+  line-height: 14px;
+  color: #fff;
+  white-space: nowrap;
+  z-index: 2147483647;
+}
+#tooltipsy-im:after {
+  content: "";
+  position: absolute;
+  bottom: -7px;
+  left: 50%;
+  height: 0;
+  width: 0;
+  margin-left: -6px;
+  border: 0 solid transparent;
+  border-width: 7px 6px 0;
+  border-top-color: #614477;
+}
+.nw#tooltipsy-im:after {
+  left: auto;
+  right: 1px;
+}
+.ne#tooltipsy-im:after {
+  left: 1px;
 }
 .settings .RadioLabelClass,
 .dialog .CheckBoxLabelClass {

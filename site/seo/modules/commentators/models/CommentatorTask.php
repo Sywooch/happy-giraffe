@@ -161,6 +161,10 @@ class CommentatorTask extends CActiveRecord
         return $user_ids;
     }
 
+    /**
+     * Возвращает список задч в формате удобном для вывода задач у редактора
+     * @return array
+     */
     public static function getTaskListForEditor()
     {
         $tasks = CommentatorTask::model()->findAll(array('limit' => 100, 'order' => 'id desc'));
@@ -180,6 +184,10 @@ class CommentatorTask extends CActiveRecord
         return $task_by_days;
     }
 
+    /**
+     * Возвращает массив с информацией о задаче в формате удобном для передачи в javascript
+     * @return array
+     */
     public function getViewModel()
     {
         list($executors, $non_executors) = $this->getExecutorsLists();
@@ -215,6 +223,9 @@ class CommentatorTask extends CActiveRecord
         return in_array(Yii::app()->user->id, $this->getExecutorsIds());
     }
 
+    /**
+     * Сменить статус задачи в обратную сторону
+     */
     public function toggleStatus()
     {
         if ($this->status == self::STATUS_OPEN)

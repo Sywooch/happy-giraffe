@@ -122,7 +122,7 @@ class WordstatFilter extends WordstatBaseParser
         $status = $this->checkList($list);
 
         //обрабатываем найденные слова только если слово хорошее, чтобы сократить издержки на повторы
-        if ($status != KeywordStatus::STATUS_HIDE) {
+        if ($status != Keyword::STATUS_HIDE) {
             foreach ($list as $value)
                 $this->saveKeywordAsGood($value[0], $value[1]);
 
@@ -143,20 +143,20 @@ class WordstatFilter extends WordstatBaseParser
      */
     protected function checkList($list)
     {
-        $status = KeywordStatus::STATUS_HIDE;
+        $status = Keyword::STATUS_HIDE;
         foreach ($list as $value) {
             $keyword = $value[0];
             if ($this->keyword->keyword->name == $keyword) {
-                $status = KeywordStatus::STATUS_GOOD;
+                $status = Keyword::STATUS_GOOD;
                 $this->log("found\n");
                 break;
             }
         }
 
         if (!empty($list))
-            KeywordStatus::saveStatus($this->keyword->keyword_id, $status);
+            $this->keyword->keyword->saveStatus($status);
         else
-            KeywordStatus::saveStatus($this->keyword->keyword_id, KeywordStatus::STATUS_UNDEFINED);
+            $this->keyword->keyword->saveStatus(Keyword::STATUS_UNDEFINED);
 
         $this->keyword->priority = 0;
         $this->keyword->update(array('priority'));
@@ -175,20 +175,18 @@ class WordstatFilter extends WordstatBaseParser
         $model = Keyword::model()->findByAttributes(array('name' => $keyword));
         if ($model !== null) {
             $this->log("save - $keyword, $wordstat_value \n");
-            //save as good
-            KeywordStatus::saveStatus($model->id, KeywordStatus::STATUS_GOOD);
-            //update wordstat value
+            //save as good and update wordstat value
             $model->wordstat = $wordstat_value;
-            $model->update(array('wordstat'));
+            $model->saveStatus(KeywordStatus::STATUS_GOOD);
             //update ParsingKeyword
             ParsingKeyword::wordstatParsed($model->id);
         } else {
             $model = new Keyword;
             $model->name = $keyword;
             $model->wordstat = $wordstat_value;
+            $model->status = KeywordStatus::STATUS_GOOD;
             try {
                 $model->save();
-                KeywordStatus::saveStatus($model->id, KeywordStatus::STATUS_GOOD);
                 $parsing_model = new ParsingKeyword();
                 $parsing_model->keyword_id = $model->id;
                 $parsing_model->priority = 0;

@@ -23,7 +23,7 @@ var m3_u = (location.protocol=='https:'?'https://openx.happy-giraffe.ru/www/deli
 var m3_r = Math.floor(Math.random()*99999999999);
 if (!document.MAX_used) document.MAX_used = ',';
 document.write ("<scr"+"ipt type='text/javascript' src='"+m3_u);
-document.write ("?zoneid=2");
+document.write ("?zoneid=2&amp;target=_top");
 document.write ('&amp;cb=' + m3_r);
 if (document.MAX_used != ',') document.write ("&amp;exclude=" + document.MAX_used);
 document.write (document.charset ? '&amp;charset='+document.charset : (document.characterSet ? '&amp;charset='+document.characterSet : ''));
@@ -32,4 +32,4 @@ if (document.referrer) document.write ("&amp;referer=" + escape(document.referre
 if (document.context) document.write ("&context=" + escape(document.context));
 if (document.mmm_fo) document.write ("&amp;mmm_fo=1");
 document.write ("'><\/scr"+"ipt>");
-//]]>--></script><noscript><a href='http://openx.happy-giraffe.ru/www/delivery/ck.php?n=ae721f7e&amp;cb=240400' target='_blank'><img src='http://openx.happy-giraffe.ru/www/delivery/avw.php?zoneid=2&amp;cb=240400&amp;n=ae721f7e' border='0' alt='' /></a></noscript>
+//]]>--></script><noscript><a href='http://openx.happy-giraffe.ru/www/delivery/ck.php?n=a2b35a1f&amp;cb=INSERT_RANDOM_NUMBER_HERE' target='_top'><img src='http://openx.happy-giraffe.ru/www/delivery/avw.php?zoneid=2&amp;cb=INSERT_RANDOM_NUMBER_HERE&amp;n=a2b35a1f' border='0' alt='' /></a></noscript>

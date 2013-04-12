@@ -165,12 +165,12 @@ class SeoCommand extends CConsoleCommand
         $criteria->order = 'visits desc';
         $sites = LiSite::model()->findAll($criteria);
         $i = 1;
-        foreach($sites as $site){
+        foreach ($sites as $site) {
             $rows = array(
                 $i,
-                array('http://'.$site->url, $site->url),
+                array('http://' . $site->url, $site->url),
                 $site->rubric->title,
-                ($site->visits*2 - rand(1,3))
+                ($site->visits * 2 - rand(1, 3))
             );
             $i++;
             $data[] = $rows;
@@ -239,6 +239,8 @@ class SeoCommand extends CConsoleCommand
             }
 
             $i++;
+            if ($i % 20 == 0)
+                echo ($i * 10000) . "\n";
         }
     }
 }

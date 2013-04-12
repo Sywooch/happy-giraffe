@@ -84,9 +84,6 @@ class YandexMetrica
 
             foreach ($this->se as $se)
                 $this->parseDataForSE($se, $date);
-
-            SeoUserAttributes::setAttribute('traffic_parsed_date', $date, 1);
-            //echo $date . " parsed\n";
         }
     }
 

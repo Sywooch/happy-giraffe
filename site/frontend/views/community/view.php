@@ -43,7 +43,7 @@ $this->renderPartial('_prev_next', array('data' => $data));
 </div>
 
 <?php if ($data->rubric->community->id == 24): ?>
-    <?php $this->renderPartial('/banners/community_24_700x346'); ?>
+    <?php $this->renderPartial('//banners/community_24_700x346'); ?>
 <?php endif; ?>
 
 <?php

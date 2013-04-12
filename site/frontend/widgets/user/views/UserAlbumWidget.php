@@ -41,7 +41,7 @@ if ($albumsCount > 0){
                     <div class="preview">
                         <?php $index = 1; ?>
                         <?php foreach($album->photos as $photo): ?>
-                            <?= CHtml::link(CHtml::image($photo->getPreviewUrl(180, 180), '', array('class' => 'img-' . $index)), $photo->url); ?>
+                            <?= CHtml::link(CHtml::image($photo->getPreviewUrl(168, 144), '', array('class' => 'img-' . $index)), $photo->url); ?>
                             <?php $index++; ?>
                         <?php endforeach; ?>
                     </div>

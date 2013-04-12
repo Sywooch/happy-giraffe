@@ -31,6 +31,8 @@ class YandexMetrica
             $last_date = $date;
         }
 
+        echo $last_date."\n";
+
         return $dates;
     }
 

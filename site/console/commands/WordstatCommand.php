@@ -81,6 +81,7 @@ class WordstatCommand extends CConsoleCommand
                     ->offset($i * 1000)
                     ->queryColumn();
 
+                if (!empty($ids))
                 Yii::app()->db_keywords->createCommand()->update('parsing_keywords', array('priority' => 201),
                     'keyword_id IN (' . implode(',', $ids) . ')');
 

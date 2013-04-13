@@ -178,14 +178,14 @@ class WordstatFilter extends WordstatBaseParser
             $this->log("save - $keyword, $wordstat_value \n");
             //save as good and update wordstat value
             $model->wordstat = $wordstat_value;
-            $model->saveStatus(KeywordStatus::STATUS_GOOD);
+            $model->saveStatus(Keyword::STATUS_GOOD);
             //update ParsingKeyword
             ParsingKeyword::wordstatParsed($model->id);
         } else {
             $model = new Keyword;
             $model->name = $keyword;
             $model->wordstat = $wordstat_value;
-            $model->status = KeywordStatus::STATUS_GOOD;
+            $model->status = Keyword::STATUS_GOOD;
             try {
                 $model->save();
                 $parsing_model = new ParsingKeyword();

@@ -25,7 +25,7 @@ class SeoCommand extends CConsoleCommand
     public function actionWordstat($thread_id = 0)
     {
         $parser = new WordstatFilter($thread_id);
-        $parser->start(true);
+        $parser->start();
     }
 
     public function actionProxy()

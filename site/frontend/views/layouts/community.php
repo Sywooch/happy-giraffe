@@ -203,6 +203,12 @@
                 </div>
             <?php endif; ?>
 
+            <?php if (in_array($this->community->id, array(1, 2))): ?>
+                <div style="margin-bottom: 40px;">
+                    <?php $this->renderPartial('//banners/community_1+2_240x400'); ?>
+                </div>
+            <?php endif; ?>
+
             <div class="recent-topics">
 
                 <div class="title">Последние темы</div>

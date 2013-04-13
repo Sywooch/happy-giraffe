@@ -74,7 +74,7 @@
                 </ul>
 
                 <div class="banner-box">
-                    <?php $this->renderPartial('//_banner'); ?>
+                    <?php $this->renderPartial('//banners/cooking'); ?>
                 </div>
 
             </div>

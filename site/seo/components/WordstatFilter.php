@@ -31,6 +31,8 @@ class WordstatFilter extends WordstatBaseParser
 
         $fail_count = 0;
         while (true) {
+            $this->getKeyword();
+
             $success = false;
             while (!$success) {
                 $success = $this->parseQuery();
@@ -85,7 +87,6 @@ class WordstatFilter extends WordstatBaseParser
      */
     protected function parseQuery()
     {
-        $this->getKeyword();
         $t = urlencode($this->queryModify->prepareQuery($this->keyword->keyword->name));
 
         $page = 'http://wordstat.yandex.ru/?cmd=words&page=1&t=' . $t . '&geo=&text_geo=';

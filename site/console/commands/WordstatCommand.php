@@ -70,22 +70,24 @@ class WordstatCommand extends CConsoleCommand
 
     public function actionFixPriority($i = 0)
     {
-        $ids = 1;
-        while (!empty($ids)) {
-            $ids = Yii::app()->db_keywords->createCommand()
-                ->select('id')
-                ->from('keywords')
-                ->where('wordstat >= 1000')
-                ->limit(1000)
-                ->offset($i * 1000)
-                ->queryColumn();
+        for ($i = 0; $i < 515; $i++) {
+            $ids = 1;
+            $j = 0;
+            while (!empty($ids)) {
+                $ids = Yii::app()->db_keywords->createCommand()
+                    ->select('id')
+                    ->from('keywords')
+                    ->where('wordstat >= 100 AND status IS NULL AND id >= '.($i*1000000).' AND id <'.(($i+1)*1000000))
+                    ->limit(1000)
+                    ->offset($j * 1000)
+                    ->queryColumn();
 
-            Yii::app()->db_keywords->createCommand()->update('parsing_keywords', array('priority' => 201),
-                'keyword_id IN (' . implode(',', $ids) . ')');
-
-            $i++;
-//            if ($i % 10 == 0)
-//                echo $i . "\n";
+                if (!empty($ids))
+                Yii::app()->db_keywords->createCommand()->update('parsing_keywords', array('priority' => 201),
+                    'keyword_id IN (' . implode(',', $ids) . ')');
+                $j++;
+            }
+            echo $i . "\n";
         }
     }
 
@@ -147,7 +149,8 @@ class WordstatCommand extends CConsoleCommand
         echo $model['value'];
     }
 
-    public function actionTest(){
+    public function actionTest()
+    {
         $k = 'купить выпрямитель для волос профессиональный';
         $start_time = microtime(true);
         echo 1000 * (microtime(true) - $start_time) . "\n";

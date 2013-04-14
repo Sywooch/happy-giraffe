@@ -19,6 +19,7 @@ class MessagingModule extends CWebModule
             ->registerScriptFile('/javascripts/im.js')
             ->registerScriptFile('/ckeditor/ckeditor.js')
             ->registerScriptFile('/javascripts/knockout.mapping-latest.js')
+            ->registerScriptFile('/javascripts/jquery.powertip.js')
         ;
 	}
 

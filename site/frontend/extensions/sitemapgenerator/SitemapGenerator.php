@@ -544,8 +544,11 @@ XMLINDEX;
 			$xmlurl->addChild('lastmod',$this->formatDatetime($params['lastmod']));
 			$xmlurl->addChild('changefreq',$params['changefreq']);
 			$xmlurl->addChild('priority',$params['priority']);
-			$images = $xmlurl->addChild('image:image', null, 'image');
-            $images->addChild('image:loc', $params['image:image']['image:loc'], 'image');
+
+            if (array_key_exists('image:image', $params)) {
+			    $images = $xmlurl->addChild('image:image', null, 'image');
+                $images->addChild('image:loc', $params['image:image']['image:loc'], 'image');
+            }
 			++$this->_url_counter;
 		} catch (Exception $e) {
 			self::logExceptionError($e);

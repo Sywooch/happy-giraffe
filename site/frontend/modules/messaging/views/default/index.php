@@ -65,7 +65,7 @@
                             <img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg">
                         </a>
                         <div class="im-user-settings_user">
-                            <a href="" class="textdec-onhover" data-bind="text: interlocutor.firstName() + ' ' + interlocutor.lastName()"></a>
+                            <a href="" class="textdec-onhover"></a>
                             <div class="im-user-settings_online-status">На сайте</div>
                         </div>
                         <div class="user-fast-buttons">

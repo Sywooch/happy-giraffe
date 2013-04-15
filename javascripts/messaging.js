@@ -1,5 +1,18 @@
 function Interlocutor(data) {
-    self = ko.mapping.fromJS(data);
+    var self = this;
+
+    self.id = ko.observable(data.id);
+    self.firstName = ko.observable(data.firstName);
+    self.lastName = ko.observable(data.lastName);
+    self.online = ko.observable(data.online);
+    self.avatar = ko.observable(data.avatar);
+    self.blogPostsCount = ko.observable(data.blogPostsCount);
+    self.photosCount = ko.observable(data.photosCount);
+    self.isFriend = ko.observable(data.isFriend);
+
+    self.fullName = ko.computed(function() {
+        return self.firstName() + ' ' + self.lastName();
+    }, this);
 }
 
 function MessagingViewModel(data) {
@@ -9,8 +22,8 @@ function MessagingViewModel(data) {
     self.searchQuery = ko.observable('');
     self.contacts = ko.mapping.fromJS(data.contacts);
 
-    self.openContact = ko.observable();
-    self.interlocutor = ko.observable();
+    self.openContact = ko.observable('');
+    self.interlocutor = ko.observable(new Interlocutor({}));
 
     self.changeHiddenStatus = function(contact) {
         var newHiddenStatus = contact.thread.hidden() ? 0 : 1;
@@ -29,26 +42,27 @@ function MessagingViewModel(data) {
 
     self.openThread = function(contact) {
         self.openContact(contact);
-        $.get('/messaging/interlocutors/get/', { interlocutorId : 22 }, function(response) {
+
+        $.get('/messaging/interlocutors/get/', { interlocutorId : contact.user.id() }, function(response) {
             self.interlocutor(new Interlocutor(response.interlocutor));
         }, 'json');
     }
 
     self.allContacts = ko.computed(function() {
         return ko.utils.arrayFilter(self.contacts(), function(contact) {
-            return typeof(contact.thread) == 'object';
+            return typeof(contact.thread) == 'object' || contact.user.id() == data.interlocutorId;
         });
     }, this);
 
     self.newContacts = ko.computed(function() {
-        return ko.utils.arrayFilter(self.allContacts(), function(contact) {
-            return contact.thread.unreadCount() > 0;
+        return ko.utils.arrayFilter(self.contacts(), function(contact) {
+            return typeof(contact.thread) == 'object' && contact.thread.unreadCount() > 0;
         });
     }, this);
 
     self.onlineContacts = ko.computed(function() {
-        return ko.utils.arrayFilter(self.allContacts(), function(contact) {
-            return contact.user.online();
+        return ko.utils.arrayFilter(self.contacts(), function(contact) {
+            return typeof(contact.thread) == 'object' && contact.user.online();
         });
     }, this);
 
@@ -114,5 +128,13 @@ function MessagingViewModel(data) {
         self.tab(tab);
     }
 
-    self.openThread(self.visibleContactsToShow()[0]);
+    self.findByInterlocutorId = function(interlocutorId) {
+        return ko.utils.arrayFirst(self.contacts(), function(contact) {
+            return contact.user.id() == interlocutorId;
+        });
+    }
+
+    self.openThread(data.interlocutorId == null ? self.visibleContactsToShow()[0] : self.findByInterlocutorId(data.interlocutorId));
+
+    console.log(self.contactsToShow().length);
 }

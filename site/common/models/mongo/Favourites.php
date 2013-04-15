@@ -20,6 +20,10 @@ class Favourites extends EMongoDocument
     public $date;
     public $created;
 
+    /**
+     * @param string $className
+     * @return Favourites
+     */
     public static function model($className = __CLASS__)
     {
         return parent::model($className);
@@ -129,6 +133,8 @@ class Favourites extends EMongoDocument
     public static function getArticlesByDate($index, $date, $limit = null)
     {
         $ids = self::getIdListByDate($index, $date);
+        if (empty($ids))
+            return array();
         $criteria = new CDbCriteria;
         $criteria->limit = $limit;
         $criteria->with = array(
@@ -154,6 +160,11 @@ class Favourites extends EMongoDocument
         }
 
         return $sorted_models;
+    }
+
+    public function getWeekPosts()
+    {
+        return $this->getArticlesByDate(self::WEEKLY_MAIL, date("Y-m-d"));
     }
 
     /**

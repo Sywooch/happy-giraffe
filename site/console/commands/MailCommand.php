@@ -25,7 +25,8 @@ class MailCommand extends CConsoleCommand
         }
 
         $articles = Favourites::model()->getWeekPosts();
-        if (count($articles) < 6)
+        echo count($articles)."\n";
+        if (count($articles) != 6)
             Yii::app()->end();
         $contents = $this->renderFile(Yii::getPathOfAlias('site.common.tpl.weeklyNews') . '.php', array('models' => $articles), true);
 

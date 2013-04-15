@@ -119,12 +119,12 @@ class MessagingMessage extends CActiveRecord
         ));
     }
 
-    public function create($text, $threadId)
+    public function create($text, $threadId, $authorId)
     {
         $thread = MessagingThread::model()->with('threadUsers')->findByPk($threadId);
 
         $message = new MessagingMessage();
-        $message->author_id = Yii::app()->user->id;
+        $message->author_id = $authorId;
         $message->thread_id = $threadId;
         $message->text = $text;
         $messageUsers = array();

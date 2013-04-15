@@ -57,4 +57,10 @@ class DefaultController extends HController
             $thread->withRelated->save(true, array('threadUsers'));
         }
     }
+
+    public function actionTest2()
+    {
+        for ($i = 0; $i < 100; $i++)
+            MessagingMessage::model()->create('как дела', 1113, $i % 2 == 0 ? 22 : 12936);
+    }
 }

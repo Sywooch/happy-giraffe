@@ -61,17 +61,17 @@
                     </div>
                     <div class="im-user-settings clearfix">
                         <div class="im-user-settings_online-status-small"></div>
-                        <a class="ava female" href="">
-                            <img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg">
+                        <a class="ava" data-bind="attr : { href : '/user/' + interlocutor().id() + '/' }">
+                            <img alt="" data-bind="attr : { src : interlocutor().avatar() }">
                         </a>
                         <div class="im-user-settings_user">
-                            <a href="" class="textdec-onhover"></a>
-                            <div class="im-user-settings_online-status">На сайте</div>
+                            <a class="textdec-onhover" data-bind="attr : { href : '/user/' + interlocutor().id() + '/' }, text: interlocutor().fullName()"></a>
+                            <div class="im-user-settings_online-status" data-bind="visible: interlocutor().online()">На сайте</div>
                         </div>
                         <div class="user-fast-buttons">
-                            <a href="">Анкета</a>
-                            <a href="">Блог</a><sup class="count">9999</sup>
-                            <a href="">Фото</a><sup class="count">999</sup>
+                            <a data-bind="attr : { href : '/user/' + interlocutor().id() + '/' }">Анкета</a>
+                            <a data-bind="attr : { href : '/user/' + interlocutor().id() + '/blog/' }">Блог</a><sup class="count" data-bind="text: interlocutor().blogPostsCount()"></sup>
+                            <a data-bind="attr : { href : '/user/' + interlocutor().id() + '/albums/' }">Фото</a><sup class="count" data-bind="text: interlocutor().photosCount()"></sup>
                         </div>
                     </div>
                     <a href="" class="im_toggle"></a>

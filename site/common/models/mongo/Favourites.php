@@ -133,6 +133,8 @@ class Favourites extends EMongoDocument
     public static function getArticlesByDate($index, $date, $limit = null)
     {
         $ids = self::getIdListByDate($index, $date);
+        if (empty($ids))
+            return array();
         $criteria = new CDbCriteria;
         $criteria->limit = $limit;
         $criteria->with = array(

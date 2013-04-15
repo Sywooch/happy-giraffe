@@ -422,14 +422,16 @@ http://www.happy-giraffe.ru/user/15322/blog/post32252/';
 размножение драцены';
         $words = explode("\n", $words);
         foreach ($words as $word) {
-            $keyword = Keyword::model()->findByAttributes(array('word' => trim($word)));
+            $keyword = Keyword::model()->findByAttributes(array('name' => trim($word)));
             if ($keyword !== null) {
-                $sum = Yii::app()->db->createCommand()
+                $sum = Yii::app()->db_seo->createCommand()
                     ->select('sum(visits)')
                     ->from('queries')
                     ->where('keyword_id = :keyword_id AND date >= :date_from AND date < :date_to',
                         array(':keyword_id' => $keyword->id, ':date_from' => '2013-03-01', ':date_to' => '2013-04-01'))
                     ->queryScalar();
+                if (empty($sum))
+                    $sum = 0;
                 echo $sum."\n";
             } else {
                 echo "0\n";

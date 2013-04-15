@@ -56,7 +56,7 @@ class PromotionCommand extends CConsoleCommand
 
         $criteria = new EMongoCriteria();
         $criteria->addCond('strict_wordstat', '==', null);
-        $pages = PagePromotion::model()->findAll();
+        $pages = PagePromotion::model()->findAll($criteria);
         foreach ($pages as $page) {
             $keyword = Keyword::model()->findByPk($page->keyword_id);
             $page->strict_wordstat = $worker->parseWordstat($keyword, true);
@@ -76,15 +76,17 @@ class PromotionCommand extends CConsoleCommand
         }
     }
 
-    public function actionTraffic()
+    public function actionViews()
     {
         Yii::import('site.frontend.helpers.*');
-        $pages = PagePromotion::model()->findAll();
+        $criteria = new EMongoCriteria();
+        $criteria->addCond('views', '==', null);
+        $pages = PagePromotion::model()->findAll($criteria);
         foreach ($pages as $page) {
             $url = str_replace('http://www.happy-giraffe.ru', '', $page->url);
-            $page->se_traffic = GApi::model()->organicSearches($url, '2012-01-01', '2013-04-12', false);
+            $page->views = GApi::model()->uniquePageViews($url, '2011-01-01', '2013-04-12', false);
             echo $url . ' - ' . $page->views . "\n";
-            $page->save();
+            $page->update(array('views'));
         }
     }
 

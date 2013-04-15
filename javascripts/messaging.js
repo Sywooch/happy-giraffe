@@ -1,18 +1,33 @@
 function Interlocutor(data) {
     var self = this;
 
-    self.id = ko.observable(data.id);
-    self.firstName = ko.observable(data.firstName);
-    self.lastName = ko.observable(data.lastName);
-    self.online = ko.observable(data.online);
-    self.avatar = ko.observable(data.avatar);
+    self.user = new User(data.user);
     self.blogPostsCount = ko.observable(data.blogPostsCount);
     self.photosCount = ko.observable(data.photosCount);
-    self.isFriend = ko.observable(data.isFriend);
+}
+
+function User(data) {
+    var self = this;
+
+    ko.mapping.fromJS(data, {}, self);
 
     self.fullName = ko.computed(function() {
         return self.firstName() + ' ' + self.lastName();
     }, this);
+
+    self.avatarClass = ko.computed(function() {
+        return self.gender() == 0 ? 'female' : 'male';
+    }, this);
+}
+
+function Message(data, parent) {
+    var self = this;
+
+    ko.mapping.fromJS(data, {}, self);
+
+    self.author = ko.computed(function() {
+        return self.author_id() == parent.me.id() ? parent.me : parent.interlocutor().user;
+    });
 }
 
 function MessagingViewModel(data) {
@@ -21,9 +36,11 @@ function MessagingViewModel(data) {
     self.tab = ko.observable(0);
     self.searchQuery = ko.observable('');
     self.contacts = ko.mapping.fromJS(data.contacts);
-
+    self.messages = ko.mapping.fromJS([]);
     self.openContact = ko.observable('');
-    self.interlocutor = ko.observable(new Interlocutor({}));
+    self.interlocutor = ko.observable('');
+    self.me = new User(data.me);
+    self.loading = ko.observable(false);
 
     self.changeHiddenStatus = function(contact) {
         var newHiddenStatus = contact.thread.hidden() ? 0 : 1;
@@ -45,6 +62,16 @@ function MessagingViewModel(data) {
 
         $.get('/messaging/interlocutors/get/', { interlocutorId : contact.user.id() }, function(response) {
             self.interlocutor(new Interlocutor(response.interlocutor));
+        }, 'json');
+
+        $.get('/messaging/threads/getMessages', { threadId : contact.thread.id() }, function(response) {
+            ko.mapping.fromJS(response, {
+                'messages': {
+                    create: function(options) {
+                        return new Message(options.data, self);
+                    }
+                }
+            }, self);
         }, 'json');
     }
 
@@ -124,6 +151,12 @@ function MessagingViewModel(data) {
         });
     });
 
+    self.messagesToShow = ko.computed(function() {
+        return self.messages().sort(function(l, r) {
+            return l.id() == r.id() ? 0 : (l.id() > r.id() ? 1 : -1);
+        });
+    });
+
     self.changeTab = function(tab) {
         self.tab(tab);
     }
@@ -134,7 +167,47 @@ function MessagingViewModel(data) {
         });
     }
 
+    self.preload = function() {
+        self.loading(true);
+        $.get('/messaging/threads/getMessages', { threadId : self.openContact().thread.id, offset: self.messages().length }, function(response) {
+            ko.mapping.fromJS(response, {
+                'messages': {
+                    create: function(options) {
+                        self.messages.push(new Message(options.data, self));
+                    }
+                }
+            });
+            self.loading(false);
+        }, 'json');
+    }
+
+    self.sendMessage = function() {
+        var data = {}
+        data.interlocutorId = self.interlocutor().user.id();
+        data.text = CKEDITOR.instances['im-editor'].getData();
+        if (typeof(self.openContact().thread) == 'object')
+            data.threadId = self.openContact().thread.id();
+
+        $.post('/messaging/messages/send/', data, function(response) {
+            self.messages.push(new Message(response.message, self));
+            CKEDITOR.instances['im-editor'].setData('');
+            if (typeof(self.openContact().thread) != 'object') {
+                console.log(response.thread);
+                self.openContact().thread = ko.mapping.fromJS(response.thread);
+            }
+        }, 'json');
+    }
+
     self.openThread(data.interlocutorId == null ? self.visibleContactsToShow()[0] : self.findByInterlocutorId(data.interlocutorId));
 
-    console.log(self.contactsToShow().length);
+    $(function() {
+        var container = $('.layout-container');
+
+        container.scroll(function() {
+            var scrollBottom = container.prop('scrollHeight') - container.scrollTop() - container.height();
+
+            if (self.loading() === false && scrollBottom < 100)
+                self.preload();
+        });
+    });
 }

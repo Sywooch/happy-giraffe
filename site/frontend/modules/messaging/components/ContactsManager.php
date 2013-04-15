@@ -42,6 +42,7 @@ class ContactsManager
                 u.id AS uId, # ID собеседника
                 u.first_name, # Имя собеседника
                 u.last_name, # Фамилия собеседника
+                u.gender, # Пол собеседника
                 u.online, # Онлайн-статус собеседника
                 t.id AS tId, # ID Диалога
                 tu2.hidden, # Видимость диалога
@@ -103,8 +104,9 @@ class ContactsManager
         return array(
             'user' => array(
                 'id' => (int) $row['uId'],
-                'first_name' => $row['first_name'],
-                'last_name' => $row['last_name'],
+                'firstName' => $row['first_name'],
+                'lastName' => $row['last_name'],
+                'gender' => $row['gender'],
                 'avatar' => $avatarModel->populateRecord(array(
                     'author_id' => $row['uId'],
                     'fs_name' => $row['fs_name'],

@@ -24,8 +24,9 @@ class DefaultController extends HController
                 $contact = array(
                     'user' => array(
                         'id' => (int) $interlocutor->id,
-                        'first_name' => $interlocutor->first_name,
-                        'last_name' => $interlocutor->last_name,
+                        'firstName' => $interlocutor->first_name,
+                        'lastName' => $interlocutor->last_name,
+                        'gender' => $interlocutor->gender,
                         'avatar' => $interlocutor->getAva('small'),
                         'online' => (bool) $interlocutor->online,
                         'isFriend' => (bool) $interlocutor->isFriend(Yii::app()->user->id),
@@ -40,10 +41,10 @@ class DefaultController extends HController
             'id' => (int) Yii::app()->user->model->id,
             'firstName' => Yii::app()->user->model->first_name,
             'lastName' => Yii::app()->user->model->last_name,
+            'gender' => (bool) Yii::app()->user->model->gender,
             'avatar' => Yii::app()->user->model->getAva('small'),
             'online' => (bool) Yii::app()->user->model->online,
             'isFriend' => null,
-            'gender' => (bool) Yii::app()->user->model->gender,
         );
 
         $data = CJSON::encode(compact('contacts', 'interlocutorId', 'me'));

@@ -132,16 +132,16 @@
 <script type="text/html" id="contact-template">
     <div class="im-user-list_i" data-bind="click: $root.openThread, css: { active : $data == $root.openContact() }">
         <div class="im-user-settings clearfix">
-            <div class="im-user-settings_online-status-small" data-bind="css: { 'im-user-settings_online-status-small__offline' : ! user.online() }"></div>
+            <div class="im-user-settings_online-status-small" data-bind="css: { 'im-user-settings_online-status-small__offline' : ! user().online() }"></div>
             <a class="ava female" href="">
-                <img alt="" data-bind="attr: { src: user.avatar }">
+                <img alt="" data-bind="attr: { src: user().avatar }">
             </a>
             <div class="im-user-settings_user">
-                <a data-bind="text: user.first_name() + ' ' + user.last_name()"></a>
+                <a data-bind="text: user().fullName()"></a>
             </div>
         </div>
-        <div class="im_watch im-tooltipsy" title="Скрыть диалог" data-bind="visible: typeof(thread) == 'object', click: $root.changeHiddenStatus"></div>
-        <div class="im_count im-tooltipsy" title="Отметить как прочитанное" data-bind="visible: typeof(thread) == 'object', click: $root.changeReadStatus, text: typeof(thread) == 'object' ? thread.unreadCount() : '', css: { 'im_count__read' : typeof(thread) == 'object' && thread.unreadCount() == 0 }"></div>
+        <div class="im_watch im-tooltipsy" title="Скрыть диалог" data-bind="visible: thread() != null, click: $root.changeHiddenStatus"></div>
+        <div class="im_count im-tooltipsy" title="Отметить как прочитанное" data-bind="visible: thread() != null, click: $root.changeReadStatus, text: thread() != null ? thread().unreadCount() : '', css: { 'im_count__read' : thread() != null && thread().unreadCount() == 0 }"></div>
     </div>
 </script>
 

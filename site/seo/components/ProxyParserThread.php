@@ -29,23 +29,15 @@ class ProxyParserThread
     private $_start_time = null;
     private $_time_stamp_title = '';
 
-    function __construct($thread_id)
+    function __construct()
     {
         time_nanosleep(rand(0, 30), rand(0, 1000000000));
         Yii::import('site.frontend.extensions.phpQuery.phpQuery');
-        $this->thread_id = $thread_id;
+        $this->thread_id = rand(1, 1000000);
         $this->getProxy();
     }
 
-    private function getProxy2()
-    {
-        $criteria = new CDbCriteria;
-        $criteria->condition = 'id % 645 = ' . $this->thread_id;
-        $criteria->order = 'rank desc';
-        $this->proxy = Proxy::model()->find($criteria);
-    }
-
-    private function getProxy()
+    protected function getProxy()
     {
         $this->startTimer('find proxy');
 
@@ -221,7 +213,7 @@ class ProxyParserThread
         if ($this->debug) {
             echo $state . "\n";
         } else {
-            if ($important){
+            if ($important) {
                 $fh = fopen($dir = Yii::getPathOfAlias('application.runtime') . DIRECTORY_SEPARATOR . 'my_log.txt', 'a');
                 fwrite($fh, $state . "\n");
             }

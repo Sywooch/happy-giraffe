@@ -160,13 +160,16 @@ class MessagingThread extends CActiveRecord
               m.text, UNIX_TIMESTAMP(m.created) AS created, mu.read
             FROM messaging__messages m
             JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.user_id != m.author_id
+            WHERE m.thread_id = :thread_id
+            ORDER BY m.id DESC
             LIMIT :limit
             OFFSET :offset
         ";
 
         $command = Yii::app()->db->createCommand($sql);
-        $command->bindValue(':limit', $limit, PDO::PARAM_INT);
-        $command->bindValue(':offset', $offset, PDO::PARAM_INT);
+        $command->bindValue(':limit', (int) $limit, PDO::PARAM_INT);
+        $command->bindValue(':offset', (int) $offset, PDO::PARAM_INT);
+        $command->bindValue(':thread_id', $this->id, PDO::PARAM_INT);
         $rows = $command->queryAll();
 
         $messages = array();

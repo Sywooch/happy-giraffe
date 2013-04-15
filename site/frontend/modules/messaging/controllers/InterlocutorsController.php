@@ -12,14 +12,17 @@ class InterlocutorsController extends HController
     {
         $interlocutorModel = User::model()->with('avatar')->findByPk($interlocutorId);
         $interlocutor = array(
-            'id' => (int) $interlocutorModel->id,
-            'firstName' => $interlocutorModel->first_name,
-            'lastName' => $interlocutorModel->last_name,
-            'online' => (bool) $interlocutorModel->online,
-            'avatar' => $interlocutorModel->getAva(),
+            'user' => array(
+                'id' => (int) $interlocutorModel->id,
+                'firstName' => $interlocutorModel->first_name,
+                'lastName' => $interlocutorModel->last_name,
+                'avatar' => $interlocutorModel->getAva(),
+                'online' => (bool) $interlocutorModel->online,
+                'isFriend' => (bool) $interlocutorModel->isFriend(Yii::app()->user->id),
+                'gender' => (bool) $interlocutorModel->gender,
+            ),
             'blogPostsCount' => (int) $interlocutorModel->blogPostsCount,
             'photosCount' => (int) $interlocutorModel->photosCount,
-            'isFriend' => (bool) $interlocutorModel->isFriend(Yii::app()->user->id),
         );
 
         echo CJSON::encode(compact('interlocutor'));

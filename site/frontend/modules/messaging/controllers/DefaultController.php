@@ -35,7 +35,18 @@ class DefaultController extends HController
                 $contacts[] = $contact;
             }
         }
-        $data = CJSON::encode(compact('contacts', 'interlocutorId'));
+
+        $me = array(
+            'id' => (int) Yii::app()->user->model->id,
+            'firstName' => Yii::app()->user->model->first_name,
+            'lastName' => Yii::app()->user->model->last_name,
+            'avatar' => Yii::app()->user->model->getAva('small'),
+            'online' => (bool) Yii::app()->user->model->online,
+            'isFriend' => null,
+            'gender' => (bool) Yii::app()->user->model->gender,
+        );
+
+        $data = CJSON::encode(compact('contacts', 'interlocutorId', 'me'));
         $this->render('index', compact('data'));
     }
 
@@ -60,7 +71,9 @@ class DefaultController extends HController
 
     public function actionTest2()
     {
-        for ($i = 0; $i < 100; $i++)
-            MessagingMessage::model()->create('как дела', 1113, $i % 2 == 0 ? 22 : 12936);
+        for ($i = 0; $i < 40; $i++) {
+            MessagingMessage::model()->create(time(), 1113, $i % 2 == 0 ? 22 : 12936);
+            sleep(1);
+        }
     }
 }

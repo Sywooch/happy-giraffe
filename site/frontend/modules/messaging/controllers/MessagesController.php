@@ -34,22 +34,22 @@ class MessagesController extends HController
         if ($threadId === null) {
             $thread = MessagingThread::model()->createThreadWith($interlocutorId);
             $threadId = $thread->id;
-            $data['thread'] = array(
+            $_thread = array(
                 'id' => $thread->id,
                 'updated' => time(),
                 'unreadCount' => 0,
                 'hidden' => false,
             );
         }
-
         $message = MessagingMessage::model()->create($text, $threadId, Yii::app()->user->id);
-        $data['message'] = array(
+        $_message = array(
             'id' => (int) $message->id,
             'author_id' => (int) $message->author_id,
             'text' => $message->text,
             'created' => Yii::app()->dateFormatter->format("d MMMM yyyy, H:mm", time()),
             'read' => false,
         );
+        $data['time'] = time();
 
         echo CJSON::encode($data);
     }

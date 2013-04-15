@@ -72,9 +72,8 @@ class DefaultController extends HController
 
     public function actionTest2()
     {
-        for ($i = 0; $i < 40; $i++) {
-            MessagingMessage::model()->create(time(), 1113, $i % 2 == 0 ? 22 : 12936);
-            sleep(1);
+        for ($i = 0; $i < 41; $i++) {
+            MessagingMessage::model()->create(time(), 1131, $i % 2 == 0 ? 22 : 12936);
         }
     }
 }

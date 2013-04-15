@@ -130,7 +130,7 @@
 </div>
 
 <script type="text/html" id="contact-template">
-    <div class="im-user-list_i" data-bind="click: $root.openThread, css: { active : $data == $root.openContact() }">
+    <div class="im-user-list_i" data-bind="click: $root.openThread, css: { active : $root.contacts().indexOf($data) == $root.openContactIndex() }">
         <div class="im-user-settings clearfix">
             <div class="im-user-settings_online-status-small" data-bind="css: { 'im-user-settings_online-status-small__offline' : ! user().online() }"></div>
             <a class="ava female" href="">

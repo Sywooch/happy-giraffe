@@ -131,7 +131,7 @@ class MessagingMessage extends CActiveRecord
         foreach ($thread->threadUsers as $threadUser) {
             $messageUser = new MessagingMessageUser();
             $messageUser->user_id = $threadUser->user_id;
-            if (Yii::app()->user->id != $threadUser->user_id)
+            if ($authorId != $threadUser->user_id)
                 $messageUser->read = 0;
             $messageUsers[] = $messageUser;
         }

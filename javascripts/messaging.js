@@ -20,6 +20,19 @@ function User(data) {
     }, this);
 }
 
+function Thread(data) {
+    var self = this;
+
+    ko.mapping.fromJS(data, {}, self);
+}
+
+function Contact(data) {
+    var self = this;
+
+    self.user = ko.observable(new User(data.user));
+    self.thread = ko.observable(data.thread == null? null : new Thread(data.thread));
+}
+
 function Message(data, parent) {
     var self = this;
 
@@ -35,7 +48,7 @@ function MessagingViewModel(data) {
 
     self.tab = ko.observable(0);
     self.searchQuery = ko.observable('');
-    self.contacts = ko.mapping.fromJS(data.contacts);
+    self.contacts = ko.observableArray([]);
     self.messages = ko.mapping.fromJS([]);
     self.openContact = ko.observable('');
     self.interlocutor = ko.observable('');
@@ -60,11 +73,11 @@ function MessagingViewModel(data) {
     self.openThread = function(contact) {
         self.openContact(contact);
 
-        $.get('/messaging/interlocutors/get/', { interlocutorId : contact.user.id() }, function(response) {
+        $.get('/messaging/interlocutors/get/', { interlocutorId : contact.user().id() }, function(response) {
             self.interlocutor(new Interlocutor(response.interlocutor));
         }, 'json');
 
-        $.get('/messaging/threads/getMessages', { threadId : contact.thread.id() }, function(response) {
+        $.get('/messaging/threads/getMessages', { threadId : contact.thread().id() }, function(response) {
             ko.mapping.fromJS(response, {
                 'messages': {
                     create: function(options) {
@@ -77,25 +90,25 @@ function MessagingViewModel(data) {
 
     self.allContacts = ko.computed(function() {
         return ko.utils.arrayFilter(self.contacts(), function(contact) {
-            return typeof(contact.thread) == 'object' || contact.user.id() == data.interlocutorId;
+            return contact.thread() != null || contact.user().id() == data.interlocutorId;
         });
     }, this);
 
     self.newContacts = ko.computed(function() {
         return ko.utils.arrayFilter(self.contacts(), function(contact) {
-            return typeof(contact.thread) == 'object' && contact.thread.unreadCount() > 0;
+            return contact.thread() != null && contact.thread().unreadCount() > 0;
         });
     }, this);
 
     self.onlineContacts = ko.computed(function() {
         return ko.utils.arrayFilter(self.contacts(), function(contact) {
-            return typeof(contact.thread) == 'object' && contact.user.online();
+            return contact.thread() != null && contact.user().online();
         });
     }, this);
 
     self.friendsContacts = ko.computed(function() {
         return ko.utils.arrayFilter(self.contacts(), function(contact) {
-            return contact.user.isFriend();
+            return contact.user().isFriend();
         });
     }, this);
 
@@ -116,16 +129,16 @@ function MessagingViewModel(data) {
         }
 
         contacts.sort(function(l, r) {
-            if (typeof(l.thread) == 'object' && typeof(r.thread) == 'object')
-                return l.thread.updated() == r.thread.updated() ? 0 : (l.thread.updated() > r.thread.updated() ? -1 : 1);
+            if (l.thread() !== null && r.thread() !== null)
+                return l.thread().updated() == r.thread().updated() ? 0 : (l.thread().updated() > r.thread().updated() ? -1 : 1);
 
-            if (typeof(l.thread) != 'object' && typeof(r.thread) != 'object')
+            if (l.thread() === null && r.thread() === null)
                 return 0;
 
-            if (typeof(l.thread) == 'object' && typeof(r.thread) != 'object')
+            if (l.thread() !== null && r.thread() === null)
                 return -1;
 
-            if (typeof(l.thread) != 'object' && typeof(r.thread) == 'object')
+            if (l.thread() === null && r.thread() !== null)
                 return 1;
         });
 
@@ -192,13 +205,22 @@ function MessagingViewModel(data) {
             self.messages.push(new Message(response.message, self));
             CKEDITOR.instances['im-editor'].setData('');
             if (typeof(self.openContact().thread) != 'object') {
+                console.log(self.openContact());
                 console.log(response.thread);
-                self.openContact().thread = ko.mapping.fromJS(response.thread);
+                self.openContact().thread(response.thread);
+                self.openContact().user.first_name('123');
+                console.log(self.openContact());
+                console.log(self.friendsContacts());
             }
         }, 'json');
     }
 
-    self.openThread(data.interlocutorId == null ? self.visibleContactsToShow()[0] : self.findByInterlocutorId(data.interlocutorId));
+    ko.utils.arrayForEach(data.contacts, function(contact) {
+        self.contacts.push(new Contact(contact));
+    });
+//    console.log(self.contacts());
+
+//    self.openThread(data.interlocutorId == null ? self.visibleContactsToShow()[0] : self.findByInterlocutorId(data.interlocutorId));
 
     $(function() {
         var container = $('.layout-container');

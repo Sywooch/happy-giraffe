@@ -210,6 +210,19 @@ class WordstatQueryModify
         return '"' . implode(' ', $result_words) . '"';
     }
 
+    /**
+     * Подготовим запрос для получения значения поискового трафика по неточному совпадению фразы (в кавычках)
+     * вид результата - "word word"
+     * @param $q
+     * @return string
+     */
+    public function prepareQuotesQuery($q)
+    {
+        $q = $this->prepareForSave($q);
+
+        return '"' . $q . '"';
+    }
+
     private function startsWith($haystack, $needle)
     {
         return !strncmp($haystack, $needle, strlen($needle));

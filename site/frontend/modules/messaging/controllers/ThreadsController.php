@@ -96,7 +96,7 @@ class ThreadsController extends HController
         $thread->id = $threadId;
         $messages = $thread->getMessages(self::MESSAGES_PER_PAGE, $offset);
 
-        $data = CJSON::encode(compact('messages'));
-        $this->render('/default/index', compact('data'));
+        $data = compact('messages');
+        echo CJSON::encode($data);
     }
 }

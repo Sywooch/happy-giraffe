@@ -42,7 +42,7 @@ class MessagesController extends HController
             );
         }
 
-        $message = MessagingMessage::model()->create($text, $threadId);
+        $message = MessagingMessage::model()->create($text, $threadId, Yii::app()->user->id);
         $data['message'] = array(
             'id' => (int) $message->id,
             'author_id' => (int) $message->author_id,
@@ -51,8 +51,6 @@ class MessagesController extends HController
             'read' => false,
         );
 
-        $comet = new CometModel();
-        $comet->send($interlocutorId, $data);
         echo CJSON::encode($data);
     }
 }

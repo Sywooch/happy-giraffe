@@ -155,12 +155,16 @@ class MessagingThread extends CActiveRecord
     {
         $sql = "
             SELECT
-              m.id,
-              m.author_id,
-              m.text, UNIX_TIMESTAMP(m.created) AS created, mu.read
+                m.id,
+                m.author_id,
+                m.text,
+                UNIX_TIMESTAMP(m.created) AS created,
+                mu.deleted,
+                mu2.read
             FROM messaging__messages m
-            JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.user_id != m.author_id
-            WHERE m.thread_id = :thread_id
+            JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.user_id = m.author_id
+            JOIN messaging__messages_users mu2 ON m.id = mu2.message_id AND mu2.user_id != m.author_id
+            WHERE m.thread_id = :thread_id AND mu.deleted = 0
             ORDER BY m.id DESC
             LIMIT :limit
             OFFSET :offset
@@ -218,5 +222,22 @@ class MessagingThread extends CActiveRecord
         $result = $thread->withRelated->save(true, array('threadUsers'));
 
         return ($result) ? $thread : false;
+    }
+
+    public function deleteMessagesFor($userId)
+    {
+        $sql = "
+            UPDATE messaging__messages_users mu
+            JOIN messaging__messages m ON mu.message_id = m.id
+            SET deleted = 1
+            WHERE mu.user_id = :user_id AND m.thread_id = :thread_id
+        ";
+
+        $command = Yii::app()->db->createCommand($sql);
+
+        return $command->execute(array(
+            ':thread_id' => $this->id,
+            ':user_id' => $userId,
+        ));
     }
 }

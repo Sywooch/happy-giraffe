@@ -27,4 +27,13 @@ class InterlocutorsController extends HController
 
         echo CJSON::encode(compact('interlocutor'));
     }
+
+    public function actionTyping()
+    {
+        $interlocutorId = Yii::app()->request->getPost('interlocutorId');
+        $typingStatus = (bool) Yii::app()->request->getPost('typingStatus');
+
+        $comet = new CometModel();
+        $comet->send($interlocutorId, compact('typingStatus'), CometModel::MESSAGING_INTERLOCUTOR_TYPING);
+    }
 }

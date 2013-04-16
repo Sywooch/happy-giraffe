@@ -14,12 +14,13 @@ class MessagingModule extends CWebModule
 		));
 
         Yii::app()->clientScript
-            ->registerScriptFile('/javascripts/im.js')
             ->registerScriptFile('/javascripts/knockout-2.2.1.js')
-            ->registerScriptFile('/javascripts/messaging.js')
-            ->registerScriptFile('/ckeditor/ckeditor.js')
             ->registerScriptFile('/javascripts/knockout.mapping-latest.js')
+            ->registerScriptFile('/javascripts/soundmanager2.js')
             ->registerScriptFile('/javascripts/jquery.powertip.js')
+            ->registerScriptFile('/ckeditor/ckeditor.js')
+            ->registerScriptFile('/javascripts/im.js')
+            ->registerScriptFile('/javascripts/messaging.js')
         ;
 	}
 

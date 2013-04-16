@@ -2,7 +2,7 @@
 
 class ThreadsController extends HController
 {
-    const MESSAGES_PER_PAGE = 20;
+    const MESSAGES_PER_PAGE = 10;
 
     public function filters()
     {
@@ -98,5 +98,20 @@ class ThreadsController extends HController
 
         $data = compact('messages');
         echo CJSON::encode($data);
+    }
+
+    public function actionDeleteMessages()
+    {
+        $threadId = Yii::app()->request->getPost('threadId');
+
+        $thread = MessagingThread::model();
+        $thread->id = $threadId;
+
+        $thread->deleteMessagesFor(Yii::app()->user->id);
+
+        $response = array(
+            'success' => true,
+        );
+        echo CJSON::encode($response);
     }
 }

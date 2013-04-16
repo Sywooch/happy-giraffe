@@ -20,13 +20,13 @@
 
             <div class="im-center_top">
                 <div class="im-tabs">
-                    <a href="" class="im_sound active im-tooltipsy" title="Включить звуковые <br>оповещения" data-bind="click: function(data, event) { changeTab(0, data, event) }"></a>
+                    <a href="javascript:void(0)" class="im_sound im-tooltipsy" title="Включить звуковые <br>оповещения" data-bind="click: toggleSoundSetting, css: { active : soundSetting }"></a>
                     <div class="im-tabs_i" data-bind="css: { active : tab() == 0 }"><a href="javascript:void(0)" class="im-tabs_a" data-bind="click: function(data, event) { changeTab(0, data, event) }">Все</a></div>
                     <div class="im-tabs_i" data-bind="css: { active : tab() == 1 }"><a href="javascript:void(0)" class="im-tabs_a" data-bind="click: function(data, event) { changeTab(1, data, event) }">Новые <span class="im_count" data-bind="text: newContacts().length"></span> </a></div>
                     <div class="im-tabs_i" data-bind="css: { active : tab() == 2 }"><a href="javascript:void(0)" class="im-tabs_a" data-bind="click: function(data, event) { changeTab(2, data, event) }, text: 'Кто в онлайн (' + onlineContacts().length + ')'"></a></div>
                     <div class="im-tabs_i" data-bind="css: { active : tab() == 3 }"><a href="javascript:void(0)" class="im-tabs_a" data-bind="click: function(data, event) { changeTab(3, data, event) }, text: 'Друзья на сайте (' + friendsContacts().length + ')'"></a></div>
                 </div>
-                <div class="im-panel im-panel__big">
+                <div class="im-panel" data-bind="css: { 'im-panel__big' : interlocutorExpandedSetting }">
                     <div class="im-panel-icons">
                         <div class="im-panel-icons_i">
                             <a href="" class="im-panel-icons_i-a im-tooltipsy" title="Добавить в друзья">
@@ -53,7 +53,7 @@
                             </div>
                         </div>
                         <div class="im-panel-icons_i">
-                            <a href="" class="im-panel-icons_i-a im-tooltipsy" title="Удалить весь диалог">
+                            <a href="javascript:void(0)" class="im-panel-icons_i-a im-tooltipsy" title="Удалить весь диалог" data-bind="click: openContact().thread().deleteMessages">
                                 <span class="im-panel-ico im-panel-ico__del"></span>
                                 <span class="im-panel-icons_desc">Удалить <br> весь диалог</span>
                             </a>
@@ -74,7 +74,7 @@
                             <a href="javascript:void(0)" data-bind="visible: interlocutor().photosCount() > 0, attr : { href : '/user/' + interlocutor().user.id() + '/albums/' }">Фото</a><sup class="count" data-bind="visible: interlocutor().photosCount() > 0, text: interlocutor().photosCount()"></sup>
                         </div>
                     </div>
-                    <a href="" class="im_toggle"></a>
+                    <span class="im_toggle" data-bind="click: toggleinterlocutorExpandedSetting"></span>
                 </div>
             </div>
 
@@ -82,7 +82,7 @@
                 <div class="im-center_middle-hold">
 
                     <div class="im-center_middle-w">
-                        <div class="im_message-loader" data-bind="visible: loading()">
+                        <div class="im_message-loader" data-bind="visible: loadingMessages()">
                             <img src="/images/ico/ajax-loader.gif" alt="">
                             <span class="im-message-loader_tx">Загрузка ранних сообщений</span>
                         </div>
@@ -91,12 +91,12 @@
 
                         <!-- /ko -->
 
-                        <div class="im_message-loader" data-bind="visible: false">
+                        <div class="im_message-loader" data-bind="visible: sendingMessage()">
                             <img src="/images/ico/ajax-loader.gif" alt="">
                             <span class="im-message-loader_tx">Отправляем сообщение</span>
                         </div>
-                        <div class="im_message-loader" data-bind="visible: false">
-                            <span class="im-message-loader_tx">Олег печатает вам сообщение</span>
+                        <div class="im_message-loader" data-bind="if: interlocutor() != '', visible: interlocutorTyping()">
+                            <span class="im-message-loader_tx" data-bind="text: interlocutor().user.firstName() + ' печатает вам сообщение'"></span>
                             <img src="/images/im/im_message-write-loader.png" alt="" class="im_message-loader-anim">
                         </div>
                         <div class="im_message-loader" data-bind="visible: false">
@@ -114,13 +114,13 @@
                             <textarea cols="40" id="im-editor" name="im-editor" rows="3" autofocus></textarea>
                             <div class="im-editor-b_control">
                                 <div class="im-editor-b_key">
-                                    <input type="checkbox" name="" id="im-editor-b_key-checkbox" class="im-editor-b_key-checkbox">
+                                    <input type="checkbox" name="" id="im-editor-b_key-checkbox" class="im-editor-b_key-checkbox" data-bind="checked: enterSetting">
                                     <label for="im-editor-b_key-checkbox" class="im-editor-b_key-label">Enter - отправить</label>
                                 </div>
                                 <button class="btn-green" data-bind="click: sendMessage">Отправить</button>
                             </div>
                         </div>
-                        <a href="" class="im_toggle"></a>
+                        <span class="im_toggle"></span>
                     </div>
                 </div>
             </div>
@@ -187,7 +187,7 @@
                 </div>
             </div>
             <div class="im-message_icons-i">
-                <a href="" class="im-message_ico im-message_ico__del im-tooltipsy" title="Удалить"></a>
+                <a href="javascript:void(0)" class="im-message_ico im-message_ico__del im-tooltipsy" title="Удалить" data-bind="click: $data.delete"></a>
             </div>
         </div>
         <a class="ava small" href="javascript:void(0)" data-bind="css: author().avatarClass()">

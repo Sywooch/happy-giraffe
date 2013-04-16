@@ -158,7 +158,7 @@ class CAMQP extends CApplicationComponent
     public function exchange($name)
     {
         Yii::trace('Get instance of  CAMQPExchange with name:' . $name, 'CEXT.CAMQP.exchange');
-        return new CAMQPExchange($this->client);
+        return new CAMQPExchange($this->client, $name);
     }
 
     /**

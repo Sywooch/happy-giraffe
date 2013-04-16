@@ -77,14 +77,14 @@ class WordstatCommand extends CConsoleCommand
                 $ids = Yii::app()->db_keywords->createCommand()
                     ->select('id')
                     ->from('keywords')
-                    ->where('wordstat >= 100 AND status IS NULL AND id >= '.($i*1000000).' AND id <'.(($i+1)*1000000))
+                    ->where('wordstat >= 100 AND status IS NULL AND id >= ' . ($i * 1000000) . ' AND id <' . (($i + 1) * 1000000))
                     ->limit(1000)
                     ->offset($j * 1000)
                     ->queryColumn();
 
                 if (!empty($ids))
-                Yii::app()->db_keywords->createCommand()->update('parsing_keywords', array('priority' => 201),
-                    'keyword_id IN (' . implode(',', $ids) . ')');
+                    Yii::app()->db_keywords->createCommand()->update('parsing_keywords', array('priority' => 201),
+                        'keyword_id IN (' . implode(',', $ids) . ')');
                 $j++;
             }
             echo $i . "\n";
@@ -153,8 +153,10 @@ class WordstatCommand extends CConsoleCommand
     {
         $exchange = 'main';
         $route_key = 'main';
-        $text = 'hello world';
-        Yii::app()->amqp->sender($text, $route_key, $exchange);
+        for ($i = 0; $i < 10; $i++) {
+            $text = 'hello world' . rand(1, 1000000);
+            Yii::app()->amqp->sender($text, $route_key, $exchange);
+        }
     }
 
     public function actionGetTask()

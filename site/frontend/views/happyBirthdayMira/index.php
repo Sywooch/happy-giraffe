@@ -41,7 +41,6 @@
             <a href="bossbirthday-step2" class="bossbirthday_next js-bossbirthday-step btn-green btn-h46">Далее</a>
             <input type="checkbox" name="" class="bossbirthday_checkbox" id="bossbirthday_checkbox1">
             <label for="bossbirthday_checkbox1" class="bossbirthday_label"></label>
-            <a href="bossbirthday-start" class="bossbirthday_back js-bossbirthday-step"></a>
         </div>
     </div>
 

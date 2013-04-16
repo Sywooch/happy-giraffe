@@ -15,15 +15,14 @@ class CGearmanClient extends CApplicationComponent{
      */
     public function init()
     {
-        $this->client = new GearmanClient();
-        $this->client->addServer();
-
         parent::init();
     }
 
     public function sender($text)
     {
-        $this->client->addTask("reverse", $text, null, "1");
+        $this->client = new GearmanClient();
+        $this->client->addServer();
+        $this->client->doBackground("reverse", serialize($text));
     }
 
     public function receiver()
@@ -36,7 +35,7 @@ class CGearmanClient extends CApplicationComponent{
 
     public function processMessage($job)
     {
+        echo $job->unique;
         return strrev($job->workload());
     }
-
 }

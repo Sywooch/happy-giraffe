@@ -167,6 +167,12 @@ class WordstatCommand extends CConsoleCommand
 //        Yii::app()->amqp->receiver($exchange, $route_key, $queue_name);
 //    }
 
+    public function actionPutTask()
+    {
+        $text = 'hello world' . rand(1, 1000000);
+        Yii::app()->gearman->sender($text);
+    }
+
     public function actionGetTask()
     {
         Yii::app()->gearman->receiver();

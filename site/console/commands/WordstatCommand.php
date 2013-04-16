@@ -179,7 +179,7 @@ class WordstatCommand extends CConsoleCommand
         while (Yii::app()->gearman->worker()->work()) ;
     }
 
-    private function processMessage($job)
+    public function processMessage($job)
     {
         echo $job->workload();
         sleep(3);

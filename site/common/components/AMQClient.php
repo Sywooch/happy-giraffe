@@ -67,6 +67,7 @@ class AMQClient extends CApplicationComponent{
     public function processMessage($message, $queue)
     {
         echo "Message : " . $message->getBody() . "\n";
+        sleep(1);
         $queue->ack($message->getDeliveryTag());
     }
 

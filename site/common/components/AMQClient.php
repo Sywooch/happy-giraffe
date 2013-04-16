@@ -64,7 +64,7 @@ class AMQClient extends CApplicationComponent{
         $this->queue->consume(array($this, 'processMessage'));
     }
 
-    private function processMessage($envelope, $queue)
+    public function processMessage($envelope, $queue)
     {
         echo "Message : " . $envelope->getBody() . "\n";
     }

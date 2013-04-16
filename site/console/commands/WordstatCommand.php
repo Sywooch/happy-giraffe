@@ -151,11 +151,17 @@ class WordstatCommand extends CConsoleCommand
 
     public function actionPutTask()
     {
-        Yii::app()->amqp->put('some.route', 'some message');
+        $exchange = '';
+        $route_key = 'main';
+        $text = 'hello world';
+        Yii::app()->amqp->sender($text, $route_key, $exchange);
     }
 
     public function actionGetTask()
     {
-        Yii::app()->amqp->get('some.route');
+        $exchange = '';
+        $route_key = 'main';
+        $queue_name = 'q1';
+        Yii::app()->amqp->receiver($exchange, $route_key, $queue_name);
     }
 }

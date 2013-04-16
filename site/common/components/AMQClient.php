@@ -41,20 +41,23 @@ class AMQClient extends CApplicationComponent{
         parent::init();
     }
 
-    public function put($text, $route_key)
+    public function sender($text, $route_key, $exchange)
     {
         if ($this->exchange === null){
             $this->exchange = new AMQPExchange($this->channel);
+            $this->exchange->declare($exchange);
+
         }
         $this->exchange->publish($text, $route_key);
     }
 
-    public function get($route_key)
+    public function receiver($exchange, $route_key, $queue_name)
     {
         if ($this->queue === null){
             $this->queue = new AMQPQueue($this->channel);
-            $this->queue->setName('myqueue');
+            $this->queue->setName($queue_name);
             $this->queue->declare();
+            $this->queue->bind($exchange, $route_key);
         }
         $this->queue->consume(array($this, 'processMessage'));
     }

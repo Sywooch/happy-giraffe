@@ -45,7 +45,7 @@ class AMQClient extends CApplicationComponent{
     {
         if ($this->exchange === null){
             $this->exchange = new AMQPExchange($this->channel);
-            $this->exchange->declare($exchange);
+            $this->exchange->declare();
 
         }
         $this->exchange->publish($text, $route_key);

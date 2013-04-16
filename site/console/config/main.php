@@ -29,7 +29,7 @@ return array(
             'host'  => 'localhost'
         ),
         'gearman' => array(
-            'class' => 'site.common.components.CGearmanClient',
+            'class' => 'site.common.components.Gearman',
         ),
         'request' => array(
             'hostInfo' => 'http://www.happy-giraffe.ru',

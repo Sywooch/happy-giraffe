@@ -30,6 +30,7 @@ return array(
         ),
         'gearman' => array(
             'class' => 'site.common.components.Gearman',
+            'servers'=>array(),
         ),
         'request' => array(
             'hostInfo' => 'http://www.happy-giraffe.ru',

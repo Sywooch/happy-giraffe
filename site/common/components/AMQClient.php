@@ -15,6 +15,8 @@ class AMQClient extends CApplicationComponent{
 
     protected $client = null;
     protected $channel = null;
+    protected $queue = null;
+    protected $exchange = null;
 
 
     /**
@@ -39,73 +41,16 @@ class AMQClient extends CApplicationComponent{
         parent::init();
     }
 
-    /**
-     * @brief Declares a new Exchange on the broker
-     * @param $name
-     * @param $flags
-     */
-    public function declareExchange($name, $type = AMQP_EX_TYPE_DIRECT, $flags = NULL)
+    public function put($text, $route_key)
     {
-        $ex = new AMQPExchange($this->channel);
-        return $ex->declare($name, $type, $flags);
+        $this->exchange = new AMQPExchange($this->channel);
+        $this->exchange->publish($text, $route_key);
     }
 
-    /**
-     * @brief Declares a new Queue on the broker
-     * @param $name
-     * @param $flags
-     */
-    public function declareQueue($name, $flags = NULL)
+    public function get($queue)
     {
-        $queue = new AMQPQueue($this->channel);
-        return $queue->declare($name, $flags);
-    }
+        $this->queue = new AMQPQueue($this->channel);
 
-    /**
-     * @brief
-     * @details Returns an instance of CAMQPExchange for exchange a queue is bind
-     * @param $exchange
-     * @param $queue
-     * @param $routingKey
-     */
-    public function bindExchangeToQueue($exchange, $queue, $routingKey = "")
-    {
-        $exchange = $this->exchange($exchange);
-        $exchange->bind($queue, $routingKey);
-        return $exchange;
-    }
-
-    /**
-     * @brief Binds a queue to specified exchange
-     * @details Returns an instance of CAMQPQueue for queue an exchange is bind
-     * @param $queue
-     * @param $exchange
-     * @param $routingKey
-     */
-    public function bindQueueToExchange($queue, $exchange, $routingKey = "")
-    {
-        $queue = $this->queue($queue);
-        $queue->bind($exchange, $routingKey);
-        return $queue;
-    }
-
-    /**
-     * @brief Get exchange by name
-     * @return  object AMQPExchange
-     */
-    public function exchange()
-    {
-        return new AMQPExchange($this->channel);
-    }
-
-    /**
-     * @brief Get queue by name
-     * @param $name  name of exchange
-     * @return  object AMQPQueue
-     */
-    public function queue($name)
-    {
-        return new AMQPQueue($this->client, $name);
     }
 
     /**

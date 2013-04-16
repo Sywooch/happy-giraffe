@@ -40,7 +40,7 @@
 			<div id="bossbirthday-start" class="bossbirthday" style="display:block;">
 				<div class="bossbirthday_t">Коллектив Веселого Жирафа поздравляет своего шефа с Днём рождения!</div>
 				<div class="bossbirthday_fact bossbirthday_fact__big">
-					<p>Крепкого здоровья — чтобы хватило на всё; <br>Много денег — чтобы хватило на всех; <br>и исполнения всех желаний, чтобы <br>освободить место для новых!
+					<p>Крепкого здоровья — чтобы хватило на всё; <br>Много денег — чтобы хватило на всех; <br>И исполнения всех желаний, чтобы <br>освободить место для новых!
 					<img src="/images/bossbirthday/bossbirthday1.jpg" alt="">
 					</p>
 					<!-- Может без указания времени -->
@@ -58,7 +58,7 @@
 					<img src="/images/bossbirthday/bossbirthday_compare1.jpg" alt="">
 				</div>
 				<div class="bossbirthday_fact">
-					<p>Жираф по латыни cameleopard (camel+leopard), потому что он большой как верблюд и пятнистый как леопард. Имя Мира характеризует своего владельца как мирного человека, стремящегося объять весь мир.</p>
+					<p>Жираф по латыни cameleopard (camel+leopard), потому что он большой, как верблюд и пятнистый, как леопард. Имя Мира характеризует своего владельца как мирного человека, стремящегося объять весь мир.</p>
 					<div class="bossbirthday_desc">- Анастасия,</div>
 				</div>
 				<div class="bossbirthday_row">
@@ -90,7 +90,7 @@
 					<img src="/images/bossbirthday/bossbirthday_compare3.jpg" alt="">
 				</div>
 				<div class="bossbirthday_fact">
-					<p>У жирафа самое большое сердце, а у Миры — самое объёмное, в него легко помещаются заботы своих родных и близких, текущих и будущих проектах и множестве сотрудниках.</p>
+					<p>У жирафа самое большое сердце, а у Миры — самое объёмное, в него легко помещаются заботы о своих родных и близких, текущих и будущих проектах, и множестве сотрудниках.</p>
 					<div class="bossbirthday_desc">- Александр,</div>
 				</div>
 				<div class="bossbirthday_row">

@@ -20,6 +20,8 @@ return array(
         'site.common.helpers.*',
         'site.frontend.extensions.image.Image',
         'site.frontend.extensions.phpQuery.phpQuery',
+        'site.common.components.AMQP.*',
+        'site.common.components.AMQP.fake.*',
     ),
     'components' => array(
         'amqp' => array(

@@ -226,6 +226,8 @@
 
 </div>
 
+<div class="footer-push"></div>
+
 <script type="text/javascript">
     $(function(){
         $('.js-bossbirthday-step').click(function(e){

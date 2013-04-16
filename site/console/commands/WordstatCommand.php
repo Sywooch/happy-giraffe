@@ -183,6 +183,6 @@ class WordstatCommand extends CConsoleCommand
     {
         echo $job->workload();
         sleep(3);
-        $job->sendComplete();
+        $job->sendComplete('good');
     }
 }

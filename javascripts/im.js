@@ -65,7 +65,6 @@ im.scrollIm = function (){
     }
 }
 
-
 /* im - instant messeger for user */
 $(window).load(function() {
     im.container = $('.layout-container');
@@ -90,7 +89,7 @@ $(window).load(function() {
 
     im.holdHeights ();
     /* Прокручивание в конец страницы */
-    im.container.scrollTop(im.container.height());
+    im.container.scrollTop($('.layout-container_hold').height());
 
     /* Высота sidebar списка собеседников */
     im.sidebarHeight(0);

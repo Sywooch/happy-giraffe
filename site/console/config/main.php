@@ -25,7 +25,7 @@ return array(
     ),
     'components' => array(
         'amqp' => array(
-            'class' => 'site.common.components.AMQP.CAMQP',
+            'class' => 'site.common.components.AMQClient',
             'host'  => 'localhost'
         ),
         'request' => array(

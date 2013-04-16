@@ -149,21 +149,26 @@ class WordstatCommand extends CConsoleCommand
         echo $model['value'];
     }
 
-    public function actionPutTask()
-    {
-        $exchange = 'main';
-        $route_key = 'main';
-        for ($i = 0; $i < 10; $i++) {
-            $text = 'hello world' . rand(1, 1000000);
-            Yii::app()->amqp->sender($text, $route_key, $exchange);
-        }
-    }
+//    public function actionPutTask()
+//    {
+//        $exchange = 'main';
+//        $route_key = 'main';
+//        for ($i = 0; $i < 10; $i++) {
+//            $text = 'hello world' . rand(1, 1000000);
+//            Yii::app()->amqp->sender($text, $route_key, $exchange);
+//        }
+//    }
+//
+//    public function actionGetTask()
+//    {
+//        $exchange = 'main';
+//        $route_key = 'main';
+//        $queue_name = 'q1';
+//        Yii::app()->amqp->receiver($exchange, $route_key, $queue_name);
+//    }
 
     public function actionGetTask()
     {
-        $exchange = 'main';
-        $route_key = 'main';
-        $queue_name = 'q1';
-        Yii::app()->amqp->receiver($exchange, $route_key, $queue_name);
+        Yii::app()->amqp->receiver();
     }
 }

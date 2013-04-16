@@ -28,6 +28,9 @@ return array(
             'class' => 'site.common.components.AMQClient',
             'host'  => 'localhost'
         ),
+        'gearman' => array(
+            'class' => 'site.common.components.GearmanClient',
+        ),
         'request' => array(
             'hostInfo' => 'http://www.happy-giraffe.ru',
             'baseUrl' => '',

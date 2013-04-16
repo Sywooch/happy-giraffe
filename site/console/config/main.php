@@ -22,6 +22,10 @@ return array(
         'site.frontend.extensions.phpQuery.phpQuery',
     ),
     'components' => array(
+        'amqp' => array(
+            'class' => 'site.common.components.AMQP.CAMQP',
+            'host'  => 'localhost'
+        ),
         'request' => array(
             'hostInfo' => 'http://www.happy-giraffe.ru',
             'baseUrl' => '',

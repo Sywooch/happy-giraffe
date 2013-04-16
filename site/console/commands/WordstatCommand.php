@@ -151,8 +151,6 @@ class WordstatCommand extends CConsoleCommand
 
     public function actionTest()
     {
-        $k = 'купить выпрямитель для волос профессиональный';
-        $start_time = microtime(true);
-        echo 1000 * (microtime(true) - $start_time) . "\n";
+        Yii::app()->amqp->exchange('simple_parsing')->publish('some message','some.route');
     }
 }

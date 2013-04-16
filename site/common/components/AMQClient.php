@@ -14,6 +14,8 @@ class AMQClient extends CApplicationComponent{
     public $password  = 'guest';
 
     protected $client = null;
+    protected $channel = null;
+
 
     /**
      * @brief Initialize component.
@@ -32,6 +34,7 @@ class AMQClient extends CApplicationComponent{
         if (method_exists($this->client, 'connect')&&$this->client->isConnected()==false)
             $this->client->connect();
 
+        $this->channel = new AMQPChannel($this->client);
 
         parent::init();
     }
@@ -43,7 +46,7 @@ class AMQClient extends CApplicationComponent{
      */
     public function declareExchange($name, $type = AMQP_EX_TYPE_DIRECT, $flags = NULL)
     {
-        $ex = new AMQPExchange($this->client);
+        $ex = new AMQPExchange($this->channel);
         return $ex->declare($name, $type, $flags);
     }
 
@@ -54,7 +57,7 @@ class AMQClient extends CApplicationComponent{
      */
     public function declareQueue($name, $flags = NULL)
     {
-        $queue = new AMQPQueue($this->client);
+        $queue = new AMQPQueue($this->channel);
         return $queue->declare($name, $flags);
     }
 
@@ -88,12 +91,11 @@ class AMQClient extends CApplicationComponent{
 
     /**
      * @brief Get exchange by name
-     * @param $name  name of exchange
      * @return  object AMQPExchange
      */
-    public function exchange($name)
+    public function exchange()
     {
-        return new AMQPExchange($this->client, $name);
+        return new AMQPExchange($this->channel);
     }
 
     /**

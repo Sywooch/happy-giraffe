@@ -7,7 +7,6 @@
 
 class Gearman extends CApplicationComponent
 {
-
     public $servers;
     protected $client;
     protected $worker;
@@ -42,21 +41,5 @@ class Gearman extends CApplicationComponent
             $this->worker = $this->setServers(new GearmanWorker());
 
         return $this->worker;
-    }
-
-    public function sender($text)
-    {
-        $this->client()->doBackground("reverse", serialize($text));
-    }
-
-    public function receiver()
-    {
-        $this->worker()->addFunction("reverse", array($this, "processMessage"));
-        while ($this->worker()->work()) ;
-    }
-
-    public function processMessage($job)
-    {
-        echo $job->workload();
     }
 }

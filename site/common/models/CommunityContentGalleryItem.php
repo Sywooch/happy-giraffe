@@ -30,7 +30,7 @@ class CommunityContentGalleryItem extends CActiveRecord
 		return array(
 			array('gallery_id, photo_id', 'required'),
 			array('gallery_id, photo_id', 'length', 'max'=>10),
-			array('description', 'length', 'max'=>200),
+			array('description', 'length', 'max'=>1000),
 		);
 	}
 

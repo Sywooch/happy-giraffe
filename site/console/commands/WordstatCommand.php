@@ -156,6 +156,6 @@ class WordstatCommand extends CConsoleCommand
 
     public function actionGetTask()
     {
-
+        Yii::app()->amqp->get('some.route');
     }
 }

@@ -63,12 +63,12 @@ class SeoParsingCommand extends CConsoleCommand
                 $sites = Site::model()->findAll('type = 1 AND url != ""');
 
             foreach ($sites as $site) {
-                $parser->start($site->id, 2013, 3, 3);
+                $parser->start($site->id, 2013, 3, 4);
                 SeoUserAttributes::setAttribute('last_li_parsed_'.date("Y-m") , $site->id, 1);
             }
         } else {
             $parser = new LiParser();
-            $parser->start($site, 2013, 1, 2);
+            $parser->start($site, 2013, 3, 4);
         }
     }
 

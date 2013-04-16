@@ -173,6 +173,7 @@
 </div>
     <?php endif ?>
 
+<?php if (! $this->tempLayout): ?>
 <div id="footer" class="layout-footer clearfix">
 
     <div class="a-right">
@@ -185,6 +186,7 @@
     </div>
 
 </div>
+<?php endif; ?>
 </div>
 </div>
 

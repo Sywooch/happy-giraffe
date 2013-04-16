@@ -33,7 +33,7 @@
                 </div>
 
             </div>
-
+<?php if (! $this->tempLayout): ?>
             <div class="nav">
                 <ul class="width-2 clearfix">
                     <?php if (false): ?>
@@ -307,12 +307,13 @@
                     </li>
                 </ul>
             </div>
+<?php endif; ?>
 
         </div>
 
     </div>
 
-    <div id="content" class="layout-content clearfix">
+    <div id="content" class="layout-content<?php if (! $this->tempLayout): ?> clearfix<?php endif; ?>">
         <?php
             $this->widget('zii.widgets.CBreadcrumbs', array(
                 'links' => $this->breadcrumbs,
@@ -333,6 +334,8 @@
     <?php endif; ?>
 
     <a href="#layout" id="btn-up-page"></a>
+<?php if (! $this->tempLayout): ?>
     <div class="push"></div>
+<?php endif; ?>
 
 <?php $this->endContent(); ?>

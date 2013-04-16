@@ -379,3 +379,27 @@ LEFT OUTER JOIN album__photos p ON u.avatar_id = p.id
 # Условие для корректной работы связывание с таблицей участников диалога
 WHERE tu.user_id IS NULL OR (tu.user_id IS NOT NULL AND tu2.user_id IS NOT NULL)
 GROUP BY u.id;
+
+SELECT
+    m.id,
+    m.author_id,
+    m.text,
+    UNIX_TIMESTAMP(m.created) AS created,
+    mu.read,
+    mu2.deleted
+FROM messaging__messages m
+JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.user_id != m.author_id
+JOIN messaging__messages_users mu2 ON m.id = mu2.message_id AND mu2.user_id = m.author_id
+WHERE m.thread_id = 1110 AND mu2.deleted = 0
+
+SELECT
+    m.id,
+    m.author_id,
+    m.text,
+    UNIX_TIMESTAMP(m.created) AS created,
+    mu.deleted,
+    mu2.read
+FROM messaging__messages m
+JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.user_id = m.author_id
+JOIN messaging__messages_users mu2 ON m.id = mu2.message_id AND mu2.user_id != m.author_id
+WHERE m.thread_id = 1110 AND mu.deleted = 0;

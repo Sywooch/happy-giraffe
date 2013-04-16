@@ -149,8 +149,13 @@ class WordstatCommand extends CConsoleCommand
         echo $model['value'];
     }
 
-    public function actionTest()
+    public function putTask()
     {
-        Yii::app()->amqp->exchange('simple_parsing')->publish('some message','some.route');
+        Yii::app()->amqp->put('some.route', 'some message');
+    }
+
+    public function getTask()
+    {
+
     }
 }

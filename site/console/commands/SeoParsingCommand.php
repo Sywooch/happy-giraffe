@@ -84,12 +84,12 @@ class SeoParsingCommand extends CConsoleCommand
                 $sites = Site::model()->findAll('type=2');
 
             foreach ($sites as $site) {
-                $parser->start($site->id, 2013, 1, 1);
+                $parser->start($site->id, 2013, 2, 4);
                 SeoUserAttributes::setAttribute('last_mailru_parsed_'.date("Y-m") , $site->id, 1);
             }
         } else {
             $parser = new MailruParser(false, true);
-            $parser->start($site, 2013, 1, 1);
+            $parser->start($site, 2013, 2, 4);
         }
     }
 

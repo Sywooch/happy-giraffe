@@ -5,7 +5,7 @@
  * @author Alex Kireev <alexk984@gmail.com>
  */
 
-class GearmanClient extends CApplicationComponent{
+class CGearmanClient extends CApplicationComponent{
     protected $client = null;
 
 

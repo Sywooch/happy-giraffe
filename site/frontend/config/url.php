@@ -117,7 +117,7 @@ return array(
 
         //global
         '<_c:(settings|ajax|notification|profile|friendRequests|communityRubric|family|morning|userPopup|features|blog)>/<_a>' => '<_c>/<_a>',
-        '<_c:(settings|profile|rss|family|morning|community)>' => '<_c>/index',
+        '<_c:(settings|profile|rss|family|morning|community|happyBirthdayMira)>' => '<_c>/index',
 
         //others
         'news/about' => 'community/contacts',

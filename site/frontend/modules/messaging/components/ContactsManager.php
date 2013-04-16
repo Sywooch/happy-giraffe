@@ -106,7 +106,7 @@ class ContactsManager
                 'id' => (int) $row['uId'],
                 'firstName' => $row['first_name'],
                 'lastName' => $row['last_name'],
-                'gender' => $row['gender'],
+                'gender' => (int) $row['gender'],
                 'avatar' => $avatarModel->populateRecord(array(
                     'author_id' => $row['uId'],
                     'fs_name' => $row['fs_name'],

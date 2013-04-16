@@ -170,11 +170,19 @@ class WordstatCommand extends CConsoleCommand
     public function actionPutTask()
     {
         $text = 'hello world' . rand(1, 1000000);
-        Yii::app()->gearman->sender($text);
+        Yii::app()->gearman->client()->doBackground("simple_parsing", serialize($text));
     }
 
     public function actionGetTask()
     {
-        Yii::app()->gearman->receiver();
+        Yii::app()->gearman->worker()->addFunction("simple_parsing", array($this, "processMessage"));
+        while (Yii::app()->gearman->worker()->work()) ;
+    }
+
+    private function processMessage($job)
+    {
+        echo $job->workload();
+        sleep(3);
+        $job->sendComplete();
     }
 }

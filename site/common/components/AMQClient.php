@@ -46,6 +46,7 @@ class AMQClient extends CApplicationComponent{
         if ($this->exchange === null){
             $this->exchange = new AMQPExchange($this->channel);
             $this->exchange->setName($exchange);
+            $this->exchange->setType(AMQP_EX_TYPE_DIRECT);
             $this->exchange->declare();
 
         }

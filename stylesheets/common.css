@@ -16845,7 +16845,7 @@ select.pregnancy_term + .chzn-container .chzn-results li {
   padding: 0 15px;
 }
 .club-img {
-  height: 115px;
+  min-height: 115px;
   line-height: normal;
   text-align: center;
   width: 76px;

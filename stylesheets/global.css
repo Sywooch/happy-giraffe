@@ -198,6 +198,7 @@
 .im-center_middle-w {
   position: absolute;
   width: 685px;
+  bottom: 0;
 }
 .im-center_bottom {
   position: fixed;
@@ -229,10 +230,16 @@
 .im-tabs_i.active .im-tabs_a {
   color: #1f1f1f;
 }
+.im-tabs_i.active .im-tabs_a:hover {
+  text-decoration: none;
+}
 .im-tabs_a {
   display: block;
   color: #818080;
   text-decoration: none;
+}
+.im-tabs_a:hover {
+  text-decoration: underline;
 }
 .im-panel {
   padding: 10px 15px;

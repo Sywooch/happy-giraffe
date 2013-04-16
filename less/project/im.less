@@ -145,6 +145,7 @@
 	&_middle-w {
 		position: absolute;
 		width: 685px;
+		bottom: 0;
 	}
 	&_bottom {
 		position: fixed;
@@ -172,11 +173,13 @@
 	}
 	&_i.active {background: #fdf48f;}
 	&_i.active &_a {color: #1f1f1f;}
+	&_i.active &_a:hover {text-decoration: none;}
 	&_a {
 		display: block;
 		color: #818080;
 		text-decoration: none;
 	}
+	&_a:hover {text-decoration: underline;}
 }
 
 .im-panel {

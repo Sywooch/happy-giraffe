@@ -35,7 +35,6 @@ class CGearmanClient extends CApplicationComponent{
 
     public function processMessage($job)
     {
-        echo $job->unique;
-        return strrev($job->workload());
+        echo $job->workload();
     }
 }

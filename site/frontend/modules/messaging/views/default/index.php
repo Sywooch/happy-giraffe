@@ -26,10 +26,10 @@
                     <div class="im-tabs_i" data-bind="css: { active : tab() == 2 }"><a href="javascript:void(0)" class="im-tabs_a" data-bind="click: function(data, event) { changeTab(2, data, event) }, text: 'Кто в онлайн (' + onlineContacts().length + ')'"></a></div>
                     <div class="im-tabs_i" data-bind="css: { active : tab() == 3 }"><a href="javascript:void(0)" class="im-tabs_a" data-bind="click: function(data, event) { changeTab(3, data, event) }, text: 'Друзья на сайте (' + friendsContacts().length + ')'"></a></div>
                 </div>
-                <div class="im-panel" data-bind="css: { 'im-panel__big' : interlocutorExpandedSetting }">
+                <div class="im-panel" data-bind="if: interlocutor() != '', css: { 'im-panel__big' : interlocutorExpandedSetting }">
                     <div class="im-panel-icons">
                         <div class="im-panel-icons_i">
-                            <a href="" class="im-panel-icons_i-a im-tooltipsy" title="Добавить в друзья">
+                            <a href="javascript:void(0)" class="im-panel-icons_i-a im-tooltipsy" title="Добавить в друзья" data-bind="click: addFriend, visible: (! interlocutor().user.isFriend() && ! interlocutor().inviteSent())">
                                 <span class="im-panel-ico im-panel-ico__add-friend"></span>
                                 <span class="im-panel-icons_desc">Добавить <br> в друзья</span>
                             </a>
@@ -59,7 +59,7 @@
                             </a>
                         </div>
                     </div>
-                    <div class="im-user-settings clearfix" data-bind="if: interlocutor() != ''">
+                    <div class="im-user-settings clearfix">
                         <div class="im-user-settings_online-status-small"></div>
                         <a class="ava" data-bind="css: interlocutor().user.avatarClass(), attr : { href : '/user/' + interlocutor().user.id() + '/' }">
                             <img alt="" data-bind="attr : { src : interlocutor().user.avatar() }">

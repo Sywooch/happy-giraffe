@@ -23,6 +23,7 @@ class InterlocutorsController extends HController
             ),
             'blogPostsCount' => (int) $interlocutorModel->blogPostsCount,
             'photosCount' => (int) $interlocutorModel->photosCount,
+            'inviteSent' => (bool) $interlocutorModel->isInvitedBy(Yii::app()->user->id),
         );
 
         echo CJSON::encode(compact('interlocutor'));

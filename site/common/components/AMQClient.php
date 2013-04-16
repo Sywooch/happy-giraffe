@@ -53,7 +53,8 @@ class AMQClient extends CApplicationComponent{
     {
         if ($this->queue === null){
             $this->queue = new AMQPQueue($this->channel);
-            $this->queue->setName('myqueue')->declare();
+            $this->queue->setName('myqueue');
+            $this->queue->declare();
         }
         $this->queue->consume('AMQClient.processMessage');
     }

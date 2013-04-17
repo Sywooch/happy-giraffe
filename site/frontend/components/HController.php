@@ -22,7 +22,7 @@ class HController extends CController
 
     public $tempLayout = false;
 
-    protected $r = 167;
+    protected $r = 168;
 
     public function filterAjaxOnly($filterChain)
     {
@@ -189,7 +189,7 @@ class HController extends CController
 
     protected function combineStatic()
     {
-        if (YII_DEBUG === false) {
+        if (YII_DEBUG === false && false) {
             $wwwPath = Yii::getPathOfAlias('application.www-submodule');
 
             foreach (Yii::app()->params['combineMap'] as $all => $filesArray) {

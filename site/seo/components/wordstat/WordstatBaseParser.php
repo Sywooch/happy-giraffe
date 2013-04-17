@@ -104,6 +104,7 @@ class WordstatBaseParser extends ProxyParserThread
             $this->queryModify->analyzeQuery($keyword);
             //убираем + из фраз
             $keyword = str_replace('+', '', $keyword);
+            $this->log('in first column: '.$keyword.' - '.$value);
 
             $list [] = array($keyword, $value);
         }
@@ -127,6 +128,7 @@ class WordstatBaseParser extends ProxyParserThread
             $this->queryModify->analyzeQuery($keyword);
             //убираем + из фраз
             $keyword = str_replace('+', '', $keyword);
+            $this->log('in second column: '.$keyword.' - '.$value);
 
             $list [] = array($keyword, $value);
         }
@@ -142,8 +144,10 @@ class WordstatBaseParser extends ProxyParserThread
     {
         foreach ($document->find('div.pages a') as $link) {
             $title = pq($link)->text();
-            if (strpos($title, 'следующая') !== false)
+            if (strpos($title, 'следующая') !== false){
                 $this->next_page = 'http://wordstat.yandex.ru/' . pq($link)->attr('href');
+                $this->log('next page found');
+            }
         }
     }
 
@@ -165,6 +169,7 @@ class WordstatBaseParser extends ProxyParserThread
             }
 
             $model = Keyword::GetKeyword($keyword, 0, $value);
+            $this->log('keyword: '.$model->id.' - '.$model->wordstat);
             if ($model !== null) {
                 if ($related)
                     KeywordRelation::saveRelation($this->keyword->id, $model->id);

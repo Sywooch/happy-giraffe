@@ -4,6 +4,7 @@ function Interlocutor(data, parent) {
     self.user = new User(data.user, parent);
     self.blogPostsCount = ko.observable(data.blogPostsCount);
     self.photosCount = ko.observable(data.photosCount);
+    self.inviteSent = ko.observable(data.inviteSent);
 }
 
 function User(data, parent) {
@@ -30,6 +31,27 @@ function Thread(data, parent) {
         }, 'json')
     }
 
+    self.toggleReadStatus = function() {
+        self.changeReadStatus(self.unreadCount() == 0 ? 0 : 1);
+    }
+
+    self.changeReadStatus = function(newReadStatus) {
+        var newUnreadCount = newReadStatus == 0 ? 1 : 0;
+        $.post('/messaging/threads/changeReadStatus/', { threadId : self.id(), readStatus: newReadStatus }, function(response) {
+            self.unreadCount(newUnreadCount);
+        }, 'json');
+    }
+
+    self.toggleHiddenStatus = function() {
+        self.changeHiddenStatus(self.hidden() ? 0 : 1);
+    }
+
+    self.changeHiddenStatus = function(newHiddenStatus) {
+        $.post('/messaging/threads/changeHiddenStatus/', { threadId : self.id(), hiddenStatus: newHiddenStatus }, function(response) {
+            self.hidden(newHiddenStatus);
+        }, 'json');
+    }
+
     self.inc = function() {
         self.unreadCount(self.unreadCount() + 1);
     }
@@ -48,6 +70,13 @@ function Message(data, parent) {
     var self = this;
 
     ko.mapping.fromJS(data, {}, self);
+
+    self.showAbuse = ko.observable(false);
+    self.abuseReason = ko.observable(0);
+
+    self.toggleShowAbuse = function() {
+        self.showAbuse(! self.showAbuse());
+    }
 
     self.delete = function() {
         $.post('/messaging/messages/delete/', { messageId : self.id() }, function(response) {
@@ -98,21 +127,6 @@ function MessagingViewModel(data) {
         self.interlocutorExpandedSetting(! self.interlocutorExpandedSetting());
     }
 
-    self.changeHiddenStatus = function(contact) {
-        var newHiddenStatus = contact.thread().hidden() ? 0 : 1;
-        $.post('/messaging/threads/changeHiddenStatus/', { threadId : contact.thread().id, hiddenStatus: newHiddenStatus }, function(response) {
-            contact.thread().hidden(newHiddenStatus);
-        }, 'json');
-    }
-
-    self.changeReadStatus = function(contact) {
-        var newReadStatus = contact.thread().unreadCount() == 0 ? 0 : 1;
-        var newUnreadCount = contact.thread().unreadCount() == 0 ? 1 : 0;
-        $.post('/messaging/threads/changeReadStatus/', { threadId : contact.thread().id, readStatus: newReadStatus }, function(response) {
-            contact.thread().unreadCount(newUnreadCount);
-        }, 'json');
-    }
-
     self.openThread = function(contact) {
         self.openContactIndex(self.contacts().indexOf(contact));
 
@@ -124,10 +138,18 @@ function MessagingViewModel(data) {
             self.messages([]);
         else
             $.get('/messaging/threads/getMessages/', { threadId : contact.thread().id() }, function(response) {
+                self.openContact().thread().changeReadStatus(1);
                 self.messages(ko.utils.arrayMap(response.messages, function(message) {
                     return new Message(message, self);
                 }));
             }, 'json');
+    }
+
+    self.addFriend = function()  {
+        $.post('/friendRequests/send/', { to_id : self.interlocutor().user.id() }, function(response) {
+            if (response.status)
+                self.interlocutor().inviteSent(true);
+        }, 'json');
     }
 
     self.openContact = ko.computed(function() {
@@ -156,7 +178,7 @@ function MessagingViewModel(data) {
 
     self.friendsContacts = ko.computed(function() {
         return ko.utils.arrayFilter(self.contacts(), function(contact) {
-            return contact.user().isFriend();
+            return contact.user().isFriend() && contact.user().online();
         });
     }, this);
 
@@ -217,6 +239,22 @@ function MessagingViewModel(data) {
         });
     });
 
+    self.interlocutorsMessagesToShow = ko.computed(function() {
+        return ko.utils.arrayFilter(self.messagesToShow(), function(message) {
+            return message.author().id() != self.me.id();
+        });
+    });
+
+    self.lastReadMessage = ko.computed(function() {
+        var result = null;
+        ko.utils.arrayForEach(self.messagesToShow(), function(message) {
+            if (message.read() && message.author().id() == self.me.id())
+                result = message;
+        });
+
+        return result;
+    });
+
     self.changeTab = function(tab) {
         self.tab(tab);
     }
@@ -224,6 +262,12 @@ function MessagingViewModel(data) {
     self.findByInterlocutorId = function(interlocutorId) {
         return ko.utils.arrayFirst(self.contacts(), function(contact) {
             return contact.user().id() == interlocutorId;
+        });
+    }
+
+    self.findByThreadId = function(threadId) {
+        return ko.utils.arrayFirst(self.contacts(), function(contact) {
+            return contact.thread() !== null && contact.thread().id() == threadId;
         });
     }
 
@@ -263,7 +307,8 @@ function MessagingViewModel(data) {
         }, 'json');
     }
 
-    self.openThread(data.interlocutorId == null ? self.visibleContactsToShow()[0] : self.findByInterlocutorId(data.interlocutorId));
+    if (data.interlocutorId !== null || self.contactsToShow().length > 0)
+        self.openThread(data.interlocutorId == null ? self.contactsToShow()[0] : self.findByInterlocutorId(data.interlocutorId));
 
     soundManager.setup({
         url: '/swf/',
@@ -275,11 +320,19 @@ function MessagingViewModel(data) {
 
     $(function() {
         CKEDITOR.instances['im-editor'].on('focus', function() {
-            $.post('/messaging/interlocutors/typing/', { typingStatus : 1, interlocutorId : self.interlocutor().user.id() });
+            if (self.openContact() !== null)
+                $.post('/messaging/interlocutors/typing/', { typingStatus : 1, interlocutorId : self.interlocutor().user.id() });
         });
 
         CKEDITOR.instances['im-editor'].on('blur', function() {
-            $.post('/messaging/interlocutors/typing/', { typingStatus : 0, interlocutorId : self.interlocutor().user.id() });
+            if (self.openContact() !== null)
+                $.post('/messaging/interlocutors/typing/', { typingStatus : 0, interlocutorId : self.interlocutor().user.id() });
+        });
+
+        CKEDITOR.instances['im-editor'].on('key', function (e) {
+            if (e.data.keyCode == 13 && self.enterSetting()) {
+                self.sendMessage();
+            }
         });
 
         Comet.prototype.receiveMessage = function (result, id) {
@@ -299,15 +352,25 @@ function MessagingViewModel(data) {
             if (self.soundSetting())
                 soundManager.play('s');
             im.container.scrollTop($('.layout-container_hold').height());
+
+            self.openContact().thread().changeReadStatus(1);
         }
 
         Comet.prototype.typingStatus = function (result, id) {
-            console.log(result);
             self.interlocutorTyping(result.typingStatus);
+        }
+
+        Comet.prototype.readStatus = function (result, id) {
+            if (self.openContact().thread() !== null && self.openContact().thread().id() == result.threadId) {
+                ko.utils.arrayForEach(self.messagesToShow(), function(message) {
+                    message.read(true);
+                });
+            }
         }
 
         comet.addEvent(2000, 'receiveMessage');
         comet.addEvent(2001, 'typingStatus');
+        comet.addEvent(2002, 'readStatus');
     });
 
     $(window).load(function() {
@@ -316,7 +379,7 @@ function MessagingViewModel(data) {
         });
 
         im.container.scroll(function() {
-            if (self.loadingMessages() === false && im.container.scrollTop() < 200)
+            if (self.openContact() !== null && self.openContact().thread() !== null && self.loadingMessages() === false && im.container.scrollTop() < 200)
                 self.preload();
         });
     });

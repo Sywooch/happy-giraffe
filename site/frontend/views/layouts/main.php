@@ -347,7 +347,7 @@
                             VK.Widgets.Like("vk_like", {
                                 type: "full",
                                 width: "105",
-                                pageUrl: "http://www.happy-giraffe.ru/"
+                                pageUrl: "http://www.happy-giraffe.ru"
                             });
                         </script>
                     </div>

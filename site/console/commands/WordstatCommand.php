@@ -63,12 +63,6 @@ class WordstatCommand extends CConsoleCommand
         fclose($handle);
     }
 
-    public function actionModify($num = 1)
-    {
-        $parser = new WordstatQueryModify();
-        $parser->addToParsing($num);
-    }
-
     public function actionFixPriority($i = 0)
     {
         for ($i = 0; $i < 515; $i++) {
@@ -156,17 +150,9 @@ class WordstatCommand extends CConsoleCommand
         $job_provider->start();
     }
 
-    public function actionGetTask()
-    {
-        Yii::app()->gearman->worker()->addFunction("simple_parsing", array($this, "processMessage"));
-        while (Yii::app()->gearman->worker()->work()) ;
-    }
-
-    public function processMessage($job)
-    {
-        echo $job->workload();
-        sleep(3);
-        return true;
+    public function actionSimple(){
+        $p = new WordstatParser();
+        $p->start();
     }
 
     public function actionAddSimpleParsing(){

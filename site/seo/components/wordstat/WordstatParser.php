@@ -8,11 +8,6 @@
  */
 class WordstatParser extends WordstatBaseParser
 {
-    /**
-     * @var Keyword
-     */
-    public $keyword = null;
-    public $next_page = '';
     public $first_page = true;
 
     /**

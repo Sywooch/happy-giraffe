@@ -9,18 +9,21 @@
 class WordstatBaseParser extends ProxyParserThread
 {
     /**
+     * @var Keyword
+     */
+    protected $keyword = null;
+    /**
+     * @var string
+     */
+    protected $next_page = '';
+    /**
      * @var WordstatQueryModify
      */
     public $queryModify;
 
-    function __construct($thread_id)
-    {
-        time_nanosleep(rand(0, 30), rand(0, 1000000000));
-        Yii::import('site.frontend.extensions.phpQuery.phpQuery');
-        $this->thread_id = $thread_id;
-        $this->getProxy();
-    }
-
+    /**
+     * @param $mode
+     */
     public function init($mode)
     {
         $this->debug = $mode;
@@ -164,7 +167,7 @@ class WordstatBaseParser extends ProxyParserThread
             $model = Keyword::GetKeyword($keyword, 0, $value);
             if ($model !== null) {
                 if ($related)
-                    KeywordRelation::saveRelation($this->keyword->keyword_id, $model->id);
+                    KeywordRelation::saveRelation($this->keyword->id, $model->id);
                 return $model;
             }
         }

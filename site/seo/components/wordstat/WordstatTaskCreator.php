@@ -7,6 +7,8 @@
 
 class WordstatTaskCreator
 {
+    const JOB_LIMIT = 100;
+
     private $jobs = array();
     private $client;
     /**
@@ -32,7 +34,7 @@ class WordstatTaskCreator
                 }
             }
 
-            if (count($this->jobs) < 90)
+            if (count($this->jobs) < (self::JOB_LIMIT - 10))
                 $this->loadMoreKeywords(10);
         }
     }
@@ -41,7 +43,7 @@ class WordstatTaskCreator
      * Загрузить ключевых слов на парсинг
      * @param int $count кол-во ключевых слов
      */
-    public function loadMoreKeywords($count = 100)
+    public function loadMoreKeywords($count = self::JOB_LIMIT)
     {
         if (!$this->collection) {
             $mongo = new Mongo('mongodb://localhost');
@@ -52,9 +54,10 @@ class WordstatTaskCreator
         echo "adding keyword to queue\n";
 
         $cur = $this->collection->find();
-        for ($i = 0; $i < $count; $i++) {
+        while (count($this->jobs) < self::JOB_LIMIT && $cur->hasNext()) {
             $keyword = $cur->getNext();
-            $this->addTaskToQueue($keyword['id']);
+            if (!$this->taskExist($keyword['id']))
+                $this->addTaskToQueue($keyword['id']);
         }
     }
 
@@ -66,5 +69,18 @@ class WordstatTaskCreator
     {
         $job_handle = $this->client->doBackground("simple_parsing", $keyword_id);
         $this->jobs [] = array($job_handle, $keyword_id);
+    }
+
+    /**
+     * Добавлено ли ключевое слово в задания
+     * @param $keyword_id int
+     * @return bool
+     */
+    private function taskExist($keyword_id)
+    {
+        foreach ($this->jobs as $job)
+            if ($job[1] == $keyword_id)
+                return true;
+        return false;
     }
 }

@@ -6,7 +6,7 @@ class SiteController extends SController
     {
         return array(
             array('allow',
-                'actions' => array('index', 'logout', 'modules', 'removeUser', 'test', 'sql', 'lastKeywords'),
+                'actions' => array('index', 'logout', 'modules', 'removeUser', 'test', 'sql', 'lastKeywords', 'keyword'),
                 'users' => array('@'),
             ),
             array('allow',

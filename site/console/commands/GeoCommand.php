@@ -120,7 +120,7 @@ class GeoCommand extends CConsoleCommand
                 $model->save();
             }
 
-            ParsingKeyword::addNewKeyword($model, 100);
+            ParsingKeyword::addNewKeyword($model);
         }
     }
 }

@@ -50,7 +50,10 @@ class HController extends CController
 
     protected function beforeAction($action)
     {
-        //$this->_mobileRedirect();
+        if (Yii::app()->user->id == 22 && !($this->id == 'happyBirthdayMira' || $this->route == 'site/logout' || $this->route == 'ajax/sendcomment'))
+            $this->redirect(array('happyBirthdayMira/index'));
+
+        $this->_mobileRedirect();
 
         // отключение повторной подгрузки jquery
         /* if (Yii::app()->request->isAjaxRequest) {

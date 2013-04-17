@@ -38,7 +38,7 @@ class CommunityController extends HController
     }
 
     protected function beforeAction($action) {
-        if (! Yii::app()->request->isAjaxRequest)
+        if (! Yii::app()->request->isAjaxRequest && !Yii::app()->user->isGuest)
             Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts/community.js');
         return parent::beforeAction($action);
     }
@@ -195,6 +195,10 @@ class CommunityController extends HController
             UserNotification::model()->deleteByEntity($content, Yii::app()->user->id);
 
         $this->registerCounter();
+
+        //проверяем переход с других сайтов по ссылкам комментаторов
+        Yii::import('site.frontend.modules.signal.models.CommentatorLink');
+        CommentatorLink::checkPageVisit('CommunityContent', $content_id);
 
         $this->render('view', array(
             'data' => $content,
@@ -939,6 +943,5 @@ class CommunityController extends HController
             return $t1;
 
         return date("Y-m-d H:i:s", max($t1, $t2));
-
     }
 }

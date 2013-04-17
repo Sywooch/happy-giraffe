@@ -40,12 +40,14 @@ class ParsingKeyword extends CActiveRecord
     {
         return Yii::app()->db_keywords;
     }
+
     public function rules()
     {
         return array(
             array('keyword_id', 'required'),
         );
     }
+
     public function relations()
     {
         return array(
@@ -56,22 +58,21 @@ class ParsingKeyword extends CActiveRecord
 
     /**
      * @param Keyword $keyword
-     * @param int $priority
      * @param null|int $wordstat
      * @return bool
      */
-    public static function addNewKeyword($keyword, $priority = 0, $wordstat = null)
+    public static function addNewKeyword($keyword, $wordstat = null)
     {
         $model = new ParsingKeyword();
         $model->keyword_id = $keyword->id;
-        $model->priority = $priority;
-        if ($wordstat !== null){
+        $model->priority = 0;
+        $model->type = 1;
+        if ($wordstat !== null) {
             $model->updated = date("Y-m-d H:i:s");
-            //если 3 слова - добавляем на парсинг по этому слова
-            if (substr_count($keyword->name, ' ') < 3){
-                $model->priority = 10;
-            }
         }
+        //если 3 слова и менее - добавляем на парсинг по этому слова
+        if (substr_count($keyword->name, ' ') < 3)
+            $model->priority = 10;
 
         try {
             $model->save();
@@ -79,30 +80,36 @@ class ParsingKeyword extends CActiveRecord
         }
     }
 
+    /**
+     * Обновляет частоту слова
+     * @param $value значение частоты wordstat
+     * @return bool
+     */
     public function updateWordstat($value)
     {
-        Yii::app()->db_keywords->createCommand()->update(Keyword::model()->tableName(),
-            array('wordstat' => $value),
-            'id=:id',
-            array(':id' => $this->keyword_id));
+        try {
+            Keyword::model()->updateByPk($this->keyword_id, array('wordstat' => $value));
+        } catch (Exception $err) {
+            sleep(1);
+            return $this->updateWordstat($value);
+        }
         $this->updated = date("Y-m-d H:i:s");
         $this->priority = 0;
-        $this->save();
+        return $this->save();
     }
 
     public static function wordstatParsed($keyword_id)
     {
-        $res = self::model()->getDbConnection()->createCommand()->update('parsing_keywords',
-            array('priority'=>0, 'updated'=>date("Y-m-d H:i:s")), 'keyword_id='.$keyword_id);
+        $res = self::model()->model()->updateByPk($keyword_id, array('priority' => 0, 'updated' => date("Y-m-d H:i:s")));
 
-        if (empty($res)){
+        if (empty($res)) {
             $model = self::model()->findByPk($keyword_id);
             if ($model === null) {
                 $model = new ParsingKeyword();
                 $model->keyword_id = $keyword_id;
                 $model->priority = 0;
                 $model->updated = date("Y-m-d H:i:s");
-                try{
+                try {
                     $model->save();
                 } catch (Exception $e) {
                 }

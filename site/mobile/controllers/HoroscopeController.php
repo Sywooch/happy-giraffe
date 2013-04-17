@@ -30,7 +30,7 @@ class HoroscopeController extends MController
                 $titleSuffix = 'сегодня';
                 break;
             case 'tomorrow':
-                $attributes = array('zodiac' => $zodiac, 'date' => date("Y-m-d", strtotime('-1 day')));
+                $attributes = array('zodiac' => $zodiac, 'date' => date("Y-m-d", strtotime('+1 day')));
                 $titleSuffix = 'завтра';
                 break;
             case 'month':
@@ -38,7 +38,7 @@ class HoroscopeController extends MController
                 $titleSuffix = 'месяц';
                 break;
             case 'year':
-                $attributes = array('zodiac' => $zodiac, 'year' => 2012, 'month' => null);
+                $attributes = array('zodiac' => $zodiac, 'year' => 2013, 'month' => null);
                 $titleSuffix = 'год';
                 break;
         }
@@ -48,6 +48,6 @@ class HoroscopeController extends MController
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
         $this->pageTitle = $title;
-        $this->render('view', compact('model', 'title'));
+        $this->render('view', compact('model', 'title', 'type'));
     }
 }

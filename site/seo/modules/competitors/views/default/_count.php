@@ -2,7 +2,8 @@
 /* @var $this Controller
  * @var $model SiteKeywordVisit
  * @var $freq int
- * @var site_id int
+ * @var $site_id int
+ * @var $total_count int
  */
 
 $criteria = $model->getCriteriaWithoutFreq();
@@ -21,7 +22,7 @@ if($counts===false)
 ?>
 <div class="result">
     <label>Найдено: <a href="javascript:;"
-                       onclick="CompetitorsTable.SetFreq(0);"><?=SiteKeywordVisit::model()->count($criteria); ?></a></label>
+                       onclick="CompetitorsTable.SetFreq(0);"><?=$total_count; ?></a></label>
     <span<?php if ($freq == 1) echo ' class="active"' ?>><i class="icon-freq-1"></i> <a href="javascript:;"
                                                                                         onclick="CompetitorsTable.SetFreq(1);"><?=$counts[1] ?></a></span>
     <span<?php if ($freq == 2) echo ' class="active"' ?>><i class="icon-freq-2"></i> <a href="javascript:;"

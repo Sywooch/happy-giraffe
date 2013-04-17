@@ -143,6 +143,8 @@ class AlbumsController extends HController
                 Yii::app()->end();
             $model = new AlbumPhoto();
 
+            #TODO сделать проверку фотки
+
             echo '<div id="serverData">';
             // Загрузка в новый альбом
             if (!$a || $a == 'false') {
@@ -204,9 +206,9 @@ class AlbumsController extends HController
 
         $photo = AlbumPhoto::model()->findByPk(Yii::app()->request->getQuery('id'));
 
-        $entity_id = Yii::app()->request->getQuery('entity_id', 'null');
+        $entity_id = Yii::app()->request->getQuery('entity_id');
         $model = call_user_func(array(Yii::app()->request->getQuery('entity'), 'model'));
-        if ($entity_id != 'null')
+        if (!empty($entity_id) && $entity_id != 'null')
             $model = $model->findByPk($entity_id);
 
         if (!Yii::app()->request->getQuery('go')) {
@@ -677,6 +679,7 @@ class AlbumsController extends HController
         if ($photo === null)
             throw new CHttpException(404, 'Фото не найдено');
 
+        $additional_params = array();
         switch ($entity) {
             case 'valentinePost':
                 $criteria = new CDbCriteria;
@@ -713,11 +716,17 @@ class AlbumsController extends HController
                 $decor = CookDecoration::model()->findByAttributes(array('photo_id' => $photo_id));
                 if ($decor === null)
                     throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+                if (!empty($decor) && !empty($category_id)){
+                    if ($decor->category_id != $category_id)
+                        throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+                    Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
+                }
 
                 $photo->w_title = $decor->title;
                 $photo->w_description = $decor->description;
                 $collection = array();
                 $collection['title'] = 'Фотоальбом к сервису ' . CHtml::link('Офомление блюд', array('cook/decor/index'));
+                $additional_params['decor'] = $decor;
                 break;
             case 'Contest':
                 Yii::import('application.modules.contest.models.*');
@@ -759,7 +768,7 @@ class AlbumsController extends HController
         if (! Yii::app()->user->isGuest)
             UserNotification::model()->deleteByEntity($photo, Yii::app()->user->id);
 
-        $this->render('singlePhoto', compact('model', 'collection', 'photo', 'currentIndex'));
+        $this->render('singlePhoto', array_merge(compact('model', 'collection', 'photo', 'currentIndex'), $additional_params));
     }
 
     public function actionPostLoad($entity, $photo_id)

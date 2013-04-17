@@ -24,8 +24,7 @@ class SeoCommand extends CConsoleCommand
 
     public function actionWordstat($thread_id = 0)
     {
-        $parser = new WordstatParser($thread_id);
-        $parser->parsing_type = WordstatParser::TYPE_STRICT;
+        $parser = new WordstatFilter($thread_id);
         $parser->start();
     }
 
@@ -144,10 +143,105 @@ class SeoCommand extends CConsoleCommand
         TrafficStatisctic::model()->parse();
     }
 
-    public function actionTest(){
-        $parser = new WordstatParser(1);
-        $parser->parsing_type = WordstatParser::TYPE_STRICT;
-        $parser->start(true);
+    public function actionParseSeTraffic()
+    {
+        Yii::import('site.frontend.helpers.*');
+        Yii::import('site.frontend.extensions.*');
+        PageStatistics::model()->parseSe();
+    }
+
+    public function actionExport()
+    {
+        Yii::import('site.frontend.helpers.*');
+        Yii::import('site.frontend.extensions.*');
+        PageStatistics::model()->export();
+    }
+
+    public function actionTest()
+    {
+        $data = array();
+        $criteria = new CDbCriteria;
+        $criteria->condition = 'type=' . LiSite::TYPE_LI . ' AND rubric_id IS NOT NULL AND visits>1000';
+        $criteria->order = 'visits desc';
+        $sites = LiSite::model()->findAll($criteria);
+        $i = 1;
+        foreach ($sites as $site) {
+            $rows = array(
+                $i,
+                array('http://' . $site->url, $site->url),
+                $site->rubric->title,
+                ($site->visits * 2 - rand(1, 3))
+            );
+            $i++;
+            $data[] = $rows;
+        }
+
+        $this->excel($data);
+    }
+
+    public function excel($data)
+    {
+        $file_name = 'f:/file.xlsx';
+
+        $phpExcelPath = Yii::getPathOfAlias('site.common.extensions.phpExcel');
+        spl_autoload_unregister(array('YiiBase', 'autoload'));
+        include($phpExcelPath . DIRECTORY_SEPARATOR . 'PHPExcel.php');
+
+        // Create new PHPExcel object
+        $objPHPExcel = new PHPExcel();
+
+        // Set properties
+        $objPHPExcel->getProperties()->setCreator("Alex")
+            ->setLastModifiedBy("Alex")
+            ->setTitle("Articles")
+            ->setSubject("Articles")
+            ->setDescription("Articles");
+
+        // Add some data
+        $letters = array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O');
+
+        $sheet = $objPHPExcel->setActiveSheetIndex(0);
+        $j = 1;
+        foreach ($data as $fields) {
+            for ($i = 0; $i < count($fields); $i++) {
+                if (is_array($fields[$i])) {
+                    $sheet->setCellValue($letters[$i] . $j, $fields[$i][1]);
+                    $sheet->getCell($letters[$i] . $j)->getHyperlink()->setUrl($fields[$i][0]);
+                } else
+                    $sheet->setCellValue($letters[$i] . $j, $fields[$i]);
+            }
+            $j++;
+        }
+
+        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+        $objWriter->save($file_name);
+
+        spl_autoload_register(array('YiiBase', 'autoload'));
+
+        return $file_name;
+    }
+
+    public function actionCopyStatus()
+    {
+        $raws = array(0);
+        $i = 0;
+        while (!empty($raws)) {
+            $raws = Yii::app()->db_keywords->createCommand()
+                ->select('keyword_id, status')
+                ->from('keywords_statuses')
+                ->offset(10000 * $i)
+                ->limit(10000)
+                ->queryAll();
+
+            foreach ($raws as $raw) {
+                Yii::app()->db_keywords->createCommand()
+                    ->update('keywords', array('status' => $raw['status']), 'id=' . $raw['keyword_id']);
+            }
+
+            $i++;
+            if ($i % 20 == 0)
+                echo ($i * 10000) . "\n";
+        }
     }
 }
 

@@ -11,68 +11,112 @@ class DefaultController extends SController
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
         Yii::import('site.frontend.modules.signal.models.*');
         Yii::import('site.frontend.modules.signal.components.*');
+        Yii::import('site.frontend.modules.signal.helpers.*');
         Yii::import('site.frontend.modules.im.models.*');
 
         $this->pageTitle = 'комментаторы';
-        return true;
+        return parent::beforeAction($action);
     }
 
-    public function actionIndex($period = '', $day = '')
+    public function actionIndex($month = null)
     {
-        if (empty($period))
-            $period = date("Y-m");
+        if (empty($month))
+            $month = date("Y-m");
 
-        $month = CommentatorsMonthStats::getOrCreateWorkingMonth($period);
-        if (Yii::app()->user->checkAccess('commentator-manager')) {
-            $criteria = new EMongoCriteria();
-            $criteria->user_id('in', Yii::app()->user->model->commentatorIds());
-            $commentators = CommentatorWork::model()->findAll($criteria);
+        $this->render('tasks', compact('month'));
+    }
+
+    public function actionAward($month = null)
+    {
+        if (empty($month))
+            $month = date("Y-m");
+
+        $this->render('awards', compact('month'));
+    }
+
+    public function actionLinks($user_id = null, $month = null)
+    {
+        if (empty($month))
+            $month = date("Y-m");
+
+        if (empty($user_id))
+            $this->render('links_all', compact('month'));
+        else {
+            $this->addEntityToFastList('commentators', $user_id, 3);
+            $commentator = CommentatorWork::getUser($user_id);
+            $this->render('links', compact('month', 'commentator'));
+        }
+    }
+
+    public function actionReports($user_id = null, $month = null)
+    {
+        if (empty($month))
+            $month = date("Y-m");
+
+        if (empty($user_id))
+            $this->render('reports_all', compact('month'));
+        else {
+            $this->addEntityToFastList('commentators', $user_id, 3);
+            $commentator = CommentatorWork::getUser($user_id);
+            $this->render('reports', compact('month', 'commentator'));
+        }
+    }
+
+    public function actionPause()
+    {
+        $task = $this->loadTask(Yii::app()->request->getPost('id'));
+        $task->toggleStatus();
+        echo CJSON::encode(array('status' => $task->save()));
+    }
+
+    public function actionAddTask()
+    {
+        $task = new CommentatorTask;
+        $task->page_id = Yii::app()->request->getPost('page_id');
+        $task->type = Yii::app()->request->getPost('type');
+        if ($task->save()) {
+            $response = array(
+                'status' => true,
+                'date' => Yii::app()->dateFormatter->format('d MMMM yyyy', strtotime($task->created)),
+                'data' => $task->getViewModel()
+            );
         } else
-            $commentators = CommentatorWork::model()->getCommentatorGroups();
+            $response = array('status' => false, 'error'=>$task->getErrors());
 
-        $this->render('index', compact('period', 'month', 'day', 'commentators'));
+        echo CJSON::encode($response);
     }
 
-    public function actionCommentator($user_id, $period = null)
+    public function actionLoadPage()
     {
-        $this->addEntityToFastList('commentators', $user_id);
-        $commentator = CommentatorWork::getUser($user_id);
-        $this->render('commentator', compact('commentator', 'period'));
+        $url = Yii::app()->request->getPost('url');
+        $page = Page::getPage($url);
+
+        if ($page !== null) {
+            $article = $page->getArticle();
+
+            echo CJSON::encode(array(
+                'status' => true,
+                'page_id' => $page->id,
+                'article_url' => $article->url,
+                'article_title' => $article->title,
+            ));
+        } else
+            echo CJSON::encode(array(
+                'status' => false,
+                'error' => 'Не найдена страницу, обратитесь к разработчикам'
+            ));
     }
 
-    public function actionCommentatorStats($user_id, $period)
+    /**
+     * @param int $id model id
+     * @return CommentatorTask
+     * @throws CHttpException
+     */
+    public function loadTask($id)
     {
-        $commentator = CommentatorWork::getUser($user_id);
-        $this->render('_commentator_stats', compact('commentator', 'period'));
-    }
-
-    public function actionClubs()
-    {
-        $this->render('clubs', compact('commentator', 'period'));
-    }
-
-    public function actionAddClub()
-    {
-        $user_id = Yii::app()->request->getPost('user_id');
-        $club_id = Yii::app()->request->getPost('club_id');
-        $commentator = CommentatorWork::getUser($user_id);
-        if (!in_array($club_id, $commentator->clubs)) {
-            $commentator->clubs [] = $club_id;
-            $commentator->save();
-        }
-
-        $this->renderPartial('_user_clubs', compact('commentator'));
-    }
-
-    public function actionRemoveClub()
-    {
-        $user_id = Yii::app()->request->getPost('user_id');
-        $club_id = Yii::app()->request->getPost('club_id');
-        $commentator = CommentatorWork::getUser($user_id);
-        foreach ($commentator->clubs as $key => $club) {
-            if ($club == $club_id)
-                unset($commentator->clubs[$key]);
-        }
-        echo CJSON::encode(array('status' => $commentator->save()));
+        $model = CommentatorTask::model()->findByPk($id);
+        if ($model === null)
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+        return $model;
     }
 }

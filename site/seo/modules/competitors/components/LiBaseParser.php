@@ -41,7 +41,7 @@ class LiBaseParser
             curl_setopt($ch, CURLOPT_PROXY, $this->getProxy());
 
             if (Yii::app()->params['use_proxy_auth']) {
-                curl_setopt($ch, CURLOPT_PROXYUSERPWD, "alexk984:Nokia1111");
+                curl_setopt($ch, CURLOPT_PROXYUSERPWD, "alexk984:Nokia12345");
                 curl_setopt($ch, CURLOPT_PROXYAUTH, 1);
             }
         }
@@ -52,19 +52,20 @@ class LiBaseParser
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
         curl_setopt($ch, CURLOPT_TIMEOUT, 30);
         $result = curl_exec($ch);
-        curl_close($ch);
 
         if ($result === false || strpos($result, $require_text) === false) {
-            if (strpos($result, $require_text) === false){
-                $this->log("text << $require_text >> not found on page $page_url");
-            }
+            if ($result === false)
+                $this->log("curl fail " . curl_error($ch));
             else
-                $this->log("curl fail ".curl_errno($ch));
+                $this->log("text << $require_text >> not found on page $page_url");
+
+            curl_close($ch);
             $this->changeProxy();
 
             return $this->loadPage($page_url, $require_text, $post);
         }
 
+        curl_close($ch);
         $this->last_url = $page_url;
         return $result;
     }
@@ -97,7 +98,7 @@ class LiBaseParser
             else
                 $list = $this->getProxyList();
             $this->proxy = $list[rand(0, count($list) - 1)];
-            $this->log('proxy: '.$this->proxy);
+            $this->log('proxy: ' . $this->proxy);
         }
     }
 
@@ -111,7 +112,7 @@ class LiBaseParser
             //select only rus proxy
             preg_match_all('/([\d:\.]+);/', $file, $matches);
             $value = array();
-            for($i=0;$i<count($matches[0]);$i++){
+            for ($i = 0; $i < count($matches[0]); $i++) {
                 $value[] = $matches[1][$i];
             }
 
@@ -131,7 +132,7 @@ class LiBaseParser
             //select only rus proxy
             preg_match_all('/([\d:\.]+);UA/', $file, $matches);
             $value = array();
-            for($i=0;$i<count($matches[0]);$i++){
+            for ($i = 0; $i < count($matches[0]); $i++) {
                 $value[] = $matches[1][$i];
             }
 

@@ -31,6 +31,8 @@ class YandexMetrica
             $last_date = $date;
         }
 
+        echo $last_date."\n";
+
         return $dates;
     }
 
@@ -82,9 +84,6 @@ class YandexMetrica
 
             foreach ($this->se as $se)
                 $this->parseDataForSE($se, $date);
-
-            SeoUserAttributes::setAttribute('traffic_parsed_date', $date, 1);
-            //echo $date . " parsed\n";
         }
     }
 
@@ -137,9 +136,9 @@ class YandexMetrica
      */
     public function Popular()
     {
-        $date1 = date("Ymd", strtotime('-1 month'));
-        $date2 = date("Ymd");
-        $next = 'http://api-metrika.yandex.ru/stat/content/popular?date1=' . $date1 . '&date2=' . $date2
+        $date1 = '20130301';
+        $date2 = '20130331';
+        $next = 'http://api-metrika.yandex.ru/stat/content/entrance?date1=' . $date1 . '&date2=' . $date2
             . '&id=' . $this->counter_id . '&oauth_token=' . $this->token;
 
         $count = 0;
@@ -156,13 +155,11 @@ class YandexMetrica
                         && strpos($query['url'], 'CommunityContent_page') === FALSE
                         && strpos($query['url'], '/photo') === FALSE
                     ) {
-                        $result [] = array($query['url'], $query['entrance']);
-                        //echo $query['url'] . ' - ' . $query['entrance'] . '<br>';
+                        PageStatistics::add($query);
                         $count++;
                     }
                     if (strpos($query['url'], '/blog/post') !== FALSE) {
-                        $result [] = array($query['url'], $query['entrance']);
-                        //echo $query['url'] . ' - ' . $query['entrance'] . '<br>';
+                        PageStatistics::add($query);
                         $count++;
                     }
                 }
@@ -173,20 +170,51 @@ class YandexMetrica
                 break;
         }
 
-        usort($result, array($this, "cmp"));
-
         $c = 0;
-        foreach($result as $r){
-            echo $r[0] . ' - ' . $r[1] . '<br>';
+        $club_traffic = array();
+        $blog_traffic = array();
+        foreach ($result as $r) {
+            for ($i = 1; $i < 36; $i++) {
+                if (strpos($r[0], '/community/' . $i . '/forum')) {
+                    if (!isset($club_traffic[$i]))
+                        $club_traffic[$i] = $r[1];
+                    else
+                        $club_traffic[$i] += $r[1];
+                }
+            }
+
+            if (strpos($r[0], '/blog/post')) {
+                preg_match('/\/user\/([\d]+)\/blog\//', $r[0], $matches);
+                $user_id = $matches[1];
+                if (!isset($blog_traffic[$user_id]))
+                    $blog_traffic[$user_id] = $r[1];
+                else
+                    $blog_traffic[$user_id] += $r[1];
+            }
+
             $c++;
-            if ($c > 2000)
+            if ($c >= 2000)
                 break;
         }
+
+        uasort($club_traffic, array($this, "cmp"));
+        foreach($club_traffic as $id =>$traffic)
+            echo 'http://www.happy-giraffe.ru/community/'.$id.'/forum/ - '.$traffic.'<br>';
+        echo '<br>';
+
+        uasort($blog_traffic, array($this, "cmp"));
+        foreach($blog_traffic as $id =>$traffic)
+            echo 'http://www.happy-giraffe.ru/user/'.$id.'/blog/ - '.$traffic.'<br>';
+
+        echo '<br>';
     }
 
     function cmp($a, $b)
     {
-        return $b[1] - $a[1];
+        if ($a == $b) {
+            return 0;
+        }
+        return ($a < $b) ? 1 : -1;
     }
 
     public function loadPage($url)

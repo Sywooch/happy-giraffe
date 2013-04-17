@@ -75,22 +75,17 @@ class RecipeController extends HController
                 CookRecipe::model()->types[$type],
             );
 
+        if (isset($_GET['SimpleRecipe_page']))
+            Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
+
         $this->render('index', compact('dp', 'type'));
     }
 
     /**
      * @sitemap dataSource=sitemapTag
      */
-    public function actionTag($tag = null, $type = 0)
+    public function actionTag($tag, $type = 0)
     {
-        if (empty($tag)) {
-            if (Yii::app()->user->checkAccess('recipe_tags'))
-                $this->render('tag_list');
-            else
-                throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
-            Yii::app()->end();
-        }
-
         $model = $this->loadTag($tag);
         if (CookRecipeTag::TAG_VALENTINE == $model->id && strpos(Yii::app()->request->requestUri, 'valentinesDay') === false) {
             header("HTTP/1.1 301 Moved Permanently");
@@ -332,6 +327,10 @@ class RecipeController extends HController
         );
         $this->registerCounter();
 
+        //проверяем переход с других сайтов по ссылкам комментаторов
+        Yii::import('site.frontend.modules.signal.models.CommentatorLink');
+        CommentatorLink::checkPageVisit('CookRecipe', $id);
+
         $this->render('view', compact('recipe'));
     }
 
@@ -341,6 +340,7 @@ class RecipeController extends HController
         $this->pageTitle = 'Поиск рецептов';
         $this->currentType = $type;
         $text = urldecode($text);
+        Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
 
         $this->breadcrumbs = array(
             'Кулинария' => array('/cook'),
@@ -446,8 +446,7 @@ class RecipeController extends HController
                     'id' => $model['id'],
                     'section' => $model['section'],
                 ),
-                'changefreq' => 'daily',
-                'lastmod' => ($model['updated'] === null) ? $model['created'] : $model['updated'],
+                'changefreq' => 'daily'
             );
         }
 
@@ -620,7 +619,11 @@ class RecipeController extends HController
             return null;
 
         $recipe_id = Yii::app()->request->getQuery('id');
+        return date("Y-m-d H:i:s", $this->getRecipeLastUpdatedTime($recipe_id));
+    }
 
+    public function getRecipeLastUpdatedTime($id)
+    {
         $sql = "SELECT
                     GREATEST(
                         COALESCE(MAX(c.created), '0000-00-00 00:00:00'),
@@ -633,8 +636,17 @@ class RecipeController extends HController
                 ON cm.entity = 'CookRecipe' AND cm.entity_id = :recipe_id";
 
         $command = Yii::app()->db->createCommand($sql);
-        $command->bindValue(':recipe_id', $recipe_id, PDO::PARAM_INT);
-        return $command->queryScalar();
+        $command->bindValue(':recipe_id', $id, PDO::PARAM_INT);
+        $t1 = strtotime($command->queryScalar());
+
+        //проверяем блок внутренней перелинковки
+        $url = 'http://www.happy-giraffe.ru' . Yii::app()->request->getRequestUri();
+        $t2 = InnerLinksBlock::model()->getUpTime($url);
+
+        if (empty($t2))
+            return $t1;
+
+        return max($t1, $t2);
     }
 
     /**

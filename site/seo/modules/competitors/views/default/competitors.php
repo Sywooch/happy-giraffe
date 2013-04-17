@@ -1,3 +1,6 @@
+<?php
+$dataProvider = $model->search();
+?>
 <div class="search clearfix">
 
     <div class="input">
@@ -6,8 +9,8 @@
         <input type="text" id="keyword" value="<?=$model->key_name ?>">
         <button class="btn btn-green-small">Поиск</button>
     </div>
-
-    <?php $this->renderPartial('_count', compact('model', 'freq', 'site_id')); ?>
+    <?php $total_count = $dataProvider->totalItemCount ?>
+    <?php $this->renderPartial('_count', compact('model', 'freq', 'site_id', 'total_count')); ?>
 
     <div class="result-filter">
         <label>не показывать<br>используемые<br>
@@ -20,14 +23,13 @@
 <div class="seo-table table-result mini">
     <?php $this->widget('zii.widgets.grid.CGridView', array(
     'id' => 'keywords-grid',
-    'dataProvider' => $model->search(),
+    'dataProvider' => $dataProvider,
 //    'afterAjaxUpdate'=>'CompetitorsTable.updateTable()',
     'filter' => null,
     'cssFile' => false,
     'rowCssClassExpression' => '$data->keyword->getClass()',
     'ajaxUpdate'=>false,
     'template' => '<div class="table-box">{items}</div><div class="pagination pagination-center clearfix">{pager}</div>',
-//        'summaryText' => 'показано: {start} - {end} из {count}',
     'pager' => array(
         'class' => 'MyLinkPager',
         'header' => '',

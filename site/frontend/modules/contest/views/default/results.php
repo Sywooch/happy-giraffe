@@ -159,6 +159,21 @@
                 'model' => 'Nuby',
             ),
         );
+    } elseif ($this->contest->id == 9) {
+        $prizes = array(
+            '1' => array(
+                'title' => '',
+                'model' => '',
+            ),
+            '2' => array(
+                'title' => '',
+                'model' => '',
+            ),
+            '3' => array(
+                'title' => '',
+                'model' => '',
+            ),
+        );
     }
 ?>
 

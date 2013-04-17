@@ -42,6 +42,7 @@ return array(
         // ajax controller
         'ajax/duelShow/question_id/<question_id:\d+>' => 'ajax/duelShow',
         'counter'=>'ajaxSimple/counter',
+        'ajaxSimple/<_a>'=>'ajaxSimple/<_a>',
 
         // signup controller
         'signup' => 'signup/index',
@@ -115,8 +116,8 @@ return array(
         'community/<_a:(join|add|transfer|edit|editTravel|weeklyMail)>' => 'community/<_a>',
 
         //global
-        '<_c:(settings|activity|ajax|notification|profile|friendRequests|communityRubric|family|morning|userPopup|features|blog)>/<_a>' => '<_c>/<_a>',
-        '<_c:(settings|activity|profile|rss|family|morning|community)>' => '<_c>/index',
+        '<_c:(settings|ajax|notification|profile|friendRequests|communityRubric|family|morning|userPopup|features|blog)>/<_a>' => '<_c>/<_a>',
+        '<_c:(settings|profile|rss|family|morning|community|happyBirthdayMira)>' => '<_c>/index',
 
         //others
         'news/about' => 'community/contacts',
@@ -151,6 +152,10 @@ return array(
         '<_m:(geo|im|signal|scores|cook|contest)>/' => '<_m>/default/index',
         '<_m:(geo|im|signal)>/<_a>' => '<_m>/default/<_a>',
         'commentator' => 'signal/commentator/index',
+        'commentator/links/<month:\d\d\d\d-\d\d>' => 'signal/commentator/links',
+        'commentator/award/<type:\w+>' => 'signal/commentator/award',
+        'commentator/reports/<section:\w+>/<month:\d\d\d\d-\d\d>' => 'signal/commentator/reports',
+        'commentator/reports/<section:\w+>' => 'signal/commentator/reports',
         'commentator/<_a>' => 'signal/commentator/<_a>',
 
         //cook
@@ -257,9 +262,9 @@ return array(
         'services/lines/<id:[\d]+>.jpeg' => 'services/lines/default/index',
 
         'auto/routes/<id:[\d]+>'=>'routes/default/index',
+        'auto/routes/'=>'routes/default/index',
         'auto/routes/<_a>'=>'routes/default/<_a>',
         'auto/routes/<_a>/<id:[\d]+>'=>'routes/default/<_a>',
-        'auto/routes/'=>'routes/default/index',
 
         'ValentinesDay' => 'valentinesDay/default/index',
         'ValentinesDay/<_a>' => 'valentinesDay/default/<_a>',

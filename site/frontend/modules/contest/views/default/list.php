@@ -67,6 +67,7 @@ $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
 
 <?php
     $this->widget('zii.widgets.CListView', array(
+        'cssFile'=>false,
         'ajaxUpdate' => false,
         'dataProvider' => $works,
         'itemView' => '_work',

@@ -357,8 +357,10 @@ class AlbumPhoto extends HActiveRecord
             if (!file_exists($model_dir))
                 mkdir($model_dir);
 
-            if (!file_exists($this->originalPath))
+            if (!file_exists($this->originalPath)){
+                //$this->delete();
                 return false;
+            }
 
             #TODO imagick Применяется для анимированных gif, но поскольку он сейчас долго работает пришлось отключить
 //            if (exif_imagetype($this->originalPath) == IMAGETYPE_GIF)
@@ -367,7 +369,7 @@ class AlbumPhoto extends HActiveRecord
             $thumb = $this->gdResize($thumb, $width, $height, $master, $crop);
         }
 
-        if ($size = @getimagesize($thumb)) {
+        if ($thumb !== false && $size = @getimagesize($thumb)) {
             $this->width = $size[0];
             $this->height = $size[1];
         }
@@ -385,7 +387,13 @@ class AlbumPhoto extends HActiveRecord
             $image = $image->create($this->originalPath);
 
         } catch (CException $e) {
-            return $thumb;
+            #TODO сделать более грамотный механизм обработки плохих фоток
+            if (strpos($e->getMessage(), 'File is not a valid image') !== false
+            || strpos($e->getMessage(), 'Image format not supported') !== false){
+                //удаляем фотку
+                $this->delete();
+            }
+            return false;
         }
 
         if ($image->width <= $width && $image->height <= $height
@@ -497,7 +505,8 @@ class AlbumPhoto extends HActiveRecord
     }
 
     /**
-     * Get url to the original image
+     * Возвращает url аватарки
+     * @param $size string размер аватарки
      * @return string
      */
     public function getAvatarUrl($size)

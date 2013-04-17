@@ -37,16 +37,16 @@ var CookModule = {
                 urls.push($(this).val());
         });
 
-        var multivarka = 0;
-        if ($(el).parents('tr').find('input[name="multivarka"]').attr("checked") == "checked")
-            multivarka = 1;
+        var sub_section = 0;
+        if ($(el).parents('tr').find('input[name="sub_section"]').attr("checked") == "checked")
+            sub_section = 1;
         var key_id = $(el).parents('tr').data('key_id');
         var task_id = $(el).parents('tr').data('task_id');
 
         $.post('/cook/editor/addTask/', {
             author_id:author_id,
             urls:urls,
-            multivarka:multivarka,
+            sub_section:sub_section,
             key_id:key_id,
             task_id:task_id,
             section:section

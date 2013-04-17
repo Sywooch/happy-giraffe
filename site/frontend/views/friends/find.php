@@ -63,6 +63,7 @@
 
     <?php
         $this->widget('zii.widgets.CListView', array(
+            'cssFile'=>false,
             'id' => 'friendsList',
             'dataProvider' => $dp,
             'itemView' => '_friend',

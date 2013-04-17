@@ -23,6 +23,7 @@ $template = '
 
 
 $this->widget('HCommentListView', array(
+    'cssFile'=>false,
     'dataProvider' => $dataProvider,
     'itemView' => '_comment',
     'itemsTagName' => 'ul',

@@ -8,6 +8,7 @@ Yii::import('site.seo.models.*');
 Yii::import('site.seo.models.mongo.*');
 Yii::import('site.seo.components.*');
 Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
+Yii::import('site.seo.components.wordstat.*');
 
 class WordstatCommand extends CConsoleCommand
 {
@@ -151,8 +152,8 @@ class WordstatCommand extends CConsoleCommand
 
     public function actionPutTask()
     {
-        $text = 'hello world' . rand(1, 1000000);
-        Yii::app()->gearman->client()->doBackground("simple_parsing", serialize($text));
+        $job_provider = new WordstatTaskCreator;
+        $job_provider->start();
     }
 
     public function actionGetTask()
@@ -164,7 +165,7 @@ class WordstatCommand extends CConsoleCommand
     public function processMessage($job)
     {
         echo $job->workload();
-        sleep(3);
+        sleep(5);
         return true;
     }
 }

@@ -8,7 +8,7 @@
 class WordstatTaskCreator
 {
     private $jobs = array();
-    private $keywords = array();
+    private $client;
     /**
      * @var MongoCollection
      */
@@ -17,76 +17,54 @@ class WordstatTaskCreator
     public function start()
     {
         $this->loadMoreKeywords();
-        $client = Yii::app()->gearman->client();
-
-        for ($i = 0; $i < 20; $i++) {
-            $text = 'task.' . $i;
-            $job_handle = $client->doBackground("simple_parsing", serialize($text));
-            if ($client->returnCode() != GEARMAN_SUCCESS) {
-                echo 'send task fail';
-                Yii::app()->end();
-            }
-            $this->jobs [] = array($job_handle, $i);
-        }
+        $this->client = Yii::app()->gearman->client();
 
         while (1) {
             sleep(1);
             foreach ($this->jobs as $key => $job) {
-                $stat = $client->jobStatus($job[0]);
+                $stat = $this->client->jobStatus($job[0]);
                 if ($stat[0] === false) {
                     echo $job[1] . " ended\n";
+                    //удаляем из отслеживаемых заданий
                     unset($this->jobs[$key]);
+                    //удаляем из очереди базы данных
                     $this->collection->remove(array('id' => $job[1]));
                 }
             }
+
+            if (count($this->jobs) < 90)
+                $this->loadMoreKeywords(10);
         }
     }
 
-    public function loadMoreKeywords($count = 10000)
+    /**
+     * Загрузить ключевых слов на парсинг
+     * @param int $count кол-во ключевых слов
+     */
+    public function loadMoreKeywords($count = 100)
     {
         if (!$this->collection) {
-            $m = new Mongo('mongodb://localhost');
-            $m->connect();
-            $this->collection = $m->selectCollection('parsing', 'simple_parsing');
+            $mongo = new Mongo('mongodb://localhost');
+            $mongo->connect();
+            $this->collection = $mongo->selectCollection('parsing', 'simple_parsing');
         }
-        for ($i = 0; $i < 1000000; $i++) {
-            $this->collection->remove(array('id' => $i));
+
+        echo "adding keyword to queue\n";
+
+        $cur = $this->collection->find();
+        for ($i = 0; $i < $count; $i++) {
+            $keyword = $cur->getNext();
+            $this->addTaskToQueue($keyword['id']);
         }
     }
 
-    public function addKeywordsToParsing()
+    /**
+     * Добавляем ключевое слово в очередь
+     * @param $keyword_id int
+     */
+    private function addTaskToQueue($keyword_id)
     {
-        if (!$this->collection) {
-            $m = new Mongo('mongodb://localhost');
-            $m->connect();
-            $this->collection = $m->selectCollection('parsing', 'simple_parsing');
-            $this->collection->ensureIndex(array('id' => 1), array("unique" => true));
-        }
-
-        $criteria = new CDbCriteria;
-        $criteria->limit = 100;
-        $criteria->offset = 0;
-
-        $ids = 1;
-        $max_id = 0;
-        $i=0;
-        while (!empty($ids)) {
-            $ids = Yii::app()->db_keywords->createCommand()
-                ->select('id')
-                ->from('keywords')
-                ->where('id > ' . $max_id)
-                ->limit(10000)
-                ->order('id')
-                ->queryColumn();
-            foreach ($ids as $id)
-                $this->collection->insert(array('id' => $id));
-
-            if (!empty($ids))
-                $max_id = $ids[count($ids) - 1];
-            $i++;
-
-            if ($i % 10 == 0)
-                echo $i."\n";
-        }
+        $job_handle = $this->client->doBackground("simple_parsing", $keyword_id);
+        $this->jobs [] = array($job_handle, $keyword_id);
     }
 }

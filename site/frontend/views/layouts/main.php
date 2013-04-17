@@ -344,7 +344,11 @@
                     <div class="share_button">
                         <div id="vk_like"></div>
                         <script type="text/javascript">
-                            VK.Widgets.Like("vk_like", {type: "full"});
+                            VK.Widgets.Like("vk_like", {
+                                type: "full",
+                                width: "105",
+                                pageUrl: "http://www.happy-giraffe.ru/"
+                            });
                         </script>
                     </div>
 

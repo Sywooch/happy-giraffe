@@ -50,7 +50,7 @@ class WordstatParsingTask
                 ->order('id')
                 ->queryColumn();
             foreach ($ids as $id)
-                $this->collection->insert(array('id' => (int)$id));
+                $collection->insert(array('id' => (int)$id));
 
             if (!empty($ids))
                 $max_id = $ids[count($ids) - 1];

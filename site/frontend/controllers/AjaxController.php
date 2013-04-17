@@ -809,4 +809,14 @@ class AjaxController extends HController
             Favourites::getIdList(Favourites::BLOCK_SOCIAL_NETWORKS, 5));
         var_dump($ids);
     }
+
+    public function actionSetUserAttribute()
+    {
+        $key = Yii::app()->request->getPost('key');
+        $value = Yii::app()->request->getPost('value');
+
+        $success = UserAttributes::set(Yii::app()->user->id, $key, $value);
+        $response = compact('success');
+        echo CJSON::encode($response);
+    }
 }

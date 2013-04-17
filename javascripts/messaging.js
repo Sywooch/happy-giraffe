@@ -134,15 +134,18 @@ function MessagingViewModel(data) {
             self.interlocutor(new Interlocutor(response.interlocutor, self));
         }, 'json');
 
-        if (self.openContact().thread() === null)
+        console.log(self.openContact().user().id());
+        if (self.openContact().thread() === null) {
             self.messages([]);
-        else
+        }
+        else {
             $.get('/messaging/threads/getMessages/', { threadId : contact.thread().id() }, function(response) {
                 self.openContact().thread().changeReadStatus(1);
                 self.messages(ko.utils.arrayMap(response.messages, function(message) {
                     return new Message(message, self);
                 }));
             }, 'json');
+        }
     }
 
     self.addFriend = function()  {
@@ -150,6 +153,13 @@ function MessagingViewModel(data) {
             if (response.status)
                 self.interlocutor().inviteSent(true);
         }, 'json');
+    }
+
+    self.block = function() {
+        var contact = self.findByInterlocutorId(self.interlocutor().user.id());
+        self.contacts.remove(contact);
+        if (self.contactsToShow().length > 0)
+            self.openThread(self.contactsToShow()[0]);
     }
 
     self.openContact = ko.computed(function() {

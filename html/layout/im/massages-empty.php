@@ -266,7 +266,7 @@
 						<div class="im-tabs_i"><a href="" class="im-tabs_a">Кто в онлайн (12)</a></div>
 						<div class="im-tabs_i"><a href="" class="im-tabs_a">Друзья на сайте (8)</a></div>
 					</div>
-					<div class="im-panel im-panel__big">
+					<div class="im-panel im-panel__big" style="visibility: hidden;">
 						<div class="im-panel-icons">
 							<div class="im-panel-icons_i">
 								<a href="" class="im-panel-icons_i-a im-tooltipsy" title="Добавить в друзья">
@@ -279,18 +279,6 @@
 									<span class="im-panel-ico im-panel-ico__blacklist"></span>
 									<span class="im-panel-icons_desc">Заблокировать <br> пользователя</span>
 								</a>
-								<div class="im-tooltip-popup">
-									<div class="im-tooltip-popup_t">Вы уверены?</div>
-									<p class="im-tooltip-popup_tx">Пользователь из черного списка не сможет писать вам личные сообщения и комментировать ваши записи</p>
-									<label for="im-tooltip-popup_checkbox" class="im-tooltip-popup_label-small clearfix">
-										<input type="checkbox" name="" id="im-tooltip-popup_checkbox" class="im-tooltip-popup_checkbox">
-										Больше не показывать данное предупреждение
-									</label>
-									<div class="clearfix textalign-c">
-										<button class="btn-green">Да</button>
-										<button class="btn-gray">Нет</button>
-									</div>
-								</div>
 							</div>
 							<div class="im-panel-icons_i">
 								<a href="" class="im-panel-icons_i-a im-tooltipsy" title="Удалить весь диалог">
@@ -321,67 +309,7 @@
 				<div class="im-center_middle">
 					<div class="im-center_middle-hold">
 						<div class="im-center_middle-w">
-							<div class="im-message clearfix">
-								<div class="im-message_icons active">
-									<div class="im-message_icons-i active">
-										<a href="" class="im-message_ico im-message_ico__warning im-tooltipsy" title="Пожаловаться"></a>
-										
-										<div class="im-tooltip-popup">
-											<div class="im-tooltip-popup_t">Укажите вид нарушения:</div>
-											<label for="" class="im-tooltip-popup_label clearfix">
-											<!-- id у input должны быть все разные, приведен пример для связки label с input
-											атрибут name у каждого выпадающего окношка должен быть разный
-											  -->
-												<input type="radio" name="im-tooltip-popup_radio" id="" class="im-tooltip-popup_radio">
-												Спам или реклама
-											</label>
-											<label for="" class="im-tooltip-popup_label clearfix">
-												<input type="radio" name="im-tooltip-popup_radio" id="" class="im-tooltip-popup_radio">
-												Мошенничество
-											</label>
-											<label for="" class="im-tooltip-popup_label clearfix">
-												<input type="radio" name="im-tooltip-popup_radio" id="" class="im-tooltip-popup_radio">
-												Грубость, угрозы
-											</label>
-											<label for="" class="im-tooltip-popup_label clearfix">
-												<input type="radio" name="im-tooltip-popup_radio" id="" class="im-tooltip-popup_radio">
-												Интимный характер
-											</label>
-											<label for="" class="im-tooltip-popup_label clearfix">
-												<input type="radio" name="im-tooltip-popup_radio" id="" class="im-tooltip-popup_radio">
-												Другое
-											</label>
-											<label for="" class="im-tooltip-popup_label clearfix">
-												<input type="radio" name="im-tooltip-popup_radio" id="" class="im-tooltip-popup_radio">
-												<input type="text" name="" id="" class="im-tooltip-popup_itx" placeholder="Другое">
-											</label>
-											<div class="clearfix textalign-c">
-												<button class="btn-green">Пожаловаться</button>
-												<button class="btn-gray">Отменить</button>
-											</div>
-										</div>
-									</div>
-									<div class="im-message_icons-i">
-										<a href="" class="im-message_ico im-message_ico__del im-tooltipsy" title="Удалить"></a>
-									</div>
-								</div>
-								<a class="ava small female" href="">
-									<img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg">
-								</a>
-								<div class="im-message_hold">
-									<div class="im-message_t">
-										<a href="" class="im-message_user">Олег</a>
-										<em class="im-message_date">28 янв 2012, 13:45</em>
-										<div class="im-message_status im-message_status__read">Сообщение прочитано</div>
-									</div>
-									<div class="im-message_tx">
-										Привет! У меня родился сын! Вот фото!
-									</div>
-								</div>
-							</div>
 							
-							<div class="im_message-loader">
-							</div>
 						</div>
 					</div>
 				</div>

@@ -54,8 +54,8 @@ class HController extends CController
         if (Yii::app()->user->id == 12936 || Yii::app()->user->id == 56)
             $this->showLikes = true;
 
-        if (Yii::app()->user->id == 22 && !($this->id == 'happyBirthdayMira' || $this->route == 'site/logout' || $this->route == 'ajax/sendcomment'))
-            $this->redirect(array('happyBirthdayMira/index'));
+//        if (Yii::app()->user->id == 22 && !($this->id == 'happyBirthdayMira' || $this->route == 'site/logout' || $this->route == 'ajax/sendcomment'))
+//            $this->redirect(array('happyBirthdayMira/index'));
 
         $this->_mobileRedirect();
 

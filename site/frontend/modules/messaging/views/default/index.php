@@ -52,7 +52,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="im-panel-icons_i">
+                        <div class="im-panel-icons_i" data-bind="if: openContact().thread() !== null">
                             <a href="javascript:void(0)" class="im-panel-icons_i-a im-tooltipsy" title="Удалить весь диалог" data-bind="click: openContact().thread().deleteMessages">
                                 <span class="im-panel-ico im-panel-ico__del"></span>
                                 <span class="im-panel-icons_desc">Удалить <br> весь диалог</span>
@@ -78,7 +78,7 @@
                 </div>
             </div>
 
-            <div class="im-center_middle">
+            <div class="im-center_middle" data-bind="visible: openContact() !== null">
                 <div class="im-center_middle-hold">
 
                     <div class="im-center_middle-w">
@@ -105,7 +105,7 @@
                     </div>
                 </div>
             </div>
-            <div class="im-center_bottom">
+            <div class="im-center_bottom" data-bind="visible: openContact() !== null">
                 <div class="im-center_bottom-hold">
 
                     <div class="im-editor-b">
@@ -140,23 +140,22 @@
                 <a data-bind="text: user().fullName()"></a>
             </div>
         </div>
-        <div class="im_watch im-tooltipsy" title="Скрыть диалог" data-bind="visible: thread() != null, click: $root.changeHiddenStatus"></div>
-        <div class="im_count im-tooltipsy" title="Отметить как прочитанное" data-bind="visible: thread() != null, click: $root.changeReadStatus, text: thread() != null ? thread().unreadCount() : '', css: { 'im_count__read' : thread() != null && thread().unreadCount() == 0 }"></div>
+        <!-- ko if: thread() !== null -->
+        <div class="im_watch im-tooltipsy" title="Скрыть диалог" data-bind="click: thread().toggleHiddenStatus, clickBubble: false"></div>
+        <div class="im_count im-tooltipsy" title="Отметить как прочитанное" data-bind="click: thread().toggleReadStatus, clickBubble: false, text: thread().unreadCount(), css: { 'im_count__read' : thread().unreadCount() == 0 }"></div>
+        <!-- /ko -->
     </div>
 </script>
 
 <script type="text/html" id="message-template">
     <div class="im-message clearfix">
-        <div class="im-message_icons">
-            <div class="im-message_icons-i">
-                <a href="" class="im-message_ico im-message_ico__warning im-tooltipsy" title="Пожаловаться"></a>
+        <div class="im-message_icons" data-bind="css: { active : showAbuse() }">
+            <div class="im-message_icons-i" data-bind="if: author().id() != $root.me.id(), css: { active : showAbuse() }">
+                <a href="javascript:void(0)" class="im-message_ico im-message_ico__warning im-tooltipsy" title="Пожаловаться" data-bind="click: toggleShowAbuse"></a>
 
                 <div class="im-tooltip-popup">
                     <div class="im-tooltip-popup_t">Укажите вид нарушения:</div>
                     <label for="im-tooltip-popup_radio" class="im-tooltip-popup_label clearfix">
-                        <!-- id у input должны быть все разные, приведен пример для связки label с input
-                      атрибут name у каждого выпадающего окношка должен быть разный
-                        -->
                         <input type="radio" name="im-tooltip-popup_radio" id="im-tooltip-popup_radio" class="im-tooltip-popup_radio">
                         Спам или реклама
                     </label>
@@ -174,15 +173,11 @@
                     </label>
                     <label for="" class="im-tooltip-popup_label clearfix">
                         <input type="radio" name="im-tooltip-popup_radio" id="" class="im-tooltip-popup_radio">
-                        Другое
-                    </label>
-                    <label for="" class="im-tooltip-popup_label clearfix">
-                        <input type="radio" name="im-tooltip-popup_radio" id="" class="im-tooltip-popup_radio">
                         <input type="text" name="" id="" class="im-tooltip-popup_itx" placeholder="Другое">
                     </label>
                     <div class="clearfix textalign-c">
-                        <button class="btn-green btn-inactive">Пожаловаться</button>
-                        <button class="btn-gray">Отменить</button>
+                        <button class="btn-green" data-bind="click: toggleShowAbuse">Пожаловаться</button>
+                        <button class="btn-gray" data-bind="click: toggleShowAbuse">Отменить</button>
                     </div>
                 </div>
             </div>
@@ -197,7 +192,7 @@
             <div class="im-message_t">
                 <a href="javascript: void(0)" class="im-message_user" data-bind="text: author().firstName()"></a>
                 <em class="im-message_date" data-bind="text: created()"></em>
-                <div class="im-message_status im-message_status__read" data-bind="visible: false">Сообщение прочитано</div>
+                <div class="im-message_status" data-bind="visible: ($root.me.id() == author().id() && (! read() || $data.id() == $root.lastReadMessage().id())), css: read() ? 'im-message_status__read' : 'im-message_status__noread', text: read() ? 'Сообщение прочитано' : 'Сообщение не прочитано'"></div>
             </div>
             <div class="im-message_tx" data-bind="html: text()">
 

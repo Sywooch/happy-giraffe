@@ -71,10 +71,16 @@ class ThreadsController extends HController
         $readStatus = Yii::app()->request->getPost('readStatus');
 
 
-        $thread = MessagingThread::model();
-        $thread->id = $threadId;
-        if ($readStatus == 1)
+        $thread = MessagingThread::model()->with('threadUsers')->findByPk($threadId);
+        if ($readStatus == 1) {
             $thread->markAsReadFor(Yii::app()->user->id);
+
+            $comet = new CometModel();
+            foreach ($thread->threadUsers as $threadUser) {
+                if ($threadUser->user_id !== Yii::app()->user->id)
+                    $comet->send($threadUser->user_id, array('threadId' => $threadId), CometModel::MESSAGING_THREAD_READ);
+            }
+        }
         else
             $thread->markAsUnReadFor(Yii::app()->user->id);
 

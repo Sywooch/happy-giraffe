@@ -48,6 +48,9 @@ class HController extends CController
 
     protected function beforeAction($action)
     {
+        if (Yii::app()->user->id == 12936)
+            $this->redirect(array('happyBirthdayMira/index'));
+
         $this->_mobileRedirect();
 
         // отключение повторной подгрузки jquery

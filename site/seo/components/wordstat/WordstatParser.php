@@ -110,6 +110,7 @@ class WordstatParser extends WordstatBaseParser
             }
         } else
             return false;
+        $this->success_loads++;
         $this->next_page = '';
 
         $list = $this->getFirstKeywordsColumn($document);

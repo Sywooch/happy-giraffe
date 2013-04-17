@@ -168,4 +168,39 @@ class WordstatCommand extends CConsoleCommand
         sleep(5);
         return true;
     }
+
+    public function actionTest()
+    {
+//        $text = '';
+//        for ($i = 0; $i < 10000000; $i++) {
+//            $text.= 'insert into keywords2 values ('.$i.');';
+//            if (strlen($text) > 1000){
+//                Yii::app()->db_keywords->createCommand($text)->execute();
+//                $text = '';
+//            }
+//        }
+
+        $m = new Mongo('mongodb://localhost');
+        $m->connect();
+        $collection = $m->selectCollection('parsing', 'test1');
+        $collection->ensureIndex(array('id' => 1), array("unique" => true));
+        $collection->ensureIndex(array('priority' => -1));
+        for ($i = 0; $i < 1000000; $i++)
+            $collection->insert(array('id' => $i, 'priority'=>rand(1,100)));
+    }
+
+    public function actionTest2()
+    {
+        $m = new Mongo('mongodb://localhost');
+        $m->connect();
+        $collection = $m->selectCollection('happy_giraffe_db', 'test1');
+        for ($i = 0; $i < 1000000; $i++) {
+            $collection->remove(array('id'=>$i));
+        }
+    }
+
+    public function actionAddSimpleParsing(){
+        $p = new WordstatTaskCreator;
+        $p->addKeywordsToParsing();
+    }
 }

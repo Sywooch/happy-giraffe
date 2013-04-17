@@ -41,9 +41,8 @@ class WordstatTaskCreator
 
     /**
      * Загрузить ключевых слов на парсинг
-     * @param int $count кол-во ключевых слов
      */
-    public function loadMoreKeywords($count = self::JOB_LIMIT)
+    public function loadMoreKeywords()
     {
         if (!$this->collection) {
             $mongo = new Mongo('mongodb://localhost');

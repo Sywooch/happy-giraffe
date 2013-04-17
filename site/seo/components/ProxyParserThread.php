@@ -97,7 +97,7 @@ class ProxyParserThread
                     curl_close($ch);
 
                     $attempt += 1;
-                    if ($attempt > 1) {
+                    if ($attempt > 2) {
                         $this->changeBadProxy();
                         $attempt = 0;
                     }

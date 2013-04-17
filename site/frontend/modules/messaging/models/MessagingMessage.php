@@ -44,7 +44,7 @@ class MessagingMessage extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('author_id, thread_id, text', 'required'),
+            array('author_id, text', 'required'),
             array('updated, created', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.

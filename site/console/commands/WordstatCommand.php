@@ -200,7 +200,6 @@ class WordstatCommand extends CConsoleCommand
     }
 
     public function actionAddSimpleParsing(){
-        $p = new WordstatTaskCreator;
-        $p->addKeywordsToParsing();
+        WordstatParsingTask::getInstance()->addAllKeywordsToParsing();
     }
 }

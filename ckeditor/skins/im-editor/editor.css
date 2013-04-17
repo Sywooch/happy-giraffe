@@ -268,6 +268,7 @@ a:hover.cke_colorauto,a:hover.cke_colormore,a:focus.cke_colorauto,a:focus.cke_co
 
 .cke_skin_im-editor .cke_button_anchor .cke_icon {background-position:-219px 0;}
 
+.cke_skin_im-editor .cke_button_attach .cke_icon,
 .cke_skin_im-editor .cke_button_image .cke_icon {width:21px;background-position:-333px 0;}
 
 .cke_skin_im-editor .cke_button_flash .cke_icon{background-position:0 -592px;}

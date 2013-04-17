@@ -495,7 +495,7 @@
 					contentsCss : '/ckeditor/skins/im-editor/contents.css', 
 					skin : 'im-editor',
 					toolbar : [	
-						['othertext', 'Smiles','Image']
+						['othertext', 'Smiles','Attach']
 					],
 					toolbarCanCollapse: false,
 					disableObjectResizing: false,

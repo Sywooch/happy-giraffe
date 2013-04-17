@@ -177,6 +177,13 @@ class SiteController extends SController
         $this->render('last_keywords', compact('models'));
     }
 
+    public function actionKeyword($id)
+    {
+        $model = Keyword::model()->findByPk($id);
+
+        $this->render('keyword', compact('model'));
+    }
+
     public function actionTest()
     {
         $this->render('test');

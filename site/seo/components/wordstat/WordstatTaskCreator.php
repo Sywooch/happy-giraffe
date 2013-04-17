@@ -30,7 +30,7 @@ class WordstatTaskCreator
                     //удаляем из отслеживаемых заданий
                     unset($this->jobs[$key]);
                     //удаляем из очереди базы данных
-                    $this->collection->remove(array('id' => $job[1]));
+                    $this->collection->remove(array('id' => (int)$job[1]));
                 }
             }
 

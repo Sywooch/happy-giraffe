@@ -22,8 +22,7 @@ CKEDITOR.plugins.add('attach', {
 
         editor.ui.addButton('Attach', {
             label : 'Вставить изображение',
-            command : 'attach',
-            icon: '/ckeditor/plugins/attach/images/attach.png'
+            command : 'attach'
         });
     },
     afterInit : function(editor) {

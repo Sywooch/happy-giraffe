@@ -1,0 +1,196 @@
+// Управдение объеденения файлов с помощью less 
+// Переменные и миксы
+@import "../include/variables.less";
+@import "../include/mixins.less";
+
+  
+/* @layout  base 
+--------------------------------------------------------*/
+hr,
+.hr {height:1px;border: 0;color:#e5e5e5;background:#e5e5e5;display:block;margin: 20px 0 15px;font-size:0;line-height:0;}
+.hr-notches {
+	display: block;
+	height: 12px;
+	margin: 40px -20px;
+	font-size:0;line-height:0;
+	border: 0;
+	background: url(/images/hr-notches.gif) repeat-x;
+}
+
+.file-fake {display:inline-block;*zoom:1;*display:inline;position:relative;cursor:pointer;overflow:hidden;}
+.file-fake input {opacity:0;position:absolute;z-index:3;right:0;top:0;height:100%;display:block;cursor:pointer;filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0)}
+.file-fake .btn,
+.file-fake_btn {position:relative;z-index:2;cursor: pointer;}
+.itx-bluelight {
+	border: 1px solid #c7c7c7;
+	-webkit-box-shadow: inset 2px 2px 3px rgba(0,0,0,0.08);
+	box-shadow: inset 2px 2px 3px rgba(0,0,0,0.08);
+	padding: 4px 7px;
+	background: #fff;
+}
+.itx-bluelight:focus {
+	border-color: #8ed2fd;
+	-webkit-box-shadow: 0 0 10px rgba(128,184,242,1);
+	box-shadow: 0 0 10px rgba(128,184,242,1);
+}
+
+/* links */
+/* @todo избавляться от .pseudo, .info */
+.a-info,
+a.info {display:inline-block;*zoom:1;*display:inline;width:13px;height:13px;background:url(../images/common.png) no-repeat -267px -101px;}
+.a-pseudo,
+a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
+a.pseudo:hover,
+.a-pseudo:hover {text-decoration:none;border-bottom-color:transparent;}
+/* /links */
+
+/* ava avatar */
+.ava {width:72px;height:72px;background:url(../images/avatar.png) no-repeat -240px -480px;display: block;float:left;}
+.ava.female {background-position:-240px -240px;}
+.ava.male {background-position:-240px 0;}
+.ava,
+.ava img { -moz-border-radius:36px;-webkit-border-radius:36px;border-radius:36px;behavior: url(/stylesheets/PIE.htc);width:72px;height:72px;position:relative;*behavior:url('');}
+.ava img {margin-top:0 !important;display:block;}
+
+.ava.big {width:240px;height:240px;background-position:0 -480px;float:none;}
+.ava.big,
+.ava.big img {/*css3*/ -moz-border-radius:0px;-webkit-border-radius:0px;border-radius:0px;}
+.ava.big img {width:auto;height:auto;display:block;margin:auto;}
+.ava.big.female {background-position:0 -240px;}
+.ava.big.male {background-position:0 0;}
+
+.ava.small {width:24px;height:24px;background-position:-240px -696px;}
+.ava.small,
+.ava.small img {/*css3*/ -moz-border-radius:12px;-webkit-border-radius:12px;border-radius:12px;behavior: url(/stylesheets/PIE.htc);*behavior:url('');width:24px;height:24px;}
+.ava.small.female {background-position:-240px -456px;}
+.ava.small.male {background-position:-240px -216px;}
+
+.ava.filled {background:none;height:auto;}
+.ava.filled .photo {display:none;}
+/* /ava avatar */
+
+/* icons */
+.ico-friends-small{display:inline-block;*zoom:1;*display:inline;width:27px;height:27px;background:url(/images/common.png) no-repeat -428px -334px;vertical-align:middle;margin-right:5px;}
+.ico-comment{display:inline-block;*zoom:1;*display:inline;width:16px;height:13px;background:url(/images/common.png) no-repeat -218px -295px;vertical-align:middle;margin-right:5px;}
+.ico-pregnant-test {width:59px;height:17px;background:url(../images/section/pregnancy/ico-pregnancy-test.png) no-repeat;display: inline-block;*zoom:1;*display:inline;}
+.ico-childbirth {width:42px;height:35px;background:url(../images/section/pregnancy/ico-childbirth.png) no-repeat;display: inline-block;*zoom:1;*display:inline;}
+.ico-age18 {display: inline-block;*zoom:1;*display:inline;width: 33px;height: 34px;background: url(/images/ico/ico-age18.png) no-repeat;vertical-align: middle;}
+.ico-child {width: 52px;height: 50px;display: inline-block;*zoom:1;*display:inline;vertical-align: middle;background: url(/images/user-family-icons.png) no-repeat -66px 0;}
+.ico-child__baby-plan{background-position: 0 0;}
+.ico-child__baby{background-position: -66px 0;}
+.ico-child__boy-wait{background-position: 0 -50px;}
+.ico-child__girl-wait{background-position: -66px -50px;}
+.ico-child__boy-small{background-position: 0 -100px;}
+.ico-child__girl-small{background-position: -66px -100px;}
+.ico-child__boy-3{background-position: 0 -150px;;}
+.ico-child__girl-3{background-position: -66px -150px;}
+.ico-child__boy-5{background-position: 0 -200px;}
+.ico-child__girl-5{background-position: -66px -200px;}
+.ico-child__boy-8{background-position: 0 -250px;}
+.ico-child__girl-8{background-position: -66px -250px;}
+.ico-child__boy-14{background-position: 0 -300px;}
+.ico-child__girl-14{background-position: -66px -300px;}
+.ico-child__boy-19{background-position: 0 -350px;}
+.ico-child__girl-19{background-position: -66px -350px;}
+.ico-camera-big {
+	display: inline-block;*zoom:1;*display:inline;
+	width: 39px;
+	height: 29px;
+	background: url(/images/ico/ico-camera-big.png) no-repeat;
+	vertical-align: middle;
+}
+.ico-valentine-heart {
+	display: inline-block;*zoom:1;*display:inline;
+	width: 55px;
+	height: 45px;
+	background: url(/images/ico/ico-valentine-heart.png) no-repeat;
+	vertical-align: middle;
+}
+.ico-plus {
+	display: inline-block;*zoom:1;*display:inline;
+	vertical-align: middle;
+	width: 8px;
+	height: 8px;
+	background: url(/images/ico/ico-plus.png) no-repeat;
+}
+.ico-player {
+	display: inline-block;*zoom:1;*display:inline;
+	vertical-align: middle;
+	width: 19px;
+	height: 19px;
+	background: url(/images/ico/ico-player.png) no-repeat;
+}
+.ico-player__pause {background-position: 0 -20px;}
+.ico-name-author {
+    display: inline-block;*zoom:1;*display:inline;
+    color: #8b8a8a;
+    font-size: 11px;
+    vertical-align: middle;
+    font-family: Tahoma, Arial, Verdana, sans-serif;
+    text-decoration: none;
+    padding: 0 0 0 15px;
+    background: url(/images/ico/ico-name-author.png) no-repeat;
+}
+.ico-name-author:hover {text-decoration: underline;}
+.ico-redactor {
+	display: inline-block;*zoom:1;*display:inline;
+	vertical-align: middle;
+	width: 30px;
+	height: 30px;
+	background: url(/images/ico/ico-redactor.png) no-repeat;
+}
+.ico-redactor__interest {background-position: 0 0;}
+.ico-redactor__interest:hover  {background-position: 0 -60px;}
+.ico-redactor__interest.active {background-position: 0 -30px;}
+.ico-redactor__blog     {background-position: -30px 0;}
+.ico-redactor__blog:hover {background-position: -30px -60px;}
+.ico-redactor__blog.active {background-position: -30px -30px;}
+.ico-redactor__social   {background-position: -60px 0;}
+.ico-redactor__social:hover {background-position: -60px -60px;}
+.ico-redactor__social.active {background-position: -60px -30px;}
+.ico-redactor__mail     {background-position: -90px 0;}
+.ico-redactor__mail:hover{background-position: -90px -60px;}
+.ico-redactor__mail.active{background-position: -90px -30px;}
+/* /icons */
+
+.logo-box {margin: 0 auto;text-align:center;color:#8d5bbc;text-transform:uppercase;font-size:10px;letter-spacing:3px;line-height:25px;padding: 25px 0 15px;}
+.logo-box > .logo {display:block;width:198px;height:93px;background:url(../images/common.png) no-repeat 0 -200px;text-indent:-9999px;margin:0 auto;}
+
+
+::-webkit-input-placeholder { color: #b6b6b6;font-weight: normal;opacity: 1;}
+::-moz-placeholder{ color: #b6b6b6;font-weight: normal;opacity: 1;}
+:-moz-placeholder{ color: #b6b6b6;font-weight: normal;opacity: 1;}
+.placeholder { color: #b6b6b6;font-weight: normal;opacity: 1;}
+
+/* errors */
+.error input[type=text],
+.error input[type=password],
+.error textarea,
+input[type=text].error,
+input[type=password].error,
+textarea.error,
+.error .chzn-single {border:1px solid #ff6767 !important;}
+.error .chzn-single div,
+.error .chzn-drop {border-color:#ff6767 !important;}
+.errorMessage,
+.errorSummary {color:#fe5757 !important;font-size:11px !important;line-height:normal !important;padding:5px 0;overflow:hidden;}
+.errorSummary ol {list-style:none;}
+/* /errors */
+
+/* js plugin class */
+.ui-autocomplete {
+	z-index: 11100 !important;
+	max-height: 200px;
+	overflow-y: auto;
+	overflow-x: hidden;
+	padding-right: 20px;
+}
+.tooltipsy {background:#fffac8;color:#6f6f6f;padding:1px 10px;border:1px solid #f3eca9;font-size:12px;-moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;
+	-webkit-box-shadow: 1px 1px 1px rgba(0,0,0,.2);
+	-moz-box-shadow:1px 1px 1px rgba(0,0,0,.2);
+	-ms-box-shadow:1px 1px 1px rgba(0,0,0,.2);
+	box-shadow:1px 1px 1px rgba(0,0,0,.2);behavior: url(/stylesheets/PIE.htc);
+}
+/* /js plugin class */
+/* /base layout
+---------------------------------------------------------*/

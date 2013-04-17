@@ -22,7 +22,7 @@
                 <div class="im-tabs">
                     <a href="javascript:void(0)" class="im_sound im-tooltipsy" title="Включить звуковые <br>оповещения" data-bind="click: toggleSoundSetting, css: { active : soundSetting }"></a>
                     <div class="im-tabs_i" data-bind="css: { active : tab() == 0 }"><a href="javascript:void(0)" class="im-tabs_a" data-bind="click: function(data, event) { changeTab(0, data, event) }">Все</a></div>
-                    <div class="im-tabs_i" data-bind="css: { active : tab() == 1 }"><a href="javascript:void(0)" class="im-tabs_a" data-bind="click: function(data, event) { changeTab(1, data, event) }">Новые <span class="im_count" data-bind="text: newContacts().length"></span> </a></div>
+                    <div class="im-tabs_i" data-bind="css: { active : tab() == 1 }"><a href="javascript:void(0)" class="im-tabs_a" data-bind="click: function(data, event) { changeTab(1, data, event) }">Новые <span class="im_count" data-bind="visible: newContacts().length > 0, text: newContacts().length"></span> </a></div>
                     <div class="im-tabs_i" data-bind="css: { active : tab() == 2 }"><a href="javascript:void(0)" class="im-tabs_a" data-bind="click: function(data, event) { changeTab(2, data, event) }, text: 'Кто в онлайн (' + onlineContacts().length + ')'"></a></div>
                     <div class="im-tabs_i" data-bind="css: { active : tab() == 3 }"><a href="javascript:void(0)" class="im-tabs_a" data-bind="click: function(data, event) { changeTab(3, data, event) }, text: 'Друзья на сайте (' + friendsContacts().length + ')'"></a></div>
                 </div>
@@ -35,7 +35,7 @@
                             </a>
                         </div>
                         <div class="im-panel-icons_i">
-                            <a href="" class="im-panel-icons_i-a  im-tooltipsy" title="Заблокировать пользователя">
+                            <a href="javascript:void(0)" class="im-panel-icons_i-a  im-tooltipsy" title="Заблокировать пользователя" data-bind="click: block">
                                 <span class="im-panel-ico im-panel-ico__blacklist"></span>
                                 <span class="im-panel-icons_desc">Заблокировать <br> пользователя</span>
                             </a>
@@ -109,7 +109,9 @@
                 <div class="im-center_bottom-hold">
 
                     <div class="im-editor-b">
-                        <a href="" class="ava small im-editor-b_ava"></a>
+                        <a href="javascript:void(0)" class="ava small im-editor-b_ava" data-bind="css: me.avatarClass()">
+                            <img alt="" data-bind="attr : { src : me.avatar() }" />
+                        </a>
                         <div class="im-editor-b_w">
                             <textarea cols="40" id="im-editor" name="im-editor" rows="3" autofocus></textarea>
                             <div class="im-editor-b_control">
@@ -126,6 +128,18 @@
             </div>
 
         </div>
+    </div>
+</div>
+
+<div style="display: none;">
+    <div class="upload-btn">
+        <?php
+        $fileAttach = $this->beginWidget('application.widgets.fileAttach.FileAttachWidget', array(
+            'entity' => 'BlogContent',
+        ));
+        $fileAttach->button();
+        $this->endWidget();
+        ?>
     </div>
 </div>
 
@@ -225,7 +239,7 @@
                 contentsCss : '/ckeditor/skins/im-editor/contents.css',
                 skin : 'im-editor',
                 toolbar : [
-                    ['othertext', 'Smiles','Image']
+                    ['othertext', 'Smiles','Attach']
                 ],
                 toolbarCanCollapse: false,
                 disableObjectResizing: false,

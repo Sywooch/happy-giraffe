@@ -55,6 +55,7 @@ return array(
         'application.modules.whatsNew.models.*',
         'application.modules.whatsNew.components.*',
         'application.modules.whatsNew.widgets.whatsNewWidget.WhatsNewWidget',
+        'application.modules.messaging.models.*',
     ),
 
 	'sourceLanguage' => 'en',

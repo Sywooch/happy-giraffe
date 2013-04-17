@@ -341,16 +341,6 @@
                         <iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.happy-giraffe.ru&amp;send=false&amp;layout=button_count&amp;width=129&amp;show_faces=true&amp;font&amp;colorscheme=light&amp;action=like&amp;height=21&amp;locale=ru_RU" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:129px; height:21px;" allowTransparency="true"></iframe>
                     </div>
 
-                    <div class="share_button">
-                        <div id="vk_like"></div>
-                        <script type="text/javascript">
-                            VK.Widgets.Like("vk_like", {
-                                type: "full",
-                                width: "105",
-                                pageUrl: "http://www.happy-giraffe.ru"
-                            });
-                        </script>
-                    </div>
 
                     <div class="share_button">
                         <div id="ok_shareWidget"></div>
@@ -371,6 +361,18 @@
                             }(document,"ok_shareWidget","http://www.happy-giraffe.ru","{width:145,height:30,st:'straight',sz:20,ck:1}");
                         </script>
                     </div>
+
+                    <div class="share_button">
+                        <div id="vk_like"></div>
+                        <script type="text/javascript">
+                            VK.Widgets.Like("vk_like", {
+                                type: "full",
+                                width: "105",
+                                pageUrl: "http://www.happy-giraffe.ru"
+                            });
+                        </script>
+                    </div>
+
 
                 </div>
             <?php endif; ?>

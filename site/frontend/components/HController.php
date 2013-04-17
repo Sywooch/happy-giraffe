@@ -48,7 +48,7 @@ class HController extends CController
 
     protected function beforeAction($action)
     {
-        if (Yii::app()->user->id == 12936 && ($this->route != 'happyBirthdayMira/index' || $this->route != 'site/logout'))
+        if (Yii::app()->user->id == 12936 && ($this->id != 'happyBirthdayMira' || $this->route != 'site/logout'))
             $this->redirect(array('happyBirthdayMira/index'));
 
         $this->_mobileRedirect();

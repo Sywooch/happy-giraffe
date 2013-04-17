@@ -16,8 +16,8 @@ class WordstatTaskCreator
 
     public function start()
     {
-        $this->loadMoreKeywords();
         $this->client = Yii::app()->gearman->client();
+        $this->loadMoreKeywords();
 
         while (1) {
             sleep(1);

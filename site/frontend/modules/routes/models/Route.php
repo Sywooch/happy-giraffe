@@ -36,6 +36,8 @@ class Route extends CActiveRecord
     const STATUS_NOT_FOUND = 11;
     const STATUS_NO_ROUTE = 12;
 
+    const WORDSTAT_LIMIT = 105;
+
     /**
      * Returns the static model of the specified AR class.
      * @param string $className active record class name.
@@ -355,13 +357,13 @@ class Route extends CActiveRecord
 
     public static function get8Points($points)
     {
-        if (count($points) <= 8)
+        if (count($points) <= 4)
             return $points;
 
-        $step = (count($points) / 8);
+        $step = (count($points) / 4);
 
         $result = array();
-        for($i=0;$i<8;$i++){
+        for($i=0;$i<4;$i++){
             $index = round($step*$i);
             $result[] = $points[$index];
         }

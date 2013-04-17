@@ -169,7 +169,8 @@ class SiteController extends SController
     {
         $criteria = new CDbCriteria;
         $criteria->order = 'id desc';
-        $criteria->limit = 100;
+        $criteria->condition = 'wordstat > 1000';
+        $criteria->limit = 1000;
 
         $models = Keyword::model()->findAll($criteria);
 

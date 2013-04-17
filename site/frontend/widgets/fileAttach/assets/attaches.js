@@ -162,7 +162,7 @@ Attach.prototype.CommunityContentEdit = function(val) {
 }
 
 Attach.prototype.CommunityContentInsert = function(val) {
-    if($('#attach_content textarea').val().length > 200) {
+    if($('#attach_content textarea').val().length > 1000) {
         $('#attach_content textarea').addClass('error');
         return false;
     } else {

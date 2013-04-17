@@ -16,9 +16,14 @@ class Favourites extends EMongoDocument
     public $block;
     public $entity;
     public $entity_id;
+    public $index = 0;
+    public $date;
     public $created;
-    public $param;
 
+    /**
+     * @param string $className
+     * @return Favourites
+     */
     public static function model($className = __CLASS__)
     {
         return parent::model($className);
@@ -31,12 +36,26 @@ class Favourites extends EMongoDocument
 
     public function beforeSave()
     {
-        if ($this->isNewRecord)
-            $this->created = time();
         return parent::beforeSave();
     }
 
-    public static function toggle($model, $block, $param)
+    /**
+     * Соединение с базой данных
+     * @return EMongoDB
+     */
+    public function getMongoDBComponent()
+    {
+        return Yii::app()->getComponent('mongodb_production');
+    }
+
+    /**
+     * Добавить в список если нет или удалить если есть в списке
+     *
+     * @param $model CActiveRecord
+     * @param $block int
+     * @return bool
+     */
+    public static function toggle($model, $block)
     {
         $block = (int)$block;
         $criteria = new EMongoCriteria;
@@ -46,117 +65,193 @@ class Favourites extends EMongoDocument
 
         $fav = self::model()->find($criteria);
         if ($fav !== null) {
-            if ($fav->block == $block) {
-                return $fav->delete();
-            } else {
-                $fav->block = $block;
-                return $fav->save();
-            }
+            return $fav->delete();
         } else {
-            $fav = new Favourites();
+            $fav = new Favourites;
             $fav->entity = get_class($model);
             $fav->entity_id = (int)$model->primaryKey;
+            if ($block == self::WEEKLY_MAIL)
+                $fav->date = date("Y-m-d", strtotime('next monday'));
+            else
+                $fav->date = date("Y-m-d", strtotime('+1 day'));
+
+            $criteria = new EMongoCriteria;
+            $criteria->date('==', $fav->date);
+            $criteria->block('==', $block);
+            $fav->index = (int)self::model()->count($criteria);
             $fav->block = $block;
-            if (!empty($param))
-                $fav->param = (int)$param;
 
             return $fav->save();
         }
     }
 
-    public static function inFavourites($model, $index)
+    /**
+     * Находиться элемент в списке
+     * @param $model CActiveRecord
+     * @param $block int
+     * @return bool
+     */
+    public static function inFavourites($model, $block)
     {
         $criteria = new EMongoCriteria;
         $criteria->entity('==', get_class($model));
         $criteria->entity_id('==', (int)$model->primaryKey);
-        $criteria->block('==', (int)$index);
+        $criteria->block('==', (int)$block);
 
         $fav = self::model()->find($criteria);
         return $fav !== null;
     }
 
-    public static function getIdList($index, $limit = null, $random = false, $param = null)
+    /**
+     * Возворащает список id статей на дату
+     * @param $index int блок
+     * @param $date string дата
+     * @return array
+     */
+    public static function getIdListByDate($index, $date)
     {
         $criteria = new EMongoCriteria;
         $criteria->block('==', (int)$index);
-        if (!$random)
-            $criteria->sort('created', EMongoCriteria::SORT_DESC);
-        else
-            $criteria->sort('created', EMongoCriteria::SORT_DESC);
-        if ($limit !== null)
-            $criteria->limit($limit);
-        if ($param !== null)
-            $criteria->param('==', $param);
+        $criteria->date('==', $date);
+        $criteria->sort('index', EMongoCriteria::SORT_ASC);
 
         $models = self::model()->findAll($criteria);
         $ids = array();
-        foreach($models as $model)
+        foreach ($models as $model)
             $ids [] = $model->entity_id;
 
         return $ids;
     }
 
-    public static function getIdListForView($index, $limit = null, $param = null)
+    /**
+     * Возворащает список статей на дату, сортирует модели по их позиции
+     * @param $index int блок
+     * @param $date string дата
+     * @param $limit
+     * @return CommunityContent[]
+     */
+    public static function getArticlesByDate($index, $date, $limit = null)
     {
-        $criteria = new EMongoCriteria;
-        $criteria->block('==', (int)$index);
-        $criteria->created('<', strtotime(date("Y-m-d", strtotime('-1 day')).' 23:59:59' ));
-        $criteria->sort('created', EMongoCriteria::SORT_DESC);
-        if ($limit !== null)
-            $criteria->limit($limit);
-        if ($param !== null)
-            $criteria->param('==', $param);
+        $ids = self::getIdListByDate($index, $date);
+        if (empty($ids))
+            return array();
+        $criteria = new CDbCriteria;
+        $criteria->limit = $limit;
+        $criteria->with = array(
+            'rubric' => array(
+                'select' => array('community_id', 'user_id'),
+            ),
+            'type' => array(
+                'select' => array('slug')
+            ),
+            'post',
+            'video'
+        );
+        $criteria->select = array('t.id', 't.title', 't.type_id', 't.rubric_id', 't.author_id');
+        $criteria->compare('t.id', $ids);
+        $models = CommunityContent::model()->findAll($criteria);
 
-        $models = self::model()->findAll($criteria);
-        $ids = array();
-        foreach($models as $model)
-            $ids [] = $model->entity_id;
+        $sorted_models = array();
+        foreach ($ids as $id) {
+            foreach ($models as $model) {
+                if ($model->id == $id)
+                    $sorted_models[] = $model;
+            }
+        }
 
-        return $ids;
+        return $sorted_models;
     }
 
     public function getWeekPosts()
     {
+        return $this->getArticlesByDate(self::WEEKLY_MAIL, date("Y-m-d"));
+    }
+
+    /**
+     * Возвращает модели на определенную дату для определенного блока
+     * @param $index int блок
+     * @param $date string дата
+     * @return Favourites[]
+     */
+    public static function getListByDate($index, $date)
+    {
         $criteria = new EMongoCriteria;
-        $criteria->block('==', self::WEEKLY_MAIL);
-        $criteria->created('>', strtotime('-6 days'));
-        $criteria->setSort(array('created'=> EMongoCriteria::SORT_DESC));
-        $mongo_models = self::model()->findAll($criteria);
+        $criteria->block('==', (int)$index);
+        $criteria->date('==', $date);
+        $criteria->sort('index', EMongoCriteria::SORT_ASC);
+
+        $models = self::model()->findAll($criteria);
+        return $models;
+    }
+
+    /**
+     * Возвращает список id постов для комментирования
+     *
+     * @param $index
+     * @return array
+     */
+    public static function getListForCommentators($index)
+    {
+        $criteria = new EMongoCriteria;
+        $criteria->block('==', (int)$index);
+        if ($index == self::WEEKLY_MAIL)
+            $criteria->date('==', date("Y-m-d", strtotime('next monday')));
+        else
+            $criteria->date('==', date("Y-m-d", strtotime('+1 day')));
+
+        $models = self::model()->findAll($criteria);
         $ids = array();
-        foreach($mongo_models as $model)
+        foreach ($models as $model)
             $ids [] = $model->entity_id;
 
-        if (empty($ids))
-            return array();
-
-        $criteria = new CDbCriteria;
-        $criteria->compare('t.id', $ids);
-        $models = CommunityContent::model()->full()->findAll($criteria);
-        $result = array();
-        for($i=0;$i<count($ids);$i++){
-            foreach($models as $model)
-                if ($model->id == $ids[$i])
-                    $result [] = $model;
-        }
-
-        return $result;
+        return $ids;
     }
 
-    public static function updateCreatedTime()
+    /**
+     * Изменяет позицию элемента в списке и дату когда будет показан элемент
+     *
+     * @param $date string новая дата
+     * @param $index int новая позиция в списке
+     */
+    public function changePosition($date, $index)
     {
-        $models = Favourites::model()->findAll();
-        foreach($models as $model){
-            $model->created = time();
-            $model->save();
+        $criteria = new EMongoCriteria();
+        $criteria->addCond('block', '==', (int)$this->block);
+        $criteria->addCond('date', '==', $this->date);
+        $criteria->setSort(array('index', EMongoCriteria::SORT_ASC));
+        $elements = self::model()->findAll($criteria);
+        foreach ($elements as $key => $element)
+            if ($element->_id == $this->_id)
+                unset($elements[$key]);
+        $elements = array_values($elements);
+
+        $found = false;
+        for ($i = 0; $i < count($elements); $i++) {
+            if ($index == $i) {
+                $this->index = $i;
+                $found = true;
+                $elements[$i]->index = $i + 1;
+            } else {
+                if ($found)
+                    $elements[$i]->index = $i + 1;
+                else
+                    $elements[$i]->index = $i;
+            }
+            $elements[$i]->save();
         }
+        if (!$found)
+            $this->index = count($elements);
+
+        $this->date = $date;
+        $this->save();
     }
 
-    protected function afterSave()
+    /**
+     * Возвращает связанную с модель статью
+     * @return CActiveRecord
+     */
+    public function getArticle()
     {
-        parent::afterSave();
-
-        if ($this->isNewRecord && $this->block == self::BLOCK_VIDEO) {
-            Yii::app()->cache->set('activityLastUpdated', time());
-        }
+        return CActiveRecord::model($this->entity)->resetScope()->full()->findByPk($this->entity_id);
     }
 }

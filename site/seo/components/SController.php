@@ -8,6 +8,7 @@ class SController extends CController
     public $pageTitle = '';
     public $fast_nav = array();
     public $icon = 1;
+    public $user;
 
     public function filters()
     {
@@ -26,6 +27,13 @@ class SController extends CController
                 'users' => array('*'),
             ),
         );
+    }
+
+    protected function beforeAction($action)
+    {
+        $this->user = Yii::app()->user->getModel();
+
+        return parent::beforeAction($action);
     }
 
     public function getUserModules()
@@ -76,17 +84,21 @@ class SController extends CController
             $menu ['Внешние ссылки'] = $this->createUrl('/externalLinks/tasks/index');
         if (Yii::app()->user->checkAccess('moderator-panel'))
             $menu ['Модератор'] = '/writing/moderator/';
+        if (Yii::app()->user->checkAccess('best_module'))
+            $menu ['Лучшее'] = '/best/';
 
         return $menu;
     }
 
-    public function addEntityToFastList($list_name, $entity_id)
+    public function addEntityToFastList($list_name, $entity_id, $limit = null)
     {
         $entities = Yii::app()->user->getState($list_name);
         if (!is_array($entities))
             $entities = array($entity_id);
         elseif (!in_array($entity_id, $entities))
             $entities[] = $entity_id;
+        if (!empty($limit) && count($entities) > $limit)
+            array_shift($entities);
         Yii::app()->user->setState($list_name, $entities);
     }
 }

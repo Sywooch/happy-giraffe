@@ -183,7 +183,7 @@
 <div id="commentator-link" style="position: fixed;top:70px;left: 0;z-index: 200;background:#42ff4c;">
     <a target="_blank" href="<?=$this->createUrl('/signal/commentator/index') ?>" style="color: #333;font-weight:bold;">Панель для работы</a>
 </div>
-    <?php endif ?>
+<?php endif ?>
 
 <?php if (! $this->tempLayout): ?>
 <div id="footer" class="layout-footer clearfix">

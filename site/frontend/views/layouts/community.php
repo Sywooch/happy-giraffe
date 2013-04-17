@@ -197,6 +197,18 @@
 
             </div>
 
+            <?php if ($this->community->id == 24): ?>
+                <div style="margin-bottom: 40px;">
+                    <?php $this->renderPartial('//banners/community_24_240x400'); ?>
+                </div>
+            <?php endif; ?>
+
+            <?php if (in_array($this->community->id, array(1, 2))): ?>
+                <div style="margin-bottom: 40px;">
+                    <?php $this->renderPartial('//banners/community_1+2_240x400'); ?>
+                </div>
+            <?php endif; ?>
+
             <div class="recent-topics">
 
                 <div class="title">Последние темы</div>
@@ -211,10 +223,12 @@
 
         <?php $this->endCache(); endif;  ?>
 
-        <div class="box">
-            <a href="<?=$this->createUrl('/contest/default/view', array('id' => 9)) ?>"><img
-                src="/images/contest/banner-w240-9-<?=mt_rand(1, 3)?>.jpg"></a>
-        </div>
+        <?php if (false): ?>
+            <div class="box">
+                <a href="<?=$this->createUrl('/contest/default/view', array('id' => 9)) ?>"><img
+                    src="/images/contest/banner-w240-9-<?=mt_rand(1, 3)?>.jpg"></a>
+            </div>
+        <?php endif; ?>
 
         <?php foreach ($this->community->banners as $b): ?>
             <?php $this->renderPartial('_banner', array('data' => $b)); ?>

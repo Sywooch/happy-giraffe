@@ -152,12 +152,22 @@ class SiteKeywordVisit extends HActiveRecord
         }
 
         $full_criteria = clone $criteria;
+        $full_criteria->with = array();
+
+        $cache_id = 'total_items_count_'.$this->site_id;
+        $total_items_count=Yii::app()->cache->get($cache_id);
+        if($total_items_count===false)
+        {
+            $total_items_count = self::model()->count($full_criteria);
+            Yii::app()->cache->set($cache_id,$total_items_count, 3600);
+        }
+
         $full_criteria->with = array('keyword', 'keyword.group','keyword.group.page','keyword.group.taskCount', 'keyword.tempKeyword', 'keyword.blacklist', 'site');
 
         return new CActiveDataProvider($this, array(
             'criteria' => $full_criteria,
-            'totalItemCount' => self::model()->count($criteria),
-            'pagination' => array('pageSize' => 100),
+            'totalItemCount' => $total_items_count,
+            'pagination' => array('pageSize' => 50),
             'sort' => array(
                 'attributes' => array(
                     'popular' => array(

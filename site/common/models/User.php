@@ -284,11 +284,6 @@ class User extends HActiveRecord
             'social_services' => array(self::HAS_MANY, 'UserSocialService', 'user_id'),
             'communities' => array(self::MANY_MANY, 'Community', 'user__users_communities(user_id, community_id)', 'order' => 'position'),
 
-            'clubContests' => array(self::HAS_MANY, 'ClubContest', 'contest_user_id'),
-            'clubContestUsers' => array(self::HAS_MANY, 'ClubContestUser', 'user_user_id'),
-            'clubContestWinners' => array(self::HAS_MANY, 'ClubContestWinner', 'winner_user_id'),
-            'clubContestWorks' => array(self::HAS_MANY, 'ClubContestWork', 'work_user_id'),
-            'clubContestWorkComments' => array(self::HAS_MANY, 'ClubContestWorkComment', 'comment_user_id'),
             'comments' => array(self::HAS_MANY, 'Comment', 'author_id'),
             'menstrualUserCycles' => array(self::HAS_MANY, 'MenstrualUserCycle', 'user_id'),
             'UserCaches' => array(self::HAS_MANY, 'UserCache', 'user_id'),

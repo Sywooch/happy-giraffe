@@ -19,7 +19,7 @@ class IasPager extends CLinkPager {
 
         $cs = Yii::app()->getClientScript();
         $cs->registerCoreScript('jquery');
-        $cs->registerCSSFile($this->baseUrl . '/css/jquery.ias.css');
+        $cs->registerCss('ias_css', '.ias_loader {text-align:center;margin: 5px 0;}');
         $cs->registerScriptFile($this->baseUrl . '/js/jquery.ias.js', CClientScript::POS_END);
 
         return;

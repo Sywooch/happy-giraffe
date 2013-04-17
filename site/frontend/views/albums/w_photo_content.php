@@ -30,10 +30,9 @@
     <?php
 
     $post = $photo;
-        Yii::import('site.common.models.forms.PhotoViewComment');
+    Yii::import('site.common.models.forms.PhotoViewComment');
     //костыль для велентина
-    if (isset($model->content) && method_exists($model->content, 'isValentinePost') && $model->content->isValentinePost()){?>
-        <?php
+    if (isset($model->content) && method_exists($model->content, 'isValentinePost') && $model->content->isValentinePost()){
         $post = $model->content;
         $this->widget('site.frontend.widgets.socialLike.SocialLikeWidget', array(
             'title' => 'Вам понравилось фото?',
@@ -45,6 +44,22 @@
                 'image' => $model->items[0]->photo->getOriginalUrl(),
                 'description' => $post->preview,
             ),
+        ));
+    }
+
+    //костыль для украшений блюд
+    if (get_class($model) == 'CookDecorationCategory'){
+        $this->widget('site.frontend.widgets.socialLike.SocialLikeWidget', array(
+            'title' => 'Вам понравилось фото?',
+            'notice' => '',
+            'model' => $photo,
+            'type' => 'simple_ajax',
+            'options' => array(
+                'title' => CHtml::encode('Оформления блюд на Веселом Жирафе - '.$photo->title),
+                'image' => $photo->getPreviewUrl(180, 180),
+                'description' => $photo->w_description,
+            ),
+            'url'=>$this->createAbsoluteUrl('/cook/decor/index', array('id'=>'photo'.$photo->id))
         ));
     }
 

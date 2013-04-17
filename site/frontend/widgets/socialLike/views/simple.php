@@ -171,4 +171,24 @@
 
     </div>
 
+    <?php if (!Yii::app()->user->isGuest && Yii::app()->user->model->group != UserGroup::USER && Yii::app()->user->checkAccess('commentator_panel')):?>
+        <script type="text/javascript">
+            $(function () {
+                $('body').delegate('.share_button a.fb-custom-text', 'click',function () {
+                    $.post('/ajaxSimple/commentatorLike/', {
+                        social_id: 1,
+                        entity: '<?=get_class($this->model) ?>',
+                        entity_id: <?=$this->model->id ?>
+                    });
+                }).delegate('.share_button div.vk_share_button a', 'click', function () {
+                        $.post('/ajaxSimple/commentatorLike/', {
+                            social_id: 2,
+                            entity: '<?=get_class($this->model) ?>',
+                            entity_id: <?=$this->model->id ?>
+                        });
+                    });
+            });
+        </script>
+    <?php endif ?>
+
 <?php endif; ?>

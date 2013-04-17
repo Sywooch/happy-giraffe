@@ -15,7 +15,7 @@
  * @property string $created
  * @property string $rewrite
  * @property int $section
- * @property bool $multivarka
+ * @property bool $sub_section
  *
  * The followings are the available model relations:
  * @property SeoUser $owner
@@ -75,7 +75,7 @@ class SeoTask extends CActiveRecord
         // will receive user inputs.
         return array(
             //array('keyword_group_id', 'required', 'except' => 'cook'),
-            array('type, status, section, multivarka', 'numerical', 'integerOnly' => true),
+            array('type, status, section, sub_section', 'numerical', 'integerOnly' => true),
             array('keyword_group_id, executor_id', 'length', 'max' => 10),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
@@ -394,7 +394,7 @@ class SeoTask extends CActiveRecord
 
     public function getMultiVarka()
     {
-        if ($this->multivarka)
+        if ($this->sub_section == 1)
             return '<span class="icon-m">M</span>';
         return '';
     }
@@ -475,22 +475,13 @@ class SeoTask extends CActiveRecord
         $criteria->params = array(':today'=>date("Y-m-d").' 00:00:00');
 
         $criteria->compare('executor_id', Yii::app()->user->id);
-        $criteria->compare('multivarka', $block);
+        $criteria->compare('sub_section', $block);
 
         return SeoTask::model()->findAll($criteria);
     }
 
-    public static function commentatorHasActiveTasks($block)
-    {
-        $criteria = new CDbCriteria;
-        $criteria->compare('executor_id', Yii::app()->user->id);
-        $criteria->compare('multivarka', $block);
-        $criteria->compare('status', self::STATUS_TAKEN);
-
-        return SeoTask::model()->find($criteria) !== null;
-    }
-
     /**
+     * Возвращает свободные задания для комментаторов
      * @return SeoTask[]
      */
     public static function getCommentatorTasks()
@@ -500,5 +491,16 @@ class SeoTask extends CActiveRecord
         $criteria->compare('type', SeoTask::TYPE_COMMENTATOR);
         $criteria->limit = 10;
         return SeoTask::model()->findAll($criteria);
+    }
+
+    /**
+     * Возвращает первое ключевое слово связанное с заданием.
+     * @return Keyword|null
+     */
+    public function getKeyword()
+    {
+        if (!empty($this->keywordGroup->keywords))
+            return $this->keywordGroup->keywords[0];
+        return null;
     }
 }

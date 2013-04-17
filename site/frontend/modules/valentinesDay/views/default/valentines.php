@@ -40,6 +40,7 @@
             <p class="valentines-best_p">Валентинки - это маленькие открытки, куда вписываются самые горячие признания в любви. Мы собрали для вас лучшие валентинки - вы сможете скачать их, написать свои поздравления и отправить любимым! </p>
             <?php
                 $this->widget('zii.widgets.CListView', array(
+                    'cssFile'=>false,
                     'id' => 'valentinesList',
                     'dataProvider' => $dp,
                     'itemView' => '_valentine',

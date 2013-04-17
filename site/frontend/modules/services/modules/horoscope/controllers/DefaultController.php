@@ -215,6 +215,7 @@ class DefaultController extends HController
 
     public function actionLikes($zodiac, $date)
     {
+        Yii::app()->clientScript->registerCoreScript('jquery');
         $this->layout = 'empty';
         $model = Horoscope::model()->findByAttributes(array('date' => $date, 'zodiac' => $zodiac));
         if ($model !== null)

@@ -1,45 +1,45 @@
-<?php $this->beginContent('//layouts/main');?>
+<?php $this->beginContent('//layouts/new');?>
 
-<div class="clearfix">
-    <div class="default-nav">
-
-        <?php
-        $this->widget('zii.widgets.CMenu', array(
-            'itemTemplate' => '{menu}<span class="tale"><img src="/images/default_nav_active.gif"></span>',
+    <nav class="header-nav">
+        <?php $this->widget('zii.widgets.CMenu', array(
+            'encodeLabel' => false,
+            'htmlOptions' => array('class' => 'header-nav_ul'),
             'items' => array(
                 array(
-                    'label' => 'Статистика',
-                    'active'=>Yii::app()->controller->action->id != 'clubs',
+                    'label' => '<span class="header-nav_tx">Задания</span>',
                     'url' => array('/commentators/default/index'),
+                    'linkOptions' => array('class' => 'header-nav_i'),
+                    'itemOptions' => array('class' => 'header-nav_li header-nav_li__tasks'),
+                    'active' => (Yii::app()->controller->action->id == 'index')
                 ),
                 array(
-                    'label' => 'Распределение клубов',
-                    'active'=>Yii::app()->controller->action->id == 'clubs',
-                    'url' => array('/commentators/default/clubs'),
+                    'label' => '<span class="header-nav_tx">Ссылки</span>',
+                    'url' => array('/commentators/default/links'),
+                    'linkOptions' => array('class' => 'header-nav_i'),
+                    'itemOptions' => array('class' => 'header-nav_li header-nav_li__links'),
+                    'active' => (Yii::app()->controller->action->id == 'links')
                 ),
-            )));
+                array(
+                    'label' => '<span class="header-nav_tx">Отчеты</span>',
+                    'url' => array('/commentators/default/reports'),
+                    'linkOptions' => array('class' => 'header-nav_i'),
+                    'itemOptions' => array('class' => 'header-nav_li header-nav_li__reports'),
+                    'active' => (Yii::app()->controller->action->id == 'reports')
+                ),
+                array(
+                    'label' => '<span class="header-nav_tx">Премия</span>',
+                    'url' => array('/commentators/default/award'),
+                    'linkOptions' => array('class' => 'header-nav_i'),
+                    'itemOptions' => array('class' => 'header-nav_li header-nav_li__award'),
+                    'active' => (Yii::app()->controller->action->id == 'award')
+                ),
+            ),
+        ));
 
         ?>
+    </nav>
     </div>
 
-    <?php $this->renderPartial('//layouts/_header'); ?>
-
-    <div class="fast-nav">
-        <ul>
-            <li<?php if (!isset($_GET['user_id'])) echo ' class="active"' ?>><a href="<?=$this->createUrl('/commentators/default/index/')?>">Все комментаторы</a></li>
-            <?php $commentators = Yii::app()->user->getState('commentators') ?>
-            <?php if (is_array($commentators)):?>
-            <?php foreach ($commentators as $commentator): ?>
-                <li<?php if (isset($_GET['user_id']) && $_GET['user_id'] == $commentator) echo ' class="active"'
-                    ?>><a href="<?=$this->createUrl('/commentators/default/commentator/', array('user_id'=>$commentator))
-                    ?>"><?=User::getUserById($commentator)->fullName
-                    ?></a><a href="javascript:;" class="remove" onclick="SeoModule.removeUser('commentators', <?=$commentator ?>, this)"></a></li>
-                <?php endforeach; ?>
-            <?php endif ?>
-        </ul>
-    </div>
-
-</div>
-<?php echo $content; ?>
+    <?= $content ?>
 
 <?php $this->endContent(); ?>

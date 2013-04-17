@@ -158,7 +158,7 @@ Yii::app()->clientScript
                     <label class="map-route-calc_label">
                         <div class="chzn-v2">
                             <?= CHtml::dropDownList('currency', 1, CHtml::listData(FuelCost::model()->findAll(), 'currency_id', 'title'),
-                            array('class' => 'chzn w-85', 'data-bind' => 'value: currentCurrency')); ?>
+                                array('class' => 'chzn w-85', 'data-bind' => 'value: currentCurrency')); ?>
                         </div>
                     </label>
                 </div>
@@ -186,9 +186,9 @@ Yii::app()->clientScript
     <div class="col-23">
         <?php $this->renderPartial('_transit_points', array('route' => $route, 'texts' => $texts, 'points' => $points)); ?>
 
-        <div class="map-route-other">
+        <div class="map-route-other" style="display: none;">
 
-            <?php $this->renderPartial('links', array('route' => $route)); ?>
+            <?php //$this->renderPartial('links', array('route' => $route)); ?>
 
         </div>
 

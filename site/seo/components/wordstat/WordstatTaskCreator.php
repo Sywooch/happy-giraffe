@@ -22,8 +22,9 @@ class WordstatTaskCreator
         $this->loadMoreKeywords();
 
         while (1) {
-            $t1 = microtime(true);
             sleep(2);
+
+            $t1 = microtime(true);
             foreach ($this->jobs as $key => $job) {
                 $stat = $this->client->jobStatus($job[0]);
                 if ($stat[0] === false) {

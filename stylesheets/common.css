@@ -9824,6 +9824,7 @@ textarea.error,
 }
 .fast-like-block__hg.fast-like-block .share_button {
   margin: 0 10px;
+  vertical-align: baseline;
 }
 .fast-like-block_t-hg {
   display: inline-block;

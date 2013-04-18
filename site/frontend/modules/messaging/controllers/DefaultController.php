@@ -85,4 +85,62 @@ class DefaultController extends HController
         for ($i = 0; $i < 41; $i++)
             MessagingMessage::model()->create($i . '. ' . $text, 1245, $i % 2 == 0 ? 22 : 12936);
     }
+
+    public function actionTest3($id)
+    {
+        $dialog = Dialog::model()->with('dialogUsers', 'messages')->findByPk($id);
+
+        if (! empty($dialog->messages)) {
+            $thread = new MessagingThread();
+            $thread->detachBehavior('CTimestampBehavior');
+
+            $result = array_reduce($dialog->messages, function($l, $r) {
+                $created = strtotime($r->created);
+
+                if ($created < $l['created'])
+                    $l['created'] = $created;
+                if ($created > $l['updated'])
+                    $l['updated'] = $created;
+                return $l;
+            }, array('created' => time(), 'updated' => 0));
+
+            $thread->created = date("Y-m-d H:i:s", $result['created']);
+            $thread->updated = date("Y-m-d H:i:s", $result['updated']);
+
+            $threadUsers = array();
+            foreach ($dialog->dialogUsers as $dialogUser) {
+                $threadUser = new MessagingThreadUser();
+                $threadUser->user_id = $dialogUser->user_id;
+                $threadUsers[] = $threadUser;
+            }
+            $thread->threadUsers = $threadUsers;
+
+            $messages = array();
+            foreach ($dialog->messages as $m) {
+                $message = new MessagingMessage();
+                $message->detachBehavior('CTimestampBehavior');
+                $message->author_id = $m->user_id;
+                $message->text = $m->text;
+                $message->created = $m->created;
+                $message->updated = $m->created;
+                $messageUsers = array();
+                foreach ($dialog->dialogUsers as $dialogUser) {
+                    $messageUser = new MessagingMessageUser();
+                    $messageUser->user_id = $dialogUser->user_id;
+                    $messageUser->read = $dialogUser->user_id == $m->user_id ? null : 1;
+                    $messageUsers[] = $messageUser;
+                }
+                $message->messageUsers = $messageUsers;
+                $messages[] = $message;
+            }
+            $thread->messages = $messages;
+
+            $thread->withRelated->save(true, array(
+                'threadUsers',
+                'messages' => array(
+                    'messageUsers',
+                ),
+            ));
+        }
+    }
 }

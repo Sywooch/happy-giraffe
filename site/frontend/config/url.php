@@ -117,7 +117,7 @@ return array(
 
         //global
         '<_c:(settings|ajax|notification|profile|friendRequests|communityRubric|family|morning|userPopup|features|blog)>/<_a>' => '<_c>/<_a>',
-        '<_c:(settings|profile|rss|family|morning|community)>' => '<_c>/index',
+        '<_c:(settings|profile|rss|family|morning|community|happyBirthdayMira)>' => '<_c>/index',
 
         //others
         'news/about' => 'community/contacts',
@@ -268,5 +268,8 @@ return array(
 
         'ValentinesDay' => 'valentinesDay/default/index',
         'ValentinesDay/<_a>' => 'valentinesDay/default/<_a>',
+
+        'messaging' => 'messaging/default/index',
+        'messaging/<_c>/<_a>' => 'messaging/<_c>/<_a>',
     ),
 );

@@ -1,209 +1,405 @@
-<h4>1. Сроки проведения фотоконкурса «Смешные малыши»</h4>
+SELECT SQL_NO_CACHE tu.hidden, tu.thread_id, tu2.user_id AS interlocutor_id, u.first_name, u.last_name, u.online, (SELECT COUNT(*) FROM messaging__messages m INNER JOIN messaging__messages_users mu ON m.id = mu.message_id WHERE m.thread_id = tu.thread_id AND mu.user_id = 12936 AND mu.read = 0) AS unreadMessages
+FROM messaging__threads_users tu
+INNER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id != 12936
+INNER JOIN users u ON u.id = tu2.user_id
+WHERE tu.user_id = 12936;
 
-<p>1.1. Фотоконкурс «В ожидании чуда» будет проведен с 14.02.2013 по 1.03.2013 г. на сайте <a href="http://www.happy-giraffe.ru">http://www.happy-giraffe.ru</a>.</p>
+SELECT SQL_NO_CACHE tu.hidden, tu.thread_id, tu2.user_id AS interlocutor_id, u.first_name, u.last_name, u.online, COUNT(mu.message_id) AS unreadCount
+FROM messaging__threads_users tu
+INNER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id != 12936
+INNER JOIN users u ON u.id = tu2.user_id
+LEFT OUTER JOIN messaging__messages m ON m.thread_id = tu.thread_id
+LEFT OUTER JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.read = 0 AND mu.user_id = 12936
+WHERE tu.user_id = 12936
+GROUP BY tu.thread_id;
 
-<h4>2. Условия участия</h4>
+SELECT
+    tu.hidden AS threadHiddenStatus,
+    tu.thread_id AS threadId,
+    tu2.user_id AS interlocutorId,
+    u.first_name AS interlocutorFirstName,
+    u.last_name AS interlocutorLastName,
+    u.online AS interlocutorOnlineStatus,
+    COUNT(mu.message_id) AS threadUnreadCount
+FROM messaging__threads_users tu
+INNER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id != 12936
+INNER JOIN users u ON u.id = tu2.user_id
+LEFT OUTER JOIN messaging__messages m ON m.thread_id = tu.thread_id
+LEFT OUTER JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.read = 0 AND mu.user_id = 12936
+WHERE tu.user_id = 12936
+GROUP BY tu.thread_id
 
-<p>2.1. Участник Конкурса должен проживать на территории России, Украины, Белоруси или Казахстана.</p>
-<p>2.2. Все участники Конкурса должны пройти 6 шагов заполнения анкеты.</p>
-<p>2.3. На конкурсном фото должен быть изображен ребенок.</p>
-<p>2.4. От одного пользователя принимается одно фото.</p>
-<p>2.5. Фото должно быть хорошего качества.</p>
+SELECT SQL_NO_CACHE
+    tu.hidden AS threadHiddenStatus,
+    tu.thread_id AS threadId,
+    tu2.user_id AS interlocutorId,
+    u.first_name AS interlocutorFirstName,
+    u.last_name AS interlocutorLastName,
+    u.online AS interlocutorOnlineStatus,
+    t.updated AS threadUpdated,
+    COUNT(mu.message_id) AS threadUnreadCount
+FROM messaging__threads_users tu
+INNER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id != 12936
+INNER JOIN users u ON u.id = tu2.user_id
+INNER JOIN messaging__threads t ON t.id = tu.thread_id
+LEFT OUTER JOIN messaging__messages m ON m.thread_id = tu.thread_id
+LEFT OUTER JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.read = 0 AND mu.user_id = 12936
+WHERE tu.user_id = 12936
+GROUP BY tu.thread_id;
 
-<h4>3. Голосование и подведение итогов Конкурса</h4>
-<p>3.1. Победители Конкурса определяются общим голосованием пользователей.</p>
-<p>3.2. Голосование предполагает возможность зарегистрированного или авторизованного через свою учетную запись социальной сети (“Facebook”, “ВКонтакте”, “Одноклассники”, “Twitter”) посетителя сайта <a href="http://www.happy-giraffe.ru">http://www.happy-giraffe.ru</a> отдать свой голос за наиболее понравившееся фото, участвующее в Конкурсе.</p>
-<p>3.3. При возникновении ситуации, когда обе фотографии набирают равное количество голосов, победителем выбирается тот, кто опубликовал фото раньше.</p>
-<p>3.4. Итоги Конкурса будут подведены 08.03.2013 г.</p>
-
-<h4>4. Права и обязанности Участников Конкурса</h4>
-
-<p>4.1. Для участия в Конкурсе необходимо быть зарегистрированным пользователем сайта <a href="http://www.happy-giraffe.ru">http://www.happy-giraffe.ru</a>, пройти 6 шагов заполнения анкеты. Затем Участник может опубликовать конкурсную фотографию. Фотография должна соответствовать теме и условиям Конкурса.</p>
-<p>4.2. Пользователь может разместить только одну фотографию на Конкурс.</p>
-<p>4.3. Фотография должна быть хорошего качества.</p>
-<p>4.4. Фотография должна иметь название.</p>
-<p>4.5. Участником Конкурса может стать любой пользователь, достигший 18 лет.</p>
-<p>4.6. К участию в Конкурсе не допускаются:</p>
-<ul>
-    <li>- сотрудники и представители Организатора;</li>
-    <li>- лица, способные повлиять на их деятельность;</li>
-    <li>- члены их семей;</li>
-    <li>- работники других юридических лиц, причастных к организации и проведению Конкурса.</li>
-</ul>
-<p>4.7. Участники Конкурса при регистрации на сайте и публикации фотографии на странице Конкурса тем самым дают свое согласие на то, что загруженные ими фотографии будут публично показаны и обсуждены с целью их оценки</p>
-<p>4.8. Участники гарантируют, что конкурсные фотографии не нарушают и не будут нарушать права интеллектуальной собственности третьих лиц.</p>
-<p>4.9. В случае нарушения этого требования Участники обязуются возместить организатору все понесенные убытки, в том числе все судебные расходы и расходы, понесенные в связи с защитой организатором своих прав.</p>
-<p>4.10. К участию в Конкурсе не допускаются:</p>
-<ul>
-    <li>- фотографии, содержание которых не соответствует теме Конкурса;</li>
-    <li>- фотографии, содержание которых противоречит законодательству РФ;</li>
-    <li>- изображения эротического или оскорбительного содержания;</li>
-    <li>- изображения, прямо или косвенно рекламирующие какие-либо товары и услуги.</li>
-</ul>
-<p>4.11. Фотографии, не соответствующие указанным в Правилах критериям, будут удаляться администрацией без объяснения причин.</p>
-<p>4.12. При выявлении факта накрутки баллов при голосовании фотография снимается с Конкурса.</p>
-
-<h4>5. Наградной фонд</h4>
-
-<p>5.1. Наградной фонд Конкурса формируется за счет средств Организатора Конкурса.</p>
-<p>5.2. Победители Конкурса в зависимости от занятого места получают следующие призы:</p>
-<ul>
-    <li>- 1 место - Дорожная сумка Avent <br></li>
-    <li>- 2 место - Устройство для приготовления детского питания Maman <br></li>
-    <li>- 3 место - Набор для пикника Nuby <br></li>
-</ul>
-<p>5.3. Денежный эквивалент приза не выплачивается. Призы возврату, обмену и передаче другим лицам не подлежат.</p>
-
-<h4>6. Порядок проведения Конкурса</h4>
-
-<p>6.1. Все участники Конкурса размещают фотографии на странице Конкурса на сайте <a href="http://www.happy-giraffe.ru">http://www.happy-giraffe.ru</a>.</p>
-<p>6.2. Победителями станут 3 (три) Участника, победителей выберет экспертное жюри из первых ста участников, набравших наибольшее количество голосов пользователей  сайта  <a href="http://www.happy-giraffe.ru">http://www.happy-giraffe.ru</a>.</p>
-<p>6.3. Голосование предполагает возможность зарегистрированного или авторизованного через свою учетную запись в социальной сети посетителя сайта <a href="http://www.happy-giraffe.ru">http://www.happy-giraffe.ru</a> отдать свой голос за наиболее понравившееся фото, участвующее в фотоконкурсе.</p>
-<p>6.4. Информация о победителях будет опубликована на сайте 08.03.2013 г.</p>
-<p>6.5. Организаторы направят в адрес Участников-победителей информационное письмо.</p>
-<p>6.6. Доставка призов Конкурса будет осуществляться курьерской службой или почтой России.</p>
-<p>6.7. Организатор не несет ответственности за неполучение приза победителем в случае невозможности связаться с ним по указанным им контактам (телефон абонента отключен, находится вне зоны обслуживания, услуги Интернета не оплачены и т.п.) или предоставления контактных данных позднее, чем через 3 недели после объявления результатов фотоконкурса.</p>
-
-<h4>7. Иные условия проведения Конкурса</h4>
-
-<p>7.1. Организатор Конкурса гарантирует неразглашение информации о номерах телефонов Участников и других их данных, ставших известными ему в ходе проведения Конкурса.</p>
-<p>7.2. Организатор Конкурса гарантирует использование полученных им данных Участников только по прямому назначению, в соответствии с правилами проведения Конкурса.</p>
-
-291255
-288885
-291993
-292129
-295274
-
-INSERT INTO contest__winners (place, work_id) VALUES (1, 11875), (2, 11578), (3, 11941), (4, 11950), (5, 12070);
-
-<p>Вот и завершился конкурс “В ожидании чуда”!<br />
-Фотоработы, присланные нашими участниками, были настолько интересными, веселыми, и положительными, а будущие мамочки настолько красивыми и счастливыми, что жюри просто не смогло выбрать всего лишь 3-х победителей.<br />
-Именно поэтому мы решили выбрать еще двух побеителей, которые в качестве поощрительного приза получают обучающие игрушки-салфетки Nuk.</p>
-
-<p>Поздравляем победителей! А всех остальных участников ждем в наших следующих конкурсах. Возможно, именно вам улыбнется удача!</p>
-
-<p>С уважением,<br />
-администрация портала “Веселый Жираф”</p>
-
-SELECT COUNT(DISTINCT `t`.`id`) FROM `users` `t` JOIN friends ON (t.id = friends.user1_id AND friends.user2_id = '15570') OR (t.id = friends.user2_id AND friends.user1_id = '15570') LEFT OUTER JOIN `album__photos` `avatar` ON (`t`.`avatar_id`=`avatar`.`id`)
-
-SELECT COUNT(DI
-FROM userFriends one
-JOIN userFriends two ON one.idUserFriend = two.idUser
-WHERE two.idUserFriend NOT IN (
-        SELECT  nx.idUserFriend
-        FROM userFriends nx
-        WHERE nx.idUser = one.idUser
-        )
-AND one.idUser = 1
-        ;
-
-SELECT SQL_NO_CACHE COUNT(*)
+SELECT SQL_NO_CACHE u.id, u.first_name, u.last_name, u.online
 FROM users u
-JOIN friends f ON (u.id = f.user1_id AND f.user2_id = 15570) OR (u.id = f.user2_id AND f.user1_id = 15570);
+WHERE u.id IN (
+    SELECT u2.id
+    FROM users u2
+    JOIN friends ON (u2.id = friends.user1_id AND friends.user2_id = 12936) OR (u2.id = friends.user2_id AND friends.user1_id = 12936)
+);
 
-SELECT SQL_NO_CACHE COUNT(*)
+SELECT SQL_NO_CACHE u.id, u.first_name, u.last_name, u.online
+FROM users u
+WHERE u.id IN (
+    SELECT tu2.user_id
+    FROM messaging__threads_users tu
+    INNER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id != 12936
+    WHERE tu.user_id = 12936
+);
+
+
+SELECT u.id, u.first_name, u.last_name, u.online
+FROM users u
+WHERE u.id IN (
+    SELECT u2.id
+    FROM users u2
+    JOIN friends ON (u2.id = friends.user1_id AND friends.user2_id = 10) OR (u2.id = friends.user2_id AND friends.user1_id = 10)
+) OR u.id IN (
+    SELECT tu2.user_id
+    FROM messaging__threads_users tu
+    INNER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id != 10
+    WHERE tu.user_id = 10
+);
+
+
+
+SELECT user1_id
+FROM friends
+WHERE user2_id =12936
+UNION
+SELECT user2_id
+FROM friends
+WHERE user1_id =12936
+UNION
+SELECT tu2.user_id
+FROM messaging__threads_users tu
+INNER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id != 12936
+WHERE tu.user_id = 12936
+
+SELECT u.id, u.first_name, u.last_name, u.online
 FROM users u
 WHERE u.id IN (
     SELECT user1_id
-    FROM friends f1
-    WHERE f1.user2_id = 15570
+    FROM friends
+    WHERE user2_id = 12936
     UNION
     SELECT user2_id
-    FROM friends f2
-    WHERE f2.user1_id = 15570
+    FROM friends
+    WHERE user1_id = 12936
+    UNION
+    SELECT tu2.user_id
+    FROM messaging__threads_users tu
+    INNER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id != 12936
+    WHERE tu.user_id = 12936
 );
 
-SELECT SQL_NO_CACHE COUNT(*)
-FROM users u
-WHERE EXISTS (
-    SELECT *
-    FROM friends f
-    WHERE (f.user1_id = u.id AND f.user2_id = 22) OR (f.user1_id = 22 AND f.user2_id = u.id)
-);
+SELECT SQL_NO_CACHE
+    u.id, # ID собеседника
+    u.first_name, # Имя собеседника
+    u.last_name, # Фамилия собеседника
+    u.online, # Онлайн-статус собеседника
+    friends.created IS NOT NULL AS isFriend, # Является ли другом
+    t.id, # ID Диалога
+    t.updated, # Дата последнего обновления диалога
+    tu2.hidden, # Видимость диалога
+    COUNT(m.id) AS unreadCount, # Количество непрочитанных сообщений
+    p.fs_name # Аватар
+# Таблица ID всех пользователей в контактах
+FROM (
+    # Пользователей, находящиеся в друзьях вне зависимости от наличия или отсутствия переписки с ними
+    SELECT user1_id AS uId
+    FROM friends
+    WHERE user2_id = 12936
+    UNION
+    SELECT user2_id AS uId
+    FROM friends
+    WHERE user1_id = 12936
+    UNION
+    # Пользователи, с которыми когда-либо была переписка
+    SELECT tu2.user_id AS uId
+    FROM messaging__threads_users tu
+    INNER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id != 12936
+    WHERE tu.user_id = 12936
+) uIds
+# Связывание с таблицей пользователей для получения данных о собеседнике
+INNER JOIN users u ON u.id = uIds.uId
+# Связывание с таблицей друзей для установления, является ли собеседник другом
+LEFT OUTER JOIN friends ON (u.id = friends.user1_id AND friends.user2_id = 12936) OR (u.id = friends.user2_id AND friends.user1_id = 12936)
+# Связывание с таблицей участников диалога для получения ID и видимости диалога
+LEFT OUTER JOIN messaging__threads_users tu ON tu.user_id = u.id
+LEFT OUTER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id = 12936
+# Связывание с таблицей диалогов для получения данных о диалоге
+LEFT OUTER JOIN messaging__threads t ON t.id = tu2.thread_id
+# Связывание с таблицами сообщений и получателей сообщения для получения количества непрочитанных сообщений
+LEFT OUTER JOIN messaging__messages m ON m.thread_id = t.id
+LEFT OUTER JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.read = 0 AND mu.user_id = 12936
+# Связывание с таблицей фотогрфий для получения аватара
+LEFT OUTER JOIN album__photos p ON u.avatar_id = p.id
+# Условие для корректной работы связывание с таблицей участников диалога
+WHERE tu.user_id IS NULL OR (tu.user_id IS NOT NULL AND tu2.user_id IS NOT NULL)
+GROUP BY t.id;
 
-SELECT SQL_NO_CACHE COUNT(*)
-FROM users u
-WHERE u.id IN (
-    SELECT (CASE WHEN f.user1_id = 15570 THEN f.user2_id ELSE f.user1_id END)
-    FROM friends f
-    WHERE f.user1_id = 15570 OR f.user2_id = 15570
-);
+SELECT SQL_NO_CACHE
+    u.id AS uId, # ID собеседника
+    u.first_name, # Имя собеседника
+    u.last_name, # Фамилия собеседника
+    u.online, # Онлайн-статус собеседника
+    t.id AS tId, # ID Диалога
+    t.updated, # Дата последнего обновления диалога
+    tu2.hidden, # Видимость диалога
+    COUNT(m.id) AS unreadCount, # Количество непрочитанных сообщений
+    friends.created IS NOT NULL AS isFriend # Является ли другом
+# Таблица ID всех пользователей в контактах
+FROM (
+    # Пользователей, находящиеся в друзьях вне зависимости от наличия или отсутствия переписки с ними
+    SELECT user1_id AS uId
+    FROM friends
+    WHERE user2_id = 12936
+    UNION
+    SELECT user2_id AS uId
+    FROM friends
+    WHERE user1_id = 12936
+    UNION
+    # Пользователи, с которыми когда-либо была переписка
+    SELECT tu2.user_id AS uId
+    FROM messaging__threads_users tu
+    INNER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id != 12936
+    WHERE tu.user_id = 12936
+) uIds
+# Связывание с таблицей пользователей для получения данных о собеседнике
+INNER JOIN users u ON u.id = uIds.uId
+# Связывание с таблицей друзей для установления, является ли собеседник другом
+LEFT OUTER JOIN friends ON (u.id = friends.user1_id AND friends.user2_id = 12936) OR (u.id = friends.user2_id AND friends.user1_id = 12936)
+# Связывание с таблицей участников диалога для получения ID и видимости диалога
+LEFT OUTER JOIN messaging__threads_users tu ON tu.user_id = u.id
+LEFT OUTER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id = 12936
+# Связывание с таблицей диалогов для получения данных о диалоге
+LEFT OUTER JOIN messaging__threads t ON t.id = tu2.thread_id
+# Связывание с таблицами сообщений и получателей сообщения для получения количества непрочитанных сообщений
+LEFT OUTER JOIN messaging__messages m ON m.thread_id = t.id
+LEFT OUTER JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.read = 0 AND mu.user_id = 12936
+# Условие для корректной работы связывание с таблицей участников диалога
+WHERE tu.user_id IS NULL OR (tu.user_id IS NOT NULL AND tu2.user_id IS NOT NULL)
+GROUP BY t.id;
 
-SELECT SQL_NO_CACHE COUNT(*)
-FROM users u
-JOIN friends f on f.user1_id = u.id OR f.user2_id = u.id
-WHERE u.id <> 15570
-    AND (f.user1_id = 15570 OR f.user2_id = 15570);
+SELECT SQL_NO_CACHE
+    u.id AS uId, # ID собеседника
+    u.first_name, # Имя собеседника
+    u.last_name, # Фамилия собеседника
+    u.online, # Онлайн-статус собеседника
+    t.id AS tId, # ID Диалога
+    t.updated, # Дата последнего обновления диалога
+    tu2.hidden, # Видимость диалога
+    COUNT(mu.message_id) AS unreadCount, # Количество непрочитанных сообщений
+    friends.created IS NOT NULL AS isFriend # Является ли другом
+# Таблица ID всех пользователей в контактах
+FROM (
+    # Пользователей, находящиеся в друзьях вне зависимости от наличия или отсутствия переписки с ними
+    SELECT user1_id AS uId
+    FROM friends
+    WHERE user2_id = 12936
+    UNION
+    SELECT user2_id AS uId
+    FROM friends
+    WHERE user1_id = 12936
+    UNION
+    # Пользователи, с которыми когда-либо была переписка
+    SELECT tu2.user_id AS uId
+    FROM messaging__threads_users tu
+    INNER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id != 12936
+    WHERE tu.user_id = 12936
+) uIds
+# Связывание с таблицей пользователей для получения данных о собеседнике
+INNER JOIN users u ON u.id = uIds.uId
+# Связывание с таблицей друзей для установления, является ли собеседник другом
+LEFT OUTER JOIN friends ON (u.id = friends.user1_id AND friends.user2_id = 12936) OR (u.id = friends.user2_id AND friends.user1_id = 12936)
+# Связывание с таблицей участников диалога для получения ID и видимости диалога
+LEFT OUTER JOIN messaging__threads_users tu ON tu.user_id = u.id
+LEFT OUTER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id = 12936
+# Связывание с таблицей диалогов для получения данных о диалоге
+LEFT OUTER JOIN messaging__threads t ON t.id = tu2.thread_id
+# Связывание с таблицами сообщений и получателей сообщения для получения количества непрочитанных сообщений
+LEFT OUTER JOIN messaging__messages m ON m.thread_id = t.id
+LEFT OUTER JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.read = 0 AND mu.user_id = 12936
+# Условие для корректной работы связывание с таблицей участников диалога
+WHERE tu.user_id IS NULL OR (tu.user_id IS NOT NULL AND tu2.user_id IS NOT NULL)
+GROUP BY u.id;
 
+SELECT
+    u.id AS uId, # ID собеседника
+    u.first_name, # Имя собеседника
+    u.last_name, # Фамилия собеседника
+    u.online, # Онлайн-статус собеседника
+    t.id AS tId, # ID Диалога
+    tu2.hidden, # Видимость диалога
+    p.fs_name, # Аватар
+    UNIX_TIMESTAMP(t.updated) AS updated, # Дата последнего обновления диалога
+    COUNT(mu.message_id) AS unreadCount, # Количество непрочитанных сообщений
+    friends.created IS NOT NULL AS isFriend # Является ли другом
+# Таблица ID всех пользователей в контактах
+FROM (
+    # Пользователей, находящиеся в друзьях вне зависимости от наличия или отсутствия переписки с ними
+    SELECT user1_id AS uId
+    FROM friends
+    WHERE user2_id = 12936
+    UNION
+    SELECT user2_id AS uId
+    FROM friends
+    WHERE user1_id = 12936
+    UNION
+    # Пользователи, с которыми когда-либо была переписка
+    SELECT tu2.user_id AS uId
+    FROM messaging__threads_users tu
+    INNER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id != 12936
+    WHERE tu.user_id = 12936
+) uIds
+# Связывание с таблицей пользователей для получения данных о собеседнике
+INNER JOIN users u ON u.id = uIds.uId
+# Связывание с таблицей друзей для установления, является ли собеседник другом
+LEFT OUTER JOIN friends ON (u.id = friends.user1_id AND friends.user2_id = 12936) OR (u.id = friends.user2_id AND friends.user1_id = 12936)
+# Связывание с таблицей участников диалога для получения ID и видимости диалога
+LEFT OUTER JOIN messaging__threads_users tu ON tu.user_id = u.id
+LEFT OUTER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id = 12936
+# Связывание с таблицей диалогов для получения данных о диалоге
+LEFT OUTER JOIN messaging__threads t ON t.id = tu2.thread_id
+# Связывание с таблицами сообщений и получателей сообщения для получения количества непрочитанных сообщений
+LEFT OUTER JOIN messaging__messages m ON m.thread_id = t.id
+LEFT OUTER JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.read = 0 AND mu.user_id = 12936
+# Связывание с таблицей фотографий для получения аватара
+LEFT OUTER JOIN album__photos p ON u.avatar_id = p.id
+# Условие для корректной работы связывание с таблицей участников диалога
+WHERE tu.user_id IS NULL OR (tu.user_id IS NOT NULL AND tu2.user_id IS NOT NULL)
+GROUP BY u.id;
 
-<h4>1. Общие правила проведения фотоконкурса «Первые достижения маленьких гениев и чемпионов»</h4>
+SELECT SQL_NO_CACHE
+    u.id AS uId, # ID собеседника
+    u.first_name, # Имя собеседника
+    u.last_name, # Фамилия собеседника
+    u.online, # Онлайн-статус собеседника
+    t.id AS tId, # ID Диалога
+    tu2.hidden, # Видимость диалога
+    p.fs_name, # Аватар
+    UNIX_TIMESTAMP(t.updated) AS updated, # Дата последнего обновления диалога
+    COUNT(mu.message_id) AS unreadCount, # Количество непрочитанных сообщений
+    friends.created IS NOT NULL AS isFriend # Является ли другом
+# Таблица ID всех пользователей в контактах
+FROM (
+    # Пользователей, находящиеся в друзьях вне зависимости от наличия или отсутствия переписки с ними
+    SELECT user1_id AS uId
+    FROM friends
+    WHERE user2_id = 22
+    UNION
+    SELECT user2_id AS uId
+    FROM friends
+    WHERE user1_id = 22
+    UNION
+    # Пользователи, с которыми когда-либо была переписка
+    SELECT tu2.user_id AS uId
+    FROM messaging__threads_users tu
+    INNER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id != 22
+    WHERE tu.user_id = 22
+) uIds
+# Связывание с таблицей пользователей для получения данных о собеседнике
+INNER JOIN users u ON u.id = uIds.uId
+# Связывание с таблицей друзей для установления, является ли собеседник другом
+LEFT OUTER JOIN friends ON (u.id = friends.user1_id AND friends.user2_id = 22) OR (u.id = friends.user2_id AND friends.user1_id = 22)
+# Связывание с таблицей участников диалога для получения ID и видимости диалога
+LEFT OUTER JOIN messaging__threads_users tu ON tu.user_id = u.id
+LEFT OUTER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id = 22
+# Связывание с таблицей диалогов для получения данных о диалоге
+LEFT OUTER JOIN messaging__threads t ON t.id = tu2.thread_id
+# Связывание с таблицами сообщений и получателей сообщения для получения количества непрочитанных сообщений
+LEFT OUTER JOIN messaging__messages m ON m.thread_id = t.id AND m.author_id != 22
+LEFT OUTER JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.read = 0 AND mu.user_id = 22
+# Связывание с таблицей фотографий для получения аватара
+LEFT OUTER JOIN album__photos p ON u.avatar_id = p.id
+# Условие для корректной работы связывание с таблицей участников диалога
+WHERE tu.user_id IS NULL OR (tu.user_id IS NOT NULL AND tu2.user_id IS NOT NULL)
+GROUP BY u.id;
 
-<p>1.1. Фотоконкурс «Первые достижения маленьких гениев и чемпионов» будет проведен с 11.03.2013 по 22.03.2013 г. на сайте <a href="http://www.happy-giraffe.ru">http://www.happy-giraffe.ru</a>.</p>
-<p>1.2. Организаторами конкурса является <a href="http://www.happy-giraffe.ru">http://www.happy-giraffe.ru</a> совместно с компанией Heinz (Хайнц)</p>
-<p>1.3.  Участник Конкурса должен проживать на территории России, Украины, Белоруси или Казахстана.</p>
-<p>1.4. Все участники Конкурса должны пройти 6 шагов заполнения анкеты.</p>
-<p>1.5. На конкурсном фото должен быть изображен ребенок.</p>
-<p>1.6. От одного пользователя принимается одно фото.</p>
-<p>1.7. Фото должно быть хорошего качества.</p>
+SELECT
+    u.id AS uId, # ID собеседника
+    u.first_name, # Имя собеседника
+    u.last_name, # Фамилия собеседника
+    u.online, # Онлайн-статус собеседника
+    t.id AS tId, # ID Диалога
+    tu2.hidden, # Видимость диалога
+    p.fs_name, # Аватар
+    UNIX_TIMESTAMP(t.updated) AS updated, # Дата последнего обновления диалога
+    COUNT(mu.message_id) AS unreadCount, # Количество непрочитанных сообщений
+    friends.created IS NOT NULL AS isFriend # Является ли другом
+# Таблица ID всех пользователей в контактах
+FROM (
+    # Пользователей, находящиеся в друзьях вне зависимости от наличия или отсутствия переписки с ними
+    SELECT user1_id AS uId
+    FROM friends
+    WHERE user2_id = 12936
+    UNION
+    SELECT user2_id AS uId
+    FROM friends
+    WHERE user1_id = 12936
+    UNION
+    # Пользователи, с которыми когда-либо была переписка
+    SELECT tu2.user_id AS uId
+    FROM messaging__threads_users tu
+    INNER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id != 12936
+    WHERE tu.user_id = 12936
+) uIds
+# Связывание с таблицей пользователей для получения данных о собеседнике
+INNER JOIN users u ON u.id = uIds.uId
+# Связывание с таблицей друзей для установления, является ли собеседник другом
+LEFT OUTER JOIN friends ON (u.id = friends.user1_id AND friends.user2_id = 12936) OR (u.id = friends.user2_id AND friends.user1_id = 12936)
+# Связывание с таблицей участников диалога для получения ID и видимости диалога
+LEFT OUTER JOIN messaging__threads_users tu ON tu.user_id = u.id
+LEFT OUTER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id = 12936
+# Связывание с таблицей диалогов для получения данных о диалоге
+LEFT OUTER JOIN messaging__threads t ON t.id = tu2.thread_id
+# Связывание с таблицами сообщений и получателей сообщения для получения количества непрочитанных сообщений
+LEFT OUTER JOIN messaging__messages m ON m.thread_id = t.id AND m.author_id != 12936
+LEFT OUTER JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.read = 0 AND mu.user_id = 12936
+# Связывание с таблицей фотографий для получения аватара
+LEFT OUTER JOIN album__photos p ON u.avatar_id = p.id
+# Условие для корректной работы связывание с таблицей участников диалога
+WHERE tu.user_id IS NULL OR (tu.user_id IS NOT NULL AND tu2.user_id IS NOT NULL)
+GROUP BY u.id;
 
-<h4>2. Голосование и подведение итогов Конкурса</h4>
-<p>2.1. Победители Конкурса определяются следующим механизмом: победители будут определены экспертным жюри из числа первых ста участников, набравших наибольшее количество голосов пользователей сайта  <a href="http://www.happy-giraffe.ru">http://www.happy-giraffe.ru</a></p>
-<p>2.2. Голосование предполагает возможность зарегистрированного или авторизованного через свою учетную запись социальной сети (“Facebook”, “ВКонтакте”, “Одноклассники”, “Twitter”) посетителя сайта <a href="http://www.happy-giraffe.ru">http://www.happy-giraffe.ru</a> отдать свой голос за наиболее понравившееся фото, участвующее в Конкурсе.</p>
-<p>2.3. При возникновении ситуации, когда обе фотографии набирают равное количество голосов, победителем выбирается тот, кто опубликовал фото раньше.</p>
-<p>2.4. Итоги Конкурса будут подведены 29.03.2013 г.</p>
+SELECT
+    m.id,
+    m.author_id,
+    m.text,
+    UNIX_TIMESTAMP(m.created) AS created,
+    mu.read,
+    mu2.deleted
+FROM messaging__messages m
+JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.user_id != m.author_id
+JOIN messaging__messages_users mu2 ON m.id = mu2.message_id AND mu2.user_id = m.author_id
+WHERE m.thread_id = 1110 AND mu2.deleted = 0
 
-<h4>3. Права и обязанности Участников Конкурса</h4>
-
-<p>3.1. Для участия в Конкурсе необходимо быть зарегистрированным пользователем сайта <a href="http://www.happy-giraffe.ru">http://www.happy-giraffe.ru</a>, пройти 6 шагов заполнения анкеты. Затем Участник может опубликовать конкурсную фотографию. Фотография должна соответствовать теме и условиям Конкурса.</p>
-<p>3.2. Пользователь может разместить только одну фотографию на Конкурс.</p>
-<p>3.3. Фотография должна быть хорошего качества.</p>
-<p>3.4. Фотография должна иметь название.</p>
-<p>3.5. Участником Конкурса может стать любой пользователь, достигший 18 лет.</p>
-<p>3.6. К участию в Конкурсе не допускаются:</p>
-<ul>
-    <li>- сотрудники и представители Организаторов;</li>
-    <li>- лица, способные повлиять на их деятельность;</li>
-    <li>- члены их семей;</li>
-    <li>- работники других юридических лиц, причастных к организации и проведению Конкурса.</li>
-</ul>
-<p>3.7. Участники Конкурса при регистрации на сайте и публикации фотографии на странице Конкурса тем самым дают свое согласие на то, что загруженные ими фотографии будут публично показаны и обсуждены с целью их оценки.</p>
-<p>3.8. Участники гарантируют, что конкурсные фотографии не нарушают и не будут нарушать права интеллектуальной собственности третьих лиц.</p>
-<p>3.9. В случае нарушения этого требования Участники обязуются возместить организатору все понесенные убытки, в том числе все судебные расходы и расходы, понесенные в связи с защитой организатором своих прав.</p>
-<p>3.10. К участию в Конкурсе не допускаются:</p>
-<ul>
-    <li>- фотографии, содержание которых не соответствует теме Конкурса;</li>
-    <li>- фотографии, содержание которых противоречит законодательству РФ;</li>
-    <li>- изображения эротического или оскорбительного содержания;</li>
-    <li>- изображения, прямо или косвенно рекламирующие какие-либо товары и услуги.</li>
-</ul>
-<p>3.11. Фотографии, не соответствующие указанным в Правилах критериям, будут удаляться администрацией без объяснения причин.</p>
-<p>3.12. При выявлении факта накрутки баллов при голосовании фотография снимается с Конкурса.</p>
-
-<h4>4. Наградной фонд</h4>
-
-<p>4.1. Наградной фонд Конкурса формируется за счет средств Организатора Конкурса.</p>
-<p>4.2. Победители Конкурса получают следующие призы:</p>
-<ul>
-    <li>- 1-3 место - Книга «Детство выдающихся людей», развивающая игра «Лабиринт», набор детского питания Heinz  <br></li>
-</ul>
-<p>4.3. Денежный эквивалент приза не выплачивается. Призы возврату, обмену и передаче другим лицам не подлежат.</p>
-
-<h4>5. Порядок проведения Конкурса</h4>
-
-<p>5.1. Все участники Конкурса размещают фотографии на странице Конкурса на сайте <a href="http://www.happy-giraffe.ru">http://www.happy-giraffe.ru</a>.</p>
-<p>5.2. Победителями станут 3 (три) Участника, победителей выберет экспертное жюри из первых ста участников, набравших наибольшее количество голосов пользователей сайта <a href="http://www.happy-giraffe.ru">http://www.happy-giraffe.ru</a>.</p>
-<p>5.3. Голосование предполагает возможность зарегистрированного или авторизованного через свою учетную запись в социальной сети посетителя сайта <a href="http://www.happy-giraffe.ru">http://www.happy-giraffe.ru</a> отдать свой голос за наиболее понравившееся фото, участвующее в фотоконкурсе.</p>
-<p>5.4. Информация о победителях будет опубликована на сайте 29.03.2013 г.</p>
-<p>5.5. Организаторы направят в адрес Участников-победителей информационное письмо.</p>
-<p>5.6. Доставка призов Конкурса будет осуществляться курьерской службой или почтой России.</p>
-<p>5.7. Организатор не несет ответственности за неполучение приза победителем в случае невозможности связаться с ним по указанным им контактам (телефон абонента отключен, находится вне зоны обслуживания, услуги Интернета не оплачены и т.п.) или предоставления контактных данных позднее, чем через 3 недели после объявления результатов фотоконкурса.</p>
-
-<h4>6. Иные условия проведения Конкурса</h4>
-
-<p>6.1. Организатор Конкурса гарантирует неразглашение информации о номерах телефонов Участников и других их данных, ставших известными ему в ходе проведения Конкурса.</p>
-<p>6.2. Организатор Конкурса гарантирует использование полученных им данных Участников только по прямому назначению, в соответствии с правилами проведения Конкурса.</p>
-
-<p>Для каждой мамы ее малыш самый лучший и уникальный. А моменты первых успехов ребенка – самые волнительные и запоминающиеся! Конечно, их нужно обязательно запечатлеть, чтобы сохранить в памяти эти драгоценные моменты. </p>
-<p>Ваш малыш сделал первые шаги или нарисовал свой первый рисунок? А может быть, он делает успехи в спорте или раннем развитии? Поделитесь с нами этими выдающимися фото и выиграйте замечательные призы от партнера конкурса - компании Heinz! </p>
+SELECT
+    m.id,
+    m.author_id,
+    m.text,
+    UNIX_TIMESTAMP(m.created) AS created,
+    mu.deleted,
+    mu2.read
+FROM messaging__messages m
+JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.user_id = m.author_id
+JOIN messaging__messages_users mu2 ON m.id = mu2.message_id AND mu2.user_id != m.author_id
+WHERE m.thread_id = 1110 AND mu.deleted = 0;

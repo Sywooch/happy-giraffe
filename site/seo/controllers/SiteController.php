@@ -6,7 +6,7 @@ class SiteController extends SController
     {
         return array(
             array('allow',
-                'actions' => array('index', 'logout', 'modules', 'removeUser', 'test', 'sql', 'lastKeywords'),
+                'actions' => array('index', 'logout', 'modules', 'removeUser', 'test', 'sql', 'lastKeywords', 'keyword'),
                 'users' => array('@'),
             ),
             array('allow',
@@ -175,6 +175,13 @@ class SiteController extends SController
         $models = Keyword::model()->findAll($criteria);
 
         $this->render('last_keywords', compact('models'));
+    }
+
+    public function actionKeyword($id)
+    {
+        $model = Keyword::model()->findByPk($id);
+
+        $this->render('keyword', compact('model'));
     }
 
     public function actionTest()

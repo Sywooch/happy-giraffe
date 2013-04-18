@@ -24,7 +24,6 @@ class WordstatTaskCreator
         while (1) {
             sleep(2);
 
-            $t1 = microtime(true);
             foreach ($this->jobs as $key => $job) {
                 $stat = $this->client->jobStatus($job[0]);
                 if ($stat[0] === false) {
@@ -34,10 +33,9 @@ class WordstatTaskCreator
                     $this->collection->remove(array('id' => (int)$job[1]));
                 }
             }
-            echo (microtime(true) - $t1)."\n";
 
             if (count($this->jobs) < (self::JOB_LIMIT - 100))
-                $this->loadMoreKeywords(100);
+                $this->loadMoreKeywords(self::JOB_LIMIT);
         }
     }
 
@@ -52,6 +50,7 @@ class WordstatTaskCreator
             $this->collection = $mongo->selectCollection('parsing', 'simple_parsing');
         }
 
+        echo "add keywords\n";
         $cur = $this->collection->find();
         while (count($this->jobs) < self::JOB_LIMIT && $cur->hasNext()) {
             $keyword = $cur->getNext();

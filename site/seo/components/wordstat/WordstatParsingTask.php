@@ -46,7 +46,7 @@ class WordstatParsingTask
             $ids = Yii::app()->db_keywords->createCommand()
                 ->select('id')
                 ->from('keywords')
-                ->where('id > ' . $max_id)
+                ->where('status is null AND id > ' . $max_id)
                 ->limit(10000)
                 ->order('id')
                 ->queryColumn();

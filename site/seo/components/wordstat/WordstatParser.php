@@ -36,7 +36,6 @@ class WordstatParser extends WordstatBaseParser
 
         $this->checkName();
         $this->parse();
-        $job->sendComplete('');
         return true;
     }
 
@@ -124,6 +123,10 @@ class WordstatParser extends WordstatBaseParser
 
         foreach ($list as $value)
             $this->saveFoundKeyword($value[0], $value[1]);
+
+        //если статус не хороший, то не парсим остальные страницы
+        if ($this->keyword->status != Keyword::STATUS_GOOD)
+            return true;
 
         //парсим вторую колонку
         if ($this->first_page){

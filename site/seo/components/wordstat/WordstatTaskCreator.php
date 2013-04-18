@@ -59,8 +59,6 @@ class WordstatTaskCreator
             if (!$this->taskExist($keyword['id']))
                 $this->addTaskToQueue($keyword['id']);
         }
-
-        $this->client->setCompleteCallback(array($this, 'complete'));
     }
 
     /**

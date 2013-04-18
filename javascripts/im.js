@@ -99,6 +99,8 @@ $(window).load(function() {
         im.scrollIm ();
     });
 
+    
+    $(".im-message_img").fancybox();
 
     /* Подсказки при наведении */
     $('.im-tooltipsy').powerTip({

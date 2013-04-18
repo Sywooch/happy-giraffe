@@ -204,6 +204,7 @@ class Horoscope extends HActiveRecord
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
+            'pagination' => array('pageSize' => 50),
         ));
     }
 

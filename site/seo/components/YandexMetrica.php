@@ -247,35 +247,63 @@ class YandexMetrica
     {
         $keywords = array();
 
-        $dataProvider=new CActiveDataProvider('Query',array(
-            'criteria'=>array(
-                'condition'=>'date="' . $date1 . '"',
+        $dataProvider = new CActiveDataProvider('Query', array(
+            'criteria' => array(
+                'condition' => 'date="' . $date1 . '"',
             ),
         ));
-        $iterator=new CDataProviderIterator($dataProvider, 100);
+        $iterator = new CDataProviderIterator($dataProvider, 100);
         foreach ($iterator as $query) {
             $keywords[$query->keyword_id] = array(0 => $query->visits, 1 => 0);
+            $keywords[$query->keyword_id][3]=$this->getPhraseUrl($query->keyword_id);
         }
 
-        $dataProvider=new CActiveDataProvider('Query',array(
-            'criteria'=>array(
-                'condition'=>'date="' . $date2 . '"',
+        $dataProvider = new CActiveDataProvider('Query', array(
+            'criteria' => array(
+                'condition' => 'date="' . $date2 . '"',
             ),
         ));
-        $iterator=new CDataProviderIterator($dataProvider, 100);
+        $iterator = new CDataProviderIterator($dataProvider, 100);
         foreach ($iterator as $query) {
             if (isset($keywords[$query->keyword_id]))
                 $keywords[$query->keyword_id][1] = $query->visits;
             else
                 $keywords[$query->keyword_id] = array(1 => $query->visits, 0 => 0);
+
+            $keywords[$query->keyword_id][3]=$this->getPhraseUrl($query->keyword_id);
         }
 
-        foreach ($keywords as $key=>$keyword)
+        foreach ($keywords as $key => $keyword)
             $keywords[$key][2] = $keyword[0] + $keyword[1];
 
         uasort($keywords, array($this, "cmp2"));
 
         return $keywords;
+    }
+
+    private function getPhraseUrl($keyword_id)
+    {
+        $phrases = Yii::app()->db_seo->createCommand()
+            ->select('id')
+            ->from('pages_search_phrases')
+            ->where('keyword_id=' . $keyword_id)
+            ->queryColumn();
+
+        if (!empty($phrases)) {
+            $best_phrase = Yii::app()->db_seo->createCommand()
+                ->select('search_phrase_id')
+                ->from('pages_search_phrases_positions')
+                ->where('search_phrase_id IN (' . implode(',', $phrases) . ')')
+                ->order('date desc')
+                ->limit(1)
+                ->queryScalar();
+            if (!empty($best_phrase)){
+                $phrase = PagesSearchPhrase::model()->findByPk($best_phrase);
+                return $phrase->page->url;
+            }
+        }
+
+        return '';
     }
 
     function cmp2($a, $b)

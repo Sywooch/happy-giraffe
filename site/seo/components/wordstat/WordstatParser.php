@@ -69,14 +69,14 @@ class WordstatParser extends WordstatBaseParser
     public function parse()
     {
         if ($this->keyword === null)
-            return ;
+            return;
 
         $t = urlencode($this->queryModify->prepareQuery($this->keyword->name));
         $this->next_page = 'http://wordstat.yandex.ru/?cmd=words&page=1&t=' . $t . '&geo=&text_geo=';
         $this->first_page = true;
         $this->prev_page = 'http://wordstat.yandex.ru/';
 
-        while(!empty($this->next_page)){
+        while (!empty($this->next_page)) {
             $this->parseQuery();
             sleep(1);
         }
@@ -179,15 +179,15 @@ class WordstatParser extends WordstatBaseParser
                 $keyword = ltrim($keyword, '+');
             }
 
-            $model = Keyword::model()->findByPk($keyword);
+            $model = Keyword::model()->findByAttributes(array('name' => $keyword));
             if ($model !== null) {
                 $this->log('keyword: ' . $model->id . ' - ' . $model->wordstat);
                 $model->wordstat = $value;
                 $model->status = Keyword::STATUS_GOOD;
                 $model->save();
                 //удаляем из очереди на парсинг если во фразе больше 3-х слов
-                if (substr_count($keyword, ' ') > 2){
-                    $this->log('remove keyword '.$model->id.' from parsing queue');
+                if (substr_count($keyword, ' ') > 2) {
+                    $this->log('remove keyword ' . $model->id . ' from parsing queue');
                     WordstatParsingTask::getInstance()->removeSimpleTask($model->id);
                 }
             } else {
@@ -201,13 +201,13 @@ class WordstatParser extends WordstatBaseParser
                 try {
                     $model->save();
                     //если во фразе кол-во слов <= 3 добавляем его на парсинг
-                    if (substr_count($keyword, ' ') <= 2){
-                        $this->log('add keyword '.$model->id.' to parsing queue');
+                    if (substr_count($keyword, ' ') <= 2) {
+                        $this->log('add keyword ' . $model->id . ' to parsing queue');
                         WordstatParsingTask::getInstance()->addSimpleTask($model->id);
                     }
 
                 } catch (Exception $err) {
-                    $this->log('error while keyword adding');
+                    $this->log('error while keyword adding '.$err->getMessage());
                 }
             }
 

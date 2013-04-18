@@ -33,7 +33,7 @@
                 </div>
 
             </div>
-
+<?php if (! $this->tempLayout): ?>
             <div class="nav">
                 <ul class="width-2 clearfix">
                     <?php if (false): ?>
@@ -307,12 +307,13 @@
                     </li>
                 </ul>
             </div>
+<?php endif; ?>
 
         </div>
 
     </div>
 
-    <div id="content" class="layout-content clearfix">
+    <div id="content" class="layout-content<?php if (! $this->tempLayout): ?> clearfix<?php endif; ?>">
         <?php
             $this->widget('zii.widgets.CBreadcrumbs', array(
                 'links' => $this->breadcrumbs,
@@ -325,6 +326,58 @@
         ?>
 
         <?= $content; ?>
+
+        <?php if ($this->showLikes): ?>
+            <div class="fast-like-block fast-like-block__hg">
+
+                <div class="box-2">
+                    <span class="btn-icon heart active"></span>
+                    <div class="fast-like-block_t-hg">Вам нравится Веселый Жираф?</div>
+                </div>
+
+                <div class="box-1">
+
+                    <div class="share_button">
+                        <iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.happy-giraffe.ru&amp;send=false&amp;layout=button_count&amp;width=129&amp;show_faces=true&amp;font&amp;colorscheme=light&amp;action=like&amp;height=21&amp;locale=ru_RU" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:129px; height:21px;" allowTransparency="true"></iframe>
+                    </div>
+
+
+                    <div class="share_button">
+                        <div id="ok_shareWidget"></div>
+                        <script>
+                            !function (d, id, did, st) {
+                                var js = d.createElement("script");
+                                js.src = "http://connect.ok.ru/connect.js";
+                                js.onload = js.onreadystatechange = function () {
+                                    if (!this.readyState || this.readyState == "loaded" || this.readyState == "complete") {
+                                        if (!this.executed) {
+                                            this.executed = true;
+                                            setTimeout(function () {
+                                                OK.CONNECT.insertShareWidget(id,did,st);
+                                            }, 0);
+                                        }
+                                    }};
+                                d.documentElement.appendChild(js);
+                            }(document,"ok_shareWidget","http://www.happy-giraffe.ru","{width:145,height:30,st:'straight',sz:20,ck:1}");
+                        </script>
+                    </div>
+
+                    <div class="share_button">
+                        <div id="vk_like"></div>
+                        <script type="text/javascript">
+                            VK.Widgets.Like("vk_like", {
+                                type: "full",
+                                width: "105",
+                                pageUrl: "http://www.happy-giraffe.ru"
+                            });
+                        </script>
+                    </div>
+
+
+                </div>
+            <?php endif; ?>
+
+        </div>
     </div>
 
 
@@ -333,6 +386,8 @@
     <?php endif; ?>
 
     <a href="#layout" id="btn-up-page"></a>
+<?php if (! $this->tempLayout): ?>
     <div class="push"></div>
+<?php endif; ?>
 
 <?php $this->endContent(); ?>

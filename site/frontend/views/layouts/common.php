@@ -74,6 +74,11 @@
     if (!Yii::app()->user->isGuest)
         $user = Yii::app()->user->model;
     ?>
+    <script type="text/javascript" src="//vk.com/js/api/openapi.js?88"></script>
+
+    <script type="text/javascript">
+        VK.init({apiId: 2855330, onlyWidgets: true});
+    </script>
 </head>
 <body class="<?= $this->body_class ?><?php if ($this->broadcast): ?> body-broadcast<?php endif; ?>" onload="if (typeof(ODKL) !== 'undefined') ODKL.init();">
 <div class="top-line-menu">
@@ -99,6 +104,7 @@
                 <li class="i-broadcast new top-line-menu_nav_li js-tooltipsy" title="Что нового">
                     <a href="<?=$this->createUrl('/whatsNew/default/index')?>"><i class="icon-broadcast"></i></a>
                 </li>
+                <?php if (Yii::app()->user->id != 12936 && Yii::app()->user->id != 22): ?>
                 <li class="i-dialogs top-line-menu_nav_li js-tooltipsy<?php if ($imCount > 0): ?> new<?php endif; ?>" title="Мои диалоги">
                     <a href="javascript:void(0)" onclick="Messages.toggle()">
                         <i class="icon-dialogs"></i>
@@ -107,6 +113,17 @@
 						</span>
                     </a>
                 </li>
+                <?php else: ?>
+                <?php $imCount = 0; ?>
+                <li class="i-dialogs top-line-menu_nav_li js-tooltipsy<?php if ($imCount > 0): ?> new<?php endif; ?>" title="Мои диалоги">
+                    <a href="<?=$this->createUrl('/messaging/default/index')?>">
+                        <i class="icon-dialogs"></i>
+						<span class="count">
+							<span class="count-red"><?=$imCount?></span><br>
+						</span>
+                    </a>
+                </li>
+                <?php endif; ?>
                 <li class="i-friends top-line-menu_nav_li js-tooltipsy<?php if ($friendsCount > 0): ?> new<?php endif; ?>" title="Мои друзья">
                     <a href="javascript:void(0)" onclick="Friends.toggle()">
                         <i class="icon-friends"></i>
@@ -162,6 +179,7 @@
 <a id="btn-seo" href="/ajax/editMeta/?route=<?=urlencode(Yii::app()->controller->route) ?>&params=<?=urlencode(serialize(Yii::app()->controller->actionParams)) ?>" class="fancy" data-theme="white-square"></a>
     <?php endif ?>
 <div class="layout-container">
+<div class="layout-container_hold">
 <div id="layout" class="layout-wrapper">
     <?=$content ?>
 </div>
@@ -172,6 +190,7 @@
 </div>
 <?php endif ?>
 
+<?php if (! $this->tempLayout): ?>
 <div id="footer" class="layout-footer clearfix">
 
     <div class="a-right">
@@ -183,6 +202,8 @@
         <p>Весёлый жираф &nbsp; © 2012 &nbsp; Все права защищены <img src="/images/icon-18+.png" alt="" class="icon-18"/><a href="<?=$this->createUrl('/site/moderationRules') ?>">Правила модерации</a><span style="float: right;margin-right:20px;">Написать нам: <a href="mailto:info@happy-giraffe.ru">info@happy-giraffe.ru</a></span></p>
     </div>
 
+</div>
+<?php endif; ?>
 </div>
 </div>
 

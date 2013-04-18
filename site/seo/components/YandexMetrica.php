@@ -31,7 +31,7 @@ class YandexMetrica
             $last_date = $date;
         }
 
-        echo $last_date."\n";
+        echo $last_date . "\n";
 
         return $dates;
     }
@@ -41,50 +41,55 @@ class YandexMetrica
         $dates = $this->getDatesForCheck();
 
         foreach ($dates as $date) {
-            $next = 'http://api-metrika.yandex.ru/stat/sources/phrases?id=' . $this->counter_id . '&oauth_token=' . $this->token . '&per_page=1000&date1=' . $date . '&date2=' . $date;
+            $this->parseDate($date);
+        }
+    }
 
-            while (!empty($next)) {
-                $val = $this->loadPage($next);
-                $next = $this->getNextLink($val);
+    public function parseDate($date)
+    {
+        $next = 'http://api-metrika.yandex.ru/stat/sources/phrases?id=' . $this->counter_id . '&oauth_token=' . $this->token . '&per_page=1000&date1=' . $date . '&date2=' . $date;
 
-                if (!isset($val['data'])) {
-                    var_dump($val);
-                    Yii::app()->end();
-                }
+        while (!empty($next)) {
+            $val = $this->loadPage($next);
+            $next = $this->getNextLink($val);
 
-                //save to db
-                foreach ($val['data'] as $query) {
-                    $keyword = Keyword::GetKeyword($query['phrase']);
+            if (!isset($val['data'])) {
+                var_dump($val);
+                Yii::app()->end();
+            }
 
-                    if ($keyword !== null) {
-                        $model = Query::model()->findByAttributes(array(
-                            'keyword_id' => $keyword->id,
-                            'date' => $date,
-                        ));
-                        if ($model === null) {
-                            $model = new Query();
-                            $model->keyword_id = $keyword->id;
-                            $model->date = $date;
-                        }
+            //save to db
+            foreach ($val['data'] as $query) {
+                $keyword = Keyword::GetKeyword($query['phrase']);
 
-                        $model->attributes = $query;
-                        if ($model->save()) {
-                            foreach ($query['search_engines'] as $search_engine) {
-                                if (in_array($search_engine['se_id'], $this->se)) {
-                                    $se = new QuerySearchEngine();
-                                    $se->attributes = $search_engine;
-                                    $se->query_id = $model->id;
-                                    $se->save();
-                                }
+                if ($keyword !== null) {
+                    $model = Query::model()->findByAttributes(array(
+                        'keyword_id' => $keyword->id,
+                        'date' => $date,
+                    ));
+                    if ($model === null) {
+                        $model = new Query();
+                        $model->keyword_id = $keyword->id;
+                        $model->date = $date;
+                    }
+
+                    $model->attributes = $query;
+                    if ($model->save()) {
+                        foreach ($query['search_engines'] as $search_engine) {
+                            if (in_array($search_engine['se_id'], $this->se)) {
+                                $se = new QuerySearchEngine();
+                                $se->attributes = $search_engine;
+                                $se->query_id = $model->id;
+                                $se->save();
                             }
                         }
                     }
                 }
             }
-
-            foreach ($this->se as $se)
-                $this->parseDataForSE($se, $date);
         }
+
+        foreach ($this->se as $se)
+            $this->parseDataForSE($se, $date);
     }
 
     public function parseDataForSE($se_id, $date)
@@ -198,13 +203,13 @@ class YandexMetrica
         }
 
         uasort($club_traffic, array($this, "cmp"));
-        foreach($club_traffic as $id =>$traffic)
-            echo 'http://www.happy-giraffe.ru/community/'.$id.'/forum/ - '.$traffic.'<br>';
+        foreach ($club_traffic as $id => $traffic)
+            echo 'http://www.happy-giraffe.ru/community/' . $id . '/forum/ - ' . $traffic . '<br>';
         echo '<br>';
 
         uasort($blog_traffic, array($this, "cmp"));
-        foreach($blog_traffic as $id =>$traffic)
-            echo 'http://www.happy-giraffe.ru/user/'.$id.'/blog/ - '.$traffic.'<br>';
+        foreach ($blog_traffic as $id => $traffic)
+            echo 'http://www.happy-giraffe.ru/user/' . $id . '/blog/ - ' . $traffic . '<br>';
 
         echo '<br>';
     }

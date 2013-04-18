@@ -220,28 +220,5 @@ class SeoCommand extends CConsoleCommand
 
         return $file_name;
     }
-
-    public function actionCopyStatus()
-    {
-        $raws = array(0);
-        $i = 0;
-        while (!empty($raws)) {
-            $raws = Yii::app()->db_keywords->createCommand()
-                ->select('keyword_id, status')
-                ->from('keywords_statuses')
-                ->offset(10000 * $i)
-                ->limit(10000)
-                ->queryAll();
-
-            foreach ($raws as $raw) {
-                Yii::app()->db_keywords->createCommand()
-                    ->update('keywords', array('status' => $raw['status']), 'id=' . $raw['keyword_id']);
-            }
-
-            $i++;
-            if ($i % 20 == 0)
-                echo ($i * 10000) . "\n";
-        }
-    }
 }
 

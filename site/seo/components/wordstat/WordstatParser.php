@@ -36,6 +36,7 @@ class WordstatParser extends WordstatBaseParser
 
         $this->checkName();
         $this->parse();
+        $job->sendComplete('');
         return true;
     }
 

@@ -14,7 +14,7 @@ class WordstatParser extends WordstatBaseParser
      * Запуск потока-парсера. Связывается с поставщиком заданий и ждет появления новых заданий
      * @param bool $mode
      */
-    public function start($mode = true)
+    public function start($mode = false)
     {
         $this->init($mode);
 
@@ -33,6 +33,7 @@ class WordstatParser extends WordstatBaseParser
         if ($this->keyword == null)
             return true;
         $this->log('Parsing keyword: ' . $this->keyword->id);
+        echo $this->keyword->id."\n";
 
         $this->checkName();
         $this->parse();

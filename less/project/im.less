@@ -152,7 +152,7 @@
 		bottom: 0;
 		width: 685px;
 		background: #fff;
-		z-index: 100;
+		z-index: 1000;
 	}
 	&_bottom-hold {
 		background: #999;
@@ -330,12 +330,6 @@
 		line-height: 16px;
 		color: #333;
 	}
-	&_tx > img {
-		display: block;
-		margin: 10px 0;
-		max-width: 70px;
-		max-height: 70px;
-	}
 	&_ico {
 		.inline-block();
 		width: 16px;
@@ -372,6 +366,29 @@
 		right: 27px;
 	}
 	&_icons-i.active .im-tooltip-popup{display: block;}
+	&_img {
+		.inline-block();
+		position: relative;
+		vertical-align: top;
+		margin-right: 5px;
+		max-width: 70px;
+		max-height: 70px;
+	}
+	&_img > img {
+		display: block;
+		margin: 0;
+	}
+	&_img:hover:after {
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: #fafafa;
+		background: rgba(255,255,255,0.6);
+		z-index: 1;
+	}
 }
 
 .im-sidebar {

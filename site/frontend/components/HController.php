@@ -51,8 +51,8 @@ class HController extends CController
 
     protected function beforeAction($action)
     {
-//        if (Yii::app()->user->id == 12936 || Yii::app()->user->id == 56)
-//            $this->showLikes = true;
+        if (Yii::app()->user->id == 12936 || Yii::app()->user->id == 56 || Yii::app()->user->id == 16534)
+            $this->showLikes = true;
 
 //        if (Yii::app()->user->id == 22 && !($this->id == 'happyBirthdayMira' || $this->route == 'site/logout' || $this->route == 'ajax/sendcomment'))
 //            $this->redirect(array('happyBirthdayMira/index'));

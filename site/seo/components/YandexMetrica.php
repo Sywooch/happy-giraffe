@@ -236,4 +236,41 @@ class YandexMetrica
         sleep(2);
         return json_decode($result, true);
     }
+
+    /**
+     * Возявращает результат сравнения трафика по ключевым словам
+     * @param $date1
+     * @param $date2
+     * @return array
+     */
+    public function compareDates($date1, $date2)
+    {
+        $keywords = array();
+        $queries1 = Query::model()->findAll('date="' . $date1 . '"');
+        foreach ($queries1 as $query) {
+            $keywords[$query->keyword_id] = array(0 => $query->visits, 1 => 0);
+        }
+        $queries2 = Query::model()->findAll('date="' . $date2 . '"');
+        foreach ($queries2 as $query) {
+            if (isset($keywords[$query->keyword_id]))
+                $keywords[$query->keyword_id][1] = $query->visits;
+            else
+                $keywords[$query->keyword_id] = array(1 => $query->visits, 0 => 0);
+        }
+
+        foreach ($keywords as $key=>$keyword)
+            $keywords[$key][2] = $keyword[0] + $keyword[1];
+
+        uasort($keywords, array($this, "cmp2"));
+
+        return $keywords;
+    }
+
+    function cmp2($a, $b)
+    {
+        if ($a[2] == $b[2]) {
+            return 0;
+        }
+        return ($a[2] < $b[2]) ? 1 : -1;
+    }
 }

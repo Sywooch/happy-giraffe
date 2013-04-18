@@ -7,7 +7,7 @@
 
 class WordstatTaskCreator
 {
-    const JOB_LIMIT = 100;
+    const JOB_LIMIT = 3000;
 
     private $jobs = array();
     private $client;
@@ -22,20 +22,21 @@ class WordstatTaskCreator
         $this->loadMoreKeywords();
 
         while (1) {
-            sleep(1);
+            $t1 = microtime(true);
+            sleep(2);
             foreach ($this->jobs as $key => $job) {
                 $stat = $this->client->jobStatus($job[0]);
                 if ($stat[0] === false) {
-                    echo $job[1] . " ended\n";
                     //удаляем из отслеживаемых заданий
                     unset($this->jobs[$key]);
                     //удаляем из очереди базы данных
                     $this->collection->remove(array('id' => (int)$job[1]));
                 }
             }
+            echo (microtime(true) - $t1)."\n";
 
-            if (count($this->jobs) < (self::JOB_LIMIT - 10))
-                $this->loadMoreKeywords(10);
+            if (count($this->jobs) < (self::JOB_LIMIT - 100))
+                $this->loadMoreKeywords(100);
         }
     }
 
@@ -60,11 +61,6 @@ class WordstatTaskCreator
         }
 
         $this->client->setCompleteCallback(array($this, 'complete'));
-    }
-
-    public function complete($task)
-    {
-        echo 'callback';
     }
 
     /**

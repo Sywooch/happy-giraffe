@@ -23,7 +23,7 @@ class WordstatTaskCreator
 
         while (1) {
             sleep(1);
-            $context = $this->context();
+            $context = $this->client->context();
             var_dump($context);
             foreach ($this->jobs as $key => $job) {
                 $stat = $this->client->jobStatus($job[0]);

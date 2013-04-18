@@ -12,11 +12,13 @@ class WordstatParsingTask
      */
     protected static $_instance;
     protected $mongo;
+    protected $simple_collection;
 
     private function __construct()
     {
         $this->mongo = new Mongo('mongodb://localhost');
         $this->mongo->connect();
+        $this->simple_collection = $this->mongo->selectCollection('parsing', 'simple_parsing');
     }
 
     private function __clone()
@@ -35,8 +37,7 @@ class WordstatParsingTask
 
     public function addAllKeywordsToParsing()
     {
-        $collection = $this->mongo->selectCollection('parsing', 'simple_parsing');
-        $collection->ensureIndex(array('id' => 1), array("unique" => true));
+        $this->simple_collection->ensureIndex(array('id' => 1), array("unique" => true));
 
         $ids = 1;
         $max_id = 0;
@@ -50,7 +51,7 @@ class WordstatParsingTask
                 ->order('id')
                 ->queryColumn();
             foreach ($ids as $id)
-                $collection->insert(array('id' => (int)$id));
+                $this->simple_collection->insert(array('id' => (int)$id));
 
             if (!empty($ids))
                 $max_id = $ids[count($ids) - 1];
@@ -59,5 +60,23 @@ class WordstatParsingTask
             if ($i % 10 == 0)
                 echo $max_id . "\n";
         }
+    }
+
+    /**
+     * Удаляет слово из очереди на простой парсинг
+     * @param $id int
+     */
+    public function removeSimpleTask($id)
+    {
+        $this->simple_collection->remove(array('id' => (int)$id));
+    }
+
+    /**
+     * Добавляет слово в очередь на простой парсинг
+     * @param $id int
+     */
+    public function addSimpleTask($id)
+    {
+        $this->simple_collection->insert(array('id' => (int)$id));
     }
 }

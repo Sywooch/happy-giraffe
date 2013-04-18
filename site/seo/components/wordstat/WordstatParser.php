@@ -33,7 +33,6 @@ class WordstatParser extends WordstatBaseParser
         if ($this->keyword == null)
             return true;
         $this->log('Parsing keyword: ' . $this->keyword->id);
-        echo $this->keyword->id."\n";
 
         $this->checkName();
         $this->parse();

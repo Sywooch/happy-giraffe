@@ -19,6 +19,7 @@ class WordstatTaskCreator
     public function start()
     {
         $this->client = Yii::app()->gearman->client();
+        $this->client->setCompleteCallback(array($this, 'goodCallbackOne'));
         $this->loadMoreKeywords();
 
         while (1) {
@@ -37,6 +38,11 @@ class WordstatTaskCreator
             if (count($this->jobs) < (self::JOB_LIMIT - 10))
                 $this->loadMoreKeywords(10);
         }
+    }
+
+    function goodCallbackOne($task)
+    {
+        echo 'callback';
     }
 
     /**

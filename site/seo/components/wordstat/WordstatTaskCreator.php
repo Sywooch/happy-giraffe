@@ -52,8 +52,6 @@ class WordstatTaskCreator
             $this->collection = $mongo->selectCollection('parsing', 'simple_parsing');
         }
 
-        echo "adding keyword to queue\n";
-
         $cur = $this->collection->find();
         while (count($this->jobs) < self::JOB_LIMIT && $cur->hasNext()) {
             $keyword = $cur->getNext();

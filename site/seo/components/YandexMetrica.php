@@ -246,12 +246,24 @@ class YandexMetrica
     public function compareDates($date1, $date2)
     {
         $keywords = array();
-        $queries1 = Query::model()->findAll('date="' . $date1 . '"');
-        foreach ($queries1 as $query) {
+
+        $dataProvider=new CActiveDataProvider('Query',array(
+            'criteria'=>array(
+                'condition'=>'date="' . $date1 . '"',
+            ),
+        ));
+        $iterator=new CDataProviderIterator($dataProvider, 100);
+        foreach ($iterator as $query) {
             $keywords[$query->keyword_id] = array(0 => $query->visits, 1 => 0);
         }
-        $queries2 = Query::model()->findAll('date="' . $date2 . '"');
-        foreach ($queries2 as $query) {
+
+        $dataProvider=new CActiveDataProvider('Query',array(
+            'criteria'=>array(
+                'condition'=>'date="' . $date2 . '"',
+            ),
+        ));
+        $iterator=new CDataProviderIterator($dataProvider, 100);
+        foreach ($iterator as $query) {
             if (isset($keywords[$query->keyword_id]))
                 $keywords[$query->keyword_id][1] = $query->visits;
             else

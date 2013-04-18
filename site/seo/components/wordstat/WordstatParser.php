@@ -125,9 +125,11 @@ class WordstatParser extends WordstatBaseParser
             $this->saveFoundKeyword($value[0], $value[1]);
 
         //парсим вторую колонку
-        $list = $this->getSecondKeywordsColumn($document);
-        foreach ($list as $value)
-            $this->saveFoundKeyword($value[0], $value[1], true);
+        if ($this->first_page){
+            $list = $this->getSecondKeywordsColumn($document);
+            foreach ($list as $value)
+                $this->saveFoundKeyword($value[0], $value[1], true);
+        }
 
         //ищем ссылку на следующую страницу
         $this->findNextPageLink($document);

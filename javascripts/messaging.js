@@ -117,7 +117,7 @@ function Message(data, parent) {
 function MessagingViewModel(data) {
     var self = this;
 
-    self.uploadedImages = ko.observableArray();
+    self.uploadedImages = ko.observableArray([]);
     self.tab = ko.observable(0);
     self.searchQuery = ko.observable('');
     self.contacts = ko.observableArray(ko.utils.arrayMap(data.contacts, function(contact) {
@@ -353,6 +353,7 @@ function MessagingViewModel(data) {
                 self.openContact().thread().updated(response.time);
 
             self.sendingMessage(false);
+            self.uploadedImages([]);
             im.container.scrollTop($('.layout-container_hold').height());
         }, 'json');
     }

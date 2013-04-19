@@ -190,13 +190,14 @@ class MessagingThread extends CActiveRecord
 //        return $messages;
 //    }
 
-    public function getMessages($limit, $offset = 0)
+    public function getMessages($userId, $limit, $offset = 0)
     {
         $_messages = array();
         $messages = MessagingMessage::model()->findAll(array(
             'with' => array('images', 'messageUsers'),
-            'condition' => 'thread_id = :thread_id',
-            'params' => array(':thread_id' => $this->id),
+            'join' => 'JOIN messaging__messages_users mu ON t.id = mu.message_id AND mu.user_id = :user_id',
+            'condition' => 'thread_id = :thread_id AND mu.deleted = 0',
+            'params' => array(':thread_id' => $this->id, ':user_id' => $userId),
             'limit' => $limit,
             'offset' => $offset,
         ));

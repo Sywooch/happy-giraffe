@@ -90,9 +90,7 @@ class WordstatParser extends WordstatBaseParser
         $this->prev_page = 'http://wordstat.yandex.ru/';
 
         while (!empty($this->next_page)) {
-            echo 2;
             $this->parseQuery();
-            sleep(1);
         }
     }
 

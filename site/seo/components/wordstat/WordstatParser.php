@@ -129,6 +129,8 @@ class WordstatParser extends WordstatBaseParser
         $this->success_loads++;
         //готовим referrer для получения следуюей страницы
         $this->prev_page = $this->next_page;
+        //ищем ссылку на следующую страницу
+        $this->findNextPageLink($document);
 
         //парсим первую колонку
         $list = $this->getFirstKeywordsColumn($document);
@@ -148,9 +150,6 @@ class WordstatParser extends WordstatBaseParser
             foreach ($list as $value)
                 $this->saveFoundKeyword($value[0], $value[1], true);
         }
-
-        //ищем ссылку на следующую страницу
-        $this->findNextPageLink($document);
 
         if ($this->first_page)
             $this->keyword->update(array('wordstat', 'status'));

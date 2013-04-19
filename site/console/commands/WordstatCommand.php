@@ -19,14 +19,7 @@ class WordstatCommand extends CConsoleCommand
         $keywords = Yii::app()->db_seo->createCommand('select distinct(keyword_id) from sites__keywords_visits ')->queryColumn();
         echo count($keywords);
         foreach ($keywords as $keyword_id) {
-            $model = ParsingKeyword::model()->findByPk($keyword_id);
-            if ($model === null) {
-                $m = new ParsingKeyword;
-                $m->keyword_id = $keyword_id;
-                $m->priority = 100;
-                $m->save();
-            } else
-                ParsingKeyword::model()->updateByPk($keyword_id, array('priority' => 100));
+
         }
     }
 
@@ -51,7 +44,8 @@ class WordstatCommand extends CConsoleCommand
                 $keyword_model->name = $keyword;
                 try {
                     $keyword_model->save();
-                    ParsingKeyword::addNewKeyword($keyword_model);
+                    #TODO add to parsing queue
+                    //ParsingKeyword::addNewKeyword($keyword_model);
                 } catch (Exception $e) {
                 }
             }

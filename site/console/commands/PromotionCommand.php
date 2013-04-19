@@ -32,19 +32,23 @@ class PromotionCommand extends CConsoleCommand
         Yii::import('site.common.models.mongo.*');
         Yii::import('site.frontend.helpers.*');
         $criteria = new EMongoCriteria();
-        $criteria->setSort(array('visits', EMongoCriteria::SORT_DESC));
-        $criteria->limit(200);
+        $criteria->setSort(array('visits' => EMongoCriteria::SORT_DESC));
+        $criteria->limit(250);
         $pages = PageStatistics::model()->model()->findAll($criteria);
         foreach ($pages as $page) {
-            $date = '2013-04-15';
-            $page->date_visits = array();
-            $page->date_visits[$date] = GApi::model()->organicSearches($page->url, $date, $date);
-            echo $page->date_visits[$date];
-            $date = '2013-04-18';
-            $page->date_visits[$date] = GApi::model()->organicSearches($page->url, $date, $date);
-            $page->save();
-            echo ' - ' . $page->date_visits[$date];
-
+            if (empty($page->date_visits)){
+                $url = str_replace('http://www.happy-giraffe.ru', '', $page->url);
+                $url = str_replace('http://happy-giraffe.ru', '', $url);
+                echo $url;
+                $date = '2013-04-15';
+                $page->date_visits = array();
+                $page->date_visits[$date] = GApi::model()->organicSearches($url, $date, $date);
+                echo ' '.$page->date_visits[$date];
+                $date = '2013-04-18';
+                $page->date_visits[$date] = GApi::model()->organicSearches($url, $date, $date);
+                $page->save();
+                echo ' - ' . $page->date_visits[$date]."\n";
+            }
         }
     }
 

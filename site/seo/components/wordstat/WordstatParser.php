@@ -30,7 +30,6 @@ class WordstatParser extends WordstatBaseParser
     public function processMessage($job)
     {
         $id = $job->workload();
-        echo $id."start\n";
         $this->keyword = Keyword::model()->findByPk($id);
         if ($this->keyword === null)
             return true;
@@ -39,7 +38,6 @@ class WordstatParser extends WordstatBaseParser
         $this->checkName();
         $this->parse();
         WordstatParsingTask::getInstance()->removeSimpleTask($id);
-        echo $id." - completed\n";
         return true;
     }
 

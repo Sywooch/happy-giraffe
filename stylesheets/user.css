@@ -570,7 +570,7 @@
 
 #user .user-clubs {padding-bottom:20px;padding-left:15px;}
 #user .user-clubs ul {list-style:none;}
-#user .user-clubs ul li {float:left;margin:0 15px 0px 0;}
+#user .user-clubs ul li {display: inline-block;*zoom:1;*display:inline;vertical-align: top;margin:0 15px 5px 0;}
 
 #user .user-albums {padding:15px;border:1px solid #e8e8e8;margin-bottom:20px;}
 #user .user-albums .box-title .btn {margin-right:0;}

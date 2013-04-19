@@ -271,7 +271,7 @@
 #baby .contractions-summary .result-text img {margin-bottom:15px;}
 
 #baby .hospital-bag {margin-bottom:40px;}
-#baby .hospital-bag .items {height:290px;background:url(../images/bg_hospital_bag.png) no-repeat;padding:15px 30px;text-align:center;}
+#baby .hospital-bag .items {height:290px;background:url(../images/bg_hospital_bag.jpg) no-repeat;padding:15px 30px;text-align:center;}
 #baby .hospital-bag .items .item-box {display:inline-block;*zoom:1;*display:inline;vertical-align:top;border:1px solid #c3edfd;background:#fff; font-size:14px;font-family:tahoma, arial, sans-serif;line-height:14px;color:#444;}
 #baby .hospital-bag .items .item-box {/*css3*/ border-radius:8px;-moz-border-radius:8px;-webkit-border-radius:8px;margin:11px 8px;behavior: url(/stylesheets/PIE.htc);}
 #baby .hospital-bag .items .item-box .box-in {display:block;height:32px;background:url(../images/hospital_bag_item.gif) no-repeat 8px;padding:8px 12px 8px 32px;position:relative;text-align:left;}
@@ -284,7 +284,7 @@
 #baby .hospital-bag .items .item-box .drag {width:16px;height:32px;cursor:move;position:absolute;top:8px;left:8px;}
 #baby .hospital-bag .items .item-box .hint {position:absolute;background:#fcfac6;padding:5px 10px;width:160px;z-index:6;border:1px solid #ffe572;color:#666;font-family:arial, sans-serif;font-size:12px;text-align:left;left:95%;top:80%;display:none;cursor:default;}
 #baby .hospital-bag .items .item-box .hint:after {display:block;content:'';width:14px;height:14px;right:100%;top:-1px;background:url(../images/hospital_bag_item_hint_tale.png) no-repeat;position:absolute;}
-#baby .hospital-bag .items-storage {height:227px;background:url(../images/bg_hospital_bag.png) no-repeat 0 -330px;padding-top:130px}
+#baby .hospital-bag .items-storage {height:227px;background:url(../images/bg_hospital_bag.jpg) no-repeat 0 -330px;padding-top:130px}
 #baby .hospital-bag .items-storage .storage-text {width:270px;text-align:center;margin:0 auto;font-size:18px;color:#c9c7c7;line-height:20px;}
 #baby .hospital-bag .items-storage .storage-text > span {color:#99dc7b;display:block;margin-top:8px;margin-bottom:12px;}
 #baby .hospital-bag .items-storage .storage-text > span span {color:#ba64e8;font-weight:bold;}

@@ -133,7 +133,6 @@ function sendInvite(el, user_id) {
             }
         }
     });
-
 }
 
 function deleteFriend(el, user_id, friendPage) {

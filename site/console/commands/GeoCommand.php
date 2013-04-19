@@ -119,8 +119,6 @@ class GeoCommand extends CConsoleCommand
                 $model->name = $city;
                 $model->save();
             }
-
-            ParsingKeyword::addNewKeyword($model);
         }
     }
 }

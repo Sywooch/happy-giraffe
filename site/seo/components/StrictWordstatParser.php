@@ -9,28 +9,11 @@ class StrictWordstatParser extends WordstatParser
     public function getNextPage()
     {
         if (empty($this->next_page)) {
-            $this->getKeyword();
             $t = urlencode($this->queryModify->prepareStrictQuery($this->keyword->keyword->name));
 
             $this->next_page = 'http://wordstat.yandex.ru/?cmd=words&page=1&t=' . $t . '&geo=&text_geo=';
             $this->log($this->next_page);
         }
-    }
-
-    public function loadKeywords()
-    {
-        $this->startTimer('load keywords');
-
-        //сначала загружаем приоритетные фразы
-        $criteria = new CDbCriteria;
-        $criteria->condition = 'priority = 255 AND keyword_id % 645 = ' . $this->thread_id;
-        $criteria->order = 'priority desc';
-        $criteria->limit = 100;
-        $this->keywords = ParsingKeyword::model()->findAll($criteria);
-
-        $this->log(count($this->keywords) . ' priority keywords loaded');
-
-        $this->endTimer();
     }
 
     public function parseData($html)

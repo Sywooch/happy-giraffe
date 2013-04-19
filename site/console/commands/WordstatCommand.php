@@ -8,6 +8,7 @@ Yii::import('site.seo.models.*');
 Yii::import('site.seo.models.mongo.*');
 Yii::import('site.seo.components.*');
 Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
+Yii::import('site.seo.components.wordstat.*');
 
 class WordstatCommand extends CConsoleCommand
 {
@@ -18,14 +19,7 @@ class WordstatCommand extends CConsoleCommand
         $keywords = Yii::app()->db_seo->createCommand('select distinct(keyword_id) from sites__keywords_visits ')->queryColumn();
         echo count($keywords);
         foreach ($keywords as $keyword_id) {
-            $model = ParsingKeyword::model()->findByPk($keyword_id);
-            if ($model === null) {
-                $m = new ParsingKeyword;
-                $m->keyword_id = $keyword_id;
-                $m->priority = 100;
-                $m->save();
-            } else
-                ParsingKeyword::model()->updateByPk($keyword_id, array('priority' => 100));
+
         }
     }
 
@@ -50,7 +44,8 @@ class WordstatCommand extends CConsoleCommand
                 $keyword_model->name = $keyword;
                 try {
                     $keyword_model->save();
-                    ParsingKeyword::addNewKeyword($keyword_model);
+                    #TODO add to parsing queue
+                    //ParsingKeyword::addNewKeyword($keyword_model);
                 } catch (Exception $e) {
                 }
             }
@@ -62,12 +57,6 @@ class WordstatCommand extends CConsoleCommand
         fclose($handle);
     }
 
-    public function actionModify($num = 1)
-    {
-        $parser = new WordstatQueryModify();
-        $parser->addToParsing($num);
-    }
-
     public function actionFixPriority($i = 0)
     {
         for ($i = 0; $i < 515; $i++) {
@@ -77,14 +66,14 @@ class WordstatCommand extends CConsoleCommand
                 $ids = Yii::app()->db_keywords->createCommand()
                     ->select('id')
                     ->from('keywords')
-                    ->where('wordstat >= 100 AND status IS NULL AND id >= '.($i*1000000).' AND id <'.(($i+1)*1000000))
+                    ->where('wordstat >= 100 AND status IS NULL AND id >= ' . ($i * 1000000) . ' AND id <' . (($i + 1) * 1000000))
                     ->limit(1000)
                     ->offset($j * 1000)
                     ->queryColumn();
 
                 if (!empty($ids))
-                Yii::app()->db_keywords->createCommand()->update('parsing_keywords', array('priority' => 201),
-                    'keyword_id IN (' . implode(',', $ids) . ')');
+                    Yii::app()->db_keywords->createCommand()->update('parsing_keywords', array('priority' => 201),
+                        'keyword_id IN (' . implode(',', $ids) . ')');
                 $j++;
             }
             echo $i . "\n";
@@ -149,10 +138,27 @@ class WordstatCommand extends CConsoleCommand
         echo $model['value'];
     }
 
-    public function actionTest()
+    public function actionPutTask()
     {
-        $k = 'купить выпрямитель для волос профессиональный';
-        $start_time = microtime(true);
-        echo 1000 * (microtime(true) - $start_time) . "\n";
+        $job_provider = new WordstatTaskCreator;
+        $job_provider->start();
+    }
+
+    public function actionSimple(){
+        $p = new WordstatParser();
+        $p->start();
+    }
+
+    public function actionAddSimpleParsing(){
+        WordstatParsingTask::getInstance()->addAllKeywordsToParsing();
+    }
+
+    private $collection;
+
+    public function actionTest(){
+        $mongo = new Mongo('mongodb://localhost');
+        $mongo->connect();
+        $this->collection = $mongo->selectCollection('parsing', 'simple_parsing');
+        echo $this->collection->remove(array('id' => 63312236));
     }
 }

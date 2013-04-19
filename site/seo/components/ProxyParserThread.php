@@ -92,21 +92,16 @@ class ProxyParserThread
             $content = curl_exec($ch);
 
             if ($content === false) {
-                if (curl_errno($ch)) {
-                    $this->log('Error while curl: ' . curl_error($ch));
-                    curl_close($ch);
-
-                    $attempt += 1;
-                    if ($attempt > 1) {
-                        $this->changeBadProxy();
-                        $attempt = 0;
-                    }
-
-                    return $this->query($url, $ref, $post, $attempt);
+                $attempt += 1;
+                if ($attempt > 1) {
+                    $this->changeBadProxy();
+                    $attempt = 0;
                 }
-                curl_close($ch);
 
-                $this->changeBadProxy();
+                if (curl_errno($ch))
+                    $this->log('Error while curl: ' . curl_error($ch));
+
+                curl_close($ch);
                 return $this->query($url, $ref, $post, $attempt);
             } else {
                 curl_close($ch);

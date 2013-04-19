@@ -18,15 +18,11 @@ class Gearman extends CApplicationComponent
 
     protected function setServers($instance)
     {
-        if (empty($this->servers)){
-            var_dump($this->servers);
+        if (empty($this->servers))
             $instance->addServer();
-        }
 
-        foreach ($this->servers as $s){
-            var_dump($this->servers);
+        foreach ($this->servers as $s)
             $instance->addServer($s['host'], $s['port']);
-        }
 
         return $instance;
     }

@@ -19,8 +19,8 @@ class Gearman extends CApplicationComponent
     protected function setServers($instance)
     {
         if (empty($this->servers)){
+            var_dump($this->servers);
             $instance->addServer();
-            echo 'gearman empty';
         }
 
         foreach ($this->servers as $s)

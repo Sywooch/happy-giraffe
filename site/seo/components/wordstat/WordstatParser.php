@@ -29,7 +29,6 @@ class WordstatParser extends WordstatBaseParser
      */
     public function processMessage($job)
     {
-        echo $job->workload()."\n";
         $this->keyword = Keyword::model()->findByPk($job->workload());
         if ($this->keyword === null)
             return true;
@@ -38,7 +37,7 @@ class WordstatParser extends WordstatBaseParser
         $this->checkName();
         $this->parse();
         WordstatParsingTask::getInstance()->removeSimpleTask($job->workload());
-
+        echo $job->workload()." - completed\n";
         return true;
     }
 

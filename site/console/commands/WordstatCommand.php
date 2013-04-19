@@ -162,7 +162,9 @@ class WordstatCommand extends CConsoleCommand
     private $collection;
 
     public function actionTest(){
-        $low_name = mb_strtolower('Привет', 'utf-8');
-        echo ($low_name == 'привет');
+        $mongo = new Mongo('mongodb://localhost');
+        $mongo->connect();
+        $this->collection = $mongo->selectCollection('parsing', 'simple_parsing');
+        echo $this->collection->remove(array('id' => 63312236));
     }
 }

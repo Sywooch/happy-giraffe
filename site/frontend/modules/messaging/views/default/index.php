@@ -165,7 +165,7 @@
     <div class="im-message clearfix">
         <div class="im-message_icons" data-bind="css: { active : showAbuse() }">
             <div class="im-message_icons-i" data-bind="if: author().id() != $root.me.id(), css: { active : showAbuse() }">
-                <a href="javascript:void(0)" class="im-message_ico im-message_ico__warning im-tooltipsy" title="Пожаловаться" data-bind="click: toggleShowAbuse"></a>
+                <a href="javascript:void(0)" class="im-message_ico im-message_ico__warning im-tooltipsy" data-bind="click: toggleShowAbuse, tooltip: 'Пожаловаться'"></a>
 
                 <div class="im-tooltip-popup">
                     <div class="im-tooltip-popup_t">Укажите вид нарушения:</div>
@@ -196,7 +196,7 @@
                 </div>
             </div>
             <div class="im-message_icons-i">
-                <a href="javascript:void(0)" class="im-message_ico im-message_ico__del im-tooltipsy" title="Удалить" data-bind="click: $data.delete"></a>
+                <a href="javascript:void(0)" class="im-message_ico im-message_ico__del im-tooltipsy" data-bind="click: $data.delete, tooltip: 'Удалить'"></a>
             </div>
         </div>
         <a class="ava small" href="javascript:void(0)" data-bind="css: author().avatarClass()">

@@ -12,6 +12,7 @@ class PageStatistics extends EMongoDocument
     public $depth;
     public $visit_time;
     public $se_visits = array();
+    public $date_visits = array();
 
     /**
      * @param string $className

@@ -24,6 +24,36 @@ class MessagesController extends HController
         echo CJSON::encode($response);
     }
 
+    public function actionEdit()
+    {
+        $messageId = Yii::app()->request->getPost('messageId');
+        $text = Yii::app()->request->getPost('text');
+
+        $message = MessagingMessage::model()->with('messageUsers')->findByPk($messageId);
+        if ($message->author_id == Yii::app()->user->id && ! $message->isReadByInterlocutor) {
+            $message->text = $text;
+            $success = $message->save(true, array('text'));
+            $response = array(
+                'success' => $success,
+            );
+            echo CJSON::encode($response);
+        }
+    }
+
+    public function actionCancel()
+    {
+        $messageId = Yii::app()->request->getPost('messageId');
+
+        $message = MessagingMessage::model()->findByPk($messageId);
+        if ($message->author_id == Yii::app()->user->id && ! $message->isReadByInterlocutor) {
+            $success = $message->delete();
+            $response = array(
+                'success' => $success,
+            );
+            echo CJSON::encode($response);
+        }
+    }
+
     public function actionSend()
     {
         $threadId = Yii::app()->request->getPost('threadId');

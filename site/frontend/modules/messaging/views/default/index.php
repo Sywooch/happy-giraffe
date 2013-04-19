@@ -99,8 +99,8 @@
                             <span class="im-message-loader_tx" data-bind="text: interlocutor().user().firstName() + ' печатает вам сообщение'"></span>
                             <img src="/images/im/im_message-write-loader.png" alt="" class="im_message-loader-anim">
                         </div>
-                        <div class="im_message-loader" data-bind="visible: false">
-                            Вы можете  <a href="">Отменить</a>  данное сообщение или отредактировать его ниже
+                        <div class="im_message-loader" data-bind="visible: editingMessageId() !== null">
+                            Вы можете  <a href="javascript:void(0)" data-bind="click: $root.cancelMessage">Отменить</a>  данное сообщение или отредактировать его ниже
                         </div>
                     </div>
                 </div>
@@ -119,7 +119,7 @@
                                     <input type="checkbox" name="" id="im-editor-b_key-checkbox" class="im-editor-b_key-checkbox" data-bind="checked: enterSetting, click: focusEditor">
                                     <label for="im-editor-b_key-checkbox" class="im-editor-b_key-label">Enter - отправить</label>
                                 </div>
-                                <button class="btn-green" data-bind="click: sendMessage">Отправить</button>
+                                <button class="btn-green" data-bind="click: handleClick, text: editingMessageId() === null ? 'Отправить' : 'Сохранить'"></button>
                             </div>
                         </div>
                         <!--<span class="im_toggle"></span>-->
@@ -162,10 +162,10 @@
 </script>
 
 <script type="text/html" id="message-template">
-    <div class="im-message clearfix">
+    <div class="im-message clearfix" data-bind="css: { 'im-message__edited' : edited }">
         <div class="im-message_icons" data-bind="css: { active : showAbuse() }">
             <div class="im-message_icons-i" data-bind="if: author().id() != $root.me.id(), css: { active : showAbuse() }">
-                <a href="javascript:void(0)" class="im-message_ico im-message_ico__warning im-tooltipsy" title="Пожаловаться" data-bind="click: toggleShowAbuse"></a>
+                <a href="javascript:void(0)" class="im-message_ico im-message_ico__warning im-tooltipsy" data-bind="click: toggleShowAbuse, tooltip: 'Пожаловаться'"></a>
 
                 <div class="im-tooltip-popup">
                     <div class="im-tooltip-popup_t">Укажите вид нарушения:</div>
@@ -196,7 +196,7 @@
                 </div>
             </div>
             <div class="im-message_icons-i">
-                <a href="javascript:void(0)" class="im-message_ico im-message_ico__del im-tooltipsy" title="Удалить" data-bind="click: $data.delete"></a>
+                <a href="javascript:void(0)" class="im-message_ico im-message_ico__del im-tooltipsy" data-bind="click: $data.delete, tooltip: 'Удалить'"></a>
             </div>
         </div>
         <a class="ava small" href="javascript:void(0)" data-bind="css: author().avatarClass()">
@@ -207,6 +207,7 @@
                 <a href="javascript: void(0)" class="im-message_user" data-bind="text: author().firstName()"></a>
                 <em class="im-message_date" data-bind="text: created()"></em>
                 <div class="im-message_status" data-bind="visible: ($root.me.id() == author().id() && (! read() || $data == $root.lastReadMessage())), css: read() ? 'im-message_status__read' : 'im-message_status__noread', text: read() ? 'Сообщение прочитано' : 'Сообщение не прочитано'"></div>
+                <a href="javascript:void(0)" class="im-message_ico im-message_ico__edit im-tooltipsy" data-bind="visible: $data == $root.lastUnreadMessage(), tooltip: 'Редактировать', click: $data.edit"></a>
             </div>
             <div class="im-message_tx" data-bind="html: text()">
 

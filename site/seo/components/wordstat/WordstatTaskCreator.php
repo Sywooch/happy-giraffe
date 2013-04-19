@@ -38,10 +38,7 @@ class WordstatTaskCreator
 
     private function remainCount()
     {
-        $t1 = microtime(true);
-        $count = $this->collection->find(array('id' => array('$lt' => $this->max_id)))->count();
-
-        return $count;
+        return $this->collection->find(array('id' => array('$lt' => $this->max_id)))->count();
     }
 
     /**
@@ -61,6 +58,8 @@ class WordstatTaskCreator
                 Yii::app()->end();
             }
         }
+
+        echo 'max_id: '.$this->max_id."\n";
     }
 
     /**

@@ -29,16 +29,17 @@ class WordstatParser extends WordstatBaseParser
      */
     public function processMessage($job)
     {
-        echo $job->workload()."start\n";
-        $this->keyword = Keyword::model()->findByPk($job->workload());
+        $id = $job->workload();
+        echo $id."start\n";
+        $this->keyword = Keyword::model()->findByPk($id);
         if ($this->keyword === null)
             return true;
         $this->log('Parsing keyword: ' . $this->keyword->id);
 
         $this->checkName();
         $this->parse();
-        WordstatParsingTask::getInstance()->removeSimpleTask($job->workload());
-        echo $job->workload()." - completed\n";
+        WordstatParsingTask::getInstance()->removeSimpleTask($id);
+        echo $id." - completed\n";
         return true;
     }
 
@@ -89,6 +90,7 @@ class WordstatParser extends WordstatBaseParser
         $this->prev_page = 'http://wordstat.yandex.ru/';
 
         while (!empty($this->next_page)) {
+            echo 2;
             $this->parseQuery();
             sleep(1);
         }

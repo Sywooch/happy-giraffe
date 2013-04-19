@@ -21,6 +21,11 @@ class PromotionCommand extends CConsoleCommand
         $metrica->parseQueries();
     }
 
+    public function actionTest(){
+        $metrica = new YandexMetrica();
+        $metrica->parseDate('20130418');
+    }
+
     /** Готовим парсинг позиций слов по которым заходили за последнюю неделю **/
     public function actionPrepare()
     {
@@ -47,21 +52,6 @@ class PromotionCommand extends CConsoleCommand
     {
         $parser = new PositionParserThread(PositionParserThread::SE_GOOGLE, $debug);
         $parser->start();
-    }
-
-    public function actionTest()
-    {
-        $worker = new WordstatIndependentWorker();
-        $worker->wordstat_type = WordstatIndependentWorker::TYPE_QUOTES;
-
-        $criteria = new EMongoCriteria();
-        $criteria->addCond('strict_wordstat', '==', null);
-        $pages = PagePromotion::model()->findAll($criteria);
-        foreach ($pages as $page) {
-            $keyword = Keyword::model()->findByPk($page->keyword_id);
-            $page->strict_wordstat = $worker->parseWordstat($keyword, true);
-            $page->save();
-        }
     }
 
     public function actionPageViews()

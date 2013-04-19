@@ -91,6 +91,7 @@ class WordstatParser extends WordstatBaseParser
 
         while (!empty($this->next_page)) {
             $this->parseQuery();
+            sleep(1);
         }
     }
 

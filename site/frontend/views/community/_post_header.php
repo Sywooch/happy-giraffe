@@ -41,7 +41,7 @@
     <div class="clear"></div>
 </div>
 
-<?php if (Yii::app()->controller->route == 'community/view'): ?>
+<?php if (Yii::app()->controller->route == 'community/view' && false): ?>
     <div class="margin-t20">
         <!-- Яндекс.Директ -->
         <div id="yandex_ad_1"></div>

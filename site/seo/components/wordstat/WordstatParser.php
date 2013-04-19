@@ -48,7 +48,7 @@ class WordstatParser extends WordstatBaseParser
     {
         //сначала проверяем регистр и пересохраняем если необходимо
         $low_name = mb_strtolower($this->keyword->name, 'utf-8');
-        if ($this->keyword->name !== $low_name){
+        if ($this->keyword->name !== $low_name) {
             $this->keyword->name = $low_name;
             $this->keyword->update(array('name'));
         }
@@ -118,8 +118,10 @@ class WordstatParser extends WordstatBaseParser
         if ($wordstat_value !== false) {
             if ($this->first_page)
                 $this->keyword->wordstat = $wordstat_value;
-        } else
+        } else {
+            $document->unloadDocument();
             return false;
+        }
 
         //увеличиваем счетчик успешных загрузок страницы
         $this->success_loads++;
@@ -137,11 +139,13 @@ class WordstatParser extends WordstatBaseParser
             $this->saveFoundKeyword($value[0], $value[1]);
 
         //если статус не хороший, то не парсим остальные страницы
-        if ($this->keyword->status != Keyword::STATUS_GOOD)
+        if ($this->keyword->status != Keyword::STATUS_GOOD) {
+            $document->unloadDocument();
             return true;
+        }
 
         //парсим вторую колонку
-        if ($this->first_page){
+        if ($this->first_page) {
             $list = $this->getSecondKeywordsColumn($document);
             foreach ($list as $value)
                 $this->saveFoundKeyword($value[0], $value[1], true);
@@ -222,7 +226,7 @@ class WordstatParser extends WordstatBaseParser
                     }
 
                 } catch (Exception $err) {
-                    $this->log('error while keyword adding '.$err->getMessage());
+                    $this->log('error while keyword adding ' . $err->getMessage());
                 }
             }
 

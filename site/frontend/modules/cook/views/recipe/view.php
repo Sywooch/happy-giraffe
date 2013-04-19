@@ -134,6 +134,7 @@
 
 <?php $this->renderPartial('_recipe_parts/_more',array('recipe'=>$recipe)); ?>
 
+<?php if (false): ?>
 <div style="margin-top: 40px; margin-bottom: 40px;">
     <!-- Яндекс.Директ -->
     <div id="yandex_ad_2"></div>
@@ -167,6 +168,7 @@
         })(window, document, "yandex_context_callbacks");
     </script>
 </div>
+<?php endif; ?>
 
 <?php
     $this->widget('application.widgets.commentWidget.CommentWidget', array(

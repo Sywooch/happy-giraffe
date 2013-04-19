@@ -30,13 +30,13 @@ class WordstatParser extends WordstatBaseParser
     public function processMessage($job)
     {
         $this->keyword = Keyword::model()->findByPk($job->workload());
-        if ($this->keyword == null)
+        if ($this->keyword === null)
             return true;
         $this->log('Parsing keyword: ' . $this->keyword->id);
 
         $this->checkName();
         $this->parse();
-        WordstatParsingTask::getInstance()->removeSimpleTask($this->keyword->id);
+        WordstatParsingTask::getInstance()->removeSimpleTask($job->workload());
 
         return true;
     }
@@ -52,7 +52,8 @@ class WordstatParser extends WordstatBaseParser
             $model2 = Keyword::model()->findByAttributes(array('name' => $new_name));
             if ($model2 !== null) {
                 try {
-                    $this->keyword->delete();
+                    echo 'delete keyword '.$this->keyword->id."\n";
+                    //$this->keyword->delete();
                     $this->keyword = null;
                 } catch (Exception $err) {
                 }

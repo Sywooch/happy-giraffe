@@ -23,7 +23,7 @@ class PromotionCommand extends CConsoleCommand
 
     public function actionTest(){
         $metrica = new YandexMetrica();
-        $metrica->parseDate('20130418');
+        $metrica->parseDate('20130415');
     }
 
     /** Готовим парсинг позиций слов по которым заходили за последнюю неделю **/

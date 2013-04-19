@@ -6,7 +6,7 @@
  */
 
 $p = new YandexMetrica();
-$keywords = $p->compareDates('2013-04-08', '2013-04-17');
+$keywords = $p->compareDates('2013-04-08', '2013-04-18');
 ?>
 <table>
     <thead>

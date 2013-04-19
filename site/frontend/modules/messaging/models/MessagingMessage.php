@@ -166,18 +166,18 @@ class MessagingMessage extends CActiveRecord
         $images = array();
         foreach ($this->images as $image) {
             $images[] = array(
-                'id' => $image->photo->id,
+                'id' => (int) $image->photo->id,
                 'preview' => $image->photo->getPreviewUrl(70, 70),
                 'full' => $image->photo->getPreviewUrl(960, 627),
             );
         }
 
         return array(
-            'id' => $this->id,
-            'author_id' => $this->author_id,
+            'id' => (int) $this->id,
+            'author_id' => (int) $this->author_id,
             'text' => $this->text,
             'created' => Yii::app()->dateFormatter->format("d MMMM yyyy, H:mm", ($this->created instanceof CDbExpression) ? time() : $this->created),
-            'read' => $this->isReadByInterlocutor,
+            'read' => (bool) $this->isReadByInterlocutor,
             'images' => $images,
         );
     }

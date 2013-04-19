@@ -14,6 +14,7 @@ class WordstatTaskCreator
     /**
      * @var MongoCollection
      */
+    private $active_ids = array();
     private $collection;
 
     public function start()
@@ -50,7 +51,7 @@ class WordstatTaskCreator
     public function loadMoreKeywords()
     {
         echo "add keywords\n";
-        $cur = $this->collection->find();
+        $cur = $this->collection->find(array('id' => array('$gt' => $this->max_id)));
         for ($i = 0; $i < self::JOB_LIMIT; $i++) {
             if ($cur->hasNext()) {
                 $keyword = $cur->getNext();

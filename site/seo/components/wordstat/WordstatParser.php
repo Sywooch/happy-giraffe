@@ -29,6 +29,7 @@ class WordstatParser extends WordstatBaseParser
      */
     public function processMessage($job)
     {
+        echo $job->workload()."\n";
         $this->keyword = Keyword::model()->findByPk($job->workload());
         if ($this->keyword === null)
             return true;
@@ -55,7 +56,7 @@ class WordstatParser extends WordstatBaseParser
 
         $new_name = WordstatQueryModify::prepareForSave($this->keyword->name);
 
-        if ($new_name != $this->keyword->name) {
+        if ($new_name !== $this->keyword->name) {
             $this->keyword->name = $new_name;
             $model2 = Keyword::model()->findByAttributes(array('name' => $new_name));
             if ($model2 !== null) {

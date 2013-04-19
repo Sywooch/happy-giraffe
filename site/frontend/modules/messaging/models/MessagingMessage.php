@@ -63,6 +63,16 @@ class MessagingMessage extends CActiveRecord
             'author' => array(self::BELONGS_TO, 'User', 'author_id'),
             'thread' => array(self::BELONGS_TO, 'MessagingThread', 'thread_id'),
             'messageUsers' => array(self::HAS_MANY, 'MessagingMessageUser', 'message_id'),
+            'images' => array(
+                self::HAS_MANY,
+                'AttachPhoto',
+                'entity_id',
+                'on' => 'entity = :entity',
+                'params' => array(':entity' => 'MessagingMessage'),
+                'with' => array(
+                    'photo',
+                ),
+            ),
         );
     }
 
@@ -119,7 +129,7 @@ class MessagingMessage extends CActiveRecord
         ));
     }
 
-    public function create($text, $threadId, $authorId)
+    public function create($text, $threadId, $authorId, $images)
     {
         $thread = MessagingThread::model()->with('threadUsers')->findByPk($threadId);
 
@@ -136,10 +146,47 @@ class MessagingMessage extends CActiveRecord
             $messageUsers[] = $messageUser;
         }
         $message->messageUsers = $messageUsers;
-        $success = $message->withRelated->save(true, array('messageUsers'));
+        $attaches = array();
+        foreach ($images as $imageId) {
+            $attach = new AttachPhoto();
+            $attach->photo_id = $imageId;
+            $attach->entity = 'MessagingMessage';
+            $attaches[] = $attach;
+        }
+        $message->images = $attaches;
+        $success = $message->withRelated->save(true, array('messageUsers', 'images'));
         if ($success)
             MessagingThread::model()->updateByPk($threadId, array('updated' => new CDbExpression('NOW()')));
 
         return ($success) ? $message : false;
+    }
+
+    public function getJson()
+    {
+        $images = array();
+        foreach ($this->images as $image) {
+            $images[] = array(
+                'id' => $image->photo->id,
+                'preview' => $image->photo->getPreviewUrl(70, 70),
+                'full' => $image->photo->getPreviewUrl(960, 627),
+            );
+        }
+
+        return array(
+            'id' => $this->id,
+            'author_id' => $this->author_id,
+            'text' => $this->text,
+            'created' => Yii::app()->dateFormatter->format("d MMMM yyyy, H:mm", time()),
+            'read' => $this->isReadByInterlocutor,
+            'images' => $images,
+        );
+    }
+
+    public function getIsReadByInterlocutor()
+    {
+        foreach ($this->messageUsers as $messageUser) {
+            if ($messageUser->user_id != $this->author_id)
+                return $messageUser->read;
+        }
     }
 }

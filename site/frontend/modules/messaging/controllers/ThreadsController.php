@@ -2,7 +2,7 @@
 
 class ThreadsController extends HController
 {
-    const MESSAGES_PER_PAGE = 10;
+    const MESSAGES_PER_PAGE = 20;
 
     public function filters()
     {

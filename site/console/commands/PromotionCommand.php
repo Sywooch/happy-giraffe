@@ -21,9 +21,31 @@ class PromotionCommand extends CConsoleCommand
         $metrica->parseQueries();
     }
 
-    public function actionTest(){
+    public function actionTest()
+    {
         $metrica = new YandexMetrica();
         $metrica->parseDate('20130415');
+    }
+
+    public function actionTest2()
+    {
+        Yii::import('site.common.models.mongo.*');
+        Yii::import('site.frontend.helpers.*');
+        $criteria = new EMongoCriteria();
+        $criteria->setSort(array('visits', EMongoCriteria::SORT_DESC));
+        $criteria->limit(200);
+        $pages = PageStatistics::model()->model()->findAll($criteria);
+        foreach ($pages as $page) {
+            $date = '2013-04-15';
+            $page->date_visits = array();
+            $page->date_visits[$date] = GApi::model()->organicSearches($page->url, $date, $date);
+            echo $page->date_visits[$date];
+            $date = '2013-04-18';
+            $page->date_visits[$date] = GApi::model()->organicSearches($page->url, $date, $date);
+            $page->save();
+            echo ' - ' . $page->date_visits[$date];
+
+        }
     }
 
     /** Готовим парсинг позиций слов по которым заходили за последнюю неделю **/
@@ -424,7 +446,7 @@ http://www.happy-giraffe.ru/user/15322/blog/post32252/';
                     ->queryScalar();
                 if (empty($sum))
                     $sum = 0;
-                echo $sum."\n";
+                echo $sum . "\n";
             } else {
                 echo "0\n";
             }

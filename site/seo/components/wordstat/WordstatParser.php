@@ -36,6 +36,8 @@ class WordstatParser extends WordstatBaseParser
 
         $this->checkName();
         $this->parse();
+        WordstatParsingTask::getInstance()->removeSimpleTask($this->keyword->id);
+
         return true;
     }
 

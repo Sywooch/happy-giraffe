@@ -9,7 +9,7 @@ class WordstatTaskCreator
 {
     const JOB_LIMIT = 500;
 
-    private $jobs = array();
+    private $max_id = 0;
     private $client;
     /**
      * @var MongoCollection
@@ -18,25 +18,30 @@ class WordstatTaskCreator
 
     public function start()
     {
+        if (!$this->collection) {
+            $mongo = new Mongo('mongodb://localhost');
+            $mongo->connect();
+            $this->collection = $mongo->selectCollection('parsing', 'simple_parsing');
+        }
+
         $this->client = Yii::app()->gearman->client();
         $this->loadMoreKeywords();
 
         while (1) {
             sleep(2);
 
-            foreach ($this->jobs as $key => $job) {
-                $stat = $this->client->jobStatus($job[0]);
-                if ($stat[0] === false) {
-                    //удаляем из отслеживаемых заданий
-                    unset($this->jobs[$key]);
-                    //удаляем из очереди базы данных
-                    $this->collection->remove(array('id' => (int)$job[1]));
-                }
-            }
-
-            if (count($this->jobs) < (self::JOB_LIMIT - 100))
+            if ($this->remainCount() < (self::JOB_LIMIT))
                 $this->loadMoreKeywords(self::JOB_LIMIT);
         }
+    }
+
+    private function remainCount()
+    {
+        $t1 = microtime(true);
+        $count = $this->collection->find(array('id' => array('$lt' => $this->max_id)))->count();
+        echo microtime(true) - $t1;
+
+        return $count;
     }
 
     /**
@@ -44,18 +49,16 @@ class WordstatTaskCreator
      */
     public function loadMoreKeywords()
     {
-        if (!$this->collection) {
-            $mongo = new Mongo('mongodb://localhost');
-            $mongo->connect();
-            $this->collection = $mongo->selectCollection('parsing', 'simple_parsing');
-        }
-
         echo "add keywords\n";
         $cur = $this->collection->find();
-        while (count($this->jobs) < self::JOB_LIMIT && $cur->hasNext()) {
-            $keyword = $cur->getNext();
-            if (!$this->taskExist($keyword['id']))
+        for ($i = 0; $i < self::JOB_LIMIT; $i++) {
+            if ($cur->hasNext()) {
+                $keyword = $cur->getNext();
                 $this->addTaskToQueue($keyword['id']);
+            } else {
+                echo "application complete successfully\n";
+                Yii::app()->end();
+            }
         }
     }
 
@@ -65,20 +68,6 @@ class WordstatTaskCreator
      */
     private function addTaskToQueue($keyword_id)
     {
-        $job_handle = $this->client->doBackground("simple_parsing", $keyword_id);
-        $this->jobs [] = array($job_handle, $keyword_id);
-    }
-
-    /**
-     * Добавлено ли ключевое слово в задания
-     * @param $keyword_id int
-     * @return bool
-     */
-    private function taskExist($keyword_id)
-    {
-        foreach ($this->jobs as $job)
-            if ($job[1] == $keyword_id)
-                return true;
-        return false;
+        $this->client->doBackground("simple_parsing", $keyword_id);
     }
 }

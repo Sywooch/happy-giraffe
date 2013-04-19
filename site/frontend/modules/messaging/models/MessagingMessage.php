@@ -176,7 +176,7 @@ class MessagingMessage extends CActiveRecord
             'id' => $this->id,
             'author_id' => $this->author_id,
             'text' => $this->text,
-            'created' => Yii::app()->dateFormatter->format("d MMMM yyyy, H:mm", $this->created),
+            'created' => Yii::app()->dateFormatter->format("d MMMM yyyy, H:mm", ($this->created instanceof CDbExpression) ? time() : $this->created),
             'read' => $this->isReadByInterlocutor,
             'images' => $images,
         );

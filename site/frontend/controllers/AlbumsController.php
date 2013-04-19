@@ -498,6 +498,31 @@ class AlbumsController extends HController
         echo CJSON::encode($data);
     }
 
+    public function actionMessagingMessagePhoto()
+    {
+        if (!$val = Yii::app()->request->getPost('val'))
+            Yii::app()->end();
+
+        if (is_numeric($val)) {
+            $model = AlbumPhoto::model()->findByPk($val);
+            if (!$model)
+                Yii::app()->end();
+        } else {
+            $model = new AlbumPhoto;
+            $model->file_name = $val;
+            $model->author_id = Yii::app()->user->id;
+            if ($title = Yii::app()->request->getPost('title'))
+                $model->title = CHtml::encode($title);
+            $model->create(true);
+        }
+
+        echo CJSON::encode(array(
+            'id' => $model->primaryKey,
+            'preview' => $model->getPreviewUrl(70, 70),
+            'full' => $model->getPreviewUrl(960, 627, Image::WIDTH),
+        ));
+    }
+
     public function actionCommentPhoto()
     {
         if (!$val = Yii::app()->request->getPost('val'))

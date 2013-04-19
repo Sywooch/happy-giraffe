@@ -338,7 +338,7 @@
                 <div class="box-1">
 
                     <div class="share_button">
-                        <iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.happy-giraffe.ru&amp;send=false&amp;layout=button_count&amp;width=129&amp;show_faces=true&amp;font&amp;colorscheme=light&amp;action=like&amp;height=21&amp;locale=ru_RU" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:129px; height:21px;" allowTransparency="true"></iframe>
+                        <iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.happy-giraffe.ru&amp;send=false&amp;layout=button_count&amp;width=129&amp;show_faces=true&amp;font&amp;colorscheme=light&amp;action=like&amp;height=21&amp;locale=ru_RU" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:110px; height:21px;" allowTransparency="true"></iframe>
                     </div>
 
 

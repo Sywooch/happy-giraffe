@@ -6,6 +6,6 @@
  */
 
 if ($model) {
-    echo $model->name;
+    print_r($model->attributes);
 } else
     echo 'Not found';

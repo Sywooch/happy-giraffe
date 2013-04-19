@@ -217,7 +217,7 @@
                 </a>
             </div>
             <div class="im-message_tx-img clearfix" data-bind="foreach: images">
-                <a href="javascript:void(0)" class="im-message_img" data-theme="white-square"">
+                <a href="javascript:void(0)" class="im-message_img" data-theme="white-square" data-bind="attr: { href : full, rel : 'img-rel-' + id() }">
                     <img alt="" data-bind="attr: { src : preview }">
                 </a>
             </div>

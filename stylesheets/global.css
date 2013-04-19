@@ -516,7 +516,7 @@
   *display: inline;
   position: relative;
   vertical-align: top;
-  margin-right: 5px;
+  margin: 5px 5px 5px 0;
   max-width: 70px;
   max-height: 70px;
 }

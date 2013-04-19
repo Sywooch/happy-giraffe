@@ -60,7 +60,6 @@ class WordstatParser extends WordstatBaseParser
             $model2 = Keyword::model()->findByAttributes(array('name' => $new_name));
             if ($model2 !== null) {
                 try {
-                    echo 'delete keyword '.$this->keyword->id."\n";
                     $this->keyword->delete();
                     $this->keyword = null;
                 } catch (Exception $err) {

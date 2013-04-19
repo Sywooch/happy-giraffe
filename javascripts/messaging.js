@@ -77,10 +77,23 @@ function Contact(data, parent) {
     self.thread = ko.observable(data.thread == null? null : new Thread(data.thread, parent));
 }
 
-function Message(data, parent) {
+function Image(data, parent) {
     var self = this;
 
     ko.mapping.fromJS(data, {}, self);
+}
+
+function Message(data, parent) {
+    var self = this;
+
+    self.id = ko.observable(data.id);
+    self.author_id = ko.observable(data.author_id);
+    self.text = ko.observable(data.text);
+    self.created = ko.observable(data.created);
+    self.read = ko.observable(data.read);
+    self.images = ko.observableArray(ko.utils.arrayMap(data.images, function(image) {
+        return new Image(image, self);
+    }));
 
     self.showAbuse = ko.observable(false);
     self.abuseReason = ko.observable(0);
@@ -157,6 +170,20 @@ function MessagingViewModel(data) {
             }, 'json');
         }
     }
+
+    self.addImage = function(data) {
+        self.uploadedImages.push(new Image(data));
+    }
+
+    self.removeImage = function(image) {
+        self.uploadedImages.remove(image);
+    }
+
+    self.uploadedImagesIds = ko.computed(function() {
+        return ko.utils.arrayMap(self.uploadedImages(), function(image) {
+            return image.id();
+        })
+    });
 
     self.addFriend = function()  {
         $.post('/friendRequests/send/', { to_id : self.interlocutor().user().id() }, function(response) {
@@ -311,6 +338,7 @@ function MessagingViewModel(data) {
         var data = {}
         data.interlocutorId = self.interlocutor().user().id();
         data.text = CKEDITOR.instances['im-editor'].getData();
+        data.images = self.uploadedImagesIds();
         if (self.openContact().thread() !== null)
             data.threadId = self.openContact().thread().id();
 

@@ -100,7 +100,7 @@ $(window).load(function() {
     });
 
     
-    $(".im-message_img").fancybox();
+    //$(".im-message_img").fancybox();
 
     /* Подсказки при наведении */
     $('.im-tooltipsy').powerTip({

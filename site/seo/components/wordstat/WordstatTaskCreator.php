@@ -50,7 +50,7 @@ class WordstatTaskCreator
     public function loadMoreKeywords()
     {
         echo "add keywords\n";
-        $cur = $this->collection->find(array('id' => array('$gt' => $this->max_id)));
+        $cur = $this->collection->find(array('id' => array('$gt' => $this->max_id)))->sort(array('id' => 1));
         for ($i = 0; $i < self::JOB_LIMIT; $i++) {
             if ($cur->hasNext()) {
                 $keyword = $cur->getNext();

@@ -23,8 +23,10 @@ class Gearman extends CApplicationComponent
             $instance->addServer();
         }
 
-        foreach ($this->servers as $s)
+        foreach ($this->servers as $s){
+            var_dump($this->servers);
             $instance->addServer($s['host'], $s['port']);
+        }
 
         return $instance;
     }

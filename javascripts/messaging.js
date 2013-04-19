@@ -432,6 +432,7 @@ function MessagingViewModel(data) {
     $(window).load(function() {
         self.messages.subscribe(function() {
             im.holdHeights();
+            $(".im-message_img").fancybox();
         });
 
         im.container.scroll(function() {

@@ -39,7 +39,7 @@ class WordstatTaskCreator
     {
         $t1 = microtime(true);
         $count = $this->collection->find(array('id' => array('$lt' => $this->max_id)))->count();
-        echo microtime(true) - $t1;
+        echo $count . ' ' . (microtime(true) - $t1);
 
         return $count;
     }
@@ -55,6 +55,7 @@ class WordstatTaskCreator
             if ($cur->hasNext()) {
                 $keyword = $cur->getNext();
                 $this->addTaskToQueue($keyword['id']);
+                $this->max_id = $keyword['id'];
             } else {
                 echo "application complete successfully\n";
                 Yii::app()->end();

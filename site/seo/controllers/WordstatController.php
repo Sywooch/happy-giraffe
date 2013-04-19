@@ -22,21 +22,6 @@ class WordstatController extends SController
         $this->render('index');
     }
 
-    public function actionSearchPhrases()
-    {
-        $keywords = Yii::app()->db_seo->createCommand('select distinct(keyword_id) from pages_search_phrases')->queryColumn();
-        $count = 0;
-        foreach ($keywords as $keyword_id) {
-            if (ParsingKeyword::addKeyword($keyword_id))
-                $count++;
-        }
-
-        echo CJSON::encode(array(
-            'status' => true,
-            'count' => $count
-        ));
-    }
-
     public function actionLastKeywords()
     {
         $this->render('lastKeywords');

@@ -1,7 +1,7 @@
 function Interlocutor(data, parent) {
     var self = this;
 
-    self.user = new User(data.user, parent);
+    self.user = ko.observable(new User(data.user, parent));
     self.blogPostsCount = ko.observable(data.blogPostsCount);
     self.photosCount = ko.observable(data.photosCount);
     self.inviteSent = ko.observable(data.inviteSent);
@@ -23,6 +23,7 @@ function User(data, parent) {
 
 function Thread(data, parent) {
     var self = this;
+    ko.mapping.fromJS(data, {}, self);
 
     self.deleteMessages = function() {
         $.post('/messaging/threads/deleteMessages/', { threadId : self.id() }, function(response) {
@@ -56,7 +57,17 @@ function Thread(data, parent) {
         self.unreadCount(self.unreadCount() + 1);
     }
 
-    ko.mapping.fromJS(data, {}, self);
+    self.isRead = ko.computed(function() {
+        return self.unreadCount() == 0;
+    }, this);
+
+    self.hideButtonTitle = ko.computed(function() {
+        return self.hidden() ? 'Показать диалог' : 'Скрыть диалог';
+    }, this);
+
+    self.readButtonTitle = ko.computed(function() {
+        return self.isRead() ? 'Отметить как непрочитанное' : 'Отметить как прочитанное';
+    }, this);
 }
 
 function Contact(data, parent) {
@@ -66,10 +77,23 @@ function Contact(data, parent) {
     self.thread = ko.observable(data.thread == null? null : new Thread(data.thread, parent));
 }
 
-function Message(data, parent) {
+function Image(data, parent) {
     var self = this;
 
     ko.mapping.fromJS(data, {}, self);
+}
+
+function Message(data, parent) {
+    var self = this;
+
+    self.id = ko.observable(data.id);
+    self.author_id = ko.observable(data.author_id);
+    self.text = ko.observable(data.text);
+    self.created = ko.observable(data.created);
+    self.read = ko.observable(data.read);
+    self.images = ko.observableArray(ko.utils.arrayMap(data.images, function(image) {
+        return new Image(image, self);
+    }));
 
     self.showAbuse = ko.observable(false);
     self.abuseReason = ko.observable(0);
@@ -86,13 +110,14 @@ function Message(data, parent) {
     }
 
     self.author = ko.computed(function() {
-        return self.author_id() == parent.me.id() ? parent.me : parent.interlocutor().user;
+        return self.author_id() == parent.me.id() ? parent.me : parent.interlocutor().user();
     });
 }
 
 function MessagingViewModel(data) {
     var self = this;
 
+    self.uploadedImages = ko.observableArray();
     self.tab = ko.observable(0);
     self.searchQuery = ko.observable('');
     self.contacts = ko.observableArray(ko.utils.arrayMap(data.contacts, function(contact) {
@@ -129,12 +154,10 @@ function MessagingViewModel(data) {
 
     self.openThread = function(contact) {
         self.openContactIndex(self.contacts().indexOf(contact));
-
         $.get('/messaging/interlocutors/get/', { interlocutorId : contact.user().id() }, function(response) {
             self.interlocutor(new Interlocutor(response.interlocutor, self));
         }, 'json');
 
-        console.log(self.openContact().user().id());
         if (self.openContact().thread() === null) {
             self.messages([]);
         }
@@ -148,15 +171,29 @@ function MessagingViewModel(data) {
         }
     }
 
+    self.addImage = function(data) {
+        self.uploadedImages.push(new Image(data));
+    }
+
+    self.removeImage = function(image) {
+        self.uploadedImages.remove(image);
+    }
+
+    self.uploadedImagesIds = ko.computed(function() {
+        return ko.utils.arrayMap(self.uploadedImages(), function(image) {
+            return image.id();
+        })
+    });
+
     self.addFriend = function()  {
-        $.post('/friendRequests/send/', { to_id : self.interlocutor().user.id() }, function(response) {
+        $.post('/friendRequests/send/', { to_id : self.interlocutor().user().id() }, function(response) {
             if (response.status)
                 self.interlocutor().inviteSent(true);
         }, 'json');
     }
 
     self.block = function() {
-        var contact = self.findByInterlocutorId(self.interlocutor().user.id());
+        var contact = self.findByInterlocutorId(self.interlocutor().user().id());
         self.contacts.remove(contact);
         if (self.contactsToShow().length > 0)
             self.openThread(self.contactsToShow()[0]);
@@ -299,14 +336,17 @@ function MessagingViewModel(data) {
         self.sendingMessage(true);
 
         var data = {}
-        data.interlocutorId = self.interlocutor().user.id();
+        data.interlocutorId = self.interlocutor().user().id();
         data.text = CKEDITOR.instances['im-editor'].getData();
+        data.images = self.uploadedImagesIds();
         if (self.openContact().thread() !== null)
             data.threadId = self.openContact().thread().id();
 
         $.post('/messaging/messages/send/', data, function(response) {
             self.messages.push(new Message(response.message, self));
-            CKEDITOR.instances['im-editor'].setData('');
+            CKEDITOR.instances['im-editor'].setData('', function() {
+                CKEDITOR.instances['im-editor'].focus();
+            });
             if (self.openContact().thread() === null)
                 self.openContact().thread(new Thread(response.thread, self));
             else
@@ -315,6 +355,11 @@ function MessagingViewModel(data) {
             self.sendingMessage(false);
             im.container.scrollTop($('.layout-container_hold').height());
         }, 'json');
+    }
+
+    self.focusEditor = function() {
+        CKEDITOR.instances['im-editor'].focus();
+        return true;
     }
 
     if (data.interlocutorId !== null || self.contactsToShow().length > 0)
@@ -331,12 +376,12 @@ function MessagingViewModel(data) {
     $(function() {
         CKEDITOR.instances['im-editor'].on('focus', function() {
             if (self.openContact() !== null)
-                $.post('/messaging/interlocutors/typing/', { typingStatus : 1, interlocutorId : self.interlocutor().user.id() });
+                $.post('/messaging/interlocutors/typing/', { typingStatus : 1, interlocutorId : self.interlocutor().user().id() });
         });
 
         CKEDITOR.instances['im-editor'].on('blur', function() {
             if (self.openContact() !== null)
-                $.post('/messaging/interlocutors/typing/', { typingStatus : 0, interlocutorId : self.interlocutor().user.id() });
+                $.post('/messaging/interlocutors/typing/', { typingStatus : 0, interlocutorId : self.interlocutor().user().id() });
         });
 
         CKEDITOR.instances['im-editor'].on('key', function (e) {

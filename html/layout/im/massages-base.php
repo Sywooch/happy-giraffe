@@ -23,8 +23,7 @@
 						<div class="input">
 							<input type="text" />
 						</div>
-						<button class="btn-green btn-green-medium">Поиск</button>					
-						
+						<button class="btn-green btn-green-medium">Поиск</button>
 					</div>
 					
 					<div class="logo-box">
@@ -35,7 +34,6 @@
 					<div class="banner-box">
 						<a href=""><img src="/images/contest/banner-w300-8.jpg" /></a>
 					</div>
-					
 				</div>
 				
 			</div>
@@ -252,9 +250,20 @@
 									</div>
 									<div class="im-message_tx">
 										<!-- Текст может быть отформатирован с помощью абзацев или переводов строки br -->
-										Привет! У меня родился сын! Вот фото! 
-										<img src="/images/example/w220-h165-1.jpg" alt="">
-										Уже два года назад стала просматриваться тенденция на неоновые оттенки. <br>  Сначала яркие цвета разнообразили привычные тона лаков для ногтей, и красивые пальчики молодых девушек стали выделяться благодаря красочному маникюру, а потом и губы модниц засветились 
+										Привет! У меня родился сын! Вот фото!
+										Уже два года назад стала просматриваться тенденция на неоновые оттенки. <br>  Сначала яркие цвета разнообразили привычные тона лаков для ногтей, и красивые пальчики молодых девушек стали выделяться благодаря красочному маникюру, а потом и губы модниц засветились.
+									</div>
+									<div class="im-message_tx-img clearfix">
+										<!-- href указание большого изображения -->
+										<!-- rel может быть любым главное у каждого сообщения разный -->
+										<a href="/images/example/w220-h165-1.jpg" class="im-message_img" data-theme="white-square" rel="im-img-1">
+										<!-- Превью изображений максимальные размеры 70*70 -->
+											<img src="/images/example/w220-h165-1.jpg" alt="">
+										</a>
+										<!-- Превью изображений максимальные размеры 70*70 -->
+										<a href="/images/example/w200-h182-1.jpg" class="im-message_img" data-theme="white-square" rel="im-img-1">
+											<img src="/images/example/w200-h182-1.jpg" alt="">
+										</a>
 									</div>
 								</div>
 							</div>
@@ -429,8 +438,15 @@
 									</div>
 									<div class="im-message_tx">
 										Привет! У меня родился сын! Вот фото!
-										<img src="/images/example/w220-h165-1.jpg" alt="">
 										Уже два года назад стала просматриваться тенденция на неоновые оттенки. Сначала яркие цвета разнообразили привычные тона лаков для ногтей, и красивые пальчики молодых девушек стали выделяться благодаря красочному маникюру, а потом и губы модниц засветились 
+										
+									</div>
+									
+									<div class="im-message_tx-img clearfix">
+										<!-- Превью изображений максимальные размеры 70*70 -->
+										<a href="/images/example/w200-h182-1.jpg" class="im-message_img" data-theme="white-square" rel="im-img-1">
+											<img src="/images/example/w200-h182-1.jpg" alt="">
+										</a>
 									</div>
 								</div>
 							</div>
@@ -499,7 +515,7 @@
 					],
 					toolbarCanCollapse: false,
 					disableObjectResizing: false,
-					resize_enabled : false,
+					resize_enabled : true,
 					toolbarLocation : 'bottom',
 					height: 58
 				});
@@ -536,5 +552,6 @@
 	</div>
 </div>
 </div>
+<div class="popup-container"></div>
 </body>
 </html>

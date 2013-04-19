@@ -97,9 +97,18 @@ function Message(data, parent) {
 
     self.showAbuse = ko.observable(false);
     self.abuseReason = ko.observable(0);
+    self.edited = ko.observable(false);
 
     self.toggleShowAbuse = function() {
         self.showAbuse(! self.showAbuse());
+    }
+
+    self.edit = function() {
+        CKEDITOR.instances['im-editor'].setData(self.text(), function() {
+            CKEDITOR.instances['im-editor'].focus();
+        });
+
+        parent.editingMessageId(self.id());
     }
 
     self.delete = function() {
@@ -117,6 +126,7 @@ function Message(data, parent) {
 function MessagingViewModel(data) {
     var self = this;
 
+    self.editingMessageId = ko.observable(null);
     self.uploadedImages = ko.observableArray([]);
     self.tab = ko.observable(0);
     self.searchQuery = ko.observable('');
@@ -202,6 +212,12 @@ function MessagingViewModel(data) {
     self.openContact = ko.computed(function() {
         return ko.utils.arrayFirst(self.contacts(), function(contact) {
             return self.contacts().indexOf(contact) === self.openContactIndex();
+        });
+    }, this);
+
+    self.editingMessage = ko.computed(function() {
+        return ko.utils.arrayFirst(self.messages(), function(message) {
+            return message.id() === self.editingMessageId();
         });
     }, this);
 
@@ -302,6 +318,16 @@ function MessagingViewModel(data) {
         return result;
     });
 
+    self.lastUnreadMessage = ko.computed(function() {
+        var result = null;
+        ko.utils.arrayForEach(self.messagesToShow(), function(message) {
+            if (! message.read() && message.author().id() == self.me.id())
+                result = message;
+        });
+
+        return result;
+    });
+
     self.changeTab = function(tab) {
         self.tab(tab);
     }
@@ -332,6 +358,13 @@ function MessagingViewModel(data) {
         }, 'json');
     }
 
+    self.handleClick = function() {
+        if (self.editingMessageId() === null)
+            self.sendMessage();
+        else
+            self.editMessage();
+    }
+
     self.sendMessage = function() {
         self.sendingMessage(true);
 
@@ -355,6 +388,34 @@ function MessagingViewModel(data) {
             self.sendingMessage(false);
             self.uploadedImages([]);
             im.container.scrollTop($('.layout-container_hold').height());
+        }, 'json');
+    }
+
+    self.editMessage = function() {
+        var text = CKEDITOR.instances['im-editor'].getData();
+        var data = {
+            messageId : self.editingMessageId(),
+            text : CKEDITOR.instances['im-editor'].getData()
+        }
+
+        $.post('/messaging/messages/edit/', data, function(response) {
+            if (response.success) {
+                self.editingMessage().text(text);
+                self.editingMessage().edited(true);
+                self.editingMessageId(null);
+                CKEDITOR.instances['im-editor'].setData('', function() {
+                    CKEDITOR.instances['im-editor'].focus();
+                });
+            }
+        }, 'json');
+    }
+
+    self.cancelMessage = function() {
+        $.post('/messaging/messages/cancel/', { messageId : self.editingMessageId() }, function(response) {
+            if (response.success) {
+                self.messages.remove(self.editingMessage());
+                self.editingMessageId(null);
+            }
         }, 'json');
     }
 

@@ -19,10 +19,7 @@ class WordstatParser extends WordstatBaseParser
         $this->init($mode);
 
         Yii::app()->gearman->worker()->addFunction("simple_parsing", array($this, "processMessage"));
-        while (1){
-            Yii::app()->gearman->worker()->work();
-            sleep(1);
-        }
+        while (Yii::app()->gearman->worker()->work()) ;
     }
 
     /**

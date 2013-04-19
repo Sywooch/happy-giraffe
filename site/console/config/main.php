@@ -20,14 +20,8 @@ return array(
         'site.common.helpers.*',
         'site.frontend.extensions.image.Image',
         'site.frontend.extensions.phpQuery.phpQuery',
-        'site.common.components.AMQP.*',
-        'site.common.components.AMQP.fake.*',
     ),
     'components' => array(
-        'amqp' => array(
-            'class' => 'site.common.components.AMQClient',
-            'host'  => 'localhost'
-        ),
         'gearman' => array(
             'class' => 'site.common.components.Gearman',
             'servers'=>array(),
@@ -59,6 +53,14 @@ return array(
             'class' => 'EMongoDB',
             'connectionString' => 'mongodb://localhost',
             'dbName' => 'happy_giraffe_production',
+            'fsyncFlag' => true,
+            'safeFlag' => true,
+            'useCursor' => false
+        ),
+        'mongodb_parsing' => array(
+            'class' => 'EMongoDB',
+            'connectionString' => 'mongodb://178.63.88.2',
+            'dbName' => 'parsing',
             'fsyncFlag' => true,
             'safeFlag' => true,
             'useCursor' => false

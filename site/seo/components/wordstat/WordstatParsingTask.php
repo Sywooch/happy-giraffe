@@ -16,7 +16,7 @@ class WordstatParsingTask
 
     private function __construct()
     {
-        $this->mongo = new Mongo('mongodb://localhost');
+        $this->mongo = new Mongo(Yii::app()->mongodb_production->connectionString);
         $this->mongo->connect();
         $this->simple_collection = $this->mongo->selectCollection('parsing', 'simple_parsing');
         $this->simple_collection->ensureIndex(array('id' => 1), array("unique" => true));

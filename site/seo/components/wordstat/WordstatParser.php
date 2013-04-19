@@ -29,7 +29,6 @@ class WordstatParser extends WordstatBaseParser
      */
     public function processMessage($job)
     {
-        echo "connected\n";
         $this->keyword = Keyword::model()->findByPk($job->workload());
         if ($this->keyword === null)
             return true;

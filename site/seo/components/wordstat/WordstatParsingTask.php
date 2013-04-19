@@ -19,6 +19,7 @@ class WordstatParsingTask
         $this->mongo = new Mongo('mongodb://localhost');
         $this->mongo->connect();
         $this->simple_collection = $this->mongo->selectCollection('parsing', 'simple_parsing');
+        $this->simple_collection->ensureIndex(array('id' => 1), array("unique" => true));
     }
 
     private function __clone()
@@ -35,10 +36,11 @@ class WordstatParsingTask
         return self::$_instance;
     }
 
+    /**
+     * Добавить все ключевые слова на парсинг
+     */
     public function addAllKeywordsToParsing()
     {
-        $this->simple_collection->ensureIndex(array('id' => 1), array("unique" => true));
-
         $ids = 1;
         $max_id = 0;
         $i = 0;

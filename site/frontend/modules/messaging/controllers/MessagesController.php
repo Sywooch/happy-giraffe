@@ -29,6 +29,7 @@ class MessagesController extends HController
         $threadId = Yii::app()->request->getPost('threadId');
         $interlocutorId = Yii::app()->request->getPost('interlocutorId');
         $text = Yii::app()->request->getPost('text');
+        $images = Yii::app()->request->getPost('images', array());
 
         $receiverData = array(
             'contact' => array(
@@ -56,20 +57,20 @@ class MessagesController extends HController
             );
         }
 
-        $message = MessagingMessage::model()->create($text, $threadId, Yii::app()->user->id);
-        $_message = array(
-            'id' => (int) $message->id,
-            'author_id' => (int) $message->author_id,
-            'text' => $message->text,
-            'created' => Yii::app()->dateFormatter->format("d MMMM yyyy, H:mm", time()),
-            'read' => false,
-        );
-        $receiverData['message'] = $data['message'] = $_message;
+        $message = MessagingMessage::model()->create($text, $threadId, Yii::app()->user->id, $images);
 
+        $receiverData['message'] = $data['message'] = $message->json;
         $receiverData['time'] = $data['time'] = time();
 
         $comet = new CometModel();
         $comet->send($interlocutorId, $receiverData, CometModel::MESSAGING_MESSAGE_RECEIVED);
         echo CJSON::encode($data);
+    }
+
+    public function test()
+    {
+        $id = Yii::app()->request->getQuery('id');
+        $message = MessagingMessage::model()->findByPk($id);
+        print_r($message->JSON);
     }
 }

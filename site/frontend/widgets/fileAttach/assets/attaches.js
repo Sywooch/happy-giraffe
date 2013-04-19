@@ -48,6 +48,8 @@ Attach.prototype.selectPhoto = function (button, id) {
         this.CookDecorationEdit(id);
     } else if (this.entity == 'CommunityContent') {
         this.saveCommunityContent(id);
+    } else if (this.entity == 'MessagingMessage') {
+        this.insertToMessage(id);
     } else {
         $.fancybox.close();
     }
@@ -80,6 +82,8 @@ Attach.prototype.selectBrowsePhoto = function (button) {
         this.insertToPartner(fsn);
     } else if (this.entity == 'CommunityContent') {
         this.saveCommunityContent(fsn);
+    } else if (this.entity == 'MessagingMessage') {
+        this.insertToMessage(fsn);
     } else {
         $.fancybox.close();
     }
@@ -110,6 +114,13 @@ Attach.prototype.insertToComment = function (val) {
             else
                 CKEDITOR.instances[cke_instance].insertHtml('<p><img src="' + data.src + '" /></p>');
         }
+        $.fancybox.close();
+    }, 'json');
+};
+
+Attach.prototype.insertToMessage = function (val) {
+    $.post(base_url + '/albums/messagingMessagePhoto/', {val: val}, function(data) {
+        vm.addImage(data);
         $.fancybox.close();
     }, 'json');
 };

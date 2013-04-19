@@ -62,8 +62,10 @@ class DefaultController extends HController
     public function actionTest()
     {
         $randomUsers = User::model()->findAll(array(
-            'limit' => 100,
+            'limit' => 10,
             'order' => new CDbExpression('RAND()'),
+            'condition' => 'id != :me',
+            'params' => array(':me' => 12936),
         ));
 
         foreach ($randomUsers as $u) {
@@ -142,5 +144,12 @@ class DefaultController extends HController
                 ),
             ));
         }
+    }
+
+    public function actionTest4()
+    {
+        $id = Yii::app()->request->getQuery('id');
+        $message = MessagingMessage::model()->findByPk($id);
+        var_dump($message->json);
     }
 }

@@ -151,43 +151,61 @@ class MessagingThread extends CActiveRecord
         ));
     }
 
-    public function getMessages($limit, $offset = 0)
+//    public function getMessages($limit, $offset = 0)
+//    {
+//        $sql = "
+//            SELECT
+//                m.id,
+//                m.author_id,
+//                m.text,
+//                UNIX_TIMESTAMP(m.created) AS created,
+//                mu.deleted,
+//                mu2.read
+//            FROM messaging__messages m
+//            JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.user_id = m.author_id
+//            JOIN messaging__messages_users mu2 ON m.id = mu2.message_id AND mu2.user_id != m.author_id
+//            WHERE m.thread_id = :thread_id AND mu.deleted = 0
+//            ORDER BY m.id DESC
+//            LIMIT :limit
+//            OFFSET :offset
+//        ";
+//
+//        $command = Yii::app()->db->createCommand($sql);
+//        $command->bindValue(':limit', (int) $limit, PDO::PARAM_INT);
+//        $command->bindValue(':offset', (int) $offset, PDO::PARAM_INT);
+//        $command->bindValue(':thread_id', $this->id, PDO::PARAM_INT);
+//        $rows = $command->queryAll();
+//
+//        $messages = array();
+//        foreach ($rows as $row) {
+//            $messages[] = array(
+//                'id' => (int) $row['id'],
+//                'author_id' => (int) $row['author_id'],
+//                'text' => $row['text'],
+//                'created' => Yii::app()->dateFormatter->format("d MMMM yyyy, H:mm", $row['created']),
+//                'read' => (bool) $row['read'],
+//            );
+//        }
+//
+//        return $messages;
+//    }
+
+    public function getMessages($userId, $limit, $offset = 0)
     {
-        $sql = "
-            SELECT
-                m.id,
-                m.author_id,
-                m.text,
-                UNIX_TIMESTAMP(m.created) AS created,
-                mu.deleted,
-                mu2.read
-            FROM messaging__messages m
-            JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.user_id = m.author_id
-            JOIN messaging__messages_users mu2 ON m.id = mu2.message_id AND mu2.user_id != m.author_id
-            WHERE m.thread_id = :thread_id AND mu.deleted = 0
-            ORDER BY m.id DESC
-            LIMIT :limit
-            OFFSET :offset
-        ";
+        $_messages = array();
+        $messages = MessagingMessage::model()->findAll(array(
+            'with' => array('images', 'messageUsers'),
+            'join' => 'JOIN messaging__messages_users mu ON t.id = mu.message_id AND mu.user_id = :user_id',
+            'condition' => 'thread_id = :thread_id AND mu.deleted = 0',
+            'params' => array(':thread_id' => $this->id, ':user_id' => $userId),
+            'limit' => $limit,
+            'offset' => $offset,
+        ));
 
-        $command = Yii::app()->db->createCommand($sql);
-        $command->bindValue(':limit', (int) $limit, PDO::PARAM_INT);
-        $command->bindValue(':offset', (int) $offset, PDO::PARAM_INT);
-        $command->bindValue(':thread_id', $this->id, PDO::PARAM_INT);
-        $rows = $command->queryAll();
+        foreach ($messages as $m)
+            $_messages[] = $m->json;
 
-        $messages = array();
-        foreach ($rows as $row) {
-            $messages[] = array(
-                'id' => (int) $row['id'],
-                'author_id' => (int) $row['author_id'],
-                'text' => $row['text'],
-                'created' => Yii::app()->dateFormatter->format("d MMMM yyyy, H:mm", $row['created']),
-                'read' => (bool) $row['read'],
-            );
-        }
-
-        return $messages;
+        return $_messages;
     }
 
     /**

@@ -46,14 +46,22 @@ class WordstatParser extends WordstatBaseParser
      */
     private function checkName()
     {
+        //сначала проверяем регистр и пересохраняем если необходимо
+        $low_name = mb_strtolower($this->keyword->name, 'utf-8');
+        if ($this->keyword->name !== $low_name){
+            $this->keyword->name = $low_name;
+            $this->keyword->update(array('name'));
+        }
+
         $new_name = WordstatQueryModify::prepareForSave($this->keyword->name);
+
         if ($new_name != $this->keyword->name) {
             $this->keyword->name = $new_name;
             $model2 = Keyword::model()->findByAttributes(array('name' => $new_name));
             if ($model2 !== null) {
                 try {
                     echo 'delete keyword '.$this->keyword->id."\n";
-                    //$this->keyword->delete();
+                    $this->keyword->delete();
                     $this->keyword = null;
                 } catch (Exception $err) {
                 }

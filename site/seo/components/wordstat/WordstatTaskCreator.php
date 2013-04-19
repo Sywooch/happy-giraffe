@@ -7,7 +7,7 @@
 
 class WordstatTaskCreator
 {
-    const JOB_LIMIT = 1000;
+    const JOB_LIMIT = 5000;
 
     private $max_id = 0;
     private $client;

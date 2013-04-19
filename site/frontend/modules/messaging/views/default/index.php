@@ -29,7 +29,7 @@
                 <div class="im-panel" data-bind="if: interlocutor() != '', css: { 'im-panel__big' : interlocutorExpandedSetting }">
                     <div class="im-panel-icons">
                         <div class="im-panel-icons_i">
-                            <a href="javascript:void(0)" class="im-panel-icons_i-a im-tooltipsy" title="Добавить в друзья" data-bind="click: addFriend, visible: (! interlocutor().user.isFriend() && ! interlocutor().inviteSent())">
+                            <a href="javascript:void(0)" class="im-panel-icons_i-a im-tooltipsy" title="Добавить в друзья" data-bind="click: addFriend, visible: (! interlocutor().user().isFriend() && ! interlocutor().inviteSent())">
                                 <span class="im-panel-ico im-panel-ico__add-friend"></span>
                                 <span class="im-panel-icons_desc">Добавить <br> в друзья</span>
                             </a>
@@ -61,17 +61,17 @@
                     </div>
                     <div class="im-user-settings clearfix">
                         <div class="im-user-settings_online-status-small"></div>
-                        <a class="ava" data-bind="css: interlocutor().user.avatarClass(), attr : { href : '/user/' + interlocutor().user.id() + '/' }">
-                            <img alt="" data-bind="attr : { src : interlocutor().user.avatar() }">
+                        <a class="ava" data-bind="css: interlocutor().user().avatarClass(), attr : { href : '/user/' + interlocutor().user().id() + '/' }">
+                            <img alt="" data-bind="attr : { src : interlocutor().user().avatar() }">
                         </a>
                         <div class="im-user-settings_user">
-                            <a class="textdec-onhover" data-bind="attr : { href : '/user/' + interlocutor().user.id() + '/' }, text: interlocutor().user.fullName()"></a>
-                            <div class="im-user-settings_online-status" data-bind="visible: interlocutor().user.online()">На сайте</div>
+                            <a class="textdec-onhover" data-bind="attr : { href : '/user/' + interlocutor().user().id() + '/' }, text: interlocutor().user().fullName()"></a>
+                            <div class="im-user-settings_online-status" data-bind="visible: interlocutor().user().online()">На сайте</div>
                         </div>
                         <div class="user-fast-buttons">
-                            <a href="javascript:void(0)" data-bind="attr : { href : '/user/' + interlocutor().user.id() + '/' }">Анкета</a>
-                            <a href="javascript:void(0)" data-bind="visible: interlocutor().blogPostsCount() > 0, attr : { href : '/user/' + interlocutor().user.id() + '/blog/' }">Блог</a><sup class="count" data-bind="visible: interlocutor().blogPostsCount() > 0, text: interlocutor().blogPostsCount()"></sup>
-                            <a href="javascript:void(0)" data-bind="visible: interlocutor().photosCount() > 0, attr : { href : '/user/' + interlocutor().user.id() + '/albums/' }">Фото</a><sup class="count" data-bind="visible: interlocutor().photosCount() > 0, text: interlocutor().photosCount()"></sup>
+                            <a href="javascript:void(0)" data-bind="attr : { href : '/user/' + interlocutor().user().id() + '/' }">Анкета</a>
+                            <a href="javascript:void(0)" data-bind="visible: interlocutor().blogPostsCount() > 0, attr : { href : '/user/' + interlocutor().user().id() + '/blog/' }">Блог</a><sup class="count" data-bind="visible: interlocutor().blogPostsCount() > 0, text: interlocutor().blogPostsCount()"></sup>
+                            <a href="javascript:void(0)" data-bind="visible: interlocutor().photosCount() > 0, attr : { href : '/user/' + interlocutor().user().id() + '/albums/' }">Фото</a><sup class="count" data-bind="visible: interlocutor().photosCount() > 0, text: interlocutor().photosCount()"></sup>
                         </div>
                     </div>
                     <span class="im_toggle" data-bind="click: toggleinterlocutorExpandedSetting"></span>
@@ -96,7 +96,7 @@
                             <span class="im-message-loader_tx">Отправляем сообщение</span>
                         </div>
                         <div class="im_message-loader" data-bind="if: interlocutor() != '', visible: interlocutorTyping()">
-                            <span class="im-message-loader_tx" data-bind="text: interlocutor().user.firstName() + ' печатает вам сообщение'"></span>
+                            <span class="im-message-loader_tx" data-bind="text: interlocutor().user().firstName() + ' печатает вам сообщение'"></span>
                             <img src="/images/im/im_message-write-loader.png" alt="" class="im_message-loader-anim">
                         </div>
                         <div class="im_message-loader" data-bind="visible: false">
@@ -116,13 +116,13 @@
                             <textarea cols="40" id="im-editor" name="im-editor" rows="3" autofocus></textarea>
                             <div class="im-editor-b_control">
                                 <div class="im-editor-b_key">
-                                    <input type="checkbox" name="" id="im-editor-b_key-checkbox" class="im-editor-b_key-checkbox" data-bind="checked: enterSetting">
+                                    <input type="checkbox" name="" id="im-editor-b_key-checkbox" class="im-editor-b_key-checkbox" data-bind="checked: enterSetting, click: focusEditor">
                                     <label for="im-editor-b_key-checkbox" class="im-editor-b_key-label">Enter - отправить</label>
                                 </div>
                                 <button class="btn-green" data-bind="click: sendMessage">Отправить</button>
                             </div>
                         </div>
-                        <span class="im_toggle"></span>
+                        <!--<span class="im_toggle"></span>-->
                     </div>
                 </div>
             </div>
@@ -135,7 +135,7 @@
     <div class="upload-btn">
         <?php
         $fileAttach = $this->beginWidget('application.widgets.fileAttach.FileAttachWidget', array(
-            'entity' => 'BlogContent',
+            'entity' => 'MessagingMessage',
         ));
         $fileAttach->button();
         $this->endWidget();
@@ -155,8 +155,8 @@
             </div>
         </div>
         <!-- ko if: thread() !== null -->
-        <div class="im_watch im-tooltipsy" title="Скрыть диалог" data-bind="click: thread().toggleHiddenStatus, clickBubble: false"></div>
-        <div class="im_count im-tooltipsy" title="Отметить как прочитанное" data-bind="click: thread().toggleReadStatus, clickBubble: false, text: thread().unreadCount(), css: { 'im_count__read' : thread().unreadCount() == 0 }"></div>
+        <div class="im_watch im-tooltipsy" data-bind="click: thread().toggleHiddenStatus, clickBubble: false, tooltip: thread().hideButtonTitle"></div>
+        <div class="im_count im-tooltipsy" data-bind="click: thread().toggleReadStatus, clickBubble: false, text: thread().unreadCount(), css: { 'im_count__read' : thread().isRead() }, tooltip: thread().readButtonTitle"></div>
         <!-- /ko -->
     </div>
 </script>
@@ -206,10 +206,20 @@
             <div class="im-message_t">
                 <a href="javascript: void(0)" class="im-message_user" data-bind="text: author().firstName()"></a>
                 <em class="im-message_date" data-bind="text: created()"></em>
-                <div class="im-message_status" data-bind="visible: ($root.me.id() == author().id() && (! read() || $data.id() == $root.lastReadMessage().id())), css: read() ? 'im-message_status__read' : 'im-message_status__noread', text: read() ? 'Сообщение прочитано' : 'Сообщение не прочитано'"></div>
+                <div class="im-message_status" data-bind="visible: ($root.me.id() == author().id() && (! read() || $data == $root.lastReadMessage())), css: read() ? 'im-message_status__read' : 'im-message_status__noread', text: read() ? 'Сообщение прочитано' : 'Сообщение не прочитано'"></div>
             </div>
             <div class="im-message_tx" data-bind="html: text()">
 
+            </div>
+            <div class="clearfix" data-bind="foreach: images">
+                <a href="javascript:void(0)" class="im-message_img">
+                    <img alt="">
+                </a>
+            </div>
+            <div class="im-message_tx-img clearfix" data-bind="foreach: images">
+                <a href="javascript:void(0)" class="im-message_img" data-theme="white-square" data-bind="attr: { href : full, rel : 'img-rel-' + id() }">
+                    <img alt="" data-bind="attr: { src : preview }">
+                </a>
             </div>
         </div>
     </div>
@@ -217,7 +227,23 @@
 
 <script type="text/javascript">
     $(function() {
-        ko.applyBindings(new MessagingViewModel(<?=$data?>));
+        ko.bindingHandlers.tooltip = {
+            init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+                $(element).data('powertip', valueAccessor());
+            },
+            update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+                $(element).data('powertip', valueAccessor());
+                $(element).powerTip({
+                    placement: 'n',
+                    smartPlacement: true,
+                    popupId: 'tooltipsy-im',
+                    offset: 8
+                });
+            }
+        };
+
+        vm = new MessagingViewModel(<?=$data?>);
+        ko.applyBindings(vm);
     });
 
     //<![CDATA[
@@ -243,7 +269,7 @@
                 ],
                 toolbarCanCollapse: false,
                 disableObjectResizing: false,
-                resize_enabled : false,
+                resize_enabled : true,
                 toolbarLocation : 'bottom',
                 height: 58
             });

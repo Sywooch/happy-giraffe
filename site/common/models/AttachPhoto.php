@@ -39,7 +39,7 @@ class AttachPhoto extends HActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('photo_id, entity, entity_id', 'required'),
+			array('photo_id, entity', 'required'),
 			array('photo_id', 'length', 'max'=>11),
 			array('entity', 'length', 'max'=>50),
 			array('entity_id', 'length', 'max'=>10),

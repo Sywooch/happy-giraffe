@@ -30,6 +30,19 @@ class ProxyMongo extends EMongoDocument
         return 'proxy';
     }
 
+    /**
+     * Соединение с базой данных
+     * @return EMongoDB
+     */
+    public function getMongoDBComponent()
+    {
+        return Yii::app()->getComponent('mongodb_parsing');
+    }
+
+    /**
+     * @param string $className
+     * @return ProxyMongo
+     */
     public static function model($className = __CLASS__)
     {
         return parent::model($className);
@@ -40,7 +53,17 @@ class ProxyMongo extends EMongoDocument
         return array(
             'index_rank' => array(
                 'key' => array(
-                    'rank' => EMongoCriteria::SORT_DESC
+                    'rank' => EMongoCriteria::SORT_DESC,
+                ),
+            ),
+            'index_value' => array(
+                'key' => array(
+                    'value' => EMongoCriteria::SORT_DESC,
+                ),
+            ),
+            'index_active' => array(
+                'key' => array(
+                    'active' => EMongoCriteria::SORT_DESC,
                 ),
             ),
         );
@@ -48,25 +71,73 @@ class ProxyMongo extends EMongoDocument
 
     public function beforeSave()
     {
-        if ($this->isNewRecord)
+        if ($this->isNewRecord) {
             $this->created = time();
-        $this->rank = (int)$this->rank;
+            $this->rank = 10;
+        } else
+            $this->rank = (int)$this->rank;
 
         return true;
     }
 
-    public function findAndModify($param = array())
+    public function getProxy()
     {
-        if (!array_key_exists('update', $param) AND !array_key_exists('remove', $param)) //one is required
-        {
-            return false;
+        return $this->getCollection()->findAndModify(
+            array("active" => 0),
+            array('$set' => array('active' => 1)),
+            null,
+            array(
+                "sort" => array("rank" => EMongoCriteria::SORT_DESC),
+            )
+        );
+    }
+
+    /**
+     * Добавить новый прокси в базу
+     * @param $value новый прокси
+     */
+    public function addNewProxy($value)
+    {
+        foreach ($this->indexes() as $index_name => $index)
+            $this->getCollection()->ensureIndex($index['key'], array('name' => $index_name));
+
+        $value = trim($value);
+        $exist = $this->getCollection()->findOne(array('value' => $value));
+        if (!$exist) {
+            $this->getCollection()->insert(array(
+                'value' => $value,
+                'rank' => 10,
+                'active' => 0,
+                'created' => time(),
+            ));
         }
+    }
 
-        $collection['findAndModify'] = $this->getCollectionName();
-        $param = array_merge($collection, $param);
+    /**
+     * Удалить лишние чтобы не разрасталась база
+     */
+    public function removeExtra()
+    {
+        while (ProxyMongo::model()->count() > 40000) {
+            $criteria = new EMongoCriteria();
+            $criteria->addCond('active', '==', 0);
+            $criteria->setSort(array('rank' => EMongoCriteria::SORT_ASC));
+            $criteria->setLimit(1000);
 
-        $result = $this->getDb()->command($param);
-        $result["lastErrorObject"]["ok"] == 1 ? $return = $result["value"] : $return = false;
-        return $return;
+            $models = ProxyMongo::model()->findAll($criteria);
+            foreach ($models as $model)
+                $model->delete();
+        }
+    }
+
+    public function updateProxyRank($proxy, $newRank)
+    {
+        $new_data = array(
+            '$set' => array(
+                "rank" => (int)$newRank,
+                "active" => 0,
+            ),
+        );
+        $this->getCollection()->update(array("_id" => $proxy['_id']), $new_data);
     }
 }

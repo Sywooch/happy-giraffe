@@ -29,4 +29,16 @@ class ProxyRefresher
 
         echo $i . ' -new proxies';
     }
+
+    public static function executeMongo()
+    {
+        $str = file_get_contents('http://awmproxy.com/socks_proxy.txt?');
+        if (strlen($str) > 10000) {
+            $proxies = explode("\n", $str);
+            foreach ($proxies as $proxy)
+                ProxyMongo::model()->addNewProxy($proxy);
+
+            ProxyMongo::model()->removeExtra();
+        }
+    }
 }

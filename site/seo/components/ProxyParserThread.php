@@ -6,7 +6,7 @@
 class ProxyParserThread
 {
     /**
-     * @var Proxy
+     * @var array
      */
     protected $proxy;
     /**
@@ -40,19 +40,7 @@ class ProxyParserThread
     protected function getProxy()
     {
         $this->startTimer('find proxy');
-
-        $criteria = new CDbCriteria;
-        $criteria->compare('active', 0);
-        $criteria->order = 'rank desc';
-        $criteria->offset = rand(0, 50);
-
-        $this->proxy = Proxy::model()->find($criteria);
-
-        if ($this->proxy === null)
-            $this->closeThread('No proxy');
-        $this->proxy->active = 1;
-        $this->proxy->save();
-
+        $this->proxy = ProxyMongo::model()->getProxy();
         $this->endTimer();
     }
 
@@ -71,7 +59,7 @@ class ProxyParserThread
 
             if ($this->use_proxy) {
                 curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
-                curl_setopt($ch, CURLOPT_PROXY, $this->proxy->value);
+                curl_setopt($ch, CURLOPT_PROXY, $this->proxy['value']);
                 if (Yii::app()->params['use_proxy_auth']) {
                     curl_setopt($ch, CURLOPT_PROXYUSERPWD, "alexhg:Nokia1111");
                     curl_setopt($ch, CURLOPT_PROXYAUTH, 1);
@@ -121,13 +109,10 @@ class ProxyParserThread
     protected function changeBadProxy($rank = null)
     {
         //$this->log('Change bad proxy');
-        if ($rank !== null)
-            $this->proxy->rank = $rank;
-        else
-            $this->proxy->rank = floor((($this->proxy->rank + $this->success_loads) / 5) * 4);
+        if (!$rank)
+            $rank = floor((($this->proxy['rank'] + $this->success_loads) / 5) * 4);
 
-        $this->proxy->active = 0;
-        $this->proxy->save();
+        ProxyMongo::model()->updateProxyRank($this->proxy, $rank);
         $this->getProxy();
         $this->success_loads = 0;
 
@@ -140,7 +125,7 @@ class ProxyParserThread
     protected function changeBannedProxy()
     {
         //$this->log('Change proxy');
-        $this->proxy->delete();
+        ProxyMongo::model()->updateProxyRank($this->proxy, 0);
         $this->getProxy();
         $this->success_loads = 0;
 
@@ -152,9 +137,7 @@ class ProxyParserThread
 
     private function saveProxy()
     {
-        $this->proxy->rank = $this->proxy->rank + $this->success_loads;
-        $this->proxy->active = 0;
-        $this->proxy->save();
+        ProxyMongo::model()->updateProxyRank($this->proxy, $this->proxy['rank'] + $this->success_loads);
     }
 
     protected function closeThread($reason = 'unknown reason')

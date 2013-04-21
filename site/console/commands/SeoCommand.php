@@ -23,15 +23,18 @@ class SeoCommand extends CConsoleCommand
         Config::setAttribute('stop_threads', 1);
     }
 
-    public function actionWordstat($thread_id = 0)
-    {
-        $parser = new WordstatFilter($thread_id);
-        $parser->start();
-    }
-
     public function actionProxy()
     {
-        ProxyRefresher::execute();
+        ProxyRefresher::executeMongo();
+    }
+
+    public function actionProxyTest()
+    {
+        $t1 = microtime(true);
+        $proxy = ProxyMongo::model()->getProxy();
+        ProxyMongo::model()->updateProxyRank($proxy, 5);
+
+        echo microtime(true) - $t1;
     }
 
     public function actionDeletePageDuplicates()

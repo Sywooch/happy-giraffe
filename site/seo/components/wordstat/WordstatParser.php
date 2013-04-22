@@ -208,7 +208,7 @@ class WordstatParser extends WordstatBaseParser
                 $model->status = Keyword::STATUS_GOOD;
                 $model->save();
                 //удаляем из очереди на парсинг если частота < 1000
-                if ($value < 2000) {
+                if ($value < 1000) {
                     $this->log('remove keyword ' . $model->id . ' from parsing queue');
                     WordstatParsingTask::getInstance()->removeSimpleTask($model->id);
                 }
@@ -223,7 +223,7 @@ class WordstatParser extends WordstatBaseParser
                 try {
                     $model->save();
                     //если во фразе частота > 1000 добавляем его на парсинг
-                    if ($value >= 2000) {
+                    if ($value >= 1000) {
                         $this->log('add keyword ' . $model->id . ' to parsing queue');
                         WordstatParsingTask::getInstance()->addSimpleTask($model->id);
                     }

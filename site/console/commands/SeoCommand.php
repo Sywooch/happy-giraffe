@@ -28,15 +28,6 @@ class SeoCommand extends CConsoleCommand
         ProxyRefresher::executeMongo();
     }
 
-    public function actionProxyTest()
-    {
-        $t1 = microtime(true);
-        $proxy = ProxyMongo::model()->getProxy();
-        ProxyMongo::model()->updateProxyRank($proxy, 5);
-
-        echo microtime(true) - $t1;
-    }
-
     public function actionDeletePageDuplicates()
     {
         Yii::import('site.common.behaviors.*');

@@ -413,12 +413,13 @@
 		text-align: center;
 	}
 	&_search {
+		position: relative;
 		margin: 0 0 15px;
 	}
 	&_search-itx {
 		display: block;
-		width: 187px;
-		padding: 5px 35px 5px 18px;
+		width: 177px;
+		padding: 5px 45px 5px 18px;
 		border: 1px solid #caddf4;
 		font-size: 14px;
 		background: #f8fbff;
@@ -433,6 +434,15 @@
 		height: 29px;
 		margin: -30px 25px 0 0;
 		width: 29px;
+	}
+	&_search-reset {
+		position: absolute;
+		top: 10px;
+		right: 47px;
+	    margin: 0 7px 0 0;
+	    padding: 0;
+	    text-indent: -9999px;
+	    cursor: pointer;
 	}
 }
 
@@ -548,12 +558,12 @@
 		position: absolute;
 		top: 5px;
 		right: 5px;
-	    height: 12px !important;
-	    width: 10px !important;
-		background: url("/images/common.png") no-repeat scroll -315px -149px transparent !important;
+	    height: 12px;
+	    width: 10px;
+		background: url("/images/common.png") no-repeat scroll -315px -149px transparent;
 	    text-indent: -9999px;
 	    z-index: 3;
-	    cursor: pointer !important;
+	    cursor: pointer;
 	}
 	&_cap {
 		position: absolute;

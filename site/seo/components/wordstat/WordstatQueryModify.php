@@ -55,100 +55,34 @@ class WordstatQueryModify
         }
     }
 
-    /*public function getPhrases()
+    public function addToParsing($index)
     {
-        $part = $this->parts[array_rand($this->parts)];
-        echo $part.'<br><br>';
-        $keywords = Yii::app()->db_keywords->createCommand()
-            ->select('name')
-            ->from('keywords')
-            ->where('name LIKE "' . $part . ' %" OR name LIKE "% ' . $part . '" OR name LIKE "% ' . $part . ' %"')
-            ->limit(100)
-            ->queryColumn();
+        $parts = array(',','"','?','!',':', ';', "\\", '%', '/', '-', '+', '|', '*', '@', ']', '[', ')', '(', '\'');
 
-        foreach($keywords as $keyword)
-            echo $this->prepareQuery($keyword).'<br>';
-    }*/
-
-    public function addToParsing($num)
-    {
-        $parts = array(',', '"', '?', '!', ':', ';', "\\", '%', '/', '-', '+',
-            '|', '*', '@', ']', '[', ')', '(', '\'');
-        $part = $parts[$num];
-        echo $part . "\n";
+        $part = $parts[$index];
         $criteria = new CDbCriteria;
-        $criteria->condition = 'name LIKE :part';
         $criteria->params = array(':part' => '%' . $part . '%');
-        $criteria->limit = 1000;
-        $models = 1;
-        while (!empty($models)) {
-            $models = Keyword::model()->findAll($criteria);
+        for ($i = 1; $i < 550; $i++) {
+            $criteria->condition = 'name LIKE :part AND id >= ' . ($i * 1000000) . ' AND id < ' . (($i + 1) * 1000000);
+            $keywords = Keyword::model()->findAll($criteria);
+            if (!empty($keywords))
+                echo $i . '-' . count($keywords) . "\n";
 
-            foreach ($models as $model) {
-                $model->name = self::prepareForSave($model->name);
+            foreach ($keywords as $keyword) {
+                $name = str_replace($part, ' ', $keyword->name);
+                $name = trim($name);
+                while (strpos($name, '  ') !== false)
+                    $name = str_replace('  ', ' ', $name);
 
-                $model2 = Keyword::model()->findByAttributes(array('name' => $model->name));
-                if ($model2 !== null) {
-                    try {
-                        $model->delete();
-                    } catch (Exception $err) {
-                        echo $err->getMessage();
-                    }
-                } else {
-                    try {
-                        $model->save();
-                    } catch (Exception $err) {
-                        echo $err->getMessage();
-                    }
-                }
-            }
-
-            if (!empty($models)) {
-                echo count($models) . "\n";
+                $keyword->name = $name;
+                $exist = Keyword::model()->findByAttributes(array('name' => $name));
+                if ($exist === null)
+                    $keyword->update(array('name'));
+                else
+                    $keyword->delete();
             }
         }
     }
-
-    /*public function addToParsing2($id)
-    {
-        $last_id = $id;
-        $t = time();
-        while (true) {
-            $keywords = Yii::app()->db_keywords->createCommand()
-                ->select(array('id', 'name'))
-                ->from('keywords')
-                ->where('id > ' . $last_id)
-                ->limit(10000)
-                ->queryAll();
-
-            if (empty($keywords))
-                break;
-
-            $ids = array();
-            echo (time() - $t)."\n";
-            foreach ($keywords as $keyword) {
-                if ($this->hasPart($keyword['name'])) {
-                    //echo $keyword['name'] . '<br>';
-                    $ids [] = $keyword['id'];
-                }
-            }
-            echo (time() - $t)."\n";
-            if (count($ids) > 300) {
-                $sql = 'update parsing_keywords set priority = 2, updated = "0000-00-00 00:00:00"
-                            where keyword_id IN (' . implode(',', $ids) . ');';
-                Yii::app()->db_keywords->createCommand($sql)->execute();
-            }
-            $last_id = $keywords[count($keywords) - 1]['id'];
-            echo $last_id."\n";
-
-//            if ($last_id - $id > 50000000)
-//                break;
-
-            echo (time() - $t)."\n";
-
-            break;
-        }
-    }*/
 
     public function hasPart($q)
     {

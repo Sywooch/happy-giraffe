@@ -136,37 +136,31 @@ class Keyword extends CActiveRecord
     }
 
     /**
+     * Возвращает ключевое слово по его тексту. Если такого слова нет, создает его
      * @static
-     * @param string $word
-     * @param int $priority
-     * @param null $wordstat
+     * @param string $word ключевое слово
      * @return Keyword
      */
-    public static function GetKeyword($word, $priority = 0, $wordstat = null)
+    public static function GetKeyword($word)
     {
-        #TODO refactor method
         $word = WordstatQueryModify::prepareForSave($word);
 
         $model = self::model()->findByAttributes(array('name' => $word));
-        if ($model !== null) {
-            if ($wordstat !== null) {
-                if ($model->wordstat != $wordstat) {
-                    $model->wordstat = $wordstat;
-                    $model->update('wordstat');
-                }
-            }
+        if ($model !== null)
             return $model;
-        }
 
         $model = new Keyword();
         $model->name = $word;
-        $model->wordstat = $wordstat;
         try {
             $model->save();
         } catch (Exception $e) {
             //значит кейворд создан в промежуток времени между запросами - повторим запрос
             $model = self::model()->findByAttributes(array('name' => $word));
         }
+
+        //добавляем на простой парсинг
+        if (isset($model->id))
+            WordstatParsingTask::getInstance()->addSimpleTask($model->id);
 
         return $model;
     }

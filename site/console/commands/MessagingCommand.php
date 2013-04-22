@@ -87,7 +87,9 @@ class MessagingCommand extends CConsoleCommand
             'messages' => array(
                 'messageUsers',
             ),
-        )))
+        ))) {
             echo 'Dialog ' . $dialog->id . ' has not been saved.' . "\n";
+            Yii::app()->end();
+        }
     }
 }

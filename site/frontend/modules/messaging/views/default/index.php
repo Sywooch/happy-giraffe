@@ -169,7 +169,7 @@ $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
 </script>
 
 <script type="text/html" id="message-template">
-    <div class="im-message clearfix" data-bind="css: { 'im-message__edited' : edited }">
+    <div class="im-message clearfix" data-bind="visible: deleted() === false, css: { 'im-message__edited' : edited }">
         <div class="im-message_icons" data-bind="css: { active : showAbuse() }">
             <div class="im-message_icons-i" data-bind="if: author().id() != $root.me.id(), css: { active : showAbuse() }">
                 <a href="javascript:void(0)" class="im-message_ico im-message_ico__warning im-tooltipsy" data-bind="click: toggleShowAbuse, tooltip: 'Пожаловаться'"></a>
@@ -197,7 +197,7 @@ $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
                         <input type="text" name="" id="" class="im-tooltip-popup_itx" placeholder="Другое">
                     </label>
                     <div class="clearfix textalign-c">
-                        <button class="btn-green" data-bind="click: toggleShowAbuse">Пожаловаться</button>
+                        <button class="btn-green" data-bind="click: markAsSpam">Пожаловаться</button>
                         <button class="btn-gray" data-bind="click: toggleShowAbuse">Отменить</button>
                     </div>
                 </div>
@@ -223,6 +223,20 @@ $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
                 <a href="javascript:void(0)" class="im-message_img" data-bind="attr: { 'data-id' : id() }">
                     <img alt="" data-bind="attr: { src : preview }">
                 </a>
+            </div>
+        </div>
+    </div>
+    <div class="im-message clearfix" data-bind="visible: deleted() === true">
+        <a class="ava small" href="javascript:void(0)" data-bind="css: author().avatarClass()">
+            <img alt="" data-bind="attr : { src : author().avatar() }">
+        </a>
+        <div class="im-message_hold">
+            <div class="im-message_t">
+                <a href="javascript: void(0)" class="im-message_user" data-bind="text: author().firstName()"></a>
+                <em class="im-message_date" data-bind="text: created()"></em>
+            </div>
+            <div class="im-message_tx">
+                <span data-bind="text: isSpam() ? 'Это сообщение помечено как спам и удалено.' : 'Это сообщение удалено.'"></span> <a href="javascript:void(0)" data-bind="click: restore">Восстановить</a>
             </div>
         </div>
     </div>

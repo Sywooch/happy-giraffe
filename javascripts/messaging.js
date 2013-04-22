@@ -220,6 +220,9 @@ function MessagingViewModel(data) {
 
     self.openThread = function(contact) {
         self.openContactIndex(self.contacts().indexOf(contact));
+
+        self.interlocutorTyping(false);
+
         $.get('/messaging/interlocutors/get/', { interlocutorId : contact.user().id() }, function(response) {
             self.interlocutor(new Interlocutor(response.interlocutor, self));
         }, 'json');
@@ -492,13 +495,11 @@ function MessagingViewModel(data) {
         CKEDITOR.instances['im-editor'].on('key', function (e) {
             if (e.data.keyCode == 13 && self.enterSetting())
                 self.submit();
-            else {
-                if (self.openContact() !== null) {
-                    self.meTyping(true);
-                    setTimeout(function() {
-                        self.meTyping(false);
-                    }, 10000);
-                }
+            else if (self.openContact() !== null) {
+                self.meTyping(true);
+                setTimeout(function() {
+                    self.meTyping(false);
+                }, 5000);
             }
         });
 
@@ -523,7 +524,8 @@ function MessagingViewModel(data) {
         }
 
         Comet.prototype.typingStatus = function (result, id) {
-            self.interlocutorTyping(result.typingStatus);
+            if (self.openContact().user().id() == result.interlocutorId)
+                self.interlocutorTyping(result.typingStatus);
         }
 
         Comet.prototype.readStatus = function (result, id) {

@@ -88,6 +88,6 @@ class MessagingCommand extends CConsoleCommand
                 'messageUsers',
             ),
         )))
-            echo 'Thread ' . $thread->id . ' has not been saved.' . "\n";
+            echo 'Dialog ' . $dialog->id . ' has not been saved.' . "\n";
     }
 }

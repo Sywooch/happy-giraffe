@@ -185,6 +185,6 @@ class SiteController extends SController
 
     public function actionTest()
     {
-        $this->render('test2');
+        $this->render('test');
     }
 }

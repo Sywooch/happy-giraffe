@@ -59,48 +59,8 @@ class WordstatCommand extends CConsoleCommand
 
     public function actionFixPriority($i = 0)
     {
-        for ($i = 0; $i < 515; $i++) {
-            $ids = 1;
-            $j = 0;
-            while (!empty($ids)) {
-                $ids = Yii::app()->db_keywords->createCommand()
-                    ->select('id')
-                    ->from('keywords')
-                    ->where('wordstat >= 100 AND status IS NULL AND id >= ' . ($i * 1000000) . ' AND id <' . (($i + 1) * 1000000))
-                    ->limit(1000)
-                    ->offset($j * 1000)
-                    ->queryColumn();
-
-                if (!empty($ids))
-                    Yii::app()->db_keywords->createCommand()->update('parsing_keywords', array('priority' => 201),
-                        'keyword_id IN (' . implode(',', $ids) . ')');
-                $j++;
-            }
-            echo $i . "\n";
-        }
-    }
-
-    public function actionFix2()
-    {
-        $deleted = 0;
-        for ($i = 0; $i < 120; $i++) {
-            $ids = Yii::app()->db_seo->createCommand()
-                ->selectDistinct('keyword_id')
-                ->from('sites__keywords_visits')
-                ->limit(10000)
-                ->offset(10000 * $i - $deleted)
-                ->queryColumn();
-
-            foreach ($ids as $id) {
-                $exist = Yii::app()->db_keywords->createCommand()->select('id')->from('keywords')->where('id=' . $id)->queryScalar();
-                if (empty($exist)) {
-                    Yii::app()->db_seo->createCommand()->delete('sites__keywords_visits', 'keyword_id=' . $id);
-                    $deleted++;
-                }
-            }
-
-            echo $deleted . "\n";
-        }
+        $p = new WordstatQueryModify;
+        $p->addToParsing($i);
     }
 
     public function actionPutTask()

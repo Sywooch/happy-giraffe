@@ -103,41 +103,6 @@ class WordstatCommand extends CConsoleCommand
         }
     }
 
-    public function actionProxyMongo()
-    {
-        $criteria = new CDbCriteria;
-        $criteria->limit = 1000;
-        $i = 0;
-        $proxies = array(1);
-        while (!empty($proxies)) {
-            $criteria->offset = 1000 * $i;
-
-            $proxies = Proxy::model()->findAll($criteria);
-            foreach ($proxies as $proxy) {
-                $mongo_proxy = new ProxyMongo;
-                $mongo_proxy->value = $proxy->value;
-                $mongo_proxy->rank = $proxy->rank;
-                $mongo_proxy->save();
-            }
-
-            $i++;
-        }
-    }
-
-    public function actionProxyMongoCheck()
-    {
-        $start_time = microtime(true);
-
-        $model = ProxyMongo::model()->findAndModify(array(
-            'update' => array('$set' => array('active' => 1)),
-            'query' => array('active' => 0),
-            'sort' => array('rating' => EMongoCriteria::SORT_DESC),
-        ));
-
-        echo 1000 * (microtime(true) - $start_time) . "\n";
-        echo $model['value'];
-    }
-
     public function actionPutTask()
     {
         $job_provider = new WordstatTaskCreator;

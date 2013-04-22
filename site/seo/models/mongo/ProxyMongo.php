@@ -80,6 +80,10 @@ class ProxyMongo extends EMongoDocument
         return true;
     }
 
+    /**
+     * Возвращает массив с лучшей прокси и одновременно меняет ее на активную
+     * @return array
+     */
     public function getProxy()
     {
         return $this->getCollection()->findAndModify(
@@ -114,7 +118,7 @@ class ProxyMongo extends EMongoDocument
     }
 
     /**
-     * Удалить лишние чтобы не разрасталась база
+     * Удалить лишние прокси чтобы кол-во не превышало 40,000
      */
     public function removeExtra()
     {
@@ -130,6 +134,11 @@ class ProxyMongo extends EMongoDocument
         }
     }
 
+    /**
+     * Обновление рейтинга прокси и изменение ее статуса на неактивную
+     * @param $proxy array прокси
+     * @param $newRank int новый рейтинг
+     */
     public function updateProxyRank($proxy, $newRank)
     {
         $new_data = array(

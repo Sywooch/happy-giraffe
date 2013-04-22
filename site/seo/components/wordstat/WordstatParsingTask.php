@@ -1,17 +1,23 @@
 <?php
 /**
- * insert Description
+ * Компонент простых заданий на парсинг. Через него можно добавлять и удалять задания на простой парсинг.
+ * Реализован через паттерн singleton
  *
  * @author Alex Kireev <alexk984@gmail.com>
  */
-
 class WordstatParsingTask
 {
     /**
      * @var WordstatParsingTask
      */
     protected static $_instance;
+    /**
+     * @var Mongo
+     */
     protected $mongo;
+    /**
+     * @var MongoCollection
+     */
     protected $simple_collection;
 
     private function __construct()

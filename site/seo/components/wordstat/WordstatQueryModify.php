@@ -62,10 +62,10 @@ class WordstatQueryModify
 
         $part = $parts[$i];
         $criteria = new CDbCriteria;
-        $criteria->condition = 'name LIKE :part AND id < 240000000';
-        $criteria->params = array(':part'=> '%' . $part . '%');
         $criteria->limit = 100;
-        while (true) {
+        $criteria->params = array(':part' => '%' . $part . '%');
+        for ($i = 0; $i < 540; $i++) {
+            $criteria->condition = 'name LIKE :part AND id >= ' . ($i * 1000000) . ' id < ' . (($i + 1) * 1000000);
             $keywords = Keyword::model()->findAll($criteria);
             if (empty($keywords))
                 break;
@@ -76,13 +76,12 @@ class WordstatQueryModify
                 while (strpos($name, '  ') !== false)
                     $name = str_replace('  ', ' ', $name);
 
-                echo $keyword->name . ' ' . $name . "<br>";
+                echo $keyword->id.' - '.$keyword->name . ' ' . $name . "<br>";
                 $keyword->name = $name;
                 //$keyword->update(array('name'));
             }
 
             echo count($keywords);
-            break;
         }
     }
 

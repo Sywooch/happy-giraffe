@@ -55,20 +55,17 @@ class WordstatQueryModify
         }
     }
 
-    public function addToParsing($i)
+    public function addToParsing($index)
     {
         $parts = array(',', '"', '?', '!', ':', ';', "\\", '%', '/', '-', '+',
             '|', '*', '@', ']', '[', ')', '(', '\'');
 
-        $part = $parts[$i];
+        $part = $parts[$index];
         $criteria = new CDbCriteria;
-        $criteria->limit = 100;
         $criteria->params = array(':part' => '%' . $part . '%');
         for ($i = 0; $i < 540; $i++) {
-            $criteria->condition = 'name LIKE :part AND id >= ' . ($i * 1000000) . ' id < ' . (($i + 1) * 1000000);
+            $criteria->condition = 'name LIKE :part AND id >= ' . ($i * 1000000) . ' AND id < ' . (($i + 1) * 1000000);
             $keywords = Keyword::model()->findAll($criteria);
-            if (empty($keywords))
-                break;
 
             foreach ($keywords as $keyword) {
                 $name = str_replace($part, ' ', $keyword->name);
@@ -76,7 +73,7 @@ class WordstatQueryModify
                 while (strpos($name, '  ') !== false)
                     $name = str_replace('  ', ' ', $name);
 
-                echo $keyword->id.' - '.$keyword->name . ' ' . $name . "<br>";
+                echo '  '.$keyword->id.' - '.$keyword->name . ' ' . $name . "\n";
                 $keyword->name = $name;
                 //$keyword->update(array('name'));
             }

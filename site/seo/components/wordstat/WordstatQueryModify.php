@@ -57,15 +57,15 @@ class WordstatQueryModify
 
     public function addToParsing($index)
     {
-        $parts = array(',', '"', '?', '!', ':', ';', "\\", '%', '/', '-', '+',
-            '|', '*', '@', ']', '[', ')', '(', '\'');
+        $parts = array(',', '"', '?', '!', ':', ';', "\\", '%', '/', '-', '+', '|', '*', '@', ']', '[', ')', '(', '\'');
 
         $part = $parts[$index];
         $criteria = new CDbCriteria;
         $criteria->params = array(':part' => '%' . $part . '%');
-        for ($i = 245; $i < 247; $i++) {
+        for ($i = 1; $i < 550; $i++) {
             $criteria->condition = 'name LIKE :part AND id >= ' . ($i * 1000000) . ' AND id < ' . (($i + 1) * 1000000);
             $keywords = Keyword::model()->findAll($criteria);
+            echo count($keywords)."\n";
 
             foreach ($keywords as $keyword) {
                 $name = str_replace($part, ' ', $keyword->name);
@@ -73,12 +73,13 @@ class WordstatQueryModify
                 while (strpos($name, '  ') !== false)
                     $name = str_replace('  ', ' ', $name);
 
-                echo '  '.$keyword->id.' - '.$keyword->name . ' ' . $name . "\n";
                 $keyword->name = $name;
-                //$keyword->update(array('name'));
+                $exist = Keyword::model()->findByAttributes(array('name' => $name));
+                if ($exist === null)
+                    $keyword->update(array('name'));
+                else
+                    $keyword->delete();
             }
-
-            echo count($keywords);
         }
     }
 

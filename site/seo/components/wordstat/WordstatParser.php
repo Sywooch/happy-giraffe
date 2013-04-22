@@ -31,12 +31,11 @@ class WordstatParser extends WordstatBaseParser
     {
         $id = $job->workload();
         $this->keyword = Keyword::model()->findByPk($id);
-        if ($this->keyword === null)
-            return true;
-        $this->log('Parsing keyword: ' . $this->keyword->id);
-
-        $this->checkName();
-        $this->parse();
+        if ($this->keyword !== null) {
+            $this->log('Parsing keyword: ' . $this->keyword->id);
+            $this->checkName();
+            $this->parse();
+        }
         WordstatParsingTask::getInstance()->removeSimpleTask($id);
         return true;
     }

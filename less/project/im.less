@@ -1,3 +1,27 @@
+.im-fixed {
+	#header-new {
+		position: fixed;
+		top:42px;
+	}
+	.im-sidebar {
+		position: fixed;
+		top: 200px;
+	}
+	.im-center_top {
+		position: fixed;
+		top: 211px;
+	}
+
+	.im-center_bottom {position: fixed;}
+	.im:after {position: fixed;}
+	.im:before {
+		position: fixed;
+		top: 200px;
+	}
+	&.ie8 .im:after,
+	&.ie8 .im:before {display: none;}
+}
+
 .im {
 	position: relative;
 	margin: -20px -20px -50px;
@@ -16,31 +40,12 @@
 		top: auto;
 		bottom: 0;
 	}
-	&__fixed .im-sidebar {
-		position: fixed;
-		top: 42px;
-	}
-	&__fixed .im-center_top {
-		position: fixed;
-		top: 53px;
-	}
-
-	&__fixed .im-center_bottom {position: fixed;}
-	&__fixed:after {position: fixed;}
-	&__fixed:before {
-		position: fixed;
-		top: 42px;
-	}
-	.ie8 &__fixed:after,
-	.ie8 &__fixed:before {display: none;}
 	&__cap .im-message_tx{
 		color: transparent;
 	    text-shadow: 0 0 5px rgba(0,0,0,0.5);
 	}
 
-	&_hold {
-		padding: 0 20px;
-	}
+	&_hold {padding: 0 20px;}
 	&_count {
 		.inline-block();
 		margin: 0 5px;
@@ -139,7 +144,7 @@
 	}
 	.ie8 &_top {margin-top: -11px;padding-top: 11px;}
 	&_middle {
-		padding: 185px 0 190px;	
+		padding: 363px 0 190px;	
 	}
 	&_middle-hold {position: relative;}
 	&_middle-w {
@@ -152,7 +157,7 @@
 		bottom: 0;
 		width: 685px;
 		background: #fff;
-		z-index: 1000;
+		z-index: 102;
 	}
 	&_bottom-hold {
 		background: #999;
@@ -180,6 +185,11 @@
 		text-decoration: none;
 	}
 	&_a:hover {text-decoration: underline;}
+	&_a.inactive {
+		color: #c0c0c0;
+		cursor: default;
+		text-decoration: none;
+	}
 }
 
 .im-panel {
@@ -240,6 +250,10 @@
 		.border-radius(3px);
 	}
 	&_online-status-small__offline {background: #c6c7c7;}
+	&_friend {
+		padding: 0 4px;
+		color: #47C05A;
+	}
 }
 
 .im-panel-icons {
@@ -265,6 +279,9 @@
 	&_i-a:hover .im-panel-ico__blacklist {background-position: -30px -21px;}
 	&_i.active .im-panel-ico__del,
 	&_i-a:hover .im-panel-ico__del       {background-position: -60px -21px;}
+	&_i-a__request {cursor: default;}
+	&_i-a__request &_desc {color: #a0a0a0;}
+	&_i-a__request:hover &_desc {color: #a0a0a0;}
 	&_desc {
 		display: none;
 		vertical-align: middle;
@@ -296,6 +313,7 @@
 	position: relative;
 	&:hover {background: #f6f6f7;}
 	&:hover &_icons {display: block;}
+	&__new {background: #e9fbea;}
 	&__edited &_tx {background: #fdfcd9;}
 
 	&_hold {
@@ -509,8 +527,6 @@
 
 .tooltipsy-im {
 	position: absolute;
-
-
 }
 
 .im-tooltip-popup {

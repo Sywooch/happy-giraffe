@@ -26,6 +26,7 @@
   
 	<script type="text/javascript" src="/javascripts/jquery.flip.js"></script>
 	<script type="text/javascript" src="/javascripts/addtocopy.js"></script>
+	<script type="text/javascript" src="/javascripts/messaging.js"></script>
   
 	<script type="text/javascript" src="/javascripts/common.js"></script>
 	

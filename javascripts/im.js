@@ -20,14 +20,12 @@ im.viewHeight = function () {
 
 /* Высота в sidebar списка собеседников */
 im.sidebarHeight = function () {
-        
-    /* Класс управления фиксед элементами */
-    im.im__fixed = $(".im__fixed");
-    if (im.im__fixed.length > 0) {
+ 
+/*    if (im.containerScroll > im.headerHeight) {
         im.userList.height(im.sidebar.height() - im.userListIndentFix);
-    } else {
-        im.userList.height(im.windowHeight - im.headerHeight - im.userListIndent + im.containerScroll);
-    }
+    } else {*/
+        im.userList.height(im.windowHeight - im.headerHeight - im.userListIndent);
+/*    }*/
 
 }
 
@@ -42,27 +40,21 @@ im.holdHeights = function  () {
 
 /* Поизиция скрола */
 im.scrollIm = function (){
-    if (im.containerScroll > im.headerHeight ) {
+   // if (im.containerScroll > im.headerHeight ) {
         /* Класс управления фиксед элементами */
-        im.imBlock.addClass("im__fixed");
-        /* Позиция блока сообщений */
-        /*imTopScroll = -im.height + im.viewHeight() + im.containerScroll*2 - im.headerHeight;
-        im.wrapper.css('top', imTopScroll);*/
+        
 
-    } else {
+
+    //} else {
         /* Класс управления фиксед элементами */
-        im.imBlock.removeClass("im__fixed");
+       // im.imBlock.removeClass("im__fixed");
 
         /* Высота sidebar списка собеседников */
         im.sidebarHeight();
 
-        /* Позиция блока сообщений */
-        /*imTopScroll = -im.height + im.viewHeight() + im.containerScroll;
-        im.wrapper.css('top', imTopScroll);*/
-
          /* заглушка */
          $('.im-cap').css('top', im.headerHeight + im.tabsHeight - im.containerScroll);
-    }
+   // }
 }
 
 /* im - instant messeger for user */
@@ -86,21 +78,17 @@ $(window).load(function() {
     scrollFix();
 
     /*im.wrapper.css('top',  -im.height + im.viewHeight());*/
-
     im.holdHeights ();
     /* Прокручивание в конец страницы */
     im.container.scrollTop($('.layout-container_hold').height());
 
     /* Высота sidebar списка собеседников */
-    im.sidebarHeight(0);
+    im.sidebarHeight();
 
     im.container.bind('scroll', function () {
         im.containerScroll = im.container.scrollTop();
         im.scrollIm ();
     });
-
-    
-    $(".im-message_img").fancybox();
 
     /* Подсказки при наведении */
     $('.im-tooltipsy').powerTip({
@@ -123,7 +111,7 @@ $(window).load(function() {
     });
 
     /* Изменение отступа от wysywig до конца стрнаицы */
-    im.imBlock.on("mousedown", ".im-center_bottom .im_toggle", function(e) {
+/*    im.imBlock.on("mousedown", ".im-center_bottom .im_toggle", function(e) {
         e.preventDefault();
         var imBottomHold = $('.im-center_bottom-hold');
         var imMiddle = $('.im-center_middle');
@@ -138,7 +126,7 @@ $(window).load(function() {
 
     }).on("mouseup", function(e) {
         im.imBlock.off("mousemove");
-    });
+    });*/
 
     /* Список скрытых пользователей в сайдбаре */
     $(".im-user-list_hide-a").click(function () {

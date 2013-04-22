@@ -27,6 +27,21 @@ $(document).ready(function () {
 
     $('.js-tooltipsy').tooltipsy({offset:[0, 1]});
 
+    /* видео с youtube, что б не перекрывало всплывающие окна */
+    $("iframe").each(function(){
+        var ifr_source = $(this).attr('src');
+        var wmode = "wmode=transparent";
+        if(  ifr_source.indexOf('youtube.com')>-1 ) {
+            if(ifr_source.indexOf('?') != -1) {
+                var getQString = ifr_source.split('?');
+                var oldString = getQString[1];
+                var newString = getQString[0];
+                $(this).attr('src',newString+'?'+wmode+'&'+oldString);
+            }
+            else $(this).attr('src',ifr_source+'?'+wmode);
+        }
+    });
+
     $('.layout-container').scroll(function () {
         var contanerScroll = $('.layout-container').scrollTop();
         if (contanerScroll > $('#header-new').height()) {

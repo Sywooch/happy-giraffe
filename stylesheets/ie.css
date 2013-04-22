@@ -111,8 +111,6 @@
 .ie7 #header-new .nav .drp {left:-10px;margin-top:-8px;}
 .ie7 #header-new .nav .cols .col {margin-left:-1px;}
 
-.ie7 #calories-calculator-daily .calculator .col .input input[type="text"] {*vertical-align:middle;}
-
 .ie7 #cook .search .title .icon {vertical-align:baseline;}
 .ie7 #cook .search .btn {top:-7px;}
 

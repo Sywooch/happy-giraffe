@@ -64,21 +64,23 @@ class MessagingCommand extends CConsoleCommand
 
         $messages = array();
         foreach ($dialog->messages as $m) {
-            $message = new MessagingMessage();
-            $message->detachBehavior('CTimestampBehavior');
-            $message->author_id = $m->user_id;
-            $message->text = $m->text;
-            $message->created = $m->created;
-            $message->updated = $m->created;
-            $messageUsers = array();
-            foreach ($dialog->dialogUsers as $dialogUser) {
-                $messageUser = new MessagingMessageUser();
-                $messageUser->user_id = $dialogUser->user_id;
-                $messageUser->read = $dialogUser->user_id == $m->user_id ? null : 1;
-                $messageUsers[] = $messageUser;
+            if (! empty($m->text)) {
+                $message = new MessagingMessage();
+                $message->detachBehavior('CTimestampBehavior');
+                $message->author_id = $m->user_id;
+                $message->text = $m->text;
+                $message->created = $m->created;
+                $message->updated = $m->created;
+                $messageUsers = array();
+                foreach ($dialog->dialogUsers as $dialogUser) {
+                    $messageUser = new MessagingMessageUser();
+                    $messageUser->user_id = $dialogUser->user_id;
+                    $messageUser->read = $dialogUser->user_id == $m->user_id ? null : 1;
+                    $messageUsers[] = $messageUser;
+                }
+                $message->messageUsers = $messageUsers;
+                $messages[] = $message;
             }
-            $message->messageUsers = $messageUsers;
-            $messages[] = $message;
         }
         $thread->messages = $messages;
 

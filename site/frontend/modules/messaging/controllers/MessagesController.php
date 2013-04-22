@@ -24,6 +24,20 @@ class MessagesController extends HController
         echo CJSON::encode($response);
     }
 
+    public function actionRestore()
+    {
+        $messageId = Yii::app()->request->getPost('messageId');
+        MessagingMessageUser::model()->updateByPk(array(
+            'user_id' => Yii::app()->user->id,
+            'message_id' => $messageId,
+        ), array('deleted' => 0));
+
+        $response = array(
+            'success' => true,
+        );
+        echo CJSON::encode($response);
+    }
+
     public function actionEdit()
     {
         $messageId = Yii::app()->request->getPost('messageId');

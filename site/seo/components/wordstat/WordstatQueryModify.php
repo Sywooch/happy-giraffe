@@ -57,7 +57,7 @@ class WordstatQueryModify
 
     public function addToParsing($index)
     {
-        $parts = array(',', '"', '?', '!', ':', ';', "\\", '%', '/', '-', '+', '|', '*', '@', ']', '[', ')', '(', '\'');
+        $parts = array(',','"','?','!',':', ';', "\\", '%', '/', '-', '+', '|', '*', '@', ']', '[', ')', '(', '\'');
 
         $part = $parts[$index];
         $criteria = new CDbCriteria;

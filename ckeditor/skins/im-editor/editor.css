@@ -261,6 +261,7 @@ a:hover.cke_colorauto,a:hover.cke_colormore,a:focus.cke_colorauto,a:focus.cke_co
 .cke_skin_im-editor .cke_button_horizontalrule .cke_icon{background-position:0 -624px;}
 
 .cke_skin_im-editor .cke_button_smiles .cke_icon {width:16px;background-position:-184px 1px;}
+.cke_skin_im-editor .cke_button_smiles .cke_icon:hover {background-position:-184px -19px;}
 
 .cke_skin_im-editor .cke_button_mylink .cke_icon{background-position:-202px 0;}
 
@@ -270,6 +271,8 @@ a:hover.cke_colorauto,a:hover.cke_colormore,a:focus.cke_colorauto,a:focus.cke_co
 
 .cke_skin_im-editor .cke_button_attach .cke_icon,
 .cke_skin_im-editor .cke_button_image .cke_icon {width:21px;background-position:-333px 0;}
+.cke_skin_im-editor .cke_button_attach .cke_icon:hover,
+.cke_skin_im-editor .cke_button_image .cke_icon:hover {background-position:-333px -20px;}
 
 .cke_skin_im-editor .cke_button_flash .cke_icon{background-position:0 -592px;}
 .cke_skin_im-editor .cke_button_specialchar .cke_icon{background-position:0 -656px;}
@@ -355,4 +358,6 @@ overflow:hidden;}
 #wysiwygSmile table {width:100%;}
 #wysiwygSmile table td {width:14%;padding:10px 0;text-align:center;vertical-align:middle;}
 #wysiwygSmile table td a:hover {background:none;}
+
+
 

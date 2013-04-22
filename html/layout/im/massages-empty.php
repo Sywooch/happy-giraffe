@@ -1,8 +1,8 @@
 ﻿<!DOCTYPE html>
-<!--[if lt IE 8]>      <html class="top-nav-fixed ie7"> <![endif]-->
-<!--[if IE 8]>         <html class="top-nav-fixed ie8"> <![endif]-->
-<!--[if IE 9]>         <html class="top-nav-fixed ie9"> <![endif]-->
-<!--[if gt IE 9]><!--> <html class="top-nav-fixed"> <!--<![endif]-->
+<!--[if lt IE 8]>      <html class="top-nav-fixed im-fixed ie7"> <![endif]-->
+<!--[if IE 8]>         <html class="top-nav-fixed im-fixed ie8"> <![endif]-->
+<!--[if IE 9]>         <html class="top-nav-fixed im-fixed ie9"> <![endif]-->
+<!--[if gt IE 9]><!--> <html class="top-nav-fixed im-fixed"> <!--<![endif]-->
 <head>
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/head.php'; ?>
 	<script type="text/javascript" src="/javascripts/im.js"></script>

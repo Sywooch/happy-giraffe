@@ -10,38 +10,28 @@
   position: fixed;
   top: 211px;
 }
-.im-fixed .im-center_bottom {
-  position: fixed;
-}
-.im-fixed .im:after {
-  position: fixed;
-}
-.im-fixed .im:before {
-  position: fixed;
-  top: 200px;
-}
-.im-fixed.ie8 .im:after,
-.im-fixed.ie8 .im:before {
-  display: none;
-}
 .im {
   position: relative;
-  margin: -20px -20px -50px;
+  margin: 0 -20px -50px;
   min-height: 470px;
 }
 .im:after,
 .im:before {
   content: '';
-  position: absolute;
-  top: 0;
+  position: fixed;
+  top: 200px;
   width: 1000px;
   height: 11px;
   background: url(/images/im/im.png) repeat-x;
-  z-index: 101;
+  z-index: 103;
 }
 .im:after {
   top: auto;
   bottom: 0;
+}
+.ie8 .im:after,
+.ie8 .im:before {
+  display: none;
 }
 .im__cap .im-message_tx {
   color: transparent;
@@ -194,7 +184,7 @@
   padding-top: 11px;
 }
 .im-center_middle {
-  padding: 363px 0 190px;
+  padding: 363px 0 200px;
 }
 .im-center_middle-hold {
   position: relative;
@@ -208,12 +198,12 @@
   position: fixed;
   bottom: 0;
   width: 685px;
+  min-height: 170px;
   background: #fff;
   z-index: 102;
 }
 .im-center_bottom-hold {
   background: #999;
-  margin: 0 0 40px;
 }
 .im-tabs {
   margin: 25px 10px 30px 10px;
@@ -705,6 +695,50 @@
   font-family: Tahoma, Arial, Verdana, sans-serif;
   color: #8bb0ca;
 }
+.im-editor-b_previewimg {
+  display: block;
+  margin-bottom: 10px;
+}
+.im-editor-b_previewimg_i {
+  display: inline-block;
+  *zoom: 1;
+  *display: inline;
+  margin: 5px 5px 5px 0;
+  max-height: 70px;
+  max-width: 70px;
+  position: relative;
+  vertical-align: top;
+}
+.im-editor-b_previewimg_i > img {
+  display: block;
+  margin: 0;
+}
+.im-editor-b_previewimg_i:hover:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #fafafa;
+  background: rgba(255, 255, 255, 0.6);
+  z-index: 1;
+}
+.im-editor-b_previewimg_i:hover .im-editor-b_previewimg_del {
+  display: block;
+}
+.im-editor-b_previewimg_del {
+  display: none;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  height: 12px !important;
+  width: 10px !important;
+  background: url("/images/common.png") no-repeat scroll -315px -149px transparent !important;
+  text-indent: -9999px;
+  z-index: 2;
+  cursor: pointer !important;
+}
 .tooltipsy-im {
   position: absolute;
 }
@@ -737,7 +771,7 @@
   background: url(/images/im/im-tooltip-popup.png) no-repeat;
 }
 .im-tooltip-popup .btn-green {
-  margin-right: 7px;
+  margin-right: 4px;
 }
 .im-tooltip-popup_t {
   margin: 0 0 10px;

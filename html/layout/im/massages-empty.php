@@ -50,6 +50,7 @@
 				<h2 class="im-sidebar_t">Мои диалоги</h2>
 				<div class="im-sidebar_search clearfix">
 					<input type="text" name="" id="" class="im-sidebar_search-itx" placeholder="Найти по имени">
+					<input type="reset" value="" name="" class="im-sidebar_search-reset ico-close">
 					<button class="im-sidebar_search-btn"></button>
 				</div>
 				<div class="im-user-list">
@@ -361,7 +362,10 @@
 									<button class="btn-green">Отправить</button>
 								</div>
 							</div>
-							<span class="im_toggle"></span>
+							<div class="im-editor-b_cap">
+								<div class="im-editor-b_cap-t">Этот пользователь вас заблокировал!</div>
+								<div class="im-editor-b_cap-tx">Вы не можете отправлять ему сообщения</div>
+							</div>
 						</div>
 					</div>
 				</div>

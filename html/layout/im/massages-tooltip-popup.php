@@ -395,24 +395,13 @@
 				</div>
 				<div class="im-center_bottom">
 					<div class="im-center_bottom-hold">
-						<link rel="stylesheet" href="/ckeditor/skins/im-editor/editor.css" media="all">
 						<div class="im-editor-b">
 							<a class="ava small im-editor-b_ava" href=""></a>
 							<div class="im-editor-b_w">
+								<link rel="stylesheet" href="/ckeditor/skins/im-editor/editor.css" media="all">
 								<textarea autofocus="" rows="3" name="im-editor" id="im-editor" cols="40" style="visibility: hidden; display: none;"></textarea><span lang="ru-hg" aria-labelledby="cke_im-editor_arialbl" role="application" title=" " dir="ltr" class="cke_skin_im-editor cke_1 cke_editor_im-editor" id="cke_im-editor"><span class="cke_voice_label" id="cke_im-editor_arialbl">Визуальный редактор текста</span><span role="presentation" class="cke_browser_gecko"><span role="presentation" class="cke_wrapper cke_ltr"><table cellspacing="0" cellpadding="0" border="0" role="presentation" class="cke_editor"><tbody><tr role="presentation" style="display: none; -moz-user-select: none;"><td role="presentation" class="cke_top" id="cke_top_im-editor"></td></tr><tr role="presentation"><td role="presentation" style="height: 58px;" class="cke_contents" id="cke_contents_im-editor"><iframe frameborder="0" allowtransparency="true" tabindex="0" src="javascript:void(function(){document.open()%3Bdocument.domain%3D%22109.87.248.203%22%3Bdocument.close()%3B}())" title="Визуальный редактор текста, im-editor, нажмите ALT-0 для открытия справки." style="width:100%;height:100%"></iframe></td></tr><tr role="presentation" style="-moz-user-select: none;"><td role="presentation" class="cke_bottom" id="cke_bottom_im-editor"><div onmousedown="return false;" aria-labelledby="cke_5" role="group" class="cke_toolbox"><span class="cke_voice_label" id="cke_5">Панели инструментов редактора</span>
-								<!-- превью изображений -->
-								<span class="cke_previewimg">
-									<span class="cke_previewimg_i" title="Название файла">
-										<img alt="" src="/images/example/w200-h182-1.jpg">
-										<a href="" class="cke_previewimg_del">sdfsdf</a>
-									</span>
-									<span class="cke_previewimg_i" title="Название файла">
-										<img alt="" src="/images/example/w220-h165-1.jpg">
-										<a href="" class="cke_previewimg_del">sdfsdf</a>
-									</span>
-								</span>
-								<!-- /превью изображений -->
 								<span role="toolbar" class="cke_toolbar" id="cke_6"><span class="cke_toolbar_start"></span><span role="presentation" class="cke_toolgroup"><span role="separator" class="cke_othertext">Добавить:</span><span class="cke_button"><a onclick="CKEDITOR.tools.callFunction(3, this); return false;" onfocus="return CKEDITOR.tools.callFunction(2, event);" onkeydown="return CKEDITOR.tools.callFunction(1, event);" onblur="this.style.cssText = this.style.cssText;" aria-labelledby="cke_7_label" role="button" hidefocus="true" tabindex="-1" title="Вставить смайлик" class="cke_off cke_button_smiles" id="cke_7"><span class="cke_icon">&nbsp;</span><span class="cke_label" id="cke_7_label">Вставить смайлик</span></a></span><span class="cke_button"><a onclick="CKEDITOR.tools.callFunction(6, this); return false;" onfocus="return CKEDITOR.tools.callFunction(5, event);" onkeydown="return CKEDITOR.tools.callFunction(4, event);" onblur="this.style.cssText = this.style.cssText;" aria-labelledby="cke_8_label" role="button" hidefocus="true" tabindex="-1" title="Вставить изображение" class="cke_off cke_button_attach" id="cke_8"><span class="cke_icon">&nbsp;</span><span class="cke_label" id="cke_8_label">Вставить изображение</span></a></span></span><span class="cke_toolbar_end"></span></span></div></td></tr></tbody></table></span></span><span role="presentation" style="position:absolute;" tabindex="-1"></span></span>
+								
 								<div class="im-editor-b_control">
 									<div class="im-editor-b_key">
 										<input type="checkbox" class="im-editor-b_key-checkbox" id="im-editor-b_key-checkbox" name="">
@@ -420,6 +409,18 @@
 									</div>
 									<button class="btn-green">Отправить</button>
 								</div>
+								<!-- превью изображений -->
+								<span class="im-editor-b_previewimg">
+									<span class="im-editor-b_previewimg_i" title="Название файла">
+										<img alt="" src="/images/example/w200-h182-1.jpg">
+										<a href="" class="im-editor-b_previewimg_del"></a>
+									</span>
+									<span class="im-editor-b_previewimg_i" title="Название файла">
+										<img alt="" src="/images/example/w220-h165-1.jpg">
+										<a href="" class="im-editor-b_previewimg_del"></a>
+									</span>
+								</span>
+								<!-- /превью изображений -->
 							</div>
 							<!-- <span class="im_toggle"></span> -->
 						</div>

@@ -19,6 +19,10 @@ class WordstatParsingTask
      * @var MongoCollection
      */
     protected $simple_collection;
+    /**
+     * @var MongoCollection
+     */
+    protected $priority_collection;
 
     private function __construct()
     {
@@ -26,6 +30,8 @@ class WordstatParsingTask
         $this->mongo->connect();
         $this->simple_collection = $this->mongo->selectCollection('parsing', 'simple_parsing');
         $this->simple_collection->ensureIndex(array('id' => 1), array("unique" => true));
+        $this->priority_collection = $this->mongo->selectCollection('parsing', 'priority_collection');
+        $this->priority_collection->ensureIndex(array('id' => 1), array("unique" => true));
     }
 
     private function __clone()
@@ -72,7 +78,7 @@ class WordstatParsingTask
 
     /**
      * Удаляет слово из очереди на простой парсинг
-     * @param $id int
+     * @param $id int ID ключевого слова
      */
     public function removeSimpleTask($id)
     {
@@ -81,10 +87,19 @@ class WordstatParsingTask
 
     /**
      * Добавляет слово в очередь на простой парсинг
-     * @param $id int
+     * @param $id int ID ключевого слова
      */
     public function addSimpleTask($id)
     {
         $this->simple_collection->insert(array('id' => (int)$id));
+    }
+
+    /**
+     * Добавляет слово в очередь очень срочных заданий
+     * @param $id int ID ключевого слова
+     */
+    public function addImportantTask($id)
+    {
+        $this->priority_collection->insert(array('id' => (int)$id));
     }
 }

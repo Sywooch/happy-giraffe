@@ -215,5 +215,16 @@ class SeoCommand extends CConsoleCommand
 
         return $file_name;
     }
+
+    public function actionTest2()
+    {
+        $url = '/community/2/forum/post/1491/';
+        echo "http://www.happy-giraffe.ru$url\n";
+
+        for ($i = 8; $i > 0; $i--) {
+            $date = date("Y-m-d", strtotime('- ' . $i . ' days'));
+            echo $date . ': ' . GApi::model()->organicSearches($url, $date, $date) . "\n";
+        }
+    }
 }
 

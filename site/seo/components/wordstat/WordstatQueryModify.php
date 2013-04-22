@@ -63,7 +63,7 @@ class WordstatQueryModify
         $part = $parts[$index];
         $criteria = new CDbCriteria;
         $criteria->params = array(':part' => '%' . $part . '%');
-        for ($i = 0; $i < 540; $i++) {
+        for ($i = 245; $i < 247; $i++) {
             $criteria->condition = 'name LIKE :part AND id >= ' . ($i * 1000000) . ' AND id < ' . (($i + 1) * 1000000);
             $keywords = Keyword::model()->findAll($criteria);
 

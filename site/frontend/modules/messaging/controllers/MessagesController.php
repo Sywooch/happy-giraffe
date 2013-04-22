@@ -2,6 +2,8 @@
 
 class MessagesController extends HController
 {
+    const ERROR_BLOCKED = 1;
+
     public function filters()
     {
         return array(
@@ -75,6 +77,16 @@ class MessagesController extends HController
         $text = Yii::app()->request->getPost('text');
         $images = Yii::app()->request->getPost('images', array());
 
+        if (Blacklist::model()->isBlocked($interlocutorId, Yii::app()->user->id)) {
+            $response = array(
+                'success' => false,
+                'error' => self::ERROR_BLOCKED,
+            );
+
+            echo CJSON::encode($response);
+            Yii::app()->end();
+        }
+
         $receiverData = array(
             'contact' => array(
                 'user' => array(
@@ -105,6 +117,7 @@ class MessagesController extends HController
 
         $receiverData['message'] = $data['message'] = $message->json;
         $receiverData['time'] = $data['time'] = time();
+        $data['success'] = $message !== false;
 
         $comet = new CometModel();
         $comet->send($interlocutorId, $receiverData, CometModel::MESSAGING_MESSAGE_RECEIVED);

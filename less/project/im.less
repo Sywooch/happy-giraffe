@@ -11,35 +11,29 @@
 		position: fixed;
 		top: 211px;
 	}
-
-	.im-center_bottom {position: fixed;}
-	.im:after {position: fixed;}
-	.im:before {
-		position: fixed;
-		top: 200px;
-	}
-	&.ie8 .im:after,
-	&.ie8 .im:before {display: none;}
 }
 
 .im {
 	position: relative;
-	margin: -20px -20px -50px;
+	margin: 0 -20px -50px;
 	min-height: 470px;
 	&:after,
 	&:before {
 		content:'';
-		position: absolute;
-		top: 0;
+		position: fixed;
+		top: 200px;
 		width: 1000px;
 		height: 11px;
 		background: url(/images/im/im.png) repeat-x;
-		z-index: 101;
+		z-index: 103;
 	}
 	&:after {
 		top: auto;
 		bottom: 0;
 	}
+	.ie8 &:after,
+	.ie8 &:before {display: none;}
+
 	&__cap .im-message_tx{
 		color: transparent;
 	    text-shadow: 0 0 5px rgba(0,0,0,0.5);
@@ -144,7 +138,7 @@
 	}
 	.ie8 &_top {margin-top: -11px;padding-top: 11px;}
 	&_middle {
-		padding: 363px 0 190px;	
+		padding: 363px 0 200px;	
 	}
 	&_middle-hold {position: relative;}
 	&_middle-w {
@@ -156,12 +150,12 @@
 		position: fixed;
 		bottom: 0;
 		width: 685px;
+		min-height: 170px;
 		background: #fff;
 		z-index: 102;
 	}
 	&_bottom-hold {
 		background: #999;
-		margin: 0 0 40px;
 	}
 }
 
@@ -553,7 +547,7 @@
 		margin: 0 0 0 -6px;
 		background: url(/images/im/im-tooltip-popup.png) no-repeat;
 	}
-	.btn-green {margin-right: 7px;}
+	.btn-green {margin-right: 4px;}
 	&_t {
 		margin: 0 0 10px;
 		font-weight: bold;

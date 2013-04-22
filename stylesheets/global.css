@@ -10,38 +10,28 @@
   position: fixed;
   top: 211px;
 }
-.im-fixed .im-center_bottom {
-  position: fixed;
-}
-.im-fixed .im:after {
-  position: fixed;
-}
-.im-fixed .im:before {
-  position: fixed;
-  top: 200px;
-}
-.im-fixed.ie8 .im:after,
-.im-fixed.ie8 .im:before {
-  display: none;
-}
 .im {
   position: relative;
-  margin: -20px -20px -50px;
+  margin: 0 -20px -50px;
   min-height: 470px;
 }
 .im:after,
 .im:before {
   content: '';
-  position: absolute;
-  top: 0;
+  position: fixed;
+  top: 200px;
   width: 1000px;
   height: 11px;
   background: url(/images/im/im.png) repeat-x;
-  z-index: 101;
+  z-index: 103;
 }
 .im:after {
   top: auto;
   bottom: 0;
+}
+.ie8 .im:after,
+.ie8 .im:before {
+  display: none;
 }
 .im__cap .im-message_tx {
   color: transparent;
@@ -194,7 +184,7 @@
   padding-top: 11px;
 }
 .im-center_middle {
-  padding: 363px 0 190px;
+  padding: 363px 0 200px;
 }
 .im-center_middle-hold {
   position: relative;
@@ -208,12 +198,12 @@
   position: fixed;
   bottom: 0;
   width: 685px;
+  min-height: 170px;
   background: #fff;
   z-index: 102;
 }
 .im-center_bottom-hold {
   background: #999;
-  margin: 0 0 40px;
 }
 .im-tabs {
   margin: 25px 10px 30px 10px;
@@ -737,7 +727,7 @@
   background: url(/images/im/im-tooltip-popup.png) no-repeat;
 }
 .im-tooltip-popup .btn-green {
-  margin-right: 7px;
+  margin-right: 4px;
 }
 .im-tooltip-popup_t {
   margin: 0 0 10px;

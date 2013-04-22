@@ -261,6 +261,7 @@ a:hover.cke_colorauto,a:hover.cke_colormore,a:focus.cke_colorauto,a:focus.cke_co
 .cke_skin_im-editor .cke_button_horizontalrule .cke_icon{background-position:0 -624px;}
 
 .cke_skin_im-editor .cke_button_smiles .cke_icon {width:16px;background-position:-184px 1px;}
+.cke_skin_im-editor .cke_button_smiles .cke_icon:hover {background-position:-184px -19px;}
 
 .cke_skin_im-editor .cke_button_mylink .cke_icon{background-position:-202px 0;}
 
@@ -270,6 +271,8 @@ a:hover.cke_colorauto,a:hover.cke_colormore,a:focus.cke_colorauto,a:focus.cke_co
 
 .cke_skin_im-editor .cke_button_attach .cke_icon,
 .cke_skin_im-editor .cke_button_image .cke_icon {width:21px;background-position:-333px 0;}
+.cke_skin_im-editor .cke_button_attach .cke_icon:hover,
+.cke_skin_im-editor .cke_button_image .cke_icon:hover {background-position:-333px -20px;}
 
 .cke_skin_im-editor .cke_button_flash .cke_icon{background-position:0 -592px;}
 .cke_skin_im-editor .cke_button_specialchar .cke_icon{background-position:0 -656px;}
@@ -356,3 +359,44 @@ overflow:hidden;}
 #wysiwygSmile table td {width:14%;padding:10px 0;text-align:center;vertical-align:middle;}
 #wysiwygSmile table td a:hover {background:none;}
 
+
+.cke_previewimg {
+	display: block;
+	margin-bottom: 10px;
+}
+.cke_previewimg_i {
+	display: inline-block;*zoom:1;*display:inline;
+    margin: 5px 5px 5px 0;
+    max-height: 70px;
+    max-width: 70px;
+    position: relative;
+    vertical-align: top;
+}
+.cke_previewimg_i > img {
+	display: block;
+	margin: 0;
+}
+.cke_previewimg_i:hover:after {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: #fafafa;
+	background: rgba(255,255,255,0.6);
+	z-index: 1;
+}
+.cke_previewimg_i:hover .cke_previewimg_del {display: block;}
+.cke_previewimg_del {
+	display: none;
+	position: absolute;
+	top: 5px;
+	right: 5px;
+    height: 12px !important;
+    width: 10px !important;
+	background: url("/images/common.png") no-repeat scroll -315px -149px transparent !important;
+    text-indent: -9999px;
+    z-index: 2;
+    cursor: pointer !important;
+}

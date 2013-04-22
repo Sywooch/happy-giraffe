@@ -171,6 +171,11 @@ function MessagingViewModel(data) {
     self.sendingMessage = ko.observable(false);
     self.interlocutorTyping = ko.observable(false);
 
+    self.meTyping = ko.observable(false);
+    self.meTyping.subscribe(function(a) {
+        $.post('/messaging/interlocutors/typing/', { typingStatus : a, interlocutorId : self.interlocutor().user().id() });
+    });
+
     self.enterSetting = ko.observable(data.settings.messaging__enter);
     self.enterSetting.subscribe(function(a) {
         $.post('/ajax/setUserAttribute/', { key : 'messaging__enter', value : a ? 1 : 0 });
@@ -464,19 +469,21 @@ function MessagingViewModel(data) {
     });
 
     $(function() {
-        CKEDITOR.instances['im-editor'].on('focus', function() {
-            if (self.openContact() !== null)
-                $.post('/messaging/interlocutors/typing/', { typingStatus : 1, interlocutorId : self.interlocutor().user().id() });
-        });
-
         CKEDITOR.instances['im-editor'].on('blur', function() {
             if (self.openContact() !== null)
-                $.post('/messaging/interlocutors/typing/', { typingStatus : 0, interlocutorId : self.interlocutor().user().id() });
+                self.meTyping(false);
         });
 
         CKEDITOR.instances['im-editor'].on('key', function (e) {
-            if (e.data.keyCode == 13 && self.enterSetting()) {
+            if (e.data.keyCode == 13 && self.enterSetting())
                 self.sendMessage();
+            else {
+                if (self.openContact() !== null) {
+                    self.meTyping(true);
+                    setTimeout(function() {
+                        self.meTyping(false);
+                    }, 10000);
+                }
             }
         });
 

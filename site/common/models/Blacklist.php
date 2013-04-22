@@ -83,4 +83,12 @@ class Blacklist extends HActiveRecord
             'criteria'=>$criteria,
         ));
     }
+
+    public function isBlocked($userId, $blockedUserId)
+    {
+        return Blacklist::model()->exists('user_id = :user_id AND blocked_user_id = :blocked_user_id', array(
+            ':user_id' => $userId,
+            ':blocked_user_id' => $blockedUserId,
+        ));
+    }
 }

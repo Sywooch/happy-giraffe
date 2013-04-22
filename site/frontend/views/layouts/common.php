@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<!--[if lt IE 8]>      <html class="top-nav-fixed ie7"> <![endif]-->
-<!--[if IE 8]>         <html class="top-nav-fixed ie8"> <![endif]-->
-<!--[if IE 9]>         <html class="top-nav-fixed ie9"> <![endif]-->
-<!--[if gt IE 9]><!--> <html class="top-nav-fixed"> <!--<![endif]-->
+<!--[if lt IE 8]>      <html class="top-nav-fixed<?php if ($this->tempLayout): ?> im-fixed<?php endif; ?> ie7"> <![endif]-->
+<!--[if IE 8]>         <html class="top-nav-fixed<?php if ($this->tempLayout): ?> im-fixed<?php endif; ?> ie8"> <![endif]-->
+<!--[if IE 9]>         <html class="top-nav-fixed<?php if ($this->tempLayout): ?> im-fixed<?php endif; ?> ie9"> <![endif]-->
+<!--[if gt IE 9]><!--> <html class="top-nav-fixed<?php if ($this->tempLayout): ?> im-fixed<?php endif; ?>"> <!--<![endif]-->
 <head>
     <?=CHtml::linkTag()?>
     <?php if ($this->rssFeed !== null): ?>

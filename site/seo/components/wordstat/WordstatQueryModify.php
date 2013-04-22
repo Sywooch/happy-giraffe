@@ -72,7 +72,7 @@ class WordstatQueryModify
 
     public function addToParsing($num)
     {
-        $parts = array(',', '.', '"', '?', '!', ':', ';', "\\", '%', '/', '-', '+',
+        $parts = array(',', '"', '?', '!', ':', ';', "\\", '%', '/', '-', '+',
             '|', '*', '@', ']', '[', ')', '(', '\'');
         $part = $parts[$num];
         echo $part . "\n";
@@ -267,13 +267,18 @@ class WordstatQueryModify
     public static function prepareForSave($name)
     {
         $name = mb_strtolower($name, 'utf-8');
-        $parts = array(',', '.', '"', '?', '!', ':', ';', "\\", '%', '/', '-', '+',
+        $parts = array(',', '"', '?', '!', ':', ';', "\\", '%', '/', '-', '+',
             '|', '*', '@', ']', '[', ')', '(', '\'');
 
         foreach ($parts as $part)
             $name = str_replace($part, ' ', $name);
 
+        $name = str_replace(' . ', ' ', $name);
+        $name = str_replace('. ', ' ', $name);
+        $name = str_replace(' .', ' ', $name);
+
         $name = trim($name);
+        $name = trim($name, '.');
         while (strpos($name, '  ') !== false)
             $name = str_replace('  ', ' ', $name);
 

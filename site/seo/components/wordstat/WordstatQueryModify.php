@@ -65,7 +65,8 @@ class WordstatQueryModify
         for ($i = 1; $i < 550; $i++) {
             $criteria->condition = 'name LIKE :part AND id >= ' . ($i * 1000000) . ' AND id < ' . (($i + 1) * 1000000);
             $keywords = Keyword::model()->findAll($criteria);
-            echo count($keywords)."\n";
+            if (!empty($keywords))
+                echo $i . '-' . count($keywords) . "\n";
 
             foreach ($keywords as $keyword) {
                 $name = str_replace($part, ' ', $keyword->name);

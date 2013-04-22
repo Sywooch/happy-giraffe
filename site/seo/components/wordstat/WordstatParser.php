@@ -135,6 +135,7 @@ class WordstatParser extends WordstatBaseParser
         if ($this->first_page)
             $this->checkKeywordStatus($list);
 
+        //сохраняем ключевые слова из первой колонки
         foreach ($list as $value)
             $this->saveFoundKeyword($value[0], $value[1]);
 
@@ -147,6 +148,8 @@ class WordstatParser extends WordstatBaseParser
         //парсим вторую колонку
         if ($this->first_page) {
             $list = $this->getSecondKeywordsColumn($document);
+
+            //сохраняем ключевые слова из второй колонки
             foreach ($list as $value)
                 $this->saveFoundKeyword($value[0], $value[1], true);
         }
@@ -204,8 +207,8 @@ class WordstatParser extends WordstatBaseParser
                 $model->wordstat = $value;
                 $model->status = Keyword::STATUS_GOOD;
                 $model->save();
-                //удаляем из очереди на парсинг если во фразе больше 3-х слов
-                if (substr_count($keyword, ' ') > 2) {
+                //удаляем из очереди на парсинг если частота < 1000
+                if ($value < 2000) {
                     $this->log('remove keyword ' . $model->id . ' from parsing queue');
                     WordstatParsingTask::getInstance()->removeSimpleTask($model->id);
                 }
@@ -219,8 +222,8 @@ class WordstatParser extends WordstatBaseParser
                 $model->status = Keyword::STATUS_GOOD;
                 try {
                     $model->save();
-                    //если во фразе кол-во слов <= 3 добавляем его на парсинг
-                    if (substr_count($keyword, ' ') <= 2) {
+                    //если во фразе частота > 1000 добавляем его на парсинг
+                    if ($value >= 2000) {
                         $this->log('add keyword ' . $model->id . ' to parsing queue');
                         WordstatParsingTask::getInstance()->addSimpleTask($model->id);
                     }

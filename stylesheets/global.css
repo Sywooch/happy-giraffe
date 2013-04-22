@@ -184,7 +184,7 @@
   padding-top: 11px;
 }
 .im-center_middle {
-  padding: 363px 0 200px;
+  padding: 363px 0 170px;
 }
 .im-center_middle-hold {
   position: relative;
@@ -738,6 +738,25 @@
   text-indent: -9999px;
   z-index: 2;
   cursor: pointer !important;
+}
+.im-editor-b_cap {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  border: 1px solid #cce2f1;
+  background: #eff6ff;
+  background: rgba(235, 244, 255, 0.7);
+  text-align: center;
+  color: #898989;
+  z-index: 100;
+}
+.im-editor-b_cap-t {
+  position: relative;
+  margin: 35px 0 15px;
+  font-size: 20px;
+  color: #262626;
 }
 .tooltipsy-im {
   position: absolute;

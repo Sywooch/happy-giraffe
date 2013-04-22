@@ -361,7 +361,10 @@
 									<button class="btn-green">Отправить</button>
 								</div>
 							</div>
-							<span class="im_toggle"></span>
+							<div class="im-editor-b_cap">
+								<div class="im-editor-b_cap-t">Этот пользователь вас заблокировал!</div>
+								<div class="im-editor-b_cap-tx">Вы не можете отправлять ему сообщения</div>
+							</div>
 						</div>
 					</div>
 				</div>

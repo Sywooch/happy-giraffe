@@ -5,6 +5,36 @@ function Interlocutor(data, parent) {
     self.blogPostsCount = ko.observable(data.blogPostsCount);
     self.photosCount = ko.observable(data.photosCount);
     self.inviteSent = ko.observable(data.inviteSent);
+    self.toBlackList = ko.observable(false);
+
+    self.blockHandler = function() {
+        if (parent.blackListSetting())
+            self.addToBlackList();
+        else
+            self.toBlackList(! self.toBlackList());
+    }
+
+    self.yesHandler = function() {
+        self.addToBlackList();
+        self.toBlackList(false);
+    }
+
+    self.noHandler = function() {
+        self.toBlackList(false);
+    }
+
+    self.addToBlackList = function() {
+        $.post('/messaging/interlocutors/blackList/', { interlocutorId : self.user().id() }, function(response) {
+            if (response.success) {
+                self.toBlackList(false);
+                var contact = parent.findByInterlocutorId(self.user().id());
+                parent.contacts.remove(contact);
+                if (parent.contactsToShow().length > 0)
+                    parent.openThread(parent.contactsToShow()[0]);
+            }
+        }, 'json');
+    }
+
 }
 
 function User(data, parent) {
@@ -98,9 +128,17 @@ function Message(data, parent) {
     self.showAbuse = ko.observable(false);
     self.abuseReason = ko.observable(0);
     self.edited = ko.observable(false);
+    self.deleted = ko.observable(false);
+    self.isSpam = ko.observable(false);
 
     self.toggleShowAbuse = function() {
         self.showAbuse(! self.showAbuse());
+    }
+
+    self.markAsSpam = function() {
+        self.isSpam(true);
+        self.delete();
+        self.toggleShowAbuse();
     }
 
     self.edit = function() {
@@ -113,8 +151,16 @@ function Message(data, parent) {
 
     self.delete = function() {
         $.post('/messaging/messages/delete/', { messageId : self.id() }, function(response) {
+            if (response.success) {
+                self.deleted(true);
+            }
+        }, 'json');
+    }
+
+    self.restore = function() {
+        $.post('/messaging/messages/restore/', { messageId : self.id() }, function(response) {
             if (response.success)
-                parent.messages.remove(self);
+                self.deleted(false);
         }, 'json');
     }
 
@@ -141,9 +187,19 @@ function MessagingViewModel(data) {
     self.sendingMessage = ko.observable(false);
     self.interlocutorTyping = ko.observable(false);
 
+    self.meTyping = ko.observable(false);
+    self.meTyping.subscribe(function(a) {
+        $.post('/messaging/interlocutors/typing/', { typingStatus : a, interlocutorId : self.interlocutor().user().id() });
+    });
+
     self.enterSetting = ko.observable(data.settings.messaging__enter);
     self.enterSetting.subscribe(function(a) {
         $.post('/ajax/setUserAttribute/', { key : 'messaging__enter', value : a ? 1 : 0 });
+    });
+
+    self.blackListSetting = ko.observable(data.settings.messaging__blackList);
+    self.blackListSetting.subscribe(function(a) {
+        $.post('/ajax/setUserAttribute/', { key : 'messaging__blackList', value : a ? 1 : 0 });
     });
 
     self.soundSetting = ko.observable(data.settings.messaging__sound);
@@ -200,13 +256,6 @@ function MessagingViewModel(data) {
             if (response.status)
                 self.interlocutor().inviteSent(true);
         }, 'json');
-    }
-
-    self.block = function() {
-        var contact = self.findByInterlocutorId(self.interlocutor().user().id());
-        self.contacts.remove(contact);
-        if (self.contactsToShow().length > 0)
-            self.openThread(self.contactsToShow()[0]);
     }
 
     self.openContact = ko.computed(function() {
@@ -358,7 +407,7 @@ function MessagingViewModel(data) {
         }, 'json');
     }
 
-    self.handleClick = function() {
+    self.submit = function() {
         if (self.editingMessageId() === null)
             self.sendMessage();
         else
@@ -387,7 +436,6 @@ function MessagingViewModel(data) {
 
             self.sendingMessage(false);
             self.uploadedImages([]);
-            im.container.scrollTop($('.layout-container_hold').height());
         }, 'json');
     }
 
@@ -436,19 +484,21 @@ function MessagingViewModel(data) {
     });
 
     $(function() {
-        CKEDITOR.instances['im-editor'].on('focus', function() {
-            if (self.openContact() !== null)
-                $.post('/messaging/interlocutors/typing/', { typingStatus : 1, interlocutorId : self.interlocutor().user().id() });
-        });
-
         CKEDITOR.instances['im-editor'].on('blur', function() {
             if (self.openContact() !== null)
-                $.post('/messaging/interlocutors/typing/', { typingStatus : 0, interlocutorId : self.interlocutor().user().id() });
+                self.meTyping(false);
         });
 
         CKEDITOR.instances['im-editor'].on('key', function (e) {
-            if (e.data.keyCode == 13 && self.enterSetting()) {
-                self.sendMessage();
+            if (e.data.keyCode == 13 && self.enterSetting())
+                self.submit();
+            else {
+                if (self.openContact() !== null) {
+                    self.meTyping(true);
+                    setTimeout(function() {
+                        self.meTyping(false);
+                    }, 10000);
+                }
             }
         });
 
@@ -468,7 +518,6 @@ function MessagingViewModel(data) {
 
             if (self.soundSetting())
                 soundManager.play('s');
-            im.container.scrollTop($('.layout-container_hold').height());
 
             self.openContact().thread().changeReadStatus(1);
         }
@@ -493,7 +542,7 @@ function MessagingViewModel(data) {
     $(window).load(function() {
         self.messages.subscribe(function() {
             im.holdHeights();
-            $(".im-message_img").fancybox();
+            im.container.scrollTop($('.layout-container_hold').height());
         });
 
         im.container.scroll(function() {

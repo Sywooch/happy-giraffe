@@ -545,7 +545,7 @@
 					toolbarCanCollapse: false,
 					toolbarLocation : 'bottom',
 					height: 58,
-					autoGrow_maxHeight : 150,
+					autoGrow_maxHeight : 88,
 					autoGrow_minHeight : 58,
 					// Remove the Resize plugin as it does not make sense to use it in conjunction with the AutoGrow plugin.
 					removePlugins : 'resize, elementspath'

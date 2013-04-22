@@ -8,9 +8,9 @@ function scrollFix() {
 
 var im = {};
 
-im.topLineMenuHeight = 85;
+im.topLineMenuHeight = 75;
 im.tabsHeight = 53;
-im.userListIndentFix = 198;
+/*im.userListIndentFix = 198;*/
 im.userListIndent = 189;
 im.minHeight = 460;
 
@@ -52,8 +52,6 @@ im.scrollIm = function (){
         /* Высота sidebar списка собеседников */
         im.sidebarHeight();
 
-         /* заглушка */
-         $('.im-cap').css('top', im.headerHeight + im.tabsHeight - im.containerScroll);
    // }
 }
 

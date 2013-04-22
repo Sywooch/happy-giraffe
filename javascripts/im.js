@@ -21,7 +21,7 @@ im.viewHeight = function () {
 /* Высота в sidebar списка собеседников */
 im.sidebarHeight = function () {
  
-/*    if (im.containerScroll > im.headerHeight) {
+/*  if (im.containerScroll > im.headerHeight) {
         im.userList.height(im.sidebar.height() - im.userListIndentFix);
     } else {*/
         im.userList.height(im.windowHeight - im.headerHeight - im.userListIndent);
@@ -39,7 +39,7 @@ im.holdHeights = function  () {
 }
 
 /* Поизиция скрола */
-im.scrollIm = function (){
+//im.scrollIm = function (){
    // if (im.containerScroll > im.headerHeight ) {
         /* Класс управления фиксед элементами */
         
@@ -50,10 +50,10 @@ im.scrollIm = function (){
        // im.imBlock.removeClass("im__fixed");
 
         /* Высота sidebar списка собеседников */
-        im.sidebarHeight();
+       // im.sidebarHeight();
 
    // }
-}
+//}
 
 /* im - instant messeger for user */
 $(window).load(function() {
@@ -83,10 +83,10 @@ $(window).load(function() {
     /* Высота sidebar списка собеседников */
     im.sidebarHeight();
 
-    im.container.bind('scroll', function () {
+/*    im.container.bind('scroll', function () {
         im.containerScroll = im.container.scrollTop();
         im.scrollIm ();
-    });
+    });*/
 
     /* Подсказки при наведении */
     $('.im-tooltipsy').powerTip({
@@ -139,7 +139,7 @@ $(window).load(function() {
         im.windowHeight = $(window).height();
         im.holdHeights();
 
-        im.scrollIm ();
+        /*im.scrollIm ();*/
         im.sidebarHeight();
     });
 

@@ -128,9 +128,17 @@ function Message(data, parent) {
     self.showAbuse = ko.observable(false);
     self.abuseReason = ko.observable(0);
     self.edited = ko.observable(false);
+    self.deleted = ko.observable(false);
+    self.isSpam = ko.observable(false);
 
     self.toggleShowAbuse = function() {
         self.showAbuse(! self.showAbuse());
+    }
+
+    self.markAsSpam = function() {
+        self.isSpam(true);
+        self.delete();
+        self.toggleShowAbuse();
     }
 
     self.edit = function() {
@@ -143,8 +151,16 @@ function Message(data, parent) {
 
     self.delete = function() {
         $.post('/messaging/messages/delete/', { messageId : self.id() }, function(response) {
+            if (response.success) {
+                self.deleted(true);
+            }
+        }, 'json');
+    }
+
+    self.restore = function() {
+        $.post('/messaging/messages/restore/', { messageId : self.id() }, function(response) {
             if (response.success)
-                parent.messages.remove(self);
+                self.deleted(false);
         }, 'json');
     }
 
@@ -420,7 +436,6 @@ function MessagingViewModel(data) {
 
             self.sendingMessage(false);
             self.uploadedImages([]);
-            im.container.scrollTop($('.layout-container_hold').height());
         }, 'json');
     }
 
@@ -503,7 +518,6 @@ function MessagingViewModel(data) {
 
             if (self.soundSetting())
                 soundManager.play('s');
-            im.container.scrollTop($('.layout-container_hold').height());
 
             self.openContact().thread().changeReadStatus(1);
         }
@@ -528,6 +542,7 @@ function MessagingViewModel(data) {
     $(window).load(function() {
         self.messages.subscribe(function() {
             im.holdHeights();
+            im.container.scrollTop($('.layout-container_hold').height());
         });
 
         im.container.scroll(function() {

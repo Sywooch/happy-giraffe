@@ -66,7 +66,7 @@ class WordstatParser extends WordstatBaseParser
                 }
             } else {
                 try {
-                    $this->keyword->save();
+                    $this->keyword->update(array('name'));
                 } catch (Exception $err) {
                 }
             }
@@ -206,7 +206,7 @@ class WordstatParser extends WordstatBaseParser
                 $this->log('keyword: ' . $model->id . ' - ' . $model->wordstat);
                 $model->wordstat = $value;
                 $model->status = Keyword::STATUS_GOOD;
-                $model->save();
+                $model->update(array('wordstat', 'status'));
                 //удаляем из очереди на парсинг если частота < 1000
                 if ($value < 1000) {
                     $this->log('remove keyword ' . $model->id . ' from parsing queue');

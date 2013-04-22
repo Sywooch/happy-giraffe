@@ -62,7 +62,7 @@ class WordstatQueryModify
 
         $part = $parts[$i];
         $criteria = new CDbCriteria;
-        $criteria->condition = 'name LIKE :part';
+        $criteria->condition = 'name LIKE :part AND id < 90000000';
         $criteria->params = array(':part'=> '%' . $part . '%');
         $criteria->limit = 100;
         while (true) {

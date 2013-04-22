@@ -407,7 +407,7 @@ function MessagingViewModel(data) {
         }, 'json');
     }
 
-    self.handleClick = function() {
+    self.submit = function() {
         if (self.editingMessageId() === null)
             self.sendMessage();
         else
@@ -491,7 +491,7 @@ function MessagingViewModel(data) {
 
         CKEDITOR.instances['im-editor'].on('key', function (e) {
             if (e.data.keyCode == 13 && self.enterSetting())
-                self.sendMessage();
+                self.submit();
             else {
                 if (self.openContact() !== null) {
                     self.meTyping(true);

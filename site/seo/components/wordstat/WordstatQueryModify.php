@@ -57,12 +57,33 @@ class WordstatQueryModify
 
     public function addToParsing($index)
     {
-        $parts = array(',','"','?','!',':', ';', "\\", '%', '/', '-', '+', '|', '*', '@', ']', '[', ')', '(', '\'');
+        $parts = array(
+            array(',', 431),
+            array('"', 403),
+            array('?', 394,),
+            array('!', 1),
+            array(':', 1),
+            array(';', 1),
+            array("\\", 1),
+            array('%', 1),
+            array('/', 1),
+            array('-', 1),
+            array('+', 1),
+            array('|', 1),
+            array('*', 1),
+            array('@', 1),
+            array(']', 1),
+            array('[', 1),
+            array(')', 1),
+            array('(', 1),
+            array('\'' => 1)
+        );
 
-        $part = $parts[$index];
+        $part = $parts[$index][0];
+        echo $part."\n";
         $criteria = new CDbCriteria;
         $criteria->params = array(':part' => '%' . $part . '%');
-        for ($i = 1; $i < 550; $i++) {
+        for ($i = $parts[$index][1]; $i < 550; $i++) {
             $criteria->condition = 'name LIKE :part AND id >= ' . ($i * 1000000) . ' AND id < ' . (($i + 1) * 1000000);
             $keywords = Keyword::model()->findAll($criteria);
             if (!empty($keywords))

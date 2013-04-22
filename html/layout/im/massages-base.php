@@ -134,15 +134,21 @@
 						<div class="im-tabs_i active"><a href="" class="im-tabs_a">Все</a></div>
 						<div class="im-tabs_i"><a href="" class="im-tabs_a">Новые <span class="im_count">2</span> </a></div>
 						<div class="im-tabs_i"><a href="" class="im-tabs_a">Кто в онлайн (12)</a></div>
-						<div class="im-tabs_i"><a href="" class="im-tabs_a">Друзья на сайте (8)</a></div>
+						<div class="im-tabs_i"><a href="" class="im-tabs_a inactive">Друзья на сайте (0)</a></div>
 					</div>
 					<div class="im-panel im-panel__big">
 						<div class="im-panel-icons">
 							<div class="im-panel-icons_i">
-								<a href="" class="im-panel-icons_i-a im-tooltipsy" title="Добавить в друзья">
+								<!-- Можно оставить в теге а -->
+								<span class="im-panel-icons_i-a im-tooltipsy im-panel-icons_i-a__request" title="Добавить в друзья">
 									<span class="im-panel-ico im-panel-ico__add-friend"></span>
-									<span class="im-panel-icons_desc">Добавить <br> в друзья</span>
-								</a>
+									<span class="im-panel-icons_desc">Запрос <br> отправлен</span>
+								</span>
+								<!-- 
+								<a href="" class="im-panel-icons_i-a im-tooltipsy im-panel-icons_i-a__request" title="Добавить в друзья">
+									<span class="im-panel-ico im-panel-ico__add-friend"></span>
+									<span class="im-panel-icons_desc">Запрос <br> отправлен</span>
+								</a> -->
 							</div>
 							<div class="im-panel-icons_i">
 								<a href="" class="im-panel-icons_i-a  im-tooltipsy" title="Заблокировать пользователя">
@@ -542,7 +548,7 @@
 									<button class="btn-green">Отправить</button>
 								</div>
 							</div>
-							<span class="im_toggle"></span>
+							<!-- <span class="im_toggle"></span> -->
 						</div>
 					</div>
 				</div>

@@ -241,6 +241,11 @@
 .im-tabs_a:hover {
   text-decoration: underline;
 }
+.im-tabs_a.inactive {
+  color: #c0c0c0;
+  cursor: default;
+  text-decoration: none;
+}
 .im-panel {
   padding: 10px 15px;
   background: #ebf4ff;
@@ -360,6 +365,15 @@
 .im-panel-icons_i.active .im-panel-ico__del,
 .im-panel-icons_i-a:hover .im-panel-ico__del {
   background-position: -60px -21px;
+}
+.im-panel-icons_i-a__request {
+  cursor: default;
+}
+.im-panel-icons_i-a__request .im-panel-icons_desc {
+  color: #a0a0a0;
+}
+.im-panel-icons_i-a__request:hover .im-panel-icons_desc {
+  color: #a0a0a0;
 }
 .im-panel-icons_desc {
   display: none;

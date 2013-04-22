@@ -43,9 +43,7 @@ im.scrollIm = function (){
     if (im.containerScroll > im.headerHeight ) {
         /* Класс управления фиксед элементами */
         im.imBlock.addClass("im__fixed");
-        /* Позиция блока сообщений */
-        /*imTopScroll = -im.height + im.viewHeight() + im.containerScroll*2 - im.headerHeight;
-        im.wrapper.css('top', imTopScroll);*/
+
 
     } else {
         /* Класс управления фиксед элементами */
@@ -53,10 +51,6 @@ im.scrollIm = function (){
 
         /* Высота sidebar списка собеседников */
         im.sidebarHeight();
-
-        /* Позиция блока сообщений */
-        /*imTopScroll = -im.height + im.viewHeight() + im.containerScroll;
-        im.wrapper.css('top', imTopScroll);*/
 
          /* заглушка */
          $('.im-cap').css('top', im.headerHeight + im.tabsHeight - im.containerScroll);
@@ -121,7 +115,7 @@ $(window).load(function() {
     });
 
     /* Изменение отступа от wysywig до конца стрнаицы */
-    im.imBlock.on("mousedown", ".im-center_bottom .im_toggle", function(e) {
+/*    im.imBlock.on("mousedown", ".im-center_bottom .im_toggle", function(e) {
         e.preventDefault();
         var imBottomHold = $('.im-center_bottom-hold');
         var imMiddle = $('.im-center_middle');
@@ -136,7 +130,7 @@ $(window).load(function() {
 
     }).on("mouseup", function(e) {
         im.imBlock.off("mousemove");
-    });
+    });*/
 
     /* Список скрытых пользователей в сайдбаре */
     $(".im-user-list_hide-a").click(function () {

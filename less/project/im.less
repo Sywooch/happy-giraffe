@@ -138,7 +138,7 @@
 	}
 	.ie8 &_top {margin-top: -11px;padding-top: 11px;}
 	&_middle {
-		padding: 363px 0 200px;	
+		padding: 363px 0 170px;	
 	}
 	&_middle-hold {position: relative;}
 	&_middle-w {
@@ -154,9 +154,7 @@
 		background: #fff;
 		z-index: 102;
 	}
-	&_bottom-hold {
-		background: #999;
-	}
+	&_bottom-hold {	background: #999;}
 }
 
 .im-tabs {
@@ -494,9 +492,7 @@
 	min-height: 87px;
 
 	&_ava {margin-right: 6px;}
-	&_w {
-		margin-left: 30px;
-	}
+	&_w {margin-left: 30px;}
 	&_control {
 		float: right;
 		margin-top: -23px;
@@ -518,45 +514,66 @@
 		color: #8bb0ca;
 	}
 	&_previewimg {
-	display: block;
-	margin-bottom: 10px;
-}
-&_previewimg_i {
-	display: inline-block;*zoom:1;*display:inline;
-    margin: 5px 5px 5px 0;
-    max-height: 70px;
-    max-width: 70px;
-    position: relative;
-    vertical-align: top;
-}
-&_previewimg_i > img {
-	display: block;
-	margin: 0;
-}
-&_previewimg_i:hover:after {
-	content: "";
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	background: #fafafa;
-	background: rgba(255,255,255,0.6);
-	z-index: 1;
-}
-&_previewimg_i:hover &_previewimg_del {display: block;}
-&_previewimg_del {
-	display: none;
-	position: absolute;
-	top: 5px;
-	right: 5px;
-    height: 12px !important;
-    width: 10px !important;
-	background: url("/images/common.png") no-repeat scroll -315px -149px transparent !important;
-    text-indent: -9999px;
-    z-index: 2;
-    cursor: pointer !important;
-}
+		display: block;
+		margin-bottom: 10px;
+	}
+	&_previewimg_i {
+		display: block;
+	    margin: 5px 5px 5px 0;
+	    max-height: 70px;
+	    max-width: 70px;
+	    position: relative;
+	    vertical-align: top;
+	}
+	&_previewimg_i > img {
+		display: block;
+		margin: 0;
+		position: relative;
+		z-index: 1;
+	}
+	&_previewimg_i:after {
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		height: 22px;
+		background: #fafafa;
+		background: rgba(255,255,255,0.6);
+		z-index: 2;
+	}
+	&_previewimg_i:hover &_previewimg_del {display: block;}
+	&_previewimg_del {
+		display: none;
+		position: absolute;
+		top: 5px;
+		right: 5px;
+	    height: 12px !important;
+	    width: 10px !important;
+		background: url("/images/common.png") no-repeat scroll -315px -149px transparent !important;
+	    text-indent: -9999px;
+	    z-index: 3;
+	    cursor: pointer !important;
+	}
+	&_cap {
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		border: 1px solid #cce2f1;
+		background: #eff6ff;
+		background: rgba(235,244,255,0.7);
+		text-align: center;
+		color: #898989;
+		z-index: 100;
+	}
+	&_cap-t {
+		position: relative;
+		margin: 35px 0 15px;
+		font-size: 20px;
+		color: #262626;
+	}
 }
 
 .tooltipsy-im {

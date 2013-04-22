@@ -189,4 +189,17 @@ class MessagingMessage extends CActiveRecord
                 return $messageUser->read;
         }
     }
+
+    public function getPhotoCollection()
+    {
+        $photos = array();
+        foreach ($this->images as $p)
+            $photos[] = $p->photo;
+
+        return array(
+            'title' => 'Изображения к сообщению',
+            'photos' => $photos,
+        );
+    }
+
 }

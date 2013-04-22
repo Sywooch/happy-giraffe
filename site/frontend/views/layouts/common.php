@@ -104,7 +104,7 @@
                 <li class="i-broadcast new top-line-menu_nav_li js-tooltipsy" title="Что нового">
                     <a href="<?=$this->createUrl('/whatsNew/default/index')?>"><i class="icon-broadcast"></i></a>
                 </li>
-                <?php if (Yii::app()->user->id != 12936 && Yii::app()->user->id != 22): ?>
+                <?php if (! in_array(Yii::app()->user->id, array(12936, 22, 9990))): ?>
                 <li class="i-dialogs top-line-menu_nav_li js-tooltipsy<?php if ($imCount > 0): ?> new<?php endif; ?>" title="Мои диалоги">
                     <a href="javascript:void(0)" onclick="Messages.toggle()">
                         <i class="icon-dialogs"></i>

@@ -21,11 +21,11 @@ im.viewHeight = function () {
 /* Высота в sidebar списка собеседников */
 im.sidebarHeight = function () {
  
-    if (im.containerScroll > im.headerHeight) {
+/*    if (im.containerScroll > im.headerHeight) {
         im.userList.height(im.sidebar.height() - im.userListIndentFix);
-    } else {
-        im.userList.height(im.windowHeight - im.headerHeight - im.userListIndent + im.containerScroll);
-    }
+    } else {*/
+        im.userList.height(im.windowHeight - im.headerHeight - im.userListIndent);
+/*    }*/
 
 }
 
@@ -40,21 +40,21 @@ im.holdHeights = function  () {
 
 /* Поизиция скрола */
 im.scrollIm = function (){
-    if (im.containerScroll > im.headerHeight ) {
+   // if (im.containerScroll > im.headerHeight ) {
         /* Класс управления фиксед элементами */
-        im.imBlock.addClass("im__fixed");
+        
 
 
-    } else {
+    //} else {
         /* Класс управления фиксед элементами */
-        im.imBlock.removeClass("im__fixed");
+       // im.imBlock.removeClass("im__fixed");
 
         /* Высота sidebar списка собеседников */
         im.sidebarHeight();
 
          /* заглушка */
          $('.im-cap').css('top', im.headerHeight + im.tabsHeight - im.containerScroll);
-    }
+   // }
 }
 
 /* im - instant messeger for user */
@@ -78,13 +78,12 @@ $(window).load(function() {
     scrollFix();
 
     /*im.wrapper.css('top',  -im.height + im.viewHeight());*/
-
     im.holdHeights ();
     /* Прокручивание в конец страницы */
     im.container.scrollTop($('.layout-container_hold').height());
 
     /* Высота sidebar списка собеседников */
-    im.sidebarHeight(0);
+    im.sidebarHeight();
 
     im.container.bind('scroll', function () {
         im.containerScroll = im.container.scrollTop();

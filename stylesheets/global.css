@@ -1,3 +1,29 @@
+.im-fixed #header-new {
+  position: fixed;
+  top: 42px;
+}
+.im-fixed .im-sidebar {
+  position: fixed;
+  top: 200px;
+}
+.im-fixed .im-center_top {
+  position: fixed;
+  top: 211px;
+}
+.im-fixed .im-center_bottom {
+  position: fixed;
+}
+.im-fixed .im:after {
+  position: fixed;
+}
+.im-fixed .im:before {
+  position: fixed;
+  top: 200px;
+}
+.im-fixed.ie8 .im:after,
+.im-fixed.ie8 .im:before {
+  display: none;
+}
 .im {
   position: relative;
   margin: -20px -20px -50px;
@@ -16,28 +42,6 @@
 .im:after {
   top: auto;
   bottom: 0;
-}
-.im__fixed .im-sidebar {
-  position: fixed;
-  top: 42px;
-}
-.im__fixed .im-center_top {
-  position: fixed;
-  top: 53px;
-}
-.im__fixed .im-center_bottom {
-  position: fixed;
-}
-.im__fixed:after {
-  position: fixed;
-}
-.im__fixed:before {
-  position: fixed;
-  top: 42px;
-}
-.ie8 .im__fixed:after,
-.ie8 .im__fixed:before {
-  display: none;
 }
 .im__cap .im-message_tx {
   color: transparent;
@@ -190,7 +194,7 @@
   padding-top: 11px;
 }
 .im-center_middle {
-  padding: 185px 0 190px;
+  padding: 363px 0 190px;
 }
 .im-center_middle-hold {
   position: relative;
@@ -335,6 +339,10 @@
 .im-user-settings_online-status-small__offline {
   background: #c6c7c7;
 }
+.im-user-settings_friend {
+  padding: 0 4px;
+  color: #47C05A;
+}
 .im-panel-icons {
   float: right;
   padding: 2px 0 0;
@@ -418,6 +426,9 @@
 }
 .im-message:hover .im-message_icons {
   display: block;
+}
+.im-message__new {
+  background: #e9fbea;
 }
 .im-message__edited .im-message_tx {
   background: #fdfcd9;

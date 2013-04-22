@@ -1,8 +1,8 @@
 ﻿<!DOCTYPE html>
-<!--[if lt IE 8]>      <html class="top-nav-fixed ie7"> <![endif]-->
-<!--[if IE 8]>         <html class="top-nav-fixed ie8"> <![endif]-->
-<!--[if IE 9]>         <html class="top-nav-fixed ie9"> <![endif]-->
-<!--[if gt IE 9]><!--> <html class="top-nav-fixed"> <!--<![endif]-->
+<!--[if lt IE 8]>      <html class="top-nav-fixed ie7 im-fixed"> <![endif]-->
+<!--[if IE 8]>         <html class="top-nav-fixed ie8 im-fixed"> <![endif]-->
+<!--[if IE 9]>         <html class="top-nav-fixed ie9 im-fixed"> <![endif]-->
+<!--[if gt IE 9]><!--> <html class="top-nav-fixed im-fixed"> <!--<![endif]-->
 <head>
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/head.php'; ?>
 	<script type="text/javascript" src="/javascripts/im.js"></script>
@@ -182,6 +182,7 @@
 							</a>
 							<div class="im-user-settings_user">
 								<a href="" class="textdec-onhover">Олег Богоявленский</a>
+								<span class="im-user-settings_friend">Друг</span>
 								<div class="im-user-settings_online-status">На сайте</div>
 							</div>
 							<div class="user-fast-buttons">
@@ -458,6 +459,27 @@
 							</div>
 							
 							
+							<div class="im-message im-message__new clearfix">
+								<div class="im-message_icons">
+									<div class="im-message_icons-i">
+										<a href="" class="im-message_ico im-message_ico__del im-tooltipsy" title="Удалить"></a>
+									</div>
+								</div>
+								<a class="ava small female" href="">
+									<img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg">
+								</a>
+								<div class="im-message_hold">
+									<div class="im-message_t">
+										<a href="" class="im-message_user">Анастасия</a>
+										<em class="im-message_date">28 янв 2012, 13:45</em>
+									</div>
+									<div class="im-message_tx">
+										<!-- Текст может быть отформатирован с помощью абзацев или переносов строки br -->
+										<p>Привет! У меня родился сын! Вот фото!</p>
+										<p>Уже два года назад стала просматриваться тенденция на неоновые оттенки. Сначала яркие цвета разнообразили привычные тона лаков для ногтей, и красивые пальчики молодых девушек стали выделяться благодаря красочному маникюру, а потом и губы модниц засветились </p>
+									</div>
+								</div>
+							</div>
 							<div class="im-message im-message__edited clearfix">
 								<div class="im-message_icons">
 									<div class="im-message_icons-i">

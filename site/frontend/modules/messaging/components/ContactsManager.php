@@ -82,7 +82,7 @@ class ContactsManager
             # Связывание с таблицей фотографий для получения аватара
             LEFT OUTER JOIN album__photos p ON u.avatar_id = p.id
             # Условие для корректной работы связывание с таблицей участников диалога
-            WHERE tu.user_id IS NULL OR (tu.user_id IS NOT NULL AND tu2.user_id IS NOT NULL)
+            WHERE tu.user_id IS NULL OR (tu.user_id IS NOT NULL AND tu2.user_id IS NOT NULL) AND uId NOT IN (SELECT blocked_user_id FROM blacklist WHERE user_id = :user_id)
             GROUP BY u.id;
         ";
 

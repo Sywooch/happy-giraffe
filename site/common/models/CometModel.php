@@ -41,6 +41,7 @@ class CometModel extends CComponent
     const MESSAGING_MESSAGE_RECEIVED = 2000;
     const MESSAGING_INTERLOCUTOR_TYPING = 2001;
     const MESSAGING_THREAD_READ = 2002;
+    const MESSAGING_ONLINE_STATUS_CHANGED = 2003;
 
     public $attributes = array();
     public $type;

@@ -18,6 +18,7 @@ class MessagingCommand extends CConsoleCommand
     {
         DialogUser::model()->deleteAll('user_id IS NULL');
         Message::model()->deleteAll('user_id IS NULL');
+
         $dataProvider = new CActiveDataProvider('Dialog', array(
             'criteria' => array(
                 'with' => array(
@@ -30,7 +31,7 @@ class MessagingCommand extends CConsoleCommand
 
         $iterator = new CDataProviderIterator($dataProvider, 1000);
         foreach ($iterator as $dialog) {
-            if (! empty($messages))
+            if (! empty($dialog->messages))
                 $this->_process($dialog);
         }
     }
@@ -81,14 +82,12 @@ class MessagingCommand extends CConsoleCommand
         }
         $thread->messages = $messages;
 
-        if ($thread->withRelated->save(true, array(
+        if (! $thread->withRelated->save(true, array(
             'threadUsers',
             'messages' => array(
                 'messageUsers',
             ),
         )))
-            echo 'Thread ' . $thread->id . ' has been successfully saved.';
-        else
-            echo 'Thread ' . $thread->id . ' has not been saved';
+            echo 'Thread ' . $thread->id . ' has not been saved.' . "\n";
     }
 }

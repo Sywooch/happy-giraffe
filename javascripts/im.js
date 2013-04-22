@@ -20,10 +20,8 @@ im.viewHeight = function () {
 
 /* Высота в sidebar списка собеседников */
 im.sidebarHeight = function () {
-        
-    /* Класс управления фиксед элементами */
-    im.im__fixed = $(".im__fixed");
-    if (im.im__fixed.length > 0) {
+ 
+    if (im.containerScroll > im.headerHeight) {
         im.userList.height(im.sidebar.height() - im.userListIndentFix);
     } else {
         im.userList.height(im.windowHeight - im.headerHeight - im.userListIndent + im.containerScroll);

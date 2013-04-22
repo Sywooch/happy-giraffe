@@ -508,16 +508,19 @@
 				        }
 				    },
 
+					extraPlugins : 'autogrow,attach,smiles,othertext',
 					contentsCss : '/ckeditor/skins/im-editor/contents.css', 
 					skin : 'im-editor',
 					toolbar : [	
 						['othertext', 'Smiles','Attach']
 					],
 					toolbarCanCollapse: false,
-					disableObjectResizing: false,
-					resize_enabled : true,
 					toolbarLocation : 'bottom',
-					height: 58
+					height: 58,
+					autoGrow_maxHeight : 150,
+					autoGrow_minHeight : 58,
+					// Remove the Resize plugin as it does not make sense to use it in conjunction with the AutoGrow plugin.
+					removePlugins : 'resize, elementspath'
 				});
 
 		});

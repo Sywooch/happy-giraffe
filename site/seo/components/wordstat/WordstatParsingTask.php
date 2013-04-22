@@ -30,8 +30,8 @@ class WordstatParsingTask
         $this->mongo->connect();
         $this->simple_collection = $this->mongo->selectCollection('parsing', 'simple_parsing');
         $this->simple_collection->ensureIndex(array('id' => 1), array("unique" => true));
-        $this->priority_collection = $this->mongo->selectCollection('parsing', 'priority_collection');
-        $this->priority_collection->ensureIndex(array('id' => 1), array("unique" => true));
+//        $this->priority_collection = $this->mongo->selectCollection('parsing', 'priority_collection');
+//        $this->priority_collection->ensureIndex(array('id' => 1), array("unique" => true));
     }
 
     private function __clone()

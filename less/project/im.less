@@ -57,11 +57,11 @@
 		position: absolute;
 		bottom: 10px;
 		left: 50%;
-		width: 56px;
-		height: 11px;
-		margin: 0 0 0 -26px;
-		background: url(/images/im/im-toggle.png) no-repeat 0 -11px;
-		cursor: s-resize;
+		width: 80px;
+		height: 25px;
+		margin: 0 0 0 -40px;
+		background: url(/images/im/im-toggle.png) no-repeat 50% -41px;
+		cursor: default;
 	}
 	&_message-loader {
 		min-height: 30px;
@@ -203,7 +203,7 @@
 	&__big .im-panel-icons_i {margin-right: 15px;}
 	&__big .im-panel-icons_desc {.inline-block();}
 	&__big .user-fast-buttons {display: block;}
-	&__big .im_toggle {background-position: 0 0;}
+	&__big .im_toggle {background-position: 50% 10px;}
 	&__big .im-user-settings_user {padding-top: 17px;}
 	&__big .im-user-settings_online-status {.inline-block();}
 	&__big .im-user-settings_online-status-small {display: none;}
@@ -477,11 +477,13 @@
 	}
 	&_i:hover {background: #f8fbff;}
 	&_i:hover .im_count__read {display: block;}
-	&_i a {text-decoration: none;}
 	&_i.active {background: #5e93d5;}
 	&_i.active a {color: #fff;font-weight: bold;}
 	&_i.active .im_watch {background-position: -40px 0;} 
-	&_i.active .im_watch:hover {background-position: -40px -10px;} 
+	&_i.active .im_watch:hover {background-position: -40px -10px;}
+	&_i a {text-decoration: none;}
+	&_i .im_watch {display: none;}
+	&_i:hover .im_watch {display: block;}
 	&_hide-a {
 		.inline-block();
 		margin: 10px 25px 30px;
@@ -522,48 +524,6 @@
 		font-size: 9px;
 		font-family: Tahoma, Arial, Verdana, sans-serif;
 		color: #8bb0ca;
-	}
-	&_previewimg {
-		display: block;
-		margin-bottom: 10px;
-	}
-	&_previewimg_i {
-		display: block;
-	    margin: 5px 5px 5px 0;
-	    max-height: 70px;
-	    max-width: 70px;
-	    position: relative;
-	    vertical-align: top;
-	}
-	&_previewimg_i > img {
-		display: block;
-		margin: 0;
-		position: relative;
-		z-index: 1;
-	}
-	&_previewimg_i:after {
-		content: "";
-		position: absolute;
-		top: 0;
-		left: 0;
-		right: 0;
-		height: 22px;
-		background: #fafafa;
-		background: rgba(255,255,255,0.6);
-		z-index: 2;
-	}
-	&_previewimg_i:hover &_previewimg_del {display: block;}
-	&_previewimg_del {
-		display: none;
-		position: absolute;
-		top: 5px;
-		right: 5px;
-	    height: 12px;
-	    width: 10px;
-		background: url("/images/common.png") no-repeat scroll -315px -149px transparent;
-	    text-indent: -9999px;
-	    z-index: 3;
-	    cursor: pointer;
 	}
 	&_cap {
 		position: absolute;

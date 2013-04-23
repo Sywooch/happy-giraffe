@@ -4,6 +4,7 @@
             <h2 class="im-sidebar_t">Мои диалоги</h2>
             <div class="im-sidebar_search clearfix">
                 <input type="text" class="im-sidebar_search-itx" placeholder="Найти по имени" data-bind="value: searchQuery, valueUpdate: 'keyup'">
+                <input type="reset" value="" name="" class="im-sidebar_search-reset ico-close" data-bind="click: clearSearchQuery, visible: searchQuery() != ''">
                 <button class="im-sidebar_search-btn"></button>
             </div>
             <div class="im-user-list">
@@ -20,7 +21,7 @@
 
             <div class="im-center_top">
                 <div class="im-tabs">
-                    <a href="javascript:void(0)" class="im_sound im-tooltipsy" title="Включить звуковые <br>оповещения" data-bind="click: toggleSoundSetting, css: { active : soundSetting }"></a>
+                    <a href="javascript:void(0)" class="im_sound im-tooltipsy" data-bind="click: toggleSoundSetting, css: { active : soundSetting }, tooltip: soundSetting() ? 'Выключить звуковые <br>оповещения' : 'Включить звуковые <br>оповещения'"></a>
                     <div class="im-tabs_i" data-bind="css: { active : tab() == 0 }"><a href="javascript:void(0)" class="im-tabs_a" data-bind="click: function(data, event) { changeTab(0, data, event) }">Все</a></div>
                     <div class="im-tabs_i" data-bind="css: { active : tab() == 1 }"><a href="javascript:void(0)" class="im-tabs_a" data-bind="css: { inactive : newContacts().length == 0 }, click: function(data, event) { if (newContacts().length > 0) changeTab(1, data, event) }">Новые <span class="im_count" data-bind="visible: newContacts().length > 0, text: newContacts().length"></span> </a></div>
                     <div class="im-tabs_i" data-bind="css: { active : tab() == 2 }"><a href="javascript:void(0)" class="im-tabs_a" data-bind="css: { inactive : onlineContacts().length == 0 }, click: function(data, event) { if (onlineContacts().length > 0) changeTab(2, data, event) }, text: onlineContacts().length > 0 ? 'Кто в онлайн (' + onlineContacts().length + ')' : 'Кто в онлайн'"></a></div>
@@ -52,7 +53,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="im-panel-icons_i" data-bind="if: openContact().thread() !== null">
+                        <div class="im-panel-icons_i" data-bind="if: openContact().thread() !== null && messagesToShow().length > 0">
                             <a href="javascript:void(0)" class="im-panel-icons_i-a im-tooltipsy" title="Удалить весь диалог" data-bind="click: openContact().thread().deleteMessages">
                                 <span class="im-panel-ico im-panel-ico__del"></span>
                                 <span class="im-panel-icons_desc">Удалить <br> весь диалог</span>
@@ -120,8 +121,18 @@
                                     <input type="checkbox" name="" id="im-editor-b_key-checkbox" class="im-editor-b_key-checkbox" data-bind="checked: enterSetting, click: focusEditor">
                                     <label for="im-editor-b_key-checkbox" class="im-editor-b_key-label">Enter - отправить</label>
                                 </div>
-                                <button class="btn-green" data-bind="click: handleClick, text: editingMessageId() === null ? 'Отправить' : 'Сохранить'"></button>
+                                <button class="btn-green" data-bind="click: submit, text: editingMessageId() === null ? 'Отправить' : 'Сохранить'"></button>
                             </div>
+                            <span class="im-editor-b_previewimg" data-bind="foreach: uploadedImages">
+                                <span class="im-editor-b_previewimg_i" title="Название файла">
+                                    <img alt="" data-bind="attr: { src : preview }">
+                                    <a href="javascript:void(0)" class="im-editor-b_previewimg_del" data-bind="click: $root.removeImage"></a>
+                                </span>
+                            </span>
+                        </div>
+                        <div class="im-editor-b_cap" data-bind="visible: interlocutor().isBlocked">
+                            <div class="im-editor-b_cap-t">Данный пользователь не хочет с вами общаться</div>
+                            <div class="im-editor-b_cap-tx">Вы не можете отправлять ему сообщения</div>
                         </div>
                         <!--<span class="im_toggle"></span>-->
                     </div>
@@ -169,7 +180,7 @@ $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
 </script>
 
 <script type="text/html" id="message-template">
-    <div class="im-message clearfix" data-bind="css: { 'im-message__edited' : edited }">
+    <div class="im-message clearfix" data-bind="visible: deleted() === false, css: { 'im-message__edited' : edited }">
         <div class="im-message_icons" data-bind="css: { active : showAbuse() }">
             <div class="im-message_icons-i" data-bind="if: author().id() != $root.me.id(), css: { active : showAbuse() }">
                 <a href="javascript:void(0)" class="im-message_ico im-message_ico__warning im-tooltipsy" data-bind="click: toggleShowAbuse, tooltip: 'Пожаловаться'"></a>
@@ -197,7 +208,7 @@ $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
                         <input type="text" name="" id="" class="im-tooltip-popup_itx" placeholder="Другое">
                     </label>
                     <div class="clearfix textalign-c">
-                        <button class="btn-green" data-bind="click: toggleShowAbuse">Пожаловаться</button>
+                        <button class="btn-green" data-bind="click: markAsSpam">Пожаловаться</button>
                         <button class="btn-gray" data-bind="click: toggleShowAbuse">Отменить</button>
                     </div>
                 </div>
@@ -223,6 +234,20 @@ $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
                 <a href="javascript:void(0)" class="im-message_img" data-bind="attr: { 'data-id' : id() }">
                     <img alt="" data-bind="attr: { src : preview }">
                 </a>
+            </div>
+        </div>
+    </div>
+    <div class="im-message clearfix" data-bind="visible: deleted() === true">
+        <a class="ava small" href="javascript:void(0)" data-bind="css: author().avatarClass()">
+            <img alt="" data-bind="attr : { src : author().avatar() }">
+        </a>
+        <div class="im-message_hold">
+            <div class="im-message_t">
+                <a href="javascript: void(0)" class="im-message_user" data-bind="text: author().firstName()"></a>
+                <em class="im-message_date" data-bind="text: created()"></em>
+            </div>
+            <div class="im-message_tx">
+                <span data-bind="text: isSpam() ? 'Это сообщение помечено как спам и удалено.' : 'Это сообщение удалено.'"></span> <a href="javascript:void(0)" data-bind="click: restore">Восстановить</a>
             </div>
         </div>
     </div>

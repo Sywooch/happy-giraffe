@@ -18,6 +18,7 @@ class MessagingCommand extends CConsoleCommand
     {
         DialogUser::model()->deleteAll('user_id IS NULL');
         Message::model()->deleteAll('user_id IS NULL');
+
         $dataProvider = new CActiveDataProvider('Dialog', array(
             'criteria' => array(
                 'with' => array(
@@ -30,7 +31,7 @@ class MessagingCommand extends CConsoleCommand
 
         $iterator = new CDataProviderIterator($dataProvider, 1000);
         foreach ($iterator as $dialog) {
-            if (! empty($messages))
+            if (! empty($dialog->messages))
                 $this->_process($dialog);
         }
     }
@@ -63,32 +64,34 @@ class MessagingCommand extends CConsoleCommand
 
         $messages = array();
         foreach ($dialog->messages as $m) {
-            $message = new MessagingMessage();
-            $message->detachBehavior('CTimestampBehavior');
-            $message->author_id = $m->user_id;
-            $message->text = $m->text;
-            $message->created = $m->created;
-            $message->updated = $m->created;
-            $messageUsers = array();
-            foreach ($dialog->dialogUsers as $dialogUser) {
-                $messageUser = new MessagingMessageUser();
-                $messageUser->user_id = $dialogUser->user_id;
-                $messageUser->read = $dialogUser->user_id == $m->user_id ? null : 1;
-                $messageUsers[] = $messageUser;
+            if (! empty($m->text)) {
+                $message = new MessagingMessage();
+                $message->detachBehavior('CTimestampBehavior');
+                $message->author_id = $m->user_id;
+                $message->text = $m->text;
+                $message->created = $m->created;
+                $message->updated = $m->created;
+                $messageUsers = array();
+                foreach ($dialog->dialogUsers as $dialogUser) {
+                    $messageUser = new MessagingMessageUser();
+                    $messageUser->user_id = $dialogUser->user_id;
+                    $messageUser->read = $dialogUser->user_id == $m->user_id ? null : 1;
+                    $messageUsers[] = $messageUser;
+                }
+                $message->messageUsers = $messageUsers;
+                $messages[] = $message;
             }
-            $message->messageUsers = $messageUsers;
-            $messages[] = $message;
         }
         $thread->messages = $messages;
 
-        if ($thread->withRelated->save(true, array(
+        if (! $thread->withRelated->save(true, array(
             'threadUsers',
             'messages' => array(
                 'messageUsers',
             ),
-        )))
-            echo 'Thread ' . $thread->id . ' has been successfully saved.';
-        else
-            echo 'Thread ' . $thread->id . ' has not been saved';
+        ))) {
+            echo 'Dialog ' . $dialog->id . ' has not been saved.' . "\n";
+            Yii::app()->end();
+        }
     }
 }

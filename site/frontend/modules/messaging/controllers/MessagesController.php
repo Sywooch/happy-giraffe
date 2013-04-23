@@ -2,6 +2,8 @@
 
 class MessagesController extends HController
 {
+    const ERROR_BLOCKED = 1;
+
     public function filters()
     {
         return array(
@@ -17,6 +19,20 @@ class MessagesController extends HController
             'user_id' => Yii::app()->user->id,
             'message_id' => $messageId,
         ), array('deleted' => 1));
+
+        $response = array(
+            'success' => true,
+        );
+        echo CJSON::encode($response);
+    }
+
+    public function actionRestore()
+    {
+        $messageId = Yii::app()->request->getPost('messageId');
+        MessagingMessageUser::model()->updateByPk(array(
+            'user_id' => Yii::app()->user->id,
+            'message_id' => $messageId,
+        ), array('deleted' => 0));
 
         $response = array(
             'success' => true,
@@ -61,6 +77,16 @@ class MessagesController extends HController
         $text = Yii::app()->request->getPost('text');
         $images = Yii::app()->request->getPost('images', array());
 
+        if (Blacklist::model()->isBlocked($interlocutorId, Yii::app()->user->id)) {
+            $response = array(
+                'success' => false,
+                'error' => self::ERROR_BLOCKED,
+            );
+
+            echo CJSON::encode($response);
+            Yii::app()->end();
+        }
+
         $receiverData = array(
             'contact' => array(
                 'user' => array(
@@ -91,6 +117,7 @@ class MessagesController extends HController
 
         $receiverData['message'] = $data['message'] = $message->json;
         $receiverData['time'] = $data['time'] = time();
+        $data['success'] = $message !== false;
 
         $comet = new CometModel();
         $comet->send($interlocutorId, $receiverData, CometModel::MESSAGING_MESSAGE_RECEIVED);

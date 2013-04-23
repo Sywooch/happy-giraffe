@@ -110,35 +110,7 @@
 								<div class="im_watch im-tooltipsy" title="Показать диалог"></div>
 								<div class="im_count im-tooltipsy" title="Отметить как прочитанное">236</div>
 							</div>
-							<div class="im-user-list_i">
-								<div class="im-user-settings clearfix">
-									<div class="im-user-settings_online-status-small im-user-settings_online-status-small__offline"></div>
-									<a class="ava female" href="">
-										<img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg">
-									</a>
-									<div class="im-user-settings_user">
-										<a href="" class="">Арина Поплавская</a>
-									</div>
-								</div>
-								
-								<div class="im_watch im-tooltipsy" title="Показать диалог"></div>
-								<div class="im_count im-tooltipsy" title="Отметить как прочитанное">236</div>
-							</div>
 							
-							<div class="im-user-list_i">
-								<div class="im-user-settings clearfix">
-									<div class="im-user-settings_online-status-small im-user-settings_online-status-small__offline"></div>
-									<a class="ava female" href="">
-										<img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg">
-									</a>
-									<div class="im-user-settings_user">
-										<a href="" class="">Арина Поплавовская</a>
-									</div>
-								</div>
-								
-								<div class="im_watch im-tooltipsy" title="Показать диалог"></div>
-								<div class="im_count im-tooltipsy" title="Отметить как прочитанное">6</div>
-							</div>
 						</div>
 					</div>
 				</div>

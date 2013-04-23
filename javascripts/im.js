@@ -45,16 +45,13 @@ im.holdHeights = function  () {
 
  /* Список скрытых пользователей в сайдбаре */
 im.hideContacts = function () {
-    var hiddenContactHeight = 52;
-    var hiddenContacts = $('.im-user-list_hide-b .im-user-list_i');
+    var hiddenContactHeight = $('.im-user-list_i').outerHeight();
     var hiddenContactsHeight = $('.im-user-list_hide-b').height();
-    var contactsHeight = $('.im-user-list_hold').height();
-
-    var contactsScrollPos = contactsHeight - hiddenContactsHeight + hiddenContactHeight;
-    /*var contactPosition = Math.min(hiddenContacts.length, 2) - 1;*/
-    /*var contact = hiddenContacts.get(contactPosition);*/
-    console.log(contactsHeight);
-    $('.im-user-list').scrollTop(80);
+    var contactsHoldHeight = $('.im-user-list_hold').height();
+    var contactsHeight = $('.im-user-list').height();
+    /* 2 количесво показывающихся скрытых контактов после скролла */
+    var contactsScrollPos = contactsHoldHeight - hiddenContactsHeight - contactsHeight + hiddenContactHeight*2;
+    $('.im-user-list').scrollTop(contactsScrollPos);
 }
 
 /* Поизиция скрола */

@@ -241,6 +241,7 @@ function MessagingViewModel(data) {
         self.uploadedImages(self.openContact().draftImages);
 
         self.interlocutorTyping(false);
+        self.meTyping(false);
 
         $.get('/messaging/interlocutors/get/', { interlocutorId : contact.user().id() }, function(response) {
             self.interlocutor(new Interlocutor(response.interlocutor, self));
@@ -375,6 +376,15 @@ function MessagingViewModel(data) {
         });
     });
 
+    self.messagesOffset = ko.computed(function() {
+        var result = 0;
+        ko.utils.arrayForEach(self.messages(), function(message) {
+            if (! message.deleted())
+                result++;
+        });
+        return result;
+    });
+
     self.interlocutorsMessagesToShow = ko.computed(function() {
         return ko.utils.arrayFilter(self.messagesToShow(), function(message) {
             return message.author().id() != self.me.id();
@@ -421,7 +431,7 @@ function MessagingViewModel(data) {
         var startHeight = im.container.get(0).scrollHeight;
         var startTop = im.container.scrollTop();
         self.loadingMessages(true);
-        $.get('/messaging/threads/getMessages/', { threadId : self.openContact().thread().id, offset: self.messages().length }, function(response) {
+        $.get('/messaging/threads/getMessages/', { threadId : self.openContact().thread().id, offset: self.messagesOffset() }, function(response) {
             ko.utils.arrayForEach(response.messages, function(message) {
                 self.messages.push(new Message(message, self));
             });
@@ -452,6 +462,7 @@ function MessagingViewModel(data) {
 
         $.post('/messaging/messages/send/', data, function(response) {
             self.sendingMessage(false);
+            self.meTyping(false);
 
             if (response.success) {
                 CKEDITOR.instances['im-editor'].setData('', function() {
@@ -507,10 +518,7 @@ function MessagingViewModel(data) {
     self.toggleShowHiddenContacts = function() {
         self.showHiddenContacts(! self.showHiddenContacts());
         if (self.showHiddenContacts()) {
-            var hiddenContacts = $('.im-user-list_hide-b .im-user-list_i');
-            var contactPosition = Math.min(hiddenContacts.length, 2) - 1;
-            var contact = hiddenContacts.get(contactPosition);
-            $('.im-user-list').scrollTop(contact.offsetTop);
+            im.hideContacts();
         }
     }
 

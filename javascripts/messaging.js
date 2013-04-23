@@ -107,6 +107,8 @@ function Contact(data, parent) {
 
     self.user = ko.observable(new User(data.user, parent));
     self.thread = ko.observable(data.thread == null? null : new Thread(data.thread, parent));
+    self.draftText = '';
+    self.draftImages = [];
 }
 
 function Image(data, parent) {
@@ -182,12 +184,13 @@ function MessagingViewModel(data) {
         return new Contact(contact, self);
     }));
     self.messages = ko.observableArray([]);
-    self.openContactIndex = ko.observable('');
+    self.openContactIndex = ko.observable(null);
     self.interlocutor = ko.observable('');
     self.me = new User(data.me, self);
     self.loadingMessages = ko.observable(false);
     self.sendingMessage = ko.observable(false);
     self.interlocutorTyping = ko.observable(false);
+    self.showHiddenContacts = ko.observable(false);
 
     self.meTyping = ko.observable(false);
     self.meTyping.subscribe(function(a) {
@@ -225,7 +228,16 @@ function MessagingViewModel(data) {
     }
 
     self.openThread = function(contact) {
+        if (self.openContactIndex() !== null) {
+            self.openContact().draftText = CKEDITOR.instances['im-editor'].getData();
+            self.openContact().draftImages = self.uploadedImages();
+        }
+
         self.openContactIndex(self.contacts().indexOf(contact));
+        CKEDITOR.instances['im-editor'].setData(self.openContact().draftText, function() {
+            CKEDITOR.instances['im-editor'].focus();
+        });
+        self.uploadedImages(self.openContact().draftImages);
 
         self.interlocutorTyping(false);
 
@@ -434,22 +446,23 @@ function MessagingViewModel(data) {
             data.threadId = self.openContact().thread().id();
 
         $.post('/messaging/messages/send/', data, function(response) {
+            self.sendingMessage(false);
+
             if (response.success) {
-                self.messages.push(new Message(response.message, self));
                 CKEDITOR.instances['im-editor'].setData('', function() {
                     CKEDITOR.instances['im-editor'].focus();
                 });
+                self.uploadedImages([]);
+
+                self.messages.push(new Message(response.message, self));
+
                 if (self.openContact().thread() === null)
                     self.openContact().thread(new Thread(response.thread, self));
                 else
                     self.openContact().thread().updated(response.time);
-
-                self.uploadedImages([]);
             } else if (response.error == 1) {
                 self.interlocutor().isBlocked(true);
             }
-
-            self.sendingMessage(false);
         }, 'json');
     }
 
@@ -486,8 +499,15 @@ function MessagingViewModel(data) {
         return true;
     }
 
-    if (data.interlocutorId !== null || self.contactsToShow().length > 0)
-        self.openThread(data.interlocutorId == null ? self.contactsToShow()[0] : self.findByInterlocutorId(data.interlocutorId));
+    self.toggleShowHiddenContacts = function() {
+        self.showHiddenContacts(! self.showHiddenContacts());
+        if (self.showHiddenContacts()) {
+            var hiddenContacts = $('.im-user-list_hide-b .im-user-list_i');
+            var contactPosition = Math.min(hiddenContacts.length, 2) - 1;
+            var contact = hiddenContacts.get(contactPosition);
+            $('.im-user-list').scrollTop(contact.offsetTop);
+        }
+    }
 
     soundManager.setup({
         url: '/swf/',
@@ -498,6 +518,11 @@ function MessagingViewModel(data) {
     });
 
     $(function() {
+        CKEDITOR.instances['im-editor'].on('instanceReady', function() {
+            if (data.interlocutorId !== null || self.contactsToShow().length > 0)
+                self.openThread(data.interlocutorId == null ? self.contactsToShow()[0] : self.findByInterlocutorId(data.interlocutorId));
+        });
+
         CKEDITOR.instances['im-editor'].on('blur', function() {
             if (self.openContact() !== null)
                 self.meTyping(false);

@@ -5,6 +5,8 @@ function Interlocutor(data, parent) {
     self.blogPostsCount = ko.observable(data.blogPostsCount);
     self.photosCount = ko.observable(data.photosCount);
     self.inviteSent = ko.observable(data.inviteSent);
+    self.isBlocked = ko.observable(data.isBlocked);
+
     self.toBlackList = ko.observable(false);
 
     self.blockHandler = function() {
@@ -218,8 +220,15 @@ function MessagingViewModel(data) {
         self.interlocutorExpandedSetting(! self.interlocutorExpandedSetting());
     }
 
+    self.clearSearchQuery = function() {
+        self.searchQuery('');
+    }
+
     self.openThread = function(contact) {
         self.openContactIndex(self.contacts().indexOf(contact));
+
+        self.interlocutorTyping(false);
+
         $.get('/messaging/interlocutors/get/', { interlocutorId : contact.user().id() }, function(response) {
             self.interlocutor(new Interlocutor(response.interlocutor, self));
         }, 'json');
@@ -425,17 +434,22 @@ function MessagingViewModel(data) {
             data.threadId = self.openContact().thread().id();
 
         $.post('/messaging/messages/send/', data, function(response) {
-            self.messages.push(new Message(response.message, self));
-            CKEDITOR.instances['im-editor'].setData('', function() {
-                CKEDITOR.instances['im-editor'].focus();
-            });
-            if (self.openContact().thread() === null)
-                self.openContact().thread(new Thread(response.thread, self));
-            else
-                self.openContact().thread().updated(response.time);
+            if (response.success) {
+                self.messages.push(new Message(response.message, self));
+                CKEDITOR.instances['im-editor'].setData('', function() {
+                    CKEDITOR.instances['im-editor'].focus();
+                });
+                if (self.openContact().thread() === null)
+                    self.openContact().thread(new Thread(response.thread, self));
+                else
+                    self.openContact().thread().updated(response.time);
+
+                self.uploadedImages([]);
+            } else if (response.error == 1) {
+                self.interlocutor().isBlocked(true);
+            }
 
             self.sendingMessage(false);
-            self.uploadedImages([]);
         }, 'json');
     }
 
@@ -492,13 +506,11 @@ function MessagingViewModel(data) {
         CKEDITOR.instances['im-editor'].on('key', function (e) {
             if (e.data.keyCode == 13 && self.enterSetting())
                 self.submit();
-            else {
-                if (self.openContact() !== null) {
-                    self.meTyping(true);
-                    setTimeout(function() {
-                        self.meTyping(false);
-                    }, 10000);
-                }
+            else if (self.openContact() !== null) {
+                self.meTyping(true);
+                setTimeout(function() {
+                    self.meTyping(false);
+                }, 5000);
             }
         });
 
@@ -523,7 +535,8 @@ function MessagingViewModel(data) {
         }
 
         Comet.prototype.typingStatus = function (result, id) {
-            self.interlocutorTyping(result.typingStatus);
+            if (self.openContact().user().id() == result.interlocutorId)
+                self.interlocutorTyping(result.typingStatus);
         }
 
         Comet.prototype.readStatus = function (result, id) {

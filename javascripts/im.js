@@ -18,6 +18,11 @@ im.viewHeight = function () {
     return im.windowHeight - im.topHeight - im.bottomHeight - im.headerHeight - im.topLineMenuHeight;
 }
 
+/* Прокручивание в конец страницы */
+im.scrollTop = function () {
+    im.container.scrollTop($('.layout-container_hold').height());
+}
+
 /* Высота в sidebar списка собеседников */
 im.sidebarHeight = function () {
  
@@ -40,11 +45,16 @@ im.holdHeights = function  () {
 
  /* Список скрытых пользователей в сайдбаре */
 im.hideContacts = function () {
+    var hiddenContactHeight = 52;
     var hiddenContacts = $('.im-user-list_hide-b .im-user-list_i');
-    var contactPosition = Math.min(hiddenContacts.length, 2) - 1;
-    var contact = hiddenContacts.get(contactPosition);
-    console.log($(contact).position().top);
-    $('.im-user-list').scrollTop($(contact).position().top);
+    var hiddenContactsHeight = $('.im-user-list_hide-b').height();
+    var contactsHeight = $('.im-user-list_hold').height();
+
+    var contactsScrollPos = contactsHeight - hiddenContactsHeight + hiddenContactHeight;
+    /*var contactPosition = Math.min(hiddenContacts.length, 2) - 1;*/
+    /*var contact = hiddenContacts.get(contactPosition);*/
+    console.log(contactsHeight);
+    $('.im-user-list').scrollTop(80);
 }
 
 /* Поизиция скрола */
@@ -86,8 +96,8 @@ $(window).load(function() {
 
     /*im.wrapper.css('top',  -im.height + im.viewHeight());*/
     im.holdHeights ();
-    /* Прокручивание в конец страницы */
-    im.container.scrollTop($('.layout-container_hold').height());
+
+    im.scrollTop ();
 
     /* Высота sidebar списка собеседников */
     im.sidebarHeight();

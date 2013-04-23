@@ -554,10 +554,10 @@
 				    },
 
 					extraPlugins : 'autogrow,attach,smiles,othertext,previewimg',
-					contentsCss : '/ckeditor/skins/im-editor/contents.css', 
+					contentsCss : '/ckeditor/skins/im-editor/contents.css',
 					skin : 'im-editor',
-					toolbar : [	
-						['othertext','Smiles','Attach']
+					toolbar : [
+						['othertext', 'Smiles', 'Attach']
 					],
 					toolbarCanCollapse: false,
 					toolbarLocation : 'bottom',

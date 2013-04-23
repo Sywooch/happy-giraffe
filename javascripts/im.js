@@ -50,7 +50,7 @@ im.hideContacts = function () {
     var contactsHoldHeight = $('.im-user-list').get(0).scrollHeight;
     var contactsHeight = $('.im-user-list').height();
     /* 2 количесво показывающихся скрытых контактов после скролла */
-    var contactsScrollPos = contactsHoldHeight - hiddenContactsHeight - contactsHeight + hiddenContactHeight*2;
+    var contactsScrollPos = contactsHoldHeight - hiddenContactsHeight - contactsHeight + (hiddenContactHeight+2)*2;
     $('.im-user-list').scrollTop(contactsScrollPos);
 }
 

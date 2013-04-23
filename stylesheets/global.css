@@ -662,9 +662,6 @@
   color: #838383;
   text-decoration: none;
 }
-.im-user-list_hide-b {
-  display: none;
-}
 .im-user-list_hide-b .im_watch {
   background-position: -20px 0;
 }

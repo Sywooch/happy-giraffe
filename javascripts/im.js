@@ -126,12 +126,6 @@ $(window).load(function() {
         im.imBlock.off("mousemove");
     });*/
 
-    /* Список скрытых пользователей в сайдбаре */
-    $(".im-user-list_hide-a").click(function () {
-      $(".im-user-list_hide-b").toggle("slow");
-      return false;
-    });
-
     $(window).resize(function() {
         scrollFix();
 

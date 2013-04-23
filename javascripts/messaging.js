@@ -191,6 +191,7 @@ function MessagingViewModel(data) {
     self.sendingMessage = ko.observable(false);
     self.interlocutorTyping = ko.observable(false);
     self.showHiddenContacts = ko.observable(false);
+    self.fullyLoaded = ko.observable(false);
 
     self.meTyping = ko.observable(false);
     self.meTyping.subscribe(function(a) {
@@ -254,6 +255,8 @@ function MessagingViewModel(data) {
                 self.messages(ko.utils.arrayMap(response.messages, function(message) {
                     return new Message(message, self);
                 }));
+                if (response.last)
+                    self.fullyLoaded(true);
             }, 'json');
         }
     }
@@ -425,6 +428,8 @@ function MessagingViewModel(data) {
             self.loadingMessages(false);
             var endHeight = im.container.get(0).scrollHeight;
             im.container.scrollTop(endHeight - startHeight + startTop);
+            if (response.last)
+                self.fullyLoaded(true);
         }, 'json');
     }
 
@@ -584,7 +589,7 @@ function MessagingViewModel(data) {
         });
 
         im.container.scroll(function() {
-            if (self.openContact() !== null && self.openContact().thread() !== null && self.loadingMessages() === false && im.container.scrollTop() < 200)
+            if (self.openContact() !== null && self.openContact().thread() !== null && self.loadingMessages() === false && self.fullyLoaded() === false && im.container.scrollTop() < 200)
                 self.preload();
         });
     });

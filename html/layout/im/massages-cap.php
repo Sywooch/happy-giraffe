@@ -96,7 +96,7 @@
 						<div class="im_watch im-tooltipsy" title="Скрыть диалог"></div>
 						<div class="im_count im_count__read im-tooltipsy" title="Отметить как не прочитанное">44784</div>
 					</div>
-					<a href="" class="im-user-list_hide-a">Показать скрытые</a>
+					<a href="" class="im-user-list_hide-a" onclick="im.hideContacts();return false;">Показать скрытые</a>
 					<div class="im-user-list_hide-b">
 						
 						<div class="im-user-list_i">

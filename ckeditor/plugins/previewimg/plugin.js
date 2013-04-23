@@ -4,7 +4,8 @@ CKEDITOR.plugins.add('previewimg', {
         editor.on( 'instanceReady', function( ev )
         {
             // c примерами изображений
-            $(".cke_toolbox").before('<span class="cke_previewimg"> <span class="cke_previewimg_i" title="Название файла"> <img alt="" src="/images/example/w200-h182-1.jpg"> <a href="" class="cke_previewimg_del"></a> </span> <span class="cke_previewimg_i" title="Название файла"> <img alt="" src="/images/example/w220-h165-1.jpg"> <a href="" class="cke_previewimg_del"></a> </span> </span>');
+            $(".cke_toolbox").before('<span class="cke_previewimg" data-bind="foreach: uploadedImages"><span class="cke_previewimg_i" title="Название файла"> <img alt="" data-bind="attr: { src : preview }"><a href="javascript:void(0)" class="cke_previewimg_del" data-bind="click: $root.removeImage"></a></span></span>');
+            ko.applyBindings(vm, $('.cke_previewimg').get(0));
         })
     }
 });

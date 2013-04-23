@@ -38,6 +38,15 @@ im.holdHeights = function  () {
     }
 }
 
+ /* Список скрытых пользователей в сайдбаре */
+im.hideContacts = function () {
+    var hiddenContacts = $('.im-user-list_hide-b .im-user-list_i');
+    var contactPosition = Math.min(hiddenContacts.length, 2) - 1;
+    var contact = hiddenContacts.get(contactPosition);
+    console.log($(contact).position().top);
+    $('.im-user-list').scrollTop($(contact).position().top);
+}
+
 /* Поизиция скрола */
 //im.scrollIm = function (){
    // if (im.containerScroll > im.headerHeight ) {

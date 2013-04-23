@@ -58,7 +58,7 @@ class WordstatQueryModify
     public function addToParsing($index)
     {
         $parts = array(
-            array(',', 431),
+            array(',', 442),
             array('"', 403),
             array('?', 394,),
             array('!', 1),

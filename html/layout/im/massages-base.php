@@ -537,7 +537,7 @@
 				        }
 				    },
 
-					extraPlugins : 'autogrow,attach,smiles,othertext',
+					extraPlugins : 'autogrow,attach,smiles,othertext,previewimg',
 					contentsCss : '/ckeditor/skins/im-editor/contents.css', 
 					skin : 'im-editor',
 					toolbar : [	
@@ -551,7 +551,6 @@
 					// Remove the Resize plugin as it does not make sense to use it in conjunction with the AutoGrow plugin.
 					removePlugins : 'resize, elementspath'
 				});
-
 		});
 
 	//]]>

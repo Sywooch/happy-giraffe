@@ -35,7 +35,7 @@
 						['Bold','Italic','Underline','-','Image', 'Smiles']
 					],
 					toolbarCanCollapse: false,
-					disableObjectResizing: false,
+					disableObjectResizing: true,
 					height: 80
 				});
 

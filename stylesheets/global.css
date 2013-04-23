@@ -67,11 +67,11 @@
   position: absolute;
   bottom: 10px;
   left: 50%;
-  width: 56px;
-  height: 11px;
-  margin: 0 0 0 -26px;
-  background: url(/images/im/im-toggle.png) no-repeat 0 -11px;
-  cursor: s-resize;
+  width: 80px;
+  height: 25px;
+  margin: 0 0 0 -40px;
+  background: url(/images/im/im-toggle.png) no-repeat 50% -41px;
+  cursor: default;
 }
 .im_message-loader {
   min-height: 30px;
@@ -279,7 +279,7 @@
   display: block;
 }
 .im-panel__big .im_toggle {
-  background-position: 0 0;
+  background-position: 50% 10px;
 }
 .im-panel__big .im-user-settings_user {
   padding-top: 17px;
@@ -636,9 +636,6 @@
 .im-user-list_i:hover .im_count__read {
   display: block;
 }
-.im-user-list_i a {
-  text-decoration: none;
-}
 .im-user-list_i.active {
   background: #5e93d5;
 }
@@ -651,6 +648,15 @@
 }
 .im-user-list_i.active .im_watch:hover {
   background-position: -40px -10px;
+}
+.im-user-list_i a {
+  text-decoration: none;
+}
+.im-user-list_i .im_watch {
+  display: none;
+}
+.im-user-list_i:hover .im_watch {
+  display: block;
 }
 .im-user-list_hide-a {
   display: inline-block;
@@ -701,50 +707,6 @@
   font-size: 9px;
   font-family: Tahoma, Arial, Verdana, sans-serif;
   color: #8bb0ca;
-}
-.im-editor-b_previewimg {
-  display: block;
-  margin-bottom: 10px;
-}
-.im-editor-b_previewimg_i {
-  display: block;
-  margin: 5px 5px 5px 0;
-  max-height: 70px;
-  max-width: 70px;
-  position: relative;
-  vertical-align: top;
-}
-.im-editor-b_previewimg_i > img {
-  display: block;
-  margin: 0;
-  position: relative;
-  z-index: 1;
-}
-.im-editor-b_previewimg_i:after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 22px;
-  background: #fafafa;
-  background: rgba(255, 255, 255, 0.6);
-  z-index: 2;
-}
-.im-editor-b_previewimg_i:hover .im-editor-b_previewimg_del {
-  display: block;
-}
-.im-editor-b_previewimg_del {
-  display: none;
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  height: 12px;
-  width: 10px;
-  background: url("/images/common.png") no-repeat scroll -315px -149px transparent;
-  text-indent: -9999px;
-  z-index: 3;
-  cursor: pointer;
 }
 .im-editor-b_cap {
   position: absolute;

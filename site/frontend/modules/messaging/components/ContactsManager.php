@@ -122,4 +122,9 @@ class ContactsManager
             ),
         );
     }
+
+    public static function unreadMessagesCount($userId)
+    {
+        return MessagingMessageUser::model()->count('user_id = :user_id AND `read` = 0', array(':user_id' => $userId));
+    }
 }

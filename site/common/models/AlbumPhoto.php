@@ -176,6 +176,25 @@ class AlbumPhoto extends HActiveRecord
         parent::afterSave();
     }
 
+    public function search()
+    {
+        $criteria=new CDbCriteria;
+
+        $criteria->compare('id',$this->id);
+        $criteria->compare('author_id',$this->author_id);
+        $criteria->compare('album_id',$this->album_id);
+        $criteria->compare('file_name',$this->file_name,true);
+        $criteria->compare('fs_name',$this->fs_name,true);
+        $criteria->compare('title',$this->title,true);
+        $criteria->compare('updated',$this->updated,true);
+        $criteria->compare('created',$this->created,true);
+        $criteria->compare('removed',$this->removed);
+
+        return new CActiveDataProvider($this, array(
+            'criteria'=>$criteria,
+        ));
+    }
+
     public function beforeDelete()
     {
         $this->removed = 1;

@@ -101,8 +101,9 @@ class ThreadsController extends HController
         $thread = MessagingThread::model();
         $thread->id = $threadId;
         $messages = $thread->getMessages(Yii::app()->user->id, self::MESSAGES_PER_PAGE, $offset);
+        $last = $thread->countMessages(Yii::app()->user->id) <= ($offset + self::MESSAGES_PER_PAGE);
 
-        $data = compact('messages');
+        $data = compact('messages', 'last');
         echo CJSON::encode($data);
     }
 

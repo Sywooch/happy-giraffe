@@ -97,7 +97,7 @@
                         <?php if (Yii::app()->user->isGuest): ?>
                         <?= CHtml::link('<i class="icon"></i>Написать<br>сообщение', '#login', array('class' => 'new-message fancy', 'data-theme'=>"white-square")); ?>
                         <?php else: ?>
-                        <?php if (! in_array(Yii::app()->user->id, array(12936, 22, 9990))): ?>
+                        <?php if (! in_array(Yii::app()->user->id, array(12936, 22, 9990, 83)) && ! Yii::app()->user->checkAccess('commentator_panel')): ?>
                         <?= CHtml::link('<i class="icon"></i>Написать<br>сообщение', 'javascript:void(0)', array('class' => 'new-message', 'onclick' => 'Messages.open(' . $user->id . ')')); ?>
                         <?php else: ?>
                         <?= CHtml::link('<i class="icon"></i>Написать<br>сообщение', array('/messaging/default/index', 'interlocutorId' => $user->id), array('class' => 'new-message')); ?>

@@ -19,8 +19,8 @@ class MessagingModule extends CWebModule
             ->registerScriptFile('/javascripts/soundmanager2.js')
             ->registerScriptFile('/javascripts/jquery.powertip.js')
             ->registerScriptFile('/ckeditor/ckeditor.js')
-            ->registerScriptFile('/javascripts/im.js')
-            ->registerScriptFile('/javascripts/messaging.js')
+            ->registerScriptFile('/javascripts/im.js?t=' . time())
+            ->registerScriptFile('/javascripts/messaging.js?t=' . time())
         ;
 	}
 

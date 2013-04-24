@@ -44,12 +44,21 @@ class MessagingMessage extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('author_id, text', 'required'),
+            array('author_id', 'required'),
+            array('text', 'requiredIfNoImages'),
             array('updated, created', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('id, author_id, thread_id, text, updated, created', 'safe', 'on'=>'search'),
         );
+    }
+
+    public function requiredIfNoImages($attribute, $params)
+    {
+        if (empty($this->images)) {
+            $validator = CValidator::createValidator('required', $this, $attribute, $params);
+            $validator->validate($this);
+        }
     }
 
     /**

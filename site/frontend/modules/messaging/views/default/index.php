@@ -11,8 +11,8 @@
                 <!-- ko template: { name: 'contact-template', foreach: visibleContactsToShow } -->
 
                 <!-- /ko -->
-                <a href="javascript:void(0)" class="im-user-list_hide-a" data-bind="visible: hiddenContactsToShow().length > 0">Показать скрытые</a>
-                <div class="im-user-list_hide-b" data-bind="template: { name: 'contact-template', foreach: hiddenContactsToShow }">
+                <a href="javascript:void(0)" class="im-user-list_hide-a" data-bind="visible: hiddenContactsToShow().length > 0, click: toggleShowHiddenContacts, text: showHiddenContacts() ? 'Скрыть' : 'Показать скрытые'"></a>
+                <div class="im-user-list_hide-b" data-bind="visible: showHiddenContacts(), template: { name: 'contact-template', foreach: hiddenContactsToShow }">
 
                 </div>
             </div>
@@ -76,7 +76,7 @@
                             <a href="javascript:void(0)" data-bind="visible: interlocutor().photosCount() > 0, attr : { href : '/user/' + interlocutor().user().id() + '/albums/' }">Фото</a><sup class="count" data-bind="visible: interlocutor().photosCount() > 0, text: interlocutor().photosCount()"></sup>
                         </div>
                     </div>
-                    <span class="im_toggle" data-bind="click: toggleinterlocutorExpandedSetting"></span>
+                    <span class="im_toggle" data-bind="tooltip: interlocutorExpandedSetting() ? 'Свернуть' : 'Развернуть', click: toggleinterlocutorExpandedSetting"></span>
                 </div>
             </div>
 
@@ -123,12 +123,6 @@
                                 </div>
                                 <button class="btn-green" data-bind="click: submit, text: editingMessageId() === null ? 'Отправить' : 'Сохранить'"></button>
                             </div>
-                            <span class="im-editor-b_previewimg" data-bind="foreach: uploadedImages">
-                                <span class="im-editor-b_previewimg_i" title="Название файла">
-                                    <img alt="" data-bind="attr: { src : preview }">
-                                    <a href="javascript:void(0)" class="im-editor-b_previewimg_del" data-bind="click: $root.removeImage"></a>
-                                </span>
-                            </span>
                         </div>
                         <div class="im-editor-b_cap" data-bind="visible: interlocutor().isBlocked">
                             <div class="im-editor-b_cap-t">Данный пользователь не хочет с вами общаться</div>
@@ -279,6 +273,17 @@ $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
             }
         };
 
+        ko.bindingHandlers.mirror = {
+            init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+                $(element).hide();
+                $('#cke_uploadedImages').html($(element).html());
+            },
+            update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+                $('#cke_uploadedImages').html($(element).html());
+            }
+        };
+
+
         vm = new MessagingViewModel(<?=$data?>);
         ko.applyBindings(vm);
     });
@@ -299,18 +304,21 @@ $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
                     }
                 },
 
+                extraPlugins : 'autogrow,attach,smiles,othertext,previewimg',
                 contentsCss : '/ckeditor/skins/im-editor/contents.css',
                 skin : 'im-editor',
                 toolbar : [
-                    ['othertext', 'Smiles','Attach']
+                    ['othertext', 'Smiles', 'Attach']
                 ],
                 toolbarCanCollapse: false,
-                disableObjectResizing: false,
-                resize_enabled : true,
                 toolbarLocation : 'bottom',
-                height: 58
-            });
+                height: 58,
+                autoGrow_maxHeight : 88,
+                autoGrow_minHeight : 58,
+                // Remove the Resize plugin as it does not make sense to use it in conjunction with the AutoGrow plugin.
+                removePlugins : 'resize,elementspath,contextmenu'
 
+            });
     });
 
     //]]>

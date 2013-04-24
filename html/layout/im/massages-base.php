@@ -1,8 +1,8 @@
 ﻿<!DOCTYPE html>
-<!--[if lt IE 8]>      <html class="top-nav-fixed ie7"> <![endif]-->
-<!--[if IE 8]>         <html class="top-nav-fixed ie8"> <![endif]-->
-<!--[if IE 9]>         <html class="top-nav-fixed ie9"> <![endif]-->
-<!--[if gt IE 9]><!--> <html class="top-nav-fixed"> <!--<![endif]-->
+<!--[if lt IE 8]>      <html class="top-nav-fixed ie7 im-fixed"> <![endif]-->
+<!--[if IE 8]>         <html class="top-nav-fixed ie8 im-fixed"> <![endif]-->
+<!--[if IE 9]>         <html class="top-nav-fixed ie9 im-fixed"> <![endif]-->
+<!--[if gt IE 9]><!--> <html class="top-nav-fixed im-fixed"> <!--<![endif]-->
 <head>
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/head.php'; ?>
 	<script type="text/javascript" src="/javascripts/im.js"></script>
@@ -23,8 +23,7 @@
 						<div class="input">
 							<input type="text" />
 						</div>
-						<button class="btn-green btn-green-medium">Поиск</button>					
-						
+						<button class="btn-green btn-green-medium">Поиск</button>
 					</div>
 					
 					<div class="logo-box">
@@ -35,7 +34,6 @@
 					<div class="banner-box">
 						<a href=""><img src="/images/contest/banner-w300-8.jpg" /></a>
 					</div>
-					
 				</div>
 				
 			</div>
@@ -48,6 +46,7 @@
 				<h2 class="im-sidebar_t">Мои диалоги</h2>
 				<div class="im-sidebar_search clearfix">
 					<input type="text" name="" id="" class="im-sidebar_search-itx" placeholder="Найти по имени">
+					<input type="reset" value="" name="" class="im-sidebar_search-reset ico-close">
 					<button class="im-sidebar_search-btn"></button>
 				</div>
 				<div class="im-user-list">
@@ -93,7 +92,7 @@
 						<div class="im_watch im-tooltipsy" title="Скрыть диалог"></div>
 						<div class="im_count im_count__read im-tooltipsy" title="Отметить как не прочитанное">44784</div>
 					</div>
-					<a href="" class="im-user-list_hide-a">Показать скрытые</a>
+					<a href="" class="im-user-list_hide-a" onclick="im.hideContacts();return false;">Показать скрытые</a>
 					<div class="im-user-list_hide-b">
 						
 						<div class="im-user-list_i">
@@ -111,20 +110,6 @@
 							<div class="im_count im-tooltipsy" title="Отметить как прочитанное">236</div>
 						</div>
 						
-						<div class="im-user-list_i">
-							<div class="im-user-settings clearfix">
-								<div class="im-user-settings_online-status-small im-user-settings_online-status-small__offline"></div>
-								<a class="ava female" href="">
-									<img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg">
-								</a>
-								<div class="im-user-settings_user">
-									<a href="" class="">Арина Поплавовская</a>
-								</div>
-							</div>
-							
-							<div class="im_watch im-tooltipsy" title="Показать диалог"></div>
-							<div class="im_count im-tooltipsy" title="Отметить как прочитанное">6</div>
-						</div>
 					</div>
 				</div>
 			</div>
@@ -136,15 +121,21 @@
 						<div class="im-tabs_i active"><a href="" class="im-tabs_a">Все</a></div>
 						<div class="im-tabs_i"><a href="" class="im-tabs_a">Новые <span class="im_count">2</span> </a></div>
 						<div class="im-tabs_i"><a href="" class="im-tabs_a">Кто в онлайн (12)</a></div>
-						<div class="im-tabs_i"><a href="" class="im-tabs_a">Друзья на сайте (8)</a></div>
+						<div class="im-tabs_i"><a href="" class="im-tabs_a inactive">Друзья на сайте (0)</a></div>
 					</div>
 					<div class="im-panel im-panel__big">
 						<div class="im-panel-icons">
 							<div class="im-panel-icons_i">
-								<a href="" class="im-panel-icons_i-a im-tooltipsy" title="Добавить в друзья">
+								<!-- Можно оставить в теге а -->
+								<span class="im-panel-icons_i-a im-tooltipsy im-panel-icons_i-a__request" title="Добавить в друзья">
 									<span class="im-panel-ico im-panel-ico__add-friend"></span>
-									<span class="im-panel-icons_desc">Добавить <br> в друзья</span>
-								</a>
+									<span class="im-panel-icons_desc">Запрос <br> отправлен</span>
+								</span>
+								<!-- 
+								<a href="" class="im-panel-icons_i-a im-tooltipsy im-panel-icons_i-a__request" title="Добавить в друзья">
+									<span class="im-panel-ico im-panel-ico__add-friend"></span>
+									<span class="im-panel-icons_desc">Запрос <br> отправлен</span>
+								</a> -->
 							</div>
 							<div class="im-panel-icons_i">
 								<a href="" class="im-panel-icons_i-a  im-tooltipsy" title="Заблокировать пользователя">
@@ -178,6 +169,7 @@
 							</a>
 							<div class="im-user-settings_user">
 								<a href="" class="textdec-onhover">Олег Богоявленский</a>
+								<span class="im-user-settings_friend">Друг</span>
 								<div class="im-user-settings_online-status">На сайте</div>
 							</div>
 							<div class="user-fast-buttons">
@@ -252,9 +244,20 @@
 									</div>
 									<div class="im-message_tx">
 										<!-- Текст может быть отформатирован с помощью абзацев или переводов строки br -->
-										Привет! У меня родился сын! Вот фото! 
-										<img src="/images/example/w220-h165-1.jpg" alt="">
-										Уже два года назад стала просматриваться тенденция на неоновые оттенки. <br>  Сначала яркие цвета разнообразили привычные тона лаков для ногтей, и красивые пальчики молодых девушек стали выделяться благодаря красочному маникюру, а потом и губы модниц засветились 
+										Привет! У меня родился сын! Вот фото!
+										Уже два года назад стала просматриваться тенденция на неоновые оттенки. <br>  Сначала яркие цвета разнообразили привычные тона лаков для ногтей, и красивые пальчики молодых девушек стали выделяться благодаря красочному маникюру, а потом и губы модниц засветились.
+									</div>
+									<div class="im-message_tx-img clearfix">
+										<!-- href указание большого изображения -->
+										<!-- rel может быть любым главное у каждого сообщения разный -->
+										<a href="/images/example/w220-h165-1.jpg" class="im-message_img" data-theme="white-square" rel="im-img-1">
+										<!-- Превью изображений максимальные размеры 70*70 -->
+											<img src="/images/example/w220-h165-1.jpg" alt="">
+										</a>
+										<!-- Превью изображений максимальные размеры 70*70 -->
+										<a href="/images/example/w200-h182-1.jpg" class="im-message_img" data-theme="white-square" rel="im-img-1">
+											<img src="/images/example/w200-h182-1.jpg" alt="">
+										</a>
 									</div>
 								</div>
 							</div>
@@ -429,13 +432,41 @@
 									</div>
 									<div class="im-message_tx">
 										Привет! У меня родился сын! Вот фото!
-										<img src="/images/example/w220-h165-1.jpg" alt="">
 										Уже два года назад стала просматриваться тенденция на неоновые оттенки. Сначала яркие цвета разнообразили привычные тона лаков для ногтей, и красивые пальчики молодых девушек стали выделяться благодаря красочному маникюру, а потом и губы модниц засветились 
+										
+									</div>
+									
+									<div class="im-message_tx-img clearfix">
+										<!-- Превью изображений максимальные размеры 70*70 -->
+										<a href="/images/example/w200-h182-1.jpg" class="im-message_img" data-theme="white-square" rel="im-img-1">
+											<img src="/images/example/w200-h182-1.jpg" alt="">
+										</a>
 									</div>
 								</div>
 							</div>
 							
 							
+							<div class="im-message im-message__new clearfix">
+								<div class="im-message_icons">
+									<div class="im-message_icons-i">
+										<a href="" class="im-message_ico im-message_ico__del im-tooltipsy" title="Удалить"></a>
+									</div>
+								</div>
+								<a class="ava small female" href="">
+									<img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg">
+								</a>
+								<div class="im-message_hold">
+									<div class="im-message_t">
+										<a href="" class="im-message_user">Анастасия</a>
+										<em class="im-message_date">28 янв 2012, 13:45</em>
+									</div>
+									<div class="im-message_tx">
+										<!-- Текст может быть отформатирован с помощью абзацев или переносов строки br -->
+										<p>Привет! У меня родился сын! Вот фото!</p>
+										<p>Уже два года назад стала просматриваться тенденция на неоновые оттенки. Сначала яркие цвета разнообразили привычные тона лаков для ногтей, и красивые пальчики молодых девушек стали выделяться благодаря красочному маникюру, а потом и губы модниц засветились </p>
+									</div>
+								</div>
+							</div>
 							<div class="im-message im-message__edited clearfix">
 								<div class="im-message_icons">
 									<div class="im-message_icons-i">
@@ -492,18 +523,20 @@
 				        }
 				    },
 
-					contentsCss : '/ckeditor/skins/im-editor/contents.css', 
+					extraPlugins : 'autogrow,attach,smiles,othertext,previewimg',
+					contentsCss : '/ckeditor/skins/im-editor/contents.css',
 					skin : 'im-editor',
-					toolbar : [	
-						['othertext', 'Smiles','Attach']
+					toolbar : [
+						['othertext', 'Smiles', 'Attach']
 					],
 					toolbarCanCollapse: false,
-					disableObjectResizing: false,
-					resize_enabled : false,
 					toolbarLocation : 'bottom',
-					height: 58
+					height: 58,
+					autoGrow_maxHeight : 88,
+					autoGrow_minHeight : 58,
+					// Remove the Resize plugin as it does not make sense to use it in conjunction with the AutoGrow plugin.
+					removePlugins : 'resize,elementspath,contextmenu'
 				});
-
 		});
 
 	//]]>
@@ -523,7 +556,7 @@
 									<button class="btn-green">Отправить</button>
 								</div>
 							</div>
-							<span class="im_toggle"></span>
+							<!-- <span class="im_toggle"></span> -->
 						</div>
 					</div>
 				</div>
@@ -536,5 +569,6 @@
 	</div>
 </div>
 </div>
+<div class="popup-container"></div>
 </body>
 </html>

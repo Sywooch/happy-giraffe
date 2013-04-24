@@ -1,8 +1,8 @@
 ﻿<!DOCTYPE html>
-<!--[if lt IE 8]>      <html class="top-nav-fixed ie7"> <![endif]-->
-<!--[if IE 8]>         <html class="top-nav-fixed ie8"> <![endif]-->
-<!--[if IE 9]>         <html class="top-nav-fixed ie9"> <![endif]-->
-<!--[if gt IE 9]><!--> <html class="top-nav-fixed"> <!--<![endif]-->
+<!--[if lt IE 8]>      <html class="top-nav-fixed im-fixed ie7"> <![endif]-->
+<!--[if IE 8]>         <html class="top-nav-fixed im-fixed ie8"> <![endif]-->
+<!--[if IE 9]>         <html class="top-nav-fixed im-fixed ie9"> <![endif]-->
+<!--[if gt IE 9]><!--> <html class="top-nav-fixed im-fixed"> <!--<![endif]-->
 <head>
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/head.php'; ?>
 	<script type="text/javascript" src="/javascripts/im.js"></script>
@@ -50,6 +50,7 @@
 				<h2 class="im-sidebar_t">Мои диалоги</h2>
 				<div class="im-sidebar_search clearfix">
 					<input type="text" name="" id="" class="im-sidebar_search-itx" placeholder="Найти по имени">
+					<input type="reset" value="" name="" class="im-sidebar_search-reset ico-close">
 					<button class="im-sidebar_search-btn"></button>
 				</div>
 				<div class="im-user-list">
@@ -221,8 +222,53 @@
 						<div class="im_watch im-tooltipsy" title="Скрыть диалог"></div>
 						<div class="im_count im_count__read im-tooltipsy" title="Отметить как не прочитанное">44784</div>
 					</div>
-					<a href="" class="im-user-list_hide-a">Показать скрытые</a>
+					<a href="" class="im-user-list_hide-a" onclick="im.hideContacts();return false;">Показать скрытые</a>
 					<div class="im-user-list_hide-b">
+						
+						<div class="im-user-list_i">
+							<div class="im-user-settings clearfix">
+								<div class="im-user-settings_online-status-small im-user-settings_online-status-small__offline"></div>
+								<a class="ava female" href="">
+									<img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg">
+								</a>
+								<div class="im-user-settings_user">
+									<a href="" class="">Арина Поплавская</a>
+								</div>
+							</div>
+							
+							<div class="im_watch im-tooltipsy" title="Показать диалог"></div>
+							<div class="im_count im-tooltipsy" title="Отметить как прочитанное">236</div>
+						</div>
+						
+						<div class="im-user-list_i">
+							<div class="im-user-settings clearfix">
+								<div class="im-user-settings_online-status-small im-user-settings_online-status-small__offline"></div>
+								<a class="ava female" href="">
+									<img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg">
+								</a>
+								<div class="im-user-settings_user">
+									<a href="" class="">Арина Поплавская</a>
+								</div>
+							</div>
+							
+							<div class="im_watch im-tooltipsy" title="Показать диалог"></div>
+							<div class="im_count im-tooltipsy" title="Отметить как прочитанное">236</div>
+						</div>
+						
+						<div class="im-user-list_i">
+							<div class="im-user-settings clearfix">
+								<div class="im-user-settings_online-status-small im-user-settings_online-status-small__offline"></div>
+								<a class="ava female" href="">
+									<img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg">
+								</a>
+								<div class="im-user-settings_user">
+									<a href="" class="">Арина Поплавская</a>
+								</div>
+							</div>
+							
+							<div class="im_watch im-tooltipsy" title="Показать диалог"></div>
+							<div class="im_count im-tooltipsy" title="Отметить как прочитанное">236</div>
+						</div>
 						
 						<div class="im-user-list_i">
 							<div class="im-user-settings clearfix">
@@ -361,7 +407,10 @@
 									<button class="btn-green">Отправить</button>
 								</div>
 							</div>
-							<span class="im_toggle"></span>
+							<div class="im-editor-b_cap">
+								<div class="im-editor-b_cap-t">Этот пользователь вас заблокировал!</div>
+								<div class="im-editor-b_cap-tx">Вы не можете отправлять ему сообщения</div>
+							</div>
 						</div>
 					</div>
 				</div>

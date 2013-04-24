@@ -1,8 +1,8 @@
 ﻿<!DOCTYPE html>
-<!--[if lt IE 8]>      <html class="top-nav-fixed ie7"> <![endif]-->
-<!--[if IE 8]>         <html class="top-nav-fixed ie8"> <![endif]-->
-<!--[if IE 9]>         <html class="top-nav-fixed ie9"> <![endif]-->
-<!--[if gt IE 9]><!--> <html class="top-nav-fixed"> <!--<![endif]-->
+<!--[if lt IE 8]>      <html class="top-nav-fixed im-fixed ie7"> <![endif]-->
+<!--[if IE 8]>         <html class="top-nav-fixed im-fixed ie8"> <![endif]-->
+<!--[if IE 9]>         <html class="top-nav-fixed im-fixed ie9"> <![endif]-->
+<!--[if gt IE 9]><!--> <html class="top-nav-fixed im-fixed"> <!--<![endif]-->
 <head>
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/head.php'; ?>
 	<script type="text/javascript" src="/javascripts/im.js"></script>
@@ -50,6 +50,7 @@
 				<h2 class="im-sidebar_t">Мои диалоги</h2>
 				<div class="im-sidebar_search clearfix">
 					<input type="text" name="" id="" class="im-sidebar_search-itx" placeholder="Найти по имени">
+					<input type="reset" value="" name="" class="im-sidebar_search-reset ico-close">
 					<button class="im-sidebar_search-btn"></button>
 				</div>
 				<div class="im-user-list">
@@ -95,7 +96,7 @@
 						<div class="im_watch im-tooltipsy" title="Скрыть диалог"></div>
 						<div class="im_count im_count__read im-tooltipsy" title="Отметить как не прочитанное">44784</div>
 					</div>
-					<a href="" class="im-user-list_hide-a">Показать скрытые</a>
+					<a href="" class="im-user-list_hide-a" onclick="im.hideContacts();return false;">Показать скрытые</a>
 					<div class="im-user-list_hide-b">
 						
 						<div class="im-user-list_i">

@@ -89,7 +89,7 @@ class AlbumPhoto extends HActiveRecord
             array('file_name, fs_name', 'length', 'max' => 100),
             array('title', 'length', 'max' => 200),
             array('created, updated', 'safe'),
-            array('album_id', 'unsafe', 'on'=>'search'),
+            array('album_id', 'unsafe', 'on'=>'update'),
         );
     }
 

@@ -104,7 +104,7 @@
                 <li class="i-broadcast new top-line-menu_nav_li js-tooltipsy" title="Что нового">
                     <a href="<?=$this->createUrl('/whatsNew/default/index')?>"><i class="icon-broadcast"></i></a>
                 </li>
-                <?php if (! in_array(Yii::app()->user->id, array(12936, 22, 9990))): ?>
+                <?php if (! in_array(Yii::app()->user->id, array(12936, 22, 9990, 83)) && ! Yii::app()->user->checkAccess('commentator_panel')): ?>
                 <li class="i-dialogs top-line-menu_nav_li js-tooltipsy<?php if ($imCount > 0): ?> new<?php endif; ?>" title="Мои диалоги">
                     <a href="javascript:void(0)" onclick="Messages.toggle()">
                         <i class="icon-dialogs"></i>
@@ -114,7 +114,7 @@
                     </a>
                 </li>
                 <?php else: ?>
-                <?php $imCount = 0; ?>
+                <?php $imCount = ContactsManager::unreadMessagesCount(Yii::app()->user->id); ?>
                 <li class="i-dialogs top-line-menu_nav_li js-tooltipsy<?php if ($imCount > 0): ?> new<?php endif; ?>" title="Мои диалоги">
                     <a href="<?=$this->createUrl('/messaging/default/index')?>">
                         <i class="icon-dialogs"></i>

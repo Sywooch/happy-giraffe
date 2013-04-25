@@ -546,8 +546,8 @@ XMLINDEX;
 			$xmlurl->addChild('priority',$params['priority']);
 
             if (array_key_exists('image:image', $params)) {
-			    $images = $xmlurl->addChild('image:image', null, 'image');
-                $images->addChild('image:loc', $params['image:image']['image:loc'], 'image');
+			    $images = $xmlurl->addChild('image:image', null, 'http://www.google.com/schemas/sitemap-image/1.1');
+                $images->addChild('image:loc', $params['image:image']['image:loc'], 'http://www.google.com/schemas/sitemap-image/1.1');
             }
 			++$this->_url_counter;
 		} catch (Exception $e) {

@@ -9,18 +9,25 @@
 class WordstatBaseParser extends ProxyParserThread
 {
     /**
+     * @var Keyword
+     */
+    protected $keyword = null;
+    /**
+     * @var string
+     */
+    protected $next_page = '';
+    /**
+     * @var string
+     */
+    protected $prev_page = '';
+    /**
      * @var WordstatQueryModify
      */
     public $queryModify;
 
-    function __construct($thread_id)
-    {
-        time_nanosleep(rand(0, 30), rand(0, 1000000000));
-        Yii::import('site.frontend.extensions.phpQuery.phpQuery');
-        $this->thread_id = $thread_id;
-        $this->getProxy();
-    }
-
+    /**
+     * @param $mode
+     */
     public function init($mode)
     {
         $this->debug = $mode;
@@ -97,10 +104,9 @@ class WordstatBaseParser extends ProxyParserThread
             $keyword = trim(pq($link)->text());
             $value = (int)pq($link)->parent()->next()->next()->text();
 
-            //временно ищем слова перед которыми надо ставить +
-            $this->queryModify->analyzeQuery($keyword);
             //убираем + из фраз
             $keyword = str_replace('+', '', $keyword);
+            $this->log('in first column: ' . $keyword . ' - ' . $value);
 
             $list [] = array($keyword, $value);
         }
@@ -120,10 +126,9 @@ class WordstatBaseParser extends ProxyParserThread
             $keyword = trim(pq($link)->text());
             $value = (int)pq($link)->parent()->next()->next()->text();
 
-            //временно ищем слова перед которыми надо ставить +
-            $this->queryModify->analyzeQuery($keyword);
             //убираем + из фраз
             $keyword = str_replace('+', '', $keyword);
+            $this->log('in second column: ' . $keyword . ' - ' . $value);
 
             $list [] = array($keyword, $value);
         }
@@ -137,38 +142,13 @@ class WordstatBaseParser extends ProxyParserThread
      */
     protected function findNextPageLink($document)
     {
+        $this->next_page = '';
         foreach ($document->find('div.pages a') as $link) {
             $title = pq($link)->text();
-            if (strpos($title, 'следующая') !== false)
+            if (strpos($title, 'следующая') !== false) {
                 $this->next_page = 'http://wordstat.yandex.ru/' . pq($link)->attr('href');
-        }
-    }
-
-
-    /**
-     * Сохраняем найденные ключевые слова
-     *
-     * @param $keyword string ключевое слово
-     * @param $value int значение частоты wordstat
-     * @param $related bool добавть в связи или нет
-     * @return Keyword|null
-     */
-    protected function saveFoundKeyword($keyword, $value, $related = false)
-    {
-        if (!empty($keyword) && !empty($value)) {
-            if (strpos($keyword, '+') !== false) {
-                $keyword = str_replace(' +', ' ', $keyword);
-                $keyword = ltrim($keyword, '+');
-            }
-
-            $model = Keyword::GetKeyword($keyword, 0, $value);
-            if ($model !== null) {
-                if ($related)
-                    KeywordRelation::saveRelation($this->keyword->keyword_id, $model->id);
-                return $model;
+                $this->log('next page found');
             }
         }
-
-        return null;
     }
 }

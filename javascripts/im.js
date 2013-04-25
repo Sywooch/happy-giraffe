@@ -55,21 +55,29 @@ im.hideContacts = function () {
 }
 
 /* Поизиция скрола */
-//im.scrollIm = function (){
-   // if (im.containerScroll > im.headerHeight ) {
+im.scrollIm = function (){
+    if (im.containerScroll > im.headerHeight ) {
         /* Класс управления фиксед элементами */
-        
+        im.imBlock.addClass("im__fixed");
+        /* Позиция блока сообщений */
+        /*imTopScroll = -im.height + im.viewHeight() + im.containerScroll*2 - im.headerHeight;
+        im.wrapper.css('top', imTopScroll);*/
 
-
-    //} else {
+    } else {
         /* Класс управления фиксед элементами */
-       // im.imBlock.removeClass("im__fixed");
+        im.imBlock.removeClass("im__fixed");
 
         /* Высота sidebar списка собеседников */
-       // im.sidebarHeight();
+        im.sidebarHeight();
 
-   // }
-//}
+        /* Позиция блока сообщений */
+        /*imTopScroll = -im.height + im.viewHeight() + im.containerScroll;
+        im.wrapper.css('top', imTopScroll);*/
+
+         /* заглушка */
+         $('.im-cap').css('top', im.headerHeight + im.tabsHeight - im.containerScroll);
+    }
+}
 
 /* im - instant messeger for user */
 $(window).load(function() {
@@ -99,10 +107,10 @@ $(window).load(function() {
     /* Высота sidebar списка собеседников */
     im.sidebarHeight();
 
-/*    im.container.bind('scroll', function () {
+    im.container.bind('scroll', function () {
         im.containerScroll = im.container.scrollTop();
         im.scrollIm ();
-    });*/
+    });
 
     /* Подсказки при наведении */
     $('.im-tooltipsy').powerTip({
@@ -149,7 +157,7 @@ $(window).load(function() {
         im.windowHeight = $(window).height();
         im.holdHeights();
 
-        /*im.scrollIm ();*/
+        im.scrollIm ();
         im.sidebarHeight();
     });
 

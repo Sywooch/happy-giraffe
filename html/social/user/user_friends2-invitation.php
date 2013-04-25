@@ -65,14 +65,14 @@
 				<div class="col-23 clearfix">
 					
 					<div class="cont-nav">
-						<div class="cont-nav_i active">
+						<div class="cont-nav_i">
 							<a href="" class="cont-nav_a">Все (1656)</a>
 						</div>
 						<div class="cont-nav_i">
 							<span class="user-online-status"></span>
 							<a href="" class="cont-nav_a">На сайте (987)</a>
 						</div>
-						<div class="cont-nav_i">
+						<div class="cont-nav_i active">
 							<a href="" class="cont-nav_a">Хотят дружить<span class="cont-nav_count">2</span> </a>
 						</div>
 					</div>
@@ -103,24 +103,8 @@
 							</div>
 							<a href="" class="friends-list_a">Валерия Петроградская</a>
 							<div class="friends-list_group">
-								<a href="" class="friends-list_group-a powertip" title="Изменить список">Все друзья</a>
-								<div class="friends-list_group-popup">
-									<a href="" class="friends-list_group-popup-a">
-										Важные люди
-									</a>
-									<a href="" class="friends-list_group-popup-a">
-										Родственники
-									</a>
-									<a href="" class="friends-list_group-popup-a">
-										Родственники родственников
-									</a>
-									<a href="" class="friends-list_group-popup-a">
-										Специалисты
-									</a>
-									<a href="" class="friends-list_group-popup-a">
-										Компании
-									</a>
-								</div>
+								<a href="" class="btn-green btn-middle">Принять</a>
+								<a href="" class="btn-gray-light btn-middle">Отклонить</a>
 							</div>
 						</div>
 						<div class="friends-list_i">
@@ -145,24 +129,8 @@
 							</div>
 							<a href="" class="friends-list_a">Александр Богоявленский</a>
 							<div class="friends-list_group">
-								<a href="" class="friends-list_group-a powertip" title="Изменить список">Все друзья</a>
-								<div class="friends-list_group-popup"  style="display:block;">
-									<a href="" class="friends-list_group-popup-a">
-										Важные люди
-									</a>
-									<a href="" class="friends-list_group-popup-a">
-										Родственники
-									</a>
-									<a href="" class="friends-list_group-popup-a">
-										Родственники родственников
-									</a>
-									<a href="" class="friends-list_group-popup-a">
-										Специалисты
-									</a>
-									<a href="" class="friends-list_group-popup-a">
-										Компании
-									</a>
-								</div>
+								<a href="" class="btn-green btn-middle">Принять</a>
+								<a href="" class="btn-gray-light btn-middle">Отклонить</a>
 							</div>
 						</div>
 						<div class="friends-list_i">
@@ -187,24 +155,8 @@
 							</div>
 							<a href="" class="friends-list_a">Валерия Петроградская</a>
 							<div class="friends-list_group">
-								<a href="" class="friends-list_group-a powertip" title="Изменить список">Все друзья</a>
-								<div class="friends-list_group-popup">
-									<a href="" class="friends-list_group-popup-a">
-										Важные люди
-									</a>
-									<a href="" class="friends-list_group-popup-a">
-										Родственники
-									</a>
-									<a href="" class="friends-list_group-popup-a">
-										Родственники родственников
-									</a>
-									<a href="" class="friends-list_group-popup-a">
-										Специалисты
-									</a>
-									<a href="" class="friends-list_group-popup-a">
-										Компании
-									</a>
-								</div>
+								<a href="" class="btn-green btn-middle">Принять</a>
+								<a href="" class="btn-gray-light btn-middle">Отклонить</a>
 							</div>
 						</div>
 						<div class="friends-list_i">
@@ -229,24 +181,8 @@
 							</div>
 							<a href="" class="friends-list_a">Александр Богоявленский</a>
 							<div class="friends-list_group">
-								<a href="" class="friends-list_group-a powertip" title="Изменить список">Все друзья</a>
-								<div class="friends-list_group-popup">
-									<a href="" class="friends-list_group-popup-a">
-										Важные люди
-									</a>
-									<a href="" class="friends-list_group-popup-a">
-										Родственники
-									</a>
-									<a href="" class="friends-list_group-popup-a">
-										Родственники родственников
-									</a>
-									<a href="" class="friends-list_group-popup-a">
-										Специалисты
-									</a>
-									<a href="" class="friends-list_group-popup-a">
-										Компании
-									</a>
-								</div>
+								<a href="" class="btn-green btn-middle">Принять</a>
+								<a href="" class="btn-gray-light btn-middle">Отклонить</a>
 							</div>
 						</div>
 						<div class="friends-list_i">
@@ -271,24 +207,8 @@
 							</div>
 							<a href="" class="friends-list_a">Валерия Петроградская</a>
 							<div class="friends-list_group">
-								<a href="" class="friends-list_group-a powertip" title="Изменить список">Все друзья</a>
-								<div class="friends-list_group-popup">
-									<a href="" class="friends-list_group-popup-a">
-										Важные люди
-									</a>
-									<a href="" class="friends-list_group-popup-a">
-										Родственники
-									</a>
-									<a href="" class="friends-list_group-popup-a">
-										Родственники родственников
-									</a>
-									<a href="" class="friends-list_group-popup-a">
-										Специалисты
-									</a>
-									<a href="" class="friends-list_group-popup-a">
-										Компании
-									</a>
-								</div>
+								<a href="" class="btn-green btn-middle">Принять</a>
+								<a href="" class="btn-gray-light btn-middle">Отклонить</a>
 							</div>
 						</div>
 						<div class="friends-list_i">
@@ -311,31 +231,10 @@
 									<span class="friends-list_bubble-tx">+999</span>
 								</a>
 							</div>
-							<a href="" class="friends-list_a">Александр Богоявленский</a><br>
+							<a href="" class="friends-list_a">Александр Богоявленский</a>
 							<div class="friends-list_group">
-								<a href="" class="friends-list_group-a powertip" title="Изменить список">Все друзья</a>
-								<div class="friends-list_group-popup">
-									<label for="" class="friends-list_group-label clearfix">
-										<input type="radio" name="friends-list_group-radio" id="" class="friends-list_group-radio">
-										Важные люди
-									</label>
-									<label for="" class="friends-list_group-label clearfix">
-										<input type="radio" name="friends-list_group-radio" id="" class="friends-list_group-radio">
-										Родственники
-									</label>
-									<label for="" class="friends-list_group-label clearfix">
-										<input type="radio" name="friends-list_group-radio" id="" class="friends-list_group-radio">
-										Родственники родственников
-									</label>
-									<label for="" class="friends-list_group-label clearfix">
-										<input type="radio" name="friends-list_group-radio" id="" class="friends-list_group-radio">
-										Специалисты
-									</label>
-									<label for="" class="friends-list_group-label clearfix">
-										<input type="radio" name="friends-list_group-radio" id="" class="friends-list_group-radio">
-										Компании
-									</label>
-								</div>
+								<a href="" class="btn-green btn-middle">Принять</a>
+								<a href="" class="btn-gray-light btn-middle">Отклонить</a>
 							</div>
 						</div>
 						
@@ -359,25 +258,9 @@
 								</a>
 							</div>
 							<a href="" class="friends-list_a">Наталия Медведева-Хоритонова (Хоритонова)</a>
-							<div class="friends-list_group" >
-								<a href="" class="friends-list_group-a powertip" title="Изменить список">Все друзья</a>
-								<div class="friends-list_group-popup" style="display:block;">
-									<a href="" class="friends-list_group-popup-a">
-										Важные люди
-									</a>
-									<a href="" class="friends-list_group-popup-a">
-										Родственники
-									</a>
-									<a href="" class="friends-list_group-popup-a">
-										На на на на на на на на на
-									</a>
-									<a href="" class="friends-list_group-popup-a">
-										Специалисты
-									</a>
-									<a href="" class="friends-list_group-popup-a">
-										Компании
-									</a>
-								</div>
+							<div class="friends-list_group">
+								<a href="" class="btn-green btn-middle">Принять</a>
+								<a href="" class="btn-gray-light btn-middle">Отклонить</a>
 							</div>
 						</div>
 						
@@ -399,25 +282,9 @@
 								</a>
 							</div>
 							<a href="" class="friends-list_a">Александр Богоявленский</a>
-							<div class="friends-list_group" >
-								<a href="" class="friends-list_group-a powertip" title="Изменить список">Все друзья</a>
-								<div class="friends-list_group-popup" style="display:block;">
-									<a href="" class="friends-list_group-popup-a">
-										Важные люди
-									</a>
-									<a href="" class="friends-list_group-popup-a">
-										Родственники
-									</a>
-									<a href="" class="friends-list_group-popup-a">
-										Родственники родственников
-									</a>
-									<a href="" class="friends-list_group-popup-a">
-										Специалисты
-									</a>
-									<a href="" class="friends-list_group-popup-a">
-										Компании
-									</a>
-								</div>
+							<div class="friends-list_group">
+								<a href="" class="btn-green btn-middle">Принять</a>
+								<a href="" class="btn-gray-light btn-middle">Отклонить</a>
 							</div>
 						</div>
 						

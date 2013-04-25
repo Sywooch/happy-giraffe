@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<!--[if lt IE 8]>      <html class="top-nav-fixed ie7"> <![endif]-->
-<!--[if IE 8]>         <html class="top-nav-fixed ie8"> <![endif]-->
-<!--[if IE 9]>         <html class="top-nav-fixed ie9"> <![endif]-->
-<!--[if gt IE 9]><!--> <html class="top-nav-fixed"> <!--<![endif]-->
+<!--[if lt IE 8]>      <html class="top-nav-fixed<?php if ($this->tempLayout): ?> im-fixed<?php endif; ?> ie7"> <![endif]-->
+<!--[if IE 8]>         <html class="top-nav-fixed<?php if ($this->tempLayout): ?> im-fixed<?php endif; ?> ie8"> <![endif]-->
+<!--[if IE 9]>         <html class="top-nav-fixed<?php if ($this->tempLayout): ?> im-fixed<?php endif; ?> ie9"> <![endif]-->
+<!--[if gt IE 9]><!--> <html class="top-nav-fixed<?php if ($this->tempLayout): ?> im-fixed<?php endif; ?>"> <!--<![endif]-->
 <head>
     <?=CHtml::linkTag()?>
     <?php if ($this->rssFeed !== null): ?>
@@ -74,6 +74,11 @@
     if (!Yii::app()->user->isGuest)
         $user = Yii::app()->user->model;
     ?>
+    <script type="text/javascript" src="//vk.com/js/api/openapi.js?88"></script>
+
+    <script type="text/javascript">
+        VK.init({apiId: 2855330, onlyWidgets: true});
+    </script>
 </head>
 <body class="<?= $this->body_class ?><?php if ($this->broadcast): ?> body-broadcast<?php endif; ?>" onload="if (typeof(ODKL) !== 'undefined') ODKL.init();">
 <div class="top-line-menu">
@@ -99,7 +104,7 @@
                 <li class="i-broadcast new top-line-menu_nav_li js-tooltipsy" title="Что нового">
                     <a href="<?=$this->createUrl('/whatsNew/default/index')?>"><i class="icon-broadcast"></i></a>
                 </li>
-                <?php if (Yii::app()->user->id != 12936): ?>
+                <?php if (! in_array(Yii::app()->user->id, array(12936, 22, 9990, 83)) && ! Yii::app()->user->checkAccess('commentator_panel')): ?>
                 <li class="i-dialogs top-line-menu_nav_li js-tooltipsy<?php if ($imCount > 0): ?> new<?php endif; ?>" title="Мои диалоги">
                     <a href="javascript:void(0)" onclick="Messages.toggle()">
                         <i class="icon-dialogs"></i>
@@ -109,7 +114,7 @@
                     </a>
                 </li>
                 <?php else: ?>
-                <?php $imCount = 0; ?>
+                <?php $imCount = ContactsManager::unreadMessagesCount(Yii::app()->user->id); ?>
                 <li class="i-dialogs top-line-menu_nav_li js-tooltipsy<?php if ($imCount > 0): ?> new<?php endif; ?>" title="Мои диалоги">
                     <a href="<?=$this->createUrl('/messaging/default/index')?>">
                         <i class="icon-dialogs"></i>

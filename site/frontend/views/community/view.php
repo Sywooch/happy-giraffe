@@ -8,6 +8,7 @@ $this->renderPartial('_post', array('data' => $data, 'full' => true));
 $this->renderPartial('_prev_next', array('data' => $data));
 ?>
 
+<?php if (false): ?>
 <div style="margin-top: 40px; margin-bottom: 40px;">
     <!-- Яндекс.Директ -->
     <div id="yandex_ad_2"></div>
@@ -41,6 +42,7 @@ $this->renderPartial('_prev_next', array('data' => $data));
         })(window, document, "yandex_context_callbacks");
     </script>
 </div>
+<?php endif; ?>
 
 <?php if ($data->rubric->community->id == 24): ?>
     <?php $this->renderPartial('//banners/community_24_700x346'); ?>

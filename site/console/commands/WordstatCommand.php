@@ -8,6 +8,7 @@ Yii::import('site.seo.models.*');
 Yii::import('site.seo.models.mongo.*');
 Yii::import('site.seo.components.*');
 Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
+Yii::import('site.seo.components.wordstat.*');
 
 class WordstatCommand extends CConsoleCommand
 {
@@ -18,14 +19,7 @@ class WordstatCommand extends CConsoleCommand
         $keywords = Yii::app()->db_seo->createCommand('select distinct(keyword_id) from sites__keywords_visits ')->queryColumn();
         echo count($keywords);
         foreach ($keywords as $keyword_id) {
-            $model = ParsingKeyword::model()->findByPk($keyword_id);
-            if ($model === null) {
-                $m = new ParsingKeyword;
-                $m->keyword_id = $keyword_id;
-                $m->priority = 100;
-                $m->save();
-            } else
-                ParsingKeyword::model()->updateByPk($keyword_id, array('priority' => 100));
+
         }
     }
 
@@ -50,7 +44,8 @@ class WordstatCommand extends CConsoleCommand
                 $keyword_model->name = $keyword;
                 try {
                     $keyword_model->save();
-                    ParsingKeyword::addNewKeyword($keyword_model);
+                    #TODO add to parsing queue
+                    //ParsingKeyword::addNewKeyword($keyword_model);
                 } catch (Exception $e) {
                 }
             }
@@ -62,97 +57,33 @@ class WordstatCommand extends CConsoleCommand
         fclose($handle);
     }
 
-    public function actionModify($num = 1)
-    {
-        $parser = new WordstatQueryModify();
-        $parser->addToParsing($num);
-    }
-
     public function actionFixPriority($i = 0)
     {
-        for ($i = 0; $i < 515; $i++) {
-            $ids = 1;
-            $j = 0;
-            while (!empty($ids)) {
-                $ids = Yii::app()->db_keywords->createCommand()
-                    ->select('id')
-                    ->from('keywords')
-                    ->where('wordstat >= 100 AND status IS NULL AND id >= '.($i*1000000).' AND id <'.(($i+1)*1000000))
-                    ->limit(1000)
-                    ->offset($j * 1000)
-                    ->queryColumn();
-
-                if (!empty($ids))
-                Yii::app()->db_keywords->createCommand()->update('parsing_keywords', array('priority' => 201),
-                    'keyword_id IN (' . implode(',', $ids) . ')');
-                $j++;
-            }
-            echo $i . "\n";
-        }
+        $p = new WordstatQueryModify;
+        $p->addToParsing($i);
     }
 
-    public function actionFix2()
+    public function actionPutTask()
     {
-        $deleted = 0;
-        for ($i = 0; $i < 120; $i++) {
-            $ids = Yii::app()->db_seo->createCommand()
-                ->selectDistinct('keyword_id')
-                ->from('sites__keywords_visits')
-                ->limit(10000)
-                ->offset(10000 * $i - $deleted)
-                ->queryColumn();
-
-            foreach ($ids as $id) {
-                $exist = Yii::app()->db_keywords->createCommand()->select('id')->from('keywords')->where('id=' . $id)->queryScalar();
-                if (empty($exist)) {
-                    Yii::app()->db_seo->createCommand()->delete('sites__keywords_visits', 'keyword_id=' . $id);
-                    $deleted++;
-                }
-            }
-
-            echo $deleted . "\n";
-        }
+        $job_provider = new WordstatTaskCreator;
+        $job_provider->start();
     }
 
-    public function actionProxyMongo()
-    {
-        $criteria = new CDbCriteria;
-        $criteria->limit = 1000;
-        $i = 0;
-        $proxies = array(1);
-        while (!empty($proxies)) {
-            $criteria->offset = 1000 * $i;
-
-            $proxies = Proxy::model()->findAll($criteria);
-            foreach ($proxies as $proxy) {
-                $mongo_proxy = new ProxyMongo;
-                $mongo_proxy->value = $proxy->value;
-                $mongo_proxy->rank = $proxy->rank;
-                $mongo_proxy->save();
-            }
-
-            $i++;
-        }
+    public function actionSimple(){
+        $p = new WordstatParser();
+        $p->start();
     }
 
-    public function actionProxyMongoCheck()
-    {
-        $start_time = microtime(true);
-
-        $model = ProxyMongo::model()->findAndModify(array(
-            'update' => array('$set' => array('active' => 1)),
-            'query' => array('active' => 0),
-            'sort' => array('rating' => EMongoCriteria::SORT_DESC),
-        ));
-
-        echo 1000 * (microtime(true) - $start_time) . "\n";
-        echo $model['value'];
+    public function actionAddSimpleParsing(){
+        WordstatParsingTask::getInstance()->addAllKeywordsToParsing();
     }
 
-    public function actionTest()
-    {
-        $k = 'купить выпрямитель для волос профессиональный';
-        $start_time = microtime(true);
-        echo 1000 * (microtime(true) - $start_time) . "\n";
+    private $collection;
+
+    public function actionTest(){
+        $mongo = new Mongo('mongodb://localhost');
+        $mongo->connect();
+        $this->collection = $mongo->selectCollection('parsing', 'simple_parsing');
+        echo $this->collection->remove(array('id' => 63312236));
     }
 }

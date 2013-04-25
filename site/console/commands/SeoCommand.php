@@ -8,6 +8,7 @@ Yii::import('site.seo.models.*');
 Yii::import('site.seo.models.mongo.*');
 Yii::import('site.common.models.mongo.*');
 Yii::import('site.seo.components.*');
+Yii::import('site.seo.components.wordstat.*');
 Yii::import('site.seo.modules.competitors.models.*');
 Yii::import('site.seo.modules.writing.models.*');
 Yii::import('site.seo.modules.promotion.models.*');
@@ -22,15 +23,9 @@ class SeoCommand extends CConsoleCommand
         Config::setAttribute('stop_threads', 1);
     }
 
-    public function actionWordstat($thread_id = 0)
-    {
-        $parser = new WordstatFilter($thread_id);
-        $parser->start();
-    }
-
     public function actionProxy()
     {
-        ProxyRefresher::execute();
+        ProxyRefresher::executeMongo();
     }
 
     public function actionDeletePageDuplicates()
@@ -221,26 +216,14 @@ class SeoCommand extends CConsoleCommand
         return $file_name;
     }
 
-    public function actionCopyStatus()
+    public function actionTest2()
     {
-        $raws = array(0);
-        $i = 0;
-        while (!empty($raws)) {
-            $raws = Yii::app()->db_keywords->createCommand()
-                ->select('keyword_id, status')
-                ->from('keywords_statuses')
-                ->offset(10000 * $i)
-                ->limit(10000)
-                ->queryAll();
+        $url = '/community/2/forum/post/1491/';
+        echo "http://www.happy-giraffe.ru$url\n";
 
-            foreach ($raws as $raw) {
-                Yii::app()->db_keywords->createCommand()
-                    ->update('keywords', array('status' => $raw['status']), 'id=' . $raw['keyword_id']);
-            }
-
-            $i++;
-            if ($i % 20 == 0)
-                echo ($i * 10000) . "\n";
+        for ($i = 8; $i > 0; $i--) {
+            $date = date("Y-m-d", strtotime('- ' . $i . ' days'));
+            echo $date . ': ' . GApi::model()->organicSearches($url, $date, $date) . "\n";
         }
     }
 }

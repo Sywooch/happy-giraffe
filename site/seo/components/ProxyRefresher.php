@@ -1,32 +1,25 @@
 <?php
 /**
- * Author: alexk984
- * Date: 13.08.12
+ * Class ProxyRefresher
+ *
+ * Обновляет прокси (удаляет плохие, добавляет новые), запускается по крону раз в час
+ *
+ * @author Alex Kireev <alexk984@gmail.com>
  */
 class ProxyRefresher
 {
-    public static function execute()
+    /**
+     * Добавляет новые прокси и удаляет старые с низким рейтингом так чтобы их было не более 40,000
+     */
+    public static function executeMongo()
     {
         $str = file_get_contents('http://awmproxy.com/socks_proxy.txt?');
-        $i = 0;
         if (strlen($str) > 10000) {
-
             $proxies = explode("\n", $str);
-            foreach ($proxies as $proxy) {
-                $proxy = trim($proxy);
-                $model = Proxy::model()->find('value="' . $proxy . '"');
-                if ($model === null) {
-                    $model = new Proxy;
-                    $model->value = $proxy;
-                    $model->save();
-                    $i++;
-                }
-            }
-            while(Proxy::model()->count() > 50000) {
-                Proxy::model()->deleteAll('active = 0 AND rank <= 10 order by rank ASC, id asc limit 3000');
-            }
-        }
+            foreach ($proxies as $proxy)
+                ProxyMongo::model()->addNewProxy($proxy);
 
-        echo $i . ' -new proxies';
+            ProxyMongo::model()->removeExtra();
+        }
     }
 }

@@ -75,7 +75,7 @@ class FileAttachWidget extends CWidget
             $this->title = 'Отправить фото в гостевую';
             $this->button_title = 'Продолжить';
         }
-        elseif($this->entity == 'CommunityPost' || $this->entity == 'CommunityVideo' || $this->entity == "Comment" || $this->entity == 'Message')
+        elseif($this->entity == 'CommunityPost' || $this->entity == 'CommunityVideo' || $this->entity == "Comment" || $this->entity == 'Message' || $this->entity == 'MessagingMessage')
         {
             $this->title = 'Вставить изображение';
             $this->button_title = 'Продолжить';

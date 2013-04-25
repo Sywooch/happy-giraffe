@@ -53,6 +53,7 @@ class DefaultController extends HController
             'messaging__enter' => (bool) UserAttributes::get(Yii::app()->user->id, 'messaging__enter', false),
             'messaging__sound' => (bool) UserAttributes::get(Yii::app()->user->id, 'messaging__sound', true),
             'messaging__interlocutorExpanded' => (bool) UserAttributes::get(Yii::app()->user->id, 'messaging__interlocutorExpanded', true),
+            'messaging__blackList' => (bool) UserAttributes::get(Yii::app()->user->id, 'messaging__blackList', false),
         );
 
         $data = CJSON::encode(compact('contacts', 'interlocutorId', 'me', 'settings'));
@@ -62,8 +63,10 @@ class DefaultController extends HController
     public function actionTest()
     {
         $randomUsers = User::model()->findAll(array(
-            'limit' => 100,
+            'limit' => 10,
             'order' => new CDbExpression('RAND()'),
+            'condition' => 'id != :me',
+            'params' => array(':me' => 12936),
         ));
 
         foreach ($randomUsers as $u) {
@@ -83,6 +86,71 @@ class DefaultController extends HController
         $text = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
 
         for ($i = 0; $i < 41; $i++)
-            MessagingMessage::model()->create($i . '. ' . $text, 1245, $i % 2 == 0 ? 22 : 12936);
+            MessagingMessage::model()->create($i . '. ' . $text, 114, $i % 2 == 0 ? 22 : 12936, array());
+    }
+
+    public function actionTest3($id)
+    {
+        $dialog = Dialog::model()->with('dialogUsers', 'messages')->findByPk($id);
+
+        if (! empty($dialog->messages)) {
+            $thread = new MessagingThread();
+            $thread->detachBehavior('CTimestampBehavior');
+
+            $result = array_reduce($dialog->messages, function($l, $r) {
+                $created = strtotime($r->created);
+
+                if ($created < $l['created'])
+                    $l['created'] = $created;
+                if ($created > $l['updated'])
+                    $l['updated'] = $created;
+                return $l;
+            }, array('created' => time(), 'updated' => 0));
+
+            $thread->created = date("Y-m-d H:i:s", $result['created']);
+            $thread->updated = date("Y-m-d H:i:s", $result['updated']);
+
+            $threadUsers = array();
+            foreach ($dialog->dialogUsers as $dialogUser) {
+                $threadUser = new MessagingThreadUser();
+                $threadUser->user_id = $dialogUser->user_id;
+                $threadUsers[] = $threadUser;
+            }
+            $thread->threadUsers = $threadUsers;
+
+            $messages = array();
+            foreach ($dialog->messages as $m) {
+                $message = new MessagingMessage();
+                $message->detachBehavior('CTimestampBehavior');
+                $message->author_id = $m->user_id;
+                $message->text = $m->text;
+                $message->created = $m->created;
+                $message->updated = $m->created;
+                $messageUsers = array();
+                foreach ($dialog->dialogUsers as $dialogUser) {
+                    $messageUser = new MessagingMessageUser();
+                    $messageUser->user_id = $dialogUser->user_id;
+                    $messageUser->read = $dialogUser->user_id == $m->user_id ? null : 1;
+                    $messageUsers[] = $messageUser;
+                }
+                $message->messageUsers = $messageUsers;
+                $messages[] = $message;
+            }
+            $thread->messages = $messages;
+
+            $thread->withRelated->save(true, array(
+                'threadUsers',
+                'messages' => array(
+                    'messageUsers',
+                ),
+            ));
+        }
+    }
+
+    public function actionTest4()
+    {
+        $id = Yii::app()->request->getQuery('id');
+        $message = MessagingMessage::model()->findByPk($id);
+        var_dump($message->json);
     }
 }

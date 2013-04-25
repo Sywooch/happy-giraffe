@@ -12,6 +12,7 @@ class PageStatistics extends EMongoDocument
     public $depth;
     public $visit_time;
     public $se_visits = array();
+    public $date_visits = array();
 
     /**
      * @param string $className
@@ -64,8 +65,8 @@ class PageStatistics extends EMongoDocument
                 $rows[2] = 'личный блог';
             }
             $rows[3] = $page->visits;
-            $rows[4] = isset($page->se_visits['2013-02'])?$page->se_visits['2013-02']:'';
-            $rows[5] = isset($page->se_visits['2013-03'])?$page->se_visits['2013-03']:'';
+            $rows[4] = isset($page->se_visits['2013-02']) ? $page->se_visits['2013-02'] : '';
+            $rows[5] = isset($page->se_visits['2013-03']) ? $page->se_visits['2013-03'] : '';
             $rows[7] = round($page->depth, 2);
 
             $data [] = $rows;
@@ -77,6 +78,24 @@ class PageStatistics extends EMongoDocument
         $this->excel($data);
     }
 
+    public function getTitle()
+    {
+        $this->url = str_replace('http://happy-giraffe.ru/', 'http://www.happy-giraffe.ru/', $this->url);
+        if (strpos($this->url, 'http://') === false)
+            $this->url = 'http://www.happy-giraffe.ru' . $this->url;
+
+        //$this->save();
+
+        list($entity, $entity_id) = Page::ParseUrl($this->url);
+        if (empty($entity) || empty($entity_id))
+            return '';
+        $article = CActiveRecord::model($entity)->resetScope()->findByPk($entity_id);
+        if ($article === null)
+            return '';
+
+        return $article->title;
+    }
+
     public function parseSe()
     {
         $criteria = new EMongoCriteria(array(
@@ -84,10 +103,10 @@ class PageStatistics extends EMongoDocument
             'sort' => array('visits' => EMongoCriteria::SORT_DESC),
         ));
         $pages = $this->model()->findAll($criteria);
-        echo count($pages)."\n";
+        echo count($pages) . "\n";
         $i = 1;
         foreach ($pages as $page) {
-            echo $i."\n";
+            echo $i . "\n";
             $url = str_replace('http://happy-giraffe.ru', '', $page->url);
             $url = str_replace('http://www.happy-giraffe.ru', '', $url);
             $page->se_visits = array();

@@ -2,7 +2,7 @@
 
 class ThreadsController extends HController
 {
-    const MESSAGES_PER_PAGE = 10;
+    const MESSAGES_PER_PAGE = 20;
 
     public function filters()
     {
@@ -100,9 +100,10 @@ class ThreadsController extends HController
     {
         $thread = MessagingThread::model();
         $thread->id = $threadId;
-        $messages = $thread->getMessages(self::MESSAGES_PER_PAGE, $offset);
+        $messages = $thread->getMessages(Yii::app()->user->id, self::MESSAGES_PER_PAGE, $offset);
+        $last = $thread->countMessages(Yii::app()->user->id) <= ($offset + self::MESSAGES_PER_PAGE);
 
-        $data = compact('messages');
+        $data = compact('messages', 'last');
         echo CJSON::encode($data);
     }
 

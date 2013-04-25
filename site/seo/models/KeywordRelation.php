@@ -94,6 +94,11 @@ class KeywordRelation extends CActiveRecord
         ));
     }
 
+    /**
+     * Сохранение связи "Что еще искали искавшие"
+     * @param $keyword_from_id int
+     * @param $keyword_to_id int
+     */
     public static function saveRelation($keyword_from_id, $keyword_to_id)
     {
         $exist = Yii::app()->db_keywords->createCommand()

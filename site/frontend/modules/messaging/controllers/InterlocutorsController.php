@@ -24,6 +24,7 @@ class InterlocutorsController extends HController
             'blogPostsCount' => (int) $interlocutorModel->blogPostsCount,
             'photosCount' => (int) $interlocutorModel->photosCount,
             'inviteSent' => (bool) $interlocutorModel->isInvitedBy(Yii::app()->user->id),
+            'isBlocked' => (bool) Blacklist::model()->isBlocked($interlocutorModel->id, Yii::app()->user->id),
         );
 
         echo CJSON::encode(compact('interlocutor'));
@@ -35,6 +36,22 @@ class InterlocutorsController extends HController
         $typingStatus = (bool) Yii::app()->request->getPost('typingStatus');
 
         $comet = new CometModel();
-        $comet->send($interlocutorId, compact('typingStatus'), CometModel::MESSAGING_INTERLOCUTOR_TYPING);
+        $comet->send($interlocutorId, array('typingStatus' => $typingStatus, 'interlocutorId' => Yii::app()->user->id), CometModel::MESSAGING_INTERLOCUTOR_TYPING);
+    }
+
+    public function actionBlackList()
+    {
+        $interlocutorId = Yii::app()->request->getPost('interlocutorId');
+
+        $bl = new Blacklist();
+        $bl->user_id = Yii::app()->user->id;
+        $bl->blocked_user_id = $interlocutorId;
+        $success = $bl->save();
+
+        $response = array(
+            'success' => $success,
+        );
+
+        echo CJSON::encode($response);
     }
 }

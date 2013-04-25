@@ -22,6 +22,10 @@ return array(
         'site.frontend.extensions.phpQuery.phpQuery',
     ),
     'components' => array(
+        'gearman' => array(
+            'class' => 'site.common.components.Gearman',
+            'servers'=>array(),
+        ),
         'request' => array(
             'hostInfo' => 'http://www.happy-giraffe.ru',
             'baseUrl' => '',
@@ -49,6 +53,14 @@ return array(
             'class' => 'EMongoDB',
             'connectionString' => 'mongodb://localhost',
             'dbName' => 'happy_giraffe_production',
+            'fsyncFlag' => true,
+            'safeFlag' => true,
+            'useCursor' => false
+        ),
+        'mongodb_parsing' => array(
+            'class' => 'EMongoDB',
+            'connectionString' => 'mongodb://178.63.88.2',
+            'dbName' => 'parsing',
             'fsyncFlag' => true,
             'safeFlag' => true,
             'useCursor' => false

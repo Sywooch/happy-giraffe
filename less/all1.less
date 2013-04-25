@@ -18,10 +18,12 @@
 
 // Проектный слой
 @import "/project/activity.less";
+@import "/project/content-cols.less";
 @import "/project/contest.less";
 @import "/project/default-comments.less";
 @import "/project/dialog.less";
 @import "/project/find-friend.less";
+@import "/project/friends-list.less";
 @import "/project/gallery.less";
 @import "/project/header.less";
 @import "/project/homepage.less";
@@ -115,6 +117,55 @@
 #infscr-loading > img {float: left;margin-right: 10px;}
 
 .tip {display:none !important;}
+
+
+.user-online-status {
+	.inline-block();
+	background: #03E01E;
+    border-radius: 3px;
+    float: left;
+    height: 6px;
+    margin: 9px 9px 0 0;
+    width: 6px;
+}
+
+.cont-nav {
+	margin:25px 10px 30px 10px;
+	text-align: center;
+
+	&_i {
+		.inline-block();
+		margin: 0 5px;
+		padding: 0 10px;
+		line-height: 26px;
+		font-size: 14px;
+		color: #818080;
+	}
+	&_i.active {background: #fdf48f;}
+	&_i.active &_a {color: #1f1f1f;}
+	&_i.active &_a:hover {text-decoration: none;}
+	&_a {
+		.inline-block();
+		color: #818080;
+		text-decoration: none;
+	}
+	&_a:hover {text-decoration: underline;}
+	&_a.inactive {
+		color: #c0c0c0;
+		cursor: default;
+		text-decoration: none;
+	}
+	&_count {
+		.inline-block();
+		margin: 0 5px;
+		padding: 0 5px;
+		font-size: 12px;
+		line-height: 16px;
+		color: #fff;
+		background: #0eba23;
+		.border-radius(3px);
+	}
+}
 
 .read-more {white-space:nowrap;text-decoration:underline !important;}
 .read-more .icon {display:inline-block;*zoom:1;*display:inline;width:7px;height:9px;background:url(/images/common.png) no-repeat -328px -178px;margin-left:5px;position:relative;top:1px;}
@@ -747,14 +798,6 @@
 #content .main-in{margin-left:260px;}
 #content .main-right{margin-right:260px;}
 #content .main-right .main-main-in {margin:0 260px 0 0;}
-
-.content-cols {}
-.content-cols .col-1 {width:240px;padding-right:20px;float:left;}
-.content-cols .col-12,
-.content-cols .col-23 {width:700px;float:left;}
-.content-cols .col-23-big {width: 740px;float: left;}
-.content-cols .col-2 {width:440px;float:left;}
-.content-cols .col-3 {width:240px;padding-left:20px;float:left;}
 
 .fast-sort {line-height:20px;padding-top:5px;color:#59b0c4;font-size:11px;font-family:tahoma, arial, sans-serif;}
 

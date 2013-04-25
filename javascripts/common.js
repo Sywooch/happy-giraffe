@@ -54,7 +54,14 @@ $(document).ready(function () {
     $('#btn-up-page').click(function () {
         $('.layout-container').stop().animate({scrollTop:0}, "normal");
         return false
-    })
+    });
+
+     /* Подсказки при наведении */
+    $('.powertip').powerTip({
+        placement: 'n',
+        smartPlacement: true,
+        offset: 8
+    });
 
 
     $.ajaxSetup({

@@ -30,6 +30,7 @@ class WordstatParser extends WordstatBaseParser
     public function processMessage($job)
     {
         $id = $job->workload();
+        $this->startTimer('parse keyword');
         $this->keyword = Keyword::model()->findByPk($id);
         if ($this->keyword !== null) {
             $this->log('Parsing keyword: ' . $this->keyword->id);
@@ -37,6 +38,8 @@ class WordstatParser extends WordstatBaseParser
             $this->parse();
         }
         WordstatParsingTask::getInstance()->removeSimpleTask($id);
+
+        $this->endTimer();
         return true;
     }
 

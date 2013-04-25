@@ -219,7 +219,7 @@
             'type' => 'simple',
             'options' => array(
                 'title' => $data->title,
-                'image' => $data->getContentImage(),
+                'image' => $data->getContentImage(400),
                 'description' => $data->getContent()->text,
             ),
         )); ?>

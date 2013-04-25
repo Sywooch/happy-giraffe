@@ -45,7 +45,7 @@
 		margin: 0 5px;
 		padding: 0 5px;
 		font-size: 12px;
-		line-height: 15px;
+		line-height: 16px;
 		color: #fff;
 		background: #0eba23;
 		.border-radius(3px);
@@ -436,14 +436,16 @@
 		width: 29px;
 	}
 	&_search-reset {
+		display: none;
 		position: absolute;
 		top: 10px;
-		right: 47px;
-	    margin: 0 7px 0 0;
+		right: 37px;
+	    margin: 0;
 	    padding: 0;
 	    text-indent: -9999px;
 	    cursor: pointer;
 	}
+	&_search-reset.active {display: block;}
 }
 
 .im-user-list {
@@ -544,45 +546,45 @@
 		font-size: 20px;
 		color: #262626;
 	}
-	&_previewimg {
+/*	&_previewimg {
 	display: block;
-}
-&_previewimg_i {
-	display: inline-block;*zoom:1;*display:inline;
-    margin: 5px 5px 10px 0;
-    max-height: 70px;
-    max-width: 70px;
-    position: relative;
-    vertical-align: top;
-}
-&_previewimg_i > img {
-	display: block;
-	margin: 0;
-}
-&_previewimg_i:hover:after {
-	content: "";
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	height: 22px;
-	background: #fafafa;
-	background: rgba(255,255,255,0.7);
-	z-index: 1;
-}
-&_previewimg_i:hover &_previewimg_del {display: block;}
-&_previewimg_del {
-	display: none;
-	position: absolute;
-	top: 5px;
-	right: 5px;
-    height: 12px !important;
-    width: 10px !important;
-	background: url("/images/common.png") no-repeat scroll -315px -149px transparent !important;
-    text-indent: -9999px;
-    z-index: 2;
-    cursor: pointer !important;
-}
+	}
+	&_previewimg_i {
+		display: inline-block;*zoom:1;*display:inline;
+	    margin: 5px 5px 10px 0;
+	    max-height: 70px;
+	    max-width: 70px;
+	    position: relative;
+	    vertical-align: top;
+	}
+	&_previewimg_i > img {
+		display: block;
+		margin: 0;
+	}
+	&_previewimg_i:hover:after {
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		height: 22px;
+		background: #fafafa;
+		background: rgba(255,255,255,0.7);
+		z-index: 1;
+	}
+	&_previewimg_i:hover &_previewimg_del {display: block;}
+	&_previewimg_del {
+		display: none;
+		position: absolute;
+		top: 5px;
+		right: 5px;
+	    height: 12px !important;
+	    width: 10px !important;
+		background: url("/images/common.png") no-repeat scroll -315px -149px transparent !important;
+	    text-indent: -9999px;
+	    z-index: 2;
+	    cursor: pointer !important;
+	}*/
 }
 
 .tooltipsy-im {

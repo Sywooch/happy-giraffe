@@ -29,7 +29,7 @@ im.sidebarHeight = function () {
 /*  if (im.containerScroll > im.headerHeight) {
         im.userList.height(im.sidebar.height() - im.userListIndentFix);
     } else {*/
-        im.userList.height(im.windowHeight - im.headerHeight - im.userListIndent);
+        im.userList.height(im.windowHeight - im.headerHeight - im.userListIndent - im.bottomHeight);
 /*    }*/
 
 }

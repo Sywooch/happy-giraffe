@@ -1,0 +1,184 @@
+.friends-list {
+	margin-bottom: 30px;
+	position: relative;
+
+	&_i {
+		.inline-block();
+		vertical-align: top;
+		margin: 10px 12px 30px;
+		width: 206px;
+		text-align: center;
+	}
+	&_find {
+		display: block;
+		width: 205px;
+		height: 205px;
+		background: url(/images/friends-list_find.png) no-repeat;
+	}
+	&_find:hover {background-position: 0 -205px;}
+	&_ava-hold {
+		position: relative;
+		margin-bottom: 10px;
+
+		.ava.large {border: 2px solid #fff;position: relative;}
+		&:hover .ava.large {border-color: #4d85cb;}
+		.ava.large:after {
+			content:'';
+			display: none;
+			position: absolute;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 0;
+			background: #b8d6fc;
+			background: rgba(184,214,252,.6);
+			.border-radius(100px);
+		}
+		&:hover .ava.large:after {display: block;}
+	}
+	&_ava-hold:hover &_online{display: none;}
+	&_ava-hold:hover &_close {display: block;}
+	&_ava-hold:hover &_bubble {display: block;}
+	&_bubble {
+		display: none;
+		position: absolute;
+		left: 30px;
+		bottom: 3px;
+		height: 60px;
+		width: 60px;
+		background: #4279be;
+		background: rgba(66,121,190,.8);
+		text-decoration: none;
+		.border-radius(30px);
+	}
+	&_bubble:hover {background: #0eba23;}
+	&_bubble:hover &_ico       {background-position: 0 -30px;}
+	&_bubble:hover &_ico__blog {background-position: -30px -30px;}
+	&_bubble:hover &_ico__photo{background-position: -60px -30px;}
+	&_bubble:hover &_bubble-tx{color: #fff;}
+	&_bubble__photo {
+		bottom: 54px;
+		left: auto;
+		right: 0;
+	}
+	&_bubble__blog {
+		bottom: 3px;
+		left: auto;
+		right: 30px;
+	}
+	&_bubble-tx {
+		font-size: 10px;
+		line-height: 10px;
+		color: #cad9ed;
+		text-decoration: none;
+	}
+	&_online {
+		position: absolute;
+		top: 10px;
+		left: 3px;
+		height: 32px;
+		width: 38px;
+		padding: 6px 0 0;
+		background: #0eba23;
+		color: #fff;
+		font-size: 10px;
+		line-height: 10px;
+		text-align: center;
+		.border-radius(19px);
+	}
+	&_close {
+		display: none;
+		position: absolute;
+		top: 10px;
+		right: 10px;
+
+	}
+	&_ico {
+		display: block;
+		width: 30px;
+		height: 25px;
+		margin: 15px auto 0;
+		background: url(/images/friends-list_ico.png) no-repeat;
+	}
+	&_ico__blog  {background-position: -30px 0;}
+	&_ico__photo {background-position: -60px 0;}
+	&_a {
+		.inline-block();
+		margin: 0;
+		color: #289fd7;
+		text-decoration: none;
+	}
+	&_a:hover {text-decoration: underline;}
+	&_group {
+		position: relative;
+	}
+	&_group-a {
+		.inline-block();
+		font-size: 11px;
+		line-height: 14px;
+		font-family: Tahoma, Arial, Verdana, sans-serif;
+		color: #afafaf;
+		text-decoration: none;
+		border-bottom: 1px dashed #afafaf;
+	}
+	&_group-a:hover {
+		border-bottom-color: #f97704;
+		color: #f97704;
+	}
+	&_group-popup {
+		display: none;
+		position: absolute;
+		top: 30px;
+		left: 20px;
+		width: 160px;
+		padding: 10px 0;
+		background: #fff;
+		border: 1px solid #eaeaea;
+		text-align: left;
+		z-index: 200;
+		.border-radius();
+		.box-shadow(0 0 4px rgba(0,0,0,.2));
+
+		&:after {
+			content:"";
+			position: absolute;
+			top: -5px;
+			left: 50%;
+			width:10px;
+			height:10px;
+			.rotate(45deg);
+			background:#fff;
+			z-index:1;
+			.box-shadow(-3px -3px 3px rgba(0,0,0,.12));
+		}
+		.ie7 &:after,
+		.ie8 &:after {display: none;}
+	}
+	.ie7 &_group-popup,
+	.ie8 &_group-popup {top: 20px;}
+
+	&_group-popup-a {
+		display: block;
+		padding: 5px 20px;
+		line-height: 14px;
+		color: #333;
+		text-decoration: none;
+	}
+	&_group-popup-a:hover {background: #ebf4ff;}
+
+	&_group-label {
+		display: block;
+		margin: 4px 0;
+		padding-left: 20px;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+	&_group-radio {
+		float: left;
+		vertical-align: middle;
+		margin: 0 4px 2px -20px;
+		padding: 0;
+		height: 16px;
+		width: 16px;
+	}
+}

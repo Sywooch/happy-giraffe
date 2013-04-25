@@ -522,6 +522,14 @@ function MessagingViewModel(data) {
         }
     }
 
+    self.populateContacts = function(data) {
+        var newContacts = ko.utils.arrayMap(data, function(contact) {
+            return new Contact(contact, self);
+        });
+
+        self.contacts.push.apply(self.contacts, newContacts);
+    }
+
     soundManager.setup({
         url: '/swf/',
         debugMode: false,

@@ -228,7 +228,7 @@ class WordstatParser extends WordstatBaseParser
                     }
 
                 } catch (Exception $err) {
-                    $this->log('error while keyword adding ' . $err->getMessage());
+                    $this->log('error while keyword adding ' . $err->getMessage(), true);
                 }
             }
 

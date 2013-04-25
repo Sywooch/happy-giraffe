@@ -1,4 +1,4 @@
-.im-fixed {
+/*.im-fixed {
 	#header-new {
 		position: fixed;
 		top:42px;
@@ -11,29 +11,43 @@
 		position: fixed;
 		top: 211px;
 	}
-}
+}*/
 
 .im {
 	position: relative;
-	margin: 0 -20px -50px;
+	margin: -20px -20px -50px;
 	min-height: 470px;
 	&:after,
 	&:before {
 		content:'';
-		position: fixed;
-		top: 200px;
+		position: absolute;
+		top: 0;
 		width: 1000px;
 		height: 11px;
 		background: url(/images/im/im.png) repeat-x;
-		z-index: 103;
+		z-index: 101;
 	}
 	&:after {
 		top: auto;
 		bottom: 0;
 	}
-	.ie8 &:after,
-	.ie8 &:before {display: none;}
+	&__fixed .im-sidebar {
+		position: fixed;
+		top: 42px;
+	}
+	&__fixed .im-center_top {
+		position: fixed;
+		top: 53px;
+	}
 
+	&__fixed .im-center_bottom {position: fixed;}
+	&__fixed:after {position: fixed;}
+	&__fixed:before {
+		position: fixed;
+		top: 42px;
+	}
+	.ie8 &__fixed:after,
+	.ie8 &__fixed:before {display: none;}
 	&__cap .im-message_tx{
 		color: transparent;
 	    text-shadow: 0 0 5px rgba(0,0,0,0.5);
@@ -138,7 +152,7 @@
 	}
 	.ie8 &_top {margin-top: -11px;padding-top: 11px;}
 	&_middle {
-		padding: 363px 0 170px;	
+		padding: 185px 0 170px;	
 	}
 	&_middle-hold {position: relative;}
 	&_middle-w {

@@ -40,6 +40,8 @@
 </div>
 <?php endif; ?>
 
+<?php $this->renderPartial('//banners/community_24_700x346'); ?>
+
 <?php $this->widget('application.widgets.commentWidget.CommentWidget', array(
     'model' => $data,
 )); ?>

@@ -18,9 +18,14 @@
 	&_find:hover {background-position: 0 -205px;}
 	&_ava-hold {
 		position: relative;
-		margin-bottom: 10px;
+		margin-bottom: 5px;
 
-		.ava.large {border: 2px solid #fff;position: relative;}
+		.ava.large {
+			float: none;
+			margin: 0 auto;
+			border: 2px solid #fff;
+			position: relative;
+		}
 		&:hover .ava.large {border-color: #4d85cb;}
 		.ava.large:after {
 			content:'';
@@ -42,7 +47,7 @@
 	&_bubble {
 		display: none;
 		position: absolute;
-		left: 30px;
+		left: 35px;
 		bottom: 3px;
 		height: 60px;
 		width: 60px;
@@ -57,14 +62,14 @@
 	&_bubble:hover &_ico__photo{background-position: -60px -30px;}
 	&_bubble:hover &_bubble-tx{color: #fff;}
 	&_bubble__photo {
-		bottom: 54px;
+		bottom: 50px;
 		left: auto;
 		right: 0;
 	}
 	&_bubble__blog {
 		bottom: 3px;
 		left: auto;
-		right: 30px;
+		right: 35px;
 	}
 	&_bubble-tx {
 		font-size: 10px;
@@ -104,13 +109,14 @@
 	&_ico__photo {background-position: -60px 0;}
 	&_a {
 		.inline-block();
-		margin: 0;
+		margin: 0 0 3px;
 		color: #289fd7;
 		text-decoration: none;
 	}
 	&_a:hover {text-decoration: underline;}
 	&_group {
 		position: relative;
+		line-height: 14px;
 	}
 	&_group-a {
 		.inline-block();

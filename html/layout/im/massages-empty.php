@@ -50,8 +50,7 @@
 				<h2 class="im-sidebar_t">Мои диалоги</h2>
 				<div class="im-sidebar_search clearfix">
 					<input type="text" name="" id="" class="im-sidebar_search-itx" placeholder="Найти по имени">
-					<input type="reset" value="" name="" class="im-sidebar_search-reset ico-close">
-					<button class="im-sidebar_search-btn"></button>
+					<button class="im-sidebar_search-btn active"></button>
 				</div>
 				<div class="im-user-list">
 					<div class="im-user-list_i">

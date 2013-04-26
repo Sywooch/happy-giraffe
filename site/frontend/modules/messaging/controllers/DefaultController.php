@@ -8,11 +8,13 @@
  */
 class DefaultController extends HController
 {
+    const CONTACTS_PER_PAGE = 50;
+
     public $tempLayout = true;
 
     public function actionIndex($interlocutorId = null)
     {
-        $contacts = ContactsManager::getContactsByUserId(Yii::app()->user->id);
+        $contacts = ContactsManager::getContactsByUserId(Yii::app()->user->id, ContactsManager::TYPE_ALL, self::CONTACTS_PER_PAGE);
         if ($interlocutorId !== null) {
             $interlocutorExist = false;
             foreach ($contacts as $contact) {
@@ -56,8 +58,22 @@ class DefaultController extends HController
             'messaging__blackList' => (bool) UserAttributes::get(Yii::app()->user->id, 'messaging__blackList', false),
         );
 
-        $data = CJSON::encode(compact('contacts', 'interlocutorId', 'me', 'settings'));
+        $counters = array(
+            ContactsManager::getCountByType(Yii::app()->user->id, 0),
+            ContactsManager::getCountByType(Yii::app()->user->id, 1),
+            ContactsManager::getCountByType(Yii::app()->user->id, 2),
+            ContactsManager::getCountByType(Yii::app()->user->id, 3),
+        );
+
+        $data = CJSON::encode(compact('contacts', 'interlocutorId', 'me', 'settings', 'counters'));
         $this->render('index', compact('data'));
+    }
+
+    public function actionGetContacts($type, $offset)
+    {
+        $contacts = ContactsManager::getContactsByUserId(Yii::app()->user->id, $type, self::CONTACTS_PER_PAGE, $offset);
+        $data = compact('contacts');
+        echo CJSON::encode($data);
     }
 
     public function actionTest()
@@ -86,7 +102,7 @@ class DefaultController extends HController
         $text = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
 
         for ($i = 0; $i < 41; $i++)
-            MessagingMessage::model()->create($i . '. ' . $text, 114, $i % 2 == 0 ? 22 : 12936, array());
+            MessagingMessage::model()->create($i . '. ' . $text, 6387, $i % 2 == 0 ? 60907 : 12936, array());
     }
 
     public function actionTest3($id)

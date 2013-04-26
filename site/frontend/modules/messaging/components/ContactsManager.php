@@ -14,6 +14,7 @@ class ContactsManager
     const TYPE_NEW = 1;
     const TYPE_ONLINE = 2;
     const TYPE_FRIENDS_ONLINE = 3;
+    const LIMIT = 20;
 
     /**
      * Получение контактов пользователя
@@ -62,43 +63,44 @@ class ContactsManager
         switch ($type) {
             case self::TYPE_ALL;
                 $sql = "
-                    SELECT COUNT(*)
-                    FROM messaging__threads_users
-                    WHERE user_id = :user_id
+SELECT COUNT(*)
+FROM messaging__threads_users
+WHERE user_id = :user_id
                 ";
                 break;
             case self::TYPE_NEW:
                 $sql = "
-                    SELECT COUNT(DISTINCT tu.thread_id)
-                    FROM messaging__threads_users tu
-                    INNER JOIN messaging__messages m ON m.thread_id = tu.thread_id AND m.author_id != :user_id
-                    INNER JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.read = 0 AND mu.user_id = :user_id
-                    WHERE tu.user_id = :user_id;
+SELECT COUNT(*) FROM (
+SELECT COUNT(*)
+FROM messaging__messages_users mu
+INNER JOIN messaging__messages m ON mu.message_id = m.id
+WHERE mu.user_id = :user_id AND `read` = 0
+GROUP BY m.thread_id
+) AS sub
                 ";
                 break;
             case self::TYPE_ONLINE:
                 $sql = "
-                    SELECT COUNT(*) AS uId
-                    FROM messaging__threads_users tu
-                    INNER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id != :user_id
-                    INNER JOIN users u ON tu2.user_id = u.id
-                    WHERE tu.user_id = :user_id AND u.online = 1
+
+SELECT COUNT(*) AS uId
+FROM messaging__threads_users tu
+INNER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id != :user_id
+INNER JOIN users u ON tu2.user_id = u.id
+WHERE tu.user_id = :user_id AND u.online = 1
                 ";
                 break;
             case self::TYPE_FRIENDS_ONLINE:
                 $sql = "
-                    SELECT COUNT(*)
-                    FROM users u
-                    INNER JOIN friends f ON (u.id = f.user1_id AND f.user2_id = :user_id) OR (u.id = f.user2_id AND f.user1_id = :user_id)
-                    WHERE u.online = 1;
+SELECT COUNT(*)
+FROM users u
+INNER JOIN friends f ON (u.id = f.user1_id AND f.user2_id = 12936) OR (u.id = f.user2_id AND f.user1_id = 12936)
+WHERE u.online = 1;
                 ";
                 break;
         }
-
-        return Yii::app()->db->createCommand($sql)->queryScalar(array(':user_id' => $userId));
     }
 
-    protected static function getSql($type) {
+    protected function getSql($type) {
         switch ($type) {
             case self::TYPE_ALL:
                 $sql = "
@@ -121,6 +123,9 @@ class ContactsManager
                       FROM messaging__threads_users tu
                       INNER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id != :user_id
                       WHERE tu.user_id = :user_id
+                      ORDER BY updated DESC, t.id DESC
+                      LIMIT :limit
+                      OFFSET :offset
                     ) uIds
                     # Связывание с таблицей пользователей для получения данных о собеседнике
                     INNER JOIN users u ON u.id = uIds.uId
@@ -141,10 +146,7 @@ class ContactsManager
                       tu.user_id IS NULL OR (tu.user_id IS NOT NULL AND tu2.user_id IS NOT NULL)
                       # Условие для фильтрации по чёрному списку
                       AND uId NOT IN (SELECT blocked_user_id FROM blacklist WHERE user_id = :user_id)
-                    GROUP BY u.id
-                    ORDER BY updated DESC, t.id DESC
-                    LIMIT :limit
-                    OFFSET :offset;
+                    GROUP BY u.id;
                 ";
                 break;
             case self::TYPE_NEW:
@@ -269,6 +271,7 @@ class ContactsManager
                       SELECT user2_id AS uId
                       FROM friends
                       WHERE user1_id = :user_id
+                      UNION
                     ) uIds
                     # Связывание с таблицей пользователей для получения данных о собеседнике
                     INNER JOIN users u ON u.id = uIds.uId

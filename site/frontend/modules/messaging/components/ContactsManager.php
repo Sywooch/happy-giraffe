@@ -122,8 +122,9 @@ WHERE u.online = 1;
                       SELECT tu2.user_id AS uId
                       FROM messaging__threads_users tu
                       INNER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id != :user_id
+                      INNER JOIN messaging__threads t ON tu.thread_id = t.id
                       WHERE tu.user_id = :user_id
-                      ORDER BY updated DESC, t.id DESC
+                      ORDER BY t.updated DESC, t.id DESC
                       LIMIT :limit
                       OFFSET :offset
                     ) uIds

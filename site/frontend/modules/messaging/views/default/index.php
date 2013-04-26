@@ -4,8 +4,7 @@
             <h2 class="im-sidebar_t">Мои диалоги</h2>
             <div class="im-sidebar_search clearfix">
                 <input type="text" class="im-sidebar_search-itx" placeholder="Найти по имени" data-bind="value: searchQuery, valueUpdate: 'keyup'">
-                <input type="reset" value="" name="" class="im-sidebar_search-reset ico-close" data-bind="click: clearSearchQuery, visible: searchQuery() != ''">
-                <button class="im-sidebar_search-btn"></button>
+                <button class="im-sidebar_search-btn" data-bind="click: clearSearchQuery, css: { active : searchQuery() != '' }"></button>
             </div>
             <div class="im-user-list">
                 <!-- ko template: { name: 'contact-template', foreach: visibleContactsToShow } -->

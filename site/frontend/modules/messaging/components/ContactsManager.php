@@ -10,6 +10,11 @@
  */
 class ContactsManager
 {
+    const TYPE_ALL = 0;
+    const TYPE_NEW = 1;
+    const TYPE_ONLINE = 2;
+    const TYPE_FRIENDS_ONLINE = 3;
+
     /**
      * Получение контактов пользователя
      *
@@ -35,59 +40,14 @@ class ContactsManager
      * @param $userId
      * @return array
      */
-    public static function getContactsByUserId($userId)
+    public static function getContactsByUserId($userId, $type, $limit, $offset = 0)
     {
-        $sql = "
-            SELECT
-                u.id AS uId, # ID собеседника
-                u.first_name, # Имя собеседника
-                u.last_name, # Фамилия собеседника
-                u.gender, # Пол собеседника
-                u.online, # Онлайн-статус собеседника
-                t.id AS tId, # ID Диалога
-                tu2.hidden, # Видимость диалога
-                p.fs_name, # Аватар
-                UNIX_TIMESTAMP(t.updated) AS updated, # Дата последнего обновления диалога
-                COUNT(mu.message_id) AS unreadCount, # Количество непрочитанных сообщений
-                friends.created IS NOT NULL AS isFriend # Является ли другом
-            # Таблица ID всех пользователей в контактах
-            FROM (
-                # Пользователей, находящиеся в друзьях вне зависимости от наличия или отсутствия переписки с ними
-                SELECT user1_id AS uId
-                FROM friends
-                WHERE user2_id = :user_id
-                UNION
-                SELECT user2_id AS uId
-                FROM friends
-                WHERE user1_id = :user_id
-                UNION
-                # Пользователи, с которыми когда-либо была переписка
-                SELECT tu2.user_id AS uId
-                FROM messaging__threads_users tu
-                INNER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id != :user_id
-                WHERE tu.user_id = :user_id
-            ) uIds
-            # Связывание с таблицей пользователей для получения данных о собеседнике
-            INNER JOIN users u ON u.id = uIds.uId
-            # Связывание с таблицей друзей для установления, является ли собеседник другом
-            LEFT OUTER JOIN friends ON (u.id = friends.user1_id AND friends.user2_id = :user_id) OR (u.id = friends.user2_id AND friends.user1_id = :user_id)
-            # Связывание с таблицей участников диалога для получения ID и видимости диалога
-            LEFT OUTER JOIN messaging__threads_users tu ON tu.user_id = u.id
-            LEFT OUTER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id = :user_id
-            # Связывание с таблицей диалогов для получения данных о диалоге
-            LEFT OUTER JOIN messaging__threads t ON t.id = tu2.thread_id
-            # Связывание с таблицами сообщений и получателей сообщения для получения количества непрочитанных сообщений
-            LEFT OUTER JOIN messaging__messages m ON m.thread_id = t.id AND m.author_id != :user_id
-            LEFT OUTER JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.read = 0 AND mu.user_id = :user_id
-            # Связывание с таблицей фотографий для получения аватара
-            LEFT OUTER JOIN album__photos p ON u.avatar_id = p.id
-            # Условие для корректной работы связывание с таблицей участников диалога
-            WHERE tu.user_id IS NULL OR (tu.user_id IS NOT NULL AND tu2.user_id IS NOT NULL) AND uId NOT IN (SELECT blocked_user_id FROM blacklist WHERE user_id = :user_id)
-            GROUP BY u.id;
-        ";
+        $sql = self::getSql($type);
 
         $command = Yii::app()->db->createCommand($sql);
         $command->bindValue(':user_id', $userId, PDO::PARAM_INT);
+        $command->bindValue(':limit', (int) $limit, PDO::PARAM_INT);
+        $command->bindValue(':offset', (int) $offset, PDO::PARAM_INT);
         $rows = $command->queryAll();
 
         $contacts = array();
@@ -95,6 +55,250 @@ class ContactsManager
             $contacts[] = self::populateContact($row);
 
         return $contacts;
+    }
+
+    public static function getCountByType($userId, $type)
+    {
+        switch ($type) {
+            case self::TYPE_ALL;
+                $sql = "
+                    SELECT COUNT(*)
+                    FROM messaging__threads_users
+                    WHERE user_id = :user_id
+                ";
+                break;
+            case self::TYPE_NEW:
+                $sql = "
+                    SELECT COUNT(DISTINCT tu.thread_id)
+                    FROM messaging__threads_users tu
+                    INNER JOIN messaging__messages m ON m.thread_id = tu.thread_id AND m.author_id != :user_id
+                    INNER JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.read = 0 AND mu.user_id = :user_id
+                    WHERE tu.user_id = :user_id;
+                ";
+                break;
+            case self::TYPE_ONLINE:
+                $sql = "
+                    SELECT COUNT(*) AS uId
+                    FROM messaging__threads_users tu
+                    INNER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id != :user_id
+                    INNER JOIN users u ON tu2.user_id = u.id
+                    WHERE tu.user_id = :user_id AND u.online = 1
+                ";
+                break;
+            case self::TYPE_FRIENDS_ONLINE:
+                $sql = "
+                    SELECT COUNT(*)
+                    FROM users u
+                    INNER JOIN friends f ON (u.id = f.user1_id AND f.user2_id = :user_id) OR (u.id = f.user2_id AND f.user1_id = :user_id)
+                    WHERE u.online = 1;
+                ";
+                break;
+        }
+
+        return Yii::app()->db->createCommand($sql)->queryScalar(array(':user_id' => $userId));
+    }
+
+    protected static function getSql($type) {
+        switch ($type) {
+            case self::TYPE_ALL:
+                $sql = "
+                    SELECT
+                      u.id AS uId, # ID собеседника
+                      u.first_name, # Имя собеседника
+                      u.last_name, # Фамилия собеседника
+                      u.gender, # Пол собеседника
+                      u.online, # Онлайн-статус собеседника
+                      t.id AS tId, # ID Диалога
+                      tu2.hidden, # Видимость диалога
+                      p.fs_name, # Аватар
+                      UNIX_TIMESTAMP(t.updated) AS updated, # Дата последнего обновления диалога
+                      COUNT(mu.message_id) AS unreadCount, # Количество непрочитанных сообщений
+                      friends.created IS NOT NULL AS isFriend # Является ли другом
+                    # Таблица ID всех пользователей в контактах
+                    FROM (
+                      # Пользователи, с которыми когда-либо была переписка
+                      SELECT tu2.user_id AS uId
+                      FROM messaging__threads_users tu
+                      INNER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id != :user_id
+                      WHERE tu.user_id = :user_id
+                    ) uIds
+                    # Связывание с таблицей пользователей для получения данных о собеседнике
+                    INNER JOIN users u ON u.id = uIds.uId
+                    # Связывание с таблицей друзей для установления, является ли собеседник другом
+                    LEFT OUTER JOIN friends ON (u.id = friends.user1_id AND friends.user2_id = :user_id) OR (u.id = friends.user2_id AND friends.user1_id = :user_id)
+                    # Связывание с таблицей участников диалога для получения ID и видимости диалога
+                    LEFT OUTER JOIN messaging__threads_users tu ON tu.user_id = u.id
+                    LEFT OUTER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id = :user_id
+                    # Связывание с таблицей диалогов для получения данных о диалоге
+                    LEFT OUTER JOIN messaging__threads t ON t.id = tu2.thread_id
+                    # Связывание с таблицами сообщений и получателей сообщения для получения количества непрочитанных сообщений
+                    LEFT OUTER JOIN messaging__messages m ON m.thread_id = t.id AND m.author_id != :user_id
+                    LEFT OUTER JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.read = 0 AND mu.user_id = :user_id
+                    # Связывание с таблицей фотографий для получения аватара
+                    LEFT OUTER JOIN album__photos p ON u.avatar_id = p.id
+                    WHERE
+                      # Условие для корректной работы связывание с таблицей участников диалога
+                      tu.user_id IS NULL OR (tu.user_id IS NOT NULL AND tu2.user_id IS NOT NULL)
+                      # Условие для фильтрации по чёрному списку
+                      AND uId NOT IN (SELECT blocked_user_id FROM blacklist WHERE user_id = :user_id)
+                    GROUP BY u.id
+                    ORDER BY updated DESC, t.id DESC
+                    LIMIT :limit
+                    OFFSET :offset;
+                ";
+                break;
+            case self::TYPE_NEW:
+                $sql = "
+                    SELECT
+                      u.id AS uId, # ID собеседника
+                      u.first_name, # Имя собеседника
+                      u.last_name, # Фамилия собеседника
+                      u.gender, # Пол собеседника
+                      u.online, # Онлайн-статус собеседника
+                      t.id AS tId, # ID Диалога
+                      tu2.hidden, # Видимость диалога
+                      p.fs_name, # Аватар
+                      UNIX_TIMESTAMP(t.updated) AS updated, # Дата последнего обновления диалога
+                      COUNT(mu.message_id) AS unreadCount, # Количество непрочитанных сообщений
+                      friends.created IS NOT NULL AS isFriend # Является ли другом
+                    # Таблица ID всех пользователей в контактах
+                    FROM (
+                      # Пользователи, с которыми когда-либо была переписка
+                      SELECT tu2.user_id AS uId
+                      FROM messaging__threads_users tu
+                      INNER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id != :user_id
+                      WHERE tu.user_id = :user_id
+                    ) uIds
+                    # Связывание с таблицей пользователей для получения данных о собеседнике
+                    INNER JOIN users u ON u.id = uIds.uId
+                    # Связывание с таблицей друзей для установления, является ли собеседник другом
+                    LEFT OUTER JOIN friends ON (u.id = friends.user1_id AND friends.user2_id = :user_id) OR (u.id = friends.user2_id AND friends.user1_id = :user_id)
+                    # Связывание с таблицей участников диалога для получения ID и видимости диалога
+                    LEFT OUTER JOIN messaging__threads_users tu ON tu.user_id = u.id
+                    LEFT OUTER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id = :user_id
+                    # Связывание с таблицей диалогов для получения данных о диалоге
+                    LEFT OUTER JOIN messaging__threads t ON t.id = tu2.thread_id
+                    # Связывание с таблицами сообщений и получателей сообщения для получения количества непрочитанных сообщений
+                    LEFT OUTER JOIN messaging__messages m ON m.thread_id = t.id AND m.author_id != :user_id
+                    LEFT OUTER JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.read = 0 AND mu.user_id = :user_id
+                    # Связывание с таблицей фотографий для получения аватара
+                    LEFT OUTER JOIN album__photos p ON u.avatar_id = p.id
+                    WHERE
+                      # Условие для корректной работы связывание с таблицей участников диалога
+                      tu.user_id IS NULL OR (tu.user_id IS NOT NULL AND tu2.user_id IS NOT NULL)
+                      # Условие для фильтрации по чёрному списку
+                      AND uId NOT IN (SELECT blocked_user_id FROM blacklist WHERE user_id = :user_id)
+                      # Условие для отображения только диалогов с непрочитанными сообщениями
+                      AND unreadCount > 0
+                    GROUP BY u.id
+                    ORDER BY updated DESC, t.id DESC
+                    LIMIT :limit
+                    OFFSET :offset;
+                ";
+                break;
+            case self::TYPE_ONLINE:
+                $sql = "
+                    SELECT
+                      u.id AS uId, # ID собеседника
+                      u.first_name, # Имя собеседника
+                      u.last_name, # Фамилия собеседника
+                      u.gender, # Пол собеседника
+                      u.online, # Онлайн-статус собеседника
+                      t.id AS tId, # ID Диалога
+                      tu2.hidden, # Видимость диалога
+                      p.fs_name, # Аватар
+                      UNIX_TIMESTAMP(t.updated) AS updated, # Дата последнего обновления диалога
+                      COUNT(mu.message_id) AS unreadCount, # Количество непрочитанных сообщений
+                      friends.created IS NOT NULL AS isFriend # Является ли другом
+                    # Таблица ID всех пользователей в контактах
+                    FROM (
+                      # Пользователи, с которыми когда-либо была переписка
+                      SELECT tu2.user_id AS uId
+                      FROM messaging__threads_users tu
+                      INNER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id != :user_id
+                      WHERE tu.user_id = :user_id
+                    ) uIds
+                    # Связывание с таблицей пользователей для получения данных о собеседнике
+                    INNER JOIN users u ON u.id = uIds.uId
+                    # Связывание с таблицей друзей для установления, является ли собеседник другом
+                    LEFT OUTER JOIN friends ON (u.id = friends.user1_id AND friends.user2_id = :user_id) OR (u.id = friends.user2_id AND friends.user1_id = :user_id)
+                    # Связывание с таблицей участников диалога для получения ID и видимости диалога
+                    LEFT OUTER JOIN messaging__threads_users tu ON tu.user_id = u.id
+                    LEFT OUTER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id = :user_id
+                    # Связывание с таблицей диалогов для получения данных о диалоге
+                    LEFT OUTER JOIN messaging__threads t ON t.id = tu2.thread_id
+                    # Связывание с таблицами сообщений и получателей сообщения для получения количества непрочитанных сообщений
+                    LEFT OUTER JOIN messaging__messages m ON m.thread_id = t.id AND m.author_id != :user_id
+                    LEFT OUTER JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.read = 0 AND mu.user_id = :user_id
+                    # Связывание с таблицей фотографий для получения аватара
+                    LEFT OUTER JOIN album__photos p ON u.avatar_id = p.id
+                    WHERE
+                      # Условие для корректной работы связывание с таблицей участников диалога
+                      tu.user_id IS NULL OR (tu.user_id IS NOT NULL AND tu2.user_id IS NOT NULL)
+                      # Условие для фильтрации по чёрному списку
+                      AND uId NOT IN (SELECT blocked_user_id FROM blacklist WHERE user_id = :user_id)
+                      # Условие для отображения только собеседников онлайн
+                      AND u.online = 1
+                    GROUP BY u.id
+                    ORDER BY updated DESC, t.id DESC
+                    LIMIT :limit
+                    OFFSET :offset;
+                ";
+                break;
+            case self::TYPE_FRIENDS_ONLINE:
+                $sql = "
+                    SELECT
+                      u.id AS uId, # ID собеседника
+                      u.first_name, # Имя собеседника
+                      u.last_name, # Фамилия собеседника
+                      u.gender, # Пол собеседника
+                      u.online, # Онлайн-статус собеседника
+                      t.id AS tId, # ID Диалога
+                      tu2.hidden, # Видимость диалога
+                      p.fs_name, # Аватар
+                      UNIX_TIMESTAMP(t.updated) AS updated, # Дата последнего обновления диалога
+                      COUNT(mu.message_id) AS unreadCount, # Количество непрочитанных сообщений
+                      friends.created IS NOT NULL AS isFriend # Является ли другом
+                    # Таблица ID всех пользователей в контактах
+                    FROM (
+                      # Пользователей, находящиеся в друзьях вне зависимости от наличия или отсутствия переписки с ними
+                      SELECT user1_id AS uId
+                      FROM friends
+                      WHERE user2_id = :user_id
+                      UNION
+                      SELECT user2_id AS uId
+                      FROM friends
+                      WHERE user1_id = :user_id
+                    ) uIds
+                    # Связывание с таблицей пользователей для получения данных о собеседнике
+                    INNER JOIN users u ON u.id = uIds.uId
+                    # Связывание с таблицей друзей для установления, является ли собеседник другом
+                    LEFT OUTER JOIN friends ON (u.id = friends.user1_id AND friends.user2_id = :user_id) OR (u.id = friends.user2_id AND friends.user1_id = :user_id)
+                    # Связывание с таблицей участников диалога для получения ID и видимости диалога
+                    LEFT OUTER JOIN messaging__threads_users tu ON tu.user_id = u.id
+                    LEFT OUTER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id = :user_id
+                    # Связывание с таблицей диалогов для получения данных о диалоге
+                    LEFT OUTER JOIN messaging__threads t ON t.id = tu2.thread_id
+                    # Связывание с таблицами сообщений и получателей сообщения для получения количества непрочитанных сообщений
+                    LEFT OUTER JOIN messaging__messages m ON m.thread_id = t.id AND m.author_id != :user_id
+                    LEFT OUTER JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.read = 0 AND mu.user_id = :user_id
+                    # Связывание с таблицей фотографий для получения аватара
+                    LEFT OUTER JOIN album__photos p ON u.avatar_id = p.id
+                    WHERE
+                      # Условие для корректной работы связывание с таблицей участников диалога
+                      tu.user_id IS NULL OR (tu.user_id IS NOT NULL AND tu2.user_id IS NOT NULL)
+                      # Условие для фильтрации по чёрному списку
+                      AND uId NOT IN (SELECT blocked_user_id FROM blacklist WHERE user_id = :user_id)
+                      # Условие для отображения только собеседников онлайн
+                      AND u.online = 1
+                    GROUP BY u.id
+                    LIMIT :limit
+                    OFFSET :offset;
+                ";
+                break;
+        }
+
+        return $sql;
     }
 
     protected static function populateContact($row)
@@ -121,10 +325,5 @@ class ContactsManager
                 'hidden' => (bool) $row['hidden'],
             ),
         );
-    }
-
-    public static function unreadMessagesCount($userId)
-    {
-        return MessagingMessageUser::model()->count('user_id = :user_id AND `read` = 0', array(':user_id' => $userId));
     }
 }

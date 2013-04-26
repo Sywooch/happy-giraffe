@@ -176,18 +176,22 @@ function Message(data, parent) {
 function MessagingViewModel(data) {
     var self = this;
 
+    self.allContactsCount = ko.observable(data.counters[0]);
+    self.newContactsCount = ko.observable(data.counters[1]);
+    self.onlineContactsCount = ko.observable(data.counters[2]);
+    self.friendsContactsCount = ko.observable(data.counters[3]);
+
     self.editingMessageId = ko.observable(null);
     self.uploadedImages = ko.observableArray([]);
     self.tab = ko.observable(0);
     self.searchQuery = ko.observable('');
-    self.contacts = ko.observableArray(ko.utils.arrayMap(data.contacts, function(contact) {
-        return new Contact(contact, self);
-    }));
+    self.contacts = ko.observableArray([]);
     self.messages = ko.observableArray([]);
     self.openContactIndex = ko.observable(null);
     self.interlocutor = ko.observable('');
     self.me = new User(data.me, self);
     self.loadingMessages = ko.observable(false);
+    self.loadingContacts = ko.observable(false);
     self.sendingMessage = ko.observable(false);
     self.interlocutorTyping = ko.observable(false);
     self.showHiddenContacts = ko.observable(false);
@@ -203,7 +207,7 @@ function MessagingViewModel(data) {
         $.post('/ajax/setUserAttribute/', { key : 'messaging__enter', value : a ? 1 : 0 });
     });
 
-    self.blackListSetting = ko.observable(data.settings.messaging__blackList);
+    self.blackListSetting = ko.observable(false);
     self.blackListSetting.subscribe(function(a) {
         $.post('/ajax/setUserAttribute/', { key : 'messaging__blackList', value : a ? 1 : 0 });
     });
@@ -413,6 +417,8 @@ function MessagingViewModel(data) {
 
     self.changeTab = function(tab) {
         self.tab(tab);
+        if (self.contactsToShow().length < 20)
+            self.loadContacts();
     }
 
     self.findByInterlocutorId = function(interlocutorId) {
@@ -440,6 +446,14 @@ function MessagingViewModel(data) {
             im.container.scrollTop(endHeight - startHeight + startTop);
             if (response.last)
                 self.fullyLoaded(true);
+        }, 'json');
+    }
+
+    self.loadContacts = function() {
+        self.loadingContacts(true);
+        $.get('/messaging/default/getContacts/', { type : self.tab(), offset : self.contactsToShow().length  }, function(response) {
+            self.populateContacts(response.contacts);
+            self.loadingContacts(false);
         }, 'json');
     }
 
@@ -530,6 +544,8 @@ function MessagingViewModel(data) {
         self.contacts.push.apply(self.contacts, newContacts);
     }
 
+    self.populateContacts(data.contacts);
+
     soundManager.setup({
         url: '/swf/',
         debugMode: false,
@@ -571,13 +587,13 @@ function MessagingViewModel(data) {
                 contact.thread().updated(result.time);
 
             contact.thread().inc();
-            if (self.openContact().user().id() == contact.user().id())
+            if (self.openContact().user().id() == contact.user().id()) {
                 self.messages.push(new Message(result.message, self));
+                self.openContact().thread().changeReadStatus(1);
+            }
 
             if (self.soundSetting())
                 soundManager.play('s');
-
-            self.openContact().thread().changeReadStatus(1);
         }
 
         Comet.prototype.typingStatus = function (result, id) {
@@ -607,6 +623,11 @@ function MessagingViewModel(data) {
         im.container.scroll(function() {
             if (self.openContact() !== null && self.openContact().thread() !== null && self.loadingMessages() === false && self.fullyLoaded() === false && im.container.scrollTop() < 200)
                 self.preload();
+        });
+
+        im.userList.scroll(function() {
+            if (self.loadingContacts() === false && ((im.userList.scrollTop() + im.userList.height()) > (im.userList.prop('scrollHeight') - 200)))
+                self.loadContacts();
         });
     });
 }

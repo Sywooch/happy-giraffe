@@ -191,9 +191,8 @@ WHERE u.online = 1;
                       tu.user_id IS NULL OR (tu.user_id IS NOT NULL AND tu2.user_id IS NOT NULL)
                       # Условие для фильтрации по чёрному списку
                       AND uId NOT IN (SELECT blocked_user_id FROM blacklist WHERE user_id = :user_id)
-                      # Условие для отображения только диалогов с непрочитанными сообщениями
-                      AND unreadCount > 0
                     GROUP BY u.id
+                    HAVING unreadCount > 0
                     ORDER BY updated DESC, t.id DESC
                     LIMIT :limit
                     OFFSET :offset;
@@ -272,7 +271,6 @@ WHERE u.online = 1;
                       SELECT user2_id AS uId
                       FROM friends
                       WHERE user1_id = :user_id
-                      UNION
                     ) uIds
                     # Связывание с таблицей пользователей для получения данных о собеседнике
                     INNER JOIN users u ON u.id = uIds.uId

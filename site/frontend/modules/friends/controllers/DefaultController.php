@@ -6,25 +6,9 @@
  * Time: 12:22 PM
  * To change this template use File | Settings | File Templates.
  */
-class FriendsController extends HController
+class DefaultController extends HController
 {
     const FRIENDS_PER_PAGE = 14;
-
-    public function filters()
-    {
-        return array(
-            'accessControl',
-        );
-    }
-
-    public function accessRules()
-    {
-        return array(
-            array('deny',
-                'users' => array('?'),
-            ),
-        );
-    }
 
     public function actionIndex()
     {
@@ -62,15 +46,4 @@ class FriendsController extends HController
         $data = compact('friends');
         echo CJSON::encode($data);
     }
-
-//    public function actionFind($type, $query = null)
-//    {
-//        if (Yii::app()->request->isAjaxRequest)
-//            $this->layout = 'empty';
-//
-//        $this->pageTitle = 'Поиск друзей на Веселом Жирафе';
-//        $dp = FindFriendsManager::getDataProvider($type, $query);
-//
-//        $this->render('find', compact('dp', 'type'));
-//    }
 }

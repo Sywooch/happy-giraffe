@@ -43,6 +43,7 @@
         ->registerScriptFile('/javascripts/jquery.jcarousel.control.js')
         ->registerScriptFile('/javascripts/jquery.tmpl.min.js')
         ->registerScriptFile('/javascripts/jquery.lazyload.min.js')
+        ->registerScriptFile('/javascripts/jquery.powertip.js')
         ->registerScriptFile('/javascripts/addtocopy.js')
         ->registerScriptFile('/javascripts/tooltipsy.min.js')
         ->registerScriptFile('http://vk.com/js/api/share.js?11')
@@ -114,7 +115,7 @@
                     </a>
                 </li>
                 <?php else: ?>
-                <?php $imCount = ContactsManager::unreadMessagesCount(Yii::app()->user->id); ?>
+                <?php $imCount = MessagingManager::unreadMessagesCount(Yii::app()->user->id); ?>
                 <li class="i-dialogs top-line-menu_nav_li js-tooltipsy<?php if ($imCount > 0): ?> new<?php endif; ?>" title="Мои диалоги">
                     <a href="<?=$this->createUrl('/messaging/default/index')?>">
                         <i class="icon-dialogs"></i>

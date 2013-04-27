@@ -116,8 +116,8 @@ return array(
         'community/<_a:(join|add|transfer|edit|editTravel|weeklyMail)>' => 'community/<_a>',
 
         //global
-        '<_c:(settings|ajax|notification|profile|friendRequests|communityRubric|family|morning|userPopup|features|blog|friends)>/<_a>' => '<_c>/<_a>',
-        '<_c:(settings|profile|rss|family|morning|community|happyBirthdayMira|friends)>' => '<_c>/index',
+        '<_c:(settings|ajax|notification|profile|friendRequests|communityRubric|family|morning|userPopup|features|blog)>/<_a>' => '<_c>/<_a>',
+        '<_c:(settings|profile|rss|family|morning|community|happyBirthdayMira)>' => '<_c>/index',
 
         //others
         'news/about' => 'community/contacts',
@@ -271,5 +271,8 @@ return array(
 
         'messaging' => 'messaging/default/index',
         'messaging/<_c>/<_a>' => 'messaging/<_c>/<_a>',
+
+//        'friends' => 'friends/default/index',
+//        'friends/<_c>/<_a>' => 'friends/<_c>/<_a>',
     ),
 );

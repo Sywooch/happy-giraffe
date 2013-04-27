@@ -60,7 +60,7 @@ class WordstatQueryModify
         $parts = array(
             array(',', 442),
             array('"', 403),
-            array('?', 394,),
+            array('?', 439,),
             array('!', 1),
             array(':', 1),
             array(';', 1),

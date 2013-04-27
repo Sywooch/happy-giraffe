@@ -4,7 +4,7 @@ return array(
     'urlFormat' => 'path',
     'showScriptName' => false,
     'urlSuffix' => '/',
-    'useStrictParsing' => true,
+    //'useStrictParsing' => true,
     'rules' => array(
         /*************************
          *      CONTROLLERS      *
@@ -116,8 +116,8 @@ return array(
         'community/<_a:(join|add|transfer|edit|editTravel|weeklyMail)>' => 'community/<_a>',
 
         //global
-        '<_c:(settings|ajax|notification|profile|friendRequests|communityRubric|family|morning|userPopup|features|blog)>/<_a>' => '<_c>/<_a>',
-        '<_c:(settings|profile|rss|family|morning|community|happyBirthdayMira)>' => '<_c>/index',
+        '<_c:(settings|ajax|notification|profile|friendRequests|communityRubric|family|morning|userPopup|features|blog|friends)>/<_a>' => '<_c>/<_a>',
+        '<_c:(settings|profile|rss|family|morning|community|happyBirthdayMira|friends)>' => '<_c>/index',
 
         //others
         'news/about' => 'community/contacts',

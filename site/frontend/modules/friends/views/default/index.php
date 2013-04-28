@@ -12,11 +12,8 @@
         </h2>
 
         <div class="col-1_search clearfix">
-            <input type="text" name="" id="" class="col-1_search-itx" placeholder="Введите имя или фамилию">
-            <!--
-                              В начале ввода текста, скрыть col-1_search-btn добавить класс active"
-                               -->
-            <button class="col-1_search-btn active"></button>
+            <input type="text" class="col-1_search-itx" placeholder="Введите имя или фамилию" data-bind="value: searchQuery, valueUpdate: 'keyup'">
+            <button class="col-1_search-btn" data-bind="css: { active : searchQuery() != '' }, click: clearSearchQuery"></button>
         </div>
         <div class="menu-list">
             <a href="javascript:void(0)" class="menu-list_i" data-bind="click: selectAll, css: { active : selectedListId() === null }">
@@ -27,14 +24,18 @@
             <a href="javascript:void(0)" class="menu-list_i" data-bind="click: select, css: { active : $root.selectedListId() == id() }">
                 <span class="menu-list_tx" data-bind="text: title"></span>
                 <span class="menu-list_count" data-bind="text: friendsCount"></span>
-                <span class="ico-close" data-bind="visible: friendsCount() == 0"></span>
+                <span class="ico-close" data-bind="click: remove, clickBubble: false, visible: friendsCount() == 0"></span>
             </a>
             <!-- /ko -->
             <div class="menu-list_row">
-                <a href="" class="menu-list_a textdec-none">
+                <a href="javascript:void(0)" class="menu-list_a textdec-none" onclick="$('#addList').hide(); $('#addListForm').show();" id="addList">
                     <span class="ico-plus2"></span>
                     <span class="a-pseudo-gray color-gray">Создать новый список</span>
                 </a>
+                <div class="menu-list_i-add" style="display: none;" id="addListForm">
+                    <input type="text" class="menu-list_i-add-itx" placeholder="Название списка" data-bind="value: newListTitle, valueUpdate: 'keyup', event: { keypress : addListHandler }">
+                    <button class="ico-plus2" data-bind="click: addList"></button>
+                </div>
             </div>
             <div class="menu-list_row" data-bind="visible: outgoingRequestsCount() > 0">
                 <div class="color-gray margin-t20" data-bind="text: 'Отправлено ' + outgoingRequestsCount() + ' ' + declOfNum(outgoingRequestsCount(), ['приглашение', 'приглашения', 'приглашений'])"></div>
@@ -67,8 +68,8 @@
                     <a href="" class="ava large">
                         <img src="/images/example/ava-large.jpg" alt="">
                     </a>
-                    <span class="friends-list_online" data-bind="visible: online">На сайте</span>
-                    <a href="" class="ico-close2 friends-list_close powertip" title="Удалить из друзей"></a>
+                    <span class="friends-list_online" data-bind="visible: user().online">На сайте</span>
+                    <a href="javascript:void(0)" class="ico-close2 friends-list_close powertip" title="Удалить из друзей" data-bind="click: remove"></a>
                     <a href="" class="friends-list_bubble friends-list_bubble__dialog powertip" title="Начать диалог">
                         <span class="friends-list_ico friends-list_ico__mail"></span>
                         <span class="friends-list_bubble-tx">+5</span>
@@ -82,7 +83,7 @@
                         <span class="friends-list_bubble-tx">+999</span>
                     </a>
                 </div>
-                <a href="javascript:void(0)" class="friends-list_a" data-bind="text: fullName"></a>
+                <a href="javascript:void(0)" class="friends-list_a" data-bind="text: user().fullName"></a>
                 <div class="friends-list_group">
                     <a href="javascript:void(0)" class="friends-list_group-a powertip" title="Изменить список" onclick="$(this).next().toggle()" data-bind="text: listLabel"></a>
                     <div class="friends-list_group-popup">

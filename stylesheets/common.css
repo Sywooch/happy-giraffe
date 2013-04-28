@@ -120,10 +120,6 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
-input {
-  border: none;
-  background: none;
-}
 button,
 input,
 select,
@@ -140,6 +136,8 @@ button,
 input {
   *overflow: visible;
   line-height: normal;
+  border: none;
+  background: none;
 }
 button::-moz-focus-inner,
 input::-moz-focus-inner {
@@ -727,6 +725,7 @@ a.pseudo:hover,
   vertical-align: middle;
   width: 10px;
   height: 11px;
+  background-repeat: no-repeat;
   background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAALCAYAAABGbhwYAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NkEwOEY0M0VBQ0ZCMTFFMjg3QzREREQ5NkU0M0QwMDAiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NkEwOEY0M0ZBQ0ZCMTFFMjg3QzREREQ5NkU0M0QwMDAiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo2QTA4RjQzQ0FDRkIxMUUyODdDNERERDk2RTQzRDAwMCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo2QTA4RjQzREFDRkIxMUUyODdDNERERDk2RTQzRDAwMCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Pg/Zz9EAAABFSURBVHjaYmxuamJAA/+hNCOyIBMDkYD6ClmQ3ITLraSZyPj///+ZyAItzc1pILqmtnYWisKBCx6QG9HFYG5ORxYECDAATTYStExoF+IAAAAASUVORK5CYII=);
 }
 .ico-player {
@@ -4778,6 +4777,17 @@ textarea.error,
 .menu-list_row .ico-plus2 {
   margin-right: 5px;
 }
+.menu-list_i-add-itx {
+  display: inline-block;
+  *zoom: 1;
+  *display: inline;
+  vertical-align: middle;
+  width: 150px;
+  margin-right: 5px;
+  border: 1px solid #CADDF4;
+  padding: 3px 10px;
+  line-height: 16px;
+}
 /* contest */
 #contest {
   margin: 0 10px;
@@ -7734,6 +7744,7 @@ textarea.error,
   margin: 10px 12px 30px;
   width: 206px;
   text-align: center;
+  position: relative;
 }
 .friends-list_find {
   display: block;
@@ -7827,6 +7838,7 @@ textarea.error,
   line-height: 10px;
   color: #cad9ed;
   text-decoration: none;
+  display: block;
 }
 .friends-list_online {
   position: absolute;
@@ -7867,7 +7879,7 @@ textarea.error,
   display: inline-block;
   *zoom: 1;
   *display: inline;
-  margin: 0 0 3px;
+  margin: 0;
   color: #289fd7;
   text-decoration: none;
 }
@@ -7878,17 +7890,21 @@ textarea.error,
   position: relative;
   line-height: 14px;
 }
+.friends-list_group .btn-middle {
+  margin: 5px 0;
+}
 .friends-list_group-a {
   display: inline-block;
   *zoom: 1;
   *display: inline;
   font-size: 11px;
-  line-height: 14px;
+  line-height: 13px;
   font-family: Tahoma, Arial, Verdana, sans-serif;
   color: #afafaf;
   text-decoration: none;
   border-bottom: 1px dashed #afafaf;
 }
+.friends-list_group-a.active,
 .friends-list_group-a:hover {
   border-bottom-color: #f97704;
   color: #f97704;
@@ -7896,7 +7912,7 @@ textarea.error,
 .friends-list_group-popup {
   display: none;
   position: absolute;
-  top: 30px;
+  bottom: 20px;
   left: 20px;
   width: 160px;
   padding: 10px 0;
@@ -7914,15 +7930,16 @@ textarea.error,
 .friends-list_group-popup:after {
   content: "";
   position: absolute;
-  top: -5px;
+  bottom: -5px;
   left: 50%;
   width: 10px;
   height: 10px;
-  -webkit-transform: rotate(45deg);
-  -moz-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
-  -o-transform: rotate(45deg);
-  transform: rotate(45deg);
+  margin-left: -5px;
+  -webkit-transform: rotate(-135deg);
+  -moz-transform: rotate(-135deg);
+  -ms-transform: rotate(-135deg);
+  -o-transform: rotate(-135deg);
+  transform: rotate(-135deg);
   background: #fff;
   z-index: 1;
   -webkit-box-shadow: -3px -3px 3px rgba(0, 0, 0, 0.12);
@@ -7961,6 +7978,19 @@ textarea.error,
   padding: 0;
   height: 16px;
   width: 16px;
+}
+.friends-list_deleted {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: 220px;
+  padding: 75px 0;
+  background: #fff;
+  background: rgba(255, 255, 255, 0.95);
+}
+.friends-list_row {
+  margin: 5px 0;
 }
 /* gallery */
 #gallery {

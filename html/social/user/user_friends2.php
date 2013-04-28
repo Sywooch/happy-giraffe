@@ -122,6 +122,11 @@
 									</a>
 								</div>
 							</div>
+							<div class="friends-list_deleted">
+								<a href="" class="friends-list_a">Валерия Петроградская</a>
+								<div class="friends-list_row color-gray">удалена из списка <br>ваших друзей</div>
+								<a href="" class="a-pseudo">Восстановить?</a>
+							</div>
 						</div>
 						<div class="friends-list_i">
 							<div class="friends-list_ava-hold clearfix">

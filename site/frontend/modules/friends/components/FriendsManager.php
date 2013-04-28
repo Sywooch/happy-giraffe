@@ -8,7 +8,7 @@
  */
 class FriendsManager
 {
-    public function getFriends($userId, $limit, $online, $listId, $offset)
+    public static function getFriends($userId, $limit, $online, $listId, $query, $offset)
     {
         $criteria = new CDbCriteria(array(
             'with' => 'friend',
@@ -24,10 +24,17 @@ class FriendsManager
         if ($listId)
             $criteria->compare('t.list_id', $listId);
 
+        if ($query) {
+            $sCriteria = new CDbCriteria();
+            $sCriteria->addSearchCondition('first_name', $query);
+            $sCriteria->addSearchCondition('last_name', $query, true, 'OR');
+            $criteria->mergeWith($sCriteria);
+        }
+
         return Friend::model()->findAll($criteria);
     }
 
-    public function getLists($userId)
+    public static function getLists($userId)
     {
         return FriendList::model()->with('friendsCount')->findAllByAttributes(array('user_id' => $userId));
     }

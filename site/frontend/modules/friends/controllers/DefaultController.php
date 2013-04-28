@@ -29,21 +29,36 @@ class DefaultController extends HController
         $this->render('index', CJSON::encode($data));
     }
 
-    public function actionGet($online = false, $listId = false, $offset = 0)
+    public function actionSearch()
     {
-        $_friends = FriendsManager::getFriends(Yii::app()->user->id, self::FRIENDS_PER_PAGE, $online, $listId, $offset);
-        $friends = array();
-        foreach ($_friends as $friend) {
-            $friends[] = array(
-                'id' => $friend->friend->id,
-                'online' => (bool) $friend->friend->online,
-                'firstName' => $friend->friend->first_name,
-                'lastName' => $friend->friend->last_name,
+        echo FriendsSearchManager::search(15385);
+    }
+
+    public function actionGet($online = false, $listId = false, $query = false, $offset = 0)
+    {
+        $friends = array_map(function($friend) {
+            return array(
+                'id' => $friend->id,
                 'listId' => $friend->list_id,
+                'user' => array(
+                    'id' => $friend->friend->id,
+                    'online' => (bool) $friend->friend->online,
+                    'firstName' => $friend->friend->first_name,
+                    'lastName' => $friend->friend->last_name,
+                ),
             );
-        }
+        }, FriendsManager::getFriends(Yii::app()->user->id, self::FRIENDS_PER_PAGE, $online, $listId, $query, $offset));
 
         $data = compact('friends');
         echo CJSON::encode($data);
+    }
+
+    public function actionDelete()
+    {
+        $friendId = Yii::app()->request->getPost('friendId');
+        $success = Friend::model()->deleteByPk($friendId) > 0;
+
+        $response = compact('success');
+        echo CJSON::encode($response);
     }
 }

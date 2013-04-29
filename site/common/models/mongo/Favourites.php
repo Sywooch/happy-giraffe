@@ -71,7 +71,7 @@ class Favourites extends EMongoDocument
             $fav->entity = get_class($model);
             $fav->entity_id = (int)$model->primaryKey;
             if ($block == self::WEEKLY_MAIL)
-                $fav->date = date("Y-m-d", strtotime('next monday'));
+                $fav->date = date("Y-m-d", strtotime('next monday', time() - 3600*24));
             else
                 $fav->date = date("Y-m-d", strtotime('+1 day'));
 

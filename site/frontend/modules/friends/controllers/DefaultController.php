@@ -8,14 +8,12 @@
  */
 class DefaultController extends HController
 {
-    const FRIENDS_PER_PAGE = 14;
-
     public function actionIndex()
     {
-        $friendsCount = Friend::model()->getCountByUserId(Yii::app()->user->id);
-        $friendsOnlineCount = Friend::model()->getCountByUserId(Yii::app()->user->id, true);
-        $incomingRequestsCount = FriendRequest::model()->getCountByUserId(Yii::app()->user->id);
-        $outgoingRequestsCount = FriendRequest::model()->getCountByUserId(Yii::app()->user->id, false);
+        $friendsCount = (int) Friend::model()->getCountByUserId(Yii::app()->user->id);
+        $friendsOnlineCount = (int) Friend::model()->getCountByUserId(Yii::app()->user->id, true);
+        $incomingRequestsCount = (int) FriendRequest::model()->getCountByUserId(Yii::app()->user->id);
+        $outgoingRequestsCount = (int) FriendRequest::model()->getCountByUserId(Yii::app()->user->id, false);
 
         $lists = array_map(function($list) {
             return array(
@@ -31,7 +29,7 @@ class DefaultController extends HController
 
     public function actionSearch()
     {
-        $dp = FriendsSearchManager::search(15385, $_GET);
+        $dp = FriendsSearchManager::search(Yii::app()->user->id, $_GET);
 
         $this->render('search', compact('dp'));
     }
@@ -47,18 +45,20 @@ class DefaultController extends HController
                     'online' => (bool) $friend->friend->online,
                     'firstName' => $friend->friend->first_name,
                     'lastName' => $friend->friend->last_name,
+                    'ava' => $friend->friend->getAva('large'),
                 ),
             );
-        }, FriendsManager::getFriends(Yii::app()->user->id, self::FRIENDS_PER_PAGE, $online, $listId, $query, $offset));
+        }, FriendsManager::getFriends(Yii::app()->user->id, $online, $listId, $query, $offset));
+        $last = FriendsManager::getFriendsCount(Yii::app()->user->id, $online, $listId, $query, $offset) <= ($offset + FriendsManager::FRIENDS_PER_PAGE);
 
-        $data = compact('friends');
+        $data = compact('friends', 'last');
         echo CJSON::encode($data);
     }
 
     public function actionDelete()
     {
         $friendId = Yii::app()->request->getPost('friendId');
-        $success = Friend::model()->deleteByPk($friendId) > 0;
+        $success = Friend::model()->breakFriendship(Yii::app()->user->id, $friendId);
 
         $response = compact('success');
         echo CJSON::encode($response);

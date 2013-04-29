@@ -551,10 +551,15 @@ class User extends HActiveRecord
             //if ($this->user->gender)
             return false;
         }
-        if ($size != 'big')
-            return $this->avatar->getAvatarUrl($size);
-        else
-            return $this->avatar->getPreviewUrl(240, 400, Image::WIDTH);
+
+        switch ($size) {
+            case 'big':
+                return $this->avatar->getPreviewUrl(240, 400, Image::WIDTH);
+            case 'large':
+                return $this->avatar->getPreviewUrl(200, 200, Image::INVERT, true, AlbumPhoto::CROP_SIDE_TOP);
+            default:
+                return $this->avatar->getAvatarUrl($size);
+        }
     }
 
     public function getAvaOrDefaultImage($size = 'ava')

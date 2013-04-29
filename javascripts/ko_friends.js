@@ -11,10 +11,12 @@ function FriendsViewModel(data) {
     self.selectedListId = ko.observable(null);
     self.friendsToShow = ko.observableArray([]);
     self.activeTab = ko.observable(0);
+    self.newListTitle = ko.observable('');
+    self.searchQuery = ko.observable('');
 
-    self.activeTab.subscribe(function () {
-        self.load();
-    });
+    self.clearSearchQuery = function() {
+        self.searchQuery('');
+    }
 
     self.selectAll = function() {
         self.selectedListId(null);
@@ -30,12 +32,43 @@ function FriendsViewModel(data) {
         });
     }
 
+    self.addListHandler = function(data, event) {
+        if (event.keyCode == 13)
+            self.addList();
+        return true;
+    }
+
+    self.addList = function() {
+        $.post('/friends/lists/create/', { title : self.newListTitle() }, function(response) {
+            if (response.success) {
+                self.lists.push(new List(response.list, self));
+                self.newListTitle('');
+                $('#addList').show();
+                $('#addListForm').hide();
+            }
+        }, 'json');
+    }
+
+    self.activeTab.subscribe(function () {
+        self.load();
+    });
+
+    self.selectedListId.subscribe(function() {
+        self.load();
+    });
+
+    self.searchQuery.subscribe(function() {
+        self.load();
+    });
+
     self.load = function() {
         var data = {};
         if (self.activeTab() === 1)
             data.online = 1;
-        if (self.selectedListId !== null)
+        if (self.selectedListId() !== null)
             data.listId = self.selectedListId();
+        if (self.searchQuery() !== '')
+            data.query = self.searchQuery();
 
         $.get('/friends/default/get/', data, function(response) {
             self.friendsToShow(ko.utils.arrayMap(response.friends, function(friend) {
@@ -51,14 +84,8 @@ function Friend(data, parent) {
     var self = this;
 
     self.id = ko.observable(data.id);
-    self.online = ko.observable(data.online);
-    self.firstName = ko.observable(data.firstName);
-    self.lastName = ko.observable(data.lastName);
     self.listId = ko.observable(data.listId);
-
-    self.fullName = ko.computed(function() {
-        return self.firstName() + ' ' + self.lastName();
-    });
+    self.user = ko.observable(new User(data.user, parent));
 
     self.listLabel = ko.computed(function() {
         return self.listId() === null ? 'Все друзья' : parent.getListById(self.listId()).title();
@@ -86,6 +113,27 @@ function Friend(data, parent) {
             }
         }, 'json');
     }
+
+    self.remove = function(friend) {
+        $.post('/friends/default/delete/', { friendId : self.id() }, function(response) {
+            if (response.success) {
+                parent.friendsToShow.remove(friend);
+            }
+        }, 'json');
+    }
+}
+
+function User(data, parent) {
+    var self = this;
+
+    self.id = ko.observable(data.id);
+    self.online = ko.observable(data.online);
+    self.firstName = ko.observable(data.firstName);
+    self.lastName = ko.observable(data.lastName);
+
+    self.fullName = ko.computed(function() {
+        return self.firstName() + ' ' + self.lastName();
+    });
 }
 
 function List(data, parent) {
@@ -97,6 +145,13 @@ function List(data, parent) {
 
     self.select = function(list) {
         parent.selectedListId(list.id());
+    }
+
+    self.remove = function(list) {
+        $.post('/friends/lists/delete/', { listId : list.id() }, function(response) {
+            if (response.success)
+                parent.lists.remove(list);
+        }, 'json');
     }
 
     self.inc = function() {

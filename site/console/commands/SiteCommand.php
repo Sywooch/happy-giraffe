@@ -144,20 +144,20 @@ class SiteCommand extends CConsoleCommand
                 'type' => array(
                     'equals' => FriendEvent::TYPE_CLUBS_JOINED,
                 ),
-                'clubs_ids'=>array(
+                'clubs_ids' => array(
                     'equals' => 37
                 )
             ),
         ));
 
         $models = FriendEventClubs::model(FriendEvent::TYPE_CLUBS_JOINED)->findAll($criteria);
-        echo count($models)."\n";
+        echo count($models) . "\n";
 
-        foreach($models as $model){
+        foreach ($models as $model) {
             if (count($model->clubs_ids) == 1)
                 $model->delete();
-            else{
-                foreach($model->clubs_ids as $key=>$club_id){
+            else {
+                foreach ($model->clubs_ids as $key => $club_id) {
                     if ($club_id == 37)
                         unset($model->clubs_ids[$key]);
                 }
@@ -213,7 +213,8 @@ class SiteCommand extends CConsoleCommand
         }
     }
 
-    public function actionFixImages(){
+    public function actionFixImages()
+    {
         Yii::import('site.frontend.components.*');
         $criteria = new CDbCriteria;
         $criteria->limit = 100;
@@ -225,8 +226,8 @@ class SiteCommand extends CConsoleCommand
             $models = CommunityPost::model()->findAll($criteria);
 
             foreach ($models as $model) {
-                if (strpos($model->text, '<img') !== false){
-                    echo $model->content_id."\n";
+                if (strpos($model->text, '<img') !== false) {
+                    echo $model->content_id . "\n";
                     $model->save();
                 }
             }
@@ -235,12 +236,13 @@ class SiteCommand extends CConsoleCommand
         }
     }
 
-    public function actionFixPreviews(){
+    public function actionFixPreviews()
+    {
         Yii::import('site.frontend.components.*');
         $last_id = 39000;
         $criteria = new CDbCriteria;
         $criteria->limit = 100;
-        $criteria->condition = 't.id > '.$last_id.' AND t.type_id = 1';
+        $criteria->condition = 't.id > ' . $last_id . ' AND t.type_id = 1';
         $criteria->order = 't.id';
 
         $models = array(0);
@@ -248,14 +250,14 @@ class SiteCommand extends CConsoleCommand
             $models = CommunityContent::model()->with(array('post'))->findAll($criteria);
 
             foreach ($models as $model) {
-                if (strpos($model->preview, '<img') !== false){
-                    echo $model->id."\n";
+                if (strpos($model->preview, '<img') !== false) {
+                    echo $model->id . "\n";
                     $model->purify($model->post->text);
                 }
                 $last_id = $model->id;
             }
 
-            $criteria->condition = 't.id > '.$last_id.' AND t.type_id = 1';
+            $criteria->condition = 't.id > ' . $last_id . ' AND t.type_id = 1';
         }
     }
 
@@ -283,5 +285,15 @@ class SiteCommand extends CConsoleCommand
         foreach ($res as $k => $v)
             echo $k . ': ' . $v . "\n";
         echo 'Total: ' . array_sum($res);
+    }
+
+    public function actionTest()
+    {
+        Yii::import('site.frontend.modules.notification.models.*');
+        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
+
+        $t1 = microtime(true);
+        NotificationLike::create(10, 'CommunityContent', 1234);
+        echo microtime(true) - $t1;
     }
 }

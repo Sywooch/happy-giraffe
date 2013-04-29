@@ -58,6 +58,7 @@ return array(
         'application.modules.messaging.components.*',
         'application.modules.messaging.models.*',
         'ext.directmongosuite.*',
+        'application.modules.notification.models.*',
     ),
 
 	'sourceLanguage' => 'en',

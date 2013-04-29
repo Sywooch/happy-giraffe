@@ -213,17 +213,11 @@ class Comment extends HActiveRecord
                 $relatedModel->sendEvent();
             }
 
-            UserNotification::model()->create(UserNotification::NEW_COMMENT, array('comment' => $this));
+            $entity = CActiveRecord::model($this->entity)->findByPk($this->entity_id);
+            NotificationNewComment::model()->create($entity->author_id, $this);
             if ($this->response_id !== null)
                 UserNotification::model()->create(UserNotification::NEW_REPLY, array('comment' => $this));
 
-            //проверяем на предмет выполненного модератором задания
-            UserSignal::CheckComment($this);
-
-            UserScores::addScores($this->author_id, ScoreAction::ACTION_OWN_COMMENT, 1, array(
-                'id' => $this->entity_id, 'name' => $this->entity));
-
-            UserAction::model()->add($this->author_id, UserAction::USER_ACTION_COMMENT_ADDED, array('model' => $this));
             FriendEventManager::add(FriendEvent::TYPE_COMMENT_ADDED, array('model' => $this, 'relatedModel' => $this->relatedModel));
 
             //send signals to commentator panel

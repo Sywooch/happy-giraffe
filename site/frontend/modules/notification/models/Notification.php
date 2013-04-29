@@ -8,6 +8,11 @@
  */
 class Notification
 {
+    /**
+     * @var Notification
+     */
+    protected static $_instance;
+
     const NEW_COMMENT = 0;
     const REPLY_COMMENT = 1;
     const NEW_LIKE = 2;
@@ -15,6 +20,25 @@ class Notification
     public $type;
     public $updated;
     public $recipient_id;
+    public $read = 0;
+
+    protected function __construct()
+    {
+    }
+
+    protected function __clone()
+    {
+    }
+
+    /**
+     * @return Notification
+     */
+    public static function model()
+    {
+        if (null === self::$_instance)
+            self::$_instance = new self();
+        return self::$_instance;
+    }
 
     /**
      * @return MongoCollection

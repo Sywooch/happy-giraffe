@@ -8,7 +8,10 @@
  */
 class NotificationNewComment extends Notification
 {
-    public $comment_id;
+    public $type = self::NEW_COMMENT;
+    public $entity;
+    public $entity_id;
+    public $comment_ids;
     public $comment;
 
     public function setSpecificValues()
@@ -16,8 +19,29 @@ class NotificationNewComment extends Notification
         $this->comment = $this->getComment();
     }
 
-    public function getComment()
+    /**
+     * @return Comment[]
+     */
+    public function getComments()
     {
-        return Comment::model()->findByPk($this->comment_id);
+        return Comment::model()->findAllByPk($this->comment_ids);
+    }
+
+    /**
+     * @param $recipient_id int id пользователя, который должен получить уведомление
+     * @param $comment Comment комментарий
+     */
+    public function create($recipient_id, $comment)
+    {
+        $exist = $this->getCollection()->findOne(array(
+            'type' => self::NEW_COMMENT,
+            'recipient_id' => (int)$recipient_id,
+            'entity' => $comment->entity,
+            'entity_id' => (int)$comment->entity_id,
+        ));
+
+        if (!empty($exist)){
+
+        }
     }
 }

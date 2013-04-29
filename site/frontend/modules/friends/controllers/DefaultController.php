@@ -31,7 +31,9 @@ class DefaultController extends HController
 
     public function actionSearch()
     {
-        echo FriendsSearchManager::search(15385);
+        $dp = FriendsSearchManager::search(15385, $_GET);
+
+        $this->render('search', compact('dp'));
     }
 
     public function actionGet($online = false, $listId = false, $query = false, $offset = 0)

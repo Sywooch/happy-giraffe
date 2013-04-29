@@ -1,3 +1,145 @@
+.aside-filter {
+  margin: 0 0 30px;
+  padding: 25px 18px;
+  background: #99c7ff;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+.aside-filter_search {
+  position: relative;
+  margin: 0 0 15px;
+}
+.aside-filter_search-itx {
+  display: block;
+  width: 162px;
+  padding: 5px 30px 5px 10px;
+  border: 1px solid #82b6f5;
+  font-size: 13px;
+  background: #fff;
+  -webkit-border-radius: 11px;
+  -moz-border-radius: 11px;
+  border-radius: 11px;
+}
+.aside-filter_search-itx:focus {
+  background: #fff;
+}
+.aside-filter_search-btn {
+  background: url("/images/col-1_search-btn.png") no-repeat 50% 50%;
+  border: 0;
+  cursor: pointer;
+  float: right;
+  height: 28px;
+  margin: -28px 0 0;
+  width: 28px;
+}
+.aside-filter_search-btn.active {
+  background: url(/images/ico/ico-close.png) no-repeat 50% 50%;
+}
+.aside-filter_sepor {
+  display: block;
+  height: 0;
+  border: 1px solid #a8cffe;
+  border-bottom-color: #8abdfa;
+  margin: 15px 0;
+}
+.aside-filter_t {
+  display: block;
+  padding: 5px 0 10px;
+  font-size: 17px;
+  color: #fff;
+}
+.aside-filter_radio {
+  display: none;
+}
+.ie7 .aside-filter_radio,
+.ie8 .aside-filter_radio {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  padding: 0;
+  margin: 0 5px 0 0;
+}
+.aside-filter_radio:checked + .aside-filter_label-radio {
+  color: #333;
+  background-position: 0 -100px;
+}
+.aside-filter_radio:checked + .aside-filter_label-radio .ico-male,
+.aside-filter_radio:checked + .aside-filter_label-radio .ico-female {
+  background-position: 0 -100px;
+}
+.aside-filter_radio:checked ~ .aside-filter_toggle {
+  height: 30px;
+  margin-top: 10px;
+  overflow: visible;
+}
+.aside-filter_label-radio {
+  display: inline-block;
+  *zoom: 1;
+  *display: inline;
+  vertical-align: top;
+  margin-right: 15px;
+  color: #777;
+  padding-left: 24px;
+  background: url(/images/input-radio.png) no-repeat;
+  min-height: 18px;
+  line-height: 18px;
+}
+.ie7 .aside-filter_label-radio,
+.ie8 .aside-filter_label-radio {
+  padding-left: 0;
+  background: none;
+}
+.aside-filter_label-radio:hover {
+  color: #333;
+}
+.aside-filter_label-radio .ico-male,
+.aside-filter_label-radio .ico-female {
+  position: relative;
+  top: -5px;
+}
+.aside-filter_label {
+  display: inline-block;
+  *zoom: 1;
+  *display: inline;
+  vertical-align: middle;
+  color: #6b8bb3;
+  margin: 0 3px;
+}
+.aside-filter_toggle {
+  position: relative;
+  overflow: hidden;
+  height: 0;
+  -webkit-transition: all .5s ease;
+  -o-transition: all .5s ease;
+  -moz-transition: all .5s ease;
+  transition: all .5s ease;
+}
+.ie7 .aside-filter_toggle,
+.ie8 .aside-filter_toggle {
+  height: auto;
+  overflow: visible;
+  padding: 5px 0;
+}
+.aside-filter_reset {
+  display: inline-block;
+  *zoom: 1;
+  *display: inline;
+  width: 75px;
+  margin: 10px 0 0;
+  line-height: 12px;
+  font-size: 10px;
+  text-decoration: none;
+  text-align: left;
+}
+.aside-filter_reset-tx {
+  border-bottom: 1px dotted #777;
+  color: #777;
+}
+.aside-filter_reset:hover .aside-filter_reset-tx {
+  color: #333;
+  border-color: #333;
+}
 /*.im-fixed {
 	#header-new {
 		position: fixed;

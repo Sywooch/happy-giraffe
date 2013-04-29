@@ -315,6 +315,9 @@ html.top-nav-fixed {
 .w-50 {
   width: 50px;
 }
+.w-75 {
+  width: 75px !important;
+}
 .w-85 {
   width: 85px !important;
 }
@@ -362,6 +365,15 @@ html.top-nav-fixed {
 }
 .color-gray {
   color: #a9a6a6 !important;
+}
+.font-smallest {
+  font-size: 9px !important;
+  line-height: 11px !important;
+  font-family: Tahoma, Arial, Verdana, sans-serif;
+}
+.font-small {
+  font-size: 11px !important;
+  font-family: Tahoma, Arial, Verdana, sans-serif;
 }
 .font-big {
   font-size: 17px !important;
@@ -556,7 +568,6 @@ a.pseudo:hover,
   -moz-border-radius: 106px;
   -webkit-border-radius: 106px;
   border-radius: 106px;
-  behavior: url('');
 }
 .ava.small {
   width: 24px;
@@ -690,6 +701,32 @@ a.pseudo:hover,
 }
 .ico-child__girl-19 {
   background-position: -66px -350px;
+}
+.ico-male {
+  display: inline-block;
+  *zoom: 1;
+  *display: inline;
+  width: 11px;
+  height: 26px;
+  vertical-align: middle;
+  background: url(/images/ico/ico-male.png) no-repeat;
+}
+.ico-male:hover,
+.ico-male.active {
+  background-position: 0 -100px;
+}
+.ico-female {
+  display: inline-block;
+  *zoom: 1;
+  *display: inline;
+  width: 11px;
+  height: 26px;
+  vertical-align: middle;
+  background: url(/images/ico/ico-female.png) no-repeat;
+}
+.ico-female:hover,
+.ico-female.active {
+  background-position: 0 -100px;
 }
 .ico-camera-big {
   display: inline-block;
@@ -994,8 +1031,8 @@ textarea.error,
 }
 .btn-h46 {
   height: 46px;
-  font: 25px/46px Arial, Tahoma, Verdana, sans-serif;
-  padding: 0 19px;
+  font: 18px/46px Arial, Tahoma, Verdana, sans-serif;
+  padding: 0 30px;
 }
 .btn-h55 {
   height: 55px;
@@ -1156,7 +1193,7 @@ textarea.error,
   background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZlZmE3MyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmZWUwMTkiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
 }
 .btn-gold {
-  color: #94631b;
+  color: #704224;
   background-color: #fdd601;
   background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#fffb68), to(#fdd601));
   background-image: -webkit-linear-gradient(top, #fffb68, #fdd601);
@@ -1926,6 +1963,9 @@ textarea.error,
 /* /buttons */
 /* */
 .flag {
+  display: inline-block;
+  *zoom: 1;
+  *display: inline;
   width: 16px;
   height: 16px;
   background: url(/images/flags_16.png) no-repeat;
@@ -4689,8 +4729,8 @@ textarea.error,
 }
 .content-cols .col-1_search-itx {
   display: block;
-  width: 177px;
-  padding: 5px 45px 5px 18px;
+  width: 192px;
+  padding: 5px 30px 5px 18px;
   border: 1px solid #caddf4;
   font-size: 13px;
   background: #f8fbff;
@@ -4706,9 +4746,9 @@ textarea.error,
   border: 0;
   cursor: pointer;
   float: right;
-  height: 29px;
-  margin: -30px 5px 0 0;
-  width: 29px;
+  height: 28px;
+  margin: -28px 0 0;
+  width: 28px;
 }
 .content-cols .col-1_search-btn.active {
   background: url(/images/ico/ico-close.png) no-repeat 50% 50%;
@@ -7736,6 +7776,14 @@ textarea.error,
   margin-bottom: 30px;
   position: relative;
 }
+.friends-list .flag {
+  position: relative;
+  top: 1px;
+}
+.friends-list .find-friend-famyli {
+  padding: 0;
+  background: none;
+}
 .friends-list_i {
   display: inline-block;
   *zoom: 1;
@@ -7785,6 +7833,10 @@ textarea.error,
 .friends-list_ava-hold:hover .ava.large:after {
   display: block;
 }
+.ie7 .friends-list_ava-hold:hover .ava.large:after,
+.ie8 .friends-list_ava-hold:hover .ava.large:after {
+  display: none;
+}
 .friends-list_ava-hold:hover .friends-list_online {
   display: none;
 }
@@ -7820,6 +7872,12 @@ textarea.error,
 .friends-list_bubble:hover .friends-list_ico__photo {
   background-position: -60px -30px;
 }
+.friends-list_bubble:hover .friends-list_ico__friend-add {
+  background-position: -90px -30px;
+}
+.friends-list_bubble:hover .friends-list_ico__friend-added {
+  background-position: -120px 0px;
+}
 .friends-list_bubble:hover .friends-list_bubble-tx {
   color: #fff;
 }
@@ -7828,10 +7886,35 @@ textarea.error,
   left: auto;
   right: 0;
 }
+.friends-list_bubble__photo:hover {
+  background: #ad80c4;
+}
 .friends-list_bubble__blog {
   bottom: 3px;
   left: auto;
   right: 35px;
+}
+.friends-list_bubble__blog:hover {
+  background: #4abafe;
+}
+.friends-list_bubble__friend-add {
+  bottom: 50px;
+  left: 0;
+  background: #fee652;
+  background: rgba(254, 230, 82, 0.9);
+  display: block;
+}
+.friends-list_bubble__friend-add:hover {
+  background: #fee652;
+}
+.friends-list_bubble__friend-added {
+  bottom: 50px;
+  left: 0;
+  background: #dfdedd;
+  display: block;
+}
+.friends-list_bubble__friend-added:hover {
+  background: #dfdedd;
 }
 .friends-list_bubble-tx {
   font-size: 10px;
@@ -7844,9 +7927,9 @@ textarea.error,
   position: absolute;
   top: 10px;
   left: 3px;
-  height: 32px;
+  height: 30px;
   width: 38px;
-  padding: 6px 0 0;
+  padding: 8px 0 0;
   background: #0eba23;
   color: #fff;
   font-size: 10px;
@@ -7875,11 +7958,18 @@ textarea.error,
 .friends-list_ico__photo {
   background-position: -60px 0;
 }
+.friends-list_ico__friend-add {
+  background-position: -90px 0;
+}
+.friends-list_ico__friend-added {
+  background-position: -120px 0;
+}
 .friends-list_a {
   display: inline-block;
   *zoom: 1;
   *display: inline;
   margin: 0;
+  line-height: 15px;
   color: #289fd7;
   text-decoration: none;
 }
@@ -7888,7 +7978,7 @@ textarea.error,
 }
 .friends-list_group {
   position: relative;
-  line-height: 14px;
+  line-height: 16px;
 }
 .friends-list_group .btn-middle {
   margin: 5px 0;
@@ -7984,13 +8074,27 @@ textarea.error,
   top: 0;
   left: 0;
   width: 100%;
-  min-height: 220px;
-  padding: 75px 0;
+  height: 100%;
   background: #fff;
-  background: rgba(255, 255, 255, 0.95);
+  line-height: 16px;
+}
+.friends-list_deleted-hold {
+  padding: 70px 0 0;
+  width: 200px;
+  height: 130px;
+  border: 2px solid #f5f8fc;
+  -webkit-border-radius: 105px;
+  -moz-border-radius: 105px;
+  border-radius: 105px;
 }
 .friends-list_row {
   margin: 5px 0;
+}
+.friends-list_location {
+  margin: -3px 0 15px;
+  color: #555454;
+  font-size: 11px;
+  line-height: 13px;
 }
 /* gallery */
 #gallery {
@@ -13924,6 +14028,7 @@ body.gallery {
   right: 0;
   top: 42px;
   overflow-y: auto;
+  overflow-x: hidden;
   border-top: 1px solid #fff;
 }
 .layout-container {
@@ -16748,6 +16853,63 @@ body.gallery {
 }
 .chzn-v2-lilac .chzn-container .chzn-results .highlighted {
   background: #a687c7;
+}
+.chzn-bluelight {
+  display: inline-block;
+  *zoom: 1;
+  *display: inline;
+  height: 30px;
+  min-width: 78px;
+  width: 100%;
+}
+.chzn-bluelight .chzn-container-single {
+  vertical-align: middle;
+  width: 100% !important;
+}
+.chzn-bluelight .chzn-container-single .chzn-single {
+  height: 30px;
+  border-color: #82b6f5;
+  padding-left: 7px;
+}
+.chzn-bluelight .chzn-container-single .chzn-drop {
+  border: none;
+  width: 100% !important;
+}
+.chzn-bluelight .chzn-container-single .chzn-results {
+  border: 1px solid #82b6f5;
+  margin: 0;
+  padding: 2px;
+}
+.chzn-bluelight .chzn-container-single .chzn-single span {
+  height: 30px;
+  line-height: 30px;
+  color: #514f4f;
+  font-size: 12px;
+  margin-right: 40px;
+}
+.chzn-bluelight .chzn-container-single .chzn-single div {
+  background: #d2e6fe;
+  height: 28px;
+  width: 33px;
+  border-left: 0;
+  border-color: #82b6f5;
+  top: 0;
+  right: 0;
+}
+.chzn-bluelight .chzn-container-single .chzn-single div b {
+  width: 15px;
+  height: 8px;
+  background: url(/images/arrow-d.png) no-repeat;
+}
+.chzn-bluelight .chzn-container .chzn-results li {
+  line-height: 18px;
+}
+.chzn-bluelight .chzn-container .chzn-results .highlighted {
+  background: #d2e6fe;
+  color: #514F4F;
+}
+.chzn-textalign-c .chzn-container-single .chzn-single span {
+  text-align: center !important;
 }
 /* ------------- store cart form select -------------- */
 #cart .info-form .chzn-container-single .chzn-single {
@@ -19743,6 +19905,137 @@ label {
   background: #fffbc9;
 }
 /* /like-hg-popup */
+/* find-friend-famyli */
+.find-friend-famyli {
+  margin: 0 -7px -7px;
+  padding: 5px 0px;
+  background: #ffffe4;
+  color: #5a5a5a;
+  font-size: 9px;
+  line-height: 10px;
+}
+.find-friend-famyli-list {
+  list-style: none;
+  margin: 8px 0 0;
+  min-height: 60px;
+}
+.find-friend-famyli-list > li {
+  display: inline-block;
+  *zoom: 1;
+  *display: inline;
+  width: 66px;
+  margin: 0 1px 5px;
+  vertical-align: top;
+  text-align: center;
+}
+.find-friend-famyli .img {
+  margin: 0 auto 4px;
+  max-width: 53px;
+  max-height: 53px;
+  min-height: 15px;
+}
+.find-friend-famyli .img > img {
+  margin: 0 auto;
+}
+.find-friend-famyli .img.baby-plan {
+  background: url(/images/user-family-icons.png) no-repeat 0 0;
+  width: 66px;
+  height: 50px;
+}
+.find-friend-famyli .img.baby {
+  background: url(/images/user-family-icons.png) no-repeat -66px 0;
+  width: 66px;
+  height: 50px;
+}
+.find-friend-famyli .img.boy-wait {
+  background: url(/images/user-family-icons.png) no-repeat 0 -50px;
+  width: 66px;
+  height: 50px;
+}
+.find-friend-famyli .img.girl-wait {
+  background: url(/images/user-family-icons.png) no-repeat -66px -50px;
+  width: 66px;
+  height: 50px;
+}
+.find-friend-famyli .img.boy-small {
+  background: url(/images/user-family-icons.png) no-repeat 0 -100px;
+  width: 66px;
+  height: 50px;
+}
+.find-friend-famyli .img.girl-small {
+  background: url(/images/user-family-icons.png) no-repeat -66px -100px;
+  width: 66px;
+  height: 50px;
+}
+.find-friend-famyli .img.boy-3 {
+  background: url(/images/user-family-icons.png) no-repeat 0 -150px;
+  width: 66px;
+  height: 50px;
+}
+.find-friend-famyli .img.girl-3 {
+  background: url(/images/user-family-icons.png) no-repeat -66px -150px;
+  width: 66px;
+  height: 50px;
+}
+.find-friend-famyli .img.boy-5 {
+  background: url(/images/user-family-icons.png) no-repeat 0 -200px;
+  width: 66px;
+  height: 50px;
+}
+.find-friend-famyli .img.girl-5 {
+  background: url(/images/user-family-icons.png) no-repeat -66px -200px;
+  width: 66px;
+  height: 50px;
+}
+.find-friend-famyli .img.boy-8 {
+  background: url(/images/user-family-icons.png) no-repeat 0 -250px;
+  width: 66px;
+  height: 50px;
+}
+.find-friend-famyli .img.girl-8 {
+  background: url(/images/user-family-icons.png) no-repeat -66px -250px;
+  width: 66px;
+  height: 50px;
+}
+.find-friend-famyli .img.boy-14 {
+  background: url(/images/user-family-icons.png) no-repeat 0 -300px;
+  width: 66px;
+  height: 50px;
+}
+.find-friend-famyli .img.girl-14 {
+  background: url(/images/user-family-icons.png) no-repeat -66px -300px;
+  width: 66px;
+  height: 50px;
+}
+.find-friend-famyli .img.boy-19 {
+  background: url(/images/user-family-icons.png) no-repeat 0 -350px;
+  width: 66px;
+  height: 50px;
+}
+.find-friend-famyli .img.girl-19 {
+  background: url(/images/user-family-icons.png) no-repeat -66px -350px;
+  width: 66px;
+  height: 50px;
+}
+.find-friend-famyli .yellow {
+  background: #fef617;
+  padding: 0 2px;
+}
+.find-friend-famyli .blue-text {
+  color: #26b4fe;
+}
+.find-friend-famyli .pink-text {
+  color: #e885cc;
+}
+.find-friend-famyli_other {
+  display: inline-block;
+  *zoom: 1;
+  *display: inline;
+  padding: 25px 0 0;
+  margin: 0 auto;
+  font-size: 12px;
+}
+/* /find-friend-famyli */
 /* valentine-banner */
 .valentine-banner {
   position: relative;

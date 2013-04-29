@@ -12,6 +12,7 @@
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/top-line-menu.php'; ?>
 	
 <div class="layout-container">
+<div class="layout-container_hold">
 	<div class="layout-wrapper">
 		<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/header-new.php'; ?>
 			
@@ -171,8 +172,7 @@
 							</div>
 							<a href="" class="friends-list_a">Валерия Петроградская</a>
 							<div class="friends-list_group">
-								<a href="" class="btn-green btn-middle">Принять</a>
-								<a href="" class="btn-gray-light btn-middle">Отклонить</a>
+								<span class="color-gray">Приглашение отклонено</span>
 							</div>
 						</div>
 						<div class="friends-list_i">
@@ -313,6 +313,7 @@
 		<div class="footer-push"></div>
 	</div>
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/footer.php'; ?>
+</div>
 </div>
 
 

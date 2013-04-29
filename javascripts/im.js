@@ -26,11 +26,13 @@ im.scrollTop = function () {
 /* Высота в sidebar списка собеседников */
 im.sidebarHeight = function () {
  
-/*  if (im.containerScroll > im.headerHeight) {
+  if (im.containerScroll > im.headerHeight) {
         im.userList.height(im.sidebar.height() - im.userListIndentFix);
-    } else {*/
-        im.userList.height(im.windowHeight - im.headerHeight - im.userListIndent - im.bottomHeight);
-/*    }*/
+    } else {
+        im.userList.height(im.windowHeight - im.headerHeight + im.userListIndent - im.bottomHeight);
+        console.log(im.userList.height())
+    }
+
 
 }
 
@@ -63,6 +65,8 @@ im.scrollIm = function (){
         /*imTopScroll = -im.height + im.viewHeight() + im.containerScroll*2 - im.headerHeight;
         im.wrapper.css('top', imTopScroll);*/
 
+        /* Высота sidebar списка собеседников */
+        im.sidebarHeight();
     } else {
         /* Класс управления фиксед элементами */
         im.imBlock.removeClass("im__fixed");

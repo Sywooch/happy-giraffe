@@ -12,6 +12,7 @@
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/top-line-menu.php'; ?>
 	
 <div class="layout-container">
+<div class="layout-container_hold">
 	<div class="layout-wrapper">
 		<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/header-new.php'; ?>
 			
@@ -122,10 +123,13 @@
 									</a>
 								</div>
 							</div>
+							
 							<div class="friends-list_deleted">
-								<a href="" class="friends-list_a">Валерия Петроградская</a>
-								<div class="friends-list_row color-gray">удалена из списка <br>ваших друзей</div>
-								<a href="" class="a-pseudo">Восстановить?</a>
+								<div class="friends-list_deleted-hold">
+									<a href="" class="friends-list_a">Валерия Петроградская</a>
+									<div class="friends-list_row color-gray">удалена из списка <br>ваших друзей</div>
+									<a href="" class="a-pseudo">Восстановить?</a>
+								</div>
 							</div>
 						</div>
 						<div class="friends-list_i">
@@ -435,6 +439,7 @@
 		<div class="footer-push"></div>
 	</div>
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/footer.php'; ?>
+</div>
 </div>
 
 

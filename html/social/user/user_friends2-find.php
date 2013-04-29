@@ -32,15 +32,33 @@
 							<button class="aside-filter_search-btn active"></button>
 						</div>
 						<div class="aside-filter_sepor"></div>
-						<div class="aside-filter_row">
+						<div class="aside-filter_row clearfix">
 							<div class="aside-filter_t">Местоположение</div>
-							<input type="radio" name="b-radio1" id="radio1" class="aside-filter_radio" checked>
-							<label for="radio1" class="aside-filter_label-radio">везде</label>
+							<div class="display-ib">
+								<input type="radio" name="b-radio1" id="radio1" class="aside-filter_radio" checked>
+								<label for="radio1" class="aside-filter_label-radio">везде</label>
+							</div>
 							<input type="radio" name="b-radio1" id="radio2" class="aside-filter_radio">
 							<label for="radio2" class="aside-filter_label-radio">указать где</label>
+							<div class="aside-filter_toggle">
+								<div class="chzn-bluelight">
+									<select class="chzn">
+										<option selected="selected">0</option>
+										<option>Россия</option>
+										<option>2</option>
+										<option>32</option>						
+										<option>32</option>						
+										<option>32</option>						
+										<option>32</option>						
+										<option>132</option>						
+										<option>132</option>						
+										<option>132</option>						
+									</select>
+								</div>
+							</div>
 						</div>
 						<div class="aside-filter_sepor"></div>
-						<div class="aside-filter_row">
+						<div class="aside-filter_row clearfix">
 							<div class="aside-filter_t">Пол</div>
 							<input type="radio" name="b-radio2" id="radio3" class="aside-filter_radio" checked>
 							<label for="radio3" class="aside-filter_label-radio">
@@ -56,7 +74,7 @@
 							</label>
 						</div>
 						<div class="aside-filter_sepor"></div>
-						<div class="aside-filter_row margin-b20">
+						<div class="aside-filter_row margin-b20 clearfix">
 							<div class="aside-filter_t">Возраст</div>
 							<div class="aside-filter_label">от</div>
 							<div class="chzn-bluelight chzn-textalign-c w-75">
@@ -90,7 +108,7 @@
 							</div>
 						</div>
 						<div class="aside-filter_sepor"></div>
-						<div class="aside-filter_row  margin-b20">
+						<div class="aside-filter_row  margin-b20 clearfix ">
 							<div class="aside-filter_t">Семейное положение</div>
 							<div class="chzn-bluelight">
 								<select class="chzn">
@@ -102,7 +120,7 @@
 							</div>
 						</div>
 						<div class="aside-filter_sepor"></div>
-						<div class="aside-filter_row">
+						<div class="aside-filter_row clearfix">
 							<div class="aside-filter_t">Дети</div>
 							<div class="margin-b10 clearfix">
 								<input type="radio" name="b-radio3" id="radio6" class="aside-filter_radio" checked>
@@ -198,19 +216,6 @@
 				
 				<div class="col-23 clearfix">
 					
-					<div class="cont-nav">
-						<div class="cont-nav_i active">
-							<a href="" class="cont-nav_a">Все (1656)</a>
-						</div>
-						<div class="cont-nav_i">
-							<span class="user-online-status"></span>
-							<a href="" class="cont-nav_a">На сайте (987)</a>
-						</div>
-						<div class="cont-nav_i">
-							<a href="" class="cont-nav_a">Хотят дружить<span class="cont-nav_count">2</span> </a>
-						</div>
-					</div>
-					
 					<div class="friends-list">
 						<div class="friends-list_i">
 							<div class="friends-list_ava-hold clearfix">
@@ -238,8 +243,8 @@
 							<a href="" class="friends-list_a">Александр Богоявленский</a>
 							<span class="font-smallest color-gray"> 139 лет</span>
 							<div class="friends-list_location clearfix">
-                   				<div class="flag flag-ua" title="Россия"></div>
-                   				Астраханская область
+                   				<div class="flag flag-ua" title="Украина"></div>
+                   				Украина, Астраханская область
                    			</div>
 							<div class="find-friend-famyli">
 								<ul class="find-friend-famyli-list">
@@ -305,7 +310,7 @@
 							<span class="font-smallest color-gray"> 39 лет</span>
 							<div class="friends-list_location clearfix">
                    				<div class="flag flag-ru" title="Россия"></div>
-                   				Переславль-Залесский, Астраханская область
+                   				Россия, Переславль-Залесский, Астраханская область
                    			</div>
 						</div>
 						<div class="friends-list_i">
@@ -334,8 +339,8 @@
 							<a href="" class="friends-list_a">Валерия Петроградская</a>
 							<span class="font-smallest color-gray"> 39 лет</span>
 							<div class="friends-list_location clearfix">
-                   				<div class="flag flag-ru" title="Россия"></div>
-                   				Переславль-Залесский, Астраханская область
+                   				<div class="flag flag-kz" title="Россия"></div>
+                   				Казахстан, Переславль-Залесский, Астраханская область
                    			</div>
 							<div class="find-friend-famyli">
 								<ul class="find-friend-famyli-list">
@@ -387,7 +392,7 @@
 							<span class="font-smallest color-gray"> 139 лет</span>
 							<div class="friends-list_location clearfix">
                    				<div class="flag flag-ua" title="Россия"></div>
-                   				Астраханская область
+                   				Россия, Астраханская область
                    			</div>
 							<div class="find-friend-famyli">
 								<ul class="find-friend-famyli-list">
@@ -453,7 +458,7 @@
 							<span class="font-smallest color-gray"> 39 лет</span>
 							<div class="friends-list_location clearfix">
                    				<div class="flag flag-ru" title="Россия"></div>
-                   				Переславль, Астраханская область
+                   				Россия, Переславль, Астраханская область
                    			</div>
 							<div class="find-friend-famyli">
 								<ul class="find-friend-famyli-list">
@@ -493,7 +498,7 @@
 							<span class="font-smallest color-gray"> 39 лет</span>
 							<div class="friends-list_location clearfix">
                    				<div class="flag flag-ru" title="Россия"></div>
-                   				Астраханская область
+                   				Россия, Астраханская область
                    			</div>
 							<div class="find-friend-famyli">
 								<ul class="find-friend-famyli-list">

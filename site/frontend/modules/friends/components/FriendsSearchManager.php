@@ -8,16 +8,43 @@
  */
 class FriendsSearchManager
 {
-    public static function search($userId)
+    public static function search($userId, $params)
     {
         $criteria = self::getDefaultCriteria($userId);
 
-        return User::model()->count($criteria);
+        if (isset($params['query']))
+            $criteria->mergeWith(self::getQueryCriteria($params['query']));
+
+        if (isset($params['gender']))
+            $criteria->compare('t.gender', $params['gender']);
+
+        if (isset($params['countryId']) || isset($params['regionId']))
+            $criteria->join .= 'LEFT OUTER JOIN geo__user_address address ON address.user_id = t.id';
+
+        if (isset($params['countryId']))
+            $criteria->compare('address.country_id', $params['countryId']);
+
+        if (isset($params['regionId']))
+            $criteria->compare('address.region_id', $params['regionId']);
+
+        if  (isset($params['ageMin']) !== false)
+            $criteria->compare('age', '>=' . $params['ageMin']);
+
+        if  (isset($params['ageMax']))
+            $criteria->compare('age', '<=' . $params['ageMax']);
+
+        if (isset($params['relationshipStatus']))
+            $criteria->compare('t.relationship_status', $params['relationshipStatus']);
+
+        return new CActiveDataProvider('User', array(
+            'criteria' => $criteria,
+        ));
     }
 
     protected static function getDefaultCriteria($userId)
     {
         return new CDbCriteria(array(
+            'select' => 't.*, YEAR(CURDATE()) - YEAR(birthday) AS age',
             'condition' => '
                 t.id != :user_id AND
                 t.id != :hg AND
@@ -35,5 +62,14 @@ class FriendsSearchManager
                 ':hg' => User::HAPPY_GIRAFFE,
             ),
         ));
+    }
+
+    protected static function getQueryCriteria($query)
+    {
+        $criteria = new CDbCriteria();
+        $criteria->addSearchCondition('first_name', $query);
+        $criteria->addSearchCondition('last_name', $query, true, 'OR');
+        $criteria->addSearchCondition(new CDbExpression('CONCAT_WS(\' \', first_name, last_name)'), $query, true, 'OR');
+        return $criteria;
     }
 }

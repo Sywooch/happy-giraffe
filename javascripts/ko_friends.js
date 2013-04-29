@@ -10,20 +10,27 @@ function FriendsViewModel(data) {
     }));
     self.selectedListId = ko.observable(null);
     self.friendsToShow = ko.observableArray([]);
-    self.activeTab = ko.observable(0);
+    self.activeTab = ko.observable(self.incomingRequestsCount() > 0 ? 2 : 0);
     self.newListTitle = ko.observable('');
     self.searchQuery = ko.observable('');
+    self.loading = ko.observable(false);
+    self.lastPage = ko.observable(false);
+    self.friendsRequests = ko.observableArray([]);
 
     self.clearSearchQuery = function() {
         self.searchQuery('');
     }
 
     self.selectAll = function() {
+        self.activeTab(0);
         self.selectedListId(null);
+        self.init();
     }
 
     self.selectTab = function(tab) {
+        self.selectedListId(null);
         self.activeTab(tab);
+        self.init();
     }
 
     self.getListById = function(listId) {
@@ -49,19 +56,13 @@ function FriendsViewModel(data) {
         }, 'json');
     }
 
-    self.activeTab.subscribe(function () {
-        self.load();
-    });
-
-    self.selectedListId.subscribe(function() {
-        self.load();
-    });
-
     self.searchQuery.subscribe(function() {
-        self.load();
+        self.init();
     });
 
-    self.load = function() {
+    self.loadFriends = function(callback, offset) {
+        self.loading(true);
+
         var data = {};
         if (self.activeTab() === 1)
             data.online = 1;
@@ -69,15 +70,53 @@ function FriendsViewModel(data) {
             data.listId = self.selectedListId();
         if (self.searchQuery() !== '')
             data.query = self.searchQuery();
+        if (typeof offset !== "undefined")
+            data.offset = offset;
 
         $.get('/friends/default/get/', data, function(response) {
-            self.friendsToShow(ko.utils.arrayMap(response.friends, function(friend) {
-                return new Friend(friend, self);
-            }));
+            callback(response);
+            self.loading(false);
+            if (response.last)
+                self.lastPage(true);
         }, 'json');
     }
 
-    self.load();
+    self.init = function() {
+        self.friendsToShow([]);
+        self.friendsRequests([]);
+
+        if (self.activeTab() != 2) {
+            self.lastPage(false);
+            self.loadFriends(function(response) {
+                self.friendsToShow(ko.utils.arrayMap(response.friends, function(friend) {
+                    return new Friend(friend, self);
+                }))
+            });
+        } else {
+            $.get('/friends/requests/get/', function(response){
+                self.friendsRequests(ko.utils.arrayMap(response.requests, function(request) {
+                    return new FriendRequest(request, self);
+                }));
+            }, 'json');
+        }
+    }
+
+    self.nextPage = function() {
+        self.loadFriends(function(response) {
+            var newItems = ko.utils.arrayMap(response.friends, function(friend) {
+                return new Friend(friend, self);
+            });
+
+            self.friendsToShow.push.apply(self.friendsToShow, newItems);
+        }, self.friendsToShow().length);
+    }
+
+    self.init();
+
+    $('.layout-container').scroll(function() {
+        if (self.activeTab() != 2 && self.loading() === false && self.lastPage() === false && (($('.layout-container').scrollTop() + $('.layout-container').height()) > ($('.layout-container').prop('scrollHeight') - 200)))
+            self.nextPage();
+    });
 }
 
 function Friend(data, parent) {
@@ -115,9 +154,41 @@ function Friend(data, parent) {
     }
 
     self.remove = function(friend) {
-        $.post('/friends/default/delete/', { friendId : self.id() }, function(response) {
+        $.post('/friends/default/delete/', { friendId : self.user().id() }, function(response) {
             if (response.success) {
+                parent.friendsCount(parent.friendsCount() - 1);
+                if (friend.user().online())
+                    parent.friendsOnlineCount(parent.friendsOnlineCount() - 1);
                 parent.friendsToShow.remove(friend);
+            }
+        }, 'json');
+    }
+}
+
+function FriendRequest(data, parent) {
+    var self = this;
+
+    self.id = ko.observable(data.id);
+    self.fromId = ko.observable(data.fromId);
+    self.user = ko.observable(new User(data.user, parent));
+
+    self.accept = function(request) {
+        $.post('/friends/requests/accept/', { requestId : self.id() }, function(response) {
+            if (response.success) {
+                parent.friendsRequests.remove(request);
+                parent.friendsCount(parent.friendsCount() + 1);
+                parent.incomingRequestsCount(parent.incomingRequestsCount() - 1);
+                if (self.user().online())
+                    parent.friendsOnlineCount(parent.friendsOnlineCount() + 1);
+            }
+        }, 'json');
+    }
+
+    self.decline = function(request) {
+        $.post('/friends/requests/decline/', { requestId : self.id() }, function(response) {
+            if (response.success) {
+                parent.friendsRequests.remove(request);
+                parent.incomingRequestsCount(parent.incomingRequestsCount() + 1);
             }
         }, 'json');
     }
@@ -130,9 +201,26 @@ function User(data, parent) {
     self.online = ko.observable(data.online);
     self.firstName = ko.observable(data.firstName);
     self.lastName = ko.observable(data.lastName);
+    self.ava = ko.observable(data.ava);
 
     self.fullName = ko.computed(function() {
         return self.firstName() + ' ' + self.lastName();
+    });
+
+    self.url = ko.computed(function() {
+        return '/user/' + self.id() + '/';
+    });
+
+    self.dialogUrl = ko.computed(function() {
+        return '/messaging/?interlocutorId=' + self.id();
+    });
+
+    self.albumsUrl = ko.computed(function() {
+        return '/user/' + self.id() + '/albums/';
+    });
+
+    self.blogUrl = ko.computed(function() {
+        return '/user/' + self.id() + '/blog/';
     });
 }
 
@@ -144,7 +232,9 @@ function List(data, parent) {
     self.title = ko.observable(data.title);
 
     self.select = function(list) {
+        parent.activeTab(0);
         parent.selectedListId(list.id());
+        parent.init();
     }
 
     self.remove = function(list) {

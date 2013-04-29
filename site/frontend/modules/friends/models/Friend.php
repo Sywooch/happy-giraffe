@@ -43,8 +43,9 @@ class Friend extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('user_id, friend_id, created', 'required'),
+            array('user_id, friend_id', 'required'),
             array('user_id, friend_id, list_id', 'length', 'max'=>11),
+            array('created', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('id, user_id, friend_id, created, list_id', 'safe', 'on'=>'search'),
@@ -111,5 +112,50 @@ class Friend extends CActiveRecord
         }
 
         return $this->countByAttributes(array('user_id' => $userId), $criteria);
+    }
+
+    public function makeFriendship($user1Id, $user2Id)
+    {
+        $f1 = new Friend();
+        $f1->user_id = $user1Id;
+        $f1->friend_id = $user2Id;
+
+        $f2 = new Friend();
+        $f2->user_id = $user2Id;
+        $f2->friend_id = $user1Id;
+
+        if (! $f1->validate() || ! $f2->validate())
+            return false;
+
+        $transaction = Yii::app()->db->beginTransaction();
+        try {
+            $f1->save();
+            $f2->save();
+
+            $transaction->commit();
+            return true;
+        }
+        catch(Exception $e)
+        {
+            $transaction->rollback();
+            return false;
+        }
+    }
+
+    public function breakFriendship($user1Id, $user2Id)
+    {
+        $transaction = Yii::app()->db->beginTransaction();
+        try {
+            Friend::model()->deleteAll('user_id = :user_id AND friend_id = :friend_id', array(':user_id' => $user1Id, ':friend_id' => $user2Id));
+            Friend::model()->deleteAll('user_id = :user_id AND friend_id = :friend_id', array(':user_id' => $user2Id, ':friend_id' => $user1Id));
+
+            $transaction->commit();
+            return true;
+        }
+        catch(Exception $e)
+        {
+            $transaction->rollback();
+            return false;
+        }
     }
 }

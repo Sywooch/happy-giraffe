@@ -8,12 +8,29 @@
  */
 class FriendsManager
 {
-    public static function getFriends($userId, $limit, $online, $listId, $query, $offset)
+    const FRIENDS_PER_PAGE = 15;
+
+    public static function getFriends($userId, $online, $listId, $query, $offset)
+    {
+        $criteria = self::getCriteria($userId, $online, $listId, $query);
+        $criteria->limit = ($offset == 0) ? self::FRIENDS_PER_PAGE - 1 : self::FRIENDS_PER_PAGE;
+        $criteria->offset = $offset;
+        $criteria->order = 'friend.online DESC';
+
+        return Friend::model()->findAll($criteria);
+    }
+
+    public static function getFriendsCount($userId, $online, $listId, $query, $offset)
+    {
+        $criteria = self::getCriteria($userId, $online, $listId, $query);
+
+        return Friend::model()->count($criteria);
+    }
+
+    protected static function getCriteria($userId, $online, $listId, $query)
     {
         $criteria = new CDbCriteria(array(
             'with' => 'friend',
-            'limit' => $limit,
-            'offset' => $offset,
         ));
 
         $criteria->compare('t.user_id', $userId);
@@ -28,10 +45,11 @@ class FriendsManager
             $sCriteria = new CDbCriteria();
             $sCriteria->addSearchCondition('first_name', $query);
             $sCriteria->addSearchCondition('last_name', $query, true, 'OR');
+            $sCriteria->addSearchCondition(new CDbExpression('CONCAT_WS(\' \', first_name, last_name)'), $query, true, 'OR');
             $criteria->mergeWith($sCriteria);
         }
 
-        return Friend::model()->findAll($criteria);
+        return $criteria;
     }
 
     public static function getLists($userId)

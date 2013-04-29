@@ -32,15 +32,33 @@
 							<button class="aside-filter_search-btn active"></button>
 						</div>
 						<div class="aside-filter_sepor"></div>
-						<div class="aside-filter_row">
+						<div class="aside-filter_row clearfix">
 							<div class="aside-filter_t">Местоположение</div>
-							<input type="radio" name="b-radio1" id="radio1" class="aside-filter_radio" checked>
-							<label for="radio1" class="aside-filter_label-radio">везде</label>
+							<div class="display-ib">
+								<input type="radio" name="b-radio1" id="radio1" class="aside-filter_radio" checked>
+								<label for="radio1" class="aside-filter_label-radio">везде</label>
+							</div>
 							<input type="radio" name="b-radio1" id="radio2" class="aside-filter_radio">
 							<label for="radio2" class="aside-filter_label-radio">указать где</label>
+							<div class="aside-filter_toggle">
+								<div class="chzn-bluelight">
+									<select class="chzn">
+										<option selected="selected">0</option>
+										<option>Россия</option>
+										<option>2</option>
+										<option>32</option>						
+										<option>32</option>						
+										<option>32</option>						
+										<option>32</option>						
+										<option>132</option>						
+										<option>132</option>						
+										<option>132</option>						
+									</select>
+								</div>
+							</div>
 						</div>
 						<div class="aside-filter_sepor"></div>
-						<div class="aside-filter_row">
+						<div class="aside-filter_row clearfix">
 							<div class="aside-filter_t">Пол</div>
 							<input type="radio" name="b-radio2" id="radio3" class="aside-filter_radio" checked>
 							<label for="radio3" class="aside-filter_label-radio">
@@ -56,7 +74,7 @@
 							</label>
 						</div>
 						<div class="aside-filter_sepor"></div>
-						<div class="aside-filter_row margin-b20">
+						<div class="aside-filter_row margin-b20 clearfix">
 							<div class="aside-filter_t">Возраст</div>
 							<div class="aside-filter_label">от</div>
 							<div class="chzn-bluelight chzn-textalign-c w-75">
@@ -90,7 +108,7 @@
 							</div>
 						</div>
 						<div class="aside-filter_sepor"></div>
-						<div class="aside-filter_row  margin-b20">
+						<div class="aside-filter_row  margin-b20 clearfix ">
 							<div class="aside-filter_t">Семейное положение</div>
 							<div class="chzn-bluelight">
 								<select class="chzn">
@@ -102,7 +120,7 @@
 							</div>
 						</div>
 						<div class="aside-filter_sepor"></div>
-						<div class="aside-filter_row">
+						<div class="aside-filter_row clearfix">
 							<div class="aside-filter_t">Дети</div>
 							<div class="margin-b10 clearfix">
 								<input type="radio" name="b-radio3" id="radio6" class="aside-filter_radio" checked>

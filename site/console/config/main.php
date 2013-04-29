@@ -20,6 +20,13 @@ return array(
         'site.common.helpers.*',
         'site.frontend.extensions.image.Image',
         'site.frontend.extensions.phpQuery.phpQuery',
+        'site.frontend.extensions.directmongosuite.*',
+    ),
+    'behaviors' => array(
+        'edms' => array(
+            'class'=>'EDMSBehavior',
+            'connectionId' => 'mongodb',
+        )
     ),
     'components' => array(
         'gearman' => array(
@@ -64,6 +71,10 @@ return array(
             'fsyncFlag' => true,
             'safeFlag' => true,
             'useCursor' => false
+        ),
+        'edms' => array(
+            'class'            => 'EDMSConnection',
+            'dbName'           => 'happy_giraffe_db',
         ),
         'db'=>require_once(dirname(__FILE__).'/db.php'),
         'db_seo' => array(

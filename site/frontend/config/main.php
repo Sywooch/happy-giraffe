@@ -57,6 +57,7 @@ return array(
         'application.modules.whatsNew.widgets.whatsNewWidget.WhatsNewWidget',
         'application.modules.messaging.components.*',
         'application.modules.messaging.models.*',
+        'ext.directmongosuite.*',
     ),
 
 	'sourceLanguage' => 'en',
@@ -102,8 +103,14 @@ return array(
         'valentinesDay',
         'routes',
         'messaging',
+        'notification',
 	),
-
+    'behaviors' => array(
+        'edms' => array(
+            'class'=>'EDMSBehavior',
+            'connectionId' => 'mongodb',
+        )
+    ),
 	// application components
 	'components'=>array(
         'clientScript' => array(

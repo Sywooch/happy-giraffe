@@ -198,19 +198,6 @@
 				
 				<div class="col-23 clearfix">
 					
-					<div class="cont-nav">
-						<div class="cont-nav_i active">
-							<a href="" class="cont-nav_a">Все (1656)</a>
-						</div>
-						<div class="cont-nav_i">
-							<span class="user-online-status"></span>
-							<a href="" class="cont-nav_a">На сайте (987)</a>
-						</div>
-						<div class="cont-nav_i">
-							<a href="" class="cont-nav_a">Хотят дружить<span class="cont-nav_count">2</span> </a>
-						</div>
-					</div>
-					
 					<div class="friends-list">
 						<div class="friends-list_i">
 							<div class="friends-list_ava-hold clearfix">
@@ -238,8 +225,8 @@
 							<a href="" class="friends-list_a">Александр Богоявленский</a>
 							<span class="font-smallest color-gray"> 139 лет</span>
 							<div class="friends-list_location clearfix">
-                   				<div class="flag flag-ua" title="Россия"></div>
-                   				Астраханская область
+                   				<div class="flag flag-ua" title="Украина"></div>
+                   				Украина, Астраханская область
                    			</div>
 							<div class="find-friend-famyli">
 								<ul class="find-friend-famyli-list">
@@ -305,7 +292,7 @@
 							<span class="font-smallest color-gray"> 39 лет</span>
 							<div class="friends-list_location clearfix">
                    				<div class="flag flag-ru" title="Россия"></div>
-                   				Переславль-Залесский, Астраханская область
+                   				Россия, Переславль-Залесский, Астраханская область
                    			</div>
 						</div>
 						<div class="friends-list_i">
@@ -334,8 +321,8 @@
 							<a href="" class="friends-list_a">Валерия Петроградская</a>
 							<span class="font-smallest color-gray"> 39 лет</span>
 							<div class="friends-list_location clearfix">
-                   				<div class="flag flag-ru" title="Россия"></div>
-                   				Переславль-Залесский, Астраханская область
+                   				<div class="flag flag-kz" title="Россия"></div>
+                   				Казахстан, Переславль-Залесский, Астраханская область
                    			</div>
 							<div class="find-friend-famyli">
 								<ul class="find-friend-famyli-list">
@@ -387,7 +374,7 @@
 							<span class="font-smallest color-gray"> 139 лет</span>
 							<div class="friends-list_location clearfix">
                    				<div class="flag flag-ua" title="Россия"></div>
-                   				Астраханская область
+                   				Россия, Астраханская область
                    			</div>
 							<div class="find-friend-famyli">
 								<ul class="find-friend-famyli-list">
@@ -453,7 +440,7 @@
 							<span class="font-smallest color-gray"> 39 лет</span>
 							<div class="friends-list_location clearfix">
                    				<div class="flag flag-ru" title="Россия"></div>
-                   				Переславль, Астраханская область
+                   				Россия, Переславль, Астраханская область
                    			</div>
 							<div class="find-friend-famyli">
 								<ul class="find-friend-famyli-list">
@@ -493,7 +480,7 @@
 							<span class="font-smallest color-gray"> 39 лет</span>
 							<div class="friends-list_location clearfix">
                    				<div class="flag flag-ru" title="Россия"></div>
-                   				Астраханская область
+                   				Россия, Астраханская область
                    			</div>
 							<div class="find-friend-famyli">
 								<ul class="find-friend-famyli-list">

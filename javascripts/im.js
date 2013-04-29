@@ -11,7 +11,7 @@ var im = {};
 im.topLineMenuHeight = 75;
 im.tabsHeight = 53;
 /*im.userListIndentFix = 198;*/
-im.userListIndent = 189;
+im.userListIndent = 178;
 im.minHeight = 460;
 
 im.viewHeight = function () {
@@ -27,9 +27,9 @@ im.scrollTop = function () {
 im.sidebarHeight = function () {
  
   if (im.containerScroll > im.headerHeight) {
-        im.userList.height(im.sidebar.height() - im.userListIndentFix);
+        im.userList.height(im.windowHeight - im.userListIndent - im.bottomHeight);
     } else {
-        im.userList.height(im.windowHeight - im.headerHeight + im.userListIndent - im.bottomHeight);
+        im.userList.height(im.windowHeight - im.headerHeight + im.containerScroll - im.userListIndent - im.bottomHeight);
         console.log(im.userList.height())
     }
 

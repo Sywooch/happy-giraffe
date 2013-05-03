@@ -259,7 +259,7 @@ class ElasticEmail extends CApplicationComponent
     {
         $criteria = new CDbCriteria;
         $criteria->order = 'id desc';
-        $criteria->limit = 1500;
+        $criteria->limit = 20000;
 
         $users = User::model()->findAll($criteria);
         foreach($users as $user){

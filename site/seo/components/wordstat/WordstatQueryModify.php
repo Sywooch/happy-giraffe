@@ -58,17 +58,6 @@ class WordstatQueryModify
     public function addToParsing($index)
     {
         $parts = array(
-            array(',', 442),
-            array('"', 403),
-            array('?', 439,),
-            array('!', 1),
-            array(':', 1),
-            array(';', 1),
-            array("\\", 1),
-            array('%', 1),
-            array('/', 1),
-            array('-', 1),
-            array('+', 1),
             array('|', 1),
             array('*', 1),
             array('@', 1),
@@ -222,7 +211,7 @@ class WordstatQueryModify
     public static function prepareForSave($name)
     {
         $name = mb_strtolower($name, 'utf-8');
-        $parts = array(',', '"', '?', '!', ':', ';', "\\", '%', '/', '-', '+',
+        $parts = array(',', '"', '?', '!', ':', ';', "\\", '/', '-', '+',
             '|', '*', '@', ']', '[', ')', '(', '\'');
 
         foreach ($parts as $part)

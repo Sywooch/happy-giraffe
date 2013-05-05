@@ -285,6 +285,6 @@
         <div class="loading"><img src="/images/big_preloader.gif"></div>
 
     </div>
-</div><!--test123-->
+</div>
 </body>
 </html>

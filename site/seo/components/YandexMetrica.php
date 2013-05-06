@@ -214,6 +214,33 @@ class YandexMetrica
         echo '<br>';
     }
 
+    public function parseDepth(){
+        $date1 = '20130401';
+        $date2 = '20130430';
+        $next = 'http://api-metrika.yandex.ru/stat/content/entrance?date1=' . $date1 . '&date2=' . $date2
+            . '&id=' . $this->counter_id . '&oauth_token=' . $this->token;
+
+        $count = 0;
+        while (!empty($next)) {
+            $val = $this->loadPage($next);
+            $next = $this->getNextLink($val);
+
+            if (is_array($val['data']))
+                foreach ($val['data'] as $query) {
+                    $page = PageStatistics::findByUrl($query['url']);
+                    if ($page !== null){
+                        $page->depth2 = $query['depth'];
+                        $page->update(array('depth2'), true);
+                    }
+                }
+            else
+                break;
+
+            if ($count > 3000)
+                break;
+        }
+    }
+
     function cmp($a, $b)
     {
         if ($a == $b) {

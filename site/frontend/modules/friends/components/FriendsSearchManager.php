@@ -8,7 +8,28 @@
  */
 class FriendsSearchManager
 {
-    public static function search($userId, $params)
+    const FRIENDS_PER_PAGE = 15;
+
+    public static function getDataProvider($userId, $params)
+    {
+        return new CActiveDataProvider('User', array(
+            'criteria' => self::getCriteria($userId, $params),
+            'pagination' => array(
+                'pageSize' => self::FRIENDS_PER_PAGE,
+            ),
+        ));
+    }
+
+    public static function find($userId, $params, $offset)
+    {
+        $criteria = self::getCriteria($userId, $params);
+        $criteria->limit = self::FRIENDS_PER_PAGE;
+        $criteria->offset = $offset;
+
+        return User::model()->findAll($criteria);
+    }
+
+    protected static function getCriteria($userId, $params)
     {
         $criteria = self::getDefaultCriteria($userId);
 
@@ -18,27 +39,22 @@ class FriendsSearchManager
         if (isset($params['gender']))
             $criteria->compare('t.gender', $params['gender']);
 
-        if (isset($params['countryId']) || isset($params['regionId']))
-            $criteria->join .= 'LEFT OUTER JOIN geo__user_address address ON address.user_id = t.id';
-
         if (isset($params['countryId']))
             $criteria->compare('address.country_id', $params['countryId']);
 
         if (isset($params['regionId']))
             $criteria->compare('address.region_id', $params['regionId']);
 
-        if  (isset($params['ageMin']) !== false)
-            $criteria->compare('age', '>=' . $params['ageMin']);
-
-        if  (isset($params['ageMax']))
-            $criteria->compare('age', '<=' . $params['ageMax']);
+        if  ($params['ageMin'] !== 0 && $params['ageMax'] !== 100) {
+            $criteria->having = 'age >= :ageMin AND age <= :ageMax';
+            $criteria->params[':ageMin'] = $params['ageMin'];
+            $criteria->params[':ageMax'] = $params['ageMax'];
+        }
 
         if (isset($params['relationshipStatus']))
             $criteria->compare('t.relationship_status', $params['relationshipStatus']);
 
-        return new CActiveDataProvider('User', array(
-            'criteria' => $criteria,
-        ));
+        return $criteria;
     }
 
     protected static function getDefaultCriteria($userId)
@@ -57,6 +73,18 @@ class FriendsSearchManager
                 LEFT OUTER JOIN friends f ON f.user_id = :user_id AND f.friend_id = t.id
                 LEFT OUTER JOIN friend_requests fr ON fr.from_id = :user_id AND fr.to_id = t.id AND fr.status = \'pending\'
             ',
+            'with' => array(
+                'avatar',
+                'babies',
+                'address' => array(
+                    'with' => array(
+                        'country',
+                        'region',
+                        'city',
+                    ),
+                ),
+                'partner',
+            ),
             'params' => array(
                 ':user_id' => $userId,
                 ':hg' => User::HAPPY_GIRAFFE,

@@ -10,6 +10,7 @@ class PageStatistics extends EMongoDocument
     public $denial;
     public $page_views;
     public $depth;
+    public $depth2;
     public $visit_time;
     public $se_visits = array();
     public $date_visits = array();
@@ -35,6 +36,19 @@ class PageStatistics extends EMongoDocument
             if (isset($data[$attr]))
                 $model->$attr = $data[$attr];
         $model->save();
+    }
+
+    /**
+     * Найти модель по url
+     */
+    public static function findByUrl($url)
+    {
+        $criteria = new EMongoCriteria(array(
+            'conditions' => array(
+                'url' => array('==' => $url)
+            ),
+        ));
+        return self::model()->find($criteria);
     }
 
     public function export()

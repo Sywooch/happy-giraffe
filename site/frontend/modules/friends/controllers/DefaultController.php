@@ -27,13 +27,6 @@ class DefaultController extends HController
         $this->render('index', CJSON::encode($data));
     }
 
-    public function actionSearch()
-    {
-        $dp = FriendsSearchManager::search(Yii::app()->user->id, $_GET);
-
-        $this->render('search', compact('dp'));
-    }
-
     public function actionGet($online = false, $listId = false, $query = false, $offset = 0)
     {
         $friends = array_map(function($friend) {
@@ -62,5 +55,17 @@ class DefaultController extends HController
 
         $response = compact('success');
         echo CJSON::encode($response);
+    }
+
+    public function actionRegions($countryId)
+    {
+        $regions = array_map(function($region) {
+            return array(
+                'id' => $region->id,
+                'name' => $region->name,
+            );
+        }, GeoRegion::model()->findAllByAttributes(array('country_id' => $countryId), array('order' => 't.name ASC')));
+
+        echo CJSON::encode($regions);
     }
 }

@@ -70,18 +70,20 @@ class PageStatistics extends EMongoDocument
             $rows = array();
             $rows[0] = $i;
             $rows[1] = array($page->url, $article->title);
-            $rows[6] = '';
+            $rows[7] = '';
             if ($entity == 'CommunityContent') {
                 $rows[2] = $article->rubric->community->title;
                 if (isset($article->gallery))
-                    $rows[6] = 'да';
+                    $rows[7] = 'да';
             } else {
                 $rows[2] = 'личный блог';
             }
             $rows[3] = $page->visits;
             $rows[4] = isset($page->se_visits['2013-02']) ? $page->se_visits['2013-02'] : '';
             $rows[5] = isset($page->se_visits['2013-03']) ? $page->se_visits['2013-03'] : '';
-            $rows[7] = round($page->depth, 2);
+            $rows[6] = isset($page->se_visits['2013-04']) ? $page->se_visits['2013-04'] : '';
+            $rows[8] = round($page->depth, 2);
+            $rows[9] = round($page->depth2, 2);
 
             $data [] = $rows;
             if ($i >= 2000)
@@ -132,6 +134,7 @@ class PageStatistics extends EMongoDocument
     public function excel($data)
     {
         $file_name = '/home/beryllium/file.xlsx';
+//        $file_name = 'f:/file.xlsx';
 
         $phpExcelPath = Yii::getPathOfAlias('site.common.extensions.phpExcel');
         spl_autoload_unregister(array('YiiBase', 'autoload'));

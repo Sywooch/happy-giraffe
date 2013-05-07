@@ -50,7 +50,7 @@ class FriendsSearchManager
             $criteria->params[':ageMin'] = $params['ageMin'];
         }
 
-        if  (isset($params['ageMin'])) {
+        if  (isset($params['ageMax'])) {
             $criteria->having .= (empty($criteria->having)) ? 'age <= :ageMax' : ' AND age <= :ageMax';
             $criteria->params[':ageMax'] = $params['ageMax'];
         }

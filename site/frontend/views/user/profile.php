@@ -143,10 +143,10 @@
 
                 <div class="col-3">
 
-                    <?php $this->widget('ContestWidget', array(
-                        'user' => $user,
-                        'contest_id' => 9,
-                    )); ?>
+                    <?php// $this->widget('ContestWidget', array(
+                      //  'user' => $user,
+                     //   'contest_id' => 9,
+                   // )); ?>
 
                     <?php $this->widget('UserFriendsWidget', array(
                         'user' => $user,

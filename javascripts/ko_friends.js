@@ -166,12 +166,18 @@ function Friend(data, parent) {
         }, 'json');
     }
 
-    self.remove = function(user) {
-        $.post('/friends/default/delete/', { friendId : user.id() }, function(response) {
+    self.remove = function() {
+        $.post('/friends/default/delete/', { friendId : self.user().id() }, function(response) {
             if (response.success) {
                 parent.friendsCount(parent.friendsCount() - 1);
-                if (user.online())
+                if (self.user().online())
                     parent.friendsOnlineCount(parent.friendsOnlineCount() - 1);
+                if (self.listId !== null) {
+                    var list = ko.utils.arrayFirst(parent.lists(), function(list) {
+                        return list.id() == self.listId();
+                    });
+                    list.dec();
+                }
                 parent.friendsToShow.remove(self);
             }
         }, 'json');

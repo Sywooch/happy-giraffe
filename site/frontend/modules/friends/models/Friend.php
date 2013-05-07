@@ -11,9 +11,9 @@
  * @property string $list_id
  *
  * The followings are the available model relations:
- * @property FriendsLists $list
- * @property Users $user
- * @property Users $friend
+ * @property FriendList $list
+ * @property User $user
+ * @property User $friend
  */
 class Friend extends CActiveRecord
 {
@@ -60,7 +60,7 @@ class Friend extends CActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'list' => array(self::BELONGS_TO, 'FriendsList', 'list_id'),
+            'list' => array(self::BELONGS_TO, 'FriendList', 'list_id'),
             'user' => array(self::BELONGS_TO, 'User', 'user_id'),
             'friend' => array(self::BELONGS_TO, 'User', 'friend_id'),
         );

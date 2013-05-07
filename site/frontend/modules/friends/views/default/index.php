@@ -144,5 +144,5 @@
             <!--<span class="friends-list_bubble-tx">+999</span>-->
         </a>
     </div>
-    <a href="javascript:void(0)" class="friends-list_a" data-bind="text: fullName"></a>
+    <a class="friends-list_a" data-bind="text: fullName, attr: { href : url }"></a>
 </script>

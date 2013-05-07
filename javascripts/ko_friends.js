@@ -5,6 +5,7 @@ function FriendsViewModel(data) {
     self.friendsOnlineCount = ko.observable(data.friendsOnlineCount);
     self.incomingRequestsCount = ko.observable(data.incomingRequestsCount);
     self.outgoingRequestsCount = ko.observable(data.outgoingRequestsCount);
+    self.friendsNewCount = ko.observable(data.friendsNewCount);
     self.lists = ko.observableArray(ko.utils.arrayMap(data.lists, function(list) {
         return new List(list, self);
     }));
@@ -16,18 +17,28 @@ function FriendsViewModel(data) {
     self.loading = ko.observable(false);
     self.lastPage = ko.observable(false);
     self.friendsRequests = ko.observableArray([]);
+    self.newSelected = ko.observable(false);
 
     self.clearSearchQuery = function() {
         self.searchQuery('');
     }
 
     self.selectAll = function() {
+        self.newSelected(false);
+        self.activeTab(0);
+        self.selectedListId(null);
+        self.init();
+    }
+
+    self.selectNew = function() {
+        self.newSelected(true);
         self.activeTab(0);
         self.selectedListId(null);
         self.init();
     }
 
     self.selectTab = function(tab) {
+        self.newSelected(false);
         self.selectedListId(null);
         self.activeTab(tab);
         self.init();
@@ -72,6 +83,8 @@ function FriendsViewModel(data) {
             data.query = self.searchQuery();
         if (typeof offset !== "undefined")
             data.offset = offset;
+        if (self.newSelected() === true)
+            data.new = 1;
 
         $.get('/friends/default/get/', data, function(response) {
             callback(response);
@@ -232,6 +245,7 @@ function List(data, parent) {
     self.title = ko.observable(data.title);
 
     self.select = function(list) {
+        parent.newSelected(false);
         parent.activeTab(0);
         parent.selectedListId(list.id());
         parent.init();

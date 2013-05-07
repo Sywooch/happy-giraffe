@@ -74,10 +74,8 @@ class WordstatSeasonParser extends WordstatBaseParser
         $html = str_replace('&nbsp;', ' ', $html);
         $html = str_replace('&mdash;', '—', $html);
 
-        //find and add our keyword
         if (strpos($html, 'Искомая комбинация слов нигде не встречается')) {
-            $this->log('valid page loaded');
-            $this->saveResult(0);
+            $this->log('valid page loaded, data not found');
         } else {
 
             if (preg_match('/Показов за последние 30 дней: ([\d]+)/', $html, $matches)) {
@@ -94,28 +92,16 @@ class WordstatSeasonParser extends WordstatBaseParser
                 if ($i % 3 == 0) {
                     $period = pq($cell)->text();
                     if (preg_match('/[\d]{2}.([\d]{2}).([\d]{4})/', $period, $matches)){
-                        YandexPopularitySeason::addValue($this->keyword->keyword_id, $matches[1], $matches[2], pq($cell)->next()->text());
+                        WordstatSeason::add($this->keyword->id, $matches[1], $matches[2], pq($cell)->next()->text());
                         $sum += pq($cell)->next()->text();
                     }
                 }
 
                 $i++;
             }
-
-            $this->saveResult(round($sum/24));
         }
 
         $document->unloadDocument();
         return true;
-    }
-
-    /**
-     * Сохранить результат парсинга -
-     * @param $value
-     */
-    public function saveResult($value)
-    {
-        $this->keyword->season_value = $value;
-        $this->keyword->save();
     }
 }

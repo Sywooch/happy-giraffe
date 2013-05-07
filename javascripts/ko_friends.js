@@ -172,7 +172,7 @@ function Friend(data, parent) {
                 parent.friendsCount(parent.friendsCount() - 1);
                 if (self.user().online())
                     parent.friendsOnlineCount(parent.friendsOnlineCount() - 1);
-                if (self.listId !== null) {
+                if (self.listId() !== null) {
                     var list = ko.utils.arrayFirst(parent.lists(), function(list) {
                         return list.id() == self.listId();
                     });

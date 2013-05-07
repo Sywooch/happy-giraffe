@@ -190,6 +190,7 @@ function FriendRequest(data, parent) {
             if (response.success) {
                 parent.friendsRequests.remove(request);
                 parent.friendsCount(parent.friendsCount() + 1);
+                parent.friendsNewCount(parent.friendsNewCount() + 1);
                 parent.incomingRequestsCount(parent.incomingRequestsCount() - 1);
                 if (self.user().online())
                     parent.friendsOnlineCount(parent.friendsOnlineCount() + 1);

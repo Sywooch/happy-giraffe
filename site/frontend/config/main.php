@@ -57,6 +57,7 @@ return array(
         'application.modules.whatsNew.widgets.whatsNewWidget.WhatsNewWidget',
         'application.modules.messaging.components.*',
         'application.modules.messaging.models.*',
+        'application.modules.friends.models.*',
     ),
 
 	'sourceLanguage' => 'en',
@@ -102,6 +103,7 @@ return array(
         'valentinesDay',
         'routes',
         'messaging',
+        'friends',
 	),
 
 	// application components

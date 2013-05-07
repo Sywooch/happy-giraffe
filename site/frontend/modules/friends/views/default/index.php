@@ -51,14 +51,14 @@
 
         <div class="cont-nav" data-bind="visible: selectedListId() == null">
             <div class="cont-nav_i" data-bind="css: { active : activeTab() == 0 }">
-                <a href="javascript:void(0)" class="cont-nav_a" data-bind="css: { inactive : friendsCount() == 0 }, text: friendsCount() > 0 ? 'Все (' + friendsCount() + ')' : 'Все', click: function(data, event) { selectTab(0, data, event) }"></a>
+                <a href="javascript:void(0)" class="cont-nav_a" data-bind="css: { inactive : friendsCount() == 0 }, text: friendsCount() > 0 ? 'Все (' + friendsCount() + ')' : 'Все', click: function(data, event) { if (friendsCount() > 0) selectTab(0, data, event) }"></a>
             </div>
             <div class="cont-nav_i" data-bind="css: { active : activeTab() == 1 }">
                 <span class="user-online-status"></span>
-                <a href="javascript:void(0)" class="cont-nav_a" data-bind="css: { inactive : friendsOnlineCount() == 0 }, text: friendsOnlineCount() > 0 ? 'На сайте (' + friendsOnlineCount() + ')' : 'На сайте', click: function(data, event) { selectTab(1, data, event) }"></a>
+                <a href="javascript:void(0)" class="cont-nav_a" data-bind="css: { inactive : friendsOnlineCount() == 0 }, text: friendsOnlineCount() > 0 ? 'На сайте (' + friendsOnlineCount() + ')' : 'На сайте', click: function(data, event) { if (friendsOnlineCount() > 0) selectTab(1, data, event) }"></a>
             </div>
             <div class="cont-nav_i" data-bind="css: { active : activeTab() == 2 }">
-                <a href="javascript:void(0)" class="cont-nav_a" data-bind="css: { inactive : incomingRequestsCount() == 0 }, click: function(data, event) { selectTab(2, data, event) }">Хотят дружить<span class="cont-nav_count" data-bind="visible: incomingRequestsCount() > 0, text: incomingRequestsCount"></span> </a>
+                <a href="javascript:void(0)" class="cont-nav_a" data-bind="css: { inactive : incomingRequestsCount() == 0 }, click: function(data, event) { if (incomingRequestsCount() > 0) selectTab(2, data, event) }">Хотят дружить<span class="cont-nav_count" data-bind="visible: incomingRequestsCount() > 0, text: incomingRequestsCount"></span> </a>
             </div>
         </div>
 

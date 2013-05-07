@@ -57,7 +57,7 @@ class MailruKeywordsParser extends LiBaseParser
     {
         $found = 0;
 
-        for ($i = 0; $i < 150; $i++) {
+        for ($i = 0; $i < 10; $i++) {
             $day = date("Y-m-d", strtotime('- ' . $i . ' days'));
             $url = 'http://top.mail.ru/keywords?id=' . $this->site->url . '&period=' . $this->period . '&date=' . $day . '&pp=200&gender=0&agegroup=0&searcher=all&sf=';
             for ($j = 0; $j <= 6; $j++) {

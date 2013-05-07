@@ -222,14 +222,21 @@ class CommunityPost extends HActiveRecord
                         }
                     }
                 }
-                if ($image !== false && strpos($image, 'http://') !== 0)
+                if (isset($image) && $image !== false && strpos($image, 'http://') !== 0)
                     $image = 'http://www.happy-giraffe.ru' . $image;
 
-                if ($image !== false) {
+                if (isset($image) && $image !== false) {
                     $photo = AlbumPhoto::createByUrl($image, $author_id, 6);
                     if ($photo)
                         $this->photo_id = $photo->id;
                 }
             }
+
+        //если не нашли проверяем возможно прикрученную фотогалерею
+        if (empty($this->photo_id)){
+            if (isset($this->content) && isset($this->content->gallery) && isset($this->content->gallery->items[0])){
+                $this->photo_id = $this->content->gallery->items[0]->photo_id;
+            }
+        }
     }
 }

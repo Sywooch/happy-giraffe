@@ -4,7 +4,7 @@ return array(
     'urlFormat' => 'path',
     'showScriptName' => false,
     'urlSuffix' => '/',
-    //'useStrictParsing' => true,
+    'useStrictParsing' => true,
     'rules' => array(
         /*************************
          *      CONTROLLERS      *
@@ -42,6 +42,7 @@ return array(
         // ajax controller
         'ajax/duelShow/question_id/<question_id:\d+>' => 'ajax/duelShow',
         'counter'=>'ajaxSimple/counter',
+        'ajaxSimple/<_a>'=>'ajaxSimple/<_a>',
 
         // signup controller
         'signup' => 'signup/index',
@@ -67,7 +68,7 @@ return array(
         'albums/addPhoto/a/<a:\d+>' => 'albums/addPhoto',
         'albums/addPhoto' => 'albums/addPhoto',
         'albums/redirect/<id:\d+>' => 'albums/redirect',
-        'albums/<_a:(attach|wPhoto|attachView|editDescription|editPhotoTitle|changeTitle|changePermission|removeUploadPhoto|communityContentEdit|communityContentSave|partnerPhoto|recipePhoto|cookDecorationPhoto|cookDecorationCategory|commentPhoto|crop|changeAvatar|humorPhoto|albumSettings|updatePhoto|postLoad|updateAlbum)>' => 'albums/<_a>',
+        'albums/<_a:(attach|wPhoto|attachView|editDescription|editPhotoTitle|changeTitle|changePermission|removeUploadPhoto|communityContentEdit|communityContentSave|partnerPhoto|recipePhoto|cookDecorationPhoto|cookDecorationCategory|commentPhoto|crop|changeAvatar|humorPhoto|albumSettings|updatePhoto|postLoad|updateAlbum|messagingMessagePhoto)>' => 'albums/<_a>',
 
         // user/*
         'user/<user_id:\d+>' => 'user/profile',
@@ -95,7 +96,6 @@ return array(
 
         // community/*
         'community/36.*' => 404,
-        'community/list/rubric_id/<rubric_id:\d+>' => 404,
         'news/rubric<rubric_id:\d+>' => array('community/list', 'defaultParams' => array('community_id' => 36)),
         'news' => array('community/list', 'defaultParams' => array('community_id' => 36)),
         'news/<content_type_slug:[a-z]+><content_id:\d+>' => array('community/view', 'defaultParams' => array('community_id' => 36)),
@@ -116,8 +116,8 @@ return array(
         'community/<_a:(join|add|transfer|edit|editTravel|weeklyMail)>' => 'community/<_a>',
 
         //global
-        '<_c:(settings|activity|ajax|notification|profile|friendRequests|communityRubric|family|morning|userPopup|features)>/<_a>' => '<_c>/<_a>',
-        '<_c:(settings|activity|profile|rss|family|morning|community)>' => '<_c>/index',
+        '<_c:(settings|ajax|notification|profile|friendRequests|communityRubric|family|morning|userPopup|features|blog)>/<_a>' => '<_c>/<_a>',
+        '<_c:(settings|profile|rss|family|morning|community|happyBirthdayMira)>' => '<_c>/index',
 
         //others
         'news/about' => 'community/contacts',
@@ -152,6 +152,10 @@ return array(
         '<_m:(geo|im|signal|scores|cook|contest)>/' => '<_m>/default/index',
         '<_m:(geo|im|signal)>/<_a>' => '<_m>/default/<_a>',
         'commentator' => 'signal/commentator/index',
+        'commentator/links/<month:\d\d\d\d-\d\d>' => 'signal/commentator/links',
+        'commentator/award/<type:\w+>' => 'signal/commentator/award',
+        'commentator/reports/<section:\w+>/<month:\d\d\d\d-\d\d>' => 'signal/commentator/reports',
+        'commentator/reports/<section:\w+>' => 'signal/commentator/reports',
         'commentator/<_a>' => 'signal/commentator/<_a>',
 
         //cook
@@ -234,6 +238,7 @@ return array(
         'horoscope/<_a:(year|month|tomorrow|viewed)>' => 'services/horoscope/default/<_a>',
         'horoscope/<zodiac:[\w]+>' => 'services/horoscope/default/today',
 
+        'names/saint/<month:[\w]+>' => 'services/names/default/saint/',
         'names/<_a:(saintCalc|likes|like|top10|saint)>' => 'services/names/default/<_a>',
         'names/<name:[\w]+>' => 'services/names/default/name/',
 
@@ -256,11 +261,19 @@ return array(
         'services/<_m:(dailyCalories|weightLoss|idealWeight|bodyFat)>/default/<_c>' => 'services/<_m>/default/<_c>',
         'services/lines/<id:[\d]+>.jpeg' => 'services/lines/default/index',
 
-        'routes/<id:[\d]+>'=>'route/default/index',
-        'routes/<_a>'=>'route/default/<_a>',
-        'routes/'=>'route/default/index',
+        'auto/routes/<id:[\d]+>'=>'routes/default/index',
+        'auto/routes/'=>'routes/default/index',
+        'auto/routes/<_a>'=>'routes/default/<_a>',
+        'auto/routes/<_a>/<id:[\d]+>'=>'routes/default/<_a>',
 
         'ValentinesDay' => 'valentinesDay/default/index',
         'ValentinesDay/<_a>' => 'valentinesDay/default/<_a>',
+
+        'messaging' => 'messaging/default/index',
+        'messaging/<_c>/<_a>' => 'messaging/<_c>/<_a>',
+
+        'friends' => 'friends/default/index',
+        'friends/search' => 'friends/search/index',
+        'friends/<_c>/<_a>' => 'friends/<_c>/<_a>',
     ),
 );

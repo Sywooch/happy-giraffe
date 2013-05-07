@@ -136,11 +136,11 @@ var SeoModule = {
             }
         }, 'json');
     },
-    bindKeywordToArticle:function (keyword_id, article_id, section, el) {
+    bindKeywordToArticle:function (keyword_id, entity_id, entity, el) {
         $.post('/writing/editor/bindKeywordToArticle/', {
             keyword_id:keyword_id,
-            article_id:article_id,
-            section:section
+            entity_id:entity_id,
+            entity:entity
         }, function (response) {
             if (response.status) {
                 $.pnotify({
@@ -202,63 +202,7 @@ var SeoModule = {
             }
         }, 'json');
     }
-}
-
-var WordStat = {
-    addKeyword:function (el) {
-        $.post('/wordstat/addKeywords/', {keyword:$(el).prev().val()}, function (response) {
-            if (response.status) {
-                $.pnotify({
-                    pnotify_title:'Успешно',
-                    pnotify_text:response.count + ' слов добавлено на парсинг',
-                    pnotify_hide:false
-                });
-            }
-        }, 'json');
-    },
-    addCompetitors:function () {
-        $.post('/wordstat/addCompetitors/', function (response) {
-            if (response.status) {
-                $.pnotify({
-                    pnotify_title:'Успешно',
-                    pnotify_text:response.count + ' слов добавлено на парсинг',
-                    pnotify_hide:false
-                });
-            }
-        }, 'json');
-    },
-    clearKeywords:function () {
-        $.post('/wordstat/clearParsingKeywords/', function (response) {
-            if (response.status) {
-                $.pnotify({
-                    pnotify_title:'Успешно',
-                    pnotify_type: 'success'
-                });
-            }
-        }, 'json');
-    },
-    searchKeyword:function (el) {
-        $.post('/wordstat/searchKeyword/', {name:$(el).prev().val()}, function (response) {
-            if (response.status) {
-                $('#result').html(response.html);
-            }
-            else
-                console.log('not found');
-        }, 'json');
-    },
-    addKeywords:function(el){
-        $.post('/wordstat/add/', {keywords:$(el).prev().val()}, function (response) {
-            if (response.status) {
-                $.pnotify({
-                    pnotify_title: 'Успешно',
-                    pnotify_type: 'success'
-                });
-            }
-            else
-                console.log('not found');
-        }, 'json');
-    }
-}
+};
 
 var Indexing = {
     showRemoveUrls:function () {

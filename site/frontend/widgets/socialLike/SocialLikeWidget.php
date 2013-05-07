@@ -24,6 +24,8 @@ class SocialLikeWidget extends CWidget
 
     public $registerScripts = false;
 
+    public $url = null;
+
     public $providers = array(
         'yh' => array(),
         'fb' => array(),

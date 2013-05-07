@@ -16,7 +16,7 @@ class BlogController extends MController
             'order' => 't.id DESC',
             'condition' => 't.id < :current_id AND rubric.user_id = :user_id',
             'params' => array(':current_id' => $content_id, ':user_id' => $user_id),
-            'limit' => 3,
+            'limit' => 5,
         ));
 
         $this->pageTitle = $content->title;

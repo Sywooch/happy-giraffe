@@ -14,7 +14,8 @@ class CometModel extends CComponent
     //moderator signals
     const TYPE_SIGNAL_UPDATE = 5;
     const TYPE_SIGNAL_EXECUTED = 8;
-    const TYPE_COMMENTATOR_UPDATE = 9;
+    const TYPE_COMMENTATOR_UPDATE_TASK = 9;
+    const TYPE_COMMENTATOR_NEXT_COMMENT = 10;
 
     const UPDATE_BLOG = 0;
     const UPDATE_CLUB = 1;
@@ -36,6 +37,11 @@ class CometModel extends CComponent
     const CONTENTS_LIVE = 300;
 
     const WHATS_NEW_UPDATE = 10000;
+
+    const MESSAGING_MESSAGE_RECEIVED = 2000;
+    const MESSAGING_INTERLOCUTOR_TYPING = 2001;
+    const MESSAGING_THREAD_READ = 2002;
+    const MESSAGING_ONLINE_STATUS_CHANGED = 2003;
 
     public $attributes = array();
     public $type;

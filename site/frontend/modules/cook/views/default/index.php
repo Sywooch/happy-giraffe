@@ -130,7 +130,7 @@
 
                 <ul class="list">
                     <?php foreach ($decorations as $decoration) { ?>
-                    <li><a href="<?=$decoration->url ?>"><img src="<?=$decoration->photo->getPreviewUrl(240, 160, false, true, AlbumPhoto::CROP_SIDE_TOP)?>" alt="<?=$decoration->title ?>"></a></li>
+                    <li><a href="<?=$decoration->url ?>"><img src="<?=$decoration->photo->getPreviewUrl(176, 176, false, true)?>" alt="<?=$decoration->title ?>"></a></li>
                     <?php } ?>
                 </ul>
 

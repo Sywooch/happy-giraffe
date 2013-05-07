@@ -12,8 +12,20 @@ class photoViewWidget extends CWidget
     public $singlePhoto = false;
     public $query = array();
     public $place = 'main';
+    public $registerScripts = false;
 
     public function init()
+    {
+        $this->registerScripts();
+        if ($this->registerScripts)
+            return;
+
+        $script = '$("' . $this->selector . '").pGallery(' . CJavaScript::encode(CMap::mergeArray(array('singlePhoto' => $this->singlePhoto, 'entity' => $this->entity, 'entity_id' => $this->entity_id, 'entity_url' => $this->entity_url), $this->query)) . ');';
+        Yii::app()->controller->pGallery = $script;
+        Yii::app()->clientScript->registerScript('pGallery-' . $this->entity . '-' . $this->entity_id . '-' . $this->place, $script);
+    }
+
+    public function registerScripts()
     {
         $this->widget('site.frontend.widgets.socialLike.SocialLikeWidget', array(
             'registerScripts' => true,
@@ -24,11 +36,6 @@ class photoViewWidget extends CWidget
         $remove_tmpl = $this->beginWidget('site.frontend.widgets.removeWidget.RemoveWidget');
         $remove_tmpl->registerTemplates();
         $this->endWidget();
-
-        $script = '$("' . $this->selector . '").pGallery(' . CJavaScript::encode(CMap::mergeArray(array('singlePhoto' => $this->singlePhoto, 'entity' => $this->entity, 'entity_id' => $this->entity_id, 'entity_url' => $this->entity_url), $this->query)) . ');';
-        Yii::app()->controller->pGallery = $script;
-
-        Yii::app()->clientScript->registerScript('pGallery-' . $this->entity . '-' . $this->entity_id . '-' . $this->place, $script);
 
         Yii::app()->clientScript->registerScriptFile('/javascripts/history.js');
         Yii::app()->clientScript->registerScriptFile('/javascripts/gallery.js?r=' . time());

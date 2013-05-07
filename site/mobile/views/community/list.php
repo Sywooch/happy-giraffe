@@ -1,6 +1,6 @@
 <?php $this->widget('MListView', array(
     'dataProvider' => $dp,
-    'itemView' => '_post',
+    'itemView' => '/_post',
     'viewData' => array(
         'full' => false,
     ),

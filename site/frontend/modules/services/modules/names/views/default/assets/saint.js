@@ -19,7 +19,7 @@ $(function () {
         $.ajax({
             url:'/names/saint/',
             data:{
-                m:month,
+                month:month,
                 gender:gender
             },
             type:'GET',
@@ -41,7 +41,7 @@ $(function () {
         $.ajax({
             url:'/names/saint/',
             data:{
-                m:month,
+                month:month,
                 gender:gender
             },
             type:'GET',

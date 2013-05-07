@@ -203,7 +203,7 @@ class Comment extends HActiveRecord
     public function afterSave()
     {
         if (get_class(Yii::app()) == 'CConsoleApplication')
-            return parent::afterSave();
+            return;
 
         if ($this->isNewRecord) {
             if (in_array($this->entity, array('CommunityContent', 'BlogContent'))) {
@@ -232,42 +232,11 @@ class Comment extends HActiveRecord
                 Yii::import('site.frontend.modules.signal.models.*');
                 Yii::import('site.frontend.modules.cook.models.*');
                 Yii::import('site.frontend.modules.cook.components.*');
+                Yii::import('site.seo.modules.commentators.models.*');
+                Yii::import('site.seo.models.*');
 
-                if (strlen(trim(strip_tags($this->text))) >= 80) {
-                    $commentator = CommentatorWork::getCurrentUser();
-                    $entity = ($this->entity == 'BlogContent') ? 'CommunityContent' : $this->entity;
-                    $_entity = ($commentator->comment_entity == 'BlogContent') ? 'CommunityContent' : $commentator->comment_entity;
-                    $model = CActiveRecord::model($this->entity)->findByPk($this->entity_id);
-
-                    if ($_entity == $entity && $commentator->comment_entity_id == $this->entity_id) {
-                        $commentator->incCommentsCount(true);
-                        $comet = new CometModel;
-                        $comet->send(Yii::app()->user->id, array(
-                            'update_part' => CometModel::UPDATE_COMMENTS,
-                            'entity_id' => $this->entity_id,
-                            'entity' => $this->entity
-                        ), CometModel::TYPE_COMMENTATOR_UPDATE);
-
-                    } elseif (!empty($this->response_id) || (isset($model->author_id) && $model->author_id == $this->author_id)) {
-                        $commentator->incCommentsCount(false);
-                        $comet = new CometModel;
-                        $comet->send(Yii::app()->user->id, array(
-                            'update_part' => CometModel::UPDATE_COMMENTS,
-                            'entity_id' => $this->entity_id,
-                            'entity' => $this->entity
-                        ), CometModel::TYPE_COMMENTATOR_UPDATE);
-
-                    }
-                }else{
-                    $commentator = CommentatorWork::getCurrentUser();
-                    $commentator->skipArticle();
-                    $commentator->save();
-                    $comet = new CometModel;
-                    $comet->send(Yii::app()->user->id, array(
-                        'update_part' => CometModel::UPDATE_COMMENTS,
-                        'entity_id' => $this->entity_id,
-                        'entity' => $this->entity
-                    ), CometModel::TYPE_COMMENTATOR_UPDATE);
+                if (strlen(trim(strip_tags($this->text))) >= 80){
+                    CommentatorWork::getCurrentUser()->checkComment($this);
                 }
             }
         }

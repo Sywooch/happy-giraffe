@@ -69,24 +69,28 @@ class SitemapGenerator
 	private $_url_counter=0;
 	private $_xml_index;
 	private $_sitemap_counter=0;
+    private $action_param = null;
 	
 	/**
 	 * Construct method
 	 */
-	public function __construct($aliases=null)
+	public function __construct($aliases=null, $action_param = null)
 	{
+        $this->action_param = $action_param;
 		$xml=<<<XML
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd"
-         xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+         xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 </urlset> 
 XML;
 		$xml_index=<<<XMLINDEX
 <?xml version='1.0' encoding='UTF-8'?>
 <sitemapindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/siteindex.xsd"
-         xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+         xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 </sitemapindex>
 XMLINDEX;
 		if (!class_exists('SimpleXMLElement'))
@@ -257,8 +261,11 @@ XMLINDEX;
 						} else {										// Method Urls
 							if ($controller_instance===null)
 								$controller_instance=new $class('tempInstance');
-							$params['urls_data']=$controller_instance->{$data_method}();
-						}
+                            if (empty($this->action_param))
+							    $params['urls_data']=$controller_instance->{$data_method}();
+                            else
+                                $params['urls_data']=$controller_instance->{$data_method}($this->action_param);
+                        }
 					}
 					
 					$route=$this->createRoute($alias,$action);
@@ -287,7 +294,7 @@ XMLINDEX;
 		if (!isset($params['params']))
 			$params['params']=$this->default_model_params;
 		
-		$attr_params['params']=$this->parseModelAttr($params['params'],'/^[\w\,]+$/ui');
+		$attr_params['params']=$this->parseModelAttr($params['params'],'/^[\w\,:]+$/ui');
 			
 		$model_data_name=substr($params['dataSource'],6);
 		
@@ -537,6 +544,11 @@ XMLINDEX;
 			$xmlurl->addChild('lastmod',$this->formatDatetime($params['lastmod']));
 			$xmlurl->addChild('changefreq',$params['changefreq']);
 			$xmlurl->addChild('priority',$params['priority']);
+
+            if (array_key_exists('image:image', $params)) {
+			    $images = $xmlurl->addChild('image:image', null, 'http://www.google.com/schemas/sitemap-image/1.1');
+                $images->addChild('image:loc', $params['image:image']['image:loc'], 'http://www.google.com/schemas/sitemap-image/1.1');
+            }
 			++$this->_url_counter;
 		} catch (Exception $e) {
 			self::logExceptionError($e);

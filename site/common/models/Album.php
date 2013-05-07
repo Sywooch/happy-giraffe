@@ -114,7 +114,10 @@ class Album extends HActiveRecord
             OR (permission = 2 AND ' . $this->tableAlias . '.author_id = :user_id)');
         $permission->join = 'left join friends f1 on f1.user1_id = ' . $this->tableAlias . '.author_id and f1.user2_id = :user_id
                         left join friends f2 on f2.user1_id = :user_id and f2.user2_id = ' . $this->tableAlias . '.author_id';
-        $permission->params[':user_id'] = Yii::app()->user->id;
+        if (isset(Yii::app()->user))
+            $permission->params[':user_id'] = Yii::app()->user->id;
+        else
+            $permission->params[':user_id'] = 0;
 
 
         return array(

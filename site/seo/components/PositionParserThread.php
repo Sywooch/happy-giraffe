@@ -32,9 +32,6 @@ class PositionParserThread extends ProxyParserThread
             $this->getPage();
             $this->parsePage();
             $this->closeQuery();
-
-            if (Config::getAttribute('stop_threads') == 1)
-                break;
         }
     }
 
@@ -68,8 +65,7 @@ class PositionParserThread extends ProxyParserThread
             $this->query->active = 1;
             $this->query->save();
             $transaction->commit();
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             $transaction->rollback();
             $this->closeThread('Fail with getting queries');
         }
@@ -87,7 +83,7 @@ class PositionParserThread extends ProxyParserThread
                     $links = $this->loadYandexPage($i);
 
                 if ($this->debug)
-                    echo 'Page loaded, links count: ' . count($links)."\n";
+                    echo 'Page loaded, links count: ' . count($links) . "\n";
 
                 if (empty($links))
                     $this->changeBadProxy();
@@ -105,7 +101,7 @@ class PositionParserThread extends ProxyParserThread
                 break;
         }
 
-        if (!$found){
+        if (!$found) {
             $this->notFound();
         }
     }
@@ -113,16 +109,9 @@ class PositionParserThread extends ProxyParserThread
     public function notFound()
     {
         //save 1000 position
-        $search_phrases = PagesSearchPhrase::model()->findAllByAttributes(array(
-            'keyword_id' => $this->query->keyword->id
-        ));
-        foreach($search_phrases as $search_phrase){
-            $search_phrase_position = new SearchPhrasePosition();
-            $search_phrase_position->se_id = $this->se;
-            $search_phrase_position->search_phrase_id = $search_phrase->id;
-            $search_phrase_position->position = 1000;
-            $search_phrase_position->save();
-        }
+        $search_phrases = PagesSearchPhrase::model()->findAllByAttributes(array('keyword_id' => $this->query->keyword->id));
+        foreach ($search_phrases as $search_phrase)
+            $this->savePhrasePosition($search_phrase->id, 1000);
     }
 
     private function loadYandexPage($i)
@@ -138,8 +127,6 @@ class PositionParserThread extends ProxyParserThread
         foreach ($document->find('.b-body-items  h2 a.b-serp-item__title-link') as $link) {
             $links [] = pq($link)->attr('href');
         }
-//        if (empty($links))
-//            $this->saveToFile($content);
 
         $document->unloadDocument();
 
@@ -149,7 +136,7 @@ class PositionParserThread extends ProxyParserThread
     private function loadGooglePage($i)
     {
         $start = $i * $this->perPage();
-        $content = $this->query('https://www.google.ru/search?q=' . urlencode($this->query->keyword->name) . '&btnG=%D0%9F%D0%BE%D0%B8%D1%81%D0%BA&hl=ru&newwindow=1&prmd=imvns&lr=lang_' . $this->country . '&gbv=2&country=' . $this->country . '&start=' . $start);
+        $content = $this->query('https://www.google.ru/search?q=' . urlencode($this->query->keyword->name) . '&hl=ru&start=' . $start);
 
         $document = phpQuery::newDocument($content);
         $links = array();
@@ -177,9 +164,14 @@ class PositionParserThread extends ProxyParserThread
             $search_phrase->save();
         }
 
+        $this->savePhrasePosition($search_phrase->id, $pos);
+    }
+
+    protected function savePhrasePosition($search_phrase_id, $pos)
+    {
         $search_phrase_position = new SearchPhrasePosition();
         $search_phrase_position->se_id = $this->se;
-        $search_phrase_position->search_phrase_id = $search_phrase->id;
+        $search_phrase_position->search_phrase_id = $search_phrase_id;
         $search_phrase_position->position = $pos;
         $search_phrase_position->save();
     }
@@ -199,10 +191,4 @@ class PositionParserThread extends ProxyParserThread
         $this->query->active = 0;
         $this->query->save();
     }
-
-    private function saveToFile($content)
-    {
-        file_put_contents(Yii::getPathOfAlias('site.common.cookies') . DIRECTORY_SEPARATOR . 'result_'.$this->thread_id . '.html', $content);
-    }
-
 }

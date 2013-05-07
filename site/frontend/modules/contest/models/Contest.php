@@ -168,6 +168,31 @@ class Contest extends HActiveRecord
         $currentIndex = null;
         $count = null;
         if ($preload_id === null || Yii::app()->controller->action->id == 'postLoad') {
+            $idsCriteria = clone $criteria;
+            $idsCriteria->select = 'id';
+            $idsCriteria->with = false;
+            $_ids = ContestWork::model()->findAll($idsCriteria);
+            $count = count($_ids);
+
+            foreach ($_ids as $i => $p) {
+                if ($p->id == $preload_id) {
+                    $currentIndex = $i;
+                    break;
+                }
+            }
+
+            $preload = array();
+            $preload[] = $_ids[$currentIndex]->id;
+            $currentNext = $currentIndex;
+            $currentPrev = $currentIndex;
+            for ($i = 0; $i < 250; $i++) {
+                $currentNext = ($currentNext == ($count - 1)) ? 0 : ($currentNext + 1);
+                $currentPrev = ($currentPrev == 0) ? ($count - 1) : ($currentPrev - 1);
+                $preload[] = $_ids[$currentNext]->id;
+                $preload[] = $_ids[$currentPrev]->id;
+            }
+
+            $criteria->addInCondition('t.id', $preload);
             $works = ContestWork::model()->findAll($criteria);
         } else {
             $idsCriteria = clone $criteria;

@@ -3,7 +3,7 @@
      * Author: choo
      * Date: 20.07.2012
      */
-    $collection = $model->getPhotoCollection($photo_id);
+    $collection = (get_class($model) == 'Contest') ? $model->getPhotoCollection(AlbumPhoto::model()->findByPk($photo_id)->getAttachByEntity('ContestWork')->model->id) : $model->getPhotoCollection($photo_id);
     $photos = $collection['photos'];
     $count = count($photos);
 ?>

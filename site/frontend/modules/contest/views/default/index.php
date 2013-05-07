@@ -4,6 +4,7 @@
         <h1>НАШИ КОНКУРСЫ</h1>
         <?php
             $this->widget('zii.widgets.CListView', array(
+                'cssFile'=>false,
                 'dataProvider' => $dp,
                 'itemView' => '_contest',
                 'pager' => array(

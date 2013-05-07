@@ -284,11 +284,6 @@ class User extends HActiveRecord
             'social_services' => array(self::HAS_MANY, 'UserSocialService', 'user_id'),
             'communities' => array(self::MANY_MANY, 'Community', 'user__users_communities(user_id, community_id)', 'order' => 'position'),
 
-            'clubContests' => array(self::HAS_MANY, 'ClubContest', 'contest_user_id'),
-            'clubContestUsers' => array(self::HAS_MANY, 'ClubContestUser', 'user_user_id'),
-            'clubContestWinners' => array(self::HAS_MANY, 'ClubContestWinner', 'winner_user_id'),
-            'clubContestWorks' => array(self::HAS_MANY, 'ClubContestWork', 'work_user_id'),
-            'clubContestWorkComments' => array(self::HAS_MANY, 'ClubContestWorkComment', 'comment_user_id'),
             'comments' => array(self::HAS_MANY, 'Comment', 'author_id'),
             'menstrualUserCycles' => array(self::HAS_MANY, 'MenstrualUserCycle', 'user_id'),
             'UserCaches' => array(self::HAS_MANY, 'UserCache', 'user_id'),
@@ -308,7 +303,7 @@ class User extends HActiveRecord
             'mood' => array(self::BELONGS_TO, 'UserMood', 'mood_id'),
             'partner' => array(self::HAS_ONE, 'UserPartner', 'user_id'),
 
-            'blog_rubrics' => array(self::HAS_MANY, 'CommunityRubric', 'user_id'),
+            'blog_rubrics' => array(self::HAS_MANY, 'CommunityRubric', 'user_id', 'order' => 'sort ASC'),
             'blogPostsCount' => array(self::STAT, 'CommunityContent', 'author_id', 'join' => 'JOIN community__rubrics ON t.rubric_id = community__rubrics.id', 'condition' => 'community__rubrics.user_id = t.author_id'),
             'communityPostsCount' => array(self::STAT, 'CommunityContent', 'author_id', 'join' => 'JOIN community__rubrics ON t.rubric_id = community__rubrics.id', 'condition' => 'community__rubrics.user_id IS NULL'),
             'communityContentsCount' => array(self::STAT, 'CommunityContent', 'author_id'),
@@ -331,6 +326,8 @@ class User extends HActiveRecord
             'photos' => array(self::HAS_MANY, 'AlbumPhoto', 'author_id'),
             'mail_subs' => array(self::HAS_ONE, 'UserMailSub', 'user_id'),
             'score' => array(self::HAS_ONE, 'UserScores', 'user_id'),
+
+            'friendLists' => array(self::HAS_MANY, 'FriendList', 'list_id'),
         );
     }
 
@@ -554,10 +551,15 @@ class User extends HActiveRecord
             //if ($this->user->gender)
             return false;
         }
-        if ($size != 'big')
-            return $this->avatar->getAvatarUrl($size);
-        else
-            return $this->avatar->getPreviewUrl(240, 400, Image::WIDTH);
+
+        switch ($size) {
+            case 'big':
+                return $this->avatar->getPreviewUrl(240, 400, Image::WIDTH);
+            case 'large':
+                return $this->avatar->getPreviewUrl(200, 200, Image::INVERT, true, AlbumPhoto::CROP_SIDE_TOP);
+            default:
+                return $this->avatar->getAvatarUrl($size);
+        }
     }
 
     public function getAvaOrDefaultImage($size = 'ava')
@@ -579,13 +581,13 @@ class User extends HActiveRecord
         return $url;
     }
 
-    public function getDialogUrl()
-    {
-        if (Yii::app()->user->isGuest || $this->id == Yii::app()->user->id)
-            return '#';
-
-        return Yii::app()->createUrl('/im/default/create', array('id' => $this->id));
-    }
+//    public function getDialogUrl()
+//    {
+//        if (Yii::app()->user->isGuest || $this->id == Yii::app()->user->id)
+//            return '#';
+//
+//        return Yii::app()->createUrl('/im/default/create', array('id' => $this->id));
+//    }
 
     public function getAssigns()
     {
@@ -698,7 +700,8 @@ class User extends HActiveRecord
     public function getFriendSelectCriteria()
     {
         return new CDbCriteria(array(
-            'join' => 'JOIN ' . Friend::model()->tableName() . ' ON (t.id = friends.user1_id AND friends.user2_id = :user_id) OR (t.id = friends.user2_id AND friends.user1_id = :user_id)',
+            'join' => 'JOIN friends f ON f.user_id = :user_id AND f.friend_id = t.id',
+            'condition' => 'f.id IS NOT NULL',
             'params' => array(':user_id' => $this->id),
         ));
     }
@@ -892,6 +895,11 @@ class User extends HActiveRecord
     public function getPhotosUrl()
     {
         return Yii::app()->createUrl('/albums/user', array('id' => $this->id));
+    }
+
+    public function getDialogUrl()
+    {
+        return Yii::app()->createUrl('/messaging/default/index', array('interlocutorId' => $this->id));
     }
 
     public function addCommunity($community_id)
@@ -1184,7 +1192,7 @@ class User extends HActiveRecord
     public function getPregnantBaby()
     {
         $criteria = new CDbCriteria;
-        $criteria->condition = 'birthday > "'.date("Y-m-d") .'"';
+        $criteria->condition = 'birthday > "' . date("Y-m-d") . '"';
         $criteria->compare('parent_id', $this->id);
         $criteria->compare('type', Baby::TYPE_WAIT);
 
@@ -1214,5 +1222,25 @@ class User extends HActiveRecord
 
         $comet = new CometModel;
         $comet->send('whatsNewIndex', $params, CometModel::WHATS_NEW_UPDATE);
+    }
+
+    public function hasRssContent()
+    {
+        if (CommunityContent::model()->exists('author_id = :author_id AND type_id != 4 AND by_happy_giraffe = 0
+                AND removed=0', array(':author_id' => $this->id))
+        )
+            return true;
+        if (CookRecipe::model()->exists('author_id = :author_id AND removed=0', array(':author_id' => $this->id)))
+            return true;
+        if (ContestWork::model()->exists('user_id = :author_id', array(':author_id' => $this->id)))
+            return true;
+        $cook_decor = Yii::app()->db->createCommand('SELECT cook__decorations.id FROM cook__decorations
+            INNER JOIN album__photos ON cook__decorations.photo_id = album__photos.id
+            WHERE album__photos.author_id = :author_id')
+            ->queryScalar(array(':author_id' => $this->id));
+        if (!empty($cook_decor))
+            return true;
+
+        return false;
     }
 }

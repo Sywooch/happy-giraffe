@@ -120,7 +120,7 @@ class EditorController extends SController
                 $task->executor_id = $author_id;
                 $task->owner_id = Yii::app()->user->id;
                 $task->section = $section;
-                $task->multivarka = Yii::app()->request->getPost('multivarka');
+                $task->sub_section = Yii::app()->request->getPost('sub_section');
 
                 if ($task->save()) {
                     if (!empty($urls)) {
@@ -143,7 +143,7 @@ class EditorController extends SController
             $task = SeoTask::model()->findByPk($task_id);
             $task->scenario = 'cook';
             $task->executor_id = $author_id;
-            $task->multivarka = Yii::app()->request->getPost('multivarka');
+            $task->sub_section = Yii::app()->request->getPost('sub_section');
 
             if ($task->save()) {
                 foreach ($task->urls as $url)
@@ -185,7 +185,7 @@ class EditorController extends SController
             );
         } else {
             $task->executor_id = null;
-            $task->multivarka = null;
+            $task->sub_section = 0;
             $task->save();
             $response = array(
                 'status' => true,

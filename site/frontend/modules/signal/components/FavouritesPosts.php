@@ -1,32 +1,12 @@
 <?php
 /**
- * Author: alexk984
- * Date: 30.08.12
+ * Ищет посты для комментирования в постах который добавлены на главную, в соц сети или в рассылку
+ *
+ * @author alexk984
  */
 class FavouritesPosts extends PostForCommentator
 {
-    protected $nextGroup = 'TrafficPosts';
-    protected $entities = array(
-        'CommunityContent' => array(24),
-    );
-
-    public function getPost()
-    {
-        Yii::import('site.common.models.mongo.*');
-
-        $criteria = $this->getCriteria();
-        if ($criteria === null)
-            return $this->nextGroup();
-
-        $posts = $this->getPosts($criteria, true);
-        $this->logState(count($posts));
-
-        if (count($posts) == 0) {
-            return $this->nextGroup();
-        } else {
-            return array(get_class($posts[0]), $posts[0]->id);
-        }
-    }
+    protected $nextGroup = 'UserPosts';
 
     /**
      * @return CDbCriteria
@@ -34,15 +14,18 @@ class FavouritesPosts extends PostForCommentator
     public function getCriteria()
     {
         $ids = array_merge(
-            Favourites::getIdList(Favourites::BLOCK_INTERESTING, 30)
-                + Favourites::getIdList(Favourites::BLOCK_BLOGS, 30)
-                + Favourites::getIdList(Favourites::BLOCK_SOCIAL_NETWORKS, 30)
+            Favourites::getListForCommentators(Favourites::BLOCK_INTERESTING),
+            Favourites::getListForCommentators(Favourites::BLOCK_BLOGS),
+            Favourites::getListForCommentators(Favourites::BLOCK_SOCIAL_NETWORKS),
+            Favourites::getListForCommentators(Favourites::WEEKLY_MAIL)
         );
+
         if (empty($ids))
             return null;
 
         $criteria = new CDbCriteria;
-        $criteria->condition = 't.created >= "' . date("Y-m-d H:i:s", strtotime('-48 hour')) . '" AND `full` IS NULL  AND t.removed = 0';
+        $criteria->condition = '`full` IS NULL AND t.removed = 0 AND t.author_id != :user_id';
+        $criteria->params = array(':user_id' => Yii::app()->user->id);
         $criteria->compare('t.id', $ids);
 
         return $criteria;

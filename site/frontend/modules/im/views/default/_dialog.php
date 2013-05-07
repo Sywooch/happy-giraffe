@@ -1,7 +1,3 @@
-<?php
-    $messages = ($contact->userDialog) ? $contact->userDialog->dialog->messages : array();
-?>
-
 <div class="dialog-header clearfix" data-userid="<?=$contact->id?>">
 
     <?php if ($contact->id == User::HAPPY_GIRAFFE):?>
@@ -56,9 +52,7 @@
 
             <ul>
 
-                <?php foreach ($messages as $message): ?>
-                <?php $this->renderPartial('_message', compact('message', 'lastRead')); ?>
-                <?php endforeach; ?>
+                <?php $this->renderPartial('_messages', compact('messages')); ?>
 
             </ul>
 

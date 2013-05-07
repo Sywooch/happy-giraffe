@@ -32,11 +32,22 @@ class PageMetaTag extends EMongoDocument
         );
     }
 
+    public function indexes()
+    {
+        return array(
+            'index_path' => array(
+                'key' => array(
+                    'path' => EMongoCriteria::SORT_DESC,
+                    'params' => EMongoCriteria::SORT_DESC,
+                ),
+            ),
+        );
+    }
+
     public function beforeSave()
     {
-        if ($this->isNewRecord) {
+        if ($this->isNewRecord)
             $this->created = time();
-        }
         $this->author_id = (int)Yii::app()->user->id;
 
         return parent::beforeSave();

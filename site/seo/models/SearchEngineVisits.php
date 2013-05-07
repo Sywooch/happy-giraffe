@@ -100,37 +100,42 @@ class SearchEngineVisits extends HActiveRecord
         ));
     }
 
-    public static function addVisit($page_id)
+    public static function addVisits($page_id, $count)
     {
-        $transaction = Yii::app()->db_seo->beginTransaction();
-        try {
-            $exist = self::model()->findByAttributes(array('page_id' => $page_id, 'month' => date("Y-m")));
-            if ($exist === null) {
-                $exist = new self;
-                $exist->page_id = $page_id;
-                $exist->month = date("Y-m");
-            }
-
-            $exist->count++;
+        $exist = self::model()->findByAttributes(array('page_id' => $page_id, 'month' => date("Y-m")));
+        if ($exist === null) {
+            $exist = new self;
+            $exist->page_id = $page_id;
+            $exist->month = date("Y-m");
+            $exist->count = $count;
             $exist->save();
-
-            $transaction->commit();
-        } catch (Exception $e) {
-            $transaction->rollback();
+        } else {
+            Yii::app()->db_seo->commandBuilder->createUpdateCommand(
+                self::tableName(),
+                array(
+                    'count' => new CDbExpression('count + :count', array(':count' => $count))
+                ),
+                new CDbCriteria(array(
+                    "condition" => "page_id = :page_id AND month = :month",
+                    "params" => array(
+                        ":month" => date("Y-m"),
+                        ":page_id" => $page_id
+                    )
+                ))
+            )->execute();
         }
     }
 
     public static function getVisits($url, $month)
     {
-        $pages = Page::model()->findAllByAttributes(array('url' => 'http://www.happy-giraffe.ru' . $url));
-        if (count($pages) > 1) {
-            echo "dubli: $url \n";
-
-            for ($i = 1; $i < count($pages); $i++) {
-                $pages[$i]->delete();
-            }
-        }
-
+//        $pages = Page::model()->findAllByAttributes(array('url' => 'http://www.happy-giraffe.ru' . $url));
+//        if (count($pages) > 1) {
+//            echo "dubli: $url \n";
+//
+//            for ($i = 1; $i < count($pages); $i++) {
+//                $pages[$i]->delete();
+//            }
+//        }
         $page = Page::model()->findByAttributes(array('url' => 'http://www.happy-giraffe.ru' . $url));
 
         if ($page !== null) {

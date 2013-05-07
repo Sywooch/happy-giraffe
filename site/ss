@@ -1,30 +1,453 @@
-UPDATE `community__communities` SET `mobile_community_id` = '1' WHERE `community__communities`.`id` = 1;
-UPDATE `community__communities` SET `mobile_community_id` = '2' WHERE `community__communities`.`id` = 2;
-UPDATE `community__communities` SET `mobile_community_id` = '3' WHERE `community__communities`.`id` = 3;
-UPDATE `community__communities` SET `mobile_community_id` = '2' WHERE `community__communities`.`id` = 4;
-UPDATE `community__communities` SET `mobile_community_id` = '2' WHERE `community__communities`.`id` = 5;
-UPDATE `community__communities` SET `mobile_community_id` = '2' WHERE `community__communities`.`id` = 6;
-UPDATE `community__communities` SET `mobile_community_id` = '2' WHERE `community__communities`.`id` = 7;
-UPDATE `community__communities` SET `mobile_community_id` = '2' WHERE `community__communities`.`id` = 8;
-UPDATE `community__communities` SET `mobile_community_id` = '2' WHERE `community__communities`.`id` = 9;
-UPDATE `community__communities` SET `mobile_community_id` = '2' WHERE `community__communities`.`id` = 10;
-UPDATE `community__communities` SET `mobile_community_id` = '2' WHERE `community__communities`.`id` = 11;
-UPDATE `community__communities` SET `mobile_community_id` = '3' WHERE `community__communities`.`id` = 12;
-UPDATE `community__communities` SET `mobile_community_id` = '3' WHERE `community__communities`.`id` = 13;
-UPDATE `community__communities` SET `mobile_community_id` = '3' WHERE `community__communities`.`id` = 14;
-UPDATE `community__communities` SET `mobile_community_id` = '4' WHERE `community__communities`.`id` = 15;
-UPDATE `community__communities` SET `mobile_community_id` = '4' WHERE `community__communities`.`id` = 16;
-UPDATE `community__communities` SET `mobile_community_id` = '4' WHERE `community__communities`.`id` = 17;
-UPDATE `community__communities` SET `mobile_community_id` = '4' WHERE `community__communities`.`id` = 18;
-UPDATE `community__communities` SET `mobile_community_id` = '15' WHERE `community__communities`.`id` = 20;
-UPDATE `community__communities` SET `mobile_community_id` = '14' WHERE `community__communities`.`id` = 21;
-UPDATE `community__communities` SET `mobile_community_id` = '10' WHERE `community__communities`.`id` = 24;
-UPDATE `community__communities` SET `mobile_community_id` = '10' WHERE `community__communities`.`id` = 25;
-UPDATE `community__communities` SET `mobile_community_id` = '7' WHERE `community__communities`.`id` = 26;
-UPDATE `community__communities` SET `mobile_community_id` = '8' WHERE `community__communities`.`id` = 28;
-UPDATE `community__communities` SET `mobile_community_id` = '12' WHERE `community__communities`.`id` = 29;
-UPDATE `community__communities` SET `mobile_community_id` = '13' WHERE `community__communities`.`id` = 30;
-UPDATE `community__communities` SET `mobile_community_id` = '6' WHERE `community__communities`.`id` = 31;
-UPDATE `community__communities` SET `mobile_community_id` = '5' WHERE `community__communities`.`id` = 32;
-UPDATE `community__communities` SET `mobile_community_id` = '9' WHERE `community__communities`.`id` = 34;
-UPDATE `community__communities` SET `mobile_community_id` = '11' WHERE `community__communities`.`id` = 35;
+SELECT SQL_NO_CACHE tu.hidden, tu.thread_id, tu2.user_id AS interlocutor_id, u.first_name, u.last_name, u.online, (SELECT COUNT(*) FROM messaging__messages m INNER JOIN messaging__messages_users mu ON m.id = mu.message_id WHERE m.thread_id = tu.thread_id AND mu.user_id = 12936 AND mu.read = 0) AS unreadMessages
+FROM messaging__threads_users tu
+INNER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id != 12936
+INNER JOIN users u ON u.id = tu2.user_id
+WHERE tu.user_id = 12936;
+
+SELECT SQL_NO_CACHE tu.hidden, tu.thread_id, tu2.user_id AS interlocutor_id, u.first_name, u.last_name, u.online, COUNT(mu.message_id) AS unreadCount
+FROM messaging__threads_users tu
+INNER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id != 12936
+INNER JOIN users u ON u.id = tu2.user_id
+LEFT OUTER JOIN messaging__messages m ON m.thread_id = tu.thread_id
+LEFT OUTER JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.read = 0 AND mu.user_id = 12936
+WHERE tu.user_id = 12936
+GROUP BY tu.thread_id;
+
+SELECT
+    tu.hidden AS threadHiddenStatus,
+    tu.thread_id AS threadId,
+    tu2.user_id AS interlocutorId,
+    u.first_name AS interlocutorFirstName,
+    u.last_name AS interlocutorLastName,
+    u.online AS interlocutorOnlineStatus,
+    COUNT(mu.message_id) AS threadUnreadCount
+FROM messaging__threads_users tu
+INNER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id != 12936
+INNER JOIN users u ON u.id = tu2.user_id
+LEFT OUTER JOIN messaging__messages m ON m.thread_id = tu.thread_id
+LEFT OUTER JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.read = 0 AND mu.user_id = 12936
+WHERE tu.user_id = 12936
+GROUP BY tu.thread_id
+
+SELECT SQL_NO_CACHE
+    tu.hidden AS threadHiddenStatus,
+    tu.thread_id AS threadId,
+    tu2.user_id AS interlocutorId,
+    u.first_name AS interlocutorFirstName,
+    u.last_name AS interlocutorLastName,
+    u.online AS interlocutorOnlineStatus,
+    t.updated AS threadUpdated,
+    COUNT(mu.message_id) AS threadUnreadCount
+FROM messaging__threads_users tu
+INNER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id != 12936
+INNER JOIN users u ON u.id = tu2.user_id
+INNER JOIN messaging__threads t ON t.id = tu.thread_id
+LEFT OUTER JOIN messaging__messages m ON m.thread_id = tu.thread_id
+LEFT OUTER JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.read = 0 AND mu.user_id = 12936
+WHERE tu.user_id = 12936
+GROUP BY tu.thread_id;
+
+SELECT SQL_NO_CACHE u.id, u.first_name, u.last_name, u.online
+FROM users u
+WHERE u.id IN (
+    SELECT u2.id
+    FROM users u2
+    JOIN friends ON (u2.id = friends.user1_id AND friends.user2_id = 12936) OR (u2.id = friends.user2_id AND friends.user1_id = 12936)
+);
+
+SELECT SQL_NO_CACHE u.id, u.first_name, u.last_name, u.online
+FROM users u
+WHERE u.id IN (
+    SELECT tu2.user_id
+    FROM messaging__threads_users tu
+    INNER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id != 12936
+    WHERE tu.user_id = 12936
+);
+
+
+SELECT u.id, u.first_name, u.last_name, u.online
+FROM users u
+WHERE u.id IN (
+    SELECT u2.id
+    FROM users u2
+    JOIN friends ON (u2.id = friends.user1_id AND friends.user2_id = 10) OR (u2.id = friends.user2_id AND friends.user1_id = 10)
+) OR u.id IN (
+    SELECT tu2.user_id
+    FROM messaging__threads_users tu
+    INNER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id != 10
+    WHERE tu.user_id = 10
+);
+
+
+
+SELECT user1_id
+FROM friends
+WHERE user2_id =12936
+UNION
+SELECT user2_id
+FROM friends
+WHERE user1_id =12936
+UNION
+SELECT tu2.user_id
+FROM messaging__threads_users tu
+INNER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id != 12936
+WHERE tu.user_id = 12936
+
+SELECT u.id, u.first_name, u.last_name, u.online
+FROM users u
+WHERE u.id IN (
+    SELECT user1_id
+    FROM friends
+    WHERE user2_id = 12936
+    UNION
+    SELECT user2_id
+    FROM friends
+    WHERE user1_id = 12936
+    UNION
+    SELECT tu2.user_id
+    FROM messaging__threads_users tu
+    INNER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id != 12936
+    WHERE tu.user_id = 12936
+);
+
+SELECT SQL_NO_CACHE
+    u.id, # ID собеседника
+    u.first_name, # Имя собеседника
+    u.last_name, # Фамилия собеседника
+    u.online, # Онлайн-статус собеседника
+    friends.created IS NOT NULL AS isFriend, # Является ли другом
+    t.id, # ID Диалога
+    t.updated, # Дата последнего обновления диалога
+    tu2.hidden, # Видимость диалога
+    COUNT(m.id) AS unreadCount, # Количество непрочитанных сообщений
+    p.fs_name # Аватар
+# Таблица ID всех пользователей в контактах
+FROM (
+    # Пользователей, находящиеся в друзьях вне зависимости от наличия или отсутствия переписки с ними
+    SELECT user1_id AS uId
+    FROM friends
+    WHERE user2_id = 12936
+    UNION
+    SELECT user2_id AS uId
+    FROM friends
+    WHERE user1_id = 12936
+    UNION
+    # Пользователи, с которыми когда-либо была переписка
+    SELECT tu2.user_id AS uId
+    FROM messaging__threads_users tu
+    INNER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id != 12936
+    WHERE tu.user_id = 12936
+) uIds
+# Связывание с таблицей пользователей для получения данных о собеседнике
+INNER JOIN users u ON u.id = uIds.uId
+# Связывание с таблицей друзей для установления, является ли собеседник другом
+LEFT OUTER JOIN friends ON (u.id = friends.user1_id AND friends.user2_id = 12936) OR (u.id = friends.user2_id AND friends.user1_id = 12936)
+# Связывание с таблицей участников диалога для получения ID и видимости диалога
+LEFT OUTER JOIN messaging__threads_users tu ON tu.user_id = u.id
+LEFT OUTER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id = 12936
+# Связывание с таблицей диалогов для получения данных о диалоге
+LEFT OUTER JOIN messaging__threads t ON t.id = tu2.thread_id
+# Связывание с таблицами сообщений и получателей сообщения для получения количества непрочитанных сообщений
+LEFT OUTER JOIN messaging__messages m ON m.thread_id = t.id
+LEFT OUTER JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.read = 0 AND mu.user_id = 12936
+# Связывание с таблицей фотогрфий для получения аватара
+LEFT OUTER JOIN album__photos p ON u.avatar_id = p.id
+# Условие для корректной работы связывание с таблицей участников диалога
+WHERE tu.user_id IS NULL OR (tu.user_id IS NOT NULL AND tu2.user_id IS NOT NULL)
+GROUP BY t.id;
+
+SELECT SQL_NO_CACHE
+    u.id AS uId, # ID собеседника
+    u.first_name, # Имя собеседника
+    u.last_name, # Фамилия собеседника
+    u.online, # Онлайн-статус собеседника
+    t.id AS tId, # ID Диалога
+    t.updated, # Дата последнего обновления диалога
+    tu2.hidden, # Видимость диалога
+    COUNT(m.id) AS unreadCount, # Количество непрочитанных сообщений
+    friends.created IS NOT NULL AS isFriend # Является ли другом
+# Таблица ID всех пользователей в контактах
+FROM (
+    # Пользователей, находящиеся в друзьях вне зависимости от наличия или отсутствия переписки с ними
+    SELECT user1_id AS uId
+    FROM friends
+    WHERE user2_id = 12936
+    UNION
+    SELECT user2_id AS uId
+    FROM friends
+    WHERE user1_id = 12936
+    UNION
+    # Пользователи, с которыми когда-либо была переписка
+    SELECT tu2.user_id AS uId
+    FROM messaging__threads_users tu
+    INNER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id != 12936
+    WHERE tu.user_id = 12936
+) uIds
+# Связывание с таблицей пользователей для получения данных о собеседнике
+INNER JOIN users u ON u.id = uIds.uId
+# Связывание с таблицей друзей для установления, является ли собеседник другом
+LEFT OUTER JOIN friends ON (u.id = friends.user1_id AND friends.user2_id = 12936) OR (u.id = friends.user2_id AND friends.user1_id = 12936)
+# Связывание с таблицей участников диалога для получения ID и видимости диалога
+LEFT OUTER JOIN messaging__threads_users tu ON tu.user_id = u.id
+LEFT OUTER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id = 12936
+# Связывание с таблицей диалогов для получения данных о диалоге
+LEFT OUTER JOIN messaging__threads t ON t.id = tu2.thread_id
+# Связывание с таблицами сообщений и получателей сообщения для получения количества непрочитанных сообщений
+LEFT OUTER JOIN messaging__messages m ON m.thread_id = t.id
+LEFT OUTER JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.read = 0 AND mu.user_id = 12936
+# Условие для корректной работы связывание с таблицей участников диалога
+WHERE tu.user_id IS NULL OR (tu.user_id IS NOT NULL AND tu2.user_id IS NOT NULL)
+GROUP BY t.id;
+
+SELECT SQL_NO_CACHE
+    u.id AS uId, # ID собеседника
+    u.first_name, # Имя собеседника
+    u.last_name, # Фамилия собеседника
+    u.online, # Онлайн-статус собеседника
+    t.id AS tId, # ID Диалога
+    t.updated, # Дата последнего обновления диалога
+    tu2.hidden, # Видимость диалога
+    COUNT(mu.message_id) AS unreadCount, # Количество непрочитанных сообщений
+    friends.created IS NOT NULL AS isFriend # Является ли другом
+# Таблица ID всех пользователей в контактах
+FROM (
+    # Пользователей, находящиеся в друзьях вне зависимости от наличия или отсутствия переписки с ними
+    SELECT user1_id AS uId
+    FROM friends
+    WHERE user2_id = 12936
+    UNION
+    SELECT user2_id AS uId
+    FROM friends
+    WHERE user1_id = 12936
+    UNION
+    # Пользователи, с которыми когда-либо была переписка
+    SELECT tu2.user_id AS uId
+    FROM messaging__threads_users tu
+    INNER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id != 12936
+    WHERE tu.user_id = 12936
+) uIds
+# Связывание с таблицей пользователей для получения данных о собеседнике
+INNER JOIN users u ON u.id = uIds.uId
+# Связывание с таблицей друзей для установления, является ли собеседник другом
+LEFT OUTER JOIN friends ON (u.id = friends.user1_id AND friends.user2_id = 12936) OR (u.id = friends.user2_id AND friends.user1_id = 12936)
+# Связывание с таблицей участников диалога для получения ID и видимости диалога
+LEFT OUTER JOIN messaging__threads_users tu ON tu.user_id = u.id
+LEFT OUTER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id = 12936
+# Связывание с таблицей диалогов для получения данных о диалоге
+LEFT OUTER JOIN messaging__threads t ON t.id = tu2.thread_id
+# Связывание с таблицами сообщений и получателей сообщения для получения количества непрочитанных сообщений
+LEFT OUTER JOIN messaging__messages m ON m.thread_id = t.id
+LEFT OUTER JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.read = 0 AND mu.user_id = 12936
+# Условие для корректной работы связывание с таблицей участников диалога
+WHERE tu.user_id IS NULL OR (tu.user_id IS NOT NULL AND tu2.user_id IS NOT NULL)
+GROUP BY u.id;
+
+SELECT
+    u.id AS uId, # ID собеседника
+    u.first_name, # Имя собеседника
+    u.last_name, # Фамилия собеседника
+    u.online, # Онлайн-статус собеседника
+    t.id AS tId, # ID Диалога
+    tu2.hidden, # Видимость диалога
+    p.fs_name, # Аватар
+    UNIX_TIMESTAMP(t.updated) AS updated, # Дата последнего обновления диалога
+    COUNT(mu.message_id) AS unreadCount, # Количество непрочитанных сообщений
+    friends.created IS NOT NULL AS isFriend # Является ли другом
+# Таблица ID всех пользователей в контактах
+FROM (
+    # Пользователей, находящиеся в друзьях вне зависимости от наличия или отсутствия переписки с ними
+    SELECT user1_id AS uId
+    FROM friends
+    WHERE user2_id = 12936
+    UNION
+    SELECT user2_id AS uId
+    FROM friends
+    WHERE user1_id = 12936
+    UNION
+    # Пользователи, с которыми когда-либо была переписка
+    SELECT tu2.user_id AS uId
+    FROM messaging__threads_users tu
+    INNER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id != 12936
+    WHERE tu.user_id = 12936
+) uIds
+# Связывание с таблицей пользователей для получения данных о собеседнике
+INNER JOIN users u ON u.id = uIds.uId
+# Связывание с таблицей друзей для установления, является ли собеседник другом
+LEFT OUTER JOIN friends ON (u.id = friends.user1_id AND friends.user2_id = 12936) OR (u.id = friends.user2_id AND friends.user1_id = 12936)
+# Связывание с таблицей участников диалога для получения ID и видимости диалога
+LEFT OUTER JOIN messaging__threads_users tu ON tu.user_id = u.id
+LEFT OUTER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id = 12936
+# Связывание с таблицей диалогов для получения данных о диалоге
+LEFT OUTER JOIN messaging__threads t ON t.id = tu2.thread_id
+# Связывание с таблицами сообщений и получателей сообщения для получения количества непрочитанных сообщений
+LEFT OUTER JOIN messaging__messages m ON m.thread_id = t.id
+LEFT OUTER JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.read = 0 AND mu.user_id = 12936
+# Связывание с таблицей фотографий для получения аватара
+LEFT OUTER JOIN album__photos p ON u.avatar_id = p.id
+# Условие для корректной работы связывание с таблицей участников диалога
+WHERE tu.user_id IS NULL OR (tu.user_id IS NOT NULL AND tu2.user_id IS NOT NULL)
+GROUP BY u.id;
+
+SELECT SQL_NO_CACHE
+    u.id AS uId, # ID собеседника
+    u.first_name, # Имя собеседника
+    u.last_name, # Фамилия собеседника
+    u.online, # Онлайн-статус собеседника
+    t.id AS tId, # ID Диалога
+    tu2.hidden, # Видимость диалога
+    p.fs_name, # Аватар
+    UNIX_TIMESTAMP(t.updated) AS updated, # Дата последнего обновления диалога
+    COUNT(mu.message_id) AS unreadCount, # Количество непрочитанных сообщений
+    friends.created IS NOT NULL AS isFriend # Является ли другом
+# Таблица ID всех пользователей в контактах
+FROM (
+    # Пользователей, находящиеся в друзьях вне зависимости от наличия или отсутствия переписки с ними
+    SELECT user1_id AS uId
+    FROM friends
+    WHERE user2_id = 22
+    UNION
+    SELECT user2_id AS uId
+    FROM friends
+    WHERE user1_id = 22
+    UNION
+    # Пользователи, с которыми когда-либо была переписка
+    SELECT tu2.user_id AS uId
+    FROM messaging__threads_users tu
+    INNER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id != 22
+    WHERE tu.user_id = 22
+) uIds
+# Связывание с таблицей пользователей для получения данных о собеседнике
+INNER JOIN users u ON u.id = uIds.uId
+# Связывание с таблицей друзей для установления, является ли собеседник другом
+LEFT OUTER JOIN friends ON (u.id = friends.user1_id AND friends.user2_id = 22) OR (u.id = friends.user2_id AND friends.user1_id = 22)
+# Связывание с таблицей участников диалога для получения ID и видимости диалога
+LEFT OUTER JOIN messaging__threads_users tu ON tu.user_id = u.id
+LEFT OUTER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id = 22
+# Связывание с таблицей диалогов для получения данных о диалоге
+LEFT OUTER JOIN messaging__threads t ON t.id = tu2.thread_id
+# Связывание с таблицами сообщений и получателей сообщения для получения количества непрочитанных сообщений
+LEFT OUTER JOIN messaging__messages m ON m.thread_id = t.id AND m.author_id != 22
+LEFT OUTER JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.read = 0 AND mu.user_id = 22
+# Связывание с таблицей фотографий для получения аватара
+LEFT OUTER JOIN album__photos p ON u.avatar_id = p.id
+# Условие для корректной работы связывание с таблицей участников диалога
+WHERE tu.user_id IS NULL OR (tu.user_id IS NOT NULL AND tu2.user_id IS NOT NULL)
+GROUP BY u.id;
+
+SELECT
+    u.id AS uId, # ID собеседника
+    u.first_name, # Имя собеседника
+    u.last_name, # Фамилия собеседника
+    u.online, # Онлайн-статус собеседника
+    t.id AS tId, # ID Диалога
+    tu2.hidden, # Видимость диалога
+    p.fs_name, # Аватар
+    UNIX_TIMESTAMP(t.updated) AS updated, # Дата последнего обновления диалога
+    COUNT(mu.message_id) AS unreadCount, # Количество непрочитанных сообщений
+    friends.created IS NOT NULL AS isFriend # Является ли другом
+# Таблица ID всех пользователей в контактах
+FROM (
+    # Пользователей, находящиеся в друзьях вне зависимости от наличия или отсутствия переписки с ними
+    SELECT user1_id AS uId
+    FROM friends
+    WHERE user2_id = 12936
+    UNION
+    SELECT user2_id AS uId
+    FROM friends
+    WHERE user1_id = 12936
+    UNION
+    # Пользователи, с которыми когда-либо была переписка
+    SELECT tu2.user_id AS uId
+    FROM messaging__threads_users tu
+    INNER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id != 12936
+    WHERE tu.user_id = 12936
+) uIds
+# Связывание с таблицей пользователей для получения данных о собеседнике
+INNER JOIN users u ON u.id = uIds.uId
+# Связывание с таблицей друзей для установления, является ли собеседник другом
+LEFT OUTER JOIN friends ON (u.id = friends.user1_id AND friends.user2_id = 12936) OR (u.id = friends.user2_id AND friends.user1_id = 12936)
+# Связывание с таблицей участников диалога для получения ID и видимости диалога
+LEFT OUTER JOIN messaging__threads_users tu ON tu.user_id = u.id
+LEFT OUTER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id = 12936
+# Связывание с таблицей диалогов для получения данных о диалоге
+LEFT OUTER JOIN messaging__threads t ON t.id = tu2.thread_id
+# Связывание с таблицами сообщений и получателей сообщения для получения количества непрочитанных сообщений
+LEFT OUTER JOIN messaging__messages m ON m.thread_id = t.id AND m.author_id != 12936
+LEFT OUTER JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.read = 0 AND mu.user_id = 12936
+# Связывание с таблицей фотографий для получения аватара
+LEFT OUTER JOIN album__photos p ON u.avatar_id = p.id
+# Условие для корректной работы связывание с таблицей участников диалога
+WHERE tu.user_id IS NULL OR (tu.user_id IS NOT NULL AND tu2.user_id IS NOT NULL)
+GROUP BY u.id;
+
+SELECT
+    m.id,
+    m.author_id,
+    m.text,
+    UNIX_TIMESTAMP(m.created) AS created,
+    mu.read,
+    mu2.deleted
+FROM messaging__messages m
+JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.user_id != m.author_id
+JOIN messaging__messages_users mu2 ON m.id = mu2.message_id AND mu2.user_id = m.author_id
+WHERE m.thread_id = 1110 AND mu2.deleted = 0
+
+SELECT
+    m.id,
+    m.author_id,
+    m.text,
+    UNIX_TIMESTAMP(m.created) AS created,
+    mu.deleted,
+    mu2.read
+FROM messaging__messages m
+JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.user_id = m.author_id
+JOIN messaging__messages_users mu2 ON m.id = mu2.message_id AND mu2.user_id != m.author_id
+WHERE m.thread_id = 1110 AND mu.deleted = 0;
+
+SELECT
+    u.id AS uId, # ID собеседника
+    u.first_name, # Имя собеседника
+    u.last_name, # Фамилия собеседника
+    u.gender, # Пол собеседника
+    u.online, # Онлайн-статус собеседника
+    t.id AS tId, # ID Диалога
+    tu2.hidden, # Видимость диалога
+    p.fs_name, # Аватар
+    UNIX_TIMESTAMP(t.updated) AS updated, # Дата последнего обновления диалога
+    COUNT(mu.message_id) AS unreadCount, # Количество непрочитанных сообщений
+    friends.created IS NOT NULL AS isFriend # Является ли другом
+# Таблица ID всех пользователей в контактах
+FROM (
+    # Пользователей, находящиеся в друзьях вне зависимости от наличия или отсутствия переписки с ними
+    SELECT user1_id AS uId
+    FROM friends
+    WHERE user2_id = 12936
+    UNION
+    SELECT user2_id AS uId
+    FROM friends
+    WHERE user1_id = 12936
+    UNION
+    # Пользователи, с которыми когда-либо была переписка
+    SELECT tu2.user_id AS uId
+    FROM messaging__threads_users tu
+    INNER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id != 12936
+    WHERE tu.user_id = 12936
+) uIds
+# Связывание с таблицей пользователей для получения данных о собеседнике
+INNER JOIN users u ON u.id = uIds.uId
+# Связывание с таблицей друзей для установления, является ли собеседник другом
+LEFT OUTER JOIN friends ON (u.id = friends.user1_id AND friends.user2_id = 12936) OR (u.id = friends.user2_id AND friends.user1_id = 12936)
+# Связывание с таблицей участников диалога для получения ID и видимости диалога
+LEFT OUTER JOIN messaging__threads_users tu ON tu.user_id = u.id
+LEFT OUTER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id = 12936
+# Связывание с таблицей диалогов для получения данных о диалоге
+LEFT OUTER JOIN messaging__threads t ON t.id = tu2.thread_id
+# Связывание с таблицами сообщений и получателей сообщения для получения количества непрочитанных сообщений
+LEFT OUTER JOIN messaging__messages m ON m.thread_id = t.id AND m.author_id != 12936
+LEFT OUTER JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.read = 0 AND mu.user_id = 12936
+# Связывание с таблицей фотографий для получения аватара
+LEFT OUTER JOIN album__photos p ON u.avatar_id = p.id
+
+# Условие для корректной работы связывание с таблицей участников диалога
+WHERE tu.user_id IS NULL OR (tu.user_id IS NOT NULL AND tu2.user_id IS NOT NULL)
+GROUP BY u.id;

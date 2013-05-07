@@ -79,5 +79,5 @@ WhatsNew = {
 }
 
 $(function () {
-    WhatsNew.init();
+    setTimeout(function(){WhatsNew.init()}, 1);
 });

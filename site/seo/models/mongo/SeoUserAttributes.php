@@ -22,6 +22,7 @@ class SeoUserAttributes extends EMongoDocument
         'se_tab' => 1,
         'import_email_last_user_id'=>0,
         'import_email_contest_last_user_id'=>0,
+        'keyword_num'=>500000,
     );
 
     public static function model($className = __CLASS__)

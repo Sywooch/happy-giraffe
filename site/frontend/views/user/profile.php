@@ -7,9 +7,6 @@
     $cs
         ->registerScriptFile(Yii::app()->baseUrl . '/javascripts/jquery.jscrollpane.min.js')
         ->registerCssFile('/stylesheets/user.css')
-        ->registerScriptFile('http://vk.com/js/api/share.js?11')
-        ->registerCssFile('http://stg.odnoklassniki.ru/share/odkl_share.css')
-        ->registerScriptFile('http://stg.odnoklassniki.ru/share/odkl_share.js')
     ;
 
     $score = $user->score;
@@ -44,13 +41,7 @@
                 <div class="info">
                     <p class="birthday"><?php if ($user->birthday): ?><span>День рождения:</span> <?=$user->birthdayString?> (<?=$user->normalizedAge?>)<?php endif; ?></p>
                 </div>
-            <?php if(!Yii::app()->user->isGuest && Yii::app()->user->model->group != UserGroup::USER && Yii::app()->user->checkAccess('manageFavourites')): ?>
-            <div class="user-buttons clearfix">
-                <?php $this->widget('site.frontend.widgets.favoritesWidget.FavouritesWidget', array('model' => $user)); ?>
             </div>
-            <?php endif; ?>
-            </div>
-
 
             <?php
                 $htmlOptions['class'] = 'ava big ' . (($user->gender == 1) ? 'male' : 'female');
@@ -106,7 +97,11 @@
                         <?php if (Yii::app()->user->isGuest): ?>
                         <?= CHtml::link('<i class="icon"></i>Написать<br>сообщение', '#login', array('class' => 'new-message fancy', 'data-theme'=>"white-square")); ?>
                         <?php else: ?>
+                        <?php if (! in_array(Yii::app()->user->id, array(12936, 22, 9990, 56)) && ! Yii::app()->user->checkAccess('commentator_panel')): ?>
                         <?= CHtml::link('<i class="icon"></i>Написать<br>сообщение', 'javascript:void(0)', array('class' => 'new-message', 'onclick' => 'Messages.open(' . $user->id . ')')); ?>
+                        <?php else: ?>
+                        <?= CHtml::link('<i class="icon"></i>Написать<br>сообщение', array('/messaging/default/index', 'interlocutorId' => $user->id), array('class' => 'new-message')); ?>
+                        <?php endif; ?>
                         <?php endif ?>
                     </div>
                 <?php endif ?>
@@ -148,10 +143,12 @@
 
                 <div class="col-3">
 
+                    <?php if (false): ?>
                     <?php $this->widget('ContestWidget', array(
                         'user' => $user,
-                        'contest_id' => 7,
+                        'contest_id' => 9,
                     )); ?>
+                    <?php endif; ?>
 
                     <?php $this->widget('UserFriendsWidget', array(
                         'user' => $user,
@@ -180,10 +177,6 @@
                             'user' => $user,
                         )); ?>
                     </div>
-
-                    <?php $this->widget('UserDuelWidget', array(
-                        'user' => $user,
-                    )); ?>
 
                 </div>
 

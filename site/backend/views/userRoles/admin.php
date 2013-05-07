@@ -23,10 +23,12 @@
             'value'=>'$data->getAssigns()',
             'filter'=>false
         ),
-		array(
-		    'name'=>'last_active',
+        array(
+            'name'=>'group',
+            'type'=>'html',
+            'value'=>'UserGroup::getName($data->group)',
             'filter'=>false
-		),
+        ),
 		array(
 			'class'=>'CButtonColumn',
 			'template' => '{update}'

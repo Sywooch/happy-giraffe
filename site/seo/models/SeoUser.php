@@ -10,13 +10,13 @@
  * @property string $name
  * @property integer $owner_id
  * @property integer $related_user_id
+ * @property integer $active
  *
  * The followings are the available model relations:
  * @property SeoTask[] $tasks
  * @property TempKeyword[] $tempKeywords
  * @property SeoUser $owner
  * @property SeoUser[] $users
- * @property Commentator[] $commentators
  */
 class SeoUser extends HActiveRecord
 {
@@ -57,7 +57,7 @@ class SeoUser extends HActiveRecord
             array('name, email', 'length', 'max' => 50),
             array('related_user_id', 'numerical', 'integerOnly' => true),
             array('email, related_user_id', 'unique'),
-            array('id, role, owner_id', 'safe'),
+            array('id, role, owner_id, active', 'safe'),
             array('related_user_id', 'unsafe'),
             //login
             array('email, password', 'required', 'on' => 'login'),
@@ -140,7 +140,6 @@ class SeoUser extends HActiveRecord
             'tempKeywords' => array(self::HAS_MANY, 'TempKeyword', 'owner_id'),
             'owner' => array(self::BELONGS_TO, 'SeoUser', 'owner_id'),
             'authors' => array(self::HAS_MANY, 'SeoUser', 'owner_id'),
-            'commentators' => array(self::HAS_MANY, 'Commentators', 'manager_id'),
         );
     }
 
@@ -154,6 +153,7 @@ class SeoUser extends HActiveRecord
             'email' => 'Логин',
             'password' => 'Пароль',
             'gender' => 'Пол',
+            'active' => 'Активен',
         );
     }
 
@@ -175,6 +175,7 @@ class SeoUser extends HActiveRecord
 
         return new CActiveDataProvider(get_class($this), array(
             'criteria' => $criteria,
+            'pagination' => array('pageSize' => 100),
         ));
     }
 
@@ -211,6 +212,15 @@ class SeoUser extends HActiveRecord
         if ($user != null) {
             return $user->getAva($size);
         }
+        return '';
+    }
+
+    public function getUrl(){
+        return 'http://www.happy-giraffe.ru/user/'.$this->related_user_id.'/';
+    }
+
+    public function getFullName(){
+        return $this->getRelatedUser()->getFullName();
     }
 
     public function commentatorIds()

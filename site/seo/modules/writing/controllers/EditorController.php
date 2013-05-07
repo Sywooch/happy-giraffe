@@ -278,20 +278,17 @@ class EditorController extends SController
     public function actionBindKeywordToArticle()
     {
         $keyword_id = Yii::app()->request->getPost('keyword_id');
-        $article_id = Yii::app()->request->getPost('article_id');
-        $section = Yii::app()->request->getPost('section');
+        $entity_id = Yii::app()->request->getPost('entity_id');
+        $entity = Yii::app()->request->getPost('entity');
 
         $article = Page::model()->findByAttributes(array(
-            'entity_id' => $article_id
+            'entity_id' => $entity_id,
+            'entity' => $entity,
         ));
         if ($article !== null) {
-            if ($section == 1)
-                $class = 'CommunityContent';
-            else
-                $class = 'CookRecipe';
             if (!empty($article->entity)) {
-                $model = $class::model()->findByPk($article_id);
-                $article->entity = $class;
+                $model = CActiveRecord::model($entity)->findByPk($entity_id);
+                $article->entity = $entity;
                 $article->url = 'http://www.happy-giraffe.ru' . $model->url;
                 if (!$article->save())
                     var_dump($article->getErrors());
@@ -330,12 +327,7 @@ class EditorController extends SController
                 }
             }
         } else {
-            if ($section == 1)
-                $class = 'CommunityContent';
-            else
-                $class = 'CookRecipe';
-
-            $model = $class::model()->findByPk($article_id);
+            $model = CActiveRecord::model($entity)->findByPk($entity_id);
 
             if ($model === null) {
                 echo CJSON::encode(array(
@@ -345,8 +337,8 @@ class EditorController extends SController
                 Yii::app()->end();
             }
             $article_keywords = new Page();
-            $article_keywords->entity = $class;
-            $article_keywords->entity_id = $article_id;
+            $article_keywords->entity = $entity;
+            $article_keywords->entity_id = $entity_id;
             $article_keywords->url = 'http://www.happy-giraffe.ru' . $model->getUrl();
 
             $group = new KeywordGroup();

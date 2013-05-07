@@ -32,6 +32,7 @@ if (empty($letter))
     <li<?php if ($letter == 'Х') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('index', array('letter'=>'Х')) ?>">Х</a></li>
     <li<?php if ($letter == 'Ц') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('index', array('letter'=>'Ц')) ?>">Ц</a></li>
     <li<?php if ($letter == 'Ч') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('index', array('letter'=>'Ч')) ?>">Ч</a></li>
+    <li<?php if ($letter == 'Ш') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('index', array('letter'=>'Ш')) ?>">Ш</a></li>
     <li<?php if ($letter == 'Э') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('index', array('letter'=>'Э')) ?>">Э</a></li>
     <li<?php if ($letter == 'Ю') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('index', array('letter'=>'Ю')) ?>">Ю</a></li>
     <li<?php if ($letter == 'Я') echo ' class="active"' ?>><a href="<?php echo $this->createUrl('index', array('letter'=>'Я')) ?>">Я</a></li>

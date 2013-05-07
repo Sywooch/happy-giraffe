@@ -144,8 +144,6 @@ class SiteKeywordVisit extends HActiveRecord
             $condition = Keyword::getFreqCondition($this->freq);
             if (!in_array('keyword', $criteria->with))
                 $criteria->with [] = 'keyword';
-            if (!in_array('keyword.yandex', $criteria->with))
-                $criteria->with [] = 'keyword.yandex';
 
             if (!empty($criteria->condition)) {
                 $criteria->condition .= ' AND ' . $condition;
@@ -154,16 +152,26 @@ class SiteKeywordVisit extends HActiveRecord
         }
 
         $full_criteria = clone $criteria;
-        $full_criteria->with = array('keyword', 'keyword.group','keyword.group.page','keyword.group.taskCount', 'keyword.tempKeyword', 'keyword.blacklist', 'keyword.yandex', 'site');
+        $full_criteria->with = array();
+
+        $cache_id = 'total_items_count_'.$this->site_id;
+        $total_items_count=Yii::app()->cache->get($cache_id);
+        if($total_items_count===false)
+        {
+            $total_items_count = self::model()->count($full_criteria);
+            Yii::app()->cache->set($cache_id,$total_items_count, 3600);
+        }
+
+        $full_criteria->with = array('keyword', 'keyword.group','keyword.group.page','keyword.group.taskCount', 'keyword.tempKeyword', 'keyword.blacklist', 'site');
 
         return new CActiveDataProvider($this, array(
             'criteria' => $full_criteria,
-            'totalItemCount' => self::model()->count($criteria),
-            'pagination' => array('pageSize' => 100),
+            'totalItemCount' => $total_items_count,
+            'pagination' => array('pageSize' => 50),
             'sort' => array(
                 'attributes' => array(
                     'popular' => array(
-                        'asc' => 'yandex.value desc',
+                        'asc' => 'wordstat desc',
                     ),
                     'm1' => array('default' => 'desc'),
                     'm2' => array('default' => 'desc'),
@@ -190,7 +198,7 @@ class SiteKeywordVisit extends HActiveRecord
 
         if (Yii::app()->user->getState('hide_used') == 1) {
             $criteria->condition = 'group.id IS NULL AND ((tempKeyword.keyword_id IS NOT NULL AND tempKeyword.owner_id = ' . Yii::app()->user->id . ') OR tempKeyword.keyword_id IS NULL)';
-            $criteria->with = array('keyword', 'keyword.group', 'keyword.tempKeyword', 'keyword.blacklist', 'keyword.yandex');
+            $criteria->with = array('keyword', 'keyword.group', 'keyword.tempKeyword', 'keyword.blacklist');
         }
 
         if (!empty($this->key_name)) {
@@ -218,7 +226,6 @@ class SiteKeywordVisit extends HActiveRecord
     public function getCriteriaWithoutFreqForCounts()
     {
         $criteria = $this->getCriteriaWithoutFreq();
-        $criteria->with = array('keyword', 'keyword.yandex');
 
         return $criteria;
     }
@@ -258,7 +265,6 @@ class SiteKeywordVisit extends HActiveRecord
             $model->setAttribute('m' . $month, $value);
         }
 
-        if (!$model->save())
-            throw new CHttpException(404, 'Error - stats doesnt saved.');
+        $model->save();
     }
 }

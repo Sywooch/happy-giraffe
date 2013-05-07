@@ -1,7 +1,6 @@
 <html>
 <head>
     <meta name="robots" content="noindex,nofollow">
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
     <script type="text/javascript">
         function openPopup(el) {window.open($(el).attr('href'),'','toolbar=0,status=0,width=626,height=436');return false;}
     </script>

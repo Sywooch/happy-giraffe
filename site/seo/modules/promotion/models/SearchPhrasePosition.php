@@ -119,16 +119,6 @@ class SearchPhrasePosition extends HActiveRecord
         return parent::beforeSave();
     }
 
-    public function afterSave()
-    {
-        if ($this->isNewRecord && $this->se_id == 2) {
-            $this->phrase->last_yandex_position = $this->position;
-            $this->phrase->save();
-        }
-
-        parent::afterSave();
-    }
-
     public function getSe()
     {
         if ($this->se_id == 2) return 'yandex';

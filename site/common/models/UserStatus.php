@@ -41,6 +41,7 @@ class UserStatus extends HActiveRecord
 		return array(
 			array('text, user_id', 'required'),
             array('user_id', 'exist', 'className' => 'User', 'attributeName' => 'id'),
+            array('id, text', 'safe')
 		);
 	}
 
@@ -84,6 +85,27 @@ class UserStatus extends HActiveRecord
 			'created' => 'Создано',
 		);
 	}
+
+    /**
+     * Retrieves a list of models based on the current search/filter conditions.
+     * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
+     */
+    public function search()
+    {
+        // Warning: Please modify the following code to remove attributes that
+        // should not be searched.
+
+        $criteria=new CDbCriteria;
+
+        $criteria->compare('id',$this->id);
+        $criteria->compare('text',$this->text,true);
+        $criteria->compare('user_id',$this->user_id,true);
+        $criteria->compare('created',$this->created,true);
+
+        return new CActiveDataProvider($this, array(
+            'criteria'=>$criteria,
+        ));
+    }
 
     protected function afterSave()
     {

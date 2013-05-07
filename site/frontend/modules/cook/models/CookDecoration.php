@@ -132,6 +132,7 @@ class CookDecoration extends CActiveRecord
                 'pageVar' => 'page',
                 //'route' => '/cook/decor'
             ),
+            'totalItemCount' => CookDecoration::model()->cache(300)->count('category_id=:category_id', array(':category_id' => $categoryId))
         ));
         return $dataProvider;
     }
@@ -215,5 +216,33 @@ class CookDecoration extends CActiveRecord
 
         $comet = new CometModel;
         $comet->send('whatsNewIndex', $params, CometModel::WHATS_NEW_UPDATE);
+    }
+
+    public function prevLink()
+    {
+        $model = self::model()->find(array(
+            'select' => array('title', 'photo_id'),
+            'condition' => 't.id < :current_id AND category_id = :category_id',
+            'params' => array(':current_id' => $this->id, ':category_id' => $this->category_id),
+            'order' => 't.id DESC',
+        ));
+        if ($model === null)
+            return '';
+
+        return '<span>Предыдущее фото</span>' . CHtml::link($model->title, Yii::app()->createUrl('albums/singlePhoto', array('photo_id' => $model->photo_id)));
+    }
+
+    public function nextLink()
+    {
+        $model = $this->find(array(
+            'select' => array('title', 'photo_id'),
+            'condition' => 't.id > :current_id AND category_id = :category_id',
+            'params' => array(':current_id' => $this->id, ':category_id' => $this->category_id),
+            'order' => 't.id DESC',
+        ));
+        if ($model === null)
+            return '';
+
+        return '<span>Следующее фото</span>' . CHtml::link($model->title, Yii::app()->createUrl('albums/singlePhoto', array('photo_id' => $model->photo_id)));
     }
 }

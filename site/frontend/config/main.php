@@ -27,6 +27,7 @@ return array(
 		'application.components.*',
 		'application.helpers.*',
         'application.widgets.*',
+        'application.vendor.*',
 		'ext.eoauth.*',
 		'ext.eoauth.lib.*',
 		'ext.lightopenid.*',
@@ -54,6 +55,9 @@ return array(
         'application.modules.whatsNew.models.*',
         'application.modules.whatsNew.components.*',
         'application.modules.whatsNew.widgets.whatsNewWidget.WhatsNewWidget',
+        'application.modules.messaging.components.*',
+        'application.modules.messaging.models.*',
+        'application.modules.friends.models.*',
     ),
 
 	'sourceLanguage' => 'en',
@@ -97,7 +101,9 @@ return array(
         'calendar',
         'whatsNew',
         'valentinesDay',
-        'route'
+        'routes',
+        'messaging',
+        'friends',
 	),
 
 	// application components
@@ -392,6 +398,9 @@ return array(
         'controllerMap' => array(
             'sitemap' => array(
                 'class' => 'ext.sitemapgenerator.SGController',
+                'import'=>array(
+                    'routes.models.Route'
+                ),
                 'config' => array(
                     'sitemap.xml' => array(
                         'index' => true,
@@ -414,6 +423,35 @@ return array(
                             'application.modules.cook.controllers.RecipeController',
                         ),
                     ),
+                    'sitemapDecor.xml' => array(
+                        'aliases' => array(
+                            'application.modules.cook.controllers.DecorController',
+                        ),
+                    ),
+                    'sitemapRoutes1.xml' => array(
+                        'aliases' => array(
+                            'application.modules.routes.controllers.DefaultController',
+                        ),
+                        'param'=>1
+                    ),
+//                    'sitemapRoutes2.xml' => array(
+//                        'aliases' => array(
+//                            'application.modules.routes.controllers.DefaultController',
+//                        ),
+//                        'param'=>2
+//                    ),
+//                    'sitemapRoutes3.xml' => array(
+//                        'aliases' => array(
+//                            'application.modules.routes.controllers.DefaultController',
+//                        ),
+//                        'param'=>3
+//                    ),
+//                    'sitemapRoutes4.xml' => array(
+//                        'aliases' => array(
+//                            'application.modules.routes.controllers.DefaultController',
+//                        ),
+//                        'param'=>4
+//                    ),
                     'sitemapAll.xml' => array(
                         'aliases' => array(
                             'application.controllers.SiteController',

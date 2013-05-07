@@ -10,12 +10,6 @@
  * @property string $url
  * @property string $keyword_group_id
  * @property int $number
- * @property int $yandex_pos
- * @property int $google_pos
- * @property int $yandex_week_visits
- * @property int $yandex_month_visits
- * @property int $google_week_visits
- * @property int $google_month_visits
  *
  * The followings are the available model relations:
  * @property KeywordGroup $keywordGroup
@@ -203,70 +197,66 @@ class Page extends CActiveRecord
         if (!is_array($keywords))
             $keywords = array($keywords);
 
-        $transaction = Yii::app()->db_seo->beginTransaction();
-        try {
-            $model = Page::model()->findByAttributes(array('url' => $url));
-            if ($model === null) {
-                $keyword_group = new KeywordGroup();
-                if (!empty($keywords)){
-                    $keyword_group->keywords = Keyword::model()->findAllByPk($keywords);
-                    $keyword_group->withRelated->save(true,array('keywords'));
-                }
-                else
-                    $keyword_group->save();
+        $model = Page::model()->findByAttributes(array('url' => $url));
+        if ($model === null) {
+            $keyword_group = new KeywordGroup();
+            if (!empty($keywords)) {
+                $keyword_group->keywords = Keyword::model()->findAllByPk($keywords);
+                $keyword_group->withRelated->save(true, array('keywords'));
+            } else
+                $keyword_group->save();
 
-                $model = new Page();
-                $model->url = $url;
+            $model = new Page();
+            $model->url = $url;
 
-                list($entity, $entity_id) = Page::ParseUrl($url);
+            list($entity, $entity_id) = Page::ParseUrl($url);
 
-                if (empty($entity_id)){
-                    $transaction->commit();
-                    return false;
-                }
+            if (empty($entity_id))
+                return false;
 
-
-                if ($entity != null && $entity_id != null) {
-                    $article = CActiveRecord::model($entity)->findByPk($entity_id);
-                    if ($article !== null) {
-                        $exist = Page::model()->findByAttributes(array(
-                            'entity' => $entity,
-                            'entity_id' => $entity_id,
-                        ));
-                        if ($exist !== null) {
-                            $model = $exist;
-                            if ($add_keywords && !empty($keywords)){
-                                #TODO надо добавлять кейворды а не заменять на новые
-                                $model->keywordGroup->keywords = Keyword::model()->findAllByPk($keywords);
-                                $model->keywordGroup->withRelated->save(true,array('keywords'));
-                            }
-                        } else {
-                            $model->entity = $entity;
-                            $model->entity_id = $entity_id;
-                            $model->keyword_group_id = $keyword_group->id;
-                            $model->save();
+            if ($entity != null && $entity_id != null) {
+                $article = CActiveRecord::model($entity)->findByPk($entity_id);
+                if ($article !== null) {
+                    $exist = Page::model()->findByAttributes(array(
+                        'entity' => $entity,
+                        'entity_id' => $entity_id,
+                    ));
+                    if ($exist !== null) {
+                        $model = $exist;
+                        if ($add_keywords && !empty($keywords)) {
+                            #TODO надо добавлять кейворды а не заменять на новые
+                            $model->keywordGroup->keywords = Keyword::model()->findAllByPk($keywords);
+                            $model->keywordGroup->withRelated->save(true, array('keywords'));
                         }
                     } else {
-                        $model = null;
+                        $model->entity = $entity;
+                        $model->entity_id = $entity_id;
+                        $model->keyword_group_id = $keyword_group->id;
+                        $model->save();
                     }
                 } else {
-                    $model->keyword_group_id = $keyword_group->id;
-                    $model->save();
+                    $model = null;
                 }
             } else {
-                if ($add_keywords && !empty($keywords)){
-                    #TODO надо добавлять кейворды а не заменять на новые
-                    $model->keywordGroup->keywords = Keyword::model()->findAllByPk($keywords);
-                    $model->keywordGroup->withRelated->save(true,array('keywords'));
-                }
+                $model->keyword_group_id = $keyword_group->id;
+                $model->save();
             }
+        } else {
+            if ($add_keywords && !empty($keywords)) {
+                #TODO надо добавлять кейворды а не заменять на новые
+                $model->keywordGroup->keywords = Keyword::model()->findAllByPk($keywords);
+                $model->keywordGroup->withRelated->save(true, array('keywords'));
 
-            $transaction->commit();
-        } catch (Exception $e) {
-            $transaction->rollback();
-            Yii::app()->end();
+            }
         }
+        return $model;
+    }
 
+    public static function getPage($url)
+    {
+        $model = Page::model()->findByAttributes(array('url' => $url));
+        if ($model === null)
+            return self::getOrCreate($url);
         return $model;
     }
 
@@ -303,24 +293,8 @@ class Page extends CActiveRecord
         if ($model->getIsFromBlog()) {
             return 'http://www.happy-giraffe.ru/user/';
         } elseif (isset($model->rubric->community_id))
-            return 'http://www.happy-giraffe.ru/community/' . $model->rubric->community_id;
-        else
+            return 'http://www.happy-giraffe.ru/community/' . $model->rubric->community_id; else
             return 'http://www.happy-giraffe.ru/community/';
-    }
-
-    public function getVisits($se, $period)
-    {
-        if ($se == 2) {
-            if ($period == 1)
-                return $this->yandex_week_visits;
-            return $this->yandex_month_visits;
-        } elseif ($se == 3) {
-            if ($period == 1)
-                return $this->google_week_visits;
-            return $this->google_month_visits;
-        }
-
-        return 0;
     }
 
     public static function ParseUrl($url)
@@ -350,6 +324,12 @@ class Page extends CActiveRecord
                         if (isset($match[1])) {
                             $entity_id = $match[1];
                             $entity = 'CookRecipe';
+                        } else {
+                            preg_match("/http:\/\/www.happy-giraffe.ru\/news\/post([\d]+)\/$/", $url, $match);
+                            if (isset($match[1])) {
+                                $entity_id = $match[1];
+                                $entity = 'CommunityContent';
+                            }
                         }
                     }
                 }
@@ -369,12 +349,14 @@ class Page extends CActiveRecord
         if (strpos($this->url, 'http://www.happy-giraffe.ru/cook/multivarka/') === 0)
             return true;
         if (strpos($this->url, 'http://www.happy-giraffe.ru/community/') === 0
-            && strpos($this->url, '/forum/') !== false)
+            && strpos($this->url, '/forum/') !== false
+        )
             return true;
         if (strpos($this->url, 'http://www.happy-giraffe.ru/recipeBook/recipe') === 0)
             return true;
         if (strpos($this->url, 'http://www.happy-giraffe.ru/user/') === 0
-            && strpos($this->url, '/blog/post') !== false)
+            && strpos($this->url, '/blog/post') !== false
+        )
             return true;
 
         return false;
@@ -391,6 +373,8 @@ class Page extends CActiveRecord
         $r = Page::ParseUrl('http://www.happy-giraffe.ru/community/31/forum/post/33879/');
         print_r($r);
         $r = Page::ParseUrl('http://www.happy-giraffe.ru/user/10/blog/post27381/');
+        print_r($r);
+        $r = Page::ParseUrl('http://www.happy-giraffe.ru/news/post53218/');
         print_r($r);
     }
 }

@@ -21,6 +21,7 @@
  * The followings are the available model relations:
  *
  * @property User $contentAuthor
+ * @property User $author
  * @property CommunityRubric $rubric
  * @property CommunityContentType $type
  * @property CommunityPost $post
@@ -42,6 +43,8 @@ class CommunityContent extends HActiveRecord
     const TYPE_STATUS = 5;
 
     const USERS_COMMUNITY = 999999;
+    //для модуля комментаторов
+    public $visits = 0;
 
     /**
      * Returns the static model of the specified AR class.
@@ -242,45 +245,11 @@ class CommunityContent extends HActiveRecord
         return $this;
     }
 
-    /*public function scopes()
-     {
-         return array(
-             'view' => array(
-                 'with' => array(
-                     'rubric' => array(
-                         'with' => array(
-                             'community' => array(
-                                 'with' => array(
-                                     'rubrics',
-                                 ),
-                             ),
-                         ),
-                     ),
-                     'post',
-                     'video',
-                     'commentsCount',
-                     'contentAuthor',
-                     'travel' => array(
-                         'with' => array(
-                             'waypoints' => array(
-                                 'with' => array(
-                                     'city',
-                                     'country',
-                                 ),
-                             ),
-                         )
-                     ),
-                 ),
-             ),
-             'active'=>array(
-                 'condition'=>'removed=0'
-             )
-         );
-     }*/
-
     public function beforeDelete()
     {
+        FriendEvent::postDeleted(($this->isFromBlog ? 'BlogContent' : 'CommunityContent'), $this->id);
         self::model()->updateByPk($this->id, array('removed' => 1));
+
 
         if ($this->isFromBlog && count($this->contentAuthor->blogPosts) == 0) {
             UserScores::removeScores($this->author_id, ScoreAction::ACTION_FIRST_BLOG_RECORD, 1, $this);
@@ -367,21 +336,6 @@ class CommunityContent extends HActiveRecord
                 } elseif ($this->rubric->community_id != Community::COMMUNITY_NEWS) {
                     UserAction::model()->add($this->author_id, UserAction::USER_ACTION_COMMUNITY_CONTENT_ADDED, array('model' => $this));
                 }
-            }
-
-            //send signals to commentator panel
-            if (Yii::app()->user->checkAccess('commentator_panel')) {
-                Yii::import('site.frontend.modules.signal.models.*');
-                CommentatorWork::getCurrentUser()->refreshCurrentDayPosts();
-                $comet = new CometModel;
-                if ($this->isFromBlog)
-                    $comet->send(Yii::app()->user->id, array(
-                        'update_part' => CometModel::UPDATE_BLOG,
-                    ), CometModel::TYPE_COMMENTATOR_UPDATE);
-                else
-                    $comet->send(Yii::app()->user->id, array(
-                        'update_part' => CometModel::UPDATE_CLUB,
-                    ), CometModel::TYPE_COMMENTATOR_UPDATE);
             }
 
             if ($this->type_id == 5)
@@ -484,6 +438,7 @@ class CommunityContent extends HActiveRecord
             'order' => 't.created DESC'
         ));
 
+        $criteria->condition = 'type_id != 3';
         $criteria->compare('community_id', $community_id);
 
         if ($rubric_id !== null) {
@@ -684,7 +639,7 @@ class CommunityContent extends HActiveRecord
     public function getUnknownClassCommentsCount()
     {
         if ($this->getIsFromBlog()) {
-            $model = BlogContent::model()->findByPk($this->id);
+            $model = BlogContent::model()->resetScope()->findByPk($this->id);
             return ($model) ? $model->commentsCount : 0;
         }
         return $this->commentsCount;
@@ -693,7 +648,7 @@ class CommunityContent extends HActiveRecord
     public function getUnknownClassComments()
     {
         if ($this->getIsFromBlog()) {
-            $model = BlogContent::model()->findByPk($this->id);
+            $model = BlogContent::model()->resetScope()->findByPk($this->id);
             return $model->comments;
         }
         return $this->comments;

@@ -52,6 +52,11 @@ class HEmailSender extends CApplicationComponent
         ElasticEmail::addContact($email, $first_name, $last_name, $list);
     }
 
+    public function sendEmail($to, $subject, $body_html, $from, $fromName)
+    {
+        ElasticEmail::send($to, $subject, $body_html, $from, $fromName);
+    }
+
     /**
      * Update users list
      */
@@ -82,43 +87,8 @@ class HEmailSender extends CApplicationComponent
         }
     }
 
-    public static function updateMailruUsers()
+    public function deleteRegisteredFromContestList()
     {
-        $emails = Yii::app()->db->createCommand()
-                    ->select('email')
-                    ->from('users')
-                    ->queryColumn();
-
-        Yii::import('site.seo.models.mongo.*');
-        $last_id = 0;
-        echo 'last_id: ' . $last_id . "\n";
-
-        $criteria = new CDbCriteria;
-        //$criteria->limit = 30000;
-        $criteria->condition = 'id > ' . $last_id . ' AND status = 1';
-        $criteria->offset = 0;
-
-        $models = array(0);
-
-        $i = 0;
-//        while (!empty($models)) {
-            $models = MailruUser::model()->findAll($criteria);
-
-            $fp = fopen('file_'.$i.'.csv', 'w');
-            fputcsv($fp, array('Email Address', 'First Name', 'Last Name'));
-
-            foreach ($models as $model) {
-                if (!in_array($model->email, $emails)) {
-                    fputcsv($fp, array($model->email, $model->name, ' '));
-//                    Yii::app()->email->addContact($model->email, $model->name, '', HEmailSender::LIST_MAILRU_USERS);
-                }
-//                SeoUserAttributes::setAttribute('import_email_contest_last_user_id', $model->id, 1);
-            }
-            fclose($fp);
-
-//            $i++;
-//            $criteria->offset += 30000;
-//        }
-
+        ElasticEmail::deleteRegisteredFromContestList();
     }
 }

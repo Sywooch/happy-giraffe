@@ -6,6 +6,7 @@ class MListView extends CListView
     public $baseScriptUrl = null;
     public $cssFile = false;
     public $summaryText = '';
+    public $emptyText = '';
 
     public function run()
     {

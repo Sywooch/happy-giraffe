@@ -60,7 +60,7 @@ class RecipeController extends MController
                 'order' => 't.id DESC',
                 'condition' => 't.id < :current_id AND type = :type AND section = :section',
                 'params' => array(':current_id' => $recipe->id, ':type' => $recipe->type, ':section' => $recipe->section),
-                'limit' => 3,
+                'limit' => 5,
             )
         );
 
@@ -75,5 +75,13 @@ class RecipeController extends MController
 
         $this->pageTitle = $model->title . ' - Кулинарные рецепты от Веселого Жирафа';
         $this->render('index', compact('dp', 'model'));
+    }
+
+    public function loadTag($id)
+    {
+        $model = CookRecipeTag::model()->findByPk($id);
+        if ($model === null)
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+        return $model;
     }
 }

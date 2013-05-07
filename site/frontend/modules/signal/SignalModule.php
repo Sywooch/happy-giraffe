@@ -11,6 +11,7 @@ class SignalModule extends CWebModule
 		$this->setImport(array(
 			'signal.models.*',
 			'signal.components.*',
+			'signal.helpers.*',
 		));
 	}
 

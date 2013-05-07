@@ -7,3 +7,6 @@
 [submodule "site/mobile/www"]
 	path = site/mobile/www
 	url = git@github.com:beknown/happy-giraffe-www-mobile.git
+[submodule "site/frontend/vendor/mobiledetect"]
+	path = site/frontend/vendor/mobiledetect
+	url = git@github.com:serbanghita/Mobile-Detect.git

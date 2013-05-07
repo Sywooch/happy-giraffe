@@ -19,7 +19,7 @@
         <?php if ($recipe->servings): ?>
         <div class="recipe-description-item">
             <div class="icon-yield tooltip" title="Количество порций"></div>
-            на <?=$recipe->servings?> <?=HDate::GenerateNoun(array('персона', 'персоны', 'персон'), $recipe->servings)?>
+            на <span class="yield"><?=$recipe->servings?></span> <?=HDate::GenerateNoun(array('персона', 'персоны', 'персон'), $recipe->servings)?>
         </div>
         <?php endif; ?>
     </div>

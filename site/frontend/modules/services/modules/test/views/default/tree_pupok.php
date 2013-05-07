@@ -2,7 +2,7 @@
 
 <div class="step splash">
 
-    <img src="/images/bg_test_navel.jpg"/>
+    <img src="/images/test/4/bg_test_navel.jpg"/>
 
     <div class="step-in">
         <div class="title">

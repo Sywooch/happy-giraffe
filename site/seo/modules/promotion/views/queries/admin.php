@@ -83,7 +83,7 @@
 
                 <?php foreach ($goodPhrases as $phrase): ?>
                     <td><?=$phrase->keyword->name ?></td>
-                    <td><?=$phrase->keyword->getFrequency() ?></td>
+                    <td><?=$phrase->keyword->wordstat ?></td>
                     <td style="width: 60px;"><?=PromotionHelper::model()->getPositionView($phrase->id, 2) ?></td>
                     <td><?=$visits1 = $phrase->getVisits(2, $period) ?></td>
                     <td style="width: 60px;"><?=PromotionHelper::model()->getPositionView($phrase->id, 3) ?></td>

@@ -8,7 +8,7 @@
 <div class="content-cols">
     <div class="col-1">
         <h2 class="col-1_t">Мои друзья
-            <div class="col-1_sub-t"><a href="<?=$this->createUrl('/friends/default/search')?>" class="">Найти друзей</a></div>
+            <div class="col-1_sub-t"><a href="<?=$this->createUrl('/friends/search/index')?>" class="">Найти друзей</a></div>
         </h2>
 
         <div class="col-1_search clearfix">
@@ -60,7 +60,7 @@
 
         <div class="friends-list">
             <div class="friends-list_i">
-                <a href="<?=$this->createUrl('/friends/default/search')?>" class="friends-list_find"></a>
+                <a href="<?=$this->createUrl('/friends/search/index')?>" class="friends-list_find"></a>
             </div>
             <!-- ko if: $root.activeTab() != 2 -->
                 <!-- ko foreach: friendsToShow -->

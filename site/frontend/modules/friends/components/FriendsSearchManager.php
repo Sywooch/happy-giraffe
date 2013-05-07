@@ -45,9 +45,13 @@ class FriendsSearchManager
         if (isset($params['regionId']))
             $criteria->compare('address.region_id', $params['regionId']);
 
-        if  ($params['ageMin'] !== 0 && $params['ageMax'] !== 100) {
-            $criteria->having = 'age >= :ageMin AND age <= :ageMax';
+        if  (isset($params['ageMin'])) {
+            $criteria->having = 'age >= :ageMin';
             $criteria->params[':ageMin'] = $params['ageMin'];
+        }
+
+        if  (isset($params['ageMin'])) {
+            $criteria->having .= (empty($criteria->having)) ? 'age <= :ageMax' : ' AND age <= :ageMax';
             $criteria->params[':ageMax'] = $params['ageMax'];
         }
 

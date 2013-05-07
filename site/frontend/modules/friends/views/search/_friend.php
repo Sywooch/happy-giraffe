@@ -2,20 +2,22 @@
     <a href="" class="ava large">
         <?=CHtml::image($data->getAva('large'))?>
     </a>
-    <span class="friends-list_online">На сайте</span>
-    <a href="" class="friends-list_bubble friends-list_bubble__dialog powertip" title="Начать диалог">
+    <?php if ($data->online): ?>
+        <span class="friends-list_online">На сайте</span>
+    <?php endif; ?>
+    <a href="<?=$data->dialogUrl?>" class="friends-list_bubble friends-list_bubble__dialog powertip" title="Начать диалог">
         <span class="friends-list_ico friends-list_ico__mail"></span>
-        <span class="friends-list_bubble-tx">+5</span>
+        <!--<span class="friends-list_bubble-tx">+5</span>-->
     </a>
-    <a href="" class="friends-list_bubble friends-list_bubble__photo powertip" title="Фотографии">
+    <a href="<?=$data->photosUrl?>" class="friends-list_bubble friends-list_bubble__photo powertip" title="Фотографии">
         <span class="friends-list_ico friends-list_ico__photo"></span>
-        <span class="friends-list_bubble-tx">+50</span>
+        <!--<span class="friends-list_bubble-tx">+50</span>-->
     </a>
-    <a href="" class="friends-list_bubble friends-list_bubble__blog powertip" title="Записи в блоге">
+    <a href="<?=$data->blogUrl?>" class="friends-list_bubble friends-list_bubble__blog powertip" title="Записи в блоге">
         <span class="friends-list_ico friends-list_ico__blog"></span>
-        <span class="friends-list_bubble-tx">+999</span>
+        <!--<span class="friends-list_bubble-tx">+999</span>-->
     </a>
-    <a href="" class="friends-list_bubble friends-list_bubble__friend-add powertip" title="Добавить в друзья">
+    <a href="javascript:void(0)" onclick="inviteFriend(this, <?=$data->id?>, function(el) {$(el).addClass('friends-list_bubble__friend-added'); $(el).find('span').addClass('friends-list_ico__friend-added');})" class="friends-list_bubble friends-list_bubble__friend-add powertip" title="Добавить в друзья">
         <span class="friends-list_ico friends-list_ico__friend-add"></span>
     </a>
 </div>

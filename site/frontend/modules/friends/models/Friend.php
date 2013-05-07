@@ -114,6 +114,20 @@ class Friend extends CActiveRecord
         return $this->countByAttributes(array('user_id' => $userId), $criteria);
     }
 
+    public function areFriends($user1Id, $user2Id)
+    {
+        return
+            Friend::model()->exists('user_id = :user1Id AND friend_id = :user2Id', array(
+                ':user1Id' => $user1Id,
+                ':user2Id' => $user2Id,
+            ))
+        &&
+            Friend::model()->exists('user_id = :user2Id AND friend_id = :user1Id', array(
+                ':user1Id' => $user1Id,
+                ':user2Id' => $user2Id,
+            ));
+    }
+
     public function makeFriendship($user1Id, $user2Id)
     {
         $f1 = new Friend();

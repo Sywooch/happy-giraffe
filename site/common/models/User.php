@@ -581,13 +581,13 @@ class User extends HActiveRecord
         return $url;
     }
 
-    public function getDialogUrl()
-    {
-        if (Yii::app()->user->isGuest || $this->id == Yii::app()->user->id)
-            return '#';
-
-        return Yii::app()->createUrl('/im/default/create', array('id' => $this->id));
-    }
+//    public function getDialogUrl()
+//    {
+//        if (Yii::app()->user->isGuest || $this->id == Yii::app()->user->id)
+//            return '#';
+//
+//        return Yii::app()->createUrl('/im/default/create', array('id' => $this->id));
+//    }
 
     public function getAssigns()
     {
@@ -700,7 +700,8 @@ class User extends HActiveRecord
     public function getFriendSelectCriteria()
     {
         return new CDbCriteria(array(
-            'join' => 'JOIN ' . Friend::model()->tableName() . ' ON (t.id = friends.user1_id AND friends.user2_id = :user_id) OR (t.id = friends.user2_id AND friends.user1_id = :user_id)',
+            'join' => 'JOIN friends f ON f.user_id = :user_id AND f.friend_id = t.id',
+            'condition' => 'f.id IS NOT NULL',
             'params' => array(':user_id' => $this->id),
         ));
     }
@@ -894,6 +895,11 @@ class User extends HActiveRecord
     public function getPhotosUrl()
     {
         return Yii::app()->createUrl('/albums/user', array('id' => $this->id));
+    }
+
+    public function getDialogUrl()
+    {
+        return Yii::app()->createUrl('/messaging/default/index', array('interlocutorId' => $this->id));
     }
 
     public function addCommunity($community_id)

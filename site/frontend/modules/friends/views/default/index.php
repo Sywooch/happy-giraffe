@@ -1,7 +1,7 @@
 <?php
     Yii::app()->clientScript
         ->registerScriptFile('/javascripts/knockout-2.2.1.js')
-        ->registerScriptFile('/javascripts/ko_friends.js')
+        ->registerScriptFile('/javascripts/ko_friends.js?t=' . time())
     ;
 ?>
 

@@ -89,7 +89,7 @@ class WordstatCommand extends CConsoleCommand
 
     public function actionDeleteNulls()
     {
-        $last_id = 290000000;
+        $last_id = 310000000;
         while(true){
             $condition = 'wordstat = 0 AND id > '.$last_id;
             $ids = Yii::app()->db_keywords->createCommand()

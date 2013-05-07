@@ -46,6 +46,12 @@ $form=$this->beginWidget('CActiveForm', array(
          <?php echo $form->error($model,'role'); ?>
      </div>
 
+     <div class="row">
+         <?php echo $form->labelEx($model,'active'); ?>
+         <?php echo $form->checkbox($model,'active'); ?>
+         <?php echo $form->error($model,'active'); ?>
+     </div>
+
      <div style="position:absolute;top:400px;right:200px;">
          <a href="javascript:;" onclick="ChangeUserPassword(this, <?=$model->id ?>);">Change password</a>
 

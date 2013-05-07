@@ -8,8 +8,6 @@
  */
 class CommunityCommand extends CConsoleCommand
 {
-    public $proxy;
-
     public function actionUpdateViews()
     {
         Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
@@ -343,7 +341,6 @@ class CommunityCommand extends CConsoleCommand
 
     public function actionRemoveDeletedVideo($thread)
     {
-        $this->getProxy();
         $i = 0;
         $raws = 1;
         while (!empty($raws)) {
@@ -374,7 +371,7 @@ class CommunityCommand extends CConsoleCommand
             curl_setopt($ch, CURLOPT_REFERER, $ref);
 
             curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
-            curl_setopt($ch, CURLOPT_PROXY, $this->proxy->value);
+            curl_setopt($ch, CURLOPT_PROXY, $this->proxy->value);#TODO fix it
             curl_setopt($ch, CURLOPT_PROXYUSERPWD, "alexk984:Nokia1111");
             curl_setopt($ch, CURLOPT_PROXYAUTH, 1);
             curl_setopt($ch, CURLOPT_HEADER, 1);
@@ -396,29 +393,6 @@ class CommunityCommand extends CConsoleCommand
         }
 
         return false;
-    }
-
-    private function getProxy()
-    {
-        Yii::import('site.seo.models.*');
-        $criteria = new CDbCriteria;
-        $criteria->compare('active', 0);
-        $criteria->order = 'rand()';
-
-        $transaction = Yii::app()->db_seo->beginTransaction();
-        try {
-            $this->proxy = Proxy::model()->find($criteria);
-            if ($this->proxy === null) {
-                Yii::app()->end();
-            }
-
-            $this->proxy->active = 1;
-            $this->proxy->save();
-            $transaction->commit();
-        } catch (Exception $e) {
-            $transaction->rollback();
-            Yii::app()->end();
-        }
     }
 
     public function actionFixRedirectUrls()

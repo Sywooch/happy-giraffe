@@ -8,6 +8,7 @@ Yii::import('site.seo.models.*');
 Yii::import('site.seo.models.mongo.*');
 Yii::import('site.common.models.mongo.*');
 Yii::import('site.seo.components.*');
+Yii::import('site.seo.components.wordstat.*');
 Yii::import('site.seo.modules.competitors.models.*');
 Yii::import('site.seo.modules.writing.models.*');
 Yii::import('site.seo.modules.promotion.models.*');
@@ -17,17 +18,37 @@ Yii::import('site.frontend.helpers.*');
 
 class SeoParsingCommand extends CConsoleCommand
 {
+    private $prev_month;
+    private $prev_year;
+
     public function beforeAction($action)
     {
         Yii::import('site.seo.modules.competitors.components.*');
+        $last_month = strtotime('last day of -1 month');
+        $this->prev_month = date("m", $last_month);
+        $this->prev_year = date("Y", $last_month);
 
         return true;
     }
 
-    public function actionWordstat($mode = 0)
-    {
-        $parser = new WordstatParser();
-        $parser->start($mode);
+    public function actionAdd(){
+        $last_num = SeoUserAttributes::getAttribute('keyword_num', 1);
+        echo $last_num."\n";
+
+        $handle = fopen("/home/giraffe/uniq_590m_ru.txt", "r");
+        $i = 0;
+        while (!feof($handle)) {
+            $i++;
+            $keyword = fgets($handle);
+            if ($i < $last_num)
+                continue;
+
+            Keyword::GetKeyword($keyword, 1);
+
+            if ($i % 10000 == 0)
+                SeoUserAttributes::setAttribute('keyword_num', $i, 1);
+        }
+        fclose($handle);
     }
 
     public function actionWordstatSeason($mode = 0)
@@ -37,16 +58,6 @@ class SeoParsingCommand extends CConsoleCommand
         $parser->start($mode);
     }
 
-    public function actionWordstatSeasonTest()
-    {
-        $parser = new WordstatSeasonParser();
-        $parser->debug = 1;
-        $parser->keyword = YandexPopularity::model()->findByPk(2);
-        $html = '';
-
-        $parser->parseData($html);
-    }
-
     public function actionLi($site)
     {
         $last_parsed = SeoUserAttributes::getAttribute('last_li_parsed_'.date("Y-m") , 1);
@@ -54,18 +65,18 @@ class SeoParsingCommand extends CConsoleCommand
             $parser = new LiParser;
 
             if (!empty($last_parsed))
-                $sites = Site::model()->findAll('id > '.$last_parsed.' AND type = 1');
+                $sites = Site::model()->findAll('id > '.$last_parsed.' AND type = 1 AND url != ""');
             else
-                $sites = Site::model()->findAll('type = 1');
+                $sites = Site::model()->findAll('type = 1 AND url != ""');
 
             foreach ($sites as $site) {
-                $parser->start($site->id, 2013, 1, 1);
-
+                echo $site->id."\n";
+                $parser->start($site->id, $this->prev_year, $this->prev_month, $this->prev_month);
                 SeoUserAttributes::setAttribute('last_li_parsed_'.date("Y-m") , $site->id, 1);
             }
         } else {
-            $parser = new LiParser(true, true);
-            $parser->start($site, 2013, 1, 1);
+            $parser = new LiParser();
+            $parser->start($site, $this->prev_year, $this->prev_month, $this->prev_month);
         }
     }
 
@@ -81,12 +92,12 @@ class SeoParsingCommand extends CConsoleCommand
                 $sites = Site::model()->findAll('type=2');
 
             foreach ($sites as $site) {
-                $parser->start($site->id, 2013, 1, 1);
+                $parser->start($site->id, $this->prev_year, $this->prev_month, $this->prev_month);
                 SeoUserAttributes::setAttribute('last_mailru_parsed_'.date("Y-m") , $site->id, 1);
             }
         } else {
             $parser = new MailruParser(false, true);
-            $parser->start($site, 2013, 1, 1);
+            $parser->start($site, $this->prev_year, $this->prev_month, $this->prev_month);
         }
     }
 
@@ -132,21 +143,6 @@ class SeoParsingCommand extends CConsoleCommand
         $parser = new LiPassword(true, $debug);
         $parser->rus_proxy = false;
         $parser->start();
-    }
-
-    public function actionMailruSites(){
-        $parser = new MailruSitesParser();
-        $parser->start();
-    }
-
-    public function actionMailruKeywords($debug = false){
-        $parser = new MailruKeywordsParser(true, $debug);
-        $parser->start();
-    }
-
-    public function actionMailruDayKeywords($debug = false){
-        $parser = new MailruKeywordsParser(true, $debug);
-        $parser->start('0');
     }
 }
 

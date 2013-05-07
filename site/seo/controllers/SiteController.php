@@ -6,7 +6,7 @@ class SiteController extends SController
     {
         return array(
             array('allow',
-                'actions' => array('index', 'logout', 'modules', 'removeUser', 'test', 'sql', 'lastKeywords'),
+                'actions' => array('index', 'logout', 'modules', 'removeUser', 'test', 'sql', 'lastKeywords', 'keyword'),
                 'users' => array('@'),
             ),
             array('allow',
@@ -169,20 +169,22 @@ class SiteController extends SController
     {
         $criteria = new CDbCriteria;
         $criteria->order = 'id desc';
-        $criteria->limit = 100;
+        $criteria->limit = 1000;
 
         $models = Keyword::model()->findAll($criteria);
 
         $this->render('last_keywords', compact('models'));
     }
 
-    public function actionTest(){
-        Yii::import('site.frontend.modules.geo.models.*');
-        Yii::import('site.frontend.modules.services.modules.route.models.*');
-        Yii::import('site.seo.components.*');
-        Yii::import('site.seo.models.*');
+    public function actionKeyword($id)
+    {
+        $model = Keyword::model()->findByPk($id);
 
-        $parser = new RouteChecker();
-        $this->render('test', compact('parser'));
+        $this->render('keyword', compact('model'));
+    }
+
+    public function actionTest()
+    {
+        $this->render('test');
     }
 }

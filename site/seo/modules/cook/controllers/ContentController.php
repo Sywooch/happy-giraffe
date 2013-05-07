@@ -83,10 +83,10 @@ class ContentController extends SController
             $page = new Page();
         }
 
-        if ($entity == 'CookRecipe' && $recipe->section != $task->multivarka) {
+        if ($entity == 'CookRecipe' && $recipe->section != $task->sub_section) {
             echo CJSON::encode(array(
                 'status' => false,
-                'error' => 'Вы разместили рецепт не в тот раздел. ' . ($task->multivarka ? ' Нужен раздел мультиварка' : ' Нужен обычный раздел а не мультиварка')
+                'error' => 'Вы разместили рецепт не в тот раздел. ' . ($task->sub_section == 1 ? ' Нужен раздел мультиварка' : ' Нужен обычный раздел а не мультиварка')
             ));
             Yii::app()->end();
         }

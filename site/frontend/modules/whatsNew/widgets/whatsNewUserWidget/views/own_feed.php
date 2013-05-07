@@ -1,3 +1,4 @@
+<?php $this->controller->beginWidget('SeoContentWidget'); ?>
 <div class="broadcast-widget">
     <div class="broadcast-title-box">
         <ul class="broadcast-widget-menu-r">
@@ -19,6 +20,7 @@
 
     <?php
         $this->widget('zii.widgets.CListView', array(
+            'cssFile'=>false,
             'id' => 'whatsNewUserWidgetList',
             'dataProvider' => $dp,
             'itemView' => 'application.modules.whatsNew.views.friends._brick',
@@ -48,3 +50,4 @@
     ?>
 
 </div>
+<?php $this->controller->endWidget(); ?>

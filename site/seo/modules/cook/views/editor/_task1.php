@@ -4,7 +4,7 @@
     <td width="300">
         <?php $this->renderPartial('_urls', array('urls' => array())); ?>
     </td>
-    <td><input type="checkbox" name="multivarka"/></td>
+    <td><input type="checkbox" name="sub_section"/></td>
     <td>
         <?php $this->renderPartial('_author', compact('authors')); ?>
         <a href="javascript:;" class="icon-remove" style="margin-top:15px;margin-left:20px;" onclick="TaskDistribution.removeFromSelected(this)"></a>
@@ -18,7 +18,7 @@
     <td width="300">
         <?php $this->renderPartial('_urls', array('urls' => $by_name_task->urls, 'authors'=>$authors)); ?>
     </td>
-    <td><input type="checkbox" name="multivarka"/></td>
+    <td><input type="checkbox" name="sub_section"/></td>
     <td>
         <?php $this->renderPartial('_author', compact('authors')); ?>
         <a href="javascript:;" class="icon-remove" style="margin-top:15px;margin-left:20px;" onclick="TaskDistribution.removeTask(this);$('.default-nav div.count a').text(parseInt($('.default-nav div.count a').text()) - 1);"></a>

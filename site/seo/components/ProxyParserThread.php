@@ -6,7 +6,7 @@
 class ProxyParserThread
 {
     /**
-     * @var Proxy
+     * @var array
      */
     protected $proxy;
     /**
@@ -31,30 +31,17 @@ class ProxyParserThread
 
     function __construct()
     {
-        time_nanosleep(rand(0, 5), rand(0, 1000000000));
+        time_nanosleep(rand(0, 30), rand(0, 1000000000));
         Yii::import('site.frontend.extensions.phpQuery.phpQuery');
-        $this->thread_id = substr(sha1(microtime()), 0, 10);
+        $this->thread_id = rand(1, 1000000);
         $this->getProxy();
     }
 
-    private function getProxy()
+    protected function getProxy()
     {
-        $criteria = new CDbCriteria;
-        $criteria->compare('active', 0);
-        $criteria->order = 'rank desc';
-        $criteria->offset = rand(0, 10);
-
         //$this->startTimer('find proxy');
-
-        $this->proxy = Proxy::model()->find($criteria);
-        if ($this->proxy === null)
-            $this->closeThread('No proxy');
-
-        $this->proxy->active = 1;
-        $this->proxy->save();
-
+        $this->proxy = ProxyMongo::model()->getProxy();
         //$this->endTimer();
-        //$this->log('proxy: ' . $this->proxy->value);
     }
 
     protected function query($url, $ref = null, $post = false, $attempt = 0)
@@ -72,7 +59,7 @@ class ProxyParserThread
 
             if ($this->use_proxy) {
                 curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
-                curl_setopt($ch, CURLOPT_PROXY, $this->proxy->value);
+                curl_setopt($ch, CURLOPT_PROXY, $this->proxy['value']);
                 if (Yii::app()->params['use_proxy_auth']) {
                     curl_setopt($ch, CURLOPT_PROXYUSERPWD, "alexhg:Nokia1111");
                     curl_setopt($ch, CURLOPT_PROXYAUTH, 1);
@@ -93,27 +80,21 @@ class ProxyParserThread
             $content = curl_exec($ch);
 
             if ($content === false) {
-                if (curl_errno($ch)) {
-                    //$this->log('Error while curl: ' . curl_error($ch));
-                    curl_close($ch);
-
-                    $attempt += 1;
-                    if ($attempt > 1) {
-                        $this->changeBadProxy();
-                        $attempt = 0;
-                    }
-
-                    return $this->query($url, $ref, $post, $attempt);
+                $attempt += 1;
+                if ($attempt > 1) {
+                    $this->changeBadProxy();
+                    $attempt = 0;
                 }
-                curl_close($ch);
 
-                $this->changeBadProxy();
+                if (curl_errno($ch))
+                    $this->log('Error while curl: ' . curl_error($ch));
+
+                curl_close($ch);
                 return $this->query($url, $ref, $post, $attempt);
             } else {
                 curl_close($ch);
                 if (strpos($content, 'Нам очень жаль, но запросы, поступившие с вашего IP-адреса, похожи на автоматические.')) {
                     $this->log('ip banned');
-                    //file_put_contents(Yii::getPathOfAlias('site.common.cookies') . DIRECTORY_SEPARATOR . 'banned.txt', $this->proxy->value."\n", FILE_APPEND);
                     $this->changeBadProxy(0);
                     return $this->query($url, $ref, $post, $attempt);
                 }
@@ -127,15 +108,11 @@ class ProxyParserThread
 
     protected function changeBadProxy($rank = null)
     {
-        //$this->log('Change proxy');
+        //$this->log('Change bad proxy');
+        if (!$rank)
+            $rank = floor((($this->proxy['rank'] + $this->success_loads) / 5) * 4);
 
-        if ($rank !== null)
-            $this->proxy->rank = $rank;
-        else
-            $this->proxy->rank = floor((($this->proxy->rank + $this->success_loads) / 5) * 4);
-
-        $this->proxy->active = 0;
-        $this->proxy->save();
+        ProxyMongo::model()->updateProxyRank($this->proxy, $rank);
         $this->getProxy();
         $this->success_loads = 0;
 
@@ -148,8 +125,7 @@ class ProxyParserThread
     protected function changeBannedProxy()
     {
         //$this->log('Change proxy');
-
-        $this->proxy->delete();
+        ProxyMongo::model()->updateProxyRank($this->proxy, 0);
         $this->getProxy();
         $this->success_loads = 0;
 
@@ -161,9 +137,7 @@ class ProxyParserThread
 
     private function saveProxy()
     {
-        $this->proxy->rank = $this->proxy->rank + $this->success_loads;
-        $this->proxy->active = 0;
-        $this->proxy->save();
+        ProxyMongo::model()->updateProxyRank($this->proxy, $this->proxy['rank'] + $this->success_loads);
     }
 
     protected function closeThread($reason = 'unknown reason')
@@ -212,13 +186,15 @@ class ProxyParserThread
         fwrite($fh, $this->_time_stamp_title . ': ' . $long_time . "\n");
     }
 
-    protected function log($state)
+    protected function log($state, $important = false)
     {
         if ($this->debug) {
             echo $state . "\n";
         } else {
-//            $fh = fopen($dir = Yii::getPathOfAlias('application.runtime') . DIRECTORY_SEPARATOR . $this->thread_id.'.txt', 'a');
-//            fwrite($fh, $state . "\n");
+            if ($important) {
+                $fh = fopen($dir = Yii::getPathOfAlias('application.runtime') . DIRECTORY_SEPARATOR . 'my_log.txt', 'a');
+                fwrite($fh, $state . "\n");
+            }
         }
     }
 }

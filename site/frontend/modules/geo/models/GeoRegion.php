@@ -49,7 +49,7 @@ class GeoRegion extends HActiveRecord
             array('name', 'length', 'max' => 255),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, country_id, name', 'safe', 'on' => 'search'),
+            array('id, country_id, name, auto_created', 'safe', 'on' => 'search'),
         );
     }
 
@@ -75,9 +75,12 @@ class GeoRegion extends HActiveRecord
     {
         return array(
             'id' => 'ID',
-            'country_id' => 'Country',
-            'name' => 'Name',
-            'center_id' => 'Центр области'
+            'country_id' => 'Страна',
+            'name' => 'Название',
+            'type' => 'Тип',
+            'google_name' => 'Название в Google',
+            'center_id' => 'Центр области',
+            'auto_created' => 'Статус'
         );
     }
 
@@ -93,13 +96,30 @@ class GeoRegion extends HActiveRecord
         $criteria = new CDbCriteria;
 
         $criteria->compare('id', $this->id, true);
-        $criteria->compare('country_id', $this->country_id, true);
+        $criteria->compare('country_id', $this->country_id);
         $criteria->compare('name', $this->name, true);
+        $criteria->compare('auto_created', $this->auto_created);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
             'pagination' => array('pageSize' => 100),
+            'sort' => array('defaultOrder' => 'id DESC')
         ));
+    }
+
+    public function beforeDelete()
+    {
+        if ($this->id <= 277)
+            return false;
+
+        return true;
+    }
+
+    public function getStatus()
+    {
+        if ($this->auto_created)
+            return 'не проверен <input type="hidden" value="' . $this->id . '"><a class="region_checked" href="javascript:;">проверен</a>';
+        return 'проверен';
     }
 
     public function isCity()

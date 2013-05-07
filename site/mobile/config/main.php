@@ -18,6 +18,7 @@ return array(
         'site.frontend.extensions.image.Image',
         'site.frontend.modules.geo.models.*',
 
+        'site.frontend.components.*',
         'site.common.components.*',
         'site.common.helpers.*',
         'site.common.models.*',

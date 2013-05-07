@@ -62,11 +62,10 @@ HGoogleMap.prototype.create = function (map_id, address) {
         if (status == google.maps.GeocoderStatus.OK) {
             $this.map.setCenter(results[0].geometry.location);
 
-            var image = '/images/map_marker-2.png';
             var marker = new google.maps.Marker({
                 position: results[0].geometry.location,
                 map: $this.map,
-                icon: image
+                icon: '/images/map_marker-2.png'
             });
 
         } else {

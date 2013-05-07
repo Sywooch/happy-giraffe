@@ -42,8 +42,8 @@ class DefaultController extends SController
         $section = $this->loadModel($id);
 
         $last_date = date("Y-m-d");
-        $date = date("Y-m-d", strtotime('-6 days'));
-        $period = $this->getPeriod($last_date, 7);
+        $date = date("Y-m-d", strtotime('-30 days'));
+        $period = $this->getPeriod($last_date, 30);
 
         $this->render('section', compact('section', 'last_date', 'date', 'period'));
     }

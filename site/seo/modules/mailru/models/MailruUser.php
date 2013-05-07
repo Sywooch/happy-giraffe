@@ -14,6 +14,7 @@
  * @property string $last_visit
  * @property int $parse_friends
  * @property int $active
+ * @property int $status
  *
  * The followings are the available model relations:
  * @property MailruBaby[] $babies

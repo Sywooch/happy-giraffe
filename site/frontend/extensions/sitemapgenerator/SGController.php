@@ -193,7 +193,7 @@ class SGController extends CController
 	 */
 	private function renderNormal($config)
 	{
-		$map=new SitemapGenerator($config['aliases']);
+		$map=new SitemapGenerator($config['aliases'], isset($config['param'])?$config['param']:null);
 		$map->setDefaults($config);
 		echo $map->getAsXml();
 	}

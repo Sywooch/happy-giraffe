@@ -18,6 +18,7 @@ Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
         <?php
         if ($criteria !== null)
         $this->widget('zii.widgets.CListView', array(
+            'cssFile'=>false,
             'ajaxUpdate' => false,
             'dataProvider' => $dataProvider,
             //'summaryText' => 'Показано',

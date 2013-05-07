@@ -9,7 +9,7 @@ $c->title = $name[0];
 $text = Yii::app()->search->buildExcerpts(array($c->preview), $search_index, $search_text);
 $c->preview = $text[0];
 
-$this->renderPartial('//community/_post', array(
+$this->renderPartial('/_post', array(
     'full' => false,
     'data' => $c,
 ));

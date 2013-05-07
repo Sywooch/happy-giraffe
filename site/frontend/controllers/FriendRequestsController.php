@@ -35,6 +35,7 @@ class FriendRequestsController extends HController
         } else {
             $response = array(
                 'status' => false,
+                'error'=>$model->getErrorsText()
             );
         }
         echo CJSON::encode($response);

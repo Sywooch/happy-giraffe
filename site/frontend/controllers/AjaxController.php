@@ -5,7 +5,7 @@ class AjaxController extends HController
     public function filters()
     {
         return array(
-            'ajaxOnly - socialVote',
+            'ajaxOnly - socialVote, test',
         );
     }
 
@@ -32,7 +32,8 @@ class AjaxController extends HController
                         $vote->save();
                         Rating::model()->saveByEntity($model, Rating::getShort($service), 1, true);
                         $inc = true;
-                    } catch (MongoCursorException $e) {}
+                    } catch (MongoCursorException $e) {
+                    }
 
                 }
             }
@@ -94,7 +95,7 @@ class AjaxController extends HController
         $m = Yii::app()->request->getPost('m');
         $y = Yii::app()->request->getPost('y');
 
-        if (empty($d) || empty($m) || empty($y)){
+        if (empty($d) || empty($m) || empty($y)) {
             echo CJSON::encode(array('status' => false));
             Yii::app()->end();
         }
@@ -272,6 +273,7 @@ class AjaxController extends HController
     public function actionSendComment()
     {
         Yii::import('site.frontend.modules.services.modules.recipeBook.models.*');
+        Yii::import('site.frontend.modules.route.models.*');
 
         if (Yii::app()->request->getPost('PhotoViewComment'))
             $_POST['Comment'] = CMap::mergeArray($_POST['Comment'], $_POST['PhotoViewComment']);
@@ -328,6 +330,8 @@ class AjaxController extends HController
     {
         Yii::import('application.modules.contest.models.*');
         Yii::import('application.modules.cook.models.*');
+        Yii::import('application.modules.route.models.*');
+
         if (!Yii::app()->request->isAjaxRequest || !isset($_POST['Removed']))
             Yii::app()->end();
         $model = call_user_func(array($_POST['Removed']['entity'], 'model'));
@@ -351,10 +355,7 @@ class AjaxController extends HController
             Yii::import('site.frontend.modules.signal.models.*');
             $commentator = CommentatorWork::getUser($model->author_id);
             if ($commentator !== null) {
-                if (!in_array(Yii::app()->user->id, $commentator->ignoreUsers)) {
-                    $commentator->ignoreUsers [] = (int)Yii::app()->user->id;
-                    $commentator->save();
-                }
+                $commentator->addToIgnoreList(Yii::app()->user->id);
             }
         }
 
@@ -563,8 +564,8 @@ class AjaxController extends HController
             'jquery-ui.js' => false,
             'jquery-ui.min.js' => false,
             'jquery-ui.css' => false,
-            'global.css'=>false,
-            'jquery.tmpl.min.js'=>false
+            'global.css' => false,
+            'jquery.tmpl.min.js' => false
             //'jquery.yiiactiveform.js'=>false
         );
         $categories = InterestCategory::model()->with('interests')->findAll();
@@ -602,6 +603,7 @@ class AjaxController extends HController
     public function actionToggleFavourites()
     {
         if (Yii::app()->user->checkAccess('manageFavourites')) {
+            Yii::import('site.frontend.modules.cook.components.*');
             $modelName = Yii::app()->request->getPost('entity');
             $modelPk = Yii::app()->request->getPost('entity_id');
             $index = Yii::app()->request->getPost('num');
@@ -611,6 +613,8 @@ class AjaxController extends HController
             $success = false;
             if ($model) {
                 $success = Favourites::toggle($model, $index, $param);
+                $model->full = null;
+                $model->update(array('full'));
             }
             echo CJSON::encode(array('status' => $success));
         }
@@ -792,8 +796,27 @@ class AjaxController extends HController
         $this->renderPartial('link', compact('model'), false, true);
     }
 
-    public function actionServiceUsed(){
+    public function actionServiceUsed()
+    {
         $service = Service::model()->findByPk(Yii::app()->request->getPost('id'));
         $service->userUsedService();
+    }
+
+    public function actionTest()
+    {
+        $ids = array_merge(Favourites::getIdList(Favourites::BLOCK_INTERESTING, 4),
+            Favourites::getIdList(Favourites::BLOCK_BLOGS, 12),
+            Favourites::getIdList(Favourites::BLOCK_SOCIAL_NETWORKS, 5));
+        var_dump($ids);
+    }
+
+    public function actionSetUserAttribute()
+    {
+        $key = Yii::app()->request->getPost('key');
+        $value = Yii::app()->request->getPost('value');
+
+        $success = UserAttributes::set(Yii::app()->user->id, $key, $value);
+        $response = compact('success');
+        echo CJSON::encode($response);
     }
 }

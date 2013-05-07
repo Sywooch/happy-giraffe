@@ -416,19 +416,7 @@ class Im
                 'userDialog' => array(
                     'on' => 'EXISTS (SELECT * FROM im__dialog_users du WHERE userDialog.dialog_id = du.dialog_id AND du.user_id = :user_id)',
                     'with' => array(
-                        'dialog' => array(
-                            'with' => array(
-                                'messages' => array(
-                                    'with' => array(
-                                        'user' => array(
-                                            'select' => 'id, first_name, last_name, avatar_id',
-                                            'with' => 'avatar',
-                                        ),
-                                    ),
-                                    'order' => 'messages.created ASC',
-                                ),
-                            ),
-                        ),
+                        'dialog',
                     ),
                 ),
             ),

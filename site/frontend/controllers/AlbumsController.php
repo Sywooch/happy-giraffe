@@ -19,12 +19,32 @@ class AlbumsController extends HController
 
     public function filters()
     {
-        return array(
+        $filters = array(
             'accessControl',
             'ajaxOnly + attachView, editDescription, editPhotoTitle, changeTitle, changePermission,
                 removeUploadPhoto, communityContentEdit, communityContentSave, partnerPhoto, recipePhoto, cookDecorationPhoto,
                 cookDecorationCategory, commentPhoto, crop, changeAvatar',
         );
+
+        $entity = Yii::app()->request->getQuery('entity');
+        $entity_id = Yii::app()->request->getQuery('entity_id');
+        if ($entity == 'Contest') {
+            if (! Yii::app()->request->getQuery('go'))
+                $filters[] = array(
+                    'COutputCache + WPhoto',
+                    'duration' => 600,
+                    'varyByParam' => array('entity', 'entity_id', 'id', 'sort', 'go'),
+                    'dependency' => new CDbCacheDependency(Yii::app()->db->createCommand()->select(new CDbExpression('MAX(created)'))->from('contest__works')->where("contest_id = $entity_id")->text),
+                );
+            $filters[] = array(
+                'COutputCache + postLoad',
+                'duration' => 600,
+                'varyByParam' => array('entity', 'entity_id', 'photo_id'),
+                'dependency' => new CDbCacheDependency(Yii::app()->db->createCommand()->select(new CDbExpression('MAX(created)'))->from('contest__works')->where("contest_id = $entity_id")->text),
+            );
+        }
+
+        return $filters;
     }
 
     public function accessRules()
@@ -60,7 +80,7 @@ class AlbumsController extends HController
     {
         $user = User::model()->with('avatar', 'status')->findByPk($id);
         $this->user = $user;
-        if (!$user)
+        if (!$user || $user->deleted)
             throw new CHttpException(404, 'Пользователь не найден');
         $scopes = !Yii::app()->user->isGuest && Yii::app()->user->id == $id ? array() : array('noSystem');
         $dataProvider = Album::model()->findByUser($id, false, false, $scopes);
@@ -123,6 +143,8 @@ class AlbumsController extends HController
                 Yii::app()->end();
             $model = new AlbumPhoto();
 
+            #TODO сделать проверку фотки
+
             echo '<div id="serverData">';
             // Загрузка в новый альбом
             if (!$a || $a == 'false') {
@@ -184,9 +206,9 @@ class AlbumsController extends HController
 
         $photo = AlbumPhoto::model()->findByPk(Yii::app()->request->getQuery('id'));
 
-        $entity_id = Yii::app()->request->getQuery('entity_id', 'null');
+        $entity_id = Yii::app()->request->getQuery('entity_id');
         $model = call_user_func(array(Yii::app()->request->getQuery('entity'), 'model'));
-        if ($entity_id != 'null')
+        if (!empty($entity_id) && $entity_id != 'null')
             $model = $model->findByPk($entity_id);
 
         if (!Yii::app()->request->getQuery('go')) {
@@ -476,6 +498,31 @@ class AlbumsController extends HController
         echo CJSON::encode($data);
     }
 
+    public function actionMessagingMessagePhoto()
+    {
+        if (!$val = Yii::app()->request->getPost('val'))
+            Yii::app()->end();
+
+        if (is_numeric($val)) {
+            $model = AlbumPhoto::model()->findByPk($val);
+            if (!$model)
+                Yii::app()->end();
+        } else {
+            $model = new AlbumPhoto;
+            $model->file_name = $val;
+            $model->author_id = Yii::app()->user->id;
+            if ($title = Yii::app()->request->getPost('title'))
+                $model->title = CHtml::encode($title);
+            $model->create(true);
+        }
+
+        echo CJSON::encode(array(
+            'id' => $model->primaryKey,
+            'preview' => $model->getPreviewUrl(70, 70),
+            'full' => $model->getPreviewUrl(960, 627, Image::WIDTH),
+        ));
+    }
+
     public function actionCommentPhoto()
     {
         if (!$val = Yii::app()->request->getPost('val'))
@@ -519,6 +566,8 @@ class AlbumsController extends HController
                 'src' => $model->getPreviewUrl(700, 700, Image::WIDTH),
                 'id' => $model->primaryKey,
                 'title' => $model->title,
+                'width' => $model->width,
+                'height' => $model->height,
             ));
             Yii::app()->end();
         }
@@ -655,6 +704,7 @@ class AlbumsController extends HController
         if ($photo === null)
             throw new CHttpException(404, 'Фото не найдено');
 
+        $additional_params = array();
         switch ($entity) {
             case 'valentinePost':
                 $criteria = new CDbCriteria;
@@ -691,17 +741,26 @@ class AlbumsController extends HController
                 $decor = CookDecoration::model()->findByAttributes(array('photo_id' => $photo_id));
                 if ($decor === null)
                     throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+                if (!empty($decor) && !empty($category_id)){
+                    if ($decor->category_id != $category_id)
+                        throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+                    Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
+                }
 
                 $photo->w_title = $decor->title;
                 $photo->w_description = $decor->description;
                 $collection = array();
                 $collection['title'] = 'Фотоальбом к сервису ' . CHtml::link('Офомление блюд', array('cook/decor/index'));
+                $additional_params['decor'] = $decor;
                 break;
             case 'Contest':
                 Yii::import('application.modules.contest.models.*');
                 $contest_id = Yii::app()->request->getQuery('contest_id');
                 $model = CActiveRecord::model($entity)->findByPk($contest_id);
                 $attach = $photo->getAttachByEntity('ContestWork', $photo_id);
+                if (!isset($attach->model))
+                    throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+
                 $work = $attach->model;
                 if ($work === null)
                     throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
@@ -709,7 +768,7 @@ class AlbumsController extends HController
                 $currentIndex = null;
                 $collection = array();
                 $collection['title'] = 'Фотоконкурс ' . CHtml::link($work->contest->title, $work->contest->url);
-                $this->pageTitle = $work->title . ' - ' . $model->title;
+                //$this->pageTitle = $work->title . ' - ' . $model->title;
                 break;
         }
 
@@ -725,15 +784,16 @@ class AlbumsController extends HController
             if (!isset($currentIndex))
                 throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
-            $this->pageTitle = $photo->w_title;
+            //$this->pageTitle = $photo->w_title;
         }
 
+        $this->pageTitle = $photo->w_title . ' - ' . strip_tags($collection['title']);
         $this->layout = '//layouts/main';
 
         if (! Yii::app()->user->isGuest)
             UserNotification::model()->deleteByEntity($photo, Yii::app()->user->id);
 
-        $this->render('singlePhoto', compact('model', 'collection', 'photo', 'currentIndex'));
+        $this->render('singlePhoto', array_merge(compact('model', 'collection', 'photo', 'currentIndex'), $additional_params));
     }
 
     public function actionPostLoad($entity, $photo_id)

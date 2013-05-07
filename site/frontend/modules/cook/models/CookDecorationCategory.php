@@ -171,6 +171,7 @@ class CookDecorationCategory extends HActiveRecord
                     ),
                 ),
             ),
+            'limit' => 300,
         ));
 
         if ($photo_id !== null && Yii::app()->controller->action->id != 'postLoad') {

@@ -11,12 +11,6 @@
 		'url',
 		'keyword_group_id',
 		'number',
-		'yandex_pos',
-		'google_pos',
-		'yandex_week_visits',
-		'yandex_month_visits',
-		'google_week_visits',
-		'google_month_visits',
 		array(
 			'class'=>'CButtonColumn',
 			'template' => '{update}{delete}'

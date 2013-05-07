@@ -58,7 +58,9 @@ class DefaultController extends HController
     public function actionDialog($interlocutor_id)
     {
         $contact = Im::getContact(Yii::app()->user->id, $interlocutor_id);
-        $html = $this->renderPartial('_dialog', compact('contact', 'interlocutor_id'), true, true);
+        $messages = ($contact->userDialog) ? $contact->userDialog->dialog->getMessagesDataProvider() : array();
+
+        $html = $this->renderPartial('_dialog', compact('contact', 'interlocutor_id', 'messages'), true, true);
         $contactHtml = $this->renderPartial('_contact', compact('contact'), true);
 
         if ($contact->userDialog) {
@@ -74,6 +76,17 @@ class DefaultController extends HController
         );
 
         echo CJSON::encode($response);
+    }
+
+    public function actionMessages($interlocutor_id)
+    {
+        $contact = Im::getContact(Yii::app()->user->id, $interlocutor_id);
+        $messages = ($contact->userDialog) ? $contact->userDialog->dialog->getMessagesDataProvider() : array();
+
+        $messages->pagination->itemCount = $messages->totalItemCount;
+
+        if ($_GET['Message_page'] <= $messages->pagination->pageCount)
+            $this->renderPartial('_messages', compact('messages'));
     }
 
     public function actionEmpty()

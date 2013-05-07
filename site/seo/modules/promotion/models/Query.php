@@ -11,11 +11,7 @@
  * @property double $denial
  * @property double $depth
  * @property integer $visit_time
- * @property integer $parsing
- * @property integer $yandex_parsed
- * @property integer $google_parsed
- * @property integer $week
- * @property integer $year
+ * @property integer $date
  *
  * The followings are the available model relations:
  * @property QuerySearchEngine[] $searchEngines
@@ -53,13 +49,13 @@ class Query extends HActiveRecord
         // will receive user inputs.
         return array(
             array('keyword_id, visits, page_views, denial, depth, visit_time', 'required'),
-            array('visit_time, parsing, google_parsed, yandex_parsed', 'numerical', 'integerOnly' => true),
+            array('visit_time', 'numerical', 'integerOnly' => true),
             array('denial, depth', 'numerical'),
             array('keyword_id', 'length', 'max' => 1024),
             array('visits, page_views', 'length', 'max' => 10),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, keyword_id, visits, page_views, denial, depth, visit_time, parsing', 'safe', 'on' => 'search'),
+            array('id, keyword_id, visits, page_views, denial, depth, visit_time', 'safe', 'on' => 'search'),
         );
     }
 
@@ -89,10 +85,6 @@ class Query extends HActiveRecord
             'denial' => 'Отказов',
             'depth' => 'Глубина',
             'visit_time' => 'Время посещения, сек',
-            'parsing' => 'Parsing',
-            'activePages' => 'Страницы в выдаче',
-            'yandexPos' => 'Позиция в Yandex',
-            'googlePos' => 'Позиция в Google',
         );
     }
 

@@ -102,7 +102,7 @@ class Friend extends CActiveRecord
         ));
     }
 
-    public function getCountByUserId($userId, $online = false)
+    public function getCountByUserId($userId, $online = false, $new = false)
     {
         $criteria = new CDbCriteria();
 
@@ -110,6 +110,9 @@ class Friend extends CActiveRecord
             $criteria->with = 'friend';
             $criteria->addCondition('friend.online = 1');
         }
+
+        if ($new)
+            $criteria->addCondition('t.created >= DATE_ADD(CURDATE(), INTERVAL -3 DAY)');
 
         return $this->countByAttributes(array('user_id' => $userId), $criteria);
     }

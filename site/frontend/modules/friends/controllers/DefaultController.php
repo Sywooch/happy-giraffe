@@ -12,6 +12,7 @@ class DefaultController extends HController
     {
         $friendsCount = (int) Friend::model()->getCountByUserId(Yii::app()->user->id);
         $friendsOnlineCount = (int) Friend::model()->getCountByUserId(Yii::app()->user->id, true);
+        $friendsNewCount = (int) Friend::model()->getCountByUserId(Yii::app()->user->id, false, true);
         $incomingRequestsCount = (int) FriendRequest::model()->getCountByUserId(Yii::app()->user->id);
         $outgoingRequestsCount = (int) FriendRequest::model()->getCountByUserId(Yii::app()->user->id, false);
 
@@ -23,11 +24,11 @@ class DefaultController extends HController
             );
         }, FriendsManager::getLists(Yii::app()->user->id));
 
-        $data = compact('friendsCount', 'friendsOnlineCount', 'incomingRequestsCount', 'outgoingRequestsCount', 'lists');
+        $data = compact('friendsCount', 'friendsOnlineCount', 'incomingRequestsCount', 'outgoingRequestsCount', 'lists', 'friendsNewCount');
         $this->render('index', CJSON::encode($data));
     }
 
-    public function actionGet($online = false, $listId = false, $query = false, $offset = 0)
+    public function actionGet($online = false, $new = false, $listId = false, $query = false, $offset = 0)
     {
         $friends = array_map(function($friend) {
             return array(
@@ -41,8 +42,8 @@ class DefaultController extends HController
                     'ava' => $friend->friend->getAva('large'),
                 ),
             );
-        }, FriendsManager::getFriends(Yii::app()->user->id, $online, $listId, $query, $offset));
-        $last = FriendsManager::getFriendsCount(Yii::app()->user->id, $online, $listId, $query, $offset) <= ($offset + FriendsManager::FRIENDS_PER_PAGE);
+        }, FriendsManager::getFriends(Yii::app()->user->id, $online, $new, $listId, $query, $offset));
+        $last = FriendsManager::getFriendsCount(Yii::app()->user->id, $online, $new, $listId, $query, $offset) <= ($offset + FriendsManager::FRIENDS_PER_PAGE);
 
         $data = compact('friends', 'last');
         echo CJSON::encode($data);

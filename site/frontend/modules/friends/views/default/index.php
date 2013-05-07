@@ -16,9 +16,13 @@
             <button class="col-1_search-btn" data-bind="css: { active : searchQuery() != '' }, click: clearSearchQuery"></button>
         </div>
         <div class="menu-list">
-            <a href="javascript:void(0)" class="menu-list_i" data-bind="click: selectAll, css: { active : selectedListId() === null && activeTab() == 0 }">
+            <a href="javascript:void(0)" class="menu-list_i" data-bind="click: selectAll, css: { active : selectedListId() === null && activeTab() == 0 && newSelected() === false }">
                 <span class="menu-list_tx">Все друзья</span>
                 <span class="menu-list_count" data-bind="text: friendsCount"></span>
+            </a>
+            <a href="javascript:void(0)" class="menu-list_i" data-bind="visible: friendsNewCount() > 0, click: selectNew, css: { active : newSelected }">
+                <span class="menu-list_tx">Новые</span>
+                <span class="menu-list_count" data-bind="text: friendsNewCount"></span>
             </a>
             <!-- ko foreach: lists -->
             <a href="javascript:void(0)" class="menu-list_i" data-bind="click: select, css: { active : $root.selectedListId() == id() }">

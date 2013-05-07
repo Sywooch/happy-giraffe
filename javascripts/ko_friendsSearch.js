@@ -66,7 +66,10 @@ function FriendsSearchViewModel(data) {
     }
 
     self.get = function(page, callback) {
-        var data = {};
+        var data = {
+            ageMin : self.minAge(),
+            ageMax : self.maxAge()
+        };
 
         if (page > 1) {
             data.User_page = page;
@@ -77,12 +80,6 @@ function FriendsSearchViewModel(data) {
 
         if (self.gender() != '')
             data.gender = self.gender();
-
-        if (self.minAge() != 0)
-            data.ageMin = self.minAge();
-
-        if (self.maxAge() != 100)
-            data.ageMax = self.maxAge();
 
         if (self.location() == '1') {
             if (self.selectedCountry() !== null)
@@ -114,6 +111,15 @@ function FriendsSearchViewModel(data) {
     self.nextPage = function() {
         self.get(self.currentPage() + 1, function(users) {
             self.users.push.apply(self.users, users);
+        });
+    }
+
+    self.updateTooltip = function(element) {
+        $(element).find('.powertip').powerTip({
+            placement: 'n',
+            smartPlacement: true,
+            popupId: 'tooltipsy-im',
+            offset: 8
         });
     }
 

@@ -125,7 +125,7 @@ class LiParser extends LiBaseParser
                     if ($stats < self::STATS_LIMIT)
                         return false;
 
-                    $keyword_model = Keyword::GetKeyword($keyword, 10);
+                    $keyword_model = Keyword::GetKeyword($keyword);
                     if ($keyword_model !== null) {
                         SiteKeywordVisit::SaveValue($this->site->id, $keyword_model->id, $month, $year, $stats);
                         $count++;

@@ -8,6 +8,7 @@ Yii::import('site.seo.models.*');
 Yii::import('site.seo.models.mongo.*');
 Yii::import('site.common.models.mongo.*');
 Yii::import('site.seo.components.*');
+Yii::import('site.seo.components.wordstat.*');
 Yii::import('site.seo.modules.competitors.models.*');
 Yii::import('site.seo.modules.writing.models.*');
 Yii::import('site.seo.modules.promotion.models.*');
@@ -17,9 +18,15 @@ Yii::import('site.frontend.helpers.*');
 
 class SeoParsingCommand extends CConsoleCommand
 {
+    private $prev_month;
+    private $prev_year;
+
     public function beforeAction($action)
     {
         Yii::import('site.seo.modules.competitors.components.*');
+        $last_month = strtotime('last day of -1 month');
+        $this->prev_month = date("m", $last_month);
+        $this->prev_year = date("Y", $last_month);
 
         return true;
     }
@@ -63,12 +70,13 @@ class SeoParsingCommand extends CConsoleCommand
                 $sites = Site::model()->findAll('type = 1 AND url != ""');
 
             foreach ($sites as $site) {
-                $parser->start($site->id, 2013, 3, 4);
+                echo $site->id."\n";
+                $parser->start($site->id, $this->prev_year, $this->prev_month, $this->prev_month);
                 SeoUserAttributes::setAttribute('last_li_parsed_'.date("Y-m") , $site->id, 1);
             }
         } else {
             $parser = new LiParser();
-            $parser->start($site, 2013, 3, 4);
+            $parser->start($site, $this->prev_year, $this->prev_month, $this->prev_month);
         }
     }
 
@@ -84,12 +92,12 @@ class SeoParsingCommand extends CConsoleCommand
                 $sites = Site::model()->findAll('type=2');
 
             foreach ($sites as $site) {
-                $parser->start($site->id, 2013, 2, 4);
+                $parser->start($site->id, $this->prev_year, $this->prev_month, $this->prev_month);
                 SeoUserAttributes::setAttribute('last_mailru_parsed_'.date("Y-m") , $site->id, 1);
             }
         } else {
             $parser = new MailruParser(false, true);
-            $parser->start($site, 2013, 2, 4);
+            $parser->start($site, $this->prev_year, $this->prev_month, $this->prev_month);
         }
     }
 

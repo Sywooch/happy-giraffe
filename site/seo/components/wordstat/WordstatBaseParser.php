@@ -84,9 +84,7 @@ class WordstatBaseParser extends ProxyParserThread
         $html = str_replace('&mdash;', '—', $html);
 
         if (preg_match('/— ([\d]+) показ[ов]*[а]* в месяц/', $html, $matches)) {
-            $this->log('valid page loaded');
-
-            $this->log('wordstat value: ' . $matches[1]);
+            $this->log('valid page, wordstat: ' . $matches[1], true);
             return $matches[1];
         } else
             return false;
@@ -147,7 +145,7 @@ class WordstatBaseParser extends ProxyParserThread
             $title = pq($link)->text();
             if (strpos($title, 'следующая') !== false) {
                 $this->next_page = 'http://wordstat.yandex.ru/' . pq($link)->attr('href');
-                $this->log('next page found');
+                $this->log('next page found', true);
             }
         }
     }

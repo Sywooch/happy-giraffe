@@ -58,25 +58,9 @@ class WordstatQueryModify
     public function addToParsing($index)
     {
         $parts = array(
-            array(',', 442),
-            array('"', 403),
-            array('?', 394,),
-            array('!', 1),
-            array(':', 1),
-            array(';', 1),
-            array("\\", 1),
-            array('%', 1),
-            array('/', 1),
-            array('-', 1),
-            array('+', 1),
-            array('|', 1),
-            array('*', 1),
-            array('@', 1),
-            array(']', 1),
-            array('[', 1),
-            array(')', 1),
-            array('(', 1),
-            array('\'' => 1)
+            array("(", 1),
+            array(")", 1),
+            array("'", 1),
         );
 
         $part = $parts[$index][0];
@@ -90,10 +74,7 @@ class WordstatQueryModify
                 echo $i . '-' . count($keywords) . "\n";
 
             foreach ($keywords as $keyword) {
-                $name = str_replace($part, ' ', $keyword->name);
-                $name = trim($name);
-                while (strpos($name, '  ') !== false)
-                    $name = str_replace('  ', ' ', $name);
+                $name = $this->prepareForSave($keyword->name);
 
                 $keyword->name = $name;
                 $exist = Keyword::model()->findByAttributes(array('name' => $name));
@@ -222,8 +203,7 @@ class WordstatQueryModify
     public static function prepareForSave($name)
     {
         $name = mb_strtolower($name, 'utf-8');
-        $parts = array(',', '"', '?', '!', ':', ';', "\\", '%', '/', '-', '+',
-            '|', '*', '@', ']', '[', ')', '(', '\'');
+        $parts = array(',', '"', '?', '!', ':', ';', "\\", '/', '-', '+', '|', ')', '(', '\'');
 
         foreach ($parts as $part)
             $name = str_replace($part, ' ', $name);

@@ -39,9 +39,9 @@ class ProxyParserThread
 
     protected function getProxy()
     {
-        $this->startTimer('find proxy');
+        //$this->startTimer('find proxy');
         $this->proxy = ProxyMongo::model()->getProxy();
-        $this->endTimer();
+        //$this->endTimer();
     }
 
     protected function query($url, $ref = null, $post = false, $attempt = 0)

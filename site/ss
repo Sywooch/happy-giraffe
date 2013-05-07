@@ -466,3 +466,7 @@ INSERT INTO friends__lists (title, list_id)
       id
       FROM USERS
   )
+
+  SELECT b.*, ROUND(DATEDIFF(CURDATE(), DATE_ADD(b.birthday, INTERVAL -9 MONTH))/7) AS weeks FROM users u
+  LEFT OUTER JOIN user__users_babies b ON b.parent_id = u.id AND type = 1
+  WHERE b.id IS NOT NULL AND u.id = 14829;

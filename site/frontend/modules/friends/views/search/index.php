@@ -204,7 +204,7 @@
     <div class="col-23 clearfix">
 
         <div class="friends-list">
-            <!-- ko foreach: users -->
+            <!-- ko foreach: { data: users, afterRender: updateTooltip } -->
             <div class="friends-list_i" data-bind="html: $data"></div>
             <!-- /ko -->
 

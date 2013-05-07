@@ -121,7 +121,7 @@ class CommentatorHelper
     public static function friendsCount($user_id, $date1, $date2)
     {
         $criteria = new CDbCriteria;
-        $criteria->condition = '(user1_id = :user_id OR user2_id = :user_id) AND created >= :min AND created <= :max ';
+        $criteria->condition = 'user_id = :user_id AND created >= :min AND created <= :max ';
         $criteria->params = array(
             ':user_id' => $user_id,
             ':min' => $date1 . ' 00:00:00',

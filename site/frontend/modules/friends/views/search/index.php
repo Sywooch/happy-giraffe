@@ -8,7 +8,7 @@
 <div class="content-cols">
     <div class="col-1">
         <h2 class="col-1_t"> Найти друзей
-            <div class="col-1_sub-t"><a href="" class="">Мои друзья</a></div>
+            <div class="col-1_sub-t"><a href="<?=$this->createUrl('/friends/default/index')?>" class="">Мои друзья</a></div>
         </h2>
         <div class="aside-filter">
             <form action="">

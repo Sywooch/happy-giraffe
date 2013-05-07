@@ -1,5 +1,5 @@
 <div class="friends-list_ava-hold clearfix">
-    <a href="" class="ava large">
+    <a href="<?=$data->url?>" class="ava large">
         <?=CHtml::image($data->getAva('large'))?>
     </a>
     <?php if ($data->online): ?>

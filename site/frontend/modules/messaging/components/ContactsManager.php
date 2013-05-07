@@ -264,13 +264,7 @@ WHERE u.online = 1;
                     # Таблица ID всех пользователей в контактах
                     FROM (
                       # Пользователей, находящиеся в друзьях вне зависимости от наличия или отсутствия переписки с ними
-                      SELECT user1_id AS uId
-                      FROM friends
-                      WHERE user2_id = :user_id
-                      UNION
-                      SELECT user2_id AS uId
-                      FROM friends
-                      WHERE user1_id = :user_id
+                      SELECT friend
                     ) uIds
                     # Связывание с таблицей пользователей для получения данных о собеседнике
                     INNER JOIN users u ON u.id = uIds.uId

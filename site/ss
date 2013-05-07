@@ -451,3 +451,18 @@ LEFT OUTER JOIN album__photos p ON u.avatar_id = p.id
 # Условие для корректной работы связывание с таблицей участников диалога
 WHERE tu.user_id IS NULL OR (tu.user_id IS NOT NULL AND tu2.user_id IS NOT NULL)
 GROUP BY u.id;
+
+INSERT INTO friends__lists (title, list_id)
+  (
+    SELECT
+      'Коллеги',
+      id
+    FROM users
+  )
+  UNION
+  (
+    SELECT
+      'Родственники',
+      id
+      FROM USERS
+  )

@@ -24,10 +24,6 @@ function FriendsSearchViewModel(data) {
     self.selectedCountry = ko.observable('174');
     self.selectedRegion = ko.observable(null);
     self.gender = ko.observable('');
-    self.ages = [];
-    for (var i = 0; i <= 100; i++) {
-        self.ages.push(i);
-    }
     self.minAge = ko.observable('0');
     self.maxAge = ko.observable('100');
     self.relationStatuses = [
@@ -41,6 +37,27 @@ function FriendsSearchViewModel(data) {
     self.loading = ko.observable(false);
     self.currentPage = ko.observable(null);
     self.pageCount = ko.observable(null);
+    self.childrenType = ko.observable('0');
+    self.pregnancyWeekMin = ko.observable('1');
+    self.pregnancyWeekMax = ko.observable('40');
+    self.childAgeMin = ko.observable('0');
+    self.childAgeMax = ko.observable('18');
+
+    self.ages = [];
+    self.pregnancyWeeks = [];
+    self.childAges = []
+
+    for (var i = 0; i <= 100; i++) {
+        self.ages.push(i);
+    }
+
+    for (var i = 1; i <= 40; i++) {
+        self.pregnancyWeeks.push(i);
+    }
+
+    for (var i = 0; i <= 18; i++) {
+        self.childAges.push(i);
+    }
 
     self.clearQuery = function() {
         self.query('');
@@ -55,6 +72,7 @@ function FriendsSearchViewModel(data) {
         self.minAge('0');
         self.maxAge('100');
         self.selectedRelationStatus(null);
+        self.childrenType('0');
     }
 
     self.updateRegions = function() {
@@ -91,6 +109,20 @@ function FriendsSearchViewModel(data) {
 
         if (self.selectedRelationStatus() !== null)
             data.relationshipStatus = self.selectedRelationStatus();
+
+        if (self.childrenType() != '0') {
+            data.childrenType = self.childrenType();
+            switch(self.childrenType()) {
+                case '1':
+                    data.pregnancyWeekMin = self.pregnancyWeekMin();
+                    data.pregnancyWeekMax = self.pregnancyWeekMax();
+                    break;
+                case '2':
+                    data.childAgeMin = self.childAgeMin();
+                    data.childAgeMax = self.childAgeMax();
+                    break;
+            }
+        }
 
         self.loading(true);
         $.get('/friends/search/get/', data, function(response) {

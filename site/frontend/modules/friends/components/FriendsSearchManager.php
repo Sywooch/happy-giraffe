@@ -46,13 +46,37 @@ class FriendsSearchManager
             $criteria->compare('address.region_id', $params['regionId']);
 
         if  (isset($params['ageMin'])) {
-            $criteria->having = 'age >= :ageMin';
+            $criteria->having = (empty($criteria->having)) ? 'age >= :ageMin' : ' AND age => :ageMin';
             $criteria->params[':ageMin'] = $params['ageMin'];
         }
 
         if  (isset($params['ageMax'])) {
             $criteria->having .= (empty($criteria->having)) ? 'age <= :ageMax' : ' AND age <= :ageMax';
             $criteria->params[':ageMax'] = $params['ageMax'];
+        }
+
+        if (isset($params['childrenType'])) {
+            switch ($params['childrenType']) {
+                case 1:
+                    $criteria->join .= 'LEFT OUTER JOIN user__users_babies b ON b.parent_id = t.id AND type = 1 AND ROUND(DATEDIFF(CURDATE(), DATE_ADD(b.birthday, INTERVAL -9 MONTH))/7) >= :pregnancyWeekMin AND ROUND(DATEDIFF(CURDATE(), DATE_ADD(b.birthday, INTERVAL -9 MONTH))/7) <= :pregnancyWeekMax';
+                    $criteria->addCondition('b.id IS NOT NULL');
+                    $criteria->params[':pregnancyWeekMin'] = $params['pregnancyWeekMin'];
+                    $criteria->params[':pregnancyWeekMax'] = $params['pregnancyWeekMax'];
+                    break;
+                case 2:
+                    $criteria->join .= 'LEFT OUTER JOIN user__users_babies b ON b.parent_id = t.id AND type IS NULL AND YEAR(CURDATE()) - YEAR(b.birthday) >= :childAgeMin AND YEAR(CURDATE()) - YEAR(b.birthday) <= :childAgeMax';
+                    $criteria->addCondition('b.id IS NOT NULL');
+                    $criteria->params[':childAgeMin'] = $params['childAgeMin'];
+                    $criteria->params[':childAgeMax'] = $params['childAgeMax'];
+                    break;
+                case 3:
+                    $criteria2 = new CDbCriteria();
+                    $criteria2->select = ', COUNT(b.id) as childrenCount';
+                    $criteria2->join = 'LEFT OUTER JOIN user__users_babies b ON b.parent_id = t.id AND type IS NULL';
+                    $criteria2->having = 'childrenCount >= 3';
+                    $criteria2->group = 't.id';
+                    $criteria->mergeWith($criteria2);
+            }
         }
 
         if (isset($params['relationshipStatus']))
@@ -64,7 +88,7 @@ class FriendsSearchManager
     protected static function getDefaultCriteria($userId)
     {
         return new CDbCriteria(array(
-            'select' => 't.*, YEAR(CURDATE()) - YEAR(birthday) AS age',
+            'select' => 't.*, YEAR(CURDATE()) - YEAR(t.birthday) AS age',
             'condition' => '
                 t.id != :user_id AND
                 t.id != :hg AND

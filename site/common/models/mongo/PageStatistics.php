@@ -170,7 +170,7 @@ class PageStatistics extends EMongoDocument
             ->setDescription("Articles");
 
         // Add some data
-        $letters = array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O');
+        $letters = array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R');
 
         $sheet = $objPHPExcel->setActiveSheetIndex(0);
         $j = 1;

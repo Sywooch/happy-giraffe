@@ -9,7 +9,6 @@
 class FriendsSearchManager
 {
     const FRIENDS_PER_PAGE = 15;
-    const LARGE_FAMILY_MIN = 3;
 
     public static function getDataProvider($userId, $params)
     {
@@ -151,7 +150,7 @@ class FriendsSearchManager
         return new CDbCriteria(array(
             'select' => 'COUNT(b.id) as childrenCount',
             'join' => 'LEFT OUTER JOIN user__users_babies b ON b.parent_id = t.id AND type IS NULL',
-            'having' => 'childrenCount >= :large_family_min',
+            'having' => 'childrenCount >= 3',
             'group' => 't.id',
         ));
     }

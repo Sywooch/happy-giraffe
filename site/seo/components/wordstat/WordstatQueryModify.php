@@ -58,27 +58,9 @@ class WordstatQueryModify
     public function addToParsing($index)
     {
         $parts = array(
-<<<<<<< HEAD
-            array(':', 1),
-            array(';', 1),
-            array("\\", 1),
-            array('%', 1),
-            array('/', 1),
-            array('-', 1),
-            array('+', 1),
-            array('|', 1),
-            array('*', 1),
-            array('@', 1),
-            array(']', 1),
-            array('[', 1),
-            array(')', 1),
-            array('(', 1),
-            array('\'' => 1)
-=======
             array("(", 1),
             array(")", 1),
             array("'", 1),
->>>>>>> master
         );
 
         $part = $parts[$index][0];

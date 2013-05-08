@@ -37,7 +37,7 @@ class WordstatTaskCreator
         $this->loadMoreKeywords();
 
         while (1) {
-            sleep(2);
+            sleep(5);
 
             if ($this->remainCount() < (self::JOB_LIMIT))
                 $this->loadMoreKeywords(self::JOB_LIMIT);

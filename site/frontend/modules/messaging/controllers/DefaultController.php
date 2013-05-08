@@ -14,7 +14,13 @@ class DefaultController extends HController
 
     public function actionIndex($interlocutorId = null)
     {
-        $contacts = ContactsManager::getContactsByUserId(Yii::app()->user->id, ContactsManager::TYPE_ALL, self::CONTACTS_PER_PAGE);
+        $contacts = array_merge(
+            ContactsManager::getContactsByUserId(Yii::app()->user->id, ContactsManager::TYPE_ALL, self::CONTACTS_PER_PAGE),
+            ContactsManager::getContactsByUserId(Yii::app()->user->id, ContactsManager::TYPE_NEW, 9999),
+            ContactsManager::getContactsByUserId(Yii::app()->user->id, ContactsManager::TYPE_ONLINE, 9999),
+            ContactsManager::getContactsByUserId(Yii::app()->user->id, ContactsManager::TYPE_FRIENDS_ONLINE, 9999)
+        );
+
         if ($interlocutorId !== null) {
             $interlocutorExist = false;
             foreach ($contacts as $contact) {
@@ -58,14 +64,7 @@ class DefaultController extends HController
             'messaging__blackList' => (bool) UserAttributes::get(Yii::app()->user->id, 'messaging__blackList', false),
         );
 
-        $counters = array(
-            ContactsManager::getCountByType(Yii::app()->user->id, 0),
-            ContactsManager::getCountByType(Yii::app()->user->id, 1),
-            ContactsManager::getCountByType(Yii::app()->user->id, 2),
-            ContactsManager::getCountByType(Yii::app()->user->id, 3),
-        );
-
-        $data = CJSON::encode(compact('contacts', 'interlocutorId', 'me', 'settings', 'counters'));
+        $data = CJSON::encode(compact('contacts', 'interlocutorId', 'me', 'settings'));
         $this->render('index', compact('data'));
     }
 

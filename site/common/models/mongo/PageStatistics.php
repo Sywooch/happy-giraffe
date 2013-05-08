@@ -13,7 +13,7 @@ class PageStatistics extends EMongoDocument
     public $depth2;
     public $visit_time;
     public $se_visits = array();
-    public $date_visits = array();
+    public $date_stats = array();
 
     /**
      * @param string $className
@@ -116,7 +116,9 @@ class PageStatistics extends EMongoDocument
     {
         $criteria = new EMongoCriteria(array(
             'sort' => array('visits' => EMongoCriteria::SORT_DESC),
+            'limit' => 106,
         ));
+        $dates = array('2013-03-18', '2013-04-15', '2013-05-07');
         $pages = $this->model()->findAll($criteria);
         echo count($pages) . "\n";
         $i = 1;
@@ -125,7 +127,14 @@ class PageStatistics extends EMongoDocument
             $url = str_replace('http://happy-giraffe.ru', '', $page->url);
             $url = str_replace('http://www.happy-giraffe.ru', '', $url);
 
-            $page->se_visits['2013-04'] = (int)GApi::model()->organicSearches($url, '2013-04-01', '2013-04-30');
+            foreach($dates as $date){
+                $page->date_stats[$date] = array(
+                    GApi::model()->organicSearches($url, $date, $date),
+                    GApi::model()->visits($url, $date, $date),
+                    round(GApi::model()->pageViews($url, $date, $date)/GApi::model()->visits($url, $date, $date), 2),
+                );
+            }
+            var_dump($page->date_stats);
             $page->save();
             $i++;
         }

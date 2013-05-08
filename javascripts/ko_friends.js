@@ -138,6 +138,7 @@ function Friend(data, parent) {
     self.id = ko.observable(data.id);
     self.listId = ko.observable(data.listId);
     self.user = ko.observable(new User(data.user, parent));
+    self.removed = ko.observable(false);
 
     self.listLabel = ko.computed(function() {
         return self.listId() === null ? 'Все друзья' : parent.getListById(self.listId()).title();
@@ -178,7 +179,24 @@ function Friend(data, parent) {
                     });
                     list.dec();
                 }
-                parent.friendsToShow.remove(self);
+                self.removed(true);
+            }
+        }, 'json');
+    }
+
+    self.restore = function() {
+        $.post('/friends/default/restore/', { friendId : self.user().id() }, function(response) {
+            if (response.success) {
+                parent.friendsCount(parent.friendsCount() + 1);
+                if (self.user().online())
+                    parent.friendsOnlineCount(parent.friendsOnlineCount() + 1);
+                if (self.listId() !== null) {
+                    var list = ko.utils.arrayFirst(parent.lists(), function(list) {
+                        return list.id() == self.listId();
+                    });
+                    list.inc();
+                }
+                self.removed(false);
             }
         }, 'json');
     }

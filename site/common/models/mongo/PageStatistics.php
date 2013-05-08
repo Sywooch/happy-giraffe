@@ -121,22 +121,21 @@ class PageStatistics extends EMongoDocument
         $dates = array('2013-03-18', '2013-04-15', '2013-05-07');
         $pages = $this->model()->findAll($criteria);
         echo count($pages) . "\n";
-        $i = 1;
         foreach ($pages as $page) {
-            echo $i . "\n";
             $url = str_replace('http://happy-giraffe.ru', '', $page->url);
             $url = str_replace('http://www.happy-giraffe.ru', '', $url);
+            echo $url . "\n";
 
-            foreach($dates as $date){
+            foreach ($dates as $date) {
+                $se_visits = GApi::model()->organicSearches($url, $date, $date, false);
+                $visits = GApi::model()->visits($url, $date, $date, false);
+
                 $page->date_stats[$date] = array(
-                    GApi::model()->organicSearches($url, $date, $date),
-                    GApi::model()->visits($url, $date, $date),
-                    round(GApi::model()->pageViews($url, $date, $date)/GApi::model()->visits($url, $date, $date), 2),
+                    0 => $se_visits,
+                    1 => $visits,
                 );
             }
-            var_dump($page->date_stats);
             $page->save();
-            $i++;
         }
     }
 

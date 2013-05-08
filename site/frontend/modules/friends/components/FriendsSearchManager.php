@@ -9,6 +9,7 @@
 class FriendsSearchManager
 {
     const FRIENDS_PER_PAGE = 15;
+    const LARGE_FAMILY_MIN = 3;
 
     public static function getDataProvider($userId, $params)
     {
@@ -58,24 +59,14 @@ class FriendsSearchManager
         if (isset($params['childrenType'])) {
             switch ($params['childrenType']) {
                 case 1:
-                    $criteria->join .= 'LEFT OUTER JOIN user__users_babies b ON b.parent_id = t.id AND type = 1 AND ROUND(DATEDIFF(CURDATE(), DATE_ADD(b.birthday, INTERVAL -9 MONTH))/7) >= :pregnancyWeekMin AND ROUND(DATEDIFF(CURDATE(), DATE_ADD(b.birthday, INTERVAL -9 MONTH))/7) <= :pregnancyWeekMax';
-                    $criteria->addCondition('b.id IS NOT NULL');
-                    $criteria->params[':pregnancyWeekMin'] = $params['pregnancyWeekMin'];
-                    $criteria->params[':pregnancyWeekMax'] = $params['pregnancyWeekMax'];
+                    $criteria->mergeWith(self::getPregnancyWeekCriteria($params['pregnancyWeekMin'], $params['pregnancyWeekMax']));
                     break;
                 case 2:
-                    $criteria->join .= 'LEFT OUTER JOIN user__users_babies b ON b.parent_id = t.id AND type IS NULL AND YEAR(CURDATE()) - YEAR(b.birthday) >= :childAgeMin AND YEAR(CURDATE()) - YEAR(b.birthday) <= :childAgeMax';
-                    $criteria->addCondition('b.id IS NOT NULL');
-                    $criteria->params[':childAgeMin'] = $params['childAgeMin'];
-                    $criteria->params[':childAgeMax'] = $params['childAgeMax'];
+                    $criteria->mergeWith(self::getChildAgeCriteria($params['childAgeMin'], $params['childAgeMax']));
                     break;
                 case 3:
-                    $criteria2 = new CDbCriteria();
-                    $criteria2->select = ', COUNT(b.id) as childrenCount';
-                    $criteria2->join = 'LEFT OUTER JOIN user__users_babies b ON b.parent_id = t.id AND type IS NULL';
-                    $criteria2->having = 'childrenCount >= 3';
-                    $criteria2->group = 't.id';
-                    $criteria->mergeWith($criteria2);
+                    $criteria->mergeWith(self::getLargeFamilyCriteria());
+                    break;
             }
         }
 
@@ -113,6 +104,7 @@ class FriendsSearchManager
                 ),
                 'partner',
             ),
+            'order' => 't.id DESC',
             'params' => array(
                 ':user_id' => $userId,
                 ':hg' => User::HAPPY_GIRAFFE,
@@ -126,6 +118,41 @@ class FriendsSearchManager
         $criteria->addSearchCondition('first_name', $query);
         $criteria->addSearchCondition('last_name', $query, true, 'OR');
         $criteria->addSearchCondition(new CDbExpression('CONCAT_WS(\' \', first_name, last_name)'), $query, true, 'OR');
+        $criteria->addSearchCondition(new CDbExpression('CONCAT_WS(\' \', last_name, first_name)'), $query, true, 'OR');
         return $criteria;
+    }
+
+    protected static function getPregnancyWeekCriteria($pregnancyWeekMin, $pregnancyWeekMax)
+    {
+        return new CDbCriteria(array(
+            'join' => 'LEFT OUTER JOIN user__users_babies b ON b.parent_id = t.id AND type = 1 AND CEIL(DATEDIFF(CURDATE(), DATE_ADD(b.birthday, INTERVAL -9 MONTH))/7) >= :pregnancyWeekMin AND CEIL(DATEDIFF(CURDATE(), DATE_ADD(b.birthday, INTERVAL -9 MONTH))/7) <= :pregnancyWeekMax',
+            'condition' => 'b.id IS NOT NULL',
+            'params' => array(
+                ':pregnancyWeekMin' => $pregnancyWeekMin,
+                ':pregnancyWeekMax' => $pregnancyWeekMax,
+            ),
+        ));
+    }
+
+    protected static function getChildAgeCriteria($childAgeMin, $childAgeMax)
+    {
+        return new CDbCriteria(array(
+            'join' => 'LEFT OUTER JOIN user__users_babies b ON b.parent_id = t.id AND type IS NULL AND YEAR(CURDATE()) - YEAR(b.birthday) >= :childAgeMin AND YEAR(CURDATE()) - YEAR(b.birthday) <= :childAgeMax',
+            'condition' => 'b.id IS NOT NULL',
+            'params' => array(
+                ':childAgeMin' => $childAgeMin,
+                ':childAgeMax' => $childAgeMax,
+            ),
+        ));
+    }
+
+    protected static function getLargeFamilyCriteria()
+    {
+        return new CDbCriteria(array(
+            'select' => 'COUNT(b.id) as childrenCount',
+            'join' => 'LEFT OUTER JOIN user__users_babies b ON b.parent_id = t.id AND type IS NULL',
+            'having' => 'childrenCount >= :large_family_min',
+            'group' => 't.id',
+        ));
     }
 }

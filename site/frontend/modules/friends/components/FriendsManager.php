@@ -49,6 +49,7 @@ class FriendsManager
             $sCriteria->addSearchCondition('first_name', $query);
             $sCriteria->addSearchCondition('last_name', $query, true, 'OR');
             $sCriteria->addSearchCondition(new CDbExpression('CONCAT_WS(\' \', first_name, last_name)'), $query, true, 'OR');
+            $sCriteria->addSearchCondition(new CDbExpression('CONCAT_WS(\' \', last_name, first_name)'), $query, true, 'OR');
             $criteria->mergeWith($sCriteria);
         }
 

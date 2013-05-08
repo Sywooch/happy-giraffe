@@ -79,6 +79,14 @@
                             <!-- /ko -->
                         </div>
                     </div>
+
+                    <div class="friends-list_deleted" data-bind="visible: removed">
+                        <div class="friends-list_deleted-hold">
+                            <a class="friends-list_a" data-bind="text: user().fullName, attr: { href : user().url }"></a>
+                            <div class="friends-list_row color-gray">удалена из списка <br>ваших друзей</div>
+                            <a href="javascript:void(0)" class="a-pseudo" data-bind="click: restore">Восстановить?</a>
+                        </div>
+                    </div>
                 </div>
                 <!-- /ko -->
             <!-- /ko -->

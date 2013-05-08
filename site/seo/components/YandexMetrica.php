@@ -221,20 +221,28 @@ class YandexMetrica
     {
         $dates = array('2013-03-18', '2013-04-15', '2013-05-07');
         foreach ($dates as $date) {
-            $next = 'http://api-metrika.yandex.ru/stat/content/entrance?date1=' . str_replace('-','',$date). '&date2=' . str_replace('-','',$date)
+            $next = 'http://api-metrika.yandex.ru/stat/content/entrance?date1=' . str_replace('-', '', $date) . '&date2=' . str_replace('-', '', $date)
                 . '&id=' . $this->counter_id . '&oauth_token=' . $this->token;
 
-            $val = $this->loadPage($next);
+            $page = 0;
+            while (!empty($next)) {
+                $page++;
+                $val = $this->loadPage($next);
+                $next = $this->getNextLink($val);
 
-            foreach ($val['data'] as $query) {
-                $page = PageStatistics::findByUrl($query['url']);
-                if ($page !== null) {
-                    if (isset($page->date_stats[$date])) {
-                        echo $query['depth']."\n";
-                        $page->date_stats[$date][2] = $query['depth'];
-                        $page->update(array('date_stats'), true);
+                foreach ($val['data'] as $query) {
+                    $page = PageStatistics::findByUrl($query['url']);
+                    if ($page !== null) {
+                        if (isset($page->date_stats[$date])) {
+                            echo $query['depth'] . "\n";
+                            $page->date_stats[$date][2] = $query['depth'];
+                            $page->update(array('date_stats'), true);
+                        }
                     }
                 }
+
+                if ($page > 15)
+                    break;
             }
         }
     }

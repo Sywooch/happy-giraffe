@@ -88,10 +88,10 @@ class PageStatistics extends EMongoDocument
             $dates = array('2013-03-18', '2013-04-15', '2013-05-07');
             foreach($dates as $date)
                 if (isset($page->date_stats[$date])){
-                    $rows[] = $page->date_stats[$date[0]];
-                    $rows[] = $page->date_stats[$date[1]];
-                    if (isset($date[2]))
-                        $rows[] = $page->date_stats[$date[2]];
+                    $rows[] = $page->date_stats[$date][0];
+                    $rows[] = $page->date_stats[$date][1];
+                    if (isset($page->date_stats[$date][2]))
+                        $rows[] = $page->date_stats[$date][2];
                     else
                         $rows[] = 0;
                 }

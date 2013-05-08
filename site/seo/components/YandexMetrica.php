@@ -224,9 +224,9 @@ class YandexMetrica
             $next = 'http://api-metrika.yandex.ru/stat/content/entrance?date1=' . str_replace('-', '', $date) . '&date2=' . str_replace('-', '', $date)
                 . '&id=' . $this->counter_id . '&oauth_token=' . $this->token;
 
-            $page = 0;
+            $i = 0;
             while (!empty($next)) {
-                $page++;
+                $i++;
                 $val = $this->loadPage($next);
                 $next = $this->getNextLink($val);
 
@@ -241,7 +241,7 @@ class YandexMetrica
                     }
                 }
 
-                if ($page > 15)
+                if ($i > 15)
                     break;
             }
         }

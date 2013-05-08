@@ -240,9 +240,6 @@ class YandexMetrica
                         }
                     }
                 }
-
-                if ($i > 15)
-                    break;
             }
         }
     }

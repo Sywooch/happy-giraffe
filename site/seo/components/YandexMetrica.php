@@ -214,7 +214,36 @@ class YandexMetrica
         echo '<br>';
     }
 
-    public function parseDepth(){
+    /**
+     * Парсинг и обновление глубины просмотра первой 1000 страниц
+     */
+    public function parseDepthFirstRows()
+    {
+        $dates = array('2013-03-18', '2013-04-15', '2013-05-07');
+        foreach ($dates as $date) {
+            $next = 'http://api-metrika.yandex.ru/stat/content/entrance?date1=' . str_replace('-','',$date). '&date2=' . str_replace('-','',$date)
+                . '&id=' . $this->counter_id . '&oauth_token=' . $this->token;
+
+            $val = $this->loadPage($next);
+
+            foreach ($val['data'] as $query) {
+                $page = PageStatistics::findByUrl($query['url']);
+                if ($page !== null) {
+                    if (isset($page->date_stats[$date])) {
+                        echo $query['depth']."\n";
+                        $page->date_stats[$date][2] = $query['depth'];
+                        $page->update(array('date_stats'), true);
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * Парсинг и обновление глубины просмотра первых 3000 страниц
+     */
+    public function parseDepth()
+    {
         $date1 = '20130401';
         $date2 = '20130430';
         $next = 'http://api-metrika.yandex.ru/stat/content/entrance?date1=' . $date1 . '&date2=' . $date2
@@ -228,7 +257,7 @@ class YandexMetrica
             if (is_array($val['data']))
                 foreach ($val['data'] as $query) {
                     $page = PageStatistics::findByUrl($query['url']);
-                    if ($page !== null){
+                    if ($page !== null) {
                         $page->depth2 = $query['depth'];
                         $page->update(array('depth2'), true);
                     }
@@ -282,7 +311,7 @@ class YandexMetrica
         $iterator = new CDataProviderIterator($dataProvider, 100);
         foreach ($iterator as $query) {
             $keywords[$query->keyword_id] = array(0 => $query->visits, 1 => 0);
-            $keywords[$query->keyword_id][3]=$this->getPhraseUrl($query->keyword_id);
+            $keywords[$query->keyword_id][3] = $this->getPhraseUrl($query->keyword_id);
         }
 
         $dataProvider = new CActiveDataProvider('Query', array(
@@ -297,7 +326,7 @@ class YandexMetrica
             else
                 $keywords[$query->keyword_id] = array(1 => $query->visits, 0 => 0);
 
-            $keywords[$query->keyword_id][3]=$this->getPhraseUrl($query->keyword_id);
+            $keywords[$query->keyword_id][3] = $this->getPhraseUrl($query->keyword_id);
         }
 
         foreach ($keywords as $key => $keyword)
@@ -324,7 +353,7 @@ class YandexMetrica
                 ->order('date desc')
                 ->limit(1)
                 ->queryScalar();
-            if (!empty($best_phrase)){
+            if (!empty($best_phrase)) {
                 $phrase = PagesSearchPhrase::model()->findByPk($best_phrase);
                 return $phrase->page->url;
             }

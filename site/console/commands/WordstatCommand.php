@@ -86,4 +86,27 @@ class WordstatCommand extends CConsoleCommand
         $this->collection = $mongo->selectCollection('parsing', 'simple_parsing');
         echo $this->collection->remove(array('id' => 63312236));
     }
+
+    public function actionDeleteNulls()
+    {
+        $last_id = 346000000;
+        while(true){
+            $condition = 'wordstat = 0 AND id > '.$last_id;
+            $ids = Yii::app()->db_keywords->createCommand()
+                ->select('id')
+                ->from('keywords')
+                ->order('id asc')
+                ->where($condition)
+                ->limit(10000)
+                ->queryColumn();
+
+            foreach($ids as $id)
+                WordstatParsingTask::getInstance()->removeSimpleTask($id);
+
+            $last_id = end($ids);
+            echo $last_id."\n";
+            if (empty($ids))
+                break;
+        }
+    }
 }

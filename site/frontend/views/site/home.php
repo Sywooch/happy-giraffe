@@ -60,7 +60,7 @@
 
                     <div class="box homepage-articles homepage-recipes">
 
-                        <div class="title">Кулинарные <span>рецепты</span> <i>- <b>10000</b> рецептов</i></div>
+                        <div class="title">Кулинарные <span>рецепты</span> <i>- <b>15000</b> рецептов</i></div>
 
                         <ul>
                             <li><a href="/cook/"><img src="/images/homepage_recipes_img.jpg"></a></li>

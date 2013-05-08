@@ -10,6 +10,7 @@ class PageStatistics extends EMongoDocument
     public $denial;
     public $page_views;
     public $depth;
+    public $depth2;
     public $visit_time;
     public $se_visits = array();
     public $date_visits = array();
@@ -37,6 +38,19 @@ class PageStatistics extends EMongoDocument
         $model->save();
     }
 
+    /**
+     * Найти модель по url
+     */
+    public static function findByUrl($url)
+    {
+        $criteria = new EMongoCriteria(array(
+            'conditions' => array(
+                'url' => array('==' => $url)
+            ),
+        ));
+        return self::model()->find($criteria);
+    }
+
     public function export()
     {
         $criteria = new EMongoCriteria();
@@ -56,18 +70,20 @@ class PageStatistics extends EMongoDocument
             $rows = array();
             $rows[0] = $i;
             $rows[1] = array($page->url, $article->title);
-            $rows[6] = '';
+            $rows[7] = '';
             if ($entity == 'CommunityContent') {
                 $rows[2] = $article->rubric->community->title;
                 if (isset($article->gallery))
-                    $rows[6] = 'да';
+                    $rows[7] = 'да';
             } else {
                 $rows[2] = 'личный блог';
             }
             $rows[3] = $page->visits;
             $rows[4] = isset($page->se_visits['2013-02']) ? $page->se_visits['2013-02'] : '';
             $rows[5] = isset($page->se_visits['2013-03']) ? $page->se_visits['2013-03'] : '';
-            $rows[7] = round($page->depth, 2);
+            $rows[6] = isset($page->se_visits['2013-04']) ? $page->se_visits['2013-04'] : '';
+            $rows[8] = round($page->depth, 2);
+            $rows[9] = round($page->depth2, 2);
 
             $data [] = $rows;
             if ($i >= 2000)
@@ -99,7 +115,6 @@ class PageStatistics extends EMongoDocument
     public function parseSe()
     {
         $criteria = new EMongoCriteria(array(
-            'conditions' => array('se_visits' => array('notExists')),
             'sort' => array('visits' => EMongoCriteria::SORT_DESC),
         ));
         $pages = $this->model()->findAll($criteria);
@@ -109,9 +124,8 @@ class PageStatistics extends EMongoDocument
             echo $i . "\n";
             $url = str_replace('http://happy-giraffe.ru', '', $page->url);
             $url = str_replace('http://www.happy-giraffe.ru', '', $url);
-            $page->se_visits = array();
-            $page->se_visits['2013-02'] = (int)GApi::model()->organicSearches($url, '2013-02-01', '2013-02-28');
-            $page->se_visits['2013-03'] = (int)GApi::model()->organicSearches($url, '2013-03-01', '2013-03-31');
+
+            $page->se_visits['2013-04'] = (int)GApi::model()->organicSearches($url, '2013-04-01', '2013-04-30');
             $page->save();
             $i++;
         }
@@ -120,6 +134,7 @@ class PageStatistics extends EMongoDocument
     public function excel($data)
     {
         $file_name = '/home/beryllium/file.xlsx';
+//        $file_name = 'f:/file.xlsx';
 
         $phpExcelPath = Yii::getPathOfAlias('site.common.extensions.phpExcel');
         spl_autoload_unregister(array('YiiBase', 'autoload'));

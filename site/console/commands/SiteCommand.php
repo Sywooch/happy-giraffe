@@ -289,11 +289,32 @@ class SiteCommand extends CConsoleCommand
 
     public function actionTest()
     {
+        Yii::import('site.frontend.modules.notification.models.base.*');
         Yii::import('site.frontend.modules.notification.models.*');
         Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
 
+        for ($i=1;$i< 1000 ;$i++ ) {
+            $comments = Comment::model()->findAll(new CDbCriteria(array('limit' => 100)));
+            $t1 = microtime(true);
+            //Notification::model()->getUnreadCount(10);
+
+            foreach ($comments as $comment)
+                NotificationNewComment::model()->create(rand(1, 1000), $comment);
+
+            echo microtime(true) - $t1 . "\n";
+        }
+    }
+
+    public function actionTest2(){
+        Yii::import('site.frontend.modules.notification.models.base.*');
+        Yii::import('site.frontend.modules.notification.models.*');
+        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
+
+        $comment = Comment::model()->findByPk(270);
         $t1 = microtime(true);
-        NotificationLike::create(10, 'CommunityContent', 1234);
+//        Notification::model()->getNotificationsList(6085);
+        NotificationNewComment::model()->create(8846, $comment);
+//        NotificationNewComment::model()->read(8846, 'CommunityContent', 98);
         echo microtime(true) - $t1;
     }
 }

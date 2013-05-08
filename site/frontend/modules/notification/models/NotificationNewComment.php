@@ -6,13 +6,13 @@
  *
  * @author Alex Kireev <alexk984@gmail.com>
  */
-class NotificationNewComment extends Notification
+class NotificationNewComment extends NotificationGroup
 {
+    /**
+     * @var Notification
+     */
+    private static $_instance;
     public $type = self::NEW_COMMENT;
-    public $entity;
-    public $entity_id;
-    public $comment_ids;
-    public $comments;
 
     /**
      * @return NotificationNewComment
@@ -24,79 +24,53 @@ class NotificationNewComment extends Notification
         return self::$_instance;
     }
 
-    public function setSpecificValues()
-    {
-        $this->comments = $this->getComments();
-    }
-
     /**
      * @return Comment[]
      */
     public function getComments()
     {
-        return Comment::model()->findAllByPk($this->comment_ids);
+        return Comment::model()->findAllByPk($this->model_ids);
     }
 
     /**
      * Создаем уведомление о новом комментарии. Если уведомление к этому посту уже создавалось и еще не было
-     * прочитано, то добавляем в него новый комментарий.
+     * прочитано, то добавляем в него новый комментарий и увеличиваем кол-во нотификаций
      *
      * @param $recipient_id int id пользователя, который должен получить уведомление
      * @param $comment Comment комментарий
      */
     public function create($recipient_id, $comment)
     {
-        $exist = $this->getCollection()->findOne(array(
-            'type' => self::NEW_COMMENT,
-            'recipient_id' => (int)$recipient_id,
-            'read' => 0,
-            'entity' => $comment->entity,
-            'entity_id' => (int)$comment->entity_id,
-        ));
+        $this->recipient_id = (int)$recipient_id;
+        $this->entity = $comment->entity;
+        $this->entity_id = $comment->entity_id;
 
-        if ($exist)
-            $this->update($exist, $comment);
-        else
-            $this->insert($recipient_id, $comment);
+        parent::create($comment->id);
     }
 
     /**
-     * Добавление в существующее уведомление информации о новом комментарии к этой записи/фото
-     *
-     * @param $exist
-     * @param $comment
-     */
-    private function update($exist, $comment)
-    {
-        $_id = $exist['_id'];
-        unset($exist['_id']);
-
-        $exist['comment_ids'][] = (int)$comment->id;
-        $exist['updated'] = time();
-        $this->getCollection()->update(
-            array('_id' => $_id),
-            $exist
-        );
-    }
-
-    /**
-     * Создание нового уведомления о непрочитанном комментарии
+     * Помечаем что уведомление о новых комментариях к статье прочитано
      *
      * @param $recipient_id int id пользователя, который должен получить уведомление
-     * @param $comment Comment комментарий
+     * @param $entity string класс модели, к которой написан комментарий
+     * @param $entity_id int id модели, к которой написан комментарий
      */
-    private function insert($recipient_id, $comment)
+    public function read($recipient_id, $entity, $entity_id){
+        parent::read($recipient_id, $entity, $entity_id);
+    }
+
+    /**
+     * Создает модель уведомления для удобой работы с ним
+     *
+     * @param $object array объект, который вернул компонент работы с базой
+     * @return NotificationNewComment
+     */
+    public static function createModel($object)
     {
-        self::getCollection()->insert(
-            array(
-                'type' => self::NEW_COMMENT,
-                'recipient_id' => (int)$recipient_id,
-                'read' => 0,
-                'updated' => time(),
-                'entity' => $comment->entity,
-                'entity_id' => (int)$comment->entity_id,
-                'comment_ids' => array((int)$comment->id)
-            )
-        );
+        $model = new NotificationNewComment();
+        foreach($object as $key => $value)
+            $model->$key = $value;
+
+        return $model;
     }
 }

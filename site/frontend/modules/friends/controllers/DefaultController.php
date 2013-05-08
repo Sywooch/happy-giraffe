@@ -60,6 +60,15 @@ class DefaultController extends HController
         echo CJSON::encode($response);
     }
 
+    public function actionRestore()
+    {
+        $friendId = Yii::app()->request->getPost('friendId');
+        $success = Friend::model()->makeFriendship(Yii::app()->user->id, $friendId);
+
+        $response = compact('success');
+        echo CJSON::encode($response);
+    }
+
     public function actionRegions($countryId)
     {
         $regions = array_map(function($region) {

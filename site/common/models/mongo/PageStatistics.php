@@ -39,7 +39,8 @@ class PageStatistics extends EMongoDocument
     }
 
     /**
-     * Найти модель по url
+     * @param $url
+     * @return PageStatistics
      */
     public static function findByUrl($url)
     {
@@ -84,6 +85,16 @@ class PageStatistics extends EMongoDocument
             $rows[6] = isset($page->se_visits['2013-04']) ? $page->se_visits['2013-04'] : '';
             $rows[8] = round($page->depth, 2);
             $rows[9] = round($page->depth2, 2);
+            $dates = array('2013-03-18', '2013-04-15', '2013-05-07');
+            foreach($dates as $date)
+                if (isset($page->date_stats[$date])){
+                    $rows[] = $page->date_stats[$date[0]];
+                    $rows[] = $page->date_stats[$date[1]];
+                    if (isset($date[2]))
+                        $rows[] = $page->date_stats[$date[2]];
+                    else
+                        $rows[] = 0;
+                }
 
             $data [] = $rows;
             if ($i >= 2000)

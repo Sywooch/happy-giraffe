@@ -9,10 +9,14 @@
 class NotificationLike extends NotificationGroup
 {
     /**
-     * @var Notification
+     * @var NotificationLike
      */
     private static $_instance;
     public $type = self::NEW_LIKE;
+
+    public function __construct()
+    {
+    }
 
     /**
      * @return NotificationLike
@@ -33,8 +37,8 @@ class NotificationLike extends NotificationGroup
     }
 
     /**
-     * Создаем уведомление о новом комментарии. Если уведомление к этому посту уже создавалось и еще не было
-     * прочитано, то добавляем в него новый комментарий и увеличиваем кол-во нотификаций
+     * Создаем уведомление о новом лайке контента автора. Если уведомление к этому контенту уже создавалось
+     * и еще не было прочитано, то добавляем в него еще одного пользователя и увеличиваем кол-во нотификаций
      *
      * @param $recipient_id int id пользователя, который должен получить уведомление
      * @param $like RatingYohoho лайк
@@ -63,7 +67,7 @@ class NotificationLike extends NotificationGroup
      * Создает модель уведомления для удобой работы с ним
      *
      * @param $object array объект, который вернул компонент работы с базой
-     * @return NotificationNewComment
+     * @return NotificationLike
      */
     public static function createModel($object)
     {

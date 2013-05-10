@@ -18,6 +18,7 @@
  *
  * The followings are the available model relations:
  * @property User author
+ * @property Comment $response
  * @property AttachPhoto[] $photoAttaches
  * @property AttachPhoto $photoAttach
  */
@@ -213,10 +214,7 @@ class Comment extends HActiveRecord
                 $relatedModel->sendEvent();
             }
 
-            $entity = CActiveRecord::model($this->entity)->findByPk($this->entity_id);
-            NotificationNewComment::model()->create($entity->author_id, $this);
-            if ($this->response_id !== null)
-                UserNotification::model()->create(UserNotification::NEW_REPLY, array('comment' => $this));
+            NotificationCreate::commentCreated($this);
 
             FriendEventManager::add(FriendEvent::TYPE_COMMENT_ADDED, array('model' => $this, 'relatedModel' => $this->relatedModel));
 

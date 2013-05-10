@@ -1,21 +1,25 @@
 <?php
 /**
- * Class NotificationNewComment
+ * Class NotificationUserContentComment
  *
  * Уведомление пользователю о новом комментарии
  *
  * @author Alex Kireev <alexk984@gmail.com>
  */
-class NotificationNewComment extends NotificationGroup
+class NotificationUserContentComment extends NotificationGroup
 {
     /**
-     * @var Notification
+     * @var NotificationUserContentComment
      */
     private static $_instance;
-    public $type = self::NEW_COMMENT;
+    public $type = self::USER_CONTENT_COMMENT;
+
+    public function __construct()
+    {
+    }
 
     /**
-     * @return NotificationNewComment
+     * @return NotificationUserContentComment
      */
     public static function model()
     {
@@ -36,14 +40,13 @@ class NotificationNewComment extends NotificationGroup
      * Создаем уведомление о новом комментарии. Если уведомление к этому посту уже создавалось и еще не было
      * прочитано, то добавляем в него новый комментарий и увеличиваем кол-во нотификаций
      *
-     * @param $recipient_id int id пользователя, который должен получить уведомление
      * @param $comment Comment комментарий
      */
-    public function create($recipient_id, $comment)
+    public function create($comment)
     {
-        $this->recipient_id = (int)$recipient_id;
+        $this->recipient_id = (int)$comment->author_id;
         $this->entity = $comment->entity;
-        $this->entity_id = $comment->entity_id;
+        $this->entity_id = (int)$comment->entity_id;
 
         parent::create($comment->id);
     }
@@ -63,11 +66,11 @@ class NotificationNewComment extends NotificationGroup
      * Создает модель уведомления для удобой работы с ним
      *
      * @param $object array объект, который вернул компонент работы с базой
-     * @return NotificationNewComment
+     * @return NotificationUserContentComment
      */
     public static function createModel($object)
     {
-        $model = new NotificationNewComment();
+        $model = new NotificationUserContentComment;
         foreach($object as $key => $value)
             $model->$key = $value;
 

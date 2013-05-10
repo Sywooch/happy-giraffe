@@ -88,9 +88,17 @@ class Rating extends EMongoDocument
             $model->ratings = array();
             $model->save();
         }
-        if ($social_key == 'yh')
-            if (($e = RatingYohoho::model()->saveByEntity($entity)) === false)
+        if ($social_key == 'yh'){
+            $like = RatingYohoho::model()->findByEntity($entity);
+            if ($like === null){
+                $like = $like->createNew($entity);
+                NotificationCreate::likeCreated($like);
+            }
+            else{
                 $value = $value * -1;
+                $like->delete();
+            }
+        }
 
         $model->ratings[$social_key] = $plus && isset($model->ratings[$social_key]) ? $model->ratings[$social_key] + $value : $value;
         $old_sum = $model->sum;

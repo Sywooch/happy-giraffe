@@ -13,9 +13,11 @@ class Notification
      */
     private static $_instance;
 
-    const NEW_COMMENT = 0;
+    const USER_CONTENT_COMMENT = 0;
     const REPLY_COMMENT = 1;
-    const NEW_LIKE = 2;
+    const DISCUSS_CONTINUE = 2;
+
+    const NEW_LIKE = 5;
 
     const PAGE_SIZE = 20;
 
@@ -161,7 +163,7 @@ class Notification
     protected function createNotification($object)
     {
         switch ($object['type']){
-            case self::NEW_COMMENT:
+            case self::USER_CONTENT_COMMENT:
                 return NotificationNewComment::createModel($object);
         }
         return null;

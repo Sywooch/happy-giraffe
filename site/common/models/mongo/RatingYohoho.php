@@ -17,6 +17,10 @@ class RatingYohoho extends EMongoDocument
         return 'ratings_yohoho';
     }
 
+    /**
+     * @param string $className
+     * @return RatingYohoho
+     */
     public static function model($className = __CLASS__)
     {
         return parent::model($className);
@@ -29,28 +33,10 @@ class RatingYohoho extends EMongoDocument
         );
     }
 
-    public function afterSave()
-    {
-        parent::afterSave();
-
-        if ($this->isNewRecord) {
-            //добавляем баллы
-//            Yii::import('site.frontend.modules.scores.models.*');
-//            UserScores::addScores($this->user_id, ScoreAction::ACTION_YOHOHO_LIKE, 1, array(
-//                'id' => $this->entity_id, 'name' => $this->entity_name));
-        }
-    }
-
-    public function afterDelete()
-    {
-        parent::afterDelete();
-
-        //вычитаем баллы
-//        Yii::import('site.frontend.modules.scores.models.*');
-//        UserScores::removeScores($this->user_id, ScoreAction::ACTION_YOHOHO_LIKE, 1, array(
-//            'id' => $this->entity_id, 'name' => $this->entity_name));
-    }
-
+    /**
+     * @param $entity
+     * @return RatingYohoho
+     */
     public function findByEntity($entity)
     {
         $entity_id = (int)$entity->primaryKey;
@@ -67,6 +53,10 @@ class RatingYohoho extends EMongoDocument
         return false;
     }
 
+    /**
+     * @param $entity
+     * @return bool
+     */
     public function saveByEntity($entity)
     {
         $model = $this->findByEntity($entity);
@@ -82,5 +72,18 @@ class RatingYohoho extends EMongoDocument
             return true;
         }
         return false;
+    }
+
+    /**
+     * @param $entity
+     * @return RatingYohoho
+     */
+    public function createNew($entity){
+        $model = new $this;
+        $model->entity_id = (int)$entity->primaryKey;
+        $model->entity_name = get_class($entity);
+        $model->user_id = (int)Yii::app()->user->id;
+        $model->save();
+        return $model;
     }
 }

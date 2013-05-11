@@ -271,5 +271,9 @@ return array(
 
         'messaging' => 'messaging/default/index',
         'messaging/<_c>/<_a>' => 'messaging/<_c>/<_a>',
+
+        'friends' => 'friends/default/index',
+        'friends/search' => 'friends/search/index',
+        'friends/<_c>/<_a>' => 'friends/<_c>/<_a>',
     ),
 );

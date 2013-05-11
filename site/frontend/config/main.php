@@ -57,7 +57,6 @@ return array(
         'application.modules.whatsNew.widgets.whatsNewWidget.WhatsNewWidget',
         'application.modules.messaging.components.*',
         'application.modules.messaging.models.*',
-        'ext.directmongosuite.*',
         'application.modules.notification.models.*',
     ),
 
@@ -105,6 +104,7 @@ return array(
         'routes',
         'messaging',
         'notification',
+        'friends',
 	),
     'behaviors' => array(
         'edms' => array(

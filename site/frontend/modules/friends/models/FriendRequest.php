@@ -129,4 +129,9 @@ class FriendRequest extends HActiveRecord
     {
         return $this->countByAttributes(array('to_id' => $user_id, 'status' => 'pending'));
     }
+
+    public function getCountByUserId($userId, $incoming = true)
+    {
+        return $this->countByAttributes(array($incoming ? 'to_id' : 'from_id' => $userId, 'status' => 'pending'));
+    }
 }

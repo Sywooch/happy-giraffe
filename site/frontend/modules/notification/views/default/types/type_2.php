@@ -4,5 +4,5 @@
  * 
  * @author Alex Kireev <alexk984@gmail.com>
  */
-
-echo 'user content_comment';
+?>
+<div>discuss</div>

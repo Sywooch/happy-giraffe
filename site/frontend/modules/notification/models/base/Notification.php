@@ -6,17 +6,17 @@
  *
  * @author Alex Kireev <alexk984@gmail.com>
  */
-class Notification
+class Notification extends HMongoModel
 {
     /**
      * @var Notification
      */
     private static $_instance;
+    protected $_collection_name = 'notifications_new';
 
     const USER_CONTENT_COMMENT = 0;
     const REPLY_COMMENT = 1;
     const DISCUSS_CONTINUE = 2;
-
     const NEW_LIKE = 5;
 
     const PAGE_SIZE = 20;
@@ -46,25 +46,17 @@ class Notification
     }
 
     /**
-     * @return MongoCollection
-     */
-    public static function getCollection()
-    {
-        return Yii::app()->edmsMongoCollection('notifications_new');
-    }
-
-    /**
      * Добавляет индекс если не создан
      */
-    public static function ensureIndex()
+    public function ensureIndex()
     {
-        self::getCollection()->ensureIndex(array(
+        $this->getCollection()->ensureIndex(array(
             'updated' => EMongoCriteria::SORT_DESC,
             'recipient_id' => EMongoCriteria::SORT_DESC,
             'read' => EMongoCriteria::SORT_DESC,
         ), array('name' => 'list_index'));
 
-        self::getCollection()->ensureIndex(array(
+        $this->getCollection()->ensureIndex(array(
             'type' => EMongoCriteria::SORT_DESC,
             'recipient_id' => EMongoCriteria::SORT_DESC,
             'entity' => EMongoCriteria::SORT_DESC,
@@ -72,7 +64,7 @@ class Notification
             'read' => EMongoCriteria::SORT_DESC,
         ), array('name' => 'find_one_index'));
 
-        self::getCollection()->ensureIndex(array(
+        $this->getCollection()->ensureIndex(array(
             'recipient_id' => EMongoCriteria::SORT_DESC,
             'read' => EMongoCriteria::SORT_DESC,
         ), array('name' => 'count_index'));
@@ -86,13 +78,28 @@ class Notification
     }
 
     /**
+     * Пометить уведомление как прочитанное по id
+     * @param $id
+     */
+    public function readByPk($id)
+    {
+        $this->getCollection()->findAndModify(
+            array("_id" => $id),
+            array(
+                '$set' => array("read" => 1),
+            ),
+            null
+        );
+    }
+
+    /**
      * Создаение нового уведомления
      *
      * @param $specific_fields array массив специфических полей уведомления
      */
     protected function insert($specific_fields)
     {
-        self::getCollection()->insert(
+        $this->getCollection()->insert(
             array_merge(array(
                 'type' => (int)$this->type,
                 'recipient_id' => (int)$this->recipient_id,
@@ -158,13 +165,17 @@ class Notification
 
     /**
      * @param $object
-     * @return NotificationNewComment|null
+     * @return Notification|null
      */
     protected function createNotification($object)
     {
-        switch ($object['type']){
+        switch ($object['type']) {
             case self::USER_CONTENT_COMMENT:
-                return NotificationNewComment::createModel($object);
+                return NotificationUserContentComment::createModel($object);
+            case self::REPLY_COMMENT:
+                return NotificationReplyComment::createModel($object);
+            case self::NEW_LIKE:
+                return NotificationLike::createModel($object);
         }
         return null;
     }

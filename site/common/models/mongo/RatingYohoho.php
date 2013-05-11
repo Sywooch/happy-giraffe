@@ -47,10 +47,7 @@ class RatingYohoho extends EMongoDocument
         $criteria->entity_name('==', $entity_name);
         $criteria->user_id('==', (int)Yii::app()->user->id);
 
-        $model = $this->find($criteria);
-        if ($model)
-            return $model;
-        return false;
+        return $this->find($criteria);
     }
 
     /**
@@ -78,7 +75,7 @@ class RatingYohoho extends EMongoDocument
      * @param $entity
      * @return RatingYohoho
      */
-    public function createNew($entity){
+    public function create($entity){
         $model = new $this;
         $model->entity_id = (int)$entity->primaryKey;
         $model->entity_name = get_class($entity);

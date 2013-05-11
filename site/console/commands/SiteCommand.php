@@ -96,33 +96,6 @@ class SiteCommand extends CConsoleCommand
         UserNotification::model()->deleteAll($criteria);
     }
 
-    public function actionFix2()
-    {
-        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
-        Yii::import('site.frontend.modules.cook.models.*');
-        Yii::import('site.common.models.mongo.*');
-
-        $users = Yii::app()->db->createCommand()->select('id')->from('users')->where('`group` = 6')->queryColumn();
-        foreach ($users as $user) {
-            $criteria = new EMongoCriteria();
-            $criteria->type = UserAction::USER_ACTION_COMMENT_ADDED;
-            $criteria->user_id = (int)$user;
-
-            $actions = UserAction::model()->findAll($criteria);
-            echo count($actions) . "\n";
-            foreach ($actions as $action) {
-                $comment = Comment::model()->findByPk($action->data['id']);
-                if ($comment !== null) {
-                    $model = CActiveRecord::model($comment->entity)->findByPk($comment->entity_id);
-                    if (empty($model->rubric_id)) {
-                        $action->delete();
-                        echo "+\n";
-                    }
-                }
-            }
-        }
-    }
-
     public function actionHoroscope()
     {
         Yii::import('site.frontend.modules.services.modules.horoscope.models.*');
@@ -310,10 +283,11 @@ class SiteCommand extends CConsoleCommand
         Yii::import('site.frontend.modules.notification.models.*');
         Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
 
-        $comment = Comment::model()->findByPk(270);
+        $comment = Comment::model()->findByPk(279);
+        NotificationDiscussSubscription::model();
         $t1 = microtime(true);
 //        Notification::model()->getNotificationsList(6085);
-        NotificationNewComment::model()->create(8846, $comment);
+        NotificationDiscussSubscription::model()->subscribeCommentAuthor($comment);
 //        NotificationNewComment::model()->read(8846, 'CommunityContent', 98);
         echo microtime(true) - $t1;
     }

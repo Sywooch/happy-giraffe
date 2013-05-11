@@ -20,7 +20,7 @@ class NotificationGroup extends Notification
      */
     protected function create($model_id)
     {
-        self::ensureIndex();
+        $this->ensureIndex();
         $exist = $this->getCollection()->findOne(array(
             'type' => $this->type,
             'recipient_id' => (int)$this->recipient_id,
@@ -29,8 +29,12 @@ class NotificationGroup extends Notification
             'entity_id' => (int)$this->entity_id,
         ));
 
-        if ($exist)
+        if ($exist){
+            //если такая модель уже есть в списке ничего не меняем
+            if (in_array($model_id, $exist['model_ids']))
+                return ;
             $this->update($exist, $model_id);
+        }
         else
             $this->insert($model_id);
 
@@ -92,5 +96,15 @@ class NotificationGroup extends Notification
                 null
             );
         }
+    }
+
+    /**
+     * Возвращает модель контента с которой связано уведомление
+     * @return mixed
+     */
+    public function getEntity()
+    {
+        $class = $this->entity;
+        return $class::model()->findByPk($this->entity_id);
     }
 }

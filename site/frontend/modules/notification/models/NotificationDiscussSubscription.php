@@ -1,43 +1,132 @@
 <?php
 /**
  * Подписка на контент
- * 
+ *
  * @author Alex Kireev <alexk984@gmail.com>
  */
-class NotificationDiscussSubscription {
-    /**
-     * @var string класс сущности
-     */
-    public $entity;
-    /**
-     * @var int id элемента
-     */
-    public $entity_id;
-    /**
-     * @var int id пользователя, подписавшегося на тему
-     */
-    public $recipient_id;
-    public $last_comment_id;
+class NotificationDiscussSubscription extends HMongoModel
+{
+    protected $_collection_name = 'notification_discuss_subs';
 
     /**
-     * @return MongoCollection
+     * @var NotificationDiscussSubscription
      */
-    public static function getCollection()
+    private static $_instance;
+
+    public function __construct()
     {
-        return Yii::app()->edmsMongoCollection('notifications_new');
+    }
+
+    /**
+     * @return NotificationDiscussSubscription
+     */
+    public static function model()
+    {
+        if (null === self::$_instance)
+            self::$_instance = new self();
+        return self::$_instance;
     }
 
     /**
      * Добавляет индекс если не создан
      */
-    public static function ensureIndex()
+    public function ensureIndex()
     {
-        self::getCollection()->ensureIndex(array(
+        $this->getCollection()->ensureIndex(array(
             'entity' => EMongoCriteria::SORT_DESC,
-            'recipient_id' => EMongoCriteria::SORT_DESC,
-            'read' => EMongoCriteria::SORT_DESC,
-        ), array('name' => 'list_index'));
+            'entity_id' => EMongoCriteria::SORT_DESC,
+        ), array('name' => 'entity_index'));
+
+        $this->getCollection()->ensureIndex(array(
+            'entity' => EMongoCriteria::SORT_DESC,
+            'entity_id' => EMongoCriteria::SORT_DESC,
+            'subscriber_id' => EMongoCriteria::SORT_DESC,
+        ), array('name' => 'user_subscription_index'));
     }
 
+    /**
+     * Возвращает список подписчиков темы, которые должны получить уведомление о
+     * новых комментариях в теме, то есть те после посещения которых было написано
+     * более 10 новых комментариев.
+     *
+     * Удаляет подписки, так как пользователям будут отправлены уведомления и они
+     * больше не будут подписаны
+     *
+     * @param $comment Comment
+     * @return array массив пользователей user_id => last_read_comment_id
+     */
+    public function getSubscribers($comment)
+    {
+        $last_read_comment = $this->getLastReadComment($comment);
+        if ($last_read_comment === null)
+            return array();
 
+        $cursor = $this->getCollection()->find(array(
+            'entity' => $comment->entity,
+            'entity_id' => (int)$comment->entity_id,
+            'last_read_comment_id' => array('$lt' => (int)$last_read_comment->id)
+        ), array('subscriber_id', 'last_read_comment_id'));
+
+        //var_dump($cursor->explain());
+
+        $list = array();
+        while ($cursor->hasNext()) {
+            $subscriber = $cursor->getNext();
+            $list [$subscriber['subscriber_id']] = $subscriber['last_read_comment_id'];
+            $this->deleteByPk($subscriber['_id']);
+        }
+
+        return $list;
+    }
+
+    /**
+     * Возвращает последний комментарий, который если был прочитан пользователем, то он
+     * получит уведомление. Основывается на том что id комментариев увеличивается и те кто
+     * прочитал этот комментарий или любой из предыдущих с меньшим id, получат уведомления
+     *
+     * @param $comment
+     * @return CActiveRecord
+     */
+    private function getLastReadComment($comment)
+    {
+        $criteria = new CDbCriteria;
+        $criteria->compare('entity', $comment->entity);
+        $criteria->compare('entity_id', $comment->entity_id);
+        $criteria->compare('removed', 0);
+        $criteria->order = 'id desc';
+        $criteria->offset = NotificationDiscussContinue::NEW_COMMENTS_COUNT;
+        return Comment::model()->find($criteria);
+    }
+
+    /**
+     * Подписываем автора комментария на продолжение дискуссии. Если он уже
+     * подписан, меняем last_read_comment_id
+     *
+     * @param $comment
+     */
+    public function subscribeCommentAuthor($comment)
+    {
+        $this->ensureIndex();
+
+        $exist = $this->getCollection()->findOne(array(
+            'entity' => $comment->entity,
+            'entity_id' => (int)$comment->entity_id,
+            'subscriber_id' => (int)$comment->author_id
+        ));
+
+        if (empty($exist)) {
+            $this->getCollection()->insert(array(
+                'entity' => $comment->entity,
+                'entity_id' => (int)$comment->entity_id,
+                'subscriber_id' => (int)$comment->author_id,
+                'last_read_comment_id' => (int)$comment->id
+            ));
+        } else {
+            $this->getCollection()->update(array(
+                '_id' => $exist['_id']
+            ), array(
+                '$set' => array("last_read_comment_id" => (int)$comment->id)
+            ));
+        }
+    }
 }

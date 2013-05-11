@@ -5,11 +5,11 @@
  *
  * Уведомление всегда создается сразу, но отобразиться может и позже.
  * При создании уведомления на основе настроек пользователя, определяется время когда это уведомление будет показано.
- * 
+ *
  * @author Alex Kireev <alexk984@gmail.com>
  */
-class NotificationCreate{
-
+class NotificationCreate
+{
     /**
      * Создаем уведомления, связынне с появлением нового комментария. Это могут быть:
      * 1. уведомления автору поста
@@ -19,16 +19,70 @@ class NotificationCreate{
      */
     public static function commentCreated($comment)
     {
-        //уведомления автору поста
-        if ($comment->author_id !== User::HAPPY_GIRAFFE){
+        $entity = $comment->entity;
+        $model = $entity::model()->findByPk($comment->entity_id);
+
+        //если пишет автор, пропускаем
+        if (isset($model->author_id) && $model->author_id == $comment->author_id)
+            return;
+
+        self::userContentNotification($model, $comment);
+        self::replyCommentNotification($comment);
+        //сначала подписываем автора, это избавит от лишней проверки на следующем шаге
+        //когда будет выбирать всех подписчиков кроме того кто только что написал
+        NotificationDiscussSubscription::model()->subscribeCommentAuthor($comment);
+        self::discussContinue($comment);
+    }
+
+    /**
+     * Создание уведомления автору поста
+     *
+     * @param $model CActiveRecord запись/фото/видео
+     * @param $comment Comment
+     */
+    private static function userContentNotification($model, $comment)
+    {
+        if (isset($model->author_id) && $comment->author_id !== User::HAPPY_GIRAFFE) {
             $notification = new NotificationUserContentComment;
-            $notification->create($comment);
+            $notification->create($model->author_id, $comment);
         }
-        //уведомление если кому-то ответил на его коммент
-        if (!empty($comment->response_id)){
+    }
+
+    /**
+     * Создание уведомление об ответе на комментарий
+     *
+     * @param $comment Comment
+     */
+    private static function replyCommentNotification($comment)
+    {
+        if (!empty($comment->response_id) && $comment->response->author_id != $comment->author_id) {
             $notification = new NotificationReplyComment();
             $notification->create($comment);
         }
+    }
+
+    /**
+     * Создание уведомления о продолжении дискуссии
+     *
+     * @param $comment Comment
+     */
+    private static function discussContinue($comment)
+    {
+        $users = NotificationDiscussSubscription::model()->getSubscribers($comment);
+        foreach ($users as $user_id => $last_read_comment_id) {
+            $notification = new NotificationDiscussContinue();
+            $notification->create($user_id, $comment, $last_read_comment_id);
+        }
+    }
+
+    /**
+     * Подписываем комментатора на запись/фото/видео
+     *
+     * @param $comment Comment
+     */
+    private static function subscribeCommentator($comment)
+    {
+
     }
 
     /**
@@ -38,9 +92,10 @@ class NotificationCreate{
      */
     public static function likeCreated($like)
     {
-        $model = CActiveRecord::model($like->entity_name)->findByPk($like->entity_id);
+        $entity = $like->entity_name;
+        $model = $entity::model()->findByPk($like->entity_id);
         //уведомления автору поста
-        if ($model->author_id !== User::HAPPY_GIRAFFE){
+        if ($model->author_id !== User::HAPPY_GIRAFFE && $model->author_id != Yii::app()->user->id) {
             $notification = new NotificationLike();
             $notification->create($model->author_id, $like);
         }

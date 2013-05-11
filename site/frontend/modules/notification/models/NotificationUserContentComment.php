@@ -9,7 +9,7 @@
 class NotificationUserContentComment extends NotificationGroup
 {
     /**
-     * @var NotificationUserContentComment
+     * @var Notification
      */
     private static $_instance;
     public $type = self::USER_CONTENT_COMMENT;
@@ -40,11 +40,12 @@ class NotificationUserContentComment extends NotificationGroup
      * Создаем уведомление о новом комментарии. Если уведомление к этому посту уже создавалось и еще не было
      * прочитано, то добавляем в него новый комментарий и увеличиваем кол-во нотификаций
      *
+     * @param $recipient_id int id пользователя, который должен получить уведомление
      * @param $comment Comment комментарий
      */
-    public function create($comment)
+    public function create($recipient_id, $comment)
     {
-        $this->recipient_id = (int)$comment->author_id;
+        $this->recipient_id = (int)$recipient_id;
         $this->entity = $comment->entity;
         $this->entity_id = (int)$comment->entity_id;
 

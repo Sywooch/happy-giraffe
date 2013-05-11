@@ -1,5 +1,5 @@
 <?php if (!Yii::app()->user->isGuest):?>
-    <?php if ($user->isFriend(Yii::app()->user->id)): ?>
+    <?php if (Friend::areFriends(Yii::app()->user->id, $user->id)): ?>
 
         <?php elseif ($user->isInvitedBy(Yii::app()->user->id)): ?>
             <a href="javascript:void(0)" class="add-friend"><i class="icon"></i>Приглашение<br>уже выслано</a>

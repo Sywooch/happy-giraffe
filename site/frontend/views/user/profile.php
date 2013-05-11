@@ -143,10 +143,12 @@
 
                 <div class="col-3">
 
+                    <?php if (false): ?>
                     <?php $this->widget('ContestWidget', array(
                         'user' => $user,
                         'contest_id' => 9,
                     )); ?>
+                    <?php endif; ?>
 
                     <?php $this->widget('UserFriendsWidget', array(
                         'user' => $user,

@@ -5,4 +5,4 @@
  * @author Alex Kireev <alexk984@gmail.com>
  */
 ?>
-<div>discuss</div>
+<div>like</div>

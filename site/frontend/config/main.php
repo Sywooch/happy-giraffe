@@ -57,7 +57,11 @@ return array(
         'application.modules.whatsNew.widgets.whatsNewWidget.WhatsNewWidget',
         'application.modules.messaging.components.*',
         'application.modules.messaging.models.*',
+        'application.modules.friends.models.*',
+        'ext.directmongosuite.*',
+        'application.modules.notification.models.base.*',
         'application.modules.notification.models.*',
+        'application.modules.notification.components.*',
     ),
 
 	'sourceLanguage' => 'en',
@@ -67,7 +71,12 @@ return array(
     /*'catchAllRequest' => (in_array($_SERVER['REMOTE_ADDR'], array('127.0.0.1', '88.87.70.93', '178.35.209.102', '91.205.122.228')))?null:array(
         '/site/maintenance',
     ),*/
-
+    'behaviors' => array(
+        'edms' => array(
+            'class'=>'EDMSBehavior',
+            'connectionId' => 'mongodb',
+        )
+    ),
 	'modules'=>array(
 		// uncomment the following to enable the Gii tool
 		'gii'=>array(
@@ -106,12 +115,6 @@ return array(
         'notification',
         'friends',
 	),
-    'behaviors' => array(
-        'edms' => array(
-            'class'=>'EDMSBehavior',
-            'connectionId' => 'mongodb',
-        )
-    ),
 	// application components
 	'components'=>array(
         'clientScript' => array(

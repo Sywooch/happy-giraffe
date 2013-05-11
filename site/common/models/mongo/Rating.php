@@ -90,8 +90,8 @@ class Rating extends EMongoDocument
         }
         if ($social_key == 'yh'){
             $like = RatingYohoho::model()->findByEntity($entity);
-            if ($like === null){
-                $like = $like->createNew($entity);
+            if ($like == null){
+                $like = RatingYohoho::model()->create($entity);
                 NotificationCreate::likeCreated($like);
             }
             else{

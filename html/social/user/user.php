@@ -374,9 +374,12 @@
 								
 								<div class="user-friends clearfix">
 									
-									<div class="box-title">Друзья <a href="">Все друзья (105)</a></div>
+									<div class="box-title">
+										Друзья <a href="">Все (9105)</a>
+										<a href="" class="btn btn-orange-smallest float-r margin-r20"><span><span>Найти друзей</span></span></a>
+									</div>
 									
-									<ul class="clearfix">
+									<ul class="margin-t10 clearfix">
 										<li><a href="" class="ava"></a></li>
 										<li><a href="" class="ava male"></a></li>
 										<li><a href="" class="ava"><img src="/images/user_friends_img.jpg" /></a></li>
@@ -386,11 +389,6 @@
 										<li><a href="" class="ava male"></a></li>
 										<li><a href="" class="ava"></a></li>
 									</ul>
-									
-									<div class="more-friends">
-										<a href=""><i class="ico-friends-small"></i>Найти еще друзей</a>
-										 <a href="" class="wannachat">Хочу общаться!</a>
-									</div>
 									
 								</div>
 								<br/><br/> <!-- этих <br/> быть не должно, просто из-за дублирования блока-->

@@ -355,15 +355,13 @@ function MessagingViewModel(data) {
                 return 1;
         });
 
-        return self.contacts();
-
-//        var query = self.searchQuery();
-//        return (query == '') ?
-//            contacts
-//            :
-//            ko.utils.arrayFilter(contacts, function(contact) {
-//                return contact.user().fullName().toLowerCase().indexOf(query.toLowerCase()) != -1;
-//            });
+        var query = self.searchQuery();
+        return (query == '') ?
+            self.contacts()
+            :
+            ko.utils.arrayFilter(self.contacts(), function(contact) {
+                return contact.user().fullName().toLowerCase().indexOf(query.toLowerCase()) != -1;
+            });
     });
 
     self.visibleContactsToShow = ko.computed(function() {

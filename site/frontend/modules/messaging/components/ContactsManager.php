@@ -64,17 +64,26 @@ class ContactsManager
             case self::TYPE_ALL;
                 $sql = "
                     SELECT COUNT(*)
-                    FROM messaging__threads_users
-                    WHERE user_id = :user_id;
+                    FROM messaging__threads_users tu
+                    # Получение id собеседника
+                    INNER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id != tu.user_id
+                    # Находится ли в чёрном списке
+                    LEFT OUTER JOIN blacklist b ON b.user_id = tu.user_id AND b.blocked_user_id = tu2.user_id
+                    WHERE tu.user_id = :user_id AND b.user_id IS NULL;
                 ";
                 break;
             case self::TYPE_NEW:
                 $sql = "
                     SELECT COUNT(DISTINCT tu.thread_id)
                     FROM messaging__threads_users tu
-                    INNER JOIN messaging__messages m ON m.thread_id = tu.thread_id AND m.author_id != :user_id
-                    INNER JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.read = 0 AND mu.user_id = :user_id
-                    WHERE tu.user_id = :user_id
+                    # Получение количества непрочитанных сообщений
+                    INNER JOIN messaging__messages m ON m.thread_id = tu.thread_id AND m.author_id != tu.user_id
+                    INNER JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.read = 0 AND mu.user_id = tu.user_id
+                    # Получение id собеседника
+                    INNER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id != tu.user_id
+                    # Находится ли в чёрном списке
+                    LEFT OUTER JOIN blacklist b ON b.user_id = tu.user_id AND b.blocked_user_id = tu2.user_id
+                    WHERE tu.user_id = :user_id AND b.user_id IS NULL
                     GROUP BY tu.user_id;
                 ";
                 break;
@@ -82,16 +91,23 @@ class ContactsManager
                 $sql = "
                     SELECT COUNT(*)
                     FROM messaging__threads_users tu
+                    # Получение id собеседника
                     INNER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id != :user_id
+                    # Получение информации о собеседнике
                     INNER JOIN users u ON tu2.user_id = u.id
-                    WHERE tu.user_id = :user_id AND u.online = 1
+                    # Находится ли в чёрном списке
+                    LEFT OUTER JOIN blacklist b ON b.user_id = tu.user_id AND b.blocked_user_id = tu2.user_id
+                    WHERE tu.user_id = :user_id AND u.online = 1 AND b.user_id IS NULL
                 ";
                 break;
             case self::TYPE_FRIENDS_ONLINE:
                 $sql = "
                     SELECT COUNT(*)
                     FROM friends f
+                    # Получение информации о собеседнике
                     INNER JOIN users u ON u.id = f.friend_id
+                    # Находится ли в чёрном списке
+                    LEFT OUTER JOIN blacklist b ON b.user_id = f.user_id AND b.blocked_user_id = f.friend_id
                     WHERE f.user_id = :user_id AND u.online = 1;
                 ";
                 break;
@@ -111,43 +127,32 @@ class ContactsManager
                       u.gender, # Пол собеседника
                       u.online, # Онлайн-статус собеседника
                       t.id AS tId, # ID Диалога
-                      tu2.hidden, # Видимость диалога
+                      tu.hidden, # Видимость диалога
                       p.fs_name, # Аватар
                       UNIX_TIMESTAMP(t.updated) AS updated, # Дата последнего обновления диалога
                       COUNT(mu.message_id) AS unreadCount, # Количество непрочитанных сообщений
-                      f.created IS NOT NULL AS isFriend # Является ли другом
-                    # Таблица ID всех пользователей в контактах
-                    FROM (
-                      # Пользователи, с которыми когда-либо была переписка
-                      SELECT tu2.user_id AS uId
-                      FROM messaging__threads_users tu
-                      INNER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id != :user_id
-                      INNER JOIN messaging__threads t ON tu.thread_id = t.id
-                      WHERE tu.user_id = :user_id
-                      ORDER BY t.updated DESC, t.id DESC
-                      LIMIT :limit
-                      OFFSET :offset
-                    ) uIds
-                    # Связывание с таблицей пользователей для получения данных о собеседнике
-                    INNER JOIN users u ON u.id = uIds.uId
-                    # Связывание с таблицей друзей для установления, является ли собеседник другом
-                    LEFT OUTER JOIN friends f ON f.user_id = :user_id AND f.friend_id = u.id
-                    # Связывание с таблицей участников диалога для получения ID и видимости диалога
-                    LEFT OUTER JOIN messaging__threads_users tu ON tu.user_id = u.id
-                    LEFT OUTER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id = :user_id
-                    # Связывание с таблицей диалогов для получения данных о диалоге
-                    LEFT OUTER JOIN messaging__threads t ON t.id = tu2.thread_id
-                    # Связывание с таблицами сообщений и получателей сообщения для получения количества непрочитанных сообщений
-                    LEFT OUTER JOIN messaging__messages m ON m.thread_id = t.id AND m.author_id != :user_id
-                    LEFT OUTER JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.read = 0 AND mu.user_id = :user_id
-                    # Связывание с таблицей фотографий для получения аватара
+                      f.id IS NOT NULL AS isFriend # Является ли другом
+                    FROM messaging__threads_users tu
+                    # Получение id собеседника
+                    INNER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id != tu.user_id
+                    # Получение информации о собеседнике
+                    INNER JOIN users u ON tu2.user_id = u.id
+                    # Получение информации о диалоге
+                    INNER JOIN messaging__threads t ON tu.thread_id = t.id
+                    # Получение количества непрочитанных сообщений
+                    LEFT OUTER JOIN messaging__messages m ON m.thread_id = t.id AND m.author_id != tu.user_id
+                    LEFT OUTER JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.read = 0 AND mu.user_id = tu.user_id
+                    # Получение аватара
                     LEFT OUTER JOIN album__photos p ON u.avatar_id = p.id
-                    WHERE
-                      # Условие для корректной работы связывание с таблицей участников диалога
-                      tu.user_id IS NULL OR (tu.user_id IS NOT NULL AND tu2.user_id IS NOT NULL)
-                      # Условие для фильтрации по чёрному списку
-                      AND uId NOT IN (SELECT blocked_user_id FROM blacklist WHERE user_id = :user_id)
-                    GROUP BY u.id;
+                    # Является ли другом
+                    LEFT OUTER JOIN friends f ON f.user_id = tu.user_id AND f.friend_id = u.id
+                    # Находится ли в черном списке
+                    LEFT OUTER JOIN blacklist b ON b.user_id = tu.user_id AND b.blocked_user_id = u.id
+                    WHERE tu.user_id = :user_id AND b.user_id IS NULL
+                    GROUP BY u.id
+                    ORDER BY t.updated DESC
+                    LIMIT :limit
+                    OFFSET :offset;
                 ";
                 break;
             case self::TYPE_NEW:
@@ -159,41 +164,31 @@ class ContactsManager
                       u.gender, # Пол собеседника
                       u.online, # Онлайн-статус собеседника
                       t.id AS tId, # ID Диалога
-                      tu2.hidden, # Видимость диалога
+                      tu.hidden, # Видимость диалога
                       p.fs_name, # Аватар
                       UNIX_TIMESTAMP(t.updated) AS updated, # Дата последнего обновления диалога
                       COUNT(mu.message_id) AS unreadCount, # Количество непрочитанных сообщений
-                      f.created IS NOT NULL AS isFriend # Является ли другом
-                    # Таблица ID всех пользователей в контактах
-                    FROM (
-                      # Пользователи, с которыми когда-либо была переписка
-                      SELECT tu2.user_id AS uId
-                      FROM messaging__threads_users tu
-                      INNER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id != :user_id
-                      WHERE tu.user_id = :user_id
-                    ) uIds
-                    # Связывание с таблицей пользователей для получения данных о собеседнике
-                    INNER JOIN users u ON u.id = uIds.uId
-                    # Связывание с таблицей друзей для установления, является ли собеседник другом
-                    LEFT OUTER JOIN friends f ON f.user_id = :user_id AND f.friend_id = u.id
-                    # Связывание с таблицей участников диалога для получения ID и видимости диалога
-                    LEFT OUTER JOIN messaging__threads_users tu ON tu.user_id = u.id
-                    LEFT OUTER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id = :user_id
-                    # Связывание с таблицей диалогов для получения данных о диалоге
-                    LEFT OUTER JOIN messaging__threads t ON t.id = tu2.thread_id
-                    # Связывание с таблицами сообщений и получателей сообщения для получения количества непрочитанных сообщений
-                    LEFT OUTER JOIN messaging__messages m ON m.thread_id = t.id AND m.author_id != :user_id
-                    LEFT OUTER JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.read = 0 AND mu.user_id = :user_id
-                    # Связывание с таблицей фотографий для получения аватара
+                      f.id IS NOT NULL AS isFriend # Является ли другом
+                    FROM messaging__threads_users tu
+                    # Получение id собеседника
+                    INNER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id != tu.user_id
+                    # Получение информации о собеседнике
+                    INNER JOIN users u ON tu2.user_id = u.id
+                    # Получение информации о диалоге
+                    INNER JOIN messaging__threads t ON tu.thread_id = t.id
+                    # Получение количества непрочитанных сообщений
+                    LEFT OUTER JOIN messaging__messages m ON m.thread_id = t.id AND m.author_id != tu.user_id
+                    LEFT OUTER JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.read = 0 AND mu.user_id = tu.user_id
+                    # Получение аватара
                     LEFT OUTER JOIN album__photos p ON u.avatar_id = p.id
-                    WHERE
-                      # Условие для корректной работы связывание с таблицей участников диалога
-                      tu.user_id IS NULL OR (tu.user_id IS NOT NULL AND tu2.user_id IS NOT NULL)
-                      # Условие для фильтрации по чёрному списку
-                      AND uId NOT IN (SELECT blocked_user_id FROM blacklist WHERE user_id = :user_id)
+                    # Является ли другом
+                    LEFT OUTER JOIN friends f ON f.user_id = tu.user_id AND f.friend_id = u.id
+                    # Находится ли в черном списке
+                    LEFT OUTER JOIN blacklist b ON b.user_id = tu.user_id AND b.blocked_user_id = u.id
+                    WHERE tu.user_id = :user_id AND b.user_id IS NULL
                     GROUP BY u.id
                     HAVING unreadCount > 0
-                    ORDER BY updated DESC, t.id DESC
+                    ORDER BY t.updated DESC
                     LIMIT :limit
                     OFFSET :offset;
                 ";
@@ -207,42 +202,30 @@ class ContactsManager
                       u.gender, # Пол собеседника
                       u.online, # Онлайн-статус собеседника
                       t.id AS tId, # ID Диалога
-                      tu2.hidden, # Видимость диалога
+                      tu.hidden, # Видимость диалога
                       p.fs_name, # Аватар
                       UNIX_TIMESTAMP(t.updated) AS updated, # Дата последнего обновления диалога
                       COUNT(mu.message_id) AS unreadCount, # Количество непрочитанных сообщений
-                      f.created IS NOT NULL AS isFriend # Является ли другом
-                    # Таблица ID всех пользователей в контактах
-                    FROM (
-                      # Пользователи, с которыми когда-либо была переписка
-                      SELECT tu2.user_id AS uId
-                      FROM messaging__threads_users tu
-                      INNER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id != :user_id
-                      WHERE tu.user_id = :user_id
-                    ) uIds
-                    # Связывание с таблицей пользователей для получения данных о собеседнике
-                    INNER JOIN users u ON u.id = uIds.uId
-                    # Связывание с таблицей друзей для установления, является ли собеседник другом
-                    LEFT OUTER JOIN friends f ON f.user_id = :user_id AND f.friend_id = u.id
-                    # Связывание с таблицей участников диалога для получения ID и видимости диалога
-                    LEFT OUTER JOIN messaging__threads_users tu ON tu.user_id = u.id
-                    LEFT OUTER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id = :user_id
-                    # Связывание с таблицей диалогов для получения данных о диалоге
-                    LEFT OUTER JOIN messaging__threads t ON t.id = tu2.thread_id
-                    # Связывание с таблицами сообщений и получателей сообщения для получения количества непрочитанных сообщений
-                    LEFT OUTER JOIN messaging__messages m ON m.thread_id = t.id AND m.author_id != :user_id
-                    LEFT OUTER JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.read = 0 AND mu.user_id = :user_id
-                    # Связывание с таблицей фотографий для получения аватара
+                      f.id IS NOT NULL AS isFriend # Является ли другом
+                    FROM messaging__threads_users tu
+                    # Получение id собеседника
+                    INNER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id != tu.user_id
+                    # Получение информации о собеседнике
+                    INNER JOIN users u ON tu2.user_id = u.id
+                    # Получение информации о диалоге
+                    INNER JOIN messaging__threads t ON tu.thread_id = t.id
+                    # Получение количества непрочитанных сообщений
+                    LEFT OUTER JOIN messaging__messages m ON m.thread_id = t.id AND m.author_id != tu.user_id
+                    LEFT OUTER JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.read = 0 AND mu.user_id = tu.user_id
+                    # Получение аватара
                     LEFT OUTER JOIN album__photos p ON u.avatar_id = p.id
-                    WHERE
-                      # Условие для корректной работы связывание с таблицей участников диалога
-                      tu.user_id IS NULL OR (tu.user_id IS NOT NULL AND tu2.user_id IS NOT NULL)
-                      # Условие для фильтрации по чёрному списку
-                      AND uId NOT IN (SELECT blocked_user_id FROM blacklist WHERE user_id = :user_id)
-                      # Условие для отображения только собеседников онлайн
-                      AND u.online = 1
+                    # Является ли другом
+                    LEFT OUTER JOIN friends f ON f.user_id = tu.user_id AND f.friend_id = u.id
+                    # Находится ли в черном списке
+                    LEFT OUTER JOIN blacklist b ON b.user_id = tu.user_id AND b.blocked_user_id = u.id
+                    WHERE tu.user_id = :user_id AND b.user_id IS NULL AND u.online = 1
                     GROUP BY u.id
-                    ORDER BY updated DESC, t.id DESC
+                    ORDER BY t.updated DESC
                     LIMIT :limit
                     OFFSET :offset;
                 ";
@@ -256,37 +239,29 @@ class ContactsManager
                       u.gender, # Пол собеседника
                       u.online, # Онлайн-статус собеседника
                       t.id AS tId, # ID Диалога
-                      tu2.hidden, # Видимость диалога
+                      tu.hidden, # Видимость диалога
                       p.fs_name, # Аватар
                       UNIX_TIMESTAMP(t.updated) AS updated, # Дата последнего обновления диалога
                       COUNT(mu.message_id) AS unreadCount, # Количество непрочитанных сообщений
-                      f.created IS NOT NULL AS isFriend # Является ли другом
-                    # Таблица ID всех пользователей в контактах
-                    FROM (
-                      SELECT friend_id AS uId FROM friends WHERE user_id = :user_id
-                    ) uIds
-                    # Связывание с таблицей пользователей для получения данных о собеседнике
-                    INNER JOIN users u ON u.id = uIds.uId
-                    # Связывание с таблицей друзей для установления, является ли собеседник другом
-                    LEFT OUTER JOIN friends f ON f.user_id = :user_id AND f.friend_id = u.id
+                      1 AS isFriend # Является ли другом
+                    FROM friends f
+                    # Получение информации о собеседнике
+                    INNER JOIN users u ON f.friend_id = u.id
                     # Связывание с таблицей участников диалога для получения ID и видимости диалога
-                    LEFT OUTER JOIN messaging__threads_users tu ON tu.user_id = u.id
-                    LEFT OUTER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id = :user_id
-                    # Связывание с таблицей диалогов для получения данных о диалоге
-                    LEFT OUTER JOIN messaging__threads t ON t.id = tu2.thread_id
-                    # Связывание с таблицами сообщений и получателей сообщения для получения количества непрочитанных сообщений
-                    LEFT OUTER JOIN messaging__messages m ON m.thread_id = t.id AND m.author_id != :user_id
-                    LEFT OUTER JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.read = 0 AND mu.user_id = :user_id
-                    # Связывание с таблицей фотографий для получения аватара
+                    LEFT OUTER JOIN messaging__threads_users tu2 ON tu2.user_id = f.friend_id
+                    LEFT OUTER JOIN messaging__threads_users tu ON tu.thread_id = tu2.thread_id AND tu.user_id = f.user_id
+                    # Получение информации о диалоге
+                    LEFT OUTER JOIN messaging__threads t ON tu.thread_id = t.id
+                    # Получение количества непрочитанных сообщений
+                    LEFT OUTER JOIN messaging__messages m ON m.thread_id = t.id AND m.author_id != tu.user_id
+                    LEFT OUTER JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.read = 0 AND mu.user_id = tu.user_id
+                    # Получение аватара
                     LEFT OUTER JOIN album__photos p ON u.avatar_id = p.id
-                    WHERE
-                      # Условие для корректной работы связывание с таблицей участников диалога
-                      tu.user_id IS NULL OR (tu.user_id IS NOT NULL AND tu2.user_id IS NOT NULL)
-                      # Условие для фильтрации по чёрному списку
-                     # AND uId NOT IN (SELECT blocked_user_id FROM blacklist WHERE user_id = :user_id)
-                      # Условие для отображения только собеседников онлайн
-                      AND u.online = 1
+                    # Находится ли в черном списке
+                    LEFT OUTER JOIN blacklist b ON b.user_id = tu.user_id AND b.blocked_user_id = u.id
+                    WHERE f.user_id = :user_id AND b.user_id IS NULL AND u.online = 1
                     GROUP BY u.id
+                    ORDER BY t.updated DESC
                     LIMIT :limit
                     OFFSET :offset;
                 ";

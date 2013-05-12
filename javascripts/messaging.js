@@ -185,7 +185,9 @@ function MessagingViewModel(data) {
     self.uploadedImages = ko.observableArray([]);
     self.tab = ko.observable(0);
     self.searchQuery = ko.observable('');
-    self.contacts = ko.observableArray([]);
+    self.contacts = ko.observableArray(ko.utils.arrayMap(data.contacts, function(contact) {
+        return new Contact(contact, self);
+    }));
     self.messages = ko.observableArray([]);
     self.openContactIndex = ko.observable(null);
     self.interlocutor = ko.observable('');
@@ -299,47 +301,47 @@ function MessagingViewModel(data) {
         });
     }, this);
 
-    self.allContacts = ko.computed(function() {
-        return ko.utils.arrayFilter(self.contacts(), function(contact) {
-            return contact.thread() != null || contact.user().id() == data.interlocutorId;
-        });
-    }, this);
-
-    self.newContacts = ko.computed(function() {
-        return ko.utils.arrayFilter(self.contacts(), function(contact) {
-            return contact.thread() != null && contact.thread().unreadCount() > 0;
-        });
-    }, this);
-
-    self.onlineContacts = ko.computed(function() {
-        return ko.utils.arrayFilter(self.contacts(), function(contact) {
-            return contact.thread() != null && contact.user().online();
-        });
-    }, this);
-
-    self.friendsContacts = ko.computed(function() {
-        return ko.utils.arrayFilter(self.contacts(), function(contact) {
-            return contact.user().isFriend() && contact.user().online();
-        });
-    }, this);
+//    self.allContacts = ko.computed(function() {
+//        return ko.utils.arrayFilter(self.contacts(), function(contact) {
+//            return contact.thread() != null || contact.user().id() == data.interlocutorId;
+//        });
+//    }, this);
+//
+//    self.newContacts = ko.computed(function() {
+//        return ko.utils.arrayFilter(self.contacts(), function(contact) {
+//            return contact.thread() != null && contact.thread().unreadCount() > 0;
+//        });
+//    }, this);
+//
+//    self.onlineContacts = ko.computed(function() {
+//        return ko.utils.arrayFilter(self.contacts(), function(contact) {
+//            return contact.thread() != null && contact.user().online();
+//        });
+//    }, this);
+//
+//    self.friendsContacts = ko.computed(function() {
+//        return ko.utils.arrayFilter(self.contacts(), function(contact) {
+//            return contact.user().isFriend() && contact.user().online();
+//        });
+//    }, this);
 
     self.contactsToShow = ko.computed(function() {
-        switch (self.tab()) {
-            case 0:
-                var contacts = self.allContacts();
-                break;
-            case 1:
-                var contacts = self.newContacts();
-                break;
-            case 2:
-                var contacts = self.onlineContacts();
-                break;
-            case 3:
-                var contacts = self.friendsContacts();
-                break;
-        }
+//        switch (self.tab()) {
+//            case 0:
+//                var contacts = self.allContacts();
+//                break;
+//            case 1:
+//                var contacts = self.newContacts();
+//                break;
+//            case 2:
+//                var contacts = self.onlineContacts();
+//                break;
+//            case 3:
+//                var contacts = self.friendsContacts();
+//                break;
+//        }
 
-        contacts.sort(function(l, r) {
+        self.contacts().sort(function(l, r) {
             if (l.thread() !== null && r.thread() !== null)
                 return l.thread().updated() == r.thread().updated() ? 0 : (l.thread().updated() > r.thread().updated() ? -1 : 1);
 
@@ -353,13 +355,15 @@ function MessagingViewModel(data) {
                 return 1;
         });
 
-        var query = self.searchQuery();
-        return (query == '') ?
-            contacts
-            :
-            ko.utils.arrayFilter(contacts, function(contact) {
-                return contact.user().fullName().toLowerCase().indexOf(query.toLowerCase()) != -1;
-            });
+        return self.contacts();
+
+//        var query = self.searchQuery();
+//        return (query == '') ?
+//            contacts
+//            :
+//            ko.utils.arrayFilter(contacts, function(contact) {
+//                return contact.user().fullName().toLowerCase().indexOf(query.toLowerCase()) != -1;
+//            });
     });
 
     self.visibleContactsToShow = ko.computed(function() {
@@ -417,8 +421,7 @@ function MessagingViewModel(data) {
 
     self.changeTab = function(tab) {
         self.tab(tab);
-        if (self.contactsToShow().length < 20)
-            self.loadContacts();
+        self.init();
     }
 
     self.findByInterlocutorId = function(interlocutorId) {
@@ -449,12 +452,36 @@ function MessagingViewModel(data) {
         }, 'json');
     }
 
-    self.loadContacts = function() {
+    self.loadContacts = function(callback, offset) {
+        var data = {
+            type : self.tab()
+        };
+        if (typeof offset !== "undefined")
+            data.offset = offset;
+
         self.loadingContacts(true);
-        $.get('/messaging/default/getContacts/', { type : self.tab(), offset : self.contactsToShow().length  }, function(response) {
-            self.populateContacts(response.contacts);
+        $.get('/messaging/default/getContacts/', data, function(response) {
+            callback(response);
             self.loadingContacts(false);
         }, 'json');
+    }
+
+    self.init = function() {
+        self.loadContacts(function(response) {
+            self.contacts(ko.utils.arrayMap(response.contacts, function(contact) {
+                return new Contact(contact, self);
+            }));
+        });
+    }
+
+    self.nextContactsPage = function() {
+        self.loadContacts(function(response) {
+            var newItems = ko.utils.arrayMap(response.contacts, function(contact) {
+                return new Contact(contact, self);
+            });
+
+            self.contacts.push.apply(self.contacts, newItems);
+        }, self.contacts().length);
     }
 
     self.submit = function() {
@@ -535,16 +562,6 @@ function MessagingViewModel(data) {
             im.hideContacts();
         }
     }
-
-    self.populateContacts = function(data) {
-        var newContacts = ko.utils.arrayMap(data, function(contact) {
-            return new Contact(contact, self);
-        });
-
-        self.contacts.push.apply(self.contacts, newContacts);
-    }
-
-    self.populateContacts(data.contacts);
 
     soundManager.setup({
         url: '/swf/',
@@ -627,7 +644,7 @@ function MessagingViewModel(data) {
 
         im.userList.scroll(function() {
             if (self.loadingContacts() === false && ((im.userList.scrollTop() + im.userList.height()) > (im.userList.prop('scrollHeight') - 200)))
-                self.loadContacts();
+                self.nextContactsPage();
         });
     });
 }

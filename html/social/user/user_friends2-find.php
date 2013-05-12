@@ -185,22 +185,6 @@
 							<div class="margin-b10 clearfix">
 								<input type="radio" name="b-radio3" id="radio9" class="aside-filter_radio">
 								<label for="radio9" class="aside-filter_label-radio">многодетная семья</label>
-								<div class="aside-filter_toggle">
-									<div class="chzn-bluelight chzn-textalign-c w-75">
-										<select class="chzn">
-											<option selected="selected">0</option>
-											<option>1</option>
-											<option>2</option>
-											<option>32</option>						
-											<option>32</option>						
-											<option>32</option>						
-											<option>32</option>						
-											<option>132</option>						
-											<option>132</option>						
-											<option>132</option>						
-										</select>
-									</div>
-								</div>
 							</div>
 							
 						</div>
@@ -219,8 +203,7 @@
 					<div class="friends-list">
 						<div class="friends-list_i">
 							<div class="friends-list_ava-hold clearfix">
-								<a href="" class="ava large">
-									<img src="/images/example/ava-large2.jpg" alt="">
+								<a href="" class="ava large male">
 								</a>
 								<span class="friends-list_online">На сайте</span>
 								<a href="" class="ico-close2 friends-list_close powertip" title="Удалить из друзей"></a>
@@ -285,8 +268,8 @@
 						</div>
 						<div class="friends-list_i">
 							<div class="friends-list_ava-hold clearfix">
-								<a href="" class="ava large">
-									<img src="/images/example/ava-large2.jpg" alt="">
+								<a href="" class="ava large female">
+									
 								</a>
 								<span class="friends-list_online">На сайте</span>
 								<a href="" class="ico-close2 friends-list_close powertip" title="Удалить из друзей"></a>
@@ -581,6 +564,22 @@
 						</div>
 						
 						<div id="infscr-loading"><img src="/images/ico/ajax-loader.gif" alt="Loading..."><div>Загрузка</div></div>
+					</div>
+					
+					<div class="pagination pagination-center clearfix">
+						<div class="pager">
+							<ul>
+								<li class="previous"><a href="">...</a></li>
+								<li><a href="">1</a></li>
+								<li><a href="">2</a></li>
+								<li class="selected"><a href="">321</a><img src="/images/pagination_tale.png" /></li>
+								<li><a href="">4</a></li>
+								<li class="selected"><a href="">5</a><img src="/images/pagination_tale.png" /></li>
+								<li><a href="">6</a></li>
+								<li><a href="">7</a></li>
+								<li class="next"><a href="">...</a></li>
+							</ul>
+						</div>
 					</div>
 				</div>
 			</div>

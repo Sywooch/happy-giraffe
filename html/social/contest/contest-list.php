@@ -24,6 +24,21 @@
 					
 					<div class="contest-list_item clearfix">
 						<div class="contest-list_banner">
+							<img src="/images/contest/banner-w280-10.jpg" alt="" />
+						</div>
+						<div class="contest-list_holder">
+							<div class="content-title"><a href="#" >Мой друг</a></div>
+							<p>У каждого ребенка есть любимая игрушка, которая становится его первым другом! Плюшевый мишка или забавный зайчонок становится полноправным членом семьи - с ним малыш гуляет, кушает, доверяет свои детские тайны, и засыпает, крепко прижав друга к себе. </p>
+							<p>Присылайте фото своего малыша с первым другом и получайте замечательные призы, которые очень понравятся вашему ребенку! </p>
+							<div class="contest-list_row">
+								<div class="date">13.05 - 27.05 <span class="year">2013</span></div>
+								<a href="#" class="btn-green btn-h46">Принять участие!</a>
+							</div>
+						</div>
+					</div>
+					
+					<div class="contest-list_item clearfix">
+						<div class="contest-list_banner">
 							<img src="/images/contest/banner-w280-9.jpg" alt="" />
 						</div>
 						<div class="contest-list_holder">

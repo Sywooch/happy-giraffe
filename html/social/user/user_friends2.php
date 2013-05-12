@@ -432,6 +432,21 @@
 						
 						<div id="infscr-loading"><img src="/images/ico/ajax-loader.gif" alt="Loading..."><div>Загрузка</div></div>
 					</div>
+					<div class="pagination pagination-center clearfix">
+						<div class="pager">
+							<ul>
+								<li class="previous"><a href="">...</a></li>
+								<li><a href="">1</a></li>
+								<li><a href="">2</a></li>
+								<li class="selected"><a href="">321</a><img src="/images/pagination_tale.png" /></li>
+								<li><a href="">4</a></li>
+								<li class="selected"><a href="">5</a><img src="/images/pagination_tale.png" /></li>
+								<li><a href="">6</a></li>
+								<li><a href="">7</a></li>
+								<li class="next"><a href="">...</a></li>
+							</ul>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>  	

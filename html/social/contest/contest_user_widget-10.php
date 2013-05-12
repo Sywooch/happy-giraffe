@@ -107,7 +107,7 @@
 										<p><span>6 шагов</span> и вы сможете пользоваться всеми функциями сайта</p>
 										<div class="bonus">
 											<div class="bonus-left">
-												<img src="/images/first_steps_bonus_plus.png" /> от нас бонусна 
+												<img src="/images/first_steps_bonus_plus.png" /> от нас бонус на 
 												<span>дополнительные опции сайта</span>
 											</div>
 											<img src="/images/first_steps_bonus_big.png" />

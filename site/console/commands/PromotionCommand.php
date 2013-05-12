@@ -27,6 +27,12 @@ class PromotionCommand extends CConsoleCommand
         PageStatistics::model()->parseSe();
     }
 
+    public function actionParseDepth()
+    {
+        $metrica = new YandexMetrica();
+        $metrica->parseDepthFirstRows();
+    }
+
     public function actionExport(){
         PageStatistics::model()->export();
     }

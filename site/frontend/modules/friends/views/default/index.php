@@ -132,8 +132,8 @@
 
 <script type="text/html" id="user-template">
     <div class="friends-list_ava-hold clearfix">
-        <a class="ava large" data-bind="attr: { href : url }">
-            <img data-bind="attr: { src : ava }" alt="">
+        <a class="ava large" data-bind="attr: { href : url }, css: avaClass">
+            <img data-bind="visible: ava, attr: { src : ava }" alt="">
         </a>
         <span class="friends-list_online" data-bind="visible: online">На сайте</span>
         <!-- ko if: $root.activeTab() != 2 -->

@@ -42,6 +42,7 @@ class DefaultController extends HController
                     'firstName' => $friend->friend->first_name,
                     'lastName' => $friend->friend->last_name,
                     'ava' => $friend->friend->getAva('large'),
+                    'gender' => $friend->friend->gender,
                 ),
             );
         }, FriendsManager::getFriends(Yii::app()->user->id, $online, $new, $listId, $query, $offset));

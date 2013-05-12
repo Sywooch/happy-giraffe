@@ -240,6 +240,7 @@ function User(data, parent) {
     self.firstName = ko.observable(data.firstName);
     self.lastName = ko.observable(data.lastName);
     self.ava = ko.observable(data.ava);
+    self.gender = ko.observable(data.gender);
 
     self.fullName = ko.computed(function() {
         return self.firstName() + ' ' + self.lastName();
@@ -259,6 +260,10 @@ function User(data, parent) {
 
     self.blogUrl = ko.computed(function() {
         return '/user/' + self.id() + '/blog/';
+    });
+
+    self.avaClass = ko.computed(function() {
+        return self.gender() == 1 ? 'male' : 'female';
     });
 }
 

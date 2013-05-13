@@ -6,7 +6,7 @@
  * Time: 13:32
  * To change this template use File | Settings | File Templates.
  */
-class RatingYohoho extends EMongoDocument
+class RatingYohoho extends HMongoModel
 {
     public $entity_id;
     public $entity_name;

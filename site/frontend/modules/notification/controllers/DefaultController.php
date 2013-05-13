@@ -11,7 +11,7 @@ class DefaultController extends HController
 
     public function actionIndex()
     {
-        $list = Notification::model()->getNotificationsList(113275); //Yii::app()->user->id);
+        $list = Notification::model()->getNotificationsList(Yii::app()->user->id);
         $this->render('index', compact('list'));
     }
 

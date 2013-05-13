@@ -83,12 +83,23 @@ class Notification extends HMongoModel
      */
     public function readByPk($id)
     {
-        $this->getCollection()->findAndModify(
+        $this->getCollection()->update(
             array("_id" => $id),
             array(
                 '$set' => array("read" => 1),
-            ),
-            null
+            )
+        );
+    }
+
+    /**
+     * Пометить уведомление как прочитанное
+     */
+    public function setRead(){
+        $this->getCollection()->update(
+            array("_id" => $this->_id),
+            array(
+                '$set' => array("read" => 1),
+            )
         );
     }
 
@@ -199,6 +210,8 @@ class Notification extends HMongoModel
                 return NotificationUserContentComment::createModel($object);
             case self::REPLY_COMMENT:
                 return NotificationReplyComment::createModel($object);
+            case self::DISCUSS_CONTINUE:
+                return NotificationDiscussContinue::createModel($object);
             case self::NEW_LIKE:
                 return NotificationLike::createModel($object);
         }

@@ -10,7 +10,8 @@ class NotificationGroup extends Notification
 {
     public $entity;
     public $entity_id;
-    public $model_ids;
+    public $unread_model_ids = array();
+    public $read_model_ids = array();
 
     /**
      * Создаем уведомление о новом комментарии. Если уведомление к этому посту уже создавалось и еще не было
@@ -29,13 +30,12 @@ class NotificationGroup extends Notification
             'entity_id' => (int)$this->entity_id,
         ));
 
-        if ($exist){
+        if ($exist) {
             //если такая модель уже есть в списке ничего не меняем
-            if (in_array($model_id, $exist['model_ids']))
-                return ;
+            if (in_array($model_id, $exist['unread_model_ids']))
+                return;
             $this->update($exist, $model_id);
-        }
-        else
+        } else
             $this->insert($model_id);
 
         $this->sendSignal();
@@ -54,7 +54,7 @@ class NotificationGroup extends Notification
             array(
                 '$set' => array("updated" => time()),
                 '$inc' => array("count" => 1),
-                '$push' => array("model_ids" => (int)$model_id),
+                '$push' => array("unread_model_ids" => (int)$model_id),
             ),
             null
         );
@@ -70,7 +70,7 @@ class NotificationGroup extends Notification
         parent::insert(array(
             'entity' => $this->entity,
             'entity_id' => (int)$this->entity_id,
-            'model_ids' => array((int)$model_id)
+            'unread_model_ids' => array((int)$model_id)
         ));
     }
 
@@ -81,22 +81,23 @@ class NotificationGroup extends Notification
      * @param $entity string класс модели, к которой написан комментарий
      * @param $entity_id int id модели, к которой написан комментарий
      */
-    protected function read($recipient_id, $entity, $entity_id){
-        $exist = $this->getCollection()->findOne(array(
-            'type' => $this->type,
-            'recipient_id' => (int)$recipient_id,
-            'read' => 0,
-            'entity' => $entity,
-            'entity_id' => (int)$entity_id,
-        ));
-        if (!empty($exist)){
-            $this->getCollection()->findAndModify(
-                array("_id" => $exist['_id']),
-                array('$set' => array('read' => 1, "read_time" => time())),
-                null
-            );
-        }
-    }
+//    protected function read($recipient_id, $entity, $entity_id)
+//    {
+//        $exist = $this->getCollection()->findOne(array(
+//            'type' => $this->type,
+//            'recipient_id' => (int)$recipient_id,
+//            'read' => 0,
+//            'entity' => $entity,
+//            'entity_id' => (int)$entity_id,
+//        ));
+//        if (!empty($exist)) {
+//            $this->getCollection()->findAndModify(
+//                array("_id" => $exist['_id']),
+//                array('$set' => array('read' => 1, "read_time" => time())),
+//                null
+//            );
+//        }
+//    }
 
     /**
      * Возвращает модель контента с которой связано уведомление
@@ -106,5 +107,39 @@ class NotificationGroup extends Notification
     {
         $class = $this->entity;
         return $class::model()->findByPk($this->entity_id);
+    }
+
+    /**
+     * Помечаем комментарий как прочитанный
+     * @param $model_id int
+     */
+    public function setCommentRead($model_id)
+    {
+        foreach ($this->unread_model_ids as $key => $unread_model_id)
+            if ($unread_model_id == $model_id) {
+                unset($this->unread_model_ids[$key]);
+                $this->read_model_ids [] = (int)$model_id;
+            }
+    }
+
+    /**
+     * Сохраняем модель
+     */
+    public function save()
+    {
+        $this->count = count($this->unread_model_ids);
+
+        if (empty($this->unread_model_ids))
+            $this->read = 1;
+
+        $this->getCollection()->update(
+            array('_id' => $this->_id),
+            array(
+                'unread_model_ids' => $this->unread_model_ids,
+                'read_model_ids' => $this->read_model_ids,
+                'count' => (int)$this->count,
+                'read' => (int)$this->read,
+            )
+        );
     }
 }

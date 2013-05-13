@@ -124,7 +124,7 @@ class Notification extends HMongoModel
         $ops = array(
             array(
                 '$match' => array(
-                    "recipient_id" => $user_id,
+                    "recipient_id" => (int)$user_id,
                     "read" => 0,
                 )
             ),
@@ -157,17 +157,42 @@ class Notification extends HMongoModel
         //var_dump($cursor->explain());
         for ($i = 0; $i < self::PAGE_SIZE; $i++) {
             if ($cursor->hasNext())
-                $list [] = $this->createNotification($cursor->getNext());
+                $list [] = self::createNotification($cursor->getNext());
         }
 
         return $list;
+    }
+
+
+    /**
+     * Находит все непрочитанные уведомления связанные с записью/фото/видео
+     *
+     * @param $user_id int пользователь которому предназначены уведомления
+     * @param $entity string класс модели
+     * @param $entity_id int Id модели
+     * @return NotificationGroup[]
+     */
+    public function getUnreadContentNotifications($user_id, $entity, $entity_id)
+    {
+        $models = array();
+        $cursor = $this->getCollection()->find(array(
+            'recipient_id' => (int)$user_id,
+            'read' => 0,
+            'entity' => $entity,
+            'entity_id' => (int)$entity_id,
+        ));
+
+        while ($cursor->hasNext())
+            $models [] = Notification::createNotification($cursor->getNext());
+
+        return $models;
     }
 
     /**
      * @param $object
      * @return Notification|null
      */
-    protected function createNotification($object)
+    public static function createNotification($object)
     {
         switch ($object['type']) {
             case self::USER_CONTENT_COMMENT:

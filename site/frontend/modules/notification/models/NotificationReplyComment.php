@@ -13,6 +13,7 @@ class NotificationReplyComment extends NotificationGroup
      */
     private static $_instance;
     public $type = self::REPLY_COMMENT;
+    private $comment_id;
 
     public function __construct()
     {
@@ -40,30 +41,7 @@ class NotificationReplyComment extends NotificationGroup
         $this->entity = $comment->entity;
         $this->entity_id = (int)$comment->entity_id;
 
-        parent::create($comment->id);
-    }
-
-    /**
-     * Найти непрочитанное уведомление пользователю о новых ответах на его комментарии
-     *
-     * @param $user_id int
-     * @param $entity string
-     * @param $entity_id int
-     * @return NotificationUserContentComment[]
-     */
-    public function findUnread($user_id, $entity, $entity_id)
-    {
-        $exist = $this->getCollection()->findOne(array(
-            'type' => $this->type,
-            'recipient_id' => (int)$user_id,
-            'read' => 0,
-            'entity' => $entity,
-            'entity_id' => (int)$entity_id,
-        ));
-        if (empty($exist))
-            return $exist;
-
-        return self::createModel($exist);
+        parent::create($comment->id, array('comment_id' => (int)$comment->response_id));
     }
 
     /**
@@ -75,7 +53,7 @@ class NotificationReplyComment extends NotificationGroup
     public static function createModel($object)
     {
         $model = new NotificationReplyComment;
-        foreach($object as $key => $value)
+        foreach ($object as $key => $value)
             $model->$key = $value;
 
         return $model;

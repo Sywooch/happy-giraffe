@@ -67,6 +67,7 @@ class NotificationRead
     public function addShownComment($comment)
     {
         $this->comments [] = $comment;
+        $this->comment_ids [] = $comment->id;
     }
 
     /**
@@ -84,8 +85,26 @@ class NotificationRead
         if ($this->hasNoActiveNotifications() || empty($this->comments))
             return;
 
-        if ($this->content_model->author_id == Yii::app()->user->id)
-            $this->checkOwnContent();
+        //находим непрочитанное уведомление
+        $notifications = Notification::model()->getUnreadContentNotifications(
+            Yii::app()->user->id,
+            get_class($this->content_model),
+            $this->content_model->id
+        );
+
+        //проверяем каждое уведомление
+        foreach ($notifications as $notification) {
+            $old_comments_count = $notification->unread_model_ids;
+            #TODO при удалении комментария, нужно удалять его из уведомлений
+
+            //отправляем прочитанные комментарии
+            foreach ($this->comment_ids as $comment_id)
+                $notification->setCommentRead($comment_id);
+
+            //если что-то прочитал, сохраняем модель
+            if ($old_comments_count > $notification->unread_model_ids)
+                $notification->save();
+        }
     }
 
     /**
@@ -96,55 +115,5 @@ class NotificationRead
     private function hasNoActiveNotifications()
     {
         return (Notification::model()->getUnreadCount() == 0);
-    }
-
-    /**
-     * Проверка уведолмений о комментариях на личный контент
-     */
-    private function checkOwnContent()
-    {
-        //находим непрочитанное уведомление
-        $model = NotificationUserContentComment::model()->findUnread(
-            Yii::app()->user->id,
-            get_class($this->content_model),
-            $this->content_model->getPrimaryKey()
-        );
-
-        if ($model !== null) {
-            $old_comments_count = $model->unread_model_ids;
-            #TODO при удалении комментария, нужно удалять его из уведомлений
-            foreach ($this->comment_ids as $comment_id) {
-                $model->setCommentRead($comment_id);
-            }
-
-            //если что-то прочитал, сохраняем модель
-            if ($old_comments_count > $model->unread_model_ids)
-                $model->save();
-        }
-    }
-
-    /**
-     * Проверка уведомления об ответе на комментарий
-     */
-    private function checkCommentReply()
-    {
-        //находим непрочитанное уведомление
-        $model = NotificationReplyComment::model()->findUnread(
-            Yii::app()->user->id,
-            get_class($this->content_model),
-            $this->content_model->getPrimaryKey()
-        );
-
-        if ($model !== null) {
-            $old_comments_count = $model->unread_model_ids;
-            #TODO при удалении комментария, нужно удалять его из уведомлений
-            foreach ($this->comment_ids as $comment_id) {
-                $model->setCommentRead($comment_id);
-            }
-
-            //если что-то прочитал, сохраняем модель
-            if ($old_comments_count > $model->unread_model_ids)
-                $model->save();
-        }
     }
 }

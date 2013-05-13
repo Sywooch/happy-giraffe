@@ -16,9 +16,9 @@ class DefaultController extends HController
     {
         $contacts = array_merge(
             ContactsManager::getContactsByUserId(Yii::app()->user->id, ContactsManager::TYPE_ALL, self::CONTACTS_PER_PAGE),
-            ContactsManager::getContactsByUserId(Yii::app()->user->id, ContactsManager::TYPE_NEW, 9999),
-            ContactsManager::getContactsByUserId(Yii::app()->user->id, ContactsManager::TYPE_ONLINE, 9999),
-            ContactsManager::getContactsByUserId(Yii::app()->user->id, ContactsManager::TYPE_FRIENDS_ONLINE, 9999)
+            ContactsManager::getContactsByUserId(Yii::app()->user->id, ContactsManager::TYPE_NEW, self::CONTACTS_PER_PAGE),
+            ContactsManager::getContactsByUserId(Yii::app()->user->id, ContactsManager::TYPE_ONLINE, self::CONTACTS_PER_PAGE),
+            ContactsManager::getContactsByUserId(Yii::app()->user->id, ContactsManager::TYPE_FRIENDS_ONLINE, self::CONTACTS_PER_PAGE)
         );
 
         if ($interlocutorId !== null) {

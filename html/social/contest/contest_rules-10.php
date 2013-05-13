@@ -36,7 +36,7 @@
 					<h4>1. Общие правила проведения фотоконкурса «Мой друг»</h4>
 					
 					<p>1.1. Фотоконкурс «Мой друг» будет проведен с 13.05.2013 по 27.05.2013 г. на сайте <a href="http://www.happy-giraffe.ru">http://www.happy-giraffe.ru</a>.</p>
-					<p>1.2. Организаторами конкурса является <a href="http://www.happy-giraffe.ru">http://www.happy-giraffe.ru</a> совместно с интенет-магазином Littlemonkeys <a href="http://www.littlemonkeys.ru"></a>http://www.littlemonkeys.ru</p>
+					<p>1.2. Организаторами конкурса является <a href="http://www.happy-giraffe.ru">http://www.happy-giraffe.ru</a> совместно с интенет-магазином Littlemonkeys <a href="http://www.littlemonkeys.ru">http://www.littlemonkeys.ru</a></p>
 					<p>1.3.  Участник Конкурса должен проживать на территории России, Украины, Белоруси или Казахстана.</p>
 					<p>1.4. Все участники Конкурса должны пройти 6 шагов заполнения анкеты.</p>
 					<p>1.5. На конкурсном фото должен быть изображен ребенок c игрушкой.</p>

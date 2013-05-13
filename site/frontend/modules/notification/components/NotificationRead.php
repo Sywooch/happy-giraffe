@@ -78,7 +78,6 @@ class NotificationRead
      * 1. Комментарии на личный контент - если автор
      * 2. Ответы на комментарии
      * 3. Обсуждения
-     *
      */
     public function SetVisited()
     {
@@ -94,16 +93,20 @@ class NotificationRead
 
         //проверяем каждое уведомление
         foreach ($notifications as $notification) {
-            $old_comments_count = $notification->unread_model_ids;
-            #TODO при удалении комментария, нужно удалять его из уведомлений
+            if ($notification->type == Notification::DISCUSS_CONTINUE) {
+                $notification->setRead();
+            } else {
+                $old_comments_count = $notification->unread_model_ids;
+                #TODO при удалении комментария, нужно удалять его из уведомлений
 
-            //отправляем прочитанные комментарии
-            foreach ($this->comment_ids as $comment_id)
-                $notification->setCommentRead($comment_id);
+                //отправляем прочитанные комментарии
+                foreach ($this->comment_ids as $comment_id)
+                    $notification->setCommentRead($comment_id);
 
-            //если что-то прочитал, сохраняем модель
-            if ($old_comments_count > $notification->unread_model_ids)
-                $notification->save();
+                //если что-то прочитал, сохраняем модель
+                if ($old_comments_count > $notification->unread_model_ids)
+                    $notification->save();
+            }
         }
     }
 

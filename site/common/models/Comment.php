@@ -150,9 +150,9 @@ class Comment extends HActiveRecord
                 'class' => 'site.common.behaviors.ExternalImagesBehavior',
                 'attributes' => array('text'),
             ),
-            'duplicate'=>array(
+            'duplicate' => array(
                 'class' => 'site.common.behaviors.DuplicateBehavior',
-                'attribute'=>'text',
+                'attribute' => 'text',
                 'error_text' => 'Вы только что создали рецепт с таким названием'
             )
         );
@@ -227,7 +227,7 @@ class Comment extends HActiveRecord
                 Yii::import('site.seo.modules.commentators.models.*');
                 Yii::import('site.seo.models.*');
 
-                if (strlen(trim(strip_tags($this->text))) >= 80){
+                if (strlen(trim(strip_tags($this->text))) >= 80) {
                     CommentatorWork::getCurrentUser()->checkComment($this);
                 }
             }
@@ -370,13 +370,13 @@ class Comment extends HActiveRecord
     {
         $criteria = new CDbCriteria;
         $criteria->condition = 'id < :id';
-        $criteria->params = array(':id'=>$this->id);
+        $criteria->params = array(':id' => $this->id);
         $criteria->compare('entity', $this->entity);
         $criteria->compare('entity_id', $this->entity_id);
 
         $count = Comment::model()->count($criteria) + 1;
 
-        return ceil($count/25);
+        return ceil($count / 25);
     }
 
     public function getLink($absolute = false)
@@ -411,8 +411,7 @@ class Comment extends HActiveRecord
         if ($this->entity == 'User')
             return self::CONTENT_TYPE_ONLY_TEXT;
         elseif (empty($this->photoAttaches))
-            return self::CONTENT_TYPE_DEFAULT;
-        else
+            return self::CONTENT_TYPE_DEFAULT; else
             return self::CONTENT_TYPE_PHOTO;
     }
 
@@ -498,5 +497,31 @@ class Comment extends HActiveRecord
         $attach->entity_id = $comment->id;
         $attach->photo_id = 35000;
         $attach->save();
+    }
+
+    public static function getNewCommentsCount($entity, $entity_id, $last_comment_id)
+    {
+        return Yii::app()->db->createCommand()
+            ->select('count(*)')
+            ->from('comments')
+            ->where('entity=:entity AND entity_id=:entity_id AND id > :last_comment_id AND removed=0', array(
+                ':entity' => $entity,
+                ':entity_id' => $entity_id,
+                ':last_comment_id' => $last_comment_id
+            ))
+            ->queryScalar();
+    }
+
+    public static function getNewCommentIds($entity, $entity_id, $last_comment_id)
+    {
+        return Yii::app()->db->createCommand()
+            ->select('id')
+            ->from('comments')
+            ->where('entity=:entity AND entity_id=:entity_id AND id > :last_comment_id AND removed=0', array(
+                ':entity' => $entity,
+                ':entity_id' => $entity_id,
+                ':last_comment_id' => $last_comment_id
+            ))
+            ->queryColumn();
     }
 }

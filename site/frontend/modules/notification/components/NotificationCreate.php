@@ -31,7 +31,7 @@ class NotificationCreate
         //сначала подписываем автора, это избавит от лишней проверки на следующем шаге
         //когда будет выбирать всех подписчиков кроме того кто только что написал
         NotificationDiscussSubscription::model()->subscribeCommentAuthor($comment);
-        self::discussContinue($comment);
+        self::addCommentToDiscussNotifications($comment);
     }
 
     /**
@@ -64,25 +64,28 @@ class NotificationCreate
     /**
      * Создание уведомления о продолжении дискуссии
      *
-     * @param $comment Comment
+     * @param $user_id
+     * @param $entity
+     * @param $entity_id
+     * @param $last_read_comment_id
      */
-    private static function discussContinue($comment)
+    public static function discussContinue($user_id, $entity, $entity_id, $last_read_comment_id)
     {
-        $users = NotificationDiscussSubscription::model()->getSubscribers($comment);
-        foreach ($users as $user_id => $last_read_comment_id) {
-            $notification = new NotificationDiscussContinue();
-            $notification->create($user_id, $comment, $last_read_comment_id);
-        }
+        $notification = new NotificationDiscussContinue();
+        $notification->create($user_id, $entity, $entity_id, $last_read_comment_id);
     }
 
     /**
-     * Подписываем комментатора на запись/фото/видео
+     * Добавляет новый комментарий в уведомления пользователей о продолжении дискуссии
      *
      * @param $comment Comment
      */
-    private static function subscribeCommentator($comment)
+    private function addCommentToDiscussNotifications($comment)
     {
-
+        $subscribes = NotificationDiscussContinue::model()->findUnreadDiscussNotifications($comment->entity, $comment->entity_id);
+        foreach ($subscribes as $subscribe) {
+            $subscribe->update($subscribe, $comment->id);
+        }
     }
 
     /**

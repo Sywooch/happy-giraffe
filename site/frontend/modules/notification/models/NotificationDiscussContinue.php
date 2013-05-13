@@ -6,22 +6,19 @@
  * @author Alex Kireev <alexk984@gmail.com>
  */
 
-class NotificationDiscussContinue extends Notification
+class NotificationDiscussContinue extends NotificationGroup
 {
     /**
      * Количество новых комментариев, после которого показываем уведомление
      * о продолжении дискуссии
      */
-    const NEW_COMMENTS_COUNT = 10;
+    const NEW_COMMENTS_COUNT = 3;
     /**
      * @var NotificationDiscussContinue
      */
     private static $_instance;
 
     public $type = self::DISCUSS_CONTINUE;
-    public $entity;
-    public $entity_id;
-    public $last_read_comment_id;
 
     public function __construct()
     {
@@ -38,21 +35,48 @@ class NotificationDiscussContinue extends Notification
     }
 
     /**
-     * Создаем уведомление о продолжении дискуссии
+     * Найти все непрочитанные уведомления о подписках на продолжение дискуссии
+     *
+     * @param $entity
+     * @param $entity_id
+     * @return NotificationDiscussContinue[]
+     */
+    public function findUnreadDiscussNotifications($entity, $entity_id)
+    {
+        $cursor = $this->getCollection()->find(array(
+            'type' => self::DISCUSS_CONTINUE,
+            'entity' => $entity,
+            'entity_id' => $entity_id,
+            'read' => 0
+        ));
+
+        $list = array();
+        while ($cursor->hasNext())
+            $list[] = $cursor->getNext();
+
+        return $list;
+    }
+
+    /**
+     * Создаем уведомление о продолжении дискуссии. Есть своя специфика - нужно вычислить
+     * все новые комментарии и добавить их в список
      *
      * @param $recipient_id int
-     * @param $comment Comment комментарий
+     * @param $entity
+     * @param $entity_id
      * @param $last_read_comment_id int
      */
-    public function create($recipient_id, $comment, $last_read_comment_id)
+    public function create($recipient_id, $entity, $entity_id, $last_read_comment_id)
     {
         $this->recipient_id = (int)$recipient_id;
+        $this->entity = $entity;
+        $this->entity_id = (int)$entity_id;
 
-        parent::insert(array(
-            'entity' => $comment->entity,
-            'entity_id' => (int)$comment->entity_id,
-            'last_read_comment_id' => (int)$last_read_comment_id,
-        ));
+        $comment_ids = Comment::getNewCommentIds($entity, $entity_id, $last_read_comment_id);
+        foreach ($comment_ids as $key => $comment_id)
+            $comment_ids[$key] = (int)$comment_id;
+
+        parent::insert($comment_ids);
     }
 
     /**

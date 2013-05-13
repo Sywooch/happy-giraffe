@@ -48,31 +48,33 @@ class NotificationGroup extends Notification
      * @param $exist
      * @param $model_id int
      */
-    private function update($exist, $model_id)
+    public function update($exist, $model_id)
     {
-        $this->getCollection()->findAndModify(
+        $this->getCollection()->update(
             array("_id" => $exist['_id']),
             array(
                 '$set' => array("updated" => time()),
                 '$inc' => array("count" => 1),
                 '$push' => array("unread_model_ids" => (int)$model_id),
-            ),
-            null
+            )
         );
     }
 
     /**
      * Создание нового уведомления о непрочитанном комментарии
      *
-     * @param int $model_id id модели связанной с уведомлением
+     * @param int|int[] $model_ids id модели связанной с уведомлением
      * @param $params дополнительные параметры уведомления
      */
-    protected function insert($model_id, $params)
+    protected function insert($model_ids, $params = array())
     {
+        if (!is_array($model_ids))
+            $model_ids = array((int)$model_ids);
+
         parent::insert(array_merge(array(
             'entity' => $this->entity,
             'entity_id' => (int)$this->entity_id,
-            'unread_model_ids' => array((int)$model_id)
+            'unread_model_ids' => $model_ids
         ), $params));
     }
 

@@ -33,9 +33,8 @@ class NotificationDiscussSubscription extends HMongoModel
     public function ensureIndex()
     {
         $this->getCollection()->ensureIndex(array(
-            'entity' => EMongoCriteria::SORT_DESC,
-            'entity_id' => EMongoCriteria::SORT_DESC,
-        ), array('name' => 'entity_index'));
+            'time' => EMongoCriteria::SORT_DESC,
+        ), array('name' => 'time_index'));
 
         $this->getCollection()->ensureIndex(array(
             'entity' => EMongoCriteria::SORT_DESC,
@@ -100,7 +99,7 @@ class NotificationDiscussSubscription extends HMongoModel
 
     /**
      * Подписываем автора комментария на продолжение дискуссии. Если он уже
-     * подписан, меняем last_read_comment_id
+     * подписан, меняем last_read_comment_id и time
      *
      * @param $comment
      */
@@ -119,14 +118,46 @@ class NotificationDiscussSubscription extends HMongoModel
                 'entity' => $comment->entity,
                 'entity_id' => (int)$comment->entity_id,
                 'subscriber_id' => (int)$comment->author_id,
-                'last_read_comment_id' => (int)$comment->id
+                'last_read_comment_id' => (int)$comment->id,
+                'time' => time()
             ));
         } else {
             $this->getCollection()->update(array(
                 '_id' => $exist['_id']
             ), array(
-                '$set' => array("last_read_comment_id" => (int)$comment->id)
+                '$set' => array(
+                    'last_read_comment_id' => (int)$comment->id,
+                    'time' => time()
+                )
             ));
+        }
+    }
+
+    /**
+     * Создаем уведомления о продожении дискуссии пользователям, которые были
+     * подписаны на дискуссию более чем сутки назад
+     */
+    public function createDiscussNotifications()
+    {
+        $cursor = $this->getCollection()->find(array(
+            'time' => array('$lt' => (time() - 3600 * 24))
+        ));
+
+        while ($cursor->hasNext()) {
+            $subscription = $cursor->getNext();
+
+            //если в теме есть новые комментарии и их кол-во больше лимита, создаем уведомление
+            $new_comments_count = Comment::getNewCommentsCount($subscription['entity'], $subscription['entity_id'], $subscription['last_read_comment_id']);
+            if ($new_comments_count >= NotificationDiscussContinue::NEW_COMMENTS_COUNT)
+                NotificationCreate::discussContinue(
+                    $subscription['subscriber_id'],
+                    $subscription['entity'],
+                    $subscription['entity_id'],
+                    $subscription['last_read_comment_id']
+                );
+
+            //удаляем подписку
+            $this->deleteByPk($subscription['_id']);
         }
     }
 }

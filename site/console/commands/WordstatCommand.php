@@ -69,18 +69,21 @@ class WordstatCommand extends CConsoleCommand
         $job_provider->start();
     }
 
-    public function actionSimple(){
+    public function actionSimple()
+    {
         $p = new WordstatParser();
         $p->start();
     }
 
-    public function actionAddSimpleParsing(){
+    public function actionAddSimpleParsing()
+    {
         WordstatParsingTask::getInstance()->addAllKeywordsToParsing();
     }
 
     private $collection;
 
-    public function actionTest(){
+    public function actionTest()
+    {
         $mongo = new Mongo('mongodb://localhost');
         $mongo->connect();
         $this->collection = $mongo->selectCollection('parsing', 'simple_parsing');
@@ -90,8 +93,8 @@ class WordstatCommand extends CConsoleCommand
     public function actionDeleteNulls()
     {
         $last_id = 346000000;
-        while(true){
-            $condition = 'wordstat = 0 AND id > '.$last_id;
+        while (true) {
+            $condition = 'wordstat = 0 AND id > ' . $last_id;
             $ids = Yii::app()->db_keywords->createCommand()
                 ->select('id')
                 ->from('keywords')
@@ -100,13 +103,52 @@ class WordstatCommand extends CConsoleCommand
                 ->limit(10000)
                 ->queryColumn();
 
-            foreach($ids as $id)
+            foreach ($ids as $id)
                 WordstatParsingTask::getInstance()->removeSimpleTask($id);
 
             $last_id = end($ids);
-            echo $last_id."\n";
+            echo $last_id . "\n";
             if (empty($ids))
                 break;
         }
+    }
+
+    public function actionCopyStrictWordstat()
+    {
+        $i = 0;
+        do {
+            $rows = Yii::app()->db_keywords->createCommand()
+                ->select('*')
+                ->from('keywords_strict_wordstat')
+                ->offset($i * 10000)
+                ->limit(10000)
+                ->queryAll();
+            foreach ($rows as $row) {
+                if ($row['strict_wordstat'] == 0) {
+                    $this->saveStatus($row['keyword_id']);
+                } else {
+                    $wordstat = Yii::app()->db_keywords->createCommand()
+                        ->select('wordstat')
+                        ->from('keywords')
+                        ->where('id=' . $row['keyword_id'])
+                        ->queryScalar();
+
+                    if (!empty($wordstat)) {
+                        if ($wordstat < 1000000 && ($wordstat / $row['strict_wordstat']) > 1000)
+                            $this->saveStatus($row['keyword_id']);
+                        if ($wordstat >= 1000000 && ($wordstat / $row['strict_wordstat']) > 10000)
+                            $this->saveStatus($row['keyword_id']);
+                    }
+                }
+            }
+
+            $i++;
+            echo $i."\n";
+        } while (!empty($rows));
+    }
+
+    private function saveStatus($keyword_id, $status = Keyword::STATUS_BAD_STRICT_WORDSTAT)
+    {
+        Yii::app()->db_keywords->createCommand()->update('keywords', array('status'=>$status), 'id='.$keyword_id);
     }
 }

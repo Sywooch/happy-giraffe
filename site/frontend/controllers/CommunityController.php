@@ -191,9 +191,7 @@ class CommunityController extends HController
             );
         }
 
-        if (! Yii::app()->user->isGuest)
-            UserNotification::model()->deleteByEntity($content, Yii::app()->user->id);
-
+        NotificationRead::getInstance()->setContentModel($content);
         $this->registerCounter();
 
         //проверяем переход с других сайтов по ссылкам комментаторов

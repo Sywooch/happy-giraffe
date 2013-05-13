@@ -58,27 +58,4 @@ class NotificationUserContentComment extends NotificationGroup
 
         return $model;
     }
-
-    /**
-     * Найти непрочитанное уведомление пользователю о новых комментариях к его контенту
-     *
-     * @param $user_id int
-     * @param $entity string
-     * @param $entity_id int
-     * @return NotificationUserContentComment|null
-     */
-    public function findUnread($user_id, $entity, $entity_id)
-    {
-        $exist = $this->getCollection()->findOne(array(
-            'type' => $this->type,
-            'recipient_id' => (int)$user_id,
-            'read' => 0,
-            'entity' => $entity,
-            'entity_id' => (int)$entity_id,
-        ));
-        if (empty($exist))
-            return $exist;
-
-        return self::createModel($exist);
-    }
 }

@@ -452,21 +452,19 @@ LEFT OUTER JOIN album__photos p ON u.avatar_id = p.id
 WHERE tu.user_id IS NULL OR (tu.user_id IS NOT NULL AND tu2.user_id IS NOT NULL)
 GROUP BY u.id;
 
-INSERT INTO friends__lists (title, list_id)
-  (
-    SELECT
-      'Коллеги',
-      id
-    FROM users
-  )
-  UNION
-  (
-    SELECT
-      'Родственники',
-      id
-      FROM USERS
-  )
-
-  SELECT b.*, ROUND(DATEDIFF(CURDATE(), DATE_ADD(b.birthday, INTERVAL -9 MONTH))/7) AS weeks FROM users u
-  LEFT OUTER JOIN user__users_babies b ON b.parent_id = u.id AND type = 1
-  WHERE b.id IS NOT NULL AND u.id = 14829;
+<!--AdFox START-->
+<!--giraffe-->
+<!--Площадка: Весёлый Жираф / * / *-->
+<!--Тип баннера: 240x400-->
+<!--Расположение: <середина страницы>-->
+<script type="text/javascript">
+<!--
+if (typeof(pr) == 'undefined') { var pr = Math.floor(Math.random() * 1000000); }
+var addate = new Date();
+document.write('<iframe src="http://ads.adfox.ru/211012/getCode?pp=h&amp;ps=bkqy&amp;p2=u&amp;p3=b&amp;p4=a&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a&amp;pr=' + pr + '&amp;pt=b&amp;pd=' + addate.getDate() + '&amp;pw=' + addate.getDay() + '&amp;pv=' + addate.getHours() + '" frameBorder="0" width="240" height="400" marginWidth="0" marginHeight="0" scrolling="no" style="border: 0px; margin: 0px; padding: 0px;"><a href="http://ads.adfox.ru/211012/goDefaultLink?pp=h&amp;ps=bkqy&amp;p2=u&amp;" target="_blank"><img src="http://ads.adfox.ru/211012/getDefaultImage?pp=h&amp;ps=bkqy&amp;p2=u" border="0" alt=""><\/a><\/iframe>');
+//-->
+</script>
+<noscript>
+<iframe src="http://ads.adfox.ru/211012/getCode?pp=h&amp;ps=bkqy&amp;p2=u&amp;p3=b&amp;p4=a&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a&amp;pr=' + pr + '&amp;pt=b&amp;pd=' + addate.getDate() + '&amp;pw=' + addate.getDay() + '&amp;pv=' + addate.getHours() + '" frameBorder="0" width="240" height="400" marginWidth="0" marginHeight="0" scrolling="no" style="border: 0px; margin: 0px; padding: 0px;"><a href="http://ads.adfox.ru/211012/goDefaultLink?pp=h&amp;ps=bkqy&amp;p2=u&amp;" target="_blank"><img src="http://ads.adfox.ru/211012/getDefaultImage?pp=h&amp;ps=bkqy&amp;p2=u" border="0" alt=""></a></iframe>
+</noscript>
+<!--AdFox END-->

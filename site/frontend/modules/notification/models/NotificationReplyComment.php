@@ -29,14 +29,6 @@ class NotificationReplyComment extends NotificationGroup
     }
 
     /**
-     * @return Comment[]
-     */
-    public function getComments()
-    {
-        return Comment::model()->findAllByPk($this->model_ids);
-    }
-
-    /**
      * Создаем уведомление об ответе на его комментарий. Если уведомление к этому комментарию уже создавалось
      * и еще не было прочитано, то добавляем в него новый комментарий и увеличиваем кол-во нотификаций
      *
@@ -52,14 +44,26 @@ class NotificationReplyComment extends NotificationGroup
     }
 
     /**
-     * Помечаем что уведомление о новых комментариях к статье прочитано
+     * Найти непрочитанное уведомление пользователю о новых ответах на его комментарии
      *
-     * @param $recipient_id int id пользователя, который должен получить уведомление
-     * @param $entity string класс модели, к которой написан комментарий
-     * @param $entity_id int id модели, к которой написан комментарий
+     * @param $user_id int
+     * @param $entity string
+     * @param $entity_id int
+     * @return NotificationUserContentComment[]
      */
-    public function read($recipient_id, $entity, $entity_id){
-        parent::read($recipient_id, $entity, $entity_id);
+    public function findUnread($user_id, $entity, $entity_id)
+    {
+        $exist = $this->getCollection()->findOne(array(
+            'type' => $this->type,
+            'recipient_id' => (int)$user_id,
+            'read' => 0,
+            'entity' => $entity,
+            'entity_id' => (int)$entity_id,
+        ));
+        if (empty($exist))
+            return $exist;
+
+        return self::createModel($exist);
     }
 
     /**

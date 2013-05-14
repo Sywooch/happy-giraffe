@@ -148,7 +148,7 @@ class WordstatCommand extends CConsoleCommand
                 ->queryAll();
 
             foreach ($rows as $row) {
-                if (KeywordIndirectRelation::getInstance()->ifExist($row['keyword_from_id'], $row['keyword_to_id']))
+                if (!KeywordIndirectRelation::getInstance()->exist($row['keyword_from_id'], $row['keyword_to_id']))
                     KeywordIndirectRelation::getInstance()->saveRelation($row['keyword_from_id'], $row['keyword_to_id']);
 
                 $last_id = $row['keyword_from_id'];

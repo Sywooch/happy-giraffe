@@ -71,7 +71,7 @@ class KeywordIndirectRelation
      * @param $keyword_to_id
      * @return bool
      */
-    public function ifExist($keyword_from_id, $keyword_to_id)
+    public function exist($keyword_from_id, $keyword_to_id)
     {
         $exist = $this->getCollection()->findOne(array(
             'keyword_from_id' => (int)$keyword_from_id,
@@ -95,7 +95,8 @@ class KeywordIndirectRelation
                 'keyword_to_id' => (int)$keyword_to_id
             ));
         } catch (Exception $err) {
-
+            echo $err->getMessage();
+            Yii::app()->end();
         }
     }
 }

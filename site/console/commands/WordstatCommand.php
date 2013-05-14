@@ -148,7 +148,7 @@ class WordstatCommand extends CConsoleCommand
         $iterator = new CDataProviderIterator($dataProvider, 10000);
         $i = 0;
         foreach ($iterator as $m) {
-            if (!KeywordIndirectRelation::getInstance()->ifExist($m['keyword_from_id'], $m['keyword_to_id']))
+            if ($i > 3500000 && !KeywordIndirectRelation::getInstance()->ifExist($m['keyword_from_id'], $m['keyword_to_id']))
                 KeywordIndirectRelation::getInstance()->saveRelation($m['keyword_from_id'], $m['keyword_to_id']);
 
             $i++;

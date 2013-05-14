@@ -113,42 +113,7 @@ class WordstatCommand extends CConsoleCommand
         }
     }
 
-    public function actionCopyStrictWordstat()
-    {
-        $i = 0;
-        do {
-            $rows = Yii::app()->db_keywords->createCommand()
-                ->select('*')
-                ->from('keywords_strict_wordstat')
-                ->offset($i * 10000)
-                ->limit(10000)
-                ->queryAll();
-            foreach ($rows as $row) {
-                if ($row['strict_wordstat'] == 0) {
-                    $this->saveStatus($row['keyword_id']);
-                } else {
-                    $wordstat = Yii::app()->db_keywords->createCommand()
-                        ->select('wordstat')
-                        ->from('keywords')
-                        ->where('id=' . $row['keyword_id'])
-                        ->queryScalar();
+    public function actionAddToStrict(){
 
-                    if (!empty($wordstat)) {
-                        if ($wordstat < 1000000 && ($wordstat / $row['strict_wordstat']) > 1000)
-                            $this->saveStatus($row['keyword_id']);
-                        if ($wordstat >= 1000000 && ($wordstat / $row['strict_wordstat']) > 10000)
-                            $this->saveStatus($row['keyword_id']);
-                    }
-                }
-            }
-
-            $i++;
-            echo $i."\n";
-        } while (!empty($rows));
-    }
-
-    private function saveStatus($keyword_id, $status = Keyword::STATUS_BAD_STRICT_WORDSTAT)
-    {
-        Yii::app()->db_keywords->createCommand()->update('keywords', array('status'=>$status), 'id='.$keyword_id);
     }
 }

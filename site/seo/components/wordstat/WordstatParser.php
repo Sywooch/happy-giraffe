@@ -33,7 +33,7 @@ class WordstatParser extends WordstatBaseParser
         $this->startTimer('parse keyword');
         $this->keyword = Keyword::model()->findByPk($id);
         if ($this->keyword !== null) {
-            $this->log('Parsing keyword: ' . $this->keyword->id);
+            $this->log('Parsing keyword: ' . $this->keyword->id, true);
             $this->checkName();
             $this->parse();
         }

@@ -137,7 +137,8 @@ class WordstatCommand extends CConsoleCommand
 
     public function actionCopyRelations()
     {
-        $dataProvider = new CSqlDataProvider('select * from keywords.keywords__relations', array(
+        $dataProvider = new CSqlDataProvider('select * from keywords__relations', array(
+            'db' => Yii::app()->db_keywords,
             'totalItemCount' => 100000000,
             'pagination' => array(
                 'pageSize' => 10000,

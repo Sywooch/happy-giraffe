@@ -38,8 +38,7 @@ class KeywordIndirectRelation
     public function getCollection()
     {
         if ($this->collection === null) {
-            $mongo = new Mongo(Yii::app()->mongodb_parsing->connectionString);
-            $mongo->connect();
+            $mongo = Yii::app()->mongodb_parsing->getConnection();
             $this->collection = $mongo->selectCollection('parsing', 'keywords_indirect_relations');
             $this->collection->ensureIndex(array('keyword_from_id' => 1));
             $this->collection->ensureIndex(array('keyword_from_id' => 1, 'keyword_to_id' => 1), array("unique" => true));

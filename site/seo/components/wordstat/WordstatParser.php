@@ -18,7 +18,7 @@ class WordstatParser extends WordstatBaseParser
     {
         $this->init($mode);
 
-        Yii::app()->gearman->worker()->addFunction("simple_parsing", array($this, "processMessage"));
+        Yii::app()->gearman->worker()->addFunction("important_parsing", array($this, "processMessage"));
         while (Yii::app()->gearman->worker()->work()) ;
     }
 
@@ -236,7 +236,8 @@ class WordstatParser extends WordstatBaseParser
             }
 
             if ($related && $model && isset($model->id))
-                KeywordRelation::saveRelation($this->keyword->id, $model->id);
+                KeywordIndirectRelation::getInstance()->saveRelation($this->keyword->id, $model->id);
+            KeywordDirectRelation::getInstance()->saveRelation($this->keyword->id, $model->id);
         }
     }
 }

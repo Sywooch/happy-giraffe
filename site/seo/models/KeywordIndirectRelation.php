@@ -70,7 +70,7 @@ class KeywordIndirectRelation
      * @param $keyword_from_id int
      * @param $keyword_to_id int
      */
-    public function addRelation($keyword_from_id, $keyword_to_id)
+    public function saveRelation($keyword_from_id, $keyword_to_id)
     {
         try {
             $this->getCollection()->insert(array(

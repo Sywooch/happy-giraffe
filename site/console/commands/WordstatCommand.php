@@ -146,12 +146,13 @@ class WordstatCommand extends CConsoleCommand
 
         $iterator = new CDataProviderIterator($dataProvider, 10000);
         foreach ($iterator as $m) {
-            KeywordIndirectRelation::getInstance()->addRelation($m['keyword_from_id'], $m['keyword_to_id']);
+            KeywordIndirectRelation::getInstance()->saveRelation($m['keyword_from_id'], $m['keyword_to_id']);
         }
     }
 
 
-    public function actionAddToTestParsing(){
+    public function actionAddToTestParsing()
+    {
         //найти все слова со словом "Беременность"
         $allSearch = Yii::app()->search
             ->select('*')
@@ -161,7 +162,7 @@ class WordstatCommand extends CConsoleCommand
             ->searchRaw();
         $ids = array();
         foreach ($allSearch['matches'] as $key => $m) {
-            $ids [] = $key;
+            $this->client->doBackground("important_parsing", (int)$key);
         }
 
         echo count($ids);

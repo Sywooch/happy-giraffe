@@ -65,6 +65,23 @@ class KeywordIndirectRelation
     }
 
     /**
+     * Проверка существует ли такая связь
+     *
+     * @param $keyword_from_id
+     * @param $keyword_to_id
+     * @return bool
+     */
+    public function ifExist($keyword_from_id, $keyword_to_id)
+    {
+        $exist = $this->getCollection()->findOne(array(
+            'keyword_from_id' => (int)$keyword_from_id,
+            'keyword_to_id' => (int)$keyword_to_id
+        ));
+
+        return !empty($exist);
+    }
+
+    /**
      * Сохранение связи "Что еще искали искавшие"
      *
      * @param $keyword_from_id int

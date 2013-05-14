@@ -152,7 +152,8 @@ class WordstatCommand extends CConsoleCommand
                 KeywordIndirectRelation::getInstance()->saveRelation($m['keyword_from_id'], $m['keyword_to_id']);
 
             $i++;
-            echo $i."\n";
+            if ($i % 10000 == 0)
+                echo $i."\n";
         }
     }
 

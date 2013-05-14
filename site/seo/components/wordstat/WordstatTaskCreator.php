@@ -28,8 +28,7 @@ class WordstatTaskCreator
     public function start()
     {
         if (!$this->collection) {
-            $mongo = new Mongo('mongodb://localhost');
-            $mongo->connect();
+            $mongo = Yii::app()->mongodb_parsing->getConnection();
             $this->collection = $mongo->selectCollection('parsing', 'simple_parsing');
         }
 

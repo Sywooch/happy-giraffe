@@ -38,8 +38,7 @@ class KeywordDirectRelation
     public function getCollection()
     {
         if ($this->collection === null) {
-            $mongo = new Mongo(Yii::app()->mongodb_parsing->connectionString);
-            $mongo->connect();
+            $mongo = Yii::app()->mongodb_parsing->getConnection();
             $this->collection = $mongo->selectCollection('parsing', 'keywords_direct_relations');
             $this->collection->ensureIndex(array('keyword_from_id' => 1));
             $this->collection->ensureIndex(array('keyword_from_id' => 1, 'keyword_to_id' => 1), array("unique" => true));
@@ -63,6 +62,23 @@ class KeywordDirectRelation
     }
 
     /**
+     * Проверка существует ли такая связь
+     *
+     * @param $keyword_from_id
+     * @param $keyword_to_id
+     * @return bool
+     */
+    public function exist($keyword_from_id, $keyword_to_id)
+    {
+        $exist = $this->getCollection()->findOne(array(
+            'keyword_from_id' => (int)$keyword_from_id,
+            'keyword_to_id' => (int)$keyword_to_id
+        ));
+
+        return !empty($exist);
+    }
+
+    /**
      * Сохранение связи "Что искали со словами"
      *
      * @param $keyword_from_id int
@@ -70,13 +86,15 @@ class KeywordDirectRelation
      */
     public function saveRelation($keyword_from_id, $keyword_to_id)
     {
-        try {
-            $this->getCollection()->insert(array(
-                'keyword_from_id' => (int)$keyword_from_id,
-                'keyword_to_id' => (int)$keyword_to_id
-            ));
-        } catch (Exception $err) {
+        //if (!$this->exist($keyword_from_id, $keyword_to_id)) {
+            try {
+                $this->getCollection()->insert(array(
+                    'keyword_from_id' => (int)$keyword_from_id,
+                    'keyword_to_id' => (int)$keyword_to_id
+                ));
+            } catch (Exception $err) {
 
-        }
+            }
+        //}
     }
 }

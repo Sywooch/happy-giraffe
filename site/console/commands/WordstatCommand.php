@@ -161,17 +161,33 @@ class WordstatCommand extends CConsoleCommand
     public function actionAddToTestParsing()
     {
         //найти все слова со словом "Беременность"
-        $allSearch = Yii::app()->search
-            ->select('*')
-            ->from('keywords')
-            ->where(' беременность ')
-            ->limit(0, 500000)
-            ->searchRaw();
+        $searchCriteria = self::getSphinxCriteria('беременность');
+        $pages = new CPagination();
+        $pages->pageSize = 100000;
+        $pages->currentPage = 0;
+        $pages->itemCount = 100000;
+        $searchCriteria->paginator = $pages;
+
         $ids = array();
-        foreach ($allSearch['matches'] as $key => $m) {
-            $this->client->doBackground("important_parsing", (int)$key);
-        }
+        $resArray = Yii::App()->search->searchRaw($searchCriteria);
+        foreach ($resArray['matches'] as $key => $m)
+            $ids [] = $key;
+
+       //            $this->client->doBackground("important_parsing", (int)$key);
 
         echo count($ids);
+    }
+
+    public static function getSphinxCriteria($keyword)
+    {
+        $searchCriteria = new stdClass();
+        $searchCriteria->select = '*';
+        $searchCriteria->query = ' ' . $keyword . ' ';
+
+        $searchCriteria->paginator = new CPagination();
+        $searchCriteria->from = 'keywords';
+        $searchCriteria->filterRange = array(array('wordstat', 100, 100000000, true));
+
+        return $searchCriteria;
     }
 }

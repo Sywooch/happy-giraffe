@@ -113,7 +113,98 @@ class WordstatCommand extends CConsoleCommand
         }
     }
 
-    public function actionAddToStrict(){
+    public function actionAddToParsing(){
+
+    }
+
+
+
+
+
+    public function actionCheckMysqlRelationsSpeed()
+    {
+        $t = microtime(true);
+//        $keywords = Yii::app()->db_keywords->createCommand()
+//            ->select('id')
+//            ->from('keywords')
+//            ->limit(1000)
+//            ->queryColumn();
+
+        $list = Yii::app()->db_keywords->createCommand()
+            ->select('*')
+            ->from('keywords')
+            ->where('name="красивые знаменитые мужчины фото"')
+            ->limit(1)
+            ->queryAll();
+//        for ($i = 0; $i < 1000; $i++) {
+//            $sql = '';
+//            for ($j = $i + 1; $j < 1000; $j++)
+//                $sql .= "INSERT INTO keywords__relations values (" . $keywords[$i] . ", " . $keywords[$j] . ");";
+//
+//            if (!empty($sql))
+//                Yii::app()->db_keywords->createCommand($sql)
+//                    ->execute();
+//        }
+
+        echo microtime(true) - $t;
+        echo "\n" . count($list);
+    }
+
+    public function actionCheckMongoDbRelationsSpeed()
+    {
+//        $keywords = Yii::app()->db_keywords->createCommand()
+//            ->select('id')
+//            ->from('keywords')
+//            ->limit(1000)
+//            ->queryColumn();
+
+        $mongo = new Mongo(Yii::app()->mongodb_parsing->connectionString);
+        $mongo->connect();
+        $collection = $mongo->selectCollection('parsing', 'keywords');
+
+        $t = microtime(true);
+
+//        for ($i = 0; $i < 1000; $i++)
+//            for ($j = $i + 1; $j < 1000; $j++) {
+//                $collection->insert(array(
+//                    'keyword_from_id' => (int)$keywords[$i],
+//                    'keyword_to_id' => (int)$keywords[$j],
+//                ));
+//            }
+
+        $rec = $collection->findOne(array('name' => 'красивые знаменитые мужчины фото'));
+
+        echo microtime(true) - $t;
+        var_dump($rec);
+    }
+
+    public function actionCopyKeywords()
+    {
+        $mongo = new Mongo(Yii::app()->mongodb_parsing->connectionString);
+        $mongo->connect();
+
+        $collection = $mongo->selectCollection('parsing', 'keywords');
+        $collection->ensureIndex(array('id' => 1), array("unique" => true));
+        $collection->ensureIndex(array('name' => 1), array("unique" => true));
+        $collection->ensureIndex(array('wordstat' => -1));
+
+
+        $dataProvider = new CSqlDataProvider('select * from keywords.keywords', array(
+            'totalItemCount' => 10000000,
+            'pagination' => array(
+                'pageSize' => 10000,
+            ),
+        ));
+        $iterator = new CDataProviderIterator($dataProvider, 10000);
+
+        foreach ($iterator as $keyword) {
+            $collection->insert(array(
+                'id' => (int)$keyword['id'],
+                'name' => $keyword['name'],
+                'wordstat' => (int)$keyword['wordstat'],
+                'status' => (int)$keyword['status'],
+            ));
+        }
 
     }
 }

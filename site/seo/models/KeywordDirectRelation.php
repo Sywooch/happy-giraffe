@@ -55,8 +55,10 @@ class KeywordDirectRelation
     {
         $cursor = $this->getCollection()->find(array());
         $list = array();
-        while ($cursor->hasNext())
-            $list [] = $cursor->getNext()['keyword_to_id'];
+        while ($cursor->hasNext()){
+            $row = $cursor->getNext();
+            $list [] = $row['keyword_to_id'];
+        }
 
         return $list;
     }

@@ -237,7 +237,8 @@ class WordstatParser extends WordstatBaseParser
 
             if ($related && $model && isset($model->id))
                 KeywordIndirectRelation::getInstance()->saveRelation($this->keyword->id, $model->id);
-            KeywordDirectRelation::getInstance()->saveRelation($this->keyword->id, $model->id);
+            if (!$related && $model && isset($model->id))
+                KeywordDirectRelation::getInstance()->saveRelation($this->keyword->id, $model->id);
         }
     }
 }

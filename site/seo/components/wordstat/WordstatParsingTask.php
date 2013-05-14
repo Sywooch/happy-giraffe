@@ -32,8 +32,7 @@ class WordstatParsingTask
 
     private function __construct()
     {
-        $this->mongo = new Mongo(Yii::app()->mongodb_parsing->connectionString);
-        $this->mongo->connect();
+        $this->mongo = Yii::app()->mongodb_parsing->getConnection();
     }
 
     /**
@@ -104,7 +103,7 @@ class WordstatParsingTask
      */
     public function removeSimpleTask($id)
     {
-        $this->simple_collection->remove(array('id' => (int)$id));
+        $this->getSimpleCollection()->remove(array('id' => (int)$id));
     }
 
     /**
@@ -113,7 +112,7 @@ class WordstatParsingTask
      */
     public function addSimpleTask($id)
     {
-        $this->simple_collection->insert(array('id' => (int)$id));
+        $this->getSimpleCollection()->insert(array('id' => (int)$id));
     }
 
     /**
@@ -132,15 +131,5 @@ class WordstatParsingTask
     public function removeStrictTask($id)
     {
         $this->getStrictCollection()->remove(array('id' => (int)$id));
-    }
-
-
-    /**
-     * Добавляет слово в очередь очень срочных заданий
-     * @param $id int ID ключевого слова
-     */
-    public function addImportantTask($id)
-    {
-        $this->priority_collection->insert(array('id' => (int)$id));
     }
 }

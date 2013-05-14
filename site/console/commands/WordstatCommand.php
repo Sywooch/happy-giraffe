@@ -137,24 +137,24 @@ class WordstatCommand extends CConsoleCommand
 
     public function actionCopyRelations()
     {
-        $dataProvider = new CSqlDataProvider('select * from keywords__relations', array(
-            'db' => Yii::app()->db_keywords,
-            'totalItemCount' => 100000000,
-            'pagination' => array(
-                'pageSize' => 10000,
-            ),
-        ));
+        $last_id = 0;
+        do {
+            $rows = Yii::app()->db_keywords->createCommand()
+                ->select('*')
+                ->from('keywords__relations')
+                ->where('keyword_from_id >= ' . $last_id)
+                ->order('keyword_from_id asc')
+                ->limit(10000)
+                ->queryAll();
 
-        $iterator = new CDataProviderIterator($dataProvider, 10000);
-        $i = 0;
-        foreach ($iterator as $m) {
-            if ($i > 3500000 && !KeywordIndirectRelation::getInstance()->ifExist($m['keyword_from_id'], $m['keyword_to_id']))
-                KeywordIndirectRelation::getInstance()->saveRelation($m['keyword_from_id'], $m['keyword_to_id']);
+            foreach ($rows as $row) {
+                if (KeywordIndirectRelation::getInstance()->ifExist($row['keyword_from_id'], $row['keyword_to_id']))
+                    KeywordIndirectRelation::getInstance()->saveRelation($row['keyword_from_id'], $row['keyword_to_id']);
 
-            $i++;
-            if ($i % 10000 == 0)
-                echo $i."\n";
-        }
+                $last_id = $row['keyword_from_id'];
+            }
+            echo $last_id."\n";
+        } while (!empty($rows));
     }
 
 

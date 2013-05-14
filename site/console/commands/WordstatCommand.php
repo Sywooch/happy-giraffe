@@ -186,7 +186,7 @@ class WordstatCommand extends CConsoleCommand
 
         $searchCriteria->paginator = new CPagination();
         $searchCriteria->from = 'keywords';
-        $searchCriteria->filterRange = array(array('wordstat', 100, 100000000, true));
+        $searchCriteria->filterRange = array('wordstat', 100, 100000000, true);
 
         return $searchCriteria;
     }

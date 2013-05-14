@@ -153,7 +153,7 @@ class WordstatCommand extends CConsoleCommand
 
                 $last_id = $row['keyword_from_id'];
             }
-            echo $last_id."\n";
+            echo $last_id . "\n";
         } while (!empty($rows));
     }
 
@@ -173,7 +173,9 @@ class WordstatCommand extends CConsoleCommand
         foreach ($resArray['matches'] as $key => $m)
             $ids [] = $key;
 
-       //            $this->client->doBackground("important_parsing", (int)$key);
+        $client = Yii::app()->gearman->client();
+        foreach ($ids as $id)
+            $client->doBackground("important_parsing", (int)$id);
 
         echo count($ids);
     }

@@ -103,4 +103,19 @@ class NotificationCreate
             $notification->create($model->author_id, $like);
         }
     }
+
+    /**
+     * Создаем уведомления о лайках за последние 24 часа
+     *
+     */
+    public static function generateLikes()
+    {
+        $entity = $like->entity_name;
+        $model = $entity::model()->findByPk($like->entity_id);
+        //уведомления автору поста
+        if ($model->author_id !== User::HAPPY_GIRAFFE && $model->author_id != Yii::app()->user->id) {
+            $notification = new NotificationLike();
+            $notification->create($model->author_id, $like);
+        }
+    }
 }

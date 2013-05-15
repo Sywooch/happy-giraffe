@@ -16,6 +16,7 @@ class WordstatParsingTask
      */
     protected $mongo;
     /**
+     * Основной парсинг частоты
      * @var MongoCollection
      */
     protected $simple_collection;
@@ -23,19 +24,28 @@ class WordstatParsingTask
      * @var MongoCollection
      */
     protected $priority_collection;
+    /**
+     * очередь на парсинг частоты "!слово !слово"
+     * @var MongoCollection[]
+     */
+    protected $collections;
 
     private function __construct()
     {
-        $this->mongo = new Mongo(Yii::app()->mongodb_parsing->connectionString);
-        $this->mongo->connect();
-        $this->simple_collection = $this->mongo->selectCollection('parsing', 'simple_parsing');
-        $this->simple_collection->ensureIndex(array('id' => 1), array("unique" => true));
-//        $this->priority_collection = $this->mongo->selectCollection('parsing', 'priority_collection');
-//        $this->priority_collection->ensureIndex(array('id' => 1), array("unique" => true));
+        $this->mongo = Yii::app()->mongodb_parsing->getConnection();
     }
 
-    private function __clone()
+    /**
+     * @param $queue
+     * @return MongoCollection
+     */
+    private function getCollection($queue)
     {
+        if (!isset($this->collections[$queue])) {
+            $this->collections[$queue] = $this->mongo->selectCollection('parsing', $queue);
+            $this->collections[$queue]->ensureIndex(array('id' => 1), array("unique" => true));
+        }
+        return $this->collections[$queue];
     }
 
     /**
@@ -60,12 +70,12 @@ class WordstatParsingTask
             $ids = Yii::app()->db_keywords->createCommand()
                 ->select('id')
                 ->from('keywords')
-                ->where('status is null AND id > ' . $max_id)
+                ->where('wordstat >= 100 AND id > ' . $max_id)
                 ->limit(10000)
                 ->order('id')
                 ->queryColumn();
             foreach ($ids as $id)
-                $this->simple_collection->insert(array('id' => (int)$id));
+                $this->getCollection('important_parsing')->insert(array('id' => (int)$id));
 
             if (!empty($ids))
                 $max_id = $ids[count($ids) - 1];
@@ -79,27 +89,20 @@ class WordstatParsingTask
     /**
      * Удаляет слово из очереди на простой парсинг
      * @param $id int ID ключевого слова
+     * @param $queue string название очереди
      */
-    public function removeSimpleTask($id)
+    public function removeSimpleTask($id, $queue = 'simple_parsing')
     {
-        $this->simple_collection->remove(array('id' => (int)$id));
+        $this->getCollection($queue)->remove(array('id' => (int)$id));
     }
 
     /**
      * Добавляет слово в очередь на простой парсинг
      * @param $id int ID ключевого слова
+     * @param $queue string название очереди
      */
-    public function addSimpleTask($id)
+    public function addSimpleTask($id, $queue = 'simple_parsing')
     {
-        $this->simple_collection->insert(array('id' => (int)$id));
-    }
-
-    /**
-     * Добавляет слово в очередь очень срочных заданий
-     * @param $id int ID ключевого слова
-     */
-    public function addImportantTask($id)
-    {
-        $this->priority_collection->insert(array('id' => (int)$id));
+        $this->getCollection($queue)->insert(array('id' => (int)$id));
     }
 }

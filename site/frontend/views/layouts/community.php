@@ -101,6 +101,10 @@
 
     <div class="side-left">
 
+        <div style="margin-bottom: 40px;">
+            <?php $this->renderPartial('//banners/adfox'); ?>
+        </div>
+
         <div class="club-fast-add">
             <?php if (Yii::app()->user->isGuest):?>
                 <?=CHtml::link('<span class="big">Добавить</span><span class="small">запись в клуб</span>', '#login', array('class' => 'btn-green twolines fancy', 'data-theme'=>'white-square'))?>
@@ -196,51 +200,35 @@
                 ?>
 
             </div>
+        <?php $this->endCache(); endif;  ?>
 
+        <?php if (false): ?>
             <?php if ($this->community->id == 24): ?>
                 <div style="margin-bottom: 40px;">
                     <?php $this->renderPartial('//banners/community_24_240x400'); ?>
                 </div>
             <?php endif; ?>
+        <?php endif; ?>
 
-            <?php if ($this->community->id == 30): ?>
-                <!--AdFox START-->
-                <!--giraffe-->
-                <!--Площадка: Весёлый Жираф / * / *-->
-                <!--Тип баннера: 240x400-->
-                <!--Расположение: <середина страницы>-->
-                <script type="text/javascript">
-                    <!--
-                    if (typeof(pr) == 'undefined') { var pr = Math.floor(Math.random() * 1000000); }
-                    var addate = new Date();
-                    document.write('<iframe src="http://ads.adfox.ru/211012/getCode?pp=h&amp;ps=bkqy&amp;p2=u&amp;p3=b&amp;p4=a&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a&amp;pr=' + pr + '&amp;pt=b&amp;pd=' + addate.getDate() + '&amp;pw=' + addate.getDay() + '&amp;pv=' + addate.getHours() + '" frameBorder="0" width="240" height="400" marginWidth="0" marginHeight="0" scrolling="no" style="border: 0px; margin: 0px; padding: 0px;"><a href="http://ads.adfox.ru/211012/goDefaultLink?pp=h&amp;ps=bkqy&amp;p2=u&amp;" target="_blank"><img src="http://ads.adfox.ru/211012/getDefaultImage?pp=h&amp;ps=bkqy&amp;p2=u" border="0" alt=""><\/a><\/iframe>');
-                    //-->
-                </script>
-                <noscript>
-                    <iframe src="http://ads.adfox.ru/211012/getCode?pp=h&amp;ps=bkqy&amp;p2=u&amp;p3=b&amp;p4=a&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a&amp;pr=' + pr + '&amp;pt=b&amp;pd=' + addate.getDate() + '&amp;pw=' + addate.getDay() + '&amp;pv=' + addate.getHours() + '" frameBorder="0" width="240" height="400" marginWidth="0" marginHeight="0" scrolling="no" style="border: 0px; margin: 0px; padding: 0px;"><a href="http://ads.adfox.ru/211012/goDefaultLink?pp=h&amp;ps=bkqy&amp;p2=u&amp;" target="_blank"><img src="http://ads.adfox.ru/211012/getDefaultImage?pp=h&amp;ps=bkqy&amp;p2=u" border="0" alt=""></a></iframe>
-                </noscript>
-                <!--AdFox END-->
-            <?php endif; ?>
-
+        <?php if (false): ?>
             <?php if (in_array($this->community->id, array(1, 2))): ?>
                 <div style="margin-bottom: 40px;">
                     <?php $this->renderPartial('//banners/community_1+2_240x400'); ?>
                 </div>
             <?php endif; ?>
+        <?php endif; ?>
 
-            <div class="recent-topics">
+        <div class="recent-topics">
 
-                <div class="title">Последние темы</div>
+            <div class="title">Последние темы</div>
 
-                <ul>
-                    <?php foreach ($this->community->last as $c): ?>
-                    <li><?=CHtml::link(CHtml::encode($c->title), $c->url)?></li>
-                    <?php endforeach; ?>
-                </ul>
+            <ul>
+                <?php foreach ($this->community->last as $c): ?>
+                <li><?=CHtml::link(CHtml::encode($c->title), $c->url)?></li>
+                <?php endforeach; ?>
+            </ul>
 
-            </div>
-
-        <?php $this->endCache(); endif;  ?>
+        </div>
 
         <?php if (false): ?>
             <div class="box">

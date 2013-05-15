@@ -31,6 +31,10 @@
                 ?>
             </div>
 
+            <div style="margin-bottom: 40px;">
+                <?php $this->renderPartial('//banners/adfox'); ?>
+            </div>
+
             <?php if (Yii::app()->user->id == $this->user->id): ?>
                 <div class="add-post-btn">
                     <?=CHtml::link(CHtml::image('/images/btn_add_post.png'), $this->getUrl(array('content_type_slug' => null), 'blog/add'))?>
@@ -73,10 +77,6 @@
                 </div>
 
             <?php $this->endCache(); endif;  ?>
-
-            <div style="margin-bottom: 40px;">
-                <?php $this->renderPartial('//banners/adfox'); ?>
-            </div>
 
             <?php
                 //$this->widget('application.widgets.blog.attendanceWidget.AttendanceWidget', array(

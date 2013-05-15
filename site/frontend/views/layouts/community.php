@@ -101,6 +101,10 @@
 
     <div class="side-left">
 
+        <div style="margin-bottom: 40px;">
+            <?php $this->renderPartial('//banners/adfox'); ?>
+        </div>
+
         <div class="club-fast-add">
             <?php if (Yii::app()->user->isGuest):?>
                 <?=CHtml::link('<span class="big">Добавить</span><span class="small">запись в клуб</span>', '#login', array('class' => 'btn-green twolines fancy', 'data-theme'=>'white-square'))?>
@@ -205,10 +209,6 @@
                 </div>
             <?php endif; ?>
         <?php endif; ?>
-
-        <div style="margin-bottom: 40px;">
-            <?php $this->renderPartial('//banners/adfox'); ?>
-        </div>
 
         <?php if (false): ?>
             <?php if (in_array($this->community->id, array(1, 2))): ?>

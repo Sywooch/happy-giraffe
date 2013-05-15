@@ -74,6 +74,10 @@
 
             <?php $this->endCache(); endif;  ?>
 
+            <div style="margin-bottom: 40px;">
+                <?php $this->renderPartial('//banners/adfox'); ?>
+            </div>
+
             <?php
                 //$this->widget('application.widgets.blog.attendanceWidget.AttendanceWidget', array(
                 //    'user_id' => $this->user->id,

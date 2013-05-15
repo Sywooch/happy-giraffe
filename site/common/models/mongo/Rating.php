@@ -11,6 +11,18 @@ class Rating extends EMongoDocument
         return 'ratings';
     }
 
+    public function indexes()
+    {
+        return array(
+            'entity_find' => array(
+                'key' => array(
+                    'entity_id' => 1,
+                    'entity_name' => 1
+                )
+            )
+        );
+    }
+
     /**
      * @static
      * @param string $className
@@ -64,6 +76,7 @@ class Rating extends EMongoDocument
         $criteria->entity_id('==', $entity_id);
         $criteria->entity_name('==', $entity_name);
         $model = $this->find($criteria);
+
         if ($model)
             return $model;
         return false;
@@ -88,17 +101,9 @@ class Rating extends EMongoDocument
             $model->ratings = array();
             $model->save();
         }
-        if ($social_key == 'yh'){
-            $like = RatingYohoho::model()->findByEntity($entity);
-            if ($like == null){
-                $like = RatingYohoho::model()->create($entity);
-                NotificationCreate::likeCreated($like);
-            }
-            else{
+        if ($social_key == 'yh')
+            if (($e = RatingYohoho::model()->saveByEntity($entity)) === false)
                 $value = $value * -1;
-                $like->delete();
-            }
-        }
 
         $model->ratings[$social_key] = $plus && isset($model->ratings[$social_key]) ? $model->ratings[$social_key] + $value : $value;
         $old_sum = $model->sum;
@@ -108,10 +113,6 @@ class Rating extends EMongoDocument
             $entity->rate = $model->sum;
             $entity->save(false);
         }
-
-//        if (isset($entity->author_id)) {
-//            UserScores::addScores($entity->author_id, ScoreAction::ACTION_LIKE, $model->sum - $old_sum, $entity);
-//        }
 
         $model->save();
     }
@@ -159,7 +160,7 @@ class Rating extends EMongoDocument
             default :
                 $count = 0;
         }
-        echo $count."\n";
+        echo $count . "\n";
         Rating::model()->saveByEntity($entity, $social_key, $count);
     }
 

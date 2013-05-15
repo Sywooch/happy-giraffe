@@ -19,4 +19,8 @@ class NotificationCommand extends CConsoleCommand
     {
         NotificationDiscussSubscription::model()->createDiscussNotifications();
     }
+
+    public function actionLikes(){
+
+    }
 }

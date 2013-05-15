@@ -38,12 +38,12 @@ class RatingYohoho extends HMongoModel
     public function ensureIndexes()
     {
         $this->getCollection()->ensureIndex(array(
-            'entity_id' => 1,
+            'entity_id' => -1,
             'entity_name' => 1,
         ), array('name' => 'entity'));
 
         $this->getCollection()->ensureIndex(array(
-            'entity_id' => 1,
+            'entity_id' => -1,
             'entity_name' => 1,
             'user_id' => 1,
         ), array('name' => 'user_entity'));

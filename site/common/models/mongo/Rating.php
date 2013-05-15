@@ -40,18 +40,6 @@ class Rating extends EMongoDocument
         );
     }
 
-    public function indexes()
-    {
-        return array(
-            'entity_find' => array(
-                'key' => array(
-                    'entity_id' => -1,
-                    'entity_name' => 1
-                )
-            )
-        );
-    }
-
     public function beforeSave()
     {
         $this->sum = array_sum($this->ratings);

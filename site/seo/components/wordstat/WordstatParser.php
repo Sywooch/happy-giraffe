@@ -9,6 +9,7 @@
 class WordstatParser extends WordstatBaseParser
 {
     public $first_page = true;
+    public $queue = 'important_parsing';
 
     /**
      * Запуск потока-парсера. Связывается с поставщиком заданий и ждет появления новых заданий
@@ -18,7 +19,7 @@ class WordstatParser extends WordstatBaseParser
     {
         $this->init($mode);
 
-        Yii::app()->gearman->worker()->addFunction("important_parsing", array($this, "processMessage"));
+        Yii::app()->gearman->worker()->addFunction($this->queue, array($this, "processMessage"));
         while (Yii::app()->gearman->worker()->work()) ;
     }
 
@@ -37,7 +38,7 @@ class WordstatParser extends WordstatBaseParser
             $this->checkName();
             $this->parse();
         }
-        WordstatParsingTask::getInstance()->removeSimpleTask($id);
+        WordstatParsingTask::getInstance()->removeSimpleTask($id, $this->queue);
 
         $this->endTimer();
         return true;

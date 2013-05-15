@@ -44,9 +44,9 @@ class DGSphinxSearchException extends CException
  *
  * Usage:
  * --------------
- * 
+ *
  * Search by criteria Object:
- * 	
+ *
  *     $searchCriteria = new stdClass();
  *     $pages = new CPagination();
  *     $pages->pageSize = Yii::app()->params['firmPerPage'];
@@ -114,7 +114,7 @@ class DGSphinxSearch extends CApplicationComponent
      * @var integer
      * @brief sphinx default match mode
      */
-    public $matchMode = SPH_MATCH_EXTENDED;
+    public $matchMode = SPH_MATCH_EXTENDED2;
     /**
      * @var integer
      * @brief sphinx default rank mode
@@ -164,12 +164,12 @@ class DGSphinxSearch extends CApplicationComponent
         $this->client = new SphinxClient;
         $this->client->setServer($this->server, $this->port);
         $this->client->setMaxQueryTime($this->maxQueryTime);
-         Yii::trace("weigth: " . print_r ($this->fieldWeights,true), 'CEXT.DGSphinxSearch.doSearch');
-         
+        Yii::trace("weigth: " . print_r($this->fieldWeights, true), 'CEXT.DGSphinxSearch.doSearch');
+
         $this->resetCriteria();
     }
 
-    public function buildExcerpts($docs, $index, $words, $opts=array())
+    public function buildExcerpts($docs, $index, $words, $opts = array())
     {
         $opts['before_match'] = '<span class="search-highlight">';
         $opts["after_match"] = "</span>";
@@ -185,9 +185,9 @@ class DGSphinxSearch extends CApplicationComponent
      * @param string $comment
      * @return array
      */
-    public function query($query, $index='*', $comment='')
+    public function query($query, $index = '*', $comment = '')
     {
-	return $this->doSearch($index, $query, $comment);
+        return $this->doSearch($index, $query, $comment);
     }
 
     /**
@@ -269,16 +269,25 @@ class DGSphinxSearch extends CApplicationComponent
             foreach ($filters as $fil => $vol) {
                 // geo filter
                 if ($fil == 'geo') {
-                    $min = (float) (isset($vol['min']) ? $vol['min'] : 0);
+                    $min = (float)(isset($vol['min']) ? $vol['min'] : 0);
                     $point = explode(' ', str_replace('POINT(', '', trim($vol['point'], ')')));
-                    $this->client->setGeoAnchor('latitude', 'longitude', (float) $point[1] * ( pi() / 180 ), (float) $point[0] * ( pi() / 180 ));
-                    $this->client->setFilterFloatRange('@geodist', $min, (float) $vol['buffer']);
+                    $this->client->setGeoAnchor('latitude', 'longitude', (float)$point[1] * (pi() / 180), (float)$point[0] * (pi() / 180));
+                    $this->client->setFilterFloatRange('@geodist', $min, (float)$vol['buffer']);
                     // usual filter
                 } else if ($vol) {
                     $this->client->SetFilter($fil, (is_array($vol)) ? $vol : array($vol));
                 }
             }
         }
+        return $this;
+    }
+
+    public function filterRange($filter_range_array)
+    {
+        $this->criteria->filterRange = $filter_range_array;
+
+        foreach ($filter_range_array as $filter_range)
+            $this->client->SetFilterRange($filter_range[0], $filter_range[1], $filter_range[2], isset($filter_range[3]) ? $filter_range[3] : false);
         return $this;
     }
 
@@ -299,14 +308,14 @@ class DGSphinxSearch extends CApplicationComponent
 
     /**
      * @brief set matches sorting, SQL-like syntax - 'order_by expression'
-     * @param DGSort $orders
+     * @param $orders
      * @return $this chain
      */
-    public function orderby(DGSort $orders = null)
+    public function orderby($orders = null)
     {
         $this->criteria->orders = $orders;
-        if ($orders && $orders->getOrderBy()) {
-            $this->client->SetSortMode(SPH_SORT_EXTENDED, $orders->getOrderBy());
+        if ($orders) {
+            $this->client->SetSortMode(SPH_SORT_EXTENDED, $orders);
         }
         return $this;
     }
@@ -317,7 +326,7 @@ class DGSphinxSearch extends CApplicationComponent
      * @param integer $limit
      * @return $this chain
      */
-    public function limit($offset=null, $limit=null)
+    public function limit($offset = null, $limit = null)
     {
         $this->criteria->limit = array(
             'offset' => $offset,
@@ -399,6 +408,10 @@ class DGSphinxSearch extends CApplicationComponent
         // set filters
         if (isset($criteria->filters)) {
             $this->filters($criteria->filters);
+        }
+        // set filter range
+        if (isset($criteria->filterRange)) {
+            $this->filterRange($criteria->filterRange);
         }
 
         // set field ordering

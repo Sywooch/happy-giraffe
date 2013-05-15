@@ -9,6 +9,7 @@
 class WordstatParser extends WordstatBaseParser
 {
     public $first_page = true;
+    public $queue = 'important_parsing';
 
     /**
      * Запуск потока-парсера. Связывается с поставщиком заданий и ждет появления новых заданий
@@ -18,7 +19,7 @@ class WordstatParser extends WordstatBaseParser
     {
         $this->init($mode);
 
-        Yii::app()->gearman->worker()->addFunction("simple_parsing", array($this, "processMessage"));
+        Yii::app()->gearman->worker()->addFunction($this->queue, array($this, "processMessage"));
         while (Yii::app()->gearman->worker()->work()) ;
     }
 
@@ -33,11 +34,11 @@ class WordstatParser extends WordstatBaseParser
         $this->startTimer('parse keyword');
         $this->keyword = Keyword::model()->findByPk($id);
         if ($this->keyword !== null) {
-            $this->log('Parsing keyword: ' . $this->keyword->id);
+            $this->log('Parsing keyword: ' . $this->keyword->id, true);
             $this->checkName();
             $this->parse();
         }
-        WordstatParsingTask::getInstance()->removeSimpleTask($id);
+        WordstatParsingTask::getInstance()->removeSimpleTask($id, $this->queue);
 
         $this->endTimer();
         return true;
@@ -139,7 +140,7 @@ class WordstatParser extends WordstatBaseParser
 
         //сохраняем ключевые слова из первой колонки
         foreach ($list as $value)
-            $this->saveFoundKeyword($value[0], $value[1]);
+            $this->saveFoundKeyword($value[0], $value[1], true);
 
         //если статус не хороший, то не парсим остальные страницы
         if ($this->keyword->status != Keyword::STATUS_GOOD) {
@@ -153,7 +154,7 @@ class WordstatParser extends WordstatBaseParser
 
             //сохраняем ключевые слова из второй колонки
             foreach ($list as $value)
-                $this->saveFoundKeyword($value[0], $value[1], true);
+                $this->saveFoundKeyword($value[0], $value[1], false);
         }
 
         if ($this->first_page)
@@ -192,10 +193,10 @@ class WordstatParser extends WordstatBaseParser
      *
      * @param $keyword string ключевое слово
      * @param $value int значение частоты wordstat
-     * @param $related bool добавть в связи или нет
+     * @param $directRelation bool добавть в связи или нет
      * @return Keyword|null
      */
-    protected function saveFoundKeyword($keyword, $value, $related = false)
+    protected function saveFoundKeyword($keyword, $value, $directRelation)
     {
         if (!empty($keyword) && !empty($value)) {
             if (strpos($keyword, '+') !== false) {
@@ -235,8 +236,12 @@ class WordstatParser extends WordstatBaseParser
                 }
             }
 
-            if ($related && $model && isset($model->id))
-                KeywordRelation::saveRelation($this->keyword->id, $model->id);
+            if ($model && isset($model->id)){
+                if ($directRelation)
+                    KeywordDirectRelation::getInstance()->saveRelation($this->keyword->id, $model->id);
+                else
+                    KeywordIndirectRelation::getInstance()->saveRelation($this->keyword->id, $model->id);
+            }
         }
     }
 }

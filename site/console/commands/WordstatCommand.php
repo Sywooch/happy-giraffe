@@ -69,29 +69,17 @@ class WordstatCommand extends CConsoleCommand
         $job_provider->start();
     }
 
-    public function actionSimple(){
+    public function actionSimple()
+    {
         $p = new WordstatParser();
         $p->start();
-    }
-
-    public function actionAddSimpleParsing(){
-        WordstatParsingTask::getInstance()->addAllKeywordsToParsing();
-    }
-
-    private $collection;
-
-    public function actionTest(){
-        $mongo = new Mongo('mongodb://localhost');
-        $mongo->connect();
-        $this->collection = $mongo->selectCollection('parsing', 'simple_parsing');
-        echo $this->collection->remove(array('id' => 63312236));
     }
 
     public function actionDeleteNulls()
     {
         $last_id = 346000000;
-        while(true){
-            $condition = 'wordstat = 0 AND id > '.$last_id;
+        while (true) {
+            $condition = 'wordstat = 0 AND id > ' . $last_id;
             $ids = Yii::app()->db_keywords->createCommand()
                 ->select('id')
                 ->from('keywords')
@@ -100,13 +88,55 @@ class WordstatCommand extends CConsoleCommand
                 ->limit(10000)
                 ->queryColumn();
 
-            foreach($ids as $id)
+            foreach ($ids as $id)
                 WordstatParsingTask::getInstance()->removeSimpleTask($id);
 
             $last_id = end($ids);
-            echo $last_id."\n";
+            echo $last_id . "\n";
             if (empty($ids))
                 break;
         }
+    }
+
+    public function actionTest()
+    {
+        $c = new MysqlMongoPerformanceTests;
+        //$c->relationsInsertTest();
+        $c->relationsFindTest();
+        $c->findKeywordByNameTest();
+    }
+
+    public function actionCopyKeywords()
+    {
+        $mongo = new Mongo(Yii::app()->mongodb_parsing->connectionString);
+        $mongo->connect();
+
+        $collection = $mongo->selectCollection('parsing', 'keywords');
+        $collection->ensureIndex(array('id' => 1), array("unique" => true));
+        $collection->ensureIndex(array('name' => 1), array("unique" => true));
+        $collection->ensureIndex(array('wordstat' => -1));
+
+
+        $dataProvider = new CSqlDataProvider('select * from keywords.keywords', array(
+            'totalItemCount' => 10000000,
+            'pagination' => array(
+                'pageSize' => 10000,
+            ),
+        ));
+        $iterator = new CDataProviderIterator($dataProvider, 10000);
+
+        foreach ($iterator as $keyword) {
+            $collection->insert(array(
+                'id' => (int)$keyword['id'],
+                'name' => $keyword['name'],
+                'wordstat' => (int)$keyword['wordstat'],
+                'status' => (int)$keyword['status'],
+            ));
+        }
+    }
+
+    public function actionAddToTestParsing()
+    {
+        WordstatParsingTask::getInstance()->addAllKeywordsToParsing();
     }
 }

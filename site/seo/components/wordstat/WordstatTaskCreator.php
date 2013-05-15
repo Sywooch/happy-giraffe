@@ -22,6 +22,8 @@ class WordstatTaskCreator
      */
     private $collection;
 
+    public $queue = 'important_parsing';
+
     /**
      * Запуск передачи заданий из базы данных в очередь
      */
@@ -29,7 +31,7 @@ class WordstatTaskCreator
     {
         if (!$this->collection) {
             $mongo = Yii::app()->mongodb_parsing->getConnection();
-            $this->collection = $mongo->selectCollection('parsing', 'simple_parsing');
+            $this->collection = $mongo->selectCollection('parsing', $this->queue);
         }
 
         $this->client = Yii::app()->gearman->client();
@@ -79,6 +81,6 @@ class WordstatTaskCreator
      */
     private function addTaskToQueue($keyword_id)
     {
-        $this->client->doBackground("simple_parsing", $keyword_id);
+        $this->client->doBackground($this->queue, $keyword_id);
     }
 }

@@ -22,6 +22,25 @@ class RatingYohoho extends EMongoDocument
         return parent::model($className);
     }
 
+    public function indexes()
+    {
+        return array(
+            'entity' => array(
+                'key' => array(
+                    'entity_id' => -1,
+                    'entity_name' => 1,
+                )
+            ),
+            'user_entity' => array(
+                'key' => array(
+                    'entity_id' => -1,
+                    'entity_name' => 1,
+                    'user_id' => 1,
+                )
+            )
+        );
+    }
+
     public function rules()
     {
         return array(
@@ -72,8 +91,7 @@ class RatingYohoho extends EMongoDocument
         $model = $this->findByEntity($entity);
         if ($model)
             $model->delete();
-        else
-        {
+        else {
             $model = new $this;
             $model->entity_id = (int)$entity->primaryKey;
             $model->entity_name = get_class($entity);

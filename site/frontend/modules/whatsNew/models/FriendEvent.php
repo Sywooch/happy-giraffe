@@ -53,14 +53,10 @@ class FriendEvent extends EMongoDocument
     public function indexes()
     {
         return array(
-            'updated' => array(
-                'key' => array(
-                    'updated' => EMongoCriteria::SORT_DESC,
-                ),
-            ),
-            'userId' => array(
+            'main_index' => array(
                 'key' => array(
                     'user_id' => EMongoCriteria::SORT_ASC,
+                    'updated' => EMongoCriteria::SORT_DESC,
                 ),
             ),
         );

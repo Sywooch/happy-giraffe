@@ -7,6 +7,7 @@
     </div>
 
     <?php
+    $t = microtime(true);
     $this->widget('zii.widgets.CListView', array(
         'cssFile'=>false,
         'id' => 'whatsNewUserWidgetList',
@@ -36,6 +37,7 @@
         ),
     ));
     ?>
+    <span style="display: none;"><?= (microtime(true) - $t) ?></span>
 
 </div>
 <?php $this->controller->endWidget(); ?>

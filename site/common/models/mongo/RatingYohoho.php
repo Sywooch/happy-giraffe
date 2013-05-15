@@ -129,10 +129,14 @@ class RatingYohoho extends HMongoModel
         return $model;
     }
 
+    /**
+     * Возвращает все лайки за последние сутки
+     * @return array
+     */
     public function findLastDayLikes()
     {
         $from_time = time() - 3600 * 24;
-        $cursor = $this->getCollection()->find(array('time > ' . $from_time));
+        $cursor = $this->getCollection()->find(array('time' => array('$gt' => $from_time)));
         $list = array();
         while ($cursor->hasNext())
             $list [] = $cursor->getNext();

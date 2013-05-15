@@ -89,33 +89,63 @@ class NotificationCreate
     }
 
     /**
-     * Создаем уведомление для автора поста о новом лайке его статьи
-     *
-     * @param RatingYohoho $like
-     */
-    public static function likeCreated($like)
-    {
-        $entity = $like->entity_name;
-        $model = $entity::model()->findByPk($like->entity_id);
-        //уведомления автору поста
-        if ($model->author_id !== User::HAPPY_GIRAFFE && $model->author_id != Yii::app()->user->id) {
-            $notification = new NotificationLike();
-            $notification->create($model->author_id, $like);
-        }
-    }
-
-    /**
      * Создаем уведомления о лайках за последние 24 часа
      *
      */
     public static function generateLikes()
     {
-        $entity = $like->entity_name;
-        $model = $entity::model()->findByPk($like->entity_id);
-        //уведомления автору поста
-        if ($model->author_id !== User::HAPPY_GIRAFFE && $model->author_id != Yii::app()->user->id) {
-            $notification = new NotificationLike();
-            $notification->create($model->author_id, $like);
+        $result = array();
+        $likes = RatingYohoho::model()->findLastDayLikes();
+        echo count($likes);
+
+        foreach ($likes as $like) {
+            $model = CActiveRecord::model($like['entity_name'])->findByPk($like['entity_id']);
+
+            if (!isset($result[$model->author_id]))
+                $result[$model->author_id] = array();
+            if (!isset($result[$model->author_id][$like['entity_name']]))
+                $result[$model->author_id][$like['entity_name']] = array();
+            if (!isset($result[$model->author_id][$like['entity_name']][$like['entity_id']]))
+                $result[$model->author_id][$like['entity_name']][$like['entity_id']] = 0;
+
+            $result[$model->author_id][$like['entity_name']][$like['entity_id']]++;
         }
+
+        //для каждого автора выберем 10 топовых статей
+        foreach ($result as $author_id => $contents) {
+            $author_articles = array();
+            $likes_count = 0;
+            foreach ($contents as $entity => $ids)
+                foreach ($ids as $id => $count){
+                    $author_articles [] = array($entity, $id, $count);
+                    $likes_count++;
+                }
+
+            usort($author_articles, array('NotificationCreate', 'compareLikesCount'));
+            array_slice($author_articles, 0, 10);
+
+            //создаем уведомление для автора
+            $favourite_articles = array();
+            foreach ($author_articles as $author_article) {
+                $favourite_articles [] = array(
+                    'entity' => $author_article[0],
+                    'entity_id' => (int)$author_article[1],
+                    'count' => (int)$author_article[2],
+                );
+            }
+
+            $notification = new NotificationLike();
+            $notification->create($author_id, $favourite_articles, $likes_count);
+        }
+
+        //echo microtime(true) - $t;
+    }
+
+    function compareLikesCount($a, $b)
+    {
+        if ($a[2] == $b[2]) {
+            return 0;
+        }
+        return ($a[2] < $b[2]) ? 1 : -1;
     }
 }

@@ -133,7 +133,7 @@
                     </a>
                 </li>
                 <li class="i-notifications top-line-menu_nav_li js-tooltipsy<?php if ($notificationsCount > 0): ?> new<?php endif; ?>" title="Уведомления">
-                    <a href="javascript:void(0)" onclick="Notifications.toggle()">
+                    <a href="/notifications/">
                         <i class="icon-notifications"></i>
                         <span class="count"><span class="count-red">+ <span><?=$notificationsCount?></span></span></span>
                     </a>

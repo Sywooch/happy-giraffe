@@ -75,21 +75,6 @@ class WordstatCommand extends CConsoleCommand
         $p->start();
     }
 
-    public function actionAddSimpleParsing()
-    {
-        WordstatParsingTask::getInstance()->addAllKeywordsToParsing();
-    }
-
-    private $collection;
-
-    public function actionTest()
-    {
-        $mongo = new Mongo('mongodb://localhost');
-        $mongo->connect();
-        $this->collection = $mongo->selectCollection('parsing', 'simple_parsing');
-        echo $this->collection->remove(array('id' => 63312236));
-    }
-
     public function actionDeleteNulls()
     {
         $last_id = 346000000;
@@ -113,42 +98,45 @@ class WordstatCommand extends CConsoleCommand
         }
     }
 
-    public function actionCopyStrictWordstat()
+    public function actionTest()
     {
-        $i = 0;
-        do {
-            $rows = Yii::app()->db_keywords->createCommand()
-                ->select('*')
-                ->from('keywords_strict_wordstat')
-                ->offset($i * 10000)
-                ->limit(10000)
-                ->queryAll();
-            foreach ($rows as $row) {
-                if ($row['strict_wordstat'] == 0) {
-                    $this->saveStatus($row['keyword_id']);
-                } else {
-                    $wordstat = Yii::app()->db_keywords->createCommand()
-                        ->select('wordstat')
-                        ->from('keywords')
-                        ->where('id=' . $row['keyword_id'])
-                        ->queryScalar();
-
-                    if (!empty($wordstat)) {
-                        if ($wordstat < 1000000 && ($wordstat / $row['strict_wordstat']) > 1000)
-                            $this->saveStatus($row['keyword_id']);
-                        if ($wordstat >= 1000000 && ($wordstat / $row['strict_wordstat']) > 10000)
-                            $this->saveStatus($row['keyword_id']);
-                    }
-                }
-            }
-
-            $i++;
-            echo $i."\n";
-        } while (!empty($rows));
+        $c = new MysqlMongoPerformanceTests;
+        //$c->relationsInsertTest();
+        $c->relationsFindTest();
+        $c->findKeywordByNameTest();
     }
 
-    private function saveStatus($keyword_id, $status = Keyword::STATUS_BAD_STRICT_WORDSTAT)
+    public function actionCopyKeywords()
     {
-        Yii::app()->db_keywords->createCommand()->update('keywords', array('status'=>$status), 'id='.$keyword_id);
+        $mongo = new Mongo(Yii::app()->mongodb_parsing->connectionString);
+        $mongo->connect();
+
+        $collection = $mongo->selectCollection('parsing', 'keywords');
+        $collection->ensureIndex(array('id' => 1), array("unique" => true));
+        $collection->ensureIndex(array('name' => 1), array("unique" => true));
+        $collection->ensureIndex(array('wordstat' => -1));
+
+
+        $dataProvider = new CSqlDataProvider('select * from keywords.keywords', array(
+            'totalItemCount' => 10000000,
+            'pagination' => array(
+                'pageSize' => 10000,
+            ),
+        ));
+        $iterator = new CDataProviderIterator($dataProvider, 10000);
+
+        foreach ($iterator as $keyword) {
+            $collection->insert(array(
+                'id' => (int)$keyword['id'],
+                'name' => $keyword['name'],
+                'wordstat' => (int)$keyword['wordstat'],
+                'status' => (int)$keyword['status'],
+            ));
+        }
+    }
+
+    public function actionAddToTestParsing()
+    {
+        WordstatParsingTask::getInstance()->addAllKeywordsToParsing();
     }
 }

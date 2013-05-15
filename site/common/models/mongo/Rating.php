@@ -28,6 +28,18 @@ class Rating extends EMongoDocument
         );
     }
 
+    public function indexes()
+    {
+        return array(
+            'entity_find' => array(
+                'key' => array(
+                    'entity_id' => -1,
+                    'entity_name' => 1
+                )
+            )
+        );
+    }
+
     public function beforeSave()
     {
         $this->sum = array_sum($this->ratings);
@@ -151,7 +163,7 @@ class Rating extends EMongoDocument
             default :
                 $count = 0;
         }
-        echo $count."\n";
+        echo $count . "\n";
         Rating::model()->saveByEntity($entity, $social_key, $count);
     }
 

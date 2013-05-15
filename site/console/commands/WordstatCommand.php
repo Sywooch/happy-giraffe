@@ -135,61 +135,8 @@ class WordstatCommand extends CConsoleCommand
         }
     }
 
-    public function actionCopyRelations()
-    {
-        $last_id = 0;
-        do {
-            $rows = Yii::app()->db_keywords->createCommand()
-                ->select('*')
-                ->from('keywords__relations')
-                ->where('keyword_from_id >= ' . $last_id)
-                ->order('keyword_from_id asc')
-                ->limit(10000)
-                ->queryAll();
-
-            foreach ($rows as $row) {
-                if (!KeywordIndirectRelation::getInstance()->exist($row['keyword_from_id'], $row['keyword_to_id']))
-                    KeywordIndirectRelation::getInstance()->saveRelation($row['keyword_from_id'], $row['keyword_to_id']);
-
-                $last_id = $row['keyword_from_id'];
-            }
-            echo $last_id . "\n";
-        } while (!empty($rows));
-    }
-
-
     public function actionAddToTestParsing()
     {
-        //найти все слова со словом "Беременность"
-        $searchCriteria = self::getSphinxCriteria('беременность');
-        $pages = new CPagination();
-        $pages->pageSize = 100000;
-        $pages->currentPage = 0;
-        $pages->itemCount = 100000;
-        $searchCriteria->paginator = $pages;
-
-        $ids = array();
-        $resArray = Yii::App()->search->searchRaw($searchCriteria);
-        foreach ($resArray['matches'] as $key => $m)
-            $ids [] = $key;
-
-        $client = Yii::app()->gearman->client();
-        foreach ($ids as $id)
-            $client->doBackground("important_parsing", (int)$id);
-
-        echo count($ids);
-    }
-
-    public static function getSphinxCriteria($keyword)
-    {
-        $searchCriteria = new stdClass();
-        $searchCriteria->select = '*';
-        $searchCriteria->query = ' ' . $keyword . ' ';
-
-        $searchCriteria->paginator = new CPagination();
-        $searchCriteria->from = 'keywords';
-        $searchCriteria->filterRange = array(array('wordstat', 100, 1000000000));
-
-        return $searchCriteria;
+        WordstatParsingTask::getInstance()->addAllKeywordsToParsing();
     }
 }

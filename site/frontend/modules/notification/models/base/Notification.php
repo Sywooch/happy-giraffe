@@ -107,15 +107,16 @@ class Notification extends HMongoModel
      * Создаение нового уведомления
      *
      * @param $specific_fields array массив специфических полей уведомления
+     * @param int $count
      */
-    protected function insert($specific_fields)
+    protected function insert($specific_fields, $count = 1)
     {
         $this->getCollection()->insert(
             array_merge(array(
                 'type' => (int)$this->type,
                 'recipient_id' => (int)$this->recipient_id,
                 'read' => 0,
-                'count' => 1,
+                'count' => $count,
                 'updated' => time(),
             ), $specific_fields)
         );
@@ -165,7 +166,6 @@ class Notification extends HMongoModel
         ))->sort(array('updated' => -1))->limit(self::PAGE_SIZE)->skip($page * self::PAGE_SIZE);
 
         $list = array();
-        //var_dump($cursor->explain());
         for ($i = 0; $i < self::PAGE_SIZE; $i++) {
             if ($cursor->hasNext())
                 $list [] = self::createNotification($cursor->getNext());

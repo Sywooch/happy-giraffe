@@ -6,16 +6,41 @@
  *
  * @author Alex Kireev <alexk984@gmail.com>
  */
-class NotificationLike extends NotificationGroup
+class NotificationLike extends Notification
 {
     /**
      * @var NotificationLike
      */
     private static $_instance;
     public $type = self::NEW_LIKE;
+    /**
+     * топ-10 лайковых статей за день, вида:
+     * 'entity' => класс статьи,
+     * 'entity_id' => id статьи,
+     * 'count' => суммарное кол-во лайков
+     *
+     * @var array
+     */
+    public $articles = array();
 
     public function __construct()
     {
+    }
+
+    /**
+     * Создаение уведомления о новых лайках. Раз в день в 10 утра
+     *
+     * @param $recipient_id
+     * @param $articles
+     * @param $likes_count
+     */
+    public function create($recipient_id, $articles, $likes_count)
+    {
+        $this->recipient_id = (int)$recipient_id;
+        $this->insert(array(
+            'articles' => $articles,
+            'count' => (int)$likes_count
+        ));
     }
 
     /**
@@ -29,41 +54,6 @@ class NotificationLike extends NotificationGroup
     }
 
     /**
-     * @return User[]
-     */
-    public function getUsers()
-    {
-        return User::model()->findAllByPk($this->model_ids);
-    }
-
-    /**
-     * Создаем уведомление о новом лайке контента автора. Если уведомление к этому контенту уже создавалось
-     * и еще не было прочитано, то добавляем в него еще одного пользователя и увеличиваем кол-во нотификаций
-     *
-     * @param $recipient_id int id пользователя, который должен получить уведомление
-     * @param $like RatingYohoho лайк
-     */
-    public function create($recipient_id, $like)
-    {
-        $this->recipient_id = (int)$recipient_id;
-        $this->entity = $like->entity_name;
-        $this->entity_id = $like->entity_id;
-
-        parent::create($like->user_id);
-    }
-
-    /**
-     * Помечаем что уведомление о новых комментариях к статье прочитано
-     *
-     * @param $recipient_id int id пользователя, который должен получить уведомление
-     * @param $entity string класс модели, к которой написан комментарий
-     * @param $entity_id int id модели, к которой написан комментарий
-     */
-    public function read($recipient_id, $entity, $entity_id){
-        parent::read($recipient_id, $entity, $entity_id);
-    }
-
-    /**
      * Создает модель уведомления для удобой работы с ним
      *
      * @param $object array объект, который вернул компонент работы с базой
@@ -72,7 +62,7 @@ class NotificationLike extends NotificationGroup
     public static function createModel($object)
     {
         $model = new NotificationLike();
-        foreach($object as $key => $value)
+        foreach ($object as $key => $value)
             $model->$key = $value;
 
         return $model;

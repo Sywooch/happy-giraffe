@@ -21,6 +21,8 @@ class NotificationCommand extends CConsoleCommand
     }
 
     public function actionLikes(){
+        Yii::import('site.common.models.mongo.*');
 
+        NotificationCreate::generateLikes();
     }
 }

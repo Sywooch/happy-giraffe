@@ -15,13 +15,6 @@ class UserPopupController extends HController
         );
     }
 
-    public function actionNotifications()
-    {
-        $dp = UserNotification::model()->getUserNotifications(Yii::app()->user->id);
-
-        $this->renderPartial('notifications', compact('dp'), false, true);
-    }
-
     public function actionFriends($ajax = false)
     {
         $requests = Yii::app()->user->model->getFriendRequests('incoming');

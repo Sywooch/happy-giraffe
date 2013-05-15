@@ -196,63 +196,64 @@
                 ?>
 
             </div>
+        <?php $this->endCache(); endif;  ?>
 
+        <?php if (false): ?>
             <?php if ($this->community->id == 24): ?>
                 <div style="margin-bottom: 40px;">
                     <?php $this->renderPartial('//banners/community_24_240x400'); ?>
                 </div>
             <?php endif; ?>
+        <?php endif; ?>
 
-            <?php if ($this->community->id == 30): ?>
-            <!--AdFox START-->
-            <!--giraffe-->
-            <!--Площадка: Весёлый Жираф / * / *-->
-            <!--Тип баннера: Безразмерный 240x400-->
-            <!--Расположение: &lt;сайдбар&gt;-->
-            <!-- ________________________AdFox Asynchronous code START__________________________ -->
-            <script type="text/javascript">
-                <!--
-                if (typeof(pr) == 'undefined') { var pr = Math.floor(Math.random() * 1000000); }
-                if (typeof(document.referrer) != 'undefined') {
-                    if (typeof(afReferrer) == 'undefined') {
-                        afReferrer = escape(document.referrer);
-                    }
-                } else {
-                    afReferrer = '';
+        <!--AdFox START-->
+        <!--giraffe-->
+        <!--Площадка: Весёлый Жираф / * / *-->
+        <!--Тип баннера: Безразмерный 240x400-->
+        <!--Расположение: &lt;сайдбар&gt;-->
+        <!-- ________________________AdFox Asynchronous code START__________________________ -->
+        <script type="text/javascript">
+            <!--
+            if (typeof(pr) == 'undefined') { var pr = Math.floor(Math.random() * 1000000); }
+            if (typeof(document.referrer) != 'undefined') {
+                if (typeof(afReferrer) == 'undefined') {
+                    afReferrer = escape(document.referrer);
                 }
-                var addate = new Date();
-                var dl = escape(document.location);
-                var pr1 = Math.floor(Math.random() * 1000000);
+            } else {
+                afReferrer = '';
+            }
+            var addate = new Date();
+            var dl = escape(document.location);
+            var pr1 = Math.floor(Math.random() * 1000000);
 
-                document.write('<div id="AdFox_banner_'+pr1+'"><\/div>');
-                document.write('<div style="visibility:hidden; position:absolute;"><iframe id="AdFox_iframe_'+pr1+'" width=1 height=1 marginwidth=0 marginheight=0 scrolling=no frameborder=0><\/iframe><\/div>');
+            document.write('<div id="AdFox_banner_'+pr1+'"><\/div>');
+            document.write('<div style="visibility:hidden; position:absolute;"><iframe id="AdFox_iframe_'+pr1+'" width=1 height=1 marginwidth=0 marginheight=0 scrolling=no frameborder=0><\/iframe><\/div>');
 
-                AdFox_getCodeScript(1,pr1,'http://ads.adfox.ru/211012/prepareCode?pp=dey&amp;ps=bkqy&amp;p2=etcx&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a&amp;pr=' + pr +'&amp;pt=b&amp;pd=' + addate.getDate() + '&amp;pw=' + addate.getDay() + '&amp;pv=' + addate.getHours() + '&amp;prr=' + afReferrer + '&amp;dl='+dl+'&amp;pr1='+pr1);
-                // -->
-            </script>
-            <!-- _________________________AdFox Asynchronous code END___________________________ -->
-            <!--AdFox END-->
-            <?php endif; ?>
+            AdFox_getCodeScript(1,pr1,'http://ads.adfox.ru/211012/prepareCode?pp=dey&amp;ps=bkqy&amp;p2=etcx&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a&amp;pr=' + pr +'&amp;pt=b&amp;pd=' + addate.getDate() + '&amp;pw=' + addate.getDay() + '&amp;pv=' + addate.getHours() + '&amp;prr=' + afReferrer + '&amp;dl='+dl+'&amp;pr1='+pr1);
+            // -->
+        </script>
+        <!-- _________________________AdFox Asynchronous code END___________________________ -->
+        <!--AdFox END-->
 
+        <?php if (false): ?>
             <?php if (in_array($this->community->id, array(1, 2))): ?>
                 <div style="margin-bottom: 40px;">
                     <?php $this->renderPartial('//banners/community_1+2_240x400'); ?>
                 </div>
             <?php endif; ?>
+        <?php endif; ?>
 
-            <div class="recent-topics">
+        <div class="recent-topics">
 
-                <div class="title">Последние темы</div>
+            <div class="title">Последние темы</div>
 
-                <ul>
-                    <?php foreach ($this->community->last as $c): ?>
-                    <li><?=CHtml::link(CHtml::encode($c->title), $c->url)?></li>
-                    <?php endforeach; ?>
-                </ul>
+            <ul>
+                <?php foreach ($this->community->last as $c): ?>
+                <li><?=CHtml::link(CHtml::encode($c->title), $c->url)?></li>
+                <?php endforeach; ?>
+            </ul>
 
-            </div>
-
-        <?php $this->endCache(); endif;  ?>
+        </div>
 
         <?php if (false): ?>
             <div class="box">

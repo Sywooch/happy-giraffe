@@ -116,7 +116,7 @@ else {
         ),
     ));
 
-    if ((get_class($model == 'Contest'))) {?>
+    if (get_class($model) == 'Contest') {?>
         <div class="content-cols clearfix">
             <div class="col-1">
                 <?php $this->renderPartial('//banners/adfox'); ?>

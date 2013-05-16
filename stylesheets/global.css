@@ -866,6 +866,256 @@
 .ne#tooltipsy-im:after {
   left: 1px;
 }
+.user-notice .cont-nav {
+  display: inline-block;
+  *zoom: 1;
+  *display: inline;
+  text-align: left;
+}
+.user-notice_hold {
+  margin: 0 0 20px;
+}
+.user-notice_t {
+  display: inline-block;
+  *zoom: 1;
+  *display: inline;
+  vertical-align: middle;
+  margin: 5px 40px 0 50px;
+  font-size: 24px;
+  line-height: 30px;
+  font-weight: normal;
+  color: #000;
+}
+.user-notice_mark-all {
+  float: right;
+  margin: 30px 45px 0;
+}
+.user-notice_desc {
+  margin: 0 30px 30px;
+  text-align: center;
+  color: #b6b6b6;
+  font-size: 14px;
+}
+.user-notice_ico {
+  display: inline-block;
+  *zoom: 1;
+  *display: inline;
+  vertical-align: middle;
+  width: 60px;
+  height: 50px;
+  background: url(/images/user-notice_ico.png) no-repeat;
+}
+.user-notice_ico__comment {
+  background-position: 0 0;
+}
+.user-notice_ico__answer {
+  background-position: -60px 0;
+}
+.user-notice_ico__like {
+  background-position: -120px 0;
+}
+.user-notice_ico__discuss {
+  background-position: -180px 0;
+}
+.user-notice_ico__like-small {
+  background-position: -240px 0;
+}
+.user-notice-list {
+  position: relative;
+  margin-bottom: 60px;
+  border-bottom: 1px dashed #e5f0fe;
+}
+.user-notice-list #infscr-loading {
+  width: 240px;
+  bottom: -60px;
+  margin-left: -135px;
+}
+.user-notice-list_i:hover {
+  background: #f8fbff;
+}
+.user-notice-list_i__like .user-notice-list_i-hold {
+  border-top: none;
+}
+.user-notice-list_i-hold {
+  position: relative;
+  display: inline-block;
+  *zoom: 1;
+  *display: inline;
+  height: 90px;
+  width: 100%;
+  border-top: 1px dashed #e5f0fe;
+  vertical-align: middle;
+}
+.user-notice-list_i-hold:after {
+  content: '';
+  display: inline-block;
+  *zoom: 1;
+  *display: inline;
+  vertical-align: middle;
+  height: 100%;
+  width: 1px;
+}
+.user-notice-list_date {
+  display: inline-block;
+  *zoom: 1;
+  *display: inline;
+  vertical-align: middle;
+  width: 250px;
+  font-size: 11px;
+  font-family: Tahoma, Arial, Verdana, sans-serif;
+  color: #b6b9ba;
+  text-align: center;
+}
+.user-notice-list_deed {
+  display: inline-block;
+  *zoom: 1;
+  *display: inline;
+  width: 340px;
+  vertical-align: middle;
+}
+.user-notice-list_deed-desc {
+  display: inline-block;
+  *zoom: 1;
+  *display: inline;
+  vertical-align: middle;
+  max-width: 160px;
+  margin-left: 10px;
+  font-size: 11px;
+  line-height: 13px;
+  font-family: Tahoma, Arial, Verdana, sans-serif;
+  color: #b6b9ba;
+}
+.user-notice-list_tx-big {
+  display: inline-block;
+  *zoom: 1;
+  *display: inline;
+  vertical-align: middle;
+  margin: 0 7px;
+  font-size: 40px;
+  line-height: 38px;
+}
+.user-notice-list_a-big {
+  display: inline-block;
+  *zoom: 1;
+  *display: inline;
+  vertical-align: middle;
+  margin: 0 7px;
+  font-size: 40px;
+  line-height: 38px;
+  color: #3097df;
+  text-decoration: none;
+}
+.user-notice-list_a-big {
+  border-bottom: 2px solid #3097df;
+}
+.user-notice-list_a-big__like {
+  border-bottom: 2px dashed #3097df;
+}
+.user-notice-list_a-big:hover,
+.user-notice-list_a-big__like:hover {
+  border-bottom-color: transparent;
+}
+.user-notice-list_post {
+  display: inline-block;
+  *zoom: 1;
+  *display: inline;
+  vertical-align: middle;
+  width: 260px;
+}
+.user-notice-list_post-img {
+  display: inline-block;
+  *zoom: 1;
+  *display: inline;
+  vertical-align: middle;
+  max-width: 65px;
+  margin-right: 10px;
+}
+.user-notice-list_post-a {
+  display: inline-block;
+  *zoom: 1;
+  *display: inline;
+  vertical-align: middle;
+  max-width: 180px;
+  line-height: 14px;
+  color: #3097df;
+}
+.user-notice-list_check {
+  display: inline-block;
+  *zoom: 1;
+  *display: inline;
+  vertical-align: middle;
+  width: 90px;
+  text-align: center;
+}
+.user-notice-list_check-a {
+  display: inline-block;
+  *zoom: 1;
+  *display: inline;
+  vertical-align: middle;
+  width: 20px;
+  height: 20px;
+  margin: 0 auto;
+  background: url(/images/checkbox.png) no-repeat;
+}
+.user-notice-list_check-a:hover {
+  background-position: -20px 0;
+}
+.user-notice-list_markread {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: #fff;
+  background: rgba(255, 255, 255, 0.7);
+}
+.user-notice-list_markread-hold {
+  position: absolute;
+  top: 24px;
+  right: 18px;
+  width: 70px;
+  text-align: center;
+  background: #fff;
+}
+.user-notice-list_ava {
+  display: inline-block;
+  *zoom: 1;
+  *display: inline;
+  vertical-align: middle;
+  margin-right: 5px;
+}
+.user-notice-list_comment {
+  display: inline-block;
+  *zoom: 1;
+  *display: inline;
+  vertical-align: middle;
+  width: 190px;
+  position: relative;
+  padding: 5px 10px;
+  margin: 2px 0 2px 12px;
+  background: #e1f4ff;
+  font-size: 11px;
+  line-height: 13px;
+  color: #555;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: inset 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: inset 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+}
+.user-notice-list_comment:after {
+  content: " ";
+  position: absolute;
+  left: -8px;
+  margin-top: -9px;
+  top: 50%;
+  width: 0;
+  height: 0;
+  border: 9px solid transparent;
+  border-width: 10px 9px 10px 0;
+  border-right-color: #e1f4ff;
+}
 .settings .RadioLabelClass,
 .dialog .CheckBoxLabelClass {
   background: url(../images/radio.png) no-repeat;

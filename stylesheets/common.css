@@ -939,6 +939,47 @@ textarea.error,
 .ne#powerTip:after {
   left: 1px;
 }
+#powertip-white {
+  display: none;
+  position: absolute;
+  cursor: default;
+  padding: 10px 12px;
+  background: #fff;
+  font-size: 12px;
+  line-height: 14px;
+  color: #2c2d2c;
+  white-space: nowrap;
+  z-index: 2147483647;
+  -webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+}
+#powertip-white:after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  margin-left: -5px;
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
+  background: #fff;
+  z-index: 1;
+  -webkit-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.1);
+}
+.nw#powertip-white:after {
+  left: auto;
+  right: 1px;
+}
+.ne#powertip-white:after {
+  left: 1px;
+}
 /* /js plugin class */
 /* /base layout
 ---------------------------------------------------------*//*  buttons */
@@ -17561,6 +17602,24 @@ select.pregnancy_term + .chzn-container .chzn-results li {
 }
 .clubs-list .category-title.rest {
   background: #c5effe;
+  color: #039cd3;
+}
+.color-category.kids {
+  color: #1565a9;
+}
+.color-category.manwoman {
+  color: #22ba45;
+}
+.color-category.beauty {
+  color: #d19507;
+}
+.color-category.home {
+  color: #8056a3;
+}
+.color-category.hobbies {
+  color: #c17029;
+}
+.color-category.rest {
   color: #039cd3;
 }
 .clubs-list ul {

@@ -36,8 +36,6 @@ function removeA(arr) {
 $(document).ready(function () {
     $(".wysiwyg-content").addtocopy({htmlcopytxt:'<br /><br />Подробнее: <a href="' + window.location.href + '">' + window.location.href + '</a>'});
 
-    $('.js-tooltipsy').tooltipsy({offset:[0, 1]});
-
     /* видео с youtube, что б не перекрывало всплывающие окна */
     $("iframe").each(function(){
         var ifr_source = $(this).attr('src');
@@ -68,9 +66,16 @@ $(document).ready(function () {
     });
 
      /* Подсказки при наведении */
+    $('.js-tooltipsy').tooltipsy({offset:[0, 1]});
     $('.powertip').powerTip({
         placement: 'n',
         smartPlacement: true,
+        offset: 8
+    });
+    $('.js-powertip-white').powerTip({
+        placement: 'n',
+        smartPlacement: true,
+        popupId: 'powertip-white',
         offset: 8
     });
 

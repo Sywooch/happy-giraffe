@@ -206,6 +206,8 @@ class Comment extends HActiveRecord
             return;
 
         if ($this->isNewRecord) {
+            TimeLogger::model()->startTimer('next comment');
+
             if (in_array($this->entity, array('CommunityContent', 'BlogContent'))) {
                 $relatedModel = $this->getRelatedModel();
                 $relatedModel->last_updated = new CDbExpression('NOW()');
@@ -225,6 +227,8 @@ class Comment extends HActiveRecord
 
             UserAction::model()->add($this->author_id, UserAction::USER_ACTION_COMMENT_ADDED, array('model' => $this));
             FriendEventManager::add(FriendEvent::TYPE_COMMENT_ADDED, array('model' => $this, 'relatedModel' => $this->relatedModel));
+
+            TimeLogger::model()->endTimer('comment after save');
 
             //send signals to commentator panel
             if (Yii::app()->user->checkAccess('commentator_panel')) {

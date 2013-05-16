@@ -18,6 +18,18 @@ class UserAttributes extends EMongoDocument
         return 'user_attributes';
     }
 
+    public function indexes()
+    {
+        return array(
+            'index_user' => array(
+                'key' => array(
+                    'user_id' => EMongoCriteria::SORT_ASC,
+                ),
+                'unique'=>true,
+            ),
+        );
+    }
+
     public static function set($user_id, $key, $value) {
         $model = self::model()->findByAttributes(array(
             'user_id' => (int) $user_id,

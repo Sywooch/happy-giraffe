@@ -103,6 +103,7 @@ class WordstatParsingTask
      */
     public function addSimpleTask($id, $queue = 'simple_parsing')
     {
-        $this->getCollection($queue)->insert(array('id' => (int)$id));
+        if ($this->getCollection($queue)->findOne(array('id' => (int)$id)) === null)
+            $this->getCollection($queue)->insert(array('id' => (int)$id));
     }
 }

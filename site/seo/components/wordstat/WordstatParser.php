@@ -226,10 +226,10 @@ class WordstatParser extends WordstatBaseParser
                 try {
                     $model->save();
                     //если во фразе частота > 1000 добавляем его на парсинг
-                    if ($value >= 1000) {
-                        $this->log('add keyword ' . $model->id . ' to parsing queue');
-                        WordstatParsingTask::getInstance()->addSimpleTask($model->id);
-                    }
+//                    if ($value >= 1000) {
+//                        $this->log('add keyword ' . $model->id . ' to parsing queue');
+//                        WordstatParsingTask::getInstance()->addSimpleTask($model->id);
+//                    }
 
                 } catch (Exception $err) {
                     $this->log('error while keyword adding ' . $err->getMessage(), true);

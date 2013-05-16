@@ -12,6 +12,7 @@
 
 						<div class="banner-box">
                             <?php $this->renderPartial('//banners/adfox'); ?>
+                            <?=$this->renderPartial('//_banner')?>
 						</div>
 						
 					</div>

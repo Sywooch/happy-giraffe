@@ -93,18 +93,10 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts
                 'description' => false,
             ),
         )); ?>
-
-        <div class="content-cols clearfix">
-            <div class="col-1">
-                <?php $this->renderPartial('//banners/adfox'); ?>
-            </div>
-            <div class="col-23">
-                <?php $this->widget('site.frontend.widgets.commentWidget.CommentWidget', array(
-                    'model' => $photo,
-                    'photoContainer'=>true
-                )); ?>
-            </div>
-        </div>
+        <?php $this->widget('site.frontend.widgets.commentWidget.CommentWidget', array(
+            'model' => $photo,
+            'photoContainer'=>true
+        )); ?>
     </div>
 </div>
 

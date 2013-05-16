@@ -206,7 +206,7 @@ class Comment extends HActiveRecord
             return;
 
         if ($this->isNewRecord) {
-            TimeLogger::model()->startTimer('next comment');
+            TimeLogger::model()->startTimer('comment after save 1');
 
             if (in_array($this->entity, array('CommunityContent', 'BlogContent'))) {
                 $relatedModel = $this->getRelatedModel();
@@ -214,21 +214,27 @@ class Comment extends HActiveRecord
                 $relatedModel->update(array('last_updated'));
                 $relatedModel->sendEvent();
             }
+            TimeLogger::model()->endTimer();
 
+            TimeLogger::model()->startTimer('comment after save 2');
             UserNotification::model()->create(UserNotification::NEW_COMMENT, array('comment' => $this));
             if ($this->response_id !== null)
                 UserNotification::model()->create(UserNotification::NEW_REPLY, array('comment' => $this));
+            TimeLogger::model()->endTimer();
 
             //проверяем на предмет выполненного модератором задания
-            UserSignal::CheckComment($this);
+            //UserSignal::CheckComment($this);
 
-            UserScores::addScores($this->author_id, ScoreAction::ACTION_OWN_COMMENT, 1, array(
-                'id' => $this->entity_id, 'name' => $this->entity));
+            //UserScores::addScores($this->author_id, ScoreAction::ACTION_OWN_COMMENT, 1, array(
+            //    'id' => $this->entity_id, 'name' => $this->entity));
 
+            TimeLogger::model()->startTimer('comment after save 3');
             UserAction::model()->add($this->author_id, UserAction::USER_ACTION_COMMENT_ADDED, array('model' => $this));
+            TimeLogger::model()->endTimer();
+            TimeLogger::model()->startTimer('comment after save 4');
             FriendEventManager::add(FriendEvent::TYPE_COMMENT_ADDED, array('model' => $this, 'relatedModel' => $this->relatedModel));
 
-            TimeLogger::model()->endTimer('comment after save');
+            TimeLogger::model()->endTimer();
 
             //send signals to commentator panel
             if (Yii::app()->user->checkAccess('commentator_panel')) {

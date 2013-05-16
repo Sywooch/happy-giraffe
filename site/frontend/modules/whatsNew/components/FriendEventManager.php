@@ -14,6 +14,7 @@ class FriendEventManager
         $model->isNewRecord = true;
         $model->params = $params;
         $stack = $model->getStack();
+
         if ($stack === null)
             $model->createBlock();
         else

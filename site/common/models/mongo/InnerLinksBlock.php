@@ -26,10 +26,11 @@ class InnerLinksBlock extends EMongoDocument
     public function indexes()
     {
         return array(
-            'url' => array(
+            'index_url' => array(
                 'key' => array(
                     'url' => EMongoCriteria::SORT_ASC,
                 ),
+                'unique'=>true,
             ),
         );
     }

@@ -5,7 +5,7 @@ class DefaultController extends HController
     public function filters()
     {
         return array(
-            'ajaxOnly + read',
+            'ajaxOnly + read,readAll',
         );
     }
 
@@ -21,5 +21,10 @@ class DefaultController extends HController
         $model = Notification::model()->findByPk($id);
         if (isset($model['_id']))
             Notification::model()->readByPk($model['_id']);
+    }
+
+    public function actionReadAll()
+    {
+        Notification::model()->readAll();
     }
 }

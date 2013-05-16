@@ -94,9 +94,26 @@ class Notification extends HMongoModel
     /**
      * Пометить уведомление как прочитанное
      */
-    public function setRead(){
+    public function setRead()
+    {
         $this->getCollection()->update(
             array("_id" => $this->_id),
+            array(
+                '$set' => array("read" => 1),
+            )
+        );
+    }
+
+    /**
+     * Отметить все как прочитанные
+     */
+    public function readAll()
+    {
+        $this->getCollection()->update(
+            array(
+                "recipient_id" => (int)Yii::app()->user->id,
+                'read' => 0
+            ),
             array(
                 '$set' => array("read" => 1),
             )

@@ -13,11 +13,17 @@ class FriendEventManager
         $model = FriendEvent::model($type);
         $model->isNewRecord = true;
         $model->params = $params;
+
+        TimeLogger::model()->startTimer('friend event 1');
         $stack = $model->getStack();
+        TimeLogger::model()->endTimer();
+
+        TimeLogger::model()->startTimer('friend event 2');
         if ($stack === null)
             $model->createBlock();
         else
             $stack->updateBlock($model);
+        TimeLogger::model()->endTimer();
     }
 
     public static function getDataProvider($user, $limit = 20)

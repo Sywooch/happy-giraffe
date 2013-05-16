@@ -141,7 +141,9 @@
 										<span class="user-notice-list_tx-big color-gray">97</span>
 									</div>
 									<div class="user-notice-list_post js-powertip-white" data-powertip="Клуб &lt;span class='color-category hobbies' &gt;Хобби&lt;/span&gt;">
-										<img src="/images/example/w60-h40.jpg" alt="" class="user-notice-list_post-img">
+										<div class="user-notice-list_post-img user-notice-list_post-img__video">
+											<img src="/images/example/w60-h40.jpg" alt="">
+										</div>
 										<a href="" class="user-notice-list_post-a">Креативный ласапед </a>
 									</div>
 									<div class="user-notice-list_check"></div>
@@ -155,7 +157,9 @@
 										<span class="user-notice-list_tx-big color-gray">7</span>
 									</div>
 									<div class="user-notice-list_post js-powertip-white" data-powertip="Клуб &lt;span class='color-category hobbies' &gt;Хобби&lt;/span&gt;">
-										<img src="/images/example/w60-h40.jpg" alt="" class="user-notice-list_post-img">
+										<div class="user-notice-list_post-img user-notice-list_post-img__video">
+											<img src="/images/example/w60-h40.jpg" alt="">
+										</div>
 										<a href="" class="user-notice-list_post-a">Креативный ласапед-ласапед-ласапед-ласапед </a>
 									</div>
 									<div class="user-notice-list_check"></div>
@@ -174,7 +178,9 @@
 								<span class="user-notice-list_deed-desc">продолжение обсуждения</span>
 							</div>
 							<div class="user-notice-list_post js-powertip-white" data-powertip="Клуб &lt;span class='color-category hobbies' &gt;Хобби&lt;/span&gt;">
-								<img src="/images/example/w60-h40.jpg" alt="" class="user-notice-list_post-img">
+								<div class="user-notice-list_post-img user-notice-list_post-img__video">
+									<img src="/images/example/w60-h40.jpg" alt="">
+								</div>
 								<a href="" class="user-notice-list_post-a">Неравный брак. </a>
 							</div>
 							<div class="user-notice-list_check">

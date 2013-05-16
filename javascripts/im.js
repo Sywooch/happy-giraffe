@@ -8,10 +8,10 @@ function scrollFix() {
 
 var im = {};
 
-im.topLineMenuHeight = 75;
+im.topLineMenuHeight = 23;
 im.tabsHeight = 53;
 /*im.userListIndentFix = 198;*/
-im.userListIndent = 178;
+im.userListIndent = 180;
 im.minHeight = 460;
 
 im.viewHeight = function () {
@@ -42,6 +42,7 @@ im.holdHeights = function  () {
     } else {
         im.hold.height(im.viewHeight());
     }
+        console.log(im.viewHeight());
 }
 
  /* Список скрытых пользователей в сайдбаре */

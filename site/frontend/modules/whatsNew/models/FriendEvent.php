@@ -170,16 +170,12 @@ class FriendEvent extends EMongoDocument
         $comet = new CometModel;
         $comet->type = CometModel::WHATS_NEW_UPDATE;
 
-        TimeLogger::model()->startTimer('find friends');
-        $user = User::model()->findByPk($this->user_id);
-        $friends = User::model()->findAll($user->getFriendsCriteria(array('select' => 't.id', 'index' => 'id')));
-        $friendsIds = array_keys($friends);
-        TimeLogger::model()->endTimer();
+//        $user = User::model()->findByPk($this->user_id);
+//        $friends = User::model()->findAll($user->getFriendsCriteria(array('select' => 't.id', 'index' => 'id')));
+//        $friendsIds = array_keys($friends);
 
-        TimeLogger::model()->startTimer('send signals to '.count($friends));
-        foreach ($friendsIds as $id)
-            $comet->send('whatsNewFriendsUser' . $id);
-        TimeLogger::model()->endTimer();
+//        foreach ($friendsIds as $id)
+//            $comet->send('whatsNewFriendsUser' . $id);
 
         parent::afterSave();
     }

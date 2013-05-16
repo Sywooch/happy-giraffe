@@ -119,7 +119,9 @@ else {
     if (get_class($model) == 'Contest') {?>
         <div class="content-cols clearfix">
             <div class="col-1">
-                <?php $this->renderPartial('//banners/adfox'); ?>
+                <div style="margin-bottom: 40px;">
+                    <?php $this->renderPartial('//banners/adfox'); ?>
+                </div>
             </div>
             <div class="col-23">
                 <?php $this->widget('site.frontend.widgets.commentWidget.CommentWidget', array(

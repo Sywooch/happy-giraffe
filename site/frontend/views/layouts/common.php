@@ -19,6 +19,7 @@
     <![endif]-->
     <?php endif;
 
+    $r = 169;
     $cs = Yii::app()->clientScript;
     $cs
         ->registerCssFile('/stylesheets/user.css')
@@ -35,7 +36,7 @@
         ->registerScriptFile('/javascripts/chosen.jquery.min.js')
         ->registerScriptFile('/javascripts/checkbox.js')
         ->registerScript('base_url', 'var base_url = \'' . Yii::app()->baseUrl . '\';', CClientScript::POS_HEAD)
-        ->registerScriptFile('/javascripts/common.js')
+        ->registerScriptFile('/javascripts/common.js?'.$r)
         ->registerScriptFile('/javascripts/base64.js')
         ->registerScriptFile('/javascripts/jquery.tooltip.pack.js')
         ->registerScriptFile('/javascripts/jquery.dataSelector.js')

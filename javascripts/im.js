@@ -30,7 +30,6 @@ im.sidebarHeight = function () {
         im.userList.height(im.windowHeight - im.userListIndent - im.bottomHeight);
     } else {
         im.userList.height(im.windowHeight - im.headerHeight + im.containerScroll - im.userListIndent - im.bottomHeight);
-        console.log(im.userList.height())
     }
 
 

@@ -1,3 +1,14 @@
+function unique(arr) {
+    var hash = {}, result = [];
+    for ( var i = 0, l = arr.length; i < l; ++i ) {
+        if ( !hash.hasOwnProperty(arr[i]) ) { //it works with objects! in FF, at least
+            hash[ arr[i] ] = true;
+            result.push(arr[i]);
+        }
+    }
+    return result;
+}
+
 function declOfNum(number, titles) {
     cases = [2, 0, 1, 1, 1, 2];
     return titles[ (number % 100 > 4 && number % 100 < 20) ? 2 : cases[(number % 10 < 5) ? number % 10 : 5] ];
@@ -24,8 +35,6 @@ function removeA(arr) {
 
 $(document).ready(function () {
     $(".wysiwyg-content").addtocopy({htmlcopytxt:'<br /><br />Подробнее: <a href="' + window.location.href + '">' + window.location.href + '</a>'});
-
-    $('.js-tooltipsy').tooltipsy({offset:[0, 1]});
 
     /* видео с youtube, что б не перекрывало всплывающие окна */
     $("iframe").each(function(){
@@ -57,9 +66,16 @@ $(document).ready(function () {
     });
 
      /* Подсказки при наведении */
+    $('.js-tooltipsy').tooltipsy({offset:[0, 1]});
     $('.powertip').powerTip({
         placement: 'n',
         smartPlacement: true,
+        offset: 8
+    });
+    $('.js-powertip-white').powerTip({
+        placement: 'n',
+        smartPlacement: true,
+        popupId: 'powertip-white',
         offset: 8
     });
 

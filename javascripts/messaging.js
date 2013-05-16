@@ -176,11 +176,6 @@ function Message(data, parent) {
 function MessagingViewModel(data) {
     var self = this;
 
-    self.allContactsCount = ko.observable(data.counters[0]);
-    self.newContactsCount = ko.observable(data.counters[1]);
-    self.onlineContactsCount = ko.observable(data.counters[2]);
-    self.friendsContactsCount = ko.observable(data.counters[3]);
-
     self.editingMessageId = ko.observable(null);
     self.uploadedImages = ko.observableArray([]);
     self.tab = ko.observable(0);
@@ -537,11 +532,10 @@ function MessagingViewModel(data) {
     }
 
     self.populateContacts = function(data) {
-        var newContacts = ko.utils.arrayMap(data, function(contact) {
-            return new Contact(contact, self);
+        ko.utils.arrayForEach(data, function(contact) {
+            if (self.findByInterlocutorId(contact.user.id) === null)
+                self.contacts.push(new Contact(contact, self));
         });
-
-        self.contacts.push.apply(self.contacts, newContacts);
     }
 
     self.populateContacts(data.contacts);

@@ -52,7 +52,9 @@
 							rest
 							-->
 							<div class="user-notice-list_post js-powertip-white" data-powertip="Клуб &lt;span class='color-category manwoman' &gt;manwoman&lt;/span&gt;">
-								<img src="/images/example/w60-h40.jpg" alt="" class="user-notice-list_post-img">
+								<div class="user-notice-list_post-img user-notice-list_post-img__video">
+									<img src="/images/example/w60-h40.jpg" alt="">
+								</div>
 								<a href="" class="user-notice-list_post-a" >Неравный брак. Смертельно опасен или жизненно необходим?</a>
 							</div>
 							<div class="user-notice-list_check">
@@ -72,7 +74,9 @@
 								<span class="user-notice-list_deed-desc">новыx комментариев</span>
 							</div>
 							<div class="user-notice-list_post js-powertip-white" data-powertip="Клуб &lt;span class='color-category beauty' &gt;beauty&lt;/span&gt;">
-								<img src="/images/example/w60-h40.jpg" alt="" class="user-notice-list_post-img">
+								<div class="user-notice-list_post-img">
+									<img src="/images/example/w60-h40.jpg" alt="">
+								</div>
 								<a href="" class="user-notice-list_post-a">Неравный брак. </a>
 							</div>
 							<div class="user-notice-list_check">
@@ -97,7 +101,7 @@
 								<a href="" class="user-notice-list_a-big">9997</a>
 								<span class="user-notice-list_deed-desc">новые ответы на ваш комментарий</span>
 							</div>
-							<div class="user-notice-list_post js-powertip-white" data-powertip="Клуб &lt;span class='color-category hobbies' &gt;Хобби&lt;/span&gt;">
+							<div class="user-notice-list_post js-powertip-white" data-powertip="Клуб &lt;span class='color-category hobbies' &gt;Хобби&lt;/span&gt;&lt;br&gt;Запись &lt;span class='color-gray' &gt; Неравный брак.&lt;/span&gt;">
 								<div class="user-notice-list_ava clearfix">
 									<a class="ava female small"><img src="http://img.happy-giraffe.ru/avatars/19372/small/21fd8c8f29c5a289df17938cb2f20e5b.jpg" alt=""></a>
 								</div>

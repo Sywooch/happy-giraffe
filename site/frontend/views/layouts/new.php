@@ -11,7 +11,7 @@
 					<div class="side-left">
 
 						<div class="banner-box">
-                            <?=$this->renderPartial('//_banner')?>
+                            <?php $this->renderPartial('//banners/adfox'); ?>
 						</div>
 						
 					</div>

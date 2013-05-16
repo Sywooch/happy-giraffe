@@ -135,6 +135,14 @@ function sendInvite(el, user_id) {
     });
 }
 
+function inviteFriend(el, user_id, callback)
+{
+    $.post('/friendRequests/send/', { to_id : user_id }, function(response) {
+        if (response.status)
+            callback(el);
+    }, 'json');
+}
+
 function deleteFriend(el, user_id, friendPage) {
     $.ajax({
         dataType:'json',

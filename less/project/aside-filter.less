@@ -1,0 +1,117 @@
+.aside-filter {
+	margin: 0 0 30px;
+	padding: 25px 18px;
+	background: #99c7ff;
+	.border-radius(5px);
+
+
+	&_search {
+		position: relative;
+		margin: 0 0 15px;
+	}
+	&_search-itx {
+		display: block;
+		width: 162px;
+		padding: 5px 30px 5px 10px;
+		border: 1px solid #82b6f5;
+		font-size: 13px;
+		background: #fff;
+		.border-radius(11px);
+	}
+	&_search-itx:focus {background: #fff;}
+	&_search-btn {
+		background: url("/images/col-1_search-btn.png") no-repeat 50% 50%;
+		border: 0;
+		cursor: pointer;
+		float: right;
+		height: 28px;
+		margin: -28px 0 0;
+		width: 28px;
+	}
+	&_search-btn.active { background: url(/images/ico/ico-close.png) no-repeat 50% 50%;}
+	&_sepor {
+		display: block;
+		height: 0;
+		border: 1px solid #a8cffe;
+		border-bottom-color: #8abdfa;
+		margin: 15px 0;
+	}
+	&_t {
+		display: block;
+		padding: 5px 0 10px;
+		font-size: 17px;
+		color: #fff;
+	}
+	&_radio {display: none;}
+	.ie7 &_radio,
+	.ie8 &_radio {
+		display: inline-block;
+		width: 16px;
+		height: 16px;
+		padding: 0;
+		margin: 0 5px 0 0;
+	}
+	&_radio:checked + &_label-radio {
+		color: #333;
+		background-position: 0 -100px;
+	}
+	&_radio:checked + &_label-radio .ico-male,
+	&_radio:checked + &_label-radio .ico-female {background-position: 0 -100px;}
+	&_radio:checked ~ &_toggle {height: 30px;margin-top: 10px;overflow: visible;}
+	&_label-radio {
+		.inline-block();
+		vertical-align: top;
+		margin-right: 15px;
+		color: #777;
+		padding-left: 24px;
+		background: url(/images/input-radio.png) no-repeat;
+		min-height: 18px;
+		line-height: 18px;
+	}
+	.ie7 &_label-radio,
+	.ie8 &_label-radio {padding-left: 0;background: none;}
+	&_label-radio:hover {color: #333;}
+	&_label-radio .ico-male,
+	&_label-radio .ico-female {
+		position: relative;
+		top: -5px;
+	}
+	&_label {
+		.inline-block();
+		vertical-align: middle;
+		color: #6b8bb3;
+		margin:0 3px;
+	}
+	&_toggle {
+		position: relative;
+		overflow: hidden;
+		height: 0;
+		-webkit-transition: all .5s ease;
+		-o-transition: all .5s ease;
+		-moz-transition: all .5s ease;
+		transition: all .5s ease;
+	}
+	.ie7 &_toggle,
+	.ie8 &_toggle {
+		height: auto;
+		overflow: visible;
+		padding: 5px 0;
+	}
+	&_reset {
+		.inline-block();
+		width: 75px;
+		margin: 10px 0 0;
+		line-height: 12px;
+		font-size: 10px;
+		text-decoration: none;
+		text-align: left;
+	}
+	&_reset-tx {
+		border-bottom: 1px dotted #777;
+		color: #777;
+	}
+	&_reset:hover &_reset-tx {
+		color: #333;
+		border-color: #333;
+	}
+}

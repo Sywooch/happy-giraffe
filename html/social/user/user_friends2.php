@@ -12,6 +12,7 @@
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/top-line-menu.php'; ?>
 	
 <div class="layout-container">
+<div class="layout-container_hold">
 	<div class="layout-wrapper">
 		<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/header-new.php'; ?>
 			
@@ -120,6 +121,14 @@
 									<a href="" class="friends-list_group-popup-a">
 										Компании
 									</a>
+								</div>
+							</div>
+							
+							<div class="friends-list_deleted">
+								<div class="friends-list_deleted-hold">
+									<a href="" class="friends-list_a">Валерия Петроградская</a>
+									<div class="friends-list_row color-gray">удалена из списка <br>ваших друзей</div>
+									<a href="" class="a-pseudo">Восстановить?</a>
 								</div>
 							</div>
 						</div>
@@ -423,6 +432,21 @@
 						
 						<div id="infscr-loading"><img src="/images/ico/ajax-loader.gif" alt="Loading..."><div>Загрузка</div></div>
 					</div>
+					<div class="pagination pagination-center clearfix">
+						<div class="pager">
+							<ul>
+								<li class="previous"><a href="">...</a></li>
+								<li><a href="">1</a></li>
+								<li><a href="">2</a></li>
+								<li class="selected"><a href="">321</a><img src="/images/pagination_tale.png" /></li>
+								<li><a href="">4</a></li>
+								<li class="selected"><a href="">5</a><img src="/images/pagination_tale.png" /></li>
+								<li><a href="">6</a></li>
+								<li><a href="">7</a></li>
+								<li class="next"><a href="">...</a></li>
+							</ul>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>  	
@@ -430,6 +454,7 @@
 		<div class="footer-push"></div>
 	</div>
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/footer.php'; ?>
+</div>
 </div>
 
 

@@ -6,7 +6,6 @@
     <title>Администратор</title>
 
     <?php
-    $r = 169;
         Yii::app()->clientScript
             ->registerCssFile('/css/reset.css')
             ->registerCssFile('/css/general.css')
@@ -25,7 +24,7 @@
 
             ->registerScriptFile('/js/jquery.tooltip.js')
 
-            ->registerScriptFile('/js/common.js?'.$r)
+            ->registerScriptFile('/js/common.js')
 
             ->registerScriptFile('/js/jquery.tmpl.min.js')
 

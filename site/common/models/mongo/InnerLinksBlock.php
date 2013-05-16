@@ -23,6 +23,18 @@ class InnerLinksBlock extends EMongoDocument
         return 'inner_links_block';
     }
 
+    public function indexes()
+    {
+        return array(
+            'index_url' => array(
+                'key' => array(
+                    'url' => EMongoCriteria::SORT_ASC,
+                ),
+                'unique'=>true,
+            ),
+        );
+    }
+
     public function beforeSave()
     {
         $this->updated = time();

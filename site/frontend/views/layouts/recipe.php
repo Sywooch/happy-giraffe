@@ -22,6 +22,10 @@
 
         <div class="side-left">
 
+            <div style="margin-bottom: 40px;">
+                <?php $this->renderPartial('//banners/adfox'); ?>
+            </div>
+
             <div class="recipe-search clearfix">
                 <?=CHtml::beginForm('/cook/recipe/search', 'get')?>
                     <input type="text" name="text" value="<?php if (isset($_GET['text'])) echo urldecode($_GET['text']) ?>" class="text" placeholder="Поиск из <?=$count = CookRecipe::model()->cache(3600)->count() ?> <?=HDate::GenerateNoun(array('рецепта', 'рецептов', 'рецептов'), $count) ?>">

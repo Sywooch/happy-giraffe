@@ -626,6 +626,9 @@ class AlbumsController extends HController
         $attach->photo_id = $photo->id;
         $attach->save();
 
+        if (empty(Yii::app()->user->getModel()->avatar_id))
+            UserStatisticAction::avatarLoaded(Yii::app()->user->id);
+
         User::model()->updateByPk(Yii::app()->user->id, array('avatar_id' => $photo->id));
         UserScores::checkProfileScores(Yii::app()->user->id, ScoreAction::ACTION_PROFILE_PHOTO);
 

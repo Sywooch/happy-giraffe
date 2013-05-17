@@ -284,4 +284,13 @@ class SiteCommand extends CConsoleCommand
             echo $k . ': ' . $v . "\n";
         echo 'Total: ' . array_sum($res);
     }
+
+    public function actionTest3(){
+        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
+        Yii::import('site.common.models.mongo.*');
+        $exist = new InnerLinksBlock;
+        $exist->html = '';
+        $exist->url = 'test';
+        $exist->save();
+    }
 }

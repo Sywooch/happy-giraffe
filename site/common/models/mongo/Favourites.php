@@ -34,6 +34,24 @@ class Favourites extends EMongoDocument
         return 'favourites';
     }
 
+    public function indexes()
+    {
+        return array(
+            'find_one' => array(
+                'key' => array(
+                    'entity' => 1,
+                    'entity_id' => -1,
+                )
+            ),
+            'date' => array(
+                'key' => array(
+                    'date' => -1,
+                    'block' => 1,
+                )
+            )
+        );
+    }
+
     public function beforeSave()
     {
         return parent::beforeSave();

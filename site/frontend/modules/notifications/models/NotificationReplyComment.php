@@ -13,7 +13,7 @@ class NotificationReplyComment extends NotificationGroup
      */
     private static $_instance;
     public $type = self::REPLY_COMMENT;
-    private $comment_id;
+    public $comment_id;
 
     public function __construct()
     {
@@ -34,14 +34,15 @@ class NotificationReplyComment extends NotificationGroup
      * и еще не было прочитано, то добавляем в него новый комментарий и увеличиваем кол-во нотификаций
      *
      * @param $comment Comment комментарий
+     * @param $response Comment комментарий на который ответили
      */
-    public function create($comment)
+    public function create($comment, $response)
     {
-        $this->recipient_id = (int)$comment->response->author_id;
+        $this->recipient_id = (int)$response->author_id;
         $this->entity = $comment->entity;
         $this->entity_id = (int)$comment->entity_id;
 
-        parent::create($comment->id, array('comment_id' => (int)$comment->response_id));
+        parent::create($comment->id, array('comment_id' => (int)$response->id));
     }
 
     /**

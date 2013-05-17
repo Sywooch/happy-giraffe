@@ -19,6 +19,7 @@
  * The followings are the available model relations:
  * @property User author
  * @property Comment $response
+ * @property Comment $quote
  * @property AttachPhoto[] $photoAttaches
  * @property AttachPhoto $photoAttach
  */
@@ -214,6 +215,7 @@ class Comment extends HActiveRecord
                 $relatedModel->sendEvent();
             }
 
+            Yii::import('site.frontend.modules.routes.models.*');
             NotificationCreate::commentCreated($this);
 
             FriendEventManager::add(FriendEvent::TYPE_COMMENT_ADDED, array('model' => $this, 'relatedModel' => $this->relatedModel));
@@ -350,7 +352,7 @@ class Comment extends HActiveRecord
 
     public function getUrl($absolute = false)
     {
-        if (!in_array($this->entity, array('CommunityContent', 'BlogContent', 'CookRecipe', 'User', 'AlbumPhoto')))
+        if (!in_array($this->entity, array('CommunityContent', 'BlogContent', 'CookRecipe', 'User', 'AlbumPhoto', 'Route')))
             return false;
 
         $entity = CActiveRecord::model($this->entity)->findByPk($this->entity_id);
@@ -523,5 +525,11 @@ class Comment extends HActiveRecord
                 ':last_comment_id' => $last_comment_id
             ))
             ->queryColumn();
+    }
+
+    public function getPowerTipTitle()
+    {
+        $entity = CActiveRecord::model($this->entity)->findByPk($this->entity_id);
+        return $entity->getPowerTipTitle(true);
     }
 }

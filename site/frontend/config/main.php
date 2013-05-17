@@ -59,9 +59,9 @@ return array(
         'application.modules.messaging.models.*',
         'application.modules.friends.models.*',
         'ext.directmongosuite.*',
-        'application.modules.notification.models.base.*',
-        'application.modules.notification.models.*',
-        'application.modules.notification.components.*',
+        'application.modules.notifications.models.base.*',
+        'application.modules.notifications.models.*',
+        'application.modules.notifications.components.*',
     ),
 
 	'sourceLanguage' => 'en',
@@ -112,7 +112,7 @@ return array(
         'valentinesDay',
         'routes',
         'messaging',
-        'notification',
+        'notifications',
         'friends',
 	),
 	// application components

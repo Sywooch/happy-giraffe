@@ -9,13 +9,19 @@
 
         <div class="col-1">
 
+            <div style="margin-bottom: 40px;">
+                <?php $this->renderPartial('//banners/adfox'); ?>
+            </div>
+
             <?php $this->widget('CommunitiesWidget'); ?>
 
-            <?php $contest_id = 10; ?>
-            <div class="box">
-                <a href="<?=$this->createUrl('/contest/default/view', array('id' => $contest_id)) ?>"><img
-                    src="/images/contest/banner-w240-<?=$contest_id?>.jpg"></a>
-            </div>
+            <?php if (false): ?>
+                <?php $contest_id = 10; ?>
+                <div class="box">
+                    <a href="<?=$this->createUrl('/contest/default/view', array('id' => $contest_id)) ?>"><img
+                        src="/images/contest/banner-w240-<?=$contest_id?>.jpg"></a>
+                </div>
+            <?php endif; ?>
 
         </div>
 

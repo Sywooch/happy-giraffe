@@ -615,8 +615,14 @@ class AlbumPhoto extends HActiveRecord
      */
     public function getPowerTipTitle($full = false)
     {
-        if (!empty($this->album))
-            return htmlentities("Фотоальбом \"" . $this->album->title . "\"", ENT_QUOTES, "UTF-8");
-        return '';
+        if (empty($this->album))
+            return '';
+
+        $title = htmlentities("Фотоальбом <span class=\'color-gray\' >" . $this->album->title . "</span>", ENT_QUOTES, "UTF-8");
+        if (!$full)
+            return $title;
+        if (!empty($this->title))
+            return $title . htmlentities('<br>' . 'Фотография <span class=\'color-gray\' > ' . $this->title . '</span>', ENT_QUOTES, "UTF-8");
+        return $title;
     }
 }

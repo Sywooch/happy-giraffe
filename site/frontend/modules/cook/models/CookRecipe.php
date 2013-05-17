@@ -1018,6 +1018,6 @@ class CookRecipe extends CActiveRecord
         if (!$full)
             return "Кулинарные рецепты";
         else
-            return '<span>Кулинарные рецепты</span><br>Рецепт <span class=\'color-gray\' > ' . $this->title . '</span>';
+            return 'Кулинарный рецепт <span class=\'color-gray\' > ' . $this->title . '</span>';
     }
 }

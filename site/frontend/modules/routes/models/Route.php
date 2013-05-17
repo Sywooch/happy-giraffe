@@ -142,8 +142,6 @@ class Route extends CActiveRecord
                 return 'Google Maps API возвратил код ZERO_RESULT';
             case self::STATUS_NOT_FOUND:
                 return 'Google Maps API возвратил код NOT_FOUND';
-            case self::STATUS_NOT_FOUND:
-                return 'Другая ошибка при поиске маршрута';
         }
 
         return 'статус не определен';
@@ -319,6 +317,11 @@ class Route extends CActiveRecord
         return Yii::app()->$method('/routes/default/index', array('id' => $this->id));
     }
 
+    public function getUrlParams()
+    {
+        return array('routes/default/index', array('id' => $this->id));
+    }
+
     /**
      * @return array
      */
@@ -371,11 +374,6 @@ class Route extends CActiveRecord
         return $result;
     }
 
-    public function getContentTitle()
-    {
-        return 'Маршрут ' . $this->cityFrom->name . '-' . $this->cityTo->name;
-    }
-
     /**
      * Возвращает подсказку для вывода
      */
@@ -384,15 +382,5 @@ class Route extends CActiveRecord
         if (!$full)
             return ("Маршруты");
         return 'Маршрут <span class=\'color-gray\' > ' . $this->cityFrom->name . '-' . $this->cityTo->name . '</span>';
-    }
-
-    public function getUrlParams()
-    {
-        return array(
-            'routes/default/index',
-            array(
-                'id' => $this->id,
-            ),
-        );
     }
 }

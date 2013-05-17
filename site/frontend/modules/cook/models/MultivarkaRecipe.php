@@ -59,6 +59,6 @@ class MultivarkaRecipe extends CookRecipe
         if (!$full)
             return "Рецепты для мультиварки";
         else
-            return '<span>Рецепты для мультиварки</span><br>Рецепт <span class=\'color-gray\' > ' . $this->title . '</span>';
+            return 'Рецепты для мультиварки  <span class=\'color-gray\' > ' . $this->title . '</span>';
     }
 }

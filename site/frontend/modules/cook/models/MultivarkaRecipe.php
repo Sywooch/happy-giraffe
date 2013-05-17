@@ -43,11 +43,22 @@ class MultivarkaRecipe extends CookRecipe
             ->where('section = 1 AND removed = 0')
             ->queryAll();
 
-        foreach ($counts as $c){
+        foreach ($counts as $c) {
             $_counts[$c['type']] = $c['count(*)'];
             $_counts[0] += $c['count(*)'];
         }
 
         return $_counts;
+    }
+
+    /**
+     * Возвращает подсказку для вывода
+     */
+    public function getPowerTipTitle($full = false)
+    {
+        if (!$full)
+            return "Рецепты для мультиварки";
+        else
+            return '<span>Рецепты для мультиварки</span><br>Рецепт <span class=\'color-gray\' > ' . $this->title . '</span>';
     }
 }

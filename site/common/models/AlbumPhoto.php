@@ -89,7 +89,7 @@ class AlbumPhoto extends HActiveRecord
             array('file_name, fs_name', 'length', 'max' => 100),
             array('title', 'length', 'max' => 200),
             array('created, updated', 'safe'),
-            array('album_id', 'unsafe', 'on'=>'update'),
+            array('album_id', 'unsafe', 'on' => 'update'),
         );
     }
 
@@ -179,20 +179,20 @@ class AlbumPhoto extends HActiveRecord
 
     public function search()
     {
-        $criteria=new CDbCriteria;
+        $criteria = new CDbCriteria;
 
-        $criteria->compare('id',$this->id);
-        $criteria->compare('author_id',$this->author_id);
-        $criteria->compare('album_id',$this->album_id);
-        $criteria->compare('file_name',$this->file_name,true);
-        $criteria->compare('fs_name',$this->fs_name,true);
-        $criteria->compare('title',$this->title,true);
-        $criteria->compare('updated',$this->updated,true);
-        $criteria->compare('created',$this->created,true);
-        $criteria->compare('removed',$this->removed);
+        $criteria->compare('id', $this->id);
+        $criteria->compare('author_id', $this->author_id);
+        $criteria->compare('album_id', $this->album_id);
+        $criteria->compare('file_name', $this->file_name, true);
+        $criteria->compare('fs_name', $this->fs_name, true);
+        $criteria->compare('title', $this->title, true);
+        $criteria->compare('updated', $this->updated, true);
+        $criteria->compare('created', $this->created, true);
+        $criteria->compare('removed', $this->removed);
 
         return new CActiveDataProvider($this, array(
-            'criteria'=>$criteria,
+            'criteria' => $criteria,
         ));
     }
 
@@ -377,7 +377,7 @@ class AlbumPhoto extends HActiveRecord
             if (!file_exists($model_dir))
                 mkdir($model_dir);
 
-            if (!file_exists($this->originalPath)){
+            if (!file_exists($this->originalPath)) {
                 //$this->delete();
                 return false;
             }
@@ -409,7 +409,8 @@ class AlbumPhoto extends HActiveRecord
         } catch (CException $e) {
             #TODO сделать более грамотный механизм обработки плохих фоток
             if (strpos($e->getMessage(), 'File is not a valid image') !== false
-            || strpos($e->getMessage(), 'Image format not supported') !== false){
+                || strpos($e->getMessage(), 'Image format not supported') !== false
+            ) {
                 //удаляем фотку
                 $this->delete();
             }
@@ -424,13 +425,11 @@ class AlbumPhoto extends HActiveRecord
             copy($this->originalPath, $thumb);
         } else {
 
-            if ($crop){
+            if ($crop) {
                 $image = $image->cropFromTop($width, $height, 'T');
             } elseif (empty($height))
-                $image = $image->resize($width, 1500);
-            elseif (empty($width))
-                $image = $image->resize(1500, $height);
-            else
+                $image = $image->resize($width, 1500); elseif (empty($width))
+                $image = $image->resize(1500, $height); else
                 $image = $image->resize($width, $height);
 
             $image = $image->save($thumb);
@@ -599,5 +598,25 @@ class AlbumPhoto extends HActiveRecord
     public function getRssContent()
     {
         return CHtml::image($this->getPreviewUrl(460, 600), $this->title);
+    }
+
+    public function getPhoto()
+    {
+        return $this;
+    }
+
+    public function getContentTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * Возвращает подсказку для вывода
+     */
+    public function getPowerTipTitle($full = false)
+    {
+        if (!empty($this->album))
+            return htmlentities("Фотоальбом \"" . $this->album->title . "\"", ENT_QUOTES, "UTF-8");
+        return '';
     }
 }

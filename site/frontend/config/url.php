@@ -52,6 +52,10 @@ return array(
         // friendRequests controller
         'friendRequests/update/request_id/<request_id:\d+>/action/<action:(accept|decline|retry|cancel)>' => 'friendRequests/update',
 
+        //notifications
+        'notifications' => 'notifications/default/index',
+        'notifications/<_a>' => 'notifications/default/<_a>',
+
         // rss controller
         'rss/page<page:\d+>' => 'rss/index',
         'rss/social/' => 'rss/social',

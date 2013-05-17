@@ -115,7 +115,7 @@ WHERE u.online = 1;
                       p.fs_name, # Аватар
                       UNIX_TIMESTAMP(t.updated) AS updated, # Дата последнего обновления диалога
                       COUNT(mu.message_id) AS unreadCount, # Количество непрочитанных сообщений
-                      friends.created IS NOT NULL AS isFriend # Является ли другом
+                      f.created IS NOT NULL AS isFriend # Является ли другом
                     # Таблица ID всех пользователей в контактах
                     FROM (
                       # Пользователи, с которыми когда-либо была переписка
@@ -131,7 +131,7 @@ WHERE u.online = 1;
                     # Связывание с таблицей пользователей для получения данных о собеседнике
                     INNER JOIN users u ON u.id = uIds.uId
                     # Связывание с таблицей друзей для установления, является ли собеседник другом
-                    LEFT OUTER JOIN friends ON (u.id = friends.user1_id AND friends.user2_id = :user_id) OR (u.id = friends.user2_id AND friends.user1_id = :user_id)
+                    LEFT OUTER JOIN friends f ON f.user_id = :user_id AND f.friend_id = u.id
                     # Связывание с таблицей участников диалога для получения ID и видимости диалога
                     LEFT OUTER JOIN messaging__threads_users tu ON tu.user_id = u.id
                     LEFT OUTER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id = :user_id
@@ -163,7 +163,7 @@ WHERE u.online = 1;
                       p.fs_name, # Аватар
                       UNIX_TIMESTAMP(t.updated) AS updated, # Дата последнего обновления диалога
                       COUNT(mu.message_id) AS unreadCount, # Количество непрочитанных сообщений
-                      friends.created IS NOT NULL AS isFriend # Является ли другом
+                      f.created IS NOT NULL AS isFriend # Является ли другом
                     # Таблица ID всех пользователей в контактах
                     FROM (
                       # Пользователи, с которыми когда-либо была переписка
@@ -175,7 +175,7 @@ WHERE u.online = 1;
                     # Связывание с таблицей пользователей для получения данных о собеседнике
                     INNER JOIN users u ON u.id = uIds.uId
                     # Связывание с таблицей друзей для установления, является ли собеседник другом
-                    LEFT OUTER JOIN friends ON (u.id = friends.user1_id AND friends.user2_id = :user_id) OR (u.id = friends.user2_id AND friends.user1_id = :user_id)
+                    LEFT OUTER JOIN friends f ON f.user_id = :user_id AND f.friend_id = u.id
                     # Связывание с таблицей участников диалога для получения ID и видимости диалога
                     LEFT OUTER JOIN messaging__threads_users tu ON tu.user_id = u.id
                     LEFT OUTER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id = :user_id
@@ -211,7 +211,7 @@ WHERE u.online = 1;
                       p.fs_name, # Аватар
                       UNIX_TIMESTAMP(t.updated) AS updated, # Дата последнего обновления диалога
                       COUNT(mu.message_id) AS unreadCount, # Количество непрочитанных сообщений
-                      friends.created IS NOT NULL AS isFriend # Является ли другом
+                      f.created IS NOT NULL AS isFriend # Является ли другом
                     # Таблица ID всех пользователей в контактах
                     FROM (
                       # Пользователи, с которыми когда-либо была переписка
@@ -223,7 +223,7 @@ WHERE u.online = 1;
                     # Связывание с таблицей пользователей для получения данных о собеседнике
                     INNER JOIN users u ON u.id = uIds.uId
                     # Связывание с таблицей друзей для установления, является ли собеседник другом
-                    LEFT OUTER JOIN friends ON (u.id = friends.user1_id AND friends.user2_id = :user_id) OR (u.id = friends.user2_id AND friends.user1_id = :user_id)
+                    LEFT OUTER JOIN friends f ON f.user_id = :user_id AND f.friend_id = u.id
                     # Связывание с таблицей участников диалога для получения ID и видимости диалога
                     LEFT OUTER JOIN messaging__threads_users tu ON tu.user_id = u.id
                     LEFT OUTER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id = :user_id
@@ -260,22 +260,15 @@ WHERE u.online = 1;
                       p.fs_name, # Аватар
                       UNIX_TIMESTAMP(t.updated) AS updated, # Дата последнего обновления диалога
                       COUNT(mu.message_id) AS unreadCount, # Количество непрочитанных сообщений
-                      friends.created IS NOT NULL AS isFriend # Является ли другом
+                      f.created IS NOT NULL AS isFriend # Является ли другом
                     # Таблица ID всех пользователей в контактах
                     FROM (
-                      # Пользователей, находящиеся в друзьях вне зависимости от наличия или отсутствия переписки с ними
-                      SELECT user1_id AS uId
-                      FROM friends
-                      WHERE user2_id = :user_id
-                      UNION
-                      SELECT user2_id AS uId
-                      FROM friends
-                      WHERE user1_id = :user_id
+                      SELECT friend_id AS uId FROM friends WHERE user_id = :user_id
                     ) uIds
                     # Связывание с таблицей пользователей для получения данных о собеседнике
                     INNER JOIN users u ON u.id = uIds.uId
                     # Связывание с таблицей друзей для установления, является ли собеседник другом
-                    LEFT OUTER JOIN friends ON (u.id = friends.user1_id AND friends.user2_id = :user_id) OR (u.id = friends.user2_id AND friends.user1_id = :user_id)
+                    LEFT OUTER JOIN friends f ON f.user_id = :user_id AND f.friend_id = u.id
                     # Связывание с таблицей участников диалога для получения ID и видимости диалога
                     LEFT OUTER JOIN messaging__threads_users tu ON tu.user_id = u.id
                     LEFT OUTER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id = :user_id
@@ -290,7 +283,7 @@ WHERE u.online = 1;
                       # Условие для корректной работы связывание с таблицей участников диалога
                       tu.user_id IS NULL OR (tu.user_id IS NOT NULL AND tu2.user_id IS NOT NULL)
                       # Условие для фильтрации по чёрному списку
-                      AND uId NOT IN (SELECT blocked_user_id FROM blacklist WHERE user_id = :user_id)
+                     # AND uId NOT IN (SELECT blocked_user_id FROM blacklist WHERE user_id = :user_id)
                       # Условие для отображения только собеседников онлайн
                       AND u.online = 1
                     GROUP BY u.id

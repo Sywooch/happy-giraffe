@@ -793,8 +793,7 @@ class AlbumsController extends HController
         $this->pageTitle = $photo->w_title . ' - ' . strip_tags($collection['title']);
         $this->layout = '//layouts/main';
 
-        if (! Yii::app()->user->isGuest)
-            UserNotification::model()->deleteByEntity($photo, Yii::app()->user->id);
+        NotificationRead::getInstance()->setContentModel($photo);
 
         $this->render('singlePhoto', array_merge(compact('model', 'collection', 'photo', 'currentIndex'), $additional_params));
     }

@@ -18,6 +18,8 @@
  *
  * The followings are the available model relations:
  * @property User author
+ * @property Comment $response
+ * @property Comment $quote
  * @property AttachPhoto[] $photoAttaches
  * @property AttachPhoto $photoAttach
  */
@@ -149,9 +151,9 @@ class Comment extends HActiveRecord
                 'class' => 'site.common.behaviors.ExternalImagesBehavior',
                 'attributes' => array('text'),
             ),
-            'duplicate'=>array(
+            'duplicate' => array(
                 'class' => 'site.common.behaviors.DuplicateBehavior',
-                'attribute'=>'text',
+                'attribute' => 'text',
                 'error_text' => 'Вы только что создали рецепт с таким названием'
             )
         );
@@ -213,17 +215,9 @@ class Comment extends HActiveRecord
                 $relatedModel->sendEvent();
             }
 
-            UserNotification::model()->create(UserNotification::NEW_COMMENT, array('comment' => $this));
-            if ($this->response_id !== null)
-                UserNotification::model()->create(UserNotification::NEW_REPLY, array('comment' => $this));
+            Yii::import('site.frontend.modules.routes.models.*');
+            NotificationCreate::commentCreated($this);
 
-            //проверяем на предмет выполненного модератором задания
-            //UserSignal::CheckComment($this);
-
-            //UserScores::addScores($this->author_id, ScoreAction::ACTION_OWN_COMMENT, 1, array(
-            //    'id' => $this->entity_id, 'name' => $this->entity));
-
-            UserAction::model()->add($this->author_id, UserAction::USER_ACTION_COMMENT_ADDED, array('model' => $this));
             FriendEventManager::add(FriendEvent::TYPE_COMMENT_ADDED, array('model' => $this, 'relatedModel' => $this->relatedModel));
 
             //send signals to commentator panel
@@ -235,7 +229,7 @@ class Comment extends HActiveRecord
                 Yii::import('site.seo.modules.commentators.models.*');
                 Yii::import('site.seo.models.*');
 
-                if (strlen(trim(strip_tags($this->text))) >= 80){
+                if (strlen(trim(strip_tags($this->text))) >= 80) {
                     CommentatorWork::getCurrentUser()->checkComment($this);
                 }
             }
@@ -358,7 +352,7 @@ class Comment extends HActiveRecord
 
     public function getUrl($absolute = false)
     {
-        if (!in_array($this->entity, array('CommunityContent', 'BlogContent', 'CookRecipe', 'User', 'AlbumPhoto')))
+        if (!in_array($this->entity, array('CommunityContent', 'BlogContent', 'CookRecipe', 'User', 'AlbumPhoto', 'Route')))
             return false;
 
         $entity = CActiveRecord::model($this->entity)->findByPk($this->entity_id);
@@ -378,13 +372,13 @@ class Comment extends HActiveRecord
     {
         $criteria = new CDbCriteria;
         $criteria->condition = 'id < :id';
-        $criteria->params = array(':id'=>$this->id);
+        $criteria->params = array(':id' => $this->id);
         $criteria->compare('entity', $this->entity);
         $criteria->compare('entity_id', $this->entity_id);
 
         $count = Comment::model()->count($criteria) + 1;
 
-        return ceil($count/25);
+        return ceil($count / 25);
     }
 
     public function getLink($absolute = false)
@@ -419,8 +413,7 @@ class Comment extends HActiveRecord
         if ($this->entity == 'User')
             return self::CONTENT_TYPE_ONLY_TEXT;
         elseif (empty($this->photoAttaches))
-            return self::CONTENT_TYPE_DEFAULT;
-        else
+            return self::CONTENT_TYPE_DEFAULT; else
             return self::CONTENT_TYPE_PHOTO;
     }
 
@@ -506,5 +499,37 @@ class Comment extends HActiveRecord
         $attach->entity_id = $comment->id;
         $attach->photo_id = 35000;
         $attach->save();
+    }
+
+    public static function getNewCommentsCount($entity, $entity_id, $last_comment_id)
+    {
+        return Yii::app()->db->createCommand()
+            ->select('count(*)')
+            ->from('comments')
+            ->where('entity=:entity AND entity_id=:entity_id AND id > :last_comment_id AND removed=0', array(
+                ':entity' => $entity,
+                ':entity_id' => $entity_id,
+                ':last_comment_id' => $last_comment_id
+            ))
+            ->queryScalar();
+    }
+
+    public static function getNewCommentIds($entity, $entity_id, $last_comment_id)
+    {
+        return Yii::app()->db->createCommand()
+            ->select('id')
+            ->from('comments')
+            ->where('entity=:entity AND entity_id=:entity_id AND id > :last_comment_id AND removed=0', array(
+                ':entity' => $entity,
+                ':entity_id' => $entity_id,
+                ':last_comment_id' => $last_comment_id
+            ))
+            ->queryColumn();
+    }
+
+    public function getPowerTipTitle()
+    {
+        $entity = CActiveRecord::model($this->entity)->findByPk($this->entity_id);
+        return $entity->getPowerTipTitle(true);
     }
 }

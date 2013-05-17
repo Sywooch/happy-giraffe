@@ -530,6 +530,9 @@ class Comment extends HActiveRecord
     public function getPowerTipTitle()
     {
         $entity = CActiveRecord::model($this->entity)->findByPk($this->entity_id);
-        return $entity->getPowerTipTitle(true);
+        if (method_exists($entity, 'getPowerTipTitle'))
+            return $entity->getPowerTipTitle(true);
+        else
+            return '';
     }
 }

@@ -174,4 +174,22 @@ class Service extends HActiveRecord
     {
         return $this->commentsCount;
     }
+
+    public function getContentTitle()
+    {
+        if ($this->type_id == self::TYPE_STATUS)
+            return Str::truncate($this->getContent()->text, 250);
+        return $this->title;
+    }
+
+    /**
+     * Возвращает подсказку для вывода
+     */
+    public function getPowerTipTitle($full = false)
+    {
+        if (!$full)
+            return 'Сервисы';
+
+        return '<span class=\'color-gray\' > ' . $this->title . '</span>';
+    }
 }

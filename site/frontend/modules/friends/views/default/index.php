@@ -1,7 +1,7 @@
 <?php
     Yii::app()->clientScript
         ->registerScriptFile('/javascripts/knockout-2.2.1.js')
-        ->registerScriptFile('/javascripts/ko_friends.js')
+        ->registerScriptFile('/javascripts/ko_friends.js?t=' . time())
     ;
 ?>
 
@@ -16,9 +16,13 @@
             <button class="col-1_search-btn" data-bind="css: { active : searchQuery() != '' }, click: clearSearchQuery"></button>
         </div>
         <div class="menu-list">
-            <a href="javascript:void(0)" class="menu-list_i" data-bind="click: selectAll, css: { active : selectedListId() === null && activeTab() == 0 }">
+            <a href="javascript:void(0)" class="menu-list_i" data-bind="click: selectAll, css: { active : selectedListId() === null && activeTab() == 0 && newSelected() === false }">
                 <span class="menu-list_tx">Все друзья</span>
                 <span class="menu-list_count" data-bind="text: friendsCount"></span>
+            </a>
+            <a href="javascript:void(0)" class="menu-list_i" data-bind="visible: friendsNewCount() > 0, click: selectNew, css: { active : newSelected }">
+                <span class="menu-list_tx">Новые</span>
+                <span class="menu-list_count" data-bind="text: friendsNewCount"></span>
             </a>
             <!-- ko foreach: lists -->
             <a href="javascript:void(0)" class="menu-list_i" data-bind="click: select, css: { active : $root.selectedListId() == id() }">
@@ -47,14 +51,14 @@
 
         <div class="cont-nav" data-bind="visible: selectedListId() == null">
             <div class="cont-nav_i" data-bind="css: { active : activeTab() == 0 }">
-                <a href="javascript:void(0)" class="cont-nav_a" data-bind="css: { inactive : friendsCount() == 0 }, text: friendsCount() > 0 ? 'Все (' + friendsCount() + ')' : 'Все', click: function(data, event) { selectTab(0, data, event) }"></a>
+                <a href="javascript:void(0)" class="cont-nav_a" data-bind="css: { inactive : friendsCount() == 0 }, text: friendsCount() > 0 ? 'Все (' + friendsCount() + ')' : 'Все', click: function(data, event) { if (friendsCount() > 0) selectTab(0, data, event) }"></a>
             </div>
             <div class="cont-nav_i" data-bind="css: { active : activeTab() == 1 }">
                 <span class="user-online-status"></span>
-                <a href="javascript:void(0)" class="cont-nav_a" data-bind="css: { inactive : friendsOnlineCount() == 0 }, text: friendsOnlineCount() > 0 ? 'На сайте (' + friendsOnlineCount() + ')' : 'На сайте', click: function(data, event) { selectTab(1, data, event) }"></a>
+                <a href="javascript:void(0)" class="cont-nav_a" data-bind="css: { inactive : friendsOnlineCount() == 0 }, text: friendsOnlineCount() > 0 ? 'На сайте (' + friendsOnlineCount() + ')' : 'На сайте', click: function(data, event) { if (friendsOnlineCount() > 0) selectTab(1, data, event) }"></a>
             </div>
             <div class="cont-nav_i" data-bind="css: { active : activeTab() == 2 }">
-                <a href="javascript:void(0)" class="cont-nav_a" data-bind="css: { inactive : incomingRequestsCount() == 0 }, click: function(data, event) { selectTab(2, data, event) }">Хотят дружить<span class="cont-nav_count" data-bind="visible: incomingRequestsCount() > 0, text: incomingRequestsCount"></span> </a>
+                <a href="javascript:void(0)" class="cont-nav_a" data-bind="css: { inactive : incomingRequestsCount() == 0 }, click: function(data, event) { if (incomingRequestsCount() > 0) selectTab(2, data, event) }">Хотят дружить<span class="cont-nav_count" data-bind="visible: incomingRequestsCount() > 0, text: incomingRequestsCount"></span> </a>
             </div>
         </div>
 
@@ -73,6 +77,14 @@
                             <!-- ko foreach: $root.lists -->
                             <a href="javascript:void(0)" class="friends-list_group-popup-a" onclick="$(this).parent().hide()" data-bind="text: title, click: $parent.bindList, visible: $parent.listId() != id()"></a>
                             <!-- /ko -->
+                        </div>
+                    </div>
+
+                    <div class="friends-list_deleted" data-bind="visible: removed">
+                        <div class="friends-list_deleted-hold">
+                            <a class="friends-list_a" data-bind="text: user().fullName, attr: { href : user().url }"></a>
+                            <div class="friends-list_row color-gray">удалена из списка <br>ваших друзей</div>
+                            <a href="javascript:void(0)" class="a-pseudo" data-bind="click: restore">Восстановить?</a>
                         </div>
                     </div>
                 </div>
@@ -140,5 +152,5 @@
             <!--<span class="friends-list_bubble-tx">+999</span>-->
         </a>
     </div>
-    <a href="javascript:void(0)" class="friends-list_a" data-bind="text: fullName"></a>
+    <a class="friends-list_a" data-bind="text: fullName, attr: { href : url }"></a>
 </script>

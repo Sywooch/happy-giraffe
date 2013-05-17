@@ -18,6 +18,7 @@ class SearchController extends HController
         }, GeoCountry::model()->findAll(array('order' => 't.name ASC')));
         $data = compact('countries');
 
+        $this->pageTitle = 'Найти друзей';
         $this->render('index', compact('data'));
     }
 

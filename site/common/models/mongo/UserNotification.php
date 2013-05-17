@@ -8,12 +8,12 @@
  */
 class UserNotification extends EMongoDocument
 {
-    const NEW_COMMENT = 0;
+    const USER_CONTENT_COMMENT = 0;
     const NEW_REPLY = 1;
     const CONTEST_WORK_REMOVED = 2;
 
     private $_types = array(
-        self::NEW_COMMENT => array(
+        self::USER_CONTENT_COMMENT => array(
             'method' => 'newComment',
         ),
         self::NEW_REPLY => array(

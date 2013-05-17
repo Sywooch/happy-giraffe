@@ -120,7 +120,7 @@
                 'dependency' => array(
                     'class' => 'CDbCacheDependency',
                     'sql' => 'SELECT MAX(created) FROM friends
-                        WHERE user1_id = ' . $this->user->id . ' OR user2_id = ' . $this->user->id,
+                        WHERE user_id = ' . $this->user->id,
                 ),
                 'varyByParam' => array('user_id'),
             ))): ?>

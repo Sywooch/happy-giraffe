@@ -1,14 +1,14 @@
 <?php
     Yii::app()->clientScript
         ->registerScriptFile('/javascripts/knockout-2.2.1.js')
-        ->registerScriptFile('/javascripts/ko_friendsSearch.js')
+        ->registerScriptFile('/javascripts/ko_friendsSearch.js?t=' . time())
     ;
 ?>
 
 <div class="content-cols">
     <div class="col-1">
         <h2 class="col-1_t"> Найти друзей
-            <div class="col-1_sub-t"><a href="" class="">Мои друзья</a></div>
+            <div class="col-1_sub-t"><a href="<?=$this->createUrl('/friends/default/index')?>" class="">Мои друзья</a></div>
         </h2>
         <div class="aside-filter">
             <form action="">
@@ -110,84 +110,40 @@
             <div class="aside-filter_row clearfix">
                 <div class="aside-filter_t">Дети</div>
                 <div class="margin-b10 clearfix">
-                    <input type="radio" name="b-radio3" id="radio6" class="aside-filter_radio" checked>
+                    <input type="radio" name="b-radio3" id="radio6" class="aside-filter_radio" value="0" data-bind="checked: childrenType">
                     <label for="radio6" class="aside-filter_label-radio">не имеет значения</label>
                 </div>
                 <div class="margin-b10 clearfix">
-                    <input type="radio" name="b-radio3" id="radio7" class="aside-filter_radio">
+                    <input type="radio" name="b-radio3" id="radio7" class="aside-filter_radio" value="1" data-bind="checked: childrenType">
                     <label for="radio7" class="aside-filter_label-radio">срок беременности (недели)</label>
                     <div class="aside-filter_toggle">
                         <div class="aside-filter_label">от</div>
                         <div class="chzn-bluelight chzn-textalign-c w-75">
-                            <select class="chzn">
-                                <option selected="selected">0</option>
-                                <option>1</option>
-                                <option>2</option>
-                                <option>32</option>
-                                <option>32</option>
-                                <option>32</option>
-                                <option>32</option>
-                                <option>132</option>
-                                <option>132</option>
-                                <option>132</option>
-                            </select>
+                            <select data-bind="options: pregnancyWeeks, value: pregnancyWeekMin, chosen: {}"></select>
                         </div>
                         <div class="aside-filter_label">до</div>
                         <div class="chzn-bluelight chzn-textalign-c w-75">
-                            <select class="chzn">
-                                <option selected="selected">0</option>
-                                <option>1</option>
-                                <option>2</option>
-                                <option>32</option>
-                                <option>32</option>
-                                <option>32</option>
-                                <option selected='selected'>32</option>
-                                <option>132</option>
-                                <option>132</option>
-                                <option>132</option>
-                            </select>
+                            <select data-bind="options: pregnancyWeeks, value: pregnancyWeekMax, chosen: {}"></select>
                         </div>
                     </div>
                 </div>
                 <div class="margin-b10 clearfix">
-                    <input type="radio" name="b-radio3" id="radio8" class="aside-filter_radio">
+                    <input type="radio" name="b-radio3" id="radio8" class="aside-filter_radio" value="2" data-bind="checked: childrenType">
                     <label for="radio8" class="aside-filter_label-radio">возраст ребенка (лет)</label>
                     <div class="aside-filter_toggle">
+                        <div class="aside-filter_label">от</div>
                         <div class="chzn-bluelight chzn-textalign-c w-75">
-                            <select class="chzn">
-                                <option selected="selected">0</option>
-                                <option>1</option>
-                                <option>2</option>
-                                <option>32</option>
-                                <option>32</option>
-                                <option>32</option>
-                                <option>32</option>
-                                <option>132</option>
-                                <option>132</option>
-                                <option>132</option>
-                            </select>
+                            <select data-bind="options: childAges, value: childAgeMin, chosen: {}"></select>
+                        </div>
+                        <div class="aside-filter_label">до</div>
+                        <div class="chzn-bluelight chzn-textalign-c w-75">
+                            <select data-bind="options: childAges, value: childAgeMax, chosen: {}"></select>
                         </div>
                     </div>
                 </div>
                 <div class="margin-b10 clearfix">
-                    <input type="radio" name="b-radio3" id="radio9" class="aside-filter_radio">
+                    <input type="radio" name="b-radio3" id="radio9" class="aside-filter_radio" value="3" data-bind="checked: childrenType">
                     <label for="radio9" class="aside-filter_label-radio">многодетная семья</label>
-                    <div class="aside-filter_toggle">
-                        <div class="chzn-bluelight chzn-textalign-c w-75">
-                            <select class="chzn">
-                                <option selected="selected">0</option>
-                                <option>1</option>
-                                <option>2</option>
-                                <option>32</option>
-                                <option>32</option>
-                                <option>32</option>
-                                <option>32</option>
-                                <option>132</option>
-                                <option>132</option>
-                                <option>132</option>
-                            </select>
-                        </div>
-                    </div>
                 </div>
 
             </div>
@@ -204,7 +160,7 @@
     <div class="col-23 clearfix">
 
         <div class="friends-list">
-            <!-- ko foreach: users -->
+            <!-- ko foreach: { data: users, afterRender: updateTooltip } -->
             <div class="friends-list_i" data-bind="html: $data"></div>
             <!-- /ko -->
 

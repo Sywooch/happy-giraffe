@@ -9,7 +9,7 @@
 
         <div class="col-1">
 
-            <div style="margin-bottom: 40px;">
+            <div style="margin-bottom: 20px;">
                 <?php $this->renderPartial('//banners/adfox'); ?>
             </div>
 

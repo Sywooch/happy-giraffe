@@ -8,10 +8,10 @@ function scrollFix() {
 
 var im = {};
 
-im.topLineMenuHeight = 75;
+im.topLineMenuHeight = 23;
 im.tabsHeight = 53;
 /*im.userListIndentFix = 198;*/
-im.userListIndent = 178;
+im.userListIndent = 180;
 im.minHeight = 460;
 
 im.viewHeight = function () {
@@ -30,7 +30,6 @@ im.sidebarHeight = function () {
         im.userList.height(im.windowHeight - im.userListIndent - im.bottomHeight);
     } else {
         im.userList.height(im.windowHeight - im.headerHeight + im.containerScroll - im.userListIndent - im.bottomHeight);
-        console.log(im.userList.height())
     }
 
 
@@ -43,6 +42,7 @@ im.holdHeights = function  () {
     } else {
         im.hold.height(im.viewHeight());
     }
+        console.log(im.viewHeight());
 }
 
  /* Список скрытых пользователей в сайдбаре */

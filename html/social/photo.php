@@ -90,17 +90,26 @@
         <div class="photo-comment" itemprop="description">Квашеная капуста с клюквой, грибами, соусом, зеленью и еще очень длинный комментарий про это оформление блюда, да нужно двести знаков для этого комментария, уже вроде набралось или нет кто будет считать</div>
         
       </div>
-			<div class="entry-nav clearfix">
-              <div class="next">
-                <span>Предыдущая статья</span>
-                <a href="">Лечение краснухи. Как избежать тяжелейших последствий</a>
-              </div>
-              <div class="prev">
-                <span>Следуюшая статья</span>
-                <a href="">Корь у ребенка. Симптомы кори. Лечение кори</a>
-              </div>
-            </div>
-			<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/comment.php'; ?>
+			
+        	<div class="content-cols clearfix">
+        		<div class="col-1">
+        			<img src="/images/banner_09.png" alt="">
+        		</div>
+        		<div class="col-23">
+        		
+        			<div class="entry-nav clearfix">
+		              <div class="next">
+		                <span>Предыдущая статья</span>
+		                <a href="">Лечение краснухи. Как избежать тяжелейших последствий</a>
+		              </div>
+		              <div class="prev">
+		                <span>Следуюшая статья</span>
+		                <a href="">Корь у ребенка. Симптомы кори. Лечение кори</a>
+		              </div>
+		            </div>
+					<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/comment.php'; ?>
+        		</div>
+        	</div>
 		</div>  	
 		
     <div class="push"></div>

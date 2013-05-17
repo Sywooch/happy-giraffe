@@ -1,6 +1,6 @@
 <?php
 
-class NotificationModule extends CWebModule
+class NotificationsModule extends CWebModule
 {
 	public function init()
 	{
@@ -9,8 +9,8 @@ class NotificationModule extends CWebModule
 
 		// import the module-level models and components
 		$this->setImport(array(
-			'notification.models.*',
-			'notification.components.*',
+			'notifications.models.*',
+			'notifications.components.*',
 		));
 	}
 

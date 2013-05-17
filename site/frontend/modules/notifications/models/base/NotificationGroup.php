@@ -79,16 +79,6 @@ class NotificationGroup extends Notification
     }
 
     /**
-     * Возвращает модель контента с которой связано уведомление
-     * @return mixed
-     */
-    public function getEntity()
-    {
-        $class = $this->entity;
-        return $class::model()->findByPk($this->entity_id);
-    }
-
-    /**
      * Помечаем комментарий как прочитанный
      * @param $model_id int
      */
@@ -114,11 +104,31 @@ class NotificationGroup extends Notification
         $this->getCollection()->update(
             array('_id' => $this->_id),
             array(
-                'unread_model_ids' => $this->unread_model_ids,
-                'read_model_ids' => $this->read_model_ids,
-                'count' => (int)$this->count,
-                'read' => (int)$this->read,
+                '$set' => array(
+                    'unread_model_ids' => $this->unread_model_ids,
+                    'read_model_ids' => $this->read_model_ids,
+                    'count' => (int)$this->count,
+                    'read' => (int)$this->read,
+                )
             )
         );
+    }
+
+    /**
+     * Возвращает урл для редиректа пользователя
+     * @return string
+     */
+    public function getUrl()
+    {
+        if (!empty($this->unread_model_ids))
+            $comment_id = min($this->unread_model_ids);
+        elseif (!empty($this->read_model_ids))
+            $comment_id = min($this->read_model_ids);
+
+        if (!isset($comment_id))
+            return '';
+
+        $comment = Comment::model()->findByPk($comment_id);
+        return $comment->getUrl();
     }
 }

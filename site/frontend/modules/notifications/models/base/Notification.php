@@ -45,6 +45,11 @@ class Notification extends HMongoModel
         return self::$_instance;
     }
 
+    public function getId()
+    {
+        return $this->_id;
+    }
+
     /**
      * Добавляет индекс если не создан
      */
@@ -85,8 +90,21 @@ class Notification extends HMongoModel
     {
         $this->getCollection()->update(
             array("_id" => $id),
+            array('$set' => array("read" => 1, "read_time" => time()))
+        );
+    }
+
+    /**
+     * Пометить уведомление как Непрочитанное по id
+     * @param $id
+     */
+    public function unreadByPk($id)
+    {
+        $this->getCollection()->update(
+            array("_id" => $id),
             array(
-                '$set' => array("read" => 1),
+                '$set' => array("read" => 0),
+                '$unset' => array("read_time" => 1),
             )
         );
     }
@@ -98,9 +116,7 @@ class Notification extends HMongoModel
     {
         $this->getCollection()->update(
             array("_id" => $this->_id),
-            array(
-                '$set' => array("read" => 1),
-            )
+            array('$set' => array("read" => 1, "read_time" => time()))
         );
     }
 
@@ -114,9 +130,8 @@ class Notification extends HMongoModel
                 "recipient_id" => (int)Yii::app()->user->id,
                 'read' => 0
             ),
-            array(
-                '$set' => array("read" => 1),
-            )
+            array('$set' => array("read" => 1, "read_time" => time())),
+            array('multiple' => true)
         );
     }
 
@@ -172,14 +187,15 @@ class Notification extends HMongoModel
      * Возвращает список уведомлений для вывода пользователю
      *
      * @param $user_id int id пользователя
+     * @param int $read
      * @param $page int номер страницы с уведомлениями
      * @return Notification[]
      */
-    public function getNotificationsList($user_id, $page = 0)
+    public function getNotificationsList($user_id, $read = 0, $page = 0)
     {
         $cursor = $this->getCollection()->find(array(
             'recipient_id' => (int)$user_id,
-            'read' => 0
+            'read' => $read
         ))->sort(array('updated' => -1))->limit(self::PAGE_SIZE)->skip($page * self::PAGE_SIZE);
 
         $list = array();
@@ -232,6 +248,34 @@ class Notification extends HMongoModel
             case self::NEW_LIKE:
                 return NotificationLike::createModel($object);
         }
+        return null;
+    }
+
+    public function removeOldReadNotifications()
+    {
+        $this->getCollection()->remove(array(
+            'read_time' => array('$lt' => (time() - 3600 * 24 * 10))
+        ));
+    }
+
+    public function insertTest()
+    {
+        $this->getCollection()->insert(array(
+            "count" => 11,
+            "entity" => "CommunityContent",
+            "entity_id" => 20575,
+            "read" => 0,
+            "recipient_id" => 10,
+            "type" => 2,
+            "unread_model_ids" => array(185674, 208581, 209831, 862657, 862658, 862729, 862730, 862731, 862732, 862733, 862734),
+            "updated" => 168453722
+        ));
+    }
+
+    /**
+     * @return CActiveRecord
+     */
+    public function getContent(){
         return null;
     }
 }

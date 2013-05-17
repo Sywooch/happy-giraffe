@@ -119,4 +119,15 @@ class NotificationRead
     {
         return (Notification::model()->getUnreadCount() == 0);
     }
+
+    /**
+     * Устанавливает прочитанными уведомления о лайках если есть
+     * @param $notifications Notification[]
+     */
+    public static function setReadLikes($notifications)
+    {
+        foreach($notifications as $notification)
+            if ($notification->type == Notification::NEW_LIKE)
+                $notification->setRead();
+    }
 }

@@ -55,9 +55,10 @@ class NotificationCreate
      */
     private static function replyCommentNotification($comment)
     {
-        if (!empty($comment->response_id) && $comment->response->author_id != $comment->author_id) {
+        if (!empty($comment->response_id) || !empty($comment->quote_id)) {
             $notification = new NotificationReplyComment();
-            $notification->create($comment);
+            $response = empty($comment->response_id) ? $comment->quote : $comment->response;
+            $notification->create($comment, $response);
         }
     }
 
@@ -116,7 +117,7 @@ class NotificationCreate
             $author_articles = array();
             $likes_count = 0;
             foreach ($contents as $entity => $ids)
-                foreach ($ids as $id => $count){
+                foreach ($ids as $id => $count) {
                     $author_articles [] = array($entity, $id, $count);
                     $likes_count++;
                 }

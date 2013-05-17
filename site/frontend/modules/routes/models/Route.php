@@ -151,7 +151,7 @@ class Route extends CActiveRecord
 
     public function getRouteLink()
     {
-        return CHtml::link('перейти', Yii::app()->createAbsoluteUrl('/routes/default/index', array('id'=>$this->id), array('target' => '_blank')));
+        return CHtml::link('перейти', Yii::app()->createAbsoluteUrl('/routes/default/index', array('id' => $this->id), array('target' => '_blank')));
     }
 
     /**
@@ -292,9 +292,9 @@ class Route extends CActiveRecord
                 6 => 'Столько времени ехать от ' . $city1[1] . ' до ' . $city2[1],
                 7 => 'Отправьте маршрут поездки ' . $city1[0] . '-' . $city2[0] . ' своим друзьям',
                 8 => 'Отзывы водителей о состоянии трассы ' . $city1[0] . '-' . $city2[0],
-                'title' => 'Маршрут ' . $city1[0] . '-' . $city2[0].'. Расстояние между ' . $city1[2] . ' и ' . $city2[2].' – '.$this->distance.' км.',
+                'title' => 'Маршрут ' . $city1[0] . '-' . $city2[0] . '. Расстояние между ' . $city1[2] . ' и ' . $city2[2] . ' – ' . $this->distance . ' км.',
                 'description' => 'Как доехать от ' . $city1[1] . ' до ' . $city2[1] . '. Расчет расстояния и расход горючего.',
-                'keywords' => 'Маршрут между городами, расстояние, расход горючего, '.$city1[0].', '.$city2[0].'.',
+                'keywords' => 'Маршрут между городами, расстояние, расход горючего, ' . $city1[0] . ', ' . $city2[0] . '.',
             );
         else
             return array(
@@ -307,9 +307,9 @@ class Route extends CActiveRecord
                 6 => 'Время, проведенное в пути',
                 7 => 'Делитесь маршрутом поездки ' . $city1[0] . '-' . $city2[0] . ' со своими друзьям',
                 8 => 'Водители рассказывают, как доехать от ' . $city1[1] . ' до ' . $city2[1],
-                'title' => 'Маршрут ' . $city1[0] . '-' . $city2[0].'. Расстояние между ' . $city1[2] . ' и ' . $city2[2].' – '.$this->distance.' км.',
+                'title' => 'Маршрут ' . $city1[0] . '-' . $city2[0] . '. Расстояние между ' . $city1[2] . ' и ' . $city2[2] . ' – ' . $this->distance . ' км.',
                 'description' => 'Как доехать от ' . $city1[1] . ' до ' . $city2[1] . '. Расчет расстояния и расход горючего.',
-                'keywords' => 'Маршрут между городами, расстояние, расход горючего, '.$city1[0].', '.$city2[0].'.',
+                'keywords' => 'Маршрут между городами, расстояние, расход горючего, ' . $city1[0] . ', ' . $city2[0] . '.',
             );
     }
 
@@ -363,11 +363,36 @@ class Route extends CActiveRecord
         $step = (count($points) / 4);
 
         $result = array();
-        for($i=0;$i<4;$i++){
-            $index = round($step*$i);
+        for ($i = 0; $i < 4; $i++) {
+            $index = round($step * $i);
             $result[] = $points[$index];
         }
 
         return $result;
+    }
+
+    public function getContentTitle()
+    {
+        return 'Маршрут ' . $this->cityFrom->name . '-' . $this->cityTo->name;
+    }
+
+    /**
+     * Возвращает подсказку для вывода
+     */
+    public function getPowerTipTitle($full = false)
+    {
+        if (!$full)
+            return ("Маршруты");
+        return 'Маршрут <span class=\'color-gray\' > ' . $this->cityFrom->name . '-' . $this->cityTo->name . '</span>';
+    }
+
+    public function getUrlParams()
+    {
+        return array(
+            'routes/default/index',
+            array(
+                'id' => $this->id,
+            ),
+        );
     }
 }

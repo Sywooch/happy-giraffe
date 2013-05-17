@@ -10,9 +10,9 @@ class NotificationCommand extends CConsoleCommand
     {
         Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
 
-        Yii::import('site.frontend.modules.notification.models.base.*');
-        Yii::import('site.frontend.modules.notification.models.*');
-        Yii::import('site.frontend.modules.notification.components.*');
+        Yii::import('site.frontend.modules.notifications.models.base.*');
+        Yii::import('site.frontend.modules.notifications.models.*');
+        Yii::import('site.frontend.modules.notifications.components.*');
     }
 
     public function actionDiscuss()
@@ -20,9 +20,20 @@ class NotificationCommand extends CConsoleCommand
         NotificationDiscussSubscription::model()->createDiscussNotifications();
     }
 
-    public function actionLikes(){
+    public function actionLikes()
+    {
         Yii::import('site.common.models.mongo.*');
-
         NotificationCreate::generateLikes();
+    }
+
+    public function actionTest()
+    {
+        for ($i = 0; $i < 100; $i++)
+            Notification::model()->insertTest();
+    }
+
+    public function actionDeleteOld()
+    {
+        Notification::model()->removeOldReadNotifications();
     }
 }

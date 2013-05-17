@@ -10,7 +10,9 @@
             <span class="drp-list">
                 <a href="javascript:void(0)" class="more" onclick="$(this).next().toggle(); return false;">Еще</a>
                 <ul style="display: none;">
-                    <li><?=CHtml::link('Друзья', array('user/friends', 'user_id' => $user->id))?></li>
+                    <?php if (Yii::app()->user->id != $user->id): ?>
+                        <li><?=CHtml::link('Друзья', array('user/friends', 'user_id' => $user->id))?></li>
+                    <?php endif; ?>
                     <li><?=CHtml::link('Клубы', array('user/clubs', 'user_id' => $user->id))?></li>
                 </ul>
             </span>

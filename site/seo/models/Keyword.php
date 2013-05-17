@@ -20,11 +20,13 @@ class Keyword extends CActiveRecord
     const STATUS_UNDEFINED = 0;
     const STATUS_GOOD = 1;
     const STATUS_HIDE = 2;
+    const STATUS_BAD_STRICT_WORDSTAT = 3;
 
     public $btns;
 
     /**
      * Returns the static model of the specified AR class.
+     * @param string $className
      * @return Keyword the static model class
      */
     public static function model($className = __CLASS__)

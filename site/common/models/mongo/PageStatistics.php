@@ -13,7 +13,7 @@ class PageStatistics extends EMongoDocument
     public $depth2;
     public $visit_time;
     public $se_visits = array();
-    public $date_visits = array();
+    public $date_stats = array();
 
     /**
      * @param string $className
@@ -39,7 +39,8 @@ class PageStatistics extends EMongoDocument
     }
 
     /**
-     * Найти модель по url
+     * @param $url
+     * @return PageStatistics
      */
     public static function findByUrl($url)
     {
@@ -84,6 +85,16 @@ class PageStatistics extends EMongoDocument
             $rows[6] = isset($page->se_visits['2013-04']) ? $page->se_visits['2013-04'] : '';
             $rows[8] = round($page->depth, 2);
             $rows[9] = round($page->depth2, 2);
+            $dates = array('2013-03-18', '2013-04-15', '2013-05-07');
+            foreach($dates as $date)
+                if (isset($page->date_stats[$date])){
+                    $rows[] = $page->date_stats[$date][0];
+                    $rows[] = $page->date_stats[$date][1];
+                    if (isset($page->date_stats[$date][2]))
+                        $rows[] = $page->date_stats[$date][2];
+                    else
+                        $rows[] = 0;
+                }
 
             $data [] = $rows;
             if ($i >= 2000)
@@ -116,18 +127,27 @@ class PageStatistics extends EMongoDocument
     {
         $criteria = new EMongoCriteria(array(
             'sort' => array('visits' => EMongoCriteria::SORT_DESC),
+            'offset' => 105,
+            'limit' => 50,
         ));
+        $dates = array('2013-03-18', '2013-04-15', '2013-05-07');
         $pages = $this->model()->findAll($criteria);
         echo count($pages) . "\n";
-        $i = 1;
         foreach ($pages as $page) {
-            echo $i . "\n";
             $url = str_replace('http://happy-giraffe.ru', '', $page->url);
             $url = str_replace('http://www.happy-giraffe.ru', '', $url);
+            echo $url . "\n";
 
-            $page->se_visits['2013-04'] = (int)GApi::model()->organicSearches($url, '2013-04-01', '2013-04-30');
+            foreach ($dates as $date) {
+                $se_visits = GApi::model()->organicSearches($url, $date, $date, false);
+                $visits = GApi::model()->visits($url, $date, $date, false);
+
+                $page->date_stats[$date] = array(
+                    0 => $se_visits,
+                    1 => $visits,
+                );
+            }
             $page->save();
-            $i++;
         }
     }
 
@@ -151,7 +171,8 @@ class PageStatistics extends EMongoDocument
             ->setDescription("Articles");
 
         // Add some data
-        $letters = array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O');
+        $letters = array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R',
+        'S', 'T', 'U', 'V', 'W');
 
         $sheet = $objPHPExcel->setActiveSheetIndex(0);
         $j = 1;

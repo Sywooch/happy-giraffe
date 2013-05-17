@@ -58,6 +58,20 @@ class GApi
     }
 
     /**
+     * Глубина просмотра
+     *
+     * @param $url
+     * @param $date1
+     * @param $date2
+     * @param bool $include_sub_pages
+     * @return int
+     */
+    public function pageDepth($url, $date1, $date2 = null, $include_sub_pages = true)
+    {
+        return $this->getStat($url, $date1, $date2, $include_sub_pages, 'pageDepth');
+    }
+
+    /**
      * Возвращает количество поситителей за период времени
      *
      * @param $url
@@ -69,6 +83,20 @@ class GApi
     public function visitors($url, $date1, $date2 = null, $include_sub_pages = true)
     {
         return $this->getStat($url, $date1, $date2, $include_sub_pages, 'visitors');
+    }
+
+    /**
+     * Возвращает количество посещений за период времени
+     *
+     * @param $url
+     * @param $date1
+     * @param $date2
+     * @param bool $include_sub_pages
+     * @return int
+     */
+    public function visits($url, $date1, $date2 = null, $include_sub_pages = true)
+    {
+        return $this->getStat($url, $date1, $date2, $include_sub_pages, 'visits');
     }
 
     /**

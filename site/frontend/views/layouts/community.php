@@ -101,6 +101,10 @@
 
     <div class="side-left">
 
+        <div style="margin-bottom: 40px;">
+            <?php $this->renderPartial('//banners/adfox'); ?>
+        </div>
+
         <div class="club-fast-add">
             <?php if (Yii::app()->user->isGuest):?>
                 <?=CHtml::link('<span class="big">Добавить</span><span class="small">запись в клуб</span>', '#login', array('class' => 'btn-green twolines fancy', 'data-theme'=>'white-square'))?>
@@ -196,32 +200,35 @@
                 ?>
 
             </div>
+        <?php $this->endCache(); endif;  ?>
 
+        <?php if (false): ?>
             <?php if ($this->community->id == 24): ?>
                 <div style="margin-bottom: 40px;">
                     <?php $this->renderPartial('//banners/community_24_240x400'); ?>
                 </div>
             <?php endif; ?>
+        <?php endif; ?>
 
+        <?php if (false): ?>
             <?php if (in_array($this->community->id, array(1, 2))): ?>
                 <div style="margin-bottom: 40px;">
                     <?php $this->renderPartial('//banners/community_1+2_240x400'); ?>
                 </div>
             <?php endif; ?>
+        <?php endif; ?>
 
-            <div class="recent-topics">
+        <div class="recent-topics">
 
-                <div class="title">Последние темы</div>
+            <div class="title">Последние темы</div>
 
-                <ul>
-                    <?php foreach ($this->community->last as $c): ?>
-                    <li><?=CHtml::link(CHtml::encode($c->title), $c->url)?></li>
-                    <?php endforeach; ?>
-                </ul>
+            <ul>
+                <?php foreach ($this->community->last as $c): ?>
+                <li><?=CHtml::link(CHtml::encode($c->title), $c->url)?></li>
+                <?php endforeach; ?>
+            </ul>
 
-            </div>
-
-        <?php $this->endCache(); endif;  ?>
+        </div>
 
         <?php if (false): ?>
             <div class="box">

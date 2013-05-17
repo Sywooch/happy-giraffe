@@ -45,22 +45,18 @@ class FriendEvent extends EMongoDocument
     private $_params;
     private $_user;
 
-    public function init()
-    {
-        $this->ensureIndexes = false;
-    }
+//    public function init()
+//    {
+//        $this->ensureIndexes = false;
+//    }
 
     public function indexes()
     {
         return array(
-            'updated' => array(
-                'key' => array(
-                    'updated' => EMongoCriteria::SORT_DESC,
-                ),
-            ),
-            'userId' => array(
+            'main_index' => array(
                 'key' => array(
                     'user_id' => EMongoCriteria::SORT_ASC,
+                    'updated' => EMongoCriteria::SORT_DESC,
                 ),
             ),
         );
@@ -174,12 +170,12 @@ class FriendEvent extends EMongoDocument
         $comet = new CometModel;
         $comet->type = CometModel::WHATS_NEW_UPDATE;
 
-        $user = User::model()->findByPk($this->user_id);
-        $friends = User::model()->findAll($user->getFriendsCriteria(array('select' => 't.id', 'index' => 'id')));
-        $friendsIds = array_keys($friends);
+//        $user = User::model()->findByPk($this->user_id);
+//        $friends = User::model()->findAll($user->getFriendsCriteria(array('select' => 't.id', 'index' => 'id')));
+//        $friendsIds = array_keys($friends);
 
-        foreach ($friendsIds as $id)
-            $comet->send('whatsNewFriendsUser' . $id);
+//        foreach ($friendsIds as $id)
+//            $comet->send('whatsNewFriendsUser' . $id);
 
         parent::afterSave();
     }

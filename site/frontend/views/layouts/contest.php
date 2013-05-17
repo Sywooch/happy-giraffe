@@ -70,6 +70,15 @@
         </div>
     <?php endif; ?>
 
+    <?php if ($this->contest->id == 10): ?>
+        <div class="contest-sponsor">
+            <a href="http://www.littlemonkeys.ru/?utm_source=happygiraffe&utm_medium=teaser&utm_campaign=Cuski" target="_blank">
+                <img src="/images/contest/contest-sponsor-10.jpg" alt="" class="contest-sponsor_img">
+            </a>
+
+        </div>
+    <?php endif; ?>
+
     <?=$content?>
 
 </div>

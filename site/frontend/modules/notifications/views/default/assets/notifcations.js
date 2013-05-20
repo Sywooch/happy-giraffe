@@ -17,7 +17,7 @@ var UserNotification = {
                 setTimeout(function () {
                     if (!UserNotification.stop) {
                         $(el).parents('.user-notice-list_i').fadeOut(1000);
-                        UserNotification.updateCounter(-count);
+                        Notifications.updateCounter(-count);
                     }
                 }, 3000);
             }
@@ -42,7 +42,7 @@ var UserNotification = {
             }
         }, 'json');
     },
-    loadMore: function (url) {
+    loadMore: function () {
         if (!UserNotification.loading) {
             UserNotification.loading = true;
             UserNotification.page++;
@@ -59,18 +59,6 @@ var UserNotification = {
     disableLoading: function () {
         UserNotification.loading = true;
         $('.user-notice-list #infscr-loading').hide();
-    },
-    updateCounter: function (diff) {
-        var li = $('.top-line-menu_nav_ul .i-notifications');
-        var counter = li.find('.count span.count-red span');
-        var c = parseInt(counter.text());
-        if (isNaN(c))
-            c = 0;
-
-        var newVal = c + diff;
-
-        counter.text(newVal);
-        li.toggleClass('new', newVal != 0);
     },
     hideCounter: function () {
         var li = $('.top-line-menu_nav_ul .i-notifications');

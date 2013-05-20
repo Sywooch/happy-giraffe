@@ -17,7 +17,7 @@ var UserNotification = {
                 setTimeout(function () {
                     if (!UserNotification.stop) {
                         $(el).parents('.user-notice-list_i').fadeOut(1000);
-                        Notifications.updateCounter(-count);
+                        NotificationsUpdateCounter(-count);
                     }
                 }, 3000);
             }
@@ -75,10 +75,4 @@ $(function () {
         if (($('#user-notice-list_inner').height() - 500) < $(this).scrollTop())
             UserNotification.loadMore();
     });
-
-    Comet.prototype.receiveNotification = function(result, id) {
-        UserNotification.updateCounter(result.count);
-    };
-
-    comet.addEvent(1000, 'receiveNotification');
 });

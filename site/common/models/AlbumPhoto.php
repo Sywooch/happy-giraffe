@@ -103,7 +103,7 @@ class AlbumPhoto extends HActiveRecord
         return array(
             'album' => array(self::BELONGS_TO, 'Album', 'album_id'),
             'author' => array(self::BELONGS_TO, 'User', 'author_id'),
-            'attach' => array(self::HAS_MANY, 'AttachPhoto', 'photo_id'),
+            'attach' => array(self::HAS_ONE, 'AttachPhoto', 'photo_id'),
             'galleryItem' => array(self::HAS_ONE, 'CommunityContentGalleryItem', 'photo_id'),
             'remove' => array(self::HAS_ONE, 'Removed', 'entity_id', 'condition' => '`remove`.`entity` = :entity', 'params' => array(':entity' => get_class($this)))
         );
@@ -541,14 +541,34 @@ class AlbumPhoto extends HActiveRecord
 
     public function getUrlParams()
     {
-        return array(
-            'albums/photo',
-            array(
-                'user_id' => $this->author_id,
-                'album_id' => $this->album_id,
-                'id' => $this->id
-            ),
-        );
+        if (!empty($this->galleryItem)) {
+            return array('albums/singlePhoto', array(
+                'photo_id' => $this->id,
+                'community_id' => $this->galleryItem->gallery->content->rubric->community_id,
+                'content_id' => $this->galleryItem->gallery->content_id,
+            ));
+        } elseif (empty($this->album_id) && !empty($this->attach)) {
+            switch ($this->attach->entity) {
+                case 'ContestWork':
+                    $work = ContestWork::model()->findByPk($this->attach->entity_id);
+                    $params = array(
+                        'entity' => 'Contest',
+                        'contest_id' => $work->contest_id
+                    );
+                    break;
+                //case '':
+            }
+            $params['photo_id'] = $this->id;
+            return array('albums/singlePhoto', $params);
+        } else
+            return array(
+                'albums/photo',
+                array(
+                    'user_id' => $this->author_id,
+                    'album_id' => $this->album_id,
+                    'id' => $this->id
+                ),
+            );
     }
 
     public function getUrl($comments = false, $absolute = false)

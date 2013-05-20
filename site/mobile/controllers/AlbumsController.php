@@ -35,12 +35,12 @@ class AlbumsController extends MController
               SELECT id, @rownum := @rownum + 1 AS position
               FROM contest__works w
               JOIN (SELECT @rownum := 0) r
-              WHERE contest_id = 9
+              WHERE contest_id = :contest_id
               ORDER BY id DESC
             ) x
             WHERE id = :work_id;
         ";
-        $currentIndex = Yii::app()->db->createCommand($sql)->queryScalar(array(':work_id' => $work->id));
+        $currentIndex = Yii::app()->db->createCommand($sql)->queryScalar(array(':work_id' => $work->id, ':contest_id' => $contest_id));
         $prev = ContestWork::model()->find(array(
             'condition' => 'contest_id = :contest_id AND id > :current_id',
             'params' => array(':contest_id' => $model->id, ':current_id' => $work->id),

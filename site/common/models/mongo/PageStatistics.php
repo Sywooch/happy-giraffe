@@ -128,7 +128,7 @@ class PageStatistics extends EMongoDocument
         $criteria = new EMongoCriteria(array(
             'sort' => array('visits' => EMongoCriteria::SORT_DESC),
             'offset' => 105,
-            'limit' => 150,
+            'limit' => 50,
         ));
         $dates = array('2013-03-18', '2013-04-15', '2013-05-07');
         $pages = $this->model()->findAll($criteria);

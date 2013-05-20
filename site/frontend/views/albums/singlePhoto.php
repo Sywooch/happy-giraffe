@@ -116,6 +116,24 @@ else {
         ),
     ));
 
+    if (get_class($model) == 'Contest') {?>
+        <div class="content-cols clearfix">
+            <div class="col-1">
+                <div style="margin-bottom: 40px;">
+                    <?php $this->renderPartial('//banners/adfox'); ?>
+                </div>
+            </div>
+            <div class="col-23">
+                <?php $this->widget('site.frontend.widgets.commentWidget.CommentWidget', array(
+                'model' => $photo,
+                'photoContainer'=>true
+            )); ?>
+            </div>
+        </div>
+    <?php }
+
+    else {
+
     if (isset($decor)){?>
         <div class="entry-nav clearfix">
             <div class="next">
@@ -131,4 +149,6 @@ else {
         'model' => $photo,
         'photoContainer'=>true
     ));
+
+    }
 }

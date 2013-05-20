@@ -760,7 +760,7 @@ class CommunityContent extends HActiveRecord
     public function getContentTitle()
     {
         if ($this->type_id == self::TYPE_STATUS)
-            return Str::truncate($this->getContent()->text, 250);
+            return Str::truncate($this->getContent()->text, 150);
         return $this->title;
     }
 

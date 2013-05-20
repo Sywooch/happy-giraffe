@@ -218,10 +218,10 @@ class Comment extends HActiveRecord
                 UserNotification::model()->create(UserNotification::NEW_REPLY, array('comment' => $this));
 
             //проверяем на предмет выполненного модератором задания
-            UserSignal::CheckComment($this);
+            //UserSignal::CheckComment($this);
 
-            UserScores::addScores($this->author_id, ScoreAction::ACTION_OWN_COMMENT, 1, array(
-                'id' => $this->entity_id, 'name' => $this->entity));
+            //UserScores::addScores($this->author_id, ScoreAction::ACTION_OWN_COMMENT, 1, array(
+            //    'id' => $this->entity_id, 'name' => $this->entity));
 
             UserAction::model()->add($this->author_id, UserAction::USER_ACTION_COMMENT_ADDED, array('model' => $this));
             FriendEventManager::add(FriendEvent::TYPE_COMMENT_ADDED, array('model' => $this, 'relatedModel' => $this->relatedModel));

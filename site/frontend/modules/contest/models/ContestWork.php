@@ -231,4 +231,9 @@ class ContestWork extends HActiveRecord
     public function getPhoto(){
         return $this->photoAttach->photo;
     }
+
+    public function getContentTitle()
+    {
+        return $this->title;
+    }
 }

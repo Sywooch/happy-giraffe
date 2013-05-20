@@ -63,7 +63,9 @@ var UserNotification = {
     updateCounter: function (diff) {
         var li = $('.top-line-menu_nav_ul .i-notifications');
         var counter = li.find('.count span.count-red');
-        var newVal = parseInt(counter.text()) + diff;
+        var c = parseInt(counter.text());
+        if (c == '') c = 0;
+        var newVal = c + diff;
 
         counter.text(newVal);
         li.toggleClass('new', newVal != 0);

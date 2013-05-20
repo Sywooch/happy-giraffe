@@ -81,7 +81,7 @@ class NotificationRead
      */
     public function SetVisited()
     {
-        if ($this->hasNoActiveNotifications() || empty($this->comments))
+        if ($this->hasNoActiveNotifications() || empty($this->comments) || $this->content_model == null)
             return;
 
         if (method_exists($this->content_model, 'getCommentClass'))

@@ -85,7 +85,7 @@ $(function () {
     });
 
     Comet.prototype.receiveNotification = function(result, id) {
-        Notifications.updateCounter(1);
+        UserNotification.updateCounter(result.count);
     };
 
     comet.addEvent(1000, 'receiveNotification');

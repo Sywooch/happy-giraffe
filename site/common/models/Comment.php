@@ -352,7 +352,9 @@ class Comment extends HActiveRecord
 
     public function getUrl($absolute = false)
     {
-        if (!in_array($this->entity, array('CommunityContent', 'BlogContent', 'CookRecipe', 'User', 'AlbumPhoto', 'Route')))
+        if (!in_array($this->entity, array('CommunityContent', 'BlogContent', 'CookRecipe', 'User',
+            'AlbumPhoto', 'Route', 'Service'))
+        )
             return false;
 
         $entity = CActiveRecord::model($this->entity)->findByPk($this->entity_id);

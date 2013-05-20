@@ -66,23 +66,23 @@
 <div class="custom-likes-small margin-b10 clearfix">
     <a class="custom-like-small" href="javascript:void(0)" onclick="Share.odnoklassniki('<?=Yii::app()->request->hostInfo . Yii::app()->request->url?>', '')">
         <span class="custom-like-small_icon odkl"></span>
-        <span class="custom-like-small_value"><?=Rating::model()->countByEntity($photo, 'ok')?></span>
+        <span class="custom-like-small_value"><?=Rating::model()->countByEntity($photo->getAttachByEntity('ContestWork')->model, 'ok')?></span>
     </a>
     <a class="custom-like-small" href="javascript:void(0)" onclick="Share.mailru('<?=Yii::app()->request->hostInfo . Yii::app()->request->url?>', '<?=$photo->w_title?>', '<?=$photo->getPreviewUrl(960, 627, Image::HEIGHT, true)?>', '')">
         <span class="custom-like-small_icon mailru"></span>
-        <span class="custom-like-small_value"><?=Rating::model()->countByEntity($photo, 'mailru')?></span>
+        <span class="custom-like-small_value"><?=Rating::model()->countByEntity($photo->getAttachByEntity('ContestWork')->model, 'mailru')?></span>
     </a>
 
     <a class="custom-like-small" href="javascript:void(0)" onclick="Share.vkontakte('<?=Yii::app()->request->hostInfo . Yii::app()->request->url?>', '<?=$photo->w_title?>', '<?=$photo->getPreviewUrl(960, 627, Image::HEIGHT, true)?>', '')">
         <span class="custom-like-small_icon vk"></span>
-        <span class="custom-like-small_value"><?=Rating::model()->countByEntity($photo, 'vk')?></span>
+        <span class="custom-like-small_value"><?=Rating::model()->countByEntity($photo->getAttachByEntity('ContestWork')->model, 'vk')?></span>
     </a>
 
     <a class="custom-like-small" href="javascript:void(0)" onclick="Share.facebook('<?=Yii::app()->request->hostInfo . Yii::app()->request->url?>', '<?=$photo->w_title?>', '<?=$photo->getPreviewUrl(960, 627, Image::HEIGHT, true)?>', '')">
         <span class="custom-like-small_icon fb"></span>
-        <span class="custom-like-small_value"><?=Rating::model()->countByEntity($photo, 'fb')?></span>
+        <span class="custom-like-small_value"><?=Rating::model()->countByEntity($photo->getAttachByEntity('ContestWork')->model, 'fb')?></span>
     </a>
-    <div class="custom-likes-small_rating"><?=Rating::model()->countByEntity($photo, false)?></div>
+    <div class="custom-likes-small_rating"><?=Rating::model()->countByEntity($photo->getAttachByEntity('ContestWork')->model, false)?></div>
 </div>
 
 <div class="margin-b10 textalign-c clearfix">

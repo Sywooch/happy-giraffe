@@ -264,13 +264,6 @@ class Notification extends HMongoModel
     }
 
     /**
-     * @return CActiveRecord
-     */
-    public function getContent(){
-        return null;
-    }
-
-    /**
      * Отображаемое количество уведомлений
      * @return int
      */

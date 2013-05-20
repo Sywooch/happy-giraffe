@@ -24,6 +24,10 @@ class NotificationGroup extends Notification
      * @var array массив id прочитанных комментариев уведомления
      */
     public $read_model_ids = array();
+    /**
+     * @var CommunityContent
+     */
+    protected $_entity = null;
 
     /**
      * Создаем уведомление о новом комментарии. Если уведомление к этому посту уже создавалось и еще не было
@@ -186,5 +190,22 @@ class NotificationGroup extends Notification
             return count($this->unread_model_ids);
         else
             return count($this->unread_model_ids) + count($this->read_model_ids);
+    }
+
+    /**
+     * Возвращает модель
+     *
+     * @return CActiveRecord|CommunityContent|null
+     */
+    public function getEntity()
+    {
+        if ($this->_entity === null) {
+            if ($this->entity == 'CommunityContent' || $this->entity == 'BlogContent')
+                $this->_entity = CActiveRecord::model($this->entity)->full()->findByPk($this->entity_id);
+            else
+                $this->_entity = CActiveRecord::model($this->entity)->findByPk($this->entity_id);
+        }
+
+        return $this->_entity;
     }
 }

@@ -129,16 +129,41 @@
             pGallery.start = <?=$photo->id?>;
         </script>
 
-        <div id="photo" class="photo-container">
+        <?php if (in_array(get_class($model), array('CommunityContent', 'Contest'))): ?>
+            <div class="content-cols clearfix">
+                <div class="col-12 photo-banner-hold ">
 
-            <div class="img">
-                <table><tr><td><?=CHtml::image($photo->getPreviewUrl(960, 627, Image::HEIGHT), '')?></td></tr></table>
+                    <div id="photo" class="photo-container">
+
+                        <div class="img">
+                            <table><tr><td><?=CHtml::image($photo->getPreviewUrl(960, 627, Image::HEIGHT), '')?></td></tr></table>
+                        </div>
+
+                        <a href="javascript:void(0)" class="prev"><i class="icon"></i>предыдушая</a>
+                        <a href="javascript:void(0)" class="next"><i class="icon"></i>следующая</a>
+
+                    </div>
+
+                </div>
+
+                <div class="col-3">
+                    <div class="margin-t60">
+                        <?php $this->renderPartial('//banners/adfox'); ?>
+                    </div>
+                </div>
             </div>
+        <?php else: ?>
+            <div id="photo" class="photo-container">
 
-            <a href="javascript:void(0)" class="prev"><i class="icon"></i>предыдушая</a>
-            <a href="javascript:void(0)" class="next"><i class="icon"></i>следующая</a>
+                <div class="img">
+                    <table><tr><td><?=CHtml::image($photo->getPreviewUrl(960, 627, Image::HEIGHT), '')?></td></tr></table>
+                </div>
 
-        </div>
+                <a href="javascript:void(0)" class="prev"><i class="icon"></i>предыдушая</a>
+                <a href="javascript:void(0)" class="next"><i class="icon"></i>следующая</a>
+
+            </div>
+        <?php endif; ?>
 
         <div class="photo-comment photo-container"">
             <p><?=$photo->w_description?></p>

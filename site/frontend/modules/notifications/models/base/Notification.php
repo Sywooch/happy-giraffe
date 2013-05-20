@@ -269,4 +269,13 @@ class Notification extends HMongoModel
     public function getContent(){
         return null;
     }
+
+    /**
+     * Отображаемое количество уведомлений
+     * @return int
+     */
+    public function getVisibleCount()
+    {
+        return 1;
+    }
 }

@@ -11,6 +11,6 @@ if ($check){
 <div class="user-notice-list_markread" style="display: none;">
     <div class="user-notice-list_markread-hold">
         <span class="color-gray">Прочитано</span> <br>
-        <a href="javascript:;" class="a-pseudo" onclick="UserNotification.cancel(this, , '<?=$model->getId() ?>', <?=$model->count ?>)">Отменить?</a>
+        <a href="javascript:;" class="a-pseudo" onclick="UserNotification.cancel(this, '<?=$model->getId() ?>', <?=$model->count ?>)">Отменить?</a>
     </div>
 </div><?php } ?>

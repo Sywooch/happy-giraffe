@@ -62,10 +62,10 @@ var UserNotification = {
     },
     updateCounter: function (diff) {
         var li = $('.top-line-menu_nav_ul .i-notifications');
-        var counter = li.find('.count span.count-red');
-        var c = 0;
-        if (counter.text() != '')
-            c = parseInt(counter.text());
+        var counter = li.find('.count span.count-red span');
+        var c = parseInt(counter.text());
+        if (isNaN(c))
+            c = 0;
 
         var newVal = c + diff;
 

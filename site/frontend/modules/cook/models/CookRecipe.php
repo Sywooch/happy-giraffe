@@ -1021,6 +1021,10 @@ class CookRecipe extends CActiveRecord
             return 'Кулинарный рецепт <span class=\'color-gray\' > ' . $this->title . '</span>';
     }
 
+    /**
+     * Класс используемый в таблице с комментриями
+     * @return string
+     */
     public function getCommentClass()
     {
         return 'CookRecipe';

@@ -42,14 +42,15 @@ Notifications.del = function(el, id) {
 };
 
 Notifications.updateCounter = function(diff) {
+    console.log(diff);
     var li = $('.top-line-menu_nav_ul .i-notifications');
-    var counter = li.find('.count span.count-red');
-    var c = parseInt(counter.find('span').text());
+    var counter = li.find('.count span.count-red span');
+    var c = parseInt(counter.text());
     if (isNaN(c))
         c = 0;
     var newVal = c + diff;
 
-    counter.find('span').text(newVal);
+    counter.text(newVal);
     li.toggleClass('new', newVal != 0);
 };
 

@@ -757,10 +757,10 @@ class CommunityContent extends HActiveRecord
         return $this->type_id == self::TYPE_VIDEO;
     }
 
-    public function getContentTitle()
+    public function getContentTitle($length = 150)
     {
         if ($this->type_id == self::TYPE_STATUS)
-            return Str::truncate($this->getContent()->text, 150);
+            return Str::truncate($this->getContent()->text, $length);
         return $this->title;
     }
 
@@ -769,7 +769,16 @@ class CommunityContent extends HActiveRecord
      */
     public function getPowerTipTitle($full = false)
     {
-        if ($this->getIsFromBlog()) {
+        if ($this->type_id == self::TYPE_STATUS) {
+            if ($this->author_id == Yii::app()->user->id)
+                $t = "Мой статус";
+            else
+                $t = htmlentities("Статус пользователя \"" . $this->author->getFullName() . "\"", ENT_QUOTES, "UTF-8");
+            if (!$full)
+                return $t;
+
+            return $t . htmlentities('<br><span class=\'color-gray\' > ' . $this->getContentTitle(100) . '</span>', ENT_QUOTES, "UTF-8");
+        } elseif ($this->getIsFromBlog()) {
             if ($this->author_id == Yii::app()->user->id)
                 $t = "Мой блог";
             else
@@ -779,6 +788,6 @@ class CommunityContent extends HActiveRecord
         if (!$full)
             return $t;
 
-        return $t.htmlentities('<br>Запись <span class=\'color-gray\' > ' . $this->getContentTitle() . '</span>', ENT_QUOTES, "UTF-8");
+        return $t . htmlentities('<br>Запись <span class=\'color-gray\' > ' . $this->getContentTitle() . '</span>', ENT_QUOTES, "UTF-8");
     }
 }

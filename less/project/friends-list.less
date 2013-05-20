@@ -1,13 +1,22 @@
 .friends-list {
-	margin-bottom: 30px;
+	margin: 30px 0 45px;
 	position: relative;
 
+	.flag {
+		position: relative;
+		top: 1px;
+	}
+	.find-friend-famyli {
+		padding: 0;
+		background: none;
+	}
 	&_i {
 		.inline-block();
 		vertical-align: top;
 		margin: 10px 12px 30px;
 		width: 206px;
 		text-align: center;
+		position: relative;
 	}
 	&_find {
 		display: block;
@@ -40,6 +49,9 @@
 			.border-radius(100px);
 		}
 		&:hover .ava.large:after {display: block;}
+
+		.ie7 &:hover .ava.large:after,
+		.ie8 &:hover .ava.large:after {display: none;}
 	}
 	&_ava-hold:hover &_online{display: none;}
 	&_ava-hold:hover &_close {display: block;}
@@ -60,30 +72,50 @@
 	&_bubble:hover &_ico       {background-position: 0 -30px;}
 	&_bubble:hover &_ico__blog {background-position: -30px -30px;}
 	&_bubble:hover &_ico__photo{background-position: -60px -30px;}
+	&_bubble:hover &_ico__friend-add{background-position: -90px -30px;}
+	&_bubble:hover &_ico__friend-added{background-position: -120px 0px;}
 	&_bubble:hover &_bubble-tx{color: #fff;}
 	&_bubble__photo {
 		bottom: 50px;
 		left: auto;
 		right: 0;
 	}
+	&_bubble__photo:hover {background: #ad80c4;}
 	&_bubble__blog {
 		bottom: 3px;
 		left: auto;
 		right: 35px;
 	}
+	&_bubble__blog:hover {background: #4abafe;}
+	&_bubble__friend-add {
+		bottom: 50px;
+		left: 0;
+		background: #fee652;
+		background: rgba(254,230,82,0.9);
+		display: block;
+	}
+	&_bubble__friend-add:hover {background: #fee652;}
+	&_bubble__friend-added {
+		bottom: 50px;
+		left: 0;
+		background: #dfdedd;
+		display: block;
+	}
+	&_bubble__friend-added:hover {background: #dfdedd;}
 	&_bubble-tx {
 		font-size: 10px;
 		line-height: 10px;
 		color: #cad9ed;
 		text-decoration: none;
+		display: block;
 	}
 	&_online {
 		position: absolute;
 		top: 10px;
 		left: 3px;
-		height: 32px;
+		height: 30px;
 		width: 38px;
-		padding: 6px 0 0;
+		padding: 8px 0 0;
 		background: #0eba23;
 		color: #fff;
 		font-size: 10px;
@@ -107,26 +139,31 @@
 	}
 	&_ico__blog  {background-position: -30px 0;}
 	&_ico__photo {background-position: -60px 0;}
+	&_ico__friend-add {background-position: -90px 0;}
+	&_ico__friend-added {background-position: -120px 0;}
 	&_a {
 		.inline-block();
-		margin: 0 0 3px;
+		margin: 0;
+		line-height: 15px;
 		color: #289fd7;
 		text-decoration: none;
 	}
 	&_a:hover {text-decoration: underline;}
 	&_group {
 		position: relative;
-		line-height: 14px;
+		line-height: 16px;
 	}
+	&_group .btn-middle {margin: 5px 0;}
 	&_group-a {
 		.inline-block();
 		font-size: 11px;
-		line-height: 14px;
+		line-height: 13px;
 		font-family: Tahoma, Arial, Verdana, sans-serif;
 		color: #afafaf;
 		text-decoration: none;
 		border-bottom: 1px dashed #afafaf;
 	}
+	&_group-a.active,
 	&_group-a:hover {
 		border-bottom-color: #f97704;
 		color: #f97704;
@@ -134,7 +171,7 @@
 	&_group-popup {
 		display: none;
 		position: absolute;
-		top: 30px;
+		bottom: 20px;
 		left: 20px;
 		width: 160px;
 		padding: 10px 0;
@@ -148,11 +185,12 @@
 		&:after {
 			content:"";
 			position: absolute;
-			top: -5px;
+			bottom: -5px;
 			left: 50%;
 			width:10px;
 			height:10px;
-			.rotate(45deg);
+			margin-left: -5px;
+			.rotate(-135deg);
 			background:#fff;
 			z-index:1;
 			.box-shadow(-3px -3px 3px rgba(0,0,0,.12));
@@ -186,5 +224,28 @@
 		padding: 0;
 		height: 16px;
 		width: 16px;
+	}
+	&_deleted {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background: #fff;
+		line-height: 16px;
+	}
+	&_deleted-hold {
+		padding: 70px 0 0;
+		width: 200px;
+		height: 130px;
+		border: 2px solid #f5f8fc;
+		.border-radius(105px);
+	}
+	&_row {margin: 5px 0;}
+	&_location {
+		margin:-3px 0 15px;
+		color: #555454;
+		font-size: 11px;
+		line-height: 13px;
 	}
 }

@@ -84,12 +84,13 @@ class NotificationRead
         if ($this->hasNoActiveNotifications() || empty($this->comments))
             return;
 
+        if (method_exists($this->content_model, 'getCommentClass'))
+            $class = $this->content_model->getCommentClass();
+        else
+            $class = get_class($this->content_model);
+
         //находим непрочитанное уведомление
-        $notifications = Notification::model()->getUnreadContentNotifications(
-            Yii::app()->user->id,
-            get_class($this->content_model),
-            $this->content_model->id
-        );
+        $notifications = Notification::model()->getUnreadContentNotifications(Yii::app()->user->id, $class, $this->content_model->id);
 
         //проверяем каждое уведомление
         foreach ($notifications as $notification) {

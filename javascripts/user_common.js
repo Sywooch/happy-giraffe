@@ -181,3 +181,25 @@ function setMessagesHeight() {
     box.find('.dialog .dialog-messages').height(generalH - textareaH - userH);
 
 }
+
+function NotificationsUpdateCounter(diff) {
+    console.log(diff);
+    var li = $('.top-line-menu_nav_ul .i-notifications');
+    var counter = li.find('.count span.count-red span');
+    var c = parseInt(counter.text());
+    if (isNaN(c))
+        c = 0;
+    var newVal = c + diff;
+
+    counter.text(newVal);
+    li.toggleClass('new', newVal != 0);
+}
+
+$(function() {
+    Comet.prototype.receiveNotification = function(result, id) {
+        NotificationsUpdateCounter(result.count);
+    };
+
+    comet.addEvent(1000, 'receiveNotification');
+});
+

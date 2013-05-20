@@ -1,6 +1,6 @@
 var Notifications = {
 
-};
+}
 
 Notifications.open = function() {
     Popup.load('Notifications');
@@ -14,22 +14,22 @@ Notifications.open = function() {
         });
 
     });
-};
+}
 
 Notifications.close = function() {
     $('#user-notifications').remove();
     Popup.unload();
     $('.top-line-menu_nav_ul .i-notifications').removeClass('active');
     $(window).off('resize');
-};
+}
 
 Notifications.toggle = function() {
     (this.isActive()) ? this.close() : this.open();
-};
+}
 
 Notifications.isActive = function() {
     return $('#user-notifications:visible').length > 0;
-};
+}
 
 Notifications.del = function(el, id) {
     var li = $(el).parents('li');
@@ -39,7 +39,7 @@ Notifications.del = function(el, id) {
             $.fn.yiiListView.update('notificationsList');
         }
     });
-};
+}
 
 Notifications.updateCounter = function(diff) {
     console.log(diff);
@@ -52,7 +52,7 @@ Notifications.updateCounter = function(diff) {
 
     counter.text(newVal);
     li.toggleClass('new', newVal != 0);
-};
+}
 
 Notifications.setHeight = function() {
     var box = $('#user-notifications');

@@ -126,6 +126,38 @@ class NotificationGroup extends Notification
         );
     }
 
+
+    /**
+     * Удалить упоминание об удаленном комментарии в уведомлении.
+     * Если в уведомлении только один этот комментарий, удалить всё уведомление
+     *
+     * @param $exist array
+     * @param $attribute string в прочитанных или непрочитанных
+     * @param $comment_id int id комментария
+     */
+    protected function removeCommentId($exist, $attribute, $comment_id)
+    {
+        unset($exist[$attribute][array_search($comment_id, $exist[$attribute])]);
+
+        //если уведомление стало пустым, удаляем
+        if (empty($exist['read_model_ids']) && empty($exist['unread_model_ids'])) {
+            $this->deleteByPk($exist['_id']);
+        } else {
+            //иначе обновляем его
+            $this->getCollection()->update(
+                array('_id' => $exist['_id']),
+                array('$set' => array(
+                    'read_model_ids' => $exist['read_model_ids'],
+                    'unread_model_ids' => $exist['unread_model_ids'],
+                    'count' => ($exist['count'] - 1),
+                ))
+            );
+        }
+
+        if ($attribute == 'unread_model_ids')
+            $this->sendSignal(-1);
+    }
+
     /**
      * Возвращает урл для редиректа пользователя
      * @return string

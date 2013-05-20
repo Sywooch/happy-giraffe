@@ -49,6 +49,46 @@ class NotificationReplyComment extends NotificationGroup
     }
 
     /**
+     * Найти удалить или изменить уведомление, связанное с удаленным комментарием
+     * 1. Если удалили комментарий, на который поступали ответы, удаляем такие
+     * уведомления полностью
+     * 2. Если удалили комментарий-ответ, меняем такое уведомление
+     *
+     * @param $comment Comment
+     */
+    public function fixCommentNotification($comment)
+    {
+        //Если удалили комментарий, на который поступали ответы, удаляем такие уведомления полностью
+        $this->getCollection()->remove(array(
+            'type' => $this->type,
+            'comment_id' => $comment->id,
+        ));
+
+        //Если удалили комментарий-ответ, меняем такое уведомление
+        $query = array(
+            'type' => $this->type,
+            'entity' => $comment->entity,
+            'entity_id' => (int)$comment->entity_id,
+        );
+
+        if (!empty($comment->response_id))
+            $cursor = $this->getCollection()->find(array_merge($query, array('comment_id' => (int)$comment->response_id)));
+        elseif (!empty($comment->quote_id))
+            $cursor = $this->getCollection()->find(array_merge($query, array('comment_id' => (int)$comment->quote_id))); else return;
+
+        while ($cursor->hasNext()) {
+            $exist = $cursor->getNext();
+            if (!isset($exist['read_model_ids']))
+                $exist['read_model_ids'] = array();
+
+            if (in_array($comment->id, $exist['read_model_ids']))
+                $this->removeCommentId($exist, 'read_model_ids', $comment->id);
+            elseif (in_array($comment->id, $exist['unread_model_ids']))
+                $this->removeCommentId($exist, 'unread_model_ids', $comment->id);
+        }
+    }
+
+    /**
      * Создает модель уведомления для удобой работы с ним
      *
      * @param $object array объект, который вернул компонент работы с базой

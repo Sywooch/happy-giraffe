@@ -58,4 +58,28 @@ class NotificationUserContentComment extends NotificationGroup
 
         return $model;
     }
+
+    /**
+     * Найти удалить или изменить уведомление, связанное с удаленным комментарием
+     * @param $comment
+     */
+    public function fixCommentNotification($comment)
+    {
+        $cursor = $this->getCollection()->find(array(
+            'type' => $this->type,
+            'entity' => $comment->entity,
+            'entity_id' => (int)$comment->entity_id,
+        ));
+
+        while ($cursor->hasNext()) {
+            $exist = $cursor->getNext();
+            if (!isset($exist['read_model_ids']))
+                $exist['read_model_ids'] = array();
+
+            if (in_array($comment->id, $exist['read_model_ids']))
+                $this->removeCommentId($exist, 'read_model_ids', $comment->id);
+            elseif (in_array($comment->id, $exist['unread_model_ids']))
+                $this->removeCommentId($exist, 'unread_model_ids', $comment->id);
+        }
+    }
 }

@@ -4,14 +4,16 @@
  * @var $entity_id int
  * @author Alex Kireev <alexk984@gmail.com>
  */
-if ($entity == 'CommunityContent' || $entity == 'BlogContent' || $entity == 'StatusContent' )
+if ($entity == 'CommunityContent' || $entity == 'BlogContent' || $entity == 'StatusContent')
     $model = $entity::model()->resetScope()->full()->findByPk($entity_id);
 else
     $model = $entity::model()->findByPk($entity_id);
 
-$photo = $model->getPhoto();
+if ($model !== null) {
 
-?>
+    $photo = $model->getPhoto();
+
+    ?>
 <div class="user-notice-list_post js-powertip-white"
      data-powertip="<?php if (method_exists($model, 'getPowerTipTitle')) echo $model->getPowerTipTitle() ?>">
     <?php if (!empty($photo)): ?>
@@ -21,4 +23,6 @@ $photo = $model->getPhoto();
         </div>
     <?php endif ?>
     <a href="<?= $model->url ?>" class="user-notice-list_post-a"><?= $model->getContentTitle() ?></a>
-</div>
+    </div><?php } else { ?>
+    <div class="user-notice-list_post js-powertip-white"></div><?php
+}

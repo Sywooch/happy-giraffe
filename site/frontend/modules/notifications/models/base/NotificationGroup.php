@@ -58,6 +58,8 @@ class NotificationGroup extends Notification
                 '$push' => array("unread_model_ids" => (int)$model_id),
             )
         );
+
+        $this->sendSignal();
     }
 
     /**

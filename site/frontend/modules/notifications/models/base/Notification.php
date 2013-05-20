@@ -75,11 +75,10 @@ class Notification extends HMongoModel
         ), array('name' => 'count_index'));
     }
 
-    protected function sendSignal()
+    protected function sendSignal($count = 1)
     {
-        #TODO раскомментировать
-//        $comet = new CometModel;
-//        $comet->send($this->recipient_id, array(), CometModel::TYPE_NEW_NOTIFICATION);
+        $comet = new CometModel;
+        $comet->send($this->recipient_id, array('count' => $count), CometModel::TYPE_NEW_NOTIFICATION);
     }
 
     /**
@@ -152,6 +151,8 @@ class Notification extends HMongoModel
                 'updated' => time(),
             ), $specific_fields)
         );
+
+        $this->sendSignal($count);
     }
 
     /**
@@ -255,20 +256,6 @@ class Notification extends HMongoModel
     {
         $this->getCollection()->remove(array(
             'read_time' => array('$lt' => (time() - 3600 * 24 * 10))
-        ));
-    }
-
-    public function insertTest()
-    {
-        $this->getCollection()->insert(array(
-            "count" => 11,
-            "entity" => "CommunityContent",
-            "entity_id" => 20575,
-            "read" => 0,
-            "recipient_id" => 10,
-            "type" => 2,
-            "unread_model_ids" => array(185674, 208581, 209831, 862657, 862658, 862729, 862730, 862731, 862732, 862733, 862734),
-            "updated" => 168453722
         ));
     }
 

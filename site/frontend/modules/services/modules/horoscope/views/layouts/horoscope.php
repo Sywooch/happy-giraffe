@@ -14,6 +14,10 @@
 
     <div class="side-left">
 
+        <div style="margin-bottom: 40px;">
+            <?php $this->renderPartial('//banners/adfox'); ?>
+        </div>
+
         <div class="banner-box"><a href="<?=$this->createUrl('/horoscope') ?>"><img src="/images/horoscope_sidebar_banner.jpg"></a></div>
 
         <div class="well">

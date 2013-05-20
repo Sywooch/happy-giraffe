@@ -635,8 +635,9 @@ class AlbumPhoto extends HActiveRecord
      */
     public function getPowerTipTitle($full = false)
     {
-        if (empty($this->album))
+        if (empty($this->album)){
             return '';
+        }
 
         $title = htmlentities("Фотоальбом <span class=\'color-gray\' >" . $this->album->title . "</span>", ENT_QUOTES, "UTF-8");
         if (!$full)

@@ -637,7 +637,11 @@ class AlbumPhoto extends HActiveRecord
     {
         if (empty($this->album)){
             if (!empty($this->galleryItem)){
-                return htmlentities("Фотогалерея к записи <span class='color-gray'>" . $this->galleryItem->gallery->content->title . "</span>", ENT_QUOTES, "UTF-8");
+                $post = $this->galleryItem->gallery->content;
+                $t = htmlentities("Фотогалерея к записи <span class='color-gray'>" . $post->title . "</span>", ENT_QUOTES, "UTF-8");
+                if (!$full)
+                    return $t;
+                return htmlentities(("Клуб <span class='color-category " . $post->rubric->community->css_class . "'>" . $post->rubric->community->title . "</span><br>"), ENT_QUOTES, "UTF-8").$t;
             }
             return '';
         }

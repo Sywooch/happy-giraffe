@@ -143,4 +143,16 @@ class NotificationGroup extends Notification
         $comment = Comment::model()->findByPk($comment_id);
         return $comment->getUrl();
     }
+
+    /**
+     * Отображаемое количество уведомлений
+     * @return int
+     */
+    public function getVisibleCount()
+    {
+        if ($this->read == 0)
+            return count($this->unread_model_ids);
+        else
+            return count($this->read_model_ids);
+    }
 }

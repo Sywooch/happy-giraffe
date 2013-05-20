@@ -129,7 +129,7 @@
             pGallery.start = <?=$photo->id?>;
         </script>
 
-        <?php if (in_array(get_class($model), array('CommunityContent', 'Contest'))): ?>
+        <?php if (in_array(get_class($model), array('CommunityContent', 'Contest')) && false): ?>
             <div class="content-cols clearfix">
                 <div class="col-12 photo-banner-hold ">
 
@@ -148,7 +148,7 @@
 
                 <div class="col-3">
                     <div class="margin-t60">
-                        <?php $this->renderPartial('//banners/adfox'); ?>
+
                     </div>
                 </div>
             </div>

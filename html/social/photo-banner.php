@@ -16,7 +16,7 @@
 		<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/header-new.php'; ?>
 		
 		<div id="content" class="clearfix">
-			
+
       <div id="photo-inline" itemscope itemtype="http://schema.org/ImageObject">
         
         <div class="meta">
@@ -33,39 +33,12 @@
             
           </div>
           
-          <br/> <!-- <br/> для примера, нужна 1 из 3 шапок -->
-          
-          <div class="clearfix">
-            
-            <div class="count">
-              3 фото из 158 <a href="" class="btn btn-green-smedium"><span><span>Смотреть весь альбом</span></span></a>
-            </div>
-            
-            <div class="album-title">
-              Фотоальбом <a href="">Дачные вкусняшки</a>
-            </div>
-            
-          </div>
-          
-          <br/> <!-- <br/> для примера, нужна 1 из 3 шапок -->
-          
-          <div class="clearfix">
-            
-            <div class="count">
-              3 фото из 158 <a href="" class="btn btn-green-smedium"><span><span>Смотреть весь альбом</span></span></a>
-            </div>
-            
-            <div class="album-title">
-              Фотоальбом <a href="">Вторые блюда</a><br/>
-              к сервису <a href="">Оформление блюд</a>
-            </div>
-            
-          </div>
-          
+        
         </div>
         
         <div class="title"><h1 itemprop="name">Жареная картошка по-домашнему с беконом</h1></div>
-          
+    <div class="content-cols clearfix">
+	  <div class="col-12">     
         <div class="img">
           
           <div class="user clearfix">
@@ -80,7 +53,7 @@
             <a href="" class="remove"><span class="icon"></span></a>
           </div>
           
-          <img src="/images/example/ex5.jpg" itemprop="contentURL">
+          <img src="http://img.happy-giraffe.ru/thumbs/960x627/112202/66c705439ec058b27656938e5b18561b.JPG" itemprop="contentURL">
           
           <meta itemprop="width" content="250 px">
           <meta itemprop="height" content="250 px">
@@ -90,7 +63,19 @@
         <div class="photo-comment" itemprop="description">Квашеная капуста с клюквой, грибами, соусом, зеленью и еще очень длинный комментарий про это оформление блюда, да нужно двести знаков для этого комментария, уже вроде набралось или нет кто будет считать</div>
         
       </div>
-			
+		<div class="col-3">
+			<div class="margin-t40">
+				<a href=""><img src="http://banners.adfox.ru/130515/adfox/270784/783080.jpg" alt=""></a>
+			</div>
+		</div>
+	</div>
+	</div>	
+        	<div class="content-cols clearfix">
+        		<div class="col-1">
+        			<img src="/images/banner_09.png" alt="">
+        		</div>
+        		<div class="col-23">
+        		
         			<div class="entry-nav clearfix">
 		              <div class="next">
 		                <span>Предыдущая статья</span>
@@ -104,6 +89,7 @@
 					<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/comment.php'; ?>
         		</div>
         	</div>
+		</div>  	
 		
     <div class="push"></div>
     

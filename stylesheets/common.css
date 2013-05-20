@@ -277,6 +277,12 @@ html.top-nav-fixed {
 .margin-t40 {
   margin-top: 40px !important;
 }
+.margin-t60 {
+  margin-top: 60px !important;
+}
+.margin-t90 {
+  margin-top: 90px !important;
+}
 .margin-t-15 {
   margin-top: -15px !important;
 }
@@ -11629,9 +11635,11 @@ body.gallery {
   position: relative;
   padding: 10px 0 20px;
 }
+#photo-window .photo-banner-hold {
+  padding: 0 0 0 20px;
+}
 #photo-window #photo .img {
   position: relative;
-  width: 960px;
   margin: 0 auto;
 }
 #photo-window #photo .img table {
@@ -11642,6 +11650,11 @@ body.gallery {
   vertical-align: middle;
   height: 627px;
   max-width: 960px;
+}
+#photo-window .photo-banner-hold #photo .img table td {
+  height: 520px;
+  max-width: 660px;
+  padding: 0;
 }
 #photo-window #photo .img img {
   display: block;
@@ -11738,12 +11751,15 @@ body.gallery {
   height: 130px;
   background: url(/images/common.png) no-repeat -69px -341px;
   margin-top: -65px;
-  top: 324px;
+  top: 50%;
   left: 20px;
   position: absolute;
 }
 #photo-window #photo .prev:hover .icon {
   background-position: -205px -341px;
+}
+#photo-window .photo-banner-hold #photo .prev .icon {
+  left: 0;
 }
 #photo-window #photo .next {
   display: block;
@@ -11755,18 +11771,24 @@ body.gallery {
   right: 0;
   z-index: 9;
 }
+#photo-window .photo-banner-hold #photo .next {
+  width: 520px;
+}
 #photo-window #photo .next .icon {
   display: block;
   width: 66px;
   height: 130px;
   background: url(/images/common.png) no-repeat -1px -341px;
   margin-top: -65px;
-  top: 324px;
+  top: 50%;
   right: 20px;
   position: absolute;
 }
 #photo-window #photo .next:hover .icon {
   background-position: -137px -341px;
+}
+#photo-window .photo-banner-hold #photo .next .icon {
+  right: 0;
 }
 #photo-window #photo-content {
   background: #fff;

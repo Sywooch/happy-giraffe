@@ -4,6 +4,7 @@
  * @author Alex Kireev <alexk984@gmail.com>
  */
 $comment = Comment::model()->findByPk($comment_id);
+if ($comment !== null){
 ?>
 <div class="user-notice-list_post js-powertip-white" data-powertip="<?= $comment->getPowerTipTitle() ?>">
     <div class="user-notice-list_ava clearfix">
@@ -14,4 +15,8 @@ $comment = Comment::model()->findByPk($comment_id);
             <?=Str::truncate($comment->purified->text, 230) ?>
         </div>
     </div>
-</div>
+</div><?php }else{ ?>
+    <div class="user-notice-list_post js-powertip-white">
+
+    </div>
+<?php }

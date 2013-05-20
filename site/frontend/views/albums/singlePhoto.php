@@ -83,7 +83,7 @@
                 <?php endif; ?>
             </div>
             <div class="col-3">
-                <div class="margin-t40">
+                <div class="margin-t30">
                     <?php $this->renderPartial('//banners/adfox'); ?>
                 </div>
             </div>

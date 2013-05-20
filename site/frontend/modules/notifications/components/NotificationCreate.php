@@ -90,7 +90,7 @@ class NotificationCreate
     }
 
     /**
-     * Создаем уведомления о лайках за последние 24 часа
+     * Создаем summary-уведомление о лайках за последние 24 часа
      *
      */
     public static function generateLikes()

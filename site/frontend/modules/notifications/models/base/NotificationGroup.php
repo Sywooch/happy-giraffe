@@ -2,15 +2,27 @@
 /**
  * Class NotificationNewComment
  *
- * Уведомление пользователю о новом комментарии
+ * Уведомление пользователю о новом комментарии с возможностью группировки
  *
  * @author Alex Kireev <alexk984@gmail.com>
  */
 class NotificationGroup extends Notification
 {
+    /**
+     * @var string Класс сущности
+     */
     public $entity;
+    /**
+     * @var int id сущности
+     */
     public $entity_id;
+    /**
+     * @var array массив id непрочитанных комментариев уведомления
+     */
     public $unread_model_ids = array();
+    /**
+     * @var array массив id прочитанных комментариев уведомления
+     */
     public $read_model_ids = array();
 
     /**

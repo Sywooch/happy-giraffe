@@ -13,6 +13,9 @@ class NotificationReplyComment extends NotificationGroup
      */
     private static $_instance;
     public $type = self::REPLY_COMMENT;
+    /**
+     * @var int id комментария пользователя на который он получает ответы
+     */
     public $comment_id;
 
     public function __construct()

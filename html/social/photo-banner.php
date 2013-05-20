@@ -65,7 +65,7 @@
       </div>
 		<div class="col-3">
 			<div class="margin-t40">
-				<a href=""><img src="http://banners.adfox.ru/130515/adfox/270784/783080.jpg" alt=""></a>
+				<a href=""><img src="/images/contest/banner-w240-10.jpg" alt=""></a>
 			</div>
 		</div>
 	</div>

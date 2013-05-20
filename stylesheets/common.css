@@ -11801,6 +11801,11 @@ body.gallery {
   margin: auto;
   max-width: 100%;
 }
+.ie7 #photo-window .photo-banner-hold #photo .img img,
+.ie8 #photo-window .photo-banner-hold #photo .img img,
+.ie9 #photo-window .photo-banner-hold #photo .img img {
+  width: 100%;
+}
 #photo-window #photo .img .title {
   display: block;
   position: absolute;

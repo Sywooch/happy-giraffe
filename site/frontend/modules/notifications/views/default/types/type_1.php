@@ -10,7 +10,7 @@
     <div class="user-notice-list_deed">
         <span class="user-notice_ico user-notice_ico__answer"></span>
         <a href="<?=$model->getUrl() ?>" class="user-notice-list_a-big"><?= $model->getVisibleCount() ?></a>
-        <span class="user-notice-list_deed-desc">новые ответы на ваш комментарий</span>
+        <span class="user-notice-list_deed-desc"><?= Yii::app()->user->getModel()->first_name ?>, новые ответы на ваш комментарий</span>
     </div>
     <?php $this->renderPartial('comment_preview', array('comment_id' => $model->comment_id)); ?>
     <?php $this->renderPartial('set_read', array('model' => $model, 'check' => $check)); ?>

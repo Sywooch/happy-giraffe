@@ -50,8 +50,6 @@ class NotificationGroup extends Notification
             $this->update($exist, $model_id);
         } else
             $this->insert($model_id, $params);
-
-        $this->sendSignal();
     }
 
     /**

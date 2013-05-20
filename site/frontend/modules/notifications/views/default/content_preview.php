@@ -4,7 +4,7 @@
  * @var $entity_id int
  * @author Alex Kireev <alexk984@gmail.com>
  */
-if ($entity == 'CommunityContent' || $entity == 'BlogContent')
+if ($entity == 'CommunityContent' || $entity == 'BlogContent' || $entity == 'StatusContent' )
     $model = $entity::model()->resetScope()->full()->findByPk($entity_id);
 else
     $model = $entity::model()->findByPk($entity_id);

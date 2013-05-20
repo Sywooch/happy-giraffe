@@ -1269,6 +1269,14 @@
   border-width: 10px 9px 10px 0;
   border-right-color: #e1f4ff;
 }
+.user-notice-list_comment-text > a {
+  color: #555555;
+  text-decoration: none;
+}
+.user-notice-list_comment-text > a:hover {
+  color: #029AD2;
+  text-decoration: underline;
+}
 .settings .RadioLabelClass,
 .dialog .CheckBoxLabelClass {
   background: url(../images/radio.png) no-repeat;

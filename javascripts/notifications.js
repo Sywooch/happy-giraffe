@@ -44,12 +44,12 @@ Notifications.del = function(el, id) {
 Notifications.updateCounter = function(diff) {
     var li = $('.top-line-menu_nav_ul .i-notifications');
     var counter = li.find('.count span.count-red');
-    var c = parseInt(counter.text());
+    var c = parseInt(counter.find('span').text());
     if (isNaN(c))
         c = 0;
     var newVal = c + diff;
 
-    counter.text(newVal);
+    counter.find('span').text(newVal);
     li.toggleClass('new', newVal != 0);
 };
 

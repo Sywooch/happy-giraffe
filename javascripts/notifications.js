@@ -1,6 +1,6 @@
 var Notifications = {
 
-}
+};
 
 Notifications.open = function() {
     Popup.load('Notifications');
@@ -14,22 +14,22 @@ Notifications.open = function() {
         });
 
     });
-}
+};
 
 Notifications.close = function() {
     $('#user-notifications').remove();
     Popup.unload();
     $('.top-line-menu_nav_ul .i-notifications').removeClass('active');
     $(window).off('resize');
-}
+};
 
 Notifications.toggle = function() {
     (this.isActive()) ? this.close() : this.open();
-}
+};
 
 Notifications.isActive = function() {
     return $('#user-notifications:visible').length > 0;
-}
+};
 
 Notifications.del = function(el, id) {
     var li = $(el).parents('li');
@@ -39,16 +39,19 @@ Notifications.del = function(el, id) {
             $.fn.yiiListView.update('notificationsList');
         }
     });
-}
+};
 
 Notifications.updateCounter = function(diff) {
     var li = $('.top-line-menu_nav_ul .i-notifications');
     var counter = li.find('.count span.count-red');
-    var newVal = parseInt(counter.text()) + diff;
+    var c = parseInt(counter.text());
+    if (isNaN(c))
+        c = 0;
+    var newVal = c + diff;
 
     counter.text(newVal);
     li.toggleClass('new', newVal != 0);
-}
+};
 
 Notifications.setHeight = function() {
     var box = $('#user-notifications');
@@ -62,14 +65,14 @@ Notifications.setHeight = function() {
     if (generalH < 400) generalH = 400;
 
     box.find('.notifications ul').css('max-height', generalH);
-}
+};
 
 $(function() {
     Comet.prototype.receiveNotification = function(result, id) {
-        Notifications.updateCounter(1);
-        if (Notifications.isActive())
-            $(result.html).hide().prependTo('#notificationsList .items').fadeIn();
-    }
+        Notifications.updateCounter(result.count);
+        //if (Notifications.isActive())
+        //    $(result.html).hide().prependTo('#notificationsList .items').fadeIn();
+    };
 
     comet.addEvent(1000, 'receiveNotification');
 });

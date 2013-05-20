@@ -81,7 +81,9 @@ class NotificationRead
      */
     public function SetVisited()
     {
-        if ($this->hasNoActiveNotifications() || empty($this->comments) || $this->content_model == null)
+        if (Yii::app()->user->isGuest || $this->hasNoActiveNotifications()
+            || empty($this->comments) || $this->content_model == null
+        )
             return;
 
         if (method_exists($this->content_model, 'getCommentClass'))
@@ -127,7 +129,7 @@ class NotificationRead
      */
     public static function setReadLikes($notifications)
     {
-        foreach($notifications as $notification)
+        foreach ($notifications as $notification)
             if ($notification->type == Notification::NEW_LIKE)
                 $notification->setRead();
     }

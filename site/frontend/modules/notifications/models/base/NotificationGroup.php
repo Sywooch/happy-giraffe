@@ -153,6 +153,6 @@ class NotificationGroup extends Notification
         if ($this->read == 0)
             return count($this->unread_model_ids);
         else
-            return count($this->read_model_ids);
+            return count($this->unread_model_ids) + count($this->read_model_ids);
     }
 }

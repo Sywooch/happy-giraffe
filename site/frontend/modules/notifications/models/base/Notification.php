@@ -234,6 +234,7 @@ class Notification extends HMongoModel
     }
 
     /**
+     * Создаение объекта из массива для удобной работы с ним
      * @param $object
      * @return Notification|null
      */
@@ -252,6 +253,9 @@ class Notification extends HMongoModel
         return null;
     }
 
+    /**
+     * Удаление старых уведомлений, которые были прочитаны более 10-ти дней назад
+     */
     public function removeOldReadNotifications()
     {
         $this->getCollection()->remove(array(

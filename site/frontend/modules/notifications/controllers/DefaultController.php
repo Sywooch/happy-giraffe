@@ -17,6 +17,7 @@ class DefaultController extends HController
 
     public function actionIndex($page = 0)
     {
+        $this->pageTitle = 'Новые уведомления';
         $list = Notification::model()->getNotificationsList(Yii::app()->user->id, 0, $page);
         NotificationRead::setReadLikes($list);
         if (Yii::app()->request->isAjaxRequest)
@@ -27,6 +28,7 @@ class DefaultController extends HController
 
     public function actionRead($page = 0)
     {
+        $this->pageTitle = 'Прочитанные уведомления';
         $list = Notification::model()->getNotificationsList(Yii::app()->user->id, 1, $page);
         if (Yii::app()->request->isAjaxRequest)
             $this->renderPartial('list', array('list' => $list, 'check' => false));

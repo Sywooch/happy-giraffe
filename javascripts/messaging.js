@@ -69,10 +69,15 @@ function Thread(data, parent) {
     }
 
     self.changeReadStatus = function(newReadStatus) {
-        var newUnreadCount = newReadStatus == 0 ? 1 : 0;
-        $.post('/messaging/threads/changeReadStatus/', { threadId : self.id(), readStatus: newReadStatus }, function(response) {
-            self.unreadCount(newUnreadCount);
-        }, 'json');
+        var currentReadStatus = self.unreadCount() == 0 ? 1 : 0;
+        if (currentReadStatus != newReadStatus) {
+            var newUnreadCount = newReadStatus == 0 ? 1 : 0;
+            $.post('/messaging/threads/changeReadStatus/', { threadId : self.id(), readStatus: newReadStatus }, function(response) {
+                self.unreadCount(newUnreadCount);
+
+                newReadStatus == 0 ? parent.newContactsCount(parent.newContactsCount() + 1) : parent.newContactsCount(parent.newContactsCount() - 1);
+            }, 'json');
+        }
     }
 
     self.toggleHiddenStatus = function() {
@@ -176,6 +181,10 @@ function Message(data, parent) {
 function MessagingViewModel(data) {
     var self = this;
 
+    self.newContactsCount = ko.observable(data.counters[0]);
+    self.onlineContactsCount = ko.observable(data.counters[1]);
+    self.friendsContactsCount = ko.observable(data.counters[2]);
+
     self.editingMessageId = ko.observable(null);
     self.uploadedImages = ko.observableArray([]);
     self.tab = ko.observable(0);
@@ -184,7 +193,7 @@ function MessagingViewModel(data) {
         return new Contact(contact, self);
     }));
     self.messages = ko.observableArray([]);
-    self.openContactIndex = ko.observable(null);
+    self.openContactInterlocutorId = ko.observable(null);
     self.interlocutor = ko.observable('');
     self.me = new User(data.me, self);
     self.loadingMessages = ko.observable(false);
@@ -230,12 +239,12 @@ function MessagingViewModel(data) {
     }
 
     self.openThread = function(contact) {
-        if (self.openContactIndex() !== null) {
+        if (self.openContactInterlocutorId() !== null) {
             self.openContact().draftText = CKEDITOR.instances['im-editor'].getData();
             self.openContact().draftImages = self.uploadedImages();
         }
 
-        self.openContactIndex(self.contacts().indexOf(contact));
+        self.openContactInterlocutorId(contact.user().id());
         CKEDITOR.instances['im-editor'].setData(self.openContact().draftText, function() {
             CKEDITOR.instances['im-editor'].focus();
         });
@@ -286,7 +295,7 @@ function MessagingViewModel(data) {
 
     self.openContact = ko.computed(function() {
         return ko.utils.arrayFirst(self.contacts(), function(contact) {
-            return self.contacts().indexOf(contact) === self.openContactIndex();
+            return contact.user().id() === self.openContactInterlocutorId();
         });
     }, this);
 
@@ -464,6 +473,7 @@ function MessagingViewModel(data) {
             self.contacts(ko.utils.arrayMap(response.contacts, function(contact) {
                 return new Contact(contact, self);
             }));
+            self.openThread(self.contactsToShow()[0]);
         });
     }
 
@@ -556,15 +566,6 @@ function MessagingViewModel(data) {
         }
     }
 
-    self.populateContacts = function(data) {
-        ko.utils.arrayForEach(data, function(contact) {
-            if (self.findByInterlocutorId(contact.user.id) === null)
-                self.contacts.push(new Contact(contact, self));
-        });
-    }
-
-    self.populateContacts(data.contacts);
-
     soundManager.setup({
         url: '/swf/',
         debugMode: false,
@@ -597,13 +598,26 @@ function MessagingViewModel(data) {
 
         Comet.prototype.receiveMessage = function (result, id) {
             var contact = self.findByInterlocutorId(result.contact.user.id);
+
             if (contact === null) {
                 contact = new Contact(result.contact, self);
                 self.contacts.push(contact);
+
+                self.newContactsCount(self.newContactsCount() + 1);
+                if (contact.user().online())
+                    self.onlineContactsCount(self.onlineContactsCount() + 1);
             } else if (contact.thread() === null) {
-                contact.thread(new Thread(result.contact.thread, self))
-            } else
+                contact.thread(new Thread(result.contact.thread, self));
+
+                self.newContactsCount(self.newContactsCount() + 1);
+                if (contact.user().online())
+                    self.onlineContactsCount(self.onlineContactsCount() + 1);
+            } else {
                 contact.thread().updated(result.time);
+
+                if (contact.thread().unreadCount() == 0)
+                    self.newContactsCount(self.newContactsCount() + 1);
+            }
 
             contact.thread().inc();
             if (self.openContact().user().id() == contact.user().id()) {

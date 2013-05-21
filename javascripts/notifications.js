@@ -42,9 +42,13 @@ Notifications.del = function(el, id) {
 }
 
 Notifications.updateCounter = function(diff) {
+    console.log(diff);
     var li = $('.top-line-menu_nav_ul .i-notifications');
-    var counter = li.find('.count span.count-red');
-    var newVal = parseInt(counter.text()) + diff;
+    var counter = li.find('.count span.count-red span');
+    var c = parseInt(counter.text());
+    if (isNaN(c))
+        c = 0;
+    var newVal = c + diff;
 
     counter.text(newVal);
     li.toggleClass('new', newVal != 0);
@@ -62,14 +66,15 @@ Notifications.setHeight = function() {
     if (generalH < 400) generalH = 400;
 
     box.find('.notifications ul').css('max-height', generalH);
-}
+};
 
 $(function() {
     Comet.prototype.receiveNotification = function(result, id) {
+        //Notifications.updateCounter(result.count);
         Notifications.updateCounter(1);
         if (Notifications.isActive())
             $(result.html).hide().prependTo('#notificationsList .items').fadeIn();
-    }
+    };
 
     comet.addEvent(1000, 'receiveNotification');
 });

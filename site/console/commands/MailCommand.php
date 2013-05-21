@@ -124,8 +124,8 @@ class MailCommand extends CConsoleCommand
         $works = ContestWork::model()->findAll('contest_id=' . $last_contest);
 
         foreach ($works as $work) {
-            echo $work->id."\n";
-            Yii::app()->email->send($work->user_id, 'contest_continue', array('user' => $work->author, 'work' => $work), $this);
+            echo $work->user_id."\n";
+            Yii::app()->email->send((int)$work->user_id, 'contest_continue', array('user' => $work->author, 'work' => $work), $this);
         }
     }
 

@@ -38,98 +38,47 @@
         <div class="title"><h1 itemprop="name"><?=$photo->w_title?></h1></div>
     <?php endif; ?>
 
-    <?php if (in_array(get_class($model), array('CommunityContentGallery', 'Contest')) && false): ?>
-        <div class="content-cols clearfix">
-            <div class="col-12">
-                <div class="img">
-                    <div class="user clearfix">
 
-                        <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
-                            'user' => $photo->author,
-                            'size' => 'small',
-                            'sendButton' => false,
-                            'location' => false
-                        )); ?>
+    <div class="img">
 
-                        <?php if (get_class($model) == 'Contest' && Yii::app()->user->checkAccess('removeContestWork')): ?>
-                            <?php
-                            $this->widget('site.frontend.widgets.removeWidget.RemoveWidget', array(
-                                'model' => $photo->getAttachByEntity('ContestWork')->model,
-                                'callback' => 'ContestWorkDelete',
-                            ));
+        <div class="user clearfix">
 
-                            Yii::app()->clientScript->registerScript('removeContestWork', 'function ContestWorkDelete() {
-                            window.location.href = "' . $model->url . '"
-                         }',
-                                CClientScript::POS_HEAD);
-                            ?>
-                        <?php endif; ?>
+            <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
+                'user' => $photo->author,
+                'size' => 'small',
+                'sendButton' => false,
+                'location' => false
+            )); ?>
 
-                    </div>
+            <?php if (get_class($model) == 'Contest' && Yii::app()->user->checkAccess('removeContestWork')): ?>
+                <?php
+                    $this->widget('site.frontend.widgets.removeWidget.RemoveWidget', array(
+                        'model' => $photo->getAttachByEntity('ContestWork')->model,
+                        'callback' => 'ContestWorkDelete',
+                    ));
 
-                    <?php if ($photo->w_title): ?>
-                        <?=CHtml::image($photo->getPreviewUrl(960, 627, Image::HEIGHT, true), $photo->w_title, array('itemprop' => 'contentURL', 'title'=>$photo->w_title))?>
-                    <?php else: ?>
-                        <?=CHtml::image($photo->getPreviewUrl(960, 627, Image::HEIGHT, true), '', array('itemprop' => 'contentURL'))?>
-                    <?php endif; ?>
-
-                    <meta itemprop="width" content="<?=$photo->width?> px">
-                    <meta itemprop="height" content="<?=$photo->height?> px">
-
-                </div>
-
-                <?php if ($photo->w_description): ?>
-                    <div class="photo-comment" itemprop="description"><?=$photo->w_description?></div>
-                <?php endif; ?>
-            </div>
-            <div class="col-3">
-                <div class="margin-t30">
-                    <?php $this->renderPartial('//banners/adfox'); ?>
-                </div>
-            </div>
-        </div>
-    <?php else: ?>
-        <div class="img">
-
-            <div class="user clearfix">
-
-                <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
-                    'user' => $photo->author,
-                    'size' => 'small',
-                    'sendButton' => false,
-                    'location' => false
-                )); ?>
-
-                <?php if (get_class($model) == 'Contest' && Yii::app()->user->checkAccess('removeContestWork')): ?>
-                    <?php
-                        $this->widget('site.frontend.widgets.removeWidget.RemoveWidget', array(
-                            'model' => $photo->getAttachByEntity('ContestWork')->model,
-                            'callback' => 'ContestWorkDelete',
-                        ));
-
-                         Yii::app()->clientScript->registerScript('removeContestWork', 'function ContestWorkDelete() {
-                            window.location.href = "' . $model->url . '"
-                         }',
-                         CClientScript::POS_HEAD);
-                    ?>
-                <?php endif; ?>
-
-            </div>
-
-            <?php if ($photo->w_title): ?>
-                <?=CHtml::image($photo->getPreviewUrl(960, 627, Image::HEIGHT, true), $photo->w_title, array('itemprop' => 'contentURL', 'title'=>$photo->w_title))?>
-            <?php else: ?>
-                <?=CHtml::image($photo->getPreviewUrl(960, 627, Image::HEIGHT, true), '', array('itemprop' => 'contentURL'))?>
+                     Yii::app()->clientScript->registerScript('removeContestWork', 'function ContestWorkDelete() {
+                        window.location.href = "' . $model->url . '"
+                     }',
+                     CClientScript::POS_HEAD);
+                ?>
             <?php endif; ?>
 
-            <meta itemprop="width" content="<?=$photo->width?> px">
-            <meta itemprop="height" content="<?=$photo->height?> px">
-
         </div>
 
-        <?php if ($photo->w_description): ?>
-            <div class="photo-comment" itemprop="description"><?=$photo->w_description?></div>
+        <?php if ($photo->w_title): ?>
+            <?=CHtml::image($photo->getPreviewUrl(960, 627, Image::HEIGHT, true), $photo->w_title, array('itemprop' => 'contentURL', 'title'=>$photo->w_title))?>
+        <?php else: ?>
+            <?=CHtml::image($photo->getPreviewUrl(960, 627, Image::HEIGHT, true), '', array('itemprop' => 'contentURL'))?>
         <?php endif; ?>
+
+        <meta itemprop="width" content="<?=$photo->width?> px">
+        <meta itemprop="height" content="<?=$photo->height?> px">
+
+    </div>
+
+    <?php if ($photo->w_description): ?>
+        <div class="photo-comment" itemprop="description"><?=$photo->w_description?></div>
     <?php endif; ?>
 
 </div>

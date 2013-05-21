@@ -78,6 +78,8 @@ class AlbumsController extends HController
 
     public function actionUser($id)
     {
+        Visit::processVisit();
+
         $user = User::model()->with('avatar', 'status')->findByPk($id);
         $this->user = $user;
         if (!$user || $user->deleted)
@@ -793,6 +795,7 @@ class AlbumsController extends HController
         $this->pageTitle = $photo->w_title . ' - ' . strip_tags($collection['title']);
         $this->layout = '//layouts/main';
 
+        NotificationRead::getInstance()->setContentModel($photo);
         if (! Yii::app()->user->isGuest)
             UserNotification::model()->deleteByEntity($photo, Yii::app()->user->id);
 

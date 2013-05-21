@@ -48,7 +48,7 @@
         ->registerScriptFile('/javascripts/addtocopy.js')
         ->registerScriptFile('/javascripts/tooltipsy.min.js')
         ->registerScriptFile('http://vk.com/js/api/share.js?11')
-        ->registerScriptFile('/javascripts/adfox.asyn.code.ver3.js')
+        ->registerScriptFile('/javascripts/fox.js')
     ;
 
 
@@ -89,6 +89,7 @@
 
         <?php if (! Yii::app()->user->isGuest): ?>
         <?php
+        //$notificationsCount = Notification::model()->getUnreadCount();
         $notificationsCount = UserNotification::model()->getUserCount(Yii::app()->user->id);
         $friendsCount = FriendRequest::model()->getUserCount(Yii::app()->user->id);
         $imCount = Im::model()->getUnreadMessagesCount(Yii::app()->user->id);
@@ -128,7 +129,7 @@
                 </li>
                 <?php endif; ?>
                 <li class="i-friends top-line-menu_nav_li js-tooltipsy<?php if ($friendsCount > 0): ?> new<?php endif; ?>" title="Мои друзья">
-                    <a href="javascript:void(0)" onclick="Friends.toggle()">
+                    <a href="<?=$this->createUrl('/friends/default/index')?>">
                         <i class="icon-friends"></i>
                         <span class="count"><span class="count-red"><?=$friendsCount?></span></span>
                     </a>

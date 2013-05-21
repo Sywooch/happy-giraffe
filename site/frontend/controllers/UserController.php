@@ -92,10 +92,6 @@ class UserController extends HController
         //    throw new CHttpException(403, 'Вы не можете просматривать страницу этого пользователя');
 
         $this->pageTitle = $user->fullName . ' на Веселом Жирафе';
-
-        if (!Yii::app()->user->isGuest)
-            UserNotification::model()->deleteByEntity($user, Yii::app()->user->id);
-
         $this->render('profile', array(
             'user' => $user,
         ));

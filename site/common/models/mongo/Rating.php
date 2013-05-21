@@ -11,6 +11,18 @@ class Rating extends EMongoDocument
         return 'ratings';
     }
 
+    public function indexes()
+    {
+        return array(
+            'entity_find' => array(
+                'key' => array(
+                    'entity_id' => 1,
+                    'entity_name' => 1
+                )
+            )
+        );
+    }
+
     /**
      * @static
      * @param string $className
@@ -25,18 +37,6 @@ class Rating extends EMongoDocument
     {
         return array(
             array('entity_id, entity_name, ratings', 'safe'),
-        );
-    }
-
-    public function indexes()
-    {
-        return array(
-            'entity_find' => array(
-                'key' => array(
-                    'entity_id' => -1,
-                    'entity_name' => 1
-                )
-            )
         );
     }
 
@@ -76,6 +76,7 @@ class Rating extends EMongoDocument
         $criteria->entity_id('==', $entity_id);
         $criteria->entity_name('==', $entity_name);
         $model = $this->find($criteria);
+
         if ($model)
             return $model;
         return false;
@@ -112,10 +113,6 @@ class Rating extends EMongoDocument
             $entity->rate = $model->sum;
             $entity->save(false);
         }
-
-//        if (isset($entity->author_id)) {
-//            UserScores::addScores($entity->author_id, ScoreAction::ACTION_LIKE, $model->sum - $old_sum, $entity);
-//        }
 
         $model->save();
     }

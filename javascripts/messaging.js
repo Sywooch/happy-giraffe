@@ -239,7 +239,7 @@ function MessagingViewModel(data) {
     }
 
     self.openThread = function(contact) {
-        if (self.openContactInterlocutorId() !== null) {
+        if (self.openContact() !== null) {
             self.openContact().draftText = CKEDITOR.instances['im-editor'].getData();
             self.openContact().draftImages = self.uploadedImages();
         }

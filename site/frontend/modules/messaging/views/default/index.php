@@ -29,13 +29,13 @@
                 <div class="im-panel" data-bind="if: interlocutor() != '', css: { 'im-panel__big' : interlocutorExpandedSetting }">
                     <div class="im-panel-icons">
                         <div class="im-panel-icons_i" data-bind="visible: ! interlocutor().user().isFriend()">
-                            <a href="javascript:void(0)" class="im-panel-icons_i-a im-tooltipsy" data-bind="click: addFriend, css: { 'im-panel-icons_i-a__request' : interlocutor().inviteSent() }, tooltip: 'Добавить в друзья'">
+                            <a href="javascript:void(0)" class="im-panel-icons_i-a im-tooltipsy" data-bind="click: addFriend, css: { 'im-panel-icons_i-a__request' : interlocutor().inviteSent() }">
                                 <span class="im-panel-ico im-panel-ico__add-friend"></span>
                                 <span class="im-panel-icons_desc" data-bind="html: interlocutor().inviteSent() ? 'Запрос <br> отправлен' : 'Добавить <br> в друзья'"></span>
                             </a>
                         </div>
                         <div class="im-panel-icons_i" data-bind="css: { active : interlocutor().toBlackList() }">
-                            <a href="javascript:void(0)" class="im-panel-icons_i-a  im-tooltipsy" data-bind="click: interlocutor().blockHandler, tooltip: 'Заблокировать пользователя'">
+                            <a href="javascript:void(0)" class="im-panel-icons_i-a  im-tooltipsy" title="Заблокировать пользователя" data-bind="click: interlocutor().blockHandler">
                                 <span class="im-panel-ico im-panel-ico__blacklist"></span>
                                 <span class="im-panel-icons_desc">Заблокировать <br> пользователя</span>
                             </a>
@@ -52,8 +52,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="im-panel-icons_i" data-bind="if: openContact().thread() !== null && messagesToShow().length > 0">
-                            <a href="javascript:void(0)" class="im-panel-icons_i-a im-tooltipsy" data-bind="click: openContact().thread().deleteMessages, tooltip: 'Удалить весь диалог'">
+                        <div class="im-panel-icons_i" data-bind="if: openContact() !== null && openContact().thread() !== null && messagesToShow().length > 0">
+                            <a href="javascript:void(0)" class="im-panel-icons_i-a im-tooltipsy" title="Удалить весь диалог" data-bind="click: openContact().thread().deleteMessages">
                                 <span class="im-panel-ico im-panel-ico__del"></span>
                                 <span class="im-panel-icons_desc">Удалить <br> весь диалог</span>
                             </a>

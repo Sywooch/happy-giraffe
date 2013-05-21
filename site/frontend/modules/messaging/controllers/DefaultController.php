@@ -85,6 +85,7 @@ class DefaultController extends HController
         );
 
         $data = CJSON::encode(compact('contacts', 'interlocutorId', 'me', 'settings', 'counters'));
+        $this->pageTitle = 'Мои диалоги';
         $this->render('index', compact('data'));
     }
 

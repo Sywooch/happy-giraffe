@@ -184,7 +184,7 @@
     <?php endif ?>
 <div class="layout-container">
 <div class="layout-container_hold">
-<div id="layout" class="layout-wrapper">
+<div id="layout" class="layout-wrapper clearfix">
     <?=$content ?>
 </div>
 

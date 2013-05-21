@@ -129,7 +129,7 @@ if (get_class($model) == 'Contest') {
             pGallery.start = <?=$photo->id?>;
         </script>
 
-        <?php if (in_array(get_class($model), array('CommunityContentGallery', 'Contest'))): ?>
+        <?php if (in_array(get_class($model), array('CommunityContentGallery', 'Contest')) && false): ?>
             <div class="content-cols clearfix">
                 <div class="col-12 photo-banner-hold ">
 

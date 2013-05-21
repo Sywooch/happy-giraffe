@@ -145,11 +145,15 @@
         </a>
         <a class="friends-list_bubble friends-list_bubble__photo powertip" data-bind="attr: { href : albumsUrl }, tooltip: 'Фотографии'">
             <span class="friends-list_ico friends-list_ico__photo"></span>
-            <!--<span class="friends-list_bubble-tx">+50</span>-->
+            <!-- ko if: $root.activeTab() != 2 -->
+            <span class="friends-list_bubble-tx" data-bind="visible: $parent.pCount() > 0, text: '+' + $parent.pCount()"></span>
+            <!-- /ko -->
         </a>
         <a class="friends-list_bubble friends-list_bubble__blog powertip" data-bind="attr: { href : blogUrl }, tooltip: 'Записи в блоге'">
             <span class="friends-list_ico friends-list_ico__blog"></span>
-            <!--<span class="friends-list_bubble-tx">+999</span>-->
+            <!-- ko if: $root.activeTab() != 2 -->
+            <span class="friends-list_bubble-tx" data-bind="visible: $parent.bCount() > 0, text: '+' + $parent.bCount()"></span>
+            <!-- /ko -->
         </a>
     </div>
     <a class="friends-list_a" data-bind="text: fullName, attr: { href : url }"></a>

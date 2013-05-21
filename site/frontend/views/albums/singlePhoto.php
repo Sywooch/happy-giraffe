@@ -38,7 +38,7 @@
         <div class="title"><h1 itemprop="name"><?=$photo->w_title?></h1></div>
     <?php endif; ?>
 
-    <?php if (in_array(get_class($model), array('CommunityContentGallery', 'Contest'))): ?>
+    <?php if (in_array(get_class($model), array('CommunityContentGallery', 'Contest')) && false): ?>
         <div class="content-cols clearfix">
             <div class="col-12">
                 <div class="img">

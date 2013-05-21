@@ -18,13 +18,14 @@
 		<div id="content" class="clearfix">
 			
       <div id="photo-inline" itemscope itemtype="http://schema.org/ImageObject">
-        
+       <div class="photo-inline_top">  
         <div class="meta">
           
           <div class="clearfix">
             
             <div class="count">
-              3 фото из 158 <a href="" class="btn btn-green-smedium"><span><span>Смотреть весь альбом</span></span></a>
+              <span class="count-tx">3 фото из 158</span>
+              <a href="" class="btn-green">Смотреть весь альбом</a>
             </div>
             
             <div class="album-title">
@@ -38,11 +39,12 @@
           <div class="clearfix">
             
             <div class="count">
-              3 фото из 158 <a href="" class="btn btn-green-smedium"><span><span>Смотреть весь альбом</span></span></a>
+              <span class="count-tx">3 фото из 158</span>
+              <a href="" class="btn-green">Смотреть весь альбом</a>
             </div>
             
             <div class="album-title">
-              Фотоальбом <a href="">Дачные вкусняшки</a>
+              Фотоальбом <br><a href="">Дачные вкусняшки</a>
             </div>
             
           </div>
@@ -52,7 +54,8 @@
           <div class="clearfix">
             
             <div class="count">
-              3 фото из 158 <a href="" class="btn btn-green-smedium"><span><span>Смотреть весь альбом</span></span></a>
+              <span class="count-tx">3 фото из 158</span>
+              <a href="" class="btn-green">Смотреть весь альбом</a>
             </div>
             
             <div class="album-title">
@@ -65,7 +68,7 @@
         </div>
         
         <div class="title"><h1 itemprop="name">Жареная картошка по-домашнему с беконом</h1></div>
-          
+        </div> 
         <div class="img">
           
           <div class="user clearfix">

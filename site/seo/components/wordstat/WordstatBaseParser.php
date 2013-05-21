@@ -84,7 +84,7 @@ class WordstatBaseParser extends ProxyParserThread
         $html = str_replace('&mdash;', '—', $html);
 
         if (preg_match('/— ([\d]+) показ[ов]*[а]* в месяц/', $html, $matches)) {
-            $this->log('valid page, wordstat: ' . $matches[1], true);
+            $this->log('valid page, wordstat: ' . $matches[1]);
             return $matches[1];
         } else
             return false;

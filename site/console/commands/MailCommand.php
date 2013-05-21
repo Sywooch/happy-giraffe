@@ -25,7 +25,7 @@ class MailCommand extends CConsoleCommand
         }
 
         $articles = Favourites::model()->getWeekPosts();
-        echo count($articles)."\n";
+        echo count($articles) . "\n";
         if (count($articles) != 6)
             Yii::app()->end();
         $contents = $this->renderFile(Yii::getPathOfAlias('site.common.tpl.weeklyNews') . '.php', array('models' => $articles), true);
@@ -77,11 +77,6 @@ class MailCommand extends CConsoleCommand
         }
     }
 
-    public function actionContestParticipants()
-    {
-        Yii::app()->mc->updateContestUsers();
-    }
-
     public function actionMailruUsers()
     {
         Yii::import('site.seo.modules.mailru.models.*');
@@ -116,6 +111,21 @@ class MailCommand extends CConsoleCommand
 
                 Yii::app()->email->send(10, 'newMessages', compact('dialogUsers', 'unread', 'user', 'token'), $this);
             }
+        }
+    }
+
+    public function actionContestContinue()
+    {
+        Yii::import('site.frontend.modules.contest.models.*');
+        Yii::import('site.frontend.helpers.*');
+
+        $last_contest = Yii::app()->db->createCommand()->select('max(id)')->from(Contest::model()->tableName())->queryScalar();
+        echo $last_contest."\n";
+        $works = ContestWork::model()->findAll('contest_id=' . $last_contest);
+
+        foreach ($works as $work) {
+            echo $work->user_id."\n";
+            Yii::app()->email->send((int)$work->user_id, 'contest_continue', array('user' => $work->author, 'work' => $work), $this);
         }
     }
 

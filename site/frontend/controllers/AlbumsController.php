@@ -796,6 +796,8 @@ class AlbumsController extends HController
         $this->layout = '//layouts/main';
 
         NotificationRead::getInstance()->setContentModel($photo);
+        if (! Yii::app()->user->isGuest)
+            UserNotification::model()->deleteByEntity($photo, Yii::app()->user->id);
 
         $this->render('singlePhoto', array_merge(compact('model', 'collection', 'photo', 'currentIndex'), $additional_params));
     }

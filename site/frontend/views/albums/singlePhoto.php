@@ -13,11 +13,13 @@
 
 <div id="photo-inline" itemscope itemtype="http://schema.org/ImageObject">
 
-    <div class="meta">
+    <div class="photo-inline_top">
 
-        <div class="clearfix">
+        <div class="meta">
 
-            <div class="count">
+            <div class="clearfix">
+
+                <div class="count">
                             <span class="count-tx">
                                 <?php if (get_class($model) == 'CookDecorationCategory'): ?>
                                 <?=($model->getIndex($photo->id) + 1)?> фото из <?=$model->getPhotoCollectionCount()?>
@@ -25,21 +27,22 @@
                                 <?=$currentIndex?><?php if (get_class($model) != 'Album' || $model->id != Album::getAlbumByType(User::HAPPY_GIRAFFE, Album::TYPE_VALENTINE)->id): ?> фото<?php endif; ?> из <?=count($collection['photos'])?>
                                 <?php endif; ?>
                             </span>
-                <a href="javascript:void(0)" class="btn-green" data-id="<?=$photo->id?>"><?=(get_class($model) == 'Contest') ? 'Смотреть всех участников' : 'Смотреть весь альбом'?></a>
-            </div>
+                    <a href="javascript:void(0)" class="btn-green" data-id="<?=$photo->id?>"><?=(get_class($model) == 'Contest') ? 'Смотреть всех участников' : 'Смотреть весь альбом'?></a>
+                </div>
 
-            <div class="album-title">
-                <?=$collection['title']?>
+                <div class="album-title">
+                    <?=$collection['title']?>
+                </div>
+
             </div>
 
         </div>
 
-    </div>
-
-    <?php if ($photo->w_title): ?>
+        <?php if ($photo->w_title): ?>
         <div class="title"><h1 itemprop="name"><?=$photo->w_title?></h1></div>
-    <?php endif; ?>
+        <?php endif; ?>
 
+    </div>
 
     <div class="img">
 

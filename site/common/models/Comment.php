@@ -217,9 +217,9 @@ class Comment extends HActiveRecord
 
             Yii::import('site.frontend.modules.routes.models.*');
             NotificationCreate::commentCreated($this);
-            UserNotification::model()->create(UserNotification::NEW_COMMENT, array('comment' => $this));
-            if ($this->response_id !== null)
-                UserNotification::model()->create(UserNotification::NEW_REPLY, array('comment' => $this));
+//            UserNotification::model()->create(UserNotification::NEW_COMMENT, array('comment' => $this));
+//            if ($this->response_id !== null)
+//                UserNotification::model()->create(UserNotification::NEW_REPLY, array('comment' => $this));
 
             FriendEventManager::add(FriendEvent::TYPE_COMMENT_ADDED, array('model' => $this, 'relatedModel' => $this->relatedModel));
 

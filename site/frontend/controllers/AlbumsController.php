@@ -78,6 +78,8 @@ class AlbumsController extends HController
 
     public function actionUser($id)
     {
+        Visit::processVisit();
+
         $user = User::model()->with('avatar', 'status')->findByPk($id);
         $this->user = $user;
         if (!$user || $user->deleted)

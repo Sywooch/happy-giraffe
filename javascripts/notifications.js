@@ -70,6 +70,7 @@ Notifications.setHeight = function() {
 
 $(function() {
     Comet.prototype.receiveNotification = function(result, id) {
+        console.log(2);
         Notifications.updateCounter(result.count);
     };
 

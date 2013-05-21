@@ -14359,7 +14359,7 @@ body.gallery {
 .footer-push {
   height: 100px;
 }
-#footer {
+.layout-footer {
   height: 90px;
   width: 1000px;
   margin: -100px auto 0;
@@ -14368,17 +14368,23 @@ body.gallery {
   position: relative;
   background: #fff;
 }
-#footer .copy {
+.layout-footer .copy {
   padding-left: 20px;
   color: #9e9d9e;
 }
-#footer .copy .icon-18 {
+.layout-footer .copy .icon-18 {
   vertical-align: middle;
   padding: 0 25px;
 }
-#footer .a-right {
-  color: #0498b8;
-  padding-right: 20px;
+.counter-rambler {
+  float: right;
+  margin: 0 60px 0 10px;
+  line-height: normal;
+}
+.counter-rambler_i {
+  display: inline-block;
+  vertical-align: middle;
+  margin: 5px 10px 0 0;
 }
 .mobile-version {
   display: inline-block;

@@ -23,7 +23,7 @@
                             <tr>
                                 <td height="116" align="center">
 
-                                    <a href="http://www.happy-giraffe.ru" target="_blank" style="text-decoration: none;"><img src="http://www.happy-giraffe.ru/images/mail/logo.png" width="194" height="116" border="0"/></a>
+                                    <a href="http://www.happy-giraffe.ru?utm_source=email" target="_blank" style="text-decoration: none;"><img src="http://www.happy-giraffe.ru/images/mail/logo.png" width="194" height="116" border="0"/></a>
 
                                 </td>
                             </tr>
@@ -77,7 +77,7 @@
                         <img border="0" src="http://www.happy-giraffe.ru/images/contest/widget-10.jpg" style="text-align:center;"/>
 
                         <div style="border:1px solid #E5E4E4;display: block;margin: 10px auto 5px;padding:2px;width:210px;" class="img">
-                            <a href="http://www.happy-giraffe.ru/user/<?=$user->id ?>/"><img border="0" src="<?=$work->photoAttach->photo->getPreviewUrl(210, null, Image::WIDTH) ?>"/></a>
+                            <a href="http://www.happy-giraffe.ru/user/<?=$user->id ?>/?utm_source=email"><img border="0" src="<?=$work->photoAttach->photo->getPreviewUrl(210, null, Image::WIDTH) ?>"/></a>
 
                             <div style="font: bold 11px/13px Arial,Tahoma,Verdana,sans-serif;padding: 6px 10px;text-align: left;">
                                 <?=$work->title ?>

@@ -6,9 +6,13 @@
 	<div class="a-right">
 		<a href="">Политика конфедециальности</a> &nbsp; | &nbsp; <a href="">Пользовательское соглашение</a>
 	</div> -->
-	<div class="float-r margin-r20 color-gray">Написать нам: <a href="mailto:info@happy-giraffe.ru">info@happy-giraffe.ru</a></div>
-	
-	<div id="counter-rambler" class="float-r margin-r15" style=""></div>
+	<div class="float-r margin-r20 color-gray">
+	Написать нам: <a href="mailto:info@happy-giraffe.ru">info@happy-giraffe.ru</a>
+	</div>
+	<div style="float:right;margin:0 60px 0 10px;line-height:normal;">
+		<div id="counter-rambler" class="" style="display:inline-block;vertical-align:middle;margin:5px 10px 0 0;"></div>
+		<a href="http://www.rambler.ru/" >Партнер «Рамблера»</a>
+	</div>
 	<div class="copy">
 		<p>Весёлый жираф &nbsp; © 2012 &nbsp; Все права защищены 
 			<img src="/images/icon-18+.png" alt="" class="icon-18"/>

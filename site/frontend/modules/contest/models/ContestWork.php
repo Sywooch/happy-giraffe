@@ -227,4 +227,13 @@ class ContestWork extends HActiveRecord
             'condition' => ($alias) ? $alias . '.removed = 0' : 'removed = 0',
         );
     }
+
+    public function getPhoto(){
+        return $this->photoAttach->photo;
+    }
+
+    public function getContentTitle()
+    {
+        return $this->title;
+    }
 }

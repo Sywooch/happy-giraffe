@@ -83,46 +83,6 @@ class SiteCommand extends CConsoleCommand
         }
     }
 
-    public function actionRemoveOldNotifications()
-    {
-        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
-        Yii::import('site.frontend.extensions.*');
-        Yii::import('site.frontend.components.*');
-        Yii::import('site.frontend.helpers.*');
-        Yii::import('site.common.models.mongo.*');
-
-        $criteria = new EMongoCriteria();
-        $criteria->created('<', strtotime('-1 month'));
-        UserNotification::model()->deleteAll($criteria);
-    }
-
-    public function actionFix2()
-    {
-        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
-        Yii::import('site.frontend.modules.cook.models.*');
-        Yii::import('site.common.models.mongo.*');
-
-        $users = Yii::app()->db->createCommand()->select('id')->from('users')->where('`group` = 6')->queryColumn();
-        foreach ($users as $user) {
-            $criteria = new EMongoCriteria();
-            $criteria->type = UserAction::USER_ACTION_COMMENT_ADDED;
-            $criteria->user_id = (int)$user;
-
-            $actions = UserAction::model()->findAll($criteria);
-            echo count($actions) . "\n";
-            foreach ($actions as $action) {
-                $comment = Comment::model()->findByPk($action->data['id']);
-                if ($comment !== null) {
-                    $model = CActiveRecord::model($comment->entity)->findByPk($comment->entity_id);
-                    if (empty($model->rubric_id)) {
-                        $action->delete();
-                        echo "+\n";
-                    }
-                }
-            }
-        }
-    }
-
     public function actionHoroscope()
     {
         Yii::import('site.frontend.modules.services.modules.horoscope.models.*');
@@ -144,20 +104,20 @@ class SiteCommand extends CConsoleCommand
                 'type' => array(
                     'equals' => FriendEvent::TYPE_CLUBS_JOINED,
                 ),
-                'clubs_ids'=>array(
+                'clubs_ids' => array(
                     'equals' => 37
                 )
             ),
         ));
 
         $models = FriendEventClubs::model(FriendEvent::TYPE_CLUBS_JOINED)->findAll($criteria);
-        echo count($models)."\n";
+        echo count($models) . "\n";
 
-        foreach($models as $model){
+        foreach ($models as $model) {
             if (count($model->clubs_ids) == 1)
                 $model->delete();
-            else{
-                foreach($model->clubs_ids as $key=>$club_id){
+            else {
+                foreach ($model->clubs_ids as $key => $club_id) {
                     if ($club_id == 37)
                         unset($model->clubs_ids[$key]);
                 }
@@ -213,7 +173,8 @@ class SiteCommand extends CConsoleCommand
         }
     }
 
-    public function actionFixImages(){
+    public function actionFixImages()
+    {
         Yii::import('site.frontend.components.*');
         $criteria = new CDbCriteria;
         $criteria->limit = 100;
@@ -225,8 +186,8 @@ class SiteCommand extends CConsoleCommand
             $models = CommunityPost::model()->findAll($criteria);
 
             foreach ($models as $model) {
-                if (strpos($model->text, '<img') !== false){
-                    echo $model->content_id."\n";
+                if (strpos($model->text, '<img') !== false) {
+                    echo $model->content_id . "\n";
                     $model->save();
                 }
             }
@@ -235,12 +196,13 @@ class SiteCommand extends CConsoleCommand
         }
     }
 
-    public function actionFixPreviews(){
+    public function actionFixPreviews()
+    {
         Yii::import('site.frontend.components.*');
         $last_id = 39000;
         $criteria = new CDbCriteria;
         $criteria->limit = 100;
-        $criteria->condition = 't.id > '.$last_id.' AND t.type_id = 1';
+        $criteria->condition = 't.id > ' . $last_id . ' AND t.type_id = 1';
         $criteria->order = 't.id';
 
         $models = array(0);
@@ -248,14 +210,14 @@ class SiteCommand extends CConsoleCommand
             $models = CommunityContent::model()->with(array('post'))->findAll($criteria);
 
             foreach ($models as $model) {
-                if (strpos($model->preview, '<img') !== false){
-                    echo $model->id."\n";
+                if (strpos($model->preview, '<img') !== false) {
+                    echo $model->id . "\n";
                     $model->purify($model->post->text);
                 }
                 $last_id = $model->id;
             }
 
-            $criteria->condition = 't.id > '.$last_id.' AND t.type_id = 1';
+            $criteria->condition = 't.id > ' . $last_id . ' AND t.type_id = 1';
         }
     }
 
@@ -285,12 +247,35 @@ class SiteCommand extends CConsoleCommand
         echo 'Total: ' . array_sum($res);
     }
 
-    public function actionTest3(){
+    public function actionTest()
+    {
+        Yii::import('site.frontend.modules.notification.models.base.*');
+        Yii::import('site.frontend.modules.notification.models.*');
         Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
-        Yii::import('site.common.models.mongo.*');
-        $exist = new InnerLinksBlock;
-        $exist->html = '';
-        $exist->url = 'test';
-        $exist->save();
+
+        for ($i=1;$i< 1000 ;$i++ ) {
+            $comments = Comment::model()->findAll(new CDbCriteria(array('limit' => 100)));
+            $t1 = microtime(true);
+            //Notification::model()->getUnreadCount(10);
+
+            foreach ($comments as $comment)
+                NotificationNewComment::model()->create(rand(1, 1000), $comment);
+
+            echo microtime(true) - $t1 . "\n";
+        }
+    }
+
+    public function actionTest2(){
+        Yii::import('site.frontend.modules.notification.models.base.*');
+        Yii::import('site.frontend.modules.notification.models.*');
+        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
+
+        $comment = Comment::model()->findByPk(279);
+        NotificationDiscussSubscription::model();
+        $t1 = microtime(true);
+//        Notification::model()->getNotificationsList(6085);
+        NotificationDiscussSubscription::model()->subscribeCommentAuthor($comment);
+//        NotificationNewComment::model()->read(8846, 'CommunityContent', 98);
+        echo microtime(true) - $t1;
     }
 }

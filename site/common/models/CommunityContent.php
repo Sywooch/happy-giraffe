@@ -152,7 +152,7 @@ class CommunityContent extends HActiveRecord
             'pingable' => array(
                 'class' => 'site.common.behaviors.PingableBehavior',
             ),
-            'duplicate'=>array(
+            'duplicate' => array(
                 'class' => 'site.common.behaviors.DuplicateBehavior',
             )
         );
@@ -358,10 +358,10 @@ class CommunityContent extends HActiveRecord
                 );
                 break;
             default:
-                if ($this->isValentinePost()){
+                if ($this->isValentinePost()) {
                     $route = '/valentinesDay/default/howToSpend';
                     $params = array();
-                }elseif ($this->isFromBlog) {
+                } elseif ($this->isFromBlog) {
                     $route = '/blog/view';
                     $params = array(
                         'user_id' => $this->author_id,
@@ -570,13 +570,20 @@ class CommunityContent extends HActiveRecord
         return '';
     }
 
-    public function getContentImage($width = 700)
+    public function getContentImage($width = 700, $height = null, $master = Image::WIDTH, $crop = false)
     {
         if (!isset($this->content))
             return '';
 
         $photo = $this->content->getPhoto();
         return $photo ? $photo->getPreviewUrl($width, null, Image::WIDTH) : false;
+    }
+
+    public function getPhoto()
+    {
+        if (!isset($this->content))
+            return null;
+        return $this->content->getPhoto();
     }
 
     public function getContentText($length = 128)
@@ -739,5 +746,48 @@ class CommunityContent extends HActiveRecord
                 'pageSize' => 3,
             ),
         ));
+    }
+
+    /**
+     * Является ли запись видео
+     * @return bool
+     */
+    public function isVideo()
+    {
+        return $this->type_id == self::TYPE_VIDEO;
+    }
+
+    public function getContentTitle($length = 150)
+    {
+        if ($this->type_id == self::TYPE_STATUS)
+            return Str::truncate($this->getContent()->text, $length);
+        return $this->title;
+    }
+
+    /**
+     * Возвращает подсказку для вывода
+     */
+    public function getPowerTipTitle($full = false)
+    {
+        if ($this->type_id == self::TYPE_STATUS) {
+            if ($this->author_id == Yii::app()->user->id)
+                $t = "Мой статус";
+            else
+                $t = htmlentities("Статус пользователя \"" . $this->author->getFullName() . "\"", ENT_QUOTES, "UTF-8");
+            if (!$full)
+                return $t;
+
+            return $t . htmlentities('<br><span class=\'color-gray\' > ' . $this->getContentTitle(100) . '</span>', ENT_QUOTES, "UTF-8");
+        } elseif ($this->getIsFromBlog()) {
+            if ($this->author_id == Yii::app()->user->id)
+                $t = "Мой блог";
+            else
+                $t = htmlentities("Блог пользователя \"" . $this->author->getFullName() . "\"", ENT_QUOTES, "UTF-8");
+        } else
+            $t = htmlentities(("Клуб <span class='color-category " . $this->rubric->community->css_class . "'>" . $this->rubric->community->title . "</span>"), ENT_QUOTES, "UTF-8");
+        if (!$full)
+            return $t;
+
+        return $t . htmlentities('<br>Запись <span class=\'color-gray\' > ' . $this->getContentTitle() . '</span>', ENT_QUOTES, "UTF-8");
     }
 }

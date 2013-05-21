@@ -43,6 +43,7 @@ class DefaultController extends HController
             $this->meta_description = $texts['description'];
             $this->meta_keywords = $texts['keywords'];
             $points = $route->getIntermediatePoints();
+            NotificationRead::getInstance()->setContentModel($route);
             $this->render('view', compact('route', 'texts', 'points'));
         }
     }

@@ -201,6 +201,8 @@ class AlbumPhoto extends HActiveRecord
         $this->removed = 1;
         $this->save(false);
         UserSignal::closeRemoved($this);
+        NotificationDelete::entityRemoved($this);
+
         if (!empty($this->album_id)) {
             UserScores::removeScores($this->author_id, ScoreAction::ACTION_PHOTO, 1, $this);
         }

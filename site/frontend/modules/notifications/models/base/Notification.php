@@ -271,4 +271,16 @@ class Notification extends HMongoModel
     {
         return 1;
     }
+
+    /**
+     * Удаляем все уведомления связанные с уделанной сущностью
+     * @param $entity CActiveRecord
+     */
+    public function entityRemoved($entity)
+    {
+        $this->getCollection()->remove(array(
+            'entity' => get_class($entity),
+            'entity_id' => $entity->id,
+        ));
+    }
 }

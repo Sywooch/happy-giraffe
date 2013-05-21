@@ -18,7 +18,7 @@
 
         <div class="col-1">
             <div class="margin-t100">
-                <a href=""><img src="/images/contest/banner-w240-10.jpg" alt=""></a>
+                <?php $this->renderPartial('//banners/adfox'); ?>
             </div>
         </div>
         <div class="col-23">

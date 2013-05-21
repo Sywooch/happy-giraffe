@@ -163,8 +163,6 @@ class Notification extends HMongoModel
      */
     public function getUnreadCount($user_id = null)
     {
-        return 0;
-
         if (empty($user_id))
             $user_id = Yii::app()->user->id;
 

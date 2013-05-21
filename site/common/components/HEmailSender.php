@@ -14,6 +14,7 @@ class HEmailSender extends CApplicationComponent
         'passwordRecovery' => 'Напоминание пароля - Весёлый Жираф',
         'confirmEmail' => 'Подтверждение e-mail - Весёлый Жираф',
         'resendConfirmEmail' => 'Подтверждение e-mail - Весёлый Жираф',
+        'contest_continue'=>'Новости фотоконкурса «Мой друг» на «Веселом Жирафе»',
     );
 
     public function send($user, $action, $params = array(), $controller = null)

@@ -452,191 +452,243 @@ LEFT OUTER JOIN album__photos p ON u.avatar_id = p.id
 WHERE tu.user_id IS NULL OR (tu.user_id IS NOT NULL AND tu2.user_id IS NOT NULL)
 GROUP BY u.id;
 
-INSERT INTO friends__lists (title, list_id)
-  (
-    SELECT
-      'Коллеги',
-      id
-    FROM users
-  )
-  UNION
-  (
-    SELECT
-      'Родственники',
-      id
-      FROM USERS
-  )
-
-  SELECT b.*, ROUND(DATEDIFF(CURDATE(), DATE_ADD(b.birthday, INTERVAL -9 MONTH))/7) AS weeks FROM users u
-  LEFT OUTER JOIN user__users_babies b ON b.parent_id = u.id AND type = 1
-  WHERE b.id IS NOT NULL AND u.id = 14829;    z
-  
-  
-  
-  
-SELECT
-  u.id AS uId, # ID собеседника
-  u.first_name, # Имя собеседника
-  u.last_name, # Фамилия собеседника
-  u.gender, # Пол собеседника
-  u.online, # Онлайн-статус собеседника
-  t.id AS tId, # ID Диалога
-  tu2.hidden, # Видимость диалога
-  p.fs_name, # Аватар
-  UNIX_TIMESTAMP(t.updated) AS updated, # Дата последнего обновления диалога
-  COUNT(mu.message_id) AS unreadCount, # Количество непрочитанных сообщений
-  f.created IS NOT NULL AS isFriend # Является ли другом
-# Таблица ID всех пользователей в контактах
-FROM (
-  # Пользователи, с которыми когда-либо была переписка
-  SELECT tu2.user_id AS uId
-  FROM messaging__threads_users tu
-  INNER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id != t
-  INNER JOIN messaging__threads t ON tu.thread_id = t.id
-  WHERE tu.user_id = :user_id
-  ORDER BY t.updated DESC, t.id DESC
-  LIMIT :limit
-  OFFSET :offset
-) uIds
-# Связывание с таблицей пользователей для получения данных о собеседнике
-INNER JOIN users u ON u.id = uIds.uId
-# Связывание с таблицей друзей для установления, является ли собеседник другом
-LEFT OUTER JOIN friends f ON f.user_id = :user_id AND f.friend_id = u.id
-# Связывание с таблицей участников диалога для получения ID и видимости диалога
-LEFT OUTER JOIN messaging__threads_users tu ON tu.user_id = u.id
-LEFT OUTER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id = :user_id
-# Связывание с таблицей диалогов для получения данных о диалоге
-LEFT OUTER JOIN messaging__threads t ON t.id = tu2.thread_id
-# Связывание с таблицами сообщений и получателей сообщения для получения количества непрочитанных сообщений
-LEFT OUTER JOIN messaging__messages m ON m.thread_id = t.id AND m.author_id != :user_id
-LEFT OUTER JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.read = 0 AND mu.user_id = :user_id
-# Связывание с таблицей фотографий для получения аватара
-LEFT OUTER JOIN album__photos p ON u.avatar_id = p.id
-WHERE
-  # Условие для корректной работы связывание с таблицей участников диалога
-  tu.user_id IS NULL OR (tu.user_id IS NOT NULL AND tu2.user_id IS NOT NULL)
-  # Условие для фильтрации по чёрному списку
-  AND uId NOT IN (SELECT blocked_user_id FROM blacklist WHERE user_id = :user_id)
-GROUP BY u.id;
+<!--AdFox START-->
+<!--giraffe-->
+<!--Площадка: Весёлый Жираф / * / *-->
+<!--Тип баннера: 240x400-->
+<!--Расположение: <середина страницы>-->
+<script type="text/javascript">
+<!--
+if (typeof(pr) == 'undefined') { var pr = Math.floor(Math.random() * 1000000); }
+var addate = new Date();
+document.write('<iframe src="http://ads.adfox.ru/211012/getCode?pp=h&amp;ps=bkqy&amp;p2=u&amp;p3=b&amp;p4=a&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a&amp;pr=' + pr + '&amp;pt=b&amp;pd=' + addate.getDate() + '&amp;pw=' + addate.getDay() + '&amp;pv=' + addate.getHours() + '" frameBorder="0" width="240" height="400" marginWidth="0" marginHeight="0" scrolling="no" style="border: 0px; margin: 0px; padding: 0px;"><a href="http://ads.adfox.ru/211012/goDefaultLink?pp=h&amp;ps=bkqy&amp;p2=u&amp;" target="_blank"><img src="http://ads.adfox.ru/211012/getDefaultImage?pp=h&amp;ps=bkqy&amp;p2=u" border="0" alt=""><\/a><\/iframe>');
+//-->
+</script>
+<noscript>
+<iframe src="http://ads.adfox.ru/211012/getCode?pp=h&amp;ps=bkqy&amp;p2=u&amp;p3=b&amp;p4=a&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a&amp;pr=' + pr + '&amp;pt=b&amp;pd=' + addate.getDate() + '&amp;pw=' + addate.getDay() + '&amp;pv=' + addate.getHours() + '" frameBorder="0" width="240" height="400" marginWidth="0" marginHeight="0" scrolling="no" style="border: 0px; margin: 0px; padding: 0px;"><a href="http://ads.adfox.ru/211012/goDefaultLink?pp=h&amp;ps=bkqy&amp;p2=u&amp;" target="_blank"><img src="http://ads.adfox.ru/211012/getDefaultImage?pp=h&amp;ps=bkqy&amp;p2=u" border="0" alt=""></a></iframe>
+</noscript>
+<!--AdFox END-->
 
 
-SELECT
-  u.id AS uId, # ID собеседника
-  u.first_name, # Имя собеседника
-  u.last_name, # Фамилия собеседника
-  u.gender, # Пол собеседника
-  u.online, # Онлайн-статус собеседника
-  t.id AS tId, # ID Диалога
-  tu.hidden, # Видимость диалога
-  p.fs_name, # Аватар
-  UNIX_TIMESTAMP(t.updated) AS updated, # Дата последнего обновления диалога
-  COUNT(mu.message_id) AS unreadCount, # Количество непрочитанных сообщений
-  f.id IS NOT NULL AS isFriend # Является ли другом
-FROM messaging__threads_users tu
-# Получение информации о собеседнике
-INNER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id != 12936
-INNER JOIN users u ON tu2.user_id = u.id
-# Получение информации о диалоге
-INNER JOIN messaging__threads t ON tu.thread_id = t.id
-# Получение количества непрочитанных
-LEFT OUTER JOIN messaging__messages m ON m.thread_id = t.id AND m.author_id != 12936
-LEFT OUTER JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.read = 0 AND mu.user_id = 12936
-# Получение аватара
-LEFT OUTER JOIN album__photos p ON u.avatar_id = p.id
-# Является ли другом
-LEFT OUTER JOIN friends f ON f.user_id = 12936 AND f.friend_id = u.id
-# Находится ли в черном списке
-LEFT OUTER JOIN blacklist b ON b.user_id = 12936 AND b.blocked_user_id = u.id
-WHERE tu.user_id = 12936 AND b.user_id IS NULL
-GROUP BY u.id;
-
-
-
-SELECT COUNT(DISTINCT tu.thread_id)
-FROM messaging__threads_users tu
-INNER JOIN messaging__messages m ON m.thread_id = tu.thread_id AND m.author_id != tu.user_id
-INNER JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.read = 0 AND mu.user_id = tu.user_id
-INNER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id != tu.user_id
-LEFT OUTER JOIN blacklist b ON b.user_id = tu.user_id AND b.blocked_user_id = tu2.user_id
-WHERE tu.user_id = :user_id AND b.user_id IS NULL
-GROUP BY tu.user_id;
-
-SELECT
-  u.id AS uId, # ID собеседника
-  u.first_name, # Имя собеседника
-  u.last_name, # Фамилия собеседника
-  u.gender, # Пол собеседника
-  u.online # Онлайн-статус собеседника
-FROM friends f
-# Получение информации о собеседнике
-INNER JOIN users u ON u.id = f.friend_id
-# Связывание с таблицей участников диалога для получения ID и видимости диалога
-LEFT OUTER JOIN messaging__threads_users tu ON tu.user_id = f.user_id
-LEFT OUTER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id = f.user_id
-WHERE f.user_id = 12936;
+<!--AdFox START-->
+<!--giraffe-->
+<!--Площадка: Весёлый Жираф / * / *-->
+<!--Тип баннера: Безразмерный 240x400-->
+<!--Расположение: &lt;сайдбар&gt;-->
+<script type="text/javascript">
+<!--
+if (typeof(pr) == 'undefined') { var pr = Math.floor(Math.random() * 1000000); }
+if (typeof(document.referrer) != 'undefined') {
+  if (typeof(afReferrer) == 'undefined') {
+    afReferrer = escape(document.referrer);
+  }
+} else {
+  afReferrer = '';
+}
+var addate = new Date();
+document.write('<scr' + 'ipt type="text/javascript" src="http://ads.adfox.ru/211012/prepareCode?pp=dey&amp;ps=bkqy&amp;p2=etcx&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a&amp;pr=' + pr +'&amp;pt=b&amp;pd=' + addate.getDate() + '&amp;pw=' + addate.getDay() + '&amp;pv=' + addate.getHours() + '&amp;prr=' + afReferrer + '"><\/scr' + 'ipt>');
+// -->
+</script>
+<!--AdFox END-->
 
 
 
 
-SELECT
-  u.id AS uId, # ID собеседника
-  u.first_name, # Имя собеседника
-  u.last_name, # Фамилия собеседника
-  u.gender, # Пол собеседника
-  u.online, # Онлайн-статус собеседника
-  t.id AS tId, # ID Диалога
-  tu2.hidden, # Видимость диалога
-  p.fs_name, # Аватар
-  UNIX_TIMESTAMP(t.updated) AS updated, # Дата последнего обновления диалога
-  COUNT(mu.message_id) AS unreadCount, # Количество непрочитанных сообщений
-  f.created IS NOT NULL AS isFriend # Является ли другом
-FROM friends f
-# Получение информации о собеседнике
-INNER JOIN users u ON f.friend_id = u.id
-# Связывание с таблицей участников диалога для получения ID и видимости диалога
-LEFT OUTER JOIN messaging__threads_users tu ON tu.user_id = f.friend_id
-LEFT OUTER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id = f.user_id
-# Связывание с таблицей диалогов для получения данных о диалоге
-LEFT OUTER JOIN messaging__threads t ON t.id = tu2.thread_id
-# Связывание с таблицами сообщений и получателей сообщения для получения количества непрочитанных сообщений
-LEFT OUTER JOIN messaging__messages m ON m.thread_id = t.id AND m.author_id != f.user_id
-LEFT OUTER JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.read = 0 AND mu.user_id = f.user_id
-# Получение аватара
-LEFT OUTER JOIN album__photos p ON u.avatar_id = p.id
-# Находится ли в черном списке
-LEFT OUTER JOIN blacklist b ON b.user_id = f.user_id AND b.blocked_user_id = f.friend_id
-WHERE f.user_id = 12936 AND b.user_id IS NULL AND u.online = 1
-GROUP BY u.id;
 
 
 
-SELECT
-  u.id AS uId, # ID собеседника
-  u.first_name, # Имя собеседника
-  u.last_name, # Фамилия собеседника
-  u.gender, # Пол собеседника
-  u.online, # Онлайн-статус собеседника
-  t.id AS tId, # ID Диалога
-  tu.hidden, # Видимость диалога
-  p.fs_name, # Аватар
-  UNIX_TIMESTAMP(t.updated) AS updated, # Дата последнего обновления диалога
-  COUNT(mu.message_id) AS unreadCount, # Количество непрочитанных сообщений
-  1 AS isFriend # Является ли другом
-FROM friends f
-# Получение информации о собеседнике
-INNER JOIN users u ON f.friend_id = u.id
-# Связывание с таблицей участников диалога для получения ID и видимости диалога
-LEFT OUTER JOIN messaging__threads_users tu2 ON tu2.user_id = f.friend_id
-LEFT OUTER JOIN messaging__threads_users tu ON tu.thread_id = tu2.thread_id AND tu.user_id = f.user_id
-# Получение информации о диалоге
-LEFT OUTER JOIN messaging__threads t ON tu.thread_id = t.id
-# Получение количества непрочитанных сообщений
-LEFT OUTER JOIN messaging__messages m ON m.thread_id = t.id AND m.author_id != tu.user_id
-LEFT OUTER JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.read = 0 AND mu.user_id = tu.user_id
-# Получение аватара
-LEFT OUTER JOIN album__photos p ON u.avatar_id = p.id
-# Находится ли в черном списке
-LEFT OUTER JOIN blacklist b ON b.user_id = tu.user_id AND b.blocked_user_id = u.id
-WHERE f.user_id = 12936 AND b.user_id IS NULL
-GROUP BY u.id
-ORDER BY t.updated DESC;
+
+<!--AdFox START-->
+<!--giraffe-->
+<!--Площадка: Весёлый Жираф / * / *-->
+<!--Тип баннера: Безразмерный 240x400-->
+<!--Расположение: &lt;сайдбар&gt;-->
+<!-- ________________________AdFox Asynchronous code START__________________________ -->
+<script type="text/javascript">
+<!--
+if (typeof(pr) == 'undefined') { var pr = Math.floor(Math.random() * 1000000); }
+if (typeof(document.referrer) != 'undefined') {
+  if (typeof(afReferrer) == 'undefined') {
+    afReferrer = escape(document.referrer);
+  }
+} else {
+  afReferrer = '';
+}
+var addate = new Date();
+var dl = escape(document.location);
+var pr1 = Math.floor(Math.random() * 1000000);
+
+document.write('<div id="AdFox_banner_'+pr1+'"><\/div>');
+document.write('<div style="visibility:hidden; position:absolute;"><iframe id="AdFox_iframe_'+pr1+'" width=1 height=1 marginwidth=0 marginheight=0 scrolling=no frameborder=0><\/iframe><\/div>');
+
+AdFox_getCodeScript(1,pr1,'http://ads.adfox.ru/211012/prepareCode?pp=dey&amp;ps=bkqy&amp;p2=etcx&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a&amp;pr=' + pr +'&amp;pt=b&amp;pd=' + addate.getDate() + '&amp;pw=' + addate.getDay() + '&amp;pv=' + addate.getHours() + '&amp;prr=' + afReferrer + '&amp;dl='+dl+'&amp;pr1='+pr1);
+// -->
+</script>
+<!-- _________________________AdFox Asynchronous code END___________________________ -->
+<!--AdFox END-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--AdFox START-->
+<!--giraffe-->
+<!--Площадка: Весёлый Жираф / * / *-->
+<!--Тип баннера: Безразмерный 240x400-->
+<!--Расположение: &lt;сайдбар&gt;-->
+<script type="text/javascript">
+    <!--
+    if (typeof(pr) == 'undefined') { var pr = Math.floor(Math.random() * 1000000); }
+    if (typeof(document.referrer) != 'undefined') {
+        if (typeof(afReferrer) == 'undefined') {
+            afReferrer = escape(document.referrer);
+        }
+    } else {
+        afReferrer = '';
+    }
+    var addate = new Date();
+    document.write('<scr' + 'ipt type="text/javascript" src="http://ads.adfox.ru/211012/prepareCode?pp=dey&amp;ps=bkqy&amp;p2=etcx&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a&amp;pr=' + pr +'&amp;pt=b&amp;pd=' + addate.getDate() + '&amp;pw=' + addate.getDay() + '&amp;pv=' + addate.getHours() + '&amp;prr=' + afReferrer + '"><\/scr' + 'ipt>');
+    // -->
+</script>
+<!--AdFox END-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--AdFox START-->
+<!--giraffe-->
+<!--Площадка: Весёлый Жираф / * / *-->
+<!--Тип баннера: Безразмерный 240x400-->
+<!--Расположение: &lt;сайдбар&gt;-->
+<script type="text/javascript">
+    <!--
+    if (typeof(pr) == 'undefined') { var pr = Math.floor(Math.random() * 1000000); }
+    if (typeof(document.referrer) != 'undefined') {
+        if (typeof(afReferrer) == 'undefined') {
+            afReferrer = escape(document.referrer);
+        }
+    } else {
+        afReferrer = '';
+    }
+    var addate = new Date();
+    document.write('<scr' + 'ipt type="text/javascript" src="http://ads.adfox.ru/211012/prepareCode?pp=dey&amp;ps=bkqy&amp;p2=etcx&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a&amp;pr=' + pr +'&amp;pt=b&amp;pd=' + addate.getDate() + '&amp;pw=' + addate.getDay() + '&amp;pv=' + addate.getHours() + '&amp;prr=' + afReferrer + '"><\/scr' + 'ipt>');
+    // -->
+</script>
+<!--AdFox END-->
+
+
+
+
+
+<!-- ________________________AdFox Asynchronous code START__________________________ -->
+<script type="text/javascript">
+<!--
+if (typeof(pr) == 'undefined') { var pr = Math.floor(Math.random() * 1000000); }
+if (typeof(document.referrer) != 'undefined') {
+  if (typeof(afReferrer) == 'undefined') {
+    afReferrer = escape(document.referrer);
+  }
+} else {
+  afReferrer = '';
+}
+var addate = new Date();
+var dl = escape(document.location);
+var pr1 = Math.floor(Math.random() * 1000000);
+
+document.write('<div id="AdFox_banner_'+pr1+'"><\/div>');
+document.write('<div style="visibility:hidden; position:absolute;"><iframe id="AdFox_iframe_'+pr1+'" width=1 height=1 marginwidth=0 marginheight=0 scrolling=no frameborder=0><\/iframe><\/div>');
+
+AdFox_getCodeScript(1,pr1,'http://ads.adfox.ru/211012/prepareCode?pp=dey&amp;ps=bkqy&amp;p2=etcx&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a&amp;pr=' + pr +'&amp;pt=b&amp;pd=' + addate.getDate() + '&amp;pw=' + addate.getDay() + '&amp;pv=' + addate.getHours() + '&amp;prr=' + afReferrer + '&amp;dl='+dl+'&amp;pr1='+pr1);
+// -->
+</script>
+<!-- _________________________AdFox Asynchronous code END___________________________ -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--AdFox START-->
+<!--giraffe-->
+<!--Площадка: Весёлый Жираф / * / *-->
+<!--Тип баннера: Безразмерный 240x400-->
+<!--Расположение: &lt;сайдбар&gt;-->
+<script type="text/javascript">
+    <!--
+    if (typeof(pr) == 'undefined') { var pr = Math.floor(Math.random() * 1000000); }
+    if (typeof(document.referrer) != 'undefined') {
+        if (typeof(afReferrer) == 'undefined') {
+            afReferrer = escape(document.referrer);
+        }
+    } else {
+        afReferrer = '';
+    }
+    var addate = new Date();
+    document.write('<scr' + 'ipt type="text/javascript" src="http://ads.adfox.ru/211012/prepareCode?pp=dey&amp;ps=bkqy&amp;p2=etcx&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a&amp;pr=' + pr +'&amp;pt=b&amp;pd=' + addate.getDate() + '&amp;pw=' + addate.getDay() + '&amp;pv=' + addate.getHours() + '&amp;prr=' + afReferrer + '"><\/scr' + 'ipt>');
+    // -->
+</script>
+<!--AdFox END-->
+
+
+<!--AdFox START-->
+<!--giraffe-->
+<!--Площадка: Весёлый Жираф / * / *-->
+<!--Тип баннера: Безразмерный 240x400-->
+<!--Расположение: &lt;сайдбар&gt;-->
+<!-- ________________________AdFox Asynchronous code START__________________________ -->
+<script type="text/javascript">
+<!--
+if (typeof(pr) == 'undefined') { var pr = Math.floor(Math.random() * 1000000); }
+if (typeof(document.referrer) != 'undefined') {
+  if (typeof(afReferrer) == 'undefined') {
+    afReferrer = escape(document.referrer);
+  }
+} else {
+  afReferrer = '';
+}
+var addate = new Date();
+var dl = escape(document.location);
+var pr1 = Math.floor(Math.random() * 1000000);
+
+document.write('<div id="AdFox_banner_'+pr1+'"><\/div>');
+document.write('<div style="visibility:hidden; position:absolute;"><iframe id="AdFox_iframe_'+pr1+'" width=1 height=1 marginwidth=0 marginheight=0 scrolling=no frameborder=0><\/iframe><\/div>');
+
+AdFox_getCodeScript(1,pr1,'http://ads.adfox.ru/211012/prepareCode?pp=dey&amp;ps=bkqy&amp;p2=etcx&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a&amp;pr=' + pr +'&amp;pt=b&amp;pd=' + addate.getDate() + '&amp;pw=' + addate.getDay() + '&amp;pv=' + addate.getHours() + '&amp;prr=' + afReferrer + '&amp;dl='+dl+'&amp;pr1='+pr1);
+// -->
+</script>
+<!-- _________________________AdFox Asynchronous code END___________________________ -->
+<!--AdFox END-->
+
+iez7Phej

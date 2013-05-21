@@ -29,12 +29,14 @@
                     <div class="clearfix">
 
                         <div class="count">
-                            <?php if (get_class($model) == 'CookDecorationCategory'): ?>
-                            <?=($model->getIndex($photo->id) + 1)?> фото из <?=$model->getPhotoCollectionCount()?>
-                            <?php elseif (get_class($model) != 'Contest'): ?>
-                            <?=$currentIndex?><?php if (get_class($model) != 'Album' || $model->id != Album::getAlbumByType(User::HAPPY_GIRAFFE, Album::TYPE_VALENTINE)->id): ?> фото<?php endif; ?> из <?=count($collection['photos'])?>
-                            <?php endif; ?>
-                            <a href="javascript:void(0)" class="btn btn-green-smedium" data-id="<?=$photo->id?>"><span><span><?=(get_class($model) == 'Contest') ? 'Смотреть всех участников' : 'Смотреть весь альбом'?></span></span></a>
+                            <span class="count-tx">
+                                <?php if (get_class($model) == 'CookDecorationCategory'): ?>
+                                <?=($model->getIndex($photo->id) + 1)?> фото из <?=$model->getPhotoCollectionCount()?>
+                                <?php elseif (get_class($model) != 'Contest'): ?>
+                                <?=$currentIndex?><?php if (get_class($model) != 'Album' || $model->id != Album::getAlbumByType(User::HAPPY_GIRAFFE, Album::TYPE_VALENTINE)->id): ?> фото<?php endif; ?> из <?=count($collection['photos'])?>
+                                <?php endif; ?>
+                            </span>
+                            <a href="javascript:void(0)" class="btn-green" data-id="<?=$photo->id?>"><?=(get_class($model) == 'Contest') ? 'Смотреть всех участников' : 'Смотреть весь альбом'?></a>
                         </div>
 
                         <div class="album-title">

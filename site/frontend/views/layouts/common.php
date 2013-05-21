@@ -89,7 +89,8 @@
 
         <?php if (! Yii::app()->user->isGuest): ?>
         <?php
-        $notificationsCount = Notification::model()->getUnreadCount();
+        //$notificationsCount = Notification::model()->getUnreadCount();
+        $notificationsCount = UserNotification::model()->getUserCount(Yii::app()->user->id);
         $friendsCount = FriendRequest::model()->getUserCount(Yii::app()->user->id);
         $imCount = Im::model()->getUnreadMessagesCount(Yii::app()->user->id);
         ?>
@@ -134,7 +135,7 @@
                     </a>
                 </li>
                 <li class="i-notifications top-line-menu_nav_li js-tooltipsy<?php if ($notificationsCount > 0): ?> new<?php endif; ?>" title="Уведомления">
-                    <a href="/notifications/">
+                    <a href="javascript:void(0)" onclick="Notifications.toggle()">
                         <i class="icon-notifications"></i>
                         <span class="count"><span class="count-red">+ <span><?=$notificationsCount?></span></span></span>
                     </a>

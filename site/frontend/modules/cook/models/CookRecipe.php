@@ -323,6 +323,7 @@ class CookRecipe extends CActiveRecord
     {
         FriendEvent::postDeleted('CookRecipe', $this->id);
         Yii::app()->db->createCommand()->update($this->tableName(), array('removed' => 1), 'id=:id', array(':id' => $this->id));
+        NotificationDelete::entityRemoved($this);
 
         //удаляем из кулинарной книги автора, но у других рецепт остается
         if ($this->isBooked())

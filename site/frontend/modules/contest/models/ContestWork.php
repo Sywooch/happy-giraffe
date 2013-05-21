@@ -212,6 +212,7 @@ class ContestWork extends HActiveRecord
     public function beforeDelete()
     {
         self::model()->updateByPk($this->id, array('removed' => 1));
+        NotificationDelete::entityRemoved($this);
 
         if ($this->remove->type != 0)
             UserNotification::model()->create(UserNotification::CONTEST_WORK_REMOVED, array('model' => $this));

@@ -20,4 +20,14 @@ class NotificationDelete
         NotificationReplyComment::model()->fixCommentNotification($comment);
         NotificationDiscussContinue::model()->fixCommentNotification($comment);
     }
+
+    /**
+     * Удаляем все уведомления связанные с уделанной сущностью
+     *
+     * @param $entity
+     */
+    public static function entityRemoved($entity)
+    {
+        Notification::model()->entityRemoved($entity);
+    }
 }

@@ -35,7 +35,7 @@ class FriendsManager
                 LEFT OUTER JOIN visits va ON va.user_id = t.user_id AND va.url = CONCAT(\'/user/\', t.friend_id, \'/albums/\')
                 LEFT OUTER JOIN album__photos p ON p.author_id = t.friend_id AND (va.id IS NULL OR p.created > va.last_visit)
             ',
-            'order' => 'friend.online DESC, t.id DESC',
+            'order' => 't.id DESC',
             'group' => 't.friend_id',
         ));
 

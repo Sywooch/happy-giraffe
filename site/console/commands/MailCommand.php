@@ -120,7 +120,6 @@ class MailCommand extends CConsoleCommand
         Yii::import('site.frontend.helpers.*');
 
         $last_contest = Yii::app()->db->createCommand()->select('max(id)')->from(Contest::model()->tableName())->queryScalar();
-        $last_contest = 9;
         echo $last_contest."\n";
         $works = ContestWork::model()->findAll('contest_id=' . $last_contest);
 

@@ -44,6 +44,8 @@ class DefaultController extends HController
                     'ava' => $friend->friend->getAva('large'),
                     'gender' => $friend->friend->gender,
                 ),
+                'pCount' => $friend->pCount,
+                'bCount' => $friend->bCount,
             );
         }, FriendsManager::getFriends(Yii::app()->user->id, $online, $new, $listId, $query, $offset));
         $last = FriendsManager::getFriendsCount(Yii::app()->user->id, $online, $new, $listId, $query, $offset) <= ($offset + FriendsManager::FRIENDS_PER_PAGE);

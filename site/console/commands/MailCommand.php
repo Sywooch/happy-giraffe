@@ -8,9 +8,9 @@ class MailCommand extends CConsoleCommand
         Yii::import('site.frontend.extensions.*');
         Yii::import('site.frontend.components.*');
         Yii::import('site.frontend.helpers.*');
-        Yii::import('site.frontend.modules.im.models.*');
+        Yii::import('site.frontend.modules.messaging.models.*');
+        Yii::import('site.frontend.modules.messaging.components.*');
         Yii::import('site.frontend.modules.geo.models.*');
-        Yii::import('site.frontend.modules.im.components.*');
         Yii::import('site.common.models.mongo.*');
 
         return true;

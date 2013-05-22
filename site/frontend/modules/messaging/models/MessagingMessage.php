@@ -12,9 +12,9 @@
  * @property string $created
  *
  * The followings are the available model relations:
- * @property Users $author
- * @property MessagingThreads $thread
- * @property Users[] $users
+ * @property User $author
+ * @property MessagingThread $thread
+ * @property User[] $users
  */
 class MessagingMessage extends CActiveRecord
 {

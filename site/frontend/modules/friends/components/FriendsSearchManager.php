@@ -85,7 +85,8 @@ class FriendsSearchManager
                 t.deleted = 0 AND
                 t.blocked = 0 AND
                 f.id IS NULL AND
-                fr.id IS NULL
+                fr.id IS NULL AND
+                t.avatar_id IS NOT NULL
             ',
             'join' => '
                 LEFT OUTER JOIN friends f ON f.user_id = :user_id AND f.friend_id = t.id

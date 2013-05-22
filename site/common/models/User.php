@@ -1107,25 +1107,25 @@ class User extends HActiveRecord
 
     public function sendOnlineStatus()
     {
-        $additionalCriteria = new CDbCriteria(array(
-            'select' => 't.id',
-            'index' => 'id',
-        ));
-
-        $contacts = Im::getContacts($this->id, Im::IM_CONTACTS_ALL, $additionalCriteria);
-        $friends = $this->getFriendsModels($additionalCriteria);
-
-        $users = $contacts + $friends;
-
-        $comet = new CometModel;
-        $comet->type = CometModel::TYPE_ONLINE_STATUS_CHANGE;
-        foreach ($users as $k => $u) {
-            $comet->send($u->id, array(
-                'online' => $this->online,
-                'user_id' => $this->id,
-                'is_friend' => isset($friends[$k]),
-            ));
-        }
+//        $additionalCriteria = new CDbCriteria(array(
+//            'select' => 't.id',
+//            'index' => 'id',
+//        ));
+//
+//        $contacts = Im::getContacts($this->id, Im::IM_CONTACTS_ALL, $additionalCriteria);
+//        $friends = $this->getFriendsModels($additionalCriteria);
+//
+//        $users = $contacts + $friends;
+//
+//        $comet = new CometModel;
+//        $comet->type = CometModel::TYPE_ONLINE_STATUS_CHANGE;
+//        foreach ($users as $k => $u) {
+//            $comet->send($u->id, array(
+//                'online' => $this->online,
+//                'user_id' => $this->id,
+//                'is_friend' => isset($friends[$k]),
+//            ));
+//        }
     }
 
     public static function getWorkersIds()

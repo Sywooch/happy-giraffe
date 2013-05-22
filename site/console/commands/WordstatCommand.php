@@ -127,15 +127,16 @@ class WordstatCommand extends CConsoleCommand
                 ->limit(10000)
                 ->queryAll();
 
-            foreach ($keywords as $keyword)
+            foreach ($keywords as $keyword) {
+                $last_id = $keyword['id'];
                 $collection->insert(array(
                     'id' => (int)$keyword['id'],
                     'name' => $keyword['name'],
                     'wordstat' => (int)$keyword['wordstat'],
                     'status' => (int)$keyword['status'],
                 ));
+            }
 
-            $last_id = end($ids);
             echo $last_id . "\n";
             if (empty($ids))
                 break;

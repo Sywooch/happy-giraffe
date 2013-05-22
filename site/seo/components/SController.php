@@ -29,7 +29,7 @@ class SController extends CController
         );
     }
 
-    protected function beforeAction($action)
+    public function beforeAction($action)
     {
         $this->user = Yii::app()->user->getModel();
 

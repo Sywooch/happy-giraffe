@@ -107,8 +107,8 @@ class Im
 
         return Yii::app()->db->createCommand()
             ->select('COUNT( * )')
-            ->from(Message::model()->tableName())
-            ->where('`dialog_id` IN (SELECT DISTINCT (dialog_id) FROM im__dialog_users WHERE user_id = :user_id) AND user_id != :user_id AND read_status = 0', array(':user_id' => $user_id))
+            ->from(MessagingMessage::model()->tableName())
+            ->where('`thread_id` IN (SELECT DISTINCT (thread_id) FROM messaging__threads_users WHERE user_id = :user_id) AND user_id != :user_id AND read_status = 0', array(':user_id' => $user_id))
             ->queryScalar();
     }
 

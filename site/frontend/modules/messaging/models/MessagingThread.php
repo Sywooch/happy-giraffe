@@ -9,7 +9,7 @@
  * @property string $created
  *
  * The followings are the available model relations:
- * @property MessagingMessages[] $messagingMessages
+ * @property MessagingMessage[] $messagingMessages
  */
 class MessagingThread extends CActiveRecord
 {
@@ -267,5 +267,22 @@ class MessagingThread extends CActiveRecord
             ':thread_id' => $this->id,
             ':user_id' => $userId,
         ));
+    }
+
+    public function withSimpleUser()
+    {
+        $user_ids = Yii::app()->db->createCommand()
+            ->select('user_id')
+            ->from('messaging__threads_users')
+            ->where('thread_id=:thread_id', array(':thread_id' => $this->id))
+            ->queryColumn();
+
+        foreach ($user_ids as $user_id){
+            $model = User::model()->resetScope()->findByPk($user_id);
+            if ($model !== null && $model->group == UserGroup::USER)
+                return true;
+        }
+
+        return false;
     }
 }

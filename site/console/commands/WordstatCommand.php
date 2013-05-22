@@ -116,22 +116,29 @@ class WordstatCommand extends CConsoleCommand
         $collection->ensureIndex(array('name' => 1), array("unique" => true));
         $collection->ensureIndex(array('wordstat' => -1));
 
+        $last_id = 0;
+        while (true) {
+            $condition = 'id > ' . $last_id;
+            $keywords = Yii::app()->db_keywords->createCommand()
+                ->select('id')
+                ->from('keywords')
+                ->order('id asc')
+                ->where($condition)
+                ->limit(10000)
+                ->queryAll();
 
-        $dataProvider = new CSqlDataProvider('select * from keywords.keywords', array(
-            'totalItemCount' => 10000000,
-            'pagination' => array(
-                'pageSize' => 10000,
-            ),
-        ));
-        $iterator = new CDataProviderIterator($dataProvider, 10000);
+            foreach ($keywords as $keyword)
+                $collection->insert(array(
+                    'id' => (int)$keyword['id'],
+                    'name' => $keyword['name'],
+                    'wordstat' => (int)$keyword['wordstat'],
+                    'status' => (int)$keyword['status'],
+                ));
 
-        foreach ($iterator as $keyword) {
-            $collection->insert(array(
-                'id' => (int)$keyword['id'],
-                'name' => $keyword['name'],
-                'wordstat' => (int)$keyword['wordstat'],
-                'status' => (int)$keyword['status'],
-            ));
+            $last_id = end($ids);
+            echo $last_id . "\n";
+            if (empty($ids))
+                break;
         }
     }
 

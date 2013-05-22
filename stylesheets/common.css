@@ -260,6 +260,9 @@ html.top-nav-fixed {
 .margin-5 {
   margin: 5px !important;
 }
+.margin-10 {
+  margin: 10px !important;
+}
 .margin-20 {
   margin: 20px !important;
 }
@@ -275,11 +278,23 @@ html.top-nav-fixed {
 .margin-t40 {
   margin-top: 40px !important;
 }
+.margin-t50 {
+  margin-top: 50px !important;
+}
 .margin-t60 {
   margin-top: 60px !important;
 }
 .margin-t90 {
   margin-top: 90px !important;
+}
+.margin-t95 {
+  margin-top: 95px !important;
+}
+.margin-t100 {
+  margin-top: 100px !important;
+}
+.margin-t110 {
+  margin-top: 110px !important;
 }
 .margin-t-15 {
   margin-top: -15px !important;
@@ -314,6 +329,9 @@ html.top-nav-fixed {
 .nopadding,
 .padding-0 {
   padding: 0 !important;
+}
+.padding-10 {
+  padding: 10px !important;
 }
 .padding-b20 {
   padding-bottom: 20px !important;
@@ -407,6 +425,12 @@ html.top-nav-fixed {
 }
 .opacity-100 {
   opacity: 1;
+}
+.bordered {
+  border-top: solid 1px #e5e4e4;
+  border-left: solid 1px #eeeeee;
+  border-right: solid 1px #eeeeee;
+  border-bottom: solid 1px #eeeeee;
 }
 .clear {
   width: 99%;
@@ -1044,7 +1068,7 @@ textarea.error,
   display: inline-block;
   *display: inline;
   *zoom: 1;
-  padding: 4px 10px 4px;
+  padding: 4px 10px;
   margin-bottom: 0;
   *margin-left: .3em;
   font-size: 13px;
@@ -9211,22 +9235,34 @@ textarea.error,
   text-align: center;
   padding: 20px 0;
 }
+#photo-inline .photo-inline_top {
+  margin: 0 auto;
+  max-width: 835px;
+}
+#photo-inline .meta {
+  margin-top: 0;
+}
 #photo-inline .meta .album-title {
-  width: 40%;
   float: left;
+  text-align: left;
 }
 #photo-inline .meta .count {
-  width: 40%;
   float: right;
+  width: 40%;
+  margin: 2px 0 0;
   font-size: 11px;
   font-family: tahoma, arial, helvetia, sans-serif;
+  text-align: right;
 }
-#photo-inline .meta .count .btn {
-  margin-left: 20px;
+#photo-inline .meta .count .count-tx {
+  display: inline-block;
+  *zoom: 1;
+  *display: inline;
+  vertical-align: middle;
+  padding-top: 3px;
 }
-#photo-inline .meta .count .btn span {
-  font-weight: normal;
-  font-size: 14px;
+#photo-inline .meta .count .btn-green {
+  margin-left: 10px;
 }
 #photo-inline .title {
   margin: 20px auto;
@@ -14323,7 +14359,7 @@ body.gallery {
 .footer-push {
   height: 100px;
 }
-#footer {
+.layout-footer {
   height: 90px;
   width: 1000px;
   margin: -100px auto 0;
@@ -14332,17 +14368,23 @@ body.gallery {
   position: relative;
   background: #fff;
 }
-#footer .copy {
+.layout-footer .copy {
   padding-left: 20px;
   color: #9e9d9e;
 }
-#footer .copy .icon-18 {
+.layout-footer .copy .icon-18 {
   vertical-align: middle;
   padding: 0 25px;
 }
-#footer .a-right {
-  color: #0498b8;
-  padding-right: 20px;
+.counter-rambler {
+  float: right;
+  margin: 0 60px 0 10px;
+  line-height: normal;
+}
+.counter-rambler_i {
+  display: inline-block;
+  vertical-align: middle;
+  margin: 5px 10px 0 0;
 }
 .mobile-version {
   display: inline-block;
@@ -17241,6 +17283,7 @@ select.pregnancy_term + .chzn-container .chzn-results li {
 .entry-nav .prev {
   width: 45%;
   float: left;
+  text-align: left;
 }
 .entry-nav .next {
   width: 45%;

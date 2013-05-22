@@ -149,7 +149,7 @@ if (get_class($model) == 'Contest') {
                 <div class="col-3">
                     <?php if (get_class($model) == 'Contest' && $model->id == 2): ?>
                         <script type="text/javascript">
-                            ADFOX.AJAX_EMBEDS.adfoxAJAXEmbed('http://ads.adfox.ru/211012/prepareCode?pp=g&ps=bkqy&p2=etei&pct=a&plp=a&pli=a&pop=a&pt=b', 'adfox_embed_etei_AdfoxAjax', true);
+                            ADFOX.AJAX_EMBEDS.adfoxAJAXEmbed('http://ads.adfox.ru/211012/prepareCode?pp=g&ps=bkqy&p2=etei&pct=a&plp=a&pli=a&pop=a&pt=b', 'AdfoxAjax', true);
                         </script>
                         <div class="margin-t60" id="AdfoxAjax"></div>
                     <?php else: ?>

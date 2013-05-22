@@ -137,8 +137,10 @@ class WordstatCommand extends CConsoleCommand
                 ));
             }
 
-            echo $last_id . "\n";
-            if (empty($ids))
+            if (rand(1, 10) == 7)
+                echo $last_id . "\n";
+
+            if (empty($keywords))
                 break;
         }
     }

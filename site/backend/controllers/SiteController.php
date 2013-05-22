@@ -60,7 +60,7 @@ class SiteController extends BController
             }
 
             if (!Yii::app()->authManager->checkAccess('admin panel access', $userModel->id))
-                throw new CHttpException(404, 'Недостаточно прав.');
+                throw new CHttpException(404, 'Недостаточно прав.'.$userModel->id);
 
             if ($userModel)
             {

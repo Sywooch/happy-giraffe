@@ -120,7 +120,7 @@ class WordstatCommand extends CConsoleCommand
         while (true) {
             $condition = 'id > ' . $last_id;
             $keywords = Yii::app()->db_keywords->createCommand()
-                ->select('id')
+                ->select('*')
                 ->from('keywords')
                 ->order('id asc')
                 ->where($condition)

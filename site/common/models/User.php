@@ -421,20 +421,18 @@ class User extends HActiveRecord
 
         if ($this->isNewRecord) {
             //силнал о новом юзере
-            $signal = new UserSignal();
-            $signal->user_id = (int)$this->id;
-            $signal->signal_type = UserSignal::TYPE_NEW_USER_REGISTER;
-            $signal->item_name = 'User';
-            $signal->item_id = (int)$this->id;
-            $signal->save();
+//            $signal = new UserSignal();
+//            $signal->user_id = (int)$this->id;
+//            $signal->signal_type = UserSignal::TYPE_NEW_USER_REGISTER;
+//            $signal->item_name = 'User';
+//            $signal->item_id = (int)$this->id;
+//            $signal->save();
 
             //рубрика для блога
             $rubric = new CommunityRubric;
             $rubric->title = 'Обо всём';
             $rubric->user_id = $this->id;
             $rubric->save();
-
-            Comment::model()->addGiraffeFirstComment($this->id);
 
             //create some tables
             Yii::app()->db->createCommand()->insert(UserPriority::model()->tableName(), array('user_id' => $this->id));

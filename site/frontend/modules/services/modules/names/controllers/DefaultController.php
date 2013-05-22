@@ -13,6 +13,21 @@ class DefaultController extends HController
     {
         return array(
             'ajaxOnly + like',
+            'accessControl',
+        );
+    }
+
+    public function accessRules()
+    {
+        return array(
+            array('allow',
+                'actions' => array('likes'),
+                'users' => array('@'),
+            ),
+            array('deny',
+                'actions' => array('likes'),
+                'users' => array('*'),
+            ),
         );
     }
 

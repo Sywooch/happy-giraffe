@@ -8,9 +8,9 @@ class MailCommand extends CConsoleCommand
         Yii::import('site.frontend.extensions.*');
         Yii::import('site.frontend.components.*');
         Yii::import('site.frontend.helpers.*');
-        Yii::import('site.frontend.modules.im.models.*');
+        Yii::import('site.frontend.modules.messaging.models.*');
+        Yii::import('site.frontend.modules.messaging.components.*');
         Yii::import('site.frontend.modules.geo.models.*');
-        Yii::import('site.frontend.modules.im.components.*');
         Yii::import('site.common.models.mongo.*');
 
         return true;
@@ -47,7 +47,7 @@ class MailCommand extends CConsoleCommand
             $criteria->offset = $i * 100;
             $users = User::model()->findAll($criteria);
             foreach ($users as $user) {
-                $unread = Im::model($user->id)->getUnreadMessagesCount($user->id);
+                $unread = MessagingManager::unreadMessagesCount($user->id);
                 if ($unread > 0) {
 
                     $m_criteria = new EMongoCriteria;
@@ -57,8 +57,8 @@ class MailCommand extends CConsoleCommand
 
                     if ($model === null || $model->needSend()) {
                         $token = UserToken::model()->generate($user->id, 86400);
-                        $dialogUsers = Im::model($user->id)->getUsersWithNewMessages();
-                        Yii::app()->email->send($user, 'newMessages', compact('dialogUsers', 'unread', 'user', 'token'), $this);
+                        $dialogs = ContactsManager::getContactsByUserId($user->id, ContactsManager::TYPE_NEW, 10);
+                        Yii::app()->email->send($user, 'newMessages', compact('dialogs', 'unread', 'user', 'token'), $this);
                         echo $user->id . "\n";
 
                         if ($model === null) {
@@ -97,20 +97,13 @@ class MailCommand extends CConsoleCommand
     public function actionTestNewMessages()
     {
         $user = User::getUserById(10);
-        $unread = Im::model($user->id)->getUnreadMessagesCount($user->id);
+        $unread = MessagingManager::unreadMessagesCount($user->id);
+        echo 'unread: '.$unread."\n";
         if ($unread > 0) {
+            $token = UserToken::model()->generate($user->id, 86400);
+            $dialogs = ContactsManager::getContactsByUserId($user->id, ContactsManager::TYPE_NEW, 10);
 
-            $m_criteria = new EMongoCriteria;
-            $m_criteria->type('==', MailDelivery::TYPE_IM);
-            $m_criteria->user_id('==', (int)$user->id);
-            $model = MailDelivery::model()->find($m_criteria);
-
-            if ($model === null || $model->needSend()) {
-                $token = UserToken::model()->generate($user->id, 86400);
-                $dialogUsers = Im::model($user->id)->getUsersWithNewMessages();
-
-                Yii::app()->email->send(10, 'newMessages', compact('dialogUsers', 'unread', 'user', 'token'), $this);
-            }
+            Yii::app()->email->send(10, 'newMessages', compact('dialogs', 'unread', 'user', 'token'), $this);
         }
     }
 

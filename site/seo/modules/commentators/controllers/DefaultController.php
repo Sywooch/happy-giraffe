@@ -12,7 +12,7 @@ class DefaultController extends SController
         Yii::import('site.frontend.modules.signal.models.*');
         Yii::import('site.frontend.modules.signal.components.*');
         Yii::import('site.frontend.modules.signal.helpers.*');
-        Yii::import('site.frontend.modules.im.models.*');
+        Yii::import('site.frontend.modules.messaging.models.*');
 
         $this->pageTitle = 'комментаторы';
         return parent::beforeAction($action);

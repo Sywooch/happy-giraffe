@@ -1,7 +1,7 @@
 <?php
 /* @var $user User
  * @var $unread int
- * @var $dialogUsers MessagingThreadUser[]
+ * @var $dialogs []
  */
 ?>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -83,26 +83,27 @@
                             <tr>
 
                                 <?php $unreadShown = 0; ?>
-                                <?php for($i=0;$i<count($dialogUsers) && $i < 4;$i++): ?>
-                                <?php $dialogUser = $dialogUsers[$i] ?>
+                                <?php for($i=0;$i<count($dialogs) && $i < 4;$i++): ?>
+                                <?php $dialogUser = $dialogs[$i] ?>
+                                <?php $dialogUserModel = User::getUserById($dialogUser['user']['id']); ?>
                                     <td width="50%" valign="top" style="padding-bottom:30px">
 
                                         <table width="250">
                                             <tr>
                                                 <td width="90" valign="top">
-                                                    <img src="<?= $dialogUser->user->getAvaOrDefaultImage() ?>" style="display:block;-moz-border-radius:36px;-webkit-border-radius:36px;border-radius:36px;"/>
+                                                    <img src="<?= $dialogUserModel->getAvaOrDefaultImage() ?>" style="display:block;-moz-border-radius:36px;-webkit-border-radius:36px;border-radius:36px;"/>
                                                 </td>
                                                 <td valign="top">
-                                                    <span style="color:#38a5f4;font:12px/16px arial, helvetica, sans-serif;"><?= $dialogUser->user->getFullName() ?></span><br/>
-                                                    <?php if (!empty($dialogUser->user->address->country_id)):?>
-                                                        <span style="color:#858484;font:9px/18px tahoma, helvetica, sans-serif;"><img src="http://www.happy-giraffe.ru/images/mail/flags/<?=  $dialogUser->user->address->country->iso_code; ?>0018.gif" style="margin-right:5px;"><?= CHtml::encode($dialogUser->user->address->getCityName()); ?></span><br/>
+                                                    <span style="color:#38a5f4;font:12px/16px arial, helvetica, sans-serif;"><?= $dialogUserModel->getFullName() ?></span><br/>
+                                                    <?php if (!empty($dialogUserModel->address->country_id)):?>
+                                                        <span style="color:#858484;font:9px/18px tahoma, helvetica, sans-serif;"><img src="http://www.happy-giraffe.ru/images/mail/flags/<?=  $dialogUserModel->address->country->iso_code; ?>0018.gif" style="margin-right:5px;"><?= CHtml::encode($dialogUserModel->address->getCityName()); ?></span><br/>
                                                     <?php endif ?>
                                                     <?php if (false):?>
                                                         <span style="color:#2aa908;font:11px/18px tahoma, helvetica, sans-serif;"></span><br/>
                                                     <?php endif ?>
                                                     <span style="color:#0d81d5;font:18px/20px arial, helvetica, sans-serif;">
-                                                        <a href="<?= 'http://www.happy-giraffe.ru/user/'.$user->id .'/?im_interlocutor_id='.$dialogUser->user_id.'&token='.$token->content ?>&utm_source=email" target="_blank" style="color:#0d81d5;font:18px/20px arial, helvetica, sans-serif;">
-                                                            <?php $current_unread = Dialog::getUnreadMessagesCount($dialogUser->dialog_id, $user->id); echo $current_unread ?>
+                                                        <a href="<?= 'http://www.happy-giraffe.ru/messaging/?interlocutorId='.$dialogUserModel->id.'&token='.$token->content ?>&utm_source=email" target="_blank" style="color:#0d81d5;font:18px/20px arial, helvetica, sans-serif;">
+                                                            <?= $current_unread = $dialogUser['thread']['unreadCount'] ?>
                                                             <?= HDate::GenerateNoun(array('сообщение', 'сообщения', 'сообщений'), $current_unread) ?>
                                                         </a>
                                                     </span>
@@ -122,9 +123,9 @@
 
                         </table>
 
-                        <?php if (count($dialogUsers) > 4):?>
+                        <?php if (count($dialogs) > 4):?>
                             <div style="margin:10px 0;text-align:center;font:20px arial, helvetica, sans-serif;color:#0483e0;">
-                                <a href="http://www.happy-giraffe.ru/user/<?=$user->id ?>/?im_type=<?=Im::IM_CONTACTS_NEW ?>&token=<?= $token->content ?>&utm_source=email" style="font:20px arial, helvetica, sans-serif;color:#0483e0;">... еще <?= $unread - $unreadShown ?> <?= HDate::GenerateNoun(array('сообщение', 'сообщения', 'сообщений'), $unread - $unreadShown) ?></a></span>
+                                <a href="http://www.happy-giraffe.ru/messaging/?token=<?= $token->content ?>&utm_source=email" style="font:20px arial, helvetica, sans-serif;color:#0483e0;">... еще <?= $unread - $unreadShown ?> <?= HDate::GenerateNoun(array('сообщение', 'сообщения', 'сообщений'), $unread - $unreadShown) ?></a></span>
                             </div>
                         <?php endif ?>
 

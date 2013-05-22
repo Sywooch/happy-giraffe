@@ -201,8 +201,10 @@
         Написать нам: <a href="mailto:info@happy-giraffe.ru">info@happy-giraffe.ru</a>
     </div>
     <div style="float:right;margin:0 60px 0 10px;line-height:normal;">
-        <div id="counter-rambler" class="" style="display:inline-block;vertical-align:middle;margin:5px 10px 0 0;"></div>
-        <a href="http://www.rambler.ru/" >Партнер «Рамблера»</a>
+        <noindex>
+            <div id="counter-rambler" class="" style="display:inline-block;vertical-align:middle;margin:5px 10px 0 0;"></div>
+            <a href="http://www.rambler.ru/" target="_blank" rel="nofollow">Партнер «Рамблера»</a>
+        </noindex>
     </div>
     <div class="copy">
         <p>Весёлый жираф &nbsp; © 2012 &nbsp; Все права защищены

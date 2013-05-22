@@ -22,14 +22,14 @@
                 <div class="im-tabs">
                     <a href="javascript:void(0)" class="im_sound im-tooltipsy" data-bind="click: toggleSoundSetting, css: { active : soundSetting }, tooltip: soundSetting() ? 'Выключить звуковые <br>оповещения' : 'Включить звуковые <br>оповещения'"></a>
                     <div class="im-tabs_i" data-bind="css: { active : tab() == 0 }"><a href="javascript:void(0)" class="im-tabs_a" data-bind="click: function(data, event) { changeTab(0, data, event) }">Все</a></div>
-                    <div class="im-tabs_i" data-bind="css: { active : tab() == 1 }"><a href="javascript:void(0)" class="im-tabs_a" data-bind="css: { inactive : newContacts().length == 0 }, click: function(data, event) { if (newContacts().length > 0) changeTab(1, data, event) }">Новые <span class="im_count" data-bind="visible: newContacts().length > 0, text: newContacts().length"></span> </a></div>
-                    <div class="im-tabs_i" data-bind="css: { active : tab() == 2 }"><a href="javascript:void(0)" class="im-tabs_a" data-bind="css: { inactive : onlineContacts().length == 0 }, click: function(data, event) { if (onlineContacts().length > 0) changeTab(2, data, event) }, text: onlineContacts().length > 0 ? 'Кто в онлайн (' + onlineContacts().length + ')' : 'Кто в онлайн'"></a></div>
-                    <div class="im-tabs_i" data-bind="css: { active : tab() == 3 }"><a href="javascript:void(0)" class="im-tabs_a" data-bind="css: { inactive : friendsContacts().length == 0 }, click: function(data, event) { if (friendsContacts().length > 0) changeTab(3, data, event) }, text: friendsContacts().length > 0 ? 'Друзья на сайте (' + friendsContacts().length + ')' : 'Друзья на сайте'"></a></div>
+                    <div class="im-tabs_i" data-bind="css: { active : tab() == 1 }"><a href="javascript:void(0)" class="im-tabs_a" data-bind="css: { inactive : newContactsCount() == 0 }, click: function(data, event) { if (newContactsCount() > 0) changeTab(1, data, event) }">Новые <span class="im_count" data-bind="visible: newContactsCount() > 0, text: newContactsCount()"></span> </a></div>
+                    <div class="im-tabs_i" data-bind="css: { active : tab() == 2 }"><a href="javascript:void(0)" class="im-tabs_a" data-bind="css: { inactive : onlineContactsCount() == 0 }, click: function(data, event) { if (onlineContactsCount() > 0) changeTab(2, data, event) }, text: onlineContactsCount() > 0 ? 'Кто в онлайн (' + onlineContactsCount() + ')' : 'Кто в онлайн'"></a></div>
+                    <div class="im-tabs_i" data-bind="css: { active : tab() == 3 }"><a href="javascript:void(0)" class="im-tabs_a" data-bind="css: { inactive : friendsContactsCount() == 0 }, click: function(data, event) { if (friendsContactsCount() > 0) changeTab(3, data, event) }, text: friendsContactsCount() > 0 ? 'Друзья на сайте (' + friendsContactsCount() + ')' : 'Друзья на сайте'"></a></div>
                 </div>
                 <div class="im-panel" data-bind="if: interlocutor() != '', css: { 'im-panel__big' : interlocutorExpandedSetting }">
                     <div class="im-panel-icons">
                         <div class="im-panel-icons_i" data-bind="visible: ! interlocutor().user().isFriend()">
-                            <a href="javascript:void(0)" class="im-panel-icons_i-a im-tooltipsy" title="Добавить в друзья" data-bind="click: addFriend, css: { 'im-panel-icons_i-a__request' : interlocutor().inviteSent() }">
+                            <a href="javascript:void(0)" class="im-panel-icons_i-a im-tooltipsy" data-bind="click: addFriend, css: { 'im-panel-icons_i-a__request' : interlocutor().inviteSent() }">
                                 <span class="im-panel-ico im-panel-ico__add-friend"></span>
                                 <span class="im-panel-icons_desc" data-bind="html: interlocutor().inviteSent() ? 'Запрос <br> отправлен' : 'Добавить <br> в друзья'"></span>
                             </a>
@@ -52,7 +52,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="im-panel-icons_i" data-bind="if: openContact().thread() !== null && messagesToShow().length > 0">
+                        <div class="im-panel-icons_i" data-bind="if: openContact() !== null && openContact().thread() !== null && messagesToShow().length > 0">
                             <a href="javascript:void(0)" class="im-panel-icons_i-a im-tooltipsy" title="Удалить весь диалог" data-bind="click: openContact().thread().deleteMessages">
                                 <span class="im-panel-ico im-panel-ico__del"></span>
                                 <span class="im-panel-icons_desc">Удалить <br> весь диалог</span>
@@ -155,7 +155,7 @@ $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
 </div>
 
 <script type="text/html" id="contact-template">
-    <div class="im-user-list_i" data-bind="click: $root.openThread, css: { active : $root.contacts().indexOf($data) == $root.openContactIndex() }">
+    <div class="im-user-list_i" data-bind="click: $root.openThread, css: { active : user().id() == $root.openContactInterlocutorId() }">
         <div class="im-user-settings clearfix">
             <div class="im-user-settings_online-status-small" data-bind="css: { 'im-user-settings_online-status-small__offline' : ! user().online() }"></div>
             <a class="ava female" href="">

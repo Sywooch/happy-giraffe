@@ -4,7 +4,7 @@ return array(
     'urlFormat' => 'path',
     'showScriptName' => false,
     'urlSuffix' => '/',
-    'useStrictParsing' => true,
+    //'useStrictParsing' => true,
     'rules' => array(
         /*************************
          *      CONTROLLERS      *
@@ -51,6 +51,10 @@ return array(
 
         // friendRequests controller
         'friendRequests/update/request_id/<request_id:\d+>/action/<action:(accept|decline|retry|cancel)>' => 'friendRequests/update',
+
+        //notifications
+        'notifications' => 'notifications/default/index',
+        'notifications/<_a>' => 'notifications/default/<_a>',
 
         // rss controller
         'rss/page<page:\d+>' => 'rss/index',
@@ -271,5 +275,9 @@ return array(
 
         'messaging' => 'messaging/default/index',
         'messaging/<_c>/<_a>' => 'messaging/<_c>/<_a>',
+
+        'friends' => 'friends/default/index',
+        'friends/search' => 'friends/search/index',
+        'friends/<_c>/<_a>' => 'friends/<_c>/<_a>',
     ),
 );

@@ -98,18 +98,12 @@ class MailCommand extends CConsoleCommand
     {
         $user = User::getUserById(10);
         $unread = MessagingManager::unreadMessagesCount($user->id);
+        echo 'unread: '.$unread."\n";
         if ($unread > 0) {
-            $m_criteria = new EMongoCriteria;
-            $m_criteria->type('==', MailDelivery::TYPE_IM);
-            $m_criteria->user_id('==', (int)$user->id);
-            $model = MailDelivery::model()->find($m_criteria);
+            $token = UserToken::model()->generate($user->id, 86400);
+            $dialogUsers = ContactsManager::getContactsByUserId($user->id, ContactsManager::TYPE_ALL, 10);
 
-            if ($model === null || $model->needSend()) {
-                $token = UserToken::model()->generate($user->id, 86400);
-                $dialogUsers = ContactsManager::getContactsByUserId($user->id, ContactsManager::TYPE_ALL, 10);
-
-                Yii::app()->email->send(10, 'newMessages', compact('dialogUsers', 'unread', 'user', 'token'), $this);
-            }
+            Yii::app()->email->send(10, 'newMessages', compact('dialogUsers', 'unread', 'user', 'token'), $this);
         }
     }
 

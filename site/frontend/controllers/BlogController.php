@@ -179,6 +179,8 @@ class BlogController extends HController
 
     public function actionList($user_id, $rubric_id = null)
     {
+        Visit::processVisit();
+
         $this->layout = '//layouts/user_blog';
 
         $this->user = User::model()->findByPk($user_id);
@@ -202,18 +204,7 @@ class BlogController extends HController
      */
     public function actionView($content_id, $user_id, $lastPage = null, $ajax = null)
     {
-        /*$notification = UserNotification::model()->find();
-        for ($i = 0; $i < 50; $i++) {
-            $n = new UserNotification;
-            foreach ($notification->attributes as $k => $v)
-                if ($k != '_id')
-                    $n->$k = $v;
-            $n->save();
-        }
-        die; */
-
         $this->layout = '//layouts/user_blog';
-
         $content = BlogContent::model()->active()->full()->findByPk($content_id);
 
         if ($content === null || $content->author_id !== $user_id)// || $content->author->deleted)
@@ -237,8 +228,10 @@ class BlogController extends HController
         if (!empty($content->uniqueness) && $content->uniqueness < 50)
             Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
 
-        if (! Yii::app()->user->isGuest)
+        if (!Yii::app()->user->isGuest)
             UserNotification::model()->deleteByEntity($content, Yii::app()->user->id);
+        //сохраняем просматриваемую модель
+        NotificationRead::getInstance()->setContentModel($content);
 
         //проверяем переход с других сайтов по ссылкам комментаторов
         Yii::import('site.frontend.modules.signal.models.CommentatorLink');

@@ -498,6 +498,10 @@ class CookRecipe extends CActiveRecord
         return ($this->mainPhoto !== null) ? $this->mainPhoto->getPreviewUrl(303, null, Image::WIDTH) : false;
     }
 
+    public function getPhoto(){
+        return ($this->mainPhoto !== null) ? $this->mainPhoto : null;
+    }
+
     public function getEvent()
     {
         $row = array(
@@ -999,5 +1003,30 @@ class CookRecipe extends CActiveRecord
 
             Yii::app()->user->setState('recipe_id', null);
         }
+    }
+
+    public function getContentTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * Возвращает подсказку для вывода
+     */
+    public function getPowerTipTitle($full = false)
+    {
+        if (!$full)
+            return "Кулинарные рецепты";
+        else
+            return 'Кулинарный рецепт <span class=\'color-gray\' > ' . $this->title . '</span>';
+    }
+
+    /**
+     * Класс используемый в таблице с комментриями
+     * @return string
+     */
+    public function getCommentClass()
+    {
+        return 'CookRecipe';
     }
 }

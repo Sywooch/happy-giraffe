@@ -71,14 +71,14 @@ class Service extends HActiveRecord
 
     public function search()
     {
-        $criteria=new CDbCriteria;
+        $criteria = new CDbCriteria;
 
-        $criteria->compare('id',$this->id,true);
-        $criteria->compare('title',$this->title,true);
-        $criteria->compare('url',$this->url,true);
+        $criteria->compare('id', $this->id, true);
+        $criteria->compare('title', $this->title, true);
+        $criteria->compare('url', $this->url, true);
 
         return new CActiveDataProvider($this, array(
-            'criteria'=>$criteria,
+            'criteria' => $criteria,
             'pagination' => array('pageSize' => 100),
         ));
     }
@@ -104,7 +104,7 @@ class Service extends HActiveRecord
     public function userUsedService()
     {
         $this->incCount();
-        if (! Yii::app()->user->isGuest) {
+        if (!Yii::app()->user->isGuest) {
             ServiceUser::addCurrentUser($this->id);
             FriendEventManager::add(FriendEvent::TYPE_SERVICE_USED, array('service_id' => $this->id, 'user_id' => Yii::app()->user->id));
         }
@@ -165,6 +165,18 @@ class Service extends HActiveRecord
         return ServiceUser::model()->cache(10)->count($criteria);
     }
 
+    public function getUrlParams()
+    {
+        return array(
+            'albums/photo',
+            array(
+                'user_id' => $this->author_id,
+                'album_id' => $this->album_id,
+                'id' => $this->id
+            ),
+        );
+    }
+
     public function getUrl($comments = false)
     {
         return $comments ? $this->url . '#comment_list' : $this->url;
@@ -173,5 +185,21 @@ class Service extends HActiveRecord
     public function getUnknownClassCommentsCount()
     {
         return $this->commentsCount;
+    }
+
+    public function getContentTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * Возвращает подсказку для вывода
+     */
+    public function getPowerTipTitle($full = false)
+    {
+        if (!$full)
+            return 'Сервисы';
+
+        return $this->title;
     }
 }

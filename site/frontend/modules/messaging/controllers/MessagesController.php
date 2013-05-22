@@ -88,9 +88,11 @@ class MessagesController extends HController
             Yii::app()->end();
         }
 
+        $newThread = false;
         if ($threadId === null) {
             $thread = MessagingThread::model()->createThreadWith($interlocutorId);
             $threadId = $thread->id;
+            $newThread = true;
         }
         $message = MessagingMessage::model()->create($text, $threadId, Yii::app()->user->id, $images);
 
@@ -117,17 +119,17 @@ class MessagesController extends HController
                         'gender' => (int) Yii::app()->user->model->gender,
                         'avatar' => Yii::app()->user->model->getAva('small'),
                         'online' => (bool) Yii::app()->user->model->online,
-                        'isFriend' => (bool) Yii::app()->user->model->isFriend($interlocutorId),
+                        'isFriend' => (bool) Friend::model()->areFriends(Yii::app()->user->id, $interlocutorId),
                     ),
                 ),
             );
 
-            if ($threadId === null)
+            if ($newThread)
                 $data['thread'] = $receiverData['contact']['thread'] = array(
-                    'id' => $thread->id,
-                    'updated' => time(),
-                    'unreadCount' => 0,
-                    'hidden' => false,
+                    'id' => (int) $thread->id,
+                    'updated' => (int) time(),
+                    'unreadCount' => (int) 0,
+                    'hidden' => (bool) false,
                 );
 
             $comet = new CometModel();

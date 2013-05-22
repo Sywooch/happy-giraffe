@@ -330,7 +330,7 @@ class AjaxController extends HController
     {
         Yii::import('application.modules.contest.models.*');
         Yii::import('application.modules.cook.models.*');
-        Yii::import('application.modules.route.models.*');
+        Yii::import('application.modules.routes.models.*');
 
         if (!Yii::app()->request->isAjaxRequest || !isset($_POST['Removed']))
             Yii::app()->end();

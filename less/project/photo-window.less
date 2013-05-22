@@ -48,10 +48,15 @@ body.gallery {overflow:hidden;}
 #photo-window .top-line .photo-info .title input {width:75%;padding:2px 5px;border:1px solid #c5e8ef;vertical-align:middle;background:#fff;margin-left:-6px;}
 
 #photo-window #photo {position:relative;padding:10px 0 20px;}
-#photo-window #photo .img {position:relative;width:960px;margin:0 auto;}
+#photo-window .photo-banner-hold {padding: 0 0 0 20px;}
+#photo-window #photo .img {position:relative;margin:0 auto;}
 #photo-window #photo .img table {width:100%;}
 #photo-window #photo .img table td {text-align:center;vertical-align:middle;height:627px;max-width: 960px;}
+#photo-window .photo-banner-hold #photo .img table td {height: 520px;max-width:660px;padding: 0;}
 #photo-window #photo .img img {display:block;margin:auto;max-width:100%;}
+.ie7 #photo-window  .photo-banner-hold #photo .img img,
+.ie8 #photo-window  .photo-banner-hold #photo .img img,
+.ie9 #photo-window  .photo-banner-hold #photo .img img {width:100%;}
 #photo-window #photo .img .title {display:block;position:absolute;width:100%;top:0;left:0;padding:10px 0;background:#000;background:rgba(0,0,0,.6);z-index:10;}
 #photo-window #photo .img .title .in {width:50%;float:right;padding-right:10px;font-size:13px;color:#fff;margin-right:15px;text-align:left;}
 #photo-window #photo .img .title .user-info {margin-left:15px;width:40%;}
@@ -68,11 +73,14 @@ body.gallery {overflow:hidden;}
 
 
 #photo-window #photo .prev {display:block;text-indent:-9999px;position:absolute;top:0%;height:100%;width:200px;left:0;z-index:9;}
-#photo-window #photo .prev .icon {display:block;width:66px;height:130px;background:url(/images/common.png) no-repeat -69px -341px;margin-top:-65px;top:324px;left:20px;position:absolute;}
+#photo-window #photo .prev .icon {display:block;width:66px;height:130px;background:url(/images/common.png) no-repeat -69px -341px;margin-top:-65px;top:50%;left:20px;position:absolute;}
 #photo-window #photo .prev:hover .icon {background-position:-205px -341px;}
+#photo-window .photo-banner-hold #photo .prev .icon {left: 0;}
 #photo-window #photo .next {display:block;text-indent:-9999px;position:absolute;top:0%;height:100%;width:798px;right:0;z-index:9;}
-#photo-window #photo .next .icon {display:block;width:66px;height:130px;background:url(/images/common.png) no-repeat -1px -341px;margin-top:-65px;top:324px;right:20px;position:absolute;}
+#photo-window .photo-banner-hold #photo .next {width: 520px;}
+#photo-window #photo .next .icon {display:block;width:66px;height:130px;background:url(/images/common.png) no-repeat -1px -341px;margin-top:-65px;top:50%;right:20px;position:absolute;}
 #photo-window #photo .next:hover .icon {background-position:-137px -341px;}
+#photo-window .photo-banner-hold #photo .next .icon {right: 0;}
 
 #photo-window #photo-content {background:#fff;margin:20px 130px 0;padding:0 25px 25px;}
 #photo-window #photo-content .like-block {margin:0 -100px 30px;width:900px;}

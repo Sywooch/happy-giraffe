@@ -138,6 +138,8 @@ function Friend(data, parent) {
     self.id = ko.observable(data.id);
     self.listId = ko.observable(data.listId);
     self.user = ko.observable(new User(data.user, parent));
+    self.pCount = ko.observable(data.pCount);
+    self.bCount = ko.observable(data.bCount);
     self.removed = ko.observable(false);
 
     self.listLabel = ko.computed(function() {

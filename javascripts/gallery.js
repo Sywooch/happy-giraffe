@@ -239,6 +239,7 @@ jQuery.fn.pGallery = function(options) {
 
     plugin.showAlbumEnd = function() {
         $('.photo-container', this.window).hide();
+        $('#AdfoxAjax').hide();
         $('.rewatch-container', this.window).show();
     };
 

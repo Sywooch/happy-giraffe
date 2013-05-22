@@ -35,11 +35,10 @@ class MorningController extends HController
 
     public function actionIndex($date = null)
     {
-        if ($date === null || empty($date)){
+        if ($date === null || empty($date)) {
             $date = date("Y-m-d");
             $empty_param = true;
-        }
-        else
+        } else
             $empty_param = false;
         $this->last_time = strtotime(date("Y-m-d") . ' 00:00:00');
 
@@ -50,11 +49,11 @@ class MorningController extends HController
 
         //check if no articles today
         $criteria = new CDbCriteria;
-        $criteria->condition = 'type_id=4 AND created >= "' . date("Y-m-d")  . ' 00:00:00" ';
+        $criteria->condition = 'type_id=4 AND created >= "' . date("Y-m-d") . ' 00:00:00" ';
         if (!Yii::app()->user->checkAccess('editMorning'))
             $criteria->condition .= ' AND is_published = 1';
         $count = CommunityContent::model()->with('photoPost')->count($criteria);
-        if ($count == 0){
+        if ($count == 0) {
             $this->last_time = strtotime(' - 1 day', $this->last_time);
         }
 
@@ -97,7 +96,10 @@ class MorningController extends HController
     public function actionView($id)
     {
         $article = CommunityContent::model()->with('photoPost', 'photoPost.photos')->findByPk($id);
-        if ($article === null || ($article->photoPost->is_published != 1 && !Yii::app()->user->checkAccess('editMorning')))
+
+        if ($article === null || $article->photoPost === null ||
+            ($article->photoPost->is_published != 1 && !Yii::app()->user->checkAccess('editMorning'))
+        )
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
         $this->pageTitle = CHtml::encode($article->title);
@@ -144,8 +146,7 @@ class MorningController extends HController
                     }
                 }
                 $this->render('_create', compact('post'));
-            }
-            else {
+            } else {
                 $this->breadcrumbs = array(
                     'Утро с Весёлым жирафом' => array('morning/'),
                     'Редактирование записи'
@@ -215,8 +216,7 @@ class MorningController extends HController
                 //'html' => $this->renderPartial('_photo', compact('photo'), true),
                 'id' => $photo->id
             );
-        }
-        else {
+        } else {
             $response = array(
                 'status' => false,
             );
@@ -290,7 +290,8 @@ class MorningController extends HController
         $post->photoPost->save();
     }
 
-    public function actionUpdatePos(){
+    public function actionUpdatePos()
+    {
         if (!Yii::app()->user->checkAccess('editMorning'))
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 

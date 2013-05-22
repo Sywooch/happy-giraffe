@@ -1,7 +1,7 @@
 <?php
 /* @var $user User
  * @var $unread int
- * @var $dialogUsers DialogUser[]
+ * @var $dialogUsers MessagingThreadUser[]
  */
 ?>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>

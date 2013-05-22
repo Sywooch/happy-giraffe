@@ -92,7 +92,7 @@
         //$notificationsCount = Notification::model()->getUnreadCount();
         $notificationsCount = UserNotification::model()->getUserCount(Yii::app()->user->id);
         $friendsCount = FriendRequest::model()->getUserCount(Yii::app()->user->id);
-        $imCount = Im::model()->getUnreadMessagesCount(Yii::app()->user->id);
+        $imCount = MessagingManager::unreadMessagesCount(Yii::app()->user->id);
         ?>
         <div class="top-line-menu_nav">
 

@@ -30,10 +30,10 @@ class CommentatorHelper
             $date2 = $date1;
 
         //выбираем все диалоги пользователя, в которых были написано сообщения в указанный период времени
-        $dialogs = Dialog::model()->findAll(array(
+        $dialogs = MessagingThread::model()->findAll(array(
             'with' => array(
-                'dialogUsers' => array(
-                    'condition' => 'dialogUsers.user_id = ' . $user_id,
+                'threadUsers' => array(
+                    'condition' => 'threadUsers.user_id = ' . $user_id,
                 ),
                 'messages' => array(
                     'condition' => 'messages.created >= :min AND messages.created <= :max',
@@ -54,7 +54,7 @@ class CommentatorHelper
                 $in = false;
                 $out = false;
                 foreach ($dialog->messages as $message)
-                    if ($message->user_id == $user_id){
+                    if ($message->author_id == $user_id){
                         $out = true;
                         $stats['out']++;
                     }

@@ -16,10 +16,11 @@ class SignalCommand extends CConsoleCommand
         Yii::import('site.frontend.modules.signal.components.*');
         Yii::import('site.frontend.modules.signal.helpers.*');
         Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
-        Yii::import('site.frontend.modules.im.models.*');
+        Yii::import('site.frontend.modules.messaging.models.*');
         Yii::import('site.frontend.extensions.GoogleAnalytics');
         Yii::import('site.frontend.helpers.*');
         Yii::import('site.frontend.modules.cook.models.*');
+        Yii::import('site.frontend.modules.friends.models.*');
 
         return true;
     }
@@ -119,9 +120,7 @@ class SignalCommand extends CConsoleCommand
     }
 
     public function actionTest(){
-        //echo date("Y-m-d H:i:s", 1356434958);
-
-        $commentator = CommentatorWork::getUser(15426);
-        $commentator->calculateDayStats();
+        $result = CommentatorHelper::friendStats(10, '2013-05-22');
+        var_dump($result);
     }
 }

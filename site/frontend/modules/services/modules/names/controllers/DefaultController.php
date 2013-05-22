@@ -13,6 +13,21 @@ class DefaultController extends HController
     {
         return array(
             'ajaxOnly + like',
+            'accessControl',
+        );
+    }
+
+    public function accessRules()
+    {
+        return array(
+            array('allow',
+                'actions' => array('likes'),
+                'users' => array('@'),
+            ),
+            array('deny',
+                'actions' => array('likes'),
+                'users' => array('*'),
+            ),
         );
     }
 
@@ -149,9 +164,6 @@ class DefaultController extends HController
 
     public function actionLikes()
     {
-        if (Yii::app()->user->isGuest)
-            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
-
         $this->pageTitle = 'Мне нравится';
         $this->SetLikes();
         $data = Name::model()->GetLikes(Yii::app()->user->id);

@@ -362,6 +362,8 @@ class Comment extends HActiveRecord
             return false;
 
         $entity = CActiveRecord::model($this->entity)->findByPk($this->entity_id);
+        if ($entity === null)
+            return '';
         if ($this->entity == 'Service'){
             $url = $entity->getUrl();
             $page = $this->calcPageNumber();

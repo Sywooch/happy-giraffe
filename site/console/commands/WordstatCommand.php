@@ -106,7 +106,7 @@ class WordstatCommand extends CConsoleCommand
         $c->findKeywordByNameTest();
     }
 
-    public function actionCopyKeywords()
+    public function actionCopyKeywords($last_id = 218722612)
     {
         $mongo = new Mongo(Yii::app()->mongodb_parsing->connectionString);
         $mongo->connect();
@@ -116,7 +116,6 @@ class WordstatCommand extends CConsoleCommand
         $collection->ensureIndex(array('name' => 1), array("unique" => true));
         $collection->ensureIndex(array('wordstat' => -1));
 
-        $last_id = 217821443;
         while (true) {
             $condition = 'id > ' . $last_id;
             $keywords = Yii::app()->db_keywords->createCommand()

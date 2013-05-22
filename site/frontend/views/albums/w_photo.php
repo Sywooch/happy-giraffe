@@ -148,26 +148,10 @@ if (get_class($model) == 'Contest') {
 
                 <div class="col-3">
                     <?php if (get_class($model) == 'Contest' && $model->id == 2): ?>
-                        <!--AdFox START-->
-                        <!--giraffe-->
-                        <!--Площадка: Весёлый Жираф / * / *-->
-                        <!--Тип баннера: Безразмерный 240x400-->
-                        <!--Расположение: &lt;сайдбар&gt;-->
                         <script type="text/javascript">
-                            <!--
-                            if (typeof(pr) == 'undefined') { var pr = Math.floor(Math.random() * 1000000); }
-                            if (typeof(document.referrer) != 'undefined') {
-                                if (typeof(afReferrer) == 'undefined') {
-                                    afReferrer = escape(document.referrer);
-                                }
-                            } else {
-                                afReferrer = '';
-                            }
-                            var addate = new Date();
-                            document.write('<scr' + 'ipt type="text/javascript" src="http://ads.adfox.ru/211012/prepareCode?pp=dey&amp;ps=bkqy&amp;p2=etcx&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a&amp;pr=' + pr +'&amp;pt=b&amp;pd=' + addate.getDate() + '&amp;pw=' + addate.getDay() + '&amp;pv=' + addate.getHours() + '&amp;prr=' + afReferrer + '"><\/scr' + 'ipt>');
-                            // -->
+                            ADFOX.AJAX_EMBEDS.adfoxAJAXEmbed('http://ads.adfox.ru/211012/prepareCode?pp=g&amp;ps=bkqy&amp;p2=etei&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a&amp;pr=' + pr +'&amp;pt=b', 'AdfoxAjax', true);
                         </script>
-                        <!--AdFox END-->
+                        <div class="margin-t60" id="AdfoxAjax"></div>
                     <?php else: ?>
                         <div class="margin-t60" id="AdfoxAjax">
                             <!--AdFox START-->

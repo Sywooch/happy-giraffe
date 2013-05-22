@@ -7,6 +7,9 @@
  * @property string $user_id
  * @property string $thread_id
  * @property integer $hidden
+ *
+ * Relations
+ * @property User $user
  */
 class MessagingThreadUser extends CActiveRecord
 {
@@ -52,6 +55,7 @@ class MessagingThreadUser extends CActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
+            'user' => array(self::BELONGS_TO, 'User', 'user_id'),
         );
     }
 

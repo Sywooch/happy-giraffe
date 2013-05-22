@@ -97,9 +97,8 @@ class MailCommand extends CConsoleCommand
     public function actionTestNewMessages()
     {
         $user = User::getUserById(10);
-        $unread = Im::model($user->id)->getUnreadMessagesCount($user->id);
+        $unread = MessagingManager::unreadMessagesCount($user->id);
         if ($unread > 0) {
-
             $m_criteria = new EMongoCriteria;
             $m_criteria->type('==', MailDelivery::TYPE_IM);
             $m_criteria->user_id('==', (int)$user->id);
@@ -107,7 +106,7 @@ class MailCommand extends CConsoleCommand
 
             if ($model === null || $model->needSend()) {
                 $token = UserToken::model()->generate($user->id, 86400);
-                $dialogUsers = Im::model($user->id)->getUsersWithNewMessages();
+                $dialogUsers = ContactsManager::getContactsByUserId($user->id, ContactsManager::TYPE_ALL, 10);
 
                 Yii::app()->email->send(10, 'newMessages', compact('dialogUsers', 'unread', 'user', 'token'), $this);
             }

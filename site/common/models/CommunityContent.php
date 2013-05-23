@@ -249,7 +249,7 @@ class CommunityContent extends HActiveRecord
     {
         FriendEvent::postDeleted(($this->isFromBlog ? 'BlogContent' : 'CommunityContent'), $this->id);
         self::model()->updateByPk($this->id, array('removed' => 1));
-
+        NotificationDelete::entityRemoved($this);
 
         if ($this->isFromBlog && count($this->contentAuthor->blogPosts) == 0) {
             UserScores::removeScores($this->author_id, ScoreAction::ACTION_FIRST_BLOG_RECORD, 1, $this);

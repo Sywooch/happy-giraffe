@@ -163,8 +163,6 @@ class Notification extends HMongoModel
      */
     public function getUnreadCount($user_id = null)
     {
-        return 0;
-
         if (empty($user_id))
             $user_id = Yii::app()->user->id;
 
@@ -272,5 +270,17 @@ class Notification extends HMongoModel
     public function getVisibleCount()
     {
         return 1;
+    }
+
+    /**
+     * Удаляем все уведомления связанные с уделанной сущностью
+     * @param $entity CActiveRecord
+     */
+    public function entityRemoved($entity)
+    {
+        $this->getCollection()->remove(array(
+            'entity' => get_class($entity),
+            'entity_id' => $entity->id,
+        ));
     }
 }

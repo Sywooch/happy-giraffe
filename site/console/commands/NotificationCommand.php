@@ -13,6 +13,8 @@ class NotificationCommand extends CConsoleCommand
         Yii::import('site.frontend.modules.notifications.models.base.*');
         Yii::import('site.frontend.modules.notifications.models.*');
         Yii::import('site.frontend.modules.notifications.components.*');
+        Yii::import('site.common.models.mongo.*');
+        Yii::import('site.frontend.modules.contest.models.*');
     }
 
     public function actionDiscuss()
@@ -22,15 +24,7 @@ class NotificationCommand extends CConsoleCommand
 
     public function actionLikes()
     {
-        Yii::import('site.common.models.mongo.*');
-        Yii::import('site.frontend.modules.contest.models.*');
         NotificationCreate::generateLikes();
-    }
-
-    public function actionTest()
-    {
-        for ($i = 0; $i < 100; $i++)
-            Notification::model()->insertTest();
     }
 
     public function actionDeleteOld()

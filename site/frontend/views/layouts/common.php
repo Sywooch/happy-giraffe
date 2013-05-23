@@ -206,6 +206,7 @@
         </noindex>
     </div>
     <div class="copy">
+        <!--Отработало за <?=sprintf('%0.5f',Yii::getLogger()->getExecutionTime())?> -->
         <p>Весёлый жираф &nbsp; © 2012 &nbsp; Все права защищены
             <img src="/images/icon-18+.png" alt="" class="icon-18"/>
             <a href="">Правила модерации</a>

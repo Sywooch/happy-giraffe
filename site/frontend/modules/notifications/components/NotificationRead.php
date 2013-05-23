@@ -81,9 +81,6 @@ class NotificationRead
      */
     public function SetVisited()
     {
-        return ;
-
-
         if (Yii::app()->user->isGuest || $this->hasNoActiveNotifications()
             || empty($this->comments) || $this->content_model == null
         )

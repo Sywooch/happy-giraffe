@@ -107,6 +107,10 @@ class NotificationDiscussSubscription extends HMongoModel
     {
         $this->ensureIndex();
 
+        $entity = CActiveRecord::model($comment->entity)->findByPk($comment->entity_id);
+        if ($entity === null)
+            return ;
+
         $exist = $this->getCollection()->findOne(array(
             'entity' => $comment->entity,
             'entity_id' => (int)$comment->entity_id,

@@ -96,7 +96,6 @@ class MorningController extends HController
     public function actionView($id)
     {
         $article = CommunityContent::model()->with('photoPost', 'photoPost.photos')->findByPk($id);
-
         if ($article === null || $article->photoPost === null ||
             ($article->photoPost->is_published != 1 && !Yii::app()->user->checkAccess('editMorning'))
         )

@@ -201,6 +201,8 @@ class AlbumPhoto extends HActiveRecord
         $this->removed = 1;
         $this->save(false);
         UserSignal::closeRemoved($this);
+        NotificationDelete::entityRemoved($this);
+
         if (!empty($this->album_id)) {
             UserScores::removeScores($this->author_id, ScoreAction::ACTION_PHOTO, 1, $this);
         }
@@ -541,7 +543,7 @@ class AlbumPhoto extends HActiveRecord
 
     public function getUrlParams()
     {
-        if (!empty($this->galleryItem)) {
+        if (!empty($this->galleryItem) && isset($this->galleryItem->gallery->content)) {
             return array('albums/singlePhoto', array(
                 'photo_id' => $this->id,
                 'community_id' => $this->galleryItem->gallery->content->rubric->community_id,
@@ -638,6 +640,8 @@ class AlbumPhoto extends HActiveRecord
         if (empty($this->album)){
             if (!empty($this->galleryItem)){
                 $post = $this->galleryItem->gallery->content;
+                if (!$post)
+                    return '';
                 $t = htmlentities("Фотогалерея к записи <span class='color-gray'>" . $post->title . "</span>", ENT_QUOTES, "UTF-8");
                 if (!$full)
                     return $t;

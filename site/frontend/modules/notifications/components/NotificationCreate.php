@@ -22,15 +22,13 @@ class NotificationCreate
         $entity = $comment->entity;
         $model = $entity::model()->findByPk($comment->entity_id);
 
-        //если пишет автор, пропускаем
-        if (isset($model->author_id) && $model->author_id == $comment->author_id)
-            return;
-
         self::userContentNotification($model, $comment);
         self::replyCommentNotification($comment);
-        //сначала подписываем автора, это избавит от лишней проверки на следующем шаге
-        //когда будет выбирать всех подписчиков кроме того кто только что написал
-        NotificationDiscussSubscription::model()->subscribeCommentAuthor($comment);
+
+        //Проверяем является ли автор комментария автором
+        if (!isset($entity->author_id) || $entity->author_id != $comment->author_id)
+            NotificationDiscussSubscription::model()->subscribeCommentAuthor($comment);
+
         self::addCommentToDiscussNotifications($comment);
     }
 
@@ -42,7 +40,7 @@ class NotificationCreate
      */
     private static function userContentNotification($model, $comment)
     {
-        if (isset($model->author_id) && $comment->author_id !== User::HAPPY_GIRAFFE) {
+        if (isset($model->author_id) && $comment->author_id !== User::HAPPY_GIRAFFE && $comment->author_id !== $model->author_id) {
             $notification = new NotificationUserContentComment;
             $notification->create($model->author_id, $comment);
         }

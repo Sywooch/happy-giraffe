@@ -70,10 +70,8 @@ Notifications.setHeight = function() {
 
 $(function() {
     Comet.prototype.receiveNotification = function(result, id) {
-        //Notifications.updateCounter(result.count);
-        Notifications.updateCounter(1);
-        if (Notifications.isActive())
-            $(result.html).hide().prependTo('#notificationsList .items').fadeIn();
+        console.log(2);
+        Notifications.updateCounter(result.count);
     };
 
     comet.addEvent(1000, 'receiveNotification');

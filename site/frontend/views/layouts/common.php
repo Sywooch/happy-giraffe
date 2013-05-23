@@ -19,7 +19,7 @@
     <![endif]-->
     <?php endif;
 
-    $r = 200;
+    $r = 201;
     $cs = Yii::app()->clientScript;
     $cs
         ->registerCssFile('/stylesheets/user.css')

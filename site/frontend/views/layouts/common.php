@@ -90,7 +90,6 @@
         <?php if (! Yii::app()->user->isGuest): ?>
         <?php
         $notificationsCount = Notification::model()->getUnreadCount();
-//        $notificationsCount = UserNotification::model()->getUserCount(Yii::app()->user->id);
         $friendsCount = FriendRequest::model()->getUserCount(Yii::app()->user->id);
         $imCount = MessagingManager::unreadMessagesCount(Yii::app()->user->id);
         ?>

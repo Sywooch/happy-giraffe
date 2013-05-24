@@ -8,7 +8,7 @@
  */
 class FavouritesController extends HController
 {
-    public function actionAdd()
+    public function actionCreate()
     {
         $favourite = new Favourite();
         $favourite->attributes = $_POST['Favourite'];
@@ -32,7 +32,7 @@ class FavouritesController extends HController
         echo CJSON::encode($response);
     }
 
-    public function actionRemove()
+    public function actionDelete()
     {
         $favouriteId = Yii::app()->request->getPost('favouriteId');
         $success = Favourite::model()->deleteByPk($favouriteId) > 0;

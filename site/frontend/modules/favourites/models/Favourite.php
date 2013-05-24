@@ -37,7 +37,7 @@ class Favourite extends CActiveRecord
 			array('entity_id, user_id, note', 'required'),
 			array('entity', 'length', 'max'=>255),
 			array('entity_id, user_id', 'length', 'max'=>11),
-			array('updated, created', 'safe'),
+			array('updated, created, tagsNames', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, entity, entity_id, user_id, updated, created, note', 'safe', 'on'=>'search'),
@@ -115,6 +115,13 @@ class Favourite extends CActiveRecord
 		return parent::model($className);
 	}
 
+    public function defaultScope()
+    {
+        return array(
+            'with' => 'tags',
+        );
+    }
+
     public function behaviors()
     {
         return array(
@@ -127,5 +134,31 @@ class Favourite extends CActiveRecord
                 'updateAttribute' => 'updated',
             ),
         );
+    }
+
+    public function setTagsNames($tagsNames)
+    {
+        $this->tags = $this->processTags($tagsNames);
+    }
+
+    protected function beforeSave()
+    {
+        if (! $this->isNewRecord)
+            Yii::app()->db->createCommand()->delete('favourites__tags_favourites', 'favourite_id = :favourite_id', array(':favourite_id' => $this->id));
+
+        return parent::beforeSave();
+    }
+
+    protected function processTags($tagsNames)
+    {
+        return array_map(function($name) {
+            $tag = FavouriteTag::model()->findByAttributes(array('name' => $name));
+            if ($tag === null) {
+                $tag = new FavouriteTag();
+                $tag->name = $name;
+                $tag->save();
+            }
+            return $tag;
+        }, explode(',', $tagsNames));
     }
 }

@@ -13,5 +13,9 @@ $this->widget('zii.widgets.grid.CGridView', array(
             'name' => 'title',
             'value' => '$data->relatedModel->title',
         ),
+        array(
+            'name' => 'tagsNames',
+            'value' => '$data->tagsNames',
+        ),
     ),
 ));

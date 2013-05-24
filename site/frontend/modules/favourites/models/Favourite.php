@@ -18,6 +18,8 @@
  */
 class Favourite extends CActiveRecord
 {
+    public $relatedModel;
+
 	/**
 	 * @return string the associated database table name
 	 */
@@ -34,7 +36,7 @@ class Favourite extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('entity_id, user_id, note', 'required'),
+			array('entity, entity_id, user_id', 'required'),
 			array('entity', 'length', 'max'=>255),
 			array('entity_id, user_id', 'length', 'max'=>11),
 			array('updated, created, tagsNames', 'safe'),
@@ -141,6 +143,15 @@ class Favourite extends CActiveRecord
         $this->tags = $this->processTags($tagsNames);
     }
 
+    public function getTagsNames()
+    {
+        $tagsNamesArray = array_map(function($tag) {
+            return $tag->name;
+        }, $this->tags);
+
+        return implode(',', $tagsNamesArray);
+    }
+
     protected function beforeSave()
     {
         if (! $this->isNewRecord)
@@ -151,6 +162,8 @@ class Favourite extends CActiveRecord
 
     protected function processTags($tagsNames)
     {
+        $tagsArray = is_array($tagsNames) ? $tagsNames : explode(',', $tagsNames);
+
         return array_map(function($name) {
             $tag = FavouriteTag::model()->findByAttributes(array('name' => $name));
             if ($tag === null) {
@@ -159,6 +172,6 @@ class Favourite extends CActiveRecord
                 $tag->save();
             }
             return $tag;
-        }, explode(',', $tagsNames));
+        }, $tagsArray);
     }
 }

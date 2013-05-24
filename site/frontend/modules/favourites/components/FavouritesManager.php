@@ -24,12 +24,7 @@ class FavouritesManager
 
         if ($tagId !== null) {
             $tagCriteria = new CDbCriteria(array(
-                'with' => array(
-                    'tags' => array(
-                        'together' => true,
-                    ),
-                ),
-                'condition' => 'tags.id = :tagId',
+                'join' => 'INNER JOIN favourites__tags_favourites tf ON tf.favourite_id = t.id AND tf.tag_id = :tagId',
                 'params' => array(':tagId' => $tagId),
             ));
             $criteria->mergeWith($tagCriteria);

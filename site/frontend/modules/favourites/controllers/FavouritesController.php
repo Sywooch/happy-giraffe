@@ -10,32 +10,24 @@ class FavouritesController extends HController
 {
     public function actionAdd()
     {
-        $tags = Yii::app()->request->getPost('tags');
-
-        $_tags = $this->processTags($tags);
         $favourite = new Favourite();
         $favourite->attributes = $_POST['Favourite'];
         $favourite->user_id = Yii::app()->user->id;
-        $favourite->tags = $_tags;
         $success = $favourite->withRelated->save(true, array('tags'));
         $response = compact('success');
         echo CJSON::encode($response);
     }
 
-    public function actionUpdateTags()
+    public function actionUpdate()
     {
         $favouriteId = Yii::app()->request->getPost('favouriteId');
-        $tagsNames = Yii::app()->request->getPost('tagsNames');
 
         $favourite = Favourite::model()->findByPk($favouriteId);
         if ($favourite === null)
-            throw new CHttpException(400);
+            throw new CHttpException(400, 'Favourite does not exist');
 
-        $tags = $this->processTags($tagsNames);
-        $favourite->tags = $tags;
-        Yii::app()->db->createCommand()->delete('favourites__tags_favourites', 'favourite_id = :favourite_id', array(':favourite_id' => $favouriteId));
+        $favourite->attributes = $_POST['Favourite'];
         $success = $favourite->withRelated->save(true, array('tags'));
-
         $response = compact('success');
         echo CJSON::encode($response);
     }
@@ -47,18 +39,5 @@ class FavouritesController extends HController
 
         $response = compact('success');
         echo CJSON::encode($response);
-    }
-
-    protected function processTags($tagsNames)
-    {
-        return array_map(function($name) {
-            $tag = FavouriteTag::model()->findByAttributes(array('name' => $name));
-            if ($tag === null) {
-                $tag = new FavouriteTag();
-                $tag->name = $name;
-                $tag->save();
-            }
-            return $tag;
-        }, explode(',', $tagsNames));
     }
 }

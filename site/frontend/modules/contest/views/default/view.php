@@ -52,7 +52,7 @@ Yii::app()->eauth->renderWidget(array(
             <?php else: ?>
                 <p>Разместите фотографию, на которой ваш малыш сфотографирован со своим первым другом и примите участие в конкурсе! Не забудьте пригласить друзей в группу поддержки!</p>
                 <center>
-                    <a href="<?=$this->createUrl('/contest/default/statement', array('id' => $this->contest->id))?>" onclick="Contest.canParticipate(this, '<?=$this->createUrl('/contest/default/canParticipate', array('id' => $this->contest->id))?>'); return false;" class="btn-green btn-green-medium">Участвовать<i class="arr-r"></i></a>
+                    <a href="<?=Yii::app()->user->isGuest ? '#' : $this->createUrl('/contest/default/statement', array('id' => $this->contest->id))?>" onclick="Contest.canParticipate(this, '<?=$this->createUrl('/contest/default/canParticipate', array('id' => $this->contest->id))?>'); return false;" class="btn-green btn-green-medium">Участвовать<i class="arr-r"></i></a>
                 </center>
             <?php endif; ?>
         </div>

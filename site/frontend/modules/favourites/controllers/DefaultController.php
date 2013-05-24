@@ -3,9 +3,9 @@
 
 class DefaultController extends HController
 {
-    public function actionIndex($entity = null, $tagId = null)
+    public function actionIndex($entity = null, $tagId = null, $query = null)
     {
-        $dp = FavouritesManager::getByUserId(Yii::app()->user->id, $entity, $tagId);
+        $dp = FavouritesManager::getByUserId(Yii::app()->user->id, $entity, $tagId, $query);
 
         $this->render('index', compact('dp'));
     }

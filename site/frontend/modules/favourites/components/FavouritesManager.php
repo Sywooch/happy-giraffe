@@ -8,7 +8,7 @@
  */
 class FavouritesManager
 {
-    public static function getByUserId($userId, $entity, $tagId)
+    public static function getByUserId($userId, $entity, $tagId, $query)
     {
         $criteria = new CDbCriteria(array(
             'condition' => 'user_id = :user_id',

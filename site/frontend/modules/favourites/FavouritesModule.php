@@ -6,21 +6,15 @@ class FavouritesModule extends CWebModule
         'post' => array(
             'class' => 'CommunityContent',
             'criteria' => array(
-                'join' => 'INNER JOIN community__contents c ON c.id = t.entity_id',
+                'join' => 'LEFT OUTER JOIN community__contents c ON c.id = t.entity_id',
                 'condition' => 'type_id = 1',
-            ),
-            'relatedModelCriteria' => array(
-                'scopes' => array('full'),
             ),
         ),
         'video' => array(
             'class' => 'CommunityContent',
             'criteria' => array(
-                'join' => 'INNER JOIN community__contents c ON c.id = t.entity_id',
+                'join' => 'LEFT OUTER JOIN community__contents c ON c.id = t.entity_id',
                 'condition' => 'type_id = 2',
-            ),
-            'relatedModelCriteria' => array(
-                'scopes' => array('full'),
             ),
         ),
         'recipe' => array(

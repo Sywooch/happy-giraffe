@@ -10,15 +10,14 @@ class FavouritesController extends HController
 {
     public function actionAdd()
     {
-        $tagsNames = Yii::app()->request->getPost('tagsNames');
+        $tags = Yii::app()->request->getPost('tags');
 
-        $tags = $this->processTags($tagsNames);
+        $_tags = $this->processTags($tags);
         $favourite = new Favourite();
         $favourite->attributes = $_POST['Favourite'];
         $favourite->user_id = Yii::app()->user->id;
-        $favourite->tags = $tags;
+        $favourite->tags = $_tags;
         $success = $favourite->withRelated->save(true, array('tags'));
-
         $response = compact('success');
         echo CJSON::encode($response);
     }

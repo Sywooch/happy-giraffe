@@ -15,12 +15,8 @@ class FavouritesManager
             'params' => array(':user_id' => $userId),
         ));
 
-        if ($entity !== null) {
-            $config = Yii::app()->controller->module->entities[$entity];
-            $criteria->compare('entity', $config['class']);
-            if (isset($config['criteria']))
-                $criteria->mergeWith(new CDbCriteria($config['criteria']));
-        }
+        if ($entity !== null)
+            $criteria->mergeWith(self::getEntityCriteria($entity));
 
         if ($tagId !== null) {
             $tagCriteria = new CDbCriteria(array(
@@ -36,5 +32,28 @@ class FavouritesManager
                 'pageSize' => 20,
             ),
         ));
+    }
+
+    public static function getCountByUserId($userId, $entity = null)
+    {
+        $criteria = new CDbCriteria(array(
+            'condition' => 'user_id = :user_id',
+            'params' => array(':user_id' => $userId),
+        ));
+
+        if ($entity !== null)
+            $criteria->mergeWith(self::getEntityCriteria($entity));
+
+        return Favourite::model()->count($criteria);
+    }
+
+    protected static function getEntityCriteria($entity)
+    {
+        $criteria = new CDbCriteria();
+        $config = Yii::app()->controller->module->entities[$entity];
+        $criteria->compare('entity', $config['class']);
+        if (isset($config['criteria']))
+            $criteria->mergeWith(new CDbCriteria($config['criteria']));
+        return $criteria;
     }
 }

@@ -5,23 +5,27 @@ class FavouritesModule extends CWebModule
     public $entities = array(
         'post' => array(
             'class' => 'CommunityContent',
+            'title' => 'Записи',
             'criteria' => array(
                 'join' => 'LEFT OUTER JOIN community__contents c ON c.id = t.entity_id',
                 'condition' => 'type_id = 1',
             ),
         ),
+        'photo' => array(
+            'class' => 'AlbumPhoto',
+            'title' => 'Фото',
+        ),
         'video' => array(
             'class' => 'CommunityContent',
+            'title' => 'Видео',
             'criteria' => array(
                 'join' => 'LEFT OUTER JOIN community__contents c ON c.id = t.entity_id',
                 'condition' => 'type_id = 2',
             ),
         ),
-        'recipe' => array(
+        'cook' => array(
             'class' => 'CookRecipe',
-        ),
-        'photo' => array(
-            'class' => 'AlbumPhoto',
+            'title' => 'Кулинарная книга',
         ),
     );
 

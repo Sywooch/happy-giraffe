@@ -4,7 +4,7 @@ return array(
     'urlFormat' => 'path',
     'showScriptName' => false,
     'urlSuffix' => '/',
-    //'useStrictParsing' => true,
+    'useStrictParsing' => true,
     'rules' => array(
         /*************************
          *      CONTROLLERS      *
@@ -279,5 +279,10 @@ return array(
         'friends' => 'friends/default/index',
         'friends/search' => 'friends/search/index',
         'friends/<_c>/<_a>' => 'friends/<_c>/<_a>',
+
+        'favourites/tags/byLetter/<letter:\w+>' => array('favourites/tags/index', 'defaultParams' => array('type' => 1)),
+        'favourites/tags/byLetter' => array('favourites/tags/index', 'defaultParams' => array('type' => 1)),
+        'favourites/tags' => array('favourites/tags/index', 'defaultParams' => array('type' => 0)),
+        'favourites' => 'favourites/default/index',
     ),
 );

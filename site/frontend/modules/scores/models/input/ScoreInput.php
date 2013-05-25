@@ -1,101 +1,120 @@
 <?php
 /**
- * Author: alexk984
- * Date: 10.03.12
+ * Class ScoreInput
+ *
+ * Начисление баллов пользователям
+ *
+ * @author Alex Kireev <alexk984@gmail.com>
  */
-class ScoreInput extends EMongoDocument
+class ScoreInput extends HMongoModel
 {
-    const SCORE_ACTION_6_STEPS = 1;
+    const TYPE_6_STEPS = 1;
 
-    const SCORE_ACTION_FIRST_BLOG_RECORD = 2;
-    const SCORE_ACTION_BLOG_CONTENT_ADDED = 3;
-    const SCORE_ACTION_COMMUNITY_CONTENT_ADDED = 4;
-    const SCORE_ACTION_RECIPE_ADDED = 5;
-    const SCORE_ACTION_FOLK_RECIPE_ADDED = 6;
+    const TYPE_FIRST_BLOG_RECORD = 2;
+    const TYPE_POST_ADDED = 3;
+    const TYPE_VIDEO = 4;
 
-    const SCORE_ACTION_COMMENT_ADDED = 7;
-    const SCORE_ACTION_PHOTOS_ADDED = 8;
+    const TYPE_FRIEND_ADDED = 5;
 
-    const SCORE_ACTION_DUEL_PARTICIPATION = 9;
-    const SCORE_ACTION_DUEL_WIN = 10;
+    const TYPE_COMMENT_ADDED = 7;
+    const TYPE_PHOTOS_ADDED = 8;
 
-    const SCORE_ACTION_100_VIEWS = 11;
-    const SCORE_ACTION_10_COMMENTS = 12;
-    const SCORE_ACTION_10_LIKES = 13;
+    const TYPE_DUEL_PARTICIPATION = 9;
+    const TYPE_DUEL_WIN = 10;
 
-    const SCORE_ACTION_VISIT = 15;
-    const SCORE_ACTION_5_DAYS_ATTEND = 16;
-    const SCORE_ACTION_20_DAYS_ATTEND = 17;
+    const TYPE_VISIT = 11;
 
-    const SCORE_ACTION_VIDEO = 18;
+    const TYPE_CONTEST_PARTICIPATION = 20;
+    const TYPE_CONTEST_WIN = 21;
+    const TYPE_CONTEST_2_PLACE = 22;
+    const TYPE_CONTEST_3_PLACE = 23;
+    const TYPE_CONTEST_4_PLACE = 24;
+    const TYPE_CONTEST_5_PLACE = 25;
+    const TYPE_CONTEST_ADDITIONAL_PRIZE = 26;
 
-    const SCORE_ACTION_CONTEST_PARTICIPATION = 20;
-    const SCORE_ACTION_CONTEST_WIN = 21;
-    const SCORE_ACTION_CONTEST_2_PLACE = 22;
-    const SCORE_ACTION_CONTEST_3_PLACE = 23;
-    const SCORE_ACTION_CONTEST_4_PLACE = 24;
-    const SCORE_ACTION_CONTEST_5_PLACE = 25;
-    const SCORE_ACTION_CONTEST_ADDITIONAL_PRIZE = 26;
+    const TYPE_AWARD = 100;
+    const TYPE_ACHIEVEMENT = 101;
 
-    const SCORE_ACTION_AWARD = 100;
-    const SCORE_ACTION_ACHIEVEMENT = 101;
-
-    private $_stackableActions = array(
-        self::SCORE_ACTION_100_VIEWS,
-//        self::SCORE_ACTION_10_COMMENTS,
-        self::SCORE_ACTION_PHOTOS_ADDED,
-    );
+    protected $_collection_name = 'score_input_new';
 
     public $user_id;
     public $type;
-
-    public $scores_earned;
-
-    public $data;
-    public $blockData = null;
-
-    public $created;
+    public $scores;
     public $updated;
 
-    public static function model($className = __CLASS__)
+    /**
+     * @var ScoreInput
+     */
+    private static $_instance;
+
+    /**
+     * @return ScoreInput
+     */
+    public static function getInstance()
     {
-        return parent::model($className);
+        if (null === self::$_instance) {
+            self::$_instance = new self();
+        }
+
+        return self::$_instance;
     }
 
-    public function getCollectionName()
+    private function __construct()
+    {}
+
+    /**
+     * Добавляет индекс если не создан
+     */
+    protected function ensureIndex()
     {
-        return 'score_input';
+        $this->getCollection()->ensureIndex(array(
+            'user_id' => EMongoCriteria::SORT_DESC,
+            'updated' => EMongoCriteria::SORT_DESC,
+            'type' => EMongoCriteria::SORT_DESC,
+        ), array('name' => 'find_one_index'));
+
+        $this->getCollection()->ensureIndex(array(
+            'user_id' => EMongoCriteria::SORT_DESC,
+            'updated' => EMongoCriteria::SORT_DESC,
+        ), array('name' => 'list_index'));
     }
 
-    public function indexes()
+    protected function sendSignal($scores)
     {
-        return array(
-            'created_index' => array(
-                'key' => array(
-                    'created' => EMongoCriteria::SORT_DESC,
-                ),
-                'unique' => false,
-            ),
+        $comet = new CometModel;
+        $comet->send($this->user_id, array('scores' => $scores), CometModel::TYPE_SCORES_EARNED);
+    }
+
+    /**
+     * Создаение нового уведомления о получении баллов
+     *
+     * @param $specific_fields array массив специфических полей уведомления
+     */
+    protected function insert($specific_fields)
+    {
+        $this->getCollection()->insert(
+            array_merge(array(
+                'type' => (int)$this->type,
+                'user_id' => (int)$this->user_id,
+                'scores' => (int)$this->scores,
+                'updated' => time(),
+            ), $specific_fields)
         );
+
+        $this->sendSignal($this->scores);
     }
 
-    public function beforeSave()
-    {
-        if ($this->isNewRecord) {
-            $this->created = time();
-            $this->updated = $this->created;
-        } else
-            $this->updated = time();
 
-        return parent::beforeSave();
-    }
 
-    public function defaultScope()
-    {
-        return array(
-            'order' => 'updated DESC',
-        );
-    }
+
+
+
+
+
+
+
+
+
 
     public function add($user_id, $type, $params = array(), $blockData = null)
     {
@@ -186,42 +205,6 @@ class ScoreInput extends EMongoDocument
         }
 
         return $result ? $stack : null;
-    }
-
-    public function getDataByParams($params)
-    {
-        switch ($this->type) {
-            case self::SCORE_ACTION_COMMENT_ADDED:
-            case self::SCORE_ACTION_BLOG_CONTENT_ADDED:
-            case self::SCORE_ACTION_FIRST_BLOG_RECORD:
-            case self::SCORE_ACTION_COMMUNITY_CONTENT_ADDED:
-            case self::SCORE_ACTION_DUEL_PARTICIPATION:
-            case self::SCORE_ACTION_DUEL_WIN:
-            case self::SCORE_ACTION_VIDEO:
-            case self::SCORE_ACTION_PHOTOS_ADDED:
-            case self::SCORE_ACTION_RECIPE_ADDED:
-            case self::SCORE_ACTION_FOLK_RECIPE_ADDED:
-                return $params['model']->getAttributes(array('id'));
-
-            case self::SCORE_ACTION_CONTEST_WIN:
-            case self::SCORE_ACTION_CONTEST_PARTICIPATION:
-            case self::SCORE_ACTION_CONTEST_2_PLACE:
-            case self::SCORE_ACTION_CONTEST_3_PLACE:
-            case self::SCORE_ACTION_CONTEST_4_PLACE:
-            case self::SCORE_ACTION_CONTEST_5_PLACE:
-            case self::SCORE_ACTION_CONTEST_ADDITIONAL_PRIZE:
-                return $params['id'];
-
-            case self::SCORE_ACTION_10_COMMENTS:
-            case self::SCORE_ACTION_10_LIKES:
-                return array(
-                    'entity_id' => $params['model']->id,
-                    'entity' => get_class($params['model'])
-                );
-
-            default:
-                return $params;
-        }
     }
 
     public function addScores($user_id, $scores)

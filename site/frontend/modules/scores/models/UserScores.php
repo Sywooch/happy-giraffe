@@ -11,7 +11,6 @@
  * @property integer $full
  *
  * The followings are the available model relations:
- * @property ScoreLevel $level
  * @property User $user
  */
 class UserScores extends HActiveRecord
@@ -52,43 +51,8 @@ class UserScores extends HActiveRecord
     public function relations()
     {
         return array(
-            'level' => array(self::BELONGS_TO, 'ScoreLevel', 'level_id'),
             'user' => array(self::BELONGS_TO, 'User', 'user_id'),
         );
-    }
-
-    /**
-     * @return array customized attribute labels (name=>label)
-     */
-    public function attributeLabels()
-    {
-        return array(
-            'user_id' => 'User',
-            'scores' => 'Scores',
-            'level_id' => 'Level',
-            'full' => 'Full',
-        );
-    }
-
-    /**
-     * Retrieves a list of models based on the current search/filter conditions.
-     * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
-     */
-    public function search()
-    {
-        // Warning: Please modify the following code to remove attributes that
-        // should not be searched.
-
-        $criteria = new CDbCriteria;
-
-        $criteria->compare('user_id', $this->user_id, true);
-        $criteria->compare('scores', $this->scores, true);
-        $criteria->compare('level_id', $this->level_id, true);
-        $criteria->compare('full', $this->full);
-
-        return new CActiveDataProvider($this, array(
-            'criteria' => $criteria,
-        ));
     }
 
     public static function getModel($user_id)

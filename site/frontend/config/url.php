@@ -283,6 +283,7 @@ return array(
         'favourites/tags/byLetter/<letter:\w+>' => array('favourites/tags/index', 'defaultParams' => array('type' => 1)),
         'favourites/tags/byLetter' => array('favourites/tags/index', 'defaultParams' => array('type' => 1)),
         'favourites/tags' => array('favourites/tags/index', 'defaultParams' => array('type' => 0)),
+        'favourites/default/search' => 'favourites/default/search',
         'favourites' => 'favourites/default/index',
     ),
 );

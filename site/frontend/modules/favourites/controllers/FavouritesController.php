@@ -34,8 +34,14 @@ class FavouritesController extends HController
 
     public function actionDelete()
     {
-        $favouriteId = Yii::app()->request->getPost('favouriteId');
-        $success = Favourite::model()->deleteByPk($favouriteId) > 0;
+        $entity = Yii::app()->request->getPost('entity');
+        $entity_id = Yii::app()->request->getPost('entity_id');
+
+        $success = Favourite::model()->deleteAllByAttributes(array(
+            'entity' => $entity,
+            'entity_id' => $entity_id,
+            'user_id' => Yii::app()->user->id,
+        )) > 0;
 
         $response = compact('success');
         echo CJSON::encode($response);

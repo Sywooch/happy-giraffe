@@ -283,7 +283,8 @@ return array(
         'favourites/tags/byLetter/<letter:\w+>' => array('favourites/tags/index', 'defaultParams' => array('type' => 1)),
         'favourites/tags/byLetter' => array('favourites/tags/index', 'defaultParams' => array('type' => 1)),
         'favourites/tags' => array('favourites/tags/index', 'defaultParams' => array('type' => 0)),
-        'favourites/default/search' => 'favourites/default/search',
+        'favourites/default/<_a:(search|getEntityData)>' => 'favourites/default/<_a>',
+        'favourites/favourites/<_a:\w+>' => 'favourites/favourites/<_a>',
         'favourites' => 'favourites/default/index',
     ),
 );

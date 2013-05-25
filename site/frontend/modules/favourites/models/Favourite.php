@@ -174,4 +174,14 @@ class Favourite extends CActiveRecord
             return $tag;
         }, $tagsArray);
     }
+
+    public function getCountByModel($model)
+    {
+        return $this->count('entity = :entity AND entity_id = :entity_id', array(':entity' => get_class($model), ':entity_id' => $model->id));
+    }
+
+    public function getUserHas($userId, $model)
+    {
+        return $this->exists('entity = :entity AND entity_id = :entity_id AND user_id = :user_id', array(':entity' => get_class($model), ':entity_id' => $model->id, ':user_id' => $userId));
+    }
 }

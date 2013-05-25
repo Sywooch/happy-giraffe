@@ -8,5 +8,30 @@
  */
 class FavouriteWidget extends CWidget
 {
+    public $model;
 
+    public function run()
+    {
+        $this->registerScripts();
+
+        $id = 'Favourites_' . get_class($this->model) . '_' . $this->model->id;
+
+        $count = (int) Favourite::model()->getCountByModel($this->model);
+        $active = (bool) Favourite::model()->getUserHas(Yii::app()->user->id, $this->model);
+        $entity = get_class($this->model);
+        $entityId = $this->model->id;
+        $data = compact('count', 'active', 'entity', 'entityId');
+
+        $this->render('index', compact('id', 'data'));
+    }
+
+    public function registerScripts()
+    {
+        $basePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR;
+        $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
+        Yii::app()->clientScript
+            ->registerScriptFile('/javascripts/knockout-2.2.1.js')
+            ->registerScriptFile($baseUrl . '/FavouriteWidget.js')
+        ;
+    }
 }

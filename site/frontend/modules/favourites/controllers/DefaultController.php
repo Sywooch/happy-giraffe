@@ -76,4 +76,18 @@ class DefaultController extends HController
             }
         }
     }
+
+    public function actionGetEntityData($entity, $entity_id)
+    {
+        $model = CActiveRecord::model($entity)->full()->findByPk($entity_id);
+        if ($model === null)
+            throw new CHttpException(400);
+
+        $image = $model->getContentImage(60);
+        $title = $model->title;
+        $tags = array('хуй', 'пизда', 'джигурда');
+
+        $response = compact('image', 'title', 'tags');
+        echo CJSON::encode($response);
+    }
 }

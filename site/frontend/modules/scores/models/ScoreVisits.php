@@ -32,6 +32,13 @@ class ScoreVisits extends EMongoDocument
         );
     }
 
+    public function beforeSave()
+    {
+        ScoreAchievement::model()->checkAchieve($this->user_id, ScoreAchievement::TYPE_VISITOR);
+
+        return parent::beforeSave();
+    }
+
     /**
      * @static
      * @param $user_id
@@ -57,20 +64,33 @@ class ScoreVisits extends EMongoDocument
             return ;
         $model->last_day = $today;
         $model->days [] = $today;
-        UserScores::addScores($user_id, ScoreAction::ACTION_VISIT);
+        ScoreInput::model()->add($user_id, ScoreInput::SCORE_ACTION_VISIT);
 
         if (in_array(date("Y-m-d", strtotime('-1 day')), $model->days)) {
             $model->current_long_days++;
             if ($model->current_long_days == 5){
-                UserScores::addScores($user_id, ScoreAction::ACTION_5_DAYS_ATTEND);
+                ScoreInput::model()->add($user_id, ScoreInput::SCORE_ACTION_5_DAYS_ATTEND);
             }
             if ($model->current_long_days == 20){
-                UserScores::addScores($user_id, ScoreAction::ACTION_20_DAYS_ATTEND);
+                ScoreInput::model()->add($user_id, ScoreInput::SCORE_ACTION_20_DAYS_ATTEND);
                 $model->current_long_days = 0;
             }
         } else
             $model->current_long_days = 1;
 
         $model->save();
+    }
+
+    public static function test($user_id)
+    {
+        $model = self::getModel($user_id);
+        $model->current_long_days = 29;
+        $model->days = array();
+        for($i=1;$i<30;$i++){
+            $model->days[] = date("Y-m", strtotime('-1 month')).'-'.$i;
+        }
+        $model->days[] = '2012-10-01';
+        $model->save();
+
     }
 }

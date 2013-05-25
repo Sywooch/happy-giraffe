@@ -5,23 +5,57 @@
  */
 class ScoreInput extends EMongoDocument
 {
-    const STATUS_OPEN = 1;
-    const STATUS_CLOSED = 2;
+    const SCORE_ACTION_6_STEPS = 1;
+
+    const SCORE_ACTION_FIRST_BLOG_RECORD = 2;
+    const SCORE_ACTION_BLOG_CONTENT_ADDED = 3;
+    const SCORE_ACTION_COMMUNITY_CONTENT_ADDED = 4;
+    const SCORE_ACTION_RECIPE_ADDED = 5;
+    const SCORE_ACTION_FOLK_RECIPE_ADDED = 6;
+
+    const SCORE_ACTION_COMMENT_ADDED = 7;
+    const SCORE_ACTION_PHOTOS_ADDED = 8;
+
+    const SCORE_ACTION_DUEL_PARTICIPATION = 9;
+    const SCORE_ACTION_DUEL_WIN = 10;
+
+    const SCORE_ACTION_100_VIEWS = 11;
+    const SCORE_ACTION_10_COMMENTS = 12;
+    const SCORE_ACTION_10_LIKES = 13;
+
+    const SCORE_ACTION_VISIT = 15;
+    const SCORE_ACTION_5_DAYS_ATTEND = 16;
+    const SCORE_ACTION_20_DAYS_ATTEND = 17;
+
+    const SCORE_ACTION_VIDEO = 18;
+
+    const SCORE_ACTION_CONTEST_PARTICIPATION = 20;
+    const SCORE_ACTION_CONTEST_WIN = 21;
+    const SCORE_ACTION_CONTEST_2_PLACE = 22;
+    const SCORE_ACTION_CONTEST_3_PLACE = 23;
+    const SCORE_ACTION_CONTEST_4_PLACE = 24;
+    const SCORE_ACTION_CONTEST_5_PLACE = 25;
+    const SCORE_ACTION_CONTEST_ADDITIONAL_PRIZE = 26;
+
+    const SCORE_ACTION_AWARD = 100;
+    const SCORE_ACTION_ACHIEVEMENT = 101;
+
+    private $_stackableActions = array(
+        self::SCORE_ACTION_100_VIEWS,
+//        self::SCORE_ACTION_10_COMMENTS,
+        self::SCORE_ACTION_PHOTOS_ADDED,
+    );
 
     public $user_id;
-    public $action_id;
-    public $amount = 0;
+    public $type;
+
     public $scores_earned;
+
+    public $data;
+    public $blockData = null;
+
     public $created;
     public $updated;
-    public $status = self::STATUS_OPEN;
-
-    public $added_items = array();
-    public $removed_items = array();
-
-    public $entity_id;
-
-    private $_entity = null;
 
     public static function model($className = __CLASS__)
     {
@@ -36,16 +70,9 @@ class ScoreInput extends EMongoDocument
     public function indexes()
     {
         return array(
-            'user_id_index' => array(
-                'key' => array(
-                    'user_id' => EMongoCriteria::SORT_DESC,
-                ),
-                'unique' => false,
-            ),
             'created_index' => array(
                 'key' => array(
-                    'user_id' => EMongoCriteria::SORT_DESC,
-                    'updated' => EMongoCriteria::SORT_DESC,
+                    'created' => EMongoCriteria::SORT_DESC,
                 ),
                 'unique' => false,
             ),
@@ -54,37 +81,11 @@ class ScoreInput extends EMongoDocument
 
     public function beforeSave()
     {
-        if ($this->isNewRecord){
-            $criteria = new EMongoCriteria;
-            $criteria->user_id('==', (int)$this->user_id);
-            $criteria->created('==', time());
-            if (self::model()->find($criteria) !== null)
-                $this->created = time() + 1;
-            else
-                $this->created = time();
+        if ($this->isNewRecord) {
+            $this->created = time();
             $this->updated = $this->created;
-        }else
+        } else
             $this->updated = time();
-
-        if ($this->amount == 0) {
-            if (!$this->isNewRecord)
-                $this->delete();
-            return false;
-        }
-        //check close task or not
-        $action_info = ScoreAction::getActionInfo($this->action_id);
-        if ($action_info['wait_time'] == 0)
-            $this->status = self::STATUS_CLOSED;
-
-        if ($this->status == self::STATUS_CLOSED) {
-            $model = UserScores::model()->findByPk($this->user_id);
-            if ($model !== null) {
-                $model->scores += $this->scores_earned;
-                $model->save();
-            }else{
-                $this->delete();
-            }
-        }
 
         return parent::beforeSave();
     }
@@ -92,215 +93,150 @@ class ScoreInput extends EMongoDocument
     public function defaultScope()
     {
         return array(
-            'order' => 'created DESC',
+            'order' => 'updated DESC',
         );
     }
 
-    /**
-     * Открытое событие, которое произошло недавно. К нему можно прибавить еще пока оно не закрылось
-     *
-     * @param $user_id
-     * @param $action_id
-     * @param CActiveRecord $entity
-     * @return ScoreInput
-     */
-    public function getActiveScoreInput($user_id, $action_id, $entity)
+    public function add($user_id, $type, $params = array(), $blockData = null)
     {
-        //check can we continue active task
-        $action_info = ScoreAction::getActionInfo($action_id);
-        if (!isset($action_info['wait_time']))
-            return null;
+        $score_value = ScoreAction::getActionScores($type, $params);
 
-        if ($action_info['wait_time'] == 0)
-            return null;
-
-        $criteria = new EMongoCriteria;
-        $criteria->user_id('==', (int)$user_id);
-        $criteria->action_id('==', (int)$action_id);
-        $criteria->status('==', self::STATUS_OPEN);
-
-        if ($action_id == ScoreAction::ACTION_100_VIEWS || $action_id == ScoreAction::ACTION_10_COMMENTS
-            || $action_id == ScoreAction::ACTION_LIKE
-        ) {
-            $criteria->addCond('added_items.0.id', '==', (int)$entity->primaryKey);
-            $criteria->addCond('added_items.0.entity', '==', get_class($entity));
-        }
-
-        if ($action_id == ScoreAction::ACTION_OWN_COMMENT) {
-            $criteria->addCond('added_items.0.id', '==', (int)$entity['id']);
-            $criteria->addCond('added_items.0.entity', '==', $entity['name']);
-        }
-
-        if ($action_id == ScoreAction::ACTION_PHOTO) {
-            $criteria->addCond('entity_id', '==', (int)$entity->album_id);
-        }
-
-        $model = $this->find($criteria);
-        if ($model === null) {
-            $criteria = new EMongoCriteria;
-            $criteria->user_id('==', (int)$user_id);
-            $criteria->action_id('==', (int)$action_id);
-            $criteria->status('==', self::STATUS_OPEN);
-
-            if ($action_id == ScoreAction::ACTION_100_VIEWS || $action_id == ScoreAction::ACTION_10_COMMENTS
-                || $action_id == ScoreAction::ACTION_LIKE || $action_id == ScoreAction::ACTION_PHOTO
-            ) {
-                $criteria->addCond('removed_items.0.id', '==', (int)$entity->primaryKey);
-                $criteria->addCond('removed_items.0.entity', '==', get_class($entity));
+        if (($stack = $this->getStack($user_id, $type, $blockData)) !== null) {
+            $newData = $stack->getDataByParams($params);
+            if (array_search($newData, $stack->data) === FALSE) {
+                $stack->updated = time();
+                $stack->data[] = $newData;
+                $stack->scores_earned += $score_value;
+                $stack->save();
             }
+        } else {
+            $action = new self;
+            $action->user_id = (int)$user_id;
+            $action->type = $type;
+            $action->updated = time();
+            $action->data = (in_array($type, $this->_stackableActions)) ? array($action->getDataByParams($params)) : $action->getDataByParams($params);
+            if ($blockData !== null)
+                $action->blockData = $blockData;
 
-            if ($action_id == ScoreAction::ACTION_OWN_COMMENT) {
-                $criteria->addCond('removed_items.0.id', '==', (int)$entity['id']);
-                $criteria->addCond('removed_items.0.entity', '==', $entity['name']);
-            }
-            $model = $this->find($criteria);
+            $action->scores_earned += $score_value;
+            $action->save();
         }
-        return $model;
+        $this->addScores($user_id, $score_value);
     }
 
-    /**
-     * @param $score_value
-     * @param int $count
-     * @param CActiveRecord $entity
-     */
-    public function addItem($score_value, $count = 1, $entity)
+    public function remove($user_id, $type, $params = array(), $blockData = null)
     {
-        $this->amount = $this->amount + $count;
-        $this->scores_earned += $score_value * $count;
-        if ($entity !== null) {
-            if (is_array($entity)) {
-                $this->addItemsInAdded($entity['id'], $entity['name']);
-            } else {
-                $this->_entity = $entity;
-                $this->addItemsInAdded($entity->primaryKey, get_class($entity));
-                if ($this->action_id == ScoreAction::ACTION_PHOTO) {
-                    $this->entity_id = (int)$entity->album_id;
+        $score_value = ScoreAction::getActionScores($type, $params);
+
+        $found = false;
+        if (($stack = $this->getStack($user_id, $type, $blockData)) !== null) {
+            $newData = $stack->getDataByParams($params);
+            $stack->updated = time();
+
+            foreach ($stack->data as $key => $data)
+                if ($data == $newData) {
+                    unset($stack->data[$key]);
+                    $found = true;
                 }
+
+            if ($found) {
+                $stack->scores_earned -= $score_value;
+                $stack->save();
             }
         }
-    }
 
-    public function addItemsInAdded($entity_id, $entity)
-    {
-        if (in_array($this->action_id, array(ScoreAction::ACTION_FRIEND, ScoreAction::ACTION_PHOTO))
-            || (empty($this->added_items) && empty($this->removed_items))
-        ) {
-            foreach ($this->added_items as $item) {
-                if ($item['id'] == $entity_id && $item['entity'] == $entity)
-                    return;
-            }
+        if (!$found) {
+            $action = new self;
+            $action->user_id = (int)$user_id;
+            $action->type = $type;
+            $action->updated = time();
+            $action->data = (in_array($type, $this->_stackableActions)) ? array($action->getDataByParams($params)) : $action->getDataByParams($params);
+            if ($blockData !== null)
+                $action->blockData = $blockData;
 
-            $this->added_items [] = array(
-                'id' => (int)$entity_id,
-                'entity' => $entity,
-            );
+            $action->scores_earned -= $score_value;
+            $action->save();
         }
+        $this->addScores($user_id, -$score_value);
     }
 
-    /**
-     * @param $score_value
-     * @param int $count
-     * @param CActiveRecord $entity
-     */
-    public function removeItem($score_value, $count = 1, $entity)
+    public function getStack($user_id, $type, $blockData)
     {
-        $this->amount = $this->amount - $count;
-        $this->scores_earned -= $score_value * $count;
-        if ($entity !== null) {
-            if (is_array($entity)) {
-                $this->removed_items [] = array(
-                    'id' => (int)$entity['id'],
-                    'entity' => $entity['name'],
+        if (!in_array($type, $this->_stackableActions))
+            return null;
+
+        $criteria = new EMongoCriteria();
+        $criteria->type = $type;
+        $criteria->user_id = (int)$user_id;
+        if ($blockData !== null)
+            $criteria->blockData = $blockData;
+        $criteria->sort('updated', EMongoCriteria::SORT_DESC);
+        $criteria->created('>=', strtotime(date("Y-m-d") . '00:00:00'));
+
+        $stack = self::model()->find($criteria);
+        if ($stack === null)
+            return null;
+
+        switch ($type) {
+            case self::SCORE_ACTION_PHOTOS_ADDED:
+                $result = (time() - $stack->updated < 300) && HDate::isSameDate($stack->updated, time());
+                break;
+            default:
+                $result = HDate::isSameDate($stack->created, time());
+        }
+
+        return $result ? $stack : null;
+    }
+
+    public function getDataByParams($params)
+    {
+        switch ($this->type) {
+            case self::SCORE_ACTION_COMMENT_ADDED:
+            case self::SCORE_ACTION_BLOG_CONTENT_ADDED:
+            case self::SCORE_ACTION_FIRST_BLOG_RECORD:
+            case self::SCORE_ACTION_COMMUNITY_CONTENT_ADDED:
+            case self::SCORE_ACTION_DUEL_PARTICIPATION:
+            case self::SCORE_ACTION_DUEL_WIN:
+            case self::SCORE_ACTION_VIDEO:
+            case self::SCORE_ACTION_PHOTOS_ADDED:
+            case self::SCORE_ACTION_RECIPE_ADDED:
+            case self::SCORE_ACTION_FOLK_RECIPE_ADDED:
+                return $params['model']->getAttributes(array('id'));
+
+            case self::SCORE_ACTION_CONTEST_WIN:
+            case self::SCORE_ACTION_CONTEST_PARTICIPATION:
+            case self::SCORE_ACTION_CONTEST_2_PLACE:
+            case self::SCORE_ACTION_CONTEST_3_PLACE:
+            case self::SCORE_ACTION_CONTEST_4_PLACE:
+            case self::SCORE_ACTION_CONTEST_5_PLACE:
+            case self::SCORE_ACTION_CONTEST_ADDITIONAL_PRIZE:
+                return $params['id'];
+
+            case self::SCORE_ACTION_10_COMMENTS:
+            case self::SCORE_ACTION_10_LIKES:
+                return array(
+                    'entity_id' => $params['model']->id,
+                    'entity' => get_class($params['model'])
                 );
-            } else {
-                if (in_array($this->action_id, array(ScoreAction::ACTION_FRIEND, ScoreAction::ACTION_PHOTO))
-                    || (empty($this->added_items) && empty($this->removed_items))
-                ) {
-                    foreach ($this->added_items as $key => $added_item) {
-                        if ($added_item['id'] == $entity->primaryKey &&
-                            $added_item['entity'] == get_class($entity)
-                        ) {
-                            unset($this->added_items[$key]);
-                            return;
-                        }
-                    }
-                    $this->removed_items [] = array(
-                        'id' => (int)$entity->primaryKey,
-                        'entity' => get_class($entity),
-                    );
-                }
 
-                if ($this->action_id == ScoreAction::ACTION_PHOTO) {
-                    $this->entity_id = (int)$entity->album_id;
-                }
-            }
+            default:
+                return $params;
         }
     }
 
-    /**
-     * @static
-     * Пользователю отображаются только закрытые события. Проверяем прошло ли время максимальной длительности
-     * открытости события. Если прошло, закрываем
-     */
-    public static function CheckOnClose()
+    public function addScores($user_id, $scores)
     {
-        $ScoreAction = ScoreAction::model()->findAll('wait_time > 0');
-        foreach ($ScoreAction as $action) {
-            $criteria = new EMongoCriteria;
-            $criteria->status('==', self::STATUS_OPEN);
-            $criteria->action_id('==', (int)$action->id);
-            $criteria->created('<', (int)(time() - $action->wait_time * 60));
-
-            $need_close = ScoreInput::model()->findAll($criteria);
-            foreach ($need_close as $model) {
-                $model->status = self::STATUS_CLOSED;
-                $model->save();
-            }
-//            $modifier = new EMongoModifier();
-//            $modifier->addModifier('status', 'set', self::STATUS_CLOSED);
-//            $modifier->addModifier('updated', 'set', time());
-//            ScoreInput::model()->updateAll($modifier, $criteria);
-        }
+        $userScore = User::getUserById($user_id)->getScores();
+        $userScore->scores += $scores;
+        $userScore->save();
     }
+
+    /****************************************************************************************************************/
+    /****************************************************************************************************************/
 
     public function getIcon()
     {
-        $icon = $this->getIconName();
-        if (empty($icon))
-            return '<i class="act-'.$this->action_id.'"></i>';
-        return '<i class="' . $icon . ' act-'.$this->action_id.'"></i>';
-    }
-
-    public function getIconName()
-    {
-        switch ($this->action_id) {
-            case ScoreAction::ACTION_FIRST_BLOG_RECORD:
-            case ScoreAction::ACTION_RECORD:
-                if ($this->amount > 0)
-                    return 'icon-post';
-                return 'icon-post-d';
-            case ScoreAction::ACTION_10_COMMENTS:
-            case ScoreAction::ACTION_OWN_COMMENT:
-                if ($this->amount > 0)
-                    return 'icon-comments';
-                return 'icon-comment-d';
-            case ScoreAction::ACTION_100_VIEWS:
-                return 'icon-views';
-            case ScoreAction::ACTION_PROFILE_PHOTO:
-            case ScoreAction::ACTION_PROFILE_FAMILY:
-            case ScoreAction::ACTION_PROFILE_INTERESTS:
-            case ScoreAction::ACTION_PROFILE_BIRTHDAY:
-            case ScoreAction::ACTION_PROFILE_EMAIL:
-            case ScoreAction::ACTION_PROFILE_LOCATION:
-            case ScoreAction::ACTION_PROFILE_FULL:
-                return 'icon-ava';
-            case ScoreAction::ACTION_PHOTO:
-                return 'icon-photo';
-            case ScoreAction::ACTION_FRIEND:
-                return 'icon-friends';
-        }
-
-        return '';
+        return $this->type;
     }
 
     public function getPoints()
@@ -318,141 +254,143 @@ class ScoreInput extends EMongoDocument
      */
     public function getText()
     {
+        if (isset($this->data['id']))
+            $id = $this->data['id'];
         $text = '';
-        switch ($this->action_id) {
-            case ScoreAction::ACTION_PROFILE_PHOTO:
-                $text = 'Вы <span>Добавили фото</span> в личной анкете';
-                break;
-            case ScoreAction::ACTION_PROFILE_FAMILY:
-                $text = 'Вы заполнили данные <span>Семья</span> в личной анкете';
-                break;
-            case ScoreAction::ACTION_PROFILE_INTERESTS:
-                $text = 'Вы заполнили данные <span>Интересы</span> в личной анкете';
-                break;
-            case ScoreAction::ACTION_PROFILE_BIRTHDAY:
-                $text = 'Вы указали <span>День вашего рождения</span> в личной анкете';
-                break;
-            case ScoreAction::ACTION_PROFILE_EMAIL:
-                $text = 'Вы подтвердили ваш <span>E-mail</span>';
-                break;
-            case ScoreAction::ACTION_PROFILE_LOCATION:
-                $text = 'Вы указали ваше <span>Место жительства</span>';
-                break;
-            case ScoreAction::ACTION_PROFILE_FULL:
-                $text = '<span>Вы прошли первые 6 шагов!</span>';
+        switch ($this->type) {
+            case self::SCORE_ACTION_6_STEPS:
+                $text = 'за первые 6 шагов на сайте: теперь вы чувствуете себя как дома, поздравляем!';
                 break;
 
-            case ScoreAction::ACTION_RECORD:
-                $text = $this->getArticleText();
-                break;
-            case ScoreAction::ACTION_FIRST_BLOG_RECORD:
-                $text = $this->getArticleText();
-                break;
-
-            case ScoreAction::ACTION_VISIT:
-                $text = $this->getVisitText();
-                break;
-            case ScoreAction::ACTION_5_DAYS_ATTEND:
-                $text = 'За посещение сайта в течение 5 дней подряд';
-                break;
-            case ScoreAction::ACTION_20_DAYS_ATTEND:
-                $text = 'За посещение сайта в течение 20 дней подряд';
+            case self::SCORE_ACTION_FIRST_BLOG_RECORD:
+                $model = CommunityContent::model()->resetScope()->findByPk($id);
+                $text = ($this->scores_earned > 0) ?
+                    'за первую запись ' . $this->getLink($model) . ' вашем в блоге: поздравляем с дебютом!'
+                    :
+                    'за удаление единственной записи ' . $this->getLink($model) . ' в вашем блоге: может, стоит написать другую запись?';
                 break;
 
-            case ScoreAction::ACTION_OWN_COMMENT:
+            case self::SCORE_ACTION_BLOG_CONTENT_ADDED:
+                $model = CommunityContent::model()->resetScope()->findByPk($id);
+                $text = ($this->scores_earned > 0) ?
+                    'за новую запись ' . $this->getLink($model) . ' в вашем  блоге:  обязательно напишите еще!'
+                    :
+                    'за удаление записи ' . $this->getLink($model) . ' в вашем блоге: жаль, хорошая была запись...';
+                break;
+
+            case self::SCORE_ACTION_COMMUNITY_CONTENT_ADDED:
+                $model = CommunityContent::model()->resetScope()->findByPk($id);
+                $text = ($this->scores_earned > 0) ?
+                    'за вашу запись ' . $this->getLink($model) . ' в клуб ' . $this->getLink($model->rubric->community) . ':  спасибо, что поделились с нами своими мыслями!'
+                    :
+                    'за удаление записи ' . $this->getLink($model) . ' в клубе ' . $this->getLink($model->rubric->community) . ' жаль, хорошая была запись...';
+                break;
+
+            case self::SCORE_ACTION_RECIPE_ADDED:
+                $model = CookRecipe::model()->resetScope()->findByPk($id);
+                $text = ($this->scores_earned > 0) ?
+                    'за кулинарный рецепт ' . $this->getLink($model) . ' спасибо, что поделились с нами вкусненьким!'
+                    :
+                    'за удаление кулинарного рецепта ' . $this->getLink($model) . ': жаль, хороший был рецепт...';
+                break;
+
+            case self::SCORE_ACTION_FOLK_RECIPE_ADDED:
+                $model = RecipeBookRecipe::model()->resetScope()->findByPk($id);
+                $text = ($this->scores_earned > 0) ?
+                    'за народный рецепт ' . $this->getLink($model) . ': спасибо за полезные советы!'
+                    :
+                    'за удаление народного рецепта ' . $this->getLink($model) . ': жаль, хороший был рецепт...';
+                break;
+
+            case self::SCORE_ACTION_VIDEO:
+                $text = $this->getVideoText();
+                break;
+
+            case self::SCORE_ACTION_VISIT:
+                HDate::isSameDate($this->created, time()) ?
+                    $text = 'за посещение сайта: здорово, что вы снова с нами!'
+                    :
+                    $text = 'За посещение сайта ' . Yii::app()->dateFormatter->format("d MMMM", $this->created) . ':здорово, что вы снова с нами!';
+                break;
+            case self::SCORE_ACTION_5_DAYS_ATTEND:
+                $text = 'за 5 дней на сайте: продолжайте  в том же духе!';
+                break;
+            case self::SCORE_ACTION_20_DAYS_ATTEND:
+                $text = 'за 20 дней подряд на сайте: спасибо, что вы с нами!';
+                break;
+
+            case self::SCORE_ACTION_COMMENT_ADDED:
                 $text = $this->getOwnCommentText();
                 break;
 
-            case ScoreAction::ACTION_FRIEND:
-                $text = $this->getFriendsText();
+            case self::SCORE_ACTION_10_COMMENTS:
+                $text = $this->get10CommentsText();
                 break;
-
-            case ScoreAction::ACTION_10_COMMENTS:
-                $text = '';
-                break;
-            case ScoreAction::ACTION_100_VIEWS:
+            case self::SCORE_ACTION_100_VIEWS:
                 $text = $this->getViewsArticleText();
                 break;
+            case self::SCORE_ACTION_10_LIKES:
+                $text = $this->getLikesArticleText();
+                break;
 
-            case ScoreAction::ACTION_PHOTO:
+            case self::SCORE_ACTION_PHOTOS_ADDED:
                 $text = $this->getPhotoText();
                 break;
 
-            case ScoreAction::ACTION_LIKE:
-                $text = $this->getRatingText();
+            case self::SCORE_ACTION_CONTEST_PARTICIPATION:
+                $model = Contest::model()->findByPk($id);
+                $text = 'за участие в конкурсе "' . $model->title . '": вперед, к победе!';
+                break;
+            case self::SCORE_ACTION_CONTEST_WIN:
+                $model = Contest::model()->findByPk($id);
+                $text = 'за победу в конкурсе "' . $model->title . '": Йу-ху! Вы победитель!';
+                break;
+            case self::SCORE_ACTION_CONTEST_2_PLACE:
+                $model = Contest::model()->findByPk($id);
+                $text = 'за второе место в конкурсе "' . $model->title . '": Поздравляем! Все впереди!';
+                break;
+            case self::SCORE_ACTION_CONTEST_3_PLACE:
+                $model = Contest::model()->findByPk($id);
+                $text = 'за третье место в конкурсе "' . $model->title . '": Поздравляем! Все впереди!';
+                break;
+            case self::SCORE_ACTION_CONTEST_4_PLACE:
+                $model = Contest::model()->findByPk($id);
+                $text = 'за четвертое место в конкурсе "' . $model->title . '": Поздравляем! Все впереди!';
+                break;
+            case self::SCORE_ACTION_CONTEST_5_PLACE:
+                $model = Contest::model()->findByPk($id);
+                $text = 'за пятое место в конкурсе "' . $model->title . '": Поздравляем! Все впереди!';
+                break;
+            case self::SCORE_ACTION_CONTEST_ADDITIONAL_PRIZE:
+                $model = Contest::model()->findByPk($id);
+                $text = 'за дополнительный приз в конкурсе "' . $model->title . '": Поздравляем! Молодцом!';
                 break;
 
-            case ScoreAction::ACTION_CONTEST_PARTICIPATION:
-                $text = 'Вы приняли участие в конкурсе';
+            case self::SCORE_ACTION_DUEL_PARTICIPATION:
+                $model = DuelAnswer::model()->findByPk($id);
+                $text = 'за участие в дуэли "' . $model->question->text . '": самое время победить!';
+                break;
+            case self::SCORE_ACTION_DUEL_WIN:
+                $model = DuelAnswer::model()->findByPk($id);
+                $text = 'за победу в дуэли "' . $model->question->text . '": поздравляем, вы мастерски сражались!';
+                break;
+
+            case self::SCORE_ACTION_AWARD:
+                $model = ScoreAward::model()->findByPk($this->data['award_id']);
+                $text = 'Ого! У вас новый трофей - ' . CHtml::link($model->title, '#', array('onclick' => 'Scores.openTrophy(' . $model->id . ')')) . '!';
+                break;
+            case self::SCORE_ACTION_ACHIEVEMENT:
+                $model = ScoreAchievement::model()->findByPk($this->data['achieve_id']);
+                $text = 'Ух-ты! У вас новое достижение - ' . CHtml::link($model->title, '#', array('onclick' => 'Scores.openAchieve(' . $model->id . ')')) . '!';
                 break;
         }
 
         return $text;
     }
 
-    public function getVisitText()
+    public function getLink($model)
     {
-        if (date("Y-m-d", $this->created) == date("Y-m-d"))
-            $text = 'За посещение сайта сегодня';
-        else
-            $text = 'За посещение сайта <span>' . Yii::app()->dateFormatter->format("d MMMM", $this->created) . '</span>';
-
-        return $text;
-    }
-
-    /**
-     * Получить текст если добавлена/удалена статья
-     * @return string
-     */
-    public function getArticleText()
-    {
-        $text = '';
-        if (empty($this->added_items) && empty($this->removed_items))
-            return '';
-        if ($this->amount > 0) {
-            $class = $this->added_items[0]['entity'];
-            $id = $this->added_items[0]['id'];
-        } else {
-            $class = $this->removed_items[0]['entity'];
-            $id = $this->removed_items[0]['id'];
-        }
-
-        $model = $class::model()->resetScope()->findByPk($id);
-
-        if ($model === null)
-            return '';
-        if ($this->action_id == ScoreAction::ACTION_FIRST_BLOG_RECORD)
-            if ($this->amount > 0)
-                $record_title = 'первую запись ';
-            else
-                $record_title = 'единственная запись ';
-        else {
-            $record_title = 'запись ';
-        }
-
-        if ($class == 'CommunityContent' || $class == 'BlogContent') {
-            if ($this->amount > 0)
-                if ($model->isFromBlog)
-                    $text = 'Вы добавили ' . $record_title . '<span>' . $model->title . '</span> в блог';
-                else
-                    $text = 'Вы добавили ' . $record_title . '<span>' . $model->title . '</span> в клуб <span>' . $model->rubric->community->title . '</span>';
-            if ($this->amount < 0) {
-                if ($model->isFromBlog)
-                    $text = 'Ваша ' . $record_title . '<span>' . $model->title . '</span> в блоге удалена';
-                else {
-                    $text = 'Ваша ' . $record_title . '<span>' . $model->title . '</span> в клубе <span>' . $model->rubric->community->title . '</span> удалена';
-                }
-            }
-        }
-        if ($class == 'RecipeBookRecipe') {
-            if ($this->amount > 0)
-                $text = 'Вы добавили ' . $record_title . ' <span>' . $model->title . '</span> в сервис <span>Книга народных рецептов</span>';
-            if ($this->amount < 0) {
-                $text = 'Ваша ' . $record_title . '<span>' . $model->title . '</span> в сервис <span>Книга народных рецептов</span> удалена';
-            }
-        }
-
-        return $text;
+        return CHtml::link($model->title, $model->url);
     }
 
     /**
@@ -461,22 +399,53 @@ class ScoreInput extends EMongoDocument
      */
     public function getViewsArticleText()
     {
-        $text = '';
-        if (empty($this->added_items))
-            return $text;
-        $class = $this->added_items[0]['entity'];
-        $id = $this->added_items[0]['id'];
-
-        $model = $class::model()->resetScope()->findByPk($id);
-        if ($model === null)
-            return $text;
+        $class = $this->blockData['entity'];
+        $model = CActiveRecord::model($class)->resetScope()->findByPk($this->blockData['entity_id']);
 
         if ($class == 'CommunityContent' || $class == 'BlogContent') {
             if ($model->isFromBlog)
-                $text = 100 * $this->amount . ' новых просмотров вашей записи <span>' . $model->title . '</span> в блоге';
+                return 'за ' . (100 * count($this->data)) . ' просмотров вашей записи ' . $this->getLink($model) . ' в блоге: слава уже близка!';
             else
-                $text = 100 * $this->amount . ' новых просмотров вашей записи <span>' . $model->title . '</span> в клубе <span>' . $model->rubric->community->title . '</span>';
+                return 'за ' . (100 * count($this->data)) . ' просмотров вашей записи ' . $this->getLink($model) . ' в клубе ' . $this->getLink($model->rubric->community) . ': слава уже близка!';
         }
+        if ($class == 'CookContent')
+            return 'за ' . (100 * count($this->data)) . ' просмотров вашего рецепта ' . $this->getLink($model) . ': слава уже близка!';
+
+        return '';
+    }
+
+    public function getLikesArticleText()
+    {
+        $id = $this->data['entity_id'];
+        $class = $this->data['entity'];
+        $model = $class::model()->resetScope()->findByPk($id);
+
+        if ($class == 'CommunityContent' || $class == 'BlogContent') {
+            if ($model->isFromBlog)
+                return 'за 10 лайков к вашей записи ' . $this->getLink($model) . ' в блоге: это действительно всем нравится!';
+            else
+                return 'за 10 лайков к вашей записи ' . $this->getLink($model) . ' в клубе ' . $this->getLink($model->rubric->community) . ': это действительно всем нравится!';
+        }
+
+        return '';
+    }
+
+    public function getVideoText()
+    {
+        $id = $this->data['id'];
+        $model = CommunityContent::model()->resetScope()->findByPk($id);
+
+        if ($model->isFromBlog)
+            $text = ($this->scores_earned > 0) ?
+                'за размещение видео ' . $this->getLink($model) . ' в блоге: ждем от вас еще больше видеозаписей!'
+                :
+                'за удаление видео ' . $this->getLink($model) . ' в блоге: может, стоит выложить другое видео?';
+
+        else
+            $text = ($this->scores_earned > 0) ?
+                'за размещение видео ' . $this->getLink($model) . ' в клубе ' . $this->getLink($model->rubric->community) . ': ждем от вас еще больше видеозаписей!'
+                :
+                'за удаление видео ' . $this->getLink($model) . ': в клубе ' . $this->getLink($model->rubric->community) . ': может, стоит выложить другое видео?';
 
         return $text;
     }
@@ -487,37 +456,19 @@ class ScoreInput extends EMongoDocument
      */
     public function get10CommentsText()
     {
-        if (empty($this->added_items) && empty($this->removed_items))
-            return '';
+        $class = $this->data['entity'];
+        $model = CActiveRecord::model($class)->resetScope()->findByPk($this->data['entity_id']);
 
         $text = '';
-        if ($this->amount > 0) {
-            $class = $this->added_items[0]['entity'];
-            $id = $this->added_items[0]['id'];
-        } else {
-            $class = $this->removed_items[0]['entity'];
-            $id = $this->removed_items[0]['id'];
-        }
-
-        $model = $class::model()->resetScope()->findByPk($id);
-        if ($model === null)
-            return '';
-
         if ($class == 'CommunityContent' || $class == 'BlogContent') {
-            if ($this->amount > 0) {
-                if ($model->isFromBlog)
-                    $text = 10 * $this->amount . ' новых комментариев к вашей записи <span>' . $model->title . '</span> в блоге';
-                else
-                    $text = 10 * $this->amount . ' новых комментариев к вашей записи <span>' . $model->title . '</span> в клубе <span>' . $model->rubric->community->title . '</span>';
-            } else
-                $text = abs(10 * $this->amount) . ' комментариев к вашей записи <span>' . $model->title . '</span> в клубе <span>' . $model->rubric->community->title . '</span> были удалены';
-        }
-        if ($class == 'RecipeBookRecipe') {
-            if ($this->amount > 0) {
-                $text = 10 * $this->amount . ' новых комментариев к вашей записи <span>' . $model->title . '</span> в сервисе <span>Книга народных рецептов</span>';
-            } else
-                $text = abs(10 * $this->amount) . ' комментариев к вашей записи <span>' . $model->title . '</span> в сервисе <span>Книга народных рецептов</span> были удалены';
-        }
+            if ($model->isFromBlog)
+                $text = 'за 10 комментариев к вашей записи в блоге ' . $this->getLink($model) . ': присоединяйся к обсуждению!';
+            else
+                $text = 'за 10 комментариев к вашей записи ' . $this->getLink($model) . ' в клубе ' . $this->getLink($model->rubric->community) . ': присоединяйся к обсуждению!';
+        } elseif ($class == 'RecipeBookRecipe')
+            $text = 'за 10 комментариев к народному рецепту ' . $this->getLink($model) . ': присоединяйся к обсуждению!'; elseif ($class == 'CookRecipe')
+            $text = 'за 10 комментариев к вашему рецепту ' . $this->getLink($model) . ': присоединяйся к обсуждению!';
+
 
         return $text;
     }
@@ -528,30 +479,15 @@ class ScoreInput extends EMongoDocument
      */
     public function getPhotoText()
     {
-        if (empty($this->added_items) && empty($this->removed_items))
-            return '';
-        if ($this->amount > 0) {
-            $class = $this->added_items[0]['entity'];
-            $id = $this->added_items[0]['id'];
-        } else {
-            $class = $this->removed_items[0]['entity'];
-            $id = $this->removed_items[0]['id'];
-        }
+        $model = Album::model()->resetScope()->findByPk($this->blockData['album_id']);
 
-        $model = CActiveRecord::model($class)->findByPk($id);
-        if ($model === null)
-            return '';
-        if ($model->album === null)
-            return '';
+        if ($this->scores_earned < 0) {
+            return 'Вы удалили фото из альбома <span>' . $this->getLink($model) . '</span>';
+        } elseif (count($this->data) == 1)
+            return 'Добавлено фото в фотоальбом <span>' . $this->getLink($model) . '</span>'; elseif (count($this->data) > 1)
+            return 'Добавлено ' . count($this->data) . ' фото в фотоальбом <span>' . $this->getLink($model) . '</span>';
 
-        if ($this->amount == 1)
-            return 'Добавлено фото <span>' . $model->title . '</span> в фотоальбом <span>' . $model->album->title . '</span>';
-        elseif ($this->amount > 1)
-            return 'Добавлено ' . $this->amount . ' фото в фотоальбом <span>' . $model->album->title . '</span>';
-        elseif ($this->amount == 1)
-            return 'Вы удалили фото из альмоба <span>' . $model->album->title . '</span>';
-        else
-            return 'Вы удалили ' . abs($this->amount) . ' фото из альмоба <span>' . $model->album->title . '</span>';
+        return '';
     }
 
     /**
@@ -560,187 +496,89 @@ class ScoreInput extends EMongoDocument
      */
     public function getOwnCommentText()
     {
-        if (empty($this->added_items) && empty($this->removed_items))
+        $model = Comment::model()->resetScope()->findByPk($this->data['id']);
+        if ($model === null) {
+            $this->delete();
             return '';
-        if ($this->amount > 0) {
-            $class = $this->added_items[0]['entity'];
-            $id = $this->added_items[0]['id'];
-        } else {
-            $class = $this->removed_items[0]['entity'];
-            $id = $this->removed_items[0]['id'];
         }
 
-        $model = $class::model()->resetScope()->findByPk($id);
-        if ($model === null)
-            return '';
-
-        if ($class == 'User') {
-            if ($this->amount == 1)
-                $text = 'Вы добавили запись';
-            elseif ($this->amount > 1)
-                $text = 'Вы добавили ' . $this->amount . ' ' . HDate::GenerateNoun(array('запись', 'записи', 'записей'), $this->amount);
-            elseif ($this->amount == -1)
-                $text = 'Удалена ваша запись';
-            else
-                $text = 'Удалены ваши ' . abs($this->amount) . ' ' . HDate::GenerateNoun(array('запись', 'записи', 'записей'), abs($this->amount));
-
-            if ($this->user_id == $id)
-                $text .= ' в гостевой книге';
-            else
-                $text .= ' в гостевой книге пользователя <span>' . CHtml::encode($model->fullName) . '</span> ';
+        if ($model->entity == 'User') {
+            if ($this->user_id == $model->entity_id)
+                $text = 'за запись в гостевой';
+            else {
+                $user = User::model()->findByPk($model->entity_id);
+                $text = 'за запись в гостевой ' . $this->getLink($user) . ': порадовали друга!';
+            }
             return $text;
         }
 
-        if ($class == 'AlbumPhoto') {
-            if ($this->amount == 1)
-                $text = 'Вы добавили комментарий к фото <img src="' . $model->getPreviewUrl(30, 30) . '">';
-            elseif ($this->amount > 1)
-                $text = 'Вы добавили ' . $this->amount . ' ' . HDate::GenerateNoun(array('комментарий', 'комментария', 'комментариев'), $this->amount) . ' к фото <img src="' . $model->getPreviewUrl(30, 30) . '">';
-            elseif ($this->amount == -1)
-                $text = 'Ваш комментарий к фото <img src="' . $model->getPreviewUrl(30, 30) . '">';
+        if ($model->entity == 'AlbumPhoto') {
+            $photo = AlbumPhoto::model()->resetScope()->findByPk($model->entity_id);
+            if (!empty($photo->title))
+                $photo_title = CHtml::link($photo->title, $photo->url);
             else
-                $text = 'Ваши ' . abs($this->amount) . ' ' . HDate::GenerateNoun(array('комментарий', 'комментария', 'комментариев'), abs($this->amount)) . ' к фото <img src="' . $model->getPreviewUrl(30, 30) . '">';
+                $photo_title = CHtml::link(CHtml::image($photo->getPreviewUrl(30, 30)), $photo->url);
 
-            if ($this->amount < -1) $text .= ' удалены';
-            if ($this->amount == -1) $text .= ' удален';
+            if ($photo->author_id == $this->user_id)
+                $text = ($this->scores_earned >= 0) ?
+                    'за ваш комментарий к фото ' . $photo_title . ' в альбоме ' . $this->getLink($photo->album) . ': ждем от вас новых!' :
+                    'за удаление вашего комментария к фото ' . $photo_title . ' в альбоме ' . $this->getLink($photo->album) . ': может, попробовать выразиться иначе?';
+            else
+                $text = ($this->scores_earned >= 0) ?
+                    'за ваш комментарий к фото ' . $photo_title . '"> в альбоме ' . $this->getLink($photo->album) . ' пользователя ' . $this->getLink($photo->album->author) . ': ждем от вас новых!' :
+                    'за удаление вашего комментария к фото ' . $photo_title . ' в альбоме ' . $this->getLink($photo->album) . ' пользователя ' . $this->getLink($photo->album->author) . ': может, попробовать выразиться иначе?';
 
             return $text;
         }
 
-        if (!isset($model->title))
-            return '';
+        if ($model->entity == 'CommunityContent') {
+            $content = CommunityContent::model()->resetScope()->findByPk($model->entity_id);
+            $text = ($this->scores_earned >= 0) ?
+                'за ваш комментарий к записи ' . $this->getLink($content) . ' в клубе ' . $this->getLink($content->rubric->community) . ': ждем от вас новых!' :
+                'за удаление комментария к записи ' . $this->getLink($content) . ' в клубе ' . $this->getLink($content->rubric->community) . ': может, попробовать выразиться иначе?';
+            return $text;
+        }
 
-        if ($this->amount == 1)
-            $text = 'Вы добавили комментарий к записи <span>' . $model->title . '</span> ';
-        elseif ($this->amount > 1)
-            $text = 'Вы добавили ' . $this->amount . ' ' . HDate::GenerateNoun(array('комментарий', 'комментария', 'комментариев'), $this->amount) . ' к записи <span>' . $model->title . '</span> ';
-        elseif ($this->amount == -1)
-            $text = 'Ваш комментарий к записи <span>' . $model->title . '</span> ';
-        else
-            $text = 'Ваши ' . abs($this->amount) . ' ' . HDate::GenerateNoun(array('комментарий', 'комментария', 'комментариев'), abs($this->amount)) . ' к записи <span>' . $model->title . '</span> ';
-
-        if ($class == 'CommunityContent' || $class == 'BlogContent') {
-
-            if ($model->isFromBlog) {
-                if ($model->author_id == $this->user_id)
-                    $text .= ($this->amount > 0) ? 'в блог' : 'в блоге';
-                else {
-                    $text .= ($this->amount > 0) ? 'в блог' : 'в блоге';
-                    $text .= ' <span>' . CHtml::encode($model->author->fullName) . '</span>';
-                }
-            } else {
-                $text .= ($this->amount > 0) ? 'в клуб' : 'в клубе';
-                if ($model->rubric_id !== null)
-                    $text .= ' <span>' . $model->rubric->community->title . '</span>';
-                else
-                    $text .= ' <span>Утро с Веселым Жирафом</span>';
+        if ($model->entity == 'BlogContent') {
+            $content = CommunityContent::model()->resetScope()->findByPk($model->entity_id);
+            if ($content->author_id == $this->user_id)
+                $text = ($this->scores_earned >= 0) ?
+                    'за ваш комментарий к записи ' . $this->getLink($content) . ' в вашем блоге: ждем от вас новых!' :
+                    'за удаление комментария к записи ' . $this->getLink($content) . ' в вашем блоге: может, попробовать выразиться иначе?';
+            else {
+                $text = ($this->scores_earned >= 0) ?
+                    'за ваш комментарий к записи ' . $this->getLink($content) . ' в блоге ' . $this->getLink($content->author) . ': ждем от вас новых!' :
+                    'за удаление комментария к записи ' . $this->getLink($content) . ' в блоге' . $this->getLink($content->author) . ': может, попробовать выразиться иначе?';
             }
-        }
-        if ($class == 'RecipeBookRecipe') {
-            $text .= ($this->amount > 0) ? 'в сервис ' : 'в сервисе';
-            $text .= ' <span>Книга народных рецептов</span>';
-        }
-        if ($this->amount < -1) $text .= ' удалены';
-        if ($this->amount == -1) $text .= ' удален';
 
-        return $text;
+            return $text;
+        }
+
+        if ($model->entity == 'CookRecipe') {
+            $recipe = CookRecipe::model()->resetScope()->findByPk($model->entity_id);
+            $text = ($this->scores_earned >= 0) ?
+                'за ваш комментарий к кулинарному рецепту ' . $this->getLink($recipe) . ': ждем от вас новых!' :
+                'за удаление комментария к кулинарному рецепту ' . $this->getLink($recipe) . ': может, попробовать выразиться иначе?';
+
+            return $text;
+        }
+        if ($model->entity == 'RecipeBookRecipe') {
+            $recipe = RecipeBookRecipe::model()->resetScope()->findByPk($model->entity_id);
+            $text = ($this->scores_earned >= 0) ?
+                'за ваш комментарий к народному рецепту ' . $this->getLink($recipe) . ': ждем от вас новых!' :
+                'за удаление комментария к народному рецепту ' . $this->getLink($recipe) . ': может, попробовать выразиться иначе?';
+
+            return $text;
+        }
+
+        return '';
     }
 
-    /**
-     * Получить текст о новом друге или потере друга
-     * @return string
-     */
-    public function getFriendsText()
+    public function getDate()
     {
-        if (empty($this->added_items) && empty($this->removed_items))
-            return '';
-        $text = '';
-
-        $friends = array();
-        foreach ($this->added_items as $item) {
-            $class = $item['entity'];
-            $id = $item['id'];
-
-            $model = $class::model()->resetScope()->findByPk($id);
-            if ($model !== null)
-                $friends[] = $model;
-        }
-
-        if (count($friends) == 1)
-            $text = 'У вас новый друг ' . CHtml::image($friends[0]->getAva('small')) . '&nbsp;<span>' . CHtml::encode($friends[0]->first_name) . '</span>';
-        elseif (count($friends) > 1) {
-            $text = 'У вас ' . count($friends) . ' ' . HDate::GenerateNoun(array('новый друг', 'новых друга', 'новых друзей'), $this->amount);
-            foreach ($friends as $friend) {
-                $text .= ' ' . CHtml::image($friend->getAva('small')) . ' <span>' . CHtml::encode($friend->first_name) . '</span>,';
-            }
-            $text = rtrim($text, ',');
-            $text .= '<br>';
-        }
-
-        if (!empty($this->removed_items)) {
-            $removed_friends = array();
-            foreach ($this->removed_items as $item) {
-                $class = $item['entity'];
-                $id = $item['id'];
-
-                $model = $class::model()->resetScope()->findByPk($id);
-                if ($model !== null)
-                    $removed_friends[] = $model;
-            }
-
-            if (count($friends) == 1)
-                $text .= 'Вы потеряли друга ' . CHtml::image($friends[0]->getAva('small')) . ' <span>' . CHtml::encode($friends[0]->first_name) . '</span>';
-            elseif (count($friends) > 1) {
-                $text .= 'Вы потеряли ' . count($friends) . ' ' . HDate::GenerateNoun(array('друга', 'друзей', 'друзей'), $this->amount);
-                foreach ($friends as $friend) {
-                    $text .= ' ' . CHtml::image($friend->getAva('small')) . ' <span>' . CHtml::encode($friend->first_name) . '</span>, ';
-                }
-                $text = rtrim($text, ', ');
-            }
-        }
-
-        return $text;
-    }
-
-    public function getRatingText()
-    {
-        $text = '';
-        if (empty($this->added_items) && empty($this->removed_items))
-            return '';
-        if (!empty($this->added_items)) {
-            $class = $this->added_items[0]['entity'];
-            $id = $this->added_items[0]['id'];
-        } else {
-            $class = $this->removed_items[0]['entity'];
-            $id = $this->removed_items[0]['id'];
-        }
-
-        $model = $class::model()->resetScope()->findByPk($id);
-
-        if ($model === null)
-            return '';
-
-        if ($class == 'CommunityContent' || $class == 'BlogContent') {
-            if ($this->amount > 0)
-                if ($model->isFromBlog)
-                    $text = 'Увеличен рейтинг вашей записи <span>' . $model->title . '</span> в блоге';
-                else
-                    $text = 'Увеличен рейтинг вашей записи <span>' . $model->title . '</span> в клубе <span>' . $model->rubric->community->title . '</span>';
-            if ($this->amount < 0) {
-                if ($model->isFromBlog)
-                    $text = 'Понижен рейтинг вашей записи <span>' . $model->title . '</span> в блоге';
-                else
-                    $text = 'Понижен рейтинг вашей записи <span>' . $model->title . '</span> в клубе <span>' . $model->rubric->community->title . '</span>';
-            }
-        }
-        if ($class == 'RecipeBookRecipe') {
-            if ($this->amount > 0)
-                $text = 'Увеличен рейтинг вашей записи <span>' . $model->title . '</span> в сервисе <span>Книга народных рецептов</span>';
-            if ($this->amount < 0) {
-                $text = 'Понижен рейтинг вашей записи <span>' . $model->title . '</span> в сервисе <span>Книга народных рецептов</span>';
-            }
-        }
-
-        return $text;
+        return HDate::isSameDate($this->updated, time()) ?
+            'сегодня<br>' . date("H:i", $this->updated)
+            :
+            Yii::app()->dateFormatter->format('dd MMM', $this->updated) . '<br>' . date("H:i", $this->updated);
     }
 }

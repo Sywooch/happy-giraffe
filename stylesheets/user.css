@@ -1311,18 +1311,6 @@
 .masonry-news-list .date {color: #8a8b8b;font-size: 9px;}
 .masonry-news-list .user-info .details .date {display: block;margin:0;color: #8a8b8b;font-size: 9px;line-height: 16px;}
 .masonry-news-list .meta {float: right;margin: 0;font-size: 11px;line-height: 13px;}
-.masonry-news-list .meta .views .icon {
-	background-position: -200px -295px;
-	width: 17px;
-	height: 10px;
-	margin-right: 1px;
-}
-.masonry-news-list_meta-info .meta .comments .icon {
-	background-position: -218px -295px;
-	width: 16px;
-	height: 13px;
-	margin:0 1px 0 0;
-}
 .masonry-news-list_meta-info .meta .comments.empty .icon {background-position: -218px -309px;}
 .masonry-news-list_content {margin: 0 0 5px;}
 .masonry-news-list_content img {display: block;margin: 3px auto 6px;}

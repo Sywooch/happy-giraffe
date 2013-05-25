@@ -5,6 +5,7 @@
 // Проектный слой
 @import "/project/aside-filter.less";
 @import "/project/im.less";
+@import "/project/favorites.less";
 @import "/project/user-notice.less";
 
 .settings .RadioLabelClass, 
@@ -41,12 +42,47 @@
 .entry .entry-header .where span {display:inline-block;*zoom:1;*display:inline;vertical-align:middle;font-size:22px;color:#535454;padding-right:10px;}
 .entry .entry-header .where .map-box {display:inline-block;*zoom:1;*display:inline;vertical-align:middle;}
 .entry .entry-header .where .map-box img {display:block;}
+.entry .entry-header .username {width: 120px;}
+
+.entry-tags {
+    .inline-block();
+    position: relative;
+    padding: 4px 50px 4px 11px;
+    font-size: 11px;
+    &:hover {background: #f1f8fe;}
+    &:hover &_edit {display: block;}
+
+    &_row {
+        padding: 0;
+    }
+    &_t {
+        font: italic 12px/20px Georgia, 'Times New Roman', Times, serif;
+        color: #6c6e6f;
+    }
+    &_tag {
+        .inline-block();
+        margin: 0 10px;
+    }
+    &_tx {
+        font-family: Georgia, 'Times New Roman', Times, serif;
+        font-style: italic;
+        color: #a9a8a8;
+    }
+    &_edit {
+        display: none;
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        width: 20px;
+        height: 20px;
+        margin: -10px 0 0;
+        background: url(/images/entry-tags_edit.png) no-repeat 50% 50%;
+    }
+}
 
 .morning-entry {}
 .morning-entry .entry-header {overflow:hidden;}
 .morning-entry .entry-content img {max-width:100%;}
-
-.entry .entry-header .username {width: 120px;}
 
 .entry .morning-images {}
 .entry .morning-images img {display:block;}

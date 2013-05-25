@@ -52,6 +52,8 @@
 }
 
 .menu-list {
+	&__favorites &_i {padding-left: 15px;}
+	&__favorites &_count {float: right;}
 
 	&_i {
 		display: block;
@@ -79,17 +81,38 @@
 		right: 10px;
 		display: none;
 	}
+	&_i__all {background: #e4c8fc;}
+	&_i__all:hover {background: #f6daff;}
+	&_i__all.active {background: #947bab;}
+	&_i__all &_ico {background-position: 0 0;}
+	&_i__post {background: #ddeefd;}
+	&_i__post:hover {background: #e1f3ff;}
+	&_i__post.active {background: #a5b6c3;}
+	&_i__post &_ico {background-position: -20px 0;}
+	&_i__photo {background: #d3fbd7;}
+	&_i__photo:hover {background: #d8ffdb;}
+	&_i__photo.active {background: #7a9f7e;}
+	&_i__photo &_ico {background-position: -40px 0;}
+	&_i__video {background: #ffe0e0;}
+	&_i__video:hover {background: #ffeaea;}
+	&_i__video.active {background: #8c7171;}
+	&_i__video &_ico {background-position: -60px 0;}
+	&_i__master {background: #f6e6f8;}
+	&_i__master:hover {background: #ffefff;}
+	&_i__master.active {background: #7a6c7d;}
+	&_i__master &_ico {background-position: -80px 0;}
+	&_i__cook {background: #fff7d8;}
+	&_i__cook:hover {background: #fffbe0;}
+	&_i__cook.active {background: #c3ac4d;}
+	&_i__cook &_ico {background-position: -100px 0;}
+
 	&_count {
 		color: #594c62;
 		padding: 0 3px;
 	}
-	&_row {
-		padding: 15px 20px 15px;
-	}
+	&_row {padding: 15px 20px 15px;}
 	&_row .ico-plus2 {margin-right: 5px;}
-	&_i-add {
-
-	}
+	&_i-add {}
 	&_i-add-itx {
 		.inline-block();
 		vertical-align: middle;
@@ -98,6 +121,18 @@
 		border: 1px solid #CADDF4;
 		padding: 3px 10px;
 		line-height: 16px;
+	}
+	&_tx {
+		.inline-block();
+		vertical-align: middle;
+	}
+	&_ico {
+		.inline-block();
+		vertical-align: middle;
+		width: 20px;
+		height: 20px;
+		margin-right: 10px;
+		background: url(/images/ico/menu-list_ico.png) no-repeat;
 	}
 }
 

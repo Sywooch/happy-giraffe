@@ -47,7 +47,7 @@
         ->registerScriptFile('/javascripts/jquery.powertip.js')
         ->registerScriptFile('/javascripts/addtocopy.js')
         ->registerScriptFile('/javascripts/tooltipsy.min.js')
-        ->registerScriptFile('http://vk.com/js/api/share.js?11')
+        //->registerScriptFile('http://vk.com/js/api/share.js?11')
         ->registerScriptFile('/javascripts/fox.js')
     ;
 

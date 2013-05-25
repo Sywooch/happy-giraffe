@@ -60,6 +60,22 @@ class TagsManager
         return $command->queryAll();
     }
 
+    public static function searchTag($userId, $tagName)
+    {
+        $sql = "
+            SELECT t.id, t.name, COUNT(*) c
+            FROM favourites__tags t
+            INNER JOIN favourites__tags_favourites tf ON tf.tag_id = t.id
+            INNER JOIN favourites f ON f.id = tf.favourite_id
+            WHERE f.user_id = :user_id AND t.name = :tag_name
+            GROUP BY t.id;
+        ";
+        $command = Yii::app()->db->createCommand($sql);
+        $command->bindValue(':user_id', $userId);
+        $command->bindValue(':tag_name', $tagName);
+        return $command->queryRow();
+    }
+
     public static function processForCloud($tags)
     {
         $result = array();

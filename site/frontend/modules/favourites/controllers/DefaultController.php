@@ -3,11 +3,55 @@
 
 class DefaultController extends HController
 {
-    public function actionIndex($entity = null, $tagId = null, $query = null)
+    const QUERY_RESPONSE_TYPE_TAG = 0;
+    const QUERY_RESPONSE_TYPE_KEYWORD = 1;
+
+    public function actionIndex($entity = null, $tagId = null)
+    {
+        $totalCount = FavouritesManager::getCountByUserId(Yii::app()->user->id);
+        $menu = array_map(function($config, $entity) {
+            return array(
+                'entity' => $entity,
+                'title' => $config['title'],
+                'count' => FavouritesManager::getCountByUserId(Yii::app()->user->id, $entity),
+            );
+        }, $this->module->entities, array_keys($this->module->entities));
+
+        $data = compact('menu', 'totalCount');
+        $this->render('index', compact('data'));
+    }
+
+    public function actionGet($entity = null, $tagId = null, $query = null)
     {
         $dp = FavouritesManager::getByUserId(Yii::app()->user->id, $entity, $tagId, $query);
 
-        $this->render('index', compact('dp'));
+        $this->render('get', compact('dp'));
+    }
+
+    public function actionSearch($query)
+    {
+        $tag = TagsManager::searchTag(Yii::app()->user->id, $query);
+        if ($tag !== false) {
+            $response = array(
+                'tagId' => $tag['id'],
+                'filter' => array(
+                    'type' => self::QUERY_RESPONSE_TYPE_TAG,
+                    'value' => $tag['name'],
+                    'count' => $tag['c'],
+                ),
+            );
+        } else {
+            $response = array(
+                'keyword' => $query,
+                'filter' => array(
+                    'type' => self::QUERY_RESPONSE_TYPE_KEYWORD,
+                    'value' => $query,
+                    'count' => Favourite::model()->count('user_id = :user_id', array(':user_id' => Yii::app()->user->id)),
+                ),
+            );
+        }
+
+        echo CJSON::encode($response);
     }
 
     public function actionTest()

@@ -284,7 +284,7 @@ class ScoreAchievement extends HActiveRecord
             ));
 
             if ($value)
-                ScoreInput::model()->add($user_id, ScoreInput::SCORE_ACTION_ACHIEVEMENT, array('achieve_id' => $achieve->id));
+                ScoreInput::model()->add($user_id, ScoreInput::TYPE_ACHIEVEMENT, array('achieve_id' => $achieve->id));
 
             //если есть предыдущая степень достижения, удалить
             if ($value && isset($achieve->parent_id)) {
@@ -321,7 +321,7 @@ class ScoreAchievement extends HActiveRecord
             ));
 
             if ($value)
-                ScoreInput::model()->add($user_id, ScoreInput::SCORE_ACTION_ACHIEVEMENT, array('achieve_id' => $achieve_id));
+                ScoreInput::model()->add($user_id, ScoreInput::TYPE_ACHIEVEMENT, array('achieve_id' => $achieve_id));
         }
     }
 

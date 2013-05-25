@@ -90,7 +90,7 @@ class ScoreInput extends HMongoModel
      *
      * @param $specific_fields array массив специфических полей уведомления
      */
-    protected function insert($specific_fields)
+    protected function insert($specific_fields = array())
     {
         $this->getCollection()->insert(
             array_merge(array(
@@ -104,115 +104,16 @@ class ScoreInput extends HMongoModel
         $this->sendSignal($this->scores);
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-    public function add($user_id, $type, $params = array(), $blockData = null)
+    /**
+     * Возвращае количество баллов за действия
+     *
+     * @return int
+     */
+    protected function getScores()
     {
-        $score_value = ScoreAction::getActionScores($type, $params);
-
-        if (($stack = $this->getStack($user_id, $type, $blockData)) !== null) {
-            $newData = $stack->getDataByParams($params);
-            if (array_search($newData, $stack->data) === FALSE) {
-                $stack->updated = time();
-                $stack->data[] = $newData;
-                $stack->scores_earned += $score_value;
-                $stack->save();
-            }
-        } else {
-            $action = new self;
-            $action->user_id = (int)$user_id;
-            $action->type = $type;
-            $action->updated = time();
-            $action->data = (in_array($type, $this->_stackableActions)) ? array($action->getDataByParams($params)) : $action->getDataByParams($params);
-            if ($blockData !== null)
-                $action->blockData = $blockData;
-
-            $action->scores_earned += $score_value;
-            $action->save();
-        }
-        $this->addScores($user_id, $score_value);
+        return ScoreAction::getActionScores($this->type);
     }
 
-    public function remove($user_id, $type, $params = array(), $blockData = null)
-    {
-        $score_value = ScoreAction::getActionScores($type, $params);
-
-        $found = false;
-        if (($stack = $this->getStack($user_id, $type, $blockData)) !== null) {
-            $newData = $stack->getDataByParams($params);
-            $stack->updated = time();
-
-            foreach ($stack->data as $key => $data)
-                if ($data == $newData) {
-                    unset($stack->data[$key]);
-                    $found = true;
-                }
-
-            if ($found) {
-                $stack->scores_earned -= $score_value;
-                $stack->save();
-            }
-        }
-
-        if (!$found) {
-            $action = new self;
-            $action->user_id = (int)$user_id;
-            $action->type = $type;
-            $action->updated = time();
-            $action->data = (in_array($type, $this->_stackableActions)) ? array($action->getDataByParams($params)) : $action->getDataByParams($params);
-            if ($blockData !== null)
-                $action->blockData = $blockData;
-
-            $action->scores_earned -= $score_value;
-            $action->save();
-        }
-        $this->addScores($user_id, -$score_value);
-    }
-
-    public function getStack($user_id, $type, $blockData)
-    {
-        if (!in_array($type, $this->_stackableActions))
-            return null;
-
-        $criteria = new EMongoCriteria();
-        $criteria->type = $type;
-        $criteria->user_id = (int)$user_id;
-        if ($blockData !== null)
-            $criteria->blockData = $blockData;
-        $criteria->sort('updated', EMongoCriteria::SORT_DESC);
-        $criteria->created('>=', strtotime(date("Y-m-d") . '00:00:00'));
-
-        $stack = self::model()->find($criteria);
-        if ($stack === null)
-            return null;
-
-        switch ($type) {
-            case self::SCORE_ACTION_PHOTOS_ADDED:
-                $result = (time() - $stack->updated < 300) && HDate::isSameDate($stack->updated, time());
-                break;
-            default:
-                $result = HDate::isSameDate($stack->created, time());
-        }
-
-        return $result ? $stack : null;
-    }
-
-    public function addScores($user_id, $scores)
-    {
-        $userScore = User::getUserById($user_id)->getScores();
-        $userScore->scores += $scores;
-        $userScore->save();
-    }
 
     /****************************************************************************************************************/
     /****************************************************************************************************************/
@@ -241,11 +142,11 @@ class ScoreInput extends HMongoModel
             $id = $this->data['id'];
         $text = '';
         switch ($this->type) {
-            case self::SCORE_ACTION_6_STEPS:
+            case self::TYPE_6_STEPS:
                 $text = 'за первые 6 шагов на сайте: теперь вы чувствуете себя как дома, поздравляем!';
                 break;
 
-            case self::SCORE_ACTION_FIRST_BLOG_RECORD:
+            case self::TYPE_FIRST_BLOG_RECORD:
                 $model = CommunityContent::model()->resetScope()->findByPk($id);
                 $text = ($this->scores_earned > 0) ?
                     'за первую запись ' . $this->getLink($model) . ' вашем в блоге: поздравляем с дебютом!'
@@ -253,7 +154,7 @@ class ScoreInput extends HMongoModel
                     'за удаление единственной записи ' . $this->getLink($model) . ' в вашем блоге: может, стоит написать другую запись?';
                 break;
 
-            case self::SCORE_ACTION_BLOG_CONTENT_ADDED:
+            case self::TYPE_BLOG_CONTENT_ADDED:
                 $model = CommunityContent::model()->resetScope()->findByPk($id);
                 $text = ($this->scores_earned > 0) ?
                     'за новую запись ' . $this->getLink($model) . ' в вашем  блоге:  обязательно напишите еще!'
@@ -261,7 +162,7 @@ class ScoreInput extends HMongoModel
                     'за удаление записи ' . $this->getLink($model) . ' в вашем блоге: жаль, хорошая была запись...';
                 break;
 
-            case self::SCORE_ACTION_COMMUNITY_CONTENT_ADDED:
+            case self::TYPE_COMMUNITY_CONTENT_ADDED:
                 $model = CommunityContent::model()->resetScope()->findByPk($id);
                 $text = ($this->scores_earned > 0) ?
                     'за вашу запись ' . $this->getLink($model) . ' в клуб ' . $this->getLink($model->rubric->community) . ':  спасибо, что поделились с нами своими мыслями!'
@@ -269,7 +170,7 @@ class ScoreInput extends HMongoModel
                     'за удаление записи ' . $this->getLink($model) . ' в клубе ' . $this->getLink($model->rubric->community) . ' жаль, хорошая была запись...';
                 break;
 
-            case self::SCORE_ACTION_RECIPE_ADDED:
+            case self::TYPE_RECIPE_ADDED:
                 $model = CookRecipe::model()->resetScope()->findByPk($id);
                 $text = ($this->scores_earned > 0) ?
                     'за кулинарный рецепт ' . $this->getLink($model) . ' спасибо, что поделились с нами вкусненьким!'
@@ -277,7 +178,7 @@ class ScoreInput extends HMongoModel
                     'за удаление кулинарного рецепта ' . $this->getLink($model) . ': жаль, хороший был рецепт...';
                 break;
 
-            case self::SCORE_ACTION_FOLK_RECIPE_ADDED:
+            case self::TYPE_FOLK_RECIPE_ADDED:
                 $model = RecipeBookRecipe::model()->resetScope()->findByPk($id);
                 $text = ($this->scores_earned > 0) ?
                     'за народный рецепт ' . $this->getLink($model) . ': спасибо за полезные советы!'
@@ -285,84 +186,84 @@ class ScoreInput extends HMongoModel
                     'за удаление народного рецепта ' . $this->getLink($model) . ': жаль, хороший был рецепт...';
                 break;
 
-            case self::SCORE_ACTION_VIDEO:
+            case self::TYPE_VIDEO:
                 $text = $this->getVideoText();
                 break;
 
-            case self::SCORE_ACTION_VISIT:
+            case self::TYPE_VISIT:
                 HDate::isSameDate($this->created, time()) ?
                     $text = 'за посещение сайта: здорово, что вы снова с нами!'
                     :
                     $text = 'За посещение сайта ' . Yii::app()->dateFormatter->format("d MMMM", $this->created) . ':здорово, что вы снова с нами!';
                 break;
-            case self::SCORE_ACTION_5_DAYS_ATTEND:
+            case self::TYPE_5_DAYS_ATTEND:
                 $text = 'за 5 дней на сайте: продолжайте  в том же духе!';
                 break;
-            case self::SCORE_ACTION_20_DAYS_ATTEND:
+            case self::TYPE_20_DAYS_ATTEND:
                 $text = 'за 20 дней подряд на сайте: спасибо, что вы с нами!';
                 break;
 
-            case self::SCORE_ACTION_COMMENT_ADDED:
+            case self::TYPE_COMMENT_ADDED:
                 $text = $this->getOwnCommentText();
                 break;
 
-            case self::SCORE_ACTION_10_COMMENTS:
+            case self::TYPE_10_COMMENTS:
                 $text = $this->get10CommentsText();
                 break;
-            case self::SCORE_ACTION_100_VIEWS:
+            case self::TYPE_100_VIEWS:
                 $text = $this->getViewsArticleText();
                 break;
-            case self::SCORE_ACTION_10_LIKES:
+            case self::TYPE_10_LIKES:
                 $text = $this->getLikesArticleText();
                 break;
 
-            case self::SCORE_ACTION_PHOTOS_ADDED:
+            case self::TYPE_PHOTOS_ADDED:
                 $text = $this->getPhotoText();
                 break;
 
-            case self::SCORE_ACTION_CONTEST_PARTICIPATION:
+            case self::TYPE_CONTEST_PARTICIPATION:
                 $model = Contest::model()->findByPk($id);
                 $text = 'за участие в конкурсе "' . $model->title . '": вперед, к победе!';
                 break;
-            case self::SCORE_ACTION_CONTEST_WIN:
+            case self::TYPE_CONTEST_WIN:
                 $model = Contest::model()->findByPk($id);
                 $text = 'за победу в конкурсе "' . $model->title . '": Йу-ху! Вы победитель!';
                 break;
-            case self::SCORE_ACTION_CONTEST_2_PLACE:
+            case self::TYPE_CONTEST_2_PLACE:
                 $model = Contest::model()->findByPk($id);
                 $text = 'за второе место в конкурсе "' . $model->title . '": Поздравляем! Все впереди!';
                 break;
-            case self::SCORE_ACTION_CONTEST_3_PLACE:
+            case self::TYPE_CONTEST_3_PLACE:
                 $model = Contest::model()->findByPk($id);
                 $text = 'за третье место в конкурсе "' . $model->title . '": Поздравляем! Все впереди!';
                 break;
-            case self::SCORE_ACTION_CONTEST_4_PLACE:
+            case self::TYPE_CONTEST_4_PLACE:
                 $model = Contest::model()->findByPk($id);
                 $text = 'за четвертое место в конкурсе "' . $model->title . '": Поздравляем! Все впереди!';
                 break;
-            case self::SCORE_ACTION_CONTEST_5_PLACE:
+            case self::TYPE_CONTEST_5_PLACE:
                 $model = Contest::model()->findByPk($id);
                 $text = 'за пятое место в конкурсе "' . $model->title . '": Поздравляем! Все впереди!';
                 break;
-            case self::SCORE_ACTION_CONTEST_ADDITIONAL_PRIZE:
+            case self::TYPE_CONTEST_ADDITIONAL_PRIZE:
                 $model = Contest::model()->findByPk($id);
                 $text = 'за дополнительный приз в конкурсе "' . $model->title . '": Поздравляем! Молодцом!';
                 break;
 
-            case self::SCORE_ACTION_DUEL_PARTICIPATION:
+            case self::TYPE_DUEL_PARTICIPATION:
                 $model = DuelAnswer::model()->findByPk($id);
                 $text = 'за участие в дуэли "' . $model->question->text . '": самое время победить!';
                 break;
-            case self::SCORE_ACTION_DUEL_WIN:
+            case self::TYPE_DUEL_WIN:
                 $model = DuelAnswer::model()->findByPk($id);
                 $text = 'за победу в дуэли "' . $model->question->text . '": поздравляем, вы мастерски сражались!';
                 break;
 
-            case self::SCORE_ACTION_AWARD:
+            case self::TYPE_AWARD:
                 $model = ScoreAward::model()->findByPk($this->data['award_id']);
                 $text = 'Ого! У вас новый трофей - ' . CHtml::link($model->title, '#', array('onclick' => 'Scores.openTrophy(' . $model->id . ')')) . '!';
                 break;
-            case self::SCORE_ACTION_ACHIEVEMENT:
+            case self::TYPE_ACHIEVEMENT:
                 $model = ScoreAchievement::model()->findByPk($this->data['achieve_id']);
                 $text = 'Ух-ты! У вас новое достижение - ' . CHtml::link($model->title, '#', array('onclick' => 'Scores.openAchieve(' . $model->id . ')')) . '!';
                 break;

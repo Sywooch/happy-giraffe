@@ -64,15 +64,15 @@ class ScoreVisits extends EMongoDocument
             return ;
         $model->last_day = $today;
         $model->days [] = $today;
-        ScoreInput::model()->add($user_id, ScoreInput::SCORE_ACTION_VISIT);
+        ScoreInput::model()->add($user_id, ScoreInput::TYPE_VISIT);
 
         if (in_array(date("Y-m-d", strtotime('-1 day')), $model->days)) {
             $model->current_long_days++;
             if ($model->current_long_days == 5){
-                ScoreInput::model()->add($user_id, ScoreInput::SCORE_ACTION_5_DAYS_ATTEND);
+                ScoreInput::model()->add($user_id, ScoreInput::TYPE_5_DAYS_ATTEND);
             }
             if ($model->current_long_days == 20){
-                ScoreInput::model()->add($user_id, ScoreInput::SCORE_ACTION_20_DAYS_ATTEND);
+                ScoreInput::model()->add($user_id, ScoreInput::TYPE_20_DAYS_ATTEND);
                 $model->current_long_days = 0;
             }
         } else

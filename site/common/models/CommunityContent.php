@@ -323,12 +323,7 @@ class CommunityContent extends HActiveRecord
                 }
             }
 
-            if ($this->rubric_id !== null) {
-                if ($this->isFromBlog && count($this->contentAuthor->blogPosts) == 1) {
-                    UserScores::addScores($this->author_id, ScoreAction::ACTION_FIRST_BLOG_RECORD, 1, $this);
-                } else
-                    UserScores::addScores($this->author_id, ScoreAction::ACTION_RECORD, 1, $this);
-            }
+            Scoring::contentCreated($this);
 
             if ($this->type_id != 4) {
                 if ($this->isFromBlog) {

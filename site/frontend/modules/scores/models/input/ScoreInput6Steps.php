@@ -39,7 +39,6 @@ class ScoreInput6Steps extends ScoreInput
             $user_scores->save();
 
             $this->user_id = $user_scores->user_id;
-            $this->scores = $this->getScores();
             $this->insert();
         }
     }

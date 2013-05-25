@@ -35,6 +35,9 @@ class ScoreInput extends HMongoModel
     const TYPE_AWARD = 100;
     const TYPE_ACHIEVEMENT = 101;
 
+    const TYPE_RATING_BLOGS = 105;
+    const TYPE_RATING_INTERESTING = 106;
+
     protected $_collection_name = 'score_input_new';
 
     public $user_id;
@@ -60,7 +63,8 @@ class ScoreInput extends HMongoModel
     }
 
     private function __construct()
-    {}
+    {
+    }
 
     /**
      * Добавляет индекс если не создан
@@ -96,7 +100,7 @@ class ScoreInput extends HMongoModel
             array_merge(array(
                 'type' => (int)$this->type,
                 'user_id' => (int)$this->user_id,
-                'scores' => (int)$this->scores,
+                'scores' => (int)$this->getScores(),
                 'updated' => time(),
             ), $specific_fields)
         );
@@ -270,11 +274,6 @@ class ScoreInput extends HMongoModel
         }
 
         return $text;
-    }
-
-    public function getLink($model)
-    {
-        return CHtml::link($model->title, $model->url);
     }
 
     /**

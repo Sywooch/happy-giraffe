@@ -1,22 +1,22 @@
 <?php
 /**
- * Class ScoreInputFirstBlogRecord
+ * Class ScoreInputNewPost
  *
- * Начисление баллов пользователю за первую запись в личном блоге
+ * Начисление баллов пользователю за запись
  *
  * @author Alex Kireev <alexk984@gmail.com>
  */
-class ScoreInputFirstBlogRecord extends ScoreInputEntity
+class ScoreInputNewPost extends ScoreInputEntity
 {
-    public $type = self::TYPE_FIRST_BLOG_RECORD;
+    public $type = self::TYPE_POST_ADDED;
 
     /**
-     * @var ScoreInputFirstBlogRecord
+     * @var ScoreInputNewPost
      */
     private static $_instance;
 
     /**
-     * @return ScoreInputFirstBlogRecord
+     * @return ScoreInputNewPost
      */
     public static function getInstance()
     {
@@ -27,7 +27,7 @@ class ScoreInputFirstBlogRecord extends ScoreInputEntity
     }
 
     /**
-     * Добавление баллов за запись в личном блоге
+     * Добавление баллов за запись
      *
      * @param $user_id int id пользователя
      * @param $entity CActiveRecord модель

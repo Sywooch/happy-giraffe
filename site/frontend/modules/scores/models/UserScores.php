@@ -4,13 +4,14 @@
  * This is the model class for table "score__user_scores".
  *
  * The followings are the available columns in table 'score__user_scores':
- * @property string $user_id
- * @property string $scores
- * @property string $level_id
+ * @property integer $user_id
+ * @property integer $scores
+ * @property integer $viewed_scores
+ * @property integer $level_id
  * @property integer $full
  *
  * The followings are the available model relations:
- * @property ScoreLevels $level
+ * @property ScoreLevel $level
  * @property User $user
  */
 class UserScores extends HActiveRecord
@@ -38,14 +39,9 @@ class UserScores extends HActiveRecord
      */
     public function rules()
     {
-        // NOTE: you should only define rules for those attributes that
-        // will receive user inputs.
         return array(
             array('user_id', 'required'),
-            array('full', 'numerical', 'integerOnly' => true),
-            array('user_id, scores, level_id', 'length', 'max' => 10),
-            // The following rule is used by search().
-            // Please remove those attributes that should not be searched.
+            array('user_id, scores, level_id, full, viewed_scores', 'numerical', 'integerOnly' => true),
             array('user_id, scores, level_id, full', 'safe', 'on' => 'search'),
         );
     }
@@ -55,10 +51,8 @@ class UserScores extends HActiveRecord
      */
     public function relations()
     {
-        // NOTE: you may need to adjust the relation name and the related
-        // class name for the relations automatically generated below.
         return array(
-            'level' => array(self::BELONGS_TO, 'ScoreLevels', 'level_id'),
+            'level' => array(self::BELONGS_TO, 'ScoreLevel', 'level_id'),
             'user' => array(self::BELONGS_TO, 'User', 'user_id'),
         );
     }
@@ -97,120 +91,19 @@ class UserScores extends HActiveRecord
         ));
     }
 
-    public function beforeSave()
+    public static function getModel($user_id)
     {
-        /*if ($this->scores >= 100 && empty($this->level_id)) {
-            $this->level_id = 1;
-            UserAction::model()->add($this->user_id, UserAction::USER_ACTION_LEVELUP, $this->getAttributes(array('level_id')));
-        }*/
-        return parent::beforeSave();
-    }
+        $model = UserScores::model()->findByPk($user_id);
+        if ($model === null) {
+            if (User::model()->findByPk($user_id) === null)
+                return null;
 
-    /**
-     * @static
-     * @param int $user_id
-     * @param int $action_id
-     * @param int $count
-     * @param CActiveRecord|array $entity
-     */
-    public static function addScores($user_id, $action_id, $count = 1, $entity = null)
-    {
-        //проверяем нужно ли добавить действие к существующему такому же, которое было недавно
-        $input = ScoreInput::model()->getActiveScoreInput($user_id, $action_id, $entity);
-        $score_value = ScoreAction::getActionScores($action_id);
-
-        if ($input === null) {
-            $input = new ScoreInput();
-            $input->action_id = (int)$action_id;
-            $input->user_id = (int)$user_id;
+            $model = new UserScores;
+            $model->scores = 0;
+            $model->user_id = $user_id;
         }
-        $input->addItem($score_value, $count, $entity);
-        $input->save();
-    }
 
-    /**
-     * @static
-     * @param int $user_id
-     * @param int $action_id
-     * @param int $count
-     * @param CActiveRecord|array $entity
-     * @return void
-     */
-    public static function removeScores($user_id, $action_id, $count = 1, $entity = null)
-    {
-        //проверяем нужно ли удалить действие из существующего такого же, которое было недавно
-        $input = ScoreInput::model()->getActiveScoreInput($user_id, $action_id, $entity);
-        $score_value = ScoreAction::getActionScores($action_id);
-
-        if ($input === null) {
-            $input = new ScoreInput();
-            $input->action_id = (int)$action_id;
-            $input->user_id = (int)$user_id;
-        }
-        $input->removeItem($score_value, $count, $entity);
-        $input->save();
-    }
-
-    /**
-     * @static
-     * @param Rating $model
-     * @param $entity
-     * @param $social_key
-     * @param $value
-     * @return void
-     */
-    public static function checkViewsAndComments($model, $entity, $social_key, $value)
-    {
-        if (isset($entity->author_id)) {
-            if ($social_key == 'cm') {
-                if (isset($model->ratings[$social_key]))
-                    $prev = $model->ratings[$social_key];
-                else
-                    $prev = 0;
-
-                $diff = floor($value / 10) - floor($prev / 10);
-                if ($diff >= 1) {
-                    self::addScores($entity->author_id, ScoreAction::ACTION_10_COMMENTS, $diff, $entity);
-                }
-                if ($diff <= -1) {
-                    self::removeScores($entity->author_id, ScoreAction::ACTION_10_COMMENTS, abs($diff), $entity);
-                }
-            } elseif ($social_key == 'vw') {
-                if (isset($model->ratings[$social_key]))
-                    $prev = $model->ratings[$social_key];
-                else
-                    $prev = 0;
-
-                $diff = floor($value / 100) - floor($prev / 100);
-                if ($diff >= 1) {
-                    self::addScores($entity->author_id, ScoreAction::ACTION_100_VIEWS, $diff, $entity);
-                }
-                if ($diff <= -1) {
-                    self::removeScores($entity->author_id, ScoreAction::ACTION_100_VIEWS, abs($diff), $entity);
-                }
-            }
-        }
-    }
-
-    /**
-     * @static
-     * @param int $user_id
-     * @param int $action_id
-     * @return void
-     */
-    public static function checkProfileScores($user_id, $action_id)
-    {
-        $model = self::model()->findByPk($user_id);
-        if ($model->full == 0) {
-            $score = ScoreInput::model()->findByAttributes(array(
-                'action_id' => (int)$action_id,
-                'user_id' => (int)$user_id
-            ));
-            if ($score === null)
-                self::addScores($user_id, $action_id);
-
-            $model->checkFull();
-        }
+        return $model;
     }
 
     public function checkFull()
@@ -220,39 +113,250 @@ class UserScores extends HActiveRecord
             $this->level_id = 1;
             UserAction::model()->add($this->user_id, UserAction::USER_ACTION_LEVELUP, array('level_id' => 1));
             $this->save();
-            self::addScores($this->user_id, ScoreAction::ACTION_PROFILE_FULL);
-            $this->user->last_updated = new CDbExpression('NOW()');
-            $this->user->update(array('last_updated'));
-            $this->user->sendEvent();
+            ScoreInput::model()->add($this->user_id, ScoreInput::SCORE_ACTION_6_STEPS);
         }
     }
 
     public function getStepsCount()
     {
-        $criteria = new EMongoCriteria;
-        $criteria->addCond('user_id', '==', (int)$this->user_id);
-        $criteria->addCond('action_id', 'in', array(ScoreAction::ACTION_PROFILE_BIRTHDAY,
+        $count = 0;
+        $steps = array(ScoreAction::ACTION_PROFILE_BIRTHDAY,
             ScoreAction::ACTION_PROFILE_PHOTO, ScoreAction::ACTION_PROFILE_FAMILY,
             ScoreAction::ACTION_PROFILE_INTERESTS, ScoreAction::ACTION_PROFILE_EMAIL,
-            ScoreAction::ACTION_PROFILE_LOCATION));
-        return ScoreInput::model()->count($criteria);
+            ScoreAction::ACTION_PROFILE_LOCATION);
+        foreach ($steps as $step)
+            if ($this->stepComplete($step))
+                $count++;
+
+        return $count;
     }
 
     public function stepComplete($step_id)
     {
-        $criteria = new EMongoCriteria;
-        $criteria->addCond('user_id', '==', (int)$this->user_id);
-        $criteria->addCond('action_id', '==', (int)$step_id);
-        return ScoreInput::model()->count($criteria) >= 1;
+        switch ($step_id) {
+            case ScoreAction::ACTION_PROFILE_BIRTHDAY:
+                return !empty($this->user->birthday);
+            case ScoreAction::ACTION_PROFILE_PHOTO:
+                return !empty($this->user->avatar_id);
+            case ScoreAction::ACTION_PROFILE_FAMILY:
+                return !empty($this->user->relationship_status);
+            case ScoreAction::ACTION_PROFILE_INTERESTS:
+                return !empty($this->user->interests);
+            case ScoreAction::ACTION_PROFILE_EMAIL:
+                return !empty($this->user->email_confirmed);
+            case ScoreAction::ACTION_PROFILE_LOCATION:
+                return !empty($this->user->userAddress);
+        }
+
+        return true;
     }
 
-    public function getUserHistory(){
+    /**
+     * возвращает достижения пользователя в виде нужном для вывода
+     *
+     * @return ScoreAchievement[]
+     */
+    public function getActualAchieves()
+    {
+        return ScoreAchievement::model()->findAllByPk($this->getActualAchievesIds());
+    }
+
+    /**
+     * возвращает массив id достижений пользователя
+     *
+     * @return array
+     */
+    public function getActualAchievesIds()
+    {
+        $value = Yii::app()->cache->get('achieve_list_' . $this->user_id);
+        if ($value === false) {
+            $achieves = ScoreAchievement::model()->roots();
+            $userAchieves = $this->user->achievements;
+            $value = array();
+
+            foreach ($achieves as $achieve) {
+                $current_achieve = $achieve;
+                foreach ($userAchieves as $userAchieve) {
+                    if ($current_achieve->id == $userAchieve->id)
+                        $current_achieve = $current_achieve->next;
+                }
+
+                $value[] = $current_achieve->id;
+            }
+
+            $dependency = new CDbCacheDependency('SELECT count(achievement_id) FROM score__user_achievements WHERE user_id=' . $this->user_id);
+            Yii::app()->cache->set('achieve_list_' . $this->user_id, $value, 0, $dependency);
+        }
+
+        return $value;
+    }
+
+    /**
+     * @param $model Comment
+     */
+    public function check10Comments($model)
+    {
+        $content_model = CActiveRecord::model($model->entity)->findByPk($model->entity_id);
+        if ($content_model !== null) {
+            if ($content_model->commentsCount % 10 == 0)
+                ScoreInput::model()->add($content_model->author_id, ScoreInput::SCORE_ACTION_10_COMMENTS, array('model' => $content_model));
+        }
+    }
+
+    /**
+     * Проверяем на 10 лайков к посту
+     *
+     * @param $entity_name
+     * @param $entity_id
+     * @return void
+     */
+    public function check10Likes($entity_name, $entity_id)
+    {
+        $content_model = CActiveRecord::model($entity_name)->findByPk($entity_id);
+        if ($content_model !== null) {
+            if ($content_model->commentsCount % 10 == 0)
+                ScoreInput::model()->add($content_model->author_id, ScoreInput::SCORE_ACTION_10_COMMENTS, array('model' => $content_model));
+        }
+    }
+
+    public function getUserHistory($page = 0)
+    {
         $criteria = new EMongoCriteria;
         $criteria->addCond('user_id', '==', (int)$this->user_id);
-        $criteria->addCond('status', '==', ScoreInput::STATUS_CLOSED);
         $criteria->sort('updated', EMongoCriteria::SORT_DESC);
-        $dataProvider = new EMongoDocumentDataProvider('ScoreInput',array('criteria'=> $criteria));
+        $criteria->limit(10);
+        $criteria->offset($page*10);
+//        $dataProvider = new EMongoDocumentDataProvider('ScoreInput', array('criteria' => $criteria));
 
-        return $dataProvider;
+        return ScoreInput::model()->findAll($criteria);
+    }
+
+
+    /************************************************** LEVELS, PACKS *************************************************/
+    /************************************************** LEVELS, PACKS *************************************************/
+    /**
+     * Находится ли юзер в состоянии получения нового уровня
+     *
+     * @return bool
+     */
+    public function hasNewLevel()
+    {
+        $next_level = $this->getNextLevel();
+        if ($next_level === null)
+            return false;
+
+        $user_packs_count = count($this->user->packs);
+        return ($this->scores >= $next_level->score_cost && $user_packs_count <= ($this->level_id - 1));
+    }
+
+    /**
+     * @return ScoreLevel
+     */
+    public function getNextLevel()
+    {
+        return ScoreLevel::model()->find('id=' . ($this->level_id + 1));
+    }
+
+    /**
+     * Какие пакеты будут доступны на следующем уровне
+     *
+     * @return ScorePack[]
+     */
+    public function getNextLevelPacks()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->compare('id', $this->getNextLevelPackIds());
+        $criteria->order = 'image';
+        return ScorePack::model()->findAll($criteria);
+    }
+
+    public function getNextLevelPackIds()
+    {
+        $cache_id = 'next_level_packs_' . $this->user_id;
+        $value = Yii::app()->cache->get($cache_id);
+        if ($value === false) {
+
+            $roots = ScorePack::model()->roots();
+            if ($this->level_id == 1)
+                $value = CHtml::listData($roots, 'id', 'id');
+            else {
+
+                $value = array();
+                $user_packs = $this->user->packs;
+                foreach ($roots as $root) {
+                    $pack = $root;
+                    while ($pack !== null && $this->hasPack($user_packs, $pack->id))
+                        $pack = $pack->nextLevelPack();
+
+                    if ($pack !== null)
+                        $value[] = $pack->id;
+                }
+            }
+
+            $dependency = new CDbCacheDependency('SELECT count(pack_id) FROM score__users_packs WHERE user_id=' . $this->user_id);
+            Yii::app()->cache->set($cache_id, $value, 0, $dependency);
+        }
+
+        return $value;
+    }
+
+    public function hasPack($user_packs, $pack_id)
+    {
+        foreach ($user_packs as $user_pack)
+            if ($user_pack->id == $pack_id)
+                return true;
+        return false;
+    }
+
+    /**
+     * Приобрести пакет опций
+     *
+     * @param $id
+     * @return bool
+     */
+    public function addPack($id)
+    {
+        if (!$this->checkPackAvailable($id))
+            return false;
+
+        $transaction = Yii::app()->db->beginTransaction();
+        try {
+            Yii::app()->db->createCommand()
+                ->insert('score__users_packs', array(
+                'user_id' => $this->user_id,
+                'pack_id' => $id
+            ));
+
+            $this->level_id++;
+            $this->save();
+
+            $transaction->commit();
+        } catch (Exception $e) {
+            $transaction->rollback();
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Проверяем может ли юзер взять этот пакет (защите от хакеров)
+     *
+     * @param $pack_id
+     * @return bool
+     */
+    public function checkPackAvailable($pack_id)
+    {
+        if (!$this->hasNewLevel())
+            return false;
+
+        $no_cheat = false;
+        $packs = $this->getNextLevelPacks();
+        foreach ($packs as $pack)
+            if ($pack->id == $pack_id)
+                $no_cheat = true;
+
+
+        return $no_cheat;
     }
 }

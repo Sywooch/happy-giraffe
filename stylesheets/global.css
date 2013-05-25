@@ -1010,7 +1010,7 @@
 }
 /* */
 .favorites-search {
-  margin: 15px 0 20px;
+  margin: 18px 0 11px;
   padding: 8px 12px;
 }
 .favorites-search__found {
@@ -1023,7 +1023,7 @@
 .favorites-search_itx {
   display: block;
   width: 230px;
-  padding: 6px 35px 5px 20px;
+  padding: 5px 35px 4px 20px;
   border: 1px solid #caddf4;
   font-size: 13px;
   line-height: 16px;
@@ -1046,15 +1046,15 @@
 }
 .favorites-search_tx-hold {
   float: left;
-  font-size: 22px;
-  line-height: 26px;
+  font-size: 20px;
+  line-height: 24px;
 }
 .favorites-search_tx {
   display: inline-block;
   *zoom: 1;
   *display: inline;
   vertical-align: middle;
-  margin: 0 5px 0 12px;
+  margin: 0 3px 0 5px;
   color: #1c84b4;
 }
 .favorites-search_count {
@@ -1088,6 +1088,7 @@
   *zoom: 1;
   *display: inline;
   margin: 0 0 7px;
+  text-transform: uppercase;
 }
 .alphabet-b_a {
   display: inline-block;
@@ -1217,7 +1218,7 @@
   border: 1px solid #d6e5f8;
 }
 .tagcloud {
-  text-align: justify;
+  text-align: center;
 }
 .tagcloud_i {
   display: inline-block;
@@ -1611,12 +1612,17 @@
 .entry-tags_edit {
   display: none;
   position: absolute;
+  cursor: pointer;
   top: 50%;
   right: 10px;
   width: 20px;
   height: 20px;
   margin: -10px 0 0;
   background: url(/images/entry-tags_edit.png) no-repeat 50% 50%;
+}
+.entry-tags_edit .favorites-add-popup {
+  top: -10px;
+  right: 30px;
 }
 .morning-entry .entry-header {
   overflow: hidden;
@@ -1874,10 +1880,10 @@
   float: right;
   padding: 0px 0px 5px 10px;
 }
-.entry .entry-footer a {
-  text-decoration: underline;
-  color: #41b3cc;
-}
+/*.entry .entry-footer a {
+    text-decoration: underline;
+    color: #41b3cc;
+}*/
 .entry .entry-footer .source {
   display: block;
   background: #d8fbff;

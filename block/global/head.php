@@ -21,6 +21,7 @@
   	<script type="text/javascript" src="/javascripts/chosen.jquery.min.js"></script>
 	<script type="text/javascript" src="/javascripts/jquery.masonry.min.js"></script>
 	<script type="text/javascript" src="/javascripts/jquery.isotope.min.js"></script>
+	<script type="text/javascript" src="/javascripts/jquery.flydiv.js"></script>
 
 	<script type="text/javascript" src="/ckeditor/ckeditor.js"></script>
   

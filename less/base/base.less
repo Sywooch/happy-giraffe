@@ -16,6 +16,10 @@ hr,
 	border: 0;
 	background: url(/images/hr-notches.gif) repeat-x;
 }
+.fly-element {
+	position: fixed;
+	z-index: 9999;
+}
 
 .file-fake {display:inline-block;*zoom:1;*display:inline;position:relative;cursor:pointer;overflow:hidden;}
 .file-fake input {opacity:0;position:absolute;z-index:3;right:0;top:0;height:100%;display:block;cursor:pointer;filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0)}
@@ -204,6 +208,13 @@ a.pseudo:hover,
 	height: 16px;
 	vertical-align: middle;
     background: url(/images/ico/ico-tags.png) no-repeat;
+}
+.ico-tag {
+	display: inline-block;*zoom:1;*display:inline;
+	width: 17px;
+	height: 16px;
+	vertical-align: middle;
+    background: url(/images/ico/ico-tag.png) no-repeat;
 }
 .ico-tag-big {
 	display: inline-block;*zoom:1;*display:inline;

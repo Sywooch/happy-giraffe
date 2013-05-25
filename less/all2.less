@@ -71,12 +71,17 @@
     &_edit {
         display: none;
         position: absolute;
+        cursor: pointer;
         top: 50%;
         right: 10px;
         width: 20px;
         height: 20px;
         margin: -10px 0 0;
         background: url(/images/entry-tags_edit.png) no-repeat 50% 50%;
+    }
+    &_edit .favorites-add-popup {
+        top: -10px;
+        right: 30px;
     }
 }
 
@@ -194,10 +199,10 @@
     padding: 0px 0px 5px 10px;
 }
 
-.entry .entry-footer a {
+/*.entry .entry-footer a {
     text-decoration: underline;
     color: #41b3cc;
-}
+}*/
 
 .entry .entry-footer .source {
     display: block;

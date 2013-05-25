@@ -34,6 +34,33 @@ function removeA(arr) {
 }
 
 $(document).ready(function () {
+
+$(".favorites-control_a").click(function(){
+
+/*    $(this).flydiv();
+
+     function flydiv() {*/
+      
+        var flyTo = 'i-broadcast';
+        var flyOffset = $(this).offset();
+        var $this = $(this).clone(true).appendTo('body').addClass('fly-element active');
+
+        console.log(flyOffset);
+        var flyToOffset = $('.i-broadcast').offset();
+        $this.css({position : "fixed", top: flyOffset.top, left: flyOffset.left})
+            .animate({
+                top: flyToOffset.top, 
+                left: flyToOffset.left, 
+                width: 0, 
+                height: 0,
+                opacity: 0.4
+            },1000,function(){
+                 $this.hide();
+            });
+ /*    }*/
+    return false; 
+});
+
     $(".wysiwyg-content").addtocopy({htmlcopytxt:'<br /><br />Подробнее: <a href="' + window.location.href + '">' + window.location.href + '</a>'});
 
     /* видео с youtube, что б не перекрывало всплывающие окна */

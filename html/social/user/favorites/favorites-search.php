@@ -74,8 +74,8 @@
 						</div>
 						<!-- Блок с поисковым запросом -->
 						<div class="favorites-search_tx-hold">
-							<span class="ico-tag-big"></span>
-							<span class="favorites-search_tx">Свадьба</span>
+							<span class="ico-tag"></span>
+							<span class="favorites-search_tx">cвадьба</span>
 							<span class="favorites-search_count">(88)</span>
 							<a href="" class="favorites-search_tx-del ico-close"></a>
 						</div>

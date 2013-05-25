@@ -111,16 +111,16 @@ class ScoreAction extends HActiveRecord
         return $value;
     }
 
-    public static function getActionScores($id, $params)
+    public static function getActionScores($id, $params = array())
     {
-        if ($id == ScoreInput::SCORE_ACTION_AWARD) {
+        if ($id == ScoreInput::TYPE_AWARD) {
             $award = ScoreAward::model()->findByPk($params['award_id']);
             return $award->scores;
-        } elseif ($id == ScoreInput::SCORE_ACTION_ACHIEVEMENT) {
+        } elseif ($id == ScoreInput::TYPE_ACHIEVEMENT) {
             $award = ScoreAchievement::model()->findByPk($params['achieve_id']);
             return $award->scores;
         } else {
-            $action = self::getActionInfo($id, $params);
+            $action = self::getActionInfo($id);
             return $action['scores_weight'];
         }
     }

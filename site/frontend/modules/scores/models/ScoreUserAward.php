@@ -117,7 +117,7 @@ class ScoreUserAward extends HActiveRecord
 
     public function afterSave()
     {
-        ScoreInput::model()->add($this->user_id, ScoreInput::SCORE_ACTION_AWARD, array('award_id' => $this->award_id));
+        ScoreInput::model()->add($this->user_id, ScoreInput::TYPE_AWARD, array('award_id' => $this->award_id));
 
         parent::afterSave();
     }

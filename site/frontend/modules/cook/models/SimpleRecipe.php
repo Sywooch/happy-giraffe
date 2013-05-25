@@ -29,6 +29,11 @@ class SimpleRecipe extends CookRecipe
         );
     }
 
+    public function beforeDelete()
+    {
+        return parent::beforeDelete();
+    }
+
     public function getCounts()
     {
         $_counts = array();

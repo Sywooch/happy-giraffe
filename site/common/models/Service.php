@@ -187,6 +187,10 @@ class Service extends HActiveRecord
         return $this->commentsCount;
     }
 
+    public function getPhoto(){
+        return null;
+    }
+
     public function getContentTitle()
     {
         return $this->title;

@@ -1,3 +1,5 @@
+ko.bindingHandlers.css2 = ko.bindingHandlers.css;
+
 function FavouritesViewModel(data) {
     var self = this;
 

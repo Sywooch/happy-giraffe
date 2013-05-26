@@ -26,13 +26,13 @@
                 </span>
                 <!-- /ko -->
         </div>
-        <div class="favorites-add-popup_row margin-b10" data-bind="visible: ! tagsFormVisible(), click: showTagsForm">
+        <div class="favorites-add-popup_row margin-b10" data-bind="visible: ! tagsInputIsVisible(), click: showTagsForm">
             <a class="textdec-none" href="">
                 <span class="ico-plus2 margin-r5"></span>
                 <span class="a-pseudo-gray color-gray">Добавить</span>
             </a>
         </div>
-        <div class="favorites-add-popup_row margin-b10" data-bind="visible: tagsFormVisible">
+        <div class="favorites-add-popup_row margin-b10" data-bind="visible: tagsInputIsVisible">
             <input type="text" class="favorites-add-popup_itx-tag ui-autocomplete-input" placeholder="Вводите теги через запятую или Enter" data-bind="value: tagsInputValue, valueUpdate: 'keyup', event: { keypress : tagHandler }">
         </div>
         <div class="favorites-add-popup_row">

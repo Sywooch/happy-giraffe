@@ -21,10 +21,8 @@ class DefaultController extends HController
         $this->render('index', compact('data'));
     }
 
-    public function actionGet($entity = null, $tagId = null, $query = null)
+    public function actionGet($entity = null, $tagId = null, $query = null, $offset = 0)
     {
-        $dp = FavouritesManager::getByUserId(Yii::app()->user->id, $entity, $tagId, $query);
-
         $favourites = array_map(function($favourite) {
             return array(
                 'html' => Yii::app()->controller->renderPartial('//community/_post', array(
@@ -32,9 +30,10 @@ class DefaultController extends HController
                     'data' => $favourite->relatedModel,
                 ), true, true),
             );
-        }, $dp->data);
-        $data = compact('favourites');
+        }, FavouritesManager::getByUserId(Yii::app()->user->id, $entity, $tagId, $query, $offset));
+        $last = FavouritesManager::getCount(Yii::app()->user->id, $entity, $tagId, $query) <= ($offset + FavouritesManager::FAVOURITES_PER_PAGE);
 
+        $data = compact('favourites', 'last');
         echo CJSON::encode($data);
     }
 
@@ -68,12 +67,12 @@ class DefaultController extends HController
     {
         $tags = array('диалоги о животных', 'говяжее говно', 'dota2', 'убить билла', 'путин краб', 'да винчи', 'морта килл любого', 'chairman', 'здоровье', 'брюссельская капуста');
 
-        $photos = AlbumPhoto::model()->findAll(array('limit' => 10));
-        $posts = CommunityContent::model()->findAll(array('limit' => 10, 'condition' => 'type_id = 1'));
-        $videos = CommunityContent::model()->findAll(array('limit' => 10, 'condition' => 'type_id = 2'));
-        $recipes = CookRecipe::model()->findAll(array('limit' => 10));
+        //$photos = AlbumPhoto::model()->findAll(array('limit' => 10));
+        $posts = CommunityContent::model()->findAll(array('limit' => 20, 'condition' => 'type_id = 1'));
+        $videos = CommunityContent::model()->findAll(array('limit' => 20, 'condition' => 'type_id = 2'));
+        //$recipes = CookRecipe::model()->findAll(array('limit' => 10));
 
-        $all = array_merge($photos, $posts, $videos, $recipes);
+        $all = array_merge($posts, $videos);
         foreach ($all as $entity) {
             $favourite = new Favourite();
             $favourite->entity = get_class($entity);

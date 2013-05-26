@@ -25,7 +25,17 @@ class DefaultController extends HController
     {
         $dp = FavouritesManager::getByUserId(Yii::app()->user->id, $entity, $tagId, $query);
 
-        $this->render('get', compact('dp'));
+        $favourites = array_map(function($favourite) {
+            return array(
+                'html' => Yii::app()->controller->renderPartial('//community/_post', array(
+                    'full' => false,
+                    'data' => $favourite->relatedModel,
+                ), true, true),
+            );
+        }, $dp->data);
+        $data = compact('favourites');
+
+        echo CJSON::encode($data);
     }
 
     public function actionSearch($query)

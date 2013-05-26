@@ -50,6 +50,10 @@ Yii::app()->clientScript
                 <a href="javascript:void(0)" class="favorites-search_tx-del ico-close" data-bind="click: removeFilter"></a>
             </div>
         </div>
+
+        <!-- ko foreach: favourites -->
+            <div data-bind="html: html"></div>
+        <!-- /ko -->
     </div>
 </div>
 

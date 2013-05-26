@@ -74,8 +74,22 @@ function Entity(data, parent) {
     self.title = data.title;
     self.tags = ko.observableArray(data.tags);
     self.note = ko.observable('');
+    self.tagsFormVisible = ko.observable(self.tags().length == 0);
+    self.tagsInputValue = ko.observable('');
 
     self.removeTag = function(tag) {
         self.tags.remove(tag);
+    }
+
+    self.showTagsForm = function() {
+        self.tagsFormVisible(true);
+    }
+
+    self.tagHandler = function(data, event) {
+        if (event.keyCode == 13 || event.keyCode == 44) {
+            self.tags.push(self.tagsInputValue());
+            self.tagsInputValue('');
+        } else
+            return true;
     }
 }

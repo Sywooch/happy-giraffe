@@ -37,7 +37,7 @@ function FavouriteWidget(data) {
             'Favourite[entity]' : self.entity,
             'Favourite[entity_id]' : self.entity_id,
             'Favourite[note]' : self.adding().note(),
-            'Favourite[tags]' : self.adding().tags()
+            'Favourite[tagsNames]' : self.adding().tags()
         }
         $.post('/favourites/favourites/create/', data, function(response) {
             if (response.success) {
@@ -74,7 +74,7 @@ function Entity(data, parent) {
     self.title = data.title;
     self.tags = ko.observableArray(data.tags);
     self.note = ko.observable('');
-    self.tagsFormVisible = ko.observable(self.tags().length == 0);
+    self.tagsInputIsVisible = ko.observable(self.tags().length == 0);
     self.tagsInputValue = ko.observable('');
 
     self.removeTag = function(tag) {
@@ -82,7 +82,7 @@ function Entity(data, parent) {
     }
 
     self.showTagsForm = function() {
-        self.tagsFormVisible(true);
+        self.tagsInputIsVisible(true);
     }
 
     self.tagHandler = function(data, event) {

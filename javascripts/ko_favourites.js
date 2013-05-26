@@ -14,6 +14,8 @@ function FavouritesViewModel(data) {
     self.query = ko.observable('');
     self.activeTag = ko.observable(null);
     self.filter = ko.observable(null);
+    self.loading = ko.observable(false);
+    self.lastPage = ko.observable(false);
 
     self.query.subscribe(function(val) {
         if (val != '')
@@ -27,6 +29,18 @@ function FavouritesViewModel(data) {
                     self.filter(new Filter(response.filter));
                 }
             }, 'json');
+    });
+
+    self.activeMenuRow.subscribe(function(val) {
+        self.init();
+    });
+
+    self.tagId.subscribe(function(val) {
+        self.init();
+    });
+
+    self.keyword.subscribe(function(val) {
+        self.init();
     });
 
     self.removeFilter = function() {
@@ -44,7 +58,7 @@ function FavouritesViewModel(data) {
         self.query('');
     }
 
-    self.load = function(callback, page) {
+    self.load = function(callback, offset) {
         var data = {}
 
         if (self.activeMenuRow() !== null)
@@ -56,11 +70,15 @@ function FavouritesViewModel(data) {
         if (self.keyword() !== null)
             data.query = self.keyword();
 
-        if (typeof page !== "undefined")
-            data.Favourite_page = page;
+        if (typeof offset !== "undefined")
+            data.offset = offset;
 
+        self.loading(true);
         $.get('/favourites/default/get/', data, function(response) {
             callback(response);
+            self.loading(false);
+            if (response.last)
+                self.lastPage(true);
         }, 'json');
     }
 
@@ -72,7 +90,22 @@ function FavouritesViewModel(data) {
         });
     }
 
+    self.nextPage = function() {
+        self.load(function(response) {
+            var newItems = ko.utils.arrayMap(response.favourites, function(favourite) {
+                return new Favourite(favourite, self);
+            });
+
+            self.favourites.push.apply(self.favourites, newItems);
+        }, self.favourites().length);
+    }
+
     self.init();
+
+    $('.layout-container').scroll(function() {
+        if (self.loading() === false && self.lastPage() === false && (($('.layout-container').scrollTop() + $('.layout-container').height()) > ($('.layout-container').prop('scrollHeight') - 200)))
+            self.nextPage();
+    });
 }
 
 function Favourite(data, parent) {

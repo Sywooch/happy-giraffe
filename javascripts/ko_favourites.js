@@ -1,6 +1,7 @@
 function FavouritesViewModel(data) {
     var self = this;
 
+    self.favourites = ko.observableArray([]);
     self.totalCount = ko.observable(data.totalCount);
     self.menu = ko.observableArray(ko.utils.arrayMap(data.menu, function(menuRow) {
         return new MenuRow(menuRow, self);
@@ -40,6 +41,42 @@ function FavouritesViewModel(data) {
     self.clearQuery = function() {
         self.query('');
     }
+
+    self.load = function(callback, page) {
+        var data = {}
+
+        if (self.activeMenuRow() !== null)
+            data.entity = self.activeMenuRow();
+
+        if (self.tagId() !== null)
+            data.tagId = self.tagId();
+
+        if (self.keyword() !== null)
+            data.query = self.keyword();
+
+        if (typeof page !== "undefined")
+            data.Favourite_page = page;
+
+        $.get('/favourites/default/get/', data, function(response) {
+            callback(response);
+        }, 'json');
+    }
+
+    self.init = function() {
+        self.load(function(response) {
+            self.favourites(ko.utils.arrayMap(response.favourites, function(favourite) {
+                return new Favourite(favourite, self);
+            }));
+        });
+    }
+
+    self.init();
+}
+
+function Favourite(data, parent) {
+    var self = this;
+
+    self.html = data.html;
 }
 
 function MenuRow(data, parent) {

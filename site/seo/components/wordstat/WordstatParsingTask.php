@@ -16,15 +16,6 @@ class WordstatParsingTask
      */
     protected $mongo;
     /**
-     * Основной парсинг частоты
-     * @var MongoCollection
-     */
-    protected $simple_collection;
-    /**
-     * @var MongoCollection
-     */
-    protected $priority_collection;
-    /**
      * очередь на парсинг частоты "!слово !слово"
      * @var MongoCollection[]
      */
@@ -61,21 +52,21 @@ class WordstatParsingTask
     /**
      * Добавить все ключевые слова на парсинг
      */
-    public function addAllKeywordsToParsing()
+    public function addAllKeywordsToSeasonParsing()
     {
         $ids = 1;
-        $max_id = 539292427;
+        $max_id = 0;
         $i = 0;
         while (!empty($ids)) {
             $ids = Yii::app()->db_keywords->createCommand()
                 ->select('id')
                 ->from('keywords')
-                ->where('wordstat >= 100 AND id > ' . $max_id)
+                ->where('wordstat >= 1000 AND id > ' . $max_id)
                 ->limit(10000)
                 ->order('id')
                 ->queryColumn();
             foreach ($ids as $id)
-                $this->getCollection('important_parsing')->insert(array('id' => (int)$id));
+                $this->getCollection('season_parsing')->insert(array('id' => (int)$id));
 
             if (!empty($ids))
                 $max_id = $ids[count($ids) - 1];

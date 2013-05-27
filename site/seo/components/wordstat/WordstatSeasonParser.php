@@ -1,11 +1,13 @@
 <?php
 /**
- * Author: alexk984
- * Date: 29.05.12
+ * Class WordstatSeasonParser
+ *
+ * Парсер сезонности вордстат
+ *
+ * @author Alex Kireev <alexk984@gmail.com>
  */
 class WordstatSeasonParser extends WordstatBaseParser
 {
-
     /**
      * Запуск потока-парсера. Связывается с поставщиком заданий и ждет появления новых заданий
      * @param bool $mode
@@ -14,7 +16,7 @@ class WordstatSeasonParser extends WordstatBaseParser
     {
         $this->init($mode);
 
-        Yii::app()->gearman->worker()->addFunction("simple_parsing", array($this, "processMessage"));
+        Yii::app()->gearman->worker()->addFunction("season_parsing", array($this, "processMessage"));
         while (Yii::app()->gearman->worker()->work()) ;
     }
 
@@ -32,7 +34,7 @@ class WordstatSeasonParser extends WordstatBaseParser
             $this->log('Parsing keyword: ' . $this->keyword->id);
             $this->parse();
         }
-        WordstatParsingTask::getInstance()->removeSimpleTask($id);
+        WordstatParsingTask::getInstance()->removeSimpleTask($id, 'season_parsing');
 
         $this->endTimer();
         return true;
@@ -66,6 +68,12 @@ class WordstatSeasonParser extends WordstatBaseParser
         return $this->parseHtml($html);
     }
 
+    /**
+     * Парсинг полученного документа
+     *
+     * @param $html string html-документ
+     * @return bool успешность
+     */
     public function parseHtml($html)
     {
         $this->log('parse page');
@@ -92,7 +100,7 @@ class WordstatSeasonParser extends WordstatBaseParser
                 if ($i % 3 == 0) {
                     $period = pq($cell)->text();
                     if (preg_match('/[\d]{2}.([\d]{2}).([\d]{4})/', $period, $matches)){
-                        WordstatSeason::add($this->keyword->id, $matches[1], $matches[2], pq($cell)->next()->text());
+                        WordstatSeason::getInstance()->add($this->keyword->id, $matches[1], $matches[2], pq($cell)->next()->text());
                         $sum += pq($cell)->next()->text();
                     }
                 }

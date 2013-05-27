@@ -22,13 +22,15 @@ class WordstatTaskCreator
      */
     private $collection;
 
-    public $queue = 'important_parsing';
+    public $queue;
 
     /**
      * Запуск передачи заданий из базы данных в очередь
      */
-    public function start()
+    public function start($queue)
     {
+        $this->queue = $queue;
+
         if (!$this->collection) {
             $mongo = Yii::app()->mongodb_parsing->getConnection();
             $this->collection = $mongo->selectCollection('parsing', $this->queue);

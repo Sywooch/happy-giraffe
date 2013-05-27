@@ -73,7 +73,7 @@ function Entity(data, parent) {
     self.image = data.image;
     self.title = data.title;
     self.tags = ko.observableArray(data.tags);
-    self.note = ko.observable('');
+    self.note = ko.observable(data.note);
     self.tagsInputIsVisible = ko.observable(self.tags().length == 0);
     self.tagsInputValue = ko.observable('');
 

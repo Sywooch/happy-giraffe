@@ -103,8 +103,8 @@ Yii::app()->clientScript
                                     <textarea name="" id="" cols="25" rows="2" class="favorites-add-popup_textarea" placeholder="Введите комментарий" data-bind="value: note, valueUpdate: 'keyup'" maxlength="150"></textarea>
                                 </div>
                                 <div class="favorites-add-popup_row textalign-c margin-t15">
-                                    <a href="javascript:void(0)" class="btn-gray-light" data-bind="click: $root.cancel">Отменить</a>
-                                    <a href="javascript:void(0)" class="btn-green" data-bind="click: $root.edit">Сохранить</a>
+                                    <a href="javascript:void(0)" class="btn-gray-light" data-bind="click: $parent.cancel">Отменить</a>
+                                    <a href="javascript:void(0)" class="btn-green" data-bind="click: $parent.edit">Сохранить</a>
                                 </div>
                             </div>
                         <!-- /ko -->

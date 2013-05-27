@@ -121,6 +121,7 @@ function FavouritesViewModel(data) {
 function Favourite(data, parent) {
     var self = this;
 
+    self.id = data.id;
     self.modelName = data.modelName;
     self.modelId = data.modelId;
     self.html = data.html;
@@ -135,11 +136,22 @@ function Favourite(data, parent) {
     }
 
     self.cancel = function() {
-        console.log('cancel');
+        self.editing(null);
     }
 
     self.edit = function() {
-        console.log('edit');
+        var data = {
+            favouriteId : self.id,
+            'Favourite[note]' : self.editing().note(),
+            'Favourite[tagsNames]' : self.editing().tags()
+        }
+        $.post('/favourites/favourites/update/', data, function(response) {
+            if (response.success) {
+                self.note(self.editing().note());
+                self.tags(self.editing().tags());
+                self.editing(null);
+            }
+        }, 'json');
     }
 }
 

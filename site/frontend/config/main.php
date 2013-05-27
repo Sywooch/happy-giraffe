@@ -135,7 +135,6 @@ return array(
                         'javascripts/user_common.js',
                         'javascripts/messages.js',
                         'javascripts/friends.js',
-                        //'javascripts/notifications.js',
                         'javascripts/settings.js',
                         'javascripts/wantToChat.js',
                     ),

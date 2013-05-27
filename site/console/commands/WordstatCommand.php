@@ -81,6 +81,12 @@ class WordstatCommand extends CConsoleCommand
         $p->start();
     }
 
+    public function actionSeason()
+    {
+        $p = new WordstatSeasonParser();
+        $p->start();
+    }
+
     public function actionDeleteNulls()
     {
         $last_id = 346000000;

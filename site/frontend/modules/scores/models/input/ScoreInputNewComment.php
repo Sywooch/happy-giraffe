@@ -6,10 +6,12 @@
  *
  * @author Alex Kireev <alexk984@gmail.com>
  */
-class ScoreInputNewComment extends ScoreInputEntity
+class ScoreInputNewComment extends ScoreInput
 {
+    const WAIT_TIME = 3;
+
     public $type = self::TYPE_COMMENT_ADDED;
-    public $friends = array();
+    public $comments = array();
 
     /**
      * @var ScoreInputNewComment
@@ -36,6 +38,35 @@ class ScoreInputNewComment extends ScoreInputEntity
     public function add($user_id, $comment_id)
     {
         $this->user_id = $user_id;
-        $this->insert(array('comment_id' => (int)$comment_id));
+        $exist = $this->exist();
+        if (empty($exist))
+            $this->insert(array('comment_id' => (int)$comment_id), time() + self::WAIT_TIME * 3600);
+        else
+            $this->update($exist, $comment_id);
+    }
+
+    protected function exist()
+    {
+        return $this->getCollection()->findOne(array(
+            'type' => (int)$this->type,
+            'user_id' => (int)$this->user_id,
+            'show_time' => array('$lt' => time()),
+        ));
+    }
+
+    protected function update($exist, $comment_id)
+    {
+        $this->getCollection()->update(
+            array('_id' => $exist['_id']),
+            array(
+                '$push' => array('comments' => (int)$comment_id),
+                '$inc' => array('scores' => $this->getScores())
+            )
+        );
+    }
+
+    public function remove($comment_id)
+    {
+
     }
 }

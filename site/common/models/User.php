@@ -645,26 +645,6 @@ class User extends HActiveRecord
      * @param $friend_id
      * @return bool
      */
-    public function addFriend($friend_id)
-    {
-        if ($this->isFriend($friend_id)) return false;
-        $friend = new Friend;
-        $friend->user1_id = $this->id;
-        $friend->user2_id = $friend_id;
-        if ($friend->save()) {
-            UserScores::addScores($this->id, ScoreAction::ACTION_FRIEND, 1, User::getUserById($friend_id));
-            UserScores::addScores($friend_id, ScoreAction::ACTION_FRIEND, 1, $this);
-            UserAction::model()->add($this->id, UserAction::USER_ACTION_FRIENDS_ADDED, array('id' => $friend_id));
-            UserAction::model()->add($friend_id, UserAction::USER_ACTION_FRIENDS_ADDED, array('id' => $this->id));
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * @param $friend_id
-     * @return bool
-     */
     public function isFriend($friend_id)
     {
         return Friend::model()->count($this->getFriendCriteria($friend_id)) != 0;
@@ -677,22 +657,6 @@ class User extends HActiveRecord
             'to_id' => $this->id,
             'status' => 'pending',
         )) !== null;
-    }
-
-    /**
-     * @param $friend_id
-     * @return bool
-     */
-    public function delFriend($friend_id)
-    {
-        $res = Friend::model()->deleteAll($this->getFriendCriteria($friend_id));
-        if ($res != 0) {
-            UserScores::removeScores($friend_id, ScoreAction::ACTION_FRIEND, 1, $this);
-            UserScores::removeScores($this->id, ScoreAction::ACTION_FRIEND, 1, User::model()->findByPk($friend_id));
-            return true;
-        }
-
-        return false;
     }
 
     public function getFriendSelectCriteria()

@@ -143,21 +143,6 @@ class RecipeBookRecipe extends HActiveRecord
         ));
     }
 
-    public function afterSave()
-    {
-        parent::afterSave();
-
-        if ($this->isNewRecord)
-            UserScores::addScores($this->author_id, ScoreAction::ACTION_RECORD, 1, $this);
-    }
-
-    public function afterDelete()
-    {
-        parent::afterDelete();
-
-        UserScores::removeScores($this->author_id, ScoreAction::ACTION_RECORD, 1, $this);
-    }
-
     protected function beforeSave()
     {
         if (! $this->isNewRecord) {

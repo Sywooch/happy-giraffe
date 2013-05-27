@@ -217,6 +217,7 @@ class Comment extends HActiveRecord
 
             Yii::import('site.frontend.modules.routes.models.*');
             NotificationCreate::commentCreated($this);
+            Scoring::commentCreated($this);
 
             FriendEventManager::add(FriendEvent::TYPE_COMMENT_ADDED, array('model' => $this, 'relatedModel' => $this->relatedModel));
 
@@ -280,9 +281,7 @@ class Comment extends HActiveRecord
     {
         Comment::model()->updateByPk($this->id, array('removed' => 1));
         NotificationDelete::commentDeleted($this);
-
-        UserScores::removeScores($this->author_id, ScoreAction::ACTION_OWN_COMMENT, 1, array(
-            'id' => $this->entity_id, 'name' => $this->entity));
+        Scoring::commentRemoved($this);
 
         return false;
     }

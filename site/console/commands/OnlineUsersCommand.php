@@ -145,7 +145,7 @@ class OnlineUsersCommand extends CConsoleCommand
                 $user = $this->getUserByCache($user);
                 if (empty($user))
                     continue;
-                ScoreVisits::addTodayVisit($user->id);
+                Scoring::visit($user->id);
             }
 
             $this->current_day = date("Y-m-d");

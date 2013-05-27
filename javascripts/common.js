@@ -35,31 +35,14 @@ function removeA(arr) {
 
 $(document).ready(function () {
 
-$(".favorites-control_a").click(function(){
-
-/*    $(this).flydiv();
-
-     function flydiv() {*/
-      
-        var flyTo = 'i-broadcast';
-        var flyOffset = $(this).offset();
-        var $this = $(this).clone(true).appendTo('body').addClass('fly-element active');
-
-        console.log(flyOffset);
-        var flyToOffset = $('.i-broadcast').offset();
-        $this.css({position : "fixed", top: flyOffset.top, left: flyOffset.left})
-            .animate({
-                top: flyToOffset.top, 
-                left: flyToOffset.left, 
-                width: 0, 
-                height: 0,
-                opacity: 0.4
-            },1000,function(){
-                 $this.hide();
-            });
- /*    }*/
-    return false; 
-});
+    $(".favorites-control_a").click(function(){
+        $(this).toggleClass('active');
+        $(this).flydiv({
+            flyTo: '.icon-favorites',
+            flyAddClass: 'flydiv active'
+        });
+        return false; 
+    });
 
     $(".wysiwyg-content").addtocopy({htmlcopytxt:'<br /><br />Подробнее: <a href="' + window.location.href + '">' + window.location.href + '</a>'});
 
@@ -98,9 +81,10 @@ $(".favorites-control_a").click(function(){
     $('.js-tooltipsy').tooltipsy({offset:[0, 1]});
     $('.powertip').powerTip({
         placement: 'n',
-        smartPlacement: true,
+        /*smartPlacement: true,*/
         offset: 8
     });
+
     $('.js-powertip-white').powerTip({
         placement: 'n',
         smartPlacement: true,

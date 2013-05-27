@@ -12407,6 +12407,16 @@ body.gallery {
 .top-line-menu_nav .new .icon-broadcast {
   background-position: -210px -32px;
 }
+.top-line-menu_nav .icon-favorites {
+  float: left;
+  width: 33px;
+  height: 32px;
+  background: url(/images/header/top-line-menu.png) no-repeat -245px 0;
+}
+.top-line-menu_nav .icon-favorites.active,
+.top-line-menu_nav .new .icon-favorites {
+  background-position: -245px -32px;
+}
 .top-line-menu_nav .count {
   float: left;
   font-size: 9px;

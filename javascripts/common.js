@@ -37,7 +37,7 @@ $(document).ready(function () {
 
     $(".favorites-control_a").click(function(){
         $(this).flydiv({
-            flyTo: '.menu-list',
+            flyTo: '.icon-favorites',
             flyAddClass: 'flydiv active'
         });
         return false; 

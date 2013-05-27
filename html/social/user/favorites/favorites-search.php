@@ -112,7 +112,7 @@
 											145
 										</a>
 										
-										<div class="favorites-add-popup">
+										<div class="favorites-add-popup display-b">
 											<div class="favorites-add-popup_t">Добавить запись в избранное</div>
 											<div class="favorites-add-popup_i clearfix">
 												<img src="/images/example/w60-h40.jpg" alt="" class="favorites-add-popup_i-img">
@@ -132,7 +132,7 @@
 											<div class="favorites-add-popup_row margin-b10">
 												<a class="textdec-none" href="">
 													<span class="ico-plus2 margin-r5"></span>
-													<span class="a-pseudo-gray color-gray">Добавить</span>
+													<span class="a-pseudo-gray color-gray">Добавить тег</span>
 												</a>
 											</div>
 											<div class="favorites-add-popup_row">
@@ -142,7 +142,7 @@
 											<div class="favorites-add-popup_row">
 												<textarea name="" id="" cols="25" rows="2" class="favorites-add-popup_textarea" placeholder="Введите комментарий"></textarea>
 											</div>
-											<div class="favorites-add-popup_row textalign-c margin-t15">
+											<div class="favorites-add-popup_row textalign-c margin-t10">
 												<a href="" class="btn-gray-light">Отменить</a>
 												<a href="" class="btn-green">Добавить</a>
 											</div>
@@ -213,7 +213,7 @@
 									<div class="favorites-add-popup_row margin-b10">
 										<a class="textdec-none" href="">
 											<span class="ico-plus2 margin-r5"></span>
-											<span class="a-pseudo-gray color-gray">Добавить</span>
+											<span class="a-pseudo-gray color-gray">Добавить тег</span>
 										</a>
 									</div>
 									<div class="favorites-add-popup_row">
@@ -223,7 +223,7 @@
 									<div class="favorites-add-popup_row">
 										<textarea name="" id="" cols="25" rows="2" class="favorites-add-popup_textarea" placeholder="Введите комментарий"></textarea>
 									</div>
-									<div class="favorites-add-popup_row textalign-c margin-t15">
+									<div class="favorites-add-popup_row textalign-c margin-t10">
 										<a href="" class="btn-gray-light">Отменить</a>
 										<a href="" class="btn-green">Сохранить</a>
 									</div>
@@ -384,7 +384,7 @@
 											<div class="favorites-add-popup_row">
 												<textarea name="" id="" cols="25" rows="2" class="favorites-add-popup_textarea" placeholder="Введите комментарий"></textarea>
 											</div>
-											<div class="favorites-add-popup_row textalign-c margin-t15">
+											<div class="favorites-add-popup_row textalign-c margin-t10">
 												<a href="" class="btn-gray-light">Отменить</a>
 												<a href="" class="btn-green">Добавить</a>
 											</div>

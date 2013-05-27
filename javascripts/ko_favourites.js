@@ -17,6 +17,16 @@ function FavouritesViewModel(data) {
     self.loading = ko.observable(false);
     self.lastPage = ko.observable(false);
 
+    self.isMenuVisible = ko.computed(function() {
+        var rowsCount = 0;
+        ko.utils.arrayForEach(self.menu(), function(menuRow) {
+            if (menuRow.count() > 0)
+                rowsCount += 1;
+        });
+
+        return rowsCount > 1;
+    });
+
     self.query.subscribe(function(val) {
         if (val != '')
             $.get('/favourites/default/search/', { query : val }, function(response) {

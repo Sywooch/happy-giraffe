@@ -59,7 +59,7 @@ class WordstatSeason extends HMongoModel
             'keyword_id' => EMongoCriteria::SORT_DESC,
             'month' => EMongoCriteria::SORT_ASC,
             'year' => EMongoCriteria::SORT_ASC,
-        ), array('name' => 'date_index'));
+        ), array('name' => 'date_index', 'unique' => true));
     }
 
     public function add($keyword_id, $year, $month, $value)

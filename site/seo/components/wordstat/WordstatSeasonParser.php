@@ -52,7 +52,7 @@ class WordstatSeasonParser extends WordstatBaseParser
         $this->next_page = 'http://wordstat.yandex.ru/?cmd=months&page=1&t=' . $t . '&geo=&text_geo=';
         $this->prev_page = 'http://wordstat.yandex.ru/?cmd=months';
 
-        while ($this->parseQuery() === false);
+        while ($this->parseQuery() === false) ;
     }
 
     /**
@@ -99,9 +99,11 @@ class WordstatSeasonParser extends WordstatBaseParser
             foreach ($document->find('table.reports.padding-5 td') as $cell) {
                 if ($i % 3 == 0) {
                     $period = pq($cell)->text();
-                    if (preg_match('/[\d]{2}.([\d]{2}).([\d]{4})/', $period, $matches)){
+                    if (preg_match('/[\d]{2}.([\d]{2}).([\d]{4})/', $period, $matches)) {
                         WordstatSeason::getInstance()->add($this->keyword->id, $matches[1], $matches[2], pq($cell)->next()->text());
                         $sum += pq($cell)->next()->text();
+
+                        $this->log($this->keyword->id . $matches[1] . $matches[2], true);
                     }
                 }
 

@@ -16,97 +16,88 @@
 		<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/header-new.php'; ?>
 		
 		<div id="content" class="clearfix">
-			
+
       <div id="photo-inline" itemscope itemtype="http://schema.org/ImageObject">
-       <div class="photo-inline_top">  
-        <div class="meta">
-          
-          <div class="clearfix">
-            
-            <div class="count">
-              <span class="count-tx">3 фото из 158</span>
-              <a href="" class="btn-green">Смотреть весь альбом</a>
-            </div>
-            
-            <div class="album-title">
-              Фотоальбом к статье<br/><a href="">Прекрасные сады Болгарии</a>
-            </div>
-            
-          </div>
-          
-          <br/> <!-- <br/> для примера, нужна 1 из 3 шапок -->
-          
-          <div class="clearfix">
-            
-            <div class="count">
-              <span class="count-tx">3 фото из 158</span>
-              <a href="" class="btn-green">Смотреть весь альбом</a>
-            </div>
-            
-            <div class="album-title">
-              Фотоальбом <br><a href="">Дачные вкусняшки</a>
-            </div>
-            
-          </div>
-          
-          <br/> <!-- <br/> для примера, нужна 1 из 3 шапок -->
-          
-          <div class="clearfix">
-            
-            <div class="count">
-              <span class="count-tx">3 фото из 158</span>
-              <a href="" class="btn-green">Смотреть весь альбом</a>
-            </div>
-            
-            <div class="album-title">
-              Фотоальбом <a href="">Вторые блюда</a><br/>
-              к сервису <a href="">Оформление блюд</a>
-            </div>
-            
-          </div>
-          
+
+        
+    <div class="content-cols clearfix">
+    
+		<div class="col-1">
+			<div class="margin-t100">
+				<a href=""><img src="/images/contest/banner-w240-10.jpg" alt=""></a>
+			</div>
+		</div>
+	  <div class="col-23">
+	  	<div class="photo-inline_top"> 
+	  	 
+		    <div class="meta">
+	          <div class="clearfix">
+	            <div class="count">
+	              <span class="count-tx">3 фото из 158</span>
+	              <a href="" class="btn-green">Смотреть весь альбом</a>
+	            </div>
+	            
+	            <div class="album-title">
+	              Фотоальбом к статье<br/><a href="">Прекрасные сады Болгарии</a>
+	            </div>
+	            
+	          </div>
+	        </div> 
+	        
+	        <div class="title"><h1 itemprop="name">Жареная картошка по-домашнему с беконом</h1></div>
+	        
         </div>
-        
-        <div class="title"><h1 itemprop="name">Жареная картошка по-домашнему с беконом</h1></div>
-        </div> 
-        <div class="img">
-          
-          <div class="user clearfix">
-            
-            <div class="user-info clearfix">
-              <a class="ava female small"></a>
-              <div class="details">
-                <span class="icon-status status-online"></span>
-                <a href="" class="username">Александр Богоявленский</a>
-              </div>
-            </div>
-            <a href="" class="remove"><span class="icon"></span></a>
-          </div>
-          
-          <img src="/images/example/ex5.jpg" itemprop="contentURL">
-          
-          <meta itemprop="width" content="250 px">
-          <meta itemprop="height" content="250 px">
-          
-        </div>
-        
-        <div class="photo-comment" itemprop="description">Квашеная капуста с клюквой, грибами, соусом, зеленью и еще очень длинный комментарий про это оформление блюда, да нужно двести знаков для этого комментария, уже вроде набралось или нет кто будет считать</div>
-        
-      </div>
-			
-        			<div class="entry-nav clearfix">
-		              <div class="next">
-		                <span>Предыдущая статья</span>
-		                <a href="">Лечение краснухи. Как избежать тяжелейших последствий</a>
-		              </div>
-		              <div class="prev">
-		                <span>Следуюшая статья</span>
-		                <a href="">Корь у ребенка. Симптомы кори. Лечение кори</a>
-		              </div>
-		            </div>
+		<div class="bordered padding-10">  
+
+			<div class="img">
+			  <div class="user clearfix">
+			    
+			    <div class="user-info clearfix">
+			      <a class="ava female small"></a>
+			      <div class="details">
+			        <span class="icon-status status-online"></span>
+			        <a href="" class="username">Александр Богоявленский</a>
+			      </div>
+			    </div>
+			    <a href="" class="remove"><span class="icon"></span></a>
+			  </div>
+			  
+			  <img src="/images/example/ex5.jpg" itemprop="contentURL">
+			  
+			  <meta itemprop="width" content="250 px">
+			  <meta itemprop="height" content="250 px">
+			  
+			</div>
+
+			<div class="photo-comment" itemprop="description">Квашеная капуста с клюквой, грибами, соусом, зеленью и еще очень длинный комментарий про это оформление блюда, да нужно двести знаков для этого комментария, уже вроде набралось или нет кто будет считать</div>
+
+		</div>
+      
+			<div class="entry-nav clearfix">
+	          <div class="next">
+	            <span>Предыдущая статья</span>
+	            <a href="">Лечение краснухи. Как избежать тяжелейших последствий</a>
+	          </div>
+	          <div class="prev">
+	            <span>Следуюшая статья</span>
+	            <a href="">Корь у ребенка. Симптомы кори. Лечение кори</a>
+	          </div>
+	        </div>
+		</div>
+	</div>
+	</div>	
+        	<div class="content-cols clearfix">
+        		<div class="col-1">
+        			<div class="margin-t95">
+        				<a href=""><img src="/images/banner_09.png" alt=""></a>
+        			</div>
+        		</div>
+        		<div class="col-23">
+        		
 					<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/comment.php'; ?>
         		</div>
         	</div>
+		</div>  	
 		
     <div class="push"></div>
     

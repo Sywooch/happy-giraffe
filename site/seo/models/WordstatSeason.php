@@ -54,10 +54,10 @@ class WordstatSeason extends HMongoModel
     {
         $this->ensureIndexes();
         $this->getCollection()->insert(array(
-            'keyword_id' => $keyword_id,
-            'year' => $year,
-            'month' => $month,
-            'value' => $value,
+            'keyword_id' => (int)$keyword_id,
+            'year' => (int)$year,
+            'month' => (int)$month,
+            'value' => (int)$value,
         ));
     }
 }

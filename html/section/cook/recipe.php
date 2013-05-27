@@ -90,7 +90,7 @@
 												<div class="favorites-add-popup_row margin-b10">
 													<a href="" class="textdec-none">
 														<span class="ico-plus2 margin-r5"></span>
-														<span class="a-pseudo-gray color-gray">Добавить</span>
+														<span class="a-pseudo-gray color-gray">Добавить тег</span>
 													</a>
 												</div>
 												<div class="favorites-add-popup_row">

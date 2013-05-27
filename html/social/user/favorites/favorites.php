@@ -179,7 +179,8 @@
 							<div class="entry-tags_row">
 								<div class="entry-tags_tx">Прикольная свадьба надо такую замутить</div>
 							</div>
-							<div class="entry-tags_edit powertip" title="Редактировать">
+							<div class="entry-tags_edit">
+								<a href="" class="entry-tags_edit-a powertip" title="Редактировать"></a>
 								
 								<div class="favorites-add-popup">
 									<div class="favorites-add-popup_t">Редактировать</div>
@@ -292,9 +293,11 @@
 								<a href="" class="entry-tags_tag">свадьба</a>
 								<a href="" class="entry-tags_tag">приколы</a>
 							</div>
-							<a href="" class="entry-tags_edit powertip" title="Редактировать"></a>
-						</div>
 							
+							<div class="entry-tags_edit">
+								<a href="" class="entry-tags_edit-a powertip" title="Редактировать"></a>
+							</div>
+						</div>
 							
 					</div>
 					<div class="entry-hold">
@@ -423,9 +426,11 @@
 							<div class="entry-tags_row">
 								<div class="entry-tags_tx">Прикольная свадьба надо такую замутить</div>
 							</div>
-							<a href="" class="entry-tags_edit powertip" title="Редактировать"></a>
-						</div>
 							
+							<div class="entry-tags_edit">
+								<a href="" class="entry-tags_edit-a powertip" title="Редактировать"></a>
+							</div>
+						</div>
 							
 					</div>	
 								

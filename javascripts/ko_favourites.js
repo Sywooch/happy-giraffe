@@ -11,7 +11,8 @@ function FavouritesViewModel(data) {
     self.activeMenuRow = ko.observable(data.entity);
     self.tagId = ko.observable(data.tagId);
     self.keyword = ko.observable(null);
-    self.query = ko.observable('');
+    self.instantaneousQuery = ko.observable('');
+    self.throttledQuery = ko.computed(this.instantaneousQuery).extend({ throttle: 400 });
     self.activeTag = ko.observable(null);
     self.filter = ko.observable(null);
     self.loading = ko.observable(false);
@@ -27,7 +28,7 @@ function FavouritesViewModel(data) {
         return rowsCount > 1;
     });
 
-    self.query.subscribe(function(val) {
+    self.throttledQuery.subscribe(function(val) {
         if (val != '')
             $.get('/favourites/default/search/', { query : val }, function(response) {
                 if (response.filter.type == 0) {

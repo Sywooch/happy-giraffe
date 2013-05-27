@@ -18,6 +18,7 @@ class DefaultController extends HController
         }, $this->module->entities, array_keys($this->module->entities));
 
         $data = compact('menu', 'totalCount', 'entity', 'tagId');
+        $this->pageTitle = 'Избранное';
         $this->render('index', compact('data'));
     }
 
@@ -72,7 +73,7 @@ class DefaultController extends HController
                 'filter' => array(
                     'type' => self::QUERY_RESPONSE_TYPE_KEYWORD,
                     'value' => $query,
-                    'count' => Favourite::model()->count('user_id = :user_id', array(':user_id' => Yii::app()->user->id)),
+                    'count' => FavouritesManager::getCountByUserId(Yii::app()->user->id, null, null, $query),
                 ),
             );
         }

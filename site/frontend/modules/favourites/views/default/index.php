@@ -38,11 +38,11 @@ Yii::app()->clientScript
           -->
         <div class="favorites-search clearfix" data-bind="css: { 'favorites-search__found' : filter() !== null }">
             <div class="favorites-search_hold clearfix">
-                <input type="text" class="favorites-search_itx ui-autocomplete-input" placeholder="Введите слово или тег" data-bind="value: query, valueUpdate: 'keyup'">
+                <input type="text" class="favorites-search_itx ui-autocomplete-input" placeholder="Введите слово или тег" data-bind="value: instantaneousQuery, valueUpdate: 'keyup'">
                 <!--
                 В начале ввода текста добавить класс active
                  -->
-                <button class="favorites-search_btn" data-bind="css: { active : query() != '' }, click: clearQuery"></button>
+                <button class="favorites-search_btn" data-bind="css: { active : throttledQuery() != '' }, click: clearQuery"></button>
             </div>
             <!-- Блок с поисковым запросом -->
             <div class="favorites-search_tx-hold" data-bind="if: filter">

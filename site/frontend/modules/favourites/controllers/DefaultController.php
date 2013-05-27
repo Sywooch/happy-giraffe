@@ -31,7 +31,7 @@ class DefaultController extends HController
                 ), true),
             );
         }, FavouritesManager::getByUserId(Yii::app()->user->id, $entity, $tagId, $query, $offset));
-        $last = FavouritesManager::getCount(Yii::app()->user->id, $entity, $tagId, $query) <= ($offset + FavouritesManager::FAVOURITES_PER_PAGE);
+        $last = FavouritesManager::getCountByUserId(Yii::app()->user->id, $entity, $tagId, $query) <= ($offset + FavouritesManager::FAVOURITES_PER_PAGE);
 
         $data = compact('favourites', 'last');
         echo CJSON::encode($data);
@@ -86,9 +86,9 @@ class DefaultController extends HController
         }
     }
 
-    public function actionGetEntityData($entity, $entity_id)
+    public function actionGetEntityData($modelName, $modelId)
     {
-        $model = CActiveRecord::model($entity)->full()->findByPk($entity_id);
+        $model = CActiveRecord::model($modelName)->full()->findByPk($modelId);
         if ($model === null)
             throw new CHttpException(400);
 

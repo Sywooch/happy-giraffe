@@ -40,6 +40,7 @@ class DefaultController extends HController
                     break;
             }
             return array(
+                'id' => $favourite->id,
                 'modelName' => $favourite->model_name,
                 'modelId' => $favourite->model_id,
                 'html' => $html,
@@ -86,13 +87,13 @@ class DefaultController extends HController
         //$photos = AlbumPhoto::model()->findAll(array('limit' => 10));
         $posts = CommunityContent::model()->findAll(array('limit' => 20, 'condition' => 'type_id = 1'));
         $videos = CommunityContent::model()->findAll(array('limit' => 20, 'condition' => 'type_id = 2'));
-        //$recipes = CookRecipe::model()->findAll(array('limit' => 10));
+        $recipes = CookRecipe::model()->findAll(array('limit' => 20));
 
-        $all = array_merge($posts, $videos);
+        $all = array_merge($posts, $videos, $recipes);
         foreach ($all as $entity) {
             $favourite = new Favourite();
-            $favourite->entity = get_class($entity);
-            $favourite->entity_id = $entity->id;
+            $favourite->model_name = get_class($entity);
+            $favourite->model_id = $entity->id;
             $favourite->user_id = Yii::app()->user->id;
             $favourite->tagsNames = array_rand(array_flip($tags), rand(2, 3));
             if (! $favourite->withRelated->save(true, array('tags'))) {
@@ -111,8 +112,19 @@ class DefaultController extends HController
         $image = $model->getContentImage(60);
         $title = $model->title;
         $tags = array('хуй', 'пизда', 'джигурда');
+        $note = '';
+        $response = compact('image', 'title', 'tags', 'note');
 
-        $response = compact('image', 'title', 'tags');
+        $userFavourite = Favourite::model()->findByAttributes(array(
+            'model_name' => $modelName,
+            'model_id' => $modelId,
+            'user_id' => Yii::app()->user->id,
+        ));
+        if ($userFavourite !== null) {
+            $response['note'] = $userFavourite->note;
+            $response['tags'] = $userFavourite->tagsNames;
+        }
+
         echo CJSON::encode($response);
     }
 }

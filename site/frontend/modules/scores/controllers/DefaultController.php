@@ -43,15 +43,4 @@ class DefaultController extends HController
             'dataProvider' => $dataProvider
         ));
     }
-
-    public function actionRemove($id)
-    {
-        if (Yii::app()->user->checkAccess('administrator') && is_numeric($id)) {
-            $criteria = new EMongoCriteria();
-            $criteria->addCond('user_id', '==', (int)$id);
-            ScoreInput::model()->deleteAll($criteria);
-            ScoreOutput::model()->deleteAll($criteria);
-            ScoreVisits::model()->deleteAll($criteria);
-        }
-    }
 }

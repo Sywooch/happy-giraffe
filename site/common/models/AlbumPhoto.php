@@ -157,9 +157,11 @@ class AlbumPhoto extends HActiveRecord
             if ($this->album !== null && ($this->album->type == 0 || $this->album->type == 1)) {
                 UserAction::model()->add($this->author_id, UserAction::USER_ACTION_PHOTOS_ADDED, array('model' => $this), array('album_id' => $this->album_id));
                 FriendEventManager::add(FriendEvent::TYPE_PHOTOS_ADDED, array('album_id' => $this->album->id, 'user_id' => $this->author_id));
+                Scoring::photoCreated($this);
             }
             $this->getPreviewUrl(960, 627, Image::HEIGHT);
         }
+
         if (get_class(Yii::app()) != 'CConsoleApplication' && $this->isNewRecord && Yii::app()->hasComponent('comet') && $this->author->isNewComer() && isset($this->album)) {
             if ($this->album->type == 0 || $this->album->type == 1 || $this->album->type == 3) {
                 $signal = new UserSignal();
@@ -168,10 +170,6 @@ class AlbumPhoto extends HActiveRecord
                 $signal->item_name = get_class($this);
                 $signal->signal_type = UserSignal::TYPE_NEW_USER_PHOTO;
                 $signal->save();
-
-                if (!empty($this->album_id)) {
-                    UserScores::addScores($this->author_id, ScoreAction::ACTION_PHOTO, 1, $this);
-                }
             }
         }
         parent::afterSave();
@@ -203,9 +201,9 @@ class AlbumPhoto extends HActiveRecord
         UserSignal::closeRemoved($this);
         NotificationDelete::entityRemoved($this);
 
-        if (!empty($this->album_id)) {
-            UserScores::removeScores($this->author_id, ScoreAction::ACTION_PHOTO, 1, $this);
-        }
+        if (!empty($this->album_id) && ($this->album->type == 0 || $this->album->type == 1))
+            Scoring::photoRemoved($this);
+
         return false;
     }
 

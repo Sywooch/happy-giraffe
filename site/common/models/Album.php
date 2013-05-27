@@ -248,7 +248,6 @@ class Album extends HActiveRecord
             foreach($this->photos as $photo)
                 UserSignal::closeRemoved($photo, false);
             UserSignal::sendUpdateSignal();
-            UserScores::removeScores($this->author_id, ScoreAction::ACTION_PHOTO, count($this->photos), $this->photos[0]);
         }
 
         $this->removed = 1;

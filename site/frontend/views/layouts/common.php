@@ -63,6 +63,8 @@
             ->registerPackage('user')
         ;
 
+        $this->widget('FavouriteWidget', array('registerScripts' => true));
+
         $interlocutor_id = Yii::app()->request->getQuery('im_interlocutor_id', 'null');
         $type = Yii::app()->request->getQuery('im_type', 'null');
         if ($interlocutor_id !== 'null' || $type !== 'null') {

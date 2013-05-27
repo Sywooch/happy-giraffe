@@ -8,11 +8,14 @@
  */
 class FavouriteWidget extends CWidget
 {
+    public $registerScripts = false;
     public $model;
 
     public function run()
     {
         $this->registerScripts();
+        if ($this->registerScripts)
+            return;
 
         $id = 'Favourites_' . get_class($this->model) . '_' . $this->model->id;
 

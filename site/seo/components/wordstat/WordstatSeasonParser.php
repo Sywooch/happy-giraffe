@@ -83,7 +83,7 @@ class WordstatSeasonParser extends WordstatBaseParser
         $html = str_replace('&mdash;', '—', $html);
 
         if (strpos($html, 'Искомая комбинация слов нигде не встречается')) {
-            $this->log('data not found', true);
+            $this->log('data not found');
         } else {
 
             if (preg_match('/Показов за последние 30 дней: ([\d]+)/', $html, $matches)) {
@@ -102,15 +102,11 @@ class WordstatSeasonParser extends WordstatBaseParser
                     if (preg_match('/[\d]{2}.([\d]{2}).([\d]{4})/', $period, $matches)) {
                         WordstatSeason::getInstance()->add($this->keyword->id, $matches[1], $matches[2], pq($cell)->next()->text());
                         $sum += pq($cell)->next()->text();
-
-                        $this->log($this->keyword->id . $matches[1] . $matches[2], true);
                     }
                 }
 
                 $i++;
             }
-
-            $this->log('data found', true);
         }
 
         $document->unloadDocument();

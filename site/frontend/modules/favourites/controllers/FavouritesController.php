@@ -15,6 +15,7 @@ class FavouritesController extends HController
         $favourite->user_id = Yii::app()->user->id;
         $success = $favourite->withRelated->save(true, array('tags'));
         $response = compact('success');
+
         echo CJSON::encode($response);
     }
 
@@ -34,12 +35,12 @@ class FavouritesController extends HController
 
     public function actionDelete()
     {
-        $entity = Yii::app()->request->getPost('entity');
-        $entity_id = Yii::app()->request->getPost('entity_id');
+        $modelName = Yii::app()->request->getPost('modelName');
+        $modelId = Yii::app()->request->getPost('modelId');
 
         $success = Favourite::model()->deleteAllByAttributes(array(
-            'entity' => $entity,
-            'entity_id' => $entity_id,
+            'model_name' => $modelName,
+            'model_id' => $modelId,
             'user_id' => Yii::app()->user->id,
         )) > 0;
 

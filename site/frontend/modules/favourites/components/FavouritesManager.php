@@ -10,7 +10,7 @@ class FavouritesManager
 {
     const FAVOURITES_PER_PAGE = 15;
 
-    public static function getByUserId($userId, $entity, $tagId, $query, $offset)
+    public static function getByUserId($userId, $entity = null, $tagId = null, $query = null, $offset = null)
     {
         $criteria = self::getCriteria($userId, $entity, $tagId, $query);
         $criteria->offset = $offset;
@@ -21,7 +21,7 @@ class FavouritesManager
         //получение необходимых id для выборки
         $entities = array();
         foreach ($favourites as $favourite)
-            $entities[$favourite->entity][$favourite->entity_id] = null;
+            $entities[$favourite->model_name][$favourite->model_id] = null;
 
         //выборка и создание моделей
         foreach ($entities as $entity => $ids) {
@@ -38,27 +38,14 @@ class FavouritesManager
 
         //присваивание моделей соответсвующим элементам избранного
         foreach ($favourites as $favourite)
-            $favourite->relatedModel = $entities[$favourite->entity][$favourite->entity_id];
+            $favourite->relatedModel = $entities[$favourite->model_name][$favourite->model_id];
 
         return $favourites;
     }
 
-    public static function getCount($userId, $entity, $tagId, $query)
+    public static function getCountByUserId($userId, $entity = null, $tagId = null, $query = null)
     {
         return Favourite::model()->count(self::getCriteria($userId, $entity, $tagId, $query));
-    }
-
-    public static function getCountByUserId($userId, $entity = null)
-    {
-        $criteria = new CDbCriteria(array(
-            'condition' => 'user_id = :user_id',
-            'params' => array(':user_id' => $userId),
-        ));
-
-        if ($entity !== null)
-            $criteria->mergeWith(self::getEntityCriteria($entity));
-
-        return Favourite::model()->count($criteria);
     }
 
     protected static function getCriteria($userId, $entity, $tagId, $query)
@@ -70,7 +57,7 @@ class FavouritesManager
         ));
 
         if ($entity !== null)
-            $criteria->mergeWith(self::getEntityCriteria($entity));
+            $criteria->compare('t.entity', $entity);
 
         if ($tagId !== null) {
             $tagCriteria = new CDbCriteria(array(
@@ -80,16 +67,6 @@ class FavouritesManager
             $criteria->mergeWith($tagCriteria);
         }
 
-        return $criteria;
-    }
-
-    protected static function getEntityCriteria($entity)
-    {
-        $criteria = new CDbCriteria();
-        $config = Yii::app()->controller->module->entities[$entity];
-        $criteria->compare('entity', $config['class']);
-        if (isset($config['criteria']))
-            $criteria->mergeWith(new CDbCriteria($config['criteria']));
         return $criteria;
     }
 }

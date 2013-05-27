@@ -16,15 +16,15 @@ ko.bindingHandlers.tooltip = {
 function FavouriteWidget(data) {
     var self = this;
 
-    self.entity = data.entity;
-    self.entity_id = data.entityId;
+    self.modelName = data.modelName;
+    self.modelId = data.modelId;
     self.count = ko.observable(data.count);
     self.active = ko.observable(data.active);
     self.adding = ko.observable(null);
 
     self.clickHandler = function() {
         if (! self.active()) {
-            $.get('/favourites/default/getEntityData/', { entity : self.entity, entity_id : self.entity_id}, function(response) {
+            $.get('/favourites/default/getEntityData/', { modelName : self.modelName, modelId : self.modelId}, function(response) {
                 self.adding(new Entity(response, self));
             }, 'json');
         } else {
@@ -34,8 +34,8 @@ function FavouriteWidget(data) {
 
     self.add = function() {
         var data = {
-            'Favourite[entity]' : self.entity,
-            'Favourite[entity_id]' : self.entity_id,
+            'Favourite[model_name]' : self.modelName,
+            'Favourite[model_id]' : self.modelId,
             'Favourite[note]' : self.adding().note(),
             'Favourite[tagsNames]' : self.adding().tags()
         }
@@ -49,8 +49,8 @@ function FavouriteWidget(data) {
 
     self.remove = function() {
         var data = {
-            entity : self.entity,
-            entity_id : self.entity_id
+            modelName : self.modelName,
+            modelId : self.modelId
         }
         $.post('/favourites/favourites/delete/', data, function(response) {
             if (response.success)

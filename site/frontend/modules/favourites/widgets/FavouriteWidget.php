@@ -21,9 +21,9 @@ class FavouriteWidget extends CWidget
 
         $count = (int) Favourite::model()->getCountByModel($this->model);
         $active = (bool) Favourite::model()->getUserHas(Yii::app()->user->id, $this->model);
-        $entity = get_class($this->model);
-        $entityId = $this->model->id;
-        $data = compact('count', 'active', 'entity', 'entityId');
+        $modelName = get_class($this->model);
+        $modelId = $this->model->id;
+        $data = compact('count', 'active', 'modelName', 'modelId');
 
         $this->render('index', compact('id', 'data'));
     }

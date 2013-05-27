@@ -24,11 +24,23 @@ class DefaultController extends HController
     public function actionGet($entity = null, $tagId = null, $query = null, $offset = 0)
     {
         $favourites = array_map(function($favourite) {
+            switch ($favourite->model_name) {
+                case 'CommunityContent':
+                case 'BlogContent':
+                    $html = Yii::app()->controller->renderPartial('//community/_post', array(
+                        'full' => false,
+                        'data' => $favourite->relatedModel,
+                    ), true);
+                    break;
+                case 'CookRecipe':
+                    $html = Yii::app()->controller->renderPartial('cook.views.recipe._recipe', array(
+                        'full' => false,
+                        'data' => $favourite->relatedModel,
+                    ), true);
+                    break;
+            }
             return array(
-                'html' => Yii::app()->controller->renderPartial('//community/_post', array(
-                    'full' => false,
-                    'data' => $favourite->relatedModel,
-                ), true),
+                'html' => $html,
             );
         }, FavouritesManager::getByUserId(Yii::app()->user->id, $entity, $tagId, $query, $offset));
         $last = FavouritesManager::getCountByUserId(Yii::app()->user->id, $entity, $tagId, $query) <= ($offset + FavouritesManager::FAVOURITES_PER_PAGE);

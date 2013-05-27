@@ -27,7 +27,7 @@ class NotificationCommand extends CConsoleCommand
         NotificationCreate::generateLikes();
     }
 
-    public function actionDeleteOld()
+    public function actionRemove()
     {
         Notification::model()->removeOldReadNotifications();
     }

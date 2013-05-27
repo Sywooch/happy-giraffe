@@ -64,7 +64,7 @@ class WordstatParsingTask
     public function addAllKeywordsToParsing()
     {
         $ids = 1;
-        $max_id = 0;
+        $max_id = 539292427;
         $i = 0;
         while (!empty($ids)) {
             $ids = Yii::app()->db_keywords->createCommand()

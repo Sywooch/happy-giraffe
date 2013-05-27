@@ -67,6 +67,25 @@ class FavouritesManager
             $criteria->mergeWith($tagCriteria);
         }
 
+        if ($query !== null)
+            $criteria->mergeWith(self::getQueryCriteria($query));
+
+        return $criteria;
+    }
+
+    protected static function getQueryCriteria($query)
+    {
+        $criteria = new CDbCriteria();
+        $criteria->join = "
+            LEFT OUTER JOIN community__contents c1 ON c1.id = t.model_id AND c1.type_id = 1 AND (t.model_name = 'CommunityContent' OR t.model_name = 'BlogContent')
+            LEFT OUTER JOIN community__posts p ON p.content_id = c1.id
+            LEFT OUTER JOIN community__contents c2 ON c2.id = t.model_id AND c2.type_id = 2 AND (t.model_name = 'CommunityContent' OR t.model_name = 'BlogContent')
+            LEFT OUTER JOIN community__videos v ON v.content_id = c2.id
+        ";
+        $criteria->addSearchCondition('c1.title', $query);
+        $criteria->addSearchCondition('p.text', $query, true, 'OR');
+        $criteria->addSearchCondition('c2.title', $query, true, 'OR');
+        $criteria->addSearchCondition('v.text', $query, true, 'OR');
         return $criteria;
     }
 }

@@ -15,12 +15,14 @@ Yii::app()->clientScript
                 <span class="menu-list_tx">Все</span>
                 <span class="menu-list_count" data-bind="text: totalCount"></span>
             </a>
-            <!-- ko foreach: menu -->
-            <a href="javascript:void(0)" class="menu-list_i" data-bind="css: { active : $root.activeMenuRow() === entity }, css2: cssClass, click: select">
-                <span class="menu-list_ico"></span>
-                <span class="menu-list_tx" data-bind="text: title"></span>
-                <span class="menu-list_count" data-bind="text: count"></span>
-            </a>
+            <!-- ko if: isMenuVisible -->
+                <!-- ko foreach: menu -->
+                <a href="javascript:void(0)" class="menu-list_i" data-bind="css: { active : $root.activeMenuRow() === entity }, css2: cssClass, click: select, visible: count() > 0">
+                    <span class="menu-list_ico"></span>
+                    <span class="menu-list_tx" data-bind="text: title"></span>
+                    <span class="menu-list_count" data-bind="text: count"></span>
+                </a>
+                <!-- /ko -->
             <!-- /ko -->
         </div>
         <div class="margin-15">

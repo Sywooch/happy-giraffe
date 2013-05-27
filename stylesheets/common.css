@@ -458,8 +458,7 @@ hr,
   border: 0;
   background: url(/images/hr-notches.gif) repeat-x;
 }
-.fly-element {
-  position: fixed;
+.flydiv {
   z-index: 9999;
 }
 .file-fake {

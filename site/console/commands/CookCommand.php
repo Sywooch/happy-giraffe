@@ -93,4 +93,9 @@ class CookCommand extends CConsoleCommand
         $path = Yii::getPathOfAlias('site.common.data') . DIRECTORY_SEPARATOR . 'recipeFeed.xml';
         file_put_contents($path, $xml->asXML());
     }
+
+    public function importCookBook()
+    {
+
+    }
 }

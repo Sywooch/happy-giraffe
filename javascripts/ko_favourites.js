@@ -121,7 +121,38 @@ function FavouritesViewModel(data) {
 function Favourite(data, parent) {
     var self = this;
 
+    self.id = data.id;
+    self.modelName = data.modelName;
+    self.modelId = data.modelId;
     self.html = data.html;
+    self.note = ko.observable(data.note);
+    self.tags = ko.observable(data.tags);
+    self.editing = ko.observable(null);
+
+    self.showEditForm = function() {
+        $.get('/favourites/default/getEntityData/', { modelName : self.modelName, modelId : self.modelId}, function(response) {
+            self.editing(new Entity(response, self));
+        }, 'json');
+    }
+
+    self.cancel = function() {
+        self.editing(null);
+    }
+
+    self.edit = function() {
+        var data = {
+            favouriteId : self.id,
+            'Favourite[note]' : self.editing().note(),
+            'Favourite[tagsNames]' : self.editing().tags()
+        }
+        $.post('/favourites/favourites/update/', data, function(response) {
+            if (response.success) {
+                self.note(self.editing().note());
+                self.tags(self.editing().tags());
+                self.editing(null);
+            }
+        }, 'json');
+    }
 }
 
 function MenuRow(data, parent) {

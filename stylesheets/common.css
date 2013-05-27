@@ -11971,7 +11971,7 @@ body.gallery {
   width: 150px;
 }
 #photo-window .top-line .photo-info {
-  margin: 0 180px;
+  margin: 0 190px;
   text-align: center;
   color: #9f9e9e;
   font-size: 11px;
@@ -11992,6 +11992,9 @@ body.gallery {
   vertical-align: middle;
   background: #fff;
   margin-left: -6px;
+}
+#photo-window .top-line .photo-info .favorites-control {
+  margin-right: -35px;
 }
 #photo-window #photo {
   position: relative;
@@ -15346,15 +15349,15 @@ body.gallery {
 }
 .favorites-control {
   float: right;
-  margin: 0 10px 0 5px;
+  margin: 0;
   position: relative;
 }
 .favorites-control_a {
   display: block;
-  margin: 5px auto;
-  padding: 40px 0 0;
+  margin: 0 auto;
+  padding: 35px 0 0;
   min-width: 33px;
-  background: url(/images/favorites-control_a.png) no-repeat 0 5px;
+  background: url(/images/favorites-control_a.png) no-repeat;
   font-size: 12px;
   color: #aeaeae;
   text-align: center;
@@ -15362,7 +15365,7 @@ body.gallery {
 }
 .favorites-control_a:hover,
 .favorites-control_a.active {
-  background-position: -100px 5px;
+  background-position: -100px 0;
 }
 .CheckBoxClass,
 .RadioClass {

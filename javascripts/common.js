@@ -36,6 +36,7 @@ function removeA(arr) {
 $(document).ready(function () {
 
     $(".favorites-control_a").click(function(){
+        $(this).toggleClass('active');
         $(this).flydiv({
             flyTo: '.icon-favorites',
             flyAddClass: 'flydiv active'
@@ -80,9 +81,10 @@ $(document).ready(function () {
     $('.js-tooltipsy').tooltipsy({offset:[0, 1]});
     $('.powertip').powerTip({
         placement: 'n',
-        smartPlacement: true,
+        /*smartPlacement: true,*/
         offset: 8
     });
+
     $('.js-powertip-white').powerTip({
         placement: 'n',
         smartPlacement: true,

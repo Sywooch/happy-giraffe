@@ -80,7 +80,12 @@
                 <a href="" class="username">Александр Богоявленский</a>
               </div>
             </div>
-            <a href="" class="remove"><span class="icon"></span></a>
+            
+		    <div class="favorites-control">
+				<a class="favorites-control_a powertip" href="" title="В избранное">
+					145
+				</a>
+			</div>
           </div>
           
           <img src="/images/example/ex5.jpg" itemprop="contentURL">

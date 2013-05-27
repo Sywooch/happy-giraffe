@@ -4861,6 +4861,7 @@ textarea.error,
   width: 240px;
   padding-right: 20px;
   float: left;
+  position: relative;
 }
 .content-cols .col-1_t {
   margin: 25px 10px 20px;
@@ -4908,6 +4909,7 @@ textarea.error,
 .content-cols .col-23 {
   width: 700px;
   float: left;
+  position: relative;
 }
 .content-cols .col-23-big {
   width: 740px;

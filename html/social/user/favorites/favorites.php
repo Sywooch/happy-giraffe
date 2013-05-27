@@ -433,7 +433,6 @@
 						</div>
 							
 					</div>	
-								
 					<div class="pagination pagination-center clearfix">
 						<div class="pager">
 							<ul>
@@ -449,6 +448,8 @@
 							</ul>
 						</div>
 					</div>
+					
+					<div id="infscr-loading"><img alt="Loading..." src="/images/ico/ajax-loader.gif"><div>Загрузка</div></div>	
 				</div>
 			</div>
 		</div>  	

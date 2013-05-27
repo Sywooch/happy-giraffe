@@ -53,7 +53,7 @@
     padding: 4px 50px 4px 11px;
     font-size: 11px;
     &:hover {background: #f1f8fe;}
-    &:hover &_edit {display: block;}
+    &:hover &_edit-a {display: block;}
 
     &_row {
         padding: 0;
@@ -72,7 +72,6 @@
         color: #a9a8a8;
     }
     &_edit {
-        display: none;
         position: absolute;
         top: 50%;
         right: 10px;
@@ -83,7 +82,7 @@
         right: 30px;
     }
     &_edit-a {
-        display: block;
+        display: none;
         width: 20px;
         height: 20px;
         background: url(/images/entry-tags_edit.png) no-repeat 50% 50%;
@@ -4154,6 +4153,7 @@ ul.letters li a:hover {
     background: url(/images/services/cook/cook-book-info.png) no-repeat 0 0;
 }
 .recipe-article .cook-book-info .icon-add:hover{background-position: 0 -100px;}
+.recipe-article .cook-book-info .favorites-add-popup {top: 70px;right: 155px;}
 .recipe-article .recipe-user-adds {margin-bottom: 20px;}
 .recipe-article .recipe-user-adds > ul {list-style: none;}
 .recipe-article .recipe-user-adds li {float: left;margin: 0 5px 6px 0;}

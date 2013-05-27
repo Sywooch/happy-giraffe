@@ -112,7 +112,7 @@
 											145
 										</a>
 										
-										<div class="favorites-add-popup">
+										<div class="favorites-add-popup display-b">
 											<div class="favorites-add-popup_t">Добавить запись в избранное</div>
 											<div class="favorites-add-popup_i clearfix">
 												<img src="/images/example/w60-h40.jpg" alt="" class="favorites-add-popup_i-img">

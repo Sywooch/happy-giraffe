@@ -1117,13 +1117,14 @@
 .favorites-add-popup {
   display: none;
   position: absolute;
-  top: 0;
+  top: -10px;
   right: 45px;
   width: 270px;
   padding: 10px 15px;
   background: #fff;
   border: 1px solid #eaeaea;
   text-align: left;
+  font-size: 12px;
   z-index: 200;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
@@ -1602,7 +1603,7 @@
 .entry-tags:hover {
   background: #f1f8fe;
 }
-.entry-tags:hover .entry-tags_edit {
+.entry-tags:hover .entry-tags_edit-a {
   display: block;
 }
 .entry-tags_row {
@@ -1624,7 +1625,6 @@
   color: #a9a8a8;
 }
 .entry-tags_edit {
-  display: none;
   position: absolute;
   top: 50%;
   right: 10px;
@@ -1635,7 +1635,7 @@
   right: 30px;
 }
 .entry-tags_edit-a {
-  display: block;
+  display: none;
   width: 20px;
   height: 20px;
   background: url(/images/entry-tags_edit.png) no-repeat 50% 50%;
@@ -8786,6 +8786,10 @@ ul.letters li a:hover {
 }
 .recipe-article .cook-book-info .icon-add:hover {
   background-position: 0 -100px;
+}
+.recipe-article .cook-book-info .favorites-add-popup {
+  top: 70px;
+  right: 155px;
 }
 .recipe-article .recipe-user-adds {
   margin-bottom: 20px;

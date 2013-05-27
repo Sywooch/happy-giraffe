@@ -17,7 +17,7 @@ class DefaultController extends HController
             );
         }, $this->module->entities, array_keys($this->module->entities));
 
-        $data = compact('menu', 'totalCount');
+        $data = compact('menu', 'totalCount', 'entity', 'tagId');
         $this->render('index', compact('data'));
     }
 
@@ -28,7 +28,7 @@ class DefaultController extends HController
                 'html' => Yii::app()->controller->renderPartial('//community/_post', array(
                     'full' => false,
                     'data' => $favourite->relatedModel,
-                ), true, true),
+                ), true),
             );
         }, FavouritesManager::getByUserId(Yii::app()->user->id, $entity, $tagId, $query, $offset));
         $last = FavouritesManager::getCount(Yii::app()->user->id, $entity, $tagId, $query) <= ($offset + FavouritesManager::FAVOURITES_PER_PAGE);

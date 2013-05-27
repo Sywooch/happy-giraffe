@@ -8,14 +8,24 @@ function FavouritesViewModel(data) {
     self.menu = ko.observableArray(ko.utils.arrayMap(data.menu, function(menuRow) {
         return new MenuRow(menuRow, self);
     }));
-    self.activeMenuRow = ko.observable(null);
-    self.tagId = ko.observable(null);
+    self.activeMenuRow = ko.observable(data.entity);
+    self.tagId = ko.observable(data.tagId);
     self.keyword = ko.observable(null);
     self.query = ko.observable('');
     self.activeTag = ko.observable(null);
     self.filter = ko.observable(null);
     self.loading = ko.observable(false);
     self.lastPage = ko.observable(false);
+
+    self.isMenuVisible = ko.computed(function() {
+        var rowsCount = 0;
+        ko.utils.arrayForEach(self.menu(), function(menuRow) {
+            if (menuRow.count() > 0)
+                rowsCount += 1;
+        });
+
+        return rowsCount > 1;
+    });
 
     self.query.subscribe(function(val) {
         if (val != '')

@@ -33,6 +33,18 @@ class WordstatSeason extends HMongoModel
         return self::$_instance;
     }
 
+    /**
+     * @return MongoCollection
+     */
+    protected function getCollection()
+    {
+        if (empty($this->_collection)) {
+            $mongo = Yii::app()->mongodb_parsing->getConnection();
+            $this->_collection = $mongo->selectCollection('parsing', $this->_collection_name);
+        }
+        return $this->_collection;
+    }
+
     private function __construct()
     {
     }

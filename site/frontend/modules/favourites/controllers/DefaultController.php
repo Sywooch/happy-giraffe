@@ -40,7 +40,11 @@ class DefaultController extends HController
                     break;
             }
             return array(
+                'modelName' => $favourite->model_name,
+                'modelId' => $favourite->model_id,
                 'html' => $html,
+                'note' => $favourite->note,
+                'tags' => $favourite->tagsNames,
             );
         }, FavouritesManager::getByUserId(Yii::app()->user->id, $entity, $tagId, $query, $offset));
         $last = FavouritesManager::getCountByUserId(Yii::app()->user->id, $entity, $tagId, $query) <= ($offset + FavouritesManager::FAVOURITES_PER_PAGE);

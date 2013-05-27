@@ -149,11 +149,9 @@ class Favourite extends CActiveRecord
 
     public function getTagsNames()
     {
-        $tagsNamesArray = array_map(function($tag) {
+        return array_map(function($tag) {
             return $tag->name;
         }, $this->tags);
-
-        return implode(',', $tagsNamesArray);
     }
 
     protected function beforeSave()

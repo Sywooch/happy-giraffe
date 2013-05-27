@@ -52,6 +52,8 @@ class WordstatSeason extends HMongoModel
 
     public function add($keyword_id, $year, $month, $value)
     {
+        $value = trim($value);
+
         $this->ensureIndexes();
         $this->getCollection()->insert(array(
             'keyword_id' => (int)$keyword_id,

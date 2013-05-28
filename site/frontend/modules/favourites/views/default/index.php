@@ -26,7 +26,7 @@ Yii::app()->clientScript
             <!-- /ko -->
         </div>
         <div class="margin-15">
-            <a href="<?=$this->createUrl('tags/index')?>" class="font-middle ">
+            <a href="<?=$this->createUrl('tags/index', array('type' => TagsController::TYPE_POPULAR))?>" class="font-middle ">
                 <span class="ico-tags margin-r15"></span>Все теги
             </a>
         </div>

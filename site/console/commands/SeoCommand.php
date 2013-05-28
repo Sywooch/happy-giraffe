@@ -222,5 +222,9 @@ class SeoCommand extends CConsoleCommand
             echo (microtime(true) - $t) . "\n";
         }
     }
+
+    public function actionTest2(){
+        echo GApi::model()->uniquePageViews('/test/pregnancy/', '2012-11-01', '2012-12-01')."\n";
+    }
 }
 

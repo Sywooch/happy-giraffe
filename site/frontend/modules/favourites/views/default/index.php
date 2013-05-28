@@ -61,7 +61,7 @@ Yii::app()->clientScript
                     <div class="entry-tags_row" data-bind="visible: tags().length > 0">
                         <span class="entry-tags_t">Теги:</span>
                         <!-- ko foreach: tags -->
-                        <a class="entry-tags_tag" data-bind="text: $data, attr: { href : '/favourites/default/index/?query=' + $data }"></a>
+                        <a class="entry-tags_tag" data-bind="text: $data, attr: { href : '/favourites/?query=' + $data }"></a>
                         <!-- /ko -->
                     </div>
                     <div class="entry-tags_row">

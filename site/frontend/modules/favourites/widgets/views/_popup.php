@@ -9,7 +9,7 @@
         <label for="" class="favorites-add-popup_label">Теги:
             <!-- ko foreach: tags -->
                 <span class="favorites-add-popup_tag">
-                    <a class="favorites-add-popup_tag-a" data-bind="text: $data, attr: { href : '/favourites/default/index/?query=' + $data }"></a>
+                    <a class="favorites-add-popup_tag-a" data-bind="text: $data, attr: { href : '/favourites/?query=' + $data }"></a>
                     <a href="javascript:void(0)" class="ico-close" data-bind="click: $parent.removeTag"></a>
                 </span>
             <!-- /ko -->

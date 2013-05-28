@@ -43,8 +43,7 @@ Yii::app()->clientScript
         </div>
 
         <div class="share_button">
-            <a class="odkl-klass-oc" href="<?=$url?>"
-               onclick="Social.updateLikesCount('ok'); ODKL.Share(this);return false;"><span>0</span></a>
+            <a class="odkl-klass-oc odkl-klass-stat" href="<?=$url?>" onclick="ODKL.Share(this);return false;"><span>0</span></a>
         </div>
 
         <div class="share_button">

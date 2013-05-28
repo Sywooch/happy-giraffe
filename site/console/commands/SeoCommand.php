@@ -224,9 +224,7 @@ class SeoCommand extends CConsoleCommand
     }
 
     public function actionTest2(){
-        echo GApi::model()->organicSearches('http://www.happy-giraffe.ru/test/pregnancy/', '2013-05-27', '2013-05-27')."\n";
-        echo GApi::model()->organicSearches('http://www.happy-giraffe.ru/test/pregnancy/', '2013-04-27', '2013-05-27')."\n";
-        echo GApi::model()->pageViews('http://www.happy-giraffe.ru/test/pregnancy/', '2012-01-27', '2013-05-28')."\n";
+        echo GApi::model()->uniquePageViews('/test/pregnancy/', '2012-11-01', '2012-12-01')."\n";
     }
 }
 

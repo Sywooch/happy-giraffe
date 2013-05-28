@@ -222,5 +222,11 @@ class SeoCommand extends CConsoleCommand
             echo (microtime(true) - $t) . "\n";
         }
     }
+
+    public function actionTest2(){
+        echo GApi::model()->organicSearches('http://www.happy-giraffe.ru/test/pregnancy/', '2013-05-27', '2013-05-27')."\n";
+        echo GApi::model()->organicSearches('http://www.happy-giraffe.ru/test/pregnancy/', '2013-04-27', '2013-05-27')."\n";
+        echo GApi::model()->pageViews('http://www.happy-giraffe.ru/test/pregnancy/', '2012-01-27', '2013-05-28')."\n";
+    }
 }
 

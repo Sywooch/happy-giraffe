@@ -68,7 +68,7 @@ function FavouritesViewModel(data) {
     }
 
     self.clearQuery = function() {
-        self.query('');
+        self.instantaneousQuery('');
     }
 
     self.load = function(callback, offset) {

@@ -753,8 +753,6 @@ function openPopup(el) {
 }
 
 function FriendButtonViewModel(data) {
-    console.log(data);
-
     var self = this;
 
     self.id = data.id;

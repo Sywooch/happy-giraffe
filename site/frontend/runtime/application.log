@@ -6050,3 +6050,11 @@ Stack trace:
 REQUEST_URI=/favourites/default/getEntityData/
 HTTP_REFERER=http://www.virtual-giraffe.ru/favourites/
 ---
+2013/05/28 14:47:33 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "favicon.ico".' in Z:\home\yii\framework\web\CUrlManager.php:371
+Stack trace:
+#0 Z:\home\yii\framework\web\CWebApplication.php(140): CUrlManager->parseUrl(Object(CHttpRequest))
+#1 Z:\home\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 Z:\happy-giraffe\site\frontend\www-submodule\index.php(29): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico/
+---

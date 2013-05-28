@@ -92,7 +92,9 @@
 
                 <?php if ($user->id != Yii::app()->user->id):?>
                     <div class="user-fast-buttons">
-                        <?php $this->renderPartial('_friend_button_big', array('user' => $user)); ?>
+                        <?php $this->widget('application.widgets.friendButtonWidget.FriendButtonWidget', array(
+                            'user' => $user,
+                        )); ?>
 
                         <?php if (Yii::app()->user->isGuest): ?>
                         <?= CHtml::link('<i class="icon"></i>Написать<br>сообщение', '#login', array('class' => 'new-message fancy', 'data-theme'=>"white-square")); ?>

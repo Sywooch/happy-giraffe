@@ -110,6 +110,9 @@
                 <li class="i-broadcast new top-line-menu_nav_li js-tooltipsy" title="Что нового">
                     <a href="<?=$this->createUrl('/whatsNew/default/index')?>"><i class="icon-broadcast"></i></a>
                 </li>
+                <li class="i-favorites top-line-menu_nav_li js-tooltipsy" title="Избранное">
+                    <a href="<?=$this->createUrl('/favourites/default/index')?>" ><i class="icon-favorites"></i></a>
+                </li>
                 <?php if (false): ?>
                 <li class="i-dialogs top-line-menu_nav_li js-tooltipsy<?php if ($imCount > 0): ?> new<?php endif; ?>" title="Мои диалоги">
                     <a href="javascript:void(0)" onclick="Messages.toggle()">

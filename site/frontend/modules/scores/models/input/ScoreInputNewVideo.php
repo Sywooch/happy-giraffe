@@ -25,15 +25,4 @@ class ScoreInputNewVideo extends ScoreInputEntity
 
         return self::$_instance;
     }
-
-    /**
-     * Добавление баллов за видео
-     *
-     * @param $user_id int id пользователя
-     * @param $entity CActiveRecord модель
-     */
-    public function add($user_id, $entity)
-    {
-        parent::add($user_id, $entity);
-    }
 }

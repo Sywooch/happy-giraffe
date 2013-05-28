@@ -20,7 +20,21 @@ class ScoreInputEntity extends ScoreInput
     public function add($user_id, $entity)
     {
         $this->user_id = $user_id;
-        $this->insert(array(
+        parent::insert(array(
+            'entity' => get_class($entity),
+            'entity_id' => $entity->id,
+        ));
+    }
+
+    /**
+     * Вычитание баллов
+     *
+     * @param $user_id int id пользователя
+     * @param $entity CActiveRecord модель
+     */
+    public function remove($user_id, $entity){
+        $this->user_id = $user_id;
+        parent::remove(array(
             'entity' => get_class($entity),
             'entity_id' => $entity->id,
         ));

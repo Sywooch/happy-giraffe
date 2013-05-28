@@ -6,9 +6,10 @@
  *
  * @author Alex Kireev <alexk984@gmail.com>
  */
-class ScoreInputContestParticipation extends ScoreInputEntity
+class ScoreInputContestParticipation extends ScoreInput
 {
     public $type = self::TYPE_CONTEST_PARTICIPATION;
+    public $contest_id;
 
     /**
      * @var ScoreInputContestParticipation
@@ -34,6 +35,7 @@ class ScoreInputContestParticipation extends ScoreInputEntity
      */
     public function add($user_id, $contest_id)
     {
-
+        $this->user_id = $user_id;
+        $this->insert(array('contest_id' => $contest_id));
     }
 }

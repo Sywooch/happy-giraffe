@@ -3,16 +3,14 @@
  * Author: alexk984
  * Date: 13.03.12
  */
-class UserScoresCommand extends CConsoleCommand
+class ScoresCommand extends CConsoleCommand
 {
 
     public function beforeAction()
     {
         Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
         Yii::import('site.frontend.modules.scores.models.*');
-        Yii::import('site.common.models.mongo.*');
-        Yii::import('site.frontend.extensions.*');
-        Yii::import('site.frontend.components.*');
+        Yii::import('site.frontend.modules.scores.components.*');
 
         return true;
     }

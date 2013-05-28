@@ -94,6 +94,7 @@ function FavouritesViewModel(data) {
     }
 
     self.init = function() {
+        self.favourites([]);
         self.load(function(response) {
             self.favourites(ko.utils.arrayMap(response.favourites, function(favourite) {
                 return new Favourite(favourite, self);

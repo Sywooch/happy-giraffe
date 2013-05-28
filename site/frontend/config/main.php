@@ -64,6 +64,7 @@ return array(
         'application.modules.notifications.components.*',
         'application.modules.favourites.models.*',
         'application.modules.favourites.widgets.*',
+        'application.modules.favourites.components.*',
     ),
 
 	'sourceLanguage' => 'en',

@@ -112,6 +112,8 @@ Yii::app()->clientScript
                 </div>
             </div>
         <!-- /ko -->
+
+        <div id="infscr-loading" data-bind="visible: loading"><img alt="Loading..." src="/images/ico/ajax-loader.gif"><div>Загрузка</div></div>
     </div>
 </div>
 

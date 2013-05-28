@@ -106,14 +106,32 @@ class DefaultController extends HController
 
     public function actionGetEntityData($modelName, $modelId)
     {
-        $model = CActiveRecord::model($modelName)->full()->findByPk($modelId);
-        if ($model === null)
-            throw new CHttpException(400);
+        $entity = Favourite::model()->getEntityByModel($modelName, $modelId);
 
-        $image = $model->getContentImage(60);
-        $title = $model->title;
-        $tags = array('хуй', 'пизда', 'джигурда');
-        $note = '';
+        switch ($entity) {
+            case 'post':
+            case 'video':
+                $model = CActiveRecord::model($modelName)->full()->findByPk($modelId);
+                if ($model === null)
+                    throw new CHttpException(400);
+
+                $image = $model->getContentImage(60);
+                $title = $model->title;
+                $tags = array();
+                $note = '';
+                break;
+            case 'cook':
+                $model = CActiveRecord::model($modelName)->findByPk($modelId);
+                if ($model === null)
+                    throw new CHttpException(400);
+
+                $image = $model->mainPhoto->getPreviewUrl(60, null, Image::WIDTH);
+                $title = $model->title;
+                $tags = array();
+                $note = '';
+                break;
+        }
+
         $response = compact('image', 'title', 'tags', 'note');
 
         $userFavourite = Favourite::model()->findByAttributes(array(

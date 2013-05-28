@@ -160,7 +160,7 @@ class Favourite extends CActiveRecord
             Yii::app()->db->createCommand()->delete('favourites__tags_favourites', 'favourite_id = :favourite_id', array(':favourite_id' => $this->id));
 
         if ($this->isNewRecord)
-            $this->entity = $this->getEntityName();
+            $this->entity = $this->getEntityByModel($this->model_name, $this->model_id);
 
         return parent::beforeSave();
     }
@@ -190,16 +190,18 @@ class Favourite extends CActiveRecord
         return $this->exists('model_name = :model_name AND model_id = :model_id AND user_id = :user_id', array(':model_name' => get_class($model), ':model_id' => $model->id, ':user_id' => $userId));
     }
 
-    protected function getEntityName()
+    public function getEntityByModel($modelName, $modelId)
     {
-        switch ($this->model_name) {
+        switch ($modelName) {
             case 'CookRecipe':
+            case 'SimpleRecipe':
+            case 'MultivarkaRecipe':
                 return 'cook';
             case 'AlbumPhoto':
                 return 'photo';
             case 'CommunityContent':
             case 'BlogContent':
-                $model = CActiveRecord::model($this->model_name)->findByPk($this->model_id);
+                $model = CActiveRecord::model($modelName)->findByPk($modelId);
                 return $model->type_id == 1 ? 'post' : 'video';
         }
     }

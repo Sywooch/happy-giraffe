@@ -132,7 +132,30 @@ class ScoreInput extends HMongoModel
             ), $specific_fields)
         );
 
-        $this->sendSignal($this->scores);
+        $this->addScores();
+    }
+
+    /**
+     * Удаление уведомления о получении баллов, происходит если он удалил то, за что получил баллы
+     * Удаляет только одно уведомление
+     *
+     * @param array $specific_fields массив специфических полей уведомления
+     */
+    protected function remove($specific_fields = array())
+    {
+        //ищем соответствующую запись, чтобы проверить нужно ли вычитать баллы
+        $model = $this->getCollection()->findOne(
+            array_merge(array(
+                'type' => (int)$this->type,
+                'user_id' => (int)$this->user_id,
+            ), $specific_fields)
+        );
+
+        //если нашли - удаляем и вычитаем баллы
+        if ($model !== null) {
+            $this->getCollection()->remove(array('_id' => $model['_id']));
+            $this->removeScores();
+        }
     }
 
     /**
@@ -143,5 +166,27 @@ class ScoreInput extends HMongoModel
     protected function getScores()
     {
         return ScoreAction::getActionScores($this->type);
+    }
+
+    /**
+     * Добавление баллов пользователю
+     */
+    protected function addScores()
+    {
+        Yii::app()->db->createCommand()->update(UserScores::model()->tableName(),
+            array('scores' => new CDbExpression('scores+ :scores', array(':scores' => $this->getScores()))),
+            'user_id=:user_id', array(':user_id' => $this->user_id)
+        );
+    }
+
+    /**
+     * Вычитание баллов у пользователя
+     */
+    protected function removeScores()
+    {
+        Yii::app()->db->createCommand()->update(UserScores::model()->tableName(),
+            array('scores' => new CDbExpression('scores- :scores', array(':scores' => $this->getScores()))),
+            'user_id=:user_id', array(':user_id' => $this->user_id)
+        );
     }
 }

@@ -17,10 +17,13 @@ class Scoring
         //проверяем на выполнение условий достижения
         ScoreAchievement::model()->checkAchieve($content->author_id, ScoreAchievement::TYPE_DAY_POSTS);
 
-        if ($content->isFromBlog && count($content->contentAuthor->contentBlogPosts) == 1)
-            ScoreInputFirstBlogRecord::getInstance()->add($content->author_id, $content);
+        if ($content->getIsFromBlog() && count($content->contentAuthor->contentBlogPosts) == 1)
+            ScoreInputFirstBlogRecord::getInstance()->add($content->author_id);
         else {
-            ScoreInput::model()->add($content->author_id, ScoreInput::TYPE_POST_ADDED, array('model' => $content));
+            if ($content->type_id == CommunityContent::TYPE_POST)
+                ScoreInputNewPost::getInstance()->add($content->author_id, $content);
+            elseif ($content->type_id == CommunityContent::TYPE_VIDEO)
+                ScoreInputNewVideo::getInstance()->add($content->author_id, $content);
         }
     }
 
@@ -31,7 +34,14 @@ class Scoring
      */
     public static function contentRemoved($content)
     {
-
+        if ($content->getIsFromBlog() && count($content->contentAuthor->contentBlogPosts) == 0)
+            ScoreInputFirstBlogRecord::getInstance()->remove($content->author_id);
+        else {
+            if ($content->type_id == CommunityContent::TYPE_POST)
+                ScoreInputNewPost::getInstance()->add($content->author_id, $content);
+            elseif ($content->type_id == CommunityContent::TYPE_VIDEO)
+                ScoreInputNewVideo::getInstance()->add($content->author_id, $content);
+        }
     }
 
     /**

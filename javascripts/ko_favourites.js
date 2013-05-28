@@ -114,7 +114,8 @@ function FavouritesViewModel(data) {
         }, self.favourites().length);
     }
 
-    self.instantaneousQuery(data.query);
+    if (data.query !== null)
+        self.instantaneousQuery(data.query);
 
     self.init();
 

@@ -6,7 +6,7 @@ class DefaultController extends HController
     const QUERY_RESPONSE_TYPE_TAG = 0;
     const QUERY_RESPONSE_TYPE_KEYWORD = 1;
 
-    public function actionIndex($entity = null, $tagId = null)
+    public function actionIndex($entity = null, $query = null)
     {
         $totalCount = FavouritesManager::getCountByUserId(Yii::app()->user->id);
         $menu = array_map(function($config, $entity) {
@@ -17,7 +17,7 @@ class DefaultController extends HController
             );
         }, $this->module->entities, array_keys($this->module->entities));
 
-        $data = compact('menu', 'totalCount', 'entity', 'tagId');
+        $data = compact('menu', 'totalCount', 'entity', 'query');
         $this->pageTitle = 'Избранное';
         $this->render('index', compact('data'));
     }
@@ -92,12 +92,12 @@ class DefaultController extends HController
     {
         $tags = array('диалоги о животных', 'говяжее говно', 'dota2', 'убить билла', 'путин краб', 'да винчи', 'морта килл любого', 'chairman', 'здоровье', 'брюссельская капуста');
 
-        //$photos = AlbumPhoto::model()->findAll(array('limit' => 10));
+        $photos = AlbumPhoto::model()->findAll(array('limit' => 10));
         $posts = CommunityContent::model()->findAll(array('limit' => 20, 'condition' => 'type_id = 1'));
         $videos = CommunityContent::model()->findAll(array('limit' => 20, 'condition' => 'type_id = 2'));
         $recipes = CookRecipe::model()->findAll(array('limit' => 20));
 
-        $all = array_merge($posts, $videos, $recipes);
+        $all = array_merge($posts, $videos, $recipes, $photos);
         foreach ($all as $entity) {
             $favourite = new Favourite();
             $favourite->model_name = get_class($entity);

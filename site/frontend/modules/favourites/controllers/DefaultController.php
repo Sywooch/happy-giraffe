@@ -34,9 +34,16 @@ class DefaultController extends HController
                     ), true);
                     break;
                 case 'CookRecipe':
+                case 'MultivarkaRecipe':
+                case 'SimpleRecipe':
                     $html = Yii::app()->controller->renderPartial('cook.views.recipe._recipe', array(
                         'full' => false,
                         'data' => $favourite->relatedModel,
+                    ), true);
+                    break;
+                case 'AlbumPhoto':
+                    $html = Yii::app()->controller->renderPartial('//albums/favourites', array(
+                        'model' => $favourite->relatedModel,
                     ), true);
                     break;
             }
@@ -126,6 +133,16 @@ class DefaultController extends HController
                     throw new CHttpException(400);
 
                 $image = $model->mainPhoto->getPreviewUrl(60, null, Image::WIDTH);
+                $title = $model->title;
+                $tags = array();
+                $note = '';
+                break;
+            case 'photo':
+                $model = CActiveRecord::model($modelName)->findByPk($modelId);
+                if ($model === null)
+                    throw new CHttpException(400);
+
+                $image = $model->getPreviewUrl(60, null, Image::WIDTH);
                 $title = $model->title;
                 $tags = array();
                 $note = '';

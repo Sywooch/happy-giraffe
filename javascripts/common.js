@@ -35,14 +35,14 @@ function removeA(arr) {
 
 $(document).ready(function () {
 
-    $(".favorites-control_a").click(function(){
-        $(this).toggleClass('active');
-        $(this).flydiv({
-            flyTo: '.icon-favorites',
-            flyAddClass: 'flydiv active'
-        });
-        return false; 
-    });
+//    $(".favorites-control_a").click(function(){
+//        $(this).toggleClass('active');
+//        $(this).flydiv({
+//            flyTo: '.icon-favorites',
+//            flyAddClass: 'flydiv active'
+//        });
+//        return false;
+//    });
 
     $(".wysiwyg-content").addtocopy({htmlcopytxt:'<br /><br />Подробнее: <a href="' + window.location.href + '">' + window.location.href + '</a>'});
 

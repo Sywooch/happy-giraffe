@@ -29,6 +29,8 @@ function FavouritesViewModel(data) {
     });
 
     self.throttledQuery.subscribe(function(val) {
+        console.log('123');
+
         if (val != '')
             $.get('/favourites/default/search/', { query : val }, function(response) {
                 if (response.filter.type == 0) {
@@ -111,6 +113,8 @@ function FavouritesViewModel(data) {
             self.favourites.push.apply(self.favourites, newItems);
         }, self.favourites().length);
     }
+
+    self.instantaneousQuery(data.query);
 
     self.init();
 

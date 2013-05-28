@@ -82,7 +82,7 @@ class TagsManager
         foreach ($tags as $tag) {
             $result[$tag['name']] = array(
                 'weight' => $tag['c'],
-                'url' => Yii::app()->createUrl('/favourites/default/index', array('tagId' => $tag['id'])),
+                'url' => Yii::app()->createUrl('/favourites/default/index', array('query' => $tag['name'])),
             );
         }
         return $result;

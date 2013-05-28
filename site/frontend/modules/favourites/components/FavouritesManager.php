@@ -82,6 +82,7 @@ class FavouritesManager
             LEFT OUTER JOIN community__contents c2 ON c2.id = t.model_id AND c2.type_id = 2 AND (t.model_name = 'CommunityContent' OR t.model_name = 'BlogContent')
             LEFT OUTER JOIN community__videos v ON v.content_id = c2.id
             LEFT OUTER JOIN cook__recipes r ON r.id = t.model_id AND t.model_name = 'CookRecipe'
+            LEFT OUTER JOIN album__photos ap ON ap.id = t.model_id AND t.model_name = 'AlbumPhoto'
         ";
         $criteria->addSearchCondition('c1.title', $query);
         $criteria->addSearchCondition('p.text', $query, true, 'OR');
@@ -89,6 +90,7 @@ class FavouritesManager
         $criteria->addSearchCondition('v.text', $query, true, 'OR');
         $criteria->addSearchCondition('r.title', $query, true, 'OR');
         $criteria->addSearchCondition('r.text', $query, true, 'OR');
+        $criteria->addSearchCondition('ap.title', $query, true, 'OR');
         return $criteria;
     }
 }

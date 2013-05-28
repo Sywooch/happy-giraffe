@@ -17,7 +17,5 @@
 </span>
 
 <script type="text/javascript">
-    $(function() {
-        ko.applyBindings(new FriendButtonViewModel(<?=CJSON::encode($data)?>, document.getElementById('<?=$id?>')));
-    });
+    ko.applyBindings(new FriendButtonViewModel(<?=CJSON::encode($data)?>)), document.getElementById('<?=$id?>');
 </script>

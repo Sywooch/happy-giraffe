@@ -751,3 +751,26 @@ function openPopup(el) {
     window.open($(el).attr('href'), '', 'toolbar=0,status=0,width=626,height=436');
     return false;
 }
+
+function FriendButtonViewModel(data) {
+    console.log(data);
+
+    var self = this;
+
+    self.id = data.id;
+    self.status = ko.observable(data.status);
+
+    self.invite = function() {
+        $.post('/friendRequests/send/', { to_id : self.id }, function(response) {
+            if (response.status)
+                self.status(3);
+        }, 'json');
+    }
+
+    self.accept = function() {
+        $.post('/friends/requests/accept/', { fromId : self.id }, function(response) {
+            if (response.success)
+                self.status(1);
+        }, 'json');
+    }
+}

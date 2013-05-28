@@ -90,7 +90,9 @@ class DefaultController extends HController
 
     public function actionTest()
     {
-        $tags = array('диалоги о животных', 'говяжее говно', 'dota2', 'убить билла', 'путин краб', 'да винчи', 'морта килл любого', 'chairman', 'здоровье', 'брюссельская капуста');
+        $tags = array();
+        for ($i = 0; $i < 10; $i++)
+            $tags[] = 'тег' . $i;
 
         $photos = AlbumPhoto::model()->findAll(array('limit' => 10));
         $posts = CommunityContent::model()->findAll(array('limit' => 20, 'condition' => 'type_id = 1'));

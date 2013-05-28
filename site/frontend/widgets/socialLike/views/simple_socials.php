@@ -11,8 +11,8 @@ $js = "
 
 Yii::app()->clientScript
     ->registerScriptFile('http://vk.com/js/api/share.js?11')
-    ->registerCssFile('http://stg.odnoklassniki.ru/share/odkl_share.css')
-    ->registerScriptFile('http://stg.odnoklassniki.ru/share/odkl_share.js')
+//    ->registerCssFile('http://stg.odnoklassniki.ru/share/odkl_share.css')
+//    ->registerScriptFile('http://stg.odnoklassniki.ru/share/odkl_share.js')
     ->registerMetaTag($this->options['title'], null, null, array('property' => 'og:title'))
     ->registerMetaTag($this->options['image'], null, null, array('property' => 'og:image'))
     ->registerMetaTag($this->options['description'], null, null, array('property' => 'og:description'))
@@ -43,8 +43,23 @@ Yii::app()->clientScript
         </div>
 
         <div class="share_button">
-            <a class="odkl-klass-oc" href="<?=$url?>"
-               onclick="Social.updateLikesCount('ok'); ODKL.Share(this);return false;"><span>0</span></a>
+            <div id="ok_shareWidget"></div>
+            <script>
+                !function (d, id, did, st) {
+                    var js = d.createElement("script");
+                    js.src = "http://connect.ok.ru/connect.js";
+                    js.onload = js.onreadystatechange = function () {
+                        if (!this.readyState || this.readyState == "loaded" || this.readyState == "complete") {
+                            if (!this.executed) {
+                                this.executed = true;
+                                setTimeout(function () {
+                                    OK.CONNECT.insertShareWidget(id,did,st);
+                                }, 0);
+                            }
+                        }};
+                    d.documentElement.appendChild(js);
+                }(document,"ok_shareWidget","<?=$url ?>","{width:145,height:35,st:'straight',sz:20,ck:1}");
+            </script>
         </div>
 
         <div class="share_button">

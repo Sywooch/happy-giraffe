@@ -94,6 +94,7 @@
                     <div class="user-fast-buttons">
                         <?php $this->widget('application.widgets.friendButtonWidget.FriendButtonWidget', array(
                             'user' => $user,
+                            'size' => 'big',
                         )); ?>
 
                         <?php if (Yii::app()->user->isGuest): ?>

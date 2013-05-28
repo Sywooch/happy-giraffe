@@ -32,7 +32,7 @@ function FavouriteWidget(data) {
         }
     }
 
-    self.add = function() {
+    self.add = function(data, event) {
         var data = {
             'Favourite[model_name]' : self.modelName,
             'Favourite[model_id]' : self.modelId,
@@ -43,6 +43,10 @@ function FavouriteWidget(data) {
             if (response.success) {
                 self.adding(null);
                 self.active(true);
+//                $(event.target).parents('.favorites-control').find('.favorites-control_a').flydiv({
+//                    flyTo: '.icon-favorites',
+//                    flyAddClass: 'flydiv active'
+//                });
             }
         }, 'json');
     }

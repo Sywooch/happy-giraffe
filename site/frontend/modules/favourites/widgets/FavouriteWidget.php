@@ -25,7 +25,7 @@ class FavouriteWidget extends CWidget
         $modelId = $this->model->id;
         $data = compact('count', 'active', 'modelName', 'modelId');
 
-        $this->render('index', compact('id', 'data'));
+        $this->render($this->getViewByEntity(Favourite::model()->getEntityByModel($modelName, $modelId)), compact('id', 'data'));
     }
 
     public function registerScripts()
@@ -36,5 +36,9 @@ class FavouriteWidget extends CWidget
             ->registerScriptFile('/javascripts/knockout-2.2.1.js')
             ->registerScriptFile($baseUrl . '/FavouriteWidget.js')
         ;
+    }
+
+    protected function getViewByEntity($entity) {
+        return ($entity == 'cook') ? 'cook' : 'index';
     }
 }

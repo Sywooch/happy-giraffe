@@ -45,6 +45,7 @@
         ->registerScriptFile('/javascripts/jquery.tmpl.min.js')
         ->registerScriptFile('/javascripts/jquery.lazyload.min.js')
         ->registerScriptFile('/javascripts/jquery.powertip.js')
+        ->registerScriptFile('/javascripts/jquery.flydiv.js')
         ->registerScriptFile('/javascripts/addtocopy.js')
         ->registerScriptFile('/javascripts/tooltipsy.min.js')
         //->registerScriptFile('http://vk.com/js/api/share.js?11')

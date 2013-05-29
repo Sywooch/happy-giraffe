@@ -143,4 +143,17 @@ class RatingYohoho extends HMongoModel
 
         return $list;
     }
+
+    /**
+     * Возвращает количество лайков, которые поставил пользователь
+     *
+     * @param int $user_id
+     * @return int
+     */
+    public function countByUser($user_id)
+    {
+        return $this->getCollection()->count(array(
+            'user_id' => (int)$user_id,
+        ));
+    }
 }

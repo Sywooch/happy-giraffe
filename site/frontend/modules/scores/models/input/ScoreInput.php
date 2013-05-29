@@ -165,7 +165,9 @@ class ScoreInput extends HMongoModel
      */
     protected function getScores()
     {
-        return (int)ScoreAction::getActionScores($this->type);
+        if (empty($this->scores))
+            return (int)ScoreAction::getActionScores($this->type);
+        return $this->scores;
     }
 
     /**

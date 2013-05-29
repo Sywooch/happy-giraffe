@@ -6,9 +6,10 @@
  *
  * @author Alex Kireev <alexk984@gmail.com>
  */
-class ScoreInputAchievement extends ScoreInputEntity
+class ScoreInputAchievement extends ScoreInput
 {
-    public $type = self::TYPE_VIDEO;
+    public $type = self::TYPE_ACHIEVEMENT;
+    public $achievement_id;
 
     /**
      * @var ScoreInputAchievement
@@ -26,14 +27,20 @@ class ScoreInputAchievement extends ScoreInputEntity
         return self::$_instance;
     }
 
+    public function __construct()
+    {
+    }
+
     /**
      * Добавление баллов
      *
      * @param $user_id int id пользователя
-     * @param $entity CActiveRecord модель
+     * @param $achievement ScoreAchievement достижение
      */
-    public function add($user_id, $entity)
+    public function add($user_id, $achievement)
     {
-        parent::add($user_id, $entity);
+        $this->user_id = $user_id;
+        $this->scores = $achievement->scores;
+        parent::insert(array('achievement_id' => $achievement->id));
     }
 }

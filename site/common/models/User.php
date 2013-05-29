@@ -57,6 +57,10 @@
  * @property UserStatus status
  * @property UserMailSub $mail_subs
  * @property address $address
+ * @property int $activeCommentsCount
+ * @property int $blogPostsCount
+ * @property int $communityPostsCount
+ * @property int $albumsCount
  *
  * @method User active()
  */
@@ -295,6 +299,7 @@ class User extends HActiveRecord
             'userSocialServices' => array(self::HAS_MANY, 'UserSocialService', 'user_id'),
 
             'commentsCount' => array(self::STAT, 'Comment', 'author_id'),
+            'activeCommentsCount' => array(self::STAT, 'Comment', 'author_id', 'condition' => 'removed = 0'),
 
             'status' => array(self::HAS_ONE, 'UserStatus', 'user_id', 'order' => 'status.created DESC'),
             'purpose' => array(self::HAS_ONE, 'UserPurpose', 'user_id', 'order' => 'purpose.created DESC'),
@@ -327,7 +332,8 @@ class User extends HActiveRecord
             'mail_subs' => array(self::HAS_ONE, 'UserMailSub', 'user_id'),
 
             'score' => array(self::HAS_ONE, 'UserScores', 'user_id'),
-            'achievements' => array(self::HAS_MANY, 'ScoreAchievement', 'score__user_achievements(user_id, achievement_id)'),
+            'awards' => array(self::HAS_MANY, 'ScoreUserAward', 'user_id'),
+            'achievements' => array(self::MANY_MANY, 'ScoreAchievement', 'score__user_achievements(achievement_id, user_id)'),
 
             'friendLists' => array(self::HAS_MANY, 'FriendList', 'list_id'),
         );

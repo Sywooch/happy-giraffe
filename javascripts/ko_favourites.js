@@ -29,9 +29,7 @@ function FavouritesViewModel(data) {
     });
 
     self.throttledQuery.subscribe(function(val) {
-        console.log('123');
-
-        if (val != '')
+        if (val != '') {
             $.get('/favourites/default/search/', { query : val }, function(response) {
                 if (response.filter.type == 0) {
                     self.tagId(response.tagId);
@@ -42,6 +40,7 @@ function FavouritesViewModel(data) {
                     self.filter(new Filter(response.filter));
                 }
             }, 'json');
+        }
     });
 
     self.activeMenuRow.subscribe(function(val) {

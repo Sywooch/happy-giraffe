@@ -44,7 +44,7 @@ AjaxHistory.prototype.changeBrowserUrl = function (url) {
         document.location.href = path;
     }
     _gaq.push(['_trackPageview', path]);
-    yaCounter11221648.hit(path);
+    //yaCounter11221648.hit(path);
 };
 
 // функция-аналог http_build_query в PHP

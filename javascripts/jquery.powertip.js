@@ -440,7 +440,6 @@
 			case 'n':
 				coords.set('left', position.left - (tipWidth / 2));
 				coords.set('bottom', session.windowHeight - position.top + offset);
-				console.log(position.top);
 				break;
 			case 'e':
 				coords.set('left', position.left + offset);
@@ -511,7 +510,6 @@
 			case 'n':
 				left = objectOffset.left + objectWidth / 2;
 				top = objectOffset.top;
-				console.log(top)
 				break;
 			case 'e':
 				left = objectOffset.left + objectWidth;

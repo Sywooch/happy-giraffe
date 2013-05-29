@@ -39,7 +39,10 @@ $(document).ready(function () {
         $(this).toggleClass('active');
         $(this).flydiv({
             flyTo: '.icon-favorites',
-            flyAddClass: 'flydiv active'
+            flyAddClass: 'flydiv active',
+            callback:function(){
+                console.log($('.icon-favorites'));
+            }
         });
         return false; 
     });

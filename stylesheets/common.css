@@ -12179,6 +12179,13 @@ body.gallery {
 #photo-window #photo-content .like-block .box-3 {
   padding-left: 65px;
 }
+#photo-window #photo-content .counter-rambler {
+  float: none;
+  display: inline-block;
+  *zoom: 1;
+  *display: inline;
+  margin: 0 20px;
+}
 #photo-window .photo-comment {
   font-size: 13px;
   color: #afaeae;

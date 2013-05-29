@@ -12,11 +12,12 @@
         opacityEnd: 0.2, /* opacity на конец полета, по-умолчанию 0.2  */
         flySpeed: 1000, /* длительность анимации, по-умолчанию 1000 */
         fadeSpeed: 200, /* время ищезновения после полета, по-умолчанию 200 */
+        callback: function() {}
     };
      
     // актуальные настройки, глобальные
 
-    $.fn.flydiv = function(params){
+    $.fn.flydiv = function(params, callback){
 
         var options = $.extend({}, defaults, options, params);
         /*var $this = $(this).clone(true).appendTo(options.flyIn).addClass('flydiv active');*/ 
@@ -51,6 +52,10 @@
                     $this.remove();
                 }
             });
+
+        if (typeof options.callback == 'function') { 
+            options.callback.call(this);
+        }
         return this;
     };
 })(jQuery);

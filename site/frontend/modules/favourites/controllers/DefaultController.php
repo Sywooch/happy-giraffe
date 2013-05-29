@@ -8,12 +8,12 @@ class DefaultController extends HController
 
     public function actionIndex($entity = null, $query = null)
     {
-        $totalCount = FavouritesManager::getCountByUserId(Yii::app()->user->id);
+        $totalCount = (int) FavouritesManager::getCountByUserId(Yii::app()->user->id);
         $menu = array_map(function($config, $entity) {
             return array(
                 'entity' => $entity,
                 'title' => $config['title'],
-                'count' => FavouritesManager::getCountByUserId(Yii::app()->user->id, $entity),
+                'count' => (int) FavouritesManager::getCountByUserId(Yii::app()->user->id, $entity),
             );
         }, $this->module->entities, array_keys($this->module->entities));
 

@@ -6,10 +6,11 @@
  *
  * @author Alex Kireev <alexk984@gmail.com>
  */
-class ScoreInputNewPhoto extends ScoreInputEntity
+class ScoreInputNewPhoto extends ScoreInputMassive
 {
+    const WAIT_TIME = 3;
+
     public $type = self::TYPE_VIDEO;
-    public $photo_id;
 
     /**
      * @var ScoreInputNewPhoto
@@ -27,15 +28,30 @@ class ScoreInputNewPhoto extends ScoreInputEntity
         return self::$_instance;
     }
 
+    public function __construct()
+    {
+    }
+
     /**
-     * Добавление баллов
+     * Начисление баллов
      *
      * @param $user_id int id пользователя
-     * @param $photo_id int id фото
+     * @param $photo_id int id нового друга
      */
     public function add($user_id, $photo_id)
     {
-        $this->user_id = $user_id;
-        $this->insert(array('photo_id' => $photo_id));
+        parent::add($user_id, $photo_id, self::WAIT_TIME * 3600);
+    }
+
+    /**
+     * Вычитаем баллы
+     *
+     * @param int $user_id
+     * @param int $photo_id
+     */
+    public function remove($user_id, $photo_id)
+    {
+        $this->user_id = (int)$user_id;
+        parent::remove($photo_id);
     }
 }

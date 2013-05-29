@@ -17,15 +17,18 @@ class FavouriteWidget extends CWidget
         if ($this->registerScripts)
             return;
 
-        $id = 'Favourites_' . get_class($this->model) . '_' . $this->model->id;
-
         $count = (int) Favourite::model()->getCountByModel($this->model);
-        $active = (bool) Favourite::model()->getUserHas(Yii::app()->user->id, $this->model);
         $modelName = get_class($this->model);
         $modelId = $this->model->id;
-        $data = compact('count', 'active', 'modelName', 'modelId');
+        if (! Yii::app()->user->isGuest) {
+            $id = 'Favourites_' . get_class($this->model) . '_' . $this->model->id;
+            $active = (bool) Favourite::model()->getUserHas(Yii::app()->user->id, $this->model);
+            $json = compact('count', 'active', 'modelName', 'modelId');
+            $data = compact('id', 'json');
+        } else
+            $data = compact('count');
 
-        $this->render(Yii::app()->user->isGuest ? 'guest' : $this->getViewByEntity(Favourite::model()->getEntityByModel($modelName, $modelId)), compact('id', 'data', 'count'));
+        $this->render($this->getViewByEntity(Favourite::model()->getEntityByModel($modelName, $modelId)), $data);
     }
 
     public function registerScripts()

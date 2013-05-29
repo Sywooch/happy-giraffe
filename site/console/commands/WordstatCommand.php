@@ -156,11 +156,6 @@ class WordstatCommand extends CConsoleCommand
         }
     }
 
-    public function actionAddToTestParsing()
-    {
-        WordstatParsingTask::getInstance()->addAllKeywordsToParsing();
-    }
-
     public function actionAddToSeasonParsing()
     {
         WordstatParsingTask::getInstance()->addAllKeywordsToSeasonParsing();

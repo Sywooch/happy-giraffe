@@ -33,20 +33,23 @@ function FavouriteWidget(data) {
     }
 
     self.add = function(data, event) {
+        var el = $(event.target).parents('.favorites-control').find('.favorites-control_a');
+
         var data = {
             'Favourite[model_name]' : self.modelName,
             'Favourite[model_id]' : self.modelId,
             'Favourite[note]' : self.adding().note(),
             'Favourite[tagsNames]' : self.adding().tags()
         }
+
         $.post('/favourites/favourites/create/', data, function(response) {
             if (response.success) {
                 self.adding(null);
                 self.active(true);
-//                $(event.target).parents('.favorites-control').find('.favorites-control_a').flydiv({
-//                    flyTo: '.icon-favorites',
-//                    flyAddClass: 'flydiv active'
-//                });
+                el.flydiv({
+                    flyTo: '.icon-favorites',
+                    flyAddClass: 'flydiv active'
+                });
             }
         }, 'json');
     }

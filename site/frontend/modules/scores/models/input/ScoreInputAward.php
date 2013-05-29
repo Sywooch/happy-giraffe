@@ -2,13 +2,14 @@
 /**
  * Class ScoreInputAward
  *
- * Начисление баллов пользователю за новое фото в фотоальбомах
+ * Начисление баллов пользователю за награду
  *
  * @author Alex Kireev <alexk984@gmail.com>
  */
-class ScoreInputAward extends ScoreInputEntity
+class ScoreInputAward extends ScoreInput
 {
-    public $type = self::TYPE_VIDEO;
+    public $type = self::TYPE_AWARD;
+    public $award_id;
 
     /**
      * @var ScoreInputAward
@@ -30,10 +31,11 @@ class ScoreInputAward extends ScoreInputEntity
      * Добавление баллов
      *
      * @param $user_id int id пользователя
-     * @param $entity CActiveRecord модель
+     * @param $award_id int id награды
      */
-    public function add($user_id, $entity)
+    public function add($user_id, $award_id)
     {
-        parent::add($user_id, $entity);
+        $this->user_id = $user_id;
+        parent::insert(array('award_id' => $award_id));
     }
 }

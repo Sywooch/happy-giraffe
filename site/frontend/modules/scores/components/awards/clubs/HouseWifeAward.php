@@ -1,9 +1,10 @@
 <?php
 /**
- * Author: alexk984
- * Date: 28.09.12
+ * Class HouseWifeAward
  *
  * Орден “Отчаянная домохозяйка”
+ *
+ * @author Alex Kireev <alexk984@gmail.com>
  */
 class HouseWifeAward extends CCommunityLeader
 {
@@ -11,8 +12,8 @@ class HouseWifeAward extends CCommunityLeader
     {
         echo "\n" . get_class() . "\n";
 
-        $community_id = array(23,26,28,34);
-        $award_id = 23;
+        $community_id = 28;
+        $award_id = ScoreAward::TYPE_HOUSEWIFE;
 
         self::clubLeader($community_id, $award_id);
     }

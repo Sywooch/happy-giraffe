@@ -8,6 +8,7 @@
 class HMongoModel
 {
     protected $_collection_name;
+    protected $_db = 'mongo';
     protected $_collection;
     protected $_id;
 
@@ -17,7 +18,8 @@ class HMongoModel
     protected function getCollection()
     {
         if (empty($this->_collection))
-            $this->_collection = Yii::app()->edmsMongoCollection($this->_collection_name);
+            $this->_collection = Yii::app()->edmsMongoCollection($this->_collection_name, $this->_db);
+
         return $this->_collection;
     }
 

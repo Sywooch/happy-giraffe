@@ -44,12 +44,11 @@ class ScoreUserAward extends HActiveRecord
 		// will receive user inputs.
 		return array(
 			array('user_id, award_id', 'required'),
-			array('user_id, award_id, entity_id', 'length', 'max'=>10),
-			array('entity', 'length', 'max'=>100),
+			array('user_id, award_id', 'length', 'max'=>10),
 			array('created', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, user_id, award_id, entity, entity_id, created', 'safe', 'on'=>'search'),
+			array('id, user_id, award_id, created', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -75,8 +74,6 @@ class ScoreUserAward extends HActiveRecord
 			'id' => 'ID',
 			'user_id' => 'User',
 			'award_id' => 'Award',
-			'entity' => 'Entity',
-			'entity_id' => 'Entity',
 			'created' => 'Created',
 		);
 	}
@@ -95,8 +92,6 @@ class ScoreUserAward extends HActiveRecord
 		$criteria->compare('id',$this->id,true);
 		$criteria->compare('user_id',$this->user_id,true);
 		$criteria->compare('award_id',$this->award_id,true);
-		$criteria->compare('entity',$this->entity,true);
-		$criteria->compare('entity_id',$this->entity_id,true);
 		$criteria->compare('created',$this->created,true);
 
 		return new CActiveDataProvider($this, array(
@@ -117,7 +112,7 @@ class ScoreUserAward extends HActiveRecord
 
     public function afterSave()
     {
-        ScoreInput::model()->add($this->user_id, ScoreInput::TYPE_AWARD, array('award_id' => $this->award_id));
+        //ScoreInputAward::getInstance()->add($this->user_id, ScoreInput::TYPE_AWARD, array('award_id' => $this->award_id));
 
         parent::afterSave();
     }

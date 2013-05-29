@@ -30,6 +30,8 @@ class Comment extends HActiveRecord
     const CONTENT_TYPE_PHOTO = 2;
     const CONTENT_TYPE_ONLY_TEXT = 3;
 
+    public $count;
+
     /**
      * Returns the static model of the specified AR class.
      * @return Comment the static model class

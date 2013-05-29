@@ -62,6 +62,9 @@ return array(
         'application.modules.notifications.models.base.*',
         'application.modules.notifications.models.*',
         'application.modules.notifications.components.*',
+        'application.modules.scores.components.*',
+        'application.modules.scores.models.*',
+        'application.modules.scores.models.input.*',
     ),
 
 	'sourceLanguage' => 'en',
@@ -114,6 +117,7 @@ return array(
         'messaging',
         'notifications',
         'friends',
+        'scores',
 	),
 	// application components
 	'components'=>array(

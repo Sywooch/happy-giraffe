@@ -1,27 +1,33 @@
 <?php
 /**
- * Author: alexk984
- * Date: 28.09.12
+ * Class CommentatorAward
  *
  * Лучший комментатор недели/месяца
+ *
+ * @author Alex Kireev <alexk984@gmail.com>
  */
 class CommentatorAward extends CAward
 {
-    public static function execute($week = false)
+    public static function execute($period = CAward::PERIOD_MONTH)
     {
         echo "\n" . get_class() . "\n";
 
-        $award_id = 10;
-        $criteria = self::getCriteria($week);
-        $criteria->order = 'COUNT(t.id) DESC';
-        $criteria->condition .= ' AND entity != "User"';
-        $model = Comment::model()->find($criteria);
-        $max_count = $model->count;
-        self::showMaxPostsCount($max_count);
+        if ($period == CAward::PERIOD_WEEK)
+            $award_id = ScoreAward::TYPE_COMMENTATOR_WEEK;
+        else
+            $award_id = ScoreAward::TYPE_COMMENTATOR_MONTH;
 
-        $criteria = self::getCriteria($week);
-        $criteria->condition .= ' AND entity != "User"';
+        $rows = Yii::app()->db->createCommand()
+            ->select('t.author_id, count(t.id) as count')
+            ->from(Comment::model()->tableName() . ' as t')
+            ->where(self::getTimeCondition($period).' AND t.removed=0')
+            ->group('t.author_id')
+            ->order('count DESC')
+            ->limit(10)
+            ->queryAll();
 
-        self::awardByMaxCount($criteria, $max_count, $award_id, 'Comment');
+        foreach ($rows as $row)
+            if ($row['count'] == $rows[0]['count'])
+                self::giveAward($row['author_id'], $award_id);
     }
 }

@@ -1,9 +1,10 @@
 <?php
 /**
- * Author: alexk984
- * Date: 28.09.12
+ * Class JokerAward
  *
  * Орден "Массовик-затейник"
+ *
+ * @author Alex Kireev <alexk984@gmail.com>
  */
 class JokerAward extends CCommunityLeader
 {
@@ -12,7 +13,7 @@ class JokerAward extends CCommunityLeader
         echo "\n" . get_class() . "\n";
 
         $community_id = array(19, 20);
-        $award_id = 21;
+        $award_id = ScoreAward::TYPE_JOKER;
 
         self::clubLeader($community_id, $award_id);
     }

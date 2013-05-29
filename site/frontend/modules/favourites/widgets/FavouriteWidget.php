@@ -25,7 +25,7 @@ class FavouriteWidget extends CWidget
         $modelId = $this->model->id;
         $data = compact('count', 'active', 'modelName', 'modelId');
 
-        $this->render($this->getViewByEntity(Favourite::model()->getEntityByModel($modelName, $modelId)), compact('id', 'data'));
+        $this->render(Yii::app()->user->isGuest ? 'guest' : $this->getViewByEntity(Favourite::model()->getEntityByModel($modelName, $modelId)), compact('id', 'data', 'count'));
     }
 
     public function registerScripts()

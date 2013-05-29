@@ -135,7 +135,7 @@ Yii::app()->clientScript
     };
 
     $(function() {
-        vm = new FavouritesViewModel(<?=CJSON::encode($data)?>);
-        ko.applyBindings(vm);
+        favouritesModel = new FavouritesViewModel(<?=CJSON::encode($data)?>);
+        ko.applyBindings(favouritesModel);
     });
 </script>

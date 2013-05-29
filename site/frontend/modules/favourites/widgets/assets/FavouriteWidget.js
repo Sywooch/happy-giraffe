@@ -18,9 +18,11 @@ function FavouriteWidget(data) {
 
     self.modelName = data.modelName;
     self.modelId = data.modelId;
+    self.entity = data.entity;
     self.count = ko.observable(data.count);
     self.active = ko.observable(data.active);
     self.adding = ko.observable(null);
+    self.favouritesMainPage = typeof favouritesModel !== "undefined";
 
     self.clickHandler = function() {
         if (! self.active()) {
@@ -51,6 +53,11 @@ function FavouriteWidget(data) {
                     flyTo: '.icon-favorites',
                     flyAddClass: 'flydiv active'
                 });
+                if (self.favouritesMainPage) {
+                    favouritesModel.totalCount(favouritesModel.totalCount() + 1);
+                    var menuRow = favouritesModel.getMenuRowByEntity(self.entity);
+                    menuRow.count(menuRow.count() + 1);
+                }
             }
         }, 'json');
     }
@@ -61,8 +68,14 @@ function FavouriteWidget(data) {
             modelId : self.modelId
         }
         $.post('/favourites/favourites/delete/', data, function(response) {
-            if (response.success)
+            if (response.success) {
                 self.active(false);
+                if (self.favouritesMainPage) {
+                    favouritesModel.totalCount(favouritesModel.totalCount() - 1);
+                    var menuRow = favouritesModel.getMenuRowByEntity(self.entity);
+                    menuRow.count(menuRow.count() - 1);
+                }
+            }
         }, 'json');
     }
 

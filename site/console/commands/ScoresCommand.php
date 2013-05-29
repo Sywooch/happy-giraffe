@@ -10,6 +10,7 @@ class ScoresCommand extends CConsoleCommand
     {
         Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
         Yii::import('site.frontend.modules.scores.models.*');
+        Yii::import('site.frontend.modules.scores.models.input.*');
         Yii::import('site.frontend.modules.scores.components.*');
 
         return true;
@@ -62,6 +63,10 @@ class ScoresCommand extends CConsoleCommand
             $i++;
             echo ($i * 100) . "\n";
         }
+    }
+
+    public function actionTest(){
+        ScoreInputNewComment::getInstance()->remove(10, 6118);
     }
 }
 

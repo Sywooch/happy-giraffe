@@ -16,7 +16,7 @@ class ScoreInput extends HMongoModel
 
     const TYPE_FRIEND_ADDED = 5;
 
-    const TYPE_COMMENT_ADDED = 7;
+    const TYPE_COMMENT_ADDED = 6;
     const TYPE_PHOTOS_ADDED = 8;
 
     const TYPE_DUEL_PARTICIPATION = 9;
@@ -125,7 +125,7 @@ class ScoreInput extends HMongoModel
             array_merge(array(
                 'type' => (int)$this->type,
                 'user_id' => (int)$this->user_id,
-                'scores' => (int)$this->getScores(),
+                'scores' => $this->getScores(),
                 'updated' => time(),
                 'read' => 0,
                 'show_time' => $show_time,
@@ -165,7 +165,7 @@ class ScoreInput extends HMongoModel
      */
     protected function getScores()
     {
-        return ScoreAction::getActionScores($this->type);
+        return (int)ScoreAction::getActionScores($this->type);
     }
 
     /**

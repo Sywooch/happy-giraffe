@@ -8,7 +8,7 @@
 class HMongoModel
 {
     protected $_collection_name;
-    protected $_db = 'mongo';
+    protected $_db = 'happy_giraffe_db';
     protected $_collection;
     protected $_id;
 

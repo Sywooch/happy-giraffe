@@ -68,12 +68,13 @@ class UserPostView extends HMongoModel
      */
     private function addView($user_id, $id)
     {
-        $this->getCollection()->insert(array(
+        $this->ensureIndexes();
+        $r = $this->getCollection()->insert(array(
             'user_id' => (int)$user_id,
             'id' => (int)$id,
         ));
 
-        ScoreAchievement::model()->checkAchieve($user_id, ScoreAchievement::TYPE_VISITOR);
+        ScoreAchievement::model()->checkAchieve($user_id, ScoreAchievement::TYPE_VIEWS);
     }
 
     /**

@@ -140,6 +140,8 @@ class ScoreAchievement extends HActiveRecord
     /*********************************** Количество выполненных заданий достижения ***********************************/
 
     /**
+     * Кол-во баллов набранных в достижении
+     *
      * @return int
      */
     public function itemsCount()
@@ -156,11 +158,11 @@ class ScoreAchievement extends HActiveRecord
             case 7:
             case 8:
             case 9:
-                return $this->user()->commentsCount;
+                return $this->user()->activeCommentsCount;
             case 10:
             case 11:
             case 12:
-                return $this->user()->getFriendsCount();
+                return Friend::model()->getCountByUserId($this->user_id);
             case 13:
             case 14:
             case 15:
@@ -168,7 +170,7 @@ class ScoreAchievement extends HActiveRecord
             case 16:
             case 17:
             case 18:
-                return $this->getViewedPostsCount();
+                return UserPostView::getInstance()->count($this->user_id);
             case 19:
             case 20:
             case 21:
@@ -188,11 +190,11 @@ class ScoreAchievement extends HActiveRecord
             case 31:
             case 32:
             case 33:
-                return $this->getValueCount();
+                return RatingYohoho::model()->countByUser($this->user_id);
             case 34:
             case 35:
             case 36:
-                return $this->getRunningVisitsCount();
+                return ScoreVisits::getInstance()->daysCount($this->user_id);
             default:
                 return 0;
         }
@@ -206,6 +208,11 @@ class ScoreAchievement extends HActiveRecord
         return User::getUserById($this->user_id);
     }
 
+    /**
+     * Общее кол-во постов за сегодня
+     *
+     * @return int
+     */
     public function getTodayPostsCount()
     {
         $criteria = new CDbCriteria;
@@ -216,6 +223,11 @@ class ScoreAchievement extends HActiveRecord
         return CommunityContent::model()->count($criteria);
     }
 
+    /**
+     * Кол-во видео выложенных за все время
+     *
+     * @return int
+     */
     public function getVideoPostsCount()
     {
         $criteria = new CDbCriteria;
@@ -226,11 +238,10 @@ class ScoreAchievement extends HActiveRecord
         return CommunityContent::model()->count($criteria);
     }
 
-    public function getViewedPostsCount()
-    {
-        return UserPostView::getInstance()->count($this->user_id);
-    }
-
+    /**
+     * Кол-во фото выложенных за все время
+     * @return int
+     */
     public function getPhotoCount()
     {
         $criteria = new CDbCriteria;
@@ -245,22 +256,15 @@ class ScoreAchievement extends HActiveRecord
         return AlbumPhoto::model()->count($criteria);
     }
 
-    public function getValueCount()
-    {
-        $criteria = new EMongoCriteria();
-        $criteria->user_id('==', (int)$this->user_id);
 
-        return RatingYohoho::model()->count($criteria);
-    }
-
-    public function getRunningVisitsCount()
-    {
-        return ScoreVisits::getModel($this->user_id)->current_long_days;
-    }
-
-
-    /***************************************** Проверка на получение достижения ***************************************/
-
+    /***************************************** Проверка и получение достижения ***************************************/
+    /**
+     * Проверить выполнил ли достижение, если выполнил, то выдать его
+     *
+     * @param int $user_id id пользователя
+     * @param int $type тип достижения
+     * @return bool|int
+     */
     public function checkAchieve($user_id, $type)
     {
         $achieve = $this->getAchieve($user_id, $type);
@@ -268,8 +272,6 @@ class ScoreAchievement extends HActiveRecord
             return true;
 
         $achieve->user_id = $user_id;
-        //echo $achieve->id . "\n";
-
         $count = $achieve->itemsCount();
         $level_count = $achieve->count;
 
@@ -277,76 +279,39 @@ class ScoreAchievement extends HActiveRecord
             //выдать приз
             $value = Yii::app()->db->createCommand()
                 ->insert('score__user_achievements', array(
-                'user_id' => $user_id,
-                'achievement_id' => $achieve->id,
-                'created' => date("Y-m-d"),
-            ));
+                    'user_id' => $user_id,
+                    'achievement_id' => $achieve->id,
+                    'created' => date("Y-m-d"),
+                ));
 
             if ($value)
-                ScoreInput::model()->add($user_id, ScoreInput::TYPE_ACHIEVEMENT, array('achieve_id' => $achieve->id));
-
-            //если есть предыдущая степень достижения, удалить
-            if ($value && isset($achieve->parent_id)) {
-                Yii::app()->db->createCommand()
-                    ->delete('score__user_achievements', 'achievement_id = :achievement_id AND user_id = :user_id',
-                    array(
-                        ':achievement_id' => $achieve->parent_id,
-                        ':user_id' => $user_id
-                    ));
-            }
-
+                ScoreInputAchievement::getInstance()->add($user_id, $achieve);
             return $value;
         }
 
         return false;
     }
 
-    public static function addAchieve($user_id, $achieve_id)
-    {
-        //проверяем есть ли уже
-        $exist = Yii::app()->db->createCommand()
-            ->select('count(achievement_id)')
-            ->from('score__user_achievements')
-            ->where('user_id = ' . $user_id . ' AND achievement_id = ' . $achieve_id)
-            ->queryScalar();
-
-        if (!$exist) {
-            //выдать приз
-            $value = Yii::app()->db->createCommand()
-                ->insert('score__user_achievements', array(
-                'user_id' => $user_id,
-                'achievement_id' => $achieve_id,
-                'created' => date("Y-m-d"),
-            ));
-
-            if ($value)
-                ScoreInput::model()->add($user_id, ScoreInput::TYPE_ACHIEVEMENT, array('achieve_id' => $achieve_id));
-        }
-    }
-
     /**
-     * @param $user_id
-     * @param $root_id
+     * Возвращает актуальное для пользователя в данный момент достижение
+     *
+     * @param int $user_id
+     * @param int $root_id начальное достижение
      * @return ScoreAchievement
      */
     public function getAchieve($user_id, $root_id)
     {
-        $this->user_id = $user_id;
-        $userAchieves = $this->user()->achievements;
+        $userAchieves = Yii::app()->db->createCommand()
+            ->select('achievement_id')
+            ->from('score__user_achievements')
+            ->where('user_id = :user_id AND achievement_id IN (' . implode(',', array($root_id, $root_id + 1, $root_id + 2)) . ')', array(':user_id' => $user_id))
+            ->queryColumn();
+        if (empty($userAchieves))
+            return ScoreAchievement::model()->findByPk($root_id);
 
-        foreach ($userAchieves as $userAchieve) {
-            $parent = $userAchieve;
-            while (!empty($parent->parent_id))
-                $parent = $parent->parent;
-
-            if ($root_id == $parent->id) {
-                return isset($userAchieve->next) ? $userAchieve->next : null;
-            }
-        }
-
-        return ScoreAchievement::model()->findByPk($root_id);
+        $achieve = ScoreAchievement::model()->findByPk(max($userAchieves));
+        return $achieve->next;
     }
-
 
     /**
      * Трофеи автору за просмотры его поста
@@ -459,8 +424,8 @@ class ScoreAchievement extends HActiveRecord
         }
     }
 
-    /***************************************** Общие методы ***************************************/
 
+    /***************************************** Общие методы ***************************************/
     public static function getAchievesCount($user_id)
     {
         return Yii::app()->db->createCommand()

@@ -96,7 +96,6 @@ class ScoreVisits extends HMongoModel
         else
             $model['longs'] = 0;
 
-        $this->checkAchieves($model);
         $this->getCollection()->update(
             array('_id' => $model['_id']),
             array('$set' => array('last_day' => $day)),
@@ -105,17 +104,17 @@ class ScoreVisits extends HMongoModel
 
         //добавляем баллы
         ScoreInputVisit::getInstance()->add($user_id);
+        //проверяем на достижение
+        ScoreAchievement::model()->checkAchieve($model['user_id'], ScoreAchievement::TYPE_VISITOR);
     }
 
     /**
-     * Проверяем на достижения
-     *
-     * #TODO добавить проверку на достижения
-     * @param $model array
+     * Сколько дней подряд посетил сайт
      */
-    protected function checkAchieves($model)
+    public function daysCount($user_id)
     {
-
+        $model = $this->find($user_id);
+        return empty($model) ? 0 : $model['longs'];
     }
 
     public static function test($user_id)

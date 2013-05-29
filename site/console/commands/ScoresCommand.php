@@ -116,6 +116,8 @@ class ScoresCommand extends CConsoleCommand
 
     public function actionUpdateUsers()
     {
+        Yii::import('site.common.models.mongo.*');
+
         $criteria = new CDbCriteria;
         $criteria->limit = 100;
         $criteria->offset = 0;
@@ -147,10 +149,6 @@ class ScoresCommand extends CConsoleCommand
                 ScoreAchievement::model()->checkAchieve($model->id, ScoreAchievement::TYPE_ALBUMS);
                 ScoreAchievement::model()->checkAchieve($model->id, ScoreAchievement::TYPE_ALBUMS);
 
-                ScoreAchievement::model()->checkAchieve($model->id, ScoreAchievement::TYPE_DUELS);
-                ScoreAchievement::model()->checkAchieve($model->id, ScoreAchievement::TYPE_DUELS);
-                ScoreAchievement::model()->checkAchieve($model->id, ScoreAchievement::TYPE_DUELS);
-
                 ScoreAchievement::model()->checkAchieve($model->id, ScoreAchievement::TYPE_CLUB_POSTS);
                 ScoreAchievement::model()->checkAchieve($model->id, ScoreAchievement::TYPE_CLUB_POSTS);
                 ScoreAchievement::model()->checkAchieve($model->id, ScoreAchievement::TYPE_CLUB_POSTS);
@@ -162,10 +160,6 @@ class ScoresCommand extends CConsoleCommand
                 ScoreAchievement::model()->checkAchieve($model->id, ScoreAchievement::TYPE_YOHOHO);
                 ScoreAchievement::model()->checkAchieve($model->id, ScoreAchievement::TYPE_YOHOHO);
                 ScoreAchievement::model()->checkAchieve($model->id, ScoreAchievement::TYPE_YOHOHO);
-
-                ScoreAchievement::model()->checkAchieve($model->id, ScoreAchievement::TYPE_VISITOR);
-                ScoreAchievement::model()->checkAchieve($model->id, ScoreAchievement::TYPE_VISITOR);
-                ScoreAchievement::model()->checkAchieve($model->id, ScoreAchievement::TYPE_VISITOR);
             }
 
             $i++;
@@ -234,8 +228,8 @@ class ScoresCommand extends CConsoleCommand
     }
 
     public function actionTest(){
-        for($i=0;$i<100;$i++)
-            UserPostView::getInstance()->checkView(10, rand(1, 100));
+        for($i=0;$i<10000;$i++)
+            UserPostView::getInstance()->checkView(10, rand(1, 100000));
     }
 }
 

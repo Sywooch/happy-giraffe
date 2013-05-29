@@ -113,6 +113,12 @@ function FavouritesViewModel(data) {
         }, self.favourites().length);
     }
 
+    self.getMenuRowByEntity = function(entity) {
+        return ko.utils.arrayFirst(this.menu(), function(menuRow) {
+            return menuRow.entity == entity;
+        });
+    }
+
     if (data.query !== null)
         self.instantaneousQuery(data.query);
 

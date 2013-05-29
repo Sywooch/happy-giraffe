@@ -348,6 +348,118 @@ class ScoreAchievement extends HActiveRecord
         return ScoreAchievement::model()->findByPk($root_id);
     }
 
+
+    /**
+     * Трофеи автору за просмотры его поста
+     *
+     * @param CommunityContent $content_model
+     * @param int $old_views
+     * @param int $now_views
+     * @return void
+     */
+    public static function checkPageViews($content_model, $old_views, $now_views)
+    {
+        if ($content_model->author_id == User::HAPPY_GIRAFFE || empty($content_model->author_id))
+            return;
+
+        $award_levels = array(
+            11 => 1000, //трофей "Заметный пост"
+            12 => 2500, //трофей "Известный пост"
+            13 => 10000, //трофей "Знаменитый пост"
+        );
+
+        foreach ($award_levels as $award_id => $award_limit) {
+
+            //если перешел рубеж трофея
+            if ($old_views < $award_limit && $now_views >= $award_limit) {
+
+                $transaction = Yii::app()->db->beginTransaction();
+                try {
+                    //на всякий случай проверяем есть ли уже такой трофей
+                    $exist = ScoreUserAward::model()->findByAttributes(array(
+                        'award_id' => $award_id,
+                        'user_id' => $content_model->author_id,
+                        'entity' => get_class($content_model),
+                        'entity_id' => $content_model->id,
+                    ));
+                    //если нет - выдаем
+                    if ($exist === null) {
+                        $award = new ScoreUserAward();
+                        $award->award_id = $award_id;
+                        $award->user_id = $content_model->author_id;
+                        $award->entity = get_class($content_model);
+                        $award->entity_id = $content_model->id;
+                        $award->save();
+                    }
+                    $transaction->commit();
+                } catch (Exception $e) {
+                    $transaction->rollback();
+                }
+            }
+
+            if ($now_views < $award_limit)
+                break;
+        }
+    }
+
+    /**
+     * Трофеи автору за лайки к его посту
+     *
+     * @param $entity
+     * @param int $entity_id
+     * @return void
+     */
+    public static function checkPageLikes($entity, $entity_id)
+    {
+        //даем только за посты
+        if ($entity !== 'CommunityContent' && $entity !== 'BlogContent')
+            return;
+
+        $content_model = CActiveRecord::model($entity)->findByPk($entity_id);
+        if ($content_model === null || $content_model->author_id == User::HAPPY_GIRAFFE || empty($content_model->author_id))
+            return;
+
+        $award_levels = array(
+            14 => 10, //трофей "Хороший пост"
+            15 => 25, //трофей "Интересный пост"
+            16 => 100, //трофей "Превосходный пост"
+        );
+
+        foreach ($award_levels as $award_id => $award_limit) {
+            $criteria = new EMongoCriteria;
+            $criteria->entity_id('==', (int)$entity_id);
+            $criteria->entity_name('==', $entity);
+            $count = RatingYohoho::model()->count($criteria);
+
+            //если перешел рубеж трофея
+            if ($count >= $award_limit) {
+                $transaction = Yii::app()->db->beginTransaction();
+                try {
+                    //на всякий случай проверяем есть ли уже такой трофей
+                    $exist = ScoreUserAward::model()->findByAttributes(array(
+                        'award_id' => $award_id,
+                        'user_id' => $content_model->author_id,
+                        'entity' => get_class($content_model),
+                        'entity_id' => $content_model->id,
+                    ));
+                    //если нет - выдаем
+                    if ($exist === null) {
+                        $award = new ScoreUserAward();
+                        $award->award_id = $award_id;
+                        $award->user_id = $content_model->author_id;
+                        $award->entity = get_class($content_model);
+                        $award->entity_id = $content_model->id;
+                        $award->save();
+                    }
+                    $transaction->commit();
+                } catch (Exception $e) {
+                    $transaction->rollback();
+                }
+            } else
+                break;
+        }
+    }
+
     /***************************************** Общие методы ***************************************/
 
     public static function getAchievesCount($user_id)

@@ -33,6 +33,7 @@ function FavouriteWidget(data) {
     }
 
     self.add = function(data, event) {
+        self.adding().addTag();
         var el = $(event.target).parents('.favorites-control').find('.favorites-control_a');
 
         var data = {
@@ -94,9 +95,15 @@ function Entity(data, parent) {
 
     self.tagHandler = function(data, event) {
         if (event.keyCode == 13 || event.keyCode == 44) {
-            self.tags.push(self.tagsInputValue());
-            self.tagsInputValue('');
+            self.addTag();
         } else
             return true;
+    }
+
+    self.addTag = function() {
+        if (self.tagsInputValue() != '' && self.tags().indexOf(self.tagsInputValue()) == -1) {
+            self.tags.push(self.tagsInputValue());
+            self.tagsInputValue('');
+        }
     }
 }

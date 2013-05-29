@@ -16,8 +16,6 @@
                 <?php $this->widget('FavouriteWidget', compact('model')); ?>
                 <div class="meta">
                     <div class="time"><?=Yii::app()->dateFormatter->format("d MMMM yyyy, H:mm", $model->created)?></div>
-                    <div class="views"><span class="icon"></span> <span><?=PageView::model()->viewsByPath($model->url)?></span></div>
-
                 </div>
             </div>
         </noindex>

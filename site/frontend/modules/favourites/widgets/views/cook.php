@@ -1,9 +1,11 @@
 <?php
 /**
  * @var string $id
- * @var $data
+ * @var $json
  */
 ?>
+
+<?php if (! Yii::app()->user->isGuest): ?>
 
 <div class="cook-book-info" id="<?=$id?>">
     <a href="javascript:void(0)" data-bind="click: clickHandler">
@@ -15,5 +17,16 @@
 </div>
 
 <script type="text/javascript">
-    ko.applyBindings(new FavouriteWidget(<?=CJSON::encode($data)?>), document.getElementById('<?=$id?>'));
+    ko.applyBindings(new FavouriteWidget(<?=CJSON::encode($json)?>), document.getElementById('<?=$id?>'));
 </script>
+
+<?php else: ?>
+
+    <div class="cook-book-info">
+        <a href="#login" class="fancy">
+            <span>Добавить в мою <br />кулинарную книгу</span>
+            <i class="icon-add"></i>
+        </a>
+    </div>
+
+<?php endif; ?>

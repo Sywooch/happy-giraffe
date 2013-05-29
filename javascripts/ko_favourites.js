@@ -17,6 +17,7 @@ function FavouritesViewModel(data) {
     self.filter = ko.observable(null);
     self.loading = ko.observable(false);
     self.lastPage = ko.observable(false);
+    self.history = new AjaxHistory('favourites');
 
     self.isMenuVisible = ko.computed(function() {
         var rowsCount = 0;
@@ -39,7 +40,10 @@ function FavouritesViewModel(data) {
                     self.keyword(response.keyword);
                     self.filter(new Filter(response.filter));
                 }
+                self.history.changeBrowserUrl(self.history.buildUrl('', { query : val }));
             }, 'json');
+        } else {
+            self.history.changeBrowserUrl(document.location.origin + '/favourites/');
         }
     });
 
@@ -47,11 +51,7 @@ function FavouritesViewModel(data) {
         self.init();
     });
 
-    self.tagId.subscribe(function(val) {
-        self.init();
-    });
-
-    self.keyword.subscribe(function(val) {
+    self.filter.subscribe(function(val) {
         self.init();
     });
 
@@ -59,7 +59,7 @@ function FavouritesViewModel(data) {
         self.tagId(null);
         self.keyword(null);
         self.filter(null);
-        self.query('');
+        self.instantaneousQuery('');
     }
 
     self.selectAll = function() {

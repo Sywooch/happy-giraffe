@@ -49,6 +49,7 @@
         ->registerScriptFile('/javascripts/tooltipsy.min.js')
         ->registerScriptFile('http://vk.com/js/api/share.js?11')
         ->registerScriptFile('/javascripts/fox.js')
+        ->registerScriptFile('/javascripts/knockout-2.2.1.js')
     ;
 
 

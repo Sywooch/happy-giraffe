@@ -134,4 +134,20 @@ class FriendRequest extends HActiveRecord
     {
         return $this->countByAttributes(array($incoming ? 'to_id' : 'from_id' => $userId, 'status' => 'pending'));
     }
+
+    public function pendingRequestExists($fromId, $toId)
+    {
+        return self::model()->exists('from_id = :from_id AND to_id = :to_id AND status = \'pending\'', array(
+            ':from_id' => $fromId,
+            ':to_id' => $toId,
+        ));
+    }
+
+    public function findPendingRequest($fromId, $toId)
+    {
+        return self::model()->find('from_id = :from_id AND to_id = :to_id AND status = \'pending\'', array(
+            ':from_id' => $fromId,
+            ':to_id' => $toId,
+        ));
+    }
 }

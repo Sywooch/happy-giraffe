@@ -1,9 +1,10 @@
 <?php
 /**
- * Author: alexk984
- * Date: 28.09.12
+ * Class FlowersAward
  *
  * Экофан
+ *
+ * @author Alex Kireev <alexk984@gmail.com>
  */
 class FlowersAward extends CCommunityLeader
 {
@@ -12,7 +13,7 @@ class FlowersAward extends CCommunityLeader
         echo "\n" . get_class() . "\n";
 
         $community_id = 35;
-        $award_id = 29;
+        $award_id = ScoreAward::TYPE_FLOWERS;
 
         self::clubLeader($community_id, $award_id);
     }

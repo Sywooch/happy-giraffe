@@ -1,9 +1,10 @@
 <?php
 /**
- * Author: alexk984
- * Date: 28.09.12
+ * Class DoctorAward
  *
  * Орден Доктора Айболита
+ *
+ * @author Alex Kireev <alexk984@gmail.com>
  */
 class DoctorAward extends CCommunityLeader
 {
@@ -11,8 +12,8 @@ class DoctorAward extends CCommunityLeader
     {
         echo "\n" . get_class() . "\n";
 
-        $community_id = array(4, 8, 15, 33);
-        $award_id = 22;
+        $community_id = 33;
+        $award_id = ScoreAward::TYPE_DOCTOR;
 
         self::clubLeader($community_id, $award_id);
     }

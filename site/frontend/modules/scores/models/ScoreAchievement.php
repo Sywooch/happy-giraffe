@@ -81,7 +81,6 @@ class ScoreAchievement extends HActiveRecord
             'parent' => array(self::BELONGS_TO, 'ScoreAchievement', 'parent_id'),
             'next' => array(self::HAS_ONE, 'ScoreAchievement', 'parent_id'),
             'users' => array(self::MANY_MANY, 'User', 'score__user_achievements(achievement_id, user_id)'),
-//            'some_users' => array(self::MANY_MANY, 'User', 'score__user_achievements(achievement_id, user_id)', 'limit' => 5),
         );
     }
 
@@ -229,7 +228,7 @@ class ScoreAchievement extends HActiveRecord
 
     public function getViewedPostsCount()
     {
-        return UserViewedPost::model()->count('user_id=' . $this->user_id);
+        return UserPostView::getInstance()->count($this->user_id);
     }
 
     public function getPhotoCount()

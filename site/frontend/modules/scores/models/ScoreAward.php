@@ -15,6 +15,29 @@
 class ScoreAward extends HActiveRecord
 {
     const TYPE_BLOGGER_WEEK = 1;
+    const TYPE_BLOGGER_MONTH = 2;
+    const TYPE_COMMENTATOR_WEEK = 3;
+    const TYPE_COMMENTATOR_MONTH = 4;
+    const TYPE_PHOTO = 5;
+    const TYPE_TRAVEL = 6;
+    const TYPE_FASHION = 7;
+    const TYPE_MISTRESS = 8;
+    const TYPE_WEDDING = 9;
+    const TYPE_MASTER = 10;
+    const TYPE_HOMEOWNER = 11;
+    const TYPE_BEAUTY = 12;
+    const TYPE_COOK = 13;
+    const TYPE_JOKER = 14;
+    const TYPE_DOCTOR = 15;
+    const TYPE_HOUSEWIFE = 16;
+    const TYPE_PSYCHO = 17;
+    const TYPE_MOTHER = 18;
+    const TYPE_AUTO = 19;
+    const TYPE_PREGNANCY = 20;
+    const TYPE_FLOWERS = 21;
+    const TYPE_FRIEND = 22;
+    const TYPE_DUEL = 23;
+    const TYPE_SMILE = 24;
 
 
     /**

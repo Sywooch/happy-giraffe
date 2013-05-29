@@ -325,7 +325,9 @@ class User extends HActiveRecord
 
             'photos' => array(self::HAS_MANY, 'AlbumPhoto', 'author_id'),
             'mail_subs' => array(self::HAS_ONE, 'UserMailSub', 'user_id'),
+
             'score' => array(self::HAS_ONE, 'UserScores', 'user_id'),
+            'achievements' => array(self::HAS_MANY, 'ScoreAchievement', 'score__user_achievements(user_id, achievement_id)'),
 
             'friendLists' => array(self::HAS_MANY, 'FriendList', 'list_id'),
         );

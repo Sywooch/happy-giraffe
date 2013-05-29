@@ -1,35 +1,38 @@
 <?php
 /**
- * Author: alexk984
- * Date: 28.09.12
+ * Class BloggerAward
  *
  * Лучший блогер недели/месяца
+ *
+ * @author Alex Kireev <alexk984@gmail.com>
  */
 class BloggerAward extends CAward
 {
-    public static function execute($week = false)
+    /**
+     * Выдать награду
+     * @param int $period за неделю или месяц
+     */
+    public static function execute($period = self::PERIOD_MONTH)
     {
         echo "\n" . get_class() . "\n";
 
-        $criteria = self::getBloggerCriteria($week);
-        $criteria->order = 'COUNT(t.id) DESC';
-        $model = CommunityContent::model()->find($criteria);
-        $max_count = $model->count;
-        self::showMaxPostsCount($max_count);
+        if ($period == CAward::PERIOD_WEEK)
+            $award_id = ScoreAward::TYPE_BLOGGER_WEEK;
+        else
+            $award_id = ScoreAward::TYPE_BLOGGER_MONTH;
 
-        $criteria = self::getBloggerCriteria($week);
-        ($week) ? self::awardByMaxCount($criteria, $max_count, 1) : self::awardByMaxCount($criteria, $max_count, 2);
-    }
+        $rows = Yii::app()->db->createCommand()
+            ->select('t.author_id, count(t.id) as count')
+            ->from(CommunityContent::model()->tableName() . ' as t')
+            ->where(self::getTimeCondition($period) . ' AND t.removed=0 AND rubric.user_id = t.author_id')
+            ->join('community__rubrics as rubric', 'rubric.id = t.rubric_id')
+            ->group('t.author_id')
+            ->order('count DESC')
+            ->limit(10)
+            ->queryAll();
 
-    public static function getBloggerCriteria($week = false)
-    {
-        $criteria = self::getCriteria($week);
-        $criteria->with = array(
-            'rubric' => array(
-                'condition' => 'rubric.user_id IS NOT NULL'
-            )
-        );
-
-        return $criteria;
+        foreach ($rows as $row)
+            if ($row['count'] == $rows[0]['count'])
+                self::giveAward($row['author_id'], $award_id);
     }
 }

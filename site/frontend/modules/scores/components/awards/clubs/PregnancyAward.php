@@ -1,9 +1,10 @@
 <?php
 /**
- * Author: alexk984
- * Date: 28.09.12
+ * Class PregnancyAward
  *
  * Орден Пузяшки
+ *
+ * @author Alex Kireev <alexk984@gmail.com>
  */
 class PregnancyAward extends CCommunityLeader
 {
@@ -12,7 +13,7 @@ class PregnancyAward extends CCommunityLeader
         echo "\n" . get_class() . "\n";
 
         $community_id = range(1,3);
-        $award_id = 28;
+        $award_id = ScoreAward::TYPE_PREGNANCY;
 
         self::clubLeader($community_id, $award_id);
     }

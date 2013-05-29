@@ -36,6 +36,8 @@ class AlbumPhoto extends HActiveRecord
     public $width;
     public $height;
 
+    public $count;
+
     /**
      * @var string original photos folder
      */

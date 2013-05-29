@@ -1,10 +1,10 @@
 <?php
 /**
- * Author: alexk984
- * Date: 28.09.12
+ * Class FashionAward
  *
- * Орден  Коко Шанель
+ * Орден Коко Шанель
  *
+ * @author Alex Kireev <alexk984@gmail.com>
  */
 class FashionAward extends CCommunityLeader
 {
@@ -13,7 +13,7 @@ class FashionAward extends CCommunityLeader
         echo "\n" . get_class() . "\n";
 
         $community_id = 30;
-        $award_id = 4;
+        $award_id = ScoreAward::TYPE_FASHION;
 
         self::clubLeader($community_id, $award_id);
     }

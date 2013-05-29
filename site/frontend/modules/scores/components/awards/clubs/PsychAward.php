@@ -1,9 +1,10 @@
 <?php
 /**
- * Author: alexk984
- * Date: 28.09.12
+ * Class PsychAward
  *
  * “Семейный психолог”
+ *
+ * @author Alex Kireev <alexk984@gmail.com>
  */
 class PsychAward extends CCommunityLeader
 {
@@ -11,8 +12,8 @@ class PsychAward extends CCommunityLeader
     {
         echo "\n" . get_class() . "\n";
 
-        $community_id = array(32);
-        $award_id = 25;
+        $community_id = 32;
+        $award_id = ScoreAward::TYPE_PSYCHO;
 
         self::clubLeader($community_id, $award_id);
     }

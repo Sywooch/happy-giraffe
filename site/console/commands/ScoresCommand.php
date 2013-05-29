@@ -12,6 +12,7 @@ class ScoresCommand extends CConsoleCommand
         Yii::import('site.frontend.modules.scores.models.*');
         Yii::import('site.frontend.modules.scores.models.input.*');
         Yii::import('site.frontend.modules.scores.components.*');
+        Yii::import('site.frontend.modules.friends.models.*');
         Yii::import('site.frontend.modules.scores.components.awards.*');
         Yii::import('site.frontend.modules.scores.components.awards.clubs.*');
 
@@ -81,19 +82,16 @@ class ScoresCommand extends CConsoleCommand
         Yii::import('site.console.components.awards.community_plus_comments.*');
         Yii::import('site.console.components.awards.community.entities.*');
 
-        BloggerAward::execute(true);
-        CommentatorAward::execute(true);
+        BloggerAward::execute(CAward::PERIOD_WEEK);
+        CommentatorAward::execute(CAward::PERIOD_WEEK);
     }
 
     public function actionEndMonth()
     {
-        Yii::import('site.console.components.awards.*');
-        Yii::import('site.console.components.awards.community.*');
-        Yii::import('site.console.components.awards.entities.*');
-        Yii::import('site.console.components.awards.community_plus_comments.*');
-        Yii::import('site.console.components.awards.other.*');
-
         BloggerAward::execute();
+        CommentatorAward::execute();
+        PhotoAward::execute();
+
         TravellerAward::execute();
         FashionAward::execute();
         MistressAward::execute();
@@ -102,20 +100,17 @@ class ScoresCommand extends CConsoleCommand
         BeautyAward::execute();
 
         CookAward::execute();
-        CommentatorAward::execute();
-        PhotoAward::execute();
 
         JokerAward::execute();
         DoctorAward::execute();
         HouseWifeAward::execute();
         PsychAward::execute();
-        ChildrenAward::execute();
+        CMotherAward::execute();
         AutoAward::execute();
         PregnancyAward::execute();
         FlowersAward::execute();
 
         FriendAward::execute();
-        DuelAward::execute();
         SmilesAward::execute();
     }
 
@@ -239,7 +234,8 @@ class ScoresCommand extends CConsoleCommand
     }
 
     public function actionTest(){
-        ScoreInputNewComment::getInstance()->remove(10, 6118);
+        for($i=0;$i<100;$i++)
+            UserPostView::getInstance()->checkView(10, rand(1, 100));
     }
 }
 

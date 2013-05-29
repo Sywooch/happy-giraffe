@@ -45,6 +45,7 @@ class CommunityContent extends HActiveRecord
     const USERS_COMMUNITY = 999999;
     //для модуля комментаторов
     public $visits = 0;
+    public $count = 0;
 
     /**
      * Returns the static model of the specified AR class.

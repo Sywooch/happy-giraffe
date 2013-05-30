@@ -8,12 +8,11 @@ function FavouritesViewModel(data) {
     self.menu = ko.observableArray(ko.utils.arrayMap(data.menu, function(menuRow) {
         return new MenuRow(menuRow, self);
     }));
-    self.activeMenuRow = ko.observable(data.entity);
+    self.activeMenuRowIndex = ko.observable(data.entity === null ? null : self.menu.indexOf(self.getMenuRowByEntity(data.entity)));
     self.tagId = ko.observable(data.tagId);
     self.keyword = ko.observable(null);
     self.instantaneousQuery = ko.observable('');
     self.throttledQuery = ko.computed(this.instantaneousQuery).extend({ throttle: 400 });
-    self.activeTag = ko.observable(null);
     self.filter = ko.observable(null);
     self.loading = ko.observable(false);
     self.lastPage = ko.observable(false);
@@ -27,6 +26,10 @@ function FavouritesViewModel(data) {
         });
 
         return rowsCount > 1;
+    });
+
+    self.activeMenuRow = ko.computed(function() {
+        return self.menu()[self.activeMenuRowIndex()];
     });
 
     self.throttledQuery.subscribe(function(val) {
@@ -63,7 +66,7 @@ function FavouritesViewModel(data) {
     }
 
     self.selectAll = function() {
-        self.activeMenuRow(null);
+        self.activeMenuRowIndex(null);
     }
 
     self.clearQuery = function() {
@@ -73,8 +76,8 @@ function FavouritesViewModel(data) {
     self.load = function(callback, offset) {
         var data = {}
 
-        if (self.activeMenuRow() !== null)
-            data.entity = self.activeMenuRow();
+        if (self.activeMenuRowIndex() !== null)
+            data.entity = self.activeMenuRow().entity;
 
         if (self.tagId() !== null)
             data.tagId = self.tagId();
@@ -178,8 +181,8 @@ function MenuRow(data, parent) {
         return 'menu-list_i__' + self.entity;
     });
 
-    self.select = function() {
-        parent.activeMenuRow(self.entity);
+    self.select = function(row) {
+        parent.activeMenuRowIndex(parent.menu.indexOf(row));
     }
 }
 

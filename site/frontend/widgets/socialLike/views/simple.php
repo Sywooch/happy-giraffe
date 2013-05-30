@@ -63,7 +63,8 @@
         //костыль для валентина 2
         $url = $this->model->getUrl(false, true);
     } else {
-        $url = 'http://' . $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
+        $url = $this->model->getUrl(false, true);
+        //$url = 'http://' . $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
     }
 
     $js = "
@@ -131,7 +132,6 @@
                     }(document,"ok_shareWidget","<?=$url ?>","{width:145,height:35,st:'straight',sz:20,ck:1}");
                 </script>
             </div>
-
 
             <div class="share_button">
                 <div class="tw_share_button">

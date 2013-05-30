@@ -3,16 +3,15 @@
  * Author: alexk984
  * Date: 10.12.12
  */
-$url = 'http://' . $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
+if (empty($this->url))
+    $url = 'http://' . $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
+else
+    $url = $this->url;
 
-$js = "
-        $('.vk_share_button').html(VK.Share.button(document.location.href,{type: 'round', text: 'Мне нравится'}));
-    ";
+$js = "$('.vk_share_button').html(VK.Share.button('".$url."',{type: 'round', text: 'Мне нравится'}));";
 
 Yii::app()->clientScript
     ->registerScriptFile('http://vk.com/js/api/share.js?11')
-//    ->registerCssFile('http://stg.odnoklassniki.ru/share/odkl_share.css')
-//    ->registerScriptFile('http://stg.odnoklassniki.ru/share/odkl_share.js')
     ->registerMetaTag($this->options['title'], null, null, array('property' => 'og:title'))
     ->registerMetaTag($this->options['image'], null, null, array('property' => 'og:image'))
     ->registerMetaTag($this->options['description'], null, null, array('property' => 'og:description'))
@@ -31,7 +30,7 @@ Yii::app()->clientScript
                 array('class' => 'fb-custom-text', 'onclick' => 'return Social.showFacebookPopup(this);'), true) ?>
                 <div class="fb-custom-share-count">0</div>
                 <script type="text/javascript">
-                    $.getJSON("http://graph.facebook.com", { id:document.location.href }, function (json) {
+                    $.getJSON("http://graph.facebook.com", { id:'<?=$url ?>' }, function (json) {
                         $('.fb-custom-share-count').html(json.shares || '0');
                     });
                 </script>

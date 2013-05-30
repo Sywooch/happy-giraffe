@@ -6,7 +6,7 @@
  *
  * @author Alex Kireev <alexk984@gmail.com>
  */
-class ScoreInputMassive extends ScoreInput
+abstract class ScoreInputMassive extends ScoreInput
 {
     /**
      * @var array

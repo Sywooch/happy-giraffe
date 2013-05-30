@@ -72,14 +72,12 @@ class UserAddress extends HActiveRecord
         );
     }
 
-    public function beforeSave()
+    public function afterSave()
     {
-        if (!empty($this->country_id))
-            UserScores::checkProfileScores($this->user_id, ScoreAction::ACTION_PROFILE_LOCATION);
-
+        ScoreInput6Steps::getInstance()->check($this->user->id);
         User::model()->UpdateUser($this->user_id);
 
-        return parent::beforeSave();
+        parent::afterSave();
     }
 
     public function getFlag($big = false, $element = 'div')

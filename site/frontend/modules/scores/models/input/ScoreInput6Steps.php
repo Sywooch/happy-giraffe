@@ -26,19 +26,25 @@ class ScoreInput6Steps extends ScoreInput
         return self::$_instance;
     }
 
+    public function __construct()
+    {
+    }
+
     /**
      * Проверить пользователя на выполнение 6-ти шагов
      *
-     * @param $user_scores UserScores
+     * @param int $user_id id пользователя
      */
-    public function check($user_scores)
+    public function check($user_id)
     {
+        $user_scores = UserScores::model()->findByPk($user_id);
+
         if ($this->getStepsCount($user_scores->user) >= 6) {
             $user_scores->full = 1;
             $user_scores->level_id = 1;
             $user_scores->save();
 
-            $this->user_id = $user_scores->user_id;
+            $this->user_id = $user_id;
             $this->insert();
         }
     }
@@ -84,7 +90,7 @@ class ScoreInput6Steps extends ScoreInput
             case ScoreAction::ACTION_PROFILE_EMAIL:
                 return !empty($user->email_confirmed);
             case ScoreAction::ACTION_PROFILE_LOCATION:
-                return !empty($user->userAddress);
+                return !empty($user->address->country_id);
         }
 
         return true;

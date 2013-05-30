@@ -25,4 +25,8 @@ class ScoreInputNewVideo extends ScoreInputEntity
 
         return self::$_instance;
     }
+
+    public function __construct()
+    {
+    }
 }

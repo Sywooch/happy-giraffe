@@ -17,7 +17,7 @@ class ScoreInput extends HMongoModel
     const TYPE_FRIEND_ADDED = 5;
 
     const TYPE_COMMENT_ADDED = 6;
-    const TYPE_PHOTOS_ADDED = 8;
+    const TYPE_PHOTOS_ADDED = 7;
 
     const TYPE_DUEL_PARTICIPATION = 9;
     const TYPE_DUEL_WIN = 10;

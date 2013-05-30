@@ -464,5 +464,4 @@ class ScoreAchievement extends HActiveRecord
 
         return User::model()->findAllByPk($userIds);
     }
-
 }

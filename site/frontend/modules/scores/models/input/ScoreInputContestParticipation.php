@@ -27,6 +27,10 @@ class ScoreInputContestParticipation extends ScoreInput
         return self::$_instance;
     }
 
+    public function __construct()
+    {
+    }
+
     /**
      * Добавление баллов
      *

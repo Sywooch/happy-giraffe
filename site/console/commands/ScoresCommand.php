@@ -30,49 +30,21 @@ class ScoresCommand extends CConsoleCommand
         ScoreInput::CheckOnClose();
     }
 
-    public function actionCheck()
+    public function actionFirstSteps()
     {
         Yii::import('site.frontend.modules.geo.models.*');
         Yii::import('site.common.models.interest.*');
-        Yii::app()->db->createCommand('update score__user_scores set level_id = NULL, full = 0')->execute();
+        Yii::app()->db->createCommand('update score__user_scores set level_id=NULL, full=0, scores=0')->execute();
 
-        $criteria = new CDbCriteria;
-        $criteria->limit = 100;
+        $iterator = new CDataProviderIterator(new CActiveDataProvider('User'), 100);
         $i = 0;
-        $users = array(1);
-
-        while (!empty($users)) {
-            $criteria->offset = 100 * $i;
-            $users = User::model()->with('address', 'interests')->findAll($criteria);
-
-            foreach ($users as $user) {
-                if (empty($user->interests)) {
-                    $e_criteria = new EMongoCriteria;
-                    $e_criteria->addCond('user_id', '==', (int)$user->id);
-                    $e_criteria->addCond('action_id', '==', (int)ScoreAction::ACTION_PROFILE_INTERESTS);
-                    ScoreInput::model()->deleteAll($e_criteria);
-                }
-
-                if (!empty($user->address->country_id))
-                    UserScores::checkProfileScores($user->id, ScoreAction::ACTION_PROFILE_LOCATION);
-
-                if ($user->email_confirmed == 1)
-                    UserScores::checkProfileScores($user->id, ScoreAction::ACTION_PROFILE_EMAIL);
-
-                if (!empty($user->avatar_id))
-                    UserScores::checkProfileScores($user->id, ScoreAction::ACTION_PROFILE_PHOTO);
-            }
+        foreach ($iterator as $user) {
+            ScoreInput6Steps::getInstance()->check($user->id);
 
             $i++;
-            echo ($i * 100) . "\n";
+            if ($i % 1000 == 0)
+                echo ($i) . "\n";
         }
-    }
-
-    public function actionRefreshLevel()
-    {
-        Yii::import('site.frontend.modules.geo.models.*');
-        Yii::import('site.common.models.interest.*');
-        Yii::app()->db->createCommand('update score__user_scores set level_id = NULL, full = 0')->execute();
     }
 
     public function actionEndWeek()
@@ -192,7 +164,6 @@ class ScoresCommand extends CConsoleCommand
 
             $criteria->offset += 100;
         }
-
     }
 
     public function actionEndContest($contest, $show = 1)
@@ -200,7 +171,7 @@ class ScoresCommand extends CConsoleCommand
         Yii::import('site.frontend.modules.contest.models.*');
 
         if (!Contest::model()->exists($contest)) {
-            echo 'fail';
+            echo 'contest not exist';
             return;
         }
 
@@ -227,8 +198,9 @@ class ScoresCommand extends CConsoleCommand
         echo '5: ' . $works[4]->user_id . "\n";
     }
 
-    public function actionTest(){
-        for($i=0;$i<10000;$i++)
+    public function actionTest()
+    {
+        for ($i = 0; $i < 10000; $i++)
             UserPostView::getInstance()->checkView(10, rand(1, 100000));
     }
 }

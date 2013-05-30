@@ -56,7 +56,7 @@
  * @property AlbumPhoto $avatar
  * @property UserStatus status
  * @property UserMailSub $mail_subs
- * @property address $address
+ * @property UserAddress $address
  * @property int $activeCommentsCount
  * @property int $blogPostsCount
  * @property int $communityPostsCount
@@ -450,7 +450,7 @@ class User extends HActiveRecord
             self::clearCache($this->id);
 
             if (!empty($this->relationship_status))
-                UserScores::checkProfileScores($this->id, ScoreAction::ACTION_PROFILE_FAMILY);
+                ScoreInput6Steps::getInstance()->check($this->id);
         }
 
         if ($this->trackable->isChanged('online'))

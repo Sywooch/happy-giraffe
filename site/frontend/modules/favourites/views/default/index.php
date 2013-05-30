@@ -11,14 +11,14 @@ Yii::app()->clientScript
         <h2 class="col-1_t">Избранное</h2>
 
         <div class="menu-list menu-list__favorites">
-            <a href="javascript:void(0)" class="menu-list_i menu-list_i__all" data-bind="css : { active : activeMenuRow() === null }, click: selectAll">
+            <a href="javascript:void(0)" class="menu-list_i menu-list_i__all" data-bind="css : { active : activeMenuRowIndex() === null }, click: selectAll">
                 <span class="menu-list_ico"></span>
                 <span class="menu-list_tx">Все</span>
                 <span class="menu-list_count" data-bind="text: totalCount"></span>
             </a>
             <!-- ko if: isMenuVisible -->
                 <!-- ko foreach: menu -->
-                <a href="javascript:void(0)" class="menu-list_i" data-bind="css: { active : $root.activeMenuRow() === entity }, css2: cssClass, click: select, visible: count() > 0">
+                <a href="javascript:void(0)" class="menu-list_i" data-bind="css: { active : $root.activeMenuRowIndex() === $root.menu.indexOf($data) }, css2: cssClass, click: select, visible: count() > 0">
                     <span class="menu-list_ico"></span>
                     <span class="menu-list_tx" data-bind="text: title"></span>
                     <span class="menu-list_count" data-bind="text: count"></span>

@@ -6,6 +6,26 @@ class DefaultController extends HController
     const QUERY_RESPONSE_TYPE_TAG = 0;
     const QUERY_RESPONSE_TYPE_KEYWORD = 1;
 
+    public function filters()
+    {
+        return array(
+            'accessControl',
+            'ajaxOnly - index',
+        );
+    }
+
+    public function accessRules()
+    {
+        return array(
+            array('allow',
+                'users' => array('@'),
+            ),
+            array('deny',
+                'users' => array('*'),
+            ),
+        );
+    }
+
     public function actionIndex($entity = null, $query = null)
     {
         $totalCount = (int) FavouritesManager::getCountByUserId(Yii::app()->user->id);
@@ -88,31 +108,6 @@ class DefaultController extends HController
         echo CJSON::encode($response);
     }
 
-    public function actionTest()
-    {
-        $tags = array();
-        for ($i = 0; $i < 10; $i++)
-            $tags[] = 'тег' . $i;
-
-        $photos = AlbumPhoto::model()->findAll(array('limit' => 10));
-        $posts = CommunityContent::model()->findAll(array('limit' => 20, 'condition' => 'type_id = 1'));
-        $videos = CommunityContent::model()->findAll(array('limit' => 20, 'condition' => 'type_id = 2'));
-        $recipes = CookRecipe::model()->findAll(array('limit' => 20));
-
-        $all = array_merge($posts, $videos, $recipes, $photos);
-        foreach ($all as $entity) {
-            $favourite = new Favourite();
-            $favourite->model_name = get_class($entity);
-            $favourite->model_id = $entity->id;
-            $favourite->user_id = Yii::app()->user->id;
-            $favourite->tagsNames = array_rand(array_flip($tags), rand(2, 3));
-            if (! $favourite->withRelated->save(true, array('tags'))) {
-                print_r($favourite->errors);
-                Yii::app()->end();
-            }
-        }
-    }
-
     public function actionGetEntityData($modelName, $modelId)
     {
         $entity = Favourite::model()->getEntityByModel($modelName, $modelId);
@@ -165,4 +160,29 @@ class DefaultController extends HController
 
         echo CJSON::encode($response);
     }
+
+//    public function actionTest()
+//    {
+//        $tags = array();
+//        for ($i = 0; $i < 10; $i++)
+//            $tags[] = 'тег' . $i;
+//
+//        $photos = AlbumPhoto::model()->findAll(array('limit' => 10));
+//        $posts = CommunityContent::model()->findAll(array('limit' => 20, 'condition' => 'type_id = 1'));
+//        $videos = CommunityContent::model()->findAll(array('limit' => 20, 'condition' => 'type_id = 2'));
+//        $recipes = CookRecipe::model()->findAll(array('limit' => 20));
+//
+//        $all = array_merge($posts, $videos, $recipes, $photos);
+//        foreach ($all as $entity) {
+//            $favourite = new Favourite();
+//            $favourite->model_name = get_class($entity);
+//            $favourite->model_id = $entity->id;
+//            $favourite->user_id = Yii::app()->user->id;
+//            $favourite->tagsNames = array_rand(array_flip($tags), rand(2, 3));
+//            if (! $favourite->withRelated->save(true, array('tags'))) {
+//                print_r($favourite->errors);
+//                Yii::app()->end();
+//            }
+//        }
+//    }
 }

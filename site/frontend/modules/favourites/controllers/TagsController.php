@@ -13,6 +13,25 @@ class TagsController extends HController
     const TYPE_POPULAR = 0;
     const TYPE_BY_LETTER = 1;
 
+    public function filters()
+    {
+        return array(
+            'accessControl',
+        );
+    }
+
+    public function accessRules()
+    {
+        return array(
+            array('allow',
+                'users' => array('@'),
+            ),
+            array('deny',
+                'users' => array('*'),
+            ),
+        );
+    }
+
     public function actionIndex($type = 0, $letter = null)
     {
         $letters = TagsManager::getFirstLetters(Yii::app()->user->id);

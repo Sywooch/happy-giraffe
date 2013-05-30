@@ -38,25 +38,6 @@ $('.favorites-add-popup_itx-tag').keyup(function(event) {
      console.log(event.keyCode);
 });
 
-    $(".favorites-control_a").click(function(){
-        $(this).toggleClass('active');
-        $(this).flydiv({
-            flyTo: '.icon-favorites',
-            flyAddClass: 'flydiv active',
-            callback:function(){
-                $(".i-favorites").addClass('new').animate( { top:"-5px" },  { queue:true, duration:250 }  )
-                .animate( { top:"0" }, {
-                     duration: 250,
-                    complete: function() {
-                        $(this).removeClass('new');
-                    }
-                /*$(".i-favorites").animate( {'height':'toggle'}, 'slow', 'easeOutBounce');*/
-                });
-            }
-        });
-        return false; 
-    });
-
     $(".wysiwyg-content").addtocopy({htmlcopytxt:'<br /><br />Подробнее: <a href="' + window.location.href + '">' + window.location.href + '</a>'});
 
     /* видео с youtube, что б не перекрывало всплывающие окна */

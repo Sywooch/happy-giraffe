@@ -34,9 +34,15 @@ function removeA(arr) {
 }
 
 $(document).ready(function () {
-$('.favorites-add-popup_itx-tag').keyup(function(event) {
-     console.log(event.keyCode);
+
+$('.favorites-add-popup_itx-tag').keypress(function (event) {
+
+    if (event.which == 13 || event.which == 44 ) {
+        console.log(event.which);
+    }
+    return true;
 });
+
 
     $(".favorites-control_a").click(function(){
         $(this).toggleClass('active');

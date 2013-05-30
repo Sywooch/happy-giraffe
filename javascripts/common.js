@@ -37,6 +37,7 @@ $(document).ready(function () {
 $('.favorites-add-popup_itx-tag').keyup(function(event) {
      console.log(event.keyCode);
 });
+
     $(".favorites-control_a").click(function(){
         $(this).toggleClass('active');
         $(this).flydiv({

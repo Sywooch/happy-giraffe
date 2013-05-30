@@ -11,11 +11,13 @@ function FavouritesViewModel(data) {
     self.activeMenuRow = ko.observable(data.entity);
     self.tagId = ko.observable(data.tagId);
     self.keyword = ko.observable(null);
-    self.query = ko.observable('');
+    self.instantaneousQuery = ko.observable('');
+    self.throttledQuery = ko.computed(this.instantaneousQuery).extend({ throttle: 400 });
     self.activeTag = ko.observable(null);
     self.filter = ko.observable(null);
     self.loading = ko.observable(false);
     self.lastPage = ko.observable(false);
+    self.history = new AjaxHistory('favourites');
 
     self.isMenuVisible = ko.computed(function() {
         var rowsCount = 0;
@@ -27,8 +29,8 @@ function FavouritesViewModel(data) {
         return rowsCount > 1;
     });
 
-    self.query.subscribe(function(val) {
-        if (val != '')
+    self.throttledQuery.subscribe(function(val) {
+        if (val != '') {
             $.get('/favourites/default/search/', { query : val }, function(response) {
                 if (response.filter.type == 0) {
                     self.tagId(response.tagId);
@@ -38,18 +40,18 @@ function FavouritesViewModel(data) {
                     self.keyword(response.keyword);
                     self.filter(new Filter(response.filter));
                 }
+                self.history.changeBrowserUrl(self.history.buildUrl('', { query : val }));
             }, 'json');
+        } else {
+            self.history.changeBrowserUrl(document.location.origin + '/favourites/');
+        }
     });
 
     self.activeMenuRow.subscribe(function(val) {
         self.init();
     });
 
-    self.tagId.subscribe(function(val) {
-        self.init();
-    });
-
-    self.keyword.subscribe(function(val) {
+    self.filter.subscribe(function(val) {
         self.init();
     });
 
@@ -57,7 +59,7 @@ function FavouritesViewModel(data) {
         self.tagId(null);
         self.keyword(null);
         self.filter(null);
-        self.query('');
+        self.instantaneousQuery('');
     }
 
     self.selectAll = function() {
@@ -65,7 +67,7 @@ function FavouritesViewModel(data) {
     }
 
     self.clearQuery = function() {
-        self.query('');
+        self.instantaneousQuery('');
     }
 
     self.load = function(callback, offset) {
@@ -93,6 +95,7 @@ function FavouritesViewModel(data) {
     }
 
     self.init = function() {
+        self.favourites([]);
         self.load(function(response) {
             self.favourites(ko.utils.arrayMap(response.favourites, function(favourite) {
                 return new Favourite(favourite, self);
@@ -109,6 +112,15 @@ function FavouritesViewModel(data) {
             self.favourites.push.apply(self.favourites, newItems);
         }, self.favourites().length);
     }
+
+    self.getMenuRowByEntity = function(entity) {
+        return ko.utils.arrayFirst(this.menu(), function(menuRow) {
+            return menuRow.entity == entity;
+        });
+    }
+
+    if (data.query !== null)
+        self.instantaneousQuery(data.query);
 
     self.init();
 

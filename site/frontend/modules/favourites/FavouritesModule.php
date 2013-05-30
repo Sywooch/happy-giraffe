@@ -6,9 +6,8 @@ class FavouritesModule extends CWebModule
         'post' => array(
             'class' => 'CommunityContent',
             'title' => 'Записи',
-            'criteria' => array(
-                'join' => 'LEFT OUTER JOIN community__contents c ON c.id = t.entity_id',
-                'condition' => 'type_id = 1',
+            'relatedCriteria' => array(
+                'scopes' => array('full'),
             ),
         ),
         'photo' => array(
@@ -18,10 +17,6 @@ class FavouritesModule extends CWebModule
         'video' => array(
             'class' => 'CommunityContent',
             'title' => 'Видео',
-            'criteria' => array(
-                'join' => 'LEFT OUTER JOIN community__contents c ON c.id = t.entity_id',
-                'condition' => 'type_id = 2',
-            ),
         ),
         'cook' => array(
             'class' => 'CookRecipe',
@@ -33,7 +28,13 @@ class FavouritesModule extends CWebModule
         'CommunityContent' => array(
             'scopes' => array('full'),
         ),
-        'CookRecipe' => array(
+        'BlogContent' => array(
+            'scopes' => array('full'),
+        ),
+        'MultivarkaRecipe' => array(
+            'with' => array('tags'),
+        ),
+        'SimpleRecipe' => array(
             'with' => array('tags'),
         ),
     );

@@ -83,6 +83,9 @@ class TagsManager
             $result[$tag['name']] = array(
                 'weight' => $tag['c'],
                 'url' => Yii::app()->createUrl('/favourites/default/index', array('query' => $tag['name'])),
+                'htmlOptions' => array(
+                    'target' => '_self',
+                ),
             );
         }
         return $result;

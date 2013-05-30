@@ -53,7 +53,6 @@ class DefaultController extends HController
                         'data' => $favourite->relatedModel,
                     ), true);
                     break;
-                case 'CookRecipe':
                 case 'MultivarkaRecipe':
                 case 'SimpleRecipe':
                     $html = Yii::app()->controller->renderPartial('cook.views.recipe._recipe', array(

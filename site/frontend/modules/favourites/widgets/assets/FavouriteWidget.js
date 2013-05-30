@@ -59,7 +59,6 @@ function FavouriteWidget(data) {
                                 complete: function() {
                                     $(this).removeClass('new');
                                 }
-                                /*$(".i-favorites").animate( {'height':'toggle'}, 'slow', 'easeOutBounce');*/
                             });
                     }
                 });
@@ -117,7 +116,7 @@ function Entity(data, parent) {
     }
 
     self.tagHandler = function(data, event) {
-        if (event.keyCode == 13 || event.keyCode == 44) {
+        if (event.which == 13 || event.which == 44) {
             self.addTag();
         } else
             return true;

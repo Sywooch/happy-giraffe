@@ -3630,3 +3630,36 @@ Stack trace:
 #3 {main}
 REQUEST_URI=/favicon.ico/
 ---
+2013/05/30 19:19:39 [error] [exception.CException] exception 'CException' with message 'Не определено свойство "FavouritesWidget.onlyBind".' in /opt/yii/framework/yiilite.php:628
+Stack trace:
+#0 /opt/yii/framework/yiilite.php(5650): CComponent->__set('onlyBind', true)
+#1 /opt/yii/framework/yiilite.php(3260): CWidgetFactory->createWidget(Object(AlbumsController), 'site.frontend.w...', Array)
+#2 /opt/yii/framework/yiilite.php(3276): CBaseController->createWidget('site.frontend.w...', Array)
+#3 /home/giraffe/happy-giraffe.ru/site/frontend/views/albums/w_photo_content.php(74): CBaseController->widget('site.frontend.w...', Array)
+#4 /opt/yii/framework/yiilite.php(3252): require('/home/giraffe/h...')
+#5 /opt/yii/framework/yiilite.php(3231): CBaseController->renderInternal('/home/giraffe/h...', Array, true)
+#6 /opt/yii/framework/yiilite.php(3655): CBaseController->renderFile('/home/giraffe/h...', Array, true)
+#7 /home/giraffe/happy-giraffe.ru/site/frontend/views/albums/w_photo.php(252): CController->renderPartial('w_photo_content', Array)
+#8 /opt/yii/framework/yiilite.php(3252): require('/home/giraffe/h...')
+#9 /opt/yii/framework/yiilite.php(3231): CBaseController->renderInternal('/home/giraffe/h...', Array, true)
+#10 /opt/yii/framework/yiilite.php(3655): CBaseController->renderFile('/home/giraffe/h...', Array, true)
+#11 /home/giraffe/happy-giraffe.ru/site/frontend/controllers/AlbumsController.php(218): CController->renderPartial('w_photo', Array)
+#12 /opt/yii/framework/yiilite.php(3891): AlbumsController->actionWPhoto()
+#13 /opt/yii/framework/yiilite.php(3403): CInlineAction->runWithParams(Array)
+#14 /opt/yii/framework/yiilite.php(6405): CController->runAction(Object(CInlineAction))
+#15 /opt/yii/framework/web/widgets/COutputCache.php(165): CFilterChain->run()
+#16 /opt/yii/framework/yiilite.php(6402): COutputCache->filter(Object(CFilterChain))
+#17 /opt/yii/framework/yiilite.php(6414): CFilterChain->run()
+#18 /opt/yii/framework/yiilite.php(3781): CFilter->filter(Object(CFilterChain))
+#19 /opt/yii/framework/yiilite.php(6447): CController->filterAccessControl(Object(CFilterChain))
+#20 /opt/yii/framework/yiilite.php(6402): CInlineFilter->filter(Object(CFilterChain))
+#21 /opt/yii/framework/yiilite.php(3393): CFilterChain->run()
+#22 /opt/yii/framework/yiilite.php(3378): CController->runActionWithFilters(Object(CInlineAction), Array)
+#23 /opt/yii/framework/yiilite.php(1725): CController->run('wPhoto')
+#24 /opt/yii/framework/yiilite.php(1645): CWebApplication->runController('albums/wPhoto')
+#25 /opt/yii/framework/yiilite.php(1170): CWebApplication->processRequest()
+#26 /home/giraffe/happy-giraffe.ru/site/frontend/www-submodule/index.php(8): CApplication->run()
+#27 {main}
+REQUEST_URI=/albums/wPhoto/?singlePhoto=false&entity=Contest&entity_id=9&entity_url=&sort=created&id=366095
+HTTP_REFERER=http://www.virtual-giraffe.ru/contest/9/
+---

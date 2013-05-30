@@ -632,7 +632,7 @@ class AlbumsController extends HController
             UserStatisticAction::avatarLoaded(Yii::app()->user->id);
 
         User::model()->updateByPk(Yii::app()->user->id, array('avatar_id' => $photo->id));
-        UserScores::checkProfileScores(Yii::app()->user->id, ScoreAction::ACTION_PROFILE_PHOTO);
+        ScoreInput6Steps::getInstance()->check(Yii::app()->user->id);
 
         echo $photo->getPreviewUrl(241, 225, Image::WIDTH);
     }

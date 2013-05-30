@@ -332,7 +332,7 @@ class SiteController extends HController
 
         $user->email_confirmed = 1;
         if ($user->update(array('email_confirmed')))
-            UserScores::checkProfileScores($user->id, ScoreAction::ACTION_PROFILE_EMAIL);
+            ScoreInput6Steps::getInstance()->check($this->user->id);
 
         $identity = new SafeUserIdentity($user_id);
         if ($identity->authenticate())

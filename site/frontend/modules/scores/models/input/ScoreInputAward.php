@@ -27,15 +27,21 @@ class ScoreInputAward extends ScoreInput
         return self::$_instance;
     }
 
+    public function __construct()
+    {
+    }
+
     /**
      * Добавление баллов
      *
-     * @param $user_id int id пользователя
-     * @param $award_id int id награды
+     * @param int $user_id id пользователя
+     * @param ScoreUserAward $user_award награда
      */
-    public function add($user_id, $award_id)
+    public function add($user_id, $user_award)
     {
         $this->user_id = $user_id;
-        parent::insert(array('award_id' => $award_id));
+        $this->scores = $user_award->award->scores;
+
+        parent::insert(array('user_award_id' => $user_award->id));
     }
 }

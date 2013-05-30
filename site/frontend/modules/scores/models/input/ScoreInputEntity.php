@@ -6,7 +6,7 @@
  *
  * @author Alex Kireev <alexk984@gmail.com>
  */
-class ScoreInputEntity extends ScoreInput
+abstract class ScoreInputEntity extends ScoreInput
 {
     public $entity;
     public $entity_id;

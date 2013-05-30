@@ -6,7 +6,6 @@
  * The followings are the available columns in table 'score__user_scores':
  * @property integer $user_id
  * @property integer $scores
- * @property integer $viewed_scores
  * @property integer $level_id
  * @property integer $full
  *
@@ -40,7 +39,7 @@ class UserScores extends HActiveRecord
     {
         return array(
             array('user_id', 'required'),
-            array('user_id, scores, level_id, full, viewed_scores', 'numerical', 'integerOnly' => true),
+            array('user_id, scores, level_id, full', 'numerical', 'integerOnly' => true),
             array('user_id, scores, level_id, full', 'safe', 'on' => 'search'),
         );
     }
@@ -68,11 +67,6 @@ class UserScores extends HActiveRecord
         }
 
         return $model;
-    }
-
-    public function checkFull()
-    {
-        ScoreInput6Steps::getInstance()->check($this);
     }
 
     /**
@@ -113,17 +107,5 @@ class UserScores extends HActiveRecord
         }
 
         return $value;
-    }
-
-    public function getUserHistory($page = 0)
-    {
-        $criteria = new EMongoCriteria;
-        $criteria->addCond('user_id', '==', (int)$this->user_id);
-        $criteria->sort('updated', EMongoCriteria::SORT_DESC);
-        $criteria->limit(10);
-        $criteria->offset($page*10);
-//        $dataProvider = new EMongoDocumentDataProvider('ScoreInput', array('criteria' => $criteria));
-
-        return ScoreInput::model()->findAll($criteria);
     }
 }

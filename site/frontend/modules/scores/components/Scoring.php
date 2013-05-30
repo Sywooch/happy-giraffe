@@ -38,9 +38,9 @@ class Scoring
             ScoreInputFirstBlogRecord::getInstance()->remove($content->author_id);
         else {
             if ($content->type_id == CommunityContent::TYPE_POST)
-                ScoreInputNewPost::getInstance()->add($content->author_id, $content);
+                ScoreInputNewPost::getInstance()->remove($content->author_id, $content);
             elseif ($content->type_id == CommunityContent::TYPE_VIDEO)
-                ScoreInputNewVideo::getInstance()->add($content->author_id, $content);
+                ScoreInputNewVideo::getInstance()->remove($content->author_id, $content);
         }
     }
 

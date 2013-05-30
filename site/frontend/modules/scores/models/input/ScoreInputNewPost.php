@@ -25,4 +25,8 @@ class ScoreInputNewPost extends ScoreInputEntity
 
         return self::$_instance;
     }
+
+    public function __construct()
+    {
+    }
 }

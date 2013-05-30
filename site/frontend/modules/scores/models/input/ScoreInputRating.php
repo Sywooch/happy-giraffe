@@ -24,6 +24,10 @@ class ScoreInputRating extends ScoreInputEntity
         return self::$_instance;
     }
 
+    public function __construct()
+    {
+    }
+
     /**
      * Добавление баллов
      *

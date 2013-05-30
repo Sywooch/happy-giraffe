@@ -51,7 +51,17 @@ function FavouriteWidget(data) {
                 self.active(true);
                 el.flydiv({
                     flyTo: '.icon-favorites',
-                    flyAddClass: 'flydiv active'
+                    flyAddClass: 'flydiv active',
+                    callback:function(){
+                        $(".i-favorites").addClass('new').animate( { top:"-5px" },  { queue:true, duration:250 }  )
+                            .animate( { top:"0" }, {
+                                duration: 250,
+                                complete: function() {
+                                    $(this).removeClass('new');
+                                }
+                                /*$(".i-favorites").animate( {'height':'toggle'}, 'slow', 'easeOutBounce');*/
+                            });
+                    }
                 });
                 if (self.favouritesMainPage) {
                     favouritesModel.totalCount(favouritesModel.totalCount() + 1);

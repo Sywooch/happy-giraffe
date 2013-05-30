@@ -70,3 +70,15 @@
         'photoContainer'=>true
     )); ?>
 </div>
+
+<?php if(Yii::app()->request->getQuery('go')): ?>
+
+<div class="test">
+    <?php $this->widget('FavouriteWidget', array('model' => $photo)); ?>
+</div>
+
+<script type="text/javascript">
+    $('.photo-info .favorites-control').replaceWith($('.test .favorites-control'));
+</script>
+
+<?php endif; ?>

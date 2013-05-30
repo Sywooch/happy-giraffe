@@ -125,5 +125,11 @@
                 var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
             })();
         </script>
+
+        <?php if (Yii::app()->request->pathInfo == ''): ?>
+            <a href="http://waplog.net/c.shtml?517512"><img src="http://c.waplog.net/517512.cnt" alt="waplog" /></a>
+        <?php else: ?>
+            <a href="http://waplog.net/c.shtml?517511"><img src="http://c.waplog.net/517511.cnt" alt="waplog" /></a>
+        <?php endif; ?>
     </body>
 </html>

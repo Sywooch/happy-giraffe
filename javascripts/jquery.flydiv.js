@@ -51,11 +51,11 @@
                 if(options.flyRemove == true) {
                     $this.remove();
                 }
+                if (typeof options.callback == 'function') { 
+                    options.callback.call(this);
+                }
             });
 
-        if (typeof options.callback == 'function') { 
-            options.callback.call(this);
-        }
         return this;
     };
 })(jQuery);

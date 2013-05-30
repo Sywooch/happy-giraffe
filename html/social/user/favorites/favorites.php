@@ -126,7 +126,7 @@
 												</a>
 											</div>
 											<div class="favorites-add-popup_row">
-												<label for="" class="favorites-add-popup_label">Комментарий</label>
+												<label for="" class="favorites-add-popup_label">Комментарий:</label>
 												<div class="float-r color-gray">0/150</div>
 											</div>
 											<div class="favorites-add-popup_row">
@@ -172,17 +172,12 @@
 						<div class="entry-tags">
 							<div class="entry-tags_row">
 								<span class="entry-tags_t">Теги:</span>
-								<a href="" class="entry-tags_tag">свадьба</a>
-								<a href="" class="entry-tags_tag">приколы</a>
-								<a href="" class="entry-tags_tag">свадьба</a>
-							</div>
-							<div class="entry-tags_row">
-								<div class="entry-tags_tx">Прикольная свадьба надо такую замутить</div>
+								<span class="entry-tags_tx">тегов нет</span>
 							</div>
 							<div class="entry-tags_edit">
 								<a href="" class="entry-tags_edit-a powertip" title="Редактировать"></a>
 								
-								<div class="favorites-add-popup">
+								<div class="favorites-add-popup display-n">
 									<div class="favorites-add-popup_t">Редактировать</div>
 									<div class="favorites-add-popup_i clearfix">
 										<img src="/images/example/w60-h40.jpg" alt="" class="favorites-add-popup_i-img">
@@ -206,7 +201,7 @@
 										</a>
 									</div>
 									<div class="favorites-add-popup_row">
-										<label for="" class="favorites-add-popup_label">Комментарий</label>
+										<label for="" class="favorites-add-popup_label">Комментарий:</label>
 										<div class="float-r color-gray">0/150</div>
 									</div>
 									<div class="favorites-add-popup_row">
@@ -367,11 +362,11 @@
 												<input type="text" name="" id="" class="favorites-add-popup_itx-tag ui-autocomplete-input" placeholder="Вводите теги через запятую или Enter">
 											</div>
 											<div class="favorites-add-popup_row">
-												<label for="" class="favorites-add-popup_label">Комментарий</label>
+												<label for="" class="favorites-add-popup_label">Комментарий:</label>
 												<div class="float-r color-gray">0/150</div>
 											</div>
 											<div class="favorites-add-popup_row">
-												<textarea name="" id="" cols="25" rows="2" class="favorites-add-popup_textarea" placeholder="Введите комментарий"></textarea>
+												<textarea name="" id="" cols="25" rows="2" class="favorites-add-popup_textarea" placeholder="Введите Комментарий:"></textarea>
 											</div>
 											<div class="favorites-add-popup_row textalign-c margin-t10">
 												<a href="" class="btn-gray-light">Отменить</a>
@@ -429,24 +424,45 @@
 							
 							<div class="entry-tags_edit">
 								<a href="" class="entry-tags_edit-a powertip" title="Редактировать"></a>
+								
+								<div class="favorites-add-popup">
+									<div class="favorites-add-popup_t">Редактировать</div>
+									<div class="favorites-add-popup_i clearfix">
+										<img src="/images/example/w60-h40.jpg" alt="" class="favorites-add-popup_i-img">
+										<div class="favorites-add-popup_i-hold">Неравный брак. Смертельно опасен или жизненно необходим?</div>
+									</div>
+									<div class="favorites-add-popup_row">
+										<label for="" class="favorites-add-popup_label">Теги:</label>
+										<span class="favorites-add-popup_tag">
+											<a href="" class="favorites-add-popup_tag-a">отношения</a>
+											<a href="" class="ico-close"></a>
+										</span>
+										<span class="favorites-add-popup_tag">
+											<a href="" class="favorites-add-popup_tag-a">любовь</a>
+											<a href="" class="ico-close"></a>
+										</span>
+									</div>
+									<div class="favorites-add-popup_row margin-b10">
+										<a class="textdec-none" href="">
+											<span class="ico-plus2 margin-r5"></span>
+											<span class="a-pseudo-gray color-gray">Добавить тег</span>
+										</a>
+									</div>
+									<div class="favorites-add-popup_row">
+										<label for="" class="favorites-add-popup_label">Комментарий:</label>
+										<div class="float-r color-gray">0/150</div>
+									</div>
+									<div class="favorites-add-popup_row">
+										<textarea name="" id="" cols="25" rows="2" class="favorites-add-popup_textarea" placeholder="Введите комментарий"></textarea>
+									</div>
+									<div class="favorites-add-popup_row textalign-c margin-t10">
+										<a href="" class="btn-gray-light">Отменить</a>
+										<a href="" class="btn-green">Сохранить</a>
+									</div>
+								</div>
 							</div>
 						</div>
 							
-					</div>	
-					<div class="pagination pagination-center clearfix">
-						<div class="pager">
-							<ul>
-								<li class="previous"><a href="">...</a></li>
-								<li><a href="">1</a></li>
-								<li><a href="">2</a></li>
-								<li class="selected"><a href="">321</a><img src="/images/pagination_tale.png" /></li>
-								<li><a href="">4</a></li>
-								<li class="selected"><a href="">5</a><img src="/images/pagination_tale.png" /></li>
-								<li><a href="">6</a></li>
-								<li><a href="">7</a></li>
-								<li class="next"><a href="">...</a></li>
-							</ul>
-						</div>
 					</div>
 					
 					<div id="infscr-loading"><img alt="Loading..." src="/images/ico/ajax-loader.gif"><div>Загрузка</div></div>	

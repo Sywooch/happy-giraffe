@@ -8,7 +8,7 @@ if (empty($this->url))
 else
     $url = $this->url;
 
-$js = "$('.vk_share_button').html(VK.Share.button(document.location.href,{type: 'round', text: 'Мне нравится'}));";
+$js = "$('.vk_share_button').html(VK.Share.button('".$url."',{type: 'round', text: 'Мне нравится'}));";
 
 Yii::app()->clientScript
     ->registerScriptFile('http://vk.com/js/api/share.js?11')
@@ -30,7 +30,7 @@ Yii::app()->clientScript
                 array('class' => 'fb-custom-text', 'onclick' => 'return Social.showFacebookPopup(this);'), true) ?>
                 <div class="fb-custom-share-count">0</div>
                 <script type="text/javascript">
-                    $.getJSON("http://graph.facebook.com", { id:document.location.href }, function (json) {
+                    $.getJSON("http://graph.facebook.com", { id:'<?=$url ?>' }, function (json) {
                         $('.fb-custom-share-count').html(json.shares || '0');
                     });
                 </script>

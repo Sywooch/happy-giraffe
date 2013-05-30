@@ -126,7 +126,7 @@
             })();
         </script>
 
-        <?php var_dump(Yii::app()->homeUrl); if ($this->route == 'site/index'): ?>
+        <?php var_dump(Yii::app()->request->pathInfo); if ($this->route == 'site/index'): ?>
             <a href="http://waplog.net/c.shtml?517512"><img src="http://c.waplog.net/517512.cnt" alt="waplog" /></a>
         <?php else: ?>
             <a href="http://waplog.net/c.shtml?517511"><img src="http://c.waplog.net/517511.cnt" alt="waplog" /></a>

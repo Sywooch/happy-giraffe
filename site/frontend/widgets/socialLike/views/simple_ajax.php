@@ -7,9 +7,10 @@ if(isset($this->model) && method_exists($this->model, 'isValentinePost') && $thi
 }else
     $url = 'http://' . $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
 
+$code=substr(sha1(microtime()), 0, 5);
 ?>
 <script type="text/javascript">
-    $('.vk_share_button').html(VK.Share.button('<?= $url?>',{type: 'round', text: 'Мне нравится'}));
+    $('.vk_share_button<?=$code ?>').html(VK.Share.button('<?= $url?>',{type: 'round', text: 'Мне нравится'}));
 </script>
 <div class="like-block fast-like-block">
     <div class="box-2">
@@ -37,10 +38,10 @@ if(isset($this->model) && method_exists($this->model, 'isValentinePost') && $thi
         </div>
 
         <div class="share_button">
-            <div class="vk_share_button"></div>
+            <div class="vk_share_button<?=$code ?>"></div>
         </div>
 
-        <div class="share_button"><?php $code=substr(sha1(microtime()), 0, 5) ?>
+        <div class="share_button">
             <div id="ok_shareWidget<?=$code ?>" style="height: 20px;"></div>
             <script>
                 !function (d, id, did, st) {

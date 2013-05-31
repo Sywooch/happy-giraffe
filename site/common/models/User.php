@@ -420,14 +420,6 @@ class User extends HActiveRecord
         /*Yii::app()->mc->saveUser($this);*/
 
         if ($this->isNewRecord) {
-            //силнал о новом юзере
-//            $signal = new UserSignal();
-//            $signal->user_id = (int)$this->id;
-//            $signal->signal_type = UserSignal::TYPE_NEW_USER_REGISTER;
-//            $signal->item_name = 'User';
-//            $signal->item_id = (int)$this->id;
-//            $signal->save();
-
             //рубрика для блога
             $rubric = new CommunityRubric;
             $rubric->title = 'Обо всём';
@@ -441,8 +433,6 @@ class User extends HActiveRecord
         } else {
             self::clearCache($this->id);
 
-            if (!empty($this->relationship_status))
-                UserScores::checkProfileScores($this->id, ScoreAction::ACTION_PROFILE_FAMILY);
         }
 
         if ($this->trackable->isChanged('online'))
@@ -453,7 +443,6 @@ class User extends HActiveRecord
 
     public function beforeDelete()
     {
-        //UserSignal::closeRemoved($this);
         return false;
     }
 

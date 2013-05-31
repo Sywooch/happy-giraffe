@@ -150,10 +150,12 @@ class CommentatorDayWork extends EMongoEmbeddedDocument
 
     /**
      * Вычислить кол-во выполненных заданий за текущий день по написанию статей в блог/клуб
+     *
      * @param $section int блог/клуб
+     * @param $user_id int id комментатора
      * @return int кол-во выполненных заданий
      */
-    public function checkPosts($section)
+    public function checkPosts($section, $user_id)
     {
         $criteria = new CDbCriteria;
         $criteria->condition = 'updated >= :day_start AND updated <= :day_end AND status = ' . SeoTask::STATUS_CLOSED
@@ -162,7 +164,7 @@ class CommentatorDayWork extends EMongoEmbeddedDocument
             ':day_start' => date("Y-m-d") . ' 00:00:00',
             ':day_end' => date("Y-m-d") . ' 23:59:59',
             ':section' => $section,
-            ':user_id' => Yii::app()->user->id
+            ':user_id' => $user_id
         );
 
         return SeoTask::model()->count($criteria);

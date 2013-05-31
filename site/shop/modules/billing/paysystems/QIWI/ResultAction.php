@@ -14,7 +14,7 @@ class ResultAction extends PSAction
 
 		require_once(($dir=dirname(__FILE__)).'/qiwi.inc.php');
 		$qiwi = QIWI::getInstance(array_merge(
-			require_once($dir.'/qiwi.cfg.php'),
+			require_once($dir . '/qiwi.cfg.php'),
 			$system->getParameters()
 		));
 		foreach($qiwi->billStatus($pids) as $pid=>$result)

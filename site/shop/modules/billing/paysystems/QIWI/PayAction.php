@@ -22,7 +22,7 @@ class PayAction extends PSAction
 				$model->save(false);
 				require_once(($dir=dirname(__FILE__)).'/qiwi.inc.php');
 				$cfg = array_merge(
-					require_once($dir.'/qiwi.cfg.php'),
+					require_once($dir . '/qiwi.cfg.php'),
 					$system->getParameters()
 				);
 				$qiwi = QIWI::getInstance($cfg);

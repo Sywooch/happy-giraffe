@@ -256,7 +256,7 @@ class CommunityContent extends HActiveRecord
         } else
             UserScores::removeScores($this->author_id, ScoreAction::ACTION_RECORD, 1, $this);
         //закрываем сигнал
-        UserSignal::closeRemoved($this);
+        //UserSignal::closeRemoved($this);
 
         return false;
     }
@@ -303,25 +303,25 @@ class CommunityContent extends HActiveRecord
             return parent::afterSave();
 
         if ($this->isNewRecord) {
-            if ($this->contentAuthor->isNewComer()) {
-                $signal = new UserSignal();
-                $signal->user_id = (int)$this->author_id;
-                $signal->item_id = (int)$this->id;
-                $signal->item_name = 'CommunityContent';
-
-                if ($this->isFromBlog)
-                    $signal->signal_type = UserSignal::TYPE_NEW_BLOG_POST;
-                else {
-                    if ($this->type->slug == 'video')
-                        $signal->signal_type = UserSignal::TYPE_NEW_USER_VIDEO;
-                    else
-                        $signal->signal_type = UserSignal::TYPE_NEW_USER_POST;
-                }
-
-                if (!$signal->save()) {
-                    Yii::log('NewComers signal not saved', 'warning', 'application');
-                }
-            }
+//            if ($this->contentAuthor->isNewComer()) {
+//                $signal = new UserSignal();
+//                $signal->user_id = (int)$this->author_id;
+//                $signal->item_id = (int)$this->id;
+//                $signal->item_name = 'CommunityContent';
+//
+//                if ($this->isFromBlog)
+//                    $signal->signal_type = UserSignal::TYPE_NEW_BLOG_POST;
+//                else {
+//                    if ($this->type->slug == 'video')
+//                        $signal->signal_type = UserSignal::TYPE_NEW_USER_VIDEO;
+//                    else
+//                        $signal->signal_type = UserSignal::TYPE_NEW_USER_POST;
+//                }
+//
+//                if (!$signal->save()) {
+//                    Yii::log('NewComers signal not saved', 'warning', 'application');
+//                }
+//            }
 
             if ($this->rubric_id !== null) {
                 if ($this->isFromBlog && count($this->contentAuthor->blogPosts) == 1) {

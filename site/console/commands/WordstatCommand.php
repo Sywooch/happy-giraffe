@@ -66,12 +66,24 @@ class WordstatCommand extends CConsoleCommand
     public function actionPutTask()
     {
         $job_provider = new WordstatTaskCreator;
-        $job_provider->start();
+        $job_provider->start('important_parsing');
+    }
+
+    public function actionPutSeasonTask()
+    {
+        $job_provider = new WordstatTaskCreator;
+        $job_provider->start('season_parsing');
     }
 
     public function actionSimple()
     {
         $p = new WordstatParser();
+        $p->start();
+    }
+
+    public function actionSeason()
+    {
+        $p = new WordstatSeasonParser();
         $p->start();
     }
 
@@ -106,7 +118,7 @@ class WordstatCommand extends CConsoleCommand
         $c->findKeywordByNameTest();
     }
 
-    public function actionCopyKeywords()
+    public function actionCopyKeywords($last_id = 218722612)
     {
         $mongo = new Mongo(Yii::app()->mongodb_parsing->connectionString);
         $mongo->connect();
@@ -116,27 +128,36 @@ class WordstatCommand extends CConsoleCommand
         $collection->ensureIndex(array('name' => 1), array("unique" => true));
         $collection->ensureIndex(array('wordstat' => -1));
 
+        while (true) {
+            $condition = 'id > ' . $last_id;
+            $keywords = Yii::app()->db_keywords->createCommand()
+                ->select('*')
+                ->from('keywords')
+                ->order('id asc')
+                ->where($condition)
+                ->limit(10000)
+                ->queryAll();
 
-        $dataProvider = new CSqlDataProvider('select * from keywords.keywords', array(
-            'totalItemCount' => 10000000,
-            'pagination' => array(
-                'pageSize' => 10000,
-            ),
-        ));
-        $iterator = new CDataProviderIterator($dataProvider, 10000);
+            foreach ($keywords as $keyword) {
+                $last_id = $keyword['id'];
+                $collection->insert(array(
+                    'id' => (int)$keyword['id'],
+                    'name' => $keyword['name'],
+                    'wordstat' => (int)$keyword['wordstat'],
+                    'status' => (int)$keyword['status'],
+                ));
+            }
 
-        foreach ($iterator as $keyword) {
-            $collection->insert(array(
-                'id' => (int)$keyword['id'],
-                'name' => $keyword['name'],
-                'wordstat' => (int)$keyword['wordstat'],
-                'status' => (int)$keyword['status'],
-            ));
+            if (rand(1, 10) == 7)
+                echo $last_id . "\n";
+
+            if (empty($keywords))
+                break;
         }
     }
 
-    public function actionAddToTestParsing()
+    public function actionAddToSeasonParsing()
     {
-        WordstatParsingTask::getInstance()->addAllKeywordsToParsing();
+        WordstatParsingTask::getInstance()->addAllKeywordsToSeasonParsing();
     }
 }

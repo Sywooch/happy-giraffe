@@ -4,7 +4,6 @@
 <?php $this->renderPartial('/community/_prev_next', array('data' => $data)); ?>
 <?php endif; ?>
 
-<?php if (false): ?>
 <div style="margin-top: 40px; margin-bottom: 40px;">
     <!-- Яндекс.Директ -->
     <div id="yandex_ad_2"></div>
@@ -38,7 +37,6 @@
         })(window, document, "yandex_context_callbacks");
     </script>
 </div>
-<?php endif; ?>
 
 <?php $this->renderPartial('//banners/community_24_700x346'); ?>
 

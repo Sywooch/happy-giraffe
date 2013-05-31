@@ -152,28 +152,6 @@ class SeoCommand extends CConsoleCommand
         PageStatistics::model()->export();
     }
 
-    public function actionTest()
-    {
-        $data = array();
-        $criteria = new CDbCriteria;
-        $criteria->condition = 'type=' . LiSite::TYPE_LI . ' AND rubric_id IS NOT NULL AND visits>1000';
-        $criteria->order = 'visits desc';
-        $sites = LiSite::model()->findAll($criteria);
-        $i = 1;
-        foreach ($sites as $site) {
-            $rows = array(
-                $i,
-                array('http://' . $site->url, $site->url),
-                $site->rubric->title,
-                ($site->visits * 2 - rand(1, 3))
-            );
-            $i++;
-            $data[] = $rows;
-        }
-
-        $this->excel($data);
-    }
-
     public function excel($data)
     {
         $file_name = 'f:/file.xlsx';
@@ -216,15 +194,37 @@ class SeoCommand extends CConsoleCommand
         return $file_name;
     }
 
-    public function actionTest2()
+    public function actionTest()
     {
-        $url = '/community/2/forum/post/1491/';
-        echo "http://www.happy-giraffe.ru$url\n";
-
-        for ($i = 8; $i > 0; $i--) {
-            $date = date("Y-m-d", strtotime('- ' . $i . ' days'));
-            echo $date . ': ' . GApi::model()->organicSearches($url, $date, $date) . "\n";
+        $names = array('лосини', 'воронеж', 'база отдыха связист петровское', 'затока базы отдыха',
+            'базы отдыха благовещенская', 'купить газонную траву в рулонах', 'перевозка рулонов',
+            'заполнение нулевой отчетности');
+        foreach ($names as $name) {
+            $t = microtime(true);
+            $model = Yii::app()->db_keywords->createCommand()
+                ->select('*')
+                ->from('keywords')
+                ->where('name=:name', array(':name' => $name))
+                ->limit(1)
+                ->queryAll();
+            echo strlen($name) . ': ' . (microtime(true) - $t) . "\n";
         }
+
+        $ids = range(434583146, 434583159);
+        foreach ($ids as $id) {
+            $t = microtime(true);
+            $model = Yii::app()->db_keywords->createCommand()
+                ->select('*')
+                ->from('keywords')
+                ->where('id=:id', array(':id' => $id))
+                ->limit(1)
+                ->queryAll();
+            echo (microtime(true) - $t) . "\n";
+        }
+    }
+
+    public function actionTest2(){
+        echo GApi::model()->uniquePageViews('/test/pregnancy/', '2012-11-01', '2012-12-01')."\n";
     }
 }
 

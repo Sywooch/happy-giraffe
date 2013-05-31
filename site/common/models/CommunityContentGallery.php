@@ -40,6 +40,7 @@ class CommunityContentGallery extends HActiveRecord
 		return array(
 			'content' => array(self::BELONGS_TO, 'CommunityContent', 'content_id'),
 			'items' => array(self::HAS_MANY, 'CommunityContentGalleryItem', 'gallery_id'),
+			'count' => array(self::STAT, 'CommunityContentGalleryItem', 'gallery_id'),
 		);
 	}
 

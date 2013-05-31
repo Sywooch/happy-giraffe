@@ -615,7 +615,9 @@ class CommunityCommand extends CConsoleCommand
         $criteria->with = array('gallery', 'type', 'post', 'gallery.items');
         $criteria->condition = 'gallery.id IS NOT NULL AND post.photo_id IS NULL';
         $criteria->order = 't.id';
-        $iterator=new CDataProviderIterator(new CActiveDataProvider('CommunityContent', array('criteria'=>$criteria)), 100);
+        $criteria->limit = 300;
+
+        $iterator = CommunityContent::model()->findAll($criteria);
 
         $c = 0;
         foreach($iterator as $content)

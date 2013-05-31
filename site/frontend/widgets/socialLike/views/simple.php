@@ -111,7 +111,7 @@
             </div>
 
             <div class="share_button">
-                <div id="ok_shareWidget"></div>
+                <div id="ok_shareWidget" style="height: 22px;"></div>
                 <script>
                     !function (d, id, did, st) {
                         var js = d.createElement("script");

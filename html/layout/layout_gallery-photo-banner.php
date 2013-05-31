@@ -222,11 +222,6 @@
 		</div>
 		<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/footer.php'; ?>
 	</div>
-
-	<div style="display:none">
-
-    
-	</div>
 	
 	<div id="photo-window-bg" style="display:block;"></div>
 	

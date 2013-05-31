@@ -107,7 +107,7 @@
 								</div>
 								<div class="user-notice-list_comment">
 									<div class="user-notice-list_comment-text">
-										проблема в том, что на 2006-ой год игры еще толком не было
+										<a href="">проблема в том, что на 2006-ой год игры еще толком не было</a>
 									</div>
 								</div>
 							</div>

@@ -42,7 +42,6 @@ im.holdHeights = function  () {
     } else {
         im.hold.height(im.viewHeight());
     }
-        console.log(im.viewHeight());
 }
 
  /* Список скрытых пользователей в сайдбаре */

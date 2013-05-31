@@ -34,6 +34,15 @@ function removeA(arr) {
 }
 
 $(document).ready(function () {
+
+    $('.favorites-add-popup_itx-tag').keypress(function (event) {
+
+        if (event.which == 13 || event.which == 44 ) {
+            console.log(event.which);
+        }
+        return true;
+    });
+
     $(".wysiwyg-content").addtocopy({htmlcopytxt:'<br /><br />Подробнее: <a href="' + window.location.href + '">' + window.location.href + '</a>'});
 
     /* видео с youtube, что б не перекрывало всплывающие окна */
@@ -71,9 +80,10 @@ $(document).ready(function () {
     $('.js-tooltipsy').tooltipsy({offset:[0, 1]});
     $('.powertip').powerTip({
         placement: 'n',
-        smartPlacement: true,
+        /*smartPlacement: true,*/
         offset: 8
     });
+
     $('.js-powertip-white').powerTip({
         placement: 'n',
         smartPlacement: true,

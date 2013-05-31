@@ -25,7 +25,7 @@ function FriendsSearchViewModel(data) {
     self.selectedRegion = ko.observable(null);
     self.gender = ko.observable('');
     self.minAge = ko.observable('18');
-    self.maxAge = ko.observable('100');
+    self.maxAge = ko.observable('60');
     self.relationStatuses = [
         { id : 1, name: 'женат / замужем' },
         { id : 2, name: 'не женат / не замужем' },

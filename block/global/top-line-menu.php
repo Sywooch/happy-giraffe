@@ -9,6 +9,9 @@
 				<li class="i-broadcast new top-line-menu_nav_li js-tooltipsy" title="Что нового">
 					<a href="" ><i class="icon-broadcast"></i></a>
 				</li>
+				<li class="i-favorites top-line-menu_nav_li js-tooltipsy" title="Избранное">
+					<a href="" ><i class="icon-favorites"></i></a>
+				</li>
 				<li class="i-dialogs top-line-menu_nav_li js-tooltipsy" title="Мои диалоги">
 					<a href="">
 						<i class="icon-dialogs"></i>

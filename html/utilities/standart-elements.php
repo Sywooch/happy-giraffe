@@ -252,7 +252,9 @@
 		<h1>Аватары</h1>
 		<div class="">
 			<div class="clearfix margin-b10">
-				<a href="" class="ava small"></a> - .ava.small
+				<a href="" class="ava small">
+					<span class="icon-status"></span>
+				</a> - .ava.small
 			</div>
 			<div class="clearfix margin-b10">
 				<a href="" class="ava small female"></a> - .ava.small.female

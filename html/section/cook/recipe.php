@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <!--[if lt IE 8]>      <html class="ie7"> <![endif]-->
 <!--[if IE 8]>         <html class="ie8"> <![endif]-->
 <!--[if IE 9]>         <html class="ie9"> <![endif]-->
@@ -69,6 +69,42 @@
 												<span>Рецепт в моей <br />кулинарной книге</span>
 												<i class="icon-exist"></i>
 											</a>
+											<!-- display-b для отображения на стр примера -->
+											<div class="favorites-add-popup display-b">
+												<div class="favorites-add-popup_t">Добавить запись в избранное</div>
+												<div class="favorites-add-popup_i clearfix">
+													<img class="favorites-add-popup_i-img" alt="" src="/images/example/w60-h40.jpg">
+													<div class="favorites-add-popup_i-hold">Неравный брак. Смертельно опасен или жизненно необходим?</div>
+												</div>
+												<div class="favorites-add-popup_row">
+													<label class="favorites-add-popup_label" for="">Теги:</label>
+													<span class="favorites-add-popup_tag">
+														<a class="favorites-add-popup_tag-a" href="">отношения</a>
+														<a class="ico-close" href=""></a>
+													</span>
+													<span class="favorites-add-popup_tag">
+														<a class="favorites-add-popup_tag-a" href="">любовь</a>
+														<a class="ico-close" href=""></a>
+													</span>
+												</div>
+												<div class="favorites-add-popup_row margin-b10">
+													<a href="" class="textdec-none">
+														<span class="ico-plus2 margin-r5"></span>
+														<span class="a-pseudo-gray color-gray">Добавить тег</span>
+													</a>
+												</div>
+												<div class="favorites-add-popup_row">
+													<label class="favorites-add-popup_label" for="">Комментарий</label>
+													<div class="float-r color-gray">0/150</div>
+												</div>
+												<div class="favorites-add-popup_row">
+													<textarea placeholder="Введите комментарий" class="favorites-add-popup_textarea" rows="2" cols="25" id="" name=""></textarea>
+												</div>
+												<div class="favorites-add-popup_row textalign-c margin-t10">
+													<a class="btn-gray-light" href="">Отменить</a>
+													<a class="btn-green" href="">Добавить</a>
+												</div>
+											</div>
 										</div>
 										<div class="cook-book-info">
 											<a href="" >

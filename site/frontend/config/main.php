@@ -336,6 +336,10 @@ return array(
         'email'=>array(
             'class' => 'site.common.components.HEmailSender',
         ),
+        'indexden' => array(
+            'class' => 'site.common.components.IndexDen',
+            'apiUrl' => 'http://:tebadytarure@nygeme.api.indexden.com',
+        ),
 	),
 
 	// application-level parameters that can be accessed

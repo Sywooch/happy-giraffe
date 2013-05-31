@@ -70,4 +70,17 @@ class HActiveRecord extends CActiveRecord
     {
         return ($this->hasAttribute('entity') && $this->hasAttribute('entity_id')) ? CActiveRecord::model($this->entity)->findByPk($this->entity_id, $condition, $params) : null;
     }
+
+    public function getEntity()
+    {
+        switch (get_class($this)) {
+            case 'AlbumPhoto':
+                return 'post';
+            case 'CookRecipe':
+                return 'cook';
+            case 'CommunityContent':
+            case 'BlogContent':
+                return $this->type_id == 1 ? 'post' : 'video';
+        }
+    }
 }

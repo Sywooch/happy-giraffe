@@ -14,17 +14,25 @@ class Scoring
      */
     public static function contentCreated($content)
     {
-        //проверяем на выполнение условий достижения
-        ScoreAchievement::model()->checkAchieve($content->author_id, ScoreAchievement::TYPE_DAY_POSTS);
-
-        if ($content->getIsFromBlog() && count($content->contentAuthor->contentBlogPosts) == 1)
+        if ($content->getIsFromBlog() && $content->author->blogPostsCount == 1)
             ScoreInputFirstBlogRecord::getInstance()->add($content->author_id);
         else {
-            if ($content->type_id == CommunityContent::TYPE_POST)
+            if ($content->type_id == CommunityContent::TYPE_POST) {
+                //запись
                 ScoreInputNewPost::getInstance()->add($content->author_id, $content);
-            elseif ($content->type_id == CommunityContent::TYPE_VIDEO)
+                if ($content->getIsFromBlog())
+                    ScoreAchievement::model()->checkAchieve($content->author_id, ScoreAchievement::TYPE_BLOG);
+                else
+                    ScoreAchievement::model()->checkAchieve($content->author_id, ScoreAchievement::TYPE_CLUB_POSTS);
+            } elseif ($content->type_id == CommunityContent::TYPE_VIDEO) {
+                //видео
                 ScoreInputNewVideo::getInstance()->add($content->author_id, $content);
+                ScoreAchievement::model()->checkAchieve($content->author_id, ScoreAchievement::TYPE_VIDEO);
+            }
         }
+
+        //проверяем на выполнение условий достижения
+        ScoreAchievement::model()->checkAchieve($content->author_id, ScoreAchievement::TYPE_DAY_POSTS);
     }
 
     /**
@@ -51,7 +59,7 @@ class Scoring
      */
     public static function commentCreated($comment)
     {
-
+        ScoreAchievement::model()->checkAchieve($comment->author_id, ScoreAchievement::TYPE_COMMENTS);
     }
 
     /**
@@ -71,7 +79,7 @@ class Scoring
      */
     public static function photoCreated($photo)
     {
-
+        ScoreAchievement::model()->checkAchieve($photo->author_id, ScoreAchievement::TYPE_PHOTO);
     }
 
     /**
@@ -100,7 +108,8 @@ class Scoring
      */
     public static function friendAdded($user1_id, $user2_id)
     {
-
+        ScoreAchievement::model()->checkAchieve($user1_id, ScoreAchievement::TYPE_FRIENDS);
+        ScoreAchievement::model()->checkAchieve($user2_id, ScoreAchievement::TYPE_FRIENDS);
     }
 
     /**

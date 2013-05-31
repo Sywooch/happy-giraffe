@@ -29,4 +29,25 @@ class ScoreInputNewPost extends ScoreInputEntity
     public function __construct()
     {
     }
+
+    /**
+     * Добавление баллов
+     *
+     * @param $user_id int id пользователя
+     * @param $entity CActiveRecord модель
+     */
+    public function add($user_id, $entity)
+    {
+        parent::add($user_id, $entity);
+    }
+
+    /**
+     * Вычитание баллов
+     *
+     * @param $user_id int id пользователя
+     * @param $entity CActiveRecord модель
+     */
+    public function remove($user_id, $entity){
+        parent::remove($user_id, $entity);
+    }
 }

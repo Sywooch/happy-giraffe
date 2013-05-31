@@ -1,7 +1,6 @@
 <?php
 class CommunityController extends HController
 {
-
     public $layout = '//layouts/main';
 
     public $community;
@@ -192,6 +191,8 @@ class CommunityController extends HController
         }
 
         NotificationRead::getInstance()->setContentModel($content);
+        if (!Yii::app()->user->isGuest)
+            UserPostView::getInstance()->checkView(Yii::app()->user->id, $content->id);
         $this->registerCounter();
 
         //проверяем переход с других сайтов по ссылкам комментаторов

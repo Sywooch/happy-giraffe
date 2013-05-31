@@ -315,7 +315,7 @@ class User extends HActiveRecord
             'cookRecipesCount' => array(self::STAT, 'CookRecipe', 'author_id'),
             'recipeBookRecipesCount' => array(self::STAT, 'RecipeBookRecipe', 'author_id'),
             //'photosCount' => array(self::STAT, 'AlbumPhoto', 'author_id', 'join' => 'JOIN album__albums a ON t.album_id = a.id', 'condition' => 'a.type IN(0, 1, 3)'),
-            'albumsCount' => array(self::STAT, 'Album', 'author_id', 'condition' => 'removed = 0'),
+            'albumsCount' => array(self::STAT, 'Album', 'author_id', 'condition' => 'removed = 0 AND type = 0'),
 
             'communitiesCount' => array(self::STAT, 'Community', 'user__users_communities(user_id, community_id)'),
             'userDialogs' => array(self::HAS_MANY, 'DialogUser', 'user_id'),

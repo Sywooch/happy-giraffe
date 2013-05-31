@@ -6,6 +6,7 @@
  * The followings are the available columns in table 'score__user_scores':
  * @property integer $user_id
  * @property integer $scores
+ * @property integer $seen_scores
  * @property integer $level_id
  * @property integer $full
  *
@@ -39,7 +40,7 @@ class UserScores extends HActiveRecord
     {
         return array(
             array('user_id', 'required'),
-            array('user_id, scores, level_id, full', 'numerical', 'integerOnly' => true),
+            array('user_id, scores, seen_scores, level_id, full', 'numerical', 'integerOnly' => true),
             array('user_id, scores, level_id, full', 'safe', 'on' => 'search'),
         );
     }

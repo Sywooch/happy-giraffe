@@ -223,7 +223,7 @@ jQuery.fn.pGallery = function(options) {
     plugin.next = function () {
         console.log('next');
         var next = pGallery.photos[pGallery.currentPhoto].next;
-        if (next == pGallery.start && Object.keys(pGallery.photos).length > 3) {
+        if (next == null && $('.rewatch-container', this.window).text() != '') {
             this.showAlbumEnd();
         } else {
             (next !== null) ? this.openImage(next) : this.openImage(pGallery.first);

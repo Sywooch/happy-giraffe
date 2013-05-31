@@ -90,17 +90,6 @@ return array(
 			),
 		),
 		'contest',
-		'attribute',
-		'delivery' => array(
-			'class' => 'application.modules.delivery.DeliveryModule',
-			'returnUrl' => '/shop/shopCartDelivery',
-		),
-		'billing' => array(
-			'urlNext' => "/site/contact",
-			'urlNextUserState' => 'billing_url_next',
-			'callbackOrderProceed' => array('Order','callbackOrderProceed'),
-			'callbackOrderPaid' => array('Order','callbackOrderPaid'),
-		),
         'im',
         'geo',
         'signal',

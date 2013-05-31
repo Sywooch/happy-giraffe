@@ -31,35 +31,39 @@ $more = $content->OtherCommunityGalleries();
     </div>
 
     <div class="more-albums">
-        <div class="block-in">
-            <div class="block-title">
-                <span>Другие популярные фотопосты раздела "<?= $content->rubric->community->title ?>" </span></div>
+        <?php if (!empty($more)):?>
+            <div class="block-in">
+                <div class="block-title">
+                    <span>Другие популярные фотопосты раздела "<?= $content->rubric->community->title ?>" </span></div>
 
-            <div class="more-albums-photopost clearfix">
-                <ul class="more-albums-photopost_ul">
+                <div class="more-albums-photopost clearfix">
+                    <ul class="more-albums-photopost_ul">
 
-                    <?php foreach ($more as $post): ?>
-                        <li class="more-albums-photopost_li">
-                            <div class="more-albums-photopost_hold">
-                                <a href="<?= $post->getUrl() ?>?open_gallery=1" class="more-albums-photopost_img">
-                                    <img alt="" src="<?= $post->getContentImage(220, 175, Image::WIDTH, true); ?>">
-                                    <span class="more-albums-photopost_img-title"></span>
-                                    <span class="more-albums-photopost_count">
-                                        смотреть <span
-                                            class="more-albums-photopost_count-big"><?= $post->gallery->count ?>
-                                            ФОТО</span>
-                                    </span>
-                                    <i class="ico-play-big"></i>
-                                </a>
-                            </div>
-                            <a href="<?= $post->getUrl() ?>?open_gallery=1"
-                               class="more-albums-photopost_title-bottom"><?= $post->title ?></a>
-                        </li>
-                    <?php endforeach; ?>
+                        <?php foreach ($more as $post): ?>
+                            <li class="more-albums-photopost_li">
+                                <div class="more-albums-photopost_hold">
+                                    <a href="<?= $post->getUrl() ?>?open_gallery=1" class="more-albums-photopost_img">
+                                        <img alt="" src="<?= $post->getContentImage(220, 175, Image::WIDTH, true); ?>">
+                                        <span class="more-albums-photopost_img-title"></span>
+                                        <span class="more-albums-photopost_count">
+                                            смотреть <span
+                                                class="more-albums-photopost_count-big"><?= $post->gallery->count ?>
+                                                ФОТО</span>
+                                        </span>
+                                        <i class="ico-play-big"></i>
+                                    </a>
+                                </div>
+                                <a href="<?= $post->getUrl() ?>?open_gallery=1"
+                                   class="more-albums-photopost_title-bottom"><?= $post->title ?></a>
+                            </li>
+                        <?php endforeach; ?>
 
-                </ul>
+                    </ul>
+                </div>
             </div>
-        </div>
+        <?php else: ?>
+            <a href="javascript:void(0)" class="re-watch"><i class="icon"></i><span>Посмотреть еще раз</span></a>
+        <?php endif ?>
 
     </div>
 </div>

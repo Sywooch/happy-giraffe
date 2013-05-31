@@ -185,7 +185,7 @@ function setMessagesHeight() {
 function NotificationsUpdateCounter(diff) {
     console.log(diff);
     var li = $('.top-line-menu_nav_ul .i-notifications');
-    var counter = li.find('.count span.count-red span');
+    var counter = li.find('.count span.count-red');
     var c = parseInt(counter.text());
     if (isNaN(c))
         c = 0;

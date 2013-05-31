@@ -11874,6 +11874,13 @@ body.gallery {
   min-width: 1000px;
   color: #dcdcdc;
 }
+#photo-window .counter-rambler {
+  float: none;
+  display: inline-block;
+  *zoom: 1;
+  *display: inline;
+  margin: 0 20px;
+}
 #photo-window-in {
   background: #fff;
   width: 1000px;

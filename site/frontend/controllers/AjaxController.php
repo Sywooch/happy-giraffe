@@ -751,7 +751,6 @@ class AjaxController extends HController
         $date->validate();
         $user = Yii::app()->user->getModel();
         $user->birthday = trim($date->date);
-        UserScores::checkProfileScores($user->id, ScoreAction::ACTION_PROFILE_BIRTHDAY);
 
         if ($user->save('birthday')) {
             ob_start();

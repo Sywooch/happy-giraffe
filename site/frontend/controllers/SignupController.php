@@ -79,9 +79,6 @@ class SignupController extends HController
             if ($result) {
                 UserRegister::create($model->id);
 
-                if (!empty($model->birthday))
-                    UserScores::checkProfileScores($model->id, ScoreAction::ACTION_PROFILE_BIRTHDAY);
-
                 if (!empty($model->baby_birthday)) {
                     $baby = new Baby();
                     $baby->parent_id = $model->id;
@@ -144,8 +141,6 @@ class SignupController extends HController
 
                         $model->avatar_id = $photo->id;
                         $model->save();
-
-                        UserScores::checkProfileScores($model->id, ScoreAction::ACTION_PROFILE_PHOTO);
                     }
                 }
 

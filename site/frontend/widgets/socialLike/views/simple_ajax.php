@@ -40,8 +40,8 @@ if(isset($this->model) && method_exists($this->model, 'isValentinePost') && $thi
             <div class="vk_share_button"></div>
         </div>
 
-        <div class="share_button">
-            <div id="ok_shareWidget"></div>
+        <div class="share_button"><?php $code=substr(sha1(microtime()), 0, 5) ?>
+            <div id="ok_shareWidget<?=$code ?>" style="height: 20px;"></div>
             <script>
                 !function (d, id, did, st) {
                     var js = d.createElement("script");
@@ -56,12 +56,12 @@ if(isset($this->model) && method_exists($this->model, 'isValentinePost') && $thi
                             }
                         }};
                     d.documentElement.appendChild(js);
-                }(document,"ok_shareWidget","<?=$url ?>","{width:145,height:35,st:'straight',sz:20,ck:1}");
+                }(document,"ok_shareWidget<?=$code ?>","<?=$url ?>","{width:100,height:20,st:'straight',sz:20,ck:1}");
             </script>
         </div>
 
         <div class="share_button">
-            <div class="tw_share_button">
+            <div class="tw_share_button" style="height: 20px;">
                 <a href="https://twitter.com/share" class="twitter-share-button" data-lang="ru" data-text="<?=$this->options['title'] ?>" data-url="<?=$url?>">Твитнуть</a>
                 <script type="text/javascript">
                     twttr.widgets.load();

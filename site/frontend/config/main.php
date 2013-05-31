@@ -340,6 +340,10 @@ return array(
             'class' => 'site.common.components.IndexDen',
             'apiUrl' => 'http://:tebadytarure@nygeme.api.indexden.com',
         ),
+        'gearman' => array(
+            'class' => 'site.common.components.Gearman',
+            'servers'=>array(),
+        ),
 	),
 
 	// application-level parameters that can be accessed

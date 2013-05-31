@@ -11,7 +11,20 @@ class IndexDenCommand extends CConsoleCommand
 {
     public function actionIndex()
     {
-        $model = CommunityContent::model()->full()->findByPk(21);
-        $model->searchable->save();
+        $models = CommunityContent::model()->full()->findAll('rubric.community_id = :community_id', array(':community_id' => 9));
+        foreach ($models as $m)
+            $m->searchable->save();
+    }
+
+    public function actionDaemon()
+    {
+        Yii::app()->gearman->worker()->addFunction('indexden', array($this, "processMessage"));
+        while (Yii::app()->gearman->worker()->work()) ;
+    }
+
+    public function processMessage($job)
+    {
+        $id = $job->workload();
+        echo $id;
     }
 }

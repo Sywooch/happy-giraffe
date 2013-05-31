@@ -4,6 +4,7 @@
 		width:240px;
 		padding-right:20px;
 		float:left;
+		position: relative;
 		
 		&_t {
 			margin: 25px 10px 20px;
@@ -45,13 +46,15 @@
 
 	/* /col-1 */
 	.col-12,
-	.col-23 {width:700px;float:left;}
+	.col-23 {width:700px;float:left;position: relative;}
 	.col-23-big {width: 740px;float: left;}
 	.col-2 {width:440px;float:left;}
 	.col-3 {width:240px;padding-left:20px;float:left;}
 }
 
 .menu-list {
+	&__favorites &_i {padding-left: 15px;}
+	&__favorites &_count {float: right;}
 
 	&_i {
 		display: block;
@@ -79,17 +82,44 @@
 		right: 10px;
 		display: none;
 	}
+	&_i__all {background: #e7dcef;}
+	&_i__all:hover {background: #e7dcef;}
+	&_i__all.active {background: #947bab;}
+	&_i__all &_ico {background-position: 0 0;}
+	&_i__all.active &_ico {background-position: 0 -20px;}
+	&_i__post {background: #ddeefd;}
+	&_i__post:hover {background: #ebf6ff;}
+	&_i__post.active {background: #7ab3e4;}
+	&_i__post &_ico {background-position: -20px 0;}
+	&_i__post.active &_ico {background-position: -20px -20px;}
+	&_i__photo {background: #d3fbd7;}
+	&_i__photo:hover {background: #eafeec;}
+	&_i__photo.active {background: #51b95b;}
+	&_i__photo &_ico {background-position: -40px 0;}
+	&_i__photo.active &_ico {background-position: -40px -20px;}
+	&_i__video {background: #ffe0e0;}
+	&_i__video:hover {background: #ffe9e9;}
+	&_i__video.active {background: #f77979;}
+	&_i__video &_ico {background-position: -60px 0;}
+	&_i__video.active &_ico {background-position: -60px -20px;}
+	&_i__master {background: #f8e3fa;}
+	&_i__master:hover {background: #fef1ff;}
+	&_i__master.active {background: #c483ca;}
+	&_i__master &_ico {background-position: -80px 0;}
+	&_i__master.active &_ico {background-position: -80px -20px;}
+	&_i__cook {background: #fff7d8;}
+	&_i__cook:hover {background: #fffae8;}
+	&_i__cook.active {background: #f6d44a;}
+	&_i__cook &_ico {background-position: -100px 0;}
+	&_i__cook.active &_ico {background-position: -100px -20px;}
+
 	&_count {
 		color: #594c62;
 		padding: 0 3px;
 	}
-	&_row {
-		padding: 15px 20px 15px;
-	}
+	&_row {padding: 15px 20px 15px;}
 	&_row .ico-plus2 {margin-right: 5px;}
-	&_i-add {
-
-	}
+	&_i-add {}
 	&_i-add-itx {
 		.inline-block();
 		vertical-align: middle;
@@ -98,6 +128,18 @@
 		border: 1px solid #CADDF4;
 		padding: 3px 10px;
 		line-height: 16px;
+	}
+	&_tx {
+		.inline-block();
+		vertical-align: middle;
+	}
+	&_ico {
+		.inline-block();
+		vertical-align: middle;
+		width: 20px;
+		height: 20px;
+		margin-right: 10px;
+		background: url(/images/ico/menu-list_ico.png) no-repeat;
 	}
 }
 

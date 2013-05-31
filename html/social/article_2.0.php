@@ -40,19 +40,66 @@
 						</div>
 						
 						<div class="entry entry-full">
-			
-							<h1>
-								Как выбрать детскую кроватку?
-								<!-- Панель для главного редактора -->
-								<div class="redactor-panel">
-									<a href="" class="ico-redactor ico-redactor__interest js-tooltipsy" title="Самое интересное"></a>
-									<a href="" class="ico-redactor ico-redactor__blog js-tooltipsy" title="Блоги на главную"></a>
-									<a href="" class="ico-redactor ico-redactor__social js-tooltipsy active" title="Посты в соцсети"></a>
-									<a href="" class="ico-redactor ico-redactor__mail js-tooltipsy" title="Посты в рассылку"></a>
+						
+							<div class="entry-header">
+								<div class="entry-title_hold">
+									<h1>
+										Топ - 8 модных вещей в горошек
+										
+										<!-- Панель для главного редактора -->
+										<div class="redactor-panel">
+											<a href="" class="ico-redactor ico-redactor__interest js-tooltipsy" title="Самое интересное"></a>
+											<a href="" class="ico-redactor ico-redactor__blog js-tooltipsy" title="Блоги на главную"></a>
+											<a href="" class="ico-redactor ico-redactor__social js-tooltipsy active" title="Посты в соцсети"></a>
+											<a href="" class="ico-redactor ico-redactor__mail js-tooltipsy" title="Посты в рассылку"></a>
+										</div>
+									</h1>
 								</div>
-							</h1>
-							
-							<div class="entry-body">
+
+								<noindex>
+								<div class="clearfix">
+								    <div class="user">
+									    <div class="user-info clearfix medium">
+											<a href="" class="ava female">
+												<span class="icon-status status-online"></span>
+												<img alt="" src="http://img.happy-giraffe.ru/avatars/15426/ava/56e76f006e881353012beb7d9f6106f6.jpg">
+											</a>
+											<div class="details">
+											    <a href="" class="username">Таня Родионова (Рыбак)</a>
+											    <div class="user-fast-buttons">
+											    	<span class="friend">друг</span>
+											        <a href="" class="new-message tooltip"></a>
+											    </div>
+											</div>
+										</div>
+									</div>
+
+									<div class="favorites-control">
+										<!-- for active status addclass active <a href="" class="favorites-control_a active"> -->
+										<a href="" class="favorites-control_a powertip" title="В избранное">
+											145
+										</a>
+									</div>
+									<div class="meta">
+										<div class="time">24 мая 2013, 1:50</div>
+										<div class="views"><span class="icon"></span> <span>18</span></div>
+										<div class="comments">
+                							<a class="icon" href="#"></a>
+                                            <a class="ava small male" href="">
+                                            	<img alt="" src="http://img.happy-giraffe.ru/avatars/16534/small/70b73fea2a74470ae721ebae1848f86b.jpg">
+                                            </a>
+                                            <a class="ava small female" href="">
+                                            	<img alt="" src="http://img.happy-giraffe.ru/avatars/15994/small/80c4ed185b865c375741adba8ca4367f.jpg">
+                                            </a>
+                                            <a class="ava small female" href="">
+                                            	<img alt="" src="http://img.happy-giraffe.ru/avatars/15545/small/63f3660625c513462a0ba3670dd1d031.jpg">
+                                            </a>
+                                            <a href="/user/10/blog/post79169/#comment_list">и еще 9</a>
+                                        </div>
+									</div>
+								</div>
+								</noindex>
+							</div>
 							
 								<div class="entry-content">
 									
@@ -97,28 +144,6 @@
 									
 								</div>
 								
-								
-								<div class="entry-header">
-									
-									<div class="user-info clearfix">
-										<div class="ava female"></div>
-										<div class="details">
-											<span class="icon-status status-online"></span>
-											<a href="" class="username">Дарья</a>
-										</div>
-									</div>
-									
-									<div class="meta">
-										
-										<div class="time">3 сен, 08:25</div>
-										<div class="seen">Просмотров:&nbsp;<span>265</span></div><br/>						
-										<a href="">Комментариев: 2</a>
-										
-									</div>
-									<div class="clear"></div>
-								</div>
-								
-							</div>
 							
 							<div class="entry-footer clearfix">
 								

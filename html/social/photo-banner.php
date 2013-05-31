@@ -53,13 +53,18 @@
 			  <div class="user clearfix">
 			    
 			    <div class="user-info clearfix">
-			      <a class="ava female small"></a>
+			      <a class="ava female small">
+			        <span class="icon-status"></span>
+			      </a>
 			      <div class="details">
-			        <span class="icon-status status-online"></span>
 			        <a href="" class="username">Александр Богоявленский</a>
 			      </div>
 			    </div>
-			    <a href="" class="remove"><span class="icon"></span></a>
+			    <div class="favorites-control">
+					<a class="favorites-control_a powertip" href="">
+						145
+					</a>
+				</div>
 			  </div>
 			  
 			  <img src="/images/example/ex5.jpg" itemprop="contentURL">

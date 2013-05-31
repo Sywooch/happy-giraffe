@@ -5,6 +5,7 @@
 // Проектный слой
 @import "/project/aside-filter.less";
 @import "/project/im.less";
+@import "/project/favorites.less";
 @import "/project/user-notice.less";
 
 .settings .RadioLabelClass, 
@@ -25,6 +26,8 @@
     background-position: 0 -78px;
 }
 
+.entry-hold {margin-bottom: 30px;}
+.entry-hold .entry {margin-bottom: 0;padding-bottom: 0;}
 .entry{display:block;background:#fff;width:100%;padding:0 0 10px;margin-bottom:30px;}
 .entry.entry-full{padding-bottom:0;border:0;}
 .entry .entry-header{display:block;background:#fff;}
@@ -41,12 +44,54 @@
 .entry .entry-header .where span {display:inline-block;*zoom:1;*display:inline;vertical-align:middle;font-size:22px;color:#535454;padding-right:10px;}
 .entry .entry-header .where .map-box {display:inline-block;*zoom:1;*display:inline;vertical-align:middle;}
 .entry .entry-header .where .map-box img {display:block;}
+.entry .entry-header .username {width: 120px;}
+.entry .entry-header .favorites-control {margin: 2px 10px 0 5px;}
+
+.entry-tags {
+    .inline-block();
+    position: relative;
+    padding: 4px 50px 4px 11px;
+    font-size: 11px;
+    &:hover {background: #f1f8fe;}
+    &:hover &_edit-a {display: block;}
+
+    &_row {
+        padding: 0;
+    }
+    &_t {
+        font: italic 12px/20px Georgia, 'Times New Roman', Times, serif;
+        color: #6c6e6f;
+    }
+    &_tag {
+        .inline-block();
+        margin: 0 10px;
+    }
+    &_tx {
+        font-family: Georgia, 'Times New Roman', Times, serif;
+        font-style: italic;
+        color: #a9a8a8;
+    }
+    &_edit {
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        margin: -10px 0 0;
+    }
+    &_edit .favorites-add-popup {
+        top: -10px;
+        right: 30px;
+    }
+    &_edit-a {
+        display: none;
+        width: 20px;
+        height: 20px;
+        background: url(/images/entry-tags_edit.png) no-repeat 50% 50%;
+    }
+}
 
 .morning-entry {}
 .morning-entry .entry-header {overflow:hidden;}
 .morning-entry .entry-content img {max-width:100%;}
-
-.entry .entry-header .username {width: 120px;}
 
 .entry .morning-images {}
 .entry .morning-images img {display:block;}
@@ -158,10 +203,10 @@
     padding: 0px 0px 5px 10px;
 }
 
-.entry .entry-footer a {
+/*.entry .entry-footer a {
     text-decoration: underline;
     color: #41b3cc;
-}
+}*/
 
 .entry .entry-footer .source {
     display: block;
@@ -4108,6 +4153,7 @@ ul.letters li a:hover {
     background: url(/images/services/cook/cook-book-info.png) no-repeat 0 0;
 }
 .recipe-article .cook-book-info .icon-add:hover{background-position: 0 -100px;}
+.recipe-article .cook-book-info .favorites-add-popup {top: 70px;right: 155px;}
 .recipe-article .recipe-user-adds {margin-bottom: 20px;}
 .recipe-article .recipe-user-adds > ul {list-style: none;}
 .recipe-article .recipe-user-adds li {float: left;margin: 0 5px 6px 0;}

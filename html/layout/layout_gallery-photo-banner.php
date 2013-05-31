@@ -222,11 +222,6 @@
 		</div>
 		<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/footer.php'; ?>
 	</div>
-
-	<div style="display:none">
-
-    
-	</div>
 	
 	<div id="photo-window-bg" style="display:block;"></div>
 	
@@ -242,15 +237,20 @@
 					
 					<div class="user">
 						<div class="user-info clearfix">
-							<a class="ava female small"></a>
+							<a class="ava female small">
+								<span class="icon-status"></span>
+							</a>
 							<div class="details">
-								<span class="icon-status status-online"></span>
 								<a href="" class="username">Александр Богоявленский</a>
 							</div>
 						</div>
 					</div>
-					
 					<div class="photo-info">
+						<div class="favorites-control">
+							<a class="favorites-control_a powertip" href="" title="В избранное">
+								9145
+							</a>
+						</div>
 						Альбом  «Оформление вторые блюда» - <span class="count">3 фото из 158</span>
 						<div class="title">Жареный картофель с беконом</div>
 					</div>

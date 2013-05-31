@@ -5,8 +5,14 @@
 	<link rel="stylesheet" type="text/css" href="/stylesheets/global.css" />
 	<link rel="stylesheet" type="text/css" href="/stylesheets/user.css" />
 	<link rel="stylesheet" type="text/css" href="/stylesheets/baby.css" />
-	
+	<!-- 
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	 -->
+	<script type="text/javascript">
+	if (typeof jQuery == 'undefined') {
+	    document.write(unescape("%3Cscript src='/javascripts/jquery-1.7.2.min.js' type='text/javascript'%3E%3C/script%3E"));
+	}
+	</script>
 	
 	<link rel="stylesheet" type="text/css" href="/stylesheets/jquery.fancybox-1.3.4.css" />
 	<script type="text/javascript" src="/javascripts/jquery.fancybox-1.3.4.js"></script>
@@ -21,6 +27,7 @@
   	<script type="text/javascript" src="/javascripts/chosen.jquery.min.js"></script>
 	<script type="text/javascript" src="/javascripts/jquery.masonry.min.js"></script>
 	<script type="text/javascript" src="/javascripts/jquery.isotope.min.js"></script>
+	<script type="text/javascript" src="/javascripts/jquery.flydiv.js"></script>
 
 	<script type="text/javascript" src="/ckeditor/ckeditor.js"></script>
   

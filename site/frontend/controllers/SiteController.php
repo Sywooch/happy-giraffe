@@ -331,8 +331,7 @@ class SiteController extends HController
             throw new CHttpException(404);
 
         $user->email_confirmed = 1;
-        if ($user->update(array('email_confirmed')))
-            UserScores::checkProfileScores($user->id, ScoreAction::ACTION_PROFILE_EMAIL);
+        $user->update(array('email_confirmed'));
 
         $identity = new SafeUserIdentity($user_id);
         if ($identity->authenticate())

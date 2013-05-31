@@ -586,7 +586,6 @@ class AlbumsController extends BController
         $attach->save();
 
         User::model()->updateByPk(Yii::app()->user->id, array('avatar_id' => $photo->id));
-        UserScores::checkProfileScores(Yii::app()->user->id, ScoreAction::ACTION_PROFILE_PHOTO);
 
         echo $photo->getPreviewUrl(241, 225, Image::WIDTH);
     }

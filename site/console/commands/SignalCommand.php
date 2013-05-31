@@ -25,14 +25,6 @@ class SignalCommand extends CConsoleCommand
         return true;
     }
 
-    /**
-     * Если модератор за 5 имнут не выполнил задание, отменяем его.
-     */
-    public function actionIndex()
-    {
-        UserSignalResponse::CheckLate();
-    }
-
     public function getModerator($user_id)
     {
         shuffle($this->moderators);

@@ -62,8 +62,6 @@
 
                     <?php $this->widget('DuelWidget'); ?>
 
-                    <?php $this->widget('HumorWidget'); ?>
-
                 </div>
 
                 <div class="col-3">

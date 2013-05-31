@@ -296,19 +296,6 @@ class AlbumsController extends BController
             echo CJSON::encode(array('status' => false));
     }
 
-    public function actionHumorPhoto()
-    {
-        $val = Yii::app()->request->getPost('val');
-        $model = new AlbumPhoto;
-        $model->file_name = $val;
-        $model->author_id = Yii::app()->user->id;
-        $model->create(true);
-
-        $humor = new Humor;
-        $humor->photo_id = $model->id;
-        echo $humor->save();
-    }
-
     public function actionRecipePhoto()
     {
         $val = Yii::app()->request->getPost('val');

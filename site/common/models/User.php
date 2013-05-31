@@ -453,7 +453,7 @@ class User extends HActiveRecord
 
     public function beforeDelete()
     {
-        UserSignal::closeRemoved($this);
+        //UserSignal::closeRemoved($this);
         return false;
     }
 

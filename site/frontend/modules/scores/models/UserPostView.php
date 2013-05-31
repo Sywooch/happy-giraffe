@@ -69,7 +69,7 @@ class UserPostView extends HMongoModel
     private function addView($user_id, $id)
     {
         $this->ensureIndexes();
-        $r = $this->getCollection()->insert(array(
+        $this->getCollection()->insert(array(
             'user_id' => (int)$user_id,
             'id' => (int)$id,
         ));

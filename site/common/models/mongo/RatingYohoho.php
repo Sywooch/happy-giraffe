@@ -109,6 +109,7 @@ class RatingYohoho extends HMongoModel
             'user_id' => (int)Yii::app()->user->id,
             'time' => time(),
         ));
+        ScoreAchievement::model()->checkAchieve(Yii::app()->user->id, ScoreAchievement::TYPE_YOHOHO);
     }
 
     /**

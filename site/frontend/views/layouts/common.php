@@ -93,6 +93,10 @@
         $notificationsCount = Notification::model()->getUnreadCount();
         $friendsCount = FriendRequest::model()->getUserCount(Yii::app()->user->id);
         $imCount = MessagingManager::unreadMessagesCount(Yii::app()->user->id);
+
+        $scores = Yii::app()->user->getModel()->score->scores;
+        $seen_scores = Yii::app()->user->getModel()->score->seen_scores;
+        $scores_diff = $scores - $seen_scores;
         ?>
         <div class="top-line-menu_nav">
 
@@ -138,6 +142,15 @@
                     <a href="/notifications/">
                         <i class="icon-notifications"></i>
                         <span class="count"><span class="count-red"><?=$notificationsCount?></span></span>
+                    </a>
+                </li>
+                <li class="i-career top-line-menu_nav_li new js-tooltipsy<?php if ($scores_diff > 0): ?> new<?php endif; ?>" title="Уведомления">
+                    <a href="#">
+                        <i class="icon-career"></i>
+						<span class="count ">
+							<span class="count-red"<?php if ($scores_diff <= 0) echo ' style="display:none;"' ?>><?=$scores_diff ?></span><br>
+							<span class="count-white"><?=$scores ?></span>
+						</span>
                     </a>
                 </li>
                 <li class="i-settings top-line-menu_nav_li js-tooltipsy" title="Настройки">

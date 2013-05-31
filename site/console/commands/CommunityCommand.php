@@ -609,4 +609,21 @@ class CommunityCommand extends CConsoleCommand
             $criteria->condition = 'id > '.$last_id;
         }
     }
+
+    public function actionPostPhotos(){
+        $criteria = new CDbCriteria;
+        $criteria->with = array('gallery', 'type', 'post', 'gallery.items');
+        $criteria->condition = 'gallery.id IS NOT NULL AND post.photo_id IS NULL';
+        $criteria->order = 't.id';
+        $iterator=new CDataProviderIterator(new CActiveDataProvider('CommunityContent', array('criteria'=>$criteria)), 100);
+
+        $c = 0;
+        foreach($iterator as $content)
+            if (isset($content->gallery->items[0])){
+                $content->post->photo_id = $content->gallery->items[0]->photo_id;
+                $content->post->update(array('photo_id'));
+                $c++;
+            }
+        echo $c."\n";
+    }
 }

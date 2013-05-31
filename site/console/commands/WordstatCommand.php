@@ -66,12 +66,24 @@ class WordstatCommand extends CConsoleCommand
     public function actionPutTask()
     {
         $job_provider = new WordstatTaskCreator;
-        $job_provider->start();
+        $job_provider->start('important_parsing');
+    }
+
+    public function actionPutSeasonTask()
+    {
+        $job_provider = new WordstatTaskCreator;
+        $job_provider->start('season_parsing');
     }
 
     public function actionSimple()
     {
         $p = new WordstatParser();
+        $p->start();
+    }
+
+    public function actionSeason()
+    {
+        $p = new WordstatSeasonParser();
         $p->start();
     }
 
@@ -144,8 +156,8 @@ class WordstatCommand extends CConsoleCommand
         }
     }
 
-    public function actionAddToTestParsing()
+    public function actionAddToSeasonParsing()
     {
-        WordstatParsingTask::getInstance()->addAllKeywordsToParsing();
+        WordstatParsingTask::getInstance()->addAllKeywordsToSeasonParsing();
     }
 }

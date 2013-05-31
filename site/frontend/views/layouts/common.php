@@ -19,7 +19,7 @@
     <![endif]-->
     <?php endif;
 
-    $r = 201;
+    $r = 202;
     $cs = Yii::app()->clientScript;
     $cs
         ->registerCssFile('/stylesheets/user.css')
@@ -49,6 +49,7 @@
         ->registerScriptFile('/javascripts/tooltipsy.min.js')
         ->registerScriptFile('http://vk.com/js/api/share.js?11')
         ->registerScriptFile('/javascripts/fox.js')
+        ->registerScriptFile('/javascripts/knockout-2.2.1.js')
     ;
 
 
@@ -136,7 +137,7 @@
                 <li class="i-notifications top-line-menu_nav_li js-tooltipsy<?php if ($notificationsCount > 0): ?> new<?php endif; ?>" title="Уведомления">
                     <a href="/notifications/">
                         <i class="icon-notifications"></i>
-                        <span class="count"><span class="count-red">+ <span><?=$notificationsCount?></span></span></span>
+                        <span class="count"><span class="count-red"><?=$notificationsCount?></span></span>
                     </a>
                 </li>
                 <li class="i-settings top-line-menu_nav_li js-tooltipsy" title="Настройки">

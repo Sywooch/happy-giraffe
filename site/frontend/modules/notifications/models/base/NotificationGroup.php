@@ -91,7 +91,7 @@ class NotificationGroup extends Notification
             'entity' => $this->entity,
             'entity_id' => (int)$this->entity_id,
             'unread_model_ids' => $model_ids
-        ), $params));
+        ), $params), count($model_ids));
     }
 
     /**

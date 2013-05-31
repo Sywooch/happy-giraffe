@@ -576,7 +576,7 @@ class CommunityContent extends HActiveRecord
             return '';
 
         $photo = $this->content->getPhoto();
-        return $photo ? $photo->getPreviewUrl($width, null, Image::WIDTH) : false;
+        return $photo ? $photo->getPreviewUrl($width, $height, $master, $crop) : false;
     }
 
     public function getPhoto()
@@ -789,5 +789,25 @@ class CommunityContent extends HActiveRecord
             return $t;
 
         return $t . htmlentities('<br>Запись <span class=\'color-gray\' > ' . $this->getContentTitle() . '</span>', ENT_QUOTES, "UTF-8");
+    }
+
+    /**
+     * Возвращает посты с галереями из этого же сообщества
+     * @param int $limit
+     * @return CommunityContent[]
+     */
+    public function OtherCommunityGalleries($limit = 3)
+    {
+        $criteria = new CDbCriteria;
+        $criteria->with = array('rubric', 'gallery', 'type', 'post');
+        $criteria->condition = 'rubric.community_id = :community AND gallery.id IS NOT NULL AND t.id != :id';
+        $criteria->params = array(
+            ':community' => $this->rubric->community_id,
+            ':id' => $this->id,
+        );
+        $criteria->limit = $limit;
+        $criteria->order = 'rand()';
+
+        return CommunityContent::model()->findAll($criteria);
     }
 }

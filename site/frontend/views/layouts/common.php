@@ -19,7 +19,7 @@
     <![endif]-->
     <?php endif;
 
-    $r = 200;
+    $r = 202;
     $cs = Yii::app()->clientScript;
     $cs
         ->registerCssFile('/stylesheets/user.css')
@@ -49,6 +49,7 @@
         ->registerScriptFile('/javascripts/tooltipsy.min.js')
         ->registerScriptFile('http://vk.com/js/api/share.js?11')
         ->registerScriptFile('/javascripts/fox.js')
+        ->registerScriptFile('/javascripts/knockout-2.2.1.js')
     ;
 
 
@@ -90,7 +91,6 @@
         <?php if (! Yii::app()->user->isGuest): ?>
         <?php
         $notificationsCount = Notification::model()->getUnreadCount();
-//        $notificationsCount = UserNotification::model()->getUserCount(Yii::app()->user->id);
         $friendsCount = FriendRequest::model()->getUserCount(Yii::app()->user->id);
         $imCount = MessagingManager::unreadMessagesCount(Yii::app()->user->id);
         ?>
@@ -137,7 +137,7 @@
                 <li class="i-notifications top-line-menu_nav_li js-tooltipsy<?php if ($notificationsCount > 0): ?> new<?php endif; ?>" title="Уведомления">
                     <a href="/notifications/">
                         <i class="icon-notifications"></i>
-                        <span class="count"><span class="count-red">+ <span><?=$notificationsCount?></span></span></span>
+                        <span class="count"><span class="count-red"><?=$notificationsCount?></span></span>
                     </a>
                 </li>
                 <li class="i-settings top-line-menu_nav_li js-tooltipsy" title="Настройки">
@@ -201,10 +201,13 @@
         Написать нам: <a href="mailto:info@happy-giraffe.ru">info@happy-giraffe.ru</a>
     </div>
     <div style="float:right;margin:0 60px 0 10px;line-height:normal;">
-        <div id="counter-rambler" class="" style="display:inline-block;vertical-align:middle;margin:5px 10px 0 0;"></div>
-        <a href="http://www.rambler.ru/" >Партнер «Рамблера»</a>
+        <noindex>
+            <div id="counter-rambler" class="" style="display:inline-block;vertical-align:middle;margin:5px 10px 0 0;"></div>
+            <a href="http://www.rambler.ru/" target="_blank" rel="nofollow">Партнер «Рамблера»</a>
+        </noindex>
     </div>
     <div class="copy">
+        <!--Отработало за <?=sprintf('%0.5f',Yii::getLogger()->getExecutionTime())?> -->
         <p>Весёлый жираф &nbsp; © 2012 &nbsp; Все права защищены
             <img src="/images/icon-18+.png" alt="" class="icon-18"/>
             <a href="">Правила модерации</a>

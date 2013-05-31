@@ -63,7 +63,8 @@
         //костыль для валентина 2
         $url = $this->model->getUrl(false, true);
     } else {
-        $url = 'http://' . $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
+        $url = $this->model->getUrl(false, true);
+        //$url = 'http://' . $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
     }
 
     $js = "
@@ -72,9 +73,6 @@
 
     Yii::app()->clientScript
         ->registerScriptFile('http://vk.com/js/api/share.js?11')
-    //->registerScript('vk-init', "VK.init({apiId: " . Yii::app()->params['social']['vk']['api_id'] . ", onlyWidgets: true});", CClientScript::POS_HEAD)
-        ->registerCssFile('http://stg.odnoklassniki.ru/share/odkl_share.css')
-        ->registerScriptFile('http://stg.odnoklassniki.ru/share/odkl_share.js')
         ->registerMetaTag($this->options['title'], null, null, array('property' => 'og:title'))
         ->registerMetaTag($this->options['image'], null, null, array('property' => 'og:image'))
         ->registerMetaTag($this->options['description'], null, null, array('property' => 'og:description'))
@@ -113,10 +111,24 @@
             </div>
 
             <div class="share_button">
-                <a class="odkl-klass-oc" href="<?=$url?>"
-                   onclick="ODKL.Share(this);Social.updateLikesCount('ok');return false;"><span>0</span></a>
+                <div id="ok_shareWidget" style="height: 22px;"></div>
+                <script>
+                    !function (d, id, did, st) {
+                        var js = d.createElement("script");
+                        js.src = "http://connect.ok.ru/connect.js";
+                        js.onload = js.onreadystatechange = function () {
+                            if (!this.readyState || this.readyState == "loaded" || this.readyState == "complete") {
+                                if (!this.executed) {
+                                    this.executed = true;
+                                    setTimeout(function () {
+                                        OK.CONNECT.insertShareWidget(id,did,st);
+                                    }, 0);
+                                }
+                            }};
+                        d.documentElement.appendChild(js);
+                    }(document,"ok_shareWidget","<?=$url ?>","{width:145,height:35,st:'straight',sz:20,ck:1}");
+                </script>
             </div>
-
 
             <div class="share_button">
                 <div class="tw_share_button">

@@ -82,6 +82,13 @@
             <div class="footer">
                 <div class="margin-b5">
                     <a href="http://www.happy-giraffe.ru/?nomo=1" class="full-version">Полная версия</a>
+                    <div class="float-r margin-t5">
+                        <?php if (Yii::app()->request->pathInfo == ''): ?>
+                            <a href="http://waplog.net/c.shtml?517512"><img src="http://c.waplog.net/517512.cnt" alt="waplog" /></a>
+                        <?php else: ?>
+                            <a href="http://waplog.net/c.shtml?517511"><img src="http://c.waplog.net/517511.cnt" alt="waplog" /></a>
+                        <?php endif; ?>
+                    </div>
                 </div>
                 <div class="clearfix">
                     Веселый Жираф © 2012-2013 <br>Все права защищены

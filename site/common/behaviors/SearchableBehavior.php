@@ -34,6 +34,7 @@ class SearchableBehavior extends CActiveRecordBehavior
                 return array(
                     'title' => $this->owner->title,
                     'text' => $this->owner->content->text,
+                    'timestamp' => $this->owner->created,
                 );
         }
     }
@@ -47,9 +48,8 @@ class SearchableBehavior extends CActiveRecordBehavior
             case 'post':
             case 'video':
                 return array(
-                    'rating' => $this->owner->rate,
-                    'views' => PageView::model()->viewsByPath($this->owner->url),
-                    'created' => strtotime($this->owner->created),
+                    $this->owner->rate,
+                    PageView::model()->viewsByPath($this->owner->url),
                 );
         }
     }
@@ -59,5 +59,24 @@ class SearchableBehavior extends CActiveRecordBehavior
         return array(
             'entity' => $this->owner->entity,
         );
+    }
+
+    protected function addToQueue()
+    {
+        Yii::app()->gearman->client()->doBackground('indexden', $this->owner->id);
+    }
+
+    public function attach($owner)
+    {
+        parent::attach($owner);
+
+        $owner->attachEventHandler('onAfterSave', array($this, 'addToQueue'));
+    }
+
+    public function detach($owner)
+    {
+        parent::detach($owner);
+
+        $owner->detachEventHandler('onAfterSave', array($this, 'addToQueue'));
     }
 }

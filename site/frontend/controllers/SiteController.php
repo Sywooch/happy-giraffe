@@ -85,10 +85,6 @@ class SiteController extends HController
 	 */
 	public function actionIndex()
 	{
-        $model = CommunityContent::model()->full()->findByPk(21);
-        $model->searchable->save();
-        die;
-
 		$this->pageTitle = 'Веселый Жираф - сайт для всей семьи';
         Yii::import('site.frontend.widgets.*');
         Yii::import('site.frontend.widgets.home.*');

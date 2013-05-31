@@ -198,8 +198,11 @@ if (get_class($model) == 'Contest') {
         <p><?=$photo->w_description?></p>
     </div>
 
-    <div class="rewatch-container" style="display: none;"><?php if ($photo->galleryItem)
+    <div class="rewatch-container" style="display: none;"><?php
+        if ($photo->galleryItem)
             $this->renderPartial('w_photo_last_post_gallery_page', compact('model', 'photo'));
+        elseif (empty($photo->album->type) || $photo->album->type == Album::TYPE_PRIVATE || $photo->album->type == Album::TYPE_FAMILY)
+            $this->renderPartial('w_photo_last_album_page', compact('more', 'count', 'title'));
     ?></div>
 
 </div>

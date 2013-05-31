@@ -1,4 +1,12 @@
-<div class="album-end">
+<?php
+/**
+ * @var Album[] $more
+ * @var int $count
+ * @var string $title
+ *
+ * @author Alex Kireev <alexk984@gmail.com>
+ */
+?><div class="album-end">
 
     <div class="block-title">Вы посмотрели "<?=$title?>"</div>
 

@@ -243,11 +243,12 @@ class Album extends HActiveRecord
 
     public function beforeDelete()
     {
-        if (count($this->photos) > 0) {
-            foreach ($this->photos as $photo)
-                UserSignal::closeRemoved($photo, false);
-            UserSignal::sendUpdateSignal();
-        }
+//        if (count($this->photos) > 0 ){
+//            foreach($this->photos as $photo)
+//                UserSignal::closeRemoved($photo, false);
+//            UserSignal::sendUpdateSignal();
+//            UserScores::removeScores($this->author_id, ScoreAction::ACTION_PHOTO, count($this->photos), $this->photos[0]);
+//        }
 
         $this->removed = 1;
         $this->save();

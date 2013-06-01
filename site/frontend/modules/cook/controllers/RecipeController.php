@@ -75,7 +75,7 @@ class RecipeController extends HController
                 CookRecipe::model()->types[$type],
             );
 
-        if (isset($_GET['SimpleRecipe_page']))
+        if (isset($_GET['SimpleRecipe_page']) || isset($_GET['MultivarkaRecipe_page']) || $type != 0)
             Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
 
         $this->render('index', compact('dp', 'type'));
@@ -118,6 +118,7 @@ class RecipeController extends HController
                 CookRecipe::model()->types[$type],
             );
 
+        Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
         $this->render('tag', compact('dp', 'model'));
     }
 

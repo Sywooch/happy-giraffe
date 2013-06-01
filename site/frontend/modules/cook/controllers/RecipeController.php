@@ -118,7 +118,7 @@ class RecipeController extends HController
                 CookRecipe::model()->types[$type],
             );
 
-        Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
+        //Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
         $this->render('tag', compact('dp', 'model'));
     }
 

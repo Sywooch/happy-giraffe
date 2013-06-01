@@ -79,6 +79,14 @@
         </div>
     <?php endif; ?>
 
+    <?php if ($this->contest->id == 11): ?>
+        <div class="contest-sponsor">
+            <a href="http://www.neopod.ru"><img src="/images/contest/contest-sponsor-11-4.jpg" alt="" class="contest-sponsor_img"></a>
+            <a href="http://www.neopod.ru/brands/neotrike/"><img src="/images/contest/contest-sponsor-11-5.jpg" alt="" class="contest-sponsor_img"></a>
+
+        </div>
+    <?php endif; ?>
+
     <?=$content?>
 
 </div>

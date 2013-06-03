@@ -17,7 +17,7 @@ else {
 <?php endif; ?>
     <?php
         $ava = '';
-        if ($this->user->online && $this->size == 'ava')
+        if ($this->user->online)
             $ava .= '<span class="icon-status status-online"></span>';
         if ($this->user->getAva($this->size))
             $ava .= CHtml::image($this->user->getAva($this->size));

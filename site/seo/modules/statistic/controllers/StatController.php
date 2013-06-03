@@ -10,6 +10,9 @@ class StatController extends SController
 
     public function beforeAction($action)
     {
+        Yii::import('site.frontend.modules.friends.models.*');
+        Yii::import('site.frontend.modules.messaging.models.*');
+
         if (!Yii::app()->user->checkAccess('admin') && !Yii::app()->user->checkAccess('editor')
             && !Yii::app()->user->checkAccess('superuser')
         )

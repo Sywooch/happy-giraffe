@@ -129,7 +129,6 @@ class Interest extends HActiveRecord
                 }
             }
 
-            ScoreInput6Steps::getInstance()->check($user_id);
             User::model()->UpdateUser($user_id);
             return true;
         }

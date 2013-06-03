@@ -331,8 +331,7 @@ class SiteController extends HController
             throw new CHttpException(404);
 
         $user->email_confirmed = 1;
-        if ($user->update(array('email_confirmed')))
-            ScoreInput6Steps::getInstance()->check($this->user->id);
+        $user->update(array('email_confirmed'));
 
         $identity = new SafeUserIdentity($user_id);
         if ($identity->authenticate())

@@ -72,12 +72,11 @@ class UserAddress extends HActiveRecord
         );
     }
 
-    public function afterSave()
+    public function beforeSave()
     {
-        ScoreInput6Steps::getInstance()->check($this->user->id);
         User::model()->UpdateUser($this->user_id);
 
-        parent::afterSave();
+        return parent::beforeSave();
     }
 
     public function getFlag($big = false, $element = 'div')

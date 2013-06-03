@@ -143,4 +143,18 @@ class RatingYohoho extends HMongoModel
 
         return $list;
     }
+
+    /**
+     * Кол-во лайков за промежуток времени
+     *
+     * @param string $time1
+     * @param string $time2
+     * @return int
+     */
+    public function DateLikes($time1, $time2)
+    {
+        return $this->getCollection()->count(array(
+            'time' => array('$gte' => strtotime($time1), '$lte' => strtotime($time2))
+        ));
+    }
 }

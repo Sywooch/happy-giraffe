@@ -41,6 +41,10 @@ class UserPostView extends HMongoModel
         $this->getCollection()->ensureIndex(array(
             'user_id' => EMongoCriteria::SORT_DESC,
         ), array('name' => 'user'));
+
+        $this->getCollection()->ensureIndex(array(
+            'time' => EMongoCriteria::SORT_DESC,
+        ), array('name' => 'time'));
     }
 
     /**
@@ -68,13 +72,36 @@ class UserPostView extends HMongoModel
      */
     private function addView($user_id, $id)
     {
-        $this->ensureIndexes();
         $this->getCollection()->insert(array(
             'user_id' => (int)$user_id,
             'id' => (int)$id,
+            'time' => time()
         ));
+    }
 
-        ScoreAchievement::model()->checkAchieve($user_id, ScoreAchievement::TYPE_VIEWS);
+    /**
+     * Проверить на достижение всех пользоватлей которые посещали сайт последние сутки
+     * Запускается по крону ночью чтобы исключить проверку на достижение после каждого просмотра страницы
+     */
+    public function checkAchievements()
+    {
+        $this->ensureIndexes();
+        $users = $this->lastDayUsers();
+        echo count($users) . "\n";
+        foreach ($users as $user)
+            ScoreAchievement::model()->checkAchieve($user, ScoreAchievement::TYPE_VIEWS);
+    }
+
+    /**
+     * Возвращает список пользователей, посещавших сайт за последние 25 часов
+     *
+     * @return int[]
+     */
+    private function lastDayUsers()
+    {
+        return $this->getCollection()->distinct('user_id', array(
+            'time' => array('$gt' => (time() - 3600 * 25))
+        ));
     }
 
     /**

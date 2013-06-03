@@ -222,9 +222,6 @@ class Album extends HActiveRecord
 
     public function afterSave()
     {
-        if ($this->isNewRecord && $this->type == 0)
-            ScoreAchievement::model()->checkAchieve($this->author_id, ScoreAchievement::TYPE_ALBUMS);
-
         if (count($this->files) > 0) {
             foreach ($this->files['id'] as $i => $id) {
                 if ($id != '')

@@ -24,7 +24,6 @@ class ScoreAchievement extends HActiveRecord
     const TYPE_FRIENDS = 10;
     const TYPE_VIDEO = 13;
     const TYPE_VIEWS = 16;
-    const TYPE_ALBUMS = 19;
     const TYPE_DUELS = 22;
     const TYPE_CLUB_POSTS = 25;
     const TYPE_PHOTO = 28;
@@ -171,10 +170,6 @@ class ScoreAchievement extends HActiveRecord
             case 17:
             case 18:
                 return UserPostView::getInstance()->count($this->user_id);
-            case 19:
-            case 20:
-            case 21:
-                return $this->user()->albumsCount;
             case 22:
             case 23:
             case 24:

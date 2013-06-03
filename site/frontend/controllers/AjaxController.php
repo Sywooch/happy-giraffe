@@ -753,7 +753,6 @@ class AjaxController extends HController
         $user->birthday = trim($date->date);
 
         if ($user->save('birthday')) {
-            ScoreInput6Steps::getInstance()->check(Yii::app()->user->id);
             ob_start();
             $this->widget('HoroscopeWidget', array('user' => $user));
             $horoscope = ob_get_clean();

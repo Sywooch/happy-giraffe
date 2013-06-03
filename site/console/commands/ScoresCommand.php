@@ -30,23 +30,6 @@ class ScoresCommand extends CConsoleCommand
         ScoreInput::CheckOnClose();
     }
 
-    public function actionFirstSteps()
-    {
-        Yii::import('site.frontend.modules.geo.models.*');
-        Yii::import('site.common.models.interest.*');
-        Yii::app()->db->createCommand('update score__user_scores set level_id=NULL, full=0, scores=0')->execute();
-
-        $iterator = new CDataProviderIterator(new CActiveDataProvider('User'), 100);
-        $i = 0;
-        foreach ($iterator as $user) {
-            ScoreInput6Steps::getInstance()->check($user->id);
-
-            $i++;
-            if ($i % 1000 == 0)
-                echo ($i) . "\n";
-        }
-    }
-
     public function actionEndWeek()
     {
         Yii::import('site.console.components.awards.*');
@@ -64,23 +47,23 @@ class ScoresCommand extends CConsoleCommand
         CommentatorAward::execute();
         PhotoAward::execute();
 
-        TravellerAward::execute();
-        FashionAward::execute();
-        MistressAward::execute();
-        WeddingAward::execute();
-        MasterAward::execute();
-        BeautyAward::execute();
-
-        CookAward::execute();
-
-        JokerAward::execute();
-        DoctorAward::execute();
-        HouseWifeAward::execute();
-        PsychAward::execute();
-        CMotherAward::execute();
-        AutoAward::execute();
-        PregnancyAward::execute();
-        FlowersAward::execute();
+//        TravellerAward::execute();
+//        FashionAward::execute();
+//        MistressAward::execute();
+//        WeddingAward::execute();
+//        MasterAward::execute();
+//        BeautyAward::execute();
+//
+//        CookAward::execute();
+//
+//        JokerAward::execute();
+//        DoctorAward::execute();
+//        HouseWifeAward::execute();
+//        PsychAward::execute();
+//        CMotherAward::execute();
+//        AutoAward::execute();
+//        PregnancyAward::execute();
+//        FlowersAward::execute();
 
         FriendAward::execute();
         SmilesAward::execute();
@@ -117,10 +100,6 @@ class ScoresCommand extends CConsoleCommand
                 ScoreAchievement::model()->checkAchieve($model->id, ScoreAchievement::TYPE_VIDEO);
                 ScoreAchievement::model()->checkAchieve($model->id, ScoreAchievement::TYPE_VIDEO);
 
-                ScoreAchievement::model()->checkAchieve($model->id, ScoreAchievement::TYPE_ALBUMS);
-                ScoreAchievement::model()->checkAchieve($model->id, ScoreAchievement::TYPE_ALBUMS);
-                ScoreAchievement::model()->checkAchieve($model->id, ScoreAchievement::TYPE_ALBUMS);
-
                 ScoreAchievement::model()->checkAchieve($model->id, ScoreAchievement::TYPE_CLUB_POSTS);
                 ScoreAchievement::model()->checkAchieve($model->id, ScoreAchievement::TYPE_CLUB_POSTS);
                 ScoreAchievement::model()->checkAchieve($model->id, ScoreAchievement::TYPE_CLUB_POSTS);
@@ -128,15 +107,20 @@ class ScoresCommand extends CConsoleCommand
                 ScoreAchievement::model()->checkAchieve($model->id, ScoreAchievement::TYPE_PHOTO);
                 ScoreAchievement::model()->checkAchieve($model->id, ScoreAchievement::TYPE_PHOTO);
                 ScoreAchievement::model()->checkAchieve($model->id, ScoreAchievement::TYPE_PHOTO);
-
-                ScoreAchievement::model()->checkAchieve($model->id, ScoreAchievement::TYPE_YOHOHO);
-                ScoreAchievement::model()->checkAchieve($model->id, ScoreAchievement::TYPE_YOHOHO);
-                ScoreAchievement::model()->checkAchieve($model->id, ScoreAchievement::TYPE_YOHOHO);
             }
 
             $i++;
             $criteria->offset = $i * 100;
         }
+    }
+
+    /**
+     * Проверяем на достижение 100/1000/5000 просмотров клубов. Запускается один раз ночью
+     * чтобы исключить проверку на достижение после каждого просмотра страницы
+     */
+    public function actionClubView()
+    {
+        UserPostView::getInstance()->checkAchievements();
     }
 
     public function actionUpdateAwards()

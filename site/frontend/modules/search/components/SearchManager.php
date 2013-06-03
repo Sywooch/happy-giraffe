@@ -9,9 +9,15 @@
 
 class SearchManager
 {
-    public static function search($query, $len)
+    public static function search($query)
     {
-        $raw = Yii::app()->indexden->search('main', $query, null, $len);
+        $raw = Yii::app()->indexden->search('main', $query);
+
+        $entities = array();
+        foreach ($raw->results as $document) {
+            list($modelName, $modelId) = explode('_', $document->docid);
+            $entities[$modelName][] = $modelId;
+        }
 
         $data = array(
             'total' => $raw->matches,

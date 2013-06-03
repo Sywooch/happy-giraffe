@@ -2,10 +2,10 @@
 
 class DefaultController extends HController
 {
-	public function actionIndex($query, $len)
+	public function actionIndex($query)
 	{
-        $results = SearchManager::search($query, $len);
+        $results = SearchManager::search($query);
         extract($results);
-        $this->render('index', compact('total'));
+        //$this->render('index', compact('total'));
 	}
 }

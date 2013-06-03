@@ -33,7 +33,7 @@ class InterlocutorsController extends HController
     public function actionTyping()
     {
         $interlocutorId = Yii::app()->request->getPost('interlocutorId');
-        $typingStatus = (bool) Yii::app()->request->getPost('typingStatus');
+        $typingStatus = Yii::app()->request->getPost('typingStatus');
 
         $comet = new CometModel();
         $comet->send($interlocutorId, array('typingStatus' => $typingStatus, 'interlocutorId' => Yii::app()->user->id), CometModel::MESSAGING_INTERLOCUTOR_TYPING);

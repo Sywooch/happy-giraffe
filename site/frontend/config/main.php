@@ -65,6 +65,9 @@ return array(
         'application.modules.scores.components.*',
         'application.modules.scores.models.*',
         'application.modules.scores.models.input.*',
+        'application.modules.favourites.models.*',
+        'application.modules.favourites.widgets.*',
+        'application.modules.favourites.components.*',
     ),
 
 	'sourceLanguage' => 'en',
@@ -93,17 +96,6 @@ return array(
 			),
 		),
 		'contest',
-		'attribute',
-		'delivery' => array(
-			'class' => 'application.modules.delivery.DeliveryModule',
-			'returnUrl' => '/shop/shopCartDelivery',
-		),
-		'billing' => array(
-			'urlNext' => "/site/contact",
-			'urlNextUserState' => 'billing_url_next',
-			'callbackOrderProceed' => array('Order','callbackOrderProceed'),
-			'callbackOrderPaid' => array('Order','callbackOrderPaid'),
-		),
         'im',
         'geo',
         'signal',
@@ -117,6 +109,7 @@ return array(
         'messaging',
         'notifications',
         'friends',
+        'favourites',
         'scores',
 	),
 	// application components
@@ -156,7 +149,7 @@ return array(
 					'maxButtonCount' => 5,
 				),
 				'CKEditorWidget' => array(
-					'ckEditor' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'www' . DIRECTORY_SEPARATOR . 'ckeditor' . DIRECTORY_SEPARATOR . 'ckeditor.php',
+					'ckEditor' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'www-submodule' . DIRECTORY_SEPARATOR . 'ckeditor' . DIRECTORY_SEPARATOR . 'ckeditor.php',
 				),
 			),
 		),

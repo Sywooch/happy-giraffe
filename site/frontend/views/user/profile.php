@@ -146,12 +146,10 @@
 
                 <div class="col-3">
 
-                    <?php if (false): ?>
                     <?php $this->widget('ContestWidget', array(
                         'user' => $user,
-                        'contest_id' => 10,
+                        'contest_id' => 11,
                     )); ?>
-                    <?php endif; ?>
 
                     <?php $this->widget('UserFriendsWidget', array(
                         'user' => $user,

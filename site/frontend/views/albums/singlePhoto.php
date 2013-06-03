@@ -55,6 +55,8 @@
                 'location' => false
             )); ?>
 
+            <?php $this->widget('FavouriteWidget', array('model' => $photo)); ?>
+
             <?php if (get_class($model) == 'Contest' && Yii::app()->user->checkAccess('removeContestWork')): ?>
                 <?php
                     $this->widget('site.frontend.widgets.removeWidget.RemoveWidget', array(

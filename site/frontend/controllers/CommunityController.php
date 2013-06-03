@@ -382,7 +382,9 @@ class CommunityController extends HController
                     $gallery = new CommunityContentGallery;
                     $gallery->title = $_POST['CommunityContentGallery']['title'];
                     $gallery->content_id = $model->id;
-                    if($gallery->save() && $items = Yii::app()->request->getPost('CommunityContentGalleryItem'))
+
+                    $items = Yii::app()->request->getPost('CommunityContentGalleryItem');
+                    if($gallery->save() && $items)
                     {
                         foreach($items as $item)
                         {
@@ -394,6 +396,13 @@ class CommunityController extends HController
                             );
                             $gi->save();
                         }
+                    }
+
+                    if (count($items) > 0){
+                        reset($items);
+                        $item = current($items);
+                        $slave_model->photo_id = $item['photo_id'];
+                        $slave_model->update(array('photo_id'));
                     }
                 }
 

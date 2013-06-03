@@ -285,6 +285,7 @@ class Comment extends HActiveRecord
         NotificationDelete::commentDeleted($this);
         Scoring::commentRemoved($this);
 
+
         return false;
     }
 

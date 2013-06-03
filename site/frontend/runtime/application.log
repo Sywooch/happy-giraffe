@@ -6112,3 +6112,74 @@ Stack trace:
 REQUEST_URI=/contest/11/prizes/
 HTTP_REFERER=http://www.virtual-giraffe.ru/contest/11/
 ---
+2013/06/03 11:26:58 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Некорректный запрос.' in /home/giraffe/happy-giraffe.ru/site/frontend/components/HController.php:33
+Stack trace:
+#0 /opt/yii/framework/yiilite.php(6447): HController->filterAjaxOnly(Object(CFilterChain))
+#1 /opt/yii/framework/yiilite.php(6402): CInlineFilter->filter(Object(CFilterChain))
+#2 /opt/yii/framework/yiilite.php(6414): CFilterChain->run()
+#3 /opt/yii/framework/yiilite.php(3781): CFilter->filter(Object(CFilterChain))
+#4 /opt/yii/framework/yiilite.php(6447): CController->filterAccessControl(Object(CFilterChain))
+#5 /opt/yii/framework/yiilite.php(6402): CInlineFilter->filter(Object(CFilterChain))
+#6 /opt/yii/framework/yiilite.php(3393): CFilterChain->run()
+#7 /opt/yii/framework/yiilite.php(3378): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 /opt/yii/framework/yiilite.php(1725): CController->run('get')
+#9 /opt/yii/framework/yiilite.php(1645): CWebApplication->runController('favourites/defa...')
+#10 /opt/yii/framework/yiilite.php(1170): CWebApplication->processRequest()
+#11 /home/giraffe/happy-giraffe.ru/site/frontend/www-submodule/index.php(8): CApplication->run()
+#12 {main}
+REQUEST_URI=/favourites/default/get/?entity=cook
+---
+2013/06/03 12:16:18 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос ""http:////img.happy-giraffe.ru//avatars//10327//small//c478559d1506ce57a21d776e379321db.jpg/"".' in /opt/yii/framework/yiilite.php:2945
+Stack trace:
+#0 /opt/yii/framework/yiilite.php(1644): CUrlManager->parseUrl(Object(CHttpRequest))
+#1 /opt/yii/framework/yiilite.php(1170): CWebApplication->processRequest()
+#2 /home/giraffe/happy-giraffe.ru/site/frontend/www-submodule/index.php(8): CApplication->run()
+#3 {main}
+REQUEST_URI=/%22http:////img.happy-giraffe.ru//avatars//10327//small//c478559d1506ce57a21d776e379321db.jpg/%22
+HTTP_REFERER=http://www.virtual-giraffe.ru/favourites/default/get/?entity=cook
+---
+2013/06/03 12:16:32 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос ""http:////img.happy-giraffe.ru//avatars//10327//small//c478559d1506ce57a21d776e379321db.jpg/"".' in /opt/yii/framework/yiilite.php:2945
+Stack trace:
+#0 /opt/yii/framework/yiilite.php(1644): CUrlManager->parseUrl(Object(CHttpRequest))
+#1 /opt/yii/framework/yiilite.php(1170): CWebApplication->processRequest()
+#2 /home/giraffe/happy-giraffe.ru/site/frontend/www-submodule/index.php(8): CApplication->run()
+#3 {main}
+REQUEST_URI=/%22http:////img.happy-giraffe.ru//avatars//10327//small//c478559d1506ce57a21d776e379321db.jpg/%22
+HTTP_REFERER=http://www.virtual-giraffe.ru/favourites/default/get/?entity=cook
+---
+2013/06/03 12:18:13 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос ""http:////img.happy-giraffe.ru//avatars//10327//small//c478559d1506ce57a21d776e379321db.jpg/"".' in /opt/yii/framework/yiilite.php:2945
+Stack trace:
+#0 /opt/yii/framework/yiilite.php(1644): CUrlManager->parseUrl(Object(CHttpRequest))
+#1 /opt/yii/framework/yiilite.php(1170): CWebApplication->processRequest()
+#2 /home/giraffe/happy-giraffe.ru/site/frontend/www-submodule/index.php(8): CApplication->run()
+#3 {main}
+REQUEST_URI=/%22http:////img.happy-giraffe.ru//avatars//10327//small//c478559d1506ce57a21d776e379321db.jpg/%22
+HTTP_REFERER=http://www.virtual-giraffe.ru/favourites/default/get/?entity=cook
+---
+2013/06/03 12:19:12 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос ""http:////img.happy-giraffe.ru//avatars//10327//small//c478559d1506ce57a21d776e379321db.jpg/"".' in /opt/yii/framework/yiilite.php:2945
+Stack trace:
+#0 /opt/yii/framework/yiilite.php(1644): CUrlManager->parseUrl(Object(CHttpRequest))
+#1 /opt/yii/framework/yiilite.php(1170): CWebApplication->processRequest()
+#2 /home/giraffe/happy-giraffe.ru/site/frontend/www-submodule/index.php(8): CApplication->run()
+#3 {main}
+REQUEST_URI=/%22http:////img.happy-giraffe.ru//avatars//10327//small//c478559d1506ce57a21d776e379321db.jpg/%22
+HTTP_REFERER=http://www.virtual-giraffe.ru/favourites/default/get/?entity=cook
+---
+2013/06/03 12:20:50 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос ""http:////img.happy-giraffe.ru//avatars//10327//small//c478559d1506ce57a21d776e379321db.jpg/"".' in /opt/yii/framework/yiilite.php:2945
+Stack trace:
+#0 /opt/yii/framework/yiilite.php(1644): CUrlManager->parseUrl(Object(CHttpRequest))
+#1 /opt/yii/framework/yiilite.php(1170): CWebApplication->processRequest()
+#2 /home/giraffe/happy-giraffe.ru/site/frontend/www-submodule/index.php(8): CApplication->run()
+#3 {main}
+REQUEST_URI=/%22http:////img.happy-giraffe.ru//avatars//10327//small//c478559d1506ce57a21d776e379321db.jpg/%22
+HTTP_REFERER=http://www.virtual-giraffe.ru/favourites/default/get/?entity=cook
+---
+2013/06/03 12:20:50 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос ""http:////img.happy-giraffe.ru//avatars//10327//small//c478559d1506ce57a21d776e379321db.jpg/"".' in /opt/yii/framework/yiilite.php:2945
+Stack trace:
+#0 /opt/yii/framework/yiilite.php(1644): CUrlManager->parseUrl(Object(CHttpRequest))
+#1 /opt/yii/framework/yiilite.php(1170): CWebApplication->processRequest()
+#2 /home/giraffe/happy-giraffe.ru/site/frontend/www-submodule/index.php(8): CApplication->run()
+#3 {main}
+REQUEST_URI=/%22http:////img.happy-giraffe.ru//avatars//10327//small//c478559d1506ce57a21d776e379321db.jpg/%22
+HTTP_REFERER=http://www.virtual-giraffe.ru/favourites/default/get/?entity=cook
+---

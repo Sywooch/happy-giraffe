@@ -73,7 +73,7 @@ class ThreadsController extends HController
 
         $thread = MessagingThread::model()->with('threadUsers')->findByPk($threadId);
         if ($readStatus == 1) {
-            $thread->markAsReadFor(Yii::app()->user->id);
+            $messagesCount = $thread->markAsReadFor(Yii::app()->user->id);
 
             $comet = new CometModel();
             foreach ($thread->threadUsers as $threadUser) {
@@ -82,10 +82,11 @@ class ThreadsController extends HController
             }
         }
         else
-            $thread->markAsUnReadFor(Yii::app()->user->id);
+            $messagesCount = $thread->markAsUnReadFor(Yii::app()->user->id);
 
         $response = array(
-            'success' => true,
+            'success' => $messagesCount > 0,
+            'messagesCount' => $messagesCount,
         );
         echo CJSON::encode($response);
     }

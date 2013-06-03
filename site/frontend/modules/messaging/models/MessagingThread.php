@@ -120,7 +120,7 @@ class MessagingThread extends CActiveRecord
             WHERE m.thread_id = :thread_id AND m.author_id != :user_id AND mu.user_id = :user_id;
         ";
 
-        Yii::app()->db->createCommand($sql)->execute(array(
+        return Yii::app()->db->createCommand($sql)->execute(array(
             ':thread_id' => $this->id,
             ':user_id' => $user_id,
         ));
@@ -145,7 +145,7 @@ class MessagingThread extends CActiveRecord
             );
         ";
 
-        Yii::app()->db->createCommand($sql)->execute(array(
+        return Yii::app()->db->createCommand($sql)->execute(array(
             ':thread_id' => $this->id,
             ':user_id' => $user_id,
         ));

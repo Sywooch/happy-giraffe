@@ -114,6 +114,7 @@ return array(
         'messaging',
         'notifications',
         'friends',
+        'search',
 	),
 	// application components
 	'components'=>array(

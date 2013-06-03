@@ -18,6 +18,7 @@ class SearchableBehavior extends CActiveRecordBehavior
 
     public function delete()
     {
+        echo "deleting...\n";
         Yii::app()->indexden->delete($this->index, $this->getDocId());
     }
 
@@ -76,7 +77,7 @@ class SearchableBehavior extends CActiveRecordBehavior
         $data = array(
             'modelName' => get_class($this->owner),
             'modelId' => $this->owner->id,
-            'action' => 'delete',
+            'action' => 'save',
         );
         Yii::app()->gearman->client()->doBackground('indexden', serialize($data));
     }
@@ -86,7 +87,7 @@ class SearchableBehavior extends CActiveRecordBehavior
         parent::attach($owner);
 
         $owner->attachEventHandler('onAfterSave', array($this, 'addSaveToQueue'));
-        $owner->attachEventHandler('onBeforeDelete', array($this, 'addDeleteToQueue'));
+        $owner->attachEventHandler('onAfterDelete', array($this, 'addDeleteToQueue'));
     }
 
     public function detach($owner)
@@ -94,6 +95,6 @@ class SearchableBehavior extends CActiveRecordBehavior
         parent::detach($owner);
 
         $owner->detachEventHandler('onAfterSave', array($this, 'addSaveToQueue'));
-        $owner->detachEventHandler('onBeforeDelete', array($this, 'addDeleteToQueue'));
+        $owner->detachEventHandler('onAfterDelete', array($this, 'addDeleteToQueue'));
     }
 }

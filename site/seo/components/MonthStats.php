@@ -14,45 +14,67 @@ class MonthStats
     {
         Yii::import('site.frontend.modules.messaging.models.*');
         Yii::import('site.frontend.modules.friends.models.*');
-        echo "blogs\n";
+//        echo "blogs\n";
+//        for ($i = 9; $i > 0; $i--) {
+//            $this->dates($i);
+//            $criteria = $this->getCriteria();
+//            $criteria->with = array('rubric');
+//            $criteria->addCondition('rubric.user_id IS NOT NULL');
+//            $count = CommunityContent::model()->count($criteria);
+//            echo $count . "\n";
+//        }
+//
+//        echo "comments\n";
+//        for ($i = 9; $i > 0; $i--) {
+//            $this->dates($i);
+//            $criteria = $this->getCriteria();
+//            $count = Comment::model()->count($criteria);
+//            echo $count . "\n";
+//        }
+//
+//        echo "likes\n";
+//        for ($i = 9; $i > 0; $i--) {
+//            $this->dates($i);
+//            $count = RatingYohoho::model()->DateLikes($this->date1, $this->date2);
+//            echo $count . "\n";
+//        }
+//
+//        echo "messages\n";
+//        for ($i = 9; $i > 0; $i--) {
+//            $this->dates($i);
+//            $criteria = $this->getCriteria();
+//            $count = MessagingMessage::model()->count($criteria);
+//            echo $count . "\n";
+//        }
+//
+//        echo "friends\n";
+//        for ($i = 9; $i > 0; $i--) {
+//            $this->dates($i);
+//            $criteria = $this->getCriteria();
+//            $count = Friend::model()->count($criteria);
+//            echo $count . "\n";
+//        }
+
         for ($i = 9; $i > 0; $i--) {
+            $count = 0;
             $this->dates($i);
             $criteria = $this->getCriteria();
             $criteria->with = array('rubric');
             $criteria->addCondition('rubric.user_id IS NOT NULL');
-            $count = CommunityContent::model()->count($criteria);
-            echo $count . "\n";
-        }
-
-        echo "comments\n";
-        for ($i = 9; $i > 0; $i--) {
-            $this->dates($i);
-            $criteria = $this->getCriteria();
-            $count = Comment::model()->count($criteria);
-            echo $count . "\n";
-        }
-
-        echo "likes\n";
-        for ($i = 9; $i > 0; $i--) {
-            $this->dates($i);
-            $count = RatingYohoho::model()->DateLikes($this->date1, $this->date2);
-            echo $count . "\n";
-        }
-
-        echo "messages\n";
-        for ($i = 9; $i > 0; $i--) {
-            $this->dates($i);
-            $criteria = $this->getCriteria();
-            $count = MessagingMessage::model()->count($criteria);
-            echo $count . "\n";
-        }
-
-        echo "friends\n";
-        for ($i = 9; $i > 0; $i--) {
-            $this->dates($i);
-            $criteria = $this->getCriteria();
-            $count = Friend::model()->count($criteria);
-            echo $count . "\n";
+            $posts = CommunityContent::model()->findAll($criteria);
+            foreach($posts as $post){
+                $criteria = new CDbCriteria;
+                $criteria->with = array('rubric');
+                $criteria->condition = 't.id < :id AND t.author_id = :author_id AND rubric.user_id IS NOT NULL';
+                $criteria->params = array(
+                    ':id' => $post->id,
+                    ':author_id' => $post->author_id,
+                );
+                $before = CommunityContent::model()->count($criteria);
+                if ($before == 0)
+                    $count++;
+            }
+            echo $count."\n";
         }
     }
 

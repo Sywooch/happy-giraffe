@@ -26,7 +26,7 @@ class RecipeController extends HController
     {
         return array(
             array('deny',
-                'actions' => array('form'),
+                'actions' => array('form', 'random'),
                 'users' => array('?'),
             ),
         );
@@ -647,6 +647,17 @@ class RecipeController extends HController
             return $t1;
 
         return max($t1, $t2);
+    }
+
+    public function actionRandom()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->order = 'rand()';
+        $criteria->limit = 100;
+        $recipes = CookRecipe::model()->findAll($criteria);
+        foreach ($recipes as $recipe) {
+            echo $recipe->title . "<br>";
+        }
     }
 
     /**

@@ -281,9 +281,6 @@ class Comment extends HActiveRecord
         Comment::model()->updateByPk($this->id, array('removed' => 1));
         NotificationDelete::commentDeleted($this);
 
-        UserScores::removeScores($this->author_id, ScoreAction::ACTION_OWN_COMMENT, 1, array(
-            'id' => $this->entity_id, 'name' => $this->entity));
-
         return false;
     }
 

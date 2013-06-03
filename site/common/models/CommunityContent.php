@@ -261,6 +261,7 @@ class CommunityContent extends HActiveRecord
             UserScores::removeScores($this->author_id, ScoreAction::ACTION_RECORD, 1, $this);
         //закрываем сигнал
         UserSignal::closeRemoved($this);
+        $this->afterDelete();
 
         return false;
     }

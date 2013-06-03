@@ -32,7 +32,7 @@ return array(
         // site controller
         '/' => 'site/index',
         'js_dynamics/<hash:\w+>.js' => 'site/seoHide',
-        'search' => 'site/search',
+        //'search' => 'site/search',
         'moderation'=>'site/moderationRules',
         'site/<_a:(confirmEmail|resendConfirmEmail|passwordRecovery|passwordRecoveryForm|login|logout|link|fixPhoto)>' => 'site/<_a>',
         //'contest' => 'site/contest',
@@ -279,5 +279,7 @@ return array(
         'friends' => 'friends/default/index',
         'friends/search' => 'friends/search/index',
         'friends/<_c>/<_a>' => 'friends/<_c>/<_a>',
+
+        'search' => 'search/default/index',
     ),
 );

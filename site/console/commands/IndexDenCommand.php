@@ -26,18 +26,15 @@ class IndexDenCommand extends CConsoleCommand
     {
         $data = unserialize($job->workload());
         var_dump($data);
-        return false;
         extract($data);
         switch ($modelName) {
             case 'BlogContent':
             case 'CommunityContent':
-                $model = CActiveRecord::model($modelName)->full()->findByPk($modelId);
+                $model = CActiveRecord::model($modelName)->resetScope()->full()->findByPk($modelId);
                 break;
             default:
-                $model = CActiveRecord::model($modelName)->findByPk($modelId);
+                $model = CActiveRecord::model($modelName)->resetScope()->findByPk($modelId);
         }
-        $model->
-            searchable->
-            $action();
+        $model->searchable->$action();
     }
 }

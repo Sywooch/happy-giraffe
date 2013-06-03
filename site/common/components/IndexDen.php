@@ -41,6 +41,12 @@ class IndexDen extends CApplicationComponent
         $index = $this->getIndex($indexName);
         $index->delete_document($docId);
     }
+    
+    public function search($indexName, $query, $start = null, $len = null, $scoring_function = null, $snippet_fields = null, $fetch_fields = null, $category_filters = null, $variables = null, $docvar_filters = null, $function_filters = null)
+    {
+        $index = $this->getIndex($indexName);
+        return $index->search($query, $start, $len, $scoring_function, $snippet_fields, $fetch_fields, $category_filters, $variables, $docvar_filters, $function_filters);
+    }
 
     protected function getIndex($indexName)
     {

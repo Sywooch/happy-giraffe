@@ -74,9 +74,6 @@ class UserAddress extends HActiveRecord
 
     public function beforeSave()
     {
-        if (!empty($this->country_id))
-            UserScores::checkProfileScores($this->user_id, ScoreAction::ACTION_PROFILE_LOCATION);
-
         User::model()->UpdateUser($this->user_id);
 
         return parent::beforeSave();

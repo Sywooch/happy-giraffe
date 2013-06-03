@@ -50,9 +50,7 @@ class ProfileController extends HController
     {
         if (isset($_POST['User'])) {
             $this->user->attributes = $_POST['User'];
-            if ($this->user->save(true, array('last_name', 'first_name', 'gender', 'email', 'birthday')))
-                if (!empty($this->user->birthday))
-                    UserScores::checkProfileScores($this->user->id, ScoreAction::ACTION_PROFILE_BIRTHDAY);
+            $this->user->save(true, array('last_name', 'first_name', 'gender', 'email', 'birthday'));
         }
 
         $this->render('data', array());

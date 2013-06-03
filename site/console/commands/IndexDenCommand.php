@@ -24,7 +24,20 @@ class IndexDenCommand extends CConsoleCommand
 
     public function processMessage($job)
     {
-        $id = $job->workload();
-        echo $id;
+        $data = unserialize($job->workload());
+        var_dump($data);
+        return false;
+        extract($data);
+        switch ($modelName) {
+            case 'BlogContent':
+            case 'CommunityContent':
+                $model = CActiveRecord::model($modelName)->full()->findByPk($modelId);
+                break;
+            default:
+                $model = CActiveRecord::model($modelName)->findByPk($modelId);
+        }
+        $model->
+            searchable->
+            $action();
     }
 }

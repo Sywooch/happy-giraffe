@@ -61,22 +61,39 @@ class SearchableBehavior extends CActiveRecordBehavior
         );
     }
 
-    protected function addToQueue()
+    protected function addSaveToQueue()
     {
-        Yii::app()->gearman->client()->doBackground('indexden', $this->owner->id);
+        $data = array(
+            'modelName' => get_class($this->owner),
+            'modelId' => $this->owner->id,
+            'action' => 'save',
+        );
+        Yii::app()->gearman->client()->doBackground('indexden', serialize($data));
+    }
+
+    protected function addDeleteToQueue()
+    {
+        $data = array(
+            'modelName' => get_class($this->owner),
+            'modelId' => $this->owner->id,
+            'action' => 'delete',
+        );
+        Yii::app()->gearman->client()->doBackground('indexden', serialize($data));
     }
 
     public function attach($owner)
     {
         parent::attach($owner);
 
-        $owner->attachEventHandler('onAfterSave', array($this, 'addToQueue'));
+        $owner->attachEventHandler('onAfterSave', array($this, 'addSaveToQueue'));
+        $owner->attachEventHandler('onBeforeDelete', array($this, 'addDeleteToQueue'));
     }
 
     public function detach($owner)
     {
         parent::detach($owner);
 
-        $owner->detachEventHandler('onAfterSave', array($this, 'addToQueue'));
+        $owner->detachEventHandler('onAfterSave', array($this, 'addSaveToQueue'));
+        $owner->detachEventHandler('onBeforeDelete', array($this, 'addDeleteToQueue'));
     }
 }

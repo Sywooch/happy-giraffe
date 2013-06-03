@@ -96,7 +96,7 @@ class MailCommand extends CConsoleCommand
 
     public function actionTestNewMessages()
     {
-        $user = User::getUserById(10);
+        $user = User::getUserById(12936);
         $unread = MessagingManager::unreadMessagesCount($user->id);
         echo 'unread: '.$unread."\n";
         if ($unread > 0) {

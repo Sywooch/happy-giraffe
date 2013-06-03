@@ -46,13 +46,13 @@
                         </a>
                     </li>
                     <li>
-                        <a href="<?=(Yii::app()->user->isGuest) ? '#login' : $this->createUrl('/cook/recipe/cookBook')?>"
+                        <a href="<?=(Yii::app()->user->isGuest) ? '#login' : $this->createUrl('/favourites/default/index', array('entity' => 'cook'))?>"
                            data-theme="white-square"<?php if (Yii::app()->user->isGuest) echo 'class="fancy"'?>>
                                 <span class="icon-holder">
                                     <i class="icon-cook-book"></i>
                                 </span><span class="link-holder">
                                     <span class="link">Моя кулинарная книга</span>
-                                    <span id="cookbook-recipe-count" class="pink"><?=$count = CookRecipe::userBookCount() ?> <?=HDate::GenerateNoun(array('рецепт', 'рецепта', 'рецептов'), $count) ?></span>
+                                    <span id="cookbook-recipe-count" class="pink"><?=$count = (Yii::app()->user->isGuest) ? 0 : FavouritesManager::getCountByUserId(Yii::app()->user->id, 'cook') ?> <?=HDate::GenerateNoun(array('рецепт', 'рецепта', 'рецептов'), $count) ?></span>
                                 </span>
                         </a>
                     </li>

@@ -174,7 +174,7 @@ class ScoreInput extends HMongoModel
     {
         if (empty($this->scores))
             return (int)ScoreAction::getActionScores($this->type);
-        return $this->scores;
+        return (int)$this->scores;
     }
 
     /**

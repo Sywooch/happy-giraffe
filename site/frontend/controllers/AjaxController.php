@@ -82,6 +82,16 @@ class AjaxController extends HController
         $model->attributes = $_POST[$modelName];
 
         echo $model->save();
+        if (!empty($model->attach)) {
+            try {
+                $attach = $model->attach->getModel();
+                if (isset($attach->title) && get_class($attach) == 'ContestWork'){
+                    $attach->title = $model->title;
+                    $attach->update(array('title'));
+                }
+            } catch (Exception $e) {
+            }
+        }
     }
 
     protected function performAjaxValidation($model)

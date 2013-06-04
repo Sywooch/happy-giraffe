@@ -24,6 +24,11 @@
                 <?=CHtml::image($this->_contest_work->photoAttach->photo->getPreviewUrl(210, null, Image::WIDTH))?>
                 <span class="btn">Посмотреть</span>
             </a>
+            <?php if (Yii::app()->user->id == $this->_contest_work->user_id): ?>
+                <div class="actions">
+                    <?=CHtml::link('', array('/albums/updatePhoto', 'id' => $this->_contest_work->getPhoto()->id), array('class' => 'edit fancy tooltip', 'title' => 'Редактировать'))?>
+                </div>
+            <?php endif; ?>
             <div class="item-title"><?=$this->_contest_work->title?></div>
         </div>
         <div class="clearfix">
@@ -37,3 +42,35 @@
         </div>
     </div>
 <?php endif; ?>
+
+<style type="text/css">
+    .contest-participant .img .actions {
+        background: #fff;
+        background: rgba(255, 255, 255, 0.8);
+        width: 100%;
+        padding: 3px 0;
+        position: absolute;
+        left: 0;
+        top: 0;
+        text-align: right;
+        display: none;
+    }
+    .contest-participant .img:hover .actions {
+        display: block;
+    }
+    .contest-participant .img .actions .edit {
+        display: inline-block;
+        width: 14px;
+        height: 18px;
+        background: url(/images/common.png) no-repeat -341px -136px !important;
+        margin: 0 auto;
+        position: relative;
+        text-decoration: none;
+        font-weight: normal;
+        z-index: 3;
+        vertical-align: middle;
+        margin-left: 10px;
+        top: -2px;
+        margin-right: 5px;
+    }
+</style>

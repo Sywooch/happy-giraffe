@@ -333,6 +333,7 @@ class SiteController extends HController
         if (!$user->email_confirmed){
             $user->email_confirmed = 1;
             $user->update(array('email_confirmed'));
+            Yii::app()->user->getModel()->score->checkFull();
         }
 
         $identity = new SafeUserIdentity($user_id);

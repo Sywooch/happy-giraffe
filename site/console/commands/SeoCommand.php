@@ -226,7 +226,7 @@ class SeoCommand extends CConsoleCommand
     public function actionTest2()
     {
         $c = new MonthStats();
-        $c->AllStats();
+        $c->photo();
     }
 }
 

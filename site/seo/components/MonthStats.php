@@ -133,4 +133,27 @@ class MonthStats
 
         echo CommunityContentGallery::model()->count()."\n";
     }
+
+    public function photo()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->with = array('album', 'author');
+        $criteria->condition = 'author.`group` != 0 and album.type < 2';
+        $count = AlbumPhoto::model()->count($criteria);
+        echo $count."\n";
+        $criteria->with = array('album', 'author');
+        $criteria->condition = 'author.`group` = 0 and album.type < 2';
+        $count = AlbumPhoto::model()->count($criteria);
+        echo $count."\n";
+
+        $criteria = new CDbCriteria;
+        $criteria->with = array('author');
+        $criteria->condition = 'author.`group` != 0';
+        $count = Comment::model()->count($criteria);
+        echo $count."\n";
+        $criteria->with = array('author');
+        $criteria->condition = 'author.`group` = 0';
+        $count = Comment::model()->count($criteria);
+        echo $count."\n";
+    }
 }

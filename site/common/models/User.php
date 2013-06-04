@@ -435,6 +435,8 @@ class User extends HActiveRecord
 
         }
 
+        Yii::app()->user->getModel()->score->checkFull();
+
         if ($this->trackable->isChanged('online'))
             $this->sendOnlineStatus();
 

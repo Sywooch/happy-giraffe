@@ -1,19 +1,21 @@
-<div id="yandex_ad_popup"></div>
+<div id="yandex_ad"></div>
 <script type="text/javascript">
     (function(w, d, n, s, t) {
         w[n] = w[n] || [];
         w[n].push(function() {
-            Ya.Direct.insertInto(87026, "yandex_ad_popup", {
-                stat_id: 1955455,
+            Ya.Direct.insertInto(87026, "yandex_ad", {
                 site_charset: "utf-8",
                 ad_format: "direct",
-                type: "240x400",
-                site_bg_color: "000000",
-                title_color: "FFFFFF",
-                url_color: "FFFFFF",
-                text_color: "FFFFFF",
-                hover_color: "000000",
-                favicon: true
+                font_size: 1,
+                type: "vertical",
+                limit: 1,
+                title_font_size: 2,
+                site_bg_color: "FFFFFF",
+                title_color: "006699",
+                url_color: "006699",
+                all_color: "000000",
+                text_color: "000000",
+                hover_color: "6699CC"
             });
         });
         t = d.documentElement.firstChild;

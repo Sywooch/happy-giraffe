@@ -411,6 +411,7 @@ class SiteController extends HController
 
     public function actionTest()
     {
+
         $this->render('test');
     }
 }

@@ -181,6 +181,8 @@ if (get_class($model) == 'Contest') {
                         <!-- _________________________AdFox Asynchronous code END___________________________ -->
 
                     </div>
+
+                    <div class="margin-t60" id="yandex_ad_popup"></div>
                 </div>
             </div>
         <?php else: ?>

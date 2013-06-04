@@ -26,8 +26,8 @@ class SeoParsingCommand extends CConsoleCommand
         Yii::import('site.seo.modules.competitors.components.*');
         $last_month = strtotime('last day of -1 month');
         $this->prev_month = date("m", $last_month);
-        echo $this->prev_month . ' - ' . $this->prev_year . "\n";
         $this->prev_year = date("Y", $last_month);
+        echo $this->prev_month . ' - ' . $this->prev_year . "\n";
 
         return true;
     }

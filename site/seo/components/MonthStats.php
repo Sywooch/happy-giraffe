@@ -96,4 +96,32 @@ class MonthStats
 
         return $criteria;
     }
+
+    public function AllStats()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->with = array('author');
+        $criteria->condition = 'author.`group` != 0 and type_id < 3';
+        $count = CommunityContent::model()->count($criteria);
+        echo $count."\n";
+        $criteria->condition = 'author.`group` = 0 and type_id < 3';
+        $count = CommunityContent::model()->count($criteria);
+        echo $count."\n";
+
+        $criteria = new CDbCriteria;
+        $criteria->condition = 'by_happy_giraffe = 1';
+        $count = CommunityContent::model()->count($criteria);
+        echo $count."\n";
+
+        $criteria = new CDbCriteria;
+        $criteria->with = array('author');
+        $criteria->condition = 'author.`group` != 0 and type_id = 2';
+        $count = CommunityContent::model()->count($criteria);
+        echo $count."\n";
+        $criteria->condition = 'author.`group` = 0 and type_id = 2';
+        $count = CommunityContent::model()->count($criteria);
+        echo $count."\n";
+
+        echo CommunityContentGallery::model()->count()."\n";
+    }
 }

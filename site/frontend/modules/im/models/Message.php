@@ -86,9 +86,6 @@ class Message extends HActiveRecord
     {
         Dialog::model()->updateByPk($this->dialog_id, array('last_message_id' => $this->id));
 
-        //check moderator signal
-        UserSignal::checkMessage($this);
-
         parent::afterSave();
     }
 

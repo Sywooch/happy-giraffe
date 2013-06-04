@@ -17,4 +17,9 @@ class BlogContent extends CommunityContent
             'condition' => ($alias) ? $alias . '.removed = 0' : 'removed = 0',
         );
     }
+
+    public function beforeDelete()
+    {
+        return parent::beforeDelete();
+    }
 }

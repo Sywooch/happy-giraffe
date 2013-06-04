@@ -1,11 +1,13 @@
 <?php
 /**
- * Author: alexk984
- * Date: 29.05.12
+ * Class WordstatSeasonParser
+ *
+ * Парсер сезонности вордстат
+ *
+ * @author Alex Kireev <alexk984@gmail.com>
  */
 class WordstatSeasonParser extends WordstatBaseParser
 {
-
     /**
      * Запуск потока-парсера. Связывается с поставщиком заданий и ждет появления новых заданий
      * @param bool $mode
@@ -14,7 +16,7 @@ class WordstatSeasonParser extends WordstatBaseParser
     {
         $this->init($mode);
 
-        Yii::app()->gearman->worker()->addFunction("simple_parsing", array($this, "processMessage"));
+        Yii::app()->gearman->worker()->addFunction("season_parsing", array($this, "processMessage"));
         while (Yii::app()->gearman->worker()->work()) ;
     }
 
@@ -32,7 +34,7 @@ class WordstatSeasonParser extends WordstatBaseParser
             $this->log('Parsing keyword: ' . $this->keyword->id);
             $this->parse();
         }
-        WordstatParsingTask::getInstance()->removeSimpleTask($id);
+        WordstatParsingTask::getInstance()->removeSimpleTask($id, 'season_parsing');
 
         $this->endTimer();
         return true;
@@ -50,7 +52,7 @@ class WordstatSeasonParser extends WordstatBaseParser
         $this->next_page = 'http://wordstat.yandex.ru/?cmd=months&page=1&t=' . $t . '&geo=&text_geo=';
         $this->prev_page = 'http://wordstat.yandex.ru/?cmd=months';
 
-        while ($this->parseQuery() === false);
+        while ($this->parseQuery() === false) ;
     }
 
     /**
@@ -66,6 +68,12 @@ class WordstatSeasonParser extends WordstatBaseParser
         return $this->parseHtml($html);
     }
 
+    /**
+     * Парсинг полученного документа
+     *
+     * @param $html string html-документ
+     * @return bool успешность
+     */
     public function parseHtml($html)
     {
         $this->log('parse page');
@@ -75,7 +83,7 @@ class WordstatSeasonParser extends WordstatBaseParser
         $html = str_replace('&mdash;', '—', $html);
 
         if (strpos($html, 'Искомая комбинация слов нигде не встречается')) {
-            $this->log('valid page loaded, data not found');
+            $this->log('data not found');
         } else {
 
             if (preg_match('/Показов за последние 30 дней: ([\d]+)/', $html, $matches)) {
@@ -91,8 +99,8 @@ class WordstatSeasonParser extends WordstatBaseParser
             foreach ($document->find('table.reports.padding-5 td') as $cell) {
                 if ($i % 3 == 0) {
                     $period = pq($cell)->text();
-                    if (preg_match('/[\d]{2}.([\d]{2}).([\d]{4})/', $period, $matches)){
-                        WordstatSeason::add($this->keyword->id, $matches[1], $matches[2], pq($cell)->next()->text());
+                    if (preg_match('/[\d]{2}.([\d]{2}).([\d]{4})/', $period, $matches)) {
+                        WordstatSeason::getInstance()->add($this->keyword->id, $matches[1], $matches[2], pq($cell)->next()->text());
                         $sum += pq($cell)->next()->text();
                     }
                 }

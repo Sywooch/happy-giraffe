@@ -29,10 +29,15 @@ class RequestsController extends HController
 
     public function actionAccept()
     {
+        $fromId = Yii::app()->request->getPost('fromId');
         $requestId = Yii::app()->request->getPost('requestId');
 
-        $request = FriendRequest::model()->findByPk($requestId);
-        $success = Friend::model()->makeFriendship($request->from_id, $request->to_id) && FriendRequest::model()->updateByPk($requestId, array('status' => 'accepted')) > 0;
+        if ($requestId === null)
+            $request = FriendRequest::model()->findPendingRequest($fromId, Yii::app()->user->id);
+        else
+            $request = FriendRequest::model()->findByPk($requestId);
+
+        $success = Friend::model()->makeFriendship($request->from_id, $request->to_id) && FriendRequest::model()->updateByPk($request->id, array('status' => 'accepted')) > 0;
 
         $response = compact('success');
         echo CJSON::encode($response);
@@ -40,7 +45,11 @@ class RequestsController extends HController
 
     public function actionDecline()
     {
+        $fromId = Yii::app()->request->getPost('fromId');
         $requestId = Yii::app()->request->getPost('requestId');
+
+        if ($requestId === null)
+            $requestId = FriendRequest::model()->findPendingRequest($fromId, Yii::app()->user->id);
 
         $success = FriendRequest::model()->updateByPk($requestId, array('status' => 'declined')) > 0;
 

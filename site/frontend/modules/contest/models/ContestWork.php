@@ -139,7 +139,6 @@ class ContestWork extends HActiveRecord
 
             $relatedModel->sendEvent();
 
-            UserScores::addScores($this->user_id, ScoreAction::ACTION_CONTEST_PARTICIPATION, 1, $this);
             FriendEventManager::add(FriendEvent::TYPE_CONTEST_PARTICIPATED, array('id' => $this->id, 'user_id' => $this->author_id));
         }
 
@@ -213,9 +212,6 @@ class ContestWork extends HActiveRecord
     {
         self::model()->updateByPk($this->id, array('removed' => 1));
         NotificationDelete::entityRemoved($this);
-
-//        if ($this->remove->type != 0)
-//            UserNotification::model()->create(UserNotification::CONTEST_WORK_REMOVED, array('model' => $this));
 
         return false;
     }

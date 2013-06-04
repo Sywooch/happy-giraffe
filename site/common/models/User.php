@@ -420,14 +420,6 @@ class User extends HActiveRecord
         /*Yii::app()->mc->saveUser($this);*/
 
         if ($this->isNewRecord) {
-            //силнал о новом юзере
-//            $signal = new UserSignal();
-//            $signal->user_id = (int)$this->id;
-//            $signal->signal_type = UserSignal::TYPE_NEW_USER_REGISTER;
-//            $signal->item_name = 'User';
-//            $signal->item_id = (int)$this->id;
-//            $signal->save();
-
             //рубрика для блога
             $rubric = new CommunityRubric;
             $rubric->title = 'Обо всём';
@@ -441,8 +433,6 @@ class User extends HActiveRecord
         } else {
             self::clearCache($this->id);
 
-            if (!empty($this->relationship_status))
-                UserScores::checkProfileScores($this->id, ScoreAction::ACTION_PROFILE_FAMILY);
         }
 
         if ($this->trackable->isChanged('online'))
@@ -453,7 +443,6 @@ class User extends HActiveRecord
 
     public function beforeDelete()
     {
-        UserSignal::closeRemoved($this);
         return false;
     }
 
@@ -1107,25 +1096,25 @@ class User extends HActiveRecord
 
     public function sendOnlineStatus()
     {
-        $additionalCriteria = new CDbCriteria(array(
-            'select' => 't.id',
-            'index' => 'id',
-        ));
-
-        $contacts = Im::getContacts($this->id, Im::IM_CONTACTS_ALL, $additionalCriteria);
-        $friends = $this->getFriendsModels($additionalCriteria);
-
-        $users = $contacts + $friends;
-
-        $comet = new CometModel;
-        $comet->type = CometModel::TYPE_ONLINE_STATUS_CHANGE;
-        foreach ($users as $k => $u) {
-            $comet->send($u->id, array(
-                'online' => $this->online,
-                'user_id' => $this->id,
-                'is_friend' => isset($friends[$k]),
-            ));
-        }
+//        $additionalCriteria = new CDbCriteria(array(
+//            'select' => 't.id',
+//            'index' => 'id',
+//        ));
+//
+//        $contacts = Im::getContacts($this->id, Im::IM_CONTACTS_ALL, $additionalCriteria);
+//        $friends = $this->getFriendsModels($additionalCriteria);
+//
+//        $users = $contacts + $friends;
+//
+//        $comet = new CometModel;
+//        $comet->type = CometModel::TYPE_ONLINE_STATUS_CHANGE;
+//        foreach ($users as $k => $u) {
+//            $comet->send($u->id, array(
+//                'online' => $this->online,
+//                'user_id' => $this->id,
+//                'is_friend' => isset($friends[$k]),
+//            ));
+//        }
     }
 
     public static function getWorkersIds()

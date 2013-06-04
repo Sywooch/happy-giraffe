@@ -15,14 +15,17 @@ else {
 <?php if (! $this->small): ?>
     <div class="user-info clearfix<?php if ($this->size == 'ava') echo ' medium' ?><?php if ($this->size == 'small') echo ' user-info-small' ?>">
 <?php endif; ?>
-    <?=HHtml::link($this->user->getAva($this->size)?CHtml::image($this->user->getAva($this->size)):'', $link_to_profile, array('class'=>$class), $this->hideLinks)?>
+    <?php
+        $ava = '';
+        if ($this->user->online && $this->size == 'ava')
+            $ava .= '<span class="icon-status status-online"></span>';
+        if ($this->user->getAva($this->size))
+            $ava .= CHtml::image($this->user->getAva($this->size));
+    ?>
+    <?=HHtml::link($ava, $link_to_profile, array('class'=>$class), $this->hideLinks)?>
 <?php if (!$this->small): ?>
     <?php if ($this->user->id != User::HAPPY_GIRAFFE): ?>
         <div class="details">
-            <?php if ($this->online_status):?>
-                <span class="icon-status status-<?php echo $this->user->online == 1 ? 'online' : 'offline'; ?>"></span>
-            <?php endif ?>
-
             <?=HHtml::link(CHtml::encode($this->user->fullName), $link_to_profile, array('class'=>'username'), $this->hideLinks)?>
 
             <?php if ($this->time):?>

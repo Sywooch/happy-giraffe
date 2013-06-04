@@ -317,8 +317,6 @@ class RecipeController extends HController
         $this->pageTitle = $recipe->title . ' - Кулинарные рецепты от Веселого Жирафа';
 
         NotificationRead::getInstance()->setContentModel($recipe);
-//        if (! Yii::app()->user->isGuest)
-//            UserNotification::model()->deleteByEntity($recipe, Yii::app()->user->id);
 
         $this->breadcrumbs = array(
             'Кулинария' => array('/cook'),

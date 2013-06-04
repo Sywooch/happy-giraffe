@@ -195,20 +195,12 @@ class UserScores extends HActiveRecord
     /**
      * @static
      * @param int $user_id
-     * @param int $action_id
      * @return void
      */
-    public static function checkProfileScores($user_id, $action_id)
+    public static function checkProfileScores($user_id)
     {
         $model = self::model()->findByPk($user_id);
         if ($model->full == 0) {
-            $score = ScoreInput::model()->findByAttributes(array(
-                'action_id' => (int)$action_id,
-                'user_id' => (int)$user_id
-            ));
-            if ($score === null)
-                self::addScores($user_id, $action_id);
-
             $model->checkFull();
         }
     }
@@ -255,7 +247,7 @@ class UserScores extends HActiveRecord
             case ScoreAction::ACTION_PROFILE_EMAIL:
                 return !empty($this->user->email_confirmed);
             case ScoreAction::ACTION_PROFILE_LOCATION:
-                return !empty($this->user->address);
+                return !empty($this->user->address) && !empty($this->user->address->country_id);
         }
 
         return true;

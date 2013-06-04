@@ -250,8 +250,6 @@ class SiteKeywordVisit extends HActiveRecord
             'site_id' => $site_id
         ));
 
-        $month = (int)$month;
-
         if ($model !== null) {
             //второй раз и меньше - значит слово в котором есть буква ё
             $old = $model->getAttribute('m' . $month);
@@ -259,8 +257,6 @@ class SiteKeywordVisit extends HActiveRecord
                 return;
 
             $model->setAttribute('m' . $month, $value);
-
-            echo 'm' . $month.'-'.$value;
         } else {
             $model = new SiteKeywordVisit();
             $model->site_id = $site_id;

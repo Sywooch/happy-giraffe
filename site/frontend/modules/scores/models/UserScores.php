@@ -255,7 +255,7 @@ class UserScores extends HActiveRecord
             case ScoreAction::ACTION_PROFILE_EMAIL:
                 return !empty($this->user->email_confirmed);
             case ScoreAction::ACTION_PROFILE_LOCATION:
-                return !empty($this->user->userAddress);
+                return !empty($this->user->address);
         }
 
         return true;

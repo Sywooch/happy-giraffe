@@ -283,8 +283,16 @@ class SiteCommand extends CConsoleCommand
         Yii::import('site.frontend.modules.scores.models.*');
         Yii::import('site.frontend.modules.geo.models.*');
         Yii::import('site.common.models.interest.*');
-        for($i=0;$i<200000;$i++){
+        for($i=49000;$i<200000;$i++){
             $user = User::model()->with('score')->findByPk($i);
+            if ($user === null)
+                continue;
+            if ($user->score === null){
+                $scores = new UserScores();
+                $scores->user_id = $i;
+                $scores->save();
+                $user->score = $scores;
+            }
             if ($user !== null && $user->score->full == 0){
                 $user->score->checkFull();
             }

@@ -44,9 +44,7 @@
 
                 <div class="col-3">
 
-                    <?php if($this->beginCache('home-page-2', array('duration'=>300))){ ?>
                     <?php $this->widget('OurUsersWidget'); ?>
-                    <?php $this->endCache(); } ?>
 
                     <div class="box homepage-articles">
 

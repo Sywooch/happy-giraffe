@@ -100,11 +100,20 @@ class MonthStats
     public function AllStats()
     {
         $criteria = new CDbCriteria;
-        $criteria->with = array('author');
-        $criteria->condition = 'author.`group` != 0 and type_id < 3';
+        $criteria->with = array('author', 'rubric');
+        $criteria->condition = 'author.`group` != 0 and type_id < 3 and rubric.user_id IS NULL';
         $count = CommunityContent::model()->count($criteria);
         echo $count."\n";
-        $criteria->condition = 'author.`group` = 0 and type_id < 3';
+        $criteria->condition = 'author.`group` = 0 and type_id < 3 and rubric.user_id IS NULL';
+        $count = CommunityContent::model()->count($criteria);
+        echo $count."\n";
+
+        $criteria = new CDbCriteria;
+        $criteria->with = array('author', 'rubric');
+        $criteria->condition = 'author.`group` != 0 and type_id < 3 and rubric.user_id IS NOT NULL';
+        $count = CommunityContent::model()->count($criteria);
+        echo $count."\n";
+        $criteria->condition = 'author.`group` = 0 and type_id < 3 and rubric.user_id IS NOT NULL';
         $count = CommunityContent::model()->count($criteria);
         echo $count."\n";
 

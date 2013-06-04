@@ -57,14 +57,18 @@ class ScoreInput extends HMongoModel
      */
     public $updated;
     /**
+     * @var int время создания уведомления
+     */
+    public $created;
+    /**
      * @var bool прочитано ли сообщение о начислении баллов
      */
     public $read;
     /**
-     * @var int время когда сообщение о начислении баллов начинается отображается у пользователя
-     * нужно для группировки баллов
+     * @var bool открыто ли уведомления для дополнительных начислений
      */
-    public $show_time;
+    public $closed;
+
 
     /**
      * @var ScoreInput
@@ -102,6 +106,10 @@ class ScoreInput extends HMongoModel
             'user_id' => EMongoCriteria::SORT_DESC,
             'updated' => EMongoCriteria::SORT_DESC,
         ), array('name' => 'list_index'));
+
+        $this->getCollection()->ensureIndex(array(
+            'created' => EMongoCriteria::SORT_DESC,
+        ), array('name' => 'created_index'));
     }
 
     protected function sendSignal($scores)
@@ -114,13 +122,10 @@ class ScoreInput extends HMongoModel
      * Создаение нового уведомления о получении баллов
      *
      * @param $specific_fields array массив специфических полей уведомления
-     * @param int|null $show_time время когда сообщение о начислении баллов начинается отображается у пользователя
+     * @param bool $close добавлять ли баллы сразу
      */
-    protected function insert($specific_fields = array(), $show_time = null)
+    protected function insert($specific_fields = array(), $close = true)
     {
-        if (empty($show_time))
-            $show_time = time();
-
         $this->getCollection()->insert(
             array_merge(array(
                 'type' => (int)$this->type,
@@ -128,11 +133,13 @@ class ScoreInput extends HMongoModel
                 'scores' => $this->getScores(),
                 'updated' => time(),
                 'read' => 0,
-                'show_time' => $show_time,
+                'created' => time(),
+                'closed' => (bool)$close
             ), $specific_fields)
         );
 
-        $this->addScores();
+        if ($close)
+            $this->addScores();
     }
 
     /**

@@ -29,7 +29,6 @@ class DefaultController extends HController
     {
         $this->pageTitle = 'Мои баллы';
         Yii::import('site.frontend.modules.cook.models.*');
-        Yii::import('site.frontend.modules.services.modules.recipeBook.models.*');
 
         if ($user_id === null)
             $user_id = Yii::app()->user->id;

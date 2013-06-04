@@ -408,4 +408,9 @@ class SiteController extends HController
 
         $this->render('moder_rules');
     }
+
+    public function actionTest()
+    {
+        $this->render('test');
+    }
 }

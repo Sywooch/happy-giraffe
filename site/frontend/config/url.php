@@ -182,6 +182,7 @@ return array(
         'cook/recipe/tag/' => array('cook/recipe/tag', 'defaultParams' => array('section' => 0)),
         'cook/recipe/cookBook/type/<type:\d+>' => array('cook/recipe/cookBook'),
         'cook/recipe/cookBook/' => array('cook/recipe/cookBook'),
+        'cook/recipe/random/' => array('cook/recipe/random'),
 
         'cook/recipe/edit/<id:\d+>' => array('cook/recipe/form', 'defaultParams' => array('section' => 0)),
         'cook/recipe/add' => array('cook/recipe/form', 'defaultParams' => array('section' => 0)),

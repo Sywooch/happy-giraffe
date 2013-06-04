@@ -47,6 +47,16 @@ class HController extends CController
             ->registerCssFile('/stylesheets/common.css?'.$this->r)
             ->registerCssFile('/stylesheets/global.css?'.$this->r)
         ;
+
+        // авторизация
+        if (isset($this->actionParams['token'])) {
+            if (($user_id = UserToken::model()->useToken($this->actionParams['token'])) !== false) {
+                $identity = new SafeUserIdentity($user_id);
+                if ($identity->authenticate())
+                    Yii::app()->user->login($identity);
+            }
+            unset($_GET['token']);
+        }
     }
 
     protected function beforeAction($action)
@@ -77,16 +87,6 @@ class HController extends CController
 
         if (!Yii::app()->user->isGuest && (Yii::app()->user->model->blocked == 1 || Yii::app()->user->model->deleted == 1))
             Yii::app()->user->logout();
-
-        // авторизация
-        if (isset($this->actionParams['token'])) {
-            if (($user_id = UserToken::model()->useToken($this->actionParams['token'])) !== false) {
-                $identity = new SafeUserIdentity($user_id);
-                if ($identity->authenticate())
-                    Yii::app()->user->login($identity);
-            }
-            unset($_GET['token']);
-        }
 
         $received_params = array('utm_source',
             'utm_medium',

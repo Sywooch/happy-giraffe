@@ -60,6 +60,9 @@ class AjaxController extends HController
         $model->setAttribute($attribute, $value);
         if ($model->update($attribute))
             echo '1';
+
+        if ($modelName == 'User' && $attribute == 'relationship_status')
+            UserScores::checkProfileScores(Yii::app()->user->id);
     }
 
     public function actionSetValues()
@@ -756,6 +759,7 @@ class AjaxController extends HController
             ob_start();
             $this->widget('HoroscopeWidget', array('user' => $user));
             $horoscope = ob_get_clean();
+            UserScores::checkProfileScores(Yii::app()->user->id);
 
             echo CJSON::encode(array(
                 'status' => true,

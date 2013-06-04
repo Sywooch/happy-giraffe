@@ -200,14 +200,12 @@ class UserScores extends HActiveRecord
     public static function checkProfileScores($user_id)
     {
         $model = self::model()->findByPk($user_id);
-        if ($model->full == 0) {
-            $model->checkFull();
-        }
+        $model->checkFull();
     }
 
     public function checkFull()
     {
-        if ($this->getStepsCount() >= 6) {
+        if ($this->full == 0 && $this->getStepsCount() >= 6) {
             $this->full = 1;
             $this->level_id = 1;
             $this->save();

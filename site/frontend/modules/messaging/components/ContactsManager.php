@@ -259,7 +259,7 @@ class ContactsManager
                     LEFT OUTER JOIN album__photos p ON u.avatar_id = p.id
                     # Находится ли в черном списке
                     LEFT OUTER JOIN blacklist b ON b.user_id = tu.user_id AND b.blocked_user_id = u.id
-                    WHERE f.user_id = :user_id AND b.user_id IS NULL AND u.online = 1
+                    WHERE f.user_id = :user_id AND tu.user_id IS NOT NULL AND b.user_id IS NULL AND u.online = 1
                     GROUP BY u.id
                     ORDER BY t.updated DESC
                     LIMIT :limit

@@ -695,6 +695,7 @@ class AlbumsController extends HController
     {
         Yii::app()->clientScript->scriptMap = array(
             'jquery.js' => false,
+            'jquery.min.js' => false,
         );
 
         $photo = AlbumPhoto::model()->findByPk($id);

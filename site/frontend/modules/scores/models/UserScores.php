@@ -229,21 +229,36 @@ class UserScores extends HActiveRecord
 
     public function getStepsCount()
     {
-        $criteria = new EMongoCriteria;
-        $criteria->addCond('user_id', '==', (int)$this->user_id);
-        $criteria->addCond('action_id', 'in', array(ScoreAction::ACTION_PROFILE_BIRTHDAY,
+        $count = 0;
+        $steps = array(ScoreAction::ACTION_PROFILE_BIRTHDAY,
             ScoreAction::ACTION_PROFILE_PHOTO, ScoreAction::ACTION_PROFILE_FAMILY,
             ScoreAction::ACTION_PROFILE_INTERESTS, ScoreAction::ACTION_PROFILE_EMAIL,
-            ScoreAction::ACTION_PROFILE_LOCATION));
-        return ScoreInput::model()->count($criteria);
+            ScoreAction::ACTION_PROFILE_LOCATION);
+        foreach ($steps as $step)
+            if ($this->stepComplete($step))
+                $count++;
+
+        return $count;
     }
 
     public function stepComplete($step_id)
     {
-        $criteria = new EMongoCriteria;
-        $criteria->addCond('user_id', '==', (int)$this->user_id);
-        $criteria->addCond('action_id', '==', (int)$step_id);
-        return ScoreInput::model()->count($criteria) >= 1;
+        switch ($step_id) {
+            case ScoreAction::ACTION_PROFILE_BIRTHDAY:
+                return !empty($this->user->birthday);
+            case ScoreAction::ACTION_PROFILE_PHOTO:
+                return !empty($this->user->avatar_id);
+            case ScoreAction::ACTION_PROFILE_FAMILY:
+                return !empty($this->user->relationship_status);
+            case ScoreAction::ACTION_PROFILE_INTERESTS:
+                return !empty($this->user->interests);
+            case ScoreAction::ACTION_PROFILE_EMAIL:
+                return !empty($this->user->email_confirmed);
+            case ScoreAction::ACTION_PROFILE_LOCATION:
+                return !empty($this->user->userAddress);
+        }
+
+        return true;
     }
 
     public function getUserHistory(){

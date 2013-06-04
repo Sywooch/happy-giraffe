@@ -441,6 +441,8 @@ class User extends HActiveRecord
         } else {
             self::clearCache($this->id);
 
+            if (!empty($this->relationship_status) || !empty($this->birthday))
+                UserScores::checkProfileScores($this->id);
         }
 
         if ($this->trackable->isChanged('online'))

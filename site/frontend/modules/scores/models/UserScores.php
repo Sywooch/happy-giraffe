@@ -200,22 +200,15 @@ class UserScores extends HActiveRecord
     public static function checkProfileScores($user_id)
     {
         $model = self::model()->findByPk($user_id);
-        if ($model->full == 0) {
-            $model->checkFull();
-        }
+        $model->checkFull();
     }
 
     public function checkFull()
     {
-        if ($this->getStepsCount() >= 6) {
+        if ($this->full == 0 && $this->getStepsCount() >= 6) {
             $this->full = 1;
             $this->level_id = 1;
-            UserAction::model()->add($this->user_id, UserAction::USER_ACTION_LEVELUP, array('level_id' => 1));
             $this->save();
-            self::addScores($this->user_id, ScoreAction::ACTION_PROFILE_FULL);
-            $this->user->last_updated = new CDbExpression('NOW()');
-            $this->user->update(array('last_updated'));
-            $this->user->sendEvent();
         }
     }
 

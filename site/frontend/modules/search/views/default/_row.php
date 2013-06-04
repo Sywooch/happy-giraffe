@@ -1,7 +1,7 @@
 <?php if (in_array($data->entity, array('post', 'video'))): ?>
-    <?php $this->render('//community/_post', array('data' => $data)); ?>
+    <?php $this->renderPartial('//community/_post', array('data' => $data, 'full' => false)); ?>
 <?php endif; ?>
 
 <?php if ($data->entity == 'photo'): ?>
-    <?php $this->render('//albums/')
+    <?php $this->renderPartial('//albums/favourites', compact('data')); ?>
 <?php endif; ?>

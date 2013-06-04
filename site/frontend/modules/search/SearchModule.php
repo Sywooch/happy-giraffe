@@ -2,6 +2,21 @@
 
 class SearchModule extends CWebModule
 {
+    public $relatedModelCriteria = array(
+        'CommunityContent' => array(
+            'scopes' => array('full'),
+        ),
+        'BlogContent' => array(
+            'scopes' => array('full'),
+        ),
+        'MultivarkaRecipe' => array(
+            'with' => array('tags'),
+        ),
+        'SimpleRecipe' => array(
+            'with' => array('tags'),
+        ),
+    );
+
 	public function init()
 	{
 		// this method is called when the module is being created

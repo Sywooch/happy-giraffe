@@ -11,8 +11,12 @@ class IndexDenCommand extends CConsoleCommand
 {
     public function actionIndex()
     {
-        $models = CommunityContent::model()->full()->findAll('rubric.community_id = :community_id', array(':community_id' => 9));
-        foreach ($models as $m)
+        $posts = CommunityContent::model()->full()->findAll('rubric.community_id = :community_id', array(':community_id' => 9));
+        foreach ($posts as $m)
+            $m->searchable->save();
+
+        $photos = AlbumPhoto::model()->findAllByAttributes(array('author_id' => 12936));
+        foreach ($photos as $m)
             $m->searchable->save();
     }
 
@@ -25,7 +29,6 @@ class IndexDenCommand extends CConsoleCommand
     public function processMessage($job)
     {
         $data = unserialize($job->workload());
-        var_dump($data);
         extract($data);
         switch ($modelName) {
             case 'BlogContent':

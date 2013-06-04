@@ -5,6 +5,12 @@
  */
 class HActiveRecord extends CActiveRecord
 {
+    private $_entities = array(
+        'post' => 'Пост',
+        'video' => 'Видео',
+        'photo' => 'Фото',
+    );
+
     public function getPhotoCollection()
     {
         return $this->photos;
@@ -75,12 +81,17 @@ class HActiveRecord extends CActiveRecord
     {
         switch (get_class($this)) {
             case 'AlbumPhoto':
-                return 'post';
+                return 'photo';
             case 'CookRecipe':
                 return 'cook';
             case 'CommunityContent':
             case 'BlogContent':
                 return $this->type_id == 1 ? 'post' : 'video';
         }
+    }
+
+    public function getEntityTitle()
+    {
+        return $this->_entities[$this->entity];
     }
 }

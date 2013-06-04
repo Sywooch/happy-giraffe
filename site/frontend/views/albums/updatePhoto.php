@@ -1,7 +1,7 @@
 <div id="photoPick" class="popup v2">
 
 
-    <a onclick="$.fancybox.close();" class="popup-close tooltip" title="Закрыть" href="javascript:void(0);"></a>
+    <a href="javascript:;" onclick="$.fancybox.close();" class="popup-close tooltip" title="Закрыть"></a>
 
     <div class="title">Редактирование фотографии</div>
 

@@ -693,8 +693,14 @@ class AlbumsController extends HController
 
     public function actionUpdatePhoto($id)
     {
+        Yii::app()->clientScript->scriptMap = array(
+            'jquery.js' => false,
+            'jquery.min.js' => false,
+        );
+
         $photo = AlbumPhoto::model()->findByPk($id);
-        $this->renderPartial('updatePhoto', compact('photo'), false, true);
+        if (Yii::app()->user->getModel()->group != UserGroup::USER || Yii::app()->user->id == $photo->author_id)
+            $this->renderPartial('updatePhoto', compact('photo'), false, true);
     }
 
     public function actionUpdateAlbum($id)

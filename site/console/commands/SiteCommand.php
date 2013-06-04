@@ -278,4 +278,19 @@ class SiteCommand extends CConsoleCommand
 //        NotificationNewComment::model()->read(8846, 'CommunityContent', 98);
         echo microtime(true) - $t1;
     }
+
+    public function actionCheckFull(){
+        Yii::import('site.frontend.modules.scores.models.*');
+        Yii::import('site.frontend.modules.geo.models.*');
+        Yii::import('site.common.models.interest.*');
+        for($i=0;$i<200000;$i++){
+            $user = User::model()->with('score')->findByPk($i);
+            if ($user !== null && $user->score->full == 0){
+                $user->score->checkFull();
+            }
+
+            if ($i % 1000 == 0)
+                echo $i."\n";
+        }
+    }
 }

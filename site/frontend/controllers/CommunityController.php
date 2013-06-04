@@ -192,8 +192,6 @@ class CommunityController extends HController
         }
 
         NotificationRead::getInstance()->setContentModel($content);
-//        if (! Yii::app()->user->isGuest)
-//            UserNotification::model()->deleteByEntity($content, Yii::app()->user->id);
         $this->registerCounter();
 
         //проверяем переход с других сайтов по ссылкам комментаторов
@@ -257,24 +255,26 @@ class CommunityController extends HController
                 $slave_model->content_id = $model->id;
                 $slave_model->save(false);
 
-                if($model->gallery)
-                    $model->gallery->delete();
-                if(Yii::app()->request->getPost('CommunityContentGallery'))
-                {
-                    $gallery = new CommunityContentGallery;
-                    $gallery->title = $_POST['CommunityContentGallery']['title'];
-                    $gallery->content_id = $model->id;
-                    if($gallery->save() && ($items = Yii::app()->request->getPost('CommunityContentGalleryItem')) != null)
+                if (Yii::app()->user->checkAccess('photo_gallery')) {
+                    if($model->gallery)
+                        $model->gallery->delete();
+                    if(Yii::app()->request->getPost('CommunityContentGallery'))
                     {
-                        foreach($items as $item)
+                        $gallery = new CommunityContentGallery;
+                        $gallery->title = $_POST['CommunityContentGallery']['title'];
+                        $gallery->content_id = $model->id;
+                        if($gallery->save() && ($items = Yii::app()->request->getPost('CommunityContentGalleryItem')) != null)
                         {
-                            $gi = new CommunityContentGalleryItem();
-                            $gi->attributes = array(
-                                'gallery_id' => $gallery->id,
-                                'photo_id' => $item['photo_id'],
-                                'description' => $item['description']
-                            );
-                            $gi->save();
+                            foreach($items as $item)
+                            {
+                                $gi = new CommunityContentGalleryItem();
+                                $gi->attributes = array(
+                                    'gallery_id' => $gallery->id,
+                                    'photo_id' => $item['photo_id'],
+                                    'description' => $item['description']
+                                );
+                                $gi->save();
+                            }
                         }
                     }
                 }
@@ -381,7 +381,9 @@ class CommunityController extends HController
                     $gallery = new CommunityContentGallery;
                     $gallery->title = $_POST['CommunityContentGallery']['title'];
                     $gallery->content_id = $model->id;
-                    if($gallery->save() && $items = Yii::app()->request->getPost('CommunityContentGalleryItem'))
+
+                    $items = Yii::app()->request->getPost('CommunityContentGalleryItem');
+                    if($gallery->save() && $items)
                     {
                         foreach($items as $item)
                         {
@@ -393,6 +395,13 @@ class CommunityController extends HController
                             );
                             $gi->save();
                         }
+                    }
+
+                    if (count($items) > 0){
+                        reset($items);
+                        $item = current($items);
+                        $slave_model->photo_id = $item['photo_id'];
+                        $slave_model->update(array('photo_id'));
                     }
                 }
 

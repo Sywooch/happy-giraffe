@@ -255,11 +255,17 @@ class Notification extends HMongoModel
 
     /**
      * Удаление старых уведомлений, которые были прочитаны более 10-ти дней назад
+     * и которые были создано более 100 дней назад, но не были причитаны
      */
     public function removeOldReadNotifications()
     {
         $this->getCollection()->remove(array(
             'read_time' => array('$lt' => (time() - 3600 * 24 * 10))
+        ));
+
+        $this->getCollection()->remove(array(
+            'updated' => array('$lt' => (time() - 3600 * 24 * 100)),
+            'read_time' => array('$exists' => false)
         ));
     }
 

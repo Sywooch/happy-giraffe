@@ -66,6 +66,9 @@ class NotificationRead
      */
     public function addShownComment($comment)
     {
+        if (Yii::app()->user->isGuest)
+            return ;
+
         $this->comments [] = $comment;
         $this->comment_ids [] = $comment->id;
     }

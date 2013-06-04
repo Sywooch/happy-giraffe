@@ -29,19 +29,19 @@ class AlbumsController extends HController
         $entity = Yii::app()->request->getQuery('entity');
         $entity_id = Yii::app()->request->getQuery('entity_id');
         if ($entity == 'Contest') {
-            if (! Yii::app()->request->getQuery('go'))
-                $filters[] = array(
-                    'COutputCache + WPhoto',
-                    'duration' => 600,
-                    'varyByParam' => array('entity', 'entity_id', 'id', 'sort', 'go'),
-                    'dependency' => new CDbCacheDependency(Yii::app()->db->createCommand()->select(new CDbExpression('MAX(created)'))->from('contest__works')->where("contest_id = $entity_id")->text),
-                );
-            $filters[] = array(
-                'COutputCache + postLoad',
-                'duration' => 600,
-                'varyByParam' => array('entity', 'entity_id', 'photo_id'),
-                'dependency' => new CDbCacheDependency(Yii::app()->db->createCommand()->select(new CDbExpression('MAX(created)'))->from('contest__works')->where("contest_id = $entity_id")->text),
-            );
+//            if (! Yii::app()->request->getQuery('go'))
+//                $filters[] = array(
+//                    'COutputCache + WPhoto',
+//                    'duration' => 600,
+//                    'varyByParam' => array('entity', 'entity_id', 'id', 'sort', 'go'),
+//                    'dependency' => new CDbCacheDependency(Yii::app()->db->createCommand()->select(new CDbExpression('MAX(created)'))->from('contest__works')->where("contest_id = $entity_id")->text),
+//                );
+//            $filters[] = array(
+//                'COutputCache + postLoad',
+//                'duration' => 600,
+//                'varyByParam' => array('entity', 'entity_id', 'photo_id'),
+//                'dependency' => new CDbCacheDependency(Yii::app()->db->createCommand()->select(new CDbExpression('MAX(created)'))->from('contest__works')->where("contest_id = $entity_id")->text),
+//            );
         }
 
         return $filters;
@@ -632,7 +632,6 @@ class AlbumsController extends HController
             UserStatisticAction::avatarLoaded(Yii::app()->user->id);
 
         User::model()->updateByPk(Yii::app()->user->id, array('avatar_id' => $photo->id));
-        UserScores::checkProfileScores(Yii::app()->user->id, ScoreAction::ACTION_PROFILE_PHOTO);
 
         echo $photo->getPreviewUrl(241, 225, Image::WIDTH);
     }
@@ -796,9 +795,6 @@ class AlbumsController extends HController
         $this->layout = '//layouts/main';
 
         NotificationRead::getInstance()->setContentModel($photo);
-//        if (! Yii::app()->user->isGuest)
-//            UserNotification::model()->deleteByEntity($photo, Yii::app()->user->id);
-
         $this->render(in_array($entity, array('CommunityContentGallery', 'Contest')) ? 'singlePhotoBanner' : 'singlePhoto', array_merge(compact('model', 'collection', 'photo', 'currentIndex'), $additional_params));
     }
 

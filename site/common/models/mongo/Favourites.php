@@ -98,6 +98,7 @@ class Favourites extends EMongoDocument
             $criteria->block('==', $block);
             $fav->index = (int)self::model()->count($criteria);
             $fav->block = $block;
+            $fav->created = date("Y-m-d H:i:s");
 
             return $fav->save();
         }

@@ -692,3 +692,51 @@ AdFox_getCodeScript(1,pr1,'http://ads.adfox.ru/211012/prepareCode?pp=dey&amp;ps=
 <!--AdFox END-->
 
 iez7Phej
+
+
+SELECT *
+FROM messaging__threads_users tu
+# Получение id собеседника
+INNER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id != tu.user_id
+# Находится ли в чёрном списке
+LEFT OUTER JOIN blacklist b ON b.user_id = tu.user_id AND b.blocked_user_id = tu2.user_id
+WHERE tu.user_id = 83 AND b.user_id IS NULL AND tu2.user_id = 15545
+
+SELECT tu.user_id AS user1_id, tu2.user_id AS user2_id, COUNT(*) AS C
+FROM messaging__threads_users tu
+INNER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id != tu.user_id
+INNER JOIN messaging__threads t ON t.id = tu.thread_id
+GROUP BY tu.user_id, tu2.user_id
+HAVING C > 1
+
+SELECT *
+FROM messaging__threads_users tu
+INNER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id != tu.user_id
+INNER JOIN messaging__threads t ON t.id = tu.thread_id
+INNER JOIN (
+  SELECT tu.user_id AS user1_id, tu2.user_id AS user2_id, COUNT(*) AS C
+  FROM messaging__threads_users tu
+  INNER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id != tu.user_id
+  INNER JOIN messaging__threads t ON t.id = tu.thread_id
+  GROUP BY tu.user_id, tu2.user_id
+  HAVING C > 1
+  ) x
+ON tu.user_id = x.user1_id AND tu2.user_id = x.user2_id
+ORDER BY tu.user_id ASC, tu2.user_id ASC, created ASC;
+
+
+SELECT t.id
+FROM messaging__threads_users tu
+INNER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id != tu.user_id
+INNER JOIN messaging__threads t ON t.id = tu.thread_id
+INNER JOIN (
+  SELECT tu.user_id AS user1_id, tu2.user_id AS user2_id, COUNT(*) AS C
+  FROM messaging__threads_users tu
+  INNER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id != tu.user_id
+  INNER JOIN messaging__threads t ON t.id = tu.thread_id
+  GROUP BY tu.user_id, tu2.user_id
+  HAVING C > 1
+  ) x
+ON tu.user_id = x.user1_id AND tu2.user_id = x.user2_id
+GROUP BY tu.user_id, tu2.user_id
+ORDER BY tu.user_id ASC, tu2.user_id ASC, created ASC;

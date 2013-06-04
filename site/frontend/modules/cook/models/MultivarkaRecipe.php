@@ -51,6 +51,11 @@ class MultivarkaRecipe extends CookRecipe
         return $_counts;
     }
 
+    public function beforeDelete()
+    {
+        return parent::beforeDelete();
+    }
+
     /**
      * Возвращает подсказку для вывода
      */

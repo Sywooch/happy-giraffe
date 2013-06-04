@@ -18,7 +18,6 @@ class SearchableBehavior extends CActiveRecordBehavior
 
     public function delete()
     {
-        echo "deleting...\n";
         Yii::app()->indexden->delete($this->index, $this->getDocId());
     }
 
@@ -35,7 +34,12 @@ class SearchableBehavior extends CActiveRecordBehavior
                 return array(
                     'title' => $this->owner->title,
                     'text' => $this->owner->content->text,
-                    'timestamp' => $this->owner->created,
+                    'timestamp' => strtotime($this->owner->created),
+                );
+            case 'photo':
+                return array(
+                    'title' => $this->owner->title,
+                    'timestamp' => strtotime($this->owner->created),
                 );
         }
     }
@@ -44,21 +48,18 @@ class SearchableBehavior extends CActiveRecordBehavior
     {
         Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
         Yii::import('site.common.models.mongo.PageView');
+        Yii::import('site.common.models.mongo.Rating');
 
-        switch ($this->owner->entity) {
-            case 'post':
-            case 'video':
-                return array(
-                    $this->owner->rate,
-                    PageView::model()->viewsByPath($this->owner->url),
-                );
-        }
+        return array(
+            Rating::model()->countByEntity($this->owner),
+            PageView::model()->viewsByPath($this->owner->url),
+        );
     }
 
     protected function getCategories()
     {
         return array(
-            'entity' => $this->owner->entity,
+            'entity' => $this->owner->entityTitle,
         );
     }
 
@@ -77,7 +78,7 @@ class SearchableBehavior extends CActiveRecordBehavior
         $data = array(
             'modelName' => get_class($this->owner),
             'modelId' => $this->owner->id,
-            'action' => 'save',
+            'action' => 'delete',
         );
         Yii::app()->gearman->client()->doBackground('indexden', serialize($data));
     }

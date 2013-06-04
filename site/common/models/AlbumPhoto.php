@@ -120,6 +120,10 @@ class AlbumPhoto extends HActiveRecord
                 'createAttribute' => 'created',
                 'updateAttribute' => 'updated',
             ),
+            'searchable' => array(
+                'class' => 'site.common.behaviors.SearchableBehavior',
+                'index' => 'main',
+            ),
             //'pingable' => array(
             //    'class' => 'site.common.behaviors.PingableBehavior',
             //),
@@ -206,6 +210,8 @@ class AlbumPhoto extends HActiveRecord
         if (!empty($this->album_id)) {
             UserScores::removeScores($this->author_id, ScoreAction::ACTION_PHOTO, 1, $this);
         }
+
+        $this->afterDelete();
         return false;
     }
 

@@ -1,4 +1,3 @@
-<!-- ﬂÌ‰ÂÍÒ.ƒËÂÍÚ -->
 <div id="yandex_ad"></div>
 <script type="text/javascript">
     (function(w, d, n, s, t) {
@@ -17,7 +16,7 @@
                 favicon: true
             });
         });
-        t = d.documentElement.firstChild;
+        t = d.getElementsByTagName('head')[0];
         s = d.createElement("script");
         s.type = "text/javascript";
         s.src = "http://an.yandex.ru/system/context.js";

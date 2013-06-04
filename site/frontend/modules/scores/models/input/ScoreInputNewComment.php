@@ -40,7 +40,8 @@ class ScoreInputNewComment extends ScoreInputMassive
      */
     public function add($user_id, $comment_id)
     {
-        parent::add($user_id, $comment_id, self::WAIT_TIME * 3600);
+        $this->user_id = $user_id;
+        parent::add($comment_id);
     }
 
     /**

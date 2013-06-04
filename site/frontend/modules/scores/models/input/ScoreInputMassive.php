@@ -16,21 +16,18 @@ abstract class ScoreInputMassive extends ScoreInput
     /**
      * Добавление баллов
      *
-     * @param $user_id int id пользователя
      * @param $id int id модели
-     * @param $wait_time
      */
-    public function add($user_id, $id, $wait_time)
+    public function add($id)
     {
-        $this->user_id = $user_id;
         $model = $this->getCollection()->findOne(array(
             'type' => (int)$this->type,
             'user_id' => (int)$this->user_id,
-            'show_time' => array('$gt' => time())
+            'closed' => false
         ));
 
         if (empty($model))
-            $this->insert(array('ids' => array((int)$id)), time() + $wait_time);
+            $this->insert(array('ids' => array((int)$id)), false);
         else {
             $this->getCollection()->update(array('_id' => $model['_id']), array(
                 '$push' => array('ids' => (int)$id),

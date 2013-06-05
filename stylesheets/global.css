@@ -464,6 +464,12 @@
   -moz-border-radius: 12px;
   border-radius: 12px;
 }
+.im-user-settings > .ava.female {
+  background-position: -240px -456px;
+}
+.im-user-settings > .ava.male {
+  background-position: -240px -216px;
+}
 .im-user-settings_user {
   padding: 3px 0 3px;
 }

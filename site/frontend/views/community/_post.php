@@ -157,7 +157,7 @@
                         'entity_id' => (int)$data->gallery->primaryKey,
                     ));
                     if ((isset($_GET['utm_source']) && $_GET['utm_source'] == 'email') || (isset($_GET['open_gallery']) && $_GET['open_gallery'] == 1)) {
-                        Yii::app()->clientScript->registerScript('open_pGallery','$(".gallery-box a.img").trigger("click");', CClientScript::POS_READY);
+                        Yii::app()->clientScript->registerScript('open_pGallery','setTimeout(function(){$(".gallery-box a.img").trigger("click")},200);', CClientScript::POS_END);
                     }
 
                 ?>

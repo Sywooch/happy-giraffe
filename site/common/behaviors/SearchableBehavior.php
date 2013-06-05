@@ -59,7 +59,7 @@ class SearchableBehavior extends CActiveRecordBehavior
     protected function getCategories()
     {
         return array(
-            'entity' => $this->owner->entityTitle,
+            'entity' => $this->owner->entity,
         );
     }
 

@@ -2,6 +2,12 @@
 
 class SearchModule extends CWebModule
 {
+    public $entities = array(
+        'post' => 'Посты',
+        'video' => 'Видео',
+        'photo' => 'Фото',
+    );
+
     public $relatedModelCriteria = array(
         'CommunityContent' => array(
             'scopes' => array('full'),

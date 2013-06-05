@@ -9,9 +9,14 @@
 
 class SearchManager
 {
-    public static function search($query)
+    public static $fields = array('title', 'text');
+
+    public static function search($query, $scoring, $perPage, $entity, $page)
     {
-        $raw = Yii::app()->indexden->search('main', $query);
+        $start = ($page - 1) * $perPage;
+
+        $categoryFilters = $entity === null ? null : array('entity' => array($entity));
+        $raw = Yii::app()->indexden->search('main', self::processQuery($query), $start, $perPage, $scoring, implode(',', self::$fields), null, $categoryFilters);
 
         $entities = array();
         foreach ($raw->results as $document) {
@@ -35,14 +40,31 @@ class SearchManager
         $results = array();
         foreach ($raw->results as $document) {
             list($modelName, $modelId) = explode('_', $document->docid);
-            $results[] = $entities[$modelName][$modelId];
+            $model = $entities[$modelName][$modelId];
+            foreach (self::$fields as $f) {
+                $snippetName = 'snippet_' . $f;
+                if (! empty($document->$snippetName)) {
+                    $snippetValue = $document->$snippetName;
+                    $snippetValue = str_replace('<b>', '<span class="search-highlight">', $snippetValue);
+                    $snippetValue = str_replace('</b>', '</span>', $snippetValue);
+                    $attribute = $f == 'text' ? 'preview' : $f;
+                    $model->$attribute = $snippetValue;
+                }
+            }
+            $results[] = $model;
         }
 
         $data = array(
             'total' => $raw->matches,
             'results' => $results,
+            'facets' => (array) $raw->facets->entity,
         );
 
         return $data;
+    }
+
+    protected static function processQuery($query)
+    {
+        return 'title:"' . $query . '" OR text:"' . $query . '"^2';
     }
 }

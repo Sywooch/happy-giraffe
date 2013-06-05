@@ -66,6 +66,6 @@
         <p>Под маркой  <img src="/images/contest/contest-sponsor-11-3.jpg" alt="" class="display-ib verticalalign-b"> выпускается качественный и удобный детский аккумуляторный транспорт: детские электромобили, детские электромотоциклы, детские электроквадроциклы, а также детские веломобили и педальные машины. Электромобили NeoTrike производятся из высококачественных материалов. В первую очередь это высокопрочный пластик, безопасный для детского здоровья и изготавливаемый без использования токсичных веществ и красителей. Гарантия на транспорт составляет 6 месяцев.
             <br>
             Весь детский транспорт NeoTrike успешно прошел процедуру сертификации и соответствует ГОСТ 25779-90 (Сертификат № РОСС СN.AB52.B50425, Сертификат № РОСС СN.AB86.B03684</p>
-        <p><span class="color-gray">Подробнее:</span> <a href="http://www.neopod.ru/products/neotrike_mini_benz_b21/?utm_source=happygiraffe&utm_medium=link&utm_campaign=NeoTrike" target="_blank">www.neopod.ru/products/neotrike_mini_benz_b21/</a> </p>
+        <p><span class="color-gray">Подробнее:</span> <a href="http://www.neopod.ru/brands/neotrike/?utm_source=happygiraffe&utm_medium=link&utm_campaign=NeoTrike" target="_blank">www.neopod.ru/brands/neotrike/</a> </p>
     </div>
 </div>

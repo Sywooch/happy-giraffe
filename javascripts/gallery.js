@@ -45,6 +45,9 @@ jQuery.fn.pGallery = function(options) {
         delete this.data.go;
         this.data.id = id;
 
+        var newUrl = plugin.getEntityUrl() + 'photo' + plugin.data.id + '/';
+        plugin.history.changeBrowserUrl(newUrl);
+
         $.get(base_url + '/albums/wPhoto/', plugin.data, function(html) {
             pGallery.currentPhoto = plugin.data.id;
             $('#photo-window').html(html);
@@ -93,9 +96,7 @@ jQuery.fn.pGallery = function(options) {
             });*/
 
             $('body').css('.top-nav-fixed overflow', 'hidden');
-            var newUrl = plugin.getEntityUrl() + 'photo' + plugin.data.id + '/';
             if (typeof history.pushState !== 'undefined') {
-                plugin.history.changeBrowserUrl(newUrl);
                 if (plugin.data.entity == 'Contest') {
                     /*if ($('#photo-window .vk_share_button').length > 0)
                         $('#photo-window .vk_share_button').html(VK.Share.button(document.location.href,{type: 'round', text: 'Мне нравится'}));

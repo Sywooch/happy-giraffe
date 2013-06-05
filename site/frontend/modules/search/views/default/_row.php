@@ -3,5 +3,5 @@
 <?php endif; ?>
 
 <?php if ($data->entity == 'photo'): ?>
-    <?php $this->renderPartial('//albums/favourites', compact('data')); ?>
+    <?php $this->renderPartial('//albums/favourites', array('model' => $data)); ?>
 <?php endif; ?>

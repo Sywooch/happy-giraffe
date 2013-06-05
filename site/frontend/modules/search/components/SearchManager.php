@@ -57,7 +57,7 @@ class SearchManager
         $data = array(
             'total' => $raw->matches,
             'results' => $results,
-            'facets' => (array) $raw->facets->entity,
+            'facets' => isset($raw->facets) ? (array) $raw->facets->entity : null,
         );
 
         return $data;

@@ -48,7 +48,7 @@ Yii::app()->clientScript
 </div>
 
 <div class="content-cols clearfix">
-    <div class="col-1" data-bind="if: loaded">
+    <div class="col-1" data-bind="if: totalCount() > 0">
         <div class="menu-list menu-list__favorites">
             <a class="menu-list_i menu-list_i__all2" data-bind="css: { active : activeMenuRowIndex() === null }, click: selectAll">
                 <span class="menu-list_ico"></span>

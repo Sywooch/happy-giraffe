@@ -929,6 +929,14 @@ a.pseudo:hover,
 .ico-redactor__mail.active {
   background-position: -90px -30px;
 }
+.ico-cup {
+  display: inline-block;
+  *zoom: 1;
+  *display: inline;
+  width: 40px;
+  height: 34px;
+  background: url(/images/ico/ico-cup.png) no-repeat;
+}
 .ico-tags {
   display: inline-block;
   *zoom: 1;
@@ -4996,7 +5004,7 @@ textarea.error,
   background: #e7dcef;
 }
 .menu-list_i__all:hover {
-  background: #e7dcef;
+  background: #efe5f8;
 }
 .menu-list_i__all.active {
   background: #947bab;
@@ -5006,6 +5014,21 @@ textarea.error,
 }
 .menu-list_i__all.active .menu-list_ico {
   background-position: 0 -20px;
+}
+.menu-list_i__all2 {
+  background: #e7dcef;
+}
+.menu-list_i__all2:hover {
+  background: #efe5f8;
+}
+.menu-list_i__all2.active {
+  background: #947bab;
+}
+.menu-list_i__all2 .menu-list_ico {
+  background-position: -120px 0;
+}
+.menu-list_i__all2.active .menu-list_ico {
+  background-position: -120px -20px;
 }
 .menu-list_i__post {
   background: #ddeefd;
@@ -17876,9 +17899,7 @@ select.pregnancy_term + .chzn-container .chzn-results li {
   font-family: tahoma, arial, helvetica, sans-serif;
 }
 /* */
-.content-search {
-  padding-bottom: 30px;
-}
+/* old code */
 .content-search > span {
   float: left;
   font: bold 35px/1 arial, helvetica, sans-serif;
@@ -17910,6 +17931,98 @@ select.pregnancy_term + .chzn-container .chzn-results li {
   color: #9f9e9e;
   margin-left: 11px;
   margin-top: 5px;
+}
+/* /old code */
+.content-search {
+  margin: 30px 0 30px;
+}
+.content-search_top {
+  padding: 22px 12px 22px 30px;
+  background: #b2dff6;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+.content-search_t {
+  float: left;
+  width: 120px;
+  height: 30px;
+  background: url(/images/content-search_t.png) no-repeat;
+  text-indent: -9999px;
+}
+.content-search_itx-hold {
+  position: relative;
+  float: right;
+  width: 790px;
+}
+.content-search_itx {
+  display: block;
+  width: 735px;
+  padding: 7px 35px 6px 20px;
+  font-size: 13px;
+  line-height: 16px;
+  background: #fff;
+  -webkit-border-radius: 12px;
+  -moz-border-radius: 12px;
+  border-radius: 12px;
+}
+.content-search_btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 28px;
+  width: 35px;
+  background: url("/images/col-1_search-btn.png") no-repeat 50% 50%;
+  border: 0;
+  cursor: pointer;
+}
+.content-search_btn.active {
+  background: url(/images/ico/ico-close.png) no-repeat 50% 50%;
+}
+.content-search_utility {
+  padding: 12px 12px 16px 30px;
+  background: #f0faff;
+}
+.content-search_found {
+  float: left;
+  width: 235px;
+  margin-top: 4px;
+  font-size: 21px;
+  color: #161616;
+}
+.content-search_found .search-highlight {
+  padding: 0 4px;
+}
+.content-search_select {
+  float: right;
+  width: 180px;
+}
+.content-search_select .chzn-bluelight .chzn-container-single .chzn-single,
+.content-search_select .chzn-bluelight .chzn-container-single .chzn-results {
+  border-color: #cdebfb;
+}
+.content-search_select .chzn-bluelight .chzn-container-single .chzn-single div {
+  background: #e1f1fd;
+}
+.content-search_select .chzn-bluelight .chzn-container-single .chzn-single span {
+  text-align: right;
+  margin-right: 45px;
+}
+.content-search_pager-control {
+  float: left;
+  margin-top: 7px;
+}
+.content-search_pager-control-tx {
+  font-size: 11px;
+  color: #989898;
+  padding-right: 8px;
+}
+.content-search_pager-control-separator {
+  display: inline-block;
+  *zoom: 1;
+  *display: inline;
+  padding: 0 7px;
+  color: #c1d8e4;
 }
 .content-search-filter {
   margin: 100px 0 0 20px;
@@ -17945,8 +18058,8 @@ select.pregnancy_term + .chzn-container .chzn-results li {
   border: 0;
 }
 .search-highlight {
-  background: #e0f5dc;
-  color: #4bb23a;
+  background: #fff8ac;
+  color: #2e2e2e;
 }
 .content-side-filter {
   margin: 50px 0 0 20px;
@@ -17983,9 +18096,8 @@ select.pregnancy_term + .chzn-container .chzn-results li {
 /* */
 /* */
 .club-fast-nav {
-  padding-top: 5px 0 50px;
+  margin: 0 0 10px 150px;
   font-size: 13px;
-  margin-left: 150px;
 }
 .club-fast-nav ul {
   overflow: hidden;

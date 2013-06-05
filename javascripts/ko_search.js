@@ -111,8 +111,9 @@ function SearchViewModel(data) {
         ko.utils.arrayForEach(self.menu(), function(menuRow) {
             menuRow.count(0);
         });
-        for (f in facets)
-            self.getMenuRowByEntity(f).count(facets[f]);
+        if (facets !== null)
+            for (f in facets)
+                self.getMenuRowByEntity(f).count(facets[f]);
     }
 
     self.load();

@@ -288,5 +288,6 @@ return array(
         'favourites' => 'favourites/default/index',
 
         'search' => 'search/default/index',
+        'search/default/get' => 'search/default/get',
     ),
 );

@@ -225,15 +225,19 @@
 	
 	<div id="photo-window-bg" style="display:block;"></div>
 	
-	<div id="photo-window">
+	<div id="photo-window" class="photo-window-banner">
 		
 		<div id="photo-window-in" style="left:8px;">
 			
 			<div class="photo-bg" >
 				
+			<a href="javascript:void(0);" class="close" onclick="closePhoto();"></a>
+				
+			<div class="content-cols clearfix">
+				<div class="col-12">
+			
 				<div class="top-line clearfix">
 					
-					<a href="javascript:void(0);" class="close" onclick="closePhoto();"></a>
 					
 					<div class="user">
 						<div class="user-info clearfix">
@@ -245,21 +249,18 @@
 							</div>
 						</div>
 					</div>
-					<div class="photo-info">
 						<div class="favorites-control">
 							<a class="favorites-control_a powertip" href="" title="В избранное">
 								9145
 							</a>
 						</div>
+					<div class="photo-info">
 						Альбом  «Оформление вторые блюда» - <span class="count">3 фото из 158</span>
-						<div class="title">Жареный картофель с беконом</div>
+						<div class="title">Жареный картофель ареный картофел</div>
 					</div>
 					
 				</div>
 				
-			<div class="content-cols clearfix">
-				<div class="col-12 photo-banner-hold ">
-			
 				<div id="photo">
 					
 					<div class="img">
@@ -273,18 +274,18 @@
 					
 				</div>
 				
+				<div class="photo-comment">
+					<p>Квашеная капуста с клюквой, грибами, соусом, зеленью квашеная квашеная капуста с клюквой, грибами, капуста соусом, зеленью квашеная, Квашеная капуста с клюквой, грибами, соусом, зеленью квашеная квашеная</p>
+				</div>
 				</div>
 				
 				<div class="col-3">
-					<div class="margin-t60">
+					<div class="margin-t145">
 						<a href=""><img src="/images/contest/banner-w240-10.jpg" alt=""></a>
 					</div>
 				</div>	
 			</div>
 			
-				<div class="photo-comment">
-					<p>Квашеная капуста с клюквой, грибами, соусом, зеленью квашеная квашеная капуста с клюквой, грибами, капуста соусом, зеленью квашеная, Квашеная капуста с клюквой, грибами, соусом, зеленью квашеная квашеная</p>
-				</div>
 				
 			</div>
 	

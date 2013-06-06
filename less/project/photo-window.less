@@ -5,16 +5,14 @@ body.gallery {overflow:hidden;}
 .top-nav-fixed #photo-window-in {background:#fff;width:1000px;margin:0 auto 20px;position:relative;}
 #photo-window  {max-height:100%;position:fixed;width:100%;z-index:99;top:0;left:0;overflow:auto;min-width:1000px;color:#dcdcdc;}
 #photo-window .counter-rambler {float: none;display: inline-block;*zoom:1;*display:inline;margin: 0 20px;}
-#photo-window-in {background:#fff;width:1000px;margin:40px auto 20px;position:relative;}
+#photo-window-in {background:#fff;width:1000px;margin:42px auto 20px;position:relative;}
 
 #photo-window-bg {position:fixed;height:100%;width:100%;top:0;left:0;z-index:98;background:url(/images/bg_black_alpha_40.png);}
 
-#photo-window .photo-bg {min-height:690px;background-color:#2a2a2a;position:relative;}
+#photo-window .photo-bg {min-height:690px;position:relative;background-color: #2a2a2a;}
 
 #photo-window .photo-bg-bright .top-line {background:#fff;background:rgba(255,255,255,0.7);}
 #photo-window .photo-bg-bright .photo-comment {background:#fff;background:rgba(255,255,255,0.7);color:#414144;}
-#photo-window .photo-bg-bright .top-line .close {background-position:-422px -274px;}
-#photo-window .photo-bg-bright .top-line .close:hover {background-position:-440px -245px;}
 #photo-window .photo-bg-bright .top-line .photo-info {color:#414144;}
 #photo-window .photo-bg-bright .top-line .photo-info .count {color:#828080;}
 #photo-window .photo-bg-bright .top-line .photo-info .title {color:#414144;}
@@ -35,13 +33,12 @@ body.gallery {overflow:hidden;}
 
 #photo-window .top-line {position:relative;padding:10px 20px 10px;}
 
-#photo-window .top-line .close {float:right;display:block;width:15px;height:14px;background:url(/images/common.png) no-repeat -424px -245px;}
-#photo-window .top-line .close:hover {background-position:-440px -245px;}
+#photo-window .close {position: absolute;top: 10px;right: 20px;width:15px;height:14px;background:url(/images/common.png) no-repeat -422px -274px;}
+#photo-window .close:hover {background-position:-440px -245px;}
 
 #photo-window .top-line .user {float:left;}
 #photo-window .top-line .user-info {}
 #photo-window .top-line .user-info .details {margin-left:30px;}
-#photo-window .top-line .user-info .details .username {width: 150px;}
 
 #photo-window .top-line .photo-info {margin:0 190px;text-align:center;color:#9f9e9e;font-size:11px;}
 #photo-window .top-line .photo-info .count {color:#bfbfbf;font-size:12px;}
@@ -50,15 +47,10 @@ body.gallery {overflow:hidden;}
 #photo-window .top-line .photo-info .favorites-control {margin-right: -35px;}
 
 #photo-window #photo {position:relative;padding:10px 0 20px;}
-#photo-window .photo-banner-hold {padding: 0 0 0 20px;}
 #photo-window #photo .img {position:relative;margin:0 auto;}
 #photo-window #photo .img table {width:100%;}
 #photo-window #photo .img table td {text-align:center;vertical-align:middle;height:627px;max-width: 960px;}
-#photo-window .photo-banner-hold #photo .img table td {height: 520px;max-width:660px;padding: 0;}
 #photo-window #photo .img img {display:block;margin:auto;max-width:100%;}
-.ie7 #photo-window  .photo-banner-hold #photo .img img,
-.ie8 #photo-window  .photo-banner-hold #photo .img img,
-.ie9 #photo-window  .photo-banner-hold #photo .img img {width:100%;}
 #photo-window #photo .img .title {display:block;position:absolute;width:100%;top:0;left:0;padding:10px 0;background:#000;background:rgba(0,0,0,.6);z-index:10;}
 #photo-window #photo .img .title .in {width:50%;float:right;padding-right:10px;font-size:13px;color:#fff;margin-right:15px;text-align:left;}
 #photo-window #photo .img .title .user-info {margin-left:15px;width:40%;}
@@ -77,19 +69,16 @@ body.gallery {overflow:hidden;}
 #photo-window #photo .prev {display:block;text-indent:-9999px;position:absolute;top:0%;height:100%;width:200px;left:0;z-index:9;}
 #photo-window #photo .prev .icon {display:block;width:66px;height:130px;background:url(/images/common.png) no-repeat -69px -341px;margin-top:-65px;top:50%;left:20px;position:absolute;}
 #photo-window #photo .prev:hover .icon {background-position:-205px -341px;}
-#photo-window .photo-banner-hold #photo .prev .icon {left: 0;}
 #photo-window #photo .next {display:block;text-indent:-9999px;position:absolute;top:0%;height:100%;width:798px;right:0;z-index:9;}
-#photo-window .photo-banner-hold #photo .next {width: 520px;}
 #photo-window #photo .next .icon {display:block;width:66px;height:130px;background:url(/images/common.png) no-repeat -1px -341px;margin-top:-65px;top:50%;right:20px;position:absolute;}
 #photo-window #photo .next:hover .icon {background-position:-137px -341px;}
-#photo-window .photo-banner-hold #photo .next .icon {right: 0;}
 
 #photo-window #photo-content {background:#fff;margin:20px 130px 0;padding:0 25px 25px;}
 #photo-window #photo-content .like-block {margin:0 -100px 30px;width:900px;}
 #photo-window #photo-content .like-block .box-3 {padding-left:65px;}
 #photo-window #photo-content .counter-rambler {float: none;display: inline-block;*zoom:1;*display:inline;margin: 0 20px;}
 
-#photo-window .photo-comment {font-size:13px;color:#afaeae;font-family:arial, helvetica, sans-serif;padding:10px 150px 10px;text-align:center;line-height:14px;}
+#photo-window .photo-comment {font-size:13px;color:#afaeae;font-family:arial, helvetica, sans-serif;padding:10px 50px 10px;text-align:center;line-height:14px;}
 #photo-window .photo-comment textarea {width:75%;padding:2px 5px;border:1px solid #c5e8ef;vertical-align:top;background:#fff;margin-left:-6px;height:60px;}
 
 #photo-window .photo-window_btn-share {padding: 0 55px;margin-bottom: 30px; font-weight: normal;font-size: 27px;}
@@ -133,6 +122,24 @@ body.gallery {overflow:hidden;}
 #photo-window .more-albums .gallery-photos-new li .item-title a {color:#bfbfbf;}
 #photo-window .more-albums .gallery-photos-new li:hover {box-shadow:none;}
 
+#photo-window.photo-window-banner .photo-bg {background: #f5f5f5;}
+#photo-window.photo-window-banner .col-12 {background-color: #2a2a2a;padding:0 20px;width: 680px;min-height: 690px}
+#photo-window.photo-window-banner .top-line {padding: 10px 0;}
+#photo-window.photo-window-banner .top-line .user-info {width: 150px;min-width: auto;}
+#photo-window.photo-window-banner .top-line .username {width: auto;}
+#photo-window.photo-window-banner .top-line .photo-info {margin:0 110px 0 150px;}
+#photo-window.photo-window-banner #photo {padding: 10px 0 5px;}
+#photo-window.photo-window-banner #photo .img table td {height: 520px;max-width:660px;padding: 0;}
+.ie7 #photo-window.photo-window-banner #photo .img img,
+.ie8 #photo-window.photo-window-banner #photo .img img,
+.ie9 #photo-window.photo-window-banner #photo .img img {width:100%;}
+#photo-window.photo-window-banner #photo .next .icon {right: 0;}
+#photo-window.photo-window-banner #photo .next {width: 520px;}
+#photo-window.photo-window-banner #photo .prev .icon {left: 0;}
+#photo-window.photo-window-banner .photo-comment {padding-bottom: 30px;}
+#photo-window.photo-window-banner .more-albums {padding: 20px 0;}
+#photo-window.photo-window-banner .more-albums .block-in {width: auto;}
+
 .more-albums-photopost {
 
 	.ico-play-big {
@@ -144,7 +151,7 @@ body.gallery {overflow:hidden;}
 	&_ul {margin-right: -55px;}
 	&_li {
 		float: left;
-		margin: 0 55px 0 0;
+		margin: 0 10px 0 0;
 		width: 220px;
 		text-align: center;
 	}

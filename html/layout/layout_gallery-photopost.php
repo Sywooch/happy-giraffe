@@ -528,15 +528,15 @@
 	
 	<div id="photo-window-bg"></div>
 	
-	<div id="photo-window" class="photo-window-banner">
+	<div id="photo-window">
 		
-		<div id="photo-window-in" style="left:8px;">
+		<div id="photo-window-in" style="left:8px;"  class="photo-window-banner">
 			
 			<div class="photo-bg">
 			
 				
 				
-				<a href="javascript:void(0);" class="close" onclick="closePhoto();"></a>
+			<a href="javascript:void(0);" class="close" onclick="closePhoto();"></a>
 				
 			<div class="content-cols clearfix">
 				<div class="col-12">

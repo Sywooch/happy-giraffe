@@ -142,20 +142,18 @@
             w[n] = w[n] || [];
             w[n].push(function() {
                 Ya.Direct.insertInto(87026, "yandex_ad_2", {
-                    stat_id: 2,
+                    stat_id: 1955456,
                     site_charset: "utf-8",
                     ad_format: "direct",
-                    font_size: 1,
-                    type: "horizontal",
-                    limit: 3,
+                    font_size: 1.2,
+                    type: "vertical",
+                    limit: 2,
                     title_font_size: 3,
                     site_bg_color: "FFFFFF",
-                    header_bg_color: "FEEAC7",
-                    title_color: "0000CC",
-                    url_color: "006600",
+                    title_color: "0281B0",
+                    url_color: "999999",
                     text_color: "000000",
-                    hover_color: "0066FF",
-                    favicon: true
+                    hover_color: "029AD2"
                 });
             });
             t = d.getElementsByTagName('head')[0];

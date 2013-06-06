@@ -31,8 +31,8 @@
                         <?php else: ?>
                         <script type="text/javascript"><!--
                             google_ad_client = "ca-pub-3807022659655617";
-                            /* topline */
-                            google_ad_slot = "4276540882";
+                            /* 728_90 */
+                            google_ad_slot = "4343272887";
                             google_ad_width = 728;
                             google_ad_height = 90;
                             //-->

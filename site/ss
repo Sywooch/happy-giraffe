@@ -702,15 +702,14 @@ INNER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.
 LEFT OUTER JOIN blacklist b ON b.user_id = tu.user_id AND b.blocked_user_id = tu2.user_id
 WHERE tu.user_id = 83 AND b.user_id IS NULL AND tu2.user_id = 15545
 
-SELECT tu.user_id AS user1_id, tu2.user_id AS user2_id, COUNT(*) AS C, t.id, t.created, t.updated
+SELECT tu.user_id AS user1_id, tu2.user_id AS user2_id, COUNT(*) AS C
 FROM messaging__threads_users tu
 INNER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id != tu.user_id
 INNER JOIN messaging__threads t ON t.id = tu.thread_id
 GROUP BY tu.user_id, tu2.user_id
-ORDER BY t.created DESC
 HAVING C > 1
 
-SELECT *
+SELECT t.id
 FROM messaging__threads_users tu
 INNER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id != tu.user_id
 INNER JOIN messaging__threads t ON t.id = tu.thread_id

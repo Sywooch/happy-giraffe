@@ -1162,7 +1162,7 @@ class User extends HActiveRecord
     public function getContestWork($contest_id)
     {
         $criteria = new CDbCriteria;
-        $criteria->select = array('title', 'rate', 'contest_id');
+        $criteria->select = array('title', 'rate', 'contest_id', 'user_id');
         $criteria->compare('user_id', $this->id);
         $criteria->compare('contest_id', $contest_id);
         $criteria->with = array(

@@ -225,9 +225,9 @@
 	
 	<div id="photo-window-bg" style="display:block;"></div>
 	
-	<div id="photo-window" class="photo-window-banner">
+	<div id="photo-window">
 		
-		<div id="photo-window-in" style="left:8px;">
+		<div id="photo-window-in" style="left:8px;"  class="photo-window-banner">
 			
 			<div class="photo-bg" >
 				

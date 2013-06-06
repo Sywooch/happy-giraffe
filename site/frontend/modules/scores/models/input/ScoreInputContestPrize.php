@@ -52,13 +52,51 @@ class ScoreInputContestPrize extends ScoreInput
             case 4:
                 $this->type = self::TYPE_CONTEST_4_PLACE;
                 break;
-            case 5:
-                $this->type = self::TYPE_CONTEST_5_PLACE;
-                break;
             default:
-                $this->type = self::TYPE_CONTEST_ADDITIONAL_PRIZE;
+                $this->type = self::TYPE_CONTEST_5_PLACE;
         }
 
         $this->insert(array('contest_id' => $contest_id));
+    }
+
+    /**
+     * Возвращает класс для иконки
+     * @return string
+     */
+    public function getIcon()
+    {
+        return '';
+    }
+
+    public function descriptionClass()
+    {
+        return 'career-achievement__lavender';
+    }
+
+    public function getContestLink()
+    {
+        $contest = Contest::model()->findByPk($this->contest_id);
+        return CHtml::link($contest->title, $contest->getUrl());
+    }
+
+    public function getImage()
+    {
+        return '<img src="/images/contest/contest-career-place' . $this->getPlace() . '-' . $this->contest_id . '.png" alt="">';
+    }
+
+    public function getPlace()
+    {
+        switch ($this->type) {
+            case self::TYPE_CONTEST_WIN:
+                return 1;
+            case self::TYPE_CONTEST_2_PLACE:
+                return 2;
+            case self::TYPE_CONTEST_3_PLACE:
+                return 3;
+            case self::TYPE_CONTEST_4_PLACE:
+                return 4;
+            case self::TYPE_CONTEST_5_PLACE:
+                return 5;
+        }
     }
 }

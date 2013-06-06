@@ -22,7 +22,7 @@ abstract class ScoreInputEntity extends ScoreInput
         $this->user_id = $user_id;
         parent::insert(array(
             'entity' => get_class($entity),
-            'entity_id' => $entity->id,
+            'entity_id' => (int)$entity->id,
         ));
     }
 
@@ -36,7 +36,17 @@ abstract class ScoreInputEntity extends ScoreInput
         $this->user_id = $user_id;
         parent::remove(array(
             'entity' => get_class($entity),
-            'entity_id' => $entity->id,
+            'entity_id' => (int)$entity->id,
         ));
+    }
+
+
+    public function getLink()
+    {
+        $model = CActiveRecord::model($this->entity)->model()->findByPk($this->entity_id);
+        if ($model && isset($model->title))
+            return CHtml::link($model->title, $model->getUrl());
+
+        return '';
     }
 }

@@ -51,4 +51,13 @@ class ScoreInputFirstBlogRecord extends ScoreInput
         $this->user_id = $user_id;
         parent::remove();
     }
+
+    /**
+     * Возвращает класс для иконки
+     * @return string
+     */
+    public function getIcon()
+    {
+        return 'career-achievement-ico__popular-blog';
+    }
 }

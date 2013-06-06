@@ -44,4 +44,18 @@ class ScoreInputAward extends ScoreInput
 
         parent::insert(array('user_award_id' => $user_award->id));
     }
+
+    /**
+     * Возвращает иконку
+     * @return string
+     */
+    public function getImage()
+    {
+        return '<img src="/images/scores/awards/' . $this->award_id . '-84.png" alt="">';
+    }
+
+    public function descriptionClass()
+    {
+        return 'career-achievement__sand';
+    }
 }

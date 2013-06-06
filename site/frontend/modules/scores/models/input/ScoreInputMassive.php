@@ -33,7 +33,6 @@ abstract class ScoreInputMassive extends ScoreInput
                 '$push' => array('ids' => (int)$id),
                 '$inc' => array('scores' => $this->getScores())
             ));
-            $this->addScores();
         }
     }
 

@@ -2,7 +2,6 @@
 
 class DefaultController extends HController
 {
-    public $user;
     public $layout = '//layouts/main';
 
     public function filters()
@@ -25,21 +24,21 @@ class DefaultController extends HController
         );
     }
 
-    public function actionIndex($user_id = null)
+    public function actionIndex()
     {
         $this->pageTitle = 'Мои баллы';
         Yii::import('site.frontend.modules.cook.models.*');
 
-        if ($user_id === null)
-            $user_id = Yii::app()->user->id;
-        $this->user = User::getUserById($user_id);
+        $num = Yii::app()->request->getPost('num', 0);
+        $page = Yii::app()->request->getPost('page', 0);
 
-        $userScores = UserScores::model()->findByPk($user_id);
-        $dataProvider = $userScores->getUserHistory();
+        $list = ScoreInput::getInstance()->getList(Yii::app()->user->id, $num, $page);
+        $score = Yii::app()->user->getModel()->score;
 
-        $this->render('index', array(
-            'userScores' => $userScores,
-            'dataProvider' => $dataProvider
-        ));
+        if (Yii::app()->request->isAjaxRequest)
+            $this->renderPartial('list', compact('list', 'score'));
+        else
+            $this->render('index', compact('list', 'score'));
     }
+
 }

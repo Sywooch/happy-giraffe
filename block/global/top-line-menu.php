@@ -10,7 +10,7 @@
 					<a href="" ><i class="icon-broadcast"></i></a>
 				</li>
 				<li class="i-favorites top-line-menu_nav_li js-tooltipsy" title="Избранное">
-					<a href="" ><i class="icon-favorites"></i></a>
+					<a href="" ><i class="icon-favorites active"></i></a>
 				</li>
 				<li class="i-dialogs top-line-menu_nav_li js-tooltipsy" title="Мои диалоги">
 					<a href="">

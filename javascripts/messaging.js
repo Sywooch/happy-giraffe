@@ -71,11 +71,12 @@ function Thread(data, parent) {
     self.changeReadStatus = function(newReadStatus) {
         var currentReadStatus = self.unreadCount() == 0 ? 1 : 0;
         if (currentReadStatus != newReadStatus) {
-            var newUnreadCount = newReadStatus == 0 ? 1 : 0;
             $.post('/messaging/threads/changeReadStatus/', { threadId : self.id(), readStatus: newReadStatus }, function(response) {
-                self.unreadCount(newUnreadCount);
-
-                newReadStatus == 0 ? parent.newContactsCount(parent.newContactsCount() + 1) : parent.newContactsCount(parent.newContactsCount() - 1);
+                if (response.success) {
+                    var newUnreadCount = newReadStatus == 0 ? 1 : 0;
+                    self.unreadCount(newUnreadCount);
+                    newReadStatus == 0 ? parent.newContactsCount(parent.newContactsCount() + 1) : parent.newContactsCount(parent.newContactsCount() - 1);
+                }
             }, 'json');
         }
     }
@@ -205,7 +206,7 @@ function MessagingViewModel(data) {
 
     self.meTyping = ko.observable(false);
     self.meTyping.subscribe(function(a) {
-        $.post('/messaging/interlocutors/typing/', { typingStatus : a, interlocutorId : self.interlocutor().user().id() });
+        $.post('/messaging/interlocutors/typing/', { typingStatus : a ? 1 : 0, interlocutorId : self.interlocutor().user().id() });
     });
 
     self.enterSetting = ko.observable(data.settings.messaging__enter);
@@ -631,7 +632,7 @@ function MessagingViewModel(data) {
 
         Comet.prototype.typingStatus = function (result, id) {
             if (self.openContact().user().id() == result.interlocutorId)
-                self.interlocutorTyping(result.typingStatus);
+                self.interlocutorTyping(result.typingStatus == 1);
         }
 
         Comet.prototype.readStatus = function (result, id) {

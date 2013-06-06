@@ -20,6 +20,29 @@ class IndexDenCommand extends CConsoleCommand
             $m->searchable->save();
     }
 
+    public function actionSync()
+    {
+        $dp = new CActiveDataProvider('CommunityContent', array(
+            'criteria' => array(
+                'condition' => 'removed = 0 AND type_id IN (1, 2)',
+            ),
+        ));
+
+        $iterator = new CDataProviderIterator($dp, 1000);
+        foreach ($iterator as $model)
+            $model->searchable->save();
+
+        $dp = new CActiveDataProvider('AlbumPhoto', array(
+            'criteria' => array(
+                'title <> \'\'',
+            ),
+        ));
+
+        $iterator = new CDataProviderIterator($dp, 1000);
+        foreach ($iterator as $model)
+            $model->searchable->save();
+    }
+
     public function actionDaemon()
     {
         Yii::app()->gearman->worker()->addFunction('indexden', array($this, "processMessage"));

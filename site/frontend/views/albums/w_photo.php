@@ -104,4 +104,4 @@ if (get_class($model) == 'Contest') {
     pGallery.start = <?=$photo->id?>;
 </script>
 
-<?php $this->renderPartial(in_array(get_class($model), array('CommunityContentGallery', 'Contest')) && false ? 'w_photo_banner' : 'w_photo_simple', compact('photo', 'title', 'model', 'currentIndex', 'count', 'preload', 'photos', 'more')); ?>
+<?php $this->renderPartial(in_array(get_class($model), array('CommunityContentGallery', 'Contest')) ? 'w_photo_banner' : 'w_photo_simple', compact('photo', 'title', 'model', 'currentIndex', 'count', 'preload', 'photos', 'more')); ?>

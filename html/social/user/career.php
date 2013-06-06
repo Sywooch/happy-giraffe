@@ -68,7 +68,7 @@
 							<a href="" class="career-achievement_info powertip ico-info" title="Подробней"></a>
 						</div>
 						
-						<div class="career-achievement career-achievement__bluelight" style="display:none;">
+						<div class="career-achievement career-achievement__bluelight">
 							<div class="career-achievement_left">
 								<div class="career-achievement_gray"> Отлично! <br>
 								Вы добавили комментарии</div>
@@ -84,6 +84,26 @@
 								</div>
 							</div>
 							<a href="" class="career-achievement_info powertip ico-back" title="Назад"></a>
+						</div>
+					</div>
+					
+					<div class="career-achievement-hold">
+					
+						<div class="career-achievement">
+							<div class="career-achievement_left">
+								<div class="career-achievement_time font-smallest color-gray">Сегодня, 13:25</div>
+								<div class="career-achievement_tx"> Новые комментарии</div>
+							</div>
+							<div class="career-achievement_center">
+								<div class="career-achievement-ico career-achievement-ico__photo"></div>
+							</div>
+							<div class="career-achievement_right">
+								<div class="career-achievement_ball">
+									<div class="career-achievement_ball-num">9</div>
+									<div class="career-achievement_ball-tx">баллов</div>
+								</div>
+							</div>
+							<a href="" class="career-achievement_info powertip ico-info" title="Подробней"></a>
 						</div>
 					</div>
 					<div class="career-achievement-hold">

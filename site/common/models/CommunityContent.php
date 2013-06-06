@@ -298,7 +298,7 @@ class CommunityContent extends HActiveRecord
             return parent::afterSave();
 
         if ($this->isNewRecord) {
-            if ($this->type_id != 4) {
+            if ($this->type_id != self::TYPE_PHOTO_POST) {
                 if ($this->isFromBlog) {
                     UserAction::model()->add($this->author_id, UserAction::USER_ACTION_BLOG_CONTENT_ADDED, array('model' => $this));
                 } elseif ($this->rubric->community_id != Community::COMMUNITY_NEWS) {
@@ -309,8 +309,10 @@ class CommunityContent extends HActiveRecord
             if ($this->type_id == 5)
                 FriendEventManager::add(FriendEvent::TYPE_STATUS_UPDATED, array('model' => $this));
 
-            if (in_array($this->type_id, array(1, 2)))
+            if (in_array($this->type_id, array(self::TYPE_POST, self::TYPE_VIDEO))){
+                Scoring::contentCreated($this);
                 FriendEventManager::add(FriendEvent::TYPE_POST_ADDED, array('model' => $this));
+            }
         }
 
         parent::afterSave();

@@ -6058,3 +6058,1195 @@ Stack trace:
 #3 {main}
 REQUEST_URI=/favicon.ico/
 ---
+2013/06/06 12:33:21 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "images/contest/contest-career-place1-11.png".' in Z:\home\yii\framework\web\CUrlManager.php:371
+Stack trace:
+#0 Z:\home\yii\framework\web\CWebApplication.php(140): CUrlManager->parseUrl(Object(CHttpRequest))
+#1 Z:\home\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 Z:\happy-giraffe\site\frontend\www-submodule\index.php(29): CApplication->run()
+#3 {main}
+REQUEST_URI=/images/contest/contest-career-place1-11.png/
+HTTP_REFERER=http://happy-giraffe.com/scores/
+---
+2013/06/06 12:33:21 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "images/contest/contest-career-11.png".' in Z:\home\yii\framework\web\CUrlManager.php:371
+Stack trace:
+#0 Z:\home\yii\framework\web\CWebApplication.php(140): CUrlManager->parseUrl(Object(CHttpRequest))
+#1 Z:\home\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 Z:\happy-giraffe\site\frontend\www-submodule\index.php(29): CApplication->run()
+#3 {main}
+REQUEST_URI=/images/contest/contest-career-11.png/
+HTTP_REFERER=http://happy-giraffe.com/scores/
+---
+2013/06/06 12:36:30 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "favicon.ico".' in Z:\home\yii\framework\web\CUrlManager.php:371
+Stack trace:
+#0 Z:\home\yii\framework\web\CWebApplication.php(140): CUrlManager->parseUrl(Object(CHttpRequest))
+#1 Z:\home\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 Z:\happy-giraffe\site\frontend\www-submodule\index.php(29): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico/
+---
+2013/06/06 12:36:38 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "favicon.ico".' in Z:\home\yii\framework\web\CUrlManager.php:371
+Stack trace:
+#0 Z:\home\yii\framework\web\CWebApplication.php(140): CUrlManager->parseUrl(Object(CHttpRequest))
+#1 Z:\home\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 Z:\happy-giraffe\site\frontend\www-submodule\index.php(29): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico/
+---
+2013/06/06 13:42:51 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "score".' in Z:\home\yii\framework\web\CUrlManager.php:371
+Stack trace:
+#0 Z:\home\yii\framework\web\CWebApplication.php(140): CUrlManager->parseUrl(Object(CHttpRequest))
+#1 Z:\home\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 Z:\happy-giraffe\site\frontend\www-submodule\index.php(29): CApplication->run()
+#3 {main}
+REQUEST_URI=/score/
+HTTP_REFERER=http://happy-giraffe.com/scores/
+---
+2013/06/06 13:42:52 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "score".' in Z:\home\yii\framework\web\CUrlManager.php:371
+Stack trace:
+#0 Z:\home\yii\framework\web\CWebApplication.php(140): CUrlManager->parseUrl(Object(CHttpRequest))
+#1 Z:\home\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 Z:\happy-giraffe\site\frontend\www-submodule\index.php(29): CApplication->run()
+#3 {main}
+REQUEST_URI=/score/
+HTTP_REFERER=http://happy-giraffe.com/scores/
+---
+2013/06/06 14:46:10 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "favicon.ico".' in Z:\home\yii\framework\web\CUrlManager.php:371
+Stack trace:
+#0 Z:\home\yii\framework\web\CWebApplication.php(140): CUrlManager->parseUrl(Object(CHttpRequest))
+#1 Z:\home\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 Z:\happy-giraffe\site\frontend\www-submodule\index.php(29): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico/
+---
+2013/06/06 14:47:54 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "favicon.ico".' in Z:\home\yii\framework\web\CUrlManager.php:371
+Stack trace:
+#0 Z:\home\yii\framework\web\CWebApplication.php(140): CUrlManager->parseUrl(Object(CHttpRequest))
+#1 Z:\home\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 Z:\happy-giraffe\site\frontend\www-submodule\index.php(29): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico/
+---
+2013/06/06 14:47:55 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "favicon.ico".' in Z:\home\yii\framework\web\CUrlManager.php:371
+Stack trace:
+#0 Z:\home\yii\framework\web\CWebApplication.php(140): CUrlManager->parseUrl(Object(CHttpRequest))
+#1 Z:\home\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 Z:\happy-giraffe\site\frontend\www-submodule\index.php(29): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico/
+---
+2013/06/06 14:47:55 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "favicon.ico".' in Z:\home\yii\framework\web\CUrlManager.php:371
+Stack trace:
+#0 Z:\home\yii\framework\web\CWebApplication.php(140): CUrlManager->parseUrl(Object(CHttpRequest))
+#1 Z:\home\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 Z:\happy-giraffe\site\frontend\www-submodule\index.php(29): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico/
+---
+2013/06/06 15:17:13 [error] [exception.CException] exception 'CException' with message 'Контроллер DefaultController не может найти представление "type_101".' in Z:\home\yii\framework\web\CController.php:878
+Stack trace:
+#0 Z:\happy-giraffe\site\frontend\modules\scores\views\default\list.php(29): CController->renderPartial('type_101', Array)
+#1 Z:\home\yii\framework\web\CBaseController.php(126): require('Z:\happy-giraff...')
+#2 Z:\home\yii\framework\web\CBaseController.php(95): CBaseController->renderInternal('Z:\happy-giraff...', Array, true)
+#3 Z:\home\yii\framework\web\CController.php(869): CBaseController->renderFile('Z:\happy-giraff...', Array, true)
+#4 Z:\happy-giraffe\site\frontend\modules\scores\views\default\index.php(44): CController->renderPartial('list', Array)
+#5 Z:\home\yii\framework\web\CBaseController.php(126): require('Z:\happy-giraff...')
+#6 Z:\home\yii\framework\web\CBaseController.php(95): CBaseController->renderInternal('Z:\happy-giraff...', Array, true)
+#7 Z:\home\yii\framework\web\CController.php(869): CBaseController->renderFile('Z:\happy-giraff...', Array, true)
+#8 Z:\home\yii\framework\web\CController.php(782): CController->renderPartial('index', Array, true)
+#9 Z:\happy-giraffe\site\frontend\modules\scores\controllers\DefaultController.php(38): CController->render('index', Array)
+#10 [internal function]: DefaultController->actionIndex(0, 0)
+#11 Z:\home\yii\framework\web\actions\CAction.php(108): ReflectionMethod->invokeArgs(Object(DefaultController), Array)
+#12 Z:\home\yii\framework\web\actions\CInlineAction.php(47): CAction->runWithParamsInternal(Object(DefaultController), Object(ReflectionMethod), Array)
+#13 Z:\home\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#14 Z:\home\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#15 Z:\home\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#16 Z:\home\yii\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#17 Z:\home\yii\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#18 Z:\home\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#19 Z:\home\yii\framework\web\CController.php(291): CFilterChain->run()
+#20 Z:\home\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#21 Z:\home\yii\framework\web\CWebApplication.php(282): CController->run('index')
+#22 Z:\home\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('scores/default/...')
+#23 Z:\home\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#24 Z:\happy-giraffe\site\frontend\www-submodule\index.php(29): CApplication->run()
+#25 {main}
+REQUEST_URI=/scores/
+HTTP_REFERER=http://happy-giraffe.com/scores/
+---
+2013/06/06 15:17:13 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "favicon.ico".' in Z:\home\yii\framework\web\CUrlManager.php:371
+Stack trace:
+#0 Z:\home\yii\framework\web\CWebApplication.php(140): CUrlManager->parseUrl(Object(CHttpRequest))
+#1 Z:\home\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 Z:\happy-giraffe\site\frontend\www-submodule\index.php(29): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico/
+---
+2013/06/06 15:17:29 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "favicon.ico".' in Z:\home\yii\framework\web\CUrlManager.php:371
+Stack trace:
+#0 Z:\home\yii\framework\web\CWebApplication.php(140): CUrlManager->parseUrl(Object(CHttpRequest))
+#1 Z:\home\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 Z:\happy-giraffe\site\frontend\www-submodule\index.php(29): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico/
+---
+2013/06/06 15:17:30 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "favicon.ico".' in Z:\home\yii\framework\web\CUrlManager.php:371
+Stack trace:
+#0 Z:\home\yii\framework\web\CWebApplication.php(140): CUrlManager->parseUrl(Object(CHttpRequest))
+#1 Z:\home\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 Z:\happy-giraffe\site\frontend\www-submodule\index.php(29): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico/
+---
+2013/06/06 15:22:44 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "favicon.ico".' in Z:\home\yii\framework\web\CUrlManager.php:371
+Stack trace:
+#0 Z:\home\yii\framework\web\CWebApplication.php(140): CUrlManager->parseUrl(Object(CHttpRequest))
+#1 Z:\home\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 Z:\happy-giraffe\site\frontend\www-submodule\index.php(29): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico/
+---
+2013/06/06 15:54:13 [error] [application] Entity:
+BlogContent
+
+Url:
+http://happy-giraffe.com/user/10/rss/
+
+Uid:
+10
+
+Output:
+<?xml version="1.0"?>
+ <methodResponse>
+  <params>
+   <param>
+    <value>
+     <struct>
+      <member>
+       <name>flerror</name>
+       <value>
+        <boolean>0</boolean>
+       </value>
+      </member>
+      <member>
+       <name>message</name>
+       <value>Thanks for the ping.</value>
+      </member>
+     </struct>
+    </value>
+   </param>
+  </params>
+</methodResponse>
+
+
+in Z:\happy-giraffe\site\common\behaviors\PingableBehavior.php (74)
+in Z:\happy-giraffe\site\common\models\CommunityContent.php (316)
+in Z:\happy-giraffe\site\frontend\controllers\BlogController.php (98)
+2013/06/06 15:54:13 [error] [application] Entity:
+CommunityContent
+
+Url:
+http://happy-giraffe.com/user/10/rss/
+
+Uid:
+10
+
+Output:
+<?xml version="1.0"?>
+ <methodResponse>
+  <params>
+   <param>
+    <value>
+     <struct>
+      <member>
+       <name>flerror</name>
+       <value>
+        <boolean>0</boolean>
+       </value>
+      </member>
+      <member>
+       <name>message</name>
+       <value>Thanks for the ping.</value>
+      </member>
+     </struct>
+    </value>
+   </param>
+  </params>
+</methodResponse>
+
+
+in Z:\happy-giraffe\site\common\behaviors\PingableBehavior.php (74)
+in Z:\happy-giraffe\site\common\models\CommunityContent.php (316)
+in Z:\happy-giraffe\site\common\behaviors\CutBehavior.php (20)
+2013/06/06 15:54:13 [error] [application] Entity:
+CommunityContent
+
+Url:
+http://happy-giraffe.com/user/10/rss/
+
+Uid:
+10
+
+Output:
+<?xml version="1.0"?>
+ <methodResponse>
+  <params>
+   <param>
+    <value>
+     <struct>
+      <member>
+       <name>flerror</name>
+       <value>
+        <boolean>0</boolean>
+       </value>
+      </member>
+      <member>
+       <name>message</name>
+       <value>Thanks for the ping.</value>
+      </member>
+     </struct>
+    </value>
+   </param>
+  </params>
+</methodResponse>
+
+
+in Z:\happy-giraffe\site\common\behaviors\PingableBehavior.php (74)
+in Z:\happy-giraffe\site\common\models\CommunityContent.php (316)
+in Z:\happy-giraffe\site\common\models\CommunityPost.php (168)
+2013/06/06 15:57:19 [error] [application] Entity:
+BlogContent
+
+Url:
+http://happy-giraffe.com/user/10/rss/
+
+Uid:
+10
+
+Output:
+<?xml version="1.0"?>
+ <methodResponse>
+  <params>
+   <param>
+    <value>
+     <struct>
+      <member>
+       <name>flerror</name>
+       <value>
+        <boolean>0</boolean>
+       </value>
+      </member>
+      <member>
+       <name>message</name>
+       <value>Thanks for the ping.</value>
+      </member>
+     </struct>
+    </value>
+   </param>
+  </params>
+</methodResponse>
+
+
+in Z:\happy-giraffe\site\common\behaviors\PingableBehavior.php (74)
+in Z:\happy-giraffe\site\common\models\CommunityContent.php (318)
+in Z:\happy-giraffe\site\frontend\controllers\BlogController.php (98)
+2013/06/06 15:57:19 [error] [application] Entity:
+CommunityContent
+
+Url:
+http://happy-giraffe.com/user/10/rss/
+
+Uid:
+10
+
+Output:
+<?xml version="1.0"?>
+ <methodResponse>
+  <params>
+   <param>
+    <value>
+     <struct>
+      <member>
+       <name>flerror</name>
+       <value>
+        <boolean>0</boolean>
+       </value>
+      </member>
+      <member>
+       <name>message</name>
+       <value>Thanks for the ping.</value>
+      </member>
+     </struct>
+    </value>
+   </param>
+  </params>
+</methodResponse>
+
+
+in Z:\happy-giraffe\site\common\behaviors\PingableBehavior.php (74)
+in Z:\happy-giraffe\site\common\models\CommunityContent.php (318)
+in Z:\happy-giraffe\site\common\behaviors\CutBehavior.php (20)
+2013/06/06 15:57:20 [error] [application] Entity:
+CommunityContent
+
+Url:
+http://happy-giraffe.com/user/10/rss/
+
+Uid:
+10
+
+Output:
+<?xml version="1.0"?>
+ <methodResponse>
+  <params>
+   <param>
+    <value>
+     <struct>
+      <member>
+       <name>flerror</name>
+       <value>
+        <boolean>0</boolean>
+       </value>
+      </member>
+      <member>
+       <name>message</name>
+       <value>Thanks for the ping.</value>
+      </member>
+     </struct>
+    </value>
+   </param>
+  </params>
+</methodResponse>
+
+
+in Z:\happy-giraffe\site\common\behaviors\PingableBehavior.php (74)
+in Z:\happy-giraffe\site\common\models\CommunityContent.php (318)
+in Z:\happy-giraffe\site\common\models\CommunityPost.php (168)
+2013/06/06 15:58:01 [error] [exception.CException] exception 'CException' with message 'Не определено свойство "User.contentBlogPosts".' in Z:\home\yii\framework\base\CComponent.php:130
+Stack trace:
+#0 Z:\home\yii\framework\db\ar\CActiveRecord.php(143): CComponent->__get('contentBlogPost...')
+#1 Z:\happy-giraffe\site\frontend\modules\scores\components\Scoring.php(45): CActiveRecord->__get('contentBlogPost...')
+#2 Z:\happy-giraffe\site\common\models\CommunityContent.php(254): Scoring::contentRemoved(Object(BlogContent))
+#3 Z:\happy-giraffe\site\common\models\BlogContent.php(23): CommunityContent->beforeDelete()
+#4 Z:\home\yii\framework\db\ar\CActiveRecord.php(1166): BlogContent->beforeDelete()
+#5 Z:\happy-giraffe\site\common\models\Removed.php(128): CActiveRecord->delete()
+#6 Z:\home\yii\framework\db\ar\CActiveRecord.php(1043): Removed->afterSave()
+#7 Z:\home\yii\framework\db\ar\CActiveRecord.php(795): CActiveRecord->insert(NULL)
+#8 Z:\happy-giraffe\site\frontend\controllers\AjaxController.php(382): CActiveRecord->save()
+#9 Z:\home\yii\framework\web\actions\CInlineAction.php(49): AjaxController->actionRemoveEntity()
+#10 Z:\home\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#11 Z:\home\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#12 Z:\happy-giraffe\site\frontend\components\HController.php(31): CFilterChain->run()
+#13 Z:\home\yii\framework\web\filters\CInlineFilter.php(58): HController->filterAjaxOnly(Object(CFilterChain))
+#14 Z:\home\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#15 Z:\home\yii\framework\web\CController.php(291): CFilterChain->run()
+#16 Z:\home\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#17 Z:\home\yii\framework\web\CWebApplication.php(282): CController->run('removeEntity')
+#18 Z:\home\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('ajax/removeEnti...')
+#19 Z:\home\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#20 Z:\happy-giraffe\site\frontend\www-submodule\index.php(29): CApplication->run()
+#21 {main}
+REQUEST_URI=/ajax/removeEntity/
+HTTP_REFERER=http://happy-giraffe.com/user/10/blog/
+---
+2013/06/06 16:15:27 [error] [application] Entity:
+BlogContent
+
+Url:
+http://happy-giraffe.com/user/10/rss/
+
+Uid:
+10
+
+Output:
+<?xml version="1.0"?>
+ <methodResponse>
+  <params>
+   <param>
+    <value>
+     <struct>
+      <member>
+       <name>flerror</name>
+       <value>
+        <boolean>0</boolean>
+       </value>
+      </member>
+      <member>
+       <name>message</name>
+       <value>Thanks for the ping.</value>
+      </member>
+     </struct>
+    </value>
+   </param>
+  </params>
+</methodResponse>
+
+
+in Z:\happy-giraffe\site\common\behaviors\PingableBehavior.php (74)
+in Z:\happy-giraffe\site\common\models\CommunityContent.php (318)
+in Z:\happy-giraffe\site\frontend\controllers\BlogController.php (98)
+2013/06/06 16:15:27 [error] [application] Entity:
+CommunityContent
+
+Url:
+http://happy-giraffe.com/user/10/rss/
+
+Uid:
+10
+
+Output:
+<?xml version="1.0"?>
+ <methodResponse>
+  <params>
+   <param>
+    <value>
+     <struct>
+      <member>
+       <name>flerror</name>
+       <value>
+        <boolean>0</boolean>
+       </value>
+      </member>
+      <member>
+       <name>message</name>
+       <value>Thanks for the ping.</value>
+      </member>
+     </struct>
+    </value>
+   </param>
+  </params>
+</methodResponse>
+
+
+in Z:\happy-giraffe\site\common\behaviors\PingableBehavior.php (74)
+in Z:\happy-giraffe\site\common\models\CommunityContent.php (318)
+in Z:\happy-giraffe\site\common\behaviors\CutBehavior.php (20)
+2013/06/06 16:15:27 [error] [application] Entity:
+CommunityContent
+
+Url:
+http://happy-giraffe.com/user/10/rss/
+
+Uid:
+10
+
+Output:
+<?xml version="1.0"?>
+ <methodResponse>
+  <params>
+   <param>
+    <value>
+     <struct>
+      <member>
+       <name>flerror</name>
+       <value>
+        <boolean>0</boolean>
+       </value>
+      </member>
+      <member>
+       <name>message</name>
+       <value>Thanks for the ping.</value>
+      </member>
+     </struct>
+    </value>
+   </param>
+  </params>
+</methodResponse>
+
+
+in Z:\happy-giraffe\site\common\behaviors\PingableBehavior.php (74)
+in Z:\happy-giraffe\site\common\models\CommunityContent.php (318)
+in Z:\happy-giraffe\site\common\models\CommunityPost.php (168)
+2013/06/06 16:15:46 [error] [exception.CException] exception 'CException' with message 'Не определено свойство "User.contentBlogPosts".' in Z:\home\yii\framework\base\CComponent.php:130
+Stack trace:
+#0 Z:\home\yii\framework\db\ar\CActiveRecord.php(143): CComponent->__get('contentBlogPost...')
+#1 Z:\happy-giraffe\site\frontend\modules\scores\components\Scoring.php(45): CActiveRecord->__get('contentBlogPost...')
+#2 Z:\happy-giraffe\site\common\models\CommunityContent.php(254): Scoring::contentRemoved(Object(BlogContent))
+#3 Z:\happy-giraffe\site\common\models\BlogContent.php(23): CommunityContent->beforeDelete()
+#4 Z:\home\yii\framework\db\ar\CActiveRecord.php(1166): BlogContent->beforeDelete()
+#5 Z:\happy-giraffe\site\common\models\Removed.php(128): CActiveRecord->delete()
+#6 Z:\home\yii\framework\db\ar\CActiveRecord.php(1043): Removed->afterSave()
+#7 Z:\home\yii\framework\db\ar\CActiveRecord.php(795): CActiveRecord->insert(NULL)
+#8 Z:\happy-giraffe\site\frontend\controllers\AjaxController.php(382): CActiveRecord->save()
+#9 Z:\home\yii\framework\web\actions\CInlineAction.php(49): AjaxController->actionRemoveEntity()
+#10 Z:\home\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#11 Z:\home\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#12 Z:\happy-giraffe\site\frontend\components\HController.php(31): CFilterChain->run()
+#13 Z:\home\yii\framework\web\filters\CInlineFilter.php(58): HController->filterAjaxOnly(Object(CFilterChain))
+#14 Z:\home\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#15 Z:\home\yii\framework\web\CController.php(291): CFilterChain->run()
+#16 Z:\home\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#17 Z:\home\yii\framework\web\CWebApplication.php(282): CController->run('removeEntity')
+#18 Z:\home\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('ajax/removeEnti...')
+#19 Z:\home\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#20 Z:\happy-giraffe\site\frontend\www-submodule\index.php(29): CApplication->run()
+#21 {main}
+REQUEST_URI=/ajax/removeEntity/
+HTTP_REFERER=http://happy-giraffe.com/user/10/blog/post67712/
+---
+2013/06/06 16:18:24 [error] [exception.CException] exception 'CException' with message 'Не определено свойство "User.contentBlogPosts".' in Z:\home\yii\framework\base\CComponent.php:130
+Stack trace:
+#0 Z:\home\yii\framework\db\ar\CActiveRecord.php(143): CComponent->__get('contentBlogPost...')
+#1 Z:\happy-giraffe\site\frontend\modules\scores\components\Scoring.php(45): CActiveRecord->__get('contentBlogPost...')
+#2 Z:\happy-giraffe\site\common\models\CommunityContent.php(254): Scoring::contentRemoved(Object(BlogContent))
+#3 Z:\happy-giraffe\site\common\models\BlogContent.php(23): CommunityContent->beforeDelete()
+#4 Z:\home\yii\framework\db\ar\CActiveRecord.php(1166): BlogContent->beforeDelete()
+#5 Z:\happy-giraffe\site\common\models\Removed.php(128): CActiveRecord->delete()
+#6 Z:\home\yii\framework\db\ar\CActiveRecord.php(1043): Removed->afterSave()
+#7 Z:\home\yii\framework\db\ar\CActiveRecord.php(795): CActiveRecord->insert(NULL)
+#8 Z:\happy-giraffe\site\frontend\controllers\AjaxController.php(382): CActiveRecord->save()
+#9 Z:\home\yii\framework\web\actions\CInlineAction.php(49): AjaxController->actionRemoveEntity()
+#10 Z:\home\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#11 Z:\home\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#12 Z:\happy-giraffe\site\frontend\components\HController.php(31): CFilterChain->run()
+#13 Z:\home\yii\framework\web\filters\CInlineFilter.php(58): HController->filterAjaxOnly(Object(CFilterChain))
+#14 Z:\home\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#15 Z:\home\yii\framework\web\CController.php(291): CFilterChain->run()
+#16 Z:\home\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#17 Z:\home\yii\framework\web\CWebApplication.php(282): CController->run('removeEntity')
+#18 Z:\home\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('ajax/removeEnti...')
+#19 Z:\home\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#20 Z:\happy-giraffe\site\frontend\www-submodule\index.php(29): CApplication->run()
+#21 {main}
+REQUEST_URI=/ajax/removeEntity/
+HTTP_REFERER=http://happy-giraffe.com/user/10/blog/
+---
+2013/06/06 16:19:58 [error] [application] Entity:
+BlogContent
+
+Url:
+http://happy-giraffe.com/user/10/rss/
+
+Uid:
+10
+
+Output:
+<?xml version="1.0"?>
+ <methodResponse>
+  <params>
+   <param>
+    <value>
+     <struct>
+      <member>
+       <name>flerror</name>
+       <value>
+        <boolean>0</boolean>
+       </value>
+      </member>
+      <member>
+       <name>message</name>
+       <value>Thanks for the ping.</value>
+      </member>
+     </struct>
+    </value>
+   </param>
+  </params>
+</methodResponse>
+
+
+in Z:\happy-giraffe\site\common\behaviors\PingableBehavior.php (74)
+in Z:\happy-giraffe\site\common\models\CommunityContent.php (318)
+in Z:\happy-giraffe\site\frontend\controllers\BlogController.php (98)
+2013/06/06 16:19:58 [error] [application] Entity:
+CommunityContent
+
+Url:
+http://happy-giraffe.com/user/10/rss/
+
+Uid:
+10
+
+Output:
+<?xml version="1.0"?>
+ <methodResponse>
+  <params>
+   <param>
+    <value>
+     <struct>
+      <member>
+       <name>flerror</name>
+       <value>
+        <boolean>0</boolean>
+       </value>
+      </member>
+      <member>
+       <name>message</name>
+       <value>Thanks for the ping.</value>
+      </member>
+     </struct>
+    </value>
+   </param>
+  </params>
+</methodResponse>
+
+
+in Z:\happy-giraffe\site\common\behaviors\PingableBehavior.php (74)
+in Z:\happy-giraffe\site\common\models\CommunityContent.php (318)
+in Z:\happy-giraffe\site\common\behaviors\CutBehavior.php (20)
+2013/06/06 16:19:58 [error] [application] Entity:
+CommunityContent
+
+Url:
+http://happy-giraffe.com/user/10/rss/
+
+Uid:
+10
+
+Output:
+<?xml version="1.0"?>
+ <methodResponse>
+  <params>
+   <param>
+    <value>
+     <struct>
+      <member>
+       <name>flerror</name>
+       <value>
+        <boolean>0</boolean>
+       </value>
+      </member>
+      <member>
+       <name>message</name>
+       <value>Thanks for the ping.</value>
+      </member>
+     </struct>
+    </value>
+   </param>
+  </params>
+</methodResponse>
+
+
+in Z:\happy-giraffe\site\common\behaviors\PingableBehavior.php (74)
+in Z:\happy-giraffe\site\common\models\CommunityContent.php (318)
+in Z:\happy-giraffe\site\common\models\CommunityPost.php (168)
+2013/06/06 16:20:33 [error] [application] Entity:
+BlogContent
+
+Url:
+http://happy-giraffe.com/user/10/rss/
+
+Uid:
+10
+
+Output:
+<?xml version="1.0"?>
+ <methodResponse>
+  <params>
+   <param>
+    <value>
+     <struct>
+      <member>
+       <name>flerror</name>
+       <value>
+        <boolean>0</boolean>
+       </value>
+      </member>
+      <member>
+       <name>message</name>
+       <value>Thanks for the ping.</value>
+      </member>
+     </struct>
+    </value>
+   </param>
+  </params>
+</methodResponse>
+
+
+in Z:\happy-giraffe\site\common\behaviors\PingableBehavior.php (74)
+in Z:\happy-giraffe\site\common\models\CommunityContent.php (318)
+in Z:\happy-giraffe\site\frontend\controllers\BlogController.php (98)
+2013/06/06 16:20:33 [error] [application] Entity:
+CommunityContent
+
+Url:
+http://happy-giraffe.com/user/10/rss/
+
+Uid:
+10
+
+Output:
+<?xml version="1.0"?>
+ <methodResponse>
+  <params>
+   <param>
+    <value>
+     <struct>
+      <member>
+       <name>flerror</name>
+       <value>
+        <boolean>0</boolean>
+       </value>
+      </member>
+      <member>
+       <name>message</name>
+       <value>Thanks for the ping.</value>
+      </member>
+     </struct>
+    </value>
+   </param>
+  </params>
+</methodResponse>
+
+
+in Z:\happy-giraffe\site\common\behaviors\PingableBehavior.php (74)
+in Z:\happy-giraffe\site\common\models\CommunityContent.php (318)
+in Z:\happy-giraffe\site\common\behaviors\CutBehavior.php (20)
+2013/06/06 16:20:33 [error] [application] Entity:
+CommunityContent
+
+Url:
+http://happy-giraffe.com/user/10/rss/
+
+Uid:
+10
+
+Output:
+<?xml version="1.0"?>
+ <methodResponse>
+  <params>
+   <param>
+    <value>
+     <struct>
+      <member>
+       <name>flerror</name>
+       <value>
+        <boolean>0</boolean>
+       </value>
+      </member>
+      <member>
+       <name>message</name>
+       <value>Thanks for the ping.</value>
+      </member>
+     </struct>
+    </value>
+   </param>
+  </params>
+</methodResponse>
+
+
+in Z:\happy-giraffe\site\common\behaviors\PingableBehavior.php (74)
+in Z:\happy-giraffe\site\common\models\CommunityContent.php (318)
+in Z:\happy-giraffe\site\common\models\CommunityPost.php (168)
+2013/06/06 16:26:25 [error] [application] Entity:
+BlogContent
+
+Url:
+http://happy-giraffe.com/user/10/rss/
+
+Uid:
+10
+
+Output:
+<?xml version="1.0"?>
+ <methodResponse>
+  <params>
+   <param>
+    <value>
+     <struct>
+      <member>
+       <name>flerror</name>
+       <value>
+        <boolean>0</boolean>
+       </value>
+      </member>
+      <member>
+       <name>message</name>
+       <value>Thanks for the ping.</value>
+      </member>
+     </struct>
+    </value>
+   </param>
+  </params>
+</methodResponse>
+
+
+in Z:\happy-giraffe\site\common\behaviors\PingableBehavior.php (74)
+in Z:\happy-giraffe\site\common\models\CommunityContent.php (318)
+in Z:\happy-giraffe\site\frontend\controllers\BlogController.php (98)
+2013/06/06 16:26:25 [error] [application] Entity:
+CommunityContent
+
+Url:
+http://happy-giraffe.com/user/10/rss/
+
+Uid:
+10
+
+Output:
+<?xml version="1.0"?>
+ <methodResponse>
+  <params>
+   <param>
+    <value>
+     <struct>
+      <member>
+       <name>flerror</name>
+       <value>
+        <boolean>0</boolean>
+       </value>
+      </member>
+      <member>
+       <name>message</name>
+       <value>Thanks for the ping.</value>
+      </member>
+     </struct>
+    </value>
+   </param>
+  </params>
+</methodResponse>
+
+
+in Z:\happy-giraffe\site\common\behaviors\PingableBehavior.php (74)
+in Z:\happy-giraffe\site\common\models\CommunityContent.php (318)
+in Z:\happy-giraffe\site\common\behaviors\CutBehavior.php (20)
+2013/06/06 16:26:29 [error] [application] Entity:
+CommunityContent
+
+Url:
+http://happy-giraffe.com/user/10/rss/
+
+Uid:
+10
+
+Output:
+<?xml version="1.0"?>
+ <methodResponse>
+  <params>
+   <param>
+    <value>
+     <struct>
+      <member>
+       <name>flerror</name>
+       <value>
+        <boolean>0</boolean>
+       </value>
+      </member>
+      <member>
+       <name>message</name>
+       <value>Thanks for the ping.</value>
+      </member>
+     </struct>
+    </value>
+   </param>
+  </params>
+</methodResponse>
+
+
+in Z:\happy-giraffe\site\common\behaviors\PingableBehavior.php (74)
+in Z:\happy-giraffe\site\common\models\CommunityContent.php (318)
+in Z:\happy-giraffe\site\common\models\CommunityPost.php (165)
+2013/06/06 16:30:05 [error] [application] Entity:
+BlogContent
+
+Url:
+http://happy-giraffe.com/user/10/rss/
+
+Uid:
+10
+
+Output:
+<?xml version="1.0"?>
+ <methodResponse>
+  <params>
+   <param>
+    <value>
+     <struct>
+      <member>
+       <name>flerror</name>
+       <value>
+        <boolean>0</boolean>
+       </value>
+      </member>
+      <member>
+       <name>message</name>
+       <value>Thanks for the ping.</value>
+      </member>
+     </struct>
+    </value>
+   </param>
+  </params>
+</methodResponse>
+
+
+in Z:\happy-giraffe\site\common\behaviors\PingableBehavior.php (74)
+in Z:\happy-giraffe\site\common\models\CommunityContent.php (318)
+in Z:\happy-giraffe\site\common\models\Comment.php (216)
+2013/06/06 16:55:02 [error] [application] Entity:
+BlogContent
+
+Url:
+http://happy-giraffe.com/user/10/rss/
+
+Uid:
+10
+
+Output:
+<?xml version="1.0"?>
+ <methodResponse>
+  <params>
+   <param>
+    <value>
+     <struct>
+      <member>
+       <name>flerror</name>
+       <value>
+        <boolean>0</boolean>
+       </value>
+      </member>
+      <member>
+       <name>message</name>
+       <value>Thanks for the ping.</value>
+      </member>
+     </struct>
+    </value>
+   </param>
+  </params>
+</methodResponse>
+
+
+in Z:\happy-giraffe\site\common\behaviors\PingableBehavior.php (74)
+in Z:\happy-giraffe\site\common\models\CommunityContent.php (318)
+in Z:\happy-giraffe\site\frontend\controllers\BlogController.php (98)
+2013/06/06 16:55:03 [error] [application] Entity:
+CommunityContent
+
+Url:
+http://happy-giraffe.com/user/10/rss/
+
+Uid:
+10
+
+Output:
+<?xml version="1.0"?>
+ <methodResponse>
+  <params>
+   <param>
+    <value>
+     <struct>
+      <member>
+       <name>flerror</name>
+       <value>
+        <boolean>0</boolean>
+       </value>
+      </member>
+      <member>
+       <name>message</name>
+       <value>Thanks for the ping.</value>
+      </member>
+     </struct>
+    </value>
+   </param>
+  </params>
+</methodResponse>
+
+
+in Z:\happy-giraffe\site\common\behaviors\PingableBehavior.php (74)
+in Z:\happy-giraffe\site\common\models\CommunityContent.php (318)
+in Z:\happy-giraffe\site\common\behaviors\CutBehavior.php (20)
+2013/06/06 16:55:07 [error] [php] Undefined property: ScoreInputNewVideo::$ids (Z:\happy-giraffe\site\frontend\modules\scores\views\default\types\type_3.php:13)
+Stack trace:
+#0 Z:\home\yii\framework\web\CController.php(869): DefaultController->renderFile()
+#1 Z:\happy-giraffe\site\frontend\modules\scores\views\default\list.php(29): DefaultController->renderPartial()
+#2 Z:\home\yii\framework\web\CBaseController.php(126): require()
+#3 Z:\home\yii\framework\web\CBaseController.php(95): DefaultController->renderInternal()
+#4 Z:\home\yii\framework\web\CController.php(869): DefaultController->renderFile()
+#5 Z:\happy-giraffe\site\frontend\modules\scores\views\default\index.php(44): DefaultController->renderPartial()
+#6 Z:\home\yii\framework\web\CBaseController.php(126): require()
+#7 Z:\home\yii\framework\web\CBaseController.php(95): DefaultController->renderInternal()
+#8 Z:\home\yii\framework\web\CController.php(869): DefaultController->renderFile()
+#9 Z:\home\yii\framework\web\CController.php(782): DefaultController->renderPartial()
+#10 Z:\happy-giraffe\site\frontend\modules\scores\controllers\DefaultController.php(41): DefaultController->render()
+#11 Z:\home\yii\framework\web\actions\CInlineAction.php(49): DefaultController->actionIndex()
+#12 Z:\home\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#13 Z:\home\yii\framework\web\filters\CFilterChain.php(133): DefaultController->runAction()
+#14 Z:\home\yii\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#15 Z:\home\yii\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#16 Z:\home\yii\framework\web\filters\CInlineFilter.php(58): DefaultController->filterAccessControl()
+#17 Z:\home\yii\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#18 Z:\home\yii\framework\web\CController.php(291): CFilterChain->run()
+#19 Z:\home\yii\framework\web\CController.php(265): DefaultController->runActionWithFilters()
+#20 Z:\home\yii\framework\web\CWebApplication.php(282): DefaultController->run()
+#21 Z:\home\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#22 Z:\home\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#23 Z:\happy-giraffe\site\frontend\www-submodule\index.php(29): CWebApplication->run()
+REQUEST_URI=/scores/
+in Z:\happy-giraffe\site\frontend\modules\scores\views\default\types\type_3.php (13)
+in Z:\happy-giraffe\site\frontend\modules\scores\views\default\list.php (29)
+in Z:\happy-giraffe\site\frontend\modules\scores\views\default\index.php (44)
+2013/06/06 16:55:07 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "favicon.ico".' in Z:\home\yii\framework\web\CUrlManager.php:371
+Stack trace:
+#0 Z:\home\yii\framework\web\CWebApplication.php(140): CUrlManager->parseUrl(Object(CHttpRequest))
+#1 Z:\home\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 Z:\happy-giraffe\site\frontend\www-submodule\index.php(29): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico/
+---
+2013/06/06 16:58:09 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "favicon.ico".' in Z:\home\yii\framework\web\CUrlManager.php:371
+Stack trace:
+#0 Z:\home\yii\framework\web\CWebApplication.php(140): CUrlManager->parseUrl(Object(CHttpRequest))
+#1 Z:\home\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 Z:\happy-giraffe\site\frontend\www-submodule\index.php(29): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico/
+---
+2013/06/06 16:58:11 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "favicon.ico".' in Z:\home\yii\framework\web\CUrlManager.php:371
+Stack trace:
+#0 Z:\home\yii\framework\web\CWebApplication.php(140): CUrlManager->parseUrl(Object(CHttpRequest))
+#1 Z:\home\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 Z:\happy-giraffe\site\frontend\www-submodule\index.php(29): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico/
+---
+2013/06/06 16:59:21 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "favicon.ico".' in Z:\home\yii\framework\web\CUrlManager.php:371
+Stack trace:
+#0 Z:\home\yii\framework\web\CWebApplication.php(140): CUrlManager->parseUrl(Object(CHttpRequest))
+#1 Z:\home\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 Z:\happy-giraffe\site\frontend\www-submodule\index.php(29): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico/
+---
+2013/06/06 16:59:22 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "favicon.ico".' in Z:\home\yii\framework\web\CUrlManager.php:371
+Stack trace:
+#0 Z:\home\yii\framework\web\CWebApplication.php(140): CUrlManager->parseUrl(Object(CHttpRequest))
+#1 Z:\home\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 Z:\happy-giraffe\site\frontend\www-submodule\index.php(29): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico/
+---
+2013/06/06 17:00:11 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "favicon.ico".' in Z:\home\yii\framework\web\CUrlManager.php:371
+Stack trace:
+#0 Z:\home\yii\framework\web\CWebApplication.php(140): CUrlManager->parseUrl(Object(CHttpRequest))
+#1 Z:\home\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 Z:\happy-giraffe\site\frontend\www-submodule\index.php(29): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico/
+---
+2013/06/06 17:00:12 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "favicon.ico".' in Z:\home\yii\framework\web\CUrlManager.php:371
+Stack trace:
+#0 Z:\home\yii\framework\web\CWebApplication.php(140): CUrlManager->parseUrl(Object(CHttpRequest))
+#1 Z:\home\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 Z:\happy-giraffe\site\frontend\www-submodule\index.php(29): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico/
+---
+2013/06/06 17:07:09 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "favicon.ico".' in Z:\home\yii\framework\web\CUrlManager.php:371
+Stack trace:
+#0 Z:\home\yii\framework\web\CWebApplication.php(140): CUrlManager->parseUrl(Object(CHttpRequest))
+#1 Z:\home\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 Z:\happy-giraffe\site\frontend\www-submodule\index.php(29): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico/
+---
+2013/06/06 17:07:10 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "favicon.ico".' in Z:\home\yii\framework\web\CUrlManager.php:371
+Stack trace:
+#0 Z:\home\yii\framework\web\CWebApplication.php(140): CUrlManager->parseUrl(Object(CHttpRequest))
+#1 Z:\home\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 Z:\happy-giraffe\site\frontend\www-submodule\index.php(29): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico/
+---
+2013/06/06 17:07:11 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "favicon.ico".' in Z:\home\yii\framework\web\CUrlManager.php:371
+Stack trace:
+#0 Z:\home\yii\framework\web\CWebApplication.php(140): CUrlManager->parseUrl(Object(CHttpRequest))
+#1 Z:\home\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 Z:\happy-giraffe\site\frontend\www-submodule\index.php(29): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico/
+---
+2013/06/06 17:07:11 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "favicon.ico".' in Z:\home\yii\framework\web\CUrlManager.php:371
+Stack trace:
+#0 Z:\home\yii\framework\web\CWebApplication.php(140): CUrlManager->parseUrl(Object(CHttpRequest))
+#1 Z:\home\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 Z:\happy-giraffe\site\frontend\www-submodule\index.php(29): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico/
+---
+2013/06/06 17:11:23 [error] [application] Entity:
+ContestWork
+
+Url:
+http://happy-giraffe.com/user/10/rss/
+
+Uid:
+10
+
+Output:
+<?xml version="1.0"?>
+ <methodResponse>
+  <params>
+   <param>
+    <value>
+     <struct>
+      <member>
+       <name>flerror</name>
+       <value>
+        <boolean>0</boolean>
+       </value>
+      </member>
+      <member>
+       <name>message</name>
+       <value>Thanks for the ping.</value>
+      </member>
+     </struct>
+    </value>
+   </param>
+  </params>
+</methodResponse>
+
+
+in Z:\happy-giraffe\site\common\behaviors\PingableBehavior.php (74)
+in Z:\happy-giraffe\site\frontend\modules\contest\models\ContestWork.php (146)
+in Z:\happy-giraffe\site\frontend\modules\contest\controllers\DefaultController.php (160)
+2013/06/06 17:17:08 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "scores/<img src=".' in Z:\home\yii\framework\web\CUrlManager.php:371
+Stack trace:
+#0 Z:\home\yii\framework\web\CWebApplication.php(140): CUrlManager->parseUrl(Object(CHttpRequest))
+#1 Z:\home\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 Z:\happy-giraffe\site\frontend\www-submodule\index.php(29): CApplication->run()
+#3 {main}
+REQUEST_URI=/scores/%3cimg%20src=/
+HTTP_REFERER=http://happy-giraffe.com/scores/
+---
+2013/06/06 17:18:38 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "scores/<img src=".' in Z:\home\yii\framework\web\CUrlManager.php:371
+Stack trace:
+#0 Z:\home\yii\framework\web\CWebApplication.php(140): CUrlManager->parseUrl(Object(CHttpRequest))
+#1 Z:\home\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 Z:\happy-giraffe\site\frontend\www-submodule\index.php(29): CApplication->run()
+#3 {main}
+REQUEST_URI=/scores/%3cimg%20src=/
+HTTP_REFERER=http://happy-giraffe.com/scores/
+---
+2013/06/06 17:20:51 [error] [application] Entity:
+BlogContent
+
+Url:
+http://happy-giraffe.com/user/10/rss/
+
+Uid:
+10
+
+Output:
+<?xml version="1.0"?>
+ <methodResponse>
+  <params>
+   <param>
+    <value>
+     <struct>
+      <member>
+       <name>flerror</name>
+       <value>
+        <boolean>0</boolean>
+       </value>
+      </member>
+      <member>
+       <name>message</name>
+       <value>Thanks for the ping.</value>
+      </member>
+     </struct>
+    </value>
+   </param>
+  </params>
+</methodResponse>
+
+
+in Z:\happy-giraffe\site\common\behaviors\PingableBehavior.php (74)
+in Z:\happy-giraffe\site\common\models\CommunityContent.php (318)
+in Z:\happy-giraffe\site\common\models\Comment.php (216)

@@ -55,4 +55,22 @@ class ScoreInputNewComment extends ScoreInputMassive
         $this->user_id = (int)$user_id;
         parent::remove($comment_id);
     }
+
+    /**
+     * Возвращает класс для иконки
+     * @return string
+     */
+    public function getIcon()
+    {
+        return 'career-achievement-ico__comment';
+    }
+
+    /**
+     * Название
+     * @return string
+     */
+    public function getTitle()
+    {
+        return 'Новые комментарии';
+    }
 }

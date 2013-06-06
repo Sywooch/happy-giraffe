@@ -40,4 +40,13 @@ class ScoreInputVisit extends ScoreInputEntity
         $this->user_id = $user_id;
         $this->insert();
     }
+
+    /**
+     * Возвращает класс для иконки
+     * @return string
+     */
+    public function getIcon()
+    {
+        return 'career-achievement-ico__visit';
+    }
 }

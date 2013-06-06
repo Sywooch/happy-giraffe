@@ -45,21 +45,6 @@ class NotificationUserContentComment extends NotificationGroup
     }
 
     /**
-     * Создает модель уведомления для удобой работы с ним
-     *
-     * @param $object array объект, который вернул компонент работы с базой
-     * @return NotificationUserContentComment
-     */
-    public static function createModel($object)
-    {
-        $model = new NotificationUserContentComment;
-        foreach ($object as $key => $value)
-            $model->$key = $value;
-
-        return $model;
-    }
-
-    /**
      * Найти удалить или изменить уведомление, связанное с удаленным комментарием
      * @param $comment
      */

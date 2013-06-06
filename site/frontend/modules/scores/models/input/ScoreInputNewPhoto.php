@@ -8,9 +8,7 @@
  */
 class ScoreInputNewPhoto extends ScoreInputMassive
 {
-    const WAIT_TIME = 3;
-
-    public $type = self::TYPE_VIDEO;
+    public $type = self::TYPE_PHOTOS_ADDED;
 
     /**
      * @var ScoreInputNewPhoto
@@ -40,7 +38,8 @@ class ScoreInputNewPhoto extends ScoreInputMassive
      */
     public function add($user_id, $photo_id)
     {
-        parent::add($user_id, $photo_id, self::WAIT_TIME * 3600);
+        $this->user_id = $user_id;
+        parent::add($photo_id);
     }
 
     /**
@@ -51,7 +50,16 @@ class ScoreInputNewPhoto extends ScoreInputMassive
      */
     public function remove($user_id, $photo_id)
     {
-        $this->user_id = (int)$user_id;
+        $this->user_id = $user_id;
         parent::remove($photo_id);
+    }
+
+    /**
+     * Возвращает класс для иконки
+     * @return string
+     */
+    public function getIcon()
+    {
+        return 'career-achievement-ico__photo';
     }
 }

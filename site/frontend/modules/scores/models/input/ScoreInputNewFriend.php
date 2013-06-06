@@ -8,8 +8,6 @@
  */
 class ScoreInputNewFriend extends ScoreInputMassive
 {
-    const WAIT_TIME = 3;
-
     public $type = self::TYPE_FRIEND_ADDED;
 
     /**
@@ -40,7 +38,11 @@ class ScoreInputNewFriend extends ScoreInputMassive
      */
     public function add($user_id, $friend_id)
     {
-        parent::add($user_id, $friend_id, self::WAIT_TIME * 3600);
+        $this->user_id = $friend_id;
+        parent::add($user_id);
+
+        $this->user_id = $user_id;
+        parent::add($friend_id);
     }
 
     /**
@@ -53,5 +55,17 @@ class ScoreInputNewFriend extends ScoreInputMassive
     {
         $this->user_id = (int)$user_id;
         parent::remove($friend_id);
+
+        $this->user_id = (int)$friend_id;
+        parent::remove($user_id);
+    }
+
+    /**
+     * Возвращает класс для иконки
+     * @return string
+     */
+    public function getIcon()
+    {
+        return 'career-achievement-ico__friends';
     }
 }

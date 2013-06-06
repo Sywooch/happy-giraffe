@@ -8,35 +8,45 @@
  */
 class ScoreInput extends HMongoModel
 {
-    const TYPE_6_STEPS = 1;
+    /**
+     * Что выводим пользователю
+     */
+    const SELECT_ALL = 0;
+    const SELECT_ACTIVITY = 1;
+    const SELECT_ACHIEVEMENTS = 2;
+    const SELECT_AWARDS = 3;
 
-    const TYPE_FIRST_BLOG_RECORD = 2;
-    const TYPE_POST_ADDED = 3;
-    const TYPE_VIDEO = 4;
+    /**
+     * уведомлений на странице
+     */
+    const PAGE_SIZE = 20;
 
-    const TYPE_FRIEND_ADDED = 5;
+    /**
+     * Типы уведомлений
+     */
+    const TYPE_FIRST_BLOG_RECORD = 1;
+    const TYPE_POST_ADDED = 2;
+    const TYPE_VIDEO = 3;
 
-    const TYPE_COMMENT_ADDED = 6;
-    const TYPE_PHOTOS_ADDED = 7;
+    const TYPE_FRIEND_ADDED = 4;
 
-    const TYPE_DUEL_PARTICIPATION = 9;
-    const TYPE_DUEL_WIN = 10;
+    const TYPE_COMMENT_ADDED = 5;
+    const TYPE_PHOTOS_ADDED = 6;
 
-    const TYPE_VISIT = 11;
+    const TYPE_VISIT = 7;
 
-    const TYPE_CONTEST_PARTICIPATION = 20;
-    const TYPE_CONTEST_WIN = 21;
-    const TYPE_CONTEST_2_PLACE = 22;
-    const TYPE_CONTEST_3_PLACE = 23;
-    const TYPE_CONTEST_4_PLACE = 24;
-    const TYPE_CONTEST_5_PLACE = 25;
-    const TYPE_CONTEST_ADDITIONAL_PRIZE = 26;
+    const TYPE_DUEL_PARTICIPATION = 8;
+    const TYPE_DUEL_WIN = 9;
+
+    const TYPE_CONTEST_PARTICIPATION = 10;
+    const TYPE_CONTEST_WIN = 11;
+    const TYPE_CONTEST_2_PLACE = 12;
+    const TYPE_CONTEST_3_PLACE = 13;
+    const TYPE_CONTEST_4_PLACE = 14;
+    const TYPE_CONTEST_5_PLACE = 15;
 
     const TYPE_AWARD = 100;
     const TYPE_ACHIEVEMENT = 101;
-
-    const TYPE_RATING_BLOGS = 105;
-    const TYPE_RATING_INTERESTING = 106;
 
     protected $_collection_name = 'score_input_new';
 
@@ -166,7 +176,7 @@ class ScoreInput extends HMongoModel
     }
 
     /**
-     * Возвращае количество баллов за действия
+     * Возвращает количество баллов за действия
      *
      * @return int
      */
@@ -197,5 +207,121 @@ class ScoreInput extends HMongoModel
             array('scores' => new CDbExpression('scores- :scores', array(':scores' => $this->getScores()))),
             'user_id=:user_id', array(':user_id' => $this->user_id)
         );
+    }
+
+    /**
+     * Возвращает список уведомлений о начислении баллов
+     *
+     * @param int $user_id id пользователя
+     * @param int $select Что выбирать
+     * @param int $page номер страницы
+     * @return array
+     */
+    public function getList($user_id, $select, $page)
+    {
+        $cursor = $this->getCollection()->find(array_merge(array(
+            'user_id' => (int)$user_id,
+        ), $this->getSelectCondition($select)))
+            ->sort(array('updated' => -1))
+            ->limit(self::PAGE_SIZE)
+            ->skip($page * self::PAGE_SIZE);
+
+        $list = array();
+        for ($i = 0; $i < self::PAGE_SIZE; $i++) {
+            if ($cursor->hasNext())
+                $list [] = self::createModel($cursor->getNext());
+        }
+
+        return $list;
+    }
+
+    /**
+     * Возвращает условие выбора уведомлений
+     *
+     * @param int $select что показываем
+     * @return array
+     */
+    private function getSelectCondition($select)
+    {
+        switch ($select) {
+            case self::SELECT_ACTIVITY:
+                return array('type' => array('$nin' => array(self::TYPE_AWARD, self::TYPE_ACHIEVEMENT)));
+            case self::SELECT_ACHIEVEMENTS:
+                return array('type' => self::TYPE_ACHIEVEMENT);
+            case self::SELECT_AWARDS:
+                return array('type' => self::TYPE_AWARD);
+        }
+
+        return array();
+    }
+
+    /**
+     * Создаение объекта из массива для удобной работы с ним
+     * @param array $object
+     * @return Notification|null
+     */
+    private static function createModel($object)
+    {
+        switch ($object['type']) {
+            case self::TYPE_ACHIEVEMENT:
+                $class = 'ScoreInputAchievement';
+                break;
+            case self::TYPE_AWARD:
+                $class = 'ScoreInputAward';
+                break;
+            case self::TYPE_FIRST_BLOG_RECORD:
+                $class = 'ScoreInputFirstBlogRecord';
+                break;
+            case self::TYPE_POST_ADDED:
+                $class = 'ScoreInputNewPost';
+                break;
+            case self::TYPE_VIDEO:
+                $class = 'ScoreInputNewVideo';
+                break;
+            case self::TYPE_FRIEND_ADDED:
+                $class = 'ScoreInputNewFriend';
+                break;
+            case self::TYPE_COMMENT_ADDED:
+                $class = 'ScoreInputNewComment';
+                break;
+            case self::TYPE_PHOTOS_ADDED:
+                $class = 'ScoreInputNewPhoto';
+                break;
+            case self::TYPE_VISIT:
+                $class = 'ScoreInputVisit';
+                break;
+            case self::TYPE_CONTEST_PARTICIPATION:
+                $class = 'ScoreInputContestParticipation';
+                break;
+            case self::TYPE_CONTEST_WIN:
+            case self::TYPE_CONTEST_2_PLACE:
+            case self::TYPE_CONTEST_3_PLACE:
+            case self::TYPE_CONTEST_4_PLACE:
+            case self::TYPE_CONTEST_5_PLACE:
+                $class = 'ScoreInputContestPrize';
+        }
+        if (!isset($class))
+            return null;
+
+        $model = new $class;
+        foreach ($object as $key => $value)
+            $model->$key = $value;
+
+        return $model;
+    }
+
+    /**
+     * Возращает название уведомления
+     * @return string
+     */
+    public function getTitle()
+    {
+        $action = ScoreAction::getActionInfo($this->type);
+        return $action['title'];
+    }
+
+    public function descriptionClass()
+    {
+        return 'career-achievement__bluelight';
     }
 }

@@ -42,4 +42,29 @@ class ScoreInputContestParticipation extends ScoreInput
         $this->user_id = $user_id;
         $this->insert(array('contest_id' => $contest_id));
     }
+
+    /**
+     * Возвращает класс для иконки
+     * @return string
+     */
+    public function getIcon()
+    {
+        return '';
+    }
+
+    public function descriptionClass()
+    {
+        return 'career-achievement__lavender';
+    }
+
+    public function getContestLink()
+    {
+        $contest = Contest::model()->findByPk($this->contest_id);
+        return CHtml::link($contest->title, $contest->getUrl());
+    }
+
+    public function getImage()
+    {
+        return '<img src="/images/contest/contest-career-' . $this->contest_id . '.png" alt="">';
+    }
 }

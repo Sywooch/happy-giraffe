@@ -42,7 +42,7 @@ class Scoring
      */
     public static function contentRemoved($content)
     {
-        if ($content->getIsFromBlog() && count($content->contentAuthor->contentBlogPosts) == 0)
+        if ($content->getIsFromBlog() && $content->contentAuthor->blogPostsCount == 1)
             ScoreInputFirstBlogRecord::getInstance()->remove($content->author_id);
         else {
             if ($content->type_id == CommunityContent::TYPE_POST)
@@ -59,6 +59,7 @@ class Scoring
      */
     public static function commentCreated($comment)
     {
+        ScoreInputNewComment::getInstance()->add($comment->author_id, $comment->id);
         ScoreAchievement::model()->checkAchieve($comment->author_id, ScoreAchievement::TYPE_COMMENTS);
     }
 
@@ -69,7 +70,7 @@ class Scoring
      */
     public static function commentRemoved($comment)
     {
-
+        ScoreInputNewComment::getInstance()->remove($comment->author_id, $comment->id);
     }
 
     /**
@@ -79,6 +80,7 @@ class Scoring
      */
     public static function photoCreated($photo)
     {
+        ScoreInputNewPhoto::getInstance()->add($photo->author_id, $photo->id);
         ScoreAchievement::model()->checkAchieve($photo->author_id, ScoreAchievement::TYPE_PHOTO);
     }
 
@@ -89,7 +91,7 @@ class Scoring
      */
     public static function photoRemoved($photo)
     {
-
+        ScoreInputNewPhoto::getInstance()->remove($photo->author_id, $photo->id);
     }
 
     /**
@@ -108,6 +110,8 @@ class Scoring
      */
     public static function friendAdded($user1_id, $user2_id)
     {
+        ScoreInputNewFriend::getInstance()->add($user1_id, $user2_id);
+
         ScoreAchievement::model()->checkAchieve($user1_id, ScoreAchievement::TYPE_FRIENDS);
         ScoreAchievement::model()->checkAchieve($user2_id, ScoreAchievement::TYPE_FRIENDS);
     }
@@ -120,6 +124,6 @@ class Scoring
      */
     public static function friendRemoved($user1_id, $user2_id)
     {
-
+        ScoreInputNewFriend::getInstance()->remove($user1_id, $user2_id);
     }
 }

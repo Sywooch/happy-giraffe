@@ -50,4 +50,13 @@ class ScoreInputNewVideo extends ScoreInputEntity
     public function remove($user_id, $entity){
         parent::remove($user_id, $entity);
     }
+
+    /**
+     * Возвращает класс для иконки
+     * @return string
+     */
+    public function getIcon()
+    {
+        return 'career-achievement-ico__video';
+    }
 }

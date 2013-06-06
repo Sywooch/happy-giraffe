@@ -55,7 +55,7 @@
             </div>
 
             <div class="col-3">
-                <div class="margin-t145">
+                <div class="margin-t145" id="AdfoxAjax">
                     <!--AdFox START-->
                     <!--giraffe-->
                     <!--Площадка: Весёлый Жираф / * / *-->

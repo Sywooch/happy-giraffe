@@ -12,6 +12,10 @@
 			color: #000;
 			text-align: center;
 		}
+		&_t__big {
+			font-size: 31px;
+			margin-left: 5px;
+		}
 		&_sub-t {
 			display: block;
 			margin: 5px 10px 0;
@@ -55,6 +59,19 @@
 .menu-list {
 	&__favorites &_i {padding-left: 15px;}
 	&__favorites &_count {float: right;}
+	&__blue &_i {
+		background: #e0f2ff;
+		color: #9e9d9e;
+	}
+	&__blue &_i:hover {
+		background: #d1e9fb;
+		color: #575658;
+	}
+	&__blue &_i.active {
+		background: #6cc1ed;
+		color: #444344;
+		font-weight: normal;
+	}
 
 	&_i {
 		display: block;
@@ -117,6 +134,14 @@
 	&_i__cook.active {background: #f6d44a;}
 	&_i__cook &_ico {background-position: -100px 0;}
 	&_i__cook.active &_ico {background-position: -100px -20px;}
+	&_i__activity &_ico {background-position: -140px 0;}
+	&_i__progress &_ico {background-position: -160px 0;}
+	&_i__booty &_ico {background-position: -180px 0;}
+	&_i__career &_ico {
+		width: 25px;
+		margin: 0 7px 0 -2px;
+		background-position: -200px 0;
+	}
 
 	&_count {
 		color: #594c62;

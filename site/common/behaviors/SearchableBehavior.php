@@ -33,7 +33,7 @@ class SearchableBehavior extends CActiveRecordBehavior
             case 'video':
                 return array(
                     'title' => $this->owner->title,
-                    'text' => $this->owner->content->text,
+                    'text' => strip_tags($this->owner->content->text),
                     'timestamp' => strtotime($this->owner->created),
                 );
             case 'photo':

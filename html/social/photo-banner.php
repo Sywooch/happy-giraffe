@@ -22,12 +22,8 @@
         
     <div class="content-cols clearfix">
     
-		<div class="col-1">
-			<div class="margin-t100">
-				<a href=""><img src="/images/contest/banner-w240-10.jpg" alt=""></a>
-			</div>
-		</div>
-	  <div class="col-23">
+		
+	  <div class="col-12">
 	  	<div class="photo-inline_top"> 
 	  	 
 		    <div class="meta">
@@ -89,19 +85,16 @@
 	          </div>
 	        </div>
 		</div>
+		<div class="col-3">
+			<div class="margin-t100">
+				<a href=""><img src="/images/contest/banner-w240-10.jpg" alt=""></a>
+			</div>
+		</div>
 	</div>
 	</div>	
-        	<div class="content-cols clearfix">
-        		<div class="col-1">
-        			<div class="margin-t95">
-        				<a href=""><img src="/images/banner_09.png" alt=""></a>
-        			</div>
-        		</div>
-        		<div class="col-23">
-        		
+  
 					<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/comment.php'; ?>
-        		</div>
-        	</div>
+        		
 		</div>  	
 		
     <div class="push"></div>

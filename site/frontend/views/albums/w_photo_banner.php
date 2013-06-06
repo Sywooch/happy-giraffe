@@ -1,4 +1,4 @@
-<div id="photo-window-in">
+<div id="photo-window-in" class="photo-window-banner">
 
     <div class="photo-bg" >
 

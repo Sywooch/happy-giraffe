@@ -8,7 +8,9 @@ function FavouritesViewModel(data) {
     self.menu = ko.observableArray(ko.utils.arrayMap(data.menu, function(menuRow) {
         return new MenuRow(menuRow, self);
     }));
-    self.activeMenuRowIndex = ko.observable(data.entity === null ? null : self.menu.indexOf(self.getMenuRowByEntity(data.entity)));
+    self.activeMenuRowIndex = ko.observable(data.entity === null ? null : self.menu.indexOf(ko.utils.arrayFirst(this.menu(), function(menuRow) {
+        return menuRow.entity == data.entity;
+    })));
     self.tagId = ko.observable(data.tagId);
     self.keyword = ko.observable(null);
     self.instantaneousQuery = ko.observable('');
@@ -114,12 +116,6 @@ function FavouritesViewModel(data) {
 
             self.favourites.push.apply(self.favourites, newItems);
         }, self.favourites().length);
-    }
-
-    self.getMenuRowByEntity = function(entity) {
-        return ko.utils.arrayFirst(this.menu(), function(menuRow) {
-            return menuRow.entity == entity;
-        });
     }
 
     if (data.query !== null)

@@ -253,12 +253,14 @@
 										<div class="comments">
 	            							<a class="icon" href="#"></a>
 	                                        <a class="ava small male" href="">
+	                                        <span class="icon-status status-online"></span>
 	                                        	<img alt="" src="http://img.happy-giraffe.ru/avatars/16534/small/70b73fea2a74470ae721ebae1848f86b.jpg">
 	                                        </a>
 	                                        <a class="ava small female" href="">
 	                                        	<img alt="" src="http://img.happy-giraffe.ru/avatars/15994/small/80c4ed185b865c375741adba8ca4367f.jpg">
 	                                        </a>
 	                                        <a class="ava small female" href="">
+	                                        <span class="icon-status status-online"></span>
 	                                        	<img alt="" src="http://img.happy-giraffe.ru/avatars/15545/small/63f3660625c513462a0ba3670dd1d031.jpg">
 	                                        </a>
 	                                        <a href="/user/10/blog/post79169/#comment_list">и еще 9</a>

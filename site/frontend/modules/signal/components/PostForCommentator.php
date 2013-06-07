@@ -18,6 +18,7 @@ class PostForCommentator
     protected $nextGroup = 'UserPosts';
     protected $comments_limit = 15;
     protected $error = '';
+    protected $check_ignore_users = true;
     /**
      * @var CommentatorWork
      */
@@ -83,14 +84,14 @@ class PostForCommentator
             $posts = CActiveRecord::model($entity)->resetScope()->findAll($criteria);
             $this->log(count($posts).' - количество найденных постов');
 
-            //shuffle($posts); #TODO включить после отладки
+            shuffle($posts);
             foreach ($posts as $post) {
                 //комментатор пропускал этот пост
                 if ($this->commentator->IsSkipped($entity, $post->id))
                     continue;
 
                 //check ignore users
-                if (!empty($this->commentator->ignoreUsers) && in_array($post->author_id, $this->commentator->ignoreUsers))
+                if ($this->check_ignore_users && !empty($this->commentator->ignoreUsers) && in_array($post->author_id, $this->commentator->ignoreUsers))
                     continue;
 
                 //Комментатор еще не комментировал этот пост

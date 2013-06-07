@@ -1,11 +1,13 @@
 <?php
 /**
- * Author: alexk984
- * Date: 13.03.12
+ * Class ScoresCommand
+ *
+ * Модуль "баллы"
+ *
+ * @author Alex Kireev <alexk984@gmail.com>
  */
 class ScoresCommand extends CConsoleCommand
 {
-
     public function beforeAction()
     {
         Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
@@ -150,36 +152,12 @@ class ScoresCommand extends CConsoleCommand
         }
     }
 
-    public function actionEndContest($contest, $show = 1)
+    public function actionContest()
     {
         Yii::import('site.frontend.modules.contest.models.*');
-
-        if (!Contest::model()->exists($contest)) {
-            echo 'contest not exist';
-            return;
-        }
-
-        $criteria = new CDbCriteria;
-        $criteria->compare('contest_id', $contest);
-        $criteria->order = 'rate desc';
-        $criteria->limit = 5;
-        $works = ContestWork::model()->findAll($criteria);
-
-        if (!$show)
-            ScoreInput::model()->add($works[0]->user_id, ScoreInput::TYPE_CONTEST_WIN, array('id' => $contest));
-        echo '1: ' . $works[0]->user_id . "\n";
-        if (!$show)
-            ScoreInput::model()->add($works[1]->user_id, ScoreInput::TYPE_CONTEST_2_PLACE, array('id' => $contest));
-        echo '2: ' . $works[1]->user_id . "\n";
-        if (!$show)
-            ScoreInput::model()->add($works[2]->user_id, ScoreInput::TYPE_CONTEST_3_PLACE, array('id' => $contest));
-        echo '3: ' . $works[2]->user_id . "\n";
-        if (!$show)
-            ScoreInput::model()->add($works[3]->user_id, ScoreInput::TYPE_CONTEST_4_PLACE, array('id' => $contest));
-        echo '4: ' . $works[3]->user_id . "\n";
-        if (!$show)
-            ScoreInput::model()->add($works[4]->user_id, ScoreInput::TYPE_CONTEST_5_PLACE, array('id' => $contest));
-        echo '5: ' . $works[4]->user_id . "\n";
+        ScoreInputContestPrize::getInstance()->checkLastContest();
+        for ($i = 1; $i < 10; $i++)
+            ScoreInputContestPrize::getInstance()->checkContest($i);
     }
 
     public function actionTest()

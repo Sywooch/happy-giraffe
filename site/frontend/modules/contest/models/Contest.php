@@ -13,8 +13,8 @@
  * @property integer $status
  *
  * The followings are the available model relations:
- * @property ContestPrizes[] $contestPrizes
- * @property ContestWorks[] $contestWorks
+ * @property ContestPrize[] $contestPrizes
+ * @property ContestWork[] $contestWorks
  */
 class Contest extends HActiveRecord
 {

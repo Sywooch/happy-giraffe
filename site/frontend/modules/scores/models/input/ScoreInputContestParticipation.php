@@ -40,7 +40,7 @@ class ScoreInputContestParticipation extends ScoreInput
     public function add($user_id, $contest_id)
     {
         $this->user_id = $user_id;
-        $this->insert(array('contest_id' => $contest_id));
+        $this->insert(array('contest_id' => (int)$contest_id));
     }
 
     /**

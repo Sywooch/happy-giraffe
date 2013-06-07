@@ -12,6 +12,9 @@ class ScoreInputContestPrize extends ScoreInput
      * @var ScoreInputContestPrize
      */
     private static $_instance;
+    /**
+     * @var int id конкурса
+     */
     public $contest_id;
 
     /**
@@ -30,33 +33,82 @@ class ScoreInputContestPrize extends ScoreInput
     }
 
     /**
+     * Начисление баллов за победу/место в последнем конкурсе
+     */
+    public function checkLastContest()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->order = 'id desc';
+        $last_contest = Contest::model()->find($criteria);
+
+        $this->checkContest($last_contest->id);
+    }
+
+    /**
+     * Начисление баллов за победу/место в конкурсе
+     *
+     * @param int $contest_id
+     */
+    public function checkContest($contest_id)
+    {
+        $winners = ContestWinner::model()->with('work')->findAll('contest_id=' . $contest_id);
+        foreach ($winners as $winner)
+            $this->checkPrize($winner);
+    }
+
+    /**
+     * @param ContestWinner $winner
+     */
+    public function checkPrize($winner)
+    {
+        $model = $this->getCollection()->findOne(array(
+            'type' => $this->getTypeByPlace($winner->place),
+            'user_id' => (int)$winner->work->user_id,
+            'contest_id' => (int)$winner->work->contest_id,
+        ));
+        if (empty($model))
+            $this->add($winner);
+    }
+
+    /**
      * Добавление баллов
      *
-     * @param $user_id int id пользователя
-     * @param $contest_id int id конкурса
-     * @param $place int место
+     * @param $winner ContestWinner приз
      */
-    public function add($user_id, $contest_id, $place)
+    public function add($winner)
     {
-        $this->user_id = $user_id;
+        $this->user_id = $winner->work->user_id;
+        $this->type = $this->getTypeByPlace($winner->place);
+
+        $this->insert(array('contest_id' => (int)$winner->work->contest_id));
+    }
+
+    /**
+     * Возвращает тип уведомления для места в конкурсе
+     *
+     * @param int $place место в конкурсе
+     * @return int тип уведомления
+     */
+    private function getTypeByPlace($place)
+    {
         switch ($place) {
             case 1:
-                $this->type = self::TYPE_CONTEST_WIN;
+                $type = self::TYPE_CONTEST_WIN;
                 break;
             case 2:
-                $this->type = self::TYPE_CONTEST_2_PLACE;
+                $type = self::TYPE_CONTEST_2_PLACE;
                 break;
             case 3:
-                $this->type = self::TYPE_CONTEST_3_PLACE;
+                $type = self::TYPE_CONTEST_3_PLACE;
                 break;
             case 4:
-                $this->type = self::TYPE_CONTEST_4_PLACE;
+                $type = self::TYPE_CONTEST_4_PLACE;
                 break;
             default:
-                $this->type = self::TYPE_CONTEST_5_PLACE;
+                $type = self::TYPE_CONTEST_5_PLACE;
         }
 
-        $this->insert(array('contest_id' => $contest_id));
+        return $type;
     }
 
     /**

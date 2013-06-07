@@ -7,6 +7,7 @@
 class FavouritesPosts extends PostForCommentator
 {
     protected $nextGroup = 'UserPosts';
+    protected $check_ignore_users = false;
 
     /**
      * @return CDbCriteria

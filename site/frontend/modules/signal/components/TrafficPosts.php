@@ -9,6 +9,7 @@ class TrafficPosts extends PostForCommentator
 {
     protected $nextGroup = 'CoWorkersPosts';
     protected $comments_limit = 10;
+    protected $check_ignore_users = false;
 
     /**
      * @return CDbCriteria

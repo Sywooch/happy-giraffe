@@ -407,4 +407,11 @@ class SiteController extends HController
 
         $this->render('moder_rules');
     }
+
+    public function actionTest()
+    {
+        $galleries = CommunityContentGallery::model()->with('content')->findAll(array('condition' => 'content.removed = 0'));
+        foreach ($galleries as $g)
+            echo CHtml::link($g->content->title, $g->content->url) . '<br />';
+    }
 }

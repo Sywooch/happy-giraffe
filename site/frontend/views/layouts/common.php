@@ -58,14 +58,14 @@
     if (!empty($this->meta_keywords))
         $cs->registerMetaTag(trim($this->meta_keywords), 'keywords');
 
+    $this->widget('FavouriteWidget', array('registerScripts' => true));
+
     if (! Yii::app()->user->isGuest) {
         $cs
             ->registerPackage('comet')
             ->registerScript('Realplexor-reg', 'comet.connect(\'http://' . Yii::app()->comet->host . '\', \'' . Yii::app()->comet->namespace . '\', \'' . UserCache::GetCurrentUserCache() . '\');')
             ->registerPackage('user')
         ;
-
-        $this->widget('FavouriteWidget', array('registerScripts' => true));
 
         $interlocutor_id = Yii::app()->request->getQuery('im_interlocutor_id', 'null');
         $type = Yii::app()->request->getQuery('im_type', 'null');

@@ -2,12 +2,12 @@
 /**
  * @var $model ScoreInputAward
  */
+$description = $model->getDescription();
 ?><div class="career-achievement_left">
     <div class="career-achievement_gray">
-        Новый трофей <br>
-        Вы добавили комментарии
+        <?=$description[0] ?>
     </div>
-    <div class="career-achievement_congratulation-slogan">Ждем от вас новых!</div>
+    <div class="career-achievement_congratulation-slogan"><?=$description[1] ?></div>
 </div>
 <div class="career-achievement_center">
     <?=$model->getImage() ?>

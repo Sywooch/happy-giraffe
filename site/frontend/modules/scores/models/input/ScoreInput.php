@@ -221,6 +221,7 @@ class ScoreInput extends HMongoModel
     {
         $cursor = $this->getCollection()->find(array_merge(array(
             'user_id' => (int)$user_id,
+            'closed' => true,
         ), $this->getSelectCondition($select)))
             ->sort(array('updated' => -1))
             ->limit(self::PAGE_SIZE)
@@ -323,5 +324,39 @@ class ScoreInput extends HMongoModel
     public function descriptionClass()
     {
         return 'career-achievement__bluelight';
+    }
+
+    /**
+     * Отметить все сообщения как прочитанные
+     */
+    public function readAll($user_id)
+    {
+        $this->getCollection()->update(
+            array(
+                "user_id" => (int)$user_id,
+                'read' => 0,
+                'closed' => true
+            ),
+            array('$set' => array("read" => 1)),
+            array('multiple' => true)
+        );
+
+        Yii::app()->db->createCommand()->update(
+            UserScores::model()->tableName(),
+            array('seen_scores' => new CDbExpression('scores')),
+            'user_id=' . $user_id);
+    }
+
+    /**
+     * Закрываем массовые уведомления
+     */
+    public function CheckClose()
+    {
+        do {
+            $model = $this->getCollection()->findOne(array(
+                'closed' => false,
+                'created' => array('$lt' => (time() - 3 * 3600)),
+            ));
+        } while (!empty($model));
     }
 }

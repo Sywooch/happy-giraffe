@@ -23,13 +23,13 @@ class ScoresCommand extends CConsoleCommand
 
     /**
      * Нужно для объдинения в группы оповещений о набранных баллах. Просматриваем все открытые записи о начислении
-     * баллов и если время закрывать, то закрываем. После закрытия оно отобразиться в статистике
+     * баллов и если время закрывать, то закрываем. После закрытия оно отобразиться у пользователя
      *
-     * Раз в 5 минут
+     * Раз в час
      */
     public function actionIndex()
     {
-        ScoreInput::CheckOnClose();
+        ScoreInput::CheckClose();
     }
 
     public function actionEndWeek()
@@ -162,8 +162,11 @@ class ScoresCommand extends CConsoleCommand
 
     public function actionTest()
     {
-        for ($i = 0; $i < 10000; $i++)
-            UserPostView::getInstance()->checkView(10, rand(1, 100000));
+        for ($i = 1; $i < 37; $i++) {
+            $a = ScoreAchievement::model()->findByPk($i);
+            if ($a !== null)
+                ScoreInputAchievement::getInstance()->add(10, $a);
+        }
     }
 }
 

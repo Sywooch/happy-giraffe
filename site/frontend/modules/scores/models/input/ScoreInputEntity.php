@@ -45,7 +45,7 @@ abstract class ScoreInputEntity extends ScoreInput
     {
         $model = CActiveRecord::model($this->entity)->model()->findByPk($this->entity_id);
         if ($model && isset($model->title))
-            return CHtml::link($model->title, $model->getUrl());
+            return CHtml::link(Str::truncate($model->title, 90), $model->getUrl());
 
         return '';
     }

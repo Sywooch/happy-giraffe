@@ -4,6 +4,7 @@ class DefaultController extends HController
 {
     public $layout = '//layouts/main';
 
+
     public function filters()
     {
         return array(
@@ -27,10 +28,11 @@ class DefaultController extends HController
     public function actionIndex()
     {
         $this->pageTitle = 'Мои баллы';
-        Yii::import('site.frontend.modules.cook.models.*');
 
         $num = Yii::app()->request->getPost('num', 0);
         $page = Yii::app()->request->getPost('page', 0);
+
+        ScoreInput::getInstance()->readAll(Yii::app()->user->id);
 
         $list = ScoreInput::getInstance()->getList(Yii::app()->user->id, $num, $page);
         $score = Yii::app()->user->getModel()->score;
@@ -40,5 +42,4 @@ class DefaultController extends HController
         else
             $this->render('index', compact('list', 'score'));
     }
-
 }

@@ -70,13 +70,24 @@ class ScoreInputAchievement extends ScoreInput
     }
 
     /**
+     * Возращает описание уведомления
+     * @return string
+     */
+    public function getDescription()
+    {
+        $texts = explode("\n", $this->getAchievement()->description);
+        if (count($texts) < 2)
+            return array('','');
+        return $texts;
+    }
+
+    /**
      * @return ScoreAchievement
      */
     public function getAchievement()
     {
-        if ($this->_achievement === null) {
+        if ($this->_achievement === null)
             $this->_achievement = ScoreAchievement::model()->findByPk($this->achievement_id);
-        }
 
         return $this->_achievement;
     }

@@ -9,7 +9,14 @@
 class ScoreInputAward extends ScoreInput
 {
     public $type = self::TYPE_AWARD;
+    /**
+     * @var int
+     */
     public $award_id;
+    /**
+     * @var ScoreAward
+     */
+    private $_award;
 
     /**
      * @var ScoreInputAward
@@ -42,7 +49,25 @@ class ScoreInputAward extends ScoreInput
         $this->user_id = $user_id;
         $this->scores = $user_award->award->scores;
 
-        parent::insert(array('user_award_id' => $user_award->id));
+        parent::insert(array('award_id' => $user_award->award_id));
+    }
+
+    /**
+     * Возращает название уведомления
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->getAward()->title;
+    }
+
+    /**
+     * Возращает описание уведомления
+     * @return string
+     */
+    public function getDescription()
+    {
+        return explode("\n", $this->getAward()->description);
     }
 
     /**
@@ -57,5 +82,18 @@ class ScoreInputAward extends ScoreInput
     public function descriptionClass()
     {
         return 'career-achievement__sand';
+    }
+
+    /**
+     * Возвращает модель награды
+     *
+     * @return ScoreAward
+     */
+    public function getAward()
+    {
+        if ($this->_award === null)
+            $this->_award = ScoreAward::model()->findByPk($this->award_id);
+
+        return $this->_award;
     }
 }

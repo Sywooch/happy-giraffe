@@ -4,7 +4,6 @@
  * This is the model class for table "score__users_awards".
  *
  * The followings are the available columns in table 'score__users_awards':
- * @property string $id
  * @property string $user_id
  * @property string $award_id
  * @property string $entity
@@ -48,7 +47,7 @@ class ScoreUserAward extends HActiveRecord
 			array('created', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, user_id, award_id, created', 'safe', 'on'=>'search'),
+			array('user_id, award_id, created', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -71,7 +70,6 @@ class ScoreUserAward extends HActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
 			'user_id' => 'User',
 			'award_id' => 'Award',
 			'created' => 'Created',
@@ -89,7 +87,6 @@ class ScoreUserAward extends HActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('id',$this->id,true);
 		$criteria->compare('user_id',$this->user_id,true);
 		$criteria->compare('award_id',$this->award_id,true);
 		$criteria->compare('created',$this->created,true);

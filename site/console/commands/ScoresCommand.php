@@ -32,6 +32,91 @@ class ScoresCommand extends CConsoleCommand
         ScoreInput::getInstance()->CheckClose();
     }
 
+    public function actionAdd()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->limit = 100;
+        $criteria->offset = 0;
+
+        $i = 0;
+        $models = array(0);
+        while (!empty($models)) {
+            $models = User::model()->findAll($criteria);
+            foreach ($models as $model) {
+                $comments = Yii::app()->db->createCommand()
+                    ->select('id')
+                    ->from('comments')
+                    ->where('author_id='.$model->id.' and removed=0')
+                    ->queryColumn();
+
+                foreach($comments as $key=>$comment)
+                    $comments[$key]=(int)$comment;
+
+                if (count($comments) > 0)
+                    ScoreInputNewComment::getInstance()->addMassive($model->id, $comments);
+
+
+
+                $comments = Yii::app()->db->createCommand()
+                    ->select('id')
+                    ->from('album__photos')
+                    ->where('author_id='.$model->id.' and removed=0')
+                    ->queryColumn();
+
+                foreach($comments as $key=>$comment)
+                    $comments[$key]=(int)$comment;
+
+                if (count($comments) > 0)
+                    ScoreInputNewPhoto::getInstance()->addMassive($model->id, $comments);
+
+
+
+                $comments = Yii::app()->db->createCommand()
+                    ->select('friend_id')
+                    ->from('friends')
+                    ->where('user_id='.$model->id)
+                    ->queryColumn();
+
+                foreach($comments as $key=>$comment)
+                    $comments[$key]=(int)$comment;
+
+                if (count($comments) > 0)
+                    ScoreInputNewFriend::getInstance()->addMassive($model->id, $comments);
+
+
+
+                $comments = Yii::app()->db->createCommand()
+                    ->select('id')
+                    ->from('community__contents')
+                    ->where('author_id='.$model->id.' and type_id=2')
+                    ->queryColumn();
+
+                foreach($comments as $key=>$comment)
+                    $comments[$key]=(int)$comment;
+
+                if (count($comments) > 0)
+                    ScoreInputNewPost::getInstance()->addMassive($model->id, $comments);
+
+
+
+                $comments = Yii::app()->db->createCommand()
+                    ->select('id')
+                    ->from('community__contents')
+                    ->where('author_id='.$model->id.' and type_id=1')
+                    ->queryColumn();
+
+                foreach($comments as $key=>$comment)
+                    $comments[$key]=(int)$comment;
+
+                if (count($comments) > 0)
+                    ScoreInputNewVideo::getInstance()->addMassive($model->id, $comments);
+            }
+
+            $i++;
+            $criteria->offset = $i * 100;
+        }
+    }
+
     public function actionEndWeek()
     {
         Yii::import('site.console.components.awards.*');
@@ -156,8 +241,6 @@ class ScoresCommand extends CConsoleCommand
     {
         Yii::import('site.frontend.modules.contest.models.*');
         ScoreInputContestPrize::getInstance()->checkLastContest();
-        for ($i = 1; $i < 10; $i++)
-            ScoreInputContestPrize::getInstance()->checkContest($i);
     }
 
     public function actionTest()

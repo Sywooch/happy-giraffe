@@ -67,4 +67,26 @@ abstract class ScoreInputMassive extends ScoreInput
             'ids' => (int)$id,
         ));
     }
+
+    /**
+     * Массовое добавление прошлой активности
+     * @param int $user_id
+     * @param int[] $ids
+     */
+    public function addMassive($user_id, $ids)
+    {
+        $this->user_id = (int)$user_id;
+        $this->scores = ScoreAction::getActionScores($this->type)*count($ids);
+        $this->getCollection()->insert(array(
+            'type' => $this->type,
+            'user_id' => (int)$this->user_id,
+            'scores' => (int)$this->scores,
+            'updated' => time(),
+            'read' => 0,
+            'created' => time(),
+            'closed' => true,
+            'ids' => $ids
+        ));
+        $this->addScores();
+    }
 }

@@ -178,12 +178,13 @@ class ScoreInput extends HMongoModel
     /**
      * Возвращает количество баллов за действия
      *
+     * @param int $count кол=во прибавлений
      * @return int
      */
-    protected function getScores()
+    protected function getScores($count = 1)
     {
         if (empty($this->scores))
-            return (int)ScoreAction::getActionScores($this->type);
+            $this->scores = $count * ScoreAction::getActionScores($this->type);
         return (int)$this->scores;
     }
 
@@ -312,21 +313,6 @@ class ScoreInput extends HMongoModel
     }
 
     /**
-     * Возращает название уведомления
-     * @return string
-     */
-    public function getTitle()
-    {
-        $action = ScoreAction::getActionInfo($this->type);
-        return $action['title'];
-    }
-
-    public function descriptionClass()
-    {
-        return 'career-achievement__bluelight';
-    }
-
-    /**
      * Отметить все сообщения как прочитанные
      */
     public function readAll($user_id)
@@ -363,6 +349,7 @@ class ScoreInput extends HMongoModel
     }
 
     /**
+     * Закрыть уведомление
      * @param array $model
      */
     private function close($model)
@@ -378,5 +365,20 @@ class ScoreInput extends HMongoModel
             array('scores' => new CDbExpression('scores+ :scores', array(':scores' => $model['scores']))),
             'user_id=:user_id', array(':user_id' => $model['user_id'])
         );
+    }
+
+    /**
+     * Возращает название уведомления
+     * @return string
+     */
+    public function getTitle()
+    {
+        $action = ScoreAction::getActionInfo($this->type);
+        return $action['title'];
+    }
+
+    public function descriptionClass()
+    {
+        return 'career-achievement__bluelight';
     }
 }

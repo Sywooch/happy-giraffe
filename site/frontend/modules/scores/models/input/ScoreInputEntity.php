@@ -10,6 +10,7 @@ abstract class ScoreInputEntity extends ScoreInput
 {
     public $entity;
     public $entity_id;
+    public $ids;
 
     /**
      * Добавление баллов

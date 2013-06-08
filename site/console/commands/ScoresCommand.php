@@ -29,7 +29,7 @@ class ScoresCommand extends CConsoleCommand
      */
     public function actionIndex()
     {
-        ScoreInput::CheckClose();
+        ScoreInput::getInstance()->CheckClose();
     }
 
     public function actionEndWeek()

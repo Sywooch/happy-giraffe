@@ -357,6 +357,26 @@ class ScoreInput extends HMongoModel
                 'closed' => false,
                 'created' => array('$lt' => (time() - 3 * 3600)),
             ));
+            if (!empty($model))
+                $this->close($model);
         } while (!empty($model));
+    }
+
+    /**
+     * @param array $model
+     */
+    private function close($model)
+    {
+        $this->getCollection()->update(
+            array('_id' => $model['_id']),
+            array(
+                '$set' => array('closed' => true)
+            )
+        );
+
+        Yii::app()->db->createCommand()->update(UserScores::model()->tableName(),
+            array('scores' => new CDbExpression('scores+ :scores', array(':scores' => $model['scores']))),
+            'user_id=:user_id', array(':user_id' => $model['user_id'])
+        );
     }
 }

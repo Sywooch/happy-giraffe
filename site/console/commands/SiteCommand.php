@@ -249,22 +249,20 @@ class SiteCommand extends CConsoleCommand
 
     public function actionStats(){
         $result = 0;
-
-        $criteria = new CDbCriteria;
-        $criteria->select = ('t.id, t.first_name, t.last_name, (select count(*) from comments where
-        comments.author_id = t.id AND created >= "'.date("Y-m-d H:i:s", strtotime('-2 month')).'") as count');
-        $criteria->condition = '`group` = 0 and deleted = 0';
-        //$criteria->with = array('commentsCount');
-        $criteria->order = 'count desc';
-        $criteria->limit = 100;
-        $criteria->offset = 0;
-
-        $models = User::model()->findAll($criteria);
+        $res = Yii::app()->db->createCommand()
+            ->select('author_id, count(id) as cnt')
+            ->from('comments')
+            ->where('created >= "'.date("Y-m-d H:i:s", strtotime('-2 month')).'"')
+            ->group('author_id')
+            ->order('cnt desc')
+            ->limit(100)
+            ->queryAll();
 
         $str = '';
-        foreach ($models as $model) {
-            $str.= $model->fullName. ' - http://www.happy-giraffe.ru/user/'.$model->id.'/'."\n";
-            $result++;
+        foreach ($res as $row) {
+            $model = User::model()->findByPk($row['author_id']);
+            if ($model->group == 0 && $model->deleted == 0)
+                $str.= $model->fullName. ' - http://www.happy-giraffe.ru/user/'.$model->id.'/'."\n";
         }
 
         file_put_contents('/home/beryllium/users.txt', $str);

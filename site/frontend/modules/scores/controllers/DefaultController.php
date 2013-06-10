@@ -27,18 +27,13 @@ class DefaultController extends HController
 
     public function actionIndex()
     {
-        $this->pageTitle = 'Мои баллы';
-
+        $this->pageTitle = 'Мои успехи';
         $num = Yii::app()->request->getPost('num', 0);
         $page = Yii::app()->request->getPost('page', 0);
 
-
-        $t = microtime(true);
         ScoreInput::getInstance()->readAll(Yii::app()->user->id);
-
         $list = ScoreInput::getInstance()->getList(Yii::app()->user->id, $num, $page);
         $score = Yii::app()->user->getModel()->score;
-        echo microtime(true) - $t . "\n";
 
         if (Yii::app()->request->isAjaxRequest)
             $this->renderPartial('list', compact('list', 'score'));

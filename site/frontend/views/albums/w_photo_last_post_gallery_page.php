@@ -42,7 +42,7 @@ $more = $content->OtherCommunityGalleries(2);
             <li class="more-albums-photopost_li">
                 <div class="more-albums-photopost_hold">
                     <a href="<?= $post->getUrl() ?>?open_gallery=1" class="more-albums-photopost_img">
-                        <img alt="" src="<?= $post->getContentImage(440, 340, Image::WIDTH, true); ?>">
+                        <img alt="" src="<?= $post->getContentImage(440, 340, Image::INVERT, true); ?>">
                                             <span class="more-albums-photopost_img-title">
                                                 <span class="more-albums-photopost_img-title-tx"><?=$post->title?></span>
                                             </span>

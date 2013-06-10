@@ -248,11 +248,10 @@ class SiteCommand extends CConsoleCommand
     }
 
     public function actionStats(){
-        $result = 0;
         $res = Yii::app()->db->createCommand()
             ->select('author_id, count(id) as cnt')
             ->from('comments')
-            ->where('created >= "'.date("Y-m-d H:i:s", strtotime('-2 month')).'"')
+            ->where('created >= "'.date("Y-m-d H:i:s", strtotime('-2 month')).'" and removed = 0')
             ->group('author_id')
             ->order('cnt desc')
             ->limit(100)
@@ -260,6 +259,7 @@ class SiteCommand extends CConsoleCommand
 
         $str = '';
         foreach ($res as $row) {
+            echo $row['cnt']."\n";
             $model = User::model()->findByPk($row['author_id']);
             if ($model->group == 0 && $model->deleted == 0)
                 $str.= $model->fullName. ' - http://www.happy-giraffe.ru/user/'.$model->id.'/'."\n";

@@ -537,7 +537,7 @@
 			
 				<a href="javascript:void(0);" class="close" onclick="closePhoto();"></a>
 					
-				 <div class="clearfix">
+				 <div class="photo-window-lastpage clearfix">
 			
 					<div class="album-end">
 						

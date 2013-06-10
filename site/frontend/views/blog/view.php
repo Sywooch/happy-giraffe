@@ -49,3 +49,9 @@ $remove_tmpl = $this->beginWidget('site.frontend.widgets.removeWidget.RemoveWidg
 $remove_tmpl->registerTemplates();
 $this->endWidget();
 ?>
+
+
+
+
+
+

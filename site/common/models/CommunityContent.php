@@ -536,13 +536,13 @@ class CommunityContent extends HActiveRecord
         return '';
     }
 
-    public function getContentImage($width = 700, $height = null, $master = Image::WIDTH, $crop = false)
+    public function getContentImage($width = 700, $height = null, $master = Image::WIDTH, $crop = false, $crop_side = AlbumPhoto::CROP_SIDE_CENTER)
     {
         if (!isset($this->content))
             return '';
 
         $photo = $this->content->getPhoto();
-        return $photo ? $photo->getPreviewUrl($width, $height, $master, $crop) : false;
+        return $photo ? $photo->getPreviewUrl($width, $height, $master, $crop, $crop_side) : false;
     }
 
     public function getPhoto()

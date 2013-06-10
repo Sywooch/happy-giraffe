@@ -247,58 +247,27 @@ class SiteCommand extends CConsoleCommand
         echo 'Total: ' . array_sum($res);
     }
 
-    public function actionTest()
-    {
-        Yii::import('site.frontend.modules.notification.models.base.*');
-        Yii::import('site.frontend.modules.notification.models.*');
-        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
+    public function actionStats(){
+        $result = 0;
 
-        for ($i=1;$i< 1000 ;$i++ ) {
-            $comments = Comment::model()->findAll(new CDbCriteria(array('limit' => 100)));
-            $t1 = microtime(true);
-            //Notification::model()->getUnreadCount(10);
+        $criteria = new CDbCriteria;
+        $criteria->condition = '`group` = 0 and deleted = 0 and last_active > :date';
+        $criteria->params = array(':date'=> date("Y-m-d H:i:s", strtotime('-2 month')));
+        $criteria->limit = 100;
+        $criteria->offset = 0;
 
-            foreach ($comments as $comment)
-                NotificationNewComment::model()->create(rand(1, 1000), $comment);
+        $models = array(0);
+        $str = '';
+        while (!empty($models)) {
+            $models = User::model()->findAll($criteria);
 
-            echo microtime(true) - $t1 . "\n";
-        }
-    }
-
-    public function actionTest2(){
-        Yii::import('site.frontend.modules.notification.models.base.*');
-        Yii::import('site.frontend.modules.notification.models.*');
-        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
-
-        $comment = Comment::model()->findByPk(279);
-        NotificationDiscussSubscription::model();
-        $t1 = microtime(true);
-//        Notification::model()->getNotificationsList(6085);
-        NotificationDiscussSubscription::model()->subscribeCommentAuthor($comment);
-//        NotificationNewComment::model()->read(8846, 'CommunityContent', 98);
-        echo microtime(true) - $t1;
-    }
-
-    public function actionCheckFull(){
-        Yii::import('site.frontend.modules.scores.models.*');
-        Yii::import('site.frontend.modules.geo.models.*');
-        Yii::import('site.common.models.interest.*');
-        for($i=49000;$i<200000;$i++){
-            $user = User::model()->with('score')->findByPk($i);
-            if ($user === null)
-                continue;
-            if ($user->score === null){
-                $scores = new UserScores();
-                $scores->user_id = $i;
-                $scores->save();
-                $user->score = $scores;
+            foreach ($models as $model) {
+                $str.= $model->fullName. ' - http://www.happy-giraffe.ru/user/'.$model->id.'/'."\n";
+                $result++;
             }
-            if ($user !== null && $user->score->full == 0){
-                $user->score->checkFull();
-            }
-
-            if ($i % 1000 == 0)
-                echo $i."\n";
+            $criteria->offset += 100;
         }
+
+        file_put_contents('/home/beryllium/users.txt', $str);
     }
 }

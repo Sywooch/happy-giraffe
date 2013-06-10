@@ -96,14 +96,14 @@ class MailCommand extends CConsoleCommand
 
     public function actionTestNewMessages()
     {
-        $user = User::getUserById(10);
+        $user = User::getUserById(12936);
         $unread = MessagingManager::unreadMessagesCount($user->id);
         echo 'unread: '.$unread."\n";
         if ($unread > 0) {
             $token = UserToken::model()->generate($user->id, 86400);
             $dialogs = ContactsManager::getContactsByUserId($user->id, ContactsManager::TYPE_NEW, 10);
 
-            Yii::app()->email->send(10, 'newMessages', compact('dialogs', 'unread', 'user', 'token'), $this);
+            Yii::app()->email->send(12936, 'newMessages', compact('dialogs', 'unread', 'user', 'token'), $this);
         }
     }
 

@@ -26,7 +26,7 @@ class RecipeController extends HController
     {
         return array(
             array('deny',
-                'actions' => array('form'),
+                'actions' => array('form', 'random'),
                 'users' => array('?'),
             ),
         );
@@ -75,7 +75,7 @@ class RecipeController extends HController
                 CookRecipe::model()->types[$type],
             );
 
-        if (isset($_GET['SimpleRecipe_page']))
+        if (isset($_GET['SimpleRecipe_page']) || isset($_GET['MultivarkaRecipe_page']) || $type != 0)
             Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
 
         $this->render('index', compact('dp', 'type'));
@@ -118,6 +118,7 @@ class RecipeController extends HController
                 CookRecipe::model()->types[$type],
             );
 
+        //Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
         $this->render('tag', compact('dp', 'model'));
     }
 
@@ -646,6 +647,17 @@ class RecipeController extends HController
             return $t1;
 
         return max($t1, $t2);
+    }
+
+    public function actionRandom()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->order = 'rand()';
+        $criteria->limit = 100;
+        $recipes = CookRecipe::model()->findAll($criteria);
+        foreach ($recipes as $recipe) {
+            echo $recipe->title . "<br>";
+        }
     }
 
     /**

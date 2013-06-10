@@ -16,12 +16,7 @@
 
     <div class="content-cols clearfix">
 
-        <div class="col-1">
-            <div class="margin-t100">
-                <?php $this->renderPartial('//banners/adfox'); ?>
-            </div>
-        </div>
-        <div class="col-23">
+        <div class="col-12">
             <div class="photo-inline_top">
 
                 <div class="meta">
@@ -98,6 +93,11 @@
                 <div class="photo-comment" itemprop="description"><?=$photo->w_description?></div>
                 <?php endif; ?>
 
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="margin-t100">
+                <?php $this->renderPartial('//banners/adfox'); ?>
             </div>
         </div>
     </div>

@@ -173,39 +173,31 @@ Yii::app()->clientScript->registerScriptFile('/javascripts/location.js');
                     </div>
                     <div class="row settlement"<?php if ($this->user->address->region !== null && $this->user->address->region->isCity()) echo ' style="display:none;"' ?>>
                         Населенный пункт:<br>
-                        <?php
-                        $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
-                            'id' => 'first_steps_city_name',
-                            'name' => 'city_name',
-                            'value' => ($this->user->address->city === null) ? '' : $this->user->address->city->name,
-                            'source' => "js: function(request, response){
-                            $.ajax({
-                                url: '" . Yii::app()->createUrl('/geo/default/cities') . "',
-                                dataType: 'json',
-                                data: {
-                                    term: request.term,
-                                    country_id: $('#first_steps_country_id').val(),
-                                    region_id: $('#first_steps_region_id').val()
-                                },
-                                success: function (data)
-                                {
-                                    response(data);
-                                }
-                            })
-                        }",
-                            'options' => array(
-                                'select' => "js:function (event, ui)
-                                {
-                                    $('#first_steps_city_id').val(ui.item.id);
-                                }
-                            ",
-                                'htmlOptions' => array(
-                                    'placeholder' => 'Выберите город',
-                                    'class'=>'w-3'
-                                )
-                            ),
-                        ));
-                        ?>
+                        <input id="first_steps_city_name" class="w-3" placeholder="Выберите город" name="city_name" value="<?=($this->user->address->city === null) ? '' : $this->user->address->city->name  ?>" type="text"/>
+                        <script type="text/javascript">
+                            $(function() {
+                                $('#first_steps_city_name').autocomplete({
+                                    select:function (event, ui){
+                                        $('#first_steps_city_id').val(ui.item.id);
+                                    },
+                                    source:function(request, response){
+                                        $.ajax({
+                                            url: '/geo/cities/',
+                                            dataType: 'json',
+                                            data: {
+                                                term: request.term,
+                                                country_id: $('#first_steps_country_id').val(),
+                                                region_id: $('#first_steps_region_id').val()
+                                            },
+                                            success: function (data)
+                                            {
+                                                response(data);
+                                            }
+                                        })
+                                    }
+                                });
+                            });
+                        </script>
                         <?php echo CHtml::hiddenField('first_steps_city_id', $this->user->address->city_id); ?>
                         <br>
                         <small>Введите свой город, поселок, село или деревню</small>

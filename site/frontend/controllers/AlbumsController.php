@@ -29,19 +29,19 @@ class AlbumsController extends HController
         $entity = Yii::app()->request->getQuery('entity');
         $entity_id = Yii::app()->request->getQuery('entity_id');
         if ($entity == 'Contest') {
-//            if (! Yii::app()->request->getQuery('go'))
-//                $filters[] = array(
-//                    'COutputCache + WPhoto',
-//                    'duration' => 600,
-//                    'varyByParam' => array('entity', 'entity_id', 'id', 'sort', 'go'),
-//                    'dependency' => new CDbCacheDependency(Yii::app()->db->createCommand()->select(new CDbExpression('MAX(created)'))->from('contest__works')->where("contest_id = $entity_id")->text),
-//                );
-//            $filters[] = array(
-//                'COutputCache + postLoad',
-//                'duration' => 600,
-//                'varyByParam' => array('entity', 'entity_id', 'photo_id'),
-//                'dependency' => new CDbCacheDependency(Yii::app()->db->createCommand()->select(new CDbExpression('MAX(created)'))->from('contest__works')->where("contest_id = $entity_id")->text),
-//            );
+            if (! Yii::app()->request->getQuery('go'))
+                $filters[] = array(
+                    'COutputCache + WPhoto',
+                    'duration' => 600,
+                    'varyByParam' => array('entity', 'entity_id', 'id', 'sort', 'go'),
+                    'dependency' => new CDbCacheDependency(Yii::app()->db->createCommand()->select(new CDbExpression('MAX(created)'))->from('contest__works')->where("contest_id = $entity_id")->text),
+                );
+            $filters[] = array(
+                'COutputCache + postLoad',
+                'duration' => 600,
+                'varyByParam' => array('entity', 'entity_id', 'photo_id'),
+                'dependency' => new CDbCacheDependency(Yii::app()->db->createCommand()->select(new CDbExpression('MAX(created)'))->from('contest__works')->where("contest_id = $entity_id")->text),
+            );
         }
 
         return $filters;
@@ -632,6 +632,7 @@ class AlbumsController extends HController
             UserStatisticAction::avatarLoaded(Yii::app()->user->id);
 
         User::model()->updateByPk(Yii::app()->user->id, array('avatar_id' => $photo->id));
+        UserScores::checkProfileScores(Yii::app()->user->id);
 
         echo $photo->getPreviewUrl(241, 225, Image::WIDTH);
     }
@@ -674,14 +675,14 @@ class AlbumsController extends HController
         $jUrl = Yii::app()->baseUrl . '/javascripts/j_upload/';
         Yii::app()->clientScript->registerCoreScript('jquery')
             ->registerScriptFile(Yii::app()->baseUrl . '/javascripts/flash_detect_min.js')
-            ->registerScriptFile(Yii::app()->baseUrl . '/javascripts/album.js?r=11')
-            ->registerScriptFile($flashUrl . '/' . 'swfupload.js')
-            ->registerScriptFile($flashUrl . '/' . 'jquery.swfupload.js')
+            ->registerScriptFile(Yii::app()->baseUrl . '/javascripts/album.js')
+            ->registerScriptFile($flashUrl . 'swfupload.js')
+            ->registerScriptFile($flashUrl . 'jquery.swfupload.js')
             ->registerScriptFile(Yii::app()->baseUrl . '/javascripts/scrollbarpaper.js')
 
-            ->registerScriptFile($jUrl . '/jquery.ui.widget.js')
-            ->registerScriptFile($jUrl . '/jquery.iframe-transport.js')
-            ->registerScriptFile($jUrl . '/jquery.fileupload.js');
+            ->registerScriptFile($jUrl . 'jquery.ui.widget.js')
+            ->registerScriptFile($jUrl . 'jquery.iframe-transport.js')
+            ->registerScriptFile($jUrl . 'jquery.fileupload.js');
     }
 
     public function actionRedirect($id)
@@ -692,8 +693,14 @@ class AlbumsController extends HController
 
     public function actionUpdatePhoto($id)
     {
+        Yii::app()->clientScript->scriptMap = array(
+            'jquery.js' => false,
+            'jquery.min.js' => false,
+        );
+
         $photo = AlbumPhoto::model()->findByPk($id);
-        $this->renderPartial('updatePhoto', compact('photo'), false, true);
+        if (Yii::app()->user->getModel()->group != UserGroup::USER || Yii::app()->user->id == $photo->author_id)
+            $this->renderPartial('updatePhoto', compact('photo'), false, true);
     }
 
     public function actionUpdateAlbum($id)

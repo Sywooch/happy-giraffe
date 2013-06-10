@@ -66,6 +66,12 @@ class WordstatCommand extends CConsoleCommand
     public function actionPutTask()
     {
         $job_provider = new WordstatTaskCreator;
+        $job_provider->start('simple_parsing');
+    }
+
+    public function actionPutImportantTask()
+    {
+        $job_provider = new WordstatTaskCreator;
         $job_provider->start('important_parsing');
     }
 

@@ -709,7 +709,7 @@ INNER JOIN messaging__threads t ON t.id = tu.thread_id
 GROUP BY tu.user_id, tu2.user_id
 HAVING C > 1
 
-SELECT *
+SELECT t.id
 FROM messaging__threads_users tu
 INNER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id != tu.user_id
 INNER JOIN messaging__threads t ON t.id = tu.thread_id
@@ -740,3 +740,31 @@ INNER JOIN (
 ON tu.user_id = x.user1_id AND tu2.user_id = x.user2_id
 GROUP BY tu.user_id, tu2.user_id
 ORDER BY tu.user_id ASC, tu2.user_id ASC, created ASC;
+
+
+
+
+var AdFox_object_%random% = '';
+var plug_url_%random% = 'http://www.happy-giraffe.ru/direct.html';
+var AdFox_variable_%random% = 0;
+var AdFox_id_%random% = 'AdFox_banner_%random1%';
+var AdFox_yn_%random% = 0;
+var AdFox_pdoc_%random% = parent.document;
+    if(AdFox_pdoc_%random% != document){
+	   var AdFox_pde_%random% = AdFox_pdoc_%random%.getElementById(AdFox_id_%random%);
+	   var AdFox_yn_%random% = AdFox_pde_%random%?1:0;
+	   }
+if (plug_url_%random% != '') {
+    AdFox_variable_%random% = 1;
+    AdFox_object_%random% += (Math.floor(Math.random() * 100) + 1) <= 10 ? '<a href="http://www.happy-giraffe.ru/contest/11/"><img src="http://www.happy-giraffe.ru/images/contest/banner-w240-11.jpg" alt="Фотоконкурс «Мы едем, едем, едем...»" /></a>' : '<iframe id="AdFox_plug_%random%" src="'+plug_url_%random%+'" width=240 height=400 marginwidth=0 marginheight=0 scrolling=no frameborder=0></iframe>';
+    }else{
+       AdFox_variable_%random% = 1;
+	   AdFox_object_%random% += '<div id="AdFox_tracking_%random%" width="0px" height="0px" style="z-index:12345678; position:absolute;"><img src="http://banners.adfox.ru/transparent.gif" border="0" width="0" height="0"></div>';
+	}
+
+if(AdFox_yn_%random%){
+   if(AdFox_variable_%random%){
+      AdFox_pde_%random%.innerHTML = AdFox_object_%random%;
+   }
+   setTimeout("document.close();", 1000);
+   }else{document.write(AdFox_object_%random%);}

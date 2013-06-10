@@ -53,7 +53,7 @@ class KeywordStrictWordstat
      */
     public function getValue($id)
     {
-        $model = $this->getCollection()->findOne(array('id' => ($id)));
+        $model = $this->getCollection()->findOne(array('id' => (int)$id));
         if ($model === null)
             return -1;
         return $model['value'];
@@ -68,7 +68,7 @@ class KeywordStrictWordstat
      */
     public function save($id, $value)
     {
-        $model = $this->getCollection()->findOne(array('id' => ($id)));
+        $model = $this->getCollection()->findOne(array('id' => (int)$id));
         if ($model === null)
             $this->getCollection()->insert(array('id' => (int)$id, 'value' => (int)$value));
         else

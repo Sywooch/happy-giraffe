@@ -252,9 +252,8 @@ class SiteCommand extends CConsoleCommand
 
         $criteria = new CDbCriteria;
         $criteria->select = ('id, first_name, last_name, (select count(*) as cnt from comments
-        where comments.author_id = t.id) as count');
-        $criteria->condition = '`group` = 0 and deleted = 0 and last_active > :date';
-        $criteria->params = array(':date'=> date("Y-m-d H:i:s", strtotime('-4 month')));
+        where comments.author_id = t.id AND created >= "'.date("Y-m-d H:i:s", strtotime('-2 month')).'") as count');
+        $criteria->condition = '`group` = 0 and deleted = 0';
         //$criteria->with = array('commentsCount');
         $criteria->order = 'count desc';
         $criteria->together = true;

@@ -251,21 +251,22 @@ class SiteCommand extends CConsoleCommand
         $result = 0;
 
         $criteria = new CDbCriteria;
+        $criteria->select = ('id, first_name, last_name, (select count(*) as cnt from comments
+        where comments.author_id = t.id) as count');
         $criteria->condition = '`group` = 0 and deleted = 0 and last_active > :date';
-        $criteria->params = array(':date'=> date("Y-m-d H:i:s", strtotime('-2 month')));
+        $criteria->params = array(':date'=> date("Y-m-d H:i:s", strtotime('-4 month')));
+        //$criteria->with = array('commentsCount');
+        $criteria->order = 'count desc';
+        $criteria->together = true;
         $criteria->limit = 100;
         $criteria->offset = 0;
 
-        $models = array(0);
-        $str = '';
-        while (!empty($models)) {
-            $models = User::model()->findAll($criteria);
+        $models = User::model()->findAll($criteria);
 
-            foreach ($models as $model) {
-                $str.= $model->fullName. ' - http://www.happy-giraffe.ru/user/'.$model->id.'/'."\n";
-                $result++;
-            }
-            $criteria->offset += 100;
+        $str = '';
+        foreach ($models as $model) {
+            $str.= $model->fullName. ' - http://www.happy-giraffe.ru/user/'.$model->id.'/'."\n";
+            $result++;
         }
 
         file_put_contents('/home/beryllium/users.txt', $str);

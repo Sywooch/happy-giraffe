@@ -45,9 +45,10 @@
         ->registerScriptFile('/javascripts/jquery.tmpl.min.js')
         ->registerScriptFile('/javascripts/jquery.lazyload.min.js')
         ->registerScriptFile('/javascripts/jquery.powertip.js')
+        ->registerScriptFile('/javascripts/jquery.flydiv.js')
         ->registerScriptFile('/javascripts/addtocopy.js')
         ->registerScriptFile('/javascripts/tooltipsy.min.js')
-        ->registerScriptFile('http://vk.com/js/api/share.js?11')
+        //->registerScriptFile('http://vk.com/js/api/share.js?11')
         ->registerScriptFile('/javascripts/fox.js')
         ->registerScriptFile('/javascripts/knockout-2.2.1.js')
     ;
@@ -63,6 +64,8 @@
             ->registerScript('Realplexor-reg', 'comet.connect(\'http://' . Yii::app()->comet->host . '\', \'' . Yii::app()->comet->namespace . '\', \'' . UserCache::GetCurrentUserCache() . '\');')
             ->registerPackage('user')
         ;
+
+        $this->widget('FavouriteWidget', array('registerScripts' => true));
 
         $interlocutor_id = Yii::app()->request->getQuery('im_interlocutor_id', 'null');
         $type = Yii::app()->request->getQuery('im_type', 'null');
@@ -107,6 +110,9 @@
                 </li>
                 <li class="i-broadcast new top-line-menu_nav_li js-tooltipsy" title="Что нового">
                     <a href="<?=$this->createUrl('/whatsNew/default/index')?>"><i class="icon-broadcast"></i></a>
+                </li>
+                <li class="i-favorites top-line-menu_nav_li js-tooltipsy" title="Избранное">
+                    <a href="<?=$this->createUrl('/favourites/default/index')?>" ><i class="icon-favorites"></i></a>
                 </li>
                 <?php if (false): ?>
                 <li class="i-dialogs top-line-menu_nav_li js-tooltipsy<?php if ($imCount > 0): ?> new<?php endif; ?>" title="Мои диалоги">

@@ -8,7 +8,6 @@
  * @property integer $scores
  * @property integer $seen_scores
  * @property integer $level_id
- * @property integer $full
  *
  * The followings are the available model relations:
  * @property User $user
@@ -40,8 +39,8 @@ class UserScores extends HActiveRecord
     {
         return array(
             array('user_id', 'required'),
-            array('user_id, scores, seen_scores, level_id, full', 'numerical', 'integerOnly' => true),
-            array('user_id, scores, level_id, full', 'safe', 'on' => 'search'),
+            array('user_id, scores, seen_scores, level_id', 'numerical', 'integerOnly' => true),
+            array('user_id, scores, level_id', 'safe', 'on' => 'search'),
         );
     }
 

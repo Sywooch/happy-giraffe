@@ -162,41 +162,6 @@ class WordstatCommand extends CConsoleCommand
         }
     }
 
-    public function actionStrictWs()
-    {
-        $mongo = new Mongo(Yii::app()->mongodb_parsing->connectionString);
-        $mongo->connect();
-
-        $collection = $mongo->selectCollection('parsing', 'keywords_strict_wordstat');
-        $collection->ensureIndex(array('id' => 1), array("unique" => true));
-
-        $last_id = 0;
-        while (true) {
-            $condition = 'keyword_id > ' . $last_id;
-            $keywords = Yii::app()->db_keywords->createCommand()
-                ->select('*')
-                ->from('keywords_strict_wordstat')
-                ->order('keyword_id asc')
-                ->where($condition)
-                ->limit(10000)
-                ->queryAll();
-
-            foreach ($keywords as $keyword) {
-                $last_id = $keyword['keyword_id'];
-                $collection->insert(array(
-                    'id' => (int)$keyword['keyword_id'],
-                    'value' => (int)$keyword['strict_wordstat'],
-                ));
-            }
-
-            if (rand(1, 10) == 7)
-                echo $last_id . "\n";
-
-            if (empty($keywords))
-                break;
-        }
-    }
-
     public function actionAddToSeasonParsing()
     {
         WordstatParsingTask::getInstance()->addAllKeywordsToSeasonParsing();

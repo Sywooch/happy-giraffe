@@ -5,7 +5,7 @@ class m130610_041540_scores extends CDbMigration
 	public function up()
 	{
         $sql = <<<EOD
-        ALTER TABLE `score__user_scores` DROP `full`;
+        //ALTER TABLE `score__user_scores` DROP `full`;
         UPDATE `score__user_scores` set `scores` = 0;
         ALTER TABLE  `score__user_scores` ADD  `seen_scores` INT UNSIGNED NOT NULL DEFAULT  '0' AFTER  `scores`;
         DROP TABLE `score__actions`;

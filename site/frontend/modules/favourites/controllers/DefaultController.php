@@ -55,6 +55,7 @@ class DefaultController extends HController
                     break;
                 case 'MultivarkaRecipe':
                 case 'SimpleRecipe':
+                case 'CookRecipe':
                     $html = Yii::app()->controller->renderPartial('cook.views.recipe._recipe', array(
                         'full' => false,
                         'data' => $favourite->relatedModel,
@@ -130,7 +131,9 @@ class DefaultController extends HController
 
                 $image = $model->mainPhoto->getPreviewUrl(60, null, Image::WIDTH);
                 $title = $model->title;
-                $tags = array();
+                $tags = array_map(function($tag) {
+                    return $tag->title;
+                }, $model->tags);
                 $note = '';
                 break;
             case 'photo':

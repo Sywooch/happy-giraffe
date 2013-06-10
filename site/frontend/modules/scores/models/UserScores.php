@@ -195,55 +195,55 @@ class UserScores extends HActiveRecord
     /**
      * @static
      * @param int $user_id
-     * @param int $action_id
      * @return void
      */
-    public static function checkProfileScores($user_id, $action_id)
+    public static function checkProfileScores($user_id)
     {
         $model = self::model()->findByPk($user_id);
-        if ($model->full == 0) {
-            $score = ScoreInput::model()->findByAttributes(array(
-                'action_id' => (int)$action_id,
-                'user_id' => (int)$user_id
-            ));
-            if ($score === null)
-                self::addScores($user_id, $action_id);
-
-            $model->checkFull();
-        }
+        $model->checkFull();
     }
 
     public function checkFull()
     {
-        if ($this->getStepsCount() >= 6) {
+        if ($this->full == 0 && $this->getStepsCount() >= 6) {
             $this->full = 1;
             $this->level_id = 1;
-            UserAction::model()->add($this->user_id, UserAction::USER_ACTION_LEVELUP, array('level_id' => 1));
             $this->save();
-            self::addScores($this->user_id, ScoreAction::ACTION_PROFILE_FULL);
-            $this->user->last_updated = new CDbExpression('NOW()');
-            $this->user->update(array('last_updated'));
-            $this->user->sendEvent();
         }
     }
 
     public function getStepsCount()
     {
-        $criteria = new EMongoCriteria;
-        $criteria->addCond('user_id', '==', (int)$this->user_id);
-        $criteria->addCond('action_id', 'in', array(ScoreAction::ACTION_PROFILE_BIRTHDAY,
+        $count = 0;
+        $steps = array(ScoreAction::ACTION_PROFILE_BIRTHDAY,
             ScoreAction::ACTION_PROFILE_PHOTO, ScoreAction::ACTION_PROFILE_FAMILY,
             ScoreAction::ACTION_PROFILE_INTERESTS, ScoreAction::ACTION_PROFILE_EMAIL,
-            ScoreAction::ACTION_PROFILE_LOCATION));
-        return ScoreInput::model()->count($criteria);
+            ScoreAction::ACTION_PROFILE_LOCATION);
+        foreach ($steps as $step)
+            if ($this->stepComplete($step))
+                $count++;
+
+        return $count;
     }
 
     public function stepComplete($step_id)
     {
-        $criteria = new EMongoCriteria;
-        $criteria->addCond('user_id', '==', (int)$this->user_id);
-        $criteria->addCond('action_id', '==', (int)$step_id);
-        return ScoreInput::model()->count($criteria) >= 1;
+        switch ($step_id) {
+            case ScoreAction::ACTION_PROFILE_BIRTHDAY:
+                return !empty($this->user->birthday);
+            case ScoreAction::ACTION_PROFILE_PHOTO:
+                return !empty($this->user->avatar_id);
+            case ScoreAction::ACTION_PROFILE_FAMILY:
+                return !empty($this->user->relationship_status);
+            case ScoreAction::ACTION_PROFILE_INTERESTS:
+                return !empty($this->user->interests);
+            case ScoreAction::ACTION_PROFILE_EMAIL:
+                return !empty($this->user->email_confirmed);
+            case ScoreAction::ACTION_PROFILE_LOCATION:
+                return !empty($this->user->address) && !empty($this->user->address->country_id);
+        }
+
+        return true;
     }
 
     public function getUserHistory(){

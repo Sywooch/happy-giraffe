@@ -192,9 +192,9 @@ class UserStats
         Yii::import('site.frontend.modules.im.models.*');
 
         $criteria = new CDbCriteria;
-        $this->addAuthorCriteria($criteria, 'user');
+        $this->addAuthorCriteria($criteria, 'author');
         $this->addDateCriteria($criteria);
-        return Message::model()->count($criteria);
+        return MessagingMessage::model()->count($criteria);
     }
 
     public function friendsCount()

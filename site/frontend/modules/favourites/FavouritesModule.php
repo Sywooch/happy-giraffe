@@ -31,11 +31,14 @@ class FavouritesModule extends CWebModule
         'BlogContent' => array(
             'scopes' => array('full'),
         ),
+        'CookRecipe' => array(
+            'with' => array('photo', 'attachPhotos', 'commentsCount', 'tags', 'author', 'cuisine'),
+        ),
         'MultivarkaRecipe' => array(
-            'with' => array('tags'),
+            'with' => array('photo', 'attachPhotos', 'commentsCount', 'tags', 'author', 'cuisine'),
         ),
         'SimpleRecipe' => array(
-            'with' => array('tags'),
+            'with' => array('photo', 'attachPhotos', 'commentsCount', 'tags', 'author', 'cuisine'),
         ),
     );
 

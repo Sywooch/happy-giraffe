@@ -60,6 +60,9 @@ class AjaxController extends HController
         $model->setAttribute($attribute, $value);
         if ($model->update($attribute))
             echo '1';
+
+        if ($modelName == 'User' && $attribute == 'relationship_status')
+            UserScores::checkProfileScores(Yii::app()->user->id);
     }
 
     public function actionSetValues()
@@ -79,6 +82,16 @@ class AjaxController extends HController
         $model->attributes = $_POST[$modelName];
 
         echo $model->save();
+        if (!empty($model->attach)) {
+            try {
+                $attach = $model->attach->getModel();
+                if (isset($attach->title) && get_class($attach) == 'ContestWork'){
+                    $attach->title = $model->title;
+                    $attach->update(array('title'));
+                }
+            } catch (Exception $e) {
+            }
+        }
     }
 
     protected function performAjaxValidation($model)
@@ -756,6 +769,7 @@ class AjaxController extends HController
             ob_start();
             $this->widget('HoroscopeWidget', array('user' => $user));
             $horoscope = ob_get_clean();
+            UserScores::checkProfileScores(Yii::app()->user->id);
 
             echo CJSON::encode(array(
                 'status' => true,

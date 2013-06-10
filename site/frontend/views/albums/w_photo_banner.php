@@ -4,7 +4,7 @@
 
         <a onclick="$.fancybox.close();" href="javascript:void(0);" class="close"></a>
 
-        <div class="content-cols clearfix">
+        <div class="content-cols clearfix photo-container">
             <div class="col-12">
 
                 <div class="top-line clearfix">
@@ -27,31 +27,23 @@
 
                 </div>
 
-                <div class="photo-container">
-                    <div id="photo">
+                <div id="photo">
 
-                        <div class="img">
-                            <table><tr><td>
-                                        <?=CHtml::image($photo->getPreviewUrl(960, 627, Image::HEIGHT), '')?>
-                                    </td></tr></table>
-                        </div>
-
-                        <a href="javascript:void(0)" class="prev" onclick="dl = escape(document.location.href);pr = Math.floor(Math.random() * 1000000);AdFox_getCodeScript(1,pr1,'http://ads.adfox.ru/211012/prepareCode?pp=dey&amp;ps=bkqy&amp;p2=etcx&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a&amp;pr=' + pr +'&amp;pt=b&amp;pd=' + addate.getDate() + '&amp;pw=' + addate.getDay() + '&amp;pv=' + addate.getHours() + '&amp;prr=' + afReferrer + '&amp;dl='+dl+'&amp;pr1='+pr1)"><i class="icon"></i>предыдушая</a>
-                        <a href="javascript:void(0)" class="next" onclick="dl = escape(document.location.href);pr = Math.floor(Math.random() * 1000000);AdFox_getCodeScript(1,pr1,'http://ads.adfox.ru/211012/prepareCode?pp=dey&amp;ps=bkqy&amp;p2=etcx&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a&amp;pr=' + pr +'&amp;pt=b&amp;pd=' + addate.getDate() + '&amp;pw=' + addate.getDay() + '&amp;pv=' + addate.getHours() + '&amp;prr=' + afReferrer + '&amp;dl='+dl+'&amp;pr1='+pr1)"><i class="icon"></i>следующая</a>
-
+                    <div class="img">
+                        <table><tr><td>
+                                    <?=CHtml::image($photo->getPreviewUrl(960, 627, Image::HEIGHT), '')?>
+                                </td></tr></table>
                     </div>
 
-                    <div class="photo-comment">
-                        <p><?=$photo->w_description?></p>
-                    </div>
+                    <a href="javascript:void(0)" class="prev" onclick="dl = escape(document.location.href);pr = Math.floor(Math.random() * 1000000);AdFox_getCodeScript(1,pr1,'http://ads.adfox.ru/211012/prepareCode?pp=dey&amp;ps=bkqy&amp;p2=etcx&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a&amp;pr=' + pr +'&amp;pt=b&amp;pd=' + addate.getDate() + '&amp;pw=' + addate.getDay() + '&amp;pv=' + addate.getHours() + '&amp;prr=' + afReferrer + '&amp;dl='+dl+'&amp;pr1='+pr1)"><i class="icon"></i>предыдушая</a>
+                    <a href="javascript:void(0)" class="next" onclick="dl = escape(document.location.href);pr = Math.floor(Math.random() * 1000000);AdFox_getCodeScript(1,pr1,'http://ads.adfox.ru/211012/prepareCode?pp=dey&amp;ps=bkqy&amp;p2=etcx&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a&amp;pr=' + pr +'&amp;pt=b&amp;pd=' + addate.getDate() + '&amp;pw=' + addate.getDay() + '&amp;pv=' + addate.getHours() + '&amp;prr=' + afReferrer + '&amp;dl='+dl+'&amp;pr1='+pr1)"><i class="icon"></i>следующая</a>
+
                 </div>
 
-                <div class="rewatch-container" style="display: none;"><?php
-                    if ($photo->galleryItem)
-                        $this->renderPartial('w_photo_last_post_gallery_page', compact('model', 'photo'));
-                    elseif (empty($photo->album->type) || $photo->album->type == Album::TYPE_PRIVATE || $photo->album->type == Album::TYPE_FAMILY)
-                        $this->renderPartial('w_photo_last_album_page', compact('more', 'count', 'title'));
-                    ?></div>
+                <div class="photo-comment">
+                    <p><?=$photo->w_description?></p>
+                </div>
+
             </div>
 
             <div class="col-3">
@@ -89,6 +81,12 @@
             </div>
         </div>
 
+        <div class="rewatch-container" style="display: none;"><?php
+            if ($photo->galleryItem)
+                $this->renderPartial('w_photo_last_post_gallery_page', compact('model', 'photo'));
+            elseif (empty($photo->album->type) || $photo->album->type == Album::TYPE_PRIVATE || $photo->album->type == Album::TYPE_FAMILY)
+                $this->renderPartial('w_photo_last_album_page', compact('more', 'count', 'title'));
+            ?></div>
 
     </div>
 

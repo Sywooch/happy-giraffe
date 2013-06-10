@@ -70,6 +70,8 @@ jQuery.fn.pGallery = function(options) {
                 plugin.openImage(pGallery.start);
                 $('.photo-container', this.window).show();
                 $('.rewatch-container', this.window).hide();
+                if (plugin.data.entity == 'Contest' || plugin.data.entity == 'CommunityContentGallery')
+                    $('#photo-window-in', this.window).addClass('photo-window-banner');
                 return false;
             });
 
@@ -242,6 +244,7 @@ jQuery.fn.pGallery = function(options) {
         $('.photo-container', this.window).hide();
         $('#AdfoxAjax').hide();
         $('.rewatch-container', this.window).show();
+        $('#photo-window-in', this.window).removeClass('photo-window-banner');
     };
 
     plugin.preloadPhotos = function() {

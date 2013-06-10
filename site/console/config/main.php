@@ -24,7 +24,7 @@ return array(
     ),
     'behaviors' => array(
         'edms' => array(
-            'class'=>'EDMSBehavior',
+            'class'=>'site.frontend.extensions.directmongosuite.EDMSBehavior',
             'connectionId' => 'mongodb',
         )
     ),

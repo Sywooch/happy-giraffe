@@ -286,6 +286,127 @@
 				</div>	
 			</div>
 			
+			<div class="photo-window-lastpage clearfix">
+			
+					<div class="album-end">
+						
+						<div class="album-end_t">
+							<span class="album-end_t-tx">ТОП-20 самых модных платьев</span>
+							
+							<a href="" class="album-end_rewatch">
+								<span class="album-end_rewatch-tx">Посмотреть еще раз</span>
+							</a>
+						</div>
+						
+						<span class="album-end_like-t">Вам понравился фотопост?  Поделитесь с друзьями!  </span>
+						
+						<div class="like-block fast-like-block">
+														
+							<div class="box-1">
+								<div class="share_button">
+									<div class="fb-custom-like">
+										<a href="http://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fdev.happy-giraffe.ru%2Fuser%2F13217%2Fblog%2Fpost22589%2F"
+										   onclick="return Social.showFacebookPopup(this);" class="fb-custom-text">
+											<i class="pluginButtonIcon img sp_like sx_like_fav"></i>Мне нравится</a>
+										<div class="fb-custom-share-count">0</div>
+										<script type="text/javascript">
+											$.getJSON("http://graph.facebook.com", { id : document.location.href }, function(json){
+												$('.fb-custom-share-count').html(json.shares || '0');
+											});
+										</script>
+									</div>
+								</div>
+								
+								<div class="share_button">
+									<div class="vk_share_button"></div>
+								</div>
+								
+								<div class="share_button">
+									<a class="odkl-klass-oc"
+									   href="http://dev.happy-giraffe.ru/user/13217/blog/post22589/"
+									   onclick="Social.updateLikesCount('ok'); ODKL.Share(this);return false;"><span>0</span></a>
+								</div>
+								
+								<div class="share_button">
+									<div class="tw_share_button">
+										<a href="https://twitter.com/share" class="twitter-share-button" data-lang="ru" data-url="http://dev.happy-giraffe.ru/user/13217/blog/post22589/">Твитнуть</a>
+										<script type="text/javascript" charset="utf-8">
+												if (typeof twttr == 'undefined')
+													window.twttr = (function (d,s,id) {
+														var t, js, fjs = d.getElementsByTagName(s)[0];
+														if (d.getElementById(id)) return; js=d.createElement(s); js.id=id;
+														js.src="//platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs);
+														return window.twttr || (t = { _e: [], ready: function(f){ t._e.push(f) } });
+													}(document, "script", "twitter-wjs"));
+										</script>
+									</div>
+								</div>
+								
+								<script type="text/javascript">
+									$(function () {
+										//подписываемся на клик
+										if (VK && VK.Share && VK.Share.click) {
+											var oldShareClick = VK.Share.click;
+											VK.Share.click = function (index, el) {
+												Social.updateLikesCount('vk');
+												return oldShareClick.call(VK.Share, index, el);
+											}
+										}
+
+										twttr.ready(function (twttr) {
+											twttr.events.bind('tweet', function (event) {
+												console.log('tweet');
+												Social.updateLikesCount("tw")
+											});
+										});
+									});
+								</script>
+						
+							</div>
+							
+						</div>					
+					</div>
+					
+							
+					<div class="more-albums-photopost">
+						<ul class="more-albums-photopost_ul clearfix">
+							
+							<li class="more-albums-photopost_li">
+								<div class="more-albums-photopost_hold">
+									<a class="more-albums-photopost_img">
+								        <img alt="" src="/images/example/w440-h340.jpg">
+								        <span class="more-albums-photopost_img-title">
+								        	<span class="more-albums-photopost_img-title-tx"> Пляжная мода: ТОП-15 модных купальников этого лета</span>
+								        </span>
+								        <span class="more-albums-photopost_count">
+								            смотреть <span class="more-albums-photopost_count-big">20 ФОТО</span>
+								        </span>
+								        <i class="ico-play-big"></i>
+								    </a>
+								</div>
+							</li>
+							<li class="more-albums-photopost_li">
+								<div class="more-albums-photopost_hold">
+									<a class="more-albums-photopost_img">
+								        <img alt="" src="/images/example/w440-h340.jpg">
+								        <span class="more-albums-photopost_img-title">
+								        	<span class="more-albums-photopost_img-title-tx"> Пляжная мода</span>
+								        </span>
+
+								        <span class="more-albums-photopost_count">
+								            смотреть <span class="more-albums-photopost_count-big">200 ФОТО</span>
+								        </span>
+								        <i class="ico-play-big"></i>
+								    </a>
+								</div>
+							</li>
+							
+							
+						</ul>
+					</div>
+						
+				</div>
+			
 				
 			</div>
 	

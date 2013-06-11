@@ -9,62 +9,66 @@
 
 class SearchManager
 {
+    public static $indexes = array(
+        'post' => 'communityText',
+        'video' => 'communityVideo',
+        'photo' => 'albumPhoto',
+    );
+
     public static $fields = array('title', 'text');
 
-    public static function search($query, $scoring, $perPage, $entity, $page)
+    public static function search($query, $scoring, $perPage, $entity)
     {
-        $start = ($page - 1) * $perPage;
+        $index = $entity ? self::$indexes[$entity] : 'community';
+        $_query = Str::prepareForSphinxSearch($query);
 
-        $categoryFilters = $entity === null ? null : array('entity' => array($entity));
-        $raw = Yii::app()->indexden->search('main', self::processQuery($query), $start, $perPage, $scoring, implode(',', self::$fields), null, $categoryFilters);
+        $allSearch = $textSearch = Yii::app()->search->select('*')->from('community')->where($_query)->limit(0, 100000)->searchRaw();
+        $allCount = count($allSearch['matches']);
 
-        $entities = array();
-        foreach ($raw->results as $document) {
-            list($modelName, $modelId) = explode('_', $document->docid);
-            $entities[$modelName][$modelId] = null;
-        }
+        $textSearch = Yii::app()->search->select('*')->from('communityText')->where($_query)->limit(0, 100000)->searchRaw();
+        $textCount = count($textSearch['matches']);
 
-        //выборка и создание моделей
-        foreach ($entities as $entity => $ids) {
-            $criteria = new CDbCriteria(array(
-                'index' => 'id',
-            ));
-            $criteria->addInCondition('t.id', array_keys($ids));
-            if (isset(Yii::app()->controller->module->relatedModelCriteria[$entity]))
-                $criteria->mergeWith(new CDbCriteria(Yii::app()->controller->module->relatedModelCriteria[$entity]));
-            $models = CActiveRecord::model($entity)->findAll($criteria);
-            foreach ($models as $m)
-                $entities[$entity][$m->id] = $m;
-        }
+        $videoSearch = Yii::app()->search->select('*')->from('communityVideo')->where($_query)->limit(0, 100000)->searchRaw();
+        $videoCount = count($videoSearch['matches']);
 
-        $results = array();
-        foreach ($raw->results as $document) {
-            list($modelName, $modelId) = explode('_', $document->docid);
-            $model = $entities[$modelName][$modelId];
-            foreach (self::$fields as $f) {
-                $snippetName = 'snippet_' . $f;
-                if (! empty($document->$snippetName)) {
-                    $snippetValue = $document->$snippetName;
-                    $snippetValue = str_replace('<b>', '<span class="search-highlight">', $snippetValue);
-                    $snippetValue = str_replace('</b>', '</span>', $snippetValue);
-                    $attribute = $f == 'text' ? 'preview' : $f;
-                    $model->$attribute = $snippetValue;
-                }
-            }
-            $results[] = $model;
+        $photoSearch = Yii::app()->search->select('*')->from('albumPhoto')->where($_query)->limit(0, 100000)->searchRaw();
+        $photoCount = count($photoSearch['matches']);
+
+        $pages = new CPagination();
+        $pages->pageSize = (int) $perPage;
+        $pages->itemCount = $allCount;
+
+        $criteria = new stdClass();
+        $criteria->from = $index;
+        $criteria->select = '*';
+        $criteria->paginator = $pages;
+        $criteria->query = $_query;
+        $resIterator = Yii::app()->search->search($criteria);
+
+        $ids = array_map(function($result) {
+            return $result->id;
+        }, $resIterator->getRawData());
+
+        $dbCriteria = new CDbCriteria();
+        $dbCriteria->addInCondition('t.id', $ids);
+        $results = CommunityContent::model()->full()->findAll($dbCriteria);
+        foreach ($results as &$r) {
+            $name = Yii::app()->search->buildExcerpts(array($r->title), $index, $query);
+            $r->title = $name[0];
+            $text = Yii::app()->search->buildExcerpts(array($r->preview), $index, $query);
+            $r->preview = $text[0];
         }
 
         $data = array(
-            'total' => $raw->matches,
+            'total' => $allCount,
             'results' => $results,
-            'facets' => isset($raw->facets) ? (array) $raw->facets->entity : null,
+            'facets' => array(
+                'post' => $textCount,
+                'video' => $videoCount,
+                'photo' => $photoCount,
+            ),
         );
 
         return $data;
-    }
-
-    protected static function processQuery($query)
-    {
-        return 'title:"' . $query . '" OR text:"' . $query . '"^2';
     }
 }

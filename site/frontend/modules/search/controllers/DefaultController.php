@@ -14,9 +14,9 @@ class DefaultController extends HController
         $this->render('index', compact('data'));
 	}
 
-    public function actionGet($query, $scoring, $perPage, $entity = null, $page = 1)
+    public function actionGet($query, $scoring, $perPage, $entity = null)
     {
-        $search = SearchManager::search($query, $scoring, $perPage, $entity, $page);
+        $search = SearchManager::search($query, $scoring, $perPage, $entity);
 
         $data = array(
             'total' => $search['total'],

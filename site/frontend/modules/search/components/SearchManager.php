@@ -40,10 +40,13 @@ class SearchManager
 
         $criteria = new stdClass();
         $criteria->from = $index;
-        $criteria->select = '*';
+        $criteria->select = 'id,entity';
         $criteria->paginator = $pages;
         $criteria->query = $_query;
         $resIterator = Yii::app()->search->search($criteria);
+
+        var_dump($resIterator);
+        die;
 
         $ids = array_map(function($result) {
             return $result->id;

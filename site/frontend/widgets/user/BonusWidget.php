@@ -16,6 +16,10 @@ class BonusWidget extends UserCoreWidget
         if ($this->user->id != Yii::app()->user->id || $scores->full == 2)
             return;
 
+        if (empty($scores->full))
+            $scores->checkFull();
+
+
         if ($scores->full == 1) {
             $scores->full = 2;
             $scores->level_id = 1;

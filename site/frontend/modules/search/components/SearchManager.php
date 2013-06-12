@@ -15,7 +15,7 @@ class SearchManager
         'photo' => 'albumPhoto',
     );
 
-    public static $fields = array('title', 'text');
+    public static $fields = array('title', 'preview');
 
     public static function search($query, $scoring, $perPage, $entity)
     {
@@ -40,27 +40,39 @@ class SearchManager
 
         $criteria = new stdClass();
         $criteria->from = $index;
-        $criteria->select = 'id,entity';
+        $criteria->select = '*';
         $criteria->paginator = $pages;
         $criteria->query = $_query;
         $resIterator = Yii::app()->search->search($criteria);
 
-        var_dump($resIterator);
-        die;
+        //получение необходимых id для выборки
+        $entities = array();
+        foreach ($resIterator->getRawData() as $result)
+            $entities[isset($result->modelname) ? $result->modelname : 'CommunityContent'][$result->id] = null;
 
-        $ids = array_map(function($result) {
-            return $result->id;
-        }, $resIterator->getRawData());
-
-        $dbCriteria = new CDbCriteria();
-        $dbCriteria->addInCondition('t.id', $ids);
-        $results = CommunityContent::model()->full()->findAll($dbCriteria);
-        foreach ($results as &$r) {
-            $name = Yii::app()->search->buildExcerpts(array($r->title), $index, $query);
-            $r->title = $name[0];
-            $text = Yii::app()->search->buildExcerpts(array($r->preview), $index, $query);
-            $r->preview = $text[0];
+        //выборка и создание моделей
+        $results = array();
+        foreach ($entities as $entity => $ids) {
+            $criteria = new CDbCriteria(array(
+                'index' => 'id',
+            ));
+            $criteria->addInCondition('t.id', array_keys($ids));
+            if (isset(Yii::app()->controller->module->relatedModelCriteria[$entity]))
+                $criteria->mergeWith(new CDbCriteria(Yii::app()->controller->module->relatedModelCriteria[$entity]));
+            $models = CActiveRecord::model($entity)->findAll($criteria);
+            foreach ($models as $m)
+                $results[] = $m;
         }
+
+        foreach ($results as &$r) {
+            foreach (self::$fields as $f) {
+                if (isset($r->$f)) {
+                    $field = Yii::app()->search->buildExcerpts(array($r->$f), $index, $query);
+                    $r->$f = $field[0];
+                }
+            }
+        }
+
 
         $data = array(
             'total' => $allCount,

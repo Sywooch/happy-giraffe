@@ -15,12 +15,6 @@ class SearchModule extends CWebModule
         'BlogContent' => array(
             'scopes' => array('full'),
         ),
-        'MultivarkaRecipe' => array(
-            'with' => array('tags'),
-        ),
-        'SimpleRecipe' => array(
-            'with' => array('tags'),
-        ),
     );
 
 	public function init()

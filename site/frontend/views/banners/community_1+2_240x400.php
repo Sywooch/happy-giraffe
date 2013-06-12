@@ -1,4 +1,3 @@
-<?php if (false): ?>
 <!--/* OpenX Javascript Tag v2.8.10 */-->
 
 <!--/*
@@ -34,4 +33,3 @@ if (document.context) document.write ("&context=" + escape(document.context));
 if (document.mmm_fo) document.write ("&amp;mmm_fo=1");
 document.write ("'><\/scr"+"ipt>");
 //]]>--></script><noscript><a href='http://openx.happy-giraffe.ru/www/delivery/ck.php?n=aded43c3&amp;cb=INSERT_RANDOM_NUMBER_HERE' target='_top'><img src='http://openx.happy-giraffe.ru/www/delivery/avw.php?zoneid=4&amp;cb=INSERT_RANDOM_NUMBER_HERE&amp;n=aded43c3' border='0' alt='' /></a></noscript>
-<?php endif; ?>

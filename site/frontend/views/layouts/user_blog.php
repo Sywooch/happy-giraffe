@@ -274,7 +274,7 @@
 
             </div>
 
-            <div class="rubrics tab-box tab-box-2">
+            <div class="rubrics tab-box tab-box-2" id="rubrics">
 
                 <div class="note">Редактируйте рубрики. Вы можете: создать новую, удалить, изменить название, переместить рубрику на другое место <span>*</span></div>
 
@@ -470,7 +470,7 @@
 
     var allData = <?=CJSON::encode($this->user->blog_rubrics)?>;
     var BlogRubrics = new BlogRubricsViewModel(allData);
-    ko.applyBindings(BlogRubrics);
+    ko.applyBindings(BlogRubrics, document.getElementById('rubrics'));
 
     $(function() {
         $(".sortable").sortable({

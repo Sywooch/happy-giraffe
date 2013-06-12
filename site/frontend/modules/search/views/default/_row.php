@@ -1,5 +1,3 @@
-<?=$data->entity?>
-
 <?php if (in_array($data->entity, array('post', 'video'))): ?>
     <?php $this->renderPartial('//community/_post', array('data' => $data, 'full' => false)); ?>
 <?php endif; ?>

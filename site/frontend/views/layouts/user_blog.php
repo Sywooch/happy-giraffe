@@ -469,8 +469,8 @@
     }
 
     var allData = <?=CJSON::encode($this->user->blog_rubrics)?>;
-    var BlogRubrics = new BlogRubricsViewModel(allData, document.getElementById('rubrics'));
-    ko.applyBindings(BlogRubrics);
+    var BlogRubrics = new BlogRubricsViewModel(allData);
+    ko.applyBindings(BlogRubrics, document.getElementById('rubrics'));
 
     $(function() {
         $(".sortable").sortable({

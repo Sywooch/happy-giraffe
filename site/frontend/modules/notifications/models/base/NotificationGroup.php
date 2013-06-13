@@ -177,6 +177,8 @@ class NotificationGroup extends Notification
             return '';
 
         $comment = Comment::model()->findByPk($comment_id);
+        if ($comment === null)
+            return '';
         return $comment->getUrl();
     }
 

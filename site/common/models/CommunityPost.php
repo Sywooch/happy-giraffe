@@ -157,8 +157,8 @@ class CommunityPost extends HActiveRecord
 
     protected function afterSave()
     {
-        if ($this->isNewRecord && ($this->content->contentAuthor->group == UserGroup::USER
-            || $this->content->contentAuthor->group == UserGroup::ENGINEER)) {
+        if ($this->isNewRecord && ($this->content->author->group == UserGroup::USER
+            || $this->content->author->group == UserGroup::ENGINEER)) {
 
             if (strlen($this->text) > 250){
                 $this->content->uniqueness = CopyScape::getUniquenessByText($this->text);

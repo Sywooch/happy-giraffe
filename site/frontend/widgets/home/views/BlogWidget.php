@@ -7,7 +7,7 @@
         <li>
             <div class="clearfix">
                 <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
-                'user' => $model->contentAuthor,
+                'user' => $model->author,
                 'size' => 'small',
                 'sendButton' => false,
                 'location' => false,

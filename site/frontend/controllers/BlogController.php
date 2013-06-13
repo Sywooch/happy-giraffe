@@ -179,8 +179,7 @@ class BlogController extends HController
 
     public function actionList($user_id, $rubric_id = null)
     {
-        Visit::processVisit();
-
+        //Visit::processVisit();
         $this->layout = '//layouts/user_blog';
 
         $this->user = User::model()->findByPk($user_id);

@@ -34,9 +34,9 @@ $i = 1;
                             <li class="best-list_li b-best_i" id="<?= $model->_id ?>">
 
                                 <div class="user-info clearfix">
-                                    <a href="" class="ava"><img src="<?= $article->contentAuthor->getAva() ?>"/></a>
+                                    <a href="" class="ava"><img src="<?= $article->author->getAva() ?>"/></a>
                                     <div class="user-info_details">
-                                        <a href="" class="user-info_username"><?= $article->contentAuthor->first_name ?></a>
+                                        <a href="" class="user-info_username"><?= $article->author->first_name ?></a>
                                     </div>
                                 </div>
 

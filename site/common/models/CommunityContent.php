@@ -331,7 +331,9 @@ class CommunityContent extends HActiveRecord
                     'type' => array(
                         'select' => 'slug',
                     ),
-                    'post',
+                    'post' => array(
+                        'select' => 'id, text, photo_id, content_id',
+                    ),
                     'video',
                     'status',
                     'author' => array(

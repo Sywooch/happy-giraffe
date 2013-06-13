@@ -8,16 +8,10 @@ class m130613_070113_remove_useless extends CDbMigration
 	{
         $this->execute('delete from community__contents where type_id=3; delete from community__content_types where id=3;');
 
-        $this->dropTable($this->_table);
-
-        $this->_table = 'community__travel_images';
-        $this->dropTable($this->_table);
-
-        $this->_table = 'community__travel_waypoints';
-        $this->dropTable($this->_table);
-
-        $this->_table = 'community__travels';
-        $this->dropTable($this->_table);
+        $this->execute('DROP TABLE IF EXISTS community__user_photos;');
+        $this->execute('DROP TABLE IF EXISTS community__travel_images;');
+        $this->execute('DROP TABLE IF EXISTS community__travel_waypoints;');
+        $this->execute('DROP TABLE IF EXISTS community__travels;');
     }
 
 	public function down()

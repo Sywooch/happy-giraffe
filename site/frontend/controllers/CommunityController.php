@@ -150,7 +150,7 @@ class CommunityController extends HController
 
         $this->layout = ($community_id == Community::COMMUNITY_NEWS) ? '//layouts/news' : '//layouts/community';
         CommunityPost::model()->scenario = 'view';
-        $content = CommunityContent::model()->full()->findByPk($content_id);
+        $content = CommunityContent::model()->cache(1800, new CDbCacheDependency('SELECT updated FROM community__contents WHERE id=' . $content_id))->full()->findByPk($content_id);
         if ($content === null)
             throw new CHttpException(404, 'Такой записи не существует');
 

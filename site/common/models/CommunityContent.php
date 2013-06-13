@@ -27,7 +27,6 @@
  * @property CommunityPost $post
  * @property CommunityVideo $video
  * @property CommunityPhotoPost $photoPost
- * @property userPhotos[] $userPhotos
  * @property CommunityContentGallery $gallery
  * @property Comment[] comments
  *
@@ -38,7 +37,6 @@ class CommunityContent extends HActiveRecord
 {
     const TYPE_POST = 1;
     const TYPE_VIDEO = 2;
-    const TYPE_TRAVEL = 3;
     const TYPE_PHOTO_POST = 4;
     const TYPE_STATUS = 5;
 
@@ -101,14 +99,12 @@ class CommunityContent extends HActiveRecord
             'commentsCount' => array(self::STAT, 'Comment', 'entity_id', 'condition' => 'entity=:modelName', 'params' => array(':modelName' => get_class($this))),
             'comments' => array(self::HAS_MANY, 'Comment', 'entity_id', 'on' => 'entity=:modelName', 'params' => array(':modelName' => get_class($this))),
             'status' => array(self::HAS_ONE, 'CommunityStatus', 'content_id', 'on' => 'type_id = 5'),
-            'travel' => array(self::HAS_ONE, 'CommunityTravel', 'content_id', 'on' => 'type_id = 3'),
             'video' => array(self::HAS_ONE, 'CommunityVideo', 'content_id', 'on' => 'type_id = 2'),
             'post' => array(self::HAS_ONE, 'CommunityPost', 'content_id', 'on' => 'type_id = 1'),
             'contentAuthor' => array(self::BELONGS_TO, 'User', 'author_id'),
             'author' => array(self::BELONGS_TO, 'User', 'author_id'),
             'remove' => array(self::HAS_ONE, 'Removed', 'entity_id', 'condition' => 'remove.entity = :entity', 'params' => array(':entity' => get_class($this))),
             'photoPost' => array(self::HAS_ONE, 'CommunityPhotoPost', 'content_id'),
-            'userPhotos' => array(self::HAS_MANY, 'UserPhoto', 'content_id'),
             'editor' => array(self::BELONGS_TO, 'User', 'editor_id'),
             'gallery' => array(self::HAS_ONE, 'CommunityContentGallery', 'content_id'),
         );
@@ -181,39 +177,6 @@ class CommunityContent extends HActiveRecord
             'pagination' => array('pageSize' => 30),
         ));
     }
-
-//    public function community($community_id)
-//    {
-//        $this->getDbCriteria()->mergeWith(array(
-//            'with' => array(
-//                'rubric' => array(
-//                    'select' => FALSE,
-//                    'with' => array(
-//                        'community' => array(
-//                            'select' => FALSE,
-//                            'condition' => 'community_id=:community_id',
-//                            'params' => array(':community_id' => $community_id),
-//                        )
-//                    ),
-//                ),
-//                'post',
-//                'video',
-//                'commentsCount',
-//                'travel' => array(
-//                    'with' => array(
-//                        'waypoints' => array(
-//                            'with' => array(
-//                                'city',
-//                                'country',
-//                            ),
-//                        ),
-//                    )
-//                ),
-//            ),
-//            'order' => 't.id DESC',
-//        ));
-//        return $this;
-//    }
 
     public function type($type_id)
     {
@@ -372,7 +335,6 @@ class CommunityContent extends HActiveRecord
                     ),
                     'post',
                     'video',
-                    'travel',
                     'status',
                     'commentsCount',
                     'contentAuthor' => array(
@@ -594,9 +556,6 @@ class CommunityContent extends HActiveRecord
             case 2:
                 $video = new Video($this->video->link);
                 $output = CHtml::image($video->image) . $this->video->text;
-                break;
-            case 3:
-                $output = $this->travel->text;
                 break;
             case 4:
                 $output = $this->preview;

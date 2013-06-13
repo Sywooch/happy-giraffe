@@ -27,7 +27,6 @@ class LiveWidget extends CWidget
                 'select' => array('id', 'first_name', 'last_name', 'avatar_id', 'online', 'blocked', 'deleted')
             ),
             'video',
-            'travel'
         );
 
         $criteria->order = 'created DESC';

@@ -379,7 +379,7 @@ class CommunityContent extends HActiveRecord
             $criteria->compare('slug', $content_type_slug);
         }
 
-        return new CActiveDataProvider($this->active()->full(), array(
+        return new CActiveDataProvider($this->cache(1800, new CDbCacheDependency('SELECT MAX(updated) FROM community__contents c JOIN community__rubrics r ON r.id = c.rubric_id WHERE r.community_id=' . $community_id))->active()->full(), array(
             'criteria' => $criteria,
         ));
     }

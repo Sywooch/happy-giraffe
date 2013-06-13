@@ -334,6 +334,9 @@ class CommunityContent extends HActiveRecord
                     'post',
                     'video',
                     'status',
+                    'author' => array(
+                        'select' => 'id, gender, first_name, last_name, online, avatar_id, deleted',
+                    ),
                 ),
             ),
             'community' => array(

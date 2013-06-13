@@ -72,15 +72,15 @@ class SiteController extends MController
             $videoCount = count($videoSearch['matches']);
 
             $criteria = new CDbCriteria;
-            $criteria->with = array('travel', 'video', 'post');
+            $criteria->with = array('video', 'post');
 
             $dp = new CArrayDataProvider($resIterator->getRawData(), array(
                 'keyField' => 'id',
             ));
 
-            $viewData = compact('dp', 'criteria', 'index', 'text', 'allCount', 'textCount', 'videoCount', 'travelCount');
+            $viewData = compact('dp', 'criteria', 'index', 'text', 'allCount', 'textCount', 'videoCount');
         } else
-            $viewData = array('dp'=>null, 'criteria'=>null, 'index'=>$index, 'text'=>'', 'allCount'=>0, 'textCount'=>0, 'videoCount'=>0, 'travelCount'=>0);
+            $viewData = array('dp'=>null, 'criteria'=>null, 'index'=>$index, 'text'=>'', 'allCount'=>0, 'textCount'=>0, 'videoCount'=>0);
 
         $this->pageTitle = 'Поиск по сайту Веселый Жираф';
         $this->render('search', $viewData);

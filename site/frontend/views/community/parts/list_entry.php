@@ -28,12 +28,6 @@
 					echo $pos === false ? $c->post->text : substr($c->post->text, 0, $pos);
 					echo '</noindex>';
 					break;
-				case 'travel':
-					$pos = strpos($c->travel->text, '<!--more-->');
-					echo '<noindex>';
-					echo $pos === false ? $c->travel->text : substr($c->travel->text, 0, $pos);
-					echo '</noindex>';
-					break;
 				case 'video':
 					$video = new Video($c->video->link);
 					echo '<noindex><div style="text-align: center; margin-bottom: 10px;">' . $video->code . '</div></noindex>';

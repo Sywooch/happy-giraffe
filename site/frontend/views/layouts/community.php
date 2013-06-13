@@ -77,12 +77,6 @@
                                     'active' => $this->content_type_slug == 'post',
                                 ),
                                 array(
-                                    'label' => 'Путешествия',
-                                    'url' => $this->getUrl(array('content_type_slug' => 'travel')),
-                                    'active' => $this->content_type_slug == 'travel',
-                                    'visible' => $this->community->id == 21,
-                                ),
-                                array(
                                     'label' => 'Видео',
                                     'url' => $this->getUrl(array('content_type_slug' => 'video')),
                                     'active' => $this->content_type_slug == 'video',

@@ -13,11 +13,11 @@ $i = 0;
             <table cellpadding="0" cellspacing="0" style="margin-bottom:8px;">
                 <tbody>
                 <tr>
-                    <td valign="middle"><img src="<?php echo $model->contentAuthor->getAva() ?>"
+                    <td valign="middle"><img src="<?php echo $model->author->getAva() ?>"
                                              style="display:block;margin-top:-40px;-moz-border-radius:36px;-webkit-border-radius:36px;border-radius:36px;">
                     </td>
                     <td valign="top">
-                        <span style="color:#38a5f4;font:12px arial, helvetica, sans-serif;margin-left:10px;"><?php echo $model->contentAuthor->first_name ?></span>
+                        <span style="color:#38a5f4;font:12px arial, helvetica, sans-serif;margin-left:10px;"><?php echo $model->author->first_name ?></span>
                     </td>
                 </tr>
                 </tbody>

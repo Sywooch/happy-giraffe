@@ -20,7 +20,6 @@
  *
  * The followings are the available model relations:
  *
- * @property User $contentAuthor
  * @property User $author
  * @property CommunityRubric $rubric
  * @property CommunityContentType $type
@@ -101,7 +100,6 @@ class CommunityContent extends HActiveRecord
             'status' => array(self::HAS_ONE, 'CommunityStatus', 'content_id', 'on' => 'type_id = 5'),
             'video' => array(self::HAS_ONE, 'CommunityVideo', 'content_id', 'on' => 'type_id = 2'),
             'post' => array(self::HAS_ONE, 'CommunityPost', 'content_id', 'on' => 'type_id = 1'),
-            'contentAuthor' => array(self::BELONGS_TO, 'User', 'author_id'),
             'author' => array(self::BELONGS_TO, 'User', 'author_id'),
             'remove' => array(self::HAS_ONE, 'Removed', 'entity_id', 'condition' => 'remove.entity = :entity', 'params' => array(':entity' => get_class($this))),
             'photoPost' => array(self::HAS_ONE, 'CommunityPhotoPost', 'content_id'),
@@ -336,10 +334,6 @@ class CommunityContent extends HActiveRecord
                     'post',
                     'video',
                     'status',
-                    'commentsCount',
-                    'contentAuthor' => array(
-                        'select' => 'id, gender, first_name, last_name, online, avatar_id, deleted',
-                    ),
                 ),
             ),
             'community' => array(
@@ -530,7 +524,7 @@ class CommunityContent extends HActiveRecord
                 return true;
             return false;
         }
-        return (Yii::app()->user->checkAccess('editCommunityContent', array('community_id' => $this->isFromBlog ? null : $this->rubric->community->id, 'user_id' => $this->contentAuthor->id)));
+        return (Yii::app()->user->checkAccess('editCommunityContent', array('community_id' => $this->isFromBlog ? null : $this->rubric->community->id, 'user_id' => $this->author->id)));
     }
 
     public function canRemove()
@@ -544,7 +538,7 @@ class CommunityContent extends HActiveRecord
                 return true;
             return false;
         }
-        return (Yii::app()->user->checkAccess('removeCommunityContent', array('community_id' => $this->isFromBlog ? null : $this->rubric->community->id, 'user_id' => $this->contentAuthor->id)));
+        return (Yii::app()->user->checkAccess('removeCommunityContent', array('community_id' => $this->isFromBlog ? null : $this->rubric->community->id, 'user_id' => $this->author->id)));
     }
 
     public function getRssContent()

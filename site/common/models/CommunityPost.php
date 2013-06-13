@@ -6,12 +6,6 @@
  * The followings are the available columns in table 'community__posts':
  * @property string $id
  * @property string $text
- * @property string $source_type
- * @property string $internet_link
- * @property string $internet_favicon
- * @property string $internet_title
- * @property string $book_author
- * @property string $book_name
  * @property string $content_id
  * @property string $photo_id
  *
@@ -20,15 +14,9 @@
  */
 class CommunityPost extends HActiveRecord
 {
-    public static $genres = array(
-        'lenta' => 'lenta (короткое новостное сообщение, 50-80 символов)',
-        'message' => 'message (более развёрнутое новостное сообщение)',
-        'article' => 'article (статья)',
-        'interview' => 'interview (интервью)',
-    );
-
     /**
      * Returns the static model of the specified AR class.
+     * @param string $className
      * @return CommunityPost the static model class
      */
     public static function model($className = __CLASS__)
@@ -49,7 +37,7 @@ class CommunityPost extends HActiveRecord
             ),
             'purified' => array(
                 'class' => 'site.common.behaviors.PurifiedBehavior',
-                'attributes' => array('text', 'preview'),
+                'attributes' => array('text'),
                 'options' => array(
                     'HTML.AllowedComments' => array(
                         'gallery' => true,
@@ -82,19 +70,12 @@ class CommunityPost extends HActiveRecord
         return array(
             array('text', 'required'),
             array('content_id', 'required', 'on' => 'edit'),
-            array('internet_link, internet_favicon, internet_title, book_author, book_name', 'length', 'max' => 255),
             array('content_id', 'length', 'max' => 11),
             array('content_id, photo_id', 'numerical', 'integerOnly' => true),
             array('content_id', 'exist', 'attributeName' => 'id', 'className' => 'CommunityContent'),
-            array('source_type', 'in', 'range' => array('me', 'internet', 'book')),
-            array('genre', 'in', 'range' => array_keys(self::$genres)),
-            array('genre', 'default', 'value' => null),
 
             //array('text', 'filter', 'filter' => array('Filters', 'add_nofollow')),
-
-            // The following rule is used by search().
-            // Please remove those attributes that should not be searched.
-            array('id, text, source_type, internet_link, internet_favicon, internet_title, book_author, book_name, content_id', 'safe', 'on' => 'search'),
+            array('id, text, photo_id, content_id', 'safe', 'on' => 'search'),
         );
     }
 
@@ -119,12 +100,6 @@ class CommunityPost extends HActiveRecord
         return array(
             'id' => 'ID',
             'text' => 'Текст',
-            'source_type' => 'Source Type',
-            'internet_link' => 'Internet Link',
-            'internet_favicon' => 'Internet Favicon',
-            'internet_title' => 'Internet Title',
-            'book_author' => 'Book Author',
-            'book_name' => 'Book Name',
             'content_id' => 'Content',
         );
     }
@@ -142,12 +117,6 @@ class CommunityPost extends HActiveRecord
 
         $criteria->compare('id', $this->id, true);
         $criteria->compare('text', $this->text, true);
-        $criteria->compare('source_type', $this->source_type, true);
-        $criteria->compare('internet_link', $this->internet_link, true);
-        $criteria->compare('internet_favicon', $this->internet_favicon, true);
-        $criteria->compare('internet_title', $this->internet_title, true);
-        $criteria->compare('book_author', $this->book_author, true);
-        $criteria->compare('book_name', $this->book_name, true);
         $criteria->compare('content_id', $this->content_id, true);
 
         return new CActiveDataProvider($this, array(

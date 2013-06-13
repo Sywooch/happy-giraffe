@@ -206,6 +206,12 @@ class AlbumsController extends HController
         Yii::import('site.frontend.modules.cook.models.*');
         Yii::import('site.frontend.modules.contest.models.*');
 
+        if (isset($GLOBALS['global_time1'])){
+            $t = microtime(true) - $GLOBALS['global_time1'];
+            $fh = fopen($dir = Yii::getPathOfAlias('application.runtime') . DIRECTORY_SEPARATOR . 'temp_log.txt', 'a');
+            fwrite($fh, $t . "\n");
+        }
+
         $photo = AlbumPhoto::model()->findByPk(Yii::app()->request->getQuery('id'));
 
         $entity_id = Yii::app()->request->getQuery('entity_id');

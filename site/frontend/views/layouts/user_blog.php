@@ -41,42 +41,29 @@
                 </div>
             <?php endif; ?>
 
-            <?php if($this->beginCache('blog-rubrics', array(
-                'duration' => 600,
-                'dependency' => array(
-                    'class' => 'CDbCacheDependency',
-                    'sql' => 'SELECT MAX(updated) FROM community__contents c
-                        JOIN community__rubrics r ON c.rubric_id = r.id
-                        WHERE r.user_id = ' . $this->user->id,
-                ),
-                'varyByParam' => array('user_id', 'rubric_id'),
-            ))): ?>
+            <div class="club-topics-list-new">
 
-                <div class="club-topics-list-new">
+                <div class="block-title">О чем мой блог</div>
 
-                    <div class="block-title">О чем мой блог</div>
+                <?php
+                    $items = array();
 
-                    <?php
-                        $items = array();
+                    foreach ($this->user->blog_rubrics as $rubric) {
+                        if ($rubric->contentsCount > 0)
+                            $items[] = array(
+                                'label' => $rubric->title,
+                                'url' => $this->getUrl(array('rubric_id' => $rubric->id)),
+                                'template' => '<span>{menu}</span><div class="count">' . $rubric->contentsCount . '</div>',
+                                'active' => $rubric->id == $this->rubric_id,
+                            );
+                    }
 
-                        foreach ($this->user->blog_rubrics as $rubric) {
-                            if ($rubric->contentsCount > 0)
-                                $items[] = array(
-                                    'label' => $rubric->title,
-                                    'url' => $this->getUrl(array('rubric_id' => $rubric->id)),
-                                    'template' => '<span>{menu}</span><div class="count">' . $rubric->contentsCount . '</div>',
-                                    'active' => $rubric->id == $this->rubric_id,
-                                );
-                        }
+                    $this->widget('zii.widgets.CMenu', array(
+                        'items' => $items,
+                    ));
+                ?>
 
-                        $this->widget('zii.widgets.CMenu', array(
-                            'items' => $items,
-                        ));
-                    ?>
-
-                </div>
-
-            <?php $this->endCache(); endif;  ?>
+            </div>
 
             <?php
                 //$this->widget('application.widgets.blog.attendanceWidget.AttendanceWidget', array(
@@ -157,7 +144,7 @@
                     'duration' => 600,
                     'dependency' => array(
                         'class' => 'CDbCacheDependency',
-                        'sql' => 'SELECT MAX(p.created) FROM album__photos p
+                        'sql' => 'SELECT MAX(p.id) FROM album__photos p
                             JOIN album__albums a ON p.album_id = a.id
                             WHERE a.type = 0 AND p.author_id = ' . $this->user->id,
                     ),

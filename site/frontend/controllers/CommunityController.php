@@ -151,15 +151,12 @@ class CommunityController extends HController
 
         $this->layout = ($community_id == Community::COMMUNITY_NEWS) ? '//layouts/news' : '//layouts/community';
         CommunityPost::model()->scenario = 'view';
-        $content = CommunityContent::model()->cache(1800, new CDbCacheDependency('SELECT updated FROM community__contents WHERE id=' . $content_id))->full()->findByPk($content_id);
-        if ($content === null)
+        $content = CommunityContent::model()->with(array('rubric','type'))->findByPk($content_id);
+        if ($content === null || $content->isFromBlog)
             throw new CHttpException(404, 'Такой записи не существует');
 
         if (!empty($content_type_slug) && !in_array($content_type_slug, array('post', 'video')))
             throw new CHttpException(404, 'Страницы не существует');
-
-        if ($content->isFromBlog)
-            throw new CHttpException(404, 'Такой записи не существует');
 
         if ($community_id != $content->rubric->community->id || $content_type_slug != $content->type->slug) {
             header("HTTP/1.1 301 Moved Permanently");
@@ -170,7 +167,7 @@ class CommunityController extends HController
         if (!empty($content->uniqueness) && $content->uniqueness < 50)
             Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
 
-        $this->community = Community::model()->with('rubrics')->findByPk($community_id);
+        $this->community = Community::model()->with('rubrics')->cache(1800, new CDbCacheDependency('SELECT max(id) FROM community__rubrics WHERE community_id='.$community_id))->findByPk($community_id);
         $this->rubric_id = $content->rubric->id;
         $this->content_type_slug = $content_type_slug;
 
@@ -209,7 +206,7 @@ class CommunityController extends HController
     public function actionEdit($content_id)
     {
         $this->meta_title = 'Редактирование записи';
-        $model = CommunityContent::model()->full()->findByPk($content_id);
+        $model = CommunityContent::model()->findByPk($content_id);
         $model->scenario = 'default';
         if ($model === null)
             throw new CHttpException(404, 'Запись не найдена');
@@ -610,7 +607,7 @@ class CommunityController extends HController
     public function actionUploadImage($community_id, $content_type_slug, $content_id)
     {
         $this->layout = '//layouts/community';
-        $content = CommunityContent::model()->active()->full()->findByPk($content_id);
+        $content = CommunityContent::model()->active()->findByPk($content_id);
         $this->user = $content->rubric->user;
         $this->community = Community::model()->with('rubrics')->findByPk($community_id);
         $this->rubric_id = $content->rubric->id;
@@ -621,8 +618,9 @@ class CommunityController extends HController
 
     public function actionPurify($by_happy_giraffe = 1)
     {
-        $dp = new CActiveDataProvider(CommunityContent::model()->full(), array(
+        $dp = new CActiveDataProvider(CommunityContent::model(), array(
             'criteria' => array(
+                'with'=>array('rubric'),
                 'condition' => 'by_happy_giraffe = :by AND type_id = 1 AND rubric.community_id IS NOT NULL',
                 'params' => array(':by' => $by_happy_giraffe),
                 'order' => 't.id ASC',
@@ -710,7 +708,7 @@ class CommunityController extends HController
     public function actionPostRewrite()
     {
         if (Yii::app()->user->id == 18 || Yii::app()->user->id == 23 || Yii::app()->user->id == 10454) {
-            $dp = new CActiveDataProvider(CommunityContent::model()->full(), array(
+            $dp = new CActiveDataProvider(CommunityContent::model(), array(
                 'criteria' => array(
                     'condition' => 'edited = 1',
                     'order' => 't.id ASC',

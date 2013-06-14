@@ -357,19 +357,18 @@ class CommunityContent extends HActiveRecord
             'with' => array('rubric', 'type')
         ));
 
-        $criteria->condition = 'type_id != 3';
         $criteria->compare('community_id', $community_id);
+        $criteria->scopes = array('active');
 
         if ($rubric_id !== null) {
             $criteria->addCondition('rubric.id = :rubric_id OR rubric.parent_id = :rubric_id');
             $criteria->params[':rubric_id'] = $rubric_id;
         }
 
-        if ($content_type_slug !== null) {
+        if ($content_type_slug !== null)
             $criteria->compare('slug', $content_type_slug);
-        }
 
-        return new CActiveDataProvider($this->cache(1800, new CDbCacheDependency('SELECT MAX(updated) FROM community__contents c JOIN community__rubrics r ON r.id = c.rubric_id WHERE r.community_id=' . $community_id))->active(), array(
+        return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
         ));
     }

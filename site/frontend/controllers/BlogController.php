@@ -134,7 +134,7 @@ class BlogController extends HController
     public function actionEdit($content_id)
     {
         $this->meta_title = 'Редактирование записи';
-        $model = BlogContent::model()->full()->findByPk($content_id);
+        $model = BlogContent::model()->findByPk($content_id);
         $model->scenario = 'default';
         if ($model === null)
             throw new CHttpException(404, 'Запись не найдена');
@@ -204,7 +204,7 @@ class BlogController extends HController
     public function actionView($content_id, $user_id, $lastPage = null, $ajax = null)
     {
         $this->layout = '//layouts/user_blog';
-        $content = BlogContent::model()->active()->full()->findByPk($content_id);
+        $content = BlogContent::model()->active()->with(array('rubric', 'type', 'gallery'))->findByPk($content_id);
 
         if ($content === null || $content->author_id !== $user_id)// || $content->author->deleted)
             throw new CHttpException(404, 'Такой записи не существует');
@@ -221,7 +221,7 @@ class BlogController extends HController
             $this->pageTitle = $content->title;
         $this->registerCounter();
 
-        $this->user = $content->author;
+        $this->user = User::model()->with(array('blog_rubrics', 'blog_rubrics.contentsCount'))->findByPk($content->author_id);
         $this->rubric_id = ($content->type_id == 5) ? null : $content->rubric->id;
 
         if (!empty($content->uniqueness) && $content->uniqueness < 50)

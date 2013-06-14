@@ -6,7 +6,7 @@
  * @author Alex Kireev <alexk984@gmail.com>
  */
 
-$content = CommunityContent::model()->full()->findByPk($model->content_id);
+$content = CommunityContent::model()->findByPk($model->content_id);
 $more = $content->OtherCommunityGalleries(2);
 ?>
 <div class="album-end">

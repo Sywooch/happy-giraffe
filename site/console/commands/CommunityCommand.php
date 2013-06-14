@@ -36,7 +36,7 @@ class CommunityCommand extends CConsoleCommand
     public function actionCutConvert()
     {
         Yii::import('site.frontend.components.CutBehavior');
-        $community = CommunityContent::model()->full()->findAll();
+        $community = CommunityContent::model()->findAll();
         foreach ($community as $model) {
             if (!$model->content || !$model->content->text) {
                 echo 'Беда!!!11 ID: ' . $model->id . ' --- ';
@@ -84,7 +84,7 @@ class CommunityCommand extends CConsoleCommand
         $criteria = new CDbCriteria;
         $criteria->compare('by_happy_giraffe', true);
 
-        $contents = CommunityContent::model()->full()->findAll($criteria);
+        $contents = CommunityContent::model()->findAll($criteria);
 
         foreach ($contents as $c) {
             echo $c->id . "\n";
@@ -106,7 +106,7 @@ class CommunityCommand extends CConsoleCommand
         $criteria->limit = $perIteraion;
         $criteria->order = 't.id ASC';
 
-        while ($contents = CommunityContent::model()->full()->findAll($criteria)) {
+        while ($contents = CommunityContent::model()->findAll($criteria)) {
             foreach ($contents as $c) {
                 echo $c->id . "\n";
                 $c->content->text = $this->_purifyNonGiraffe($c->content->text);
@@ -228,7 +228,7 @@ class CommunityCommand extends CConsoleCommand
         Yii::import('site.frontend.extensions.image.Image');
         Yii::import('site.frontend.helpers.*');
 
-        $community = CommunityContent::model()->full()->findAll();
+        $community = CommunityContent::model()->findAll();
         foreach ($community as $model) {
             if (!$model->content || !$model->content->text) {
                 echo 'Беда!!!11 ID: ' . $model->id . ' --- ';

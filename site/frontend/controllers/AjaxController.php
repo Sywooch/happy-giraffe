@@ -645,7 +645,7 @@ class AjaxController extends HController
 
     public function actionContentsLive($id, $containerClass)
     {
-        $model = CommunityContent::model()->full()->findByPk($id);
+        $model = CommunityContent::model()->findByPk($id);
         $data = array('data' => $model);
         switch ($containerClass) {
             case 'short':

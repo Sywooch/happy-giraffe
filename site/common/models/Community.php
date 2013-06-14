@@ -215,21 +215,18 @@ class Community extends HActiveRecord
 
     public function getLast($limit = 10)
     {
-        return CommunityContent::model()->full()->findAll(array(
+        return CommunityContent::model()->with('rubric', 'type')->findAll(array(
             'limit' => $limit,
             'order' => 'created DESC',
-            'condition' => 'community.id = :community_id',
+            'condition' => 'rubric.community_id = :community_id',
             'params' => array(':community_id' => $this->id),
-            'with' => array('author' => array(
-                'select'=>array('id', 'first_name', 'last_name', 'avatar_id', 'online', 'blocked', 'deleted')
-            ))
         ));
     }
 
     public function getBanners($limit = 2)
     {
         return CommunityBanner::model()->findAll(array(
-            'with' => array('content', 'content.rubric', 'content.rubric', 'photo'),
+            'with' => array('content', 'content.rubric'),
             'limit' => $limit,
             'order' => new CDbExpression('RAND()'),
             'condition' => 'rubric.community_id = :community_id AND t.photo_id IS NOT NULL',

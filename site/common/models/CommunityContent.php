@@ -354,14 +354,13 @@ class CommunityContent extends HActiveRecord
     {
         $criteria = new CDbCriteria(array(
             'order' => 't.created DESC',
-            'with' => array('rubric')
+            'with' => array('rubric', 'type')
         ));
 
         $criteria->condition = 'type_id != 3';
         $criteria->compare('community_id', $community_id);
 
         if ($rubric_id !== null) {
-            $criteria->with = 'rubric';
             $criteria->addCondition('rubric.id = :rubric_id OR rubric.parent_id = :rubric_id');
             $criteria->params[':rubric_id'] = $rubric_id;
         }

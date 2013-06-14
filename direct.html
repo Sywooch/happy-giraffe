@@ -1,22 +1,30 @@
-<div id="yandex_ad"></div>
+<style>
+    body {
+        font: 11px Arial, Tahoma, Verdana, sans-serif;
+    }
+</style>
+
+<div id="yandex_ad_popup"></div>
 <script type="text/javascript">
     (function(w, d, n, s, t) {
         w[n] = w[n] || [];
         w[n].push(function() {
-            Ya.Direct.insertInto(87026, "yandex_ad", {
-                stat_id: 1955455,
+            Ya.Direct.insertInto(87026, "yandex_ad_popup", {
+                stat_id: 1955456,
                 site_charset: "utf-8",
                 ad_format: "direct",
-                type: "240x400",
+                font_size: 1.2,
+                type: "vertical",
+                limit: 2,
+                title_font_size: 3,
                 site_bg_color: "FFFFFF",
                 title_color: "0281B0",
                 url_color: "999999",
                 text_color: "000000",
-                hover_color: "029AD2",
-                favicon: true
+                hover_color: "029AD2"
             });
         });
-        t = d.documentElement.firstChild;
+        t = d.getElementsByTagName('head')[0];
         s = d.createElement("script");
         s.type = "text/javascript";
         s.src = "http://an.yandex.ru/system/context.js";

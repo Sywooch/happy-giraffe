@@ -80,6 +80,7 @@ function SearchViewModel(data) {
 
     self.selectAll = function() {
         self.activeMenuRowIndex(null);
+        self.load();
     }
 
     self.pages = ko.computed(function() {

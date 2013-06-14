@@ -221,7 +221,7 @@ class BlogController extends HController
             $this->pageTitle = $content->title;
         $this->registerCounter();
 
-        $this->user = User::model()->with(array('blog_rubrics', 'blog_rubrics.contentsCount'))->cache(3600, new CDbCacheDependency('SELECT max(id) FROM community__contents WHERE author_id='.$content->author_id))->findByPk($content->author_id);
+        $this->user = User::model()->cache(600, new CDbCacheDependency('SELECT max(id) FROM community__contents WHERE author_id='.$content->author_id))->with(array('blog_rubrics'))->findByPk($content->author_id);
         $this->rubric_id = ($content->type_id == 5) ? null : $content->rubric->id;
 
         if (!empty($content->uniqueness) && $content->uniqueness < 50)

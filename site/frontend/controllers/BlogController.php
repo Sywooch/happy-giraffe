@@ -231,8 +231,8 @@ class BlogController extends HController
         NotificationRead::getInstance()->setContentModel($content);
 
         //проверяем переход с других сайтов по ссылкам комментаторов
-        Yii::import('site.frontend.modules.signal.models.CommentatorLink');
-        CommentatorLink::checkPageVisit('BlogContent', $content_id);
+        //Yii::import('site.frontend.modules.signal.models.CommentatorLink');
+        //CommentatorLink::checkPageVisit('BlogContent', $content_id);
 
         $this->render('view', array(
             'data' => $content,

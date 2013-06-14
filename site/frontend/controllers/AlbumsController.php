@@ -718,7 +718,7 @@ class AlbumsController extends HController
             case 'valentinePost':
                 $criteria = new CDbCriteria;
                 $criteria->compare('rubric.community_id', Community::COMMUNITY_VALENTINE);
-                $model = CommunityContent::model()->full()->find($criteria);
+                $model = CommunityContent::model()->find($criteria);
 
                 $content_id = $model->id;
                 $model = CActiveRecord::model('CommunityContentGallery')->findByAttributes(array('content_id' => $content_id));

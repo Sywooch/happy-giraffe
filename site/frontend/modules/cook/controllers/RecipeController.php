@@ -228,7 +228,7 @@ class RecipeController extends HController
      */
     public function actionImport($content_id)
     {
-        $content = CommunityContent::model()->full()->findByPk($content_id);
+        $content = CommunityContent::model()->findByPk($content_id);
         if ($content === null)
             throw new CHttpException(404, 'Статья не существует или уже перенесена в рецепты');
 

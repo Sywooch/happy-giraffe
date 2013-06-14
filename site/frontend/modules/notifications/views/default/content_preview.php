@@ -4,10 +4,7 @@
  * @var $entity_id int
  * @author Alex Kireev <alexk984@gmail.com>
  */
-if ($entity == 'CommunityContent' || $entity == 'BlogContent')
-    $model = $entity::model()->full()->findByPk($entity_id);
-else
-    $model = $entity::model()->findByPk($entity_id);
+$model = $entity::model()->findByPk($entity_id);
 
 if ($model !== null) {
     $photo = $model->getPhoto();

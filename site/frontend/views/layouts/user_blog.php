@@ -41,29 +41,42 @@
                 </div>
             <?php endif; ?>
 
-            <div class="club-topics-list-new">
+            <?php if($this->beginCache('blog-rubrics', array(
+                'duration' => 3600,
+                'dependency' => array(
+                    'class' => 'CDbCacheDependency',
+                    'sql' => 'SELECT MAX(updated) FROM community__contents c
+                        JOIN community__rubrics r ON c.rubric_id = r.id
+                        WHERE r.user_id = ' . $this->user->id,
+                ),
+                'varyByParam' => array('rubric_id'),
+            ))): ?>
 
-                <div class="block-title">О чем мой блог</div>
+                <div class="club-topics-list-new">
 
-                <?php
-                    $items = array();
+                    <div class="block-title">О чем мой блог</div>
 
-                    foreach ($this->user->blog_rubrics as $rubric) {
-                        if ($rubric->contentsCount > 0)
-                            $items[] = array(
-                                'label' => $rubric->title,
-                                'url' => $this->getUrl(array('rubric_id' => $rubric->id)),
-                                'template' => '<span>{menu}</span><div class="count">' . $rubric->contentsCount . '</div>',
-                                'active' => $rubric->id == $this->rubric_id,
-                            );
-                    }
+                    <?php
+                        $items = array();
 
-                    $this->widget('zii.widgets.CMenu', array(
-                        'items' => $items,
-                    ));
-                ?>
+                        foreach ($this->user->blog_rubrics as $rubric) {
+                            if ($rubric->contentsCount > 0)
+                                $items[] = array(
+                                    'label' => $rubric->title,
+                                    'url' => $this->getUrl(array('rubric_id' => $rubric->id)),
+                                    'template' => '<span>{menu}</span><div class="count">' . $rubric->contentsCount . '</div>',
+                                    'active' => $rubric->id == $this->rubric_id,
+                                );
+                        }
 
-            </div>
+                        $this->widget('zii.widgets.CMenu', array(
+                            'items' => $items,
+                        ));
+                    ?>
+
+                </div>
+
+            <?php $this->endCache(); endif;  ?>
 
             <?php
                 //$this->widget('application.widgets.blog.attendanceWidget.AttendanceWidget', array(

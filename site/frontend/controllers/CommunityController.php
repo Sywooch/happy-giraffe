@@ -128,6 +128,7 @@ class CommunityController extends HController
         return $this->createUrl($route, $params);
     }
 
+
     /**
      * @sitemap dataSource=sitemapView
      */
@@ -191,17 +192,19 @@ class CommunityController extends HController
             );
         }
 
-        NotificationRead::getInstance()->setContentModel($content);
+        if (!Yii::app()->user->isGuest)
+            NotificationRead::getInstance()->setContentModel($content);
         $this->registerCounter();
 
         //проверяем переход с других сайтов по ссылкам комментаторов
-        Yii::import('site.frontend.modules.signal.models.CommentatorLink');
-        CommentatorLink::checkPageVisit('CommunityContent', $content_id);
+        //Yii::import('site.frontend.modules.signal.models.CommentatorLink');
+        //CommentatorLink::checkPageVisit('CommunityContent', $content_id);
 
         $this->render('view', array(
             'data' => $content,
         ));
     }
+
 
     public function actionEdit($content_id)
     {

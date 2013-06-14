@@ -97,7 +97,8 @@ class RssController extends HController
             'height' => 144,
         ));
 
-        $contents = CommunityContent::model()->active()->full()->findAll(array(
+        $contents = CommunityContent::model()->active()->findAll(array(
+            'with'=>array('rubric'),
             'condition' => 'rubric.community_id = :community_id',
             'params' => array(':community_id' => Community::COMMUNITY_NEWS),
             'order' => 'created DESC',
@@ -276,7 +277,7 @@ class RssController extends HController
             $criteria->addInCondition('t.id', $ids);
             switch ($entity) {
                 case 'CommunityContent':
-                    $_contents = CActiveRecord::model($entity)->full()->findAll($criteria);
+                    $_contents = CActiveRecord::model($entity)->findAll($criteria);
                     break;
                 default:
                     $_contents = CActiveRecord::model($entity)->findAll($criteria);

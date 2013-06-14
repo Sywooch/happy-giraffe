@@ -1,5 +1,5 @@
 <?php
-    $content = CommunityContent::model()->full()->findByPk($action->data['id']);
+    $content = CommunityContent::model()->findByPk($action->data['id']);
 ?>
 
 <?php if ($content !== null): ?>

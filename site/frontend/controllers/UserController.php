@@ -221,7 +221,7 @@ class UserController extends HController
                 'order' => 'created DESC',
             ));
         }
-        $contents = CommunityContent::model()->full()->findAll($criteria);
+        $contents = CommunityContent::model()->findAll($criteria);
 
         foreach ($contents as $c) {
             $item = $feed->createNewItem();

@@ -277,6 +277,15 @@ class Album extends HActiveRecord
         );
     }
 
+    public function getPhotoCollectionDependency()
+    {
+        return array(
+            'class'=>'system.caching.dependencies.CDbCacheDependency',
+            'sql' => 'SELECT MAX(created) FROM album__photos WHERE album_id = :album_id',
+            'params' => array(':album_id' => $this->id),
+        );
+    }
+
     /**
      * @param int $author_id
      * @param int $type

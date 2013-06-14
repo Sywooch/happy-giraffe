@@ -10,6 +10,21 @@ class HActiveRecord extends CActiveRecord
         return $this->photos;
     }
 
+    public function getPhotoCollectionDependency()
+    {
+        $sql = "
+            SELECT MAX(p.created) FROM album__photo_attaches pa
+            INNER JOIN album__photos p ON pa.photo_id = p.id
+            WHERE pa.entity = :entity AND pa.entity_id = :entity_id;
+        ";
+
+        return array(
+            'class'=>'system.caching.dependencies.CDbCacheDependency',
+            'sql' => $sql,
+            'params' => array(':entity' => get_class($this), ':entity_id' => $this->id),
+        );
+    }
+
     public function getErrorsText()
     {
         $errorText = '';

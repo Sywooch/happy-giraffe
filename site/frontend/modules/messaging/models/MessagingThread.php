@@ -11,7 +11,7 @@
  * The followings are the available model relations:
  * @property MessagingMessage[] $messagingMessages
  */
-class MessagingThread extends CActiveRecord
+class MessagingThread extends HActiveRecord
 {
     /**
      * Returns the static model of the specified AR class.

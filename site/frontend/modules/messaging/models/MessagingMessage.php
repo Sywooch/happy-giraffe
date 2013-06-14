@@ -16,7 +16,7 @@
  * @property MessagingThread $thread
  * @property User[] $users
  */
-class MessagingMessage extends CActiveRecord
+class MessagingMessage extends HActiveRecord
 {
     /**
      * Returns the static model of the specified AR class.
@@ -210,5 +210,6 @@ class MessagingMessage extends CActiveRecord
             'photos' => $photos,
         );
     }
+
 
 }

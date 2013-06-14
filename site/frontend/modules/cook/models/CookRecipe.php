@@ -462,6 +462,23 @@ class CookRecipe extends CActiveRecord
         );
     }
 
+    public function getPhotoCollectionDependency()
+    {
+        $sql = "
+            SELECT photo_id FROM cook__recipes WHERE id = :recipe_id
+            UNION
+            SELECT MAX(p.created) FROM album__photo_attaches pa
+            INNER JOIN album__photos p ON pa.photo_id = p.id
+            WHERE pa.entity = 'CookRecipe' AND pa.entity_id = :recipe_id;
+        ";
+
+        return array(
+            'class'=>'system.caching.dependencies.CDbCacheDependency',
+            'sql' => $sql,
+            'params' => array(':recipe_id' => $this->id),
+        );
+    }
+
     public function getDurationLabels()
     {
         $labels = array();

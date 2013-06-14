@@ -28,21 +28,19 @@ class AlbumsController extends HController
 
         $entity = Yii::app()->request->getQuery('entity');
         $entity_id = Yii::app()->request->getQuery('entity_id');
-        if ($entity == 'Contest') {
-            if (! Yii::app()->request->getQuery('go'))
-                $filters[] = array(
-                    'COutputCache + WPhoto',
-                    'duration' => 600,
-                    'varyByParam' => array('entity', 'entity_id', 'id', 'sort', 'go'),
-                    'dependency' => new CDbCacheDependency(Yii::app()->db->createCommand()->select(new CDbExpression('MAX(created)'))->from('contest__works')->where("contest_id = $entity_id")->text),
-                );
+        if (! Yii::app()->request->getQuery('go'))
             $filters[] = array(
-                'COutputCache + postLoad',
+                'COutputCache + WPhoto',
                 'duration' => 600,
-                'varyByParam' => array('entity', 'entity_id', 'photo_id'),
-                'dependency' => new CDbCacheDependency(Yii::app()->db->createCommand()->select(new CDbExpression('MAX(created)'))->from('contest__works')->where("contest_id = $entity_id")->text),
+                'varyByParam' => array('entity', 'entity_id', 'id', 'sort', 'go'),
+                'dependency' => CActiveRecord::model($entity)->getPhotoCollectionDependency(),
             );
-        }
+        $filters[] = array(
+            'COutputCache + postLoad',
+            'duration' => 600,
+            'varyByParam' => array('entity', 'entity_id', 'photo_id'),
+            'dependency' => CActiveRecord::model($entity)->getPhotoCollectionDependency(),
+        );
 
         return $filters;
     }

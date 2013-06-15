@@ -7,8 +7,17 @@ class ThreadsController extends HController
     public function filters()
     {
         return array(
-//            'ajaxOnly',
-//            'postOnly',
+            'accessControl',
+            'ajaxOnly',
+        );
+    }
+
+    public function accessRules()
+    {
+        return array(
+            array('deny',
+                'users' => array('?'),
+            ),
         );
     }
 

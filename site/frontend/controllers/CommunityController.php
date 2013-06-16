@@ -26,7 +26,7 @@ class CommunityController extends HController
                 'COutputCache + view',
                 'duration' => 300,
                 'varyByParam' => array('content_id', 'Comment_page'),
-                'varyByExpression' => '"'.$last_mod.'"',
+                'varyByExpression' => '$last_mod',
             );
         }
 

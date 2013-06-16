@@ -29,13 +29,12 @@ class AlbumsController extends HController
         $entity = Yii::app()->request->getQuery('entity');
         $entity_id = Yii::app()->request->getQuery('entity_id');
         if (isset($entity)){
-            if (! Yii::app()->request->getQuery('go'))
-                $filters[] = array(
-                    'COutputCache + WPhoto',
-                    'duration' => 600,
-                    'varyByParam' => array('entity', 'entity_id', 'id', 'sort', 'go'),
-                    'dependency' => CActiveRecord::model($entity)->getPhotoCollectionDependency(),
-                );
+            $filters[] = array(
+                'COutputCache + WPhoto',
+                'duration' => 600,
+                'varyByParam' => array('entity', 'entity_id', 'id', 'sort', 'go'),
+                'dependency' => CActiveRecord::model($entity)->getPhotoCollectionDependency(),
+            );
             $filters[] = array(
                 'COutputCache + postLoad',
                 'duration' => 600,

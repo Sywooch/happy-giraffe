@@ -401,7 +401,6 @@ class CommunityContent extends HActiveRecord
                 array(
                     'condition' => 'rubric_id = :rubric_id AND t.id < :current_id',
                     'params' => array(':rubric_id' => $this->rubric_id, ':current_id' => $this->id),
-                    'limit' => 2,
                     'order' => 't.id DESC',
                 )
             );
@@ -410,7 +409,6 @@ class CommunityContent extends HActiveRecord
                 array(
                     'condition' => 't.id < :current_id',
                     'params' => array(':current_id' => $this->id),
-                    'limit' => 2,
                     'order' => 't.id DESC',
                     'with' => array(
                         'rubric' => array(
@@ -579,10 +577,10 @@ class CommunityContent extends HActiveRecord
     public function getLastCommentators($limit = 3)
     {
         return Comment::model()->findAll(array(
-            'with'=>array(
-                'author'=>array(
-                    'select' => array('id', 'gender', 'deleted', 'blocked'),
-                    'with'=> 'avatar'
+            'with' => array(
+                'author' => array(
+                    'select' => 'id, avatar_id, gender, deleted, blocked',
+                    'with' => 'avatar'
                 ),
             ),
             'condition' => 'entity = :entity AND entity_id = :entity_id',

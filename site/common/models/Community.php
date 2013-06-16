@@ -213,7 +213,6 @@ class Community extends HActiveRecord
             'order' => 'created DESC',
             'condition' => 'rubric_id IN ('.implode(',', self::getRubricIds($this->id)).')',
             'with' => array('type', 'rubric'),
-            'together' => false
         ));
     }
 

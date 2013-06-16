@@ -13,19 +13,26 @@ class BlogController extends HController
 
     public function filters()
     {
-        return array(
+        $last_mod = $this->lastModified();
+        $filters = array(
             'accessControl',
-            array(
-                'CHttpCacheFilter + view',
-                'lastModified' => $this->lastModified(),
-            ),
-//            array(
-//                'COutputCache + view',
-//                'duration' => 300,
-//                'varyByParam' => array('content_id', 'Comment_page'),
-//                'varyByExpression' => Yii::app()->user->id . $this->lastModified(),
-//            ),
         );
+
+        if (Yii::app()->user->isGuest) {
+            $filters [] = array(
+                'CHttpCacheFilter + view',
+                'lastModified' => $last_mod,
+            );
+
+            $filters [] = array(
+                'COutputCache + view',
+                'duration' => 300,
+                'varyByParam' => array('content_id', 'Comment_page'),
+                'varyByExpression' => Yii::app()->user->id . $last_mod,
+            );
+        }
+
+        return $filters;
     }
 
     public function accessRules()
@@ -335,11 +342,7 @@ class BlogController extends HController
 
     protected function lastModified()
     {
-        if (! Yii::app()->user->isGuest)
-            return null;
-
         $content_id = Yii::app()->request->getQuery('content_id');
-        $community_id = Yii::app()->request->getQuery('community_id');
 
         $sql = "SELECT
                     GREATEST(
@@ -349,15 +352,12 @@ class BlogController extends HController
                         COALESCE(MAX(cm.updated), '0000-00-00 00:00:00')
                     )
                 FROM community__contents c
-                JOIN community__rubrics r
-                ON c.rubric_id = r.id
                 LEFT OUTER JOIN comments cm
                 ON cm.entity = 'CommunityContent' AND cm.entity_id = :content_id
-                WHERE r.community_id = :community_id";
+                WHERE c.id = :content_id";
 
         $command = Yii::app()->db->createCommand($sql);
         $command->bindValue(':content_id', $content_id, PDO::PARAM_INT);
-        $command->bindValue(':community_id', $community_id, PDO::PARAM_INT);
         $t1 = strtotime($command->queryScalar());
 
         //проверяем блок внутренней перелинковки

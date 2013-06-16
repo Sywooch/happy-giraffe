@@ -8,8 +8,17 @@ class MessagesController extends HController
     public function filters()
     {
         return array(
-//            'ajaxOnly',
-//            'postOnly',
+            'accessControl',
+            'ajaxOnly',
+        );
+    }
+
+    public function accessRules()
+    {
+        return array(
+            array('deny',
+                'users' => array('?'),
+            ),
         );
     }
 
@@ -137,12 +146,5 @@ class MessagesController extends HController
         }
 
         echo CJSON::encode($data);
-    }
-
-    public function test()
-    {
-        $id = Yii::app()->request->getQuery('id');
-        $message = MessagingMessage::model()->findByPk($id);
-        print_r($message->JSON);
     }
 }

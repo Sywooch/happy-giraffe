@@ -895,7 +895,15 @@
 
 #user-activity .fast-teasers-box {padding:15px;border:1px solid #e8e8e8;margin:0 0 20px;}
 #user-activity .fast-teasers-box .box-title {padding:0 0 15px;}
-#user-activity .fast-teasers-box .item-title {font-size:14px;font-weight:bold;font-family:tahoma, arial, helvetica, sans-serif;}
+#user-activity .fast-teasers-box .item-title {font-size:14px;font-weight:bold;font-family:tahoma, arial, helvetica, sans-serif;margin-bottom:5px;}
+#user-activity .fast-teasers-box .block-title {font-size:23px;color:#131312;margin-bottom:20px;}
+#user-activity .fast-teasers-box ul {list-style:none;font-size:13px;}
+#user-activity .fast-teasers-box ul li {overflow:hidden;margin-top:25px;}
+#user-activity .fast-teasers-box ul li:first-child {margin-top:0;}
+#user-activity .fast-teasers-box ul li .img {float:left;}
+#user-activity .fast-teasers-box ul li .text {margin-left:130px;}
+#user-activity .fast-teasers-box ul li .text p {line-height:19px;}
+
 
 #user-activity .user-family {text-align:center;padding:15px;border:1px solid #e8e8e8;margin:0 0 20px;}
 #user-activity .user-family .box-title {padding:0 0 15px;text-align:left;}

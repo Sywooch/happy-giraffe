@@ -355,6 +355,10 @@
 #cart .info-form textarea {font:16px/1 arial, sans-serif;color:#6bc3cd;border:1px solid #c9eaf1;padding:13px 15px;width:610px;height:50px;overflow:auto;}
 #cart .info-form .row.row-gray input, #cart .info-form .row.row-gray textarea  {border-color:#eae9e9;}
 
+#cart .info-form .chzn-container-single .chzn-single {height:44px;}
+#cart .info-form .chzn-container-single .chzn-single span {line-height:44px;font-size:14px;}
+#cart .info-form .chzn-container .chzn-results li {line-height:18px;font-size:14px;}
+
 .icon-sale {display:inline-block;*zoom:1;*display:inline;width:30px;height:15px;background:url(../images/common.png) no-repeat -360px -101px;position:relative;top:-2px;vertical-align:middle;}
 .icon-sale-shock {display:inline-block;*zoom:1;*display:inline;width:38px;height:34px;background:url(/images/ico/ico-shock.png) no-repeat;position:relative;vertical-align:middle;}
 .icon-sale-shock-big {display:inline-block;*zoom:1;*display:inline;width:97px;height:88px;background:url(/images/ico/ico-shock-big.png) no-repeat;position:relative;vertical-align:middle;}

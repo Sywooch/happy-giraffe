@@ -163,6 +163,7 @@ class DefaultController extends HController
                 'mapsLocation' => $address->fullTextLocation()
             );
             UserAction::model()->add($user->id, UserAction::USER_ACTION_ADDRESS_UPDATED, array('model' => $address));
+            UserScores::checkProfileScores(Yii::app()->user->id);
         } else {
             $response = array(
                 'status' => false,

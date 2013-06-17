@@ -12,7 +12,7 @@ if ($comment !== null){
     </div>
     <div class="user-notice-list_comment">
         <div class="user-notice-list_comment-text">
-            <?=Str::truncate($comment->purified->text, 230) ?>
+            <?=Str::truncate(strip_tags($comment->text), 230) ?>
         </div>
     </div>
 </div><?php }else{ ?>

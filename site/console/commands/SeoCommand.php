@@ -223,8 +223,10 @@ class SeoCommand extends CConsoleCommand
         }
     }
 
-    public function actionTest2(){
-        echo GApi::model()->uniquePageViews('/test/pregnancy/', '2012-11-01', '2012-12-01')."\n";
+    public function actionTest2()
+    {
+        $c = new MonthStats();
+        $c->photo();
     }
 }
 

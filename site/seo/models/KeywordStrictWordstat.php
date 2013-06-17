@@ -1,97 +1,77 @@
 <?php
 
 /**
- * This is the model class for table "keywords_strict_wordstat".
+ * Class KeywordStrictWordstat
  *
- * The followings are the available columns in table 'keywords_strict_wordstat':
- * @property integer $keyword_id
- * @property integer $wordstat
- * @property integer $strict_wordstat
+ * Хранения частоты "!wordstat"
+ *
+ * @author Alex Kireev <alexk984@gmail.com>
  */
-class KeywordStrictWordstat extends CActiveRecord
+class KeywordStrictWordstat
 {
-	/**
-	 * Returns the static model of the specified AR class.
-	 * @param string $className active record class name.
-	 * @return KeywordStrictWordstat the static model class
-	 */
-	public static function model($className=__CLASS__)
-	{
-		return parent::model($className);
-	}
+    public $id;
+    public $value;
 
-	/**
-	 * @return CDbConnection database connection
-	 */
-	public function getDbConnection()
-	{
-		return Yii::app()->db_keywords;
-	}
+    /**
+     * @var KeywordDirectRelation
+     */
+    private static $_instance;
+    private $collection;
 
-	/**
-	 * @return string the associated database table name
-	 */
-	public function tableName()
-	{
-		return 'keywords_strict_wordstat';
-	}
+    /**
+     * @return KeywordStrictWordstat
+     */
+    public static function getInstance()
+    {
+        if (null === self::$_instance)
+            self::$_instance = new self();
+        return self::$_instance;
+    }
 
-	/**
-	 * @return array validation rules for model attributes.
-	 */
-	public function rules()
-	{
-		// NOTE: you should only define rules for those attributes that
-		// will receive user inputs.
-		return array(
-			array('keyword_id, wordstat, strict_wordstat', 'required'),
-			array('keyword_id, wordstat, strict_wordstat', 'numerical', 'integerOnly'=>true),
-			// The following rule is used by search().
-			// Please remove those attributes that should not be searched.
-			array('keyword_id, wordstat, strict_wordstat', 'safe', 'on'=>'search'),
-		);
-	}
+    private function __construct()
+    {
+    }
 
-	/**
-	 * @return array relational rules.
-	 */
-	public function relations()
-	{
-		// NOTE: you may need to adjust the relation name and the related
-		// class name for the relations automatically generated below.
-		return array(
-		);
-	}
+    /**
+     * @return MongoCollection
+     */
+    public function getCollection()
+    {
+        if ($this->collection === null) {
+            $mongo = Yii::app()->mongodb_parsing->getConnection();
+            $this->collection = $mongo->selectCollection('parsing', 'keywords_strict_wordstat');
+            $this->collection->ensureIndex(array('id' => 1), array("unique" => true));
+        }
 
-	/**
-	 * @return array customized attribute labels (name=>label)
-	 */
-	public function attributeLabels()
-	{
-		return array(
-			'keyword_id' => 'Keyword',
-			'wordstat' => 'Wordstat',
-			'strict_wordstat' => 'Strict Wordstat',
-		);
-	}
+        return $this->collection;
+    }
 
-	/**
-	 * Retrieves a list of models based on the current search/filter conditions.
-	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
-	 */
-	public function search()
-	{
-		// Warning: Please modify the following code to remove attributes that
-		// should not be searched.
+    /**
+     * Возвращает частоту "!wordstat"
+     * @param int $id id кейворда
+     * @return int значение
+     */
+    public function getValue($id)
+    {
+        $model = $this->getCollection()->findOne(array('id' => (int)$id));
+        if ($model === null)
+            return -1;
+        return $model['value'];
+    }
 
-		$criteria=new CDbCriteria;
-
-		$criteria->compare('keyword_id',$this->keyword_id);
-		$criteria->compare('wordstat',$this->wordstat);
-		$criteria->compare('strict_wordstat',$this->strict_wordstat);
-
-		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-		));
-	}
+    /**
+     * Сохранение частоты "!wordstat"
+     *
+     * @param int $id id кейворда
+     * @param int $value значение
+     * @return bool
+     */
+    public function save($id, $value)
+    {
+        $model = $this->getCollection()->findOne(array('id' => (int)$id));
+        if ($model === null)
+            $this->getCollection()->insert(array('id' => (int)$id, 'value' => (int)$value));
+        else
+            $this->getCollection()->update(array('_id' => $model['_id']), array('value' => (int)$value));
+    }
 }

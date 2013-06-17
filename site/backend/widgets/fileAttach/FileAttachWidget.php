@@ -85,12 +85,6 @@ class FileAttachWidget extends CWidget
             $this->title = 'Добавить фото к продукту';
             $this->button_title = 'Добавить';
         }
-        elseif($this->entity == 'Humor')
-        {
-            $this->title = 'Фото в «Улыбнить вместе с нами»';
-            $this->button_title = 'Продолжить';
-            $this->disableNavigation = true;
-        }
         elseif($this->entity == 'CookRecipe' || $this->entity == 'SimpleRecipe' || $this->entity == 'MultivarkaRecipe')
         {
             $this->title = 'Фото блюда';

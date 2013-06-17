@@ -61,6 +61,7 @@ class HController extends CController
 
     protected function beforeAction($action)
     {
+        die(Yii::app()->controller->action->id);
 //        if (Yii::app()->user->id == 12936 || Yii::app()->user->id == 56 || Yii::app()->user->id == 16534)
 //            $this->showLikes = true;
 

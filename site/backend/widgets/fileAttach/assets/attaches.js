@@ -69,8 +69,6 @@ Attach.prototype.selectBrowsePhoto = function (button) {
         this.saveCommentPhoto(fsn);
     } else if (this.entity == 'CalendarPeriod' || this.entity == 'Comment' || this.entity == 'CommunityPost' || this.entity == 'CommunityVideo') {
         this.insertToComment(fsn);
-    } else if (this.entity == 'Humor') {
-        this.insertToHumor(fsn);
     } else if (this.entity == 'CookDecoration') {
         this.CookDecorationEdit(fsn);
     } else if (this.entity == 'CookRecipe' || this.entity == 'SimpleRecipe' || this.entity == 'MultivarkaRecipe') {
@@ -110,13 +108,6 @@ Attach.prototype.insertToComment = function (val) {
         $.fancybox.close();
     }, 'json');
 };
-
-Attach.prototype.insertToHumor = function (fsn) {
-    $.post(base_url + '/albums/humorPhoto/', {val:fsn}, function (data) {
-        if (data)
-            document.location.reload();
-    }, 'json');
-}
 
 Attach.prototype.insertToRecipe = function (fsn) {
     var $this = this;

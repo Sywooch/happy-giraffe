@@ -130,6 +130,7 @@ class Interest extends HActiveRecord
             }
 
             User::model()->UpdateUser($user_id);
+            Yii::app()->user->getModel()->score->checkFull();
             return true;
         }
         return false;

@@ -60,7 +60,7 @@ class MailruParser extends LiBaseParser
 
             $keyword_model = Keyword::GetKeyword($keyword);
             if ($keyword_model !== null) {
-                SiteKeywordVisit::SaveValue($this->site->id, $keyword_model->id, $month, $year, $stats);
+                SiteKeywordVisit::SaveValue($this->site->id, $keyword_model->id, (int)$month, $year, $stats);
                 $count++;
             }
         }

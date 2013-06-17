@@ -27,13 +27,15 @@ class SeoParsingCommand extends CConsoleCommand
         $last_month = strtotime('last day of -1 month');
         $this->prev_month = date("m", $last_month);
         $this->prev_year = date("Y", $last_month);
+        echo $this->prev_month . ' - ' . $this->prev_year . "\n";
 
         return true;
     }
 
-    public function actionAdd(){
+    public function actionAdd()
+    {
         $last_num = SeoUserAttributes::getAttribute('keyword_num', 1);
-        echo $last_num."\n";
+        echo $last_num . "\n";
 
         $handle = fopen("/home/giraffe/uniq_590m_ru.txt", "r");
         $i = 0;
@@ -60,19 +62,19 @@ class SeoParsingCommand extends CConsoleCommand
 
     public function actionLi($site)
     {
-        $last_parsed = SeoUserAttributes::getAttribute('last_li_parsed_'.date("Y-m") , 1);
+        $last_parsed = SeoUserAttributes::getAttribute('last_li_parsed_' . date("Y-m"), 1);
         if (empty($site)) {
             $parser = new LiParser;
 
             if (!empty($last_parsed))
-                $sites = Site::model()->findAll('id > '.$last_parsed.' AND type = 1 AND url != ""');
+                $sites = Site::model()->findAll('id > ' . $last_parsed . ' AND type = 1 AND url != ""');
             else
                 $sites = Site::model()->findAll('type = 1 AND url != ""');
 
             foreach ($sites as $site) {
-                echo $site->id."\n";
+                echo $site->id . "\n";
                 $parser->start($site->id, $this->prev_year, $this->prev_month, $this->prev_month);
-                SeoUserAttributes::setAttribute('last_li_parsed_'.date("Y-m") , $site->id, 1);
+                SeoUserAttributes::setAttribute('last_li_parsed_' . date("Y-m"), $site->id, 1);
             }
         } else {
             $parser = new LiParser();
@@ -82,18 +84,18 @@ class SeoParsingCommand extends CConsoleCommand
 
     public function actionMailru($site)
     {
-        $last_parsed = SeoUserAttributes::getAttribute('last_mailru_parsed_'.date("Y-m") , 1);
+        $last_parsed = SeoUserAttributes::getAttribute('last_mailru_parsed_' . date("Y-m"), 1);
         if (empty($site)) {
             $parser = new MailruParser(false, true);
 
             if (!empty($last_parsed))
-                $sites = Site::model()->findAll('id > '.$last_parsed.' AND type=2');
+                $sites = Site::model()->findAll('id > ' . $last_parsed . ' AND type=2');
             else
                 $sites = Site::model()->findAll('type=2');
 
             foreach ($sites as $site) {
                 $parser->start($site->id, $this->prev_year, $this->prev_month, $this->prev_month);
-                SeoUserAttributes::setAttribute('last_mailru_parsed_'.date("Y-m") , $site->id, 1);
+                SeoUserAttributes::setAttribute('last_mailru_parsed_' . date("Y-m"), $site->id, 1);
             }
         } else {
             $parser = new MailruParser(false, true);
@@ -101,19 +103,20 @@ class SeoParsingCommand extends CConsoleCommand
         }
     }
 
-    public function actionLiKeywords($site){
-        $last_parsed = SeoUserAttributes::getAttribute('last_li_parsed_'.date("Y-m-d") , 1);
+    public function actionLiKeywords($site)
+    {
+        $last_parsed = SeoUserAttributes::getAttribute('last_li_parsed_' . date("Y-m-d"), 1);
         $parser = new LiKeywordsParser;
 
         if (empty($site)) {
             if (!empty($last_parsed))
-                $sites = Site::model()->findAll('id > '.$last_parsed);
+                $sites = Site::model()->findAll('id > ' . $last_parsed);
             else
                 $sites = Site::model()->findAll();
 
             foreach ($sites as $site) {
                 $parser->start($site->id);
-                SeoUserAttributes::setAttribute('last_li_parsed_'.date("Y-m-d"), $site->id, 1);
+                SeoUserAttributes::setAttribute('last_li_parsed_' . date("Y-m-d"), $site->id, 1);
             }
         } else {
             $parser = new LiKeywordsParser();
@@ -121,17 +124,20 @@ class SeoParsingCommand extends CConsoleCommand
         }
     }
 
-    public function actionParseSites($page){
+    public function actionParseSites($page)
+    {
         $parser = new LiSitesParser;
         $parser->start($page);
     }
 
-    public function actionLi2Parse($debug = false){
+    public function actionLi2Parse($debug = false)
+    {
         $parser = new Li2KeywordsParser(true, $debug);
         $parser->start();
     }
 
-    public function actionLi2Private($debug = false){
+    public function actionLi2Private($debug = false)
+    {
         $parser = new Li2KeywordsParser(true, $debug);
         $parser->rus_proxy = false;
         $parser->parse_private = true;
@@ -139,7 +145,8 @@ class SeoParsingCommand extends CConsoleCommand
         $parser->start();
     }
 
-    public function actionPassword($debug = false){
+    public function actionPassword($debug = false)
+    {
         $parser = new LiPassword(true, $debug);
         $parser->rus_proxy = false;
         $parser->start();

@@ -159,9 +159,6 @@ class CommunityContent extends HActiveRecord
      */
     public function search()
     {
-        // Warning: Please modify the following code to remove attributes that
-        // should not be searched.
-
         $criteria = new CDbCriteria;
 
         $criteria->compare('id', $this->id, true);
@@ -175,36 +172,6 @@ class CommunityContent extends HActiveRecord
             'criteria' => $criteria,
             'pagination' => array('pageSize' => 30),
         ));
-    }
-
-    public function type($type_id)
-    {
-        if ($type_id !== null) {
-            $this->getDbCriteria()->mergeWith(array(
-                'with' => array(
-                    'rubric' => array(
-                        'condition' => 'type_id=:type_id',
-                        'params' => array(':type_id' => $type_id),
-                    ),
-                ),
-            ));
-        }
-        return $this;
-    }
-
-    public function rubric($rubric_id)
-    {
-        if ($rubric_id !== null) {
-            $this->getDbCriteria()->mergeWith(array(
-                'with' => array(
-                    'rubric' => array(
-                        'condition' => 'rubric_id=:rubric_id',
-                        'params' => array(':rubric_id' => $rubric_id),
-                    ),
-                ),
-            ));
-        }
-        return $this;
     }
 
     public function beforeDelete()
@@ -677,6 +644,11 @@ class CommunityContent extends HActiveRecord
         return $this->type_id == self::TYPE_VIDEO;
     }
 
+    /**
+     * Возвращает название статьи
+     * @param int $length ограничение длины названия
+     * @return string
+     */
     public function getContentTitle($length = 150)
     {
         if ($this->type_id == self::TYPE_STATUS)

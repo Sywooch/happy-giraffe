@@ -411,8 +411,10 @@ class SiteController extends HController
 
     public function actionTest()
     {
-        $galleries = CommunityContentGallery::model()->with('content')->findAll(array('condition' => 'content.removed = 0'));
-        foreach ($galleries as $g)
-            echo CHtml::link($g->content->title, $g->content->url) . '<br />';
+        Yii::import('site.frontend.extensions.phpQuery.phpQuery');
+        $url = 'http://habrahabr.ru/post/183598/';
+        $res = LinkParser::getInstance()->parse($url);
+
+        var_dump($res);
     }
 }

@@ -749,37 +749,6 @@
 #user .user-weather table thead td {border-top:1px solid #c2e7f7;border-bottom:1px solid #c2e7f7;height:23px;line-height:23px;color:#868788;font-size:12px;padding:0 5px;}
 #user .user-weather table .hl td {background:#e8f6ff;}
 
-#user .user-horoscope {padding:10px 14px;border:1px solid #efefef;margin-bottom:20px;}
-#user .user-horoscope .clearfix {text-align:center;}
-#user .user-horoscope .title {font-size:28px;color:#2d87be;display:inline-block;*zoom:1;*display:inline;vertical-align:middle;font-family:times new roman, serif;font-style:italic;}
-#user .user-horoscope .img {width:120px;margin:0 5px;height:90px;background:url(/images/widget/horoscope/bg.png) no-repeat;display:inline-block;*zoom:1;*display:inline;vertical-align:middle;}
-#user .user-horoscope .date {display:inline-block;*zoom:1;*display:inline;text-align:center;font-size:13px;color:#565655;vertical-align:middle;font-size:32px;color:#fa717c;line-height:25px;font-weight:bold;text-transform:uppercase;}
-#user .user-horoscope .date span {display:block;font-size:18px;line-height:1;}
-#user .user-horoscope p {font-size:12px;line-height:19px;margin:0 0 1em 0;color:#404040;}
-#user .user-horoscope b {color:#f05d6e;}
-
-.user-horoscope-2 {padding: 3px;border:1px solid #efefef;margin-bottom:20px;line-height: 18px;}
-.user-horoscope-2 > p {padding: 0 22px 0 14px;}
-.user-horoscope-2 .title-row {padding: 5px 0 20px;background:url(/images/widget/horoscope/user-horoscope-2-top.png) no-repeat;}
-.user-horoscope-2_img {float: left;margin: 0 11px;}
-.user-horoscope-2_date {float: right;width: 71px;padding: 10px 0 0;text-align: center;color: #0b99ee;font-weight: bold;font-size: 38px;line-height: 40px;}
-.user-horoscope-2_date > span {font-size: 20px;line-height: 22px;display: block;}
-.user-horoscope-2_title {display: block;padding: 20px 0 0;font: italic 35px/36px 'Times New Roman', Georgia, Times, serif;text-align: center;color: #363839;}
-.user-horoscope-2_title > em {display: block;font: normal 11px/12px Arial, Tahoma, Verdana, sans-serif;text-align: center;color: #2d2d2d;}
-.user-horoscope-2_likes {background: #fffde4;padding: 10px 10px 12px;margin-top: 10px;}
-.user-horoscope-2_likes-title {padding: 0 3px 10px;font-style: italic;color: #494949;}
-.user-horoscope-2_tomorrow{margin:-5px 0 0;padding:10px 10px 8px;text-align:center;font-size:16px;line-height:36px;background:url(/images/widget/horoscope/user-horoscope-2-bottom.png) no-repeat;}
-.user-horoscope-2_tomorrow .icon-zodiac {display: inline-block;*zoom:1;*display:inline;margin: 0 9px;vertical-align: middle;}
-
-#user .user-horoscope-prev {padding: 3px;border:1px solid #efefef;margin-bottom:20px;text-align: center;}
-#user .user-horoscope-prev_holder {background:url(/images/widget/horoscope/user-horoscope-prev.jpg) no-repeat;padding-bottom: 25px;}
-#user .user-horoscope-prev .user-horoscope-prev_img {float: left;width: 130px;margin: 4px 0 0 12px;}
-#user .user-horoscope-prev .user-horoscope-prev_title {float: right;width: 170px;padding: 14px 10px 0 0;color: #363839;font: italic 40px/42px 'Times New Roman', Georgia, Times, serif;}
-#user .user-horoscope-prev .user-horoscope-prev_title em {color: #2d2d2d;font: normal 12px/14px Arial, Tahoma, Verdana, sans-serif;	}
-#user .user-horoscope-prev .user-horoscope-prev_date {margin: 40px 0 72px;color: #0b99ee;font-weight:bold;font-size: 50px;line-height: 50px;}
-#user .user-horoscope-prev .user-horoscope-prev_date span {display: block;font-size: 30px;line-height: 32px;}
-#user .user-horoscope-prev .twolines {padding: 9px 25px;}
-
 #user .user-duel {background:#d0e6ff;padding:15px;}
 #user .user-duel .box-title {}
 #user .user-duel .box-title span {color:#3d7cb1;}

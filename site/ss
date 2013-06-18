@@ -740,3 +740,11 @@ INNER JOIN (
 ON tu.user_id = x.user1_id AND tu2.user_id = x.user2_id
 GROUP BY tu.user_id, tu2.user_id
 ORDER BY tu.user_id ASC, tu2.user_id ASC, created ASC;
+
+source albumPhotoSource : src
+{
+    sql_query = \
+    select photo.id, photo.title, '' as text, 'AlbumPhoto' as modelName from album__photos photo
+    sql_query_info = SELECT * FROM album__photos photo WHERE id=$id
+    sql_attr_string = modelName
+}

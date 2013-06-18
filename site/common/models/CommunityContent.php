@@ -153,36 +153,6 @@ class CommunityContent extends HActiveRecord
         );
     }
 
-    /**
-     * Retrieves a list of models based on the current search/filter conditions.
-     * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
-     */
-    public function search()
-    {
-        $criteria = new CDbCriteria;
-
-        $criteria->compare('id', $this->id, true);
-        $criteria->compare('title', $this->title, true);
-        $criteria->compare('created', $this->created, true);
-        $criteria->compare('author_id', $this->author_id, true);
-        $criteria->compare('rubric_id', $this->rubric_id, true);
-        $criteria->compare('type_id', $this->type_id, true);
-
-        return new CActiveDataProvider($this, array(
-            'criteria' => $criteria,
-            'pagination' => array('pageSize' => 30),
-        ));
-    }
-
-    public function beforeDelete()
-    {
-        FriendEvent::postDeleted(($this->isFromBlog ? 'BlogContent' : 'CommunityContent'), $this->id);
-        self::model()->updateByPk($this->id, array('removed' => 1));
-        NotificationDelete::entityRemoved($this);
-
-        return false;
-    }
-
     public function purify($t)
     {
         $p = new CHtmlPurifier();
@@ -204,6 +174,57 @@ class CommunityContent extends HActiveRecord
         $this->save();
         unset($p);
         return $text;
+    }
+
+    public function defaultScope()
+    {
+        $alias = $this->getTableAlias(false, false);
+        return array(
+            'condition' => ($alias) ? $alias . '.removed = 0 AND type_id != 5' : 'removed = 0 AND type_id != 5',
+        );
+    }
+
+    public function scopes()
+    {
+        return array(
+            'full' => array(
+                'with' => array(
+                    'rubric',
+                    'type' => array(
+                        'select' => 'slug',
+                    ),
+                    'author' => array(
+                        'select' => 'id, gender, first_name, last_name, online, avatar_id, deleted',
+                    ),
+                ),
+            ),
+            'community' => array(
+                'with' => array(
+                    'rubric',
+                ),
+                'condition' => 'rubric.community_id IS NOT NULL',
+            ),
+            'blog' => array(
+                'with' => array(
+                    'rubric',
+                ),
+                'condition' => 'rubric.user_id IS NOT NULL',
+            ),
+            'active' => array(
+                'condition' => 't.removed = 0',
+            ),
+        );
+    }
+
+
+    /************************************************* Event handlers *************************************************/
+    public function beforeDelete()
+    {
+        FriendEvent::postDeleted(($this->isFromBlog ? 'BlogContent' : 'CommunityContent'), $this->id);
+        self::model()->updateByPk($this->id, array('removed' => 1));
+        NotificationDelete::entityRemoved($this);
+
+        return false;
     }
 
     public function beforeSave()
@@ -243,327 +264,10 @@ class CommunityContent extends HActiveRecord
         parent::afterSave();
     }
 
-    public function getUrlParams()
-    {
-        switch ($this->type_id) {
-            case 4:
-                $route = '/morning/view';
-                $params = array(
-                    'id' => $this->id,
-                );
-                break;
-            default:
-                if ($this->isValentinePost()) {
-                    $route = '/valentinesDay/default/howToSpend';
-                    $params = array();
-                } elseif ($this->isFromBlog) {
-                    $route = '/blog/view';
-                    $params = array(
-                        'user_id' => $this->author_id,
-                        'content_id' => $this->id,
-                    );
-                } else {
-                    $route = '/community/view';
-                    $params = array(
-                        'community_id' => $this->rubric->community_id,
-                        'content_type_slug' => $this->type->slug,
-                        'content_id' => $this->id,
-                    );
-                }
-        }
-
-        return array($route, $params);
-    }
-
-    public function getUrl($comments = false, $absolute = false)
-    {
-        list($route, $params) = $this->urlParams;
-
-        if ($comments)
-            $params['#'] = 'comment_list';
-
-        $method = $absolute ? 'createAbsoluteUrl' : 'createUrl';
-        return Yii::app()->$method($route, $params);
-    }
-
-    public function scopes()
-    {
-        return array(
-            'full' => array(
-                'with' => array(
-                    'rubric',
-                    'type' => array(
-                        'select' => 'slug',
-                    ),
-                    'author' => array(
-                        'select' => 'id, gender, first_name, last_name, online, avatar_id, deleted',
-                    ),
-                ),
-            ),
-            'community' => array(
-                'with' => array(
-                    'rubric',
-                ),
-                'condition' => 'rubric.community_id IS NOT NULL',
-            ),
-            'blog' => array(
-                'with' => array(
-                    'rubric',
-                ),
-                'condition' => 'rubric.user_id IS NOT NULL',
-            ),
-            'active' => array(
-                'condition' => 't.removed = 0',
-            ),
-        );
-    }
-
-    public function getContents($community_id, $rubric_id, $content_type_slug)
-    {
-        $criteria = new CDbCriteria(array(
-            'order' => 't.created DESC',
-            'with' => array('rubric', 'type')
-        ));
-
-        $criteria->compare('community_id', $community_id);
-        $criteria->scopes = array('active');
-
-        if ($rubric_id !== null) {
-            $criteria->addCondition('rubric.id = :rubric_id OR rubric.parent_id = :rubric_id');
-            $criteria->params[':rubric_id'] = $rubric_id;
-        }
-
-        if ($content_type_slug !== null)
-            $criteria->compare('slug', $content_type_slug);
-
-        return new CActiveDataProvider($this, array(
-            'criteria' => $criteria,
-        ));
-    }
-
-    public function getBlogContents($user_id, $rubric_id)
-    {
-        $criteria = new CDbCriteria(array(
-            'order' => 't.created DESC',
-            'condition' => '(rubric.user_id IS NOT NULL OR t.type_id = 5) AND t.author_id = :user_id',
-            'params' => array(':user_id' => $user_id),
-            'with' => array('rubric', 'commentsCount', 'author', 'type'),
-            'together' => false
-        ));
-
-        if ($rubric_id !== null)
-            $criteria->compare('rubric_id', $rubric_id);
-
-        return new CActiveDataProvider($this->active(), array(
-            'criteria' => $criteria,
-        ));
-    }
-
     /**
-     * @return CommunityContent
+     * Возращает событие о новом посте
+     * @return EventPost
      */
-    public function getPrevPost()
-    {
-        if (!$this->isFromBlog) {
-            $prev = $this->find(
-                array(
-                    'condition' => 'rubric_id = :rubric_id AND t.id < :current_id',
-                    'params' => array(':rubric_id' => $this->rubric_id, ':current_id' => $this->id),
-                    'order' => 't.id DESC',
-                )
-            );
-        } else {
-            $prev = $this->find(
-                array(
-                    'condition' => 't.id < :current_id',
-                    'params' => array(':current_id' => $this->id),
-                    'order' => 't.id DESC',
-                    'with' => array(
-                        'rubric' => array(
-                            'condition' => 'user_id = :user_id',
-                            'params' => array(':user_id' => $this->rubric->user_id),
-                        ),
-                    ),
-                )
-            );
-        }
-
-        return $prev;
-    }
-
-    /**
-     * @return CommunityContent
-     */
-    public function getNextPost()
-    {
-        if (!$this->isFromBlog) {
-            $next = $this->find(
-                array(
-                    'condition' => 'rubric_id = :rubric_id AND t.id > :current_id',
-                    'params' => array(':rubric_id' => $this->rubric_id, ':current_id' => $this->id),
-                    'order' => 't.id',
-                )
-            );
-        } else {
-            $next = $this->find(
-                array(
-                    'condition' => 't.id > :current_id',
-                    'params' => array(':current_id' => $this->id),
-                    'order' => 't.id',
-                    'with' => array(
-                        'rubric' => array(
-                            'condition' => 'user_id = :user_id',
-                            'params' => array(':user_id' => $this->rubric->user_id),
-                        ),
-                    ),
-                )
-            );
-        }
-
-        return $next;
-    }
-
-
-    public function getContent()
-    {
-        return $this->{$this->type->slug};
-    }
-
-    public function getIsFromBlog()
-    {
-        return ($this->rubric_id !== null && $this->getRelated('rubric')->user_id !== null) || $this->type_id == 5;
-    }
-
-    public function defaultScope()
-    {
-        $alias = $this->getTableAlias(false, false);
-        return array(
-            'condition' => ($alias) ? $alias . '.removed = 0 AND type_id != 5' : 'removed = 0 AND type_id != 5',
-        );
-    }
-
-    public function getShort($width = 700)
-    {
-        switch ($this->type_id) {
-            case 1:
-                return ($image = $this->getContentImage($width)) ? CHtml::image($image, $this->title) : $this->getContentText();
-            case 2:
-                if ($this->video->getPhoto() !== null)
-                    return '<img src="' . $this->video->getPhoto()->getPreviewUrl($width, null, Image::WIDTH) . '" alt="' . $this->title . '" />';
-        }
-        return '';
-    }
-
-    public function getContentImage($width = 700, $height = null, $master = Image::WIDTH, $crop = false, $crop_side = AlbumPhoto::CROP_SIDE_CENTER)
-    {
-        if (!isset($this->content))
-            return '';
-
-        $photo = $this->content->getPhoto();
-        return $photo ? $photo->getPreviewUrl($width, $height, $master, $crop, $crop_side) : false;
-    }
-
-    public function getPhoto()
-    {
-        if (!isset($this->content))
-            return null;
-        return $this->content->getPhoto();
-    }
-
-    public function getContentText($length = 128)
-    {
-        return Str::getDescription($this->content->text, $length);
-    }
-
-    public function canEdit()
-    {
-        if ($this->rubric->community_id == Community::COMMUNITY_NEWS) {
-            return Yii::app()->authManager->checkAccess('news', Yii::app()->user->id);
-        }
-
-        if (Yii::app()->user->model->role == 'user') {
-            if ($this->author_id == Yii::app()->user->id)
-                return true;
-            return false;
-        }
-        return (Yii::app()->user->checkAccess('editCommunityContent', array('community_id' => $this->isFromBlog ? null : $this->rubric->community->id, 'user_id' => $this->author->id)));
-    }
-
-    public function canRemove()
-    {
-        if ($this->rubric->community_id == Community::COMMUNITY_NEWS) {
-            return Yii::app()->authManager->checkAccess('news', Yii::app()->user->id);
-        }
-
-        if (Yii::app()->user->model->role == 'user') {
-            if ($this->author_id == Yii::app()->user->id)
-                return true;
-            return false;
-        }
-        return (Yii::app()->user->checkAccess('removeCommunityContent', array('community_id' => $this->isFromBlog ? null : $this->rubric->community->id, 'user_id' => $this->author->id)));
-    }
-
-    public function getRssContent()
-    {
-        switch ($this->type_id) {
-            case 1:
-                $output = $this->post->text;
-                break;
-            case 2:
-                $video = new Video($this->video->link);
-                $output = CHtml::image($video->image) . $this->video->text;
-                break;
-            case 4:
-                $output = $this->preview;
-                foreach ($this->photoPost->photos as $p) {
-                    $output .= CHtml::tag('p', array(), CHtml::image($p->url)) . CHtml::tag('p', array(), $p->text);
-                }
-                break;
-        }
-
-        return $output;
-    }
-
-    public function getUnknownClassCommentsCount()
-    {
-        if ($this->getIsFromBlog()) {
-            $model = BlogContent::model()->resetScope()->findByPk($this->id);
-            return ($model) ? $model->commentsCount : 0;
-        }
-        return $this->commentsCount;
-    }
-
-    public function getUnknownClassComments()
-    {
-        if ($this->getIsFromBlog()) {
-            $model = BlogContent::model()->resetScope()->findByPk($this->id);
-            return $model->comments;
-        }
-        return $this->comments;
-    }
-
-    public function getLastCommentators($limit = 3)
-    {
-        return Comment::model()->findAll(array(
-            'with' => array(
-                'author' => array(
-                    'select' => 'id, avatar_id, gender, deleted, blocked',
-                    'with' => 'avatar'
-                ),
-            ),
-            'condition' => 'entity = :entity AND entity_id = :entity_id',
-            'params' => array(':entity' => get_class($this), ':entity_id' => $this->id),
-            'order' => 't.created DESC',
-            'limit' => $limit,
-            'group' => 't.author_id',
-        ));
-    }
-
-    public function getStatus()
-    {
-        return CommunityStatus::model()->findByAttributes(array('content_id' => $this->id));
-    }
-
     public function getEvent()
     {
         $row = array(
@@ -577,6 +281,9 @@ class CommunityContent extends HActiveRecord
         return $event;
     }
 
+    /**
+     * Посылает событие в что нового
+     */
     public function sendEvent()
     {
         if (isset($this->rubric) && $this->rubric->community_id != Community::COMMUNITY_NEWS) {
@@ -609,15 +316,127 @@ class CommunityContent extends HActiveRecord
         }
     }
 
+
+
+    /****************************************************** Url ******************************************************/
     /**
-     * Является ли пост постом на День святого Валентина
-     * @return bool
+     * Возвращает параметры для создания url поста
+     * @return array
      */
-    public function isValentinePost()
+    public function getUrlParams()
     {
-        return isset($this->rubric) && isset($this->rubric->community_id) && $this->rubric->community_id == Community::COMMUNITY_VALENTINE;
+        switch ($this->type_id) {
+            case 4:
+                $route = '/morning/view';
+                $params = array(
+                    'id' => $this->id,
+                );
+                break;
+            default:
+                if ($this->isValentinePost()) {
+                    $route = '/valentinesDay/default/howToSpend';
+                    $params = array();
+                } elseif ($this->isFromBlog) {
+                    $route = '/blog/view';
+                    $params = array(
+                        'user_id' => $this->author_id,
+                        'content_id' => $this->id,
+                    );
+                } else {
+                    $route = '/community/view';
+                    $params = array(
+                        'community_id' => $this->rubric->community_id,
+                        'content_type_slug' => $this->type->slug,
+                        'content_id' => $this->id,
+                    );
+                }
+        }
+
+        return array($route, $params);
     }
 
+    /**
+     * Возвращает url поста
+     *
+     * @param bool $comments ссылка на комментарии
+     * @param bool $absolute абсолютный путь
+     * @return string
+     */
+    public function getUrl($comments = false, $absolute = false)
+    {
+        list($route, $params) = $this->urlParams;
+
+        if ($comments)
+            $params['#'] = 'comment_list';
+
+        $method = $absolute ? 'createAbsoluteUrl' : 'createUrl';
+        return Yii::app()->$method($route, $params);
+    }
+
+
+    /*********************************************** Get dataProviders ************************************************/
+    /**
+     * Возвращает записи в клуб
+     *
+     * @param int $community_id id сообщества
+     * @param int $rubric_id id рубрики
+     * @param string $content_type_slug тип записей
+     * @return CActiveDataProvider
+     */
+    public function getContents($community_id, $rubric_id, $content_type_slug)
+    {
+        $criteria = new CDbCriteria(array(
+            'order' => 't.created DESC',
+            'with' => array('rubric', 'type')
+        ));
+
+        $criteria->compare('community_id', $community_id);
+        $criteria->scopes = array('active');
+
+        if ($rubric_id !== null) {
+            $criteria->addCondition('rubric.id = :rubric_id OR rubric.parent_id = :rubric_id');
+            $criteria->params[':rubric_id'] = $rubric_id;
+        }
+
+        if ($content_type_slug !== null)
+            $criteria->compare('slug', $content_type_slug);
+
+        return new CActiveDataProvider($this, array(
+            'criteria' => $criteria,
+        ));
+    }
+
+    /**
+     * Возвращает посты для блога
+     *
+     * @param int $user_id id атвора блога
+     * @param int $rubric_id id рубрики
+     * @return CActiveDataProvider
+     */
+    public function getBlogContents($user_id, $rubric_id)
+    {
+        $criteria = new CDbCriteria(array(
+            'order' => 't.created DESC',
+            'condition' => '(rubric.user_id IS NOT NULL OR t.type_id = 5) AND t.author_id = :user_id',
+            'params' => array(':user_id' => $user_id),
+            'with' => array('rubric', 'commentsCount', 'author', 'type'),
+            'together' => false
+        ));
+
+        if ($rubric_id !== null)
+            $criteria->compare('rubric_id', $rubric_id);
+
+        return new CActiveDataProvider($this->active(), array(
+            'criteria' => $criteria,
+        ));
+    }
+
+    /**
+     * Возвращает посты для мобильной версии сайта
+     *
+     * @param int $community_id id сообщества
+     * @return CActiveDataProvider
+     */
     public function getMobileContents($community_id)
     {
         $criteria = new CDbCriteria(array(
@@ -635,6 +454,130 @@ class CommunityContent extends HActiveRecord
         ));
     }
 
+
+    /************************************************ previous next ***************************************************/
+    /**
+     * Предыдущий пост
+     * @return CommunityContent
+     */
+    public function getPrevPost()
+    {
+        if (!$this->isFromBlog) {
+            $prev = $this->find(
+                array(
+                    'condition' => 'rubric_id = :rubric_id AND t.id < :current_id',
+                    'params' => array(':rubric_id' => $this->rubric_id, ':current_id' => $this->id),
+                    'order' => 't.id DESC',
+                )
+            );
+        } else {
+            $prev = $this->find(
+                array(
+                    'condition' => 't.id < :current_id',
+                    'params' => array(':current_id' => $this->id),
+                    'order' => 't.id DESC',
+                    'with' => array(
+                        'rubric' => array(
+                            'condition' => 'user_id = :user_id',
+                            'params' => array(':user_id' => $this->rubric->user_id),
+                        ),
+                    ),
+                )
+            );
+        }
+
+        return $prev;
+    }
+
+    /**
+     * Следующий пост
+     * @return CommunityContent
+     */
+    public function getNextPost()
+    {
+        if (!$this->isFromBlog) {
+            $next = $this->find(
+                array(
+                    'condition' => 'rubric_id = :rubric_id AND t.id > :current_id',
+                    'params' => array(':rubric_id' => $this->rubric_id, ':current_id' => $this->id),
+                    'order' => 't.id',
+                )
+            );
+        } else {
+            $next = $this->find(
+                array(
+                    'condition' => 't.id > :current_id',
+                    'params' => array(':current_id' => $this->id),
+                    'order' => 't.id',
+                    'with' => array(
+                        'rubric' => array(
+                            'condition' => 'user_id = :user_id',
+                            'params' => array(':user_id' => $this->rubric->user_id),
+                        ),
+                    ),
+                )
+            );
+        }
+
+        return $next;
+    }
+
+
+    /**************************************************** checks *****************************************************/
+    /**
+     * Написан ли пост в блог
+     * @return bool
+     */
+    public function getIsFromBlog()
+    {
+        return ($this->rubric_id !== null && $this->getRelated('rubric')->user_id !== null) || $this->type_id == 5;
+    }
+
+    /**
+     * Может ли текущий пользователь редактировать пост
+     * @return bool
+     */
+    public function canEdit()
+    {
+        if ($this->rubric->community_id == Community::COMMUNITY_NEWS) {
+            return Yii::app()->authManager->checkAccess('news', Yii::app()->user->id);
+        }
+
+        if (Yii::app()->user->model->role == 'user') {
+            if ($this->author_id == Yii::app()->user->id)
+                return true;
+            return false;
+        }
+        return (Yii::app()->user->checkAccess('editCommunityContent', array('community_id' => $this->isFromBlog ? null : $this->rubric->community->id, 'user_id' => $this->author->id)));
+    }
+
+    /**
+     * Может ли текущий пользователь удалить пост
+     * @return bool
+     */
+    public function canRemove()
+    {
+        if ($this->rubric->community_id == Community::COMMUNITY_NEWS) {
+            return Yii::app()->authManager->checkAccess('news', Yii::app()->user->id);
+        }
+
+        if (Yii::app()->user->model->role == 'user') {
+            if ($this->author_id == Yii::app()->user->id)
+                return true;
+            return false;
+        }
+        return (Yii::app()->user->checkAccess('removeCommunityContent', array('community_id' => $this->isFromBlog ? null : $this->rubric->community->id, 'user_id' => $this->author->id)));
+    }
+
+    /**
+     * Является ли пост постом на День святого Валентина
+     * @return bool
+     */
+    public function isValentinePost()
+    {
+        return isset($this->rubric) && isset($this->rubric->community_id) && $this->rubric->community_id == Community::COMMUNITY_VALENTINE;
+    }
+
     /**
      * Является ли запись видео
      * @return bool
@@ -642,6 +585,162 @@ class CommunityContent extends HActiveRecord
     public function isVideo()
     {
         return $this->type_id == self::TYPE_VIDEO;
+    }
+
+
+    /************************************************ get content ***************************************************/
+    /**
+     * Возвращает описание поста для rss ленты
+     * @return string
+     */
+    public function getRssContent()
+    {
+        switch ($this->type_id) {
+            case 1:
+                $output = $this->post->text;
+                break;
+            case 2:
+                $video = new Video($this->video->link);
+                $output = CHtml::image($video->image) . $this->video->text;
+                break;
+            case 4:
+                $output = $this->preview;
+                foreach ($this->photoPost->photos as $p) {
+                    $output .= CHtml::tag('p', array(), CHtml::image($p->url)) . CHtml::tag('p', array(), $p->text);
+                }
+                break;
+        }
+
+        return $output;
+    }
+
+    /**
+     * Возвращает сущность привязанную к посту
+     *
+     * @return CommunityPost|CommunityVideo|CommunityStatus
+     */
+    public function getContent()
+    {
+        return $this->{$this->type->slug};
+    }
+
+    /**
+     * Возвращает краткой превью поста - картинку или текст
+     *
+     * @param int $width ширина картинки
+     * @return string
+     */
+    public function getShort($width = 700)
+    {
+        switch ($this->type_id) {
+            case 1:
+                return ($image = $this->getContentImage($width)) ? CHtml::image($image, $this->title) : $this->getContentText();
+            case 2:
+                if ($this->video->getPhoto() !== null)
+                    return '<img src="' . $this->video->getPhoto()->getPreviewUrl($width, null, Image::WIDTH) . '" alt="' . $this->title . '" />';
+        }
+        return '';
+    }
+
+    /**
+     * Возвращает url картинки для превью поста
+     *
+     * @param int $width ширина картинки
+     * @return bool|string
+     */
+    public function getContentImage($width = 700)
+    {
+        if (!isset($this->content))
+            return '';
+
+        $photo = $this->content->getPhoto();
+        return $photo ? $photo->getPreviewUrl($width, null) : false;
+    }
+
+    /**
+     * Возвращает картинку для превью поста
+     * @return null|AlbumPhoto
+     */
+    public function getPhoto()
+    {
+        if (!isset($this->content))
+            return null;
+        return $this->content->getPhoto();
+    }
+
+    /**
+     * Возвращает укороченный текст поста
+     * @param int $length длина строки
+     * @return string
+     */
+    public function getContentText($length = 128)
+    {
+        return Str::getDescription($this->getContent()->text, $length);
+    }
+
+
+    /************************************************ other ***************************************************/
+    /**
+     * Последние кол-во комментариев к посту, нужен если объект инициализирован
+     * как CommunityContent, однако на самом деле это BlogContent, в этом
+     * случае relation не сработает
+     *
+     * @return int
+     */
+    public function getUnknownClassCommentsCount()
+    {
+        if ($this->getIsFromBlog()) {
+            $model = BlogContent::model()->resetScope()->findByPk($this->id);
+            return ($model) ? $model->commentsCount : 0;
+        }
+        return $this->commentsCount;
+    }
+
+    /**
+     * Последние комментарии поста, нужен если объект инициализирован
+     * как CommunityContent, однако на самом деле это BlogContent, в
+     * этом случае relation не сработает
+     *
+     * @return Comment[]
+     */
+    public function getUnknownClassComments()
+    {
+        if ($this->getIsFromBlog()) {
+            $model = BlogContent::model()->resetScope()->findByPk($this->id);
+            return $model->comments;
+        }
+        return $this->comments;
+    }
+
+    /**
+     * Возвращает несколько последних комментария поста с их авторами для показа
+     * @param int $limit лимит комментаторов
+     * @return Comment[]
+     */
+    public function getLastCommentators($limit = 3)
+    {
+        return Comment::model()->findAll(array(
+            'with' => array(
+                'author' => array(
+                    'select' => 'id, avatar_id, gender, deleted, blocked',
+                    'with' => 'avatar'
+                ),
+            ),
+            'condition' => 'entity = :entity AND entity_id = :entity_id',
+            'params' => array(':entity' => get_class($this), ':entity_id' => $this->id),
+            'order' => 't.created DESC',
+            'limit' => $limit,
+            'group' => 't.author_id',
+        ));
+    }
+
+    /**
+     * Возвращает статус, связанный с постом
+     * @return CommunityStatus
+     */
+    public function getStatus()
+    {
+        return CommunityStatus::model()->findByAttributes(array('content_id' => $this->id));
     }
 
     /**
@@ -657,7 +756,9 @@ class CommunityContent extends HActiveRecord
     }
 
     /**
-     * Возвращает подсказку для вывода
+     * Возвращает подсказку для вывода в списке уведомлений
+     * @param bool $full полное описание или нет
+     * @return string
      */
     public function getPowerTipTitle($full = false)
     {

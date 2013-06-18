@@ -238,6 +238,15 @@ class Contest extends HActiveRecord
         );
     }
 
+    public function getPhotoCollectionDependency()
+    {
+        return array(
+            'class'=>'system.caching.dependencies.CDbCacheDependency',
+            'sql' => 'SELECT MAX(created) FROM contest__works WHERE contest_id = :contest_id',
+            'params' => array(':contest_id' => $this->id),
+        );
+    }
+
     public function getUrl()
     {
         return Yii::app()->createUrl('/contest/default/view', array('id' => $this->id));

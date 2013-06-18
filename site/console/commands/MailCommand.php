@@ -33,6 +33,14 @@ class MailCommand extends CConsoleCommand
         Yii::app()->email->sendCampaign($contents, HEmailSender::LIST_OUR_USERS);
     }
 
+    public function actionTestWeekly()
+    {
+        $articles = Favourites::model()->getWeekPosts();
+        $contents = $this->renderFile(Yii::getPathOfAlias('site.common.tpl.weeklyNews') . '.php', array('models' => $articles), true);
+
+        Yii::app()->email->sendCampaign($contents, HEmailSender::LIST_TEST_LIST);
+    }
+
     public function actionNewMessages()
     {
         $criteria = new CDbCriteria;

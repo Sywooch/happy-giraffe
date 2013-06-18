@@ -16,91 +16,84 @@ class Community extends HActiveRecord
     const COMMUNITY_NEWS = 36;
     const COMMUNITY_VALENTINE = 37;
 
-	private $_typeCounts = null;
+    private $_typeCounts = null;
 
-	public function getCount($type_id = null)
-	{
-		if ($this->_typeCounts === null)
-		{
-			$raw = Yii::app()->db->createCommand()
-				->select('type_id, count(*)')
-				->from('community__contents c')
-				->join('community__rubrics r', 'r.id=c.rubric_id')
-				->where('r.community_id = :community_id AND c.removed = 0', array(':community_id' => $this->id))
-				->group('c.type_id')
-				->queryAll();
+    public function getCount($type_id = null)
+    {
+        if ($this->_typeCounts === null) {
+            $raw = Yii::app()->db->createCommand()
+                ->select('type_id, count(*)')
+                ->from('community__contents c')
+                ->join('community__rubrics r', 'r.id=c.rubric_id')
+                ->where('r.community_id = :community_id AND c.removed = 0', array(':community_id' => $this->id))
+                ->group('c.type_id')
+                ->queryAll();
 
-			$this->_typeCounts['total'] = 0;
-			foreach ($raw as $r)
-			{
-				$this->_typeCounts[$r['type_id']] = $r['count(*)'];
-				$this->_typeCounts['total'] += $r['count(*)'];
-			}
-		}
+            $this->_typeCounts['total'] = 0;
+            foreach ($raw as $r) {
+                $this->_typeCounts[$r['type_id']] = $r['count(*)'];
+                $this->_typeCounts['total'] += $r['count(*)'];
+            }
+        }
 
-        if ($type_id == null)
-        {
+        if ($type_id == null) {
             return $this->_typeCounts['total'];
-        }
-        elseif (isset($this->_typeCounts[$type_id]))
-        {
+        } elseif (isset($this->_typeCounts[$type_id])) {
             return $this->_typeCounts[$type_id];
-        }
-        else
-        {
+        } else {
             return 0;
         }
-	}
+    }
 
-	/**
-	 * Returns the static model of the specified AR class.
-	 * @return Community the static model class
-	 */
-	public static function model($className=__CLASS__)
-	{
-		return parent::model($className);
-	}
+    /**
+     * Returns the static model of the specified AR class.
+     * @return Community the static model class
+     */
+    public static function model($className = __CLASS__)
+    {
+        return parent::model($className);
+    }
 
-	/**
-	 * @return string the associated database table name
-	 */
-	public function tableName()
-	{
-		return 'community__communities';
-	}
+    /**
+     * @return string the associated database table name
+     */
+    public function tableName()
+    {
+        return 'community__communities';
+    }
 
-	/**
-	 * @return array validation rules for model attributes.
-	 */
-	public function rules()
-	{
-		// NOTE: you should only define rules for those attributes that
-		// will receive user inputs.
-		return array(
-			array('title, pic', 'required'),
-			array('title, pic', 'length', 'max'=>255),
+    /**
+     * @return array validation rules for model attributes.
+     */
+    public function rules()
+    {
+        // NOTE: you should only define rules for those attributes that
+        // will receive user inputs.
+        return array(
+            array('title, pic', 'required'),
+            array('title, pic', 'length', 'max' => 255),
             array('position', 'numerical'),
-			// The following rule is used by search().
-			// Please remove those attributes that should not be searched.
-			array('id, title, pic', 'safe', 'on'=>'search'),
-		);
-	}
+            // The following rule is used by search().
+            // Please remove those attributes that should not be searched.
+            array('id, title, pic', 'safe', 'on' => 'search'),
+        );
+    }
 
-	/**
-	 * @return array relational rules.
-	 */
-	public function relations()
-	{
-		// NOTE: you may need to adjust the relation name and the related
-		// class name for the relations automatically generated below.
-		return array(
-			'rubrics' => array(self::HAS_MANY, 'CommunityRubric', 'community_id'),
+    /**
+     * @return array relational rules.
+     */
+    public function relations()
+    {
+        // NOTE: you may need to adjust the relation name and the related
+        // class name for the relations automatically generated below.
+        return array(
+            'rubrics' => array(self::HAS_MANY, 'CommunityRubric', 'community_id'),
             'rootRubrics' => array(self::HAS_MANY, 'CommunityRubric', 'community_id', 'condition' => 'parent_id IS NULL'),
-			'users' => array(self::MANY_MANY, 'User', 'user__users_communities(user_id, community_id)'),
+            'users' => array(self::MANY_MANY, 'User', 'user__users_communities(user_id, community_id)'),
             'usersCount' => array(self::STAT, 'User', 'user__users_communities(user_id, community_id)'),
             'mobileCommunity' => array(self::BELONGS_TO, 'MobileCommunity', 'mobile_community_id'),
-		);
-	}
+        );
+    }
 
     public function getContentViewsCount()
     {
@@ -159,52 +152,52 @@ class Community extends HActiveRecord
                 'condition' => 'id != :news_community AND id != :valentine',
                 'params' => array(':news_community' => self::COMMUNITY_NEWS, ':valentine' => self::COMMUNITY_VALENTINE),
             ),
-            'sorted'=>array(
+            'sorted' => array(
                 'order' => 'position asc',
             )
         );
     }
 
-	/**
-	 * @return array customized attribute labels (name=>label)
-	 */
-	public function attributeLabels()
-	{
-		return array(
-			'id' => 'ID',
-			'title' => 'Название',
-			'pic' => 'Pic',
-		);
-	}
-
-	/**
-	 * Retrieves a list of models based on the current search/filter conditions.
-	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
-	 */
-	public function search()
-	{
-		// Warning: Please modify the following code to remove attributes that
-		// should not be searched.
-
-		$criteria=new CDbCriteria;
-
-		$criteria->compare('id',$this->id,true);
-		$criteria->compare('title',$this->title,true);
-		$criteria->compare('pic',$this->pic,true);
-
-		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-		));
-	}
-
-	public function behaviors()
+    /**
+     * @return array customized attribute labels (name=>label)
+     */
+    public function attributeLabels()
     {
-		return array(
+        return array(
+            'id' => 'ID',
+            'title' => 'Название',
+            'pic' => 'Pic',
+        );
+    }
+
+    /**
+     * Retrieves a list of models based on the current search/filter conditions.
+     * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
+     */
+    public function search()
+    {
+        // Warning: Please modify the following code to remove attributes that
+        // should not be searched.
+
+        $criteria = new CDbCriteria;
+
+        $criteria->compare('id', $this->id, true);
+        $criteria->compare('title', $this->title, true);
+        $criteria->compare('pic', $this->pic, true);
+
+        return new CActiveDataProvider($this, array(
+            'criteria' => $criteria,
+        ));
+    }
+
+    public function behaviors()
+    {
+        return array(
             'ESaveRelatedBehavior' => array(
-			    'class' => 'site.common.behaviors.ESaveRelatedBehavior',
+                'class' => 'site.common.behaviors.ESaveRelatedBehavior',
             ),
-		);
-	}
+        );
+    }
 
     public function getUrl()
     {
@@ -215,30 +208,41 @@ class Community extends HActiveRecord
 
     public function getLast($limit = 10)
     {
-        return CommunityContent::model()->full()->findAll(array(
+        return CommunityContent::model()->findAll(array(
             'limit' => $limit,
             'order' => 'created DESC',
-            'condition' => 'community.id = :community_id',
-            'params' => array(':community_id' => $this->id),
-            'with' => array('author' => array(
-                'select'=>array('id', 'first_name', 'last_name', 'avatar_id', 'online', 'blocked', 'deleted')
-            ))
+            'condition' => 'rubric_id IN ('.implode(',', self::getRubricIds($this->id)).')',
+            'with' => array('type', 'rubric'),
         ));
     }
 
     public function getBanners($limit = 2)
     {
         return CommunityBanner::model()->findAll(array(
-            'with' => array('content', 'content.rubric', 'content.rubric', 'photo'),
+            'with' => array('content'),
             'limit' => $limit,
             'order' => new CDbExpression('RAND()'),
-            'condition' => 'rubric.community_id = :community_id AND t.photo_id IS NOT NULL',
-            'params' => array(':community_id' => $this->id),
+            'condition' => 'rubric_id IN ('.implode(',', self::getRubricIds($this->id)).') AND t.photo_id IS NOT NULL',
         ));
     }
 
     public function getShortTitle()
     {
         return (empty($this->short_title)) ? $this->title : $this->short_title;
+    }
+
+    /**
+     * Возвращает рубрики сообщества
+     *
+     * @param $community_id
+     * @return int[]
+     */
+    public static function getRubricIds($community_id)
+    {
+        return Yii::app()->db->cache(300)->createCommand()
+            ->select('id')
+            ->from(CommunityRubric::model()->tableName())
+            ->where('community_id=' . $community_id)
+            ->queryColumn();
     }
 }

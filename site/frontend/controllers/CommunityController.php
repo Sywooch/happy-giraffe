@@ -11,19 +11,26 @@ class CommunityController extends HController
 
     public function filters()
     {
-        return array(
+        $last_mod = $this->lastModified();
+        $filters = array(
             'accessControl',
-            array(
+        );
+
+        if (Yii::app()->user->isGuest) {
+            $filters [] = array(
                 'CHttpCacheFilter + view',
-                'lastModified' => $this->lastModified(),
-            ),
-            array(
+                'lastModified' => $last_mod,
+            );
+
+            $filters [] = array(
                 'COutputCache + view',
                 'duration' => 300,
                 'varyByParam' => array('content_id', 'Comment_page'),
-                'varyByExpression' => Yii::app()->user->id . $this->lastModified(),
-            ),
-        );
+                'varyByExpression' => '"'.$last_mod.'"',
+            );
+        }
+
+        return $filters;
     }
 
     public function accessRules()
@@ -37,8 +44,9 @@ class CommunityController extends HController
         );
     }
 
-    protected function beforeAction($action) {
-        if (! Yii::app()->request->isAjaxRequest && !Yii::app()->user->isGuest)
+    protected function beforeAction($action)
+    {
+        if (!Yii::app()->request->isAjaxRequest && !Yii::app()->user->isGuest)
             Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts/community.js');
         return parent::beforeAction($action);
     }
@@ -128,6 +136,7 @@ class CommunityController extends HController
         return $this->createUrl($route, $params);
     }
 
+
     /**
      * @sitemap dataSource=sitemapView
      */
@@ -150,15 +159,12 @@ class CommunityController extends HController
 
         $this->layout = ($community_id == Community::COMMUNITY_NEWS) ? '//layouts/news' : '//layouts/community';
         CommunityPost::model()->scenario = 'view';
-        $content = CommunityContent::model()->cache(1800, new CDbCacheDependency('SELECT updated FROM community__contents WHERE id=' . $content_id))->full()->findByPk($content_id);
-        if ($content === null)
+        $content = CommunityContent::model()->with(array('rubric', 'type'))->findByPk($content_id);
+        if ($content === null || $content->isFromBlog)
             throw new CHttpException(404, 'Такой записи не существует');
 
         if (!empty($content_type_slug) && !in_array($content_type_slug, array('post', 'video')))
             throw new CHttpException(404, 'Страницы не существует');
-
-        if ($content->isFromBlog)
-            throw new CHttpException(404, 'Такой записи не существует');
 
         if ($community_id != $content->rubric->community->id || $content_type_slug != $content->type->slug) {
             header("HTTP/1.1 301 Moved Permanently");
@@ -169,7 +175,7 @@ class CommunityController extends HController
         if (!empty($content->uniqueness) && $content->uniqueness < 50)
             Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
 
-        $this->community = Community::model()->with('rubrics')->findByPk($community_id);
+        $this->community = Community::model()->with('rubrics')->cache(300)->findByPk($community_id);
         $this->rubric_id = $content->rubric->id;
         $this->content_type_slug = $content_type_slug;
 
@@ -191,22 +197,24 @@ class CommunityController extends HController
             );
         }
 
-        NotificationRead::getInstance()->setContentModel($content);
+        if (!Yii::app()->user->isGuest)
+            NotificationRead::getInstance()->setContentModel($content);
         $this->registerCounter();
 
         //проверяем переход с других сайтов по ссылкам комментаторов
-        Yii::import('site.frontend.modules.signal.models.CommentatorLink');
-        CommentatorLink::checkPageVisit('CommunityContent', $content_id);
+        //Yii::import('site.frontend.modules.signal.models.CommentatorLink');
+        //CommentatorLink::checkPageVisit('CommunityContent', $content_id);
 
         $this->render('view', array(
             'data' => $content,
         ));
     }
 
+
     public function actionEdit($content_id)
     {
         $this->meta_title = 'Редактирование записи';
-        $model = CommunityContent::model()->full()->findByPk($content_id);
+        $model = CommunityContent::model()->findByPk($content_id);
         $model->scenario = 'default';
         if ($model === null)
             throw new CHttpException(404, 'Запись не найдена');
@@ -218,8 +226,8 @@ class CommunityController extends HController
         //если не имеет прав на редактирование
         if (
             $model->author_id != Yii::app()->user->id &&
-            ! Yii::app()->authManager->checkAccess('editCommunityContent', Yii::app()->user->id, array('community_id' => $community_id)) &&
-            ! Yii::app()->authManager->checkAccess('transfer post', Yii::app()->user->id)
+            !Yii::app()->authManager->checkAccess('editCommunityContent', Yii::app()->user->id, array('community_id' => $community_id)) &&
+            !Yii::app()->authManager->checkAccess('transfer post', Yii::app()->user->id)
         )
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
@@ -234,13 +242,11 @@ class CommunityController extends HController
         $communities = Community::model()->findAll();
         $rubrics = ($community_id == '') ? array() : CommunityRubric::model()->findAll('community_id = :community_id AND parent_id IS NULL', array(':community_id' => $community_id));
 
-        if (isset($_POST['CommunityContent'], $_POST[$slave_model_name]))
-        {
+        if (isset($_POST['CommunityContent'], $_POST[$slave_model_name])) {
             $model->attributes = $_POST['CommunityContent'];
             $slave_model->attributes = $_POST[$slave_model_name];
 
-            if(Yii::app()->request->getPost('ajax') && $_POST['ajax']==='community-form')
-            {
+            if (Yii::app()->request->getPost('ajax') && $_POST['ajax'] === 'community-form') {
                 echo CJSON::encode(CMap::mergeArray(CJSON::decode(CActiveForm::validate($model)), CJSON::decode(CActiveForm::validate($slave_model))));
                 Yii::app()->end();
             }
@@ -249,24 +255,20 @@ class CommunityController extends HController
             $valid = $model->validate();
             $valid = $slave_model->validate() && $valid;
 
-            if ($valid)
-            {
+            if ($valid) {
                 $model->save(false);
                 $slave_model->content_id = $model->id;
                 $slave_model->save(false);
 
                 if (Yii::app()->user->checkAccess('photo_gallery')) {
-                    if($model->gallery)
+                    if ($model->gallery)
                         $model->gallery->delete();
-                    if(Yii::app()->request->getPost('CommunityContentGallery'))
-                    {
+                    if (Yii::app()->request->getPost('CommunityContentGallery')) {
                         $gallery = new CommunityContentGallery;
                         $gallery->title = $_POST['CommunityContentGallery']['title'];
                         $gallery->content_id = $model->id;
-                        if($gallery->save() && ($items = Yii::app()->request->getPost('CommunityContentGalleryItem')) != null)
-                        {
-                            foreach($items as $item)
-                            {
+                        if ($gallery->save() && ($items = Yii::app()->request->getPost('CommunityContentGalleryItem')) != null) {
+                            foreach ($items as $item) {
                                 $gi = new CommunityContentGalleryItem();
                                 $gi->attributes = array(
                                     'gallery_id' => $gallery->id,
@@ -325,10 +327,11 @@ class CommunityController extends HController
 
     public function actionAdd($community_id = null, $rubric_id = null, $content_type_slug = 'post')
     {
-        if (! Yii::app()->user->checkAccess('createClubPost', array(
+        if (!Yii::app()->user->checkAccess('createClubPost', array(
             'user' => Yii::app()->user->model,
             'community_id' => $community_id,
-        )))
+        ))
+        )
             throw new CHttpException(403, 'Запрашиваемая вами страница не найдена.');
 
         $content_type = CommunityContentType::model()->findByAttributes(array('slug' => $content_type_slug));
@@ -342,14 +345,12 @@ class CommunityController extends HController
         $communities = Community::model()->findAll();
         $rubrics = ($community_id === null) ? array() : CommunityRubric::model()->findAll('community_id = :community_id AND parent_id IS NULL', array(':community_id' => $community_id));
 
-        if (isset($_POST['CommunityContent'], $_POST[$slave_model_name]))
-        {
+        if (isset($_POST['CommunityContent'], $_POST[$slave_model_name])) {
             $model->attributes = $_POST['CommunityContent'];
             $model->author_id = $model->by_happy_giraffe ? User::HAPPY_GIRAFFE : Yii::app()->user->id;
             $slave_model->attributes = $_POST[$slave_model_name];
 
-            if(Yii::app()->request->getPost('ajax') && $_POST['ajax']==='community-form')
-            {
+            if (Yii::app()->request->getPost('ajax') && $_POST['ajax'] === 'community-form') {
                 echo CJSON::encode(CMap::mergeArray(CJSON::decode(CActiveForm::validate($model)), CJSON::decode(CActiveForm::validate($slave_model))));
                 Yii::app()->end();
             }
@@ -357,36 +358,31 @@ class CommunityController extends HController
             $valid = $model->validate();
             $valid = $slave_model->validate() && $valid;
 
-            if ($valid)
-            {
+            if ($valid) {
                 $transaction = Yii::app()->db->beginTransaction();
                 try {
                     $success = $model->save(false);
-                    if ($success){
+                    if ($success) {
                         $slave_model->content_id = $model->id;
                         $success = $slave_model->save(false);
                         if (!$success)
                             $transaction->rollback();
                         else
                             $transaction->commit();
-                    }
-                    else
+                    } else
                         $transaction->rollback();
                 } catch (Exception $e) {
                     $transaction->rollback();
                 }
 
-                if(Yii::app()->request->getPost('CommunityContentGallery'))
-                {
+                if (Yii::app()->request->getPost('CommunityContentGallery')) {
                     $gallery = new CommunityContentGallery;
                     $gallery->title = $_POST['CommunityContentGallery']['title'];
                     $gallery->content_id = $model->id;
 
                     $items = Yii::app()->request->getPost('CommunityContentGalleryItem');
-                    if($gallery->save() && $items)
-                    {
-                        foreach($items as $item)
-                        {
+                    if ($gallery->save() && $items) {
+                        foreach ($items as $item) {
                             $gi = new CommunityContentGalleryItem();
                             $gi->attributes = array(
                                 'gallery_id' => $gallery->id,
@@ -397,7 +393,7 @@ class CommunityController extends HController
                         }
                     }
 
-                    if (count($items) > 0){
+                    if (count($items) > 0) {
                         reset($items);
                         $item = current($items);
                         $slave_model->photo_id = $item['photo_id'];
@@ -419,7 +415,7 @@ class CommunityController extends HController
         if (isset($_POST['redirectUrl']))
             $redirectUrl = $_POST['redirectUrl'];
         else
-            $redirectUrl =Yii::app()->request->urlReferrer;
+            $redirectUrl = Yii::app()->request->urlReferrer;
 
         $this->render($community_id == Community::COMMUNITY_NEWS ? 'form_news' : 'form', array(
             'model' => $model,
@@ -429,7 +425,7 @@ class CommunityController extends HController
             'community_id' => $community_id,
             'rubric_id' => $rubric_id,
             'content_type_slug' => $content_type->slug,
-            'redirectUrl'=>$redirectUrl
+            'redirectUrl' => $redirectUrl
         ));
     }
 
@@ -444,8 +440,7 @@ class CommunityController extends HController
             ->queryAll();
 
         $data = array();
-        foreach ($models as $model)
-        {
+        foreach ($models as $model) {
             $data[] = array(
                 'params' => array(
                     'content_id' => $model['id'],
@@ -467,8 +462,7 @@ class CommunityController extends HController
             ->from('community__communities')
             ->order('community__communities.id ASC')
             ->queryAll();
-        foreach ($models as $model)
-        {
+        foreach ($models as $model) {
             $data[] = array(
                 'params' => $model,
             );
@@ -517,8 +511,7 @@ class CommunityController extends HController
         ));
 
         $_users = array();
-        foreach ($users as $user)
-        {
+        foreach ($users as $user) {
             $_users[] = array(
                 'label' => $user->email,
                 'value' => $user->email,
@@ -534,8 +527,7 @@ class CommunityController extends HController
             Yii::app()->end();
         $content = CommunityContent::model()->findByPk($_POST['content_id']);
         $content->author_id = $_POST['author_id'];
-        if ($content->save())
-        {
+        if ($content->save()) {
             file_put_contents(Yii::getPathOfAlias('webroot') . '/fix.txt', $_POST['content_id'] . "\n", FILE_APPEND);
         }
     }
@@ -561,14 +553,13 @@ class CommunityController extends HController
     public function actionShortListContents($rubric_id)
     {
         $model = CommunityRubric::model()->with(array('community', 'contents.type'))->findByPk($rubric_id);
-        foreach ($model->contents as $c)
-        {
+        foreach ($model->contents as $c) {
             echo CHtml::tag('li', array(), '&nbsp;&nbsp;&nbsp;&nbsp;' . CHtml::link($c->title, array(
-                'community/view',
-                'community_id' => $model->community->id,
-                'content_type_slug' => $c->type->slug,
-                'content_id' => $c->id,
-            )));
+                    'community/view',
+                    'community_id' => $model->community->id,
+                    'content_type_slug' => $c->type->slug,
+                    'content_id' => $c->id,
+                )));
         }
     }
 
@@ -590,8 +581,7 @@ class CommunityController extends HController
                     ), true),
                     'inClub' => ($action == 'join')
                 );
-            }
-            else {
+            } else {
                 $response = array(
                     'status' => false,
                     'inClub' => ($action == 'join')
@@ -607,7 +597,7 @@ class CommunityController extends HController
     public function actionUploadImage($community_id, $content_type_slug, $content_id)
     {
         $this->layout = '//layouts/community';
-        $content = CommunityContent::model()->active()->full()->findByPk($content_id);
+        $content = CommunityContent::model()->active()->findByPk($content_id);
         $this->user = $content->rubric->user;
         $this->community = Community::model()->with('rubrics')->findByPk($community_id);
         $this->rubric_id = $content->rubric->id;
@@ -618,8 +608,9 @@ class CommunityController extends HController
 
     public function actionPurify($by_happy_giraffe = 1)
     {
-        $dp = new CActiveDataProvider(CommunityContent::model()->full(), array(
+        $dp = new CActiveDataProvider(CommunityContent::model(), array(
             'criteria' => array(
+                'with' => array('rubric'),
                 'condition' => 'by_happy_giraffe = :by AND type_id = 1 AND rubric.community_id IS NOT NULL',
                 'params' => array(':by' => $by_happy_giraffe),
                 'order' => 't.id ASC',
@@ -707,7 +698,7 @@ class CommunityController extends HController
     public function actionPostRewrite()
     {
         if (Yii::app()->user->id == 18 || Yii::app()->user->id == 23 || Yii::app()->user->id == 10454) {
-            $dp = new CActiveDataProvider(CommunityContent::model()->full(), array(
+            $dp = new CActiveDataProvider(CommunityContent::model(), array(
                 'criteria' => array(
                     'condition' => 'edited = 1',
                     'order' => 't.id ASC',
@@ -739,7 +730,8 @@ class CommunityController extends HController
         ));
     }
 
-    public function actionWeeklyMail(){
+    public function actionWeeklyMail()
+    {
         if (!Yii::app()->user->checkAccess('manageFavourites'))
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
@@ -772,11 +764,7 @@ class CommunityController extends HController
 
     protected function lastModified()
     {
-        if (! Yii::app()->user->isGuest)
-            return null;
-
         $content_id = Yii::app()->request->getQuery('content_id');
-        $community_id = Yii::app()->request->getQuery('community_id');
 
         $sql = "SELECT
                     GREATEST(
@@ -786,15 +774,12 @@ class CommunityController extends HController
                         COALESCE(MAX(cm.updated), '0000-00-00 00:00:00')
                     )
                 FROM community__contents c
-                JOIN community__rubrics r
-                ON c.rubric_id = r.id
                 LEFT OUTER JOIN comments cm
                 ON cm.entity = 'CommunityContent' AND cm.entity_id = :content_id
-                WHERE r.community_id = :community_id";
+                WHERE c.id = :content_id";
 
         $command = Yii::app()->db->createCommand($sql);
         $command->bindValue(':content_id', $content_id, PDO::PARAM_INT);
-        $command->bindValue(':community_id', $community_id, PDO::PARAM_INT);
         $t1 = strtotime($command->queryScalar());
 
         //проверяем блок внутренней перелинковки

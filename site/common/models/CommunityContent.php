@@ -98,9 +98,9 @@ class CommunityContent extends HActiveRecord
             'type' => array(self::BELONGS_TO, 'CommunityContentType', 'type_id'),
             'commentsCount' => array(self::STAT, 'Comment', 'entity_id', 'condition' => 'entity=:modelName', 'params' => array(':modelName' => get_class($this))),
             'comments' => array(self::HAS_MANY, 'Comment', 'entity_id', 'on' => 'entity=:modelName', 'params' => array(':modelName' => get_class($this))),
-            'status' => array(self::HAS_ONE, 'CommunityStatus', 'content_id', 'on' => 'type_id = 5'),
-            'video' => array(self::HAS_ONE, 'CommunityVideo', 'content_id', 'on' => 'type_id = 2'),
-            'post' => array(self::HAS_ONE, 'CommunityPost', 'content_id', 'on' => 'type_id = 1'),
+            'status' => array(self::HAS_ONE, 'CommunityStatus', 'content_id'),
+            'video' => array(self::HAS_ONE, 'CommunityVideo', 'content_id'),
+            'post' => array(self::HAS_ONE, 'CommunityPost', 'content_id'),
             'author' => array(self::BELONGS_TO, 'User', 'author_id'),
             'remove' => array(self::HAS_ONE, 'Removed', 'entity_id', 'condition' => 'remove.entity = :entity', 'params' => array(':entity' => get_class($this))),
             'photoPost' => array(self::HAS_ONE, 'CommunityPhotoPost', 'content_id'),
@@ -324,19 +324,10 @@ class CommunityContent extends HActiveRecord
         return array(
             'full' => array(
                 'with' => array(
-                    'rubric' => array(
-                        'with' => array(
-                            'community',
-                        ),
-                    ),
+                    'rubric',
                     'type' => array(
                         'select' => 'slug',
                     ),
-                    'post' => array(
-                        'select' => 'id, text, photo_id, content_id',
-                    ),
-                    'video',
-                    'status',
                     'author' => array(
                         'select' => 'id, gender, first_name, last_name, online, avatar_id, deleted',
                     ),
@@ -363,23 +354,22 @@ class CommunityContent extends HActiveRecord
     public function getContents($community_id, $rubric_id, $content_type_slug)
     {
         $criteria = new CDbCriteria(array(
-            'order' => 't.created DESC'
+            'order' => 't.created DESC',
+            'with' => array('rubric', 'type')
         ));
 
-        $criteria->condition = 'type_id != 3';
         $criteria->compare('community_id', $community_id);
+        $criteria->scopes = array('active');
 
         if ($rubric_id !== null) {
-            $criteria->with = 'rubric';
             $criteria->addCondition('rubric.id = :rubric_id OR rubric.parent_id = :rubric_id');
             $criteria->params[':rubric_id'] = $rubric_id;
         }
 
-        if ($content_type_slug !== null) {
+        if ($content_type_slug !== null)
             $criteria->compare('slug', $content_type_slug);
-        }
 
-        return new CActiveDataProvider($this->cache(1800, new CDbCacheDependency('SELECT MAX(updated) FROM community__contents c JOIN community__rubrics r ON r.id = c.rubric_id WHERE r.community_id=' . $community_id))->active()->full(), array(
+        return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
         ));
     }
@@ -390,13 +380,14 @@ class CommunityContent extends HActiveRecord
             'order' => 't.created DESC',
             'condition' => '(rubric.user_id IS NOT NULL OR t.type_id = 5) AND t.author_id = :user_id',
             'params' => array(':user_id' => $user_id),
+            'with' => array('rubric', 'commentsCount', 'author', 'type'),
+            'together' => false
         ));
 
-        if ($rubric_id !== null) {
+        if ($rubric_id !== null)
             $criteria->compare('rubric_id', $rubric_id);
-        }
 
-        return new CActiveDataProvider($this->active()->full(), array(
+        return new CActiveDataProvider($this->active(), array(
             'criteria' => $criteria,
         ));
     }
@@ -407,20 +398,18 @@ class CommunityContent extends HActiveRecord
     public function getPrevPost()
     {
         if (!$this->isFromBlog) {
-            $prev = $this->full()->find(
+            $prev = $this->find(
                 array(
                     'condition' => 'rubric_id = :rubric_id AND t.id < :current_id',
                     'params' => array(':rubric_id' => $this->rubric_id, ':current_id' => $this->id),
-                    'limit' => 2,
                     'order' => 't.id DESC',
                 )
             );
         } else {
-            $prev = $this->full()->find(
+            $prev = $this->find(
                 array(
                     'condition' => 't.id < :current_id',
                     'params' => array(':current_id' => $this->id),
-                    'limit' => 2,
                     'order' => 't.id DESC',
                     'with' => array(
                         'rubric' => array(
@@ -441,7 +430,7 @@ class CommunityContent extends HActiveRecord
     public function getNextPost()
     {
         if (!$this->isFromBlog) {
-            $next = $this->with('rubric')->find(
+            $next = $this->find(
                 array(
                     'condition' => 'rubric_id = :rubric_id AND t.id > :current_id',
                     'params' => array(':rubric_id' => $this->rubric_id, ':current_id' => $this->id),
@@ -449,7 +438,7 @@ class CommunityContent extends HActiveRecord
                 )
             );
         } else {
-            $next = $this->with('rubric')->find(
+            $next = $this->find(
                 array(
                     'condition' => 't.id > :current_id',
                     'params' => array(':current_id' => $this->id),
@@ -588,7 +577,13 @@ class CommunityContent extends HActiveRecord
 
     public function getLastCommentators($limit = 3)
     {
-        return Comment::model()->with('author', 'author.avatar')->findAll(array(
+        return Comment::model()->findAll(array(
+            'with' => array(
+                'author' => array(
+                    'select' => 'id, avatar_id, gender, deleted, blocked',
+                    'with' => 'avatar'
+                ),
+            ),
             'condition' => 'entity = :entity AND entity_id = :entity_id',
             'params' => array(':entity' => get_class($this), ':entity_id' => $this->id),
             'order' => 't.created DESC',

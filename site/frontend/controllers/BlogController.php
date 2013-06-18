@@ -13,19 +13,26 @@ class BlogController extends HController
 
     public function filters()
     {
-        return array(
+        $last_mod = $this->lastModified();
+        $filters = array(
             'accessControl',
-            array(
+        );
+
+        if (Yii::app()->user->isGuest) {
+            $filters [] = array(
                 'CHttpCacheFilter + view',
-                'lastModified' => $this->lastModified(),
-            ),
-            array(
+                'lastModified' => $last_mod,
+            );
+
+            $filters [] = array(
                 'COutputCache + view',
                 'duration' => 300,
                 'varyByParam' => array('content_id', 'Comment_page'),
-                'varyByExpression' => Yii::app()->user->id . $this->lastModified(),
-            ),
-        );
+                'varyByExpression' => '"'.$last_mod.'"',
+            );
+        }
+
+        return $filters;
     }
 
     public function accessRules()
@@ -134,7 +141,7 @@ class BlogController extends HController
     public function actionEdit($content_id)
     {
         $this->meta_title = 'Редактирование записи';
-        $model = BlogContent::model()->full()->findByPk($content_id);
+        $model = BlogContent::model()->findByPk($content_id);
         $model->scenario = 'default';
         if ($model === null)
             throw new CHttpException(404, 'Запись не найдена');
@@ -204,7 +211,7 @@ class BlogController extends HController
     public function actionView($content_id, $user_id, $lastPage = null, $ajax = null)
     {
         $this->layout = '//layouts/user_blog';
-        $content = BlogContent::model()->active()->full()->findByPk($content_id);
+        $content = BlogContent::model()->active()->with(array('rubric', 'type', 'gallery'))->findByPk($content_id);
 
         if ($content === null || $content->author_id !== $user_id)// || $content->author->deleted)
             throw new CHttpException(404, 'Такой записи не существует');
@@ -221,7 +228,7 @@ class BlogController extends HController
             $this->pageTitle = $content->title;
         $this->registerCounter();
 
-        $this->user = $content->author;
+        $this->user = User::model()->with(array('blog_rubrics'))->findByPk($content->author_id);//->cache(600, new CDbCacheDependency('SELECT max(id) FROM community__contents WHERE author_id='.$content->author_id))->findByPk($content->author_id);
         $this->rubric_id = ($content->type_id == 5) ? null : $content->rubric->id;
 
         if (!empty($content->uniqueness) && $content->uniqueness < 50)
@@ -231,8 +238,8 @@ class BlogController extends HController
         NotificationRead::getInstance()->setContentModel($content);
 
         //проверяем переход с других сайтов по ссылкам комментаторов
-        Yii::import('site.frontend.modules.signal.models.CommentatorLink');
-        CommentatorLink::checkPageVisit('BlogContent', $content_id);
+        //Yii::import('site.frontend.modules.signal.models.CommentatorLink');
+        //CommentatorLink::checkPageVisit('BlogContent', $content_id);
 
         $this->render('view', array(
             'data' => $content,
@@ -335,11 +342,7 @@ class BlogController extends HController
 
     protected function lastModified()
     {
-        if (! Yii::app()->user->isGuest)
-            return null;
-
         $content_id = Yii::app()->request->getQuery('content_id');
-        $community_id = Yii::app()->request->getQuery('community_id');
 
         $sql = "SELECT
                     GREATEST(
@@ -349,15 +352,12 @@ class BlogController extends HController
                         COALESCE(MAX(cm.updated), '0000-00-00 00:00:00')
                     )
                 FROM community__contents c
-                JOIN community__rubrics r
-                ON c.rubric_id = r.id
                 LEFT OUTER JOIN comments cm
                 ON cm.entity = 'CommunityContent' AND cm.entity_id = :content_id
-                WHERE r.community_id = :community_id";
+                WHERE c.id = :content_id";
 
         $command = Yii::app()->db->createCommand($sql);
         $command->bindValue(':content_id', $content_id, PDO::PARAM_INT);
-        $command->bindValue(':community_id', $community_id, PDO::PARAM_INT);
         $t1 = strtotime($command->queryScalar());
 
         //проверяем блок внутренней перелинковки

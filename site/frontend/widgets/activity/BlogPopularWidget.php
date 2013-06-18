@@ -11,7 +11,8 @@ class BlogPopularWidget extends CWidget
 {
     public function run()
     {
-        $blogContents = BlogContent::model()->full()->findAll(array(
+        $blogContents = BlogContent::model()->findAll(array(
+            'with' => array('rubric'),
             'limit' => 3,
             'order' => 'rate DESC',
             'condition' => 'rubric.user_id IS NOT NULL AND DATE_SUB(CURDATE(), INTERVAL 3 DAY) <= created',

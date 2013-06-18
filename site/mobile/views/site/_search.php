@@ -1,7 +1,7 @@
 <?php
 $criteria->addCondition('t.id = :id');
 $criteria->params[':id'] = $data->id;
-$c = CommunityContent::model()->full()->find($criteria);
+$c = CommunityContent::model()->find($criteria);
 if(!$c)
     return;
 $name = Yii::app()->search->buildExcerpts(array($c->title), $search_index, $search_text);

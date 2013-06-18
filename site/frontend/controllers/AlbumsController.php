@@ -28,19 +28,19 @@ class AlbumsController extends HController
 
         $entity = Yii::app()->request->getQuery('entity');
         $entity_id = Yii::app()->request->getQuery('entity_id');
-        if ($entity == 'Contest') {
-            if (! Yii::app()->request->getQuery('go'))
+        if (isset($entity)){
+            if (Yii::app()->request->getQuery('go') === null)
                 $filters[] = array(
                     'COutputCache + WPhoto',
                     'duration' => 600,
-                    'varyByParam' => array('entity', 'entity_id', 'id', 'sort', 'go'),
-                    'dependency' => new CDbCacheDependency(Yii::app()->db->createCommand()->select(new CDbExpression('MAX(created)'))->from('contest__works')->where("contest_id = $entity_id")->text),
+                    'varyByParam' => array('entity', 'entity_id', 'id', 'sort'),
+                    'dependency' => CActiveRecord::model($entity)->getPhotoCollectionDependency(),
                 );
             $filters[] = array(
                 'COutputCache + postLoad',
                 'duration' => 600,
                 'varyByParam' => array('entity', 'entity_id', 'photo_id'),
-                'dependency' => new CDbCacheDependency(Yii::app()->db->createCommand()->select(new CDbExpression('MAX(created)'))->from('contest__works')->where("contest_id = $entity_id")->text),
+                'dependency' => CActiveRecord::model($entity)->getPhotoCollectionDependency(),
             );
         }
 
@@ -720,7 +720,7 @@ class AlbumsController extends HController
             case 'valentinePost':
                 $criteria = new CDbCriteria;
                 $criteria->compare('rubric.community_id', Community::COMMUNITY_VALENTINE);
-                $model = CommunityContent::model()->full()->find($criteria);
+                $model = CommunityContent::model()->find($criteria);
 
                 $content_id = $model->id;
                 $model = CActiveRecord::model('CommunityContentGallery')->findByAttributes(array('content_id' => $content_id));

@@ -75,4 +75,13 @@ class CommunityContentGallery extends HActiveRecord
             'photos' => $photos,
         );
     }
+
+    public function getPhotoCollectionDependency()
+    {
+        return array(
+            'class'=>'system.caching.dependencies.CDbCacheDependency',
+            'sql' => 'SELECT COUNT(*) FROM community__content_gallery_items WHERE gallery_id = :gallery_id',
+            'params' => array(':gallery_id' => $this->id),
+        );
+    }
 }

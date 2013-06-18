@@ -36,7 +36,7 @@ class CommunityCommand extends CConsoleCommand
     public function actionCutConvert()
     {
         Yii::import('site.frontend.components.CutBehavior');
-        $community = CommunityContent::model()->full()->findAll();
+        $community = CommunityContent::model()->findAll();
         foreach ($community as $model) {
             if (!$model->content || !$model->content->text) {
                 echo 'Беда!!!11 ID: ' . $model->id . ' --- ';
@@ -84,7 +84,7 @@ class CommunityCommand extends CConsoleCommand
         $criteria = new CDbCriteria;
         $criteria->compare('by_happy_giraffe', true);
 
-        $contents = CommunityContent::model()->full()->findAll($criteria);
+        $contents = CommunityContent::model()->findAll($criteria);
 
         foreach ($contents as $c) {
             echo $c->id . "\n";
@@ -106,7 +106,7 @@ class CommunityCommand extends CConsoleCommand
         $criteria->limit = $perIteraion;
         $criteria->order = 't.id ASC';
 
-        while ($contents = CommunityContent::model()->full()->findAll($criteria)) {
+        while ($contents = CommunityContent::model()->findAll($criteria)) {
             foreach ($contents as $c) {
                 echo $c->id . "\n";
                 $c->content->text = $this->_purifyNonGiraffe($c->content->text);
@@ -228,7 +228,7 @@ class CommunityCommand extends CConsoleCommand
         Yii::import('site.frontend.extensions.image.Image');
         Yii::import('site.frontend.helpers.*');
 
-        $community = CommunityContent::model()->full()->findAll();
+        $community = CommunityContent::model()->findAll();
         foreach ($community as $model) {
             if (!$model->content || !$model->content->text) {
                 echo 'Беда!!!11 ID: ' . $model->id . ' --- ';
@@ -650,6 +650,32 @@ class CommunityCommand extends CConsoleCommand
                 do {
                     curl_multi_exec($mh, $active);
                 } while ($active);
+                $mh = curl_multi_init();
+            }
+
+            echo $posts . "\n";
+        }
+    }
+
+    public function actionDdos()
+    {
+        $dataProvider = new CActiveDataProvider('CommunityContent');
+
+        $posts = 0;
+        $iterator = new CDataProviderIterator($dataProvider, 1000);
+        $mh = curl_multi_init();
+        foreach ($iterator as $post) {
+            $posts++;
+            $ch = curl_init('http://www.happy-giraffe.ru' . $post->url);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_multi_add_handle($mh, $ch);
+            if ($iterator->key() % 300 == 0) {
+                $active = null;
+                curl_multi_exec($mh, $active);
+                do {
+                    curl_multi_exec($mh, $active);
+                }
+                while($active);
                 $mh = curl_multi_init();
             }
 

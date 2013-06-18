@@ -228,7 +228,7 @@ class RecipeController extends HController
      */
     public function actionImport($content_id)
     {
-        $content = CommunityContent::model()->full()->findByPk($content_id);
+        $content = CommunityContent::model()->findByPk($content_id);
         if ($content === null)
             throw new CHttpException(404, 'Статья не существует или уже перенесена в рецепты');
 
@@ -481,7 +481,7 @@ class RecipeController extends HController
             $recipes = CookRecipe::model()->with('cuisine', 'author', 'ingredients', 'ingredients.ingredient', 'ingredients.unit')->findAll(array(
                 'order' => 'created DESC',
                 'condition' => 't.id != 16589',
-                'limit' => 3000,
+                'limit' => 100,
             ));
 
             $xml = new SimpleXMLElement('<?xml version="1.0" encoding="utf-8"?><entities/>');

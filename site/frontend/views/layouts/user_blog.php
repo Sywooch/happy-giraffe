@@ -42,7 +42,7 @@
             <?php endif; ?>
 
             <?php if($this->beginCache('blog-rubrics', array(
-                'duration' => 600,
+                'duration' => 3600,
                 'dependency' => array(
                     'class' => 'CDbCacheDependency',
                     'sql' => 'SELECT MAX(updated) FROM community__contents c
@@ -157,7 +157,7 @@
                     'duration' => 600,
                     'dependency' => array(
                         'class' => 'CDbCacheDependency',
-                        'sql' => 'SELECT MAX(p.created) FROM album__photos p
+                        'sql' => 'SELECT MAX(p.id) FROM album__photos p
                             JOIN album__albums a ON p.album_id = a.id
                             WHERE a.type = 0 AND p.author_id = ' . $this->user->id,
                     ),

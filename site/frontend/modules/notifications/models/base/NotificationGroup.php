@@ -203,7 +203,7 @@ class NotificationGroup extends Notification
     {
         if ($this->_entity === null) {
             if ($this->entity == 'CommunityContent' || $this->entity == 'BlogContent')
-                $this->_entity = CActiveRecord::model($this->entity)->full()->findByPk($this->entity_id);
+                $this->_entity = CActiveRecord::model($this->entity)->findByPk($this->entity_id);
             else
                 $this->_entity = CActiveRecord::model($this->entity)->findByPk($this->entity_id);
         }

@@ -21,6 +21,17 @@ class SiteController extends HController
 		);
 	}
 
+    protected function beforeAction($action)
+    {
+        return $action->id == 'error' ? true : parent::beforeAction($action);
+    }
+
+    protected function afterRender($view, &$output)
+    {
+        if ($this->action->id != 'error')
+            parent::afterRender($view, $output);
+    }
+
     public function actionServices($category_id = null)
     {
         $categories = ServiceCategory::model()->with('servicesCount')->findAll();

@@ -15,6 +15,12 @@ class SearchManager
         'photo' => 'albumPhoto',
     );
 
+    public static $scoring = array(
+        '@relevance DESC',
+        'rate DESC, @relevance DESC',
+        'views DESC, @relevance DESC',
+    );
+
     public static $fields = array('title', 'preview');
 
     public static function search($query, $scoring, $perPage, $entity)
@@ -43,6 +49,7 @@ class SearchManager
         $criteria->select = '*';
         $criteria->paginator = $pages;
         $criteria->query = $_query;
+        $criteria->orders = self::$scoring[$scoring];
         $resIterator = Yii::app()->search->search($criteria);
 
         //получение необходимых id для выборки

@@ -4,20 +4,21 @@
  * This is the model class for table "{{community__contents}}".
  *
  * The followings are the available columns in table '{{community__contents}}':
- * @property string $id
+ * @property int $id
  * @property string $title
  * @property string $created
- * @property string $author_id
- * @property string $rubric_id
- * @property string $type_id
+ * @property int $author_id
+ * @property int $rubric_id
+ * @property int $type_id
  * @property string $preview
  * @property string $meta_title
  * @property string $meta_keywords
  * @property string $meta_description
- * @property integer $by_happy_giraffe
- * @property string $uniqueness
- * @property string $full
+ * @property int $by_happy_giraffe
+ * @property int $uniqueness
+ * @property int $full
  * @property string $real_time
+ * @property int $source_id
  *
  * The followings are the available model relations:
  *
@@ -29,6 +30,7 @@
  * @property CommunityPhotoPost $photoPost
  * @property CommunityContentGallery $gallery
  * @property Comment[] comments
+ * @property CommunityContent source
  *
  * @method CommunityContent full()
  * @method CommunityContent findByPk()
@@ -96,6 +98,7 @@ class CommunityContent extends HActiveRecord
         return array(
             'rubric' => array(self::BELONGS_TO, 'CommunityRubric', 'rubric_id'),
             'type' => array(self::BELONGS_TO, 'CommunityContentType', 'type_id'),
+            'source' => array(self::BELONGS_TO, 'CommunityContent', 'source_id'),
             'commentsCount' => array(self::STAT, 'Comment', 'entity_id', 'condition' => 'entity=:modelName', 'params' => array(':modelName' => get_class($this))),
             'comments' => array(self::HAS_MANY, 'Comment', 'entity_id', 'on' => 'entity=:modelName', 'params' => array(':modelName' => get_class($this))),
             'status' => array(self::HAS_ONE, 'CommunityStatus', 'content_id'),
@@ -315,7 +318,6 @@ class CommunityContent extends HActiveRecord
             }
         }
     }
-
 
 
     /****************************************************** Url ******************************************************/
@@ -802,5 +804,14 @@ class CommunityContent extends HActiveRecord
         $criteria->order = 'rand()';
 
         return CommunityContent::model()->findAll($criteria);
+    }
+
+    /**
+     * Возвращает пост для отображения
+     * @return CommunityContent
+     */
+    public function getPost()
+    {
+        return empty($this->source_id) ? $this : $this->source;
     }
 }

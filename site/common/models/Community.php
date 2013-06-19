@@ -192,7 +192,7 @@ class Community extends HActiveRecord
 
     public function getLast($limit = 10)
     {
-        return CommunityContent::model()->findAll(array(
+        return CommunityContent::model()->cache(180)->findAll(array(
             'limit' => $limit,
             'order' => 'created DESC',
             'condition' => 'rubric_id IN ('.implode(',', self::getRubricIds($this->id)).')',

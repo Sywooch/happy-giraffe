@@ -213,6 +213,16 @@ class Comment extends HActiveRecord
                 $relatedModel->last_updated = new CDbExpression('NOW()');
                 $relatedModel->update(array('last_updated'));
                 $relatedModel->sendEvent();
+
+                //пересчитываем рейтинг только если кол-во комментариев кратно 5-ти
+                $commentsCount = Yii::app()->db->createCommand()
+                    ->select('count(*)')
+                    ->from('comments')
+                    ->where('entity=:entity AND entity_id=:entity_id AND removed = 0',
+                        array(':entity' => $this->entity, ':entity_id' => $this->entity_id))
+                    ->queryScalar();
+                if ($commentsCount % 5 == 0)
+                    PostRating::getInstance()->reCalc($relatedModel);
             }
 
             Yii::import('site.frontend.modules.routes.models.*');
@@ -358,12 +368,12 @@ class Comment extends HActiveRecord
         $entity = CActiveRecord::model($this->entity)->findByPk($this->entity_id);
         if ($entity === null)
             return '';
-        if ($this->entity == 'Service'){
+        if ($this->entity == 'Service') {
             $url = $entity->getUrl();
             $page = $this->calcPageNumber();
             if ($page > 1)
-                $url .= '?Comment_page='.$page;
-            return $url.'#comment_' . $this->id;
+                $url .= '?Comment_page=' . $page;
+            return $url . '#comment_' . $this->id;
         }
 
         list($route, $params) = $entity->urlParams;

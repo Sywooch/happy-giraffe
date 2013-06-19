@@ -74,6 +74,23 @@ class RatingYohoho extends HMongoModel
     }
 
     /**
+     * Кол-во лайков статьи
+     *
+     * @param $entity
+     * @return int
+     */
+    public function countByEntity($entity)
+    {
+        $entity_id = (int)$entity->primaryKey;
+        $entity_name = get_class($entity);
+
+        return $this->getCollection()->count(array(
+            'entity_id' => $entity_id,
+            'entity_name' => $entity_name,
+        ));
+    }
+
+    /**
      * Схранение лайка текущего пользователя
      *
      * @param $entity

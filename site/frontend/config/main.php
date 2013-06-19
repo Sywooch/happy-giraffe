@@ -65,6 +65,7 @@ return array(
         'application.modules.favourites.models.*',
         'application.modules.favourites.widgets.*',
         'application.modules.favourites.components.*',
+        'site.common.extensions.imperavi-redactor-widget.ImperaviRedactorWidget',
     ),
 
 	'sourceLanguage' => 'en',

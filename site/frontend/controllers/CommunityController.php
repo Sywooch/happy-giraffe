@@ -22,12 +22,12 @@ class CommunityController extends HController
                 'lastModified' => $last_mod,
             );
 
-            $filters [] = array(
-                'COutputCache + view',
-                'duration' => 300,
-                'varyByParam' => array('content_id', 'Comment_page'),
-                'varyByExpression' => '"'.$last_mod.'"',
-            );
+//            $filters [] = array(
+//                'COutputCache + view',
+//                'duration' => 300,
+//                'varyByParam' => array('content_id', 'Comment_page'),
+//                'varyByExpression' => '"'.$last_mod.'"',
+//            );
         }
 
         return $filters;

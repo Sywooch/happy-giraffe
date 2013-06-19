@@ -397,7 +397,7 @@ class CommunityContent extends HActiveRecord
     public function getPrevPost()
     {
         if (!$this->isFromBlog) {
-            $prev = $this->cache(300)->find(
+            $prev = $this->find(
                 array(
                     'condition' => 'rubric_id = :rubric_id AND t.id < :current_id',
                     'params' => array(':rubric_id' => $this->rubric_id, ':current_id' => $this->id),
@@ -405,7 +405,7 @@ class CommunityContent extends HActiveRecord
                 )
             );
         } else {
-            $prev = $this->cache(300)->find(
+            $prev = $this->find(
                 array(
                     'condition' => 't.id < :current_id',
                     'params' => array(':current_id' => $this->id),
@@ -429,7 +429,7 @@ class CommunityContent extends HActiveRecord
     public function getNextPost()
     {
         if (!$this->isFromBlog) {
-            $next = $this->cache(300)->find(
+            $next = $this->find(
                 array(
                     'condition' => 'rubric_id = :rubric_id AND t.id > :current_id',
                     'params' => array(':rubric_id' => $this->rubric_id, ':current_id' => $this->id),
@@ -437,7 +437,7 @@ class CommunityContent extends HActiveRecord
                 )
             );
         } else {
-            $next = $this->cache(300)->find(
+            $next = $this->find(
                 array(
                     'condition' => 't.id > :current_id',
                     'params' => array(':current_id' => $this->id),

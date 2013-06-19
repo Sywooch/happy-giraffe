@@ -61,7 +61,7 @@ class LinkParser
         return array(
             'title' => $this->getTitle($pq),
             'text' => $this->getText($pq),
-            'image' => $this->getImage($pq),
+            'images' => $this->getImages($pq),
         );
     }
 
@@ -131,18 +131,18 @@ class LinkParser
     }
 
     /**
-     * Ищет картинку для превью и возвращает ее url
+     * Ищет картинки для превью и возвращает массив их url. Первой идет самая подходящая,
+     * затем еще несколько подходящих
      *
      * @param phpQueryObject $pq
-     * @return string
+     * @return string[]
      */
-    private function getImage($pq)
+    private function getImages($pq)
     {
         $image = $pq->find('meta[property="og:image"]')->attr('content');
-        if (empty($image))
-            $image = $this->findProperImage($pq);
+        $images = $this->findProperImages($pq);
 
-        return $image;
+        return array_merge(array($image), $images);
     }
 
     /**
@@ -150,28 +150,60 @@ class LinkParser
      * Максимум проверяем 30 картинок
      *
      * @param phpQueryObject $pq
-     * @return string
+     * @return string[]
      */
-    private function findProperImage($pq)
+    private function findProperImages($pq)
+    {
+        $this->findSiteDomain();
+        $urls = $this->getImageUrlList($pq);
+
+        return $this->getGoodImages($urls);
+    }
+
+    /**
+     * Вычисляет домен сайта для подстановки в url
+     */
+    private function findSiteDomain()
     {
         $url_info = parse_url($this->url);
-        $this->domain = $url_info['scheme'].'://'.$url_info['host'];
+        $this->domain = $url_info['scheme'] . '://' . $url_info['host'];
+    }
 
-        $count = 0;
+    /**
+     * Возвращает список url изображений, найденных на странице
+     *
+     * @param phpQueryObject $pq
+     * @return string[]
+     */
+    private function getImageUrlList($pq)
+    {
+        $urls = array();
         foreach ($pq->find('img') as $image) {
             $url = pq($image)->attr('src');
             if (!$this->startsWith($url, 'http'))
-                $url = $this->domain.$url;
+                $url = $this->domain . $url;
 
-            if ($this->goodPhoto($url))
-                return $url;
+            if (!in_array($url, $urls))
+                $urls [] = $url;
 
-            $count++;
-            if ($count > 30)
+            if (count($urls) > 50)
                 break;
         }
+    }
 
-        return '';
+    /**
+     * Возвращает список подходящего размера и расширения
+     *
+     * @param string[] $urls
+     * @return string[]
+     */
+    private function getGoodImages($urls)
+    {
+        foreach ($urls as $key => $url)
+            if (!$this->goodPhoto($url))
+                unset($urls[$key]);
+
+        return $urls;
     }
 
     /**

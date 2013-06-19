@@ -77,11 +77,29 @@ if (!isset($redirectUrl))
                         <div class="row-title">Текст:</div>
                         <div class="row-elements">
                             <?php
-                                $this->widget('ext.ckeditor.CKEditorWidget', array(
-                                    'model' => $slave_model,
-                                    'attribute' => 'text',
-                                ));
+                            $this->widget('ImperaviRedactorWidget', array(
+                                'model' => $slave_model,
+                                'attribute' => 'text',
+                                'plugins' => array(
+                                    'widget' => array(
+                                        'js' => array('widget.js'),
+                                    ),
+                                    'smiles' => array(
+                                        'js' => array('smiles.js'),
+                                        'css' => array('smiles.css'),
+                                    ),
+                                    'cuttable' => array(
+                                        'js' => array('cuttable.js'),
+                                        'css' => array('cuttable.css'),
+                                    ),
+                                    'albumPhoto' => array(
+                                        'js' => array('albumPhoto.js'),
+                                        'css' => array('albumPhoto.css'),
+                                    ),
+                                ),
+                            ));
                             ?>
+                            <?=$form->error($slave_model, 'text')?>
                         </div>
                     </div>
                 <?php endif; ?>

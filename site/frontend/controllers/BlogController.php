@@ -39,7 +39,7 @@ class BlogController extends HController
     {
         return array(
             array('allow',
-                'actions'=>array('list', 'view'),
+                'actions'=>array('list', 'view', 'redactorjs'),
                 'users' => array('*'),
             ),
             array('allow',
@@ -312,6 +312,11 @@ class BlogController extends HController
     {
         foreach ($_POST['rubric'] as $sort => $id)
             CommunityRubric::model()->updateByPk($id, array('sort' => $sort));
+    }
+
+    public function actionRedactorjs()
+    {
+
     }
 
     public function sitemapView()

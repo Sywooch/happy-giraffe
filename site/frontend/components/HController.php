@@ -134,38 +134,38 @@ class HController extends CController
 
     protected function afterRender($view, &$output)
     {
-        $js = '$(function() {
-                var seoHrefs = ' . CJSON::encode($this->seoHrefs) . ';
-                var seoContent = ' . CJSON::encode($this->seoContent) . ';
-                var $elements = $("[data-key]");
-                for(var i = 0, count = $elements.length; i < count; i++) {
-                    var $element = $elements.eq(i);
-                    var key = $element.data("key");
-                    switch($element.data("type")) {
-                        case "href":
-                            $element.attr("href", Base64.decode(seoHrefs[key]));
-                            break;
-                        case "content":
-                            $element.replaceWith(Base64.decode(seoContent[key]));
-                            break;
-                    }
-                }
-            });';
-
-        $hash = md5($js);
-        $dir = substr($hash, 0, 2);
-        $file = substr($hash, 2);
-        $dirPath = Yii::getPathOfAlias('application.www-submodule.jsd') . DIRECTORY_SEPARATOR . $dir;
-
-        $path = $dirPath . DIRECTORY_SEPARATOR . $file . '.js';
-
-        if (! file_exists($path)) {
-            if (! is_dir($dirPath))
-                mkdir($dirPath);
-            file_put_contents($path, $js);
-        }
-
-        Yii::app()->clientScript->registerScriptFile('/jsd/' . $dir . '/' . $file . '.js', CClientScript::POS_END);
+//        $js = '$(function() {
+//                var seoHrefs = ' . CJSON::encode($this->seoHrefs) . ';
+//                var seoContent = ' . CJSON::encode($this->seoContent) . ';
+//                var $elements = $("[data-key]");
+//                for(var i = 0, count = $elements.length; i < count; i++) {
+//                    var $element = $elements.eq(i);
+//                    var key = $element.data("key");
+//                    switch($element.data("type")) {
+//                        case "href":
+//                            $element.attr("href", Base64.decode(seoHrefs[key]));
+//                            break;
+//                        case "content":
+//                            $element.replaceWith(Base64.decode(seoContent[key]));
+//                            break;
+//                    }
+//                }
+//            });';
+//
+//        $hash = md5($js);
+//        $dir = substr($hash, 0, 2);
+//        $file = substr($hash, 2);
+//        $dirPath = Yii::getPathOfAlias('application.www-submodule.jsd') . DIRECTORY_SEPARATOR . $dir;
+//
+//        $path = $dirPath . DIRECTORY_SEPARATOR . $file . '.js';
+//
+//        if (! file_exists($path)) {
+//            if (! is_dir($dirPath))
+//                mkdir($dirPath);
+//            file_put_contents($path, $js);
+//        }
+//
+//        Yii::app()->clientScript->registerScriptFile('/jsd/' . $dir . '/' . $file . '.js', CClientScript::POS_END);
 
         return parent::afterRender($view, $output);
     }

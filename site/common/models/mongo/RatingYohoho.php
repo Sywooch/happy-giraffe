@@ -99,10 +99,12 @@ class RatingYohoho extends HMongoModel
     public function saveByEntity($entity)
     {
         $model = $this->findByEntity($entity);
-        if ($model)
+        if ($model){
             $model->delete();
-        else {
+            PostRating::getInstance()->reCalc($entity);
+        } else {
             $this->create($entity);
+            PostRating::getInstance()->reCalc($entity);
             return true;
         }
         return false;

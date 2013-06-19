@@ -36,6 +36,9 @@ class PostRating
      */
     public function reCalc($model)
     {
+        if (get_class($model) != 'CommunityContent')
+            return ;
+
         $this->model = $model;
         $model->rating = $this->repost() + $this->likes() + $this->favourites() + $this->comments() + $this->views();
         $model->update(array('rating'));

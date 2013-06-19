@@ -106,12 +106,7 @@ Attach.prototype.closeUpload = function (link) {
 Attach.prototype.insertToComment = function (val) {
     var title = $('#photo_title').size() > 0 ? $('#photo_title').val() : null;
     $.post(base_url + '/albums/commentPhoto/', {val:val, title:title}, function (data) {
-        if (CKEDITOR.instances[cke_instance] != undefined) {
-            if (data.title != null && data.title != 'null')
-                CKEDITOR.instances[cke_instance].insertHtml('<p><img src="' + data.src + '" alt="' + data.title + '" title="' + data.title + '" /></p>');
-            else
-                CKEDITOR.instances[cke_instance].insertHtml('<p><img src="' + data.src + '" /></p>');
-        }
+        redactorjs.set(redactorjs.get() + RedactorPlugins.widget.generate(data.entity, data.entity_id, data.html));
         $.fancybox.close();
     }, 'json');
 };

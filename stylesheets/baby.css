@@ -623,9 +623,7 @@
 #test-navel .step .title span {color:#9971c0;font-size:30px;display:block;}
 #test-navel .step .title small {font-weight:normal;font-size:16px;color:#858686;}
 #test-navel .step .title big {font-size:40px;}
-
 #test-navel .step .text {background:#fff;width:370px;font-size:15px;color:#474747;position:absolute;bottom:30px;left:40px;}
-
 #test-navel .step .btn {position:absolute;bottom:25px;right:25px;}
 #test-navel .step .btn button {font:bold 30px arial, helvetica, sans-serif;color: #a46307;padding:0 25px;height: 58px;border: 1px solid #f1d419;background: url(../images/bg_yellow_av.png) 0 0 repeat-x;cursor:pointer;}
 #test-navel .step .btn button {/*css3*/ border-radius: 10px;-moz-border-radius: 10px;-webkit-border-radius: 10px;behavior: url(/stylesheets/PIE.htc);}
@@ -638,7 +636,6 @@
 #test-navel .step .question .q-options label {font-size:22px;color:#969696;cursor:pointer;}
 #test-navel .step .question .q-options label:hover {color:#5d5c5c;}
 #test-navel .step .question .q-options label:active {color:#8b5fb5;}
-#test-navel .step .question .q-options label span {/*display:inline-block;*zoom:1;*display:inline;vertical-align:top;margin-top:5px;*/}
 
 #test-navel .step .result {width:300px;margin-left:330px;}
 #test-navel .step .result .r-title {font-size:80px;color:#ebe1f5;font-weight:bold;margin-top:35px;text-align:center;margin-bottom:100px;line-height: 100px;}
@@ -646,3 +643,27 @@
 #test-navel .step .result .r-text p {margin:1em 0;color:#319e03;}
 #test-navel .step .result .r-text p img {display:block;margin:auto;}
 #test-navel .step .result .r-text p.red {color:#cd1616;}
+
+
+#baby-sex {margin-bottom:40px;}
+#baby-sex .block-title {text-align:center;margin-bottom:40px;}
+#baby-sex .chart {height:510px;background:url(/images/bg_baby_sex_all.png) no-repeat top;position:relative;width:542px;margin:0 auto;}
+#baby-sex a {display:block;position:absolute;text-align:center;}
+#baby-sex a .icon {display:block;margin:35px auto 8px;background:url(/images/baby_sex.png) no-repeat 0 0;}
+#baby-sex a:hover {background-position:100% 0;}
+
+#baby-sex .link-1 {width:148px;height:148px;background:url(/images/baby_sex_link_01.png) no-repeat;left:10px;top:0;}
+#baby-sex .link-1 .icon {width:42px;height:45px;}
+#baby-sex .link-1:hover .icon {background-position:-42px 0;}
+#baby-sex .link-2 {width:148px;height:148px;background:url(/images/baby_sex_link_02.png) no-repeat;right:10px;top:0;}
+#baby-sex .link-2 .icon {width:54px;height:44px;background-position:0 -45px}
+#baby-sex .link-2:hover .icon {background-position:-54px -45px;}
+#baby-sex .link-3 {width:149px;height:148px;background:url(/images/baby_sex_link_03.png) no-repeat;bottom:110px;left:0;}
+#baby-sex .link-3 .icon {width:52px;height:48px;background-position:-1px -89px}
+#baby-sex .link-3:hover .icon {background-position:-52px -89px;}
+#baby-sex .link-4 {width:149px;height:148px;background:url(/images/baby_sex_link_04.png) no-repeat;bottom:110px;right:0;}
+#baby-sex .link-4 .icon {width:49px;height:50px;background-position:0px -136px}
+#baby-sex .link-4:hover .icon {background-position:-49px -136px;}
+#baby-sex .link-5 {width:148px;height:166px;background:url(/images/baby_sex_link_05.png) no-repeat;left:50%;bottom:0;margin-left:-75px;}
+#baby-sex .link-5 .icon {width:74px;height:44px;background-position:0px -186px;margin-top:60px;}
+#baby-sex .link-5:hover .icon {background-position:-74px -186px;}

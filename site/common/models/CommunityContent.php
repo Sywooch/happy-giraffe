@@ -464,22 +464,25 @@ class CommunityContent extends HActiveRecord
      */
     public function getPrevPost()
     {
-        if (!$this->isFromBlog) {
-            $prev = $this->cache(300)->find(
+        if (!$this->getIsFromBlog()) {
+            $prev = self::model()->cache(300)->find(
                 array(
+                    'select' => array('t.id', 't.title', 't.author_id', 't.rubric_id', 't.type_id'),
                     'condition' => 'rubric_id = :rubric_id AND t.id < :current_id',
                     'params' => array(':rubric_id' => $this->rubric_id, ':current_id' => $this->id),
                     'order' => 't.id DESC',
                 )
             );
         } else {
-            $prev = $this->cache(300)->find(
+            $prev = self::model()->cache(300)->find(
                 array(
+                    'select' => array('t.id', 't.title', 't.author_id', 't.rubric_id', 't.type_id'),
                     'condition' => 't.id < :current_id',
                     'params' => array(':current_id' => $this->id),
                     'order' => 't.id DESC',
                     'with' => array(
                         'rubric' => array(
+                            'select' => array('id', 'user_id', 'community_id'),
                             'condition' => 'user_id = :user_id',
                             'params' => array(':user_id' => $this->rubric->user_id),
                         ),
@@ -497,22 +500,25 @@ class CommunityContent extends HActiveRecord
      */
     public function getNextPost()
     {
-        if (!$this->isFromBlog) {
-            $next = $this->cache(300)->find(
+        if (!$this->getIsFromBlog()) {
+            $next = self::model()->cache(300)->find(
                 array(
+                    'select' => array('t.id', 't.title', 't.author_id', 't.rubric_id', 't.type_id'),
                     'condition' => 'rubric_id = :rubric_id AND t.id > :current_id',
                     'params' => array(':rubric_id' => $this->rubric_id, ':current_id' => $this->id),
                     'order' => 't.id',
                 )
             );
         } else {
-            $next = $this->cache(300)->find(
+            $next = self::model()->cache(300)->find(
                 array(
+                    'select' => array('t.id', 't.title', 't.author_id', 't.rubric_id', 't.type_id'),
                     'condition' => 't.id > :current_id',
                     'params' => array(':current_id' => $this->id),
                     'order' => 't.id',
                     'with' => array(
                         'rubric' => array(
+                            'select' => array('id', 'user_id', 'community_id'),
                             'condition' => 'user_id = :user_id',
                             'params' => array(':user_id' => $this->rubric->user_id),
                         ),

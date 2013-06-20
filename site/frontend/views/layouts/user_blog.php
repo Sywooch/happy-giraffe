@@ -41,16 +41,6 @@
                 </div>
             <?php endif; ?>
 
-            <?php if($this->beginCache('blog-rubrics', array(
-                'duration' => 3600,
-                'dependency' => array(
-                    'class' => 'CDbCacheDependency',
-                    'sql' => 'SELECT MAX(updated) FROM community__contents c
-                        JOIN community__rubrics r ON c.rubric_id = r.id
-                        WHERE r.user_id = ' . $this->user->id,
-                ),
-                'varyByParam' => array('user_id', 'rubric_id'),
-            ))): ?>
 
                 <div class="club-topics-list-new">
 
@@ -58,15 +48,13 @@
 
                     <?php
                         $items = array();
-
                         foreach ($this->user->blog_rubrics as $rubric) {
-                            if ($rubric->contentsCount > 0)
-                                $items[] = array(
-                                    'label' => $rubric->title,
-                                    'url' => $this->getUrl(array('rubric_id' => $rubric->id)),
-                                    'template' => '<span>{menu}</span><div class="count">' . $rubric->contentsCount . '</div>',
-                                    'active' => $rubric->id == $this->rubric_id,
-                                );
+                            $items[] = array(
+                                'label' => $rubric->title,
+                                'url' => $this->getUrl(array('rubric_id' => $rubric->id)),
+                                'template' => '<span>{menu}</span>',
+                                'active' => $rubric->id == $this->rubric_id,
+                            );
                         }
 
                         $this->widget('zii.widgets.CMenu', array(
@@ -76,13 +64,6 @@
 
                 </div>
 
-            <?php $this->endCache(); endif;  ?>
-
-            <?php
-                //$this->widget('application.widgets.blog.attendanceWidget.AttendanceWidget', array(
-                //    'user_id' => $this->user->id,
-                //));
-            ?>
 
             <?php if($this->beginCache('blog-popular', array(
                 'duration' => 600,
@@ -115,74 +96,25 @@
 
             <?php $this->endCache(); endif;  ?>
 
-            <?php if($this->beginCache('blog-readers', array(
-                'duration' => 600,
-                'dependency' => array(
-                    'class' => 'CDbCacheDependency',
-                    'sql' => 'SELECT MAX(created) FROM friends
-                        WHERE user_id = ' . $this->user->id,
-                ),
-                'varyByParam' => array('user_id'),
-            ))): ?>
+            <div class="readers">
 
-                <div class="readers">
+                <div class="block-title"><i class="icon-readers"></i>Постоянные читатели <span>(<?=UserBlogSubscription::model()->subscribersCount($this->user->id)?>)</span></div>
 
-                    <div class="block-title"><i class="icon-readers"></i>Постоянные читатели <span>(<?=$this->user->friendsCount?>)</span></div>
-
-                    <ul class="clearfix">
+                <ul class="clearfix">
+                    <?php
+                        $subscribers = UserBlogSubscription::model()->getSubscribers($this->user->id);
+                    ?>
+                    <?php foreach ($subscribers as $subscriber): ?>
                         <?php
-                            $dp = $this->user->getFriends(array('condition'=>'blocked = 0 AND deleted = 0', 'limit' => 30, 'order' => 'RAND()', 'with'=>'avatar'));
-                            $dp->pagination = array(
-                                'pageSize' => 30,
-                            );
+                        $class = 'ava small';
+                        if ($subscriber->gender !== null) $class .= ' ' . (($subscriber->gender) ? 'male' : 'female');
                         ?>
-                        <?php foreach ($dp->data as $u): ?>
-                            <?php
-                            $class = 'ava small';
-                            if ($u->gender !== null) $class .= ' ' . (($u->gender) ? 'male' : 'female');
-                            ?>
-                            <li><?=CHtml::link(CHtml::image($u->getAva('small')), $u->url, array('class' => $class))?></li>
-                        <?php endforeach; ?>
+                        <li><?=CHtml::link(CHtml::image($subscriber->getAva('small')), $subscriber->url, array('class' => $class))?></li>
+                    <?php endforeach; ?>
 
-                    </ul>
+                </ul>
 
-                    <!--<div class="add-author-btn"><a href=""><img src="/images/btn_add_author.png" /></a></div>-->
-
-                </div>
-
-            <?php $this->endCache(); endif;  ?>
-
-            <?php if (!$this->user->deleted):?>
-                <?php if($this->beginCache('blog-photos', array(
-                    'duration' => 600,
-                    'dependency' => array(
-                        'class' => 'CDbCacheDependency',
-                        'sql' => 'SELECT MAX(p.id) FROM album__photos p
-                            JOIN album__albums a ON p.album_id = a.id
-                            WHERE a.type = 0 AND p.author_id = ' . $this->user->id,
-                    ),
-                    'varyByParam' => array('user_id'),
-                ))): ?>
-
-                    <?php $photos = $this->user->getRelated('photos', false, array('limit' => 3, 'order' => 'photos.created DESC', 'scopes'=>array('active'), 'with'=>array('album'=>array('condition'=>'album.type = 0')))); ?>
-                    <?php if (count($photos)>0):?>
-                        <div class="fast-photos">
-
-                            <div class="block-title"><span>МОИ</span>свежие<br/>фото</div>
-
-                            <div class="preview">
-                                <?php $i = 0; foreach($photos as $p): ?>
-                                    <?=CHtml::image($p->getPreviewUrl(150, 150), $p->title, array('class' => 'img-' . ++$i))?>
-                                <?php endforeach; ?>
-                            </div>
-
-                            <?=CHtml::link('<i class="icon"></i>Смотреть', array('albums/user', 'id' => $this->user->id), array('class' => 'more'))?>
-
-                        </div>
-                    <?php endif ?>
-
-                <?php $this->endCache(); endif;  ?>
-            <?php endif ?>
+            </div>
 
             <?php if (false): ?>
             <div class="banner-box">
@@ -196,20 +128,12 @@
 
         <div class="col-23 clearfix">
 
-            <?php if (Yii::app()->user->isGuest): ?>
-                <div class="new-blog-btn"><a href="#login" class="btn btn-orange-smallest fancy"><span><span>Создать блог</span></span></a></div>
-            <?php endif; ?>
-
-            <div class="blog-title font-color-<?=$blogFontColor?> font-<?=$blogFontStyle?>"><?=($this->user->blog_title === null) ? 'Блог - ' . $this->user->fullName : $this->user->blog_title?><?php if ($this->user->id == Yii::app()->user->id):?> <a href="#blogSettings" class="settings fancy tooltip" title="Настройка блога"></a><?php endif; ?></div>
+            <div class="blog-title"><?=$this->user->getBlogTitle()?><?php if ($this->user->id == Yii::app()->user->id):?> <a href="#blogSettings" class="settings fancy tooltip" title="Настройка блога"></a><?php endif; ?></div>
 
             <?=$content?>
-
         </div>
 
     </div>
-
-
-
 </div>
 
 <div style="display: none;">

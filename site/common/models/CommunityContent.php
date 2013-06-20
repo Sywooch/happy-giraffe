@@ -418,11 +418,10 @@ class CommunityContent extends HActiveRecord
     public function getBlogContents($user_id, $rubric_id)
     {
         $criteria = new CDbCriteria(array(
-            'order' => 't.created DESC',
+            'order' => 't.id DESC',
             'condition' => '(rubric.user_id IS NOT NULL OR t.type_id = 5) AND t.author_id = :user_id',
             'params' => array(':user_id' => $user_id),
-            'with' => array('rubric', 'commentsCount', 'author', 'type'),
-            'together' => false
+            'with' => array('rubric', 'commentsCount', 'type'),
         ));
 
         if ($rubric_id !== null)

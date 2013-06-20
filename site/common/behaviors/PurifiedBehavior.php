@@ -29,6 +29,7 @@ class PurifiedBehavior extends CActiveRecordBehavior
                 $purifier = new CHtmlPurifier;
                 $purifier->options = CMap::mergeArray($this->_defaultOptions, $this->options);
                 $value = $this->getOwner()->$name;
+                $value = $this->setWidgets($value);
                 $value = $this->linkifyYouTubeURLs($value);
                 $value = $this->linkifyVimeo($value);
                 $value = $purifier->purify($value);
@@ -183,5 +184,15 @@ class PurifiedBehavior extends CActiveRecordBehavior
         }
 
         return (substr($haystack, -$length) === $needle);
+    }
+
+    private function setWidgets($text)
+    {
+        return preg_replace_callback('#<!-- widget: (.*) -->(.*)<!-- /widget -->#sU', function($matches) {
+            $data = CJSON::decode($matches[1]);
+            extract($data);
+            $model = CActiveRecord::model($entity)->findByPk($entity_id);
+            return $model->widget;
+        }, $text);
     }
 }

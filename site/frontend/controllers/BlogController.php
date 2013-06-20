@@ -186,23 +186,18 @@ class BlogController extends HController
 
     public function actionList($user_id, $rubric_id = null)
     {
-        //Visit::processVisit();
         $this->layout = '//layouts/user_blog';
 
-        $this->user = User::model()->findByPk($user_id);
-        if ($this->user === null)// || $this->user->deleted)
-            throw new CHttpException(404, 'Пользователь не найден');
-        $this->pageTitle = 'Блог';
+        $this->user = $this->loadUser($user_id);
+        $this->pageTitle = $this->user->blog_title;
+        $this->rubric_id = $rubric_id;
 
         $contents = BlogContent::model()->getBlogContents($user_id, $rubric_id);
 
-        $this->rubric_id = $rubric_id;
-
         if ($this->user->hasRssContent())
             $this->rssFeed = $this->createUrl('rss/user', array('user_id' => $user_id));
-        $this->render('list', array(
-            'contents' => $contents,
-        ));
+
+        $this->render('list', array('contents' => $contents));
     }
 
     /**
@@ -368,5 +363,17 @@ class BlogController extends HController
             return $t1;
 
         return date("Y-m-d H:i:s", max($t1, $t2));
+    }
+
+    /**
+     * @param int $id model id
+     * @return User
+     * @throws CHttpException
+     */
+    public function loadUser($id){
+        $model = User::model()->with('blog_rubrics')->findByPk($id);
+        if ($model === null)
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+        return $model;
     }
 }

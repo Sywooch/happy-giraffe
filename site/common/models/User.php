@@ -25,6 +25,7 @@
  * @property int $avatar_id
  * @property int $group
  * @property string $updated
+ * @property string $blog_title
  *
  * The followings are the available model relations:
  * @property BagOffer[] $bagOffers
@@ -1072,6 +1073,11 @@ class User extends HActiveRecord
             'order' => 't.rate DESC',
             'limit' => 3,
         ));
+    }
+
+    public function getBlogTitle()
+    {
+        return ($this->blog_title === null) ? 'Блог - ' . $this->fullName : $this->blog_title;
     }
 
     function createPassword($length)

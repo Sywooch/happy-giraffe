@@ -65,9 +65,23 @@ class UserBlogSubscription extends HActiveRecord
     {
         $criteria = new CDbCriteria;
         $criteria->compare('user2_id', $user_id);
-        $criteria->with = array('subscriber');
-        $criteria->limit = 100;
+        $criteria->with = array('subscriber', 'avatar');
+        $criteria->limit = 10;
         return User::model()->findAll($criteria);
+    }
+
+    /**
+     * возвращает количество подписчиков блога
+     *
+     * @param int $user_id id автора блога
+     * @return int
+     */
+    public function subscribersCount($user_id)
+    {
+        $criteria = new CDbCriteria;
+        $criteria->compare('user2_id', $user_id);
+        $criteria->with = array('subscriber');
+        return User::model()->count($criteria);
     }
 
     /**

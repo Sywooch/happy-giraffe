@@ -422,8 +422,7 @@ class SiteController extends HController
 
     public function actionTest()
     {
-        $galleries = CommunityContentGallery::model()->with('content')->findAll(array('condition' => 'content.removed = 0'));
-        foreach ($galleries as $g)
-            echo CHtml::link($g->content->title, $g->content->url) . '<br />';
+        $url = 'http://www.happy-giraffe.ru/user/10/blog/post83504/';
+        var_dump(Yii::app()->piwik->getCountByPageUrl($url));
     }
 }

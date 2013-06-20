@@ -640,4 +640,9 @@ class AlbumPhoto extends HActiveRecord
             return $title . htmlentities('<br>' . 'Фотография <span class=\'color-gray\' > ' . $this->title . '</span>', ENT_QUOTES, "UTF-8");
         return $title;
     }
+
+    public function getWidget()
+    {
+        return Yii::app()->controller->renderPartial('//albums/_widget', array('model' => $this), true);
+    }
 }

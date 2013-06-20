@@ -45,10 +45,10 @@ class CommunityPost extends HActiveRecord
                     'AutoFormat.Linkify' => true,
                 ),
             ),
-            'externalImages' => array(
-                'class' => 'site.common.behaviors.ExternalImagesBehavior',
-                'attributes' => array('text'),
-            ),
+//            'externalImages' => array(
+//                'class' => 'site.common.behaviors.ExternalImagesBehavior',
+//                'attributes' => array('text'),
+//            ),
         );
     }
 

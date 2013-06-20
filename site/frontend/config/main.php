@@ -328,6 +328,9 @@ return array(
         'email'=>array(
             'class' => 'site.common.components.HEmailSender',
         ),
+        'piwik' => array(
+            'class' => 'site.common.components.Piwik,'
+        ),
 	),
 
 	// application-level parameters that can be accessed

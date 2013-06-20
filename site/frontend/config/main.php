@@ -329,7 +329,8 @@ return array(
             'class' => 'site.common.components.HEmailSender',
         ),
         'piwik' => array(
-            'class' => 'site.common.components.Piwik,'
+            'class' => 'site.common.components.Piwik',
+            'accessToken' => '2e20e09969eb34201467c8339dce749d',
         ),
 	),
 

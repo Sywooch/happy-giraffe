@@ -104,26 +104,14 @@ class SeoCommand extends CConsoleCommand
     {
         $criteria = new EMongoCriteria();
         $criteria->limit(100);
+        $criteria->sort('views', EMongoCriteria::SORT_DESC);
 
-        $result = array();
-        $models = array(0);
-        while (!empty($models)) {
-            $models = PageView::model()->findAll($criteria);
-
-            foreach ($models as $model)
-                if (strpos($model->_id, '/cook/recipe/') !== false
-                    || strpos($model->_id, '/cook/multivarka/') !== false
-                )
-                    $result [] = array('path' => $model->_id, 'views' => $model->views);
-
-            $criteria->setOffset($criteria->getOffset() + 100);
+        $models = PageView::model()->findAll($criteria);
+        foreach ($models as $model) {
+            $se_visits = GApi::model()->organicSearches($model->_id, '2013-03-21', '2013-06-21', false);
+            if ($se_visits > 100)
+                echo 'http://www.happy-giraffe.ru' . $model->_id . ' - ' . $se_visits . "\n";
         }
-
-        //sort array
-        usort($result, array($this, 'cmp'));
-        $result = array_slice($result, 0, 100);
-        foreach ($result as $model)
-            echo 'http://www.happy-giraffe.ru' . $model['path'] . "\n";
     }
 
     function cmp($a, $b)
@@ -192,41 +180,6 @@ class SeoCommand extends CConsoleCommand
         spl_autoload_register(array('YiiBase', 'autoload'));
 
         return $file_name;
-    }
-
-    public function actionTest()
-    {
-        $names = array('лосини', 'воронеж', 'база отдыха связист петровское', 'затока базы отдыха',
-            'базы отдыха благовещенская', 'купить газонную траву в рулонах', 'перевозка рулонов',
-            'заполнение нулевой отчетности');
-        foreach ($names as $name) {
-            $t = microtime(true);
-            $model = Yii::app()->db_keywords->createCommand()
-                ->select('*')
-                ->from('keywords')
-                ->where('name=:name', array(':name' => $name))
-                ->limit(1)
-                ->queryAll();
-            echo strlen($name) . ': ' . (microtime(true) - $t) . "\n";
-        }
-
-        $ids = range(434583146, 434583159);
-        foreach ($ids as $id) {
-            $t = microtime(true);
-            $model = Yii::app()->db_keywords->createCommand()
-                ->select('*')
-                ->from('keywords')
-                ->where('id=:id', array(':id' => $id))
-                ->limit(1)
-                ->queryAll();
-            echo (microtime(true) - $t) . "\n";
-        }
-    }
-
-    public function actionTest2()
-    {
-        $c = new MonthStats();
-        $c->photo();
     }
 }
 

@@ -75,6 +75,13 @@ return array(
         'albums/<_a:(attach|wPhoto|attachView|editDescription|editPhotoTitle|changeTitle|changePermission|removeUploadPhoto|communityContentEdit|communityContentSave|partnerPhoto|recipePhoto|cookDecorationPhoto|cookDecorationCategory|commentPhoto|crop|changeAvatar|humorPhoto|albumSettings|updatePhoto|postLoad|updateAlbum|messagingMessagePhoto)>' => 'albums/<_a>',
 
         // user/*
+
+        'user/<user_id:\d+>/newblog/rubric<rubric_id:\d+>' => 'blog/default/index',
+        'user/<user_id:\d+>/newblog' => 'blog/default/index',
+        'user/<user_id:\d+>/newblog/post<content_id:\d+>' => 'blog/default/view',
+        'newblog/<_a:>' => 'blog/default/<_a>',
+
+
         'user/<user_id:\d+>' => 'user/profile',
         'user/<user_id:\d+>/clubs' => 'user/clubs',
         'user/<user_id:\d+>/friends' => 'user/friends',

@@ -107,11 +107,18 @@ class SeoCommand extends CConsoleCommand
         $criteria->sort('views', EMongoCriteria::SORT_DESC);
 
         $models = PageView::model()->findAll($criteria);
+        $res = array();
         foreach ($models as $model) {
             $se_visits = GApi::model()->organicSearches($model->_id, '2013-03-21', '2013-06-21', false);
             if ($se_visits > 100)
                 echo 'http://www.happy-giraffe.ru' . $model->_id . ' - ' . $se_visits . "\n";
+
+                $res[$model->_id] = (int)$se_visits;
         }
+
+        arsort($res);
+        foreach($res as $key=>$val)
+            echo $key."\n";
     }
 
     function cmp($a, $b)
@@ -180,6 +187,55 @@ class SeoCommand extends CConsoleCommand
         spl_autoload_register(array('YiiBase', 'autoload'));
 
         return $file_name;
+    }
+
+    public function actionTest(){
+        $str = '/community/26/forum/post/35010/
+/community/12/forum/post/3327/
+/community/33/forum/post/33749/
+/community/2/forum/post/5071/
+/community/1/forum/post/2384/
+/community/33/forum/post/43301/
+/community/33/forum/post/33252/
+/community/10/forum/post/709/
+/community/10/forum/post/4929/
+/community/33/forum/post/5116/
+/community/33/forum/post/5187/
+/community/8/forum/post/23111/
+/community/20/forum/post/30106/
+/community/11/forum/post/27109/
+/community/26/forum/post/3336/
+/community/33/forum/post/30828/
+/community/25/forum/post/28273/
+/community/10/forum/post/704/
+/community/11/forum/post/21329/
+/community/8/forum/post/32041/
+/community/31/forum/post/50501/
+/user/83/blog/post29894/
+/community/33/forum/post/4165/
+/community/22/forum/post/28281/
+/community/33/forum/post/32020/
+/community/33/forum/post/21899/
+/community/29/forum/post/34455/
+/community/33/forum/post/32486/
+/community/2/forum/post/49948/
+/community/8/forum/post/3335/';
+
+        $lines = file('F:/analitics.csv');
+        $f = fopen('F:/res.txt', 'w');
+        $urls = explode("\n", $str);
+
+        foreach($urls as $url){
+            $url = trim($url);
+            fputs($f, $url."  ");
+            foreach($lines as $line)
+                if (strpos($line, $url)){
+                    $keyword = explode(',', $line);
+                    fputs($f, $keyword[0].' , ');
+                }
+
+            fputs($f, "\n");
+        }
     }
 }
 

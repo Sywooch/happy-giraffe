@@ -329,6 +329,11 @@ return array(
         'email'=>array(
             'class' => 'site.common.components.HEmailSender',
         ),
+        'piwik' => array(
+            'class' => 'site.common.components.Piwik',
+            'token_auth' => '2e20e09969eb34201467c8339dce749d',
+            'idSite' => 1,
+        ),
 	),
 
 	// application-level parameters that can be accessed

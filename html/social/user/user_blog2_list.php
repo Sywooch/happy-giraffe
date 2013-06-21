@@ -213,16 +213,16 @@
 				
 				<div class="b-article b-article__preview clearfix">
 					<div class="float-l">
-						<div class="b-article_control clearfix">
+						<div class="like-control like-control__small-indent clearfix">
 							<a href="" class="ava male">
 								<span class="icon-status status-online"></span>
 								<img alt="" src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg">
 							</a>
 						</div>
-						<div class="b-article_control b-article_control__pinned clearfix">
-							<a href="" class="b-article_control-ico b-article_control-ico__like">865</a>
-							<a href="" class="b-article_control-ico b-article_control-ico__repost">5</a>
-							<a href="" class="b-article_control-ico b-article_control-ico__favorites active">123865</a>
+						<div class="like-control clearfix">
+							<a href="" class="like-control_ico like-control_ico__like">865</a>
+							<a href="" class="like-control_ico like-control_ico__repost">5</a>
+							<a href="" class="like-control_ico like-control_ico__favorites active">123865</a>
 						</div>
 					</div>
 					<div class="b-article_cont clearfix">
@@ -308,6 +308,97 @@
 						</div>
 					</div>
 				</div>
+				
+				<div class="b-article b-article__user-status clearfix">
+					<div class="float-l">
+						<div class="like-control like-control__small-indent clearfix">
+							<a href="" class="ava male">
+								<span class="icon-status status-online"></span>
+								<img alt="" src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg">
+							</a>
+						</div>
+						<div class="like-control clearfix">
+							<a href="" class="like-control_ico like-control_ico__like">865</a>
+							<a href="" class="like-control_ico like-control_ico__repost">5</a>
+							<a href="" class="like-control_ico like-control_ico__favorites active">123865</a>
+						</div>
+					</div>
+					<div class="b-article_cont clearfix">
+						<div class="b-article_cont-tale"></div>
+						<div class="b-article_header clearfix">
+							<div class="meta-gray">
+								<a href="" class="meta-gray_comment">
+									<span class="ico-comment ico-comment__gray"></span>
+									<span class="meta-gray_tx">35</span>
+								</a>
+								<div class="meta-gray_view">
+									<span class="ico-view ico-view__gray"></span>
+									<span class="meta-gray_tx">305</span>
+								</div>
+							</div>
+							<div class="float-l">
+								<a href="" class="b-article_author">Ангелина Богоявленская</a>
+								<span class="font-smallest color-gray">Сегодня 13:25</span>
+							</div>
+						</div>
+						<div class="b-article_in clearfix">
+							<div class="b-article_user-status clearfix">
+								Говори себе с утра: Счастье, нам вставать пора!!! Так со Счастьем и вставай, от себя не отпускай!!!
+							</div>
+						</div>
+						
+						<div class="comments-gray">
+							<div class="comments-gray_t">
+								<a href="" class="comments-gray_t-a">
+									<span class="ico-comment ico-comment__gray"></span>
+									<span class="comments-gray_t-a-tx">Все комментарии (28)</span>
+								</a>
+							</div>
+							<div class="comments-gray_hold">
+								<div class="comments-gray_i">
+									<div class="comments-gray_ava">
+										<a href="" class="ava small male"></a>
+									</div>
+									<div class="comments-gray_frame">
+										<div class="comments-gray_header clearfix">
+											<a href="" class="comments-gray_author">Ангелина Богоявленская </a>
+											<span class="font-smallest color-gray">Сегодня 13:25</span>
+										</div>
+										<div class="comments-gray_cont wysiwyg-content">
+											<p>	Мне безумно жалко всех женщин, но особенно Тину Кароль, я просто представить себе не могу как она все это переживет(</p>
+											<p>я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.  я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически </p>
+										</div>
+									</div>
+								</div>
+								<div class="comments-gray_i">
+									<div class="comments-gray_ava">
+										<a href="" class="ava small female"></a>
+									</div>
+									<div class="comments-gray_frame">
+										<div class="comments-gray_header clearfix">
+											<a href="" class="comments-gray_author">Анг Богоявлен </a>
+											<span class="font-smallest color-gray">Сегодня 14:25</span>
+										</div>
+										<div class="comments-gray_cont wysiwyg-content">
+											<p>Говори себе с утра: Счастье, нам вставать пора!!! Так со Счастьем и вставай, от себя не отпускай!!!</p>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="comments-gray_add clearfix">
+								
+								<div class="comments-gray_ava">
+									<a href="" class="ava small female"></a>
+								</div>
+								<div class="comments-gray_frame">
+									<input type="text" name="" id="" class="comments-gray_add-itx itx-gray" placeholder="Ваш комментарий">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				
 				<div class="yiipagination">
                     <div class="pager">
                         <ul class="yiiPager" id="yw1">

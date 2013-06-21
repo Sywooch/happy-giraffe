@@ -493,6 +493,8 @@ table.fr_recipe_tb td { width: 50%;}
 /* b-article */
 .b-article {
     margin-bottom: 50px;
+    &__user-status &_cont {background: #cdecff;}
+    &__user-status &_cont-tale {border-right-color: #cdecff;}
     &_in-img {
         text-align: center;
         margin: 0 -20px;
@@ -505,33 +507,6 @@ table.fr_recipe_tb td { width: 50%;}
     &__preview &_in .wysiwyg-content {font-size: 13px;line-height: 17px;}
     &__preview &_in .wysiwyg-content p{margin: 0 20px 15px;}
 
-    &_control {
-        position: relative;
-        width: 72px;
-        padding: 10px 14px;
-        background: #ffe535;
-        .border-radius(3px);
-        text-align: center;
-    }
-    &_control__pinned {
-        padding: 25px 14px;
-    }
-    &_control-ico {
-        .inline-block();
-        min-width: 45px;
-        padding: 45px 0 0;
-        color: #828281;
-        background: url(/images/b-article_control-ico.png) no-repeat;
-        text-decoration: none;
-    }
-    &_control-ico.active,
-    &_control-ico:hover {background-position: 0 -100px;}
-    &_control-ico__repost {background-position: -45px 0;}
-    &_control-ico__repost.active,
-    &_control-ico__repost:hover {background-position: -45px -100px;}
-    &_control-ico__favorites {background-position: -90px 0;}
-    &_control-ico__favorites.active,
-    &_control-ico__favorites:hover {background-position: -90px -100px;}
     &_cont {
         position: relative;
         float: left;
@@ -579,8 +554,47 @@ table.fr_recipe_tb td { width: 50%;}
         color: #3381c1;
         text-decoration: underline;
     }
+    &_user-status {
+        display: table-cell;
+        vertical-align: middle;
+        min-height: 300px;
+        padding: 20px;
+        font: italic 36px/43px 'Times New Roman', Georgia, Times, serif;
+        color: #186fb8;
+    }
 }
 /* /b-article */
+
+/* like-control */
+.like-control {
+        position: relative;
+        width: 72px;
+        padding: 25px 14px;
+        background: #ffe535;
+        .border-radius(3px);
+        text-align: center;
+    &__small-indent {
+        padding: 10px 14px;
+    }
+
+    &_ico {
+        .inline-block();
+        min-width: 45px;
+        padding: 45px 0 0;
+        color: #828281;
+        background: url(/images/b-article_control-ico.png) no-repeat;
+        text-decoration: none;
+    }
+    &_ico.active,
+    &_ico:hover {background-position: 0 -100px;}
+    &_ico__repost {background-position: -45px 0;}
+    &_ico__repost.active,
+    &_ico__repost:hover {background-position: -45px -100px;}
+    &_ico__favorites {background-position: -90px 0;}
+    &_ico__favorites.active,
+    &_ico__favorites:hover {background-position: -90px -100px;}
+}
+/* /like-control */
 
 /* meta-gray */
 .meta-gray {

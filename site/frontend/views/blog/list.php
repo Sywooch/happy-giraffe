@@ -6,7 +6,7 @@
         'cssFile'=>false,
         'ajaxUpdate' => false,
         'dataProvider' => $contents,
-        'itemView' => '//community/_post',
+        'itemView' => '_view',
         'summaryText' => 'Показано: {start}-{end} из {count}',
         'pager' => array(
             'class' => 'AlbumLinkPager',

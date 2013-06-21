@@ -17,6 +17,7 @@
  * @property int $by_happy_giraffe
  * @property int $uniqueness
  * @property int $full
+ * @property int $rate
  * @property string $real_time
  * @property int $source_id
  *
@@ -99,6 +100,7 @@ class CommunityContent extends HActiveRecord
             'rubric' => array(self::BELONGS_TO, 'CommunityRubric', 'rubric_id'),
             'type' => array(self::BELONGS_TO, 'CommunityContentType', 'type_id'),
             'source' => array(self::BELONGS_TO, 'CommunityContent', 'source_id'),
+            'sourceCount' => array(self::STAT, 'CommunityContent', 'source_id'),
             'commentsCount' => array(self::STAT, 'Comment', 'entity_id', 'condition' => 'entity=:modelName', 'params' => array(':modelName' => get_class($this))),
             'comments' => array(self::HAS_MANY, 'Comment', 'entity_id', 'on' => 'entity=:modelName', 'params' => array(':modelName' => get_class($this))),
             'status' => array(self::HAS_ONE, 'CommunityStatus', 'content_id'),
@@ -109,6 +111,7 @@ class CommunityContent extends HActiveRecord
             'photoPost' => array(self::HAS_ONE, 'CommunityPhotoPost', 'content_id'),
             'editor' => array(self::BELONGS_TO, 'User', 'editor_id'),
             'gallery' => array(self::HAS_ONE, 'CommunityContentGallery', 'content_id'),
+            'favouritesCount' => array(self::STAT, 'Favourite', 'model_id', 'condition' => 'model_name=:modelName', 'params' => array(':modelName' => get_class($this))),
         );
     }
 
@@ -421,7 +424,7 @@ class CommunityContent extends HActiveRecord
             'order' => 't.id DESC',
             'condition' => '(rubric.user_id IS NOT NULL OR t.type_id = 5) AND t.author_id = :user_id',
             'params' => array(':user_id' => $user_id),
-            'with' => array('rubric', 'commentsCount', 'type'),
+            'with' => array('rubric', 'commentsCount', 'type', 'sourceCount', 'favouritesCount'),
         ));
 
         if ($rubric_id !== null)

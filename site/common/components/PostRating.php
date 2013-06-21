@@ -1,86 +1,66 @@
 <?php
 /**
- * insert Description
+ * Расчет рейтинга поста и его показателей
  *
  * @author Alex Kireev <alexk984@gmail.com>
  */
 class PostRating
 {
     /**
-     * @var PostRating
-     */
-    private static $_instance;
-    /**
-     * @var CommunityContent
-     */
-    private $model;
-
-    /**
-     * @return PostRating
-     */
-    public static function getInstance()
-    {
-        if (null === self::$_instance) {
-            self::$_instance = new self();
-        }
-
-        return self::$_instance;
-    }
-
-    private function __construct()
-    {
-    }
-
-    /**
      * @param CActiveRecord $model
      */
-    public function reCalc($model)
+    public static function reCalc($model)
     {
         if (get_class($model) != 'CommunityContent')
             return ;
 
-        $this->model = $model;
-        $model->rating = $this->repost() + $this->likes() + $this->favourites() + $this->comments() + $this->views();
+        $model->rating = self::repostCount($model) + self::likesCount($model) + self::favouritesCount($model)
+            + self::comments($model) + self::views($model);
         $model->update(array('rating'));
     }
 
     /**
+     * @param CommunityContent $model
      * @return int
      */
-    private function repost()
+    public static function repostCount($model)
     {
-        return CommunityContent::model()->count('repost_id=' . $this->model->id);
+        return CommunityContent::model()->count('source_id=' . $model->id);
     }
 
     /**
+     * @param CommunityContent $model
      * @return int
      */
-    private function likes()
+    public static function likesCount($model)
     {
-        return RatingYohoho::model()->countByEntity($this->model);
+        return RatingYohoho::model()->countByEntity($model);
     }
 
     /**
+     * @param CommunityContent $model
      * @return int
      */
-    private function favourites()
+    public static function favouritesCount($model)
     {
-        return Favourite::model()->getCountByModel($this->model);
+        return Favourite::model()->resetScope()->getCountByModel($model);
     }
 
     /**
+     * @param CommunityContent $model
      * @return int
      */
-    private function comments()
+    public static function comments($model)
     {
-        return floor($this->model->getUnknownClassCommentsCount() * 0.2);
+        return floor($model->getUnknownClassCommentsCount() * 0.2);
     }
 
     /**
+     * @param CommunityContent $model
      * @return int
      */
-    private function views()
+    public static function views($model)
     {
-        return floor(PageView::model()->viewsByPath($this->model->getUrl()) * 0.01);
+        return floor(PageView::model()->viewsByPath($model->getUrl()) * 0.01);
     }
 }

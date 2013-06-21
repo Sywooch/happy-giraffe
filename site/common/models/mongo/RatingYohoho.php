@@ -101,10 +101,10 @@ class RatingYohoho extends HMongoModel
         $model = $this->findByEntity($entity);
         if ($model){
             $model->delete();
-            PostRating::getInstance()->reCalc($entity);
+            PostRating::reCalc($entity);
         } else {
             $this->create($entity);
-            PostRating::getInstance()->reCalc($entity);
+            PostRating::reCalc($entity);
             return true;
         }
         return false;
@@ -175,5 +175,24 @@ class RatingYohoho extends HMongoModel
         return $this->getCollection()->count(array(
             'time' => array('$gte' => strtotime($time1), '$lte' => strtotime($time2))
         ));
+    }
+
+    /**
+     * Лайкал ли пользователь запись
+     *
+     * @param CommunityContent $entity
+     * @param int $user_id
+     * @return bool
+     */
+    public function hasLike($entity, $user_id)
+    {
+        $entity_id = (int)$entity->primaryKey;
+        $entity_name = get_class($entity);
+
+        return $this->getCollection()->find(array(
+            'entity_id' => $entity_id,
+            'entity_name' => $entity_name,
+            'user_id' => (int)$user_id,
+        )) !== null;
     }
 }

@@ -316,7 +316,7 @@ class BlogController extends HController
 
     public function actionRedactorjs()
     {
-
+        $this->render('redactorjs');
     }
 
     public function sitemapView()

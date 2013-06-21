@@ -189,7 +189,7 @@ class BlogController extends HController
         $this->layout = '//layouts/user_blog';
 
         $this->user = $this->loadUser($user_id);
-        $this->pageTitle = $this->user->blog_title;
+        $this->pageTitle = $this->user->getBlogTitle();
         $this->rubric_id = $rubric_id;
 
         $contents = BlogContent::model()->getBlogContents($user_id, $rubric_id);
@@ -376,7 +376,7 @@ class BlogController extends HController
      * @throws CHttpException
      */
     public function loadUser($id){
-        $model = User::model()->with('blog_rubrics')->findByPk($id);
+        $model = User::model()->with(array('blog_rubrics', 'avatar'))->findByPk($id);
         if ($model === null)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
         return $model;

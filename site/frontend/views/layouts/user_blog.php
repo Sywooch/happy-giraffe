@@ -8,11 +8,7 @@
         ->registerCoreScript('jquery.ui')
         ->registerScriptFile('/javascripts/knockout-2.2.1.js')
     ;
-
-    $blogFontColor = UserAttributes::get($this->user->id, 'blogFontColor', 0);
-    $blogFontStyle = UserAttributes::get($this->user->id, 'blogFontStyle', 0);
 ?>
-
 <div id="user">
 
     <div class="user-cols clearfix">
@@ -26,7 +22,6 @@
                     'location' => false,
                     'friendButton' => true,
                     'nav' => true,
-                    'status' => true,
                 ));
                 ?>
             </div>
@@ -98,6 +93,10 @@
 
             <div class="readers">
 
+                <?php if($this->beginCache('blog-subscribers', array(
+                    'duration' => 600,
+                    'varyByParam' => array('user_id'),
+                ))): ?>
                 <div class="block-title"><i class="icon-readers"></i>Постоянные читатели <span>(<?=UserBlogSubscription::model()->subscribersCount($this->user->id)?>)</span></div>
 
                 <ul class="clearfix">
@@ -113,7 +112,7 @@
                     <?php endforeach; ?>
 
                 </ul>
-
+                <?php $this->endCache(); endif;  ?>
             </div>
 
             <?php if (false): ?>

@@ -1067,11 +1067,11 @@ class User extends HActiveRecord
     public function getBlogPopular()
     {
         return BlogContent::model()->findAll(array(
-            'with' => array('rubric','commentsCount'),
+            'with' => array('rubric','commentsCount', 'type'),
             'condition' => 'rubric.user_id = :user_id',
             'params' => array(':user_id' => $this->id),
             'order' => 't.rate DESC',
-            'limit' => 3,
+            'limit' => 2,
         ));
     }
 
@@ -1237,5 +1237,40 @@ class User extends HActiveRecord
             return true;
 
         return false;
+    }
+
+    /**
+     * Репостил ли пользователь запись
+     *
+     * @param CommunityContent $model
+     * @return bool
+     */
+    public function isReposted($model)
+    {
+        return CommunityContent::model()->exists('author_id=:author_id AND source_id=:model_id',
+            array(':model_id' => $model->id, ':author_id' => $this->id));
+    }
+
+    /**
+     * Добавлял ли пользователь запись в избранное
+     *
+     * @param CommunityContent $model
+     * @return bool
+     */
+    public function isAddedToFavourite($model)
+    {
+        return Favourite::model()->exists('model_name="CommunityContent" AND model_id=:model_id AND user_id=:user_id',
+            array(':user_id' => $this->id, ':model_id' => $model->id));
+    }
+
+    /**
+     * Лайкал ли пользователь запись
+     *
+     * @param CommunityContent $model
+     * @return bool
+     */
+    public function isLiked($model)
+    {
+        return RatingYohoho::model()->hasLike($model, $this->id);
     }
 }

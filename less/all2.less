@@ -493,10 +493,14 @@ table.fr_recipe_tb td { width: 50%;}
 /* b-article */
 .b-article {
     margin-bottom: 50px;
-    &__preview .wysiwyg-content img {
-        width: 580px;
-        max-width: none;
-        margin: 0 0 0 -20px;
+    &_in-img {
+        text-align: center;
+        margin: 0 -20px;
+    }
+    &_in-img img {
+        .inline-block();
+        max-width: 580px;
+        margin: 0;
     }
     &__preview &_in .wysiwyg-content {font-size: 13px;line-height: 17px;}
     &__preview &_in .wysiwyg-content p{margin: 0 20px 15px;}

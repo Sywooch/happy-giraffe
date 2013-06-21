@@ -111,7 +111,7 @@ class UserBlogSubscription extends HActiveRecord
             ':user_id' => Yii::app()->user->id,
             ':user2_id' => $user2_id,
         ));
-        return $model !== null ? self::add($user2_id) : $model->delete();
+        return $model === null ? self::add($user2_id) : $model->delete();
     }
 
     /**
@@ -136,7 +136,7 @@ class UserBlogSubscription extends HActiveRecord
      * @param int $user2_id
      * @return bool успех
      */
-    public static function subscribed($user_id, $user2_id)
+    public static function isSubscribed($user_id, $user2_id)
     {
         $model = self::model()->find('user_id=:user_id AND user2_id=:user2_id', array(
             ':user_id' => $user_id,

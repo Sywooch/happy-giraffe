@@ -6,16 +6,16 @@ $this->widget('zii.widgets.CListView', array(
     'cssFile'=>false,
     'ajaxUpdate' => false,
     'dataProvider' => $contents,
-    'itemView' => '//community/_post',
+    'itemView' => '_view',
     'summaryText' => 'Показано: {start}-{end} из {count}',
     'pager' => array(
         'class' => 'AlbumLinkPager',
     ),
     'template' => '{items}
-            <div class="pagination pagination-center clearfix">
-                {pager}
-            </div>
-        ',
+        <div class="pagination pagination-center clearfix">
+            {pager}
+        </div>
+    ',
     'viewData' => array(
         'full' => false,
     ),

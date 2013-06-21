@@ -99,6 +99,7 @@ return array(
         'notifications',
         'friends',
         'favourites',
+        'blog',
 	),
 	// application components
 	'components'=>array(

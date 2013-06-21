@@ -186,18 +186,21 @@ class BlogController extends HController
 
     public function actionList($user_id, $rubric_id = null)
     {
+        //Visit::processVisit();
         $this->layout = '//layouts/user_blog';
 
         $this->user = $this->loadUser($user_id);
-        $this->pageTitle = $this->user->getBlogTitle();
-        $this->rubric_id = $rubric_id;
+        $this->pageTitle = 'Блог';
 
         $contents = BlogContent::model()->getBlogContents($user_id, $rubric_id);
 
+        $this->rubric_id = $rubric_id;
+
         if ($this->user->hasRssContent())
             $this->rssFeed = $this->createUrl('rss/user', array('user_id' => $user_id));
-
-        $this->render('list', array('contents' => $contents));
+        $this->render('list', array(
+            'contents' => $contents,
+        ));
     }
 
     /**

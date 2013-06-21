@@ -36,6 +36,12 @@ hr,
 	-webkit-box-shadow: 0 0 10px rgba(128,184,242,1);
 	box-shadow: 0 0 10px rgba(128,184,242,1);
 }
+.itx-gray {
+	border: 1px solid #e6e6e6;
+	padding: 4px 10px;
+	background: #fff;
+	.box-shadow(0 1px 1px rgba(0,0,0,0.0075) inset);
+}
 
 /* links */
 /* @todo избавляться от .pseudo, .info */
@@ -95,7 +101,6 @@ a.pseudo:hover,
 
 /* icons */
 .ico-friends-small{display:inline-block;*zoom:1;*display:inline;width:27px;height:27px;background:url(/images/common.png) no-repeat -428px -334px;vertical-align:middle;margin-right:5px;}
-.ico-comment{display:inline-block;*zoom:1;*display:inline;width:16px;height:13px;background:url(/images/common.png) no-repeat -218px -295px;vertical-align:middle;margin-right:5px;}
 .ico-pregnant-test {width:59px;height:17px;background:url(../images/section/pregnancy/ico-pregnancy-test.png) no-repeat;display: inline-block;*zoom:1;*display:inline;}
 .ico-childbirth {width:42px;height:35px;background:url(../images/section/pregnancy/ico-childbirth.png) no-repeat;display: inline-block;*zoom:1;*display:inline;}
 .ico-age18 {display: inline-block;*zoom:1;*display:inline;width: 33px;height: 34px;background: url(/images/ico/ico-age18.png) no-repeat;vertical-align: middle;}
@@ -290,6 +295,27 @@ a.pseudo:hover,
 }
 .icon-status.status-online {background: #0fc612;}
 .icon-status.status-offline {background: #b8b8b8;}
+.ico-comment{
+	.inline-block();
+	width:16px;
+	height:13px;
+	background:url(/images/common.png) no-repeat -218px -295px;
+	vertical-align:middle;
+	margin-right:3px;
+
+	&__gray {background-position: -218px -323px;}
+	&__gray:hover {background-position: -218px -295px;}
+}
+.ico-view{
+	.inline-block();
+	width:17px;
+	height:10px;
+	background:url(/images/common.png) no-repeat -200px -295px;
+	vertical-align:middle;
+	margin-right:3px;
+
+	&__gray {background-position: -182px -295px;}
+}
 /* /icons */
 
 .logo-box {margin: 0 auto;text-align:center;color:#8d5bbc;text-transform:uppercase;font-size:10px;letter-spacing:3px;line-height:25px;padding: 25px 0 15px;}

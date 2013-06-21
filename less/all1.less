@@ -460,6 +460,33 @@
 .pagination .hidden {display:none;}
 /* /pagination */
 
+/* yiipagination */
+.yiipagination {
+	padding: 20px 0 30px;
+	font-size: 17px;
+	line-height: 30px;
+	color: #a1a1a1;
+	text-align: center;
+
+	.page {
+		.inline-block();
+		margin: 0 3px;
+		padding: 0 10px;
+	}
+	.page a {color: #a1a1a1;}
+	.page.selected {
+		background: #6accff;
+		.border-radius(3px);
+		font-weight: bold;
+		color: #fff;
+	}
+	.page.selected a {
+		color: #fff;
+		text-decoration: none;
+	}
+}
+/* /yiipagination */
+
 /* default-nav */
 .add-nav {padding-bottom:20px;}
 .add-nav .content-title {float:left;width:240px;margin:0;}

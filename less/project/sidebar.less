@@ -152,6 +152,44 @@
 .fast-articles ul li .meta .rating {float:right;color:#8455b1;font:italic 25px/1 times new roman, serif;}
 .fast-articles .all-link {text-align:right;}
 
+/* fast-articles2 */
+.fast-articles2 {
+	position: relative;
+	margin: 60px 30px 20px 0;
+	padding: 15px 10px 10px;
+	background: #ddd;
+	.border-radius(5px);
+
+	&_t-ico {
+		position: absolute;
+		top: -25px;
+		left: 50%;
+		width: 59px;
+		height: 38px;
+		margin-left: -30px;
+		background: url(/images/fast-articles2_t-ico.png) no-repeat;
+	}
+	&_i {
+		margin: 10px 0 20px;
+		padding: 10px 10px;
+		background: #fff;
+		.border-radius(5px);
+	}
+	&_i-t {
+		margin: 8px 0;
+		font: bold 17px/20px Tahoma, Arial, Verdana, sans-serif;
+	}
+	&_i-t-a {color: #186fb8;}
+	&_i-desc {
+		margin: 8px 0 12px;
+		line-height: 15px;
+		color: #333;
+	}
+	&_i-img-hold {margin: 0 -10px -10px;}
+	&_i-img {display: block;}
+}
+/* /fast-articles2 */
+
 
 .readers {padding:20px;margin-bottom:30px;border:1px solid #f2ebfa;}
 .readers .block-title {font-size:22px;color:#262626;line-height:1;margin-bottom:20px;}
@@ -160,6 +198,33 @@
 .readers ul {list-style:none}
 .readers ul li {float:left;margin:0 5px 12px 4px;}
 .readers .add-author-btn {text-align:center;padding-top:10px;}
+
+.readers2 {
+	position: relative;
+	margin: 45px 0 20px;
+	padding: 15px 20px;
+	background: #f6f6f6;
+	background: rgba(255,255,255,.4);
+	text-align: center;
+	.border-radius(5px);
+
+	.btn-green {
+		margin: -33px 0 15px;
+	}
+	&_ul {
+		margin: 0 0 10px;
+	}
+	&_li {
+		.inline-block();
+		margin: 0 1px;
+	}
+	&_count {
+		.inline-block();
+		padding: 2px 0 0 24px;
+		color: #a8a7a7;
+		background: url(/images/readers2_count.png) no-repeat;
+	}
+}
 
 .fast-photos {padding:20px;margin-bottom:30px;border:1px solid #f2ebfa;text-align:center;}
 .fast-photos .block-title {font-size:20px;color:#262626;line-height:1;margin-bottom:15px;text-align:left;}
@@ -232,3 +297,19 @@
 }
 .blog-statistic .blog-count-all span.active {background-position:0 -16px;}
 
+/* menu-simple */
+.menu-simple {
+	margin: 20px 15px;
+
+	&_li {
+		margin: 7px 0;
+		font-size: 13px;
+	}
+	&_li.active &_a {
+		color: #fd7700;
+		text-decoration: none;
+	}
+	&_a {color: #289fd7;}
+
+}
+/* /menu-simple */

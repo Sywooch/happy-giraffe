@@ -49,9 +49,24 @@
 	}
 
 	/* /col-1 */
-	.col-12,
-	.col-23 {width:700px;float:left;position: relative;}
-	.col-23-big {width: 740px;float: left;}
+	
+	.col-23 {
+		width:700px;
+		float:left;
+		position: relative;
+
+		&__gray {
+			width: 680px;
+			margin-right: -20px;
+			padding: 0 20px 30px;
+			background: #ebebeb;
+			.border-radius(8px);
+		}
+	}
+	.col-23-big {
+		width: 740px;
+		float: left;
+	}
 	.col-2 {width:440px;float:left;}
 	.col-3 {width:240px;padding-left:20px;float:left;}
 }

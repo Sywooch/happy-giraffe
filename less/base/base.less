@@ -38,9 +38,17 @@ hr,
 }
 .itx-gray {
 	border: 1px solid #e6e6e6;
-	padding: 4px 10px;
+	padding: 5px 10px;
 	background: #fff;
-	.box-shadow(0 1px 1px rgba(0,0,0,0.0075) inset);
+	color: #777;
+	.box-shadow(inset 0 2px 2px rgba(0,0,0,0.05));
+	.transition(all 0.3s ease);
+	.border-radius(4px);
+}
+.itx-gray:hover {.box-shadow(none);}
+.itx-gray:focus {
+	.box-shadow(none);
+	border-color: #d6d6d6;
 }
 
 /* links */
@@ -315,6 +323,23 @@ a.pseudo:hover,
 	margin-right:3px;
 
 	&__gray {background-position: -182px -295px;}
+}
+
+.message-ico {
+	.inline-block();
+	width: 16px;
+	height: 15px;
+	background: url(/images/im/im-message_ico.png) no-repeat;
+	
+	&__edit          {background-position: 0 0;}
+	&__edit.active,
+	&__edit:hover    {background-position: 0 -15px;}
+	&__warning       {background-position: -16px 0;}
+	&__warning.active,
+	&__warning:hover {background-position: -16px -15px;}
+	&__del           {background-position: -32px 0;}
+	&__del.active,
+	&__del:hover     {background-position: -32px -15px;}
 }
 /* /icons */
 

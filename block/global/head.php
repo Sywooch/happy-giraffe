@@ -1,6 +1,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>Happy Giraffe</title>
 	
+	<link rel="stylesheet" type="text/css" href="/redactor/redactor.css" />
 	<link rel="stylesheet" type="text/css" href="/stylesheets/common.css" />
 	<link rel="stylesheet" type="text/css" href="/stylesheets/global.css" />
 	<link rel="stylesheet" type="text/css" href="/stylesheets/user.css" />
@@ -30,6 +31,7 @@
 	<script type="text/javascript" src="/javascripts/jquery.flydiv.js"></script>
 
 	<script type="text/javascript" src="/ckeditor/ckeditor.js"></script>
+	<script type="text/javascript" src="/redactor/redactor.js"></script>
   
 	<script type="text/javascript" src="/javascripts/jquery.flip.js"></script>
 	<script type="text/javascript" src="/javascripts/addtocopy.js"></script>

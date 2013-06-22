@@ -378,6 +378,55 @@
 	max-width: 174px;
 }
 
+
+.custom-likes-b {
+	text-align: center;
+	overflow: hidden;
+	position: relative;
+	&_slogan {
+		margin: 15px 0 10px;
+		text-align: center;
+		font-size: 13px;
+		color: #929191;
+	}
+}
+.custom-like {
+	.inline-block();
+	margin: 0 5px 0 5px;
+	text-decoration: none;
+}
+.custom-like_icon {
+	width:32px;
+	height:32px;
+	float:left;
+	background:url(../images/custom-like_icon.png) no-repeat;
+	position: relative;
+	z-index: 2;
+}
+.custom-like_icon.odkl {background-position:0 0;}
+.custom-like:hover .custom-like_icon.odkl {background-position:0 -32px;}
+.custom-like_icon.vk {background-position:-32px 0;}
+.custom-like:hover .custom-like_icon.vk {background-position:-32px -32px;}
+.custom-like_icon.fb {background-position:-64px 0;}
+.custom-like:hover .custom-like_icon.fb {background-position:-64px -32px;}
+.custom-like_icon.tw {background-position:-96px 0;}
+.custom-like:hover .custom-like_icon.tw {background-position:-96px -32px;}
+.custom-like_value {
+	float:left;
+	height:20px;
+	width: 40px;
+	border:1px solid #ddd;
+	margin:6px 0 0 -4px;
+	padding:0 4px;
+	font:11px/20px Arial,Tahoma,Verdana,sans-serif;
+	position:relative;
+	text-align: center;
+	color:#868585;
+	background:#fff;
+}
+
+
+
 /* fast-like-block */
 
 .fast-like-block {margin:5px auto 20px;text-align:center;background:none;width:auto;}

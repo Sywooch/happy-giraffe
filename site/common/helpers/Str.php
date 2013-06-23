@@ -90,11 +90,11 @@ class Str
         return '<p>'.str_replace("\n", '</p><p>', $str).'</p>';
     }
 
-    public static function getDescription($text, $len = 300)
+    public static function getDescription($text, $len = 300, $etc = '...')
     {
         $text = strip_tags(html_entity_decode($text, ENT_QUOTES, 'UTF-8'));
         $text = preg_replace(array('/\s{2,}/', '/[\t\n]/'), ' ', $text);
-        return trim(Str::truncate($text, $len));
+        return trim(Str::truncate($text, $len, $etc));
     }
 
     public static function prepareForSphinxSearch($text)

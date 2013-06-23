@@ -8,6 +8,7 @@ class DefaultController extends HController
     public $user;
     public $rubric_id;
     public $layout = 'blog';
+    public $tempLayout = true;
 
     public function filters()
     {
@@ -47,7 +48,7 @@ class DefaultController extends HController
         echo CJSON::encode(array('status' => UserBlogSubscription::toggle($blog_author_id)));
     }
 
-    public function getUrl($overwrite = array(), $route = 'blog/list')
+    public function getUrl($overwrite = array(), $route = '/blog/default/index')
     {
         $params = array_filter(CMap::mergeArray(
             array(

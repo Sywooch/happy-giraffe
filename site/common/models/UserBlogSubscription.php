@@ -66,7 +66,7 @@ class UserBlogSubscription extends HActiveRecord
         $criteria = new CDbCriteria;
         $criteria->compare('user2_id', $user_id);
         $criteria->with = array('subscriber', 'avatar');
-        $criteria->limit = 10;
+        $criteria->limit = 7;
         return User::model()->findAll($criteria);
     }
 
@@ -78,10 +78,11 @@ class UserBlogSubscription extends HActiveRecord
      */
     public function subscribersCount($user_id)
     {
-        $criteria = new CDbCriteria;
-        $criteria->compare('user2_id', $user_id);
-        $criteria->with = array('subscriber');
-        return User::model()->count($criteria);
+        return Yii::app()->db->createCommand()
+            ->select('count(*)')
+            ->from($this->tableName())
+            ->where('user2_id=:user_id', array(':user_id' => $user_id))
+            ->queryScalar();
     }
 
     /**

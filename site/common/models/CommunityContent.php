@@ -681,11 +681,12 @@ class CommunityContent extends HActiveRecord
     /**
      * Возвращает укороченный текст поста
      * @param int $length длина строки
+     * @param string $etc что показываем в конце
      * @return string
      */
-    public function getContentText($length = 128)
+    public function getContentText($length = 128, $etc = '...')
     {
-        return Str::getDescription($this->getContent()->text, $length);
+        return Str::getDescription($this->getContent()->text, $length, $etc);
     }
 
 

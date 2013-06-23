@@ -316,7 +316,8 @@ class BlogController extends HController
 
     public function actionRedactorjs()
     {
-        $this->render('redactorjs');
+        $model = Album::model()->findByPk(91474);
+        $this->render('redactorjs', compact('model'));
     }
 
     public function sitemapView()

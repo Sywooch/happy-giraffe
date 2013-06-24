@@ -2,6 +2,7 @@
 /**
  * @var $this DefaultController
  * @var $data BlogContent
+ * @var $full bool
  */
 
 $post = $data->post;
@@ -34,7 +35,7 @@ $post = $data->post;
             <a href="<?=$data->getUrl() ?>" class="b-article_more">Смотреть далее</a>
         </div>
 
-        <?php $this->widget('application.widgets.newCommentWidget.NewCommentWidget', array('model' => $data)); ?>
+        <?php $this->widget('application.widgets.newCommentWidget.NewCommentWidget', array('model' => $data, 'full' => $full)); ?>
 
     </div>
 </div>

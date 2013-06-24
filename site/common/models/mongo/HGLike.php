@@ -191,7 +191,7 @@ class HGLike extends HMongoModel
     /**
      * Лайкал ли пользователь запись
      *
-     * @param CommunityContent $entity
+     * @param CommunityContent|Comment $entity
      * @param int $user_id
      * @return bool
      */

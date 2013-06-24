@@ -167,7 +167,7 @@ class Comment extends HActiveRecord
         );
     }
 
-    public function get($entity, $entity_id, $type = 'default', $pageSize = 25)
+    public function get($entity, $entity_id, $pageSize = 25)
     {
         return new CActiveDataProvider('Comment', array(
             'criteria' => array(
@@ -177,24 +177,9 @@ class Comment extends HActiveRecord
                     'author' => array(
                         'select' => 'id, gender, first_name, last_name, online, avatar_id, deleted',
                         'with' => 'avatar',
-                    ),
-                    'response' => array(
-                        'select' => 'position',
-                        'with' => array(
-                            'author' => array(
-                                'alias' => 'responseAuthor',
-                                'select' => 'id, gender, first_name, last_name, online, avatar_id, deleted',
-                                'with' => array(
-                                    'avatar' => array(
-                                        'alias' => 'responseAuthorAvatar'
-                                    ),
-                                ),
-                            ),
-                        ),
-                    ),
-//                    'photoAttaches'
+                    )
                 ),
-                'order' => ($type != 'guestBook') ? 't.created ASC' : 't.created DESC',
+                'order' => 't.created ASC',
             ),
             'pagination' => array(
                 'pageSize' => $pageSize,
@@ -556,24 +541,36 @@ class Comment extends HActiveRecord
             return '';
     }
 
+    public function restore(){
+        Comment::model()->updateByPk($this->id, array('removed' => 0));
+        Removed::model()->restoreByEntity($this);
+    }
+
     /**
-     * @param CActiveDataProvider $dataProvider
+     * @param Comment[] $comments
      * @return array
      */
-    public static function getViewData($dataProvider)
+    public static function getViewData($comments)
     {
         $data = array();
-        foreach ($dataProvider->getData() as $comment)
+        foreach ($comments as $comment)
             $data[] = array(
                 'id' => $comment->id,
                 'html' => $comment->purified->text,
                 'created' => Yii::app()->dateFormatter->format("d MMMM yyyy, H:mm", $comment->created),
-                'own' => (Yii::app()->user->id == $comment->author_id),
-                'author_id' => $comment->author_id,
-                'author_name' => $comment->author->getFullName(),
-                'author_url' => $comment->author->getUrl(),
+                'author' => array(
+                    'id' => (int)$comment->author->id,
+                    'firstName' => $comment->author->first_name,
+                    'lastName' => $comment->author->last_name,
+                    'gender' => $comment->author->gender,
+                    'avatar' => $comment->author->getAva('small'),
+                    'online' => (bool)$comment->author->online,
+                    'url' => $comment->author->getUrl(),
+                ),
                 'likesCount' => HGLike::model()->countByEntity($comment),
                 'userLikes' => HGLike::model()->hasLike($comment, Yii::app()->user->id),
+                'canRemove' => (Yii::app()->user->model->checkAuthItem('removeComment') || Yii::app()->user->id == $comment->author_id || $comment->isEntityAuthor(Yii::app()->user->id)),
+                'canEdit' => (Yii::app()->user->model->checkAuthItem('editComment') || Yii::app()->user->id == $comment->author_id),
             );
 
         return $data;

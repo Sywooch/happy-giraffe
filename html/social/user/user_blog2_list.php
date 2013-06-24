@@ -126,7 +126,7 @@
 					</ul>
 				</div>
 				
-				<div class="fast-articles2">
+				<div class="fast-articles2 js-fast-articles2">
 					<div class="fast-articles2_t-ico"></div>
 					<div class="fast-articles2_i">
 						<div class="fast-articles2_header clearfix">

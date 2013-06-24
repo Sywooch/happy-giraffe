@@ -2,7 +2,7 @@
 <!--[if lt IE 8]>      <html class="top-nav-fixed ie7"> <![endif]-->
 <!--[if IE 8]>         <html class="top-nav-fixed ie8"> <![endif]-->
 <!--[if IE 9]>         <html class="top-nav-fixed ie9"> <![endif]-->
-<!--[if gt IE 9]><!--> <html class="top-nav-fixed"> <!--<![endif]-->
+<!--[if gt IE 9]><!--> <html class=""> <!--<![endif]-->
 <head>
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/head.php'; ?>
 	<link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,100&amp;subset=latin,cyrillic-ext,cyrillic">
@@ -125,7 +125,7 @@
 					</ul>
 				</div>
 				
-				<div class="fast-articles2">
+				<div class="fast-articles2 js-fast-articles2">
 					<div class="fast-articles2_t-ico"></div>
 					<div class="fast-articles2_i">
 						<div class="fast-articles2_header clearfix">
@@ -227,7 +227,7 @@
 								<img alt="" src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg">
 							</a>
 						</div>
-						<div class="like-control like-control__pinned js_like-control__pinned clearfix">
+						<div class="like-control like-control__pinned js-like-control__pinned clearfix">
 							<a href="" class="like-control_ico like-control_ico__like">865</a>
 							<a href="" class="like-control_ico like-control_ico__repost">5</a>
 							<a href="" class="like-control_ico like-control_ico__favorites active">123865</a>

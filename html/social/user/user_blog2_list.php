@@ -260,12 +260,14 @@
 											<p>я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.  я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически </p>
 										</div>
 									</div>
-									<div class="comments-gray_admin">
-										<div class="clearfix">
-											<a href="" class="message-ico message-ico__edit powertip" title="Редактировать"></a>
-										</div>
-										<div class="clearfix">
-											<a href="" class="message-ico message-ico__del powertip" title="Удалить"></a>
+									<div class="comments-gray_control comments-gray_control__self">
+										<div class="comments-gray_control-hold">
+											<div class="clearfix">
+												<a href="" class="message-ico message-ico__edit powertip" title="Редактировать"></a>
+											</div>
+											<div class="clearfix">
+												<a href="" class="message-ico message-ico__del powertip" title="Удалить"></a>
+											</div>
 										</div>
 									</div>
 								</div>

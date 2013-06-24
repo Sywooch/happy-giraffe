@@ -929,7 +929,7 @@ table.fr_recipe_tb td { width: 50%;}
     &_i {
         position: relative;
         margin: 0 -30px;
-        padding: 10px 30px;
+        padding: 12px 30px;
         overflow: hidden;
     }
     &_i:hover {background: #fafafa;}
@@ -938,6 +938,8 @@ table.fr_recipe_tb td { width: 50%;}
     &_i:hover &_control {right: 0;}
     &_i__self {background: #fffce6;}
     &_i__self:hover {background: #fffce6;}
+    &_i__recovery:hover,
+    &_i__recovery {background: #fff;}
     &_i .wysiwyg-content p{margin: 0 0 8px;}
     &_i .wysiwyg-content img{margin: 0;}
     &_ava {
@@ -985,32 +987,40 @@ table.fr_recipe_tb td { width: 50%;}
         position: absolute;
         right: -30px;
         top: 50%;
-        margin-top: -30px;
-        padding: 0 4px 5px 6px;
+        margin-top: -32px;
+        text-align: center;
+        line-height: 16px;
         .transition(all 0.3s ease);
     }
-    &_quote-ico {
-        .inline-block();
-        width: 28px;
-        height: 32px;
-        margin: 0 -4px 2px -6px;
-        background: url(/images/comments-gray_quote-ico.png) no-repeat;
+    &_control .message-ico {
+        display: block;
+        margin: 2px auto;
     }
-    &_quote-ico:hover {background-position: 0 -50px;}
-    &_admin {     
-        position: absolute;
-        right: -30px;
-        top: 50%;
-        margin-top: -25px;
-        padding: 5px 4px 5px 6px;
-        background: #c0f3b5;
+    &_control__self &_control-hold {background: #c0f3b5;}
+    &_control__self .message-ico__del {background-position: -32px 0;}
+    &_control__self .message-ico__del:hover {background-position: -32px -15px;}
+    &_control-hold {
+        margin-bottom: 4px;
+        padding: 4px 5px 4px 7px;
+        background: #a8e1fd;
         -webkit-border-top-left-radius: 4px;
         -moz-border-top-left-radius: 4px;
         border-top-left-radius: 4px;
         -webkit-border-bottom-left-radius: 4px;
         -moz-border-bottom-left-radius: 4px;
         border-bottom-left-radius: 4px;
-        .transition(all 0.3s ease);
+    }
+    &_quote-ico {
+        display: block;
+        width: 15px;
+        height: 11px;
+        margin: 1px 0 3px;
+        background: url(/images/comments-gray_quote-ico.png) no-repeat;
+    }
+    &_quote-ico:hover {background-position: 0 -50px;}
+    &_a-recovery {
+        .inline-block();
+        margin: 0 10px;
     }
 }
 /* /comments-gray */

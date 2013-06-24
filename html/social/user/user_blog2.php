@@ -357,12 +357,14 @@
 											<p>я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.  я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически </p>
 										</div>
 									</div>
-									<div class="comments-gray_admin">
-										<div class="clearfix">
-											<a href="" class="message-ico message-ico__edit powertip" title="Редактировать"></a>
-										</div>
-										<div class="clearfix">
-											<a href="" class="message-ico message-ico__del powertip" title="Удалить"></a>
+									<div class="comments-gray_control comments-gray_control__self">
+										<div class="comments-gray_control-hold">
+											<div class="clearfix">
+												<a href="" class="message-ico message-ico__edit powertip" title="Редактировать"></a>
+											</div>
+											<div class="clearfix">
+												<a href="" class="message-ico message-ico__del powertip" title="Удалить"></a>
+											</div>
 										</div>
 									</div>
 								</div>
@@ -382,8 +384,13 @@
 									</div>
 									
 									<div class="comments-gray_control">
-										<div class="clearfix">
-											<a href="" class="comments-gray_quote-ico powertip" title="Ответить"></a>
+										<div class="comments-gray_control-hold">
+											<div class="clearfix">
+												<a href="" class="comments-gray_quote-ico powertip" title="Ответить"></a>
+											</div>
+											<div class="clearfix">
+												<a href="" class="message-ico message-ico__del powertip" title="Удалить"></a>
+											</div>
 										</div>
 										<div class="clearfix">
 											<a href="" class="message-ico message-ico__warning powertip" title="Пожаловаться"></a>
@@ -406,14 +413,35 @@
 									</div>
 									
 									<div class="comments-gray_control">
-										<div class="clearfix">
-											<a href="" class="comments-gray_quote-ico powertip" title="Ответить"></a>
+										<div class="comments-gray_control-hold">
+											<div class="clearfix">
+												<a href="" class="comments-gray_quote-ico powertip" title="Ответить"></a>
+											</div>
+											<div class="clearfix">
+												<a href="" class="message-ico message-ico__del powertip" title="Удалить"></a>
+											</div>
 										</div>
 										<div class="clearfix">
 											<a href="" class="message-ico message-ico__warning powertip" title="Пожаловаться"></a>
 										</div>
 									</div>
 								</div>
+								
+								<div class="comments-gray_i comments-gray_i__recovery">
+									<div class="comments-gray_ava">
+										<a href="" class="ava small female"></a>
+									</div>
+									<div class="comments-gray_frame">
+										<div class="comments-gray_header clearfix">
+											<a href="" class="comments-gray_author">Анг Богоявлен </a>
+											<span class="font-smallest color-gray">Сегодня 14:25</span>
+										</div>
+										<div class="comments-gray_cont wysiwyg-content">
+											<p>Комментарий успешно удален.<a href="" class="comments-gray_a-recovery">Восстановить?</a> </p>
+										</div>
+									</div>
+								</div>
+								
 								<div class="comments-gray_i">
 									<a href="" class="comments-gray_like like-hg-small powertip" title="Нравится">78</a>
 									<div class="comments-gray_ava">
@@ -443,8 +471,10 @@
 									</div>
 									
 									<div class="comments-gray_control">
-										<div class="clearfix">
-											<a href="" class="comments-gray_quote-ico powertip" title="Ответить"></a>
+										<div class="comments-gray_control-hold">
+											<div class="clearfix">
+												<a href="" class="comments-gray_quote-ico powertip" title="Ответить"></a>
+											</div>
 										</div>
 										<div class="clearfix">
 											<a href="" class="message-ico message-ico__warning powertip" title="Пожаловаться"></a>

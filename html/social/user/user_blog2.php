@@ -2,11 +2,10 @@
 <!--[if lt IE 8]>      <html class="top-nav-fixed ie7"> <![endif]-->
 <!--[if IE 8]>         <html class="top-nav-fixed ie8"> <![endif]-->
 <!--[if IE 9]>         <html class="top-nav-fixed ie9"> <![endif]-->
-<!--[if gt IE 9]><!--> <html class="top-nav-fixed"> <!--<![endif]-->
+<!--[if gt IE 9]><!--> <html class=""> <!--<![endif]-->
 <head>
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/head.php'; ?>
 	<link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,100&amp;subset=latin,cyrillic-ext,cyrillic">
-	<link rel="stylesheet" href="">
 
 </head>
 <body class="body-gray">
@@ -204,6 +203,39 @@
 								<a href="" class="like-control_ico like-control_ico__like">865</a>
 								<a href="" class="like-control_ico like-control_ico__repost">5</a>
 								<a href="" class="like-control_ico like-control_ico__favorites active">123865</a>
+							</div>
+							<div class="article-settings">
+								<div class="article-settings_i">
+									<a href="" class="article-settings_a article-settings_a__settings powertip" title="Настройки"></a>
+								</div>
+								<div class="article-settings_hold">
+									<div class="article-settings_i">
+										<a href="" class="article-settings_a article-settings_a__pin powertip" title="Прикрепить вверху"></a>
+									</div>
+									<div class="article-settings_i">
+										<a href="" class="article-settings_a article-settings_a__edit powertip"  title="Редактировать"></a>
+									</div>
+									<div class="article-settings_i">
+										<a href="javascript:void(0)" class="article-settings_a article-settings_a__privacy powertip" title="Приватность"></a>
+										<div class="article-settings_drop">
+											<div class="article-settings_drop-i">
+												<a href="" class="article-settings_drop-a">
+												<span class="ico-users ico-users__all"></span>
+												Показывать всем
+												</a>
+											</div>
+											<div class="article-settings_drop-i">
+												<a href="" class="article-settings_drop-a">
+												<span class="ico-users ico-users__i"></span>
+												Только друзьям
+												</a>
+											</div>
+										</div>
+									</div>
+									<div class="article-settings_i">
+										<a href="" class="article-settings_a article-settings_a__delete powertip"  title="Удалить"></a>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>

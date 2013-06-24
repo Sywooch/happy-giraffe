@@ -507,7 +507,7 @@ table.fr_recipe_tb td { width: 50%;}
     &_in .wysiwyg-content {
         padding: 0 20px;
         font-size: 14px;
-        line-height: 17px;
+        line-height: 18px;
         color: #333;
     }
     &_in .wysiwyg-content p {margin: 0 0 15px;}
@@ -552,6 +552,12 @@ table.fr_recipe_tb td { width: 50%;}
         float: left;
         content: counters(item, '.') '.'; /* crash IE7 */
         counter-increment: item;
+    }
+    &_repost-comment {
+        margin: 30px 20px 45px;
+        font-size: 20px;
+        line-height: 25px;
+        color: #787878;
     }
     &_cont {
         position: relative;
@@ -627,6 +633,10 @@ table.fr_recipe_tb td { width: 50%;}
     &__small-indent {
         padding: 10px 14px;
     }
+    &__repost {
+        background: #a17dc4;
+        padding: 10px 14px 5px;
+    }
 
     &_ico {
         .inline-block();
@@ -644,6 +654,13 @@ table.fr_recipe_tb td { width: 50%;}
     &_ico__favorites {background-position: -90px 0;}
     &_ico__favorites.active,
     &_ico__favorites:hover {background-position: -90px -100px;}
+    &_repost-complete {
+        .inline-block();
+        margin: 8px 0 0;
+        width: 21px;
+        height: 14px;
+        background: url(/images/like-control_repost-complete.png) no-repeat;
+    }
 }
 /* /like-control */
 
@@ -888,7 +905,11 @@ table.fr_recipe_tb td { width: 50%;}
     padding: 19px 30px;
     background: #f5f5f5;
 
-    &_t {padding-left: 30px;}
+    &_t {
+        padding-left: 30px;
+        border-bottom: 1px dashed #e8e7e7;
+        padding-bottom: 10px;
+    }
     &_t-a {
         .inline-block();
         font-size: 13px;
@@ -904,9 +925,8 @@ table.fr_recipe_tb td { width: 50%;}
         padding:0 20px 0 5px;
     }
     &_hold {
-        border-top: 1px dashed #e8e7e7;
         border-bottom: 1px dashed #e8e7e7;
-        margin: 7px 0 15px;
+        margin: 0 0 15px;
         padding: 10px 0 0;
     }
     &_i {

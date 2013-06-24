@@ -31,8 +31,6 @@ im.sidebarHeight = function () {
     } else {
         im.userList.height(im.windowHeight - im.headerHeight + im.containerScroll - im.userListIndent - im.bottomHeight);
     }
-
-
 }
 
 im.holdHeights = function  () {

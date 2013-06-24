@@ -246,6 +246,7 @@
 							</div>
 							<div class="comments-gray_hold">
 								<div class="comments-gray_i comments-gray_i__self">
+									<a href="" class="comments-gray_like like-hg-small powertip" title="Нравится">0</a>
 									<div class="comments-gray_ava">
 										<a href="" class="ava small male"></a>
 									</div>

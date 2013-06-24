@@ -6,7 +6,6 @@
 <head>
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/head.php'; ?>
 	<link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,100&amp;subset=latin,cyrillic-ext,cyrillic">
-	<link rel="stylesheet" href="">
 
 </head>
 <body class="body-gray">
@@ -192,6 +191,35 @@
 				</div>
 				
 				<div class="b-article b-article__preview clearfix">
+				<div class="clearfix">
+					<div class="float-l">
+						<div class="like-control like-control__repost clearfix">
+							<a href="" class="ava male">
+								<span class="icon-status status-online"></span>
+								<img alt="" src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg">
+							</a>
+							<span class="like-control_repost-complete"></span>
+						</div>
+					</div>
+					
+					<div class="b-article_cont clearfix">
+						<div class="b-article_cont-tale"></div>
+						<div class="b-article_header clearfix">
+							<div class="float-l">
+								<a href="" class="b-article_author">Ангелина Богоявленская</a>
+								<span class="font-smallest color-gray">Сегодня 13:25</span>
+							</div>
+						</div>
+						<h2 class="b-article_t">
+							Самое лучшее утро - просыпаюсь, а ты рядом
+						</h2>
+						<div class="b-article_in">
+							<div class="b-article_repost-comment">
+								Круто! Мне понравился пост. Советую всем.
+							</div>
+						</div>
+					</div>
+				</div>
 					<div class="float-l">
 						<div class="like-control like-control__small-indent clearfix">
 							<a href="" class="ava male">
@@ -206,7 +234,6 @@
 						</div>
 					</div>
 					<div class="b-article_cont clearfix">
-						<div class="b-article_cont-tale"></div>
 						<div class="b-article_header clearfix">
 							<div class="meta-gray">
 								<a href="" class="meta-gray_comment">
@@ -228,41 +255,14 @@
 						</h2>
 						<div class="b-article_in clearfix">
 							<div class="wysiwyg-content clearfix">
-								<div class="b-article_in-img">
-									<iframe width="580" height="320" frameborder="0" allowfullscreen="" src="http://www.youtube.com/embed/pehSAUTqjRs?wmode=transparent"></iframe>
-								</div>
-								<p>	Недавно посмотрел фильм "Убить Дракона" снятый в 1988 году с Абдуловым в главной роли. По мотивам пьесы Евгения Шварца «Дракон».</p>
-								<ol>
-									<li>Практически нет девушки, которая не переживала бы за отношения героев "Сумерек" как в на экранах, так и в жизни. Но, к сожалению, даже несмотря на то, что недавно герои "Сумерек" радовали всех тем, что у них невероятный роман  и в рельной жизни, а не только лишь на экране, все же <a href="">Роберт Паттинсон</a>  и Кристен Стюарт расстались и пока реши</li>
-									<li>Но, к сожалению, даже несмотря на то, что недавно герои "Сумерек" радовали всех тем, что у них невероятный роман  и в рельной жизни, а не только лишь на экране, все же <a href="">Роберт Паттинсон</a>  и Кристен Стюарт расстались и пока реши</li>
-									<li> <a href="">Роберт Паттинсон</a>  и Кристен Стюарт расстались и пока реши</li>
-									<li>Практически нет девушки, которая не переживала бы за отношения героев "Сумерек" как в на экранах, так и в жизни. Но, к сожалению, даже несмотря на то, что недавно герои "Сумерек" радовали всех тем, что у них невероятный роман  и в рельной жизни, а не только лишь на экране, все же <a href="">Роберт Паттинсон</a>  и Кристен Стюарт расстались и пока реши</li>
-								</ol>
+								
 								<p>Практически нет девушки, которая не переживала бы за отношения героев "Сумерек" как в на экранах, так и в жизни. Но, к сожалению, даже несмотря на то, что недавно герои "Сумерек" радовали всех тем, что у них невероятный роман  и в рельной жизни, а не только лишь на экране, все же <a href="">Роберт Паттинсон</a>  и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.</p>
 								
-								<div class="clearfix">
-									<img title="Убить Дракона. Фантасмагория или сказка для взрослых. фото 1" src="http://img.happy-giraffe.ru/thumbs/700x700/16534/3733dd340b221ac3052b5cef11288870.jpg" class="content-img" alt="Убить Дракона. Фантасмагория или сказка для взрослых. фото 1">
-								</div>
 								<h2>H2 Где можно поменять название трека</h2>
-								<p>	Недавно посмотрел фильм "Убить Дракона" снятый в 1988 году с Абдуловым в главной роли. По мотивам пьесы Евгения Шварца «Дракон».</p>
 								<div class="b-article_in-img">
 									<img title="Ночные гости - кто они фото 1" src="http://img.happy-giraffe.ru/thumbs/700x700/56/edad8d334a0b4a086a50332a2d8fd0fe.JPG" class="content-img" alt="Ночные гости - кто они фото 1">
 								</div>
-								<ul>
-									<li>я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.  я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически </li>
-									<li>я не нашел, где можно поменять название трека.</li>
-									<li>Меняя название трека в <strong>Меняя название трека</strong> альбоме он автоматически производит поиск <a href="">Меняя название трека </a>по сайту и подцепляет естественно студийные версии песен вместо нужных.  я не нашел, где можно поменять название трека. <b>Меняя название трека</b>  в альбоме он автоматически </li>
-								</ul>
-								<p>и подцепляет естественно студийные версии песен вместо нужных. и подцепляет естественно студийные версии песен вместо нужных.  я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически  и подцепляет естественно студийные версии песен вместо нужных.  я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически </p>
-								<h2>H2 Где можно поменять название трека</h2>
-								<p>	Недавно <i>посмотрел фильм "Убить Дракона" снятый</i>  в 1988 году с <em>Абдуловым в главной роли</em> . По мотивам <strike>пьесы Евгения Шварца</strike>  «Дракон».</p>
-								<h3>H3 Где можно поменять название трека</h3>
-								
-								<ul>
-									<li>первое </li>
-									<li>второе</li>
-									<li>третье </li>
-								</ul>
+								<p>	Недавно посмотрел фильм "Убить Дракона" снятый в 1988 году с Абдуловым в главной роли. По мотивам пьесы Евгения Шварца «Дракон».</p>
 							</div>
 						</div>
 						<div class="custom-likes-b">
@@ -310,6 +310,7 @@
 							</div>
 							<div class="comments-gray_hold">
 								<div class="comments-gray_i comments-gray_i__self">
+									<a href="" class="comments-gray_like like-hg-small powertip" title="Нравится">78</a>
 									<div class="comments-gray_ava">
 										<a href="" class="ava small male"></a>
 									</div>

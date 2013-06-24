@@ -33,7 +33,25 @@ function removeA(arr) {
     return arr;
 }
 
+$.fn.likeControlFixed = function () {
+    var $this = this,
+        $window = $('.layout-container'),
+        pos = 142,
+        likeContolOfset = $this.offset();
+
+    $window.scroll(function(e){
+
+        if ($window.scrollTop() > likeContolOfset.top ) 
+            $this.css({'position': 'fixed', 'top': pos}); 
+        else
+            $this.css({'position': 'relative', 'top': 'auto'});
+    });
+};
+
+
+
 $(document).ready(function () {
+    $('.js_like-control__pinned').likeControlFixed();
 
     $('.favorites-add-popup_itx-tag').keypress(function (event) {
 
@@ -107,7 +125,6 @@ $(document).ready(function () {
         popupId: 'powertip-white',
         offset: 8
     });
-
 
     $.ajaxSetup({
         complete:function () {

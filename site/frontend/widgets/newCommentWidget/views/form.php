@@ -1,5 +1,4 @@
 <div class="comments-gray_add clearfix">
-
     <div class="comments-gray_ava">
         <a href="" class="ava small female"></a>
     </div>

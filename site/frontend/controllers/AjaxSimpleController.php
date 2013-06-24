@@ -61,24 +61,34 @@ class AjaxSimpleController extends CController
         CommentatorLike::addCurrentUserLike($entity, $entity_id, $social_id);
     }
 
-    public function actionCommentLike(){
-        $comment_id = Yii::app()->request->getPost('comment_id');
+    public function actionCommentLike()
+    {
+        $comment_id = Yii::app()->request->getPost('id');
         $comment = $this->loadComment($comment_id);
+        if ($comment->author_id != Yii::app()->user->id)
+            HGLike::model()->saveByEntity($comment);
+
+        echo CJSON::encode(array('status' => true));
     }
 
-    public function actionTest()
+    public function actionDeleteComment()
     {
-        $sites = Yii::app()->db_seo->createCommand()
-            ->select('url, password')
-            ->from('li_sites')
-            ->where('type=2 and visits > 1000')
-            ->queryAll();
+        $comment_id = Yii::app()->request->getPost('id');
+        $comment = $this->loadComment($comment_id);
+        if (Yii::app()->user->model->checkAuthItem('removeComment') || Yii::app()->user->id == $comment->author_id || $comment->isEntityAuthor(Yii::app()->user->id))
+            $comment->delete();
 
-        echo 'Mail.ru - доступ открыт для первой тысячи<br>';
-        foreach($sites as $site){
-            echo $site['url'].'<br>';
-        }
-        echo '<br><br>';
+        echo CJSON::encode(array('status' => true));
+    }
+
+    public function actionRestoreComment()
+    {
+        $comment_id = Yii::app()->request->getPost('id');
+        $comment = $this->loadComment($comment_id);
+        if (Yii::app()->user->model->checkAuthItem('removeComment') || Yii::app()->user->id == $comment->author_id || $comment->isEntityAuthor(Yii::app()->user->id))
+            $comment->restore();
+
+        echo CJSON::encode(array('status' => true));
     }
 
     /**
@@ -86,8 +96,9 @@ class AjaxSimpleController extends CController
      * @return Comment
      * @throws CHttpException
      */
-    public function loadComment($id){
-        $model = Comment::model()->findByPk($id);
+    public function loadComment($id)
+    {
+        $model = Comment::model()->resetScope()->findByPk($id);
         if ($model === null)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
         return $model;

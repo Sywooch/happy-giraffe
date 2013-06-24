@@ -34,7 +34,7 @@ function removeA(arr) {
 }
 
 $(document).ready(function () {
-    $('.js-like-control__pinned').blockFixed({'posTop':142});
+    $('.js-like-control').blockFixed({'posTop':142});
     $('.js-fast-articles2').blockFixed({'posTop': 60, 'minPosBottom':250});
 
     $('.favorites-add-popup_itx-tag').keypress(function (event) {

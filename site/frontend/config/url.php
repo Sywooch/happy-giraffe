@@ -76,8 +76,15 @@ return array(
 
         // user/*
 
+        array(
+            'class' => 'application.components.ConditionalUrlRule',
+            'pattern' => 'user/<user_id:\d+>/blog',
+            'condition' => 'Yii::app()->user->isGuest',
+            'trueRoute' => 'old/blog/list',
+            'falseRoute' => 'blog/default/index',
+        ),
+
         'user/<user_id:\d+>/newblog/rubric<rubric_id:\d+>' => 'blog/default/index',
-        'user/<user_id:\d+>/newblog' => 'blog/default/index',
         'user/<user_id:\d+>/newblog/post<content_id:\d+>' => 'blog/default/view',
         'newblog/<_a:>' => 'blog/default/<_a>',
 
@@ -86,7 +93,6 @@ return array(
         'user/<user_id:\d+>/clubs' => 'user/clubs',
         'user/<user_id:\d+>/friends' => 'user/friends',
         'user/<user_id:\d+>/blog/rubric<rubric_id:\d+>' => 'blog/list',
-        'user/<user_id:\d+>/blog' => 'blog/list',
         'user/<user_id:\d+>/blog/post<content_id:\d+>' => 'blog/view',
         'user/<user_id:\d+>/rss/page<page:\d+>' => 'rss/user',
         'user/<user_id:\d+>/rss' => 'rss/user',

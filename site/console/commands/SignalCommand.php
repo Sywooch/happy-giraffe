@@ -111,8 +111,39 @@ class SignalCommand extends CConsoleCommand
         $month->calculateMonth();
     }
 
-    public function actionTest(){
-        $result = CommentatorHelper::friendStats(10, '2013-05-22');
-        var_dump($result);
+    public function actionRecalc(){
+        $commentators = CommentatorHelper::getCommentatorIdList();
+        foreach ($commentators as $commentator){
+            $model = $this->getCommentator($commentator);
+            if ($model){
+                $date = date("Y-m-d", strtotime('-3 days'));
+                $day = $model->getDay($date);
+                $day->updatePostsCount($model);
+                $date = date("Y-m-d", strtotime('-2 days'));
+                $day = $model->getDay($date);
+                $day->updatePostsCount($model);
+                $date = date("Y-m-d", strtotime('-1 days'));
+                $day = $model->getDay($date);
+                $day->updatePostsCount($model);
+                $date = date("Y-m-d");
+                $day = $model->getDay($date);
+                $day->updatePostsCount($model);
+            }
+        }
+    }
+
+    /**
+     * @param $commentator_id
+     * @return CommentatorWork
+     */
+    public function getCommentator($commentator_id)
+    {
+        $criteria = new EMongoCriteria;
+        $criteria->user_id('==', (int)$commentator_id);
+        $model = CommentatorWork::model()->find($criteria);
+        if ($model === null || $model->isNotWorkingAlready())
+            return null;
+
+        return $model;
     }
 }

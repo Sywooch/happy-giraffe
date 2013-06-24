@@ -809,7 +809,7 @@ class CommentatorWork extends EMongoDocument
     }
 
     /**
-     * @param CommentatorDayWork $day
+     * @param string $day
      * @return CommentatorDayWork|null
      */
     public function getDay($day)

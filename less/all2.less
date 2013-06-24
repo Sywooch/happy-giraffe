@@ -983,6 +983,7 @@ table.fr_recipe_tb td { width: 50%;}
         left: 5px;
         .transition(left 0.3s ease);
     }
+    &_like.hide {left: -20px;}
     &_control {
         position: absolute;
         right: -30px;
@@ -1028,10 +1029,7 @@ table.fr_recipe_tb td { width: 50%;}
     color: #b1b1b1;
     background: url(/images/like-hg-small.png) no-repeat 50% 0;
     text-decoration: none;
+    &.active,
     &:hover { background-position: 50% -50px;}
-    &.active {
-        background-position: 50% -50px;
-        left: -20px;
-    }
 }
 

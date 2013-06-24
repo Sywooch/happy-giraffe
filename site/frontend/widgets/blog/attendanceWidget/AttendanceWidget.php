@@ -2,37 +2,22 @@
 
 class AttendanceWidget extends CWidget {
 
-    public $user_id;
+    public $user;
 
     public function run()
     {
-        $path = '/user/' . $this->user_id . '/blog/*';
+        if (is_int($this->user))
+            $this->user = User::model()->findByPk($this->user);
 
-        $total = Yii::app()->cache->get($this->getCacheId('total'));
-        if ($total === false) {
-            $total = GApi::uniquePageViews($path);
-            Yii::app()->cache->set($this->getCacheId('total'), $total, 600);
-        }
+        $visitorsToday = Yii::app()->piwik->getUniqueVisitors('day', 'today', 'pageUrl=@' . $this->getBlogUrl());
+        $viewsToday = Yii::app()->piwik->getPageViews('day', 'today', 'pageUrl=@' . $this->getBlogUrl());
+        $visitorsTotal = Yii::app()->piwik->getUniqueVisitors('range', '2013-01-01,today', 'pageUrl=@' . $this->getBlogUrl());
 
-        $yesterday = Yii::app()->cache->get($this->getCacheId('yesterday'));
-        if ($yesterday === false) {
-            $yesterdayDate = date('Y-m-d', time() - 60 * 60 * 24);
-            $yesterday = GApi::uniquePageViews($path, $yesterdayDate, $yesterdayDate);
-            Yii::app()->cache->set($this->getCacheId('yesterday'), $yesterday, 0, new CExpressionDependency(), date('Y-m-d'));
-        }
-
-        $today = Yii::app()->cache->get($this->getCacheId('today'));
-        if ($today === false) {
-            $todayDate = date('Y-m-d');
-            $today = GApi::uniquePageViews($path, $todayDate, $todayDate);
-            Yii::app()->cache->set($this->getCacheId('today'), $today, 600);
-        }
-
-        $this->render('index', compact('total', 'yesterday', 'today'));
+        $this->render('index', compact('visitorsToday', 'viewsToday', 'visitorsTotal'));
     }
 
-    protected function getCacheId($key)
+    protected function getBlogUrl()
     {
-        return 'BlogStats_' . $this->user_id . '_' . $key;
+        return $this->user->blogUrl;
     }
 }

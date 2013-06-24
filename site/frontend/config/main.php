@@ -324,7 +324,8 @@ return array(
         ),
         'piwik' => array(
             'class' => 'site.common.components.Piwik',
-            'accessToken' => '2e20e09969eb34201467c8339dce749d',
+            'token_auth' => '2e20e09969eb34201467c8339dce749d',
+            'idSite' => 1,
         ),
 	),
 

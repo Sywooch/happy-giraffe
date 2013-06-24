@@ -36,6 +36,9 @@ class AlbumPhoto extends HActiveRecord
     public $width;
     public $height;
 
+    private $_originalWidth;
+    private $_originalHeight;
+
     /**
      * @var string original photos folder
      */
@@ -644,5 +647,23 @@ class AlbumPhoto extends HActiveRecord
     public function getWidget()
     {
         return Yii::app()->controller->renderPartial('//albums/_widget', array('model' => $this), true);
+    }
+
+    protected function afterFind()
+    {
+        $size = @getimagesize($this->getOriginalPath());
+        $this->_originalWidth = $size[0];
+        $this->_originalHeight = $size[1];
+        parent::afterFind();
+    }
+
+    public function getOriginalWidth()
+    {
+        return $this->_originalWidth;
+    }
+
+    public function getOriginalHeight()
+    {
+        return $this->_originalHeight;
     }
 }

@@ -34,15 +34,19 @@ function removeA(arr) {
 }
 
 $(document).ready(function () {
-    $('.js-like-control').blockFixed({'posTop':142});
+    $('.js-like-control').blockFixed({'posTop':120});
     $('.js-fast-articles2').blockFixed({'posTop': 60, 'minPosBottom':250});
 
-    $('.favorites-add-popup_itx-tag').keypress(function (event) {
+    $('.article-settings_a__settings').click(function(){
+        var parent = $(this).closest('.article-settings');
+        parent.toggleClass('active');
+        parent.find('.article-settings_hold').slideToggle(300);
+        return false;
+    });
 
-        if (event.which == 13 || event.which == 44 ) {
-            console.log(event.which);
-        }
-        return true;
+    $('.article-settings_a').click(function(){
+        $(this).toggleClass('active');
+        $(this).closest('.article-settings_i').find('.article-settings_drop').toggle(200);
     });
 
     $(".wysiwyg-content").addtocopy({htmlcopytxt:'<br /><br />Подробнее: <a href="' + window.location.href + '">' + window.location.href + '</a>'});

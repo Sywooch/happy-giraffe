@@ -563,10 +563,9 @@ table.fr_recipe_tb td { width: 50%;}
         position: relative;
         float: left;
         width: 580px;
-        padding: 15px 0 0;
+        padding: 12px 0 0;
         background: #fff;
         .border-radius(3px);
-        z-index: 2;
     }
     &_cont-tale {
         position: absolute;
@@ -630,9 +629,7 @@ table.fr_recipe_tb td { width: 50%;}
         background: #ffe535;
         .border-radius(3px);
         text-align: center;
-    &__small-indent {
-        padding: 10px 14px;
-    }
+    &__small-indent {padding: 10px 14px;}
     &__repost {
         background: #a17dc4;
         padding: 10px 14px 5px;
@@ -1033,3 +1030,60 @@ table.fr_recipe_tb td { width: 50%;}
     &:hover { background-position: 50% -50px;}
 }
 
+/* article-settings */
+.article-settings {
+    margin: 15px 15px;
+    width: 70px;
+    &.active &_a__settings {background-position: 0 -30px;}
+
+    &_i {
+        text-align: center;
+        position: relative;
+    }
+    &_hold {display: none;}
+    &_a {
+        .inline-block();
+        width: 40px;
+        height: 30px;
+        background: url(/images/article-settings_a.png) no-repeat;
+    }
+    &_a__settings  {background-position: 0 0;}
+    &_a__settings.active,
+    &_a__settings:hover {background-position: 0 -30px;}
+    &_a__pin       {background-position: -40px 0;}
+    &_a__pin.active,
+    &_a__pin:hover {background-position: -40px -30px;}
+    &_a__edit      {background-position: -80px 0;}
+    &_a__edit.active,
+    &_a__edit:hover{background-position: -80px -30px;}
+    &_a__privacy  {background-position: -120px 0;}
+    &_a__privacy.active,
+    &_a__privacy:hover{background-position: -120px -30px;}
+    &_a__delete   {background-position: -160px 0;}
+    &_a__delete.active,
+    &_a__delete:hover{background-position: -160px -30px;}
+
+    &_drop {
+        position: absolute;
+        left: 60px;
+        top: 0;
+        width: 190px;
+        border: 1px solid #dcecf6;
+        background: #fff;
+        text-align: left;
+        z-index: 500;
+        display: none;
+    }
+    &_drop-i {}
+    &_drop-a {
+        display: block;
+        padding: 5px 20px;
+        color: #6b6b6b;
+        text-decoration: none;
+    }
+    &_drop-a:hover {
+        color: #3d3d3d;
+        background: #eff8ff;
+    }
+}
+/* /article-settings */

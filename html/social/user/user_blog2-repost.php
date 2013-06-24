@@ -252,9 +252,6 @@
 								<span class="font-smallest color-gray">Сегодня 13:25</span>
 							</div>
 						</div>
-						<h2 class="b-article_t">
-							Самое лучшее утро - просыпаюсь, а ты рядом
-						</h2>
 						<div class="b-article_in clearfix">
 							<div class="wysiwyg-content clearfix">
 								

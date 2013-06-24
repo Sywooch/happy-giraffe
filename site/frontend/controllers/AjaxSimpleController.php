@@ -61,24 +61,14 @@ class AjaxSimpleController extends CController
         CommentatorLike::addCurrentUserLike($entity, $entity_id, $social_id);
     }
 
-    public function actionCommentLike(){
-        $comment_id = Yii::app()->request->getPost('comment_id');
-        $comment = $this->loadComment($comment_id);
-    }
-
-    public function actionTest()
+    public function actionCommentLike()
     {
-        $sites = Yii::app()->db_seo->createCommand()
-            ->select('url, password')
-            ->from('li_sites')
-            ->where('type=2 and visits > 1000')
-            ->queryAll();
+        $comment_id = Yii::app()->request->getPost('id');
+        $comment = $this->loadComment($comment_id);
+        if ($comment->author_id != Yii::app()->user->id)
+            HGLike::model()->saveByEntity($comment);
 
-        echo 'Mail.ru - доступ открыт для первой тысячи<br>';
-        foreach($sites as $site){
-            echo $site['url'].'<br>';
-        }
-        echo '<br><br>';
+        echo CJSON::encode(array('status' => true));
     }
 
     /**
@@ -86,7 +76,8 @@ class AjaxSimpleController extends CController
      * @return Comment
      * @throws CHttpException
      */
-    public function loadComment($id){
+    public function loadComment($id)
+    {
         $model = Comment::model()->findByPk($id);
         if ($model === null)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');

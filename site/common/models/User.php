@@ -1271,6 +1271,6 @@ class User extends HActiveRecord
      */
     public function isLiked($model)
     {
-        return RatingYohoho::model()->hasLike($model, $this->id);
+        return HGLike::model()->hasLike($model, $this->id);
     }
 }

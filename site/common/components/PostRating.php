@@ -34,7 +34,7 @@ class PostRating
      */
     public static function likesCount($model)
     {
-        return RatingYohoho::model()->countByEntity($model);
+        return HGLike::model()->countByEntity($model);
     }
 
     /**

@@ -122,7 +122,7 @@ class UserScoresCommand extends CConsoleCommand
             ->queryColumn();
 
         foreach ($ids as $id) {
-            $models = RatingYohoho::model()->findAllByAttributes(array(
+            $models = HGLike::model()->findAllByAttributes(array(
                 'entity_name' => 'ContestWork',
                 'entity_id' => (int)$id
             ));
@@ -139,7 +139,7 @@ class UserScoresCommand extends CConsoleCommand
             }
 
             if ($exec) {
-                $count = RatingYohoho::model()->countByAttributes(array(
+                $count = HGLike::model()->countByAttributes(array(
                     'entity_name' => 'ContestWork',
                     'entity_id' => (int)$id
                 ));

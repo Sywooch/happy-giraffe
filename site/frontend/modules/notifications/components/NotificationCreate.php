@@ -94,7 +94,7 @@ class NotificationCreate
     public static function generateLikes()
     {
         $result = array();
-        $likes = RatingYohoho::model()->findLastDayLikes();
+        $likes = HGLike::model()->findLastDayLikes();
         echo count($likes);
 
         foreach ($likes as $like) {

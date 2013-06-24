@@ -104,26 +104,21 @@ class SeoCommand extends CConsoleCommand
     {
         $criteria = new EMongoCriteria();
         $criteria->limit(100);
+        $criteria->sort('views', EMongoCriteria::SORT_DESC);
 
-        $result = array();
-        $models = array(0);
-        while (!empty($models)) {
-            $models = PageView::model()->findAll($criteria);
+        $models = PageView::model()->findAll($criteria);
+        $res = array();
+        foreach ($models as $model) {
+            $se_visits = GApi::model()->organicSearches($model->_id, '2013-03-21', '2013-06-21', false);
+            if ($se_visits > 100)
+                echo 'http://www.happy-giraffe.ru' . $model->_id . ' - ' . $se_visits . "\n";
 
-            foreach ($models as $model)
-                if (strpos($model->_id, '/cook/recipe/') !== false
-                    || strpos($model->_id, '/cook/multivarka/') !== false
-                )
-                    $result [] = array('path' => $model->_id, 'views' => $model->views);
-
-            $criteria->setOffset($criteria->getOffset() + 100);
+                $res[$model->_id] = (int)$se_visits;
         }
 
-        //sort array
-        usort($result, array($this, 'cmp'));
-        $result = array_slice($result, 0, 100);
-        foreach ($result as $model)
-            echo 'http://www.happy-giraffe.ru' . $model['path'] . "\n";
+        arsort($res);
+        foreach($res as $key=>$val)
+            echo $key."\n";
     }
 
     function cmp($a, $b)
@@ -194,39 +189,53 @@ class SeoCommand extends CConsoleCommand
         return $file_name;
     }
 
-    public function actionTest()
-    {
-        $names = array('лосини', 'воронеж', 'база отдыха связист петровское', 'затока базы отдыха',
-            'базы отдыха благовещенская', 'купить газонную траву в рулонах', 'перевозка рулонов',
-            'заполнение нулевой отчетности');
-        foreach ($names as $name) {
-            $t = microtime(true);
-            $model = Yii::app()->db_keywords->createCommand()
-                ->select('*')
-                ->from('keywords')
-                ->where('name=:name', array(':name' => $name))
-                ->limit(1)
-                ->queryAll();
-            echo strlen($name) . ': ' . (microtime(true) - $t) . "\n";
-        }
+    public function actionTest(){
+        $str = '/community/26/forum/post/35010/
+/community/12/forum/post/3327/
+/community/33/forum/post/33749/
+/community/2/forum/post/5071/
+/community/1/forum/post/2384/
+/community/33/forum/post/43301/
+/community/33/forum/post/33252/
+/community/10/forum/post/709/
+/community/10/forum/post/4929/
+/community/33/forum/post/5116/
+/community/33/forum/post/5187/
+/community/8/forum/post/23111/
+/community/20/forum/post/30106/
+/community/11/forum/post/27109/
+/community/26/forum/post/3336/
+/community/33/forum/post/30828/
+/community/25/forum/post/28273/
+/community/10/forum/post/704/
+/community/11/forum/post/21329/
+/community/8/forum/post/32041/
+/community/31/forum/post/50501/
+/user/83/blog/post29894/
+/community/33/forum/post/4165/
+/community/22/forum/post/28281/
+/community/33/forum/post/32020/
+/community/33/forum/post/21899/
+/community/29/forum/post/34455/
+/community/33/forum/post/32486/
+/community/2/forum/post/49948/
+/community/8/forum/post/3335/';
 
-        $ids = range(434583146, 434583159);
-        foreach ($ids as $id) {
-            $t = microtime(true);
-            $model = Yii::app()->db_keywords->createCommand()
-                ->select('*')
-                ->from('keywords')
-                ->where('id=:id', array(':id' => $id))
-                ->limit(1)
-                ->queryAll();
-            echo (microtime(true) - $t) . "\n";
-        }
-    }
+        $lines = file('F:/analitics.csv');
+        $f = fopen('F:/res.txt', 'w');
+        $urls = explode("\n", $str);
 
-    public function actionTest2()
-    {
-        $c = new MonthStats();
-        $c->photo();
+        foreach($urls as $url){
+            $url = trim($url);
+            fputs($f, $url."  ");
+            foreach($lines as $line)
+                if (strpos($line, $url)){
+                    $keyword = explode(',', $line);
+                    fputs($f, $keyword[0].' , ');
+                }
+
+            fputs($f, "\n");
+        }
     }
 }
 

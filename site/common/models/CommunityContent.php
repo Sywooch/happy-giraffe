@@ -17,6 +17,7 @@
  * @property int $by_happy_giraffe
  * @property int $uniqueness
  * @property int $full
+ * @property int $rate
  * @property string $real_time
  * @property int $source_id
  *
@@ -99,6 +100,7 @@ class CommunityContent extends HActiveRecord
             'rubric' => array(self::BELONGS_TO, 'CommunityRubric', 'rubric_id'),
             'type' => array(self::BELONGS_TO, 'CommunityContentType', 'type_id'),
             'source' => array(self::BELONGS_TO, 'CommunityContent', 'source_id'),
+            'sourceCount' => array(self::STAT, 'CommunityContent', 'source_id'),
             'commentsCount' => array(self::STAT, 'Comment', 'entity_id', 'condition' => 'entity=:modelName', 'params' => array(':modelName' => get_class($this))),
             'comments' => array(self::HAS_MANY, 'Comment', 'entity_id', 'on' => 'entity=:modelName', 'params' => array(':modelName' => get_class($this))),
             'status' => array(self::HAS_ONE, 'CommunityStatus', 'content_id'),
@@ -109,6 +111,7 @@ class CommunityContent extends HActiveRecord
             'photoPost' => array(self::HAS_ONE, 'CommunityPhotoPost', 'content_id'),
             'editor' => array(self::BELONGS_TO, 'User', 'editor_id'),
             'gallery' => array(self::HAS_ONE, 'CommunityContentGallery', 'content_id'),
+            'favouritesCount' => array(self::STAT, 'Favourite', 'model_id', 'condition' => 'model_name=:modelName', 'params' => array(':modelName' => get_class($this))),
         );
     }
 
@@ -418,18 +421,21 @@ class CommunityContent extends HActiveRecord
     public function getBlogContents($user_id, $rubric_id)
     {
         $criteria = new CDbCriteria(array(
-            'order' => 't.created DESC',
+            'order' => 't.id DESC',
             'condition' => '(rubric.user_id IS NOT NULL OR t.type_id = 5) AND t.author_id = :user_id',
             'params' => array(':user_id' => $user_id),
-            'with' => array('rubric', 'commentsCount', 'author', 'type'),
-            'together' => false
+            'with' => array('rubric'),
         ));
 
         if ($rubric_id !== null)
             $criteria->compare('rubric_id', $rubric_id);
 
+        $totalItemsCount = $this->active()->count($criteria);
+        $criteria->with = array('rubric', 'author', 'author.avatar', 'commentsCount', 'type', 'sourceCount', 'favouritesCount');
+
         return new CActiveDataProvider($this->active(), array(
             'criteria' => $criteria,
+            'totalItemCount'=>$totalItemsCount
         ));
     }
 
@@ -464,22 +470,25 @@ class CommunityContent extends HActiveRecord
      */
     public function getPrevPost()
     {
-        if (!$this->isFromBlog) {
-            $prev = $this->find(
+        if (!$this->getIsFromBlog()) {
+            $prev = self::model()->cache(300)->find(
                 array(
+                    'select' => array('t.id', 't.title', 't.author_id', 't.rubric_id', 't.type_id'),
                     'condition' => 'rubric_id = :rubric_id AND t.id < :current_id',
                     'params' => array(':rubric_id' => $this->rubric_id, ':current_id' => $this->id),
                     'order' => 't.id DESC',
                 )
             );
         } else {
-            $prev = $this->find(
+            $prev = self::model()->cache(300)->find(
                 array(
+                    'select' => array('t.id', 't.title', 't.author_id', 't.rubric_id', 't.type_id'),
                     'condition' => 't.id < :current_id',
                     'params' => array(':current_id' => $this->id),
                     'order' => 't.id DESC',
                     'with' => array(
                         'rubric' => array(
+                            'select' => array('id', 'user_id', 'community_id'),
                             'condition' => 'user_id = :user_id',
                             'params' => array(':user_id' => $this->rubric->user_id),
                         ),
@@ -497,22 +506,25 @@ class CommunityContent extends HActiveRecord
      */
     public function getNextPost()
     {
-        if (!$this->isFromBlog) {
-            $next = $this->find(
+        if (!$this->getIsFromBlog()) {
+            $next = self::model()->cache(300)->find(
                 array(
+                    'select' => array('t.id', 't.title', 't.author_id', 't.rubric_id', 't.type_id'),
                     'condition' => 'rubric_id = :rubric_id AND t.id > :current_id',
                     'params' => array(':rubric_id' => $this->rubric_id, ':current_id' => $this->id),
                     'order' => 't.id',
                 )
             );
         } else {
-            $next = $this->find(
+            $next = self::model()->cache(300)->find(
                 array(
+                    'select' => array('t.id', 't.title', 't.author_id', 't.rubric_id', 't.type_id'),
                     'condition' => 't.id > :current_id',
                     'params' => array(':current_id' => $this->id),
                     'order' => 't.id',
                     'with' => array(
                         'rubric' => array(
+                            'select' => array('id', 'user_id', 'community_id'),
                             'condition' => 'user_id = :user_id',
                             'params' => array(':user_id' => $this->rubric->user_id),
                         ),
@@ -673,11 +685,18 @@ class CommunityContent extends HActiveRecord
     /**
      * Возвращает укороченный текст поста
      * @param int $length длина строки
+     * @param string $etc что показываем в конце
      * @return string
      */
-    public function getContentText($length = 128)
+    public function getContentText($length = 128, $etc = '...')
     {
-        return Str::getDescription($this->getContent()->text, $length);
+        return Str::getDescription($this->getContent()->text, $length, $etc);
+    }
+
+    public function getNewPreviewText($length = 500, $etc = '...')
+    {
+        $text = strip_tags($this->getContent()->text);
+        return Str::getDescription($text, $length, $etc);
     }
 
 

@@ -74,6 +74,23 @@ class RatingYohoho extends HMongoModel
     }
 
     /**
+     * Кол-во лайков статьи
+     *
+     * @param $entity
+     * @return int
+     */
+    public function countByEntity($entity)
+    {
+        $entity_id = (int)$entity->primaryKey;
+        $entity_name = get_class($entity);
+
+        return $this->getCollection()->count(array(
+            'entity_id' => $entity_id,
+            'entity_name' => $entity_name,
+        ));
+    }
+
+    /**
      * Схранение лайка текущего пользователя
      *
      * @param $entity
@@ -82,10 +99,12 @@ class RatingYohoho extends HMongoModel
     public function saveByEntity($entity)
     {
         $model = $this->findByEntity($entity);
-        if ($model)
+        if ($model){
             $model->delete();
-        else {
+            PostRating::reCalc($entity);
+        } else {
             $this->create($entity);
+            PostRating::reCalc($entity);
             return true;
         }
         return false;
@@ -156,5 +175,24 @@ class RatingYohoho extends HMongoModel
         return $this->getCollection()->count(array(
             'time' => array('$gte' => strtotime($time1), '$lte' => strtotime($time2))
         ));
+    }
+
+    /**
+     * Лайкал ли пользователь запись
+     *
+     * @param CommunityContent $entity
+     * @param int $user_id
+     * @return bool
+     */
+    public function hasLike($entity, $user_id)
+    {
+        $entity_id = (int)$entity->primaryKey;
+        $entity_name = get_class($entity);
+
+        return $this->getCollection()->findOne(array(
+            'entity_id' => $entity_id,
+            'entity_name' => $entity_name,
+            'user_id' => (int)$user_id,
+        )) !== null;
     }
 }

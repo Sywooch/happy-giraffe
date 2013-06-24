@@ -77,21 +77,21 @@ $(document).ready(function () {
     });
 
 
-    $('.wysiwyg-redactor').redactor({
-        lang: 'es',
-        minHeight: 68,
-        autoresize: true,
-        buttons: [ 'bold', 'italic', 'underline', '|', 'image', 'video', 'smile'],
-        buttonsCustom: {
-            smile: {
-                title: 'smile',
-                callback: function(buttonName, buttonDOM, buttonObject) {
-                    // your code, for example - getting code
-                    var html = this.get();
-                }
-            }
-        }
-    });
+//    $('.wysiwyg-redactor').redactor({
+//        lang: 'es',
+//        minHeight: 68,
+//        autoresize: true,
+//        buttons: [ 'bold', 'italic', 'underline', '|', 'image', 'video', 'smile'],
+//        buttonsCustom: {
+//            smile: {
+//                title: 'smile',
+//                callback: function(buttonName, buttonDOM, buttonObject) {
+//                    // your code, for example - getting code
+//                    var html = this.get();
+//                }
+//            }
+//        }
+//    });
 
      /* Подсказки при наведении */
     $('.js-tooltipsy').tooltipsy({offset:[0, 1]});

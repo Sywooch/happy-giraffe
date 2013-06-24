@@ -6,13 +6,12 @@ $this->widget('zii.widgets.CListView', array(
     'cssFile'=>false,
     'ajaxUpdate' => false,
     'dataProvider' => $contents,
-    'itemView' => '_view',
-    'summaryText' => 'Показано: {start}-{end} из {count}',
+    'itemView' => 'preview/preview',
     'pager' => array(
-        'class' => 'AlbumLinkPager',
+        'class' => 'HLinkPager',
     ),
     'template' => '{items}
-        <div class="pagination pagination-center clearfix">
+        <div class="yiipagination">
             {pager}
         </div>
     ',
@@ -20,9 +19,3 @@ $this->widget('zii.widgets.CListView', array(
         'full' => false,
     ),
 ));
-
-if (!Yii::app()->user->isGuest) {
-    $remove_tmpl = $this->beginWidget('site.frontend.widgets.removeWidget.RemoveWidget');
-    $remove_tmpl->registerTemplates();
-    $this->endWidget();
-}

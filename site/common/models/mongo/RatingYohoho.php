@@ -189,7 +189,7 @@ class RatingYohoho extends HMongoModel
         $entity_id = (int)$entity->primaryKey;
         $entity_name = get_class($entity);
 
-        return $this->getCollection()->find(array(
+        return $this->getCollection()->findOne(array(
             'entity_id' => $entity_id,
             'entity_name' => $entity_name,
             'user_id' => (int)$user_id,

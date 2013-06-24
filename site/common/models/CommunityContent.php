@@ -424,14 +424,18 @@ class CommunityContent extends HActiveRecord
             'order' => 't.id DESC',
             'condition' => '(rubric.user_id IS NOT NULL OR t.type_id = 5) AND t.author_id = :user_id',
             'params' => array(':user_id' => $user_id),
-            'with' => array('rubric', 'commentsCount', 'type', 'sourceCount', 'favouritesCount'),
+            'with' => array('rubric'),
         ));
 
         if ($rubric_id !== null)
             $criteria->compare('rubric_id', $rubric_id);
 
+        $totalItemsCount = $this->active()->count($criteria);
+        $criteria->with = array('rubric', 'author', 'author.avatar', 'commentsCount', 'type', 'sourceCount', 'favouritesCount');
+
         return new CActiveDataProvider($this->active(), array(
             'criteria' => $criteria,
+            'totalItemCount'=>$totalItemsCount
         ));
     }
 
@@ -687,6 +691,12 @@ class CommunityContent extends HActiveRecord
     public function getContentText($length = 128, $etc = '...')
     {
         return Str::getDescription($this->getContent()->text, $length, $etc);
+    }
+
+    public function getNewPreviewText($length = 500, $etc = '...')
+    {
+        $text = strip_tags($this->getContent()->text);
+        return Str::getDescription($text, $length, $etc);
     }
 
 

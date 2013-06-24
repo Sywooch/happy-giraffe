@@ -17,21 +17,13 @@
         <?php $this->renderPartial('_subscribers'); ?>
 
         <div class="menu-simple">
-        <?php $items = array();
-        foreach ($this->user->blog_rubrics as $rubric)
-            $items[] = array(
-                'label' => $rubric->title,
-                'url' => $this->getUrl(array('rubric_id' => $rubric->id)),
-                'active' => $rubric->id == $this->rubric_id,
-                'linkOptions' => array('class' => 'menu-simple_a')
-            );
-
-        $this->widget('zii.widgets.CMenu', array(
-            'items' => $items,
-            'itemCssClass' => 'menu-simple_li',
-            'htmlOptions' => array('class' => 'menu-simple_ul')
-        ));
-        ?>
+            <ul class="menu-simple_ul">
+                <?php foreach ($this->user->blog_rubrics as $rubric): ?>
+                    <li class="menu-simple_li<?php if ($rubric->id == $this->rubric_id) echo ' active' ?>">
+                        <a href="<?=$this->getUrl(array('rubric_id' => $rubric->id)) ?>" class="menu-simple_a"><?=$rubric->title ?></a>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
         </div>
 
         <?php $this->renderPartial('_popular'); ?>

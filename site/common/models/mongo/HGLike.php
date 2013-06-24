@@ -1,26 +1,38 @@
 <?php
 /**
- * Class RatingYohoho
+ * Class HGLike
  *
  * Хранение лайков
  *
  * @author Alex Kireev <alexk984@gmail.com>
  */
-class RatingYohoho extends HMongoModel
+class HGLike extends HMongoModel
 {
     /**
-     * @var RatingYohoho
+     * @var HGLike
      */
     private static $_instance;
     protected $_collection_name = 'ratings_yohoho';
 
+    /**
+     * @var int id модели которую лайкнули
+     */
     public $entity_id;
+    /**
+     * @var string class модели которую лайкнули
+     */
     public $entity_name;
+    /**
+     * @var int id пользователя, который поставил лайк
+     */
     public $user_id;
-    public $created;
+    /**
+     * @var int время проставления лайка
+     */
+    public $time;
 
     /**
-     * @return RatingYohoho
+     * @return HGLike
      */
     public static function model()
     {
@@ -57,7 +69,7 @@ class RatingYohoho extends HMongoModel
      * Поиск лайка текущего пользователя
      *
      * @param $entity
-     * @return RatingYohoho
+     * @return HGLike
      */
     public function findByEntity($entity)
     {
@@ -102,18 +114,17 @@ class RatingYohoho extends HMongoModel
         if ($model){
             $model->delete();
             PostRating::reCalc($entity);
-        } else {
-            $this->create($entity);
-            PostRating::reCalc($entity);
-            return true;
+            return false;
         }
-        return false;
+        $this->create($entity);
+        PostRating::reCalc($entity);
+        return true;
     }
 
     /**
      * Создание лайка в бд
      * @param $entity
-     * @return RatingYohoho
+     * @return HGLike
      */
     public function create($entity)
     {
@@ -141,7 +152,7 @@ class RatingYohoho extends HMongoModel
         if (empty($object))
             return null;
 
-        $model = new RatingYohoho;
+        $model = new HGLike;
         foreach ($object as $key => $value)
             $model->$key = $value;
 

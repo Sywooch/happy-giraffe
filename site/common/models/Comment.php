@@ -555,4 +555,27 @@ class Comment extends HActiveRecord
         else
             return '';
     }
+
+    /**
+     * @param CActiveDataProvider $dataProvider
+     * @return array
+     */
+    public static function getViewData($dataProvider)
+    {
+        $data = array();
+        foreach ($dataProvider->getData() as $comment)
+            $data[] = array(
+                'id' => $comment->id,
+                'html' => $comment->purified->text,
+                'created' => Yii::app()->dateFormatter->format("d MMMM yyyy, H:mm", $comment->created),
+                'own' => (Yii::app()->user->id == $comment->author_id),
+                'author_id' => $comment->author_id,
+                'author_name' => $comment->author->getFullName(),
+                'author_url' => $comment->author->getUrl(),
+                'likesCount' => HGLike::model()->countByEntity($comment),
+                'userLikes' => HGLike::model()->hasLike($comment, Yii::app()->user->id),
+            );
+
+        return $data;
+    }
 }

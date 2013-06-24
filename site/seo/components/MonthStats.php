@@ -35,7 +35,7 @@ class MonthStats
 //        echo "likes\n";
 //        for ($i = 9; $i > 0; $i--) {
 //            $this->dates($i);
-//            $count = RatingYohoho::model()->DateLikes($this->date1, $this->date2);
+//            $count = HGLike::model()->DateLikes($this->date1, $this->date2);
 //            echo $count . "\n";
 //        }
 //

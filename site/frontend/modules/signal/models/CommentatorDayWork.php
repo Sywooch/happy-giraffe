@@ -154,6 +154,33 @@ class CommentatorDayWork extends EMongoEmbeddedDocument
     }
 
     /**
+     * Обновление кол-ва постов, написанных за день
+     * @param CommentatorWork $commentator
+     */
+    public function updatePostsCount($commentator)
+    {
+        $this->addAllPosts($commentator->user_id);
+        $this->checkStatus($commentator);
+
+        //обновляем вычисленную статистику
+        $criteria = new EMongoCriteria();
+        $criteria->addCond('user_id', '==', $commentator->user_id);
+
+        //находим номер рабочего дня в массиве дней
+        $day_index = null;
+        foreach ($commentator->days as $_index => $day)
+            if ($day->date == $this->date)
+                $day_index = $_index;
+
+        $modifier = new EMongoModifier();
+        $modifier->addModifier('days.'.$day_index.'.status', 'set', $this->status);
+        $modifier->addModifier('days.'.$day_index.'.blog_posts', 'set', (int)$this->blog_posts);
+        $modifier->addModifier('days.'.$day_index.'.club_posts', 'set', (int)$this->club_posts);
+
+        CommentatorWork::model()->updateAll($modifier, $criteria);
+    }
+
+    /**
      * Вычислить кол-во выполненных заданий за текущий день по написанию статей в блог/клуб
      *
      * @param $section int блог/клуб
@@ -188,8 +215,8 @@ class CommentatorDayWork extends EMongoEmbeddedDocument
         AND author_id=:author_id AND rubric.user_id=:author_id';
         $criteria->with = array('rubric');
         $criteria->params = array(
-            ':day_start' => date("Y-m-d") . ' 00:00:00',
-            ':day_end' => date("Y-m-d") . ' 23:59:59',
+            ':day_start' => $this->date . ' 00:00:00',
+            ':day_end' => $this->date . ' 23:59:59',
             ':author_id' => $user_id
         );
         $this->blog_posts = CommunityContent::model()->count($criteria);
@@ -198,8 +225,8 @@ class CommentatorDayWork extends EMongoEmbeddedDocument
         $criteria->condition = 'created >= :day_start AND created <= :day_end AND author_id=:author_id AND rubric.user_id IS NULL';
         $criteria->with = array('rubric');
         $criteria->params = array(
-            ':day_start' => date("Y-m-d") . ' 00:00:00',
-            ':day_end' => date("Y-m-d") . ' 23:59:59',
+            ':day_start' => $this->date . ' 00:00:00',
+            ':day_end' => $this->date . ' 23:59:59',
             ':author_id' => $user_id
         );
         $this->club_posts = CommunityContent::model()->count($criteria);

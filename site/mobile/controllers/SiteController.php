@@ -23,7 +23,7 @@ class SiteController extends MController
     public function actionComments($entity, $entity_id)
     {
         $data = CActiveRecord::model($entity)->findByPk($entity_id);
-        $comments = Comment::model()->get($entity, $entity_id, 'default', 10);
+        $comments = Comment::model()->get($entity, $entity_id, 10);
 
         $this->pageTitle = $data->title . ' - Комментарии';
         $this->render('comments', compact('data', 'comments', 'linkText', 'linkUrl'));

@@ -812,29 +812,29 @@ function FriendButtonViewModel(data) {
     // 
 
     $.fn.blockFixed = function (params) {
-        var options = $.extend({}, defaults, options, params);
-        var $this = $(this),
-            $window = $(window);
-
-        var blockFixedOffset = $this.offset();
-        blockFixedOffset.top = blockFixedOffset.top - parseInt($this.css('margin-top'));
-        var scrollTop = $window.scrollTop();
-
-        $window.scroll(function(e){
-            scrollTop = $window.scrollTop();
-            if (scrollTop > blockFixedOffset.top - options.posTop) {
-
-                h = $('.layout-wrapper').height() - scrollTop - $this.height();
-                b =  options.minPosBottom;
-                if (h <= b) {
-                    $this.css({'position': 'fixed', 'bottom': options.minPosBottom, 'top': 'auto'}); 
-                } else {
-                    $this.css({'position': 'fixed', 'top': options.posTop, 'bottom': 'auto'}); 
-                }
-            } else {
-                $this.css({'position': 'relative', 'top': 'auto', 'bottom': 'auto'});
-            }
-        });
-        return this;
+//        var options = $.extend({}, defaults, options, params);
+//        var $this = $(this),
+//            $window = $(window);
+//
+//        var blockFixedOffset = $this.offset();
+//        blockFixedOffset.top = blockFixedOffset.top - parseInt($this.css('margin-top'));
+//        var scrollTop = $window.scrollTop();
+//
+//        $window.scroll(function(e){
+//            scrollTop = $window.scrollTop();
+//            if (scrollTop > blockFixedOffset.top - options.posTop) {
+//
+//                h = $('.layout-wrapper').height() - scrollTop - $this.height();
+//                b =  options.minPosBottom;
+//                if (h <= b) {
+//                    $this.css({'position': 'fixed', 'bottom': options.minPosBottom, 'top': 'auto'});
+//                } else {
+//                    $this.css({'position': 'fixed', 'top': options.posTop, 'bottom': 'auto'});
+//                }
+//            } else {
+//                $this.css({'position': 'relative', 'top': 'auto', 'bottom': 'auto'});
+//            }
+//        });
+//        return this;
     };
 })(jQuery);

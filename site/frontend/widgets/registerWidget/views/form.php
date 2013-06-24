@@ -14,7 +14,8 @@ if($this->show_form){
         Yii::app()->clientScript->registerScript('show_reg_form', '
             Register.show_window_delay = 3000;
             Register.show_window_type = "'.$this->form_type.'";
-            Register.showRegisterWindow();');
+            if (document.referrer.substring(0, 22) != "http://www.rambler.ru/") Register.showRegisterWindow();
+            ');
     }
 }?>
 <a id="hidden_register_link" href="#" class="fancy" style="display: none;"></a>

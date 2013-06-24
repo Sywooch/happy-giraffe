@@ -422,10 +422,7 @@ class SiteController extends HController
 
     public function actionTest()
     {
-        Yii::import('site.frontend.extensions.phpQuery.phpQuery');
-        $url = 'http://habrahabr.ru/post/183598/';
-        $res = LinkParser::getInstance()->parse($url);
-
-        var_dump($res);
+        $url = 'http://www.happy-giraffe.ru/user/10/blog/post83504/';
+        var_dump(CJSON::decode(Yii::app()->piwik->getCountByPageUrl($url)));
     }
 }

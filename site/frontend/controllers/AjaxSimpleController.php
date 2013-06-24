@@ -61,6 +61,11 @@ class AjaxSimpleController extends CController
         CommentatorLike::addCurrentUserLike($entity, $entity_id, $social_id);
     }
 
+    public function actionCommentLike(){
+        $comment_id = Yii::app()->request->getPost('comment_id');
+        $comment = $this->loadComment($comment_id);
+    }
+
     public function actionTest()
     {
         $sites = Yii::app()->db_seo->createCommand()
@@ -74,5 +79,17 @@ class AjaxSimpleController extends CController
             echo $site['url'].'<br>';
         }
         echo '<br><br>';
+    }
+
+    /**
+     * @param int $id model id
+     * @return Comment
+     * @throws CHttpException
+     */
+    public function loadComment($id){
+        $model = Comment::model()->findByPk($id);
+        if ($model === null)
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+        return $model;
     }
 }

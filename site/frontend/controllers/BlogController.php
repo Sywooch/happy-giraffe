@@ -24,12 +24,12 @@ class BlogController extends HController
                 'lastModified' => $last_mod,
             );
 
-            $filters [] = array(
-                'COutputCache + view',
-                'duration' => 300,
-                'varyByParam' => array('content_id', 'Comment_page'),
-                'varyByExpression' => '"'.$last_mod.'"',
-            );
+//            $filters [] = array(
+//                'COutputCache + view',
+//                'duration' => 300,
+//                'varyByParam' => array('content_id', 'Comment_page'),
+//                'varyByExpression' => '"'.$last_mod.'"',
+//            );
         }
 
         return $filters;
@@ -189,9 +189,7 @@ class BlogController extends HController
         //Visit::processVisit();
         $this->layout = '//layouts/user_blog';
 
-        $this->user = User::model()->findByPk($user_id);
-        if ($this->user === null)// || $this->user->deleted)
-            throw new CHttpException(404, 'Пользователь не найден');
+        $this->user = $this->loadUser($user_id);
         $this->pageTitle = 'Блог';
 
         $contents = BlogContent::model()->getBlogContents($user_id, $rubric_id);
@@ -374,5 +372,17 @@ class BlogController extends HController
             return $t1;
 
         return date("Y-m-d H:i:s", max($t1, $t2));
+    }
+
+    /**
+     * @param int $id model id
+     * @return User
+     * @throws CHttpException
+     */
+    public function loadUser($id){
+        $model = User::model()->with(array('blog_rubrics', 'avatar'))->findByPk($id);
+        if ($model === null)
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+        return $model;
     }
 }

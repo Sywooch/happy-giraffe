@@ -95,22 +95,6 @@ class Community extends HActiveRecord
         );
     }
 
-    public function getContentViewsCount()
-    {
-        $col = PageView::model()->getCollection();
-
-        $keys = array();
-        $initial = array('csum' => 0);
-        $reduce = 'function(obj, prev) { prev.csum += obj.views; }';
-        $condition = array(
-            '_id' => array('$regex' => '/community/' . $this->id . '/'),
-        );
-
-        $query = $col->group($keys, $initial, $reduce, $condition);
-
-        return $query['retval'][0]['csum'];
-    }
-
     public function getContentsCount()
     {
         $sql = "
@@ -208,7 +192,7 @@ class Community extends HActiveRecord
 
     public function getLast($limit = 10)
     {
-        return CommunityContent::model()->findAll(array(
+        return CommunityContent::model()->cache(180)->findAll(array(
             'limit' => $limit,
             'order' => 'created DESC',
             'condition' => 'rubric_id IN ('.implode(',', self::getRubricIds($this->id)).')',

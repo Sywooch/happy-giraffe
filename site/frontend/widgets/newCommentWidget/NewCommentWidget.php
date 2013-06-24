@@ -40,23 +40,35 @@ class NewCommentWidget extends CWidget
 
         $basePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR;
         $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
-        Yii::app()->clientScript->registerScriptFile($baseUrl . '/comment.js', CClientScript::POS_HEAD);
+        Yii::app()->clientScript
+            ->registerScriptFile($baseUrl . '/comment.js', CClientScript::POS_HEAD)
+            ->registerScriptFile('/javascripts/knockout-2.2.1.js')
+            ->registerScriptFile('/javascripts/knockout.mapping-latest.js');
 
         $this->render('list', array(
-            'dataProvider' => $this->getDataProvider(),
+            'comments' => $this->getComments(),
         ));
     }
 
-    private function getDataProvider()
+    private function getComments()
     {
-        $dataProvider = Comment::model()->get($this->entity, $this->entity_id, 'default', 1000);
-        $dataProvider->getData();
-        if (isset($_GET['lastPage'])) {
-            $dataProvider->pagination->currentPage = $dataProvider->pagination->pageCount;
-            $dataProvider->data = null;
-            unset($_GET['lastPage']);
+        if ($this->full) {
+            $dataProvider = Comment::model()->get($this->entity, $this->entity_id, 1000);
+            return $dataProvider->getData();
+        } else {
+            $criteria = new CDbCriteria(array(
+                'condition' => 't.entity=:entity AND t.entity_id=:entity_id',
+                'params' => array(':entity' => $this->entity, ':entity_id' => $this->entity_id),
+                'with' => array(
+                    'author' => array(
+                        'select' => 'id, gender, first_name, last_name, online, avatar_id, deleted',
+                        'with' => 'avatar',
+                    )
+                ),
+                'order' => 't.created DESC',
+                'limit' => 3,
+            ));
+            return Comment::model()->findAll($criteria);
         }
-
-        return $dataProvider;
     }
 }

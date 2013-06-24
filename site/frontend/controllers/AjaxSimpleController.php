@@ -71,6 +71,26 @@ class AjaxSimpleController extends CController
         echo CJSON::encode(array('status' => true));
     }
 
+    public function actionDeleteComment()
+    {
+        $comment_id = Yii::app()->request->getPost('id');
+        $comment = $this->loadComment($comment_id);
+        if (Yii::app()->user->model->checkAuthItem('removeComment') || Yii::app()->user->id == $comment->author_id || $comment->isEntityAuthor(Yii::app()->user->id))
+            $comment->delete();
+
+        echo CJSON::encode(array('status' => true));
+    }
+
+    public function actionRestoreComment()
+    {
+        $comment_id = Yii::app()->request->getPost('id');
+        $comment = $this->loadComment($comment_id);
+        if (Yii::app()->user->model->checkAuthItem('removeComment') || Yii::app()->user->id == $comment->author_id || $comment->isEntityAuthor(Yii::app()->user->id))
+            $comment->restore();
+
+        echo CJSON::encode(array('status' => true));
+    }
+
     /**
      * @param int $id model id
      * @return Comment
@@ -78,7 +98,7 @@ class AjaxSimpleController extends CController
      */
     public function loadComment($id)
     {
-        $model = Comment::model()->findByPk($id);
+        $model = Comment::model()->resetScope()->findByPk($id);
         if ($model === null)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
         return $model;

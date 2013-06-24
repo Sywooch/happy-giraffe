@@ -2,6 +2,7 @@
 /**
  * @var $this DefaultController
  * @var $data BlogContent
+ * @var $full bool
  */
 
 $status = $data->getStatus();
@@ -20,7 +21,7 @@ $status = $data->getStatus();
             </div>
         </div>
 
-        <?php $this->widget('application.widgets.newCommentWidget.NewCommentWidget', array('model' => $data)); ?>
+        <?php $this->widget('application.widgets.newCommentWidget.NewCommentWidget', array('model' => $data, 'full' => $full)); ?>
 
     </div>
 </div>

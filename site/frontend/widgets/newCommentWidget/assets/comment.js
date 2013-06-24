@@ -1,62 +1,84 @@
 function CommentViewModel(data) {
     var self = this;
-    self.entity = data['entity'];
-    self.entity_id = data['entity_id'];
-    self.full = data['full'];
+    ko.mapping.fromJS(data, {}, self);
 
     self.comments = ko.observableArray([]);
-    self.comments(ko.utils.arrayMap(data['comments'], function(comment) {
+    self.comments(ko.utils.arrayMap(data['comments'], function (comment) {
         return new NewComment(comment, self);
     }));
 
     self.getCount = ko.computed(function () {
-        return self.comments().length;
+        return self.allCount();
     });
 
-    self.addComment = function(){
+    self.addComment = function () {
 
     }
 }
 
-function NewComment(data, parent){
+function NewComment(data, parent) {
     var self = this;
     self.parent = parent;
-    self.id = data['id'];
-    self.created = ko.observable(data['created']);
-    self.html = ko.observable(data['html']);
+    self.removed = ko.observable(false);
+    ko.mapping.fromJS(data, {}, self);
 
-    self.author_id = ko.observable(data['author_id']);
-    self.author_name = ko.observable(data['author_name']);
-    self.author_url = ko.observable(data['author_url']);
-    self.own = ko.observable(data['own']);
+    self.author = new User(data['author']);
+    self.ownComment = ko.computed(function () {
+        return CURRENT_USER_ID == self.author.id();
+    });
+    self.canAdmin = ko.computed(function () {
+        return self.canEdit() || self.canRemove();
+    });
 
-    self.likesCount = ko.observable(data['likesCount']);
-    self.userLikes = ko.observable(data['userLikes']);
-}
-
-NewComment.prototype.reply = function (comment_id) {
-
-};
-
-
-var Comments = {
-    like: function (el, id) {
-        if (!$(el).hasClass('disable'))
-            $.post('/ajaxSimple/commentLike/', {id: id}, function (response) {
+    self.Like = function () {
+        if (CURRENT_USER_ID != self.author.id()) {
+            $.post('/ajaxSimple/commentLike/', {id: self.id}, function (response) {
                 if (response.status) {
-                    $(el).toggleClass('active');
-                    var count = parseInt($(el).text());
-
-                    if ($(el).hasClass('active')) {
-                        $(el).text(count + 1);
-                        $(el).removeClass('hide');
+                    if (self.userLikes()) {
+                        self.userLikes(false);
+                        self.likesCount(self.likesCount() - 1);
                     } else {
-                        $(el).text(count - 1);
-                        if (count == 1)
-                            $(el).addClass('hide');
+                        self.userLikes(true);
+                        self.likesCount(self.likesCount() + 1);
                     }
-
                 }
             }, 'json');
-    }
+        }
+    };
+
+    self.Edit = function () {
+
+    };
+    self.Remove = function () {
+        $.post('/ajaxSimple/deleteComment/', {id: self.id()}, function (response) {
+            if (response.status){
+                self.removed(1);
+                self.parent.allCount(self.parent.allCount() - 1);
+            }
+        }, 'json');
+    };
+    self.Restore = function () {
+        $.post('/ajaxSimple/restoreComment/', {id: self.id()}, function (response) {
+            if (response.status){
+                self.removed(0);
+                self.parent.allCount(self.parent.allCount() + 1);
+            }
+        }, 'json');
+    };
+    self.Reply = function () {
+
+    };
+}
+
+function User(data) {
+    var self = this;
+    ko.mapping.fromJS(data, {}, self);
+
+    self.fullName = ko.computed(function () {
+        return self.firstName() + ' ' + self.lastName();
+    }, this);
+
+    self.avatarClass = ko.computed(function () {
+        return self.gender() == 0 ? 'female' : 'male';
+    }, this);
 }

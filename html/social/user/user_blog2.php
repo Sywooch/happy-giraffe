@@ -216,7 +216,7 @@
 										<a href="" class="article-settings_a article-settings_a__edit powertip"  title="Редактировать"></a>
 									</div>
 									<div class="article-settings_i">
-										<a href="javascript:void(0)" class="article-settings_a article-settings_a__privacy powertip" title="Приватность"></a>
+										<a href="javascript:void(0)" class="ico-users ico-users__friend active powertip" title="Приватность"></a>
 										<div class="article-settings_drop">
 											<div class="article-settings_drop-i">
 												<a href="" class="article-settings_drop-a">
@@ -226,7 +226,7 @@
 											</div>
 											<div class="article-settings_drop-i">
 												<a href="" class="article-settings_drop-a">
-												<span class="ico-users ico-users__i"></span>
+												<span class="ico-users ico-users__friend"></span>
 												Только друзьям
 												</a>
 											</div>

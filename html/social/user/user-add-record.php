@@ -523,6 +523,23 @@
 							<div class="b-settings-blue_for">
 								
 							</div>
+							<div class="privacy-select">
+								.privacy-select
+								<div class="privacy-select_drop">
+									<div class="privacy-drop-i">
+										<a href="" class="article-settings_drop-a">
+										<span class="ico-users ico-users__all"></span>
+										Показывать всем
+										</a>
+									</div>
+									<div class="article-settings_drop-i">
+										<a href="" class="article-settings_drop-a">
+										<span class="ico-users ico-users__friend"></span>
+										Только друзьям
+										</a>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>

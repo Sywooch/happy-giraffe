@@ -199,9 +199,9 @@
 					</div>
 					<div class="user-add-record_hold">
 						<div class="user-add-record_tx">Я хочу добавить</div>
-						<a href="" class="user-add-record_ico user-add-record_ico__article fancy">Статью</a>
-						<a href="" class="user-add-record_ico user-add-record_ico__photo fancy">Фото</a>
-						<a href="" class="user-add-record_ico user-add-record_ico__video active fancy">Видео</a>
+						<a href="#popup-user-add-article"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__article fancy">Статью</a>
+						<a href="#popup-user-add-photo"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__photo fancy">Фото</a>
+						<a href="#popup-user-add-video"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__video active fancy">Видео</a>
 					</div>
 				</div>
 			</div>
@@ -470,5 +470,43 @@
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/footer.php'; ?>
 </div>
 
+<div class="display-n">
+	
+	<div id="popup-user-add-video" class="popup-user-add-record">
+		<a class="popup-blue_close powertip" onclick="$.fancybox.close();" href="javascript:void(0);" title="Закрыть"></a>
+		<div class="content-cols">
+			<div class="col-1">
+				<div class="margin-b5"></div>
+			</div>
+			<div class="col-23">
+				
+				<div class="user-add-record user-add-record__yellow clearfix">
+					<div class="user-add-record_ava-hold">
+						<a href="" class="ava male">
+							<span class="icon-status status-online"></span>
+							<img alt="" src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg">
+						</a>
+					</div>
+					<div class="user-add-record_hold">
+						<div class="user-add-record_tx">Я хочу добавить</div>
+						<a href="#popup-user-add-article" class="user-add-record_ico user-add-record_ico__article fancy">Статью</a>
+						<a href="#popup-user-add-photo" class="user-add-record_ico user-add-record_ico__photo fancy">Фото</a>
+						<a href="#popup-user-add-video" class="user-add-record_ico user-add-record_ico__video active fancy">Видео</a>
+					</div>
+				</div>
+				
+				<div class="b-settings-blue b-settings-blue__video">
+					<div class="b-settings-blue_head">
+						<div class="b-settings-blue_row clearfix">
+							<label for="" class="b-settings-blue_label"></label>
+							<input type="text" name="" id="" class="b-settings-blue_itx">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</div>
 </body>
 </html>

@@ -232,7 +232,7 @@
 								<a href="" class="like-control_ico like-control_ico__like">865</a>
 								<a href="" class="like-control_ico like-control_ico__repost">5</a>
 								<div class="position-rel">
-									<a href="" class="like-control_ico like-control_ico__favorites active">123865</a>
+									<a href="" class="favorites-control_a">123865</a>
 									<div class="favorites-add-popup favorites-add-popup__right">
 											<div class="favorites-add-popup_t">Добавить запись в избранное</div>
 											<div class="favorites-add-popup_i clearfix">

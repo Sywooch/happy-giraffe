@@ -474,11 +474,8 @@
 	
 	<div id="popup-user-add-video" class="popup-user-add-record">
 		<a class="popup-blue_close powertip" onclick="$.fancybox.close();" href="javascript:void(0);" title="Закрыть"></a>
-		<div class="content-cols">
-			<div class="col-1">
-				<div class="margin-b5"></div>
-			</div>
-			<div class="col-23">
+		<div class="clearfix">
+			<div class="w-720 float-r">
 				
 				<div class="user-add-record user-add-record__yellow clearfix">
 					<div class="user-add-record_ava-hold">
@@ -496,10 +493,36 @@
 				</div>
 				
 				<div class="b-settings-blue b-settings-blue__video">
+					<div class="b-settings-blue_tale"></div>
 					<div class="b-settings-blue_head">
 						<div class="b-settings-blue_row clearfix">
-							<label for="" class="b-settings-blue_label"></label>
-							<input type="text" name="" id="" class="b-settings-blue_itx">
+							<div class="clearfix">
+								<div class="float-r font-small color-gray margin-3">0/50</div>
+							</div>
+							<label for="" class="b-settings-blue_label">Заголовок</label>
+							<input type="text" name="" id="" class="itx-simple w-400" placeholder="Введите заголовок видео">
+						</div>
+						<div class="b-settings-blue_row clearfix">
+							<label for="" class="b-settings-blue_label">Рубрика</label>
+							<input type="text" name="" id="" class="itx-simple" placeholder="Выберите рубрику">
+						</div>
+					</div>
+					<div class="b-settings-blue_add-video clearfix">
+						<!-- При вводе текста убрать класс .btn-inactive с кнопки для ее активирования -->
+						<input type="text" name="" id="" class="itx-simple w-400 float-l" placeholder="Введите ссылку на видео">
+						<button class="btn-green btn-inactive">Загрузить  видео</button>
+					</div>
+					<div class="b-settings-blue_row clearfix">
+						<textarea name="" id="" cols="30" rows="10" class="b-settings-blue_textarea itx-simple" placeholder="Ваш комментарий"></textarea>
+					</div>
+					<div class=" clearfix">
+						<a href="" class="btn-blue btn-h46 float-r">Добавить</a>
+						<a href="" class="btn-gray-light btn-h46 float-r margin-r15">Отменить</a>
+						
+						<div class="float-l">
+							<div class="b-settings-blue_for">
+								
+							</div>
 						</div>
 					</div>
 				</div>

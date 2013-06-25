@@ -45,9 +45,7 @@ class NewCommentWidget extends CWidget
             ->registerScriptFile('/javascripts/knockout-2.2.1.js')
             ->registerScriptFile('/javascripts/knockout.mapping-latest.js');
 
-        $this->render('list', array(
-            'comments' => $this->getComments(),
-        ));
+        $this->render('view', array('comments' => $this->getComments()));
     }
 
     private function getComments()

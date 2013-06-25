@@ -61,6 +61,54 @@ class AjaxSimpleController extends CController
         CommentatorLike::addCurrentUserLike($entity, $entity_id, $social_id);
     }
 
+    public function actionAddComment()
+    {
+        Yii::import('site.frontend.modules.services.modules.recipeBook.models.*');
+        Yii::import('site.frontend.modules.route.models.*');
+
+        $comment = new Comment;
+        $comment->attributes = $_POST;
+        $comment->author_id = Yii::app()->user->id;
+        $comment->scenario = 'default';
+
+        if ($comment->save()) {
+            $comment->refresh();
+            $response = array(
+                'status' => true,
+                'data' => Comment::getOneCommentViewData($comment)
+            );
+        } else {
+            $response = array(
+                'status' => false,
+                'message' => $comment->getErrorsText()
+            );
+        }
+        echo CJSON::encode($response);
+    }
+
+    public function actionEditComment()
+    {
+        Yii::import('site.frontend.modules.services.modules.recipeBook.models.*');
+        Yii::import('site.frontend.modules.route.models.*');
+
+        $comment = $this->loadComment(Yii::app()->request->getPost('id'));
+        $comment->text = Yii::app()->request->getPost('text');
+
+        if ($comment->save()) {
+            $comment->refresh();
+            $response = array(
+                'status' => true,
+                'text' => $comment->text,
+            );
+        } else {
+            $response = array(
+                'status' => false,
+                'message' => $comment->getErrorsText()
+            );
+        }
+        echo CJSON::encode($response);
+    }
+
     public function actionCommentLike()
     {
         $comment_id = Yii::app()->request->getPost('id');

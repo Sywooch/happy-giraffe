@@ -7,26 +7,31 @@ NotificationRead::getInstance()->SetVisited();
 $allCount = ($this->full) ? count($comments) : $this->model->commentsCount;
 $data = array(
     'entity' => $this->entity,
-    'entity_id' => $this->entity_id,
+    'entity_id' => (int)$this->entity_id,
+    'objectName' => $this->objectName,
     'comments' => Comment::getViewData($comments),
-    'full' => $this->full,
-    'allCount' => $allCount,
+    'full' => (bool)$this->full,
+    'allCount' => (int)$allCount,
 );
+
+$this->widget('site.common.extensions.imperavi-redactor-widget.ImperaviRedactorWidget', array('onlyRegisterScript' => true));
 ?>
 <div class="comments-gray" id="<?= $this->objectName ?>">
-    <!-- ko if: getCount() > 0 -->
     <div class="comments-gray_t">
 
         <?php if ($this->full || $allCount <= 3): ?>
             <span class="comments-gray_t-a-tx">Все комментарии (<span data-bind="text:allCount"></span>)</span>
+            <!-- ko if: allCount() >= 10 -->
+            <a href="" class="btn-green" data-bind="click: goBottom">Добавить</a>
+            <!-- /ko -->
         <?php else: ?>
             <a href="<?= $this->model->getUrl() ?>" class="comments-gray_t-a">
                 <span class="comments-gray_t-a-tx">Все комментарии (<span data-bind="text:allCount"></span>)</span>
+                <a href="" class="btn-green" data-bind="click: goBottom">Добавить</a>
             </a>
         <?php endif ?>
 
     </div>
-    <!-- /ko -->
 
     <div class="comments-gray_hold">
 
@@ -48,36 +53,42 @@ $data = array(
                     <a href="" class="comments-gray_author" data-bind="text: author.fullName(), attr:{href: author.url()}"></a>
                     <span class="font-smallest color-gray" data-bind="text: created"></span>
                 </div>
-                <div class="comments-gray_cont wysiwyg-content" data-bind="html: html"></div>
+
+                <div class="comments-gray_cont wysiwyg-content" data-bind="html: html, visible: !editMode()"></div>
+                <!-- ko if: editMode() -->
+                <input class="js-edit-field" type="text" data-bind="attr: {id:'text'+id()}">
+                <a href="" data-bind="click: Edit">изменить</a>
+                <!-- /ko -->
+
             </div>
 
-            <!-- ko if: canAdmin() -->
-            <div class="comments-gray_admin">
-                <!-- ko if: canEdit() -->
-                <div class="clearfix">
-                    <a href="" class="message-ico message-ico__edit powertip" title="Изменить" data-bind="click: Edit"></a>
-                </div>
-                <!-- /ko -->
-                <!-- ko if: canRemove() -->
-                <div class="clearfix">
-                    <a href="" class="message-ico message-ico__del powertip" title="Удалить" data-bind="click: Remove"></a>
-                </div>
-                <!-- /ko -->
-            </div>
-            <!-- /ko -->
+            <div class="comments-gray_control" data-bind="css: {'comments-gray_control__self': ownComment()}">
+                <div class="comments-gray_control-hold">
+                    <!-- ko if: !ownComment() -->
+                    <div class="clearfix">
+                        <a href="" class="comments-gray_quote-ico powertip" title="Ответить" data-bind="click: Reply"></a>
+                    </div>
+                    <!-- /ko -->
 
-            <!-- ko if: !ownComment() -->
-            <div class="comments-gray_control">
-                <div class="clearfix">
-                    <a href="" class="comments-gray_quote-ico powertip" title="Ответить" data-bind="click: Reply"></a>
+                    <!-- ko if: canEdit() -->
+                    <div class="clearfix">
+                        <a href="" class="message-ico message-ico__edit powertip" title="Изменить" data-bind="click: GoEdit"></a>
+                    </div>
+                    <!-- /ko -->
+
+                    <!-- ko if: canRemove() -->
+                    <div class="clearfix">
+                        <a href="" class="message-ico message-ico__del powertip" title="Удалить" data-bind="click: Remove"></a>
+                    </div>
+                    <!-- /ko -->
+
                 </div>
             </div>
-            <!-- /ko -->
 
             <!-- /ko -->
 
             <!-- ko if: removed() -->
-            <a href="" data-bind="click: Restore">Восстановить комментарий</a>
+            <p>Комментарий успешно удален.<a href="" class="comments-gray_a-recovery" data-bind="click: Restore">Восстановить?</a> </p>
             <!-- /ko -->
 
         </div>
@@ -90,7 +101,9 @@ $data = array(
             <?php $this->widget('UserAvatarWidget', array('user' => Yii::app()->user->getModel(), 'size' => 'micro')) ?>
         </div>
         <div class="comments-gray_frame">
-            <input type="text" name="" id="" class="comments-gray_add-itx itx-gray" placeholder="Ваш комментарий">
+            <input type="text" class="comments-gray_add-itx itx-gray" placeholder="Ваш комментарий" data-bind="click:openComment, visible: !opened()">
+            <input type="text" id="new<?=$this->objectName ?>" data-bind="visible: opened()">
+            <a href="" data-bind="click: addComment, visible: opened()">добавить</a>
         </div>
     </div>
 

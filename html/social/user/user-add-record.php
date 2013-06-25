@@ -523,12 +523,14 @@
 							<div class="privacy-select clearfix">
 								<div class="privacy-select_hold clearfix">
 									<div class="privacy-select_tx">Для кого:</div>
+									<div class="display-ib">
 										<a href="" class="privacy-select_a">
 										<span class="ico-users ico-users__friend"></span>
 										<span class="display-ib verticalalign-m">только <br>друзьям</span>
 										</a>
+									</div>
 								</div>
-								<div class="privacy-select_drop">
+								<div class="privacy-select_drop display-b">
 									<div class="privacy-select_i">
 										<a href="" class="privacy-select_a">
 										<span class="ico-users ico-users__all"></span>

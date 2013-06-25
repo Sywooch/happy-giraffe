@@ -50,7 +50,7 @@ $('.popup-blog-set_jcrop-img').Jcrop({
         return false;
     });
 
-    $('.article-settings_a').click(function(){
+    $('.ico-users').click(function(){
         $(this).toggleClass('active');
         $(this).closest('.article-settings_i').find('.article-settings_drop').toggle(200);
     });

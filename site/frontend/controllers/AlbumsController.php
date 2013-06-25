@@ -635,6 +635,11 @@ class AlbumsController extends HController
         echo $photo->getPreviewUrl(241, 225, Image::WIDTH);
     }
 
+    public function actionChangeBlogBackground()
+    {
+        
+    }
+
     public function actionChangeTitle()
     {
         if (($id = Yii::app()->request->getPost('id')) === false || ($title = Yii::app()->request->getPost('title')) === false)

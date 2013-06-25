@@ -6,17 +6,18 @@
  */
 ?>
 <div class="b-article clearfix<?php if ($data->type_id == CommunityContentType::TYPE_STATUS) echo ' b-article__user-status' ?>">
+    <?php if ($data->source_id) $this->renderPartial('_repost', array('data' => $data)); ?>
     <div class="float-l">
         <?php $this->renderPartial('_post_controls', array('model' => $data)); ?>
     </div>
     <div class="b-article_cont clearfix">
         <div class="b-article_cont-tale"></div>
 
-        <?php $this->renderPartial('_post_header', array('model' => $data)); ?>
+        <?php $this->renderPartial('_post_header', array('model' => $data->getSourceContent())); ?>
 
-        <?php $this->renderPartial('types/type_' . $data->type_id, compact('data', 'full')); ?>
+        <?php $this->renderPartial('types/type_' . $data->type_id, array('data' => $data->getSourceContent(), 'full' => $full)); ?>
 
-        <?php if ($full) $this->renderPartial('_likes',compact('data')); ?>
+        <?php if ($full) $this->renderPartial('_likes', compact('data')); ?>
 
         <?php if ($full) $this->renderPartial('_prev_next', compact('data')); ?>
 

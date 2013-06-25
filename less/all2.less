@@ -490,6 +490,16 @@ table.fr_recipe_tb td { width: 50%;}
 }
 /* /blog-title-b */
 
+.blog-settings {
+    .inline-block();
+    margin: 8px 10px 6px 20px;
+    padding: 0 0 0 22px;
+    color: #a8a7a7;
+    text-decoration: none;
+    background: url(/images/blog-settings.png) no-repeat;
+    &:hover {color: #888;}
+}
+
 /* b-article */
 .b-article {
     margin-bottom: 50px;
@@ -893,6 +903,7 @@ table.fr_recipe_tb td { width: 50%;}
     font-size: 11px;
     line-height: 16px;
     color: #333;
+    width: 206px;
 }
 /* /aside-blog-desc */
 
@@ -1097,3 +1108,111 @@ table.fr_recipe_tb td { width: 50%;}
     }
 }
 /* /article-settings */
+
+/* popup-blue */
+.popup-blue {
+    width: 968px;
+    padding: 15px;
+    background: #c7deec;
+
+    &_close {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        width: 26px;
+        height: 26px;
+        background: url(/images/popup-blue_close.png) no-repeat;
+    }
+    &_close:hover {background-position: 0 -26px;}
+}
+/* /popup-blue */
+
+/* white-tabs */
+.tabs-white {
+
+    &_nav {
+
+    }
+    &_nav-i {
+        float: left;
+    }
+    &_nav-i.active &_nav-a {
+        padding: 14px 20px 22px;
+        font-size: 20px;
+        line-height: 22px;
+        color: #333;
+        background: #fff;
+        text-decoration: none;
+        -webkit-border-top-left-radius: 8px;
+        -moz-border-top-left-radius: 8px;
+        border-top-left-radius: 8px;
+        -webkit-border-top-right-radius: 8px;
+        -moz-border-top-right-radius: 8px;
+        border-top-right-radius: 8px;
+    }
+    &_nav-a {
+        .inline-block();
+        padding: 20px 22px 14px;
+        font-size: 15px;
+        line-height: 16px;
+        color: #656463;
+    }
+    &_cont {
+        margin-top: -8px;
+        padding: 25px 20px 20px;
+        background: #fff;
+        .border-radius(8px);
+    }
+}
+/* /white-tabs */
+
+/* popup-blog-set */
+.popup-blog-set {
+    .itx-gray {
+        width: 100%;
+        max-width: 100%;
+        margin: 3px 0;
+        .box-sizing(border-box)
+    }
+    .aside-blog-desc {margin-left: 0;}
+    .blog-title-b {
+        margin:0 -20px 0 0;
+        .scale(0.95);
+    }
+    &_col-narrow {
+        float: left;
+        width: 305px;
+    }
+    &_col-wide {
+        float: right;
+        width: 555px;
+    }
+    &_label {
+        display: block;
+        font-size: 17px;
+        color: #418ac1;
+    }
+    &_jcrop {
+        float: left;
+        margin: 0 20px 25px 0;
+        width: 320px;
+    }
+    &_jcrop-img {
+        max-width: 320px;
+    }
+    &_sepor {
+        margin: 15px 0 5px;
+        border-top: 1px solid #d8ebf5;
+        text-align: center;
+    }
+    &_sepor-tx {
+        .inline-block();
+        position: relative;
+        top:-9px;
+        margin: -8px 0 0;
+        padding: 0 11px;
+        color: #adadad;
+        background: #fff;
+    }
+}
+/* /popup-blog-set */

@@ -25,6 +25,7 @@
 	<script type="text/javascript" src="/javascripts/jquery.placeholder.min.js"></script>
 	<script type="text/javascript" src="/javascripts/jquery.jcarousel.js"></script>
 	<script type="text/javascript" src="/javascripts/jquery.jcarousel.control.js"></script>
+	<script type="text/javascript" src="/javascripts/jquery.Jcrop.min.js"></script>
   	<script type="text/javascript" src="/javascripts/chosen.jquery.min.js"></script>
 	<script type="text/javascript" src="/javascripts/jquery.masonry.min.js"></script>
 	<script type="text/javascript" src="/javascripts/jquery.isotope.min.js"></script>
@@ -35,7 +36,7 @@
   
 	<script type="text/javascript" src="/javascripts/jquery.flip.js"></script>
 	<script type="text/javascript" src="/javascripts/addtocopy.js"></script>
-	<script type="text/javascript" src="/javascripts/messaging.js"></script>
+	<!--- <script type="text/javascript" src="/javascripts/messaging.js"></script> -->
   
 	<script type="text/javascript" src="/javascripts/common.js"></script>
 	

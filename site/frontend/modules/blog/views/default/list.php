@@ -3,10 +3,10 @@
 Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
 
 $this->widget('zii.widgets.CListView', array(
-    'cssFile'=>false,
+    'cssFile' => false,
     'ajaxUpdate' => false,
     'dataProvider' => $contents,
-    'itemView' => 'preview/preview',
+    'itemView' => 'view',
     'pager' => array(
         'class' => 'HLinkPager',
     ),
@@ -15,7 +15,5 @@ $this->widget('zii.widgets.CListView', array(
             {pager}
         </div>
     ',
-    'viewData' => array(
-        'full' => false,
-    ),
+    'viewData' => array('full' => false),
 ));

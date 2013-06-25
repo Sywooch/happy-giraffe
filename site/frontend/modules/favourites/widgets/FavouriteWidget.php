@@ -9,6 +9,7 @@
 class FavouriteWidget extends CWidget
 {
     public $registerScripts = false;
+    public $right = false;
     public $model;
 
     public function run()

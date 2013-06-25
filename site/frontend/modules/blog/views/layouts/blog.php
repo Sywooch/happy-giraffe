@@ -1,18 +1,20 @@
 <?php $this->beginContent('//layouts/common'); ?>
-<?php $cs = Yii::app()->clientScript->registerCssFile('/stylesheets/user.css'); ?>
+<?php
+    Yii::app()->clientScript
+        ->registerCssFile('/stylesheets/user.css')
+        ->registerScriptFile('/javascripts/ko_blog.js')
+        ->registerScriptFile('/javascripts/jquery.Jcrop.min.js')
+    ;
+?>
 
 <div class="content-cols clearfix">
     <div class="col-1">
 
         <?php $this->widget('UserAvatarWidget', array('user' => $this->user, 'size' => 'big')); ?>
 
-        <?php if ($this->user->status !== null):?>
-            <div class="aside-blog-desc">
-                <div class="aside-blog-desc_tx">
-                    <?=$this->user->status->purified->text?>
-                </div>
-            </div>
-        <?php endif ?>
+        <div class="aside-blog-desc blogInfo" data-bind="visible: description().length > 0">
+            <div class="aside-blog-desc_tx" data-bind="html: description"></div>
+        </div>
 
         <?php $this->renderPartial('_subscribers'); ?>
 
@@ -29,17 +31,28 @@
         <?php $this->renderPartial('_popular'); ?>
 
     </div>
-
+    <?php if ($this->user->id == Yii::app()->user->id): ?>
+        <div class="col-23">
+            <a href="<?=$this->createUrl('settingsForm')?>" data-theme="transparent" class="blog-settings fancy">Настройки блога</a>
+        </div>
+    <?php endif; ?>
     <div class="col-23 col-23__gray">
-        <div class="blog-title-b">
+        <div class="blog-title-b blogInfo" data-bind="visible: title().length > 0">
             <div class="blog-title-b_img-hold">
                 <img src="/images/example/w720-h128.jpg" alt="" class="blog-title-b_img">
             </div>
-            <h1 class="blog-title-b_t"><?=$this->user->blogTitle ?> </h1>
+            <h1 class="blog-title-b_t" data-bind="text: title"></h1>
         </div>
 
         <?=$content ?>
     </div>
 
 </div>
+
+<script type="text/javascript">
+    blogInfo = new BlogInfoViewModel(<?=CJSON::encode($this->getBlogData())?>);
+    $(".blogInfo").each(function(index, el) {
+        ko.applyBindings(blogInfo, el);
+    });
+</script>
 <?php $this->endContent(); ?>

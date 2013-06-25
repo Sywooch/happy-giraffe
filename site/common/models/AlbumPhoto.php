@@ -56,6 +56,10 @@ class AlbumPhoto extends HActiveRecord
      */
     private $avatars_folder = 'avatars';
     /**
+     * @var string blogs image folder
+     */
+    private $blogs_folder = 'blogs';
+    /**
      * @var CUploadedFile
      */
     public $file;
@@ -523,6 +527,29 @@ class AlbumPhoto extends HActiveRecord
             $this->avatars_folder,
             $this->author_id,
             $size,
+            $this->fs_name
+        ));
+    }
+
+    public function getBlogPath()
+    {
+        $dir = Yii::getPathOfAlias('site.common.uploads.photos');
+        if (!file_exists($dir . DIRECTORY_SEPARATOR . $this->blogs_folder . DIRECTORY_SEPARATOR . $this->author_id))
+            mkdir($dir . DIRECTORY_SEPARATOR . $this->blogs_folder . DIRECTORY_SEPARATOR . $this->author_id);
+
+        if (!file_exists($dir . DIRECTORY_SEPARATOR . $this->blogs_folder . DIRECTORY_SEPARATOR . $this->author_id))
+            mkdir($dir . DIRECTORY_SEPARATOR . $this->blogs_folder . DIRECTORY_SEPARATOR . $this->author_id);
+
+        return $dir . DIRECTORY_SEPARATOR . $this->blogs_folder . DIRECTORY_SEPARATOR . $this->author_id .
+        DIRECTORY_SEPARATOR . $this->fs_name;
+    }
+
+    public function getBlogUrl()
+    {
+        return implode('/', array(
+            Yii::app()->params['photos_url'],
+            $this->blogs_folder,
+            $this->author_id,
             $this->fs_name
         ));
     }

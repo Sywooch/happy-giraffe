@@ -90,6 +90,36 @@ class DefaultController extends HController
         return $this->createUrl($route, $params);
     }
 
+    public function actionSettingsForm()
+    {
+        $json = array(
+            'title' => Yii::app()->user->model->getBlogTitle(),
+            'description' => Yii::app()->user->model->blog_description,
+            'updateUrl' => $this->createUrl('settingsUpdate'),
+        );
+
+        $this->renderPartial('settings', compact('json'));
+    }
+
+    public function actionSettingsUpdate()
+    {
+        $user = Yii::app()->user->model;
+        $user->blog_title = Yii::app()->request->getPost('blog_title');
+        $user->blog_description = Yii::app()->request->getPost('blog_description');
+        $success = $user->update(array('blog_title', 'blog_description'));
+
+        $response = compact('success');
+        echo CJSON::encode($response);
+    }
+
+    protected function getBlogData()
+    {
+        return array(
+            'title' => $this->user->getBlogTitle(),
+            'description' => $this->user->blog_description
+        );
+    }
+
     /**
      * @param int $id model id
      * @return BlogContent

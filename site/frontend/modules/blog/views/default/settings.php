@@ -44,7 +44,7 @@
                         <label for="" class="popup-blog-set_label">Название блога</label>
                         <div class="margin-t15 clearfix">
                             <div class="popup-blog-set_jcrop">
-                                <img src="/images/jcrop-blog.jpg" alt=""  class="popup-blog-set_jcrop-img" width='300' height='270'>
+                                <img src="/images/jcrop-blog.jpg" alt="" class="popup-blog-set_jcrop-img" width='300' height='270'>
                             </div>
                             <div class="float-l">
                                 <div class="margin-b10 clearfix">
@@ -93,6 +93,10 @@
     </div>
 
     <script type="text/javascript">
+        $('.popup-blog-set_jcrop-img').Jcrop({
+            boxWidth: 730,
+            boxHeight: 520
+        });
         ko.applyBindings(new BlogSettingsViewModel(<?=CJSON::encode($json)?>), document.getElementById('popup-blog-set'));
     </script>
 </div

@@ -29,7 +29,11 @@
         <?php $this->renderPartial('_popular'); ?>
 
     </div>
-
+    <?php if ($this->user->id == Yii::app()->user->id): ?>
+        <div class="col-23">
+            <a href="<?=$this->createUrl('settings')?>" data-theme="transparent" class="blog-settings fancy">Настройки блога</a>
+        </div>
+    <?php endif; ?>
     <div class="col-23 col-23__gray">
         <div class="blog-title-b">
             <div class="blog-title-b_img-hold">

@@ -42,7 +42,8 @@ class DefaultController extends HController
         $this->render('list', array('contents' => $contents));
     }
 
-    public function actionSubscribeToggle(){
+    public function actionSubscribeToggle()
+    {
         $blog_author_id = Yii::app()->request->getPost('user_id');
 
         echo CJSON::encode(array('status' => UserBlogSubscription::toggle($blog_author_id)));
@@ -60,6 +61,16 @@ class DefaultController extends HController
         ));
 
         return $this->createUrl($route, $params);
+    }
+
+    public function actionSettings()
+    {
+        $json = array(
+            'title' => Yii::app()->user->model->blog_title,
+            'description' => Yii::app()->user->model->blog_description,
+        );
+
+        $this->renderPartial('settings', compact('json'));
     }
 
     /**

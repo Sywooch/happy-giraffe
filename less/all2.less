@@ -478,9 +478,8 @@ table.fr_recipe_tb td { width: 50%;}
         overflow: hidden;
         .border-radius(4px);
     }
-    &_img {
-        display: block;
-        width: 100%;
+    &_img-hold img{
+        max-width: none;
         .border-radius(4px);
     }
     &_t {
@@ -1358,3 +1357,42 @@ table.fr_recipe_tb td { width: 50%;}
 
 }
 /* /b-settings-blue */
+
+/* privacy-select */
+.privacy-select {
+
+    &_tx {
+        .inline-block();
+        padding: 9px 0 0 0;
+        font-size: 13px;
+        color: #418ac1;
+    }
+
+    &_drop {
+        position: absolute;
+        left: 60px;
+        top: 0;
+        width: 190px;
+        border: 1px solid #dcecf6;
+        background: #fff;
+        text-align: left;
+        z-index: 500;
+        display: none;
+        .border-radius(3px);
+    }
+    &_drop &_a {background: #eff8ff;}
+    &_i {
+        .inline-block();
+    }
+    &_a {
+        display: block;
+        padding: 5px 10px;
+        font: 10px/10px Tahoma, Arial, Verdana, sans-serif;
+        color: #6b6b6b;
+        text-decoration: none;
+    }
+    &_a:hover { color: #3d3d3d; }
+    &_a:hover .ico-users__all {background-position: 0 -30px;}
+    &_a:hover .ico-users__friend {background-position: -40px -30px;}
+}
+/* /privacy-select */

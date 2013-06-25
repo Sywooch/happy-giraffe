@@ -520,22 +520,25 @@
 						<a href="" class="btn-gray-light btn-h46 float-r margin-r15">Отменить</a>
 						
 						<div class="float-l">
-							<div class="b-settings-blue_for">
-								
-							</div>
-							<div class="privacy-select">
-								.privacy-select
+							<div class="privacy-select clearfix">
+								<div class="privacy-select_hold clearfix">
+									<div class="privacy-select_tx">Для кого:</div>
+										<a href="" class="privacy-select_a">
+										<span class="ico-users ico-users__friend"></span>
+										<span class="display-ib verticalalign-m">только <br>друзьям</span>
+										</a>
+								</div>
 								<div class="privacy-select_drop">
-									<div class="privacy-drop-i">
-										<a href="" class="article-settings_drop-a">
+									<div class="privacy-select_i">
+										<a href="" class="privacy-select_a">
 										<span class="ico-users ico-users__all"></span>
-										Показывать всем
+										для всех
 										</a>
 									</div>
-									<div class="article-settings_drop-i">
-										<a href="" class="article-settings_drop-a">
+									<div class="privacy-select_i">
+										<a href="" class="privacy-select_a">
 										<span class="ico-users ico-users__friend"></span>
-										Только друзьям
+										только друзьям
 										</a>
 									</div>
 								</div>

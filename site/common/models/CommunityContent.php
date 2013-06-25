@@ -829,7 +829,7 @@ class CommunityContent extends HActiveRecord
      * Возвращает пост для отображения
      * @return CommunityContent
      */
-    public function getPost()
+    public function getSourceContent()
     {
         return empty($this->source_id) ? $this : $this->source;
     }

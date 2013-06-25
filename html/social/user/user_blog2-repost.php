@@ -190,7 +190,7 @@
 					<h1 class="blog-title-b_t">Блог о красивой любви </h1>
 				</div>
 				
-				<div class="b-article b-article__preview clearfix">
+				<div class="b-article clearfix">
 				<div class="clearfix">
 					<div class="float-l">
 						<div class="like-control like-control__repost clearfix">

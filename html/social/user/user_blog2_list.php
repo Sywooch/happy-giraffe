@@ -194,7 +194,7 @@
 					<h1 class="blog-title-b_t">Блог о красивой любви </h1>
 				</div>
 				
-				<div class="b-article b-article__preview clearfix">
+				<div class="b-article clearfix">
 					<div class="float-l">
 						<div class="like-control like-control__small-indent clearfix">
 							<a href="" class="ava male">
@@ -482,7 +482,10 @@
 								</div>
 								<div class="float-l">
 									<div class="margin-b10 clearfix">
-										<a href="" class="btn-green btn-medium">Загрузить  фото</a>
+										<div class="file-fake">
+											<button class="btn-green btn-medium file-fake_btn">Загрузить  фото</button>
+											<input type="file" name="">
+										</div>
 									</div>
 									<div class="color-gray font-small">Разрешенные форматы файлов <br> JPG, GIF или  PNG. <br>Максимальный размер 700 Кб. </div>
 								</div>

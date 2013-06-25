@@ -26,6 +26,7 @@
  * @property int $group
  * @property string $updated
  * @property string $blog_title
+ * @property string $blog_description
  *
  * The followings are the available model relations:
  * @property BagOffer[] $bagOffers
@@ -205,7 +206,6 @@ class User extends HActiveRecord
             array('profile_access, guestbook_access, im_access', 'in', 'range' => array_keys($this->accessLabels)),
             array('avatar_id', 'numerical', 'allowEmpty' => true),
             array('remember_code', 'numerical'),
-            array('blog_title', 'safe'),
 
             //login
             array('email, password', 'required', 'on' => 'login'),
@@ -228,6 +228,10 @@ class User extends HActiveRecord
 
             //remember_password
             array('password', 'length', 'min' => 6, 'max' => 15, 'on' => 'remember_password', 'tooShort' => 'минимум 6 символов', 'tooLong' => 'максимум 15 символов'),
+
+            //blog
+            array('blog_title', 'length', 'max' => 50),
+            array('blog_description', 'length', 'max' => 150),
         );
     }
 
@@ -1077,7 +1081,7 @@ class User extends HActiveRecord
 
     public function getBlogTitle()
     {
-        return ($this->blog_title === null) ? 'Блог - ' . $this->fullName : $this->blog_title;
+        return (empty($this->blog_title)) ? 'Блог - ' . $this->fullName : $this->blog_title;
     }
 
     function createPassword($length)

@@ -1,3 +1,9 @@
+<?php
+/**
+ * @var $json
+ */
+?>
+
 <div id="popup-blog-set" class="popup-blog-set popup-blue">
     <a class="popup-blue_close powertip" onclick="$.fancybox.close();" href="javascript:void(0);" title="Закрыть"></a>
 
@@ -19,19 +25,19 @@
                     <div class="popup-blog-set_col-narrow">
                         <label for="" class="popup-blog-set_label">Название блога</label>
                         <div class="clearfix">
-                            <div class="float-r font-small color-gray">0/50</div>
+                            <div class="float-r font-small color-gray" data-bind="length: { attribute : titleValue, maxLength : 50 }"></div>
                         </div>
-                        <input type="text" name="" id="" class="itx-gray" placeholder="Введите название">
+                        <input type="text" class="itx-gray" placeholder="Введите название" data-bind="value: titleValue, valueUpdate: 'keyup', event: { keypress : titleHandler }" maxlength="50">
                         <div class="margin-t5 margin-b10 clearfix">
-                            <button class="btn-green float-r">Ok</button>
+                            <button class="btn-green float-r" data-bind="click: setTitle">Ok</button>
                         </div>
                         <label for="" class="popup-blog-set_label">Краткое описание</label>
                         <div class="clearfix">
-                            <div class="float-r font-small color-gray">20/250</div>
+                            <div class="float-r font-small color-gray" data-bind="length: { attribute : descriptionValue, maxLength : 150 }"></div>
                         </div>
-                        <textarea name="" class="itx-gray" placeholder="Краткое описание"></textarea>
+                        <textarea class="itx-gray" placeholder="Краткое описание" data-bind="value: descriptionValue, valueUpdate: 'keyup'"></textarea>
                         <div class="margin-t5 margin-b10 clearfix">
-                            <button class="btn-green float-r">Ok</button>
+                            <button class="btn-green float-r" data-bind="click: setDescription">Ok</button>
                         </div>
                     </div>
                     <div class="popup-blog-set_col-wide">
@@ -61,23 +67,21 @@
                             <div class="blog-title-b_img-hold">
                                 <img src="/images/blog-title-b_img.jpg" alt="" class="blog-title-b_img">
                             </div>
-                            <h1 class="blog-title-b_t">Блог о красивой любви </h1>
+                            <h1 class="blog-title-b_t" data-bind="text: title"></h1>
                         </div>
                     </div>
                     <div class="float-l">
 
                         <div class="aside-blog-desc">
-                            <div class="aside-blog-desc_tx">
-                                Пусть кто-то будет безумно красивый Пусть кто-то будет богаче и круче Мне наплевать, ведь ты - мой любимый.	Ты навсегда. Ты мой. Самый лучший.
-                            </div>
+                            <div class="aside-blog-desc_tx" data-bind="html: description"></div>
                         </div>
                     </div>
                 </div>
 
                 <div class="popup-blog-set_sepor margin-b15"></div>
                 <div class="margin-b5 clearfix">
-                    <a href="" class="btn-blue btn-h46 float-r">Сохранить</a>
-                    <a href="" class="btn-gray-light btn-h46 float-r margin-r15">Отменить</a>
+                    <a class="btn-blue btn-h46 float-r" data-bind="click: save">Сохранить</a>
+                    <a href="javascript:void(0)" onclick="$.fancybox.close()" class="btn-gray-light btn-h46 float-r margin-r15">Отменить</a>
                 </div>
             </div>
 
@@ -87,8 +91,8 @@
         </div>
 
     </div>
-</div
 
-<script type="text/javascript">
-    ko.applyBindings(new FavouriteWidget(<?=CJSON::encode($json)?>), document.getElementById('popup-blog-set'));
-</script>
+    <script type="text/javascript">
+        ko.applyBindings(new BlogSettingsViewModel(<?=CJSON::encode($json)?>), document.getElementById('popup-blog-set'));
+    </script>
+</div

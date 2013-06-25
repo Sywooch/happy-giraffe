@@ -1,5 +1,5 @@
 <!-- ko if: adding -->
-<div class="favorites-add-popup" data-bind="with: adding">
+<div class="favorites-add-popup<?php if ($this->right) echo ' favorites-add-popup__right' ?>" data-bind="with: adding">
     <div class="favorites-add-popup_t">Добавить запись в избранное</div>
     <div class="favorites-add-popup_i clearfix">
         <img class="favorites-add-popup_i-img" data-bind="visible: image !== false, attr: { src : image, alt: title }">

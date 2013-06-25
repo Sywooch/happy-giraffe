@@ -226,7 +226,7 @@
 											</div>
 											<div class="article-settings_drop-i">
 												<a href="" class="article-settings_drop-a">
-												<span class="ico-users ico-users__i"></span>
+												<span class="ico-users ico-users__friend"></span>
 												Только друзьям
 												</a>
 											</div>

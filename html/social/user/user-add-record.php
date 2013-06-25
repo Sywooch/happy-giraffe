@@ -19,6 +19,13 @@
 		<div class="layout-content clearfix">
 		<div class="content-cols clearfix">
 			<div class="col-1">
+				<div class="sidebar-search clearfix">
+					<input type="text" placeholder="Поиск по сайту" class="sidebar-search_itx" id="" name="">
+					<!-- 
+					В начале ввода текста, скрыть sidebar-search_btn добавить класс active"
+					 -->
+					<button class="sidebar-search_btn"></button>
+				</div>
 				<div class="b-ava-large">
 					<div class="b-ava-large_ava-hold clearfix">
 						<a class="ava large" href="">
@@ -182,6 +189,22 @@
 				</div>
 				
 			</div>
+			<div class="col-23">
+				<div class="user-add-record clearfix">
+					<div class="user-add-record_ava-hold">
+						<a href="" class="ava male">
+							<span class="icon-status status-online"></span>
+							<img alt="" src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg">
+						</a>
+					</div>
+					<div class="user-add-record_hold">
+						<div class="user-add-record_tx">Я хочу добавить</div>
+						<a href="" class="user-add-record_ico user-add-record_ico__article fancy">Статью</a>
+						<a href="" class="user-add-record_ico user-add-record_ico__photo fancy">Фото</a>
+						<a href="" class="user-add-record_ico user-add-record_ico__video active fancy">Видео</a>
+					</div>
+				</div>
+			</div>
 			<div class="col-23 col-23__gray">
 				<div class="blog-title-b">
 					<div class="blog-title-b_img-hold">
@@ -191,35 +214,6 @@
 				</div>
 				
 				<div class="b-article clearfix">
-				<div class="clearfix">
-					<div class="float-l">
-						<div class="like-control like-control__repost clearfix">
-							<a href="" class="ava male">
-								<span class="icon-status status-online"></span>
-								<img alt="" src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg">
-							</a>
-							<span class="like-control_repost-complete"></span>
-						</div>
-					</div>
-					
-					<div class="b-article_cont clearfix">
-						<div class="b-article_cont-tale"></div>
-						<div class="b-article_header clearfix">
-							<div class="float-l">
-								<a href="" class="b-article_author">Ангелина Богоявленская</a>
-								<span class="font-smallest color-gray">Сегодня 13:25</span>
-							</div>
-						</div>
-						<h2 class="b-article_t">
-							Самое лучшее утро - просыпаюсь, а ты рядом
-						</h2>
-						<div class="b-article_in">
-							<div class="b-article_repost-comment">
-								Круто! Мне понравился пост. Советую всем.
-							</div>
-						</div>
-					</div>
-				</div>
 					<div class="float-l">
 						<div class="like-control like-control__small-indent clearfix">
 							<a href="" class="ava male">
@@ -231,44 +225,7 @@
 							<div class="like-control like-control__pinned clearfix">
 								<a href="" class="like-control_ico like-control_ico__like">865</a>
 								<a href="" class="like-control_ico like-control_ico__repost">5</a>
-								<div class="position-rel">
-									<a href="" class="like-control_ico like-control_ico__favorites active">123865</a>
-									<div class="favorites-add-popup favorites-add-popup__right">
-											<div class="favorites-add-popup_t">Добавить запись в избранное</div>
-											<div class="favorites-add-popup_i clearfix">
-												<img class="favorites-add-popup_i-img" alt="" src="/images/example/w60-h40.jpg">
-												<div class="favorites-add-popup_i-hold">Неравный брак. Смертельно опасен или жизненно необходим?</div>
-											</div>
-											<div class="favorites-add-popup_row">
-												<label class="favorites-add-popup_label" for="">Теги:</label>
-												<span class="favorites-add-popup_tag">
-													<a class="favorites-add-popup_tag-a" href="">отношения</a>
-													<a class="ico-close" href=""></a>
-												</span>
-												<span class="favorites-add-popup_tag">
-													<a class="favorites-add-popup_tag-a" href="">любовь</a>
-													<a class="ico-close" href=""></a>
-												</span>
-											</div>
-											<div class="favorites-add-popup_row margin-b10">
-												<a href="" class="textdec-none">
-													<span class="ico-plus2 margin-r5"></span>
-													<span class="a-pseudo-gray color-gray">Добавить тег</span>
-												</a>
-											</div>
-											<div class="favorites-add-popup_row">
-												<label class="favorites-add-popup_label" for="">Комментарий:</label>
-												<div class="float-r color-gray">0/150</div>
-											</div>
-											<div class="favorites-add-popup_row">
-												<textarea placeholder="Введите комментарий" class="favorites-add-popup_textarea" rows="2" cols="25" id="" name=""></textarea>
-											</div>
-											<div class="favorites-add-popup_row textalign-c margin-t10">
-												<a class="btn-gray-light" href="">Отменить</a>
-												<a class="btn-green" href="">Добавить</a>
-											</div>
-										</div>
-								</div>
+								<a href="" class="like-control_ico like-control_ico__favorites active">123865</a>
 							</div>
 						</div>
 					</div>
@@ -289,6 +246,10 @@
 								<span class="font-smallest color-gray">Сегодня 13:25</span>
 							</div>
 						</div>
+						
+						<h2 class="b-article_t">
+							Самое лучшее утро - просыпаюсь, а ты рядом
+						</h2>
 						<div class="b-article_in clearfix">
 							<div class="wysiwyg-content clearfix">
 								

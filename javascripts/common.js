@@ -143,7 +143,7 @@ $('.popup-blog-set_jcrop-img').Jcrop({
             };
         }
         $(this).clone().fancybox({
-            overlayColor:'#000',
+            overlayColor:'#2d1a3f',
             overlayOpacity:'0.6',
             padding:0,
             showCloseButton:false,

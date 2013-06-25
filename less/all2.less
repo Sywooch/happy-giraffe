@@ -1215,3 +1215,64 @@ table.fr_recipe_tb td { width: 50%;}
     }
 }
 /* /popup-blog-set */
+
+/* user-add-record */
+.user-add-record {
+    margin: 0 -20px 20px 0;
+    padding: 8px 10px 8px 25px;
+    background: #8f67b5;
+    .border-radius(4px);
+
+    &_ava-hold {
+        float: left;
+        margin: 10px 0;
+    }
+    &_hold {
+        position: relative;
+        float: right;
+        width: 585px;
+        background: #fff;
+        .border-radius(4px);
+    }
+    &_hold:after {
+        content:'';
+        position: absolute;
+        top: 50%;
+        left: -11px;
+        margin-top: -11px;
+        border: 11px solid transparent;
+        border-right-color: #fff;
+        border-left: 0;
+    }
+    &_tx {
+        .inline-block();
+        margin: 35px 10px 35px 35px;
+        font-size: 16px;
+        color: #232323;
+    }
+    &_ico {
+        .inline-block();
+        vertical-align: middle;
+        margin: 13px 45px;
+        width: 40px;
+        padding-top: 45px;
+        font-size: 11px;
+        font-family: Tahoma, Arial, Verdana, sans-serif;
+        color: #b8b7b8;
+        text-align: center;
+        text-decoration: none;
+        background: url(/images/user-add-record_ico.png) no-repeat;
+    }
+    &_ico.active,
+    &_ico:hover {color: #000;}
+    &_ico__article {background-position: 0 0;}
+    &_ico__article.active,
+    &_ico__article:hover {background-position: 0 -100px;}
+    &_ico__photo {background-position: -100px 0;}
+    &_ico__photo.active,
+    &_ico__photo:hover {background-position: -100px -100px;}
+    &_ico__video {background-position: -200px 0;}
+    &_ico__video.active,
+    &_ico__video:hover {background-position: -200px -100px;}
+}
+/* /user-add-record */

@@ -314,3 +314,31 @@
 
 }
 /* /menu-simple */
+
+.sidebar-search {
+		position: relative;
+		margin: 0 0 25px;
+	
+	&_itx {
+		display: block;
+		width: 185px;
+		padding: 8px 35px 8px 18px;
+		border: 2px solid #ded1eb;
+		font-size: 14px;
+		background: #fff;
+		.border-radius(18px);
+		.transition(all 0.3s ease);
+	}
+	&_itx:focus {border-color: #d8b9f6;}
+	&_btn {
+		background: url("/images/col-1_search-btn.png") no-repeat 50% 50%;
+		border: 0;
+		cursor: pointer;
+		float: right;
+		height: 36px;
+		margin: -36px 0 0;
+		width: 34px;
+	}
+	&_btn.active { background: url(/images/ico/ico-close.png) no-repeat 50% 50%;}
+}
+

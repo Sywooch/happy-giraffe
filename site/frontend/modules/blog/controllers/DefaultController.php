@@ -42,6 +42,33 @@ class DefaultController extends HController
         $this->render('list', array('contents' => $contents));
     }
 
+    public function actionView($content_id, $user_id)
+    {
+        $this->user = $this->loadUser($user_id);
+        $content = $this->loadPost($content_id);
+
+        if (! preg_match('#^\/user\/(\d+)\/blog\/post(\d+)\/#', Yii::app()->request->requestUri)) {
+            header("HTTP/1.1 301 Moved Permanently");
+            header("Location: " . $content->url);
+            Yii::app()->end();
+        }
+
+        if ($content->type_id == CommunityContentType::TYPE_STATUS)
+            $this->pageTitle = strip_tags($content->status->text);
+        else
+            $this->pageTitle = $content->title;
+        $this->registerCounter();
+
+        $this->rubric_id = ($content->type_id == 5) ? null : $content->rubric->id;
+
+        if (!empty($content->uniqueness) && $content->uniqueness < 50)
+            Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
+
+        //сохраняем просматриваемую модель
+        NotificationRead::getInstance()->setContentModel($content);
+        $this->render('view', array('data' => $content, 'full' => true));
+    }
+
     public function actionSubscribeToggle()
     {
         $blog_author_id = Yii::app()->request->getPost('user_id');
@@ -95,10 +122,25 @@ class DefaultController extends HController
 
     /**
      * @param int $id model id
+     * @return BlogContent
+     * @throws CHttpException
+     */
+    public function loadPost($id)
+    {
+        $model = BlogContent::model()->active()->with(array('rubric', 'type', 'gallery'))->findByPk($id);
+        if ($model === null || $model->author_id !== $this->user->id)
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+
+        return $model;
+    }
+
+    /**
+     * @param int $id model id
      * @return User
      * @throws CHttpException
      */
-    public function loadUser($id){
+    public function loadUser($id)
+    {
         $model = User::model()->with(array('blog_rubrics', 'avatar'))->findByPk($id);
         if ($model === null)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');

@@ -59,7 +59,7 @@ class Comment extends HActiveRecord
             array('text', 'required', 'on' => 'default'),
             array('author_id, entity_id, response_id, quote_id', 'length', 'max' => 11),
             array('entity', 'length', 'max' => 255),
-            array('position, quote_text, selectable_quote', 'safe'),
+            array('text, position, quote_text, selectable_quote', 'safe'),
             array('removed', 'boolean'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
@@ -554,8 +554,19 @@ class Comment extends HActiveRecord
     {
         $data = array();
         foreach ($comments as $comment)
-            $data[] = array(
-                'id' => $comment->id,
+            $data[] = self::getOneCommentViewData($comment);
+
+        return $data;
+    }
+
+    /**
+     * @param Comment $comment
+     * @return array
+     */
+    public static function getOneCommentViewData($comment)
+    {
+        return array(
+                'id' => (int)$comment->id,
                 'html' => $comment->purified->text,
                 'created' => Yii::app()->dateFormatter->format("d MMMM yyyy, H:mm", $comment->created),
                 'author' => array(
@@ -572,7 +583,5 @@ class Comment extends HActiveRecord
                 'canRemove' => (Yii::app()->user->model->checkAuthItem('removeComment') || Yii::app()->user->id == $comment->author_id || $comment->isEntityAuthor(Yii::app()->user->id)),
                 'canEdit' => (Yii::app()->user->model->checkAuthItem('editComment') || Yii::app()->user->id == $comment->author_id),
             );
-
-        return $data;
     }
 }

@@ -38,6 +38,24 @@ class AjaxSimpleController extends CController
                 PageSearchView::model()->inc($page_url);
     }
 
+    public function actionLike()
+    {
+        $entity_id = Yii::app()->request->getPost('entity_id');
+        $entity = Yii::app()->request->getPost('entity');
+
+        $model = $entity::model()->findByPk($entity_id);
+        if ($model->author_id != Yii::app()->user->id){
+            HGLike::model()->saveByEntity($model);
+            echo CJSON::encode(array('status' => true));
+        }else
+            echo CJSON::encode(array('status' => false));
+    }
+
+    public function actionRepost()
+    {
+
+    }
+
     /**
      * Учет кликов комментаторов по кнопкам лайков Facebook и Vk
      * @throws CHttpException
@@ -61,6 +79,63 @@ class AjaxSimpleController extends CController
         CommentatorLike::addCurrentUserLike($entity, $entity_id, $social_id);
     }
 
+    /**
+     * Добавление нового комментария
+     */
+    public function actionAddComment()
+    {
+        Yii::import('site.frontend.modules.services.modules.recipeBook.models.*');
+        Yii::import('site.frontend.modules.route.models.*');
+
+        $comment = new Comment;
+        $comment->attributes = $_POST;
+        $comment->author_id = Yii::app()->user->id;
+        $comment->scenario = 'default';
+
+        if ($comment->save()) {
+            $comment->refresh();
+            $response = array(
+                'status' => true,
+                'data' => Comment::getOneCommentViewData($comment)
+            );
+        } else {
+            $response = array(
+                'status' => false,
+                'message' => $comment->getErrorsText()
+            );
+        }
+        echo CJSON::encode($response);
+    }
+
+    /**
+     * Редактирование комментария
+     */
+    public function actionEditComment()
+    {
+        Yii::import('site.frontend.modules.services.modules.recipeBook.models.*');
+        Yii::import('site.frontend.modules.route.models.*');
+
+        $comment = $this->loadComment(Yii::app()->request->getPost('id'));
+        $comment->text = Yii::app()->request->getPost('text');
+
+        if ($comment->save()) {
+            $comment->refresh();
+            $response = array(
+                'status' => true,
+                'text' => $comment->text,
+            );
+        } else {
+            $response = array(
+                'status' => false,
+                'message' => $comment->getErrorsText()
+            );
+        }
+        echo CJSON::encode($response);
+    }
+
+    /**
+     * Лайк комментария
+     */
     public function actionCommentLike()
     {
         $comment_id = Yii::app()->request->getPost('id');
@@ -71,6 +146,9 @@ class AjaxSimpleController extends CController
         echo CJSON::encode(array('status' => true));
     }
 
+    /**
+     * Удаление комментария
+     */
     public function actionDeleteComment()
     {
         $comment_id = Yii::app()->request->getPost('id');
@@ -81,6 +159,9 @@ class AjaxSimpleController extends CController
         echo CJSON::encode(array('status' => true));
     }
 
+    /**
+     * Восстановление удаленного комментария
+     */
     public function actionRestoreComment()
     {
         $comment_id = Yii::app()->request->getPost('id');
@@ -92,6 +173,8 @@ class AjaxSimpleController extends CController
     }
 
     /**
+     * Загрузка нового комментария
+     *
      * @param int $id model id
      * @return Comment
      * @throws CHttpException

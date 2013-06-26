@@ -34,26 +34,8 @@ function removeA(arr) {
 }
 
 $(document).ready(function () {
-
-$('.popup-blog-set_jcrop-img').Jcrop({
-    setSelect:   [ 20, 20, 300, 300 ],
-    aspectRatio: 45 / 8
-});
-
     $('.js-like-control').blockFixed({'posTop':120});
     $('.js-fast-articles2').blockFixed({'posTop': 60, 'minPosBottom':250});
-
-    $('.article-settings_a__settings').click(function(){
-        var parent = $(this).closest('.article-settings');
-        parent.toggleClass('active');
-        parent.find('.article-settings_hold').slideToggle(300);
-        return false;
-    });
-
-    $('.ico-users').click(function(){
-        $(this).toggleClass('active');
-        $(this).closest('.article-settings_i').find('.article-settings_drop').toggle(200);
-    });
 
     $(".wysiwyg-content").addtocopy({htmlcopytxt:'<br /><br />Подробнее: <a href="' + window.location.href + '">' + window.location.href + '</a>'});
 
@@ -817,7 +799,7 @@ function FriendButtonViewModel(data) {
             if (response.status)
                 self.status(3);
         }, 'json');
-    }
+    };
 
     self.accept = function() {
         $.post('/friends/requests/accept/', { fromId : self.id }, function(response) {
@@ -825,6 +807,19 @@ function FriendButtonViewModel(data) {
                 self.status(1);
         }, 'json');
     }
+}
+
+function HgLike(el, entity, entity_id){
+    $.post('/ajaxSimple/like/', {entity: entity, entity_id: entity_id}, function (response) {
+        if (response.status) {
+            if ($(el).hasClass('active')){
+                $(el).text(parseInt($(el).text()) - 1);
+            }else{
+                $(el).text(parseInt($(el).text()) + 1);
+            }
+            $(el).toggleClass('active');
+        }
+    }, 'json');
 }
 
 

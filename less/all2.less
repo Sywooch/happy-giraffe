@@ -1360,19 +1360,20 @@ table.fr_recipe_tb td { width: 50%;}
 
 /* privacy-select */
 .privacy-select {
+    position: relative;
 
     &_tx {
         .inline-block();
-        padding: 9px 0 0 0;
+        padding: 13px 0 0 0;
         font-size: 13px;
         color: #418ac1;
     }
 
     &_drop {
         position: absolute;
-        left: 60px;
-        top: 0;
-        width: 190px;
+        left: 56px;
+        bottom: 100%;
+        width: 100px;
         border: 1px solid #dcecf6;
         background: #fff;
         text-align: left;
@@ -1381,12 +1382,9 @@ table.fr_recipe_tb td { width: 50%;}
         .border-radius(3px);
     }
     &_drop &_a {background: #eff8ff;}
-    &_i {
-        .inline-block();
-    }
     &_a {
         display: block;
-        padding: 5px 10px;
+        padding: 5px 5px;
         font: 10px/10px Tahoma, Arial, Verdana, sans-serif;
         color: #6b6b6b;
         text-decoration: none;

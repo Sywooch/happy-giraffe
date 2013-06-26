@@ -801,7 +801,7 @@ function FriendButtonViewModel(data) {
             if (response.status)
                 self.status(3);
         }, 'json');
-    }
+    };
 
     self.accept = function() {
         $.post('/friends/requests/accept/', { fromId : self.id }, function(response) {
@@ -809,6 +809,19 @@ function FriendButtonViewModel(data) {
                 self.status(1);
         }, 'json');
     }
+}
+
+function HgLike(el, entity, entity_id){
+    $.post('/ajaxSimple/like/', {entity: entity, entity_id: entity_id}, function (response) {
+        if (response.status) {
+            if ($(el).hasClass('active')){
+                $(el).text(parseInt($(el).text()) - 1);
+            }else{
+                $(el).text(parseInt($(el).text()) + 1);
+            }
+            $(el).toggleClass('active');
+        }
+    }, 'json');
 }
 
 

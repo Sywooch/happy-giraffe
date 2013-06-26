@@ -636,6 +636,7 @@
 						<button class="btn-green btn-inactive">Загрузить  видео</button>
 					</div>
 					<div class="b-settings-blue_video clearfix">
+						<a href="" class="b-settings-blue_video-del ico-close2 powertip" title="Удалить"></a>
 						<iframe width="580" height="320" frameborder="0" allowfullscreen="" src="http://www.youtube.com/embed/pehSAUTqjRs?wmode=transparent"></iframe>
 					</div>
 					<div class="b-settings-blue_row clearfix">

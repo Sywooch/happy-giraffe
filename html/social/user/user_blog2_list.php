@@ -410,6 +410,24 @@
 					</div>
 				</div>
 				
+				<div class="b-article b-article__remove clearfix">
+					<div class="float-l">
+						<div class="like-control like-control__small-indent clearfix">
+							<a href="" class="ava male">
+								<span class="icon-status status-online"></span>
+								<img alt="" src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg">
+							</a>
+						</div>
+					</div>
+					<div class="b-article_cont clearfix">
+						<div class="b-article_cont-tale"></div>
+						<div class="b-article_removed">
+							<div class="b-article_removed-tx">Ваша запись успешно удалена</div>
+							<a href="" class="b-article_removed-a">Восстановить</a>
+						</div>
+					</div>
+				</div>
+				
 				<div class="yiipagination">
                     <div class="pager">
                         <ul class="yiiPager" id="yw1">

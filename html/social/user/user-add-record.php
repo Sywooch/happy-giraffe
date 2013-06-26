@@ -472,8 +472,84 @@
 
 <div class="display-n">
 	
+	<div id="popup-user-add-article" class="popup-user-add-record">
+		<a class="popup-transparent-close powertip" onclick="$.fancybox.close();" href="javascript:void(0);" title="Закрыть"></a>
+		<div class="clearfix">
+			<div class="w-720 float-r">
+				
+				<div class="user-add-record user-add-record__yellow clearfix">
+					<div class="user-add-record_ava-hold">
+						<a href="" class="ava male">
+							<span class="icon-status status-online"></span>
+							<img alt="" src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg">
+						</a>
+					</div>
+					<div class="user-add-record_hold">
+						<div class="user-add-record_tx">Я хочу добавить</div>
+						<a href="#popup-user-add-article" class="user-add-record_ico user-add-record_ico__article active fancy">Статью</a>
+						<a href="#popup-user-add-photo" class="user-add-record_ico user-add-record_ico__photo fancy">Фото</a>
+						<a href="#popup-user-add-video" class="user-add-record_ico user-add-record_ico__video fancy">Видео</a>
+					</div>
+				</div>
+				
+				<div class="b-settings-blue b-settings-blue__article">
+					<div class="b-settings-blue_tale"></div>
+					<div class="b-settings-blue_head">
+						<div class="b-settings-blue_row clearfix">
+							<div class="clearfix">
+								<div class="float-r font-small color-gray margin-3">0/50</div>
+							</div>
+							<label for="" class="b-settings-blue_label">Заголовок</label>
+							<input type="text" name="" id="" class="itx-simple w-400" placeholder="Введите заголовок видео">
+						</div>
+						<div class="b-settings-blue_row clearfix">
+							<label for="" class="b-settings-blue_label">Рубрика</label>
+							<input type="text" name="" id="" class="itx-simple" placeholder="Выберите рубрику">
+						</div>
+					</div>
+					
+					<div class="wysiwyg-v clearfix">
+						<textarea name="" class="wysiwyg-redactor-v"></textarea>
+					</div>
+					
+					<div class=" clearfix">
+						<a href="" class="btn-blue btn-h46 float-r">Добавить</a>
+						<a href="" class="btn-gray-light btn-h46 float-r margin-r15">Отменить</a>
+						
+						<div class="float-l">
+							<div class="privacy-select clearfix">
+								<div class="privacy-select_hold clearfix">
+									<div class="privacy-select_tx">Для кого:</div>
+									<div class="privacy-select_drop-hold">
+										<a href="" class="privacy-select_a">
+											<span class="ico-users ico-users__friend active"></span>
+											<span class="privacy-select_a-tx">только <br>друзьям</span>
+										</a>
+									</div>
+									<div class="privacy-select_drop">
+										<div class="privacy-select_i">
+											<a href="" class="privacy-select_a">
+											<span class="ico-users ico-users__all"></span>
+											<span class="privacy-select_a-tx">для <br>всех</span>
+											</a>
+										</div>
+										<div class="privacy-select_i">
+											<a href="" class="privacy-select_a">
+											<span class="ico-users ico-users__friend"></span>
+											<span class="privacy-select_a-tx">только <br>друзьям</span>
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 	<div id="popup-user-add-video" class="popup-user-add-record">
-		<a class="popup-blue_close powertip" onclick="$.fancybox.close();" href="javascript:void(0);" title="Закрыть"></a>
+		<a class="popup-transparent-close powertip" onclick="$.fancybox.close();" href="javascript:void(0);" title="Закрыть"></a>
 		<div class="clearfix">
 			<div class="w-720 float-r">
 				
@@ -523,25 +599,25 @@
 							<div class="privacy-select clearfix">
 								<div class="privacy-select_hold clearfix">
 									<div class="privacy-select_tx">Для кого:</div>
-									<div class="display-ib">
+									<div class="privacy-select_drop-hold">
 										<a href="" class="privacy-select_a">
-										<span class="ico-users ico-users__friend"></span>
-										<span class="display-ib verticalalign-m">только <br>друзьям</span>
+											<span class="ico-users ico-users__friend active"></span>
+											<span class="privacy-select_a-tx">только <br>друзьям</span>
 										</a>
 									</div>
-								</div>
-								<div class="privacy-select_drop display-b">
-									<div class="privacy-select_i">
-										<a href="" class="privacy-select_a">
-										<span class="ico-users ico-users__all"></span>
-										для всех
-										</a>
-									</div>
-									<div class="privacy-select_i">
-										<a href="" class="privacy-select_a">
-										<span class="ico-users ico-users__friend"></span>
-										только друзьям
-										</a>
+									<div class="privacy-select_drop display-b">
+										<div class="privacy-select_i">
+											<a href="" class="privacy-select_a">
+											<span class="ico-users ico-users__all"></span>
+											<span class="privacy-select_a-tx">для <br>всех</span>
+											</a>
+										</div>
+										<div class="privacy-select_i">
+											<a href="" class="privacy-select_a">
+											<span class="ico-users ico-users__friend"></span>
+											<span class="privacy-select_a-tx">только <br>друзьям</span>
+											</a>
+										</div>
 									</div>
 								</div>
 							</div>

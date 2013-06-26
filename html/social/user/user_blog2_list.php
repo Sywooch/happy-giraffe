@@ -351,7 +351,7 @@
 								<div class="comments-gray_frame">
 									<!-- input hidden -->
 									<input type="text" name="" id="" class="comments-gray_add-itx itx-gray display-n" placeholder="Ваш комментарий">
-									<div class="wysiwyg-redactor"></div>
+									<textarea name="" class="wysiwyg-redactor" ></textarea>
 								</div>
 							</div>
 						</div>
@@ -438,8 +438,8 @@
 
 <div class="display-n">
 	
-	<div id="popup-blog-set" class="popup-blog-set popup-blue">
-		<a class="popup-blue_close powertip" onclick="$.fancybox.close();" href="javascript:void(0);" title="Закрыть"></a>
+	<div id="popup-blog-set" class="popup-blog-set">
+		<a class="popup-blog-set_close powertip" onclick="$.fancybox.close();" href="javascript:void(0);" title="Закрыть"></a>
 		
 		<div class="tabs tabs-white">
 			<div class="tabs-white_nav clearfix">
@@ -461,7 +461,7 @@
 							<div class="clearfix">
 								<div class="float-r font-small color-gray">0/50</div>
 							</div>
-							<input type="text" name="" id="" class="itx-gray" placeholder="Введите название">
+							<input type="text" name="" id="" class="popup-blog-set_itx" placeholder="Введите название">
 							<div class="margin-t5 margin-b10 clearfix">
 								<button class="btn-green float-r">Ok</button>
 							</div>
@@ -469,7 +469,7 @@
 							<div class="clearfix">
 								<div class="float-r font-small color-gray">20/250</div>
 							</div>
-							<textarea name="" class="itx-gray" placeholder="Краткое описание"></textarea>
+							<textarea name="" class="popup-blog-set_itx" placeholder="Краткое описание"></textarea>
 							<div class="margin-t5 margin-b10 clearfix">
 								<button class="btn-green float-r">Ok</button>
 							</div>
@@ -513,17 +513,38 @@
 							</div>
 						</div>
 					</div>
-					
-					<div class="popup-blog-set_sepor margin-b15"></div>
-					<div class="margin-b5 clearfix">
-						<a href="" class="btn-blue btn-h46 float-r">Сохранить</a>
-						<a href="" class="btn-gray-light btn-h46 float-r margin-r15">Отменить</a>
-					</div>
 				</div>
 			
 				<div class="tab-box tab-box-2" style="display: none;">
-					56756757
+					<div class="b-checkbox margin-b10">
+						<input type="checkbox" name="" id="b-checkbox_label" class="b-checkbox_checkbox">
+						<label for="b-checkbox_label" class="b-checkbox_label">Показывать рубрики на странице блога</label>
+					</div>
+					<div class="margin-b10 clearfix">
+						<div class="clearfix w-400">
+							<div class="float-r font-small color-gray">0/50</div>
+						</div>
+						<div class="float-l margin-r10">
+							<div class="w-400">
+								<input type="text" name="" id="" class="popup-blog-set_itx" placeholder="Введите название рубрики">
+							</div>
+						</div>
+						<a href="" class="btn-green  margin-t5">Ok</a>
+					</div>
+					<div class="margin-b10 clearfix">
+						<a href="" class="popup-blog-set_rubric">Отношения между мужчиной и женщиной</a>
+						<a href="" class="message-ico message-ico__edit"></a>
+						<a href="" class="message-ico message-ico__del"></a>
+					</div>
+					<div class="margin-b10 clearfix">
+						<a href="" class="btn-green btn-medium">Добавить рубрику</a>
+					</div>
 				</div>
+			</div>
+			
+			<div class="margin-r20 clearfix">
+				<a href="" class="btn-blue btn-h46 float-r">Сохранить</a>
+				<a href="" class="btn-gray-light btn-h46 float-r margin-r15">Отменить</a>
 			</div>
 			
 		</div>

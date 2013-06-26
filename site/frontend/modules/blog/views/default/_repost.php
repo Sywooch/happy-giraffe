@@ -21,7 +21,7 @@
             </div>
         </div>
         <h2 class="b-article_t">
-            <?=$data->source->title ?>
+            <p><?=$data->source->title ?></p>
         </h2>
         <div class="b-article_in">
             <div class="b-article_repost-comment">

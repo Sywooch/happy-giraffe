@@ -20,6 +20,7 @@
  * @property int $rate
  * @property string $real_time
  * @property int $source_id
+ * @property int $privacy
  *
  * The followings are the available model relations:
  *
@@ -44,6 +45,9 @@ class CommunityContent extends HActiveRecord
     const TYPE_STATUS = 5;
 
     const USERS_COMMUNITY = 999999;
+
+    const PRIVACY_ALL = 0;
+    const PRIVACY_FRIENDS = 0;
     //для модуля комментаторов
     public $visits = 0;
 
@@ -81,6 +85,7 @@ class CommunityContent extends HActiveRecord
             array('rubric_id', 'exist', 'attributeName' => 'id', 'className' => 'CommunityRubric'),
             array('author_id', 'exist', 'attributeName' => 'id', 'className' => 'User'),
             array('by_happy_giraffe', 'boolean'),
+            array('privacy', 'numerical', 'min' => 0, 'max' => 1),
             array('preview', 'safe'),
 
             // The following rule is used by search().
@@ -421,7 +426,7 @@ class CommunityContent extends HActiveRecord
     public function getBlogContents($user_id, $rubric_id)
     {
         $criteria = new CDbCriteria(array(
-            'order' => 't.id DESC',
+            'order' => 't.created DESC',
             'condition' => '(rubric.user_id IS NOT NULL OR t.type_id = 5) AND t.author_id = :user_id',
             'params' => array(':user_id' => $user_id),
             'with' => array('rubric'),
@@ -430,12 +435,14 @@ class CommunityContent extends HActiveRecord
         if ($rubric_id !== null)
             $criteria->compare('rubric_id', $rubric_id);
 
+        $criteria = $this->addPrivacyCondition($user_id, $criteria);
+
         $totalItemsCount = $this->active()->count($criteria);
         $criteria->with = array('rubric', 'author', 'author.avatar', 'commentsCount', 'type', 'sourceCount', 'favouritesCount');
 
         return new CActiveDataProvider($this->active(), array(
             'criteria' => $criteria,
-            'totalItemCount'=>$totalItemsCount
+            'totalItemCount' => $totalItemsCount
         ));
     }
 
@@ -460,6 +467,19 @@ class CommunityContent extends HActiveRecord
                 'pageSize' => 3,
             ),
         ));
+    }
+
+    /**
+     * @param int $user_id
+     * @param CDbCriteria $criteria
+     * @return CDbCriteria
+     */
+    public function addPrivacyCondition($user_id, $criteria)
+    {
+        if (Yii::app()->user->isGuest || !Friend::model()->areFriends($user_id, Yii::app()->user->id) && $user_id != Yii::app()->user->id)
+            $criteria->addCondition('privacy = 0');
+
+        return $criteria;
     }
 
 
@@ -832,5 +852,45 @@ class CommunityContent extends HActiveRecord
     public function getSourceContent()
     {
         return empty($this->source_id) ? $this : $this->source;
+    }
+
+    /**
+     * Прикрепить запись блога сверху
+     * @return bool
+     */
+    public function attachBlogPost(){
+        if (!empty($this->real_time)){
+            $this->created = $this->real_time;
+            $this->real_time = null;
+            return $this->update(array('created', 'real_time'));
+        }else{
+            //unAttach other user posts
+            $attachedPosts = CommunityContent::model()->findAll(
+                'real_time IS NOT NULL AND author_id=:author_id',
+                array(':author_id' => $this->author_id)
+            );
+            foreach($attachedPosts as $attachedPost){
+                $attachedPost->created = $attachedPost->real_time;
+                $attachedPost->real_time = null;
+                $attachedPost->update(array('created', 'real_time'));
+            }
+            //attach current
+            $this->real_time = $this->created;
+            $this->created = date("Y-m-d H:i:s", strtotime('+20 years'));
+            return $this->update(array('created', 'real_time'));
+        }
+    }
+
+    /**
+     * Настройки записи в блог
+     * @return array
+     */
+    public function getSettingsViewModel()
+    {
+        return array(
+            'id' => $this->id,
+            'attached' => $this->real_time != null,
+            'privacy' => (int)$this->privacy,
+        );
     }
 }

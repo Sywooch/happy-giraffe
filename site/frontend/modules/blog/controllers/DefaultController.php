@@ -137,9 +137,13 @@ class DefaultController extends HController
             }, $this->user->blog_rubrics),
             'currentRubricId' => $this->rubric_id,
             'updateUrl' => $this->createUrl('settingsUpdate'),
-            'photo' => ($blogPhoto = Yii::app()->user->model->blogPhoto) === null ? null : array(
-                'id' => $blogPhoto->id,
-                'src' => $blogPhoto->getOriginalUrl(),
+            'photo' => array(
+                'id' => $this->user->blogPhoto === null ? null : $this->user->blogPhoto->id,
+                'originalSrc' => $this->user->getBlogPhotoOriginal(),
+                'thumbSrc' => $this->user->getBlogPhotoThumb(),
+                'width' => $this->user->getBlogPhotoWidth(),
+                'height' => $this->user->getBlogPhotoHeight(),
+                'position' => $this->user->getBlogPhotoPosition(),
             ),
         );
     }

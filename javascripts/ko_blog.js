@@ -43,11 +43,7 @@ var BlogViewModel = function(data) {
         self.rubrics.push(new Rubric({ id : null, title : '', beingEdited : true }, self));
     }
 
-    self.photoSrc = ko.computed(function() {
-        return self.photo() === null ? '/images/jcrop-blog.jpg' : self.photo().src();
-    });
-
-    self.photoSrc.subscribe(function() {
+    self.photo.subscribe(function() {
         jcrop_api.destroy();
         $('.popup-blog-set_jcrop-img').Jcrop({
             setSelect: [ 0, 0, 100, 100 ],
@@ -68,7 +64,11 @@ var BlogViewModel = function(data) {
 var Photo = function(data) {
     var self = this;
     self.id = ko.observable(data.id);
-    self.src = ko.observable(data.src);
+    self.originalSrc = ko.observable(data.originalSrc);
+    self.thumbSrc = ko.observable(data.thumbSrc);
+    self.width = ko.observable(data.width);
+    self.height = ko.observable(data.height);
+    self.position = ko.observable(data.position);
 }
 
 var Rubric = function(data, parent) {

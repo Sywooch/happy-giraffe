@@ -34,12 +34,6 @@ function removeA(arr) {
 }
 
 $(document).ready(function () {
-
-$('.popup-blog-set_jcrop-img').Jcrop({
-    setSelect:   [ 20, 20, 300, 300 ],
-    aspectRatio: 45 / 8
-});
-
     $('.js-like-control').blockFixed({'posTop':120});
     $('.js-fast-articles2').blockFixed({'posTop': 60, 'minPosBottom':250});
 
@@ -92,22 +86,6 @@ $('.popup-blog-set_jcrop-img').Jcrop({
 //            }
 //        }
 //    });
-
-   $('.wysiwyg-redactor-v').redactor({
-       lang: 'es',
-       minHeight: 450,
-       autoresize: true,
-       buttons: [ 'bold', 'italic', 'underline', '|', 'image', 'video', 'smile'],
-       buttonsCustom: {
-           smile: {
-               title: 'smile',
-               callback: function(buttonName, buttonDOM, buttonObject) {
-                   // your code, for example - getting code
-                   var html = this.get();
-               }
-           }
-       }
-   });
 
      /* Подсказки при наведении */
     $('.js-tooltipsy').tooltipsy({offset:[0, 1]});

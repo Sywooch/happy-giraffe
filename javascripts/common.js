@@ -50,7 +50,7 @@ $('.popup-blog-set_jcrop-img').Jcrop({
         return false;
     });
 
-    $('.article-settings_a').click(function(){
+    $('.ico-users').click(function(){
         $(this).toggleClass('active');
         $(this).closest('.article-settings_i').find('.article-settings_drop').toggle(200);
     });
@@ -104,6 +104,22 @@ $('.popup-blog-set_jcrop-img').Jcrop({
 //            }
 //        }
 //    });
+
+   $('.wysiwyg-redactor-v').redactor({
+       lang: 'es',
+       minHeight: 450,
+       autoresize: true,
+       buttons: [ 'bold', 'italic', 'underline', '|', 'image', 'video', 'smile'],
+       buttonsCustom: {
+           smile: {
+               title: 'smile',
+               callback: function(buttonName, buttonDOM, buttonObject) {
+                   // your code, for example - getting code
+                   var html = this.get();
+               }
+           }
+       }
+   });
 
      /* Подсказки при наведении */
     $('.js-tooltipsy').tooltipsy({offset:[0, 1]});

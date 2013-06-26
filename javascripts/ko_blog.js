@@ -6,13 +6,17 @@ ko.bindingHandlers.length = {
     }
 };
 
-var BlogSettingsViewModel = function(data) {
+var BlogViewModel = function(data) {
     var self = this;
     self.titleValue = ko.observable(data.title);
     self.descriptionValue = ko.observable(data.description);
     self.title = ko.observable(data.title);
     self.description = ko.observable(data.description);
     self.photo = ko.observable(data.photo === null ? null : new Photo(data.photo));
+    self.currentRubricId = data.currentRubricId;
+    self.rubrics = ko.observableArray(ko.utils.arrayMap(data.rubrics, function(rubric) {
+        return new Rubric(rubric, self);
+    }));
 
     self.setTitle = function() {
         self.title(self.titleValue());
@@ -35,6 +39,10 @@ var BlogSettingsViewModel = function(data) {
             blogInfo.description(self.description());
             $.fancybox.close();
         }, 'json');
+    }
+
+    self.addRubric = function() {
+        self.rubrics.push(new Rubric({ id : null, title : '', beingEdited : true }, self));
     }
 
     self.photoSrc = ko.computed(function() {
@@ -65,8 +73,55 @@ var Photo = function(data) {
     self.src = ko.observable(data.src);
 }
 
-var BlogInfoViewModel = function(data) {
+var Rubric = function(data, parent) {
     var self = this;
+    self.id = ko.observable(data.id);
     self.title = ko.observable(data.title);
-    self.description = ko.observable(data.description);
+    self.url = ko.observable(data.url);
+    self.editedTitle = ko.observable(data.title);
+    self.beingEdited = ko.observable((typeof data.beingEdited === 'undefinded') ? false : data.beingEdited);
+
+    self.titleHandler = function(data, event) {
+        if (event.which == 13)
+            self.save();
+        else
+            return true;
+    }
+
+    self.edit = function() {
+        self.beingEdited(true);
+    }
+
+    self.save = function() {
+        self.id() === null ? self.create() : self.update();
+    }
+
+    self.create = function() {
+        $.post('/blog/settings/rubricCreate/', { title : self.editedTitle() }, function(response) {
+            if (response.success) {
+                self.id(response.id);
+                self.title(self.editedTitle());
+                self.beingEdited(false);
+            }
+        }, 'json');
+    }
+
+    self.update = function() {
+        if (self.title() == self.editedTitle())
+            self.beingEdited(false);
+        else
+            $.post('/blog/settings/rubricEdit/', { id : self.id(), title : self.editedTitle() }, function(response) {
+                if (response.success) {
+                    self.title(self.editedTitle());
+                    self.beingEdited(false);
+                }
+            }, 'json');
+    }
+
+    self.remove = function() {
+        $.post('/blog/settings/rubricRemove/', { id : self.id() }, function(response) {
+            if (response.success)
+                parent.rubrics.remove(self);
+        }, 'json');
+    }
 }

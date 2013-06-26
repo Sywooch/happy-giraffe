@@ -534,11 +534,6 @@ class AlbumPhoto extends HActiveRecord
     public function getBlogPath()
     {
         $dir = Yii::getPathOfAlias('site.common.uploads.photos');
-        if (!file_exists($dir . DIRECTORY_SEPARATOR . $this->blogs_folder . DIRECTORY_SEPARATOR . $this->author_id))
-            mkdir($dir . DIRECTORY_SEPARATOR . $this->blogs_folder . DIRECTORY_SEPARATOR . $this->author_id);
-
-        if (!file_exists($dir . DIRECTORY_SEPARATOR . $this->blogs_folder . DIRECTORY_SEPARATOR . $this->author_id))
-            mkdir($dir . DIRECTORY_SEPARATOR . $this->blogs_folder . DIRECTORY_SEPARATOR . $this->author_id);
 
         return $dir . DIRECTORY_SEPARATOR . $this->blogs_folder . DIRECTORY_SEPARATOR . $this->author_id .
         DIRECTORY_SEPARATOR . $this->fs_name;

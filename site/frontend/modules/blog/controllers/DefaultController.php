@@ -100,9 +100,25 @@ class DefaultController extends HController
         $user = Yii::app()->user->model;
         $user->blog_title = Yii::app()->request->getPost('blog_title');
         $user->blog_description = Yii::app()->request->getPost('blog_description');
-        $user->blog_photo_position = CJSON::encode(Yii::app()->request->getPost('blog_position'));
-        $success = $user->update(array('blog_title', 'blog_description', 'blog_photo_position'));
+        $p = Yii::app()->request->getPost('blog_photo_position');
+        $user->blog_photo_position = CJSON::encode($p);
 
+        $photo = AlbumPhoto::createByUrl('http://109.87.248.203/images/jcrop-blog.jpg', Yii::app()->user->id);
+
+        $image = Yii::createComponent(array(
+            'class' => 'site.frontend.extensions.EPhpThumb.EPhpThumb',
+            'options' => array(
+                'resizeUp' => true,
+            ),
+        ));
+        $image->init();
+        $image = $image->create($photo->getOriginalPath());
+        $rx = 720 / $p['w'];
+        $ry = 128 / $p['h'];
+        $width = round($rx * $photo->getOriginalWidth());
+        $height = round($ry * $photo->getOriginalHeight());
+        $image->resize($width, $height)->crop($rx * $p['x'], $ry * $p['y'], $rx * $p['w'], $ry * $p['h'])->save($photo->getBlogPath());
+        $success = $user->update(array('blog_title', 'blog_description', 'blog_photo_position'));
         $response = compact('success');
         echo CJSON::encode($response);
     }

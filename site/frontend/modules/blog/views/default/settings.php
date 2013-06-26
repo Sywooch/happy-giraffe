@@ -44,13 +44,15 @@
                         <label for="" class="popup-blog-set_label">Название блога</label>
                         <div class="margin-t15 clearfix">
                             <div class="popup-blog-set_jcrop">
-                                <img src="/images/jcrop-blog.jpg" alt="" class="popup-blog-set_jcrop-img" width='300' height='270'>
+                                <img alt="" class="popup-blog-set_jcrop-img" data-bind="attr: { src : photoSrc }">
                             </div>
                             <div class="float-l">
                                 <div class="margin-b10 clearfix">
                                     <div class="file-fake">
+                                        <?=CHtml::beginForm(array('/albums/uploadPhoto'), 'post', array('target' => 'upload-target', 'enctype' => 'multipart/form-data'))?>
                                         <button class="btn-green btn-medium file-fake_btn">Загрузить  фото</button>
-                                        <input type="file" name="">
+                                        <input type="file" name="photo" onchange="submit()">
+                                        <?=CHtml::endForm()?>
                                     </div>
                                 </div>
                                 <div class="color-gray font-small">Разрешенные форматы файлов <br> JPG, GIF или  PNG. <br>Максимальный размер 700 Кб. </div>
@@ -65,7 +67,7 @@
                     <div class="float-r">
                         <div class="blog-title-b">
                             <div class="blog-title-b_img-hold">
-                                <img src="/images/blog-title-b_img.jpg" alt="" class="blog-title-b_img">
+                                <img alt="" class="blog-title-b_img" id="preview" data-bind="attr: { src : photoSrc }">
                             </div>
                             <h1 class="blog-title-b_t" data-bind="text: title"></h1>
                         </div>
@@ -92,11 +94,39 @@
 
     </div>
 
+    <iframe name="upload-target" id="upload-target"></iframe>
+
     <script type="text/javascript">
-        $('.popup-blog-set_jcrop-img').Jcrop({
-            boxWidth: 730,
-            boxHeight: 520
+        function showPreview(coords)
+        {
+            console.log(coords);
+
+            position = coords;
+
+            var rx = 720 / coords.w;
+            var ry = 128 / coords.h;
+
+            $('#preview').css({
+                width: Math.round(rx * 730) + 'px',
+                height: Math.round(ry * 520) + 'px',
+                marginLeft: '-' + Math.round(rx * coords.x) + 'px',
+                marginTop: '-' + Math.round(ry * coords.y) + 'px'
+            });
+        }
+
+        $(function() {
+            blogSettings = new BlogSettingsViewModel(<?=CJSON::encode($json)?>);
+            ko.applyBindings(blogSettings, document.getElementById('popup-blog-set'));
+            jcrop_api = null;
+            $('.popup-blog-set_jcrop-img').Jcrop({
+                setSelect: [ 0, 0, 100, 100 ],
+                onChange: showPreview,
+                onSelect: showPreview,
+                aspectRatio: 720 / 128,
+                boxWidth: 320
+            }, function(){
+                jcrop_api = this;
+            });
         });
-        ko.applyBindings(new BlogSettingsViewModel(<?=CJSON::encode($json)?>), document.getElementById('popup-blog-set'));
     </script>
 </div

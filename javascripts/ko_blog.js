@@ -34,9 +34,7 @@ var BlogViewModel = function(data) {
     }
 
     self.save = function() {
-        $.post(data.updateUrl, { blog_title : self.title(), blog_description : self.description(), blog_position : position }, function(response) {
-            blogInfo.title(self.title());
-            blogInfo.description(self.description());
+        $.post(data.updateUrl, { blog_title : self.title(), blog_description : self.description(), blog_photo_position : position }, function(response) {
             $.fancybox.close();
         }, 'json');
     }

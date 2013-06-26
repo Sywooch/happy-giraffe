@@ -18,13 +18,13 @@
 
         <?php $this->renderPartial('_subscribers'); ?>
 
-        <div class="menu-simple">
+        <div class="menu-simple blogInfo">
             <ul class="menu-simple_ul">
-                <?php foreach ($this->user->blog_rubrics as $rubric): ?>
-                    <li class="menu-simple_li<?php if ($rubric->id == $this->rubric_id) echo ' active' ?>">
-                        <a href="<?=$this->getUrl(array('rubric_id' => $rubric->id)) ?>" class="menu-simple_a"><?=$rubric->title ?></a>
-                    </li>
-                <?php endforeach; ?>
+                <!-- ko foreach: rubrics -->
+                <li class="menu-simple_li" data-bind="css: { active : $root.currentRubricId == id() }">
+                    <a class="menu-simple_a" data-bind="text: title, attr: { href : url }"></a>
+                </li>
+                <!-- /ko -->
             </ul>
         </div>
 
@@ -50,9 +50,9 @@
 </div>
 
 <script type="text/javascript">
-    blogInfo = new BlogInfoViewModel(<?=CJSON::encode($this->getBlogData())?>);
+    blogVM = new BlogViewModel(<?=CJSON::encode($this->getBlogData())?>);
     $(".blogInfo").each(function(index, el) {
-        ko.applyBindings(blogInfo, el);
+        ko.applyBindings(blogVM, el);
     });
 </script>
 <?php $this->endContent(); ?>

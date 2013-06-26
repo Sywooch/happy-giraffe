@@ -1,11 +1,5 @@
-<?php
-/**
- * @var $json
- */
-?>
-
-<div id="popup-blog-set" class="popup-blog-set popup-blue">
-    <a class="popup-blue_close powertip" onclick="$.fancybox.close();" href="javascript:void(0);" title="Закрыть"></a>
+<div id="popup-blog-set" class="popup-blog-set">
+    <a class="popup-blog-set_close powertip" onclick="$.fancybox.close();" href="javascript:void(0);" title="Закрыть"></a>
 
     <div class="tabs tabs-white">
         <div class="tabs-white_nav clearfix">
@@ -27,7 +21,7 @@
                         <div class="clearfix">
                             <div class="float-r font-small color-gray" data-bind="length: { attribute : titleValue, maxLength : 50 }"></div>
                         </div>
-                        <input type="text" class="itx-gray" placeholder="Введите название" data-bind="value: titleValue, valueUpdate: 'keyup', event: { keypress : titleHandler }" maxlength="50">
+                        <input type="text" class="popup-blog-set_itx" placeholder="Введите название" data-bind="value: titleValue, valueUpdate: 'keyup', event: { keypress : titleHandler }" maxlength="50">
                         <div class="margin-t5 margin-b10 clearfix">
                             <button class="btn-green float-r" data-bind="click: setTitle">Ok</button>
                         </div>
@@ -35,7 +29,7 @@
                         <div class="clearfix">
                             <div class="float-r font-small color-gray" data-bind="length: { attribute : descriptionValue, maxLength : 150 }"></div>
                         </div>
-                        <textarea class="itx-gray" placeholder="Краткое описание" data-bind="value: descriptionValue, valueUpdate: 'keyup'"></textarea>
+                        <textarea class="popup-blog-set_itx" placeholder="Краткое описание" data-bind="value: descriptionValue, valueUpdate: 'keyup'"></textarea>
                         <div class="margin-t5 margin-b10 clearfix">
                             <button class="btn-green float-r" data-bind="click: setDescription">Ok</button>
                         </div>
@@ -79,22 +73,47 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="popup-blog-set_sepor margin-b15"></div>
-                <div class="margin-b5 clearfix">
-                    <a class="btn-blue btn-h46 float-r" data-bind="click: save">Сохранить</a>
-                    <a href="javascript:void(0)" onclick="$.fancybox.close()" class="btn-gray-light btn-h46 float-r margin-r15">Отменить</a>
-                </div>
             </div>
 
             <div class="tab-box tab-box-2" style="display: none;">
-                56756757
+                <div class="b-checkbox margin-b10">
+                    <input type="checkbox" id="b-checkbox_label" class="b-checkbox_checkbox">
+                    <label for="b-checkbox_label" class="b-checkbox_label">Показывать рубрики на странице блога</label>
+                </div>
+                <!-- ko foreach: rubrics -->
+                <div class="margin-b10 clearfix">
+                    <!-- ko if: ! beingEdited() -->
+                    <a href="javascript:void(0)" class="popup-blog-set_rubric" data-bind="text: title"></a>
+                    <a class="message-ico message-ico__edit" data-bind="click: edit"></a>
+                    <a class="message-ico message-ico__del" data-bind="click: remove"></a>
+                    <!-- /ko -->
+                    <!-- ko if: beingEdited -->
+                    <div class="clearfix w-400">
+                        <div class="float-r font-small color-gray" data-bind="length: { attribute : editedTitle, maxLength : 50 }"></div>
+                    </div>
+                    <div class="float-l margin-r10">
+                        <div class="w-400">
+                            <input type="text" class="popup-blog-set_itx" placeholder="Введите название рубрики" data-bind="value: editedTitle, valueUpdate: 'keyup', event: { keypress : titleHandler }" maxlength="50">
+                        </div>
+                    </div>
+                    <a class="btn-green  margin-t5" data-bind="click: save">Ok</a>
+                    <!-- /ko -->
+                </div>
+                <!-- /ko -->
+                <div class="margin-b10 clearfix">
+                    <a class="btn-green btn-medium" data-bind="click: addRubric">Добавить рубрику</a>
+                </div>
             </div>
+        </div>
+
+        <div class="margin-r20 clearfix">
+            <a class="btn-blue btn-h46 float-r" data-bind="click: save">Сохранить</a>
+            <a href="javascript:void(0)" onclick="$.fancybox.close()" class="btn-gray-light btn-h46 float-r margin-r15">Отменить</a>
         </div>
 
     </div>
 
-    <iframe name="upload-target" id="upload-target"></iframe>
+    <iframe name="upload-target" id="upload-target" style="display: none;"></iframe>
 
     <script type="text/javascript">
         function showPreview(coords)
@@ -115,8 +134,7 @@
         }
 
         $(function() {
-            blogSettings = new BlogSettingsViewModel(<?=CJSON::encode($json)?>);
-            ko.applyBindings(blogSettings, document.getElementById('popup-blog-set'));
+            ko.applyBindings(blogVM, document.getElementById('popup-blog-set'));
             jcrop_api = null;
             $('.popup-blog-set_jcrop-img').Jcrop({
                 setSelect: [ 0, 0, 100, 100 ],

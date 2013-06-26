@@ -92,17 +92,7 @@ class DefaultController extends HController
 
     public function actionSettingsForm()
     {
-        $json = array(
-            'title' => Yii::app()->user->model->getBlogTitle(),
-            'description' => Yii::app()->user->model->blog_description,
-            'updateUrl' => $this->createUrl('settingsUpdate'),
-            'photo' => ($blogPhoto = Yii::app()->user->model->blogPhoto) === null ? null : array(
-                'id' => $blogPhoto->id,
-                'src' => $blogPhoto->getOriginalUrl(),
-            ),
-        );
-
-        $this->renderPartial('settings', compact('json'));
+        $this->renderPartial('settings');
     }
 
     public function actionSettingsUpdate()
@@ -121,7 +111,20 @@ class DefaultController extends HController
     {
         return array(
             'title' => $this->user->getBlogTitle(),
-            'description' => $this->user->blog_description
+            'description' => $this->user->blog_description,
+            'rubrics' => array_map(function($rubric) {
+                return array(
+                    'id' => $rubric->id,
+                    'title' => $rubric->title,
+                    'url' => Yii::app()->createUrl('index', array('user_id' => $rubric->user_id, 'rubric_id' => $rubric->id)),
+                );
+            }, $this->user->blog_rubrics),
+            'currentRubricId' => $this->rubric_id,
+            'updateUrl' => $this->createUrl('settingsUpdate'),
+            'photo' => ($blogPhoto = Yii::app()->user->model->blogPhoto) === null ? null : array(
+                'id' => $blogPhoto->id,
+                'src' => $blogPhoto->getOriginalUrl(),
+            ),
         );
     }
 

@@ -6,7 +6,6 @@
         ->registerScriptFile('/javascripts/jquery.Jcrop.min.js')
     ;
 ?>
-
 <div class="content-cols clearfix">
     <div class="col-1">
 
@@ -48,72 +47,4 @@
     </div>
 
 </div>
-
-<script type="text/javascript">
-    //blogInfo = new BlogInfoViewModel(<?=CJSON::encode($this->getBlogData())?>);
-    //$(".blogInfo").each(function(index, el) {
-    //    ko.applyBindings(blogInfo, el);
-    //});
-
-    function BlogRecordSettings(data) {
-        var self = this;
-        ko.mapping.fromJS(data, {}, self);
-        self.displayOptions = ko.observable(false);
-        self.displayPrivacy = ko.observable(false);
-
-        self.attach = function(){
-            $.post('/newblog/attachBlog/', {id: self.id()}, function (response) {
-                if (response.status) {
-                    self.attached(!self.attached());
-                }
-            }, 'json');
-            self.displayOptions(false);
-        };
-        self.show = function(){
-            self.displayOptions(!self.displayOptions());
-        };
-        self.showPrivacy = function(){
-            self.displayPrivacy(!self.displayPrivacy());
-        };
-        self.privacyClass = ko.computed(function () {
-            if (self.privacy() == 0)
-                return 'ico-users__all';
-            else return 'ico-users__friend';
-        });
-        self.setPrivacy = function(privacy){
-            $.post('/newblog/updatePrivacy/', {id: self.id(), privacy:privacy}, function (response) {
-                if (response.status) {
-                    self.privacy(privacy);
-                    self.displayPrivacy(false);
-                }
-            }, 'json');
-
-        };
-    }
-
-    ko.bindingHandlers.slideVisible = {
-        init: function(element, valueAccessor) {
-            var value = valueAccessor();
-            $(element).toggle(ko.utils.unwrapObservable(value));
-        },
-        update: function(element, valueAccessor) {
-            var value = valueAccessor();
-            if (value && !$(element).is(':visible') || !value && $(element).is(':visible'))
-                $(element).slideToggle(300);
-        }
-    };
-
-    ko.bindingHandlers.toggleVisible = {
-        init: function(element, valueAccessor) {
-            var value = valueAccessor();
-            $(element).toggle(ko.utils.unwrapObservable(value));
-        },
-        update: function(element, valueAccessor) {
-            var value = valueAccessor();
-            if (value && !$(element).is(':visible') || !value && $(element).is(':visible'))
-                $(element).toggle(200);
-        }
-    };
-
-</script>
 <?php $this->endContent(); ?>

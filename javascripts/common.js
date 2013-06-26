@@ -109,7 +109,7 @@ $('.popup-blog-set_jcrop-img').Jcrop({
        lang: 'es',
        minHeight: 450,
        autoresize: true,
-       buttons: [ 'bold', 'italic', 'underline', '|', 'image', 'video', 'smile'],
+       buttons: ['formatting',  'bold', 'italic', 'underline', 'deleted', 'unorderedlist', 'orderedlist', 'link', '|', 'image', 'video', 'smile'],
        buttonsCustom: {
            smile: {
                title: 'smile',

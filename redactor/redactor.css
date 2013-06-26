@@ -334,47 +334,72 @@ body .redactor_air .redactor_toolbar {
 	BUTTONS
 	step 25px
 */
-body .redactor_toolbar li a.redactor_btn_html				{ background-position: 0px 0; }
-body .redactor_toolbar li a.redactor_btn_formatting		    { background-position: -25px 0; }
-body .redactor_toolbar li a.redactor_btn_bold				{ background-position: -50px 0; }
-body .redactor_toolbar li a.redactor_btn_bold:hover,
-body .redactor_toolbar li a.redactor_btn_bold.redactor_act  { background-position: -50px -25px; }
-body .redactor_toolbar li a.redactor_btn_italic			    { background-position: -75px 0; }
-body .redactor_toolbar li a.redactor_btn_italic:hover,
-body .redactor_toolbar li a.redactor_btn_italic.redactor_act { background-position: -75px -25px; }
-body .redactor_toolbar li a.redactor_btn_deleted		 	{ background-position: -500px 0; }
-body .redactor_toolbar li a.redactor_btn_unorderedlist 	    { background-position: -100px 0; }
-body .redactor_toolbar li a.redactor_btn_orderedlist   	    { background-position: -125px 0; }
-body .redactor_toolbar li a.redactor_btn_outdent	 		{ background-position: -150px 0; }
-body .redactor_toolbar li a.redactor_btn_indent		 	  	{ background-position: -175px 0; }
-body .redactor_toolbar li a.redactor_btn_image		 		{ background-position: -200px 0; }
-body .redactor_toolbar li a.redactor_btn_image:hover,
-body .redactor_toolbar li a.redactor_btn_image.redactor_act { background-position: -200px -25px; }
-body .redactor_toolbar li a.redactor_btn_video		 		{ background-position: -225px 0; }
-body .redactor_toolbar li a.redactor_btn_video:hover,
-body .redactor_toolbar li a.redactor_btn_video.redactor_act { background-position: -225px -25px; }
-body .redactor_toolbar li a.redactor_btn_file		 		{ background-position: -250px 0; }
-body .redactor_toolbar li a.redactor_btn_table		 		{ background-position: -275px 0; }
-body .redactor_toolbar li a.redactor_btn_link		 		{ background-position: -300px 0; }
-body .redactor_toolbar li a.redactor_btn_fontcolor		 	{ background-position: -325px 0; }
-body .redactor_toolbar li a.redactor_btn_backcolor		 	{ background-position: -350px 0; }
-body .redactor_toolbar li a.redactor_btn_alignleft		  	{ background-position: -375px 0; }
-body .redactor_toolbar li a.redactor_btn_aligncenter		{ background-position: -400px 0; }
-body .redactor_toolbar li a.redactor_btn_alignright		  	{ background-position: -425px 0; }
-body .redactor_toolbar li a.redactor_btn_justify		 	{ background-position: -450px 0; }
-body .redactor_toolbar li a.redactor_btn_horizontalrule 	{ background-position: -475px 0; }
-body .redactor_toolbar li a.redactor_btn_underline		 	{ background-position: -525px 0; }
-body .redactor_toolbar li a.redactor_btn_underline:hover,
-body .redactor_toolbar li a.redactor_btn_underline.redactor_act { background-position: -525px -25px; }
+.redactor_toolbar li a.redactor_btn_html				{ background-position: 0px 0; }
+.redactor_toolbar li a.redactor_btn_formatting		    { background-position: -25px 0; }
+.redactor_toolbar li a.redactor_btn_bold				{ background-position: -50px 0; }
+.redactor_toolbar li a.redactor_btn_bold:hover,
+.redactor_toolbar li a.redactor_btn_bold.redactor_act  { background-position: -50px -25px; }
+.redactor_toolbar li a.redactor_btn_italic			    { background-position: -75px 0; }
+.redactor_toolbar li a.redactor_btn_italic:hover,
+.redactor_toolbar li a.redactor_btn_italic.redactor_act { background-position: -75px -25px; }
+.redactor_toolbar li a.redactor_btn_deleted		 	{ background-position: -500px 0; }
+.redactor_toolbar li a.redactor_btn_unorderedlist 	    { background-position: -100px 0; }
+.redactor_toolbar li a.redactor_btn_orderedlist   	    { background-position: -125px 0; }
+.redactor_toolbar li a.redactor_btn_outdent	 		{ background-position: -150px 0; }
+.redactor_toolbar li a.redactor_btn_indent		 	  	{ background-position: -175px 0; }
+.redactor_toolbar li a.redactor_btn_image		 		{ background-position: -200px 0; }
+.redactor_toolbar li a.redactor_btn_image:hover,
+.redactor_toolbar li a.redactor_btn_image.redactor_act { background-position: -200px -25px; }
+.redactor_toolbar li a.redactor_btn_video		 		{ background-position: -225px 0; }
+.redactor_toolbar li a.redactor_btn_video:hover,
+.redactor_toolbar li a.redactor_btn_video.redactor_act { background-position: -225px -25px; }
+.redactor_toolbar li a.redactor_btn_file		 		{ background-position: -250px 0; }
+.redactor_toolbar li a.redactor_btn_table		 		{ background-position: -275px 0; }
+.redactor_toolbar li a.redactor_btn_link		 		{ background-position: -300px 0; }
+.redactor_toolbar li a.redactor_btn_fontcolor		 	{ background-position: -325px 0; }
+.redactor_toolbar li a.redactor_btn_backcolor		 	{ background-position: -350px 0; }
+.redactor_toolbar li a.redactor_btn_alignleft		  	{ background-position: -375px 0; }
+.redactor_toolbar li a.redactor_btn_aligncenter		{ background-position: -400px 0; }
+.redactor_toolbar li a.redactor_btn_alignright		  	{ background-position: -425px 0; }
+.redactor_toolbar li a.redactor_btn_justify		 	{ background-position: -450px 0; }
+.redactor_toolbar li a.redactor_btn_horizontalrule 	{ background-position: -475px 0; }
+.redactor_toolbar li a.redactor_btn_underline		 	{ background-position: -525px 0; }
+.redactor_toolbar li a.redactor_btn_underline:hover,
+.redactor_toolbar li a.redactor_btn_underline.redactor_act { background-position: -525px -25px; }
 
-body .redactor_toolbar li a.redactor_btn_fullscreen		 	{ background-position: -550px 0; }
-body .redactor_toolbar li a.redactor_btn_normalscreen		{ background-position: -575px 0; }
-body .redactor_toolbar li a.redactor_btn_clips		 		{ background-position: -600px 0; }
+.redactor_toolbar li a.redactor_btn_fullscreen		 	{ background-position: -550px 0; }
+.redactor_toolbar li a.redactor_btn_normalscreen		{ background-position: -575px 0; }
+.redactor_toolbar li a.redactor_btn_clips		 		{ background-position: -600px 0; }
 
-body .redactor_toolbar li a.redactor_btn_alignment	 		{ background-position: -625px 0; }
-body .redactor_toolbar li a.redactor_btn_smile	 		    { background-position: -650px 0; }
-body .redactor_toolbar li a.redactor_btn_smile:hover,
-body .redactor_toolbar li a.redactor_btn_smile.redactor_act { background-position: -650px -25px; }
+.redactor_toolbar li a.redactor_btn_alignment	 		{ background-position: -625px 0; }
+.redactor_toolbar li a.redactor_btn_smile	 		    { background-position: -650px 0; }
+.redactor_toolbar li a.redactor_btn_smile:hover,
+.redactor_toolbar li a.redactor_btn_smile.redactor_act { background-position: -650px -25px; }
+
+/* blue icons */
+.wysiwyg-redactor-blue .redactor_toolbar li a.redactor_btn_bold				{ background-position: -50px -75px; }
+.wysiwyg-redactor-blue .redactor_toolbar li a.redactor_btn_bold:hover,
+.wysiwyg-redactor-blue .redactor_toolbar li a.redactor_btn_bold.redactor_act  { background-position: -50px -25px; }
+.wysiwyg-redactor-blue .redactor_toolbar li a.redactor_btn_italic			    { background-position: -75px 0; }
+.wysiwyg-redactor-blue .redactor_toolbar li a.redactor_btn_italic:hover,
+.wysiwyg-redactor-blue .redactor_toolbar li a.redactor_btn_italic.redactor_act { background-position: -75px -25px; }
+.wysiwyg-redactor-blue .redactor_toolbar li a.redactor_btn_deleted		 	{ background-position: -500px 0; }
+.wysiwyg-redactor-blue .redactor_toolbar li a.redactor_btn_unorderedlist 	    { background-position: -100px 0; }
+.wysiwyg-redactor-blue .redactor_toolbar li a.redactor_btn_orderedlist   	    { background-position: -125px 0; }
+.wysiwyg-redactor-blue .redactor_toolbar li a.redactor_btn_image		 		{ background-position: -200px 0; }
+.wysiwyg-redactor-blue .redactor_toolbar li a.redactor_btn_image:hover,
+.wysiwyg-redactor-blue .redactor_toolbar li a.redactor_btn_image.redactor_act { background-position: -200px -25px; }
+.wysiwyg-redactor-blue .redactor_toolbar li a.redactor_btn_video		 		{ background-position: -225px 0; }
+.wysiwyg-redactor-blue .redactor_toolbar li a.redactor_btn_video:hover,
+.wysiwyg-redactor-blue .redactor_toolbar li a.redactor_btn_video.redactor_act { background-position: -225px -25px; }
+.wysiwyg-redactor-blue .redactor_toolbar li a.redactor_btn_link		 		{ background-position: -300px 0; }
+.wysiwyg-redactor-blue .redactor_toolbar li a.redactor_btn_underline		 	{ background-position: -525px 0; }
+.wysiwyg-redactor-blue .redactor_toolbar li a.redactor_btn_underline:hover,
+.wysiwyg-redactor-blue .redactor_toolbar li a.redactor_btn_underline.redactor_act { background-position: -525px -25px; }
+
+.wysiwyg-redactor-blue .redactor_toolbar li a.redactor_btn_smile	 		    { background-position: -650px 0; }
+.wysiwyg-redactor-blue .redactor_toolbar li a.redactor_btn_smile:hover,
+.wysiwyg-redactor-blue .redactor_toolbar li a.redactor_btn_smile.redactor_act { background-position: -650px -25px; }
 
 /*
 	Toolbar classes
@@ -414,7 +439,7 @@ body .redactor_toolbar li a.redactor_btn_smile.redactor_act { background-positio
 	font-family: Helvetica, Arial, Verdana, Tahoma, sans-serif;
 	top: 28px;
 	left: 0;
-	z-index: 2004;
+	z-index: 5004;
 	position: absolute;
 	width: 200px;
 	background-color: #fff;
@@ -711,15 +736,7 @@ body .redactor_toolbar li a.redactor_btn_smile.redactor_act { background-positio
 	float: none;
 	display: inline-block;
 	vertical-align: middle;
-	position: relative;
-	left: 0;
-	top: 0;
-	margin: 0 !important;
-	padding: 5px 0px !important;
-	line-height: 0 !important;
-	list-style: none !important;
-	font-size: 0;
-	overflow: hidden !important;
+	padding: 5px 30px 5px 5px !important;
 }
 .wysiwyg-v .redactor_toolbar li {
 	float: none !important;
@@ -729,23 +746,23 @@ body .redactor_toolbar li a.redactor_btn_smile.redactor_act { background-positio
 	outline: none;
 }
 .wysiwyg-v .redactor_toolbar li.redactor_separator {
-	float: left;
-	height: 14px;
-	border-left: 1px solid #d3d3d3;
-	border-right: 1px solid #cdcdcd;
+	float: none;
+	height: 0;
+	border-left: none;
+	border-right: none;
+	border-bottom: 1px solid #99c6dd;
 	padding: 0;
-	margin: 5px 2px 0 3px !important;
+	margin: 3px 4px !important;
 }
-.wysiwyg-v .redactor_toolbar li a {
-	width: 25px;
-	height: 25px;
-	display: block;
-	line-height: 0;
-	font-size: 0;
-	cursor: pointer;
-	zoom: 1;
-	outline: none;
-	text-decoration: none;
+.wysiwyg-v .redactor_toolbar li a {}
+.wysiwyg-v .redactor_editor,
+.wysiwyg-v .redactor_editor:focus {
+	display: inline-block;
+	vertical-align: middle;
+	width: 555px;
+	border: 1px solid #daebf5;
+	-webkit-box-shadow : none;
+	box-shadow : none;
 	-webkit-border-radius: 4px;
 	-moz-border-radius: 4px;
 	border-radius: 4px;

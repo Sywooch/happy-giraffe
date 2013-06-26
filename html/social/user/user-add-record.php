@@ -471,7 +471,7 @@
 </div>
 
 <div class="display-n">
-	
+	<!-- popup-user-add-article -->
 	<div id="popup-user-add-article" class="popup-user-add-record">
 		<a class="popup-transparent-close powertip" onclick="$.fancybox.close();" href="javascript:void(0);" title="Закрыть"></a>
 		<div class="clearfix">
@@ -504,12 +504,34 @@
 						</div>
 						<div class="b-settings-blue_row clearfix">
 							<label for="" class="b-settings-blue_label">Рубрика</label>
-							<input type="text" name="" id="" class="itx-simple" placeholder="Выберите рубрику">
+							<div class="w-400 float-l">
+								<div class="chzn-itx-simple">
+									<select class="chzn">
+										<option selected="selected">0</option>
+										<option>Россия</option>
+										<option>2</option>
+										<option>32</option>						
+										<option>32</option>						
+										<option>32</option>						
+										<option>32</option>						
+										<option>132</option>						
+										<option>132</option>						
+										<option>132</option>						
+									</select>
+									<div class="chzn-itx-simple_add">
+										<div class="chzn-itx-simple_add-hold">
+											<input type="text" name="" id="" class="chzn-itx-simple_add-itx">
+											<a href="" class="chzn-itx-simple_add-del"></a>
+										</div>
+										<button class="btn-green">Ok</button>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
 					
 					<div class="wysiwyg-v clearfix">
-						<textarea name="" class="wysiwyg-redactor-v"></textarea>
+						<textarea name="" class="wysiwyg-redactor-v wysiwyg-redactor-blue"></textarea>
 					</div>
 					
 					<div class=" clearfix">
@@ -548,6 +570,9 @@
 			</div>
 		</div>
 	</div>
+	<!-- /popup-user-add-article -->
+	
+	<!-- popup-user-add-video -->
 	<div id="popup-user-add-video" class="popup-user-add-record">
 		<a class="popup-transparent-close powertip" onclick="$.fancybox.close();" href="javascript:void(0);" title="Закрыть"></a>
 		<div class="clearfix">
@@ -580,7 +605,29 @@
 						</div>
 						<div class="b-settings-blue_row clearfix">
 							<label for="" class="b-settings-blue_label">Рубрика</label>
-							<input type="text" name="" id="" class="itx-simple" placeholder="Выберите рубрику">
+							<div class="w-400 float-l">
+								<div class="chzn-itx-simple">
+									<select class="chzn">
+										<option selected="selected">0</option>
+										<option>Россия</option>
+										<option>2</option>
+										<option>32</option>						
+										<option>32</option>						
+										<option>32</option>						
+										<option>32</option>						
+										<option>132</option>						
+										<option>132</option>						
+										<option>132</option>						
+									</select>
+									<div class="chzn-itx-simple_add">
+										<div class="chzn-itx-simple_add-hold">
+											<input type="text" name="" id="" class="chzn-itx-simple_add-itx">
+											<a href="" class="chzn-itx-simple_add-del"></a>
+										</div>
+										<button class="btn-green">Ok</button>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
 					<div class="b-settings-blue_add-video clearfix">
@@ -588,11 +635,14 @@
 						<input type="text" name="" id="" class="itx-simple w-400 float-l" placeholder="Введите ссылку на видео">
 						<button class="btn-green btn-inactive">Загрузить  видео</button>
 					</div>
+					<div class="b-settings-blue_video clearfix">
+						<iframe width="580" height="320" frameborder="0" allowfullscreen="" src="http://www.youtube.com/embed/pehSAUTqjRs?wmode=transparent"></iframe>
+					</div>
 					<div class="b-settings-blue_row clearfix">
-						<textarea name="" id="" cols="30" rows="10" class="b-settings-blue_textarea itx-simple" placeholder="Ваш комментарий"></textarea>
+						<textarea name="" id="" cols="80" rows="5" class="b-settings-blue_textarea itx-simple" placeholder="Ваш комментарий"></textarea>
 					</div>
 					<div class=" clearfix">
-						<a href="" class="btn-blue btn-h46 float-r">Добавить</a>
+						<a href="" class="btn-blue btn-h46 float-r btn-inactive">Добавить</a>
 						<a href="" class="btn-gray-light btn-h46 float-r margin-r15">Отменить</a>
 						
 						<div class="float-l">
@@ -627,6 +677,7 @@
 			</div>
 		</div>
 	</div>
+	<!-- /popup-user-add-video -->
 	
 </div>
 </body>

@@ -76,6 +76,23 @@ class AlbumsController extends HController
         ));
     }
 
+    public function actionUploadPhoto()
+    {
+        $file = CUploadedFile::getInstanceByName('photo');
+        $model = new AlbumPhoto();
+        $model->author_id = Yii::app()->user->id;
+        $model->file = $file;
+        $model->create();
+
+        $response = array(
+            'id' => $model->id,
+            'src' => $model->getOriginalUrl(),
+        );
+
+        $this->renderPartial('uploadPhoto', compact('response'));
+
+    }
+
     public function actionUser($id)
     {
         //Visit::processVisit();
@@ -633,11 +650,6 @@ class AlbumsController extends HController
         UserScores::checkProfileScores(Yii::app()->user->id);
 
         echo $photo->getPreviewUrl(241, 225, Image::WIDTH);
-    }
-
-    public function actionChangeBlogBackground()
-    {
-        
     }
 
     public function actionChangeTitle()

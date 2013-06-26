@@ -96,6 +96,10 @@ class DefaultController extends HController
             'title' => Yii::app()->user->model->getBlogTitle(),
             'description' => Yii::app()->user->model->blog_description,
             'updateUrl' => $this->createUrl('settingsUpdate'),
+            'photo' => ($blogPhoto = Yii::app()->user->model->blogPhoto) === null ? null : array(
+                'id' => $blogPhoto->id,
+                'src' => $blogPhoto->getOriginalUrl(),
+            ),
         );
 
         $this->renderPartial('settings', compact('json'));
@@ -106,7 +110,8 @@ class DefaultController extends HController
         $user = Yii::app()->user->model;
         $user->blog_title = Yii::app()->request->getPost('blog_title');
         $user->blog_description = Yii::app()->request->getPost('blog_description');
-        $success = $user->update(array('blog_title', 'blog_description'));
+        $user->blog_photo_position = CJSON::encode(Yii::app()->request->getPost('blog_position'));
+        $success = $user->update(array('blog_title', 'blog_description', 'blog_photo_position'));
 
         $response = compact('success');
         echo CJSON::encode($response);

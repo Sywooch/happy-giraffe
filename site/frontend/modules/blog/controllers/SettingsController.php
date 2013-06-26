@@ -40,4 +40,32 @@ class SettingsController extends HController
             $response['id'] = $rubric->id;
         echo CJSON::encode($response);
     }
+
+    public function actionTest()
+    {
+        $position = array(
+            'h' => 100,
+            'w' => 565,
+            'x' => 63,
+            'x2' => 629,
+            'y' => 239,
+            'y2' => 339,
+        );
+
+        $image = Yii::createComponent(array(
+            'class' => 'site.frontend.extensions.EPhpThumb.EPhpThumb',
+            'options' => array(
+                'resizeUp' => true,
+            ),
+        ));
+        $image->init();
+        $image = $image->create('/home/giraffe/happy-giraffe.ru/site/frontend/www-submodule/images/jcrop-blog.jpg');
+
+        $rx = 720 / $position['w'];
+        $ry = 128 / $position['h'];
+        $width = round($rx * 730);
+        $height = round($ry * 520);
+
+        $image->resize($width, $height)->crop($rx * $position['x'], $ry * $position['y'], $rx * $position['w'], $ry * $position['h'])->show();
+    }
 }

@@ -335,6 +335,8 @@ class User extends HActiveRecord
             'friendLists' => array(self::HAS_MANY, 'FriendList', 'list_id'),
             'subscriber' => array(self::HAS_ONE, 'UserBlogSubscription', 'user_id'),
             'clubSubscriber' => array(self::HAS_ONE, 'UserCommunitySubscription', 'user_id'),
+
+            'blogPhoto' => array(self::BELONGS_TO, 'AlbumPhoto', 'blog_photo_id'),
         );
     }
 

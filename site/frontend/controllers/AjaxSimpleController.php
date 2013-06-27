@@ -172,6 +172,17 @@ class AjaxSimpleController extends CController
         echo CJSON::encode(array('status' => true));
     }
 
+    public function actionUploadPhoto()
+    {
+        $ids = array();
+        foreach($_FILES as $file){
+            $model = AlbumPhoto::model()->createUserTempPhoto($file);
+            $ids [] = $model->id;
+        }
+
+        echo CJSON::encode(array('status' => 200, 'ids' => $ids));
+    }
+
     /**
      * Загрузка нового комментария
      *

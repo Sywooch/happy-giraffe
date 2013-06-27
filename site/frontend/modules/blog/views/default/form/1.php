@@ -93,3 +93,13 @@
 </div>
 
 <?php $this->endWidget(); ?>
+
+<script>
+    var BlogFormPostViewModel = function() {
+        var self = this;
+        ko.utils.extend(self, new BlogFormViewModel());
+    }
+
+    formVM = new BlogFormPostViewModel();
+    ko.applyBindings(formVM, document.getElementById('popup-user-add-article'));
+</script>

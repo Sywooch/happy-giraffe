@@ -213,6 +213,7 @@ class AlbumPhoto extends HActiveRecord
         }
         if ($this->save(false)) {
             $this->saveFile(false, $temp);
+            $this->setDimensions();
             return true;
         }
         return false;
@@ -673,10 +674,15 @@ class AlbumPhoto extends HActiveRecord
 
     protected function afterFind()
     {
+        $this->setDimensions();
+        parent::afterFind();
+    }
+
+    protected function setDimensions()
+    {
         $size = @getimagesize($this->getOriginalPath());
         $this->_originalWidth = $size[0];
         $this->_originalHeight = $size[1];
-        parent::afterFind();
     }
 
     public function getOriginalWidth()

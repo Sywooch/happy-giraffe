@@ -39,7 +39,7 @@
     <div class="col-23 col-23__gray">
         <div class="blog-title-b blogInfo" data-bind="visible: title().length > 0">
             <div class="blog-title-b_img-hold">
-                <img src="/images/example/w720-h128.jpg" alt="" class="blog-title-b_img">
+                <img alt="" class="blog-title-b_img" data-bind="attr: { src : photo().thumbSrc() }">
             </div>
             <h1 class="blog-title-b_t" data-bind="text: title"></h1>
         </div>

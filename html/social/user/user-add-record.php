@@ -1203,11 +1203,11 @@
 								</div>
 							</div>
 							<div class="b-add-img_i">
-								<div class="b-add-img_i-load">
-									<img src="/images/ico/ajax-loader.gif" alt=""> <br>
-									Загрузка фото
-								</div>
+								<img class="b-add-img_i-img opacity-20" src="/images/example/w720-h128.jpg" alt="">
 								<div class="b-add-img_i-vert"></div>
+								<div class="b-add-img_i-load">
+									<div class="b-add-img_i-load-progress" style="width:20%;"></div>
+								</div>
 								<div class="b-add-img_i-overlay">
 									<a href="" class="b-add-img_i-del ico-close4"></a>
 								</div>

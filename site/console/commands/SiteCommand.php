@@ -250,10 +250,10 @@ class SiteCommand extends CConsoleCommand
     public function actionStats(){
         Yii::import('site.frontend.modules.friends.models.*');
         $criteria = new CDbCriteria;
-        $criteria->condition = 'last_updated >= "'.date("Y-m-d H:i:s", strtotime('-1 year')).'" and deleted = 0 AND `group`=0';
+        $criteria->condition = 'last_active >= "'.date("Y-m-d H:i:s", strtotime('-1 year')).'" and deleted = 0 AND `group`=0';
         $criteria->group = 'id';
         $criteria->limit = 100;
-        $criteria->order = 'last_updated desc';
+        $criteria->order = 'last_active desc';
         $criteria->offset = 0;
 
         $result = array();
@@ -271,7 +271,7 @@ class SiteCommand extends CConsoleCommand
                         $model->getFullName(),
                         'http://www.happy-giraffe.ru/user/'.$model->id.'/',
                         date("Y-m-d", strtotime($model->register_date)),
-                        date("Y-m-d", strtotime($model->last_updated)),
+                        date("Y-m-d", strtotime($model->last_active)),
                         $posts_count,
                         $comments_count,
                         Friend::model()->getCountByUserId($model->id)

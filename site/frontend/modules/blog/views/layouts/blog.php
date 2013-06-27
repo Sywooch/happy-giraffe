@@ -32,7 +32,21 @@
     </div>
     <?php if ($this->user->id == Yii::app()->user->id): ?>
         <div class="col-23">
-            <a href="<?=$this->createUrl('settingsForm')?>" data-theme="transparent" class="blog-settings fancy">Настройки блога</a>
+            <div class="user-add-record clearfix">
+                <div class="user-add-record_ava-hold">
+                    <a href="" class="ava male">
+                        <span class="icon-status status-online"></span>
+                        <img alt="" src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg">
+                    </a>
+                </div>
+                <div class="user-add-record_hold">
+                    <div class="user-add-record_tx">Я хочу добавить</div>
+                    <a href="<?=$this->createUrl('form', array('type' => 1))?>"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__article fancy">Статью</a>
+                    <a href="#popup-user-add-photo"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__photo fancy">Фото</a>
+                    <a href="<?=$this->createUrl('form', array('type' => 2))?>"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__video active fancy">Видео</a>
+                </div>
+            </div>
+            <a href="<?=$this->createUrl('settings/form')?>" data-theme="transparent" class="blog-settings fancy">Настройки блога</a>
         </div>
     <?php endif; ?>
     <div class="col-23 col-23__gray">

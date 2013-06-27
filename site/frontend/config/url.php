@@ -97,6 +97,7 @@ return array(
             'trueRoute' => 'old/blog/list',
             'falseRoute' => 'blog/default/index',
         ),
+        'blog/form/type<type:\d+>' => 'blog/default/form',
         'newblog/<_a:>' => 'blog/default/<_a>',
         'blog/settings/<_a>' => 'blog/settings/<_a>',
 

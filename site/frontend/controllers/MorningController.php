@@ -134,7 +134,7 @@ class MorningController extends HController
                     $post->type_id = 4;
                     $post->author_id = 1;
                     if ($post->save()) {
-                        $photoPost = new CommunityPhotoPost();
+                        $photoPost = new CommunityMorningPost();
                         $photoPost->content_id = $post->id;
                         if ($photoPost->save())
                             $this->redirect($this->createUrl('morning/edit', array('id' => $post->id)));
@@ -248,7 +248,7 @@ class MorningController extends HController
         if (!Yii::app()->user->checkAccess('editMorning'))
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
-        $posts = CommunityPhotoPost::model()->findAll('is_published = 0 AND content_id IS NOT NULL ');
+        $posts = CommunityMorningPost::model()->findAll('is_published = 0 AND content_id IS NOT NULL ');
         foreach ($posts as $post) {
             $post->is_published = 1;
             $post->save(false);

@@ -29,7 +29,7 @@
  * @property CommunityContentType $type
  * @property CommunityPost $post
  * @property CommunityVideo $video
- * @property CommunityPhotoPost $photoPost
+ * @property CommunityMorningPost $photoPost
  * @property CommunityContentGallery $gallery
  * @property Comment[] comments
  * @property CommunityContent source
@@ -41,7 +41,8 @@ class CommunityContent extends HActiveRecord
 {
     const TYPE_POST = 1;
     const TYPE_VIDEO = 2;
-    const TYPE_PHOTO_POST = 4;
+    const TYPE_PHOTO_POST = 3;
+    const TYPE_MORNING = 4;
     const TYPE_STATUS = 5;
 
     const USERS_COMMUNITY = 999999;
@@ -113,7 +114,7 @@ class CommunityContent extends HActiveRecord
             'post' => array(self::HAS_ONE, 'CommunityPost', 'content_id'),
             'author' => array(self::BELONGS_TO, 'User', 'author_id'),
             'remove' => array(self::HAS_ONE, 'Removed', 'entity_id', 'condition' => 'remove.entity = :entity', 'params' => array(':entity' => get_class($this))),
-            'photoPost' => array(self::HAS_ONE, 'CommunityPhotoPost', 'content_id'),
+            'photoPost' => array(self::HAS_ONE, 'CommunityMorningPost', 'content_id'),
             'editor' => array(self::BELONGS_TO, 'User', 'editor_id'),
             'gallery' => array(self::HAS_ONE, 'CommunityContentGallery', 'content_id'),
             'favouritesCount' => array(self::STAT, 'Favourite', 'model_id', 'condition' => 'model_name=:modelName', 'params' => array(':modelName' => get_class($this))),

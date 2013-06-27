@@ -250,23 +250,23 @@ class SiteCommand extends CConsoleCommand
     public function actionStats(){
         Yii::import('site.frontend.modules.friends.models.*');
         $criteria = new CDbCriteria;
-        $criteria->condition = 'last_active >= "'.date("Y-m-d H:i:s", strtotime('-1 year')).'" and deleted = 0 AND `group`=0';
-        $criteria->group = 'id';
+        $criteria->condition = 'last_active >= "'.date("Y-m-d H:i:s", strtotime('-3 month')).'" and deleted = 0 AND `group`=0';
         $criteria->limit = 100;
         $criteria->order = 'last_active desc';
         $criteria->offset = 0;
 
-        $result = array();
         $models = 1;
-        $fp = fopen('/home/beryllium/file.csv', 'w');
+        $fp = fopen('f:/file.csv', 'w');
         while(!empty($models)){
             $models = User::model()->findAll($criteria);
 
             foreach($models as $model){
-                $posts_count = CommunityContent::model()->count('author_id=:author_id and removed = 0', array(':author_id' => $model->id));
-                $comments_count = Comment::model()->count('author_id=:author_id and removed = 0 and entity != "ContestWork"', array(':author_id' => $model->id));
+                $posts_count = CommunityContent::model()->count('author_id=:author_id and removed = 0 and created > :last_month',
+                    array(':author_id' => $model->id, ':last_month'=>date("Y-m-d H:i:s", strtotime('-3 month'))));
+                $comments_count = Comment::model()->count('author_id=:author_id and removed = 0 and entity != "ContestWork" and created > :last_month',
+                    array(':author_id' => $model->id, ':last_month'=>date("Y-m-d H:i:s", strtotime('-3 month'))));
 
-                if ($comments_count > 0){
+                if ($comments_count > 0 && $posts_count > 0){
                     $result = array(
                         $model->getFullName(),
                         'http://www.happy-giraffe.ru/user/'.$model->id.'/',

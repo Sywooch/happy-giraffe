@@ -256,7 +256,7 @@ class SiteCommand extends CConsoleCommand
         $criteria->offset = 0;
 
         $models = 1;
-        $fp = fopen('f:/file.csv', 'w');
+        $fp = fopen('/home/beryllium/file.csv', 'w');
         while(!empty($models)){
             $models = User::model()->findAll($criteria);
 

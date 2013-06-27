@@ -270,9 +270,8 @@ class SiteCommand extends CConsoleCommand
                     $result = array(
                         $model->getFullName(),
                         'http://www.happy-giraffe.ru/user/'.$model->id.'/',
-                        $model->register_date,
-                        $model->last_updated,
-                        $model->last_updated,
+                        date("Y-m-d", strtotime($model->register_date)),
+                        date("Y-m-d", strtotime($model->last_updated)),
                         $posts_count,
                         $comments_count,
                         Friend::model()->getCountByUserId($model->id)

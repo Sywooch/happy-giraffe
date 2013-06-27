@@ -21,13 +21,17 @@ $this->widget('site.common.extensions.imperavi-redactor-widget.ImperaviRedactorW
 
         <?php if ($this->full || $allCount <= 3): ?>
             <span class="comments-gray_t-a-tx">Все комментарии (<span data-bind="text:allCount"></span>)</span>
-            <!-- ko if: allCount() >= 10 -->
-            <a href="" class="btn-green" data-bind="click: goBottom">Добавить</a>
-            <!-- /ko -->
+            <?php if ($this->full):?>
+                <!-- ko if: allCount() >= 10 -->
+                <a href="" class="btn-green" data-bind="click: goBottom">Добавить</a>
+                <!-- /ko -->
+            <?php endif ?>
         <?php else: ?>
             <a href="<?= $this->model->getUrl() ?>" class="comments-gray_t-a">
                 <span class="comments-gray_t-a-tx">Все комментарии (<span data-bind="text:allCount"></span>)</span>
-                <a href="" class="btn-green" data-bind="click: goBottom">Добавить</a>
+                <?php if ($this->full):?>
+                    <a href="" class="btn-green" data-bind="click: goBottom">Добавить</a>
+                <?php endif ?>
             </a>
         <?php endif ?>
 

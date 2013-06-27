@@ -6,7 +6,6 @@
         ->registerScriptFile('/javascripts/jquery.Jcrop.min.js')
     ;
 ?>
-
 <div class="content-cols clearfix">
     <div class="col-1">
 
@@ -55,4 +54,5 @@
         ko.applyBindings(blogVM, el);
     });
 </script>
+
 <?php $this->endContent(); ?>

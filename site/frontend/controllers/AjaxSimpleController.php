@@ -180,7 +180,7 @@ class AjaxSimpleController extends CController
             $ids [] = $model->id;
         }
 
-        echo CJSON::encode(array('status' => 200, 'files' => $ids));
+        echo CJSON::encode(array('status' => 200, 'ids' => $ids));
     }
 
     /**

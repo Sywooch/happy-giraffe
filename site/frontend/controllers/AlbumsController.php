@@ -76,23 +76,6 @@ class AlbumsController extends HController
         ));
     }
 
-    public function actionUploadPhoto()
-    {
-        $file = CUploadedFile::getInstanceByName('photo');
-        $model = new AlbumPhoto();
-        $model->author_id = Yii::app()->user->id;
-        $model->file = $file;
-        $model->create();
-
-        $response = array(
-            'id' => $model->id,
-            'src' => $model->getOriginalUrl(),
-        );
-
-        $this->renderPartial('uploadPhoto', compact('response'));
-
-    }
-
     public function actionUser($id)
     {
         //Visit::processVisit();

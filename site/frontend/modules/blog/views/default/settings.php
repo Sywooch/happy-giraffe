@@ -38,12 +38,12 @@
                         <label for="" class="popup-blog-set_label">Название блога</label>
                         <div class="margin-t15 clearfix">
                             <div class="popup-blog-set_jcrop">
-                                <img alt="" class="popup-blog-set_jcrop-img" data-bind="attr: { src : photo().originalSrc() }">
+                                <img alt="" class="popup-blog-set_jcrop-img" data-bind="attr: { src : draftPhoto().originalSrc() }">
                             </div>
                             <div class="float-l">
                                 <div class="margin-b10 clearfix">
                                     <div class="file-fake">
-                                        <?=CHtml::beginForm(array('/albums/uploadPhoto'), 'post', array('target' => 'upload-target', 'enctype' => 'multipart/form-data'))?>
+                                        <?=CHtml::beginForm(array('settings/uploadPhoto'), 'post', array('target' => 'upload-target', 'enctype' => 'multipart/form-data'))?>
                                         <button class="btn-green btn-medium file-fake_btn">Загрузить  фото</button>
                                         <input type="file" name="photo" onchange="submit()">
                                         <?=CHtml::endForm()?>
@@ -61,7 +61,7 @@
                     <div class="float-r">
                         <div class="blog-title-b">
                             <div class="blog-title-b_img-hold">
-                                <img alt="" class="blog-title-b_img" id="preview" data-bind="attr: { src : photo().originalSrc() }">
+                                <img alt="" class="blog-title-b_img" id="preview" data-bind="attr: { src : draftPhoto().originalSrc() }">
                             </div>
                             <h1 class="blog-title-b_t" data-bind="text: title"></h1>
                         </div>
@@ -118,16 +118,14 @@
     <script type="text/javascript">
         function showPreview(coords)
         {
-            console.log(coords);
-
             position = coords;
 
             var rx = 720 / coords.w;
             var ry = 128 / coords.h;
 
             $('#preview').css({
-                width: Math.round(rx * blogVM.photo().width()) + 'px',
-                height: Math.round(ry * blogVM.photo().height()) + 'px',
+                width: Math.round(rx * blogVM.draftPhoto().width()) + 'px',
+                height: Math.round(ry * blogVM.draftPhoto().height()) + 'px',
                 marginLeft: '-' + Math.round(rx * coords.x) + 'px',
                 marginTop: '-' + Math.round(ry * coords.y) + 'px'
             });
@@ -144,6 +142,12 @@
                 boxWidth: 320
             }, function(){
                 jcrop_api = this;
+            });
+
+            $('#upload-target').on('load', function() {
+                var response = $(this).contents().find('#response').text();
+                if (response.length > 0)
+                    blogVM.draftPhoto(new Photo($.parseJSON(response)));
             });
         });
     </script>

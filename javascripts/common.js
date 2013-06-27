@@ -88,7 +88,6 @@ $(document).ready(function () {
 //    });
 
    $('.wysiwyg-redactor-v').redactor({
-       lang: 'es',
        minHeight: 450,
        autoresize: true,
        /* В базовом варианте нет кнопок 'h2', 'h3', 'link_add', 'link_del' но их функции реализованы с помощью выпадающих списков */

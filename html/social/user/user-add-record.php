@@ -620,6 +620,7 @@
 									<div class="textalign-c clearfix">
 										<div class="b-add-img_i b-add-img_i__single">
 											<img class="b-add-img_i-img" src="/images/example/w440-h340.jpg" alt="">
+											<div class="b-add-img_i-vert"></div>
 											<div class="b-add-img_i-overlay">
 												<a href="" class="b-add-img_i-del ico-close4"></a>
 											</div>
@@ -888,6 +889,371 @@
 		</div>
 	</div>
 	<!-- /popup-user-add-video -->
+	
+	<!-- popup-user-add-photo -->
+	<div id="popup-user-add-photo" class="popup-user-add-record">
+		<a class="popup-transparent-close powertip" onclick="$.fancybox.close();" href="javascript:void(0);" title="Закрыть"></a>
+		<div class="clearfix">
+			<div class="w-720 float-r">
+				
+				<div class="user-add-record user-add-record__yellow clearfix">
+					<div class="user-add-record_ava-hold">
+						<a href="" class="ava male">
+							<span class="icon-status status-online"></span>
+							<img alt="" src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg">
+						</a>
+					</div>
+					<div class="user-add-record_hold">
+						<div class="user-add-record_tx">Я хочу добавить</div>
+						<a href="#popup-user-add-article" class="user-add-record_ico user-add-record_ico__article fancy">Статью</a>
+						<a href="#popup-user-add-photo" class="user-add-record_ico user-add-record_ico__photo active fancy">Фото</a>
+						<a href="#popup-user-add-video" class="user-add-record_ico user-add-record_ico__video fancy">Видео</a>
+					</div>
+				</div>
+				
+				<div class="b-settings-blue b-settings-blue__photo">
+					<div class="b-settings-blue_tale"></div>
+					<div class="clearfix">
+						<div class="b-settings-blue_photo-record">
+							<div class="b-settings-blue_photo-record-t">Личные <br> фотоальбомы</div>
+							<div class="b-settings-blue_photo-record-img">
+								<img src="/images/b-settings-blue_photo-record-img1.png" alt="" class="">
+							</div>
+							<div class="clearfix">
+								<a href="" class="btn-blue btn-h46">Загрузить фото</a>
+							</div>
+						</div>
+						<div class="b-settings-blue_photo-record">
+							<div class="b-settings-blue_photo-record-t">Фотопост <br> в блоге</div>
+							<div class="b-settings-blue_photo-record-img">
+								<img src="/images/b-settings-blue_photo-record-img2.png" alt="" class="">
+							</div>
+							<div class="clearfix">
+								<a href="" class="btn-blue btn-h46">Создать фотопост</a>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+				
+				<div class="b-settings-blue b-settings-blue__photo">
+					<div class="b-settings-blue_tale"></div>
+					<div class="b-settings-blue_head">
+						<div class="b-settings-blue_row clearfix">
+							<div class="clearfix">
+								<div class="float-r font-small color-gray margin-3">0/50</div>
+							</div>
+							<label for="" class="b-settings-blue_label">Заголовок</label>
+							<input type="text" name="" id="" class="itx-simple w-400" placeholder="Введите заголовок видео">
+						</div>
+						<div class="b-settings-blue_row clearfix">
+							<label for="" class="b-settings-blue_label">Рубрика</label>
+							<div class="w-400 float-l">
+								<div class="chzn-itx-simple">
+									<select class="chzn">
+										<option selected="selected">0</option>
+										<option>Россия</option>
+										<option>2</option>
+										<option>32</option>						
+										<option>32</option>						
+										<option>32</option>						
+										<option>32</option>						
+										<option>132</option>						
+										<option>132</option>						
+										<option>132</option>						
+									</select>
+									<div class="chzn-itx-simple_add">
+										<div class="chzn-itx-simple_add-hold">
+											<input type="text" name="" id="" class="chzn-itx-simple_add-itx">
+											<a href="" class="chzn-itx-simple_add-del"></a>
+										</div>
+										<button class="btn-green">Ok</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					
+					<!-- .dragover - класс добавлять, когда курсер мыши с файлами находится над блоком -->
+					<div class="b-add-img b-add-img__for-multi">
+						<div class="b-add-img_hold">
+							<div class="b-add-img_t">
+								Загрузите фотографии с компьютера
+								<div class="b-add-img_t-tx">Поддерживаемые форматы: jpg и png</div>
+							</div>
+							<div class="file-fake">
+								<button class="btn-green btn-medium file-fake_btn">Обзор</button>
+								<input type="file" name="">
+							</div>
+						</div>
+						<div class="b-add-img_html5-tx">или перетащите фото сюда</div>
+					</div>
+					
+					<div class="b-settings-blue_row clearfix">
+						<textarea name="" id="" cols="80" rows="5" class="b-settings-blue_textarea itx-simple" placeholder="Ваш текст к фотопосту "></textarea>
+					</div>
+					<div class=" clearfix">
+						<a href="" class="btn-blue btn-h46 float-r btn-inactive">Добавить</a>
+						<a href="" class="btn-gray-light btn-h46 float-r margin-r15">Отменить</a>
+						
+						<div class="float-l">
+							<div class="privacy-select clearfix">
+								<div class="privacy-select_hold clearfix">
+									<div class="privacy-select_tx">Для кого:</div>
+									<div class="privacy-select_drop-hold">
+										<a href="" class="privacy-select_a">
+											<span class="ico-users ico-users__friend active"></span>
+											<span class="privacy-select_a-tx">только <br>друзьям</span>
+										</a>
+									</div>
+									<div class="privacy-select_drop">
+										<div class="privacy-select_i">
+											<a href="" class="privacy-select_a">
+											<span class="ico-users ico-users__all"></span>
+											<span class="privacy-select_a-tx">для <br>всех</span>
+											</a>
+										</div>
+										<div class="privacy-select_i">
+											<a href="" class="privacy-select_a">
+											<span class="ico-users ico-users__friend"></span>
+											<span class="privacy-select_a-tx">только <br>друзьям</span>
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="b-settings-blue b-settings-blue__photo">
+					<div class="b-settings-blue_tale"></div>
+					<div class="b-settings-blue_head">
+						<div class="b-settings-blue_row clearfix">
+							<label for="" class="b-settings-blue_label">Фотоальбом</label>
+							<div class="w-400 float-l">
+								<div class="chzn-itx-simple">
+									<select class="chzn">
+										<option selected="selected">0</option>
+										<option>Россия</option>
+										<option>2</option>
+										<option>32</option>						
+										<option>32</option>						
+										<option>32</option>						
+										<option>32</option>						
+										<option>132</option>						
+										<option>132</option>						
+										<option>132</option>						
+									</select>
+									<div class="chzn-itx-simple_add">
+										<div class="chzn-itx-simple_add-hold">
+											<input type="text" name="" id="" class="chzn-itx-simple_add-itx">
+											<a href="" class="chzn-itx-simple_add-del"></a>
+										</div>
+										<button class="btn-green">Ok</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+							
+					<div class="b-add-img b-add-img__single">
+						<div class="b-add-img_hold">
+							<div class="b-add-img_t">
+								Загрузите фотографии с компьютера
+								<div class="b-add-img_t-tx">Поддерживаемые форматы: jpg и png</div>
+							</div>
+							<div class="file-fake">
+								<button class="btn-green btn-medium file-fake_btn">Обзор</button>
+								<input type="file" name="">
+							</div>
+						</div>
+						<div class="textalign-c clearfix">
+							<div class="b-add-img_i b-add-img_i__single">
+								<img class="b-add-img_i-img" src="/images/example/w440-h340.jpg" alt="">
+								<div class="b-add-img_i-vert"></div>
+								<div class="b-add-img_i-overlay">
+									<a href="" class="b-add-img_i-del ico-close4"></a>
+								</div>
+							</div>
+						</div>
+						<!-- Текст приглашения для перетаскивания можно скрыть или удалить при наличии фото -->
+						<div class="b-add-img_html5-tx display-n">или перетащите фото сюда</div>
+					</div>
+					
+					<div class=" clearfix">
+						<a href="" class="btn-blue btn-h46 float-r">Добавить</a>
+						<a href="" class="btn-gray-light btn-h46 float-r margin-r15">Отменить</a>
+						
+						<div class="float-l">
+							<div class="privacy-select clearfix">
+								<div class="privacy-select_hold clearfix">
+									<div class="privacy-select_tx">Для кого:</div>
+									<div class="privacy-select_drop-hold">
+										<a href="" class="privacy-select_a">
+											<span class="ico-users ico-users__friend active"></span>
+											<span class="privacy-select_a-tx">только <br>друзьям</span>
+										</a>
+									</div>
+									<div class="privacy-select_drop display-b">
+										<div class="privacy-select_i">
+											<a href="" class="privacy-select_a">
+											<span class="ico-users ico-users__all"></span>
+											<span class="privacy-select_a-tx">для <br>всех</span>
+											</a>
+										</div>
+										<div class="privacy-select_i">
+											<a href="" class="privacy-select_a">
+											<span class="ico-users ico-users__friend"></span>
+											<span class="privacy-select_a-tx">только <br>друзьям</span>
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="b-settings-blue b-settings-blue__photo">
+					<div class="b-settings-blue_tale"></div>
+					<div class="b-settings-blue_head">
+						<div class="b-settings-blue_row clearfix">
+							<label for="" class="b-settings-blue_label">Фотоальбом</label>
+							<div class="w-400 float-l">
+								<div class="chzn-itx-simple">
+									<select class="chzn">
+										<option selected="selected">0</option>
+										<option>Россия</option>
+										<option>2</option>
+										<option>32</option>						
+										<option>32</option>						
+										<option>32</option>						
+										<option>32</option>						
+										<option>132</option>						
+										<option>132</option>						
+										<option>132</option>						
+									</select>
+									<div class="chzn-itx-simple_add">
+										<div class="chzn-itx-simple_add-hold">
+											<input type="text" name="" id="" class="chzn-itx-simple_add-itx">
+											<a href="" class="chzn-itx-simple_add-del"></a>
+										</div>
+										<button class="btn-green">Ok</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+							
+					<div class="b-add-img b-add-img__multi">
+						<div class="b-add-img_hold">
+							<div class="b-add-img_t">
+								Загрузите фотографии с компьютера
+								<div class="b-add-img_t-tx">Поддерживаемые форматы: jpg и png</div>
+							</div>
+							<div class="file-fake">
+								<button class="btn-green btn-medium file-fake_btn">Обзор</button>
+								<input type="file" name="">
+							</div>
+						</div>
+						<div class="textalign-c clearfix">
+							<div class="b-add-img_i">
+								<img class="b-add-img_i-img" src="/images/example/w440-h340.jpg" alt="">
+								<!-- b-add-img_i-vert для вертикального позиционирования маленькой каритнки -->
+								<div class="b-add-img_i-vert"></div>
+								<div class="b-add-img_i-overlay">
+									<a href="" class="b-add-img_i-del ico-close4"></a>
+								</div>
+							</div>
+							<div class="b-add-img_i">
+								<img class="b-add-img_i-img" src="/images/example/w64-h61-2.jpg" alt="">
+								<div class="b-add-img_i-vert"></div>
+								<div class="b-add-img_i-overlay">
+									<a href="" class="b-add-img_i-del ico-close4"></a>
+								</div>
+							</div>
+							<div class="b-add-img_i">
+								<img class="b-add-img_i-img" src="/images/example/11.jpg" alt="">
+								<div class="b-add-img_i-vert"></div>
+								<div class="b-add-img_i-overlay">
+									<a href="" class="b-add-img_i-del ico-close4"></a>
+								</div>
+							</div>
+							<div class="b-add-img_i">
+								<img class="b-add-img_i-img" src="/images/example/w220-h309-1.jpg" alt="">
+								<div class="b-add-img_i-vert"></div>
+								<div class="b-add-img_i-overlay">
+									<a href="" class="b-add-img_i-del ico-close4"></a>
+								</div>
+							</div>
+							<div class="b-add-img_i">
+								<img class="b-add-img_i-img" src="/images/example/w720-h128.jpg" alt="">
+								<div class="b-add-img_i-vert"></div>
+								<div class="b-add-img_i-overlay">
+									<a href="" class="b-add-img_i-del ico-close4"></a>
+								</div>
+							</div>
+							<div class="b-add-img_i error">
+								<div class="b-add-img_i-error-tx">файл мотик.jpg не удалось загрузить, более 10 Мб</div>
+								<div class="b-add-img_i-vert"></div>
+								<div class="b-add-img_i-overlay">
+									<a href="" class="b-add-img_i-del ico-close4"></a>
+								</div>
+							</div>
+							<div class="b-add-img_i">
+								<div class="b-add-img_i-load">
+									<img src="/images/ico/ajax-loader.gif" alt=""> <br>
+									Загрузка фото
+								</div>
+								<div class="b-add-img_i-vert"></div>
+								<div class="b-add-img_i-overlay">
+									<a href="" class="b-add-img_i-del ico-close4"></a>
+								</div>
+							</div>
+						</div>
+						<!-- Текст приглашения для перетаскивания можно скрыть или удалить при наличии фото -->
+						<div class="b-add-img_html5-tx display-n">или перетащите фото сюда</div>
+					</div>
+					
+					<div class=" clearfix">
+						<a href="" class="btn-blue btn-h46 float-r">Добавить</a>
+						<a href="" class="btn-gray-light btn-h46 float-r margin-r15">Отменить</a>
+						
+						<div class="float-l">
+							<div class="privacy-select clearfix">
+								<div class="privacy-select_hold clearfix">
+									<div class="privacy-select_tx">Для кого:</div>
+									<div class="privacy-select_drop-hold">
+										<a href="" class="privacy-select_a">
+											<span class="ico-users ico-users__friend active"></span>
+											<span class="privacy-select_a-tx">только <br>друзьям</span>
+										</a>
+									</div>
+									<div class="privacy-select_drop display-b">
+										<div class="privacy-select_i">
+											<a href="" class="privacy-select_a">
+											<span class="ico-users ico-users__all"></span>
+											<span class="privacy-select_a-tx">для <br>всех</span>
+											</a>
+										</div>
+										<div class="privacy-select_i">
+											<a href="" class="privacy-select_a">
+											<span class="ico-users ico-users__friend"></span>
+											<span class="privacy-select_a-tx">только <br>друзьям</span>
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /popup-user-add-photo -->
 	
 </div>
 </body>

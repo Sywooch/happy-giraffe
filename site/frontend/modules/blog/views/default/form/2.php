@@ -111,5 +111,5 @@
     }
 
     formVM = new BlogFormPostViewModel();
-    ko.applyBindings(formVM, document.getElementById('popup-user-add-article'));
+    ko.applyBindings(formVM, document.getElementById('popup-user-add-video'));
 </script>

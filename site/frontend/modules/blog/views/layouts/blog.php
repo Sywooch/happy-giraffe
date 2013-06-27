@@ -2,7 +2,7 @@
 <?php
     Yii::app()->clientScript
         ->registerCssFile('/stylesheets/user.css')
-        ->registerScriptFile('/javascripts/ko_blog.js')
+        ->registerScriptFile('/javascripts/ko_blog.js', CClientScript::POS_END)
         ->registerScriptFile('/javascripts/jquery.Jcrop.min.js')
     ;
 ?>

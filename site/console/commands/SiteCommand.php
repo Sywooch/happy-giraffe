@@ -248,23 +248,40 @@ class SiteCommand extends CConsoleCommand
     }
 
     public function actionStats(){
-        $res = Yii::app()->db->createCommand()
-            ->select('author_id, count(id) as cnt')
-            ->from('comments')
-            ->where('created >= "'.date("Y-m-d H:i:s", strtotime('-2 month')).'" and removed = 0')
-            ->group('author_id')
-            ->order('cnt desc')
-            ->limit(100)
-            ->queryAll();
+        Yii::import('site.frontend.modules.friends.models.*');
+        $criteria = new CDbCriteria;
+        $criteria->condition = 'last_updated >= "'.date("Y-m-d H:i:s", strtotime('-1 year')).'" and deleted = 0 AND `group`=0';
+        $criteria->group = 'id';
+        $criteria->limit = 100;
+        $criteria->order = 'last_updated desc';
+        $criteria->offset = 0;
 
-        $str = '';
-        foreach ($res as $row) {
-            echo $row['cnt']."\n";
-            $model = User::model()->findByPk($row['author_id']);
-            if ($model->group == 0 && $model->deleted == 0)
-                $str.= $model->fullName. ' - http://www.happy-giraffe.ru/user/'.$model->id.'/'."\n";
+        $result = array();
+        $models = 1;
+        $fp = fopen('/home/beryllium/file.csv', 'w');
+        while(!empty($models)){
+            $models = User::model()->findAll($criteria);
+
+            foreach($models as $model){
+                $posts_count = CommunityContent::model()->count('author_id=:author_id and removed = 0', array(':author_id' => $model->id));
+                $comments_count = Comment::model()->count('author_id=:author_id and removed = 0 and entity != "ContestWork"', array(':author_id' => $model->id));
+
+                if ($comments_count > 0){
+                    $result = array(
+                        $model->getFullName(),
+                        'http://www.happy-giraffe.ru/user/'.$model->id.'/',
+                        $model->register_date,
+                        $model->last_updated,
+                        $model->last_updated,
+                        $posts_count,
+                        $comments_count,
+                        Friend::model()->getCountByUserId($model->id)
+                    );
+                    fputcsv($fp, $result);
+                }
+            }
+
+            $criteria->offset = $criteria->offset + 100;
         }
-
-        file_put_contents('/home/beryllium/users.txt', $str);
     }
 }

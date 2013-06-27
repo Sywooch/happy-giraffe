@@ -13,6 +13,7 @@ var BlogViewModel = function(data) {
     self.title = ko.observable(data.title);
     self.description = ko.observable(data.description);
     self.photo = ko.observable(data.photo === null ? null : new Photo(data.photo));
+    self.draftPhoto = ko.observable(data.photo === null ? null : new Photo(data.photo));
     self.currentRubricId = data.currentRubricId;
     self.rubrics = ko.observableArray(ko.utils.arrayMap(data.rubrics, function(rubric) {
         return new Rubric(rubric, self);
@@ -34,7 +35,8 @@ var BlogViewModel = function(data) {
     }
 
     self.save = function() {
-        $.post(data.updateUrl, { blog_title : self.title(), blog_description : self.description(), blog_photo_position : position }, function(response) {
+        $.post(data.updateUrl, { blog_title : self.title(), blog_description : self.description(), blog_photo_id : self.draftPhoto().id(), blog_photo_position : position }, function(response) {
+            self.photo().thumbSrc(response.thumbSrc);
             $.fancybox.close();
         }, 'json');
     }
@@ -43,21 +45,21 @@ var BlogViewModel = function(data) {
         self.rubrics.push(new Rubric({ id : null, title : '', beingEdited : true }, self));
     }
 
-    self.photo.subscribe(function() {
+    self.draftPhoto.subscribe(function() {
         jcrop_api.destroy();
+        var x = self.draftPhoto().width()/2 - 720/2;
+        var y = self.draftPhoto().height()/2 - 128/2;
+        var x2 = x + 720;
+        var y2 = y + 128;
         $('.popup-blog-set_jcrop-img').Jcrop({
-            setSelect: [ 0, 0, 100, 100 ],
+            setSelect: [ x, y, x2, y2 ],
             onChange: showPreview,
             onSelect: showPreview,
             aspectRatio: 720 / 128,
             boxWidth: 320
+        }, function(){
+            jcrop_api = this;
         });
-    });
-
-    $('#upload-target').on('load', function() {
-        var response = $(this).contents().find('#response').text();
-        if (response.length > 0)
-            blogSettings.photo(new Photo($.parseJSON(response)));
     });
 }
 

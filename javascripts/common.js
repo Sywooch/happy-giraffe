@@ -91,10 +91,39 @@ $(document).ready(function () {
        lang: 'es',
        minHeight: 450,
        autoresize: true,
-       buttons: ['formatting',  'bold', 'italic', 'underline', 'deleted', 'unorderedlist', 'orderedlist', 'link', '|', 'image', 'video', 'smile'],
+       /* В базовом варианте нет кнопок 'h2', 'h3', 'link_add', 'link_del' но их функции реализованы с помощью выпадающих списков */
+       buttons: ['bold', 'italic', 'underline', 'deleted', 'h2', 'h3', 'unorderedlist', 'orderedlist', 'link_add', 'link_del', 'image', 'video', 'smile'],
        buttonsCustom: {
            smile: {
                title: 'smile',
+               callback: function(buttonName, buttonDOM, buttonObject) {
+                   // your code, for example - getting code
+                   var html = this.get();
+               }
+           },
+           link_add: {
+               title: 'link_add',
+               callback: function(buttonName, buttonDOM, buttonObject) {
+                   // your code, for example - getting code
+                   var html = this.get();
+               }
+           },
+           link_del: {
+               title: 'link_del',
+               callback: function(buttonName, buttonDOM, buttonObject) {
+                   // your code, for example - getting code
+                   var html = this.get();
+               }
+           },
+           h2: {
+               title: 'h2',
+               callback: function(buttonName, buttonDOM, buttonObject) {
+                   // your code, for example - getting code
+                   var html = this.get();
+               }
+           },
+           h3: {
+               title: 'h3',
                callback: function(buttonName, buttonDOM, buttonObject) {
                    // your code, for example - getting code
                    var html = this.get();

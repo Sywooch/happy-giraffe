@@ -34,26 +34,8 @@ function removeA(arr) {
 }
 
 $(document).ready(function () {
-
-//$('.popup-blog-set_jcrop-img').Jcrop({
-//    setSelect:   [ 20, 20, 300, 300 ],
-//    aspectRatio: 45 / 8
-//});
-
     $('.js-like-control').blockFixed({'posTop':120});
     $('.js-fast-articles2').blockFixed({'posTop': 60, 'minPosBottom':250});
-
-    $('.article-settings_a__settings').click(function(){
-        var parent = $(this).closest('.article-settings');
-        parent.toggleClass('active');
-        parent.find('.article-settings_hold').slideToggle(300);
-        return false;
-    });
-
-    $('.ico-users').click(function(){
-        $(this).toggleClass('active');
-        $(this).closest('.article-settings_i').find('.article-settings_drop').toggle(200);
-    });
 
     $(".wysiwyg-content").addtocopy({htmlcopytxt:'<br /><br />Подробнее: <a href="' + window.location.href + '">' + window.location.href + '</a>'});
 
@@ -105,21 +87,50 @@ $(document).ready(function () {
 //        }
 //    });
 
-//   $('.wysiwyg-redactor-v').redactor({
-//       lang: 'es',
-//       minHeight: 450,
-//       autoresize: true,
-//       buttons: [ 'bold', 'italic', 'underline', '|', 'image', 'video', 'smile'],
-//       buttonsCustom: {
-//           smile: {
-//               title: 'smile',
-//               callback: function(buttonName, buttonDOM, buttonObject) {
-//                   // your code, for example - getting code
-//                   var html = this.get();
-//               }
-//           }
-//       }
-//   });
+   $('.wysiwyg-redactor-v').redactor({
+       lang: 'es',
+       minHeight: 450,
+       autoresize: true,
+       /* В базовом варианте нет кнопок 'h2', 'h3', 'link_add', 'link_del' но их функции реализованы с помощью выпадающих списков */
+       buttons: ['bold', 'italic', 'underline', 'deleted', 'h2', 'h3', 'unorderedlist', 'orderedlist', 'link_add', 'link_del', 'image', 'video', 'smile'],
+       buttonsCustom: {
+           smile: {
+               title: 'smile',
+               callback: function(buttonName, buttonDOM, buttonObject) {
+                   // your code, for example - getting code
+                   var html = this.get();
+               }
+           },
+           link_add: {
+               title: 'link_add',
+               callback: function(buttonName, buttonDOM, buttonObject) {
+                   // your code, for example - getting code
+                   var html = this.get();
+               }
+           },
+           link_del: {
+               title: 'link_del',
+               callback: function(buttonName, buttonDOM, buttonObject) {
+                   // your code, for example - getting code
+                   var html = this.get();
+               }
+           },
+           h2: {
+               title: 'h2',
+               callback: function(buttonName, buttonDOM, buttonObject) {
+                   // your code, for example - getting code
+                   var html = this.get();
+               }
+           },
+           h3: {
+               title: 'h3',
+               callback: function(buttonName, buttonDOM, buttonObject) {
+                   // your code, for example - getting code
+                   var html = this.get();
+               }
+           }
+       }
+   });
 
      /* Подсказки при наведении */
     $('.js-tooltipsy').tooltipsy({offset:[0, 1]});
@@ -817,7 +828,7 @@ function FriendButtonViewModel(data) {
             if (response.status)
                 self.status(3);
         }, 'json');
-    }
+    };
 
     self.accept = function() {
         $.post('/friends/requests/accept/', { fromId : self.id }, function(response) {
@@ -825,6 +836,19 @@ function FriendButtonViewModel(data) {
                 self.status(1);
         }, 'json');
     }
+}
+
+function HgLike(el, entity, entity_id){
+    $.post('/ajaxSimple/like/', {entity: entity, entity_id: entity_id}, function (response) {
+        if (response.status) {
+            if ($(el).hasClass('active')){
+                $(el).text(parseInt($(el).text()) - 1);
+            }else{
+                $(el).text(parseInt($(el).text()) + 1);
+            }
+            $(el).toggleClass('active');
+        }
+    }, 'json');
 }
 
 

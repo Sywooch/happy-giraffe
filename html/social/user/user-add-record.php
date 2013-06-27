@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
-<!--[if lt IE 8]>      <html class="top-nav-fixed ie7"> <![endif]-->
-<!--[if IE 8]>         <html class="top-nav-fixed ie8"> <![endif]-->
-<!--[if IE 9]>         <html class="top-nav-fixed ie9"> <![endif]-->
+<!--[if lt IE 8]>      <html class="ie7"> <![endif]-->
+<!--[if IE 8]>         <html class="ie8"> <![endif]-->
+<!--[if IE 9]>         <html class="ie9"> <![endif]-->
 <!--[if gt IE 9]><!--> <html class=""> <!--<![endif]-->
 <head>
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/head.php'; ?>
@@ -254,12 +254,6 @@
 							<div class="wysiwyg-content clearfix">
 								
 								<p>Практически нет девушки, которая не переживала бы за отношения героев "Сумерек" как в на экранах, так и в жизни. Но, к сожалению, даже несмотря на то, что недавно герои "Сумерек" радовали всех тем, что у них невероятный роман  и в рельной жизни, а не только лишь на экране, все же <a href="">Роберт Паттинсон</a>  и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.</p>
-								
-								<h2>H2 Где можно поменять название трека</h2>
-								<div class="b-article_in-img">
-									<img title="Ночные гости - кто они фото 1" src="http://img.happy-giraffe.ru/thumbs/700x700/56/edad8d334a0b4a086a50332a2d8fd0fe.JPG" class="content-img" alt="Ночные гости - кто они фото 1">
-								</div>
-								<p>	Недавно посмотрел фильм "Убить Дракона" снятый в 1988 году с Абдуловым в главной роли. По мотивам пьесы Евгения Шварца «Дракон».</p>
 							</div>
 						</div>
 						<div class="custom-likes-b">
@@ -307,145 +301,36 @@
 							</div>
 							<div class="comments-gray_hold">
 								<div class="comments-gray_hold">
-								<div class="comments-gray_i comments-gray_i__self">
-									<div class="comments-gray_ava">
-										<a href="" class="ava small male"></a>
-									</div>
-									<div class="comments-gray_frame">
-										<div class="comments-gray_header clearfix">
-											<a href="" class="comments-gray_author">Ангелина Богоявленская </a>
-											<span class="font-smallest color-gray">Сегодня 13:25</span>
+									<div class="comments-gray_i">
+										<a href="" class="comments-gray_like like-hg-small powertip" title="Нравится">7918</a>
+										<div class="comments-gray_ava">
+											<a href="" class="ava small female"></a>
 										</div>
-										<div class="comments-gray_cont wysiwyg-content">
-											<p>	Мне безумно жалко всех женщин, но особенно Тину Кароль, я просто представить себе не могу <a href="">как она все это переживет</a> как она все это переживет(</p>
-											<p>я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.  я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически </p>
+										<div class="comments-gray_frame">
+											<div class="comments-gray_header clearfix">
+												<a href="" class="comments-gray_author">Анг Богоявлен </a>
+												<span class="font-smallest color-gray">Сегодня 14:25</span>
+											</div>
+											<div class="comments-gray_cont wysiwyg-content">
+												<p>я не нашел, где можно поменять название трека. </p>
+											</div>
 										</div>
-									</div>
-									<div class="comments-gray_control comments-gray_control__self">
-										<div class="comments-gray_control-hold">
-											<div class="clearfix">
-												<a href="" class="message-ico message-ico__edit powertip" title="Редактировать"></a>
+										
+										<div class="comments-gray_control">
+											<div class="comments-gray_control-hold">
+												<div class="clearfix">
+													<a href="" class="comments-gray_quote-ico powertip" title="Ответить"></a>
+												</div>
+												<div class="clearfix">
+													<a href="" class="message-ico message-ico__del powertip" title="Удалить"></a>
+												</div>
 											</div>
 											<div class="clearfix">
-												<a href="" class="message-ico message-ico__del powertip" title="Удалить"></a>
+												<a href="" class="message-ico message-ico__warning powertip" title="Пожаловаться"></a>
 											</div>
 										</div>
 									</div>
 								</div>
-								<div class="comments-gray_i">
-									<a href="" class="comments-gray_like like-hg-small powertip" title="Нравится">78</a>
-									<div class="comments-gray_ava">
-										<a href="" class="ava small female"></a>
-									</div>
-									<div class="comments-gray_frame">
-										<div class="comments-gray_header clearfix">
-											<a href="" class="comments-gray_author">Анг Богоявлен </a>
-											<span class="font-smallest color-gray">Сегодня 14:25</span>
-										</div>
-										<div class="comments-gray_cont wysiwyg-content">
-											<p>я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.  я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически </p>
-										</div>
-									</div>
-									
-									<div class="comments-gray_control">
-										<div class="comments-gray_control-hold">
-											<div class="clearfix">
-												<a href="" class="comments-gray_quote-ico powertip" title="Ответить"></a>
-											</div>
-											<div class="clearfix">
-												<a href="" class="message-ico message-ico__del powertip" title="Удалить"></a>
-											</div>
-										</div>
-										<div class="clearfix">
-											<a href="" class="message-ico message-ico__warning powertip" title="Пожаловаться"></a>
-										</div>
-									</div>
-								</div>
-								<div class="comments-gray_i">
-									<a href="" class="comments-gray_like like-hg-small powertip" title="Нравится">7918</a>
-									<div class="comments-gray_ava">
-										<a href="" class="ava small female"></a>
-									</div>
-									<div class="comments-gray_frame">
-										<div class="comments-gray_header clearfix">
-											<a href="" class="comments-gray_author">Анг Богоявлен </a>
-											<span class="font-smallest color-gray">Сегодня 14:25</span>
-										</div>
-										<div class="comments-gray_cont wysiwyg-content">
-											<p>я не нашел, где можно поменять название трека. </p>
-										</div>
-									</div>
-									
-									<div class="comments-gray_control">
-										<div class="comments-gray_control-hold">
-											<div class="clearfix">
-												<a href="" class="comments-gray_quote-ico powertip" title="Ответить"></a>
-											</div>
-											<div class="clearfix">
-												<a href="" class="message-ico message-ico__del powertip" title="Удалить"></a>
-											</div>
-										</div>
-										<div class="clearfix">
-											<a href="" class="message-ico message-ico__warning powertip" title="Пожаловаться"></a>
-										</div>
-									</div>
-								</div>
-								
-								<div class="comments-gray_i comments-gray_i__recovery">
-									<div class="comments-gray_ava">
-										<a href="" class="ava small female"></a>
-									</div>
-									<div class="comments-gray_frame">
-										<div class="comments-gray_header clearfix">
-											<a href="" class="comments-gray_author">Анг Богоявлен </a>
-											<span class="font-smallest color-gray">Сегодня 14:25</span>
-										</div>
-										<div class="comments-gray_cont wysiwyg-content">
-											<p>Комментарий успешно удален.<a href="" class="comments-gray_a-recovery">Восстановить?</a> </p>
-										</div>
-									</div>
-								</div>
-								
-								<div class="comments-gray_i">
-									<a href="" class="comments-gray_like like-hg-small powertip" title="Нравится">78</a>
-									<div class="comments-gray_ava">
-										<a href="" class="ava small female"></a>
-									</div>
-									<div class="comments-gray_frame">
-										<div class="comments-gray_header clearfix">
-											<a href="" class="comments-gray_author">Анг Богоявлен </a>
-											<span class="font-smallest color-gray">Сегодня 14:25</span>
-										</div>
-										<div class="comments-gray_cont wysiwyg-content">
-											<p>я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически производит поиск по сайту </p>
-											<p>
-												<a href="" class="comments-gray_cont-img-w">
-													<!--    max-width: 170px;  max-height: 110px; -->
-													<img src="/images/example/w170-h110.jpg" alt="">
-												</a>
-												<a href="" class="comments-gray_cont-img-w">
-													<img src="/images/example/w220-h309-1.jpg" alt="">
-												</a>
-												<a href="" class="comments-gray_cont-img-w">
-													<img src="/images/example/w200-h133-1.jpg" alt="">
-												</a>
-											</p>
-											<p>и подцепляет естественно студийные версии песен вместо нужных.  я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически </p>
-										</div>
-									</div>
-									
-									<div class="comments-gray_control">
-										<div class="comments-gray_control-hold">
-											<div class="clearfix">
-												<a href="" class="comments-gray_quote-ico powertip" title="Ответить"></a>
-											</div>
-										</div>
-										<div class="clearfix">
-											<a href="" class="message-ico message-ico__warning powertip" title="Пожаловаться"></a>
-										</div>
-									</div>
-								</div>
-							</div>
 							</div>
 							<div class="comments-gray_add clearfix">
 								
@@ -456,6 +341,330 @@
 									<input type="text" name="" id="" class="comments-gray_add-itx itx-gray" placeholder="Ваш комментарий">
 								</div>
 							</div>
+						</div>
+						<div class="position-rel">
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<div class="redactor-popup" style="left:-25px;">
+								<a href="" class="redactor-popup_close ico-close3 powertip" title="Закрыть"></a>
+								<div class="redactor-popup_tale"></div>
+								<div class="redactor-popup_t">Загрузите видео</div>
+								<div class="redactor-popup_video clearfix">
+									<a href="" class="redactor-popup_video-del ico-close powertip" title="Удалить"></a>
+									<iframe width="540" height="300" frameborder="0" allowfullscreen="" src="http://www.youtube.com/embed/pehSAUTqjRs?wmode=transparent"></iframe>
+								</div>
+								<div class="redactor-popup_add-video">
+									<!-- При вводе текста убрать класс .btn-inactive с кнопки для ее активирования -->
+									<input type="text" name="" id="" class="itx-simple w-350 float-l" placeholder="Введите ссылку на видео">
+									<button class="btn-green btn-medium btn-inactive">Загрузить  видео</button>
+								</div>
+								<div class="textalign-c margin-t15">
+									<a href="" class="btn-gray-light btn-medium margin-r10">Отменить</a>
+									<a href="" class="btn-green btn-medium btn-inactive">Добавить видео</a>
+								</div>
+							</div>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<div class="redactor-popup">
+								<a href="" class="redactor-popup_close ico-close3 powertip" title="Закрыть"></a>
+								<div class="redactor-popup_tale"></div>
+								<div class="redactor-popup_t">Выберите смайл</div>
+								<table class="redactor-popup_smiles">
+									<tbody>
+										<tr>
+											<td><a href=""><img src="/images/widget/smiles/acute (1).gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/acute.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/air_kiss.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/angel.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/bad.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/beach.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/beee.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/blush2.gif"></a></td>
+										</tr>
+										<tr>
+											<td><a href=""><img src="/images/widget/smiles/Cherna-girl_on_weight.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/connie_1.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/connie_33.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/connie_36.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/connie_6.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/connie_feedbaby.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/cray.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/dance.gif"></a></td>
+										</tr>
+										<tr>
+											<td><a href=""><img src="/images/widget/smiles/dash2.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/diablo.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/dirol.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/dntknw.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/drinks.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/d_coffee.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/d_lovers.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/facepalm.gif"></a></td>
+										</tr>
+										<tr>
+											<td><a href=""><img src="/images/widget/smiles/fie.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/first_move.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/fool.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/girl_cray2.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/girl_dance.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/girl_drink1.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/girl_hospital.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/girl_prepare_fish.gif"></a></td>
+										</tr>
+										<tr>
+											<td><a href=""><img src="/images/widget/smiles/girl_sigh.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/girl_wink.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/girl_witch.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/give_rose.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/good.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/help.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/JC_hiya.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/JC_hulahoop-girl.gif"></a></td>
+										</tr>
+										<tr>
+											<td><a href=""><img src="/images/widget/smiles/kirtsun_05.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/kuzya_01.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/LaieA_052.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/Laie_16.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/Laie_50.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/Laie_7.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/lazy2.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/l_moto.gif"></a></td>
+										</tr>
+										<tr>
+											<td><a href=""><img src="/images/widget/smiles/mail1.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/Mauridia_21.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/mosking.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/music2.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/negative.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/pardon.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/phil_05.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/phil_35.gif"></a></td>
+										</tr>
+										<tr>
+											<td><a href=""><img src="/images/widget/smiles/popcorm1.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/preved.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/rofl.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/sad.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/scratch_one-s_head.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/secret.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/shok.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/smile3.gif"></a></td>
+										</tr>
+										<tr>
+											<td><a href=""><img src="/images/widget/smiles/sorry.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/tease.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/to_become_senile.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/viannen_10.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/wacko2.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/wink.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/yahoo.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/yes3.gif"></a></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<div class="redactor-popup" style="left:-25px;">
+								<a href="" class="redactor-popup_close ico-close3 powertip" title="Закрыть"></a>
+								<div class="redactor-popup_tale"></div>
+								<div class="redactor-popup_t">Загрузите фото</div>
+								<!-- .dragover - класс добавлять, когда курсер мыши с файлами находится над блоком -->
+								<div class="b-add-img b-add-img__for-single">
+									<div class="b-add-img_hold">
+										<div class="b-add-img_t">
+											Загрузите фотографии с компьютера
+											<div class="b-add-img_t-tx">Поддерживаемые форматы: jpg и png</div>
+										</div>
+										<div class="file-fake">
+											<button class="btn-green btn-medium file-fake_btn">Обзор</button>
+											<input type="file" name="">
+										</div>
+									</div>
+									<div class="b-add-img_html5-tx">или перетащите фото сюда</div>
+								</div>
+								<div class="textalign-c margin-t15">
+									<a href="" class="btn-gray-light btn-medium margin-r10">Отменить</a>
+									<a href="" class="btn-green btn-medium btn-inactive">Добавить видео</a>
+								</div>
+							</div>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<div class="redactor-popup" style="left:-25px;">
+								<a href="" class="redactor-popup_close ico-close3 powertip" title="Закрыть"></a>
+								<div class="redactor-popup_tale"></div>
+								<div class="redactor-popup_t">Загрузите фото</div>
+								<div class="b-add-img b-add-img__single">
+									<div class="b-add-img_hold">
+										<div class="b-add-img_t">
+											Загрузите фотографии с компьютера
+											<div class="b-add-img_t-tx">Поддерживаемые форматы: jpg и png</div>
+										</div>
+										<div class="file-fake">
+											<button class="btn-green btn-medium file-fake_btn btn-inactive">Обзор</button>
+											<input type="file" name="">
+										</div>
+									</div>
+									<div class="textalign-c clearfix">
+										<div class="b-add-img_i b-add-img_i__single">
+											<img class="b-add-img_i-img" src="/images/example/w440-h340.jpg" alt="">
+											<div class="b-add-img_i-overlay">
+												<a href="" class="b-add-img_i-del ico-close4"></a>
+											</div>
+										</div>
+									</div>
+									<!-- Текст приглашения для перетаскивания можно скрыть или удалить при наличии фото -->
+									<div class="b-add-img_html5-tx display-n">или перетащите фото сюда</div>
+								</div>
+								<div class="textalign-c margin-t15">
+									<a href="" class="btn-gray-light btn-medium margin-r10">Отменить</a>
+									<a href="" class="btn-green btn-medium">Добавить видео</a>
+								</div>
+							</div>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
 						</div>
 					</div>
 				</div>
@@ -471,7 +680,7 @@
 </div>
 
 <div class="display-n">
-	
+	<!-- popup-user-add-article -->
 	<div id="popup-user-add-article" class="popup-user-add-record">
 		<a class="popup-transparent-close powertip" onclick="$.fancybox.close();" href="javascript:void(0);" title="Закрыть"></a>
 		<div class="clearfix">
@@ -504,11 +713,33 @@
 						</div>
 						<div class="b-settings-blue_row clearfix">
 							<label for="" class="b-settings-blue_label">Рубрика</label>
-							<input type="text" name="" id="" class="itx-simple" placeholder="Выберите рубрику">
+							<div class="w-400 float-l">
+								<div class="chzn-itx-simple">
+									<select class="chzn">
+										<option selected="selected">0</option>
+										<option>Россия</option>
+										<option>2</option>
+										<option>32</option>						
+										<option>32</option>						
+										<option>32</option>						
+										<option>32</option>						
+										<option>132</option>						
+										<option>132</option>						
+										<option>132</option>						
+									</select>
+									<div class="chzn-itx-simple_add">
+										<div class="chzn-itx-simple_add-hold">
+											<input type="text" name="" id="" class="chzn-itx-simple_add-itx">
+											<a href="" class="chzn-itx-simple_add-del"></a>
+										</div>
+										<button class="btn-green">Ok</button>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
 					
-					<div class="wysiwyg-v clearfix">
+					<div class="wysiwyg-v wysiwyg-blue clearfix">
 						<textarea name="" class="wysiwyg-redactor-v"></textarea>
 					</div>
 					
@@ -548,6 +779,9 @@
 			</div>
 		</div>
 	</div>
+	<!-- /popup-user-add-article -->
+	
+	<!-- popup-user-add-video -->
 	<div id="popup-user-add-video" class="popup-user-add-record">
 		<a class="popup-transparent-close powertip" onclick="$.fancybox.close();" href="javascript:void(0);" title="Закрыть"></a>
 		<div class="clearfix">
@@ -580,7 +814,29 @@
 						</div>
 						<div class="b-settings-blue_row clearfix">
 							<label for="" class="b-settings-blue_label">Рубрика</label>
-							<input type="text" name="" id="" class="itx-simple" placeholder="Выберите рубрику">
+							<div class="w-400 float-l">
+								<div class="chzn-itx-simple">
+									<select class="chzn">
+										<option selected="selected">0</option>
+										<option>Россия</option>
+										<option>2</option>
+										<option>32</option>						
+										<option>32</option>						
+										<option>32</option>						
+										<option>32</option>						
+										<option>132</option>						
+										<option>132</option>						
+										<option>132</option>						
+									</select>
+									<div class="chzn-itx-simple_add">
+										<div class="chzn-itx-simple_add-hold">
+											<input type="text" name="" id="" class="chzn-itx-simple_add-itx">
+											<a href="" class="chzn-itx-simple_add-del"></a>
+										</div>
+										<button class="btn-green">Ok</button>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
 					<div class="b-settings-blue_add-video clearfix">
@@ -588,11 +844,15 @@
 						<input type="text" name="" id="" class="itx-simple w-400 float-l" placeholder="Введите ссылку на видео">
 						<button class="btn-green btn-inactive">Загрузить  видео</button>
 					</div>
+					<div class="b-settings-blue_video clearfix">
+						<a href="" class="b-settings-blue_video-del ico-close2 powertip" title="Удалить"></a>
+						<iframe width="580" height="320" frameborder="0" allowfullscreen="" src="http://www.youtube.com/embed/pehSAUTqjRs?wmode=transparent"></iframe>
+					</div>
 					<div class="b-settings-blue_row clearfix">
-						<textarea name="" id="" cols="30" rows="10" class="b-settings-blue_textarea itx-simple" placeholder="Ваш комментарий"></textarea>
+						<textarea name="" id="" cols="80" rows="5" class="b-settings-blue_textarea itx-simple" placeholder="Ваш комментарий"></textarea>
 					</div>
 					<div class=" clearfix">
-						<a href="" class="btn-blue btn-h46 float-r">Добавить</a>
+						<a href="" class="btn-blue btn-h46 float-r btn-inactive">Добавить</a>
 						<a href="" class="btn-gray-light btn-h46 float-r margin-r15">Отменить</a>
 						
 						<div class="float-l">
@@ -627,6 +887,7 @@
 			</div>
 		</div>
 	</div>
+	<!-- /popup-user-add-video -->
 	
 </div>
 </body>

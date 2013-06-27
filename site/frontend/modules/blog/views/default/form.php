@@ -1,5 +1,3 @@
-<?php $this->renderPartial('form/' . $type, compact('model', 'slaveModel')); ?>
-
 <script type="text/javascript">
     $('.wysiwyg-redactor-v').redactor({
 
@@ -82,7 +80,6 @@
             parent.showDropdown(false);
         }
     }
-
-    var formVM = new BlogFormViewModel();
-    ko.applyBindings(formVM, document.getElementById('popup-user-add-article'));
 </script>
+
+<?php $this->renderPartial('form/' . $type, compact('model', 'slaveModel')); ?>

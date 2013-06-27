@@ -103,3 +103,13 @@
         </div>
     </div>
 </div>
+
+<script>
+    var BlogFormVideoViewModel = function() {
+        var self = this;
+        ko.utils.extend(self, new BlogFormViewModel());
+    }
+
+    formVM = new BlogFormPostViewModel();
+    ko.applyBindings(formVM, document.getElementById('popup-user-add-article'));
+</script>

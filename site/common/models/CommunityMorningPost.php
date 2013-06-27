@@ -1,9 +1,9 @@
 <?php
 
 /**
- * This is the model class for table "community__photo_posts".
+ * This is the model class for table "community__morning_posts".
  *
- * The followings are the available columns in table 'community__photo_posts':
+ * The followings are the available columns in table 'community__morning_posts':
  * @property string $id
  * @property string $location
  * @property string $location_image
@@ -18,12 +18,12 @@
  * @property CommunityContent $content
  * @property CommunityPhoto[] $photos
  */
-class CommunityPhotoPost extends HActiveRecord
+class CommunityMorningPost extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return CommunityPhotoPost the static model class
+	 * @return CommunityMorningPost the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -35,7 +35,7 @@ class CommunityPhotoPost extends HActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'community__photo_posts';
+		return 'community__morning_posts';
 	}
 
 	/**

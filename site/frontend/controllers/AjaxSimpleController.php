@@ -44,10 +44,10 @@ class AjaxSimpleController extends CController
         $entity = Yii::app()->request->getPost('entity');
 
         $model = $entity::model()->findByPk($entity_id);
-        if ($model->author_id != Yii::app()->user->id){
+        if ($model->author_id != Yii::app()->user->id) {
             HGLike::model()->saveByEntity($model);
             echo CJSON::encode(array('status' => true));
-        }else
+        } else
             echo CJSON::encode(array('status' => false));
     }
 

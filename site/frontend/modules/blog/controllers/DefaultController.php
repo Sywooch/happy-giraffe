@@ -47,7 +47,7 @@ class DefaultController extends HController
         $this->user = $this->loadUser($user_id);
         $content = $this->loadPost($content_id);
 
-        if (! preg_match('#^\/user\/(\d+)\/blog\/post(\d+)\/#', Yii::app()->request->requestUri)) {
+        if (!preg_match('#^\/user\/(\d+)\/blog\/post(\d+)\/#', Yii::app()->request->requestUri)) {
             header("HTTP/1.1 301 Moved Permanently");
             header("Location: " . $content->url);
             Yii::app()->end();
@@ -124,6 +124,25 @@ class DefaultController extends HController
         if ($success)
             $response['thumbSrc'] = $photo->getBlogUrl() . '?' . time();
         echo CJSON::encode($response);
+    }
+
+    public function actionAttachBlog()
+    {
+        $this->user = Yii::app()->user->model;
+        $content = $this->loadPost(Yii::app()->request->getPost('id'));
+        if ($content->author_id == Yii::app()->user->id && $content->getIsFromBlog()) {
+            echo CJSON::encode(array('status' => $content->attachBlogPost()));
+        }
+    }
+
+    public function actionUpdatePrivacy()
+    {
+        $this->user = Yii::app()->user->model;
+        $content = $this->loadPost(Yii::app()->request->getPost('id'));
+        if ($content->author_id == Yii::app()->user->id && $content->getIsFromBlog()) {
+            $content->privacy = Yii::app()->request->getPost('privacy');
+            echo CJSON::encode(array('status' => $content->update(array('privacy'))));
+        }
     }
 
     protected function getBlogData()

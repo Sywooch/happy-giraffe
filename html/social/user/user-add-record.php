@@ -58,136 +58,6 @@
 						Пусть кто-то будет безумно красивый Пусть кто-то будет богаче и круче Мне наплевать, ведь ты - мой любимый.	Ты навсегда. Ты мой. Самый лучший.
 					</div>
 				</div>
-				
-				<div class="readers2">
-					<a href="" class="btn-green btn-medium">Подписаться</a>
-					<ul class="readers2_ul clearfix">
-						<li class="readers2_li clearfix">
-							<a href="" class="ava female small">
-								<span class="icon-status status-online"></span>
-								<img alt="" src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG">
-							</a>
-						</li>
-						<li class="readers2_li clearfix">
-							<a href="" class="ava female small">
-								<img alt="" src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG">
-							</a>
-						</li>
-						<li class="readers2_li clearfix">
-							<a href="" class="ava female small">
-								<span class="icon-status status-online"></span>
-								<img alt="" src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG">
-							</a>
-						</li>
-						<li class="readers2_li clearfix">
-							<a href="" class="ava female small">
-							</a>
-						</li>
-						<li class="readers2_li clearfix">
-							<a href="" class="ava female small">
-								<span class="icon-status status-online"></span>
-								<img alt="" src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG">
-							</a>
-						</li>
-						<li class="readers2_li clearfix">
-							<a href="" class="ava male small">
-								<span class="icon-status status-online"></span>
-							</a>
-						</li>
-					</ul>
-					<div class="clearfix">
-						<div class="readers2_count">Все подписчики (129)</div>
-					</div>
-				</div>
-				
-				<div class="menu-simple">
-					<ul class="menu-simple_ul">
-						<li class="menu-simple_li">
-							<a href="" class="menu-simple_a">Обо всем</a>
-						</li>
-						<li class="menu-simple_li">
-							<a href="" class="menu-simple_a">Свадьба - прекрасный миг</a>
-						</li>
-						<li class="menu-simple_li">
-							<a href="" class="menu-simple_a">Прикольное видео </a>
-						</li>
-						<li class="menu-simple_li">
-							<a href="" class="menu-simple_a">Школа восточного танца  </a>
-						</li>
-						<li class="menu-simple_li active">
-							<a href="" class="menu-simple_a">Мой мужчина </a>
-						</li>
-						<li class="menu-simple_li">
-							<a href="" class="menu-simple_a">Детские передачи </a>
-						</li>
-						<li class="menu-simple_li">
-							<a href="" class="menu-simple_a">Свадьбы </a>
-						</li>
-						<li class="menu-simple_li">
-							<a href="" class="menu-simple_a">Кормление ребенка </a>
-						</li>
-						<li class="menu-simple_li">
-							<a href="" class="menu-simple_a">Воспитание детей </a>
-						</li>
-					</ul>
-				</div>
-				
-				<div class="fast-articles2 js-fast-articles2">
-					<div class="fast-articles2_t-ico"></div>
-					<div class="fast-articles2_i">
-						<div class="fast-articles2_header clearfix">
-						
-							<div class="meta-gray">
-								<a href="" class="meta-gray_comment">
-									<span class="ico-comment ico-comment__gray"></span>
-									<span class="meta-gray_tx">35</span>
-								</a>
-								<div class="meta-gray_view">
-									<span class="ico-view ico-view__gray"></span>
-									<span class="meta-gray_tx">305</span>
-								</div>
-							</div>
-							
-							<div class="float-l">
-								<span class="font-smallest color-gray">Сегодня 13:25</span>
-							</div>
-						</div>
-						<div class="fast-articles2_i-t">
-							<a href="" class="fast-articles2_i-t-a"> О моем первом бойфренде</a>
-						</div>
-						<div class="fast-articles2_i-desc">Практически нет девушки, которая не переживала </div>
-						<div class="fast-articles2_i-img-hold">
-							<a href=""><img src="/images/example/w190-h166.jpg" alt="" class="fast-articles2_i-img"></a>
-						</div>
-					</div>
-					<div class="fast-articles2_i">
-						<div class="fast-articles2_header clearfix">
-						
-							<div class="meta-gray">
-								<a href="" class="meta-gray_comment">
-									<span class="ico-comment ico-comment__gray"></span>
-									<span class="meta-gray_tx">35</span>
-								</a>
-								<div class="meta-gray_view">
-									<span class="ico-view ico-view__gray"></span>
-									<span class="meta-gray_tx">305</span>
-								</div>
-							</div>
-							
-							<div class="float-l">
-								<span class="font-smallest color-gray">Сегодня 13:25</span>
-							</div>
-						</div>
-						<div class="fast-articles2_i-t">
-							<a href="" class="fast-articles2_i-t-a"> Как мне предлагали руку и сердце</a>
-						</div>
-						<div class="fast-articles2_i-desc">Практически нет девушки, которая не переживала </div>
-						<div class="fast-articles2_i-img-hold">
-							<a href=""><img src="/images/example/w190-h166.jpg" alt="" class="fast-articles2_i-img"></a>
-						</div>
-					</div>
-				</div>
-				
 			</div>
 			<div class="col-23">
 				<div class="user-add-record clearfix">
@@ -360,12 +230,37 @@
 									<!-- При вводе текста убрать класс .btn-inactive с кнопки для ее активирования -->
 									<input type="text" name="" id="" class="itx-simple w-350 float-l" placeholder="Введите ссылку на видео">
 									<button class="btn-green btn-medium btn-inactive">Загрузить  видео</button>
+									<div class="redactor-popup_add-video-load">
+										<img src="/images/ico/ajax-loader.gif" alt=""> <br>
+										Подждите видео загружается
+									</div>
+								</div>
+								<div class="redactor-popup_add-video">
+									<!-- При вводе текста убрать класс .btn-inactive с кнопки для ее активирования -->
+									<input type="text" name="" id="" class="itx-simple w-350 float-l" placeholder="Введите ссылку на видео">
+									<button class="btn-green btn-medium btn-inactive">Загрузить  видео</button>
+									<div class="redactor-popup_add-video-error">
+										Не удалось загрузить видео. <br>
+										Возможно, URL указан неправильно либо ведет на неподдерживаемый сайт.
+									</div>
 								</div>
 								<div class="textalign-c margin-t15">
 									<a href="" class="btn-gray-light btn-medium margin-r10">Отменить</a>
 									<a href="" class="btn-green btn-medium btn-inactive">Добавить видео</a>
 								</div>
 							</div>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
 							<br>
 							<br>
 							<br>
@@ -844,6 +739,19 @@
 						<!-- При вводе текста убрать класс .btn-inactive с кнопки для ее активирования -->
 						<input type="text" name="" id="" class="itx-simple w-400 float-l" placeholder="Введите ссылку на видео">
 						<button class="btn-green btn-inactive">Загрузить  видео</button>
+						<div class="b-settings-blue_add-video-load">
+							<img src="/images/ico/ajax-loader.gif" alt=""> <br>
+							Подждите видео загружается
+						</div>
+					</div>
+					<div class="b-settings-blue_add-video clearfix">
+						<!-- При вводе текста убрать класс .btn-inactive с кнопки для ее активирования -->
+						<input type="text" name="" id="" class="itx-simple w-400 float-l" placeholder="Введите ссылку на видео">
+						<button class="btn-green btn-inactive">Загрузить  видео</button>
+						<div class="b-settings-blue_add-video-error">
+							Не удалось загрузить видео. <br>
+							Возможно, URL указан неправильно либо ведет на неподдерживаемый сайт.
+						</div>
 					</div>
 					<div class="b-settings-blue_video clearfix">
 						<a href="" class="b-settings-blue_video-del ico-close2 powertip" title="Удалить"></a>

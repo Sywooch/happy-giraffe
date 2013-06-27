@@ -24,8 +24,7 @@
                         </div>
 
                         <div class="float-l">
-                            <span
-                                class="font-smallest color-gray"><?= Yii::app()->dateFormatter->format("d MMMM yyyy, H:mm", $b->created) ?></span>
+                            <span class="font-smallest color-gray"><?= Yii::app()->dateFormatter->format("d MMMM yyyy, H:mm", $b->created) ?></span>
                         </div>
                     </div>
                     <div class="fast-articles2_i-t">
@@ -35,8 +34,9 @@
                     <?php $photo = $b->getPhoto() ?>
                     <?php if ($photo !== null): ?>
                         <div class="fast-articles2_i-img-hold">
-                            <a href="<?= $b->url ?>"><img src="<?= $photo->getPreviewUrl(190, 300, Image::WIDTH) ?>"
-                                                          alt="" class="fast-articles2_i-img"></a>
+                            <a href="<?= $b->url ?>">
+                                <img src="<?= $photo->getPreviewUrl(190, 300, Image::WIDTH) ?>"alt="" class="fast-articles2_i-img">
+                            </a>
                         </div>
                     <?php endif ?>
                 </div>

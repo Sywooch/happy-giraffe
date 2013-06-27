@@ -14,7 +14,7 @@ class DefaultController extends HController
     {
         return array(
             'accessControl',
-            'ajaxOnly - index, view',
+            'ajaxOnly - index, view, upload',
         );
     }
 
@@ -67,6 +67,12 @@ class DefaultController extends HController
         //сохраняем просматриваемую модель
         NotificationRead::getInstance()->setContentModel($content);
         $this->render('view', array('data' => $content, 'full' => true));
+    }
+
+    public function actionUpload()
+    {
+        $this->user = $this->loadUser(Yii::app()->user->id);
+        $this->render('upload');
     }
 
     public function actionSubscribeToggle()

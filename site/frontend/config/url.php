@@ -10,6 +10,8 @@ return array(
          *      CONTROLLERS      *
          *************************/
 
+        'testupload' => 'blog/default/upload',
+
         // global
         '.*/index' => 404,
 

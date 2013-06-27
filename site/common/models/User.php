@@ -557,6 +557,35 @@ class User extends HActiveRecord
         }
     }
 
+    public function getBlogPhotoOriginal()
+    {
+        return $this->blogPhoto === null ? '/images/jcrop-blog.jpg' : $this->blogPhoto->getOriginalUrl();
+    }
+
+    public function getBlogPhotoThumb()
+    {
+        return $this->blogPhoto === null ? '/images/blog-title-b_img.jpg' : $this->blogPhoto->getBlogUrl();
+    }
+
+    public function getBlogPhotoPosition() {
+        return $this->blogPhoto === null ? array(
+            'h' => 130,
+            'w' => 730,
+            'x' => 0,
+            'x2' => 730,
+            'y' => 68,
+            'y2' => 198,
+        ) : CJSON::decode($this->blog_photo_position);
+    }
+
+    public function getBlogPhotoWidth() {
+        return $this->blogPhoto === null ? 730 : $this->blogPhoto->getOriginalWidth();
+    }
+
+    public function getBlogPhotoHeight() {
+        return $this->blogPhoto === null ? 520 : $this->blogPhoto->getOriginalHeight();
+    }
+
     public function getAvaOrDefaultImage($size = 'ava')
     {
         if (empty($this->avatar_id)) {

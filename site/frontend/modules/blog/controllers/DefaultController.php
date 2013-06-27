@@ -98,17 +98,7 @@ class DefaultController extends HController
 
     public function actionSettingsForm()
     {
-        $json = array(
-            'title' => Yii::app()->user->model->getBlogTitle(),
-            'description' => Yii::app()->user->model->blog_description,
-            'updateUrl' => $this->createUrl('settingsUpdate'),
-            'photo' => ($blogPhoto = Yii::app()->user->model->blogPhoto) === null ? null : array(
-                'id' => $blogPhoto->id,
-                'src' => $blogPhoto->getOriginalUrl(),
-            ),
-        );
-
-        $this->renderPartial('settings', compact('json'));
+        $this->renderPartial('settings');
     }
 
     public function actionSettingsUpdate()
@@ -116,10 +106,29 @@ class DefaultController extends HController
         $user = Yii::app()->user->model;
         $user->blog_title = Yii::app()->request->getPost('blog_title');
         $user->blog_description = Yii::app()->request->getPost('blog_description');
-        $user->blog_photo_position = CJSON::encode(Yii::app()->request->getPost('blog_position'));
-        $success = $user->update(array('blog_title', 'blog_description', 'blog_photo_position'));
+        $user->blog_photo_id = Yii::app()->request->getPost('blog_photo_id');
+        $p = Yii::app()->request->getPost('blog_photo_position');
+        $user->blog_photo_position = CJSON::encode($p);
 
+        $photo = ! empty($user->blog_photo_id) ? AlbumPhoto::model()->findByPk($user->blog_photo_id) : AlbumPhoto::createByUrl('http://109.87.248.203/images/jcrop-blog.jpg', Yii::app()->user->id);
+
+        $image = Yii::createComponent(array(
+            'class' => 'site.frontend.extensions.EPhpThumb.EPhpThumb',
+            'options' => array(
+                'resizeUp' => true,
+            ),
+        ));
+        $image->init();
+        $image = $image->create($photo->getOriginalPath());
+        $rx = 720 / $p['w'];
+        $ry = 128 / $p['h'];
+        $width = round($rx * $photo->getOriginalWidth());
+        $height = round($ry * $photo->getOriginalHeight());
+        $image->resize($width, $height)->crop($rx * $p['x'], $ry * $p['y'], $rx * $p['w'], $ry * $p['h'])->save($photo->getBlogPath());
+        $success = $user->update(array('blog_title', 'blog_description', 'blog_photo_id', 'blog_photo_position'));
         $response = compact('success');
+        if ($success)
+            $response['thumbSrc'] = $photo->getBlogUrl() . '?' . time();
         echo CJSON::encode($response);
     }
 
@@ -146,7 +155,24 @@ class DefaultController extends HController
     {
         return array(
             'title' => $this->user->getBlogTitle(),
-            'description' => $this->user->blog_description
+            'description' => $this->user->blog_description,
+            'rubrics' => array_map(function($rubric) {
+                return array(
+                    'id' => $rubric->id,
+                    'title' => $rubric->title,
+                    'url' => Yii::app()->createUrl('index', array('user_id' => $rubric->user_id, 'rubric_id' => $rubric->id)),
+                );
+            }, $this->user->blog_rubrics),
+            'currentRubricId' => $this->rubric_id,
+            'updateUrl' => $this->createUrl('settingsUpdate'),
+            'photo' => array(
+                'id' => $this->user->blogPhoto === null ? null : $this->user->blogPhoto->id,
+                'originalSrc' => $this->user->getBlogPhotoOriginal(),
+                'thumbSrc' => $this->user->getBlogPhotoThumb(),
+                'width' => $this->user->getBlogPhotoWidth(),
+                'height' => $this->user->getBlogPhotoHeight(),
+                'position' => $this->user->getBlogPhotoPosition(),
+            ),
         );
     }
 

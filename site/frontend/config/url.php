@@ -100,6 +100,7 @@ return array(
             'falseRoute' => 'blog/default/index',
         ),
         'newblog/<_a:>' => 'blog/default/<_a>',
+        'blog/settings/<_a>' => 'blog/settings/<_a>',
 
         'user/<user_id:\d+>/blog/rubric<rubric_id:\d+>' => 'blog/list',
         'user/<user_id:\d+>/blog/post<content_id:\d+>' => 'blog/view',

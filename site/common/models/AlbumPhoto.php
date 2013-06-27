@@ -213,6 +213,7 @@ class AlbumPhoto extends HActiveRecord
         }
         if ($this->save(false)) {
             $this->saveFile(false, $temp);
+            $this->setDimensions();
             return true;
         }
         return false;
@@ -534,11 +535,6 @@ class AlbumPhoto extends HActiveRecord
     public function getBlogPath()
     {
         $dir = Yii::getPathOfAlias('site.common.uploads.photos');
-        if (!file_exists($dir . DIRECTORY_SEPARATOR . $this->blogs_folder . DIRECTORY_SEPARATOR . $this->author_id))
-            mkdir($dir . DIRECTORY_SEPARATOR . $this->blogs_folder . DIRECTORY_SEPARATOR . $this->author_id);
-
-        if (!file_exists($dir . DIRECTORY_SEPARATOR . $this->blogs_folder . DIRECTORY_SEPARATOR . $this->author_id))
-            mkdir($dir . DIRECTORY_SEPARATOR . $this->blogs_folder . DIRECTORY_SEPARATOR . $this->author_id);
 
         return $dir . DIRECTORY_SEPARATOR . $this->blogs_folder . DIRECTORY_SEPARATOR . $this->author_id .
         DIRECTORY_SEPARATOR . $this->fs_name;
@@ -678,10 +674,15 @@ class AlbumPhoto extends HActiveRecord
 
     protected function afterFind()
     {
+        $this->setDimensions();
+        parent::afterFind();
+    }
+
+    protected function setDimensions()
+    {
         $size = @getimagesize($this->getOriginalPath());
         $this->_originalWidth = $size[0];
         $this->_originalHeight = $size[1];
-        parent::afterFind();
     }
 
     public function getOriginalWidth()

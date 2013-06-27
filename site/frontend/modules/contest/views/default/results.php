@@ -189,6 +189,21 @@
                 'model' => 'Комфортер «Cuski»',
             ),
         );
+    } elseif ($this->contest->id == 11) {
+        $prizes = array(
+            '1' => array(
+                'title' => 'Детский электромобиль',
+                'model' => 'NeoTrike Beetle',
+            ),
+            '2' => array(
+                'title' => 'Детский электромобиль',
+                'model' => 'NeoTrike Commando',
+            ),
+            '3' => array(
+                'title' => 'Детский электромобиль',
+                'model' => 'NeoTrike Mini Mercedes Benz',
+            ),
+        );
     }
 ?>
 

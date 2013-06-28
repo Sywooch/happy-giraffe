@@ -14,7 +14,7 @@ class DefaultController extends HController
     {
         return array(
             'accessControl',
-            'ajaxOnly - index, view, upload',
+            'ajaxOnly - index, view, upload, save',
         );
     }
 
@@ -123,7 +123,33 @@ class DefaultController extends HController
         $model->type_id = $type;
         $slaveModelName = 'Community' . ucfirst($contentType->slug);
         $slaveModel = new $slaveModelName();
-        $this->renderPartial('form', compact('model', 'slaveModel', 'type'));
+        $this->renderPartial('form', compact('model', 'slaveModel', 'type'), false, true);
+    }
+
+    public function actionSave($id = null)
+    {
+        $model = ($id === null) ? new CommunityContent() : CommunityContent::model()->findByPk($id);
+        $model->attributes = $_POST['CommunityContent'];
+        if ($id === null)
+            $model->author_id = Yii::app()->user->id;
+        $slug = $model->type->slug;
+        $slaveModelName = 'Community' . ucfirst($slug);
+        $slaveModel = ($id === null) ? new $slaveModelName() : $model->content;
+        $slaveModel->attributes = $_POST[$slaveModelName];
+        $this->performAjaxValidation(array($model, $slaveModel));
+        $model->$slug = $slaveModel;
+        $success = $model->withRelated->save(true, array($slug));
+        $response = compact('success');
+        echo CJSON::encode($response);
+    }
+
+    protected function performAjaxValidation($models)
+    {
+        if(isset($_POST['ajax']) && $_POST['ajax']==='blog-form')
+        {
+            echo CActiveForm::validate($models);
+            Yii::app()->end();
+        }
     }
 
     protected function getBlogData()

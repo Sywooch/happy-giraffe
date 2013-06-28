@@ -619,18 +619,19 @@ table.fr_recipe_tb td { width: 50%;}
         text-decoration: underline;
     }
     &_user-status {
+        width: 580px;
         display: table-cell;
         vertical-align: middle;
         height: 185px;
         padding: 20px;
-        font: italic 36px/43px 'Times New Roman', Georgia, Times, serif;
         color: #186fb8;
     }
     &_user-status-a {
+        font: italic 36px/43px 'Times New Roman', Georgia, Times, serif;
         color: #186fb8;
         text-decoration: none;
     }
-    &_user-status:hover > a {color: #4da3de;}
+    &_user-status-a:hover {color: #4da3de;}
     &_removed {
         margin: 120px 20px 135px;
         padding: 75px 0 0;
@@ -1213,7 +1214,7 @@ table.fr_recipe_tb td { width: 50%;}
     &_ico {
         .inline-block();
         vertical-align: middle;
-        margin: 13px 45px;
+        margin: 13px 30px;
         width: 40px;
         padding-top: 45px;
         font-size: 11px;
@@ -1234,6 +1235,9 @@ table.fr_recipe_tb td { width: 50%;}
     &_ico__video {background-position: -200px 0;}
     &_ico__video.active,
     &_ico__video:hover {background-position: -200px -100px;}
+    &_ico__status {background-position: -300px 0;}
+    &_ico__status.active,
+    &_ico__status:hover {background-position: -300px -100px;}
 }
 /* /user-add-record */
 
@@ -1410,13 +1414,15 @@ table.fr_recipe_tb td { width: 50%;}
     .border-radius(5px);
 
     &__article &_head {padding-left: 60px;}
-    &__photo &_tale {right: 65px;}
+    &__photo &_tale {right: 246px;}
     &__video {padding: 30px 65px;}
-    &__video &_tale {right: 65px;}
+    &__video &_tale {right: 140px;}
+    &__status {padding: 30px 20px;}
+    &__status &_tale {right: 40px;}
 
     &_tale {
         position: absolute;
-        right: 340px;
+        right: 351px;
         top: -28px;
         width: 44px;
         height: 28px;
@@ -1648,6 +1654,7 @@ table.fr_recipe_tb td { width: 50%;}
 }
 /* /redactor-popup */
 
+/* b-add-img */
 .b-add-img {
     position: relative;
     min-height: 290px;
@@ -1784,3 +1791,111 @@ table.fr_recipe_tb td { width: 50%;}
         background: #2e8fc9;
     }
 }
+/* /b-add-img */
+
+/* b-status-add */
+.b-status-add {
+
+    &_col {
+        float: right;
+        width: 585px;
+    }
+    &_hold {
+        position: relative;
+        margin: 0;
+        padding: 13px 12px;
+        background: #cdecff;
+    }
+    &_hold:after {
+        content:'';
+        position: absolute;
+        left: -10px;
+        top: 35px;
+        border: 10px solid transparent;
+        border-left: none;
+        border-right-color: #cdecff;
+    }
+    &_textarea {
+        display: block;
+        .box-sizing(border-box);
+        width: 100%;
+        margin: 3px 0;
+        border: 1px solid #daebf5;
+        padding: 10px 12px 10px 12px;
+        font: italic 36px/43px 'Times New Roman', Georgia, Times, serif;
+        color: #186fb8;
+        background: #fff;
+        .border-radius(3px);
+        .transition(all 0.4s ease);
+    }
+}
+/* /b-status-add */
+
+/* b-user-mood */
+.b-user-mood {
+    .inline-block();
+
+    &_img {
+        position: relative;
+        .inline-block();
+        vertical-align: middle;
+        margin-right: 3px;
+    }
+    &_hold {
+        .inline-block();
+        vertical-align: middle;
+    }
+    &_tx {
+        font-size: 17px;
+        color: #6f6e6f;
+    }
+}
+/* /b-user-mood */
+
+/* b-moods-list */
+.b-moods-list {
+    position:absolute;
+    left:100%;
+    top:0;
+    margin-top: -288px;
+    background:#fffeea;
+    z-index:4;
+    padding:5px;
+    width:470px;
+    font-size:9px;
+    border:1px solid #e7e395;
+    .border-radius(10px);
+
+    &:after {
+        content:'';
+        position: absolute;
+        top: 50%;
+        left: -5px;
+        width: 6px;
+        height: 12px;
+        margin-top: -6px;
+        background: url(/images/b-moods-list.png) no-repeat;
+    }
+    &_li {
+        width:92px;
+        float:left;
+        text-align:center;
+        border:1px solid #fffeea;
+        height:90px;
+        .border-radius(10px);
+    }
+    &_li:hover {border-color:#e7e395;}
+    &_a {
+        display:block;
+        text-decoration:none;
+        color:#918b1a;
+        line-height:1;
+        padding:3px 0;
+    }
+    &_img {
+        display:block;
+        margin:0 0 4px;
+    }
+
+}
+/* /b-moods-list */

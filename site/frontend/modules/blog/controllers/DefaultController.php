@@ -132,7 +132,17 @@ class DefaultController extends HController
         $json = array(
             'title' => (string) $model->title,
             'privacy' => (int) $model->privacy,
+            'text' => (string) $slaveModel->text,
         );
+        if ($model->type_id == 5) {
+            $json['moods'] = array_map(function($mood) {
+                return array(
+                    'id' => (int) $mood->id,
+                    'title' => (string) $mood->title,
+                );
+            }, UserMood::model()->findAll(array('order' => 'id ASC')));
+            $json['mood_id'] = $slaveModel->mood_id;
+        }
         $this->renderPartial('form', compact('model', 'slaveModel', 'json'), false, true);
     }
 

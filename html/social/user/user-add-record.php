@@ -58,136 +58,6 @@
 						Пусть кто-то будет безумно красивый Пусть кто-то будет богаче и круче Мне наплевать, ведь ты - мой любимый.	Ты навсегда. Ты мой. Самый лучший.
 					</div>
 				</div>
-				
-				<div class="readers2">
-					<a href="" class="btn-green btn-medium">Подписаться</a>
-					<ul class="readers2_ul clearfix">
-						<li class="readers2_li clearfix">
-							<a href="" class="ava female small">
-								<span class="icon-status status-online"></span>
-								<img alt="" src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG">
-							</a>
-						</li>
-						<li class="readers2_li clearfix">
-							<a href="" class="ava female small">
-								<img alt="" src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG">
-							</a>
-						</li>
-						<li class="readers2_li clearfix">
-							<a href="" class="ava female small">
-								<span class="icon-status status-online"></span>
-								<img alt="" src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG">
-							</a>
-						</li>
-						<li class="readers2_li clearfix">
-							<a href="" class="ava female small">
-							</a>
-						</li>
-						<li class="readers2_li clearfix">
-							<a href="" class="ava female small">
-								<span class="icon-status status-online"></span>
-								<img alt="" src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG">
-							</a>
-						</li>
-						<li class="readers2_li clearfix">
-							<a href="" class="ava male small">
-								<span class="icon-status status-online"></span>
-							</a>
-						</li>
-					</ul>
-					<div class="clearfix">
-						<div class="readers2_count">Все подписчики (129)</div>
-					</div>
-				</div>
-				
-				<div class="menu-simple">
-					<ul class="menu-simple_ul">
-						<li class="menu-simple_li">
-							<a href="" class="menu-simple_a">Обо всем</a>
-						</li>
-						<li class="menu-simple_li">
-							<a href="" class="menu-simple_a">Свадьба - прекрасный миг</a>
-						</li>
-						<li class="menu-simple_li">
-							<a href="" class="menu-simple_a">Прикольное видео </a>
-						</li>
-						<li class="menu-simple_li">
-							<a href="" class="menu-simple_a">Школа восточного танца  </a>
-						</li>
-						<li class="menu-simple_li active">
-							<a href="" class="menu-simple_a">Мой мужчина </a>
-						</li>
-						<li class="menu-simple_li">
-							<a href="" class="menu-simple_a">Детские передачи </a>
-						</li>
-						<li class="menu-simple_li">
-							<a href="" class="menu-simple_a">Свадьбы </a>
-						</li>
-						<li class="menu-simple_li">
-							<a href="" class="menu-simple_a">Кормление ребенка </a>
-						</li>
-						<li class="menu-simple_li">
-							<a href="" class="menu-simple_a">Воспитание детей </a>
-						</li>
-					</ul>
-				</div>
-				
-				<div class="fast-articles2 js-fast-articles2">
-					<div class="fast-articles2_t-ico"></div>
-					<div class="fast-articles2_i">
-						<div class="fast-articles2_header clearfix">
-						
-							<div class="meta-gray">
-								<a href="" class="meta-gray_comment">
-									<span class="ico-comment ico-comment__gray"></span>
-									<span class="meta-gray_tx">35</span>
-								</a>
-								<div class="meta-gray_view">
-									<span class="ico-view ico-view__gray"></span>
-									<span class="meta-gray_tx">305</span>
-								</div>
-							</div>
-							
-							<div class="float-l">
-								<span class="font-smallest color-gray">Сегодня 13:25</span>
-							</div>
-						</div>
-						<div class="fast-articles2_i-t">
-							<a href="" class="fast-articles2_i-t-a"> О моем первом бойфренде</a>
-						</div>
-						<div class="fast-articles2_i-desc">Практически нет девушки, которая не переживала </div>
-						<div class="fast-articles2_i-img-hold">
-							<a href=""><img src="/images/example/w190-h166.jpg" alt="" class="fast-articles2_i-img"></a>
-						</div>
-					</div>
-					<div class="fast-articles2_i">
-						<div class="fast-articles2_header clearfix">
-						
-							<div class="meta-gray">
-								<a href="" class="meta-gray_comment">
-									<span class="ico-comment ico-comment__gray"></span>
-									<span class="meta-gray_tx">35</span>
-								</a>
-								<div class="meta-gray_view">
-									<span class="ico-view ico-view__gray"></span>
-									<span class="meta-gray_tx">305</span>
-								</div>
-							</div>
-							
-							<div class="float-l">
-								<span class="font-smallest color-gray">Сегодня 13:25</span>
-							</div>
-						</div>
-						<div class="fast-articles2_i-t">
-							<a href="" class="fast-articles2_i-t-a"> Как мне предлагали руку и сердце</a>
-						</div>
-						<div class="fast-articles2_i-desc">Практически нет девушки, которая не переживала </div>
-						<div class="fast-articles2_i-img-hold">
-							<a href=""><img src="/images/example/w190-h166.jpg" alt="" class="fast-articles2_i-img"></a>
-						</div>
-					</div>
-				</div>
-				
 			</div>
 			<div class="col-23">
 				<div class="user-add-record clearfix">
@@ -201,7 +71,8 @@
 						<div class="user-add-record_tx">Я хочу добавить</div>
 						<a href="#popup-user-add-article"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__article fancy">Статью</a>
 						<a href="#popup-user-add-photo"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__photo fancy">Фото</a>
-						<a href="#popup-user-add-video"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__video active fancy">Видео</a>
+						<a href="#popup-user-add-video"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__video fancy">Видео</a>
+						<a href="#popup-user-add-status"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__status active fancy">Статус</a>
 					</div>
 				</div>
 			</div>
@@ -360,12 +231,37 @@
 									<!-- При вводе текста убрать класс .btn-inactive с кнопки для ее активирования -->
 									<input type="text" name="" id="" class="itx-simple w-350 float-l" placeholder="Введите ссылку на видео">
 									<button class="btn-green btn-medium btn-inactive">Загрузить  видео</button>
+									<div class="redactor-popup_add-video-load">
+										<img src="/images/ico/ajax-loader.gif" alt=""> <br>
+										Подждите видео загружается
+									</div>
+								</div>
+								<div class="redactor-popup_add-video">
+									<!-- При вводе текста убрать класс .btn-inactive с кнопки для ее активирования -->
+									<input type="text" name="" id="" class="itx-simple w-350 float-l" placeholder="Введите ссылку на видео">
+									<button class="btn-green btn-medium btn-inactive">Загрузить  видео</button>
+									<div class="redactor-popup_add-video-error">
+										Не удалось загрузить видео. <br>
+										Возможно, URL указан неправильно либо ведет на неподдерживаемый сайт.
+									</div>
 								</div>
 								<div class="textalign-c margin-t15">
 									<a href="" class="btn-gray-light btn-medium margin-r10">Отменить</a>
 									<a href="" class="btn-green btn-medium btn-inactive">Добавить видео</a>
 								</div>
 							</div>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
 							<br>
 							<br>
 							<br>
@@ -699,6 +595,7 @@
 						<a href="#popup-user-add-article" class="user-add-record_ico user-add-record_ico__article active fancy">Статью</a>
 						<a href="#popup-user-add-photo" class="user-add-record_ico user-add-record_ico__photo fancy">Фото</a>
 						<a href="#popup-user-add-video" class="user-add-record_ico user-add-record_ico__video fancy">Видео</a>
+						<a href="#popup-user-add-status"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__status fancy">Статус</a>
 					</div>
 				</div>
 				
@@ -800,6 +697,7 @@
 						<a href="#popup-user-add-article" class="user-add-record_ico user-add-record_ico__article fancy">Статью</a>
 						<a href="#popup-user-add-photo" class="user-add-record_ico user-add-record_ico__photo fancy">Фото</a>
 						<a href="#popup-user-add-video" class="user-add-record_ico user-add-record_ico__video active fancy">Видео</a>
+						<a href="#popup-user-add-status"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__status fancy">Статус</a>
 					</div>
 				</div>
 				
@@ -844,6 +742,19 @@
 						<!-- При вводе текста убрать класс .btn-inactive с кнопки для ее активирования -->
 						<input type="text" name="" id="" class="itx-simple w-400 float-l" placeholder="Введите ссылку на видео">
 						<button class="btn-green btn-inactive">Загрузить  видео</button>
+						<div class="b-settings-blue_add-video-load">
+							<img src="/images/ico/ajax-loader.gif" alt=""> <br>
+							Подждите видео загружается
+						</div>
+					</div>
+					<div class="b-settings-blue_add-video clearfix">
+						<!-- При вводе текста убрать класс .btn-inactive с кнопки для ее активирования -->
+						<input type="text" name="" id="" class="itx-simple w-400 float-l" placeholder="Введите ссылку на видео">
+						<button class="btn-green btn-inactive">Загрузить  видео</button>
+						<div class="b-settings-blue_add-video-error">
+							Не удалось загрузить видео. <br>
+							Возможно, URL указан неправильно либо ведет на неподдерживаемый сайт.
+						</div>
 					</div>
 					<div class="b-settings-blue_video clearfix">
 						<a href="" class="b-settings-blue_video-del ico-close2 powertip" title="Удалить"></a>
@@ -908,6 +819,7 @@
 						<a href="#popup-user-add-article" class="user-add-record_ico user-add-record_ico__article fancy">Статью</a>
 						<a href="#popup-user-add-photo" class="user-add-record_ico user-add-record_ico__photo active fancy">Фото</a>
 						<a href="#popup-user-add-video" class="user-add-record_ico user-add-record_ico__video fancy">Видео</a>
+						<a href="#popup-user-add-status"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__status fancy">Статус</a>
 					</div>
 				</div>
 				
@@ -1254,6 +1166,447 @@
 		</div>
 	</div>
 	<!-- /popup-user-add-photo -->
+	
+	
+	<!-- popup-user-add-status -->
+	<div id="popup-user-add-status" class="popup-user-add-record">
+		<a class="popup-transparent-close powertip" onclick="$.fancybox.close();" href="javascript:void(0);" title="Закрыть"></a>
+		<div class="clearfix">
+			<div class="w-720 float-r">
+				
+				<div class="user-add-record user-add-record__yellow clearfix">
+					<div class="user-add-record_ava-hold">
+						<a href="" class="ava male">
+							<span class="icon-status status-online"></span>
+							<img alt="" src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg">
+						</a>
+					</div>
+					<div class="user-add-record_hold">
+						<div class="user-add-record_tx">Я хочу добавить</div>
+						<a href="#popup-user-add-article" class="user-add-record_ico user-add-record_ico__article fancy">Статью</a>
+						<a href="#popup-user-add-photo" class="user-add-record_ico user-add-record_ico__photo fancy">Фото</a>
+						<a href="#popup-user-add-video" class="user-add-record_ico user-add-record_ico__video fancy">Видео</a>
+						<a href="#popup-user-add-status"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__status active fancy">Статус</a>
+					</div>
+				</div>
+				
+				<div class="b-settings-blue b-settings-blue__status">
+					<div class="b-settings-blue_tale"></div>
+					
+					<div class="b-status-add clearfix">
+						<div class="float-l">
+							<a class="ava male" href="">
+								<span class="icon-status status-online"></span>
+								<img src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg" alt="">
+							</a>
+						</div>
+						<div class="b-status-add_col">
+							<div class="b-status-add_hold">
+								<div class="clearfix">
+									<div class="float-r font-small color-gray">50/250</div>
+								</div>
+								<textarea name="" id="" cols="60" rows="3" class="b-status-add_textarea"></textarea>
+							</div>
+							<div class="margin-b10 clearfix">
+								<div class="b-user-mood">
+									<div class="b-user-mood_img">
+										<img src="/images/widget/mood/0.png">
+									</div>
+									<div class="b-user-mood_hold">
+										<a href="" class="a-pseudo">Прикрепить <br> мое настроение</a>
+									</div>
+								</div>
+								
+							</div>
+						
+							<div class=" clearfix">
+								<a href="" class="btn-blue btn-h46 float-r btn-inactive">Добавить</a>
+								<a href="" class="btn-gray-light btn-h46 float-r margin-r15">Отменить</a>
+								
+								<div class="float-l">
+									<div class="privacy-select clearfix">
+										<div class="privacy-select_hold clearfix">
+											<div class="privacy-select_tx">Для кого:</div>
+											<div class="privacy-select_drop-hold">
+												<a href="" class="privacy-select_a">
+													<span class="ico-users ico-users__friend active"></span>
+													<span class="privacy-select_a-tx">только <br>друзьям</span>
+												</a>
+											</div>
+											<div class="privacy-select_drop">
+												<div class="privacy-select_i">
+													<a href="" class="privacy-select_a">
+													<span class="ico-users ico-users__all"></span>
+													<span class="privacy-select_a-tx">для <br>всех</span>
+													</a>
+												</div>
+												<div class="privacy-select_i">
+													<a href="" class="privacy-select_a">
+													<span class="ico-users ico-users__friend"></span>
+													<span class="privacy-select_a-tx">только <br>друзьям</span>
+													</a>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+				
+				<div class="b-settings-blue b-settings-blue__status">
+					<div class="b-settings-blue_tale"></div>
+					
+					<div class="b-status-add clearfix">
+						<div class="float-l">
+							<a class="ava male" href="">
+								<span class="icon-status status-online"></span>
+								<img src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg" alt="">
+							</a>
+						</div>
+						<div class="b-status-add_col">
+							<div class="b-status-add_hold">
+								<div class="clearfix">
+									<div class="float-r font-small color-gray">50/250</div>
+								</div>
+								<textarea name="" id="" cols="60" rows="3" class="b-status-add_textarea"></textarea>
+							</div>
+							<div class="margin-b10 clearfix">
+								<div class="b-user-mood">
+									<div class="b-user-mood_img">
+										<img src="/images/widget/mood/6.png">
+									</div>
+									<div class="b-user-mood_hold">
+										<div class="b-user-mood_tx">- мое настроение</div>
+										<a href="" class="a-pseudo font-small margin-l10">Изменить</a> &nbsp;
+										<a href="" class="a-pseudo-gray font-small">Удалить</a>
+									</div>
+								</div>
+							</div>
+						
+							<div class=" clearfix">
+								<a href="" class="btn-blue btn-h46 float-r btn-inactive">Добавить</a>
+								<a href="" class="btn-gray-light btn-h46 float-r margin-r15">Отменить</a>
+								
+								<div class="float-l">
+									<div class="privacy-select clearfix">
+										<div class="privacy-select_hold clearfix">
+											<div class="privacy-select_tx">Для кого:</div>
+											<div class="privacy-select_drop-hold">
+												<a href="" class="privacy-select_a">
+													<span class="ico-users ico-users__friend active"></span>
+													<span class="privacy-select_a-tx">только <br>друзьям</span>
+												</a>
+											</div>
+											<div class="privacy-select_drop">
+												<div class="privacy-select_i">
+													<a href="" class="privacy-select_a">
+													<span class="ico-users ico-users__all"></span>
+													<span class="privacy-select_a-tx">для <br>всех</span>
+													</a>
+												</div>
+												<div class="privacy-select_i">
+													<a href="" class="privacy-select_a">
+													<span class="ico-users ico-users__friend"></span>
+													<span class="privacy-select_a-tx">только <br>друзьям</span>
+													</a>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+				
+				<div class="b-settings-blue b-settings-blue__status">
+					<div class="b-settings-blue_tale"></div>
+					
+					<div class="b-status-add clearfix">
+						<div class="float-l">
+							<a class="ava male" href="">
+								<span class="icon-status status-online"></span>
+								<img src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg" alt="">
+							</a>
+						</div>
+						<div class="b-status-add_col">
+							<div class="b-status-add_hold">
+								<div class="clearfix">
+									<div class="float-r font-small color-gray">50/250</div>
+								</div>
+								<textarea name="" id="" cols="60" rows="3" class="b-status-add_textarea"></textarea>
+							</div>
+							<div class="margin-b10 clearfix">
+								<div class="b-user-mood">
+									<div class="b-user-mood_img">
+										<img src="/images/widget/mood/6.png">
+										<div class="b-moods-list" style="display: block;">
+											<ul class="b-moods-list_ul">
+												<li class="b-moods-list_li">
+													<a href="" class="b-moods-list_a">
+														<img src="/images/widget/mood/1.png" class="b-moods-list_img" >
+														<span class="b-moods-list_tx">Ем</span>
+													</a>
+												</li>
+												<li class="b-moods-list_li">
+													<a href="" class="b-moods-list_a">
+														<img src="/images/widget/mood/2.png" class="b-moods-list_img" >
+														<span class="b-moods-list_tx">Испуг</span>
+													</a>
+												</li>
+												<li class="b-moods-list_li">
+													<a href="" class="b-moods-list_a">
+														<img src="/images/widget/mood/3.png" class="b-moods-list_img" >
+														<span class="b-moods-list_tx">Грустный</span>
+													</a>
+												</li>
+												<li class="b-moods-list_li">
+													<a href="" class="b-moods-list_a">
+														<img src="/images/widget/mood/4.png" class="b-moods-list_img" >
+														<span class="b-moods-list_tx">Молчу</span>
+													</a>
+												</li>
+												<li class="b-moods-list_li">
+													<a href="" class="b-moods-list_a">
+														<img src="/images/widget/mood/5.png" class="b-moods-list_img" >
+														<span class="b-moods-list_tx">Подозрительно</span>
+													</a>
+												</li>
+												<li class="b-moods-list_li">
+													<a href="" class="b-moods-list_a">
+														<img src="/images/widget/mood/6.png" class="b-moods-list_img" >
+														<span class="b-moods-list_tx">Интересно</span>
+													</a>
+												</li>
+												<li class="b-moods-list_li">
+													<a href="" class="b-moods-list_a">
+														<img src="/images/widget/mood/7.png" class="b-moods-list_img" >
+														<span class="b-moods-list_tx">Все ОК</span>
+													</a>
+												</li>
+												<li class="b-moods-list_li">
+													<a href="" class="b-moods-list_a">
+														<img src="/images/widget/mood/8.png" class="b-moods-list_img" >
+														<span class="b-moods-list_tx">Голова кругом</span>
+													</a>
+												</li>
+												<li class="b-moods-list_li">
+													<a href="" class="b-moods-list_a">
+														<img src="/images/widget/mood/9.png" class="b-moods-list_img" >
+														<span class="b-moods-list_tx">Любовь</span>
+													</a>
+												</li>
+												<li class="b-moods-list_li">
+													<a href="" class="b-moods-list_a">
+														<img src="/images/widget/mood/10.png" class="b-moods-list_img" >
+														<span class="b-moods-list_tx">Подарок</span>
+													</a>
+												</li>
+												<li class="b-moods-list_li">
+													<a href="" class="b-moods-list_a">
+														<img src="/images/widget/mood/11.png" class="b-moods-list_img" >
+														<span class="b-moods-list_tx">Красотка</span>
+													</a>
+												</li>
+												<li class="b-moods-list_li">
+													<a href="" class="b-moods-list_a">
+														<img src="/images/widget/mood/12.png" class="b-moods-list_img" >
+														<span class="b-moods-list_tx">Радость</span>
+													</a>
+												</li>
+												<li class="b-moods-list_li">
+													<a href="" class="b-moods-list_a">
+														<img src="/images/widget/mood/13.png" class="b-moods-list_img" >
+														<span class="b-moods-list_tx">Задумался</span>
+													</a>
+												</li>
+												<li class="b-moods-list_li">
+													<a href="" class="b-moods-list_a">
+														<img src="/images/widget/mood/14.png" class="b-moods-list_img" >
+														<span class="b-moods-list_tx">Смущаюсь</span>
+													</a>
+												</li>
+												<li class="b-moods-list_li">
+													<a href="" class="b-moods-list_a">
+														<img src="/images/widget/mood/15.png" class="b-moods-list_img" >
+														<span class="b-moods-list_tx">Праздник</span>
+													</a>
+												</li>
+												<li class="b-moods-list_li">
+													<a href="" class="b-moods-list_a">
+														<img src="/images/widget/mood/16.png" class="b-moods-list_img" >
+														<span class="b-moods-list_tx">Стреляюсь</span>
+													</a>
+												</li>
+												<li class="b-moods-list_li">
+													<a href="" class="b-moods-list_a">
+														<img src="/images/widget/mood/17.png" class="b-moods-list_img" >
+														<span class="b-moods-list_tx">Драка</span>
+													</a>
+												</li>
+												<li class="b-moods-list_li">
+													<a href="" class="b-moods-list_a">
+														<img src="/images/widget/mood/18.png" class="b-moods-list_img" >
+														<span class="b-moods-list_tx">Отстой</span>
+													</a>
+												</li>
+												<li class="b-moods-list_li">
+													<a href="" class="b-moods-list_a">
+														<img src="/images/widget/mood/19.png" class="b-moods-list_img" >
+														<span class="b-moods-list_tx">Смешно</span>
+													</a>
+												</li>
+												<li class="b-moods-list_li">
+													<a href="" class="b-moods-list_a">
+														<img src="/images/widget/mood/20.png" class="b-moods-list_img" >
+														<span class="b-moods-list_tx">Улыбаюсь</span>
+													</a>
+												</li>
+												<li class="b-moods-list_li">
+													<a href="" class="b-moods-list_a">
+														<img src="/images/widget/mood/21.png" class="b-moods-list_img" >
+														<span class="b-moods-list_tx">Шопинг</span>
+													</a>
+												</li>
+												<li class="b-moods-list_li">
+													<a href="" class="b-moods-list_a">
+														<img src="/images/widget/mood/22.png" class="b-moods-list_img" >
+														<span class="b-moods-list_tx">Напеваю</span>
+													</a>
+												</li>
+												<li class="b-moods-list_li">
+													<a href="" class="b-moods-list_a">
+														<img src="/images/widget/mood/23.png" class="b-moods-list_img" >
+														<span class="b-moods-list_tx">Болею</span>
+													</a>
+												</li>
+												<li class="b-moods-list_li">
+													<a href="" class="b-moods-list_a">
+														<img src="/images/widget/mood/24.png" class="b-moods-list_img" >
+														<span class="b-moods-list_tx">Сплю</span>
+													</a>
+												</li>
+												<li class="b-moods-list_li">
+													<a href="" class="b-moods-list_a">
+														<img src="/images/widget/mood/25.png" class="b-moods-list_img" >
+														<span class="b-moods-list_tx">Плачу</span>
+													</a>
+												</li>
+												<li class="b-moods-list_li">
+													<a href="" class="b-moods-list_a">
+														<img src="/images/widget/mood/26.png" class="b-moods-list_img" >
+														<span class="b-moods-list_tx">Звезда</span>
+													</a>
+												</li>
+												<li class="b-moods-list_li">
+													<a href="" class="b-moods-list_a">
+														<img src="/images/widget/mood/27.png" class="b-moods-list_img" >
+														<span class="b-moods-list_tx">Падаю со смеху</span>
+													</a>
+												</li>
+												<li class="b-moods-list_li">
+													<a href="" class="b-moods-list_a">
+														<img src="/images/widget/mood/28.png" class="b-moods-list_img" >
+														<span class="b-moods-list_tx">Слушаю музыку</span>
+													</a>
+												</li>
+												<li class="b-moods-list_li">
+													<a href="" class="b-moods-list_a">
+														<img src="/images/widget/mood/29.png" class="b-moods-list_img" >
+														<span class="b-moods-list_tx">Тихо</span>
+													</a>
+												</li>
+												<li class="b-moods-list_li">
+													<a href="" class="b-moods-list_a">
+														<img src="/images/widget/mood/30.png" class="b-moods-list_img" >
+														<span class="b-moods-list_tx">В поиске</span>
+													</a>
+												</li>
+												<li class="b-moods-list_li">
+													<a href="" class="b-moods-list_a">
+														<img src="/images/widget/mood/31.png" class="b-moods-list_img" >
+														<span class="b-moods-list_tx">Отлично</span>
+													</a>
+												</li>
+												<li class="b-moods-list_li">
+													<a href="" class="b-moods-list_a">
+														<img src="/images/widget/mood/32.png" class="b-moods-list_img" >
+														<span class="b-moods-list_tx">Дразнюсь</span>
+													</a>
+												</li>
+												<li class="b-moods-list_li">
+													<a href="" class="b-moods-list_a">
+														<img src="/images/widget/mood/33.png" class="b-moods-list_img" >
+														<span class="b-moods-list_tx">Боюсь</span>
+													</a>
+												</li>
+												<li class="b-moods-list_li">
+													<a href="" class="b-moods-list_a">
+														<img src="/images/widget/mood/34.png" class="b-moods-list_img" >
+														<span class="b-moods-list_tx">В ярости</span>
+													</a>
+												</li>
+												<li class="b-moods-list_li">
+													<a href="" class="b-moods-list_a">
+														<img src="/images/widget/mood/35.png" class="b-moods-list_img" >
+														<span class="b-moods-list_tx">Есть повод</span>
+													</a>
+												</li>
+											</ul>
+		           						 </div>
+									</div>
+									<div class="b-user-mood_hold">
+										<div class="b-user-mood_tx">- мое настроение</div>
+										<a href="" class="a-pseudo font-small margin-l10">Изменить</a> &nbsp;
+										<a href="" class="a-pseudo font-small color-gray">Удалить</a>
+									</div>
+								</div>
+							</div>
+						
+							<div class=" clearfix">
+								<a href="" class="btn-blue btn-h46 float-r btn-inactive">Добавить</a>
+								<a href="" class="btn-gray-light btn-h46 float-r margin-r15">Отменить</a>
+								
+								<div class="float-l">
+									<div class="privacy-select clearfix">
+										<div class="privacy-select_hold clearfix">
+											<div class="privacy-select_tx">Для кого:</div>
+											<div class="privacy-select_drop-hold">
+												<a href="" class="privacy-select_a">
+													<span class="ico-users ico-users__friend active"></span>
+													<span class="privacy-select_a-tx">только <br>друзьям</span>
+												</a>
+											</div>
+											<div class="privacy-select_drop">
+												<div class="privacy-select_i">
+													<a href="" class="privacy-select_a">
+													<span class="ico-users ico-users__all"></span>
+													<span class="privacy-select_a-tx">для <br>всех</span>
+													</a>
+												</div>
+												<div class="privacy-select_i">
+													<a href="" class="privacy-select_a">
+													<span class="ico-users ico-users__friend"></span>
+													<span class="privacy-select_a-tx">только <br>друзьям</span>
+													</a>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /popup-user-add-status -->
 	
 </div>
 </body>

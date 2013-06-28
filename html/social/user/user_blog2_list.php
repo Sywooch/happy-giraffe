@@ -393,6 +393,17 @@
 						<div class="b-article_in clearfix">
 							<div class="b-article_user-status clearfix">
 								<a href="" class="b-article_user-status-a">	Говори себе с утра: Счастье, нам вставать пора!!! Так со Счастьем и вставай, от себя не отпускай!!!</a>
+								
+								<div class="textalign-r clearfix">
+									<div class="b-user-mood">
+										<div class="b-user-mood_hold">
+											<div class="b-user-mood_tx">Мое настроение -</div>
+										</div>
+										<div class="b-user-mood_img">
+											<img src="/images/widget/mood/6.png">
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
 						

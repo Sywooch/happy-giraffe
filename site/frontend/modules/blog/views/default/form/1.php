@@ -8,6 +8,11 @@
 <?php $form = $this->beginWidget('CActiveForm', array(
     'id' => 'blog-form',
     'action' => array('save'),
+    'enableAjaxValidation' => true,
+    'enableClientValidation' => true,
+    'clientOptions' => array(
+        'validateOnSubmit' => true,
+    ),
 )); ?>
 
 <?=$form->hiddenField($model, 'type_id')?>
@@ -48,6 +53,7 @@
                         <div class="w-400 float-l">
                             <div class="chzn-itx-simple">
                                 <?=$form->dropDownList($model, 'rubric_id', CHtml::listData($this->user->blog_rubrics, 'id', 'title'), array('class' => 'chzn'))?>
+                                <?=$form->error($model, 'rubric_id')?>
                                 <div class="chzn-itx-simple_add">
                                     <div class="chzn-itx-simple_add-hold">
                                         <input type="text" name="" id="" class="chzn-itx-simple_add-itx">
@@ -66,7 +72,7 @@
                 </div>
 
                 <div class=" clearfix">
-                    <a href="javascript:void(0)" onclick="submit()" class="btn-blue btn-h46 float-r">Добавить</a>
+                    <a href="javascript:void(0)" onclick="$('#blog-form').submit()" class="btn-blue btn-h46 float-r">Добавить</a>
                     <a href="javascript:void(0)" onclick="$.fancybox.close()" class="btn-gray-light btn-h46 float-r margin-r15">Отменить</a>
 
                     <div class="float-l">

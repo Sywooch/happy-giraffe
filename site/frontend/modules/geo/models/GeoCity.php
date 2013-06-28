@@ -14,6 +14,7 @@
  * @property string $type
  * @property string $auto_created
  * @property string $declension_checked
+ * @property string $show_region
  *
  * The followings are the available model relations:
  * @property GeoCountry $country

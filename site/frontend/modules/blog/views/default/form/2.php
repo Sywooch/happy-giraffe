@@ -1,3 +1,12 @@
+<?php
+/**
+ * @var CommunityContent $model
+ * @var HActiveRecord $slaveModel
+ */
+?>
+
+<?php $form = $this->beginWidget('CActiveForm'); ?>
+
 <div id="popup-user-add-video" class="popup-user-add-record">
     <a class="popup-transparent-close powertip" onclick="$.fancybox.close();" href="javascript:void(0);" title="Закрыть"></a>
     <div class="clearfix">
@@ -23,27 +32,16 @@
                 <div class="b-settings-blue_head">
                     <div class="b-settings-blue_row clearfix">
                         <div class="clearfix">
-                            <div class="float-r font-small color-gray margin-3">0/50</div>
+                            <div class="float-r font-small color-gray margin-3" data-bind="length: { attribute : title, maxLength : 50 }"></div>
                         </div>
-                        <label for="" class="b-settings-blue_label">Заголовок</label>
-                        <input type="text" name="" id="" class="itx-simple w-400" placeholder="Введите заголовок видео">
+                        <?=$form->label($model, 'title', array('class' => 'b-settings-blue_label'))?>
+                        <?=$form->textField($model, 'title', array('class' => 'itx-simple w-400', 'placeholder' => 'Введите заголовок статьи', 'data-bind' => 'value: title, valueUpdate: \'keyup\''))?>
                     </div>
                     <div class="b-settings-blue_row clearfix">
                         <label for="" class="b-settings-blue_label">Рубрика</label>
                         <div class="w-400 float-l">
                             <div class="chzn-itx-simple">
-                                <select class="chzn">
-                                    <option selected="selected">0</option>
-                                    <option>Россия</option>
-                                    <option>2</option>
-                                    <option>32</option>
-                                    <option>32</option>
-                                    <option>32</option>
-                                    <option>32</option>
-                                    <option>132</option>
-                                    <option>132</option>
-                                    <option>132</option>
-                                </select>
+                                <?=$form->dropDownList($model, 'rubric_id', CHtml::listData($this->user->blog_rubrics, 'id', 'title'), array('class' => 'chzn'))?>
                                 <div class="chzn-itx-simple_add">
                                     <div class="chzn-itx-simple_add-hold">
                                         <input type="text" name="" id="" class="chzn-itx-simple_add-itx">
@@ -55,17 +53,17 @@
                         </div>
                     </div>
                 </div>
-                <div class="b-settings-blue_add-video clearfix">
-                    <!-- При вводе текста убрать класс .btn-inactive с кнопки для ее активирования -->
-                    <input type="text" name="" id="" class="itx-simple w-400 float-l" placeholder="Введите ссылку на видео">
-                    <button class="btn-green btn-inactive">Загрузить  видео</button>
+                <div class="b-settings-blue_add-video clearfix" data-bind="visible: embed() === null">
+                    <?=$form->textField($slaveModel, 'link', array('class' => 'itx-simple w-400 float-l', 'placeholder' => 'Введите ссылку на видео', 'data-bind' => 'value: link, valueUpdate: \'keyup\''))?>
+                    <button class="btn-green" data-bind="css: { 'btn-inactive' : link().length == 0 }, click: check">Загрузить  видео</button>
                 </div>
-                <div class="b-settings-blue_video clearfix">
+                <div class="b-settings-blue_video clearfix" data-bind="visible: embed() !== null">
                     <a href="" class="b-settings-blue_video-del ico-close2 powertip" title="Удалить"></a>
-                    <iframe width="580" height="320" frameborder="0" allowfullscreen="" src="http://www.youtube.com/embed/pehSAUTqjRs?wmode=transparent"></iframe>
+                    <div data-bind="html: embed" id="embed"></div>
                 </div>
                 <div class="b-settings-blue_row clearfix">
                     <textarea name="" id="" cols="80" rows="5" class="b-settings-blue_textarea itx-simple" placeholder="Ваш комментарий"></textarea>
+
                 </div>
                 <div class=" clearfix">
                     <a href="" class="btn-blue btn-h46 float-r btn-inactive">Добавить</a>
@@ -73,27 +71,24 @@
 
                     <div class="float-l">
                         <div class="privacy-select clearfix">
+                            <?=$form->hiddenField($model, 'privacy', array('data-bind' => 'value: selectedPrivacyOption().value()'))?>
                             <div class="privacy-select_hold clearfix">
                                 <div class="privacy-select_tx">Для кого:</div>
                                 <div class="privacy-select_drop-hold">
-                                    <a href="" class="privacy-select_a">
-                                        <span class="ico-users ico-users__friend active"></span>
-                                        <span class="privacy-select_a-tx">только <br>друзьям</span>
+                                    <a class="privacy-select_a" data-bind="click: $root.toggleDropdown, with: selectedPrivacyOption()">
+                                        <span class="ico-users active" data-bind="css: 'ico-users__' + cssClass()"></span>
+                                        <span class="privacy-select_a-tx" data-bind="html: title"></span>
                                     </a>
                                 </div>
-                                <div class="privacy-select_drop display-b">
+                                <div class="privacy-select_drop" data-bind="css: { 'display-b' : showDropdown}">
+                                    <!-- ko foreach: privacyOptions -->
                                     <div class="privacy-select_i">
-                                        <a href="" class="privacy-select_a">
-                                            <span class="ico-users ico-users__all"></span>
-                                            <span class="privacy-select_a-tx">для <br>всех</span>
+                                        <a class="privacy-select_a" data-bind="click: select">
+                                            <span class="ico-users" data-bind="css: 'ico-users__' + cssClass()"></span>
+                                            <span class="privacy-select_a-tx" data-bind="html: title"></span>
                                         </a>
                                     </div>
-                                    <div class="privacy-select_i">
-                                        <a href="" class="privacy-select_a">
-                                            <span class="ico-users ico-users__friend"></span>
-                                            <span class="privacy-select_a-tx">только <br>друзьям</span>
-                                        </a>
-                                    </div>
+                                    <!-- /ko -->
                                 </div>
                             </div>
                         </div>
@@ -104,12 +99,22 @@
     </div>
 </div>
 
+<?php $this->endWidget(); ?>
+
 <script>
     var BlogFormVideoViewModel = function() {
         var self = this;
         ko.utils.extend(self, new BlogFormViewModel());
+        self.link = ko.observable('');
+        self.embed = ko.observable(null);
+
+        self.check = function() {
+            $.get('http://www.youtube.com/oembed', { url : self.link(), format : 'json' }, function(data, textStatus) {
+                $('#embed').oembed(self.link());
+            }, 'json');
+        }
     }
 
-    formVM = new BlogFormPostViewModel();
+    formVM = new BlogFormVideoViewModel();
     ko.applyBindings(formVM, document.getElementById('popup-user-add-video'));
 </script>

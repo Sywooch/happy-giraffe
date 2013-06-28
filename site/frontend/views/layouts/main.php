@@ -28,7 +28,21 @@
                             <a href="<?=$this->createUrl('/contest/default/view', array('id' => $contest_id)) ?>"><img src="/images/contest/banner-w300-<?=$contest_id?>.jpg" /></a>
                         <?php endif; ?>
                     <?php else: ?>
-                        <?=CHtml::link(CHtml::image('/images/banner_06.png'), '#register', array('class'=>'fancy', 'data-theme'=>'white-square'))?>
+                        <?php if (Yii::app()->clientScript->hasNoindex): ?>
+                            <?=CHtml::link(CHtml::image('/images/banner_06.png'), '#register', array('class'=>'fancy', 'data-theme'=>'white-square'))?>
+                        <?php else: ?>
+                            <script type="text/javascript"><!--
+                                google_ad_client = "ca-pub-3807022659655617";
+                                /* ¬ÂÒÂÎ˚È ∆Ë‡Ù 728 */
+                                google_ad_slot = "2246137286";
+                                google_ad_width = 728;
+                                google_ad_height = 90;
+                                //-->
+                            </script>
+                            <script type="text/javascript"
+                                    src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+                            </script>
+                        <?php endif; ?>
                     <?php endif; ?>
                 </div>
 

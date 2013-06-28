@@ -111,6 +111,7 @@ return array(
 	// application components
 	'components'=>array(
         'clientScript' => array(
+            'class' => 'application.components.ClientScript',
 //            'scriptMap'=>array(
 //                'jquery'=>'http://code.jquery.com/jquery-1.8.0.min.js',
 //            ),

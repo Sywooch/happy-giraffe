@@ -5,7 +5,12 @@
  */
 ?>
 
-<?php $form = $this->beginWidget('CActiveForm'); ?>
+<?php $form = $this->beginWidget('CActiveForm', array(
+    'id' => 'blog-form',
+    'action' => array('save'),
+)); ?>
+
+<?=$form->hiddenField($model, 'type_id')?>
 
 <div id="popup-user-add-article" class="popup-user-add-record">
     <a class="popup-transparent-close powertip" onclick="$.fancybox.close();" href="javascript:void(0);" title="Закрыть"></a>
@@ -36,6 +41,7 @@
                         </div>
                         <?=$form->label($model, 'title', array('class' => 'b-settings-blue_label'))?>
                         <?=$form->textField($model, 'title', array('class' => 'itx-simple w-400', 'placeholder' => 'Введите заголовок статьи', 'data-bind' => 'value: title, valueUpdate: \'keyup\''))?>
+                        <?=$form->error($model, 'title')?>
                     </div>
                     <div class="b-settings-blue_row clearfix">
                         <label for="" class="b-settings-blue_label">Рубрика</label>
@@ -56,11 +62,12 @@
 
                 <div class="wysiwyg-v wysiwyg-blue clearfix">
                     <?=$form->textArea($slaveModel, 'text', array('class' => 'wysiwyg-redactor-v'))?>
+                    <?=$form->error($slaveModel, 'text')?>
                 </div>
 
                 <div class=" clearfix">
-                    <a href="" class="btn-blue btn-h46 float-r">Добавить</a>
-                    <a href="" class="btn-gray-light btn-h46 float-r margin-r15">Отменить</a>
+                    <a href="javascript:void(0)" onclick="submit()" class="btn-blue btn-h46 float-r">Добавить</a>
+                    <a href="javascript:void(0)" onclick="$.fancybox.close()" class="btn-gray-light btn-h46 float-r margin-r15">Отменить</a>
 
                     <div class="float-l">
                         <div class="privacy-select clearfix">

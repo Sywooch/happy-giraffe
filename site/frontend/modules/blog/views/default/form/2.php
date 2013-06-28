@@ -2,10 +2,19 @@
 /**
  * @var CommunityContent $model
  * @var HActiveRecord $slaveModel
+ * @var $json
  */
 ?>
 
-<?php $form = $this->beginWidget('CActiveForm'); ?>
+<?php $form = $this->beginWidget('CActiveForm', array(
+    'id' => 'blog-form',
+    'action' => $model->isNewRecord ? array('save') : array('save', 'id' => $model->id),
+    'enableAjaxValidation' => true,
+    'enableClientValidation' => true,
+    'clientOptions' => array(
+        'validateOnSubmit' => true,
+    ),
+)); ?>
 
 <div id="popup-user-add-video" class="popup-user-add-record">
     <a class="popup-transparent-close powertip" onclick="$.fancybox.close();" href="javascript:void(0);" title="Закрыть"></a>
@@ -36,12 +45,14 @@
                         </div>
                         <?=$form->label($model, 'title', array('class' => 'b-settings-blue_label'))?>
                         <?=$form->textField($model, 'title', array('class' => 'itx-simple w-400', 'placeholder' => 'Введите заголовок статьи', 'data-bind' => 'value: title, valueUpdate: \'keyup\''))?>
+                        <?=$form->error($model, 'title')?>
                     </div>
                     <div class="b-settings-blue_row clearfix">
                         <label for="" class="b-settings-blue_label">Рубрика</label>
                         <div class="w-400 float-l">
                             <div class="chzn-itx-simple">
                                 <?=$form->dropDownList($model, 'rubric_id', CHtml::listData($this->user->blog_rubrics, 'id', 'title'), array('class' => 'chzn'))?>
+                                <?=$form->error($model, 'rubric_id')?>
                                 <div class="chzn-itx-simple_add">
                                     <div class="chzn-itx-simple_add-hold">
                                         <input type="text" name="" id="" class="chzn-itx-simple_add-itx">
@@ -55,6 +66,7 @@
                 </div>
                 <div class="b-settings-blue_add-video clearfix" data-bind="visible: embed() === null">
                     <?=$form->textField($slaveModel, 'link', array('class' => 'itx-simple w-400 float-l', 'placeholder' => 'Введите ссылку на видео', 'data-bind' => 'value: link, valueUpdate: \'keyup\''))?>
+                    <?=$form->error($slaveModel, 'text')?>
                     <button class="btn-green" data-bind="css: { 'btn-inactive' : link().length == 0 }, click: check">Загрузить  видео</button>
                 </div>
                 <div class="b-settings-blue_video clearfix" data-bind="visible: embed() !== null">
@@ -102,19 +114,20 @@
 <?php $this->endWidget(); ?>
 
 <script>
-    var BlogFormVideoViewModel = function() {
+    var BlogFormVideoViewModel = function(data) {
         var self = this;
-        ko.utils.extend(self, new BlogFormViewModel());
+        ko.utils.extend(self, new BlogFormViewModel(data));
         self.link = ko.observable('');
         self.embed = ko.observable(null);
 
         self.check = function() {
             $.get('http://www.youtube.com/oembed', { url : self.link(), format : 'json' }, function(data, textStatus) {
                 $('#embed').oembed(self.link());
+                self.embed($('#embed').html());
             }, 'json');
         }
     }
 
-    formVM = new BlogFormVideoViewModel();
+    formVM = new BlogFormVideoViewModel(<?=CJSON::encode($json)?>);
     ko.applyBindings(formVM, document.getElementById('popup-user-add-video'));
 </script>

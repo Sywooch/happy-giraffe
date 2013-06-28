@@ -1,0 +1,181 @@
+<?php
+/**
+ * @var CommunityContent $model
+ * @var HActiveRecord $slaveModel
+ * @var $json
+ */
+?>
+
+<?php $form = $this->beginWidget('CActiveForm', array(
+    'id' => 'blog-form',
+    'action' => $model->isNewRecord ? array('save') : array('save', 'id' => $model->id),
+    'enableAjaxValidation' => true,
+    'enableClientValidation' => true,
+    'clientOptions' => array(
+        'validateOnSubmit' => true,
+    ),
+)); ?>
+
+<?=$form->hiddenField($model, 'type_id')?>
+
+<div id="popup-user-add-status" class="popup-user-add-record">
+    <a class="popup-transparent-close powertip" onclick="$.fancybox.close();" href="javascript:void(0);" title="Закрыть"></a>
+    <div class="clearfix">
+        <div class="w-720 float-r">
+
+            <div class="user-add-record user-add-record__yellow clearfix">
+                <div class="user-add-record_ava-hold">
+                    <a href="" class="ava male">
+                        <span class="icon-status status-online"></span>
+                        <img alt="" src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg">
+                    </a>
+                </div>
+                <div class="user-add-record_hold">
+                    <div class="user-add-record_tx">Я хочу добавить</div>
+                    <a href="#popup-user-add-article" class="user-add-record_ico user-add-record_ico__article fancy">Статью</a>
+                    <a href="#popup-user-add-photo" class="user-add-record_ico user-add-record_ico__photo fancy">Фото</a>
+                    <a href="#popup-user-add-video" class="user-add-record_ico user-add-record_ico__video fancy">Видео</a>
+                    <a href="#popup-user-add-status"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__status active fancy">Статус</a>
+                </div>
+            </div>
+
+            <div class="b-settings-blue b-settings-blue__status">
+                <div class="b-settings-blue_tale"></div>
+
+                <div class="b-status-add clearfix">
+                    <div class="float-l">
+                        <a class="ava male" href="">
+                            <span class="icon-status status-online"></span>
+                            <img src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg" alt="">
+                        </a>
+                    </div>
+                    <div class="b-status-add_col">
+                        <div class="b-status-add_hold">
+                            <div class="clearfix">
+                                <div class="float-r font-small color-gray" data-bind="length: { attribute : text, maxLength : 250 }"></div>
+                            </div>
+                            <?=$form->textArea($slaveModel, 'text', array('cols' => 60, 'rows' => 3, 'class' => 'b-status-add_textarea', 'data-bind' => 'value: text, valueUpdate: \'keyup\''))?>
+                            <?=$form->error($slaveModel, 'text')?>
+                        </div>
+                        <div class="margin-b10 clearfix">
+                            <div class="b-user-mood">
+                                <?=$form->hiddenField($slaveModel, 'mood_id', array('data-bind' => 'value: selectedMoodId'))?>
+                                <div class="b-user-mood_img">
+                                    <img data-bind="attr: { src : selectedMoodImagePath }">
+                                    <div class="b-moods-list" data-bind="visible: choiceVisible"">
+                                        <ul class="b-moods-list_ul">
+                                            <!-- ko foreach: moods -->
+                                            <li class="b-moods-list_li">
+                                                <a class="b-moods-list_a" data-bind="click: select">
+                                                    <img class="b-moods-list_img" data-bind="attr: { src : imagePath }">
+                                                    <span class="b-moods-list_tx" data-bind="text: title"></span>
+                                                </a>
+                                            </li>
+                                            <!-- /ko -->
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="b-user-mood_hold">
+                                    <!-- ko if: selectedMoodId() === null -->
+                                    <a class="a-pseudo" data-bind="click: toggleChoiceVisible">Прикрепить <br> мое настроение</a>
+                                    <!-- /ko -->
+                                    <!-- ko if: selectedMoodId() !== null -->
+                                    <div class="b-user-mood_tx">- мое настроение</div>
+                                    <a class="a-pseudo font-small margin-l10" data-bind="click: toggleChoiceVisible">Изменить</a> &nbsp;
+                                    <a class="a-pseudo-gray font-small" data-bind="click: removeMood">Удалить</a>
+                                    <!-- /ko -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class=" clearfix">
+                            <a href="" class="btn-blue btn-h46 float-r btn-inactive">Добавить</a>
+                            <a href="" class="btn-gray-light btn-h46 float-r margin-r15">Отменить</a>
+
+                            <div class="float-l">
+                                <div class="privacy-select clearfix">
+                                    <?=$form->hiddenField($model, 'privacy', array('data-bind' => 'value: selectedPrivacyOption().value()'))?>
+                                    <div class="privacy-select_hold clearfix">
+                                        <div class="privacy-select_tx">Для кого:</div>
+                                        <div class="privacy-select_drop-hold">
+                                            <a class="privacy-select_a" data-bind="click: $root.toggleDropdown, with: selectedPrivacyOption()">
+                                                <span class="ico-users active" data-bind="css: 'ico-users__' + cssClass()"></span>
+                                                <span class="privacy-select_a-tx" data-bind="html: title"></span>
+                                            </a>
+                                        </div>
+                                        <div class="privacy-select_drop" data-bind="css: { 'display-b' : showDropdown}">
+                                            <!-- ko foreach: privacyOptions -->
+                                            <div class="privacy-select_i">
+                                                <a class="privacy-select_a" data-bind="click: select">
+                                                    <span class="ico-users" data-bind="css: 'ico-users__' + cssClass()"></span>
+                                                    <span class="privacy-select_a-tx" data-bind="html: title"></span>
+                                                </a>
+                                            </div>
+                                            <!-- /ko -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<?php $this->endWidget(); ?>
+
+<script>
+    var BlogFormStatusViewModel = function(data) {
+        console.log(data);
+
+        var self = this;
+        ko.utils.extend(self, new BlogFormViewModel(data));
+        self.text = ko.observable(data.text);
+        self.moods = ko.utils.arrayMap(data.moods, function(mood) {
+            return new Mood(mood, self);
+        });
+        self.selectedMoodId = ko.observable(data.mood_id);
+        self.choiceVisible = ko.observable(false);
+
+        self.toggleChoiceVisible = function() {
+            self.choiceVisible(! self.choiceVisible());
+        }
+
+        self.selectedMood = ko.computed(function() {
+            return ko.utils.arrayFirst(self.moods, function(mood) {
+                return mood.id == self.selectedMoodId();
+            })
+        });
+
+        self.selectedMoodImagePath = ko.computed(function() {
+            return self.selectedMoodId() === null ? '/images/widget/mood/0.png' : self.selectedMood().imagePath();
+        });
+
+        self.removeMood = function() {
+            self.selectedMoodId(null);
+        }
+    }
+
+    var Mood = function(data, parent) {
+        var self = this;
+        self.id = data.id;
+        self.title = data.title;
+
+        self.select = function() {
+            parent.selectedMoodId(self.id);
+            parent.choiceVisible(false);
+        }
+
+        self.imagePath = ko.computed(function() {
+            return '/images/widget/mood/' + self.id  + '.png';
+        });
+
+    }
+
+    formVM = new BlogFormStatusViewModel(<?=CJSON::encode($json)?>);
+    ko.applyBindings(formVM, document.getElementById('popup-user-add-status'));
+</script>

@@ -7,14 +7,14 @@
 <br>
 <form action="" id="location-form" class="form">
     <input type="hidden" id="model_id" name="id" value="<?=$post->id ?>">
-    <?php echo CHtml::textField('location', $post->photoPost->location, array('class' => 'w-500')); ?>
+    <?php echo CHtml::textField('location', $post->morningPost->location, array('class' => 'w-500')); ?>
     <br>
     <a href="" onclick="showOnMap();return false;">Показать на карте</a>
 
     <div id="map_canvas" style="width:223px; height:200px"></div>
-    <input type="hidden" id="lat" name="lat" value="<?=$post->photoPost->lat ?>">
-    <input type="hidden" id="long" name="long" value="<?=$post->photoPost->long ?>">
-    <input type="hidden" id="zoom" name="zoom" value="<?=empty($post->photoPost->zoom)?'5':$post->photoPost->zoom ?>">
+    <input type="hidden" id="lat" name="lat" value="<?=$post->morningPost->lat ?>">
+    <input type="hidden" id="long" name="long" value="<?=$post->morningPost->long ?>">
+    <input type="hidden" id="zoom" name="zoom" value="<?=empty($post->morningPost->zoom)?'5':$post->morningPost->zoom ?>">
 
     <div class="row row-buttons">
         <button class="btn btn-green-medium">
@@ -30,12 +30,12 @@
     $(function () {
         geocoder = new google.maps.Geocoder();
 
-        <?php if (!empty($post->photoPost->lat) && !empty($post->photoPost->long) && !empty($post->photoPost->zoom)) {?>
+        <?php if (!empty($post->morningPost->lat) && !empty($post->morningPost->long) && !empty($post->morningPost->zoom)) {?>
 
             var myOptions = {
-                center:new google.maps.LatLng(<?= $post->photoPost->lat ?>, <?= $post->photoPost->long ?>),
+                center:new google.maps.LatLng(<?= $post->morningPost->lat ?>, <?= $post->morningPost->long ?>),
                 mapTypeId:google.maps.MapTypeId.ROADMAP,
-                zoom:<?= $post->photoPost->zoom ?>
+                zoom:<?= $post->morningPost->zoom ?>
             };
             map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
 

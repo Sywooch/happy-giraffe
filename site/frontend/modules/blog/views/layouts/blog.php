@@ -2,7 +2,7 @@
 <?php
     Yii::app()->clientScript
         ->registerCssFile('/stylesheets/user.css')
-        ->registerScriptFile('/javascripts/ko_blog.js', CClientScript::POS_END)
+        ->registerScriptFile('/javascripts/ko_blog.js')
         ->registerScriptFile('/javascripts/jquery.Jcrop.min.js')
     ;
 ?>
@@ -42,7 +42,7 @@
                 <div class="user-add-record_hold">
                     <div class="user-add-record_tx">Я хочу добавить</div>
                     <a href="<?=$this->createUrl('form', array('type' => 1))?>"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__article fancy">Статью</a>
-                    <a href="#popup-user-add-photo"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__photo fancy">Фото</a>
+                    <a href="<?=$this->createUrl('form', array('type' => 3))?>"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__photo fancy">Фото</a>
                     <a href="<?=$this->createUrl('form', array('type' => 2))?>"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__video active fancy">Видео</a>
                 </div>
             </div>

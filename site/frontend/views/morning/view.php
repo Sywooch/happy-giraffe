@@ -9,11 +9,11 @@
 
         <h1><?=$article->title ?></h1>
 
-        <?php if (!empty($article->photoPost->location_image)):?>
+        <?php if (!empty($article->morningPost->location_image)):?>
             <div class="where">
                 <span>Где:</span>
 
-                <div class="map-box"><a target="_blank" href="<?=$article->photoPost->mapUrl ?>"><img src="<?=$article->photoPost->getImageUrl() ?>"></a></div>
+                <div class="map-box"><a target="_blank" href="<?=$article->morningPost->mapUrl ?>"><img src="<?=$article->morningPost->getImageUrl() ?>"></a></div>
             </div>
         <?php endif ?>
 
@@ -37,7 +37,7 @@
 
             <?=Str::strToParagraph($article->preview) ?>
 
-            <?php foreach ($article->photoPost->photos as $photo): ?>
+            <?php foreach ($article->morningPost->photos as $photo): ?>
             <p><img src="<?=$photo->url ?>" alt=""></p>
             <?=Str::strToParagraph($photo->text) ?>
             <br>
@@ -84,7 +84,7 @@
                 'type' => 'simple',
                 'options' => array(
                     'title' => CHtml::encode($article->title),
-                    'image' => $article->photoPost->getPhoto(),
+                    'image' => $article->morningPost->getPhoto(),
                     'description' => $article->preview,
                 ),
             )); ?>

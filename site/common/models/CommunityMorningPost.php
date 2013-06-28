@@ -118,11 +118,11 @@ class CommunityMorningPost extends HActiveRecord
     {
         if ($this->isNewRecord){
             //calculate next position
-            $today_contents = CommunityContent::model()->with('photoPost')->findAll('created > "'.date("Y-m-d").' 00:00:00" AND type_id = 4');
+            $today_contents = CommunityContent::model()->with('morningPost')->findAll('created > "'.date("Y-m-d").' 00:00:00" AND type_id = 4');
             $pos = 0;
             foreach($today_contents as $today_content){
-                if (isset($today_content->photoPost) && $today_content->photoPost->position > $pos)
-                    $pos = $today_content->photoPost->position;
+                if (isset($today_content->morningPost) && $today_content->morningPost->position > $pos)
+                    $pos = $today_content->morningPost->position;
             }
             $this->position = $pos + 1;
         }

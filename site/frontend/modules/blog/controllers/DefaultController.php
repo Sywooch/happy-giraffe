@@ -138,9 +138,8 @@ class DefaultController extends HController
         $slaveModel->attributes = $_POST[$slaveModelName];
         $this->performAjaxValidation(array($model, $slaveModel));
         $model->$slug = $slaveModel;
-        $success = $model->withRelated->save(true, array($slug));
-        $response = compact('success');
-        echo CJSON::encode($response);
+        $model->withRelated->save(true, array($slug));
+        $this->redirect($model->url);
     }
 
     protected function performAjaxValidation($models)

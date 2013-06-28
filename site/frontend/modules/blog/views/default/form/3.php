@@ -1,11 +1,3 @@
-<?php
-Yii::app()->clientScript
-    ->registerScript('file-upload2', 'var FileAPI = { debug: false, pingUrl: false }', CClientScript::POS_HEAD)
-    ->registerScriptFile('/javascripts/upload/FileAPI.min.js', CClientScript::POS_BEGIN)
-    ->registerScriptFile('/javascripts/upload/FileAPI.id3.js', CClientScript::POS_BEGIN)
-    ->registerScriptFile('/javascripts/upload/FileAPI.exif.js', CClientScript::POS_BEGIN);
-
-?>
 <div class="b-settings-blue b-settings-blue__photo">
     <div class="b-settings-blue_tale"></div>
     <div class="clearfix">
@@ -16,7 +8,7 @@ Yii::app()->clientScript
                 <img src="/images/b-settings-blue_photo-record-img1.png" alt="" class="">
             </div>
             <div class="clearfix">
-                <a href="" class="btn-blue btn-h46">Загрузить фото</a>
+                <a href="javascript:;" class="btn-blue btn-h46" onclick="$(this).parents('.b-settings-blue').hide();$('#popup-user-add-photo').show();">Загрузить фото</a>
             </div>
         </div>
 
@@ -26,14 +18,14 @@ Yii::app()->clientScript
                 <img src="/images/b-settings-blue_photo-record-img2.png" alt="" class="">
             </div>
             <div class="clearfix">
-                <a href="" class="btn-blue btn-h46">Создать фотопост</a>
+                <a href="javascript:;" class="btn-blue btn-h46" onclick="$(this).parents('.b-settings-blue').hide();$('#popup-user-add-photo-post').show();">Создать фотопост</a>
             </div>
         </div>
 
     </div>
 </div>
 
-<div class="b-settings-blue b-settings-blue__photo" id="popup-user-add-photo-post">
+<div class="b-settings-blue b-settings-blue__photo" id="popup-user-add-photo-post" style="display: none;">
     <div class="b-settings-blue_tale"></div>
     <div class="b-settings-blue_head">
         <div class="b-settings-blue_row clearfix">
@@ -62,7 +54,7 @@ Yii::app()->clientScript
                     <div class="chzn-itx-simple_add">
                         <div class="chzn-itx-simple_add-hold">
                             <input type="text" name="" id="" class="chzn-itx-simple_add-itx">
-                            <a href="" class="chzn-itx-simple_add-del"></a>
+                            <a href="" class="chzn-itx-simple_add-del" onclick="$.fancybox.close();return false;"></a>
                         </div>
                         <button class="btn-green">Ok</button>
                     </div>
@@ -81,9 +73,26 @@ Yii::app()->clientScript
             </div>
             <div class="file-fake">
                 <button class="btn-green btn-medium file-fake_btn">Обзор</button>
-                <input type="file" name="">
+                <input type="file" class="js-upload-files-multiple" multiple/>
             </div>
         </div>
+
+        <div class="textalign-c clearfix">
+            <!-- ko with: upload -->
+            <!-- ko foreach: photos -->
+            <div class="b-add-img_i" data-bind="attr: {id: 'uploaded_photo' + uid}">
+                <div class="b-add-img_i-vert"></div>
+                <div class="b-add-img_i-load">
+                    <div class="b-add-img_i-load-progress" data-bind="css: {width: progress}"></div>
+                </div>
+                <div class="b-add-img_i-overlay">
+                    <a href="" class="b-add-img_i-del ico-close4" data-bind="click: remove"></a>
+                </div>
+            </div>
+            <!-- /ko -->
+            <!-- /ko -->
+        </div>
+
         <div class="b-add-img_html5-tx">или перетащите фото сюда</div>
     </div>
 
@@ -92,7 +101,7 @@ Yii::app()->clientScript
     </div>
     <div class=" clearfix">
         <a href="" class="btn-blue btn-h46 float-r btn-inactive">Добавить</a>
-        <a href="" class="btn-gray-light btn-h46 float-r margin-r15">Отменить</a>
+        <a href="" class="btn-gray-light btn-h46 float-r margin-r15" onclick="$.fancybox.close();return false;">Отменить</a>
 
         <div class="float-l">
             <div class="privacy-select clearfix">
@@ -125,7 +134,7 @@ Yii::app()->clientScript
 </div>
 
 
-<div class="b-settings-blue b-settings-blue__photo" id="popup-user-add-photo">
+<div class="b-settings-blue b-settings-blue__photo" id="popup-user-add-photo" style="display: none;">
     <div class="b-settings-blue_tale"></div>
     <div class="b-settings-blue_head">
         <div class="b-settings-blue_row clearfix">
@@ -164,12 +173,13 @@ Yii::app()->clientScript
             </div>
             <div class="file-fake">
                 <button class="btn-green btn-medium file-fake_btn">Обзор</button>
-                <input type="file" name="">
+                <input type="file" class="js-upload-files-multiple" multiple />
             </div>
         </div>
         <div class="textalign-c clearfix">
+            <!-- ko with: upload -->
             <!-- ko foreach: photos -->
-            <div class="b-add-img_i">
+            <div class="b-add-img_i" data-bind="attr: {id: 'uploaded_photo_' + uid}">
                 <div class="b-add-img_i-vert"></div>
                 <div class="b-add-img_i-load">
                     <div class="b-add-img_i-load-progress" data-bind="css: {width: progress}"></div>
@@ -179,9 +189,10 @@ Yii::app()->clientScript
                 </div>
             </div>
             <!-- /ko -->
+            <!-- /ko -->
         </div>
         <!-- Текст приглашения для перетаскивания можно скрыть или удалить при наличии фото -->
-        <div class="b-add-img_html5-tx display-n">или перетащите фото сюда</div>
+        <div class="b-add-img_html5-tx">или перетащите фото сюда</div>
     </div>
 
     <div class=" clearfix">
@@ -221,130 +232,47 @@ Yii::app()->clientScript
 
 
 <script type="text/javascript">
-
-    function UploadPhotos() {
-        var self = this;
-        self.photos = ko.observableArray([]);
-        self.active = false;
-
-        self.onFiles = function(files) {
-            FileAPI.each(files, function (file) {
-                if (file.size >= 25 * FileAPI.MB) {
-                    alert('Sorrow.\nMax size 25MB')
-                }
-                else if (file.size === void 0) {
-                    $('#oooops').show();
-                    $('#buttons-panel').hide();
-                }
-                else {
-                    self.add(file);
-                }
-            });
-
-            self.start();
+    $(function() {
+        var PhotoPostViewModel = function() {
+            var self = this;
+            self.upload = ko.observable(new UploadPhotos());
+            self.title = ko.observable('');
+            self.text = ko.observable('');
         };
-        self.add = function (file) {
-            var photo = new UploadedPhoto(file, self);
-            self.photos.push(photo);
+        var formVM1 = new PhotoPostViewModel();
+        ko.applyBindings(formVM1, document.getElementById('popup-user-add-photo-post'));
+
+        var PhotoAlbumViewModel = function() {
+            var self = this;
+            self.upload = ko.observable(new UploadPhotos());
         };
-        self.start = function () {
-            if (!self.active)
-                ko.utils.arrayFirst(this.photos(), function (photo) {
-                    if (photo.status() == 0) {
-                        photo.upload();
-                        return true;
-                    }
-                    return false;
-                });
-        };
-        self._getEl = function (file) {
-            ko.utils.arrayForEach(this.photos(), function (photo) {
-                if (photo.uid == FileAPI.uid(file))
-                    return photo;
-            });
-        };
-    }
-
-    function UploadedPhoto(file, parent) {
-        var self = this;
-
-        self.parent = parent;
-        self.file = file;
-        self.image = ko.observable();
-        self.uid = FileAPI.uid(file);
-        self.id = ko.observable('');
-        self.status = ko.observable(0);
-        self.progress = ko.observable(0);
-
-        if (/^image/.test(self.file.type)) {
-            FileAPI.Image(self.file).preview(150).rotate('auto').get(function (err, img) {
-                $('#img_preview' + self.uid).append(img);
-                if (!err)
-                    self.image(img.outerHTML);
-            });
-        }
-
-        self.upload = function () {
-            self.file.xhr = FileAPI.upload({
-                url: '/ajaxSimple/uploadPhoto/',
-                imageAutoOrientation: true,
-                files: { file: file },
-                upload: function () {
-                    self.status(1);
-                },
-                progress: function (evt) {
-                    self.progress(evt.loaded / evt.total * 100);
-                },
-                complete: function (err, xhr) {
-                    self.progress(100);
-                    self.status(2);
-                    self.parent.active = false;
-                    self.parent.start();
-                }
-            });
-        };
-
-        self.remove = function () {
-            if (self.file.xhr)
-                self.file.xhr.abort();
-            self.parent.photos.remove(self);
-        };
-    }
-    var uploadPhotos = new UploadPhotos();
-    ko.applyBindings(uploadPhotos, document.getElementById('preview'));
+        var formVM2 = new PhotoAlbumViewModel();
+        ko.applyBindings(formVM2, document.getElementById('popup-user-add-photo'));
 
 
-    var PhotoPostViewModel = function() {
-        var self = this;
-    };
-    formVM = new PhotoPostViewModel();
-    ko.applyBindings(formVM, document.getElementById('popup-user-add-photo'));
-
-    var PhotoAlbumViewModel = function() {
-        var self = this;
-    };
-    formVM = new PhotoAlbumViewModel();
-    ko.applyBindings(formVM, document.getElementById('popup-user-add-photo'));
-
-
-
-    $(function () {
         if (!(FileAPI.support.cors || FileAPI.support.flash)) {
             $('#oooops').show();
             $('#buttons-panel').hide();
         }
 
         if (FileAPI.support.dnd) {
-            $('#drop-zone').show();
+            $('.b-add-img_html5-tx').show();
+
             $(document).dnd(function (over) {
             }, function (files) {
-                uploadPhotos.onFiles(files);
+                formVM1.upload().onFiles(files);
+                formVM2.upload().onFiles(files);
             });
         }
 
-        $('#upload-files-multiple').on('change', function (evt) {
+        $('#popup-user-add-photo .js-upload-files-multiple').on('change', function (evt) {
             var files = FileAPI.getFiles(evt);
-            uploadPhotos.onFiles(files);
+            formVM2.upload().onFiles(files);
+            FileAPI.reset(evt.currentTarget);
+        });
+        $('#popup-user-add-photo-post .js-upload-files-multiple').on('change', function (evt) {
+            var files = FileAPI.getFiles(evt);
+            formVM1.upload().onFiles(files);
             FileAPI.reset(evt.currentTarget);
         });
     });

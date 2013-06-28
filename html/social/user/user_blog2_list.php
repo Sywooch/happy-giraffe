@@ -1,12 +1,11 @@
 ﻿<!DOCTYPE html>
-<!--[if lt IE 8]>      <html class="top-nav-fixed ie7"> <![endif]-->
-<!--[if IE 8]>         <html class="top-nav-fixed ie8"> <![endif]-->
-<!--[if IE 9]>         <html class="top-nav-fixed ie9"> <![endif]-->
+<!--[if lt IE 8]>      <html class="ie7"> <![endif]-->
+<!--[if IE 8]>         <html class="ie8"> <![endif]-->
+<!--[if IE 9]>         <html class="ie9"> <![endif]-->
 <!--[if gt IE 9]><!--> <html class=""> <!--<![endif]-->
 <head>
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/head.php'; ?>
 	<link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,100&amp;subset=latin,cyrillic-ext,cyrillic">
-	<link rel="stylesheet" href="">
 
 </head>
 <body class="body-gray">

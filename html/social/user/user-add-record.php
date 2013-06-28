@@ -6,6 +6,14 @@
 <head>
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/head.php'; ?>
 	<link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,100&amp;subset=latin,cyrillic-ext,cyrillic">
+	
+	<script type="text/javascript">
+	$(".chzn").chosen().ready(function(){
+	    
+	    $('.chzn-itx-simple').find('.chzn-drop').append("<div class='chzn-itx-simple_add'><div class='chzn-itx-simple_add-hold'> <input type='text' name='' id='' class='chzn-itx-simple_add-itx'> <a href='' class='chzn-itx-simple_add-del'></a> </div> <button class='btn-green'>Ok</button> </div>");
+
+	  });
+	</script>
 
 </head>
 <body class="body-gray">
@@ -26,6 +34,28 @@
 					 -->
 					<button class="sidebar-search_btn"></button>
 				</div>
+			</div>
+			<div class="col-23">
+				<div class="user-add-record clearfix">
+					<div class="user-add-record_ava-hold">
+						<a href="" class="ava male">
+							<span class="icon-status status-online"></span>
+							<img alt="" src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg">
+						</a>
+					</div>
+					<div class="user-add-record_hold">
+						<div class="user-add-record_tx">Я хочу добавить</div>
+						<a href="#popup-user-add-article"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__article fancy">Статью</a>
+						<a href="#popup-user-add-photo"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__photo fancy">Фото</a>
+						<a href="#popup-user-add-video"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__video fancy">Видео</a>
+						<a href="#popup-user-add-status"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__status active fancy">Статус</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="content-cols clearfix">
+			<div class="col-1">
 				<div class="b-ava-large">
 					<div class="b-ava-large_ava-hold clearfix">
 						<a class="ava large" href="">
@@ -56,23 +86,6 @@
 				<div class="aside-blog-desc">
 					<div class="aside-blog-desc_tx">
 						Пусть кто-то будет безумно красивый Пусть кто-то будет богаче и круче Мне наплевать, ведь ты - мой любимый.	Ты навсегда. Ты мой. Самый лучший.
-					</div>
-				</div>
-			</div>
-			<div class="col-23">
-				<div class="user-add-record clearfix">
-					<div class="user-add-record_ava-hold">
-						<a href="" class="ava male">
-							<span class="icon-status status-online"></span>
-							<img alt="" src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg">
-						</a>
-					</div>
-					<div class="user-add-record_hold">
-						<div class="user-add-record_tx">Я хочу добавить</div>
-						<a href="#popup-user-add-article"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__article fancy">Статью</a>
-						<a href="#popup-user-add-photo"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__photo fancy">Фото</a>
-						<a href="#popup-user-add-video"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__video fancy">Видео</a>
-						<a href="#popup-user-add-status"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__status active fancy">Статус</a>
 					</div>
 				</div>
 			</div>
@@ -625,13 +638,13 @@
 										<option>132</option>						
 										<option>132</option>						
 									</select>
-									<div class="chzn-itx-simple_add">
+									<!-- <div class="chzn-itx-simple_add">
 										<div class="chzn-itx-simple_add-hold">
 											<input type="text" name="" id="" class="chzn-itx-simple_add-itx">
 											<a href="" class="chzn-itx-simple_add-del"></a>
 										</div>
 										<button class="btn-green">Ok</button>
-									</div>
+									</div> -->
 								</div>
 							</div>
 						</div>
@@ -727,13 +740,13 @@
 										<option>132</option>						
 										<option>132</option>						
 									</select>
-									<div class="chzn-itx-simple_add">
+									<!-- <div class="chzn-itx-simple_add">
 										<div class="chzn-itx-simple_add-hold">
 											<input type="text" name="" id="" class="chzn-itx-simple_add-itx">
 											<a href="" class="chzn-itx-simple_add-del"></a>
 										</div>
 										<button class="btn-green">Ok</button>
-									</div>
+									</div> -->
 								</div>
 							</div>
 						</div>
@@ -874,13 +887,13 @@
 										<option>132</option>						
 										<option>132</option>						
 									</select>
-									<div class="chzn-itx-simple_add">
+									<!-- <div class="chzn-itx-simple_add">
 										<div class="chzn-itx-simple_add-hold">
 											<input type="text" name="" id="" class="chzn-itx-simple_add-itx">
 											<a href="" class="chzn-itx-simple_add-del"></a>
 										</div>
 										<button class="btn-green">Ok</button>
-									</div>
+									</div> -->
 								</div>
 							</div>
 						</div>
@@ -958,13 +971,13 @@
 										<option>132</option>						
 										<option>132</option>						
 									</select>
-									<div class="chzn-itx-simple_add">
+									<!-- <div class="chzn-itx-simple_add">
 										<div class="chzn-itx-simple_add-hold">
 											<input type="text" name="" id="" class="chzn-itx-simple_add-itx">
 											<a href="" class="chzn-itx-simple_add-del"></a>
 										</div>
 										<button class="btn-green">Ok</button>
-									</div>
+									</div> -->
 								</div>
 							</div>
 						</div>
@@ -1047,13 +1060,13 @@
 										<option>132</option>						
 										<option>132</option>						
 									</select>
-									<div class="chzn-itx-simple_add">
+									<!-- <div class="chzn-itx-simple_add">
 										<div class="chzn-itx-simple_add-hold">
 											<input type="text" name="" id="" class="chzn-itx-simple_add-itx">
 											<a href="" class="chzn-itx-simple_add-del"></a>
 										</div>
 										<button class="btn-green">Ok</button>
-									</div>
+									</div> -->
 								</div>
 							</div>
 						</div>

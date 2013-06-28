@@ -2,12 +2,13 @@
 /**
  * @var CommunityContent $model
  * @var HActiveRecord $slaveModel
+ * @var $json
  */
 ?>
 
 <?php $form = $this->beginWidget('CActiveForm', array(
     'id' => 'blog-form',
-    'action' => array('save'),
+    'action' => $model->isNewRecord ? array('save') : array('save', 'id' => $model->id),
     'enableAjaxValidation' => true,
     'enableClientValidation' => true,
     'clientOptions' => array(
@@ -22,6 +23,7 @@
     <div class="clearfix">
         <div class="w-720 float-r">
 
+            <?php if ($model->isNewRecord): ?>
             <div class="user-add-record user-add-record__yellow clearfix">
                 <div class="user-add-record_ava-hold">
                     <a href="" class="ava male">
@@ -36,6 +38,7 @@
                     <a href="#popup-user-add-video" class="user-add-record_ico user-add-record_ico__video fancy">Видео</a>
                 </div>
             </div>
+            <?php endif; ?>
 
             <div class="b-settings-blue b-settings-blue__article">
                 <div class="b-settings-blue_tale"></div>
@@ -72,7 +75,7 @@
                 </div>
 
                 <div class=" clearfix">
-                    <a href="javascript:void(0)" onclick="$('#blog-form').submit()" class="btn-blue btn-h46 float-r">Добавить</a>
+                    <a href="javascript:void(0)" onclick="$('#blog-form').submit()" class="btn-blue btn-h46 float-r"><?=$model->isNewRecord ? 'Добавить' : 'Редактировать'?></a>
                     <a href="javascript:void(0)" onclick="$.fancybox.close()" class="btn-gray-light btn-h46 float-r margin-r15">Отменить</a>
 
                     <div class="float-l">
@@ -108,11 +111,11 @@
 <?php $this->endWidget(); ?>
 
 <script>
-    var BlogFormPostViewModel = function() {
+    var BlogFormPostViewModel = function(data) {
         var self = this;
-        ko.utils.extend(self, new BlogFormViewModel());
+        ko.utils.extend(self, new BlogFormViewModel(data));
     }
 
-    formVM = new BlogFormPostViewModel();
+    formVM = new BlogFormPostViewModel(<?=CJSON::encode($json)?>);
     ko.applyBindings(formVM, document.getElementById('popup-user-add-article'));
 </script>

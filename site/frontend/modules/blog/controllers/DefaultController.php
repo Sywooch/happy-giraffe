@@ -115,15 +115,25 @@ class DefaultController extends HController
         }
     }
 
-    public function actionForm($type)
+    public function actionForm($id = null, $type = null)
     {
         $this->user = $this->loadUser(Yii::app()->user->id);
-        $contentType = CommunityContentType::model()->findByPk($type);
-        $model = new CommunityContent();
-        $model->type_id = $type;
-        $slaveModelName = 'Community' . ucfirst($contentType->slug);
-        $slaveModel = new $slaveModelName();
-        $this->renderPartial('form', compact('model', 'slaveModel', 'type'), false, true);
+        if ($id === null) {
+            $model = new CommunityContent();
+            $model->type_id = $type;
+            $slug = $model->type->slug;
+            $slaveModelName = 'Community' . ucfirst($slug);
+            $slaveModel = new $slaveModelName();
+        } else {
+            $model = CommunityContent::model()->findByPk($id);
+            $slaveModel = $model->content;
+        }
+
+        $json = array(
+            'title' => (string) $model->title,
+            'privacy' => (int) $model->privacy,
+        );
+        $this->renderPartial('form', compact('model', 'slaveModel', 'json'), false, true);
     }
 
     public function actionSave($id = null)

@@ -11,21 +11,21 @@ class ClientScript extends CClientScript
 {
     public function getHasNoindex()
     {
-//        $robotsTxt = array(
-//            'albums',
-//            'signup',
-//            'search',
-//            'messaging',
-//        );
-//
-//        foreach ($robotsTxt as $segment)
-//            if (strpos(Yii::app()->request->requestUri, '/' . $segment) === 0)
-//                return true;
-//
-//
-//        foreach ($this->metaTags as $tag)
-//            if ($tag['name'] == 'robots' && $tag['content'] == 'noindex')
-//                return true;
+        $robotsTxt = array(
+            'albums',
+            'signup',
+            'search',
+            'messaging',
+        );
+
+        foreach ($robotsTxt as $segment)
+            if (strpos(Yii::app()->request->requestUri, '/' . $segment) === 0)
+                return true;
+
+
+        foreach ($this->metaTags as $tag)
+            if (isset($tag['name']) && isset($tag['content']) && $tag['name'] == 'robots' && $tag['content'] == 'noindex')
+                return true;
 
         return false;
     }

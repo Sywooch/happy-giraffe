@@ -898,4 +898,9 @@ class CommunityContent extends HActiveRecord
             'privacy' => (int)$this->privacy,
         );
     }
+
+    public function restore()
+    {
+        return self::model()->updateByPk($this->id, array('removed' => 0)) > 0;
+    }
 }

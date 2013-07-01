@@ -72,7 +72,16 @@ class DefaultController extends HController
     public function actionRemove()
     {
         $id = Yii::app()->request->getPost('id');
-        $success = CommunityContent::model()->deleteByPk($id) > 0;
+        CommunityContent::model()->resetScope()->findByPk($id)->delete();
+        $success = true;
+        $response = compact('success');
+        echo CJSON::encode($response);
+    }
+
+    public function actionRestore()
+    {
+        $id = Yii::app()->request->getPost('id');
+        $success = CommunityContent::model()->resetScope()->findByPk($id)->restore();
         $response = compact('success');
         echo CJSON::encode($response);
     }

@@ -69,6 +69,14 @@ class DefaultController extends HController
         $this->render('view', array('data' => $content, 'full' => true));
     }
 
+    public function actionRemove()
+    {
+        $id = Yii::app()->request->getPost('id');
+        $success = CommunityContent::model()->deleteByPk($id) > 0;
+        $response = compact('success');
+        echo CJSON::encode($response);
+    }
+
     public function actionUpload()
     {
         $this->user = $this->loadUser(Yii::app()->user->id);

@@ -165,9 +165,15 @@ function BlogRecordSettings(data) {
 
     };
     self.remove = function() {
-        $.post('/blog/remove/', { id : self.id() }, function(response) {
+        $.post('/newblog/remove/', { id : self.id() }, function(response) {
             if (response.success)
                 self.removed(true);
+        }, 'json');
+    }
+    self.restore = function() {
+        $.post('/newblog/restore/', { id : self.id() }, function(response) {
+            if (response.success)
+                self.removed(false);
         }, 'json');
     }
 }
@@ -195,3 +201,12 @@ ko.bindingHandlers.toggleVisible = {
             $(element).toggle(200);
     }
 };
+
+ko.bindingHandlers.stopBinding = {
+    init: function() {
+        return { controlsDescendantBindings: true };
+    }
+};
+
+ko.virtualElements.allowedBindings.stopBinding = true;
+

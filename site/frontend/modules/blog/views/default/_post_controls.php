@@ -7,14 +7,16 @@ $ViewModelData = $model->getSettingsViewModel();
 ?><div class="like-control like-control__small-indent clearfix">
     <?php $this->widget('UserAvatarWidget', array('user' => $model->author)) ?>
 </div>
-<div class="js-like-control">
+<div class="js-like-control" data-bind="visible: ! removed()">
     <div class="like-control like-control__pinned clearfix">
         <a href="javascript:;" class="like-control_ico like-control_ico__like<?php if (Yii::app()->user->getModel()->isLiked($model)) echo ' active' ?>" onclick="HgLike(this, 'BlogContent',<?=$model->id ?>);"><?=PostRating::likesCount($model) ?></a>
         <a href="javascript:;" class="like-control_ico like-control_ico__repost<?php if (Yii::app()->user->getModel()->isReposted($model)) echo ' active' ?>"><?=$model->sourceCount ?></a>
+        <!-- ko stopBinding: true -->
         <?php $this->widget('FavouriteWidget', array('model' => $model, 'right' => true)); ?>
+        <!-- /ko -->
     </div>
     <?php if ($model->author_id == Yii::app()->user->id):?>
-        <div class="article-settings" id="blog_settings_<?=$model->id ?>">
+        <div class="article-settings">
             <div class="article-settings_i">
                 <a href="javascript:;" class="article-settings_a article-settings_a__settings powertip" data-bind='css: {active: displayOptions}, click: show'></a>
             </div>
@@ -43,7 +45,7 @@ $ViewModelData = $model->getSettingsViewModel();
                     </div>
                 </div>
                 <div class="article-settings_i">
-                    <a href="" class="article-settings_a article-settings_a__delete powertip"></a>
+                    <a class="article-settings_a article-settings_a__delete powertip" data-bind="click: remove"></a>
                 </div>
             </div>
         </div>

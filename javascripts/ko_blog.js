@@ -134,6 +134,7 @@ function BlogRecordSettings(data) {
     ko.mapping.fromJS(data, {}, self);
     self.displayOptions = ko.observable(false);
     self.displayPrivacy = ko.observable(false);
+    self.removed = ko.observable(false);
 
     self.attach = function(){
         $.post('/newblog/attachBlog/', {id: self.id()}, function (response) {
@@ -163,6 +164,12 @@ function BlogRecordSettings(data) {
         }, 'json');
 
     };
+    self.remove = function() {
+        $.post('/blog/remove/', { id : self.id() }, function(response) {
+            if (response.success)
+                self.removed(true);
+        }, 'json');
+    }
 }
 
 ko.bindingHandlers.slideVisible = {

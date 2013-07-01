@@ -136,7 +136,7 @@ $(document).ready(function () {
     $('.powertip').powerTip({
         placement: 'n',
         /*smartPlacement: true,*/
-        offset: 8
+        offset: 5
     });
 
     $('.js-powertip-white').powerTip({

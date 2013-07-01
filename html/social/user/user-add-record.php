@@ -47,8 +47,8 @@
 						<div class="user-add-record_tx">Я хочу добавить</div>
 						<a href="#popup-user-add-article"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__article fancy">Статью</a>
 						<a href="#popup-user-add-photo"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__photo fancy">Фото</a>
-						<a href="#popup-user-add-video"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__video fancy">Видео</a>
-						<a href="#popup-user-add-status"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__status active fancy">Статус</a>
+						<a href="#popup-user-add-video active"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__video fancy">Видео</a>
+						<a href="#popup-user-add-status"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__status fancy">Статус</a>
 					</div>
 				</div>
 			</div>
@@ -1356,221 +1356,223 @@
 							<div class="margin-b10 clearfix">
 								<div class="b-user-mood">
 									<div class="b-user-mood_img">
-										<img src="/images/widget/mood/6.png">
-										<div class="b-moods-list" style="display: block;">
-											<ul class="b-moods-list_ul">
-												<li class="b-moods-list_li">
-													<a href="" class="b-moods-list_a">
-														<img src="/images/widget/mood/1.png" class="b-moods-list_img" >
-														<span class="b-moods-list_tx">Ем</span>
-													</a>
-												</li>
-												<li class="b-moods-list_li">
-													<a href="" class="b-moods-list_a">
-														<img src="/images/widget/mood/2.png" class="b-moods-list_img" >
-														<span class="b-moods-list_tx">Испуг</span>
-													</a>
-												</li>
-												<li class="b-moods-list_li">
-													<a href="" class="b-moods-list_a">
-														<img src="/images/widget/mood/3.png" class="b-moods-list_img" >
-														<span class="b-moods-list_tx">Грустный</span>
-													</a>
-												</li>
-												<li class="b-moods-list_li">
-													<a href="" class="b-moods-list_a">
-														<img src="/images/widget/mood/4.png" class="b-moods-list_img" >
-														<span class="b-moods-list_tx">Молчу</span>
-													</a>
-												</li>
-												<li class="b-moods-list_li">
-													<a href="" class="b-moods-list_a">
-														<img src="/images/widget/mood/5.png" class="b-moods-list_img" >
-														<span class="b-moods-list_tx">Подозрительно</span>
-													</a>
-												</li>
-												<li class="b-moods-list_li">
-													<a href="" class="b-moods-list_a">
-														<img src="/images/widget/mood/6.png" class="b-moods-list_img" >
-														<span class="b-moods-list_tx">Интересно</span>
-													</a>
-												</li>
-												<li class="b-moods-list_li">
-													<a href="" class="b-moods-list_a">
-														<img src="/images/widget/mood/7.png" class="b-moods-list_img" >
-														<span class="b-moods-list_tx">Все ОК</span>
-													</a>
-												</li>
-												<li class="b-moods-list_li">
-													<a href="" class="b-moods-list_a">
-														<img src="/images/widget/mood/8.png" class="b-moods-list_img" >
-														<span class="b-moods-list_tx">Голова кругом</span>
-													</a>
-												</li>
-												<li class="b-moods-list_li">
-													<a href="" class="b-moods-list_a">
-														<img src="/images/widget/mood/9.png" class="b-moods-list_img" >
-														<span class="b-moods-list_tx">Любовь</span>
-													</a>
-												</li>
-												<li class="b-moods-list_li">
-													<a href="" class="b-moods-list_a">
-														<img src="/images/widget/mood/10.png" class="b-moods-list_img" >
-														<span class="b-moods-list_tx">Подарок</span>
-													</a>
-												</li>
-												<li class="b-moods-list_li">
-													<a href="" class="b-moods-list_a">
-														<img src="/images/widget/mood/11.png" class="b-moods-list_img" >
-														<span class="b-moods-list_tx">Красотка</span>
-													</a>
-												</li>
-												<li class="b-moods-list_li">
-													<a href="" class="b-moods-list_a">
-														<img src="/images/widget/mood/12.png" class="b-moods-list_img" >
-														<span class="b-moods-list_tx">Радость</span>
-													</a>
-												</li>
-												<li class="b-moods-list_li">
-													<a href="" class="b-moods-list_a">
-														<img src="/images/widget/mood/13.png" class="b-moods-list_img" >
-														<span class="b-moods-list_tx">Задумался</span>
-													</a>
-												</li>
-												<li class="b-moods-list_li">
-													<a href="" class="b-moods-list_a">
-														<img src="/images/widget/mood/14.png" class="b-moods-list_img" >
-														<span class="b-moods-list_tx">Смущаюсь</span>
-													</a>
-												</li>
-												<li class="b-moods-list_li">
-													<a href="" class="b-moods-list_a">
-														<img src="/images/widget/mood/15.png" class="b-moods-list_img" >
-														<span class="b-moods-list_tx">Праздник</span>
-													</a>
-												</li>
-												<li class="b-moods-list_li">
-													<a href="" class="b-moods-list_a">
-														<img src="/images/widget/mood/16.png" class="b-moods-list_img" >
-														<span class="b-moods-list_tx">Стреляюсь</span>
-													</a>
-												</li>
-												<li class="b-moods-list_li">
-													<a href="" class="b-moods-list_a">
-														<img src="/images/widget/mood/17.png" class="b-moods-list_img" >
-														<span class="b-moods-list_tx">Драка</span>
-													</a>
-												</li>
-												<li class="b-moods-list_li">
-													<a href="" class="b-moods-list_a">
-														<img src="/images/widget/mood/18.png" class="b-moods-list_img" >
-														<span class="b-moods-list_tx">Отстой</span>
-													</a>
-												</li>
-												<li class="b-moods-list_li">
-													<a href="" class="b-moods-list_a">
-														<img src="/images/widget/mood/19.png" class="b-moods-list_img" >
-														<span class="b-moods-list_tx">Смешно</span>
-													</a>
-												</li>
-												<li class="b-moods-list_li">
-													<a href="" class="b-moods-list_a">
-														<img src="/images/widget/mood/20.png" class="b-moods-list_img" >
-														<span class="b-moods-list_tx">Улыбаюсь</span>
-													</a>
-												</li>
-												<li class="b-moods-list_li">
-													<a href="" class="b-moods-list_a">
-														<img src="/images/widget/mood/21.png" class="b-moods-list_img" >
-														<span class="b-moods-list_tx">Шопинг</span>
-													</a>
-												</li>
-												<li class="b-moods-list_li">
-													<a href="" class="b-moods-list_a">
-														<img src="/images/widget/mood/22.png" class="b-moods-list_img" >
-														<span class="b-moods-list_tx">Напеваю</span>
-													</a>
-												</li>
-												<li class="b-moods-list_li">
-													<a href="" class="b-moods-list_a">
-														<img src="/images/widget/mood/23.png" class="b-moods-list_img" >
-														<span class="b-moods-list_tx">Болею</span>
-													</a>
-												</li>
-												<li class="b-moods-list_li">
-													<a href="" class="b-moods-list_a">
-														<img src="/images/widget/mood/24.png" class="b-moods-list_img" >
-														<span class="b-moods-list_tx">Сплю</span>
-													</a>
-												</li>
-												<li class="b-moods-list_li">
-													<a href="" class="b-moods-list_a">
-														<img src="/images/widget/mood/25.png" class="b-moods-list_img" >
-														<span class="b-moods-list_tx">Плачу</span>
-													</a>
-												</li>
-												<li class="b-moods-list_li">
-													<a href="" class="b-moods-list_a">
-														<img src="/images/widget/mood/26.png" class="b-moods-list_img" >
-														<span class="b-moods-list_tx">Звезда</span>
-													</a>
-												</li>
-												<li class="b-moods-list_li">
-													<a href="" class="b-moods-list_a">
-														<img src="/images/widget/mood/27.png" class="b-moods-list_img" >
-														<span class="b-moods-list_tx">Падаю со смеху</span>
-													</a>
-												</li>
-												<li class="b-moods-list_li">
-													<a href="" class="b-moods-list_a">
-														<img src="/images/widget/mood/28.png" class="b-moods-list_img" >
-														<span class="b-moods-list_tx">Слушаю музыку</span>
-													</a>
-												</li>
-												<li class="b-moods-list_li">
-													<a href="" class="b-moods-list_a">
-														<img src="/images/widget/mood/29.png" class="b-moods-list_img" >
-														<span class="b-moods-list_tx">Тихо</span>
-													</a>
-												</li>
-												<li class="b-moods-list_li">
-													<a href="" class="b-moods-list_a">
-														<img src="/images/widget/mood/30.png" class="b-moods-list_img" >
-														<span class="b-moods-list_tx">В поиске</span>
-													</a>
-												</li>
-												<li class="b-moods-list_li">
-													<a href="" class="b-moods-list_a">
-														<img src="/images/widget/mood/31.png" class="b-moods-list_img" >
-														<span class="b-moods-list_tx">Отлично</span>
-													</a>
-												</li>
-												<li class="b-moods-list_li">
-													<a href="" class="b-moods-list_a">
-														<img src="/images/widget/mood/32.png" class="b-moods-list_img" >
-														<span class="b-moods-list_tx">Дразнюсь</span>
-													</a>
-												</li>
-												<li class="b-moods-list_li">
-													<a href="" class="b-moods-list_a">
-														<img src="/images/widget/mood/33.png" class="b-moods-list_img" >
-														<span class="b-moods-list_tx">Боюсь</span>
-													</a>
-												</li>
-												<li class="b-moods-list_li">
-													<a href="" class="b-moods-list_a">
-														<img src="/images/widget/mood/34.png" class="b-moods-list_img" >
-														<span class="b-moods-list_tx">В ярости</span>
-													</a>
-												</li>
-												<li class="b-moods-list_li">
-													<a href="" class="b-moods-list_a">
-														<img src="/images/widget/mood/35.png" class="b-moods-list_img" >
-														<span class="b-moods-list_tx">Есть повод</span>
-													</a>
-												</li>
-											</ul>
+										<div class="position-rel">
+											<div class="b-moods-list" style="display: block;">
+												<ul class="b-moods-list_ul">
+													<li class="b-moods-list_li">
+														<a href="" class="b-moods-list_a">
+															<img src="/images/widget/mood/1.png" class="b-moods-list_img" >
+															<span class="b-moods-list_tx">Ем</span>
+														</a>
+													</li>
+													<li class="b-moods-list_li">
+														<a href="" class="b-moods-list_a">
+															<img src="/images/widget/mood/2.png" class="b-moods-list_img" >
+															<span class="b-moods-list_tx">Испуг</span>
+														</a>
+													</li>
+													<li class="b-moods-list_li">
+														<a href="" class="b-moods-list_a">
+															<img src="/images/widget/mood/3.png" class="b-moods-list_img" >
+															<span class="b-moods-list_tx">Грустный</span>
+														</a>
+													</li>
+													<li class="b-moods-list_li">
+														<a href="" class="b-moods-list_a">
+															<img src="/images/widget/mood/4.png" class="b-moods-list_img" >
+															<span class="b-moods-list_tx">Молчу</span>
+														</a>
+													</li>
+													<li class="b-moods-list_li">
+														<a href="" class="b-moods-list_a">
+															<img src="/images/widget/mood/5.png" class="b-moods-list_img" >
+															<span class="b-moods-list_tx">Подозрительно</span>
+														</a>
+													</li>
+													<li class="b-moods-list_li">
+														<a href="" class="b-moods-list_a">
+															<img src="/images/widget/mood/6.png" class="b-moods-list_img" >
+															<span class="b-moods-list_tx">Интересно</span>
+														</a>
+													</li>
+													<li class="b-moods-list_li">
+														<a href="" class="b-moods-list_a">
+															<img src="/images/widget/mood/7.png" class="b-moods-list_img" >
+															<span class="b-moods-list_tx">Все ОК</span>
+														</a>
+													</li>
+													<li class="b-moods-list_li">
+														<a href="" class="b-moods-list_a">
+															<img src="/images/widget/mood/8.png" class="b-moods-list_img" >
+															<span class="b-moods-list_tx">Голова кругом</span>
+														</a>
+													</li>
+													<li class="b-moods-list_li">
+														<a href="" class="b-moods-list_a">
+															<img src="/images/widget/mood/9.png" class="b-moods-list_img" >
+															<span class="b-moods-list_tx">Любовь</span>
+														</a>
+													</li>
+													<li class="b-moods-list_li">
+														<a href="" class="b-moods-list_a">
+															<img src="/images/widget/mood/10.png" class="b-moods-list_img" >
+															<span class="b-moods-list_tx">Подарок</span>
+														</a>
+													</li>
+													<li class="b-moods-list_li">
+														<a href="" class="b-moods-list_a">
+															<img src="/images/widget/mood/11.png" class="b-moods-list_img" >
+															<span class="b-moods-list_tx">Красотка</span>
+														</a>
+													</li>
+													<li class="b-moods-list_li">
+														<a href="" class="b-moods-list_a">
+															<img src="/images/widget/mood/12.png" class="b-moods-list_img" >
+															<span class="b-moods-list_tx">Радость</span>
+														</a>
+													</li>
+													<li class="b-moods-list_li">
+														<a href="" class="b-moods-list_a">
+															<img src="/images/widget/mood/13.png" class="b-moods-list_img" >
+															<span class="b-moods-list_tx">Задумался</span>
+														</a>
+													</li>
+													<li class="b-moods-list_li">
+														<a href="" class="b-moods-list_a">
+															<img src="/images/widget/mood/14.png" class="b-moods-list_img" >
+															<span class="b-moods-list_tx">Смущаюсь</span>
+														</a>
+													</li>
+													<li class="b-moods-list_li">
+														<a href="" class="b-moods-list_a">
+															<img src="/images/widget/mood/15.png" class="b-moods-list_img" >
+															<span class="b-moods-list_tx">Праздник</span>
+														</a>
+													</li>
+													<li class="b-moods-list_li">
+														<a href="" class="b-moods-list_a">
+															<img src="/images/widget/mood/16.png" class="b-moods-list_img" >
+															<span class="b-moods-list_tx">Стреляюсь</span>
+														</a>
+													</li>
+													<li class="b-moods-list_li">
+														<a href="" class="b-moods-list_a">
+															<img src="/images/widget/mood/17.png" class="b-moods-list_img" >
+															<span class="b-moods-list_tx">Драка</span>
+														</a>
+													</li>
+													<li class="b-moods-list_li">
+														<a href="" class="b-moods-list_a">
+															<img src="/images/widget/mood/18.png" class="b-moods-list_img" >
+															<span class="b-moods-list_tx">Отстой</span>
+														</a>
+													</li>
+													<li class="b-moods-list_li">
+														<a href="" class="b-moods-list_a">
+															<img src="/images/widget/mood/19.png" class="b-moods-list_img" >
+															<span class="b-moods-list_tx">Смешно</span>
+														</a>
+													</li>
+													<li class="b-moods-list_li">
+														<a href="" class="b-moods-list_a">
+															<img src="/images/widget/mood/20.png" class="b-moods-list_img" >
+															<span class="b-moods-list_tx">Улыбаюсь</span>
+														</a>
+													</li>
+													<li class="b-moods-list_li">
+														<a href="" class="b-moods-list_a">
+															<img src="/images/widget/mood/21.png" class="b-moods-list_img" >
+															<span class="b-moods-list_tx">Шопинг</span>
+														</a>
+													</li>
+													<li class="b-moods-list_li">
+														<a href="" class="b-moods-list_a">
+															<img src="/images/widget/mood/22.png" class="b-moods-list_img" >
+															<span class="b-moods-list_tx">Напеваю</span>
+														</a>
+													</li>
+													<li class="b-moods-list_li">
+														<a href="" class="b-moods-list_a">
+															<img src="/images/widget/mood/23.png" class="b-moods-list_img" >
+															<span class="b-moods-list_tx">Болею</span>
+														</a>
+													</li>
+													<li class="b-moods-list_li">
+														<a href="" class="b-moods-list_a">
+															<img src="/images/widget/mood/24.png" class="b-moods-list_img" >
+															<span class="b-moods-list_tx">Сплю</span>
+														</a>
+													</li>
+													<li class="b-moods-list_li">
+														<a href="" class="b-moods-list_a">
+															<img src="/images/widget/mood/25.png" class="b-moods-list_img" >
+															<span class="b-moods-list_tx">Плачу</span>
+														</a>
+													</li>
+													<li class="b-moods-list_li">
+														<a href="" class="b-moods-list_a">
+															<img src="/images/widget/mood/26.png" class="b-moods-list_img" >
+															<span class="b-moods-list_tx">Звезда</span>
+														</a>
+													</li>
+													<li class="b-moods-list_li">
+														<a href="" class="b-moods-list_a">
+															<img src="/images/widget/mood/27.png" class="b-moods-list_img" >
+															<span class="b-moods-list_tx">Падаю со смеху</span>
+														</a>
+													</li>
+													<li class="b-moods-list_li">
+														<a href="" class="b-moods-list_a">
+															<img src="/images/widget/mood/28.png" class="b-moods-list_img" >
+															<span class="b-moods-list_tx">Слушаю музыку</span>
+														</a>
+													</li>
+													<li class="b-moods-list_li">
+														<a href="" class="b-moods-list_a">
+															<img src="/images/widget/mood/29.png" class="b-moods-list_img" >
+															<span class="b-moods-list_tx">Тихо</span>
+														</a>
+													</li>
+													<li class="b-moods-list_li">
+														<a href="" class="b-moods-list_a">
+															<img src="/images/widget/mood/30.png" class="b-moods-list_img" >
+															<span class="b-moods-list_tx">В поиске</span>
+														</a>
+													</li>
+													<li class="b-moods-list_li">
+														<a href="" class="b-moods-list_a">
+															<img src="/images/widget/mood/31.png" class="b-moods-list_img" >
+															<span class="b-moods-list_tx">Отлично</span>
+														</a>
+													</li>
+													<li class="b-moods-list_li">
+														<a href="" class="b-moods-list_a">
+															<img src="/images/widget/mood/32.png" class="b-moods-list_img" >
+															<span class="b-moods-list_tx">Дразнюсь</span>
+														</a>
+													</li>
+													<li class="b-moods-list_li">
+														<a href="" class="b-moods-list_a">
+															<img src="/images/widget/mood/33.png" class="b-moods-list_img" >
+															<span class="b-moods-list_tx">Боюсь</span>
+														</a>
+													</li>
+													<li class="b-moods-list_li">
+														<a href="" class="b-moods-list_a">
+															<img src="/images/widget/mood/34.png" class="b-moods-list_img" >
+															<span class="b-moods-list_tx">В ярости</span>
+														</a>
+													</li>
+													<li class="b-moods-list_li">
+														<a href="" class="b-moods-list_a">
+															<img src="/images/widget/mood/35.png" class="b-moods-list_img" >
+															<span class="b-moods-list_tx">Есть повод</span>
+														</a>
+													</li>
+												</ul>
+			           						 </div>
 		           						 </div>
+										<img src="/images/widget/mood/6.png">
 									</div>
 									<div class="b-user-mood_hold">
 										<div class="b-user-mood_tx">- мое настроение</div>

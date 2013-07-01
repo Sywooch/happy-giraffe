@@ -31,7 +31,7 @@
 		<div class="b-user-small float-l">
 			<a href="" class="ava small male"></a>
 			<div class="b-user-small_hold">
-				<a href="" class="b-user-small_name">Регина Поплавская</a>
+				<a href="" class="b-user-small_name">Регина <br>Поплавская</a>
 				<div class="b-user-small_date">16 июн 2013</div>
 			</div>
 		</div>
@@ -96,7 +96,7 @@
 	<div class="photo-window_bottom">
 		<script type="text/javascript">
 		$(document).ready(function () {
-			$('.photo-window_desc').click(function(){
+			$('.photo-window_bottom').click(function(){
 				$(this).toggleClass('active');
 			});
 		});
@@ -225,18 +225,6 @@
 						</div>
 						<div class="comments-gray_cont wysiwyg-content">
 							<p>я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически производит поиск по сайту </p>
-							<p>
-								<a href="" class="comments-gray_cont-img-w">
-									<!--    max-width: 170px;  max-height: 110px; -->
-									<img src="/images/example/w170-h110.jpg" alt="">
-								</a>
-								<a href="" class="comments-gray_cont-img-w">
-									<img src="/images/example/w220-h309-1.jpg" alt="">
-								</a>
-								<a href="" class="comments-gray_cont-img-w">
-									<img src="/images/example/w200-h133-1.jpg" alt="">
-								</a>
-							</p>
 							<p>и подцепляет естественно студийные версии песен вместо нужных.  я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически </p>
 						</div>
 					</div>

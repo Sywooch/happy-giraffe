@@ -254,6 +254,7 @@ body.gallery {overflow:hidden;}
 
 	.comments-gray {
 		background: none;
+		padding: 15px 0 15px;
 	}
 	.comments-gray_add {
 		border-top: none;
@@ -329,10 +330,19 @@ body.gallery {overflow:hidden;}
 		right: 0;
 		max-width: 620px;
 		padding: 5px 10px;
+		.border-radius(5px);
+		.transition(all 0.3s ease);
+	}
+	&_bottom:hover {
 		background: #382d42;
 		background: rgba(0,0,0,.65);
-		.border-radius(5px);
 	}
+	&_bottom.active {
+		background: #382d42;
+		background: rgba(0,0,0,.65);
+	}
+	&_bottom.active &_desc {height: auto;}
+	&_bottom.active &_desc-more {display: none;}
 	&_desc {
 		height: 43px;
 		overflow: hidden;
@@ -342,8 +352,6 @@ body.gallery {overflow:hidden;}
 		cursor: pointer;
 		.transition(all 0.3s ease);
 	}
-	&_desc.active {height: auto;}
-	&_desc.active &_desc-more {display: none;}
 	&_c {
 		position: absolute;
 		top: 75px;
@@ -353,6 +361,7 @@ body.gallery {overflow:hidden;}
 		cursor: pointer;
 		text-align: center;
 	}
+	&_c:hover &_arrow,
 	&_c:hover .like-control {
 		opacity: 1;
 	}
@@ -377,6 +386,8 @@ body.gallery {overflow:hidden;}
 		height: 160px;
 		margin-top: -80px;
 		background: url(/images/photo-window_arrow.png) no-repeat 0 0;
+		opacity: 0;
+		.transition(opacity 0.3s ease);
 	}
 	&_arrow:hover {background-position: 0 -160px;}
 	&_arrow__r {

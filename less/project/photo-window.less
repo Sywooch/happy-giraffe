@@ -242,7 +242,7 @@ body.gallery {overflow:hidden;}
 
 /* photo-window */
 .photo-window {
-	position: fixed;
+	position: absolute;
 	top: 0;
 	right: 0;
 	bottom: 0;
@@ -254,7 +254,7 @@ body.gallery {overflow:hidden;}
 
 	.comments-gray {
 		background: none;
-		padding: 15px 0 15px;
+		padding: 15px 0 60px;
 	}
 	.comments-gray_add {
 		border-top: none;
@@ -289,7 +289,6 @@ body.gallery {overflow:hidden;}
 		width: 100%;
 		height: 100%;
 		min-width: 1000px;
-		min-height:400px;
 	}
 	&_top {
 		position: absolute;
@@ -333,10 +332,7 @@ body.gallery {overflow:hidden;}
 		.border-radius(5px);
 		.transition(all 0.3s ease);
 	}
-	&_bottom:hover {
-		background: #382d42;
-		background: rgba(0,0,0,.65);
-	}
+	&_bottom:hover {}
 	&_bottom.active {
 		background: #382d42;
 		background: rgba(0,0,0,.65);
@@ -406,6 +402,16 @@ body.gallery {overflow:hidden;}
 		background-color: #fff;
 		overflow-y: auto;
 	}
+	&_right {
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		width: 340px;
+		background-color: #fff;
+		overflow-y: auto;
+	}
+
 	&_banner {
 		position: absolute;
 		bottom: 0;
@@ -416,10 +422,79 @@ body.gallery {overflow:hidden;}
 		background-color: #fff;
 	}
 	&_banner-hold {
-		margin: 0 20px 10px;
+		margin: 10px 10px 10px;
+		text-align: center;
+
 	}
 
 
 
 }
 /* /photo-window */
+
+/* photo-window-end */
+.photo-window-end {
+	width: 930px;
+
+	.custom-likes-b_slogan {
+		font-size: 16px;
+		margin: 15px 0 25px;
+	}
+	&_top {
+		padding: 35px 20px 25px;
+		background: #f5f5f5;
+		text-align: center;
+	}
+	&_desc {
+		font-size: 24px;
+		color: #5e5e5e;
+	}
+	&_t {
+		display: block;
+		margin: 10px 0 15px;
+		text-decoration: none;
+	}
+	&_t:hover &_t-tx {color: #5eadf0;}
+	&_t-tx {
+		font-size: 40px;
+		line-height: 50px;
+		color: #348ad4;
+	}
+	&_hold {
+		padding: 15px 20px 15px;
+	}
+	&_close {
+        position: absolute;
+        top: 12px;
+        right: 15px;
+        width: 18px;
+        height: 18px;
+        background: url(/images/photo-window-end_close.png) no-repeat;
+    }
+    &_close:hover {background-position: 0 -18px;}
+}
+/* /photo-window-end */
+
+/* re-watch */
+.re-watch {
+	.inline-block();
+	width: 85px;
+	margin:0 0 0 20px;
+	padding:0 0 4px 45px;
+	background: url(/images/re-watch.png) no-repeat 0 2px;
+	text-decoration: none;
+	text-align: left;
+	line-height: 13px;
+	font-size: 11px;
+	
+	&:hover {background-position: 0 -98px;}
+	&:hover &_tx {
+		color: #5b5a5a;
+		border-bottom-color: #5b5a5a;
+	}
+	&_tx {
+		border-bottom: 1px dotted #b7b6b6;
+		color: #b7b6b6;
+	}
+}
+/* /re-watch */

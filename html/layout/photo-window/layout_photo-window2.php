@@ -50,6 +50,7 @@
 		<a href="#photo-window-end" class="photo-window_arrow photo-window_arrow__l fancy" data-theme="white-simple"></a>
 		<a href="#photo-window-end" class="photo-window_arrow photo-window_arrow__r fancy" data-theme="white-simple"></a>
 		
+		
         <div class="like-control clearfix">
             <a href="" class="like-control_ico like-control_ico__like">865</a>
             <div class="position-rel float-l">
@@ -107,8 +108,11 @@
 		</div>
 	</div>
 
-	<div class="photo-window_r">
+	<div class="photo-window_right">
 		
+		<div class="photo-window_banner-hold clearfix">
+			<img src="/images/example/w300-h250.jpg" alt="">
+		</div>
 		<div class="comments-gray">
 			<div class="comments-gray_t">
 				<span class="comments-gray_t-a-tx">Все комментарии (28)</span>
@@ -242,10 +246,8 @@
 				</div>
 			</div>
 		</div>
-	</div>
-	<div class="photo-window_banner">
 		
-		<div class="comments-gray">
+		<div class="comments-gray comments-gray__photo-add">
 			<div class="comments-gray_add clearfix">
 				
 				<div class="comments-gray_ava">
@@ -256,17 +258,13 @@
 				</div>
 			</div>
 		</div>
-		
-		<div class="photo-window_banner-hold clearfix">
-			<img src="/images/example/w300-h250.jpg" alt="">
-		</div>
 	</div>
+
 </div>
 </div>
 
 <div class="display-n">
 	<div class="photo-window-end" id="photo-window-end">
-		<a class="photo-window-end_close powertip" onclick="$.fancybox.close();" href="javascript:void(0);" title="Закрыть"></a>
 		<div class="photo-window-end_top">
 			<div class="photo-window-end_desc">Это последнее фото из альбома</div>
 			<a class="photo-window-end_t" href="javascript:void(0)">

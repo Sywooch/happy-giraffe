@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<!--[if lt IE 8]>      <html class="top-nav-fixed ie7"> <![endif]-->
-<!--[if IE 8]>         <html class="top-nav-fixed ie8"> <![endif]-->
-<!--[if IE 9]>         <html class="top-nav-fixed ie9"> <![endif]-->
-<!--[if gt IE 9]><!--> <html class="top-nav-fixed"> <!--<![endif]-->
+<!--[if lt IE 8]>      <html class="ie7"> <![endif]-->
+<!--[if IE 8]>         <html class="ie8"> <![endif]-->
+<!--[if IE 9]>         <html class="ie9"> <![endif]-->
+<!--[if gt IE 9]><!--> <html class=""> <!--<![endif]-->
 <head>
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/head.php'; ?>
-
+	<link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,100&amp;subset=latin,cyrillic-ext,cyrillic">
 </head>
-<body class="body-club">
+<body class="body-gray">
 
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/top-line-menu.php'; ?>
 	
@@ -19,17 +19,33 @@
 		<div id="content" class="layout-content clearfix">
 			<div class="content-cols">
 				<div class="col-1">
-					<h2 class="col-1_t">Мои друзья
-						<div class="col-1_sub-t"><a href="" class="">Найти друзей</a></div>
-					</h2>
-					
-					<div class="col-1_search clearfix">
-						<input type="text" name="" id="" class="col-1_search-itx" placeholder="Введите имя или фамилию">
-						<!-- 
-						В начале ввода текста, скрыть col-1_search-btn добавить класс active"
-						 -->
-						<button class="col-1_search-btn active"></button>
+					<div class="b-ava-large">
+						<div class="b-ava-large_ava-hold clearfix">
+							<a class="ava large" href="">
+								<img alt="" src="/images/example/ava-large.jpg">
+							</a>
+							<span class="b-ava-large_online">На сайте</span>
+							<a href="" class="b-ava-large_bubble b-ava-large_bubble__dialog powertip" title="Начать диалог">
+								<span class="b-ava-large_ico b-ava-large_ico__mail"></span>
+								<span class="b-ava-large_bubble-tx">+5</span>
+							</a>
+							<a href="" class="b-ava-large_bubble b-ava-large_bubble__photo powertip" title="Фотографии">
+								<span class="b-ava-large_ico b-ava-large_ico__photo"></span>
+								<span class="b-ava-large_bubble-tx">+50</span>
+							</a>
+							<a href="" class="b-ava-large_bubble b-ava-large_bubble__blog powertip" title="Записи в блоге">
+								<span class="b-ava-large_ico b-ava-large_ico__blog"></span>
+								<span class="b-ava-large_bubble-tx">+999</span>
+							</a>
+							<a href="" class="b-ava-large_bubble b-ava-large_bubble__friend-add powertip" title="Добавить в друзья">
+								<span class="b-ava-large_ico b-ava-large_ico__friend-add"></span>
+							</a>
+						</div>
+						<div class="textalign-c">
+							<a href="" class="b-ava-large_a">Александр Богоявленский</a>
+						</div>
 					</div>
+					
 					<div class="menu-list">
 						<a href="" class="menu-list_i active">
 							<span class="menu-list_tx">Все друзья</span>
@@ -57,15 +73,20 @@
 								<span class="a-pseudo-gray color-gray">Создать новый список</span>
 							</a>
 						</div>
-						<div class="menu-list_row">
-							<div class="color-gray margin-t20">Отправлено 822 приглашения</div>
+						<div class="menu-list_row margin-t20">
+							<a href="" class="btn-green btn-medium margin-b5">Найти новых друзей</a>
+							<div class="color-gray">Отправлено 822 приглашения</div>
 						</div>
 					</div>
 				</div>
 				
-				<div class="col-23 clearfix">
+				<div class="col-23-middle clearfix">
+					<div class="heading-title">
+						Мои друзья 
+					</div>
 					
-					<div class="cont-nav">
+					<div class="col-gray clearfix">
+					<div class="cont-nav cont-nav__search">
 						<div class="cont-nav_i active">
 							<a href="" class="cont-nav_a">Все (1656)</a>
 						</div>
@@ -74,10 +95,16 @@
 							<a href="" class="cont-nav_a">На сайте (987)</a>
 						</div>
 						<div class="cont-nav_i">
-							<a href="" class="cont-nav_a">Хотят дружить<span class="cont-nav_count">2</span> </a>
+							<a href="" class="cont-nav_a">Хотят дружить<span class="cont-nav_count btn-green">2</span> </a>
+						</div>
+						<div class="sidebar-search sidebar-search__gray float-r">
+							<input type="text" placeholder="Введите имя или фамилию" class="sidebar-search_itx" id="" name="">
+							<!-- 
+							В начале ввода текста, скрыть col-1_search-btn добавить класс active"
+							 -->
+							<button class="sidebar-search_btn"></button>
 						</div>
 					</div>
-					
 					<div class="friends-list">
 						<div class="friends-list_i">
 							<a href="" class="friends-list_find"></a>
@@ -446,6 +473,7 @@
 								<li class="next"><a href="">...</a></li>
 							</ul>
 						</div>
+					</div>
 					</div>
 				</div>
 			</div>

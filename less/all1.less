@@ -512,8 +512,12 @@
 
 /* cont-nav */
 .cont-nav {
-	margin:25px 10px 30px 10px;
+	padding:25px 20px 30px 20px;
 	text-align: center;
+	&__search {
+		text-align: left;
+	}
+	&__search &_i {margin-top: 6px;}
 
 	&_tx {
 		.inline-block();
@@ -527,7 +531,7 @@
 		vertical-align: top;
 		margin: 0 5px;
 		padding: 0 10px;
-		line-height: 26px;
+		line-height: 24px;
 		font-size: 14px;
 		color: #818080;
 	}
@@ -552,7 +556,6 @@
 		font-size: 12px;
 		line-height: 16px;
 		color: #fff;
-		background: #0eba23;
 		.border-radius(3px);
 	}
 }

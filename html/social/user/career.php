@@ -1,13 +1,14 @@
 <!DOCTYPE html>
-<!--[if lt IE 8]>      <html class="top-nav-fixed ie7"> <![endif]-->
-<!--[if IE 8]>         <html class="top-nav-fixed ie8"> <![endif]-->
-<!--[if IE 9]>         <html class="top-nav-fixed ie9"> <![endif]-->
-<!--[if gt IE 9]><!--> <html class="top-nav-fixed"> <!--<![endif]-->
+<!--[if lt IE 8]>      <html class="ie7"> <![endif]-->
+<!--[if IE 8]>         <html class="ie8"> <![endif]-->
+<!--[if IE 9]>         <html class="ie9"> <![endif]-->
+<!--[if gt IE 9]><!--> <html class=""> <!--<![endif]-->
 <head>
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/head.php'; ?>
+	<link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,100&amp;subset=latin,cyrillic-ext,cyrillic">
 
 </head>
-<body class="body-club">
+<body class="body-gray">
 
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/top-line-menu.php'; ?>
 	
@@ -16,10 +17,35 @@
 	<div class="layout-wrapper">
 		<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/header-new.php'; ?>
 			
-		<div id="content" class="layout-content clearfix">
+		<div class="layout-content clearfix">
 			<div class="content-cols clearfix">
 				<div class="col-1">
-					<h2 class="col-1_t col-1_t__big"><span class="ico-cup"></span> Мои успехи</h2>
+					<div class="b-ava-large">
+						<div class="b-ava-large_ava-hold clearfix">
+							<a class="ava large" href="">
+								<img alt="" src="/images/example/ava-large.jpg">
+							</a>
+							<span class="b-ava-large_online">На сайте</span>
+							<a href="" class="b-ava-large_bubble b-ava-large_bubble__dialog powertip" title="Начать диалог">
+								<span class="b-ava-large_ico b-ava-large_ico__mail"></span>
+								<span class="b-ava-large_bubble-tx">+5</span>
+							</a>
+							<a href="" class="b-ava-large_bubble b-ava-large_bubble__photo powertip" title="Фотографии">
+								<span class="b-ava-large_ico b-ava-large_ico__photo"></span>
+								<span class="b-ava-large_bubble-tx">+50</span>
+							</a>
+							<a href="" class="b-ava-large_bubble b-ava-large_bubble__blog powertip" title="Записи в блоге">
+								<span class="b-ava-large_ico b-ava-large_ico__blog"></span>
+								<span class="b-ava-large_bubble-tx">+999</span>
+							</a>
+							<a href="" class="b-ava-large_bubble b-ava-large_bubble__friend-add powertip" title="Добавить в друзья">
+								<span class="b-ava-large_ico b-ava-large_ico__friend-add"></span>
+							</a>
+						</div>
+						<div class="textalign-c">
+							<a href="" class="b-ava-large_a">Александр Богоявленский</a>
+						</div>
+					</div>
 					
 					<div class="menu-list menu-list__blue">
 						<a href="" class="menu-list_i menu-list_i__career active">
@@ -44,11 +70,12 @@
 					</div>
 				</div>
 				
-				<div class="col-23 clearfix">
-					<div class="career-top">
-						<a href="" class="ava female small"><img src="http://img.happy-giraffe.ru/avatars/137576/small/4f6cecb6fca468345778ad4f0467a684.jpg" alt=""></a>
-						<span class="career-top_tx">- 4 689 баллов</span>
+				<div class="col-23-middle clearfix">
+					<div class="heading-title">
+						Мои успехи - 4689 баллов
 					</div>
+					<div class="">
+					
 					<div class="career-achievement-hold">
 					
 						<div class="career-achievement">
@@ -358,6 +385,7 @@
 					
 					<div class="margin-t60">
 						<div id="infscr-loading"><img alt="Loading..." src="/images/ico/ajax-loader.gif"><div>Загрузка</div></div>
+					</div>
 					</div>	
 				</div>
 			</div>

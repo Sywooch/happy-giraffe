@@ -87,8 +87,11 @@
 
     <script type="text/javascript">
         function rtb_refresh() {
-            var randomnumber = Math.floor(Math.random()*1000000 + 1);
-            $('#AdfoxAjax').html('<iframe src="/rtb.html?'+randomnumber+'" width=240 height=200 marginwidth=0 marginheight=0 scrolling=no frameborder=0></iframe>');
+            Ya.Context.AdvManager.render({
+                blockId: "R-87026-1",
+                renderTo: "yandex_ad_R-87026-1",
+                async: true
+            });
         }
     </script>
 

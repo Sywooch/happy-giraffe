@@ -69,6 +69,7 @@ jQuery.fn.pGallery = function(options) {
             plugin.window.on('click', '.re-watch', function() {
                 plugin.openImage(pGallery.start);
                 $('.photo-container', this.window).show();
+                $('#AdfoxAjax').show();
                 $('.rewatch-container', this.window).hide();
                 if (plugin.data.entity == 'Contest' || plugin.data.entity == 'CommunityContentGallery')
                     $('#photo-window-in', this.window).addClass('photo-window-banner');

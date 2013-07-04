@@ -48,16 +48,13 @@
 
             <div class="col-3">
                 <div class="margin-t145" id="AdfoxAjax">
-                    <script type="text/javascript"><!--
-                        google_ad_client = "ca-pub-3807022659655617";
-                        /* Google-gallery */
-                        google_ad_slot = "3100101685";
-                        google_ad_width = 240;
-                        google_ad_height = 400;
-                        //-->
-                    </script>
-                    <script type="text/javascript"
-                            src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+                    <script async src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                    <ins class="adsbygoogle"
+                         style="display:inline-block;width:240px;height:400px"
+                         data-ad-client="ca-pub-3807022659655617"
+                         data-ad-slot="3100101685"></ins>
+                    <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
                     </script>
                 </div>
             </div>

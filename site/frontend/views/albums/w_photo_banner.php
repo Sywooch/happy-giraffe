@@ -67,14 +67,6 @@
                             s.async = true;
                             t.parentNode.insertBefore(s, t);
                         })(this, this.document, "yandexContextAsyncCallbacks");
-
-                        function rtb_refresh() {
-                            Ya.Context.AdvManager.render({
-                                blockId: "R-87026-1",
-                                renderTo: "yandex_ad_R-87026-1",
-                                async: true
-                            });
-                        }
                     </script>
                 </div>
             </div>
@@ -92,5 +84,12 @@
     <div id="w-photo-content" class="photo-container">
         <?php $this->renderPartial('w_photo_content', compact('model', 'photo')); ?>
     </div>
+
+    <script type="text/javascript">
+        function rtb_refresh() {
+            var randomnumber = Math.floor(Math.random()*1000000 + 1);
+            $('#AdfoxAjax').html('<iframe src="/rtb.html?'+randomnumber+'" width=240 height=200 marginwidth=0 marginheight=0 scrolling=no frameborder=0></iframe>');
+        }
+    </script>
 
 </div>

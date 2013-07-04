@@ -35,8 +35,8 @@
                                 </td></tr></table>
                     </div>
 
-                    <a href="javascript:void(0)" class="prev" onclick="dl = escape(document.location.href);pr = Math.floor(Math.random() * 1000000);AdFox_getCodeScript(1,pr1,'http://ads.adfox.ru/211012/prepareCode?pp=dey&amp;ps=bkqy&amp;p2=etcx&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a&amp;pr=' + pr +'&amp;pt=b&amp;pd=' + addate.getDate() + '&amp;pw=' + addate.getDay() + '&amp;pv=' + addate.getHours() + '&amp;prr=' + afReferrer + '&amp;dl='+dl+'&amp;pr1='+pr1)"><i class="icon"></i>предыдушая</a>
-                    <a href="javascript:void(0)" class="next" onclick="dl = escape(document.location.href);pr = Math.floor(Math.random() * 1000000);AdFox_getCodeScript(1,pr1,'http://ads.adfox.ru/211012/prepareCode?pp=dey&amp;ps=bkqy&amp;p2=etcx&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a&amp;pr=' + pr +'&amp;pt=b&amp;pd=' + addate.getDate() + '&amp;pw=' + addate.getDay() + '&amp;pv=' + addate.getHours() + '&amp;prr=' + afReferrer + '&amp;dl='+dl+'&amp;pr1='+pr1)"><i class="icon"></i>следующая</a>
+                    <a href="javascript:void(0)" class="prev" onclick="(adsbygoogle = window.adsbygoogle || []).push({});"><i class="icon"></i>предыдушая</a>
+                    <a href="javascript:void(0)" class="next" onclick="(adsbygoogle = window.adsbygoogle || []).push({});"><i class="icon"></i>следующая</a>
 
                 </div>
 
@@ -48,35 +48,11 @@
 
             <div class="col-3">
                 <div class="margin-t145" id="AdfoxAjax">
-                    <!--AdFox START-->
-                    <!--giraffe-->
-                    <!--Площадка: Весёлый Жираф / * / *-->
-                    <!--Тип баннера: Безразмерный 240x400-->
-                    <!--Расположение: &lt;сайдбар&gt;-->
-                    <!-- ________________________AdFox Asynchronous code START__________________________ -->
-                    <script type="text/javascript">
-                        <!--
-                        if (typeof(pr) == 'undefined') { var pr = Math.floor(Math.random() * 1000000); }
-                        if (typeof(document.referrer) != 'undefined') {
-                            if (typeof(afReferrer) == 'undefined') {
-                                afReferrer = escape(document.referrer);
-                            }
-                        } else {
-                            afReferrer = '';
-                        }
-                        var addate = new Date();
-
-
-                        var dl = escape(document.location);
-                        var pr1 = Math.floor(Math.random() * 1000000);
-
-                        $('#AdfoxAjax').append('<div id="AdFox_banner_'+pr1+'"><\/div>');
-                        $('#AdfoxAjax').append('<div style="visibility:hidden; position:absolute;"><iframe id="AdFox_iframe_'+pr1+'" width=1 height=1 marginwidth=0 marginheight=0 scrolling=no frameborder=0><\/iframe><\/div>');
-
-                        AdFox_getCodeScript(1,pr1,'http://ads.adfox.ru/211012/prepareCode?pp=dey&amp;ps=bkqy&amp;p2=etcx&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a&amp;pr=' + pr +'&amp;pt=b&amp;pd=' + addate.getDate() + '&amp;pw=' + addate.getDay() + '&amp;pv=' + addate.getHours() + '&amp;prr=' + afReferrer + '&amp;dl='+dl+'&amp;pr1='+pr1);
-                        // -->
-                    </script>
-                    <!-- _________________________AdFox Asynchronous code END___________________________ -->
+                    <script async src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                    <ins class="adsbygoogle"
+                         style="display:inline-block;width:240px;height:400px"
+                         data-ad-client="ca-pub-3807022659655617"
+                         data-ad-slot="3100101685"></ins>
                 </div>
             </div>
         </div>

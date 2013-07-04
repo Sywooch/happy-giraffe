@@ -87,7 +87,7 @@
 
     <script type="text/javascript">
         function rtb_refresh() {
-            Ya.Context.AdvManager.render({
+            return Ya.Context.AdvManager.render({
                 blockId: "R-87026-1",
                 renderTo: "yandex_ad_R-87026-1",
                 async: true

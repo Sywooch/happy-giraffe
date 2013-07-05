@@ -17,7 +17,7 @@
 		<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/header-new.php'; ?>
 			
 		<div id="content" class="layout-content clearfix">
-			<div class="content-cols">
+			<div class="content-cols clearfix">
 				<div class="col-1">
 					<div class="b-ava-large">
 						<div class="b-ava-large_ava-hold clearfix">
@@ -44,7 +44,7 @@
 					</div>
 					
 				</div>
-				<div class="col-23-middle ">
+				<div class="col-23-middle">
 					<div class="heading-title clearfix">
 						Мои уведомления 
 					</div>
@@ -122,13 +122,13 @@
 							
 							<div class="user-notice-list_i">
 								<div class="user-notice-list_i-hold">
-									<div class="user-notice-list_date">
-										Сегодня, 13:25
-									</div>
 									<div class="user-notice-list_deed">
 										<span class="user-notice_ico user-notice_ico__answer"></span>
 										<a href="" class="user-notice-list_a-big">9997</a>
-										<span class="user-notice-list_deed-desc">новые ответы на ваш комментарий</span>
+									</div>
+									
+									<div class="user-notice-list_desc">
+										Сегодня, 13:25 <br>  Новых ответов на ваш комментарий
 									</div>
 									<div class="user-notice-list_post js-powertip-white" data-powertip="Клуб &lt;span class='color-category hobbies' &gt;Хобби&lt;/span&gt;&lt;br&gt;Запись &lt;span class='color-gray' &gt; Неравный брак.&lt;/span&gt;">
 										<div class="user-notice-list_ava clearfix">
@@ -147,13 +147,12 @@
 							</div>					
 							<div class="user-notice-list_i ">
 								<div class="user-notice-list_i-hold">
-									<div class="user-notice-list_date">
-										Сегодня, 13:25
-									</div>
 									<div class="user-notice-list_deed">
 										<span class="user-notice_ico user-notice_ico__like"></span>
 										<a href="" class="user-notice-list_a-big user-notice-list_a-big__like">9997</a>
-										<span class="user-notice-list_deed-desc">новые лайки за сутки</span>
+									</div>
+									<div class="user-notice-list_desc">
+										Сегодня, 13:25 <br>  Новые лайки за сутки
 									</div>
 									<div class="user-notice-list_post">
 									</div>
@@ -164,7 +163,6 @@
 								<div class="user-notice-list_like-hold">
 									<div class="user-notice-list_i user-notice-list_i__like">
 										<div class="user-notice-list_i-hold">
-											<div class="user-notice-list_date"></div>
 											<div class="user-notice-list_deed">
 												<span class="user-notice_ico user-notice_ico__like-small"></span>
 												<span class="user-notice-list_tx-big color-gray">97</span>

@@ -2909,6 +2909,7 @@ body.gallery {
 }
 .user-notice-list_i__like .user-notice-list_i-hold {
   border-top: none;
+  background: #fff;
 }
 .user-notice-list_i-hold {
   position: relative;
@@ -2946,8 +2947,8 @@ body.gallery {
   display: inline-block;
   *zoom: 1;
   *display: inline;
-  width: 130px;
-  margin: 0 10px 0 30px;
+  width: 150px;
+  margin: 0 10px 0 20px;
   vertical-align: middle;
 }
 .user-notice-list_desc {
@@ -2955,7 +2956,7 @@ body.gallery {
   *zoom: 1;
   *display: inline;
   vertical-align: middle;
-  width: 170px;
+  width: 160px;
   margin-left: 10px;
   font-size: 11px;
   line-height: 13px;
@@ -2968,7 +2969,7 @@ body.gallery {
   *display: inline;
   vertical-align: middle;
   margin: 0 7px;
-  font-size: 40px;
+  font-size: 24px;
   line-height: 38px;
 }
 .user-notice-list_a-big {
@@ -3054,8 +3055,8 @@ body.gallery {
   left: 0;
   bottom: 0;
   right: 0;
-  background: #fff;
-  background: rgba(255, 255, 255, 0.7);
+  background: #f8f8f8;
+  background: rgba(248, 248, 248, 0.7);
 }
 .user-notice-list_markread-hold {
   position: absolute;
@@ -3063,7 +3064,7 @@ body.gallery {
   right: 18px;
   width: 70px;
   text-align: center;
-  background: #fff;
+  background: #f8f8f8;
 }
 .user-notice-list_ava {
   display: inline-block;

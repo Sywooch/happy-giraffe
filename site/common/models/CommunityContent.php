@@ -665,7 +665,7 @@ class CommunityContent extends HActiveRecord
         ));
         $criteria->addInCondition('type_id', array(self::TYPE_POST, self::TYPE_VIDEO));
 
-        return new CActiveDataProvider($this->active()->full(), array(
+        return new CActiveDataProvider($this->active()->full()->with('rubric.community'), array(
             'criteria' => $criteria,
             'pagination' => array(
                 'pageSize' => 3,

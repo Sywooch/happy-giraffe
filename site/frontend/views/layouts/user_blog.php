@@ -84,6 +84,7 @@
                 //));
             ?>
 
+            <?php if (false): ?>
             <div style="width: 160px; margin: 40px auto;">
                 <!-- R-87026-2 ﬂÌ‰ÂÍÒ.RTB-·ÎÓÍ  -->
                 <div id="yandex_ad_R-87026-2"></div>
@@ -106,6 +107,7 @@
                     })(this, this.document, "yandexContextAsyncCallbacks");
                 </script>
             </div>
+            <?php endif; ?>
 
             <?php if($this->beginCache('blog-popular', array(
                 'duration' => 600,

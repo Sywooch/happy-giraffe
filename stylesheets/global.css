@@ -2871,29 +2871,39 @@ body.gallery {
   *display: inline;
   vertical-align: middle;
   width: 40px;
-  height: 50px;
+  height: 40px;
   background: url(/images/user-notice_ico.png) no-repeat;
 }
 .user-notice_ico__comment {
   background-position: 0 0;
 }
 .user-notice_ico__answer {
-  background-position: -60px 0;
+  background-position: -40px 0;
 }
 .user-notice_ico__like {
-  background-position: -120px 0;
-}
-.user-notice_ico__discuss {
-  background-position: -180px 0;
+  background-position: -80px 0;
 }
 .user-notice_ico__like-small {
+  background-position: -120px 0;
+}
+.user-notice_ico__repost {
+  background-position: -160px 0;
+}
+.user-notice_ico__repost-small {
+  background-position: -200px 0;
+}
+.user-notice_ico__favorites {
   background-position: -240px 0;
+}
+.user-notice_ico__favorites-small {
+  background-position: -280px 0;
+}
+.user-notice_ico__discuss {
+  background-position: -320px 0;
 }
 .user-notice-list {
   position: relative;
-  margin-bottom: 60px;
-  /*border-bottom:1px dashed #e6e6e6;*/
-
+  margin-bottom: 80px;
 }
 .user-notice-list #infscr-loading {
   width: 240px;
@@ -2904,11 +2914,8 @@ body.gallery {
   background: #f8f8f8;
   margin-top: 1px;
 }
+.user-notice-list_i:hover .user-notice-list_i,
 .user-notice-list_i:hover {
-  background: #fff;
-}
-.user-notice-list_i__like .user-notice-list_i-hold {
-  border-top: none;
   background: #fff;
 }
 .user-notice-list_i-hold {
@@ -2918,8 +2925,6 @@ body.gallery {
   *display: inline;
   height: 90px;
   width: 100%;
-  /*border-top: 1px dashed #e6e6e6;*/
-
   vertical-align: middle;
 }
 .user-notice-list_i-hold:after {
@@ -2930,18 +2935,6 @@ body.gallery {
   vertical-align: middle;
   height: 100%;
   width: 1px;
-}
-.user-notice-list_date {
-  display: none;
-  display: inline-block;
-  *zoom: 1;
-  *display: inline;
-  vertical-align: middle;
-  width: 250px;
-  font-size: 11px;
-  font-family: Tahoma, Arial, Verdana, sans-serif;
-  color: #b6b9ba;
-  text-align: center;
 }
 .user-notice-list_deed {
   display: inline-block;
@@ -2978,7 +2971,7 @@ body.gallery {
   *display: inline;
   vertical-align: middle;
   margin: 0 7px;
-  font-size: 40px;
+  font-size: 30px;
   line-height: 38px;
   color: #3097df;
   text-decoration: none;
@@ -2986,11 +2979,11 @@ body.gallery {
 .user-notice-list_a-big {
   border-bottom: 2px solid #3097df;
 }
-.user-notice-list_a-big__like {
+.user-notice-list_a-big__dashed {
   border-bottom: 2px dashed #3097df;
 }
 .user-notice-list_a-big:hover,
-.user-notice-list_a-big__like:hover {
+.user-notice-list_a-big__dashed:hover {
   border-bottom-color: transparent;
 }
 .user-notice-list_post {

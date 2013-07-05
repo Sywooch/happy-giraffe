@@ -149,7 +149,7 @@
 								<div class="user-notice-list_i-hold">
 									<div class="user-notice-list_deed">
 										<span class="user-notice_ico user-notice_ico__like"></span>
-										<a href="" class="user-notice-list_a-big user-notice-list_a-big__like">9997</a>
+										<a href="" class="user-notice-list_a-big user-notice-list_a-big__dashed">7</a>
 									</div>
 									<div class="user-notice-list_desc">
 										Сегодня, 13:25 <br>  Новые лайки за сутки
@@ -160,12 +160,15 @@
 										<a href="" class="user-notice-list_check-a powertip" title="Прочитано"></a>
 									</div>
 								</div>
-								<div class="user-notice-list_like-hold">
-									<div class="user-notice-list_i user-notice-list_i__like">
+								<div class="user-notice-list_inner-hold">
+									<div class="user-notice-list_i">
 										<div class="user-notice-list_i-hold">
 											<div class="user-notice-list_deed">
 												<span class="user-notice_ico user-notice_ico__like-small"></span>
 												<span class="user-notice-list_tx-big color-gray">97</span>
+											</div>
+											<div class="user-notice-list_desc">
+												Сегодня, 13:25 <br>  Лайки к записи
 											</div>
 											<div class="user-notice-list_post js-powertip-white" data-powertip="Клуб &lt;span class='color-category hobbies' &gt;Хобби&lt;/span&gt;">
 												<div class="user-notice-list_post-img user-notice-list_post-img__video">
@@ -176,12 +179,14 @@
 											<div class="user-notice-list_check"></div>
 										</div>
 									</div>
-									<div class="user-notice-list_i user-notice-list_i__like">
+									<div class="user-notice-list_i">
 										<div class="user-notice-list_i-hold">
-											<div class="user-notice-list_date"></div>
 											<div class="user-notice-list_deed">
 												<span class="user-notice_ico user-notice_ico__like-small"></span>
 												<span class="user-notice-list_tx-big color-gray">7</span>
+											</div>
+											<div class="user-notice-list_desc">
+												Сегодня, 13:25 <br>  Лайки к записи
 											</div>
 											<div class="user-notice-list_post js-powertip-white" data-powertip="Клуб &lt;span class='color-category hobbies' &gt;Хобби&lt;/span&gt;">
 												<div class="user-notice-list_post-img user-notice-list_post-img__video">
@@ -196,13 +201,12 @@
 							</div>
 							<div class="user-notice-list_i">
 								<div class="user-notice-list_i-hold">
-									<div class="user-notice-list_date">
-										Сегодня, 13:25
-									</div>
 									<div class="user-notice-list_deed">
 										<span class="user-notice_ico user-notice_ico__discuss"></span>
-										<a href="" class="user-notice-list_a-big">9997</a>
-										<span class="user-notice-list_deed-desc">продолжение обсуждения</span>
+										<a href="" class="user-notice-list_a-big">9</a>
+									</div>
+									<div class="user-notice-list_desc">
+										Сегодня, 13:25 <br>  продолжение обсуждения
 									</div>
 									<div class="user-notice-list_post js-powertip-white" data-powertip="Клуб &lt;span class='color-category hobbies' &gt;Хобби&lt;/span&gt;">
 										<div class="user-notice-list_post-img user-notice-list_post-img__video">
@@ -212,6 +216,114 @@
 									</div>
 									<div class="user-notice-list_check">
 										<a href="" class="user-notice-list_check-a powertip" title="Прочитано"></a>
+									</div>
+								</div>
+							</div>
+							<div class="user-notice-list_i ">
+								<div class="user-notice-list_i-hold">
+									<div class="user-notice-list_deed">
+										<span class="user-notice_ico user-notice_ico__repost"></span>
+										<a href="" class="user-notice-list_a-big user-notice-list_a-big__dashed">15</a>
+									</div>
+									<div class="user-notice-list_desc">
+										Сегодня, 13:25 <br>  Новые репосты за сутки
+									</div>
+									<div class="user-notice-list_post">
+									</div>
+									<div class="user-notice-list_check">
+										<a href="" class="user-notice-list_check-a powertip" title="Прочитано"></a>
+									</div>
+								</div>
+								<div class="user-notice-list_inner-hold">
+									<div class="user-notice-list_i">
+										<div class="user-notice-list_i-hold">
+											<div class="user-notice-list_deed">
+												<span class="user-notice_ico user-notice_ico__repost-small"></span>
+												<span class="user-notice-list_tx-big color-gray">97</span>
+											</div>
+											<div class="user-notice-list_desc">
+												Сегодня, 13:25 <br>  Лайки к записи
+											</div>
+											<div class="user-notice-list_post js-powertip-white" data-powertip="Клуб &lt;span class='color-category hobbies' &gt;Хобби&lt;/span&gt;">
+												<div class="user-notice-list_post-img user-notice-list_post-img__video">
+													<img src="/images/example/w60-h40.jpg" alt="">
+												</div>
+												<a href="" class="user-notice-list_post-a">Креативный ласапед </a>
+											</div>
+											<div class="user-notice-list_check"></div>
+										</div>
+									</div>
+									<div class="user-notice-list_i">
+										<div class="user-notice-list_i-hold">
+											<div class="user-notice-list_deed">
+												<span class="user-notice_ico user-notice_ico__repost-small"></span>
+												<span class="user-notice-list_tx-big color-gray">7</span>
+											</div>
+											<div class="user-notice-list_desc">
+												Сегодня, 13:25 <br>  Лайки к записи
+											</div>
+											<div class="user-notice-list_post js-powertip-white" data-powertip="Клуб &lt;span class='color-category hobbies' &gt;Хобби&lt;/span&gt;">
+												<div class="user-notice-list_post-img user-notice-list_post-img__video">
+													<img src="/images/example/w60-h40.jpg" alt="">
+												</div>
+												<a href="" class="user-notice-list_post-a">Креативный ласапед-ласапед-ласапед-ласапед </a>
+											</div>
+											<div class="user-notice-list_check"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="user-notice-list_i ">
+								<div class="user-notice-list_i-hold">
+									<div class="user-notice-list_deed">
+										<span class="user-notice_ico user-notice_ico__favorites"></span>
+										<a href="" class="user-notice-list_a-big user-notice-list_a-big__dashed">97</a>
+									</div>
+									<div class="user-notice-list_desc">
+										Сегодня, 13:25 <br>  Новые репосты за сутки
+									</div>
+									<div class="user-notice-list_post">
+									</div>
+									<div class="user-notice-list_check">
+										<a href="" class="user-notice-list_check-a powertip" title="Прочитано"></a>
+									</div>
+								</div>
+								<div class="user-notice-list_inner-hold">
+									<div class="user-notice-list_i">
+										<div class="user-notice-list_i-hold">
+											<div class="user-notice-list_deed">
+												<span class="user-notice_ico user-notice_ico__favorites-small"></span>
+												<span class="user-notice-list_tx-big color-gray">97</span>
+											</div>
+											<div class="user-notice-list_desc">
+												Сегодня, 13:25 <br>  Лайки к записи
+											</div>
+											<div class="user-notice-list_post js-powertip-white" data-powertip="Клуб &lt;span class='color-category hobbies' &gt;Хобби&lt;/span&gt;">
+												<div class="user-notice-list_post-img user-notice-list_post-img__video">
+													<img src="/images/example/w60-h40.jpg" alt="">
+												</div>
+												<a href="" class="user-notice-list_post-a">Креативный ласапед </a>
+											</div>
+											<div class="user-notice-list_check"></div>
+										</div>
+									</div>
+									<div class="user-notice-list_i">
+										<div class="user-notice-list_i-hold">
+											<div class="user-notice-list_deed">
+												<span class="user-notice_ico user-notice_ico__favorites-small"></span>
+												<span class="user-notice-list_tx-big color-gray">7</span>
+											</div>
+											<div class="user-notice-list_desc">
+												Сегодня, 13:25 <br>  Лайки к записи
+											</div>
+											<div class="user-notice-list_post js-powertip-white" data-powertip="Клуб &lt;span class='color-category hobbies' &gt;Хобби&lt;/span&gt;">
+												<div class="user-notice-list_post-img user-notice-list_post-img__video">
+													<img src="/images/example/w60-h40.jpg" alt="">
+												</div>
+												<a href="" class="user-notice-list_post-a">Креативный ласапед-ласапед-ласапед-ласапед </a>
+											</div>
+											<div class="user-notice-list_check"></div>
+										</div>
 									</div>
 								</div>
 							</div>

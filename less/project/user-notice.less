@@ -31,20 +31,23 @@
 		.inline-block();
 		vertical-align: middle;
 		width: 40px;
-		height: 50px;
+		height: 40px;
 		background: url(/images/user-notice_ico.png) no-repeat;
 	}
-	&_ico__comment  {background-position: 0 0;}
-	&_ico__answer   {background-position: -60px 0;}
-	&_ico__like     {background-position: -120px 0;}
-	&_ico__discuss  {background-position: -180px 0;}
-	&_ico__like-small{background-position:-240px 0;}
+	&_ico__comment    {background-position: 0 0;}
+	&_ico__answer     {background-position: -40px 0;}
+	&_ico__like       {background-position: -80px 0;}
+	&_ico__like-small {background-position:-120px 0;}
+	&_ico__repost     {background-position: -160px 0;}
+	&_ico__repost-small{background-position:-200px 0;}
+	&_ico__favorites     {background-position: -240px 0;}
+	&_ico__favorites-small{background-position:-280px 0;}
+	&_ico__discuss  {background-position: -320px 0;}
 }
 
 .user-notice-list {
 	position: relative;
-	margin-bottom: 60px;
-	/*border-bottom:1px dashed #e6e6e6;*/
+	margin-bottom: 80px;
 
 	#infscr-loading {
 		width: 240px;
@@ -56,17 +59,13 @@
 		background: #f8f8f8;
 		margin-top:1px;
 	}
+	&_i:hover &_i,
 	&_i:hover {background: #fff;}
-	&_i__like &_i-hold{
-		border-top: none;
-		background: #fff;
-	}
 	&_i-hold {
 		position: relative;
 		.inline-block();
 		height: 90px;
 		width: 100%;
-		/*border-top: 1px dashed #e6e6e6;*/
 		vertical-align: middle;
 	}
 	&_i-hold:after {
@@ -75,16 +74,6 @@
 		vertical-align: middle;
 		height: 100%;
 		width: 1px;
-	}
-	&_date {
-		display: none;
-		.inline-block();
-		vertical-align: middle;
-		width: 250px;
-		font-size: 11px;
-		font-family: Tahoma, Arial, Verdana, sans-serif;
-		color: #b6b9ba;
-		text-align: center;
 	}
 	&_deed {
 		.inline-block();
@@ -113,15 +102,15 @@
 		.inline-block();
 		vertical-align: middle;
 		margin: 0 7px;
-		font-size: 40px;
+		font-size: 30px;
 		line-height: 38px;
 		color: #3097df;
 		text-decoration: none;
 	}
 	&_a-big {border-bottom: 2px solid #3097df;}
-	&_a-big__like {border-bottom: 2px dashed #3097df;}
+	&_a-big__dashed {border-bottom: 2px dashed #3097df;}
 	&_a-big:hover,
-	&_a-big__like:hover {border-bottom-color: transparent;}
+	&_a-big__dashed:hover {border-bottom-color: transparent;}
 	&_post{
 		.inline-block();
 		vertical-align: middle;

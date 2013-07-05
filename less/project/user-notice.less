@@ -19,7 +19,7 @@
 	}
 	&_mark-all {
 		float: right;
-		margin: 30px 45px 0;
+		margin: 20px 45px 0;
 	}
 	&_desc {
 		margin: 0 30px 30px;
@@ -30,7 +30,7 @@
 	&_ico {
 		.inline-block();
 		vertical-align: middle;
-		width: 60px;
+		width: 40px;
 		height: 50px;
 		background: url(/images/user-notice_ico.png) no-repeat;
 	}
@@ -44,7 +44,7 @@
 .user-notice-list {
 	position: relative;
 	margin-bottom: 60px;
-	border-bottom:1px dashed #e5f0fe;
+	/*border-bottom:1px dashed #e6e6e6;*/
 
 	#infscr-loading {
 		width: 240px;
@@ -52,8 +52,11 @@
 		margin-left: -135px;
 	}
 
-	&_i {}
-	&_i:hover {background: #f8fbff;}
+	&_i {
+		background: #f8f8f8;
+		margin-top:1px;
+	}
+	&_i:hover {background: #fff;}
 	&_i__like &_i-hold{
 		border-top: none;
 	}
@@ -62,7 +65,7 @@
 		.inline-block();
 		height: 90px;
 		width: 100%;
-		border-top: 1px dashed #e5f0fe;
+		/*border-top: 1px dashed #e6e6e6;*/
 		vertical-align: middle;
 	}
 	&_i-hold:after {
@@ -73,6 +76,7 @@
 		width: 1px;
 	}
 	&_date {
+		display: none;
 		.inline-block();
 		vertical-align: middle;
 		width: 250px;
@@ -83,13 +87,14 @@
 	}
 	&_deed {
 		.inline-block();
-		width: 340px;
+		width: 130px;
+		margin: 0 10px 0 30px;
 		vertical-align: middle;
 	}
-	&_deed-desc {
+	&_desc {
 		.inline-block();
 		vertical-align: middle;
-		max-width:160px;
+		width:170px;
 		margin-left: 10px;
 		font-size: 11px;
 		line-height: 13px;

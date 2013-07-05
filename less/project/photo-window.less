@@ -251,10 +251,9 @@ body.gallery {overflow:hidden;}
 	background-color: #554464;
 	overflow: auto;
 
-
 	.comments-gray {
 		background: none;
-		padding: 15px 0 60px;
+		padding: 15px 0 15px;
 	}
 	.comments-gray_add {
 		border-top: none;
@@ -365,7 +364,7 @@ body.gallery {overflow:hidden;}
 		display: inline-block;
 		vertical-align: middle;
 		height: 100%;
-		max-width: 100%;
+		width: 100%;
 	}
 	&_img {
 		display: inline-block;
@@ -406,10 +405,17 @@ body.gallery {overflow:hidden;}
 		position: absolute;
 		top: 0;
 		right: 0;
-		bottom: 0;
+		bottom: 57px;
 		width: 340px;
 		background-color: #fff;
 		overflow-y: auto;
+	}
+	&_right-bottom {
+		position: absolute;
+		bottom: 0;
+		right: 0;
+		width: 340px;
+        background: #fff;
 	}
 
 	&_banner {

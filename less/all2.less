@@ -5,7 +5,11 @@
 // Проектный слой
 @import "/project/aside-filter.less";
 @import "/project/favorites.less";
+@import "/project/find-friend.less";
+@import "/project/friends-list.less";
 @import "/project/im.less";
+@import "/project/photo-window.less";
+@import "/project/social.less";
 @import "/project/user-notice.less";
 
 // services
@@ -622,7 +626,7 @@ table.fr_recipe_tb td { width: 50%;}
         width: 580px;
         display: table-cell;
         vertical-align: middle;
-        height: 185px;
+        height: 255px;
         padding: 20px;
         color: #186fb8;
     }
@@ -917,9 +921,8 @@ table.fr_recipe_tb td { width: 50%;}
 
 /* b-ava-large */
 .b-ava-large {
-    .inline-block();
-    vertical-align: top;
-    margin: 10px 12px 10px;
+    display: block;
+    margin: 10px auto 0;
     width: 206px;
     text-align: center;
     position: relative;
@@ -977,8 +980,9 @@ table.fr_recipe_tb td { width: 50%;}
     &_bubble:hover &_ico       {background-position: 0 -30px;}
     &_bubble:hover &_ico__blog {background-position: -30px -30px;}
     &_bubble:hover &_ico__photo{background-position: -60px -30px;}
-    &_bubble:hover &_ico__friend-add{background-position: -90px -30px;}
+    &_bubble:hover &_ico__friend-add{background-position: -90px 0px;}
     &_bubble:hover &_ico__friend-added{background-position: -120px 0px;}
+    &_bubble:hover &_ico__friend {background-position: -150px 0px;}
     &_bubble:hover &_bubble-tx{color: #fff;}
     &_bubble__photo {
         bottom: 50px;
@@ -995,18 +999,27 @@ table.fr_recipe_tb td { width: 50%;}
     &_bubble__friend-add {
         bottom: 50px;
         left: 0;
-        background: #fee652;
-        background: rgba(254,230,82,0.9);
+        background: #4279be;
+        background: rgba(66,121,190,.8);
         display: block;
     }
-    &_bubble__friend-add:hover {background: #fee652;}
+    &_bubble__friend-add:hover {background: #4279be;}
     &_bubble__friend-added {
         bottom: 50px;
         left: 0;
-        background: #dfdedd;
-        display: block;
+        background: #fee652;
+        background: rgba(254,230,82,0.9);
     }
-    &_bubble__friend-added:hover {background: #dfdedd;}
+    &_bubble__friend-added:hover {background: #fee652;}
+    &_bubble__friend {
+        bottom: 50px;
+        left: 0;
+        background: #fee652;
+        background: rgba(254,230,82,0.9);
+    }
+    &_bubble__friend:hover {background: #fee652;}
+    &_bubble__friend:hover &_bubble-tx,
+    &_bubble__friend &_bubble-tx {color: #6abc12;}
     &_bubble-tx {
         font-size: 10px;
         line-height: 10px;
@@ -1045,6 +1058,7 @@ table.fr_recipe_tb td { width: 50%;}
     &_ico__photo {background-position: -60px 0;}
     &_ico__friend-add {background-position: -90px 0;}
     &_ico__friend-added {background-position: -120px 0;}
+    &_ico__friend {background-position: -150px 0;}
     &_a {
         .inline-block();
         margin: 0;
@@ -1059,6 +1073,21 @@ table.fr_recipe_tb td { width: 50%;}
         font-size: 11px;
         line-height: 13px;
         text-align: center;
+    }
+    &_plus {
+        .inline-block();
+        margin: 0 -2px;
+        width: 23px;
+        height: 23px;
+        background: url(/images/b-ava-large_minus.png) no-repeat;
+        background: url(/images/b-ava-large_plus.png) no-repeat;
+    }
+    &_minus {
+        .inline-block();
+        margin: 0 -2px;
+        width: 23px;
+        height: 23px;
+        background: url(/images/b-ava-large_minus.png) no-repeat;
     }
 }
 /* /b-ava-large */
@@ -1078,14 +1107,6 @@ table.fr_recipe_tb td { width: 50%;}
     border-top: 1px solid #e9e8e8;
     padding: 19px 0;
     background: #f5f5f5;
-    &__photo-add {
-        position: fixed;
-        bottom: 0;
-        right: 17px;
-        width: 323px;
-        padding-bottom: 15px !important;
-        background: #fff !important;
-    }
 
     &_t {
         margin: 0 30px;
@@ -2108,6 +2129,55 @@ table.fr_recipe_tb td { width: 50%;}
 .heading-title {
     margin: 15px 0 25px 25px;
     font-size: 31px;
+    line-height: 33px;
     font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, Tahoma, sans-serif;
+
+    .sidebar-search {
+        margin-bottom: 0;
+    }
 }
 /* /heading-title */
+
+/* cap-empty */
+.cap-empty {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: #F0F0F0;
+
+    &__rel {
+        position: relative;
+        height: 620px;
+        .border-radius(10px);
+        top: auto;
+        left: auto;
+        right: auto;
+        bottom: auto;
+        background: #ebebeb;
+    }
+    &__rel &_hold {margin-top: -100px;}
+    &_hold {
+        position: absolute;
+        top: 50%;
+        width: 100%;
+        margin: -50% 0 0;
+        padding: 75px 0 0;
+        text-align: center;
+        font-size: 12px;
+        line-height: 16px;
+        background: url(/images/cap-empty_hold.png) no-repeat 50% 0;
+    }
+    &_tx {
+        margin: 0 0 5px;
+        color: #2d2d2d;
+        font-size: 16px;
+    }
+    &_gray {
+        margin: 5px 0;
+        color: #A9A6A6;
+    }
+}
+
+/* /cap-empty */

@@ -74,7 +74,7 @@
 					<div class="heading-title">
 						Мои успехи - 4689 баллов
 					</div>
-					<div class="">
+					<div class="clearfix">
 					
 					<div class="career-achievement-hold">
 					
@@ -383,7 +383,7 @@
 					</div>
 					
 					
-					<div class="margin-t60">
+					<div class="infscr-loading-hold">
 						<div id="infscr-loading"><img alt="Loading..." src="/images/ico/ajax-loader.gif"><div>Загрузка</div></div>
 					</div>
 					</div>	

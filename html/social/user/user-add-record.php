@@ -35,7 +35,7 @@
 					<button class="sidebar-search_btn"></button>
 				</div>
 			</div>
-			<div class="col-23">
+			<div class="col-23-middle">
 				<div class="user-add-record clearfix">
 					<div class="user-add-record_ava-hold">
 						<a href="" class="ava male">
@@ -47,7 +47,7 @@
 						<div class="user-add-record_tx">Я хочу добавить</div>
 						<a href="#popup-user-add-article"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__article fancy">Статью</a>
 						<a href="#popup-user-add-photo"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__photo fancy">Фото</a>
-						<a href="#popup-user-add-video active"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__video fancy">Видео</a>
+						<a href="#popup-user-add-video"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__video fancy active">Видео</a>
 						<a href="#popup-user-add-status"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__status fancy">Статус</a>
 					</div>
 				</div>
@@ -89,7 +89,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-23 col-23__gray">
+			<div class="col-23-middle col-gray">
 				<div class="blog-title-b">
 					<div class="blog-title-b_img-hold">
 						<img src="/images/example/w720-h128.jpg" alt="" class="blog-title-b_img">
@@ -114,6 +114,7 @@
 						</div>
 					</div>
 					<div class="b-article_cont clearfix">
+						<div class="b-article_cont-tale"></div>
 						<div class="b-article_header clearfix">
 							<div class="meta-gray">
 								<a href="" class="meta-gray_comment">

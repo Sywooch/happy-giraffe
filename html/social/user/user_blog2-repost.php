@@ -182,7 +182,7 @@
 				</div>
 				
 			</div>
-			<div class="col-23 col-23__gray">
+			<div class="col-23-middle col-gray">
 				<div class="blog-title-b">
 					<div class="blog-title-b_img-hold">
 						<img src="/images/example/w720-h128.jpg" alt="" class="blog-title-b_img">

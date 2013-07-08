@@ -59,7 +59,7 @@
 					</div>
 				</div>
 				
-				<div class="col-23 col-23__gray padding-t20 clearfix">
+				<div class="col-23-middle col-gray clearfix">
 					
 					<div class="cap-empty cap-empty__rel">
 						<div class="cap-empty_hold">

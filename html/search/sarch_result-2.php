@@ -79,7 +79,7 @@
 					</div>
 				</div>
 				
-				<div class="col-23 col-23__gray padding-t20 clearfix">
+				<div class="col-23-middle col-gray clearfix">
 					
 					<div class="b-article clearfix">
 						<div class="float-l">
@@ -124,7 +124,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="textalign-r margin-15">					
+							<div class="textalign-r">					
 								<a href="" class="b-article_more">Смотреть далее</a>
 							</div>
 							

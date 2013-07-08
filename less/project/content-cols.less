@@ -6,7 +6,7 @@
 		float:left;
 		position: relative;
 		
-		.b-ava-large {margin-bottom: 15px;}
+		.b-ava-large {margin-bottom: 30px;}
 		&_t {
 			margin: 25px 10px 20px;
 			font-size: 24px;
@@ -50,16 +50,15 @@
 	}
 
 	/* /col-1 */
-	
+	.col-12,
 	.col-23 {
 		width:700px;
 		float:left;
 		position: relative;
 
 		&__gray {
-			width: 680px;
+			width: 720px;
 			margin-right: -20px;
-			padding: 0 20px 30px;
 			background: #ebebeb;
 			.border-radius(8px);
 		}
@@ -72,13 +71,22 @@
 		position: relative;
 		width: 720px;
 		float: left;
-		margin-right: -20px;
 	}
 	.col-2 {width:440px;float:left;}
 	.col-3 {width:240px;padding-left:20px;float:left;}
 
 	.col-gray {
+		border: 1px solid transparent; // Защита от Margin Collapsing 
+		border-width: 1px 0;
+		margin: -1px 0;
 		background: #ebebeb;
+		.border-radius(8px);
+	}
+	.col-gray-light {
+		border: 1px solid transparent; // Защита от Margin Collapsing 
+		border-width: 1px 0;
+		margin: -1px 0;
+		background: #f8f8f8;
 		.border-radius(8px);
 	}
 }

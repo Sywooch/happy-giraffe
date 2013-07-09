@@ -107,6 +107,7 @@ return array(
         'notifications',
         'friends',
         'favourites',
+        'gallery',
 	),
 	// application components
 	'components'=>array(

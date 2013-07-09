@@ -2,11 +2,6 @@
     $categories = CookDecorationCategory::model()->findAll();
 
     $entity_id = ($id) ? $category->id : null;
-    $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
-        'selector' => '.img > a',
-        'entity' => 'CookDecorationCategory',
-        'entity_id' => $entity_id,
-    ));
 
     $js = '
         var $container = $(\'#decorlv .items\');
@@ -21,6 +16,8 @@
             });
         });
     ';
+
+    $this->widget('application.modules.gallery.widgets.PhotoCollectionViewWidget');
 
     Yii::app()->clientScript
         ->registerScript('photo_gallery_entity_id', 'var photo_gallery_entity_id = "' . $entity_id . '";')

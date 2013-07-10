@@ -13,8 +13,7 @@ function PhotoCollectionViewModel(data) {
 
     self.currentPhotoIndex = ko.observable(self.getIndexById(data.initialPhotoId));
 
-    console.log(typeof self.currentPhotoIndex());
-    console.log(self.photos);
+    self.currentNaturalIndex = ko.observable(data.initialIndex + 1);
 
     self.currentPhoto = ko.computed(function() {
         return self.photos[self.currentPhotoIndex()];
@@ -24,6 +23,7 @@ function PhotoCollectionViewModel(data) {
         var newIndex = self.currentPhotoIndex() + 1;
         if (self.currentPhotoIndex() != self.photos.length - 1) {
             self.currentPhotoIndex(newIndex);
+            self.incNaturalIndex(true);
             self.preloadImages();
             if (self.currentPhotoIndex() >= self.photos.length - 3)
                 self.preloadMetaNext();
@@ -34,6 +34,7 @@ function PhotoCollectionViewModel(data) {
         var newIndex = self.currentPhotoIndex() - 1;
         if (self.currentPhotoIndex() != 0) {
             self.currentPhotoIndex(newIndex);
+            self.incNaturalIndex(false);
             self.preloadImages();
             if (self.currentPhotoIndex() <= 2)
                 self.preloadMetaPrev();
@@ -64,6 +65,18 @@ function PhotoCollectionViewModel(data) {
             for (var p in response.photos)
                 self.photos.unshift(new Photo(response.photos[p], self));
         }, 'json');
+    }
+
+    self.incNaturalIndex = function(n) {
+        var rawIndex = self.currentNaturalIndex() + (n ? 1 : -1);
+        var index;
+        if (rawIndex == 0)
+            index = data.count;
+        else if(rawIndex > data.count)
+            index = 1;
+        else
+            index = rawIndex;
+        self.currentNaturalIndex(index);
     }
 
     self.preloadImages();

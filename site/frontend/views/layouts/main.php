@@ -32,7 +32,7 @@
                             <?=CHtml::link(CHtml::image('/images/banner_06.png'), '#register', array('class'=>'fancy', 'data-theme'=>'white-square'))?>
                         <?php else: ?>
                             <!-- R-87026-3 ﬂÌ‰ÂÍÒ.RTB-·ÎÓÍ  -->
-                            <div id="yandex_ad_R-87026-3"></div>
+                            <div id="yandex_ad_R-87026-3" style="background: #fff;"></div>
                             <script type="text/javascript">
                                 (function(w, d, n, s, t) {
                                     w[n] = w[n] || [];

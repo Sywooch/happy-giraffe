@@ -21,8 +21,7 @@
 				<div class="col-1">
 					<div class="b-ava-large">
 						<div class="b-ava-large_ava-hold clearfix">
-							<a class="ava large" href="">
-								<img alt="" src="/images/example/ava-large.jpg">
+							<a class="ava large female" href="">
 							</a>
 							<span class="b-ava-large_online">На сайте</span>
 							<a href="" class="b-ava-large_bubble b-ava-large_bubble__dialog powertip" title="Начать диалог">

@@ -1,3 +1,13 @@
+/* wysiwyg-blue */
+.wysiwyg-blue .redactor_editor,
+.wysiwyg-blue .redactor_editor:focus {
+	border: 1px solid #DAEBF5;
+    box-shadow: none;
+}
+.wysiwyg-blue .redactor_redactor:focus {border-color: #a3cff4;}
+.wysiwyg-blue .redactor_toolbar li a {background: url(/redactor/redactor-blue.png) no-repeat;}
+/* /wysiwyg-blue */
+
 .redactor_box {
 	position: relative;
 	overflow: visible;
@@ -334,7 +344,6 @@ body .redactor_air .redactor_toolbar {
 	text-indent: -9999px;
 	background: url(/redactor/redactor.png) no-repeat;
 }
-.wysiwyg-blue .redactor_toolbar li a {background: url(/redactor/redactor-blue.png) no-repeat;}
 @media only screen and (-webkit-min-device-pixel-ratio: 2),
 	   only screen and (min--moz-device-pixel-ratio: 2),
 	   only screen and (-o-min-device-pixel-ratio: 2/1),
@@ -790,3 +799,5 @@ body .redactor_air .redactor_toolbar {
 	-moz-border-radius: 4px;
 	border-radius: 4px;
 }
+/* /wysiwyg-v */
+

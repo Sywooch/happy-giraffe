@@ -233,6 +233,7 @@
 							<br>
 							<br>
 							<br>
+							
 							<div class="redactor-popup" style="left:-25px;">
 								<a href="" class="redactor-popup_close ico-close3 powertip" title="Закрыть"></a>
 								<div class="redactor-popup_tale"></div>
@@ -241,19 +242,24 @@
 									<a href="" class="redactor-popup_video-del ico-close powertip" title="Удалить"></a>
 									<iframe width="540" height="300" frameborder="0" allowfullscreen="" src="http://www.youtube.com/embed/pehSAUTqjRs?wmode=transparent"></iframe>
 								</div>
-								<div class="redactor-popup_add-video">
-									<!-- При вводе текста убрать класс .btn-inactive с кнопки для ее активирования -->
-									<input type="text" name="" id="" class="itx-simple w-350 float-l" placeholder="Введите ссылку на видео">
-									<button class="btn-green btn-medium btn-inactive">Загрузить  видео</button>
+								<div class="redactor-popup_add-video active">
+									<div class="redactor-popup_add-video-hold">
+										<!-- При вводе текста убрать класс .btn-inactive с кнопки для ее активирования -->
+										<input type="text" name="" id="" class="itx-simple w-350 float-l" placeholder="Введите ссылку на видео">
+										<button class="btn-green btn-medium btn-inactive">Загрузить  видео</button>
+									</div>
+									<!-- При показе текстового сообщения на .redactor-popup_add-video добавлять класс .active -->
 									<div class="redactor-popup_add-video-load">
 										<img src="/images/ico/ajax-loader.gif" alt=""> <br>
 										Подждите видео загружается
 									</div>
 								</div>
-								<div class="redactor-popup_add-video">
-									<!-- При вводе текста убрать класс .btn-inactive с кнопки для ее активирования -->
-									<input type="text" name="" id="" class="itx-simple w-350 float-l" placeholder="Введите ссылку на видео">
-									<button class="btn-green btn-medium btn-inactive">Загрузить  видео</button>
+								<div class="redactor-popup_add-video active">
+									<div class="redactor-popup_add-video-hold">
+										<!-- При вводе текста убрать класс .btn-inactive с кнопки для ее активирования -->
+										<input type="text" name="" id="" class="itx-simple w-350 float-l" placeholder="Введите ссылку на видео">
+										<button class="btn-green btn-medium btn-inactive">Загрузить  видео</button>
+									</div>
 									<div class="redactor-popup_add-video-error">
 										Не удалось загрузить видео. <br>
 										Возможно, URL указан неправильно либо ведет на неподдерживаемый сайт.
@@ -652,6 +658,53 @@
 					</div>
 					
 					<div class="wysiwyg-v wysiwyg-blue clearfix">
+						<script>
+$(document).ready(function () { 
+  $('.wysiwyg-redactor-v').redactor({
+      minHeight: 450,
+      autoresize: true,
+      /* В базовом варианте нет кнопок 'h2', 'h3', 'link_add', 'link_del' но их функции реализованы с помощью выпадающих списков */
+      buttons: ['bold', 'italic', 'underline', 'deleted', 'h2', 'h3', 'unorderedlist', 'orderedlist', 'link_add', 'link_del', 'image', 'video', 'smile'],
+      buttonsCustom: {
+          smile: {
+              title: 'smile',
+              callback: function(buttonName, buttonDOM, buttonObject) {
+                  // your code, for example - getting code
+                  var html = this.get();
+              }
+          },
+          link_add: {
+              title: 'link_add',
+              callback: function(buttonName, buttonDOM, buttonObject) {
+                  // your code, for example - getting code
+                  var html = this.get();
+              }
+          },
+          link_del: {
+              title: 'link_del',
+              callback: function(buttonName, buttonDOM, buttonObject) {
+                  // your code, for example - getting code
+                  var html = this.get();
+              }
+          },
+          h2: {
+              title: 'h2',
+              callback: function(buttonName, buttonDOM, buttonObject) {
+                  // your code, for example - getting code
+                  var html = this.get();
+              }
+          },
+          h3: {
+              title: 'h3',
+              callback: function(buttonName, buttonDOM, buttonObject) {
+                  // your code, for example - getting code
+                  var html = this.get();
+              }
+          }
+      }
+  });
+});
+						</script>
 						<textarea name="" class="wysiwyg-redactor-v"></textarea>
 					</div>
 					

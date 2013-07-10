@@ -28,19 +28,28 @@
                             <a href="<?=$this->createUrl('/contest/default/view', array('id' => $contest_id)) ?>"><img src="/images/contest/banner-w300-<?=$contest_id?>.jpg" /></a>
                         <?php endif; ?>
                     <?php else: ?>
-                        <?php if (Yii::app()->clientScript->hasNoindex): ?>
+                        <?php if (false): ?>
                             <?=CHtml::link(CHtml::image('/images/banner_06.png'), '#register', array('class'=>'fancy', 'data-theme'=>'white-square'))?>
                         <?php else: ?>
-                            <script type="text/javascript"><!--
-                                google_ad_client = "ca-pub-3807022659655617";
-                                /* ¬ÂÒÂÎ˚È ∆Ë‡Ù 728 */
-                                google_ad_slot = "2246137286";
-                                google_ad_width = 728;
-                                google_ad_height = 90;
-                                //-->
-                            </script>
-                            <script type="text/javascript"
-                                    src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+                            <!-- R-87026-3 ﬂÌ‰ÂÍÒ.RTB-·ÎÓÍ  -->
+                            <div id="yandex_ad_R-87026-3"></div>
+                            <script type="text/javascript">
+                                (function(w, d, n, s, t) {
+                                    w[n] = w[n] || [];
+                                    w[n].push(function() {
+                                        Ya.Context.AdvManager.render({
+                                            blockId: "R-87026-3",
+                                            renderTo: "yandex_ad_R-87026-3",
+                                            async: true
+                                        });
+                                    });
+                                    t = d.getElementsByTagName("script")[0];
+                                    s = d.createElement("script");
+                                    s.type = "text/javascript";
+                                    s.src = "//an.yandex.ru/system/context.js";
+                                    s.async = true;
+                                    t.parentNode.insertBefore(s, t);
+                                })(this, this.document, "yandexContextAsyncCallbacks");
                             </script>
                         <?php endif; ?>
                     <?php endif; ?>

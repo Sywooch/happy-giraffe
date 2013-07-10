@@ -9,6 +9,7 @@
 @import "/project/friends-list.less";
 @import "/project/im.less";
 @import "/project/photo-window.less";
+@import "/project/sections.less";
 @import "/project/social.less";
 @import "/project/user-notice.less";
 
@@ -394,7 +395,7 @@
 /* /giraffe-story */
 
 /*===== Recipe settings =====*/
-/* /end baby_handbook_add_recipe.html */
+/* baby_handbook_add_recipe.html */
 .add_rec_field {
     display: block;
     padding: 20px 0 15px 0;
@@ -820,8 +821,7 @@ table.fr_recipe_tb td { width: 50%;}
 /* photo-preview-row */
 .photo-preview-row {
     width: 680px;
-    margin: 30px auto 60px;
-    background: #fff;
+    margin: 30px auto 40px;
 
     .photo-grid {
         .inline-block();
@@ -865,6 +865,7 @@ table.fr_recipe_tb td { width: 50%;}
         font:bold 14px/18px Tahoma, Arial, Verdana, sans-serif;
     }
     &_hold {background: #f5f5f5;}
+    &_hold2 {background: #fff;}
     &_last {
         .inline-block();
         vertical-align: middle;
@@ -2245,6 +2246,17 @@ table.fr_recipe_tb td { width: 50%;}
     font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, Tahoma, sans-serif;
 }
 /* /heading-title */
+
+/* heading-small */
+.heading-small {
+    display: block;
+    margin: 0;
+    font-size: 16px;
+    line-height: 22px;
+    color: #252525;
+    font-weight: normal;
+}
+/* /heading-small */
 
 /* cap-empty */
 .cap-empty {

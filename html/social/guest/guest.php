@@ -11,8 +11,8 @@
 
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/top-line-menu.php'; ?>
 	
-<div class="layout-container">
 		<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/header-new.php'; ?>
+<div class="layout-container">
 		
 	<div class="layout-wrapper">
 		<div class="layout-content clearfix">

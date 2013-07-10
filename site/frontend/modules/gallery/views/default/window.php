@@ -10,7 +10,7 @@
                 </div>
             </div>
             <div class="photo-window_top-hold">
-                <div class="photo-window_count">25 фото из 52</div>
+                <div class="photo-window_count" data-bind="text: currentNaturalIndex() + ' фото из ' + count"></div>
                 <div class="photo-window_t" data-bind="text: currentPhoto().title"></div>
             </div>
 

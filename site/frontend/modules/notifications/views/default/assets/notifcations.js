@@ -17,7 +17,7 @@ var UserNotification = {
                 setTimeout(function () {
                     if (!UserNotification.stop) {
                         $(el).parents('.user-notice-list_i').fadeOut(1000);
-                        NotificationsUpdateCounter(-count);
+                        NotificationsUpdateCounter(-1);
                     }
                 }, 3000);
             }

@@ -321,7 +321,7 @@ class Horoscope extends HActiveRecord
     {
         return $this->zodiac_dates[$zodiac]['start'][0] . '.'
             . sprintf("%02d", $this->zodiac_dates[$zodiac]['start'][1])
-            . '-' . $this->zodiac_dates[$zodiac]['end'][0] . '.'
+            . ' - ' . $this->zodiac_dates[$zodiac]['end'][0] . '.'
             . sprintf('%02d', $this->zodiac_dates[$zodiac]['end'][1]);
     }
 

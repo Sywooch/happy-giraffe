@@ -23,9 +23,9 @@ class NotificationCreate
         $model = $entity::model()->findByPk($comment->entity_id);
 
         self::userContentNotification($model, $comment);
-        self::replyCommentNotification($comment);
+        self::replyCommentNotification($model, $comment);
 
-        //Проверяем является ли автор комментария автором
+        //Проверяем является ли автор комментария автором блога
         if (!isset($entity->author_id) || $entity->author_id != $comment->author_id)
             NotificationDiscussSubscription::model()->subscribeCommentAuthor($comment);
 
@@ -49,13 +49,19 @@ class NotificationCreate
     /**
      * Создание уведомление об ответе на комментарий
      *
+     * @param $model CActiveRecord запись/фото/видео
      * @param $comment Comment
      */
-    private static function replyCommentNotification($comment)
+    private static function replyCommentNotification($model, $comment)
     {
         if (!empty($comment->response_id) || !empty($comment->quote_id)) {
-            $notification = new NotificationReplyComment();
             $response = empty($comment->response_id) ? $comment->quote : $comment->response;
+            //если отвечает автору контента - не создаем уведомление, так как он
+            //получит уведомление о новом комментарии к своему контенту
+            if ($response->author_id == $model->author_id)
+                return ;
+
+            $notification = new NotificationReplyComment();
             $notification->create($comment, $response);
         }
     }

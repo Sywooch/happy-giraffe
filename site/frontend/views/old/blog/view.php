@@ -4,7 +4,7 @@
 <?php $this->renderPartial('/community/_prev_next', array('data' => $data)); ?>
 <?php endif; ?>
 
-<div style="margin-top: 40px; margin-bottom: 40px;">
+<div class="banner-colored">
     <!-- Яндекс.Директ -->
     <div id="yandex_ad_2"></div>
     <script type="text/javascript">

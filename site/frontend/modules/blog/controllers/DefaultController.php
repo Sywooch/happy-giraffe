@@ -14,7 +14,7 @@ class DefaultController extends HController
     {
         return array(
             'accessControl',
-            'ajaxOnly - index, view, upload',
+            'ajaxOnly - index, view, upload, save',
         );
     }
 
@@ -69,6 +69,23 @@ class DefaultController extends HController
         $this->render('view', array('data' => $content, 'full' => true));
     }
 
+    public function actionRemove()
+    {
+        $id = Yii::app()->request->getPost('id');
+        CommunityContent::model()->resetScope()->findByPk($id)->delete();
+        $success = true;
+        $response = compact('success');
+        echo CJSON::encode($response);
+    }
+
+    public function actionRestore()
+    {
+        $id = Yii::app()->request->getPost('id');
+        $success = CommunityContent::model()->resetScope()->findByPk($id)->restore();
+        $response = compact('success');
+        echo CJSON::encode($response);
+    }
+
     public function actionUpload()
     {
         $this->user = $this->loadUser(Yii::app()->user->id);
@@ -115,15 +132,60 @@ class DefaultController extends HController
         }
     }
 
-    public function actionForm($type)
+    public function actionForm($id = null, $type = null)
     {
         $this->user = $this->loadUser(Yii::app()->user->id);
-        $contentType = CommunityContentType::model()->findByPk($type);
-        $model = new CommunityContent();
-        $model->type_id = $type;
-        $slaveModelName = 'Community' . ucfirst($contentType->slug);
-        $slaveModel = new $slaveModelName();
-        $this->renderPartial('form', compact('model', 'slaveModel', 'type'));
+        if ($id === null) {
+            $model = new CommunityContent();
+            $model->type_id = $type;
+            $slug = $model->type->slug;
+            $slaveModelName = 'Community' . ucfirst($slug);
+            $slaveModel = new $slaveModelName();
+        } else {
+            $model = CommunityContent::model()->findByPk($id);
+            $slaveModel = $model->content;
+        }
+
+        $json = array(
+            'title' => (string) $model->title,
+            'privacy' => (int) $model->privacy,
+            'text' => (string) $slaveModel->text,
+        );
+        if ($model->type_id == 5) {
+            $json['moods'] = array_map(function($mood) {
+                return array(
+                    'id' => (int) $mood->id,
+                    'title' => (string) $mood->title,
+                );
+            }, UserMood::model()->findAll(array('order' => 'id ASC')));
+            $json['mood_id'] = $slaveModel->mood_id;
+        }
+        $this->renderPartial('form', compact('model', 'slaveModel', 'json'), false, true);
+    }
+
+    public function actionSave($id = null)
+    {
+        $model = ($id === null) ? new CommunityContent() : CommunityContent::model()->findByPk($id);
+        $model->attributes = $_POST['CommunityContent'];
+        if ($id === null)
+            $model->author_id = Yii::app()->user->id;
+        $slug = $model->type->slug;
+        $slaveModelName = 'Community' . ucfirst($slug);
+        $slaveModel = ($id === null) ? new $slaveModelName() : $model->content;
+        $slaveModel->attributes = $_POST[$slaveModelName];
+        $this->performAjaxValidation(array($model, $slaveModel));
+        $model->$slug = $slaveModel;
+        $model->withRelated->save(true, array($slug));
+        $this->redirect($model->url);
+    }
+
+    protected function performAjaxValidation($models)
+    {
+        if(isset($_POST['ajax']) && $_POST['ajax']==='blog-form')
+        {
+            echo CActiveForm::validate($models);
+            Yii::app()->end();
+        }
     }
 
     protected function getBlogData()

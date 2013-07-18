@@ -53,11 +53,11 @@
         });
     }
 
-    var BlogFormViewModel = function() {
+    var BlogFormViewModel = function(data) {
         var self = this;
-        self.title = ko.observable('');
+        self.title = ko.observable(data.title);
         self.privacyOptions = ko.observableArray([new BlogPrivacyOption({ value : 0, title : 'для <br>всех', cssClass : 'all' }, self), new BlogPrivacyOption({ value : 1, title : 'только <br>друзьям', cssClass : 'friends' }, self)]);
-        self.selectedPrivacyOptionIndex = ko.observable(0);
+        self.selectedPrivacyOptionIndex = ko.observable(data.privacy);
         self.showDropdown = ko.observable(false);
 
         self.toggleDropdown = function() {
@@ -82,4 +82,4 @@
     }
 </script>
 
-<?php $this->renderPartial('form/' . $type, compact('model', 'slaveModel')); ?>
+<?php $this->renderPartial('form/' . $model->type_id, compact('model', 'slaveModel', 'json')); ?>

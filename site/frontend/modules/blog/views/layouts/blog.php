@@ -48,7 +48,8 @@
                     <div class="user-add-record_tx">Я хочу добавить</div>
                     <a href="<?=$this->createUrl('form', array('type' => 1))?>"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__article fancy">Статью</a>
                     <a href="<?=$this->createUrl('form', array('type' => 3))?>"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__photo fancy">Фото</a>
-                    <a href="<?=$this->createUrl('form', array('type' => 2))?>"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__video active fancy">Видео</a>
+                    <a href="<?=$this->createUrl('form', array('type' => 2))?>"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__video fancy">Видео</a>
+                    <a href="<?=$this->createUrl('form', array('type' => 5))?>"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__status fancy">Статус</a>
                 </div>
             </div>
             <a href="<?=$this->createUrl('settings/form')?>" data-theme="transparent" class="blog-settings fancy">Настройки блога</a>

@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<!--[if lt IE 8]>      <html class="top-nav-fixed ie7"> <![endif]-->
-<!--[if IE 8]>         <html class="top-nav-fixed ie8"> <![endif]-->
-<!--[if IE 9]>         <html class="top-nav-fixed ie9"> <![endif]-->
-<!--[if gt IE 9]><!--> <html class="top-nav-fixed"> <!--<![endif]-->
+<!--[if lt IE 8]>      <html class="ie7"> <![endif]-->
+<!--[if IE 8]>         <html class="ie8"> <![endif]-->
+<!--[if IE 9]>         <html class="ie9"> <![endif]-->
+<!--[if gt IE 9]><!--> <html class=""> <!--<![endif]-->
 <head>
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/head.php'; ?>
 
 </head>
-<body class="body-club">
+<body class="body-gray">
 
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/top-line-menu.php'; ?>
 	
@@ -20,10 +20,14 @@
 			
 			<div class="content-search">
 				<div class="content-search_top clearfix">
-					<div class="content-search_t">Я ищу</div>
+					<div class="content-search_t">
+						<a href="" class="ava small"></a>
+						Я ищу
+					</div>
 					<div class="content-search_itx-hold">
-						<input type="text" name="" id="" class="content-search_itx" placeholder="Введите слово ">
-						<button class="content-search_btn"></button>
+						<input type="text" name="" id="" class="content-search_itx" placeholder="Введите слово или фразу">
+						<a href="" class="content-search_del"></a>
+						<button class="content-search_btn btn-gold btn-medium">Найти</button>
 					</div>
 				</div>
 				<div class="content-search_utility clearfix">
@@ -31,8 +35,9 @@
 					<div class="content-search_select">
 						<div class="chzn-bluelight">
 							<select class="chzn">
-								<option>по дате добавления</option>
-								<option>по популярности</option>			
+								<option>по рейтингу</option>
+								<option>по популярности</option>
+								<option>по дате добавления</option>		
 							</select>
 						</div>
 					</div>
@@ -50,7 +55,7 @@
 			
 			<div class="content-cols clearfix">
 				<div class="col-1">
-					<div class="menu-list menu-list__favorites">
+					<div class="menu-list menu-list__favorites padding-t20">
 						<a href="" class="menu-list_i menu-list_i__all2">
 							<span class="menu-list_ico"></span>
 							<span class="menu-list_tx">Все</span>
@@ -74,146 +79,235 @@
 					</div>
 				</div>
 				
-				<div class="col-23 clearfix">
-					<div class="entry-hold">
-						<div class="entry">
-								
-							<div class="entry-header">
-								<div class="entry-title_hold">
-									<a href="" class="entry-title">Необычная свадьба в <span class="search-highlight">народном стиле</span> с байкерами</a>
-								</div>
-
-								<noindex>
-								<div class="clearfix">
-								    <div class="user">
-									    <div class="user-info clearfix medium">
-											<a href="" class="ava female">
-												<span class="icon-status "></span>
-											</a>
-											<div class="details">
-											    <a href="" class="username">Ольга Богоявленская</a>
-											    <div class="user-fast-buttons">
-											    	<span class="friend">друг</span>
-											        <a href="" class="new-message tooltip"></a>
-											    </div>
-											</div>
-										</div>
-									</div>
-
-									<div class="favorites-control">
-										<!-- for active status addclass active <a href="" class="favorites-control_a active"> -->
-										<a href="" class="favorites-control_a powertip active" title="Удалить из избранного">
-											145
-										</a>
-									</div>
-									<div class="meta">
-										<div class="time">24 мая 2013, 1:50</div>
-										<div class="views"><span class="icon"></span> <span>18</span></div>
-										<div class="comments">
-	            							<a class="icon" href="#"></a>
-	                                        <a class="ava small male" href="">
-	                                        	<img alt="" src="http://img.happy-giraffe.ru/avatars/16534/small/70b73fea2a74470ae721ebae1848f86b.jpg">
-	                                        </a>
-	                                        <a class="ava small female" href="">
-	                                        	<img alt="" src="http://img.happy-giraffe.ru/avatars/15994/small/80c4ed185b865c375741adba8ca4367f.jpg">
-	                                        </a>
-	                                        <a class="ava small female" href="">
-	                                        	<img alt="" src="http://img.happy-giraffe.ru/avatars/15545/small/63f3660625c513462a0ba3670dd1d031.jpg">
-	                                        </a>
-	                                        <a href="/user/10/blog/post79169/#comment_list">и еще 9</a>
-	                                    </div>
-									</div>
-								</div>
-								</noindex>
+				<div class="col-23-middle col-gray clearfix">
+					
+					<div class="b-article clearfix">
+						<div class="float-l">
+							<div class="like-control like-control__small-indent clearfix">
+								<a href="" class="ava male">
+									<span class="icon-status status-online"></span>
+									<img alt="" src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg">
+								</a>
 							</div>
-								
-							<div class="entry-content">
-								
-								<div class="wysiwyg-content">
-									
-									<h2>Как выбрать <span class="search-highlight">детскую коляску</span></h2>
-									
-									<p>Практически нет девушки, которая не <span class="search-highlight">переживала бы за отношения героев</span>  "Сумерек" как в на экранах, так и в жизни. Но, к сожалению, даже несмотря на то, что недавно герои "Сумерек" радовали всех тем, что у них невероятный роман и в рельной жизни, а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.</p>
-									
-								</div>
-								
+							<div class="like-control clearfix">
+								<a href="" class="like-control_ico like-control_ico__like">865</a>
+								<a href="" class="like-control_ico like-control_ico__repost">5</a>
+								<a href="" class="like-control_ico like-control_ico__favorites active">123865</a>
 							</div>
-
 						</div>
-							
-					</div>
-					<div class="entry-hold">
-						<div class="entry">
-								
-							<div class="entry-header">
-								<div class="entry-title_hold">
-									<a href="" class="entry-title">Топ - 8 модных вещей в горошек</a>
+						<div class="b-article_cont clearfix">
+							<div class="b-article_cont-tale"></div>
+							<div class="b-article_header clearfix">
+								<div class="meta-gray">
+									<a href="" class="meta-gray_comment">
+										<span class="ico-comment ico-comment__gray"></span>
+										<span class="meta-gray_tx">35</span>
+									</a>
+									<div class="meta-gray_view">
+										<span class="ico-view ico-view__gray"></span>
+										<span class="meta-gray_tx">305</span>
+									</div>
 								</div>
-
-								<noindex>
-								<div class="clearfix">
-								    <div class="user">
-									    <div class="user-info clearfix medium">
-											<a href="" class="ava female">
-												<span class="icon-status "></span>
-												<img alt="" src="http://img.happy-giraffe.ru/avatars/15426/ava/56e76f006e881353012beb7d9f6106f6.jpg">
-											</a>
-											<div class="details">
-											    <a href="" class="username">Таня Родионова (Рыбак)</a>
-											    <div class="user-fast-buttons">
-											    	<span class="friend">друг</span>
-											        <a href="" class="new-message tooltip"></a>
-											    </div>
+								<div class="float-l">
+									<a href="" class="b-article_author">Ангелина Богоявленская</a>
+									<span class="font-smallest color-gray">Сегодня 13:25</span>
+								</div>
+							</div>
+							<h2 class="b-article_t">
+								<a href="" class="b-article_t-a">Самое лучшее утро - <span class="search-highlight">просыпаюсь</span>, а ты рядом</a>
+							</h2>
+							<div class="b-article_in clearfix">
+								<div class="wysiwyg-content clearfix">
+									<p>	Недавно посмотрел фильм "Убить Дракона" снятый в 1988 году с Абдуловым <span class="search-highlight">просыпаюсь</span> в главной роли. По мотивам пьесы Евгения Шварца «Дракон».</p>
+									<div class="b-article_in-img">
+										<img title="Убить Дракона. Фантасмагория или сказка для взрослых. фото 1" src="http://img.happy-giraffe.ru/thumbs/700x700/16534/3733dd340b221ac3052b5cef11288870.jpg" class="content-img" alt="Убить Дракона. Фантасмагория или сказка для взрослых. фото 1" width="800">
+									</div>
+								</div>
+							</div>
+							<div class="textalign-r">					
+								<a href="" class="b-article_more">Смотреть далее</a>
+							</div>
+							
+							<div class="comments-gray">
+								<div class="comments-gray_t">
+									<a href="" class="comments-gray_t-a">
+										<span class="comments-gray_t-a-tx">Все комментарии (28)</span>
+									</a>
+								</div>
+								<div class="comments-gray_hold">
+									<div class="comments-gray_i comments-gray_i__self">
+										<div class="comments-gray_ava">
+											<a href="" class="ava small male"></a>
+										</div>
+										<div class="comments-gray_frame">
+											<div class="comments-gray_header clearfix">
+												<a href="" class="comments-gray_author">Ангелина Богоявленская </a>
+												<span class="font-smallest color-gray">Сегодня 13:25</span>
+											</div>
+											<div class="comments-gray_cont wysiwyg-content">
+												<p>	Мне <span class="search-highlight">просыпаюсь Тину Кароль, я просто представить</span>безумно жалко всех женщин, но особенно  себе не могу <a href="">как она все это переживет</a> как она все это переживет(</p>
+												<p>я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.  я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически </p>
+											</div>
+										</div>
+										<div class="comments-gray_control comments-gray_control__self">
+											<div class="comments-gray_control-hold">
+												<div class="clearfix">
+													<a href="" class="message-ico message-ico__edit powertip" title="Редактировать"></a>
+												</div>
+												<div class="clearfix">
+													<a href="" class="message-ico message-ico__del powertip" title="Удалить"></a>
+												</div>
 											</div>
 										</div>
 									</div>
-
-									<div class="favorites-control">
-										<!-- for active status addclass active <a href="" class="favorites-control_a active"> -->
-										<a href="" class="favorites-control_a powertip" title="В избранное">
-											145
-										</a>
+									<div class="comments-gray_i">
+										<a href="" class="comments-gray_like like-hg-small powertip" title="Нравится">7918</a>
+										<div class="comments-gray_ava">
+											<a href="" class="ava small female"></a>
+										</div>
+										<div class="comments-gray_frame">
+											<div class="comments-gray_header clearfix">
+												<a href="" class="comments-gray_author">Анг Богоявлен </a>
+												<span class="font-smallest color-gray">Сегодня 14:25</span>
+											</div>
+											<div class="comments-gray_cont wysiwyg-content">
+												<p>я не нашел, <span class="search-highlight">просыпаюсь</span> где можно поменять название трека. </p>
+											</div>
+										</div>
 										
+										<div class="comments-gray_control">
+											<div class="comments-gray_control-hold">
+												<div class="clearfix">
+													<a href="" class="comments-gray_quote-ico powertip" title="Ответить"></a>
+												</div>
+												<div class="clearfix">
+													<a href="" class="message-ico message-ico__del powertip" title="Удалить"></a>
+												</div>
+											</div>
+											<div class="clearfix">
+												<a href="" class="message-ico message-ico__warning powertip" title="Пожаловаться"></a>
+											</div>
+										</div>
 									</div>
-									<div class="meta">
-										<div class="time">24 мая 2013, 1:50</div>
-										<div class="views"><span class="icon"></span> <span>18</span></div>
-										<div class="comments">
-	            							<a class="icon" href="#"></a>
-	                                        <a class="ava small male" href="">
-	                                        	<img alt="" src="http://img.happy-giraffe.ru/avatars/16534/small/70b73fea2a74470ae721ebae1848f86b.jpg">
-	                                        </a>
-	                                        <a class="ava small female" href="">
-	                                        	<img alt="" src="http://img.happy-giraffe.ru/avatars/15994/small/80c4ed185b865c375741adba8ca4367f.jpg">
-	                                        </a>
-	                                        <a class="ava small female" href="">
-	                                        	<img alt="" src="http://img.happy-giraffe.ru/avatars/15545/small/63f3660625c513462a0ba3670dd1d031.jpg">
-	                                        </a>
-	                                        <a href="/user/10/blog/post79169/#comment_list">и еще 9</a>
-	                                    </div>
+									
+									<div class="comments-gray_i">
+										<a href="" class="comments-gray_like like-hg-small powertip" title="Нравится">78</a>
+										<div class="comments-gray_ava">
+											<a href="" class="ava small female"></a>
+										</div>
+										<div class="comments-gray_frame">
+											<div class="comments-gray_header clearfix">
+												<a href="" class="comments-gray_author">Анг Богоявлен </a>
+												<span class="font-smallest color-gray">Сегодня 14:25</span>
+											</div>
+											<div class="comments-gray_cont wysiwyg-content">
+												<p>я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически производит поиск по сайту </p>
+												<p>
+													<a href="" class="comments-gray_cont-img-w">
+														<!--    max-width: 170px;  max-height: 110px; -->
+														<img src="/images/example/w170-h110.jpg" alt="">
+													</a>
+													<a href="" class="comments-gray_cont-img-w">
+														<img src="/images/example/w220-h309-1.jpg" alt="">
+													</a>
+													<a href="" class="comments-gray_cont-img-w">
+														<img src="/images/example/w200-h133-1.jpg" alt="">
+													</a>
+												</p>
+												<p>и подцепляет естественно студийные версии песен вместо нужных.  я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически </p>
+											</div>
+										</div>
+										
+										<div class="comments-gray_control">
+											<div class="comments-gray_control-hold">
+												<div class="clearfix">
+													<a href="" class="comments-gray_quote-ico powertip" title="Ответить"></a>
+												</div>
+											</div>
+											<div class="clearfix">
+												<a href="" class="message-ico message-ico__warning powertip" title="Пожаловаться"></a>
+											</div>
+										</div>
 									</div>
 								</div>
-								</noindex>
-							</div>
-								
-							<div class="entry-content">
-								
-								<div class="wysiwyg-content">
+								<div class="comments-gray_add active clearfix">
 									
-									<h2>Как выбрать детскую коляску</h2>
-									
-									<p>Как правило, кроватку новорожденному приобретают незадолго до его появления на свет. При этом многие молодые <b>родители</b> обращают внимание главным <u>образом</u> на ее <strike>внешний</strike> вид. Но, прельстившись яркими красками, многие платят баснословные суммы, даже не поинтересовавшись, из чего сделано это покорившее вас чудо.</p>
-									
-									<p><span class="search-highlight">Атопический дерматит у детей до года локализуется в основном на щечках и ягодицах, реже на теле и конечностях, на коже головы возможно появление корочек. Когда малышу исполнится год, то места высыпаний меняются &ndash; теперь поражаются локтевые сгибы</span> Атопический дерматит у детей до года локализуется в основном на щечках и ягодицах, реже на теле и конечностях, на коже головы возможно появление корочек. Когда малышу исполнится год, то места высыпаний меняются &ndash; теперь поражаются локтевые сгибы (внутри и снаружи), подколенные впадины, шея. После трех лет высыпания начинают поражать также и кисти рук. <a class="read-more" href="">Читать всю запись<i class="icon"></i></a></p>
-									
+									<div class="comments-gray_ava">
+										<a href="" class="ava small female"></a>
+									</div>
+									<div class="comments-gray_frame">
+										<!-- input hidden -->
+										<input type="text" name="" id="" class="comments-gray_add-itx itx-gray display-n" placeholder="Ваш комментарий">
+										<textarea name="" class="wysiwyg-redactor" ></textarea>
+									</div>
 								</div>
-								
 							</div>
-						
 						</div>
-							
 					</div>
 					
+					<div class="b-article b-article__user-status clearfix">
+						<div class="float-l">
+							<div class="like-control like-control__small-indent clearfix">
+								<a href="" class="ava male">
+									<span class="icon-status status-online"></span>
+									<img alt="" src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg">
+								</a>
+							</div>
+							<div class="like-control clearfix">
+								<a href="" class="like-control_ico like-control_ico__like">865</a>
+								<a href="" class="like-control_ico like-control_ico__repost">5</a>
+								<a href="" class="like-control_ico like-control_ico__favorites active">123865</a>
+							</div>
+						</div>
+						<div class="b-article_cont clearfix">
+							<div class="b-article_cont-tale"></div>
+							<div class="b-article_header clearfix">
+								<div class="meta-gray">
+									<a href="" class="meta-gray_comment">
+										<span class="ico-comment ico-comment__gray"></span>
+										<span class="meta-gray_tx">35</span>
+									</a>
+									<div class="meta-gray_view">
+										<span class="ico-view ico-view__gray"></span>
+										<span class="meta-gray_tx">305</span>
+									</div>
+								</div>
+								<div class="float-l">
+									<a href="" class="b-article_author">Ангелина Богоявленская</a>
+									<span class="font-smallest color-gray">Сегодня 13:25</span>
+								</div>
+							</div>
+							<div class="b-article_in clearfix">
+								<div class="b-article_user-status clearfix">
+									<a href="" class="b-article_user-status-a">	Говори себе с утра: <span class="search-highlight">просыпаюсь Счастье, нам вставать пора!!!</span> Так со Счастьем и вставай, от себя не отпускай!!!</a>
+									
+									<div class="textalign-r clearfix">
+										<div class="b-user-mood">
+											<div class="b-user-mood_hold">
+												<div class="b-user-mood_tx">Мое настроение -</div>
+											</div>
+											<div class="b-user-mood_img">
+												<img src="/images/widget/mood/6.png">
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+							<div class="comments-gray">
+								<div class="comments-gray_add clearfix">
+									
+									<div class="comments-gray_ava">
+										<a href="" class="ava small female"></a>
+									</div>
+									<div class="comments-gray_frame">
+										<input type="text" name="" id="" class="comments-gray_add-itx itx-gray" placeholder="Ваш комментарий">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				
 					<div class="pagination pagination-center clearfix">
 						<div class="pager">
 							<ul class="yiiPager" id="">

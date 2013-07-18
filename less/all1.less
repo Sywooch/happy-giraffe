@@ -26,20 +26,16 @@
 @import "/project/contest.less";
 @import "/project/default-comments.less";
 @import "/project/dialog.less";
-@import "/project/find-friend.less";
-@import "/project/friends-list.less";
 @import "/project/gallery.less";
 @import "/project/header.less";
 @import "/project/homepage.less";
 @import "/project/like-block.less";
 @import "/project/map-route.less";
-@import "/project/photo-window.less";
 @import "/project/popup.less";
 @import "/project/top-line-menu.less";
 @import "/project/seo-tags.less";
 @import "/project/sidebar.less";
 @import "/project/signals.less";
-@import "/project/social.less";
 @import "/project/user-career.less";
 @import "/project/user-dialogs.less";
 @import "/project/user-friends.less";
@@ -139,7 +135,7 @@
 
 .user-online-status {
 	.inline-block();
-	background: #03E01E;
+	background: #0fc612;
     border-radius: 3px;
     float: left;
     height: 6px;
@@ -512,8 +508,12 @@
 
 /* cont-nav */
 .cont-nav {
-	margin:25px 10px 30px 10px;
+	padding:20px;
 	text-align: center;
+	&__search {
+		text-align: left;
+	}
+	&__search &_i {margin-top: 6px;}
 
 	&_tx {
 		.inline-block();
@@ -527,7 +527,7 @@
 		vertical-align: top;
 		margin: 0 5px;
 		padding: 0 10px;
-		line-height: 26px;
+		line-height: 24px;
 		font-size: 14px;
 		color: #818080;
 	}

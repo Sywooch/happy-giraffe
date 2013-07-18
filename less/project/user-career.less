@@ -15,32 +15,35 @@
 .career-achievement-hold {}
 .career-achievement {
 	position: relative;
-	margin: 0 0 12px;
-	border: 1px solid #ececec;
-	padding: 20px 25px;
-	.border-radius(3px);
-	&:hover {.box-shadow(0 0 4px rgba(0,0,0,0.08));}
+	margin: 0 0 1px;
+	padding: 20px 20px;
+	background: #f8f8f8;
+	&:hover {background: #fff;}
 	.ava {
 		float: none;
 		.inline-block();
 		vertical-align: middle;
 		padding: 0 2px;
 	}
+	&__green:hover,
 	&__green {
 		background-color: #d5facc;
-		border-color: #c3f1b7;
+		border: 1px solid #c3f1b7;
 	}
+	&__sand:hover,
 	&__sand {
 		background-color: #fbfdce;
-		border-color: #eef1a6;
+		border: 1px solid #eef1a6;
 	}
+	&__lavender:hover,
 	&__lavender {
 		background-color: #f4e7fc;
-		border-color: #eadef3;
+		border: 1px solid #eadef3;
 	}
+	&__bluelight:hover,
 	&__bluelight {
 		background-color: #e6f9fe;
-		border-color: #d0eef6;
+		border: 1px solid #d0eef6;
 	}
 	
 	&_left {
@@ -110,6 +113,7 @@
 	&__photo {background-position: -310px 0;}
 }
 
+/* old career */
 #user-career {background:#fff;position:absolute;left:50%;margin-left:-500px;width:998px;top:30px;z-index:99;border:1px solid #e6ddf0;*height:auto;}
 .top-nav-fixed #user-career {position:absolute;left:0;top:0;bottom:0;margin:43px 0 0;z-index:99;width:100%;overflow-y:auto;overflow-x:hidden;min-width:1000px;background:none;border:0;}
 .top-nav-fixed #user-career-in {background:#fff;width:998px;margin:0 auto 20px;position:relative;border:1px solid #e6ddf0;}

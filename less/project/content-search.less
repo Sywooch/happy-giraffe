@@ -8,53 +8,55 @@
 /* /old code */
 
 .content-search {
-	margin: 30px 0 30px;
+	margin: 30px -20px 20px;
 
 	&_top {
-		padding: 22px 15px 22px 15px;
-		background: #b2dff6;
+		padding: 22px 20px;
+		background: #af93ca;
 		.border-radius(3px);
 	}
 	&_t {
 		float: left;
-		width: 120px;
-		height: 30px;
-		background: url(/images/content-search_t.png) no-repeat;
-		text-indent: -9999px;
+		width: 110px;
+		font-size: 20px;
+		line-height: 36px;
+		color: #fff;
 	}
+	&_t .ava {margin:5px 10px 0 0;}
 	&_itx-hold {
 		position: relative;
-		float: right;
-		width: 790px;
+		float: left;
 	}
 	&_itx {
-		display: block;
-		width: 735px;
-		padding: 7px 35px 6px 20px;
-		font-size: 13px;
+		float: left;
+		width: 725px;
+		padding: 8px 20px 8px 20px;
+		border: 2px solid #ded1eb;
+		font-size: 14px;
 		line-height: 16px;
 		background: #fff;
-		.border-radius(12px);
+		.border-radius(16px);
 	}
-	&_itx:focus + &_btn {background: url(/images/ico/ico-search-2.png) no-repeat -95px 50%;}
 	&_btn {
-		position: absolute;
-		top: 0;
-		right: 0;
-		height: 28px;
-		width: 35px;
-		background: url("/images/ico/ico-search-2.png") no-repeat 5px 50%;
+		float: left;
+		margin: 3px 0 0 10px;
 		border: 0;
 		cursor: pointer;
 	}
-	&_btn.active { background: url(/images/ico/ico-close.png) no-repeat 50% 50%;}
+	&_del {
+		position: absolute;
+		right: 85px;
+		top: 2px;
+		width: 33px;
+		height: 33px;
+		background: url(/images/ico/ico-close.png) no-repeat 50% 50%;
+	}
 	&_utility {
-		padding: 12px 15px 16px 15px;
-		background: #f0faff;
+		padding: 12px 20px 10px;
 	}
 	&_found {
 		float: left;
-		width: 235px;
+		width: 280px;
 		margin-top: 4px;
 		font-size: 21px;
 		color: #161616;
@@ -62,12 +64,13 @@
 	&_found .search-highlight {padding: 0 4px;}
 	&_select {
 		float: right;
-		width: 180px;
+		width: 220px;
 	}
 	&_select .chzn-bluelight .chzn-container-single .chzn-single,
-	&_select .chzn-bluelight .chzn-container-single .chzn-results {border-color: #cdebfb;}
-	&_select .chzn-bluelight .chzn-container-single .chzn-single div {background: #e1f1fd;}
-	&_select .chzn-bluelight .chzn-container-single .chzn-single span {text-align: right;margin-right: 45px;}
+	&_select .chzn-bluelight .chzn-container-single .chzn-results {border-color: #e1e1e1;.border-radius(3px);}
+	
+	&_select .chzn-bluelight .chzn-container-single .chzn-single div {background: #fff;}
+	&_select .chzn-bluelight .chzn-container-single .chzn-single b {background: url(/images/arrow-d-gray.png) no-repeat;}
 	&_pager-control {
 		float: left;
 		margin-top: 7px;

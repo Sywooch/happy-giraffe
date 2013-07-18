@@ -43,3 +43,6 @@
 	<!--[if IE 7]>
 		<link rel="stylesheet" href='/stylesheets/ie.css' type="text/css" media="screen" />
 	<![endif]-->
+	
+	
+	<link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,100&amp;subset=latin,cyrillic-ext,cyrillic">

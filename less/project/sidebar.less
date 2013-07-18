@@ -1,4 +1,4 @@
-/* sidebar blocks */
+ /* sidebar blocks */
 
 .add-post-btn {margin-bottom:30px;}
 .upload-photo-btn {margin-bottom:30px;}
@@ -83,7 +83,6 @@
 .menu_ico__video {width: 39px;height: 29px;background-position: -50px -200px;}
 .menu_ico__valentine-day {width: 32px;height: 44px;background-position: -50px -250px;}
 /* /menu */
-
 
 /* default-v-nav */
 .default-v-nav {font-size:13px;}
@@ -315,14 +314,22 @@
 }
 /* /menu-simple */
 
+/* sidebar-search */
 .sidebar-search {
-		position: relative;
-		margin: 0 0 25px;
-	
+	position: relative;
+	margin: 0;
+	width: 240px;
+	&__gray &_itx {
+		border: 1px solid #e2e2e2;
+		padding-top: 8px;
+		padding-bottom: 8px;
+	}
+	&__gray &_itx:focus {border-color: #b8b8b8;}
+
 	&_itx {
 		display: block;
-		width: 185px;
-		padding: 8px 35px 8px 18px;
+		width: 180px;
+		padding: 7px 40px 7px 18px;
 		border: 2px solid #ded1eb;
 		font-size: 14px;
 		background: #fff;
@@ -331,14 +338,144 @@
 	}
 	&_itx:focus {border-color: #d8b9f6;}
 	&_btn {
-		background: url("/images/col-1_search-btn.png") no-repeat 50% 50%;
+		background: url(/images/col-1_search-btn.png) no-repeat 50% 50%;
 		border: 0;
 		cursor: pointer;
 		float: right;
-		height: 36px;
-		margin: -36px 0 0;
-		width: 34px;
+		height: 34px;
+		margin: -35px 0 0;
+		width: 40px;
 	}
 	&_btn.active { background: url(/images/ico/ico-close.png) no-repeat 50% 50%;}
 }
+/* /sidebar-search */
 
+/* menu-list */
+.menu-list {
+	position: relative;
+
+	&__favorites &_i {padding-left: 15px;}
+	&__favorites &_count {float: right;}
+	&__blue &_i {
+		background: #e0f2ff;
+		color: #9e9d9e;
+	}
+	&__blue &_i:hover {
+		background: #d1e9fb;
+		color: #575658;
+	}
+	&__blue &_i.active {
+		background: #6cc1ed;
+		color: #444344;
+		font-weight: normal;
+	}
+
+	&_i {
+		display: block;
+		position: relative;
+		margin: 0 0 5px;
+		padding: 20px;
+		background: #f9f9f9;
+		color: #3b3a3a;
+		text-decoration: none;
+		cursor: pointer;
+		.border-radius(5px);
+	}
+	&_i:hover {background: #e8e8e8;}
+	&_i:hover .ico-close{display: block;}
+	&_i.active {
+		background: #5e93d5;
+		color: #fff;
+		font-weight: bold;
+	}
+	&_i.active &_count {color: #fff;}
+	&_i a {text-decoration: none;}
+	&_i .ico-close {
+		position: absolute;
+		top: 10px;
+		right: 10px;
+		display: none;
+	}
+	&_i__all {background: #e7dcef;}
+	&_i__all:hover {background: #efe5f8;}
+	&_i__all.active {background: #947bab;}
+	&_i__all &_ico {background-position: 0 0;}
+	&_i__all.active &_ico {background-position: 0 -20px;}
+	&_i__all2 {background: #e7dcef;}
+	&_i__all2:hover {background: #efe5f8;}
+	&_i__all2.active {background: #947bab;}
+	&_i__all2 &_ico {background-position: -120px 0;}
+	&_i__all2.active &_ico {background-position: -120px -20px;}
+	&_i__post {background: #ddeefd;}
+	&_i__post:hover {background: #ebf6ff;}
+	&_i__post.active {background: #7ab3e4;}
+	&_i__post &_ico {background-position: -20px 0;}
+	&_i__post.active &_ico {background-position: -20px -20px;}
+	&_i__photo {background: #d3fbd7;}
+	&_i__photo:hover {background: #eafeec;}
+	&_i__photo.active {background: #51b95b;}
+	&_i__photo &_ico {background-position: -40px 0;}
+	&_i__photo.active &_ico {background-position: -40px -20px;}
+	&_i__video {background: #ffe0e0;}
+	&_i__video:hover {background: #ffe9e9;}
+	&_i__video.active {background: #f77979;}
+	&_i__video &_ico {background-position: -60px 0;}
+	&_i__video.active &_ico {background-position: -60px -20px;}
+	&_i__master {background: #f6e6f8;}
+	&_i__master:hover {background: #fef1ff;}
+	&_i__master.active {background: #c483ca;}
+	&_i__master &_ico {background-position: -80px 0;}
+	&_i__master.active &_ico {background-position: -80px -20px;}
+	&_i__cook {background: #fff7d8;}
+	&_i__cook:hover {background: #fffae8;}
+	&_i__cook.active {background: #f6d44a;}
+	&_i__cook &_ico {background-position: -100px 0;}
+	&_i__cook.active &_ico {background-position: -100px -20px;}
+	&_i__activity &_ico {background-position: -140px 0;}
+	&_i__progress &_ico {background-position: -160px 0;}
+	&_i__booty &_ico {background-position: -180px 0;}
+	&_i__career &_ico {
+		width: 25px;
+		margin: 0 7px 0 -2px;
+		background-position: -200px 0;
+	}
+
+	&_count {
+		color: #594c62;
+		padding: 0 3px;
+	}
+	&_row {padding: 15px 20px 15px;}
+	&_row .ico-plus2 {margin-right: 5px;}
+	&_i-add {}
+	&_i-add-itx {
+		.inline-block();
+		vertical-align: middle;
+		width: 150px;
+		margin-right: 5px;
+		border: 1px solid #CADDF4;
+		padding: 3px 10px;
+		line-height: 16px;
+	}
+	&_tx {
+		.inline-block();
+		vertical-align: middle;
+	}
+	&_ico {
+		.inline-block();
+		vertical-align: middle;
+		width: 20px;
+		height: 20px;
+		margin-right: 10px;
+		background: url(/images/ico/menu-list_ico.png) no-repeat;
+	}
+	&_overlay {
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		background: #f0f0f0;
+		background: rgba(240,240,240,.75);
+	}
+}
+/* /menu-list */

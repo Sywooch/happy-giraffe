@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
-<!--[if lt IE 8]>      <html class="top-nav-fixed ie7"> <![endif]-->
-<!--[if IE 8]>         <html class="top-nav-fixed ie8"> <![endif]-->
-<!--[if IE 9]>         <html class="top-nav-fixed ie9"> <![endif]-->
+<!--[if lt IE 8]>      <html class="ie7"> <![endif]-->
+<!--[if IE 8]>         <html class="ie8"> <![endif]-->
+<!--[if IE 9]>         <html class="ie9"> <![endif]-->
 <!--[if gt IE 9]><!--> <html class=""> <!--<![endif]-->
 <head>
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/head.php'; ?>
@@ -182,7 +182,7 @@
 				</div>
 				
 			</div>
-			<div class="col-23 col-23__gray">
+			<div class="col-23-middle col-gray">
 				<div class="blog-title-b">
 					<div class="blog-title-b_img-hold">
 						<img src="/images/example/w720-h128.jpg" alt="" class="blog-title-b_img">

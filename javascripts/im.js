@@ -8,13 +8,14 @@ function scrollFix() {
 
 var im = {};
 
-im.topLineMenuHeight = 23;
-im.tabsHeight = 53;
+im.topLineMenuHeight = 61;
+im.tabsHeight = 45;
 /*im.userListIndentFix = 198;*/
 im.userListIndent = 180;
 im.minHeight = 460;
 
 im.viewHeight = function () {
+    console.log(im.windowHeight, im.topHeight + im.bottomHeight + im.headerHeight + im.topLineMenuHeight);
     return im.windowHeight - im.topHeight - im.bottomHeight - im.headerHeight - im.topLineMenuHeight;
 }
 

@@ -134,6 +134,7 @@ function BlogRecordSettings(data) {
     ko.mapping.fromJS(data, {}, self);
     self.displayOptions = ko.observable(false);
     self.displayPrivacy = ko.observable(false);
+    self.removed = ko.observable(false);
 
     self.attach = function(){
         $.post('/newblog/attachBlog/', {id: self.id()}, function (response) {
@@ -163,6 +164,18 @@ function BlogRecordSettings(data) {
         }, 'json');
 
     };
+    self.remove = function() {
+        $.post('/newblog/remove/', { id : self.id() }, function(response) {
+            if (response.success)
+                self.removed(true);
+        }, 'json');
+    }
+    self.restore = function() {
+        $.post('/newblog/restore/', { id : self.id() }, function(response) {
+            if (response.success)
+                self.removed(false);
+        }, 'json');
+    }
 }
 
 ko.bindingHandlers.slideVisible = {
@@ -188,3 +201,12 @@ ko.bindingHandlers.toggleVisible = {
             $(element).toggle(200);
     }
 };
+
+ko.bindingHandlers.stopBinding = {
+    init: function() {
+        return { controlsDescendantBindings: true };
+    }
+};
+
+ko.virtualElements.allowedBindings.stopBinding = true;
+

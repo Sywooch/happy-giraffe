@@ -68,6 +68,8 @@
 .nopadding,
 .padding-0   {padding:0 !important;}
 .padding-10  {padding:10px !important;}
+.padding-20  {padding:20px !important;}
+.padding-t20 {padding-top:20px !important;}
 .padding-b20 {padding-bottom:20px !important;}
 
 .w-50  {width:50px;}
@@ -95,22 +97,30 @@
 .verticalalign-base {vertical-align: baseline;}
 .verticalalign-b {vertical-align: bottom;}
 
+.verticalalign-m-help {
+	.inline-block();
+	vertical-align: middle;
+	width: 1px;
+	margin: 0 -3px;
+	height: 100%;
+}
+
 .color-carrot {color: #fe5333 !important;}
-.color-gray {color: #a9a6a6 !important;}
+.color-gray {color: #a9a6a6 !important;border-color: #a9a6a6;}
 
 .font-smallest {font-size:9px !important;line-height: 11px !important;font-family: Tahoma, Arial, Verdana, sans-serif;}
 .font-small    {font-size:11px !important;line-height: 14px;font-family: Tahoma, Arial, Verdana, sans-serif;}
 .font-middle   {font-size:13px !important;}
 .font-big      {font-size:17px !important;}
 
-.opacity-0   {opacity: (0);}
-.opacity-10  {opacity: (0.1);}
-.opacity-20  {opacity: (0.2);}
-.opacity-40  {opacity: (0.4);}
-.opacity-50  {opacity: (0.5);}
-.opacity-60  {opacity: (0.6);}
-.opacity-80  {opacity: (0.8);}
-.opacity-100 {opacity: (1);}
+.opacity-0   {opacity: (0);filter: alpha(opacity=00);}
+.opacity-10  {opacity: (0.1);filter: alpha(opacity=10);}
+.opacity-20  {opacity: (0.2);filter: alpha(opacity=20);}
+.opacity-40  {opacity: (0.4);filter: alpha(opacity=40);}
+.opacity-50  {opacity: (0.5);filter: alpha(opacity=50);}
+.opacity-60  {opacity: (0.6);filter: alpha(opacity=60);}
+.opacity-80  {opacity: (0.8);filter: alpha(opacity=80);}
+.opacity-100 {opacity: (1);filter: alpha(opacity=100);}
 
 .bordered {
 	.bordered(#E5E4E4);

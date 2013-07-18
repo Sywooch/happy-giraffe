@@ -166,22 +166,7 @@ class Notification extends HMongoModel
         if (empty($user_id))
             $user_id = Yii::app()->user->id;
 
-        $ops = array(
-            array(
-                '$match' => array(
-                    "recipient_id" => (int)$user_id,
-                    "read" => 0,
-                )
-            ),
-            array(
-                '$group' => array(
-                    "_id" => 0,
-                    "count" => array('$sum' => '$count'),
-                ),
-            ),
-        );
-        $result = $this->getCollection()->aggregate($ops);
-        return isset($result['result'][0]) ? $result['result'][0]['count'] : 0;
+        return $this->getCollection()->count(array("recipient_id" => (int)$user_id, "read" => 0));
     }
 
     /**

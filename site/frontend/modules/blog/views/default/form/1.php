@@ -2,16 +2,28 @@
 /**
  * @var CommunityContent $model
  * @var HActiveRecord $slaveModel
+ * @var $json
  */
 ?>
 
-<?php $form = $this->beginWidget('CActiveForm'); ?>
+<?php $form = $this->beginWidget('CActiveForm', array(
+    'id' => 'blog-form',
+    'action' => $model->isNewRecord ? array('save') : array('save', 'id' => $model->id),
+    'enableAjaxValidation' => true,
+    'enableClientValidation' => true,
+    'clientOptions' => array(
+        'validateOnSubmit' => true,
+    ),
+)); ?>
+
+<?=$form->hiddenField($model, 'type_id')?>
 
 <div id="popup-user-add-article" class="popup-user-add-record">
     <a class="popup-transparent-close powertip" onclick="$.fancybox.close();" href="javascript:void(0);" title="Закрыть"></a>
     <div class="clearfix">
         <div class="w-720 float-r">
 
+            <?php if ($model->isNewRecord): ?>
             <div class="user-add-record user-add-record__yellow clearfix">
                 <div class="user-add-record_ava-hold">
                     <a href="" class="ava male">
@@ -26,6 +38,7 @@
                     <a href="#popup-user-add-video" class="user-add-record_ico user-add-record_ico__video fancy">Видео</a>
                 </div>
             </div>
+            <?php endif; ?>
 
             <div class="b-settings-blue b-settings-blue__article">
                 <div class="b-settings-blue_tale"></div>
@@ -36,12 +49,14 @@
                         </div>
                         <?=$form->label($model, 'title', array('class' => 'b-settings-blue_label'))?>
                         <?=$form->textField($model, 'title', array('class' => 'itx-simple w-400', 'placeholder' => 'Введите заголовок статьи', 'data-bind' => 'value: title, valueUpdate: \'keyup\''))?>
+                        <?=$form->error($model, 'title')?>
                     </div>
                     <div class="b-settings-blue_row clearfix">
                         <label for="" class="b-settings-blue_label">Рубрика</label>
                         <div class="w-400 float-l">
                             <div class="chzn-itx-simple">
                                 <?=$form->dropDownList($model, 'rubric_id', CHtml::listData($this->user->blog_rubrics, 'id', 'title'), array('class' => 'chzn'))?>
+                                <?=$form->error($model, 'rubric_id')?>
                                 <div class="chzn-itx-simple_add">
                                     <div class="chzn-itx-simple_add-hold">
                                         <input type="text" name="" id="" class="chzn-itx-simple_add-itx">
@@ -56,11 +71,12 @@
 
                 <div class="wysiwyg-v wysiwyg-blue clearfix">
                     <?=$form->textArea($slaveModel, 'text', array('class' => 'wysiwyg-redactor-v'))?>
+                    <?=$form->error($slaveModel, 'text')?>
                 </div>
 
                 <div class=" clearfix">
-                    <a href="" class="btn-blue btn-h46 float-r">Добавить</a>
-                    <a href="" class="btn-gray-light btn-h46 float-r margin-r15">Отменить</a>
+                    <a href="javascript:void(0)" onclick="$('#blog-form').submit()" class="btn-blue btn-h46 float-r"><?=$model->isNewRecord ? 'Добавить' : 'Редактировать'?></a>
+                    <a href="javascript:void(0)" onclick="$.fancybox.close()" class="btn-gray-light btn-h46 float-r margin-r15">Отменить</a>
 
                     <div class="float-l">
                         <div class="privacy-select clearfix">
@@ -95,11 +111,11 @@
 <?php $this->endWidget(); ?>
 
 <script>
-    var BlogFormPostViewModel = function() {
+    var BlogFormPostViewModel = function(data) {
         var self = this;
-        ko.utils.extend(self, new BlogFormViewModel());
+        ko.utils.extend(self, new BlogFormViewModel(data));
     }
 
-    formVM = new BlogFormPostViewModel();
+    formVM = new BlogFormPostViewModel(<?=CJSON::encode($json)?>);
     ko.applyBindings(formVM, document.getElementById('popup-user-add-article'));
 </script>

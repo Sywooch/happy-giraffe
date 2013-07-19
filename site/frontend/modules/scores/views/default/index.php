@@ -26,7 +26,7 @@ Yii::app()->clientScript
             <div class="points">
                 У вас сейчас:<br>
                 <div class="in">
-                    <span><?php echo $userScores->scores ?></span><br><?php echo HDate::GenerateNoun(array('Балл', 'Балла', 'Баллов'),$userScores->scores ) ?>
+                    <span><?php echo $userScores->scores ?></span><br><?php echo Str::GenerateNoun(array('Балл', 'Балла', 'Баллов'),$userScores->scores ) ?>
                 </div>
             </div>
 

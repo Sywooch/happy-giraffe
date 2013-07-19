@@ -28,7 +28,7 @@
 
             <div class="recipe-search clearfix">
                 <?=CHtml::beginForm('/cook/recipe/search', 'get')?>
-                    <input type="text" name="text" value="<?php if (isset($_GET['text'])) echo urldecode($_GET['text']) ?>" class="text" placeholder="Поиск из <?=$count = CookRecipe::model()->cache(3600)->count() ?> <?=HDate::GenerateNoun(array('рецепта', 'рецептов', 'рецептов'), $count) ?>">
+                    <input type="text" name="text" value="<?php if (isset($_GET['text'])) echo urldecode($_GET['text']) ?>" class="text" placeholder="Поиск из <?=$count = CookRecipe::model()->cache(3600)->count() ?> <?=Str::GenerateNoun(array('рецепта', 'рецептов', 'рецептов'), $count) ?>">
                     <input type="submit" value="" class="submit">
                 <?=CHtml::endForm()?>
             </div>
@@ -52,7 +52,7 @@
                                     <i class="icon-cook-book"></i>
                                 </span><span class="link-holder">
                                     <span class="link">Моя кулинарная книга</span>
-                                    <span id="cookbook-recipe-count" class="pink"><?=$count = (Yii::app()->user->isGuest) ? 0 : FavouritesManager::getCountByUserId(Yii::app()->user->id, 'cook') ?> <?=HDate::GenerateNoun(array('рецепт', 'рецепта', 'рецептов'), $count) ?></span>
+                                    <span id="cookbook-recipe-count" class="pink"><?=$count = (Yii::app()->user->isGuest) ? 0 : FavouritesManager::getCountByUserId(Yii::app()->user->id, 'cook') ?> <?=Str::GenerateNoun(array('рецепт', 'рецепта', 'рецептов'), $count) ?></span>
                                 </span>
                         </a>
                     </li>

@@ -2,6 +2,8 @@
 
 class DefaultController extends HController
 {
+    public $layout = 'notifications';
+
     public function filters()
     {
         return array(

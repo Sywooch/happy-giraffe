@@ -5,16 +5,18 @@
  * @author Alex Kireev <alexk984@gmail.com>
  */
 ?>
-<div class="user-notice-list_i ">
+<div class="user-notice-list_i">
     <div class="user-notice-list_i-hold">
-        <div class="user-notice-list_date">
-            <?= HDate::GetFormattedTime($model->updated) ?>
-        </div>
         <div class="user-notice-list_deed">
             <span class="user-notice_ico user-notice_ico__like"></span>
             <a href="javascript:;" class="user-notice-list_a-big user-notice-list_a-big__like" onclick="$(this).parent().parent().next().toggle()"><?=$model->count ?></a>
-            <span class="user-notice-list_deed-desc">новые лайки за сутки</span>
         </div>
+        <div class="user-notice-list_desc">
+            <?= HDate::GetFormattedTime($model->updated)?>
+            <br>
+            Новые лайки за сутки
+        </div>
+
         <div class="user-notice-list_post">
         </div>
         <div class="user-notice-list_check"></div>

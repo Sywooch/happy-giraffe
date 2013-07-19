@@ -503,7 +503,7 @@ class RecipeController extends HController
                     $ingredient = $recipe->addChild('ingredient');
                     switch ($i->unit->type) {
                         case 'qty':
-                            $ingredient->addChild('name', HDate::GenerateNoun(array($i->unit->title, $i->unit->title2, $i->unit->title3), $i->value));
+                            $ingredient->addChild('name', Str::GenerateNoun(array($i->unit->title, $i->unit->title2, $i->unit->title3), $i->value));
                             $ingredient->addChild('quantity', $i->display_value);
                             break;
                         case 'undefined':
@@ -511,7 +511,7 @@ class RecipeController extends HController
                             break;
                         default:
                             $ingredient->addChild('name', $i->title);
-                            $ingredient->addChild('type', HDate::GenerateNoun(array($i->unit->title, $i->unit->title2, $i->unit->title3), $i->value));
+                            $ingredient->addChild('type', Str::GenerateNoun(array($i->unit->title, $i->unit->title2, $i->unit->title3), $i->value));
                             $ingredient->addChild('value', $i->display_value);
                     }
                 }
@@ -586,7 +586,7 @@ class RecipeController extends HController
         } else {
             $result = $recipe->book();
             $count = CookRecipe::userBookCount();
-            $count = $count . ' ' . HDate::GenerateNoun(array('рецепт', 'рецепта', 'рецептов'), $count);
+            $count = $count . ' ' . Str::GenerateNoun(array('рецепт', 'рецепта', 'рецептов'), $count);
 
             echo CJSON::encode(array('status' => true, 'result' => $result, 'count' => $count));
         }

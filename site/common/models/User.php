@@ -995,7 +995,7 @@ class User extends HActiveRecord
     {
         $array = array();
         if ($this->babyCount() != 0)
-            $array[] = $this->babyCount() . ' ' . HDate::GenerateNoun(array('ребёнок', 'ребёнка', 'детей'), $this->babyCount());
+            $array[] = $this->babyCount() . ' ' . Str::GenerateNoun(array('ребёнок', 'ребёнка', 'детей'), $this->babyCount());
         if ($this->hasBaby(Baby::TYPE_PLANNING))
             $array[] = 'Планируем';
         if ($this->hasBaby(Baby::TYPE_WAIT))

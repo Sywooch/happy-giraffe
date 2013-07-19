@@ -91,7 +91,7 @@ class Baby extends HActiveRecord
         $date2 = new DateTime(date('Y-m-d'));
         $interval = $date1->diff($date2);
 
-        $years_text = ($bold?$interval->y.' ':$interval->y.' ').HDate::GenerateNoun(array('год', 'года', 'лет'), $interval->y);
+        $years_text = ($bold?$interval->y.' ':$interval->y.' ').Str::GenerateNoun(array('год', 'года', 'лет'), $interval->y);
         $month_text = ($bold?$interval->m.' ':$interval->m.' ').'мес.';
         if ($interval->y == 0)
             return $month_text;
@@ -137,7 +137,7 @@ class Baby extends HActiveRecord
         $date1 = new DateTime($this->birthday);
         $date2 = new DateTime(date('Y-m-d'));
         $interval = $date1->diff($date2);
-        return $interval->y.' '.HDate::GenerateNoun(array('год', 'года', 'лет'), $interval->y);*/
+        return $interval->y.' '.Str::GenerateNoun(array('год', 'года', 'лет'), $interval->y);*/
         return $this->getTextAge();
     }
 

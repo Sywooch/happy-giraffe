@@ -15,6 +15,8 @@ class NotificationCommand extends CConsoleCommand
         Yii::import('site.frontend.modules.notifications.components.*');
         Yii::import('site.common.models.mongo.*');
         Yii::import('site.frontend.modules.contest.models.*');
+        Yii::import('site.frontend.modules.favourites.models.*');
+        Yii::import('site.frontend.modules.cook.models.*');
     }
 
     public function actionDiscuss()
@@ -25,6 +27,7 @@ class NotificationCommand extends CConsoleCommand
     public function actionLikes()
     {
         NotificationCreate::generateLikes();
+        NotificationCreate::generateFavourites();
     }
 
     public function actionRemove()

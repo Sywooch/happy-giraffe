@@ -99,34 +99,36 @@ class NotificationCreate
      */
     public static function generateLikes()
     {
-        $result = array();
-        $likes = HGLike::model()->findLastDayLikes();
-        echo count($likes);
+        $data = HGLike::model()->findLastDayAuthorContentLikes();
+        self::generateSummaryNotification($data, 'NotificationLikes');
+    }
 
-        foreach ($likes as $like) {
-            $model = CActiveRecord::model($like['entity_name'])->findByPk($like['entity_id']);
+    /**
+     * Создаем summary-уведомление об избранном за последние 24 часа
+     */
+    public static function generateFavourites()
+    {
+        $data = Favourite::model()->findLastDayFavourites();
+        self::generateSummaryNotification($data, 'NotificationFavourites');
+    }
 
-            if (!isset($result[$model->author_id]))
-                $result[$model->author_id] = array();
-            if (!isset($result[$model->author_id][$like['entity_name']]))
-                $result[$model->author_id][$like['entity_name']] = array();
-            if (!isset($result[$model->author_id][$like['entity_name']][$like['entity_id']]))
-                $result[$model->author_id][$like['entity_name']][$like['entity_id']] = 0;
-
-            $result[$model->author_id][$like['entity_name']][$like['entity_id']]++;
-        }
-
+    /**
+     * @param array $data
+     * @param string $notificationName
+     */
+    public static function generateSummaryNotification($data, $notificationName)
+    {
         //для каждого автора выберем 10 топовых статей
-        foreach ($result as $author_id => $contents) {
+        foreach ($data as $author_id => $contents) {
             $author_articles = array();
-            $likes_count = 0;
+            $all_count = 0;
             foreach ($contents as $entity => $ids)
                 foreach ($ids as $id => $count) {
                     $author_articles [] = array($entity, $id, $count);
-                    $likes_count++;
+                    $all_count++;
                 }
 
-            usort($author_articles, array('NotificationCreate', 'compareLikesCount'));
+            usort($author_articles, array('NotificationCreate', 'compareCount'));
             array_slice($author_articles, 0, 10);
 
             //создаем уведомление для автора
@@ -139,14 +141,12 @@ class NotificationCreate
                 );
             }
 
-            $notification = new NotificationLike();
-            $notification->create($author_id, $favourite_articles, $likes_count);
+            $notification = new $notificationName;
+            $notification->create($author_id, $favourite_articles, $all_count);
         }
-
-        //echo microtime(true) - $t;
     }
 
-    function compareLikesCount($a, $b)
+    function compareCount($a, $b)
     {
         if ($a[2] == $b[2]) {
             return 0;

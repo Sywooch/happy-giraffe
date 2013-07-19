@@ -1,23 +1,23 @@
 <?php
 /**
- * Class NotificationReplyComment
+ * Class NotificationFavourites
  *
- * Уведомление пользователю о лайке его контента
+ * Уведомление пользователю об избранном
  *
  * @author Alex Kireev <alexk984@gmail.com>
  */
-class NotificationLike extends Notification
+class NotificationFavourites extends Notification
 {
     /**
-     * @var NotificationLike
+     * @var NotificationFavourites
      */
     private static $_instance;
-    public $type = self::NEW_LIKE;
+    public $type = self::NEW_FAVOURITE;
     /**
-     * топ-10 лайковых статей за день, вида:
+     * топ-10 избранных статей за день, вида:
      * 'entity' => класс статьи,
      * 'entity_id' => id статьи,
-     * 'count' => суммарное кол-во лайков
+     * 'count' => суммарное кол-во добавлений в избранное
      *
      * @var array
      */
@@ -28,23 +28,23 @@ class NotificationLike extends Notification
     }
 
     /**
-     * Создаение уведомления о новых лайках. Раз в день в 10 утра
+     * Создаение уведомления о новом избранном. Раз в день в 10 утра
      *
-     * @param $recipient_id
-     * @param $articles
-     * @param $likes_count
+     * @param int $recipient_id
+     * @param array $articles топ-статьи по добавлению в избранное
+     * @param int $count суммарное кол-во добавлений в избранное
      */
-    public function create($recipient_id, $articles, $likes_count)
+    public function create($recipient_id, $articles, $count)
     {
         $this->recipient_id = (int)$recipient_id;
         $this->insert(array(
             'articles' => $articles,
-            'count' => (int)$likes_count
+            'count' => (int)$count
         ));
     }
 
     /**
-     * @return NotificationLike
+     * @return NotificationFavourites
      */
     public static function model()
     {
@@ -57,11 +57,11 @@ class NotificationLike extends Notification
      * Создает модель уведомления для удобой работы с ним
      *
      * @param $object array объект, который вернул компонент работы с базой
-     * @return NotificationLike
+     * @return NotificationFavourites
      */
     public static function createModel($object)
     {
-        $model = new NotificationLike();
+        $model = new NotificationFavourites();
         foreach ($object as $key => $value)
             $model->$key = $value;
 

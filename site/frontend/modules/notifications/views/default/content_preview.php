@@ -1,10 +1,8 @@
 <?php
 /**
- * @var $entity string
- * @var $entity_id int
+ * @var $model CActiveRecord
  * @author Alex Kireev <alexk984@gmail.com>
  */
-$model = $entity::model()->findByPk($entity_id);
 
 if ($model !== null) {
     $photo = $model->getPhoto();

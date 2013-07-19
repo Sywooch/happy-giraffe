@@ -163,7 +163,7 @@ class HGLike extends HMongoModel
      * Возвращает все лайки за последние сутки
      * @return array
      */
-    public function findLastDayLikes()
+    private function findLastDayLikes()
     {
         $from_time = time() - 3600 * 24;
         $cursor = $this->getCollection()->find(array('time' => array('$gt' => $from_time)));
@@ -172,6 +172,34 @@ class HGLike extends HMongoModel
             $list [] = $cursor->getNext();
 
         return $list;
+    }
+
+    /**
+     * Возвращает статьи массив авторов статей с кол-вом лайков
+     * array[author_id][entity_name][entity_id] likes count
+     * @return array
+     */
+    public function findLastDayAuthorContentLikes()
+    {
+        $result = array();
+        $likes = HGLike::model()->findLastDayLikes();
+
+        foreach ($likes as $like) {
+            $model = CActiveRecord::model($like['entity_name'])->findByPk($like['entity_id']);
+            if ($model === null)
+                continue;
+
+            if (!isset($result[$model->author_id]))
+                $result[$model->author_id] = array();
+            if (!isset($result[$model->author_id][$like['entity_name']]))
+                $result[$model->author_id][$like['entity_name']] = array();
+            if (!isset($result[$model->author_id][$like['entity_name']][$like['entity_id']]))
+                $result[$model->author_id][$like['entity_name']][$like['entity_id']] = 0;
+
+            $result[$model->author_id][$like['entity_name']][$like['entity_id']]++;
+        }
+
+        return $result;
     }
 
     /**

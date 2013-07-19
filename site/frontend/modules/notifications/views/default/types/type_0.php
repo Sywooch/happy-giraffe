@@ -15,6 +15,6 @@
         <br>
         <?=$model->getText() ?>
     </div>
-    <?php $this->renderPartial('content_preview', array('entity' => $model->entity, 'entity_id' => $model->entity_id)); ?>
+    <?php $this->renderPartial('content_preview', array('model' => CActiveRecord::model($model->entity)->findByPk($model->entity_id))); ?>
     <?php $this->renderPartial('set_read', array('model' => $model, 'check' => $check)); ?>
 </div>

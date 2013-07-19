@@ -113,6 +113,15 @@ class NotificationCreate
     }
 
     /**
+     * Создаем summary-уведомление об избранном за последние 24 часа
+     */
+    public static function generateReposts()
+    {
+        $data = CommunityContent::model()->findLastDayReposts();
+        self::generateSummaryNotification($data, 'NotificationReposts');
+    }
+
+    /**
      * @param array $data
      * @param string $notificationName
      */
@@ -125,7 +134,7 @@ class NotificationCreate
             foreach ($contents as $entity => $ids)
                 foreach ($ids as $id => $count) {
                     $author_articles [] = array($entity, $id, $count);
-                    $all_count++;
+                    $all_count += $count;
                 }
 
             usort($author_articles, array('NotificationCreate', 'compareCount'));

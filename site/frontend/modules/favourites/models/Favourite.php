@@ -208,6 +208,7 @@ class Favourite extends CActiveRecord
 
     /**
      * Возвращает массив добавление в избранное за последние 24 часа
+     * @return array
      */
     public function findLastDayFavourites()
     {

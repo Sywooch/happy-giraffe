@@ -1,18 +1,18 @@
 <?php
 /**
- * Class NotificationFavourites
+ * Class NotificationReposts
  *
- * Уведомление пользователю об избранном
+ * Уведомление пользователю о репостах
  *
  * @author Alex Kireev <alexk984@gmail.com>
  */
-class NotificationFavourites extends Notification
+class NotificationReposts extends Notification
 {
     /**
-     * @var NotificationFavourites
+     * @var NotificationReposts
      */
     private static $_instance;
-    public $type = self::NEW_FAVOURITE;
+    public $type = self::NEW_REPOST;
     /**
      * топ-10 избранных статей за день, вида:
      * 'entity' => класс статьи,
@@ -28,11 +28,11 @@ class NotificationFavourites extends Notification
     }
 
     /**
-     * Создаение уведомления о новом избранном. Раз в день в 10 утра
+     * Создаение уведомления о репосте. Раз в день в 10 утра
      *
      * @param int $recipient_id
-     * @param array $articles топ-статьи по добавлению в избранное
-     * @param int $count суммарное кол-во добавлений в избранное
+     * @param array $articles топ-статьи по репостам
+     * @param int $count суммарное кол-во репостов
      */
     public function create($recipient_id, $articles, $count)
     {
@@ -44,7 +44,7 @@ class NotificationFavourites extends Notification
     }
 
     /**
-     * @return NotificationFavourites
+     * @return NotificationReposts
      */
     public static function model()
     {

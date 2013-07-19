@@ -52,19 +52,4 @@ class NotificationLikes extends Notification
             self::$_instance = new self();
         return self::$_instance;
     }
-
-    /**
-     * Создает модель уведомления для удобой работы с ним
-     *
-     * @param $object array объект, который вернул компонент работы с базой
-     * @return NotificationLikes
-     */
-    public static function createModel($object)
-    {
-        $model = new NotificationLikes();
-        foreach ($object as $key => $value)
-            $model->$key = $value;
-
-        return $model;
-    }
 }

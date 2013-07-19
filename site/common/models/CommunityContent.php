@@ -863,18 +863,19 @@ class CommunityContent extends HActiveRecord
      * Прикрепить запись блога сверху
      * @return bool
      */
-    public function attachBlogPost(){
-        if (!empty($this->real_time)){
+    public function attachBlogPost()
+    {
+        if (!empty($this->real_time)) {
             $this->created = $this->real_time;
             $this->real_time = null;
             return $this->update(array('created', 'real_time'));
-        }else{
+        } else {
             //unAttach other user posts
             $attachedPosts = CommunityContent::model()->findAll(
                 'real_time IS NOT NULL AND author_id=:author_id',
                 array(':author_id' => $this->author_id)
             );
-            foreach($attachedPosts as $attachedPost){
+            foreach ($attachedPosts as $attachedPost) {
                 $attachedPost->created = $attachedPost->real_time;
                 $attachedPost->real_time = null;
                 $attachedPost->update(array('created', 'real_time'));
@@ -902,5 +903,36 @@ class CommunityContent extends HActiveRecord
     public function restore()
     {
         return self::model()->updateByPk($this->id, array('removed' => 0)) > 0;
+    }
+
+    /**
+     * Возвращает массив репостов за последние 24 часа
+     * @return array
+     */
+    public function findLastDayReposts()
+    {
+        $result = array();
+        $t = microtime(true);
+        $reposts = Yii::app()->db->createCommand()
+            ->select('*, count(source_id) as count')
+            ->from($this->tableName())
+            ->group('source_id')
+            ->where('created > "' . date("Y-m-d H:i:s", strtotime('-1 day')) . '" AND source_id IS NOT NULL')
+            ->queryAll();
+        echo microtime(true) - $t . "\n";
+        echo count($reposts) . "\n";
+
+        foreach ($reposts as $repost) {
+            $source = CommunityContent::model()->findByPk($repost['source_id']);
+            if ($source) {
+                $author_id = $source->author_id;
+                if (!isset($result[$author_id]))
+                    $result[$author_id]['CommunityContent'] = array();
+
+                $result[$author_id]['CommunityContent'][$repost['source_id']] = $repost['count'];
+            }
+        }
+
+        return $result;
     }
 }

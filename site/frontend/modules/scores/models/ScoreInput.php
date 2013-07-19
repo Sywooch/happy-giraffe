@@ -578,11 +578,11 @@ class ScoreInput extends EMongoDocument
             if ($this->amount == 1)
                 $text = 'Вы добавили запись';
             elseif ($this->amount > 1)
-                $text = 'Вы добавили ' . $this->amount . ' ' . HDate::GenerateNoun(array('запись', 'записи', 'записей'), $this->amount);
+                $text = 'Вы добавили ' . $this->amount . ' ' . Str::GenerateNoun(array('запись', 'записи', 'записей'), $this->amount);
             elseif ($this->amount == -1)
                 $text = 'Удалена ваша запись';
             else
-                $text = 'Удалены ваши ' . abs($this->amount) . ' ' . HDate::GenerateNoun(array('запись', 'записи', 'записей'), abs($this->amount));
+                $text = 'Удалены ваши ' . abs($this->amount) . ' ' . Str::GenerateNoun(array('запись', 'записи', 'записей'), abs($this->amount));
 
             if ($this->user_id == $id)
                 $text .= ' в гостевой книге';
@@ -595,11 +595,11 @@ class ScoreInput extends EMongoDocument
             if ($this->amount == 1)
                 $text = 'Вы добавили комментарий к фото <img src="' . $model->getPreviewUrl(30, 30) . '">';
             elseif ($this->amount > 1)
-                $text = 'Вы добавили ' . $this->amount . ' ' . HDate::GenerateNoun(array('комментарий', 'комментария', 'комментариев'), $this->amount) . ' к фото <img src="' . $model->getPreviewUrl(30, 30) . '">';
+                $text = 'Вы добавили ' . $this->amount . ' ' . Str::GenerateNoun(array('комментарий', 'комментария', 'комментариев'), $this->amount) . ' к фото <img src="' . $model->getPreviewUrl(30, 30) . '">';
             elseif ($this->amount == -1)
                 $text = 'Ваш комментарий к фото <img src="' . $model->getPreviewUrl(30, 30) . '">';
             else
-                $text = 'Ваши ' . abs($this->amount) . ' ' . HDate::GenerateNoun(array('комментарий', 'комментария', 'комментариев'), abs($this->amount)) . ' к фото <img src="' . $model->getPreviewUrl(30, 30) . '">';
+                $text = 'Ваши ' . abs($this->amount) . ' ' . Str::GenerateNoun(array('комментарий', 'комментария', 'комментариев'), abs($this->amount)) . ' к фото <img src="' . $model->getPreviewUrl(30, 30) . '">';
 
             if ($this->amount < -1) $text .= ' удалены';
             if ($this->amount == -1) $text .= ' удален';
@@ -613,11 +613,11 @@ class ScoreInput extends EMongoDocument
         if ($this->amount == 1)
             $text = 'Вы добавили комментарий к записи <span>' . $model->title . '</span> ';
         elseif ($this->amount > 1)
-            $text = 'Вы добавили ' . $this->amount . ' ' . HDate::GenerateNoun(array('комментарий', 'комментария', 'комментариев'), $this->amount) . ' к записи <span>' . $model->title . '</span> ';
+            $text = 'Вы добавили ' . $this->amount . ' ' . Str::GenerateNoun(array('комментарий', 'комментария', 'комментариев'), $this->amount) . ' к записи <span>' . $model->title . '</span> ';
         elseif ($this->amount == -1)
             $text = 'Ваш комментарий к записи <span>' . $model->title . '</span> ';
         else
-            $text = 'Ваши ' . abs($this->amount) . ' ' . HDate::GenerateNoun(array('комментарий', 'комментария', 'комментариев'), abs($this->amount)) . ' к записи <span>' . $model->title . '</span> ';
+            $text = 'Ваши ' . abs($this->amount) . ' ' . Str::GenerateNoun(array('комментарий', 'комментария', 'комментариев'), abs($this->amount)) . ' к записи <span>' . $model->title . '</span> ';
 
         if ($class == 'CommunityContent' || $class == 'BlogContent') {
 
@@ -669,7 +669,7 @@ class ScoreInput extends EMongoDocument
         if (count($friends) == 1)
             $text = 'У вас новый друг ' . CHtml::image($friends[0]->getAva('small')) . '&nbsp;<span>' . CHtml::encode($friends[0]->first_name) . '</span>';
         elseif (count($friends) > 1) {
-            $text = 'У вас ' . count($friends) . ' ' . HDate::GenerateNoun(array('новый друг', 'новых друга', 'новых друзей'), $this->amount);
+            $text = 'У вас ' . count($friends) . ' ' . Str::GenerateNoun(array('новый друг', 'новых друга', 'новых друзей'), $this->amount);
             foreach ($friends as $friend) {
                 $text .= ' ' . CHtml::image($friend->getAva('small')) . ' <span>' . CHtml::encode($friend->first_name) . '</span>,';
             }
@@ -691,7 +691,7 @@ class ScoreInput extends EMongoDocument
             if (count($friends) == 1)
                 $text .= 'Вы потеряли друга ' . CHtml::image($friends[0]->getAva('small')) . ' <span>' . CHtml::encode($friends[0]->first_name) . '</span>';
             elseif (count($friends) > 1) {
-                $text .= 'Вы потеряли ' . count($friends) . ' ' . HDate::GenerateNoun(array('друга', 'друзей', 'друзей'), $this->amount);
+                $text .= 'Вы потеряли ' . count($friends) . ' ' . Str::GenerateNoun(array('друга', 'друзей', 'друзей'), $this->amount);
                 foreach ($friends as $friend) {
                     $text .= ' ' . CHtml::image($friend->getAva('small')) . ' <span>' . CHtml::encode($friend->first_name) . '</span>, ';
                 }

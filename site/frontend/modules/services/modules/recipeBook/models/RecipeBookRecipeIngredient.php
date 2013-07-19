@@ -152,7 +152,7 @@ class RecipeBookRecipeIngredient extends HActiveRecord
     public function getNoun()
     {
         return ((int) $this->value == $this->value) ?
-            HDate::GenerateNoun(array($this->unit->title, $this->unit->title2, $this->unit->title3), (int) $this->value)
+            Str::GenerateNoun(array($this->unit->title, $this->unit->title2, $this->unit->title3), (int) $this->value)
             :
             $this->unit->title2;
     }

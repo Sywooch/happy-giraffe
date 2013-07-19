@@ -48,10 +48,10 @@ class FlooringForm extends HFormModel
     {
         if ($this->flooringType > $this->t) {
             $result['qty'] = ceil($this->floorWidth / $this->flooringWidth) * $this->floorLength;
-            $result['noun'] = HDate::GenerateNoun(array('метр', 'метра', 'метров'), $result['qty']);
+            $result['noun'] = Str::GenerateNoun(array('метр', 'метра', 'метров'), $result['qty']);
         } else {
             $result['qty'] = ceil($this->floorLength / $this->flooringLength) * ceil($this->floorWidth / $this->flooringWidth);
-            $result['noun'] = HDate::GenerateNoun(array('штука', 'штуки', 'штук'), $result['qty']);
+            $result['noun'] = Str::GenerateNoun(array('штука', 'штуки', 'штук'), $result['qty']);
         }
 
         return $result;

@@ -171,7 +171,7 @@ class SeoParsingCommand extends CConsoleCommand
                     $model2->keyword_id = $keyword_id;
                 }
                 foreach($model2->getAttributes() as $name => $value)
-                    if (!empty($model->$name))
+                    if (!empty($model->$name) && $name != 'id')
                         $model2->$name = $model->$name;
                 $model2->save();
                 $i++;

@@ -170,7 +170,9 @@ class SeoParsingCommand extends CConsoleCommand
                     $model2 = new SiteKeywordVisit();
                     $model2->keyword_id = $keyword_id;
                 }
-                $model2->attributes = $model->attributes;
+                foreach($model2->getAttributes() as $name => $value)
+                    if (!empty($model->$name))
+                        $model2->$name = $model->$name;
                 $model2->save();
                 $i++;
             }
@@ -205,7 +207,9 @@ class SeoParsingCommand extends CConsoleCommand
                     $model2 = new SiteKeywordVisit2();
                     $model2->keyword = $model->keyword->name;
                 }
-                $model2->attributes = $model->attributes;
+              foreach($model2->getAttributes() as $name => $value)
+                  if (!empty($model->attributes[$name]))
+                        $model2->attributes[$name] = $model->attributes[$name];
                 $model2->save();
                 $i++;
             }

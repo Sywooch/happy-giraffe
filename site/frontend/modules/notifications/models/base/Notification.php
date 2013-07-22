@@ -229,27 +229,26 @@ class Notification extends HMongoModel
     {
         switch ($object['type']) {
             case self::USER_CONTENT_COMMENT:
-                $model = new NotificationUserContentComment();
+                $class = 'NotificationUserContentComment';
                 break;
             case self::REPLY_COMMENT:
-                $model = new NotificationReplyComment();
+                $class = 'NotificationReplyComment';
                 break;
             case self::DISCUSS_CONTINUE:
-                $model = new NotificationDiscussContinue();
+                $class = 'NotificationDiscussContinue';
                 break;
             case self::NEW_LIKE:
-                $model = new NotificationLikes();
-                break;
-            case self::NEW_FAVOURITE:
-                $model = new NotificationFavourites();
-                break;
-            case self::NEW_REPOST:
-                $model = new NotificationReposts();
+                $class = 'NotificationLike';
                 break;
         }
 
+        if (!isset($class))
+            return null;
+
+        $model = new $class;
         foreach ($object as $key => $value)
             $model->$key = $value;
+
         return $model;
     }
 

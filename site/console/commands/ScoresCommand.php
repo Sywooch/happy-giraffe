@@ -227,10 +227,10 @@ class ScoresCommand extends CConsoleCommand
 
                 //check page views
                 $page_views = PageView::model()->findByPath($url);
-                if ($page_views !== null)
-                    ScoreAward::checkPageViews($model, 0, $page_views->views);
+                if ($page_views)
+                    ScoreAchievement::checkPageViews($model, 0, $page_views['views']);
 
-                ScoreAward::checkPageLikes('CommunityContent', $model->id);
+                ScoreAchievement::checkPageLikes('CommunityContent', $model->id);
             }
 
             $criteria->offset += 100;

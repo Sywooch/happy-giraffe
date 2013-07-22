@@ -309,7 +309,7 @@ class ScoreAchievement extends HActiveRecord
     }
 
     /**
-     * Трофеи автору за просмотры его поста
+     * Достижение автору за просмотры его поста
      *
      * @param CommunityContent $content_model
      * @param int $old_views
@@ -362,7 +362,7 @@ class ScoreAchievement extends HActiveRecord
     }
 
     /**
-     * Трофеи автору за лайки к его посту
+     * Достижение автору за лайки к его посту
      *
      * @param $entity
      * @param int $entity_id

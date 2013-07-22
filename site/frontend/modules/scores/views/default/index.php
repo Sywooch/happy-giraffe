@@ -7,7 +7,12 @@
 ?>
 <div class="content-cols clearfix">
     <div class="col-1">
-        <h2 class="col-1_t col-1_t__big"><span class="ico-cup"></span> Мои успехи</h2>
+        <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
+            'user' => Yii::app()->user->model,
+            'size' => 'small',
+            'small' => true,
+            'sendButton' => false,
+        )); ?>
 
         <div class="menu-list menu-list__blue">
             <a href="javascript:;" class="menu-list_i menu-list_i__career active" onclick="ScorePage.selectTab(this, <?=ScoreInput::SELECT_ALL ?>)">
@@ -27,21 +32,18 @@
                 <span class="menu-list_tx">Трофеи</span>
             </a>
         </div>
+
     </div>
 
-    <div class="col-23 clearfix">
-        <div class="career-top">
-            <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
-                'user' => Yii::app()->user->model,
-                'size' => 'small',
-                'small' => true,
-                'sendButton' => false,
-            )); ?>
-            <span class="career-top_tx">- <?= number_format($score->scores, 0, '', ' ') ?> баллов</span>
+    <div class="col-23-middle clearfix">
+        <div class="heading-title">
+            Мои успехи - <?=$score->scores . ' ' . Str::GenerateNoun(array('балл', 'балла', 'баллов'), $score->scores) ?>
         </div>
+        <div class="clearfix">
 
-        <div id="score-list">
-            <?php $this->renderPartial('list',compact('list', 'score')); ?>
+            <div id="score-list">
+                <?php $this->renderPartial('list',compact('list', 'score')); ?>
+            </div>
 
             <?php if (count($list) >= 20):?>
                 <div class="margin-t60">
@@ -52,7 +54,6 @@
                 </div>
             <?php endif ?>
         </div>
-
     </div>
 </div>
 <?php if (count($list) >= 20):?>

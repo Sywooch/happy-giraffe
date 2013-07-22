@@ -1,6 +1,6 @@
 <?php
 
-class m130627_134424_add_photo_posts extends CDbMigration
+class m130627_134424_rename_morning_photo_posts extends CDbMigration
 {
     private $_table = 'community__photo_posts';
 

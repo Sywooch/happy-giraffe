@@ -38,6 +38,24 @@ class AjaxSimpleController extends CController
                 PageSearchView::model()->inc($page_url);
     }
 
+    public function actionLike()
+    {
+        $entity_id = Yii::app()->request->getPost('entity_id');
+        $entity = Yii::app()->request->getPost('entity');
+
+        $model = $entity::model()->findByPk($entity_id);
+        if ($model->author_id != Yii::app()->user->id) {
+            HGLike::model()->saveByEntity($model);
+            echo CJSON::encode(array('status' => true));
+        } else
+            echo CJSON::encode(array('status' => false));
+    }
+
+    public function actionRepost()
+    {
+
+    }
+
     /**
      * Учет кликов комментаторов по кнопкам лайков Facebook и Vk
      * @throws CHttpException
@@ -61,18 +79,137 @@ class AjaxSimpleController extends CController
         CommentatorLike::addCurrentUserLike($entity, $entity_id, $social_id);
     }
 
-    public function actionTest()
+    /**
+     * Добавление нового комментария
+     */
+    public function actionAddComment()
     {
-        $sites = Yii::app()->db_seo->createCommand()
-            ->select('url, password')
-            ->from('li_sites')
-            ->where('type=2 and visits > 1000')
-            ->queryAll();
+        Yii::import('site.frontend.modules.services.modules.recipeBook.models.*');
+        Yii::import('site.frontend.modules.route.models.*');
 
-        echo 'Mail.ru - доступ открыт для первой тысячи<br>';
-        foreach($sites as $site){
-            echo $site['url'].'<br>';
+        $comment = new Comment;
+        $comment->attributes = $_POST;
+        $comment->author_id = Yii::app()->user->id;
+        $comment->scenario = 'default';
+
+        if ($comment->save()) {
+            $comment->refresh();
+            $response = array(
+                'status' => true,
+                'data' => Comment::getOneCommentViewData($comment)
+            );
+        } else {
+            $response = array(
+                'status' => false,
+                'message' => $comment->getErrorsText()
+            );
         }
-        echo '<br><br>';
+        echo CJSON::encode($response);
+    }
+
+    /**
+     * Редактирование комментария
+     */
+    public function actionEditComment()
+    {
+        Yii::import('site.frontend.modules.services.modules.recipeBook.models.*');
+        Yii::import('site.frontend.modules.route.models.*');
+
+        $comment = $this->loadComment(Yii::app()->request->getPost('id'));
+        $comment->text = Yii::app()->request->getPost('text');
+
+        if ($comment->save()) {
+            $comment->refresh();
+            $response = array(
+                'status' => true,
+                'text' => $comment->text,
+            );
+        } else {
+            $response = array(
+                'status' => false,
+                'message' => $comment->getErrorsText()
+            );
+        }
+        echo CJSON::encode($response);
+    }
+
+    /**
+     * Лайк комментария
+     */
+    public function actionCommentLike()
+    {
+        $comment_id = Yii::app()->request->getPost('id');
+        $comment = $this->loadComment($comment_id);
+        if ($comment->author_id != Yii::app()->user->id)
+            HGLike::model()->saveByEntity($comment);
+
+        echo CJSON::encode(array('status' => true));
+    }
+
+    /**
+     * Удаление комментария
+     */
+    public function actionDeleteComment()
+    {
+        $comment_id = Yii::app()->request->getPost('id');
+        $comment = $this->loadComment($comment_id);
+        if (Yii::app()->user->model->checkAuthItem('removeComment') || Yii::app()->user->id == $comment->author_id || $comment->isEntityAuthor(Yii::app()->user->id))
+            $comment->delete();
+
+        echo CJSON::encode(array('status' => true));
+    }
+
+    /**
+     * Восстановление удаленного комментария
+     */
+    public function actionRestoreComment()
+    {
+        $comment_id = Yii::app()->request->getPost('id');
+        $comment = $this->loadComment($comment_id);
+        if (Yii::app()->user->model->checkAuthItem('removeComment') || Yii::app()->user->id == $comment->author_id || $comment->isEntityAuthor(Yii::app()->user->id))
+            $comment->restore();
+
+        echo CJSON::encode(array('status' => true));
+    }
+
+    public function actionUploadPhoto()
+    {
+        foreach ($_FILES as $file) {
+            $model = AlbumPhoto::model()->createUserTempPhoto($file);
+            $id = $model->id;
+        }
+
+        echo CJSON::encode(array('status' => 200, 'id' => $id));
+    }
+
+    public function actionAddPhoto()
+    {
+        $photos = AlbumPhoto::model()->findAllByPk(Yii::app()->request->getPost('photo_ids'));
+        $album = Album::model()->findByPk(Yii::app()->request->getPost('album_id'));
+
+        if ($album->author_id == Yii::app()->user->id)
+            foreach ($photos as $photo) {
+                if ($photo->author_id == Yii::app()->user->id) {
+                    $photo->album_id = $album->id;
+                    $photo->update(array('album_id'));
+                }
+            }
+
+        echo CJSON::encode(array('status' => true));
+    }
+
+    /**
+     * Загрузка нового комментария
+     *
+     * @param int $id model id
+     * @return Comment
+     * @throws CHttpException
+     */
+    public function loadComment($id)
+    {
+        $model = Comment::model()->resetScope()->findByPk($id);
+        if ($model === null)
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+        return $model;
     }
 }

@@ -8,6 +8,23 @@
  */
 class DefaultController extends HController
 {
+    public function filters()
+    {
+        return array(
+            'accessControl',
+            'ajaxOnly - index',
+        );
+    }
+
+    public function accessRules()
+    {
+        return array(
+            array('deny',
+                'users' => array('?'),
+            ),
+        );
+    }
+
     public function actionIndex()
     {
         $friendsCount = (int) Friend::model()->getCountByUserId(Yii::app()->user->id);

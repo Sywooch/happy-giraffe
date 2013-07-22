@@ -24,7 +24,7 @@
         </div>
         <div class="ball">
             <div class="ball-count"><?=$data->work->rate?></div>
-            <div class="ball-text"><?=HDate::GenerateNoun(array('балл', 'балла', 'баллов'), $data->work->rate)?></div>
+            <div class="ball-text"><?=Str::GenerateNoun(array('балл', 'балла', 'баллов'), $data->work->rate)?></div>
         </div>
     </div>
 </div>

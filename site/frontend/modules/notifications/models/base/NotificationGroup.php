@@ -177,6 +177,8 @@ class NotificationGroup extends Notification
             return '';
 
         $comment = Comment::model()->findByPk($comment_id);
+        if ($comment === null)
+            return '';
         return $comment->getUrl();
     }
 
@@ -201,11 +203,19 @@ class NotificationGroup extends Notification
     {
         if ($this->_entity === null) {
             if ($this->entity == 'CommunityContent' || $this->entity == 'BlogContent')
-                $this->_entity = CActiveRecord::model($this->entity)->full()->findByPk($this->entity_id);
+                $this->_entity = CActiveRecord::model($this->entity)->findByPk($this->entity_id);
             else
                 $this->_entity = CActiveRecord::model($this->entity)->findByPk($this->entity_id);
         }
 
         return $this->_entity;
+    }
+
+    /**
+     * @return int
+     */
+    public function getText()
+    {
+        return Str::GenerateNoun(array('Новый комментарий', 'Новых комментария', 'Новых комментариев'), $this->count);
     }
 }

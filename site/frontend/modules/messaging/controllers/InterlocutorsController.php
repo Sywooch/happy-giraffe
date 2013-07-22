@@ -8,6 +8,23 @@
  */
 class InterlocutorsController extends HController
 {
+    public function filters()
+    {
+        return array(
+            'accessControl',
+            'ajaxOnly',
+        );
+    }
+
+    public function accessRules()
+    {
+        return array(
+            array('deny',
+                'users' => array('?'),
+            ),
+        );
+    }
+
     public function actionGet($interlocutorId)
     {
         $interlocutorModel = User::model()->with('avatar')->findByPk($interlocutorId);

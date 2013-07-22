@@ -67,32 +67,4 @@ class NotificationUserContentComment extends NotificationGroup
                 $this->removeCommentId($exist, 'unread_model_ids', $comment->id);
         }
     }
-
-    public function getText()
-    {
-        switch ($this->entity) {
-            case 'CommunityContent':
-            case 'BlogContent':
-                if ($this->getEntity() === null)
-                    return 'запись не найдена';
-                switch ($this->getEntity()->type_id) {
-                    case CommunityContent::TYPE_POST:
-                        return 'к вашей записи добавлены новые комментарии';
-                    case CommunityContent::TYPE_VIDEO:
-                        return 'к вашему видео добавлены новые комментарии';
-                    case CommunityContent::TYPE_STATUS:
-                        return 'к вашему статусу добавлены новые комментарии';
-                }
-                return 'к вашей записи добавлены новые комментарии';
-                break;
-
-            case 'CookRecipe':
-                return 'к вашему рецепту добавлены новые комментарии';
-            case 'AlbumPhoto':
-                return 'к вашему фото добавлены новые комментарии';
-            default:
-                return 'к вашей записи добавлены новые комментарии';
-                break;
-        }
-    }
 }

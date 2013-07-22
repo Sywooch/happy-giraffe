@@ -73,75 +73,6 @@
                             echo '<noindex><div style="text-align: center; margin-bottom: 10px;">' . $data->video->getEmbed() . '</div></noindex>';
                             echo $data->video->purified->text;
                             break;
-                        case 'travel':
-                            if ($data->travel->waypoints) {
-                                $icon = new EGMapMarkerImage('/images/map_marker.png');
-                                $icon->setSize(20, 32);
-
-                                $gMap = new EGMap();
-                                $gMap->width = '100%';
-                                $gMap->height = '325';
-                                $gMap->zoom = (count($data->travel->waypoints) == 1) ? 5 : 2;
-                                $incLat = 0;
-                                $incLng = 0;
-                                foreach ($data->travel->waypoints as $w)
-                                {
-                                    $address = $w->country->name . ', ' . $w->city->name;
-                                    $geocoded_address = new EGMapGeocodedAddress($address);
-                                    $geocoded_address->geocode($gMap->getGMapClient());
-                                    $gMap->addMarker(
-                                        new EGMapMarker($geocoded_address->getLat(), $geocoded_address->getLng(), array('title' => 'a', 'icon' => $icon))
-                                    );
-                                    $incLat += $geocoded_address->getLat();
-                                    $incLng += $geocoded_address->getLng();
-                                }
-                                $dataenterLat = $incLat / count($data->travel->waypoints);
-                                $dataenterLng = $incLng / count($data->travel->waypoints);
-                                $gMap->setCenter($dataenterLat, $dataenterLng);
-
-                                $gMap->renderMap();
-                                ?>
-                                <ul class="tr_map">
-                                    <li>
-                                        <ins>Посетили:</ins>
-                                    </li>
-                                    <li>
-                                        <ul>
-                                            <?php $i = 0; foreach ($data->travel->waypoints as $w): ?>
-                                            <li><?php echo $w->country_name; ?> -
-                                                <span><?php echo ++$i; ?></span> <?php echo $w->city_name; ?></li>
-                                            <?php endforeach; ?>
-                                        </ul>
-                                    </li>
-                                </ul>
-                                <?php
-                            }
-                            ?>
-                                <div class="clear"></div>
-
-                                <?php
-                                $data_text = $data->travel->text;
-                            echo $data->travel->text;
-                            ?>
-                                <div class="clear"></div>
-                                <div class="travel_photo">
-                                    <ul class="photo-list">
-                                        <?php foreach ($data->travel->images as $i): ?>
-                                        <li>
-                                            <div class="img-box">
-                                                <?php echo CHtml::link(CHtml::image($i->getUrl('thumb')), $i->getUrl('original'), array(
-                                                'class' => 'lol',
-                                                'rel' => 'group',
-                                            )); ?>
-                                            </div>
-                                        </li>
-                                        <?php endforeach; ?>
-                                    </ul>
-                                    <div class="clear"></div>
-                                    <!-- .clear -->
-                                </div><!-- .travel_photo -->
-                                <?php
-                            break;
                     }
                     ?>
 
@@ -204,10 +135,6 @@
             case 'video':
                 $like_title = 'Вам полезно видео? Отметьте!';
                 $like_notice = '<big>Рейтинг видео</big><p>Он показывает, насколько нравится ваше видео другим пользователям. Если видео интересное, то пользователи его смотрят, комментируют, увеличивают лайки социальных сетей.</p>';
-                break;
-            case 'travel':
-                $like_title = 'Вам полезен рассказ?';
-                $like_notice = '<big>Рейтинг путешествия</big><p>Он показывает, насколько нравится ваш рассказ другим пользователям. Если рассказ интересен, то пользователи его читают, комментируют, увеличивают лайки социальных сетей.</p>';
                 break;
         }
     ?>

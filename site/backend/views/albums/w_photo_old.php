@@ -10,7 +10,7 @@ $count = count($model->photoCollection);
     <div class="top-line">
         <div class="wrapper">
             <a href="javascript:;" class="window-close">закрыть<i class="icon"></i></a>
-            <div class="count">Всего в альбоме <?= $count ?> <?=HDate::GenerateNoun(array('фотография', 'фотографии', 'фотографий'), $count) ?></div>
+            <div class="count">Всего в альбоме <?= $count ?> <?=Str::GenerateNoun(array('фотография', 'фотографии', 'фотографий'), $count) ?></div>
         </div>
     </div>
 

@@ -8,8 +8,8 @@
 
 <?php if (! Yii::app()->user->isGuest): ?>
 
-    <div class="favorites-control" id="<?=$id?>">
-        <a href="javascript:void(0)" class="favorites-control_a powertip" data-bind="text: count, css: { active : active }, tooltip: active() ? 'Удалить из избранного' : 'В избранное', click: clickHandler">
+    <div<?php if (!$this->right) echo ' class="favorites-control"'; else echo ' class="position-rel"'; ?> id="<?=$id?>">
+        <a href="" class="favorites-control_a powertip" data-bind="text: count, css: { active : active }, tooltip: active() ? 'Удалить из избранного' : 'В избранное', click: clickHandler">
 
         </a>
 
@@ -22,7 +22,7 @@
 
 <?php else: ?>
 
-    <div class="favorites-control">
+    <div<?php if (!$this->right) echo ' class="favorites-control"'; else echo ' class="position-rel"'; ?>>
         <a href="#login" class="favorites-control_a powertip fancy" title="В избранное">
             <?=$count?>
         </a>

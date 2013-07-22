@@ -61,7 +61,7 @@ class Comment extends HActiveRecord
             array('text', 'required', 'on' => 'default'),
             array('author_id, entity_id, response_id, quote_id', 'length', 'max' => 11),
             array('entity', 'length', 'max' => 255),
-            array('position, quote_text, selectable_quote', 'safe'),
+            array('text, position, quote_text, selectable_quote', 'safe'),
             array('removed', 'boolean'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
@@ -169,7 +169,7 @@ class Comment extends HActiveRecord
         );
     }
 
-    public function get($entity, $entity_id, $type = 'default', $pageSize = 25)
+    public function get($entity, $entity_id, $pageSize = 25)
     {
         return new CActiveDataProvider('Comment', array(
             'criteria' => array(
@@ -179,24 +179,9 @@ class Comment extends HActiveRecord
                     'author' => array(
                         'select' => 'id, gender, first_name, last_name, online, avatar_id, deleted',
                         'with' => 'avatar',
-                    ),
-                    'response' => array(
-                        'select' => 'position',
-                        'with' => array(
-                            'author' => array(
-                                'alias' => 'responseAuthor',
-                                'select' => 'id, gender, first_name, last_name, online, avatar_id, deleted',
-                                'with' => array(
-                                    'avatar' => array(
-                                        'alias' => 'responseAuthorAvatar'
-                                    ),
-                                ),
-                            ),
-                        ),
-                    ),
-//                    'photoAttaches'
+                    )
                 ),
-                'order' => ($type != 'guestBook') ? 't.created ASC' : 't.created DESC',
+                'order' => 't.created ASC',
             ),
             'pagination' => array(
                 'pageSize' => $pageSize,
@@ -215,6 +200,16 @@ class Comment extends HActiveRecord
                 $relatedModel->last_updated = new CDbExpression('NOW()');
                 $relatedModel->update(array('last_updated'));
                 $relatedModel->sendEvent();
+
+                //пересчитываем рейтинг только если кол-во комментариев кратно 5-ти
+                $commentsCount = Yii::app()->db->createCommand()
+                    ->select('count(*)')
+                    ->from('comments')
+                    ->where('entity=:entity AND entity_id=:entity_id AND removed = 0',
+                        array(':entity' => $this->entity, ':entity_id' => $this->entity_id))
+                    ->queryScalar();
+                if ($commentsCount % 5 == 0)
+                    PostRating::getInstance()->reCalc($relatedModel);
             }
 
             Yii::import('site.frontend.modules.routes.models.*');
@@ -363,12 +358,12 @@ class Comment extends HActiveRecord
         $entity = CActiveRecord::model($this->entity)->findByPk($this->entity_id);
         if ($entity === null)
             return '';
-        if ($this->entity == 'Service'){
+        if ($this->entity == 'Service') {
             $url = $entity->getUrl();
             $page = $this->calcPageNumber();
             if ($page > 1)
-                $url .= '?Comment_page='.$page;
-            return $url.'#comment_' . $this->id;
+                $url .= '?Comment_page=' . $page;
+            return $url . '#comment_' . $this->id;
         }
 
         list($route, $params) = $entity->urlParams;
@@ -544,13 +539,54 @@ class Comment extends HActiveRecord
 
     public function getPowerTipTitle()
     {
-        if ($this->entity == 'CommunityContent' || $this->entity == 'BlogContent')
-            $entity = CActiveRecord::model($this->entity)->full()->findByPk($this->entity_id);
-        else
-            $entity = CActiveRecord::model($this->entity)->findByPk($this->entity_id);
+        $entity = CActiveRecord::model($this->entity)->findByPk($this->entity_id);
         if (method_exists($entity, 'getPowerTipTitle'))
             return $entity->getPowerTipTitle(true);
         else
             return '';
+    }
+
+    public function restore(){
+        Comment::model()->updateByPk($this->id, array('removed' => 0));
+        Removed::model()->restoreByEntity($this);
+    }
+
+    /**
+     * @param Comment[] $comments
+     * @return array
+     */
+    public static function getViewData($comments)
+    {
+        $data = array();
+        foreach ($comments as $comment)
+            $data[] = self::getOneCommentViewData($comment);
+
+        return $data;
+    }
+
+    /**
+     * @param Comment $comment
+     * @return array
+     */
+    public static function getOneCommentViewData($comment)
+    {
+        return array(
+                'id' => (int)$comment->id,
+                'html' => $comment->purified->text,
+                'created' => Yii::app()->dateFormatter->format("d MMMM yyyy, H:mm", $comment->created),
+                'author' => array(
+                    'id' => (int)$comment->author->id,
+                    'firstName' => $comment->author->first_name,
+                    'lastName' => $comment->author->last_name,
+                    'gender' => $comment->author->gender,
+                    'avatar' => $comment->author->getAva('small'),
+                    'online' => (bool)$comment->author->online,
+                    'url' => $comment->author->getUrl(),
+                ),
+                'likesCount' => HGLike::model()->countByEntity($comment),
+                'userLikes' => HGLike::model()->hasLike($comment, Yii::app()->user->id),
+                'canRemove' => (Yii::app()->user->model->checkAuthItem('removeComment') || Yii::app()->user->id == $comment->author_id || $comment->isEntityAuthor(Yii::app()->user->id)),
+                'canEdit' => (Yii::app()->user->model->checkAuthItem('editComment') || Yii::app()->user->id == $comment->author_id),
+            );
     }
 }

@@ -21,7 +21,7 @@
                             $add_params = array('content_type_slug' => $cs->slug);
                             if (!is_null($community_id)) $add_params['community_id'] = $community_id;
                             if (!is_null($rubric_id)) $add_params['rubric_id'] = $rubric_id;
-                            $url = ($cs->slug == 'travel') ? CController::createUrl('community/addTravel') : CController::createUrl('community/add', $add_params);
+                            $url = CController::createUrl('community/add', $add_params);
                         ?>
                         <span><?=CHtml::link($cs->title_accusative, $url)?></span>
                     <? endif; ?>

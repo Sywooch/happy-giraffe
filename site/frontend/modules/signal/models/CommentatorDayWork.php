@@ -109,6 +109,7 @@ class CommentatorDayWork extends EMongoEmbeddedDocument
             $this->calcImMessageStats($commentator->user_id);
             $this->calcFriendsStats($commentator->user_id);
             $this->visits = CommentatorHelper::visits($commentator->user_id, $this->date, $this->date);
+            $this->addAllPosts($commentator->user_id);
 
             if ($this->date != date("Y-m-d"))
                 $this->closed = 1;
@@ -144,8 +145,39 @@ class CommentatorDayWork extends EMongoEmbeddedDocument
             $modifier->addModifier('days.'.$day_index.'.created', 'set', $this->created);
             $modifier->addModifier('days.'.$day_index.'.closed', 'set', $this->closed);
 
+            $modifier->addModifier('days.'.$day_index.'.blog_posts', 'set', (int)$this->blog_posts);
+            $modifier->addModifier('days.'.$day_index.'.club_posts', 'set', (int)$this->club_posts);
+            $modifier->addModifier('days.'.$day_index.'.im.in', 'set', $this->im['in']);
+
             CommentatorWork::model()->updateAll($modifier, $criteria);
         }
+    }
+
+    /**
+     * Обновление кол-ва постов, написанных за день
+     * @param CommentatorWork $commentator
+     */
+    public function updatePostsCount($commentator)
+    {
+        $this->addAllPosts($commentator->user_id);
+        $this->checkStatus($commentator);
+
+        //обновляем вычисленную статистику
+        $criteria = new EMongoCriteria();
+        $criteria->addCond('user_id', '==', $commentator->user_id);
+
+        //находим номер рабочего дня в массиве дней
+        $day_index = null;
+        foreach ($commentator->days as $_index => $day)
+            if ($day->date == $this->date)
+                $day_index = $_index;
+
+        $modifier = new EMongoModifier();
+        $modifier->addModifier('days.'.$day_index.'.status', 'set', $this->status);
+        $modifier->addModifier('days.'.$day_index.'.blog_posts', 'set', (int)$this->blog_posts);
+        $modifier->addModifier('days.'.$day_index.'.club_posts', 'set', (int)$this->club_posts);
+
+        CommentatorWork::model()->updateAll($modifier, $criteria);
     }
 
     /**
@@ -161,13 +193,43 @@ class CommentatorDayWork extends EMongoEmbeddedDocument
         $criteria->condition = 'updated >= :day_start AND updated <= :day_end AND status = ' . SeoTask::STATUS_CLOSED
             . ' AND sub_section = :section AND executor_id = :user_id';
         $criteria->params = array(
-            ':day_start' => date("Y-m-d") . ' 00:00:00',
-            ':day_end' => date("Y-m-d") . ' 23:59:59',
+            ':day_start' => $this->date . ' 00:00:00',
+            ':day_end' => $this->date . ' 23:59:59',
             ':section' => $section,
             ':user_id' => $user_id
         );
 
         return SeoTask::model()->count($criteria);
+    }
+
+    /**
+     * Вычислить кол-во выполненных заданий за текущий день по написанию статей в блог/клуб
+     *
+     * @param $user_id int id комментатора
+     * @return int кол-во выполненных заданий
+     */
+    public function addAllPosts($user_id)
+    {
+        $criteria = new CDbCriteria;
+        $criteria->condition = 'created >= :day_start AND created <= :day_end
+        AND author_id=:author_id AND rubric.user_id=:author_id';
+        $criteria->with = array('rubric');
+        $criteria->params = array(
+            ':day_start' => $this->date . ' 00:00:00',
+            ':day_end' => $this->date . ' 23:59:59',
+            ':author_id' => $user_id
+        );
+        $this->blog_posts = CommunityContent::model()->count($criteria);
+
+        $criteria = new CDbCriteria;
+        $criteria->condition = 'created >= :day_start AND created <= :day_end AND author_id=:author_id AND rubric.user_id IS NULL';
+        $criteria->with = array('rubric');
+        $criteria->params = array(
+            ':day_start' => $this->date . ' 00:00:00',
+            ':day_end' => $this->date . ' 23:59:59',
+            ':author_id' => $user_id
+        );
+        $this->club_posts = CommunityContent::model()->count($criteria);
     }
 
     /**

@@ -77,12 +77,6 @@
                                     'active' => $this->content_type_slug == 'post',
                                 ),
                                 array(
-                                    'label' => 'Путешествия',
-                                    'url' => $this->getUrl(array('content_type_slug' => 'travel')),
-                                    'active' => $this->content_type_slug == 'travel',
-                                    'visible' => $this->community->id == 21,
-                                ),
-                                array(
                                     'label' => 'Видео',
                                     'url' => $this->getUrl(array('content_type_slug' => 'video')),
                                     'active' => $this->content_type_slug == 'video',
@@ -132,7 +126,7 @@
             'duration' => 600,
             'dependency' => array(
                 'class' => 'CDbCacheDependency',
-                'sql' => 'SELECT MAX(updated) FROM community__contents c
+                'sql' => 'SELECT MAX(c.id) FROM community__contents c
                     JOIN community__rubrics r ON c.rubric_id = r.id
                     WHERE r.community_id = ' . $this->community->id,
             ),
@@ -216,6 +210,31 @@
                     <?php $this->renderPartial('//banners/community_1+2_240x400'); ?>
                 </div>
             <?php endif; ?>
+        <?php endif; ?>
+
+        <?php if(false): ?>
+        <div style="width: 160px; margin: 40px auto;">
+            <!-- R-87026-2 ﬂÌ‰ÂÍÒ.RTB-·ÎÓÍ  -->
+            <div id="yandex_ad_R-87026-2"></div>
+            <script type="text/javascript">
+                (function(w, d, n, s, t) {
+                    w[n] = w[n] || [];
+                    w[n].push(function() {
+                        Ya.Context.AdvManager.render({
+                            blockId: "R-87026-2",
+                            renderTo: "yandex_ad_R-87026-2",
+                            async: true
+                        });
+                    });
+                    t = d.getElementsByTagName("script")[0];
+                    s = d.createElement("script");
+                    s.type = "text/javascript";
+                    s.src = "//an.yandex.ru/system/context.js";
+                    s.async = true;
+                    t.parentNode.insertBefore(s, t);
+                })(this, this.document, "yandexContextAsyncCallbacks");
+            </script>
+        </div>
         <?php endif; ?>
 
         <div class="recent-topics">

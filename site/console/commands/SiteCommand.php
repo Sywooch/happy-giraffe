@@ -247,58 +247,40 @@ class SiteCommand extends CConsoleCommand
         echo 'Total: ' . array_sum($res);
     }
 
-    public function actionTest()
-    {
-        Yii::import('site.frontend.modules.notification.models.base.*');
-        Yii::import('site.frontend.modules.notification.models.*');
-        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
+    public function actionStats(){
+        Yii::import('site.frontend.modules.friends.models.*');
+        $criteria = new CDbCriteria;
+        $criteria->condition = 'last_active >= "'.date("Y-m-d H:i:s", strtotime('-3 month')).'" and deleted = 0 AND `group`=0';
+        $criteria->limit = 100;
+        $criteria->order = 'last_active desc';
+        $criteria->offset = 0;
 
-        for ($i=1;$i< 1000 ;$i++ ) {
-            $comments = Comment::model()->findAll(new CDbCriteria(array('limit' => 100)));
-            $t1 = microtime(true);
-            //Notification::model()->getUnreadCount(10);
+        $models = 1;
+        $fp = fopen('/home/beryllium/file.csv', 'w');
+        while(!empty($models)){
+            $models = User::model()->findAll($criteria);
 
-            foreach ($comments as $comment)
-                NotificationNewComment::model()->create(rand(1, 1000), $comment);
+            foreach($models as $model){
+                $posts_count = CommunityContent::model()->count('author_id=:author_id and removed = 0 and created > :last_month',
+                    array(':author_id' => $model->id, ':last_month'=>date("Y-m-d H:i:s", strtotime('-3 month'))));
+                $comments_count = Comment::model()->count('author_id=:author_id and removed = 0 and entity != "ContestWork" and created > :last_month',
+                    array(':author_id' => $model->id, ':last_month'=>date("Y-m-d H:i:s", strtotime('-3 month'))));
 
-            echo microtime(true) - $t1 . "\n";
-        }
-    }
-
-    public function actionTest2(){
-        Yii::import('site.frontend.modules.notification.models.base.*');
-        Yii::import('site.frontend.modules.notification.models.*');
-        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
-
-        $comment = Comment::model()->findByPk(279);
-        NotificationDiscussSubscription::model();
-        $t1 = microtime(true);
-//        Notification::model()->getNotificationsList(6085);
-        NotificationDiscussSubscription::model()->subscribeCommentAuthor($comment);
-//        NotificationNewComment::model()->read(8846, 'CommunityContent', 98);
-        echo microtime(true) - $t1;
-    }
-
-    public function actionCheckFull(){
-        Yii::import('site.frontend.modules.scores.models.*');
-        Yii::import('site.frontend.modules.geo.models.*');
-        Yii::import('site.common.models.interest.*');
-        for($i=49000;$i<200000;$i++){
-            $user = User::model()->with('score')->findByPk($i);
-            if ($user === null)
-                continue;
-            if ($user->score === null){
-                $scores = new UserScores();
-                $scores->user_id = $i;
-                $scores->save();
-                $user->score = $scores;
-            }
-            if ($user !== null && $user->score->full == 0){
-                $user->score->checkFull();
+                if ($comments_count > 0 && $posts_count > 0){
+                    $result = array(
+                        $model->getFullName(),
+                        'http://www.happy-giraffe.ru/user/'.$model->id.'/',
+                        date("Y-m-d", strtotime($model->register_date)),
+                        date("Y-m-d", strtotime($model->last_active)),
+                        $posts_count,
+                        $comments_count,
+                        Friend::model()->getCountByUserId($model->id)
+                    );
+                    fputcsv($fp, $result);
+                }
             }
 
-            if ($i % 1000 == 0)
-                echo $i."\n";
+            $criteria->offset = $criteria->offset + 100;
         }
     }
 }

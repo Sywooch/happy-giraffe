@@ -21,8 +21,8 @@ while (!empty($models)) {
     $models = User::model()->findAll($criteria);
 
     foreach ($models as $model) {
-            echo $model->fullName. ' - http://www.happy-giraffe.ru/user/'.$model->id.'/'."<br>";
-            $result++;
+        echo $model->fullName. ' - http://www.happy-giraffe.ru/user/'.$model->id.'/'."<br>";
+        $result++;
     }
 
     $criteria->offset += 100;

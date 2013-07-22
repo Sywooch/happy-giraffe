@@ -424,8 +424,6 @@ class User extends HActiveRecord
 
     protected function afterSave()
     {
-        parent::afterSave();
-
         if ($this->trackable->isChanged('mood_id'))
             UserAction::model()->add($this->id, UserAction::USER_ACTION_MOOD_CHANGED, array('model' => $this));
 
@@ -447,9 +445,8 @@ class User extends HActiveRecord
             Yii::app()->db->createCommand()->insert(UserPriority::model()->tableName(), array('user_id' => $this->id));
             Yii::app()->db->createCommand()->insert(UserScores::model()->tableName(), array('user_id' => $this->id));
             Yii::app()->db->createCommand()->insert(UserAddress::model()->tableName(), array('user_id' => $this->id));
-        } else {
+        } else
             self::clearCache($this->id);
-        }
 
         if ($this->trackable->isChanged('online'))
             $this->sendOnlineStatus();

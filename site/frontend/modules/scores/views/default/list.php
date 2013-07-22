@@ -19,7 +19,7 @@
             <div class="career-achievement_right">
                 <div class="career-achievement_ball">
                     <div class="career-achievement_ball-num"><?=$model->scores ?></div>
-                    <div class="career-achievement_ball-tx"><?=HDate::GenerateNoun(array('балл','балла','баллов'), $model->scores) ?></div>
+                    <div class="career-achievement_ball-tx"><?=Str::GenerateNoun(array('балл','балла','баллов'), $model->scores) ?></div>
                 </div>
             </div>
             <a href="javascript:;" class="career-achievement_info powertip ico-info" title="Подробней" onclick="ScorePage.showDescription(this)"></a>

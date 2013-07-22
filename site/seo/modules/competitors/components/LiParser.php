@@ -26,9 +26,9 @@ class LiParser extends LiBaseParser
 
         $found = $this->parseStats($year, $month_from, $month_to);
         $this->log($site_id . ' - ' . $found);
-        Yii::app()->email->sendEmail('alexk984@gmail.com', 'парсинг статистики liveinternet',
-            $this->site->url . ' - спарсено:<br><br>' . $found,
-            'webmaster@happy-giraffe.ru', 'Парсинг на Веселом Жирафе');
+//        Yii::app()->email->sendEmail('alexk984@gmail.com', 'парсинг статистики liveinternet',
+//            $this->site->url . ' - спарсено:<br><br>' . $found,
+//            'webmaster@happy-giraffe.ru', 'Парсинг на Веселом Жирафе');
     }
 
 

@@ -2,7 +2,7 @@
 
 class DefaultController extends HController
 {
-    public $layout = '//layouts/main';
+    public $layout = '//layouts/common';
 
 
     public function filters()

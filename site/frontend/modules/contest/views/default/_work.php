@@ -12,7 +12,7 @@
             <?php if ($this->action->id != 'results'): ?>
                 <div class="ball">
                     <div class="ball-count"><?=$data->rate?></div>
-                    <div class="ball-text"><?=HDate::GenerateNoun(array('балл', 'балла', 'баллов'), $data->rate)?></div>
+                    <div class="ball-text"><?=Str::GenerateNoun(array('балл', 'балла', 'баллов'), $data->rate)?></div>
                 </div>
             <?php endif; ?>
         </div>

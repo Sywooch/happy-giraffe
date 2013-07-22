@@ -23,23 +23,30 @@
 
                 <div class="banner-box">
                     <?php if (! Yii::app()->user->isGuest): ?>
-                        <?php $contest_id = 11; ?>
-                        <a href="<?=$this->createUrl('/contest/default/view', array('id' => $contest_id)) ?>"><img src="/images/contest/banner-w300-<?=$contest_id?>.jpg" /></a>
+                        <?php if (false): ?>
+                            <?php $contest_id = 11; ?>
+                            <a href="<?=$this->createUrl('/contest/default/view', array('id' => $contest_id)) ?>"><img src="/images/contest/banner-w300-<?=$contest_id?>.jpg" /></a>
+                        <?php endif; ?>
                     <?php else: ?>
                         <?php if (false): ?>
-                        <?=CHtml::link(CHtml::image('/images/banner_06.png'), '#register', array('class'=>'fancy', 'data-theme'=>'white-square'))?>
+                            <?=CHtml::link(CHtml::image('/images/banner_06.png'), '#register', array('class'=>'fancy', 'data-theme'=>'white-square'))?>
                         <?php else: ?>
-                        <script type="text/javascript"><!--
-                            google_ad_client = "ca-pub-3807022659655617";
-                            /* 728_90 */
-                            google_ad_slot = "4343272887";
-                            google_ad_width = 728;
-                            google_ad_height = 90;
-                            //-->
-                        </script>
-                        <script type="text/javascript"
-                                src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
-                        </script>
+                            <!--AdFox START-->
+                            <!--giraffe-->
+                            <!--Площадка: Весёлый Жираф / * / *-->
+                            <!--Тип баннера: 728x90-->
+                            <!--Расположение: <верх страницы>-->
+                            <script type="text/javascript">
+                                <!--
+                                if (typeof(pr) == 'undefined') { var pr = Math.floor(Math.random() * 1000000); }
+                                var addate = new Date();
+                                document.write('<iframe src="http://ads.adfox.ru/211012/getCode?pp=g&amp;ps=bkqy&amp;p2=etyy&amp;p3=b&amp;p4=a&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a&amp;pr=' + pr + '&amp;pt=b&amp;pd=' + addate.getDate() + '&amp;pw=' + addate.getDay() + '&amp;pv=' + addate.getHours() + '" frameBorder="0" width="728" height="90" marginWidth="0" marginHeight="0" scrolling="no" style="border: 0px; margin: 0px; padding: 0px;"><a href="http://ads.adfox.ru/211012/goDefaultLink?pp=g&amp;ps=bkqy&amp;p2=etyy&amp;" target="_blank"><img src="http://ads.adfox.ru/211012/getDefaultImage?pp=g&amp;ps=bkqy&amp;p2=etyy" border="0" alt=""><\/a><\/iframe>');
+                                //-->
+                            </script>
+                            <noscript>
+                                <iframe src="http://ads.adfox.ru/211012/getCode?pp=g&amp;ps=bkqy&amp;p2=etyy&amp;p3=b&amp;p4=a&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a&amp;pr=' + pr + '&amp;pt=b&amp;pd=' + addate.getDate() + '&amp;pw=' + addate.getDay() + '&amp;pv=' + addate.getHours() + '" frameBorder="0" width="728" height="90" marginWidth="0" marginHeight="0" scrolling="no" style="border: 0px; margin: 0px; padding: 0px;"><a href="http://ads.adfox.ru/211012/goDefaultLink?pp=g&amp;ps=bkqy&amp;p2=etyy&amp;" target="_blank"><img src="http://ads.adfox.ru/211012/getDefaultImage?pp=g&amp;ps=bkqy&amp;p2=etyy" border="0" alt=""></a></iframe>
+                            </noscript>
+                            <!--AdFox END-->
                         <?php endif; ?>
                     <?php endif; ?>
                 </div>

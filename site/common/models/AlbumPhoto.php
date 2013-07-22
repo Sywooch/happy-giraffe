@@ -36,6 +36,9 @@ class AlbumPhoto extends HActiveRecord
     public $width;
     public $height;
 
+    private $_originalWidth;
+    private $_originalHeight;
+
     public $count;
 
     /**
@@ -54,6 +57,10 @@ class AlbumPhoto extends HActiveRecord
      * @var string avatars image folder
      */
     private $avatars_folder = 'avatars';
+    /**
+     * @var string blogs image folder
+     */
+    private $blogs_folder = 'blogs';
     /**
      * @var CUploadedFile
      */
@@ -212,6 +219,7 @@ class AlbumPhoto extends HActiveRecord
         }
         if ($this->save(false)) {
             $this->saveFile(false, $temp);
+            $this->setDimensions();
             return true;
         }
         return false;
@@ -318,7 +326,7 @@ class AlbumPhoto extends HActiveRecord
     {
         $dir = Yii::getPathOfAlias('site.common.uploads.photos');
         return $dir . DIRECTORY_SEPARATOR . $this->original_folder . DIRECTORY_SEPARATOR . $this->author_id .
-            DIRECTORY_SEPARATOR . $this->fs_name;
+        DIRECTORY_SEPARATOR . $this->fs_name;
     }
 
     /**
@@ -511,7 +519,7 @@ class AlbumPhoto extends HActiveRecord
             mkdir($dir . DIRECTORY_SEPARATOR . $this->avatars_folder . DIRECTORY_SEPARATOR . $this->author_id . DIRECTORY_SEPARATOR . $size);
 
         return $dir . DIRECTORY_SEPARATOR . $this->avatars_folder . DIRECTORY_SEPARATOR . $this->author_id .
-            DIRECTORY_SEPARATOR . $size . DIRECTORY_SEPARATOR . $this->fs_name;
+        DIRECTORY_SEPARATOR . $size . DIRECTORY_SEPARATOR . $this->fs_name;
     }
 
     /**
@@ -526,6 +534,24 @@ class AlbumPhoto extends HActiveRecord
             $this->avatars_folder,
             $this->author_id,
             $size,
+            $this->fs_name
+        ));
+    }
+
+    public function getBlogPath()
+    {
+        $dir = Yii::getPathOfAlias('site.common.uploads.photos');
+
+        return $dir . DIRECTORY_SEPARATOR . $this->blogs_folder . DIRECTORY_SEPARATOR . $this->author_id .
+        DIRECTORY_SEPARATOR . $this->fs_name;
+    }
+
+    public function getBlogUrl()
+    {
+        return implode('/', array(
+            Yii::app()->params['photos_url'],
+            $this->blogs_folder,
+            $this->author_id,
             $this->fs_name
         ));
     }
@@ -626,15 +652,15 @@ class AlbumPhoto extends HActiveRecord
      */
     public function getPowerTipTitle($full = false)
     {
-        if (empty($this->album)){
-            if (!empty($this->galleryItem)){
+        if (empty($this->album)) {
+            if (!empty($this->galleryItem)) {
                 $post = $this->galleryItem->gallery->content;
                 if (!$post)
                     return '';
                 $t = htmlentities("Фотогалерея к записи <span class='color-gray'>" . $post->title . "</span>", ENT_QUOTES, "UTF-8");
                 if (!$full)
                     return $t;
-                return htmlentities(("Клуб <span class='color-category " . $post->rubric->community->css_class . "'>" . $post->rubric->community->title . "</span><br>"), ENT_QUOTES, "UTF-8").$t;
+                return htmlentities(("Клуб <span class='color-category " . $post->rubric->community->css_class . "'>" . $post->rubric->community->title . "</span><br>"), ENT_QUOTES, "UTF-8") . $t;
             }
             return '';
         }
@@ -645,5 +671,85 @@ class AlbumPhoto extends HActiveRecord
         if (!empty($this->title))
             return $title . htmlentities('<br>' . 'Фотография <span class=\'color-gray\' > ' . $this->title . '</span>', ENT_QUOTES, "UTF-8");
         return $title;
+    }
+
+    public function getWidget()
+    {
+        return Yii::app()->controller->renderPartial('//albums/_widget', array('model' => $this), true);
+    }
+
+    protected function afterFind()
+    {
+        $this->setDimensions();
+        parent::afterFind();
+    }
+
+    protected function setDimensions()
+    {
+        $size = @getimagesize($this->getOriginalPath());
+        $this->_originalWidth = $size[0];
+        $this->_originalHeight = $size[1];
+    }
+
+    public function getOriginalWidth()
+    {
+        return $this->_originalWidth;
+    }
+
+    public function getOriginalHeight()
+    {
+        return $this->_originalHeight;
+    }
+
+    /**
+     * Создает временную модель с загруженным пользователем файлом
+     *
+     * @param $file
+     * Информация о загруженном файле
+     * ["name"]=> название исходного файла
+     * ["type"]=> "image/png" "image/jpeg"
+     * ["tmp_name"]=> временный адрес файла
+     * ["error"]=> int(0)
+     * ["size"]=>
+     * @return AlbumPhoto
+     */
+    public function createUserTempPhoto($file)
+    {
+        if ($file['type'] != 'image/png' && $file['type'] != 'image/jpeg')
+            return null;
+
+        $model = new AlbumPhoto();
+        $model->author_id = Yii::app()->user->id;
+        $model->fs_name = $this->copyUserFile($file['name'], $file['tmp_name'], $model->author_id);
+        $model->file_name = $file['name'];
+        $model->save(false);
+
+        return $model;
+    }
+
+    /**
+     * Копирует загруженный пользователем файл в директорию пользователя для загруженных файлов
+     * Возвращает название созданного файла
+     *
+     * @param $name
+     * @param $temp_name
+     * @param $user_id
+     * @return string
+     */
+    private function copyUserFile($name, $temp_name, $user_id)
+    {
+        $ext = pathinfo($name, PATHINFO_EXTENSION);
+
+        $dir = Yii::getPathOfAlias('site.common.uploads.photos');
+        $model_dir = $dir . DIRECTORY_SEPARATOR . $this->original_folder . DIRECTORY_SEPARATOR . $user_id;
+        if (!file_exists($model_dir))
+            mkdir($model_dir);
+
+        $file_name = md5(time());
+        while (file_exists($model_dir . DIRECTORY_SEPARATOR . $file_name . '.' . $ext))
+            $file_name = md5($file_name . microtime());
+        copy($temp_name, $model_dir . DIRECTORY_SEPARATOR . $file_name . '.' . $ext);
+
+        return $file_name . '.' . $ext;
     }
 }

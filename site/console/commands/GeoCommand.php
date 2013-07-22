@@ -108,17 +108,36 @@ class GeoCommand extends CConsoleCommand
         $cities = file_get_contents('/home/giraffe/cities2.txt');
         $cities = explode("\n", $cities);
 
-        foreach($cities as $city){
+        foreach ($cities as $city) {
             $city = trim($city);
             if (empty($city))
                 continue;
 
             $model = Keyword::model()->findByAttributes(array('name' => $city));
-            if ($model === null){
+            if ($model === null) {
                 $model = new Keyword;
                 $model->name = $city;
                 $model->save();
             }
         }
+    }
+
+    public function actionUpdateRoutes()
+    {
+        $city_ids = Yii::app()->db->createCommand()
+            ->selectDistinct('city_from_id')
+            ->from('routes__routes')
+            ->queryColumn();
+
+        $cities = GeoCity::model()->findAllByPk($city_ids);
+        $count = 0;
+        foreach ($cities as $city1)
+            foreach ($cities as $city2)
+                if ($city1->id != $city2->id && $city1->name == $city2->name) {
+                    Yii::app()->db->createCommand()->update('geo__city', array('show_region' => 1), 'id = :city_id', array(':city_id' => $city1->id));
+                    Yii::app()->db->createCommand()->update('geo__city', array('show_region' => 1), 'id = :city_id', array(':city_id' => $city2->id));
+                    $count++;
+                }
+        echo $count;
     }
 }

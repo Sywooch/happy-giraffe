@@ -161,8 +161,8 @@ class Keyword extends CActiveRecord
         }
 
         //добавляем на простой парсинг
-        if (isset($model->id))
-            WordstatParsingTask::getInstance()->addSimpleTask($model->id);
+//        if (isset($model->id))
+//            WordstatParsingTask::getInstance()->addSimpleTask($model->id);
 
         return $model;
     }

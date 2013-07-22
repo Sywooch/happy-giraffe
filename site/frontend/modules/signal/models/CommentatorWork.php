@@ -362,10 +362,7 @@ class CommentatorWork extends EMongoDocument
      */
     public function getNextComment()
     {
-        if ($this->comment_entity !== 'CookRecipe')
-            $model = CActiveRecord::model($this->comment_entity)->resetScope()->full()->findByPk($this->comment_entity_id);
-        else
-            $model = CActiveRecord::model($this->comment_entity)->resetScope()->findByPk($this->comment_entity_id);
+        $model = CActiveRecord::model($this->comment_entity)->resetScope()->findByPk($this->comment_entity_id);
 
         if ($model->removed) {
             $model->full = 1;
@@ -812,7 +809,7 @@ class CommentatorWork extends EMongoDocument
     }
 
     /**
-     * @param CommentatorDayWork $day
+     * @param string $day
      * @return CommentatorDayWork|null
      */
     public function getDay($day)

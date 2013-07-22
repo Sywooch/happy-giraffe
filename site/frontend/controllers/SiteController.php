@@ -21,6 +21,17 @@ class SiteController extends HController
 		);
 	}
 
+    protected function beforeAction($action)
+    {
+        return $action->id == 'error' ? true : parent::beforeAction($action);
+    }
+
+    protected function afterRender($view, &$output)
+    {
+        if ($this->action->id != 'error')
+            parent::afterRender($view, $output);
+    }
+
     public function actionServices($category_id = null)
     {
         $categories = ServiceCategory::model()->with('servicesCount')->findAll();
@@ -68,15 +79,15 @@ class SiteController extends HController
         $videoCount = count($videoSearch['matches']);
 
         $criteria = new CDbCriteria;
-        $criteria->with = array('travel', 'video', 'post');
+        $criteria->with = array('video', 'post');
 
         $dataProvider = new CArrayDataProvider($resIterator->getRawData(), array(
             'keyField' => 'id',
         ));
 
-            $viewData = compact('dataProvider', 'criteria', 'index', 'text', 'allCount', 'textCount', 'videoCount', 'travelCount');
+            $viewData = compact('dataProvider', 'criteria', 'index', 'text', 'allCount', 'textCount', 'videoCount');
         }else
-            $viewData = array('dataProvider'=>null, 'criteria'=>null, 'index'=>$index, 'text'=>'', 'allCount'=>0, 'textCount'=>0, 'videoCount'=>0, 'travelCount'=>0);
+            $viewData = array('dataProvider'=>null, 'criteria'=>null, 'index'=>$index, 'text'=>'', 'allCount'=>0, 'textCount'=>0, 'videoCount'=>0);
         $this->render('search', $viewData);
     }
 
@@ -410,8 +421,7 @@ class SiteController extends HController
 
     public function actionTest()
     {
-        $galleries = CommunityContentGallery::model()->with('content')->findAll(array('condition' => 'content.removed = 0'));
-        foreach ($galleries as $g)
-            echo CHtml::link($g->content->title, $g->content->url) . '<br />';
+        $url = 'http://www.happy-giraffe.ru/user/10/blog/post83504/';
+        var_dump(CJSON::decode(Yii::app()->piwik->getCountByPageUrl($url)));
     }
 }

@@ -296,13 +296,13 @@ class VaccineDate extends HActiveRecord
         if (empty($this->time_to)) {
             $age = '<b>' . $this->time_from . '</b>';
             if ($this->interval == self::INTERVAL_HOUR)
-                return $age . ' ' . HDate::GenerateNoun(array('час', 'часа', 'часов'), $this->time_from);
+                return $age . ' ' . Str::GenerateNoun(array('час', 'часа', 'часов'), $this->time_from);
             if ($this->interval == self::INTERVAL_DAY)
-                return $age . ' ' . HDate::GenerateNoun(array('день', 'дня', 'дней'), $this->time_from);
+                return $age . ' ' . Str::GenerateNoun(array('день', 'дня', 'дней'), $this->time_from);
             if ($this->interval == self::INTERVAL_MONTH)
-                return $age . ' ' . HDate::GenerateNoun(array('месяц', 'месяца', 'месяцев'), $this->time_from);
+                return $age . ' ' . Str::GenerateNoun(array('месяц', 'месяца', 'месяцев'), $this->time_from);
             if ($this->interval == self::INTERVAL_YEAR)
-                return $age . ' ' . HDate::GenerateNoun(array('год', 'года', 'лет'), $this->time_from);
+                return $age . ' ' . Str::GenerateNoun(array('год', 'года', 'лет'), $this->time_from);
         } else {
             $age = '<b>' . $this->time_from . ' - ' . $this->time_to . '</b>';
             if ($this->interval == self::INTERVAL_HOUR)

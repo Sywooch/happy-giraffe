@@ -17,11 +17,8 @@ class DefaultController extends HController
     public function accessRules()
     {
         return array(
-            array('allow',
-                'users' => array('@'),
-            ),
             array('deny',
-                'users' => array('*'),
+                'users' => array('?'),
             ),
         );
     }
@@ -115,7 +112,7 @@ class DefaultController extends HController
         switch ($entity) {
             case 'post':
             case 'video':
-                $model = CActiveRecord::model($modelName)->full()->findByPk($modelId);
+                $model = CActiveRecord::model($modelName)->findByPk($modelId);
                 if ($model === null)
                     throw new CHttpException(400);
 

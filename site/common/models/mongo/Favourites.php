@@ -211,12 +211,21 @@ class Favourites extends EMongoDocument
      */
     public static function getListForCommentators($index)
     {
+        if ($index == self::WEEKLY_MAIL){
+            return self::getIdsByDate($index, date("next monday"));
+        }else{
+            return array_merge(
+                self::getIdsByDate($index, date("Y-m-d")),
+                self::getIdsByDate($index, date("Y-m-d", strtotime('+1 day')))
+            );
+        }
+    }
+
+    public static function getIdsByDate($index, $date)
+    {
         $criteria = new EMongoCriteria;
         $criteria->block('==', (int)$index);
-        if ($index == self::WEEKLY_MAIL)
-            $criteria->date('==', date("Y-m-d", strtotime('next monday')));
-        else
-            $criteria->date('==', date("Y-m-d", strtotime('+1 day')));
+        $criteria->date('==', $date);
 
         $models = self::model()->findAll($criteria);
         $ids = array();
@@ -271,6 +280,6 @@ class Favourites extends EMongoDocument
      */
     public function getArticle()
     {
-        return CActiveRecord::model($this->entity)->resetScope()->full()->findByPk($this->entity_id);
+        return CActiveRecord::model($this->entity)->resetScope()->findByPk($this->entity_id);
     }
 }

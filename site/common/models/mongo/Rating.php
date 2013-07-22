@@ -102,7 +102,7 @@ class Rating extends EMongoDocument
             $model->save();
         }
         if ($social_key == 'yh')
-            if (($e = RatingYohoho::model()->saveByEntity($entity)) === false)
+            if (($e = HGLike::model()->saveByEntity($entity)) === false)
                 $value = $value * -1;
 
         $model->ratings[$social_key] = $plus && isset($model->ratings[$social_key]) ? $model->ratings[$social_key] + $value : $value;

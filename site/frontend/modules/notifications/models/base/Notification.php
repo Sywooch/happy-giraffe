@@ -18,6 +18,8 @@ class Notification extends HMongoModel
     const REPLY_COMMENT = 1;
     const DISCUSS_CONTINUE = 2;
     const NEW_LIKE = 5;
+    const NEW_FAVOURITE = 6;
+    const NEW_REPOST = 7;
 
     const PAGE_SIZE = 20;
 
@@ -166,22 +168,7 @@ class Notification extends HMongoModel
         if (empty($user_id))
             $user_id = Yii::app()->user->id;
 
-        $ops = array(
-            array(
-                '$match' => array(
-                    "recipient_id" => (int)$user_id,
-                    "read" => 0,
-                )
-            ),
-            array(
-                '$group' => array(
-                    "_id" => 0,
-                    "count" => array('$sum' => '$count'),
-                ),
-            ),
-        );
-        $result = $this->getCollection()->aggregate($ops);
-        return isset($result['result'][0]) ? $result['result'][0]['count'] : 0;
+        return $this->getCollection()->count(array("recipient_id" => (int)$user_id, "read" => 0));
     }
 
     /**
@@ -300,5 +287,45 @@ class Notification extends HMongoModel
             'entity' => get_class($entity),
             'entity_id' => $entity->id,
         ));
+    }
+
+    /**
+     * @param CActiveRecord $model
+     * @param int $form форма слова
+     * @return string
+     */
+    public static function getContentName($model, $form = 0)
+    {
+        if ($form == 1) {
+            switch (get_class($model)) {
+                case 'AlbumPhoto':
+                    return 'фото';
+                case 'CookRecipe':
+                    return 'рецепта';
+                case 'CommunityContent':
+                    if ($model->type_id == CommunityContent::TYPE_VIDEO)
+                        return 'видео';
+                    if ($model->type_id == CommunityContent::TYPE_STATUS)
+                        return 'статуса';
+                    break;
+            }
+
+            return 'записи';
+        }
+
+        switch (get_class($model)) {
+            case 'AlbumPhoto':
+                return 'фото';
+            case 'CookRecipe':
+                return 'рецепту';
+            case 'CommunityContent':
+                if ($model->type_id == CommunityContent::TYPE_VIDEO)
+                    return 'видео';
+                if ($model->type_id == CommunityContent::TYPE_STATUS)
+                    return 'статусу';
+                break;
+        }
+
+        return 'записи';
     }
 }

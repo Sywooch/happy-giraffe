@@ -10,6 +10,8 @@ return array(
          *      CONTROLLERS      *
          *************************/
 
+        'testupload' => 'blog/default/upload',
+
         // global
         '.*/index' => 404,
 
@@ -34,7 +36,7 @@ return array(
         'js_dynamics/<hash:\w+>.js' => 'site/seoHide',
         'search' => 'site/search',
         'moderation'=>'site/moderationRules',
-        'site/<_a:(confirmEmail|resendConfirmEmail|passwordRecovery|passwordRecoveryForm|login|logout|link|fixPhoto)>' => 'site/<_a>',
+        'site/<_a:(confirmEmail|resendConfirmEmail|passwordRecovery|passwordRecoveryForm|login|logout|link|fixPhoto|test)>' => 'site/<_a>',
         //'contest' => 'site/contest',
         'services/<category_id:\d+>' => 'site/services',
         'services' => 'site/services',
@@ -72,15 +74,41 @@ return array(
         'albums/addPhoto/a/<a:\d+>' => 'albums/addPhoto',
         'albums/addPhoto' => 'albums/addPhoto',
         'albums/redirect/<id:\d+>' => 'albums/redirect',
-        'albums/<_a:(attach|wPhoto|attachView|editDescription|editPhotoTitle|changeTitle|changePermission|removeUploadPhoto|communityContentEdit|communityContentSave|partnerPhoto|recipePhoto|cookDecorationPhoto|cookDecorationCategory|commentPhoto|crop|changeAvatar|humorPhoto|albumSettings|updatePhoto|postLoad|updateAlbum|messagingMessagePhoto)>' => 'albums/<_a>',
+        'albums/<_a:(attach|wPhoto|attachView|editDescription|editPhotoTitle|changeTitle|changePermission|removeUploadPhoto|communityContentEdit|communityContentSave|partnerPhoto|recipePhoto|cookDecorationPhoto|cookDecorationCategory|commentPhoto|crop|changeAvatar|humorPhoto|albumSettings|updatePhoto|postLoad|updateAlbum|messagingMessagePhoto|uploadPhoto)>' => 'albums/<_a>',
 
         // user/*
+
+        array(
+            'class' => 'application.components.ConditionalUrlRule',
+            'pattern' => 'user/<user_id:\d+>/blog/post<content_id:\d+>',
+            'condition' => 'Yii::app()->user->isGuest',
+            'trueRoute' => 'old/blog/view',
+            'falseRoute' => 'blog/default/view',
+        ),
+        array(
+            'class' => 'application.components.ConditionalUrlRule',
+            'pattern' => 'user/<user_id:\d+>/blog/rubric<rubric_id:\d+>',
+            'condition' => 'Yii::app()->user->isGuest',
+            'trueRoute' => 'old/blog/list',
+            'falseRoute' => 'blog/default/index',
+        ),
+        array(
+            'class' => 'application.components.ConditionalUrlRule',
+            'pattern' => 'user/<user_id:\d+>/blog',
+            'condition' => 'Yii::app()->user->isGuest',
+            'trueRoute' => 'old/blog/list',
+            'falseRoute' => 'blog/default/index',
+        ),
+        'blog/form/type<type:\d+>' => 'blog/default/form',
+        'newblog/<_a:>' => 'blog/default/<_a>',
+        'blog/settings/<_a>' => 'blog/settings/<_a>',
+
+        'user/<user_id:\d+>/blog/rubric<rubric_id:\d+>' => 'blog/list',
+        'user/<user_id:\d+>/blog/post<content_id:\d+>' => 'blog/view',
+
         'user/<user_id:\d+>' => 'user/profile',
         'user/<user_id:\d+>/clubs' => 'user/clubs',
         'user/<user_id:\d+>/friends' => 'user/friends',
-        'user/<user_id:\d+>/blog/rubric<rubric_id:\d+>' => 'blog/list',
-        'user/<user_id:\d+>/blog' => 'blog/list',
-        'user/<user_id:\d+>/blog/post<content_id:\d+>' => 'blog/view',
         'user/<user_id:\d+>/rss/page<page:\d+>' => 'rss/user',
         'user/<user_id:\d+>/rss' => 'rss/user',
         'user/<user_id:\d+>/comments/rss/page<page:\d+>' => 'rss/comments',
@@ -117,7 +145,7 @@ return array(
         'community/add/community_id/<community_id:\d+>/content_type_slug/<content_type_slug>' => 'community/add',
         'community/add/community_id/<community_id:\d+>' => 'community/add',
         'community/recent/community_id/<community_id:\d+>' => 'community/recent',
-        'community/<_a:(join|add|transfer|edit|editTravel|weeklyMail)>' => 'community/<_a>',
+        'community/<_a:(join|add|transfer|edit|weeklyMail)>' => 'community/<_a>',
 
         //global
         '<_c:(settings|ajax|notification|profile|friendRequests|communityRubric|family|morning|userPopup|features|blog)>/<_a>' => '<_c>/<_a>',

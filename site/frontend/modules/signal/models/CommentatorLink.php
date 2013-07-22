@@ -80,6 +80,8 @@ class CommentatorLink extends HActiveRecord
      */
     public static function checkPageVisit($entity, $entity_id)
     {
+        return ;
+
         $ref = Yii::app()->request->urlReferrer;
         if (!empty($ref) && strpos($ref, 'http://www.happy-giraffe.ru') !== 0) {
             $models = self::model()->findAllByAttributes(array('url' => Yii::app()->request->urlReferrer));

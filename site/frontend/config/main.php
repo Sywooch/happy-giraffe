@@ -33,20 +33,11 @@ return array(
 		'ext.lightopenid.*',
 		'ext.eauth.services.*',
 		'ext.eauth.custom_services.*',
-		'ext.blocks.*',
-		'ext.blocks.blocks.*',
-		'ext.shoppingCart.*',
 		'ext.Captcha',
 		'ext.CaptchaAction',
 		'ext.LinkPager',
-		'ext.wr.WithRelatedBehavior',
 		'ext.image.Image',
-		'ext.CAdvancedArBehavior',
-		'ext.EGMap.*',
         'ext.YiiMongoDbSuite.*',
-        'application.modules.attribute.models.*',
-        'application.modules.im.models.*',
-        'application.modules.im.components.*',
         'application.modules.geo.models.*',
         'application.modules.scores.models.*',
         'application.modules.calendar.models.*',
@@ -68,6 +59,8 @@ return array(
         'application.modules.favourites.models.*',
         'application.modules.favourites.widgets.*',
         'application.modules.favourites.components.*',
+        'site.common.extensions.imperavi-redactor-widget.ImperaviRedactorWidget',
+        'application.widgets.userAvatarWidget.*',
     ),
 
 	'sourceLanguage' => 'en',
@@ -111,10 +104,12 @@ return array(
         'friends',
         'favourites',
         'scores',
+        'blog',
 	),
 	// application components
 	'components'=>array(
         'clientScript' => array(
+            'class' => 'application.components.ClientScript',
 //            'scriptMap'=>array(
 //                'jquery'=>'http://code.jquery.com/jquery-1.8.0.min.js',
 //            ),
@@ -331,6 +326,11 @@ return array(
         ),
         'email'=>array(
             'class' => 'site.common.components.HEmailSender',
+        ),
+        'piwik' => array(
+            'class' => 'site.common.components.Piwik',
+            'token_auth' => '2e20e09969eb34201467c8339dce749d',
+            'idSite' => 1,
         ),
 	),
 

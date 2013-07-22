@@ -9,7 +9,7 @@
  * @property integer $read
  * @property integer $deleted
  */
-class MessagingMessageUser extends CActiveRecord
+class MessagingMessageUser extends HActiveRecord
 {
     /**
      * Returns the static model of the specified AR class.

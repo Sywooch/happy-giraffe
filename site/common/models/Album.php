@@ -25,6 +25,7 @@ class Album extends HActiveRecord
     const TYPE_PRODUCTS = 4;
     const TYPE_RECIPES = 5;
     const TYPE_PREVIEW = 6;
+    const TYPE_TEMP = 10;
     const TYPE_VALENTINE = 100;
 
     private $_check_access = null;
@@ -270,6 +271,15 @@ class Album extends HActiveRecord
         return array(
             'title' => ($this->id == self::getAlbumByType(User::HAPPY_GIRAFFE, self::TYPE_VALENTINE)->id) ? 'Альбом ' . CHtml::link('Валентинки', '/ValentinesDay/valentines') : 'Фотоальбом ' . CHtml::link($this->title, $this->url),
             'photos' => $photos,
+        );
+    }
+
+    public function getPhotoCollectionDependency()
+    {
+        return array(
+            'class'=>'system.caching.dependencies.CDbCacheDependency',
+            'sql' => 'SELECT MAX(created) FROM album__photos WHERE album_id = :album_id',
+            'params' => array(':album_id' => $this->id),
         );
     }
 

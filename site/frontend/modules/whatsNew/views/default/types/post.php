@@ -29,12 +29,12 @@
 
         <div class="user-info">
             <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
-                'user' => $data->post->contentAuthor,
+                'user' => $data->post->author,
                 'small' => true,
                 'size' => 'small',
             )); ?>
             <div class="details">
-                <a class="username" href="<?=$data->post->contentAuthor->url?>"><?=$data->post->contentAuthor->first_name?></a>
+                <a class="username" href="<?=$data->post->author->url?>"><?=$data->post->author->first_name?></a>
                 <span class="date"><?=HDate::GetFormattedTime($data->post->created)?></span>
             </div>
         </div>

@@ -90,11 +90,11 @@ class Str
         return '<p>'.str_replace("\n", '</p><p>', $str).'</p>';
     }
 
-    public static function getDescription($text, $len = 300)
+    public static function getDescription($text, $len = 300, $etc = '...')
     {
         $text = strip_tags(html_entity_decode($text, ENT_QUOTES, 'UTF-8'));
         $text = preg_replace(array('/\s{2,}/', '/[\t\n]/'), ' ', $text);
-        return trim(Str::truncate($text, $len));
+        return trim(Str::truncate($text, $len, $etc));
     }
 
     public static function prepareForSphinxSearch($text)
@@ -102,5 +102,52 @@ class Str
         $text = preg_replace('/[^a-zа-яё\d\s]+/iu', '', $text);
 
         return $text;
+    }
+
+    /**
+     * Формы слов по порядку в массиве (1: день, 2-4:дня, 5-10:дней)
+     *
+     * @static
+     * @param $words
+     * @param $number string
+     */
+    public static function GenerateNoun($words, $number)
+    {
+        switch ($number) {
+            case 11:
+                return $words[2];
+            case 12:
+                return $words[2];
+            case 13:
+                return $words[2];
+            case 14:
+                return $words[2];
+        }
+        if (strstr($number, '.') || strstr($number, ','))
+            return $words[2];
+
+        $last_symbol = substr($number, -1);
+        switch ($last_symbol) {
+            case 1:
+                return $words[0];
+            case 2:
+                return $words[1];
+            case 3:
+                return $words[1];
+            case 4:
+                return $words[1];
+            case 5:
+                return $words[2];
+            case 6:
+                return $words[2];
+            case 7:
+                return $words[2];
+            case 8:
+                return $words[2];
+            case 9:
+                return $words[2];
+            case 0:
+                return $words[2];
+        }
     }
 }

@@ -25,6 +25,8 @@
  * @property int $avatar_id
  * @property int $group
  * @property string $updated
+ * @property string $blog_title
+ * @property string $blog_description
  *
  * The followings are the available model relations:
  * @property BagOffer[] $bagOffers
@@ -208,7 +210,6 @@ class User extends HActiveRecord
             array('profile_access, guestbook_access, im_access', 'in', 'range' => array_keys($this->accessLabels)),
             array('avatar_id', 'numerical', 'allowEmpty' => true),
             array('remember_code', 'numerical'),
-            array('blog_title', 'safe'),
 
             //login
             array('email, password', 'required', 'on' => 'login'),
@@ -231,6 +232,10 @@ class User extends HActiveRecord
 
             //remember_password
             array('password', 'length', 'min' => 6, 'max' => 15, 'on' => 'remember_password', 'tooShort' => 'минимум 6 символов', 'tooLong' => 'максимум 15 символов'),
+
+            //blog
+            array('blog_title', 'length', 'max' => 50),
+            array('blog_description', 'length', 'max' => 150),
         );
     }
 
@@ -336,6 +341,10 @@ class User extends HActiveRecord
             'achievements' => array(self::MANY_MANY, 'ScoreAchievement', 'score__user_achievements(achievement_id, user_id)'),
 
             'friendLists' => array(self::HAS_MANY, 'FriendList', 'list_id'),
+            'subscriber' => array(self::HAS_ONE, 'UserBlogSubscription', 'user_id'),
+            'clubSubscriber' => array(self::HAS_ONE, 'UserCommunitySubscription', 'user_id'),
+
+            'blogPhoto' => array(self::BELONGS_TO, 'AlbumPhoto', 'blog_photo_id'),
         );
     }
 
@@ -554,6 +563,35 @@ class User extends HActiveRecord
             default:
                 return $this->avatar->getAvatarUrl($size);
         }
+    }
+
+    public function getBlogPhotoOriginal()
+    {
+        return $this->blogPhoto === null ? '/images/jcrop-blog.jpg' : $this->blogPhoto->getOriginalUrl();
+    }
+
+    public function getBlogPhotoThumb()
+    {
+        return $this->blogPhoto === null ? '/images/blog-title-b_img.jpg' : $this->blogPhoto->getBlogUrl();
+    }
+
+    public function getBlogPhotoPosition() {
+        return $this->blogPhoto === null ? array(
+            'h' => 130,
+            'w' => 730,
+            'x' => 0,
+            'x2' => 730,
+            'y' => 68,
+            'y2' => 198,
+        ) : CJSON::decode($this->blog_photo_position);
+    }
+
+    public function getBlogPhotoWidth() {
+        return $this->blogPhoto === null ? 730 : $this->blogPhoto->getOriginalWidth();
+    }
+
+    public function getBlogPhotoHeight() {
+        return $this->blogPhoto === null ? 520 : $this->blogPhoto->getOriginalHeight();
     }
 
     public function getAvaOrDefaultImage($size = 'ava')
@@ -965,7 +1003,7 @@ class User extends HActiveRecord
     {
         $array = array();
         if ($this->babyCount() != 0)
-            $array[] = $this->babyCount() . ' ' . HDate::GenerateNoun(array('ребёнок', 'ребёнка', 'детей'), $this->babyCount());
+            $array[] = $this->babyCount() . ' ' . Str::GenerateNoun(array('ребёнок', 'ребёнка', 'детей'), $this->babyCount());
         if ($this->hasBaby(Baby::TYPE_PLANNING))
             $array[] = 'Планируем';
         if ($this->hasBaby(Baby::TYPE_WAIT))
@@ -1071,12 +1109,18 @@ class User extends HActiveRecord
 
     public function getBlogPopular()
     {
-        return BlogContent::model()->full()->findAll(array(
+        return BlogContent::model()->findAll(array(
+            'with' => array('rubric','commentsCount', 'type'),
             'condition' => 'rubric.user_id = :user_id',
             'params' => array(':user_id' => $this->id),
             'order' => 't.rate DESC',
-            'limit' => 3,
+            'limit' => 2,
         ));
+    }
+
+    public function getBlogTitle()
+    {
+        return (empty($this->blog_title)) ? 'Блог - ' . $this->fullName : $this->blog_title;
     }
 
     function createPassword($length)
@@ -1236,5 +1280,40 @@ class User extends HActiveRecord
             return true;
 
         return false;
+    }
+
+    /**
+     * Репостил ли пользователь запись
+     *
+     * @param CommunityContent $model
+     * @return bool
+     */
+    public function isReposted($model)
+    {
+        return CommunityContent::model()->exists('author_id=:author_id AND source_id=:model_id',
+            array(':model_id' => $model->id, ':author_id' => $this->id));
+    }
+
+    /**
+     * Добавлял ли пользователь запись в избранное
+     *
+     * @param CommunityContent $model
+     * @return bool
+     */
+    public function isAddedToFavourite($model)
+    {
+        return Favourite::model()->exists('model_name="CommunityContent" AND model_id=:model_id AND user_id=:user_id',
+            array(':user_id' => $this->id, ':model_id' => $model->id));
+    }
+
+    /**
+     * Лайкал ли пользователь запись
+     *
+     * @param CommunityContent $model
+     * @return bool
+     */
+    public function isLiked($model)
+    {
+        return HGLike::model()->hasLike($model, $this->id);
     }
 }

@@ -8,7 +8,7 @@ $this->renderPartial('_post', array('data' => $data, 'full' => true));
 $this->renderPartial('_prev_next', array('data' => $data));
 ?>
 
-<div style="margin-top: 40px; margin-bottom: 40px;">
+<div class="banner-colored">
     <!-- Яндекс.Директ -->
     <div id="yandex_ad_2"></div>
     <script type="text/javascript">
@@ -18,12 +18,12 @@ $this->renderPartial('_prev_next', array('data' => $data));
                 Ya.Direct.insertInto(87026, "yandex_ad_2", {
                     site_charset: "utf-8",
                     ad_format: "direct",
-                    font_size: 1,
+                    font_size: 1.2,
                     type: "vertical",
                     limit: 2,
                     title_font_size: 3,
                     site_bg_color: "FFFFFF",
-                    title_color: "0000CC",
+                    title_color: "0066CC",
                     url_color: "006600",
                     text_color: "000000",
                     hover_color: "0066FF",
@@ -51,3 +51,11 @@ $this->widget('application.widgets.seo.SeoLinksWidget');
 $remove_tmpl = $this->beginWidget('site.frontend.widgets.removeWidget.RemoveWidget');
 $remove_tmpl->registerTemplates();
 $this->endWidget();
+
+
+
+
+
+
+
+

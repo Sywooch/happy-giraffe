@@ -36,7 +36,7 @@ class Route extends CActiveRecord
     const STATUS_NOT_FOUND = 11;
     const STATUS_NO_ROUTE = 12;
 
-    const WORDSTAT_LIMIT = 105;
+    const WORDSTAT_LIMIT = 56;
 
     /**
      * Returns the static model of the specified AR class.
@@ -278,7 +278,20 @@ class Route extends CActiveRecord
     public function getTexts()
     {
         $city1 = array($this->cityFrom->name, $this->cityFrom->name_from, $this->cityFrom->name_between);
+        if ($this->cityFrom->show_region && !empty($this->cityFrom->region_id))
+            $city1 = array(
+                $this->cityFrom->name . ' ' . $this->cityFrom->region->name,
+                $this->cityFrom->name_from . ' ' . $this->cityFrom->region->name,
+                $this->cityFrom->name_between . ' ' . $this->cityFrom->region->name,
+            );
         $city2 = array($this->cityTo->name, $this->cityTo->name_from, $this->cityTo->name_between);
+        if ($this->cityTo->show_region && !empty($this->cityTo->region_id))
+            $city1 = array(
+                $this->cityTo->name . ' ' . $this->cityTo->region->name,
+                $this->cityTo->name_from . ' ' . $this->cityTo->region->name,
+                $this->cityTo->name_between . ' ' . $this->cityTo->region->name,
+            );
+
         if ($this->city_from_id > $this->city_to_id)
             return array(
                 0 => 'Маршрут ' . $city1[0] . '-' . $city2[0],

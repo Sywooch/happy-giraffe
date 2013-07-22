@@ -33,6 +33,7 @@ class CookRecipe extends CActiveRecord
     const COOK_DEFAULT_SECTION = 0;
 
     public $tagsIds = array();
+    public $count;
 
     public $sectionsMap = array(
         0 => 'SimpleRecipe',

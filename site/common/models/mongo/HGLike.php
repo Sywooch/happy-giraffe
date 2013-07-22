@@ -139,6 +139,7 @@ class HGLike extends HMongoModel
             'user_id' => (int)Yii::app()->user->id,
             'time' => time(),
         ));
+        ScoreAchievement::model()->checkAchieve(Yii::app()->user->id, ScoreAchievement::TYPE_YOHOHO);
     }
 
     /**
@@ -172,6 +173,19 @@ class HGLike extends HMongoModel
             $list [] = $cursor->getNext();
 
         return $list;
+    }
+
+    /**
+     * Возвращает количество лайков, которые поставил пользователь
+     *
+     * @param int $user_id
+     * @return int
+     */
+    public function countByUser($user_id)
+    {
+        return $this->getCollection()->count(array(
+            'user_id' => (int)$user_id,
+        ));
     }
 
     /**

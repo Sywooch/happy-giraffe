@@ -153,6 +153,8 @@ class Friend extends CActiveRecord
             $f2->save();
 
             $transaction->commit();
+
+            Scoring::friendAdded($user1Id, $user2Id);
             return true;
         }
         catch(Exception $e)
@@ -170,6 +172,7 @@ class Friend extends CActiveRecord
             Friend::model()->deleteAll('user_id = :user_id AND friend_id = :friend_id', array(':user_id' => $user2Id, ':friend_id' => $user1Id));
 
             $transaction->commit();
+            Scoring::friendRemoved($user1Id, $user2Id);
             return true;
         }
         catch(Exception $e)

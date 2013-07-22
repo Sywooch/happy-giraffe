@@ -30,6 +30,8 @@ class Comment extends HActiveRecord
     const CONTENT_TYPE_PHOTO = 2;
     const CONTENT_TYPE_ONLY_TEXT = 3;
 
+    public $count;
+
     /**
      * Returns the static model of the specified AR class.
      * @return Comment the static model class
@@ -212,6 +214,7 @@ class Comment extends HActiveRecord
 
             Yii::import('site.frontend.modules.routes.models.*');
             NotificationCreate::commentCreated($this);
+            Scoring::commentCreated($this);
 
             FriendEventManager::add(FriendEvent::TYPE_COMMENT_ADDED, array('model' => $this, 'relatedModel' => $this->relatedModel));
 
@@ -275,6 +278,8 @@ class Comment extends HActiveRecord
     {
         Comment::model()->updateByPk($this->id, array('removed' => 1));
         NotificationDelete::commentDeleted($this);
+        Scoring::commentRemoved($this);
+
 
         return false;
     }

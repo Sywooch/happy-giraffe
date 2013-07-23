@@ -42,7 +42,7 @@ class Scoring
      */
     public static function contentRemoved($content)
     {
-        if ($content->getIsFromBlog() && $content->contentAuthor->blogPostsCount == 1)
+        if ($content->getIsFromBlog() && $content->author->blogPostsCount == 1)
             ScoreInputFirstBlogRecord::getInstance()->remove($content->author_id);
         else {
             if ($content->type_id == CommunityContent::TYPE_POST)

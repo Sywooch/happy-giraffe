@@ -39,10 +39,7 @@
         <div class="col-23">
             <div class="user-add-record clearfix">
                 <div class="user-add-record_ava-hold">
-                    <a href="" class="ava male">
-                        <span class="icon-status status-online"></span>
-                        <img alt="" src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg">
-                    </a>
+                    <?php $this->widget('UserAvatarWidget', array('user' => $this->user)); ?>
                 </div>
                 <div class="user-add-record_hold">
                     <div class="user-add-record_tx">Я хочу добавить</div>

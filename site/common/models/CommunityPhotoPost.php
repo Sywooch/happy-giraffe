@@ -14,6 +14,8 @@
  */
 class CommunityPhotoPost extends HActiveRecord
 {
+    public $photos;
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -40,7 +42,7 @@ class CommunityPhotoPost extends HActiveRecord
 		return array(
 			array('content_id, photo_id', 'required'),
 			array('content_id, photo_id', 'length', 'max'=>11),
-			array('text', 'safe'),
+			array('text, photos', 'safe'),
 			array('content_id, text, photo_id', 'safe', 'on'=>'search'),
 		);
 	}
@@ -55,5 +57,4 @@ class CommunityPhotoPost extends HActiveRecord
 			'content' => array(self::BELONGS_TO, 'CommunityContent', 'content_id'),
 		);
 	}
-
 }

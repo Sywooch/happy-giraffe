@@ -176,10 +176,26 @@ class DefaultController extends HController
         $slaveModelName = 'Community' . ucfirst($slug);
         $slaveModel = ($id === null) ? new $slaveModelName() : $model->content;
         $slaveModel->attributes = $_POST[$slaveModelName];
+        if ($slug == 'PhotoPost'){
+            $photoIds = explode(',', Yii::app()->request->getPost('photos'));
+            $slaveModel->photo_id = $photoIds[0];
+        }
         $this->performAjaxValidation(array($model, $slaveModel));
         $model->$slug = $slaveModel;
-        $model->withRelated->save(true, array($slug));
-        $this->redirect($model->url);
+        $success = $model->withRelated->save(true, array($slug));
+        if ($success){
+            if ($slug == 'PhotoPost'){
+                foreach($photoIds as $photoId){
+                    $model = new AttachPhoto();
+                    $model->photo_id = $photoId;
+                    $model->entity = 'CommunityContent';
+                    $model->entity_id = $model->id;
+                    $model->save();
+                }
+            }
+
+            $this->redirect($model->url);
+        }
     }
 
     protected function performAjaxValidation($models)

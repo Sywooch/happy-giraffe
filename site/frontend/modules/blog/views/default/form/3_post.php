@@ -15,19 +15,19 @@
     <div class="b-settings-blue_head">
         <div class="b-settings-blue_row clearfix">
             <div class="clearfix">
-                <div class="float-r font-small color-gray margin-3">0/50</div>
+                <div class="float-r font-small color-gray margin-3" data-bind="length: { attribute : title, maxLength : 50 }"></div>
             </div>
-            <?= $form->label($model, 'title', array('class' => 'b-settings-blue_label')) ?>
-            <?= $form->textField($model, 'title', array('class' => 'itx-simple w-400', 'placeholder' => 'Введите заголовок статьи', 'data-bind' => 'value: title, valueUpdate: \'keydown\'')) ?>
-            <?= $form->error($model, 'title') ?>
+            <?=$form->label($model, 'title', array('class' => 'b-settings-blue_label')) ?>
+            <?=$form->textField($model, 'title', array('class' => 'itx-simple w-400', 'placeholder' => 'Введите заголовок статьи', 'data-bind' => 'value: title, valueUpdate: \'keydown\'')) ?>
+            <?=$form->error($model, 'title') ?>
         </div>
         <div class="b-settings-blue_row clearfix">
             <label for="" class="b-settings-blue_label">Рубрика</label>
 
             <div class="w-400 float-l">
                 <div class="chzn-itx-simple">
-                    <?= $form->dropDownList($model, 'rubric_id', CHtml::listData($this->user->blog_rubrics, 'id', 'title'), array('class' => 'chzn')) ?>
-                    <?= $form->error($model, 'rubric_id') ?>
+                    <?=$form->dropDownList($model, 'rubric_id', CHtml::listData($this->user->blog_rubrics, 'id', 'title'), array('class' => 'chzn')) ?>
+                    <?=$form->error($model, 'rubric_id') ?>
                 </div>
             </div>
         </div>
@@ -72,13 +72,14 @@
     <div class="b-settings-blue_row clearfix">
         <?=$form->textArea($slaveModel, 'text', array('class' => 'b-settings-blue_textarea itx-simple', 'placeholder'=>"Ваш текст к фотопосту", 'cols'=>80, 'rows'=>5)) ?>
     </div>
+    <?=$form->hiddenField($slaveModel, 'photos') ?>
     <div class=" clearfix">
-        <a href="" class="btn-blue btn-h46 float-r" data-bind="click: add, css: {'btn-inactive': upload().photos().length == 0}">Добавить</a>
+        <a href="" data-bind="click: add" class="btn-blue btn-h46 float-r"><?=$model->isNewRecord ? 'Добавить' : 'Редактировать'?></a>
         <a href="" class="btn-gray-light btn-h46 float-r margin-r15" onclick="$.fancybox.close();return false;">Отменить</a>
 
         <div class="float-l">
             <div class="privacy-select clearfix">
-                <?= $form->hiddenField($model, 'privacy', array('data-bind' => 'value: selectedPrivacyOption().value()')) ?>
+                <?=$form->hiddenField($model, 'privacy', array('data-bind' => 'value: selectedPrivacyOption().value()')) ?>
                 <div class="privacy-select_hold clearfix">
                     <div class="privacy-select_tx">Для кого:</div>
                     <div class="privacy-select_drop-hold">

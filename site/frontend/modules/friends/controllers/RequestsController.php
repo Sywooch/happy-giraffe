@@ -36,6 +36,9 @@ class RequestsController extends HController
                     'firstName' => $request->from->first_name,
                     'lastName' => $request->from->last_name,
                     'ava' => $request->from->getAva('large'),
+                    'age' => ($request->from->birthday) !== null ? $request->from->normalizedAge : null,
+                    'location' => ($request->from->address->country_id !== null) ? Yii::app()->controller->renderPartial('/_location', array('data' => $request->from), true) : null,
+                    'family' => (($request->from->hasPartner() && ! empty($request->from->partner->name)) || ! empty($request->from->babies)) ? Yii::app()->controller->renderPartial('/_family', array('data' => $request->from), true) : null,
                 ),
             );
         }, FriendRequest::model()->with('from')->findAllByAttributes(array('to_id' => Yii::app()->user->id, 'status' => 'pending')));
@@ -82,6 +85,16 @@ class RequestsController extends HController
             $requestId = FriendRequest::model()->findPendingRequest(Yii::app()->user->id, $toId)->id;
 
         $success = FriendRequest::model()->deleteByPk($requestId) > 0;
+
+        $response = compact('success');
+        echo CJSON::encode($response);
+    }
+
+    public function actionRestore()
+    {
+        $requestId = Yii::app()->request->getPost('requestId');
+
+        $success = FriendRequest::model()->updateByPk($requestId, array('status' => 'pending')) > 0;
 
         $response = compact('success');
         echo CJSON::encode($response);

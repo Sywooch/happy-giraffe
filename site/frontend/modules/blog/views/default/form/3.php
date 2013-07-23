@@ -38,7 +38,7 @@
     </div>
 </div>
 
-<?php $this->renderPartial('form/3_post', array('model' => $model)); ?>
+<?php $this->renderPartial('form/3_post', array('model' => $model, 'slaveModel'=>$slaveModel)); ?>
 
 <?php $this->renderPartial('form/3_album'); ?>
 

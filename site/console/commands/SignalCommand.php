@@ -87,52 +87,6 @@ class SignalCommand extends CConsoleCommand
     }
 
     /**
-     * Синхронизировать кол-во заходов из поисковиков с Google Analytics
-     */
-    public function actionSyncGaVisits()
-    {
-        CommentatorsMonth::model()->SyncGaVisits();
-    }
-
-    /**
-     * Синхронизировать кол-во заходов из поисковиков c mysql-базой
-     * и пересчитать места и рейтинг комментаторов
-     */
-    public function actionSync()
-    {
-        echo "sync\n";
-        $month = date("Y-m");
-        PageSearchView::model()->sync($month);
-        if (date("d") == 1)
-            PageSearchView::model()->sync(date("Y-m", strtotime('-2 days')));
-
-        echo "update stats\n";
-        $month = CommentatorsMonth::get($month);
-        $month->calculateMonth();
-    }
-
-    public function actionRecalc(){
-        $commentators = CommentatorHelper::getCommentatorIdList();
-        foreach ($commentators as $commentator){
-            $model = $this->getCommentator($commentator);
-            if ($model){
-                $date = date("Y-m-d", strtotime('-3 days'));
-                $day = $model->getDay($date);
-                $day->updatePostsCount($model);
-                $date = date("Y-m-d", strtotime('-2 days'));
-                $day = $model->getDay($date);
-                $day->updatePostsCount($model);
-                $date = date("Y-m-d", strtotime('-1 days'));
-                $day = $model->getDay($date);
-                $day->updatePostsCount($model);
-                $date = date("Y-m-d");
-                $day = $model->getDay($date);
-                $day->updatePostsCount($model);
-            }
-        }
-    }
-
-    /**
      * @param $commentator_id
      * @return CommentatorWork
      */

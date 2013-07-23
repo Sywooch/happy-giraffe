@@ -207,14 +207,6 @@ class HController extends CController
         }
     }
 
-    /**
-     * Считает заходы из ПС для модуля комментаторов
-     */
-    public function registerCounter()
-    {
-        Yii::app()->clientScript->registerScript('se_counter', 'SeCounter();');
-    }
-
     private function _mobileRedirect()
     {
         require_once('mobiledetect/Mobile_Detect.php');

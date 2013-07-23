@@ -13,17 +13,22 @@ class CommentatorsMonth extends EMongoDocument
      */
     const NEW_FRIENDS = 1;
     /**
-     * Премия за посещение анкеты
-     */
-    const PROFILE_VIEWS = 3;
-    /**
      * Премия за личные сообщения
      */
     const IM_MESSAGES = 4;
     /**
-     * Премия за заходы из поисковых систем
+     * Премия за наибольшее кол-во записей
      */
-    const SE_VISITS = 5;
+    const RECORDS_COUNT = 6;
+    /**
+     * Премия за пост, к которому написано наибольшее количество пользовательских комментариев
+     */
+    const MOST_COMMENTED_POST = 7;
+    /**
+     * Премия за наибольшее кол-во развернутых комментариев
+     */
+    const GOOD_COMMENTS_COUNT = 8;
+
 
     /**
      * @var string строковое представление месяца, например 2013-02
@@ -115,19 +120,16 @@ class CommentatorsMonth extends EMongoDocument
                 echo 'commentator: ' . $commentator . "\n";
                 $active_commentators [] = $commentator;
 
-                $views = $this->profileUniqueViews($commentator);
-                $se = (int)$this->getSeVisits($commentator);
                 $this->commentators_stats[(int)$commentator] = array(
                     self::NEW_FRIENDS => $model->friendsMonthStats($this->period),
-                    self::PROFILE_VIEWS => $views,
                     self::IM_MESSAGES => $model->imMessagesMonthStats($this->period),
-                    self::SE_VISITS => $se,
                 );
                 $this->commentators_rating[(int)$commentator] = array(
                     self::NEW_FRIENDS => (int)$model->friends($this->period),
-                    self::PROFILE_VIEWS => (int)($views['views'] + $views['visitors'] * 3),
                     self::IM_MESSAGES => (int)$model->imMessages($this->period),
-                    self::SE_VISITS => $se,
+                    self::RECORDS_COUNT => (int)CommentatorHelper::recordsCount($commentator, $this->period),
+                    self::MOST_COMMENTED_POST => (int)CommentatorHelper::maxCommentsCount($commentator, $this->period),
+                    self::GOOD_COMMENTS_COUNT => (int)CommentatorHelper::goodCommentsCount($commentator, $this->period),
                 );
                 $model->calculateDayStats();
             }
@@ -274,81 +276,6 @@ class CommentatorsMonth extends EMongoDocument
         }
 
         return array_reverse($result);
-    }
-
-    /**
-     * Возвращает количество просмотров анкеты комментатора за месяц
-     *
-     * @param $user_id int id комментатора
-     * @return int количество просмотров анкеты
-     */
-    public function profileUniqueViews($user_id)
-    {
-        $visitors = GApi::model()->visitors('/user/' . $user_id . '/', $this->period . '-01');
-        $views = GApi::model()->uniquePageviews('/user/' . $user_id . '/', $this->period . '-01');
-
-        return array('visitors' => $visitors, 'views' => $views);
-    }
-
-    /**
-     * Возвращает количество поисковых заходов на все статьи комментатора за месяц
-     *
-     * @param $user_id int id комментатора
-     * @return int количество поисковых заходов
-     */
-    public function getSeVisits($user_id)
-    {
-        $models = CommunityContent::model()->findAll('author_id = ' . $user_id);
-
-        $all_count = 0;
-        foreach ($models as $model) {
-            $url = trim($model->url, '.');
-            if (!empty($url)) {
-                $visits = SearchEngineVisits::getVisits($url, $this->period);
-                $all_count += $visits;
-            }
-        }
-
-        return $all_count;
-    }
-
-    /**
-     * Количество поисковых заходов на страницу за месяц
-     *
-     * @param $url string url для которого ищем количество заходов
-     * @return int Количество поисковых заходов на страницу за месяц
-     */
-    public function getPageVisitsCount($url)
-    {
-        return SearchEngineVisits::getVisits($url, $this->period);
-    }
-
-    /**
-     * Синхронизация кол-ва заходов из поисковиков по своей системе с кол-вом заходов с Google Analytics
-     */
-    public function SyncGaVisits()
-    {
-        $month = date("Y-m");
-        $commentators = CommentatorWork::getWorkingCommentators();
-
-        foreach ($commentators as $commentator) {
-            $models = CommunityContent::model()->findAll('author_id = ' . $commentator->user_id);
-
-            foreach ($models as $model) {
-                $url = trim($model->url, '.');
-                if (!empty($url)) {
-                    $ga_visits = GApi::model()->organicSearches($url, $month . '-01', null, false);
-                    $my_visits = SearchEngineVisits::getVisits($url, $month);
-
-                    if ($ga_visits > 0)
-                        echo "$url ga:$ga_visits, my:$my_visits \n";
-
-                    if ($ga_visits > 0 && $my_visits != $ga_visits) {
-                        SearchEngineVisits::updateStats($url, $month, $ga_visits);
-                    }
-                }
-            }
-        }
     }
 
     public function prepareNewStats()

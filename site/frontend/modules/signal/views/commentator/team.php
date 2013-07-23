@@ -10,6 +10,8 @@ $criteria = new EMongoCriteria();
 $criteria->setSort(array('user_id'=>EMongoCriteria::SORT_ASC));
 $commentators = CommentatorWork::model()->findAll($criteria);
 
+echo CommentatorHelper::goodCommentsCount(10, '2013-05') . "\n";
+
 ?>
 <?php $this->renderPartial('menu', array('month' => $month, 'active'=>null, 'url'=>'team')); ?>
 <div class="block">

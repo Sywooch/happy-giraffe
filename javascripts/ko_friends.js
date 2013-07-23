@@ -124,6 +124,14 @@ function FriendsViewModel(data) {
         }, self.friendsToShow().length);
     }
 
+    self.templateName = function() {
+        return self.activeTab() <= 1 ? 'user-template' : 'request-template';
+    }
+
+    self.templateForeach = ko.computed(function() {
+        return self.activeTab() <= 1 ? self.friendsToShow() : self.friendsRequests();
+    })
+
     self.init();
 
     $('.layout-container').scroll(function() {
@@ -210,11 +218,12 @@ function FriendRequest(data, parent) {
     self.id = ko.observable(data.id);
     self.fromId = ko.observable(data.fromId);
     self.user = ko.observable(new User(data.user, parent));
+    self.removed = ko.observable(false);
 
-    self.accept = function(request) {
+    self.accept = function() {
         $.post('/friends/requests/accept/', { requestId : self.id() }, function(response) {
             if (response.success) {
-                parent.friendsRequests.remove(request);
+                parent.friendsRequests.remove(self);
                 parent.friendsCount(parent.friendsCount() + 1);
                 parent.friendsNewCount(parent.friendsNewCount() + 1);
                 parent.incomingRequestsCount(parent.incomingRequestsCount() - 1);
@@ -224,12 +233,19 @@ function FriendRequest(data, parent) {
         }, 'json');
     }
 
-    self.decline = function(request) {
+    self.decline = function() {
         $.post('/friends/requests/decline/', { requestId : self.id() }, function(response) {
             if (response.success) {
-                parent.friendsRequests.remove(request);
-                parent.incomingRequestsCount(parent.incomingRequestsCount() + 1);
+                self.removed(true);
+                parent.incomingRequestsCount(parent.incomingRequestsCount() - 1);
             }
+        }, 'json');
+    }
+
+    self.restore = function() {
+        $.post('/friends/requests/restore/', { requestId : self.id() }, function(response) {
+            if (response.success)
+                self.removed(false);
         }, 'json');
     }
 }
@@ -243,6 +259,9 @@ function User(data, parent) {
     self.lastName = ko.observable(data.lastName);
     self.ava = ko.observable(data.ava);
     self.gender = ko.observable(data.gender);
+    self.age = data.age;
+    self.location = data.location;
+    self.family = data.family;
 
     self.fullName = ko.computed(function() {
         return self.firstName() + ' ' + self.lastName();
@@ -298,3 +317,18 @@ function List(data, parent) {
         self.friendsCount(self.friendsCount() - 1);
     }
 }
+
+ko.bindingHandlers.tooltip = {
+    init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+        $(element).data('powertip', valueAccessor());
+    },
+    update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+        $(element).data('powertip', valueAccessor());
+        $(element).powerTip({
+            placement: 'n',
+            smartPlacement: true,
+            popupId: 'tooltipsy-im',
+            offset: 8
+        });
+    }
+};

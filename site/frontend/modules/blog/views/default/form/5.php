@@ -26,10 +26,7 @@
 
     <div class="b-status-add clearfix">
         <div class="float-l">
-            <a class="ava male" href="">
-                <span class="icon-status status-online"></span>
-                <img src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg" alt="">
-            </a>
+            <?php $this->widget('UserAvatarWidget', array('user' => $this->user)); ?>
         </div>
         <div class="b-status-add_col">
             <div class="b-status-add_hold">

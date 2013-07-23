@@ -8,6 +8,9 @@
             'validateOnSubmit' => true,
         ),
     )); ?>
+
+    <?=$form->hiddenField($model, 'type_id')?>
+
     <div class="b-settings-blue_tale"></div>
     <div class="b-settings-blue_head">
         <div class="b-settings-blue_row clearfix">
@@ -67,13 +70,11 @@
     </div>
 
     <div class="b-settings-blue_row clearfix">
-        <textarea name="" id="" cols="80" rows="5" class="b-settings-blue_textarea itx-simple"
-                  placeholder="Ваш текст к фотопосту "></textarea>
+        <?=$form->textArea($slaveModel, 'text', array('class' => 'b-settings-blue_textarea itx-simple', 'placeholder'=>"Ваш текст к фотопосту", 'cols'=>80, 'rows'=>5)) ?>
     </div>
     <div class=" clearfix">
         <a href="" class="btn-blue btn-h46 float-r" data-bind="click: add, css: {'btn-inactive': upload().photos().length == 0}">Добавить</a>
-        <a href="" class="btn-gray-light btn-h46 float-r margin-r15"
-           onclick="$.fancybox.close();return false;">Отменить</a>
+        <a href="" class="btn-gray-light btn-h46 float-r margin-r15" onclick="$.fancybox.close();return false;">Отменить</a>
 
         <div class="float-l">
             <div class="privacy-select clearfix">

@@ -18,6 +18,8 @@
     ),
 )); ?>
 
+<?=$form->hiddenField($model, 'type_id')?>
+
 <div id="popup-user-add-video" class="b-settings-blue b-settings-blue__video">
     <div class="b-settings-blue_tale"></div>
     <div class="b-settings-blue_head">

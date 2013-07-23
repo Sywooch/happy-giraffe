@@ -65,22 +65,6 @@ class CommentatorDayWork extends EMongoEmbeddedDocument
         'interlocutors_in' => 0,
         'interlocutors_out' => 0,
     );
-    /**
-     * Статистика посещения анкеты
-     * 'main' => посещений профиля
-     * 'blog' => количество посещений блога
-     * 'photo' => количество посещений фотогалерей
-     * 'visits' => количество просмотров всех разделов
-     * 'visitors' => количество поситителей
-     * @var array
-     */
-    public $visits = array(
-        'main' => 0,
-        'photo' => 0,
-        'blog' => 0,
-        'visitors' => 0,
-        'visits' => 0,
-    );
 
     /**
      * Статистика друзей
@@ -108,7 +92,6 @@ class CommentatorDayWork extends EMongoEmbeddedDocument
         if (!$this->closed) {
             $this->calcImMessageStats($commentator->user_id);
             $this->calcFriendsStats($commentator->user_id);
-            $this->visits = CommentatorHelper::visits($commentator->user_id, $this->date, $this->date);
             $this->addAllPosts($commentator->user_id);
 
             if ($this->date != date("Y-m-d"))
@@ -130,12 +113,6 @@ class CommentatorDayWork extends EMongoEmbeddedDocument
             $modifier->addModifier('days.'.$day_index.'.friends.requests', 'set', $this->friends['requests']);
             $modifier->addModifier('days.'.$day_index.'.friends.friends', 'set', $this->friends['friends']);
 
-            $modifier->addModifier('days.'.$day_index.'.visits.main', 'set', $this->visits['main']);
-            $modifier->addModifier('days.'.$day_index.'.visits.photo', 'set', $this->visits['photo']);
-            $modifier->addModifier('days.'.$day_index.'.visits.blog', 'set', $this->visits['blog']);
-            $modifier->addModifier('days.'.$day_index.'.visits.visitors', 'set', $this->visits['visitors']);
-            $modifier->addModifier('days.'.$day_index.'.visits.visits', 'set', $this->visits['visits']);
-
             $modifier->addModifier('days.'.$day_index.'.im.out', 'set', $this->im['out']);
             $modifier->addModifier('days.'.$day_index.'.im.in', 'set', $this->im['in']);
             $modifier->addModifier('days.'.$day_index.'.im.interlocutors_in', 'set', $this->im['interlocutors_in']);
@@ -147,7 +124,6 @@ class CommentatorDayWork extends EMongoEmbeddedDocument
 
             $modifier->addModifier('days.'.$day_index.'.blog_posts', 'set', (int)$this->blog_posts);
             $modifier->addModifier('days.'.$day_index.'.club_posts', 'set', (int)$this->club_posts);
-            $modifier->addModifier('days.'.$day_index.'.im.in', 'set', $this->im['in']);
 
             CommentatorWork::model()->updateAll($modifier, $criteria);
         }

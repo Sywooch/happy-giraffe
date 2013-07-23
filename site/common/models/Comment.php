@@ -230,9 +230,8 @@ class Comment extends HActiveRecord
                 Yii::import('site.seo.modules.commentators.models.*');
                 Yii::import('site.seo.models.*');
 
-                if (Str::htmlTextLength($this->text) >= CommentatorHelper::COMMENT_LIMIT) {
+                if (Str::htmlTextLength($this->text) >= CommentatorHelper::COMMENT_LIMIT)
                     CommentatorWork::getCurrentUser()->checkComment($this);
-                }
             }
         }
         parent::afterSave();

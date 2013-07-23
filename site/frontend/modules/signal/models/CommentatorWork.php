@@ -47,6 +47,11 @@ class CommentatorWork extends EMongoDocument
      */
     public $chief = 0;
 
+    /**
+     * @var int номер команды
+     */
+    public $team = 1;
+
     public static function model($className = __CLASS__)
     {
         return parent::model($className);

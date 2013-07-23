@@ -239,6 +239,24 @@ class CommentatorsMonth extends EMongoDocument
     }
 
     /**
+     * Возвращает кол-во баллов по премии для команды комментатора
+     *
+     * @param $user_id int id комментатора
+     * @param $counter int номер премии
+     * @return int кол-во баллов по премии для команды комментатора
+     */
+    public function getTeamStatValue($user_id, $counter)
+    {
+        if (!isset($this->commentators_rating[$user_id]))
+            return 0;
+
+        foreach ($this->commentators_rating as $_user_id => $data)
+            if ($_user_id == $user_id)
+                return $data[$counter];
+        return 0;
+    }
+
+    /**
      * Возвращает кол-во баллов по премии у того кто занимает место $place
      * @param $place
      * @param $counter

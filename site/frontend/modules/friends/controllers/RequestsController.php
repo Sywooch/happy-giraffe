@@ -66,9 +66,22 @@ class RequestsController extends HController
         $requestId = Yii::app()->request->getPost('requestId');
 
         if ($requestId === null)
-            $requestId = FriendRequest::model()->findPendingRequest($fromId, Yii::app()->user->id);
+            $requestId = FriendRequest::model()->findPendingRequest($fromId, Yii::app()->user->id)->id;
 
         $success = FriendRequest::model()->updateByPk($requestId, array('status' => 'declined')) > 0;
+
+        $response = compact('success');
+        echo CJSON::encode($response);
+    }
+
+    public function actionCancel() {
+        $toId = Yii::app()->request->getPost('toId');
+        $requestId = Yii::app()->request->getPost('requestId');
+
+        if ($requestId === null)
+            $requestId = FriendRequest::model()->findPendingRequest(Yii::app()->user->id, $toId)->id;
+
+        $success = FriendRequest::model()->deleteByPk($requestId) > 0;
 
         $response = compact('success');
         echo CJSON::encode($response);

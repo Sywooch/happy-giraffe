@@ -33,10 +33,11 @@ class SearchController extends HController
                 'name' => $country->name,
             );
         }, GeoCountry::model()->findAll(array('order' => 't.name ASC')));
-        $data = compact('countries');
+        $friendsCount = Friend::model()->getCountByUserId(Yii::app()->user->id);
+        $json = compact('countries');
 
         $this->pageTitle = 'Найти друзей';
-        $this->render('index', compact('data'));
+        $this->render('index', compact('json', 'friendsCount'));
     }
 
     public function actionGet()
@@ -51,6 +52,9 @@ class SearchController extends HController
 
     protected function populateFriend($friend)
     {
-        return $this->renderPartial('_friend', $friend, true);
+        return array(
+            'id' => $friend->id,
+            'html' => $this->renderPartial('_friend', $friend, true),
+        );
     }
 }

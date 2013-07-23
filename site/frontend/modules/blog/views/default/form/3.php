@@ -17,9 +17,7 @@
                 <img src="/images/b-settings-blue_photo-record-img1.png" alt="" class="">
             </div>
             <div class="clearfix">
-                <a href="javascript:;" class="btn-blue btn-h46"
-                   onclick="$(this).parents('.b-settings-blue').hide();$('#popup-user-add-photo').show();">Загрузить
-                    фото</a>
+                <a href="javascript:;" class="btn-blue btn-h46" onclick="$(this).parents('.b-settings-blue').hide();$('#popup-user-add-photo').show();">Загрузить фото</a>
             </div>
         </div>
 
@@ -29,9 +27,7 @@
                 <img src="/images/b-settings-blue_photo-record-img2.png" alt="" class="">
             </div>
             <div class="clearfix">
-                <a href="javascript:;" class="btn-blue btn-h46"
-                   onclick="$(this).parents('.b-settings-blue').hide();$('#popup-user-add-photo-post').show();">Создать
-                    фотопост</a>
+                <a href="javascript:;" class="btn-blue btn-h46" onclick="$(this).parents('.b-settings-blue').hide();$('#popup-user-add-photo-post').show();">Создать фотопост</a>
             </div>
         </div>
 
@@ -42,7 +38,6 @@
 
 <?php $this->renderPartial('form/3_album'); ?>
 
-
 <script type="text/javascript">
     $(function () {
         var PhotoPostViewModel = function (data) {
@@ -51,8 +46,11 @@
             self.upload = ko.observable(new UploadPhotos());
 
             self.add = function () {
+                console.log(self.upload().getPhotoIds());
+                $('#CommunityPhotoPost_photos').val(self.upload().getPhotoIds());
+
                 if (self.upload().photos().length > 0)
-                    var a = 0;
+                    $('#blog-form').submit()
             }
         };
         var formVM1 = new PhotoPostViewModel(<?=CJSON::encode($json)?>);

@@ -39,7 +39,7 @@ $commentatorMonth = CommentatorsMonth::get($month);
 
         <?php $place = $commentatorMonth->getPlace(Yii::app()->user->id, CommentatorsMonth::RECORDS_COUNT) ?>
         <div class="award-me_i award-me_i__2<?php if ($place < 4) echo ' win' ?>">
-            <div class="award-me_t">Количество <br> записей</div>
+            <div class="award-me_t">Количество <br> постов</div>
             <div class="award-me_value"><?=$commentatorMonth->getStatValue(Yii::app()->user->id, CommentatorsMonth::RECORDS_COUNT) ?></div>
             <div class="award-me_place">
                 <?=$commentatorMonth->getPlaceView(Yii::app()->user->id, CommentatorsMonth::RECORDS_COUNT) ?>
@@ -49,7 +49,7 @@ $commentatorMonth = CommentatorsMonth::get($month);
 
         <?php $place = $commentatorMonth->getPlace(Yii::app()->user->id, CommentatorsMonth::MOST_COMMENTED_POST) ?>
         <div class="award-me_i award-me_i__2<?php if ($place < 4) echo ' win' ?>">
-            <div class="award-me_t">Наибольшее кол-во <br> комментариев <br> к посту</div>
+            <div class="award-me_t">Количество <br> пользовательских <br> комментариев к посту</div>
             <div class="award-me_value"><?=$commentatorMonth->getStatValue(Yii::app()->user->id, CommentatorsMonth::MOST_COMMENTED_POST) ?></div>
             <div class="award-me_place">
                 <?=$commentatorMonth->getPlaceView(Yii::app()->user->id, CommentatorsMonth::MOST_COMMENTED_POST) ?>
@@ -59,7 +59,7 @@ $commentatorMonth = CommentatorsMonth::get($month);
 
         <?php $place = $commentatorMonth->getPlace(Yii::app()->user->id, CommentatorsMonth::GOOD_COMMENTS_COUNT) ?>
         <div class="award-me_i award-me_i__2<?php if ($place < 4) echo ' win' ?>">
-            <div class="award-me_t">Кол-во <br>развернутых<br> комментариев</div>
+            <div class="award-me_t">Количество развернутых<br> комментариев (от 200 знаков)</div>
             <div class="award-me_value"><?=$commentatorMonth->getStatValue(Yii::app()->user->id, CommentatorsMonth::GOOD_COMMENTS_COUNT) ?></div>
             <div class="award-me_place">
                 <?=$commentatorMonth->getPlaceView(Yii::app()->user->id, CommentatorsMonth::GOOD_COMMENTS_COUNT) ?>

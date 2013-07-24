@@ -40,13 +40,13 @@ Yii::app()->clientScript->registerScriptFile('/js/jquery.sortElements.js');
             <div class="report-plan_sort-hold">
                 <a href="javascript:;" class="report-plan_sort"></a>
             </div>
-            Количество <br> записей
+            Количество <br> постов
         </th>
         <th>
             <div class="report-plan_sort-hold">
                 <a href="javascript:;" class="report-plan_sort"></a>
             </div>
-            Наибольшее <br> кол-во <br> комментариев
+            Количество <br> пользовательских <br> комментариев к посту
         </th>
         <th>
             <div class="report-plan_sort-hold">

@@ -16,7 +16,8 @@ function FriendsViewModel(data) {
     self.friendsToShow = ko.observableArray([]);
     self.activeTab = ko.observable(self.incomingRequestsCount() > 0 ? 2 : 0);
     self.newListTitle = ko.observable('');
-    self.searchQuery = ko.observable('');
+    self.instantaneousQuery = ko.observable('');
+    self.query = ko.computed(this.instantaneousQuery).extend({ throttle: 400 });
     self.loading = ko.observable(false);
     self.lastPage = ko.observable(false);
     self.friendsRequests = ko.observableArray([]);
@@ -30,21 +31,18 @@ function FriendsViewModel(data) {
         self.newSelected(false);
         self.activeTab(0);
         self.selectedListId(null);
-        self.init();
     }
 
     self.selectNew = function() {
         self.newSelected(true);
         self.activeTab(0);
         self.selectedListId(null);
-        self.init();
     }
 
     self.selectTab = function(tab) {
         self.newSelected(false);
         self.selectedListId(null);
         self.activeTab(tab);
-        self.init();
     }
 
     self.getListById = function(listId) {
@@ -70,37 +68,33 @@ function FriendsViewModel(data) {
         }, 'json');
     }
 
-    self.searchQuery.subscribe(function() {
+    self.query.subscribe(function() {
         self.init();
     });
 
     self.loadFriends = function(callback, offset) {
-        self.loading(true);
-
         var data = {};
         if (self.activeTab() === 1)
             data.online = 1;
         if (self.selectedListId() !== null)
             data.listId = self.selectedListId();
-        if (self.searchQuery() !== '')
-            data.query = self.searchQuery();
+        if (self.query() !== '')
+            data.query = self.query();
         if (typeof offset !== "undefined")
             data.offset = offset;
         if (self.newSelected() === true)
             data.new = 1;
 
+        self.loading(true);
         $.get('/friends/default/get/', data, function(response) {
-            callback(response);
             self.loading(false);
+            callback(response);
             if (response.last)
                 self.lastPage(true);
         }, 'json');
     }
 
     self.init = function() {
-        self.friendsToShow([]);
-        self.friendsRequests([]);
-
         if (self.activeTab() <= 1) {
             self.lastPage(false);
             self.loadFriends(function(response) {
@@ -109,7 +103,9 @@ function FriendsViewModel(data) {
                 }))
             });
         } else {
-            $.get('/friends/requests/get/', { type : (self.activeTab() == 2) ? REQUEST_TYPE_INCOMING : REQUEST_TYPE_OUTGOING } , function(response){
+            self.loading(true);
+            $.get('/friends/requests/get/', { type : (self.activeTab() == 2) ? REQUEST_TYPE_INCOMING : REQUEST_TYPE_OUTGOING } , function(response) {
+                self.loading(false);
                 self.friendsRequests(ko.utils.arrayMap(response.requests, function(request) {
                     if (self.activeTab() == 2)
                         return new IncomingFriendRequest(request, self);
@@ -146,6 +142,15 @@ function FriendsViewModel(data) {
         if (self.activeTab() <= 1 && self.loading() === false && self.lastPage() === false && (($('.layout-container').scrollTop() + $('.layout-container').height()) > ($('.layout-container').prop('scrollHeight') - 200)))
             self.nextPage();
     });
+
+    ko.computed(function() {
+        self.newSelected();
+        self.selectedListId();
+        self.activeTab();
+        self.friendsToShow([]);
+        self.friendsRequests([]);
+        self.init();
+    })
 }
 
 function Friend(data, parent) {

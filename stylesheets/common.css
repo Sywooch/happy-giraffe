@@ -1,3 +1,4 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto);
 /* @layout reset
 ---------------------------------------------*/
 html,
@@ -389,6 +390,9 @@ html.top-nav-fixed {
 .padding-b20 {
   padding-bottom: 20px !important;
 }
+.padding-l20 {
+  padding-left: 20px !important;
+}
 .w-50 {
   width: 50px;
 }
@@ -538,6 +542,7 @@ html.top-nav-fixed {
   cursor: default;
 }
 /* /cosmetic layout */
+/* FONTS */
 /* @layout  base 
 --------------------------------------------------------*/
 hr,
@@ -663,15 +668,24 @@ a.pseudo:hover,
   text-decoration: none;
   border-bottom-color: transparent;
 }
+.a-pseudo-grayblue {
+  text-decoration: none;
+  border-bottom: 1px dotted #a0a09f;
+  color: #a0a09f;
+}
+.a-pseudo-grayblue:hover {
+  color: #2c95d6;
+  border-color: #2c95d6;
+}
 /* /links */
 /* ava avatar */
 .ava {
-  width: 72px;
-  height: 72px;
-  background: url(../images/avatar.png) no-repeat -240px -480px;
   display: block;
   float: left;
   position: relative;
+  width: 72px;
+  height: 72px;
+  background: url(../images/avatar.png) no-repeat -240px -480px;
 }
 .ava.female {
   background-position: -240px -240px;
@@ -681,14 +695,23 @@ a.pseudo:hover,
 }
 .ava,
 .ava img {
-  -moz-border-radius: 36px;
-  -webkit-border-radius: 36px;
-  border-radius: 36px;
-  behavior: url(/stylesheets/PIE.htc);
+  position: relative;
   width: 72px;
   height: 72px;
-  position: relative;
+  -webkit-border-radius: 36px;
+  -moz-border-radius: 36px;
+  border-radius: 36px;
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2) inset;
+  -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2) inset;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2) inset;
+  behavior: url(/stylesheets/PIE.htc);
   *behavior: url('');
+}
+.ava:hover,
+.ava img:hover {
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
 }
 .ava img {
   margin-top: 0 !important;
@@ -709,7 +732,6 @@ a.pseudo:hover,
 }
 .ava.big,
 .ava.big img {
-  /*css3*/
   -moz-border-radius: 0px;
   -webkit-border-radius: 0px;
   border-radius: 0px;
@@ -733,9 +755,12 @@ a.pseudo:hover,
 .ava.large img {
   width: 200px;
   height: 200px;
-  -moz-border-radius: 106px;
   -webkit-border-radius: 106px;
+  -moz-border-radius: 106px;
   border-radius: 106px;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
 }
 .ava.large.female {
   background-position: 0 -200px;
@@ -844,7 +869,6 @@ a.pseudo:hover,
   display: inline-block;
   *zoom: 1;
   *display: inline;
-  vertical-align: middle;
   background: url(/images/user-family-icons.png) no-repeat -66px 0;
 }
 .ico-child__baby-plan {
@@ -1071,14 +1095,13 @@ a.pseudo:hover,
   height: 34px;
   background: url(/images/ico/ico-cup.png) no-repeat;
 }
-.ico-tags {
+.ico-cup-small {
   display: inline-block;
   *zoom: 1;
   *display: inline;
-  width: 20px;
-  height: 16px;
-  vertical-align: middle;
-  background: url(/images/ico/ico-tags.png) no-repeat;
+  width: 25px;
+  height: 21px;
+  background: url(/images/ico/ico-cup-small.png) no-repeat;
 }
 .ico-tag {
   display: inline-block;
@@ -1097,6 +1120,15 @@ a.pseudo:hover,
   height: 22px;
   vertical-align: middle;
   background: url(/images/ico/ico-tag-big.png) no-repeat;
+}
+.ico-tags {
+  display: inline-block;
+  *zoom: 1;
+  *display: inline;
+  width: 20px;
+  height: 16px;
+  vertical-align: middle;
+  background: url(/images/ico/ico-tags.png) no-repeat;
 }
 .ico-tags-big {
   display: inline-block;
@@ -1583,13 +1615,12 @@ textarea.error,
   behavior: url(/stylesheets/PIE.htc);
 }
 .btn-small {
-  font-size: 11px;
-  line-height: 17px;
-  padding: 0 10px;
-  -webkit-border-radius: 7px;
-  -moz-border-radius: 7px;
-  -ms-border-radius: 7px;
-  border-radius: 7px;
+  font-size: 12px;
+  line-height: 12px;
+  padding: 4px 14px 5px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
 }
 .btn-small .ico-plus {
   margin: 0 2px 0 -2px;
@@ -16200,7 +16231,7 @@ select.pregnancy_term + .chzn-container .chzn-results li {
   *zoom: 1;
   *display: inline;
   vertical-align: middle;
-  padding: 0 2px;
+  margin: 0 2px;
 }
 .career-achievement__green:hover,
 .career-achievement__green {
@@ -18104,7 +18135,7 @@ select.pregnancy_term + .chzn-container .chzn-results li {
 }
 .layout-container {
   width: 100%;
-  overflow-y: visible;
+  overflow: hidden;
 }
 /* @todo delete #layout, #layout .push */
 #layout,
@@ -20208,86 +20239,6 @@ select.pregnancy_term + .chzn-container .chzn-results li {
 .find-friend-famyli .img > img {
   margin: 0 auto;
 }
-.find-friend-famyli .img.baby-plan {
-  background: url(/images/user-family-icons.png) no-repeat 0 0;
-  width: 66px;
-  height: 50px;
-}
-.find-friend-famyli .img.baby {
-  background: url(/images/user-family-icons.png) no-repeat -66px 0;
-  width: 66px;
-  height: 50px;
-}
-.find-friend-famyli .img.boy-wait {
-  background: url(/images/user-family-icons.png) no-repeat 0 -50px;
-  width: 66px;
-  height: 50px;
-}
-.find-friend-famyli .img.girl-wait {
-  background: url(/images/user-family-icons.png) no-repeat -66px -50px;
-  width: 66px;
-  height: 50px;
-}
-.find-friend-famyli .img.boy-small {
-  background: url(/images/user-family-icons.png) no-repeat 0 -100px;
-  width: 66px;
-  height: 50px;
-}
-.find-friend-famyli .img.girl-small {
-  background: url(/images/user-family-icons.png) no-repeat -66px -100px;
-  width: 66px;
-  height: 50px;
-}
-.find-friend-famyli .img.boy-3 {
-  background: url(/images/user-family-icons.png) no-repeat 0 -150px;
-  width: 66px;
-  height: 50px;
-}
-.find-friend-famyli .img.girl-3 {
-  background: url(/images/user-family-icons.png) no-repeat -66px -150px;
-  width: 66px;
-  height: 50px;
-}
-.find-friend-famyli .img.boy-5 {
-  background: url(/images/user-family-icons.png) no-repeat 0 -200px;
-  width: 66px;
-  height: 50px;
-}
-.find-friend-famyli .img.girl-5 {
-  background: url(/images/user-family-icons.png) no-repeat -66px -200px;
-  width: 66px;
-  height: 50px;
-}
-.find-friend-famyli .img.boy-8 {
-  background: url(/images/user-family-icons.png) no-repeat 0 -250px;
-  width: 66px;
-  height: 50px;
-}
-.find-friend-famyli .img.girl-8 {
-  background: url(/images/user-family-icons.png) no-repeat -66px -250px;
-  width: 66px;
-  height: 50px;
-}
-.find-friend-famyli .img.boy-14 {
-  background: url(/images/user-family-icons.png) no-repeat 0 -300px;
-  width: 66px;
-  height: 50px;
-}
-.find-friend-famyli .img.girl-14 {
-  background: url(/images/user-family-icons.png) no-repeat -66px -300px;
-  width: 66px;
-  height: 50px;
-}
-.find-friend-famyli .img.boy-19 {
-  background: url(/images/user-family-icons.png) no-repeat 0 -350px;
-  width: 66px;
-  height: 50px;
-}
-.find-friend-famyli .img.girl-19 {
-  background: url(/images/user-family-icons.png) no-repeat -66px -350px;
-  width: 66px;
-  height: 50px;
-}
 .find-friend-famyli .yellow {
   background: #fef617;
   padding: 0 2px;
@@ -20307,6 +20258,57 @@ select.pregnancy_term + .chzn-container .chzn-results li {
   font-size: 12px;
 }
 /* /find-friend-famyli */
+/* b-famyli */
+.b-famyli {
+  font-size: 9px;
+  line-height: 10px;
+  text-align: center;
+}
+.b-famyli_top {
+  height: 22px;
+  width: 190px;
+  margin: 0 auto 15px;
+}
+.b-famyli_top__white {
+  background: url(/images/b-famyli_top__white.png) no-repeat;
+}
+.b-famyli_ul {
+  margin: 8px -10px 0;
+}
+.b-famyli_li {
+  display: inline-block;
+  *zoom: 1;
+  *display: inline;
+  vertical-align: top;
+  margin: 0 10px 13px;
+}
+.b-famyli_img-hold {
+  display: table-cell;
+  vertical-align: middle;
+  width: 55px;
+  max-width: 55px;
+  height: 55px;
+  max-height: 55px;
+  background: #836d96;
+  background: rgba(0, 0, 0, 0.25);
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.25);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.25);
+}
+.b-famyli_tx {
+  padding: 5px;
+  background: #967cac;
+  background: rgba(0, 0, 0, 0.15);
+}
+.b-famyli_more {
+  font-size: 12px;
+  color: #fff;
+}
+.b-famyli_empty {
+  font-size: 12px;
+  color: #ded2e9;
+}
+/* /b-famyli */
 /* valentine-banner */
 .valentine-banner {
   position: relative;

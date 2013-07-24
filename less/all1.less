@@ -58,7 +58,7 @@
 }
 .layout-container {
 	width: 100%;
-	overflow-y: visible;
+	overflow:hidden;
 }
 .layout-container_hold {}
 /* @todo delete #layout, #layout .push */
@@ -885,22 +885,6 @@
 .find-friend-famyli-list > li {display: inline-block;*zoom:1;*display:inline;width: 66px;margin: 0 1px 5px;vertical-align: top;text-align: center;}
 .find-friend-famyli .img {margin: 0 auto 4px;max-width: 53px;max-height: 53px;min-height: 15px;}
 .find-friend-famyli .img > img{margin: 0 auto;}
-.find-friend-famyli .img.baby-plan{background: url(/images/user-family-icons.png) no-repeat 0 0;width: 66px;height: 50px;}
-.find-friend-famyli .img.baby{background: url(/images/user-family-icons.png) no-repeat -66px 0;width: 66px;height: 50px;}
-.find-friend-famyli .img.boy-wait{background: url(/images/user-family-icons.png) no-repeat 0 -50px;width: 66px;height: 50px;}
-.find-friend-famyli .img.girl-wait{background: url(/images/user-family-icons.png) no-repeat -66px -50px;width: 66px;height: 50px;}
-.find-friend-famyli .img.boy-small{background: url(/images/user-family-icons.png) no-repeat 0 -100px;width: 66px;height: 50px;}
-.find-friend-famyli .img.girl-small{background: url(/images/user-family-icons.png) no-repeat -66px -100px;width: 66px;height: 50px;}
-.find-friend-famyli .img.boy-3{background: url(/images/user-family-icons.png) no-repeat 0 -150px;width: 66px;height: 50px;}
-.find-friend-famyli .img.girl-3{background: url(/images/user-family-icons.png) no-repeat -66px -150px;width: 66px;height: 50px;}
-.find-friend-famyli .img.boy-5{background: url(/images/user-family-icons.png) no-repeat 0 -200px;width: 66px;height: 50px;}
-.find-friend-famyli .img.girl-5{background: url(/images/user-family-icons.png) no-repeat -66px -200px;width: 66px;height: 50px;}
-.find-friend-famyli .img.boy-8{background: url(/images/user-family-icons.png) no-repeat 0 -250px;width: 66px;height: 50px;}
-.find-friend-famyli .img.girl-8{background: url(/images/user-family-icons.png) no-repeat -66px -250px;width: 66px;height: 50px;}
-.find-friend-famyli .img.boy-14{background: url(/images/user-family-icons.png) no-repeat 0 -300px;width: 66px;height: 50px;}
-.find-friend-famyli .img.girl-14{background: url(/images/user-family-icons.png) no-repeat -66px -300px;width: 66px;height: 50px;}
-.find-friend-famyli .img.boy-19{background: url(/images/user-family-icons.png) no-repeat 0 -350px;width: 66px;height: 50px;}
-.find-friend-famyli .img.girl-19{background: url(/images/user-family-icons.png) no-repeat -66px -350px;width: 66px;height: 50px;}
 .find-friend-famyli .yellow {background: #fef617;padding: 0 2px;}
 .find-friend-famyli .blue-text {color: #26b4fe;}
 .find-friend-famyli .pink-text {color: #e885cc;}
@@ -911,6 +895,53 @@
 	font-size: 12px;
 }
 /* /find-friend-famyli */
+
+/* b-famyli */
+.b-famyli {
+	font-size: 9px;
+	line-height: 10px;
+	text-align: center;
+
+	&_top {
+		height: 22px;
+		width: 190px;
+		margin: 0 auto 15px;
+	}
+	&_top__white {background: url(/images/b-famyli_top__white.png) no-repeat;}
+	&_ul {
+		margin: 8px -10px 0;
+	}
+	&_li {
+		.inline-block();
+		vertical-align: top;
+		margin: 0 10px 13px;
+	}
+	&_img-hold {
+		display: table-cell;
+		vertical-align: middle;
+		width: 55px;
+		max-width: 55px;
+		height: 55px;
+		max-height: 55px;
+		background: #836d96;
+		background: rgba(0,0,0,.25);
+		.box-shadow(inset 0 1px 1px rgba(0,0,0,0.25));
+	}
+	&_tx {
+		padding: 5px;
+		background: #967cac;
+		background: rgba(0,0,0,.15);
+	}
+	&_more {
+		font-size: 12px;
+		color: #fff;
+	}
+	&_empty {
+		font-size: 12px;
+		color: #ded2e9;
+	}
+}
+/* /b-famyli */
 
 /* valentine-banner */
 .valentine-banner {

@@ -63,7 +63,7 @@
 						<div class="cap-empty cap-empty__rel">
 							<div class="cap-empty_hold">
 								<div class="cap-empty_tx">У вас пока нет новых уведомлений.</div>
-								<span class="cap-empty_gray" href="">Начать новый поиск</span>
+								<span class="cap-empty_gray" href="">Будьте активны! Добавляйте записи, фото, видео.</span>
 							</div>
 						</div>
 						

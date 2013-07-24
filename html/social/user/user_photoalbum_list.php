@@ -56,7 +56,7 @@
                 </ul>
                 <div class="col-gray">
                 
-                    <div class="photo-preview-row clearfix">
+                    <div class="photo-preview-row clearfix margin-t30">
                         <div class="photo-preview-row_hold2">
                             <div class="photo-grid clearfix">
                                 <div class="photo-grid_row clearfix" >

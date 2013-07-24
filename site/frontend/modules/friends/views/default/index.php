@@ -1,7 +1,7 @@
 <?php
 Yii::app()->clientScript
     ->registerScriptFile('/javascripts/knockout-2.2.1.js')
-    ->registerScriptFile('/javascripts/ko_friends.js?t=' . time())
+    ->registerScriptFile('/javascripts/ko_friends.js')
 ;
 ?>
 
@@ -85,7 +85,7 @@ Yii::app()->clientScript
                 <a class="cont-nav_a" data-bind="css: { inactive : incomingRequestsCount() == 0 }, click: function(data, event) { if (incomingRequestsCount() > 0) selectTab(2, data, event) }">Хотят дружить<span class="cont-nav_count" data-bind="visible: incomingRequestsCount() > 0, text: incomingRequestsCount"></span> </a>
             </div>
             <div class="cont-nav_i" data-bind="css: { active : activeTab() == 3 }">
-                <a href="" class="cont-nav_a">Мои приглашения (20) </a>
+                <a class="cont-nav_a" data-bind="css: { inactive : outgoingRequestsCount() == 0 }, click: function(data, event) { if (outgoingRequestsCount() > 0) selectTab(3, data, event) }, text: 'Мои приглашения (' + outgoingRequestsCount() + ')'"></a>
             </div>
         </div>
         <div class="friends-list" data-bind="css: { 'friends-list__family' : activeTab() >= 2 }">
@@ -115,22 +115,22 @@ Yii::app()->clientScript
 
 <script type="text/html" id="user-template">
 <div class="friends-list_i">
-    <div class="b-ava-large" data-bind="with: user">
+    <div class="b-ava-large">
         <div class="b-ava-large_ava-hold clearfix">
-            <a class="ava large" data-bind="attr: { href : url }, css: avaClass">
-                <img alt="" data-bind="visible: ava, attr: { src : ava }">
+            <a class="ava large" data-bind="attr: { href : user.url() }, css: user.avaClass()">
+                <img alt="" data-bind="visible: user.ava, attr: { src : user.ava }">
             </a>
-            <span class="b-ava-large_online" data-bind="visible: online">На сайте</span>
-            <a class="ico-close2 b-ava-large_close" data-bind="click: $parent.remove, tooltip: 'Удалить из друзей'"></a>
-            <a class="b-ava-large_bubble b-ava-large_bubble__dialog" data-bind="attr: { href : dialogUrl }, tooltip: 'Начать диалог'">
+            <span class="b-ava-large_online" data-bind="visible: user.online">На сайте</span>
+            <a class="ico-close2 b-ava-large_close" data-bind="click: remove, tooltip: 'Удалить из друзей'"></a>
+            <a class="b-ava-large_bubble b-ava-large_bubble__dialog" data-bind="attr: { href : user.dialogUrl() }, tooltip: 'Начать диалог'">
                 <span class="b-ava-large_ico b-ava-large_ico__mail"></span>
                 <!--<span class="b-ava-large_bubble-tx">+5</span>-->
             </a>
-            <a class="b-ava-large_bubble b-ava-large_bubble__photo" data-bind="attr: { href : albumsUrl }, tooltip: 'Фотографии'">
+            <a class="b-ava-large_bubble b-ava-large_bubble__photo" data-bind="attr: { href : user.albumsUrl() }, tooltip: 'Фотографии'">
                 <span class="b-ava-large_ico b-ava-large_ico__photo"></span>
                 <!--<span class="b-ava-large_bubble-tx">+50</span>-->
             </a>
-            <a class="b-ava-large_bubble b-ava-large_bubble__blog" data-bind="attr: { href : blogUrl }, tooltip: 'Записи в блоге'">
+            <a class="b-ava-large_bubble b-ava-large_bubble__blog" data-bind="attr: { href : user.blogUrl() }, tooltip: 'Записи в блоге'">
                 <span class="b-ava-large_ico b-ava-large_ico__blog"></span>
                 <!--<span class="b-ava-large_bubble-tx">+999</span>-->
             </a>
@@ -140,7 +140,7 @@ Yii::app()->clientScript
             </span>
         </div>
         <div class="textalign-c">
-            <a class="b-ava-large_a" data-bind="text: fullName, attr: { href : url }"></a>
+            <a class="b-ava-large_a" data-bind="text: user.fullName(), attr: { href : user.url() }"></a>
         </div>
     </div>
 
@@ -156,7 +156,7 @@ Yii::app()->clientScript
 
     <div class="friends-list_deleted" data-bind="visible: removed">
         <div class="friends-list_deleted-hold">
-            <a class="friends-list_a" data-bind="text: user().fullName, attr: { href : user().url }"></a>
+            <a class="friends-list_a" data-bind="text: user.fullName(), attr: { href : user.url() }"></a>
             <div class="friends-list_row color-gray">удалена из списка <br>ваших друзей</div>
             <a class="a-pseudo" data-bind="click: restore">Восстановить?</a>
         </div>
@@ -166,44 +166,51 @@ Yii::app()->clientScript
 
 <script type="text/html" id="request-template">
 <div class="friends-list_i">
-    <div class="b-ava-large" data-bind="with: user">
+    <div class="b-ava-large" >
         <div class="b-ava-large_ava-hold clearfix">
-            <a class="ava large" data-bind="attr: { href : url }, css: avaClass">
-                <img alt="" data-bind="visible: ava, attr: { src : ava }">
+            <a class="ava large" data-bind="attr: { href : user.url() }, css: user.avaClass()">
+                <img alt="" data-bind="visible: user.ava, attr: { src : user.ava }">
             </a>
-            <span class="b-ava-large_online" data-bind="visible: online">На сайте</span>
-            <a class="b-ava-large_bubble b-ava-large_bubble__dialog" data-bind="attr: { href : dialogUrl }, tooltip: 'Начать диалог'">
+            <span class="b-ava-large_online" data-bind="visible: user.online">На сайте</span>
+            <a class="b-ava-large_bubble b-ava-large_bubble__dialog" data-bind="attr: { href : user.dialogUrl() }, tooltip: 'Начать диалог'">
                 <span class="b-ava-large_ico b-ava-large_ico__mail"></span>
                 <!--<span class="b-ava-large_bubble-tx">+5</span>-->
             </a>
-            <a class="b-ava-large_bubble b-ava-large_bubble__photo" data-bind="attr: { href : albumsUrl }, tooltip: 'Фотографии'">
+            <a class="b-ava-large_bubble b-ava-large_bubble__photo" data-bind="attr: { href : user.albumsUrl() }, tooltip: 'Фотографии'">
                 <span class="b-ava-large_ico b-ava-large_ico__photo"></span>
                 <!--<span class="b-ava-large_bubble-tx">+50</span>-->
             </a>
-            <a class="b-ava-large_bubble b-ava-large_bubble__blog" data-bind="attr: { href : blogUrl }, tooltip: 'Записи в блоге'">
+            <a class="b-ava-large_bubble b-ava-large_bubble__blog" data-bind="attr: { href : user.blogUrl() }, tooltip: 'Записи в блоге'">
                 <span class="b-ava-large_ico b-ava-large_ico__blog"></span>
                 <!--<span class="b-ava-large_bubble-tx">+999</span>-->
             </a>
+            <!-- ko if: $root.activeTab() == 2 -->
             <span class="b-ava-large_bubble b-ava-large_bubble__friend">
                 <span class="b-ava-large_ico b-ava-large_ico__friend"></span>
-                <a class="b-ava-large_plus" data-bind="click: $parent.accept, tooltip: 'Принять'"></a>
-                <a class="b-ava-large_minus" data-bind="click: $parent.decline, tooltip: 'Отказаться'"></a>
+                <a class="b-ava-large_plus" data-bind="click: accept, tooltip: 'Принять'"></a>
+                <a class="b-ava-large_minus" data-bind="click: decline, tooltip: 'Отказаться'"></a>
             </span>
+            <!-- /ko -->
+            <!-- ko if: $root.activeTab() == 3 -->
+            <a class="b-ava-large_bubble" data-bind="tooltip: tooltipText, css: aCssClass, click: clickHandler">
+                <span class="b-ava-large_ico" data-bind="css: spanCssClass"></span>
+            </a>
+            <!-- /ko -->
         </div>
         <div class="textalign-c">
-            <a class="b-ava-large_a" data-bind="text: fullName, attr: { href : url }"></a>
-            <!-- ko if: age !== null -->
-            <span class="font-smallest color-gray" data-bind="text: age"></span>
+            <a class="b-ava-large_a" data-bind="text: user.fullName(), attr: { href : user.url() }"></a>
+            <!-- ko if: user.age !== null -->
+            <span class="font-smallest color-gray" data-bind="text: user.age"></span>
             <!-- /ko -->
         </div>
     </div>
-    <!-- ko if: user().location !== null -->
-    <div class="friends-list_location clearfix" data-bind="html: user().location"></div>
+    <!-- ko if: user.location !== null -->
+    <div class="friends-list_location clearfix" data-bind="html: user.location"></div>
     <!-- /ko -->
-    <!-- ko if: user().family !== null -->
-    <div class="find-friend-famyli" data-bind="html: user().family"></div>
+    <!-- ko if: user.family !== null -->
+    <div class="find-friend-famyli" data-bind="html: user.family"></div>
     <!-- /ko -->
-    <!-- ko if: removed -->
+    <!-- ko if: $root.activeTab() <= 1 && removed() -->
     <div class="cap-empty">
         <div class="cap-empty_hold">
             <div class="cap-empty_tx">Вы отклонили <br> предложение</div>

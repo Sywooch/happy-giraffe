@@ -145,7 +145,7 @@ function FriendsSearchViewModel(data) {
         self.users([]);
         self.get(1, function(users) {
             self.users(ko.utils.arrayMap(users, function(user) {
-                return new User(user, self);
+                return new OutgoingFriendRequest(user, self);
             }));
             $(".layout-container").animate({ scrollTop: 0 }, "slow");
         });
@@ -154,7 +154,7 @@ function FriendsSearchViewModel(data) {
     self.nextPage = function() {
         self.get(self.currentPage() + 1, function(users) {
             self.users.push.apply(self.users, ko.utils.arrayMap(users, function(user) {
-                return new User(user, self);
+                return new OutgoingFriendRequest(user, self);
             }));
         });
     }
@@ -169,44 +169,6 @@ function FriendsSearchViewModel(data) {
 
     ko.computed(function() {
         self.search();
-    });
-}
-
-function User(data, parent) {
-    var self = this;
-
-    self.id = data.id;
-    self.html = data.html;
-    self.invited = ko.observable(false);
-
-    self.invite = function() {
-        $.post('/friendRequests/send/', { to_id : self.id }, function(response) {
-            if (response.status)
-                self.invited(true);
-        }, 'json');
-    }
-
-    self.cancel = function() {
-        $.post('/friends/requests/cancel/', { toId : self.id }, function(response) {
-            if (response.success)
-                self.invited(false);
-        }, 'json');
-    }
-
-    self.clickHandler = function() {
-        self.invited() ? self.cancel() : self.invite();
-    }
-
-    self.aCssClass = ko.computed(function() {
-        return self.invited() ? 'b-ava-large_bubble__friend-added' : 'b-ava-large_bubble__friend-add';
-    });
-
-    self.spanCssClass = ko.computed(function() {
-        return self.invited() ? 'b-ava-large_ico__friend-added' : 'b-ava-large_ico__friend-add';
-    });
-
-    self.tooltipText = ko.computed(function() {
-        return self.invited() ? 'Отменить приглашение' : 'Добавить в друзья';
     });
 }
 

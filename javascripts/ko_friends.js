@@ -191,10 +191,10 @@ function Friend(data, parent) {
     }
 
     self.remove = function() {
-        $.post('/friends/default/delete/', { friendId : self.user().id() }, function(response) {
+        $.post('/friends/default/delete/', { friendId : self.user.id }, function(response) {
             if (response.success) {
                 parent.friendsCount(parent.friendsCount() - 1);
-                if (self.user().online())
+                if (self.user.online)
                     parent.friendsOnlineCount(parent.friendsOnlineCount() - 1);
                 if (self.listId() !== null) {
                     var list = ko.utils.arrayFirst(parent.lists(), function(list) {
@@ -208,10 +208,10 @@ function Friend(data, parent) {
     }
 
     self.restore = function() {
-        $.post('/friends/default/restore/', { friendId : self.user().id() }, function(response) {
+        $.post('/friends/default/restore/', { friendId : self.user.id }, function(response) {
             if (response.success) {
                 parent.friendsCount(parent.friendsCount() + 1);
-                if (self.user().online())
+                if (self.user.online)
                     parent.friendsOnlineCount(parent.friendsOnlineCount() + 1);
                 if (self.listId() !== null) {
                     var list = ko.utils.arrayFirst(parent.lists(), function(list) {
@@ -240,20 +240,20 @@ function IncomingFriendRequest(data, parent) {
     self.removed = ko.observable(false);
 
     self.accept = function() {
-        $.post('/friends/requests/accept/', { requestId : self.id() }, function(response) {
+        $.post('/friends/requests/accept/', { requestId : self.id }, function(response) {
             if (response.success) {
                 parent.friendsRequests.remove(self);
                 parent.friendsCount(parent.friendsCount() + 1);
                 parent.friendsNewCount(parent.friendsNewCount() + 1);
                 parent.incomingRequestsCount(parent.incomingRequestsCount() - 1);
-                if (self.user().online())
+                if (self.user.online)
                     parent.friendsOnlineCount(parent.friendsOnlineCount() + 1);
             }
         }, 'json');
     }
 
     self.decline = function() {
-        $.post('/friends/requests/decline/', { requestId : self.id() }, function(response) {
+        $.post('/friends/requests/decline/', { requestId : self.id }, function(response) {
             if (response.success) {
                 self.removed(true);
                 parent.incomingRequestsCount(parent.incomingRequestsCount() - 1);
@@ -262,7 +262,7 @@ function IncomingFriendRequest(data, parent) {
     }
 
     self.restore = function() {
-        $.post('/friends/requests/restore/', { requestId : self.id() }, function(response) {
+        $.post('/friends/requests/restore/', { requestId : self.id }, function(response) {
             if (response.success)
                 self.removed(false);
         }, 'json');
@@ -276,14 +276,14 @@ function OutgoingFriendRequest(data, parent) {
     self.invited = ko.observable(data.invited);
 
     self.invite = function() {
-        $.post('/friendRequests/send/', { to_id : self.id }, function(response) {
+        $.post('/friendRequests/send/', { to_id : self.user.id }, function(response) {
             if (response.status)
                 self.invited(true);
         }, 'json');
     }
 
     self.cancel = function() {
-        $.post('/friends/requests/cancel/', { toId : self.id }, function(response) {
+        $.post('/friends/requests/cancel/', { toId : self.user.id }, function(response) {
             if (response.success)
                 self.invited(false);
         }, 'json');

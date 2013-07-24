@@ -117,7 +117,7 @@ class CommentatorsMonth extends EMongoDocument
     public function calculateMonth()
     {
         $commentators = CommentatorHelper::getCommentatorIdList();
-        $commentators_team_rating = array();
+        $this->commentators_team_rating = array();
 
         $active_commentators = array();
         foreach ($commentators as $commentator) {

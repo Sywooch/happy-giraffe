@@ -65,9 +65,9 @@ Yii::app()->clientScript
 
     <div class="col-23-middle clearfix">
         <div class="heading-title clearfix">
-            <div class="sidebar-search sidebar-search__gray float-r">
-                <input type="text" placeholder="Введите имя или фамилию" class="sidebar-search_itx" data-bind="value: searchQuery, valueUpdate: 'keyup'">
-                <button class="sidebar-search_btn" data-bind="css: { active : searchQuery() != '' }, click: clearSearchQuery"></button>
+            <div class="sidebar-search sidebar-search__gray float-r" data-bind="visible: activeTab() <= 1">
+                <input type="text" placeholder="Введите имя или фамилию" class="sidebar-search_itx" data-bind="value: instantaneousQuery, valueUpdate: 'keyup'">
+                <button class="sidebar-search_btn" data-bind="css: { active : instantaneousQuery() != '' }, click: clearSearchQuery"></button>
             </div>
             Мои друзья
         </div>

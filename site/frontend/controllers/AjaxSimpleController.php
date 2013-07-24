@@ -174,13 +174,28 @@ class AjaxSimpleController extends CController
 
     public function actionUploadPhoto()
     {
-        $ids = array();
-        foreach($_FILES as $file){
+        foreach ($_FILES as $file) {
             $model = AlbumPhoto::model()->createUserTempPhoto($file);
-            $ids [] = $model->id;
+            $id = $model->id;
         }
 
-        echo CJSON::encode(array('status' => 200, 'ids' => $ids));
+        echo CJSON::encode(array('status' => 200, 'id' => $id));
+    }
+
+    public function actionAddPhoto()
+    {
+        $photos = AlbumPhoto::model()->findAllByPk(Yii::app()->request->getPost('photo_ids'));
+        $album = Album::model()->findByPk(Yii::app()->request->getPost('album_id'));
+
+        if ($album->author_id == Yii::app()->user->id)
+            foreach ($photos as $photo) {
+                if ($photo->author_id == Yii::app()->user->id) {
+                    $photo->album_id = $album->id;
+                    $photo->update(array('album_id'));
+                }
+            }
+
+        echo CJSON::encode(array('status' => true));
     }
 
     /**

@@ -53,6 +53,9 @@ return array(
         'application.modules.notifications.models.base.*',
         'application.modules.notifications.models.*',
         'application.modules.notifications.components.*',
+        'application.modules.scores.components.*',
+        'application.modules.scores.models.*',
+        'application.modules.scores.models.input.*',
         'application.modules.favourites.models.*',
         'application.modules.favourites.widgets.*',
         'application.modules.favourites.components.*',
@@ -100,11 +103,13 @@ return array(
         'notifications',
         'friends',
         'favourites',
+        'scores',
         'blog',
 	),
 	// application components
 	'components'=>array(
         'clientScript' => array(
+            'class' => 'application.components.ClientScript',
 //            'scriptMap'=>array(
 //                'jquery'=>'http://code.jquery.com/jquery-1.8.0.min.js',
 //            ),

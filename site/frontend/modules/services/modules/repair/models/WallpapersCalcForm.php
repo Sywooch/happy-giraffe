@@ -59,8 +59,8 @@ class WallpapersCalcForm extends HFormModel
             $result['qty'] = ceil($length / $this->wp_length);
         }
 
-        $result['noun'] = HDate::GenerateNoun(array('рулона', 'рулонов', 'рулонов'), $result['qty']);
-        $result['noun2'] = HDate::GenerateNoun(array('рулон', 'рулона', 'рулонов'), $result['qty']);
+        $result['noun'] = Str::GenerateNoun(array('рулона', 'рулонов', 'рулонов'), $result['qty']);
+        $result['noun2'] = Str::GenerateNoun(array('рулон', 'рулона', 'рулонов'), $result['qty']);
 
         return $result;
     }

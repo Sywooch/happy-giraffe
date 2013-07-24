@@ -2,6 +2,8 @@
 
 class DefaultController extends HController
 {
+    public $layout = 'notifications';
+
     public function filters()
     {
         return array(
@@ -32,7 +34,6 @@ class DefaultController extends HController
     {
         $this->pageTitle = 'Новые уведомления';
         $list = Notification::model()->getNotificationsList(Yii::app()->user->id, 0, $page);
-        NotificationRead::setReadLikes($list);
 
         if (Yii::app()->request->isAjaxRequest)
             $this->renderPartial('list', array('list' => $list, 'check' => true));

@@ -205,4 +205,38 @@ class Favourite extends CActiveRecord
                 return $model->type_id == 1 ? 'post' : 'video';
         }
     }
+
+    /**
+     * Возвращает массив добавление в избранное за последние 24 часа
+     * @return array
+     */
+    public function findLastDayFavourites()
+    {
+        $result = array();
+        $t = microtime(true);
+        $favourites = Yii::app()->db->createCommand()
+            ->select('model_name, model_id, count(id) as count')
+            ->from($this->tableName())
+            ->group('model_name, model_id')
+            ->where('created > "'.date("Y-m-d H:i:s", strtotime('-1 day')) .'"')
+            ->queryAll();
+        echo microtime(true) - $t . "\n";
+        echo count($favourites)."\n";
+
+        foreach ($favourites as $favourite) {
+            $model = CActiveRecord::model($favourite['model_name'])->findByPk($favourite['model_id']);
+            if ($model === null)
+                continue;
+            if (!isset($model->author_id))
+                continue;
+
+            if (!isset($result[$model->author_id]))
+                $result[$model->author_id] = array();
+            if (!isset($result[$model->author_id][$favourite['model_name']]))
+                $result[$model->author_id][$favourite['model_name']] = array();
+            $result[$model->author_id][$favourite['model_name']][$favourite['model_id']] = $favourite['count'];
+        }
+
+        return $result;
+    }
 }

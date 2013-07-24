@@ -99,6 +99,10 @@
         $notificationsCount = Notification::model()->getUnreadCount();
         $friendsCount = FriendRequest::model()->getUserCount(Yii::app()->user->id);
         $imCount = MessagingManager::unreadMessagesCount(Yii::app()->user->id);
+
+        $scores = Yii::app()->user->getModel()->score->scores;
+        $seen_scores = Yii::app()->user->getModel()->score->seen_scores;
+        $scores_diff = $scores - $seen_scores;
         ?>
         <div class="top-line-menu_nav">
 
@@ -147,6 +151,15 @@
                     <a href="/notifications/">
                         <i class="icon-notifications"></i>
                         <span class="count"><span class="count-red"><?=$notificationsCount?></span></span>
+                    </a>
+                </li>
+                <li class="i-career top-line-menu_nav_li new js-tooltipsy<?php if ($scores_diff > 0): ?> new<?php endif; ?>" title="Уведомления">
+                    <a href="/scores/">
+                        <i class="icon-career"></i>
+						<span class="count ">
+							<span class="count-red"<?php if ($scores_diff <= 0) echo ' style="display:none;"' ?>><?=$scores_diff ?></span><br>
+							<span class="count-white"><?=$scores ?></span>
+						</span>
                     </a>
                 </li>
                 <li class="i-settings top-line-menu_nav_li js-tooltipsy" title="Настройки">
@@ -299,6 +312,32 @@
             var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(top100, s);
         })();
     </script>
+
+    <!-- tns-counter.ru -->
+    <script type="text/javascript">
+        (function(win, doc, cb){
+            (win[cb] = win[cb] || []).push(function() {
+                try {
+                    tnsCounterHappygiraffe_ru = new TNS.TnsCounter({
+                        'account':'happygiraffe_ru',
+                        'tmsec': 'happygiraffe_total'
+                    });
+                } catch(e){}
+            });
+
+            var tnsscript = doc.createElement('script');
+            tnsscript.type = 'text/javascript';
+            tnsscript.async = true;
+            tnsscript.src = ('https:' == doc.location.protocol ? 'https:' : 'http:') +
+                '//www.tns-counter.ru/tcounter.js';
+            var s = doc.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(tnsscript, s);
+        })(window, this.document,'tnscounter_callback');
+    </script>
+    <noscript>
+        <img src="//www.tns-counter.ru/V13a****happygiraffe_ru/ru/UTF-8/tmsec=happygiraffe_total/" width="0" height="0" alt="" />
+    </noscript>
+    <!--/ tns-counter.ru -->
 
     <?php if (!Yii::app()->user->isGuest && Yii::app()->user->id == 10):?>
         <script type="text/javascript">

@@ -58,7 +58,11 @@
  * @property AlbumPhoto $avatar
  * @property UserStatus status
  * @property UserMailSub $mail_subs
- * @property address $address
+ * @property UserAddress $address
+ * @property int $activeCommentsCount
+ * @property int $blogPostsCount
+ * @property int $communityPostsCount
+ * @property int $albumsCount
  *
  * @method User active()
  */
@@ -300,6 +304,7 @@ class User extends HActiveRecord
             'userSocialServices' => array(self::HAS_MANY, 'UserSocialService', 'user_id'),
 
             'commentsCount' => array(self::STAT, 'Comment', 'author_id'),
+            'activeCommentsCount' => array(self::STAT, 'Comment', 'author_id', 'condition' => 'removed = 0'),
 
             'status' => array(self::HAS_ONE, 'UserStatus', 'user_id', 'order' => 'status.created DESC'),
             'purpose' => array(self::HAS_ONE, 'UserPurpose', 'user_id', 'order' => 'purpose.created DESC'),
@@ -315,7 +320,7 @@ class User extends HActiveRecord
             'cookRecipesCount' => array(self::STAT, 'CookRecipe', 'author_id'),
             'recipeBookRecipesCount' => array(self::STAT, 'RecipeBookRecipe', 'author_id'),
             //'photosCount' => array(self::STAT, 'AlbumPhoto', 'author_id', 'join' => 'JOIN album__albums a ON t.album_id = a.id', 'condition' => 'a.type IN(0, 1, 3)'),
-            'albumsCount' => array(self::STAT, 'Album', 'author_id', 'condition' => 'removed = 0'),
+            'albumsCount' => array(self::STAT, 'Album', 'author_id', 'condition' => 'removed = 0 AND type = 0'),
 
             'communitiesCount' => array(self::STAT, 'Community', 'user__users_communities(user_id, community_id)'),
             'userDialogs' => array(self::HAS_MANY, 'DialogUser', 'user_id'),
@@ -330,7 +335,10 @@ class User extends HActiveRecord
 
             'photos' => array(self::HAS_MANY, 'AlbumPhoto', 'author_id'),
             'mail_subs' => array(self::HAS_ONE, 'UserMailSub', 'user_id'),
+
             'score' => array(self::HAS_ONE, 'UserScores', 'user_id'),
+            'awards' => array(self::HAS_MANY, 'ScoreUserAward', 'user_id'),
+            'achievements' => array(self::MANY_MANY, 'ScoreAchievement', 'score__user_achievements(achievement_id, user_id)'),
 
             'friendLists' => array(self::HAS_MANY, 'FriendList', 'list_id'),
             'subscriber' => array(self::HAS_ONE, 'UserBlogSubscription', 'user_id'),
@@ -416,8 +424,6 @@ class User extends HActiveRecord
 
     protected function afterSave()
     {
-        parent::afterSave();
-
         if ($this->trackable->isChanged('mood_id'))
             UserAction::model()->add($this->id, UserAction::USER_ACTION_MOOD_CHANGED, array('model' => $this));
 
@@ -439,9 +445,8 @@ class User extends HActiveRecord
             Yii::app()->db->createCommand()->insert(UserPriority::model()->tableName(), array('user_id' => $this->id));
             Yii::app()->db->createCommand()->insert(UserScores::model()->tableName(), array('user_id' => $this->id));
             Yii::app()->db->createCommand()->insert(UserAddress::model()->tableName(), array('user_id' => $this->id));
-        } else {
+        } else
             self::clearCache($this->id);
-        }
 
         if ($this->trackable->isChanged('online'))
             $this->sendOnlineStatus();
@@ -995,7 +1000,7 @@ class User extends HActiveRecord
     {
         $array = array();
         if ($this->babyCount() != 0)
-            $array[] = $this->babyCount() . ' ' . HDate::GenerateNoun(array('ребёнок', 'ребёнка', 'детей'), $this->babyCount());
+            $array[] = $this->babyCount() . ' ' . Str::GenerateNoun(array('ребёнок', 'ребёнка', 'детей'), $this->babyCount());
         if ($this->hasBaby(Baby::TYPE_PLANNING))
             $array[] = 'Планируем';
         if ($this->hasBaby(Baby::TYPE_WAIT))

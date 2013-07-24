@@ -103,4 +103,51 @@ class Str
 
         return $text;
     }
+
+    /**
+     * Формы слов по порядку в массиве (1: день, 2-4:дня, 5-10:дней)
+     *
+     * @static
+     * @param $words
+     * @param $number string
+     */
+    public static function GenerateNoun($words, $number)
+    {
+        switch ($number) {
+            case 11:
+                return $words[2];
+            case 12:
+                return $words[2];
+            case 13:
+                return $words[2];
+            case 14:
+                return $words[2];
+        }
+        if (strstr($number, '.') || strstr($number, ','))
+            return $words[2];
+
+        $last_symbol = substr($number, -1);
+        switch ($last_symbol) {
+            case 1:
+                return $words[0];
+            case 2:
+                return $words[1];
+            case 3:
+                return $words[1];
+            case 4:
+                return $words[1];
+            case 5:
+                return $words[2];
+            case 6:
+                return $words[2];
+            case 7:
+                return $words[2];
+            case 8:
+                return $words[2];
+            case 9:
+                return $words[2];
+            case 0:
+                return $words[2];
+        }
+    }
 }

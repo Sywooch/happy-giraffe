@@ -149,7 +149,7 @@ class MailChimp extends CApplicationComponent
                 'TITLE' => $work->title,
                 'PLACE' => $work->position,
                 'SCORES' => $work->rate,
-                'SCORESWORD' => HDate::GenerateNoun(array('балл', 'балла', 'баллов'), $work->rate),
+                'SCORESWORD' => Str::GenerateNoun(array('балл', 'балла', 'баллов'), $work->rate),
                 'LINK' => trim($work->url, '.'),
             );
             //echo $work->author->email.'\n';

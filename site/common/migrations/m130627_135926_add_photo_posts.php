@@ -5,12 +5,12 @@ class m130627_135926_add_photo_posts extends CDbMigration
 	public function up()
 	{
         $this->execute("
-UPDATE  `happy_giraffe`.`community__content_types` SET  `title` =  'Утро с Жирафом',
+UPDATE  `community__content_types` SET  `title` =  'Утро с Жирафом',
 `title_plural` =  'Утро с Жирафом',
 `title_accusative` =  'Утро с Жирафом',
 `slug` =  'morning' WHERE  `community__content_types`.`id` =4;
 
-INSERT INTO  `happy_giraffe`.`community__content_types` (`id` ,`title` ,`title_plural` ,`title_accusative` ,`slug`)
+INSERT INTO  `community__content_types` (`id` ,`title` ,`title_plural` ,`title_accusative` ,`slug`)
 VALUES ('3',  'Фото-пост',  'Фото-пост',  'Фото-пост',  'photoPost');
 ");
 	}

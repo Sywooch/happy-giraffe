@@ -160,7 +160,10 @@ class DefaultController extends HController
             }, UserMood::model()->findAll(array('order' => 'id ASC')));
             $json['mood_id'] = $slaveModel->mood_id;
         }
-        $this->renderPartial('form', compact('model', 'slaveModel', 'json'), false, true);
+        if (Yii::app()->request->getPost('short'))
+            $this->renderPartial('form/'.$model->type_id, compact('model', 'slaveModel', 'json'), false, true);
+        else
+            $this->renderPartial('form', compact('model', 'slaveModel', 'json'), false, true);
     }
 
     public function actionSave($id = null)
@@ -197,7 +200,7 @@ class DefaultController extends HController
                 return array(
                     'id' => $rubric->id,
                     'title' => $rubric->title,
-                    'url' => Yii::app()->createUrl('index', array('user_id' => $rubric->user_id, 'rubric_id' => $rubric->id)),
+                    'url' => Yii::app()->createUrl('/blog/default/index', array('user_id' => $rubric->user_id, 'rubric_id' => $rubric->id)),
                 );
             }, $this->user->blog_rubrics),
             'currentRubricId' => $this->rubric_id,

@@ -143,7 +143,7 @@ function FriendsViewModel(data) {
     self.init();
 
     $('.layout-container').scroll(function() {
-        if (self.activeTab() != 2 && self.loading() === false && self.lastPage() === false && (($('.layout-container').scrollTop() + $('.layout-container').height()) > ($('.layout-container').prop('scrollHeight') - 200)))
+        if (self.activeTab() <= 1 && self.loading() === false && self.lastPage() === false && (($('.layout-container').scrollTop() + $('.layout-container').height()) > ($('.layout-container').prop('scrollHeight') - 200)))
             self.nextPage();
     });
 }

@@ -113,12 +113,12 @@ class SeoCommand extends CConsoleCommand
             if ($se_visits > 100)
                 echo 'http://www.happy-giraffe.ru' . $model->_id . ' - ' . $se_visits . "\n";
 
-                $res[$model->_id] = (int)$se_visits;
+            $res[$model->_id] = (int)$se_visits;
         }
 
         arsort($res);
-        foreach($res as $key=>$val)
-            echo $key."\n";
+        foreach ($res as $key => $val)
+            echo $key . "\n";
     }
 
     function cmp($a, $b)
@@ -187,10 +187,6 @@ class SeoCommand extends CConsoleCommand
         spl_autoload_register(array('YiiBase', 'autoload'));
 
         return $file_name;
-    }
-
-    public function actionTest(){
-        echo GApi::model()->organicSearches('/cook/', '2013-07-22', '2013-07-22');
     }
 }
 

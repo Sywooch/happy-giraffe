@@ -62,6 +62,14 @@ class DefaultController extends SController
         }
     }
 
+    public function actionTeam($month = null)
+    {
+        if (empty($month))
+            $month = date("Y-m");
+
+        $this->render('team', compact('month'));
+    }
+
     public function actionPause()
     {
         $task = $this->loadTask(Yii::app()->request->getPost('id'));
@@ -81,7 +89,7 @@ class DefaultController extends SController
                 'data' => $task->getViewModel()
             );
         } else
-            $response = array('status' => false, 'error'=>$task->getErrors());
+            $response = array('status' => false, 'error' => $task->getErrors());
 
         echo CJSON::encode($response);
     }

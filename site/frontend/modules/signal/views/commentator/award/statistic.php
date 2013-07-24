@@ -40,21 +40,7 @@ $current_month = CommentatorsMonth::get($period);
 
             <table class="table-task">
                 <tr>
-                    <td class="col-1">3.  Количество просмотров анкеты</td>
-
-                    <td class="col-2"><?=$current_month->getStatValue($this->commentator->user_id, CommentatorsMonth::PROFILE_VIEWS) ?></td>
-                    <td class="col-3"><?=$this->commentator->getPlace($period, CommentatorsMonth::PROFILE_VIEWS) ?></td>
-                    <td class="col-4"><a href="<?=$this->createUrl('/signal/commentator/help/') ?>#profile-views">Как сделать личную страницу (включая блог и фотогалерею) наиболее посещаемой по количеству просмотров</a></td>
-                </tr>
-            </table>
-
-        </li>
-
-        <li>
-
-            <table class="table-task">
-                <tr>
-                    <td class="col-1">4.  Баллов от личных сообщений</td>
+                    <td class="col-1">2.  Баллов от личных сообщений</td>
 
                     <td class="col-2"><?=$this->commentator->imMessages($period) ?></td>
                     <td class="col-3"><?=$this->commentator->getPlace($period, CommentatorsMonth::IM_MESSAGES) ?></td>
@@ -62,41 +48,6 @@ $current_month = CommentatorsMonth::get($period);
                 </tr>
             </table>
 
-        </li>
-
-        <li>
-
-            <table class="table-task">
-                <tr>
-                    <td class="col-1">5.  Заходов из поисковых систем <a href="javascript:;" class="pseudo" onclick="CommentatorPanel.show('traffic-stat', this);">Показать</a></td>
-
-                    <td class="col-2"><?=$current_month->getStatValue($this->commentator->user_id, CommentatorsMonth::SE_VISITS) ?></td>
-                    <td class="col-3"><?=$this->commentator->getPlace($period, CommentatorsMonth::SE_VISITS) ?></td>
-                    <td class="col-4"><a href="<?=$this->createUrl('/signal/commentator/help/') ?>#se">Как писать посты, которые приведут на сайт наибольшее количество людей из поисковиков (блог и записи в клубах)</a></td>
-                </tr>
-            </table>
-
-            <div class="table-box table-statistic" id="traffic-stat" style="display: none;">
-                <table>
-                    <thead>
-                    <tr>
-                        <th class="al"><span class="big">Запись</span></th>
-                        <th><span class="big">Заходов</span></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <?php foreach ($this->commentator->getPosts($current_month) as $post): ?>
-                        <tr>
-                            <td class="al"><span class="big"><a target="_blank" href="<?=$post->url ?>"><?=$post->title ?></a></span></td>
-                            <td><?=$current_month->getPageVisitsCount($post->url) ?></td>
-                        </tr>
-                    <?php endforeach; ?>
-                    </tbody>
-                </table>
-            </div>
-
-
-        </li>
 
         <li>
 

@@ -4,5 +4,5 @@
         <?php for ($i = 8; $i >= 0; $i--)
             $this->render('__assistance_count', array('count' => $count, 'exp' => $i)); ?>
     </div>
-    <div class="assistance_text"><?=HDate::GenerateNoun($this->counter_title[1], $count) ?></div>
+    <div class="assistance_text"><?=Str::GenerateNoun($this->counter_title[1], $count) ?></div>
 </div>

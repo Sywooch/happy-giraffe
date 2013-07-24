@@ -76,7 +76,7 @@
                     <td>
                         <div
                             style="margin:30px 0;text-align:center;font:25px arial, helvetica, sans-serif;color:#2a2a2a;">
-                            У вас <?= $unread ?> <?= HDate::GenerateNoun(array('новое сообщение', 'новых сообщения', 'новых сообщений'), $unread) ?>!
+                            У вас <?= $unread ?> <?= Str::GenerateNoun(array('новое сообщение', 'новых сообщения', 'новых сообщений'), $unread) ?>!
                         </div>
 
                         <table width="100%" cellpadding="0" cellspacing="0">
@@ -104,7 +104,7 @@
                                                     <span style="color:#0d81d5;font:18px/20px arial, helvetica, sans-serif;">
                                                         <a href="<?= 'http://www.happy-giraffe.ru/messaging/?interlocutorId='.$dialogUserModel->id.'&token='.$token->content ?>&utm_source=email" target="_blank" style="color:#0d81d5;font:18px/20px arial, helvetica, sans-serif;">
                                                             <?= $current_unread = $dialogUser['thread']['unreadCount'] ?>
-                                                            <?= HDate::GenerateNoun(array('сообщение', 'сообщения', 'сообщений'), $current_unread) ?>
+                                                            <?= Str::GenerateNoun(array('сообщение', 'сообщения', 'сообщений'), $current_unread) ?>
                                                         </a>
                                                     </span>
                                                 </td>
@@ -125,7 +125,7 @@
 
                         <?php if (count($dialogs) > 4):?>
                             <div style="margin:10px 0;text-align:center;font:20px arial, helvetica, sans-serif;color:#0483e0;">
-                                <a href="http://www.happy-giraffe.ru/messaging/?token=<?= $token->content ?>&utm_source=email" style="font:20px arial, helvetica, sans-serif;color:#0483e0;">... еще <?= $unread - $unreadShown ?> <?= HDate::GenerateNoun(array('сообщение', 'сообщения', 'сообщений'), $unread - $unreadShown) ?></a></span>
+                                <a href="http://www.happy-giraffe.ru/messaging/?token=<?= $token->content ?>&utm_source=email" style="font:20px arial, helvetica, sans-serif;color:#0483e0;">... еще <?= $unread - $unreadShown ?> <?= Str::GenerateNoun(array('сообщение', 'сообщения', 'сообщений'), $unread - $unreadShown) ?></a></span>
                             </div>
                         <?php endif ?>
 

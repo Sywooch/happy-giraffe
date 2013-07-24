@@ -22,6 +22,7 @@
                 <a class="b-article_removed-a" data-bind="click: restore">Восстановить</a>
             </div>
         </div>
+
         <!-- ko stopBinding: true -->
         <?php $this->renderPartial('_post_header', array('model' => $data->getSourceContent())); ?>
 

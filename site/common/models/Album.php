@@ -48,60 +48,60 @@ class Album extends HActiveRecord
         'для меня одного',
     );
 
-	/**
-	 * Returns the static model of the specified AR class.
-	 * @return Album the static model class
-	 */
-	public static function model($className=__CLASS__)
-	{
-		return parent::model($className);
-	}
+    /**
+     * Returns the static model of the specified AR class.
+     * @return Album the static model class
+     */
+    public static function model($className = __CLASS__)
+    {
+        return parent::model($className);
+    }
 
-	/**
-	 * @return string the associated database table name
-	 */
-	public function tableName()
-	{
-		return 'album__albums';
-	}
+    /**
+     * @return string the associated database table name
+     */
+    public function tableName()
+    {
+        return 'album__albums';
+    }
 
-	/**
-	 * @return array validation rules for model attributes.
-	 */
-	public function rules()
-	{
-		// NOTE: you should only define rules for those attributes that
-		// will receive user inputs.
-		return array(
-			array('title, author_id', 'required'),
+    /**
+     * @return array validation rules for model attributes.
+     */
+    public function rules()
+    {
+        // NOTE: you should only define rules for those attributes that
+        // will receive user inputs.
+        return array(
+            array('title, author_id', 'required'),
             array('title', 'length', 'min' => 1, 'max' => 100),
             array('description', 'length', 'max' => 140),
-			array('author_id', 'length', 'max'=>10),
+            array('author_id', 'length', 'max' => 10),
             array('type, permission', 'numerical'),
             array('created, updated, files', 'safe'),
             array('removed', 'boolean'),
-		);
-	}
+        );
+    }
 
-	/**
-	 * @return array relational rules.
-	 */
-	public function relations()
-	{
-		// NOTE: you may need to adjust the relation name and the related
-		// class name for the relations automatically generated below.
-		return array(
+    /**
+     * @return array relational rules.
+     */
+    public function relations()
+    {
+        // NOTE: you may need to adjust the relation name and the related
+        // class name for the relations automatically generated below.
+        return array(
             'photos' => array(self::HAS_MANY, 'AlbumPhoto', 'album_id', 'scopes' => array('active')),
             'photoCount' => array(self::STAT, 'AlbumPhoto', 'album_id', 'condition' => 'removed = 0'),
-			'author' => array(self::BELONGS_TO, 'User', 'author_id'),
+            'author' => array(self::BELONGS_TO, 'User', 'author_id'),
             'remove' => array(self::HAS_ONE, 'Removed', 'entity_id', 'condition' => '`remove`.`entity` = :entity', 'params' => array(':entity' => get_class($this)))
-		);
-	}
+        );
+    }
 
     public function defaultScope()
     {
         return array(
-            'order' => $this->getTableAlias(false, false).'.type asc'
+            'order' => $this->getTableAlias(false, false) . '.type asc'
         );
     }
 
@@ -134,7 +134,8 @@ class Album extends HActiveRecord
             'system' => array(
                 'condition' => $this->tableAlias . '.type != 0 and ' . $this->tableAlias . '.type != 1 and ' . $this->tableAlias . '.type != 3',
             ),
-            'permission' => /*$permission->toArray()*/array(),
+            'permission' => /*$permission->toArray()*/
+            array(),
         );
     }
 
@@ -149,20 +150,20 @@ class Album extends HActiveRecord
         );
     }
 
-	/**
-	 * @return array customized attribute labels (name=>label)
-	 */
-	public function attributeLabels()
-	{
-		return array(
-			'id' => 'ID',
-			'title' => 'Название альбома',
-			'description' => 'Описание',
-			'author_id' => 'User',
+    /**
+     * @return array customized attribute labels (name=>label)
+     */
+    public function attributeLabels()
+    {
+        return array(
+            'id' => 'ID',
+            'title' => 'Название альбома',
+            'description' => 'Описание',
+            'author_id' => 'User',
             'created' => 'Дата создания',
             'updated' => 'Дата последнего обновления',
-		);
-	}
+        );
+    }
 
     public function findByUser($author_id, $permission = false, $system = false, $scopes = array())
     {
@@ -170,14 +171,12 @@ class Album extends HActiveRecord
         $criteria->scopes = array();
         $criteria->addCondition('t.author_id = :author_id');
         $criteria->params[':author_id'] = $author_id;
-        if($permission !== false)
-        {
+        if ($permission !== false) {
             $criteria->addCondition('permission = :permission and (type = 0 || type = 1)');
             $criteria->params[':permission'] = $permission;
         }
-        if($system !== false)
-        {
-            if($system == 1)
+        if ($system !== false) {
+            if ($system == 1)
                 array_push($criteria->scopes, 'system');
             else
                 array_push($criteria->scopes, 'noSystem');
@@ -195,14 +194,14 @@ class Album extends HActiveRecord
 
     public function getCheckAccess()
     {
-        if(!Yii::app()->user->isGuest && Yii::app()->user->id == $this->author_id)
+        if (!Yii::app()->user->isGuest && Yii::app()->user->id == $this->author_id)
             return true;
         return false;
     }
 
     public function getAlbumPhotos()
     {
-        if($this->isNewRecord)
+        if ($this->isNewRecord)
             return $this->files;
         else
             return $this->photos;
@@ -217,21 +216,18 @@ class Album extends HActiveRecord
 
     public function getIsNotSystem()
     {
-        if($this->type == 0 || $this->type == 1)
+        if ($this->type == 0 || $this->type == 1)
             return true;
         return false;
     }
 
     public function afterSave()
     {
-        if(count($this->files) > 0)
-        {
-            foreach($this->files['id'] as $i => $id)
-            {
-                if($id != '')
+        if (count($this->files) > 0) {
+            foreach ($this->files['id'] as $i => $id) {
+                if ($id != '')
                     AlbumPhoto::model()->updateByPk($id, array('title' => $this->files['title'][$i]));
-                else
-                {
+                else {
                     $model = new AlbumPhoto;
                     $model->album_id = $this->id;
                     $model->author_id = $this->author_id;
@@ -295,8 +291,7 @@ class Album extends HActiveRecord
     public static function getAlbumByType($author_id, $type)
     {
         $album = Album::model()->active()->findByAttributes(array('author_id' => $author_id, 'type' => $type));
-        if(!$album)
-        {
+        if (!$album) {
             $album = new Album;
             $album->author_id = $author_id;
             $album->type = $type;

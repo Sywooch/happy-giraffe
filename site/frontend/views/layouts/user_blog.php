@@ -84,6 +84,31 @@ $blogFontStyle = UserAttributes::get($this->user->id, 'blogFontStyle', 0);
                 //));
                 ?>
 
+                <?php if (false): ?>
+                    <div style="width: 160px; margin: 40px auto;">
+                        <!-- R-87026-2 ﬂÌ‰ÂÍÒ.RTB-·ÎÓÍ  -->
+                        <div id="yandex_ad_R-87026-2"></div>
+                        <script type="text/javascript">
+                            (function(w, d, n, s, t) {
+                                w[n] = w[n] || [];
+                                w[n].push(function() {
+                                    Ya.Context.AdvManager.render({
+                                        blockId: "R-87026-2",
+                                        renderTo: "yandex_ad_R-87026-2",
+                                        async: true
+                                    });
+                                });
+                                t = d.getElementsByTagName("script")[0];
+                                s = d.createElement("script");
+                                s.type = "text/javascript";
+                                s.src = "//an.yandex.ru/system/context.js";
+                                s.async = true;
+                                t.parentNode.insertBefore(s, t);
+                            })(this, this.document, "yandexContextAsyncCallbacks");
+                        </script>
+                    </div>
+                <?php endif; ?>
+
                 <?php if($this->beginCache('blog-popular', array(
                     'duration' => 600,
                     'varyByParam' => array('user_id'),

@@ -39,6 +39,8 @@ class AlbumPhoto extends HActiveRecord
     private $_originalWidth;
     private $_originalHeight;
 
+    public $count;
+
     /**
      * @var string original photos folder
      */
@@ -164,6 +166,7 @@ class AlbumPhoto extends HActiveRecord
             if ($this->album !== null && ($this->album->type == 0 || $this->album->type == 1)) {
                 UserAction::model()->add($this->author_id, UserAction::USER_ACTION_PHOTOS_ADDED, array('model' => $this), array('album_id' => $this->album_id));
                 FriendEventManager::add(FriendEvent::TYPE_PHOTOS_ADDED, array('album_id' => $this->album->id, 'user_id' => $this->author_id));
+                Scoring::photoCreated($this);
             }
             $this->getPreviewUrl(960, 627, Image::HEIGHT);
         }
@@ -195,6 +198,9 @@ class AlbumPhoto extends HActiveRecord
         $this->removed = 1;
         $this->save(false);
         NotificationDelete::entityRemoved($this);
+
+        if (!empty($this->album_id) && ($this->album->type == 0 || $this->album->type == 1))
+            Scoring::photoRemoved($this);
 
         return false;
     }

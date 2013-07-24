@@ -80,7 +80,8 @@ class CommunityContent extends HActiveRecord
             array('title', 'required', 'except' => 'status'),
             array('author_id, type_id', 'required'),
             array('rubric_id', 'required', 'on' => 'default'),
-            array('title, meta_title, meta_description, meta_keywords', 'length', 'max' => 255),
+            array('title', 'length', 'max' => 50),
+            array('meta_title, meta_description, meta_keywords', 'length', 'max' => 255),
             array('author_id, rubric_id, type_id', 'length', 'max' => 11),
             array('author_id, rubric_id, type_id', 'numerical', 'integerOnly' => true),
             array('rubric_id', 'exist', 'attributeName' => 'id', 'className' => 'CommunityRubric'),
@@ -236,6 +237,7 @@ class CommunityContent extends HActiveRecord
         FriendEvent::postDeleted(($this->isFromBlog ? 'BlogContent' : 'CommunityContent'), $this->id);
         self::model()->updateByPk($this->id, array('removed' => 1));
         NotificationDelete::entityRemoved($this);
+        Scoring::contentRemoved($this);
 
         return false;
     }
@@ -259,7 +261,7 @@ class CommunityContent extends HActiveRecord
             return parent::afterSave();
 
         if ($this->isNewRecord) {
-            if ($this->type_id != 4) {
+            if ($this->type_id != self::TYPE_MORNING) {
                 if ($this->isFromBlog) {
                     UserAction::model()->add($this->author_id, UserAction::USER_ACTION_BLOG_CONTENT_ADDED, array('model' => $this));
                 } elseif ($this->rubric->community_id != Community::COMMUNITY_NEWS) {
@@ -267,11 +269,13 @@ class CommunityContent extends HActiveRecord
                 }
             }
 
-            if ($this->type_id == 5)
+            if ($this->type_id == self::TYPE_STATUS)
                 FriendEventManager::add(FriendEvent::TYPE_STATUS_UPDATED, array('model' => $this));
 
-            if (in_array($this->type_id, array(1, 2)))
+            if (in_array($this->type_id, array(self::TYPE_POST, self::TYPE_VIDEO))){
+                Scoring::contentCreated($this);
                 FriendEventManager::add(FriendEvent::TYPE_POST_ADDED, array('model' => $this));
+            }
         }
 
         parent::afterSave();
@@ -863,18 +867,19 @@ class CommunityContent extends HActiveRecord
      * Прикрепить запись блога сверху
      * @return bool
      */
-    public function attachBlogPost(){
-        if (!empty($this->real_time)){
+    public function attachBlogPost()
+    {
+        if (!empty($this->real_time)) {
             $this->created = $this->real_time;
             $this->real_time = null;
             return $this->update(array('created', 'real_time'));
-        }else{
+        } else {
             //unAttach other user posts
             $attachedPosts = CommunityContent::model()->findAll(
                 'real_time IS NOT NULL AND author_id=:author_id',
                 array(':author_id' => $this->author_id)
             );
-            foreach($attachedPosts as $attachedPost){
+            foreach ($attachedPosts as $attachedPost) {
                 $attachedPost->created = $attachedPost->real_time;
                 $attachedPost->real_time = null;
                 $attachedPost->update(array('created', 'real_time'));
@@ -902,5 +907,36 @@ class CommunityContent extends HActiveRecord
     public function restore()
     {
         return self::model()->updateByPk($this->id, array('removed' => 0)) > 0;
+    }
+
+    /**
+     * Возвращает массив репостов за последние 24 часа
+     * @return array
+     */
+    public function findLastDayReposts()
+    {
+        $result = array();
+        $t = microtime(true);
+        $reposts = Yii::app()->db->createCommand()
+            ->select('*, count(source_id) as count')
+            ->from($this->tableName())
+            ->group('source_id')
+            ->where('created > "' . date("Y-m-d H:i:s", strtotime('-1 day')) . '" AND source_id IS NOT NULL')
+            ->queryAll();
+        echo microtime(true) - $t . "\n";
+        echo count($reposts) . "\n";
+
+        foreach ($reposts as $repost) {
+            $source = CommunityContent::model()->findByPk($repost['source_id']);
+            if ($source) {
+                $author_id = $source->author_id;
+                if (!isset($result[$author_id]))
+                    $result[$author_id]['CommunityContent'] = array();
+
+                $result[$author_id]['CommunityContent'][$repost['source_id']] = $repost['count'];
+            }
+        }
+
+        return $result;
     }
 }

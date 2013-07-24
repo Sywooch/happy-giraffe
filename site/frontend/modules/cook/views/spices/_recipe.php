@@ -28,7 +28,7 @@
             <?php foreach ($recipe->ingredients as $i): ?>
             <?= $i->ingredient->title ?>
             <?= round($i->value, 2) ?>
-            <?= HDate::GenerateNoun(array($i->unit->title, $i->unit->title2, $i->unit->title3), $i->value) ?>
+            <?= Str::GenerateNoun(array($i->unit->title, $i->unit->title2, $i->unit->title3), $i->value) ?>
             <br/>
             <?php endforeach; ?>
 

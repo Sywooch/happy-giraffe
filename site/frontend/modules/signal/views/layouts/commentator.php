@@ -114,7 +114,6 @@
                             'linkOptions' => array('class' => 'header-nav_i'),
                             'itemOptions' => array('class' => 'header-nav_li header-nav_li__team'),
                             'active' => (Yii::app()->controller->action->id == 'team'),
-                            'visible' =>$this->commentator->chief == 1
                         ),
                     ),
                 ));

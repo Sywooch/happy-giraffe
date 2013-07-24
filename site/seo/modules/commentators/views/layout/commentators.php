@@ -33,6 +33,13 @@
                     'itemOptions' => array('class' => 'header-nav_li header-nav_li__award'),
                     'active' => (Yii::app()->controller->action->id == 'award')
                 ),
+                array(
+                    'label' => '<span class="header-nav_tx">Команды</span>',
+                    'url' => array('/commentators/default/team'),
+                    'linkOptions' => array('class' => 'header-nav_i'),
+                    'itemOptions' => array('class' => 'header-nav_li header-nav_li__team'),
+                    'active' => (Yii::app()->controller->action->id == 'team'),
+                ),
             ),
         ));
 

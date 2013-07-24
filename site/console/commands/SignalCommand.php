@@ -25,6 +25,19 @@ class SignalCommand extends CConsoleCommand
         return true;
     }
 
+    /**
+     * Задать команду пользователя
+     * ./yiic signal team --user_id= --team=2
+     *
+     * @param int $user_id
+     * @param int $team
+     */
+    public function actionTeam($user_id, $team)
+    {
+        $commentator = CommentatorWork::getUser($user_id);
+        $commentator->setTeam($team);
+    }
+
     public function getModerator($user_id)
     {
         shuffle($this->moderators);

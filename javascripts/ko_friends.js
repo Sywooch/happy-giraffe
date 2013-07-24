@@ -1,6 +1,9 @@
 function FriendsViewModel(data) {
     var self = this;
 
+    var REQUEST_TYPE_INCOMING = 0;
+    var REQUEST_TYPE_OUTGOING = 1;
+
     self.friendsCount = ko.observable(data.friendsCount);
     self.friendsOnlineCount = ko.observable(data.friendsOnlineCount);
     self.incomingRequestsCount = ko.observable(data.incomingRequestsCount);
@@ -98,7 +101,7 @@ function FriendsViewModel(data) {
         self.friendsToShow([]);
         self.friendsRequests([]);
 
-        if (self.activeTab() != 2) {
+        if (self.activeTab() <= 1) {
             self.lastPage(false);
             self.loadFriends(function(response) {
                 self.friendsToShow(ko.utils.arrayMap(response.friends, function(friend) {
@@ -106,9 +109,14 @@ function FriendsViewModel(data) {
                 }))
             });
         } else {
-            $.get('/friends/requests/get/', function(response){
+            $.get('/friends/requests/get/', { type : (self.activeTab() == 2) ? REQUEST_TYPE_INCOMING : REQUEST_TYPE_OUTGOING } , function(response){
                 self.friendsRequests(ko.utils.arrayMap(response.requests, function(request) {
-                    return new FriendRequest(request, self);
+                    if (self.activeTab() == 2)
+                        return new IncomingFriendRequest(request, self);
+                    else {
+                        request.invited = true;
+                        return new OutgoingFriendRequest(request, self);
+                    }
                 }));
             }, 'json');
         }
@@ -145,7 +153,7 @@ function Friend(data, parent) {
 
     self.id = ko.observable(data.id);
     self.listId = ko.observable(data.listId);
-    self.user = ko.observable(new User(data.user, parent));
+    self.user = new User(data.user, parent);
     self.pCount = ko.observable(data.pCount);
     self.bCount = ko.observable(data.bCount);
     self.removed = ko.observable(false);
@@ -215,9 +223,15 @@ function Friend(data, parent) {
 function FriendRequest(data, parent) {
     var self = this;
 
-    self.id = ko.observable(data.id);
+    self.id = data.id;
+    self.user = new User(data.user, parent);
+}
+
+function IncomingFriendRequest(data, parent) {
+    var self = this;
+    ko.utils.extend(self, new FriendRequest(data, parent));
+
     self.fromId = ko.observable(data.fromId);
-    self.user = ko.observable(new User(data.user, parent));
     self.removed = ko.observable(false);
 
     self.accept = function() {
@@ -250,42 +264,79 @@ function FriendRequest(data, parent) {
     }
 }
 
+function OutgoingFriendRequest(data, parent) {
+    var self = this;
+    ko.utils.extend(self, new FriendRequest(data, parent));
+
+    self.invited = ko.observable(data.invited);
+
+    self.invite = function() {
+        $.post('/friendRequests/send/', { to_id : self.id }, function(response) {
+            if (response.status)
+                self.invited(true);
+        }, 'json');
+    }
+
+    self.cancel = function() {
+        $.post('/friends/requests/cancel/', { toId : self.id }, function(response) {
+            if (response.success)
+                self.invited(false);
+        }, 'json');
+    }
+
+    self.clickHandler = function() {
+        self.invited() ? self.cancel() : self.invite();
+    }
+
+    self.aCssClass = ko.computed(function() {
+        return self.invited() ? 'b-ava-large_bubble__friend-added' : 'b-ava-large_bubble__friend-add';
+    });
+
+    self.spanCssClass = ko.computed(function() {
+        return self.invited() ? 'b-ava-large_ico__friend-added' : 'b-ava-large_ico__friend-add';
+    });
+
+    self.tooltipText = ko.computed(function() {
+        return self.invited() ? 'Отменить приглашение' : 'Добавить в друзья';
+    });
+}
+
 function User(data, parent) {
     var self = this;
 
-    self.id = ko.observable(data.id);
-    self.online = ko.observable(data.online);
-    self.firstName = ko.observable(data.firstName);
-    self.lastName = ko.observable(data.lastName);
-    self.ava = ko.observable(data.ava);
-    self.gender = ko.observable(data.gender);
+    self.id = data.id;
+    self.online = data.online;
+    self.firstName = data.firstName;
+    self.lastName = data.lastName;
+    self.ava = data.ava;
+    self.gender = data.gender;
     self.age = data.age;
     self.location = data.location;
     self.family = data.family;
 
-    self.fullName = ko.computed(function() {
-        return self.firstName() + ' ' + self.lastName();
-    });
+    self.fullName = function() {
+        return self.firstName + ' ' + self.lastName;
+    };
 
-    self.url = ko.computed(function() {
-        return '/user/' + self.id() + '/';
-    });
+    self.url = function() {
+        return '/user/' + self.id + '/';
+    };
 
-    self.dialogUrl = ko.computed(function() {
-        return '/messaging/?interlocutorId=' + self.id();
-    });
+    self.dialogUrl = function() {
+        return '/messaging/?interlocutorId=' + self.id;
+    };
 
-    self.albumsUrl = ko.computed(function() {
-        return '/user/' + self.id() + '/albums/';
-    });
+    self.albumsUrl = function() {
+        return '/user/' + self.id + '/albums/';
+    };
 
-    self.blogUrl = ko.computed(function() {
-        return '/user/' + self.id() + '/blog/';
-    });
+    self.blogUrl = function() {
+        return '/user/' + self.id + '/blog/';
+    };
 
-    self.avaClass = ko.computed(function() {
-        return self.gender() == 1 ? 'male' : 'female';
-    });
+    self.avaClass = function() {
+        return self.gender == 1 ? 'male' : 'female';
+    };
 }
 
 function List(data, parent) {

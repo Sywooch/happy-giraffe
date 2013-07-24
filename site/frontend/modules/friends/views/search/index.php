@@ -13,7 +13,7 @@ Yii::app()->clientScript
     <div class="col-23">
         <ul class="breadcrumbs-big clearfix">
             <li class="breadcrumbs-big_i">
-                <a class="breadcrumbs-big_a" href="">Мои друзья (<?=$friendsCount?>)</a>
+                <a class="breadcrumbs-big_a" href="<?=$this->createUrl('/friends/default/index')?>">Мои друзья (<?=$friendsCount?>)</a>
             </li>
             <li class="breadcrumbs-big_i">Найти друзей </li>
         </ul>
@@ -172,8 +172,8 @@ Yii::app()->clientScript
 
         <!-- ko if: ! (users().length == 0 && loading() === false) -->
         <div class="friends-list friends-list__family margin-t20">
-            <!-- ko foreach: { data: users, afterRender: function(element, model) { ko.applyBindings(model, $(element).find('.b-ava-large').get(0)); } } -->
-            <div class="friends-list_i" data-bind="html: html"></div>
+            <!-- ko template: { name : 'request-template', foreach : users } -->
+
             <!-- /ko -->
 
             <div id="infscr-loading" data-bind="visible: loading"><img src="/images/ico/ajax-loader.gif" alt="Loading..."><div>Загрузка</div></div>
@@ -189,3 +189,5 @@ Yii::app()->clientScript
         ko.applyBindings(vm);
     });
 </script>
+
+<?php $this->renderPartial('/_requestTemplate'); ?>

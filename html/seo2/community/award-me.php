@@ -79,6 +79,18 @@
                         <a href="">Как писать посты, которые приведут на сайт наибольшее количество людей из поисковиков (блог и записи в клубах)</a>
                     </div>
                 </div>
+                <div class="award-me_i award-me_i__1">
+                    <div class="award-me_t">Новые <br>друзья</div>
+                    <div class="award-me_value">785</div>
+                    <div class="award-me_place">
+                        <div class="award-me_place-value">222</div>
+                        <div class="award-me_place-tx">место</div>
+                    </div>
+                    <div class="award-me_desc">
+                        <div class="ico-info"></div> <br>
+                        <a href="">Как завести наиболшее количество дружеских связей (болше всего друзей на сайте)</a>
+                    </div>
+                </div>
             </div>
 
         </div>

@@ -2596,11 +2596,15 @@ body {
 /* /secret */
 /* award-me */
 .award-me {
-  margin: 0 73px 30px;
+  margin: 0 auto 30px;
+  text-align: center;
 }
 .award-me_i {
-  float: left;
-  width: 170px;
+  display: inline-block;
+  *zoom: 1;
+  *display: inline;
+  vertical-align: top;
+  width: 160px;
   margin: 0 4px;
 }
 .award-me_i__1 {

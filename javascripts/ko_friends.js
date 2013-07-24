@@ -1,6 +1,9 @@
 function FriendsViewModel(data) {
     var self = this;
 
+    var REQUEST_TYPE_INCOMING = 0;
+    var REQUEST_TYPE_OUTGOING = 1;
+
     self.friendsCount = ko.observable(data.friendsCount);
     self.friendsOnlineCount = ko.observable(data.friendsOnlineCount);
     self.incomingRequestsCount = ko.observable(data.incomingRequestsCount);
@@ -13,7 +16,8 @@ function FriendsViewModel(data) {
     self.friendsToShow = ko.observableArray([]);
     self.activeTab = ko.observable(self.incomingRequestsCount() > 0 ? 2 : 0);
     self.newListTitle = ko.observable('');
-    self.searchQuery = ko.observable('');
+    self.instantaneousQuery = ko.observable('');
+    self.query = ko.computed(this.instantaneousQuery).extend({ throttle: 400 });
     self.loading = ko.observable(false);
     self.lastPage = ko.observable(false);
     self.friendsRequests = ko.observableArray([]);
@@ -27,21 +31,18 @@ function FriendsViewModel(data) {
         self.newSelected(false);
         self.activeTab(0);
         self.selectedListId(null);
-        self.init();
     }
 
     self.selectNew = function() {
         self.newSelected(true);
         self.activeTab(0);
         self.selectedListId(null);
-        self.init();
     }
 
     self.selectTab = function(tab) {
         self.newSelected(false);
         self.selectedListId(null);
         self.activeTab(tab);
-        self.init();
     }
 
     self.getListById = function(listId) {
@@ -67,38 +68,34 @@ function FriendsViewModel(data) {
         }, 'json');
     }
 
-    self.searchQuery.subscribe(function() {
+    self.query.subscribe(function() {
         self.init();
     });
 
     self.loadFriends = function(callback, offset) {
-        self.loading(true);
-
         var data = {};
         if (self.activeTab() === 1)
             data.online = 1;
         if (self.selectedListId() !== null)
             data.listId = self.selectedListId();
-        if (self.searchQuery() !== '')
-            data.query = self.searchQuery();
+        if (self.query() !== '')
+            data.query = self.query();
         if (typeof offset !== "undefined")
             data.offset = offset;
         if (self.newSelected() === true)
             data.new = 1;
 
+        self.loading(true);
         $.get('/friends/default/get/', data, function(response) {
-            callback(response);
             self.loading(false);
+            callback(response);
             if (response.last)
                 self.lastPage(true);
         }, 'json');
     }
 
     self.init = function() {
-        self.friendsToShow([]);
-        self.friendsRequests([]);
-
-        if (self.activeTab() != 2) {
+        if (self.activeTab() <= 1) {
             self.lastPage(false);
             self.loadFriends(function(response) {
                 self.friendsToShow(ko.utils.arrayMap(response.friends, function(friend) {
@@ -106,9 +103,16 @@ function FriendsViewModel(data) {
                 }))
             });
         } else {
-            $.get('/friends/requests/get/', function(response){
+            self.loading(true);
+            $.get('/friends/requests/get/', { type : (self.activeTab() == 2) ? REQUEST_TYPE_INCOMING : REQUEST_TYPE_OUTGOING } , function(response) {
+                self.loading(false);
                 self.friendsRequests(ko.utils.arrayMap(response.requests, function(request) {
-                    return new FriendRequest(request, self);
+                    if (self.activeTab() == 2)
+                        return new IncomingFriendRequest(request, self);
+                    else {
+                        request.invited = true;
+                        return new OutgoingFriendRequest(request, self);
+                    }
                 }));
             }, 'json');
         }
@@ -124,12 +128,29 @@ function FriendsViewModel(data) {
         }, self.friendsToShow().length);
     }
 
+    self.templateName = function() {
+        return self.activeTab() <= 1 ? 'user-template' : 'request-template';
+    }
+
+    self.templateForeach = ko.computed(function() {
+        return self.activeTab() <= 1 ? self.friendsToShow() : self.friendsRequests();
+    })
+
     self.init();
 
     $('.layout-container').scroll(function() {
-        if (self.activeTab() != 2 && self.loading() === false && self.lastPage() === false && (($('.layout-container').scrollTop() + $('.layout-container').height()) > ($('.layout-container').prop('scrollHeight') - 200)))
+        if (self.activeTab() <= 1 && self.loading() === false && self.lastPage() === false && (($('.layout-container').scrollTop() + $('.layout-container').height()) > ($('.layout-container').prop('scrollHeight') - 200)))
             self.nextPage();
     });
+
+    ko.computed(function() {
+        self.newSelected();
+        self.selectedListId();
+        self.activeTab();
+        self.friendsToShow([]);
+        self.friendsRequests([]);
+        self.init();
+    })
 }
 
 function Friend(data, parent) {
@@ -137,7 +158,7 @@ function Friend(data, parent) {
 
     self.id = ko.observable(data.id);
     self.listId = ko.observable(data.listId);
-    self.user = ko.observable(new User(data.user, parent));
+    self.user = new User(data.user, parent);
     self.pCount = ko.observable(data.pCount);
     self.bCount = ko.observable(data.bCount);
     self.removed = ko.observable(false);
@@ -207,14 +228,21 @@ function Friend(data, parent) {
 function FriendRequest(data, parent) {
     var self = this;
 
-    self.id = ko.observable(data.id);
-    self.fromId = ko.observable(data.fromId);
-    self.user = ko.observable(new User(data.user, parent));
+    self.id = data.id;
+    self.user = new User(data.user, parent);
+}
 
-    self.accept = function(request) {
+function IncomingFriendRequest(data, parent) {
+    var self = this;
+    ko.utils.extend(self, new FriendRequest(data, parent));
+
+    self.fromId = ko.observable(data.fromId);
+    self.removed = ko.observable(false);
+
+    self.accept = function() {
         $.post('/friends/requests/accept/', { requestId : self.id() }, function(response) {
             if (response.success) {
-                parent.friendsRequests.remove(request);
+                parent.friendsRequests.remove(self);
                 parent.friendsCount(parent.friendsCount() + 1);
                 parent.friendsNewCount(parent.friendsNewCount() + 1);
                 parent.incomingRequestsCount(parent.incomingRequestsCount() - 1);
@@ -224,49 +252,96 @@ function FriendRequest(data, parent) {
         }, 'json');
     }
 
-    self.decline = function(request) {
+    self.decline = function() {
         $.post('/friends/requests/decline/', { requestId : self.id() }, function(response) {
             if (response.success) {
-                parent.friendsRequests.remove(request);
-                parent.incomingRequestsCount(parent.incomingRequestsCount() + 1);
+                self.removed(true);
+                parent.incomingRequestsCount(parent.incomingRequestsCount() - 1);
             }
         }, 'json');
     }
+
+    self.restore = function() {
+        $.post('/friends/requests/restore/', { requestId : self.id() }, function(response) {
+            if (response.success)
+                self.removed(false);
+        }, 'json');
+    }
+}
+
+function OutgoingFriendRequest(data, parent) {
+    var self = this;
+    ko.utils.extend(self, new FriendRequest(data, parent));
+
+    self.invited = ko.observable(data.invited);
+
+    self.invite = function() {
+        $.post('/friendRequests/send/', { to_id : self.id }, function(response) {
+            if (response.status)
+                self.invited(true);
+        }, 'json');
+    }
+
+    self.cancel = function() {
+        $.post('/friends/requests/cancel/', { toId : self.id }, function(response) {
+            if (response.success)
+                self.invited(false);
+        }, 'json');
+    }
+
+    self.clickHandler = function() {
+        self.invited() ? self.cancel() : self.invite();
+    }
+
+    self.aCssClass = ko.computed(function() {
+        return self.invited() ? 'b-ava-large_bubble__friend-added' : 'b-ava-large_bubble__friend-add';
+    });
+
+    self.spanCssClass = ko.computed(function() {
+        return self.invited() ? 'b-ava-large_ico__friend-added' : 'b-ava-large_ico__friend-add';
+    });
+
+    self.tooltipText = ko.computed(function() {
+        return self.invited() ? 'Отменить приглашение' : 'Добавить в друзья';
+    });
 }
 
 function User(data, parent) {
     var self = this;
 
-    self.id = ko.observable(data.id);
-    self.online = ko.observable(data.online);
-    self.firstName = ko.observable(data.firstName);
-    self.lastName = ko.observable(data.lastName);
-    self.ava = ko.observable(data.ava);
-    self.gender = ko.observable(data.gender);
+    self.id = data.id;
+    self.online = data.online;
+    self.firstName = data.firstName;
+    self.lastName = data.lastName;
+    self.ava = data.ava;
+    self.gender = data.gender;
+    self.age = data.age;
+    self.location = data.location;
+    self.family = data.family;
 
-    self.fullName = ko.computed(function() {
-        return self.firstName() + ' ' + self.lastName();
-    });
+    self.fullName = function() {
+        return self.firstName + ' ' + self.lastName;
+    };
 
-    self.url = ko.computed(function() {
-        return '/user/' + self.id() + '/';
-    });
+    self.url = function() {
+        return '/user/' + self.id + '/';
+    };
 
-    self.dialogUrl = ko.computed(function() {
-        return '/messaging/?interlocutorId=' + self.id();
-    });
+    self.dialogUrl = function() {
+        return '/messaging/?interlocutorId=' + self.id;
+    };
 
-    self.albumsUrl = ko.computed(function() {
-        return '/user/' + self.id() + '/albums/';
-    });
+    self.albumsUrl = function() {
+        return '/user/' + self.id + '/albums/';
+    };
 
-    self.blogUrl = ko.computed(function() {
-        return '/user/' + self.id() + '/blog/';
-    });
+    self.blogUrl = function() {
+        return '/user/' + self.id + '/blog/';
+    };
 
-    self.avaClass = ko.computed(function() {
-        return self.gender() == 1 ? 'male' : 'female';
-    });
+    self.avaClass = function() {
+        return self.gender == 1 ? 'male' : 'female';
+    };
 }
 
 function List(data, parent) {
@@ -298,3 +373,18 @@ function List(data, parent) {
         self.friendsCount(self.friendsCount() - 1);
     }
 }
+
+ko.bindingHandlers.tooltip = {
+    init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+        $(element).data('powertip', valueAccessor());
+    },
+    update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+        $(element).data('powertip', valueAccessor());
+        $(element).powerTip({
+            placement: 'n',
+            smartPlacement: true,
+            popupId: 'tooltipsy-im',
+            offset: 8
+        });
+    }
+};

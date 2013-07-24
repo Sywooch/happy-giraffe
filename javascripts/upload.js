@@ -38,6 +38,14 @@ function UploadPhotos() {
                 return false;
             });
     };
+
+    self.getPhotoIds = function(){
+        var ids = [];
+        for (var i = 0; i < self.photos().length; i++)
+            ids.push(self.photos()[i].id());
+
+        return ids;
+    }
 }
 
 function UploadedPhoto(file, parent) {
@@ -48,11 +56,11 @@ function UploadedPhoto(file, parent) {
     self.uid = FileAPI.uid(file);
     self.id = ko.observable('');
     self.status = ko.observable(0);
-    self.progress = ko.observable(0);
+    self._progress = ko.observable(0);
 
     if (/^image/.test(self.file.type)) {
         FileAPI.Image(self.file).preview(195, 125).rotate('auto').get(function (err, img) {
-            $('#uploaded_photo_' + self.uid).prepend(img);
+            $('#uploaded_photo_' + self.uid+' .js-image').prepend(img);
         });
     }
 
@@ -65,16 +73,24 @@ function UploadedPhoto(file, parent) {
                 self.status(1);
             },
             progress: function (evt) {
-                self.progress(evt.loaded / evt.total * 100);
+                var percent = evt.loaded / evt.total * 100;
+                self._progress(percent);
             },
             complete: function (err, xhr) {
-                self.progress(100);
+                var response = $.parseJSON('[' + xhr.response + ']')[0];
+                self.id(response.id);
+                self._progress(100);
                 self.status(2);
+                $('#uploaded_photo_' + self.uid+' .js-image').css({ opacity: 1 });
                 self.parent.active = false;
                 self.parent.start();
             }
         });
     };
+
+    self.progress = ko.computed(function () {
+        return self._progress()+'%';
+    });
 
     self.remove = function () {
         if (self.file.xhr)

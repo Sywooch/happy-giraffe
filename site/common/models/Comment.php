@@ -212,7 +212,7 @@ class Comment extends HActiveRecord
                 $relatedModel = $this->getRelatedModel();
                 $relatedModel->last_updated = new CDbExpression('NOW()');
                 $relatedModel->update(array('last_updated'));
-                $relatedModel->sendEvent();
+                //$relatedModel->sendEvent();
             }
 
             Yii::import('site.frontend.modules.routes.models.*');

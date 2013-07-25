@@ -30,11 +30,6 @@ class CommunityPost extends HActiveRecord
             'addImageTags' => array(
                 'class' => 'site.common.behaviors.AddImageTagsBehavior',
             ),
-            'cut' => array(
-                'class' => 'site.common.behaviors.CutBehavior',
-                'attributes' => array('text'),
-                'edit_routes' => array('community/edit'),
-            ),
             'purified' => array(
                 'class' => 'site.common.behaviors.PurifiedBehavior',
                 'attributes' => array('text'),

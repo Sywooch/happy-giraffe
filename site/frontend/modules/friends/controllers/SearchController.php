@@ -33,24 +33,25 @@ class SearchController extends HController
                 'name' => $country->name,
             );
         }, GeoCountry::model()->findAll(array('order' => 't.name ASC')));
-        $data = compact('countries');
+        $friendsCount = Friend::model()->getCountByUserId(Yii::app()->user->id);
+        $json = compact('countries');
 
         $this->pageTitle = 'Найти друзей';
-        $this->render('index', compact('data'));
+        $this->render('index', compact('json', 'friendsCount'));
     }
 
     public function actionGet()
     {
         $dp = FriendsSearchManager::getDataProvider(Yii::app()->user->id, $_GET);
-        $users = array_map(array($this, 'populateFriend'), $dp->data);
+        $users = array_map(function($user) {
+            return array(
+                'id' => null,
+                'user' => FriendsManager::userToJson($user),
+            );
+        }, $dp->data);
         $currentPage = $dp->pagination->currentPage + 1;
         $pageCount = $dp->pagination->pageCount;
         $data = compact('users', 'currentPage', 'pageCount');
         echo CJSON::encode($data);
-    }
-
-    protected function populateFriend($friend)
-    {
-        return $this->renderPartial('_friend', $friend, true);
     }
 }

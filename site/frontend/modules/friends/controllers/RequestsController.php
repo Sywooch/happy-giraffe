@@ -8,6 +8,9 @@
  */
 class RequestsController extends HController
 {
+    const TYPE_INCOMING = 0;
+    const TYPE_OUTGOING = 1;
+
     public function filters()
     {
         return array(
@@ -25,20 +28,19 @@ class RequestsController extends HController
         );
     }
 
-    public function actionGet()
+    public function actionGet($type)
     {
-        $requests = array_map(function($request) {
+        $column = ($type == self::TYPE_INCOMING) ? 'to_id' : 'from_id';
+
+        $self = $this;
+        $requests = array_map(function($request) use ($type, $self) {
+            $user = ($type == $self::TYPE_INCOMING) ? $request->from : $request->to;
+
             return array(
                 'id' => $request->id,
-                'user' => array(
-                    'id' => $request->from->id,
-                    'online' => (bool) $request->from->online,
-                    'firstName' => $request->from->first_name,
-                    'lastName' => $request->from->last_name,
-                    'ava' => $request->from->getAva('large'),
-                ),
+                'user' => FriendsManager::userToJson($user),
             );
-        }, FriendRequest::model()->with('from')->findAllByAttributes(array('to_id' => Yii::app()->user->id, 'status' => 'pending')));
+        }, FriendRequest::model()->with('from')->findAllByAttributes(array($column => Yii::app()->user->id, 'status' => 'pending')));
 
         $response = compact('requests');
         echo CJSON::encode($response);
@@ -66,9 +68,32 @@ class RequestsController extends HController
         $requestId = Yii::app()->request->getPost('requestId');
 
         if ($requestId === null)
-            $requestId = FriendRequest::model()->findPendingRequest($fromId, Yii::app()->user->id);
+            $requestId = FriendRequest::model()->findPendingRequest($fromId, Yii::app()->user->id)->id;
 
         $success = FriendRequest::model()->updateByPk($requestId, array('status' => 'declined')) > 0;
+
+        $response = compact('success');
+        echo CJSON::encode($response);
+    }
+
+    public function actionCancel() {
+        $toId = Yii::app()->request->getPost('toId');
+        $requestId = Yii::app()->request->getPost('requestId');
+
+        if ($requestId === null)
+            $requestId = FriendRequest::model()->findPendingRequest(Yii::app()->user->id, $toId)->id;
+
+        $success = FriendRequest::model()->deleteByPk($requestId) > 0;
+
+        $response = compact('success');
+        echo CJSON::encode($response);
+    }
+
+    public function actionRestore()
+    {
+        $requestId = Yii::app()->request->getPost('requestId');
+
+        $success = FriendRequest::model()->updateByPk($requestId, array('status' => 'pending')) > 0;
 
         $response = compact('success');
         echo CJSON::encode($response);

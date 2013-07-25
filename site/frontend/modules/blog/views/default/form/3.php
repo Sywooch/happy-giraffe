@@ -7,7 +7,7 @@
 ?>
 <?php $this->renderPartial('form/script'); ?>
 
-<div class="b-settings-blue b-settings-blue__photo">
+<div class="b-settings-blue b-settings-blue__photo"<?php if (!$model->isNewRecord) echo ' style="display:none;"' ?>>
     <div class="b-settings-blue_tale"></div>
     <div class="clearfix">
 
@@ -43,7 +43,7 @@
         var PhotoPostViewModel = function (data) {
             var self = this;
             ko.utils.extend(self, new BlogFormViewModel(data));
-            self.upload = ko.observable(new UploadPhotos());
+            self.upload = ko.observable(new UploadPhotos(data.photos));
 
             self.add = function () {
                 console.log(self.upload().getPhotoIds());
@@ -69,7 +69,6 @@
                         photo_ids.push(a[i].id());
                     }
 
-                    console.log(photo_ids);
                     $.post('/ajaxSimple/addPhoto/', {album_id: self.id, photo_ids: photo_ids}, function (response) {
                         if (response.status)
                             $.fancybox.close();

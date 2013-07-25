@@ -13,6 +13,7 @@
  * @property integer $photo_id
  *
  * @property AlbumPhoto $photo
+ * @property CommunityContent $content
  */
 class CommunityVideo extends HActiveRecord
 {
@@ -29,11 +30,6 @@ class CommunityVideo extends HActiveRecord
 	public function behaviors()
 	{
 		return array(
-			'cut' => array(
-                'class' => 'site.common.behaviors.CutBehavior',
-				'attributes' => array('text'),
-				'edit_routes' => array('community/edit'),
-			),
             'purified' => array(
                 'class' => 'site.common.behaviors.PurifiedBehavior',
                 'attributes' => array('text'),

@@ -57,7 +57,6 @@ class DefaultController extends HController
             $this->pageTitle = strip_tags($content->status->text);
         else
             $this->pageTitle = $content->title;
-        $this->registerCounter();
 
         $this->rubric_id = ($content->type_id == 5) ? null : $content->rubric->id;
 
@@ -151,7 +150,7 @@ class DefaultController extends HController
             'privacy' => (int) $model->privacy,
             'text' => (string) $slaveModel->text,
         );
-        if ($model->type_id == 5) {
+        if ($model->type_id == CommunityContent::TYPE_STATUS) {
             $json['moods'] = array_map(function($mood) {
                 return array(
                     'id' => (int) $mood->id,
@@ -160,6 +159,13 @@ class DefaultController extends HController
             }, UserMood::model()->findAll(array('order' => 'id ASC')));
             $json['mood_id'] = $slaveModel->mood_id;
         }
+        if ($model->type_id == CommunityContent::TYPE_PHOTO_POST) {
+            if ($model->isNewRecord)
+                $json['photos'] = array();
+            else
+                $json['photos'] = $model->getContent()->getPhotoPostData();
+        }
+
         if (Yii::app()->request->getPost('short'))
             $this->renderPartial('form/'.$model->type_id, compact('model', 'slaveModel', 'json'), false, true);
         else
@@ -176,25 +182,15 @@ class DefaultController extends HController
         $slaveModelName = 'Community' . ucfirst($slug);
         $slaveModel = ($id === null) ? new $slaveModelName() : $model->content;
         $slaveModel->attributes = $_POST[$slaveModelName];
-        if ($slug == 'PhotoPost'){
-            $photoIds = explode(',', Yii::app()->request->getPost('photos'));
-            $slaveModel->photo_id = $photoIds[0];
-        }
         $this->performAjaxValidation(array($model, $slaveModel));
         $model->$slug = $slaveModel;
         $success = $model->withRelated->save(true, array($slug));
-        if ($success){
-            if ($slug == 'PhotoPost'){
-                foreach($photoIds as $photoId){
-                    $model = new AttachPhoto();
-                    $model->photo_id = $photoId;
-                    $model->entity = 'CommunityContent';
-                    $model->entity_id = $model->id;
-                    $model->save();
-                }
-            }
 
+        if ($success){
             $this->redirect($model->url);
+        }else{
+            var_dump($model->getErrors());
+            var_dump($slaveModel->getErrors());
         }
     }
 

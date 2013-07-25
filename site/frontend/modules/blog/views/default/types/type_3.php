@@ -24,7 +24,7 @@ $post = $data->photoPost;
 
     <div class="b-article_in clearfix">
         <div class="wysiwyg-content clearfix">
-            <p><?=strip_tags($post->text) ?></p>
+            <?= $data->preview ?>
             <div class="b-article_in-img">
                 <img src="<?=$post->photo->getPreviewUrl(580, 1000, Image::WIDTH) ?>" class="content-img">
             </div>

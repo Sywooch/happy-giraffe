@@ -19,11 +19,11 @@
 		
 		<div class="layout-content clearfix">
 		
-		<div class="section-user">
-			<div class="section-user_hold">
-				<div class="section-user_left">
-					<h1 class="section-user_name">Ангелина Богоявленская</h1>
-					<div class="clearfix">
+		<div class="section-lilac">
+			<div class="section-lilac_hold">
+				<div class="section-lilac_left">
+					<h1 class="section-lilac_name">Ангелина Богоявленская</h1>
+					<div class="margin-b5 clearfix">
 						33 года, 28 января
 					</div>
 					<div class="location clearfix">
@@ -59,7 +59,7 @@
                     	</a>
                     </div>
 				</div>
-				<div class="section-user_center">
+				<div class="section-lilac_center">
 					<div class="b-ava-large">
 						<div class="ava large">
 							<img src="/images/example/ava-large.jpg" alt="">
@@ -67,9 +67,9 @@
 						<span class="b-ava-large_lastvisit">Была на сайте <br> 28 янв 20:58</span>
 						
 					</div>
-					<div class="section-user_center-reg">с Веселым Жирафом 2 года 5 месяцев 203 дня</div>
+					<div class="section-lilac_center-reg">с Веселым Жирафом 2 года 5 месяцев 203 дня</div>
 				</div>
-				<div class="section-user_right">
+				<div class="section-lilac_right">
 					<div class="b-famyli">
 						<div class="b-famyli_top b-famyli_top__white"></div>
 						<ul class="b-famyli_ul">

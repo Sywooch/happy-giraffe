@@ -19,10 +19,10 @@
 		
 		<div class="layout-content clearfix">
 		
-		<div class="section-user">
-			<div class="section-user_hold">
-				<div class="section-user_left">
-					<h1 class="section-user_name">Ангелина Богоявленская</h1>
+		<div class="section-lilac">
+			<div class="section-lilac_hold">
+				<div class="section-lilac_left">
+					<h1 class="section-lilac_name">Ангелина Богоявленская</h1>
 					
                     <div class="user-btns clearfix">
                     	<a href="" class="user-btns_i powertip" title="Добавить в друзья">
@@ -39,7 +39,7 @@
                     	</a>
                     </div>
 				</div>
-				<div class="section-user_center">
+				<div class="section-lilac_center">
 					<div class="b-ava-large">
 						<div class="ava large">
 							
@@ -47,9 +47,9 @@
 						<span class="b-ava-large_lastvisit">Была на сайте <br> 28 янв 20:58</span>
 						
 					</div>
-					<div class="section-user_center-reg">с Веселым Жирафом 2 дня</div>
+					<div class="section-lilac_center-reg">с Веселым Жирафом 2 дня</div>
 				</div>
-				<div class="section-user_right">
+				<div class="section-lilac_right">
 					<div class="b-famyli">
 						<div class="b-famyli_top b-famyli_top__white"></div>
 						<div class="b-famyli_empty">Ангелина пока не указала свою семью</div>

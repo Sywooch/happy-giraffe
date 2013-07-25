@@ -432,6 +432,9 @@ html.top-nav-fixed {
 .w-720 {
   width: 720px;
 }
+.h-40 {
+  height: 40px;
+}
 .bg-none {
   background: none;
 }
@@ -676,6 +679,26 @@ a.pseudo:hover,
 .a-pseudo-grayblue:hover {
   color: #2c95d6;
   border-color: #2c95d6;
+}
+.a-pseudo-icon {
+  display: inline-block;
+  *zoom: 1;
+  *display: inline;
+  margin: 0 12px;
+  text-decoration: none;
+}
+.a-pseudo-icon:hover .ico-edit {
+  background-position: 0 -15px;
+}
+.a-pseudo-icon:hover .a-pseudo-icon_tx {
+  text-decoration: none;
+  border-bottom-color: #2c95d6;
+  color: #2c95d6;
+}
+.a-pseudo-icon_tx {
+  font-size: 12px;
+  border-bottom: 1px dotted #bab9b9;
+  color: #bab9b9;
 }
 /* /links */
 /* ava avatar */
@@ -1231,6 +1254,18 @@ a.pseudo:hover,
 }
 .ico-view__gray {
   background-position: -182px -295px;
+}
+.ico-edit {
+  display: inline-block;
+  *zoom: 1;
+  *display: inline;
+  vertical-align: middle;
+  width: 12px;
+  height: 15px;
+  background: url(/images/ico/ico-edit.png) no-repeat;
+}
+.ico-edit:hover {
+  background-position: 0 -15px;
 }
 .ico-users {
   display: inline-block;
@@ -6374,64 +6409,9 @@ textarea.error,
 .chzn-v2-lilac .chzn-container .chzn-results .highlighted {
   background: #a687c7;
 }
-.chzn-bluelight {
-  display: inline-block;
-  *zoom: 1;
-  *display: inline;
-  height: 25px;
-  min-width: 78px;
-  width: 100%;
-}
-.chzn-bluelight .chzn-container-single {
-  vertical-align: middle;
-  width: 100% !important;
-}
-.chzn-bluelight .chzn-container-single .chzn-single {
-  height: 25px;
-  border-color: #82b6f5;
-  padding-left: 7px;
-}
-.chzn-bluelight .chzn-container-single .chzn-drop {
-  border: none;
-  width: 100% !important;
-}
-.chzn-bluelight .chzn-container-single .chzn-results {
-  border: 1px solid #82b6f5;
-  margin: 0;
-  padding: 2px;
-}
-.chzn-bluelight .chzn-container-single .chzn-single span {
-  height: 25px;
-  line-height: 25px;
-  color: #514f4f;
-  font-size: 12px;
-  margin-right: 40px;
-}
-.chzn-bluelight .chzn-container-single .chzn-single div {
-  background: #d2e6fe;
-  height: 23px;
-  width: 30px;
-  border-left: 0;
-  border-color: #82b6f5;
-  top: 0;
-  right: 0;
-}
-.chzn-bluelight .chzn-container-single .chzn-single div b {
-  width: 12px;
-  height: 8px;
-  background: url(/images/arrow-d.png) no-repeat;
-}
-.chzn-bluelight .chzn-container .chzn-results li {
-  line-height: 18px;
-}
-.chzn-bluelight .chzn-container .chzn-results .highlighted {
-  background: #d2e6fe;
-  color: #514F4F;
-}
 .chzn-textalign-c .chzn-container-single .chzn-single span {
   text-align: center !important;
 }
-/* ------------- store cart form select -------------- */
 /* ------------- pregnancy term select -------------- */
 select.pregnancy_term {
   width: 140px;
@@ -6570,6 +6550,126 @@ select.pregnancy_term + .chzn-container .chzn-results li {
   width: 10px;
   height: 10px;
   background: url(/images/chzn-itx-simple_add-del.png) no-repeat;
+}
+.chzn-bluelight {
+  display: inline-block;
+  *zoom: 1;
+  *display: inline;
+  height: 25px;
+  min-width: 78px;
+  width: 100%;
+}
+.chzn-bluelight .chzn-container-single {
+  vertical-align: middle;
+  width: 100% !important;
+}
+.chzn-bluelight .chzn-container-single .chzn-single {
+  height: 25px;
+  border-color: #82b6f5;
+  padding-left: 7px;
+}
+.chzn-bluelight .chzn-container-single .chzn-drop {
+  border: none;
+  width: 100% !important;
+}
+.chzn-bluelight .chzn-container-single .chzn-results {
+  border: 1px solid #82b6f5;
+  margin: 0;
+  padding: 2px;
+}
+.chzn-bluelight .chzn-container-single .chzn-single span {
+  height: 25px;
+  line-height: 25px;
+  color: #514f4f;
+  font-size: 12px;
+  margin-right: 40px;
+}
+.chzn-bluelight .chzn-container-single .chzn-single div {
+  background: #d2e6fe;
+  height: 23px;
+  width: 30px;
+  border-left: 0;
+  border-color: #82b6f5;
+  top: 0;
+  right: 0;
+}
+.chzn-bluelight .chzn-container-single .chzn-single div b {
+  width: 12px;
+  height: 8px;
+  background: url(/images/arrow-d.png) no-repeat;
+}
+.chzn-bluelight .chzn-container .chzn-results li {
+  line-height: 18px;
+}
+.chzn-bluelight .chzn-container .chzn-results .highlighted {
+  background: #d2e6fe;
+  color: #514F4F;
+}
+.chzn-gray {
+  display: inline-block;
+  *zoom: 1;
+  *display: inline;
+  height: 25px;
+  min-width: 78px;
+  width: 100%;
+}
+.chzn-gray .chzn-container-single {
+  vertical-align: middle;
+  width: 100% !important;
+}
+.chzn-gray .chzn-container-single .chzn-single {
+  height: 25px;
+  border-color: #e1e1e1;
+  padding-left: 7px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+.chzn-gray .chzn-container-active .chzn-single {
+  border-color: #a5daf9;
+}
+.chzn-gray .chzn-container-single .chzn-drop {
+  border: none;
+  width: 100% !important;
+}
+.chzn-gray .chzn-container-single .chzn-results {
+  border: 1px solid #a5daf9;
+  margin: 0;
+  padding: 2px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+.chzn-gray .chzn-container-single .chzn-single span {
+  height: 25px;
+  line-height: 25px;
+  color: #514f4f;
+  font-size: 12px;
+  margin-right: 40px;
+}
+.chzn-gray .chzn-container-single .chzn-single div {
+  background: #fff;
+  height: 23px;
+  width: 30px;
+  border-left: 0;
+  border-color: #82b6f5;
+  top: 0;
+  right: 0;
+}
+.chzn-gray .chzn-container-single .chzn-single div b {
+  width: 12px;
+  height: 8px;
+  background: url(/images/arrow-d-gray.png) no-repeat;
+}
+.chzn-gray .chzn-container-active .chzn-single div b {
+  background: url(/images/arrow-d.png) no-repeat;
+}
+.chzn-gray .chzn-container .chzn-results li {
+  line-height: 18px;
+}
+.chzn-gray .chzn-container .chzn-results .highlighted {
+  background: #d2e6fe;
+  color: #514F4F;
 }
 /* select */.content-cols {
   /* col-1 */
@@ -15967,7 +16067,8 @@ select.pregnancy_term + .chzn-container .chzn-results li {
   vertical-align: middle;
   width: 150px;
   margin-right: 5px;
-  border: 1px solid #CADDF4;
+  border: 1px solid #E1E1E1;
+  background: #fff;
   padding: 3px 10px;
   line-height: 16px;
 }
@@ -20307,6 +20408,26 @@ select.pregnancy_term + .chzn-container .chzn-results li {
 .b-famyli_empty {
   font-size: 12px;
   color: #ded2e9;
+}
+.b-famyli_add {
+  display: block;
+  font-size: 13px;
+  color: #fff;
+}
+.b-famyli_add-b {
+  display: block;
+  width: 55px;
+  height: 55px;
+  border: 2px dashed #fff;
+  margin: 0 auto 8px;
+  background: #927aa8;
+  background: rgba(0, 0, 0, 0.15) url(/images/b-famyli_add-b.png) no-repeat 50% 50%;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+.b-famyli_add-b:hover {
+  background-color: rgba(0, 0, 0, 0.3);
 }
 /* /b-famyli */
 /* valentine-banner */

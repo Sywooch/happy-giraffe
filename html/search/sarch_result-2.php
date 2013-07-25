@@ -33,7 +33,7 @@
 				<div class="content-search_utility clearfix">
 					<div class="content-search_found">Найдено <span class="search-highlight">365</span></div>
 					<div class="content-search_select">
-						<div class="chzn-bluelight">
+						<div class="chzn-gray">
 							<select class="chzn">
 								<option>по рейтингу</option>
 								<option>по популярности</option>

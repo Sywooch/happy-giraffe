@@ -72,6 +72,24 @@ a.pseudo:hover,
 .a-pseudo:hover {text-decoration:none;border-bottom-color:transparent;}
 .a-pseudo-grayblue {text-decoration:none;border-bottom:1px dotted #a0a09f;color: #a0a09f;}
 .a-pseudo-grayblue:hover {color: #2c95d6;border-color: #2c95d6;}
+
+.a-pseudo-icon {
+	.inline-block();
+	margin: 0 12px;
+	text-decoration: none;
+
+	&:hover .ico-edit {background-position: 0 -15px;}
+	&:hover &_tx {
+		text-decoration:none;
+		border-bottom-color:#2c95d6;
+		color: #2c95d6;
+	}
+	&_tx {
+		font-size: 12px;
+		border-bottom:1px dotted #bab9b9;
+		color: #bab9b9;
+	}
+}
 /* /links */
 
 /* ava avatar */
@@ -395,6 +413,14 @@ a.pseudo:hover,
 	margin-right:3px;
 
 	&__gray {background-position: -182px -295px;}
+}
+.ico-edit {
+	.inline-block();
+	vertical-align: middle;
+	width: 12px;
+	height: 15px;
+	background: url(/images/ico/ico-edit.png) no-repeat;
+	&:hover {background-position: 0 -15px;}
 }
 
 .ico-users{

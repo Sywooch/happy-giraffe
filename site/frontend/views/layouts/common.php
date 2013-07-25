@@ -87,8 +87,10 @@
     <script type="text/javascript">
         VK.init({apiId: 2855330, onlyWidgets: true});
     </script>
+
+    <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,100&amp;subset=latin,cyrillic-ext,cyrillic">
 </head>
-<body class="<?= $this->body_class ?><?php if ($this->broadcast): ?> body-broadcast<?php endif; ?>" onload="if (typeof(ODKL) !== 'undefined') ODKL.init();">
+<body class="body-gray <?= $this->body_class ?><?php if ($this->broadcast): ?> body-broadcast<?php endif; ?>" onload="if (typeof(ODKL) !== 'undefined') ODKL.init();">
 <div class="top-line-menu">
     <div class="top-line-menu_holder clearfix">
 

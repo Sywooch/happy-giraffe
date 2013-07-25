@@ -206,6 +206,15 @@ class CommentatorDayWork extends EMongoEmbeddedDocument
             ':author_id' => $user_id
         );
         $this->club_posts = CommunityContent::model()->count($criteria);
+
+        $criteria = new CDbCriteria;
+        $criteria->condition = 'created >= :day_start AND created <= :day_end AND author_id=:author_id';
+        $criteria->params = array(
+            ':day_start' => $this->date . ' 00:00:00',
+            ':day_end' => $this->date . ' 23:59:59',
+            ':author_id' => $user_id
+        );
+        $this->club_posts += CookRecipe::model()->count($criteria);
     }
 
     /**

@@ -25,13 +25,6 @@ class SignalCommand extends CConsoleCommand
         return true;
     }
 
-    public function actionResetTeam()
-    {
-        $commentators = CommentatorWork::model()->findAll();
-        foreach($commentators as $commentator)
-            $commentator->save();
-    }
-
     /**
      * Задать команду пользователя
      * ./yiic signal team --user_id= --team=2
@@ -122,16 +115,7 @@ class SignalCommand extends CConsoleCommand
         foreach ($commentators as $commentator){
             $model = $this->getCommentator($commentator);
             if ($model){
-                $date = date("Y-m-d", strtotime('-3 days'));
-                $day = $model->getDay($date);
-                $day->updatePostsCount($model);
-                $date = date("Y-m-d", strtotime('-2 days'));
-                $day = $model->getDay($date);
-                $day->updatePostsCount($model);
                 $date = date("Y-m-d", strtotime('-1 days'));
-                $day = $model->getDay($date);
-                $day->updatePostsCount($model);
-                $date = date("Y-m-d");
                 $day = $model->getDay($date);
                 $day->updatePostsCount($model);
             }

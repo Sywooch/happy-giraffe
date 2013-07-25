@@ -150,4 +150,9 @@ class Str
                 return $words[2];
         }
     }
+
+    public static function htmlTextLength($html)
+    {
+        return mb_strlen(trim(strip_tags($html)),'UTF-8');
+    }
 }

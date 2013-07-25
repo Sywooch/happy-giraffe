@@ -34,19 +34,25 @@ Yii::app()->clientScript->registerScriptFile('/js/jquery.sortElements.js');
             <div class="report-plan_sort-hold">
                 <a href="javascript:;" class="report-plan_sort"></a>
             </div>
-            Просмотры <br> анкеты
-        </th>
-        <th>
-            <div class="report-plan_sort-hold">
-                <a href="javascript:;" class="report-plan_sort"></a>
-            </div>
             Личная <br> переписка
         </th>
         <th>
             <div class="report-plan_sort-hold">
                 <a href="javascript:;" class="report-plan_sort"></a>
             </div>
-            Поисковые <br> системы
+            Количество <br> постов
+        </th>
+        <th>
+            <div class="report-plan_sort-hold">
+                <a href="javascript:;" class="report-plan_sort"></a>
+            </div>
+            Количество <br> пользовательских <br> комментариев к посту
+        </th>
+        <th>
+            <div class="report-plan_sort-hold">
+                <a href="javascript:;" class="report-plan_sort"></a>
+            </div>
+            Количество <br> развернутых <br> комментариев
         </th>
     </tr>
     </thead>
@@ -62,17 +68,21 @@ Yii::app()->clientScript->registerScriptFile('/js/jquery.sortElements.js');
                 <?=$commentatorMonth->getStatValue($user->id, CommentatorsMonth::NEW_FRIENDS) ?>
                 <?=$commentatorMonth->getPlaceViewAdmin($user->id, CommentatorsMonth::NEW_FRIENDS) ?>
             </td>
-            <td class="report-plan_td-profile" data-val="<?=$commentatorMonth->getPlace($user->id, CommentatorsMonth::PROFILE_VIEWS) ?>">
-                <?=$commentatorMonth->getStatValue($user->id, CommentatorsMonth::PROFILE_VIEWS) ?>
-                <?=$commentatorMonth->getPlaceViewAdmin($user->id, CommentatorsMonth::PROFILE_VIEWS) ?>
-            </td>
             <td class="report-plan_td-message" data-val="<?=$commentatorMonth->getPlace($user->id, CommentatorsMonth::IM_MESSAGES) ?>">
                 <?=$commentatorMonth->getStatValue($user->id, CommentatorsMonth::IM_MESSAGES) ?>
                 <?=$commentatorMonth->getPlaceViewAdmin($user->id, CommentatorsMonth::IM_MESSAGES) ?>
             </td>
-            <td class="report-plan_td-search" data-val="<?=$commentatorMonth->getPlace($user->id, CommentatorsMonth::SE_VISITS) ?>">
-                <?=$commentatorMonth->getStatValue($user->id, CommentatorsMonth::SE_VISITS) ?>
-                <?=$commentatorMonth->getPlaceViewAdmin($user->id, CommentatorsMonth::SE_VISITS) ?>
+            <td class="report-plan_td-message" data-val="<?=$commentatorMonth->getPlace($user->id, CommentatorsMonth::RECORDS_COUNT) ?>">
+                <?=$commentatorMonth->getStatValue($user->id, CommentatorsMonth::RECORDS_COUNT) ?>
+                <?=$commentatorMonth->getPlaceViewAdmin($user->id, CommentatorsMonth::RECORDS_COUNT) ?>
+            </td>
+            <td class="report-plan_td-message" data-val="<?=$commentatorMonth->getPlace($user->id, CommentatorsMonth::MOST_COMMENTED_POST) ?>">
+                <?=$commentatorMonth->getStatValue($user->id, CommentatorsMonth::MOST_COMMENTED_POST) ?>
+                <?=$commentatorMonth->getPlaceViewAdmin($user->id, CommentatorsMonth::MOST_COMMENTED_POST) ?>
+            </td>
+            <td class="report-plan_td-message" data-val="<?=$commentatorMonth->getPlace($user->id, CommentatorsMonth::GOOD_COMMENTS_COUNT) ?>">
+                <?=$commentatorMonth->getStatValue($user->id, CommentatorsMonth::GOOD_COMMENTS_COUNT) ?>
+                <?=$commentatorMonth->getPlaceViewAdmin($user->id, CommentatorsMonth::GOOD_COMMENTS_COUNT) ?>
             </td>
         </tr>
     <?php endforeach; ?>

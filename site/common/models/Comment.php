@@ -222,14 +222,14 @@ class Comment extends HActiveRecord
             if (Yii::app()->user->checkAccess('commentator_panel')) {
                 Yii::import('site.frontend.modules.signal.components.*');
                 Yii::import('site.frontend.modules.signal.models.*');
+                Yii::import('site.frontend.modules.signal.helpers.*');
                 Yii::import('site.frontend.modules.cook.models.*');
                 Yii::import('site.frontend.modules.cook.components.*');
                 Yii::import('site.seo.modules.commentators.models.*');
                 Yii::import('site.seo.models.*');
 
-                if (strlen(trim(strip_tags($this->text))) >= 80) {
+                if (Str::htmlTextLength($this->text) >= CommentatorHelper::COMMENT_LIMIT)
                     CommentatorWork::getCurrentUser()->checkComment($this);
-                }
             }
         }
         parent::afterSave();

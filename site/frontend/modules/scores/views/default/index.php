@@ -7,12 +7,7 @@
 ?>
 <div class="content-cols clearfix">
     <div class="col-1">
-        <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
-            'user' => Yii::app()->user->model,
-            'size' => 'small',
-            'small' => true,
-            'sendButton' => false,
-        )); ?>
+        <?php $this->widget('UserAvatarWidget', array('user' => Yii::app()->user->getModel(), 'size' => 'big')); ?>
 
         <div class="menu-list menu-list__blue">
             <a href="javascript:;" class="menu-list_i menu-list_i__career active" onclick="ScorePage.selectTab(this, <?=ScoreInput::SELECT_ALL ?>)">

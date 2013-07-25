@@ -60,6 +60,16 @@ class CommunityPhotoPost extends HActiveRecord
         );
     }
 
+    public function behaviors()
+    {
+        return array(
+            'previewSave' => array(
+                'class' => 'site.common.behaviors.PreviewBehavior',
+                'small_preview' => true,
+            ),
+        );
+    }
+
     public function beforeSave()
     {
         $this->photos = explode(',', $this->photos);

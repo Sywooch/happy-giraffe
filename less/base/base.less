@@ -3,6 +3,9 @@
 @import "../include/variables.less";
 @import "../include/mixins.less";
 
+/* FONTS */
+@import url(http://fonts.googleapis.com/css?family=Roboto);
+
   
 /* @layout  base 
 --------------------------------------------------------*/
@@ -67,15 +70,55 @@ a.pseudo {text-decoration:none;border-bottom:1px dotted #0498b8;}
 .a-pseudo-gray:hover,
 a.pseudo:hover,
 .a-pseudo:hover {text-decoration:none;border-bottom-color:transparent;}
+.a-pseudo-grayblue {text-decoration:none;border-bottom:1px dotted #a0a09f;color: #a0a09f;}
+.a-pseudo-grayblue:hover {color: #2c95d6;border-color: #2c95d6;}
+
+.a-pseudo-icon {
+	.inline-block();
+	margin: 0 12px;
+	text-decoration: none;
+
+	&:hover .ico-edit {background-position: 0 -15px;}
+	&:hover &_tx {
+		text-decoration:none;
+		border-bottom-color:#2c95d6;
+		color: #2c95d6;
+	}
+	&_tx {
+		font-size: 12px;
+		border-bottom:1px dotted #bab9b9;
+		color: #bab9b9;
+	}
+}
 /* /links */
 
 /* ava avatar */
-.ava {width:72px;height:72px;background:url(../images/avatar.png) no-repeat -240px -480px;display: block;float:left;position: relative;}
+.ava {
+	display: block;
+	float:left;
+	position: relative;
+	width:72px;
+	height:72px;
+	background:url(../images/avatar.png) no-repeat -240px -480px;
+}
 .ava.female {background-position:-240px -240px;}
 .ava.male {background-position:-240px 0;}
 .ava,
-.ava img { -moz-border-radius:36px;-webkit-border-radius:36px;border-radius:36px;behavior: url(/stylesheets/PIE.htc);width:72px;height:72px;position:relative;*behavior:url('');}
-.ava img {margin-top:0 !important;display:block;}
+.ava img { 
+	position:relative;
+	width:72px;
+	height:72px;
+	.border-radius(36px);
+	.box-shadow(0 1px 1px rgba(0,0,0,0.2) inset);
+	behavior: url(/stylesheets/PIE.htc);
+	*behavior:url('');
+}
+.ava:hover,
+.ava img:hover {.box-shadow(none);} 
+.ava img {
+	margin-top:0 !important;
+	display:block;
+}
 .ava .icon-status {
 	position: absolute;
 	top: 3px;
@@ -86,14 +129,19 @@ a.pseudo:hover,
 
 .ava.big {width:240px;height:240px;background-position:0 -480px;float:none;}
 .ava.big,
-.ava.big img {/*css3*/ -moz-border-radius:0px;-webkit-border-radius:0px;border-radius:0px;}
+.ava.big img {-moz-border-radius:0px;-webkit-border-radius:0px;border-radius:0px;}
 .ava.big img {width:auto;height:auto;display:block;margin:auto;}
 .ava.big.female {background-position:0 -240px;}
 .ava.big.male {background-position:0 0;}
 
 .ava.large {background:url(/images/avatar-large.png) no-repeat 0 -400px;}
 .ava.large,
-.ava.large img {width:200px;height:200px;-moz-border-radius:106px;-webkit-border-radius:106px;border-radius:106px;}
+.ava.large img {
+	width:200px;
+	height:200px;
+	.border-radius(106px);
+	.box-shadow(none);
+}
 .ava.large.female {background-position:0 -200px;}
 .ava.large.male {background-position:0 0;}
 
@@ -134,7 +182,7 @@ a.pseudo:hover,
 .ico-pregnant-test {width:59px;height:17px;background:url(../images/section/pregnancy/ico-pregnancy-test.png) no-repeat;display: inline-block;*zoom:1;*display:inline;}
 .ico-childbirth {width:42px;height:35px;background:url(../images/section/pregnancy/ico-childbirth.png) no-repeat;display: inline-block;*zoom:1;*display:inline;}
 .ico-age18 {display: inline-block;*zoom:1;*display:inline;width: 33px;height: 34px;background: url(/images/ico/ico-age18.png) no-repeat;vertical-align: middle;}
-.ico-child {width: 52px;height: 50px;display: inline-block;*zoom:1;*display:inline;vertical-align: middle;background: url(/images/user-family-icons.png) no-repeat -66px 0;}
+.ico-child {width: 52px;height: 50px;display: inline-block;*zoom:1;*display:inline;background: url(/images/user-family-icons.png) no-repeat -66px 0;}
 .ico-child__baby-plan{background-position: 0 0;}
 .ico-child__baby{background-position: -66px 0;}
 .ico-child__boy-wait{background-position: 0 -50px;}
@@ -265,12 +313,11 @@ a.pseudo:hover,
 	height: 34px;
 	background: url(/images/ico/ico-cup.png) no-repeat;
 }
-.ico-tags {
+.ico-cup-small {
 	display: inline-block;*zoom:1;*display:inline;
-	width: 20px;
-	height: 16px;
-	vertical-align: middle;
-    background: url(/images/ico/ico-tags.png) no-repeat;
+	width: 25px;
+	height: 21px;
+	background: url(/images/ico/ico-cup-small.png) no-repeat;
 }
 .ico-tag {
 	display: inline-block;*zoom:1;*display:inline;
@@ -285,6 +332,13 @@ a.pseudo:hover,
 	height: 22px;
 	vertical-align: middle;
     background: url(/images/ico/ico-tag-big.png) no-repeat;
+}
+.ico-tags {
+	display: inline-block;*zoom:1;*display:inline;
+	width: 20px;
+	height: 16px;
+	vertical-align: middle;
+    background: url(/images/ico/ico-tags.png) no-repeat;
 }
 .ico-tags-big {
 	display: inline-block;*zoom:1;*display:inline;
@@ -359,6 +413,14 @@ a.pseudo:hover,
 	margin-right:3px;
 
 	&__gray {background-position: -182px -295px;}
+}
+.ico-edit {
+	.inline-block();
+	vertical-align: middle;
+	width: 12px;
+	height: 15px;
+	background: url(/images/ico/ico-edit.png) no-repeat;
+	&:hover {background-position: 0 -15px;}
 }
 
 .ico-users{

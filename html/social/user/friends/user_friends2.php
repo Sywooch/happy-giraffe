@@ -65,7 +65,13 @@
 								<span class="ico-plus2"></span>
 								<span class="a-pseudo-gray color-gray">Создать новый список</span>
 							</a>
+							<div class="menu-list_i-add">
+			                    <input type="text" class="menu-list_i-add-itx" placeholder="Название списка" >
+			                    <button class="ico-plus2" ></button>
+			                </div>
 						</div>
+						
+						
 						<div class="menu-list_row margin-t20">
 							<a href="" class="btn-green btn-medium margin-b5">Найти новых друзей</a>
 							<div class="color-gray">Отправлено приглашений - 18</div>

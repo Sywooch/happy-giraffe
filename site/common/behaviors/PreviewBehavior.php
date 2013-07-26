@@ -30,20 +30,20 @@ class PreviewBehavior extends CActiveRecordBehavior
         if ($this->small_preview || strstr($text, '<img') === TRUE) {
             //если есть фото или известно что нужно показаться короткое превью, берем первый параграф
             $p_list = $doc->find('p');
-            if (empty($p_list))
-                return '<p>' . Str::getDescription($text, self::LIMIT_SMALL) . '</p>';
+            if (count($p_list) == 0)
+                return '<p>' . Str::getDescription($text, self::LIMIT_SMALL*2) . '</p>';
 
             foreach ($p_list as $p) {
                 $p_text = pq($p)->text();
                 if (!empty($p_text))
-                    return '<p>' . Str::getDescription($p_text, self::LIMIT_SMALL) . '</p>';
+                    return '<p>' . Str::getDescription($p_text, self::LIMIT_SMALL*2) . '</p>';
             }
             return '';
         } else {
             $preview = '';
             $p_list = $doc->find('p');
-            if (empty($p_list))
-                return '<p>' . Str::getDescription($text, self::LIMIT_BIG) . '</p>';
+            if (count($p_list) == 0)
+                return '<p>' . Str::getDescription($text, self::LIMIT_BIG*2) . '</p>';
 
             foreach ($p_list as $p) {
                 $p_text = trim(pq($p)->text());
@@ -51,7 +51,7 @@ class PreviewBehavior extends CActiveRecordBehavior
                     return $preview;
 
                 if (!empty($p_text))
-                    $preview .= '<p>' . Str::getDescription($p_text, self::LIMIT_BIG - Str::htmlTextLength($preview)) . '</p>';
+                    $preview .= '<p>' . Str::getDescription($p_text, (self::LIMIT_BIG - Str::htmlTextLength($preview))*2) . '</p>';
 
                 if (self::LIMIT_BIG - Str::htmlTextLength($preview) < 10)
                     return $preview;

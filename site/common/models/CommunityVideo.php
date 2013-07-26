@@ -30,10 +30,10 @@ class CommunityVideo extends HActiveRecord
 	public function behaviors()
 	{
 		return array(
-			'preview' => array(
+            'previewSave' => array(
                 'class' => 'site.common.behaviors.PreviewBehavior',
-				'small_preview' => true,
-			),
+                'small_preview' => true,
+            ),
             'purified' => array(
                 'class' => 'site.common.behaviors.PurifiedBehavior',
                 'attributes' => array('text'),

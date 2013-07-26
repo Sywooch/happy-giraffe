@@ -1,22 +1,17 @@
 <?php
-/**
- * Created by JetBrains PhpStorm.
- * User: mikita
- * Date: 7/9/13
- * Time: 10:44 AM
- * To change this template use File | Settings | File Templates.
- */
 
-class CookDecorPhotoCollection extends PhotoCollection
+class PhotoPostPhotoCollection extends PhotoCollection
 {
-    protected function generateIds()
+    public $contentId;
+
+    public function generateIds()
     {
-        return Yii::app()->db->createCommand("SELECT photo_id FROM cook__decorations ORDER BY created DESC")->queryColumn();
+        return Yii::app()->db->createCommand("SELECT photo_id FROM album__photo_attaches WHERE entity = 'CommunityContent' AND entity_id = :entity_id")->queryColumn(array(':entity_id' => $this->contentId));
     }
 
     protected function getIdsCacheDependency()
     {
-        return new CDbCacheDependency("SELECT COUNT(*) FROM cook__decorations");
+        return Yii::app()->db->createCommand("SELECT COUNT(*) FROM album__photo_attaches WHERE entity = 'CommunityContent' AND entity_id = :entity_id")->queryColumn(array(':entity_id' => $this->contentId));
     }
 
     protected function populatePhotos($ids)
@@ -39,7 +34,7 @@ class CookDecorPhotoCollection extends PhotoCollection
         return $results;
     }
 
-    protected function populatePhoto($decoration)
+    protected function populatePhoto($attach)
     {
         return array(
             'id' => $decoration->photo_id,

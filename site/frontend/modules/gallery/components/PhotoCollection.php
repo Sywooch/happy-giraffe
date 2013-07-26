@@ -12,14 +12,21 @@ abstract class PhotoCollection extends CComponent
     public $count;
     public $photoIds;
 
-    public function __construct() {
+    public function __construct($options = array()) {
         $this->photoIds = $this->getPhotoIds();
         $this->count = count($this->photoIds);
+        foreach ($options as $name => $value)
+            $this->$name = $value;
     }
 
     public function getIndexById($photoId)
     {
         return array_search($photoId, $this->photoIds);
+    }
+
+    public function getAllPhotos()
+    {
+        return $this->populatePhotos($this->photoIds);
     }
 
     public function getPhotosInRange($photoId, $before, $after)

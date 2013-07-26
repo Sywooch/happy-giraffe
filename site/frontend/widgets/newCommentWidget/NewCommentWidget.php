@@ -76,7 +76,7 @@ class NewCommentWidget extends CWidget
                 'order' => 't.created DESC',
                 'limit' => 3,
             ));
-            return Comment::model()->findAll($criteria);
+            return array_reverse(Comment::model()->findAll($criteria));
         }
     }
 }

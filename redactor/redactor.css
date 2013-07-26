@@ -792,6 +792,7 @@ body .redactor_air .redactor_toolbar {
 	display: inline-block;
 	vertical-align: middle;
 	width: 555px;
+	height: 450px;
 	border: 1px solid #daebf5;
 	-webkit-box-shadow : none;
 	box-shadow : none;
@@ -800,4 +801,6 @@ body .redactor_air .redactor_toolbar {
 	border-radius: 4px;
 }
 /* /wysiwyg-v */
+
+.redactor_wysiwyg-redactor {max-height: 225px;}
 

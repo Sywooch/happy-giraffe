@@ -7,6 +7,15 @@ function CommentViewModel(data) {
     self.comments(ko.utils.arrayMap(data['comments'], function (comment) {
         return new NewComment(comment, self);
     }));
+    self.enterSetting = ko.observable(data.messaging__enter);
+    self.enterSetting.subscribe(function(a) {
+        $.post('/ajax/setUserAttribute/', { key : 'messaging__enter', value : a ? 1 : 0 });
+    });
+    self.sending = ko.observable(false);
+    self.focusEditor = function(){
+        self.getEditor().focus();
+        return true;
+    };
 
     self.getCount = ko.computed(function () {
         return self.allCount();
@@ -14,35 +23,58 @@ function CommentViewModel(data) {
 
     self.openComment = function (data, event) {
         self.opened(true);
-        var input = $(event.target).next();
-        input.redactor({
-            imageGetJson: '/tests/images.json',
-            imageUpload: '/webUpload/redactor/uploadImage/',
-            fileUpload: '/webUpload/redactor/fileUpload/'
-        });
-        setTimeout(function () {
-            input.focus();
-        }, 100);
+        self.initEditor();
+        setTimeout(function () {self.focusEditor()}, 100);
+    };
+
+    self.Enter = function(){
+        if (self.enterSetting())
+            self.addComment();
     };
     self.addComment = function () {
-        var text = $('#new' + self.objectName()).val();
-        $.post('/ajaxSimple/addComment/', {
-            entity: self.entity(),
-            entity_id: self.entity_id(),
-            text: text
-        }, function (response) {
-            if (response.status) {
-                self.opened(false);
-                $('#new' + self.objectName()).val('').redactor('destroy');
-                self.comments.push(new NewComment(response.data, self));
-                self.allCount(self.allCount() + 1);
-            }
-        }, 'json');
+        if (!self.sending()){
+            self.sending(true);
+            var text = self.getEditor().html();
+            $.post('/ajaxSimple/addComment/', {
+                entity: self.entity(),
+                entity_id: self.entity_id(),
+                text: text
+            }, function (response) {
+                if (response.status) {
+                    self.opened(false);
+                    self.getEditor().redactor('destroy');
+                    self.comments.push(new NewComment(response.data, self));
+                    self.allCount(self.allCount() + 1);
+                }
+                self.sending(false);
+            }, 'json');
+        }
     };
     self.goBottom = function () {
-        console.log($('.layout-container').height());
         $('.layout-container').stop().animate({scrollTop: $('#layout').height()}, "normal");
     };
+
+    self.initEditor = function(){
+        console.log(self.getEditor());
+        self.getEditor().redactor({
+            minHeight: 68,
+            autoresize: true,
+            buttons: ['bold', 'italic', 'underline', 'image', 'video', 'smile'],
+            buttonsCustom: {
+                smile: {
+                    title: 'smile',
+                    callback: function(buttonName, buttonDOM, buttonObject) {
+                        // your code, for example - getting code
+                        var html = this.get();
+                    }
+                }
+            }
+        });
+    }
+
+    self.getEditor = function(){
+        return $('#add_'+self.objectName());
+    }
 }
 
 function NewComment(data, parent) {
@@ -80,21 +112,17 @@ function NewComment(data, parent) {
         self.editMode(true);
         var input = $('#text' + self.id());
         input.val(self.html());
-        input.redactor({
-            imageGetJson: '/tests/images.json',
-            imageUpload: '/webUpload/redactor/uploadImage/',
-            fileUpload: '/webUpload/redactor/fileUpload/'
-        });
+        self.parent.initEditor(input);
+
         setTimeout(function () {
             input.focus();
         }, 100);
     };
 
     self.Edit = function () {
-        var input = $('#text' + self.id());
-        $.post('/ajaxSimple/editComment/', {id: self.id(), text: input.val()}, function (response) {
+        $.post('/ajaxSimple/editComment/', {id: self.id(), text: self.parent.editor.val()}, function (response) {
             if (response.status) {
-                input.redactor('destroy');
+                self.parent.editor.redactor('destroy');
                 self.editMode(false);
                 self.html(response.text);
             }
@@ -136,3 +164,16 @@ function User(data) {
         return self.gender() == 0 ? 'female' : 'male';
     }, this);
 }
+
+ko.bindingHandlers.enterKey = {
+    init: function(element, valueAccessor, allBindings, vm) {
+        ko.utils.registerEventHandler(element, "keyup", function(event) {
+            if (event.keyCode === 13) {
+                ko.utils.triggerEvent(element, "change");
+                valueAccessor().call(vm, vm);
+            }
+
+            return true;
+        });
+    }
+};

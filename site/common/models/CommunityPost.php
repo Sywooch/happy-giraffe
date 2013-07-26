@@ -27,13 +27,12 @@ class CommunityPost extends HActiveRecord
     public function behaviors()
     {
         return array(
+            'previewSave' => array(
+                'class' => 'site.common.behaviors.PreviewBehavior',
+                'small_preview' => true,
+            ),
             'addImageTags' => array(
                 'class' => 'site.common.behaviors.AddImageTagsBehavior',
-            ),
-            'cut' => array(
-                'class' => 'site.common.behaviors.CutBehavior',
-                'attributes' => array('text'),
-                'edit_routes' => array('community/edit'),
             ),
             'purified' => array(
                 'class' => 'site.common.behaviors.PurifiedBehavior',

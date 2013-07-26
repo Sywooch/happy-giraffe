@@ -1,4 +1,4 @@
-<div class="b-settings-blue b-settings-blue__photo" id="popup-user-add-photo-post" style="display: none;">
+<div class="b-settings-blue b-settings-blue__photo" id="popup-user-add-photo-post"<?php if ($model->isNewRecord) echo ' style="display:none;"' ?>>
     <?php $form = $this->beginWidget('CActiveForm', array(
         'id' => 'blog-form',
         'action' => $model->isNewRecord ? array('save') : array('save', 'id' => $model->id),
@@ -52,6 +52,9 @@
             <!-- ko foreach: photos -->
             <div class="b-add-img_i" data-bind="attr: {id: 'uploaded_photo_' + uid}">
                 <div class="js-image" style="opacity: 0.2"></div>
+                <!-- ko if: file === null  -->
+                <img class="b-add-img_i-img" data-bind="attr: {src: url}">
+                <!-- /ko -->
                 <div class="b-add-img_i-vert"></div>
                 <div class="b-add-img_i-load">
                     <div class="b-add-img_i-load-progress" data-bind="style: {width: progress}"></div>

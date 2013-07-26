@@ -43,6 +43,7 @@
 						</div>
 						<div class="textalign-c">
 							<a class="b-ava-large_a" href="">Александр Богоявленский</a>
+							<span class="font-smallest color-gray"> 39 лет</span>
 						</div>
 						<div class="b-ava-large_location">
 							<div class="flag flag-ua" title="Украина"></div>

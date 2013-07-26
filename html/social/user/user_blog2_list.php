@@ -347,10 +347,18 @@
 									<div class="comments-gray_ava">
 										<a href="" class="ava small female"></a>
 									</div>
+									
 									<div class="comments-gray_frame">
 										<!-- input hidden -->
 										<input type="text" name="" id="" class="comments-gray_add-itx itx-gray display-n" placeholder="Ваш комментарий">
 										<textarea name="" class="wysiwyg-redactor" ></textarea>
+										<div class="redactor-control">
+											<div class="redactor-control_key">
+												<input type="checkbox" class="redactor-control_key-checkbox" id="redactor-control_key-checkbox" name="">
+												<label class="redactor-control_key-label" for="redactor-control_key-checkbox">Enter - отправить</label>
+											</div>
+											<button class="btn-green">Отправить</button>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -523,6 +531,13 @@
 										<!-- input hidden -->
 										<input type="text" name="" id="" class="comments-gray_add-itx itx-gray display-n" placeholder="Ваш комментарий">
 										<textarea name="" class="wysiwyg-redactor" ></textarea>
+										<div class="redactor-control">
+											<div class="redactor-control_key">
+												<input type="checkbox" class="redactor-control_key-checkbox" id="redactor-control_key-checkbox" name="">
+												<label class="redactor-control_key-label" for="redactor-control_key-checkbox">Enter - отправить</label>
+											</div>
+											<button class="btn-green">Отправить</button>
+										</div>
 									</div>
 <script>
 

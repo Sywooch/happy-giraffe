@@ -22,6 +22,10 @@ class NewCommentWidget extends CWidget
      * @var bool показываем ли все комментарии
      */
     public $full = true;
+    /**
+     * @var bool Только загрузить скрипты
+     */
+    public $registerScripts = false;
 
     public function init()
     {
@@ -36,16 +40,22 @@ class NewCommentWidget extends CWidget
 
     public function run()
     {
-        $this->objectName = 'new_comment_' . $this->entity . $this->entity_id . time();
+        self::registerScripts();
 
+        if ($this->registerScripts === false) {
+            $this->objectName = 'new_comment_' . $this->entity . $this->entity_id . time();
+            $this->render('view', array('comments' => $this->getComments()));
+        }
+    }
+
+    public static function registerScripts()
+    {
         $basePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR;
         $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
         Yii::app()->clientScript
             ->registerScriptFile($baseUrl . '/comment.js', CClientScript::POS_HEAD)
             ->registerScriptFile('/javascripts/knockout-2.2.1.js')
             ->registerScriptFile('/javascripts/knockout.mapping-latest.js');
-
-        $this->render('view', array('comments' => $this->getComments()));
     }
 
     private function getComments()

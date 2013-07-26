@@ -3,6 +3,8 @@
 
 class DefaultController extends HController
 {
+    public $layout = '//layouts/common_new';
+
     const QUERY_RESPONSE_TYPE_TAG = 0;
     const QUERY_RESPONSE_TYPE_KEYWORD = 1;
 
@@ -45,7 +47,7 @@ class DefaultController extends HController
             switch ($favourite->model_name) {
                 case 'CommunityContent':
                 case 'BlogContent':
-                    $html = Yii::app()->controller->renderPartial('//community/_post', array(
+                    $html = Yii::app()->controller->renderPartial('blog.views.default.view', array(
                         'full' => false,
                         'data' => $favourite->relatedModel,
                     ), true);

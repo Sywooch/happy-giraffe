@@ -20,31 +20,35 @@
 		<div class="content-cols clearfix">
 			<div class="col-1">
 				<div class="b-ava-large">
-					<div class="b-ava-large_ava-hold clearfix">
-						<a class="ava large" href="">
-							<img alt="" src="/images/example/ava-large.jpg">
-						</a>
-						<span class="b-ava-large_online">На сайте</span>
-						<a href="" class="b-ava-large_bubble b-ava-large_bubble__dialog powertip" title="Начать диалог">
-							<span class="b-ava-large_ico b-ava-large_ico__mail"></span>
-							<span class="b-ava-large_bubble-tx">+5</span>
-						</a>
-						<a href="" class="b-ava-large_bubble b-ava-large_bubble__photo powertip" title="Фотографии">
-							<span class="b-ava-large_ico b-ava-large_ico__photo"></span>
-							<span class="b-ava-large_bubble-tx">+50</span>
-						</a>
-						<a href="" class="b-ava-large_bubble b-ava-large_bubble__blog powertip" title="Записи в блоге">
-							<span class="b-ava-large_ico b-ava-large_ico__blog"></span>
-							<span class="b-ava-large_bubble-tx">+999</span>
-						</a>
-						<a href="" class="b-ava-large_bubble b-ava-large_bubble__friend-add powertip" title="Добавить в друзья">
-							<span class="b-ava-large_ico b-ava-large_ico__friend-add"></span>
-						</a>
+						<div class="b-ava-large_ava-hold clearfix">
+							<a href="" class="ava large female">
+							</a>
+							<span class="b-ava-large_online">На сайте</span>
+							<a class="b-ava-large_bubble b-ava-large_bubble__dialog powertip" href="">
+								<span class="b-ava-large_ico b-ava-large_ico__mail"></span>
+								<span class="b-ava-large_bubble-tx">+5</span>
+							</a>
+							<a class="b-ava-large_bubble b-ava-large_bubble__photo powertip" href="">
+								<span class="b-ava-large_ico b-ava-large_ico__photo"></span>
+								<span class="b-ava-large_bubble-tx">+50</span>
+							</a>
+							<a class="b-ava-large_bubble b-ava-large_bubble__blog powertip" href="">
+								<span class="b-ava-large_ico b-ava-large_ico__blog"></span>
+								<span class="b-ava-large_bubble-tx">+999</span>
+							</a>
+							<a class="b-ava-large_bubble b-ava-large_bubble__friend-add powertip" href="">
+								<span class="b-ava-large_ico b-ava-large_ico__friend-add"></span>
+							</a>
+						</div>
+						<div class="textalign-c">
+							<a class="b-ava-large_a" href="">Александр Богоявленский</a>
+							<span class="font-smallest color-gray"> 39 лет</span>
+						</div>
+						<div class="b-ava-large_location">
+							<div class="flag flag-ua" title="Украина"></div>
+                   				Украина, Астраханская область
+						</div>
 					</div>
-					<div class="textalign-c">
-						<a href="" class="b-ava-large_a">Александр Богоявленский</a>
-					</div>
-				</div>
 				
 				<div class="aside-blog-desc">
 					<div class="aside-blog-desc_tx">

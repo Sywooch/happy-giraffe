@@ -13,6 +13,7 @@
  * @property integer $photo_id
  *
  * @property AlbumPhoto $photo
+ * @property CommunityContent $content
  */
 class CommunityVideo extends HActiveRecord
 {
@@ -29,11 +30,10 @@ class CommunityVideo extends HActiveRecord
 	public function behaviors()
 	{
 		return array(
-			'cut' => array(
-                'class' => 'site.common.behaviors.CutBehavior',
-				'attributes' => array('text'),
-				'edit_routes' => array('community/edit'),
-			),
+            'previewSave' => array(
+                'class' => 'site.common.behaviors.PreviewBehavior',
+                'small_preview' => true,
+            ),
             'purified' => array(
                 'class' => 'site.common.behaviors.PurifiedBehavior',
                 'attributes' => array('text'),
@@ -134,10 +134,10 @@ class CommunityVideo extends HActiveRecord
     public function beforeSave()
     {
         if ($this->isNewRecord)
-            $this->searchPreview(Yii::app()->user->id);
+            $this->searchImagePreview(Yii::app()->user->id);
         else {
             if (isset($this->content->author_id))
-                $this->searchPreview($this->content->author_id);
+                $this->searchImagePreview($this->content->author_id);
         }
 
         return parent::beforeSave();
@@ -150,13 +150,13 @@ class CommunityVideo extends HActiveRecord
     public function getEmbed()
     {
         if (empty($this->embed)){
-            $this->searchPreview($this->content->author_id);
+            $this->searchImagePreview($this->content->author_id);
             $this->update(array('photo_id', 'embed'));
         }
         return $this->embed;
     }
 
-    public function searchPreview($author_id)
+    public function searchImagePreview($author_id)
     {
         $video = new Video($this->link);
         if (empty($video->image))

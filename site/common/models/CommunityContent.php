@@ -29,6 +29,7 @@
  * @property CommunityContentType $type
  * @property CommunityPost $post
  * @property CommunityVideo $video
+ * @property CommunityPhotoPost $photoPost
  * @property CommunityMorningPost $morningPost
  * @property CommunityContentGallery $gallery
  * @property Comment[] comments
@@ -113,7 +114,7 @@ class CommunityContent extends HActiveRecord
             'status' => array(self::HAS_ONE, 'CommunityStatus', 'content_id'),
             'video' => array(self::HAS_ONE, 'CommunityVideo', 'content_id'),
             'post' => array(self::HAS_ONE, 'CommunityPost', 'content_id'),
-            'photoPost' => array(self::HAS_ONE, 'CommunityPost', 'content_id'),
+            'photoPost' => array(self::HAS_ONE, 'CommunityPhotoPost', 'content_id'),
             'author' => array(self::BELONGS_TO, 'User', 'author_id'),
             'remove' => array(self::HAS_ONE, 'Removed', 'entity_id', 'condition' => 'remove.entity = :entity', 'params' => array(':entity' => get_class($this))),
             'morningPost' => array(self::HAS_ONE, 'CommunityMorningPost', 'content_id'),
@@ -660,7 +661,7 @@ class CommunityContent extends HActiveRecord
     /**
      * Возвращает сущность привязанную к посту
      *
-     * @return CommunityPost|CommunityVideo|CommunityStatus
+     * @return CommunityPost|CommunityVideo|CommunityStatus|CommunityPhotoPost
      */
     public function getContent()
     {

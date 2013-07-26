@@ -2952,20 +2952,6 @@
   padding: 0 29px;
 }
 /* /section-join */
-/* ava-small-list */
-.ava-small-list {
-  margin: 0 10px;
-}
-.ava-small-list_li {
-  float: left;
-  margin: 0 10px 8px 0;
-}
-.ava-small-list_count {
-  font-size: 18px;
-  line-height: 24px;
-  color: #0281B0;
-}
-/* /ava-small-list */
 /* section baby 
 ------------------------- */
 /* banner pricorm */
@@ -12728,12 +12714,15 @@ table.fr_recipe_tb td {
 .nav-article_arrow__right:hover {
   background-position: -34px -55px;
 }
+.nav-article_hold,
 .nav-article_a {
   display: table-cell;
   width: 30%;
   height: 55px;
   vertical-align: middle;
   font: 11px/15px Tahoma, Arial, Verdana, sans-serif;
+}
+.nav-article_a {
   color: #59a4de;
 }
 /* /nav-article */
@@ -12748,22 +12737,15 @@ table.fr_recipe_tb td {
   text-align: center;
   position: relative;
 }
-.b-ava-large__empty-add a.ava.large,
 .b-ava-large:hover a.ava.large {
   border-color: #4d85cb;
 }
-.b-ava-large__empty-add a.ava.large:after,
 .b-ava-large:hover a.ava.large:after {
   display: block;
 }
-.ie7 .b-ava-large__empty-add .ava.large:after,
-.ie8 .b-ava-large__empty-add .ava.large:after,
 .ie7 .b-ava-large:hover .ava.large:after,
 .ie8 .b-ava-large:hover .ava.large:after {
   display: none;
-}
-.b-ava-large__empty-add .b-ava-large_photo-add {
-  display: block;
 }
 .b-ava-large:hover .b-ava-large_online {
   display: none;
@@ -12777,7 +12759,7 @@ table.fr_recipe_tb td {
 .b-ava-large:hover .b-ava-large_a {
   text-decoration: underline;
 }
-.b-ava-large:hover .b-ava-large_photo-add {
+.b-ava-large:hover .b-ava-large_photo-change {
   display: block;
 }
 .b-ava-large .ava.large {
@@ -12994,7 +12976,6 @@ table.fr_recipe_tb td {
   margin: 0 -2px;
   width: 23px;
   height: 23px;
-  background: url(/images/b-ava-large_minus.png) no-repeat;
   background: url(/images/b-ava-large_plus.png) no-repeat;
 }
 .b-ava-large_minus {
@@ -13007,26 +12988,36 @@ table.fr_recipe_tb td {
   background: url(/images/b-ava-large_minus.png) no-repeat;
 }
 .b-ava-large_photo-add {
-  display: none;
   position: absolute;
-  top: 0;
-  left: 0;
+  top: -2px;
+  left: -2px;
   width: 200px;
   height: 75px;
+  border: 2px solid #4d85cb;
   padding: 125px 0 0;
   font-size: 16px;
   line-height: 18px;
   color: #1765c6;
-  /*background-color: #b8d6fc;
-        background-color: rgba(184,214,252,.6);*/
-
-  background-image: url(/images/b-ava-large_photo-add.png);
-  background-position: 50% 70px;
-  background-repeat: no-repeat;
+  background: #b8d6fc;
+  background: rgba(184, 214, 252, 0.6) url(/images/b-ava-large_photo-add.png) no-repeat 50% 70px;
   z-index: 5;
   -webkit-border-radius: 100px;
   -moz-border-radius: 100px;
   border-radius: 100px;
+}
+.b-ava-large_photo-change {
+  display: none;
+  position: absolute;
+  bottom: -1px;
+  left: 8px;
+  width: 184px;
+  padding: 7px 0 20px;
+  font-size: 17px;
+  color: #fff;
+  text-align: center;
+  text-decoration: none;
+  background: url(/images/b-ava-large_photo-change.png) no-repeat;
+  z-index: 5;
 }
 .b-ava-large_settings {
   position: absolute;
@@ -15101,3 +15092,121 @@ table.fr_recipe_tb td {
   margin-top: 0;
 }
 /* /popup-upload-ava */
+/* award-list */
+.award-list {
+  margin: 20px;
+}
+.award-list_li {
+  display: inline-block;
+  *zoom: 1;
+  *display: inline;
+  vertical-align: top;
+  margin: 25px 10px;
+  width: 200px;
+  text-align: center;
+}
+.award-list_img-hold {
+  position: relative;
+  width: 150px;
+  margin: 0 auto 5px;
+}
+.award-list_img {
+  border: 2px solid #fff;
+  -webkit-border-radius: 72px;
+  -moz-border-radius: 72px;
+  border-radius: 72px;
+}
+.award-list_info {
+  position: absolute;
+  top: 0;
+  right: -8px;
+}
+.award-list_a {
+  display: inline-block;
+  *zoom: 1;
+  *display: inline;
+  margin: 5px 0;
+  text-decoration: none;
+}
+.award-list_a:hover {
+  text-decoration: underline;
+}
+.award-list_count {
+  font-size: 13px;
+  color: #f97b07;
+}
+/* /award-list */
+/* award-ico */
+.award-ico {
+  display: inline-block;
+  *zoom: 1;
+  *display: inline;
+  border: 2px solid #fff;
+  -webkit-border-radius: 150px;
+  -moz-border-radius: 150px;
+  border-radius: 150px;
+}
+.award-ico > img {
+  display: block;
+}
+/* /award-ico */
+/* b-award */
+.b-award {
+  padding: 15px 20px 60px;
+  background: #f6f6f6;
+}
+.b-award .ava-small-list {
+  margin: 13px 0;
+}
+.b-award_back {
+  float: right;
+  margin: 0 0 20px;
+  padding: 0 0 0 18px;
+  background: url(/images/b-award_back.png) no-repeat 0 50%;
+  font-size: 11px;
+  font-family: Tahoma, Arial, Verdana, sans-serif;
+  color: #52aff1;
+}
+.b-award_left {
+  float: left;
+  margin: 0 30px 10px 20px;
+}
+.b-award_count {
+  margin: 15px 0 10px;
+  text-align: center;
+  font-size: 35px;
+  font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, Tahoma, sans-serif;
+  color: #f97b07;
+}
+.b-award_hold {
+  overflow: hidden;
+}
+.b-award_tx {
+  color: #555;
+  line-height: 19px;
+}
+.b-award_t {
+  margin: 11px 0;
+  font-size: 30px;
+  font-weight: normal;
+  color: #2274b7;
+}
+/* /b-award */
+/* ava-small-list */
+.ava-small-list {
+  margin: 0 10px;
+}
+.ava-small-list_t-small {
+  margin: 5px 0;
+  color: #5a595a;
+}
+.ava-small-list_li {
+  float: left;
+  margin: 0 10px 8px 0;
+}
+.ava-small-list_count {
+  font-size: 18px;
+  line-height: 24px;
+  color: #0281B0;
+}
+/* /ava-small-list */

@@ -49,7 +49,7 @@
 					<div class="b-ava-large">
 						<a href="#popup-upload-ava" class="ava large fancy" data-theme="transparent" >
 							<img src="/images/example/ava-large.jpg" alt="">
-							<span class="b-ava-large_photo-add">Обновить фото</span>
+							<span class="b-ava-large_photo-change">Изменить <br>главное фото</span>
 						</a>
 						<span class="b-ava-large_online">На сайте</span>
 						<a href="" class="b-ava-large_settings powertip" title="Настройки профиля"></a>

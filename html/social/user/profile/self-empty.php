@@ -25,9 +25,9 @@
 					<h1 class="section-lilac_name">Ангелина Богоявленская</h1>
 				</div>
 				<div class="section-lilac_center">
-					<div class="b-ava-large b-ava-large__empty-add ">
-						<a href="#popup-upload-ava" class="ava large fancy" data-theme="transparent" >
-							<span class="b-ava-large_photo-add">Добавить <br>главное фото</span>
+					<div class="b-ava-large">
+						<a href="#popup-upload-ava"  class="ava large fancy" data-theme="transparent" >
+							<span class="b-ava-large_photo-add " >Добавить <br>главное фото</span>
 						</a>
 						<span class="b-ava-large_online">На сайте</span>
 						<a href="" class="b-ava-large_settings powertip" title="Настройки профиля"></a>

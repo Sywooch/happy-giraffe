@@ -909,14 +909,15 @@ table.fr_recipe_tb td { width: 50%;}
         background-position: -34px 0;
     }
     &_arrow__right:hover {background-position: -34px -55px;}
+    &_hold,
     &_a {
         display: table-cell;
         width: 30%;
         height: 55px;
         vertical-align: middle;
         font: 11px/15px Tahoma, Arial, Verdana, sans-serif;
-        color: #59a4de;
     }
+    &_a {color: #59a4de;}
 }
 /* /nav-article */
 
@@ -932,21 +933,16 @@ table.fr_recipe_tb td { width: 50%;}
     text-align: center;
     position: relative;
 
-    &__empty-add a.ava.large,
     &:hover a.ava.large {border-color: #4d85cb;}
-    &__empty-add a.ava.large:after,
     &:hover a.ava.large:after {display: block;}
-    .ie7 &__empty-add .ava.large:after,
-    .ie8 &__empty-add .ava.large:after,
     .ie7 &:hover .ava.large:after,
     .ie8 &:hover .ava.large:after {display: none;}
-    &__empty-add  &_photo-add {display: block;}
     
     &:hover &_online{display: none;}
     &:hover &_close {display: block;}
     &:hover &_bubble {display: block;}
     &:hover &_a {text-decoration: underline;}
-    &:hover &_photo-add {display: block;}
+    &:hover &_photo-change {display: block;}
 
     .ava.large {
         float: none;
@@ -1109,7 +1105,6 @@ table.fr_recipe_tb td { width: 50%;}
         margin: 0 -2px;
         width: 23px;
         height: 23px;
-        background: url(/images/b-ava-large_minus.png) no-repeat;
         background: url(/images/b-ava-large_plus.png) no-repeat;
     }
     &_minus {
@@ -1120,23 +1115,34 @@ table.fr_recipe_tb td { width: 50%;}
         background: url(/images/b-ava-large_minus.png) no-repeat;
     }
     &_photo-add {
-        display: none;
         position: absolute;
-        top: 0;
-        left: 0;
+        top: -2px;
+        left: -2px;
         width: 200px;
         height: 75px;
+        border: 2px solid #4d85cb;
         padding: 125px 0 0;
         font-size: 16px;
         line-height: 18px;
         color: #1765c6;
-        /*background-color: #b8d6fc;
-        background-color: rgba(184,214,252,.6);*/
-        background-image: url(/images/b-ava-large_photo-add.png);
-        background-position: 50% 70px;
-        background-repeat: no-repeat;
+        background: #b8d6fc;
+        background: rgba(184,214,252,.6) url(/images/b-ava-large_photo-add.png) no-repeat 50% 70px;
         z-index: 5;
         .border-radius(100px);
+    }
+    &_photo-change {
+        display: none;
+        position: absolute;
+        bottom: -1px;
+        left: 8px;
+        width: 184px;
+        padding: 7px 0 20px;
+        font-size: 17px;
+        color: #fff;
+        text-align: center;
+        text-decoration: none;
+        background: url(/images/b-ava-large_photo-change.png) no-repeat;
+        z-index: 5;
     }
     &_settings {
         position: absolute;
@@ -2792,3 +2798,114 @@ table.fr_recipe_tb td { width: 50%;}
     &_prev .b-ava-large {margin-top: 0;}
 }
 /* /popup-upload-ava */
+
+/* award-list */
+.award-list {
+    margin: 20px;
+
+    &_li {
+        .inline-block();
+        vertical-align: top;
+        margin: 25px 10px;
+        width: 200px;
+        text-align: center;
+    }
+    &_img-hold {
+        position: relative;
+        width: 150px;
+        margin: 0 auto 5px;
+    }
+    &_img {
+        border: 2px solid #fff;
+        .border-radius(72px);
+    }
+    &_info {
+        position: absolute;
+        top: 0;
+        right: -8px;
+    }
+    &_a {
+        .inline-block();
+        margin: 5px 0;
+        text-decoration: none;
+    }
+    &_a:hover {text-decoration: underline;}
+    &_count {
+        font-size: 13px;
+        color: #f97b07;
+    }
+}
+/* /award-list */
+
+/* award-ico */
+.award-ico {
+    .inline-block();
+    border: 2px solid #fff;
+    .border-radius(150px);
+    & > img {display: block;}
+}
+/* /award-ico */
+
+/* b-award */
+.b-award {
+    padding: 15px 20px 60px;
+    background: #f6f6f6;
+
+    .ava-small-list {
+        margin: 13px 0;
+    }
+    &_back {
+        float: right;
+        margin: 0 0 20px;
+        padding: 0 0 0 18px;
+        background: url(/images/b-award_back.png) no-repeat 0 50%;
+        font-size: 11px;
+        font-family: Tahoma, Arial, Verdana, sans-serif;
+        color: #52aff1;
+    }
+    &_left {
+        float: left;
+        margin: 0 30px 10px 20px;
+    }
+    &_count {
+        margin: 15px 0 10px;
+        text-align: center;
+        font-size: 35px;
+        font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, Tahoma, sans-serif;
+        color: #f97b07;
+    }
+    &_hold {
+        overflow: hidden;
+    }
+    &_tx {
+        color: #555;
+        line-height: 19px;
+    }
+    &_t {
+        margin: 11px 0;
+        font-size: 30px;
+        font-weight: normal;
+        color: #2274b7;
+    }
+}
+/* /b-award */
+
+/* ava-small-list */
+.ava-small-list {
+    margin:0 10px;
+
+    &_t-small {
+        margin: 5px 0;
+        color: #5a595a;
+    }
+    &_li {
+        float: left;
+        margin: 0 10px 8px 0;
+    }
+    &_count {
+        font-size: 18px;
+        line-height: 24px;
+        color: #0281B0;
+    }
+}
+/* /ava-small-list */

@@ -52,18 +52,26 @@
         <?=$form->textField($slaveModel, 'link', array('class' => 'itx-simple w-400 float-l', 'placeholder' => 'Введите ссылку на видео', 'data-bind' => 'value: link, valueUpdate: \'keyup\''))?>
         <?=$form->error($slaveModel, 'text')?>
         <button class="btn-green" data-bind="css: { 'btn-inactive' : link().length == 0 }, click: check">Загрузить  видео</button>
+        <div class="b-settings-blue_add-video-load" data-bind="visible: previewLoading">
+            <img src="/images/ico/ajax-loader.gif" alt=""> <br>
+            Подждите видео загружается
+        </div>
+        <div class="b-settings-blue_add-video-error" data-bind="visible: previewError">
+            Не удалось загрузить видео. <br>
+            Возможно, URL указан неправильно либо ведет на неподдерживаемый сайт.
+        </div>
     </div>
     <div class="b-settings-blue_video clearfix" data-bind="visible: embed() !== null">
-        <a href="" class="b-settings-blue_video-del ico-close2 powertip" title="Удалить"></a>
+        <a class="b-settings-blue_video-del ico-close2 powertip" title="Удалить" data-bind="click: remove"></a>
         <div data-bind="html: embed" id="embed"></div>
     </div>
     <div class="b-settings-blue_row clearfix">
-        <textarea name="" id="" cols="80" rows="5" class="b-settings-blue_textarea itx-simple" placeholder="Ваш комментарий"></textarea>
+        <?=$form->textArea($slaveModel, 'text', array('cols' => 80, 'rows' => 5, 'class' => 'b-settings-blue_textarea itx-simple', 'placeholder' => 'Ваш комментарий'))?>
 
     </div>
     <div class=" clearfix">
-        <a href="" class="btn-blue btn-h46 float-r btn-inactive">Добавить</a>
-        <a href="" class="btn-gray-light btn-h46 float-r margin-r15">Отменить</a>
+        <a href="javascript:void(0)" onclick="$('#blog-form').submit()" class="btn-blue btn-h46 float-r btn-inactive"><?=$model->isNewRecord ? 'Добавить' : 'Редактировать'?></a>
+        <a href="javascript:void(0)" onclick="$.fancybox.close()" class="btn-gray-light btn-h46 float-r margin-r15">Отменить</a>
 
         <div class="float-l">
             <div class="privacy-select clearfix">
@@ -98,14 +106,26 @@
     var BlogFormVideoViewModel = function(data) {
         var self = this;
         ko.utils.extend(self, new BlogFormViewModel(data));
-        self.link = ko.observable('');
-        self.embed = ko.observable(null);
+        self.link = ko.observable(data.link);
+        self.embed = ko.observable(data.embed);
+        self.previewLoading = ko.observable(false);
+        self.previewError = ko.observable(false);
 
         self.check = function() {
-            $.get('http://www.youtube.com/oembed', { url : self.link(), format : 'json' }, function(data, textStatus) {
-                $('#embed').oembed(self.link());
-                self.embed($('#embed').html());
+            self.previewError(false);
+            self.previewLoading(true);
+            $.get('/newblog/videoPreview/', { url : self.link() }, function(html) {
+                self.previewLoading(false);
+                if (html === false)
+                    self.previewError(true);
+                else
+                    self.embed(html);
             }, 'json');
+        }
+
+        self.remove = function() {
+            self.link('');
+            self.embed(null);
         }
     }
 

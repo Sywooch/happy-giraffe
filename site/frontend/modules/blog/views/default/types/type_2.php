@@ -14,7 +14,10 @@ $post = $data->post;
 
     <div class="b-article_in clearfix">
         <div class="wysiwyg-content clearfix">
-            <?=$data->post->purified->text ?>
+            <div class="b-article_in-img">
+                <?=$data->video->embed?>
+            </div>
+            <?=$data->video->purified->text ?>
         </div>
     </div>
 <?php else: ?>

@@ -25,6 +25,19 @@ class SignalCommand extends CConsoleCommand
         return true;
     }
 
+    /**
+     * Задать команду пользователя
+     * ./yiic signal team --user_id= --team=2
+     *
+     * @param int $user_id
+     * @param int $team
+     */
+    public function actionTeam($user_id, $team)
+    {
+        $commentator = CommentatorWork::getUser($user_id);
+        $commentator->setTeam($team);
+    }
+
     public function getModerator($user_id)
     {
         shuffle($this->moderators);
@@ -87,26 +100,12 @@ class SignalCommand extends CConsoleCommand
     }
 
     /**
-     * Синхронизировать кол-во заходов из поисковиков с Google Analytics
-     */
-    public function actionSyncGaVisits()
-    {
-        CommentatorsMonth::model()->SyncGaVisits();
-    }
-
-    /**
      * Синхронизировать кол-во заходов из поисковиков c mysql-базой
      * и пересчитать места и рейтинг комментаторов
      */
     public function actionSync()
     {
-        echo "sync\n";
         $month = date("Y-m");
-        PageSearchView::model()->sync($month);
-        if (date("d") == 1)
-            PageSearchView::model()->sync(date("Y-m", strtotime('-2 days')));
-
-        echo "update stats\n";
         $month = CommentatorsMonth::get($month);
         $month->calculateMonth();
     }
@@ -123,9 +122,6 @@ class SignalCommand extends CConsoleCommand
                 $day = $model->getDay($date);
                 $day->updatePostsCount($model);
                 $date = date("Y-m-d", strtotime('-1 days'));
-                $day = $model->getDay($date);
-                $day->updatePostsCount($model);
-                $date = date("Y-m-d");
                 $day = $model->getDay($date);
                 $day->updatePostsCount($model);
             }

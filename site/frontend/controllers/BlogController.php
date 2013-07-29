@@ -226,7 +226,6 @@ class BlogController extends HController
             $this->pageTitle = strip_tags($content->status->text);
         else
             $this->pageTitle = $content->title;
-        $this->registerCounter();
 
         $this->user = User::model()->with(array('blog_rubrics'))->findByPk($content->author_id);//->cache(600, new CDbCacheDependency('SELECT max(id) FROM community__contents WHERE author_id='.$content->author_id))->findByPk($content->author_id);
         $this->rubric_id = ($content->type_id == 5) ? null : $content->rubric->id;

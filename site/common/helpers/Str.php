@@ -103,4 +103,9 @@ class Str
 
         return $text;
     }
+
+    public static function htmlTextLength($html)
+    {
+        return mb_strlen(trim(strip_tags($html)),'UTF-8');
+    }
 }

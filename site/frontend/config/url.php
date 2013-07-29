@@ -41,7 +41,6 @@ return array(
 
         // ajax controller
         'ajax/duelShow/question_id/<question_id:\d+>' => 'ajax/duelShow',
-        'counter'=>'ajaxSimple/counter',
         'ajaxSimple/<_a>'=>'ajaxSimple/<_a>',
 
         // signup controller

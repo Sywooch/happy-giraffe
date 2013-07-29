@@ -56,7 +56,6 @@ class CommunityPhotoPost extends HActiveRecord
         return array(
             'photo' => array(self::BELONGS_TO, 'AlbumPhoto', 'photo_id'),
             'content' => array(self::BELONGS_TO, 'CommunityContent', 'content_id'),
-            'photoAttaches' => array(self::HAS_MANY, 'AttachPhoto', 'entity_id', 'condition' => 'entity = "CommunityContent"'),
         );
     }
 
@@ -83,20 +82,24 @@ class CommunityPhotoPost extends HActiveRecord
      */
     public function afterSave()
     {
-        if ($this->isNewRecord)
+        if ($this->isNewRecord) {
+            $gallery = new CommunityContentGallery();
+            $gallery->content_id = $this->content_id;
+            $gallery->title = $this->content->title;
+            $gallery->save();
             foreach ($this->photos as $photoId)
                 $this->addPhoto($photoId);
-        else {
+        } else {
             //удаляем удаленные
-            foreach ($this->photoAttaches as $attach)
-                if (!in_array($attach->photo_id, $this->photos))
-                    $attach->photo->delete();
+            foreach ($this->content->gallery->items as $gallery_item)
+                if (!in_array($gallery_item->photo_id, $this->photos))
+                    $gallery_item->delete();
 
             ///добавляем новые
             foreach ($this->photos as $photoId) {
                 $new = true;
-                foreach ($this->photoAttaches as $attach)
-                    if ($attach->photo_id == $photoId)
+                foreach ($this->content->gallery->items as $gallery_item)
+                    if ($gallery_item->photo_id == $photoId)
                         $new = false;
 
                 if ($new)
@@ -104,16 +107,14 @@ class CommunityPhotoPost extends HActiveRecord
             }
         }
 
-
         parent::afterSave();
     }
 
     private function addPhoto($photoId)
     {
-        $model = new AttachPhoto();
+        $model = new CommunityContentGalleryItem();
+        $model->gallery_id = $this->content->gallery->id;
         $model->photo_id = $photoId;
-        $model->entity = 'CommunityContent';
-        $model->entity_id = $this->content_id;
         $model->save();
     }
 
@@ -145,9 +146,8 @@ class CommunityPhotoPost extends HActiveRecord
     public function getPhotos()
     {
         $data = array();
-        foreach ($this->photoAttaches as $attach)
-            if (empty($attach->photo->removed))
-                $data[] = $attach->photo;
+        foreach ($this->content->gallery->items as $gallery_item)
+            $data[] = $gallery_item->photo;
 
         return $data;
     }

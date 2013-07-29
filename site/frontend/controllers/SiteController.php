@@ -421,7 +421,13 @@ class SiteController extends HController
 
     public function actionTest()
     {
-        $url = 'http://www.happy-giraffe.ru/user/10/blog/post83504/';
-        var_dump(CJSON::decode(Yii::app()->piwik->getCountByPageUrl($url)));
+        $rows = Yii::app()->db_seo->createCommand()
+            ->select('site_url')
+            ->from('li_sites')
+            ->where('(password IS NOT NULL OR public=1) AND type=1')
+            ->queryColumn();
+
+        foreach($rows as $row)
+            echo $row.'<br>';
     }
 }

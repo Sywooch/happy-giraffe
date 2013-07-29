@@ -185,7 +185,7 @@ class ScoreAchievement extends HActiveRecord
             case 31:
             case 32:
             case 33:
-                return RatingYohoho::model()->countByUser($this->user_id);
+                return HGLike::model()->countByUser($this->user_id);
             case 34:
             case 35:
             case 36:
@@ -388,7 +388,7 @@ class ScoreAchievement extends HActiveRecord
             $criteria = new EMongoCriteria;
             $criteria->entity_id('==', (int)$entity_id);
             $criteria->entity_name('==', $entity);
-            $count = RatingYohoho::model()->count($criteria);
+            $count = HGLike::model()->count($criteria);
 
             //если перешел рубеж трофея
             if ($count >= $award_limit) {

@@ -84,4 +84,5 @@ abstract class PhotoCollection extends CComponent
     abstract protected function generateIds();
     abstract protected function getIdsCacheDependency();
     abstract protected function populatePhotos($ids);
+    abstract protected function photoToJSON($model);
 }

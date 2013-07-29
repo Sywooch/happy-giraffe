@@ -11,7 +11,9 @@ class PhotoPostPhotoCollection extends PhotoCollection
 
     protected function getIdsCacheDependency()
     {
-        return Yii::app()->db->createCommand("SELECT COUNT(*) FROM community__content_gallery_items i INNER JOIN community__content_gallery g ON i.gallery_id = g.id WHERE g.content_id = :content_id")->queryColumn(array(':entity_id' => $this->contentId));
+        $dependency = new CDbCacheDependency("SELECT COUNT(*) FROM community__content_gallery_items i INNER JOIN community__content_gallery g ON i.gallery_id = g.id WHERE g.content_id = :content_id");
+        $dependency->params = array(':content_id' => $this->contentId);
+        return $dependency;
     }
 
     protected function populatePhotos($ids)
@@ -25,11 +27,10 @@ class PhotoPostPhotoCollection extends PhotoCollection
             'order' => new CDbExpression('FIELD(t.photo_id, ' . implode(',', $ids) . ')')
         ));
         $criteria->addInCondition('t.photo_id', $ids);
-        $models = CommunityContentGalleryItem::model()->findAll($criteria);
-        return array_map(array($this, 'populatePhoto'), $models);
+        return CommunityContentGalleryItem::model()->findAll($criteria);
     }
 
-    protected function populatePhoto($model)
+    protected function toJSON($model)
     {
         return array(
             'id' => $model->photo_id,

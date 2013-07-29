@@ -70,8 +70,14 @@ $this->widget('site.common.extensions.imperavi-redactor-widget.ImperaviRedactorW
                 <!-- /ko -->
 
                 <!-- ko if: editMode() -->
-                <input class="js-edit-field" type="text" data-bind="attr: {id:'text'+id()}">
-                <a href="" data-bind="click: Edit">изменить</a>
+                <div class="js-edit-field" data-bind="attr: {id: 'text' + id()}, html: html, enterKey: Enter"></div>
+                <div class="redactor-control">
+                    <div class="redactor-control_key">
+                        <input type="checkbox" class="redactor-control_key-checkbox" id="redactor-control_key-checkbox"  data-bind="checked: $parent.enterSetting, click: $parent.focusEditor">
+                        <label class="redactor-control_key-label" for="redactor-control_key-checkbox">Enter - отправить</label>
+                    </div>
+                    <button class="btn-green" data-bind="click: Edit">Отправить</button>
+                </div>
                 <!-- /ko -->
 
             </div>

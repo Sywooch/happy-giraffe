@@ -14,7 +14,7 @@ class DefaultController extends HController
     {
         return array(
             'accessControl',
-            'ajaxOnly - index, view, upload, save',
+            //'ajaxOnly - index, view, upload, save',
         );
     }
 
@@ -165,6 +165,15 @@ class DefaultController extends HController
             else
                 $json['photos'] = $model->getContent()->getPhotoPostData();
         }
+        if ($model->type_id == CommunityContent::TYPE_VIDEO) {
+            if ($model->isNewRecord) {
+                $json['link'] = '';
+                $json['embed'] = null;
+            } else {
+                $json['link'] = $model->video->link;
+                $json['embed'] = $model->video->embed;
+            }
+        }
 
         if (Yii::app()->request->getPost('short'))
             $this->renderPartial('form/'.$model->type_id, compact('model', 'slaveModel', 'json'), false, true);
@@ -192,6 +201,15 @@ class DefaultController extends HController
             var_dump($model->getErrors());
             var_dump($slaveModel->getErrors());
         }
+    }
+
+    public function actionVideoPreview($url)
+    {
+        Yii::import('site.common.vendor.*');
+        require_once('OEmbed.php');
+        $oembed = new OEmbed();
+        $html = $oembed->getHtml($url, array('width' => 580, 'height' => 580));
+        echo CJSON::encode($html);
     }
 
     protected function performAjaxValidation($models)

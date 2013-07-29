@@ -13,17 +13,22 @@ class CommentatorsMonth extends EMongoDocument
      */
     const NEW_FRIENDS = 1;
     /**
-     * Премия за посещение анкеты
-     */
-    const PROFILE_VIEWS = 3;
-    /**
      * Премия за личные сообщения
      */
     const IM_MESSAGES = 4;
     /**
-     * Премия за заходы из поисковых систем
+     * Премия за наибольшее кол-во записей
      */
-    const SE_VISITS = 5;
+    const RECORDS_COUNT = 6;
+    /**
+     * Премия за пост, к которому написано наибольшее количество пользовательских комментариев
+     */
+    const MOST_COMMENTED_POST = 7;
+    /**
+     * Премия за наибольшее кол-во развернутых комментариев
+     */
+    const GOOD_COMMENTS_COUNT = 8;
+
 
     /**
      * @var string строковое представление месяца, например 2013-02
@@ -33,6 +38,11 @@ class CommentatorsMonth extends EMongoDocument
      * @var array массив работавших комментаторов c их количеством баллов по всем премиях
      */
     public $commentators_rating = array();
+    /**
+     * @var array массив команд c их количеством баллов по всем премиях
+     */
+    public $commentators_team_rating = array();
+
     /**
      * @var array массив работавших комментаторов c их месячной статистикой по премиям
      */
@@ -107,6 +117,7 @@ class CommentatorsMonth extends EMongoDocument
     public function calculateMonth()
     {
         $commentators = CommentatorHelper::getCommentatorIdList();
+        $this->commentators_team_rating = array();
 
         $active_commentators = array();
         foreach ($commentators as $commentator) {
@@ -115,20 +126,26 @@ class CommentatorsMonth extends EMongoDocument
                 echo 'commentator: ' . $commentator . "\n";
                 $active_commentators [] = $commentator;
 
-                $views = $this->profileUniqueViews($commentator);
-                $se = (int)$this->getSeVisits($commentator);
                 $this->commentators_stats[(int)$commentator] = array(
                     self::NEW_FRIENDS => $model->friendsMonthStats($this->period),
-                    self::PROFILE_VIEWS => $views,
                     self::IM_MESSAGES => $model->imMessagesMonthStats($this->period),
-                    self::SE_VISITS => $se,
                 );
                 $this->commentators_rating[(int)$commentator] = array(
                     self::NEW_FRIENDS => (int)$model->friends($this->period),
-                    self::PROFILE_VIEWS => (int)($views['views'] + $views['visitors'] * 3),
                     self::IM_MESSAGES => (int)$model->imMessages($this->period),
-                    self::SE_VISITS => $se,
+                    self::RECORDS_COUNT => (int)CommentatorHelper::recordsCount($commentator, $this->period),
+                    self::MOST_COMMENTED_POST => (int)CommentatorHelper::maxCommentsCount($commentator, $this->period),
+                    self::GOOD_COMMENTS_COUNT => (int)CommentatorHelper::goodCommentsCount($commentator, $this->period),
                 );
+
+                if (!isset($this->commentators_team_rating[$model->team])){
+                    $this->commentators_team_rating[$model->team] = array(
+                        self::NEW_FRIENDS => 0, self::IM_MESSAGES => 0, self::RECORDS_COUNT => 0, self::MOST_COMMENTED_POST => 0, self::GOOD_COMMENTS_COUNT => 0
+                    );
+                }
+                foreach(array(self::NEW_FRIENDS,self::IM_MESSAGES,self::RECORDS_COUNT,self::MOST_COMMENTED_POST,self::GOOD_COMMENTS_COUNT) as $award)
+                    $this->commentators_team_rating[$model->team][$award] += $this->commentators_rating[(int)$commentator][$award];
+
                 $model->calculateDayStats();
             }
         }
@@ -159,6 +176,11 @@ class CommentatorsMonth extends EMongoDocument
         return $model;
     }
 
+
+    /*************************************************************************************************************/
+    /********************************************** Премии *******************************************************/
+    /*************************************************************************************************************/
+
     /**
      * Вычисляет место по премии занимаемое комментатором
      *
@@ -183,6 +205,36 @@ class CommentatorsMonth extends EMongoDocument
             }
             $i++;
         }
+
+        return 'error';
+    }
+
+    /**
+     * Вычисляет место по премии занимаемое командой комментатора
+     *
+     * @param $team int команда
+     * @param $counter int номер премии
+     * @return int место в рейтинге занимаемое командой
+     */
+    public function getTeamPlace($team, $counter)
+    {
+        if (!isset($this->commentators_team_rating[$team]))
+            return 99;
+
+        $arr = array();
+        foreach ($this->commentators_team_rating as $_team => $data)
+            $arr[$_team] = $data[$counter];
+
+        arsort($arr);
+        $i = 1;
+        foreach ($arr as $_team => $data) {
+            if ($_team == $team || $data == $arr[$team]) {
+                return $i;
+            }
+            $i++;
+        }
+
+        return 'error';
     }
 
     /**
@@ -190,11 +242,16 @@ class CommentatorsMonth extends EMongoDocument
      *
      * @param $user_id int id комментатора
      * @param $counter int номер премии
+     * @param bool $team командная премия или обычная
      * @return string
      */
-    public function getPlaceView($user_id, $counter)
+    public function getPlaceView($user_id, $counter, $team = false)
     {
-        $place = $this->getPlace($user_id, $counter);
+        if ($team){
+            $user = CommentatorWork::getUser($user_id);
+            $place = $this->getTeamPlace($user->team, $counter);
+        } else
+            $place = $this->getPlace($user_id, $counter);
         if ($place < 4)
             return '<div class="win-place win-place__' . $place . '"></div>';
         return '<div class="award-me_place-value">' . $place . '</div><div class="award-me_place-tx">место</div>';
@@ -203,13 +260,18 @@ class CommentatorsMonth extends EMongoDocument
     /**
      * Вывод места в верстке у главного редактора
      *
-     * @param $user_id int id комментатора
+     * @param $user_id int id комментатора или команда
      * @param $counter int номер премии
+     * @param bool $team командная премия или обычная
      * @return string
      */
-    public function getPlaceViewAdmin($user_id, $counter)
+    public function getPlaceViewAdmin($user_id, $counter, $team = false)
     {
-        $place = $this->getPlace($user_id, $counter);
+        if ($team){
+            $place = $this->getTeamPlace($user_id, $counter);
+        } else
+            $place = $this->getPlace($user_id, $counter);
+
         if ($place < 4)
             return '<div class="win-place-3 win-place-3__' . $place . '"></div>';
         return '<div class="report-plan_place">
@@ -232,6 +294,24 @@ class CommentatorsMonth extends EMongoDocument
 
         foreach ($this->commentators_rating as $_user_id => $data)
             if ($_user_id == $user_id)
+                return $data[$counter];
+        return 0;
+    }
+
+    /**
+     * Возвращает кол-во баллов по премии для команды комментатора
+     *
+     * @param $team int команда
+     * @param $counter int номер премии
+     * @return int кол-во баллов по премии для команды комментатора
+     */
+    public function getTeamStatValue($team, $counter)
+    {
+        if (!isset($this->commentators_team_rating[$team]))
+            return 0;
+
+        foreach ($this->commentators_team_rating as $_team => $data)
+            if ($_team == $team)
                 return $data[$counter];
         return 0;
     }
@@ -261,6 +341,23 @@ class CommentatorsMonth extends EMongoDocument
     }
 
     /**
+     * Возвращает команды
+     * @return int[]
+     */
+    public function getTeams()
+    {
+        $res = array();
+        foreach($this->commentators_team_rating as $team => $data)
+            $res[] = $team;
+
+        return $res;
+    }
+
+    /******************************************************************************************************************/
+    /**************************************************** Другое ******************************************************/
+    /******************************************************************************************************************/
+
+    /**
      * Возвращает все рабочие месяца
      *
      * @return CommentatorsMonth[] рабочие месяца
@@ -274,81 +371,6 @@ class CommentatorsMonth extends EMongoDocument
         }
 
         return array_reverse($result);
-    }
-
-    /**
-     * Возвращает количество просмотров анкеты комментатора за месяц
-     *
-     * @param $user_id int id комментатора
-     * @return int количество просмотров анкеты
-     */
-    public function profileUniqueViews($user_id)
-    {
-        $visitors = GApi::model()->visitors('/user/' . $user_id . '/', $this->period . '-01');
-        $views = GApi::model()->uniquePageviews('/user/' . $user_id . '/', $this->period . '-01');
-
-        return array('visitors' => $visitors, 'views' => $views);
-    }
-
-    /**
-     * Возвращает количество поисковых заходов на все статьи комментатора за месяц
-     *
-     * @param $user_id int id комментатора
-     * @return int количество поисковых заходов
-     */
-    public function getSeVisits($user_id)
-    {
-        $models = CommunityContent::model()->findAll('author_id = ' . $user_id);
-
-        $all_count = 0;
-        foreach ($models as $model) {
-            $url = trim($model->url, '.');
-            if (!empty($url)) {
-                $visits = SearchEngineVisits::getVisits($url, $this->period);
-                $all_count += $visits;
-            }
-        }
-
-        return $all_count;
-    }
-
-    /**
-     * Количество поисковых заходов на страницу за месяц
-     *
-     * @param $url string url для которого ищем количество заходов
-     * @return int Количество поисковых заходов на страницу за месяц
-     */
-    public function getPageVisitsCount($url)
-    {
-        return SearchEngineVisits::getVisits($url, $this->period);
-    }
-
-    /**
-     * Синхронизация кол-ва заходов из поисковиков по своей системе с кол-вом заходов с Google Analytics
-     */
-    public function SyncGaVisits()
-    {
-        $month = date("Y-m");
-        $commentators = CommentatorWork::getWorkingCommentators();
-
-        foreach ($commentators as $commentator) {
-            $models = CommunityContent::model()->findAll('author_id = ' . $commentator->user_id);
-
-            foreach ($models as $model) {
-                $url = trim($model->url, '.');
-                if (!empty($url)) {
-                    $ga_visits = GApi::model()->organicSearches($url, $month . '-01', null, false);
-                    $my_visits = SearchEngineVisits::getVisits($url, $month);
-
-                    if ($ga_visits > 0)
-                        echo "$url ga:$ga_visits, my:$my_visits \n";
-
-                    if ($ga_visits > 0 && $my_visits != $ga_visits) {
-                        SearchEngineVisits::updateStats($url, $month, $ga_visits);
-                    }
-                }
-            }
-        }
     }
 
     public function prepareNewStats()

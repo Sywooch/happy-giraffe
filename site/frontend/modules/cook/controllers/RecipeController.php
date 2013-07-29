@@ -325,7 +325,6 @@ class RecipeController extends HController
             $recipe->typeString => array('/cook/recipe/index', 'type' => $recipe->type, 'section' => $this->section),
             $recipe->title,
         );
-        $this->registerCounter();
 
         //проверяем переход с других сайтов по ссылкам комментаторов
         Yii::import('site.frontend.modules.signal.models.CommentatorLink');

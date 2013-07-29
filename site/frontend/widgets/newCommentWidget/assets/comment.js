@@ -2,6 +2,7 @@ function CommentViewModel(data) {
     var self = this;
     ko.mapping.fromJS(data, {}, self);
     self.opened = ko.observable(false);
+    self.editor = null;
 
     self.comments = ko.observableArray([]);
     self.comments(ko.utils.arrayMap(data['comments'], function (comment) {
@@ -13,7 +14,7 @@ function CommentViewModel(data) {
     });
     self.sending = ko.observable(false);
     self.focusEditor = function(){
-        self.getEditor().focus();
+        self.editor.focus();
         return true;
     };
 
@@ -23,18 +24,19 @@ function CommentViewModel(data) {
 
     self.openComment = function (data, event) {
         self.opened(true);
-        self.initEditor();
+        self.initEditor('add_'+self.objectName());
         setTimeout(function () {self.focusEditor()}, 100);
     };
 
     self.Enter = function(){
-        if (self.enterSetting())
+        if (self.enterSetting()){
             self.addComment();
+        }
     };
     self.addComment = function () {
         if (!self.sending()){
             self.sending(true);
-            var text = self.getEditor().html();
+            var text = self.editor.html();
             $.post('/ajaxSimple/addComment/', {
                 entity: self.entity(),
                 entity_id: self.entity_id(),
@@ -54,8 +56,9 @@ function CommentViewModel(data) {
         $('.layout-container').stop().animate({scrollTop: $('#layout').height()}, "normal");
     };
 
-    self.initEditor = function(){
-        self.getEditor().redactor({
+    self.initEditor = function(id){
+        self.editor = $('#'+id);
+        $('#'+id).redactor({
             minHeight: 68,
             autoresize: true,
             buttons: ['bold', 'italic', 'underline', 'image', 'video', 'smile'],
@@ -69,10 +72,6 @@ function CommentViewModel(data) {
                 }
             }
         });
-    }
-
-    self.getEditor = function(){
-        return $('#add_'+self.objectName());
     }
 }
 
@@ -111,7 +110,7 @@ function NewComment(data, parent) {
         self.editMode(true);
         var input = $('#text' + self.id());
         input.val(self.html());
-        self.parent.initEditor(input);
+        self.parent.initEditor('text' + self.id());
 
         setTimeout(function () {
             input.focus();
@@ -119,7 +118,8 @@ function NewComment(data, parent) {
     };
 
     self.Edit = function () {
-        $.post('/ajaxSimple/editComment/', {id: self.id(), text: self.parent.editor.val()}, function (response) {
+        var text = self.parent.editor.html();
+        $.post('/ajaxSimple/editComment/', {id: self.id(), text: text}, function (response) {
             if (response.status) {
                 self.parent.editor.redactor('destroy');
                 self.editMode(false);
@@ -148,6 +148,14 @@ function NewComment(data, parent) {
 
     self.Reply = function () {
 
+    };
+
+    self.Enter = function(){
+        if (self.parent.enterSetting()){
+            self.Edit();
+        }
+
+        return false;
     };
 }
 

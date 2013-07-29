@@ -26,6 +26,11 @@ class NewCommentWidget extends CWidget
      * @var bool Только загрузить скрипты
      */
     public $registerScripts = false;
+    /**
+     * @var bool Нужен ли визивиг редактор комментариев
+     */
+    public $wysiwyg = true;
+
 
     public function init()
     {

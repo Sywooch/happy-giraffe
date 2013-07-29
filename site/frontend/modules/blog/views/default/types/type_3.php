@@ -16,6 +16,7 @@ $post = $data->photoPost;
         <div class="wysiwyg-content clearfix">
             <p><?=$data->photoPost->text ?></p>
         </div>
+        <?php $this->widget('PhotoCollectionViewWidget', array('collection' => new PhotoPostPhotoCollection(array('contentId' => $data->id)))); ?>
     </div>
 <?php else: ?>
     <h2 class="b-article_t">

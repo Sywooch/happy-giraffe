@@ -55,7 +55,6 @@ function CommentViewModel(data) {
     };
 
     self.initEditor = function(){
-        console.log(self.getEditor());
         self.getEditor().redactor({
             minHeight: 68,
             autoresize: true,

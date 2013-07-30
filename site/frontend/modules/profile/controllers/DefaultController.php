@@ -36,4 +36,12 @@ class DefaultController extends HController
 
         $this->render('index', compact('user'));
     }
+
+    public function actionAbout(){
+        $user = Yii::app()->user->getModel();
+        $user->about = Yii::app()->request->getPost('about');
+        $user->update(array('about'));
+
+        echo CJSON::encode(array('status' => true, 'about' => $user->about));
+    }
 }

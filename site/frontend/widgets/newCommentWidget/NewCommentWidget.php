@@ -27,10 +27,9 @@ class NewCommentWidget extends CWidget
      */
     public $registerScripts = false;
     /**
-     * @var bool Нужен ли визивиг редактор комментариев
+     * @var bool Если галерея, всё работает немного иначе
      */
-    public $wysiwyg = true;
-
+    public $gallery = false;
 
     public function init()
     {
@@ -49,7 +48,11 @@ class NewCommentWidget extends CWidget
 
         if ($this->registerScripts === false) {
             $this->objectName = 'new_comment_' . $this->entity . $this->entity_id . time();
-            $this->render('view', array('comments' => $this->getComments()));
+
+            if ($this->gallery)
+                $this->render('gallery_view', array('comments' => $this->getComments()));
+            else
+                $this->render('view', array('comments' => $this->getComments()));
         }
     }
 
@@ -61,6 +64,8 @@ class NewCommentWidget extends CWidget
             ->registerScriptFile($baseUrl . '/comment.js', CClientScript::POS_HEAD)
             ->registerScriptFile('/javascripts/knockout-2.2.1.js')
             ->registerScriptFile('/javascripts/knockout.mapping-latest.js');
+
+        Yii::app()->controller->widget('site.common.extensions.imperavi-redactor-widget.ImperaviRedactorWidget', array('onlyRegisterScript' => true));
     }
 
     private function getComments()

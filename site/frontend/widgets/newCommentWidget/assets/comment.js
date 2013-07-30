@@ -2,18 +2,20 @@ function CommentViewModel(data) {
     var self = this;
     ko.mapping.fromJS(data, {}, self);
     self.opened = ko.observable(false);
+    self.gallery = ko.observable(data.gallery);
+    self.objectName = ko.observable(data.objectName);
     self.editor = null;
 
     self.comments = ko.observableArray([]);
-    self.comments(ko.utils.arrayMap(data['comments'], function (comment) {
+    self.comments(ko.utils.arrayMap(data.comments, function (comment) {
         return new NewComment(comment, self);
     }));
     self.enterSetting = ko.observable(data.messaging__enter);
-    self.enterSetting.subscribe(function(a) {
-        $.post('/ajax/setUserAttribute/', { key : 'messaging__enter', value : a ? 1 : 0 });
+    self.enterSetting.subscribe(function (a) {
+        $.post('/ajax/setUserAttribute/', { key: 'messaging__enter', value: a ? 1 : 0 });
     });
     self.sending = ko.observable(false);
-    self.focusEditor = function(){
+    self.focusEditor = function () {
         self.editor.focus();
         return true;
     };
@@ -24,55 +26,71 @@ function CommentViewModel(data) {
 
     self.openComment = function (data, event) {
         self.opened(true);
-        self.initEditor('add_'+self.objectName());
-        setTimeout(function () {self.focusEditor()}, 100);
+        self.initEditor('add_' + self.objectName());
+        setTimeout(function () {
+            self.focusEditor()
+        }, 100);
     };
 
-    self.Enter = function(){
-        if (self.enterSetting()){
+    self.Enter = function () {
+        if (self.enterSetting())
             self.addComment();
-        }
     };
     self.addComment = function () {
-        if (!self.sending()){
+        if (!self.sending()) {
             self.sending(true);
-            var text = self.editor.html();
-            $.post('/ajaxSimple/addComment/', {
-                entity: self.entity(),
-                entity_id: self.entity_id(),
-                text: text
-            }, function (response) {
-                if (response.status) {
-                    self.opened(false);
-                    self.getEditor().redactor('destroy');
-                    self.comments.push(new NewComment(response.data, self));
-                    self.allCount(self.allCount() + 1);
-                }
-                self.sending(false);
-            }, 'json');
+            self.disableInput();
+            $.post('/ajaxSimple/addComment/', {entity: self.entity(), entity_id: self.entity_id(), text: self.getMessageText()},
+                function (response) {
+                    if (response.status) {
+                        self.opened(false);
+                        self.comments.push(new NewComment(response.data, self));
+                        self.allCount(self.allCount() + 1);
+                        if (self.gallery()) {
+                            $('.photo-window_right').animate({ scrollTop: $('.comments-gray').height() + 500 }, "fast");
+                            $('#add_' + self.objectName()).val('').removeAttr('readonly');
+                        }
+                    }
+                    self.sending(false);
+                }, 'json');
         }
     };
     self.goBottom = function () {
         $('.layout-container').stop().animate({scrollTop: $('#layout').height()}, "normal");
     };
-
-    self.initEditor = function(id){
-        self.editor = $('#'+id);
-        $('#'+id).redactor({
-            minHeight: 68,
-            autoresize: true,
-            buttons: ['bold', 'italic', 'underline', 'image', 'video', 'smile'],
-            buttonsCustom: {
-                smile: {
-                    title: 'smile',
-                    callback: function(buttonName, buttonDOM, buttonObject) {
-                        // your code, for example - getting code
-                        var html = this.get();
+    self.initEditor = function (id) {
+        self.editor = $('#' + id);
+        if (!self.gallery()) {
+            $('#' + id).redactor({
+                minHeight: 68,
+                autoresize: true,
+                buttons: ['bold', 'italic', 'underline', 'image', 'video', 'smile'],
+                buttonsCustom: {
+                    smile: {
+                        title: 'smile',
+                        callback: function (buttonName, buttonDOM, buttonObject) {
+                            // your code, for example - getting code
+                            var html = this.get();
+                        }
                     }
                 }
-            }
-        });
-    }
+            });
+        }
+    };
+
+    self.disableInput = function () {
+        $('#add_' + self.objectName()).attr('readonly', 'readonly');
+    };
+
+    self.getMessageText = function () {
+        if (self.gallery()) {
+            if (self.editor == null)
+                return $('#add_' + self.objectName()).val();
+            else
+                return self.editor.val();
+        } else
+            return self.editor.html();
+    };
 }
 
 function NewComment(data, parent) {
@@ -111,17 +129,17 @@ function NewComment(data, parent) {
         var input = $('#text' + self.id());
         input.val(self.html());
         self.parent.initEditor('text' + self.id());
-
         setTimeout(function () {
             input.focus();
         }, 100);
     };
 
     self.Edit = function () {
-        var text = self.parent.editor.html();
+        var text = self.parent.getMessageText();
         $.post('/ajaxSimple/editComment/', {id: self.id(), text: text}, function (response) {
             if (response.status) {
-                self.parent.editor.redactor('destroy');
+                if (!self.parent.gallery())
+                    self.parent.editor.redactor('destroy');
                 self.editMode(false);
                 self.html(response.text);
             }
@@ -150,12 +168,10 @@ function NewComment(data, parent) {
 
     };
 
-    self.Enter = function(){
-        if (self.parent.enterSetting()){
+    self.Enter = function () {
+        if (self.parent.enterSetting() || self.parent.gallery()) {
             self.Edit();
         }
-
-        return false;
     };
 }
 
@@ -173,8 +189,8 @@ function User(data) {
 }
 
 ko.bindingHandlers.enterKey = {
-    init: function(element, valueAccessor, allBindings, vm) {
-        ko.utils.registerEventHandler(element, "keyup", function(event) {
+    init: function (element, valueAccessor, allBindings, vm) {
+        ko.utils.registerEventHandler(element, "keyup", function (event) {
             if (event.keyCode === 13) {
                 ko.utils.triggerEvent(element, "change");
                 valueAccessor().call(vm, vm);

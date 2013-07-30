@@ -17,7 +17,7 @@
                 <!-- /ko -->
 
                 <!-- ko if: about().length != 0 -->
-                <span data-bind="text: about"><?=$user->about ?></span>
+                    <!--ko text: about--><?=$user->about ?><!--/ko-->
                 <!-- /ko -->
             <!-- /ko -->
 
@@ -34,36 +34,6 @@
         </div>
     </div>
     <script type="text/javascript">
-        function UserAboutWidget(about) {
-            var self = this;
-            self.about = ko.observable(about);
-            self.new_about = ko.observable(about);
-            self.editMode = ko.observable(false);
-
-            self.edit = function() {
-                self.new_about(self.about());
-                self.editMode(true);
-            };
-
-            self.canEdit = ko.computed(function () {
-                return self.about().length != 0 && !self.editMode();
-            });
-
-            self.accept = function() {
-                $.post('/profile/about/', { about : self.new_about() }, function(response) {
-                    if (response.status) {
-                        self.editMode(false);
-                        self.about(response.about);
-                        self.new_about(response.about);
-                    }
-                }, 'json');
-            };
-
-            self.decline = function() {
-                self.editMode(false);
-            }
-        }
-
         $(function() {
             vm = new UserAboutWidget(<?=CJSON::encode($user->about)?>);
             ko.applyBindings(vm, document.getElementById('user-about'));

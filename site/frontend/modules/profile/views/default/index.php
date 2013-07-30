@@ -2,6 +2,7 @@
 /**
  * @var User $user
  */
+Yii::app()->clientScript->registerScriptFile('/javascripts/ko_user_profile.js');
 ?><div class="section-lilac">
     <div class="section-lilac_hold">
         <div class="section-lilac_left">
@@ -286,61 +287,7 @@
 
 <?php $this->widget('AboutWidget', array('user' => $user)); ?>
 
-<!-- Интересы -->
-<div class="b-interest">
-    <h3 class="heading-small margin-b10">Мои интересы <span class="color-gray">(9)</span></h3>
-    <ul class="clearfix">
-        <li class="b-interest_li">
-            <a href="" class="b-interest_i">Комедия</a>
-
-        </li>
-        <li class="b-interest_li">
-            <a href="" class="b-interest_i active">Морская рыбалка</a>
-
-        </li>
-        <li class="b-interest_li">
-            <a href="" class="b-interest_i">Комедия</a>
-            <script>
-                $(function() {
-                    $('.b-interest_li').bind({
-                        mouseover: function(){
-
-                            $(this).find('.b-interest_popup').stop(true, true).fadeIn(200);
-                        },
-                        mouseout: function(){
-                            $(this).find('.b-interest_popup').stop(true, true).delay(200).fadeOut(200);
-
-                        }
-
-                    });
-                });
-            </script>
-            <div class="b-interest_popup">
-                <div class="margin-b5 clearfix">
-                    <a class="ava small" href=""><img src="http://img.happy-giraffe.ru/avatars/15496/small/avatar.jpeg" alt=""></a>
-                    <a class="ava small" href=""><img src="http://img.happy-giraffe.ru/avatars/15292/small/avatar.jpeg" alt=""></a>
-                    <a class="ava small" href=""></a>
-                    <a class="ava small" href=""><img src="http://img.happy-giraffe.ru/avatars/15496/small/avatar.jpeg" alt=""></a>
-                    <a class="ava small" href=""><img src="http://img.happy-giraffe.ru/avatars/15292/small/avatar.jpeg" alt=""></a>
-                    <a class="ava small" href=""></a>
-                </div>
-                <div class="clearfix">
-                    <a href="">и еще 358</a>
-                    <a href="" class="btn-green btn-small margin-l20">Добавить мне</a>
-                </div>
-            </div>
-        </li>
-        <li class="b-interest_li">
-            <a href="" class="b-interest_i">Морская рыбалка и на реке тоже</a>
-        </li>
-        <li class="b-interest_li">
-            <a href="" class="b-interest_i">Комедия</a>
-        </li>
-        <li class="b-interest_li">
-            <a href="" class="b-interest_i active">Морская рыбалка</a>
-        </li>
-    </ul>
-</div>
+<?php $this->widget('InterestsWidget', array('user' => $user)); ?>
 
 <!-- Фото -->
 <div class="photo-preview-row clearfix">

@@ -12542,8 +12542,6 @@ table.fr_recipe_tb td {
   display: block;
   width: 25px;
   min-width: 25px;
-  min-width: auto;
-  background-size: 75px;
   font-size: 9px;
   padding: 23px 0 0;
   background: url(/images/b-article_control-ico__smallest.png) no-repeat;

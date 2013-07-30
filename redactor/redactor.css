@@ -762,6 +762,7 @@ body .redactor_air .redactor_toolbar {
 
 /* wysiwyg-v */
 .wysiwyg-v {
+	position: relative;
 	margin: 0 0 15px;
 }
 .wysiwyg-v .redactor_toolbar {
@@ -799,6 +800,18 @@ body .redactor_air .redactor_toolbar {
 	-webkit-border-radius: 4px;
 	-moz-border-radius: 4px;
 	border-radius: 4px;
+}
+.wysiwyg-v .redactor-popup_b-photo {
+	bottom: -5px;
+	left: 44px;
+}
+.wysiwyg-v .redactor-popup_b-video {
+	bottom: -30px;
+	left: 44px;
+}
+.wysiwyg-v .redactor-popup_b-smile {
+	bottom: -55px;
+	left: 44px;
 }
 /* /wysiwyg-v */
 

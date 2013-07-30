@@ -15241,6 +15241,8 @@ table.fr_recipe_tb td {
 .form-settings {
   padding: 35px 35px;
   background: #fafafa;
+  color: #515151;
+  font-size: 13px;
 }
 .form-settings_label {
   float: left;

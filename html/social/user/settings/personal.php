@@ -46,7 +46,7 @@
 				
 				<div class="col-23-middle clearfix">
 	                <div class="heading-title clearfix">
-						Настройки 
+						Мои настройки 
 					</div>
 	                <div class="col-gray"> 
 						<div class="cont-nav textalign-l">

@@ -3,12 +3,17 @@
  * Author: alexk984
  * Date: 28.06.13
  */
-function UploadPhotos() {
+function UploadPhotos(data) {
     var self = this;
     self.photos = ko.observableArray([]);
+    if (data) {
+        ko.utils.arrayForEach(data, function (photo) {
+            self.photos.push(new UploadedPhoto(null, self, photo));
+        });
+    }
     self.active = false;
 
-    self.onFiles = function(files) {
+    self.onFiles = function (files) {
         FileAPI.each(files, function (file) {
             if (file.size >= 25 * FileAPI.MB) {
                 alert('Sorrow.\nMax size 25MB')
@@ -25,7 +30,7 @@ function UploadPhotos() {
         self.start();
     };
     self.add = function (file) {
-        var photo = new UploadedPhoto(file, self);
+        var photo = new UploadedPhoto(file, self, null);
         self.photos.push(photo);
     };
     self.start = function () {
@@ -39,7 +44,7 @@ function UploadPhotos() {
             });
     };
 
-    self.getPhotoIds = function(){
+    self.getPhotoIds = function () {
         var ids = [];
         for (var i = 0; i < self.photos().length; i++)
             ids.push(self.photos()[i].id());
@@ -48,20 +53,30 @@ function UploadPhotos() {
     }
 }
 
-function UploadedPhoto(file, parent) {
+function UploadedPhoto(file, parent, photo) {
     var self = this;
 
     self.parent = parent;
-    self.file = file;
-    self.uid = FileAPI.uid(file);
-    self.id = ko.observable('');
-    self.status = ko.observable(0);
-    self._progress = ko.observable(0);
 
-    if (/^image/.test(self.file.type)) {
-        FileAPI.Image(self.file).preview(195, 125).rotate('auto').get(function (err, img) {
-            $('#uploaded_photo_' + self.uid+' .js-image').prepend(img);
-        });
+    if (file != null) {
+        self.file = file;
+        self.uid = FileAPI.uid(file);
+        self.id = ko.observable('');
+        self.status = ko.observable(0);
+        self._progress = ko.observable(0);
+
+        if (/^image/.test(self.file.type)) {
+            FileAPI.Image(self.file).preview(195, 125).rotate('auto').get(function (err, img) {
+                $('#uploaded_photo_' + self.uid + ' .js-image').prepend(img);
+            });
+        }
+    } else {
+        self.file = null;
+        self.id = ko.observable(photo.id);
+        self.uid = photo.id;
+        self.status = ko.observable(2);
+        self._progress = ko.observable(100);
+        self.url = photo.url;
     }
 
     self.upload = function () {
@@ -81,7 +96,7 @@ function UploadedPhoto(file, parent) {
                 self.id(response.id);
                 self._progress(100);
                 self.status(2);
-                $('#uploaded_photo_' + self.uid+' .js-image').css({ opacity: 1 });
+                $('#uploaded_photo_' + self.uid + ' .js-image').css({ opacity: 1 });
                 self.parent.active = false;
                 self.parent.start();
             }
@@ -89,11 +104,11 @@ function UploadedPhoto(file, parent) {
     };
 
     self.progress = ko.computed(function () {
-        return self._progress()+'%';
+        return self._progress() + '%';
     });
 
     self.remove = function () {
-        if (self.file.xhr)
+        if (self.file && self.file.xhr)
             self.file.xhr.abort();
         self.parent.photos.remove(self);
     };

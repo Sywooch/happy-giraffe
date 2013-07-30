@@ -1,5 +1,7 @@
 function PhotoCollectionViewModel(data) {
     var self = this;
+    self.collectionClass = data.collectionClass;
+    self.collectionOptions = data.collectionOptions;
     self.count = data.count;
     self.photos = ko.utils.arrayMap(data.initialPhotos, function(photo) {
         return new CollectionPhoto(photo, self);
@@ -19,34 +21,34 @@ function PhotoCollectionViewModel(data) {
         return self.photos[self.currentPhotoIndex()];
     });
 
+    self.isFullyLoaded = function() {
+        return self.count == self.photos.length;
+    };
+
     self.nextHandler = function() {
-        var newIndex = self.currentPhotoIndex() + 1;
-        if (self.currentPhotoIndex() != self.photos.length - 1) {
-            self.currentPhotoIndex(newIndex);
+        if ((self.currentPhotoIndex() != self.photos.length - 1) || self.isFullyLoaded()) {
+            self.currentPhotoIndex(self.currentPhotoIndex() != self.photos.length - 1 ? self.currentPhotoIndex() + 1 : 0);
             self.incNaturalIndex(true);
             self.preloadImages();
-            if (self.count != self.photos.length && self.currentPhotoIndex() >= self.photos.length - 3)
+            if (! self.isFullyLoaded() && self.currentPhotoIndex() >= self.photos.length - 3)
                 self.preloadMetaNext();
         }
     }
 
     self.prevHandler = function() {
-        var newIndex = self.currentPhotoIndex() - 1;
-        if (self.currentPhotoIndex() != 0) {
-            self.currentPhotoIndex(newIndex);
+        if ((self.currentPhotoIndex() != 0) || self.isFullyLoaded()) {
+            self.currentPhotoIndex(self.currentPhotoIndex() != 0 ? self.currentPhotoIndex() - 1 : self.photos.length - 1);
             self.incNaturalIndex(false);
             self.preloadImages();
-            if (self.count != self.photos.length && self.currentPhotoIndex() <= 2)
+            if (! self.isFullyLoaded() && self.currentPhotoIndex() <= 2)
                 self.preloadMetaPrev();
         }
     }
 
     self.preloadImages = function() {
-//        var next = self.photos.slice(self.currentPhotoIndex() + 1, self.currentPhotoIndex() + 2);
-//        console.log(next);
-//        var prev = self.photos.slice(self.currentPhotoIndex() - 1, self.currentPhotoIndex());
-//        console.log(prev);
-//        self.preload([next[0].src, prev[0].src]);
+        var next = self.photos[self.currentPhotoIndex() != self.photos.length - 1 ? self.currentPhotoIndex() + 1 : 0];
+        var prev = self.photos[self.currentPhotoIndex() != 0 ? self.currentPhotoIndex() - 1 : self.photos.length - 1];
+        self.preload([next.src, prev.src]);
     }
 
     self.preload = function(arrayOfImages) {
@@ -56,16 +58,17 @@ function PhotoCollectionViewModel(data) {
     }
 
     self.preloadMetaNext = function() {
-        $.get('/gallery/default/preloadNext/', { photoId : self.photos[self.photos.length - 1].id }, function(response) {
+        $.get('/gallery/default/preloadNext/', { collectionClass : self.collectionClass, collectionOptions : self.collectionOptions, photoId : self.photos[self.photos.length - 1].id, number : Math.min(self.count - self.photos.length, 10) }, function(response) {
             for (var p in response.photos)
                 self.photos.push(new CollectionPhoto(response.photos[p], self));
         }, 'json');
     }
 
     self.preloadMetaPrev = function() {
-        $.get('/gallery/default/preloadPrev/', { photoId : self.photos[0].id }, function(response) {
+        $.get('/gallery/default/preloadPrev/', { collectionClass : self.collectionClass, collectionOptions : self.collectionOptions, photoId : self.photos[0].id, number : Math.min(self.count - self.photos.length, 10) }, function(response) {
             for (var p in response.photos)
                 self.photos.unshift(new CollectionPhoto(response.photos[p], self));
+            self.currentPhotoIndex(self.currentPhotoIndex() + response.photos.length);
         }, 'json');
     }
 

@@ -309,40 +309,40 @@ $(document).ready(function () {
 									</div>
 									<button class="btn-green">Отправить</button>
 								</div>
-							</div>
 							
 							
 							
-							<div class="redactor-popup redactor-popup__down" style="left:35px;bottom:80px;">
-								<a href="" class="redactor-popup_close ico-close3 powertip" title="Закрыть"></a>
-								<div class="redactor-popup_tale"></div>
-								<div class="redactor-popup_t">Загрузите фото</div>
-								<div class="b-add-img b-add-img__single">
-									<div class="b-add-img_hold">
-										<div class="b-add-img_t">
-											Загрузите фотографии с компьютера
-											<div class="b-add-img_t-tx">Поддерживаемые форматы: jpg и png</div>
-										</div>
-										<div class="file-fake">
-											<button class="btn-green btn-medium file-fake_btn btn-inactive">Обзор</button>
-											<input type="file" name="">
-										</div>
-									</div>
-									<div class="textalign-c clearfix">
-										<div class="b-add-img_i b-add-img_i__single">
-											<img class="b-add-img_i-img" src="/images/example/w440-h340.jpg" alt="">
-											<div class="b-add-img_i-vert"></div>
-											<div class="b-add-img_i-overlay">
-												<a href="" class="b-add-img_i-del ico-close4"></a>
+								<div class="redactor-popup redactor-popup__down redactor-popup_b-photo">
+									<a href="" class="redactor-popup_close ico-close3 powertip" title="Закрыть"></a>
+									<div class="redactor-popup_tale"></div>
+									<div class="redactor-popup_t">Загрузите фото</div>
+									<div class="b-add-img b-add-img__single">
+										<div class="b-add-img_hold">
+											<div class="b-add-img_t">
+												Загрузите фотографии с компьютера
+												<div class="b-add-img_t-tx">Поддерживаемые форматы: jpg и png</div>
+											</div>
+											<div class="file-fake">
+												<button class="btn-green btn-medium file-fake_btn btn-inactive">Обзор</button>
+												<input type="file" name="">
 											</div>
 										</div>
+										<div class="textalign-c clearfix">
+											<div class="b-add-img_i b-add-img_i__single">
+												<img class="b-add-img_i-img" src="/images/example/w440-h340.jpg" alt="">
+												<div class="b-add-img_i-vert"></div>
+												<div class="b-add-img_i-overlay">
+													<a href="" class="b-add-img_i-del ico-close4"></a>
+												</div>
+											</div>
+										</div>
+										<!-- Текст приглашения для перетаскивания можно скрыть или удалить при наличии фото -->
+										<div class="b-add-img_html5-tx display-n">или перетащите фото сюда</div>
 									</div>
-									<!-- Текст приглашения для перетаскивания можно скрыть или удалить при наличии фото -->
-									<div class="b-add-img_html5-tx display-n">или перетащите фото сюда</div>
-								</div>
-								<div class="textalign-c margin-t15">
-									<a href="" class="btn-gray-light btn-medium margin-r10">Отменить</a>
-									<a href="" class="btn-green btn-medium">Добавить видео</a>
+									<div class="textalign-c margin-t15">
+										<a href="" class="btn-gray-light btn-medium margin-r10">Отменить</a>
+										<a href="" class="btn-green btn-medium">Добавить видео</a>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -455,44 +455,42 @@ $(document).ready(function () {
 									</div>
 									<button class="btn-green">Отправить</button>
 								</div>
-							</div>
 							
-							
-							
-							<div class="redactor-popup redactor-popup__down" style="left:60px;bottom:80px;">
-								<a href="" class="redactor-popup_close ico-close3 powertip" title="Закрыть"></a>
-								<div class="redactor-popup_tale"></div>
-								<div class="redactor-popup_t">Загрузите видео</div>
-								<div class="redactor-popup_video clearfix">
-									<a href="" class="redactor-popup_video-del ico-close powertip" title="Удалить"></a>
-									<iframe width="540" height="300" frameborder="0" allowfullscreen="" src="http://www.youtube.com/embed/pehSAUTqjRs?wmode=transparent"></iframe>
-								</div>
-								<div class="redactor-popup_add-video active">
-									<div class="redactor-popup_add-video-hold">
-										<!-- При вводе текста убрать класс .btn-inactive с кнопки для ее активирования -->
-										<input type="text" name="" id="" class="itx-simple w-350 float-l" placeholder="Введите ссылку на видео">
-										<button class="btn-green btn-medium btn-inactive">Загрузить  видео</button>
+								<div class="redactor-popup redactor-popup__down redactor-popup_b-video" >
+									<a href="" class="redactor-popup_close ico-close3 powertip" title="Закрыть"></a>
+									<div class="redactor-popup_tale"></div>
+									<div class="redactor-popup_t">Загрузите видео</div>
+									<div class="redactor-popup_video clearfix">
+										<a href="" class="redactor-popup_video-del ico-close powertip" title="Удалить"></a>
+										<iframe width="540" height="300" frameborder="0" allowfullscreen="" src="http://www.youtube.com/embed/pehSAUTqjRs?wmode=transparent"></iframe>
 									</div>
-									<!-- При показе текстового сообщения на .redactor-popup_add-video добавлять класс .active -->
-									<div class="redactor-popup_add-video-load">
-										<img src="/images/ico/ajax-loader.gif" alt=""> <br>
-										Подждите видео загружается
+									<div class="redactor-popup_add-video active">
+										<div class="redactor-popup_add-video-hold">
+											<!-- При вводе текста убрать класс .btn-inactive с кнопки для ее активирования -->
+											<input type="text" name="" id="" class="itx-simple w-350 float-l" placeholder="Введите ссылку на видео">
+											<button class="btn-green btn-medium btn-inactive">Загрузить  видео</button>
+										</div>
+										<!-- При показе текстового сообщения на .redactor-popup_add-video добавлять класс .active -->
+										<div class="redactor-popup_add-video-load">
+											<img src="/images/ico/ajax-loader.gif" alt=""> <br>
+											Подждите видео загружается
+										</div>
 									</div>
-								</div>
-								<div class="redactor-popup_add-video active">
-									<div class="redactor-popup_add-video-hold">
-										<!-- При вводе текста убрать класс .btn-inactive с кнопки для ее активирования -->
-										<input type="text" name="" id="" class="itx-simple w-350 float-l" placeholder="Введите ссылку на видео">
-										<button class="btn-green btn-medium btn-inactive">Загрузить  видео</button>
+									<div class="redactor-popup_add-video active">
+										<div class="redactor-popup_add-video-hold">
+											<!-- При вводе текста убрать класс .btn-inactive с кнопки для ее активирования -->
+											<input type="text" name="" id="" class="itx-simple w-350 float-l" placeholder="Введите ссылку на видео">
+											<button class="btn-green btn-medium btn-inactive">Загрузить  видео</button>
+										</div>
+										<div class="redactor-popup_add-video-error">
+											Не удалось загрузить видео. <br>
+											Возможно, URL указан неправильно либо ведет на неподдерживаемый сайт.
+										</div>
 									</div>
-									<div class="redactor-popup_add-video-error">
-										Не удалось загрузить видео. <br>
-										Возможно, URL указан неправильно либо ведет на неподдерживаемый сайт.
+									<div class="textalign-c margin-t15">
+										<a href="" class="btn-gray-light btn-medium margin-r10">Отменить</a>
+										<a href="" class="btn-green btn-medium btn-inactive">Добавить видео</a>
 									</div>
-								</div>
-								<div class="textalign-c margin-t15">
-									<a href="" class="btn-gray-light btn-medium margin-r10">Отменить</a>
-									<a href="" class="btn-green btn-medium btn-inactive">Добавить видео</a>
 								</div>
 							</div>
 						</div>

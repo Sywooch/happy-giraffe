@@ -5,7 +5,7 @@
  *
  * The followings are the available columns in table 'interest':
  * @property string $id
- * @property string $name
+ * @property string $title
  * @property string $category_id
  *
  * The followings are the available model relations:
@@ -14,86 +14,86 @@
  */
 class Interest extends HActiveRecord
 {
-	/**
-	 * Returns the static model of the specified AR class.
-	 * @param string $className active record class name.
-	 * @return Interest the static model class
-	 */
-	public static function model($className=__CLASS__)
-	{
-		return parent::model($className);
-	}
+    /**
+     * Returns the static model of the specified AR class.
+     * @param string $className active record class name.
+     * @return Interest the static model class
+     */
+    public static function model($className = __CLASS__)
+    {
+        return parent::model($className);
+    }
 
-	/**
-	 * @return string the associated database table name
-	 */
-	public function tableName()
-	{
-		return 'interest__interests';
-	}
+    /**
+     * @return string the associated database table name
+     */
+    public function tableName()
+    {
+        return 'interest__interests';
+    }
 
-	/**
-	 * @return array validation rules for model attributes.
-	 */
-	public function rules()
-	{
-		// NOTE: you should only define rules for those attributes that
-		// will receive user inputs.
-		return array(
-			array('title, category_id', 'required'),
-			array('title', 'length', 'max'=>255),
-			array('category_id', 'length', 'max'=>2),
-			// The following rule is used by search().
-			// Please remove those attributes that should not be searched.
-			array('id, title, category_id', 'safe', 'on'=>'search'),
-		);
-	}
+    /**
+     * @return array validation rules for model attributes.
+     */
+    public function rules()
+    {
+        // NOTE: you should only define rules for those attributes that
+        // will receive user inputs.
+        return array(
+            array('title, category_id', 'required'),
+            array('title', 'length', 'max' => 255),
+            array('category_id', 'length', 'max' => 2),
+            // The following rule is used by search().
+            // Please remove those attributes that should not be searched.
+            array('id, title, category_id', 'safe', 'on' => 'search'),
+        );
+    }
 
-	/**
-	 * @return array relational rules.
-	 */
-	public function relations()
-	{
-		// NOTE: you may need to adjust the relation name and the related
-		// class name for the relations automatically generated below.
-		return array(
-			'category' => array(self::BELONGS_TO, 'InterestCategory', 'category_id'),
-			'users' => array(self::MANY_MANY, 'User', 'interest__users_interests(interest_id, user_id)'),
+    /**
+     * @return array relational rules.
+     */
+    public function relations()
+    {
+        // NOTE: you may need to adjust the relation name and the related
+        // class name for the relations automatically generated below.
+        return array(
+            'category' => array(self::BELONGS_TO, 'InterestCategory', 'category_id'),
+            'users' => array(self::MANY_MANY, 'User', 'interest__users_interests(interest_id, user_id)'),
             'usersCount' => array(self::STAT, 'User', 'interest__users_interests(interest_id, user_id)'),
-		);
-	}
+        );
+    }
 
-	/**
-	 * @return array customized attribute labels (name=>label)
-	 */
-	public function attributeLabels()
-	{
-		return array(
-			'id' => 'ID',
-			'title' => 'Name',
-			'category_id' => 'Category',
-		);
-	}
+    /**
+     * @return array customized attribute labels (name=>label)
+     */
+    public function attributeLabels()
+    {
+        return array(
+            'id' => 'ID',
+            'title' => 'Name',
+            'category_id' => 'Category',
+        );
+    }
 
-	/**
-	 * Retrieves a list of models based on the current search/filter conditions.
-	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
-	 */
-	public function search()
-	{
-		// Warning: Please modify the following code to remove attributes that
-		// should not be searched.
+    /**
+     * Retrieves a list of models based on the current search/filter conditions.
+     * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
+     */
+    public function search()
+    {
+        // Warning: Please modify the following code to remove attributes that
+        // should not be searched.
 
-		$criteria=new CDbCriteria;
+        $criteria = new CDbCriteria;
 
-		$criteria->compare('id',$this->id,true);
-		$criteria->compare('title',$this->title,true);
-		$criteria->compare('category_id',$this->category_id,true);
+        $criteria->compare('id', $this->id, true);
+        $criteria->compare('title', $this->title, true);
+        $criteria->compare('category_id', $this->category_id, true);
 
-		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-		));
-	}
+        return new CActiveDataProvider($this, array(
+            'criteria' => $criteria,
+        ));
+    }
 
     public static function findAllByUser($user_id)
     {
@@ -101,8 +101,7 @@ class Interest extends HActiveRecord
             ->bindParam(":user_id", $user_id, PDO::PARAM_INT)
             ->queryAll();
         $interests = array();
-        foreach($list as $item)
-        {
+        foreach ($list as $item) {
             $interests[$item['interest_id']] = $user_id;
         }
         return $interests;
@@ -115,15 +114,13 @@ class Interest extends HActiveRecord
         $command->bindParam(":user_id", $user_id, PDO::PARAM_INT);
         $command->execute();
 
-        if($interests)
-        {
-            foreach($interests as $interest_id => $value)
-            {
+        if ($interests) {
+            foreach ($interests as $interest_id => $value) {
                 Yii::app()->db->createCommand()->insert('interest__users_interests', array(
                     'interest_id' => $interest_id,
                     'user_id' => $user_id,
                 ));
-                if (! array_key_exists($interest_id, $old_interests)) {
+                if (!array_key_exists($interest_id, $old_interests)) {
                     UserAction::model()->add($user_id, UserAction::USER_ACTION_INTERESTS_ADDED, array('id' => $interest_id));
                     FriendEventManager::add(FriendEvent::TYPE_INTERESTS_ADDED, array('id' => $interest_id, 'user_id' => $user_id));
                 }
@@ -133,5 +130,54 @@ class Interest extends HActiveRecord
             return true;
         }
         return false;
+    }
+
+    public static function toggleInterest($user_id, $interest_id)
+    {
+        $exist = Yii::app()->db->createCommand()
+            ->select('user_id')
+            ->from('interest__users_interests')
+            ->where('user_id=:user_id AND interest_id=:interest_id ', array(
+                ':interest_id' => $interest_id,
+                ':user_id' => $user_id,
+            ))
+            ->queryScalar();
+        if ($exist)
+            return Yii::app()->db->createCommand()->delete('interest__users_interests',
+                'user_id=:user_id AND interest_id=:interest_id', array(
+                    ':interest_id' => $interest_id,
+                    ':user_id' => $user_id,
+                ));
+        else
+            return Yii::app()->db->createCommand()->insert('interest__users_interests', array(
+                'interest_id' => $interest_id,
+                'user_id' => $user_id,
+            ));
+    }
+
+    /**
+     * Возвращает нескольких пользователей с этим интересом для knockout модели
+     * @param int $limit
+     * @return array
+     */
+    public function getUsersData($limit = 6)
+    {
+        $userIds = Yii::app()->db->createCommand()
+            ->select('user_id')
+            ->from('interest__users_interests')
+            ->where('interest_id = :interest_id', array(':interest_id' => $this->id))
+            ->limit($limit)
+            ->queryColumn();
+
+        $users = User::model()->with('avatar')->findAllByPk($userIds);
+        $data = array();
+        foreach ($users as $user)
+            $data[] = array(
+                'url' => $user->getUrl(),
+                'ava' => $user->getAva(),
+                'gender' => $user->gender,
+            );
+
+        return $data;
     }
 }

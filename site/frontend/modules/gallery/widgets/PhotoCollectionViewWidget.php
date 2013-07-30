@@ -60,8 +60,11 @@ class PhotoCollectionViewWidget extends CWidget
         $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
         Yii::app()->clientScript
             ->registerScriptFile('/javascripts/ko_gallery.js')
+            ->registerScriptFile('/javascripts/knockout-2.2.1.js')
             ->registerScriptFile($baseUrl . '/PhotoCollectionViewWidget.js')
         ;
+
+        $this->widget('application.widgets.newCommentWidget.NewCommentWidget', array('registerScripts' => true));
     }
 }
 

@@ -11,13 +11,12 @@ $data = array(
     'objectName' => $this->objectName,
     'comments' => Comment::getViewData($comments),
     'full' => (bool)$this->full,
+    'gallery' => (bool)$this->gallery,
     'allCount' => (int)$allCount,
     'messaging__enter' => (bool) UserAttributes::get(Yii::app()->user->id, 'messaging__enter', false),
 );
-
-$this->widget('site.common.extensions.imperavi-redactor-widget.ImperaviRedactorWidget', array('onlyRegisterScript' => true));
 ?>
-<div class="comments-gray" id="<?= $this->objectName ?>">
+<div class="comments-gray <?=$this->objectName ?>" id="<?=$this->objectName ?>">
     <div class="comments-gray_t">
 
         <?php if ($this->full || $allCount <= 3): ?>
@@ -70,6 +69,7 @@ $this->widget('site.common.extensions.imperavi-redactor-widget.ImperaviRedactorW
                 <!-- /ko -->
 
                 <!-- ko if: editMode() -->
+                <?php if (!$this->gallery):?>
                 <div class="js-edit-field" data-bind="attr: {id: 'text' + id()}, html: html, enterKey: Enter"></div>
                 <div class="redactor-control">
                     <div class="redactor-control_key">
@@ -78,6 +78,9 @@ $this->widget('site.common.extensions.imperavi-redactor-widget.ImperaviRedactorW
                     </div>
                     <button class="btn-green" data-bind="click: Edit">Отправить</button>
                 </div>
+                <?php else: ?>
+                    <input type="text" class="comments-gray_add-itx itx-gray" data-bind="attr: {id: 'text' + id()}, html: html, enterKey: Enter">
+                <?php endif ?>
                 <!-- /ko -->
 
             </div>
@@ -110,31 +113,35 @@ $this->widget('site.common.extensions.imperavi-redactor-widget.ImperaviRedactorW
     </div>
     <!-- /ko -->
 
-
-    <div class="comments-gray_add clearfix" data-bind="css: {active: opened}">
-        <div class="comments-gray_ava">
-            <?php $this->widget('UserAvatarWidget', array('user' => Yii::app()->user->getModel(), 'size' => 'micro')) ?>
-        </div>
-        <div class="comments-gray_frame">
-            <input type="text" class="comments-gray_add-itx itx-gray" placeholder="Ваш комментарий" data-bind="click:openComment, visible: !opened()">
-            <!-- ko if: opened() -->
-            <div id="add_<?=$this->objectName ?>" data-bind="enterKey: Enter"></div>
-            <div class="redactor-control">
-                <div class="redactor-control_key">
-                    <input type="checkbox" class="redactor-control_key-checkbox" id="redactor-control_key-checkbox"  data-bind="checked: enterSetting, click: focusEditor">
-                    <label class="redactor-control_key-label" for="redactor-control_key-checkbox">Enter - отправить</label>
-                </div>
-                <button class="btn-green" data-bind="click: addComment">Отправить</button>
+    <?php if (!$this->gallery):?>
+        <div class="comments-gray_add clearfix" data-bind="css: {active: opened}">
+            <div class="comments-gray_ava">
+                <?php $this->widget('UserAvatarWidget', array('user' => Yii::app()->user->getModel(), 'size' => 'micro')) ?>
             </div>
-            <!-- /ko -->
+            <div class="comments-gray_frame">
+                <input type="text" class="comments-gray_add-itx itx-gray" placeholder="Ваш комментарий" data-bind="click:openComment, visible: !opened()">
+                <!-- ko if: opened() -->
+                <div id="add_<?=$this->objectName ?>" data-bind="enterKey: Enter"></div>
+                <div class="redactor-control">
+                    <div class="redactor-control_key">
+                        <input type="checkbox" class="redactor-control_key-checkbox" id="redactor-control_key-checkbox"  data-bind="checked: enterSetting, click: focusEditor">
+                        <label class="redactor-control_key-label" for="redactor-control_key-checkbox">Enter - отправить</label>
+                    </div>
+                    <button class="btn-green" data-bind="click: addComment">Отправить</button>
+                </div>
+                <!-- /ko -->
+            </div>
         </div>
-    </div>
+    <?php endif ?>
 
 </div>
 <script type="text/javascript">
     var CURRENT_USER_ID = <?=Yii::app()->user->id ?>;
     $(function () {
         var viewModel = new CommentViewModel(<?=CJSON::encode($data)?>);
-        ko.applyBindings(viewModel, document.getElementById('<?=$this->objectName ?>'));
+
+        $('.'+'<?=$this->objectName ?>').each(function(index, el) {
+            ko.applyBindings(viewModel, el);
+        });
     });
 </script>

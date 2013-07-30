@@ -209,7 +209,7 @@ class Comment extends HActiveRecord
                         array(':entity' => $this->entity, ':entity_id' => $this->entity_id))
                     ->queryScalar();
                 if ($commentsCount % 5 == 0)
-                    PostRating::getInstance()->reCalc($relatedModel);
+                    PostRating::reCalc($relatedModel);
             }
 
             Yii::import('site.frontend.modules.routes.models.*');

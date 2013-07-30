@@ -424,7 +424,8 @@ class SiteController extends HController
         $rows = Yii::app()->db_seo->createCommand()
             ->select('site_url')
             ->from('li_sites')
-            ->where('(password IS NOT NULL OR public=1) AND type=1')
+            ->where('(password IS NOT NULL OR public=1) AND type=1 AND visits > 3000')
+            ->order('visits desc')
             ->queryColumn();
 
         foreach($rows as $row)

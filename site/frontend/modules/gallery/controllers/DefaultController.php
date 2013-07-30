@@ -7,9 +7,10 @@ class DefaultController extends HController
         $this->render('index');
     }
 
-	public function actionWindow($initialPhotoId)
+	public function actionWindow($collectionClass, $initialPhotoId)
 	{
-        $collection = new CookDecorPhotoCollection();
+        $collectionOptions = Yii::app()->request->getQuery('collectionOptions');
+        $collection = new $collectionClass($collectionOptions);
         $initialIndex = $collection->getIndexById($initialPhotoId);
         $initialPhotos = $collection->getPhotosInRange($initialPhotoId, 5, 5);
         $count = $collection->count;
@@ -18,18 +19,18 @@ class DefaultController extends HController
         $this->renderPartial('window', compact('json'));
 	}
 
-    public function actionPreloadNext($photoId)
+    public function actionPreloadNext($collectionClass, $collectionOptions, $photoId)
     {
-        $collection = new CookDecorPhotoCollection();
+        $collection = new $collectionClass($collectionOptions);
         $photos = $collection->getNextPhotos($photoId, 10);
 
         $response = compact('photos');
         echo CJSON::encode($response);
     }
 
-    public function actionPreloadPrev($photoId)
+    public function actionPreloadPrev($collectionClass, $collectionOptions, $photoId)
     {
-        $collection = new CookDecorPhotoCollection();
+        $collection = new $collectionClass($collectionOptions);
         $photos = $collection->getPrevPhotos($photoId, 10);
 
         $response = compact('photos');

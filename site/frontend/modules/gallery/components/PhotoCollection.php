@@ -11,12 +11,20 @@ abstract class PhotoCollection extends CComponent
 {
     public $count;
     public $photoIds;
+    private $_options;
 
-    public function __construct($options = array()) {
-        $this->photoIds = $this->getPhotoIds();
-        $this->count = count($this->photoIds);
+    public function __construct($options = array())
+    {
+        $this->_options = $options;
         foreach ($options as $name => $value)
             $this->$name = $value;
+        $this->photoIds = $this->getPhotoIds();
+        $this->count = count($this->photoIds);
+    }
+
+    public function getOptions()
+    {
+        return $this->_options;
     }
 
     public function getIndexById($photoId)
@@ -24,24 +32,30 @@ abstract class PhotoCollection extends CComponent
         return array_search($photoId, $this->photoIds);
     }
 
-    public function getAllPhotos()
+    public function getAllPhotos($json = false)
     {
-        return $this->populatePhotos($this->photoIds);
+        return $this->populatePhotos($this->photoIds, $json);
     }
 
-    public function getPhotosInRange($photoId, $before, $after)
+    public function getPhotosInRange($photoId, $before, $after, $json = true)
     {
-        return $this->populatePhotos(array_merge($this->getPrevPhotosIds($photoId, $before), array($photoId), $this->getNextPhotosIds($photoId, $after)));
+        return $this->populatePhotos(array_merge($this->getPrevPhotosIds($photoId, $before), array($photoId), $this->getNextPhotosIds($photoId, $after)), $json);
     }
 
-    public function getNextPhotos($photoId, $after)
+    public function getNextPhotos($photoId, $after, $json = true)
     {
-        return $this->populatePhotos($this->getNextPhotosIds($photoId, $after));
+        return $this->populatePhotos($this->getNextPhotosIds($photoId, $after), $json);
     }
 
-    public function getPrevPhotos($photoId, $before)
+    public function getPrevPhotos($photoId, $before, $json = true)
     {
-        return $this->populatePhotos($this->getPrevPhotosIds($photoId, $before));
+        return $this->populatePhotos($this->getPrevPhotosIds($photoId, $before), $json);
+    }
+
+    protected function populatePhotos($ids, $json)
+    {
+        $models = $this->generateModels($ids);
+        return $json ? array_map(array($this, 'toJSON'), $models) : $models;
     }
 
     protected function getNextPhotosIds($photoId, $after)
@@ -78,11 +92,11 @@ abstract class PhotoCollection extends CComponent
     }
 
     protected function getIdsCacheKey() {
-        return __CLASS__ . ':ids';
+        return __CLASS__ . ':ids:' . serialize($this->options);
     }
 
     abstract protected function generateIds();
     abstract protected function getIdsCacheDependency();
-    abstract protected function populatePhotos($ids);
-    abstract protected function photoToJSON($model);
+    abstract protected function generateModels($ids);
+    abstract protected function toJSON($model);
 }

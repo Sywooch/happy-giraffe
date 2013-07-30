@@ -188,5 +188,66 @@ class SeoCommand extends CConsoleCommand
 
         return $file_name;
     }
+
+    public function actionAddSites()
+    {
+        $sites = 'http://www.turizm.ru/
+http://auto.dmir.ru/
+http://calend.ru
+http://www.razumniki.ru/
+http://9months.ru/
+http://detskiysad.ru/
+http://www.best-mother.ru/
+http://vokrugsveta.ru/
+http://www.tvoyrebenok.ru/
+http://medinfa.ru/
+http://best-woman.ru/
+http://www.ufamama.ru/
+http://detstvo.ru/
+http://sport.ru/
+http://www.pitomec.ru/
+http://glavsport.ru
+http://mastera-rukodeliya.ru/
+http://detochka.ru/
+http://дошкольник.рф
+http://mama12.ru/
+http://www.hochusobaku.ru/
+http://avto-avto.ru/
+http://svadba.net.ru/
+http://www.doctorspb.ru/
+http://puzyaka.ru/
+http://radosvet.net/
+http://hobby-rukodelie.ru/
+http://domashn-maski.ru/
+http://mamapluspapa.ru/
+http://www.test-drive.ru/
+http://www.portal-woman.ru
+http://www.automania.ru
+http://www.medprof.ru/
+http://med-info.ru/
+http://www.med39.ru/
+http://autotechnica.ru/
+http://chudetstvo.ru/forum/
+http://supermams.ru/
+http://www.nevestushka.ru/';
+        $sites = explode("\n", $sites);
+        foreach ($sites as $site) {
+            $site = trim($site);
+            $res = Yii::app()->db_seo->createCommand()
+                ->select('*')
+                ->from('li_sites')
+                ->where('site_url LIKE "' . $site . '"')
+                ->queryAll();
+            if (!empty($res)) {
+                Yii::app()->db_seo->createCommand()->insert('sites__sites', array(
+                    'name' => $res[0]['url'],
+                    'url' => $res[0]['url'],
+                    'password' => $res[0]['password'],
+                    'section' => 11,
+                    'type' => 1,
+                ));
+            }
+        }
+    }
 }
 

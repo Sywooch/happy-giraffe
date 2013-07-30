@@ -61,7 +61,263 @@
 							</div>
 						</div>
 						
-						
+						<div class="form-settings">
+							<div class="margin-b20 clearfix">
+								<div class="form-settings_label">Имя</div>
+								<div class="form-settings_elem">
+									<div class="">
+										<span class="form-settings_name">Ангелина</span>
+										<a class="a-pseudo-icon" href="">
+											<span class="ico-edit"></span>
+											<span class="a-pseudo-icon_tx">Редактировать</span>
+										</a>
+									</div>
+									<!-- Блок редатирования поля -->
+									<div class="display-n">
+										<div class="float-l w-300">
+											<input type="text" name="" id="" class="itx-gray" value="Ангелина">
+										</div>
+										<button class="btn-green btn-small margin-l10">Ok</button>
+									</div>
+								</div>
+							</div>
+							<div class="margin-b20 clearfix">
+								<div class="form-settings_label">Фамилия</div>
+								<div class="form-settings_elem">
+									<div class="display-n">
+										<span class="form-settings_name">Богоявленская</span>
+										<a class="a-pseudo-icon" href="">
+											<span class="ico-edit"></span>
+											<span class="a-pseudo-icon_tx">Редактировать</span>
+										</a>
+									</div>
+									<!-- Блок редатирования поля -->
+									<div class="">
+										<div class="float-l w-300">
+											<input type="text" name="" id="" class="itx-gray" value="Богоявленская">
+										</div>
+										<button class="btn-green btn-small margin-l10">Ok</button>
+									</div>
+								</div>
+							</div>
+							<div class="margin-b20 clearfix">
+								<div class="form-settings_label">Дата рождения</div>
+								<div class="form-settings_elem">
+									<div class="">
+										<span class="">28 января 1989 г.</span>
+										<a class="a-pseudo-icon" href="">
+											<span class="ico-edit"></span>
+											<span class="a-pseudo-icon_tx">Редактировать</span>
+										</a>
+									</div>
+									<!-- Блок редатирования поля -->
+									<div class="clearfix display-n"></div>
+								</div>
+							</div>
+							<div class="margin-b20 clearfix">
+								<div class="form-settings_label">Дата рождения</div>
+								<div class="form-settings_elem">
+									<div class="display-n">
+										<span class="">28 января 1989 г.</span>
+										<a class="a-pseudo-icon" href="">
+											<span class="ico-edit"></span>
+											<span class="a-pseudo-icon_tx">Редактировать</span>
+										</a>
+									</div>
+									<!-- Блок редатирования поля -->
+									<div class="clearfix">
+										<div class="w-90 float-l margin-r10">
+										<div class="chzn-gray">
+											<select class="chzn">
+												<option>01</option>
+												<option>02</option>
+												<option>03</option>		
+												<option>04</option>		
+												<option>05</option>		
+												<option>06</option>		
+												<option>07</option>		
+												<option>08</option>		
+												<option>09</option>		
+												<option>10</option>		
+												<option>11</option>		
+												<option>12</option>		
+												<option>13</option>		
+											</select>
+										</div>
+										</div>
+										<div class="w-100 float-l margin-r10">
+										<div class="chzn-gray">
+											<select class="chzn">
+												<option>января</option>
+												<option>февраля</option>
+												<option>марта</option>		
+												<option>апреля</option>		
+												<option>майя</option>		
+												<option>июня</option>		
+												<option>июля</option>		
+												<option>августа</option>		
+												<option>сентября</option>		
+												<option>октября</option>		
+												<option>ноября</option>		
+												<option>декабря</option>
+											</select>
+										</div>
+										</div>
+										<div class="w-90 float-l">
+										<div class="chzn-gray">
+											<select class="chzn">
+												<option>1910</option>
+												<option>1911</option>
+												<option>1912</option>		
+												<option>1913</option>		
+												<option>1914</option>		
+												<option>1915</option>		
+												<option>1916</option>		
+												<option>1917</option>		
+												<option>1918</option>		
+												<option>1919</option>		
+												<option>1920</option>		
+												<option>1921</option>		
+												<option>1922</option>		
+											</select>
+										</div>
+										</div>
+										<button class="btn-green btn-small margin-l10">Ok</button>
+									</div>
+								</div>
+							</div>
+							
+							<div class="margin-b20 clearfix">
+								<div class="form-settings_label">Пол</div>
+								<div class="form-settings_elem">
+									<div class="form-settings_gender">
+										<!-- Данные для примера id="radio4" name="b-radio2" и for="radio4" -->
+										<input type="radio" checked="" class="form-settings_radio" id="radio4" name="b-radio2">
+										<label class="form-settings_label-radio" for="radio4">
+											<span class="ico-male-gray"></span>
+										</label>
+										<!-- Данные для примера id="radio5" name="b-radio2" и for="radio5" -->
+										<input type="radio" class="form-settings_radio" id="radio5" name="b-radio2">
+										<label class="form-settings_label-radio" for="radio5">
+											<span class="ico-female-gray"></span>
+										</label>
+									</div>
+								</div>
+							</div>
+							
+							<div class="margin-b20 clearfix">
+								<div class="form-settings_label">Email</div>
+								<div class="form-settings_elem">
+									<div class="">
+										<span class="">akuv@mail.ru</span>
+										<a class="a-pseudo-icon" href="">
+											<span class="ico-edit"></span>
+											<span class="a-pseudo-icon_tx">Редактировать</span>
+										</a>
+									</div>
+									<!-- Блок редатирования поля -->
+									<div class="display-n">
+										<input type="text" name="" id="" class="itx-gray w-300" value="akuv@mail.ru">
+										<button class="btn-green btn-small margin-l10">Ok</button>
+									</div>
+								</div>
+							</div>
+							
+							<div class="margin-b20 clearfix">
+								<div class="form-settings_label">Место жительства</div>
+								<div class="form-settings_elem">
+									<div class="">
+										<div class="location clearfix display-ib verticalalign-m">
+					                    	<span class="flag-big flag-big-ua"></span>
+					                    	<span class="location_tx">Ярославская обл. <br>Переславль-Залесский</span>
+					                    </div>
+										<a class="a-pseudo-icon" href="">
+											<span class="ico-edit"></span>
+											<span class="a-pseudo-icon_tx">Редактировать</span>
+										</a>
+									</div>
+									<!-- Блок редатирования поля -->
+									<div class="display-n">
+									</div>
+								</div>
+							</div>
+							
+							<div class="margin-b20 clearfix">
+								<div class="form-settings_label">Место жительства</div>
+								<div class="form-settings_elem">
+									<div class="display-n">
+										<div class="location clearfix display-ib verticalalign-m">
+					                    	<span class="flag-big flag-big-ua"></span>
+					                    	<span class="location_tx">Ярославская обл. <br>Переславль-Залесский</span>
+					                    </div>
+										<a class="a-pseudo-icon" href="">
+											<span class="ico-edit"></span>
+											<span class="a-pseudo-icon_tx">Редактировать</span>
+										</a>
+									</div>
+									<!-- Блок редатирования поля -->
+									<div class="">
+										<div class="w-300">
+											<div class="chzn-gray">
+												<select class="chzn" data-placeholder="Выберите страну">
+													<option value=""></option>
+													<option>Россия</option>
+													<option>Украина</option>
+													<option>Беларусь</option>
+													<option>Россия</option>
+													<option>Украина</option>
+													<option>Беларусь</option>
+													<option>Россия</option>
+													<option>Украина</option>
+													<option>Беларусь</option>
+													<option>Россия</option>
+													<option>Украина</option>
+													<option>Беларусь</option>	
+												</select>
+											</div>
+										</div>
+										<div class="w-300">
+											<div class="chzn-gray">
+												<select class="chzn" data-placeholder="Выберите регион">
+													<option value=""></option>
+													<option>Россия</option>
+													<option>Украина</option>
+													<option>Беларусь</option>
+													<option>Россия</option>
+													<option>Украина</option>
+													<option>Беларусь</option>
+													<option>Россия</option>
+													<option>Украина</option>
+													<option>Беларусь</option>
+													<option>Россия</option>
+													<option>Украина</option>
+													<option>Беларусь</option>	
+												</select>
+											</div>
+										</div>
+										<div class="float-l w-300">
+											<input type="text" name="" id="" class="itx-gray" value="Богоявленская">
+										</div>
+										<button class="btn-green btn-small margin-l10">Ok</button>
+									</div>
+								</div>
+							</div>
+							
+							<div class="margin-b20 clearfix">
+								<div class="form-settings_label">С Веселым Жирафом</div>
+								<div class="form-settings_elem">
+									<div class="">
+										<span class="">2 дня</span>
+									</div>
+								</div>
+							</div>
+							
+							<div class="margin-b30">Я  хочу <a href="" class="btn-gray-light btn-small margin-5">Удалить анкету </a> , потеряв всю введенную информацию без возможности восстановления. </div>
+							<div class="">
+								<a href="" class="a-checkbox active"></a>
+								Я  хочу получать еженедельные новости от Веселого жирафа. 
+							</div>
+						</div>
 						
 					</div>
 				</div>

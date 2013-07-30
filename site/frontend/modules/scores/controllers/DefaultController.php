@@ -4,7 +4,6 @@ class DefaultController extends HController
 {
     public $layout = '//layouts/common_new';
 
-
     public function filters()
     {
         return array(

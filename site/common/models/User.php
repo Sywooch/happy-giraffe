@@ -1313,4 +1313,13 @@ class User extends HActiveRecord
     {
         return HGLike::model()->hasLike($model, $this->id);
     }
+
+    /**
+     * Сколько времени зарегистрирован
+     * @return string
+     */
+    public function withUs()
+    {
+        return HDate::spentDays(strtotime($this->register_date));
+    }
 }

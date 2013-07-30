@@ -106,6 +106,7 @@ return array(
         'scores',
         'blog',
         'gallery',
+        'profile',
 	),
 	// application components
 	'components'=>array(

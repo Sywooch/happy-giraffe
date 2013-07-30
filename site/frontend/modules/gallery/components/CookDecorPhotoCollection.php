@@ -19,7 +19,7 @@ class CookDecorPhotoCollection extends PhotoCollection
         return new CDbCacheDependency("SELECT COUNT(*) FROM cook__decorations");
     }
 
-    protected function populatePhotos($ids)
+    protected function generateModels($ids)
     {
         $criteria = new CDbCriteria(array(
             'with' => array(
@@ -30,11 +30,10 @@ class CookDecorPhotoCollection extends PhotoCollection
             'order' => new CDbExpression('FIELD(t.photo_id, ' . implode(',', $ids) . ')')
         ));
         $criteria->addInCondition('t.photo_id', $ids);
-        $models = CookDecoration::model()->findAll($criteria);
-        return array_map(array($this, 'populatePhoto'), $models);
+        return CookDecoration::model()->findAll($criteria);
     }
 
-    protected function populatePhoto($model)
+    protected function toJSON($model)
     {
         return array(
             'id' => $model->photo_id,

@@ -12541,6 +12541,7 @@ table.fr_recipe_tb td {
 .like-control__smallest .like-control_ico {
   display: block;
   width: 25px;
+  min-width: 25px;
   min-width: auto;
   background-size: 75px;
   font-size: 9px;
@@ -15326,6 +15327,11 @@ table.fr_recipe_tb td {
   color: #515151;
   font-size: 13px;
 }
+.form-settings_t {
+  margin: 15px 0;
+  font-size: 20px;
+  color: #3b3b3b;
+}
 .form-settings_label {
   float: left;
   width: 180px;
@@ -15400,5 +15406,27 @@ table.fr_recipe_tb td {
 }
 .form-settings_capcha > img {
   display: block;
+}
+.form-settings_table {
+  margin: 20px 0 30px;
+  text-align: center;
+}
+.form-settings_th {
+  width: 200px;
+  border-bottom: 1px solid #ededed;
+  padding: 5px 0 5px 10px;
+  font-size: 11px;
+  font-weight: normal;
+  color: #acacac;
+}
+.form-settings_td {
+  width: 200px;
+  border-bottom: 1px solid #f5f5f5;
+  padding: 5px 0 2px 10px;
+  background: #fff;
+}
+.form-settings_td .custom-like {
+  vertical-align: middle;
+  margin: 0 5px 5px 0;
 }
 /* /form-settings */

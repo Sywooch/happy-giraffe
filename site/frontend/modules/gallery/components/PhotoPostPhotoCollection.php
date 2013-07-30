@@ -16,7 +16,7 @@ class PhotoPostPhotoCollection extends PhotoCollection
         return $dependency;
     }
 
-    protected function populatePhotos($ids)
+    protected function generateModels($ids)
     {
         $criteria = new CDbCriteria(array(
             'with' => array(
@@ -34,10 +34,10 @@ class PhotoPostPhotoCollection extends PhotoCollection
     {
         return array(
             'id' => $model->photo_id,
-            'title' => $model->title,
+            'title' => '',
             'description' => $model->description,
             'src' => $model->photo->getPreviewUrl(804, null, Image::WIDTH),
-            'date' => HDate::GetFormattedTime($model->created),
+            'date' => HDate::GetFormattedTime($model->photo->created),
             'user' => array(
                 'id' => $model->photo->author->id,
                 'firstName' => $model->photo->author->first_name,

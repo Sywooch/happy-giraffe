@@ -16,13 +16,12 @@ class PhotoCollectionViewWidget extends CWidget
 
     public function run()
     {
-        var_dump($this->collection->getAllPhotos());
-        die;
+        $this->registerScripts();
 
         $grid = array();
         $buffer = array();
-        foreach ($this->collection->photoIds as $photo) {
-            $buffer[] = $photo;
+        foreach ($this->collection->getAllPhotos() as $photo) {
+            $buffer[] = $photo->photo;
             $height = floor($this->getHeight($buffer));
 
             if (count($buffer) >= $this->minPhotos && $height <= $this->getThreshold($buffer)) {
@@ -53,6 +52,16 @@ class PhotoCollectionViewWidget extends CWidget
         }, 0);
         $orientCoefficient = $balance <= 0 ? 2 : 1;
         return 580 / count($photos) * $this->thresholdCoefficient * $orientCoefficient;
+    }
+
+    protected function registerScripts()
+    {
+        $basePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR;
+        $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
+        Yii::app()->clientScript
+            ->registerScriptFile('/javascripts/ko_gallery.js')
+            ->registerScriptFile($baseUrl . '/PhotoCollectionViewWidget.js')
+        ;
     }
 }
 

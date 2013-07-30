@@ -2,7 +2,7 @@ function PhotoCollectionViewModel(data) {
     var self = this;
     self.count = data.count;
     self.photos = ko.utils.arrayMap(data.initialPhotos, function(photo) {
-        return new Photo(photo, self);
+        return new CollectionPhoto(photo, self);
     });
 
     self.getIndexById = function(photoId) {
@@ -25,7 +25,7 @@ function PhotoCollectionViewModel(data) {
             self.currentPhotoIndex(newIndex);
             self.incNaturalIndex(true);
             self.preloadImages();
-            if (self.currentPhotoIndex() >= self.photos.length - 3)
+            if (self.count != self.photos.length && self.currentPhotoIndex() >= self.photos.length - 3)
                 self.preloadMetaNext();
         }
     }
@@ -36,15 +36,17 @@ function PhotoCollectionViewModel(data) {
             self.currentPhotoIndex(newIndex);
             self.incNaturalIndex(false);
             self.preloadImages();
-            if (self.currentPhotoIndex() <= 2)
+            if (self.count != self.photos.length && self.currentPhotoIndex() <= 2)
                 self.preloadMetaPrev();
         }
     }
 
     self.preloadImages = function() {
-        var next = self.photos.slice(self.currentPhotoIndex() + 1, self.currentPhotoIndex() + 2);
-        var prev = self.photos.slice(self.currentPhotoIndex() - 1, self.currentPhotoIndex());
-        self.preload([next[0].src, prev[0].src]);
+//        var next = self.photos.slice(self.currentPhotoIndex() + 1, self.currentPhotoIndex() + 2);
+//        console.log(next);
+//        var prev = self.photos.slice(self.currentPhotoIndex() - 1, self.currentPhotoIndex());
+//        console.log(prev);
+//        self.preload([next[0].src, prev[0].src]);
     }
 
     self.preload = function(arrayOfImages) {
@@ -56,14 +58,14 @@ function PhotoCollectionViewModel(data) {
     self.preloadMetaNext = function() {
         $.get('/gallery/default/preloadNext/', { photoId : self.photos[self.photos.length - 1].id }, function(response) {
             for (var p in response.photos)
-                self.photos.push(new Photo(response.photos[p], self));
+                self.photos.push(new CollectionPhoto(response.photos[p], self));
         }, 'json');
     }
 
     self.preloadMetaPrev = function() {
         $.get('/gallery/default/preloadPrev/', { photoId : self.photos[0].id }, function(response) {
             for (var p in response.photos)
-                self.photos.unshift(new Photo(response.photos[p], self));
+                self.photos.unshift(new CollectionPhoto(response.photos[p], self));
         }, 'json');
     }
 
@@ -82,7 +84,7 @@ function PhotoCollectionViewModel(data) {
     self.preloadImages();
 }
 
-function Photo(data, parent) {
+function CollectionPhoto(data, parent) {
     var self = this;
     self.id = data.id;
     self.title = data.title;

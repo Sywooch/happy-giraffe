@@ -6,7 +6,7 @@ class m130730_062027_add_user_about extends CDbMigration
 
 	public function up()
 	{
-        $this->addColumn($this->_table, 'about', 'varchar(1000) after birthday');
+        $this->addColumn($this->_table, 'about', 'varchar(10000) after birthday');
 	}
 
 	public function down()

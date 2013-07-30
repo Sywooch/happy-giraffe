@@ -365,6 +365,9 @@ html.top-nav-fixed {
 .margin-b30 {
   margin-bottom: 30px !important;
 }
+.margin-b40 {
+  margin-bottom: 40px !important;
+}
 .margin-l10 {
   margin-left: 10px !important;
 }
@@ -393,6 +396,9 @@ html.top-nav-fixed {
 .padding-l20 {
   padding-left: 20px !important;
 }
+.w-100p {
+  width: 100%;
+}
 .w-50 {
   width: 50px;
 }
@@ -407,6 +413,12 @@ html.top-nav-fixed {
 }
 .w-100 {
   width: 100px;
+}
+.w-130 {
+  width: 130px;
+}
+.w-160 {
+  width: 160px;
 }
 .w-200 {
   width: 200px;
@@ -599,6 +611,7 @@ hr,
 .itx-bluelight {
   border: 1px solid #c7c7c7;
   -webkit-box-shadow: inset 2px 2px 3px rgba(0, 0, 0, 0.08);
+  -moz-box-shadow: inset 2px 2px 3px rgba(0, 0, 0, 0.08);
   box-shadow: inset 2px 2px 3px rgba(0, 0, 0, 0.08);
   padding: 4px 7px;
   background: #fff;
@@ -606,13 +619,22 @@ hr,
 .itx-bluelight:focus {
   border-color: #8ed2fd;
   -webkit-box-shadow: 0 0 10px #80b8f2;
+  -moz-box-shadow: 0 0 10px #80b8f2;
   box-shadow: 0 0 10px #80b8f2;
 }
 .itx-gray {
+  width: 100%;
   border: 1px solid #e6e6e6;
   padding: 5px 10px;
   background: #fff;
   color: #777;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
   -moz-transition: all 0.4s ease;
   -ms-transition: all 0.4s ease;
   -o-transition: all 0.4s ease;
@@ -643,6 +665,28 @@ hr,
 }
 .itx-simple:focus {
   border-color: #a0ceee;
+}
+.a-checkbox {
+  display: inline-block;
+  *zoom: 1;
+  *display: inline;
+  vertical-align: bottom;
+  width: 20px;
+  height: 20px;
+  margin: 0 auto;
+  background: url(/images/checkbox.png) no-repeat;
+}
+.a-checkbox.active,
+.a-checkbox:hover {
+  background-position: -20px 0;
+}
+.msg-win {
+  color: #3cae31;
+  font-size: 13px;
+}
+.msg-error {
+  color: #ff8686;
+  font-size: 13px;
 }
 /* links */
 /* @todo избавляться от .pseudo, .info */
@@ -689,6 +733,10 @@ a.pseudo:hover,
 }
 .a-pseudo-icon:hover .ico-edit {
   background-position: 0 -15px;
+}
+.a-pseudo-icon:hover .ico-close2 {
+  vertical-align: middle;
+  background: url(/images/ico/ico-close2-hover.png) no-repeat;
 }
 .a-pseudo-icon:hover .a-pseudo-icon_tx {
   text-decoration: none;
@@ -968,6 +1016,32 @@ a.pseudo:hover,
 .ico-female.active {
   background-position: 0 -100px;
 }
+.ico-male-gray {
+  display: inline-block;
+  *zoom: 1;
+  *display: inline;
+  width: 11px;
+  height: 26px;
+  vertical-align: middle;
+  background: url(/images/ico/ico-male.png) no-repeat 0 -200px;
+}
+.ico-male-gray:hover,
+.ico-male-gray.active {
+  background-position: 0 -100px;
+}
+.ico-female-gray {
+  display: inline-block;
+  *zoom: 1;
+  *display: inline;
+  width: 11px;
+  height: 26px;
+  vertical-align: middle;
+  background: url(/images/ico/ico-female.png) no-repeat 0 -200px;
+}
+.ico-female-gray:hover,
+.ico-female-gray.active {
+  background-position: 0 -100px;
+}
 .ico-info {
   display: inline-block;
   *zoom: 1;
@@ -991,6 +1065,15 @@ a.pseudo:hover,
 .ico-back.active,
 .ico-back:hover {
   background-position: -18px 0;
+}
+.ico-refresh {
+  display: inline-block;
+  *zoom: 1;
+  *display: inline;
+  vertical-align: middle;
+  width: 18px;
+  height: 15px;
+  background: url(/images/ico/ico-refresh.png) no-repeat;
 }
 .ico-camera-big {
   display: inline-block;
@@ -1177,12 +1260,13 @@ a.pseudo:hover,
   display: inline-block;
   *zoom: 1;
   *display: inline;
+  vertical-align: middle;
   width: 13px;
   height: 13px;
-  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA0AAAANCAYAAABy6+R8AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6RjJBOUUzQjNBQ0Q4MTFFMjgyMDg4QzA1MjZCNDI2NTAiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6RjJBOUUzQjRBQ0Q4MTFFMjgyMDg4QzA1MjZCNDI2NTAiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpGMkE5RTNCMUFDRDgxMUUyODIwODhDMDUyNkI0MjY1MCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpGMkE5RTNCMkFDRDgxMUUyODIwODhDMDUyNkI0MjY1MCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Pn7ASAgAAAD6SURBVHjaYlx2/L0SAwPDJCBOBOLXDLiBKBDPAuJcJiBhC8ReQLwHKoENcAHxZiD2B2IHkKaFQJwNxLo4NLIB8WogNgfiKiBewgSVmI5DIyMQz4O6ZAIQd4AEmZBMxKaxH4ijgXgpEBfBFLKgOQWk8T8QTwPiq1CNW4E4CSrOgG4TDMwA4mVQDb+gtv9CVoBNkx8QRwDxYyBmBeJN6IGDrskJiFcC8XMgtgLiLKgf9yJrRNYEklwHxJ+B2AWIn0CdCtKog6wRFhAqUEGQc9yB+CaaHxmggQNS4wzTBPI4PzQ+TuIIHJjG5TBNGUCsCjUJF5gBDcWTAAEGACu2M2ShyD0mAAAAAElFTkSuQmCC);
+  background: url(/images/ico/ico-close2.png) no-repeat;
 }
 .ico-close2:hover {
-  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA0AAAANCAYAAABy6+R8AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OUM1NzQ5RURBRDlEMTFFMjhCNDBBOTZGRTc2QzFERkYiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OUM1NzQ5RUVBRDlEMTFFMjhCNDBBOTZGRTc2QzFERkYiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo5QzU3NDlFQkFEOUQxMUUyOEI0MEE5NkZFNzZDMURGRiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo5QzU3NDlFQ0FEOUQxMUUyOEI0MEE5NkZFNzZDMURGRiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Pr0rOCMAAAD6SURBVHjaYsyefk6JgYFhEhAnAvFrBtxAFIhnAXEuE5CwBWIvIN4DlcAGuIB4MxD7A7EDSNNCIM4GYl0cGtmAeDUQmwNxFRAvYYJKTMehkRGI50FdMgGIO0CCTEgmYtPYD8TRQLwUiItgClnQnALS+B+IpwHxVajGrUCcBBVnQLcJBmYA8TKohl9Q238hK8CmyQ+II4D4MRCzAvEm9MBB1+QExCuB+DkQWwFxFtSPe5E1ImsCSa4D4s9A7ALET6BOBWnUQdYICwgVqCDIOe5AfBPNjwzQwAGpcYZpAnmcHxofJ3EEDkzjcpimDCBWhZqEC8yAhuJJgAADALPKMthS2bQmAAAAAElFTkSuQmCC);
+  background: url(/images/ico/ico-close2-hover.png) no-repeat;
 }
 .ico-close3 {
   display: inline-block;
@@ -1625,8 +1709,8 @@ textarea.error,
 .btn-yellow,
 .btn-green {
   display: inline-block;
-  *display: inline;
   *zoom: 1;
+  *display: inline;
   padding: 4px 13px 6px;
   margin-bottom: 0;
   *margin-left: .3em;
@@ -1645,7 +1729,6 @@ textarea.error,
 
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
-  -ms-border-radius: 3px;
   border-radius: 3px;
   behavior: url(/stylesheets/PIE.htc);
 }
@@ -13129,6 +13212,42 @@ select.pregnancy_term + .chzn-container .chzn-results li {
   font-size: 14px;
   font-weight: bold;
   color: #848484;
+}
+.b-social-big {
+  display: inline-block;
+  *zoom: 1;
+  *display: inline;
+  margin: 0 15px 20px 0;
+}
+.b-social-big:hover .b-social-big_ico {
+  top: -3px;
+}
+.b-social-big_ico {
+  position: relative;
+  display: inline-block;
+  *zoom: 1;
+  *display: inline;
+  width: 73px;
+  height: 73px;
+  background: url(/images/b-social-big_ico.png) no-repeat;
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3) inset;
+  -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3) inset;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3) inset;
+  -webkit-border-radius: 100px;
+  -moz-border-radius: 100px;
+  border-radius: 100px;
+}
+.b-social-big_ico.odkl {
+  background-position: 0 0;
+}
+.b-social-big_ico.vk {
+  background-position: -73px 0;
+}
+.b-social-big_ico.fb {
+  background-position: -146px 0;
+}
+.b-social-big_ico.tw {
+  background-position: -219px 0;
 }
 /* services route map */
 .map-route-search {

@@ -476,3 +476,22 @@
 .fast-like-block .box-3 .icon-info .tip big {font-size:14px;font-weight:bold;color:#848484;}
 
 
+.b-social-big {
+	.inline-block();
+	margin: 0 15px 20px 0;
+
+	&:hover &_ico {top: -3px;}
+	&_ico {
+		position: relative;
+		.inline-block();
+		width: 73px;
+		height: 73px;
+		background: url(/images/b-social-big_ico.png) no-repeat;
+		.box-shadow(0 1px 1px rgba(0,0,0,0.3) inset);
+		.border-radius(100px);
+	}
+	&_ico.odkl {background-position: 0 0;}
+	&_ico.vk   {background-position: -73px 0;}
+	&_ico.fb   {background-position: -146px 0;}
+	&_ico.tw   {background-position: -219px 0;}
+}

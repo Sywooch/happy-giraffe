@@ -266,6 +266,7 @@
 
 <div class="display-n">
 	<div class="photo-window-end" id="photo-window-end">
+		<a class="photo-window-end_close powertip" onclick="$.fancybox.close();" href="javascript:void(0);" title="Закрыть"></a>
 		<div class="photo-window-end_top">
 			<div class="photo-window-end_desc">Это последнее фото из альбома</div>
 			<a class="photo-window-end_t" href="javascript:void(0)">
@@ -298,13 +299,13 @@
 			</div>
 		</div>
 		<div class="photo-window-end_hold clearfix">
-			<div class="textalign-c">
+			<div class="textalign-c margin-b30">
 				Другие альбомы  -  <a href="">Регина Поплавская </a>
 			</div>
 				
             <div class="photo-preview-row clearfix">
             	<div class="textalign-l clearfix">
-            		<a class="photo-preview-row_t">Style Me Pretty - Цветы и свадьбы</a>
+            		<a href="" class="photo-preview-row_t">Style Me Pretty - Цветы и свадьбы</a>
             	</div>
                 <div class="photo-preview-row_hold">
 	                <div class="photo-grid clearfix">
@@ -356,7 +357,7 @@
 				
             <div class="photo-preview-row clearfix">
             	<div class="textalign-l clearfix">
-            		<a class="photo-preview-row_t">Style Me Pretty - Цветы и свадьбы</a>
+            		<a  href="" class="photo-preview-row_t">Style Me Pretty - Цветы и свадьбы</a>
             	</div>
                 <div class="photo-preview-row_hold">
 	                <div class="photo-grid clearfix">

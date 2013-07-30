@@ -1,16 +1,33 @@
 <script type="text/javascript">
     $('.wysiwyg-redactor-v').redactor({
 
+        initCallback: function() {
+            redactor = this;
+            $('.redactor-popup_smiles a').on('click', function() {
+                var pic = $(this).find('img').attr('src');
+                redactor.insertHtml('<img class="smile" src="' + pic + '" />');
+                $('.redactor-popup_b-smile').addClass('display-n');
+                return false;
+            });
+        },
+
         minHeight: 450,
         autoresize: true,
         /* В базовом варианте нет кнопок 'h2', 'h3', 'link_add', 'link_del' но их функции реализованы с помощью выпадающих списков */
         buttons: ['bold', 'italic', 'underline', 'deleted', 'h2', 'h3', 'unorderedlist', 'orderedlist', 'link_add', 'link_del', 'image', 'video', 'smile'],
         buttonsCustom: {
+            video : {
+                title: 'video',
+                callback: function(buttonNamem, buttonDOM, buttonObject) {
+                    video = new Video({ link : '', embed : null });
+                    ko.applyBindings(video, document.getElementById('redactor-popup_b-video'));
+                    $('.redactor-popup_b-video').toggleClass('display-n');
+                }
+            },
             smile: {
                 title: 'smile',
                 callback: function(buttonName, buttonDOM, buttonObject) {
-                    // your code, for example - getting code
-                    var html = this.get();
+                    $('.redactor-popup_b-smile').toggleClass('display-n');
                 }
             },
             link_add: {
@@ -43,6 +60,8 @@
             }
         }
     });
+
+
 
     if ($('.chzn').size() > 0) {
         $('.chzn').each(function () {
@@ -78,6 +97,31 @@
         self.select = function() {
             parent.selectedPrivacyOptionIndex(parent.privacyOptions.indexOf(self));
             parent.showDropdown(false);
+        }
+    }
+
+    var Video = function(data, parent) {
+        var self = this;
+        self.link = ko.observable(data.link);
+        self.embed = ko.observable(data.embed);
+        self.previewLoading = ko.observable(false);
+        self.previewError = ko.observable(false);
+
+        self.check = function() {
+            self.previewError(false);
+            self.previewLoading(true);
+            $.get('/newblog/videoPreview/', { url : self.link() }, function(html) {
+                self.previewLoading(false);
+                if (html === false)
+                    self.previewError(true);
+                else
+                    self.embed(html);
+            }, 'json');
+        }
+
+        self.remove = function() {
+            self.link('');
+            self.embed(null);
         }
     }
 </script>

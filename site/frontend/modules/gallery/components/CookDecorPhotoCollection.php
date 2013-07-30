@@ -22,7 +22,6 @@ class CookDecorPhotoCollection extends PhotoCollection
     protected function populatePhotos($ids)
     {
         $criteria = new CDbCriteria(array(
-            'index' => 'id',
             'with' => array(
                 'photo' => array(
                     'with' => array('author'),
@@ -31,29 +30,25 @@ class CookDecorPhotoCollection extends PhotoCollection
             'order' => new CDbExpression('FIELD(t.photo_id, ' . implode(',', $ids) . ')')
         ));
         $criteria->addInCondition('t.photo_id', $ids);
-        $decorations = CookDecoration::model()->findAll($criteria);
-        $results = array();
-        foreach ($decorations as $d)
-            $results[] = $this->populatePhoto($d);
-
-        return $results;
+        $models = CookDecoration::model()->findAll($criteria);
+        return array_map(array($this, 'populatePhoto'), $models);
     }
 
-    protected function populatePhoto($decoration)
+    protected function populatePhoto($model)
     {
         return array(
-            'id' => $decoration->photo_id,
-            'title' => $decoration->title,
-            'description' => $decoration->description,
-            'src' => $decoration->photo->getPreviewUrl(804, null, Image::WIDTH),
-            'date' => HDate::GetFormattedTime($decoration->created),
+            'id' => $model->photo_id,
+            'title' => $model->title,
+            'description' => $model->description,
+            'src' => $model->photo->getPreviewUrl(804, null, Image::WIDTH),
+            'date' => HDate::GetFormattedTime($model->created),
             'user' => array(
-                'id' => $decoration->photo->author->id,
-                'firstName' => $decoration->photo->author->first_name,
-                'lastName' => $decoration->photo->author->last_name,
-                'gender' => $decoration->photo->author->gender,
-                'ava' => $decoration->photo->author->getAva('small'),
-                'url' => $decoration->photo->author->url,
+                'id' => $model->photo->author->id,
+                'firstName' => $model->photo->author->first_name,
+                'lastName' => $model->photo->author->last_name,
+                'gender' => $model->photo->author->gender,
+                'ava' => $model->photo->author->getAva('small'),
+                'url' => $model->photo->author->url,
             ),
         );
     }

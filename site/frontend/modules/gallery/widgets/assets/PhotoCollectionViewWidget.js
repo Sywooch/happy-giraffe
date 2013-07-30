@@ -1,7 +1,7 @@
 var PhotoCollectionViewWidget = {}
 
-PhotoCollectionViewWidget.open = function(id) {
-    $.get('/gallery/default/window/', { initialPhotoId : id }, function(response) {
+PhotoCollectionViewWidget.open = function(collectionClass, collectionOptions, initialPhotoId) {
+    $.get('/gallery/default/window/', { collectionClass : collectionClass, collectionOptions : collectionOptions, initialPhotoId : initialPhotoId }, function(response) {
         $('body').append(response);
     });
 }

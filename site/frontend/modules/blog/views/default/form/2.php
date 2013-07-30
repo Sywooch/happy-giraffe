@@ -48,6 +48,7 @@
             </div>
         </div>
     </div>
+    <!-- ko with: video -->
     <div class="b-settings-blue_add-video clearfix" data-bind="visible: embed() === null">
         <?=$form->textField($slaveModel, 'link', array('class' => 'itx-simple w-400 float-l', 'placeholder' => 'Введите ссылку на видео', 'data-bind' => 'value: link, valueUpdate: \'keyup\''))?>
         <?=$form->error($slaveModel, 'text')?>
@@ -65,6 +66,7 @@
         <a class="b-settings-blue_video-del ico-close2 powertip" title="Удалить" data-bind="click: remove"></a>
         <div data-bind="html: embed" id="embed"></div>
     </div>
+    <!-- /ko -->
     <div class="b-settings-blue_row clearfix">
         <?=$form->textArea($slaveModel, 'text', array('cols' => 80, 'rows' => 5, 'class' => 'b-settings-blue_textarea itx-simple', 'placeholder' => 'Ваш комментарий'))?>
 
@@ -106,27 +108,7 @@
     var BlogFormVideoViewModel = function(data) {
         var self = this;
         ko.utils.extend(self, new BlogFormViewModel(data));
-        self.link = ko.observable(data.link);
-        self.embed = ko.observable(data.embed);
-        self.previewLoading = ko.observable(false);
-        self.previewError = ko.observable(false);
-
-        self.check = function() {
-            self.previewError(false);
-            self.previewLoading(true);
-            $.get('/newblog/videoPreview/', { url : self.link() }, function(html) {
-                self.previewLoading(false);
-                if (html === false)
-                    self.previewError(true);
-                else
-                    self.embed(html);
-            }, 'json');
-        }
-
-        self.remove = function() {
-            self.link('');
-            self.embed(null);
-        }
+        self.video = new Video(data, self);
     }
 
     formVM = new BlogFormVideoViewModel(<?=CJSON::encode($json)?>);

@@ -6,18 +6,19 @@ class PhotoPostPhotoCollection extends PhotoCollection
 
     public function generateIds()
     {
-        return Yii::app()->db->createCommand("SELECT photo_id FROM album__photo_attaches WHERE entity = 'CommunityContent' AND entity_id = :entity_id")->queryColumn(array(':entity_id' => $this->contentId));
+        return Yii::app()->db->createCommand("SELECT i.photo_id FROM community__content_gallery_items i INNER JOIN community__content_gallery g ON i.gallery_id = g.id WHERE g.content_id = :content_id")->queryColumn(array(':content_id' => $this->contentId));
     }
 
     protected function getIdsCacheDependency()
     {
-        return Yii::app()->db->createCommand("SELECT COUNT(*) FROM album__photo_attaches WHERE entity = 'CommunityContent' AND entity_id = :entity_id")->queryColumn(array(':entity_id' => $this->contentId));
+        $dependency = new CDbCacheDependency("SELECT COUNT(*) FROM community__content_gallery_items i INNER JOIN community__content_gallery g ON i.gallery_id = g.id WHERE g.content_id = :content_id");
+        $dependency->params = array(':content_id' => $this->contentId);
+        return $dependency;
     }
 
-    protected function populatePhotos($ids)
+    protected function generateModels($ids)
     {
         $criteria = new CDbCriteria(array(
-            'index' => 'id',
             'with' => array(
                 'photo' => array(
                     'with' => array('author'),
@@ -26,29 +27,24 @@ class PhotoPostPhotoCollection extends PhotoCollection
             'order' => new CDbExpression('FIELD(t.photo_id, ' . implode(',', $ids) . ')')
         ));
         $criteria->addInCondition('t.photo_id', $ids);
-        $decorations = CookDecoration::model()->findAll($criteria);
-        $results = array();
-        foreach ($decorations as $d)
-            $results[] = $this->populatePhoto($d);
-
-        return $results;
+        return CommunityContentGalleryItem::model()->findAll($criteria);
     }
 
-    protected function populatePhoto($attach)
+    protected function toJSON($model)
     {
         return array(
-            'id' => $decoration->photo_id,
-            'title' => $decoration->title,
-            'description' => $decoration->description,
-            'src' => $decoration->photo->getPreviewUrl(804, null, Image::WIDTH),
-            'date' => HDate::GetFormattedTime($decoration->created),
+            'id' => $model->photo_id,
+            'title' => '',
+            'description' => $model->description,
+            'src' => $model->photo->getPreviewUrl(804, null, Image::WIDTH),
+            'date' => HDate::GetFormattedTime($model->photo->created),
             'user' => array(
-                'id' => $decoration->photo->author->id,
-                'firstName' => $decoration->photo->author->first_name,
-                'lastName' => $decoration->photo->author->last_name,
-                'gender' => $decoration->photo->author->gender,
-                'ava' => $decoration->photo->author->getAva('small'),
-                'url' => $decoration->photo->author->url,
+                'id' => $model->photo->author->id,
+                'firstName' => $model->photo->author->first_name,
+                'lastName' => $model->photo->author->last_name,
+                'gender' => $model->photo->author->gender,
+                'ava' => $model->photo->author->getAva('small'),
+                'url' => $model->photo->author->url,
             ),
         );
     }

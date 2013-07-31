@@ -155,10 +155,10 @@ $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
 </div>
 
 <script type="text/html" id="contact-template">
-    <div class="im-user-list_i" data-bind="click: $root.openThread, css: { active : user().id() == $root.openContactInterlocutorId() }">
-        <div class="im-user-settings clearfix">
-            <div class="im-user-settings_online-status-small" data-bind="css: { 'im-user-settings_online-status-small__offline' : ! user().online() }"></div>
-            <a class="ava female" href="">
+    <div class="im-user-list_i clearfix" data-bind="click: $root.openThread, css: { active : user().id() == $root.openContactInterlocutorId() }">
+        <div class="im-user-settings">
+            <a class="ava small" data-bind="css: user().avatarClass">
+                <span class="icon-status status-online" data-bind="visible: user().online()"></span>
                 <img alt="" data-bind="attr: { src: user().avatar }">
             </a>
             <div class="im-user-settings_user">
@@ -166,8 +166,8 @@ $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
             </div>
         </div>
         <!-- ko if: thread() !== null -->
-        <div class="im_watch im-tooltipsy" data-bind="click: thread().toggleHiddenStatus, clickBubble: false, tooltip: thread().hideButtonTitle"></div>
-        <div class="im_count im-tooltipsy" data-bind="click: thread().toggleReadStatus, clickBubble: false, text: thread().unreadCount(), css: { 'im_count__read' : thread().isRead() }, tooltip: thread().readButtonTitle"></div>
+        <div class="im_watch" data-bind="click: thread().toggleHiddenStatus, clickBubble: false, tooltip: thread().hideButtonTitle"></div>
+        <div class="im_count" data-bind="click: thread().toggleReadStatus, clickBubble: false, text: thread().unreadCount(), css: { 'im_count__read' : thread().isRead() }, tooltip: thread().readButtonTitle"></div>
         <!-- /ko -->
     </div>
 </script>

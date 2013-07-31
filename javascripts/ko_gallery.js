@@ -94,10 +94,10 @@ function CollectionPhoto(data, parent) {
     self.description = data.description;
     self.src = data.src;
     self.date = data.date;
-    self.user = new User(data.user);
+    self.user = new CollectionPhotoUser(data.user);
 }
 
-function User(data, parent) {
+function CollectionPhotoUser(data, parent) {
     var self = this;
     self.id = data.id;
     self.firstName = data.firstName;

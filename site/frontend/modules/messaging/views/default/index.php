@@ -20,24 +20,38 @@
 
             <div class="im-center_top">
                 <div class="im-tabs">
-                    <a href="javascript:void(0)" class="im_sound im-tooltipsy" data-bind="click: toggleSoundSetting, css: { active : soundSetting }, tooltip: soundSetting() ? 'Выключить звуковые <br>оповещения' : 'Включить звуковые <br>оповещения'"></a>
+                    <a href="javascript:void(0)" class="im_sound" data-bind="click: toggleSoundSetting, css: { active : soundSetting }, tooltip: soundSetting() ? 'Выключить звуковые <br>оповещения' : 'Включить звуковые <br>оповещения'"></a>
                     <div class="im-tabs_i" data-bind="css: { active : tab() == 0 }"><a href="javascript:void(0)" class="im-tabs_a" data-bind="click: function(data, event) { changeTab(0, data, event) }">Все</a></div>
                     <div class="im-tabs_i" data-bind="css: { active : tab() == 1 }"><a href="javascript:void(0)" class="im-tabs_a" data-bind="css: { inactive : newContactsCount() == 0 }, click: function(data, event) { if (newContactsCount() > 0) changeTab(1, data, event) }">Новые <span class="im_count" data-bind="visible: newContactsCount() > 0, text: newContactsCount()"></span> </a></div>
                     <div class="im-tabs_i" data-bind="css: { active : tab() == 2 }"><a href="javascript:void(0)" class="im-tabs_a" data-bind="css: { inactive : onlineContactsCount() == 0 }, click: function(data, event) { if (onlineContactsCount() > 0) changeTab(2, data, event) }, text: onlineContactsCount() > 0 ? 'Кто в онлайн (' + onlineContactsCount() + ')' : 'Кто в онлайн'"></a></div>
                     <div class="im-tabs_i" data-bind="css: { active : tab() == 3 }"><a href="javascript:void(0)" class="im-tabs_a" data-bind="css: { inactive : friendsContactsCount() == 0 }, click: function(data, event) { if (friendsContactsCount() > 0) changeTab(3, data, event) }, text: friendsContactsCount() > 0 ? 'Друзья на сайте (' + friendsContactsCount() + ')' : 'Друзья на сайте'"></a></div>
                 </div>
-                <div class="im-panel" data-bind="if: interlocutor() != '', css: { 'im-panel__big' : interlocutorExpandedSetting }">
+                <div class="im-panel" data-bind="if: interlocutor() != ''">
                     <div class="im-panel-icons">
-                        <div class="im-panel-icons_i" data-bind="visible: ! interlocutor().user().isFriend()">
-                            <a href="javascript:void(0)" class="im-panel-icons_i-a im-tooltipsy" data-bind="click: addFriend, css: { 'im-panel-icons_i-a__request' : interlocutor().inviteSent() }">
+                        <div class="im-panel-icons_i">
+                            <!-- ko if: ! interlocutor().user().isFriend() && ! interlocutor().inviteSent() -->
+                            <a class="im-panel-icons_i-a powertip" title="Добавить в друзья" data-bind="click: addFriend">
                                 <span class="im-panel-ico im-panel-ico__add-friend"></span>
-                                <span class="im-panel-icons_desc" data-bind="html: interlocutor().inviteSent() ? 'Запрос <br> отправлен' : 'Добавить <br> в друзья'"></span>
+                                <span class="im-panel-icons_desc">Добавить <br>в друзья </span>
                             </a>
+                            <!-- /ko -->
+                            <!-- ko if: interlocutor().inviteSent() -->
+                            <span class="im-panel-icons_i-a powertip im-panel-icons_i-a__request" title="Добавить в друзья">
+                                <span class="im-panel-ico im-panel-ico__added-friend"></span>
+                                <span class="im-panel-icons_desc">Запрос <br> отправлен</span>
+                            </span>
+                            <!-- /ko -->
+                            <!-- ko if: interlocutor().user().isFriend() -->
+                            <span class="im-panel-icons_i-a powertip im-panel-icons_i-a__friend" title="Друг">
+                                <span class="im-panel-ico im-panel-ico__added-friend"></span>
+                                <span class="im-panel-icons_desc">Друг</span>
+                            </span>
+                            <!-- /ko -->
                         </div>
                         <div class="im-panel-icons_i" data-bind="css: { active : interlocutor().toBlackList() }">
-                            <a href="javascript:void(0)" class="im-panel-icons_i-a  im-tooltipsy" title="Заблокировать пользователя" data-bind="click: interlocutor().blockHandler">
+                            <a class="im-panel-icons_i-a powertip" title="Заблокировать пользователя" data-bind="click: interlocutor().blockHandler">
                                 <span class="im-panel-ico im-panel-ico__blacklist"></span>
-                                <span class="im-panel-icons_desc">Заблокировать <br> пользователя</span>
+                                <span class="im-panel-icons_desc">В черный <br> список</span>
                             </a>
                             <div class="im-tooltip-popup">
                                 <div class="im-tooltip-popup_t">Вы уверены?</div>
@@ -48,34 +62,26 @@
                                 </label>
                                 <div class="clearfix textalign-c">
                                     <button class="btn-green" data-bind="click: interlocutor().yesHandler">Да</button>
-                                    <button class="btn-gray" data-bind="click: interlocutor().noHandler">Нет</button>
+                                    <button class="btn-gray-light" data-bind="click: interlocutor().noHandler">Нет</button>
                                 </div>
                             </div>
                         </div>
                         <div class="im-panel-icons_i" data-bind="if: openContact() !== null && openContact().thread() !== null && messagesToShow().length > 0">
-                            <a href="javascript:void(0)" class="im-panel-icons_i-a im-tooltipsy" title="Удалить весь диалог" data-bind="click: openContact().thread().deleteMessages">
+                            <a class="im-panel-icons_i-a powertip" title="Удалить диалог" data-bind="click: openContact().thread().deleteMessages">
                                 <span class="im-panel-ico im-panel-ico__del"></span>
-                                <span class="im-panel-icons_desc">Удалить <br> весь диалог</span>
+                                <span class="im-panel-icons_desc">Удалить <br> диалог</span>
                             </a>
                         </div>
                     </div>
                     <div class="im-user-settings clearfix">
-                        <div class="im-user-settings_online-status-small"></div>
-                        <a class="ava" data-bind="css: interlocutor().user().avatarClass(), attr : { href : '/user/' + interlocutor().user().id() + '/' }">
+                        <a class="ava middle" data-bind="css: interlocutor().user().avatarClass(), attr : { href : '/user/' + interlocutor().user().id() + '/' }">
+                            <span class="icon-status status-online" data-bind="visible: interlocutor().user().online()"></span>
                             <img alt="" data-bind="attr : { src : interlocutor().user().avatar() }">
                         </a>
                         <div class="im-user-settings_user">
                             <a class="textdec-onhover" data-bind="attr : { href : '/user/' + interlocutor().user().id() + '/' }, text: interlocutor().user().fullName()"></a>
-                            <span class="im-user-settings_friend" data-bind="visible: interlocutor().user().isFriend()">друг</span>
-                            <div class="im-user-settings_online-status" data-bind="visible: interlocutor().user().online()">На сайте</div>
-                        </div>
-                        <div class="user-fast-buttons">
-                            <a href="javascript:void(0)" data-bind="visible: interlocutor().blogPostsCount() > 0 || interlocutor().photosCount() > 0, attr : { href : '/user/' + interlocutor().user().id() + '/' }">Анкета</a>
-                            <a href="javascript:void(0)" data-bind="visible: interlocutor().blogPostsCount() > 0, attr : { href : '/user/' + interlocutor().user().id() + '/blog/' }">Блог</a><sup class="count" data-bind="visible: interlocutor().blogPostsCount() > 0, text: interlocutor().blogPostsCount()"></sup>
-                            <a href="javascript:void(0)" data-bind="visible: interlocutor().photosCount() > 0, attr : { href : '/user/' + interlocutor().user().id() + '/albums/' }">Фото</a><sup class="count" data-bind="visible: interlocutor().photosCount() > 0, text: interlocutor().photosCount()"></sup>
                         </div>
                     </div>
-                    <span class="im_toggle" data-bind="tooltip: interlocutorExpandedSetting() ? 'Свернуть' : 'Развернуть', click: toggleinterlocutorExpandedSetting"></span>
                 </div>
             </div>
 

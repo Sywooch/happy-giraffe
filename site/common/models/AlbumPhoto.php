@@ -4,14 +4,14 @@
  * This is the model class for table "album_photos".
  *
  * The followings are the available columns in table 'album_photos':
- * @property integer $id
- * @property string $author_id
- * @property integer $album_id
+ * @property int $id
+ * @property int $author_id
+ * @property int $album_id
  * @property string $file_name
  * @property string $fs_name
  * @property string $title
- * @property string $previewUrl
- * @property string $originalUrl
+ * @property int $width
+ * @property int $height
  * @property string $created
  * @property string $updated
  *
@@ -32,12 +32,6 @@ class AlbumPhoto extends HActiveRecord
     public $w_title = null;
     public $w_description = null;
     public $w_idx = null;
-
-    public $width;
-    public $height;
-
-    private $_originalWidth;
-    private $_originalHeight;
 
     public $count;
 
@@ -160,6 +154,12 @@ class AlbumPhoto extends HActiveRecord
         );
     }
 
+    public function beforeSave()
+    {
+        $this->setDimensions();
+        return parent::beforeSave();
+    }
+
     public function afterSave()
     {
         if ($this->isNewRecord) {
@@ -168,29 +168,9 @@ class AlbumPhoto extends HActiveRecord
                 FriendEventManager::add(FriendEvent::TYPE_PHOTOS_ADDED, array('album_id' => $this->album->id, 'user_id' => $this->author_id));
                 Scoring::photoCreated($this);
             }
-            $this->getPreviewUrl(960, 627, Image::HEIGHT);
         }
 
         parent::afterSave();
-    }
-
-    public function search()
-    {
-        $criteria = new CDbCriteria;
-
-        $criteria->compare('id', $this->id);
-        $criteria->compare('author_id', $this->author_id);
-        $criteria->compare('album_id', $this->album_id);
-        $criteria->compare('file_name', $this->file_name, true);
-        $criteria->compare('fs_name', $this->fs_name, true);
-        $criteria->compare('title', $this->title, true);
-        $criteria->compare('updated', $this->updated, true);
-        $criteria->compare('created', $this->created, true);
-        $criteria->compare('removed', $this->removed);
-
-        return new CActiveDataProvider($this, array(
-            'criteria' => $criteria,
-        ));
     }
 
     public function beforeDelete()
@@ -202,26 +182,6 @@ class AlbumPhoto extends HActiveRecord
         if (!empty($this->album_id) && ($this->album->type == 0 || $this->album->type == 1))
             Scoring::photoRemoved($this);
 
-        return false;
-    }
-
-    /**
-     * Save entity and save image in the file system
-     * @return bool
-     */
-    public function create($temp = false)
-    {
-        if (!$temp) {
-            $this->file_name = $this->file;
-            $this->fs_name = md5($this->file_name . time()) . '.' . $this->file->extensionName;
-        } else {
-            $this->fs_name = $this->file_name;
-        }
-        if ($this->save(false)) {
-            $this->saveFile(false, $temp);
-            $this->setDimensions();
-            return true;
-        }
         return false;
     }
 
@@ -291,31 +251,6 @@ class AlbumPhoto extends HActiveRecord
         $model->save(false);
 
         return $model;
-    }
-
-    /**
-     * Save file in the file system
-     * @return bool
-     */
-    public function saveFile($temp = false, $move_temp = false)
-    {
-        $dir = Yii::getPathOfAlias('site.common.uploads.photos');
-        if (!$temp) {
-            $model_dir = $dir . DIRECTORY_SEPARATOR . $this->original_folder . DIRECTORY_SEPARATOR . $this->author_id;
-            if (!file_exists($model_dir))
-                mkdir($model_dir);
-        } else {
-            $model_dir = $dir . DIRECTORY_SEPARATOR . $this->tmp_folder;
-            $this->file_name = $this->file;
-            $this->fs_name = md5($this->file_name . time()) . '.' . $this->file->extensionName;
-        }
-        $file_name = $model_dir . DIRECTORY_SEPARATOR . $this->fs_name;
-        if (!$move_temp)
-            return $this->file->saveAs($file_name);
-        else {
-            //echo $this->templatePath;Yii::app()->end();
-            rename($this->templatePath, $file_name);
-        }
     }
 
     /**
@@ -678,27 +613,11 @@ class AlbumPhoto extends HActiveRecord
         return Yii::app()->controller->renderPartial('//albums/_widget', array('model' => $this), true);
     }
 
-    protected function afterFind()
-    {
-        $this->setDimensions();
-        parent::afterFind();
-    }
-
     protected function setDimensions()
     {
         $size = @getimagesize($this->getOriginalPath());
-        $this->_originalWidth = $size[0];
-        $this->_originalHeight = $size[1];
-    }
-
-    public function getOriginalWidth()
-    {
-        return $this->_originalWidth;
-    }
-
-    public function getOriginalHeight()
-    {
-        return $this->_originalHeight;
+        $this->width = $size[0];
+        $this->height = $size[1];
     }
 
     /**
@@ -739,7 +658,7 @@ class AlbumPhoto extends HActiveRecord
     private function copyUserFile($name, $temp_name, $user_id)
     {
         $ext = pathinfo($name, PATHINFO_EXTENSION);
-
+        list($this->width, $this->height) = getimagesize($temp_name);
         $dir = Yii::getPathOfAlias('site.common.uploads.photos');
         $model_dir = $dir . DIRECTORY_SEPARATOR . $this->original_folder . DIRECTORY_SEPARATOR . $user_id;
         if (!file_exists($model_dir))

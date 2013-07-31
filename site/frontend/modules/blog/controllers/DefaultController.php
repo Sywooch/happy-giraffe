@@ -85,12 +85,6 @@ class DefaultController extends HController
         echo CJSON::encode($response);
     }
 
-    public function actionUpload()
-    {
-        $this->user = $this->loadUser(Yii::app()->user->id);
-        $this->render('upload');
-    }
-
     public function actionSubscribeToggle()
     {
         $blog_author_id = Yii::app()->request->getPost('user_id');

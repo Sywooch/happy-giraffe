@@ -1,3 +1,7 @@
+<?php
+Yii::app()->controller->widget('site.common.extensions.imperavi-redactor-widget.ImperaviRedactorWidget', array('onlyRegisterScript' => true));
+?>
+
 <div class="im">
     <div class="im_hold clearfix">
         <div class="im-sidebar">
@@ -119,21 +123,17 @@
                         <a href="javascript:void(0)" class="ava small im-editor-b_ava" data-bind="css: me.avatarClass()">
                             <img alt="" data-bind="attr : { src : me.avatar() }" />
                         </a>
-                        <div class="im-editor-b_w">
-                            <textarea cols="40" id="im-editor" name="im-editor" rows="3" autofocus></textarea>
-                            <div class="im-editor-b_control">
-                                <div class="im-editor-b_key">
-                                    <input type="checkbox" name="" id="im-editor-b_key-checkbox" class="im-editor-b_key-checkbox" data-bind="checked: enterSetting, click: focusEditor">
-                                    <label for="im-editor-b_key-checkbox" class="im-editor-b_key-label">Enter - отправить</label>
+                        <div class="im-editor-b_w redactor-control-b wysiwyg-blue">
+                            <textarea cols="40" id="redactor" name="redactor" class="redactor" rows="1" autofocus></textarea>
+                            <div class="redactor-control-b_toolbar"></div>
+                            <div class="redactor-control-b_control">
+                                <div class="redactor-control-b_key">
+                                    <input type="checkbox" name="" id="redactor-control-b_key-checkbox" class="redactor-control-b_key-checkbox" data-bind="checked: enterSetting, click: focusEditor">
+                                    <label for="redactor-control-b_key-checkbox" class="redactor-control-b_key-label">Enter - отправить</label>
                                 </div>
-                                <button class="btn-green" data-bind="click: submit, text: editingMessageId() === null ? 'Отправить' : 'Сохранить'"></button>
+                                <button class="btn-green" data-bind="click: submit, text: editingMessageId() === null ? 'Отправить' : 'Сохранить'">Отправить</button>
                             </div>
                         </div>
-                        <div class="im-editor-b_cap" data-bind="visible: interlocutor().isBlocked">
-                            <div class="im-editor-b_cap-t">Данный пользователь не хочет с вами общаться</div>
-                            <div class="im-editor-b_cap-tx">Вы не можете отправлять ему сообщения</div>
-                        </div>
-                        <!--<span class="im_toggle"></span>-->
                     </div>
                 </div>
             </div>
@@ -376,39 +376,4 @@ $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
         vm = new MessagingViewModel(<?=$data?>);
         ko.applyBindings(vm);
     });
-
-    //<![CDATA[
-
-    $(function(){
-
-        /* skin hgru-comment */
-        CKEDITOR.replace( 'im-editor',
-            {
-                /* autofocus */
-                on :
-                {
-                    instanceReady : function( ev )
-                    {
-                        this.focus();
-                    }
-                },
-
-                extraPlugins : 'autogrow,attach,smiles,othertext,previewimg',
-                contentsCss : '/ckeditor/skins/im-editor/contents.css',
-                skin : 'im-editor',
-                toolbar : [
-                    ['othertext', 'Smiles', 'Attach']
-                ],
-                toolbarCanCollapse: false,
-                toolbarLocation : 'bottom',
-                height: 58,
-                autoGrow_maxHeight : 88,
-                autoGrow_minHeight : 58,
-                // Remove the Resize plugin as it does not make sense to use it in conjunction with the AutoGrow plugin.
-                removePlugins : 'resize,elementspath,contextmenu'
-
-            });
-    });
-
-    //]]>
 </script>

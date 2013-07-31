@@ -180,6 +180,90 @@ $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
 
 <script type="text/html" id="message-template">
     <div class="im-message clearfix" data-bind="visible: deleted() === false, css: { 'im-message__edited' : edited }">
+
+        <div class="b-control-abs" data-bind="css: { 'b-control-abs__self' : author().id() == $root.me.id(), active : showAbuse() }">
+            <div class="b-control-abs_hold">
+                <!-- ko if: author().id() == $root.me.id() && ! read() -->
+                <div class="clearfix">
+                    <a class="message-ico message-ico__edit" data-bind="click: $data.edit, tooltip: 'Редактировать'"></a>
+                </div>
+                <!-- /ko -->
+                <div class="clearfix">
+                    <a class="message-ico message-ico__del" data-bind="click: $data.delete, tooltip: 'Удалить'"></a>
+                </div>
+            </div>
+            <!-- ko if: author().id() != $root.me.id() -->
+            <div class="position-rel clearfix">
+                <a class="message-ico message-ico__warning" data-bind="click: toggleShowAbuse, tooltip: 'Пожаловаться'"></a>
+
+                <div class="im-tooltip-popup">
+                    <div class="im-tooltip-popup_t">Укажите вид нарушения:</div>
+                    <label for="im-tooltip-popup_radio" class="im-tooltip-popup_label clearfix">
+                        <!-- id у input должны быть все разные, приведен пример для связки label с input
+                        атрибут name у каждого выпадающего окношка должен быть разный
+                          -->
+                        <input type="radio" name="im-tooltip-popup_radio" id="im-tooltip-popup_radio" class="im-tooltip-popup_radio">
+                        Спам или реклама
+                    </label>
+                    <label for="" class="im-tooltip-popup_label clearfix">
+                        <input type="radio" name="im-tooltip-popup_radio" id="" class="im-tooltip-popup_radio">
+                        Мошенничество
+                    </label>
+                    <label for="" class="im-tooltip-popup_label clearfix">
+                        <input type="radio" name="im-tooltip-popup_radio" id="" class="im-tooltip-popup_radio">
+                        Грубость, угрозы
+                    </label>
+                    <label for="" class="im-tooltip-popup_label clearfix">
+                        <input type="radio" name="im-tooltip-popup_radio" id="" class="im-tooltip-popup_radio">
+                        Интимный характер
+                    </label>
+                    <label for="" class="im-tooltip-popup_label clearfix">
+                        <input type="radio" name="im-tooltip-popup_radio" id="" class="im-tooltip-popup_radio">
+                        Другое
+                    </label>
+                    <label for="" class="im-tooltip-popup_label clearfix">
+                        <input type="radio" name="im-tooltip-popup_radio" id="" class="im-tooltip-popup_radio">
+                        <input type="text" name="" id="" class="im-tooltip-popup_itx" placeholder="Другое">
+                    </label>
+                    <div class="clearfix textalign-c">
+                        <button class="btn-green" data-bind="click: markAsSpam">Пожаловаться</button>
+                        <button class="btn-gray-light" data-bind="click: toggleShowAbuse">Отменить</button>
+                    </div>
+                </div>
+            </div>
+            <!-- /ko -->
+        </div>
+
+        <a class="ava small female" href="javascript:void(0)" data-bind="css: author().avatarClass()">>
+            <img alt="" data-bind="attr : { src : author().avatar() }">
+        </a>
+        <div class="im-message_hold">
+            <div class="im-message_t">
+                <a href="javascript:void(0)" class="im-message_user" data-bind="text: author().firstName()"></a>
+                <em class="im-message_date" data-bind="text: created()"></em>
+                <div class="im-message_status" data-bind="visible: ($root.me.id() == author().id() && (! read() || $data == $root.lastReadMessage())), css: read() ? 'im-message_status__read' : 'im-message_status__noread', text: read() ? 'Сообщение прочитано' : 'Сообщение не прочитано'"></div>
+            </div>
+            <div class="im-message_tx" data-bind="html: text()"></div>
+        </div>
+    </div>
+    <div class="im-message clearfix" data-bind="visible: deleted() === true">
+        <a class="ava small" href="javascript:void(0)" data-bind="css: author().avatarClass()">
+            <img alt="" data-bind="attr : { src : author().avatar() }">
+        </a>
+        <div class="im-message_hold">
+            <div class="im-message_t">
+                <a href="javascript: void(0)" class="im-message_user" data-bind="text: author().firstName()"></a>
+                <em class="im-message_date" data-bind="text: created()"></em>
+            </div>
+            <div class="im-message_tx">
+                <span data-bind="text: isSpam() ? 'Это сообщение помечено как спам и удалено.' : 'Это сообщение удалено.'"></span> <a href="javascript:void(0)" data-bind="click: restore">Восстановить</a>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script type="text/html" id="message-old-template">
+    <div class="im-message clearfix" data-bind="visible: deleted() === false, css: { 'im-message__edited' : edited }">
         <div class="im-message_icons" data-bind="css: { active : showAbuse() }">
             <div class="im-message_icons-i" data-bind="if: author().id() != $root.me.id(), css: { active : showAbuse() }">
                 <a href="javascript:void(0)" class="im-message_ico im-message_ico__warning im-tooltipsy" data-bind="click: toggleShowAbuse, tooltip: 'Пожаловаться'"></a>

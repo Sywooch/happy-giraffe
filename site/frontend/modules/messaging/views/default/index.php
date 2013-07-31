@@ -92,7 +92,7 @@ Yii::app()->controller->widget('site.common.extensions.imperavi-redactor-widget.
             <div class="im-center_middle" data-bind="visible: openContact() !== null">
                 <div class="im-center_middle-hold">
 
-                    <div class="im-center_middle-w">
+                    <div class="im-center_middle-w" data-bind="if: ! interlocutor().isBlocked()">
                         <div class="im_message-loader" data-bind="visible: loadingMessages()">
                             <img src="/images/ico/ajax-loader.gif" alt="">
                             <span class="im-message-loader_tx">Загрузка ранних сообщений</span>
@@ -114,6 +114,14 @@ Yii::app()->controller->widget('site.common.extensions.imperavi-redactor-widget.
                             Вы можете  <a href="javascript:void(0)" data-bind="click: $root.cancelMessage">Отменить</a>  данное сообщение или отредактировать его ниже
                         </div>
                     </div>
+                    <!-- ko if: interlocutor().isBlocked() -->
+                    <div class="cap-empty">
+                        <div class="cap-empty_hold">
+                            <div class="cap-empty_tx">Этот пользователь вас заблокировал</div>
+                            <span class="cap-empty_gray">Вы не можете отправлять ему сообщения</span>
+                        </div>
+                    </div>
+                    <!-- /ko -->
                 </div>
             </div>
             <div class="im-center_bottom" data-bind="visible: openContact() !== null">

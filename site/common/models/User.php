@@ -586,11 +586,11 @@ class User extends HActiveRecord
     }
 
     public function getBlogPhotoWidth() {
-        return $this->blogPhoto === null ? 730 : $this->blogPhoto->getOriginalWidth();
+        return $this->blogPhoto === null ? 730 : $this->blogPhoto->width;
     }
 
     public function getBlogPhotoHeight() {
-        return $this->blogPhoto === null ? 520 : $this->blogPhoto->getOriginalHeight();
+        return $this->blogPhoto === null ? 520 : $this->blogPhoto->height;
     }
 
     public function getAvaOrDefaultImage($size = 'ava')

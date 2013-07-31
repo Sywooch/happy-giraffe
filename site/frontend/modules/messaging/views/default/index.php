@@ -234,7 +234,7 @@ $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
             <!-- /ko -->
         </div>
 
-        <a class="ava small female" href="javascript:void(0)" data-bind="css: author().avatarClass()">>
+        <a class="ava small" href="javascript:void(0)" data-bind="css: author().avatarClass()">
             <img alt="" data-bind="attr : { src : author().avatar() }">
         </a>
         <div class="im-message_hold">

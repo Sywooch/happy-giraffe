@@ -75,6 +75,13 @@
 	.col-2 {width:440px;float:left;}
 	.col-3 {width:240px;padding-left:20px;float:left;}
 
+	.col-white {
+		border: 1px solid transparent; // Защита от Margin Collapsing 
+		border-width: 1px 0;
+		margin: -1px 0;
+		background: #fff;
+		.border-radius(8px);
+	}
 	.col-gray {
 		border: 1px solid transparent; // Защита от Margin Collapsing 
 		border-width: 1px 0;

@@ -7,16 +7,16 @@
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/head.php'; ?>
 
 </head>
-<body class="body-club">
+<body class="body-gray">
 
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/top-line-menu.php'; ?>
 	
 <div class="layout-container">
 	<div class="layout-wrapper">
 		<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/header-new.php'; ?>
-			
-		<div id="content" class="layout-content clearfix">
 		
+		<div class="content-cols">	
+		<div class="col-white padding-20">
 			<div class="map-route-h">
 				<h1 class="map-route-h_t">Составь маршрут для автомобиля</h1>
 				<div class="map-route-h_form clearfix">
@@ -65,6 +65,7 @@
 				</ul>
 			</div>
 		
+		</div>	
 		</div>	
 		
 		<div class="footer-push"></div>

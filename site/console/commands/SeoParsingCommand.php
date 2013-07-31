@@ -66,7 +66,7 @@ class SeoParsingCommand extends CConsoleCommand
 
             foreach ($sites as $site) {
                 echo $site->id . "\n";
-                $parser->start($site->id, $this->prev_year, $this->prev_month, $this->prev_month);
+                $parser->start($site->id, $this->prev_year, 1, 7);
                 SeoUserAttributes::setAttribute('last_li_parsed_' . date("Y-m"), $site->id, 1);
             }
         } else {
@@ -209,7 +209,7 @@ class SeoParsingCommand extends CConsoleCommand
                 }
               foreach($model2->getAttributes() as $name => $value)
                   if (!empty($model->attributes[$name]))
-                        $model2->attributes[$name] = $model->attributes[$name];
+                        $model2->$name = $model->attributes[$name];
                 $model2->save();
                 $i++;
             }

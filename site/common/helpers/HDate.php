@@ -417,4 +417,35 @@ class HDate
 
         return ((! empty($words)) ? implode(', ', $words) . ' и ' : '') . $last;
     }
+
+    /**
+     * Сколько времени прошло в годах, месяцах, днях
+     * @param int $sec_time
+     * @return string
+     */
+    public static function spentDays($sec_time)
+    {
+        // Сегодняшняя дата
+        $sec_now = time();
+        // Подсчитываем количество месяцев, лет
+        for($time = $sec_time, $month = 0;
+            $time < $sec_now;
+            $time = $time + date('t', $time) * 86400, $month++){
+            $rtime = $time;
+        }
+        $month = $month - 1;
+        // Количество лет
+        $year = intval($month / 12);
+        // Количество месяцев
+        $month = $month % 12;
+        // Количество дней
+        $day = intval(($sec_now - $rtime) / 86400);
+        $result = '';
+        if ($year > 0)
+            $result .= $year.' '. Str::GenerateNoun(array("год", "года", "лет"), $year)." ";
+        if ($month > 0)
+            $result .= $month.' '.Str::GenerateNoun(array("месяц", "месяца", "месяцев"), $month)." ";
+        $result .= $day.' '. Str::GenerateNoun(array("день", "дня", "дней"), $day)." ";
+        return $result;
+    }
 }

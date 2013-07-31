@@ -98,6 +98,7 @@ return array(
             'trueRoute' => 'old/blog/list',
             'falseRoute' => 'blog/default/index',
         ),
+
         'blog/form/type<type:\d+>' => 'blog/default/form',
         'newblog/<_a:>' => 'blog/default/<_a>',
         'blog/settings/<_a>' => 'blog/settings/<_a>',
@@ -105,7 +106,9 @@ return array(
         'user/<user_id:\d+>/blog/rubric<rubric_id:\d+>' => 'blog/list',
         'user/<user_id:\d+>/blog/post<content_id:\d+>' => 'blog/view',
 
-        'user/<user_id:\d+>' => 'user/profile',
+        'user/<user_id:\d+>' => 'profile/default/index',
+        'profile/<_a>' => 'profile/default/<_a>',
+
         'user/<user_id:\d+>/clubs' => 'user/clubs',
         'user/<user_id:\d+>/friends' => 'user/friends',
         'user/<user_id:\d+>/rss/page<page:\d+>' => 'rss/user',

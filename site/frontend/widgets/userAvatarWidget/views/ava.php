@@ -9,7 +9,7 @@ if ($this->user->deleted == 1)
 else {
     $link_to_profile = $this->user->url;
     if ($this->size == 'big' && $this->user->id == Yii::app()->user->id)
-        $link_to_profile = Yii::app()->createUrl('profile/photo', array('returnUrl' => urlencode(Yii::app()->createUrl('user/profile', array('user_id' => $this->user->id)))));
+        $link_to_profile = Yii::app()->createUrl('profile/photo', array('returnUrl' => urlencode(Yii::app()->createUrl('profile/default/index', array('user_id' => $this->user->id)))));
 }
 ?>
 <?php if (! $this->small): ?>

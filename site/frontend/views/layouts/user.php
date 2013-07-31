@@ -20,7 +20,7 @@
                     'items' => array(
                         array(
                             'label' => 'Анкета',
-                            'url' => array('user/profile', 'user_id' => $this->user->id),
+                            'url' => array('profile/default/index', 'user_id' => $this->user->id),
                         ),
                         array(
                             'label' => 'Семья',

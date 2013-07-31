@@ -199,7 +199,7 @@ class Comment extends HActiveRecord
                 $relatedModel = $this->getRelatedModel();
                 $relatedModel->last_updated = new CDbExpression('NOW()');
                 $relatedModel->update(array('last_updated'));
-                $relatedModel->sendEvent();
+                //$relatedModel->sendEvent();
 
                 //пересчитываем рейтинг только если кол-во комментариев кратно 5-ти
                 $commentsCount = Yii::app()->db->createCommand()

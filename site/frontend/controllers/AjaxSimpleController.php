@@ -150,7 +150,7 @@ class AjaxSimpleController extends CController
         echo CJSON::encode(array(
             'status' => 200,
             'id' => $model->id,
-            'html' => $model->getHtmlForWysiwyg()
+            'html' => $model->getWidget()
         ));
     }
 

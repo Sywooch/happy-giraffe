@@ -671,21 +671,4 @@ class AlbumPhoto extends HActiveRecord
 
         return $file_name . '.' . $ext;
     }
-
-    public function getHtmlForWysiwyg($comments = false)
-    {
-        if ($comments){
-            $html = '';
-        }else{
-            //если размер 580px или больше, ширина превью 580px
-            if ($this->width >= 580){
-                $url = $this->getPreviewUrl(580, 1000);
-                $html = '<div class="b-article_in-img"><img src="'.$url.'" class="content-img"></div>';
-            }else{
-                $url = $this->getPreviewUrl(540, 1000);
-                $html = '<div class="clearfix"><img src="'.$url.'" class="content-img"></div>';
-            }
-        }
-        return $html;
-    }
 }

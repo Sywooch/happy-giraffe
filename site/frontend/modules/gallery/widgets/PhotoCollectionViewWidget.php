@@ -21,7 +21,7 @@ class PhotoCollectionViewWidget extends CWidget
         $grid = array();
         $buffer = array();
         foreach ($this->collection->getAllPhotos() as $photo) {
-            $buffer[] = $photo->photo;
+            $buffer[] = get_class($photo) == 'AlbumPhoto' ? $photo : $photo->photo;
             $height = floor($this->getHeight($buffer));
 
             if (count($buffer) >= $this->minPhotos && $height <= $this->getThreshold($buffer)) {

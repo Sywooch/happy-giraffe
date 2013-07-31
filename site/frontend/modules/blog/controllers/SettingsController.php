@@ -35,8 +35,8 @@ class SettingsController extends HController
         $image = $image->create($photo->getOriginalPath());
         $rx = 720 / $p['w'];
         $ry = 128 / $p['h'];
-        $width = round($rx * $photo->getOriginalWidth());
-        $height = round($ry * $photo->getOriginalHeight());
+        $width = round($rx * $photo->width);
+        $height = round($ry * $photo->height);
         $image->resize($width, $height)->crop($rx * $p['x'], $ry * $p['y'], $rx * $p['w'], $ry * $p['h'])->save($photo->getBlogPath());
         $success = $user->update(array('blog_title', 'blog_description', 'blog_photo_id', 'blog_photo_position'));
         $response = compact('success');
@@ -89,8 +89,8 @@ class SettingsController extends HController
             'id' => $model->id,
             'originalSrc' => $model->getOriginalUrl(),
             'thumbSrc' => null,
-            'width' => $model->getOriginalWidth(),
-            'height' => $model->getOriginalHeight(),
+            'width' => $model->width,
+            'height' => $model->height,
             'position' => null,
         );
 

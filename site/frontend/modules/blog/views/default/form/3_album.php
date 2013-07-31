@@ -47,8 +47,7 @@
 
     <div class=" clearfix">
         <a href="" class="btn-blue btn-h46 float-r" data-bind="click: add, css: {'btn-inactive': upload().photos().length == 0}">Добавить</a>
-        <a href="javascript:;" class="btn-gray-light btn-h46 float-r margin-r15"
-           onclick="$.fancybox.close()">Отменить</a>
+        <a href="javascript:;" class="btn-gray-light btn-h46 float-r margin-r15" onclick="$.fancybox.close()">Отменить</a>
 
         <div class="float-l">
             <div class="privacy-select clearfix">

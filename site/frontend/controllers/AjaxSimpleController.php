@@ -144,12 +144,14 @@ class AjaxSimpleController extends CController
 
     public function actionUploadPhoto()
     {
-        foreach ($_FILES as $file) {
+        foreach ($_FILES as $file)
             $model = AlbumPhoto::model()->createUserTempPhoto($file);
-            $id = $model->id;
-        }
 
-        echo CJSON::encode(array('status' => 200, 'id' => $id));
+        echo CJSON::encode(array(
+            'status' => 200,
+            'id' => $model->id,
+            'html' => $model->getHtmlForWysiwyg()
+        ));
     }
 
     public function actionAddPhoto()

@@ -24,6 +24,33 @@
                     $('.redactor-popup_b-video').toggleClass('display-n');
                 }
             },
+            image : {
+                title: 'image',
+                callback: function(buttonNamem, buttonDOM, buttonObject) {
+                    if (typeof formWPU === 'undefined'){
+                        formWPU = new WysiwygPhotoUpload();
+                        ko.applyBindings(formWPU, document.getElementById('redactor-popup_b-photo'));
+
+                        $('#redactor-popup_b-photo .js-upload-files-multiple').on('change', function (evt) {
+                            var files = FileAPI.getFiles(evt);
+                            formWPU.upload().onFiles(files);
+                            FileAPI.reset(evt.currentTarget);
+                        });
+
+                        if (FileAPI.support.dnd) {
+                            $('.b-add-img_html5-tx').show();
+
+                            $(document).dnd(function (over) {
+                            }, function (files) {
+                                formWPU.upload().onFiles(files);
+                            });
+                        }
+                    }else{
+                        formWPU.upload().photos([]);
+                    }
+                    $('.redactor-popup_b-photo').toggleClass('display-n');
+                }
+            },
             smile: {
                 title: 'smile',
                 callback: function(buttonName, buttonDOM, buttonObject) {
@@ -81,12 +108,12 @@
 
         self.toggleDropdown = function() {
             self.showDropdown(! self.showDropdown());
-        }
+        };
 
         self.selectedPrivacyOption = function() {
             return self.privacyOptions()[self.selectedPrivacyOptionIndex()];
-        }
-    }
+        };
+    };
 
     var BlogPrivacyOption = function(data, parent) {
         var self = this;
@@ -98,7 +125,7 @@
             parent.selectedPrivacyOptionIndex(parent.privacyOptions.indexOf(self));
             parent.showDropdown(false);
         }
-    }
+    };
 
     var Video = function(data, parent) {
         var self = this;
@@ -117,11 +144,28 @@
                 else
                     self.embed(html);
             }, 'json');
-        }
+        };
 
         self.remove = function() {
             self.link('');
             self.embed(null);
-        }
-    }
+        };
+    };
+
+    var WysiwygPhotoUpload = function () {
+        var self = this;
+        self.upload = ko.observable(new UploadPhotos([]));
+
+        self.add = function () {
+            var html = '';
+            ko.utils.arrayForEach(self.upload().photos(), function(photo) {
+                html += '<!-- widget: { entity : \'AlbumPhoto\', entity_id : \'' + photo.id() + '\' } -->' + photo.html + '<!-- /widget -->';
+            });
+            redactor.insertHtml(html);
+            self.close();
+        };
+        self.close = function(){
+            $('#redactor-popup_b-photo').addClass('display-n');
+        };
+    };
 </script>

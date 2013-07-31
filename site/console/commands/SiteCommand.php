@@ -31,7 +31,7 @@ class SiteCommand extends CConsoleCommand
 
         $output =
             'robots.txt - ' . ($robotsResult ? 'OK' : 'BROKEN') . "\n" .
-                'sitemap.xml - ' . ($sitemapResult ? 'OK' : 'BROKEN') . "\n";
+            'sitemap.xml - ' . ($sitemapResult ? 'OK' : 'BROKEN') . "\n";
 
         if (!($robotsResult && $sitemapResult)) {
             mail(implode(', ', $this->recipients), 'happy-giraffe.ru seo check failure', $output);
@@ -247,29 +247,30 @@ class SiteCommand extends CConsoleCommand
         echo 'Total: ' . array_sum($res);
     }
 
-    public function actionStats(){
+    public function actionStats()
+    {
         Yii::import('site.frontend.modules.friends.models.*');
         $criteria = new CDbCriteria;
-        $criteria->condition = 'last_active >= "'.date("Y-m-d H:i:s", strtotime('-3 month')).'" and deleted = 0 AND `group`=0';
+        $criteria->condition = 'last_active >= "' . date("Y-m-d H:i:s", strtotime('-3 month')) . '" and deleted = 0 AND `group`=0';
         $criteria->limit = 100;
         $criteria->order = 'last_active desc';
         $criteria->offset = 0;
 
         $models = 1;
         $fp = fopen('/home/beryllium/file.csv', 'w');
-        while(!empty($models)){
+        while (!empty($models)) {
             $models = User::model()->findAll($criteria);
 
-            foreach($models as $model){
+            foreach ($models as $model) {
                 $posts_count = CommunityContent::model()->count('author_id=:author_id and removed = 0 and created > :last_month',
-                    array(':author_id' => $model->id, ':last_month'=>date("Y-m-d H:i:s", strtotime('-3 month'))));
+                    array(':author_id' => $model->id, ':last_month' => date("Y-m-d H:i:s", strtotime('-3 month'))));
                 $comments_count = Comment::model()->count('author_id=:author_id and removed = 0 and entity != "ContestWork" and created > :last_month',
-                    array(':author_id' => $model->id, ':last_month'=>date("Y-m-d H:i:s", strtotime('-3 month'))));
+                    array(':author_id' => $model->id, ':last_month' => date("Y-m-d H:i:s", strtotime('-3 month'))));
 
-                if ($comments_count > 0 && $posts_count > 0){
+                if ($comments_count > 0 && $posts_count > 0) {
                     $result = array(
                         $model->getFullName(),
-                        'http://www.happy-giraffe.ru/user/'.$model->id.'/',
+                        'http://www.happy-giraffe.ru/user/' . $model->id . '/',
                         date("Y-m-d", strtotime($model->register_date)),
                         date("Y-m-d", strtotime($model->last_active)),
                         $posts_count,
@@ -281,6 +282,24 @@ class SiteCommand extends CConsoleCommand
             }
 
             $criteria->offset = $criteria->offset + 100;
+        }
+    }
+
+    public function actionUpdatePhotos()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->limit = 1000;
+        $criteria->offset = 0;
+
+        $models = array(0);
+        while (!empty($models)) {
+            $models = AlbumPhoto::model()->findAll($criteria);
+
+            foreach ($models as $model)
+                $model->save();
+
+            $criteria->offset += 1000;
+            echo $criteria->offset . "\n";
         }
     }
 }

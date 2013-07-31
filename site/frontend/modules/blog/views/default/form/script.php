@@ -159,7 +159,7 @@
         self.add = function () {
             var html = '';
             ko.utils.arrayForEach(self.upload().photos(), function(photo) {
-                html += '<!-- widget: { entity : \'AlbumPhoto\', entity_id : \'' + photo.id() + '\' } -->' + photo.html + '<!-- /widget -->';
+                html += photo.html;
             });
             redactor.insertHtml(html);
             self.close();

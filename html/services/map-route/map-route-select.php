@@ -7,7 +7,7 @@
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/head.php'; ?>
 
 </head>
-<body class="body-club">
+<body class="body-gray">
 
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/top-line-menu.php'; ?>
 	
@@ -15,8 +15,8 @@
 	<div class="layout-wrapper">
 		<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/header-new.php'; ?>
 			
-		<div id="content" class="layout-content clearfix">
-
+		<div class="content-cols clearfix">
+		<div class="col-white padding-20">
 			<div id="crumbs"><a href="">Главная</a> > <a href="">Сервисы</a> > <span>Маршруты</span></div>
 			
 			<div class="map-route-search">
@@ -110,87 +110,183 @@
 						</div>
 					</div>
 					
-					<div class="map-route-share">
-						<div class="map-route-share_tx">Отправьте маршрут поездки Донецк-Киев своим друзьям</div>
-						<div class="custom-likes-small">
-							<a href="" class="custom-like-small">
-								<span class="custom-like-small_icon odkl"></span>
-							</a>
-							<a href="" class="custom-like-small">
-								<span class="custom-like-small_icon mailru"></span>
-							</a>
-						
-							<a href="" class="custom-like-small">
-								<span class="custom-like-small_icon vk"></span>
-							</a>
-						
-							<a href="" class="custom-like-small">
-								<span class="custom-like-small_icon fb"></span>
-							</a>
-							<a href="" class="custom-like-small" >
-								<span class="custom-like-small_icon mail"></span>
-							</a>
-							<div class="custom-like-small-popup">
-								<div class="custom-like-small-popup_t">Отправить маршрут другу</div>
-								<input type="text" name="" id="" class="custom-like-small-popup_it itx-bluelight" placeholder="Свой email">
-								<input type="text" name="" id="" class="custom-like-small-popup_it itx-bluelight" placeholder="Email друга">
-								<div class="clearfix"><img src="/images/captcha.png"></div>
-								<input type="text" name="" id="" class="custom-like-small-popup_it itx-bluelight" placeholder="Введите знаки с картинки">
-								<button class="custom-like-small-popup_btn btn-green btn-medium">Отправить</button>
-							</div>
-						</div>
-						<div class="map-route-share_tx">Ссылка на этот маршрут:</div>
-						<div class="link-box">
-							<a href="" class="link-box_a">http://www.happy-giraffe.ru/user/15128/blog/post28687</a>
-						</div>
-					</div>
 					<div class="watchers">
 						<div class="watchers_t">Маршрут <br>просмотрели</div>
 						<div class="watchers_eye"></div>
 						<div class="watchers_count">3 485</div>
 					</div>
 					
-					
-					
 					<div class="map-route-share">
 						<div class="map-route-share_tx">Отправьте маршрут поездки Донецк-Киев своим друзьям</div>
-						<div class="custom-likes-small">
-							<a href="" class="custom-like-small">
-								<span class="custom-like-small_icon odkl"></span>
+						<div class="custom-likes-b textalign-l margin-b20">
+							<a href="" class="custom-like">
+								<span class="custom-like_icon odkl"></span>
 							</a>
-							<a href="" class="custom-like-small">
-								<span class="custom-like-small_icon mailru"></span>
+							<a href="" class="custom-like">
+								<span class="custom-like_icon vk"></span>
 							</a>
-						
-							<a href="" class="custom-like-small">
-								<span class="custom-like-small_icon vk"></span>
+							<a href="" class="custom-like">
+								<span class="custom-like_icon fb"></span>
 							</a>
-						
-							<a href="" class="custom-like-small">
-								<span class="custom-like-small_icon fb"></span>
+							<a href="" class="custom-like">
+								<span class="custom-like_icon tw"></span>
 							</a>
-							<a href="" class="custom-like-small" >
-								<span class="custom-like-small_icon mail"></span>
-							</a>
-							<div class="custom-like-small-popup" style="display:block;">
-								<div class="custom-like-small-popup_t">Отправить маршрут другу</div>
-								<div class="clearfix margin-b10">
-									<input type="text" name="" id="" class="custom-like-small-popup_it itx-bluelight" placeholder="Свой Email">
-									<div class="errorMessage" id="SendRoute_own_email_em_" style="">Введите правильный E-mail</div>
-								</div>
-								<div class="clearfix margin-b10">
-									<input type="text" name="" id="" class="custom-like-small-popup_it itx-bluelight" placeholder="Email друга">
-								</div>
-								<div class="clearfix margin-b10">
-									<textarea name="" id="" cols="20" rows="3" class="custom-like-small-popup_textarea itx-bluelight" placeholder="Добавить сообщение"></textarea>
-								</div>
-								<button class="custom-like-small-popup_btn btn-green btn-medium">Отправить</button>
+							<div class="display-ib position-rel">
+								<a href="" class="custom-like">
+									<span class="custom-like_icon mail"></span>
+								</a>
+								
 							</div>
 						</div>
 						<div class="map-route-share_tx">Ссылка на этот маршрут:</div>
 						<div class="link-box">
 							<a href="" class="link-box_a">http://www.happy-giraffe.ru/user/15128/blog/post28687</a>
 						</div>
+					</div>
+					
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					
+					<div class="map-route-share">
+						<div class="map-route-share_tx">Отправьте маршрут поездки Донецк-Киев своим друзьям</div>
+						<div class="custom-likes-b textalign-l">
+							<a href="" class="custom-like">
+								<span class="custom-like_icon odkl"></span>
+							</a>
+							<a href="" class="custom-like">
+								<span class="custom-like_icon vk"></span>
+							</a>
+							<a href="" class="custom-like">
+								<span class="custom-like_icon fb"></span>
+							</a>
+							<a href="" class="custom-like">
+								<span class="custom-like_icon tw"></span>
+							</a>
+							<div class="display-ib position-rel">
+								<a href="" class="custom-like">
+									<span class="custom-like_icon mail"></span>
+								</a>
+								
+								<div class="custom-likes-b-popup" style="display:block;">
+									<div class="custom-likes-b-popup_t">Отправить маршрут другу</div>
+									<div class="clearfix margin-b10">
+										<input type="text" name="" id="" class="custom-likes-b-popup_itx itx-gray" placeholder="Свой Email">
+										<div class="errorMessage" >Введите правильный E-mail</div>
+									</div>
+									<div class="clearfix margin-b10">
+										<input type="text" name="" id="" class="custom-likes-b-popup_itx itx-gray" placeholder="Email друга">
+									</div>
+									<div class="clearfix margin-b10">
+										<textarea name="" id="" cols="20" rows="3" class="custom-likes-b-popup_textarea itx-gray" placeholder="Добавить сообщение"></textarea>
+									</div>
+									<button class="custom-like-small-popup_btn btn-gray-light margin-r5">Отменить</button>
+									<button class="custom-like-small-popup_btn btn-green">Отправить</button>
+									
+									<div class="custom-likes-b-popup_win display-n">
+										<div class="custom-likes-b-popup_win-tx">
+										Письмо отправлено
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+					</div>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					
+					<div class="map-route-share">
+						<div class="map-route-share_tx">Отправьте маршрут поездки Донецк-Киев своим друзьям</div>
+						<div class="custom-likes-b textalign-l">
+							<a href="" class="custom-like">
+								<span class="custom-like_icon odkl"></span>
+							</a>
+							<a href="" class="custom-like">
+								<span class="custom-like_icon vk"></span>
+							</a>
+							<a href="" class="custom-like">
+								<span class="custom-like_icon fb"></span>
+							</a>
+							<a href="" class="custom-like">
+								<span class="custom-like_icon tw"></span>
+							</a>
+							<div class="display-ib position-rel">
+								<a href="" class="custom-like">
+									<span class="custom-like_icon mail"></span>
+								</a>
+								
+								<div class="custom-likes-b-popup" style="display:block;">
+									<div class="custom-likes-b-popup_t">Отправить маршрут другу</div>
+									<div class="clearfix margin-b10">
+										<input type="text" name="" id="" class="custom-likes-b-popup_itx itx-gray" placeholder="Свой Email">
+										<div class="errorMessage" >Введите правильный E-mail</div>
+									</div>
+									<div class="clearfix margin-b10">
+										<input type="text" name="" id="" class="custom-likes-b-popup_itx itx-gray" placeholder="Email друга">
+									</div>
+									<div class="clearfix margin-b10">
+										<textarea name="" id="" cols="20" rows="3" class="custom-likes-b-popup_textarea itx-gray" placeholder="Добавить сообщение"></textarea>
+									</div>
+									<button class="custom-like-small-popup_btn btn-gray-light margin-r5">Отменить</button>
+									<button class="custom-like-small-popup_btn btn-green">Отправить</button>
+									
+									<div class="custom-likes-b-popup_win ">
+										<div class="custom-likes-b-popup_win-tx">
+										Письмо отправлено
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						
 					</div>
 					
 				</div>
@@ -406,83 +502,172 @@
 							</ul>
 						</div>
 					</div>
-					
-					
-<div class="default-comments">
 
-	<div class="comments-meta clearfix">
-		<div class="clearfix">
-			<div class="title">Комментарии</div>
-			<div class="count">(55)</div>
-		</div>	
-		<p class="margin-5">Отзавы водителей о состоянии трассы Киев Донецк</p>
-	</div>
-	
-	
-	<div class="comment-add clearfix">
-		<div class="comment-add_user">
-			<a href="">Авторизируйтесь</a>
-			<div class="social-small-row clearfix">
-				<em>или войти с помощью</em> <br />
-				<ul class="social-list-small">
-					<li class="odnoklasniki"><a href="#"></a></li>
-					<li class="mailru"><a href="#"></a></li>
-					<li class="vkontakte"><a href="#"></a></li>
-					<li class="facebook"><a href="#"></a></li>
-				</ul>
-			</div>
-		</div>
-		<div class="comment-add_form-holder">
-			<input type="text" name="" class="input-text" placeholder="Введите ваш комментарий"/>
-		</div>
-	</div>
-	
-	<ul>
-		<li>
-			<div class="comment-in clearfix">
-				<div class="header clearfix">
-					<div class="user-info clearfix">
-						<div class="ava female"></div>
-						<div class="details">
-							<span class="icon-status status-online"></span>
-							<a href="" class="username">Дарья</a>
-							<div class="user-fast-buttons clearfix">
-								<a href="" class="add-friend"><span class="tip">Пригласить в друзья</span></a>
-								<a href="" class="new-message"><span class="tip">Написать сообщение</span></a>
+
+						<div class="comments-gray comments-gray__map-route">
+							<div class="comments-gray_t">
+								<div class="margin-b10">
+									<span class="comments-gray_t-a-tx">Все комментарии (28)</span>
+									<a class="btn-green" href="">Добавить</a>
+								</div>
+								<div class="color-gray fontstyle-i margin-b5">Отзавы водителей о состоянии трассы Киев Донецк</div>
 							</div>
-							
+							<div class="comments-gray_hold">
+								<div class="comments-gray_i comments-gray_i__self">
+									<div class="comments-gray_ava">
+										<a class="ava small male" href=""></a>
+									</div>
+									<div class="comments-gray_frame">
+										<div class="comments-gray_header clearfix">
+											<a class="comments-gray_author" href="">Ангелина Богоявленская </a>
+											<span class="font-smallest color-gray">Сегодня 13:25</span>
+										</div>
+										<div class="comments-gray_cont wysiwyg-content">
+											<p>	Мне безумно жалко всех женщин, но особенно Тину Кароль, я просто представить себе не могу <a href="">как она все это переживет</a> как она все это переживет(</p>
+											<p>я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.  я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически </p>
+										</div>
+									</div>
+									<div class="comments-gray_control comments-gray_control__self">
+										<div class="comments-gray_control-hold">
+											<div class="clearfix">
+												<a class="message-ico message-ico__edit powertip" href=""></a>
+											</div>
+											<div class="clearfix">
+												<a class="message-ico message-ico__del powertip" href=""></a>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="comments-gray_i">
+									<a class="comments-gray_like like-hg-small powertip" href="">78</a>
+									<div class="comments-gray_ava">
+										<a class="ava small female" href=""></a>
+									</div>
+									<div class="comments-gray_frame">
+										<div class="comments-gray_header clearfix">
+											<a class="comments-gray_author" href="">Анг Богоявлен </a>
+											<span class="font-smallest color-gray">Сегодня 14:25</span>
+										</div>
+										<div class="comments-gray_cont wysiwyg-content">
+											<p>я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.  я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически </p>
+										</div>
+									</div>
+									
+									<div class="comments-gray_control">
+										<div class="comments-gray_control-hold">
+											<div class="clearfix">
+												<a class="comments-gray_quote-ico powertip" href=""></a>
+											</div>
+											<div class="clearfix">
+												<a class="message-ico message-ico__del powertip" href=""></a>
+											</div>
+										</div>
+										<div class="clearfix">
+											<a class="message-ico message-ico__warning powertip" href=""></a>
+										</div>
+									</div>
+								</div>
+								<div class="comments-gray_i">
+									<a class="comments-gray_like like-hg-small powertip" href="">7918</a>
+									<div class="comments-gray_ava">
+										<a class="ava small female" href=""></a>
+									</div>
+									<div class="comments-gray_frame">
+										<div class="comments-gray_header clearfix">
+											<a class="comments-gray_author" href="">Анг Богоявлен </a>
+											<span class="font-smallest color-gray">Сегодня 14:25</span>
+										</div>
+										<div class="comments-gray_cont wysiwyg-content">
+											<p>я не нашел, где можно поменять название трека. </p>
+										</div>
+									</div>
+									
+									<div class="comments-gray_control">
+										<div class="comments-gray_control-hold">
+											<div class="clearfix">
+												<a class="comments-gray_quote-ico powertip" href=""></a>
+											</div>
+											<div class="clearfix">
+												<a class="message-ico message-ico__del powertip" href=""></a>
+											</div>
+										</div>
+										<div class="clearfix">
+											<a class="message-ico message-ico__warning powertip" href=""></a>
+										</div>
+									</div>
+								</div>
+								
+								<div class="comments-gray_i comments-gray_i__recovery">
+									<div class="comments-gray_ava">
+										<a class="ava small female" href=""></a>
+									</div>
+									<div class="comments-gray_frame">
+										<div class="comments-gray_header clearfix">
+											<a class="comments-gray_author" href="">Анг Богоявлен </a>
+											<span class="font-smallest color-gray">Сегодня 14:25</span>
+										</div>
+										<div class="comments-gray_cont wysiwyg-content">
+											<p>Комментарий успешно удален.<a class="comments-gray_a-recovery" href="">Восстановить?</a> </p>
+										</div>
+									</div>
+								</div>
+								
+								<div class="comments-gray_i">
+									<a class="comments-gray_like like-hg-small powertip" href="">78</a>
+									<div class="comments-gray_ava">
+										<a class="ava small female" href=""></a>
+									</div>
+									<div class="comments-gray_frame">
+										<div class="comments-gray_header clearfix">
+											<a class="comments-gray_author" href="">Анг Богоявлен </a>
+											<span class="font-smallest color-gray">Сегодня 14:25</span>
+										</div>
+										<div class="comments-gray_cont wysiwyg-content">
+											<p>я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически производит поиск по сайту </p>
+											<p>
+												<a class="comments-gray_cont-img-w" href="">
+													<!--    max-width: 170px;  max-height: 110px; -->
+													<img alt="" src="/images/example/w170-h110.jpg">
+												</a>
+												<a class="comments-gray_cont-img-w" href="">
+													<img alt="" src="/images/example/w220-h309-1.jpg">
+												</a>
+												<a class="comments-gray_cont-img-w" href="">
+													<img alt="" src="/images/example/w200-h133-1.jpg">
+												</a>
+											</p>
+											<p>и подцепляет естественно студийные версии песен вместо нужных.  я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически </p>
+										</div>
+									</div>
+									
+									<div class="comments-gray_control">
+										<div class="comments-gray_control-hold">
+											<div class="clearfix">
+												<a class="comments-gray_quote-ico powertip" href=""></a>
+											</div>
+										</div>
+										<div class="clearfix">
+											<a class="message-ico message-ico__warning powertip" href=""></a>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="comments-gray_add clearfix">
+								
+								<div class="comments-gray_ava">
+									<a class="ava small female" href=""></a>
+								</div>
+								<div class="comments-gray_frame">
+									<input type="text" placeholder="Ваш комментарий" class="comments-gray_add-itx itx-gray" id="" name="">
+								</div>
+							</div>
 						</div>
-					</div>
-				</div>
-				<div class="content">
-					<div class="meta">
-						<span class="num">2</span>
-						<span class="date">Сегодня, 20:45</span>
-					</div>
-					<div class="content-in">
-						<p>Коляска просто супер!!! Очень удобная и функциональная. Ни разу не пожалели, что купили именно эту коляску. Это маленький вездеход :)</p>
-					</div>
-					<div class="actions">
-						<a href="" class="claim">Нарушение!</a>
-						<div class="admin-actions">
-							<a href="" class="edit"><i class="icon"></i></a>
-							<a href="#deleteComment" class="remove fancy"><i class="icon"></i></a>
-						</div>
-						<a href="">Ответить</a>
-						&nbsp;
-						<a href="" class="quote-link">С цитатой</a>
-					</div>
-				</div>
-			</div>
-		</li>
-	</ul>
-	
-</div>
 	
 				</div>
 			</div>
 			
 			
+		</div>	
 		</div>	
 		
 		<div class="footer-push"></div>

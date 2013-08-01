@@ -284,22 +284,4 @@ class SiteCommand extends CConsoleCommand
             $criteria->offset = $criteria->offset + 100;
         }
     }
-
-    public function actionUpdatePhotos()
-    {
-        $criteria = new CDbCriteria;
-        $criteria->limit = 1000;
-        $criteria->offset = 0;
-
-        $models = array(0);
-        while (!empty($models)) {
-            $models = AlbumPhoto::model()->findAll($criteria);
-
-            foreach ($models as $model)
-                $model->save();
-
-            $criteria->offset += 1000;
-            echo $criteria->offset . "\n";
-        }
-    }
 }

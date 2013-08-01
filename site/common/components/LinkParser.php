@@ -61,7 +61,11 @@ class LinkParser
         return array(
             'title' => $this->getTitle($pq),
             'text' => $this->getText($pq),
+<<<<<<< Updated upstream
             'images' => $this->getImages($pq),
+=======
+            'image' => $this->getImage($pq),
+>>>>>>> Stashed changes
         );
     }
 
@@ -131,6 +135,7 @@ class LinkParser
     }
 
     /**
+<<<<<<< Updated upstream
      * Ищет картинки для превью и возвращает массив их url. Первой идет самая подходящая,
      * затем еще несколько подходящих
      *
@@ -143,6 +148,20 @@ class LinkParser
         $images = $this->findProperImages($pq);
 
         return array_merge(array($image), $images);
+=======
+     * Ищет картинку для превью и возвращает ее url
+     *
+     * @param phpQueryObject $pq
+     * @return string
+     */
+    private function getImage($pq)
+    {
+        $image = $pq->find('meta[property="og:image"]')->attr('content');
+        if (empty($image))
+            $image = $this->findProperImage($pq);
+
+        return $image;
+>>>>>>> Stashed changes
     }
 
     /**
@@ -150,6 +169,7 @@ class LinkParser
      * Максимум проверяем 30 картинок
      *
      * @param phpQueryObject $pq
+<<<<<<< Updated upstream
      * @return string[]
      */
     private function findProperImages($pq)
@@ -204,6 +224,30 @@ class LinkParser
                 unset($urls[$key]);
 
         return $urls;
+=======
+     * @return string
+     */
+    private function findProperImage($pq)
+    {
+        $url_info = parse_url($this->url);
+        $this->domain = $url_info['scheme'].'://'.$url_info['host'];
+
+        $count = 0;
+        foreach ($pq->find('img') as $image) {
+            $url = pq($image)->attr('src');
+            if (!$this->startsWith($url, 'http'))
+                $url = $this->domain.$url;
+
+            if ($this->goodPhoto($url))
+                return $url;
+
+            $count++;
+            if ($count > 30)
+                break;
+        }
+
+        return '';
+>>>>>>> Stashed changes
     }
 
     /**

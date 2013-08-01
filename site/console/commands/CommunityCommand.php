@@ -630,6 +630,7 @@ class CommunityCommand extends CConsoleCommand
                 $c++;
             }
         echo $c . "\n";
+<<<<<<< Updated upstream
     }
 
     public function actionDdos()
@@ -655,6 +656,8 @@ class CommunityCommand extends CConsoleCommand
 
             echo $posts . "\n";
         }
+=======
+>>>>>>> Stashed changes
     }
 
     public function actionDdos()
@@ -674,8 +677,7 @@ class CommunityCommand extends CConsoleCommand
                 curl_multi_exec($mh, $active);
                 do {
                     curl_multi_exec($mh, $active);
-                }
-                while($active);
+                } while ($active);
                 $mh = curl_multi_init();
             }
 

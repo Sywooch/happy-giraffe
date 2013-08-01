@@ -5,13 +5,13 @@
  *
  * The followings are the available columns in table 'community__statuses':
  * @property int $id
- * @property int $status_id
  * @property int $content_id
  * @property string $text
+ * @property int $mood_id
  *
  * The followings are the available model relations:
  * @property CommunityContent $content
- * @property UserStatus $status
+ * @property UserMood $mood
  */
 class CommunityStatus extends HActiveRecord
 {
@@ -39,9 +39,10 @@ class CommunityStatus extends HActiveRecord
     public function rules()
     {
         return array(
-            array('content_id', 'length', 'max' => 11),
-            array('content_id', 'numerical', 'integerOnly' => true),
-            array('text', 'safe')
+            array('content_id, text', 'required'),
+            array('text', 'length', 'max' => 250),
+            array('mood_id', 'default', 'setOnEmpty' => true, 'value' => null),
+            //array('mood_id', 'exist', 'attributeName' => 'id', 'className' => 'UserMood'),
         );
     }
 
@@ -52,7 +53,7 @@ class CommunityStatus extends HActiveRecord
     {
         return array(
             'content' => array(self::BELONGS_TO, 'CommunityContent', 'content_id'),
-            'status' => array(self::BELONGS_TO, 'UserStatus', 'status_id'),
+            'mood' => array(self::BELONGS_TO, 'UserMood', 'mood_id'),
         );
     }
 
@@ -63,9 +64,9 @@ class CommunityStatus extends HActiveRecord
     {
         return array(
             'id' => 'ID',
-            'status_id' => 'Status',
             'content_id' => 'Content',
             'text' => 'Text',
+            'mood_id' => 'Mood',
         );
     }
 
@@ -81,9 +82,9 @@ class CommunityStatus extends HActiveRecord
         $criteria=new CDbCriteria;
 
         $criteria->compare('id',$this->id,true);
-        $criteria->compare('status_id',$this->status_id,true);
         $criteria->compare('content_id',$this->content_id,true);
         $criteria->compare('text',$this->text,true);
+        $criteria->compare('mood_id',$this->status_id,true);
 
         return new CActiveDataProvider($this, array(
             'criteria'=>$criteria,

@@ -71,7 +71,7 @@ class DefaultController extends HController
     public function actionRemove()
     {
         $id = Yii::app()->request->getPost('id');
-        CommunityContent::model()->resetScope()->findByPk($id)->delete();
+        BlogContent::model()->findByPk($id)->delete();
         $success = true;
         $response = compact('success');
         echo CJSON::encode($response);
@@ -80,7 +80,7 @@ class DefaultController extends HController
     public function actionRestore()
     {
         $id = Yii::app()->request->getPost('id');
-        $success = CommunityContent::model()->resetScope()->findByPk($id)->restore();
+        $success = BlogContent::model()->findByPk($id)->restore();
         $response = compact('success');
         echo CJSON::encode($response);
     }
@@ -129,14 +129,14 @@ class DefaultController extends HController
     {
         $this->user = $this->loadUser(Yii::app()->user->id);
         if ($id === null) {
-            $model = new CommunityContent();
+            $model = new BlogContent();
             $model->type_id = $type;
             $slug = $model->type->slug;
             $slaveModelName = 'Community' . ucfirst($slug);
             $slaveModel = new $slaveModelName();
         } else {
-            $model = CommunityContent::model()->findByPk($id);
-            $slaveModel = $model->content;
+            $model = BlogContent::model()->findByPk($id);
+            $slaveModel = $model->getContent();
         }
 
         $json = array(
@@ -183,8 +183,10 @@ class DefaultController extends HController
 
     public function actionSave($id = null)
     {
-        $model = ($id === null) ? new CommunityContent() : CommunityContent::model()->findByPk($id);
-        $model->attributes = $_POST['CommunityContent'];
+        $model = ($id === null) ? new BlogContent() : BlogContent::model()->findByPk($id);
+        $model->attributes = $_POST['BlogContent'];
+        if ($model->type_id == CommunityContent::TYPE_STATUS)
+            $model->scenario = 'status';
         if ($id === null)
             $model->author_id = Yii::app()->user->id;
         $slug = $model->type->slug;
@@ -198,7 +200,9 @@ class DefaultController extends HController
         if ($success){
             $this->redirect($model->url);
         }else{
+            echo 'Root:<br />';
             var_dump($model->getErrors());
+            echo 'Slave:<br />';
             var_dump($slaveModel->getErrors());
         }
     }

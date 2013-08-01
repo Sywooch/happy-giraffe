@@ -62,7 +62,7 @@ class FriendsManager
         return FriendList::model()->with('friendsCount')->findAllByAttributes(array('user_id' => $userId));
     }
 
-    public static function userToJson($user)
+    public static function userToJson($user, $isFriend = false)
     {
         return array(
             'id' => $user->id,
@@ -70,9 +70,10 @@ class FriendsManager
             'firstName' => $user->first_name,
             'lastName' => $user->last_name,
             'ava' => $user->getAva('large'),
-            'age' => ($user->birthday) !== null ? $user->normalizedAge : null,
-            'location' => ($user->address->country_id !== null) ? Yii::app()->controller->renderPartial('/_location', array('data' => $user), true) : null,
-            'family' => (($user->hasPartner() && ! empty($user->partner->name)) || ! empty($user->babies)) ? Yii::app()->controller->renderPartial('/_family', array('data' => $user), true) : null,
+            'age' => $user->normalizedAge,
+            'location' => ($user->address->country_id !== null) ? Yii::app()->controller->renderPartial('application.modules.friends.views._location', array('data' => $user), true) : null,
+            'family' => (($user->hasPartner() && ! empty($user->partner->name)) || ! empty($user->babies)) ? Yii::app()->controller->renderPartial('application.modules.friends.views._family', array('data' => $user), true) : null,
+            'isFriend' => $isFriend
         );
     }
 }

@@ -10,6 +10,8 @@ class UserAvatarWidget extends CWidget
      * @var string
      */
     public $size = 'medium';
+    public $location = false;
+    public $age = false;
 
 	public function run()
 	{

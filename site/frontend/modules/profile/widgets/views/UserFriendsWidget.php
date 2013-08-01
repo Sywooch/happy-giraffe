@@ -1,7 +1,7 @@
 <div class="widget-friends clearfix">
     <div class="clearfix">
         <span class="heading-small">Мои друзья <span class="color-gray">(<?=$user->getFriendsCount() ?>)</span> </span>
-        <a href="<?=Yii::app()->createUrl('user/friends', array('user_id' => $user->id)) ?>" class="padding-l20">Все друзья</a>
+        <a href="<?=Yii::app()->createUrl('/profile/default/friends', array('user_id' => $user->id)) ?>" class="padding-l20">Все друзья</a>
     </div>
     <ul class="widget-friends_ul clearfix">
         <?php foreach ($friends as $f): ?>

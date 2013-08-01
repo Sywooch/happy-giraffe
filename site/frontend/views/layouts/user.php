@@ -41,7 +41,7 @@
                         ),
                         array(
                             'label' => 'Друзья',
-                            'url' => array('user/friends', 'user_id' => $this->user->id),
+                            'url' => array('profile/default/friends', 'user_id' => $this->user->id),
                             'active' => $this->action->id == 'friends' || $this->action->id == 'myFriendRequests',
                         ),
                         array(

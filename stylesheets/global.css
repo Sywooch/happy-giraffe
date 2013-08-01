@@ -13138,6 +13138,9 @@ table.fr_recipe_tb td {
   padding: 19px 0;
   background: #f5f5f5;
 }
+.comments-gray__map-route {
+  padding: 20px 150px 20px 30px;
+}
 .comments-gray_t {
   margin: 0 30px;
   border-bottom: 1px dashed #e8e7e7;
@@ -14942,6 +14945,9 @@ table.fr_recipe_tb td {
 .club-list_li__in .club-list_check {
   background-position: 0 -40px;
 }
+.club-list_li__in .club-list_check:hover {
+  background-position: -42px -40px;
+}
 .club-list_i {
   display: block;
   color: #3782c1;
@@ -14969,6 +14975,9 @@ table.fr_recipe_tb td {
   width: 38px;
   height: 38px;
   background: url(/images/club/club-list_check.png) no-repeat;
+}
+.club-list_check:hover {
+  background-position: -42px 0;
 }
 .club-list_add {
   display: block;

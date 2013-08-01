@@ -152,9 +152,12 @@ function Message(data, parent) {
     }
 
     self.edit = function() {
-        CKEDITOR.instances['im-editor'].setData(self.text(), function() {
-            CKEDITOR.instances['im-editor'].focus();
-        });
+//        CKEDITOR.instances['im-editor'].setData(self.text(), function() {
+//            CKEDITOR.instances['im-editor'].focus();
+//        });
+
+        self.redactor.set(self.text());
+        self.redactor.focus();
 
         parent.editingMessageId(self.id());
     }
@@ -241,14 +244,17 @@ function MessagingViewModel(data) {
 
     self.openThread = function(contact) {
         if (self.openContact() !== null) {
-            self.openContact().draftText = CKEDITOR.instances['im-editor'].getData();
+//            self.openContact().draftText = CKEDITOR.instances['im-editor'].getData();
+            self.openContact().draftText = self.redactor.get();
             self.openContact().draftImages = self.uploadedImages();
         }
 
         self.openContactInterlocutorId(contact.user().id());
-        CKEDITOR.instances['im-editor'].setData(self.openContact().draftText, function() {
-            CKEDITOR.instances['im-editor'].focus();
-        });
+//        CKEDITOR.instances['im-editor'].setData(self.openContact().draftText, function() {
+//            CKEDITOR.instances['im-editor'].focus();
+//        });
+        self.redactor.set(self.openContact().draftText);
+        self.redactor.focus();
         self.uploadedImages(self.openContact().draftImages);
 
         self.interlocutorTyping(false);
@@ -500,7 +506,8 @@ function MessagingViewModel(data) {
 
         var data = {}
         data.interlocutorId = self.interlocutor().user().id();
-        data.text = CKEDITOR.instances['im-editor'].getData();
+//        data.text = CKEDITOR.instances['im-editor'].getData();
+        data.text = self.redactor.get();
         data.images = self.uploadedImagesIds();
         if (self.openContact().thread() !== null)
             data.threadId = self.openContact().thread().id();
@@ -510,9 +517,11 @@ function MessagingViewModel(data) {
             self.meTyping(false);
 
             if (response.success) {
-                CKEDITOR.instances['im-editor'].setData('', function() {
-                    CKEDITOR.instances['im-editor'].focus();
-                });
+//                CKEDITOR.instances['im-editor'].setData('', function() {
+//                    CKEDITOR.instances['im-editor'].focus();
+//                });
+                self.redactor.set('');
+                self.redactor.focus();
                 self.uploadedImages([]);
 
                 self.messages.push(new Message(response.message, self));
@@ -528,10 +537,12 @@ function MessagingViewModel(data) {
     }
 
     self.editMessage = function() {
-        var text = CKEDITOR.instances['im-editor'].getData();
+//        var text = CKEDITOR.instances['im-editor'].getData();
+        var text = self.redactor.get();
         var data = {
             messageId : self.editingMessageId(),
-            text : CKEDITOR.instances['im-editor'].getData()
+//            text : CKEDITOR.instances['im-editor'].getData()
+            text : self.redactor.get()
         }
 
         $.post('/messaging/messages/edit/', data, function(response) {
@@ -539,9 +550,11 @@ function MessagingViewModel(data) {
                 self.editingMessage().text(text);
                 self.editingMessage().edited(true);
                 self.editingMessageId(null);
-                CKEDITOR.instances['im-editor'].setData('', function() {
-                    CKEDITOR.instances['im-editor'].focus();
-                });
+//                CKEDITOR.instances['im-editor'].setData('', function() {
+//                    CKEDITOR.instances['im-editor'].focus();
+//                });
+                self.redactor.set('');
+                self.redactor.focus();
             }
         }, 'json');
     }
@@ -556,7 +569,7 @@ function MessagingViewModel(data) {
     }
 
     self.focusEditor = function() {
-        CKEDITOR.instances['im-editor'].focus();
+        self.redactor.focus();
         return true;
     }
 
@@ -576,26 +589,63 @@ function MessagingViewModel(data) {
     });
 
     $(function() {
-        CKEDITOR.instances['im-editor'].on('instanceReady', function() {
-            if (data.interlocutorId !== null || self.contactsToShow().length > 0)
-                self.openThread(data.interlocutorId == null ? self.contactsToShow()[0] : self.findByInterlocutorId(data.interlocutorId));
-        });
-
-        CKEDITOR.instances['im-editor'].on('blur', function() {
-            if (self.openContact() !== null)
-                self.meTyping(false);
-        });
-
-        CKEDITOR.instances['im-editor'].on('key', function (e) {
-            if (e.data.keyCode == 13 && self.enterSetting())
-                self.submit();
-            else if (self.openContact() !== null) {
-                self.meTyping(true);
-                setTimeout(function() {
+        self.redactor = $('.redactor').redactor({
+            minHeight: 17,
+            autoresize: true,
+            focus: true,
+            toolbarExternal: '.redactor-control-b_toolbar',
+            buttons: ['image', 'video', 'smile'],
+            buttonsCustom: {
+                smile: {
+                    title: 'smile',
+                    callback: function(buttonName, buttonDOM, buttonObject) {
+                        // your code, for example - getting code
+                        var html = this.get();
+                    }
+                }
+            },
+            initCallback : function() {
+                self.redactor = this;
+                if (data.interlocutorId !== null || self.contactsToShow().length > 0)
+                    self.openThread(data.interlocutorId == null ? self.contactsToShow()[0] : self.findByInterlocutorId(data.interlocutorId));
+            },
+            blurCallback : function() {
+                if (self.openContact() !== null)
                     self.meTyping(false);
-                }, 5000);
+            },
+            keyupCallback : function(e) {
+                if (e.keyCode == 13 && self.enterSetting())
+                    self.submit();
+                else if (self.openContact() !== null) {
+                    self.meTyping(true);
+                    setTimeout(function() {
+                        self.meTyping(false);
+                    }, 5000);
+                }
             }
         });
+
+
+//        CKEDITOR.instances['im-editor'].on('instanceReady', function() {
+//            if (data.interlocutorId !== null || self.contactsToShow().length > 0)
+//                self.openThread(data.interlocutorId == null ? self.contactsToShow()[0] : self.findByInterlocutorId(data.interlocutorId));
+//        });
+//
+//        CKEDITOR.instances['im-editor'].on('blur', function() {
+//            if (self.openContact() !== null)
+//                self.meTyping(false);
+//        });
+//
+//        CKEDITOR.instances['im-editor'].on('key', function (e) {
+//            if (e.data.keyCode == 13 && self.enterSetting())
+//                self.submit();
+//            else if (self.openContact() !== null) {
+//                self.meTyping(true);
+//                setTimeout(function() {
+//                    self.meTyping(false);
+//                }, 5000);
+//            }
+//        });
 
         Comet.prototype.receiveMessage = function (result, id) {
             var contact = self.findByInterlocutorId(result.contact.user.id);

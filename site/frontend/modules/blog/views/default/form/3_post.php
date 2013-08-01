@@ -33,7 +33,6 @@
         </div>
     </div>
 
-
     <!-- .dragover - класс добавлять, когда курсер мыши с файлами находится над блоком -->
     <div class="b-add-img b-add-img__for-multi">
         <div class="b-add-img_hold">

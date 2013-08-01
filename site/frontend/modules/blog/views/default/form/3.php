@@ -17,7 +17,7 @@
                 <img src="/images/b-settings-blue_photo-record-img1.png" alt="" class="">
             </div>
             <div class="clearfix">
-                <a href="javascript:;" class="btn-blue btn-h46" onclick="$(this).parents('.b-settings-blue').hide();$('#popup-user-add-photo').show();">Загрузить фото</a>
+                <a href="javascript:;" class="btn-blue btn-h46" onclick="$(this).parents('.b-settings-blue').hide();$('#popup-user-add-photo').show();$.fancybox.center();">Загрузить фото</a>
             </div>
         </div>
 
@@ -27,7 +27,7 @@
                 <img src="/images/b-settings-blue_photo-record-img2.png" alt="" class="">
             </div>
             <div class="clearfix">
-                <a href="javascript:;" class="btn-blue btn-h46" onclick="$(this).parents('.b-settings-blue').hide();$('#popup-user-add-photo-post').show();">Создать фотопост</a>
+                <a href="javascript:;" class="btn-blue btn-h46" onclick="$(this).parents('.b-settings-blue').hide();$('#popup-user-add-photo-post').show();$.fancybox.center();">Создать фотопост</a>
             </div>
         </div>
 
@@ -40,6 +40,12 @@
 
 <script type="text/javascript">
     $(function () {
+        $('#CommunityPhotoPost_text').redactor({
+            minHeight: 80,
+            autoresize: true,
+            buttons: []
+        });
+
         var PhotoPostViewModel = function (data) {
             var self = this;
             ko.utils.extend(self, new BlogFormViewModel(data));

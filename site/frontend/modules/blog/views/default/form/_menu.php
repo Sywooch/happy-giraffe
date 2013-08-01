@@ -18,6 +18,7 @@
                     $('#add_form_container').html(response);
                     $('.js_add_menu a').removeClass('active');
                     $(el).addClass('active');
+                    $.fancybox.center();
                 });
                 return false;
             }

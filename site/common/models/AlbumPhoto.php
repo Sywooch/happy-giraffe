@@ -202,11 +202,13 @@ class AlbumPhoto extends HActiveRecord
         $httpStatus = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
 
-        if ($httpStatus !== 200)
+        if ($httpStatus !== 200){
             return false;
+        }
 
-        if (empty($file))
+        if (empty($file)){
             return false;
+        }
 
         //define file extension if it is not set
         if (empty($ext)) {
@@ -670,5 +672,18 @@ class AlbumPhoto extends HActiveRecord
         copy($temp_name, $model_dir . DIRECTORY_SEPARATOR . $file_name . '.' . $ext);
 
         return $file_name . '.' . $ext;
+    }
+
+    /**
+     * @param string $url
+     * @return AlbumPhoto|null
+     */
+    public static function getPhotoFromUrl($url)
+    {
+        if (preg_match('/http:\/\/img.happy-giraffe.ru\/thumbs\/[\d]+x[\d]+\/[\d]+\/([^\"]+)/', $url, $m)) {
+            return AlbumPhoto::model()->findByAttributes(array('fs_name' => $m[1]));
+        }
+
+        return null;
     }
 }

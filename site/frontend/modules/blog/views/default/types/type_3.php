@@ -6,6 +6,7 @@
  */
 
 $post = $data->photoPost;
+$collection = new PhotoPostPhotoCollection(array('contentId' => $data->id));
 ?>
 <?php if ($full):?>
     <h2 class="b-article_t">
@@ -17,10 +18,10 @@ $post = $data->photoPost;
             <p><?=$data->photoPost->text ?></p>
         </div>
         <?php
-            $this->widget('PhotoCollectionViewWidget', array(
-                'collection' => new PhotoPostPhotoCollection(array('contentId' => $data->id)),
-                'width' => 580,
-            ));
+        $this->widget('PhotoCollectionViewWidget', array(
+            'collection' => $collection,
+            'width' => 580,
+        ));
         ?>
     </div>
 <?php else: ?>
@@ -31,13 +32,17 @@ $post = $data->photoPost;
     <div class="b-article_in clearfix">
         <div class="wysiwyg-content clearfix">
             <?= $data->preview ?>
-            <div class="b-article_in-img">
-                <img src="<?=$post->photo->getPreviewUrl(580, 1000, Image::WIDTH) ?>" class="content-img">
-            </div>
         </div>
+        <?php
+        $this->widget('PhotoCollectionViewWidget', array(
+            'collection' => $collection,
+            'width' => 580,
+            'maxRows' => 2,
+        ));
+        ?>
     </div>
 
     <div class="textalign-r margin-15">
-        <a href="<?=$data->getUrl() ?>" class="b-article_more">Смотреть далее</a>
+        <a href="<?=$data->getUrl() ?>" class="b-article_more">Смотреть <?=$collection->count?> →</a>
     </div>
 <?php endif ?>

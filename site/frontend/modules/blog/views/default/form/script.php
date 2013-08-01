@@ -1,4 +1,20 @@
 <script type="text/javascript">
+    ko.bindingHandlers.chosen =
+    {
+        init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext)
+        {
+            $(element).addClass('chzn');
+            $(element).chosen().ready(function(){
+                $('.chzn-itx-simple').find('.chzn-drop').append('<div class="chzn-itx-simple_add" id="rubricAddForm"><div class="chzn-itx-simple_add-hold"> <input type="text" class="chzn-itx-simple_add-itx" data-bind="value: newRubricTitle, valueUpdate: \'keyup\'"> <a class="chzn-itx-simple_add-del" data-bind="visible: newRubricTitle().length > 0, click: clearNewRubricTitle"></a> </div> <button class="btn-green" data-bind="click: createRubric">Ok</button> </div>');
+                ko.applyBindings(viewModel, document.getElementById('rubricAddForm'));
+            });
+        },
+        update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext)
+        {
+            $(element).trigger('liszt:updated');
+        }
+    };
+
     $('.wysiwyg-redactor-v').redactor({
 
         initCallback: function() {
@@ -105,6 +121,26 @@
         self.privacyOptions = ko.observableArray([new BlogPrivacyOption({ value : 0, title : 'для <br>всех', cssClass : 'all' }, self), new BlogPrivacyOption({ value : 1, title : 'только <br>друзьям', cssClass : 'friend' }, self)]);
         self.selectedPrivacyOptionIndex = ko.observable(data.privacy);
         self.showDropdown = ko.observable(false);
+        self.newRubricTitle = ko.observable('');
+        self.rubricsList = ko.observableArray(ko.utils.arrayMap(data.rubricsList, function(rubric) {
+            return new BlogRubric(rubric);
+        }));
+        self.selectedRubric = ko.observable(data.rubricsList[0]);
+
+        self.clearNewRubricTitle = function() {
+            self.newRubricTitle('');
+        }
+
+        self.createRubric = function() {
+            $.post('/newblog/createRubric/', { title : self.newRubricTitle() }, function(response) {
+                if (response.success) {
+                    self.rubricsList.push(new BlogRubric({ id : response.id, title : self.newRubricTitle() }));
+                    self.selectedRubric(response.id);
+                    self.newRubricTitle('');
+                    $('body').click();
+                }
+            }, 'json');
+        }
 
         self.toggleDropdown = function() {
             self.showDropdown(! self.showDropdown());
@@ -114,6 +150,12 @@
             return self.privacyOptions()[self.selectedPrivacyOptionIndex()];
         };
     };
+
+    var BlogRubric = function(data, parent) {
+        var self = this;
+        self.id = data.id;
+        self.title = data.title;
+    }
 
     var BlogPrivacyOption = function(data, parent) {
         var self = this;

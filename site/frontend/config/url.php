@@ -107,10 +107,10 @@ return array(
         'user/<user_id:\d+>/blog/post<content_id:\d+>' => 'blog/view',
 
         'user/<user_id:\d+>' => 'profile/default/index',
+        'user/<user_id:\d+>/friends' => 'profile/default/friends',
         'profile/<_a>' => 'profile/default/<_a>',
 
         'user/<user_id:\d+>/clubs' => 'user/clubs',
-        'user/<user_id:\d+>/friends' => 'user/friends',
         'user/<user_id:\d+>/rss/page<page:\d+>' => 'rss/user',
         'user/<user_id:\d+>/rss' => 'rss/user',
         'user/<user_id:\d+>/comments/rss/page<page:\d+>' => 'rss/comments',

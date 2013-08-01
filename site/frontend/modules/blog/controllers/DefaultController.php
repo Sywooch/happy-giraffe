@@ -143,6 +143,12 @@ class DefaultController extends HController
             'title' => (string) $model->title,
             'privacy' => (int) $model->privacy,
             'text' => (string) $slaveModel->text,
+            'rubricsList' => array_map(function($rubric) {
+                return array(
+                    'id' => $rubric->id,
+                    'title' => $rubric->title,
+                );
+            }, $this->user->blog_rubrics),
         );
         if ($model->type_id == CommunityContent::TYPE_STATUS) {
             $json['moods'] = array_map(function($mood) {
@@ -238,6 +244,19 @@ class DefaultController extends HController
                 'position' => $this->user->getBlogPhotoPosition(),
             ),
         );
+    }
+
+    public function actionCreateRubric()
+    {
+        $title = Yii::app()->request->getPost('title');
+        $rubric = new CommunityRubric();
+        $rubric->title = $title;
+        $rubric->user_id = Yii::app()->user->id;
+        $success = $rubric->save();
+        $response = compact('success');
+        if ($success)
+            $response['id'] = $rubric->id;
+        echo CJSON::encode($response);
     }
 
     /**

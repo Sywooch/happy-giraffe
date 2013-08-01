@@ -37,13 +37,6 @@
                 <div class="chzn-itx-simple">
                     <?=$form->dropDownList($model, 'rubric_id', CHtml::listData($this->user->blog_rubrics, 'id', 'title'), array('class' => 'chzn'))?>
                     <?=$form->error($model, 'rubric_id')?>
-                    <div class="chzn-itx-simple_add">
-                        <div class="chzn-itx-simple_add-hold">
-                            <input type="text" name="" id="" class="chzn-itx-simple_add-itx">
-                            <a href="" class="chzn-itx-simple_add-del"></a>
-                        </div>
-                        <button class="btn-green">Ok</button>
-                    </div>
                 </div>
             </div>
         </div>

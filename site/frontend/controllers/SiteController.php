@@ -421,6 +421,7 @@ class SiteController extends HController
 
     public function actionTest()
     {
+<<<<<<< Updated upstream
         $rows = Yii::app()->db_seo->createCommand()
             ->select('site_url')
             ->from('li_sites')
@@ -430,5 +431,12 @@ class SiteController extends HController
 
         foreach($rows as $row)
             echo $row.'<br>';
+=======
+        Yii::import('site.frontend.extensions.phpQuery.phpQuery');
+        $url = 'http://habrahabr.ru/post/183598/';
+        $res = LinkParser::getInstance()->parse($url);
+
+        var_dump($res);
+>>>>>>> Stashed changes
     }
 }

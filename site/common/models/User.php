@@ -164,7 +164,10 @@ class User extends HActiveRecord
 
     public function getNormalizedAge()
     {
-        return $this->age . ' ' . $this->ageSuffix;
+        if ($this->birthday)
+            return $this->age . ' ' . $this->ageSuffix;
+        else
+            return '';
     }
 
     public function getBirthdayString()

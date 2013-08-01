@@ -303,6 +303,115 @@
 								</ul>
 							</div>
 						</div>
+						
+						<div class="b-photopost">
+							<h2 class="b-photopost_t">Цветы из бумаги объемные</h2>
+							<div class="photo-grid clearfix">
+                                <div class="photo-grid_row clearfix">
+                                    <!-- Ловить клик на photo-grid_i для показа увеличенного фото -->
+                                    <div class="photo-grid_i">
+                                        <img alt="" src="/images/example/photo-grid-1.jpg" class="photo-grid_img">
+                                        <div class="photo-grid_overlay">
+                                            <span class="photo-grid_zoom powertip"></span>
+                                            <div class="like-control like-control__smallest clearfix">
+                                                <a class="like-control_ico like-control_ico__like powertip" href="">865</a>
+                                                <a class="like-control_ico like-control_ico__favorites powertip" href="">55</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="photo-grid_i">
+                                        <img alt="" src="/images/example/photo-grid-2.jpg" class="photo-grid_img">
+                                        <div class="photo-grid_overlay">
+                                            <span class="photo-grid_zoom powertip"></span>
+                                            <div class="like-control like-control__smallest clearfix">
+                                                <a class="like-control_ico like-control_ico__like powertip" href="">865</a>
+                                                <a class="like-control_ico like-control_ico__favorites powertip" href="">55</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="photo-grid_i">
+                                        <img alt="" src="/images/example/photo-grid-3.jpg" class="photo-grid_img">
+                                        <div class="photo-grid_overlay">
+                                            <span class="photo-grid_zoom powertip"></span>
+                                            <div class="like-control like-control__smallest clearfix">
+                                                <a class="like-control_ico like-control_ico__like powertip" href="">865</a>
+                                                <a class="like-control_ico like-control_ico__favorites powertip" href="">55</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="photo-grid_row clearfix">
+                                    <!-- Ловить клик на photo-grid_i для показа увеличенного фото -->
+                                    <div class="photo-grid_i">
+                                        <img alt="" src="/images/example/photo-grid-4.jpg" class="photo-grid_img">
+                                        <div class="photo-grid_overlay">
+                                            <span class="photo-grid_zoom powertip"></span>
+                                            <div class="like-control like-control__smallest clearfix">
+                                                <a class="like-control_ico like-control_ico__like powertip" href="">865</a>
+                                                <a class="like-control_ico like-control_ico__favorites powertip" href="">55</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="photo-grid_i">
+                                        <img alt="" src="/images/example/photo-grid-5.jpg" class="photo-grid_img">
+                                        <div class="photo-grid_overlay">
+                                            <span class="photo-grid_zoom powertip"></span>
+                                            <div class="like-control like-control__smallest clearfix">
+                                                <a class="like-control_ico like-control_ico__like powertip" href="">865</a>
+                                                <a class="like-control_ico like-control_ico__favorites powertip" href="">55</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="photo-grid_i">
+                                        <img alt="" src="/images/example/photo-grid-6.jpg" class="photo-grid_img">
+                                        <div class="photo-grid_overlay">
+                                            <span class="photo-grid_zoom powertip"></span>
+                                            <div class="like-control like-control__smallest clearfix">
+                                                <a class="like-control_ico like-control_ico__like powertip" href="">865</a>
+                                                <a class="like-control_ico like-control_ico__favorites powertip" href="">55</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="photo-grid_row clearfix">
+                                    <!-- Ловить клик на photo-grid_i для показа увеличенного фото -->
+                                    <div class="photo-grid_i">
+                                        <img alt="" src="/images/example/photo-grid-3.jpg" class="photo-grid_img">
+                                        <div class="photo-grid_overlay">
+                                            <span class="photo-grid_zoom powertip"></span>
+                                            <div class="like-control like-control__smallest clearfix">
+                                                <a class="like-control_ico like-control_ico__like powertip" href="">865</a>
+                                                <a class="like-control_ico like-control_ico__favorites powertip" href="">55</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="photo-grid_i">
+                                        <img alt="" src="/images/example/photo-grid-1.jpg" class="photo-grid_img">
+                                        <div class="photo-grid_overlay">
+                                            <span class="photo-grid_zoom powertip"></span>
+                                            <div class="like-control like-control__smallest clearfix">
+                                                <a class="like-control_ico like-control_ico__like powertip" href="">865</a>
+                                                <a class="like-control_ico like-control_ico__favorites powertip" href="">55</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="photo-grid_i">
+                                        <img alt="" src="/images/example/photo-grid-2.jpg" class="photo-grid_img">
+                                        <div class="photo-grid_overlay">
+                                            <span class="photo-grid_zoom powertip"></span>
+                                            <div class="like-control like-control__smallest clearfix">
+                                                <a class="like-control_ico like-control_ico__like powertip" href="">865</a>
+                                                <a class="like-control_ico like-control_ico__favorites powertip" href="">55</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+							<div class="textalign-r">                 
+                                <a class="b-article_more b-article_more__white" href="">Смотреть 25 фото</a>
+                            </div>
+						</div>
+						
 						<div class="custom-likes-b">
 							<div class="custom-likes-b_slogan">Поделитесь с друзьями!</div>
 							<a class="custom-like" href="">

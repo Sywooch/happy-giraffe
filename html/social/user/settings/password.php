@@ -92,7 +92,7 @@
 								<div class="form-settings_elem">
 									<div class="float-l w-130 margin-r10">
 										<div class="form-settings_capcha">
-											<!-- Размеры капчи 128*46 -->
+											<!-- Размеры капчи 128*45 -->
 											<img src="/images/captcha.png" alt="">
 										</div>
 										<div class="form-settings_desc">
@@ -101,8 +101,8 @@
 										</div>
 									</div>
 									<div class="float-l">
-										<div class="w-160">
-											<input type="text" name="" id="" class="itx-gray margin-t20" value="">
+										<div class="w-160 margin-t15">
+											<input type="text" name="" id="" class="itx-gray" value="">
 										</div>
 										<div class="form-settings_desc">Введите цифры, которые вы видите на картинке.</div>
 									</div>

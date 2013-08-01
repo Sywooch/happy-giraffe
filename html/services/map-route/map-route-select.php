@@ -135,7 +135,7 @@
 								<a href="" class="custom-like">
 									<span class="custom-like_icon mail"></span>
 								</a>
-								
+								<!-- Место для попапа -->
 							</div>
 						</div>
 						<div class="map-route-share_tx">Ссылка на этот маршрут:</div>
@@ -203,8 +203,10 @@
 									<div class="clearfix margin-b10">
 										<textarea name="" id="" cols="20" rows="3" class="custom-likes-b-popup_textarea itx-gray" placeholder="Добавить сообщение"></textarea>
 									</div>
-									<button class="custom-like-small-popup_btn btn-gray-light margin-r5">Отменить</button>
-									<button class="custom-like-small-popup_btn btn-green">Отправить</button>
+									<div class="clearfix textalign-r">
+										<button class="custom-like-small-popup_btn btn-gray-light margin-r5">Отменить</button>
+										<button class="custom-like-small-popup_btn btn-green">Отправить</button>
+									</div>
 									
 									<div class="custom-likes-b-popup_win display-n">
 										<div class="custom-likes-b-popup_win-tx">
@@ -275,9 +277,10 @@
 									<div class="clearfix margin-b10">
 										<textarea name="" id="" cols="20" rows="3" class="custom-likes-b-popup_textarea itx-gray" placeholder="Добавить сообщение"></textarea>
 									</div>
-									<button class="custom-like-small-popup_btn btn-gray-light margin-r5">Отменить</button>
-									<button class="custom-like-small-popup_btn btn-green">Отправить</button>
-									
+									<div class="clearfix textalign-r">
+										<button class="custom-like-small-popup_btn btn-gray-light margin-r5">Отменить</button>
+										<button class="custom-like-small-popup_btn btn-green">Отправить</button>
+									</div>
 									<div class="custom-likes-b-popup_win ">
 										<div class="custom-likes-b-popup_win-tx">
 										Письмо отправлено
@@ -607,7 +610,7 @@
 											<span class="font-smallest color-gray">Сегодня 14:25</span>
 										</div>
 										<div class="comments-gray_cont wysiwyg-content">
-											<p>Комментарий успешно удален.<a class="comments-gray_a-recovery" href="">Восстановить?</a> </p>
+											<p>Комментарий успешно удален. <a class="comments-gray_a-recovery" href=""> Восстановить?</a> </p>
 										</div>
 									</div>
 								</div>

@@ -39,7 +39,7 @@ class PhotoCollectionViewWidget extends CWidget
     public function getHeight($photos)
     {
         return ($this->width - count($photos) * 4) / array_reduce($photos, function($v, $w) {
-            $v += $w->originalWidth / $w->originalHeight;
+            $v += $w->width / $w->height;
             return $v;
         }, 0);
     }
@@ -47,7 +47,7 @@ class PhotoCollectionViewWidget extends CWidget
     public function getThreshold($photos)
     {
         $balance = array_reduce($photos, function($v, $w) {
-            $v += (($w->originalWidth / $w->originalHeight) > 1) ? 1 : -1;
+            $v += (($w->width / $w->height) > 1) ? 1 : -1;
             return $v;
         }, 0);
         $orientCoefficient = $balance <= 0 ? 2 : 1;

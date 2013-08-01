@@ -21,7 +21,7 @@
 </style>
 
 <?php foreach ($collection['photos'] as $p): ?>
-    <p><?=$p->originalWidth?>x<?=$p->originalHeight?></p>
+    <p><?=$p->width?>x<?=$p->height?></p>
 <?php endforeach; ?>
 
 <div class="grid clearfix">

@@ -162,7 +162,7 @@ input[type="checkbox"] {
   cursor: pointer;
 }
 h1 {
-  color: #0281B0;
+  color: #444646;
   font-size: 25px;
   line-height: 25px;
   margin-bottom: 15px;
@@ -560,7 +560,7 @@ html.top-nav-fixed {
   font-size: 0;
 }
 .disabled {
-  cursor: default;
+  cursor: default !important;
 }
 /* /cosmetic layout */
 /* FONTS */
@@ -631,9 +631,9 @@ hr,
 .itx-gray {
   width: 100%;
   border: 1px solid #e6e6e6;
-  padding: 5px 10px;
+  padding: 7px 10px;
   background: #fff;
-  color: #777;
+  color: #514F4F;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   -ms-box-sizing: border-box;
@@ -652,7 +652,7 @@ hr,
 }
 .itx-simple {
   border: 1px solid #daebf5;
-  padding: 6px 8px 6px 10px;
+  padding: 7px 8px 7px 10px;
   font-size: 14px;
   color: #555;
   background: #fff;
@@ -1771,11 +1771,13 @@ textarea.error,
   padding: 0 21px;
 }
 .btn-big {
-  height: 70px;
-  line-height: 70px;
-  padding: 0 19px;
-  font-size: 16px;
-  font-weight: bold;
+  height: 60px;
+  line-height: 60px;
+  padding: 0 20px;
+  font-size: 35px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
 }
 .btn-large {
   height: 75px;
@@ -6469,12 +6471,14 @@ textarea.error,
 }
 .chzn-v2-lilac .chzn-container-single .chzn-single {
   height: 23px;
-  border-color: #e6d4f6;
+  border-color: #d9c5ed;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
 }
 .chzn-v2-lilac .chzn-container-single .chzn-drop {
-  border-color: #e6d4f6;
-  border-top: 1px solid #e6d4f6;
-  margin-top: 5px;
+  border: 1px solid #d9c5ed;
+  margin-top: 3px;
 }
 .chzn-v2-lilac .chzn-container-single .chzn-single span {
   height: 23px;
@@ -6485,8 +6489,7 @@ textarea.error,
 .chzn-v2-lilac .chzn-container-single .chzn-single div {
   background: none;
   height: 21px;
-  border-left: 0;
-  border-color: #C3E2F6;
+  width: 25px;
   top: 0;
   right: 0;
 }
@@ -6496,7 +6499,8 @@ textarea.error,
   background: url(/images/common.png) no-repeat -336px -178px;
 }
 .chzn-v2-lilac .chzn-container .chzn-results .highlighted {
-  background: #a687c7;
+  background: #f1eaf8;
+  color: #514f4f;
 }
 .chzn-textalign-c .chzn-container-single .chzn-single span {
   text-align: center !important;
@@ -6698,7 +6702,7 @@ select.pregnancy_term + .chzn-container .chzn-results li {
   display: inline-block;
   *zoom: 1;
   *display: inline;
-  height: 25px;
+  height: 32px;
   min-width: 78px;
   width: 100%;
 }
@@ -6707,9 +6711,9 @@ select.pregnancy_term + .chzn-container .chzn-results li {
   width: 100% !important;
 }
 .chzn-gray .chzn-container-single .chzn-single {
-  height: 25px;
+  height: 32px;
   border-color: #e1e1e1;
-  padding-left: 7px;
+  padding-left: 10px;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
@@ -6730,15 +6734,15 @@ select.pregnancy_term + .chzn-container .chzn-results li {
   border-radius: 3px;
 }
 .chzn-gray .chzn-container-single .chzn-single span {
-  height: 25px;
-  line-height: 25px;
+  height: 32px;
+  line-height: 32px;
   color: #514f4f;
-  font-size: 12px;
+  font-size: 14px;
   margin-right: 40px;
 }
 .chzn-gray .chzn-container-single .chzn-single div {
   background: #fff;
-  height: 23px;
+  height: 30px;
   width: 30px;
   border-left: 0;
   border-color: #82b6f5;
@@ -6971,7 +6975,7 @@ select.pregnancy_term + .chzn-container .chzn-results li {
 .content-search_found {
   float: left;
   width: 280px;
-  margin-top: 4px;
+  margin-top: 6px;
   font-size: 21px;
   color: #161616;
 }
@@ -6982,18 +6986,15 @@ select.pregnancy_term + .chzn-container .chzn-results li {
   float: right;
   width: 220px;
 }
-.content-search_select .chzn-bluelight .chzn-container-single .chzn-single,
-.content-search_select .chzn-bluelight .chzn-container-single .chzn-results {
-  border-color: #e1e1e1;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
+.content-search_select .chzn-gray .chzn-single {
+  height: 25px;
+  line-height: 25px;
 }
-.content-search_select .chzn-bluelight .chzn-container-single .chzn-single div {
-  background: #fff;
+.content-search_select .chzn-gray .chzn-container-single .chzn-single span {
+  line-height: 25px;
 }
-.content-search_select .chzn-bluelight .chzn-container-single .chzn-single b {
-  background: url(/images/arrow-d-gray.png) no-repeat;
+.content-search_select .chzn-gray .chzn-container-single .chzn-single div {
+  height: 23px;
 }
 .content-search_pager-control {
   float: left;
@@ -12961,8 +12962,8 @@ select.pregnancy_term + .chzn-container .chzn-results li {
   position: absolute;
   bottom: 46px;
   left: 50%;
-  width: 180px;
-  margin: 0 0 0 -102px;
+  width: 220px;
+  margin: 0 0 0 -120px;
   padding: 10px;
   background: #fff;
   border: 1px solid #DFDFDF;
@@ -12999,13 +13000,7 @@ select.pregnancy_term + .chzn-container .chzn-results li {
   margin-bottom: 10px;
   color: #454545;
 }
-.custom-likes-b-popup_it {
-  margin: 0;
-}
 .custom-likes-b-popup_textarea {
-  margin: 0;
-  width: 178px;
-  max-width: 178px;
   resize: none;
 }
 .custom-likes-b-popup_win {
@@ -13020,7 +13015,7 @@ select.pregnancy_term + .chzn-container .chzn-results li {
   position: absolute;
   top: 50%;
   left: 50%;
-  margin: -10px 0 0 -74px;
+  margin: -10px 0 0 -76px;
   padding: 3px 8px;
   font-size: 14px;
   color: #171717;
@@ -13389,21 +13384,21 @@ select.pregnancy_term + .chzn-container .chzn-results li {
   margin-bottom: 40px;
 }
 .map-route-table_thead-td {
-  background: #ebeae5;
+  background: #EBEBEB;
   height: 44px;
   font-size: 11px;
   color: #979695;
   vertical-align: middle;
 }
 .map-route-table_thead-td:first-child {
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
+  -webkit-border-top-left-radius: 5px;
+  -moz-border-top-left-radius: 5px;
+  border-top-left-radius: 5px;
 }
 .map-route-table_thead-td:last-child {
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
+  -webkit-border-top-right-radius: 5px;
+  -moz-border-top-right-radius: 5px;
+  border-top-right-radius: 5px;
 }
 .map-route-table_col1 {
   width: 45px;
@@ -13465,7 +13460,7 @@ select.pregnancy_term + .chzn-container .chzn-results li {
 /* /map-route-point */
 /* map-route-other */
 .map-route-other {
-  margin: 0 10px 40px;
+  margin: 0 10px 25px;
 }
 .map-route-other_title {
   font-size: 17px;

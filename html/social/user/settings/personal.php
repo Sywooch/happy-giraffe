@@ -194,12 +194,12 @@
 										<!-- Данные для примера id="radio4" name="b-radio2" и for="radio4" -->
 										<input type="radio" checked="" class="form-settings_radio" id="radio4" name="b-radio2">
 										<label class="form-settings_label-radio" for="radio4">
-											<span class="ico-male-gray"></span>
+											<span class="ico-male"></span>
 										</label>
 										<!-- Данные для примера id="radio5" name="b-radio2" и for="radio5" -->
 										<input type="radio" class="form-settings_radio" id="radio5" name="b-radio2">
 										<label class="form-settings_label-radio" for="radio5">
-											<span class="ico-female-gray"></span>
+											<span class="ico-female"></span>
 										</label>
 									</div>
 								</div>
@@ -257,7 +257,7 @@
 									</div>
 									<!-- Блок редатирования поля -->
 									<div class="">
-										<div class="w-300">
+										<div class="w-300 margin-b5">
 											<div class="chzn-gray">
 												<select class="chzn" data-placeholder="Выберите страну">
 													<option value=""></option>
@@ -276,7 +276,7 @@
 												</select>
 											</div>
 										</div>
-										<div class="w-300">
+										<div class="w-300 margin-b5">
 											<div class="chzn-gray">
 												<select class="chzn" data-placeholder="Выберите регион">
 													<option value=""></option>

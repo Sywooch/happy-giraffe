@@ -628,6 +628,11 @@ table.fr_recipe_tb td { width: 50%;}
         color: #3381c1;
         text-decoration: underline;
     }
+    &_more__white {
+        color: #fff;
+        background: url(/images/b-article_more__white.png) no-repeat 100% 10px;
+    }
+    &_more__white:hover {color: #fff;}
     &_user-status {
         width: 580px;
         display: table-cell;
@@ -666,6 +671,22 @@ table.fr_recipe_tb td { width: 50%;}
     &_removed-a {font-size: 12px;}
 }
 /* /b-article */
+
+/* b-photopost */
+.b-photopost {
+    margin: 20px 0 30px;
+    padding: 1px 0;
+    background: #57aef1;
+
+    &_t {
+        margin: 15px;
+        font-size: 25px;
+        font-weight: bold;
+        color: #fff;
+        text-align: center;
+    }
+}
+/* /b-photopost */
 
 /* like-control */
 .like-control {
@@ -1176,7 +1197,7 @@ table.fr_recipe_tb td { width: 50%;}
     background: #f5f5f5;
 
     &__map-route {
-        padding: 20px 150px 20px 30px;
+        padding: 20px 180px 20px 0;
     }
     &_t {
         margin: 0 30px;
@@ -1198,7 +1219,7 @@ table.fr_recipe_tb td { width: 50%;}
         margin-right: 15px;
     }
     &_hold {
-        padding: 10px 0 0;
+        padding: 0;
     }
     &_i {
         position: relative;
@@ -2987,8 +3008,8 @@ table.fr_recipe_tb td { width: 50%;}
         color: #333;
         background-position: 0 -100px;
     }
-    &_radio:checked + &_label-radio .ico-male-gray,
-    &_radio:checked + &_label-radio .ico-female-gray {background-position: 0 -100px;}
+    &_radio:checked + &_label-radio .ico-male,
+    &_radio:checked + &_label-radio .ico-female {background-position: 0 -100px;}
     &_label-radio {
         .inline-block();
         vertical-align: top;
@@ -3003,14 +3024,12 @@ table.fr_recipe_tb td { width: 50%;}
     .ie7 &_label-radio,
     .ie8 &_label-radio {padding-left: 0;background: none;}
     &_label-radio:hover {color: #333;}
-    &_label-radio .ico-male-gray,
-    &_label-radio .ico-female-gray {
+    &_label-radio .ico-male,
+    &_label-radio .ico-female {
         position: relative;
         top: -5px;
     }
-    &_capcha {
-        border: 1px solid #e1e1e1;
-    }
+    &_capcha {border: 1px solid #e1e1e1;}
     &_capcha > img {display: block;}
 
     &_table {
@@ -3037,3 +3056,8 @@ table.fr_recipe_tb td { width: 50%;}
     }
 }
 /* /form-settings */
+
+
+
+
+

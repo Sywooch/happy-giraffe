@@ -13,6 +13,7 @@ class PhotoCollectionViewWidget extends CWidget
     public $width;
     public $thresholdCoefficient = 0.775;
     public $minPhotos = 3;
+    public $maxRows = false;
 
     public function run()
     {
@@ -20,6 +21,7 @@ class PhotoCollectionViewWidget extends CWidget
 
         $grid = array();
         $buffer = array();
+        $rows = 0;
         foreach ($this->collection->getAllPhotos() as $photo) {
             $buffer[] = get_class($photo) == 'AlbumPhoto' ? $photo : $photo->photo;
             $height = floor($this->getHeight($buffer));
@@ -30,6 +32,9 @@ class PhotoCollectionViewWidget extends CWidget
                     'photos' => $buffer,
                 );
                 $buffer = array();
+                $rows++;
+                if ($this->maxRows !== false && $this->maxRows == $rows)
+                    break;
             }
         }
 
@@ -51,7 +56,7 @@ class PhotoCollectionViewWidget extends CWidget
             return $v;
         }, 0);
         $orientCoefficient = $balance <= 0 ? 2 : 1;
-        return 580 / count($photos) * $this->thresholdCoefficient * $orientCoefficient;
+        return $this->width / count($photos) * $this->thresholdCoefficient * $orientCoefficient;
     }
 
     protected function registerScripts()

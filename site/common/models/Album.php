@@ -91,10 +91,12 @@ class Album extends HActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
+            'commentsCount' => array(self::STAT, 'Comment', 'entity_id', 'condition' => 'entity=:modelName', 'params' => array(':modelName' => get_class($this))),
+            'comments' => array(self::HAS_MANY, 'Comment', 'entity_id', 'on' => 'entity=:modelName', 'params' => array(':modelName' => get_class($this))),
             'photos' => array(self::HAS_MANY, 'AlbumPhoto', 'album_id', 'scopes' => array('active')),
             'photoCount' => array(self::STAT, 'AlbumPhoto', 'album_id', 'condition' => 'removed = 0'),
             'author' => array(self::BELONGS_TO, 'User', 'author_id'),
-            'remove' => array(self::HAS_ONE, 'Removed', 'entity_id', 'condition' => '`remove`.`entity` = :entity', 'params' => array(':entity' => get_class($this)))
+            'remove' => array(self::HAS_ONE, 'Removed', 'entity_id', 'condition' => '`remove`.`entity` = :entity', 'params' => array(':entity' => get_class($this))),
         );
     }
 

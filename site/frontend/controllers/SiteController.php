@@ -419,24 +419,24 @@ class SiteController extends HController
         $this->render('moder_rules');
     }
 
-    public function actionTest()
-    {
-<<<<<<< Updated upstream
-        $rows = Yii::app()->db_seo->createCommand()
-            ->select('site_url')
-            ->from('li_sites')
-            ->where('(password IS NOT NULL OR public=1) AND type=1 AND visits > 3000')
-            ->order('visits desc')
-            ->queryColumn();
-
-        foreach($rows as $row)
-            echo $row.'<br>';
-=======
-        Yii::import('site.frontend.extensions.phpQuery.phpQuery');
-        $url = 'http://habrahabr.ru/post/183598/';
-        $res = LinkParser::getInstance()->parse($url);
-
-        var_dump($res);
->>>>>>> Stashed changes
-    }
+//    public function actionTest()
+//    {
+//<<<<<<< Updated upstream
+//        $rows = Yii::app()->db_seo->createCommand()
+//            ->select('site_url')
+//            ->from('li_sites')
+//            ->where('(password IS NOT NULL OR public=1) AND type=1 AND visits > 3000')
+//            ->order('visits desc')
+//            ->queryColumn();
+//
+//        foreach($rows as $row)
+//            echo $row.'<br>';
+//=======
+//        Yii::import('site.frontend.extensions.phpQuery.phpQuery');
+//        $url = 'http://habrahabr.ru/post/183598/';
+//        $res = LinkParser::getInstance()->parse($url);
+//
+//        var_dump($res);
+//>>>>>>> Stashed changes
+//    }
 }

@@ -630,7 +630,6 @@ class CommunityCommand extends CConsoleCommand
                 $c++;
             }
         echo $c . "\n";
-<<<<<<< Updated upstream
     }
 
     public function actionDdos()
@@ -650,34 +649,8 @@ class CommunityCommand extends CConsoleCommand
                 curl_multi_exec($mh, $active);
                 do {
                     curl_multi_exec($mh, $active);
-                } while ($active);
-                $mh = curl_multi_init();
-            }
-
-            echo $posts . "\n";
-        }
-=======
->>>>>>> Stashed changes
-    }
-
-    public function actionDdos()
-    {
-        $dataProvider = new CActiveDataProvider('CommunityContent');
-
-        $posts = 0;
-        $iterator = new CDataProviderIterator($dataProvider, 1000);
-        $mh = curl_multi_init();
-        foreach ($iterator as $post) {
-            $posts++;
-            $ch = curl_init('http://www.happy-giraffe.ru' . $post->url);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_multi_add_handle($mh, $ch);
-            if ($iterator->key() % 300 == 0) {
-                $active = null;
-                curl_multi_exec($mh, $active);
-                do {
-                    curl_multi_exec($mh, $active);
-                } while ($active);
+                }
+                while($active);
                 $mh = curl_multi_init();
             }
 

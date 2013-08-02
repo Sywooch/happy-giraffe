@@ -108,6 +108,9 @@ return array(
 
         'user/<user_id:\d+>' => 'profile/default/index',
         'user/<user_id:\d+>/friends' => 'profile/default/friends',
+        'user/<user_id:\d+>/award/<id:\d+>' => array('profile/default/award', 'defaultParams' => array('type' => 'award')),
+        'user/<user_id:\d+>/achievement/<id:\d+>' => array('profile/default/award', 'defaultParams' => array('type' => 'achievement')),
+        'user/<user_id:\d+>/awards' => 'profile/default/awards',
         'profile/<_a>' => 'profile/default/<_a>',
 
         'user/<user_id:\d+>/clubs' => 'user/clubs',

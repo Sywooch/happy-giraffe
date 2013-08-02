@@ -343,7 +343,7 @@ class User extends HActiveRecord
 
             'score' => array(self::HAS_ONE, 'UserScores', 'user_id'),
             'awards' => array(self::HAS_MANY, 'ScoreUserAward', 'user_id'),
-            'achievements' => array(self::MANY_MANY, 'ScoreAchievement', 'score__user_achievements(achievement_id, user_id)'),
+            'achievements' => array(self::MANY_MANY, 'ScoreUserAchievement', 'user_id'),
 
             'friendLists' => array(self::HAS_MANY, 'FriendList', 'list_id'),
             'subscriber' => array(self::HAS_ONE, 'UserBlogSubscription', 'user_id'),

@@ -185,6 +185,26 @@ class AlbumPhoto extends HActiveRecord
         return false;
     }
 
+    /**
+     * Save entity and save image in the file system
+     * @return bool
+     */
+    public function create($temp = false)
+    {
+        if (!$temp) {
+            $this->file_name = $this->file;
+            $this->fs_name = md5($this->file_name . time()) . '.' . $this->file->extensionName;
+        } else {
+            $this->fs_name = $this->file_name;
+        }
+        if ($this->save(false)) {
+            $this->saveFile(false, $temp);
+            $this->setDimensions();
+            return true;
+        }
+        return false;
+    }
+
     public static function createByUrl($url, $user_id, $album_type = false)
     {
         $ext = pathinfo($url, PATHINFO_EXTENSION);
@@ -253,6 +273,31 @@ class AlbumPhoto extends HActiveRecord
         $model->save(false);
 
         return $model;
+    }
+
+    /**
+     * Save file in the file system
+     * @return bool
+     */
+    public function saveFile($temp = false, $move_temp = false)
+    {
+        $dir = Yii::getPathOfAlias('site.common.uploads.photos');
+        if (!$temp) {
+            $model_dir = $dir . DIRECTORY_SEPARATOR . $this->original_folder . DIRECTORY_SEPARATOR . $this->author_id;
+            if (!file_exists($model_dir))
+                mkdir($model_dir);
+        } else {
+            $model_dir = $dir . DIRECTORY_SEPARATOR . $this->tmp_folder;
+            $this->file_name = $this->file;
+            $this->fs_name = md5($this->file_name . time()) . '.' . $this->file->extensionName;
+        }
+        $file_name = $model_dir . DIRECTORY_SEPARATOR . $this->fs_name;
+        if (!$move_temp)
+            return $this->file->saveAs($file_name);
+        else {
+            //echo $this->templatePath;Yii::app()->end();
+            rename($this->templatePath, $file_name);
+        }
     }
 
     /**

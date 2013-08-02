@@ -1,24 +1,24 @@
 <?php
 
 /**
- * This is the model class for table "score__users_awards".
+ * This is the model class for table "score__user_achievements".
  *
- * The followings are the available columns in table 'score__users_awards':
+ * The followings are the available columns in table 'score__user_achievements':
  * @property string $id
  * @property string $user_id
- * @property string $award_id
+ * @property string $achievement_id
  * @property string $created
  *
  * The followings are the available model relations:
+ * @property ScoreAchievement $achievement
  * @property User $user
- * @property ScoreAward $award
  */
-class ScoreUserAward extends HActiveRecord
+class ScoreUserAchievement extends HActiveRecord
 {
     /**
      * Returns the static model of the specified AR class.
      * @param string $className active record class name.
-     * @return ScoreUserAward the static model class
+     * @return ScoreUserAchievement the static model class
      */
     public static function model($className = __CLASS__)
     {
@@ -30,7 +30,7 @@ class ScoreUserAward extends HActiveRecord
      */
     public function tableName()
     {
-        return 'score__users_awards';
+        return 'score__user_achievements';
     }
 
     /**
@@ -41,12 +41,10 @@ class ScoreUserAward extends HActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('user_id, award_id', 'required'),
-            array('user_id, award_id', 'length', 'max' => 10),
+            array('user_id, achievement_id', 'required'),
+            array('user_id, achievement_id', 'length', 'max' => 10),
             array('created', 'safe'),
-            // The following rule is used by search().
-            // Please remove those attributes that should not be searched.
-            array('user_id, award_id, created', 'safe', 'on' => 'search'),
+            array('id, user_id, achievement_id, created', 'safe', 'on' => 'search'),
         );
     }
 
@@ -55,11 +53,9 @@ class ScoreUserAward extends HActiveRecord
      */
     public function relations()
     {
-        // NOTE: you may need to adjust the relation name and the related
-        // class name for the relations automatically generated below.
         return array(
+            'achievement' => array(self::BELONGS_TO, 'ScoreAchievement', 'achievement_id'),
             'user' => array(self::BELONGS_TO, 'User', 'user_id'),
-            'award' => array(self::BELONGS_TO, 'ScoreAward', 'award_id'),
         );
     }
 
@@ -76,10 +72,13 @@ class ScoreUserAward extends HActiveRecord
 
     public function afterSave()
     {
-        ScoreInputAward::getInstance()->add($this->user_id, $this);
+        ScoreInputAchievement::getInstance()->add($this->user_id, $this);
         parent::afterSave();
     }
 
+    /**
+     * @return string
+     */
     public function getTitle()
     {
         if (empty($this->entity_id))
@@ -90,29 +89,29 @@ class ScoreUserAward extends HActiveRecord
 
     /**
      * @param int $user_id
-     * @return ScoreUserAward[]
+     * @return ScoreUserAchievement[]
      */
-    public static function getUserAwards($user_id)
+    public static function getUserAchievements($user_id)
     {
         $criteria = new CDbCriteria;
         $criteria->compare('t.user_id', $user_id);
         $criteria->order = 't.id desc';
-        $criteria->with = array('award');
+        $criteria->with = array('achievement');
 
         return self::model()->findAll($criteria);
     }
 
     /**
      * Возвращает модель награды
-     * @return ScoreAward
+     * @return ScoreAchievement
      */
     public function getAward()
     {
-        return $this->award;
+        return $this->achievement;
     }
 
     public function getUrl()
     {
-        return Yii::app()->createUrl('/profile/default/award', array('id' => $this->id, 'user_id' => $this->user_id, 'type' => 'award'));
+        return Yii::app()->createUrl('/profile/default/award', array('id' => $this->id, 'user_id' => $this->user_id, 'type' => 'achievement'));
     }
 }

@@ -9,8 +9,8 @@ $ViewModelData = $model->getSettingsViewModel();
 </div>
 <div class="js-like-control" data-bind="visible: ! removed()">
     <div class="like-control like-control__pinned clearfix">
-        <a href="javascript:;" class="like-control_ico like-control_ico__like<?php if (Yii::app()->user->getModel()->isLiked($model)) echo ' active' ?>" onclick="HgLike(this, 'BlogContent',<?=$model->id ?>);"><?=PostRating::likesCount($model) ?></a>
-        <a href="javascript:;" class="like-control_ico like-control_ico__repost<?php if (Yii::app()->user->getModel()->isReposted($model)) echo ' active' ?>"><?=$model->sourceCount ?></a>
+        <a href="javascript:;" class="like-control_ico like-control_ico__like<?php if (!Yii::app()->user->isGuest && Yii::app()->user->getModel()->isLiked($model)) echo ' active' ?>" onclick="HgLike(this, 'BlogContent',<?=$model->id ?>);"><?=PostRating::likesCount($model) ?></a>
+        <a href="javascript:;" class="like-control_ico like-control_ico__repost<?php if (!Yii::app()->user->isGuest && Yii::app()->user->getModel()->isReposted($model)) echo ' active' ?>"><?=$model->sourceCount ?></a>
         <!-- ko stopBinding: true -->
         <?php $this->widget('FavouriteWidget', array('model' => $model, 'right' => true)); ?>
         <!-- /ko -->

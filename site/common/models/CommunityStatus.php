@@ -39,10 +39,9 @@ class CommunityStatus extends HActiveRecord
     public function rules()
     {
         return array(
-            array('content_id, text', 'required'),
             array('text', 'length', 'max' => 250),
             array('mood_id', 'default', 'setOnEmpty' => true, 'value' => null),
-            //array('mood_id', 'exist', 'attributeName' => 'id', 'className' => 'UserMood'),
+            array('mood_id', 'exist', 'attributeName' => 'id', 'className' => 'UserMood'),
         );
     }
 

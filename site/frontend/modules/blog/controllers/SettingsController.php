@@ -38,7 +38,7 @@ class SettingsController extends HController
         $width = round($rx * $photo->width);
         $height = round($ry * $photo->height);
         $image->resize($width, $height)->crop($rx * $p['x'], $ry * $p['y'], $rx * $p['w'], $ry * $p['h'])->save($photo->getBlogPath());
-        $success = $user->update(array('blog_title', 'blog_description', 'blog_photo_id', 'blog_photo_position'));
+        $success = $user->save(true, array('blog_title', 'blog_description', 'blog_photo_id', 'blog_photo_position'));
         $response = compact('success');
         if ($success)
             $response['thumbSrc'] = $photo->getBlogUrl() . '?' . time();

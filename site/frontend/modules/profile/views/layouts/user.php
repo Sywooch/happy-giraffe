@@ -16,7 +16,7 @@ $this->beginContent('//layouts/common_new'); ?>
             <li class="breadcrumbs-big_i">
                 <a class="breadcrumbs-big_a" href="<?=$user->getUrl() ?>"><?=$this->user->getFullName() ?></a>
             </li>
-            <li class="breadcrumbs-big_i"><?=$this->pageTitle ?> </li>
+            <li class="breadcrumbs-big_i"><?=$this->title ?></li>
         </ul>
         <div class="col-gray">
 
@@ -25,4 +25,5 @@ $this->beginContent('//layouts/common_new'); ?>
         </div>
     </div>
 </div>
+<?php $this->pageTitle = $this->user->getFullName(). ' - ' . $this->title; ?>
 <?php $this->endContent(); ?>

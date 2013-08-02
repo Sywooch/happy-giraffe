@@ -108,4 +108,33 @@ class UserScores extends HActiveRecord
 
         return $value;
     }
+
+    /**
+     * Возвращает объединенный массив трофеев и достижений пользователя, сортировка по дате получения
+     * @param int $user_id
+     * @param int $limit
+     * @return ScoreUserAchievement|ScoreUserAward
+     */
+    public function getAwardsWithAchievements($user_id, $limit = null)
+    {
+        $awards = ScoreUserAward::getUserAwards($user_id);
+        $achievements = ScoreUserAchievement::getUserAchievements($user_id);
+        $all = array_merge($awards, $achievements);
+        usort($all, array($this, 'cmpCreated'));
+        if (empty($limit))
+            return $all;
+        else
+            return array_slice($all, 0, $limit);
+    }
+
+    private function cmpCreated($a, $b)
+    {
+        return ($a->created < $b->created) ? +1 : -1;
+    }
+
+
+    public static function getNextPrev($user_id, $award)
+    {
+        return array(null, null);
+    }
 }

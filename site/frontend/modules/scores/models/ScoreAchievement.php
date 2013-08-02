@@ -136,6 +136,16 @@ class ScoreAchievement extends HActiveRecord
         return array($itemsCount, $level_count, $percents);
     }
 
+    /**
+     * Возвращает урл иконки достижения
+     * @param int $size
+     * @return string
+     */
+    public function getIconUrl($size)
+    {
+        return '/images/scores/achievements/' . $this->id . '-' . $size . '.png';
+    }
+
     /*********************************** Количество выполненных заданий достижения ***********************************/
 
     /**

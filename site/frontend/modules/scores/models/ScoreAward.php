@@ -87,36 +87,6 @@ class ScoreAward extends HActiveRecord
     }
 
     /**
-     * @return array customized attribute labels (name=>label)
-     */
-    public function attributeLabels()
-    {
-        return array(
-            'id' => 'ID',
-            'title' => 'title',
-            'description' => 'Description',
-            'scores' => 'Scores',
-        );
-    }
-
-    /**
-     * Retrieves a list of models based on the current search/filter conditions.
-     * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
-     */
-    public function search()
-    {
-        $criteria = new CDbCriteria;
-        $criteria->compare('id', $this->id, true);
-        $criteria->compare('title', $this->title, true);
-        $criteria->compare('description', $this->description, true);
-        $criteria->compare('scores', $this->scores);
-
-        return new CActiveDataProvider($this, array(
-            'criteria' => $criteria,
-        ));
-    }
-
-    /**
      * Возвращает кол-во трофеев пользователя
      *
      * @param $user_id int id пользователя
@@ -129,5 +99,15 @@ class ScoreAward extends HActiveRecord
             ->from('score__users_awards')
             ->where('user_id = :user_id')
             ->queryScalar(array(':user_id' => $user_id));
+    }
+
+    /**
+     * Возвращает урл иконки трофея
+     * @param int $size
+     * @return string
+     */
+    public function getIconUrl($size)
+    {
+        return '/images/scores/awards/award-' . $this->id . '-' . $size . '.png';
     }
 }

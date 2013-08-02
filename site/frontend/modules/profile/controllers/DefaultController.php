@@ -5,6 +5,7 @@ class DefaultController extends HController
     public $layout = 'user';
     public $tempLayout = true;
     public $user;
+    public $title;
 
     public function accessRules()
     {
@@ -36,6 +37,7 @@ class DefaultController extends HController
         ))->findByPk($user_id);
         if ($user === null)
             throw new CHttpException(404, 'Пользователь не найден');
+        $this->pageTitle = $user->fullName . ' на Веселом Жирафе';
 
         $this->render('index', compact('user'));
     }
@@ -56,7 +58,7 @@ class DefaultController extends HController
                 ),
                 'pagination' => array(
                     'pageSize' => 15,
-                    'currentPage'=>$page
+                    'currentPage' => $page
                 )
             ));
             $users = array_map(function ($friend) {
@@ -69,7 +71,7 @@ class DefaultController extends HController
             echo CJSON::encode($data);
         } else {
             $this->loadUser($user_id);
-            $this->pageTitle = 'Друзья';
+            $this->title = 'Друзья';
             $dataProvider = new CActiveDataProvider('Friend', array(
                 'criteria' => array(
                     'condition' => 'user_id = :user_id',
@@ -83,6 +85,30 @@ class DefaultController extends HController
                 $this->layout = '//layouts/empty';
             $this->render('friends', compact('dataProvider'));
         }
+    }
+
+    public function actionAwards($user_id)
+    {
+        $this->loadUser($user_id);
+        $this->title = 'Награды';
+        $awards = UserScores::model()->getAwardsWithAchievements($this->user->id);
+
+        $this->render('awards', compact('awards'));
+    }
+
+    public function actionAward($user_id, $id, $type)
+    {
+        $this->loadUser($user_id);
+        $this->title = 'Награды';
+        if ($type == 'award')
+            $award = ScoreUserAward::model()->findByPk($id);
+        elseif ($type == 'achievement')
+            $award = ScoreUserAchievement::model()->findByPk($id);
+        else
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+        list($next, $prev) = UserScores::getNextPrev($user_id, $award);
+
+        $this->render('awards', compact('awards', 'award', 'next', 'prev'));
     }
 
     /**

@@ -6,13 +6,12 @@ class m130801_121000_fix_user_awards extends CDbMigration
 
 	public function up()
 	{
-        $this->execute('ALTER TABLE  `score__user_achievements` DROP FOREIGN KEY  `score__user_achievements_user` ;
-            ALTER TABLE  `score__user_achievements` DROP FOREIGN KEY  `score__user_achievements_achievement`;');
-        $this->execute('ALTER TABLE score__user_achievements DROP PRIMARY KEY');
-        $this->addColumn($this->_table, 'id', 'INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY FIRST');
-        $this->addForeignKey('fk_'.$this->_table.'_user', $this->_table, 'user_id', 'users', 'id','CASCADE',"CASCADE");
-        $this->addForeignKey('fk_'.$this->_table.'_achievement', $this->_table, 'achievement_id', 'score__achievements', 'id','CASCADE',"CASCADE");
-        $this->dropIndex($this->_table, 'achievement_id');
+//        $this->execute('ALTER TABLE  `score__user_achievements` DROP FOREIGN KEY  `score__user_achievements_user` ;
+//            ALTER TABLE  `score__user_achievements` DROP FOREIGN KEY  `score__user_achievements_achievement`;');
+//        $this->execute('ALTER TABLE score__user_achievements DROP PRIMARY KEY');
+//        $this->addColumn($this->_table, 'id', 'INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY FIRST');
+//        $this->addForeignKey('fk_'.$this->_table.'_user', $this->_table, 'user_id', 'users', 'id','CASCADE',"CASCADE");
+//        $this->addForeignKey('fk_'.$this->_table.'_achievement', $this->_table, 'achievement_id', 'score__achievements', 'id','CASCADE',"CASCADE");
 	}
 
 	public function down()

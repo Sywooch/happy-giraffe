@@ -2,13 +2,10 @@
 
 class m130801_121000_fix_user_awards extends CDbMigration
 {
-    private $_table = 'score__users_awards';
+    private $_table = 'score__user_achievements';
 
 	public function up()
 	{
-        $this->execute('ALTER TABLE score__users_awards DROP PRIMARY KEY');
-        $this->addColumn($this->_table, 'id', 'INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY FIRST');
-        $this->_table = 'score__user_achievements';
         $this->execute('ALTER TABLE  `score__user_achievements` DROP FOREIGN KEY  `score__user_achievements_user` ;
             ALTER TABLE  `score__user_achievements` DROP FOREIGN KEY  `score__user_achievements_achievement`;');
         $this->execute('ALTER TABLE score__user_achievements DROP PRIMARY KEY');

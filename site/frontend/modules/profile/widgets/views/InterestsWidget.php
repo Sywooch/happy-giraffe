@@ -24,13 +24,15 @@
                     <a href="javascript:;">и еще <!--ko text: count--><!--/ko--></a>
                     <!-- /ko -->
 
-                    <!-- ko if: !have() -->
-                    <a href="" class="btn-green btn-small margin-l20" data-bind="click: toggle">Добавить мне</a>
-                    <!-- /ko -->
+                    <?php if (!Yii::app()->user->isGuest):?>
+                        <!-- ko if: !have() -->
+                        <a href="" class="btn-green btn-small margin-l20" data-bind="click: toggle">Добавить мне</a>
+                        <!-- /ko -->
 
-                    <!-- ko if: have() -->
-                    <a href="" class="btn-green btn-small margin-l20" data-bind="click: toggle">Убрать</a>
-                    <!-- /ko -->
+                        <!-- ko if: have() -->
+                        <a href="" class="btn-green btn-small margin-l20" data-bind="click: toggle">Убрать</a>
+                        <!-- /ko -->
+                    <?php endif ?>
 
                 </div>
             </div>

@@ -41,7 +41,7 @@
 
 <div class="b-award">
     <div class="clearfix">
-        <a href="" class="b-award_back">Вернуться к наградам</a>
+        <a href="<?=Yii::app()->createUrl('/profile/default/awards', array('user_id'=>$this->user->id)) ?>" class="b-award_back">Вернуться к наградам</a>
     </div>
     <div class="clearfix">
         <div class="b-award_left">

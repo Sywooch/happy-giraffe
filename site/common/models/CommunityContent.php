@@ -354,7 +354,7 @@ class CommunityContent extends HActiveRecord
                     $route = '/valentinesDay/default/howToSpend';
                     $params = array();
                 } elseif ($this->isFromBlog) {
-                    $route = '/blog/view';
+                    $route = '/blog/default/view';
                     $params = array(
                         'user_id' => $this->author_id,
                         'content_id' => $this->id,

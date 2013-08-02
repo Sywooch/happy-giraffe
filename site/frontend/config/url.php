@@ -78,12 +78,12 @@ return array(
         // user/*
 
         'blog/form/type<type:\d+>' => 'blog/default/form',
-        'newblog/<_a:>' => 'blog/default/<_a>',
         'blog/settings/<_a>' => 'blog/settings/<_a>',
 
         'user/<user_id:\d+>/blog/rubric<rubric_id:\d+>' => 'blog/default/index',
         'user/<user_id:\d+>/blog/post<content_id:\d+>' => 'blog/default/view',
         'user/<user_id:\d+>/blog' => 'blog/default/index',
+        'newblog/<_a:>' => 'blog/default/<_a>',
 
         'user/<user_id:\d+>' => 'profile/default/index',
         'user/<user_id:\d+>/friends' => 'profile/default/friends',

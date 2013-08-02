@@ -114,4 +114,26 @@ class ScoreUserAchievement extends HActiveRecord
     {
         return Yii::app()->createUrl('/profile/default/award', array('id' => $this->id, 'user_id' => $this->user_id, 'type' => 'achievement'));
     }
+
+    /**
+     * Возвращает пользователей, которые также обладают этим достижением
+     * @return array
+     */
+    public function awardUsers()
+    {
+        $userIds = Yii::app()->db->createCommand()
+            ->select('user_id')
+            ->from($this->tableName())
+            ->where('achievement_id=:achievement_id AND user_id != :user_id', array(':achievement_id' => $this->achievement_id, ':user_id' => $this->user_id))
+            ->limit(33)
+            ->queryColumn();
+        $users = User::model()->with('avatar')->findAllByPk($userIds);
+
+        $count = Yii::app()->db->createCommand()
+            ->select('COUNT(DISTINCT user_id )')
+            ->from($this->tableName())
+            ->where('achievement_id=:achievement_id AND user_id != :user_id', array(':achievement_id' => $this->achievement_id, ':user_id' => $this->user_id))
+            ->queryScalar();
+        return array($users, $count);
+    }
 }

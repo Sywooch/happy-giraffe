@@ -68,8 +68,8 @@
             </div>
 
             <div class=" clearfix">
-                <a href="" class="btn-blue btn-h46 float-r btn-inactive">Добавить</a>
-                <a href="" class="btn-gray-light btn-h46 float-r margin-r15">Отменить</a>
+                <a href="javascript:void(0)" onclick="$('#blog-form').submit()" class="btn-blue btn-h46 float-r"><?=$model->isNewRecord ? 'Добавить' : 'Редактировать'?></a>
+                <a href="javascript:void(0)" onclick="$.fancybox.close()" class="btn-gray-light btn-h46 float-r margin-r15">Отменить</a>
 
                 <div class="float-l">
                     <div class="privacy-select clearfix">

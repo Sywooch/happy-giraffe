@@ -43,6 +43,6 @@ $collection = new PhotoPostPhotoCollection(array('contentId' => $data->id));
     </div>
 
     <div class="textalign-r margin-15">
-        <a href="<?=$data->getUrl() ?>" class="b-article_more">Смотреть <?=$collection->count?> →</a>
+        <a href="<?=$data->getUrl() ?>" class="b-article_more">Смотреть <?=$collection->count?> фото</a>
     </div>
 <?php endif ?>

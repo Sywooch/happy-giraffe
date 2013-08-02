@@ -129,12 +129,27 @@ class UserScores extends HActiveRecord
 
     private function cmpCreated($a, $b)
     {
-        return ($a->created < $b->created) ? +1 : -1;
+        if (strtotime($a->created) == strtotime($b->created))
+            return ($a->id < $b->id) ? +1 : -1;
+        return (strtotime($a->created) < strtotime($b->created)) ? +1 : -1;
     }
 
-
-    public static function getNextPrev($user_id, $award)
+    /**
+     * Возвращает следующую и предыдущую награду
+     * @param int $user_id
+     * @param ScoreUserAchievement|ScoreUserAward $some_award
+     * @return ScoreUserAchievement[]|ScoreUserAward[]
+     */
+    public static function getNextPrev($user_id, $some_award)
     {
+        $awards = self::model()->getAwardsWithAchievements($user_id);
+        foreach($awards as $key => $award){
+            if ($award->id == $award->id && get_class($award) == get_class($some_award)){
+                $prev = isset($awards[$key - 1])?$awards[$key - 1]:null;
+                $next = isset($awards[$key + 1])?$awards[$key + 1]:null;
+                return array($next, $prev);
+            }
+        }
         return array(null, null);
     }
 }

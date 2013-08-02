@@ -107,8 +107,9 @@ class DefaultController extends HController
         else
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
         list($next, $prev) = UserScores::getNextPrev($user_id, $award);
+        list($users, $count) = $award->awardUsers();
 
-        $this->render('awards', compact('awards', 'award', 'next', 'prev'));
+        $this->render('award', compact('award', 'next', 'prev', 'users', 'count'));
     }
 
     /**

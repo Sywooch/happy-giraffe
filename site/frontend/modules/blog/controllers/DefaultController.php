@@ -18,16 +18,6 @@ class DefaultController extends HController
         );
     }
 
-    public function accessRules()
-    {
-        return array(
-            array('deny',
-                'users' => array('?'),
-            ),
-        );
-    }
-
-
     public function actionIndex($user_id, $rubric_id = null)
     {
         $this->user = $this->loadUser($user_id);

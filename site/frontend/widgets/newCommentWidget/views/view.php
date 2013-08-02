@@ -15,8 +15,7 @@ $data = array(
     'allCount' => (int)$allCount,
     'messaging__enter' => (bool) UserAttributes::get(Yii::app()->user->id, 'messaging__enter', false),
 );
-?>
-<div class="comments-gray <?=$this->objectName ?>" id="<?=$this->objectName ?>">
+?><div class="comments-gray <?=$this->objectName ?>" id="<?=$this->objectName ?>">
     <div class="comments-gray_t">
 
         <?php if ($this->full || $allCount <= 3): ?>
@@ -113,7 +112,7 @@ $data = array(
     </div>
     <!-- /ko -->
 
-    <?php if (!$this->gallery):?>
+    <?php if (!Yii::app()->user->isGuest && !$this->gallery):?>
         <div class="comments-gray_add clearfix" data-bind="css: {active: opened}">
             <div class="comments-gray_ava">
                 <?php $this->widget('UserAvatarWidget', array('user' => Yii::app()->user->getModel(), 'size' => 'micro')) ?>
@@ -136,7 +135,7 @@ $data = array(
 
 </div>
 <script type="text/javascript">
-    var CURRENT_USER_ID = <?=Yii::app()->user->id ?>;
+    var CURRENT_USER_ID = '<?=Yii::app()->user->id ?>';
     $(function () {
         var viewModel = new CommentViewModel(<?=CJSON::encode($data)?>);
 

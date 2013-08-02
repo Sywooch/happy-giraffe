@@ -10,6 +10,8 @@ class AjaxSimpleController extends CController
 {
     public function actionLike()
     {
+        if (Yii::app()->user->isGuest)
+            Yii::app()->end();
         $entity_id = Yii::app()->request->getPost('entity_id');
         $entity = Yii::app()->request->getPost('entity');
 
@@ -108,12 +110,14 @@ class AjaxSimpleController extends CController
      */
     public function actionCommentLike()
     {
-        $comment_id = Yii::app()->request->getPost('id');
-        $comment = $this->loadComment($comment_id);
-        if ($comment->author_id != Yii::app()->user->id)
-            HGLike::model()->saveByEntity($comment);
+        if (!Yii::app()->user->isGuest){
+            $comment_id = Yii::app()->request->getPost('id');
+            $comment = $this->loadComment($comment_id);
+            if ($comment->author_id != Yii::app()->user->id)
+                HGLike::model()->saveByEntity($comment);
 
-        echo CJSON::encode(array('status' => true));
+            echo CJSON::encode(array('status' => true));
+        }
     }
 
     /**

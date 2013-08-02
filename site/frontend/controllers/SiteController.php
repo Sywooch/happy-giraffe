@@ -418,4 +418,13 @@ class SiteController extends HController
 
         $this->render('moder_rules');
     }
+
+    public function actionTest()
+    {
+        Yii::import('site.frontend.extensions.phpQuery.phpQuery');
+        $url = 'http://habrahabr.ru/post/183598/';
+        $res = LinkParser::getInstance()->parse($url);
+
+        var_dump($res);
+    }
 }

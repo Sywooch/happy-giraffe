@@ -162,7 +162,7 @@ input[type="checkbox"] {
   cursor: pointer;
 }
 h1 {
-  color: #444646;
+  color: #2B2B2B;
   font-size: 25px;
   line-height: 25px;
   margin-bottom: 15px;
@@ -399,6 +399,12 @@ html.top-nav-fixed {
 .w-100p {
   width: 100%;
 }
+.w-50p {
+  width: 50%;
+}
+.w-30 {
+  width: 30px;
+}
 .w-50 {
   width: 50px;
 }
@@ -427,13 +433,13 @@ html.top-nav-fixed {
   width: 240px;
 }
 .w-300 {
-  width: 300px;
+  width: 300px !important;
 }
 .w-350 {
-  width: 350px;
+  width: 350px !important;
 }
 .w-400 {
-  width: 400px;
+  width: 400px !important;
 }
 .w-500 {
   width: 500px;
@@ -442,7 +448,10 @@ html.top-nav-fixed {
   width: 700px;
 }
 .w-720 {
-  width: 720px;
+  width: 720px !important;
+}
+.w-830 {
+  width: 830px !important;
 }
 .h-40 {
   height: 40px;
@@ -501,7 +510,8 @@ html.top-nav-fixed {
   font-size: 13px !important;
 }
 .font-big {
-  font-size: 17px !important;
+  font-size: 16px !important;
+  line-height: 20px;
 }
 .fontstyle-i {
   font-style: italic;
@@ -651,6 +661,7 @@ hr,
   border-color: #a0ceee;
 }
 .itx-simple {
+  width: 100%;
   border: 1px solid #daebf5;
   padding: 7px 8px 7px 10px;
   font-size: 14px;
@@ -671,6 +682,9 @@ hr,
 }
 .itx-simple:focus {
   border-color: #a0ceee;
+}
+.itx-simple.error {
+  border-color: #f9cbcb;
 }
 .a-checkbox {
   display: inline-block;
@@ -904,6 +918,14 @@ a.pseudo:hover,
   display: none;
 }
 /* /ava avatar */
+.i-highlight {
+  padding: 2px 6px;
+  background: #fdf48f;
+  color: #333;
+}
+.i-highlight__big {
+  padding: 2px 10px;
+}
 /* icons */
 .ico-friends-small {
   display: inline-block;
@@ -1741,7 +1763,7 @@ textarea.error,
 .btn-small {
   font-size: 12px;
   line-height: 12px;
-  padding: 4px 14px 5px;
+  padding: 3px 14px 6px;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
@@ -1767,8 +1789,11 @@ textarea.error,
 }
 .btn-h55 {
   height: 55px;
-  font: bold 28px/55px Arial, Tahoma, Verdana, sans-serif;
+  font: 20px/55px Arial, Tahoma, Verdana, sans-serif;
   padding: 0 21px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
 }
 .btn-big {
   height: 60px;
@@ -1785,6 +1810,9 @@ textarea.error,
   padding: 0 35px;
   font-size: 34px;
   font-weight: bold;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  border-radius: 8px;
 }
 .btn-inactive {
   position: relative;
@@ -6494,7 +6522,7 @@ textarea.error,
   right: 0;
 }
 .chzn-v2-lilac .chzn-container-single .chzn-single div b {
-  width: 11px;
+  width: 12px;
   height: 9px;
   background: url(/images/common.png) no-repeat -336px -178px;
 }
@@ -6569,14 +6597,15 @@ select.pregnancy_term + .chzn-container .chzn-results li {
 .chzn-itx-simple .chzn-container-single .chzn-single div {
   background: none;
   height: 28px;
-  width: 33px;
+  width: 22px;
   border: none;
   top: 0;
   right: 0;
 }
 .chzn-itx-simple .chzn-container-single .chzn-single div b {
-  width: 15px;
+  width: 12px;
   height: 8px;
+  margin: -4px 0 0;
   background: url(/images/arrow-d.png) no-repeat;
 }
 .chzn-itx-simple .chzn-container .chzn-results li {
@@ -14916,10 +14945,91 @@ select.pregnancy_term + .chzn-container .chzn-results li {
   color: #fff;
   font-weight: normal;
 }
-/* /popup-share *//* top line menu */
+/* /popup-share */
+/* b-sign */
+.b-sign {
+  font-size: 13px;
+}
+.b-sign_t {
+  margin: 10px 0 20px;
+  font-size: 40px;
+  line-height: 42px;
+  color: #3e3e3f;
+  text-align: center;
+}
+.b-sign_sub-t {
+  margin-bottom: 15px;
+  color: #418ac1;
+}
+.b-sign_left-soc {
+  float: left;
+  width: 200px;
+  margin: 0 50px 10px 40px;
+  padding: 0 70px 0 0;
+  text-align: center;
+  background: url(/images/b-sign_left-soc.png) no-repeat 100% 0;
+}
+.b-sign_right-b {
+  float: left;
+  width: 380px;
+}
+.b-sign_right-b .btn-green {
+  margin: 1px 0 0 5px;
+  padding: 6px 21px 8px;
+}
+.b-sign_li {
+  margin: 5px 0;
+  padding: 0 25px 0 16px;
+  color: #73a5c4;
+  background: url(/images/bullet-blue.png) no-repeat 0 5px;
+}
+.b-sign_itx-hold {
+  float: left;
+  width: 270px;
+  margin-right: 5px;
+}
+.b-sign_itx-desc {
+  margin: 5px 0;
+  font-size: 11px;
+  line-height: 13px;
+  font-family: Tahoma, Arial, Verdana, sans-serif;
+  color: #8bb6d0;
+}
+.b-sign_label-hold {
+  float: left;
+}
+.b-sign_label {
+  display: table-cell;
+  vertical-align: middle;
+  height: 33px;
+  width: 70px;
+  margin: 0 8px 0 0;
+  line-height: 14px;
+  color: #418ac1;
+}
+.b-sign_win {
+  float: left;
+  vertical-align: middle;
+  width: 10px;
+  height: 33px;
+  background: url(/images/b-sign_win.png) no-repeat 50% 50%;
+}
+.b-sign_hr {
+  border-top: 1px dashed #c9e3f4;
+}
+.b-sign_btn-reg {
+  padding: 0 50px;
+}
+.b-sign_bottom {
+  margin: 25px 0;
+  font-size: 15px;
+  color: #6b6b6b;
+  text-align: center;
+}
+/* /b-sign *//* top line menu */
 .top-line-menu {
   position: fixed;
-  z-index: 500;
+  z-index: 98;
   top: 0;
   left: 0;
   width: 100%;
@@ -16017,7 +16127,7 @@ select.pregnancy_term + .chzn-container .chzn-results li {
 }
 /* menu-simple */
 .menu-simple {
-  margin: 20px 15px;
+  margin: 35px 15px;
 }
 .menu-simple_li {
   margin: 7px 0;

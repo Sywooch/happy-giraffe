@@ -190,15 +190,15 @@
 							<div class="margin-b20 clearfix">
 								<div class="form-settings_label">Пол</div>
 								<div class="form-settings_elem">
-									<div class="form-settings_gender">
+									<div class="b-radio-icons">
 										<!-- Данные для примера id="radio4" name="b-radio2" и for="radio4" -->
-										<input type="radio" checked="" class="form-settings_radio" id="radio4" name="b-radio2">
-										<label class="form-settings_label-radio" for="radio4">
+										<input type="radio" name="b-radio2" id="radio4" class="b-radio-icons_radio" checked="">
+										<label for="radio4" class="b-radio-icons_label">
 											<span class="ico-male"></span>
 										</label>
 										<!-- Данные для примера id="radio5" name="b-radio2" и for="radio5" -->
-										<input type="radio" class="form-settings_radio" id="radio5" name="b-radio2">
-										<label class="form-settings_label-radio" for="radio5">
+										<input type="radio" name="b-radio2" id="radio5" class="b-radio-icons_radio">
+										<label for="radio5" class="b-radio-icons_label">
 											<span class="ico-female"></span>
 										</label>
 									</div>

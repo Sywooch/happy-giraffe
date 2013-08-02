@@ -41,17 +41,18 @@ hr,
 .itx-gray {
 	width: 100%;
 	border: 1px solid #e6e6e6;
-	padding: 5px 10px;
+	padding: 7px 10px;
 	background: #fff;
-	color: #777;
+	color: #514F4F;
 	.box-sizing(border-box);
 	.border-radius(3px);
 	.transition(all 0.4s ease);
 }
 .itx-gray:focus {border-color: #a0ceee;}
 .itx-simple {
+	width: 100%;
 	border: 1px solid #daebf5;
-	padding: 6px 8px 6px 10px;
+	padding: 7px 8px 7px 10px;
 	font-size: 14px;
 	color: #555;
 	background: #fff;
@@ -60,6 +61,7 @@ hr,
 	.transition(all 0.4s ease);
 }
 .itx-simple:focus {border-color: #a0ceee;}
+.itx-simple.error {border-color: #f9cbcb;}
 .a-checkbox {
 	.inline-block();
 	vertical-align: bottom;
@@ -194,6 +196,14 @@ a.pseudo:hover,
 .ava.filled {background:none;height:auto;}
 .ava.filled .photo {display:none;}
 /* /ava avatar */
+
+.i-highlight {
+	padding: 2px 6px;
+	background: #fdf48f;
+	color: #333;
+
+	&__big {padding: 2px 10px;}
+}
 
 /* icons */
 .ico-friends-small{display:inline-block;*zoom:1;*display:inline;width:27px;height:27px;background:url(/images/common.png) no-repeat -428px -334px;vertical-align:middle;margin-right:5px;}

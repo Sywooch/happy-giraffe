@@ -74,7 +74,7 @@
 							<span class="b-ava-large_ico b-ava-large_ico__blog"></span>
 							<span class="b-ava-large_bubble-tx">+999</span>
 						</a>
-						<a href="" class="b-ava-large_bubble b-ava-large_bubble__friend-add powertip" title="Добавить в друзья">
+						<a href="" class="b-ava-large_bubble b-ava-large_bubble__friend-add-onhover powertip" title="Добавить в друзья">
 							<span class="b-ava-large_ico b-ava-large_ico__friend-add"></span>
 						</a>
 					</div>

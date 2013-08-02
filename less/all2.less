@@ -3057,7 +3057,44 @@ table.fr_recipe_tb td { width: 50%;}
 }
 /* /form-settings */
 
-
+/* b-radio-icons */
+.b-radio-icons {
+    &_radio {display: none;}
+    .ie7 &_radio,
+    .ie8 &_radio {
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        padding: 0;
+        margin: 8px 5px 0 0;
+    }
+    &_radio:checked + &_label {
+        color: #333;
+        background-position: 0 -100px;
+    }
+    &_radio:checked + &_label .ico-male,
+    &_radio:checked + &_label .ico-female {background-position: 0 -100px;}
+    &_label {
+        .inline-block();
+        vertical-align: top;
+        margin: 8px 15px 0 0;
+        color: #777;
+        padding-left: 24px;
+        background: url(/images/input-radio.png) no-repeat;
+        min-height: 18px;
+        line-height: 18px;
+        cursor: pointer;
+    }
+    .ie7 &_label,
+    .ie8 &_label {padding-left: 0;background: none;}
+    &_label:hover {color: #333;}
+    &_label .ico-male,
+    &_label .ico-female {
+        position: relative;
+        top: -5px;
+    }
+}
+/* /b-radio-icons */
 
 
 

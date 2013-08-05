@@ -34,7 +34,7 @@ return array(
         // site controller
         '/' => 'site/index',
         'js_dynamics/<hash:\w+>.js' => 'site/seoHide',
-        'search' => 'site/search',
+        //'search' => 'site/search',
         'moderation'=>'site/moderationRules',
         'site/<_a:(confirmEmail|resendConfirmEmail|passwordRecovery|passwordRecoveryForm|login|logout|link|fixPhoto|test)>' => 'site/<_a>',
         //'contest' => 'site/contest',
@@ -299,5 +299,8 @@ return array(
         'favourites/default/<_a:(search|getEntityData|get|test)>' => 'favourites/default/<_a>',
         'favourites/favourites/<_a:\w+>' => 'favourites/favourites/<_a>',
         'favourites' => 'favourites/default/index',
+
+        'search' => 'search/default/index',
+        'search/default/get' => 'search/default/get',
     ),
 );

@@ -75,8 +75,6 @@
 }
 .aside-filter_label-radio {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   vertical-align: top;
   margin-right: 15px;
   color: #777;
@@ -101,8 +99,6 @@
 }
 .aside-filter_label {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   vertical-align: middle;
   color: #6b8bb3;
   margin: 0 3px;
@@ -124,8 +120,6 @@
 }
 .aside-filter_reset {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   width: 75px;
   margin: 10px 0 0;
   line-height: 12px;
@@ -157,24 +151,18 @@
 }
 .favorites-search_tx {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   vertical-align: top;
   margin: 0 1px;
   color: #1c84b4;
 }
 .favorites-search_count {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   vertical-align: top;
   color: #8f9090;
   font-size: 17px;
 }
 .favorites-search_tx-del {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   vertical-align: top;
   margin-top: 4px;
 }
@@ -187,20 +175,14 @@
 }
 .alphabet-b_ul {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
 }
 .alphabet-b_li {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   margin: 0 0 7px;
   text-transform: uppercase;
 }
 .alphabet-b_a {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   padding: 1px 3px;
   color: #8a8a8a;
   text-decoration: none;
@@ -303,15 +285,11 @@
 }
 .favorites-add-popup_label {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   font: italic 11px/14px Georgia, 'Times New Roman', Times, serif;
   color: #292828;
 }
 .favorites-add-popup_tag {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   margin: 0 5px;
   line-height: 16px;
 }
@@ -348,8 +326,6 @@
 }
 .tagcloud_i {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   margin: 0 10px 5px;
   line-height: 32px;
 }
@@ -554,8 +530,6 @@
 }
 .friends-list_i {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   vertical-align: top;
   margin: 0px 13px 30px 12px;
   width: 206px;
@@ -737,8 +711,6 @@
 }
 .friends-list_a {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   margin: 0;
   line-height: 15px;
   color: #289fd7;
@@ -756,8 +728,6 @@
 }
 .friends-list_group-a {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   font-size: 11px;
   line-height: 13px;
   font-family: Tahoma, Arial, Verdana, sans-serif;
@@ -951,8 +921,6 @@
 }
 .im_count {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   margin: 0 5px;
   padding: 0 5px;
   font-size: 12px;
@@ -981,8 +949,6 @@
 }
 .im_message-loader > img {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   vertical-align: middle;
   margin: 0 4px;
 }
@@ -1046,8 +1012,6 @@
 }
 .im_watch {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   width: 20px;
   height: 10px;
   background: url(/images/im/im_watch.png) no-repeat;
@@ -1118,8 +1082,6 @@
 }
 .im-tabs_i {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   margin: 0 2px;
   padding: 0 10px;
   line-height: 26px;
@@ -1207,8 +1169,6 @@
 }
 .im-panel-icons_desc {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   vertical-align: middle;
   margin: 0 1px;
   font-size: 9px;
@@ -1218,8 +1178,6 @@
 }
 .im-panel-ico {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   vertical-align: middle;
   width: 30px;
   height: 21px;
@@ -1286,8 +1244,6 @@
 }
 .im-message_user {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   margin-right: 13px;
   text-decoration: none;
   color: #268edf;
@@ -1297,8 +1253,6 @@
 }
 .im-message_date {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   margin-right: 13px;
   font-style: normal;
   font-size: 9px;
@@ -1307,8 +1261,6 @@
 }
 .im-message_status {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   font-size: 11px;
   font-family: Tahoma, Arial, Verdana, sans-serif;
 }
@@ -1397,8 +1349,6 @@
 }
 .im-user-list .im-user-settings_user > a {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   max-width: 120px;
   overflow: hidden;
   white-space: nowrap;
@@ -1445,8 +1395,6 @@
 }
 .im-user-list_hide-a {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   margin: 10px 25px 30px;
   border-bottom: 1px dashed #838383;
   line-height: 15px;
@@ -1664,22 +1612,16 @@
 .message-fast_user .ava {
   float: none;
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   vertical-align: middle;
   margin: 0 8px;
 }
 .message-fast_user-tx {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   vertical-align: middle;
   color: #45314e;
 }
 .message-fast_user-name {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   vertical-align: middle;
   text-decoration: none;
 }
@@ -1708,8 +1650,6 @@
 }
 .message-fast_act-tx {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   margin: 13px;
   padding: 4px 12px;
   background: #fdf48f;
@@ -2156,8 +2096,6 @@
 }
 #photo-window .album-end_rewatch {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   width: 93px;
   margin: 5px 0 0 20px;
   padding-left: 45px;
@@ -2352,8 +2290,6 @@
 }
 .more-albums-photopost_count-big {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   margin: 0 4px;
   font-size: 35px;
 }
@@ -2685,8 +2621,6 @@
 /* re-watch */
 .re-watch {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   width: 85px;
   margin: 0 0 0 20px;
   padding: 0 0 4px 45px;
@@ -3430,8 +3364,6 @@
 }
 .user-notice .cont-nav {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   text-align: left;
 }
 .user-notice_hold {
@@ -3439,8 +3371,6 @@
 }
 .user-notice_t {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   vertical-align: middle;
   margin: 5px 40px 0 50px;
   font-size: 24px;
@@ -3461,8 +3391,6 @@
 }
 .user-notice_ico {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   vertical-align: middle;
   width: 40px;
   height: 45px;
@@ -3515,8 +3443,6 @@
 .user-notice-list_i-hold {
   position: relative;
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   height: 90px;
   width: 100%;
   vertical-align: middle;
@@ -3524,24 +3450,18 @@
 .user-notice-list_i-hold:after {
   content: '';
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   vertical-align: middle;
   height: 100%;
   width: 1px;
 }
 .user-notice-list_deed {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   width: 150px;
   margin: 0 10px 0 20px;
   vertical-align: middle;
 }
 .user-notice-list_desc {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   vertical-align: middle;
   width: 160px;
   margin-left: 10px;
@@ -3552,8 +3472,6 @@
 }
 .user-notice-list_tx-big {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   vertical-align: middle;
   margin: 0 7px;
   font-size: 24px;
@@ -3561,8 +3479,6 @@
 }
 .user-notice-list_a-big {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   vertical-align: middle;
   margin: 0 7px;
   font-size: 30px;
@@ -3582,16 +3498,12 @@
 }
 .user-notice-list_post {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   vertical-align: middle;
   width: 260px;
 }
 .user-notice-list_post-img {
   position: relative;
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   vertical-align: middle;
   max-width: 65px;
   margin: 5px 10px 0 0;
@@ -3608,8 +3520,6 @@
 }
 .user-notice-list_post-a {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   vertical-align: middle;
   max-width: 180px;
   line-height: 14px;
@@ -3617,16 +3527,12 @@
 }
 .user-notice-list_check {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   vertical-align: middle;
   width: 90px;
   text-align: center;
 }
 .user-notice-list_check-a {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   vertical-align: middle;
   width: 20px;
   height: 20px;
@@ -3656,15 +3562,11 @@
 }
 .user-notice-list_ava {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   vertical-align: middle;
   margin-right: 5px;
 }
 .user-notice-list_comment {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   vertical-align: middle;
   width: 190px;
   position: relative;
@@ -7501,7 +7403,8 @@
   text-align: center;
 }
 .tissue_left .tissue_type {
-  position: relativedisplay: block;
+  position: relative;
+  display: block;
   width: 264px;
   height: 120px;
   margin: 0 auto;
@@ -11363,8 +11266,6 @@ ul.letters li a:hover {
 }
 .entry-tags_hold {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   position: relative;
   padding: 2px 50px 2px 11px;
   border-left: 4px solid #f65f34;
@@ -11382,8 +11283,6 @@ ul.letters li a:hover {
 }
 .entry-tags_tag {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   margin: 0 10px;
 }
 .entry-tags_tx {
@@ -12261,8 +12160,6 @@ table.fr_recipe_tb td {
 }
 .blog-title-b_t {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   margin: -25px 0 0;
   padding: 1px 23px 8px;
   font: 35px/35px 'Roboto', Arial, Tahoma, Verdana, sans-serif;
@@ -12272,8 +12169,6 @@ table.fr_recipe_tb td {
 /* /blog-title-b */
 .blog-settings {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   margin: 8px 10px 6px 20px;
   padding: 2px 0 0 22px;
   color: #a8a7a7;
@@ -12299,8 +12194,6 @@ table.fr_recipe_tb td {
 }
 .b-article_in-img img {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   max-width: 580px;
   margin: 0;
 }
@@ -12408,8 +12301,6 @@ table.fr_recipe_tb td {
 }
 .b-article_more {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   margin: 0 15px 15px 0;
   padding: 0 20px 0 0;
   background: url(/images/b-article_more.png) no-repeat 100% 10px;
@@ -12498,8 +12389,6 @@ table.fr_recipe_tb td {
 }
 .like-control .favorites-control_a {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   min-width: 45px;
   padding: 45px 0 0;
   color: #828281;
@@ -12553,8 +12442,6 @@ table.fr_recipe_tb td {
 }
 .like-control_ico {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   min-width: 45px;
   padding: 45px 0 0;
   color: #828281;
@@ -12581,8 +12468,6 @@ table.fr_recipe_tb td {
 }
 .like-control_repost-complete {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   margin: 8px 0 0;
   width: 21px;
   height: 14px;
@@ -12615,8 +12500,6 @@ table.fr_recipe_tb td {
 }
 .meta-gray_tx {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   text-decoration: none;
 }
 /* /meta-gray */
@@ -12683,8 +12566,6 @@ table.fr_recipe_tb td {
 }
 .photo-preview-row .photo-grid {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   vertical-align: middle;
   width: 600px;
   margin: 0;
@@ -12744,8 +12625,6 @@ table.fr_recipe_tb td {
 }
 .photo-preview-row_last {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   vertical-align: middle;
   width: 70px;
   text-align: center;
@@ -12990,8 +12869,6 @@ table.fr_recipe_tb td {
 .b-ava-large_lastvisit {
   position: absolute;
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   top: 10px;
   right: 150px;
   height: 30px;
@@ -13038,8 +12915,6 @@ table.fr_recipe_tb td {
 }
 .b-ava-large_a {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   margin: 0;
   line-height: 15px;
   color: #289fd7;
@@ -13057,8 +12932,6 @@ table.fr_recipe_tb td {
 }
 .b-ava-large_plus {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   margin: 0 -2px;
   width: 23px;
   height: 23px;
@@ -13066,8 +12939,6 @@ table.fr_recipe_tb td {
 }
 .b-ava-large_minus {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   margin: 0 -2px;
   width: 23px;
   height: 23px;
@@ -13142,8 +13013,6 @@ table.fr_recipe_tb td {
 }
 .comments-gray_t-a {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   padding: 0 20px 0 5px;
   font-size: 13px;
   color: #289FD7;
@@ -13154,8 +13023,6 @@ table.fr_recipe_tb td {
 }
 .comments-gray_t-a-tx {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   margin-right: 15px;
 }
 .comments-gray_hold {
@@ -13218,8 +13085,6 @@ table.fr_recipe_tb td {
 }
 .comments-gray_cont-img-w {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   margin-right: 20px;
   max-width: 170px;
   max-height: 110px;
@@ -13317,15 +13182,11 @@ table.fr_recipe_tb td {
 }
 .comments-gray_a-recovery {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   margin: 0;
 }
 .comments-gray_photo {
   position: relative;
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   margin: 3px 0 0;
   cursor: pointer;
   -moz-transition: all 0.4s ease;
@@ -13447,8 +13308,6 @@ table.fr_recipe_tb td {
 /* /b-control-abs */
 .like-hg-small {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   width: 22px;
   padding: 18px 0 0;
   text-align: center;
@@ -13479,8 +13338,6 @@ table.fr_recipe_tb td {
 }
 .article-settings_a {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   width: 40px;
   height: 30px;
   background: url(/images/article-settings_a.png) no-repeat;
@@ -13588,16 +13445,12 @@ table.fr_recipe_tb td {
 }
 .user-add-record_tx {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   margin: 35px 10px 35px 35px;
   font-size: 16px;
   color: #232323;
 }
 .user-add-record_ico {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   vertical-align: middle;
   margin: 18px 30px;
   width: 40px;
@@ -13648,7 +13501,7 @@ table.fr_recipe_tb td {
   width: 1000px;
 }
 .popup-user-add-record .user-add-record {
-  margin: 15px 0 10px;
+  margin: 0 0 10px;
   -webkit-box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
   -moz-box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
@@ -13657,7 +13510,7 @@ table.fr_recipe_tb td {
 /* popup-transparent-close */
 .popup-transparent-close {
   position: absolute;
-  top: -15px;
+  top: -30px;
   right: -30px;
   width: 22px;
   height: 22px;
@@ -13745,8 +13598,6 @@ table.fr_recipe_tb td {
 }
 .popup-blog-set_sepor-tx {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   position: relative;
   top: -9px;
   margin: -8px 0 0;
@@ -13812,8 +13663,6 @@ table.fr_recipe_tb td {
 }
 .tabs-white_nav-a {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   padding: 20px 22px 14px;
   font-size: 15px;
   line-height: 16px;
@@ -13957,8 +13806,6 @@ table.fr_recipe_tb td {
 }
 .privacy-select_tx {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   vertical-align: middle;
   padding: 3px 0 0 0;
   font-size: 13px;
@@ -13966,8 +13813,6 @@ table.fr_recipe_tb td {
 }
 .privacy-select_drop-hold {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   position: relative;
   padding: 0 5px 0 0;
   background: url(/images/privacy-select_drop-hold.png) no-repeat 100% 50%;
@@ -14007,8 +13852,6 @@ table.fr_recipe_tb td {
 }
 .privacy-select_a-tx {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   vertical-align: middle;
   margin-top: -3px;
 }
@@ -14146,8 +13989,6 @@ table.fr_recipe_tb td {
 /* redactor-img */
 .redactor-img {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   position: relative;
   vertical-align: top;
   margin: 5px 20px 5px 0;
@@ -14186,8 +14027,6 @@ table.fr_recipe_tb td {
 }
 .redactor-control-b_key-checkbox {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   vertical-align: middle;
   margin-top: -3px;
 }
@@ -14209,8 +14048,6 @@ table.fr_recipe_tb td {
 }
 .redactor-control_key-checkbox {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   vertical-align: middle;
   margin-top: -3px;
 }
@@ -14262,8 +14099,6 @@ table.fr_recipe_tb td {
 }
 .b-add-img_t {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   margin: 0 20px 0 0;
   width: 280px;
   text-align: center;
@@ -14309,16 +14144,12 @@ table.fr_recipe_tb td {
 }
 .b-add-img_i-img {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   vertical-align: middle;
   max-height: 100%;
   margin: 0 auto;
 }
 .b-add-img_i-vert {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   vertical-align: middle;
   height: 100%;
   margin: 0 -3px;
@@ -14326,8 +14157,6 @@ table.fr_recipe_tb td {
 .b-add-img_i__single {
   float: none;
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   width: auto;
   height: auto;
   min-width: 195px;
@@ -14362,8 +14191,6 @@ table.fr_recipe_tb td {
 }
 .b-add-img_i-error-tx {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   vertical-align: middle;
   color: #fd8383;
 }
@@ -14441,20 +14268,14 @@ table.fr_recipe_tb td {
 .b-user-mood {
   position: relative;
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
 }
 .b-user-mood_img {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   vertical-align: middle;
   margin-right: 3px;
 }
 .b-user-mood_hold {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   vertical-align: middle;
 }
 .b-user-mood_tx {
@@ -14549,8 +14370,6 @@ table.fr_recipe_tb td {
 }
 .breadcrumbs-big_i {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   padding-left: 30px;
   margin-right: 9px;
   font: 35px/35px 'Roboto', 'Helvetica Neue', Helvetica, Arial, Tahoma, sans-serif;
@@ -14580,8 +14399,6 @@ table.fr_recipe_tb td {
 }
 .b-user-small_name {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   color: #289fd7;
   text-decoration: none;
   font-size: 12px;
@@ -14683,8 +14500,6 @@ table.fr_recipe_tb td {
 }
 .b-interest_add {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   vertical-align: middle;
   width: 140px;
   height: 24px;
@@ -14708,8 +14523,6 @@ table.fr_recipe_tb td {
 .b-interest_i {
   position: relative;
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   margin: 0 0 0 7px;
   padding: 0 7px 1px;
   font-size: 12px;
@@ -14772,8 +14585,6 @@ table.fr_recipe_tb td {
 .b-interest_popup .ava {
   float: none;
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   margin: 0 3px;
 }
 /* /b-interest */
@@ -14786,15 +14597,11 @@ table.fr_recipe_tb td {
 }
 .widget-friends_i {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   vertical-align: top;
   margin: 15px 10px 0 0;
 }
 .widget-friends_find {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   vertical-align: top;
   margin: 10px 4px 0 -3px;
 }
@@ -14895,15 +14702,11 @@ table.fr_recipe_tb td {
 }
 .user-awards_popup-img {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   vertical-align: middle;
   margin-right: 10px;
 }
 .user-awards_popup-desc {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   vertical-align: middle;
   width: 122px;
   color: #c4dcf9;
@@ -14927,8 +14730,6 @@ table.fr_recipe_tb td {
 .club-list_li {
   position: relative;
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   vertical-align: top;
   width: 98px;
   margin: 0 30px 30px 0;
@@ -14995,8 +14796,6 @@ table.fr_recipe_tb td {
 }
 .section-lilac_left {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   vertical-align: middle;
   width: 280px;
   margin: 0 20px;
@@ -15009,8 +14808,6 @@ table.fr_recipe_tb td {
 }
 .section-lilac_center {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   vertical-align: middle;
   width: 300px;
 }
@@ -15021,8 +14818,6 @@ table.fr_recipe_tb td {
 }
 .section-lilac_right {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   vertical-align: middle;
   margin-left: 30px;
   width: 240px;
@@ -15035,16 +14830,12 @@ table.fr_recipe_tb td {
 }
 .location .flag-big {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   vertical-align: middle;
   margin-right: 5px;
   position: relative;
 }
 .location_tx {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   vertical-align: middle;
 }
 /* /location */
@@ -15174,15 +14965,11 @@ table.fr_recipe_tb td {
 }
 .popup-upload-ava_left {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   vertical-align: middle;
   width: 440px;
 }
 .popup-upload-ava_right {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   vertical-align: middle;
   width: 200px;
   margin-left: 20px;
@@ -15209,8 +14996,6 @@ table.fr_recipe_tb td {
 }
 .award-list_li {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   vertical-align: top;
   margin: 25px 10px;
   width: 200px;
@@ -15234,8 +15019,6 @@ table.fr_recipe_tb td {
 }
 .award-list_a {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   margin: 5px 0;
   text-decoration: none;
 }
@@ -15250,8 +15033,6 @@ table.fr_recipe_tb td {
 /* award-ico */
 .award-ico {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   border: 2px solid #fff;
   -webkit-border-radius: 150px;
   -moz-border-radius: 150px;
@@ -15378,8 +15159,6 @@ table.fr_recipe_tb td {
 }
 .form-settings_label-radio {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   vertical-align: top;
   margin: 8px 15px 0 0;
   color: #777;
@@ -15453,8 +15232,6 @@ table.fr_recipe_tb td {
 }
 .b-radio-icons_label {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   vertical-align: top;
   margin: 8px 15px 0 0;
   color: #777;

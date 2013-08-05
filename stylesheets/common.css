@@ -482,8 +482,6 @@ html.top-nav-fixed {
 }
 .verticalalign-m-help {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   vertical-align: middle;
   width: 1px;
   margin: 0 -3px;
@@ -688,8 +686,6 @@ hr,
 }
 .a-checkbox {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   vertical-align: bottom;
   width: 20px;
   height: 20px;
@@ -746,8 +742,6 @@ a.pseudo:hover,
 }
 .a-pseudo-icon {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   margin: 0 12px;
   text-decoration: none;
 }
@@ -1020,8 +1014,6 @@ a.pseudo:hover,
 }
 .ico-male {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   width: 11px;
   height: 26px;
   vertical-align: middle;
@@ -1033,8 +1025,6 @@ a.pseudo:hover,
 }
 .ico-female {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   width: 11px;
   height: 26px;
   vertical-align: middle;
@@ -1046,8 +1036,6 @@ a.pseudo:hover,
 }
 .ico-male-gray {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   width: 11px;
   height: 26px;
   vertical-align: middle;
@@ -1059,8 +1047,6 @@ a.pseudo:hover,
 }
 .ico-female-gray {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   width: 11px;
   height: 26px;
   vertical-align: middle;
@@ -1072,8 +1058,6 @@ a.pseudo:hover,
 }
 .ico-info {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   width: 18px;
   height: 18px;
   background: url(/images/ico/ico-info.png) no-repeat;
@@ -1084,8 +1068,6 @@ a.pseudo:hover,
 }
 .ico-back {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   width: 18px;
   height: 18px;
   background: url(/images/ico/ico-back.png) no-repeat;
@@ -1096,8 +1078,6 @@ a.pseudo:hover,
 }
 .ico-refresh {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   vertical-align: middle;
   width: 18px;
   height: 15px;
@@ -1275,8 +1255,6 @@ a.pseudo:hover,
 }
 .ico-close {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   width: 9px;
   height: 9px;
   background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJCAYAAADgkQYQAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6MzNFNzE2RUFBQjg4MTFFMjkxQzhFODBFNUMxNEM0MDQiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6MzNFNzE2RUJBQjg4MTFFMjkxQzhFODBFNUMxNEM0MDQiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDozM0U3MTZFOEFCODgxMUUyOTFDOEU4MEU1QzE0QzQwNCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDozM0U3MTZFOUFCODgxMUUyOTFDOEU4MEU1QzE0QzQwNCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PvaJvzUAAACqSURBVHjaTNA9DgFBGIfx2c00InSiV3MAEZ3KDbYSShKFS+glrK9GpeACglYicQNH0KpE4XmT/8RM8psp5snOm03Wh7zmnJuhj5f7rwQLnD1bG11c0FFowRYDlFO2HUZoKKxGwRE9r0/nOud4oqQgwzeNZljhpuCNsQV2ESI7N2jhgSJOqITLEIQZmhiijquFNtMkCjI9sdQL9gv2XkMXMA0zaFn4wf0nwABS7yOsttJjhAAAAABJRU5ErkJggg==);
@@ -1286,8 +1264,6 @@ a.pseudo:hover,
 }
 .ico-close2 {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   vertical-align: middle;
   width: 13px;
   height: 13px;
@@ -1298,8 +1274,6 @@ a.pseudo:hover,
 }
 .ico-close3 {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   width: 11px;
   height: 11px;
   background: url(/images/ico/ico-close3.png) no-repeat;
@@ -1309,8 +1283,6 @@ a.pseudo:hover,
 }
 .ico-close4 {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   width: 11px;
   height: 11px;
   background: url(/images/ico/ico-close4.png) no-repeat;
@@ -1340,8 +1312,6 @@ a.pseudo:hover,
 }
 .ico-comment {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   width: 16px;
   height: 13px;
   background: url(/images/common.png) no-repeat -218px -295px;
@@ -1356,8 +1326,6 @@ a.pseudo:hover,
 }
 .ico-view {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   width: 17px;
   height: 10px;
   background: url(/images/common.png) no-repeat -200px -295px;
@@ -1369,8 +1337,6 @@ a.pseudo:hover,
 }
 .ico-edit {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   vertical-align: middle;
   width: 12px;
   height: 15px;
@@ -1381,8 +1347,6 @@ a.pseudo:hover,
 }
 .ico-users {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   width: 40px;
   height: 30px;
   background: url(/images/ico/ico-users.png) no-repeat;
@@ -1405,8 +1369,6 @@ a.pseudo:hover,
 }
 .message-ico {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   width: 16px;
   height: 15px;
   background: url(/images/ico/message_ico.png) no-repeat;
@@ -1434,8 +1396,6 @@ a.pseudo:hover,
 }
 .ico-lock-big {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   width: 35px;
   height: 45px;
   background: url(/images/ico/ico-lock-big.png) no-repeat;
@@ -1745,8 +1705,6 @@ textarea.error,
 .btn-yellow,
 .btn-green {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   padding: 4px 13px 6px;
   margin-bottom: 0;
   *margin-left: .3em;
@@ -6565,8 +6523,6 @@ select.pregnancy_term + .chzn-container .chzn-results li {
 }
 .chzn-itx-simple {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   height: 32px;
   width: 100%;
   position: relative;
@@ -6644,8 +6600,6 @@ select.pregnancy_term + .chzn-container .chzn-results li {
 }
 .chzn-itx-simple_add-hold {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   position: relative;
   width: 325px;
   margin-right: 7px;
@@ -6683,8 +6637,6 @@ select.pregnancy_term + .chzn-container .chzn-results li {
 }
 .chzn-bluelight {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   height: 25px;
   min-width: 78px;
   width: 100%;
@@ -6737,8 +6689,6 @@ select.pregnancy_term + .chzn-container .chzn-results li {
 }
 .chzn-gray {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   height: 32px;
   min-width: 78px;
   width: 100%;
@@ -7044,8 +6994,6 @@ select.pregnancy_term + .chzn-container .chzn-results li {
 }
 .content-search_pager-control-separator {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   padding: 0 7px;
   color: #c1d8e4;
 }
@@ -13070,8 +13018,6 @@ select.pregnancy_term + .chzn-container .chzn-results li {
 }
 .custom-like {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   margin: 0 5px 0 5px;
   text-decoration: none;
 }
@@ -13310,8 +13256,6 @@ select.pregnancy_term + .chzn-container .chzn-results li {
 }
 .b-social-big {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   margin: 0 15px 20px 0;
 }
 .b-social-big:hover .b-social-big_ico {
@@ -13320,8 +13264,6 @@ select.pregnancy_term + .chzn-container .chzn-results li {
 .b-social-big_ico {
   position: relative;
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   width: 73px;
   height: 73px;
   background: url(/images/b-social-big_ico.png) no-repeat;
@@ -13465,8 +13407,6 @@ select.pregnancy_term + .chzn-container .chzn-results li {
 /* map-route-start */
 .map-route-start {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   width: 19px;
   height: 15px;
   padding: 2px 0 13px;
@@ -13480,8 +13420,6 @@ select.pregnancy_term + .chzn-container .chzn-results li {
 /* map-route-point */
 .map-route-point {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   width: 22px;
   height: 22px;
   line-height: 22px;
@@ -14878,8 +14816,6 @@ select.pregnancy_term + .chzn-container .chzn-results li {
 }
 .like-hg-popup_heart {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   width: 43px;
   height: 41px;
   background: url(/images/like_heart.png);
@@ -15056,8 +14992,6 @@ select.pregnancy_term + .chzn-container .chzn-results li {
 }
 .b-sign_retrieve-send .i-highlight {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   margin: 2px 0;
 }
 /* /b-sign *//* top line menu */
@@ -15984,14 +15918,10 @@ select.pregnancy_term + .chzn-container .chzn-results li {
 }
 .readers2_li {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   margin: 0 1px;
 }
 .readers2_count {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   padding: 2px 0 0 24px;
   color: #a8a7a7;
   background: url(/images/readers2_count.png) no-repeat;
@@ -16411,8 +16341,6 @@ select.pregnancy_term + .chzn-container .chzn-results li {
 }
 .menu-list_i-add-itx {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   vertical-align: middle;
   width: 150px;
   margin-right: 5px;
@@ -16423,14 +16351,10 @@ select.pregnancy_term + .chzn-container .chzn-results li {
 }
 .menu-list_tx {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   vertical-align: middle;
 }
 .menu-list_ico {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   vertical-align: middle;
   width: 20px;
   height: 20px;
@@ -16658,8 +16582,6 @@ select.pregnancy_term + .chzn-container .chzn-results li {
 .career-top .ava {
   float: none;
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   margin-right: 4px;
   vertical-align: text-bottom;
 }
@@ -16678,8 +16600,6 @@ select.pregnancy_term + .chzn-container .chzn-results li {
 .career-achievement .ava {
   float: none;
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   vertical-align: middle;
   margin: 0 2px;
 }
@@ -16705,15 +16625,11 @@ select.pregnancy_term + .chzn-container .chzn-results li {
 }
 .career-achievement_left {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   width: 220px;
   vertical-align: middle;
 }
 .career-achievement_center {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   vertical-align: middle;
   width: 250px;
   padding: 5px 0;
@@ -16721,8 +16637,6 @@ select.pregnancy_term + .chzn-container .chzn-results li {
 }
 .career-achievement_right {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   vertical-align: middle;
   width: 160px;
   text-align: center;
@@ -16762,8 +16676,6 @@ select.pregnancy_term + .chzn-container .chzn-results li {
 }
 .career-achievement-ico {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   vertical-align: middle;
   width: 50px;
   height: 50px;
@@ -18770,8 +18682,6 @@ select.pregnancy_term + .chzn-container .chzn-results li {
 }
 .user-online-status {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   background: #0fc612;
   border-radius: 3px;
   float: left;
@@ -19859,8 +19769,6 @@ select.pregnancy_term + .chzn-container .chzn-results li {
 }
 .yiipagination .page {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   margin: 0 3px;
   padding: 0 10px;
 }
@@ -19981,8 +19889,6 @@ select.pregnancy_term + .chzn-container .chzn-results li {
 }
 .cont-nav_tx {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   vertical-align: middle;
   margin: 0 30px 0 7px;
   font-size: 20px;
@@ -19990,8 +19896,6 @@ select.pregnancy_term + .chzn-container .chzn-results li {
 }
 .cont-nav_i {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   vertical-align: top;
   margin: 0 5px;
   padding: 0 10px;
@@ -20011,8 +19915,6 @@ select.pregnancy_term + .chzn-container .chzn-results li {
 }
 .cont-nav_a {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   color: #818080;
   text-decoration: none;
 }
@@ -20026,8 +19928,6 @@ select.pregnancy_term + .chzn-container .chzn-results li {
 }
 .cont-nav_count {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   margin: 0 0 0 5px;
   padding: 0 5px;
   font-size: 12px;
@@ -20727,8 +20627,6 @@ select.pregnancy_term + .chzn-container .chzn-results li {
 }
 .b-famyli_li {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   vertical-align: top;
   margin: 0 10px 13px;
 }

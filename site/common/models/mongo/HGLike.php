@@ -202,6 +202,8 @@ class HGLike extends HMongoModel
             $model = CActiveRecord::model($like['entity_name'])->findByPk($like['entity_id']);
             if ($model === null)
                 continue;
+            if ($like['entity_name'] == 'Comment')
+                continue;
 
             if (!isset($result[$model->author_id]))
                 $result[$model->author_id] = array();

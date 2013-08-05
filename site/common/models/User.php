@@ -1336,4 +1336,17 @@ class User extends HActiveRecord
     {
         return HDate::spentDays(strtotime($this->register_date));
     }
+
+    /**
+     * @return CommunityContent
+     */
+    public function getLastStatus()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->compare('author_id', $this->id);
+        $criteria->compare('type_id', CommunityContent::TYPE_STATUS);
+        $criteria->order = 'id desc';
+
+        return CommunityContent::model()->find($criteria);
+    }
 }

@@ -138,11 +138,7 @@ Yii::app()->clientScript->registerScriptFile('/javascripts/ko_user_profile.js');
 </div>
 <div class="col-23-middle">
 
-<?php
-$last_status = $user->getLastStatus();
-if ($last_status !== null)
-    $this->renderPartial('application.modules.blog.views.default.types.type_5', array('data' => $last_status, 'full' => true));
-?>
+<?php $this->widget('StatusWidget', array('user' => $user)); ?>
 
 <?php $this->widget('AboutWidget', array('user' => $user)); ?>
 

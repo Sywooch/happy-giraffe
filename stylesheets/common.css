@@ -408,8 +408,14 @@ html.top-nav-fixed {
 .w-50 {
   width: 50px;
 }
+.w-70 {
+  width: 70px !important;
+}
 .w-75 {
   width: 75px !important;
+}
+.w-80 {
+  width: 80px !important;
 }
 .w-85 {
   width: 85px !important;
@@ -419,6 +425,9 @@ html.top-nav-fixed {
 }
 .w-100 {
   width: 100px;
+}
+.w-110 {
+  width: 110px;
 }
 .w-130 {
   width: 130px;
@@ -1452,18 +1461,18 @@ input[type=text].error,
 input[type=password].error,
 textarea.error,
 .error .chzn-single {
-  border: 1px solid #ff6767 !important;
+  border: 1px solid #f9cbcb !important;
 }
 .error .chzn-single div,
 .error .chzn-drop {
-  border-color: #ff6767 !important;
+  border-color: #f9cbcb !important;
 }
 .errorMessage,
 .errorSummary {
-  color: #fe5757 !important;
+  color: #ff8888 !important;
   font-size: 11px !important;
   line-height: normal !important;
-  padding: 5px 0;
+  margin: 5px 0;
   overflow: hidden;
 }
 .errorSummary ol {
@@ -6540,16 +6549,8 @@ select.pregnancy_term + .chzn-container .chzn-results li {
   -moz-border-radius: 3px;
   border-radius: 3px;
 }
-.chzn-itx-simple .chzn-container-single .chzn-drop {
-  border: none;
-  width: 100% !important;
-  margin-top: 1px;
-}
-.chzn-itx-simple .chzn-container-single .chzn-results {
-  border: 1px solid #daebf5;
-  max-height: 155px;
-  margin: 0;
-  padding: 0;
+.chzn-itx-simple .chzn-container-single .chzn-single.chzn-default span {
+  color: #B6B6B6;
 }
 .chzn-itx-simple .chzn-container-single .chzn-single span {
   height: 30px;
@@ -6571,6 +6572,17 @@ select.pregnancy_term + .chzn-container .chzn-results li {
   height: 8px;
   margin: -4px 0 0;
   background: url(/images/arrow-d.png) no-repeat;
+}
+.chzn-itx-simple .chzn-container-single .chzn-drop {
+  border: none;
+  width: 100% !important;
+  margin-top: 1px;
+}
+.chzn-itx-simple .chzn-container-single .chzn-results {
+  border: 1px solid #daebf5;
+  max-height: 155px;
+  margin: 0;
+  padding: 0;
 }
 .chzn-itx-simple .chzn-container .chzn-results li {
   line-height: 18px;
@@ -14926,10 +14938,12 @@ select.pregnancy_term + .chzn-container .chzn-results li {
   padding: 6px 21px 8px;
 }
 .b-sign_li {
-  margin: 5px 0;
-  padding: 0 25px 0 16px;
+  margin: 10px 0;
+  padding: 0 25px 0 14px;
+  font-size: 11px;
+  line-height: 16px;
   color: #73a5c4;
-  background: url(/images/bullet-blue.png) no-repeat 0 5px;
+  background: url(/images/bullet-blue-small.png) no-repeat 0 6px;
 }
 .b-sign_itx-hold {
   float: left;
@@ -14986,6 +15000,7 @@ select.pregnancy_term + .chzn-container .chzn-results li {
   font-size: 15px;
 }
 .b-sign_retrieve-send {
+  margin: 20px 0 0;
   padding-left: 55px;
   font-size: 13px;
   background: url(/images/b-sign_retrieve-send.png) no-repeat 0 50%;

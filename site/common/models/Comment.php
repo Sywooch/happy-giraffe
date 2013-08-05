@@ -602,9 +602,4 @@ class Comment extends HActiveRecord
         );
         return $data;
     }
-
-    public function getPhoto()
-    {
-        return null;
-    }
 }

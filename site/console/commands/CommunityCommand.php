@@ -657,4 +657,18 @@ class CommunityCommand extends CConsoleCommand
             echo $posts . "\n";
         }
     }
+
+    public function actionSyncViews()
+    {
+        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
+        Yii::import('site.common.models.mongo.PageView');
+
+        $dp = new CActiveDataProvider('CommunityContent');
+
+        $iterator = new CDataProviderIterator($dp, 1000);
+        foreach ($iterator as $post) {
+            $post->views = PageView::model()->viewsByPath($post->url);
+            $post->update(array('views'));
+        }
+    }
 }

@@ -109,6 +109,7 @@ return array(
         'blog',
         'gallery',
         'profile',
+        'search',
 	),
 	// application components
 	'components'=>array(

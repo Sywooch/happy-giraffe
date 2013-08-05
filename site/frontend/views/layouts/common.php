@@ -192,7 +192,7 @@
         <div class="search-box">
             <div class="search-box_input">
             <form action="<?= $this->createUrl('/search'); ?>">
-                <input type="text" name="text" class="text" />
+                <input type="text" name="query" class="text" />
                 <button class="icon-search"></button>
             </form>
             </div>

@@ -68,7 +68,7 @@ class AjaxSimpleController extends CController
             $comment->refresh();
             $response = array(
                 'status' => true,
-                'data' => Comment::getOneCommentViewData($comment)
+                'data' => Comment::getOneCommentViewData($comment, false)
             );
         } else {
             $response = array(
@@ -110,7 +110,7 @@ class AjaxSimpleController extends CController
      */
     public function actionCommentLike()
     {
-        if (!Yii::app()->user->isGuest){
+        if (!Yii::app()->user->isGuest) {
             $comment_id = Yii::app()->request->getPost('id');
             $comment = $this->loadComment($comment_id);
             if ($comment->author_id != Yii::app()->user->id)
@@ -171,6 +171,13 @@ class AjaxSimpleController extends CController
                 }
             }
 
+        echo CJSON::encode(array('status' => true));
+    }
+
+    public function actionCommunityToggle()
+    {
+        $community_id = Yii::app()->request->getPost('community_id');
+        Yii::app()->user->getModel()->toggleCommunity($community_id);
         echo CJSON::encode(array('status' => true));
     }
 

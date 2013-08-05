@@ -6,27 +6,20 @@
 Yii::app()->clientScript
     ->registerScriptFile('/javascripts/ko_search.js')
 ;
-
-Yii::import('application.widgets.newCommentWidget.NewCommentWidget');
-NewCommentWidget::registerScripts();
 ?>
 
 <div class="content-search">
     <div class="content-search_top clearfix">
-        <div class="content-search_t">
-            <a href="" class="ava small"></a>
-            Я ищу
-        </div>
+        <div class="content-search_t">Я ищу</div>
         <div class="content-search_itx-hold">
-            <input type="text" class="content-search_itx" placeholder="Введите слово или фразу" data-bind="value: query, valueUpdate: 'keyup'">
-            <a class="content-search_del" data-bind="visible: query().length > 0, click: clearQuery"></a>
-            <button class="content-search_btn btn-gold btn-medium" data-bind="click: search">Найти</button>
+            <input type="text" name="" id="" class="content-search_itx" placeholder="Введите слово " data-bind="value: instantaneousQuery, valueUpdate: 'keyup'">
+            <button class="content-search_btn"></button>
         </div>
     </div>
     <div class="content-search_utility clearfix">
         <div class="content-search_found" data-bind="if: loaded">Найдено <span class="search-highlight" data-bind="text: totalCount"></span></div>
         <div class="content-search_select">
-            <div class="chzn-gray">
+            <div class="chzn-bluelight">
                 <select data-bind="options: scoringValues,
                         value: scoring,
                         optionsValue: function(value) {
@@ -42,13 +35,13 @@ NewCommentWidget::registerScripts();
         <div class="content-search_pager-control">
             <span class="content-search_pager-control-tx">Показывать на странице </span>
             <!-- ko foreach: perPageValues -->
-            <!-- ko if: $root.perPage() == $data -->
-            <span class="content-search_pager-control-a" data-bind="text: $data"></span>
-            <!-- /ko -->
-            <!-- ko if: $root.perPage() != $data -->
-            <a href="javascript:void(0)" class="content-search_pager-control-a" data-bind="text: $data, click: $root.setPerPage"></a>
-            <!-- /ko -->
-            <span class="content-search_pager-control-separator" data-bind="visible: $root.perPageValues.length != ($root.perPageValues.indexOf($data) + 1)">|</span>
+                <!-- ko if: $root.perPage() == $data -->
+                <span class="content-search_pager-control-a" data-bind="text: $data"></span>
+                <!-- /ko -->
+                <!-- ko if: $root.perPage() != $data -->
+                <a class="content-search_pager-control-a" data-bind="text: $data, click: $root.setPerPage"></a>
+                <!-- /ko -->
+                <span class="content-search_pager-control-separator" data-bind="visible: $root.perPageValues.length != ($root.perPageValues.indexOf($data) + 1)">|</span>
             <!-- /ko -->
         </div>
     </div>
@@ -63,19 +56,18 @@ NewCommentWidget::registerScripts();
                 <span class="menu-list_count" data-bind="text: totalCount"></span>
             </a>
             <!-- ko if: isMenuVisible -->
-            <!-- ko foreach: menu -->
-            <a class="menu-list_i menu-list_i__post" data-bind="css: { active : $root.activeMenuRowIndex() === $root.menu.indexOf($data) }, css2: cssClass, click: select, visible: count() > 0">
-                <span class="menu-list_ico"></span>
-                <span class="menu-list_tx" data-bind="text: title"></span>
-                <span class="menu-list_count" data-bind="text: count"></span>
-            </a>
-            <!-- /ko -->
+                <!-- ko foreach: menu -->
+                    <a class="menu-list_i menu-list_i__post" data-bind="css: { active : $root.activeMenuRowIndex() === $root.menu.indexOf($data) }, css2: cssClass, click: select, visible: count() > 0">
+                        <span class="menu-list_ico"></span>
+                        <span class="menu-list_tx" data-bind="text: title"></span>
+                        <span class="menu-list_count" data-bind="text: count"></span>
+                    </a>
+                <!-- /ko -->
             <!-- /ko -->
         </div>
     </div>
 
-    <div class="col-23-middle col-gray clearfix">
-
+    <div class="col-23 clearfix">
         <div data-bind="html: resultsToShow"></div>
 
         <div id="infscr-loading" data-bind="visible: loading"><img alt="Loading..." src="/images/ico/ajax-loader.gif"><div>Загрузка</div></div>
@@ -84,12 +76,11 @@ NewCommentWidget::registerScripts();
             <div class="pager">
                 <ul class="yiiPager" id="">
                     <!-- ko foreach: pages -->
-                    <li class="page selected" data-bind="css: { selected : $root.currentPage() == $data }"><a data-bind="text: $data, click: $root.selectPage"></a><img src="/images/pagination_tale.png" data-bind="visible: $root.currentPage() == $data"></li>
+                        <li class="page selected" data-bind="css: { selected : $root.currentPage() == $data }"><a data-bind="text: $data, click: $root.selectPage"></a><img src="/images/pagination_tale.png" data-bind="visible: $root.currentPage() == $data"></li>
                     <!-- /ko -->
                 </ul>
             </div>
         </div>
-
     </div>
 </div>
 

@@ -57,6 +57,7 @@ function UploadedPhoto(file, parent, photo) {
     var self = this;
 
     self.parent = parent;
+    self.html = '';
 
     if (file != null) {
         self.file = file;
@@ -94,6 +95,7 @@ function UploadedPhoto(file, parent, photo) {
             complete: function (err, xhr) {
                 var response = $.parseJSON('[' + xhr.response + ']')[0];
                 self.id(response.id);
+                self.html = response.html;
                 self._progress(100);
                 self.status(2);
                 $('#uploaded_photo_' + self.uid + ' .js-image').css({ opacity: 1 });

@@ -29,6 +29,10 @@ return array(
         )
     ),
     'components' => array(
+        'indexden' => array(
+            'class' => 'site.common.components.IndexDen',
+            'apiUrl' => 'http://:tebadytarure@nygeme.api.indexden.com',
+        ),
         'gearman' => array(
             'class' => 'site.common.components.Gearman',
             'servers'=>array(),

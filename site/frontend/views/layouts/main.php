@@ -9,7 +9,7 @@
                     <div class="search-box clearfix">
                         <form action="<?php echo $this->createUrl('/search'); ?>">
                             <div class="input">
-                                <input type="text" name="text" />
+                                <input type="text" name="query" />
                             </div>
                             <button class="btn btn-green-medium"><span><span>Поиск</span></span></button>
                         </form>

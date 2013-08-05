@@ -123,6 +123,10 @@ class AlbumPhoto extends HActiveRecord
                 'createAttribute' => 'created',
                 'updateAttribute' => 'updated',
             ),
+            'searchable' => array(
+                'class' => 'site.common.behaviors.SearchableBehavior',
+                'index' => 'main',
+            ),
             //'pingable' => array(
             //    'class' => 'site.common.behaviors.PingableBehavior',
             //),

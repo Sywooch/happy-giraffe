@@ -96,7 +96,7 @@ class Dklab_Realplexor
 		}
 		$a = $this->_send(join(",", $pairs), $data);
         var_dump($a);
-        die;
+        die('1');
 	}
 	
 	/**

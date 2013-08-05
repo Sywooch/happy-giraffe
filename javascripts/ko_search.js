@@ -97,13 +97,17 @@ function SearchViewModel(data) {
     });
 
     self.isMenuVisible = ko.computed(function() {
-        var rowsCount = 0;
-        ko.utils.arrayForEach(self.menu(), function(menuRow) {
-            if (menuRow.count() > 0)
-                rowsCount += 1;
-        });
+        if (self.totalCount() == 0)
+            return true;
+        else {
+            var rowsCount = 0;
+            ko.utils.arrayForEach(self.menu(), function(menuRow) {
+                if (menuRow.count() > 0)
+                    rowsCount += 1;
+            });
 
-        return rowsCount > 1;
+            return rowsCount > 1;
+        }
     });
 
     self.getMenuRowByEntity = function(entity) {

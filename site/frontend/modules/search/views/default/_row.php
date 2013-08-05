@@ -1,5 +1,5 @@
 <?php if (in_array($data->entity, array('post', 'video'))): ?>
-    <?php $this->renderPartial('//community/_post', array('data' => $data, 'full' => false)); ?>
+    <?php $this->renderPartial('blog.views.default.view', array('data' => $data, 'full' => false)); ?>
 <?php endif; ?>
 
 <?php if ($data->entity == 'photo'): ?>

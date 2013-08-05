@@ -697,7 +697,7 @@ $(function() {
 					</div>
 					<div class="textalign-c margin-t10 clearfix">
 						<a class="btn-gray-light btn-h46 margin-r15" href="">Отменить</a>
-						<a class="btn-blue btn-h46 btn-inactive" href="">Добавить</a>
+						<a class="btn-blue btn-h46 btn-inactive" href="">Сохранить</a>
 					</div>
 					
 				</div>
@@ -739,7 +739,7 @@ $(function() {
 					</div>
 					<div class="textalign-c margin-t10 clearfix">
 						<a class="btn-gray-light btn-h46 margin-r15" href="">Отменить</a>
-						<a class="btn-blue btn-h46" href="">Добавить</a>
+						<a class="btn-blue btn-h46" href="">Сохранить</a>
 					</div>
 					
 				</div>

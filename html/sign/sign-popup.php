@@ -36,7 +36,7 @@
 			<br>
 		</div>  	
 		
-		<div class="push"></div>
+		<div class="footer-push"></div>
 		
 	</div>
 
@@ -150,7 +150,6 @@
 								<div class="b-sign_itx-hold">
 									<input type="text" name="" id="" class="itx-simple" placeholder="Введите фамилию">
 								</div>
-								<div class="b-sign_win"></div>
 							</div>
 						</div>
 						<div class="margin-b30 clearfix">
@@ -158,11 +157,12 @@
 								<div class="b-sign_label-hold">
 									<label for="" class="b-sign_label">Дата рождения</label>
 								</div>
-								<div class="b-sign_itx-hold">
-									<div class="w-75 float-l margin-r5">
+								<div class="b-sign_itx-hold error">
+								<div class="clearfix">
+									<div class="w-70 float-l margin-r5">
 										<div class="chzn-itx-simple">
-											<select class="chzn">
-												<option selected="selected">0</option>
+											<select class="chzn"  data-placeholder="ДД">
+												<option value=""></option>
 												<option>1</option>
 												<option>2</option>
 												<option>32</option>						
@@ -172,10 +172,11 @@
 											</select>
 										</div>
 									</div>
-									<div class="w-100 float-l margin-r5">
+									<div class="w-110 float-l margin-r5">
 										<div class="chzn-itx-simple">
-											<select class="chzn">
-												<option selected="selected">Января</option>
+											<select class="chzn" data-placeholder="MM">
+												<option value=""></option>
+												<option>Января</option>
 												<option>Февраля</option>
 												<option>Марта</option>
 												<option>Апреля</option>						
@@ -190,19 +191,22 @@
 											</select>
 										</div>
 									</div>
-									<div class="w-85 float-l">
+									<div class="w-80 float-l">
 										<div class="chzn-itx-simple">
-											<select class="chzn">
-												<option selected="selected">1912</option>
+											<select class="chzn" data-placeholder="ГГ">
+												<option value=""></option>
+												<option>1912</option>
 												<option>1913</option>
 												<option>1914</option>
 												<option>1915</option>						
 												<option>1916</option>						
-												<option>1917</option>						
-												<option>1918</option>						
+												<option>1988</option>						
+												<option>1999</option>						
 											</select>
 										</div>
 									</div>
+								</div>
+								<div class="errorMessage">Введите дату рождения</div>
 								</div>
 							</div>
 							<div class="float-l w-50p">
@@ -222,6 +226,7 @@
 											<span class="ico-female"></span>
 										</label>
 									</div>
+									<div class="errorMessage">Выберите пол</div>
 								</div>
 							</div>
 						</div>
@@ -233,19 +238,19 @@
 								<div class="b-sign_label-hold">
 									<label for="" class="b-sign_label">Пароль</label>
 								</div>
-								<div class="b-sign_itx-hold">
+								<div class="b-sign_itx-hold error">
 									<input type="password" name="" id="" class="itx-simple">
+									<div class="errorMessage">Введите минимум 6 знаков</div>
 									<div class="b-sign_itx-desc">Придумайте сложный пароль, от 6 до 12 символов - цифры и английские буквы.</div>
 								</div>
-								<div class="b-sign_win"></div>
 							</div>
 							<div class="float-l w-50p">
 								<div class="b-sign_label-hold">
 									<label for="" class="b-sign_label">Пароль <br>еще раз</label>
 								</div>
-								<div class="b-sign_itx-hold">
-									<input type="text" name="" id="" class="itx-simple error">
-									<div class="errorMessage">Введите минимум 6 знаков</div>
+								<div class="b-sign_itx-hold error">
+									<input type="text" name="" id="" class="itx-simple">
+									<div class="errorMessage">Пароли не совпадают</div>
 								</div>
 							</div>
 						</div>
@@ -318,48 +323,52 @@
 									<label for="" class="b-sign_label">Дата рождения</label>
 								</div>
 								<div class="b-sign_itx-hold">
-									<div class="w-75 float-l margin-r5">
-										<div class="chzn-itx-simple">
-											<select class="chzn">
-												<option selected="selected">0</option>
-												<option>1</option>
-												<option>2</option>
-												<option>32</option>						
-												<option>32</option>						
-												<option>32</option>						
-												<option>32</option>						
-											</select>
+									<div class="clearfix">
+										<div class="w-70 float-l margin-r5">
+											<div class="chzn-itx-simple">
+												<select class="chzn"  data-placeholder="ДД">
+													<option value=""></option>
+													<option>1</option>
+													<option>2</option>
+													<option>32</option>						
+													<option>32</option>						
+													<option>32</option>						
+													<option>32</option>						
+												</select>
+											</div>
 										</div>
-									</div>
-									<div class="w-100 float-l margin-r5">
-										<div class="chzn-itx-simple">
-											<select class="chzn">
-												<option selected="selected">Января</option>
-												<option>Февраля</option>
-												<option>Марта</option>
-												<option>Апреля</option>						
-												<option>Майя</option>						
-												<option>Июня</option>						
-												<option>Июля</option>						
-												<option>Августа</option>						
-												<option>Сентября</option>						
-												<option>Октября</option>						
-												<option>Ноября</option>			
-												<option>Декабря</option>			
-											</select>
+										<div class="w-110 float-l margin-r5">
+											<div class="chzn-itx-simple">
+												<select class="chzn" data-placeholder="MM">
+													<option value=""></option>
+													<option>Января</option>
+													<option>Февраля</option>
+													<option>Марта</option>
+													<option>Апреля</option>						
+													<option>Майя</option>						
+													<option>Июня</option>						
+													<option>Июля</option>						
+													<option>Августа</option>						
+													<option>Сентября</option>						
+													<option>Октября</option>						
+													<option>Ноября</option>			
+													<option>Декабря</option>			
+												</select>
+											</div>
 										</div>
-									</div>
-									<div class="w-85 float-l">
-										<div class="chzn-itx-simple">
-											<select class="chzn">
-												<option selected="selected">1912</option>
-												<option>1913</option>
-												<option>1914</option>
-												<option>1915</option>						
-												<option>1916</option>						
-												<option>1917</option>						
-												<option>1918</option>						
-											</select>
+										<div class="w-80 float-l">
+											<div class="chzn-itx-simple">
+												<select class="chzn" data-placeholder="ГГ">
+													<option value=""></option>
+													<option>1912</option>
+													<option>1913</option>
+													<option>1914</option>
+													<option>1915</option>						
+													<option>1916</option>						
+													<option>1988</option>						
+													<option>1999</option>						
+												</select>
+											</div>
 										</div>
 									</div>
 								</div>
@@ -403,8 +412,7 @@
 									<label for="" class="b-sign_label">Пароль <br>еще раз</label>
 								</div>
 								<div class="b-sign_itx-hold">
-									<input type="text" name="" id="" class="itx-simple error">
-									<div class="errorMessage">Введите минимум 6 знаков</div>
+									<input type="text" name="" id="" class="itx-simple">
 								</div>
 							</div>
 						</div>
@@ -462,7 +470,7 @@
 										<label for="" class="b-sign_label">E-mail</label>
 									</div>
 									<div class="b-sign_itx-hold">
-										<input type="text" name="" id="" class="itx-simple" >
+										<input type="text" name="" id="" class="itx-simple" value="asdaaa@wer.ru">
 									</div>
 									<div class="b-sign_win"></div>
 								</div>
@@ -472,7 +480,7 @@
 									</div>
 									<div class="b-sign_itx-hold">
 										<input type="text" name="" id="" class="itx-simple error" >
-										<div class="errorMessage">Введите минимум 6 знаков</div>
+										<div class="errorMessage">Неверный пароль</div>
 									</div>
 								</div>
 								<div class="margin-b20 clearfix">
@@ -519,17 +527,17 @@
 								<div class="margin-b20 clearfix">
 									Пожалуйста введите ваш e-mail адрес. <br> Вам будет выслано письмо с вашим паролем.
 								</div>
-								<div class="margin-b20 clearfix">
+								<div class="clearfix">
 									<div class="b-sign_label-hold">
 										<label for="" class="b-sign_label">E-mail</label>
 									</div>
 									<div class="b-sign_itx-hold w-300">
 										<input type="text" name="" id="" class="itx-simple error" value="werwwer.er">
-										<div class="errorMessage">Введите минимум 6 знаков</div>
+										<div class="errorMessage">Не правильный e-mail</div>
 									</div>
+									<button class="btn-green btn-medium">Ok</button>
 								</div>
 							</div>
-							<button class="float-r btn-blue btn-h46">Отправить</button>
 						</div>
 						
 						
@@ -562,7 +570,7 @@
 								<div class="margin-b20 clearfix">
 									Пожалуйста введите ваш e-mail адрес. <br> Вам будет выслано письмо с вашим паролем.
 								</div>
-								<div class="margin-b20 clearfix">
+								<div class="clearfix">
 									<div class="b-sign_label-hold">
 										<label for="" class="b-sign_label">E-mail</label>
 									</div>

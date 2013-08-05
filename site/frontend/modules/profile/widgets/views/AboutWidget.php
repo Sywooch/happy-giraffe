@@ -35,7 +35,7 @@
     </div>
     <script type="text/javascript">
         $(function() {
-            vm = new UserAboutWidget(<?=CJSON::encode($user->about)?>);
+            vm = new UserAboutWidget(<?=CJSON::encode((string)$user->about)?>);
             ko.applyBindings(vm, document.getElementById('user-about'));
         });
     </script>

@@ -511,7 +511,7 @@
 					<div class="b-sign">
 						<div class="b-sign_t">
 							<span class="ico-lock-big"></span>
-							Вход на сайт
+							Забыли пароль?
 						</div>
 						
 						<div class="b-sign_retrieve clearfix">
@@ -554,7 +554,7 @@
 					<div class="b-sign">
 						<div class="b-sign_t">
 							<span class="ico-lock-big"></span>
-							Вход на сайт
+							Забыли пароль?
 						</div>
 						
 						<div class="b-sign_retrieve clearfix">

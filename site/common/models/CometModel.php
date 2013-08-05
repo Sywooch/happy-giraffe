@@ -69,7 +69,7 @@ class CometModel extends CComponent
         try {
             Yii::app()->comet->send($channel_id, $this->attributes);
         } catch (Exception $err) {
-
+            die('2');
         }
     }
 

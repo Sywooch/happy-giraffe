@@ -539,54 +539,67 @@ class Comment extends HActiveRecord
 
     public function getPowerTipTitle()
     {
-        $entity = CActiveRecord::model($this->entity)->findByPk($this->entity_id);
+        $entity = $this->getCommentEntity();
         if (method_exists($entity, 'getPowerTipTitle'))
             return $entity->getPowerTipTitle(true);
         else
             return '';
     }
 
-    public function restore(){
+    public function restore()
+    {
         Comment::model()->updateByPk($this->id, array('removed' => 0));
         Removed::model()->restoreByEntity($this);
     }
 
     /**
      * @param Comment[] $comments
+     * @param bool $album_comments Комментарии к альбому?
      * @return array
      */
-    public static function getViewData($comments)
+    public static function getViewData($comments, $album_comments = false)
     {
         $data = array();
         foreach ($comments as $comment)
-            $data[] = self::getOneCommentViewData($comment);
+            $data[] = self::getOneCommentViewData($comment, $album_comments);
 
         return $data;
     }
 
     /**
+     * @return CActiveRecord
+     */
+    private function getCommentEntity()
+    {
+        return CActiveRecord::model($this->entity)->findByPk($this->entity_id);
+    }
+
+    /**
      * @param Comment $comment
+     * @param bool $album_comments Комментарии к альбому?
      * @return array
      */
-    public static function getOneCommentViewData($comment)
+    public static function getOneCommentViewData($comment, $album_comments)
     {
-        return array(
-                'id' => (int)$comment->id,
-                'html' => $comment->purified->text,
-                'created' => Yii::app()->dateFormatter->format("d MMMM yyyy, H:mm", $comment->created),
-                'author' => array(
-                    'id' => (int)$comment->author->id,
-                    'firstName' => $comment->author->first_name,
-                    'lastName' => $comment->author->last_name,
-                    'gender' => $comment->author->gender,
-                    'avatar' => $comment->author->getAva('small'),
-                    'online' => (bool)$comment->author->online,
-                    'url' => $comment->author->getUrl(),
-                ),
-                'likesCount' => HGLike::model()->countByEntity($comment),
-                'userLikes' => HGLike::model()->hasLike($comment, Yii::app()->user->id),
-                'canRemove' => (!Yii::app()->user->isGuest && Yii::app()->user->model->checkAuthItem('removeComment') || Yii::app()->user->id == $comment->author_id || $comment->isEntityAuthor(Yii::app()->user->id)),
-                'canEdit' => (!Yii::app()->user->isGuest && Yii::app()->user->model->checkAuthItem('editComment') || Yii::app()->user->id == $comment->author_id),
-            );
+        $data = array(
+            'id' => (int)$comment->id,
+            'html' => $comment->purified->text,
+            'created' => Yii::app()->dateFormatter->format("d MMMM yyyy, H:mm", $comment->created),
+            'author' => array(
+                'id' => (int)$comment->author->id,
+                'firstName' => $comment->author->first_name,
+                'lastName' => $comment->author->last_name,
+                'gender' => $comment->author->gender,
+                'avatar' => $comment->author->getAva('small'),
+                'online' => (bool)$comment->author->online,
+                'url' => $comment->author->getUrl(),
+            ),
+            'likesCount' => HGLike::model()->countByEntity($comment),
+            'userLikes' => HGLike::model()->hasLike($comment, Yii::app()->user->id),
+            'canRemove' => (!Yii::app()->user->isGuest && Yii::app()->user->model->checkAuthItem('removeComment') || Yii::app()->user->id == $comment->author_id || $comment->isEntityAuthor(Yii::app()->user->id)),
+            'canEdit' => (!Yii::app()->user->isGuest && Yii::app()->user->model->checkAuthItem('editComment') || Yii::app()->user->id == $comment->author_id),
+            'photoUrl' => ($album_comments ? $comment->getCommentEntity()->getPreviewUrl(170, 110, false, true) : false)
+        );
+        return $data;
     }
 }

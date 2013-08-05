@@ -68,25 +68,81 @@ class NewCommentWidget extends CWidget
         Yii::app()->controller->widget('site.common.extensions.imperavi-redactor-widget.ImperaviRedactorWidget', array('onlyRegisterScript' => true));
     }
 
+    /**
+     * Возвращает информацию о комментариях
+     * @return array
+     */
     private function getComments()
     {
+        if ($this->isAlbumComments())
+            return $this->getAlbumComments();
+
+        $criteria = new CDbCriteria;
+        $criteria->condition = 't.entity=:entity AND t.entity_id=:entity_id';
+        $criteria->params = array(':entity' => $this->entity, ':entity_id' => $this->entity_id);
+        $criteria->with = array('author' => array(
+            'select' => 'id, gender, first_name, last_name, online, avatar_id, deleted',
+            'with' => 'avatar',
+        ));
+
         if ($this->full) {
-            $dataProvider = Comment::model()->get($this->entity, $this->entity_id, 1000);
+            $dataProvider = new CActiveDataProvider('Comment', array(
+                'criteria' => $criteria,
+                'pagination' => array(
+                    'pageSize' => 1000,
+                ),
+            ));
             return $dataProvider->getData();
         } else {
-            $criteria = new CDbCriteria(array(
-                'condition' => 't.entity=:entity AND t.entity_id=:entity_id',
-                'params' => array(':entity' => $this->entity, ':entity_id' => $this->entity_id),
-                'with' => array(
-                    'author' => array(
-                        'select' => 'id, gender, first_name, last_name, online, avatar_id, deleted',
-                        'with' => 'avatar',
-                    )
-                ),
-                'order' => 't.created DESC',
-                'limit' => 3,
-            ));
+            $criteria->order = 't.created DESC';
+            $criteria->limit = 3;
             return array_reverse(Comment::model()->findAll($criteria));
         }
+    }
+
+    /**
+     * Возвращает информацию о комментариях к альбому - комментарии к альбому + комментарии к фото из альбома
+     * @return array
+     */
+    private function getAlbumComments()
+    {
+        $photoIds = Yii::app()->db->createCommand()
+            ->select('id')
+            ->from('album__photos')
+            ->where('album_id = :album_id', array(':album_id'=>$this->entity_id))
+            ->queryColumn();
+
+        $criteria = new CDbCriteria;
+        $criteria->condition = 't.entity="Album" AND t.entity_id=:entity_id';
+        if (!empty($photoIds))
+            $criteria->condition .= 'OR t.entity="AlbumPhoto" AND t.entity_id IN (' . implode(',', $photoIds) . ')';
+        $criteria->params = array(':entity_id' => $this->entity_id);
+        $criteria->with = array('author' => array(
+            'select' => 'id, gender, first_name, last_name, online, avatar_id, deleted',
+            'with' => 'avatar',
+        ));
+
+        if ($this->full) {
+            $dataProvider = new CActiveDataProvider('Comment', array(
+                'criteria' => $criteria,
+                'pagination' => array(
+                    'pageSize' => 1000,
+                ),
+            ));
+            return $dataProvider->getData();
+        } else {
+            $criteria->order = 't.created DESC';
+            $criteria->limit = 3;
+            return array_reverse(Comment::model()->findAll($criteria));
+        }
+    }
+
+    /**
+     * Комментарии к альбому?
+     * @return bool
+     */
+    public function isAlbumComments()
+    {
+        return ($this->entity == 'Album');
     }
 }

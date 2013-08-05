@@ -1347,6 +1347,6 @@ class User extends HActiveRecord
         $criteria->compare('type_id', CommunityContent::TYPE_STATUS);
         $criteria->order = 'id desc';
 
-        return CommunityContent::model()->find($criteria);
+        return CommunityContent::model()->resetScope()->find($criteria);
     }
 }

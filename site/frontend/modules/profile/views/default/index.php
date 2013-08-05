@@ -133,7 +133,7 @@ Yii::app()->clientScript->registerScriptFile('/javascripts/ko_user_profile.js');
 
 <?php $this->widget('UserFriendsWidget', array('user' => $user)); ?>
 <?php $this->widget('AwardsWidget', array('user' => $user)); ?>
-<?php $this->widget('UserCommunitiesWidget', array('user' => $user)); ?>
+<?php $this->widget('ClubsWidget', array('user' => $user)); ?>
 
 </div>
 <div class="col-23-middle">

@@ -44,7 +44,7 @@ Yii::app()->clientScript
         };
         self.load();
 
-        $('.layout-container').scroll(function() {
+        $(window).scroll(function() {
             if (self.loading() === false && self.users().length > 0 && self.currentPage() != self.pageCount() && (($('.layout-container').scrollTop() + $('.layout-container').height()) > ($('.layout-container').prop('scrollHeight') - 500)))
                 self.load();
         });

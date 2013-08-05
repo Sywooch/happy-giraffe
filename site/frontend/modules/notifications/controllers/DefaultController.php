@@ -38,7 +38,7 @@ class DefaultController extends HController
         if (Yii::app()->request->isAjaxRequest)
             $this->renderPartial('list', array('list' => $list, 'check' => true));
         else
-            $this->render('index', compact('list'));
+            $this->render('index', array('list' => $list, 'read' => false));
     }
 
     public function actionRead($page = 0)
@@ -49,7 +49,7 @@ class DefaultController extends HController
         if (Yii::app()->request->isAjaxRequest)
             $this->renderPartial('list', array('list' => $list, 'check' => false));
         else
-            $this->render('read', compact('list'));
+            $this->render('index', array('list' => $list, 'read' => true));
     }
 
     public function actionReadOne()

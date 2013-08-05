@@ -198,7 +198,7 @@ function MessagingViewModel(data) {
     }));
     self.messages = ko.observableArray([]);
     self.openContactInterlocutorId = ko.observable(null);
-    self.interlocutor = ko.observable('');
+    self.interlocutor = ko.observable(null);
     self.me = new User(data.me, self);
     self.loadingMessages = ko.observable(false);
     self.loadingContacts = ko.observable(false);

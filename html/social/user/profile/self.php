@@ -57,7 +57,7 @@
 					<div class="section-lilac_center-reg">с Веселым Жирафом 2 года 5 месяцев 203 дня</div>
 				</div>
 				<div class="section-lilac_right">
-					<div class="b-famyli">
+					<div class="b-famyli b-famyli__bg">
 						<div class="b-famyli_top b-famyli_top__white"></div>
 						<ul class="b-famyli_ul">
 							<li class="b-famyli_li">

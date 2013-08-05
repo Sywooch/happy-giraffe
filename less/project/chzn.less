@@ -118,7 +118,7 @@ select.pregnancy_term + .chzn-container .chzn-results li {line-height:18px;font-
 		padding-left: 10px;
 		.border-radius(3px);
 	}
-	.chzn-container-single .chzn-single.chzn-default span {color: #B6B6B6;}
+	.chzn-container-active .chzn-single {border-color: #a5daf9;}
 	.chzn-container-single .chzn-single span {
 		height:30px;
 		line-height:30px;
@@ -126,6 +126,7 @@ select.pregnancy_term + .chzn-container .chzn-results li {line-height:18px;font-
 		font-size:12px;
 		margin-right:25px;
 	}
+	.chzn-container-single .chzn-single.chzn-default span {color: #B6B6B6;}
 	.chzn-container-single .chzn-single div {
 		background:none;
 		height:28px;
@@ -164,7 +165,7 @@ select.pregnancy_term + .chzn-container .chzn-results li {line-height:18px;font-
 
 	&_add {
 		position: absolute;
-		top: 157px;
+		bottom: -49px;
 		width: 100%;
 		border:1px solid #daebf5;
 		border-top: 1px dashed #dae7f1;
@@ -181,7 +182,7 @@ select.pregnancy_term + .chzn-container .chzn-results li {line-height:18px;font-
 	}
 	&_add-itx {
 		width: 100%;
-		border: 1px solid #c4dcee;
+		border: 1px solid #c4dcee !important; /* for no chenge color in .error chzn */
 		padding: 5px 9px;
 		font-size: 12px;
 		color: #555;
@@ -216,6 +217,7 @@ select.pregnancy_term + .chzn-container .chzn-results li {line-height:18px;font-
 		border-color:#82b6f5;
 		padding-left: 7px;
 	}
+	.chzn-container-active .chzn-single {border-color: #a5daf9;}
 	.chzn-container-single .chzn-drop {
 		border: none;
 		width: 100% !important;

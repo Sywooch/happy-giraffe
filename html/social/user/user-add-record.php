@@ -467,8 +467,8 @@
 								<a href="" class="redactor-popup_close ico-close3 powertip" title="Закрыть"></a>
 								<div class="redactor-popup_tale"></div>
 								<div class="redactor-popup_t">Загрузите фото</div>
-								<!-- .dragover - класс добавлять, когда курсер мыши с файлами находится над блоком -->
-								<div class="b-add-img b-add-img__for-single">
+								<!-- .dragover - класс добавлять, когда курсор мыши с файлами находится над блоком -->
+								<div class="b-add-img b-add-img__for-single dragover">
 									<div class="b-add-img_hold">
 										<div class="b-add-img_t">
 											Загрузите фотографии с компьютера
@@ -627,7 +627,9 @@
 								<div class="float-r font-small color-gray margin-3">0/50</div>
 							</div>
 							<label for="" class="b-settings-blue_label">Заголовок</label>
-							<input type="text" name="" id="" class="itx-simple w-400" placeholder="Введите заголовок видео">
+							<div class="float-l w-400">
+								<input type="text" name="" id="" class="itx-simple" placeholder="Введите заголовок видео">
+							</div>
 						</div>
 						<div class="b-settings-blue_row clearfix">
 							<label for="" class="b-settings-blue_label">Рубрика</label>
@@ -933,23 +935,19 @@ $(document).ready(function () {
 								<div class="float-r font-small color-gray margin-3">0/50</div>
 							</div>
 							<label for="" class="b-settings-blue_label">Заголовок</label>
-							<input type="text" name="" id="" class="itx-simple w-400" placeholder="Введите заголовок видео">
+							<div class="w-400  float-l error">
+								<input type="text" name="" id="" class="itx-simple" placeholder="Введите заголовок видео">
+								<div class="errorMessage">Введите заголовок</div>
+							</div>
 						</div>
 						<div class="b-settings-blue_row clearfix">
 							<label for="" class="b-settings-blue_label">Рубрика</label>
-							<div class="w-400 float-l">
+							<div class="w-400 float-l error">
 								<div class="chzn-itx-simple">
 									<select class="chzn">
 										<option selected="selected">0</option>
 										<option>Россия</option>
-										<option>2</option>
-										<option>32</option>						
-										<option>32</option>						
-										<option>32</option>						
-										<option>32</option>						
-										<option>132</option>						
-										<option>132</option>						
-										<option>132</option>						
+										<option>2</option>						
 									</select>
 									<!-- <div class="chzn-itx-simple_add">
 										<div class="chzn-itx-simple_add-hold">
@@ -959,6 +957,7 @@ $(document).ready(function () {
 										<button class="btn-green">Ok</button>
 									</div> -->
 								</div>
+								<div class="errorMessage">Введите рубрику</div>
 							</div>
 						</div>
 					</div>
@@ -1080,7 +1079,9 @@ $(document).ready(function () {
 								<div class="float-r font-small color-gray margin-3">0/50</div>
 							</div>
 							<label for="" class="b-settings-blue_label">Заголовок</label>
-							<input type="text" name="" id="" class="itx-simple w-400" placeholder="Введите заголовок видео">
+							<div class="float-l w-400">
+								<input type="text" name="" id="" class="itx-simple w-400" placeholder="Введите заголовок видео">
+							</div>
 						</div>
 						<div class="b-settings-blue_row clearfix">
 							<label for="" class="b-settings-blue_label">Рубрика</label>

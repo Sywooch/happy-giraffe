@@ -11,6 +11,7 @@
 
 <div class="layout-container">
 	<div class="layout-container_hold">
+	
 		<div class="layout-wrapper">
 			<div class="clearfix">
 				<div class="logo-box">
@@ -33,21 +34,13 @@
 						<div class="margin-20">
 							<span class="i-highlight i-highlight__big font-big">Веселый Жираф вам рекомендует</span>
 						</div>
-						<div class="club-list clearfix">
+						<div class="club-list club-list__big clearfix">
 							<ul class="club-list_ul clearfix">
-								<li class="club-list_li">
-									<a class="club-list_i" href="">
-										<span class="club-list_img-hold">
-											<img class="club-list_img" alt="" src="/images/club/1.png">
-										</span>
-										<span class="club-list_i-name">Украшаем дом</span>
-									</a>
-									<a class="club-list_check powertip" href=""></a>
-								</li>
 								<li class="club-list_li club-list_li__in">
 									<a class="club-list_i" href="">
 										<span class="club-list_img-hold">
-											<img class="club-list_img" alt="" src="/images/club/2.png">
+											<img class="club-list_img" alt="" src="/images/club/2-w130.png">
+											<span class="club-list_img-overlay"></span>
 										</span>
 										<span class="club-list_i-name">Дети</span>
 									</a>
@@ -56,16 +49,28 @@
 								<li class="club-list_li">
 									<a class="club-list_i" href="">
 										<span class="club-list_img-hold">
-											<img class="club-list_img" alt="" src="/images/club/3.png">
+											<img class="club-list_img" alt="" src="/images/club/1-w130.png">
+											<span class="club-list_img-overlay"></span>
 										</span>
-										<span class="club-list_i-name">Цветы в доме</span>
+										<span class="club-list_i-name">Украшаем дом</span>
 									</a>
 									<a class="club-list_check powertip" href=""></a>
 								</li>
 								<li class="club-list_li">
 									<a class="club-list_i" href="">
 										<span class="club-list_img-hold">
-											<img class="club-list_img" alt="" src="/images/club/4.png">
+											<img class="club-list_img" alt="" src="/images/club/10-w130.png">
+											<span class="club-list_img-overlay"></span>
+										</span>
+										<span class="club-list_i-name">Домашние хлопоты</span>
+									</a>
+									<a class="club-list_check powertip" href=""></a>
+								</li>
+								<li class="club-list_li">
+									<a class="club-list_i" href="">
+										<span class="club-list_img-hold">
+											<img class="club-list_img" alt="" src="/images/club/4-w130.png">
+											<span class="club-list_img-overlay"></span>
 										</span>
 										<span class="club-list_i-name">Свадьба</span>
 									</a>
@@ -74,16 +79,18 @@
 								<li class="club-list_li">
 									<a class="club-list_i" href="">
 										<span class="club-list_img-hold">
-											<img class="club-list_img" alt="" src="/images/club/5.png">
+											<img class="club-list_img" alt="" src="/images/club/9-w130.png">
+											<span class="club-list_img-overlay"></span>
 										</span>
-										<span class="club-list_i-name">Наши питомцы</span>
+										<span class="club-list_i-name">Готовим на кухне</span>
 									</a>
 									<a class="club-list_check powertip" href=""></a>
 								</li>
 								<li class="club-list_li">
 									<a class="club-list_i" href="">
 										<span class="club-list_img-hold">
-											<img class="club-list_img" alt="" src="/images/club/6.png">
+											<img class="club-list_img" alt="" src="/images/club/6-w130.png">
+											<span class="club-list_img-overlay"></span>
 										</span>
 										<span class="club-list_i-name">Образование</span>
 									</a>
@@ -92,18 +99,147 @@
 								<li class="club-list_li">
 									<a class="club-list_i" href="">
 										<span class="club-list_img-hold">
-											<img class="club-list_img" alt="" src="/images/club/7.png">
+											<img class="club-list_img" alt="" src="/images/club/8-w130.png">
+											<span class="club-list_img-overlay"></span>
 										</span>
-										<span class="club-list_i-name">Выходные с семьей</span>
+										<span class="club-list_i-name">Красота и мода</span>
 									</a>
 									<a class="club-list_check powertip" href=""></a>
 								</li>
 								<li class="club-list_li">
 									<a class="club-list_i" href="">
 										<span class="club-list_img-hold">
-											<img class="club-list_img" alt="" src="/images/club/8.png">
+											<img class="club-list_img" alt="" src="/images/club/1-w130.png">
+											<span class="club-list_img-overlay"></span>
+										</span>
+										<span class="club-list_i-name">Украшаем дом</span>
+									</a>
+									<a class="club-list_check powertip" href=""></a>
+								</li>
+								<li class="club-list_li">
+									<a class="club-list_i" href="">
+										<span class="club-list_img-hold">
+											<img class="club-list_img" alt="" src="/images/club/6-w130.png">
+											<span class="club-list_img-overlay"></span>
+										</span>
+										<span class="club-list_i-name">Образование</span>
+									</a>
+									<a class="club-list_check powertip" href=""></a>
+								</li>
+								<li class="club-list_li">
+									<a class="club-list_i" href="">
+										<span class="club-list_img-hold">
+											<img class="club-list_img" alt="" src="/images/club/10-w130.png">
+											<span class="club-list_img-overlay"></span>
+										</span>
+										<span class="club-list_i-name">Домашние хлопоты</span>
+									</a>
+									<a class="club-list_check powertip" href=""></a>
+								</li>
+							</ul>
+						</div>
+						<div class="margin-20">
+							<span class="i-highlight i-highlight__big font-big">Еще вам могут быть интересны</span>
+						</div>
+						<div class="club-list club-list__big clearfix">
+							<ul class="club-list_ul clearfix">
+								<li class="club-list_li">
+									<a class="club-list_i" href="">
+										<span class="club-list_img-hold">
+											<img class="club-list_img" alt="" src="/images/club/2-w130.png">
+											<span class="club-list_img-overlay"></span>
+										</span>
+										<span class="club-list_i-name">Дети</span>
+									</a>
+									<a class="club-list_check powertip" href=""></a>
+								</li>
+								<li class="club-list_li">
+									<a class="club-list_i" href="">
+										<span class="club-list_img-hold">
+											<img class="club-list_img" alt="" src="/images/club/1-w130.png">
+											<span class="club-list_img-overlay"></span>
+										</span>
+										<span class="club-list_i-name">Украшаем дом</span>
+									</a>
+									<a class="club-list_check powertip" href=""></a>
+								</li>
+								<li class="club-list_li">
+									<a class="club-list_i" href="">
+										<span class="club-list_img-hold">
+											<img class="club-list_img" alt="" src="/images/club/10-w130.png">
+											<span class="club-list_img-overlay"></span>
+										</span>
+										<span class="club-list_i-name">Домашние хлопоты</span>
+									</a>
+									<a class="club-list_check powertip" href=""></a>
+								</li>
+								<li class="club-list_li">
+									<a class="club-list_i" href="">
+										<span class="club-list_img-hold">
+											<img class="club-list_img" alt="" src="/images/club/4-w130.png">
+											<span class="club-list_img-overlay"></span>
+										</span>
+										<span class="club-list_i-name">Свадьба</span>
+									</a>
+									<a class="club-list_check powertip" href=""></a>
+								</li>
+								<li class="club-list_li">
+									<a class="club-list_i" href="">
+										<span class="club-list_img-hold">
+											<img class="club-list_img" alt="" src="/images/club/9-w130.png">
+											<span class="club-list_img-overlay"></span>
+										</span>
+										<span class="club-list_i-name">Готовим на кухне</span>
+									</a>
+									<a class="club-list_check powertip" href=""></a>
+								</li>
+								<li class="club-list_li">
+									<a class="club-list_i" href="">
+										<span class="club-list_img-hold">
+											<img class="club-list_img" alt="" src="/images/club/6-w130.png">
+											<span class="club-list_img-overlay"></span>
+										</span>
+										<span class="club-list_i-name">Образование</span>
+									</a>
+									<a class="club-list_check powertip" href=""></a>
+								</li>
+								<li class="club-list_li">
+									<a class="club-list_i" href="">
+										<span class="club-list_img-hold">
+											<img class="club-list_img" alt="" src="/images/club/8-w130.png">
+											<span class="club-list_img-overlay"></span>
 										</span>
 										<span class="club-list_i-name">Красота и мода</span>
+									</a>
+									<a class="club-list_check powertip" href=""></a>
+								</li>
+								<li class="club-list_li">
+									<a class="club-list_i" href="">
+										<span class="club-list_img-hold">
+											<img class="club-list_img" alt="" src="/images/club/1-w130.png">
+											<span class="club-list_img-overlay"></span>
+										</span>
+										<span class="club-list_i-name">Украшаем дом</span>
+									</a>
+									<a class="club-list_check powertip" href=""></a>
+								</li>
+								<li class="club-list_li">
+									<a class="club-list_i" href="">
+										<span class="club-list_img-hold">
+											<img class="club-list_img" alt="" src="/images/club/6-w130.png">
+											<span class="club-list_img-overlay"></span>
+										</span>
+										<span class="club-list_i-name">Образование</span>
+									</a>
+									<a class="club-list_check powertip" href=""></a>
+								</li>
+								<li class="club-list_li">
+									<a class="club-list_i" href="">
+										<span class="club-list_img-hold">
+											<img class="club-list_img" alt="" src="/images/club/10-w130.png">
+											<span class="club-list_img-overlay"></span>
+										</span>
+										<span class="club-list_i-name">Домашние хлопоты</span>
 									</a>
 									<a class="club-list_check powertip" href=""></a>
 								</li>
@@ -111,8 +247,15 @@
 						</div>
 					</div>
 				</div>
+				
+				<div class="b-registration_row clearfix">
+					<div class="float-r">
+						<a href="" class="b-registration_skip">Пропустить этот шаг</a>
+						<a href="" class="btn-green btn-h46">Готово, продолжить</a>
+					</div>
+				</div>
 			</div>
-			 	
+			 <div class="footer-push"></div>	
 			
 		</div>
 	</div>

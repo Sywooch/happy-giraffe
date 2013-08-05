@@ -55,7 +55,7 @@ NewCommentWidget::registerScripts();
 </div>
 
 <div class="content-cols clearfix">
-    <div class="col-1" data-bind="if: totalCount() > 0">
+    <div class="col-1" data-bind="if: loaded">
         <div class="menu-list menu-list__favorites">
             <a class="menu-list_i menu-list_i__all2" data-bind="css: { active : activeMenuRowIndex() === null }, click: selectAll">
                 <span class="menu-list_ico"></span>
@@ -63,22 +63,35 @@ NewCommentWidget::registerScripts();
                 <span class="menu-list_count" data-bind="text: totalCount"></span>
             </a>
             <!-- ko if: isMenuVisible -->
-            <!-- ko foreach: menu -->
-            <a class="menu-list_i menu-list_i__post" data-bind="css: { active : $root.activeMenuRowIndex() === $root.menu.indexOf($data) }, css2: cssClass, click: select, visible: count() > 0">
-                <span class="menu-list_ico"></span>
-                <span class="menu-list_tx" data-bind="text: title"></span>
-                <span class="menu-list_count" data-bind="text: count"></span>
-            </a>
+                <!-- ko foreach: menu -->
+                <a class="menu-list_i menu-list_i__post" data-bind="css: { active : $root.activeMenuRowIndex() === $root.menu.indexOf($data) }, css2: cssClass, click: select, visible: $root.totalCount() == 0 || count() > 0">
+                    <span class="menu-list_ico"></span>
+                    <span class="menu-list_tx" data-bind="text: title"></span>
+                    <span class="menu-list_count" data-bind="text: count"></span>
+                </a>
+                <!-- /ko -->
             <!-- /ko -->
-            <!-- /ko -->
+            <div class="menu-list_overlay" data-bind="visible: totalCount() == 0"></div>
         </div>
     </div>
 
     <div class="col-23-middle col-gray clearfix">
 
+        <!-- ko if: loaded() && totalCount() == 0 -->
+        <div class="cap-empty cap-empty__rel">
+            <div class="cap-empty_hold">
+                <div class="cap-empty_tx">По вашему запросу ни чего не найдено.</div>
+                <a href="" class="cap-empty_a">Начать новый поиск</a>
+            </div>
+        </div>
+        <!-- /ko -->
+        <!-- ko if: loaded() && totalCount() > 0 -->
         <div data-bind="html: resultsToShow"></div>
+        <!-- /ko -->
 
-        <div id="infscr-loading" data-bind="visible: loading"><img alt="Loading..." src="/images/ico/ajax-loader.gif"><div>Загрузка</div></div>
+        <div class="infscr-loading-hold" data-bind="visible: loading">
+            <div id="infscr-loading"><img src="/images/ico/ajax-loader.gif" alt="Loading..."><div>Загрузка</div></div>
+        </div>
 
         <div class="pagination pagination-center clearfix" data-bind="visible: ! loading() && pages().length > 1">
             <div class="pager">

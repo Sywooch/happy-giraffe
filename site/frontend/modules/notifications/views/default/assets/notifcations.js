@@ -71,7 +71,7 @@ var UserNotification = {
 };
 
 $(function () {
-    $('.layout-container').scroll(function () {
+    $(window).scroll(function () {
         if (($('#user-notice-list_inner').height() - 500) < $(this).scrollTop())
             UserNotification.loadMore();
     });

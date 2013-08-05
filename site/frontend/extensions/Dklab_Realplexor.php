@@ -94,9 +94,7 @@ class Dklab_Realplexor
 				$pairs[] = "*" . $this->_namespace . $id;
 			}
 		}
-		$a = $this->_send(join(",", $pairs), $data);
-        var_dump($a);
-        die('1');
+		$this->_send(join(",", $pairs), $data);
 	}
 	
 	/**

@@ -164,7 +164,11 @@ class CommunityContent extends HActiveRecord
             ),
             'duplicate' => array(
                 'class' => 'site.common.behaviors.DuplicateBehavior',
-            )
+            ),
+            'searchable' => array(
+                'class' => 'site.common.behaviors.SearchableBehavior',
+                'index' => 'main',
+            ),
         );
     }
 

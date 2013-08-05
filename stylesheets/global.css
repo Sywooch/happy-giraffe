@@ -8270,9 +8270,10 @@
 }
 #horoscope .horoscope-list ul li .img .date > a,
 #horoscope .horoscope-list ul li .img .date span {
-  font: italic 23px/1.6em times new roman, serif;
   display: block;
-  color: #2d87be;
+  margin: 5px 0 0;
+  font: italic 23px/1.1em times new roman, serif;
+  color: #186FB8;
 }
 #horoscope .horoscope-list ul li .text {
   font-size: 11px;
@@ -8280,10 +8281,7 @@
   color: #626262;
 }
 #horoscope .horoscope-list ul li .text .btn-small {
-  display: block;
-  width: 45px;
   margin: 7px auto 5px;
-  font-family: tahoma, sans-serif;
 }
 #horoscope .horoscope-one {
   padding: 7px;
@@ -8291,7 +8289,6 @@
   margin-bottom: 20px;
 }
 #horoscope .horoscope-one h1 {
-  color: #444646;
   text-align: center;
 }
 #horoscope .horoscope-one .block-in {
@@ -8337,7 +8334,7 @@
   *display: inline;
   vertical-align: top;
   padding-top: 45px;
-  color: #858585;
+  color: #555;
   font-size: 16px;
   width: 240px;
   text-align: center;
@@ -8345,7 +8342,7 @@
 #horoscope .horoscope-one .img .date span {
   font: italic 45px/1.2 times new roman, serif;
   display: block;
-  color: #2d87be;
+  color: #186FB8;
 }
 #horoscope .horoscope-one .dates {
   text-align: center;
@@ -8379,7 +8376,7 @@
   width: 110px;
   height: 110px;
   background: url(/images/bg-paper.png) no-repeat;
-  color: #0b99ee;
+  color: #186FB8;
   font-size: 30px;
   font-weight: bold;
   text-align: center;
@@ -8454,7 +8451,7 @@
   font-size: 10px;
 }
 #horoscope .horoscope-fast-list ul li a span {
-  color: #2d87be;
+  color: #186FB8;
   font: italic 18px times new roman, serif;
   text-decoration: underline;
 }
@@ -8530,18 +8527,18 @@
   width: 120px;
 }
 .horoscope-compatibility .plus {
-  width: 44px;
-  height: 43px;
-  background: url(/images/common.png) no-repeat -1px -294px;
   float: left;
-  margin: 60px 7px 0;
+  width: 36px;
+  height: 36px;
+  margin: 65px 10px 0;
+  background: url(/images/widget/horoscope/horoscope-compatibility_plus.png) no-repeat;
 }
 .horoscope-compatibility .equal {
-  width: 38px;
-  height: 43px;
-  background: url(/images/common.png) no-repeat -47px -294px;
   float: left;
-  margin: 60px 8px 0;
+  width: 30px;
+  height: 17px;
+  margin: 75px 10px 0;
+  background: url(/images/widget/horoscope/horoscope-compatibility_equal.png) no-repeat;
 }
 .horoscope-compatibility .button {
   float: left;
@@ -8599,6 +8596,7 @@
   padding-top: 15px;
   color: #2d2d2d;
   font-size: 10px;
+  text-align: center;
 }
 .horoscope-compatibility-list > ul > li .img .date span {
   font: italic 20px/1 times new roman, serif;
@@ -8677,6 +8675,7 @@
   padding-top: 15px;
   color: #2d2d2d;
   font-size: 10px;
+  text-align: center;
 }
 .fast-horoscope ul li .img .date span {
   font: italic 20px/1 times new roman, serif;
@@ -8701,7 +8700,7 @@
   font-size: 20px;
   color: #2b2b2b;
   display: block;
-  margin: 0 0 7px;
+  margin: 0 0 10px;
 }
 .horoscope-subscribe-big > .inptext {
   height: 30px;
@@ -15432,3 +15431,50 @@ table.fr_recipe_tb td {
   margin: 0 5px 5px 0;
 }
 /* /form-settings */
+/* b-radio-icons */
+.b-radio-icons_radio {
+  display: none;
+}
+.ie7 .b-radio-icons_radio,
+.ie8 .b-radio-icons_radio {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  padding: 0;
+  margin: 8px 5px 0 0;
+}
+.b-radio-icons_radio:checked + .b-radio-icons_label {
+  color: #333;
+  background-position: 0 -100px;
+}
+.b-radio-icons_radio:checked + .b-radio-icons_label .ico-male,
+.b-radio-icons_radio:checked + .b-radio-icons_label .ico-female {
+  background-position: 0 -100px;
+}
+.b-radio-icons_label {
+  display: inline-block;
+  *zoom: 1;
+  *display: inline;
+  vertical-align: top;
+  margin: 8px 15px 0 0;
+  color: #777;
+  padding-left: 24px;
+  background: url(/images/input-radio.png) no-repeat;
+  min-height: 18px;
+  line-height: 18px;
+  cursor: pointer;
+}
+.ie7 .b-radio-icons_label,
+.ie8 .b-radio-icons_label {
+  padding-left: 0;
+  background: none;
+}
+.b-radio-icons_label:hover {
+  color: #333;
+}
+.b-radio-icons_label .ico-male,
+.b-radio-icons_label .ico-female {
+  position: relative;
+  top: -5px;
+}
+/* /b-radio-icons */

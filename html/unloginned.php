@@ -562,7 +562,6 @@
 			</div>
 			
 			<a href="#pregnancy-calendar-self" class="fancy" >Персональный календарь беременности</a>
-			
 		</div>  	
 		
 		<div class="push"></div>
@@ -1000,6 +999,7 @@
 	  Вы уже зарегистрированы? <a href="">Войти</a>
 	</div>
   </div>
+    
 </div>
 </body>
 </html>

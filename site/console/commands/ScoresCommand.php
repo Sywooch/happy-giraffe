@@ -169,8 +169,6 @@ class ScoresCommand extends CConsoleCommand
         while (!empty($models)) {
             $models = User::model()->findAll($criteria);
             foreach ($models as $model) {
-                echo $model->id . "\n";
-
                 ScoreAchievement::model()->checkAchieve($model->id, ScoreAchievement::TYPE_BLOG);
                 ScoreAchievement::model()->checkAchieve($model->id, ScoreAchievement::TYPE_BLOG);
                 ScoreAchievement::model()->checkAchieve($model->id, ScoreAchievement::TYPE_BLOG);
@@ -198,6 +196,7 @@ class ScoresCommand extends CConsoleCommand
 
             $i++;
             $criteria->offset = $i * 100;
+            echo ($i*100) . "\n";
         }
     }
 

@@ -54,7 +54,8 @@
 <?php if (count($list) >= 20):?>
     <script type="text/javascript">
         $(function () {
-            $('.layout-container').scroll(function () {
+            $(window).scroll(function () {
+                console.log(11);
                 if (($('#score-list').height() - 500) < $(this).scrollTop())
                     ScorePage.loadMore();
             });

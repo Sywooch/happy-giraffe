@@ -154,7 +154,7 @@
                         <span class="count"><span class="count-red"><?=$notificationsCount?></span></span>
                     </a>
                 </li>
-                <li class="i-career top-line-menu_nav_li new js-tooltipsy<?php if ($scores_diff > 0): ?> new<?php endif; ?>" title="Уведомления">
+                <li class="i-career top-line-menu_nav_li new js-tooltipsy<?php if ($scores_diff > 0): ?> new<?php endif; ?>" title="Успехи">
                     <a href="/scores/">
                         <i class="icon-career"></i>
 						<span class="count ">

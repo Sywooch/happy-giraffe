@@ -26,8 +26,8 @@ class NotificationCommand extends CConsoleCommand
 
     public function actionLikes()
     {
-//        NotificationCreate::generateLikes();
-//        NotificationCreate::generateFavourites();
+        NotificationCreate::generateLikes();
+        NotificationCreate::generateFavourites();
         NotificationCreate::generateReposts();
     }
 

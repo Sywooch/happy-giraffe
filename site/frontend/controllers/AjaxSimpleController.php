@@ -68,7 +68,7 @@ class AjaxSimpleController extends CController
             $comment->refresh();
             $response = array(
                 'status' => true,
-                'data' => Comment::getOneCommentViewData($comment)
+                'data' => Comment::getOneCommentViewData($comment, false)
             );
         } else {
             $response = array(

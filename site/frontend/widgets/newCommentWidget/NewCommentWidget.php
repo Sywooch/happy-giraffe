@@ -62,10 +62,7 @@ class NewCommentWidget extends CWidget
         $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
         Yii::app()->clientScript
             ->registerScriptFile($baseUrl . '/comment.js', CClientScript::POS_HEAD)
-            ->registerScriptFile('/javascripts/knockout-2.2.1.js')
             ->registerScriptFile('/javascripts/knockout.mapping-latest.js');
-
-        Yii::app()->controller->widget('site.common.extensions.imperavi-redactor-widget.ImperaviRedactorWidget', array('onlyRegisterScript' => true));
     }
 
     /**

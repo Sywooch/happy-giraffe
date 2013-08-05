@@ -1,6 +1,8 @@
 <?php
 
 Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
+Yii::app()->clientScript->registerScriptFile('/javascripts/knockout-2.2.1.js');
+Yii::app()->controller->widget('site.common.extensions.imperavi-redactor-widget.ImperaviRedactorWidget', array('onlyRegisterScript' => true));
 
 $this->widget('zii.widgets.CListView', array(
     'cssFile' => false,

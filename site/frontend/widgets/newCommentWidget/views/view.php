@@ -9,7 +9,7 @@ $data = array(
     'entity' => $this->entity,
     'entity_id' => (int)$this->entity_id,
     'objectName' => $this->objectName,
-    'comments' => Comment::getViewData($comments),
+    'comments' => Comment::getViewData($comments, $this->isAlbumComments()),
     'full' => (bool)$this->full,
     'gallery' => (bool)$this->gallery,
     'allCount' => (int)$allCount,
@@ -57,8 +57,20 @@ $data = array(
                     <span class="font-smallest color-gray" data-bind="text: created"></span>
                 </div>
 
-                <!-- ko if: !removed() -->
-                <div class="comments-gray_cont wysiwyg-content" data-bind="html: html, visible: !editMode()"></div>
+                <!-- ko if: !removed() && !editMode() -->
+                <div class="comments-gray_cont wysiwyg-content">
+                    <!-- ko if: albumPhoto() -->
+                    <div class="clearfix">
+                        <div class="comments-gray_photo">
+                            <img src="/images/example/w170-h110.jpg" class="comments-gray_photo-img" data-bind="attr: {src: photoUrl}">
+                            <div class="comments-gray_photo-overlay">
+                                <span class="comments-gray_photo-zoom"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /ko -->
+                    <div data-bind="html: html"></div>
+                </div>
                 <!-- /ko -->
 
                 <!-- ko if: removed() -->

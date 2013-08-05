@@ -107,6 +107,9 @@ function NewComment(data, parent) {
     self.canAdmin = ko.computed(function () {
         return self.canEdit() || self.canRemove();
     });
+    self.albumPhoto = ko.computed(function () {
+        return self.photoUrl() !== false;
+    });
 
     self.Like = function () {
         if (CURRENT_USER_ID != self.author.id()) {

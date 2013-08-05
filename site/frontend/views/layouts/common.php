@@ -176,7 +176,7 @@
         <?php else: ?>
         <ul class="top-line-menu_links float-r">
             <li class="top-line-menu_links_li"><?=CHtml::link('Вход', '#login', array('class' => 'fancy top-line-menu_links_a', 'rel' => 'nofollow', 'data-theme'=>'white-square')); ?></li>
-            <li class="top-line-menu_links_li"><?=CHtml::link('Регистрация', '#register', array('id'=>'reg-main-btn', 'class' => 'fancy top-line-menu_links_a', 'data-theme'=>'white-square'))?></li>
+            <li class="top-line-menu_links_li"><?=CHtml::link('Регистрация', '#register', array('id'=>'reg-main-btn', 'class' => 'fancy top-line-menu_links_a', 'data-theme'=>'transparent'))?></li>
         </ul>
         <?php endif; ?>
 

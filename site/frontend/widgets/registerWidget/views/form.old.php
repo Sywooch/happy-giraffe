@@ -18,8 +18,16 @@ if($this->show_form){
             ');
     }
 }?>
-<div style="display:none" class="popup-container">
-    <?php $this->render('step1', compact('model', 'type')); ?>
+<a id="hidden_register_link" href="#" class="fancy" style="display: none;"></a>
+<div style="display:none">
+    <div id="register" class="popup">
+        <a href="javascript:void(0);" class="popup-close tooltip" onclick="$.fancybox.close();"></a>
+
+        <?php $this->render('step1',compact('model', 'type')); ?>
+
+        <div class="other-steps"></div>
+
+    </div>
 </div>
 <?php
 if ($this->form_type == 'odnoklassniki')

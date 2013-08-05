@@ -30,7 +30,7 @@ Yii::app()->controller->widget('site.common.extensions.imperavi-redactor-widget.
                     <div class="im-tabs_i" data-bind="css: { active : tab() == 2 }"><a href="javascript:void(0)" class="im-tabs_a" data-bind="css: { inactive : onlineContactsCount() == 0 }, click: function(data, event) { if (onlineContactsCount() > 0) changeTab(2, data, event) }, text: onlineContactsCount() > 0 ? 'Кто в онлайн (' + onlineContactsCount() + ')' : 'Кто в онлайн'"></a></div>
                     <div class="im-tabs_i" data-bind="css: { active : tab() == 3 }"><a href="javascript:void(0)" class="im-tabs_a" data-bind="css: { inactive : friendsContactsCount() == 0 }, click: function(data, event) { if (friendsContactsCount() > 0) changeTab(3, data, event) }, text: friendsContactsCount() > 0 ? 'Друзья на сайте (' + friendsContactsCount() + ')' : 'Друзья на сайте'"></a></div>
                 </div>
-                <div class="im-panel" data-bind="if: interlocutor() != ''">
+                <div class="im-panel" data-bind="if: interlocutor() !== null">
                     <div class="im-panel-icons">
                         <div class="im-panel-icons_i">
                             <!-- ko if: ! interlocutor().user().isFriend() && ! interlocutor().inviteSent() -->
@@ -47,7 +47,7 @@ Yii::app()->controller->widget('site.common.extensions.imperavi-redactor-widget.
                             <!-- /ko -->
                             <!-- ko if: interlocutor().user().isFriend() -->
                             <span class="im-panel-icons_i-a powertip im-panel-icons_i-a__friend" title="Друг">
-                                <span class="im-panel-ico im-panel-ico__added-friend"></span>
+                                <span class="im-panel-ico im-panel-ico__friend"></span>
                                 <span class="im-panel-icons_desc">Друг</span>
                             </span>
                             <!-- /ko -->
@@ -92,7 +92,7 @@ Yii::app()->controller->widget('site.common.extensions.imperavi-redactor-widget.
             <div class="im-center_middle" data-bind="visible: openContact() !== null">
                 <div class="im-center_middle-hold">
 
-                    <div class="im-center_middle-w" data-bind="if: ! interlocutor().isBlocked()">
+                    <div class="im-center_middle-w" data-bind="if: interlocutor() !== null && ! interlocutor().isBlocked()">
                         <div class="im_message-loader" data-bind="visible: loadingMessages()">
                             <img src="/images/ico/ajax-loader.gif" alt="">
                             <span class="im-message-loader_tx">Загрузка ранних сообщений</span>
@@ -114,7 +114,7 @@ Yii::app()->controller->widget('site.common.extensions.imperavi-redactor-widget.
                             Вы можете  <a href="javascript:void(0)" data-bind="click: $root.cancelMessage">Отменить</a>  данное сообщение или отредактировать его ниже
                         </div>
                     </div>
-                    <!-- ko if: interlocutor().isBlocked() -->
+                    <!-- ko if: interlocutor() !== null && interlocutor().isBlocked() -->
                     <div class="cap-empty">
                         <div class="cap-empty_hold">
                             <div class="cap-empty_tx">Этот пользователь вас заблокировал</div>

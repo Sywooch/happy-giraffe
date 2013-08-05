@@ -50,7 +50,7 @@
  * @property RecipeBookRecipeVote[] $recipeBookRecipeVotes
  * @property UserPointsHistory[] $userPointsHistories
  * @property UserSocialService[] $userSocialServices
- * @property UserViaCommunity[] $userViaCommunities
+ * @property Community[] $communities
  * @property VaccineDateVote[] $vaccineDateVotes
  * @property Album[] $albums
  * @property Interest[] interests
@@ -961,6 +961,14 @@ class User extends HActiveRecord
             ->from('user__users_communities')
             ->where('user_id = :user_id AND community_id = :community_id', array(':user_id' => $this->id, ':community_id' => $community_id))
             ->queryScalar() != 0;
+    }
+
+    public function toggleCommunity($community_id)
+    {
+        if ($this->isInCommunity($community_id))
+            $this->delCommunity($community_id);
+        else
+            $this->addCommunity($community_id);
     }
 
     public function getBlogWidget()

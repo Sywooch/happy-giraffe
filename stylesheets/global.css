@@ -15255,3 +15255,21 @@ table.fr_recipe_tb td {
   top: -5px;
 }
 /* /b-radio-icons */
+/* b-registration */
+.b-registration {
+  margin: 20px 0;
+}
+.b-registration_row {
+  margin: 20px 20px 20px 45px;
+}
+.b-registration_t {
+  font-size: 25px;
+  line-height: 43px;
+  color: #0d0d0d;
+}
+.b-registration_skip {
+  display: inline-block;
+  vertical-align: top;
+  margin: 16px 20px 0;
+}
+/* /b-registration */

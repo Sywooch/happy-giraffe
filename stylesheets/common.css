@@ -650,7 +650,7 @@ hr,
   border: 1px solid #e6e6e6;
   padding: 7px 10px;
   background: #fff;
-  color: #514F4F;
+  color: #070707;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   -ms-box-sizing: border-box;
@@ -672,7 +672,7 @@ hr,
   border: 1px solid #daebf5;
   padding: 7px 8px 7px 10px;
   font-size: 14px;
-  color: #555;
+  color: #070707;
   background: #fff;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -1755,7 +1755,7 @@ textarea.error,
   border-radius: 3px;
 }
 .btn-h46 {
-  height: 45px;
+  height: 46px;
   font: 17px/45px Arial, Tahoma, Verdana, sans-serif;
   padding: 0 30px;
   -webkit-border-radius: 5px;
@@ -6557,7 +6557,7 @@ select.pregnancy_term + .chzn-container .chzn-results li {
   line-height: 30px;
   color: #514f4f;
   font-size: 12px;
-  margin-right: 40px;
+  margin-right: 25px;
 }
 .chzn-itx-simple .chzn-container-single .chzn-single div {
   background: none;

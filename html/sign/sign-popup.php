@@ -159,53 +159,53 @@
 								</div>
 								<div class="b-sign_itx-hold error">
 								<div class="clearfix">
-									<div class="w-70 float-l margin-r5">
-										<div class="chzn-itx-simple">
-											<select class="chzn"  data-placeholder="ДД">
-												<option value=""></option>
-												<option>1</option>
-												<option>2</option>
-												<option>32</option>						
-												<option>32</option>						
-												<option>32</option>						
-												<option>32</option>						
-											</select>
+										<div class="w-70 float-l margin-r5">
+											<div class="chzn-itx-simple">
+												<select class="chzn"  data-placeholder="день">
+													<option value=""></option>
+													<option>1</option>
+													<option>2</option>
+													<option>32</option>						
+													<option>32</option>						
+													<option>32</option>						
+													<option>32</option>						
+												</select>
+											</div>
+										</div>
+										<div class="w-110 float-l margin-r5">
+											<div class="chzn-itx-simple">
+												<select class="chzn" data-placeholder="месяц">
+													<option value=""></option>
+													<option>Января</option>
+													<option>Февраля</option>
+													<option>Марта</option>
+													<option>Апреля</option>						
+													<option>Майя</option>						
+													<option>Июня</option>						
+													<option>Июля</option>						
+													<option>Августа</option>						
+													<option>Сентября</option>						
+													<option>Октября</option>						
+													<option>Ноября</option>			
+													<option>Декабря</option>			
+												</select>
+											</div>
+										</div>
+										<div class="w-80 float-l">
+											<div class="chzn-itx-simple">
+												<select class="chzn" data-placeholder="год">
+													<option value=""></option>
+													<option>1912</option>
+													<option>1913</option>
+													<option>1914</option>
+													<option>1915</option>						
+													<option>1916</option>						
+													<option>1988</option>						
+													<option>1999</option>						
+												</select>
+											</div>
 										</div>
 									</div>
-									<div class="w-110 float-l margin-r5">
-										<div class="chzn-itx-simple">
-											<select class="chzn" data-placeholder="MM">
-												<option value=""></option>
-												<option>Января</option>
-												<option>Февраля</option>
-												<option>Марта</option>
-												<option>Апреля</option>						
-												<option>Майя</option>						
-												<option>Июня</option>						
-												<option>Июля</option>						
-												<option>Августа</option>						
-												<option>Сентября</option>						
-												<option>Октября</option>						
-												<option>Ноября</option>			
-												<option>Декабря</option>			
-											</select>
-										</div>
-									</div>
-									<div class="w-80 float-l">
-										<div class="chzn-itx-simple">
-											<select class="chzn" data-placeholder="ГГ">
-												<option value=""></option>
-												<option>1912</option>
-												<option>1913</option>
-												<option>1914</option>
-												<option>1915</option>						
-												<option>1916</option>						
-												<option>1988</option>						
-												<option>1999</option>						
-											</select>
-										</div>
-									</div>
-								</div>
 								<div class="errorMessage">Введите дату рождения</div>
 								</div>
 							</div>
@@ -326,7 +326,7 @@
 									<div class="clearfix">
 										<div class="w-70 float-l margin-r5">
 											<div class="chzn-itx-simple">
-												<select class="chzn"  data-placeholder="ДД">
+												<select class="chzn"  data-placeholder="день">
 													<option value=""></option>
 													<option>1</option>
 													<option>2</option>
@@ -339,7 +339,7 @@
 										</div>
 										<div class="w-110 float-l margin-r5">
 											<div class="chzn-itx-simple">
-												<select class="chzn" data-placeholder="MM">
+												<select class="chzn" data-placeholder="месяц">
 													<option value=""></option>
 													<option>Января</option>
 													<option>Февраля</option>
@@ -358,7 +358,7 @@
 										</div>
 										<div class="w-80 float-l">
 											<div class="chzn-itx-simple">
-												<select class="chzn" data-placeholder="ГГ">
+												<select class="chzn" data-placeholder="год">
 													<option value=""></option>
 													<option>1912</option>
 													<option>1913</option>

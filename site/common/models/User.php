@@ -50,7 +50,7 @@
  * @property RecipeBookRecipeVote[] $recipeBookRecipeVotes
  * @property UserPointsHistory[] $userPointsHistories
  * @property UserSocialService[] $userSocialServices
- * @property UserViaCommunity[] $userViaCommunities
+ * @property Community[] $communities
  * @property VaccineDateVote[] $vaccineDateVotes
  * @property Album[] $albums
  * @property Interest[] interests
@@ -963,6 +963,14 @@ class User extends HActiveRecord
             ->queryScalar() != 0;
     }
 
+    public function toggleCommunity($community_id)
+    {
+        if ($this->isInCommunity($community_id))
+            $this->delCommunity($community_id);
+        else
+            $this->addCommunity($community_id);
+    }
+
     public function getBlogWidget()
     {
         $criteria = new CDbCriteria(array(
@@ -1327,5 +1335,18 @@ class User extends HActiveRecord
     public function withUs()
     {
         return HDate::spentDays(strtotime($this->register_date));
+    }
+
+    /**
+     * @return CommunityContent
+     */
+    public function getLastStatus()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->compare('author_id', $this->id);
+        $criteria->compare('type_id', CommunityContent::TYPE_STATUS);
+        $criteria->order = 'id desc';
+
+        return CommunityContent::model()->find($criteria);
     }
 }

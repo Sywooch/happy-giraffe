@@ -238,7 +238,13 @@ class Notification extends HMongoModel
                 $class = 'NotificationDiscussContinue';
                 break;
             case self::NEW_LIKE:
-                $class = 'NotificationLike';
+                $class = 'NotificationLikes';
+                break;
+            case self::NEW_FAVOURITE:
+                $class = 'NotificationFavourites';
+                break;
+            case self::NEW_REPOST:
+                $class = 'NotificationReposts';
                 break;
         }
 

@@ -133,97 +133,26 @@ Yii::app()->clientScript->registerScriptFile('/javascripts/ko_user_profile.js');
 
 <?php $this->widget('UserFriendsWidget', array('user' => $user)); ?>
 <?php $this->widget('AwardsWidget', array('user' => $user)); ?>
-<?php $this->widget('UserCommunitiesWidget', array('user' => $user)); ?>
+<?php $this->widget('ClubsWidget', array('user' => $user)); ?>
 
 </div>
 <div class="col-23-middle">
 
-<div class="b-user-status">
-    <div class=" clearfix">
-        <div class="meta-gray">
-            <a href="" class="meta-gray_comment">
-                <span class="ico-comment ico-comment__gray"></span>
-                <span class="meta-gray_tx">35</span>
-            </a>
-            <div class="meta-gray_view">
-                <span class="ico-view ico-view__gray"></span>
-                <span class="meta-gray_tx">305</span>
-            </div>
-        </div>
-        <div class="float-l">
-            <span class="font-smallest color-gray">Сегодня 13:25</span>
-        </div>
-    </div>
-    <div class="b-user-status_hold clearfix">
-        <a href="" class="b-user-status_hold-a">	Говори себе с утра: Счастье, нам вставать пора!!! Так со Счастьем и вставай, от себя не отпускай!!!</a>
-
-        <div class="textalign-r clearfix">
-            <div class="b-user-mood">
-                <div class="b-user-mood_hold">
-                    <div class="b-user-mood_tx">Мое настроение -</div>
-                </div>
-                <div class="b-user-mood_img">
-                    <img src="/images/widget/mood/6.png">
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<?php
+$last_status = $user->getLastStatus();
+if ($last_status !== null)
+    $this->renderPartial('application.modules.blog.views.default.types.type_5', array('data' => $last_status, 'full' => true));
+?>
 
 <?php $this->widget('AboutWidget', array('user' => $user)); ?>
 
 <?php $this->widget('InterestsWidget', array('user' => $user)); ?>
 
-<!-- Фото -->
-<div class="photo-preview-row clearfix">
-    <h3 class="heading-small margin-b10">Мои фото</h3>
-    <div class="photo-preview-row_hold2">
-        <div class="photo-grid clearfix">
-            <div class="photo-grid_row clearfix">
-                <!-- Ловить клик на photo-grid_i для показа увеличенного фото -->
-                <div class="photo-grid_i">
-                    <img class="photo-grid_img" src="/images/example/photo-grid-7.jpg" alt="">
-                    <div class="photo-grid_overlay">
-                        <span class="photo-grid_zoom powertip"></span>
-                    </div>
-                </div>
-                <div class="photo-grid_i">
-                    <img class="photo-grid_img" src="/images/example/photo-grid-8.jpg" alt="">
-                    <div class="photo-grid_overlay">
-                        <span class="photo-grid_zoom powertip"></span>
-                    </div>
-                </div>
-                <div class="photo-grid_i">
-                    <img class="photo-grid_img" src="/images/example/photo-grid-9.jpg" alt="">
-                    <div class="photo-grid_overlay">
-                        <span class="photo-grid_zoom powertip"></span>
-                    </div>
-                </div>
-                <div class="photo-grid_i">
-                    <img class="photo-grid_img" src="/images/example/photo-grid-10.jpg" alt="">
-                    <div class="photo-grid_overlay">
-                        <span class="photo-grid_zoom powertip"></span>
-                    </div>
-                </div>
-                <div class="photo-grid_i">
-                    <img class="photo-grid_img" src="/images/example/photo-grid-11.jpg" alt="">
-                    <div class="photo-grid_overlay">
-                        <span class="photo-grid_zoom powertip"></span>
-                    </div>
-                </div>
-                <div class="photo-grid_i">
-                    <img class="photo-grid_img" src="/images/example/photo-grid-12.jpg" alt="">
-                    <div class="photo-grid_overlay">
-                        <span class="photo-grid_zoom powertip"></span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="photo-preview-row_last">
-            <div class="font-small color-gray margin-b5">смотреть <br> все фото</div>
-            <a href="" class="photo-preview-row_a">58 054</a>
-        </div>
-    </div>
+<?php $this->widget('AlbumPhotoWidget', array('user' => $user)); ?>
+
+
+<div class="col-23">
+
 </div>
 
 <!-- Статьи -->

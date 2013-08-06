@@ -84,7 +84,7 @@
     </div>
     <?=$form->hiddenField($slaveModel, 'photos') ?>
     <div class=" clearfix">
-        <a href="" data-bind="click: add" class="btn-blue btn-h46 float-r"><?=$model->isNewRecord ? 'Добавить' : 'Редактировать'?></a>
+        <a href="" data-bind="click: add, css: {'btn-inactive': upload().photos().length < 3}" class="btn-blue btn-h46 float-r"><?=$model->isNewRecord ? 'Добавить' : 'Редактировать'?></a>
         <a href="" class="btn-gray-light btn-h46 float-r margin-r15" onclick="$.fancybox.close();return false;">Отменить</a>
 
         <div class="float-l">
@@ -132,9 +132,10 @@
         self.add = function () {
             $('#CommunityPhotoPost_photos').val(self.upload().getPhotoIds());
 
-            if (self.upload().photos().length > 1){
-                console.log(23232);
+            if (self.upload().photos().length > 2){
                 $('#blog-form').submit();
+            }else{
+                alert('Минимум 3 фото')
             }
         }
     };

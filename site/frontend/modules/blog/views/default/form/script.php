@@ -56,8 +56,7 @@
                         if (FileAPI.support.dnd) {
                             $('.b-add-img_html5-tx').show();
 
-                            $(document).dnd(function (over) {
-                            }, function (files) {
+                            $('#redactor-popup_b-photo .b-add-img__single').dnd(function (over) {}, function (files) {
                                 formWPU.upload().onFiles(files);
                             });
                         }

@@ -720,6 +720,10 @@ class CommunityContent extends HActiveRecord
      */
     public function getContentText($length = 128, $etc = '...')
     {
+        if ($this->getContent() === null){
+            echo $this->id;
+            Yii::app()->end();
+        }
         return Str::getDescription($this->getContent()->text, $length, $etc);
     }
 

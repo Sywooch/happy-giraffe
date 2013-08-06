@@ -41,17 +41,18 @@
 <script type="text/javascript">
     $(function () {
         if (!(FileAPI.support.cors || FileAPI.support.flash)) {
-            $('#oooops').show();
-            $('#buttons-panel').hide();
+//            $('#oooops').show();
+//            $('#buttons-panel').hide();
         }
 
         if (FileAPI.support.dnd) {
             $('.b-add-img_html5-tx').show();
 
-            $(document).dnd(function (over) {
-            }, function (files) {
-                formVM1.upload().onFiles(files);
+            $('#popup-user-add-photo .b-add-img').dnd(function (over) {}, function (files) {
                 formVM2.upload().onFiles(files);
+            });
+            $('#popup-user-add-photo-post .b-add-img').dnd(function (over) {}, function (files) {
+                formVM1.upload().onFiles(files);
             });
         }
 

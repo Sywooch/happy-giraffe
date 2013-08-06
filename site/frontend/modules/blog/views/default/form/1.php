@@ -197,14 +197,14 @@
                         <div class="b-add-img_t-tx">Поддерживаемые форматы: jpg и png</div>
                     </div>
                     <div class="file-fake">
-                        <button class="btn-green btn-medium file-fake_btn">Обзор</button>
-                        <input type="file" class="js-upload-files-multiple">
+                        <button class="btn-green btn-medium file-fake_btn" data-bind="css: {'btn-inactive': upload().photos().length > 0}">Обзор</button>
+                        <input type="file" class="js-upload-files-multiple" data-bind="click: openLoad">
                     </div>
                 </div>
                 <div class="textalign-c clearfix">
                     <!-- ko with: upload -->
                     <!-- ko foreach: photos -->
-                    <div class="b-add-img_i" data-bind="attr: {id: 'uploaded_photo_' + uid}" style="overflow: hidden;">
+                    <div class="b-add-img_i" data-bind="attr: {id: 'uploaded_photo_' + uid}, css: {'b-add-img_i__single': isSingle()}" style="overflow: hidden;">
                         <div class="js-image" style="opacity: 0.2"></div>
                         <div class="b-add-img_i-vert"></div>
                         <div class="b-add-img_i-load">

@@ -70,7 +70,7 @@ class DefaultController extends HController
     public function actionRestore()
     {
         $id = Yii::app()->request->getPost('id');
-        $success = BlogContent::model()->findByPk($id)->restore();
+        $success = BlogContent::model()->resetScope()->findByPk($id)->restore();
         $response = compact('success');
         echo CJSON::encode($response);
     }

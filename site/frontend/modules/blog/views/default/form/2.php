@@ -73,7 +73,7 @@
 
     </div>
     <div class=" clearfix">
-        <a href="javascript:void(0)" onclick="$('#blog-form').submit()" class="btn-blue btn-h46 float-r btn-inactive"><?=$model->isNewRecord ? 'Добавить' : 'Редактировать'?></a>
+        <button class="btn-blue btn-h46 float-r btn-inactive"><?=$model->isNewRecord ? 'Добавить' : 'Редактировать'?></button>
         <a href="javascript:void(0)" onclick="$.fancybox.close()" class="btn-gray-light btn-h46 float-r margin-r15">Отменить</a>
 
         <div class="float-l">

@@ -34,58 +34,12 @@
     </div>
 </div>
 
-<?php $this->renderPartial('form/3_post', array('model' => $model, 'slaveModel'=>$slaveModel)); ?>
+<?php $this->renderPartial('form/3_post', array('json' => $json, 'model' => $model, 'slaveModel' => $slaveModel)); ?>
 
-<?php $this->renderPartial('form/3_album'); ?>
+<?php $this->renderPartial('form/3_album', array('json' => $json)); ?>
 
 <script type="text/javascript">
     $(function () {
-        $('#CommunityPhotoPost_text').redactor({
-            minHeight: 80,
-            autoresize: true,
-            buttons: []
-        });
-
-        var PhotoPostViewModel = function (data) {
-            var self = this;
-            ko.utils.extend(self, new BlogFormViewModel(data));
-            self.upload = ko.observable(new UploadPhotos(data.photos));
-
-            self.add = function () {
-                console.log(self.upload().getPhotoIds());
-                $('#CommunityPhotoPost_photos').val(self.upload().getPhotoIds());
-
-                if (self.upload().photos().length > 0)
-                    $('#blog-form').submit()
-            }
-        };
-        var formVM1 = new PhotoPostViewModel(<?=CJSON::encode($json)?>);
-        ko.applyBindings(formVM1, document.getElementById('popup-user-add-photo-post'));
-
-        var PhotoAlbumViewModel = function () {
-            var self = this;
-            self.id = 0;
-            self.upload = ko.observable(new UploadPhotos());
-
-            self.add = function () {
-                if (self.upload().photos().length > 0){
-                    var photo_ids = [];
-                    var a = self.upload().photos();
-                    for (var i = 0; i < a.length; i++){
-                        photo_ids.push(a[i].id());
-                    }
-
-                    $.post('/ajaxSimple/addPhoto/', {album_id: self.id, photo_ids: photo_ids}, function (response) {
-                        if (response.status)
-                            $.fancybox.close();
-                    }, 'json');
-                }
-            }
-        };
-        var formVM2 = new PhotoAlbumViewModel();
-        ko.applyBindings(formVM2, document.getElementById('popup-user-add-photo'));
-
-
         if (!(FileAPI.support.cors || FileAPI.support.flash)) {
             $('#oooops').show();
             $('#buttons-panel').hide();

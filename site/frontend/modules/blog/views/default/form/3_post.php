@@ -57,7 +57,7 @@
         <div class="textalign-c clearfix">
             <!-- ko with: upload -->
             <!-- ko foreach: photos -->
-            <div class="b-add-img_i" data-bind="attr: {id: 'uploaded_photo_' + uid}">
+            <div class="b-add-img_i" data-bind="attr: {id: 'uploaded_photo_' + uid}, css: {'b-add-img_i__single': isSingle()}">
                 <div class="js-image" style="opacity: 0.2"></div>
                 <!-- ko if: file === null  -->
                 <img class="b-add-img_i-img" data-bind="attr: {src: url}">
@@ -138,6 +138,18 @@
                 alert('Минимум 3 фото')
             }
         }
+
+        if (FileAPI.support.dnd) {
+            $('.b-add-img_html5-tx').show();
+            $('#popup-user-add-photo-post .b-add-img').dnd(function (over) {}, function (files) {
+                self.upload().onFiles(files);
+            });
+        }
+        $('#popup-user-add-photo-post .js-upload-files-multiple').on('change', function (evt) {
+            var files = FileAPI.getFiles(evt);
+            self.upload().onFiles(files);
+            FileAPI.reset(evt.currentTarget);
+        });
     };
     var formVM1 = new PhotoPostViewModel(<?=CJSON::encode($json)?>);
     ko.applyBindings(formVM1, document.getElementById('popup-user-add-photo-post'));

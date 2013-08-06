@@ -37,34 +37,3 @@
 <?php $this->renderPartial('form/3_post', array('json' => $json, 'model' => $model, 'slaveModel' => $slaveModel)); ?>
 
 <?php $this->renderPartial('form/3_album', array('json' => $json)); ?>
-
-<script type="text/javascript">
-    $(function () {
-        if (!(FileAPI.support.cors || FileAPI.support.flash)) {
-//            $('#oooops').show();
-//            $('#buttons-panel').hide();
-        }
-
-        if (FileAPI.support.dnd) {
-            $('.b-add-img_html5-tx').show();
-
-            $('#popup-user-add-photo .b-add-img').dnd(function (over) {}, function (files) {
-                formVM2.upload().onFiles(files);
-            });
-            $('#popup-user-add-photo-post .b-add-img').dnd(function (over) {}, function (files) {
-                formVM1.upload().onFiles(files);
-            });
-        }
-
-        $('#popup-user-add-photo .js-upload-files-multiple').on('change', function (evt) {
-            var files = FileAPI.getFiles(evt);
-            formVM2.upload().onFiles(files);
-            FileAPI.reset(evt.currentTarget);
-        });
-        $('#popup-user-add-photo-post .js-upload-files-multiple').on('change', function (evt) {
-            var files = FileAPI.getFiles(evt);
-            formVM1.upload().onFiles(files);
-            FileAPI.reset(evt.currentTarget);
-        });
-    });
-</script>

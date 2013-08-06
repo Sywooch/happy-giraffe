@@ -46,20 +46,6 @@
                     if (typeof formWPU === 'undefined'){
                         formWPU = new WysiwygPhotoUpload();
                         ko.applyBindings(formWPU, document.getElementById('redactor-popup_b-photo'));
-
-                        $('#redactor-popup_b-photo .js-upload-files-multiple').on('change', function (evt) {
-                            var files = FileAPI.getFiles(evt);
-                            formWPU.upload().onFiles(files);
-                            FileAPI.reset(evt.currentTarget);
-                        });
-
-                        if (FileAPI.support.dnd) {
-                            $('.b-add-img_html5-tx').show();
-
-                            $('#redactor-popup_b-photo .b-add-img__single').dnd(function (over) {}, function (files) {
-                                formWPU.upload().onFiles(files);
-                            });
-                        }
                     }else{
                         formWPU.upload().photos([]);
                     }
@@ -208,5 +194,26 @@
         self.close = function(){
             $('#redactor-popup_b-photo').addClass('display-n');
         };
+        self.openLoad = function(data, event){
+            if (self.upload().photos().length < 1)
+                return true;
+        };
+
+        $('#redactor-popup_b-photo .js-upload-files-multiple').on('change', function (evt) {
+            if (self.upload().photos().length < 1){
+                var files = FileAPI.getFiles(evt);
+                self.upload().onFiles(files);
+                FileAPI.reset(evt.currentTarget);
+            }
+        });
+
+        if (FileAPI.support.dnd) {
+            $('.b-add-img_html5-tx').show();
+
+            $('#redactor-popup_b-photo .b-add-img__for-single').dnd(function (over) {}, function (files) {
+                if (self.upload().photos().length < 1)
+                    self.upload().onFiles(files);
+            });
+        }
     };
 </script>

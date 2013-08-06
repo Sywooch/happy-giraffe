@@ -84,7 +84,7 @@
     </div>
     <?=$form->hiddenField($slaveModel, 'photos') ?>
     <div class=" clearfix">
-        <a href="" data-bind="click: add, css: {'btn-inactive': upload().photos().length < 3}" class="btn-blue btn-h46 float-r"><?=$model->isNewRecord ? 'Добавить' : 'Редактировать'?></a>
+        <button class="btn-blue btn-h46 float-r btn-inactive" data-bind="click: add, css: {'btn-inactive': upload().photos().length < 3}"><?=$model->isNewRecord ? 'Добавить' : 'Редактировать'?></button>
         <a href="" class="btn-gray-light btn-h46 float-r margin-r15" onclick="$.fancybox.close();return false;">Отменить</a>
 
         <div class="float-l">

@@ -57,7 +57,7 @@ $model = new AlbumPhoto();
     </div>
 
     <div class=" clearfix">
-        <a href="" class="btn-blue btn-h46 float-r" data-bind="click: add, css: {'btn-inactive': upload().photos().length == 0}">Добавить</a>
+        <button class="btn-blue btn-h46 float-r btn-inactive" data-bind="click: add, css: {'btn-inactive': upload().photos().length == 0}"><?=$model->isNewRecord ? 'Добавить' : 'Редактировать'?></button>
         <a href="javascript:;" class="btn-gray-light btn-h46 float-r margin-r15" onclick="$.fancybox.close()">Отменить</a>
 
         <div class="float-l">

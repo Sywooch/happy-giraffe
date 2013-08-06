@@ -15,7 +15,7 @@ function UploadPhotos(data) {
 
     self.onFiles = function (files) {
         FileAPI.each(files, function (file) {
-            if (file.size >= 25 * FileAPI.MB) {
+            if (file.size >= 6 * FileAPI.MB) {
                 alert('Sorrow.\nMax size 25MB')
             }
             else if (file.size === void 0) {
@@ -57,6 +57,7 @@ function UploadedPhoto(file, parent, photo) {
     var self = this;
 
     self.parent = parent;
+    self.canvas = ko.observable('');
     self.html = '';
 
     if (file != null) {
@@ -67,9 +68,27 @@ function UploadedPhoto(file, parent, photo) {
         self._progress = ko.observable(0);
 
         if (/^image/.test(self.file.type)) {
-            FileAPI.Image(self.file).preview(195, 125).rotate('auto').get(function (err, img) {
-                $('#uploaded_photo_' + self.uid + ' .js-image').prepend(img);
-            });
+            if (self.parent.photos().length == 0)
+                FileAPI.Image(self.file).preview(480, 250).rotate('auto').get(function (err, img) {
+                    $('#uploaded_photo_' + self.uid + ' .js-image').prepend(img);
+                });
+            else{
+                if (self.parent.photos().length == 1){
+
+                    //переделываем превью первой фотки на маленькое
+                    var first_image = self.parent.photos()[0];
+                    if (first_image.file){
+                        FileAPI.Image(first_image.file).preview(195, 125).rotate('auto').get(function (err, img) {
+                            first_image.canvas(img);
+                            $('#uploaded_photo_' + first_image.uid + ' .js-image').html('').prepend(img);
+                        });
+                    }
+                }
+                FileAPI.Image(self.file).preview(195, 125).rotate('auto').get(function (err, img) {
+                    self.canvas(img);
+                    $('#uploaded_photo_' + self.uid + ' .js-image').prepend(img);
+                });
+            }
         }
     } else {
         self.file = null;
@@ -114,4 +133,7 @@ function UploadedPhoto(file, parent, photo) {
             self.file.xhr.abort();
         self.parent.photos.remove(self);
     };
+    self.isSingle = ko.computed(function () {
+        return self.parent.photos().length == 1;
+    });
 }

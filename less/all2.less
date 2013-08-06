@@ -798,9 +798,10 @@ table.fr_recipe_tb td { width: 50%;}
 /* photo-grid */
 .photo-grid {
     margin: 0 0 10px;
+    overflow: hidden;
 
     &_row {
-        margin: 0 0 5px;
+        margin: 0 -10px 5px 0;
     }
     &_i {
         position: relative;
@@ -847,8 +848,8 @@ table.fr_recipe_tb td { width: 50%;}
     .photo-grid {
         .inline-block();
         vertical-align: middle;
-        width: 600px;
         margin: 0;
+        overflow: visible;
     }
     .photo-grid_row {margin: 0;}
     .photo-grid_i {
@@ -890,7 +891,7 @@ table.fr_recipe_tb td { width: 50%;}
     &_last {
         .inline-block();
         vertical-align: middle;
-        width: 70px;
+        width: 66px;
         text-align: center;
     }
     &_a {

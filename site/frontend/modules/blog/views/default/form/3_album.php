@@ -23,7 +23,7 @@ $model = new AlbumPhoto();
         </div>
     </div>
 
-    <div class="b-add-img b-add-img__multi">
+    <div class="b-add-img b-add-img__for-multi">
         <div class="b-add-img_hold">
             <div class="b-add-img_t">
                 Загрузите фотографии с компьютера

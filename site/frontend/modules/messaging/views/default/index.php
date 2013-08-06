@@ -2,7 +2,7 @@
 Yii::app()->controller->widget('site.common.extensions.imperavi-redactor-widget.ImperaviRedactorWidget', array('onlyRegisterScript' => true));
 ?>
 
-<div class="im">
+<div class="im" data-bind="css: { im__cap : me.avatar() === false }">
     <div class="im_hold clearfix">
         <div class="im-sidebar">
             <h2 class="im-sidebar_t">Мои диалоги</h2>
@@ -141,6 +141,19 @@ Yii::app()->controller->widget('site.common.extensions.imperavi-redactor-widget.
                                 </div>
                                 <button class="btn-green" data-bind="click: submit, text: editingMessageId() === null ? 'Отправить' : 'Сохранить'">Отправить</button>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="im-cap" data-bind="visible: me.avatar() === false">
+                <div class="im-cap_hold">
+                    <div class="im-cap_t">У вас есть непрочитанные сообщения!</div>
+                    <div class="im-cap_tx">Для того чтобы начать пользоваться сервисом, <br>необходимо загрузить главное фото</div>
+                    <div class="clearfix">
+                        <div class="file-fake">
+                            <button class="file-fake_btn btn-green btn-medium">Загрузить фото</button>
+                            <input type="file" />
                         </div>
                     </div>
                 </div>

@@ -130,14 +130,12 @@
         self.upload = ko.observable(new UploadPhotos(data.photos));
 
         self.add = function () {
-            console.log(self.upload().getPhotoIds());
             $('#CommunityPhotoPost_photos').val(self.upload().getPhotoIds());
 
-            if (self.upload().photos().length > 0)
+            if (self.upload().photos().length > 1)
                 $('#blog-form').submit()
         }
     };
     var formVM1 = new PhotoPostViewModel(<?=CJSON::encode($json)?>);
     ko.applyBindings(formVM1, document.getElementById('popup-user-add-photo-post'));
-
 </script>

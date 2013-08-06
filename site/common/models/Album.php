@@ -251,7 +251,7 @@ class Album extends HActiveRecord
 
     public function getUrl()
     {
-        return Yii::app()->createUrl('albums/view', array('user_id' => $this->author_id, 'id' => $this->id));
+        return Yii::app()->createUrl('gallery/user/view', array('userId' => $this->author_id, 'albumId' => $this->id));
     }
 
     public function getPhotoCollection()

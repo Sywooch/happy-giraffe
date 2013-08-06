@@ -87,7 +87,6 @@ $model = new AlbumPhoto();
 
     var PhotoAlbumViewModel = function (data) {
         var self = this;
-        self.id = 0;
         self.upload = ko.observable(new UploadPhotos());
         self.showDropdown = ko.observable(false);
         self.newAlbumTitle = ko.observable('');
@@ -123,7 +122,7 @@ $model = new AlbumPhoto();
                     photo_ids.push(a[i].id());
                 }
 
-                $.post('/ajaxSimple/addPhoto/', {album_id: self.id, photo_ids: photo_ids}, function (response) {
+                $.post('/ajaxSimple/addPhoto/', {album_id: self.selectedAlbum(), photo_ids: photo_ids}, function (response) {
                     if (response.status)
                         $.fancybox.close();
                 }, 'json');

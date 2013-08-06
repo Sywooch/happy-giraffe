@@ -132,8 +132,10 @@
         self.add = function () {
             $('#CommunityPhotoPost_photos').val(self.upload().getPhotoIds());
 
-            if (self.upload().photos().length > 1)
-                $('#blog-form').submit()
+            if (self.upload().photos().length > 1){
+                console.log(23232);
+                $('#blog-form').submit();
+            }
         }
     };
     var formVM1 = new PhotoPostViewModel(<?=CJSON::encode($json)?>);

@@ -156,8 +156,8 @@ function Message(data, parent) {
 //            CKEDITOR.instances['im-editor'].focus();
 //        });
 
-        self.redactor.set(self.text());
-        self.redactor.focus();
+        parent.redactor.set(self.text());
+        parent.redactor.focus();
 
         parent.editingMessageId(self.id());
     }
@@ -564,6 +564,7 @@ function MessagingViewModel(data) {
             if (response.success) {
                 self.messages.remove(self.editingMessage());
                 self.editingMessageId(null);
+                self.redactor.set('');
             }
         }, 'json');
     }

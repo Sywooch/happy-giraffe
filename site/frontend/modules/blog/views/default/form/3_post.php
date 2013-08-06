@@ -25,7 +25,7 @@
             <label for="" class="b-settings-blue_label">Рубрика</label>
 
             <div class="w-400 float-l">
-                <div class="chzn-itx-simple">
+                <div class="chzn-itx-simple js-select-rubric">
                     <select name="<?=CHtml::activeName($model, 'rubric_id')?>" id="<?=CHtml::activeId($model, 'rubric_id')?>" data-bind="options: rubricsList,
                     value: selectedRubric,
                     optionsText: function(rubric) {

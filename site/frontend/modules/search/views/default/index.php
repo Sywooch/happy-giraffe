@@ -4,9 +4,9 @@
  */
 
 Yii::app()->clientScript
+    ->registerScriptFile('/javascripts/knockout-2.2.1.js')
     ->registerScriptFile('/javascripts/ko_search.js')
 ;
-
 Yii::import('application.widgets.newCommentWidget.NewCommentWidget');
 NewCommentWidget::registerScripts();
 ?>

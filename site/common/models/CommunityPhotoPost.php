@@ -134,7 +134,7 @@ class CommunityPhotoPost extends HActiveRecord
     {
         $data = array();
         foreach ($this->getPhotos() as $photo)
-            $data[] = array('id' => $photo->id, 'url' => $photo->getPreviewUrl(162, 125));
+            $data[] = array('id' => $photo->id, 'url' => $photo->getPreviewUrl(480, 250));
 
         return $data;
     }

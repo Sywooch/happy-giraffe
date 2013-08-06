@@ -130,10 +130,10 @@ class DefaultController extends HController
         }
 
         $json = array(
-            'title' => (string) $model->title,
-            'privacy' => (int) $model->privacy,
-            'text' => (string) $slaveModel->text,
-            'rubricsList' => array_map(function($rubric) {
+            'title' => (string)$model->title,
+            'privacy' => (int)$model->privacy,
+            'text' => (string)$slaveModel->text,
+            'rubricsList' => array_map(function ($rubric) {
                 return array(
                     'id' => $rubric->id,
                     'title' => $rubric->title,
@@ -141,10 +141,10 @@ class DefaultController extends HController
             }, $this->user->blog_rubrics),
         );
         if ($model->type_id == CommunityContent::TYPE_STATUS) {
-            $json['moods'] = array_map(function($mood) {
+            $json['moods'] = array_map(function ($mood) {
                 return array(
-                    'id' => (int) $mood->id,
-                    'title' => (string) $mood->title,
+                    'id' => (int)$mood->id,
+                    'title' => (string)$mood->title,
                 );
             }, UserMood::model()->findAll(array('order' => 'id ASC')));
             $json['mood_id'] = $slaveModel->mood_id;
@@ -154,6 +154,12 @@ class DefaultController extends HController
                 $json['photos'] = array();
             else
                 $json['photos'] = $model->getContent()->getPhotoPostData();
+            $json['albumsList'] = array_map(function ($album) {
+                return array(
+                    'id' => $album->id,
+                    'title' => $album->title,
+                );
+            }, $this->user->simpleAlbums);
         }
         if ($model->type_id == CommunityContent::TYPE_VIDEO) {
             if ($model->isNewRecord) {
@@ -166,7 +172,7 @@ class DefaultController extends HController
         }
 
         if (Yii::app()->request->getPost('short'))
-            $this->renderPartial('form/'.$model->type_id, compact('model', 'slaveModel', 'json'), false, true);
+            $this->renderPartial('form/' . $model->type_id, compact('model', 'slaveModel', 'json'), false, true);
         else
             $this->renderPartial('form', compact('model', 'slaveModel', 'json'), false, true);
     }
@@ -187,9 +193,9 @@ class DefaultController extends HController
         $model->$slug = $slaveModel;
         $success = $model->withRelated->save(true, array($slug));
 
-        if ($success){
+        if ($success) {
             $this->redirect($model->url);
-        }else{
+        } else {
             echo 'Root:<br />';
             var_dump($model->getErrors());
             echo 'Slave:<br />';
@@ -208,8 +214,7 @@ class DefaultController extends HController
 
     protected function performAjaxValidation($models)
     {
-        if(isset($_POST['ajax']) && $_POST['ajax']==='blog-form')
-        {
+        if (isset($_POST['ajax']) && $_POST['ajax'] === 'blog-form') {
             echo CActiveForm::validate($models);
             Yii::app()->end();
         }
@@ -220,7 +225,7 @@ class DefaultController extends HController
         return array(
             'title' => $this->user->getBlogTitle(),
             'description' => $this->user->blog_description,
-            'rubrics' => array_map(function($rubric) {
+            'rubrics' => array_map(function ($rubric) {
                 return array(
                     'id' => $rubric->id,
                     'title' => $rubric->title,
@@ -250,6 +255,19 @@ class DefaultController extends HController
         $response = compact('success');
         if ($success)
             $response['id'] = $rubric->id;
+        echo CJSON::encode($response);
+    }
+
+    public function actionCreateAlbum()
+    {
+        $title = Yii::app()->request->getPost('title');
+        $album = new Album();
+        $album->title = $title;
+        $album->author_id = Yii::app()->user->id;
+        $success = $album->save();
+        $response = compact('success');
+        if ($success)
+            $response['id'] = $album->id;
         echo CJSON::encode($response);
     }
 

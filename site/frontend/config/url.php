@@ -98,7 +98,7 @@ return array(
         'user/<user_id:\d+>/comments/rss/page<page:\d+>' => 'rss/comments',
         'user/<user_id:\d+>/comments/rss' => 'rss/comments',
         'user/<id:\d+>/albums' => 'albums/user',
-        'user/<user_id:\d+>/albums/<id:\d+>' => 'albums/view',
+        'user/<userId:\d+>/albums/<albumId:\d+>' => 'gallery/user/view',
         'user/<user_id:\d+>/albums/<album_id:\d+>/photo<id:\d+>' => 'albums/photo',
         'user/<_a:(updateMood|activityAll)>' => 'user/<_a>',
         'user/createRelated/relation/<relation:\w+>/' => 'user/createRelated',

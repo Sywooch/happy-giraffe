@@ -2,24 +2,24 @@
 /**
  * Created by JetBrains PhpStorm.
  * User: mikita
- * Date: 7/30/13
- * Time: 5:06 PM
+ * Date: 8/6/13
+ * Time: 10:27 AM
  * To change this template use File | Settings | File Templates.
  */
 
-class AlbumPhotoCollection extends PhotoCollection
+class UserPhotoCollection extends PhotoCollection
 {
-    public $albumId;
+    public $userId;
 
     public function generateIds()
     {
-        return Yii::app()->db->createCommand("SELECT id FROM album__photos WHERE album_id = :album_id")->queryColumn(array(':album_id' => $this->albumId));
+        return Yii::app()->db->createCommand("SELECT id FROM album__photos WHERE author_id = :userId")->queryColumn(array(':userId' => $this->userId));
     }
 
     protected function getIdsCacheDependency()
     {
-        $dependency = new CDbCacheDependency("SELECT COUNT(*) FROM album__photos WHERE album_id = :album_id");
-        $dependency->params = array(':album_id' => $this->albumId);
+        $dependency = new CDbCacheDependency("SELECT COUNT(*) FROM album__photos WHERE author_id = :userId");
+        $dependency->params = array(':userId' => $this->userId);
         return $dependency;
     }
 

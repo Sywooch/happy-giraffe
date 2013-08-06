@@ -37,7 +37,7 @@ $model = new AlbumPhoto();
         <div class="textalign-c clearfix">
             <!-- ko with: upload -->
             <!-- ko foreach: photos -->
-            <div class="b-add-img_i" data-bind="attr: {id: 'uploaded_photo_' + uid}">
+            <div class="b-add-img_i" data-bind="attr: {id: 'uploaded_photo_' + uid}, css: {'b-add-img_i__single': isSingle()}">
                 <div class="js-image" style="opacity: 0.2"></div>
                 <div class="b-add-img_i-vert"></div>
                 <div class="b-add-img_i-load">
@@ -128,6 +128,18 @@ $model = new AlbumPhoto();
                 }, 'json');
             }
         }
+
+        if (FileAPI.support.dnd) {
+            $('.b-add-img_html5-tx').show();
+            $('#popup-user-add-photo .b-add-img').dnd(function (over) {}, function (files) {
+                self.upload().onFiles(files);
+            });
+        }
+        $('#popup-user-add-photo .js-upload-files-multiple').on('change', function (evt) {
+            var files = FileAPI.getFiles(evt);
+            self.upload().onFiles(files);
+            FileAPI.reset(evt.currentTarget);
+        });
     };
 
     var UserAlbum = function(data) {

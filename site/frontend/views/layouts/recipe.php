@@ -77,9 +77,25 @@
                     <?php endforeach; ?>
                 </ul>
 
+                <?php if ($this->action->id == 'view'): ?>
+                    <div style="width: 160px; margin: 40px auto;">
+                        <script async src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                        <!-- ÕÂ·ÓÒÍÂ· -->
+                        <ins class="adsbygoogle"
+                             style="display:inline-block;width:160px;height:600px"
+                             data-ad-client="ca-pub-3807022659655617"
+                             data-ad-slot="7252172488"></ins>
+                        <script>
+                            (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script>
+                    </div>
+                <?php endif; ?>
+
+                <?php if (false): ?>
                 <div class="banner-box">
                     <?php $this->renderPartial('//banners/cooking'); ?>
                 </div>
+                <?php endif; ?>
 
             </div>
 

@@ -112,7 +112,7 @@ class NewCommentWidget extends CWidget
         $criteria = new CDbCriteria;
         $criteria->condition = 't.entity="Album" AND t.entity_id=:entity_id';
         if (!empty($photoIds))
-            $criteria->condition .= 'OR t.entity="AlbumPhoto" AND t.entity_id IN (' . implode(',', $photoIds) . ')';
+            $criteria->condition .= ' OR t.entity="AlbumPhoto" AND t.entity_id IN (' . implode(',', $photoIds) . ')';
         $criteria->params = array(':entity_id' => $this->entity_id);
         $criteria->with = array('author' => array(
             'select' => 'id, gender, first_name, last_name, online, avatar_id, deleted',

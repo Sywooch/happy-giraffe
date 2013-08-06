@@ -25,9 +25,17 @@
             <label for="" class="b-settings-blue_label">Рубрика</label>
 
             <div class="w-400 float-l">
-                <div class="chzn-itx-simple">
-                    <?=$form->dropDownList($model, 'rubric_id', CHtml::listData($this->user->blog_rubrics, 'id', 'title'), array('class' => 'chzn')) ?>
-                    <?=$form->error($model, 'rubric_id') ?>
+                <div class="chzn-itx-simple js-select-rubric">
+                    <select name="<?=CHtml::activeName($model, 'rubric_id')?>" id="<?=CHtml::activeId($model, 'rubric_id')?>" data-bind="options: rubricsList,
+                    value: selectedRubric,
+                    optionsText: function(rubric) {
+                        return rubric.title;
+                    },
+                    optionsValue: function(rubric) {
+                        return rubric.id;
+                    },
+                    chosenRubric: {}"></select>
+                    <?=$form->error($model, 'rubric_id')?>
                 </div>
             </div>
         </div>
@@ -109,3 +117,27 @@
     <?php $this->endWidget(); ?>
 
 </div>
+<script type="text/javascript">
+    $('#CommunityPhotoPost_text').redactor({
+        minHeight: 80,
+        autoresize: true,
+        buttons: []
+    });
+
+    var PhotoPostViewModel = function (data) {
+        var self = this;
+        ko.utils.extend(self, new BlogFormViewModel(data));
+        self.upload = ko.observable(new UploadPhotos(data.photos));
+
+        self.add = function () {
+            console.log(self.upload().getPhotoIds());
+            $('#CommunityPhotoPost_photos').val(self.upload().getPhotoIds());
+
+            if (self.upload().photos().length > 0)
+                $('#blog-form').submit()
+        }
+    };
+    var formVM1 = new PhotoPostViewModel(<?=CJSON::encode($json)?>);
+    ko.applyBindings(formVM1, document.getElementById('popup-user-add-photo-post'));
+
+</script>

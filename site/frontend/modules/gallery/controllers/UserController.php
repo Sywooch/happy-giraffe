@@ -9,16 +9,23 @@
 
 class UserController extends HController
 {
+    public $layout = '//layouts/common_new';
+
     public function actionIndex($userId = 12936)
     {
         $scopes = !Yii::app()->user->isGuest && Yii::app()->user->id == $userId ? array() : array('noSystem');
         $dataProvider = Album::model()->findByUser($userId, false, false, $scopes);
 
-        $this->render('index', compact('dataProvider'));
+        $this->render('index', compact('dataProvider', 'userId'));
     }
 
-    public function actionView($albumId)
+    public function actionView($userId, $albumId)
     {
-        echo $albumId;
+        $data = Album::model()->findByPk($albumId);
+        var_dump($data);
+        $this->render('view', array(
+            'data' => $data,
+            'full' => true,
+        ));
     }
 }

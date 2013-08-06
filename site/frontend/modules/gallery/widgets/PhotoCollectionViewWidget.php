@@ -10,8 +10,9 @@
 class PhotoCollectionViewWidget extends CWidget
 {
     public $collection;
-    public $width;
-    public $thresholdCoefficient = 0.775;
+    public $width = 580;
+    public $maxHeight = 190;
+//    public $thresholdCoefficient = 0.775;
     public $minPhotos = 3;
     public $maxRows = false;
 
@@ -23,10 +24,14 @@ class PhotoCollectionViewWidget extends CWidget
         $buffer = array();
         $rows = 0;
         foreach ($this->collection->getAllPhotos() as $photo) {
-            $buffer[] = get_class($photo) == 'AlbumPhoto' ? $photo : $photo->photo;
+            $photo = get_class($photo) == 'AlbumPhoto' ? $photo : $photo->photo;
+            if ($photo->width === null || $photo->height === null)
+                continue;
+
+            $buffer[] = $photo;
             $height = floor($this->getHeight($buffer));
 
-            if (count($buffer) >= $this->minPhotos && $height <= $this->getThreshold($buffer)) {
+            if (count($buffer) >= $this->minPhotos && $height <= $this->maxHeight) {
                 $grid[] = array(
                     'height' => $height,
                     'photos' => $buffer,
@@ -38,7 +43,7 @@ class PhotoCollectionViewWidget extends CWidget
             }
         }
 
-        $this->render('index', compact('collection', 'grid'));
+        $this->render('PhotoCollectionViewWidget', compact('collection', 'grid'));
     }
 
     public function getHeight($photos)
@@ -49,15 +54,15 @@ class PhotoCollectionViewWidget extends CWidget
         }, 0);
     }
 
-    public function getThreshold($photos)
-    {
-        $balance = array_reduce($photos, function($v, $w) {
-            $v += (($w->width / $w->height) > 1) ? 1 : -1;
-            return $v;
-        }, 0);
-        $orientCoefficient = $balance <= 0 ? 2 : 1;
-        return $this->width / count($photos) * $this->thresholdCoefficient * $orientCoefficient;
-    }
+//    public function getThreshold($photos)
+//    {
+//        $balance = array_reduce($photos, function($v, $w) {
+//            $v += (($w->width / $w->height) > 1) ? 1 : -1;
+//            return $v;
+//        }, 0);
+//        $orientCoefficient = $balance <= 0 ? 2 : 1;
+//        return $this->width / count($photos) * $this->thresholdCoefficient * $orientCoefficient;
+//    }
 
     protected function registerScripts()
     {

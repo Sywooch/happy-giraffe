@@ -17,6 +17,7 @@ $post = $data->post;
             <?=$data->post->purified->text ?>
         </div>
     </div>
+    <?php if ($data->gallery !== null) $this->renderPartial('photo_gallery', array('data' => $data)); ?>
 <?php else: ?>
     <h2 class="b-article_t">
         <a href="<?=$data->getUrl() ?>" class="b-article_t-a"><?=$data->title ?></a>

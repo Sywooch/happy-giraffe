@@ -35,9 +35,6 @@
             <label for="" class="b-settings-blue_label">Рубрика</label>
             <div class="w-400 float-l">
                 <div class="chzn-itx-simple">
-                    <?php if(false): ?>
-                    <?=$form->dropDownList($model, 'rubric_id', CHtml::listData($this->user->blog_rubrics, 'id', 'title'), array('class' => 'chzn'))?>
-                    <?php endif; ?>
                     <select name="<?=CHtml::activeName($model, 'rubric_id')?>" id="<?=CHtml::activeId($model, 'rubric_id')?>" data-bind="options: rubricsList,
                     value: selectedRubric,
                     optionsText: function(rubric) {

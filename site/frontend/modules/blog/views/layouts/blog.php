@@ -10,7 +10,7 @@
         ->registerScriptFile('/javascripts/upload/FileAPI.id3.js', CClientScript::POS_BEGIN)
         ->registerScriptFile('/javascripts/upload/FileAPI.exif.js', CClientScript::POS_BEGIN)
         ->registerScriptFile('/javascripts/knockout-2.2.1.js');
-    Yii::app()->controller->widget('site.common.extensions.imperavi-redactor-widget.ImperaviRedactorWidget', array('onlyRegisterScript' => true)); ?>
+    Yii::app()->controller->widget('site.common.extensions.imperavi-redactor-widget.ImperaviRedactorWidget', array('onlyRegisterScript' => true));
 
 ?>
 <div class="content-cols clearfix">

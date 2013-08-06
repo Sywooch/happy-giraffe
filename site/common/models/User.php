@@ -53,6 +53,7 @@
  * @property Community[] $communities
  * @property VaccineDateVote[] $vaccineDateVotes
  * @property Album[] $albums
+ * @property Album[] $simpleAlbums
  * @property Interest[] interests
  * @property UserPartner partner
  * @property Baby[] babies
@@ -315,6 +316,7 @@ class User extends HActiveRecord
             'status' => array(self::HAS_ONE, 'UserStatus', 'user_id', 'order' => 'status.created DESC'),
             'purpose' => array(self::HAS_ONE, 'UserPurpose', 'user_id', 'order' => 'purpose.created DESC'),
             'albums' => array(self::HAS_MANY, 'Album', 'author_id', 'scopes' => array('active', 'permission')),
+            'simpleAlbums' => array(self::HAS_MANY, 'Album', 'author_id', 'condition' => 'type=0'),
             'interests' => array(self::MANY_MANY, 'Interest', 'interest__users_interests(interest_id, user_id)'),
             'mood' => array(self::BELONGS_TO, 'UserMood', 'mood_id'),
             'partner' => array(self::HAS_ONE, 'UserPartner', 'user_id'),

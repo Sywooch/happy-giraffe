@@ -46,7 +46,7 @@
                     optionsValue: function(rubric) {
                         return rubric.id;
                     },
-                    chosen: {}"></select>
+                    chosenRubric: {}"></select>
                     <?=$form->error($model, 'rubric_id')?>
                 </div>
             </div>

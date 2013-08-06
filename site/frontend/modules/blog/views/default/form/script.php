@@ -1,5 +1,5 @@
 <script type="text/javascript">
-    ko.bindingHandlers.chosen =
+    ko.bindingHandlers.chosenRubric =
     {
         init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext)
         {

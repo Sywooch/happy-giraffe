@@ -84,7 +84,7 @@
     </div>
     <?=$form->hiddenField($slaveModel, 'photos') ?>
     <div class=" clearfix">
-        <a href="" data-bind="click: add" class="btn-blue btn-h46 float-r"><?=$model->isNewRecord ? 'Добавить' : 'Редактировать'?></a>
+        <a href="" data-bind="click: add, css: {'btn-inactive': upload().photos().length < 3}" class="btn-blue btn-h46 float-r"><?=$model->isNewRecord ? 'Добавить' : 'Редактировать'?></a>
         <a href="" class="btn-gray-light btn-h46 float-r margin-r15" onclick="$.fancybox.close();return false;">Отменить</a>
 
         <div class="float-l">
@@ -130,14 +130,15 @@
         self.upload = ko.observable(new UploadPhotos(data.photos));
 
         self.add = function () {
-            console.log(self.upload().getPhotoIds());
             $('#CommunityPhotoPost_photos').val(self.upload().getPhotoIds());
 
-            if (self.upload().photos().length > 0)
-                $('#blog-form').submit()
+            if (self.upload().photos().length > 2){
+                $('#blog-form').submit();
+            }else{
+                alert('Минимум 3 фото')
+            }
         }
     };
     var formVM1 = new PhotoPostViewModel(<?=CJSON::encode($json)?>);
     ko.applyBindings(formVM1, document.getElementById('popup-user-add-photo-post'));
-
 </script>

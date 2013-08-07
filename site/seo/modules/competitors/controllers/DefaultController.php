@@ -6,6 +6,9 @@ class DefaultController extends SController
 
     public function actionIndex($section = 1, $site_id = null, $year = 2013, $freq = null)
     {
+        if (!Yii::app()->user->checkAccess('main-editor') && !Yii::app()->user->checkAccess('admin'))
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+
         switch ($section) {
             case 1:
                 $this->layout = '//layouts/writing';

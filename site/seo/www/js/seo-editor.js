@@ -215,28 +215,12 @@ var SeoTasks = {
             }
         }, 'json');
     },
-    ToCorrection:function (el, id) {
-        $.post('/writing/editor/correction/', {id:id}, function (response) {
-            if (response.status) {
-                $(el).parents('td').prev().removeClass('seo-status-correction-1')
-                    .addClass('seo-status-correction-2').text('На коррекции');
-                $(el).remove();
-            }
-        }, 'json');
-    },
     ToPublishing:function (el, id) {
         $.post('/writing/editor/publish/', {id:id}, function (response) {
             if (response.status) {
                 $(el).parents('td').prev().removeClass('seo-status-publish-1')
                     .addClass('seo-status-publish-2').text('На публикации');
                 $(el).remove();
-            }
-        }, 'json');
-    },
-    Corrected:function (el, id) {
-        $.post('/writing/corrector/corrected/', {id:id}, function (response) {
-            if (response.status) {
-                $(el).parents('tr').remove();
             }
         }, 'json');
     },

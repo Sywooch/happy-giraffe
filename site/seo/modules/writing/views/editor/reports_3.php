@@ -1,4 +1,8 @@
-<div class="seo-table table-report tabs">
+<?php
+/**
+ * @var SeoTask $task
+ */
+?><div class="seo-table table-report tabs">
     <div class="table-title">Список заданий</div>
 
     <div class="table-nav nav">
@@ -30,8 +34,8 @@
                     <td class="al"><?=$task->getText() ?></td>
                     <td class="al"><?=$task->getArticleText() ?></td>
                     <td><?=$task->getExecutor() ?></td>
-                    <td class="seo-status-publish-<?=($task->status == SeoTask::STATUS_CORRECTED)?1:2 ?>"><?=$task->statusText ?></td>
-                    <?php if ($task->status == SeoTask::STATUS_CORRECTED): ?>
+                    <td class="seo-status-publish-<?=($task->status == SeoTask::STATUS_WRITTEN)?1:2 ?>"><?=$task->getStatusText() ?></td>
+                    <?php if ($task->status == SeoTask::STATUS_WRITTEN): ?>
                     <td><a href="" class="btn-green-small" onclick="SeoTasks.ToPublishing(this, <?=$task->id ?>);return false;">На публикацию</a></td>
                     <?php else: ?>
                     <td></td>

@@ -196,10 +196,10 @@ class SiteKeywordVisit extends HActiveRecord
         $criteria = new CDbCriteria;
         $criteria->with = array('keyword');
 
-        if (Yii::app()->user->getState('hide_used') == 1) {
-            $criteria->condition = 'group.id IS NULL AND ((tempKeyword.keyword_id IS NOT NULL AND tempKeyword.owner_id = ' . Yii::app()->user->id . ') OR tempKeyword.keyword_id IS NULL)';
-            $criteria->with = array('keyword', 'keyword.group', 'keyword.tempKeyword', 'keyword.blacklist');
-        }
+//        if (Yii::app()->user->getState('hide_used') == 1) {
+//            $criteria->condition = 'group.id IS NULL AND ((tempKeyword.keyword_id IS NOT NULL AND tempKeyword.owner_id = ' . Yii::app()->user->id . ') OR tempKeyword.keyword_id IS NULL)';
+//            $criteria->with = array('keyword', 'keyword.group', 'keyword.tempKeyword', 'keyword.blacklist');
+//        }
 
         if (!empty($this->key_name)) {
             if ($this->temp_ids === null)

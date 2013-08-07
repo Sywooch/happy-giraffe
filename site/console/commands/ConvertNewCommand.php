@@ -38,7 +38,7 @@ class ConvertNewCommand extends CConsoleCommand
             $models = CommunityPost::model()->findAll($criteria);
             foreach ($models as $model) {
                 echo $model->content_id."\n";
-                if (strpos($model->text, '<img') !== false) {
+                if (strpos($model->text, '<img') !== false && strpos($model->text, '<!-- widget:') === false) {
                     $model->text = $this->replaceImages($model, $model->text);
                     $model->save();
                 }

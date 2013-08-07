@@ -274,17 +274,14 @@ class HDate
     {
         $ts = (is_int($time)) ? $time : strtotime($time);
 
-        $result = '';
         if (date("Y:m:d", $ts) == date("Y:m:d"))
-            $result .= 'Сегодня';
+            return 'Сегодня' . $delimiter . date("G:i", $ts);
+        elseif (date("Y:m:d", $ts) == date("Y:m:d", strtotime('-1 day')))
+            return 'Вчера' . $delimiter . date("G:i", $ts);
         elseif (date("Y", $ts) == date("Y"))
-            $result .= date("j", $ts) . ' ' . self::ruMonthShort(date("m", $ts));
+            return date("j", $ts) . ' ' . self::ruMonthShort(date("m", $ts));
         else
-            $result .=  date("j", $ts) . ' ' . self::ruMonthShort(date("m", $ts)). ' ' . date("Y", $ts);
-        $result .= $delimiter;
-        $result .= date("G:i", $ts);
-
-        return $result;
+            return date("j", $ts) . ' ' . self::ruMonthShort(date("m", $ts)). ' ' . date("Y", $ts);
     }
 
     public static function GetFormattedTimestamp($ts)

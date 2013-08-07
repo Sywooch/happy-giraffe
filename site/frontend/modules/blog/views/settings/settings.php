@@ -149,8 +149,8 @@
                 if (response.length > 0) {
                     blogVM.draftPhoto(new Photo($.parseJSON(response)));
                     jcrop_api.destroy();
-                    var x = self.draftPhoto().width()/2 - 720/2;
-                    var y = self.draftPhoto().height()/2 - 128/2;
+                    var x = blogVM.draftPhoto().width()/2 - 720/2;
+                    var y = blogVM.draftPhoto().height()/2 - 128/2;
                     var x2 = x + 720;
                     var y2 = y + 128;
                     $('.popup-blog-set_jcrop-img').Jcrop({

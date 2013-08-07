@@ -17,7 +17,7 @@ class YandexMetrica
         $dates = array();
         $last_date = Yii::app()->db_seo->createCommand()->select('max(date)')->from('queries')->queryScalar();
         if (empty($last_date))
-            $last_date = date("Ymd", strtotime('-42 days'));
+            $last_date = date("Ymd", strtotime('-100 days'));
         else
             $last_date = date("Ymd", strtotime($last_date));
 

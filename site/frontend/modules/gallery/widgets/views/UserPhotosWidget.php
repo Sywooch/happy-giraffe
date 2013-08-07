@@ -12,7 +12,7 @@
         </div>
         <div class="photo-preview-row_last">
             <div class="font-small color-gray margin-b5">смотреть <br> все фото</div>
-            <a href="" class="photo-preview-row_a"><?=$collection->count?></a>
+            <a href="javascript:void(0)" class="photo-preview-row_a" onclick="PhotoCollectionViewWidget.open(<?=CJavaScript::encode(get_class($collection))?>, <?=CJavaScript::encode($collection->options)?>, <?=CJavaScript::encode($collection->photoIds[0])?>)"><?=$collection->count?></a>
         </div>
     </div>
 </div>

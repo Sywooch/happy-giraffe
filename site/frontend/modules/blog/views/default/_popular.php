@@ -9,6 +9,7 @@
             <div class="fast-articles2_t-ico"></div>
             <?php foreach ($this->user->blogPopular as $b): ?>
                 <div class="fast-articles2_i">
+
                     <div class="fast-articles2_header clearfix">
 
                         <div class="meta-gray">
@@ -24,12 +25,14 @@
                         </div>
 
                         <div class="float-l">
-                            <span class="font-smallest color-gray"><?= Yii::app()->dateFormatter->format("d MMM yyyy, H:mm", $b->created) ?></span>
+                            <span class="font-smallest color-gray"><?= HDate::GetFormattedTime($b->created) ?></span>
                         </div>
                     </div>
+
                     <div class="fast-articles2_i-t">
                         <a href="<?= $b->url ?>" class="fast-articles2_i-t-a"><?= $b->title ?></a>
                     </div>
+
                     <div class="fast-articles2_i-desc"><?= $b->getContentText(100, '') ?></div>
                     <?php $photo = $b->getPhoto() ?>
                     <?php if ($photo !== null): ?>

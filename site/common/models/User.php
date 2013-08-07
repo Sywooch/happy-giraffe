@@ -230,10 +230,9 @@ class User extends HActiveRecord
             array('email', 'unique', 'on' => 'signup,signup_full', 'message' => 'Этот E-Mail уже используется'),
 
             //change_password
-            array('new_password', 'required', 'on' => 'change_password'),
+            array('current_password, new_password, new_password_repeat, verifyCode', 'required', 'on' => 'change_password'),
             array('current_password', 'validatePassword', 'on' => 'change_password'),
             array('new_password_repeat', 'compare', 'on' => 'change_password', 'compareAttribute' => 'new_password'),
-            array('verifyCode', 'required', 'on' => 'change_password'),
             array('verifyCode', 'captcha', 'on' => 'change_password', 'skipOnError' => true),
 
             //remember_password
@@ -394,7 +393,8 @@ class User extends HActiveRecord
             'last_name' => 'Фамилия',
             'assigns' => 'Права',
             'last_active' => 'Последняя активность',
-            'url' => 'Профиль'
+            'url' => 'Профиль',
+            'verifyCode' => 'Код'
         );
     }
 

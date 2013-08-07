@@ -124,7 +124,7 @@ $model = new AlbumPhoto();
 
                 $.post('/ajaxSimple/addPhoto/', {album_id: self.selectedAlbum(), photo_ids: photo_ids}, function (response) {
                     if (response.status)
-                        $.fancybox.close();
+                        location.href = response.redirectUrl;
                 }, 'json');
             }
         }

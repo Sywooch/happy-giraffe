@@ -25,6 +25,8 @@
         ->registerCssFile('/stylesheets/user.css')
         ->registerCssFile('/stylesheets/ie.css', 'screen')
         ->registerCssFile('/stylesheets/jquery.fancybox-1.3.4.css')
+        ->registerCssFile('/stylesheets/common.css?'.$r)
+        ->registerCssFile('/stylesheets/global.css?'.$r)
 
         ->registerCoreScript('jquery')
         ->registerCoreScript('yiiactiveform')

@@ -40,6 +40,7 @@ class CommunityVideo extends HActiveRecord
                 'options' => array(
                     'AutoFormat.Linkify' => true,
                 ),
+                'show_video' => false,
             ),
             'externalImages' => array(
                 'class' => 'site.common.behaviors.ExternalImagesBehavior',

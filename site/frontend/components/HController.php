@@ -23,8 +23,6 @@ class HController extends CController
     public $tempLayout = false;
     public $showLikes = false;
 
-    protected $r = 173;
-
     public function filterAjaxOnly($filterChain)
     {
         if (Yii::app()->getRequest()->getIsAjaxRequest())
@@ -43,10 +41,6 @@ class HController extends CController
         parent::init();
 
         $this->combineStatic();
-        Yii::app()->clientScript
-            ->registerCssFile('/stylesheets/common.css?'.$this->r)
-            ->registerCssFile('/stylesheets/global.css?'.$this->r)
-        ;
 
         // авторизация
         if (isset($this->actionParams['token'])) {

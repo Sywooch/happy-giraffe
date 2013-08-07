@@ -25,6 +25,8 @@ class SearchManager
 
     public static function search($query, $scoring, $perPage, $entity)
     {
+        $scoring = 0;
+
         $index = $entity ? self::$indexes[$entity] : 'community';
         $_query = Str::prepareForSphinxSearch($query);
 

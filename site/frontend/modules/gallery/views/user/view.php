@@ -1,57 +1,57 @@
 <?php
-$collection = new AlbumPhotoCollection(array('albumId' => $data->id));
+/**
+ * @var $this UserController
+ * @var $data Album
+ * @var $full bool
+ */
 ?>
 
-<div class="b-article clearfix">
-    <div class="float-l">
-        <div class="like-control like-control__small-indent clearfix">
-            <?php $this->widget('UserAvatarWidget', array('user' => $data->author)); ?>
-        </div>
-        <div class="like-control clearfix">
-            <a href="javascript:void(0)" class="like-control_ico like-control_ico__like<?php if (Yii::app()->user->getModel()->isLiked($data)) echo ' active'; ?>" onclick="HgLike(this, 'Album', <?=$data->id ?>);"><?=PostRating::likesCount($data)?></a>
-            <?php $this->widget('FavouriteWidget', array('model' => $data, 'right' => true)); ?>
-        </div>
-    </div>
-    <div class="b-article_cont clearfix">
-        <div class="b-article_cont-tale"></div>
-        <div class="b-article_header clearfix">
-            <div class="meta-gray">
-                <a href="<?=$data->getUrl(true)?>" class="meta-gray_comment">
-                    <span class="ico-comment ico-comment__gray"></span>
-                    <span class="meta-gray_tx"><?=$data->commentsCount?></span>
+<div class="content-cols clearfix">
+    <div class="col-1">
+        <div class="b-ava-large">
+            <div class="b-ava-large_ava-hold clearfix">
+                <a class="ava large" href="">
+                    <img alt="" src="/images/example/ava-large.jpg">
                 </a>
-                <div class="meta-gray_view">
-                    <span class="ico-view ico-view__gray"></span>
-                    <span class="meta-gray_tx"><?=PageView::model()->viewsByPath($data->getUrl())?></span>
-                </div>
+                <span class="b-ava-large_online">На сайте</span>
+                <a href="" class="b-ava-large_bubble b-ava-large_bubble__dialog powertip" title="Начать диалог">
+                    <span class="b-ava-large_ico b-ava-large_ico__mail"></span>
+                    <span class="b-ava-large_bubble-tx">+5</span>
+                </a>
+                <a href="" class="b-ava-large_bubble b-ava-large_bubble__photo powertip" title="Фотографии">
+                    <span class="b-ava-large_ico b-ava-large_ico__photo"></span>
+                    <span class="b-ava-large_bubble-tx">+50</span>
+                </a>
+                <a href="" class="b-ava-large_bubble b-ava-large_bubble__blog powertip" title="Записи в блоге">
+                    <span class="b-ava-large_ico b-ava-large_ico__blog"></span>
+                    <span class="b-ava-large_bubble-tx">+999</span>
+                </a>
+                <a href="" class="b-ava-large_bubble b-ava-large_bubble__friend-add-onhover powertip" title="Добавить в друзья">
+                    <span class="b-ava-large_ico b-ava-large_ico__friend-add"></span>
+                </a>
             </div>
-            <div class="float-l">
-                <a href="<?=$data->author->getUrl()?>" class="b-article_author"><?=$data->author->getFullName()?></a>
-                <span class="font-smallest color-gray"><?=Yii::app()->dateFormatter->format("d MMMM yyyy, H:mm", $data->created)?></span>
+            <div class="textalign-c">
+                <a href="" class="b-ava-large_a">Александр Богоявленский</a>
+                <span class="font-smallest color-gray"> 39 лет</span>
             </div>
-        </div>
-        <h2 class="b-article_t">
-            <a href="<?=$data->url?>" class="b-article_t-a"><?=$data->title?></a>
-        </h2>
-        <div class="b-article_in clearfix">
-            <?php if ($data->description): ?>
-            <div class="wysiwyg-content clearfix">
-                <p><?=$data->description?></p>
+            <div class="b-ava-large_location">
+                <div title="Украина" class="flag flag-ua"></div>
+                Украина, Астраханская область
             </div>
-            <?php endif; ?>
-
-            <?php
-            $this->widget('PhotoCollectionViewWidget', array(
-                'collection' => $collection,
-                'width' => 580,
-                'maxRows' => $full ? false : 2,
-            ));
-            ?>
-        </div>
-        <div class="textalign-r">
-            <a href="<?=$data->url?>" class="b-article_more">Смотреть <?=$collection->count?> фото</a>
         </div>
 
-        <?php $this->widget('application.widgets.newCommentWidget.NewCommentWidget', array('model' => $data, 'full' => $full)); ?>
+    </div>
+    <div class="col-23-middle">
+        <ul class="breadcrumbs-big clearfix">
+            <li class="breadcrumbs-big_i">
+                <a href="" class="breadcrumbs-big_a">Ангелина Богоявленская</a>
+            </li>
+            <li class="breadcrumbs-big_i">Фотоальбомы </li>
+        </ul>
+        <div class="col-gray">
+
+            <?php $this->renderPartial('_album', array('data' => $data, 'full' => true)); ?>
+
+        </div>
     </div>
 </div>

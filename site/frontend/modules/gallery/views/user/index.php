@@ -57,7 +57,7 @@
                 'cssFile' => false,
                 'ajaxUpdate' => false,
                 'dataProvider' => $dataProvider,
-                'itemView' => 'view',
+                'itemView' => '_album',
                 'viewData' => array(
                     'full' => false,
                 ),

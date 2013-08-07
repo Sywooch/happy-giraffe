@@ -22,10 +22,6 @@ class UserController extends HController
     public function actionView($userId, $albumId)
     {
         $data = Album::model()->findByPk($albumId);
-        var_dump($data);
-        $this->render('view', array(
-            'data' => $data,
-            'full' => true,
-        ));
+        $this->render('view', compact('data'));
     }
 }

@@ -22,8 +22,10 @@ class PhotoCollectionViewWidget extends CWidget
 
         $grid = array();
         $buffer = array();
-        $rows = 0;
+        $rowsCount = 0;
+        $photosCount = 0;
         foreach ($this->collection->getAllPhotos() as $photo) {
+            $photosCount++;
             $photo = get_class($photo) == 'AlbumPhoto' ? $photo : $photo->photo;
             if ($photo->width === null || $photo->height === null)
                 continue;
@@ -31,14 +33,14 @@ class PhotoCollectionViewWidget extends CWidget
             $buffer[] = $photo;
             $height = floor($this->getHeight($buffer));
 
-            if (count($buffer) >= $this->minPhotos && $height <= $this->maxHeight) {
+            if ($this->collection->count == $photosCount || (($this->collection->count - $photosCount) >= $this->minPhotos  && count($buffer) >= $this->minPhotos && $height <= $this->maxHeight)) {
                 $grid[] = array(
                     'height' => $height,
                     'photos' => $buffer,
                 );
                 $buffer = array();
-                $rows++;
-                if ($this->maxRows !== false && $this->maxRows == $rows)
+                $rowsCount++;
+                if ($this->maxRows !== false && $this->maxRows == $rowsCount)
                     break;
             }
         }

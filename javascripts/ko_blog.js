@@ -44,23 +44,6 @@ var BlogViewModel = function(data) {
     self.addRubric = function() {
         self.rubrics.push(new Rubric({ id : null, title : '', beingEdited : true }, self));
     }
-
-    self.draftPhoto.subscribe(function() {
-        jcrop_api.destroy();
-        var x = self.draftPhoto().width()/2 - 720/2;
-        var y = self.draftPhoto().height()/2 - 128/2;
-        var x2 = x + 720;
-        var y2 = y + 128;
-        $('.popup-blog-set_jcrop-img').Jcrop({
-            setSelect: [ x, y, x2, y2 ],
-            onChange: showPreview,
-            onSelect: showPreview,
-            aspectRatio: 720 / 128,
-            boxWidth: 320
-        }, function(){
-            jcrop_api = this;
-        });
-    });
 }
 
 var Photo = function(data) {

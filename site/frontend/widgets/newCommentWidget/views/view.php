@@ -16,6 +16,7 @@ $data = array(
     'messaging__enter' => (bool) UserAttributes::get(Yii::app()->user->id, 'messaging__enter', false),
 );
 ?><div class="comments-gray <?=$this->objectName ?>" id="<?=$this->objectName ?>">
+    <div id="comment_list"></div>
     <div class="comments-gray_t">
 
         <?php if ($this->full || $allCount <= 3): ?>

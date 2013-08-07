@@ -54,7 +54,7 @@ abstract class PhotoCollection extends CComponent
 
     protected function populatePhotos($ids, $json)
     {
-        $models = $this->generateModels($ids);
+        $models = count($ids) > 0 ? $this->generateModels($ids) : array();
         return $json ? array_map(array($this, 'toJSON'), $models) : $models;
     }
 

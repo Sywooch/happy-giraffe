@@ -16,7 +16,10 @@
     };
 
     $('.wysiwyg-redactor-v').redactor({
-
+        activeButtonsAdd: {
+            h2: 'h2',
+            h3: 'h3'
+        },
         initCallback: function() {
             redactor = this;
             $('.redactor-popup_smiles a').on('click', function() {
@@ -75,15 +78,14 @@
             h2: {
                 title: 'h2',
                 callback: function(buttonName, buttonDOM, buttonObject) {
-                    // your code, for example - getting code
-                    var html = this.get();
+                    a = buttonDOM;
+                    buttonDOM.hasClass('redactor_act') ? document.execCommand('formatBlock', false, 'p') : document.execCommand('formatBlock', false, buttonName);
                 }
             },
             h3: {
                 title: 'h3',
                 callback: function(buttonName, buttonDOM, buttonObject) {
-                    // your code, for example - getting code
-                    var html = this.get();
+                    buttonDOM.hasClass('redactor_act') ? document.execCommand('formatBlock', false, 'p') : document.execCommand('formatBlock', false, buttonName);
                 }
             }
         }

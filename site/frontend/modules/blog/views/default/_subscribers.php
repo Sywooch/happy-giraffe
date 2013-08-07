@@ -1,4 +1,4 @@
-<div class="readers2" id="subscription-info">
+<div class="readers2" id="subscription-info" data-bind="visible: count > 0">
     <?php if (Yii::app()->user->id != $this->user->id):?>
         <!-- ko if: isSubscribed() -->
         <a href="" class="btn-green btn-medium" data-bind="click:toggleSubscription">Отписаться</a>

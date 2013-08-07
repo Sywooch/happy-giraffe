@@ -649,8 +649,7 @@ class CommunityCommand extends CConsoleCommand
                 curl_multi_exec($mh, $active);
                 do {
                     curl_multi_exec($mh, $active);
-                }
-                while($active);
+                } while ($active);
                 $mh = curl_multi_init();
             }
 

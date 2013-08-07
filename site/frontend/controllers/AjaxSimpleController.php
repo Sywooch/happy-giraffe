@@ -171,7 +171,7 @@ class AjaxSimpleController extends CController
                 }
             }
 
-        echo CJSON::encode(array('status' => true, 'redirectUrl'=>''));
+        echo CJSON::encode(array('status' => true, 'redirectUrl' => $this->createUrl('/gallery/user/view', array('userId' => Yii::app()->user->id, 'albumId' => $album->id))));
     }
 
     public function actionCommunityToggle()

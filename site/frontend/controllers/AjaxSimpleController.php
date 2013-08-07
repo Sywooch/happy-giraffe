@@ -171,7 +171,7 @@ class AjaxSimpleController extends CController
                 }
             }
 
-        echo CJSON::encode(array('status' => true));
+        echo CJSON::encode(array('status' => true, 'redirectUrl'=>''));
     }
 
     public function actionCommunityToggle()

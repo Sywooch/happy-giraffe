@@ -24,7 +24,7 @@
                         </div>
 
                         <div class="float-l">
-                            <span class="font-smallest color-gray"><?= Yii::app()->dateFormatter->format("d MMMM yyyy, H:mm", $b->created) ?></span>
+                            <span class="font-smallest color-gray"><?= Yii::app()->dateFormatter->format("d MMM yyyy, H:mm", $b->created) ?></span>
                         </div>
                     </div>
                     <div class="fast-articles2_i-t">

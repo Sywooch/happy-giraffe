@@ -50,6 +50,18 @@ function UploadPhotos(data) {
             ids.push(self.photos()[i].id());
 
         return ids;
+    };
+
+    //Когда над блоком находится курсор c перетаскиваемой фотографией на блок .b-add-img нужно добавить класс .dragover
+    var bl = $('.b-add-img__for-multi');
+    if (bl.length > 0){
+        bl[0].ondragover = function() {$('.b-add-img').addClass('dragover')};
+        bl[0].ondragleave = function() {$('.b-add-img').removeClass('dragover')};
+    }
+    bl = $('.b-add-img__for-single');
+    if (bl.length > 0){
+        bl[0].ondragover = function() {$('.b-add-img').addClass('dragover')};
+        bl[0].ondragleave = function() {$('.b-add-img').removeClass('dragover')};
     }
 }
 

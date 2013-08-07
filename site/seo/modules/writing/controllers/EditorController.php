@@ -246,21 +246,6 @@ class EditorController extends SController
             echo CJSON::encode(array('status' => false));
     }
 
-    public function actionCorrection()
-    {
-        $task_id = Yii::app()->request->getPost('id');
-        $task = $this->loadTask($task_id);
-
-        if ($task->status == SeoTask::STATUS_WRITTEN) {
-            $task->status = SeoTask::STATUS_CORRECTING;
-            echo CJSON::encode(array(
-                'status' => $task->save(),
-                'html' => $this->renderPartial('_correcting_task', compact('task'), true)
-            ));
-        } else
-            echo CJSON::encode(array('status' => false));
-    }
-
     public function actionPublish()
     {
         if (!Yii::app()->user->checkAccess('editor') && !Yii::app()->user->checkAccess('cook-manager-panel'))
@@ -268,7 +253,7 @@ class EditorController extends SController
 
         $task_id = Yii::app()->request->getPost('id');
         $task = $this->loadTask($task_id);
-        if ($task->status == SeoTask::STATUS_CORRECTED || $task->status == SeoTask::STATUS_WRITTEN) {
+        if ($task->status == SeoTask::STATUS_WRITTEN) {
             $task->status = SeoTask::STATUS_PUBLICATION;
             echo CJSON::encode(array('status' => $task->save()));
         } else

@@ -28,6 +28,11 @@
  */
 class SiteKeywordVisit extends HActiveRecord
 {
+    const FILTER_ALL = 1;
+    const FILTER_NO_TRAFFIC = 2;
+    const FILTER_NO_TRAFFIC_HAVE_ARTICLES = 3;
+    const FILTER_HAVE_TRAFFIC_NO_ARTICLES = 4;
+
     public $all;
     public $key_name;
     public $popular;
@@ -138,25 +143,26 @@ class SiteKeywordVisit extends HActiveRecord
 
     /**
      * Поиск по статистике конкурентов
+     * @param int $type тип фильтрации
      * @return CActiveDataProvider
      */
-    public function search()
+    public function search($type)
     {
-        $criteria = $this->getCriteriaWithoutFreq();
+        $criteria = $this->getMainCriteria($type);
 
-        if (!empty($this->freq)) {
-            $condition = Keyword::getFreqCondition($this->freq);
-            if (!in_array('keyword', $criteria->with))
-                $criteria->with [] = 'keyword';
-
-            if (!empty($criteria->condition)) {
-                $criteria->condition .= ' AND ' . $condition;
-            } else
-                $criteria->condition = $condition;
-        }
-        $criteria->with = array('keyword', 'keyword.group','keyword.group.page', 'keyword.tempKeyword', 'keyword.blacklist');
+//        if (!empty($this->freq)) {
+//            $condition = Keyword::getFreqCondition($this->freq);
+//            if (!in_array('keyword', $criteria->with))
+//                $criteria->with [] = 'keyword';
+//
+//            if (!empty($criteria->condition)) {
+//                $criteria->condition .= ' AND ' . $condition;
+//            } else
+//                $criteria->condition = $condition;
+//        }
+        $criteria->with = array('keyword', 'keyword.group', 'keyword.group.page', 'keyword.tempKeyword', 'keyword.blacklist');
         $total_count = self::model()->count($criteria);
-        $criteria->with = array('keyword', 'keyword.group','keyword.group.page','keyword.group.taskCount', 'keyword.tempKeyword', 'keyword.blacklist', 'site');
+        $criteria->with = array('keyword', 'keyword.group', 'keyword.group.page', 'keyword.group.taskCount', 'keyword.tempKeyword', 'keyword.blacklist', 'site');
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
@@ -187,24 +193,13 @@ class SiteKeywordVisit extends HActiveRecord
 
     /**
      * Возвращает критерий для выбора статистики без учета частотности слов
+     * @param $type
      * @return CDbCriteria
      */
-    public function getCriteriaWithoutFreq()
+    public function getMainCriteria($type)
     {
         $criteria = new CDbCriteria;
         $criteria->with = array('keyword');
-
-        if (!empty($this->key_name)) {
-            if ($this->temp_ids === null)
-                $this->temp_ids = Keyword::findSiteIdsByNameWithSphinx($this->key_name);
-
-            if (empty($this->temp_ids))
-                $criteria->addCondition('keyword.id = 0');
-            else
-                $criteria->addCondition('keyword.id IN (' . implode(',', $this->temp_ids) . ')');
-        }
-
-        //search by site_id
         if (count($this->sites_id) == 1)
             $criteria->addCondition('site_id = ' . $this->sites_id[0]);
         else
@@ -213,12 +208,45 @@ class SiteKeywordVisit extends HActiveRecord
         $criteria->compare('year', $this->year);
         $criteria->together = true;
 
+        if (!empty($this->key_name))
+            $criteria = $this->findByKeyword($criteria);
+        else{
+            switch($type){
+                case self::FILTER_HAVE_TRAFFIC_NO_ARTICLES:
+                    $criteria->addCondition('group.id IS NULL AND tempKeyword.keyword_id IS NULL');
+                    $criteria->with = array('keyword', 'keyword.group', 'keyword.tempKeyword', 'keyword.blacklist');
+                    break;
+                case self::FILTER_NO_TRAFFIC:
+
+                    break;
+                case self::FILTER_NO_TRAFFIC_HAVE_ARTICLES:
+                    $criteria->addCondition('group.id IS NULL AND tempKeyword.keyword_id IS NULL');
+                    $criteria->with = array('keyword', 'keyword.group', 'keyword.tempKeyword', 'keyword.blacklist');
+                    break;
+
+                    break;
+            }
+        }
+
+
         return $criteria;
     }
 
-    public function getCriteriaWithoutFreqForCounts()
+
+
+    /**
+     * @param CDbCriteria $criteria
+     * @return CDbCriteria;
+     */
+    public function findByKeyword($criteria)
     {
-        $criteria = $this->getCriteriaWithoutFreq();
+        if ($this->temp_ids === null)
+            $this->temp_ids = Keyword::findSiteIdsByNameWithSphinx($this->key_name);
+
+        if (empty($this->temp_ids))
+            $criteria->addCondition('keyword.id = 0');
+        else
+            $criteria->addCondition('keyword.id IN (' . implode(',', $this->temp_ids) . ')');
 
         return $criteria;
     }

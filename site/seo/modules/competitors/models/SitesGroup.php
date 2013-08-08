@@ -6,6 +6,9 @@
  * The followings are the available columns in table 'sites__groups':
  * @property string $id
  * @property string $title
+ *
+ * The followings are the available model relations:
+ * @property Site[] $sites
  */
 class SitesGroup extends CActiveRecord
 {
@@ -40,6 +43,7 @@ class SitesGroup extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+            'sites' => array(self::HAS_MANY, 'Site', 'group_id'),
 		);
 	}
 

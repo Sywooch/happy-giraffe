@@ -41,7 +41,7 @@ Yii::app()->clientScript->registerScriptFile('/javascripts/ko_user_profile.js');
                     		</span>
                     <span class="user-btns_tx"><?=$user->blogPostsCount.' <br> '.Str::GenerateNoun(array('запись', 'записи', 'записей'), $user->blogPostsCount) ?></span>
                 </a>
-                <a href="<?= $this->createUrl('/albums/user', array('user_id' => $user->id)) ?>" class="user-btns_i powertip">
+                <a href="<?= $this->createUrl('/gallery/user/index', array('userId' => $user->id)) ?>" class="user-btns_i powertip">
                     		<span class="user-btns_ico-hold user-btns_ico-hold__photo">
                     			<span class="user-btns_ico"></span>
                     		</span>

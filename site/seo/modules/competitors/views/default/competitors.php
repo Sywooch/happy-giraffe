@@ -7,7 +7,43 @@
  * @var int $freq частота ключевых слов, которая нас интересует
  */
 $dataProvider = $model->search($type);
+$groupsNav = array();
+foreach ($groups as $g) {
+    $groupsNav[] = array(
+        'label' => $g->title,
+        'url' => $this->createUrl('index', array('group_id' => $g->id)),
+        'active' => $group !== null && $group->id == $g->id,
+    );
+}
+$groupsNav[] = array(
+    'label' => 'Без тематики',
+    'url' => $this->createUrl('index'),
+    'active' => $group === null,
+);
+
 ?>
+<div class="clearfix">
+    <div class="fast-nav">
+        <span class="fast-nav_t">Выбрать тематику:</span>
+        <?php $this->widget('zii.widgets.CMenu', array(
+            'items' => $groupsNav,
+        ));?>
+    </div>
+</div>
+<?php if ($sites): ?>
+<div class="clearfix">
+    <div class="fast-nav">
+        <span class="fast-nav_t">Выбрать сайт:</span>
+        <?=CHtml::dropDownList('site', $site_id, CHtml::listData($sites, 'id', 'name'), array('prompt' => 'Выберите сайт'))?>
+        &nbsp;
+        &nbsp;
+        <?php if ($site_id !== null): ?>
+            <a href="javascript:void(0)" class="pseudo" onclick="$(this).hide();$(this).next().show();">Задать тематику сайта</a>
+            <?=CHtml::dropDownList('group', '', CHtml::listData($groups, 'id', 'title'), array('prompt' => 'Выберите тематику', 'style' => 'display: none;'))?>
+        <?php endif; ?>
+    </div>
+</div>
+<?php endif; ?>
 <div class="search clearfix">
     <div class="input">
         <label>Введите слово или фразу</label>
@@ -167,6 +203,20 @@ $dataProvider = $model->search($type);
             $('#key_name').val($('#keyword').val());
             submitForm();
         }
+    });
+
+    $('#site').on('change', function() {
+        if ($(this).val().length > 0) {
+            $('#site_id').val($(this).val());
+            submitForm();
+        }
+    });
+
+    $('#group').on('change', function() {
+        $.post('/competitors/default/setGroup', { site_id : $('#site_id').val(), group_id : $('#group').val() }, function(response) {
+            if (response.success)
+                document.location.href = response.href;
+        }, 'json');
     });
 
     function submitForm() {

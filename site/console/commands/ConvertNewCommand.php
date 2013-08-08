@@ -29,7 +29,7 @@ class ConvertNewCommand extends CConsoleCommand
      */
     public function actionConvertPost($id)
     {
-        $model = CommunityPost::model()->findByPk($id);
+        $model = CommunityPost::model()->findByAttributes(array('content_id' => $id));
         if (strpos($model->text, '<img') !== false && strpos($model->text, '<!-- widget:') === false) {
             $model->text = $this->replaceImages($model, $model->text);
             $model->save();
@@ -49,7 +49,7 @@ class ConvertNewCommand extends CConsoleCommand
         while (!empty($models)) {
             $models = CommunityPost::model()->findAll($criteria);
             foreach ($models as $model) {
-                if (empty($model->content)){
+                if (empty($model->content)) {
                     $model->delete();
                 } elseif (strpos($model->text, '<img') !== false && strpos($model->text, '<!-- widget:') === false) {
                     $model->text = $this->replaceImages($model, $model->text);

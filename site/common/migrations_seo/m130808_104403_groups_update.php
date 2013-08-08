@@ -4,6 +4,11 @@ class m130808_104403_groups_update extends CDbMigration
 {
 	public function up()
 	{
+        $this->execute("CREATE TABLE `sites__groups` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
 	}
 
 	public function down()

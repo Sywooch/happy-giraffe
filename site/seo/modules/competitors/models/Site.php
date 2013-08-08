@@ -8,11 +8,12 @@
  * @property string $name
  * @property string $url
  * @property string $password
- * @property int $section
  * @property int $type
+ * @property int $group_id
  *
  * The followings are the available model relations:
  * @property SiteKeywordVisit[] $seoKeyStats
+ * @property SitesGroup $group
  */
 class Site extends HActiveRecord
 {
@@ -57,7 +58,7 @@ class Site extends HActiveRecord
         return array(
             array('name', 'required'),
             array('name, url, password', 'length', 'max' => 255),
-            array('section, type', 'numerical', 'integerOnly' => true),
+            array('type', 'numerical', 'integerOnly' => true),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('id, name, url', 'safe', 'on' => 'search'),
@@ -73,6 +74,7 @@ class Site extends HActiveRecord
         // class name for the relations automatically generated below.
         return array(
             'seoKeyStats' => array(self::HAS_MANY, 'SiteKeywordVisit', 'site_id'),
+            'group' => array(self::BELONGS_TO, 'SitesGroup', 'group_id'),
         );
     }
 

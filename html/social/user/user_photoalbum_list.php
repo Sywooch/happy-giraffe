@@ -63,7 +63,7 @@
                 
                     <div class="photo-preview-row clearfix margin-t30">
                         <div class="photo-preview-row_hold2">
-                            <div class="photo-grid clearfix">
+                            <div class="photo-grid">
                                 <div class="photo-grid_row clearfix" >
                                     <!-- Ловить клик на photo-grid_i для показа увеличенного фото -->
                                     <div class="photo-grid_i">

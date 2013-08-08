@@ -207,26 +207,41 @@ a.pseudo:hover,
 
 /* icons */
 .ico-friends-small{display:inline-block;*zoom:1;*display:inline;width:27px;height:27px;background:url(/images/common.png) no-repeat -428px -334px;vertical-align:middle;margin-right:5px;}
-.ico-pregnant-test {width:59px;height:17px;background:url(../images/section/pregnancy/ico-pregnancy-test.png) no-repeat;display: inline-block;*zoom:1;*display:inline;}
-.ico-childbirth {width:42px;height:35px;background:url(../images/section/pregnancy/ico-childbirth.png) no-repeat;display: inline-block;*zoom:1;*display:inline;}
-.ico-age18 {display: inline-block;*zoom:1;*display:inline;width: 33px;height: 34px;background: url(/images/ico/ico-age18.png) no-repeat;vertical-align: middle;}
-.ico-child {width: 52px;height: 50px;display: inline-block;*zoom:1;*display:inline;background: url(/images/user-family-icons.png) no-repeat -66px 0;}
-.ico-child__baby-plan{background-position: 0 0;}
-.ico-child__baby{background-position: -66px 0;}
-.ico-child__boy-wait{background-position: 0 -50px;}
-.ico-child__girl-wait{background-position: -66px -50px;}
-.ico-child__boy-small{background-position: 0 -100px;}
-.ico-child__girl-small{background-position: -66px -100px;}
-.ico-child__boy-3{background-position: 0 -150px;;}
-.ico-child__girl-3{background-position: -66px -150px;}
-.ico-child__boy-5{background-position: 0 -200px;}
-.ico-child__girl-5{background-position: -66px -200px;}
-.ico-child__boy-8{background-position: 0 -250px;}
-.ico-child__girl-8{background-position: -66px -250px;}
-.ico-child__boy-14{background-position: 0 -300px;}
-.ico-child__girl-14{background-position: -66px -300px;}
-.ico-child__boy-19{background-position: 0 -350px;}
-.ico-child__girl-19{background-position: -66px -350px;}
+.ico-pregnant-test {width:59px;height:17px;background:url(../images/section/pregnancy/ico-pregnancy-test.png) no-repeat;.inline-block();}
+.ico-childbirth {width:42px;height:35px;background:url(../images/section/pregnancy/ico-childbirth.png) no-repeat;.inline-block();}
+.ico-age18 {.inline-block();width: 33px;height: 34px;background: url(/images/ico/ico-age18.png) no-repeat;vertical-align: middle;}
+.ico-family {
+	.inline-block();
+	width: 55px;
+	height: 50px;
+	background: url(/images/ico/ico-family.png) no-repeat -66px 0;
+}
+.ico-family__baby-plan     {background-position: 0 0;}
+.ico-family__baby          {background-position: -66px 0;}
+.ico-family__baby-two      {background-position: 0px -550px;}
+.ico-family__boy-wait      {background-position: 0 -50px;}
+.ico-family__girl-wait     {background-position: -66px -50px;}
+.ico-family__boy-small     {background-position: 0 -100px;}
+.ico-family__girl-small    {background-position: -66px -100px;}
+.ico-family__boy-3         {background-position: 0 -150px;}
+.ico-family__girl-3        {background-position: -66px -150px;}
+.ico-family__boy-5         {background-position: 0 -200px;}
+.ico-family__girl-5        {background-position: -66px -200px;}
+.ico-family__boy-8         {background-position: 0 -250px;}
+.ico-family__girl-8        {background-position: -66px -250px;}
+.ico-family__boy-14        {background-position: 0 -300px;}
+.ico-family__girl-14       {background-position: -66px -300px;}
+.ico-family__boy-19        {background-position: 0 -350px;}
+.ico-family__girl-19       {background-position: -66px -350px;}
+.ico-family__boy-friend    {background-position: 0 -400px;}
+.ico-family__girl-friend   {background-position: -66px -400px;}
+.ico-family__boy-friend    {background-position: 0 -400px;}
+.ico-family__girl-friend   {background-position: -66px -400px;}
+.ico-family__fiance        {background-position: 0 -450px;}
+.ico-family__bride         {background-position: -66px -450px;}
+.ico-family__husband       {background-position: 0 -500px;}
+.ico-family__wife          {background-position: -66px -500px;}
+
 .ico-male {
 	.inline-block();
 	width: 11px;
@@ -287,28 +302,27 @@ a.pseudo:hover,
 	background: url(/images/ico/ico-refresh.png) no-repeat;
 }
 .ico-camera-big {
-	display: inline-block;*zoom:1;*display:inline;
+	.inline-block();
 	width: 39px;
 	height: 29px;
 	background: url(/images/ico/ico-camera-big.png) no-repeat;
 	vertical-align: middle;
 }
 .ico-valentine-heart {
-	display: inline-block;*zoom:1;*display:inline;
+	.inline-block();
 	width: 55px;
 	height: 45px;
 	background: url(/images/ico/ico-valentine-heart.png) no-repeat;
 	vertical-align: middle;
 }
 .ico-plus {
-	display: inline-block;*zoom:1;*display:inline;
-	vertical-align: middle;
+	.inline-block();
 	width: 8px;
 	height: 8px;
 	background: url(/images/ico/ico-plus.png) no-repeat;
 }
 .ico-plus2 {
-	display: inline-block;*zoom:1;*display:inline;
+	.inline-block();
 	vertical-align: middle;
 	width: 10px;
 	height: 11px;
@@ -316,7 +330,7 @@ a.pseudo:hover,
 	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAALCAYAAABGbhwYAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NkEwOEY0M0VBQ0ZCMTFFMjg3QzREREQ5NkU0M0QwMDAiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NkEwOEY0M0ZBQ0ZCMTFFMjg3QzREREQ5NkU0M0QwMDAiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo2QTA4RjQzQ0FDRkIxMUUyODdDNERERDk2RTQzRDAwMCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo2QTA4RjQzREFDRkIxMUUyODdDNERERDk2RTQzRDAwMCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Pg/Zz9EAAABFSURBVHjaYmxuamJAA/+hNCOyIBMDkYD6ClmQ3ITLraSZyPj///+ZyAItzc1pILqmtnYWisKBCx6QG9HFYG5ORxYECDAATTYStExoF+IAAAAASUVORK5CYII=);
 }
 .ico-player {
-	display: inline-block;*zoom:1;*display:inline;
+	.inline-block();
 	vertical-align: middle;
 	width: 19px;
 	height: 19px;
@@ -324,14 +338,14 @@ a.pseudo:hover,
 }
 .ico-player__pause {background-position: 0 -20px;}
 .ico-play-big {
-	display: inline-block;*zoom:1;*display:inline;
+	.inline-block();
 	vertical-align: middle;
 	width: 151px;
 	height: 151px;
 	background: url(/images/ico/ico-play-big.png) no-repeat;
 }
 .ico-name-author {
-    display: inline-block;*zoom:1;*display:inline;
+    .inline-block();
     color: #8b8a8a;
     font-size: 11px;
     vertical-align: middle;
@@ -342,7 +356,7 @@ a.pseudo:hover,
 }
 .ico-name-author:hover {text-decoration: underline;}
 .ico-redactor {
-	display: inline-block;*zoom:1;*display:inline;
+	.inline-block();
 	vertical-align: middle;
 	width: 30px;
 	height: 30px;
@@ -361,40 +375,40 @@ a.pseudo:hover,
 .ico-redactor__mail:hover{background-position: -90px -60px;}
 .ico-redactor__mail.active{background-position: -90px -30px;}
 .ico-cup {
-	display: inline-block;*zoom:1;*display:inline;
+	.inline-block();
 	width: 40px;
 	height: 34px;
 	background: url(/images/ico/ico-cup.png) no-repeat;
 }
 .ico-cup-small {
-	display: inline-block;*zoom:1;*display:inline;
+	.inline-block();
 	width: 25px;
 	height: 21px;
 	background: url(/images/ico/ico-cup-small.png) no-repeat;
 }
 .ico-tag {
-	display: inline-block;*zoom:1;*display:inline;
+	.inline-block();
 	width: 17px;
 	height: 16px;
 	vertical-align: middle;
     background: url(/images/ico/ico-tag.png) no-repeat;
 }
 .ico-tag-big {
-	display: inline-block;*zoom:1;*display:inline;
+	.inline-block();
 	width: 23px;
 	height: 22px;
 	vertical-align: middle;
     background: url(/images/ico/ico-tag-big.png) no-repeat;
 }
 .ico-tags {
-	display: inline-block;*zoom:1;*display:inline;
+	.inline-block();
 	width: 20px;
 	height: 16px;
 	vertical-align: middle;
     background: url(/images/ico/ico-tags.png) no-repeat;
 }
 .ico-tags-big {
-	display: inline-block;*zoom:1;*display:inline;
+	.inline-block();
 	width: 27px;
 	height: 22px;
 	vertical-align: middle;

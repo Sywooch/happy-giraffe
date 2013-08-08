@@ -126,7 +126,7 @@
 									<label for="" class="b-sign_label">Ваш e-mail</label>
 								</div>
 								<div class="b-sign_itx-hold">
-									<input type="text" name="" id="" class="itx-simple" placeholder="Введите ваш e-mail">
+									<input type="text" name="" id="" class="itx-simple" placeholder="Введите ваш e-mail" value="rtyrtyr@er.ru">
 								</div>
 								<div class="float-l w-30">
 									<div class="b-sign_win"></div>
@@ -290,7 +290,7 @@
 									<label for="" class="b-sign_label">Ваш e-mail</label>
 								</div>
 								<div class="b-sign_itx-hold">
-									<input type="text" name="" id="" class="itx-simple" placeholder="Введите ваш e-mail">
+									<input type="text" name="" id="" class="itx-simple" placeholder="Введите ваш e-mail" value="rtyrtyr@er.ru">
 								</div>
 								<div class="float-l w-30">
 									<div class="b-sign_win"></div>
@@ -303,7 +303,7 @@
 									<label for="" class="b-sign_label">Имя</label>
 								</div>
 								<div class="b-sign_itx-hold">
-									<input type="text" name="" id="" class="itx-simple" placeholder="Введите имя">
+									<input type="text" name="" id="" class="itx-simple" placeholder="Введите имя" value="Викториал">
 								</div>
 								<div class="b-sign_win"></div>
 							</div>
@@ -312,7 +312,7 @@
 									<label for="" class="b-sign_label">Фамилия</label>
 								</div>
 								<div class="b-sign_itx-hold">
-									<input type="text" name="" id="" class="itx-simple" placeholder="Введите фамилию">
+									<input type="text" name="" id="" class="itx-simple" placeholder="Введите фамилию" value="Иванов">
 								</div>
 								<div class="b-sign_win"></div>
 							</div>
@@ -412,7 +412,7 @@
 									<label for="" class="b-sign_label">Пароль <br>еще раз</label>
 								</div>
 								<div class="b-sign_itx-hold">
-									<input type="text" name="" id="" class="itx-simple">
+									<input type="password" name="" id="" class="itx-simple">
 								</div>
 							</div>
 						</div>

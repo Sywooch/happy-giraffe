@@ -949,81 +949,100 @@ a.pseudo:hover,
   height: 17px;
   background: url(../images/section/pregnancy/ico-pregnancy-test.png) no-repeat;
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
 }
 .ico-childbirth {
   width: 42px;
   height: 35px;
   background: url(../images/section/pregnancy/ico-childbirth.png) no-repeat;
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
 }
 .ico-age18 {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   width: 33px;
   height: 34px;
   background: url(/images/ico/ico-age18.png) no-repeat;
   vertical-align: middle;
 }
-.ico-child {
-  width: 52px;
-  height: 50px;
+.ico-family {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
-  background: url(/images/user-family-icons.png) no-repeat -66px 0;
+  width: 55px;
+  height: 50px;
+  background: url(/images/ico/ico-family.png) no-repeat -66px 0;
 }
-.ico-child__baby-plan {
+.ico-family__baby-plan {
   background-position: 0 0;
 }
-.ico-child__baby {
+.ico-family__baby {
   background-position: -66px 0;
 }
-.ico-child__boy-wait {
+.ico-family__baby-two {
+  background-position: 0px -550px;
+}
+.ico-family__boy-wait {
   background-position: 0 -50px;
 }
-.ico-child__girl-wait {
+.ico-family__girl-wait {
   background-position: -66px -50px;
 }
-.ico-child__boy-small {
+.ico-family__boy-small {
   background-position: 0 -100px;
 }
-.ico-child__girl-small {
+.ico-family__girl-small {
   background-position: -66px -100px;
 }
-.ico-child__boy-3 {
+.ico-family__boy-3 {
   background-position: 0 -150px;
 }
-.ico-child__girl-3 {
+.ico-family__girl-3 {
   background-position: -66px -150px;
 }
-.ico-child__boy-5 {
+.ico-family__boy-5 {
   background-position: 0 -200px;
 }
-.ico-child__girl-5 {
+.ico-family__girl-5 {
   background-position: -66px -200px;
 }
-.ico-child__boy-8 {
+.ico-family__boy-8 {
   background-position: 0 -250px;
 }
-.ico-child__girl-8 {
+.ico-family__girl-8 {
   background-position: -66px -250px;
 }
-.ico-child__boy-14 {
+.ico-family__boy-14 {
   background-position: 0 -300px;
 }
-.ico-child__girl-14 {
+.ico-family__girl-14 {
   background-position: -66px -300px;
 }
-.ico-child__boy-19 {
+.ico-family__boy-19 {
   background-position: 0 -350px;
 }
-.ico-child__girl-19 {
+.ico-family__girl-19 {
   background-position: -66px -350px;
+}
+.ico-family__boy-friend {
+  background-position: 0 -400px;
+}
+.ico-family__girl-friend {
+  background-position: -66px -400px;
+}
+.ico-family__boy-friend {
+  background-position: 0 -400px;
+}
+.ico-family__girl-friend {
+  background-position: -66px -400px;
+}
+.ico-family__fiance {
+  background-position: 0 -450px;
+}
+.ico-family__bride {
+  background-position: -66px -450px;
+}
+.ico-family__husband {
+  background-position: 0 -500px;
+}
+.ico-family__wife {
+  background-position: -66px -500px;
 }
 .ico-male {
   display: inline-block;
@@ -1098,8 +1117,6 @@ a.pseudo:hover,
 }
 .ico-camera-big {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   width: 39px;
   height: 29px;
   background: url(/images/ico/ico-camera-big.png) no-repeat;
@@ -1107,8 +1124,6 @@ a.pseudo:hover,
 }
 .ico-valentine-heart {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   width: 55px;
   height: 45px;
   background: url(/images/ico/ico-valentine-heart.png) no-repeat;
@@ -1116,17 +1131,12 @@ a.pseudo:hover,
 }
 .ico-plus {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
-  vertical-align: middle;
   width: 8px;
   height: 8px;
   background: url(/images/ico/ico-plus.png) no-repeat;
 }
 .ico-plus2 {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   vertical-align: middle;
   width: 10px;
   height: 11px;
@@ -1135,8 +1145,6 @@ a.pseudo:hover,
 }
 .ico-player {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   vertical-align: middle;
   width: 19px;
   height: 19px;
@@ -1147,8 +1155,6 @@ a.pseudo:hover,
 }
 .ico-play-big {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   vertical-align: middle;
   width: 151px;
   height: 151px;
@@ -1156,8 +1162,6 @@ a.pseudo:hover,
 }
 .ico-name-author {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   color: #8b8a8a;
   font-size: 11px;
   vertical-align: middle;
@@ -1171,8 +1175,6 @@ a.pseudo:hover,
 }
 .ico-redactor {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   vertical-align: middle;
   width: 30px;
   height: 30px;
@@ -1216,24 +1218,18 @@ a.pseudo:hover,
 }
 .ico-cup {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   width: 40px;
   height: 34px;
   background: url(/images/ico/ico-cup.png) no-repeat;
 }
 .ico-cup-small {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   width: 25px;
   height: 21px;
   background: url(/images/ico/ico-cup-small.png) no-repeat;
 }
 .ico-tag {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   width: 17px;
   height: 16px;
   vertical-align: middle;
@@ -1241,8 +1237,6 @@ a.pseudo:hover,
 }
 .ico-tag-big {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   width: 23px;
   height: 22px;
   vertical-align: middle;
@@ -1250,8 +1244,6 @@ a.pseudo:hover,
 }
 .ico-tags {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   width: 20px;
   height: 16px;
   vertical-align: middle;
@@ -1259,8 +1251,6 @@ a.pseudo:hover,
 }
 .ico-tags-big {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   width: 27px;
   height: 22px;
   vertical-align: middle;
@@ -20635,70 +20625,115 @@ select.pregnancy_term + .chzn-container .chzn-results li {
   font-size: 12px;
 }
 /* /find-friend-famyli */
-/* b-famyli */
-.b-famyli {
+/* b-family */
+.b-family {
   font-size: 9px;
   line-height: 10px;
   text-align: center;
 }
-.b-famyli__bg .b-famyli_img-hold {
-  background: #836d96;
-  background: rgba(0, 0, 0, 0.25);
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.25);
-  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.25);
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.25);
-}
-.b-famyli__bg .b-famyli_tx {
-  background: #967cac;
-  background: rgba(0, 0, 0, 0.15);
-}
-.b-famyli__bg .b-famyli_more {
+.b-family__bg .b-family_more {
   color: #fff;
 }
-.b-famyli_top {
-  height: 22px;
-  width: 190px;
+.b-family__bg-none .b-family_img-hold {
+  background: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+.b-family__bg-none .b-family_tx {
+  background: none;
+}
+.b-family__square .b-family_li {
+  width: 85px;
+  margin: 20px 15px 20px;
+  padding: 10px 3px;
+  border: 2px solid #9ecde3;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+}
+.b-family__square .b-family_li.dragover {
+  border-color: #9be498;
+}
+.b-family__square .b-family_li.dragover-error {
+  border-color: #f8bdbd;
+}
+.b-family__square .b-family_li__empty {
+  height: 72px;
+  border: 2px dashed #95d0e6;
+}
+.b-family__square .b-family_img-hold {
+  display: block;
+  height: 50px;
+  width: auto;
+  max-width: none;
+  background: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+.b-family__square .b-family_tx {
+  width: auto;
+  background: none;
+}
+.b-family_top {
   margin: 0 auto 15px;
 }
-.b-famyli_top__white {
+.b-family_top__white {
+  height: 22px;
+  width: 190px;
   background: url(/images/b-famyli_top__white.png) no-repeat;
 }
-.b-famyli_ul {
+.b-family_top__blue {
+  width: 274px;
+  height: 31px;
+  margin: 20px auto 35px;
+  background: url(/images/b-famyli_top__blue.png) no-repeat;
+}
+.b-family_ul {
   margin: 8px -10px 0;
 }
-.b-famyli_li {
+.b-family_li {
   display: inline-block;
   vertical-align: top;
   margin: 0 7px 13px;
-  width: 55px;
 }
-.b-famyli_img-hold {
+.b-family_img-hold {
   display: table-cell;
   vertical-align: middle;
   width: 55px;
   max-width: 55px;
   height: 55px;
   max-height: 55px;
+  text-align: center;
+  background: #836d96;
+  background: rgba(0, 0, 0, 0.25);
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.25);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.25);
 }
-.b-famyli_img {
+.b-family_img {
   max-height: 100%;
 }
-.b-famyli_tx {
-  padding: 5px;
+.b-family_tx {
+  width: 55px;
+  padding: 5px 0;
+  background: #967cac;
+  background: rgba(0, 0, 0, 0.15);
 }
-.b-famyli_empty {
+.b-family_empty {
   font-size: 12px;
   color: #ded2e9;
 }
-.b-famyli_more {
+.b-family_more {
   font-size: 12px;
 }
-.b-famyli_add {
+.b-family_add {
   display: block;
   font-size: 13px;
   color: #fff;
 }
-.b-famyli_add-b {
+.b-family_add-b {
   display: block;
   width: 55px;
   height: 55px;
@@ -20710,10 +20745,10 @@ select.pregnancy_term + .chzn-container .chzn-results li {
   -moz-border-radius: 5px;
   border-radius: 5px;
 }
-.b-famyli_add-b:hover {
+.b-family_add-b:hover {
   background-color: rgba(0, 0, 0, 0.3);
 }
-/* /b-famyli */
+/* /b-family */
 /* valentine-banner */
 .valentine-banner {
   position: relative;

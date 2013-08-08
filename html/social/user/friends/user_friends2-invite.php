@@ -140,39 +140,63 @@
                    				<div class="flag flag-ua" title="Украина"></div>
                    				Украина, Астраханская область
                    			</div>
-							<div class="find-friend-famyli">
-								<ul class="find-friend-famyli-list">
-									<li>
-										<div class="img"><img alt="" src="/images/example/w41-h49-1.jpg"></div>
-										<span class="">Жена</span> <br>
-										<span>Елизаветушка</span>
+							<div class="b-family">
+								<ul class="b-family_ul">
+									<li class="b-family_li">
+										<div class="b-family_img-hold">
+											<!-- Размеры изображений 55*55пк -->
+											<img class="b-family_img" alt="" src="/images/example/w41-h49-1.jpg">
+										</div>
+										<div class="b-family_tx">
+											<span>Жена</span> <br>
+											<span>Елена</span>
+										</div>
 									</li>
-									<li>
-										<div class="img ico-child ico-child__boy-19"></div>
-										<span class="">Сын</span> <br>
-										<span>Евгений</span> <br>
-										<span class="">20 лет</span>
+									<li class="b-family_li">
+										<div class="b-family_img-hold">
+											<div class="ico-family ico-family__boy-19"></div>
+										</div>
+										<div class="b-family_tx">
+											<span>Сын</span> <br>
+											<span>Алекс</span> <br>
+											<span>18 лет</span>
+										</div>
 									</li>
-									<li>
-										<div class="img ico-child ico-child__girl-19"></div>
-										<span class="">Дочь</span> <br>
-										<span>Евгения</span> <br>
-										<span class="">19 лет</span>
+									<li class="b-family_li">
+										<div class="b-family_img-hold">
+											<img class="b-family_img" alt="" src="/images/example/w64-h61-1.jpg">
+										</div>
+										<div class="b-family_tx">
+											<span>Дочь</span> <br>
+											<span>Снежана</span> <br>
+											<span>2,5 года</span>
+										</div>
 									</li>
-									<li>
-										<div class="img ico-child ico-child__boy-14"></div>
-										<span class="">Сын</span> <br>
-										<span>Евгений</span> <br>
-										<span class="">18 лет</span>
+									<li class="b-family_li">
+										<div class="b-family_img-hold">
+										</div>
+										<div class="b-family_tx">
+											<span>Дочь</span> <br>
+											<span>Снежана</span> <br>
+											<span>2,5 года</span>
+										</div>
 									</li>
-									<li>
-										<div class="img ico-child ico-child__girl-14"></div>
-										<span class="">Дочь</span> <br>
-										<span>Евгения</span> <br>
-										<span class="">13 лет</span>
+									<li class="b-family_li">
+										<div class="b-family_img-hold">
+											<div class="ico-family ico-family__boy-small"></div>
+										</div>
+										<div class="b-family_tx">
+											<span>Дочь</span> <br>
+											<span>Снежана</span> <br>
+											<span>2,5 года</span>
+										</div>
 									</li>
-									<li>
-										<a href="" class="find-friend-famyli_other">еще 3</a>
+									<li class="b-family_li">
+										<div class="b-family_img-hold">
+											<a class="b-family_more" href="">еще 3</a>
+										</div>
+										<div class="b-family_tx">
+										</div>
 									</li>
 								</ul>
 							</div>
@@ -243,25 +267,37 @@
                    				<div class="flag flag-kz" title="Россия"></div>
                    				Казахстан, Переславль-Залесский, Астраханская область
                    			</div>
-							<div class="find-friend-famyli">
-								<ul class="find-friend-famyli-list">
-									<li>
-										<div class="img"><img alt="" src="/images/example/w52-h34-1.jpg"></div>
-										<span class="">Жена</span> <br>
-										<span>Светлана</span>
+							<div class="b-family">
+								<ul class="b-family_ul">
+									<li class="b-family_li">
+										<div class="b-family_img-hold">
+											<!-- Размеры изображений 55*55пк -->
+											<img class="b-family_img" alt="" src="/images/example/w41-h49-1.jpg">
+										</div>
+										<div class="b-family_tx">
+											<span>Жена</span> <br>
+											<span>Елена</span>
+										</div>
 									</li>
-									<li>
-										<div class="img">
-										<img src="http://img.happy-giraffe.ru/thumbs/66x66/83/2d77cb16aa563469aeb8af25ad69e436.JPG" alt="Настюня"></div>
-										<span class="">Дочь</span> <br>
-										<span>Евгения</span> <br>
-										<span class="">3 мес.</span>
+									<li class="b-family_li">
+										<div class="b-family_img-hold">
+											<div class="ico-family ico-family__boy-19"></div>
+										</div>
+										<div class="b-family_tx">
+											<span>Сын</span> <br>
+											<span>Алекс</span> <br>
+											<span>18 лет</span>
+										</div>
 									</li>
-									<li>
-										<div class="img"><img alt="" src="/images/example/w41-h49-1.jpg"></div>
-										<span class="">Дочь</span> <br>
-										<span>Евгения</span> <br>
-										<span class="">3 мес.</span>
+									<li class="b-family_li">
+										<div class="b-family_img-hold">
+											<div class="ico-family ico-family__boy-small"></div>
+										</div>
+										<div class="b-family_tx">
+											<span>Дочь</span> <br>
+											<span>Снежана</span> <br>
+											<span>2,5 года</span>
+										</div>
 									</li>
 								</ul>
 							</div>
@@ -314,39 +350,17 @@
                    				<div class="flag flag-ua" title="Россия"></div>
                    				Россия, Астраханская область
                    			</div>
-							<div class="find-friend-famyli">
-								<ul class="find-friend-famyli-list">
-									<li>
-										<div class="img"><img alt="" src="/images/example/w41-h49-1.jpg"></div>
-										<span class="">Жена</span> <br>
-										<span>Елизаветушка</span>
-									</li>
-									<li>
-										<div class="img ico-child ico-child__boy-19"></div>
-										<span class="">Сын</span> <br>
-										<span>Евгений</span> <br>
-										<span class="">20 лет</span>
-									</li>
-									<li>
-										<div class="img ico-child ico-child__girl-19"></div>
-										<span class="">Дочь</span> <br>
-										<span>Евгения</span> <br>
-										<span class="">19 лет</span>
-									</li>
-									<li>
-										<div class="img ico-child ico-child__boy-14"></div>
-										<span class="">Сын</span> <br>
-										<span>Евгений</span> <br>
-										<span class="">18 лет</span>
-									</li>
-									<li>
-										<div class="img ico-child ico-child__girl-14"></div>
-										<span class="">Дочь</span> <br>
-										<span>Евгения</span> <br>
-										<span class="">13 лет</span>
-									</li>
-									<li>
-										<a href="" class="find-friend-famyli_other">еще 3</a>
+							<div class="b-family">
+								<ul class="b-family_ul">
+									<li class="b-family_li">
+										<div class="b-family_img-hold">
+											<!-- Размеры изображений 55*55пк -->
+											<img class="b-family_img" alt="" src="/images/example/w41-h49-1.jpg">
+										</div>
+										<div class="b-family_tx">
+											<span>Жена</span> <br>
+											<span>Елена</span>
+										</div>
 									</li>
 								</ul>
 							</div>

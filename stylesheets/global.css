@@ -2642,6 +2642,61 @@
   color: #b7b6b6;
 }
 /* /re-watch *//* redactor */
+.redactor_box {
+  position: relative;
+  overflow: visible;
+  border: none;
+  background-color: none;
+}
+.redactor_editor a {
+  color: #319fe4 !important;
+  text-decoration: none !important;
+}
+.redactor_editor ul {
+  margin: 15px 0;
+  padding: 0;
+  list-style: none;
+}
+.redactor_editor ul li {
+  margin: 0;
+  padding: 5px 0 5px 27px;
+  background: url(/images/bullet.png) no-repeat 4px 10px;
+}
+.redactor_editor ol {
+  margin: 15px 0;
+  padding: 0;
+  counter-reset: item;
+  list-style-type: none;
+}
+.redactor_editor ol li {
+  margin: 0;
+  padding: 5px 0 5px 27px;
+}
+.redactor_editor ol li:before {
+  font: bold 14px Arial, Tahoma, Verdana, sans-serif;
+  color: #333;
+  margin: 0 0 0 -25px;
+  float: left;
+  content: counters(item, '.') '.';
+  /* crash IE7 */
+
+  counter-increment: item;
+}
+.redactor_editor h2 {
+  margin: 40px 0 15px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #186fb8;
+}
+.redactor_editor h3 {
+  margin: 20px 0 10px;
+  font-size: 13px;
+  font-weight: bold;
+  color: #333;
+}
+.redactor_wysiwyg-redactor {
+  max-height: 225px;
+}
 /* wysiwyg-blue */
 .wysiwyg-blue .redactor_editor,
 .wysiwyg-blue .redactor_editor:focus {
@@ -2720,9 +2775,6 @@
   left: 44px;
 }
 /* /wysiwyg-v */
-.redactor_wysiwyg-redactor {
-  max-height: 225px;
-}
 /* section */
 .section {
   margin: 0 -3000px 40px;
@@ -12160,6 +12212,7 @@ table.fr_recipe_tb td {
 }
 .blog-title-b_t {
   display: inline-block;
+  max-width: 80%;
   margin: -25px 0 0;
   padding: 1px 23px 8px;
   font: 35px/35px 'Roboto', Arial, Tahoma, Verdana, sans-serif;
@@ -12323,7 +12376,7 @@ table.fr_recipe_tb td {
   width: 580px;
   display: table-cell;
   vertical-align: middle;
-  height: 255px;
+  height: 251px;
   padding: 20px;
   color: #186fb8;
 }
@@ -12506,9 +12559,10 @@ table.fr_recipe_tb td {
 /* photo-grid */
 .photo-grid {
   margin: 0 0 10px;
+  overflow: hidden;
 }
 .photo-grid_row {
-  margin: 0 0 5px;
+  margin: 0 -10px 5px 0;
 }
 .photo-grid_i {
   position: relative;
@@ -12567,8 +12621,8 @@ table.fr_recipe_tb td {
 .photo-preview-row .photo-grid {
   display: inline-block;
   vertical-align: middle;
-  width: 600px;
   margin: 0;
+  overflow: visible;
 }
 .photo-preview-row .photo-grid_row {
   margin: 0;
@@ -12626,7 +12680,7 @@ table.fr_recipe_tb td {
 .photo-preview-row_last {
   display: inline-block;
   vertical-align: middle;
-  width: 70px;
+  width: 66px;
   text-align: center;
 }
 .photo-preview-row_a {
@@ -14196,10 +14250,11 @@ table.fr_recipe_tb td {
 }
 .b-add-img_i-load {
   position: absolute;
-  top: 61px;
+  top: 50%;
   left: 25px;
   height: 5px;
   width: 150px;
+  margin-top: -3px;
   background: #61c3fd;
 }
 .b-add-img_i-load-progress {
@@ -14496,7 +14551,11 @@ table.fr_recipe_tb td {
 /* /about-self */
 /* b-interest */
 .b-interest {
-  margin: 10px 20px 40px;
+  margin: 0 0 20px;
+  padding: 20px;
+}
+.b-interest__addition {
+  background: #f9f9f9;
 }
 .b-interest_add {
   display: inline-block;
@@ -14520,6 +14579,9 @@ table.fr_recipe_tb td {
 .b-interest_li:hover .b-interest_i.active {
   color: #fff;
 }
+.b-interest_li:hover .b-interest_i__white.active {
+  color: #bbb;
+}
 .b-interest_i {
   position: relative;
   display: inline-block;
@@ -14541,15 +14603,44 @@ table.fr_recipe_tb td {
   left: -7px;
   width: 9px;
   height: 19px;
-  background: url(/images/b-interest_i_after.png) no-repeat;
+  background: url(/images/b-interest_i.png) no-repeat 0 -21px;
 }
 .b-interest_i.active {
   color: #fff;
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
-  background: url(/images/b-interest_i-active.png) no-repeat 100% 0;
+  background-position: 100% -40px;
 }
 .b-interest_i.active:after {
-  background: url(/images/b-interest_i-active_after.png) no-repeat;
+  background-position: 0 -61px;
+}
+.b-interest_i__green {
+  color: #fff;
+  background-position: 100% -80px;
+}
+.b-interest_i__green:after {
+  background-position: 0 -101px;
+}
+.b-interest_i__white {
+  color: #3e3e3e;
+  background-position: 100% -120px;
+}
+.b-interest_i__white:after {
+  background-position: 0 -141px;
+}
+.b-interest_i__white:hover {
+  color: #0697d3;
+  background-position: 100% 0;
+}
+.b-interest_i__white:hover:after {
+  background-position: 0 -21px;
+}
+.b-interest_i__white.active {
+  background: none;
+  color: #bbb;
+  text-shadow: none;
+}
+.b-interest_i__white.active:after {
+  display: none;
 }
 .b-interest_popup {
   display: none;
@@ -14586,6 +14677,43 @@ table.fr_recipe_tb td {
   float: none;
   display: inline-block;
   margin: 0 3px;
+}
+.b-interest_section-hold {
+  margin: 15px -20px;
+  border: 1px solid #e9e8e8;
+  border-width: 1px 0;
+  display: table;
+}
+.b-interest_categories {
+  display: table-cell;
+  width: 250px;
+  padding: 10px 0;
+  border-right: 1px solid #e9e8e8;
+  -webkit-box-shadow: inset -1px 0 1px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: inset -1px 0 1px rgba(0, 0, 0, 0.05);
+  box-shadow: inset -1px 0 1px rgba(0, 0, 0, 0.05);
+}
+.b-interest_category-i {
+  margin-right: -1px;
+}
+.b-interest_category-i.active .b-interest_category-a,
+.b-interest_category-a:hover {
+  background: #fff;
+  border-left-color: #44ac1a;
+  color: #fd7700;
+  text-decoration: none;
+}
+.b-interest_category-a {
+  display: block;
+  padding: 4px 18px;
+  border-left: 2px solid transparent;
+  font-size: 13px;
+}
+.b-interest_choice-col {
+  display: table-cell;
+  width: 449px;
+  padding: 10px 10px;
+  background: #fff;
 }
 /* /b-interest */
 /* widget-friends */
@@ -15296,6 +15424,9 @@ table.fr_recipe_tb td {
 .b-registration {
   margin: 20px 0;
 }
+.b-registration .b-family {
+  font-size: 11px;
+}
 .b-registration_row {
   margin: 25px 20px 20px 45px;
 }
@@ -15308,5 +15439,28 @@ table.fr_recipe_tb td {
   display: inline-block;
   vertical-align: top;
   margin: 16px 20px 0;
+}
+.b-registration_family-added {
+  float: left;
+  width: 440px;
+  padding-right: 40px;
+  background: url(/images/b-registration_family-added.png) no-repeat 100% 110px;
+}
+.b-registration_family-upload {
+  float: left;
+  margin-left: 30px;
+  width: 450px;
+}
+.b-registration_family-upload .b-family_li {
+  margin: 0 4px 13px;
+  cursor: pointer;
+}
+.b-registration_family-upload .b-family_img-hold {
+  display: block;
+  width: auto;
+  max-width: none;
+}
+.b-registration_family-upload .b-family_tx {
+  width: auto;
 }
 /* /b-registration */

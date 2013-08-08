@@ -35,12 +35,12 @@
 					<div class="section-lilac_center-reg">с Веселым Жирафом 2 дня</div>
 				</div>
 				<div class="section-lilac_right">
-					<div class="b-famyli">
-						<div class="b-famyli_top b-famyli_top__white"></div>
-						<ul class="b-famyli_ul">
-							<li class="b-famyli_li">
-								<a href="" class="b-famyli_add">
-									<span class="b-famyli_add-b">
+					<div class="b-family b-family__bg">
+						<div class="b-family_top b-family_top__white"></div>
+						<ul class="b-family_ul">
+							<li class="b-family_li">
+								<a href="" class="b-family_add">
+									<span class="b-family_add-b">
 									</span>
 									Добавить семью
 								</a>
@@ -106,6 +106,120 @@
 					</div>
 				</div>
 				
+				<!-- Интересы -->
+				<div class="b-interest b-interest__addition">
+					<h3 class="heading-small margin-b10">Мои интересы</h3>
+					<div class="clearfix">
+						<span class="color-gray">Выберите категорию и добавьте интерес просто кликнув по ему,  или </span>
+						<a href="" class="b-interest_i b-interest_i__green">Добавить свой интерес <span class="ico-plus margin-l3"></span> </a>
+					</div>
+					
+					<div class="b-interest_section">
+						<div class="b-interest_section-hold clearfix">
+							<div class="b-interest_categories">
+								<div class="b-interest_category-i">
+									<a href="" class="b-interest_category-a">Все интересы</a>
+								</div>
+								<div class="b-interest_category-i">
+									<a href="" class="b-interest_category-a">Животные</a>
+								</div>
+								<div class="b-interest_category-i">
+									<a href="" class="b-interest_category-a">Игры</a>
+								</div>
+								<div class="b-interest_category-i">
+									<a href="" class="b-interest_category-a">Кино</a>
+								</div>
+								<div class="b-interest_category-i">
+									<a href="" class="b-interest_category-a">Книги и культура</a>
+								</div>
+								<div class="b-interest_category-i">
+									<a href="" class="b-interest_category-a">Компьютеры</a>
+								</div>
+								<div class="b-interest_category-i">
+									<a href="" class="b-interest_category-a">Карьера и образование</a>
+								</div>
+								<div class="b-interest_category-i">
+									<a href="" class="b-interest_category-a">Религия</a>
+								</div>
+								<div class="b-interest_category-i">
+									<a href="" class="b-interest_category-a">Путешествия</a>
+								</div>
+								<div class="b-interest_category-i">
+									<a href="" class="b-interest_category-a">Спорт</a>
+								</div>
+								<div class="b-interest_category-i">
+									<a href="" class="b-interest_category-a">Увлечения</a>
+								</div>
+								<div class="b-interest_category-i">
+									<a href="" class="b-interest_category-a">Животные</a>
+								</div>
+								<div class="b-interest_category-i">
+									<a href="" class="b-interest_category-a">Кулинария</a>
+								</div>
+								<div class="b-interest_category-i">
+									<a href="" class="b-interest_category-a">Наука</a>
+								</div>
+								<div class="b-interest_category-i">
+									<a href="" class="b-interest_category-a">Религия</a>
+								</div>
+								<div class="b-interest_category-i">
+									<a href="" class="b-interest_category-a">Компьютеры</a>
+								</div>
+							</div>
+							<div class="b-interest_choice-col">
+								<ul class="b-interest_ul clearfix">
+									<li class="b-interest_li">
+										<a href="" class="b-interest_i b-interest_i__white">Комедия</a>
+									</li>
+									<li class="b-interest_li">
+										<a href="" class="b-interest_i b-interest_i__white active">Морская рыбалка</a>
+									</li>
+									<li class="b-interest_li">
+										<a href="" class="b-interest_i b-interest_i__white">Комедия</a>
+									</li>
+									<li class="b-interest_li">
+										<a href="" class="b-interest_i b-interest_i__white">Минимализм</a>
+									</li>
+									<li class="b-interest_li">
+										<a href="" class="b-interest_i b-interest_i__white">Кошки</a>
+									</li>
+									<li class="b-interest_li">
+										<a href="" class="b-interest_i b-interest_i__white">Комедия</a>
+									</li>
+									<li class="b-interest_li">
+										<a href="" class="b-interest_i b-interest_i__white">Минимализм</a>
+									</li>
+									<li class="b-interest_li">
+										<a href="" class="b-interest_i b-interest_i__white">Кошки</a>
+									</li>
+									<li class="b-interest_li">
+										<a href="" class="b-interest_i b-interest_i__white">Комедия</a>
+									</li>
+									<li class="b-interest_li">
+										<a href="" class="b-interest_i b-interest_i__white">Минимализм</a>
+									</li>
+									<li class="b-interest_li">
+										<a href="" class="b-interest_i b-interest_i__white">Кошки</a>
+									</li>
+									<li class="b-interest_li">
+										<a href="" class="b-interest_i b-interest_i__white">Комедия</a>
+									</li>
+									<li class="b-interest_li">
+										<a href="" class="b-interest_i b-interest_i__white">Минимализм</a>
+									</li>
+									<li class="b-interest_li">
+										<a href="" class="b-interest_i b-interest_i__white">Кошки</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="clearfix">
+							<a href="" class="btn-blue btn-medium float-r">Готово</a>
+						</div>
+					</div>
+				</div>
+				
+				<!-- Добавить статью -->
 				<div class="user-add-record clearfix">
 					<div class="user-add-record_ava-hold">
 						<a href="" class="ava male">

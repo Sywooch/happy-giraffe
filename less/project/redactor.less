@@ -1,4 +1,59 @@
 /* redactor */
+.redactor_box {
+	position: relative;
+	overflow: visible;
+	border: none;
+	background-color: none;
+}
+.redactor_editor a {
+	color: #319fe4 !important;
+	text-decoration: none !important;
+}
+.redactor_editor ul {
+	margin: 15px 0;
+    padding: 0;
+    list-style: none;
+}
+.redactor_editor  ul li {
+    margin: 0;
+    padding:5px 0 5px 27px;
+    background: url(/images/bullet.png) no-repeat 4px 10px;
+}
+.redactor_editor  ol {
+    margin: 15px 0;
+    padding: 0;
+    counter-reset: item;
+    list-style-type: none;
+}
+.redactor_editor ol li {
+    margin: 0;
+    padding:5px 0 5px 27px;
+}
+.redactor_editor ol li:before {
+    font:bold 14px Arial, Tahoma, Verdana, sans-serif;
+    color: #333;
+    margin:0 0 0 -25px;
+    float: left;
+    content: counters(item, '.') '.'; /* crash IE7 */
+    counter-increment: item;
+}
+
+.redactor_editor h2 {
+	margin: 40px 0 15px;
+	font-size: 16px;
+	font-weight: bold;
+	color: #186fb8;
+}
+.redactor_editor h3 {
+    margin: 20px 0 10px;
+    font-size: 13px;
+    font-weight: bold;
+    color: #333;
+}
+
+.redactor_wysiwyg-redactor {max-height: 225px;}
+
+
 
 /* wysiwyg-blue */
 .wysiwyg-blue .redactor_editor,
@@ -77,4 +132,4 @@
 }
 /* /wysiwyg-v */
 
-.redactor_wysiwyg-redactor {max-height: 225px;}
+

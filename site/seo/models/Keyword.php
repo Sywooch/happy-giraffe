@@ -426,4 +426,31 @@ class Keyword extends CActiveRecord
         $this->status = $status;
         $this->update(array('status', 'wordstat'));
     }
+
+    /**
+     * Траффик на Веселый Жираф по этому ключевому слову
+     * @return int
+     */
+    public function getOurTraffic()
+    {
+        return 0;
+    }
+
+    /**
+     * Позиция Веселого Жирафа в Яндексе по ключевому слову
+     * @return string
+     */
+    public function getPosYandex()
+    {
+        return '>50';
+    }
+
+    /**
+     * Позиция Веселого Жирафа в Google по ключевому слову
+     * @return string
+     */
+    public function getPosGoogle()
+    {
+        return '>50';
+    }
 }

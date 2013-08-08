@@ -24,9 +24,14 @@ Yii::app()->clientScript->registerCoreScript('jquery.ui'); ?>
                     <td><span><?=$tempKeyword->keyword->getFreqIcon() ?></span> <span class="freq-val"><?= $tempKeyword->keyword->getRoundFrequency() ?></span></td>
                     <td>
                         <ul>
-                        <?php foreach ($editors as $editor): ?>
-                            <li><a href="javascript:;" onclick="TaskDistribution.transferKeyword(<?=$tempKeyword->keyword_id ?>, <?= $editor->id ?>);"><?=$editor->name ?></a></li>
-                        <?php endforeach; ?>
+                            <div class="admins redactor js-editor-list-button">
+                                <a href="javascript:;" class="btn-redactor" onclick="$(this).next().toggle();"></a>
+                                <ul class="js-editor-list" style="display:none;z-index: 100;">
+                                    <?php foreach ($editors as $editor): ?>
+                                        <li><a href="javascript:;" onclick="TaskDistribution.transferKeyword(<?=$tempKeyword->keyword_id ?>, <?= $editor->id ?>);"><?=$editor->name ?></a></li>
+                                    <?php endforeach; ?>
+                                </ul>
+                            </div>
                         </ul>
                     </td>
                 </tr>

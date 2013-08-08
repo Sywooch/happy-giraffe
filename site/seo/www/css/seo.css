@@ -451,9 +451,11 @@ button.btn-gray-small {height:20px;}
 #seo .table-result .table-box tr.in-work td {background:#dafacc;}
 #seo .table-result .table-box tr.in-buffer td {background:#e1efff;}
 
-#seo .table-tasks {width:550px;margin-bottom:50px;}
-#seo .table-tasks .table-box table  td, #seo .table-tasks .table-box table  th {text-align:center;}
-#seo .table-tasks .table-box table  td.col-1, #seo .table-tasks .table-box table  th.col-1 {text-align:left;vertical-align:middle;font-weight:normal;}
+#seo .table-tasks {width:750px;margin-bottom:50px;}
+#seo .table-tasks .table-box table  td,
+#seo .table-tasks .table-box table  th {text-align:center;}
+#seo .table-tasks .table-box table  td.col-1,
+#seo .table-tasks .table-box table  th.col-1 {text-align:left;vertical-align:middle;font-weight:normal;}
 #seo .table-tasks .table-box table  th.col-1 {padding-left:35px;}
 
 
@@ -470,13 +472,17 @@ button.btn-gray-small {height:20px;}
 #seo .tasks-manager .task-box:hover .remove {display:block;}
 
 #seo .tasks-manager .buttons {padding-top:40px;text-align:center;}
-#seo .tasks-manager .buttons .admins {display:inline-block;*zoom:1;*display:inline;vertical-align:top;position:relative;}
-#seo .tasks-manager .buttons .admins ul {list-style:none;text-align:right;border:1px solid #f5e9ab;background:#fffbe2;padding:11px 1px 6px;position:absolute;right:0;top:40px;}
-#seo .tasks-manager .buttons .admins ul li a {display:block;padding:2px 10px;color:#959494;text-decoration:underline;white-space:nowrap;}
-#seo .tasks-manager .buttons .admins ul li a:hover {background:#fcf2c0;color:#767575;}
-#seo .tasks-manager .buttons .btn-admins {display:inline-block;*zoom:1;*display:inline;width:97px;height:45px;background:url(/images/seo_sprite.png) no-repeat -164px -1px;position:relative;z-index:2;}
-#seo .tasks-manager .buttons .btn-moderators {display:inline-block;*zoom:1;*display:inline;width:86px;height:45px;background:url(/images/seo_sprite.png) no-repeat -164px -48px;position:relative;z-index:2;margin-left:25px;}
-#seo .tasks-manager .buttons .btn-commentators {display:inline-block;*zoom:1;*display:inline;width:86px;height:45px;background:url(/images/seo_sprite.png) no-repeat -184px -147px;position:relative;z-index:2;margin-left:25px;}
+
+.admins {display:inline-block;*zoom:1;*display:inline;vertical-align:middle;position:relative;}
+.admins.redactor ul {top: 26px;}
+.admins ul {list-style:none;text-align:right;border:1px solid #f5e9ab;background:#fffbe2;padding:11px 1px 6px;position:absolute;right:0;top:40px;}
+.admins ul li a {display:block;padding:2px 10px;color:#959494;text-decoration:underline;white-space:nowrap;}
+.admins ul li a:hover {background:#fcf2c0;color:#767575;}
+.btn-admins {display:inline-block;*zoom:1;*display:inline;width:97px;height:45px;background:url(/images/seo_sprite.png) no-repeat -164px -1px;position:relative;z-index:2;}
+.btn-redactor {display:inline-block;*zoom:1;*display:inline;width:62px;height:26px;background:url(/images/seo_sprite.png) no-repeat -200px -95px;position:relative;z-index:2;}
+
+#seo .tasks-manager .buttons .btn-moderators {display:inline-block;*zoom:1;*display:inline;width:86px;height:45px;background:url(/images/seo_sprite.png) no-repeat -164px -48px;position:relative;z-index:2;margin-left:25px;vertical-align: middle;}
+#seo .tasks-manager .buttons .btn-commentators {display:inline-block;*zoom:1;*display:inline;width:86px;height:45px;background:url(/images/seo_sprite.png) no-repeat -184px -147px;position:relative;z-index:2;margin-left:25px;vertical-align: middle;}
 
 #seo .drag {display:inline-block;*zoom:1;*display:inline;width:6px;height:27px;background:url(/images/seo_sprite.png) no-repeat -94px -1px;border:5px solid #e6f1ff;cursor:move;margin-right:6px;vertical-align:middle;}
 

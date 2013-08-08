@@ -1,8 +1,14 @@
 <?php
-$dataProvider = $model->search();
+/**
+ * @var int $type основная фильтрация
+ * @var SiteKeywordVisit $model основная фильтрация
+ * @var int $site_id выбранный сайт
+ * @var int $year выбранный сайт
+ * @var int $freq частота ключевых слов, которая нас интересует
+ */
+$dataProvider = $model->search($type);
 ?>
 <div class="search clearfix">
-
     <div class="input">
         <label>Введите слово или фразу</label>
         <a href="javascript:;" class="remove tooltip" onclick="CompetitorsTable.clearSearch()" title="Очистить  поиск"></a>

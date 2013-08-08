@@ -4,7 +4,7 @@ class DefaultController extends SController
 {
     public $layout = '//layouts/writing';
 
-    public function actionIndex($site_id = null, $year = 2013, $freq = null)
+    public function actionIndex($site_id = null, $year = 2013, $freq = null, $type = SiteKeywordVisit::FILTER_ALL)
     {
         if (!Yii::app()->user->checkAccess('main-editor') && !Yii::app()->user->checkAccess('admin'))
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
@@ -43,6 +43,6 @@ class DefaultController extends SController
         $model->sites_id = $current_site->getGroupSiteIds();
         $model->freq = $freq;
 
-        $this->render('competitors', compact('model', 'site_id', 'year', 'freq'));
+        $this->render('competitors', compact('model', 'site_id', 'year', 'freq', 'type'));
     }
 }

@@ -4,38 +4,27 @@ class DefaultController extends SController
 {
     public $layout = '//layouts/writing';
 
-    public function actionIndex($section = 1, $site_id = null, $year = 2013, $freq = null)
+    public function actionIndex($site_id = null, $year = 2013, $freq = null)
     {
         if (!Yii::app()->user->checkAccess('main-editor') && !Yii::app()->user->checkAccess('admin'))
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
-        switch ($section) {
-            case 1:
-                $this->layout = '//layouts/writing';
-                break;
-            case 2:
-                $this->layout = '//layouts/cook';
-                break;
-            case 10:
-                $this->layout = '//layouts/writing';
-                break;
-        }
         if (empty($site_id))
-            $site_id = SeoUserAttributes::getAttribute('last_competitor_site_id_section_' . $section);
+            $site_id = SeoUserAttributes::getAttribute('last_competitor_site_id_section');
         else
-            SeoUserAttributes::setAttribute('last_competitor_site_id_section_' . $section, $site_id);
+            SeoUserAttributes::setAttribute('last_competitor_site_id_section', $site_id);
 
         $current_site = Site::model()->findByPk($site_id);
         if ($current_site === null)
             $current_site = Site::model()->findByPk(81);
 
-        $sites = Site::model()->findAllByAttributes(array('section' => $section));
+        $sites = Site::model()->findAll();
         $nav = array();
         foreach ($sites as $site)
             if (!$site->isPartOfGroup()) {
                 $nav [] = array(
                     'label' => $site->name,
-                    'url' => $this->createUrl('default/index', array('site_id' => $site->id, 'section' => $section)),
+                    'url' => $this->createUrl('default/index', array('site_id' => $site->id)),
                     'active' => $site_id == $site->id
                 );
 
@@ -54,6 +43,6 @@ class DefaultController extends SController
         $model->sites_id = $current_site->getGroupSiteIds();
         $model->freq = $freq;
 
-        $this->render('competitors', compact('model', 'site_id', 'year', 'freq', 'section'));
+        $this->render('competitors', compact('model', 'site_id', 'year', 'freq'));
     }
 }

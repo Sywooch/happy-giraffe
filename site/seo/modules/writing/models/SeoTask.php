@@ -215,7 +215,7 @@ class SeoTask extends CActiveRecord
             $criteria->condition = 'owner_id = :owner_id AND status > ' . SeoTask::STATUS_PUBLICATION . ' AND type = ' . SeoTask::TYPE_EDITOR;
             $criteria->params = array('owner_id' => Yii::app()->user->getModel()->owner_id);
 
-        } elseif (Yii::app()->user->checkAccess('editor')) {
+        } elseif (Yii::app()->user->checkAccess('editor') || Yii::app()->user->checkAccess('main-editor') ) {
             $criteria->compare('status', SeoTask::STATUS_CLOSED);
             $criteria->compare('owner_id', Yii::app()->user->id);
 
@@ -409,7 +409,8 @@ class SeoTask extends CActiveRecord
     public static function getReportsCriteria($status = 1, $section = SeoTask::SECTION_MAIN, $rewrite = 0)
     {
         $criteria = new CDbCriteria;
-        $criteria->compare('t.owner_id', Yii::app()->user->id);
+        if (Yii::app()->user->checkAccess('editor'))
+            $criteria->compare('t.owner_id', Yii::app()->user->id);
         $criteria->compare('section', $section);
         $criteria->compare('rewrite', $rewrite);
         $criteria->order = 'created desc';

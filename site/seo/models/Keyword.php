@@ -359,7 +359,7 @@ class Keyword extends CActiveRecord
         return '';
     }
 
-    public function getKeywordAndSimilarArticles($section = 1)
+    public function getKeywordAndSimilarArticles()
     {
         $res = $this->name;
         if ($this->hasOpenedTask())

@@ -11,20 +11,11 @@ $dataProvider = $model->search();
     </div>
     <?php $total_count = $dataProvider->totalItemCount ?>
     <?php $this->renderPartial('_count', compact('model', 'freq', 'site_id', 'total_count')); ?>
-
-    <div class="result-filter">
-        <label>не показывать<br>используемые<br>
-            <input type="checkbox"
-                   id="hide-used" <?php if (Yii::app()->user->getState('hide_used') == 1) echo 'checked="checked"' ?>
-                   onchange="SeoKeywords.hideUsed(this, function(){document.location.reload()});"></label>
-    </div>
-
 </div>
 <div class="seo-table table-result mini">
     <?php $this->widget('zii.widgets.grid.CGridView', array(
     'id' => 'keywords-grid',
     'dataProvider' => $dataProvider,
-//    'afterAjaxUpdate'=>'CompetitorsTable.updateTable()',
     'filter' => null,
     'cssFile' => false,
     'rowCssClassExpression' => '$data->keyword->getClass()',
@@ -53,6 +44,25 @@ $dataProvider = $model->search();
             'value' => '$data->keyword->getFreqIcon()',
             'header' => '<i class="icon-freq"></i>'
         ),
+        array(
+            'name' => 'our_traffic',
+            'type' => 'raw',
+            'value' => '$data->keyword->getOurTraffic()',
+            'header' => 'Трафик'
+        ),
+        array(
+            'name' => 'pos_yandex',
+            'type' => 'raw',
+            'value' => '$data->keyword->getPosYandex()',
+            'header' => '<i class="icon-yandex"></i>'
+        ),
+        array(
+            'name' => 'pos_google',
+            'type' => 'raw',
+            'value' => '$data->keyword->getPosGoogle()',
+            'header' => '<i class="icon-google"></i>'
+        ),
+
         array(
             'name' => 'm1',
             'filter' => false
@@ -108,6 +118,7 @@ $dataProvider = $model->search();
         array(
             'name' => 'buttons',
             'type' => 'raw',
+            'value' => '$data->keyword->getButtons(true)',
             'header' => '',
             'filter' => false
         ),
@@ -184,6 +195,7 @@ $dataProvider = $model->search();
 						<th rowspan="2" class="col-1">Ключевое слово или фраза</th>\
 						<th rowspan="2"><i class="icon-yandex" onclick="CompetitorsTable.sortByFreq()"></i></th>\
 						<th rowspan="2"><i class="icon-freq"></i></th>\
+						<th colspan="3">Веселый жираф</th>\
 						<th colspan="12">Количество визитов &nbsp;&nbsp;&nbsp; Год <select onchange="CompetitorsTable.setYear(this);"><option value="2011"<?php if ($model->year == 2011) echo ' selected' ?>>2011</option><option value="2012"<?php if ($model->year == 2012) echo ' selected' ?>>2012</option><option value="2013"<?php if ($model->year == 2013) echo ' selected' ?>>2013</option></select></th>\
 						<th rowspan="2"></th>\
 						<th rowspan="2"></th>\

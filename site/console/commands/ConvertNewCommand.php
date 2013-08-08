@@ -62,11 +62,8 @@ class ConvertNewCommand extends CConsoleCommand
             $photo = AlbumPhoto::getPhotoFromUrl(pq($image)->attr('src'));
             if (empty($photo)) {
                 $photo = $this->createPhoto($model, pq($image)->attr('src'));
-                if (!$photo){
-                    echo pq($image)->attr('src')."\n";
-                    echo "cant create photo\n";
-                    Yii::app()->end();
-                }
+                if (!$photo)
+                    pq($image)->remove();
             }
 
 //            $parent = pq($image)->parent();

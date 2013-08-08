@@ -35,7 +35,7 @@
                     <td class="al"><?=$task->getArticleText() ?></td>
                     <td><?=$task->getExecutor() ?></td>
                     <td class="seo-status-publish-<?=($task->status == SeoTask::STATUS_WRITTEN)?1:2 ?>"><?=$task->getStatusText() ?></td>
-                    <?php if ($task->status == SeoTask::STATUS_WRITTEN): ?>
+                    <?php if ($task->status == SeoTask::STATUS_WRITTEN && Yii::app()->user->checkAccess('editor')): ?>
                     <td><a href="" class="btn-green-small" onclick="SeoTasks.ToPublishing(this, <?=$task->id ?>);return false;">На публикацию</a></td>
                     <?php else: ?>
                     <td></td>

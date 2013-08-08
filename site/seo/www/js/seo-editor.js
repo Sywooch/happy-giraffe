@@ -3,7 +3,7 @@
  * Date: 21.05.12
  */
 var SeoKeywords = {
-    Select:function (el, short) {
+    Select: function (el, short) {
         var id = this.getId(el);
 
         var section = '';
@@ -11,7 +11,7 @@ var SeoKeywords = {
             section = window.content_section;
         console.log(section);
 
-        $.post('/writing/editor/selectKeyword/', {id:id,section:section}, function (response) {
+        $.post('/writing/editor/selectKeyword/', {id: id, section: section}, function (response) {
             if (response.status) {
                 $(el).parents('tr').addClass('in-buffer');
                 if (short)
@@ -21,17 +21,17 @@ var SeoKeywords = {
 
                 if (response.inc)
                     $('.default-nav div.count a').text(parseInt($('.default-nav div.count a').text()) + 1);
-            }else
+            } else
                 $.pnotify({
-                    pnotify_title:'Ошибка',
-                    pnotify_type:'error',
-                    pnotify_text:response.error
+                    pnotify_title: 'Ошибка',
+                    pnotify_type: 'error',
+                    pnotify_text: response.error
                 });
         }, 'json');
     },
-    CancelSelect:function (el, short) {
+    CancelSelect: function (el, short) {
         var id = this.getId(el);
-        $.post('/writing/editor/removeFromSelected/', {id:id}, function (response) {
+        $.post('/writing/editor/removeFromSelected/', {id: id}, function (response) {
             if (response.status) {
                 $(el).parents('tr').removeClass('in-buffer');
                 if (short)
@@ -43,18 +43,18 @@ var SeoKeywords = {
             }
         }, 'json');
     },
-    Hide:function (el) {
-        $.post('/writing/editor/hideKey/', {id:$(el).data('id')}, function (response) {
+    Hide: function (el) {
+        $.post('/writing/editor/hideKey/', {id: $(el).data('id')}, function (response) {
             if (response.status) {
                 $(el).parents('tr').remove();
             }
         }, 'json');
     },
-    getId:function (el) {
+    getId: function (el) {
         return $(el).parent('td').find("input").val();
     },
-    hideUsed:function (el, callback) {
-        $.post('/writing/editor/hideUsed/', {checked:$(el).attr('checked')}, function (response) {
+    hideUsed: function (el, callback) {
+        $.post('/writing/editor/hideUsed/', {checked: $(el).attr('checked')}, function (response) {
             callback();
         }, 'json');
     }
@@ -62,11 +62,11 @@ var SeoKeywords = {
 
 
 var TaskDistribution = {
-    group:[],
-    getId:function (el) {
+    group: [],
+    getId: function (el) {
         return $(el).parents('tr').data("id");
     },
-    addToGroup:function (el) {
+    addToGroup: function (el) {
         var id = this.getId(el);
         TaskDistribution.group.push(id);
 
@@ -77,22 +77,22 @@ var TaskDistribution = {
         $('.drag-text').hide();
         return false;
     },
-    removeFromGroup:function (el, id) {
+    removeFromGroup: function (el, id) {
         $('#keyword-' + id).show();
         TaskDistribution.group.pop(id);
         $(el).parents('.task-box').remove();
         TaskDistribution.showKeyword(id);
     },
-    removeFromSelected:function (el) {
+    removeFromSelected: function (el) {
         var id = this.getId(el);
-        $.post('/writing/editor/removeFromSelected/', {id:id}, function (response) {
+        $.post('/writing/editor/removeFromSelected/', {id: id}, function (response) {
             if (response.status) {
                 TaskDistribution.hideKeyword(id);
                 $(el).parents('tr').remove();
             }
         }, 'json');
     },
-    addGroup:function (type, author_id, rewrite) {
+    addGroup: function (type, author_id, rewrite) {
         var urls = [];
         if (rewrite == 1) {
             $('.urls input').each(function (index, val) {
@@ -101,11 +101,11 @@ var TaskDistribution = {
             });
         }
         $.post('/writing/editor/addGroupTask/', {
-            id:this.group,
-            type:type,
-            author_id:author_id,
-            urls:urls,
-            rewrite:rewrite
+            id: this.group,
+            type: type,
+            author_id: author_id,
+            urls: urls,
+            rewrite: rewrite
         }, function (response) {
             if (response.status) {
                 $('.tasks-list').html('');
@@ -113,25 +113,25 @@ var TaskDistribution = {
                 TaskDistribution.group = [];
             } else
                 $.pnotify({
-                    pnotify_title:'Ошибка',
-                    pnotify_type:'error',
-                    pnotify_text:response.error
+                    pnotify_title: 'Ошибка',
+                    pnotify_type: 'error',
+                    pnotify_text: response.error
                 });
 
         }, 'json');
         return false;
     },
-    removeTask:function (el) {
+    removeTask: function (el) {
         var id = TaskDistribution.getId(el);
-        $.post('/writing/editor/removeTask/', {id:id, withKeys:'1'}, function (response) {
+        $.post('/writing/editor/removeTask/', {id: id, withKeys: '1'}, function (response) {
             if (response.status) {
                 $(el).parents('tr').remove();
             }
         }, 'json');
     },
-    returnTask:function (el) {
+    returnTask: function (el) {
         var id = TaskDistribution.getId(el);
-        $.post('/writing/editor/removeTask/', {id:id}, function (response) {
+        $.post('/writing/editor/removeTask/', {id: id}, function (response) {
             if (response.status) {
                 $(el).parents('tr').remove();
                 for (var key in response.keys) {
@@ -141,9 +141,9 @@ var TaskDistribution = {
             }
         }, 'json');
     },
-    upTask:function (el) {
+    upTask: function (el) {
         var id = TaskDistribution.getId(el);
-        $.post('/writing/editor/removeTask/', {id:id}, function (response) {
+        $.post('/writing/editor/removeTask/', {id: id}, function (response) {
             if (response.status) {
                 console.log(response.keys);
                 $(el).parents('tr').remove();
@@ -155,68 +155,73 @@ var TaskDistribution = {
             }
         }, 'json');
     },
-    readyTask:function (el) {
+    readyTask: function (el) {
         var id = TaskDistribution.getId(el);
-        $.post('/writing/editor/ready/', {id:id,section:window.content_section}, function (response) {
+        $.post('/writing/editor/ready/', {id: id, section: window.content_section}, function (response) {
             if (response.status) {
                 $(el).parents('tr').remove();
             }
         }, 'json');
     },
-    showKeyword:function (id) {
+    showKeyword: function (id) {
         $('#keyword-' + id).show();
         $('.default-nav .count a').text(parseInt($('.default-nav .count a').text()) + 1);
     },
-    hideKeyword:function (id) {
+    hideKeyword: function (id) {
         $('#keyword-' + id).hide();
         $('.default-nav .count a').text(parseInt($('.default-nav .count a').text()) - 1);
     },
-    changeSection:function(el, id, section){
+    changeSection: function (el, id, section) {
         $.post('/writing/editor/changeSection/', {
-            keyword_id:id,
-            section:section
+            keyword_id: id,
+            section: section
         }, function (response) {
             if (response.status) {
                 $(el).parents('tr').remove();
             } else {
                 $.pnotify({
-                    pnotify_title:'Ошибка',
-                    pnotify_type:'error'
+                    pnotify_title: 'Ошибка',
+                    pnotify_type: 'error'
                 });
             }
+        }, 'json');
+    },
+    transferKeyword: function (keyword_id, editor_id) {
+        $.post('/writing/editor/transferKeyword/', {keyword_id: keyword_id, editor_id: editor_id}, function (response) {
+            if (response.status)
+                $('#keyword-' + keyword_id).remove();
         }, 'json');
     }
 }
 
 
 var SeoTasks = {
-    TakeTask:function (id) {
-        $.post('/writing/task/take/', {id:id}, function (response) {
+    TakeTask: function (id) {
+        $.post('/writing/task/take/', {id: id}, function (response) {
             document.location.reload();
         });
     },
-    Written:function (id, el) {
-        $.post('/writing/task/executed/', {id:id, url:$(el).prev().val()}, function (response) {
+    Written: function (id, el) {
+        $.post('/writing/task/executed/', {id: id, url: $(el).prev().val()}, function (response) {
             if (response.status) {
                 document.location.reload();
-            }else
+            } else
                 $.pnotify({
-                    pnotify_title:response.error,
-                    pnotify_type:'error'
+                    pnotify_title: response.error,
+                    pnotify_type: 'error'
                 });
         }, 'json');
     },
-    CloseTask:function (el, id) {
-        $.post('/writing/editor/close/', {id:id}, function (response) {
+    CloseTask: function (el, id) {
+        $.post('/writing/editor/close/', {id: id}, function (response) {
             if (response.status) {
                 $(el).parents('tr').remove();
                 $('.tab-box-5 tbody').prepend(response.html);
-                calcTaskCount();
             }
         }, 'json');
     },
-    ToPublishing:function (el, id) {
-        $.post('/writing/editor/publish/', {id:id}, function (response) {
+    ToPublishing: function (el, id) {
+        $.post('/writing/editor/publish/', {id: id}, function (response) {
             if (response.status) {
                 $(el).parents('td').prev().removeClass('seo-status-publish-1')
                     .addClass('seo-status-publish-2').text('На публикации');
@@ -224,44 +229,44 @@ var SeoTasks = {
             }
         }, 'json');
     },
-    Published:function (el, id) {
+    Published: function (el, id) {
         if ($(el).prev().val() !== "")
-            $.post('/writing/task/executed/', {id:id, url:$(el).prev().val()}, function (response) {
+            $.post('/writing/task/executed/', {id: id, url: $(el).prev().val()}, function (response) {
                 if (response.status) {
                     $(el).parents('tr').remove();
                 } else {
                     if (response.errorText !== undefined)
                         $.pnotify({
-                            pnotify_title:'Ошибка',
-                            pnotify_type:'error',
-                            pnotify_text:response.errorText
+                            pnotify_title: 'Ошибка',
+                            pnotify_type: 'error',
+                            pnotify_text: response.errorText
                         });
                     else
                         $.pnotify({
-                            pnotify_title:'Ошибка',
-                            pnotify_type:'error',
-                            pnotify_text:response.error
+                            pnotify_title: 'Ошибка',
+                            pnotify_type: 'error',
+                            pnotify_text: response.error
                         });
                 }
             }, 'json');
         else
             $.pnotify({
-                pnotify_title:'Ошибка',
-                pnotify_type:'error',
-                pnotify_text:'Введите url статьи'
+                pnotify_title: 'Ошибка',
+                pnotify_type: 'error',
+                pnotify_text: 'Введите url статьи'
             });
     }
 }
 
 var SeoLinking = {
-    page_id:null,
-    keyword_id:null,
-    phrase_id:null,
-    AddLink:function () {
+    page_id: null,
+    keyword_id: null,
+    phrase_id: null,
+    AddLink: function () {
         if (!SeoLinking.checkAddLnk())
             return;
 
-        $.post('/promotion/linking/add/', {page_id:SeoLinking.page_id, phrase_id:SeoLinking.phrase_id, keyword_id:SeoLinking.keyword_id, keyword:$('#own-keyword').val()}, function (response) {
+        $.post('/promotion/linking/add/', {page_id: SeoLinking.page_id, phrase_id: SeoLinking.phrase_id, keyword_id: SeoLinking.keyword_id, keyword: $('#own-keyword').val()}, function (response) {
             if (response.status) {
                 $('#keyword-' + SeoLinking.keyword_id).remove();
                 SeoLinking.keyword_id = null;
@@ -271,84 +276,84 @@ var SeoLinking = {
                 $('#page-links tbody').prepend(response.linkInfo);
             } else {
                 $.pnotify({
-                    pnotify_title:'Ошибка',
-                    pnotify_type:'error',
-                    pnotify_text:response.error
+                    pnotify_title: 'Ошибка',
+                    pnotify_type: 'error',
+                    pnotify_text: response.error
                 });
             }
         }, 'json');
     },
-    AddLinkAuto:function () {
+    AddLinkAuto: function () {
         if (!SeoLinking.checkAddLnk())
             return;
 
         $('#auto-linking').fadeOut(100);
 
         $.post('/promotion/linking/add/', {
-            page_id:SeoLinking.page_id,
-            phrase_id:SeoLinking.phrase_id,
-            keyword_id:SeoLinking.keyword_id,
-            keyword:$('#own-keyword').val(),
-            next_link:1
+            page_id: SeoLinking.page_id,
+            phrase_id: SeoLinking.phrase_id,
+            keyword_id: SeoLinking.keyword_id,
+            keyword: $('#own-keyword').val(),
+            next_link: 1
         }, function (response) {
             if (response.status) {
 
                 SeoLinking.keyword_id = null;
                 SeoLinking.phrase_id = response.phrase_id;
-                console.log("phrase_id="+response.phrase_id);
+                console.log("phrase_id=" + response.phrase_id);
                 SeoLinking.page_id = response.page_id;
                 $('#auto-linking').removeClass('loading-block').html(response.html).fadeIn(100);
             } else {
                 $.pnotify({
-                    pnotify_title:'Ошибка',
-                    pnotify_type:'error',
-                    pnotify_text:response.error
+                    pnotify_title: 'Ошибка',
+                    pnotify_type: 'error',
+                    pnotify_text: response.error
                 });
             }
         }, 'json');
     },
-    checkAddLnk:function(){
+    checkAddLnk: function () {
         if (SeoLinking.keyword_id == null && $('#own-keyword').val() == '') {
             $.pnotify({
-                pnotify_title:'Ошибка',
-                pnotify_type:'error',
-                pnotify_text:'Выберите ключевое слово'
+                pnotify_title: 'Ошибка',
+                pnotify_type: 'error',
+                pnotify_text: 'Выберите ключевое слово'
             });
             return false;
         }
         if (SeoLinking.phrase_id == null) {
             $.pnotify({
-                pnotify_title:'Ошибка',
-                pnotify_type:'error',
-                pnotify_text:'Выберите строку в верхней таблице'
+                pnotify_title: 'Ошибка',
+                pnotify_type: 'error',
+                pnotify_text: 'Выберите строку в верхней таблице'
             });
             return false;
         }
         if (SeoLinking.page_id == null) {
             $.pnotify({
-                pnotify_title:'Ошибка',
-                pnotify_type:'error',
-                pnotify_text:'Выберите страницу с которой ставить ссылку'
+                pnotify_title: 'Ошибка',
+                pnotify_type: 'error',
+                pnotify_text: 'Выберите страницу с которой ставить ссылку'
             });
             return false;
         }
 
         return true;
     },
-    removeLink:function (el, page_id, page_to_id) {
+    removeLink: function (el, page_id, page_to_id) {
         if (confirm("Вы точно хотите удалить ссылку?")) {
-            $.post('/promotion/linking/remove/', {page_id:page_id, page_to_id:page_to_id}, function (response) {
+            $.post('/promotion/linking/remove/', {page_id: page_id, page_to_id: page_to_id}, function (response) {
                 if (response.status)
                     $(el).parents('tr').remove();
             }, 'json');
         }
     },
-    selectPage:function (el, id) {
+    selectPage: function (el, id) {
         SeoLinking.page_id = id;
         $('.step-1 ul li').removeClass('active');
         $(el).addClass('active');
     },
-    selectKeyword:function (el, id) {
+    selectKeyword: function (el, id) {
         if ($(el).hasClass('active')) {
             SeoLinking.keyword_id = null;
             $(el).removeClass('active');
@@ -358,9 +363,9 @@ var SeoLinking = {
             $(el).addClass('active');
         }
     },
-    getPhraseData:function (el, phrase_id) {
+    getPhraseData: function (el, phrase_id) {
         $('#result').addClass('loading-block');
-        $.post('/promotion/linking/phraseInfo/', {phrase_id:phrase_id}, function (response) {
+        $.post('/promotion/linking/phraseInfo/', {phrase_id: phrase_id}, function (response) {
             $('#result').removeClass('loading-block');
             $('#result').html(response);
             $('.table-promotion-links table tr').removeClass('active');
@@ -368,21 +373,21 @@ var SeoLinking = {
             SeoLinking.phrase_id = phrase_id;
         });
     },
-    loadStats:function (el, period, page_id) {
+    loadStats: function (el, period, page_id) {
         if ($(el).hasClass('active'))
             return false;
 
-        $.post('/promotion/linking/stats/', {period:period, page_id:page_id, phrase_id:SeoLinking.phrase_id}, function (response) {
+        $.post('/promotion/linking/stats/', {period: period, page_id: page_id, phrase_id: SeoLinking.phrase_id}, function (response) {
             $('.table-promotion-links tbody').html(response);
             $('.table-promotion .fast-filter a').removeClass('active');
             $(el).addClass('active');
         });
     },
-    showDonors:function (el, phrase_id) {
+    showDonors: function (el, phrase_id) {
         if ($(el).text() == '0')
             return false;
 
-        $.post('/promotion/linking/donors/', {phrase_id:phrase_id}, function (response) {
+        $.post('/promotion/linking/donors/', {phrase_id: phrase_id}, function (response) {
             $('#donors').html(response);
             $('#donors').show();
             var offset = $(el).offset();
@@ -390,8 +395,8 @@ var SeoLinking = {
             $('#donors').css('left', offset.left - 250);
         });
     },
-    showPositions:function (el, se, phrase_id) {
-        $.post('/promotion/linking/positions/', {se:se, phrase_id:phrase_id}, function (response) {
+    showPositions: function (el, se, phrase_id) {
+        $.post('/promotion/linking/positions/', {se: se, phrase_id: phrase_id}, function (response) {
             $('#positions').html(response);
             $('#positions').show();
             var offset = $(el).offset();
@@ -399,17 +404,17 @@ var SeoLinking = {
             $('#positions').css('left', offset.left);
         });
     },
-    similarPages:function (keyword, phrase_id) {
+    similarPages: function (keyword, phrase_id) {
         $('#similar-pages').addClass('loading-block');
-        $.post('/promotion/linking/searchPages/', {phrase_id:phrase_id, keyword:keyword}, function (response) {
+        $.post('/promotion/linking/searchPages/', {phrase_id: phrase_id, keyword: keyword}, function (response) {
             $('#similar-pages').html(response).removeClass('loading-block');
         });
     },
-    skip:function () {
+    skip: function () {
         $('#auto-linking').fadeOut(100);
 
         $.post('/promotion/linking/skip/', {
-            phrase_id:SeoLinking.phrase_id
+            phrase_id: SeoLinking.phrase_id
         }, function (response) {
             if (response.status) {
                 SeoLinking.keyword_id = null;
@@ -419,9 +424,9 @@ var SeoLinking = {
 
             } else {
                 $.pnotify({
-                    pnotify_title:'Ошибка',
-                    pnotify_type:'error',
-                    pnotify_text:response.error
+                    pnotify_title: 'Ошибка',
+                    pnotify_type: 'error',
+                    pnotify_text: response.error
                 });
             }
         }, 'json');

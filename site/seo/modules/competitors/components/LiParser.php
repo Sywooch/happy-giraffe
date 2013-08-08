@@ -116,7 +116,7 @@ class LiParser extends LiBaseParser
                         continue;
                     $keyword = trim(pq($tr)->find('td:eq(1)')->text());
                     if (empty($keyword) || $keyword == 'Не определена' || $keyword == 'Другие'
-                        || $keyword == 'сумма выбранных' || $keyword == 'всего'
+                        || $keyword == 'сумма выбранных' || $keyword == 'всего' || $keyword == 'быстрый поиск'
                     )
                         continue;
 

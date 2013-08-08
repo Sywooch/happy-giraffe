@@ -39,6 +39,9 @@ class SiteController extends SController
         if (Yii::app()->user->checkAccess('editor'))
             $this->redirect($this->createUrl('writing/editor/tasks', array('rewrite' => 0)));
 
+        if (Yii::app()->user->checkAccess('main-editor'))
+            $this->redirect($this->createUrl('writing/editor/tasks', array('rewrite' => 0)));
+
         if (Yii::app()->user->checkAccess('content-manager'))
             $this->redirect($this->createUrl('writing/content/index'));
 

@@ -49,13 +49,19 @@ class SController extends CController
                 'Трафик' => $this->createUrl('/traffic/default/index'),
             );
 
-        if (Yii::app()->user->checkAccess('editor'))
+        if (Yii::app()->user->checkAccess('main-editor'))
             $menu = array(
                 'Написание контента' => $this->createUrl('/writing/editor/tasks', array('rewrite' => 0)),
                 'Рерайт' => $this->createUrl('/writing/editor/tasks', array('rewrite' => 1)),
                 'Продвижение' => $this->createUrl('/promotion/queries/admin'),
                 'Статистика' => $this->createUrl('/statistic/stat/groups'),
                 'Трафик' => $this->createUrl('/traffic/default/index'),
+            );
+
+        if (Yii::app()->user->checkAccess('editor'))
+            $menu = array(
+                'Написание контента' => $this->createUrl('/writing/editor/tasks', array('rewrite' => 0)),
+                'Рерайт' => $this->createUrl('/writing/editor/tasks', array('rewrite' => 1)),
             );
 
         if (Yii::app()->user->checkAccess('admin'))

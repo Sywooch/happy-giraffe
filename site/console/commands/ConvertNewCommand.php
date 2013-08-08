@@ -37,15 +37,14 @@ class ConvertNewCommand extends CConsoleCommand
         while (!empty($models)) {
             $models = CommunityPost::model()->findAll($criteria);
             foreach ($models as $model) {
-                echo $model->content_id."\n";
                 if (strpos($model->text, '<img') !== false && strpos($model->text, '<!-- widget:') === false) {
                     $model->text = $this->replaceImages($model, $model->text);
                     $model->save();
                 }
             }
 
-            //$criteria->offset += 100;
-            Yii::app()->end();
+            $criteria->offset += 100;
+            echo $criteria->offset."\n";
         }
     }
 

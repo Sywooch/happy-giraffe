@@ -37,7 +37,9 @@ class ConvertNewCommand extends CConsoleCommand
         while (!empty($models)) {
             $models = CommunityPost::model()->findAll($criteria);
             foreach ($models as $model) {
-                if (strpos($model->text, '<img') !== false && strpos($model->text, '<!-- widget:') === false) {
+                if (empty($model->content)){
+                    $model->delete();
+                } elseif (strpos($model->text, '<img') !== false && strpos($model->text, '<!-- widget:') === false) {
                     $model->text = $this->replaceImages($model, $model->text);
                     $model->save();
                 }
@@ -63,7 +65,7 @@ class ConvertNewCommand extends CConsoleCommand
             if (empty($photo)) {
                 $photo = $this->createPhoto($model, pq($image)->attr('src'));
                 if (!$photo)
-                    pq($image)->remove();
+                    pq($image)->replaceWith('');
             } else {
 
 //            $parent = pq($image)->parent();

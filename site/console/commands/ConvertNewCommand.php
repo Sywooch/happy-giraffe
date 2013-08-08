@@ -44,7 +44,7 @@ class ConvertNewCommand extends CConsoleCommand
             }
 
             $criteria->offset += 100;
-            echo $criteria->offset."\n";
+            echo $criteria->offset . "\n";
         }
     }
 
@@ -64,15 +64,15 @@ class ConvertNewCommand extends CConsoleCommand
                 $photo = $this->createPhoto($model, pq($image)->attr('src'));
                 if (!$photo)
                     pq($image)->remove();
-            }
+            } else {
 
 //            $parent = pq($image)->parent();
 //            if (pq($parent)->length == 0) {
-            pq($image)->replaceWith($this->renderFile(Yii::getPathOfAlias('site.frontend.views.albums._widget') . '.php', array(
-                'model' => $photo,
-                'title' => pq($image)->attr('title'),
-                'alt' => pq($image)->attr('alt')
-            ), true));
+                pq($image)->replaceWith($this->renderFile(Yii::getPathOfAlias('site.frontend.views.albums._widget') . '.php', array(
+                    'model' => $photo,
+                    'title' => pq($image)->attr('title'),
+                    'alt' => pq($image)->attr('alt')
+                ), true));
 //            } else {
 //                while (pq($parent)->length > 0) {
 //                    echo '1';
@@ -82,6 +82,7 @@ class ConvertNewCommand extends CConsoleCommand
 //                pq($parent)->append($this->renderFile(Yii::getPathOfAlias('site.frontend.views.albums._widget') . '.php', array('model' => $photo), true));
 //                pq($image)->remove();
 //            }
+            }
         }
 
         $text = $doc->html();
@@ -97,7 +98,7 @@ class ConvertNewCommand extends CConsoleCommand
     private function createPhoto($model, $src)
     {
         if (strpos($src, '/') === 0)
-            $src = 'http://www.happy-giraffe.ru'.$src;
+            $src = 'http://www.happy-giraffe.ru' . $src;
         return AlbumPhoto::createByUrl($src, $model->content->author_id, Album::TYPE_DIALOGS);
     }
 

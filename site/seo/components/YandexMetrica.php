@@ -15,11 +15,11 @@ class YandexMetrica
     public function getDatesForCheck()
     {
         $dates = array();
-//        $last_date = Yii::app()->db_seo->createCommand()->select('max(date)')->from('queries')->queryScalar();
-//        if (empty($last_date))
+        $last_date = Yii::app()->db_seo->createCommand()->select('max(date)')->from('queries')->queryScalar();
+        if (empty($last_date))
             $last_date = date("Ymd", strtotime('-30 days'));
-//        else
-//            $last_date = date("Ymd", strtotime($last_date));
+        else
+            $last_date = date("Ymd", strtotime($last_date));
 
         for ($i = 0; $i < 100; $i++) {
             $date = date("Ymd", strtotime('+1 day', strtotime($last_date)));
@@ -31,8 +31,6 @@ class YandexMetrica
             $last_date = $date;
         }
 
-        echo $last_date . "\n";
-
         return $dates;
     }
 
@@ -41,6 +39,7 @@ class YandexMetrica
         $dates = $this->getDatesForCheck();
 
         foreach ($dates as $date) {
+            echo $date."\n";
             $this->parseDate($date);
         }
     }
@@ -90,7 +89,7 @@ class YandexMetrica
             }
         }
 
-        echo "$date - $count\n";
+        echo "$count\n";
 
 //        foreach ($this->se as $se)
 //            $this->parseDataForSE($se, $date);

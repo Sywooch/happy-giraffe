@@ -52,7 +52,7 @@ $groupsNav[] = array(
         <button class="btn btn-green-small">Поиск</button>
     </div>
     <?php $total_count = $dataProvider->totalItemCount ?>
-    <?php $this->renderPartial('_count', compact('model', 'freq', 'site_id', 'total_count')); ?>
+    <?php $this->renderPartial('_count', compact('model', 'freq', 'site_id', 'total_count', 'type')); ?>
 </div>
 <div class="seo-table table-result mini">
     <?php $this->widget('zii.widgets.grid.CGridView', array(

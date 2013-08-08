@@ -27,13 +27,14 @@ class ConvertNewCommand extends CConsoleCommand
     /**
      * Создание фото-постов из постов с галереями
      */
-    public function actionConvertPost($id)
+    public function actionConvertTest()
     {
-        $model = CommunityPost::model()->findByAttributes(array('content_id' => $id));
-        if (strpos($model->text, '<img') !== false && strpos($model->text, '<!-- widget:') === false) {
-            $model->text = $this->replaceImages($model, $model->text);
-            $model->save();
-        }
+        $models = CommunityContent::model()->findByAttributes(array('author_id' => 15328));
+        foreach ($models as $model)
+            if ($model->type_id == 1 && strpos($model->text, '<img') !== false && strpos($model->text, '<!-- widget:') === false) {
+                $model->text = $this->replaceImages($model, $model->text);
+                $model->save();
+            }
     }
 
     /**

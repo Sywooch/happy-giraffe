@@ -27,6 +27,18 @@ class ConvertNewCommand extends CConsoleCommand
     /**
      * Создание фото-постов из постов с галереями
      */
+    public function actionConvertPost($id)
+    {
+        $model = CommunityPost::model()->findByPk($id);
+        if (strpos($model->text, '<img') !== false && strpos($model->text, '<!-- widget:') === false) {
+            $model->text = $this->replaceImages($model, $model->text);
+            $model->save();
+        }
+    }
+
+    /**
+     * Создание фото-постов из постов с галереями
+     */
     public function actionConvertPhotoImages()
     {
         $criteria = new CDbCriteria;

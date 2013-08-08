@@ -52,13 +52,8 @@ var SeoKeywords = {
     },
     getId: function (el) {
         return $(el).parent('td').find("input").val();
-    },
-    hideUsed: function (el, callback) {
-        $.post('/writing/editor/hideUsed/', {checked: $(el).attr('checked')}, function (response) {
-            callback();
-        }, 'json');
     }
-}
+};
 
 
 var TaskDistribution = {

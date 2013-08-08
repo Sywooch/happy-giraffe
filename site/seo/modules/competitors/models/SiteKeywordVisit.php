@@ -157,9 +157,9 @@ class SiteKeywordVisit extends HActiveRecord
 //            } else
 //                $criteria->condition = $condition;
 //        }
-        $criteria->with = array('keyword', 'keyword.group', 'keyword.group.page', 'keyword.tempKeyword', 'keyword.blacklist');
+        $criteria->with = array('keyword', 'site.group as site_group', 'keyword.group', 'keyword.group.page', 'keyword.tempKeyword', 'keyword.blacklist');
         $total_count = self::model()->count($criteria);
-        $criteria->with = array('keyword', 'keyword.group', 'keyword.group.page', 'keyword.group.taskCount', 'keyword.tempKeyword', 'keyword.blacklist', 'site');
+        $criteria->with = array('keyword', 'site.group as site_group', 'keyword.group', 'keyword.group.page', 'keyword.group.taskCount', 'keyword.tempKeyword', 'keyword.blacklist', 'site');
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
@@ -197,10 +197,10 @@ class SiteKeywordVisit extends HActiveRecord
     {
         $criteria = new CDbCriteria;
         $criteria->with = array('keyword');
-        if (count($this->sites_id) == 1)
-            $criteria->addCondition('site_id = ' . $this->sites_id[0]);
-        else
-            $criteria->addCondition('site_id IN (' . implode(',', $this->sites_id) . ') ');
+        if (!empty($this->site_id))
+            $criteria->addCondition('site_id = ' . $this->site_id);
+        if (!empty($_GET['group_id']))
+            $criteria->addCondition('site_group.id = ' . $_GET['group_id']);
 
         $criteria->compare('year', $this->year);
         $criteria->together = true;

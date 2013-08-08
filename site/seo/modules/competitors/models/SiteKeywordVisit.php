@@ -82,8 +82,6 @@ class SiteKeywordVisit extends HActiveRecord
         return array(
             array('site_id, keyword_id, m1, m2, m3, m4, m5, m6, m7, m8, m9, m10, m11, m12, keyword_id, sum, year', 'required'),
             array('site_id, keyword_id, m1, m2, m3, m4, m5, m6, m7, m8, m9, m10, m11, m12, sum, year', 'numerical', 'integerOnly' => true),
-            // The following rule is used by search().
-            // Please remove those attributes that should not be searched.
             array('site_id, keyword_id, m1, m2, m3, m4, m5, m6, m7, m8, m9, m10, m11, m12, sum, key_name, year, freq, popular', 'safe'),
         );
     }
@@ -93,11 +91,10 @@ class SiteKeywordVisit extends HActiveRecord
      */
     public function relations()
     {
-        // NOTE: you may need to adjust the relation name and the related
-        // class name for the relations automatically generated below.
         return array(
             'keyword' => array(self::BELONGS_TO, 'Keyword', 'keyword_id'),
             'site' => array(self::BELONGS_TO, 'Site', 'site_id'),
+            'traffic' => array(self::HAS_ONE, 'GiraffeLastMonthTraffic', 'keyword_id'),
         );
     }
 
@@ -227,7 +224,6 @@ class SiteKeywordVisit extends HActiveRecord
                     break;
             }
         }
-
 
         return $criteria;
     }

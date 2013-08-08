@@ -22,9 +22,9 @@ class PromotionCommand extends CConsoleCommand
         $metrica->parseQueries();
     }
 
-    public function actionTest()
+    public function actionCalcMonthTraffic()
     {
-        PageStatistics::model()->parseSe();
+        GiraffeLastMonthTraffic::calcMonthTraffic();
     }
 
     public function actionParseDepth()

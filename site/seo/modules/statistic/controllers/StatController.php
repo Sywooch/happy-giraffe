@@ -13,7 +13,7 @@ class StatController extends SController
         Yii::import('site.frontend.modules.friends.models.*');
         Yii::import('site.frontend.modules.messaging.models.*');
 
-        if (!Yii::app()->user->checkAccess('admin') && !Yii::app()->user->checkAccess('editor')
+        if (!Yii::app()->user->checkAccess('admin') && !Yii::app()->user->checkAccess('main-editor')
             && !Yii::app()->user->checkAccess('superuser')
         )
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');

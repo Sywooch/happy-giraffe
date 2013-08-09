@@ -14,6 +14,7 @@
  * @property KeywordGroup[] $group
  * @property KeywordsBlacklist $blacklist
  * @property TempKeyword $tempKeyword
+ * @property GiraffeLastMonthTraffic $traffic
  */
 class Keyword extends CActiveRecord
 {
@@ -69,6 +70,7 @@ class Keyword extends CActiveRecord
             'group' => array(self::MANY_MANY, 'KeywordGroup', 'keyword_group_keywords(keyword_id, group_id)'),
             'tempKeyword' => array(self::HAS_ONE, 'TempKeyword', 'keyword_id'),
             'blacklist' => array(self::HAS_ONE, 'KeywordsBlacklist', 'keyword_id'),
+            'traffic' => array(self::HAS_ONE, 'GiraffeLastMonthTraffic', 'keyword_id'),
         );
     }
 
@@ -359,7 +361,7 @@ class Keyword extends CActiveRecord
         return '';
     }
 
-    public function getKeywordAndSimilarArticles($section = 1)
+    public function getKeywordAndSimilarArticles()
     {
         $res = $this->name;
         if ($this->hasOpenedTask())
@@ -425,5 +427,32 @@ class Keyword extends CActiveRecord
     {
         $this->status = $status;
         $this->update(array('status', 'wordstat'));
+    }
+
+    /**
+     * Траффик на Веселый Жираф по этому ключевому слову
+     * @return int
+     */
+    public function getOurTraffic()
+    {
+        return isset($this->traffic) ? $this->traffic->value : 0;
+    }
+
+    /**
+     * Позиция Веселого Жирафа в Яндексе по ключевому слову
+     * @return string
+     */
+    public function getPosYandex()
+    {
+        return '>50';
+    }
+
+    /**
+     * Позиция Веселого Жирафа в Google по ключевому слову
+     * @return string
+     */
+    public function getPosGoogle()
+    {
+        return '>50';
     }
 }

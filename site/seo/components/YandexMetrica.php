@@ -17,7 +17,7 @@ class YandexMetrica
         $dates = array();
         $last_date = Yii::app()->db_seo->createCommand()->select('max(date)')->from('queries')->queryScalar();
         if (empty($last_date))
-            $last_date = date("Ymd", strtotime('-42 days'));
+            $last_date = date("Ymd", strtotime('-30 days'));
         else
             $last_date = date("Ymd", strtotime($last_date));
 
@@ -31,22 +31,25 @@ class YandexMetrica
             $last_date = $date;
         }
 
-        echo $last_date . "\n";
-
         return $dates;
     }
 
-    public function parseQueries()
+    public function parseQueries($date)
     {
-        $dates = $this->getDatesForCheck();
+        if (empty($date)) {
+            $dates = $this->getDatesForCheck();
 
-        foreach ($dates as $date) {
+            foreach ($dates as $date) {
+                echo $date . "\n";
+                $this->parseDate($date);
+            }
+        } else
             $this->parseDate($date);
-        }
     }
 
     public function parseDate($date)
     {
+        $count = 0;
         $next = 'http://api-metrika.yandex.ru/stat/sources/phrases?id=' . $this->counter_id . '&oauth_token=' . $this->token . '&per_page=1000&date1=' . $date . '&date2=' . $date;
 
         while (!empty($next)) {
@@ -60,6 +63,7 @@ class YandexMetrica
 
             //save to db
             foreach ($val['data'] as $query) {
+                $count++;
                 $keyword = Keyword::GetKeyword($query['phrase']);
 
                 if ($keyword !== null) {
@@ -88,8 +92,10 @@ class YandexMetrica
             }
         }
 
-        foreach ($this->se as $se)
-            $this->parseDataForSE($se, $date);
+        echo "$count\n";
+
+//        foreach ($this->se as $se)
+//            $this->parseDataForSE($se, $date);
     }
 
     public function parseDataForSE($se_id, $date)

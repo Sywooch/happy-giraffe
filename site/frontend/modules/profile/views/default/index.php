@@ -147,7 +147,7 @@ Yii::app()->clientScript->registerScriptFile('/javascripts/ko_user_profile.js');
 <?php $this->widget('AlbumPhotoWidget', array('user' => $user)); ?>
 
 
-<div class="col-23">
+<div class="col-23-middle">
 
 </div>
 

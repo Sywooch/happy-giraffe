@@ -5,12 +5,19 @@
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
 	'columns'=>array(
-		'id',
+		array(
+		    'name'=>'id',
+		    'value'=>'$data->id',
+            'filter'=>false
+		),
 		'email',
-		'password',
 		'name',
 		'owner_id',
-        'related_user_id',
+        array(
+            'name'=>'related_user_id',
+            'value'=>'$data->related_user_id',
+            'filter'=>false
+        ),
         'role',
         'active',
 		array(
@@ -19,3 +26,9 @@
 		),
 	),
 ));
+?>
+<style type="text/css">
+    input[type=text]{
+        max-width: 100px !important;
+    }
+</style>

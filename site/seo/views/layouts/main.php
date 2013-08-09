@@ -121,6 +121,10 @@
                     'label' => 'Внешние ссылки - задания',
                     'url' => array('/externalLinks/admin/task/admin/'),
                 ),
+                array(
+                    'label' => 'Тематики',
+                    'url' => array('/admin/sitesGroup/admin/'),
+                ),
 
             )));
     ?>

@@ -197,8 +197,12 @@ class PurifiedBehavior extends CActiveRecordBehavior
         return preg_replace_callback('#<!-- widget: (.*) -->(.*)<!-- /widget -->#sU', function($matches) {
             $data = CJSON::decode($matches[1]);
             extract($data);
-            $model = CActiveRecord::model($entity)->findByPk($entity_id);
-            return $model->widget;
+            if (isset($entity) && isset($entity_id)){
+                $model = CActiveRecord::model($entity)->findByPk($entity_id);
+                if ($model)
+                    return $model->widget;
+            }
+            return '';
         }, $text);
     }
 }

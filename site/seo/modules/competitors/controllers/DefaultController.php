@@ -25,9 +25,7 @@ class DefaultController extends SController
         }
 
         $groups = SitesGroup::model()->findAll();
-        $criteria = new CDbCriteria();
-        $criteria->compare('group_id', $group_id);
-        $sites = Site::model()->findAll($criteria);
+        $sites = Site::model()->findAll($group === null ? 'group_id IS NULL' : 'group_id = :group_id', $group === null ? array() : array(':group_id' => $group->id));
 
         $model = new SiteKeywordVisit;
         $model->attributes = $_GET;

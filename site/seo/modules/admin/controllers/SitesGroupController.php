@@ -1,9 +1,16 @@
 <?php
 
-class SiteGroupController extends SController
+class SitesGroupController extends SController
 {
-	public $defaultAction='admin';
+    public $defaultAction='admin';
     public $layout = '//layouts/empty';
+
+    public function beforeAction($action)
+    {
+        if (!Yii::app()->user->checkAccess('admin'))
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+        return true;
+    }
 
 	/**
 	 * Creates a new model.
@@ -11,17 +18,16 @@ class SiteGroupController extends SController
 	 */
 	public function actionCreate()
 	{
-		$model=new GroupSites;
+		$model=new SitesGroup;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['GroupSites']))
+		if(isset($_POST['SitesGroup']))
 		{
-			$model->attributes=$_POST['GroupSites'];
-			if($model->save()){
-                $this->redirect(array('admin'));
-            }
+			$model->attributes=$_POST['SitesGroup'];
+			if($model->save())
+				$this->redirect(array('admin'));
 		}
 
 		$this->render('create',array(
@@ -41,9 +47,9 @@ class SiteGroupController extends SController
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['GroupSites']))
+		if(isset($_POST['SitesGroup']))
 		{
-			$model->attributes=$_POST['GroupSites'];
+			$model->attributes=$_POST['SitesGroup'];
 			if($model->save())
 				$this->redirect(array('admin'));
 		}
@@ -60,17 +66,22 @@ class SiteGroupController extends SController
 	 */
 	public function actionDelete($id)
 	{
-		if(Yii::app()->request->isPostRequest)
-		{
-			// we only allow deletion via POST request
-			$this->loadModel($id)->delete();
+		$this->loadModel($id)->delete();
 
-			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-			if(!isset($_GET['ajax']))
-				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-		}
-		else
-			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+		if(!isset($_GET['ajax']))
+			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+	}
+
+	/**
+	 * Lists all models.
+	 */
+	public function actionIndex()
+	{
+		$dataProvider=new CActiveDataProvider('SitesGroup');
+		$this->render('index',array(
+			'dataProvider'=>$dataProvider,
+		));
 	}
 
 	/**
@@ -78,10 +89,10 @@ class SiteGroupController extends SController
 	 */
 	public function actionAdmin()
 	{
-		$model=new GroupSites('search');
+		$model=new SitesGroup('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['GroupSites']))
-			$model->attributes=$_GET['GroupSites'];
+		if(isset($_GET['SitesGroup']))
+			$model->attributes=$_GET['SitesGroup'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -91,11 +102,13 @@ class SiteGroupController extends SController
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
-	 * @param integer the ID of the model to be loaded
+	 * @param integer $id the ID of the model to be loaded
+	 * @return SitesGroup the loaded model
+	 * @throws CHttpException
 	 */
 	public function loadModel($id)
 	{
-		$model=GroupSites::model()->findByPk((int)$id);
+		$model=SitesGroup::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -103,11 +116,11 @@ class SiteGroupController extends SController
 
 	/**
 	 * Performs the AJAX validation.
-	 * @param CModel the model to be validated
+	 * @param SitesGroup $model the model to be validated
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='GroupSites-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='sites-group-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

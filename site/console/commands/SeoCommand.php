@@ -249,5 +249,12 @@ http://www.nevestushka.ru/';
             }
         }
     }
+
+    public function actionTest(){
+        for($i=0;$i<70;$i++){
+            Yii::app()->db_keywords->createCommand()->delete('keywords', 'id > 80000000 order by id asc limit 100000');
+            echo $i."\n";
+        }
+    }
 }
 

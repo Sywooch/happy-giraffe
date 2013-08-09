@@ -73,6 +73,11 @@ class SController extends CController
                 'Трафик' => $this->createUrl('/traffic/default/index'),
             );
 
+        if (Yii::app()->user->checkAccess('author'))
+            $menu ['Написание статей'] = $this->createUrl('/writing/author/index');
+        if (Yii::app()->user->checkAccess('content-manager-panel'))
+            $menu ['Размещение статей'] = $this->createUrl('/writing/content/index');
+
         if (Yii::app()->user->checkAccess('commentator-manager-panel'))
             $menu ['Комментаторы'] = $this->createUrl('/commentators/default/index');
         if (Yii::app()->user->checkAccess('cook-manager-panel'))

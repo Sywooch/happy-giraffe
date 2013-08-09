@@ -266,6 +266,17 @@ class SeoTask extends CActiveRecord
         return SeoTask::model()->findAll($criteria);
     }
 
+    public static function getContentManagerTasks()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->compare('type', SeoTask::TYPE_EDITOR);
+        $criteria->compare('status', SeoTask::STATUS_PUBLICATION);
+        $criteria->compare('owner_id', Yii::app()->user->getModel()->owner_id);
+        $criteria->order = 'created DESC';
+
+        return SeoTask::model()->findAll($criteria);
+    }
+
     public static function getActiveTask()
     {
         $criteria = new CDbCriteria;

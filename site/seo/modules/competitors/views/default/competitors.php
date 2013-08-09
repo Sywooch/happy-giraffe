@@ -230,7 +230,7 @@ $groupsNav[] = array(
     });
 
     $('#group').on('change', function() {
-        $.post('/competitors/default/setGroup', { site_id : $('#site_id').val(), group_id : $('#group').val() }, function(response) {
+        $.post('/competitors/default/setGroup/', { site_id : $('#site_id').val(), group_id : $('#group').val() }, function(response) {
             if (response.success)
                 document.location.href = response.href;
         }, 'json');

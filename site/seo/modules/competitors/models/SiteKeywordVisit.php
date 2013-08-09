@@ -94,7 +94,7 @@ class SiteKeywordVisit extends HActiveRecord
         return array(
             'keyword' => array(self::BELONGS_TO, 'Keyword', 'keyword_id'),
             'site' => array(self::BELONGS_TO, 'Site', 'site_id'),
-            'traffic' => array(self::HAS_ONE, 'GiraffeLastMonthTraffic', 'keyword_id'),
+            //'traffic' => array(self::HAS_ONE, 'GiraffeLastMonthTraffic', 'keyword_id'),
         );
     }
 
@@ -157,9 +157,9 @@ class SiteKeywordVisit extends HActiveRecord
 //            } else
 //                $criteria->condition = $condition;
 //        }
-        $criteria->with = array('keyword','keyword.group', 'keyword.group.page', 'keyword.tempKeyword', 'keyword.blacklist');
+        //$criteria->with = array('keyword','keyword.group', 'keyword.group.page', 'keyword.tempKeyword', 'keyword.blacklist');
         $total_count = self::model()->count($criteria);
-        $criteria->with = array('keyword', 'keyword.group', 'keyword.group.page', 'keyword.group.taskCount', 'keyword.tempKeyword', 'keyword.blacklist', 'site');
+        //$criteria->with = array('keyword', 'keyword.group', 'keyword.group.page', 'keyword.group.taskCount', 'keyword.tempKeyword', 'keyword.blacklist', 'site');
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
@@ -204,24 +204,27 @@ class SiteKeywordVisit extends HActiveRecord
 
         $criteria->compare('year', $this->year);
         $criteria->together = true;
+        $criteria->with = array('keyword', 'keyword.group', 'keyword.group.page', 'keyword.tempKeyword', 'keyword.blacklist');
 
         if (!empty($this->key_name))
             $criteria = $this->findByKeyword($criteria);
         else{
             switch($type){
                 case self::FILTER_HAVE_TRAFFIC_NO_ARTICLES:
-                    $criteria->addCondition('group.id IS NULL AND tempKeyword.keyword_id IS NULL');
-                    $criteria->with = array('keyword', 'keyword.group', 'keyword.tempKeyword', 'keyword.blacklist');
+                    $criteria->addCondition('group.id IS NULL AND tempKeyword.keyword_id IS NULL AND traffic.keyword_id IS NOT NULL');
+                    $criteria->with [] = 'keyword.traffic';
                     break;
+
                 case self::FILTER_NO_TRAFFIC:
-
+                    $criteria->addCondition('traffic.keyword_id IS NULL');
+                    $criteria->with [] = 'keyword.traffic';
                     break;
+
                 case self::FILTER_NO_TRAFFIC_HAVE_ARTICLES:
-                    $criteria->addCondition('group.id IS NULL AND tempKeyword.keyword_id IS NULL');
-                    $criteria->with = array('keyword', 'keyword.group', 'keyword.tempKeyword', 'keyword.blacklist');
+                    $criteria->addCondition('page.id IS NOT NULL AND traffic.keyword_id IS NULL');
+                    $criteria->with [] = 'keyword.traffic';
                     break;
 
-                    break;
             }
         }
 

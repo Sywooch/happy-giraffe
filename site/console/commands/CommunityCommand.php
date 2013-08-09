@@ -327,8 +327,8 @@ class CommunityCommand extends CConsoleCommand
                     $field_value = str_replace('http://video.rutube.ru/', 'http://rutube.ru/player.swf?hash=', $raw[$field_name]);
                     Yii::app()->db->createCommand()
                         ->update($table, array(
-                        $field_name => $field_value
-                    ), 'id=' . $raw['id']);
+                            $field_name => $field_value
+                        ), 'id=' . $raw['id']);
                     $i++;
                 }
             }
@@ -371,7 +371,7 @@ class CommunityCommand extends CConsoleCommand
             curl_setopt($ch, CURLOPT_REFERER, $ref);
 
             curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
-            curl_setopt($ch, CURLOPT_PROXY, $this->proxy->value);#TODO fix it
+            curl_setopt($ch, CURLOPT_PROXY, $this->proxy->value); #TODO fix it
             curl_setopt($ch, CURLOPT_PROXYUSERPWD, "alexk984:Nokia1111");
             curl_setopt($ch, CURLOPT_PROXYAUTH, 1);
             curl_setopt($ch, CURLOPT_HEADER, 1);
@@ -406,7 +406,7 @@ class CommunityCommand extends CConsoleCommand
     public function fixRedirectUrls($table, $field_name)
     {
         Yii::import('site.frontend.extensions.phpQuery.phpQuery');
-        echo $table."\n";
+        echo $table . "\n";
         $k = 0;
 
         $rows = 1;
@@ -428,15 +428,16 @@ class CommunityCommand extends CConsoleCommand
                         $parsed_url = parse_url($url);
 
                         if (isset($parsed_url['host']) && strpos($parsed_url['host'], 'happy-giraffe') === false
-                            && strpos($parsed_url['host'], 'odnoklassniki.ru') === false) {
+                            && strpos($parsed_url['host'], 'odnoklassniki.ru') === false
+                        ) {
 
                             $effectiveUrl = $this->getEffectiveUrl($url);
 
                             if ($effectiveUrl !== false) {
                                 if (isset($row['content_id']))
-                                    echo $row['content_id'].'-'.$url . ' -> ' . $effectiveUrl . ' REDIRECT' . "\r\n";
+                                    echo $row['content_id'] . '-' . $url . ' -> ' . $effectiveUrl . ' REDIRECT' . "\r\n";
                                 else
-                                    echo $row['id'].'-'.$url . ' -> ' . $effectiveUrl . ' REDIRECT' . "\r\n";
+                                    echo $row['id'] . '-' . $url . ' -> ' . $effectiveUrl . ' REDIRECT' . "\r\n";
 
                                 pq($link)->attr('src', $effectiveUrl);
                                 $field_value = $doc->html();
@@ -456,7 +457,7 @@ class CommunityCommand extends CConsoleCommand
 
             }
             if ($i % 10 == 0)
-                echo ($i*100)."\n";
+                echo ($i * 100) . "\n";
 
             $i++;
         }
@@ -579,12 +580,13 @@ class CommunityCommand extends CConsoleCommand
                 $model->update(array('photo_id'));
                 $last_id = $model->id;
             }
-            echo $last_id."\n";
-            $criteria->condition = 'id > '.$last_id;
+            echo $last_id . "\n";
+            $criteria->condition = 'id > ' . $last_id;
         }
     }
 
-    public function actionScanVideo(){
+    public function actionScanVideo()
+    {
         Yii::import('site.frontend.extensions.phpQuery.phpQuery');
         Yii::import('site.frontend.helpers.*');
         Yii::import('site.frontend.components.*');
@@ -599,18 +601,19 @@ class CommunityCommand extends CConsoleCommand
             $models = CommunityVideo::model()->findAll($criteria);
 
             foreach ($models as $model) {
-                echo $model->id."\n";
+                echo $model->id . "\n";
                 $model->detachBehaviors();
                 $model->update(array('photo_id', 'embed'));
                 $last_id = $model->id;
             }
 
-            echo $last_id."\n";
-            $criteria->condition = 'id > '.$last_id;
+            echo $last_id . "\n";
+            $criteria->condition = 'id > ' . $last_id;
         }
     }
 
-    public function actionPostPhotos(){
+    public function actionPostPhotos()
+    {
         $criteria = new CDbCriteria;
         $criteria->with = array('gallery', 'type', 'post', 'gallery.items');
         $criteria->condition = 'gallery.id IS NOT NULL AND post.photo_id IS NULL';
@@ -620,13 +623,13 @@ class CommunityCommand extends CConsoleCommand
         $iterator = CommunityContent::model()->findAll($criteria);
 
         $c = 0;
-        foreach($iterator as $content)
-            if (isset($content->gallery->items[0])){
+        foreach ($iterator as $content)
+            if (isset($content->gallery->items[0])) {
                 $content->post->photo_id = $content->gallery->items[0]->photo_id;
                 $content->post->update(array('photo_id'));
                 $c++;
             }
-        echo $c."\n";
+        echo $c . "\n";
     }
 
     public function actionDdos()
@@ -646,8 +649,7 @@ class CommunityCommand extends CConsoleCommand
                 curl_multi_exec($mh, $active);
                 do {
                     curl_multi_exec($mh, $active);
-                }
-                while($active);
+                } while ($active);
                 $mh = curl_multi_init();
             }
 

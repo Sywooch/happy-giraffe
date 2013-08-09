@@ -419,10 +419,4 @@ class SiteController extends HController
 
         $this->render('moder_rules');
     }
-
-    public function actionTest()
-    {
-        $url = 'http://www.happy-giraffe.ru/user/10/blog/post83504/';
-        var_dump(CJSON::decode(Yii::app()->piwik->getCountByPageUrl($url)));
-    }
 }

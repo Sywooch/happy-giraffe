@@ -17,10 +17,10 @@ Yii::import('site.common.models.mongo.*');
 class PromotionCommand extends CConsoleCommand
 {
     /** Парсим статистику по ключевым словам с метрики **/
-    public function actionParseVisits()
+    public function actionParseVisits($date = null)
     {
         $metrica = new YandexMetrica();
-        $metrica->parseQueries();
+        $metrica->parseQueries($date);
     }
 
     public function actionTest()

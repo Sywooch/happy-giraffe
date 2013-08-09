@@ -2459,10 +2459,10 @@
   background: rgba(0, 0, 0, 0.65);
 }
 .photo-window_bottom.active .photo-window_desc {
-  height: auto;
-}
-.photo-window_bottom.active .photo-window_desc-more {
   display: none;
+}
+.photo-window_bottom.active .photo-window_desc__full {
+  display: block;
 }
 .photo-window_desc {
   height: 43px;
@@ -2471,11 +2471,10 @@
   font-size: 12px;
   line-height: 14px;
   cursor: pointer;
-  -moz-transition: all 0.3s ease;
-  -ms-transition: all 0.3s ease;
-  -o-transition: all 0.3s ease;
-  -webkit-transition: all 0.3s ease;
-  transition: all 0.3s ease;
+}
+.photo-window_desc__full {
+  height: auto;
+  display: none;
 }
 .photo-window_c {
   position: absolute;

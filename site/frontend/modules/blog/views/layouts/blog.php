@@ -38,7 +38,7 @@
 
     </div>
     <?php if ($this->user->id == Yii::app()->user->id): ?>
-        <div class="col-23">
+        <div class="col-23-middle">
             <div class="user-add-record clearfix">
                 <div class="user-add-record_ava-hold">
                     <?php $this->widget('UserAvatarWidget', array('user' => $this->user)); ?>
@@ -54,7 +54,7 @@
             <a href="<?=$this->createUrl('settings/form')?>" data-theme="transparent" class="blog-settings fancy">Настройки блога</a>
         </div>
     <?php endif; ?>
-    <div class="col-23 col-23__gray">
+    <div class="col-23-middle col-gray">
         <div class="blog-title-b blogInfo" data-bind="visible: title().length > 0">
             <div class="blog-title-b_img-hold">
                 <img alt="" class="blog-title-b_img" data-bind="attr: { src : photo().thumbSrc() }">

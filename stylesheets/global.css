@@ -14582,13 +14582,19 @@ table.fr_recipe_tb td {
 .b-interest_li:hover .b-interest_i__white.active {
   color: #bbb;
 }
+.b-interest_li:hover .b-interest_i__green {
+  color: #fff;
+}
+.b-interest_li .b-itx-add {
+  margin: -3px 0 -2px;
+}
 .b-interest_i {
   position: relative;
   display: inline-block;
   margin: 0 0 0 7px;
-  padding: 0 7px 1px;
+  padding: 0 7px 2px;
   font-size: 12px;
-  line-height: 18px;
+  line-height: 17px;
   color: #0697d3;
   text-decoration: none;
   background: url(/images/b-interest_i.png) no-repeat 100% 0;
@@ -14642,6 +14648,9 @@ table.fr_recipe_tb td {
 .b-interest_i__white.active:after {
   display: none;
 }
+.b-interest_i .ico-plus {
+  margin-left: 3px;
+}
 .b-interest_popup {
   display: none;
   position: absolute;
@@ -14689,6 +14698,7 @@ table.fr_recipe_tb td {
   width: 250px;
   padding: 10px 0;
   border-right: 1px solid #e9e8e8;
+  vertical-align: top;
   -webkit-box-shadow: inset -1px 0 1px rgba(0, 0, 0, 0.05);
   -moz-box-shadow: inset -1px 0 1px rgba(0, 0, 0, 0.05);
   box-shadow: inset -1px 0 1px rgba(0, 0, 0, 0.05);
@@ -14714,6 +14724,7 @@ table.fr_recipe_tb td {
   width: 449px;
   padding: 10px 10px;
   background: #fff;
+  vertical-align: top;
 }
 /* /b-interest */
 /* widget-friends */

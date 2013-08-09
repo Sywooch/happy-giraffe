@@ -709,6 +709,19 @@ hr,
 .a-checkbox:hover {
   background-position: -20px 0;
 }
+.b-itx-add {
+  display: inline-block;
+}
+.b-itx-add_itx {
+  display: inline-block;
+  vertical-align: middle;
+  width: 150px;
+  margin-right: 5px;
+  border: 1px solid #E1E1E1;
+  background: #fff;
+  padding: 3px 10px;
+  line-height: 16px;
+}
 .msg-win {
   color: #3cae31;
   font-size: 13px;

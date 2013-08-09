@@ -1,7 +1,7 @@
 <?php
 /**
  * @var $model NotificationDiscussContinue
- * @var $check bool
+ * @var $read bool
  * @author Alex Kireev <alexk984@gmail.com>
  */
 ?>
@@ -16,5 +16,5 @@
         продолжение обсуждения
     </div>
     <?php $this->renderPartial('content_preview', array('model' => CActiveRecord::model($model->entity)->findByPk($model->entity_id))); ?>
-    <?php $this->renderPartial('set_read', array('model' => $model, 'check' => $check)); ?>
+    <?php $this->renderPartial('set_read', array('model' => $model, 'read' => $read)); ?>
 </div>

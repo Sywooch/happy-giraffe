@@ -7,7 +7,7 @@
  */
 
 $criteria = $model->getMainCriteria($type);
-$cache_id = 'site_keywords_count_'.$site_id;
+$cache_id = 'site_keywords_count_'.serialize(compact('site_id', 'group_id'));
 $counts=Yii::app()->cache->get($cache_id);
 if($counts===false)
 {

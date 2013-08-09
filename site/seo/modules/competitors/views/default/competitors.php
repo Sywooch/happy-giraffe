@@ -52,7 +52,17 @@ $groupsNav[] = array(
         <button class="btn btn-green-small">Поиск</button>
     </div>
     <?php $total_count = $dataProvider->totalItemCount ?>
-    <?php $this->renderPartial('_count', compact('model', 'freq', 'site_id', 'total_count', 'type')); ?>
+    <?php $this->renderPartial('_count', compact('model', 'freq', 'site_id', 'group_id', 'total_count', 'type')); ?>
+
+    <div class="result-filter">
+        <label for="">Сортировать по</label>
+        <?=CHtml::dropDownList('typeSelect', $type, array(
+            SiteKeywordVisit::FILTER_ALL => 'Все',
+            SiteKeywordVisit::FILTER_NO_TRAFFIC => 'Нет статей, нет трафика',
+            SiteKeywordVisit::FILTER_NO_TRAFFIC_HAVE_ARTICLES => 'Есть статьи, нет трафика',
+            SiteKeywordVisit::FILTER_HAVE_TRAFFIC_NO_ARTICLES => 'Есть трафик, нет статей',
+        ), array('width' => '200'))?>
+    </div>
 </div>
 <div class="seo-table table-result mini">
     <?php $this->widget('zii.widgets.grid.CGridView', array(
@@ -181,7 +191,9 @@ $groupsNav[] = array(
     'method' => 'GET',
     'action' => array('/competitors/default/index')
 ));?>
+<?php echo CHtml::hiddenField('type', $type) ?>
 <?php echo CHtml::hiddenField('site_id', $site_id) ?>
+<?php echo CHtml::hiddenField('group_id', $group_id) ?>
 <?php echo CHtml::hiddenField('year', $year) ?>
 <?php echo CHtml::hiddenField('key_name', $model->key_name) ?>
 <?php echo CHtml::hiddenField('freq', $model->freq) ?>
@@ -210,6 +222,11 @@ $groupsNav[] = array(
             $('#site_id').val($(this).val());
             submitForm();
         }
+    });
+
+    $('#typeSelect').on('change', function() {
+        $('#type').val($(this).val());
+        submitForm();
     });
 
     $('#group').on('change', function() {

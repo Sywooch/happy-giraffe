@@ -147,19 +147,19 @@ class SiteKeywordVisit extends HActiveRecord
     {
         $criteria = $this->getMainCriteria($type);
 
-//        if (!empty($this->freq)) {
-//            $condition = Keyword::getFreqCondition($this->freq);
-//            if (!in_array('keyword', $criteria->with))
-//                $criteria->with [] = 'keyword';
-//
-//            if (!empty($criteria->condition)) {
-//                $criteria->condition .= ' AND ' . $condition;
-//            } else
-//                $criteria->condition = $condition;
-//        }
-        $criteria->with = array('keyword','keyword.group', 'keyword.group.page', 'keyword.tempKeyword', 'keyword.blacklist');
+        if (!empty($this->freq)) {
+            $condition = Keyword::getFreqCondition($this->freq);
+            if (!in_array('keyword', $criteria->with))
+                $criteria->with [] = 'keyword';
+
+            if (!empty($criteria->condition)) {
+                $criteria->condition .= ' AND ' . $condition;
+            } else
+                $criteria->condition = $condition;
+        }
+//        $criteria->with = array('keyword','keyword.group', 'keyword.group.page', 'keyword.tempKeyword', 'keyword.blacklist');
         $total_count = self::model()->count($criteria);
-        $criteria->with = array('keyword', 'keyword.group', 'keyword.group.page', 'keyword.group.taskCount', 'keyword.tempKeyword', 'keyword.blacklist', 'site');
+//        $criteria->with = array('keyword', 'keyword.group', 'keyword.group.page', 'keyword.group.taskCount', 'keyword.tempKeyword', 'keyword.blacklist', 'site');
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
@@ -195,32 +195,35 @@ class SiteKeywordVisit extends HActiveRecord
      */
     public function getMainCriteria($type)
     {
-        $criteria = new CDbCriteria;
-        $criteria->with = array('keyword');
-        if (!empty($this->site_id))
-            $criteria->addCondition('site_id = ' . $this->site_id);
-        if (!empty($_GET['group_id']))
-            $criteria->addCondition('site_group.id = ' . $_GET['group_id']);
+        $criteria = new CDbCriteria(array(
+            'with' => array('keyword','keyword.group', 'keyword.group.page', 'keyword.tempKeyword', 'keyword.blacklist'),
+        ));
 
         $criteria->compare('year', $this->year);
         $criteria->together = true;
 
+        if (! empty($this->site_id))
+            $criteria->compare('t.site_id', $_GET['site_id']);
+
+        if (! empty($_GET['group_id'])) {
+            $gCriteria = new CDbCriteria();
+            $gCriteria->with = 'site';
+            $gCriteria->compare('site.group_id', $_GET['group_id']);
+            $criteria->mergeWith($gCriteria);
+        }
+
         if (!empty($this->key_name))
             $criteria = $this->findByKeyword($criteria);
-        else{
+        else {
             switch($type){
                 case self::FILTER_HAVE_TRAFFIC_NO_ARTICLES:
                     $criteria->addCondition('group.id IS NULL AND tempKeyword.keyword_id IS NULL');
-                    $criteria->with = array('keyword', 'keyword.group', 'keyword.tempKeyword', 'keyword.blacklist');
                     break;
                 case self::FILTER_NO_TRAFFIC:
 
                     break;
                 case self::FILTER_NO_TRAFFIC_HAVE_ARTICLES:
                     $criteria->addCondition('group.id IS NULL AND tempKeyword.keyword_id IS NULL');
-                    $criteria->with = array('keyword', 'keyword.group', 'keyword.tempKeyword', 'keyword.blacklist');
-                    break;
-
                     break;
             }
         }

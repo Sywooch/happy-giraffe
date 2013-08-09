@@ -14,6 +14,7 @@
  * @property KeywordGroup[] $group
  * @property KeywordsBlacklist $blacklist
  * @property TempKeyword $tempKeyword
+ * @property GiraffeLastMonthTraffic $traffic
  */
 class Keyword extends CActiveRecord
 {
@@ -69,6 +70,7 @@ class Keyword extends CActiveRecord
             'group' => array(self::MANY_MANY, 'KeywordGroup', 'keyword_group_keywords(keyword_id, group_id)'),
             'tempKeyword' => array(self::HAS_ONE, 'TempKeyword', 'keyword_id'),
             'blacklist' => array(self::HAS_ONE, 'KeywordsBlacklist', 'keyword_id'),
+            'traffic' => array(self::HAS_ONE, 'GiraffeLastMonthTraffic', 'keyword_id'),
         );
     }
 
@@ -433,7 +435,7 @@ class Keyword extends CActiveRecord
      */
     public function getOurTraffic()
     {
-        return 0;
+        return isset($this->traffic) ? $this->traffic->value : 0;
     }
 
     /**

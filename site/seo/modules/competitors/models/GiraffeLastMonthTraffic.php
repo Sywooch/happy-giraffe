@@ -62,9 +62,12 @@ class GiraffeLastMonthTraffic extends HActiveRecord
         );
     }
 
+    /**
+     * Вычисляет месяцный трафик по всем словам на Веселый Жираф
+     */
     public static function calcMonthTraffic()
     {
-        $date = date("Y-m-d", strtotime('-32 days'));
+        $date = date("Y-m-d", strtotime('-31 days'));
         Yii::app()->db_seo->createCommand()->update(self::model()->tableName(), array('active' => 0));
 
         $keywordIds = 1;
@@ -75,7 +78,7 @@ class GiraffeLastMonthTraffic extends HActiveRecord
                 ->from('queries')
                 ->where('date > :date', array(':date' => $date))
                 ->offset($offset)
-                ->limit(1000)
+                ->limit(10000)
                 ->queryColumn();
             echo count($keywordIds) . "\n";
 
@@ -101,11 +104,11 @@ class GiraffeLastMonthTraffic extends HActiveRecord
                         'active' => 1
                     ));
                 } else {
-                    Yii::app()->db_seo->createCommand()->update(self::model()->tableName(), array('active' => 1, 'value' => $month_traffic));
+                    Yii::app()->db_seo->createCommand()->update(self::model()->tableName(), array('active' => 1, 'value' => $month_traffic), 'keyword_id = :keyword_id', array(':keyword_id' => $keyword_id));
                 }
             }
 
-            $offset += 1000;
+            $offset += 10000;
         }
 
         Yii::app()->db_seo->createCommand()->delete(self::model()->tableName(), 'active=0');

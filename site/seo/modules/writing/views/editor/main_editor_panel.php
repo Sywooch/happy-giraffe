@@ -23,7 +23,7 @@ Yii::app()->clientScript->registerCoreScript('jquery.ui'); ?>
                     </td>
                     <td><span><?=$tempKeyword->keyword->getFreqIcon() ?></span> <span class="freq-val"><?= $tempKeyword->keyword->getRoundFrequency() ?></span></td>
                     <td>
-                        <ul>
+                        <ul style="width: 100px;display: inline;">
                             <div class="admins redactor js-editor-list-button">
                                 <a href="javascript:;" class="btn-redactor" onclick="$(this).next().toggle();"></a>
                                 <ul class="js-editor-list" style="display:none;z-index: 100;">
@@ -33,6 +33,7 @@ Yii::app()->clientScript->registerCoreScript('jquery.ui'); ?>
                                 </ul>
                             </div>
                         </ul>
+                        <a href="javascript:;" class="icon-remove" onclick="TaskDistribution.removeFromSelected(this)"></a>
                     </td>
                 </tr>
                 <?php endforeach; ?>

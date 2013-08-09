@@ -1,5 +1,8 @@
 function PhotoCollectionViewModel(data) {
     var self = this;
+
+    self.DESCRIPTION_MAX_WORDS = 30;
+
     self.collectionClass = data.collectionClass;
     self.collectionOptions = data.collectionOptions;
     self.count = data.count;
@@ -95,6 +98,10 @@ function CollectionPhoto(data, parent) {
     self.src = data.src;
     self.date = data.date;
     self.user = new CollectionPhotoUser(data.user);
+
+    self.hasLongDescription = function() {
+        se
+    }
 }
 
 function CollectionPhotoUser(data, parent) {

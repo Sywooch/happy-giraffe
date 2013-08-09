@@ -4,17 +4,17 @@ class DefaultController extends SController
 {
     public $layout = '//layouts/writing';
 
-    public function actionIndex($group_id = null, $site_id = null, $year = 2013, $freq = null, $type = SiteKeywordVisit::FILTER_ALL)
+    public function actionIndex($group_id = '', $site_id = '', $year = 2013, $freq = null, $type = SiteKeywordVisit::FILTER_ALL)
     {
         if (!Yii::app()->user->checkAccess('main-editor') && !Yii::app()->user->checkAccess('admin'))
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
-        if ($group_id !== null) {
+        if ($group_id !== '') {
             $group = SitesGroup::model()->findByPk($group_id);
             if ($group === null)
                 throw new CHttpException(400);
             $site = null;
-        } elseif ($site_id !== null) {
+        } elseif ($site_id !== '') {
             $site = Site::model()->with('group')->findByPk($site_id);
             if ($site === null)
                 throw new CHttpException(400);

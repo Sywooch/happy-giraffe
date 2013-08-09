@@ -1,7 +1,7 @@
 <?php
 /**
  * @var $model NotificationFavourites
- * @var $check bool
+ * @var $read bool
  * @author Alex Kireev <alexk984@gmail.com>
  */
 ?>
@@ -19,7 +19,7 @@
 
         <div class="user-notice-list_post">
         </div>
-        <?php $this->renderPartial('set_read', array('model' => $model, 'check' => $check)); ?>
+        <?php $this->renderPartial('set_read', array('model' => $model, 'read' => $read)); ?>
     </div>
     <div class="user-notice-list_inner-hold" style="display: none;">
         <?php foreach ($model->articles as $article): ?>

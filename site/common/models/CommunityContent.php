@@ -17,6 +17,7 @@
  * @property integer $by_happy_giraffe
  * @property string $uniqueness
  * @property string $full
+ * @property string $real_time
  *
  * The followings are the available model relations:
  *

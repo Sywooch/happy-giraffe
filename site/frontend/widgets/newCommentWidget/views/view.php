@@ -15,6 +15,12 @@ $data = array(
     'allCount' => (int)$allCount,
     'messaging__enter' => (bool) UserAttributes::get(Yii::app()->user->id, 'messaging__enter', false),
 );
+
+//помечаем комментарии как прочитанные
+foreach($comments as $comment)
+    NotificationRead::getInstance()->addShownComment($comment);
+NotificationRead::getInstance()->SetVisited();
+
 ?><div class="comments-gray <?=$this->objectName ?>" id="<?=$this->objectName ?>">
     <div id="comment_list"></div>
     <div class="comments-gray_t">
@@ -42,7 +48,7 @@ $data = array(
     <div class="comments-gray_hold">
 
         <!-- ko foreach: comments -->
-        <div class="comments-gray_i" data-bind="css: {'comments-gray_i__self': ownComment()}">
+        <div class="comments-gray_i" data-bind="css: {'comments-gray_i__self': ownComment()}, attr: {id: 'comment_'+id()}">
 
             <a class="comments-gray_like like-hg-small" href="" data-bind="text:likesCount, css:{active: userLikes, hide: (likesCount() == 0)}, click:Like"></a>
 

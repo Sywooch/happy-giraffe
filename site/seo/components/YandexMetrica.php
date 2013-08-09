@@ -34,14 +34,17 @@ class YandexMetrica
         return $dates;
     }
 
-    public function parseQueries()
+    public function parseQueries($date)
     {
-        $dates = $this->getDatesForCheck();
+        if (empty($date)) {
+            $dates = $this->getDatesForCheck();
 
-        foreach ($dates as $date) {
-            echo $date."\n";
+            foreach ($dates as $date) {
+                echo $date . "\n";
+                $this->parseDate($date);
+            }
+        } else
             $this->parseDate($date);
-        }
     }
 
     public function parseDate($date)

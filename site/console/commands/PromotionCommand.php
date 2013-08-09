@@ -28,28 +28,16 @@ class PromotionCommand extends CConsoleCommand
         GiraffeLastMonthTraffic::calcMonthTraffic();
     }
 
-    public function actionParseDepth()
-    {
-        $metrica = new YandexMetrica();
-        $metrica->parseDepthFirstRows();
-    }
-
-    public function actionExport(){
-        PageStatistics::model()->export();
-    }
-
     /** Готовим парсинг позиций слов по которым заходили за последнюю неделю **/
     public function actionPrepare()
     {
         ParsingPosition::model()->deleteAll();
-        ParsingPosition::collectKeywords();
-    }
-
-    /** Готовим парсинг позиций **/
-    public function actionCollectPagesKeywords()
-    {
-        ParsingPosition::model()->deleteAll();
+        echo "collect traffic keywords\n";
+        ParsingPosition::collectTrafficKeywords();
+        echo "collect pages keywords\n";
         ParsingPosition::collectPagesKeywords();
+        echo "collect competitors keywords\n";
+        ParsingPosition::collectCompetitorsKeywords();
     }
 
     /** Парсинг позиций в Яндексе **/
@@ -66,56 +54,56 @@ class PromotionCommand extends CConsoleCommand
         $parser->start();
     }
 
-    public function actionPageViews()
-    {
-        Yii::import('site.frontend.helpers.*');
-        $pages = PagePromotion::model()->findAll();
-        foreach ($pages as $page) {
-            $url = str_replace('http://www.happy-giraffe.ru', '', $page->url);
-            $page->views = GApi::model()->uniquePageViews($url, '2012-01-01', '2013-04-12', false);
-            echo $url . ' - ' . $page->views . "\n";
-            $page->save();
-        }
-    }
-
-    public function actionViews()
-    {
-        Yii::import('site.frontend.helpers.*');
-        $criteria = new EMongoCriteria();
-        $criteria->addCond('views', '==', null);
-        $pages = PagePromotion::model()->findAll($criteria);
-        foreach ($pages as $page) {
-            $url = str_replace('http://www.happy-giraffe.ru', '', $page->url);
-            $page->views = GApi::model()->uniquePageViews($url, '2011-01-01', '2013-04-12', false);
-            echo $url . ' - ' . $page->views . "\n";
-            $page->update(array('views'));
-        }
-    }
-
-    public function actionAddToParsing()
-    {
-        $pages = PagePromotion::model()->findAll();
-        foreach ($pages as $page) {
-            $page2 = Page::model()->findByAttributes(array('url' => $page->url));
-            if ($page2 === null) {
-                $page2 = new Page;
-                $page2->url = $page->url;
-                $page2->save();
-            }
-            $phrase = PagesSearchPhrase::model()->findByAttributes(array(
-                'page_id' => $page2->id,
-                'keyword_id' => $page->keyword_id,
-            ));
-            if ($phrase === null) {
-                $phrase = new PagesSearchPhrase;
-                $phrase->page_id = $page2->id;
-                $phrase->keyword_id = $page->keyword_id;
-                $phrase->save();
-            }
-            $model = new ParsingPosition;
-            $model->keyword_id = $page->keyword_id;
-            $model->save();
-
-        }
-    }
+//    public function actionPageViews()
+//    {
+//        Yii::import('site.frontend.helpers.*');
+//        $pages = PagePromotion::model()->findAll();
+//        foreach ($pages as $page) {
+//            $url = str_replace('http://www.happy-giraffe.ru', '', $page->url);
+//            $page->views = GApi::model()->uniquePageViews($url, '2012-01-01', '2013-04-12', false);
+//            echo $url . ' - ' . $page->views . "\n";
+//            $page->save();
+//        }
+//    }
+//
+//    public function actionViews()
+//    {
+//        Yii::import('site.frontend.helpers.*');
+//        $criteria = new EMongoCriteria();
+//        $criteria->addCond('views', '==', null);
+//        $pages = PagePromotion::model()->findAll($criteria);
+//        foreach ($pages as $page) {
+//            $url = str_replace('http://www.happy-giraffe.ru', '', $page->url);
+//            $page->views = GApi::model()->uniquePageViews($url, '2011-01-01', '2013-04-12', false);
+//            echo $url . ' - ' . $page->views . "\n";
+//            $page->update(array('views'));
+//        }
+//    }
+//
+//    public function actionAddToParsing()
+//    {
+//        $pages = PagePromotion::model()->findAll();
+//        foreach ($pages as $page) {
+//            $page2 = Page::model()->findByAttributes(array('url' => $page->url));
+//            if ($page2 === null) {
+//                $page2 = new Page;
+//                $page2->url = $page->url;
+//                $page2->save();
+//            }
+//            $phrase = PagesSearchPhrase::model()->findByAttributes(array(
+//                'page_id' => $page2->id,
+//                'keyword_id' => $page->keyword_id,
+//            ));
+//            if ($phrase === null) {
+//                $phrase = new PagesSearchPhrase;
+//                $phrase->page_id = $page2->id;
+//                $phrase->keyword_id = $page->keyword_id;
+//                $phrase->save();
+//            }
+//            $model = new ParsingPosition;
+//            $model->keyword_id = $page->keyword_id;
+//            $model->save();
+//
+//        }
+//    }
 }

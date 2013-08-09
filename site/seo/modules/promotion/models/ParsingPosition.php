@@ -70,9 +70,8 @@ class ParsingPosition extends HActiveRecord
         $keywords = 1;
         while (!empty($keywords)) {
             $keywords = Yii::app()->db_seo->createCommand()
-                ->select('distinct(keyword_id)')
-                ->from('queries')
-                ->where('date >= :date', array(':date' => date("Y-m-d", strtotime('-30 days'))))
+                ->select('keyword_id')
+                ->from('giraffe_last_month_traffic')
                 ->offset($offset)
                 ->limit(10000)
                 ->order('keyword_id')

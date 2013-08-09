@@ -1,8 +1,50 @@
 <?php
-$dataProvider = $model->search();
-?>
-<div class="search clearfix">
+/**
+ * @var int $type основная фильтрация
+ * @var SiteKeywordVisit $model основная фильтрация
+ * @var int $site_id выбранный сайт
+ * @var int $year выбранный сайт
+ * @var int $freq частота ключевых слов, которая нас интересует
+ */
+$dataProvider = $model->search($type);
+$groupsNav = array();
+foreach ($groups as $g) {
+    $groupsNav[] = array(
+        'label' => $g->title,
+        'url' => $this->createUrl('index', array('group_id' => $g->id)),
+        'active' => $group !== null && $group->id == $g->id,
+    );
+}
+$groupsNav[] = array(
+    'label' => 'Без тематики',
+    'url' => $this->createUrl('index'),
+    'active' => $group === null,
+);
 
+?>
+<div class="clearfix">
+    <div class="fast-nav">
+        <span class="fast-nav_t">Выбрать тематику:</span>
+        <?php $this->widget('zii.widgets.CMenu', array(
+            'items' => $groupsNav,
+        ));?>
+    </div>
+</div>
+<?php if ($sites): ?>
+<div class="clearfix">
+    <div class="fast-nav">
+        <span class="fast-nav_t">Выбрать сайт:</span>
+        <?=CHtml::dropDownList('site', $site_id, CHtml::listData($sites, 'id', 'name'), array('prompt' => 'Выберите сайт'))?>
+        &nbsp;
+        &nbsp;
+        <?php if ($site_id !== null): ?>
+            <a href="javascript:void(0)" class="pseudo" onclick="$(this).hide();$(this).next().show();">Задать тематику сайта</a>
+            <?=CHtml::dropDownList('group', '', CHtml::listData($groups, 'id', 'title'), array('prompt' => 'Выберите тематику', 'style' => 'display: none;'))?>
+        <?php endif; ?>
+    </div>
+</div>
+<?php endif; ?>
+<div class="search clearfix">
     <div class="input">
         <label>Введите слово или фразу</label>
         <a href="javascript:;" class="remove tooltip" onclick="CompetitorsTable.clearSearch()" title="Очистить  поиск"></a>
@@ -10,21 +52,22 @@ $dataProvider = $model->search();
         <button class="btn btn-green-small">Поиск</button>
     </div>
     <?php $total_count = $dataProvider->totalItemCount ?>
-    <?php $this->renderPartial('_count', compact('model', 'freq', 'site_id', 'total_count')); ?>
+    <?php $this->renderPartial('_count', compact('model', 'freq', 'site_id', 'group_id', 'total_count', 'type')); ?>
 
     <div class="result-filter">
-        <label>не показывать<br>используемые<br>
-            <input type="checkbox"
-                   id="hide-used" <?php if (Yii::app()->user->getState('hide_used') == 1) echo 'checked="checked"' ?>
-                   onchange="SeoKeywords.hideUsed(this, function(){document.location.reload()});"></label>
+        <label for="">Сортировать по</label>
+        <?=CHtml::dropDownList('typeSelect', $type, array(
+            SiteKeywordVisit::FILTER_ALL => 'Все',
+            SiteKeywordVisit::FILTER_NO_TRAFFIC => 'Нет статей, нет трафика',
+            SiteKeywordVisit::FILTER_NO_TRAFFIC_HAVE_ARTICLES => 'Есть статьи, нет трафика',
+            SiteKeywordVisit::FILTER_HAVE_TRAFFIC_NO_ARTICLES => 'Есть трафик, нет статей',
+        ), array('width' => '200'))?>
     </div>
-
 </div>
 <div class="seo-table table-result mini">
     <?php $this->widget('zii.widgets.grid.CGridView', array(
     'id' => 'keywords-grid',
     'dataProvider' => $dataProvider,
-//    'afterAjaxUpdate'=>'CompetitorsTable.updateTable()',
     'filter' => null,
     'cssFile' => false,
     'rowCssClassExpression' => '$data->keyword->getClass()',
@@ -38,7 +81,7 @@ $dataProvider = $model->search();
         array(
             'name' => 'key_name',
             'type'=>'raw',
-            'value' => '$data->keyword->getKeywordAndSimilarArticles('.$section.')',
+            'value' => '$data->keyword->getKeywordAndSimilarArticles()',
             'headerHtmlOptions' => array('class' => 'col-1'),
             'htmlOptions' => array('class' => 'col-1')
         ),
@@ -53,6 +96,25 @@ $dataProvider = $model->search();
             'value' => '$data->keyword->getFreqIcon()',
             'header' => '<i class="icon-freq"></i>'
         ),
+        array(
+            'name' => 'our_traffic',
+            'type' => 'raw',
+            'value' => '$data->keyword->getOurTraffic()',
+            'header' => 'Трафик'
+        ),
+        array(
+            'name' => 'pos_yandex',
+            'type' => 'raw',
+            'value' => '$data->keyword->getPosYandex()',
+            'header' => '<i class="icon-yandex"></i>'
+        ),
+        array(
+            'name' => 'pos_google',
+            'type' => 'raw',
+            'value' => '$data->keyword->getPosGoogle()',
+            'header' => '<i class="icon-google"></i>'
+        ),
+
         array(
             'name' => 'm1',
             'filter' => false
@@ -108,6 +170,7 @@ $dataProvider = $model->search();
         array(
             'name' => 'buttons',
             'type' => 'raw',
+            'value' => '$data->keyword->getButtons(true)',
             'header' => '',
             'filter' => false
         ),
@@ -128,11 +191,12 @@ $dataProvider = $model->search();
     'method' => 'GET',
     'action' => array('/competitors/default/index')
 ));?>
+<?php echo CHtml::hiddenField('type', $type) ?>
 <?php echo CHtml::hiddenField('site_id', $site_id) ?>
+<?php echo CHtml::hiddenField('group_id', $group_id) ?>
 <?php echo CHtml::hiddenField('year', $year) ?>
 <?php echo CHtml::hiddenField('key_name', $model->key_name) ?>
 <?php echo CHtml::hiddenField('freq', $model->freq) ?>
-<?php echo CHtml::hiddenField('section', $section) ?>
 <?php echo CHtml::hiddenField('SiteKeywordVisit_sort', isset($_GET['SiteKeywordVisit_sort'])?$_GET['SiteKeywordVisit_sort']:'') ?>
 <?php $this->endWidget(); ?>
 
@@ -151,6 +215,25 @@ $dataProvider = $model->search();
             $('#key_name').val($('#keyword').val());
             submitForm();
         }
+    });
+
+    $('#site').on('change', function() {
+        if ($(this).val().length > 0) {
+            $('#site_id').val($(this).val());
+            submitForm();
+        }
+    });
+
+    $('#typeSelect').on('change', function() {
+        $('#type').val($(this).val());
+        submitForm();
+    });
+
+    $('#group').on('change', function() {
+        $.post('/competitors/default/setGroup/', { site_id : $('#site_id').val(), group_id : $('#group').val() }, function(response) {
+            if (response.success)
+                document.location.href = response.href;
+        }, 'json');
     });
 
     function submitForm() {
@@ -185,6 +268,7 @@ $dataProvider = $model->search();
 						<th rowspan="2" class="col-1">Ключевое слово или фраза</th>\
 						<th rowspan="2"><i class="icon-yandex" onclick="CompetitorsTable.sortByFreq()"></i></th>\
 						<th rowspan="2"><i class="icon-freq"></i></th>\
+						<th colspan="3">Веселый жираф</th>\
 						<th colspan="12">Количество визитов &nbsp;&nbsp;&nbsp; Год <select onchange="CompetitorsTable.setYear(this);"><option value="2011"<?php if ($model->year == 2011) echo ' selected' ?>>2011</option><option value="2012"<?php if ($model->year == 2012) echo ' selected' ?>>2012</option><option value="2013"<?php if ($model->year == 2013) echo ' selected' ?>>2013</option></select></th>\
 						<th rowspan="2"></th>\
 						<th rowspan="2"></th>\

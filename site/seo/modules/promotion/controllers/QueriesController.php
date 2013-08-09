@@ -24,7 +24,7 @@ class QueriesController extends SController
             return true;
 
         if (!Yii::app()->user->checkAccess('admin') && !Yii::app()->user->checkAccess('superuser')
-            && !Yii::app()->user->checkAccess('editor') && !Yii::app()->user->checkAccess('promotion')
+            && !Yii::app()->user->checkAccess('main-editor') && !Yii::app()->user->checkAccess('promotion')
         )
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
         return true;

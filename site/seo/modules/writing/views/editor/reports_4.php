@@ -30,7 +30,9 @@
                     <td class="al"><?=$task->getText() ?></td>
                     <td class="al"><?=$task->getArticleText() ?></td>
                     <td><?=$task->getExecutor() ?></td>
-                    <td><a href="" class="btn-green-small" onclick="SeoTasks.CloseTask(this, <?=$task->id ?>);return false;">Проверено</a></td>
+                    <?php if (Yii::app()->user->checkAccess('editor')):?>
+                        <td><a href="" class="btn-green-small" onclick="SeoTasks.CloseTask(this, <?=$task->id ?>);return false;">Проверено</a></td>
+                    <?php endif ?>
                 </tr>
                     <?php } ?>
                 </tbody>

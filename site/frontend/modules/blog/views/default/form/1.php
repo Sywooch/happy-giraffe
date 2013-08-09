@@ -189,7 +189,6 @@
             <a href="" class="redactor-popup_close ico-close3 powertip" data-bind="click: close"></a>
             <div class="redactor-popup_tale"></div>
             <div class="redactor-popup_t">Загрузите фото</div>
-            <!-- .dragover - класс добавлять, когда курсер мыши с файлами находится над блоком -->
             <div class="b-add-img b-add-img__for-single">
                 <div class="b-add-img_hold">
                     <div class="b-add-img_t">

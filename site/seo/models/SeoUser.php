@@ -153,6 +153,8 @@ class SeoUser extends HActiveRecord
             'email' => 'Логин',
             'password' => 'Пароль',
             'gender' => 'Пол',
+            'owner_id' => 'Родитель',
+            'related_user_id' => 'id на жирафе',
             'active' => 'Активен',
         );
     }
@@ -264,15 +266,40 @@ class SeoUser extends HActiveRecord
         return SeoUser::model()->findAllByPk($users);
     }
 
+    /**
+     * Возвращает подчиненных сотрудников определенной роли
+     * @param string $role
+     * @return SeoUser[]
+     */
     public function getWorkers($role = 'cook-author')
     {
+        $authorIds = Yii::app()->db_seo->createCommand()
+            ->select('userid')
+            ->from('auth__assignments')
+            ->where('itemname = :role', array(':role'=>$role))
+            ->queryColumn();
         $result = array();
         $users = SeoUser::model()->active()->findAll('owner_id = '.Yii::app()->user->id);
         foreach ($users as $author)
-            if (Yii::app()->authManager->checkAccess($role, $author->id)){
+            if (in_array($author->id, $authorIds)){
                 $result [] = $author;
             }
 
         return $result;
+    }
+
+    /**
+     * Возвращает шеф-редакторов
+     * @return SeoUser[]
+     */
+    public static function getEditors()
+    {
+        $users = Yii::app()->db_seo->createCommand()
+            ->select('userId')
+            ->from('auth__assignments')
+            ->where('itemname = "editor"')
+            ->queryColumn();
+
+        return SeoUser::model()->findAllByPk($users);
     }
 }

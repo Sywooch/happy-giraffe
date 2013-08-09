@@ -30,8 +30,6 @@ class SeoTask extends CActiveRecord
     const STATUS_READY = 1;
     const STATUS_TAKEN = 2;
     const STATUS_WRITTEN = 3;
-    const STATUS_CORRECTING = 4;
-    const STATUS_CORRECTED = 5;
     const STATUS_PUBLICATION = 6;
     const STATUS_PUBLISHED = 7;
     const STATUS_CLOSED = 8;
@@ -217,11 +215,7 @@ class SeoTask extends CActiveRecord
             $criteria->condition = 'owner_id = :owner_id AND status > ' . SeoTask::STATUS_PUBLICATION . ' AND type = ' . SeoTask::TYPE_EDITOR;
             $criteria->params = array('owner_id' => Yii::app()->user->getModel()->owner_id);
 
-        } elseif (Yii::app()->user->checkAccess('corrector')) {
-            $criteria->condition = 'owner_id = :owner_id AND status > ' . SeoTask::STATUS_CORRECTING . ' AND type = ' . SeoTask::TYPE_EDITOR;
-            $criteria->params = array('owner_id' => Yii::app()->user->getModel()->owner_id);
-
-        } elseif (Yii::app()->user->checkAccess('editor')) {
+        } elseif (Yii::app()->user->checkAccess('editor') || Yii::app()->user->checkAccess('main-editor') ) {
             $criteria->compare('status', SeoTask::STATUS_CLOSED);
             $criteria->compare('owner_id', Yii::app()->user->id);
 
@@ -252,11 +246,6 @@ class SeoTask extends CActiveRecord
         } elseif (Yii::app()->user->checkAccess('moderator-panel')) {
             $criteria->compare('type', SeoTask::TYPE_MODER);
             $criteria->compare('status', SeoTask::STATUS_READY);
-
-        } elseif (Yii::app()->user->checkAccess('corrector')) {
-            $criteria->compare('type', SeoTask::TYPE_EDITOR);
-            $criteria->compare('status', SeoTask::STATUS_CORRECTING);
-            $criteria->compare('owner_id', Yii::app()->user->getModel()->owner_id);
 
         } elseif (Yii::app()->user->checkAccess('content-manager')) {
             $criteria->compare('type', SeoTask::TYPE_EDITOR);
@@ -314,10 +303,6 @@ class SeoTask extends CActiveRecord
                         return 'Написание';
                     case self::STATUS_WRITTEN:
                         return 'Статья написана';
-                    case self::STATUS_CORRECTING:
-                        return 'На коррекции';
-                    case self::STATUS_CORRECTED:
-                        return 'Откорректировано';
                     case self::STATUS_PUBLICATION:
                         return 'На публикации';
                     case self::STATUS_PUBLISHED:
@@ -334,10 +319,6 @@ class SeoTask extends CActiveRecord
                         return 'Написание';
                     case self::STATUS_WRITTEN:
                         return 'Рецепт написан';
-                    case self::STATUS_CORRECTING:
-                        return 'На коррекции';
-                    case self::STATUS_CORRECTED:
-                        return 'Откорректировано';
                     case self::STATUS_PUBLICATION:
                         return 'На публикации';
                     case self::STATUS_PUBLISHED:
@@ -354,10 +335,6 @@ class SeoTask extends CActiveRecord
                         return 'Написание';
                     case self::STATUS_WRITTEN:
                         return 'Статья написана';
-                    case self::STATUS_CORRECTING:
-                        return 'На коррекции';
-                    case self::STATUS_CORRECTED:
-                        return 'Откорректировано';
                     case self::STATUS_PUBLICATION:
                         return 'На публикации';
                     case self::STATUS_PUBLISHED:
@@ -432,18 +409,26 @@ class SeoTask extends CActiveRecord
     public static function getReportsCriteria($status = 1, $section = SeoTask::SECTION_MAIN, $rewrite = 0)
     {
         $criteria = new CDbCriteria;
-        $criteria->compare('t.owner_id', Yii::app()->user->id);
+        if (Yii::app()->user->checkAccess('editor'))
+            $criteria->compare('t.owner_id', Yii::app()->user->id);
         $criteria->compare('section', $section);
         $criteria->compare('rewrite', $rewrite);
         $criteria->order = 'created desc';
 
-        if ($status == 1)
-            $criteria->addCondition('(status = 1 OR status = 2)');
-        elseif ($status == 2)
-            $criteria->addCondition('(status = 3 OR status = 4)'); elseif ($status == 3)
-            $criteria->addCondition('(status = 5 OR status = 6)'); elseif ($status == 4)
-            $criteria->addCondition('status = 7'); elseif ($status == 5)
-            $criteria->addCondition('status = 8');
+        switch($status){
+            case 1:
+                $criteria->addCondition('(status = 1 OR status = 2)');
+                break;
+            case 3:
+                $criteria->addCondition('(status = 3 OR status = 5 OR status = 6)');
+                break;
+            case 4:
+                $criteria->addCondition('status = 7');
+                break;
+            case 5:
+                $criteria->addCondition('status = 8');
+                break;
+        }
 
         return $criteria;
     }

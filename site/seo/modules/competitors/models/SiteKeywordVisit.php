@@ -28,11 +28,20 @@
  */
 class SiteKeywordVisit extends HActiveRecord
 {
+    const FILTER_ALL = 1;
+    const FILTER_NO_TRAFFIC = 2;
+    const FILTER_NO_TRAFFIC_HAVE_ARTICLES = 3;
+    const FILTER_HAVE_TRAFFIC_NO_ARTICLES = 4;
+
     public $all;
     public $key_name;
     public $popular;
     public $popularIcon;
     public $freq;
+    public $our_traffic;
+    public $pos_yandex;
+    public $pos_google;
+
     /**
      * @var Site[]
      */
@@ -73,8 +82,6 @@ class SiteKeywordVisit extends HActiveRecord
         return array(
             array('site_id, keyword_id, m1, m2, m3, m4, m5, m6, m7, m8, m9, m10, m11, m12, keyword_id, sum, year', 'required'),
             array('site_id, keyword_id, m1, m2, m3, m4, m5, m6, m7, m8, m9, m10, m11, m12, sum, year', 'numerical', 'integerOnly' => true),
-            // The following rule is used by search().
-            // Please remove those attributes that should not be searched.
             array('site_id, keyword_id, m1, m2, m3, m4, m5, m6, m7, m8, m9, m10, m11, m12, sum, key_name, year, freq, popular', 'safe'),
         );
     }
@@ -84,11 +91,10 @@ class SiteKeywordVisit extends HActiveRecord
      */
     public function relations()
     {
-        // NOTE: you may need to adjust the relation name and the related
-        // class name for the relations automatically generated below.
         return array(
             'keyword' => array(self::BELONGS_TO, 'Keyword', 'keyword_id'),
             'site' => array(self::BELONGS_TO, 'Site', 'site_id'),
+            //'traffic' => array(self::HAS_ONE, 'GiraffeLastMonthTraffic', 'keyword_id'),
         );
     }
 
@@ -133,12 +139,13 @@ class SiteKeywordVisit extends HActiveRecord
     }
 
     /**
-     * Retrieves a list of models based on the current search/filter conditions.
-     * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
+     * Поиск по статистике конкурентов
+     * @param int $type тип фильтрации
+     * @return CActiveDataProvider
      */
-    public function search()
+    public function search($type)
     {
-        $criteria = $this->getCriteriaWithoutFreq();
+        $criteria = $this->getMainCriteria($type);
 
         if (!empty($this->freq)) {
             $condition = Keyword::getFreqCondition($this->freq);
@@ -150,23 +157,13 @@ class SiteKeywordVisit extends HActiveRecord
             } else
                 $criteria->condition = $condition;
         }
-
-        $full_criteria = clone $criteria;
-        $full_criteria->with = array();
-
-        $cache_id = 'total_items_count_'.$this->site_id;
-        $total_items_count=Yii::app()->cache->get($cache_id);
-        if($total_items_count===false)
-        {
-            $total_items_count = self::model()->count($full_criteria);
-            Yii::app()->cache->set($cache_id,$total_items_count, 3600);
-        }
-
-        $full_criteria->with = array('keyword', 'keyword.group','keyword.group.page','keyword.group.taskCount', 'keyword.tempKeyword', 'keyword.blacklist', 'site');
+//        $criteria->with = array('keyword','keyword.group', 'keyword.group.page', 'keyword.tempKeyword', 'keyword.blacklist');
+        $total_count = self::model()->count($criteria);
+//        $criteria->with = array('keyword', 'keyword.group', 'keyword.group.page', 'keyword.group.taskCount', 'keyword.tempKeyword', 'keyword.blacklist', 'site');
 
         return new CActiveDataProvider($this, array(
-            'criteria' => $full_criteria,
-            'totalItemCount' => $total_items_count,
+            'criteria' => $criteria,
+            'totalItemCount' => $total_count,
             'pagination' => array('pageSize' => 50),
             'sort' => array(
                 'attributes' => array(
@@ -191,57 +188,92 @@ class SiteKeywordVisit extends HActiveRecord
         ));
     }
 
-    public function getCriteriaWithoutFreq()
+    /**
+     * Возвращает критерий для выбора статистики без учета частотности слов
+     * @param $type
+     * @return CDbCriteria
+     */
+    public function getMainCriteria($type)
     {
-        $criteria = new CDbCriteria;
-        $criteria->with = array('keyword');
-
-//        if (Yii::app()->user->getState('hide_used') == 1) {
-//            $criteria->condition = 'group.id IS NULL AND ((tempKeyword.keyword_id IS NOT NULL AND tempKeyword.owner_id = ' . Yii::app()->user->id . ') OR tempKeyword.keyword_id IS NULL)';
-//            $criteria->with = array('keyword', 'keyword.group', 'keyword.tempKeyword', 'keyword.blacklist');
-//        }
-
-        if (!empty($this->key_name)) {
-            if ($this->temp_ids === null)
-                $this->temp_ids = Keyword::findSiteIdsByNameWithSphinx($this->key_name);
-
-            if (empty($this->temp_ids))
-                $criteria->addCondition('keyword.id = 0');
-            else
-                $criteria->addCondition('keyword.id IN (' . implode(',', $this->temp_ids) . ')');
-        }
-
-        //search by site_id
-        if (count($this->sites_id) == 1)
-            $criteria->addCondition('site_id = ' . $this->sites_id[0]);
-        else
-            $criteria->addCondition('site_id IN (' . implode(',', $this->sites_id) . ') ');
+        $criteria = new CDbCriteria(array(
+            'with' => array('keyword','keyword.group', 'keyword.group.page', 'keyword.tempKeyword', 'keyword.blacklist'),
+        ));
 
         $criteria->compare('year', $this->year);
         $criteria->together = true;
 
+        if (! empty($this->site_id))
+            $criteria->compare('t.site_id', $_GET['site_id']);
+
+        if (! empty($_GET['group_id'])) {
+            $gCriteria = new CDbCriteria();
+            $gCriteria->with = 'site';
+            $gCriteria->compare('site.group_id', $_GET['group_id']);
+            $criteria->mergeWith($gCriteria);
+        }
+
+        if (!empty($this->key_name))
+            $criteria = $this->findByKeyword($criteria);
+        else{
+            switch($type){
+                case self::FILTER_HAVE_TRAFFIC_NO_ARTICLES:
+                    $criteria->addCondition('group.id IS NULL AND tempKeyword.keyword_id IS NULL AND traffic.keyword_id IS NOT NULL');
+                    $criteria->with [] = 'keyword.traffic';
+                    break;
+
+                case self::FILTER_NO_TRAFFIC:
+                    $criteria->addCondition('traffic.keyword_id IS NULL');
+                    $criteria->with [] = 'keyword.traffic';
+                    break;
+
+                case self::FILTER_NO_TRAFFIC_HAVE_ARTICLES:
+                    $criteria->addCondition('page.id IS NOT NULL AND traffic.keyword_id IS NULL');
+                    $criteria->with [] = 'keyword.traffic';
+                    break;
+
+            }
+        }
+
         return $criteria;
     }
 
-    public function getCriteriaWithoutFreqForCounts()
+
+
+    /**
+     * @param CDbCriteria $criteria
+     * @return CDbCriteria;
+     */
+    public function findByKeyword($criteria)
     {
-        $criteria = $this->getCriteriaWithoutFreq();
+        if ($this->temp_ids === null)
+            $this->temp_ids = Keyword::findSiteIdsByNameWithSphinx($this->key_name);
+
+        if (empty($this->temp_ids))
+            $criteria->addCondition('keyword.id = 0');
+        else
+            $criteria->addCondition('keyword.id IN (' . implode(',', $this->temp_ids) . ')');
 
         return $criteria;
     }
 
+    /**
+     * Среднее кол-во переходов за месяц
+     * @return float
+     */
     public function GetAverageStats()
     {
-        if ($this->year == 2012)
-            return round($this->sum / 5);
         return round($this->sum / 12);
     }
 
-    public function getButtons()
-    {
-        return $this->keyword->getButtons(true);
-    }
-
+    /**
+     * Сохранение кол-ва переходов при парсинге статистики
+     *
+     * @param int $site_id
+     * @param int $keyword_id
+     * @param int $month
+     * @param int $year
+     * @param int $value
+     */
     public static function SaveValue($site_id, $keyword_id, $month, $year, $value)
     {
         $model = self::model()->findByAttributes(array(

@@ -4,34 +4,14 @@
     <div class="default-nav">
 
         <?php
-        if (Yii::app()->user->checkAccess('editor'))
+        if (Yii::app()->user->checkAccess('main-editor'))
             $this->widget('zii.widgets.CMenu', array(
                 'itemTemplate' => '{menu}<span class="tale"><img src="/images/default_nav_active.gif"></span>',
                 'items' => array(
                     array(
-                        'label' => 'Еще слова',
-                        'url' => $this->createUrl('/competitors/default/index', array('section'=>11)),
-                        'active'=> Yii::app()->controller->uniqueId == 'competitors/default' && Yii::app()->request->getParam('section') == 10
-                    ),
-                    array(
-                        'label' => 'Новые слова',
-                        'url' => $this->createUrl('/competitors/default/index', array('section'=>10)),
-                        'active'=> Yii::app()->controller->uniqueId == 'competitors/default' && Yii::app()->request->getParam('section') == 10
-                    ),
-                    array(
-                        'label' => 'Рукоделие',
-                        'url' => $this->createUrl('/writing/editor/index', array('theme'=>3)),
-                        'active'=> Yii::app()->controller->action->id == 'index' && Yii::app()->request->getParam('theme') == 3
-                    ),
-                    array(
-                        'label' => 'Интерьер',
-                        'url' => $this->createUrl('/writing/editor/index', array('theme'=>6)),
-                        'active'=> Yii::app()->controller->action->id == 'index' && Yii::app()->request->getParam('theme') == 6
-                    ),
-                    array(
                         'label' => 'Конкуренты',
                         'url' => array('/competitors/default/index'),
-                        'active'=> Yii::app()->controller->uniqueId == 'competitors/default' && Yii::app()->request->getParam('section') != 10
+                        'active'=> Yii::app()->controller->uniqueId == 'competitors/default'
                     ),
                     array(
                         'label' => 'Раздача заданий',
@@ -44,14 +24,10 @@
                     ),
                 )));
 
-        if (Yii::app()->user->checkAccess('superuser'))
+        if (Yii::app()->user->checkAccess('editor'))
             $this->widget('zii.widgets.CMenu', array(
                 'itemTemplate' => '{menu}<span class="tale"><img src="/images/default_nav_active.gif"></span>',
                 'items' => array(
-                    array(
-                        'label' => 'Конкуренты',
-                        'url' => array('/competitors/default/index'),
-                    ),
                     array(
                         'label' => 'Раздача заданий',
                         'url' => array('/writing/editor/tasks/'),
@@ -67,16 +43,6 @@
             $this->widget('zii.widgets.CMenu', array(
                 'itemTemplate' => '{menu}<span class="tale"><img src="/images/default_nav_active.gif"></span>',
                 'items' => array(
-                    array(
-                        'label' => 'Рукоделие',
-                        'url' => $this->createUrl('/writing/editor/index', array('theme'=>5)),
-                        'active'=> Yii::app()->controller->action->id == 'index' && Yii::app()->request->getParam('theme') == 5
-                    ),
-                    array(
-                        'label' => 'Интерьер',
-                        'url' => $this->createUrl('/writing/editor/index', array('theme'=>6)),
-                        'active'=> Yii::app()->controller->action->id == 'index' && Yii::app()->request->getParam('theme') == 6
-                    ),
                     array(
                         'label' => 'Раздача заданий',
                         'url' => array('/writing/editor/tasks/'),
@@ -114,20 +80,6 @@
                     array(
                         'label' => 'Отчеты',
                         'url' => array('/writing/author/reports'),
-                    ),
-                )));
-
-        if (Yii::app()->user->checkAccess('corrector'))
-            $this->widget('zii.widgets.CMenu', array(
-                'itemTemplate' => '{menu}<span class="tale"><img src="/images/default_nav_active.gif"></span>',
-                'items' => array(
-                    array(
-                        'label' => 'В работу',
-                        'url' => array('/writing/corrector/index'),
-                    ),
-                    array(
-                        'label' => 'Отчеты',
-                        'url' => array('/writing/corrector/reports'),
                     ),
                 )));
 

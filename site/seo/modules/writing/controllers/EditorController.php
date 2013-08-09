@@ -11,9 +11,8 @@ class EditorController extends SController
 
     public function beforeAction($action)
     {
-        if (!Yii::app()->user->checkAccess('admin') && !Yii::app()->user->checkAccess('editor')
-            && !Yii::app()->user->checkAccess('superuser') && !Yii::app()->user->checkAccess('cook-manager-panel')
-        )
+        if (Yii::app()->user->checkAccess('main-editor') || Yii::app()->user->checkAccess('editor') || Yii::app()->user->checkAccess('cook-manager-panel')) {
+        } else
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
         if (isset($_GET['rewrite'])) {
@@ -39,36 +38,35 @@ class EditorController extends SController
         ));
     }
 
-    public function actionHideUsed()
-    {
-        $checked = Yii::app()->request->getPost('checked');
-        if (!empty($checked)) {
-            Yii::app()->user->setState('hide_used', 1);
-        } else
-            Yii::app()->user->setState('hide_used', 0);
-    }
-
     public function actionTasks($rewrite = 0)
     {
         TempKeyword::filterBusyKeywords();
         $tempKeywords = TempKeyword::model()->findAll('owner_id=' . Yii::app()->user->id);
 
-        $criteria = new CDbCriteria;
-        $criteria->condition = 'owner_id=' . Yii::app()->user->id . ' AND status = 0';
-        $criteria->condition .= ($this->rewrite == 0) ? ' AND rewrite = 0' : ' AND rewrite = 1';
-        $criteria->order = 'created desc';
-        $tasks = SeoTask::model()->findAll($criteria);
+        if (Yii::app()->user->checkAccess('editor')) {
+            $criteria = new CDbCriteria;
+            $criteria->condition = 'owner_id=' . Yii::app()->user->id . ' AND status = 0';
+            $criteria->condition .= ($this->rewrite == 0) ? ' AND rewrite = 0' : ' AND rewrite = 1';
+            $criteria->order = 'created desc';
+            $tasks = SeoTask::model()->findAll($criteria);
 
-        if ($this->rewrite)
-            $authors = Yii::app()->user->model->getWorkers('rewrite-author');
-        else
-            $authors = Yii::app()->user->model->getWorkers('author');
+            if ($this->rewrite)
+                $authors = Yii::app()->user->model->getWorkers('rewrite-author');
+            else
+                $authors = Yii::app()->user->model->getWorkers('author');
 
-        $this->render(($this->rewrite == 0) ? 'editor_panel' : 'rewrite_editor_panel', array(
-            'tasks' => $tasks,
-            'tempKeywords' => $tempKeywords,
-            'authors' => $authors
-        ));
+            $this->render(($this->rewrite == 0) ? 'editor_panel' : 'rewrite_editor_panel', array(
+                'tasks' => $tasks,
+                'tempKeywords' => $tempKeywords,
+                'authors' => $authors
+            ));
+        } elseif (Yii::app()->user->checkAccess('main-editor')) {
+            $editors = Yii::app()->user->model->getEditors();
+            $this->render('main_editor_panel', array(
+                'tempKeywords' => $tempKeywords,
+                'editors' => $editors
+            ));
+        }
     }
 
     public function actionSelectKeyword()
@@ -246,21 +244,6 @@ class EditorController extends SController
             echo CJSON::encode(array('status' => false));
     }
 
-    public function actionCorrection()
-    {
-        $task_id = Yii::app()->request->getPost('id');
-        $task = $this->loadTask($task_id);
-
-        if ($task->status == SeoTask::STATUS_WRITTEN) {
-            $task->status = SeoTask::STATUS_CORRECTING;
-            echo CJSON::encode(array(
-                'status' => $task->save(),
-                'html' => $this->renderPartial('_correcting_task', compact('task'), true)
-            ));
-        } else
-            echo CJSON::encode(array('status' => false));
-    }
-
     public function actionPublish()
     {
         if (!Yii::app()->user->checkAccess('editor') && !Yii::app()->user->checkAccess('cook-manager-panel'))
@@ -268,7 +251,7 @@ class EditorController extends SController
 
         $task_id = Yii::app()->request->getPost('id');
         $task = $this->loadTask($task_id);
-        if ($task->status == SeoTask::STATUS_CORRECTED || $task->status == SeoTask::STATUS_WRITTEN) {
+        if ($task->status == SeoTask::STATUS_WRITTEN) {
             $task->status = SeoTask::STATUS_PUBLICATION;
             echo CJSON::encode(array('status' => $task->save()));
         } else
@@ -474,6 +457,22 @@ class EditorController extends SController
             ));
         } else
             echo CJSON::encode(array('status' => false));
+    }
+
+    /**
+     * Передача ключевого слова от главного редактора шеф-редактору
+     * @throws CHttpException
+     */
+    public function actionTransferKeyword()
+    {
+        if (!Yii::app()->user->checkAccess('main-editor'))
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+
+        $editor_id = Yii::app()->request->getPost('editor_id');
+        $temp_keyword = TempKeyword::model()->findByPk(Yii::app()->request->getPost('keyword_id'));
+        $temp_keyword->owner_id = $editor_id;
+
+        echo CJSON::encode(array('status' => $temp_keyword->save()));
     }
 
     /**

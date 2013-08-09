@@ -27,8 +27,6 @@ Yii::app()->clientScript->registerCoreScript('jquery.ui'); ?>
                     <?php endforeach; ?>
                 </ul>
             </div>
-            <a href="javascript:;" class="btn-moderators" onclick="TaskDistribution.addGroup(1, '', 1)"></a>
-            <a href="javascript:;" class="btn-commentators" onclick="TaskDistribution.addGroup(3, '', 0)"></a>
         </div>
 
     </div>

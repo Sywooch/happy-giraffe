@@ -34,9 +34,10 @@ class DefaultController extends HController
     {
         $this->pageTitle = 'Новые уведомления';
         $list = Notification::model()->getNotificationsList(Yii::app()->user->id, 0, $page);
+        NotificationRead::setReadSummaryNotifications($list);
 
         if (Yii::app()->request->isAjaxRequest)
-            $this->renderPartial('list', array('list' => $list, 'check' => true));
+            $this->renderPartial('list', array('list' => $list, 'read' => false));
         else
             $this->render('index', array('list' => $list, 'read' => false));
     }
@@ -47,7 +48,7 @@ class DefaultController extends HController
 
         $list = Notification::model()->getNotificationsList(Yii::app()->user->id, 1, $page);
         if (Yii::app()->request->isAjaxRequest)
-            $this->renderPartial('list', array('list' => $list, 'check' => false));
+            $this->renderPartial('list', array('list' => $list, 'read' => true));
         else
             $this->render('index', array('list' => $list, 'read' => true));
     }

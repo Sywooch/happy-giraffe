@@ -28,7 +28,7 @@ Yii::app()->clientScript->registerScriptFile($baseUrl . '/notifcations.js', CCli
 
     <div class="user-notice-list">
 
-        <?php $this->renderPartial('list', array('list' => $list, 'check' => true)); ?>
+        <?php $this->renderPartial('list', array('list' => $list, 'read' => $read)); ?>
 
         <?php if (count($list) >= 20): ?>
             <div id="infscr-loading"><img alt="Loading..." src="/images/ico/ajax-loader.gif">

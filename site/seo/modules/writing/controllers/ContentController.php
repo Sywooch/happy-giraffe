@@ -5,11 +5,11 @@
  */
 class ContentController extends SController
 {
-    public $layout = '//layouts/writing';
+    public $layout = '//layouts/content';
 
     public function beforeAction($action)
     {
-        if (!Yii::app()->user->checkAccess('content-manager'))
+        if (!Yii::app()->user->checkAccess('content-manager-panel'))
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
         $this->pageTitle = 'контент-менеджер';
@@ -18,7 +18,7 @@ class ContentController extends SController
 
     public function actionIndex()
     {
-        $tasks = SeoTask::getTasks();
+        $tasks = SeoTask::getContentManagerTasks();
         $this->render('_cm', compact('tasks'));
     }
 

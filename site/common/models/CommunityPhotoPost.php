@@ -73,6 +73,7 @@ class CommunityPhotoPost extends HActiveRecord
     {
         $this->photos = explode(',', $this->photos);
         $this->photo_id = $this->photos[0];
+        $this->text = strip_tags($this->text, '<p>');
 
         return parent::beforeSave();
     }

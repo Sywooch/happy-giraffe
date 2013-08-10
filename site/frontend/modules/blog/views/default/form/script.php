@@ -5,7 +5,7 @@
         {
             $(element).addClass('chzn');
             $(element).chosen().ready(function(){
-                $('.js-select-rubric').find('.chzn-drop').append('<div class="chzn-itx-simple_add" id="rubricAddForm"><div class="chzn-itx-simple_add-hold"> <input type="text" class="chzn-itx-simple_add-itx" data-bind="value: newRubricTitle, valueUpdate: \'keyup\'"> <a class="chzn-itx-simple_add-del" data-bind="visible: newRubricTitle().length > 0, click: clearNewRubricTitle"></a> </div> <button class="btn-green" data-bind="click: createRubric">Ok</button> </div>');
+                $('.js-select-rubric').find('.chzn-drop').append('<div class="chzn-itx-simple_add" id="rubricAddForm"><div class="chzn-itx-simple_add-hold"> <input type="text" class="chzn-itx-simple_add-itx" placeholder="Добавить рубрику" data-bind="value: newRubricTitle, valueUpdate: \'keyup\'"> <a class="chzn-itx-simple_add-del" data-bind="visible: newRubricTitle().length > 0, click: clearNewRubricTitle"></a> </div> <button class="btn-green" data-bind="click: createRubric">Ok</button> </div>');
                 ko.applyBindings(viewModel, document.getElementById('rubricAddForm'));
             });
         },
@@ -183,7 +183,7 @@
 
     var WysiwygPhotoUpload = function () {
         var self = this;
-        self.upload = ko.observable(new UploadPhotos([]));
+        self.upload = ko.observable(new UploadPhotos(null, false));
 
         self.add = function () {
             var html = '';
@@ -195,10 +195,6 @@
         };
         self.close = function(){
             $('#redactor-popup_b-photo').addClass('display-n');
-        };
-        self.openLoad = function(data, event){
-            if (self.upload().photos().length < 1)
-                return true;
         };
 
         $('#redactor-popup_b-photo .js-upload-files-multiple').on('change', function (evt) {

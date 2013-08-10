@@ -51,4 +51,10 @@ class AlbumPhotoCollection extends PhotoCollection
             ),
         );
     }
+
+    public function getUrl()
+    {
+        $album = Album::model()->findByPk($this->albumId);
+        return $album->url;
+    }
 }

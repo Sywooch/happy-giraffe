@@ -48,4 +48,9 @@ class PhotoPostPhotoCollection extends PhotoCollection
             ),
         );
     }
+
+    public function getUrl()
+    {
+
+    }
 }

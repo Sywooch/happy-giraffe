@@ -46,6 +46,7 @@ $model = AlbumPhoto::model()->findByPk($json['initialPhotoId']);
             </div>
         </div>
 
+        <!-- ko if: currentPhoto().description.length > 0 -->
         <div class="photo-window_bottom" data-bind="click: currentPhoto().toggleShowFullDescription, css: { active : currentPhoto().showFullDescription }">
             <div class="photo-window_desc">
                 <p><span data-bind="text: currentPhoto().hasLongDescription() ? currentPhoto().shortenDescription() : currentPhoto().description"></span> <span class="photo-window_desc-more" data-bind="visible: currentPhoto().hasLongDescription()"> ... <a href="javascript:void(0)" >Читать полностью</a> </span></p>
@@ -54,6 +55,7 @@ $model = AlbumPhoto::model()->findByPk($json['initialPhotoId']);
                 <p><span data-bind="text: currentPhoto().description"></span> <a href="javascript:void(0)">Кратко</a></p>
             </div>
         </div>
+        <!-- /ko -->
 
         <!-- ko stopBinding: true -->
         <?php $this->widget('application.widgets.newCommentWidget.NewCommentWidget', array('model' => $model, 'full' => true, 'gallery' => true)); ?>

@@ -1,7 +1,7 @@
 function PhotoCollectionViewModel(data) {
     var self = this;
 
-    self.DESCRIPTION_MAX_WORDS = 30;
+    self.DESCRIPTION_MAX_WORDS = 32;
 
     self.collectionClass = data.collectionClass;
     self.collectionOptions = data.collectionOptions;
@@ -98,9 +98,23 @@ function CollectionPhoto(data, parent) {
     self.src = data.src;
     self.date = data.date;
     self.user = new CollectionPhotoUser(data.user);
+    self.showFullDescription = ko.observable(false);
+
+    self.toggleShowFullDescription = function() {
+        if (self.hasLongDescription())
+            self.showFullDescription(! self.showFullDescription());
+    }
 
     self.hasLongDescription = function() {
-        se
+        return self.description.split(" ").length > parent.DESCRIPTION_MAX_WORDS;
+    }
+
+    self.shortenDescription = function() {
+        var array = self.description.split(' ');
+        var result = ' ';
+        for (var i = 0; i < parent.DESCRIPTION_MAX_WORDS; i++)
+            result += array[i] += ' ';
+        return result;
     }
 }
 

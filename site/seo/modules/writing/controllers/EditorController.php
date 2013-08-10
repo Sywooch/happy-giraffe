@@ -51,7 +51,7 @@ class EditorController extends SController
             $tasks = SeoTask::model()->findAll($criteria);
 
             if ($this->rewrite)
-                $authors = Yii::app()->user->model->getWorkers('rewrite-author');
+                $authors = Yii::app()->user->model->getWorkers('author');
             else
                 $authors = Yii::app()->user->model->getWorkers('author');
 

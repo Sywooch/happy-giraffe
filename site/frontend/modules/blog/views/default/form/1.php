@@ -189,43 +189,19 @@
             <a href="" class="redactor-popup_close ico-close3 powertip" data-bind="click: close"></a>
             <div class="redactor-popup_tale"></div>
             <div class="redactor-popup_t">Загрузите фото</div>
-            <div class="b-add-img b-add-img__for-single">
-                <div class="b-add-img_hold">
-                    <div class="b-add-img_t">
-                        Загрузите фотографии с компьютера
-                        <div class="b-add-img_t-tx">Поддерживаемые форматы: jpg и png</div>
-                    </div>
-                    <div class="file-fake">
-                        <button class="btn-green btn-medium file-fake_btn" data-bind="css: {'btn-inactive': upload().photos().length > 0}">Обзор</button>
-                        <input type="file" class="js-upload-files-multiple" data-bind="click: openLoad">
-                    </div>
-                </div>
-                <div class="textalign-c clearfix">
-                    <!-- ko with: upload -->
-                    <!-- ko foreach: photos -->
-                    <div class="b-add-img_i" data-bind="attr: {id: 'uploaded_photo_' + uid}, css: {'b-add-img_i__single': isSingle()}" style="overflow: hidden;">
-                        <div class="js-image" style="opacity: 0.2"></div>
-                        <div class="b-add-img_i-vert"></div>
-                        <div class="b-add-img_i-load">
-                            <div class="b-add-img_i-load-progress" data-bind="style: {width: progress}"></div>
-                        </div>
-                        <div class="b-add-img_i-overlay">
-                            <a href="" class="b-add-img_i-del ico-close4" data-bind="click: remove"></a>
-                        </div>
-                    </div>
-                    <!-- /ko -->
-                    <!-- /ko -->
-                </div>
-                <!-- ko if: upload().photos().length == 0 -->
-                <div class="b-add-img_html5-tx">или перетащите фото сюда</div>
-                <!-- /ko -->
-            </div>
+
+            <?php $this->renderPartial('application.views.upload_image_popup'); ?>
+
             <div class="textalign-c margin-t15">
                 <a href="javascript:;" class="btn-gray-light btn-medium margin-r10" onclick="$(this).parents('.redactor-popup').addClass('display-n');">Отменить</a>
-                <a href="" class="btn-green btn-medium" data-bind="click: add, css: {'btn-inactive': upload().photos().length == 0}">Добавить фото</a>
+                <a href="" class="btn-green btn-medium" data-bind="click: add, css: {'btn-inactive': !upload().addActive()}">Добавить фото</a>
             </div>
         </div>
         <!-- /ko -->
+    </div>
+
+    <div class="clearfix">
+        <?=$form->errorSummary(array($model, $slaveModel)) ?>
     </div>
 
     <div class=" clearfix">

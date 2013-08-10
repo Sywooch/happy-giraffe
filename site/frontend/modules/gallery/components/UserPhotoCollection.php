@@ -51,4 +51,9 @@ class UserPhotoCollection extends PhotoCollection
             ),
         );
     }
+
+    public function getUrl()
+    {
+
+    }
 }

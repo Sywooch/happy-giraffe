@@ -16,7 +16,8 @@ class DefaultController extends HController
         $initialIndex = $collection->getIndexById($initialPhotoId);
         $initialPhotos = $collection->getPhotosInRange($initialPhotoId, 5, 5);
         $count = $collection->count;
-        $json = compact('initialIndex', 'initialPhotos', 'initialPhotoId', 'count', 'collectionClass', 'collectionOptions');
+        $url = $collection->url;
+        $json = compact('initialIndex', 'initialPhotos', 'initialPhotoId', 'count', 'collectionClass', 'collectionOptions', 'url');
 
         $this->renderPartial('window', compact('json'));
 	}

@@ -193,3 +193,28 @@ ko.bindingHandlers.stopBinding = {
 
 ko.virtualElements.allowedBindings.stopBinding = true;
 
+//блок поиска в блоге
+$(function() {
+    BlogSearch.init();
+});
+
+var BlogSearch = {
+    init:function(){
+        if ($('#blog-search').val() != '')
+            $('#blog-search-btn').addClass('active');
+    },
+    keyUp: function(el){
+        if ($(el).val() != '')
+            $('#blog-search-btn').addClass('active');
+        else
+            $('#blog-search-btn').removeClass('active');
+    },
+    click:function(){
+        if ($('#blog-search').val() != ''){
+            $('#blog-search').val('');
+            $('#blog-search-btn').removeClass('active');
+            return false;
+        }
+        return true;
+    }
+}

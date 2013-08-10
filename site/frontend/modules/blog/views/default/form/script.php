@@ -38,6 +38,7 @@
             video : {
                 title: 'video',
                 callback: function(buttonNamem, buttonDOM, buttonObject) {
+                    this.selectionSave();
                     video = new Video({ link : '', embed : null });
                     ko.applyBindings(video, document.getElementById('redactor-popup_b-video'));
                     $('.redactor-popup_b-video').toggleClass('display-n');

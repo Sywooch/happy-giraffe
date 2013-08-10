@@ -23,38 +23,7 @@ $model = new AlbumPhoto();
         </div>
     </div>
 
-    <div class="b-add-img b-add-img__for-multi">
-        <div class="b-add-img_hold">
-            <div class="b-add-img_t">
-                Загрузите фотографии с компьютера
-                <div class="b-add-img_t-tx">Поддерживаемые форматы: jpg и png</div>
-            </div>
-            <div class="file-fake">
-                <button class="btn-green btn-medium file-fake_btn">Обзор</button>
-                <input type="file" class="js-upload-files-multiple" multiple/>
-            </div>
-        </div>
-        <div class="textalign-c clearfix">
-            <!-- ko with: upload -->
-            <!-- ko foreach: photos -->
-            <div class="b-add-img_i" data-bind="attr: {id: 'uploaded_photo_' + uid}, css: {'b-add-img_i__single': isSingle()}">
-                <div class="js-image" style="opacity: 0.2"></div>
-                <div class="b-add-img_i-vert"></div>
-                <div class="b-add-img_i-load">
-                    <div class="b-add-img_i-load-progress" data-bind="style: {width: progress}"></div>
-                </div>
-                <div class="b-add-img_i-overlay">
-                    <a href="" class="b-add-img_i-del ico-close4" data-bind="click: remove"></a>
-                </div>
-            </div>
-            <!-- /ko -->
-            <!-- /ko -->
-        </div>
-
-        <!-- ko if: upload().photos().length == 0 -->
-        <div class="b-add-img_html5-tx">или перетащите фото сюда</div>
-        <!-- /ko -->
-    </div>
+    <?php $this->renderPartial('application.views.upload_image_popup'); ?>
 
     <div class=" clearfix">
         <button class="btn-blue btn-h46 float-r btn-inactive" data-bind="click: add, css: {'btn-inactive': upload().photos().length == 0}"><?=$model->isNewRecord ? 'Добавить' : 'Редактировать'?></button>
@@ -75,7 +44,7 @@ $model = new AlbumPhoto();
         {
             $(element).addClass('chzn');
             $(element).chosen().ready(function(){
-                $('#popup-user-add-photo .chzn-itx-simple').find('.chzn-drop').append('<div class="chzn-itx-simple_add" id="albumAddForm"><div class="chzn-itx-simple_add-hold"> <input type="text" class="chzn-itx-simple_add-itx" data-bind="value: newAlbumTitle, valueUpdate: \'keyup\'"> <a class="chzn-itx-simple_add-del" data-bind="visible: newAlbumTitle().length > 0, click: clearNewAlbumTitle"></a> </div> <button class="btn-green" data-bind="click: createAlbum">Ok</button> </div>');
+                $('#popup-user-add-photo .chzn-itx-simple').find('.chzn-drop').append('<div class="chzn-itx-simple_add" id="albumAddForm"><div class="chzn-itx-simple_add-hold"> <input type="text" class="chzn-itx-simple_add-itx" placeholder="Добавить альбом" data-bind="value: newAlbumTitle, valueUpdate: \'keyup\'"> <a class="chzn-itx-simple_add-del" data-bind="visible: newAlbumTitle().length > 0, click: clearNewAlbumTitle"></a> </div> <button class="btn-green" data-bind="click: createAlbum">Ok</button> </div>');
                 ko.applyBindings(viewModel, document.getElementById('albumAddForm'));
             });
         },
@@ -87,7 +56,7 @@ $model = new AlbumPhoto();
 
     var PhotoAlbumViewModel = function (data) {
         var self = this;
-        self.upload = ko.observable(new UploadPhotos());
+        self.upload = ko.observable(new UploadPhotos(null, true));
         self.showDropdown = ko.observable(false);
         self.newAlbumTitle = ko.observable('');
         self.albumsList = ko.observableArray(ko.utils.arrayMap(data.albumsList, function(album) {

@@ -4,14 +4,14 @@
  * This is the model class for table "album_photos".
  *
  * The followings are the available columns in table 'album_photos':
- * @property integer $id
- * @property string $author_id
- * @property integer $album_id
+ * @property int $id
+ * @property int $author_id
+ * @property int $album_id
  * @property string $file_name
  * @property string $fs_name
  * @property string $title
- * @property string $previewUrl
- * @property string $originalUrl
+ * @property int $width
+ * @property int $height
  * @property string $created
  * @property string $updated
  *
@@ -33,8 +33,7 @@ class AlbumPhoto extends HActiveRecord
     public $w_description = null;
     public $w_idx = null;
 
-    public $width;
-    public $height;
+    public $count;
 
     /**
      * @var string original photos folder
@@ -52,6 +51,10 @@ class AlbumPhoto extends HActiveRecord
      * @var string avatars image folder
      */
     private $avatars_folder = 'avatars';
+    /**
+     * @var string blogs image folder
+     */
+    private $blogs_folder = 'blogs';
     /**
      * @var CUploadedFile
      */
@@ -89,6 +92,7 @@ class AlbumPhoto extends HActiveRecord
             array('file_name, fs_name', 'length', 'max' => 100),
             array('title', 'length', 'max' => 200),
             array('created, updated', 'safe'),
+            array('album_id', 'unsafe', 'on' => 'update'),
         );
     }
 
@@ -102,7 +106,8 @@ class AlbumPhoto extends HActiveRecord
         return array(
             'album' => array(self::BELONGS_TO, 'Album', 'album_id'),
             'author' => array(self::BELONGS_TO, 'User', 'author_id'),
-            'attach' => array(self::HAS_MANY, 'AttachPhoto', 'photo_id'),
+            'attach' => array(self::HAS_ONE, 'AttachPhoto', 'photo_id'),
+            'galleryItem' => array(self::HAS_ONE, 'CommunityContentGalleryItem', 'photo_id'),
             'remove' => array(self::HAS_ONE, 'Removed', 'entity_id', 'condition' => '`remove`.`entity` = :entity', 'params' => array(':entity' => get_class($this)))
         );
     }
@@ -149,29 +154,22 @@ class AlbumPhoto extends HActiveRecord
         );
     }
 
+    public function beforeSave()
+    {
+        $this->setDimensions();
+        return parent::beforeSave();
+    }
+
     public function afterSave()
     {
         if ($this->isNewRecord) {
             if ($this->album !== null && ($this->album->type == 0 || $this->album->type == 1)) {
                 UserAction::model()->add($this->author_id, UserAction::USER_ACTION_PHOTOS_ADDED, array('model' => $this), array('album_id' => $this->album_id));
                 FriendEventManager::add(FriendEvent::TYPE_PHOTOS_ADDED, array('album_id' => $this->album->id, 'user_id' => $this->author_id));
+                Scoring::photoCreated($this);
             }
-            $this->getPreviewUrl(960, 627, Image::HEIGHT, true);
         }
-        if (get_class(Yii::app()) != 'CConsoleApplication' && $this->isNewRecord && Yii::app()->hasComponent('comet') && $this->author->isNewComer() && isset($this->album)) {
-            if ($this->album->type == 0 || $this->album->type == 1 || $this->album->type == 3) {
-                $signal = new UserSignal();
-                $signal->user_id = (int)$this->author_id;
-                $signal->item_id = (int)$this->id;
-                $signal->item_name = get_class($this);
-                $signal->signal_type = UserSignal::TYPE_NEW_USER_PHOTO;
-                $signal->save();
 
-                if (!empty($this->album_id)) {
-                    UserScores::addScores($this->author_id, ScoreAction::ACTION_PHOTO, 1, $this);
-                }
-            }
-        }
         parent::afterSave();
     }
 
@@ -179,10 +177,11 @@ class AlbumPhoto extends HActiveRecord
     {
         $this->removed = 1;
         $this->save(false);
-        UserSignal::closeRemoved($this);
-        if (!empty($this->album_id)) {
-            UserScores::removeScores($this->author_id, ScoreAction::ACTION_PHOTO, 1, $this);
-        }
+        NotificationDelete::entityRemoved($this);
+
+        if (!empty($this->album_id) && ($this->album->type == 0 || $this->album->type == 1))
+            Scoring::photoRemoved($this);
+
         return false;
     }
 
@@ -200,12 +199,13 @@ class AlbumPhoto extends HActiveRecord
         }
         if ($this->save(false)) {
             $this->saveFile(false, $temp);
+            $this->setDimensions();
             return true;
         }
         return false;
     }
 
-    public static function createByUrl($url, $user_id, $album_type)
+    public static function createByUrl($url, $user_id, $album_type = false)
     {
         $ext = pathinfo($url, PATHINFO_EXTENSION);
 
@@ -222,14 +222,16 @@ class AlbumPhoto extends HActiveRecord
         $httpStatus = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
 
-        if ($httpStatus !== 200)
+        if ($httpStatus !== 200){
             return false;
+        }
 
-        if (empty($file))
+        if (empty($file)){
             return false;
+        }
 
         //define file extension if it is not set
-        if (empty($ext)){
+        if (empty($ext)) {
             $dir = Yii::getPathOfAlias('site.common.uploads.photos.temp');
             $file_name = md5($url . time());
             file_put_contents($dir . DIRECTORY_SEPARATOR . $file_name, $file);
@@ -238,13 +240,11 @@ class AlbumPhoto extends HActiveRecord
             $mimetype = finfo_file($finfo, $dir . DIRECTORY_SEPARATOR . $file_name);
             finfo_close($finfo);
 
-            if($mimetype == 'image/jpeg')
+            if ($mimetype == 'image/jpeg')
                 $ext = 'jpeg';
             elseif ($mimetype == 'image/gif')
-                $ext = 'gif';
-            elseif ($mimetype == 'image/png')
-                $ext = 'png';
-            elseif ($mimetype == 'image/tiff')
+                $ext = 'gif'; elseif ($mimetype == 'image/png')
+                $ext = 'png'; elseif ($mimetype == 'image/tiff')
                 $ext = 'tiff';
         }
 
@@ -266,9 +266,10 @@ class AlbumPhoto extends HActiveRecord
         if (!in_array($ext, array('jpg', 'jpeg', 'png', 'gif', 'JPG', 'JPEG', 'PNG', 'GIF')))
             return false;
 
-        $model->album_id = Album::getAlbumByType($user_id, $album_type)->id;
-        $model->fs_name = $file_name. '.' . $ext;
-        $model->file_name = $file_name. '.' . $ext;
+        if ($album_type !== false)
+            $model->album_id = Album::getAlbumByType($user_id, $album_type)->id;
+        $model->fs_name = $file_name . '.' . $ext;
+        $model->file_name = $file_name . '.' . $ext;
         $model->save(false);
 
         return $model;
@@ -307,7 +308,7 @@ class AlbumPhoto extends HActiveRecord
     {
         $dir = Yii::getPathOfAlias('site.common.uploads.photos');
         return $dir . DIRECTORY_SEPARATOR . $this->original_folder . DIRECTORY_SEPARATOR . $this->author_id .
-            DIRECTORY_SEPARATOR . $this->fs_name;
+        DIRECTORY_SEPARATOR . $this->fs_name;
     }
 
     /**
@@ -357,19 +358,27 @@ class AlbumPhoto extends HActiveRecord
             if (!file_exists($model_dir))
                 mkdir($model_dir);
 
-            if (!file_exists($this->originalPath))
+            if (!file_exists($this->originalPath)) {
+                //$this->delete();
                 return false;
+            }
 
-            if (exif_imagetype($this->originalPath) == IMAGETYPE_GIF)
-                return $this->imagickResize($thumb, $width, $height, $master, $crop, $crop_side);
-            else
-                return $this->gdResize($thumb, $width, $height, $master, $crop, $crop_side);
+            #TODO imagick Применяется для анимированных gif, но поскольку он сейчас долго работает пришлось отключить
+//            if (exif_imagetype($this->originalPath) == IMAGETYPE_GIF)
+//                return $this->imagickResize($thumb, $width, $height, $master, $crop, $crop_side);
+//            else
+            $thumb = $this->gdResize($thumb, $width, $height, $master, $crop);
+        }
+
+        if ($thumb !== false && $size = @getimagesize($thumb)) {
+            $this->width = $size[0];
+            $this->height = $size[1];
         }
 
         return $thumb;
     }
 
-    private function gdResize($thumb, $width, $height, $master, $crop, $crop_side)
+    private function gdResize($thumb, $width, $height, $master, $crop)
     {
         Yii::import('site.frontend.extensions.EPhpThumb.*');
 
@@ -379,31 +388,33 @@ class AlbumPhoto extends HActiveRecord
             $image = $image->create($this->originalPath);
 
         } catch (CException $e) {
-            return $thumb;
+            #TODO сделать более грамотный механизм обработки плохих фоток
+            if (strpos($e->getMessage(), 'File is not a valid image') !== false
+                || strpos($e->getMessage(), 'Image format not supported') !== false
+            ) {
+                //удаляем фотку
+                $this->delete();
+            }
+            return false;
         }
 
-        if (empty($height))
-            $height = 1000;
-        if (empty($width))
-            $width = 1000;
+        if ($image->width <= $width && $image->height <= $height
+            || $master == Image::WIDTH && $image->height <= $height
+            || $master == Image::HEIGHT && $image->height <= $height
+        ) {
+            //just copy file
+            copy($this->originalPath, $thumb);
+        } else {
 
-        if ($crop)
-            $image = $image->adaptiveResize($width, $height);
-        elseif ($image->width <= $width && $image->height <= $height) {
-
-        } elseif ($master == Image::WIDTH){
-            if ($image->width > $width)
+            if ($crop) {
+                $image = $image->cropFromTop($width, $height, 'T');
+            } elseif (empty($height))
+                $image = $image->resize($width, 1500); elseif (empty($width))
+                $image = $image->resize(1500, $height); else
                 $image = $image->resize($width, $height);
-        } elseif ($master == Image::HEIGHT){
-            if ($image->height > $height)
-                $image = $image->resize($width, $height);
-        } else
-            $image = $image->resize($width, $height);
 
-        $image = $image->save($thumb);
-
-        $this->width = $image->width;
-        $this->height = $image->height;
+            $image = $image->save($thumb);
+        }
 
         return $thumb;
     }
@@ -422,10 +433,8 @@ class AlbumPhoto extends HActiveRecord
         if ($image->width <= $width && $image->height <= $height) {
 
         } elseif ($master && $master == Image::WIDTH && $image->width < $width)
-            $image->resize($image->width, $height, Image::WIDTH);
-        elseif ($master && $master == Image::HEIGHT && $image->height < $height)
-            $image->resize($width, $image->height, Image::HEIGHT);
-        elseif ($master && $master == Image::INVERT) {
+            $image->resize($image->width, $height, Image::WIDTH); elseif ($master && $master == Image::HEIGHT && $image->height < $height)
+            $image->resize($width, $image->height, Image::HEIGHT); elseif ($master && $master == Image::INVERT) {
             $image->resize($width, $height, ($image->width > $image->height) ? Image::HEIGHT : Image::WIDTH);
         } else
             $image->resize($width, $height, $master ? $master : Image::AUTO);
@@ -434,11 +443,6 @@ class AlbumPhoto extends HActiveRecord
             $image->crop($width, $height, $crop_side);
 
         $image->save($thumb);
-
-        if ($size = @getimagesize($thumb)) {
-            $this->width = $size[0];
-            $this->height = $size[1];
-        }
 
         return $thumb;
     }
@@ -497,11 +501,12 @@ class AlbumPhoto extends HActiveRecord
             mkdir($dir . DIRECTORY_SEPARATOR . $this->avatars_folder . DIRECTORY_SEPARATOR . $this->author_id . DIRECTORY_SEPARATOR . $size);
 
         return $dir . DIRECTORY_SEPARATOR . $this->avatars_folder . DIRECTORY_SEPARATOR . $this->author_id .
-            DIRECTORY_SEPARATOR . $size . DIRECTORY_SEPARATOR . $this->fs_name;
+        DIRECTORY_SEPARATOR . $size . DIRECTORY_SEPARATOR . $this->fs_name;
     }
 
     /**
-     * Get url to the original image
+     * Возвращает url аватарки
+     * @param $size string размер аватарки
      * @return string
      */
     public function getAvatarUrl($size)
@@ -515,16 +520,57 @@ class AlbumPhoto extends HActiveRecord
         ));
     }
 
+    public function getBlogPath()
+    {
+        $dir = Yii::getPathOfAlias('site.common.uploads.photos');
+
+        if (!file_exists($dir . DIRECTORY_SEPARATOR . $this->blogs_folder . DIRECTORY_SEPARATOR . $this->author_id))
+            mkdir($dir . DIRECTORY_SEPARATOR . $this->blogs_folder . DIRECTORY_SEPARATOR . $this->author_id);
+
+        return $dir . DIRECTORY_SEPARATOR . $this->blogs_folder . DIRECTORY_SEPARATOR . $this->author_id .
+        DIRECTORY_SEPARATOR . $this->fs_name;
+    }
+
+    public function getBlogUrl()
+    {
+        return implode('/', array(
+            Yii::app()->params['photos_url'],
+            $this->blogs_folder,
+            $this->author_id,
+            $this->fs_name
+        ));
+    }
+
     public function getUrlParams()
     {
-        return array(
-            'albums/photo',
-            array(
-                'user_id' => $this->author_id,
-                'album_id' => $this->album_id,
-                'id' => $this->id
-            ),
-        );
+        if (!empty($this->galleryItem) && isset($this->galleryItem->gallery->content)) {
+            return array('albums/singlePhoto', array(
+                'photo_id' => $this->id,
+                'community_id' => $this->galleryItem->gallery->content->rubric->community_id,
+                'content_id' => $this->galleryItem->gallery->content_id,
+            ));
+        } elseif (empty($this->album_id) && !empty($this->attach)) {
+            switch ($this->attach->entity) {
+                case 'ContestWork':
+                    $work = ContestWork::model()->findByPk($this->attach->entity_id);
+                    $params = array(
+                        'entity' => 'Contest',
+                        'contest_id' => $work->contest_id
+                    );
+                    break;
+                //case '':
+            }
+            $params['photo_id'] = $this->id;
+            return array('albums/singlePhoto', $params);
+        } else
+            return array(
+                'albums/photo',
+                array(
+                    'user_id' => $this->author_id,
+                    'album_id' => $this->album_id,
+                    'id' => $this->id
+                ),
+            );
     }
 
     public function getUrl($comments = false, $absolute = false)
@@ -574,5 +620,118 @@ class AlbumPhoto extends HActiveRecord
     public function getRssContent()
     {
         return CHtml::image($this->getPreviewUrl(460, 600), $this->title);
+    }
+
+    public function getPhoto()
+    {
+        return $this;
+    }
+
+    public function getContentTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * Возвращает подсказку для вывода
+     */
+    public function getPowerTipTitle($full = false)
+    {
+        if (empty($this->album)) {
+            if (!empty($this->galleryItem)) {
+                $post = $this->galleryItem->gallery->content;
+                if (!$post)
+                    return '';
+                $t = htmlentities("Фотогалерея к записи <span class='color-gray'>" . $post->title . "</span>", ENT_QUOTES, "UTF-8");
+                if (!$full)
+                    return $t;
+                return htmlentities(("Клуб <span class='color-category " . $post->rubric->community->css_class . "'>" . $post->rubric->community->title . "</span><br>"), ENT_QUOTES, "UTF-8") . $t;
+            }
+            return '';
+        }
+
+        $title = htmlentities("Фотоальбом <span class='color-gray' >" . $this->album->title . "</span>", ENT_QUOTES, "UTF-8");
+        if (!$full)
+            return $title;
+        if (!empty($this->title))
+            return $title . htmlentities('<br>' . 'Фотография <span class=\'color-gray\' > ' . $this->title . '</span>', ENT_QUOTES, "UTF-8");
+        return $title;
+    }
+
+    public function getWidget()
+    {
+        return Yii::app()->controller->renderPartial('//albums/_widget', array('model' => $this), true);
+    }
+
+    protected function setDimensions()
+    {
+        $size = @getimagesize($this->getOriginalPath());
+        $this->width = $size[0];
+        $this->height = $size[1];
+    }
+
+    /**
+     * Создает временную модель с загруженным пользователем файлом
+     *
+     * @param $file
+     * Информация о загруженном файле
+     * ["name"]=> название исходного файла
+     * ["type"]=> "image/png" "image/jpeg"
+     * ["tmp_name"]=> временный адрес файла
+     * ["error"]=> int(0)
+     * ["size"]=>
+     * @return AlbumPhoto
+     */
+    public function createUserTempPhoto($file)
+    {
+        if ($file['type'] != 'image/png' && $file['type'] != 'image/jpeg')
+            return null;
+
+        $model = new AlbumPhoto();
+        $model->author_id = Yii::app()->user->id;
+        $model->fs_name = $this->copyUserFile($file['name'], $file['tmp_name'], $model->author_id);
+        $model->file_name = $file['name'];
+        $model->save(false);
+
+        return $model;
+    }
+
+    /**
+     * Копирует загруженный пользователем файл в директорию пользователя для загруженных файлов
+     * Возвращает название созданного файла
+     *
+     * @param $name
+     * @param $temp_name
+     * @param $user_id
+     * @return string
+     */
+    private function copyUserFile($name, $temp_name, $user_id)
+    {
+        $ext = pathinfo($name, PATHINFO_EXTENSION);
+        list($this->width, $this->height) = getimagesize($temp_name);
+        $dir = Yii::getPathOfAlias('site.common.uploads.photos');
+        $model_dir = $dir . DIRECTORY_SEPARATOR . $this->original_folder . DIRECTORY_SEPARATOR . $user_id;
+        if (!file_exists($model_dir))
+            mkdir($model_dir);
+
+        $file_name = md5(time());
+        while (file_exists($model_dir . DIRECTORY_SEPARATOR . $file_name . '.' . $ext))
+            $file_name = md5($file_name . microtime());
+        copy($temp_name, $model_dir . DIRECTORY_SEPARATOR . $file_name . '.' . $ext);
+
+        return $file_name . '.' . $ext;
+    }
+
+    /**
+     * @param string $url
+     * @return AlbumPhoto|null
+     */
+    public static function getPhotoFromUrl($url)
+    {
+        if (preg_match('/http:\/\/img.happy-giraffe.ru\/thumbs\/[\d]+x[\d]+\/[\d]+\/([^\"]+)/', $url, $m)) {
+            return AlbumPhoto::model()->findByAttributes(array('fs_name' => $m[1]));
+        }
+
+        return null;
     }
 }

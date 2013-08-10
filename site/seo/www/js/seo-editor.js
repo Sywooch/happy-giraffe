@@ -189,7 +189,7 @@ var TaskDistribution = {
     },
     transferKeywords: function (editor_id) {
         var keyword_ids = [];
-        $(':checkbox').each(function () {    if ($(this).data('id')) keyword_ids.push($(this).data('id'));  });
+        $(':checkbox:checked').each(function () {    if ($(this).data('id')) keyword_ids.push($(this).data('id'));  });
         $.post('/writing/editor/transferKeywords/', {keyword_ids: keyword_ids, editor_id: editor_id}, function (response) {
             if (response.status)
                 location.reload();

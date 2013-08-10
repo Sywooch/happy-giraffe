@@ -21,6 +21,7 @@
 @import "/project/services/embroidery.less";
 @import "/project/services/hair-type.less";
 @import "/project/services/horoscope.less";
+@import "/project/services/map-route.less";
 @import "/project/services/names.less";
 @import "/project/services/repair.less";
 @import "/project/services/test-pregnancy.less";
@@ -220,15 +221,15 @@
 .wysiwyg-content h2 {color:#0281b0;font-size:18px;line-height:normal;margin:0 0 10px;}
 .wysiwyg-content h3 {line-height:normal;font-size:14px;line-height:normal;color:#2e2e2e;margin:0 0 10px;}
 .wysiwyg-content p {margin-bottom:15px;}
-.wysiwyg-content p img.content-img {margin-right:20px;float:left !important;}
 .wysiwyg-content ul {list-style:disc inside;padding-left:5px;padding-bottom:12px;}
 .wysiwyg-content ol {list-style:decimal inside;padding-left:5px;padding-bottom:12px;}
 .wysiwyg-content ol li,
 .wysiwyg-content ul li {margin-bottom:9px;}
 .wysiwyg-content a {text-decoration:none;}
 .wysiwyg-content a:hover {text-decoration:underline;}
-.wysiwyg-content img.content-img-left {margin-right:20px;float:left;max-width:300px;}
-.wysiwyg-content img.content-img-right {margin-left:20px;float:right;max-width:300px;}
+.wysiwyg-content .content-img {margin-right:20px;float:left;}
+.wysiwyg-content .content-img-left {margin-right:20px;float:left;max-width:300px;}
+.wysiwyg-content .content-img-right {margin-left:20px;float:right;max-width:300px;}
 .wysiwyg-content img {margin-top:10px;}
 .wysiwyg-content .brushed{ background: none repeat scroll 0 0 #FCFBD5; margin: 20px 0; padding: 10px;}
 .wysiwyg-content.side {margin-left:330px;padding-top:15px;}
@@ -538,7 +539,8 @@ table.fr_recipe_tb td { width: 50%;}
     }
     &_in .wysiwyg-content p {margin: 0 0 15px;}
     &_in .wysiwyg-content a {color: #319fe4;}
-    &_in .wysiwyg-content img {margin: 0;}
+    &_in .wysiwyg-content img {margin: 0 0 5px;}
+    &_in .wysiwyg-content .content-img  {float: none;margin: 0;}
     &_in .wysiwyg-content h2 {
         margin: 40px 0 15px;
         font-size: 16px;
@@ -1213,14 +1215,14 @@ table.fr_recipe_tb td { width: 50%;}
         padding:0 20px 0 5px;
         font-size: 13px;
         color: #289FD7; 
-        text-decoration: none;
     }
-    &_t-a:hover {
-        text-decoration: underline;
+    &_t-a:hover &_t-a-tx {
+        text-decoration: none;
     }
     &_t-a-tx {
         .inline-block();
         margin-right: 15px;
+        text-decoration: underline;
     }
     &_hold {
         padding: 0;
@@ -1492,10 +1494,13 @@ table.fr_recipe_tb td { width: 50%;}
     background: #8f67b5;
     .border-radius(4px);
     &__yellow {background: #ffe535;}
+    &__small {padding: 6px 7px 6px 20px;}
+    &__small &_ico {margin: 10px 35px;}
+    &__small &_hold {width: 630px;}
 
     &_ava-hold {
         float: left;
-        margin: 10px 0;
+        margin: 10px 0 0;
     }
     &_hold {
         position: relative;
@@ -1516,7 +1521,8 @@ table.fr_recipe_tb td { width: 50%;}
     }
     &_tx {
         .inline-block();
-        margin: 35px 10px 35px 35px;
+        vertical-align: middle;
+        margin: 0 10px 0 35px;
         font-size: 16px;
         color: #232323;
     }
@@ -2060,7 +2066,6 @@ table.fr_recipe_tb td { width: 50%;}
     text-align: center;
     .border-radius(6px);
 
-    &:hover,
     &.dragover {
         border-color: #83b6da;
         background-color: #e6f0f7;
@@ -2169,10 +2174,10 @@ table.fr_recipe_tb td { width: 50%;}
     &_i-load {
         position: absolute;
         top: 50%;
-        left: 25px;
+        left: 50%;
+        margin: -3px 0 0 -75px;
         height: 5px;
         width: 150px;
-        margin-top: -3px;
         background: #61c3fd;
     }
     &_i-load-progress {
@@ -2587,8 +2592,8 @@ table.fr_recipe_tb td { width: 50%;}
     &_category-i {
         margin-right: -1px;
     }
-    &_category-i.active &_category-a,
-    &_category-a:hover {
+    &_category-i:hover  &_category-a {color: #fd7700;}
+    &_category-i.active &_category-a {
         background: #fff;
         border-left-color: #44ac1a;
         color: #fd7700;
@@ -3213,29 +3218,34 @@ table.fr_recipe_tb td { width: 50%;}
         vertical-align: top;
         margin: 16px 20px 0;
     }
-    &_family-added {
+}
+/* /b-registration */
+
+/* b-family-structure */
+.b-family-structure {
+
+    &_added {
         float: left;
         width: 440px;
         padding-right: 40px;
         background: url(/images/b-registration_family-added.png) no-repeat 100% 110px;
     }
-    &_family-upload {
+    &_upload {
         float: left;
         margin-left: 30px;
         width: 450px;
     }
-    &_family-upload  .b-family_li {
+    &_upload .b-family_li {
         margin: 0 4px 13px;
         cursor: pointer;
     }
-    &_family-upload  .b-family_img-hold {
+    &_upload .b-family_img-hold {
         display: block;
         width: auto;
         max-width: none;
     }
-    &_family-upload  .b-family_tx {
-        width: auto;
-    }
+    &_upload .b-family_tx {width: auto;}
+
 }
-/* /b-registration */
+/* /b-family-structure */
 

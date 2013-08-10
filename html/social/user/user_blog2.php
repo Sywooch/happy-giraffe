@@ -608,6 +608,91 @@
 					</div>
 				</div>
 
+				
+				<!-- Пример открытого статуса юзера -->
+					<div class="b-article b-article__user-status clearfix">
+						<div class="float-l">
+							<div class="like-control like-control__small-indent clearfix">
+								<a href="" class="ava male">
+									<span class="icon-status status-online"></span>
+									<img alt="" src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg">
+								</a>
+							</div>
+							<div class="like-control clearfix">
+								<a href="" class="like-control_ico like-control_ico__like">865</a>
+								<a href="" class="like-control_ico like-control_ico__repost">5</a>
+								<a href="" class="like-control_ico like-control_ico__favorites active">123865</a>
+							</div>
+						</div>
+						<div class="b-article_cont clearfix">
+							<div class="b-article_cont-tale"></div>
+							<div class="b-article_header clearfix">
+								<div class="meta-gray">
+									<a href="" class="meta-gray_comment">
+										<span class="ico-comment ico-comment__gray"></span>
+										<span class="meta-gray_tx">35</span>
+									</a>
+									<div class="meta-gray_view">
+										<span class="ico-view ico-view__gray"></span>
+										<span class="meta-gray_tx">305</span>
+									</div>
+								</div>
+								<div class="float-l">
+									<a href="" class="b-article_author">Ангелина Богоявленская</a>
+									<span class="font-smallest color-gray">Сегодня 13:25</span>
+								</div>
+							</div>
+							<div class="b-article_in clearfix">
+								<div class="b-article_user-status clearfix">
+									<a href="" class="b-article_user-status-a">	Говори </a>
+									
+									<div class="textalign-r clearfix">
+										<div class="b-user-mood">
+											<div class="b-user-mood_hold">
+												<div class="b-user-mood_tx">Мое настроение -</div>
+											</div>
+											<div class="b-user-mood_img">
+												<img src="/images/widget/mood/6.png">
+											</div>
+										</div>
+									</div>
+									<div class="custom-likes-b">
+										<div class="custom-likes-b_slogan">Поделитесь с друзьями!</div>
+										<a class="custom-like" href="">
+											<span class="custom-like_icon odkl"></span>
+											<span class="custom-like_value">0</span>
+										</a>
+										<a class="custom-like" href="">
+											<span class="custom-like_icon vk"></span>
+											<span class="custom-like_value">1900</span>
+										</a>
+									
+										<a class="custom-like" href="">
+											<span class="custom-like_icon fb"></span>
+											<span class="custom-like_value">150</span>
+										</a>
+									
+										<a class="custom-like" href="">
+											<span class="custom-like_icon tw"></span>
+											<span class="custom-like_value">10</span>
+										</a>
+									</div>
+								</div>
+							</div>
+							
+							<div class="comments-gray">
+								<div class="comments-gray_add clearfix">
+									
+									<div class="comments-gray_ava">
+										<a href="" class="ava small female"></a>
+									</div>
+									<div class="comments-gray_frame">
+										<input type="text" name="" id="" class="comments-gray_add-itx itx-gray" placeholder="Ваш комментарий">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 			</div>
 		</div>
 		</div>

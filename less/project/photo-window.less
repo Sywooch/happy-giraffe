@@ -336,8 +336,8 @@ body.gallery {overflow:hidden;}
 		background: #382d42;
 		background: rgba(0,0,0,.65);
 	}
-	&_bottom.active &_desc {height: auto;}
-	&_bottom.active &_desc-more {display: none;}
+	&_bottom.active &_desc {display: none;}
+	&_bottom.active &_desc__full {display: block;}
 	&_desc {
 		height: 43px;
 		overflow: hidden;
@@ -345,7 +345,10 @@ body.gallery {overflow:hidden;}
 		font-size: 12px;
 		line-height: 14px;
 		cursor: pointer;
-		.transition(all 0.3s ease);
+	}
+	&_desc__full {
+		height: auto;
+		display: none;
 	}
 	&_c {
 		position: absolute;

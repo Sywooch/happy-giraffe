@@ -72,6 +72,9 @@
         <?=$form->textArea($slaveModel, 'text', array('cols' => 80, 'rows' => 5, 'class' => 'b-settings-blue_textarea itx-simple', 'placeholder' => 'Ваш комментарий'))?>
 
     </div>
+    <div class="clearfix">
+        <?=$form->errorSummary(array($model, $slaveModel)) ?>
+    </div>
     <div class=" clearfix">
         <button class="btn-blue btn-h46 float-r btn-inactive"><?=$model->isNewRecord ? 'Добавить' : 'Редактировать'?></button>
         <a href="javascript:void(0)" onclick="$.fancybox.close()" class="btn-gray-light btn-h46 float-r margin-r15">Отменить</a>

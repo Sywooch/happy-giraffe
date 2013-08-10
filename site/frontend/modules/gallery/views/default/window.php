@@ -46,19 +46,16 @@ $model = AlbumPhoto::model()->findByPk($json['initialPhotoId']);
             </div>
         </div>
 
-        <div class="photo-window_bottom">
-            <script type="text/javascript">
-            $(document).ready(function () {
-                $('.photo-window_bottom').click(function(){
-                    $(this).toggleClass('active');
-                });
-            });
-            </script>
+        <!-- ko if: currentPhoto().description.length > 0 -->
+        <div class="photo-window_bottom" data-bind="click: currentPhoto().toggleShowFullDescription, css: { active : currentPhoto().showFullDescription }">
             <div class="photo-window_desc">
-                <p>В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, спокойные игры <span class="photo-window_desc-more"> ... <a href="javascript:void(0)" >Читать полностью</a> <br></span> В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, эстафеты, соревнования</p>
-                <p>В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, эстафеты и спокойные игры.  <a href="javascript:void(0)" class="">Кратко</a> </p>
+                <p><span data-bind="text: currentPhoto().hasLongDescription() ? currentPhoto().shortenDescription() : currentPhoto().description"></span> <span class="photo-window_desc-more" data-bind="visible: currentPhoto().hasLongDescription()"> ... <a href="javascript:void(0)" >Читать полностью</a> </span></p>
+            </div>
+            <div class="photo-window_desc photo-window_desc__full">
+                <p><span data-bind="text: currentPhoto().description"></span> <a href="javascript:void(0)">Кратко</a></p>
             </div>
         </div>
+        <!-- /ko -->
 
         <!-- ko stopBinding: true -->
         <?php $this->widget('application.widgets.newCommentWidget.NewCommentWidget', array('model' => $model, 'full' => true, 'gallery' => true)); ?>

@@ -476,6 +476,25 @@ class EditorController extends SController
     }
 
     /**
+     * Передача ключевых слов от главного редактора шеф-редактору
+     * @throws CHttpException
+     */
+    public function actionTransferKeywords()
+    {
+        if (!Yii::app()->user->checkAccess('main-editor'))
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+
+        $editor_id = Yii::app()->request->getPost('editor_id');
+        $temp_keywords = TempKeyword::model()->findAllByPk(Yii::app()->request->getPost('keyword_ids'));
+        foreach($temp_keywords as $temp_keyword){
+            $temp_keyword->owner_id = $editor_id;
+            $temp_keyword->save();
+        }
+
+        echo CJSON::encode(array('status' => true));
+    }
+
+    /**
      * @param int $id model id
      * @return SeoTask
      * @throws CHttpException

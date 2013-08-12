@@ -39,7 +39,7 @@ class AlbumPhotoCollection extends PhotoCollection
             'id' => $model->id,
             'title' => $model->title,
             'description' => '',
-            'src' => $model->getPreviewUrl(804, null, Image::WIDTH),
+            'src' => $model->getOriginalUrl(),
             'date' => HDate::GetFormattedTime($model->created),
             'user' => array(
                 'id' => $model->author->id,

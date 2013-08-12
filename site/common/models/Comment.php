@@ -144,7 +144,7 @@ class Comment extends HActiveRecord
             ),
             'purified' => array(
                 'class' => 'site.common.behaviors.PurifiedBehavior',
-                'attributes' => array('text', 'preview'),
+                'attributes' => array('text'),
                 'options' => array(
                     'AutoFormat.Linkify' => true,
                 ),

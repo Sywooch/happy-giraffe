@@ -35,7 +35,9 @@
                     <a href="<?=$this->createUrl('form', array('type' => 5))?>"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__status fancy">Статус</a>
                 </div>
             </div>
-            <a href="<?=$this->createUrl('settings/form')?>" data-theme="transparent" class="blog-settings fancy">Настройки блога</a>
+            <?php if (Yii::app()->user->id == $this->user->id):?>
+                <a href="<?=$this->createUrl('settings/form')?>" data-theme="transparent" class="blog-settings fancy">Настройки блога</a>
+            <?php endif ?>
         </div>
     </div>
 <?php endif ?>

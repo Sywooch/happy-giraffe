@@ -50,7 +50,7 @@ NotificationRead::getInstance()->SetVisited();
         <!-- ko foreach: comments -->
         <div class="comments-gray_i" data-bind="css: {'comments-gray_i__self': ownComment()}, attr: {id: 'comment_'+id()}">
 
-            <a class="comments-gray_like like-hg-small" href="" data-bind="text:likesCount, css:{active: userLikes, hide: (likesCount() == 0)}, click:Like"></a>
+            <a class="comments-gray_like like-hg-small powertip" href="" data-bind="text:likesCount, css:{active: userLikes, hide: (likesCount() == 0)}, click:Like" title="Нравится"></a>
 
             <div class="comments-gray_ava">
                 <a class="ava small" href="" data-bind="css: author.avatarClass(), attr:{href: author.url()}">
@@ -103,6 +103,7 @@ NotificationRead::getInstance()->SetVisited();
 
             </div>
 
+            <!-- ko if: !editMode() -->
             <div class="comments-gray_control" data-bind="css: {'comments-gray_control__self': ownComment()}">
                 <div class="comments-gray_control-hold">
                     <!-- ko if: !ownComment() -->
@@ -125,6 +126,7 @@ NotificationRead::getInstance()->SetVisited();
 
                 </div>
             </div>
+            <!-- /ko -->
 
         </div>
         <!-- /ko -->

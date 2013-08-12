@@ -6,6 +6,7 @@ function PhotoCollectionViewModel(data) {
     self.collectionClass = data.collectionClass;
     self.collectionOptions = data.collectionOptions;
     self.count = data.count;
+    self.url = data.url;
     self.photos = ko.utils.arrayMap(data.initialPhotos, function(photo) {
         return new CollectionPhoto(photo, self);
     });
@@ -22,6 +23,10 @@ function PhotoCollectionViewModel(data) {
 
     self.currentPhoto = ko.computed(function() {
         return self.photos[self.currentPhotoIndex()];
+    });
+
+    self.currentPhoto.subscribe(function() {
+        History.pushState(self.currentPhoto(), "Photo " + self.currentPhoto().id, self.currentPhoto().url());
     });
 
     self.isFullyLoaded = function() {
@@ -87,6 +92,7 @@ function PhotoCollectionViewModel(data) {
         self.currentNaturalIndex(index);
     }
 
+    self.currentPhotoIndex.valueHasMutated();
     self.preloadImages();
 }
 
@@ -115,6 +121,10 @@ function CollectionPhoto(data, parent) {
         for (var i = 0; i < parent.DESCRIPTION_MAX_WORDS; i++)
             result += array[i] += ' ';
         return result;
+    }
+
+    self.url = function() {
+        return parent.url + 'photo/' + self.id + '/';
     }
 }
 

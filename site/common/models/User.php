@@ -1327,7 +1327,7 @@ class User extends HActiveRecord
      */
     public function isLiked($model)
     {
-        return HGLike::model()->hasLike($model, $this->id);
+        return (bool) HGLike::model()->hasLike($model, $this->id);
     }
 
     /**

@@ -1,15 +1,6 @@
 <?php
 $model = AlbumPhoto::model()->findByPk($json['initialPhotoId']);
 ?>
-<script type="text/javascript">
-    ko.bindingHandlers.stopBinding = {
-        init: function() {
-            return { controlsDescendantBindings: true };
-        }
-    };
-
-    ko.virtualElements.allowedBindings.stopBinding = true;
-</script>
 <div class="photo-window" id="photo-window">
     <div class="photo-window_w">
         <div class="photo-window_top clearfix">
@@ -39,9 +30,11 @@ $model = AlbumPhoto::model()->findByPk($json['initialPhotoId']);
 
             <div class="like-control clearfix">
 
-                <a href="javascript:;" class="like-control_ico like-control_ico__like<?php if (Yii::app()->user->getModel()->isLiked($model)) echo ' active' ?>" onclick="HgLike(this, 'AlbumPhoto',<?=$model->id ?>);"><?=PostRating::likesCount($model) ?></a>
-                <!-- ko stopBinding: true -->
-                <?php $this->widget('FavouriteWidget', array('model' => $model)); ?>
+                <!-- ko with: currentPhoto() -->
+                    <a href="" class="like-control_ico like-control_ico__like" data-bind="click: like, text: likesCount, css: {active: isLiked()}, tooltip: 'Нравится'" ></a>
+                    <!-- ko with: favourites() -->
+                        <?php $this->widget('FavouriteWidget', array('model' => $model, 'applyBindings' => false)); ?>
+                    <!-- /ko -->
                 <!-- /ko -->
             </div>
         </div>
@@ -57,12 +50,18 @@ $model = AlbumPhoto::model()->findByPk($json['initialPhotoId']);
         </div>
         <!-- /ko -->
 
-        <!-- ko stopBinding: true -->
-        <?php $this->widget('application.widgets.newCommentWidget.NewCommentWidget', array('model' => $model, 'full' => true, 'gallery' => true)); ?>
+        <!-- ko stopBinding: true  -->
+        <div id="js-gallery-comment">
+            <?php $this->widget('application.widgets.newCommentWidget.NewCommentWidget', array('model' => $model, 'full' => true, 'gallery' => true)); ?>
+        </div>
         <!-- /ko -->
+
     </div>
 </div>
 
+<style type="text/css">
+    body {overflow: hidden !important;}
+</style>
 <script type="text/javascript">
     photoViewVM = new PhotoCollectionViewModel(<?=CJSON::encode($json)?>);
     ko.applyBindings(photoViewVM, document.getElementById('photo-window'));

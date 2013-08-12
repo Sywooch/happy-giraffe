@@ -46,6 +46,12 @@ class PhotoPostPhotoCollection extends PhotoCollection
                 'ava' => $model->photo->author->getAva('small'),
                 'url' => $model->photo->author->url,
             ),
+            'likesCount' => PostRating::likesCount($model->photo),
+            'isLiked' => Yii::app()->user->getModel()->isLiked($model->photo),
+            'favourites'=>array(
+                'count'=>(int) Favourite::model()->getCountByModel($model->photo),
+                'active'=>(bool) Favourite::model()->getUserHas(Yii::app()->user->id, $model->photo),
+            )
         );
     }
 

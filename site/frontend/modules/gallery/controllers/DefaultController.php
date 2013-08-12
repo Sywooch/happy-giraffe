@@ -41,4 +41,10 @@ class DefaultController extends HController
         $response = compact('photos');
         echo CJSON::encode($response);
     }
+
+    public function actionComments()
+    {
+        $photo = AlbumPhoto::model()->findByPk(Yii::app()->request->getPost('id'));
+        echo $this->widget('application.widgets.newCommentWidget.NewCommentWidget', array('model' => $photo, 'gallery' => true), true);
+    }
 }

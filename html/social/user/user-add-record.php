@@ -581,7 +581,7 @@
 							<br>
 							<br>
 							<br>
-							<div class="redactor-popup redactor-popup_b-link" style="left:-25px;">
+							<div class="redactor-popup redactor-popup_b-link">
 								<a href="" class="redactor-popup_close ico-close3 powertip" title="Закрыть"></a>
 								<div class="redactor-popup_tale"></div>
 								<div class="redactor-popup_t">Ссылка</div>
@@ -803,7 +803,7 @@ $(document).ready(function () {
 						</div>
 						
 						
-						<div class="redactor-popup redactor-popup_b-video" >
+						<div class="redactor-popup redactor-popup_b-video display-n" >
 							<a href="" class="redactor-popup_close ico-close3 powertip" title="Закрыть"></a>
 							<div class="redactor-popup_tale"></div>
 							<div class="redactor-popup_t">Загрузите видео</div>
@@ -923,6 +923,33 @@ $(document).ready(function () {
 								</tbody>
 							</table>
 						</div>
+						
+						<div class="redactor-popup redactor-popup_b-link">
+								<a href="" class="redactor-popup_close ico-close3 powertip" title="Закрыть"></a>
+								<div class="redactor-popup_tale"></div>
+								<div class="redactor-popup_t">Ссылка</div>
+								
+								<div class="redactor-popup_holder-blue">
+									<div class="margin-b10 clearfix">
+										<label class="redactor-popup_label" for="">Отображаемый текст</label>
+										<div class="float-l w-350">
+											<input type="text" placeholder="Введите текст" class="itx-simple" id="" name="" value="Выделенный текст">
+										</div>
+									</div>
+									<div class="clearfix">
+										<label class="redactor-popup_label" for="">Ссылка на</label>
+										<div class="float-l w-350 error">
+											<input type="text" placeholder="Введите URL страницы" class="itx-simple" id="" name="">
+											<div class="errorMessage">Необходимо заполнить поле URL страницы.</div>
+										</div>
+									</div>
+								</div>
+								
+								<div class="textalign-c margin-t15">
+									<a href="" class="btn-gray-light btn-medium margin-r10">Отменить</a>
+									<a href="" class="btn-green btn-medium">Добавить ссылку</a>
+								</div>
+							</div>
 					
 					</div>
 					

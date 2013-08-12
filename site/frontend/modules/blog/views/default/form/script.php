@@ -18,7 +18,8 @@
     $('.wysiwyg-redactor-v').redactor({
         activeButtonsAdd: {
             h2: 'h2',
-            h3: 'h3'
+            h3: 'h3',
+            a: 'link_del'
         },
         initCallback: function() {
             redactor = this;
@@ -64,17 +65,11 @@
             },
             link_add: {
                 title: 'link_add',
-                callback: function(buttonName, buttonDOM, buttonObject) {
-                    // your code, for example - getting code
-                    var html = this.get();
-                }
+                func: 'linkShow'
             },
             link_del: {
                 title: 'link_del',
-                callback: function(buttonName, buttonDOM, buttonObject) {
-                    // your code, for example - getting code
-                    var html = this.get();
-                }
+                exec: 'unlink'
             },
             h2: {
                 title: 'h2',

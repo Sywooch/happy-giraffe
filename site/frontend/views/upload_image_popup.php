@@ -24,11 +24,18 @@
             <!-- /ko -->
 
             <div class="js-image" style="opacity: 0.2"></div>
+
+            <!-- ko if: file === null  -->
+            <img class="b-add-img_i-img" data-bind="attr: {src: url}">
+            <!-- /ko -->
+
             <!-- ko if: !isError() -->
             <div class="b-add-img_i-vert"></div>
+            <!-- ko if: status() != 2 -->
             <div class="b-add-img_i-load">
                 <div class="b-add-img_i-load-progress" data-bind="style: {width: progress}"></div>
             </div>
+            <!-- /ko -->
             <!-- /ko -->
 
             <div class="b-add-img_i-overlay">

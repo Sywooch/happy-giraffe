@@ -21,3 +21,6 @@
         </div>
     </div>
 </div>
+<style type="text/css">
+    body {overflow: hidden !important;}
+</style>

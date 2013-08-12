@@ -10,12 +10,16 @@ Yii::app()->clientScript->registerCoreScript('jquery.ui'); ?>
         <div class="table-box">
             <table>
                 <tr>
+                    <th><input type="checkbox" id="select-all"/></th>
                     <th class="col-1">Ключевое слово или фраза</th>
                     <th>Частота</th>
                     <th>Действие</th>
                 </tr>
                 <?php foreach ($tempKeywords as $tempKeyword): ?>
                 <tr data-id="<?=$tempKeyword->keyword->id; ?>" id="keyword-<?=$tempKeyword->keyword->id ?>"<?php if (!empty($tempKeyword->keyword->group)) echo ' style="display:none;"' ?>>
+                    <td>
+                        <input type="checkbox" data-id="<?=$tempKeyword->keyword->id; ?>"/>
+                    </td>
                     <td class="col-1">
                         <div class="item">
                             <span><?=$tempKeyword->keyword->name ?></span>
@@ -39,5 +43,20 @@ Yii::app()->clientScript->registerCoreScript('jquery.ui'); ?>
                 <?php endforeach; ?>
             </table>
         </div>
+        <div class="admins redactor js-editor-list-button" style="margin-left: 614px;">
+            <a href="javascript:;" class="btn-redactor" onclick="$(this).next().toggle();"></a>
+            <ul class="js-editor-list" style="display:none;z-index: 100;">
+                <?php foreach ($editors as $editor): ?>
+                    <li><a href="javascript:;" onclick="TaskDistribution.transferKeywords(<?= $editor->id ?>);"><?=$editor->name ?></a></li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+
     </div>
 </div>
+<script type="text/javascript">
+    $('#select-all').click(function(event) {
+        var selected = this.checked;
+        $(':checkbox').each(function () {    this.checked = selected; });
+    });
+</script>

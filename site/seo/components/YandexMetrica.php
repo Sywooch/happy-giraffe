@@ -12,12 +12,16 @@ class YandexMetrica
 
     public $se = array(2, 3);
 
+    /**
+     * Возвращает даты, за которые нужно спарсить данные
+     * @return array
+     */
     public function getDatesForCheck()
     {
         $dates = array();
         $last_date = Yii::app()->db_seo->createCommand()->select('max(date)')->from('queries')->queryScalar();
         if (empty($last_date))
-            $last_date = date("Ymd", strtotime('-30 days'));
+            $last_date = date("Ymd", strtotime('-100 days'));
         else
             $last_date = date("Ymd", strtotime($last_date));
 
@@ -34,10 +38,35 @@ class YandexMetrica
         return $dates;
     }
 
+    public function getDates2()
+    {
+        $dates = array();
+        $last_date = date("Ymd", strtotime('-150 days'));
+
+        for ($i = 0; $i < 160; $i++) {
+            $date = date("Ymd", strtotime('+1 day', strtotime($last_date)));
+            $count = Yii::app()->db_seo->createCommand()->select('count(*)')->from('queries')
+                ->where('date = :date', array(':date' => date("Y-m-d", strtotime($date))))
+                ->queryScalar();
+
+            if ($count < 10000) {
+                if ($date != date("Ymd"))
+                    $dates [] = $date;
+                else
+                    break;
+            }
+
+            $last_date = $date;
+        }
+
+        return $dates;
+    }
+
     public function parseQueries($date)
     {
         if (empty($date)) {
-            $dates = $this->getDatesForCheck();
+            $dates = $this->getDates2();
+            var_dump($dates);
 
             foreach ($dates as $date) {
                 echo $date . "\n";

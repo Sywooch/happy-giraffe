@@ -29,7 +29,7 @@
 class SiteKeywordVisit extends HActiveRecord
 {
     const FILTER_ALL = 1;
-    const FILTER_NO_TRAFFIC = 2;
+    const FILTER_NO_TRAFFIC_NO_ARTICLES = 2;
     const FILTER_NO_TRAFFIC_HAVE_ARTICLES = 3;
     const FILTER_HAVE_TRAFFIC_NO_ARTICLES = 4;
 
@@ -221,8 +221,8 @@ class SiteKeywordVisit extends HActiveRecord
                     $criteria->with [] = 'keyword.traffic';
                     break;
 
-                case self::FILTER_NO_TRAFFIC:
-                    $criteria->addCondition('traffic.keyword_id IS NULL');
+                case self::FILTER_NO_TRAFFIC_NO_ARTICLES:
+                    $criteria->addCondition('traffic.keyword_id IS NULL AND page.id IS NULL');
                     $criteria->with [] = 'keyword.traffic';
                     break;
 

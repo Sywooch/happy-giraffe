@@ -186,6 +186,14 @@ var TaskDistribution = {
             if (response.status)
                 $('#keyword-' + keyword_id).remove();
         }, 'json');
+    },
+    transferKeywords: function (editor_id) {
+        var keyword_ids = [];
+        $(':checkbox:checked').each(function () {    if ($(this).data('id')) keyword_ids.push($(this).data('id'));  });
+        $.post('/writing/editor/transferKeywords/', {keyword_ids: keyword_ids, editor_id: editor_id}, function (response) {
+            if (response.status)
+                location.reload();
+        }, 'json');
     }
 }
 

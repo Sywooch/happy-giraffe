@@ -119,21 +119,6 @@ Yii::app()->clientScript
 </div>
 
 <script type="text/javascript">
-    ko.bindingHandlers.tooltip = {
-        init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-            $(element).data('powertip', valueAccessor());
-        },
-        update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-            $(element).data('powertip', valueAccessor());
-            $(element).powerTip({
-                placement: 'n',
-                smartPlacement: true,
-                popupId: 'tooltipsy-im',
-                offset: 8
-            });
-        }
-    };
-
     $(function() {
         favouritesModel = new FavouritesViewModel(<?=CJSON::encode($data)?>);
         ko.applyBindings(favouritesModel);

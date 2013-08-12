@@ -1,8 +1,5 @@
 <?php
-Yii::app()->clientScript
-    ->registerScriptFile('/javascripts/history.js')
-    ->registerScriptFile('/javascripts/ko_favourites.js?t=' . time())
-;
+Yii::app()->clientScript->registerPackage('ko_favourites');
 Yii::import('application.widgets.newCommentWidget.NewCommentWidget');
 NewCommentWidget::registerScripts();
 ?>
@@ -88,21 +85,6 @@ NewCommentWidget::registerScripts();
 </div>
 
 <script type="text/javascript">
-    ko.bindingHandlers.tooltip = {
-        init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-            $(element).data('powertip', valueAccessor());
-        },
-        update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-            $(element).data('powertip', valueAccessor());
-            $(element).powerTip({
-                placement: 'n',
-                smartPlacement: true,
-                popupId: 'tooltipsy-im',
-                offset: 8
-            });
-        }
-    };
-
     $(function() {
         favouritesModel = new FavouritesViewModel(<?=CJSON::encode($data)?>);
         ko.applyBindings(favouritesModel);

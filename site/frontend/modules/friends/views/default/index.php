@@ -1,8 +1,4 @@
-<?php
-Yii::app()->clientScript
-    ->registerScriptFile('/javascripts/ko_friends.js')
-;
-?>
+<?php Yii::app()->clientScript->registerPackage('ko_friends'); ?>
 
 <div class="content-cols">
     <div class="col-1">

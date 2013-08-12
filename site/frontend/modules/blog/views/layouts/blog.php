@@ -2,13 +2,13 @@
 <?php
     Yii::app()->clientScript
         ->registerCssFile('/stylesheets/user.css')
-        ->registerScriptFile('/javascripts/ko_blog.js')
-        ->registerScriptFile('/javascripts/jquery.Jcrop.min.js')
-        ->registerScriptFile('/javascripts/upload.js')
+        ->registerPackage('ko_blog')
         ->registerScript('file-upload2', 'var FileAPI = { debug: false, pingUrl: false }', CClientScript::POS_HEAD)
         ->registerScriptFile('/javascripts/upload/FileAPI.min.js', CClientScript::POS_BEGIN)
         ->registerScriptFile('/javascripts/upload/FileAPI.id3.js', CClientScript::POS_BEGIN)
-        ->registerScriptFile('/javascripts/upload/FileAPI.exif.js', CClientScript::POS_BEGIN);
+        ->registerScriptFile('/javascripts/upload/FileAPI.exif.js', CClientScript::POS_BEGIN)
+    ;
+
     Yii::app()->controller->widget('site.common.extensions.imperavi-redactor-widget.ImperaviRedactorWidget', array('onlyRegisterScript' => true));
 
 ?>

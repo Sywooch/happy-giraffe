@@ -359,21 +359,6 @@ $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
 
 <script type="text/javascript">
     $(function() {
-        ko.bindingHandlers.tooltip = {
-            init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-                $(element).data('powertip', valueAccessor());
-            },
-            update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-                $(element).data('powertip', valueAccessor());
-                $(element).powerTip({
-                    placement: 'n',
-                    smartPlacement: true,
-                    popupId: 'tooltipsy-im',
-                    offset: 8
-                });
-            }
-        };
-
         ko.bindingHandlers.gallery = {
             init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
                 $(element).find('a').pGallery({'singlePhoto':false,'entity':'MessagingMessage','entity_id':valueAccessor(),'entity_url':null});

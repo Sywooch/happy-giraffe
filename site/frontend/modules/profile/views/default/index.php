@@ -2,7 +2,8 @@
 /**
  * @var User $user
  */
-Yii::app()->clientScript->registerScriptFile('/javascripts/ko_user_profile.js');
+Yii::app()->clientScript->registerPackage('ko_profile');
+
 ?><div class="section-lilac">
     <div class="section-lilac_hold">
         <div class="section-lilac_left">

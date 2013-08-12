@@ -50,7 +50,7 @@ NotificationRead::getInstance()->SetVisited();
         <!-- ko foreach: comments -->
         <div class="comments-gray_i" data-bind="css: {'comments-gray_i__self': ownComment()}, attr: {id: 'comment_'+id()}">
 
-            <a class="comments-gray_like like-hg-small powertip" href="" data-bind="text:likesCount, css:{active: userLikes, hide: (likesCount() == 0)}, click:Like" title="Нравится"></a>
+            <a class="comments-gray_like like-hg-small powertip" href="" data-bind="text:likesCount, css:{active: userLikes, hide: (likesCount() == 0)}, click:Like, tooltip: 'Нравиться'"></a>
 
             <div class="comments-gray_ava">
                 <a class="ava small" href="" data-bind="css: author.avatarClass(), attr:{href: author.url()}">
@@ -108,19 +108,19 @@ NotificationRead::getInstance()->SetVisited();
                 <div class="comments-gray_control-hold">
                     <!-- ko if: !ownComment() -->
                     <div class="clearfix">
-                        <a href="" class="comments-gray_quote-ico powertip" title="Ответить" data-bind="click: Reply"></a>
+                        <a href="" class="comments-gray_quote-ico powertip" data-bind="click: Reply, tooltip: 'Ответить'"></a>
                     </div>
                     <!-- /ko -->
 
                     <!-- ko if: canEdit() -->
                     <div class="clearfix">
-                        <a href="" class="message-ico message-ico__edit powertip" title="Изменить" data-bind="click: GoEdit"></a>
+                        <a href="" class="message-ico message-ico__edit powertip" data-bind="click: GoEdit, tooltip: 'Редактировать'"></a>
                     </div>
                     <!-- /ko -->
 
                     <!-- ko if: canRemove() -->
                     <div class="clearfix">
-                        <a href="" class="message-ico message-ico__del powertip" title="Удалить" data-bind="click: Remove"></a>
+                        <a href="" class="message-ico message-ico__del powertip" data-bind="click: Remove, tooltip: 'Удалить'"></a>
                     </div>
                     <!-- /ko -->
 

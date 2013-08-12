@@ -113,39 +113,7 @@ return array(
 	),
 	// application components
 	'components'=>array(
-        'clientScript' => array(
-            'class' => 'application.components.ClientScript',
-//            'scriptMap'=>array(
-                //'jquery'=>'http://code.jquery.com/jquery-1.8.0.min.js',
-//            ),
-            'packages' => array(
-                'comet' => array(
-                    'baseUrl' => '/',
-                    'js' => array(
-                        'javascripts/comet.js',
-                        'javascripts/dklab_realplexor.js',
-                    ),
-                ),
-                'user' => array(
-                    'baseUrl' => '/',
-                    'js' => array(
-                        'javascripts/user_common.js',
-                        'javascripts/messages.js',
-                        'javascripts/friends.js',
-                        'javascripts/settings.js',
-                        'javascripts/wantToChat.js',
-                    ),
-                    'depends' => array('comet'),
-                ),
-                'knockout.js' => array(
-                    'baseUrl' => '/',
-                    'js' => array(
-                        'javascripts/knockout-2.2.1.js',
-                    ),
-                    //'depends' => array('comet'),
-                ),
-            ),
-        ),
+        'clientScript' => require_once(dirname(__FILE__) . '/clientScript.php'),
 		'widgetFactory' => array(
 			'widgets' => array(
 				'LinkPager' => array(

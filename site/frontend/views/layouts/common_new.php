@@ -30,7 +30,6 @@
 
         ->registerCoreScript('jquery')
         ->registerCoreScript('yiiactiveform')
-        ->registerCoreScript('knockout.js')
         ->registerCoreScript('bbq')
 
         //->registerScriptFile('/javascripts/knockout-2.2.1.js', CClientScript::POS_HEAD)

@@ -3,9 +3,8 @@
  * @var $data
  */
 
-Yii::app()->clientScript
-    ->registerScriptFile('/javascripts/ko_search.js')
-;
+Yii::app()->clientScript->registerPackage('ko_search');
+
 Yii::import('application.widgets.newCommentWidget.NewCommentWidget');
 NewCommentWidget::registerScripts();
 ?>

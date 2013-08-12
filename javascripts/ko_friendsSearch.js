@@ -198,18 +198,3 @@ ko.bindingHandlers.chosen =
         $(element).trigger('liszt:updated');
     }
 };
-
-ko.bindingHandlers.tooltip = {
-    init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-        $(element).data('powertip', valueAccessor());
-    },
-    update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-        $(element).data('powertip', valueAccessor());
-        $(element).powerTip({
-            placement: 'n',
-            smartPlacement: true,
-            popupId: 'tooltipsy-im',
-            offset: 8
-        });
-    }
-};

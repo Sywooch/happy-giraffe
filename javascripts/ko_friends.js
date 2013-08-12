@@ -373,18 +373,3 @@ function List(data, parent) {
         self.friendsCount(self.friendsCount() - 1);
     }
 }
-
-ko.bindingHandlers.tooltip = {
-    init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-        $(element).data('powertip', valueAccessor());
-    },
-    update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-        $(element).data('powertip', valueAccessor());
-        $(element).powerTip({
-            placement: 'n',
-            smartPlacement: true,
-            popupId: 'tooltipsy-im',
-            offset: 8
-        });
-    }
-};

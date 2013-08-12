@@ -581,6 +581,63 @@
 							<br>
 							<br>
 							<br>
+							<div class="redactor-popup redactor-popup_b-link" style="left:-25px;">
+								<a href="" class="redactor-popup_close ico-close3 powertip" title="Закрыть"></a>
+								<div class="redactor-popup_tale"></div>
+								<div class="redactor-popup_t">Ссылка</div>
+								
+								<div class="redactor-popup_holder-blue">
+									<div class="margin-b10 clearfix">
+										<label class="redactor-popup_label" for="">Отображаемый текст</label>
+										<div class="float-l w-350">
+											<input type="text" placeholder="Введите текст" class="itx-simple" id="" name="" value="Выделенный текст">
+										</div>
+									</div>
+									<div class="clearfix">
+										<label class="redactor-popup_label" for="">Ссылка на</label>
+										<div class="float-l w-350 error">
+											<input type="text" placeholder="Введите URL страницы" class="itx-simple" id="" name="">
+											<div class="errorMessage">Необходимо заполнить поле URL страницы.</div>
+										</div>
+									</div>
+								</div>
+								
+								<div class="textalign-c margin-t15">
+									<a href="" class="btn-gray-light btn-medium margin-r10">Отменить</a>
+									<a href="" class="btn-green btn-medium">Добавить ссылку</a>
+								</div>
+							</div>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
 							<br>
 						</div>
 					</div>
@@ -629,6 +686,7 @@
 							<label for="" class="b-settings-blue_label">Заголовок</label>
 							<div class="float-l w-400">
 								<input type="text" name="" id="" class="itx-simple" placeholder="Введите заголовок видео">
+								<div class="errorMessage">Необходимо заполнить поле Заголовок.</div>
 							</div>
 						</div>
 						<div class="b-settings-blue_row clearfix">
@@ -655,6 +713,7 @@
 										<button class="btn-green">Ok</button>
 									</div> -->
 								</div>
+								<div class="errorMessage">Необходимо выбрать рубрику.</div>
 							</div>
 						</div>
 					</div>
@@ -1284,7 +1343,7 @@ $(document).ready(function () {
 						</div>
 					</div>
 							
-					<div class="b-add-img b-add-img__multi">
+					<div class="b-add-img b-add-img__for-multi">
 						<div class="b-add-img_hold">
 							<div class="b-add-img_t">
 								Загрузите фотографии с компьютера

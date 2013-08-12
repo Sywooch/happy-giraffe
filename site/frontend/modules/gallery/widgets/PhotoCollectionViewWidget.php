@@ -73,7 +73,6 @@ class PhotoCollectionViewWidget extends CWidget
         Yii::app()->clientScript
             ->registerScriptFile('/javascripts/jquery.history.js')
             ->registerScriptFile('/javascripts/ko_gallery.js')
-            ->registerScriptFile('/javascripts/knockout-2.2.1.js')
             ->registerScriptFile($baseUrl . '/PhotoCollectionViewWidget.js')
         ;
 

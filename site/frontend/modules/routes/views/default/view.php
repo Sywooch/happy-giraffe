@@ -65,7 +65,6 @@ $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG
 Yii::app()->clientScript
     ->registerScriptFile('http://maps.googleapis.com/maps/api/js?v=3&libraries=places&sensor=false')
     ->registerCoreScript('jquery.ui')
-    ->registerScriptFile('/javascripts/knockout-2.2.1.js')
     ->registerScript('routes_module', $js)
     ->registerScript('routes_waypoints', $waypoints_js, CClientScript::POS_BEGIN)
     ->registerScriptFile($baseUrl . '/routes.js');

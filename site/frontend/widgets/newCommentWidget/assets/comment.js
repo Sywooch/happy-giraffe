@@ -1,3 +1,4 @@
+var ENTER_KEY_SEND = 1;
 function CommentViewModel(data) {
     var self = this;
     ko.mapping.fromJS(data, {}, self);
@@ -13,11 +14,15 @@ function CommentViewModel(data) {
     self.enterSetting = ko.observable(data.messaging__enter);
     self.enterSetting.subscribe(function (a) {
         $.post('/ajax/setUserAttribute/', { key: 'messaging__enter', value: a ? 1 : 0 });
+        ENTER_KEY_SEND = a;
     });
+    ENTER_KEY_SEND = self.enterSetting();
+
     self.sending = ko.observable(false);
     self.focusEditor = function () {
-        self.editor.focus();
-        return true;
+        setTimeout(function () {
+            self.editor.redactor('focusEnd');
+        }, 100);
     };
 
     self.getCount = ko.computed(function () {
@@ -26,10 +31,12 @@ function CommentViewModel(data) {
 
     self.openComment = function (data, event) {
         self.opened(true);
+        ko.utils.arrayForEach(self.comments(), function (comment) {
+            if (comment.editMode())
+                comment.editMode(false);
+        });
+
         self.initEditor('add_' + self.objectName());
-        setTimeout(function () {
-            self.focusEditor()
-        }, 100);
     };
 
     self.Enter = function () {
@@ -75,6 +82,7 @@ function CommentViewModel(data) {
                     }
                 }
             });
+            self.focusEditor();
         }
     };
 
@@ -129,12 +137,14 @@ function NewComment(data, parent) {
 
     self.GoEdit = function () {
         self.editMode(true);
-        var input = $('#text' + self.id());
-        input.val(self.html());
+        $('#text' + self.id()).val(self.html());
         self.parent.initEditor('text' + self.id());
-        setTimeout(function () {
-            input.focus();
-        }, 100);
+        ko.utils.arrayForEach(self.parent.comments(), function (comment) {
+            if (comment.id() != self.id())
+                if (comment.editMode())
+                    comment.editMode(false);
+            self.parent.opened(false);
+        });
     };
 
     self.Edit = function () {
@@ -174,7 +184,9 @@ function NewComment(data, parent) {
     self.Enter = function () {
         if (self.parent.enterSetting() || self.parent.gallery()) {
             self.Edit();
+            return false;
         }
+        return true;
     };
 }
 
@@ -193,12 +205,13 @@ function User(data) {
 
 ko.bindingHandlers.enterKey = {
     init: function (element, valueAccessor, allBindings, vm) {
-        ko.utils.registerEventHandler(element, "keyup", function (event) {
+        ko.utils.registerEventHandler(element, "keypress", function (event) {
             if (event.keyCode === 13) {
                 ko.utils.triggerEvent(element, "change");
                 valueAccessor().call(vm, vm);
+                if (ENTER_KEY_SEND)
+                    return false;
             }
-
             return true;
         });
     }

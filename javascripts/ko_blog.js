@@ -185,14 +185,6 @@ ko.bindingHandlers.toggleVisible = {
     }
 };
 
-ko.bindingHandlers.stopBinding = {
-    init: function() {
-        return { controlsDescendantBindings: true };
-    }
-};
-
-ko.virtualElements.allowedBindings.stopBinding = true;
-
 //блок поиска в блоге
 $(function() {
     BlogSearch.init();

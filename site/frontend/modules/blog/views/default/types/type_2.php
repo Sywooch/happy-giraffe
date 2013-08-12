@@ -28,11 +28,9 @@ $post = $data->post;
     <div class="b-article_in clearfix">
         <div class="wysiwyg-content clearfix">
             <p><?=$data->getContentText(500, '') ?></p>
-            <?php if ($photo = $data->getPhoto()):?>
-                <div class="b-article_in-img">
-                    <img src="<?=$photo->getPreviewUrl(580, 1000, Image::WIDTH) ?>" class="content-img">
-                </div>
-            <?php endif ?>
+            <div class="b-article_in-img">
+                <?=$data->video->embed?>
+            </div>
         </div>
     </div>
 

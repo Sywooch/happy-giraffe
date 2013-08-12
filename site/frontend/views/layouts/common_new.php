@@ -30,8 +30,10 @@
 
         ->registerCoreScript('jquery')
         ->registerCoreScript('yiiactiveform')
+        ->registerCoreScript('knockout.js')
         ->registerCoreScript('bbq')
 
+        //->registerScriptFile('/javascripts/knockout-2.2.1.js', CClientScript::POS_HEAD)
         ->registerScriptFile('/javascripts/jquery.fancybox-1.3.4.js')
         ->registerScriptFile('/javascripts/jquery.iframe-post-form.js')
         ->registerScriptFile('/javascripts/jquery.placeholder.min.js')
@@ -53,7 +55,6 @@
         ->registerScriptFile('/javascripts/tooltipsy.min.js')
         //->registerScriptFile('http://vk.com/js/api/share.js?11')
         ->registerScriptFile('/javascripts/fox.js')
-        ->registerScriptFile('/javascripts/knockout-2.2.1.js')
         ->registerCssFile('/redactor/redactor.css')
     ;
 

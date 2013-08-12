@@ -15,5 +15,6 @@ $this->widget('zii.widgets.CListView', array(
             {pager}
         </div>
     ',
+    'emptyText'=>'',
     'viewData' => array('full' => false),
 ));

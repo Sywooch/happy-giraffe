@@ -116,7 +116,7 @@ return array(
         'clientScript' => array(
             'class' => 'application.components.ClientScript',
 //            'scriptMap'=>array(
-//                'jquery'=>'http://code.jquery.com/jquery-1.8.0.min.js',
+                //'jquery'=>'http://code.jquery.com/jquery-1.8.0.min.js',
 //            ),
             'packages' => array(
                 'comet' => array(
@@ -136,7 +136,14 @@ return array(
                         'javascripts/wantToChat.js',
                     ),
                     'depends' => array('comet'),
-                )
+                ),
+                'knockout.js' => array(
+                    'baseUrl' => '/',
+                    'js' => array(
+                        'javascripts/knockout-2.2.1.js',
+                    ),
+                    //'depends' => array('comet'),
+                ),
             ),
         ),
 		'widgetFactory' => array(

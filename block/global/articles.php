@@ -63,7 +63,7 @@
 							<span class="font-smallest color-gray">Сегодня 13:25</span>
 						</div>
 						<div class="comments-gray_cont wysiwyg-content">
-							<p>	Мне безумно жалко всех женщин, но особенно Тину Кароль, я просто представить себе не могу <a href="">как она все это переживет</a> как она все это переживет(</p>
+							<p>	<a href="">Вася Пупкин,</a> Мне безумно жалко всех женщин, но особенно Тину Кароль, я просто представить себе не могу <a href="">как она все это переживет</a> как она все это переживет(</p>
 							<p>я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.  я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически </p>
 						</div>
 					</div>
@@ -157,6 +157,39 @@
 				<div class="comments-gray_frame">
 					<!-- input hidden -->
 					<input type="text" name="" id="" class="comments-gray_add-itx itx-gray display-n" placeholder="Ваш комментарий">
+					
+						<script>
+$(document).ready(function () { 
+  $('.wysiwyg-redactor').redactor({
+      autoresize: true,
+
+      buttons: ['bold', 'italic', 'underline', '|', 'image', 'video', 'smile'],
+      buttonsCustom: {
+          smile: {
+              title: 'smile',
+              callback: function(buttonName, buttonDOM, buttonObject) {
+                  // your code, for example - getting code
+                  var html = this.get();
+              }
+          },
+          h2: {
+              title: 'h2',
+              callback: function(buttonName, buttonDOM, buttonObject) {
+                  // your code, for example - getting code
+                  var html = this.get();
+              }
+          },
+          h3: {
+              title: 'h3',
+              callback: function(buttonName, buttonDOM, buttonObject) {
+                  // your code, for example - getting code
+                  var html = this.get();
+              }
+          }
+      }
+  });
+});
+	</script>
 					<textarea name="" class="wysiwyg-redactor" ></textarea>
 					<div class="redactor-control">
 						<div class="redactor-control_key">

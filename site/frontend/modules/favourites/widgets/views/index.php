@@ -16,9 +16,11 @@
         <?php $this->render('_popup'); ?>
     </div>
 
-    <script type="text/javascript">
-        ko.applyBindings(new FavouriteWidget(<?=CJSON::encode($json)?>), document.getElementById('<?=$id?>'));
-    </script>
+<?php if ($this->applyBindings):?>
+        <script type="text/javascript">
+            ko.applyBindings(new FavouriteWidget(<?=CJSON::encode($json)?>), document.getElementById('<?=$id?>'));
+        </script>
+<?php endif ?>
 
 <?php else: ?>
 

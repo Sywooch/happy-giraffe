@@ -11,6 +11,7 @@ class FavouriteWidget extends CWidget
     public $registerScripts = false;
     public $right = false;
     public $model;
+    public $applyBindings = true;
 
     public function run()
     {

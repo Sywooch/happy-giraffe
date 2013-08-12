@@ -69,7 +69,7 @@ NotificationRead::getInstance()->SetVisited();
                     <!-- ko if: albumPhoto() -->
                     <div class="clearfix">
                         <div class="comments-gray_photo">
-                            <img src="/images/example/w170-h110.jpg" class="comments-gray_photo-img" data-bind="attr: {src: photoUrl}">
+                            <img src="" class="comments-gray_photo-img" data-bind="attr: {src: photoUrl}">
                             <div class="comments-gray_photo-overlay">
                                 <span class="comments-gray_photo-zoom"></span>
                             </div>

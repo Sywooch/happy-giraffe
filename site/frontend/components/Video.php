@@ -68,7 +68,7 @@ class Video extends CComponent
 		$dom = new DOMDocument;
 		@$dom->loadHTMLFile($this->url);
 		$xpath = new DOMXpath($dom);
-		$this->code = "<iframe width=\"560\" height=\"315\" src=\"http://www.youtube.com/embed/$v\" frameborder=\"0\" allowfullscreen></iframe>";
+		$this->code = "<iframe width=\"580\" height=\"320\" src=\"http://www.youtube.com/embed/$v\" frameborder=\"0\" allowfullscreen></iframe>";
 		$this->title = @$xpath->query('//span[@id="eow-title"]')->item(0)->nodeValue;
 		$this->description = @$xpath->query('//p[@id="eow-description"]')->item(0)->nodeValue;
 		$this->preview = "http://i.ytimg.com/vi/$v/default.jpg";

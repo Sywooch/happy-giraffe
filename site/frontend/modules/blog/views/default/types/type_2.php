@@ -27,14 +27,11 @@ $post = $data->post;
 
     <div class="b-article_in clearfix">
         <div class="wysiwyg-content clearfix">
-            <p><?=$data->getContentText(500, '') ?></p>
             <div class="b-article_in-img">
                 <?=$data->video->embed?>
             </div>
+            <p><?=$data->getContentText(500, '') ?></p>
         </div>
     </div>
 
-    <div class="textalign-r margin-15">
-        <a href="<?=$data->getUrl() ?>" class="b-article_more">Смотреть далее</a>
-    </div>
 <?php endif ?>

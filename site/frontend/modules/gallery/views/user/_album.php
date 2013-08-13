@@ -8,7 +8,7 @@ $collection = new AlbumPhotoCollection(array('albumId' => $data->id));
             <?php $this->widget('UserAvatarWidget', array('user' => $data->author)); ?>
         </div>
         <div class="like-control clearfix">
-            <a href="javascript:void(0)" class="like-control_ico like-control_ico__like<?php if (Yii::app()->user->getModel()->isLiked($data)) echo ' active'; ?>" onclick="HgLike(this, 'Album', <?=$data->id ?>);"><?=PostRating::likesCount($data)?></a>
+            <a href="javascript:void(0)" class="like-control_ico like-control_ico__like<?php if (! Yii::app()->user->isGuest && Yii::app()->user->getModel()->isLiked($data)) echo ' active'; ?>" onclick="HgLike(this, 'Album', <?=$data->id ?>);"><?=PostRating::likesCount($data)?></a>
             <?php $this->widget('FavouriteWidget', array('model' => $data, 'right' => true)); ?>
         </div>
     </div>

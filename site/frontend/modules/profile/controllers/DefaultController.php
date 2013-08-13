@@ -103,8 +103,7 @@ class DefaultController extends HController
         if ($type == 'award')
             $award = ScoreUserAward::model()->findByPk($id);
         elseif ($type == 'achievement')
-            $award = ScoreUserAchievement::model()->findByPk($id);
-        else
+            $award = ScoreUserAchievement::model()->findByPk($id); else
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
         list($next, $prev) = UserScores::getNextPrev($user_id, $award);
         list($users, $count) = $award->awardUsers();
@@ -131,6 +130,40 @@ class DefaultController extends HController
     {
         $interest_id = Yii::app()->request->getPost('id');
         echo CJSON::encode(array('status' => (bool)Interest::toggleInterest(Yii::app()->user->id, $interest_id)));
+    }
+
+    /**
+     * Добавление пользовательского интереса
+     */
+    public function actionAddNewInterest()
+    {
+        $title = strip_tags(trim(Yii::app()->request->getPost('title')));
+        $model = Interest::model()->findByAttributes(array('title' => $title));
+        if ($model === null) {
+            $model = new Interest();
+            $model->title = $title;
+            if (!$model->save()) {
+                var_dump($model->getErrorsText());
+                Yii::app()->end();
+            }
+        }
+
+        echo CJSON::encode(array('status' => (bool)Interest::toggleInterest(Yii::app()->user->id, $model->id), 'id' => $model->id));
+    }
+
+    /**
+     * Получение данных о интересе - кол-ве пользователей, у которых
+     * этот интерес, аватарки пользователей
+     */
+    public function actionInterestData()
+    {
+        $id = Yii::app()->request->getPost('id');
+        $interest = Interest::model()->findByPk($id);
+        echo CJSON::encode(array(
+            'status' => true,
+            'users' => $interest->getUsersData(),
+            'count' => (int)$interest->usersCount,
+        ));
     }
 
     /**

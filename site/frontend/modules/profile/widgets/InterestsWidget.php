@@ -25,14 +25,13 @@ class InterestsWidget extends UserCoreWidget
             $current_user_interests = Yii::app()->user->getModel()->interests; else
             $current_user_interests = array();
 
+        $this->data['isMyProfile'] = $this->isMyProfile;
         foreach ($this->interests as $interest) {
             $this->data['interests'][] = array(
                 'id' => $interest->id,
                 'title' => $interest->title,
                 'category_id' => $interest->category_id,
-                'have' => ($this->isMyProfile) ? true : (Yii::app()->user->isGuest ? false : $this->currentUserHas($current_user_interests, $interest->id)),
-                'users' => $interest->getUsersData(),
-                'count' => $interest->usersCount - 6,
+                'active' => ($this->isMyProfile) ? true : (Yii::app()->user->isGuest ? false : $this->currentUserHas($current_user_interests, $interest->id)),
             );
         }
 

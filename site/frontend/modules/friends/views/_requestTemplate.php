@@ -42,7 +42,7 @@
         <div class="friends-list_location clearfix" data-bind="html: user.location"></div>
         <!-- /ko -->
         <!-- ko if: user.family !== null -->
-        <div class="find-friend-famyli" data-bind="html: user.family"></div>
+        <div class="b-family" data-bind="html: user.family"></div>
         <!-- /ko -->
         <!-- ko if: $data.constructor.name == 'IncomingFriendRequest' && removed() -->
         <div class="cap-empty">

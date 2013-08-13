@@ -25,3 +25,15 @@ ko.bindingHandlers.stopBinding = {
 };
 
 ko.virtualElements.allowedBindings.stopBinding = true;
+
+
+ko.bindingHandlers.fadeVisible = {
+    init: function(element, valueAccessor) {
+        var value = valueAccessor();
+        $(element).toggle(ko.utils.unwrapObservable(value));
+    },
+    update: function(element, valueAccessor) {
+        var value = valueAccessor();
+        ko.utils.unwrapObservable(value) ? $(element).fadeIn(200) : $(element).fadeOut(200);
+    }
+};

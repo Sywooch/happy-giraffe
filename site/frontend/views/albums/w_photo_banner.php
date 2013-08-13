@@ -48,26 +48,7 @@
 
             <div class="col-3">
                 <div class="margin-t145" id="AdfoxAjax">
-                    <!-- R-87026-1 ﬂÌ‰ÂÍÒ.RTB-·ÎÓÍ  -->
-                    <div id="yandex_ad_R-87026-1"></div>
-                    <script type="text/javascript">
-                        (function(w, d, n, s, t) {
-                            w[n] = w[n] || [];
-                            w[n].push(function() {
-                                Ya.Context.AdvManager.render({
-                                    blockId: "R-87026-1",
-                                    renderTo: "yandex_ad_R-87026-1",
-                                    async: true
-                                });
-                            });
-                            t = d.getElementsByTagName("script")[0];
-                            s = d.createElement("script");
-                            s.type = "text/javascript";
-                            s.src = "//an.yandex.ru/system/context.js";
-                            s.async = true;
-                            t.parentNode.insertBefore(s, t);
-                        })(this, this.document, "yandexContextAsyncCallbacks");
-                    </script>
+                    <iframe id="direct" src="http://www.happy-giraffe.ru/direct3.html" width="200" height="300" marginwidth="0" marginheight="0" scrolling="no" frameborder="0"></iframe>
                 </div>
             </div>
         </div>
@@ -87,11 +68,9 @@
 
     <script type="text/javascript">
         function rtb_refresh() {
-            return Ya.Context.AdvManager.render({
-                blockId: "R-87026-1",
-                renderTo: "yandex_ad_R-87026-1",
-                async: true
-            });
+            var r = Math.floor(Math.random() * 1000000) + 1;
+            var url = 'http://www.happy-giraffe.ru/direct3.html?r=' + r;
+            $('#direct').attr('src', url);
         }
     </script>
 

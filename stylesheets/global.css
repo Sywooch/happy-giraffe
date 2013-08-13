@@ -2696,6 +2696,9 @@
 .redactor_wysiwyg-redactor {
   max-height: 225px;
 }
+.redactor_wysiwyg-redactor:focus {
+  border-color: #a3cff4;
+}
 /* wysiwyg-blue */
 .wysiwyg-blue .redactor_editor,
 .wysiwyg-blue .redactor_editor:focus {
@@ -12781,6 +12784,7 @@ table.fr_recipe_tb td {
 }
 .b-article_user-status {
   width: 580px;
+  height: 166px;
   display: table-cell;
   vertical-align: middle;
   padding: 20px 20px ;
@@ -13472,7 +13476,6 @@ table.fr_recipe_tb td {
 }
 .comments-gray_t {
   margin: 0 30px;
-  border-bottom: 1px dashed #e8e7e7;
   padding-bottom: 10px;
 }
 .comments-gray_t-a {
@@ -13491,6 +13494,8 @@ table.fr_recipe_tb td {
 }
 .comments-gray_hold {
   padding: 0;
+  border: 1px dashed #e8e7e7;
+  border-width: 1px 0;
 }
 .comments-gray_i {
   position: relative;
@@ -13565,7 +13570,6 @@ table.fr_recipe_tb td {
   border-radius: 4px;
 }
 .comments-gray_add {
-  border-top: 1px dashed #e8e7e7;
   padding: 15px 0 0;
   margin: 0 30px;
 }
@@ -13885,6 +13889,7 @@ table.fr_recipe_tb td {
   background: #ffe535;
 }
 .user-add-record__small {
+  margin-bottom: 15px;
   padding: 6px 7px 6px 20px;
 }
 .user-add-record__small .user-add-record_ico {
@@ -15316,8 +15321,34 @@ table.fr_recipe_tb td {
   -moz-border-radius: 8px;
   border-radius: 8px;
 }
+.club-list__big .club-list_img {
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+}
 .club-list__big .club-list_check {
   top: 106px;
+}
+.club-list__large {
+  margin: 0;
+}
+.club-list__large .club-list_ul {
+  margin: 0;
+}
+.club-list__large .club-list_li {
+  width: auto;
+  margin: 0;
+}
+.club-list__large .club-list_img-hold {
+  -webkit-border-radius: 14px;
+  -moz-border-radius: 14px;
+  border-radius: 14px;
+  border-width: 3px;
+}
+.club-list__large .club-list_img {
+  -webkit-border-radius: 11px;
+  -moz-border-radius: 11px;
+  border-radius: 11px;
 }
 .club-list_ul {
   margin: 20px -38px 10px 0;
@@ -15438,6 +15469,12 @@ table.fr_recipe_tb td {
   padding: 25px 9000px 20px;
   background: #fafafa;
 }
+.b-section__green {
+  background: #84b142 url(/images/club/3-header.jpg) no-repeat 50% 0;
+}
+.b-section__club {
+  min-height: 275px;
+}
 .b-section .club-list_ul {
   margin: 0;
 }
@@ -15445,7 +15482,7 @@ table.fr_recipe_tb td {
   margin: 0;
 }
 .b-section_t {
-  padding: 5px 0 15px;
+  padding: 15px 0 10px;
   font-size: 35px;
   font-weight: bold;
   color: #186fb8;
@@ -15454,17 +15491,80 @@ table.fr_recipe_tb td {
   color: #186fb8;
 }
 .b-section_ul {
-  margin: 15px 0 0;
+  margin: 10px 0 0;
+}
+.b-section_ul__white .b-section_li {
+  font-size: 18px;
+}
+.b-section_ul__white .b-section_li-a {
+  color: #fff;
 }
 .b-section_li {
   float: left;
   width: 25%;
-  margin: 10px 0;
+  margin: 6px 0;
   font-size: 15px;
+  line-height: 19px;
 }
 .b-section_li-a.active {
   font-weight: bold;
   color: #fd7700;
+}
+.b-section_transp {
+  width: 480px;
+  height: 203px;
+  margin: 0 auto 32px;
+  padding: 0 0 10px;
+  text-align: center;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.25);
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+.b-section_transp-t {
+  margin-bottom: 7px;
+  font-size: 50px;
+  line-height: normal;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 0 2px 3px rgba(0, 0, 0, 0.5);
+}
+.b-section_transp-desc {
+  text-shadow: 0 2px 3px rgba(0, 0, 0, 0.5);
+}
+.b-section_club-add {
+  display: inline-block;
+  margin: 11px 0 0;
+  padding: 28px 10px 40px 90px;
+  background: url(/images/b-section_club-add.png) no-repeat;
+  color: #fff;
+  text-decoration: none;
+}
+.b-section_club-add:hover .b-section_club-add-tx {
+  border-bottom-color: transparent;
+}
+.b-section_club-add-tx {
+  font-size: 24px;
+  border-bottom: 1px dashed #fff;
+}
+.b-section_club-moder {
+  margin: 15px 0 10px;
+  text-align: center;
+  font-size: 16px;
+}
+.b-section_club-moder .ava {
+  float: none;
+  display: inline-block;
+  vertical-align: middle;
+  border: 2px solid #fff;
+}
+.b-section_club-moder-tx {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 5px;
+  text-align: right;
+  text-shadow: 0 2px 3px rgba(0, 0, 0, 0.5);
 }
 /* /b-section */
 /* location */

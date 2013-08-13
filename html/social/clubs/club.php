@@ -45,25 +45,37 @@
 			</div>
 		</div>
 		
-		<!-- b-section__club b-section__green -->
-		<div class="b-section">
+		
+		<div class="b-section b-section__club b-section__green">
 			<div class="b-section_hold">
 				<div class="content-cols clearfix">
 					<div class="col-1">
-						<div class="club-list club-list__big clearfix">
+						<div class="club-list club-list__large clearfix">
 							<ul class="club-list_ul textalign-c clearfix">
 								<li class="club-list_li">
 									<a href="" class="club-list_i">
 										<span class="club-list_img-hold">
-											<img src="/images/club/2-w130.png" alt="" class="club-list_img">
+											<img src="/images/club/3-w240.jpg" alt="" class="club-list_img">
 										</span>
 									</a>
 								</li>
 							</ul>
 						</div>
 					</div>
-					<div class="col-23-middle">
-						
+					<div class="col-23-middle clearfix">
+						<div class="b-section_transp">
+							<h1 class="b-section_transp-t">Цветы в доме</h1>
+							<div class="b-section_transp-desc">Здесь собрано все что нужно для цветоводов. Растения, удобрения <br>чувство юмора имеется, на шею не сажусь, проблемами не загружаю. </div>
+							<a href="" class="b-section_club-add">
+								<span class="b-section_club-add-tx">Вступить в клуб</span>
+							</a>
+						</div>
+						<div class="clearfix">
+							<ul class="b-section_ul b-section_ul__white margin-l30 clearfix">
+								<li class="b-section_li"><a href="" class="b-section_li-a">Форум</a></li>
+								<li class="b-section_li"><a href="" class="b-section_li-a">Сервисы</a></li>
+							</ul>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -72,55 +84,14 @@
 		<div class="content-cols clearfix">
 			<div class="col-1">
 			
-				<div class="readers2">
-					<a class="btn-green btn-medium" href="">Вступить в клуб</a>
-					<ul class="readers2_ul clearfix">
-						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-								<span class="icon-status status-online"></span>
-								<img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
-							</a>
-						</li>
-						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-								<img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
-							</a>
-						</li>
-						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-								<span class="icon-status status-online"></span>
-								<img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
-							</a>
-						</li>
-						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-							</a>
-						</li>
-						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-								<span class="icon-status status-online"></span>
-								<img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
-							</a>
-						</li>
-						<li class="readers2_li clearfix">
-							<a class="ava male small" href="">
-								<span class="icon-status status-online"></span>
-							</a>
-						</li>
-					</ul>
-					<div class="clearfix">
-						<div class="readers2_count">Все участники клуба (129)</div>
-					</div>
-				</div>
-			
 				<div class="widget-friends clearfix">
 					<div class="clearfix">
 						<span class="heading-small">Участники клуба <span class="color-gray">(1876)</span> </span>
 						
 					</div>
 					<ul class="widget-friends_ul clearfix">
-						<li class="widget-friends_find">
-							<a href="" class="widget-friends_find-a"></a>
+						<li class="widget-friends_i">
+							<a href="" class="ava"><img src="/images/user_friends_img.jpg"></a>
 						</li>
 						<li class="widget-friends_i">
 							<a href="" class="ava"><img src="/images/user_friends_img.jpg"></a>
@@ -133,6 +104,12 @@
 						</li>
 						<li class="widget-friends_i">
 							<a href="" class="ava"><img src="/images/user_friends_img.jpg"></a>
+						</li>
+						<li class="widget-friends_i">
+							<a class="ava male" href="">
+								<span class="icon-status status-online"></span>
+								<img src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg" alt="">
+							</a>
 						</li>
 						<li class="widget-friends_i">
 							<a href="" class="ava"><img src="/images/user_friends_img.jpg"></a>
@@ -180,8 +157,8 @@
 				
 			</div>
 			<div class="col-23-middle ">
-				<div class="clearfix margin-20">
-					<a href="" class="btn-blue btn-medium float-r">Добавить в клуб</a>
+				<div class="clearfix margin-r20 margin-b20">
+					<a href="" class="btn-blue btn-h46 float-r">Добавить в клуб</a>
 				</div>
 				<div class="col-gray">
 					<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/articles.php'; ?>

@@ -725,6 +725,9 @@ $(document).ready(function () {
   $('.wysiwyg-redactor-v').redactor({
       minHeight: 450,
       autoresize: true,
+      toolbarFixed: true,
+      toolbarFixedBox: true,
+      toolbarFixedTopOffset: 50,
       /* В базовом варианте нет кнопок 'h2', 'h3', 'link_add', 'link_del' но их функции реализованы с помощью выпадающих списков */
       buttons: ['bold', 'italic', 'underline', 'deleted', 'h2', 'h3', 'unorderedlist', 'orderedlist', 'link_add', 'link_del', 'image', 'video', 'smile'],
       buttonsCustom: {

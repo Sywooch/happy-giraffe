@@ -471,6 +471,7 @@
 									</div>
 									<div class="b-sign_itx-hold">
 										<input type="text" name="" id="" class="itx-simple" value="asdaaa@wer.ru">
+										
 									</div>
 									<div class="b-sign_win"></div>
 								</div>

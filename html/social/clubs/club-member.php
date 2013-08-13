@@ -42,49 +42,38 @@
 						<a href="#popup-user-add-status"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__status fancy powertip" title="Статус"></a>
 					</div>
 				</div>
-				<div class="padding-l20">
-					<div class="crumbs-small clearfix">
-						<ul class="crumbs-small_ul">  
-							<li class="crumbs-small_li">Я здесь:</li>
-							<li class="crumbs-small_li"><a href="" class="crumbs-small_a">Главная</a></li> &gt;
-							<li class="crumbs-small_li"><a href="" class="crumbs-small_a">Наш дом</a></li> &gt;
-							<li class="crumbs-small_li"><a href="" class="crumbs-small_a">Цветы в доме</a></li> &gt;
-							<li class="crumbs-small_li"><span class="crumbs-small_last">Форум</span></li>
-						</ul>
-					</div>
-				</div>
 			</div>
 		</div>
 		
 		
-		<div class="b-section">
+		<div class="b-section b-section__club b-section__green">
 			<div class="b-section_hold">
 				<div class="content-cols clearfix">
 					<div class="col-1">
-						<div class="club-list club-list__big clearfix">
+						<div class="club-list club-list__large clearfix">
 							<ul class="club-list_ul textalign-c clearfix">
 								<li class="club-list_li">
 									<a href="" class="club-list_i">
 										<span class="club-list_img-hold">
-											<img src="/images/club/2-w130.png" alt="" class="club-list_img">
+											<img src="/images/club/3-w240.jpg" alt="" class="club-list_img">
 										</span>
 									</a>
 								</li>
 							</ul>
 						</div>
 					</div>
-					<div class="col-23-middle">
-						<div class="padding-l20">
-							<h1 class="b-section_t"><a href="">Цветы в доме</a></h1>
-							<div class="clearfix">
-								<ul class="b-section_ul clearfix">
-									<li class="b-section_li"><span class="b-section_li-a active">Форум</span></li>
-									<li class="b-section_li"><a href="" class="b-section_li-a">Сервисы</a></li>
-									<li class="b-section_li"><a href="" class="b-section_li-a">Конкурсы</a></li>
-									<li class="b-section_li"><a href="" class="b-section_li-a">Вопросы-ответы</a></li>
-									<li class="b-section_li"><a href="" class="b-section_li-a">Специалисты</a></li>
-									<li class="b-section_li"><a href="" class="b-section_li-a">Онлайн-курсы</a></li>
-								</ul>
+					<div class="col-23-middle clearfix">
+						<div class="b-section_transp">
+							<h1 class="b-section_transp-t">Цветы в доме</h1>
+							<div class="b-section_transp-desc">Здесь собрано все что нужно для цветоводов. Растения, удобрения <br>чувство юмора имеется, на шею не сажусь, проблемами не загружаю. </div>
+							<div class="b-section_club-moder">
+								<span class="b-section_club-moder-tx">Модераторы <br> клуба</span>
+								<a href="" class="ava"><img src="/images/user_friends_img.jpg"></a>
+								<a class="ava male" href="">
+									<span class="icon-status status-online"></span>
+									<img src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg" alt="">
+								</a>
+								<a href="" class="ava female"></a>
 							</div>
 						</div>
 					</div>
@@ -95,47 +84,48 @@
 		<div class="content-cols clearfix">
 			<div class="col-1">
 			
-				<div class="readers2">
-					<a class="btn-green btn-medium" href="">Вступить в клуб</a>
-					<ul class="readers2_ul clearfix">
-						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
+				<div class="widget-friends clearfix">
+					<div class="clearfix">
+						<span class="heading-small">Участники клуба <span class="color-gray">(1876)</span> </span>
+						
+					</div>
+					<ul class="widget-friends_ul clearfix">
+						<li class="widget-friends_i">
+							<a class="ava male" href="">
 								<span class="icon-status status-online"></span>
-								<img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
+								<img src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg" alt="">
 							</a>
 						</li>
-						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-								<img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
-							</a>
+						<li class="widget-friends_i">
+							<a href="" class="ava female"></a>
 						</li>
-						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
+						<li class="widget-friends_i">
+							<a href="" class="ava"><img src="/images/user_friends_img.jpg"></a>
+						</li>
+						<li class="widget-friends_i">
+							<a href="" class="ava"><img src="/images/user_friends_img.jpg"></a>
+						</li>
+						<li class="widget-friends_i">
+							<a href="" class="ava"><img src="/images/user_friends_img.jpg"></a>
+						</li>
+						<li class="widget-friends_i">
+							<a href="" class="ava"><img src="/images/user_friends_img.jpg"></a>
+						</li>
+						<li class="widget-friends_i">
+							<a class="ava male" href="">
 								<span class="icon-status status-online"></span>
-								<img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
+								<img src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg" alt="">
 							</a>
 						</li>
-						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-							</a>
+						<li class="widget-friends_i">
+							<a href="" class="ava"></a>
 						</li>
-						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-								<span class="icon-status status-online"></span>
-								<img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
-							</a>
-						</li>
-						<li class="readers2_li clearfix">
-							<a class="ava male small" href="">
-								<span class="icon-status status-online"></span>
-							</a>
+						<li class="widget-friends_i">
+							<a href="" class="ava"></a>
 						</li>
 					</ul>
-					<div class="clearfix">
-						<div class="readers2_count">Все участники клуба (129)</div>
-					</div>
 				</div>
-							
+				
 				<div class="menu-simple">
 					<ul class="menu-simple_ul">
 						<li class="menu-simple_li">

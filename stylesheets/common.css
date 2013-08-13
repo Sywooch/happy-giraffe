@@ -378,6 +378,9 @@ html.top-nav-fixed {
 .margin-l20 {
   margin-left: 20px !important;
 }
+.margin-l30 {
+  margin-left: 30px !important;
+}
 .nopadding,
 .padding-0 {
   padding: 0 !important;
@@ -15532,7 +15535,7 @@ select.pregnancy_term + .chzn-container .chzn-results li {
 }
 .readers2 {
   position: relative;
-  margin: 45px 0 20px;
+  margin: 30px 0 20px;
   padding: 15px 20px;
   background: #f6f6f6;
   background: rgba(255, 255, 255, 0.4);
@@ -19392,7 +19395,7 @@ select.pregnancy_term + .chzn-container .chzn-results li {
 /* /pagination */
 /* yiipagination */
 .yiipagination {
-  padding: 20px 0 30px;
+  margin: 10px 0 30px 100px;
   font-size: 17px;
   line-height: 30px;
   color: #a1a1a1;

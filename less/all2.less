@@ -640,6 +640,7 @@ table.fr_recipe_tb td { width: 50%;}
     &_more__white:hover {color: #fff;}
     &_user-status {
         width: 580px;
+        height: 166px;
         display: table-cell;
         vertical-align: middle;
         padding: 20px 20px ;
@@ -1210,7 +1211,6 @@ table.fr_recipe_tb td { width: 50%;}
     }
     &_t {
         margin: 0 30px;
-        border-bottom: 1px dashed #e8e7e7;
         padding-bottom: 10px;
     }
     &_t-a {
@@ -1229,6 +1229,8 @@ table.fr_recipe_tb td { width: 50%;}
     }
     &_hold {
         padding: 0;
+        border: 1px dashed #e8e7e7;
+        border-width: 1px 0;
     }
     &_i {
         position: relative;
@@ -1277,7 +1279,6 @@ table.fr_recipe_tb td { width: 50%;}
         .border-radius(4px);
     }
     &_add {
-        border-top: 1px dashed #e8e7e7;
         padding: 15px 0 0;
         margin: 0 30px;
     }
@@ -1497,7 +1498,10 @@ table.fr_recipe_tb td { width: 50%;}
     background: #8f67b5;
     .border-radius(4px);
     &__yellow {background: #ffe535;}
-    &__small {padding: 6px 7px 6px 20px;}
+    &__small {
+        margin-bottom: 15px;
+        padding: 6px 7px 6px 20px;
+    }
     &__small &_ico {margin: 10px 35px;}
     &__small &_hold {width: 630px;}
 
@@ -2751,7 +2755,20 @@ table.fr_recipe_tb td { width: 50%;}
         border-width: 3px;
         .border-radius(8px);
     }
+    &__big &_img {.border-radius(6px);}
     &__big &_check {top: 106px;}
+
+    &__large {margin: 0;} 
+    &__large &_ul {margin: 0;} 
+    &__large &_li {
+        width: auto;
+        margin: 0;
+    }
+    &__large &_img-hold {
+        .border-radius(14px);
+        border-width: 3px;
+    }
+    &__large &_img {.border-radius(11px);}
 
     &_ul {margin: 20px -38px 10px 0;}
     &_li {
@@ -2854,28 +2871,86 @@ table.fr_recipe_tb td { width: 50%;}
     padding: 25px 9000px 20px;
     background: #fafafa;
 
+    &__green {background:#84b142 url(/images/club/3-header.jpg) no-repeat 50% 0;}
+    &__club {min-height:275px;}
+
     .club-list_ul {margin: 0;}
     .club-list_li {margin: 0;}
 
     &_t {
-        padding: 5px 0 15px;
+        padding: 15px 0 10px;
         font-size: 35px;
         font-weight: bold;
         color: #186fb8;
     }
     &_t > a {color: #186fb8;}
     &_ul {
-        margin: 15px 0 0;
+        margin: 10px 0 0;
     }
+    &_ul__white &_li {font-size: 18px;}
+    &_ul__white &_li-a {color: #fff;}
     &_li {
         float: left;
         width: 25%;
-        margin: 10px 0;
+        margin: 6px 0;
         font-size: 15px;
+        line-height: 19px;
     }
     &_li-a.active {
         font-weight: bold;
         color: #fd7700;
+    }
+    &_transp {
+        width: 480px;
+        height: 203px;
+        margin: 0 auto 32px;
+        padding: 0 0 10px;
+        text-align: center;
+        color: #fff;
+        background: rgba(0,0,0,.25);
+        .border-radius(5px);
+    }
+    &_transp-t {
+        margin-bottom: 7px;
+        font-size: 50px;
+        line-height: normal;
+        font-weight: bold;
+        color: #fff;
+        text-shadow: 0 2px 3px rgba(0,0,0,.5);
+    }
+    &_transp-desc {
+        text-shadow: 0 2px 3px rgba(0,0,0,.5);
+    }
+    &_club-add {
+        .inline-block();
+        margin: 11px 0 0;
+        padding: 28px 10px 40px 90px;
+        background: url(/images/b-section_club-add.png) no-repeat;
+        color: #fff;
+        text-decoration: none;
+    }
+    &_club-add:hover &_club-add-tx {border-bottom-color: transparent;}
+    &_club-add-tx {
+        font-size: 24px;
+        border-bottom: 1px dashed #fff;
+    }
+    &_club-moder {
+        margin: 15px 0 10px;
+        text-align: center;
+        font-size: 16px;
+    }
+    &_club-moder .ava {
+        float: none;
+        .inline-block();
+        vertical-align: middle;
+        border: 2px solid #fff;
+    }
+    &_club-moder-tx {
+        .inline-block();
+        vertical-align: middle;
+        margin-right: 5px;
+        text-align: right;
+        text-shadow: 0 2px 3px rgba(0,0,0,.5);
     }
 }
 /* /b-section */

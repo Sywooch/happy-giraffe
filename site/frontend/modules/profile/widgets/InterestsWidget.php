@@ -6,7 +6,10 @@
 class InterestsWidget extends UserCoreWidget
 {
     public $interests = array();
-    public $data = array();
+    public $data = array(
+        'interests' => array(),
+        'categories' => array(),
+    );
 
     public function init()
     {
@@ -18,13 +21,12 @@ class InterestsWidget extends UserCoreWidget
 
         if ($this->isMyProfile)
             $current_user_interests = $this->interests;
-        elseif(!Yii::app()->user->isGuest)
-            $current_user_interests = Yii::app()->user->getModel()->interests;
-        else
+        elseif (!Yii::app()->user->isGuest)
+            $current_user_interests = Yii::app()->user->getModel()->interests; else
             $current_user_interests = array();
 
         foreach ($this->interests as $interest) {
-            $this->data[] = array(
+            $this->data['interests'][] = array(
                 'id' => $interest->id,
                 'title' => $interest->title,
                 'category_id' => $interest->category_id,
@@ -32,6 +34,22 @@ class InterestsWidget extends UserCoreWidget
                 'users' => $interest->getUsersData(),
                 'count' => $interest->usersCount - 6,
             );
+        }
+
+        if ($this->isMyProfile) {
+            $categories = InterestCategory::model()->with('interests')->findAll();
+            foreach ($categories as $category) {
+                $cat = array(
+                    'id' => $category->id,
+                    'title' => $category->title,
+                );
+                foreach ($category->interests as $interest)
+                    $cat['interests'][] = array(
+                        'id' => $interest->id,
+                        'title' => $interest->title,
+                    );
+                $this->data['categories'][] = $cat;
+            }
         }
     }
 

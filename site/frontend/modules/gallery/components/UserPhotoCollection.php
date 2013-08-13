@@ -50,10 +50,10 @@ class UserPhotoCollection extends PhotoCollection
                 'url' => $model->author->url,
             ),
             'likesCount' => PostRating::likesCount($model),
-            'isLiked' => Yii::app()->user->getModel()->isLiked($model),
+            'isLiked' => ! Yii::app()->user->isGuest && Yii::app()->user->model->isLiked($model),
             'favourites'=>array(
-                'count'=>(int) Favourite::model()->getCountByModel($model),
-                'active'=>(bool) Favourite::model()->getUserHas(Yii::app()->user->id, $model),
+                'count' => (int) Favourite::model()->getCountByModel($model),
+                'active' => (bool) Favourite::model()->getUserHas(Yii::app()->user->id, $model),
             )
         );
     }

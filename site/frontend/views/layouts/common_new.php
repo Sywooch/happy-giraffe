@@ -33,6 +33,7 @@
         ->registerCoreScript('bbq')
 
         //->registerScriptFile('/javascripts/knockout-2.2.1.js', CClientScript::POS_HEAD)
+        ->registerCoreScript('knockout')
         ->registerScriptFile('/javascripts/jquery.fancybox-1.3.4.js')
         ->registerScriptFile('/javascripts/jquery.iframe-post-form.js')
         ->registerScriptFile('/javascripts/jquery.placeholder.min.js')

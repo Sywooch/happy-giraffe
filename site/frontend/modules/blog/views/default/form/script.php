@@ -65,7 +65,38 @@
             },
             link_add: {
                 title: 'link_add',
-                func: 'linkShow'
+                callback: function(buttonName, buttonDOM, buttonObject) {
+                    this.selectionSave();
+
+                    this.insert_link_node = false;
+
+                    var sel = this.getSelection();
+                    var url = '', text = '';
+
+                    var elem = this.getParent();
+                    var par = $(elem).parent().get(0);
+                    if (par && par.tagName === 'A')
+                    {
+                        elem = par;
+                    }
+
+                    if (elem && elem.tagName === 'A')
+                    {
+                        url = elem.href;
+                        text = $(elem).text();
+
+                        this.insert_link_node = elem;
+                    }
+                    else text = sel.toString();
+
+                    var thref = self.location.href.replace(/\/$/i, '');
+                    var turl = url.replace(thref, '');
+
+                    ko.cleanNode(document.getElementById('redactor-popup_b-link'));
+                    this.linkVM = new WysiwygLink({ url : turl, text : text });
+                    ko.applyBindings(this.linkVM, document.getElementById('redactor-popup_b-link'))
+                    $('#redactor-popup_b-link').toggleClass('display-n');
+                }
             },
             link_del: {
                 title: 'link_del',
@@ -210,4 +241,42 @@
             });
         }
     };
+
+    var WysiwygLink = function(data) {
+        var self = this;
+        self.url = ko.observable(data.url);
+        self.text = ko.observable(data.text);
+
+        self.close = function() {
+            $('#redactor-popup_b-link').addClass('display-n');
+        }
+
+        self.processLink = function() {
+            console.log('process');
+
+            var link = '', text = '';
+
+            link = self.url();
+            text = self.text();
+
+            if ($('#redactor_link_blank').prop('checked'))
+            {
+                target = ' target="_blank"';
+                targetBlank = '_blank';
+            }
+
+            // test url (add protocol)
+            var pattern = '((xn--)?[a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}';
+            var re = new RegExp('^(http|ftp|https)://' + pattern, 'i');
+            var re2 = new RegExp('^' + pattern, 'i');
+
+            if (link.search(re) == -1 && link.search(re2) == 0 && this.opts.linkProtocol)
+            {
+                link = this.opts.linkProtocol + link;
+            }
+
+            redactor.linkInsert('<a href="' + link + '">' + text + '</a>', $.trim(text), link, '');
+            self.close();
+        }
+    }
 </script>

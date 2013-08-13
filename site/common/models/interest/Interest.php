@@ -40,7 +40,7 @@ class Interest extends HActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('title, category_id', 'required'),
+            array('title', 'required'),
             array('title', 'length', 'max' => 255),
             array('category_id', 'length', 'max' => 2),
             // The following rule is used by search().

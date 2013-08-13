@@ -105,7 +105,7 @@
 							</li>
 							<li class="b-family_li">
 								<div class="b-family_img-hold">
-									<div class="ico-family ico-family__girl-small"></div>
+									<div class="ico-family ico-family__baby-plan"></div>
 								</div>
 								<div class="b-family_tx">
 									<span>Дочь</span> <br>

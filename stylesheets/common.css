@@ -397,6 +397,9 @@ html.top-nav-fixed {
 .padding-t20 {
   padding-top: 20px !important;
 }
+.padding-r20 {
+  padding-right: 20px !important;
+}
 .padding-b20 {
   padding-bottom: 20px !important;
 }
@@ -6794,6 +6797,7 @@ select.pregnancy_term + .chzn-container .chzn-results li {
   position: relative;
 }
 .content-cols .col-1 .b-ava-large {
+  margin-top: 0;
   margin-bottom: 30px;
 }
 .content-cols .col-1_t {
@@ -20248,7 +20252,7 @@ select.pregnancy_term + .chzn-container .chzn-results li {
   line-height: 10px;
   text-align: center;
 }
-.b-family__bg .b-family_more {
+.b-family__bg-dark .b-family_more {
   color: #fff;
 }
 .b-family__bg-none .b-family_img-hold {

@@ -13458,7 +13458,7 @@ table.fr_recipe_tb td {
 /* /b-ava-large */
 /* aside-blog-desc */
 .aside-blog-desc {
-  margin: 5px 17px 25px;
+  margin: 5px 17px 45px;
   font-size: 11px;
   line-height: 16px;
   color: #333;
@@ -14017,6 +14017,7 @@ table.fr_recipe_tb td {
 }
 .popup-blog-set .aside-blog-desc {
   margin-left: 0;
+  margin-bottom: 25px;
 }
 .popup-blog-set .blog-title-b {
   margin: 0 -20px 0 0;

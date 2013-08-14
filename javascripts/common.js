@@ -980,7 +980,7 @@ function HgLike(el, entity, entity_id){
             </div>\
             <div class="textalign-c margin-t15" data-bind="visible: embed() !== null">\
                 <a href="javascript:void(0)" class="btn-gray-light btn-medium margin-r10" onclick="$(this).parents(\'.redactor-popup\').addClass(\'display-n\');">Отменить</a>\
-                <a href="javascript:void(0)" class="btn-green btn-medium" onclick="redactor.selectionRestore(); redactor.insertHtml($(\'#embed\').html()); $(this).parents(\'.redactor-popup\').addClass(\'display-n\');">Добавить видео</a>\
+                <a href="javascript:void(0)" class="btn-green btn-medium" onclick="redactor.selectionRestore(); redactor.insertHtml(\'<div class="b-article_in-img">\' + $(\'#embed\').html() + \'</div>\'); $(this).parents(\'.redactor-popup\').addClass(\'display-n\');">Добавить видео</a>\
             </div>\
         </div>\
         <!-- /ko -->');

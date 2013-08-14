@@ -137,12 +137,14 @@ NotificationRead::getInstance()->SetVisited();
                     </div>
                     <!-- /ko -->
 
-                    <div class="redactor-control_key">
-                        <input type="checkbox" class="redactor-control_key-checkbox" id="redactor-control_key-checkbox"  data-bind="checked: enterSetting, click: focusEditor">
-                        <label class="redactor-control_key-label" for="redactor-control_key-checkbox">Enter - отправить</label>
-                    </div>
+                    <div class="float-r">
+                        <div class="redactor-control_key">
+                            <input type="checkbox" class="redactor-control_key-checkbox" id="redactor-control_key-checkbox"  data-bind="checked: enterSetting, click: focusEditor">
+                            <label class="redactor-control_key-label" for="redactor-control_key-checkbox">Enter - отправить</label>
+                        </div>
 
-                    <button class="btn-green" data-bind="click: addComment">Отправить</button>
+                        <button class="btn-green" data-bind="click: addComment">Отправить</button>
+                    </div>
 
                 </div>
                 <!-- /ko -->

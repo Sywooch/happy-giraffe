@@ -29,14 +29,17 @@ function CommentViewModel(data) {
         return self.allCount();
     });
 
-    self.openComment = function (data, event) {
-        self.opened(true);
-        ko.utils.arrayForEach(self.comments(), function (comment) {
-            if (comment.editMode())
-                comment.editMode(false);
-        });
+    self.openComment = function () {
+        if (!self.opened()){
+            self.opened(true);
+            ko.utils.arrayForEach(self.comments(), function (comment) {
+                if (comment.editMode())
+                    comment.editMode(false);
+            });
 
-        self.initEditor('add_' + self.objectName());
+            self.initEditor('add_' + self.objectName());
+        }
+        self.focusEditor();
     };
 
     self.Enter = function () {
@@ -47,7 +50,7 @@ function CommentViewModel(data) {
         if (!self.sending()) {
             self.sending(true);
             self.disableInput();
-            $.post('/ajaxSimple/addComment/', {entity: self.entity(), entity_id: self.entity_id(), text: self.getMessageText()},
+            $.post('/ajaxSimple/addComment/', {entity: self.entity(), entity_id: self.entity_id(), response_id: self.responseId(), text: self.getMessageText()},
                 function (response) {
                     if (response.status) {
                         self.opened(false);
@@ -63,7 +66,8 @@ function CommentViewModel(data) {
         }
     };
     self.goBottom = function () {
-        $('.layout-container').stop().animate({scrollTop: $('#layout').height()}, "normal");
+        $('body').stop().animate({scrollTop: $('#content').height()}, "normal");
+        self.openComment();
     };
     self.initEditor = function (id) {
         self.editor = $('#' + id);
@@ -98,6 +102,28 @@ function CommentViewModel(data) {
                 return self.editor.val();
         } else
             return self.editor.html();
+    };
+
+    /*************************************** reply ****************************************/
+    self.response = ko.observable(false);
+    self.responseId = ko.computed(function () {
+        if (self.response())
+            return self.response().id;
+        else
+            return '';
+    });
+    self.removeResponse = function(){
+        var str = self.editor.html();
+        str = str.replace('<span data-redactor="verified" class="a-imitation">' + self.response().author.firstName() + ',</span>','');
+        str = str.replace('<span class="a-imitation">' + self.response().author.firstName() + ',</span>','');
+        self.editor.html(str);
+        self.response(false);
+    };
+
+    self.Reply = function (comment) {
+        self.response(comment);
+        self.goBottom();
+        self.editor.html('<span class="a-imitation">' + comment.author.firstName() + ',</span>&nbsp;');
     };
 }
 
@@ -178,7 +204,7 @@ function NewComment(data, parent) {
     };
 
     self.Reply = function () {
-
+        self.parent.Reply(self);
     };
 
     self.Enter = function () {

@@ -1,4 +1,4 @@
-<div class="custom-likes-b">
+<div class="custom-likes-b custom-likes-b__like-white">
     <div class="custom-likes-b_slogan">Поделитесь с друзьями!</div>
     <a class="custom-like" href="">
         <span class="custom-like_icon odkl"></span>

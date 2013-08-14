@@ -51,16 +51,7 @@ Yii::app()->clientScript->registerPackage('ko_profile');
             </div>
         </div>
         <div class="section-lilac_center">
-            <div class="b-ava-large">
-                <div class="ava large">
-                    <img src="/images/example/ava-large.jpg" alt="">
-                </div>
-                <?php if ($user->online): ?>
-                    <span class="b-ava-large_online">На сайте</span>
-                <?php else: ?>
-                    <span class="b-ava-large_lastvisit">Была на сайте <br> <?= HDate::GetFormattedTime($user->login_date); ?></span>
-                <?php endif; ?>
-            </div>
+            <?php $this->renderPartial('_ava',array('user'=>$user)); ?>
             <div class="section-lilac_center-reg">с Веселым Жирафом <?=$user->withUs() ?></div>
         </div>
         <div class="section-lilac_right">

@@ -174,4 +174,9 @@ class NewCommentWidget extends CWidget
     {
         return (($this->entity == 'CommunityContent' || $this->entity == 'BlogContent') && $this->model->type_id == CommunityContent::TYPE_PHOTO_POST);
     }
+
+    public function isSummaryPhotoComments()
+    {
+        return $this->isAlbumComments() || $this->isPhotoPost();
+    }
 }

@@ -20,13 +20,6 @@ class DefaultController extends HController
 
     public function actionIndex($user_id, $rubric_id = null)
     {
-        $v = Video::factory('http://rutube.ru/video/88a2937438cf6c6aa19e7a6907a88f9b/');
-
-        echo $v->embed;
-        echo CHtml::image($v->thumbnail);
-
-        die;
-
         $this->user = $this->loadUser($user_id);
         $this->pageTitle = $this->user->getBlogTitle();
         $this->rubric_id = $rubric_id;
@@ -212,11 +205,8 @@ class DefaultController extends HController
 
     public function actionVideoPreview($url)
     {
-        Yii::import('site.common.vendor.*');
-        require_once('OEmbed.php');
-        $oembed = new OEmbed();
-        $html = $oembed->getHtml($url, array('width' => 580, 'height' => 580));
-        echo CJSON::encode($html);
+        $video = Video::factory($url);
+        echo CJSON::encode($video->embed);
     }
 
     protected function performAjaxValidation($models)

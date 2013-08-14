@@ -42,7 +42,11 @@ class Video extends CComponent
 
     public static function factory($url)
     {
-        $class = self::$providers[self::getProvider($url)]['class'];
+        $provider = self::getProvider($url);
+        if ($provider === false)
+            return false;
+
+        $class = self::$providers[$provider]['class'];
         return new $class($url);
     }
 }

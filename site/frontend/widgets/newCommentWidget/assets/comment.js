@@ -6,6 +6,7 @@ function CommentViewModel(data) {
     self.gallery = ko.observable(data.gallery);
     self.objectName = ko.observable(data.objectName);
     self.editor = null;
+    self.response_id = ko.observable(null);
 
     self.comments = ko.observableArray([]);
     self.comments(ko.utils.arrayMap(data.comments, function (comment) {
@@ -29,14 +30,17 @@ function CommentViewModel(data) {
         return self.allCount();
     });
 
-    self.openComment = function (data, event) {
-        self.opened(true);
-        ko.utils.arrayForEach(self.comments(), function (comment) {
-            if (comment.editMode())
-                comment.editMode(false);
-        });
+    self.openComment = function () {
+        if (!self.opened()){
+            self.opened(true);
+            ko.utils.arrayForEach(self.comments(), function (comment) {
+                if (comment.editMode())
+                    comment.editMode(false);
+            });
 
-        self.initEditor('add_' + self.objectName());
+            self.initEditor('add_' + self.objectName());
+        }
+        self.focusEditor();
     };
 
     self.Enter = function () {
@@ -178,7 +182,8 @@ function NewComment(data, parent) {
     };
 
     self.Reply = function () {
-
+        self.parent.response_id(self.id());
+        self.parent.openComment();
     };
 
     self.Enter = function () {

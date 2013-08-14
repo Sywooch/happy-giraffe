@@ -93,6 +93,7 @@ class CommentatorDayWork extends EMongoEmbeddedDocument
             $this->calcImMessageStats($commentator->user_id);
             $this->calcFriendsStats($commentator->user_id);
             $this->addAllPosts($commentator->user_id);
+            $this->checkStatus($commentator);
 
             if ($this->date != date("Y-m-d"))
                 $this->closed = 1;
@@ -297,5 +298,15 @@ class CommentatorDayWork extends EMongoEmbeddedDocument
             $this->comments >= $commentator->getCommentsLimit()
         )
             $this->status = self::STATUS_SUCCESS;
+    }
+
+    /**
+     * Обновить информацию о статусе
+     * @param $commentator
+     */
+    public function updateStatus($commentator)
+    {
+        $this->checkStatus($commentator);
+        $this->updateFields($commentator, array('status'));
     }
 }

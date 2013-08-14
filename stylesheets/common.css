@@ -20440,7 +20440,8 @@ select.pregnancy_term + .chzn-container .chzn-results li {
   max-height: 100%;
 }
 .family-settings_desc {
-  margin-left: 230px;
+  float: left;
+  width: 400px;
 }
 .family-settings_about {
   padding-right: 30px;

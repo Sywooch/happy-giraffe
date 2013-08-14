@@ -112,7 +112,7 @@ $(document).ready(function () {
             overlayOpacity:'0.6',
             padding:0,
             showCloseButton:false,
-            scrolling:false,
+            centerOnScroll:true,
             onComplete:onComplete_function
         }).trigger('click');
         return false;

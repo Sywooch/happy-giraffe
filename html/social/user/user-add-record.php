@@ -719,15 +719,15 @@
 					</div>
 					
 					<div class="wysiwyg-v wysiwyg-blue clearfix">
-					
+<script src="/redactor/plugins/toolbarVerticalFixed/toolbarVerticalFixed.js"></script>	
 						<script>
 $(document).ready(function () { 
   $('.wysiwyg-redactor-v').redactor({
-      minHeight: 450,
+      plugins: ['toolbarVerticalFixed'],
+      minHeight: 410,
       autoresize: true,
-      toolbarFixed: true,
-      toolbarFixedBox: true,
-      toolbarFixedTopOffset: 50,
+      toolbarExternal: '.wysiwyg-v_toolbar-btn',
+
       /* В базовом варианте нет кнопок 'h2', 'h3', 'link_add', 'link_del' но их функции реализованы с помощью выпадающих списков */
       buttons: ['bold', 'italic', 'underline', 'deleted', 'h2', 'h3', 'unorderedlist', 'orderedlist', 'link_add', 'link_del', 'image', 'video', 'smile'],
       buttonsCustom: {
@@ -770,8 +770,8 @@ $(document).ready(function () {
   });
 });
 						</script>
-						<textarea name="" class="wysiwyg-redactor-v"></textarea>
-					
+					<div class="wysiwyg-v_toolbar">
+						<div class="wysiwyg-v_toolbar-btn"></div>
 						<div class="redactor-popup redactor-popup_b-photo display-n" >
 							<a href="" class="redactor-popup_close ico-close3 powertip" title="Закрыть"></a>
 							<div class="redactor-popup_tale"></div>
@@ -953,14 +953,15 @@ $(document).ready(function () {
 									<a href="" class="btn-green btn-medium">Добавить ссылку</a>
 								</div>
 							</div>
-					
+					</div>
+						<textarea name="" class="wysiwyg-redactor-v"></textarea>
 					</div>
 					
 					<div class=" clearfix">
 						<a href="" class="btn-blue btn-h46 float-r">Добавить</a>
 						<a href="" class="btn-gray-light btn-h46 float-r margin-r15">Отменить</a>
 						
-						<div class="float-l">
+						<div class="float-l margin-l65">
 							<div class="privacy-select clearfix">
 								<div class="privacy-select_hold clearfix">
 									<div class="privacy-select_tx">Для кого:</div>

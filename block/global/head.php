@@ -11,7 +11,7 @@
 	 -->
 	<script type="text/javascript">
 	if (typeof jQuery == 'undefined') {
-	    document.write(unescape("%3Cscript src='/javascripts/jquery-1.7.2.min.js' type='text/javascript'%3E%3C/script%3E"));
+	    document.write(unescape("%3Cscript src='/javascripts/jquery-1.8.3.min.js' type='text/javascript'%3E%3C/script%3E"));
 	}
 	</script>
 	
@@ -32,7 +32,7 @@
 	<script type="text/javascript" src="/javascripts/jquery.flydiv.js"></script>
 
 	<script type="text/javascript" src="/ckeditor/ckeditor.js"></script>
-	<script type="text/javascript" src="/redactor/redactor.js"></script>
+	<script src="http://imperavi.com/js/redactor/redactor.js"></script>
   
 	<script type="text/javascript" src="/javascripts/jquery.flip.js"></script>
 	<script type="text/javascript" src="/javascripts/addtocopy.js"></script>

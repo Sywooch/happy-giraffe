@@ -200,7 +200,7 @@ class PagesSearchPhrase extends HActiveRecord
      * @static
      * @return PagesSearchPhrase
      */
-/*    public static function getActualPhrase()
+    public static function getActualPhrase()
     {
         if (SeoUserAttributes::getAttribute('se_tab') == 1)
             return self::getYandexPhrase();
@@ -213,10 +213,9 @@ class PagesSearchPhrase extends HActiveRecord
         $criteria = new CDbCriteria;
         $criteria->select = 't.*, `skip`.`phrase_id` as skips';
         $criteria->with = array(
-            'keyword' => array('select' => 'name'),
-            'keyword.yandex' => array(
-                'select' => 'value',
-                'condition' => 'value >= :wordstat_min',
+            'keyword' => array(
+                'select' => 'name',
+                'condition' => 'wordstat >= :wordstat_min',
                 'params' => array(':wordstat_min' => SeoUserAttributes::getAttribute('wordstat_min'))
             ),
             'skip',
@@ -224,10 +223,10 @@ class PagesSearchPhrase extends HActiveRecord
         );
 
         $criteria->together = true;
-        $criteria->condition = 'skip.phrase_id IS NULL
-        AND google_traffic >= :google_visits_min
-        AND last_yandex_position > 3
-        AND inner_links_count < 1';
+        $criteria->condition = 'skip.phrase_id IS NULL'
+        .' AND google_traffic >= :google_visits_min'
+        //.' AND last_yandex_position > 3'
+        .' AND inner_links_count < 1';
 
         $criteria->params = array(
             ':google_visits_min' => SeoUserAttributes::getAttribute('google_visits_min')
@@ -245,10 +244,9 @@ class PagesSearchPhrase extends HActiveRecord
         $criteria = new CDbCriteria;
         $criteria->select = 't.*, `skip`.`phrase_id` as skips';
         $criteria->with = array(
-            'keyword' => array('select' => 'name'),
-            'keyword.yandex' => array(
-                'select' => 'value',
-                'condition' => 'value >= :wordstat_min',
+            'keyword' => array(
+                'select' => 'name',
+                'condition' => 'wordstat >= :wordstat_min',
                 'params' => array(':wordstat_min' => SeoUserAttributes::getAttribute('wordstat_min'))
             ),
             'skip',
@@ -256,20 +254,22 @@ class PagesSearchPhrase extends HActiveRecord
         $criteria->condition = 'inner_links_count < 1';
         $criteria->together = true;
 
-        if (SeoUserAttributes::getAttribute('yandex_sort') == self::SORT_BY_POSITION)
-            $criteria->order = 'last_yandex_position asc';
-        else
-            $criteria->order = 'yandex.value desc';
-        $criteria->condition .= ' AND skip.phrase_id IS NULL AND last_yandex_position > :min_yandex_position
-                                AND last_yandex_position < :max_yandex_position';
+//        if (SeoUserAttributes::getAttribute('yandex_sort') == self::SORT_BY_POSITION)
+//            $criteria->order = 'last_yandex_position asc';
+//        else
+            $criteria->order = 'wordstat desc';
+        $criteria->condition .= ' AND skip.phrase_id IS NULL'
+            //.' AND last_yandex_position > :min_yandex_position'
+            //.' AND last_yandex_position < :max_yandex_position'
+        ;
 
-        $criteria->params = array(
-            ':min_yandex_position' => SeoUserAttributes::getAttribute('min_yandex_position'),
-            ':max_yandex_position' => SeoUserAttributes::getAttribute('max_yandex_position'),
-        );
+//        $criteria->params = array(
+//            ':min_yandex_position' => SeoUserAttributes::getAttribute('min_yandex_position'),
+//            ':max_yandex_position' => SeoUserAttributes::getAttribute('max_yandex_position'),
+//        );
 
-        if (SeoUserAttributes::getAttribute('yandex_traffic'))
-            $criteria->condition .= ' AND yandex_traffic > 0';
+//        if (SeoUserAttributes::getAttribute('yandex_traffic'))
+//            $criteria->condition .= ' AND yandex_traffic > 0';
 
         TimeLogger::model()->startTimer('get yandex phrase');
         $model = PagesSearchPhrase::model()->find($criteria);
@@ -277,7 +277,7 @@ class PagesSearchPhrase extends HActiveRecord
 
 
         return $model;
-    }*/
+    }
 
     /**
      * @param int $se

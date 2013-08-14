@@ -6806,7 +6806,7 @@ select.pregnancy_term + .chzn-container .chzn-results li {
   position: relative;
 }
 .content-cols .col-1 .b-ava-large {
-  margin-top: 0;
+  margin-top: 0px;
   margin-bottom: 30px;
 }
 .content-cols .col-1_t {
@@ -20397,6 +20397,64 @@ select.pregnancy_term + .chzn-container .chzn-results li {
   background-color: rgba(0, 0, 0, 0.3);
 }
 /* /b-family */
+/* family-settings */
+.family-settings {
+  position: relative;
+  margin-bottom: 30px;
+  padding: 20px;
+  background: #f8f8f8;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  border-radius: 8px;
+}
+.family-settings:hover {
+  background: #fff;
+}
+.family-settings:hover .family-settings_del {
+  display: block;
+}
+.family-settings .form-settings {
+  padding: 0;
+  background: none;
+}
+.family-settings_hold {
+  margin-bottom: 20px;
+}
+.family-settings_photo {
+  float: left;
+  margin-right: 20px;
+  background: #e8e8e8;
+}
+.family-settings_photo-hold {
+  display: table-cell;
+  width: 205px;
+  max-width: 205px;
+  height: 205px;
+  max-height: 205px;
+  vertical-align: middle;
+  text-align: center;
+}
+.family-settings_photo-img {
+  display: block;
+  margin: 0 auto;
+  max-height: 100%;
+}
+.family-settings_desc {
+  margin-left: 230px;
+}
+.family-settings_about {
+  padding-right: 30px;
+  font-size: 14px;
+  line-height: 20px;
+  color: #504f4f;
+}
+.family-settings_del {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  display: none;
+}
+/* /family-settings */
 /* valentine-banner */
 .valentine-banner {
   position: relative;

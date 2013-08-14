@@ -496,17 +496,11 @@
 										</div>
 									</div>
 									
-									<div class="comments-gray_control">
+									<div class="comments-gray_control comments-gray_control__one">
 										<div class="comments-gray_control-hold">
 											<div class="clearfix">
 												<a href="" class="comments-gray_quote-ico powertip" title="Ответить"></a>
 											</div>
-											<div class="clearfix">
-												<a href="" class="message-ico message-ico__del powertip" title="Удалить"></a>
-											</div>
-										</div>
-										<div class="clearfix">
-											<a href="" class="message-ico message-ico__warning powertip" title="Пожаловаться"></a>
 										</div>
 									</div>
 								</div>

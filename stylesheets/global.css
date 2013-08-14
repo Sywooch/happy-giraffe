@@ -13619,6 +13619,9 @@ table.fr_recipe_tb td {
   -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
+.comments-gray_control__one {
+  margin-top: -10px;
+}
 .comments-gray_control .message-ico {
   display: block;
   margin: 2px auto;
@@ -13683,11 +13686,11 @@ table.fr_recipe_tb td {
 }
 .comments-gray_photo:hover {
   z-index: 10;
-  -webkit-transform: scale(3);
-  -moz-transform: scale(3);
-  -ms-transform: scale(3);
-  -o-transform: scale(3);
-  transform: scale(3);
+  -webkit-transform: scale(2.4);
+  -moz-transform: scale(2.4);
+  -ms-transform: scale(2.4);
+  -o-transform: scale(2.4);
+  transform: scale(2.4);
   -webkit-box-shadow: 0 0 7px rgba(0, 0, 0, 0.9);
   -moz-box-shadow: 0 0 7px rgba(0, 0, 0, 0.9);
   box-shadow: 0 0 7px rgba(0, 0, 0, 0.9);
@@ -14939,7 +14942,7 @@ table.fr_recipe_tb td {
 /* /b-user-small */
 /* heading-title */
 .heading-title {
-  margin: 15px 20px 10px 25px;
+  margin: 5px 20px 10px 25px;
   font-size: 35px;
   line-height: 35px;
   font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, Tahoma, sans-serif;
@@ -15898,6 +15901,10 @@ table.fr_recipe_tb td {
   font-size: 13px;
   line-height: 34px;
   color: #919090;
+}
+.form-settings_label-row {
+  color: #333;
+  margin: 10px 0 10px;
 }
 .form-settings_elem {
   float: left;

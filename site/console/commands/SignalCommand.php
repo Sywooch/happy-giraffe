@@ -47,12 +47,12 @@ class SignalCommand extends CConsoleCommand
             ->from('friends')
             ->where('user2_id = :user_id', array(':user_id' => $user_id))
             ->union(
-            Yii::app()->db->createCommand()
-                ->select('user2_id')
-                ->from('friends')
-                ->where('user1_id = :user_id', array(':user_id' => $user_id))
-                ->text
-        )
+                Yii::app()->db->createCommand()
+                    ->select('user2_id')
+                    ->from('friends')
+                    ->where('user1_id = :user_id', array(':user_id' => $user_id))
+                    ->text
+            )
             ->queryColumn();
 
         foreach ($this->moderators as $moder_id) {
@@ -110,20 +110,18 @@ class SignalCommand extends CConsoleCommand
         $month->calculateMonth();
     }
 
-    public function actionRecalc(){
+    public function actionRecalc()
+    {
         $commentators = CommentatorHelper::getCommentatorIdList();
-        foreach ($commentators as $commentator){
+        foreach ($commentators as $commentator) {
             $model = $this->getCommentator($commentator);
-            if ($model){
-                $date = date("Y-m-d", strtotime('-3 days'));
-                $day = $model->getDay($date);
-                $day->updatePostsCount($model);
-                $date = date("Y-m-d", strtotime('-2 days'));
-                $day = $model->getDay($date);
-                $day->updatePostsCount($model);
-                $date = date("Y-m-d", strtotime('-1 days'));
-                $day = $model->getDay($date);
-                $day->updatePostsCount($model);
+            if ($model) {
+                for ($i = 1; $i < 20; $i++) {
+                    $date = date("Y-m-d", strtotime('-' . $i . ' days'));
+                    $day = $model->getDay($date);
+                    if ($day)
+                        $day->updateStatus($model);
+                }
             }
         }
     }

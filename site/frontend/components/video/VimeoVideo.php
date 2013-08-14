@@ -9,5 +9,9 @@
 
 class VimeoVideo extends BasicVideo
 {
-
+    public function getThumbnail()
+    {
+        $oembed = new OEmbed($this->url);
+        return $oembed->thumbnail_url;
+    }
 }

@@ -20,7 +20,7 @@ class DefaultController extends HController
 
     public function actionIndex($user_id, $rubric_id = null)
     {
-        $v = Video::factory('http://www.youtube.com/watch?v=7ba9nCot71w');
+        $v = Video::factory('http://rutube.ru/video/88a2937438cf6c6aa19e7a6907a88f9b/');
 
         echo $v->embed;
         echo CHtml::image($v->thumbnail);

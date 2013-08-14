@@ -44,6 +44,12 @@ class OEmbed extends CComponent
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $response = curl_exec($ch);
         $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
         return $httpCode == 200 ? $response : false;
+    }
+
+    public function __get($name)
+    {
+        return isset($this->data[$name]) ? $this->data[$name] : parent::__get($name);
     }
 }

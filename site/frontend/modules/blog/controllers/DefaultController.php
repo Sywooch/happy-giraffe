@@ -20,6 +20,13 @@ class DefaultController extends HController
 
     public function actionIndex($user_id, $rubric_id = null)
     {
+        $v = Video::factory('http://www.youtube.com/watch?v=7ba9nCot71w');
+
+        echo $v->embed;
+        echo CHtml::image($v->thumbnail);
+
+        die;
+
         $this->user = $this->loadUser($user_id);
         $this->pageTitle = $this->user->getBlogTitle();
         $this->rubric_id = $rubric_id;

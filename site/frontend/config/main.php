@@ -25,6 +25,7 @@ return array(
 		'ext.ufile.UFiles',
 		'application.models.*',
 		'application.components.*',
+        'application.components.video.*',
 		'application.helpers.*',
         'application.widgets.*',
         'application.vendor.*',

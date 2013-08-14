@@ -9,7 +9,7 @@ $data = array(
     'entity' => $this->entity,
     'entity_id' => (int)$this->entity_id,
     'objectName' => $this->objectName,
-    'comments' => Comment::getViewData($comments, $this->isAlbumComments()),
+    'comments' => Comment::getViewData($comments, $this->isSummaryPhotoComments()),
     'full' => (bool)$this->full,
     'gallery' => (bool)$this->gallery,
     'allCount' => (int)$allCount,
@@ -44,11 +44,10 @@ NotificationRead::getInstance()->SetVisited();
     </div>
 
 
-    <!-- ko if: comments().length > 0 -->
-    <div class="comments-gray_hold">
+    <div class="comments-gray_hold" data-bind="visible: comments().length > 0">
 
         <!-- ko foreach: comments -->
-        <div class="comments-gray_i" data-bind="css: {'comments-gray_i__self': ownComment()}, attr: {id: 'comment_'+id()}">
+        <div class="comments-gray_i" data-bind="css: {'comments-gray_i__self': ownComment(), 'comments-gray_i__recovery': removed()}, attr: {id: 'comment_'+id()}">
 
             <a class="comments-gray_like like-hg-small powertip" href="" data-bind="text:likesCount, css:{active: userLikes, hide: (likesCount() == 0)}, click:Like, tooltip: 'Нравиться'"></a>
 
@@ -64,10 +63,8 @@ NotificationRead::getInstance()->SetVisited();
                     <span class="font-smallest color-gray" data-bind="text: created"></span>
                 </div>
 
-                <!-- ko if: !removed() && !editMode() -->
-                <div class="comments-gray_cont wysiwyg-content">
-                    <!-- ko if: albumPhoto() -->
-                    <div class="clearfix">
+                <div class="comments-gray_cont wysiwyg-content" data-bind="visible: !removed() && !editMode()">
+                    <div class="clearfix" data-bind="visible: albumPhoto()">
                         <div class="comments-gray_photo">
                             <img src="" class="comments-gray_photo-img" data-bind="attr: {src: photoUrl}">
                             <div class="comments-gray_photo-overlay">
@@ -75,21 +72,17 @@ NotificationRead::getInstance()->SetVisited();
                             </div>
                         </div>
                     </div>
-                    <!-- /ko -->
                     <div data-bind="html: html"></div>
                 </div>
-                <!-- /ko -->
 
-                <!-- ko if: removed() -->
-                <div class="comments-gray_cont wysiwyg-content">
+                <div class="comments-gray_cont wysiwyg-content" data-bind="visible: removed()">
                     <p>Комментарий успешно удален. <a href="" class="comments-gray_a-recovery" data-bind="click: Restore">Восстановить?</a> </p>
                 </div>
-                <!-- /ko -->
 
                 <!-- ko if: editMode() -->
                 <?php if (!$this->gallery):?>
                 <div class="js-edit-field" data-bind="attr: {id: 'text' + id()}, html: html, enterKey: Enter"></div>
-                <div class="redactor-control">
+                <div class="redactor-control clearfix">
                     <div class="redactor-control_key">
                         <input type="checkbox" class="redactor-control_key-checkbox" id="redactor-control_key-checkbox"  data-bind="checked: $parent.enterSetting, click: $parent.focusEditor">
                         <label class="redactor-control_key-label" for="redactor-control_key-checkbox">Enter - отправить</label>
@@ -103,35 +96,27 @@ NotificationRead::getInstance()->SetVisited();
 
             </div>
 
-            <!-- ko if: !editMode() -->
-            <div class="comments-gray_control" data-bind="css: {'comments-gray_control__self': ownComment()}">
+            <div class="comments-gray_control" data-bind="css: {'comments-gray_control__self': ownComment()}, visible: (!editMode() && !photoUrl())">
                 <div class="comments-gray_control-hold">
-                    <!-- ko if: !ownComment() -->
-                    <div class="clearfix">
+
+                    <div class="clearfix" data-bind="visible: (!ownComment() && !$parent.gallery())">
                         <a href="" class="comments-gray_quote-ico powertip" data-bind="click: Reply, tooltip: 'Ответить'"></a>
                     </div>
-                    <!-- /ko -->
 
-                    <!-- ko if: canEdit() -->
-                    <div class="clearfix">
+                    <div class="clearfix" data-bind="visible: canEdit() && !$parent.gallery()">
                         <a href="" class="message-ico message-ico__edit powertip" data-bind="click: GoEdit, tooltip: 'Редактировать'"></a>
                     </div>
-                    <!-- /ko -->
 
-                    <!-- ko if: canRemove() -->
-                    <div class="clearfix">
+                    <div class="clearfix" data-bind="visible: canRemove()">
                         <a href="" class="message-ico message-ico__del powertip" data-bind="click: Remove, tooltip: 'Удалить'"></a>
                     </div>
-                    <!-- /ko -->
 
                 </div>
             </div>
-            <!-- /ko -->
 
         </div>
         <!-- /ko -->
     </div>
-    <!-- /ko -->
 
     <?php if (!Yii::app()->user->isGuest && !$this->gallery):?>
         <div class="comments-gray_add clearfix" data-bind="css: {active: opened}">
@@ -142,12 +127,25 @@ NotificationRead::getInstance()->SetVisited();
                 <input type="text" class="comments-gray_add-itx itx-gray" placeholder="Ваш комментарий" data-bind="click:openComment, visible: !opened()">
                 <!-- ko if: opened() -->
                 <div id="add_<?=$this->objectName ?>" data-bind="enterKey: Enter"></div>
-                <div class="redactor-control">
-                    <div class="redactor-control_key">
-                        <input type="checkbox" class="redactor-control_key-checkbox" id="redactor-control_key-checkbox"  data-bind="checked: enterSetting, click: focusEditor">
-                        <label class="redactor-control_key-label" for="redactor-control_key-checkbox">Enter - отправить</label>
+                <div class="redactor-control clearfix">
+
+                    <!-- ko if: response() -->
+                    <div class="redactor-control_quote">
+                        <span class="comments-gray_quote-ico active"></span>
+                        <span class="redactor-control_quote-tx" data-bind="text: response().author.fullName">Вася Пупкин</span>
+                        <a href="" class="ico-close3 powertip" data-bind="click: removeResponse"></a>
                     </div>
-                    <button class="btn-green" data-bind="click: addComment">Отправить</button>
+                    <!-- /ko -->
+
+                    <div class="float-r">
+                        <div class="redactor-control_key">
+                            <input type="checkbox" class="redactor-control_key-checkbox" id="redactor-control_key-checkbox"  data-bind="checked: enterSetting, click: focusEditor">
+                            <label class="redactor-control_key-label" for="redactor-control_key-checkbox">Enter - отправить</label>
+                        </div>
+
+                        <button class="btn-green" data-bind="click: addComment">Отправить</button>
+                    </div>
+
                 </div>
                 <!-- /ko -->
             </div>

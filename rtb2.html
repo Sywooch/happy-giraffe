@@ -6,15 +6,20 @@
 
 <div id="yandex_ad_R-87026-4"></div>
 <script type="text/javascript">
-    (function(w, n) {
+    (function(w, d, n, s, t) {
         w[n] = w[n] || [];
         w[n].push(function() {
             Ya.Context.AdvManager.render({
                 blockId: "R-87026-4",
                 renderTo: "yandex_ad_R-87026-4",
-                async: false
+                async: true
             });
         });
-        document.write('<sc'+'ript type="text/javascript" src="//an.yandex.ru/system/context.js"></sc'+'ript>');
-    })(this, "yandexContextSyncCallbacks");
+        t = d.getElementsByTagName("script")[0];
+        s = d.createElement("script");
+        s.type = "text/javascript";
+        s.src = "//an.yandex.ru/system/context.js";
+        s.async = true;
+        t.parentNode.insertBefore(s, t);
+    })(this, this.document, "yandexContextAsyncCallbacks");
 </script>

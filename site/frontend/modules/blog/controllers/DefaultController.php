@@ -271,6 +271,16 @@ class DefaultController extends HController
         echo CJSON::encode($response);
     }
 
+    public function actionRemoveRubric()
+    {
+        $id = Yii::app()->request->getPost('id');
+        $rubric = CommunityRubric::model()->findByPk($id);
+        if ($rubric->user_id == Yii::app()->user->id){
+            $rubric->delete();
+        }
+        echo CJSON::encode(array('status' => true));
+    }
+
     /**
      * @param int $id model id
      * @return BlogContent

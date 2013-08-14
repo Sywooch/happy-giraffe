@@ -44,8 +44,7 @@ NotificationRead::getInstance()->SetVisited();
     </div>
 
 
-    <!-- ko if: comments().length > 0 -->
-    <div class="comments-gray_hold">
+    <div class="comments-gray_hold" data-bind="visible: comments().length > 0">
 
         <!-- ko foreach: comments -->
         <div class="comments-gray_i" data-bind="css: {'comments-gray_i__self': ownComment()}, attr: {id: 'comment_'+id()}">
@@ -64,10 +63,8 @@ NotificationRead::getInstance()->SetVisited();
                     <span class="font-smallest color-gray" data-bind="text: created"></span>
                 </div>
 
-                <!-- ko if: !removed() && !editMode() -->
-                <div class="comments-gray_cont wysiwyg-content">
-                    <!-- ko if: albumPhoto() -->
-                    <div class="clearfix">
+                <div class="comments-gray_cont wysiwyg-content" data-bind="visible: !removed() && !editMode()">
+                    <div class="clearfix" data-bind="visible: albumPhoto()">
                         <div class="comments-gray_photo">
                             <img src="" class="comments-gray_photo-img" data-bind="attr: {src: photoUrl}">
                             <div class="comments-gray_photo-overlay">
@@ -75,16 +72,12 @@ NotificationRead::getInstance()->SetVisited();
                             </div>
                         </div>
                     </div>
-                    <!-- /ko -->
                     <div data-bind="html: html"></div>
                 </div>
-                <!-- /ko -->
 
-                <!-- ko if: removed() -->
-                <div class="comments-gray_cont wysiwyg-content">
+                <div class="comments-gray_cont wysiwyg-content" data-bind="visible: removed()">
                     <p>Комментарий успешно удален. <a href="" class="comments-gray_a-recovery" data-bind="click: Restore">Восстановить?</a> </p>
                 </div>
-                <!-- /ko -->
 
                 <!-- ko if: editMode() -->
                 <?php if (!$this->gallery):?>
@@ -103,35 +96,27 @@ NotificationRead::getInstance()->SetVisited();
 
             </div>
 
-            <!-- ko if: !editMode() -->
-            <div class="comments-gray_control" data-bind="css: {'comments-gray_control__self': ownComment()}">
+            <div class="comments-gray_control" data-bind="css: {'comments-gray_control__self': ownComment()}, visible: !editMode() && photoUrl() !== false">
                 <div class="comments-gray_control-hold">
-                    <!-- ko if: !ownComment() -->
-                    <div class="clearfix">
+
+                    <div class="clearfix" data-bind="visible: !ownComment() && !$root.gallery()">
                         <a href="" class="comments-gray_quote-ico powertip" data-bind="click: Reply, tooltip: 'Ответить'"></a>
                     </div>
-                    <!-- /ko -->
 
-                    <!-- ko if: canEdit() -->
-                    <div class="clearfix">
+                    <div class="clearfix" data-bind="visible: canEdit() && !$root.gallery()">
                         <a href="" class="message-ico message-ico__edit powertip" data-bind="click: GoEdit, tooltip: 'Редактировать'"></a>
                     </div>
-                    <!-- /ko -->
 
-                    <!-- ko if: canRemove() -->
-                    <div class="clearfix">
+                    <div class="clearfix" data-bind="visible: canRemove()">
                         <a href="" class="message-ico message-ico__del powertip" data-bind="click: Remove, tooltip: 'Удалить'"></a>
                     </div>
-                    <!-- /ko -->
 
                 </div>
             </div>
-            <!-- /ko -->
 
         </div>
         <!-- /ko -->
     </div>
-    <!-- /ko -->
 
     <?php if (!Yii::app()->user->isGuest && !$this->gallery):?>
         <div class="comments-gray_add clearfix" data-bind="css: {active: opened}">

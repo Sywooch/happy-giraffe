@@ -901,7 +901,21 @@
 	line-height: 10px;
 	text-align: center;
 
+	&__bg-white &_tx {
+		color: #6a6a6a;
+		background: #fff;
+		background: rgba(255,255,255,0.7);
+	}
 	&__bg-dark &_more {color: #fff;}
+	&__bg-dark &_img-hold {
+		background: #836d96;
+		background: rgba(0,0,0,.25);
+		.box-shadow(inset 0 1px 1px rgba(0,0,0,0.25));
+	}
+	&__bg-dark &_tx {
+		background: #967cac;
+		background: rgba(0,0,0,.15);
+	}
 	&__bg-none &_img-hold {
 		background: none;
 		.box-shadow(none);
@@ -943,10 +957,15 @@
 		background: url(/images/b-famyli_top__white.png) no-repeat;
 	}
 	&_top__blue {
+		height: 22px;
+		width: 190px;
+		background: url(/images/b-famyli_top__blue.png) no-repeat;
+	}
+	&_top__blue-big {
 		width: 274px;
 		height: 31px;
 		margin: 20px auto 35px;
-		background: url(/images/b-famyli_top__blue.png) no-repeat;
+		background: url(/images/b-famyli_top__blue-big.png) no-repeat;
 	}
 	&_ul {margin: 8px -10px 0;}
 	&_li {
@@ -962,16 +981,11 @@
 		height: 55px;
 		max-height: 55px;
 		text-align: center;
-		background: #836d96;
-		background: rgba(0,0,0,.25);
-		.box-shadow(inset 0 1px 1px rgba(0,0,0,0.25));
 	}
 	&_img {max-height: 100%;}
 	&_tx {
 		width: 55px;
 		padding: 5px 0;
-		background: #967cac;
-		background: rgba(0,0,0,.15);
 	}
 	&_empty {
 		font-size: 12px;

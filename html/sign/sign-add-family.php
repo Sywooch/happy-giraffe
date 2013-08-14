@@ -35,7 +35,7 @@
 						<div class="b-family-structure clearfix">
 							<div class="b-family-structure_added">
 								<div class="b-family b-family__square">
-									<div class="b-family_top b-family_top__blue"></div>
+									<div class="b-family_top b-family_top__blue-big"></div>
 									<ul class="b-family_ul">
 										<li class="b-family_li">
 											<div class="b-family_img-hold">

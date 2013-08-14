@@ -192,11 +192,13 @@ $(document).ready(function () {
 	</script>
 					<textarea name="" class="wysiwyg-redactor" ></textarea>
 					<div class="redactor-control">
+					<div class="float-r">
 						<div class="redactor-control_key">
 							<input type="checkbox" class="redactor-control_key-checkbox" id="redactor-control_key-checkbox" name="">
 							<label class="redactor-control_key-label" for="redactor-control_key-checkbox">Enter - отправить</label>
 						</div>
 						<button class="btn-green">Отправить</button>
+					</div>
 					</div>
 				</div>
 			</div>
@@ -357,6 +359,21 @@ $(document).ready(function () {
 						</div>
 						<div class="clearfix">
 							<a href="" class="message-ico message-ico__warning powertip" title="Пожаловаться"></a>
+						</div>
+					</div>
+				</div>
+				
+				<div class="comments-gray_i comments-gray_i__recovery">
+					<div class="comments-gray_ava">
+						<a href="" class="ava small female"></a>
+					</div>
+					<div class="comments-gray_frame">
+						<div class="comments-gray_header clearfix">
+							<a href="" class="comments-gray_author">Анг Богоявлен </a>
+							<span class="font-smallest color-gray">Сегодня 14:25</span>
+						</div>
+						<div class="comments-gray_cont wysiwyg-content">
+							<p>Комментарий успешно удален. <a href="" class="comments-gray_a-recovery">Восстановить?</a> </p>
 						</div>
 					</div>
 				</div>

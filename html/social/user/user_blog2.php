@@ -466,7 +466,7 @@
 											<span class="font-smallest color-gray">Сегодня 13:25</span>
 										</div>
 										<div class="comments-gray_cont wysiwyg-content">
-											<p>	Мне безумно жалко всех женщин, но особенно Тину Кароль, я просто представить себе не могу <a href="">как она все это переживет</a> как она все это переживет(</p>
+											<p><span class="a-imitation">Вася Пупкин,</span> 	Мне безумно жалко всех женщин, но особенно Тину Кароль, я просто представить себе не могу <a href="">как она все это переживет</a> как она все это переживет(</p>
 											<p>я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.  я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически </p>
 										</div>
 									</div>
@@ -496,17 +496,11 @@
 										</div>
 									</div>
 									
-									<div class="comments-gray_control">
+									<div class="comments-gray_control comments-gray_control__one">
 										<div class="comments-gray_control-hold">
 											<div class="clearfix">
 												<a href="" class="comments-gray_quote-ico powertip" title="Ответить"></a>
 											</div>
-											<div class="clearfix">
-												<a href="" class="message-ico message-ico__del powertip" title="Удалить"></a>
-											</div>
-										</div>
-										<div class="clearfix">
-											<a href="" class="message-ico message-ico__warning powertip" title="Пожаловаться"></a>
 										</div>
 									</div>
 								</div>
@@ -595,13 +589,38 @@
 									</div>
 								</div>
 							</div>
-							<div class="comments-gray_add clearfix">
-								
+							
+							<div class="comments-gray_add active clearfix">
+				
 								<div class="comments-gray_ava">
-									<a href="" class="ava small female"></a>
+									<a class="ava small female" href=""></a>
 								</div>
-								<div class="comments-gray_frame">
-									<input type="text" name="" id="" class="comments-gray_add-itx itx-gray" placeholder="Ваш комментарий">
+								
+								<div class="comments-gray_frame clearfix">
+									<!-- input hidden -->
+									<input type="text" placeholder="Ваш комментарий" class="comments-gray_add-itx itx-gray display-n" id="" name="">
+
+									<div class="redactor_box"><ul class="redactor_toolbar" id="redactor_toolbar_0"><li><a class="redactor_btn redactor_btn_bold" title="Bold" href="javascript:;" tabindex="-1"></a></li><li><a class="redactor_btn redactor_btn_italic" title="Italic" href="javascript:;" tabindex="-1"></a></li><li><a class="redactor_btn redactor_btn_underline" title="Underline" href="javascript:;" tabindex="-1"></a></li><li class="redactor_separator"></li><li><a class="redactor_btn redactor_btn_image" title="Insert Image" href="javascript:;" tabindex="-1"></a></li><li><a class="redactor_btn redactor_btn_video" title="Insert Video" href="javascript:;" tabindex="-1"></a></li><li><a class="redactor_btn redactor_btn_smile" title="smile" href="javascript:;" tabindex="-1"></a></li></ul>
+									<div contenteditable="true" class="redactor_wysiwyg-redactor redactor_editor" dir="ltr">
+										 <p><span class="a-imitation">Вася Пупкин,</span> стальной текст сообщения</p>
+									</div>
+									<textarea class="wysiwyg-redactor" name="" dir="ltr" style="display: none;"></textarea></div>
+									<div class="">
+										<div class="redactor-control clearfix">
+											<div class="redactor-control_quote">
+												<span class="comments-gray_quote-ico active"></span>
+												<span class="redactor-control_quote-tx">Вася Пупкин</span>
+												<a href="" class="ico-close3 powertip" title="Отменить ответ"></a>
+											</div>
+											<div class="float-r">
+												<div class="redactor-control_key">
+													<input type="checkbox" name="" id="redactor-control_key-checkbox" class="redactor-control_key-checkbox">
+													<label for="redactor-control_key-checkbox" class="redactor-control_key-label">Enter - отправить</label>
+												</div>
+												<button class="btn-green">Отправить</button>
+											</div>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -644,7 +663,7 @@
 							</div>
 							<div class="b-article_in clearfix">
 								<div class="b-article_user-status clearfix">
-									<a href="" class="b-article_user-status-a">	Говори </a>
+									<span class="b-article_user-status-a">	Говори </span>
 									
 									<div class="textalign-r clearfix">
 										<div class="b-user-mood">
@@ -658,28 +677,27 @@
 									</div>
 								</div>
 							</div>
-							<div class="b-article_like-white">
-								<div class="custom-likes-b">
-									<div class="custom-likes-b_slogan">Поделитесь с друзьями!</div>
-									<a class="custom-like" href="">
-										<span class="custom-like_icon odkl"></span>
-										<span class="custom-like_value">0</span>
-									</a>
-									<a class="custom-like" href="">
-										<span class="custom-like_icon vk"></span>
-										<span class="custom-like_value">1900</span>
-									</a>
-								
-									<a class="custom-like" href="">
-										<span class="custom-like_icon fb"></span>
-										<span class="custom-like_value">150</span>
-									</a>
-								
-									<a class="custom-like" href="">
-										<span class="custom-like_icon tw"></span>
-										<span class="custom-like_value">10</span>
-									</a>
-								</div>
+							
+							<div class="custom-likes-b custom-likes-b__like-white">
+								<div class="custom-likes-b_slogan">Поделитесь с друзьями!</div>
+								<a class="custom-like" href="">
+									<span class="custom-like_icon odkl"></span>
+									<span class="custom-like_value">0</span>
+								</a>
+								<a class="custom-like" href="">
+									<span class="custom-like_icon vk"></span>
+									<span class="custom-like_value">1900</span>
+								</a>
+							
+								<a class="custom-like" href="">
+									<span class="custom-like_icon fb"></span>
+									<span class="custom-like_value">150</span>
+								</a>
+							
+								<a class="custom-like" href="">
+									<span class="custom-like_icon tw"></span>
+									<span class="custom-like_value">10</span>
+								</a>
 							</div>
 							<div class="comments-gray">
 								<div class="comments-gray_add clearfix">

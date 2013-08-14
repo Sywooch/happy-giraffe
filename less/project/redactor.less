@@ -5,6 +5,11 @@
 	border: none;
 	background-color: none;
 }
+.redactor_editor,
+.redactor_editor:focus {
+	.box-shadow(none);
+}
+.redactor_editor .a-imitation,
 .redactor_editor a {
 	color: #319fe4 !important;
 	text-decoration: none !important;
@@ -82,59 +87,62 @@
 .wysiwyg-v {
 	position: relative;
 	margin: 0 0 15px;
-}
-.wysiwyg-v .redactor_toolbar {
-	float: none;
-	display: inline-block;
-	vertical-align: middle;
-	padding: 5px 30px 5px 5px !important;
-}
-.wysiwyg-v .redactor_toolbar li {
-	float: none !important;
-	margin: 0 !important;
-	padding: 0 1px;
-	list-style: none !important;
-	outline: none;
-}
-.wysiwyg-v .redactor_toolbar li.redactor_separator {
-	float: none;
-	height: 0;
-	border-left: none;
-	border-right: none;
-	border-bottom: 1px solid #99c6dd;
-	padding: 0;
-	margin: 3px 4px !important;
-}
-.wysiwyg-v .redactor_toolbar li a {}
-.wysiwyg-v .redactor_editor,
-.wysiwyg-v .redactor_editor:focus {
-	display: inline-block;
-	vertical-align: middle;
-	width: 555px;
-	height: 450px;
-	max-height:450px;
-	border: 1px solid #daebf5;
-	-webkit-box-shadow : none;
-	box-shadow : none;
-	-webkit-border-radius: 4px;
-	-moz-border-radius: 4px;
-	border-radius: 4px;
-}
-.wysiwyg-v .redactor-popup_b-photo {
-	bottom: 40px;
-	left: 44px;
-}
-.wysiwyg-v .redactor-popup_b-video {
-	bottom: 20px;
-	left: 44px;
-}
-.wysiwyg-v .redactor-popup_b-smile {
-	bottom: -5px;
-	left: 44px;
-}
-.wysiwyg-v .redactor-popup_b-link {
-	bottom: 95px;
-	left: 44px;
+
+	.redactor_box {}
+	.redactor_toolbar {
+		position: relative;
+		float: none;
+		width: 27px;
+		margin-left: 0;
+		z-index: 5;
+	}
+	.redactor_toolbar li {
+		float: none !important;
+		margin: 0 !important;
+		padding: 0 1px;
+		list-style: none !important;
+		outline: none;
+	}
+	.redactor_toolbar li.redactor_separator {
+		float: none;
+		height: 0;
+		border-left: none;
+		border-right: none;
+		border-bottom: 1px solid #99c6dd;
+		padding: 0;
+		margin: 3px 4px !important;
+	}
+	.redactor_editor,
+	.redactor_editor:focus {
+		margin-left: 65px !important;
+		width: 540px;
+		height: 610px;
+		border: 1px solid #daebf5;
+		padding: 10px 20px !important;
+		.box-shadow(none);
+		.border-radius(4px);
+	}
+	.redactor-popup_b-photo {
+		bottom: -62px;
+		left: 44px;
+	}
+	.redactor-popup_b-video {
+		bottom: -37px;
+		left: 44px;
+	}
+	.redactor-popup_b-smile {
+		bottom: -12px;
+		left: 44px;
+	}
+	.redactor-popup_b-link {
+		bottom: 38px;
+		left: 44px;
+	}
+	&_toolbar {
+		float: left;
+		margin: 20px 0 0;
+		padding: 5px 30px 5px 0;
+	}
 }
 /* /wysiwyg-v */
 

@@ -2647,6 +2647,13 @@
   border: none;
   background-color: none;
 }
+.redactor_editor,
+.redactor_editor:focus {
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+.redactor_editor .a-imitation,
 .redactor_editor a {
   color: #319fe4 !important;
   text-decoration: none !important;
@@ -2730,10 +2737,11 @@
   margin: 0 0 15px;
 }
 .wysiwyg-v .redactor_toolbar {
+  position: relative;
   float: none;
-  display: inline-block;
-  vertical-align: middle;
-  padding: 5px 30px 5px 5px !important;
+  width: 27px;
+  margin-left: 0;
+  z-index: 5;
 }
 .wysiwyg-v .redactor_toolbar li {
   float: none !important;
@@ -2753,33 +2761,41 @@
 }
 .wysiwyg-v .redactor_editor,
 .wysiwyg-v .redactor_editor:focus {
-  display: inline-block;
-  vertical-align: middle;
-  width: 555px;
-  height: 450px;
-  max-height: 450px;
+  margin-left: 65px !important;
+  width: 540px;
+  height: 610px;
   border: 1px solid #daebf5;
+  padding: 10px 20px !important;
   -webkit-box-shadow: none;
+  -moz-box-shadow: none;
   box-shadow: none;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
 }
 .wysiwyg-v .redactor-popup_b-photo {
-  bottom: 40px;
+  bottom: -62px;
   left: 44px;
 }
 .wysiwyg-v .redactor-popup_b-video {
-  bottom: 20px;
+  bottom: -37px;
   left: 44px;
 }
 .wysiwyg-v .redactor-popup_b-smile {
-  bottom: -5px;
+  bottom: -12px;
   left: 44px;
 }
 .wysiwyg-v .redactor-popup_b-link {
-  bottom: 95px;
+  bottom: 38px;
   left: 44px;
+}
+.wysiwyg-v .b-article_in-img {
+  margin: 0 -20px 10px;
+}
+.wysiwyg-v_toolbar {
+  float: left;
+  margin: 20px 0 0;
+  padding: 5px 30px 5px 0;
 }
 /* /wysiwyg-v */
 /* section */
@@ -12798,10 +12814,6 @@ table.fr_recipe_tb td {
 .b-article a.b-article_user-status-a:hover {
   color: #4da3de;
 }
-.b-article_like-white {
-  padding: 5px 0 20px;
-  background: #fff;
-}
 .b-article_removed {
   position: absolute;
   top: 0;
@@ -13079,6 +13091,20 @@ table.fr_recipe_tb td {
   height: 38px;
   background: url(/images/photo-grid_zoom.png) no-repeat;
 }
+.photo-preview-row__add {
+  margin: 10px auto;
+  width: auto;
+}
+.photo-preview-row__add .photo-preview-row_hold {
+  background: none;
+}
+.photo-preview-row__add .photo-grid_i:hover {
+  -webkit-transform: scale(0.5);
+  -moz-transform: scale(0.5);
+  -ms-transform: scale(0.5);
+  -o-transform: scale(0.5);
+  transform: scale(0.5);
+}
 .photo-preview-row_t {
   display: block;
   margin: 0 0 10px;
@@ -13099,6 +13125,16 @@ table.fr_recipe_tb td {
 }
 .photo-preview-row_a {
   font-size: 18px;
+}
+.photo-preview-row_add {
+  display: inline-block;
+  vertical-align: middle;
+  width: 121px;
+  height: 104px;
+  background: url(/images/photo-preview-row_add.png) no-repeat;
+}
+.photo-preview-row_add:hover {
+  background-position: 0 -104px;
 }
 /* /photo-preview-row */
 /* nav-article */
@@ -13471,6 +13507,9 @@ table.fr_recipe_tb td {
   padding: 19px 0;
   background: #f5f5f5;
 }
+.comments-gray .a-imitation {
+  color: #319fe4;
+}
 .comments-gray__map-route {
   padding: 20px 180px 20px 0;
 }
@@ -13484,13 +13523,15 @@ table.fr_recipe_tb td {
   font-size: 13px;
   color: #289FD7;
 }
+.comments-gray_t-a .comments-gray_t-a-tx {
+  text-decoration: underline;
+}
 .comments-gray_t-a:hover .comments-gray_t-a-tx {
   text-decoration: none;
 }
 .comments-gray_t-a-tx {
   display: inline-block;
   margin-right: 15px;
-  text-decoration: underline;
 }
 .comments-gray_hold {
   padding: 0;
@@ -13522,6 +13563,9 @@ table.fr_recipe_tb td {
 .comments-gray_i__recovery:hover,
 .comments-gray_i__recovery {
   background: #fff;
+}
+.comments-gray_i__recovery p {
+  color: #A9A6A6;
 }
 .comments-gray_i .wysiwyg-content p {
   margin: 0 0 8px;
@@ -13602,6 +13646,9 @@ table.fr_recipe_tb td {
   -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
+.comments-gray_control__one {
+  margin-top: -10px;
+}
 .comments-gray_control .message-ico {
   display: block;
   margin: 2px auto;
@@ -13645,6 +13692,7 @@ table.fr_recipe_tb td {
   margin: 1px 0 3px;
   background: url(/images/comments-gray_quote-ico.png) no-repeat;
 }
+.comments-gray_quote-ico.active,
 .comments-gray_quote-ico:hover {
   background-position: 0 -50px;
 }
@@ -13665,11 +13713,11 @@ table.fr_recipe_tb td {
 }
 .comments-gray_photo:hover {
   z-index: 10;
-  -webkit-transform: scale(3);
-  -moz-transform: scale(3);
-  -ms-transform: scale(3);
-  -o-transform: scale(3);
-  transform: scale(3);
+  -webkit-transform: scale(2.4);
+  -moz-transform: scale(2.4);
+  -ms-transform: scale(2.4);
+  -o-transform: scale(2.4);
+  transform: scale(2.4);
   -webkit-box-shadow: 0 0 7px rgba(0, 0, 0, 0.9);
   -moz-box-shadow: 0 0 7px rgba(0, 0, 0, 0.9);
   box-shadow: 0 0 7px rgba(0, 0, 0, 0.9);
@@ -14414,7 +14462,7 @@ table.fr_recipe_tb td {
   margin-bottom: 15px;
   padding: 0 20px 215px;
   width: 500px;
-  background: #f5fbff url(/images/redactor-popup_add-video.png) no-repeat 50% 50%;
+  background: #f5fbff url(/images/redactor-popup_add-video.png) no-repeat 50% 78%;
   border: 2px dashed #BBD8EC;
   -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
@@ -14531,7 +14579,6 @@ table.fr_recipe_tb td {
 /* /redactor-control-b */
 /* redactor-control */
 .redactor-control {
-  float: right;
   position: relative;
   margin: 8px 0 0;
 }
@@ -14548,6 +14595,22 @@ table.fr_recipe_tb td {
   font-size: 9px;
   font-family: Tahoma, Arial, Verdana, sans-serif;
   color: #9c9c9c;
+}
+.redactor-control_quote {
+  float: left;
+  margin: 3px 0 0;
+  text-decoration: none;
+}
+.redactor-control_quote .comments-gray_quote-ico {
+  display: inline-block;
+  vertical-align: middle;
+}
+.redactor-control_quote .ico-close3 {
+  vertical-align: middle;
+}
+.redactor-control_quote-tx {
+  padding: 0 4px;
+  color: #319FE4;
 }
 /* /redactor-control */
 /* b-add-img */
@@ -14906,7 +14969,7 @@ table.fr_recipe_tb td {
 /* /b-user-small */
 /* heading-title */
 .heading-title {
-  margin: 15px 20px 10px 25px;
+  margin: 5px 20px 10px 25px;
   font-size: 35px;
   line-height: 35px;
   font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, Tahoma, sans-serif;
@@ -15865,6 +15928,10 @@ table.fr_recipe_tb td {
   font-size: 13px;
   line-height: 34px;
   color: #919090;
+}
+.form-settings_label-row {
+  color: #333;
+  margin: 10px 0 10px;
 }
 .form-settings_elem {
   float: left;

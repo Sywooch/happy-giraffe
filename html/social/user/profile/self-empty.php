@@ -35,7 +35,7 @@
 					<div class="section-lilac_center-reg">с Веселым Жирафом 2 дня</div>
 				</div>
 				<div class="section-lilac_right">
-					<div class="b-family b-family__bg">
+					<div class="b-family b-family__bg-dark">
 						<div class="b-family_top b-family_top__white"></div>
 						<ul class="b-family_ul">
 							<li class="b-family_li">

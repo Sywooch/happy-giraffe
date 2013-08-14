@@ -400,6 +400,9 @@ html.top-nav-fixed {
 .padding-t20 {
   padding-top: 20px !important;
 }
+.padding-r5 {
+  padding-right: 5px !important;
+}
 .padding-r20 {
   padding-right: 20px !important;
 }
@@ -774,6 +777,9 @@ a.pseudo:hover,
 .a-pseudo-grayblue:hover {
   color: #2c95d6;
   border-color: #2c95d6;
+}
+.a-imitation {
+  color: #029AD2;
 }
 .a-pseudo-icon {
   display: inline-block;
@@ -20259,8 +20265,24 @@ select.pregnancy_term + .chzn-container .chzn-results li {
   line-height: 10px;
   text-align: center;
 }
+.b-family__bg-white .b-family_tx {
+  color: #6a6a6a;
+  background: #fff;
+  background: rgba(255, 255, 255, 0.7);
+}
 .b-family__bg-dark .b-family_more {
   color: #fff;
+}
+.b-family__bg-dark .b-family_img-hold {
+  background: #836d96;
+  background: rgba(0, 0, 0, 0.25);
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.25);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.25);
+}
+.b-family__bg-dark .b-family_tx {
+  background: #967cac;
+  background: rgba(0, 0, 0, 0.15);
 }
 .b-family__bg-none .b-family_img-hold {
   background: none;
@@ -20313,10 +20335,15 @@ select.pregnancy_term + .chzn-container .chzn-results li {
   background: url(/images/b-famyli_top__white.png) no-repeat;
 }
 .b-family_top__blue {
+  height: 22px;
+  width: 190px;
+  background: url(/images/b-famyli_top__blue.png) no-repeat;
+}
+.b-family_top__blue-big {
   width: 274px;
   height: 31px;
   margin: 20px auto 35px;
-  background: url(/images/b-famyli_top__blue.png) no-repeat;
+  background: url(/images/b-famyli_top__blue-big.png) no-repeat;
 }
 .b-family_ul {
   margin: 8px -10px 0;
@@ -20334,11 +20361,6 @@ select.pregnancy_term + .chzn-container .chzn-results li {
   height: 55px;
   max-height: 55px;
   text-align: center;
-  background: #836d96;
-  background: rgba(0, 0, 0, 0.25);
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.25);
-  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.25);
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.25);
 }
 .b-family_img {
   max-height: 100%;
@@ -20346,8 +20368,6 @@ select.pregnancy_term + .chzn-container .chzn-results li {
 .b-family_tx {
   width: 55px;
   padding: 5px 0;
-  background: #967cac;
-  background: rgba(0, 0, 0, 0.15);
 }
 .b-family_empty {
   font-size: 12px;

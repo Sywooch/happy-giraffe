@@ -595,13 +595,38 @@
 									</div>
 								</div>
 							</div>
-							<div class="comments-gray_add clearfix">
-								
+							
+							<div class="comments-gray_add active clearfix">
+				
 								<div class="comments-gray_ava">
-									<a href="" class="ava small female"></a>
+									<a class="ava small female" href=""></a>
 								</div>
-								<div class="comments-gray_frame">
-									<input type="text" name="" id="" class="comments-gray_add-itx itx-gray" placeholder="Ваш комментарий">
+								
+								<div class="comments-gray_frame clearfix">
+									<!-- input hidden -->
+									<input type="text" placeholder="Ваш комментарий" class="comments-gray_add-itx itx-gray display-n" id="" name="">
+
+									<div class="redactor_box"><ul class="redactor_toolbar" id="redactor_toolbar_0"><li><a class="redactor_btn redactor_btn_bold" title="Bold" href="javascript:;" tabindex="-1"></a></li><li><a class="redactor_btn redactor_btn_italic" title="Italic" href="javascript:;" tabindex="-1"></a></li><li><a class="redactor_btn redactor_btn_underline" title="Underline" href="javascript:;" tabindex="-1"></a></li><li class="redactor_separator"></li><li><a class="redactor_btn redactor_btn_image" title="Insert Image" href="javascript:;" tabindex="-1"></a></li><li><a class="redactor_btn redactor_btn_video" title="Insert Video" href="javascript:;" tabindex="-1"></a></li><li><a class="redactor_btn redactor_btn_smile" title="smile" href="javascript:;" tabindex="-1"></a></li></ul>
+									<div contenteditable="true" class="redactor_wysiwyg-redactor redactor_editor" dir="ltr">
+										 <p><a href="" title="">Вася Пупкин,</a> стальной текст сообщения</p>
+									</div>
+									<textarea class="wysiwyg-redactor" name="" dir="ltr" style="display: none;"></textarea></div>
+									<div class="">
+										<div class="redactor-control clearfix">
+											<div class="redactor-control_quote">
+												<span class="comments-gray_quote-ico active"></span>
+												<a href="" class="redactor-control_quote-tx">Вася Пупкин</a>
+												<a href="" class="ico-close3 powertip" title="Отменить ответ"></a>
+											</div>
+											<div class="float-r">
+												<div class="redactor-control_key">
+													<input type="checkbox" name="" id="redactor-control_key-checkbox" class="redactor-control_key-checkbox">
+													<label for="redactor-control_key-checkbox" class="redactor-control_key-label">Enter - отправить</label>
+												</div>
+												<button class="btn-green">Отправить</button>
+											</div>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>

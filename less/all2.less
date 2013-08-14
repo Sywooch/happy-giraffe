@@ -1325,6 +1325,7 @@ table.fr_recipe_tb td { width: 50%;}
         margin: 1px 0 3px;
         background: url(/images/comments-gray_quote-ico.png) no-repeat;
     }
+    &_quote-ico.active,
     &_quote-ico:hover {background-position: 0 -50px;}
     &_a-recovery {
         .inline-block();
@@ -2050,7 +2051,6 @@ table.fr_recipe_tb td { width: 50%;}
 
 /* redactor-control */
 .redactor-control {
-    float: right;
     position: relative;
     margin: 8px 0 0;
 
@@ -2068,6 +2068,21 @@ table.fr_recipe_tb td { width: 50%;}
         font-family: Tahoma, Arial, Verdana, sans-serif;
         color: #9c9c9c;
     }
+    &_quote {
+        float: left;
+        margin: 3px 0 0;
+        text-decoration: none;
+    }
+    &_quote .comments-gray_quote-ico {
+        .inline-block();
+        vertical-align: middle;
+    }
+    &_quote .ico-close3 {vertical-align: middle;}
+    &_quote-tx {
+        padding: 0 4px;
+        text-decoration: none;
+    }
+    &_quote-tx:hover {text-decoration: underline;}
 }
 /* /redactor-control */
 

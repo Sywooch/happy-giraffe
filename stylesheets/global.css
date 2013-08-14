@@ -2647,6 +2647,12 @@
   border: none;
   background-color: none;
 }
+.redactor_editor,
+.redactor_editor:focus {
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
 .redactor_editor a {
   color: #319fe4 !important;
   text-decoration: none !important;
@@ -13647,6 +13653,7 @@ table.fr_recipe_tb td {
   margin: 1px 0 3px;
   background: url(/images/comments-gray_quote-ico.png) no-repeat;
 }
+.comments-gray_quote-ico.active,
 .comments-gray_quote-ico:hover {
   background-position: 0 -50px;
 }
@@ -14533,7 +14540,6 @@ table.fr_recipe_tb td {
 /* /redactor-control-b */
 /* redactor-control */
 .redactor-control {
-  float: right;
   position: relative;
   margin: 8px 0 0;
 }
@@ -14550,6 +14556,25 @@ table.fr_recipe_tb td {
   font-size: 9px;
   font-family: Tahoma, Arial, Verdana, sans-serif;
   color: #9c9c9c;
+}
+.redactor-control_quote {
+  float: left;
+  margin: 3px 0 0;
+  text-decoration: none;
+}
+.redactor-control_quote .comments-gray_quote-ico {
+  display: inline-block;
+  vertical-align: middle;
+}
+.redactor-control_quote .ico-close3 {
+  vertical-align: middle;
+}
+.redactor-control_quote-tx {
+  padding: 0 4px;
+  text-decoration: none;
+}
+.redactor-control_quote-tx:hover {
+  text-decoration: underline;
 }
 /* /redactor-control */
 /* b-add-img */

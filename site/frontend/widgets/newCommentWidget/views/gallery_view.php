@@ -12,9 +12,11 @@
     <div class="comments-gray comments-gray__photo-add">
         <div class="comments-gray_add clearfix">
 
-            <div class="comments-gray_ava">
-                <?php $this->widget('UserAvatarWidget', array('user' => Yii::app()->user->getModel(), 'size' => 'micro')) ?>
-            </div>
+            <?php if (!Yii::app()->user->isGuest):?>
+                <div class="comments-gray_ava">
+                    <?php $this->widget('UserAvatarWidget', array('user' => Yii::app()->user->getModel(), 'size' => 'micro')) ?>
+                </div>
+            <?php endif ?>
             <div class="comments-gray_frame">
                 <input type="text" id="add_<?=$this->objectName ?>" class="comments-gray_add-itx itx-gray" placeholder="Ваш комментарий" data-bind="enterKey: addComment" value="">
             </div>

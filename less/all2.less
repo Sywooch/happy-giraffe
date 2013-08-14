@@ -1202,6 +1202,7 @@ table.fr_recipe_tb td { width: 50%;}
     padding: 19px 0;
     background: #f5f5f5;
 
+    .a-imitation {color: #319FE4}
     &__map-route {
         padding: 20px 180px 20px 0;
     }
@@ -1215,13 +1216,11 @@ table.fr_recipe_tb td { width: 50%;}
         font-size: 13px;
         color: #289FD7; 
     }
-    &_t-a:hover &_t-a-tx {
-        text-decoration: none;
-    }
+    &_t-a &_t-a-tx  {text-decoration: underline;}
+    &_t-a:hover &_t-a-tx {text-decoration: none;}
     &_t-a-tx {
         .inline-block();
         margin-right: 15px;
-        text-decoration: underline;
     }
     &_hold {
         padding: 0;
@@ -1242,6 +1241,7 @@ table.fr_recipe_tb td { width: 50%;}
     &_i__self:hover {background: #fffce6;}
     &_i__recovery:hover,
     &_i__recovery {background: #fff;}
+    &_i__recovery p {color: #A9A6A6;}
     &_i .wysiwyg-content p{margin: 0 0 8px;}
     &_i .wysiwyg-content img{margin: 0;}
     &_ava {

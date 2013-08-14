@@ -440,7 +440,7 @@
 											<span class="font-smallest color-gray">Сегодня 14:25</span>
 										</div>
 										<div class="comments-gray_cont wysiwyg-content">
-											<p>Комментарий успешно удален.<a href="" class="comments-gray_a-recovery">Восстановить?</a> </p>
+											<p>Комментарий успешно удален. <a href="" class="comments-gray_a-recovery">Восстановить?</a> </p>
 										</div>
 									</div>
 								</div>

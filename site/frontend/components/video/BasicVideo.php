@@ -9,10 +9,12 @@
 
 class BasicVideo extends CComponent
 {
+    public $url;
     public $oembed;
 
     public function __construct($url)
     {
+        $this->url = $url;
         $this->oembed = new OEmbed($url, array('maxwidth' => 580));
     }
 

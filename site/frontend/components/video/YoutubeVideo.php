@@ -9,5 +9,14 @@
 
 class YoutubeVideo extends BasicVideo
 {
+    public function getId()
+    {
+        parse_str(parse_url($this->url, PHP_URL_QUERY), $params);
+        return $params['v'];
+    }
 
+    public function getThumbnail()
+    {
+        return 'http://i1.ytimg.com/vi/' . $this->getId() . '/maxresdefault.jpg';
+    }
 }

@@ -608,14 +608,14 @@
 
 									<div class="redactor_box"><ul class="redactor_toolbar" id="redactor_toolbar_0"><li><a class="redactor_btn redactor_btn_bold" title="Bold" href="javascript:;" tabindex="-1"></a></li><li><a class="redactor_btn redactor_btn_italic" title="Italic" href="javascript:;" tabindex="-1"></a></li><li><a class="redactor_btn redactor_btn_underline" title="Underline" href="javascript:;" tabindex="-1"></a></li><li class="redactor_separator"></li><li><a class="redactor_btn redactor_btn_image" title="Insert Image" href="javascript:;" tabindex="-1"></a></li><li><a class="redactor_btn redactor_btn_video" title="Insert Video" href="javascript:;" tabindex="-1"></a></li><li><a class="redactor_btn redactor_btn_smile" title="smile" href="javascript:;" tabindex="-1"></a></li></ul>
 									<div contenteditable="true" class="redactor_wysiwyg-redactor redactor_editor" dir="ltr">
-										 <p><a href="" title="">Вася Пупкин,</a> стальной текст сообщения</p>
+										 <p><span class="a-imitation">Вася Пупкин,</span> стальной текст сообщения</p>
 									</div>
 									<textarea class="wysiwyg-redactor" name="" dir="ltr" style="display: none;"></textarea></div>
 									<div class="">
 										<div class="redactor-control clearfix">
 											<div class="redactor-control_quote">
 												<span class="comments-gray_quote-ico active"></span>
-												<a href="" class="redactor-control_quote-tx">Вася Пупкин</a>
+												<span class="redactor-control_quote-tx">Вася Пупкин</span>
 												<a href="" class="ico-close3 powertip" title="Отменить ответ"></a>
 											</div>
 											<div class="float-r">

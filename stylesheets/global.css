@@ -2653,6 +2653,7 @@
   -moz-box-shadow: none;
   box-shadow: none;
 }
+.redactor_editor .a-imitation,
 .redactor_editor a {
   color: #319fe4 !important;
   text-decoration: none !important;
@@ -14571,10 +14572,7 @@ table.fr_recipe_tb td {
 }
 .redactor-control_quote-tx {
   padding: 0 4px;
-  text-decoration: none;
-}
-.redactor-control_quote-tx:hover {
-  text-decoration: underline;
+  color: #319FE4;
 }
 /* /redactor-control */
 /* b-add-img */

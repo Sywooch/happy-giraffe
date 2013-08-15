@@ -117,6 +117,7 @@
 					<div class="col-white padding-20">
 					
 						<div class="b-family-structure clearfix">
+							<a href="" class="ico-close3 powertip" title="Зарыть"></a>
 							<div class="b-family-structure_added">
 								<div class="b-family b-family__square">
 									<div class="b-family_top b-family_top__blue-big"></div>
@@ -393,7 +394,7 @@
 								</div>
 								
 								<div class="clearfix textalign-r margin-b20">
-								<!-- .btn-inactive - пока в семье никого нет -->
+								<!-- .btn-inactive - когда в семье никого нет -->
 									<a href="" class="btn-green btn-h46 btn-inactive margin-r20">Готово, сохранить</a>
 								</div>
 							</div>

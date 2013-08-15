@@ -2700,6 +2700,30 @@
   font-weight: bold;
   color: #333;
 }
+.wysiwyg-h .redactor-popup_b-photo {
+  bottom: 40px;
+  left: -85px;
+}
+.wysiwyg-h .redactor-popup_b-photo .redactor-popup_tale {
+  left: 184px;
+}
+.wysiwyg-h .redactor-popup_b-video {
+  bottom: 40px;
+  left: -60px;
+}
+.wysiwyg-h .redactor-popup_b-video .redactor-popup_tale {
+  left: 184px;
+}
+.wysiwyg-h .redactor-popup_b-smile {
+  bottom: 40px;
+  left: -35px;
+}
+.wysiwyg-h .redactor-popup_b-smile .redactor-popup_tale {
+  left: 184px;
+}
+.wysiwyg-h_toolbar {
+  position: relative;
+}
 .redactor_wysiwyg-redactor {
   max-height: 225px;
 }

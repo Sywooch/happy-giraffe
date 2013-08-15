@@ -1002,79 +1002,73 @@ a.pseudo:hover,
   background: url(/images/ico/ico-family.png) no-repeat -66px 0;
 }
 .ico-family__baby-plan {
-  background-position: 0 0;
+  background-position: 0 -605px;
 }
 .ico-family__baby {
-  background-position: -66px 0;
+  background-position: 0 0;
 }
 .ico-family__baby-two {
-  background-position: 0px -550px;
+  background-position: -55px 0;
 }
 .ico-family__boy-wait {
-  background-position: 0 -50px;
+  background-position: 0 -55px;
 }
 .ico-family__girl-wait {
-  background-position: -66px -50px;
+  background-position: -55px -55px;
 }
 .ico-family__boy-small {
-  background-position: 0 -100px;
+  background-position: 0 -110px;
 }
 .ico-family__girl-small {
-  background-position: -66px -100px;
+  background-position: -55px -110px;
 }
 .ico-family__boy-3 {
-  background-position: 0 -150px;
+  background-position: 0 -165px;
 }
 .ico-family__girl-3 {
-  background-position: -66px -150px;
+  background-position: -55px -165px;
 }
 .ico-family__boy-5 {
-  background-position: 0 -200px;
+  background-position: 0 -220px;
 }
 .ico-family__girl-5 {
-  background-position: -66px -200px;
+  background-position: -55px -220px;
 }
 .ico-family__boy-8 {
-  background-position: 0 -250px;
+  background-position: 0 -275px;
 }
 .ico-family__girl-8 {
-  background-position: -66px -250px;
+  background-position: -55px -275px;
 }
 .ico-family__boy-14 {
-  background-position: 0 -300px;
+  background-position: 0 -330px;
 }
 .ico-family__girl-14 {
-  background-position: -66px -300px;
+  background-position: -55px -330px;
 }
 .ico-family__boy-19 {
-  background-position: 0 -350px;
+  background-position: 0 -385px;
 }
 .ico-family__girl-19 {
-  background-position: -66px -350px;
+  background-position: -55px -385px;
 }
 .ico-family__boy-friend {
-  background-position: 0 -400px;
+  background-position: 0 -440px;
 }
 .ico-family__girl-friend {
-  background-position: -66px -400px;
-}
-.ico-family__boy-friend {
-  background-position: 0 -400px;
-}
-.ico-family__girl-friend {
-  background-position: -66px -400px;
+  background-position: -55px -440px;
 }
 .ico-family__fiance {
-  background-position: 0 -450px;
+  background-position: 0 -495px;
 }
 .ico-family__bride {
-  background-position: -66px -450px;
+  background-position: -55px -495px;
 }
 .ico-family__husband {
-  background-position: 0 -500px;
+  background-position: 0 -550px;
 }
 .ico-family__wife {
-  background-position: -66px -500px;
+  background-position: -55px -550px;
 }
 .ico-family-big {
   display: inline-block;

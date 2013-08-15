@@ -833,4 +833,9 @@ class AjaxController extends HController
         $response = compact('success');
         echo CJSON::encode($response);
     }
+
+    public function actionRedactor($toolbarVerticalFixed)
+    {
+        $this->renderPartial('redactor', compact('toolbarVerticalFixed'));
+    }
 }

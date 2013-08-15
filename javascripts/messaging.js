@@ -590,23 +590,15 @@ function MessagingViewModel(data) {
     });
 
     $(function() {
-        self.redactor = $('.redactor').redactor({
+        self.redactor = $('.redactor').redactorHG({
             minHeight: 17,
             autoresize: true,
             focus: true,
             toolbarExternal: '.redactor-control-b_toolbar',
             buttons: ['image', 'video', 'smile'],
-            buttonsCustom: {
-                smile: {
-                    title: 'smile',
-                    callback: function(buttonName, buttonDOM, buttonObject) {
-                        // your code, for example - getting code
-                        var html = this.get();
-                    }
-                }
-            },
             initCallback : function() {
                 self.redactor = this;
+                redactor = this;
                 if (data.interlocutorId !== null || self.contactsToShow().length > 0)
                     self.openThread(data.interlocutorId == null ? self.contactsToShow()[0] : self.findByInterlocutorId(data.interlocutorId));
             },

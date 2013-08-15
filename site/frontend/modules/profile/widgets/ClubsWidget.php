@@ -19,11 +19,11 @@ class ClubsWidget extends UserCoreWidget
     private function getUserCommunitiesData()
     {
         $data = array();
-        foreach ($this->user->communities as $community) {
+        foreach ($this->user->communitySubscriptions as $subscription) {
             $data [] = array(
-                'id' => $community->id,
-                'title' => $community->title,
-                'have' => ($this->isMyProfile) ? true : ((Yii::app()->user->isGuest) ? false : Yii::app()->user->getModel()->isInCommunity($community->id)),
+                'id' => $subscription->community->id,
+                'title' => $subscription->community->title,
+                'have' => ($this->isMyProfile) ? true : ((Yii::app()->user->isGuest) ? false : UserCommunitySubscription::subscribed($this->user->id, $subscription->community->id)),
             );
         }
         return $data;

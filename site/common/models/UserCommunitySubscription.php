@@ -93,7 +93,7 @@ class UserCommunitySubscription extends HActiveRecord
             ':user_id' => Yii::app()->user->id,
             ':community_id' => $community_id,
         ));
-        return $model !== null ? self::add($community_id) : $model->delete();
+        return $model === null ? self::add($community_id) : $model->delete();
     }
 
     /**

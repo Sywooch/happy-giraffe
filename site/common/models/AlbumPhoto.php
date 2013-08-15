@@ -207,8 +207,6 @@ class AlbumPhoto extends HActiveRecord
 
     public static function createByUrl($url, $user_id, $album_type = false)
     {
-        $ext = pathinfo($url, PATHINFO_EXTENSION);
-
         //upload file content
         $ch = curl_init();
 
@@ -231,22 +229,20 @@ class AlbumPhoto extends HActiveRecord
         }
 
         //define file extension if it is not set
-        if (empty($ext)) {
-            $dir = Yii::getPathOfAlias('site.common.uploads.photos.temp');
-            $file_name = md5($url . time());
-            file_put_contents($dir . DIRECTORY_SEPARATOR . $file_name, $file);
+        $dir = Yii::getPathOfAlias('site.common.uploads.photos.temp');
+        $file_name = md5($url . time());
+        file_put_contents($dir . DIRECTORY_SEPARATOR . $file_name, $file);
 
-            $finfo = finfo_open(FILEINFO_MIME_TYPE);
-            $mimetype = finfo_file($finfo, $dir . DIRECTORY_SEPARATOR . $file_name);
-            finfo_close($finfo);
+        $finfo = finfo_open(FILEINFO_MIME_TYPE);
+        $mimetype = finfo_file($finfo, $dir . DIRECTORY_SEPARATOR . $file_name);
+        finfo_close($finfo);
 
-            if ($mimetype == 'image/jpeg')
-                $ext = 'jpeg';
-            elseif ($mimetype == 'image/gif')
-                $ext = 'gif'; elseif ($mimetype == 'image/png')
-                $ext = 'png'; elseif ($mimetype == 'image/tiff')
-                $ext = 'tiff';
-        }
+        if ($mimetype == 'image/jpeg')
+            $ext = 'jpeg';
+        elseif ($mimetype == 'image/gif')
+            $ext = 'gif'; elseif ($mimetype == 'image/png')
+            $ext = 'png'; elseif ($mimetype == 'image/tiff')
+            $ext = 'tiff';
 
         $model = new AlbumPhoto();
         $model->author_id = $user_id;

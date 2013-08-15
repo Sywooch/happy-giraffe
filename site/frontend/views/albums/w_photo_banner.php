@@ -48,7 +48,7 @@
 
             <div class="col-3">
                 <div class="margin-t145" id="AdfoxAjax">
-                    <iframe id="direct" src="http://www.happy-giraffe.ru/direct3.html" width="200" height="300" marginwidth="0" marginheight="0" scrolling="no" frameborder="0"></iframe>
+                    <iframe id="direct" src="http://www.happy-giraffe.ru/rtb2.html" width="240" height="400" marginwidth="0" marginheight="0" scrolling="no" frameborder="0"></iframe>
                 </div>
             </div>
         </div>
@@ -69,7 +69,7 @@
     <script type="text/javascript">
         function rtb_refresh() {
             var r = Math.floor(Math.random() * 1000000) + 1;
-            var url = 'http://www.happy-giraffe.ru/direct3.html?r=' + r;
+            var url = 'http://www.happy-giraffe.ru/rtb2.html?r=' + r;
             $('#direct').attr('src', url);
         }
     </script>

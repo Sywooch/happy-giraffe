@@ -606,10 +606,7 @@ class User extends HActiveRecord
                 return '';
             return false;
         }
-        if ($size != 'big')
-            return $this->avatar->getAvatarUrl($size);
-        else
-            return $this->avatar->getPreviewUrl(240, 400, Image::WIDTH);
+        return $this->avatar->getAvatarUrl($size);
     }
 
     public function getPartnerPhotoUrl()

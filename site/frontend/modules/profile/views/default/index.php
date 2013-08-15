@@ -91,6 +91,7 @@ Yii::app()->clientScript->registerPackage('ko_profile');
 
             <?php $this->renderPartial('_subscription', array('user' => $user)); ?>
 
+            <?php $this->renderPartial('_activity', array('user' => $user)); ?>
 
         </div>
     </div>

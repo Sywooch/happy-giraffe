@@ -132,61 +132,74 @@ class CommunityVideo extends HActiveRecord
 		));
 	}
 
-    public function beforeSave()
+//    public function beforeSave()
+//    {
+//        if ($this->isNewRecord)
+//            $this->searchImagePreview(Yii::app()->user->id);
+//        else {
+//            if (isset($this->content->author_id))
+//                $this->searchImagePreview($this->content->author_id);
+//        }
+//
+//        return parent::beforeSave();
+//    }
+//
+//    public function getPhoto(){
+//        return $this->photo;
+//    }
+//
+//    public function getEmbed()
+//    {
+//        if (empty($this->embed)){
+//            $this->searchImagePreview($this->content->author_id);
+//            $this->update(array('photo_id', 'embed'));
+//        }
+//        return $this->embed;
+//    }
+//
+//    public function searchImagePreview($author_id)
+//    {
+//        $video = new Video($this->link);
+//        if (empty($video->image))
+//            return false;
+//
+//        $photo = AlbumPhoto::createByUrl($video->image, $author_id, 6);
+//        if ($photo){
+//            $this->photo_id = $photo->id;
+//            $this->embed = $video->code;
+//        }
+//    }
+//
+//    public function getResizedEmbed($width)
+//    {
+//        Yii::import('site.frontend.extensions.phpQuery.phpQuery');
+//
+//        $embed = $this->getEmbed();
+//        if (empty($embed))
+//            return '';
+//
+//        $doc = phpQuery::newDocumentHTML($this->getEmbed(), $charset = 'utf-8');
+//        $iframe = $doc->find('iframe');
+//        $ratio = pq($iframe)->attr('width') / $width;
+//
+//        $height = round(pq($iframe)->attr('height') / $ratio);
+//
+//        $iframe->attr('width', $width);
+//        $iframe->attr('height', $height);
+//
+//        return $doc->html();
+//    }
+
+    protected function beforeValidate()
     {
-        if ($this->isNewRecord)
-            $this->searchImagePreview(Yii::app()->user->id);
-        else {
-            if (isset($this->content->author_id))
-                $this->searchImagePreview($this->content->author_id);
-        }
-
-        return parent::beforeSave();
-    }
-
-    public function getPhoto(){
-        return $this->photo;
-    }
-
-    public function getEmbed()
-    {
-        if (empty($this->embed)){
-            $this->searchImagePreview($this->content->author_id);
-            $this->update(array('photo_id', 'embed'));
-        }
-        return $this->embed;
-    }
-
-    public function searchImagePreview($author_id)
-    {
-        $video = new Video($this->link);
-        if (empty($video->image))
+        $video = Video::factory($this->link);
+        if ($video === false)
             return false;
 
-        $photo = AlbumPhoto::createByUrl($video->image, $author_id, 6);
-        if ($photo){
-            $this->photo_id = $photo->id;
-            $this->embed = $video->code;
-        }
-    }
+        $this->embed = $video->embed;
+        $photo = AlbumPhoto::createByUrl($video->thumbnail, $this->isNewRecord ? Yii::app()->user->id : $this->content->author_id, Album::TYPE_PREVIEW);
+        $this->photo_id = $photo->id;
 
-    public function getResizedEmbed($width)
-    {
-        Yii::import('site.frontend.extensions.phpQuery.phpQuery');
-
-        $embed = $this->getEmbed();
-        if (empty($embed))
-            return '';
-
-        $doc = phpQuery::newDocumentHTML($this->getEmbed(), $charset = 'utf-8');
-        $iframe = $doc->find('iframe');
-        $ratio = pq($iframe)->attr('width') / $width;
-
-        $height = round(pq($iframe)->attr('height') / $ratio);
-
-        $iframe->attr('width', $width);
-        $iframe->attr('height', $height);
-
-        return $doc->html();
+        return parent::beforeValidate();
     }
 }

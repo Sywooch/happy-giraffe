@@ -205,11 +205,8 @@ class DefaultController extends HController
 
     public function actionVideoPreview($url)
     {
-        Yii::import('site.common.vendor.*');
-        require_once('OEmbed.php');
-        $oembed = new OEmbed();
-        $html = $oembed->getHtml($url, array('width' => 580, 'height' => 580));
-        echo CJSON::encode($html);
+        $video = Video::factory($url);
+        echo CJSON::encode($video->embed);
     }
 
     protected function performAjaxValidation($models)

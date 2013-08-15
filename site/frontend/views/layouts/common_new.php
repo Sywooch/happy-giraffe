@@ -41,6 +41,7 @@
         ->registerScriptFile('/javascripts/checkbox.js')
         ->registerScript('base_url', 'var base_url = \'' . Yii::app()->baseUrl . '\';', CClientScript::POS_HEAD)
         ->registerScriptFile('/javascripts/common.js?'.$r)
+        ->registerScriptFile('/javascripts/wysiwyg.js')
         ->registerScriptFile('/javascripts/base64.js')
         ->registerScriptFile('/javascripts/jquery.tooltip.pack.js')
         ->registerScriptFile('/javascripts/jquery.dataSelector.js')
@@ -56,6 +57,7 @@
         //->registerScriptFile('http://vk.com/js/api/share.js?11')
         ->registerScriptFile('/javascripts/fox.js')
         ->registerCssFile('/redactor/redactor.css')
+        ->registerScriptFile('/redactor/plugins/toolbarVerticalFixed/toolbarVerticalFixed.js')
     ;
 
 

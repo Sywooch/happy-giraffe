@@ -15,8 +15,6 @@
         }
     };
 
-    $('.wysiwyg-redactor-v').redactorHG();
-
     if ($('.chzn').size() > 0) {
         $('.chzn').each(function () {
             var $this = $(this);

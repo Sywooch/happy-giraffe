@@ -56,6 +56,7 @@
         //->registerScriptFile('http://vk.com/js/api/share.js?11')
         ->registerScriptFile('/javascripts/fox.js')
         ->registerCssFile('/redactor/redactor.css')
+        ->registerScriptFile('/redactor/plugins/toolbarVerticalFixed/toolbarVerticalFixed.js')
     ;
 
 

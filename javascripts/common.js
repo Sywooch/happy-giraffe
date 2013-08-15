@@ -830,6 +830,9 @@ function HgLike(el, entity, entity_id){
         var textarea = this;
 
         var defaultOptions = {
+            initCallback: function() {
+                redactor = this;
+            },
             activeButtonsAdd: {
                 h2: 'h2',
                 h3: 'h3',

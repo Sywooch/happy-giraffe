@@ -182,7 +182,7 @@ class AjaxSimpleController extends CController
     public function actionCommunityToggle()
     {
         $community_id = Yii::app()->request->getPost('community_id');
-        Yii::app()->user->getModel()->toggleCommunity($community_id);
+        UserCommunitySubscription::toggle($community_id);
         echo CJSON::encode(array('status' => true));
     }
 

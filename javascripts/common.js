@@ -923,7 +923,7 @@ function HgLike(el, entity, entity_id){
 
         var options = $.extend({}, defaultOptions, customOptions);
 
-        var toolbarVerticalFixed = options.plugins.indexOf('toolbarVerticalFixed') != -1;
+        var toolbarVerticalFixed = options.hasOwnProperty('plugins') && options.plugins.indexOf('toolbarVerticalFixed') != -1;
 
         $.get('/ajax/redactor/', { toolbarVerticalFixed : toolbarVerticalFixed }, function(response) {
             textarea.before(response);

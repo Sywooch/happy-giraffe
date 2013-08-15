@@ -13,7 +13,7 @@ if (!isset($author))
         </a>
         <div class="meta-gray_view">
             <span class="ico-view ico-view__gray"></span>
-            <span class="meta-gray_tx"><?=PageView::model()->viewsByPath($model->getUrl())?></span>
+            <span class="meta-gray_tx"><?= $full ? $this->getViews() : PageView::model()->viewsByPath($model->getUrl()) ?></span>
         </div>
     </div>
     <div class="float-l">

@@ -1,8 +1,18 @@
 <?php
-$dataProvider = new CActiveDataProvider('CommunityContents', array(
-    'criteria' => array(
-        'condition' => 'removed = 0 and album_id = :album_id',
-        'params' => array(':album_id' => $model->id),
+Yii::app()->clientScript->registerPackage('ko_blog');
+$this->widget('zii.widgets.CListView', array(
+    'cssFile' => false,
+    'ajaxUpdate' => false,
+    'dataProvider' => $user->getActivityDataProvider(),
+    'itemView' => 'blog.views.default.view',
+    'pager' => array(
+        'class' => 'HLinkPager',
     ),
-    'pagination' => array('pageSize' => 20)
+    'template' => '{items}
+        <div class="yiipagination">
+            {pager}
+        </div>
+    ',
+    'emptyText' => '',
+    'viewData' => array('full' => false),
 ));

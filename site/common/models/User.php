@@ -1349,4 +1349,21 @@ class User extends HActiveRecord
 
         return CommunityContent::model()->resetScope()->find($criteria);
     }
+
+    /**
+     * Возвращает активность пользователя
+     * @return CActiveDataProvider
+     */
+    public function getActivityDataProvider()
+    {
+        $dataProvider = new CActiveDataProvider('CommunityContent', array(
+            'criteria' => array(
+                'condition' => 'removed = 0 and author_id = :user_id',
+                'params' => array(':user_id' => $this->id),
+            ),
+            'pagination' => array('pageSize' => 20)
+        ));
+
+        return $dataProvider;
+    }
 }

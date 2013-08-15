@@ -783,7 +783,7 @@ a.pseudo:hover,
 }
 .a-pseudo-icon {
   display: inline-block;
-  margin: 0 12px;
+  margin: 0 10px;
   text-decoration: none;
 }
 .a-pseudo-icon:hover .ico-edit {
@@ -797,6 +797,10 @@ a.pseudo:hover,
   text-decoration: none;
   border-bottom-color: #2c95d6;
   color: #2c95d6;
+}
+.a-pseudo-icon .ico-edit {
+  position: relative;
+  top: -2px;
 }
 .a-pseudo-icon_tx {
   font-size: 12px;
@@ -1070,6 +1074,87 @@ a.pseudo:hover,
   background-position: 0 -500px;
 }
 .ico-family__wife {
+  background-position: -66px -500px;
+}
+.ico-family-big {
+  display: inline-block;
+  width: 160px;
+  height: 160px;
+  background: url(/images/ico/ico-family-big.png) no-repeat 0 0;
+}
+.ico-family-big__baby-plan {
+  background-position: 0 0;
+}
+.ico-family-big__baby {
+  background-position: -160px 0;
+}
+.ico-family-big__baby-two {
+  background-position: 0px -550px;
+}
+.ico-family-big__boy-wait {
+  background-position: 0 0px;
+}
+.ico-family-big__girl-wait {
+  background-position: -160px 0px;
+}
+.ico-family-big__boy-small {
+  background-position: 0 -160px;
+}
+.ico-family-big__girl-small {
+  background-position: -160px -160px;
+}
+.ico-family-big__boy-3 {
+  background-position: 0 -150px;
+}
+.ico-family-big__girl-3 {
+  background-position: -66px -150px;
+}
+.ico-family-big__boy-5 {
+  background-position: 0 -200px;
+}
+.ico-family-big__girl-5 {
+  background-position: -66px -200px;
+}
+.ico-family-big__boy-8 {
+  background-position: 0 -250px;
+}
+.ico-family-big__girl-8 {
+  background-position: -66px -250px;
+}
+.ico-family-big__boy-14 {
+  background-position: 0 -300px;
+}
+.ico-family-big__girl-14 {
+  background-position: -66px -300px;
+}
+.ico-family-big__boy-19 {
+  background-position: 0 -350px;
+}
+.ico-family-big__girl-19 {
+  background-position: -66px -350px;
+}
+.ico-family-big__boy-friend {
+  background-position: 0 -400px;
+}
+.ico-family-big__girl-friend {
+  background-position: -66px -400px;
+}
+.ico-family-big__boy-friend {
+  background-position: 0 -400px;
+}
+.ico-family-big__girl-friend {
+  background-position: -66px -400px;
+}
+.ico-family-big__fiance {
+  background-position: 0 -450px;
+}
+.ico-family-big__bride {
+  background-position: -66px -450px;
+}
+.ico-family-big__husband {
+  background-position: 0 -500px;
+}
+.ico-family-big__wife {
   background-position: -66px -500px;
 }
 .ico-male {
@@ -1430,6 +1515,15 @@ a.pseudo:hover,
   width: 35px;
   height: 45px;
   background: url(/images/ico/ico-lock-big.png) no-repeat;
+}
+.ico-del {
+  display: inline-block;
+  width: 11px;
+  height: 14px;
+  background: url(/images/ico/ico-del.png) no-repeat;
+}
+.ico-del__white {
+  background-position: 0 0;
 }
 /* /icons */
 .logo-box {
@@ -6765,7 +6859,7 @@ select.pregnancy_term + .chzn-container .chzn-results li {
 .chzn-gray .chzn-container-single .chzn-single span {
   height: 32px;
   line-height: 32px;
-  color: #514f4f;
+  color: #070707;
   font-size: 14px;
   margin-right: 40px;
 }
@@ -20265,11 +20359,6 @@ select.pregnancy_term + .chzn-container .chzn-results li {
   line-height: 10px;
   text-align: center;
 }
-.b-family__bg-white .b-family_tx {
-  color: #6a6a6a;
-  background: #fff;
-  background: rgba(255, 255, 255, 0.7);
-}
 .b-family__bg-dark .b-family_more {
   color: #fff;
 }
@@ -20361,6 +20450,11 @@ select.pregnancy_term + .chzn-container .chzn-results li {
   height: 55px;
   max-height: 55px;
   text-align: center;
+  background: #eee;
+  background: rgba(0, 0, 0, 0.05);
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.1);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.1);
 }
 .b-family_img {
   max-height: 100%;
@@ -20368,6 +20462,9 @@ select.pregnancy_term + .chzn-container .chzn-results li {
 .b-family_tx {
   width: 55px;
   padding: 5px 0;
+  color: #6a6a6a;
+  background: #fff;
+  background: rgba(255, 255, 255, 0.7);
 }
 .b-family_empty {
   font-size: 12px;
@@ -20401,7 +20498,7 @@ select.pregnancy_term + .chzn-container .chzn-results li {
 .family-settings {
   position: relative;
   margin-bottom: 30px;
-  padding: 20px;
+  padding: 15px 20px 20px;
   background: #f8f8f8;
   -webkit-border-radius: 8px;
   -moz-border-radius: 8px;
@@ -20417,12 +20514,15 @@ select.pregnancy_term + .chzn-container .chzn-results li {
   padding: 0;
   background: none;
 }
+.family-settings .form-settings_elem {
+  color: #504f4f;
+}
 .family-settings_hold {
   margin-bottom: 20px;
 }
 .family-settings_photo {
   float: left;
-  margin-right: 20px;
+  margin: 10px 20px 0 0;
   background: #e8e8e8;
 }
 .family-settings_photo-hold {
@@ -20456,6 +20556,16 @@ select.pregnancy_term + .chzn-container .chzn-results li {
   display: none;
 }
 /* /family-settings */
+/* b-family-add */
+.b-family-add {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 1000px;
+  font-size: 11px;
+  z-index: 100;
+}
+/* /b-family-add */
 /* valentine-banner */
 .valentine-banner {
   position: relative;

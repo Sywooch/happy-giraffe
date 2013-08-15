@@ -107,7 +107,7 @@ a.pseudo:hover,
 
 .a-pseudo-icon {
 	.inline-block();
-	margin: 0 12px;
+	margin: 0 10px;
 	text-decoration: none;
 
 	&:hover .ico-edit {background-position: 0 -15px;}
@@ -120,6 +120,7 @@ a.pseudo:hover,
 		border-bottom-color:#2c95d6;
 		color: #2c95d6;
 	}
+	.ico-edit {position: relative;top:-2px;}
 	&_tx {
 		font-size: 12px;
 		border-bottom:1px dotted #bab9b9;
@@ -231,32 +232,65 @@ a.pseudo:hover,
 	width: 55px;
 	height: 50px;
 	background: url(/images/ico/ico-family.png) no-repeat -66px 0;
+
+	&__baby-plan     {background-position: 0 0;}
+	&__baby          {background-position: -66px 0;}
+	&__baby-two      {background-position: 0px -550px;}
+	&__boy-wait      {background-position: 0 -50px;}
+	&__girl-wait     {background-position: -66px -50px;}
+	&__boy-small     {background-position: 0 -100px;}
+	&__girl-small    {background-position: -66px -100px;}
+	&__boy-3         {background-position: 0 -150px;}
+	&__girl-3        {background-position: -66px -150px;}
+	&__boy-5         {background-position: 0 -200px;}
+	&__girl-5        {background-position: -66px -200px;}
+	&__boy-8         {background-position: 0 -250px;}
+	&__girl-8        {background-position: -66px -250px;}
+	&__boy-14        {background-position: 0 -300px;}
+	&__girl-14       {background-position: -66px -300px;}
+	&__boy-19        {background-position: 0 -350px;}
+	&__girl-19       {background-position: -66px -350px;}
+	&__boy-friend    {background-position: 0 -400px;}
+	&__girl-friend   {background-position: -66px -400px;}
+	&__boy-friend    {background-position: 0 -400px;}
+	&__girl-friend   {background-position: -66px -400px;}
+	&__fiance        {background-position: 0 -450px;}
+	&__bride         {background-position: -66px -450px;}
+	&__husband       {background-position: 0 -500px;}
+	&__wife          {background-position: -66px -500px;}
 }
-.ico-family__baby-plan     {background-position: 0 0;}
-.ico-family__baby          {background-position: -66px 0;}
-.ico-family__baby-two      {background-position: 0px -550px;}
-.ico-family__boy-wait      {background-position: 0 -50px;}
-.ico-family__girl-wait     {background-position: -66px -50px;}
-.ico-family__boy-small     {background-position: 0 -100px;}
-.ico-family__girl-small    {background-position: -66px -100px;}
-.ico-family__boy-3         {background-position: 0 -150px;}
-.ico-family__girl-3        {background-position: -66px -150px;}
-.ico-family__boy-5         {background-position: 0 -200px;}
-.ico-family__girl-5        {background-position: -66px -200px;}
-.ico-family__boy-8         {background-position: 0 -250px;}
-.ico-family__girl-8        {background-position: -66px -250px;}
-.ico-family__boy-14        {background-position: 0 -300px;}
-.ico-family__girl-14       {background-position: -66px -300px;}
-.ico-family__boy-19        {background-position: 0 -350px;}
-.ico-family__girl-19       {background-position: -66px -350px;}
-.ico-family__boy-friend    {background-position: 0 -400px;}
-.ico-family__girl-friend   {background-position: -66px -400px;}
-.ico-family__boy-friend    {background-position: 0 -400px;}
-.ico-family__girl-friend   {background-position: -66px -400px;}
-.ico-family__fiance        {background-position: 0 -450px;}
-.ico-family__bride         {background-position: -66px -450px;}
-.ico-family__husband       {background-position: 0 -500px;}
-.ico-family__wife          {background-position: -66px -500px;}
+.ico-family-big {
+	.inline-block();
+	width: 160px;
+	height: 160px;
+	background: url(/images/ico/ico-family-big.png) no-repeat 0 0;
+
+	&__baby-plan     {background-position: 0 0;}
+	&__baby          {background-position: -160px 0;}
+	&__baby-two      {background-position: 0px -550px;}
+	&__boy-wait      {background-position: 0 0px;}
+	&__girl-wait     {background-position: -160px 0px;}
+	&__boy-small     {background-position: 0 -160px;}
+	&__girl-small    {background-position: -160px -160px;}
+	&__boy-3         {background-position: 0 -150px;}
+	&__girl-3        {background-position: -66px -150px;}
+	&__boy-5         {background-position: 0 -200px;}
+	&__girl-5        {background-position: -66px -200px;}
+	&__boy-8         {background-position: 0 -250px;}
+	&__girl-8        {background-position: -66px -250px;}
+	&__boy-14        {background-position: 0 -300px;}
+	&__girl-14       {background-position: -66px -300px;}
+	&__boy-19        {background-position: 0 -350px;}
+	&__girl-19       {background-position: -66px -350px;}
+	&__boy-friend    {background-position: 0 -400px;}
+	&__girl-friend   {background-position: -66px -400px;}
+	&__boy-friend    {background-position: 0 -400px;}
+	&__girl-friend   {background-position: -66px -400px;}
+	&__fiance        {background-position: 0 -450px;}
+	&__bride         {background-position: -66px -450px;}
+	&__husband       {background-position: 0 -500px;}
+	&__wife          {background-position: -66px -500px;}
+}
 
 .ico-male {
 	.inline-block();
@@ -471,9 +505,7 @@ a.pseudo:hover,
 	background: #0fc612;
 	top:2px;
 	margin-right:2px;
-	-webkit-border-radius: 6px;
-	-moz-border-radius: 6px;
-	border-radius: 6px;
+	.border-radius(6px);
 }
 .icon-status.status-online {background: #0fc612;}
 .icon-status.status-offline {background: #b8b8b8;}
@@ -543,6 +575,14 @@ a.pseudo:hover,
 	width: 35px;
 	height: 45px;
 	background: url(/images/ico/ico-lock-big.png) no-repeat;
+}
+.ico-del {
+	.inline-block();
+	width: 11px;
+	height: 14px;
+	background: url(/images/ico/ico-del.png) no-repeat;
+
+	&__white {background-position: 0 0;}
 }
 /* /icons */
 

@@ -901,11 +901,6 @@
 	line-height: 10px;
 	text-align: center;
 
-	&__bg-white &_tx {
-		color: #6a6a6a;
-		background: #fff;
-		background: rgba(255,255,255,0.7);
-	}
 	&__bg-dark &_more {color: #fff;}
 	&__bg-dark &_img-hold {
 		background: #836d96;
@@ -981,11 +976,17 @@
 		height: 55px;
 		max-height: 55px;
 		text-align: center;
+		background: #eee;
+		background: rgba(0,0,0,.05);
+		.box-shadow(inset 0 1px 1px rgba(0,0,0,0.1));
 	}
 	&_img {max-height: 100%;}
 	&_tx {
 		width: 55px;
 		padding: 5px 0;
+		color: #6a6a6a;
+		background: #fff;
+		background: rgba(255,255,255,0.7);
 	}
 	&_empty {
 		font-size: 12px;
@@ -1010,6 +1011,71 @@
 	&_add-b:hover {background-color: rgba(0,0,0,.3);}
 }
 /* /b-family */
+
+/* family-settings */
+.family-settings {
+	position: relative;
+	margin-bottom: 30px;
+	padding: 15px 20px 20px;
+	background: #f8f8f8;
+	.border-radius(8px);
+
+	&:hover {background: #fff;}
+	&:hover &_del {display: block;}
+	.form-settings {
+		padding: 0;
+		background: none;
+	}
+	.form-settings_elem {color: #504f4f;}
+	&_hold {margin-bottom: 20px;}
+	&_photo {
+		float: left;
+		margin:10px 20px 0 0;
+		background: #e8e8e8;
+	}
+	&_photo-hold {
+		display: table-cell;
+		width: 205px;
+		max-width: 205px;
+		height: 205px;
+		max-height: 205px;
+		vertical-align: middle;
+		text-align: center;
+	}
+	&_photo-img {
+		display: block;
+		margin: 0 auto;
+		max-height: 100%;
+	}
+	&_desc {
+		float: left;
+		width: 400px;
+	}
+	&_about {
+		padding-right: 30px;
+		font-size: 14px;
+		line-height: 20px;
+		color: #504f4f;
+	}
+	&_del {
+		position: absolute;
+		top: 15px;
+		right: 15px;
+		display: none;
+	}
+}
+/* /family-settings */
+
+/* b-family-add */
+.b-family-add {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 1000px;
+	font-size: 11px;
+	z-index: 100;
+}
+/* /b-family-add */
 
 /* valentine-banner */
 .valentine-banner {

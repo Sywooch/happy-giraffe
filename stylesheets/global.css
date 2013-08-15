@@ -2763,7 +2763,6 @@
 .wysiwyg-v .redactor_editor:focus {
   margin-left: 65px !important;
   width: 540px;
-  height: 610px;
   border: 1px solid #daebf5;
   padding: 10px 20px !important;
   -webkit-box-shadow: none;
@@ -13029,6 +13028,12 @@ table.fr_recipe_tb td {
   display: none;
   filter: alpha(opacity=0);
 }
+.photo-grid_overlay-row {
+  padding: 4px 6px 6px;
+  line-height: 14px;
+  background: #28163a;
+  background: rgba(40, 22, 58, 0.5);
+}
 .photo-grid_zoom {
   position: absolute;
   top: 50%;
@@ -13099,11 +13104,11 @@ table.fr_recipe_tb td {
   background: none;
 }
 .photo-preview-row__add .photo-grid_i:hover {
-  -webkit-transform: scale(0.5);
-  -moz-transform: scale(0.5);
-  -ms-transform: scale(0.5);
-  -o-transform: scale(0.5);
-  transform: scale(0.5);
+  -webkit-transform: scale(1);
+  -moz-transform: scale(1);
+  -ms-transform: scale(1);
+  -o-transform: scale(1);
+  transform: scale(1);
 }
 .photo-preview-row_t {
   display: block;
@@ -13131,6 +13136,7 @@ table.fr_recipe_tb td {
   vertical-align: middle;
   width: 121px;
   height: 104px;
+  margin: 0 0 0 5px;
   background: url(/images/photo-preview-row_add.png) no-repeat;
 }
 .photo-preview-row_add:hover {
@@ -15930,8 +15936,10 @@ table.fr_recipe_tb td {
   color: #919090;
 }
 .form-settings_label-row {
-  color: #333;
+  color: #111;
   margin: 10px 0 10px;
+  font-size: 17px;
+  line-height: 22px;
 }
 .form-settings_elem {
   float: left;
@@ -16071,9 +16079,6 @@ table.fr_recipe_tb td {
 .b-registration {
   margin: 20px 0;
 }
-.b-registration .b-family {
-  font-size: 11px;
-}
 .b-registration_row {
   margin: 25px 20px 20px 45px;
 }
@@ -16089,6 +16094,9 @@ table.fr_recipe_tb td {
 }
 /* /b-registration */
 /* b-family-structure */
+.b-family-structure .b-family {
+  font-size: 11px;
+}
 .b-family-structure_added {
   float: left;
   width: 440px;

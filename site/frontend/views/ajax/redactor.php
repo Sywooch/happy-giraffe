@@ -184,7 +184,7 @@
     </div>
 </div>
 <!-- /ko -->
+
 <?php if ($toolbarVerticalFixed): ?>
-    <div class="wysiwyg-v_toolbar">
-        <div class="wysiwyg-v_toolbar-btn"></div>
+</div>
 <?php endif; ?>

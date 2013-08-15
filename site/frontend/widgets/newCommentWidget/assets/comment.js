@@ -39,7 +39,8 @@ function CommentViewModel(data) {
 
             self.initEditor('add_' + self.objectName());
         }
-        self.focusEditor();
+        else
+            self.focusEditor();
     };
 
     self.Enter = function () {
@@ -72,21 +73,15 @@ function CommentViewModel(data) {
     self.initEditor = function (id) {
         self.editor = $('#' + id);
         if (!self.gallery()) {
-            $('#' + id).redactor({
+            $('#' + id).redactorHG({
+                initCallback: function() {
+                    redactor = this;
+                    self.focusEditor();
+                },
                 minHeight: 68,
                 autoresize: true,
-                buttons: ['bold', 'italic', 'underline', 'image', 'video', 'smile'],
-                buttonsCustom: {
-                    smile: {
-                        title: 'smile',
-                        callback: function (buttonName, buttonDOM, buttonObject) {
-                            // your code, for example - getting code
-                            var html = this.get();
-                        }
-                    }
-                }
+                buttons: ['bold', 'italic', 'underline', 'image', 'video', 'smile']
             });
-            self.focusEditor();
         }
     };
 

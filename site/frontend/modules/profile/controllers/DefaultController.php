@@ -179,6 +179,13 @@ class DefaultController extends HController
         echo CJSON::encode(array('status' => true, 'url' => $ava->getOriginalUrl()));
     }
 
+    public function actionSubscribeBlog()
+    {
+        $blog_id = Yii::app()->request->getPost('id');
+        UserBlogSubscription::toggle($blog_id);
+        echo CJSON::encode(array('status' => true));
+    }
+
     /**
      * Load user
      * @param int $id user id

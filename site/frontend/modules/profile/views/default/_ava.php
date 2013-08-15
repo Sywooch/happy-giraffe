@@ -12,7 +12,7 @@ Yii::app()->clientScript
 if (!empty($user->avatar_id) && !empty($user->avatar->userAvatar)) {
     $userAva = $user->avatar->userAvatar;
     $json = array(
-        'image_url' => $user->avatar->getOriginalUrl(),
+        'image_url' => $userAva->source->getOriginalUrl(),
         'coordinates' => array(
             (int)$userAva->x,
             (int)$userAva->y,
@@ -42,17 +42,25 @@ if (Yii::app()->user->id != $user->id):
         <?php if ($user->online): ?>
             <span class="b-ava-large_online">На сайте</span>
         <?php else: ?>
-            <span
-                class="b-ava-large_lastvisit">Была на сайте <br> <?= HDate::GetFormattedTime($user->login_date); ?></span>
+            <span class="b-ava-large_lastvisit">Была на сайте <br> <?= HDate::GetFormattedTime($user->login_date); ?></span>
         <?php endif; ?>
     </div>
 <?php else: ?>
     <div class="b-ava-large upload-avatar-vm">
-        <a href="#popup-upload-ava" class="ava large fancy" data-theme="transparent" data-bind="click:load">
-            <img src="<?= $user->getAva('large') ?>" alt=""/>
-            <span class="b-ava-large_photo-change">Изменить <br>главное фото</span>
-        </a>
-        <span class="b-ava-large_online">На сайте</span>
+            <a href="#popup-upload-ava" class="ava large fancy" data-theme="transparent" data-bind="click:load">
+                <?php if (!empty($user->avatar_id)):?>
+                    <img src="<?= $user->getAva('large') ?>" alt=""/>
+                    <span class="b-ava-large_photo-change">Изменить <br>главное фото</span>
+                <?php else: ?>
+                    <span class="b-ava-large_photo-add" data-bind="click:load">Добавить <br>главное фото</span>
+                <?php endif ?>
+            </a>
+
+        <?php if ($user->online): ?>
+            <span class="b-ava-large_online">На сайте</span>
+        <?php else: ?>
+            <span class="b-ava-large_lastvisit">Была на сайте <br> <?= HDate::GetFormattedTime($user->login_date); ?></span>
+        <?php endif; ?>
         <a href="/user/settings/" class="b-ava-large_settings powertip" title="Настройки профиля"></a>
     </div>
 
@@ -171,9 +179,13 @@ if (Yii::app()->user->id != $user->id):
             }, 'json');
         };
         self.cancel = function () {
-            self.status(0);
             self.image_url(self.old_url());
             $.fancybox.close();
+            window.setTimeout(function(){
+                self.status(0);
+                if (self.jcrop_api != null)
+                    self.jcrop_api.destroy();
+            }, 500);
         };
         self.onFiles = function (files) {
             FileAPI.each(files, function (file) {

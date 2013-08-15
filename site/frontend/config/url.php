@@ -80,6 +80,7 @@ return array(
         'blog/form/type<type:\d+>' => 'blog/default/form',
         'blog/settings/<_a>' => 'blog/settings/<_a>',
 
+        'user/settings/' => 'profile/settings/personal',
         'user/settings/<_a>' => 'profile/settings/<_a>',
         'user/<user_id:\d+>/blog/rubric<rubric_id:\d+>' => 'blog/default/index',
         'user/<user_id:\d+>/blog/post<content_id:\d+>' => 'blog/default/view',

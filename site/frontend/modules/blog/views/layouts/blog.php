@@ -9,7 +9,7 @@
         ->registerScriptFile('/javascripts/upload/FileAPI.exif.js', CClientScript::POS_BEGIN)
     ;
 
-    Yii::app()->controller->widget('site.common.extensions.imperavi-redactor-widget.ImperaviRedactorWidget', array('onlyRegisterScript' => true));
+    //Yii::app()->controller->widget('site.common.extensions.imperavi-redactor-widget.ImperaviRedactorWidget', array('onlyRegisterScript' => true));
 
 ?>
 <?php if (!Yii::app()->user->isGuest):?>

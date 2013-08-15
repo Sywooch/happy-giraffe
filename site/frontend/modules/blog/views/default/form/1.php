@@ -53,21 +53,6 @@
     <div class="wysiwyg-v wysiwyg-blue clearfix">
         <?=$form->textArea($slaveModel, 'text', array('class' => 'wysiwyg-redactor-v'))?>
         <?=$form->error($slaveModel, 'text')?>
-
-        <!-- ko stopBinding: true -->
-        <div class="redactor-popup redactor-popup_b-photo display-n" id="redactor-popup_b-photo">
-            <a href="" class="redactor-popup_close ico-close3 powertip" data-bind="click: close"></a>
-            <div class="redactor-popup_tale"></div>
-            <div class="redactor-popup_t">Загрузите фото</div>
-
-            <?php $this->renderPartial('application.views.upload_image_popup'); ?>
-
-            <div class="textalign-c margin-t15">
-                <a href="javascript:;" class="btn-gray-light btn-medium margin-r10" onclick="$(this).parents('.redactor-popup').addClass('display-n');">Отменить</a>
-                <a href="" class="btn-green btn-medium" data-bind="click: add, css: {'btn-inactive': !upload().addActive()}">Добавить фото</a>
-            </div>
-        </div>
-        <!-- /ko -->
     </div>
 
     <div class="clearfix">
@@ -108,6 +93,14 @@
 <?php $this->endWidget(); ?>
 
 <script>
+    $('.wysiwyg-redactor-v').redactorHG({
+        plugins: ['toolbarVerticalFixed'],
+        minHeight: 410,
+        autoresize: true,
+        toolbarExternal: '.wysiwyg-v_toolbar-btn',
+        buttons: ['bold', 'italic', 'underline', 'deleted', 'h2', 'h3', 'unorderedlist', 'orderedlist', 'link_add', 'link_del', 'image', 'video', 'smile']
+    });
+
     var BlogFormPostViewModel = function(data) {
         var self = this;
         ko.utils.extend(self, new BlogFormViewModel(data));

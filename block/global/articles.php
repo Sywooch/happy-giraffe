@@ -378,14 +378,14 @@ $(document).ready(function () {
 								</div>
 						</div>
 						<textarea name="" class="wysiwyg-redactor" ></textarea>
-						<div class="redactor-control">
-						<div class="float-r">
-							<div class="redactor-control_key">
-								<input type="checkbox" class="redactor-control_key-checkbox" id="redactor-control_key-checkbox" name="">
-								<label class="redactor-control_key-label" for="redactor-control_key-checkbox">Enter - отправить</label>
+						<div class="redactor-control clearfix">
+							<div class="float-r">
+								<div class="redactor-control_key">
+									<input type="checkbox" class="redactor-control_key-checkbox" id="redactor-control_key-checkbox" name="">
+									<label class="redactor-control_key-label" for="redactor-control_key-checkbox">Enter - отправить</label>
+								</div>
+								<button class="btn-green">Отправить</button>
 							</div>
-							<button class="btn-green">Отправить</button>
-						</div>
 						</div>
 					</div>
 				</div>

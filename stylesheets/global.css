@@ -2789,7 +2789,7 @@
   left: 44px;
 }
 .wysiwyg-v .b-article_in-img {
-  margin: 0 -20px 10px;
+  margin: 0 -20px 10px !important;
 }
 .wysiwyg-v_toolbar {
   float: left;
@@ -16100,6 +16100,11 @@ table.fr_recipe_tb td {
 /* b-family-structure */
 .b-family-structure .b-family {
   font-size: 11px;
+}
+.b-family-structure .ico-close3 {
+  position: absolute;
+  top: 15px;
+  right: 15px;
 }
 .b-family-structure_added {
   float: left;

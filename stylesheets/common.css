@@ -844,7 +844,7 @@ a.pseudo:hover,
   box-shadow: none;
 }
 .ava img {
-  margin-top: 0 !important;
+  margin-top: 0;
   display: block;
 }
 .ava .icon-status {
@@ -998,7 +998,7 @@ a.pseudo:hover,
 .ico-family {
   display: inline-block;
   width: 55px;
-  height: 50px;
+  height: 55px;
   background: url(/images/ico/ico-family.png) no-repeat -66px 0;
 }
 .ico-family__baby-plan {

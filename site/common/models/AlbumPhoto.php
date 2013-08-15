@@ -18,6 +18,7 @@
  * The followings are the available model relations:
  * @property Album $album
  * @property User $author
+ * @property UserAvatar $userAvatar
  *
  * @method AlbumPhoto findByPk()
  */
@@ -107,6 +108,7 @@ class AlbumPhoto extends HActiveRecord
             'album' => array(self::BELONGS_TO, 'Album', 'album_id'),
             'author' => array(self::BELONGS_TO, 'User', 'author_id'),
             'attach' => array(self::HAS_ONE, 'AttachPhoto', 'photo_id'),
+            'userAvatar' => array(self::HAS_ONE, 'UserAvatar', 'avatar_id'),
             'galleryItem' => array(self::HAS_ONE, 'CommunityContentGalleryItem', 'photo_id'),
             'remove' => array(self::HAS_ONE, 'Removed', 'entity_id', 'condition' => '`remove`.`entity` = :entity', 'params' => array(':entity' => get_class($this)))
         );
@@ -222,11 +224,11 @@ class AlbumPhoto extends HActiveRecord
         $httpStatus = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
 
-        if ($httpStatus !== 200){
+        if ($httpStatus !== 200) {
             return false;
         }
 
-        if (empty($file)){
+        if (empty($file)) {
             return false;
         }
 
@@ -298,6 +300,32 @@ class AlbumPhoto extends HActiveRecord
             //echo $this->templatePath;Yii::app()->end();
             rename($this->templatePath, $file_name);
         }
+    }
+
+    /**
+     * Создаем фото из объекта PhpThumb
+     *
+     * @param PhpThumb $image
+     * @return bool
+     */
+    public function savePhotoFromPhpThumb($image)
+    {
+        $dir = Yii::getPathOfAlias('site.common.uploads.photos');
+        $model_dir = $dir . DIRECTORY_SEPARATOR . $this->original_folder . DIRECTORY_SEPARATOR . $this->author_id;
+        if (!file_exists($model_dir))
+            mkdir($model_dir);
+
+        $fs_name = $this->fs_name;
+        $file_name = $model_dir . DIRECTORY_SEPARATOR . $this->fs_name;
+        while (file_exists($file_name)) {
+            $fs_name = substr(md5(time()), 0, 5) . $this->fs_name;
+            $file_name = $model_dir . DIRECTORY_SEPARATOR . $fs_name;
+        }
+
+        $image->save($file_name);
+        $this->fs_name = $fs_name;
+
+        return $this->save();
     }
 
     /**

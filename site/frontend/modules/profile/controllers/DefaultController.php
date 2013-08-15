@@ -27,8 +27,8 @@ class DefaultController extends HController
         $user = User::model()->active()->with(array(
             'status',
             'purpose',
-            'avatar' => array('select' => array('fs_name', 'author_id')),
-            'address' => array('select' => array('country_id', 'region_id', 'city_id')),
+            'avatar',
+            'address',
             'partner',
             'babies',
             'mood',
@@ -164,6 +164,19 @@ class DefaultController extends HController
             'users' => $interest->getUsersData(),
             'count' => (int)$interest->usersCount,
         ));
+    }
+
+    /**
+     * Установить новый аватар
+     */
+    public function actionSetAvatar()
+    {
+        $source_id = Yii::app()->request->getPost('source_id');
+        $coordinates = Yii::app()->request->getPost('coordinates');
+        $ava = UserAvatar::createUserAvatar(Yii::app()->user->id, $source_id,
+            $coordinates['x'], $coordinates['y'], $coordinates['w'], $coordinates['h']);
+
+        echo CJSON::encode(array('status' => true, 'url' => $ava->getOriginalUrl()));
     }
 
     /**

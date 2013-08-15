@@ -180,7 +180,7 @@
                             $class = 'ava small';
                             if ($u->gender !== null) $class .= ' ' . (($u->gender) ? 'male' : 'female');
                             ?>
-                            <li><?=CHtml::link(CHtml::image($u->getAva('small')), $u->url, array('class' => $class))?></li>
+                            <li><?=CHtml::link(CHtml::image($u->getAvatarUrl(24)), $u->url, array('class' => $class))?></li>
                         <?php endforeach; ?>
 
                     </ul>

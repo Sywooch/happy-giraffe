@@ -12,7 +12,7 @@
         <?php $subscribers = UserBlogSubscription::model()->getSubscribers($this->user->id); ?>
         <?php foreach ($subscribers as $subscriber): ?>
             <li class="readers2_li clearfix">
-                <?php $this->widget('UserAvatarWidget', array('user' => $subscriber, 'size' => 'micro')); ?>
+                <?php $this->widget('UserAvatarWidget', array('user' => $subscriber, 'size' => 24)); ?>
             </li>
         <?php endforeach; ?>
     </ul>

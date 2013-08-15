@@ -8,7 +8,7 @@ if ($comment !== null){
 ?>
 <div class="user-notice-list_post js-powertip-white" data-powertip="<?= $comment->getPowerTipTitle() ?>">
     <div class="user-notice-list_ava clearfix">
-        <span class="ava <?=Yii::app()->user->getModel()->gender?'male':'female' ?> small"><img src="<?=Yii::app()->user->getModel()->getAva('small') ?>"></span>
+        <span class="ava <?=Yii::app()->user->getModel()->gender?'male':'female' ?> small"><img src="<?=Yii::app()->user->getModel()->getAvatarUrl(24) ?>"></span>
     </div>
     <div class="user-notice-list_comment">
         <div class="user-notice-list_comment-text">

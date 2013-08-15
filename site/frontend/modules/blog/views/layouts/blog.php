@@ -45,7 +45,7 @@
 <div class="content-cols clearfix">
     <div class="col-1">
 
-        <?php $this->widget('UserAvatarWidget', array('user' => $this->user, 'size' => 'big')); ?>
+        <?php $this->widget('UserAvatarWidget', array('user' => $this->user, 'size' => 200)); ?>
 
         <div class="aside-blog-desc blogInfo" data-bind="visible: description().length > 0">
             <div class="aside-blog-desc_tx" data-bind="html: description"></div>

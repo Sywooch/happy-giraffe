@@ -15802,6 +15802,10 @@ table.fr_recipe_tb td {
 }
 .popup-upload-ava_prev .b-ava-large {
   margin-top: 0;
+  text-align: center;
+}
+.popup-upload-ava_prev img {
+  max-width: none;
 }
 /* /popup-upload-ava */
 /* award-list */

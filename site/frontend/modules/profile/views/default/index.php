@@ -24,20 +24,22 @@ Yii::app()->clientScript->registerPackage('ko_profile');
                 ?>
             </div>
             <div class="user-btns clearfix">
-                <a href="" class="user-btns_i powertip">
-                    <span class="user-btns_ico-hold user-btns_ico-hold__friend-add">
-                        <span class="user-btns_ico"></span>
-                    </span>
-                    <span class="user-btns_tx"></span>
-                </a>
-                <a href="<?= $this->createUrl('/messaging/default/index', array('interlocutorId' => $user->id)) ?>" class="user-btns_i powertip">
-                    		<span class="user-btns_ico-hold user-btns_ico-hold__dialog">
-                    			<span class="user-btns_ico"></span>
-                    		</span>
-                    <span class="user-btns_tx"></span>
-                </a>
+                <?php if ($user->id != Yii::app()->user->id):?>
+                    <a href="" class="user-btns_i powertip">
+                        <span class="user-btns_ico-hold user-btns_ico-hold__friend-add">
+                            <span class="user-btns_ico"></span>
+                        </span>
+                        <span class="user-btns_tx"></span>
+                    </a>
+                    <a href="<?= $this->createUrl('/messaging/default/index', array('interlocutorId' => $user->id)) ?>" class="user-btns_i powertip">
+                        		<span class="user-btns_ico-hold user-btns_ico-hold__dialog">
+                        			<span class="user-btns_ico"></span>
+                        		</span>
+                        <span class="user-btns_tx"></span>
+                    </a>
 
-                <div class="user-btns_separator"></div>
+                    <div class="user-btns_separator"></div>
+                <?php endif ?>
 
                 <a href="<?= $this->createUrl('/blog/default/index', array('user_id' => $user->id)) ?>"
                    class="user-btns_i powertip">

@@ -1,6 +1,6 @@
 <li data-userid="<?=$contact->id?>" data-unread="<?=($contact->userDialog) ? $contact->userDialog->dialog->unreadMessagesCount : 0?>" onclick="Messages.setDialog(<?=$contact->id?>);">
 
-    <span class="ava small"><?=$contact->getAva('small') ? CHtml::image($contact->getAva('small')):''?></span>
+    <span class="ava small"><?=$contact->getAvatarUrl(24) ? CHtml::image($contact->getAvatarUrl(24)):''?></span>
 
     <div class="in">
 

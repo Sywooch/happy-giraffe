@@ -37,7 +37,7 @@ if (Yii::app()->user->id != $user->id):
     ?>
     <div class="b-ava-large">
         <div class="ava large">
-            <?= $user->getAva('large') ?>
+            <img src="<?= $user->getAvatarUrl(200) ?>" alt=""/>
         </div>
         <?php if ($user->online): ?>
             <span class="b-ava-large_online">На сайте</span>
@@ -49,7 +49,7 @@ if (Yii::app()->user->id != $user->id):
     <div class="b-ava-large upload-avatar-vm">
             <a href="#popup-upload-ava" class="ava large fancy" data-theme="transparent" data-bind="click:load">
                 <?php if (!empty($user->avatar_id)):?>
-                    <img src="<?= $user->getAva('large') ?>" alt=""/>
+                    <img src="<?= $user->getAvatarUrl(200) ?>" alt=""/>
                     <span class="b-ava-large_photo-change">Изменить <br>главное фото</span>
                 <?php else: ?>
                     <span class="b-ava-large_photo-add" data-bind="click:load">Добавить <br>главное фото</span>

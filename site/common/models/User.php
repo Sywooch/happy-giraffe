@@ -560,6 +560,17 @@ class User extends HActiveRecord
             //if ($this->user->gender)
             return false;
         }
+        //новая схема хранения аватарок
+        if (!empty($this->avatar->userAvatar)) {
+            switch ($size) {
+                case 'big':
+                    return $this->avatar->getPreviewUrl(240, 400, Image::WIDTH);
+                case 'large':
+                    return $this->avatar->getPreviewUrl(200, 200, Image::INVERT, true, AlbumPhoto::CROP_SIDE_TOP);
+                default:
+                    return $this->avatar->getAvatarUrl($size);
+            }
+        }
 
         switch ($size) {
             case 'big':
@@ -581,7 +592,8 @@ class User extends HActiveRecord
         return $this->blogPhoto === null ? '/images/blog-title-b_img.jpg' : $this->blogPhoto->getBlogUrl();
     }
 
-    public function getBlogPhotoPosition() {
+    public function getBlogPhotoPosition()
+    {
         return $this->blogPhoto === null ? array(
             'h' => 130,
             'w' => 730,
@@ -592,11 +604,13 @@ class User extends HActiveRecord
         ) : CJSON::decode($this->blog_photo_position);
     }
 
-    public function getBlogPhotoWidth() {
+    public function getBlogPhotoWidth()
+    {
         return $this->blogPhoto === null ? 730 : $this->blogPhoto->width;
     }
 
-    public function getBlogPhotoHeight() {
+    public function getBlogPhotoHeight()
+    {
         return $this->blogPhoto === null ? 520 : $this->blogPhoto->height;
     }
 
@@ -940,7 +954,7 @@ class User extends HActiveRecord
     public function addCommunity($community_id)
     {
         $result = Yii::app()->db->createCommand()
-            ->insert('user__users_communities', array('user_id' => $this->id, 'community_id' => $community_id)) != 0;
+                ->insert('user__users_communities', array('user_id' => $this->id, 'community_id' => $community_id)) != 0;
         if ($result) {
             UserAction::model()->add($this->id, UserAction::USER_ACTION_CLUBS_JOINED, array('community_id' => $community_id));
             FriendEventManager::add(FriendEvent::TYPE_CLUBS_JOINED, array('id' => $community_id, 'user_id' => Yii::app()->user->id));
@@ -1121,7 +1135,7 @@ class User extends HActiveRecord
     public function getBlogPopular()
     {
         return BlogContent::model()->findAll(array(
-            'with' => array('rubric','commentsCount', 'type'),
+            'with' => array('rubric', 'commentsCount', 'type'),
             'condition' => 'rubric.user_id = :user_id',
             'params' => array(':user_id' => $this->id),
             'order' => 't.rate DESC',
@@ -1325,7 +1339,7 @@ class User extends HActiveRecord
      */
     public function isLiked($model)
     {
-        return (bool) HGLike::model()->hasLike($model, $this->id);
+        return (bool)HGLike::model()->hasLike($model, $this->id);
     }
 
     /**
@@ -1365,5 +1379,24 @@ class User extends HActiveRecord
         ));
 
         return $dataProvider;
+    }
+
+    public function getAvatarUrl($size = 72)
+    {
+        if (empty($this->avatar_id)) {
+            return false;
+        }
+        //новая схема хранения аватарок
+        if (!empty($this->avatar->userAvatar))
+            return $this->avatar->getPreviewUrl($size, $size, Image::INVERT, true, AlbumPhoto::CROP_SIDE_TOP);
+
+        switch ($size) {
+            case 200:
+                return $this->avatar->getPreviewUrl(200, 200, Image::INVERT, true, AlbumPhoto::CROP_SIDE_TOP);
+            case 72:
+                return $this->avatar->getAvatarUrl('ava');
+            case 24:
+                return $this->avatar->getAvatarUrl('micro');
+        }
     }
 }

@@ -126,7 +126,7 @@ class MessagesController extends HController
                         'firstName' => Yii::app()->user->model->first_name,
                         'lastName' => Yii::app()->user->model->last_name,
                         'gender' => (int) Yii::app()->user->model->gender,
-                        'avatar' => Yii::app()->user->model->getAva('small'),
+                        'avatar' => Yii::app()->user->model->getAvatarUrl(24),
                         'online' => (bool) Yii::app()->user->model->online,
                         'isFriend' => (bool) Friend::model()->areFriends(Yii::app()->user->id, $interlocutorId),
                     ),

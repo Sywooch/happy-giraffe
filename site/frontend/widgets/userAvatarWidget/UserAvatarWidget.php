@@ -9,7 +9,7 @@ class UserAvatarWidget extends CWidget
     /**
      * @var string
      */
-    public $size = 'medium';
+    public $size = 72;
     public $location = false;
     public $age = false;
 

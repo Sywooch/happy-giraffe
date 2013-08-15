@@ -275,7 +275,7 @@ class CommentatorHelper
             $data[$user->id] = array(
                 'id' => $user->id,
                 'name' => $user->fullName,
-                'ava' => $user->getAva('small'),
+                'ava' => $user->getAvatarUrl(72),
             );
 
         return $data;

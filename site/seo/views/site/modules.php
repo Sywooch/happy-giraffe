@@ -3,7 +3,7 @@
     <div class="title"><i class="img"></i><span>SEO-<span>жираф</span></span></div>
 
     <div class="user-info clearfix">
-        <div class="ava"><img src="<?=Yii::app()->user->getModel()->getAva('ava') ?>" alt=""></div>
+        <div class="ava"><img src="<?=Yii::app()->user->getModel()->getAvatarUrl(72) ?>" alt=""></div>
         <div class="details">
             <a href="javascript:;" class="username"><?=Yii::app()->user->getModel()->name ?></a>
 

@@ -9,7 +9,7 @@ NotificationRead::getInstance()->addShownComment($data);
     <?php $this->render('_like',compact('data')); ?>
 
     <div class="comments-gray_ava">
-        <?php $this->widget('UserAvatarWidget', array('user' => $data->author, 'size' => 'micro')) ?>
+        <?php $this->widget('UserAvatarWidget', array('user' => $data->author, 'size' => 24)) ?>
     </div>
 
     <div class="comments-gray_frame">

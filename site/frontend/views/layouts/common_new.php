@@ -114,12 +114,7 @@
 
             <ul class="top-line-menu_nav_ul">
                 <li class="i-ava top-line-menu_nav_li js-tooltipsy" title="Моя анкета">
-                    <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
-                    'user' => Yii::app()->user->model,
-                    'size' => 'small',
-                    'small' => true,
-                    'sendButton' => false,
-                )); ?>
+                    <?php $this->widget('Avatar', array('user' => Yii::app()->user->model, 'size' => Avatar::SIZE_MICRO)); ?>
                 </li>
                 <li class="i-broadcast new top-line-menu_nav_li js-tooltipsy" title="Что нового">
                     <a href="<?=$this->createUrl('/whatsNew/default/index')?>"><i class="icon-broadcast"></i></a>

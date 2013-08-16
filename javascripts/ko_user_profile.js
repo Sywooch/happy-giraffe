@@ -180,16 +180,18 @@ function UserInterest(data, parent) {
             }
         }, 'json');
     };
-    self.enableDetails = function(){
+    self.enableDetails = function () {
         self.hover(true);
         if (self.count() === null)
             self.loadDetails();
         else
             self.showDetails(true);
     };
-    self.disableDetails = function(){
+    self.disableDetails = function () {
         self.hover(false);
-        setTimeout(function(){if (!self.hover()) self.showDetails(false)}, 300);
+        setTimeout(function () {
+            if (!self.hover()) self.showDetails(false)
+        }, 300);
     };
 }
 
@@ -202,3 +204,48 @@ function UserInterestUser(data) {
         return self.gender == 0 ? 'female' : 'male';
     }, this);
 }
+
+
+/*********************** subscribe blog ***********************/
+var BlogSubscription = function (data) {
+    var self = this;
+    self.active = ko.observable(data.active);
+    self.id = ko.observable(data.id);
+    self.toggle = function(){
+        $.post('/profile/subscribeBlog/', {id: self.id()}, function (response) {
+            if (response.status)
+                self.active(!self.active());
+        }, 'json');
+    }
+};
+
+/*********************** subscribe community ***********************/
+var UserClubsWidget = function (data) {
+    var self = this;
+    self.clubs = ko.observableArray(ko.utils.arrayMap(data, function (club) {
+        return new UserClub(club);
+    }));
+    self.count = ko.computed(function () {
+        return self.clubs().length;
+    });
+};
+
+var UserClub = function (data) {
+    var self = this;
+    self.id = ko.observable(data.id);
+    self.title = ko.observable(data.title);
+    self.have = ko.observable(data.have);
+
+    self.url = ko.computed(function () {
+        return '/community/' + self.id() + '/forum/';
+    });
+    self.src = ko.computed(function () {
+        return '/images/club/' + self.id() + '.png';
+    });
+    self.toggle = function () {
+        $.post('/ajaxSimple/communityToggle/', {community_id: self.id()}, function (response) {
+            if (response.status)
+                self.have(!self.have());
+        }, 'json');
+    }
+};

@@ -46,7 +46,7 @@ function UploadPhotos(data, multi) {
         return ids;
     };
     self.openLoad = function(data, event){
-        if (self.upload().photos().length < 1)
+        if (self.photos().length < 1)
             return true;
     };
 

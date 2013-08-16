@@ -57,11 +57,10 @@ $model = AlbumPhoto::model()->findByPk($json['initialPhotoId']);
         <!-- /ko -->
 
     </div>
+    <style type="text/css">
+        body {overflow: hidden !important;}
+    </style>
 </div>
-
-<style type="text/css">
-    body {overflow: hidden !important;}
-</style>
 <script type="text/javascript">
     photoViewVM = new PhotoCollectionViewModel(<?=CJSON::encode($json)?>);
     ko.applyBindings(photoViewVM, document.getElementById('photo-window'));

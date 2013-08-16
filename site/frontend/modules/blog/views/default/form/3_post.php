@@ -85,7 +85,7 @@
 
 </div>
 <script type="text/javascript">
-    $('#CommunityPhotoPost_text').redactor({
+    $('#CommunityPhotoPost_text').redactorHG({
         minHeight: 80,
         autoresize: true,
         buttons: []

@@ -14,6 +14,7 @@ class UserPhotosWidget extends CWidget
     public function run()
     {
         $collection = new UserPhotoCollection(array('userId' => $this->userId));
-        $this->render('UserPhotosWidget', compact('collection'));
+        if ($collection->notEmpty())
+            $this->render('UserPhotosWidget', compact('collection'));
     }
 }

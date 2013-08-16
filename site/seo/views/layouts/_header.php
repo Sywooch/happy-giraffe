@@ -1,7 +1,7 @@
 <?php if (!Yii::app()->user->checkAccess('commentator-manager')):?>
     <div class="title">
         <div class="user-info clearfix">
-            <div class="ava small"><img src="<?=Yii::app()->user->getModel()->getAva() ?>" alt=""></div>
+            <div class="ava small"><img src="<?=Yii::app()->user->getModel()->getAvatarUrl() ?>" alt=""></div>
             <div class="details">
                 <a href="javascript:;" class="username" onclick="$('.user-info .nav').toggle();"><?=Yii::app()->user->getModel()->name ?><i class="arr"></i></a>
             </div>

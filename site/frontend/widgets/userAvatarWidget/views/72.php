@@ -1,6 +1,6 @@
 <?php
 /**
- * @var $this UserAvatarWidget
+ * @var $this Avatar
  */
 ?><a href="<?=$this->user->getUrl() ?>" class="ava <?=($this->user->gender == 0)?'female':'male' ?>">
     <?php if ($this->user->online):?>

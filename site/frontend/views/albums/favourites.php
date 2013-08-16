@@ -10,7 +10,7 @@
         <noindex>
             <div class="clearfix">
                 <div class="user">
-                    <?php $this->widget('application.widgets.userAvatarWidget.UserAvatarWidget', array('user' => $model->author)); ?>
+                    <?php $this->widget('Avatar', array('user' => $model->author)); ?>
                 </div>
 
                 <?php $this->widget('FavouriteWidget', compact('model')); ?>

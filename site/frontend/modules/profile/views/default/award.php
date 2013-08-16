@@ -61,7 +61,7 @@
                 <ul>
                     <?php foreach ($users as $user): ?>
                         <li class="ava-small-list_li">
-                            <?php $this->widget('UserAvatarWidget', array('user' => $user, 'size' => 24)) ?>
+                            <?php $this->widget('Avatar', array('user' => $user, 'size' => 24)) ?>
                         </li>
                     <?php endforeach; ?>
                     <?php if ($count > count($users)):?>

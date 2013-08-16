@@ -1,7 +1,7 @@
 <?php 
 $user = $data->friend;
 ?><div class="friends-list_i">
-    <?php $this->widget('UserAvatarWidget', array('user' => $user, 'size' => 200, 'age' => true)) ?>
+    <?php $this->widget('Avatar', array('user' => $user, 'size' => 200, 'age' => true)) ?>
     <div class="friends-list_location clearfix">
         <?php
         if (!empty($user->address->country_id))

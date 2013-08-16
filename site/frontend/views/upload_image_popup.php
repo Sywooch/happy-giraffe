@@ -21,9 +21,11 @@
 
             <div class="b-add-img_i-error-tx" data-bind="text: error, visible: isError()"></div>
 
-            <div class="js-image" style="opacity: 0.2"></div>
+            <div class="js-image" style="opacity: 0.5"></div>
 
-            <img class="b-add-img_i-img" data-bind="attr: {src: url}, visible: file === null">
+            <!-- ko if: file === null -->
+            <img class="b-add-img_i-img" data-bind="attr: {src: url}">
+            <!-- /ko -->
 
             <!-- ko if: !isError() -->
             <div class="b-add-img_i-vert"></div>

@@ -16,6 +16,11 @@ class UserPhotoCollection extends PhotoCollection
         return Yii::app()->db->createCommand("SELECT id FROM album__photos WHERE author_id = :userId")->queryColumn(array(':userId' => $this->userId));
     }
 
+    public function notEmpty()
+    {
+        return null != Yii::app()->db->createCommand("SELECT id FROM album__photos WHERE author_id = :userId limit 1")->queryScalar(array(':userId' => $this->userId));
+    }
+
     protected function getIdsCacheDependency()
     {
         $dependency = new CDbCacheDependency("SELECT COUNT(*) FROM album__photos WHERE author_id = :userId");

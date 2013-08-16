@@ -910,7 +910,18 @@ class User extends HActiveRecord
 
     public function getBlogUrl()
     {
-        return Yii::app()->createUrl('/blog/list', array('user_id' => $this->id));
+        return $this->hasBlogPosts() ? Yii::app()->createUrl('/blog/default/index', array('user_id' => $this->id)) : false;
+    }
+
+    public function hasBlogPosts()
+    {
+        return Yii::app()->db->createCommand()
+            ->select('t.id')
+            ->from('community__contents as t')
+            ->where('community__rubrics.user_id = :user_id', array(':user_id' => $this->id))
+            ->join('community__rubrics', 't.rubric_id = community__rubrics.id')
+            ->limit(1)
+            ->queryScalar();
     }
 
     public function getPhotosUrl()
@@ -1308,10 +1319,11 @@ class User extends HActiveRecord
      */
     public function getActivityDataProvider()
     {
-        $dataProvider = new CActiveDataProvider('CommunityContent', array(
+        $dataProvider = new CActiveDataProvider(CommunityContent::model()->resetScope(), array(
             'criteria' => array(
                 'condition' => 'removed = 0 and author_id = :user_id',
                 'params' => array(':user_id' => $this->id),
+                'order' => 'created desc'
             ),
             'pagination' => array('pageSize' => 20)
         ));

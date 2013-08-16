@@ -201,7 +201,7 @@ class Favourite extends CActiveRecord
                 return 'photo';
             case 'CommunityContent':
             case 'BlogContent':
-                $model = CActiveRecord::model($modelName)->findByPk($modelId);
+                $model = CActiveRecord::model($modelName)->resetScope()->findByPk($modelId);
                 return $model->type_id == 1 ? 'post' : 'video';
         }
     }

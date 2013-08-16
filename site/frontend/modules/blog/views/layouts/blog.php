@@ -52,17 +52,7 @@
         </div>
 
         <?php $this->renderPartial('_subscribers'); ?>
-
-        <div class="menu-simple blogInfo">
-            <ul class="menu-simple_ul">
-                <!-- ko foreach: rubrics -->
-                <li class="menu-simple_li" data-bind="css: { active : $root.currentRubricId == id() }">
-                    <a class="menu-simple_a" data-bind="text: title, attr: { href : url }"></a>
-                </li>
-                <!-- /ko -->
-            </ul>
-        </div>
-
+        <?php $this->renderPartial('_rubric_list'); ?>
         <?php $this->renderPartial('_popular'); ?>
 
     </div>

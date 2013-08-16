@@ -41,13 +41,15 @@ Yii::app()->clientScript->registerPackage('ko_profile');
                     <div class="user-btns_separator"></div>
                 <?php endif ?>
 
-                <a href="<?= $this->createUrl('/blog/default/index', array('user_id' => $user->id)) ?>"
+                <?php $blogUrl = $user->getBlogUrl(); if ($blogUrl !== false): ?>
+                <a href="<?=$user->getBlogUrl() ?>"
                    class="user-btns_i powertip">
                     		<span class="user-btns_ico-hold user-btns_ico-hold__blog">
                     			<span class="user-btns_ico"></span>
                     		</span>
                     <span class="user-btns_tx"><?= $user->blogPostsCount . ' <br> ' . Str::GenerateNoun(array('запись', 'записи', 'записей'), $user->blogPostsCount) ?></span>
                 </a>
+                <?php endif ?>
                 <a href="<?= $this->createUrl('/gallery/user/index', array('userId' => $user->id)) ?>" class="user-btns_i powertip">
                     		<span class="user-btns_ico-hold user-btns_ico-hold__photo">
                     			<span class="user-btns_ico"></span>

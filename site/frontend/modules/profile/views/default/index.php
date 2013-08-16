@@ -81,7 +81,7 @@ Yii::app()->clientScript->registerPackage('ko_profile');
 
         <?php $this->widget('InterestsWidget', array('user' => $user)); ?>
 
-        <?php $this->widget('AlbumPhotoWidget', array('user' => $user)); ?>
+        <?php $this->widget('UserPhotosWidget', array('userId' => $user->id)); ?>
 
 
         <div class="col-23-middle">

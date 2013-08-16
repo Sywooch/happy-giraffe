@@ -149,8 +149,8 @@ class Community extends HActiveRecord
     {
         return array(
             'public' => array(
-                'condition' => 'id != :news_community AND id != :valentine',
-                'params' => array(':news_community' => self::COMMUNITY_NEWS, ':valentine' => self::COMMUNITY_VALENTINE),
+                'condition' => 'id < :news_community',
+                'params' => array(':news_community' => self::COMMUNITY_NEWS),
             ),
             'sorted' => array(
                 'order' => 'position asc',

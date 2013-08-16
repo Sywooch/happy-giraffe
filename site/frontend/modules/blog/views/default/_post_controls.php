@@ -5,7 +5,7 @@
 $ViewModelData = $model->getSettingsViewModel();
 
 ?><div class="like-control like-control__small-indent clearfix">
-    <?php $this->widget('UserAvatarWidget', array('user' => $model->author)) ?>
+    <?php $this->widget('Avatar', array('user' => $model->author)) ?>
 </div>
 <div class="js-like-control" data-bind="visible: ! removed()">
     <div class="like-control like-control__pinned clearfix">

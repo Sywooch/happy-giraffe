@@ -1,7 +1,11 @@
 <?php
 
-class UserAvatarWidget extends CWidget
+class Avatar extends CWidget
 {
+    const SIZE_MICRO = 24;
+    const SIZE_MEDIUM = 72;
+    const SIZE_LARGE = 200;
+
     /**
      * @var User
      */
@@ -9,7 +13,7 @@ class UserAvatarWidget extends CWidget
     /**
      * @var string
      */
-    public $size = 'medium';
+    public $size = self::SIZE_MEDIUM;
     public $location = false;
     public $age = false;
 

@@ -590,7 +590,7 @@ class Comment extends HActiveRecord
                 'firstName' => $comment->author->first_name,
                 'lastName' => $comment->author->last_name,
                 'gender' => $comment->author->gender,
-                'avatar' => $comment->author->getAva('small'),
+                'avatar' => $comment->author->getAvatarUrl(Avatar::SIZE_MICRO),
                 'online' => (bool)$comment->author->online,
                 'url' => $comment->author->getUrl(),
             ),

@@ -7,7 +7,7 @@
 ?><div class="clearfix">
     <div class="float-l">
         <div class="like-control like-control__repost clearfix">
-            <?php $this->widget('UserAvatarWidget', array('user' => $data->author)) ?>
+            <?php $this->widget('Avatar', array('user' => $data->author)) ?>
             <span class="like-control_repost-complete"></span>
         </div>
     </div>

@@ -5,7 +5,7 @@ $collection = new AlbumPhotoCollection(array('albumId' => $data->id));
 <div class="b-article clearfix">
     <div class="float-l">
         <div class="like-control like-control__small-indent clearfix">
-            <?php $this->widget('UserAvatarWidget', array('user' => $data->author)); ?>
+            <?php $this->widget('Avatar', array('user' => $data->author)); ?>
         </div>
         <div class="like-control clearfix">
             <a href="javascript:void(0)" class="like-control_ico like-control_ico__like<?php if (! Yii::app()->user->isGuest && Yii::app()->user->getModel()->isLiked($data)) echo ' active'; ?>" onclick="HgLike(this, 'Album', <?=$data->id ?>);"><?=PostRating::likesCount($data)?></a>

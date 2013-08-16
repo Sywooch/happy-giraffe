@@ -9,11 +9,11 @@ if (!isset($author))
     <div class="meta-gray">
         <a href="<?= $model->getUrl(true) ?>" class="meta-gray_comment">
             <span class="ico-comment ico-comment__gray"></span>
-            <span class="meta-gray_tx"><?=$model->commentsCount ?></span>
+            <span class="meta-gray_tx"><?=$model->getUnknownClassCommentsCount() ?></span>
         </a>
         <div class="meta-gray_view">
             <span class="ico-view ico-view__gray"></span>
-            <span class="meta-gray_tx"><?=PageView::model()->viewsByPath($model->getUrl())?></span>
+            <span class="meta-gray_tx"><?= $full ? $this->getViews() : PageView::model()->viewsByPath($model->getUrl()) ?></span>
         </div>
     </div>
     <div class="float-l">

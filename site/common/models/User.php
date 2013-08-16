@@ -350,6 +350,7 @@ class User extends HActiveRecord
             'friendLists' => array(self::HAS_MANY, 'FriendList', 'list_id'),
             'subscriber' => array(self::HAS_ONE, 'UserBlogSubscription', 'user_id'),
             'clubSubscriber' => array(self::HAS_ONE, 'UserCommunitySubscription', 'user_id'),
+            'communitySubscriptions' => array(self::HAS_MANY, 'UserCommunitySubscription', 'user_id'),
 
             'blogPhoto' => array(self::BELONGS_TO, 'AlbumPhoto', 'blog_photo_id'),
         );
@@ -553,23 +554,6 @@ class User extends HActiveRecord
             Yii::app()->cache->delete($cacheKey);
     }
 
-    public function getAva($size = 'ava')
-    {
-        if (empty($this->avatar_id)) {
-            //if ($this->user->gender)
-            return false;
-        }
-
-        switch ($size) {
-            case 'big':
-                return $this->avatar->getPreviewUrl(240, 400, Image::WIDTH);
-            case 'large':
-                return $this->avatar->getPreviewUrl(200, 200, Image::INVERT, true, AlbumPhoto::CROP_SIDE_TOP);
-            default:
-                return $this->avatar->getAvatarUrl($size);
-        }
-    }
-
     public function getBlogPhotoOriginal()
     {
         return $this->blogPhoto === null ? '/images/jcrop-blog.jpg' : $this->blogPhoto->getOriginalUrl();
@@ -580,7 +564,8 @@ class User extends HActiveRecord
         return $this->blogPhoto === null ? '/images/blog-title-b_img.jpg' : $this->blogPhoto->getBlogUrl();
     }
 
-    public function getBlogPhotoPosition() {
+    public function getBlogPhotoPosition()
+    {
         return $this->blogPhoto === null ? array(
             'h' => 130,
             'w' => 730,
@@ -591,25 +576,24 @@ class User extends HActiveRecord
         ) : CJSON::decode($this->blog_photo_position);
     }
 
-    public function getBlogPhotoWidth() {
+    public function getBlogPhotoWidth()
+    {
         return $this->blogPhoto === null ? 730 : $this->blogPhoto->width;
     }
 
-    public function getBlogPhotoHeight() {
+    public function getBlogPhotoHeight()
+    {
         return $this->blogPhoto === null ? 520 : $this->blogPhoto->height;
     }
 
-    public function getAvaOrDefaultImage($size = 'ava')
+    public function getAvaOrDefaultImage($size = Avatar::SIZE_MEDIUM)
     {
         if (empty($this->avatar_id)) {
             if ($this->gender == 1)
                 return '';
             return false;
         }
-        if ($size != 'big')
-            return $this->avatar->getAvatarUrl($size);
-        else
-            return $this->avatar->getPreviewUrl(240, 400, Image::WIDTH);
+        return $this->avatar->getAvatarUrl($size);
     }
 
     public function getPartnerPhotoUrl()
@@ -939,40 +923,6 @@ class User extends HActiveRecord
         return Yii::app()->createUrl('/messaging/default/index', array('interlocutorId' => $this->id));
     }
 
-    public function addCommunity($community_id)
-    {
-        $result = Yii::app()->db->createCommand()
-            ->insert('user__users_communities', array('user_id' => $this->id, 'community_id' => $community_id)) != 0;
-        if ($result) {
-            UserAction::model()->add($this->id, UserAction::USER_ACTION_CLUBS_JOINED, array('community_id' => $community_id));
-            FriendEventManager::add(FriendEvent::TYPE_CLUBS_JOINED, array('id' => $community_id, 'user_id' => Yii::app()->user->id));
-        }
-        return $result;
-    }
-
-    public function delCommunity($community_id)
-    {
-        return Yii::app()->db->createCommand()
-            ->delete('user__users_communities', 'user_id = :user_id AND community_id = :community_id', array(':user_id' => $this->id, ':community_id' => $community_id)) != 0;
-    }
-
-    public function isInCommunity($community_id)
-    {
-        return Yii::app()->db->createCommand()
-            ->select('count(*)')
-            ->from('user__users_communities')
-            ->where('user_id = :user_id AND community_id = :community_id', array(':user_id' => $this->id, ':community_id' => $community_id))
-            ->queryScalar() != 0;
-    }
-
-    public function toggleCommunity($community_id)
-    {
-        if ($this->isInCommunity($community_id))
-            $this->delCommunity($community_id);
-        else
-            $this->addCommunity($community_id);
-    }
-
     public function getBlogWidget()
     {
         $criteria = new CDbCriteria(array(
@@ -1123,7 +1073,7 @@ class User extends HActiveRecord
     public function getBlogPopular()
     {
         return BlogContent::model()->findAll(array(
-            'with' => array('rubric','commentsCount', 'type'),
+            'with' => array('rubric', 'commentsCount', 'type'),
             'condition' => 'rubric.user_id = :user_id',
             'params' => array(':user_id' => $this->id),
             'order' => 't.rate DESC',
@@ -1327,7 +1277,7 @@ class User extends HActiveRecord
      */
     public function isLiked($model)
     {
-        return (bool) HGLike::model()->hasLike($model, $this->id);
+        return (bool)HGLike::model()->hasLike($model, $this->id);
     }
 
     /**
@@ -1350,5 +1300,51 @@ class User extends HActiveRecord
         $criteria->order = 'id desc';
 
         return CommunityContent::model()->resetScope()->find($criteria);
+    }
+
+    /**
+     * Возвращает активность пользователя
+     * @return CActiveDataProvider
+     */
+    public function getActivityDataProvider()
+    {
+        $dataProvider = new CActiveDataProvider('CommunityContent', array(
+            'criteria' => array(
+                'condition' => 'removed = 0 and author_id = :user_id',
+                'params' => array(':user_id' => $this->id),
+            ),
+            'pagination' => array('pageSize' => 20)
+        ));
+
+        return $dataProvider;
+    }
+
+    /**
+     * Новый метод получения url аватарки пользователя
+     *
+     * @param int $size размер авы в пикселях
+     * @return string url авы
+     */
+    public function getAvatarUrl($size = 72)
+    {
+        if (empty($this->avatar_id))
+            return false;
+
+        //новая схема хранения аватарок
+        if (!empty($this->avatar->userAvatar))
+            return $this->avatar->getPreviewUrl($size, $size, Image::INVERT, true, AlbumPhoto::CROP_SIDE_TOP);
+
+        //временная проверка для выдачи старых аватарок
+        #TODO когда большая часть перейдет на новые авы есть смысл удалить старый механизм вместе с авами
+        switch ($size) {
+            case 200:
+                return $this->avatar->getPreviewUrl(200, 200, Image::INVERT, true, AlbumPhoto::CROP_SIDE_TOP);
+            case 72:
+                return $this->avatar->getAvatarUrl('ava');
+            case 24:
+                return $this->avatar->getAvatarUrl('micro');
+        }
+
+        return '';
     }
 }

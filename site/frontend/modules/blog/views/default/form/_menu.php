@@ -1,7 +1,7 @@
 <?php if ($model->isNewRecord): ?>
     <div class="user-add-record user-add-record__yellow clearfix">
         <div class="user-add-record_ava-hold">
-            <?php $this->widget('UserAvatarWidget', array('user' => $this->user)); ?>
+            <?php $this->widget('Avatar', array('user' => $this->user)); ?>
         </div>
         <div class="user-add-record_hold js_add_menu">
             <div class="user-add-record_tx">Я хочу добавить</div>

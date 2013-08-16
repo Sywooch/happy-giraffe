@@ -13,7 +13,7 @@ $i = 0;
             <table cellpadding="0" cellspacing="0" style="margin-bottom:8px;">
                 <tbody>
                 <tr>
-                    <td valign="middle"><img src="<?php echo $model->author->getAva() ?>"
+                    <td valign="middle"><img src="<?php echo $model->author->getAvatarUrl() ?>"
                                              style="display:block;margin-top:-40px;-moz-border-radius:36px;-webkit-border-radius:36px;border-radius:36px;">
                     </td>
                     <td valign="top">
@@ -74,7 +74,7 @@ $i = 0;
                         <?php $j = 0; foreach ($model->getUnknownClassComments() as $comment): ?>
                         <?php if (!empty($comment->author->avatar_id) && !in_array($comment->author->avatar_id, $used)):?>
                             <?php $j++;$used[] = $comment->author->avatar_id ?>
-                            <img src="<?php echo $comment->author->getAva('small') ?>"
+                            <img src="<?php echo $comment->author->getAvatarUrl(Avatar::SIZE_MICRO) ?>"
                                  style="margin-right:5px;-moz-border-radius:12px;-webkit-border-radius:12px;border-radius:12px;">
                             <?php if ($j == 5) break; ?>
                             <?php endif ?>

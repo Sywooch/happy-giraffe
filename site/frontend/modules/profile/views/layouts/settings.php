@@ -6,7 +6,7 @@ $user = $this->user;
 $this->beginContent('//layouts/common_new'); ?>
     <div class="content-cols">
         <div class="col-1">
-            <?php $this->widget('UserAvatarWidget', array('user' => $user, 'size' => 'big', 'location' => true)) ?>
+            <?php $this->widget('Avatar', array('user' => $user, 'size' => 200, 'location' => true)) ?>
         </div>
 
         <div class="col-23-middle clearfix">

@@ -14,7 +14,7 @@
 
             <?php if (!Yii::app()->user->isGuest):?>
                 <div class="comments-gray_ava">
-                    <?php $this->widget('UserAvatarWidget', array('user' => Yii::app()->user->getModel(), 'size' => 'micro')) ?>
+                    <?php $this->widget('Avatar', array('user' => Yii::app()->user->getModel(), 'size' => 24)) ?>
                 </div>
             <?php endif ?>
             <div class="comments-gray_frame">

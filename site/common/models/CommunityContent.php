@@ -444,10 +444,10 @@ class CommunityContent extends HActiveRecord
 
         $criteria = $this->addPrivacyCondition($user_id, $criteria);
 
-        $totalItemsCount = $this->active()->count($criteria);
+        $totalItemsCount = $this->resetScope()->active()->count($criteria);
         $criteria->with = array('rubric', 'author', 'author.avatar', 'commentsCount', 'type', 'sourceCount', 'favouritesCount');
 
-        return new CActiveDataProvider($this->active(), array(
+        return new CActiveDataProvider($this->resetScope()->active(), array(
             'criteria' => $criteria,
             'totalItemCount' => $totalItemsCount
         ));

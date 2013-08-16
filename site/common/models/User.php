@@ -1319,7 +1319,7 @@ class User extends HActiveRecord
      */
     public function getActivityDataProvider()
     {
-        $dataProvider = new CActiveDataProvider(CommunityContent::model()->resetScope(), array(
+        $dataProvider = new CActiveDataProvider(CommunityContent::model()->resetScope()->active(), array(
             'criteria' => array(
                 'condition' => 'removed = 0 and author_id = :user_id',
                 'params' => array(':user_id' => $this->id),

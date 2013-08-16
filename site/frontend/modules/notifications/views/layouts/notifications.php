@@ -3,7 +3,7 @@
     <div class="content-cols clearfix">
 
         <div class="col-1">
-            <?php $this->widget('UserAvatarWidget', array('user' => Yii::app()->user->getModel(), 'size' => 200)); ?>
+            <?php $this->widget('Avatar', array('user' => Yii::app()->user->getModel(), 'size' => 200)); ?>
         </div>
 
         <div class="col-23-middle">

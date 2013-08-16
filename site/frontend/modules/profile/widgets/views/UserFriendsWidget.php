@@ -6,7 +6,7 @@
     <ul class="widget-friends_ul clearfix">
         <?php foreach ($friends as $f): ?>
             <li class="widget-friends_i">
-                <?php $this->widget('UserAvatarWidget', array('user' => $f)) ?>
+                <?php $this->widget('Avatar', array('user' => $f)) ?>
             </li>
         <?php endforeach; ?>
     </ul>

@@ -208,11 +208,11 @@ class SeoUser extends HActiveRecord
         return null;
     }
 
-    public function getAva($size = 'small')
+    public function getAva($size = Avatar::SIZE_MEDIUM)
     {
         $user = $this->getRelatedUser();
         if ($user != null) {
-            return $user->getAva($size);
+            return $user->getAvatarUrl($size);
         }
         return '';
     }

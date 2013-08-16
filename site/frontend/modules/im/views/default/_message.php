@@ -1,6 +1,6 @@
 <li data-read="<?=$message->read_status?>" data-authorid="<?=$message->user->id?>" data-id="<?=$message->id?>">
 
-    <a href="<?=$message->user->url?>" class="ava small"><?=$message->user->getAvatarUrl(24) ? CHtml::image($message->user->getAvatarUrl(24)):''?></a>
+    <a href="<?=$message->user->url?>" class="ava small"><?=$message->user->getAvatarUrl(Avatar::SIZE_MICRO) ? CHtml::image($message->user->getAvatarUrl(Avatar::SIZE_MICRO)):''?></a>
 
     <div class="in">
 

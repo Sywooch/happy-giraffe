@@ -26,7 +26,7 @@
 
     <div class="b-status-add clearfix">
         <div class="float-l">
-            <?php $this->widget('UserAvatarWidget', array('user' => $this->user)); ?>
+            <?php $this->widget('Avatar', array('user' => $this->user)); ?>
         </div>
         <div class="b-status-add_col">
             <div class="b-status-add_hold">

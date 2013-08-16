@@ -284,7 +284,7 @@ class ContactsManager
                 'avatar' => $avatarModel->populateRecord(array(
                     'author_id' => $row['uId'],
                     'fs_name' => $row['fs_name'],
-                ))->getAvatarUrl(24),
+                ))->getAvatarUrl(Avatar::SIZE_MICRO),
                 'online' => (bool) $row['online'],
                 'isFriend' => (bool) $row['isFriend'],
             ),

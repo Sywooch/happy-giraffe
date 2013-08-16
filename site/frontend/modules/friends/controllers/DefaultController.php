@@ -58,7 +58,7 @@ class DefaultController extends HController
                     'online' => (bool) $friend->friend->online,
                     'firstName' => $friend->friend->first_name,
                     'lastName' => $friend->friend->last_name,
-                    'ava' => $friend->friend->getAvatarUrl(200),
+                    'ava' => $friend->friend->getAvatarUrl(Avatar::SIZE_LARGE),
                     'gender' => $friend->friend->gender,
                 ),
                 'pCount' => $friend->pCount,

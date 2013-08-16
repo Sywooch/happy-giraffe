@@ -118,7 +118,7 @@ class Interest extends HActiveRecord
         foreach ($users as $user)
             $data[] = array(
                 'url' => $user->getUrl(),
-                'ava' => $user->getAvatarUrl(72),
+                'ava' => $user->getAvatarUrl(),
                 'gender' => $user->gender,
             );
 

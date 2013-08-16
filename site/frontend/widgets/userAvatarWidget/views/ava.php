@@ -8,7 +8,7 @@ if ($this->user->deleted == 1)
     $link_to_profile = 'javascript:;';
 else {
     $link_to_profile = $this->user->url;
-    if ($this->size == 'big' && $this->user->id == Yii::app()->user->id)
+    if ($this->size == 200 && $this->user->id == Yii::app()->user->id)
         $link_to_profile = Yii::app()->createUrl('profile/photo', array('returnUrl' => urlencode(Yii::app()->createUrl('profile/default/index', array('user_id' => $this->user->id)))));
 }
 ?>
@@ -19,8 +19,8 @@ else {
         $ava = '';
         if ($this->user->online)
             $ava .= '<span class="icon-status status-online"></span>';
-        if ($this->user->getAva($this->size))
-            $ava .= CHtml::image($this->user->getAva($this->size));
+        if ($this->user->getAvatarUrl($this->size))
+            $ava .= CHtml::image($this->user->getAvatarUrl($this->size));
     ?>
     <?=HHtml::link($ava, $link_to_profile, array('class'=>$class), $this->hideLinks)?>
 <?php if (!$this->small): ?>

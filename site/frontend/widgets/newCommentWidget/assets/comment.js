@@ -67,7 +67,8 @@ function CommentViewModel(data) {
         }
     };
     self.goBottom = function () {
-        $('body').stop().animate({scrollTop: $('#content').height()}, "normal");
+        if (self.full())
+            $('body').stop().animate({scrollTop: $('#content').height()}, "normal");
         self.openComment();
     };
     self.initEditor = function (id) {

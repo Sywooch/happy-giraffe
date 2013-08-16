@@ -19,23 +19,17 @@
         <!-- ko foreach: photos -->
         <div class="b-add-img_i" data-bind="attr: {id: 'uploaded_photo_' + uid}, css: {'b-add-img_i__single': isSingle(), 'error': isError()}" style="overflow: hidden;">
 
-            <!-- ko if: isError() -->
-            <div class="b-add-img_i-error-tx" data-bind="text: error"></div>
-            <!-- /ko -->
+            <div class="b-add-img_i-error-tx" data-bind="text: error, visible: isError()"></div>
 
             <div class="js-image" style="opacity: 0.2"></div>
 
-            <!-- ko if: file === null  -->
-            <img class="b-add-img_i-img" data-bind="attr: {src: url}">
-            <!-- /ko -->
+            <img class="b-add-img_i-img" data-bind="attr: {src: url}, visible: file === null">
 
             <!-- ko if: !isError() -->
             <div class="b-add-img_i-vert"></div>
-            <!-- ko if: status() != 2 -->
-            <div class="b-add-img_i-load">
+            <div class="b-add-img_i-load" data-bind="visible: status() != 2">
                 <div class="b-add-img_i-load-progress" data-bind="style: {width: progress}"></div>
             </div>
-            <!-- /ko -->
             <!-- /ko -->
 
             <div class="b-add-img_i-overlay">
@@ -44,8 +38,6 @@
         </div>
         <!-- /ko -->
     </div>
-    <!-- ko if: photos().length == 0 -->
-    <div class="b-add-img_html5-tx">или перетащите фото сюда</div>
-    <!-- /ko -->
+    <div class="b-add-img_html5-tx" data-bind="visible: photos().length == 0">или перетащите фото сюда</div>
 </div>
 <!-- /ko -->

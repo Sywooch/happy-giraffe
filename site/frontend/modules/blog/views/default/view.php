@@ -24,7 +24,7 @@
         </div>
 
         <!-- ko stopBinding: true -->
-        <?php $this->renderPartial('blog.views.default._post_header', array('model' => $data->getSourceContent())); ?>
+        <?php $this->renderPartial('blog.views.default._post_header', array('model' => $data->getSourceContent(), 'full' => $full)); ?>
 
         <?php $this->renderPartial('blog.views.default.types/type_' . $data->type_id, array('data' => $data->getSourceContent(), 'full' => $full)); ?>
 

@@ -1,11 +1,11 @@
 <?php
 /**
- * @var $this UserAvatarWidget
+ * @var $this Avatar
  */
 ?><div class="b-ava-large">
     <div class="b-ava-large_ava-hold clearfix">
         <a href="<?=$this->user->getUrl()?>" class="ava large">
-            <?=CHtml::image($this->user->getAva('large'))?>
+            <?=CHtml::image($this->user->getAvatarUrl(Avatar::SIZE_LARGE))?>
         </a>
         <?php if ($this->user->online):?>
             <span class="b-ava-large_online">На сайте</span>

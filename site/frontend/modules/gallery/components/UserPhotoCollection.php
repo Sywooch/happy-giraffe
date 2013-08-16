@@ -46,7 +46,7 @@ class UserPhotoCollection extends PhotoCollection
                 'firstName' => $model->author->first_name,
                 'lastName' => $model->author->last_name,
                 'gender' => $model->author->gender,
-                'ava' => $model->author->getAva('small'),
+                'ava' => $model->author->getAvatarUrl(),
                 'url' => $model->author->url,
             ),
             'likesCount' => PostRating::likesCount($model),

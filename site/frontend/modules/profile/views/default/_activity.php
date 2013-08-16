@@ -3,7 +3,7 @@ Yii::app()->clientScript->registerPackage('ko_blog');
 $this->widget('zii.widgets.CListView', array(
     'cssFile' => false,
     'ajaxUpdate' => false,
-    'dataProvider' => $user->getActivityDataProvider(),
+    'dataProvider' => CommunityContent::model()->getBlogContents($user->id, null),
     'itemView' => 'blog.views.default.view',
     'pager' => array(
         'class' => 'HLinkPager',

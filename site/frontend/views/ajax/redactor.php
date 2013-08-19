@@ -137,7 +137,7 @@
     </div>
     <div class="textalign-c margin-t15" data-bind="visible: embed() !== null">
         <a href="javascript:void(0)" class="btn-gray-light btn-medium margin-r10" onclick="$(this).parents('.redactor-popup').addClass('display-n');">Отменить</a>
-        <a href="javascript:void(0)" class="btn-green btn-medium" onclick="redactor.selectionRestore(); redactor.insertHtmlAdvanced('<div class=\x22b-article_in-img\x22>' + $('#embed').html() + '</div>'); $(this).parents('.redactor-popup').addClass('display-n');">Добавить видео</a>
+        <a href="javascript:void(0)" class="btn-green btn-medium" onclick="redactor.selectionRestore(); redactor.insertHtmlAdvanced('<div class=\x22b-article_in-img\x22>' + $('#embed').html() + '</div>'); redactor.sync(); $(this).parents('.redactor-popup').addClass('display-n');">Добавить видео</a>
     </div>
 </div>
 <!-- /ko -->

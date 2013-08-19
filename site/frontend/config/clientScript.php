@@ -16,6 +16,9 @@ return array(
                 'javascripts/knockout-2.2.1.js',
                 'javascripts/ko_library.js',
             ),
+            'depends' => array(
+                'jquery',
+            ),
         ),
         'history' => array(
             'baseUrl' => '/',

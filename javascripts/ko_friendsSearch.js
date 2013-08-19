@@ -185,16 +185,3 @@ function Region(data, parent) {
     self.id = data.id;
     self.name = data.name;
 }
-
-ko.bindingHandlers.chosen =
-{
-    init: function(element)
-    {
-        $(element).addClass('chzn');
-        $(element).chosen();
-    },
-    update: function(element)
-    {
-        $(element).trigger('liszt:updated');
-    }
-};

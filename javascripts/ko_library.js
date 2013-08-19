@@ -37,3 +37,16 @@ ko.bindingHandlers.fadeVisible = {
         ko.utils.unwrapObservable(value) ? $(element).fadeIn(200) : $(element).fadeOut(200);
     }
 };
+
+ko.bindingHandlers.chosen =
+{
+    init: function(element)
+    {
+        $(element).addClass('chzn');
+        $(element).chosen();
+    },
+    update: function(element)
+    {
+        $(element).trigger('liszt:updated');
+    }
+};

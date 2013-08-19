@@ -17,7 +17,7 @@ class Scoring
         if ($content->getIsFromBlog() && $content->author->blogPostsCount == 1)
             ScoreInputFirstBlogRecord::getInstance()->add($content->author_id);
         else {
-            if ($content->type_id == CommunityContent::TYPE_POST) {
+            if ($content->type_id == CommunityContent::TYPE_POST || $content->type_id == CommunityContent::TYPE_PHOTO_POST) {
                 //запись
                 ScoreInputNewPost::getInstance()->add($content->author_id, $content);
                 if ($content->getIsFromBlog())
@@ -42,7 +42,7 @@ class Scoring
      */
     public static function contentRemoved($content)
     {
-        if ($content->getIsFromBlog() && $content->author->blogPostsCount == 1)
+        if ($content->getIsFromBlog() && $content->author->blogPostsCount == 0)
             ScoreInputFirstBlogRecord::getInstance()->remove($content->author_id);
         else {
             if ($content->type_id == CommunityContent::TYPE_POST)

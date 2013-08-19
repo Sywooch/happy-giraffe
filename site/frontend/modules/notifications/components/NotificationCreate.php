@@ -54,15 +54,14 @@ class NotificationCreate
      */
     private static function replyCommentNotification($model, $comment)
     {
-        if (!empty($comment->response_id) || !empty($comment->quote_id)) {
-            $response = empty($comment->response_id) ? $comment->quote : $comment->response;
+        if (!empty($comment->response_id)) {
             //если отвечает автору контента - не создаем уведомление, так как он
             //получит уведомление о новом комментарии к своему контенту
-            if ($response->author_id == $model->author_id)
+            if ($comment->response->author_id == $model->author_id)
                 return ;
 
             $notification = new NotificationReplyComment();
-            $notification->create($comment, $response);
+            $notification->create($comment, $comment->response);
         }
     }
 

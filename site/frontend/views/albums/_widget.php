@@ -2,11 +2,7 @@
 /**
  * @var AlbumPhoto $model
  */
-$add = '';
-if (isset($title))
-    $add = ' title="'.$title.'"';
-if (isset($alt))
-    $add = ' alt="'.$alt.'"';
+$add = empty($model->title) ? '' : ' title="'.$model->title.'" alt="'.$model->title.'"';
 
 ?><!-- widget: { entity : 'AlbumPhoto', entity_id : '<?php echo $model->id ?>' } --><?php
 if ($model->width >= 580):

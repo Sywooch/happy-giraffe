@@ -357,7 +357,7 @@ class ScoreInput extends HMongoModel
         $this->getCollection()->update(
             array('_id' => $model['_id']),
             array(
-                '$set' => array('closed' => true)
+                '$set' => array('closed' => true, 'updated' => time())
             )
         );
 

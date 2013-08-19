@@ -279,21 +279,21 @@
 			<div class="custom-likes-b">
 				<div class="custom-likes-b_slogan">Понравилось?  Поделитесь с друзьями! </div>
 				<a href="" class="custom-like">
-					<span class="custom-like_icon odkl"></span>
+					<span class="custom-like_icon odnoklassniki"></span>
 					<span class="custom-like_value">0</span>
 				</a>
 				<a href="" class="custom-like">
-					<span class="custom-like_icon vk"></span>
+					<span class="custom-like_icon vkontakte"></span>
 					<span class="custom-like_value">1900</span>
 				</a>
 			
 				<a href="" class="custom-like">
-					<span class="custom-like_icon fb"></span>
+					<span class="custom-like_icon facebook"></span>
 					<span class="custom-like_value">150</span>
 				</a>
 			
 				<a href="" class="custom-like">
-					<span class="custom-like_icon tw"></span>
+					<span class="custom-like_icon twitter"></span>
 					<span class="custom-like_value">10</span>
 				</a>
 			</div>

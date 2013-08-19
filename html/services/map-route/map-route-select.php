@@ -119,17 +119,20 @@
 					<div class="map-route-share">
 						<div class="map-route-share_tx">Отправьте маршрут поездки Донецк-Киев своим друзьям</div>
 						<div class="custom-likes-b textalign-l margin-b20">
+							
 							<a href="" class="custom-like">
-								<span class="custom-like_icon odkl"></span>
+								<span class="custom-like_icon odnoklassniki"></span>
 							</a>
 							<a href="" class="custom-like">
-								<span class="custom-like_icon vk"></span>
+								<span class="custom-like_icon vkontakte"></span>
 							</a>
+						
 							<a href="" class="custom-like">
-								<span class="custom-like_icon fb"></span>
+								<span class="custom-like_icon facebook"></span>
 							</a>
+						
 							<a href="" class="custom-like">
-								<span class="custom-like_icon tw"></span>
+								<span class="custom-like_icon twitter"></span>
 							</a>
 							<div class="display-ib position-rel">
 								<a href="" class="custom-like">
@@ -175,16 +178,18 @@
 						<div class="map-route-share_tx">Отправьте маршрут поездки Донецк-Киев своим друзьям</div>
 						<div class="custom-likes-b textalign-l">
 							<a href="" class="custom-like">
-								<span class="custom-like_icon odkl"></span>
+								<span class="custom-like_icon odnoklassniki"></span>
 							</a>
 							<a href="" class="custom-like">
-								<span class="custom-like_icon vk"></span>
+								<span class="custom-like_icon vkontakte"></span>
 							</a>
+						
 							<a href="" class="custom-like">
-								<span class="custom-like_icon fb"></span>
+								<span class="custom-like_icon facebook"></span>
 							</a>
+						
 							<a href="" class="custom-like">
-								<span class="custom-like_icon tw"></span>
+								<span class="custom-like_icon twitter"></span>
 							</a>
 							<div class="display-ib position-rel">
 								<a href="" class="custom-like">
@@ -249,16 +254,18 @@
 						<div class="map-route-share_tx">Отправьте маршрут поездки Донецк-Киев своим друзьям</div>
 						<div class="custom-likes-b textalign-l">
 							<a href="" class="custom-like">
-								<span class="custom-like_icon odkl"></span>
+								<span class="custom-like_icon odnoklassniki"></span>
 							</a>
 							<a href="" class="custom-like">
-								<span class="custom-like_icon vk"></span>
+								<span class="custom-like_icon vkontakte"></span>
 							</a>
+						
 							<a href="" class="custom-like">
-								<span class="custom-like_icon fb"></span>
+								<span class="custom-like_icon facebook"></span>
 							</a>
+						
 							<a href="" class="custom-like">
-								<span class="custom-like_icon tw"></span>
+								<span class="custom-like_icon twitter"></span>
 							</a>
 							<div class="display-ib position-rel">
 								<a href="" class="custom-like">

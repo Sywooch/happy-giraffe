@@ -209,7 +209,7 @@ class User extends HActiveRecord
             array('gender', 'boolean'),
             array('id, phone', 'safe'),
             array('deleted', 'numerical', 'integerOnly' => true),
-            array('birthday, baby_birthday', 'date', 'format' => 'yyyy-MM-dd'),
+            array('birthday, baby_birthday', 'date', 'format' => 'yyyy-MM-dd', 'message' => 'Неправильная дата'),
             array('birthday', 'default', 'value' => NULL),
             array('blocked, login_date, register_date', 'safe'),
             array('mood_id', 'exist', 'className' => 'UserMood', 'attributeName' => 'id'),
@@ -392,6 +392,7 @@ class User extends HActiveRecord
             'role' => 'Роль',
             'fullName' => 'Имя пользователя',
             'last_name' => 'Фамилия',
+            'birthday' => 'Дата рождения',
             'assigns' => 'Права',
             'last_active' => 'Последняя активность',
             'url' => 'Профиль',
@@ -1358,6 +1359,30 @@ class User extends HActiveRecord
         }
 
         return '';
+    }
+
+    /**
+     * Возвращает данные пользователя
+     * @return array
+     */
+    public function getSettingsData()
+    {
+        $data = array();
+        foreach ($this->getAttributes() as $attribute => $value)
+            $data[$attribute] = array(
+                'attribute' => $attribute,
+                'value' => $value,
+                'label' => $this->getAttributeLabel($attribute),
+            );
+
+        $birthday = strtotime($this->birthday);
+        $data['birthday']['day'] = (int)date("d", $birthday);
+        $data['birthday']['month'] = (int)date("m", $birthday);
+        $data['birthday']['year'] = (int)date("Y", $birthday);
+        $data['birthday']['min_year'] = 1910;
+        $data['birthday']['max_year'] = (int)date("Y");
+
+        return $data;
     }
 
     public function getAva()

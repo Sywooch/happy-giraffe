@@ -29,7 +29,8 @@ class SettingsController extends HController
         );
     }
 
-    public function beforeAction($action){
+    public function beforeAction($action)
+    {
         $this->user = Yii::app()->user->getModel();
 
         return parent::beforeAction($action);
@@ -43,6 +44,17 @@ class SettingsController extends HController
     public function actionSocial()
     {
         $this->render('social');
+    }
+
+    public function actionRemoveService()
+    {
+        $id = Yii::app()->request->getPost('id');
+        $service = UserSocialService::model()->findByAttributes(array(
+            'id' => $id,
+            'user_id' => Yii::app()->user->id,
+        ));
+        if ($service !== null)
+            echo CJavaScript::encode($service->delete());
     }
 
     public function actionPassword()
@@ -62,5 +74,19 @@ class SettingsController extends HController
         $this->render('password', array(
             'user' => $this->user,
         ));
+    }
+
+    public function actionSetValue()
+    {
+        $attr = Yii::app()->request->getPost('attribute');
+        $value = Yii::app()->request->getPost('value');
+        if (in_array($attr, array('first_name', 'last_name', 'birthday'))) {
+            $this->user->$attr = $value;
+            $success = $this->user->save();
+            echo CJSON::encode(array(
+                'status' => $success,
+                'error' => $this->user->getErrorsText()
+            ));
+        }
     }
 }

@@ -520,7 +520,7 @@ var Register = {
             link.attr('href', '#register');
             link.trigger('click');
 
-            $('#register').find('.reg1').hide();
+            $('#register').find('#register-step1').hide();
             $('#register').find('.other-steps').html(response);
             $('#register').find('select').each(function () {
                 $(this).trigger('liszt:updated');

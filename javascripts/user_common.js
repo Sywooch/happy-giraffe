@@ -195,54 +195,6 @@ function NotificationsUpdateCounter(diff) {
     li.toggleClass('new', newVal != 0);
 }
 
-
-var ScorePage = {
-    num: 0,
-    page: 0,
-    loading:false,
-    selectTab: function (el, num) {
-        ScorePage.num = num;
-        ScorePage.page = 0;
-        $.post('/scores/', {num: num, page: 0}, function (response) {
-            $('.menu-list a').removeClass('active');
-            $(el).addClass('active');
-            $('#score-list').html(response);
-
-            ScorePage.loading = false;
-            $('#infscr-loading').show();
-        });
-    },
-    loadMore: function () {
-        if (!ScorePage.loading) {
-            ScorePage.loading = true;
-            ScorePage.page++;
-            $.post('/scores/', {num: ScorePage.num, page: ScorePage.page}, function (response) {
-                if (response == '') {
-                    ScorePage.disableLoading();
-                } else {
-                    $('#score-list').append(response);
-                    ScorePage.loading = false;
-                }
-            });
-        }
-    },
-    disableLoading: function () {
-        ScorePage.loading = true;
-        $('#infscr-loading').hide();
-    },
-    showDescription:function(el){
-        $(el).parent().fadeOut(200, function(){
-            $(el).parent().next().fadeIn(200);
-        });
-    },
-    hideDescription:function(el){
-        $(el).parent().fadeOut(200, function(){
-            $(el).parent().prev().fadeIn(200);
-        });
-    }
-};
-
-
 $(function() {
     Comet.prototype.receiveNotification = function(result, id) {
         NotificationsUpdateCounter(result.count);

@@ -17,6 +17,11 @@ class YoutubeVideo extends BasicVideo
 
     public function getThumbnail()
     {
-        return 'http://i1.ytimg.com/vi/' . $this->getId() . '/maxresdefault.jpg';
+        $maxres = 'http://i1.ytimg.com/vi/' . $this->getId() . '/maxresdefault.jpg';
+        $ch = curl_init($maxres);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_exec($ch);
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        return $httpCode == 200 ? $maxres : $this->oembed->data['thumbnail_url'];
     }
 }

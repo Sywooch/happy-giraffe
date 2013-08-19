@@ -7,7 +7,8 @@ var WysiwygPhotoUpload = function () {
         ko.utils.arrayForEach(self.upload().photos(), function(photo) {
             html += photo.html;
         });
-        redactor.insertHtml(html);
+        console.log('df');
+        redactor.insertHtmlAdvanced(html);
         self.close();
     };
     self.close = function(){

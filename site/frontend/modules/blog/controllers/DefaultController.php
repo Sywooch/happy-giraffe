@@ -206,10 +206,6 @@ class DefaultController extends HController
     public function actionVideoPreview($url)
     {
         $video = Video::factory($url);
-
-        echo CHtml::image($video->thumbnail);
-        die;
-
         echo CJSON::encode($video->embed);
     }
 

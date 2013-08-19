@@ -1,65 +1,20 @@
 var Settings = {
-    entity: null,
-    entity_id: null
-}
 
-Settings.open = function(tab) {
-    tab = (typeof tab === "undefined") ? 0 : tab;
-
-    Popup.load('Settings');
-    $.get('/settings/', function(data) {
-        $('#popup-preloader').hide();
-        $('.popup-container').append(data);
-        $('.top-line-menu_nav_ul .i-settings').addClass('active');
-        Settings.openTab(tab);
-        $('.chzn').each(function () {
-            var $this = $(this);
-            $this.chosen({
-                allow_single_deselect:$this.hasClass('chzn-deselect')
-            })
-        });
-    });
-}
-
-Settings.close = function() {
-    Popup.unload();
-    $('#user-settings').remove();
-    $('body').removeClass('nav-fixed');
-    $('.top-line-menu_nav_ul .i-settings').removeClass('active');
-}
-
-Settings.toggle = function() {
-    (this.isActive()) ? this.close() : this.open();
-}
-
-Settings.isActive = function() {
-    return $('#user-settings:visible').length > 0;
-}
-
-Settings.openTab = function(index) {
-    $('#user-settings .nav ul li.active').removeClass('active');
-    $('#user-settings .settings-in:visible').hide();
-    $('#user-settings .nav ul li:eq(' + index + ')').addClass('active');
-    $('#user-settings .settings-in:eq(' + index + ')').show();
 }
 
 Settings.showInput = function(el) {
-    $(el).parents('.row-elements').find('.value').hide();
-    $(el).parents('.row-elements').find('.input').show();
+    $(el).parents('.form-settings_elem').find('div:first').toggleClass('display-n').next().toggleClass('display-n');
 }
 
 Settings.saveInput = function(el, attribute) {
-    $.post('/ajax/setValue/', {
-        entity: Settings.entity,
-        entity_id: Settings.entity_id,
+    var val = $(el).prev().find('input').val();
+    $.post('/user/settings/setValue/', {
         attribute: attribute,
-        value: $(el).prev().val()
+        value: val
     }, function(response) {
-        if (response) {
-            $(el).parents('.row-elements').find('.input').hide();
-            $(el).parents('.row-elements').find('.value').show();
-            $(el).parents('.row-elements').find('.value span').text($(el).prev().val());
-        }
+        $(el).find('.form-settings_name').html(val);
+        $(el).find('.form-settings_name').html(val);
+        $(el).parents('.form-settings_elem').find('div:first').toggleClass('display-n').next().toggleClass('display-n');
     });
 }
 
@@ -78,16 +33,6 @@ Settings.saveBirthday = function(el) {
             $(el).parents('.row-elements').find('.value span').text(response.birthday_str);
         }
     }, 'json');
-}
-
-Settings.changePassword = function(form) {
-    $.post($(form).attr('action'), $(form).serialize(), function(data) {
-        if (data == 'true') {
-            $(form).find('input:text, input:password').val('');
-            $(form).find('span.success').show().fadeOut(5000);
-            $('.refresh').trigger('click');
-        }
-    });
 }
 
 Settings.changeGender = function(el) {

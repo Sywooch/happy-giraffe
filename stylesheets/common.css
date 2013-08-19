@@ -14624,6 +14624,15 @@ select.pregnancy_term + .chzn-container .chzn-results li {
 .b-sign {
   font-size: 13px;
 }
+.success .b-sign_win {
+  display: inline-block;
+}
+.b-sign .errorMessage {
+  display: none;
+}
+.b-sign .error .errorMessage {
+  display: block;
+}
 .b-sign_t {
   margin: 10px 0 20px;
   font-size: 40px;
@@ -14688,7 +14697,7 @@ select.pregnancy_term + .chzn-container .chzn-results li {
   color: #418ac1;
 }
 .b-sign_win {
-  float: left;
+  display: none;
   vertical-align: middle;
   width: 10px;
   height: 33px;
@@ -15834,13 +15843,14 @@ select.pregnancy_term + .chzn-container .chzn-results li {
 }
 /* menu-simple */
 .menu-simple {
-  margin: 35px 15px;
+  margin: 35px 0;
 }
 .menu-simple_li {
   margin: 7px 0;
+  padding: 0 15px;
   font-size: 13px;
 }
-.menu-simple_li.active .menu-simple_a {
+.menu-simple_li.active > .menu-simple_a {
   color: #fd7700;
   text-decoration: none;
 }

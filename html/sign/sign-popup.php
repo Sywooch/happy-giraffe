@@ -121,7 +121,7 @@
 							<span class="i-highlight i-highlight__big font-big">Осталось ввести еще немного данных</span>
 						</div>
 						<div class="textalign-c margin-b40">
-							<div class="display-ib verticalalign-m">
+							<div class="display-ib verticalalign-m success">
 								<div class="b-sign_label-hold margin-r10">
 									<label for="" class="b-sign_label">Ваш e-mail</label>
 								</div>
@@ -134,12 +134,13 @@
 							</div>
 						</div>
 						<div class="margin-b40 clearfix">
-							<div class="float-l w-50p">
+							<div class="float-l w-50p error">
 								<div class="b-sign_label-hold">
 									<label for="" class="b-sign_label">Имя</label>
 								</div>
 								<div class="b-sign_itx-hold">
 									<input type="text" name="" id="" class="itx-simple" placeholder="Введите имя">
+									<div class="errorMessage">Введите имя</div>
 								</div>
 								<div class="b-sign_win"></div>
 							</div>
@@ -149,15 +150,17 @@
 								</div>
 								<div class="b-sign_itx-hold">
 									<input type="text" name="" id="" class="itx-simple" placeholder="Введите фамилию">
+									<div class="errorMessage">Введите фамилию</div>
 								</div>
+								<div class="b-sign_win"></div>
 							</div>
 						</div>
 						<div class="margin-b30 clearfix">
-							<div class="float-l w-50p">
+							<div class="float-l w-50p error">
 								<div class="b-sign_label-hold">
 									<label for="" class="b-sign_label">Дата рождения</label>
 								</div>
-								<div class="b-sign_itx-hold error">
+								<div class="b-sign_itx-hold">
 								<div class="clearfix">
 										<div class="w-70 float-l margin-r5">
 											<div class="chzn-itx-simple">
@@ -208,8 +211,9 @@
 									</div>
 								<div class="errorMessage">Введите дату рождения</div>
 								</div>
+								<div class="b-sign_win"></div>
 							</div>
-							<div class="float-l w-50p">
+							<div class="float-l w-50p error">
 								<div class="b-sign_label-hold">
 									<label for="" class="b-sign_label">Пол</label>
 								</div>
@@ -225,6 +229,7 @@
 										<label for="radio3" class="b-radio-icons_label">
 											<span class="ico-female"></span>
 										</label>
+										<div class="b-sign_win"></div>
 									</div>
 									<div class="errorMessage">Выберите пол</div>
 								</div>
@@ -233,25 +238,27 @@
 						<div class="b-sign_hr margin-b30"></div>
 						
 						
-						<div class="margin-b40 clearfix">
+						<div class="margin-b40 clearfix error">
 							<div class="float-l w-50p">
 								<div class="b-sign_label-hold">
 									<label for="" class="b-sign_label">Пароль</label>
 								</div>
-								<div class="b-sign_itx-hold error">
+								<div class="b-sign_itx-hold">
 									<input type="password" name="" id="" class="itx-simple">
 									<div class="errorMessage">Введите минимум 6 знаков</div>
 									<div class="b-sign_itx-desc">Придумайте сложный пароль, от 6 до 12 символов - цифры и английские буквы.</div>
 								</div>
+								<div class="b-sign_win"></div>
 							</div>
-							<div class="float-l w-50p">
+							<div class="float-l w-50p error">
 								<div class="b-sign_label-hold">
 									<label for="" class="b-sign_label">Пароль <br>еще раз</label>
 								</div>
-								<div class="b-sign_itx-hold error">
+								<div class="b-sign_itx-hold ">
 									<input type="text" name="" id="" class="itx-simple">
 									<div class="errorMessage">Пароли не совпадают</div>
 								</div>
+								<div class="b-sign_win"></div>
 							</div>
 						</div>
 						
@@ -285,39 +292,42 @@
 							<div class="display-ib verticalalign-m margin-r20">
 								<div class="ava"></div>
 							</div>
-							<div class="display-ib verticalalign-m">
+							<div class="display-ib verticalalign-m success">
 								<div class="b-sign_label-hold margin-r10">
 									<label for="" class="b-sign_label">Ваш e-mail</label>
 								</div>
 								<div class="b-sign_itx-hold">
 									<input type="text" name="" id="" class="itx-simple" placeholder="Введите ваш e-mail" value="rtyrtyr@er.ru">
 								</div>
+								
 								<div class="float-l w-30">
 									<div class="b-sign_win"></div>
 								</div>
 							</div>
 						</div>
-						<div class="margin-b40 clearfix">
+						<div class="margin-b40 clearfix success">
 							<div class="float-l w-50p">
 								<div class="b-sign_label-hold">
 									<label for="" class="b-sign_label">Имя</label>
 								</div>
 								<div class="b-sign_itx-hold">
 									<input type="text" name="" id="" class="itx-simple" placeholder="Введите имя" value="Викториал">
+									<div class="errorMessage">Введите имя</div>
 								</div>
 								<div class="b-sign_win"></div>
 							</div>
-							<div class="float-l w-50p">
+							<div class="float-l w-50p success">
 								<div class="b-sign_label-hold">
 									<label for="" class="b-sign_label">Фамилия</label>
 								</div>
 								<div class="b-sign_itx-hold">
 									<input type="text" name="" id="" class="itx-simple" placeholder="Введите фамилию" value="Иванов">
+									<div class="errorMessage">Введите фамилию</div>
 								</div>
 								<div class="b-sign_win"></div>
 							</div>
 						</div>
-						<div class="margin-b30 clearfix">
+						<div class="margin-b30 clearfix success">
 							<div class="float-l w-50p">
 								<div class="b-sign_label-hold">
 									<label for="" class="b-sign_label">Дата рождения</label>
@@ -371,9 +381,11 @@
 											</div>
 										</div>
 									</div>
+									<div class="errorMessage">Введите дату рождения</div>
 								</div>
+								<div class="b-sign_win"></div>
 							</div>
-							<div class="float-l w-50p">
+							<div class="float-l w-50p success">
 								<div class="b-sign_label-hold">
 									<label for="" class="b-sign_label">Пол</label>
 								</div>
@@ -389,6 +401,7 @@
 										<label for="radio5" class="b-radio-icons_label">
 											<span class="ico-female"></span>
 										</label>
+										<div class="b-sign_win"></div>
 									</div>
 								</div>
 							</div>
@@ -397,23 +410,26 @@
 						
 						
 						<div class="margin-b40 clearfix">
-							<div class="float-l w-50p">
+							<div class="float-l w-50p success">
 								<div class="b-sign_label-hold">
 									<label for="" class="b-sign_label">Пароль</label>
 								</div>
 								<div class="b-sign_itx-hold">
 									<input type="password" name="" id="" class="itx-simple">
+									<div class="errorMessage">Введите минимум 6 знаков</div>
 									<div class="b-sign_itx-desc">Придумайте сложный пароль, от 6 до 12 символов - цифры и английские буквы.</div>
 								</div>
 								<div class="b-sign_win"></div>
 							</div>
-							<div class="float-l w-50p">
+							<div class="float-l w-50p success">
 								<div class="b-sign_label-hold">
 									<label for="" class="b-sign_label">Пароль <br>еще раз</label>
 								</div>
 								<div class="b-sign_itx-hold">
 									<input type="password" name="" id="" class="itx-simple">
+									<div class="errorMessage">Пароли не совпадают</div>
 								</div>
+								<div class="b-sign_win"></div>
 							</div>
 						</div>
 						

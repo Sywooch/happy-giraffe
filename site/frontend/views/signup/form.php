@@ -69,7 +69,7 @@
                             <div class="b-sign_label-hold">
                                 <label for="" class="b-sign_label">Дата рождения</label>
                             </div>
-                            <div class="b-sign_itx-hold error">
+                            <div class="b-sign_itx-hold">
                                 <div class="clearfix">
                                     <div class="w-70 float-l margin-r5">
                                         <div class="chzn-itx-simple">
@@ -118,7 +118,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="errorMessage">Введите дату рождения</div>
                             </div>
                         </div>
                         <div class="float-l w-50p">
@@ -137,7 +136,6 @@
                                     </label>
                                     <div class="b-sign_win"></div>
                                 </div>
-                                <div class="errorMessage">Выберите пол</div>
                             </div>
                         </div>
                     </div>
@@ -163,7 +161,6 @@
                             <div class="b-sign_itx-hold">
                                 <?=$form->passwordField($model, 'passwordRepeat', array('class' => 'itx-simple'))?>
                                 <?=$form->error($model, 'passwordRepeat')?>
-                                <div class="errorMessage">Пароли не совпадают</div>
                             </div>
                             <div class="b-sign_win"></div>
                         </div>

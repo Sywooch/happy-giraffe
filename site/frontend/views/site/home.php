@@ -33,18 +33,11 @@
 
                 <div class="col-2">
 
-                    <?php if($this->beginCache('home-page-1', array('duration'=>60))) { ?>
-
-                    <?php $this->widget('MostPopularWidget'); ?>
                     <?php $this->widget('OurServicesWidget'); ?>
-                    <?php $this->widget('BlogWidget'); ?>
 
-                    <?php $this->endCache(); } ?>
                 </div>
 
                 <div class="col-3">
-
-                    <?php $this->widget('OurUsersWidget'); ?>
 
                     <div class="box homepage-articles">
 

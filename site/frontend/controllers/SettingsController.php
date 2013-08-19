@@ -82,8 +82,7 @@ class SettingsController extends HController
 
     protected function performAjaxValidation($model)
     {
-        if(isset($_POST['ajax']) && $_POST['ajax']==='password-form')
-        {
+        if (isset($_POST['ajax']) && $_POST['ajax'] === 'password-form') {
             echo CActiveForm::validate($model, array('current_password', 'new_password', 'new_password_repeat', 'verifyCode'));
             Yii::app()->end();
         }

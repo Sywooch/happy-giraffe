@@ -439,9 +439,9 @@ class HDate
         $day = intval(($sec_now - $rtime) / 86400);
         $result = '';
         if ($year > 0)
-            $result .= $year.' '. Str::GenerateNoun(array("год", "года", "лет"), $year)." ";
+            $result .= $year.' '. Str::GenerateNoun(array("год", "года", "лет"), $year).", ";
         if ($month > 0)
-            $result .= $month.' '.Str::GenerateNoun(array("месяц", "месяца", "месяцев"), $month)." ";
+            $result .= $month.' '.Str::GenerateNoun(array("месяц", "месяца", "месяцев"), $month).", ";
         $result .= $day.' '. Str::GenerateNoun(array("день", "дня", "дней"), $day)." ";
         return $result;
     }

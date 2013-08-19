@@ -74,52 +74,50 @@
 
     <?php if (Yii::app()->user->model->userSocialServices): ?>
 
-        <div class="profiles-list">
-
-            <div class="list-title clearfix">
-
-                <div class="col col-1">Социальная сеть</div>
-                <div class="col col-2">Имя</div>
-                <div class="col col-3">Удалить профиль</div>
-
-            </div>
-
-            <ul>
-                <?php foreach ($services as $name => $service): ?>
-                    <?php if(($us = UserSocialService::model()->findByUser($name, Yii::app()->user->id)) != null): ?>
-                        <li class="clearfix">
-                            <div class="col col-1"><span class="social-logo <?=$service->id?>"></span></div>
-                            <div class="col col-2">
-                                <?php if ($us->urlString != ''): ?>
-                                    <?=CHtml::link($us->nameString, $us->urlString, array('target' => '_blank'))?>
-                                <?php else: ?>
-                                    <?=$us->nameString?>
-                                <?php endif; ?>
-                            </div>
-                            <div class="col col-3"><a href="javascript:void(0)" onclick="Settings.removeService(this, <?=$us->id?>, '<?=$service->id?>')" class="btn-remove"><i class="icon"></i>Удалить</a></div>
-                        </li>
-                    <?php endif; ?>
-                <?php endforeach; ?>
-            </ul>
-
-        </div>
-
+        <table class="form-settings_table">
+        <thead>
+        <tr>
+            <th class="form-settings_th textalign-l">Социальная сеть</th>
+            <th class="form-settings_th"> Имя</th>
+            <th class="form-settings_th">Удалить профиль</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php foreach ($services as $name => $service): ?>
+            <?php if(($us = UserSocialService::model()->findByUser($name, Yii::app()->user->id)) != null): ?>
+                <tr>
+                    <td class="form-settings_td textalign-l">
+                                        <span class="custom-like">
+                                            <span class="custom-like_icon <?=$service->id?>"></span>
+                                        </span>
+                        <span>Одноклассники</span>
+                    </td>
+                    <td class="form-settings_td"
+                        <?php if ($us->urlString != ''): ?>
+                            <?=CHtml::link($us->nameString, $us->urlString, array('target' => '_blank'))?>
+                        <?php else: ?>
+                            <?=$us->nameString?>
+                        <?php endif; ?>
+                    </td>
+                    <td class="form-settings_td">
+                        <a href="" class="a-pseudo-icon">
+                            <span class="ico-close2"></span>
+                            <span onclick="Settings.removeService(this, <?=$us->id?>, '<?=$service->id?>')" class="a-pseudo-icon_tx">
+                        </a>
+                    </td>
+                </tr>
+            <?php endif; ?>
+        <?php endforeach; ?>
     <?php endif; ?>
 
-    <div class="add-profile">
+    <div class="form-settings_t">Добавить профиль</div>
 
-        <div class="block-title">Добавить профиль</div>
-
-        <ul class="auth-services">
-            <?php foreach ($services as $name => $service): ?>
-                <li class="auth-service <?=$service->id?>"<?php if(UserSocialService::model()->findByUser($name, Yii::app()->user->id) !== null): ?> style="display: none;"<?php endif; ?>>
-                    <?=HHtml::link('', array('/' . $action, 'service' => $name, 'settings' => true), array(
-                        'class' => 'auth-link ' . $service->id,
-                    ), true)?>
-                </li>
-            <?php endforeach; ?>
-        </ul>
-
+    <div class="margin-b30 clearfix">
+    <?php foreach ($services as $name => $service): ?>
+        <a href="<?=Yii::app()->createUrl('/', array('/' . $action, 'service' => $name, 'settings' => true))  ?>" class="b-social-big" <?php if(UserSocialService::model()->findByUser($name, Yii::app()->user->id) !== null): ?> style="display: none;"<?php endif; ?>>
+            <span class="b-social-big_ico <?=$service->id?>"></span>
+        </a>
+    <?php endforeach; ?>
     </div>
 
 <?php endif; ?>

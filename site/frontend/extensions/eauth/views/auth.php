@@ -50,6 +50,14 @@
             echo '</li>';
         }
     ?>
+<?php elseif ($this->mode == 'signup'): ?>
+
+<?php foreach ($services as $name => $service): ?>
+    <a class="b-social-big" href="<?=Yii::app()->createUrl('/' . $action, array('service' => $name))?>">
+        <span class="b-social-big_ico <?=$service->id?>"></span>
+    </a>
+<?php endforeach; ?>
+
 <?php elseif ($this->mode !== 'profile'): ?>
 
     <div class="services">

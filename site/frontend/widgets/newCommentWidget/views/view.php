@@ -49,7 +49,7 @@ NotificationRead::getInstance()->SetVisited();
         <!-- ko foreach: comments -->
         <div class="comments-gray_i" data-bind="css: {'comments-gray_i__self': ownComment(), 'comments-gray_i__recovery': removed()}, attr: {id: 'comment_'+id()}">
 
-            <a class="comments-gray_like like-hg-small powertip" href="" data-bind="text:likesCount, css:{active: userLikes, hide: (likesCount() == 0)}, click:Like, tooltip: 'Нравиться'"></a>
+            <a class="comments-gray_like like-hg-small powertip" href="" data-bind="text:likesCount, css:{active: userLikes, hide: (likesCount() == 0)}, click:Like, tooltip: 'Нравится'"></a>
 
             <div class="comments-gray_ava">
                 <a class="ava small" href="" data-bind="css: author.avatarClass(), attr:{href: author.url()}">

@@ -52,11 +52,13 @@
     ?>
 <?php elseif ($this->mode == 'signup'): ?>
 
-<?php foreach ($services as $name => $service): ?>
-    <a class="b-social-big" href="<?=Yii::app()->createUrl('/' . $action, array('service' => $name))?>">
-        <span class="b-social-big_ico <?=$service->id?>"></span>
-    </a>
-<?php endforeach; ?>
+<ul class="clearfix">
+    <?php foreach ($services as $name => $service): ?>
+        <li class="b-social-big auth-service <?=$service->id?>">
+            <a href="<?=Yii::app()->createUrl('/' . $action, array('service' => $name))?>" class="b-social-big_ico auth-link <?=$service->id?>"></a>
+        </li>
+    <?php endforeach; ?>
+</ul>
 
 <?php elseif ($this->mode !== 'profile'): ?>
 

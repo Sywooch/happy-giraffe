@@ -62,20 +62,20 @@
 						<div class="clearfix">
 							<div class="b-sign_left-soc">
 								<div class="b-sign_sub-t margin-b30">Через социальные сети</div>
-								<div class="clearfix">
-									<a class="b-social-big" href="">
-										<span class="b-social-big_ico odnoklassniki"></span>
-									</a>
-									<a class="b-social-big" href="">
-										<span class="b-social-big_ico vkontakte"></span>
-									</a>
-									<a class="b-social-big" href="">
-										<span class="b-social-big_ico facebook"></span>
-									</a>
-									<a class="b-social-big" href="">
-										<span class="b-social-big_ico twitter"></span>
-									</a>
-								</div>
+								<ul class="clearfix">
+									<li class="b-social-big">
+										<a href="" class="b-social-big_ico odnoklassniki"></a>
+									</li>
+									<li class="b-social-big">
+										<a href="" class="b-social-big_ico vkontakte"></a>
+									</li>
+									<li class="b-social-big">
+										<a href="" class="b-social-big_ico facebook"></a>
+									</li>
+									<li class="b-social-big">
+										<a href="" class="b-social-big_ico twitter"></a>
+									</li>
+								</ul>
 							</div>
 							
 							<div class="b-sign_right-b">

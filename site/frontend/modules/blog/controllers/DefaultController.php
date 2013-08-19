@@ -34,6 +34,8 @@ class DefaultController extends HController
 
     public function actionView($content_id, $user_id)
     {
+        header('X-XSS-Protection: 0');
+
         $this->user = $this->loadUser($user_id);
         $content = $this->loadPost($content_id);
 

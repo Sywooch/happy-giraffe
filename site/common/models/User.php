@@ -1359,4 +1359,9 @@ class User extends HActiveRecord
 
         return '';
     }
+
+    public function getAva()
+    {
+        return '';
+    }
 }

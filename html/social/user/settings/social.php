@@ -78,7 +78,7 @@
 									<tr>
 										<td class="form-settings_td textalign-l">
 											<span class="custom-like">
-												<span class="custom-like_icon odkl"></span>
+												<span class="custom-like_icon odnoklassniki"></span>
 											</span>
 											<span>Одноклассники</span>
 										</td>
@@ -93,7 +93,7 @@
 									<tr>
 										<td class="form-settings_td textalign-l">
 											<span class="custom-like">
-												<span class="custom-like_icon vk"></span>
+												<span class="custom-like_icon vkontakte"></span>
 											</span>
 											<span>Вконтакте</span>
 										</td>
@@ -108,7 +108,7 @@
 									<tr>
 										<td class="form-settings_td textalign-l">
 											<span class="custom-like">
-												<span class="custom-like_icon fb"></span>
+												<span class="custom-like_icon facebook"></span>
 											</span>
 											<span>Facebook</span>
 										</td>
@@ -123,7 +123,7 @@
 									<tr>
 										<td class="form-settings_td textalign-l">
 											<span class="custom-like">
-												<span class="custom-like_icon tw"></span>
+												<span class="custom-like_icon twitter"></span>
 											</span>
 											<span>Twitter</span>
 										</td>
@@ -142,16 +142,16 @@
 							
 							<div class="margin-b30 clearfix">
 								<a href="" class="b-social-big">
-									<span class="b-social-big_ico odkl"></span>
+									<span class="b-social-big_ico odnoklassniki"></span>
 								</a>
 								<a href="" class="b-social-big">
-									<span class="b-social-big_ico vk"></span>
+									<span class="b-social-big_ico vkontakte"></span>
 								</a>
 								<a href="" class="b-social-big">
-									<span class="b-social-big_ico fb"></span>
+									<span class="b-social-big_ico facebook"></span>
 								</a>
 								<a href="" class="b-social-big">
-									<span class="b-social-big_ico tw"></span>
+									<span class="b-social-big_ico twitter"></span>
 								</a>
 							</div>
 							

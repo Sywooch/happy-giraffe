@@ -34,7 +34,7 @@
 						<div class="margin-20">
 							<span class="i-highlight i-highlight__big font-big">Веселый Жираф вам рекомендует</span>
 						</div>
-						<div class="club-list club-list__big clearfix">
+						<div class="club-list club-list__big margin-l20 clearfix">
 							<ul class="club-list_ul clearfix">
 								<li class="club-list_li club-list_li__in">
 									<a class="club-list_i" href="">

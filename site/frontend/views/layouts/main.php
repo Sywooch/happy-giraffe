@@ -1,4 +1,4 @@
-﻿<?php $this->beginContent('//layouts/common'); ?>
+﻿<?php $this->beginContent('//layouts/common_new'); ?>
 
     <div id="header-new" class="<?php if (Yii::app()->user->isGuest): ?>guest <?php endif; ?>clearfix">
 

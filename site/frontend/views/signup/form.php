@@ -5,7 +5,7 @@
     'enableClientValidation' => false,
     'enableAjaxValidation' => true,
     'clientOptions' => array(
-        'inputContainer' => '.row',
+        'inputContainer' => '.display-ib.verticalalign-m, .float-l.w-50p',
         'validateOnSubmit' => true,
         'validateOnChange' => true,
         'validateOnType' => false,
@@ -34,7 +34,6 @@
                                 <label for="" class="b-sign_label">Ваш e-mail</label>
                             </div>
                             <div class="b-sign_itx-hold">
-                                <!--<input type="text" name="" id="" class="itx-simple" placeholder="Введите ваш e-mail" value="rtyrtyr@er.ru">-->
                                 <?=$form->textField($model, 'email', array('class' => 'itx-simple', 'placeholder' => 'Введите ваш e-mail'))?>
                                 <?=$form->error($model, 'email')?>
                             </div>
@@ -49,7 +48,6 @@
                                 <label for="" class="b-sign_label">Имя</label>
                             </div>
                             <div class="b-sign_itx-hold">
-                                <!--<input type="text" name="" id="" class="itx-simple" placeholder="Введите имя">-->
                                 <?=$form->textField($model, 'first_name', array('class' => 'itx-simple', 'placeholder' => 'Введите имя'))?>
                                 <?=$form->error($model, 'first_name')?>
                             </div>
@@ -60,7 +58,6 @@
                                 <label for="" class="b-sign_label">Фамилия</label>
                             </div>
                             <div class="b-sign_itx-hold">
-                                <!--<input type="text" name="" id="" class="itx-simple" placeholder="Введите фамилию">-->
                                 <?=$form->textField($model, 'last_name', array('class' => 'itx-simple', 'placeholder' => 'Введите фамилию'))?>
                                 <?=$form->error($model, 'last_name')?>
                             </div>
@@ -123,7 +120,6 @@
                                 </div>
                                 <div class="errorMessage">Введите дату рождения</div>
                             </div>
-                            <div class="b-sign_win"></div>
                         </div>
                         <div class="float-l w-50p">
                             <div class="b-sign_label-hold">
@@ -131,18 +127,15 @@
                             </div>
                             <div class="b-sign_itx-hold">
                                 <div class="b-radio-icons">
-                                    <!-- Данные для примера id="radio2" name="b-radio2" и for="radio2" -->
-                                    <!--<input type="radio" name="b-radio2" id="radio2" class="b-radio-icons_radio" checked="">-->
                                     <?=$form->radioButton($model, 'gender', array('value' => '1', 'class' => 'b-radio-icons_radio', 'id' => 'radio2'))?>
                                     <label for="radio2" class="b-radio-icons_label">
                                         <span class="ico-male"></span>
                                     </label>
-                                    <!-- Данные для примера id="radio3" name="b-radio2" и for="radio3" -->
-                                    <!--<input type="radio" name="b-radio2" id="radio3" class="b-radio-icons_radio">-->
                                     <?=$form->radioButton($model, 'gender', array('value' => '0', 'class' => 'b-radio-icons_radio', 'id' => 'radio3'))?>
                                     <label for="radio3" class="b-radio-icons_label">
                                         <span class="ico-female"></span>
                                     </label>
+                                    <div class="b-sign_win"></div>
                                 </div>
                                 <div class="errorMessage">Выберите пол</div>
                             </div>
@@ -156,20 +149,23 @@
                             <div class="b-sign_label-hold">
                                 <label for="" class="b-sign_label">Пароль</label>
                             </div>
-                            <div class="b-sign_itx-hold error">
-                                <input type="password" name="" id="" class="itx-simple">
-                                <div class="errorMessage">Введите минимум 6 знаков</div>
+                            <div class="b-sign_itx-hold">
+                                <?=$form->passwordField($model, 'password', array('class' => 'itx-simple'))?>
+                                <?=$form->error($model, 'password')?>
                                 <div class="b-sign_itx-desc">Придумайте сложный пароль, от 6 до 12 символов - цифры и английские буквы.</div>
                             </div>
+                            <div class="b-sign_win"></div>
                         </div>
                         <div class="float-l w-50p">
                             <div class="b-sign_label-hold">
                                 <label for="" class="b-sign_label">Пароль <br>еще раз</label>
                             </div>
-                            <div class="b-sign_itx-hold error">
-                                <input type="text" name="" id="" class="itx-simple">
+                            <div class="b-sign_itx-hold">
+                                <?=$form->passwordField($model, 'passwordRepeat', array('class' => 'itx-simple'))?>
+                                <?=$form->error($model, 'passwordRepeat')?>
                                 <div class="errorMessage">Пароли не совпадают</div>
                             </div>
+                            <div class="b-sign_win"></div>
                         </div>
                     </div>
 

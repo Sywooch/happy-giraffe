@@ -30,7 +30,14 @@
                                 </div>
                             </li>
                             <!-- ko foreach: family -->
-                                <li class="b-family_li b-family_li__empty" data-bind="drop: $root.drop"></li>
+                                <li class="b-family_li" data-bind="droppable: $root.drop, css: { 'b-family_li__empty' : isEmpty }, if: ! isEmpty()">
+                                    <div class="b-family_img-hold">
+                                        <div class="ico-family" data-bind="css: cssClass"></div>
+                                    </div>
+                                    <div class="b-family_tx">
+                                        <span data-bind="text: title"></span>
+                                    </div>
+                                </li>
                             <!-- /ko -->
                         </ul>
                     </div>
@@ -46,7 +53,7 @@
                     <div class="b-family b-family__bg-none margin-b10">
                         <ul class="b-family_ul">
                         <!-- Объект для перетаскивания .b-family_li -->
-                            <li class="b-family_li" data-bind="drag: drag">
+                            <li class="b-family_li">
                                 <div class="b-family_img-hold">
                                     <div class="ico-family ico-family__husband"></div>
                                 </div>
@@ -54,7 +61,7 @@
                                     <span>Муж</span>
                                 </div>
                             </li>
-                            <li class="b-family_li" data-bind="drag: drag">
+                            <li class="b-family_li">
                                 <div class="b-family_img-hold">
                                     <div class="ico-family ico-family__fiance"></div>
                                 </div>
@@ -62,7 +69,7 @@
                                     <span>Жених</span>
                                 </div>
                             </li>
-                            <li class="b-family_li" data-bind="drag: drag">
+                            <li class="b-family_li">
                                 <div class="b-family_img-hold">
                                     <div class="ico-family ico-family__boy-friend"></div>
                                 </div>
@@ -115,7 +122,7 @@
                             <div class="color-gray font-small">Дети от 0 до 1 года</div>
                             <div class="b-family b-family__bg-none margin-b10">
                                 <ul class="b-family_ul">
-                                    <li class="b-family_li">
+                                    <li class="b-family_li" data-bind="draggable: new FamilyBaby(0, 0)">
                                         <div class="b-family_img-hold">
                                             <div class="ico-family ico-family__girl-small"></div>
                                         </div>
@@ -123,7 +130,7 @@
                                             <span>Дочь</span>
                                         </div>
                                     </li>
-                                    <li class="b-family_li">
+                                    <li class="b-family_li" data-bind="draggable: new FamilyBaby(1, 0)">
                                         <div class="b-family_img-hold">
                                             <div class="ico-family ico-family__boy-small"></div>
                                         </div>
@@ -139,7 +146,7 @@
                             <div class="color-gray font-small">Дети от 1 до 3 лет</div>
                             <div class="b-family b-family__bg-none margin-b10">
                                 <ul class="b-family_ul">
-                                    <li class="b-family_li">
+                                    <li class="b-family_li" data-bind="draggable: new FamilyBaby(0, 1)">
                                         <div class="b-family_img-hold">
                                             <div class="ico-family ico-family__girl-3"></div>
                                         </div>
@@ -147,7 +154,7 @@
                                             <span>Дочь</span>
                                         </div>
                                     </li>
-                                    <li class="b-family_li">
+                                    <li class="b-family_li" data-bind="draggable: new FamilyBaby(1, 1)">
                                         <div class="b-family_img-hold">
                                             <div class="ico-family ico-family__boy-3"></div>
                                         </div>
@@ -163,7 +170,7 @@
                             <div class="color-gray font-small">Дети от 3 до 6 лет</div>
                             <div class="b-family b-family__bg-none margin-b10">
                                 <ul class="b-family_ul">
-                                    <li class="b-family_li">
+                                    <li class="b-family_li" data-bind="draggable: new FamilyBaby(0, 2)">
                                         <div class="b-family_img-hold">
                                             <div class="ico-family ico-family__girl-5"></div>
                                         </div>
@@ -171,7 +178,7 @@
                                             <span>Дочь</span>
                                         </div>
                                     </li>
-                                    <li class="b-family_li">
+                                    <li class="b-family_li" data-bind="draggable: new FamilyBaby(1, 2)">
                                         <div class="b-family_img-hold">
                                             <div class="ico-family ico-family__boy-5"></div>
                                         </div>
@@ -187,7 +194,7 @@
                             <div class="color-gray font-small">Дети от 6 до 12 лет</div>
                             <div class="b-family b-family__bg-none margin-b10">
                                 <ul class="b-family_ul">
-                                    <li class="b-family_li">
+                                    <li class="b-family_li" data-bind="draggable: new FamilyBaby(0, 3)">
                                         <div class="b-family_img-hold">
                                             <div class="ico-family ico-family__girl-8"></div>
                                         </div>
@@ -195,7 +202,7 @@
                                             <span>Дочь</span>
                                         </div>
                                     </li>
-                                    <li class="b-family_li">
+                                    <li class="b-family_li" data-bind="draggable: new FamilyBaby(1, 3)">
                                         <div class="b-family_img-hold">
                                             <div class="ico-family ico-family__boy-8"></div>
                                         </div>
@@ -211,7 +218,7 @@
                             <div class="color-gray font-small">Дети от 12 до 18 лет</div>
                             <div class="b-family b-family__bg-none margin-b10">
                                 <ul class="b-family_ul">
-                                    <li class="b-family_li">
+                                    <li class="b-family_li" data-bind="draggable: new FamilyBaby(0, 4)">
                                         <div class="b-family_img-hold">
                                             <div class="ico-family ico-family__girl-14"></div>
                                         </div>
@@ -219,7 +226,7 @@
                                             <span>Дочь</span>
                                         </div>
                                     </li>
-                                    <li class="b-family_li">
+                                    <li class="b-family_li" data-bind="draggable: new FamilyBaby(1, 4)">
                                         <div class="b-family_img-hold">
                                             <div class="ico-family ico-family__boy-14"></div>
                                         </div>
@@ -235,7 +242,7 @@
                             <div class="color-gray font-small">Старше 18 лет</div>
                             <div class="b-family b-family__bg-none margin-b10">
                                 <ul class="b-family_ul">
-                                    <li class="b-family_li">
+                                    <li class="b-family_li" data-bind="draggable: new FamilyBaby(0, 5)">
                                         <div class="b-family_img-hold">
                                             <div class="ico-family ico-family__girl-19"></div>
                                         </div>
@@ -243,7 +250,7 @@
                                             <span>Дочь</span>
                                         </div>
                                     </li>
-                                    <li class="b-family_li">
+                                    <li class="b-family_li" data-bind="draggable: new FamilyBaby(1, 5)">
                                         <div class="b-family_img-hold">
                                             <div class="ico-family ico-family__boy-19"></div>
                                         </div>

@@ -83,5 +83,12 @@ return array(
             ),
             'depends' => array('knockout', 'history'),
         ),
+        'ko_family' => array(
+            'baseUrl' => '/',
+            'js' => array(
+                'javascripts/ko_family.js',
+            ),
+            'depends' => array('knockout', 'jquery.ui'),
+        ),
     )
 );

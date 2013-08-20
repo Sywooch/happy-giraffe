@@ -264,4 +264,11 @@ class SignupController extends HController
 
         $this->renderPartial('form', compact('model', 'type'), false, true);
     }
+
+    public function actionFamily()
+    {
+        $json = Yii::app()->user->model->getFamilyData();
+        $this->layout = '//layouts/simple';
+        $this->render('family', compact('json'));
+    }
 }

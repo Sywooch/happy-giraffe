@@ -22,6 +22,7 @@ class Baby extends HActiveRecord
 {
     const TYPE_WAIT = 1;
     const TYPE_PLANNING = 2;
+    const TYPE_TWINS = 3;
 
     const SEX_GIRL = 0;
     const SEX_BOY = 1;

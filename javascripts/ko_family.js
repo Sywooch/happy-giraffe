@@ -47,7 +47,7 @@ var FamilyViewModel = function(data) {
 
     self.getAdultCssClass = function(gender, relationshipStatus) {
         if (gender == 0) {
-            switch (self.relationshipStatus()) {
+            switch (relationshipStatus) {
                 case 1:
                     return 'ico-family__wife';
                 case 3:
@@ -90,6 +90,29 @@ var FamilyViewModel = function(data) {
     });
 
     self.me = ko.observable(new FamilyMe(data.me, self));
+    self.partnerModels = [
+        new FamilyPartner({ relationshipStatus : 1 }, self),
+        new FamilyPartner({ relationshipStatus : 3 }, self),
+        new FamilyPartner({ relationshipStatus : 4 }, self)
+    ];
+    self.childrenModels = [
+        new FamilyBaby({ gender : 1, ageGroup : null, type : 1 }, self),
+        new FamilyBaby({ gender : 0, ageGroup : null, type : 1 }, self),
+        new FamilyBaby({ gender : 2, ageGroup : null, type : 1 }, self),
+        new FamilyBaby({ gender : 2, ageGroup : null, type : 3 }, self),
+        new FamilyBaby({ gender : 0, ageGroup : 0, type : 0 }, self),
+        new FamilyBaby({ gender : 1, ageGroup : 0, type : 0 }, self),
+        new FamilyBaby({ gender : 0, ageGroup : 1, type : 0 }, self),
+        new FamilyBaby({ gender : 1, ageGroup : 1, type : 0 }, self),
+        new FamilyBaby({ gender : 0, ageGroup : 2, type : 0 }, self),
+        new FamilyBaby({ gender : 1, ageGroup : 2, type : 0 }, self),
+        new FamilyBaby({ gender : 0, ageGroup : 3, type : 0 }, self),
+        new FamilyBaby({ gender : 1, ageGroup : 3, type : 0 }, self),
+        new FamilyBaby({ gender : 0, ageGroup : 4, type : 0 }, self),
+        new FamilyBaby({ gender : 1, ageGroup : 4, type : 0 }, self),
+        new FamilyBaby({ gender : 0, ageGroup : 5, type : 0 }, self),
+        new FamilyBaby({ gender : 1, ageGroup : 5, type : 0 }, self)
+    ];
 
     self.addListElements(8);
 
@@ -130,22 +153,44 @@ var FamilyListElement = function() {
     });
 }
 
-var FamilyPartner = function(data) {
+var FamilyPartner = function(data, parent) {
     var self = this;
 
-    self.cssClass = ko.computed(function() {
+    self.relationshipStatus = data.relationshipStatus;
 
-    });
+    self.cssClass = function() {
+        return parent.getAdultCssClass((1 + parent.me().gender) % 2, self.relationshipStatus);
+    }
+
+    self.title = function() {
+        if (parent.me().gender == 0) {
+            switch (self.relationshipStatus) {
+                case 1:
+                    return 'Жена';
+                case 3:
+                    return 'Подруга';
+                case 4:
+                    return 'Невеста';
+            }
+        } else {
+            switch (self.relationshipStatus) {
+                case 1:
+                    return 'Жена';
+                case 3:
+                    return 'Подруга';
+                case 4:
+                    return 'Невеста';
+            }
+        }
+    };
 }
 
-var FamilyBaby = function(gender, ageGroup, type) {
-    type = typeof type !== 'undefined' ? type : 0;
-
+var FamilyBaby = function(data, parent) {
     var self = this;
 
-    self.gender = gender;
-    self.ageGroup = ageGroup;
-    self.type = type;
+    self.gender = data.gender;
+    self.ageGroup = data.ageGroup;
+    self.type = data.type;
 
     self.cssClass = function() {
         switch (self.type) {

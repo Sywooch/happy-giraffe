@@ -28,16 +28,15 @@ var FamilyViewModel = function(data) {
     var self = this;
 
     self.beingDragged = ko.observable(null);
-    self.family = ko.observableArray();
+    self.family = ko.observableArray([]);
 
     self.add = function(content) {
         self.firstEmpty().content(content);
     };
 
     self.drop = function(data) {
-        console.log(data);
-        console.log(self.beingDragged());
         data.content(self.beingDragged());
+        self.family.valueHasMutated();
     };
 
     self.firstEmpty = ko.computed(function() {
@@ -68,10 +67,31 @@ var FamilyViewModel = function(data) {
         }
     }
 
+    self.addListElements = function(n) {
+        for (var i = 0; i < n; i++)
+            self.family.push(new FamilyListElement());
+    }
+
+    self.familyMembersCount = ko.computed(function() {
+        return self.family().reduce(function(previousValue, currentValue) {
+            return previousValue + ! currentValue.isEmpty();
+        }, 1);
+    });
+
+    self.emptyListElementsCount = ko.computed(function() {
+        return self.family().reduce(function(previousValue, currentValue) {
+            return previousValue + currentValue.isEmpty();
+        }, 0);
+    });
+
+    self.emptyListElementsCount.subscribe(function(value) {
+        if (value == 0)
+            self.addListElements(3);
+    });
+
     self.me = ko.observable(new FamilyMe(data.me, self));
 
-    for (var i = 0; i < 8; i++)
-        self.family.push(new FamilyListElement());
+    self.addListElements(8);
 
     switch (self.me().relationshipStatus()) {
         case '1':
@@ -118,38 +138,71 @@ var FamilyPartner = function(data) {
     });
 }
 
-var FamilyBaby = function(gender, ageGroup) {
+var FamilyBaby = function(gender, ageGroup, type) {
+    type = typeof type !== 'undefined' ? type : 0;
+
     var self = this;
 
     self.gender = gender;
     self.ageGroup = ageGroup;
+    self.type = type;
 
     self.cssClass = function() {
-        var ageWord;
-        switch (self.ageGroup) {
+        switch (self.type) {
             case 0:
-                ageWord = 'small';
-                break;
-            case 1:
-                ageWord = '3';
-                break;
-            case 2:
-                ageWord = '5';
-                break;
-            case 3:
-                ageWord = '8';
-                break;
-            case 4:
-                ageWord = '14';
-                break;
-            case 5:
-                ageWord = '19';
-        }
+                var ageWord;
+                switch (self.ageGroup) {
+                    case 0:
+                        ageWord = 'small';
+                        break;
+                    case 1:
+                        ageWord = '3';
+                        break;
+                    case 2:
+                        ageWord = '5';
+                        break;
+                    case 3:
+                        ageWord = '8';
+                        break;
+                    case 4:
+                        ageWord = '14';
+                        break;
+                    case 5:
+                        ageWord = '19';
+                }
 
-        return 'ico-family__' + (self.gender == 1 ? 'boy' : 'girl') + '-' + ageWord;
+                return 'ico-family__' + (self.gender == 1 ? 'boy' : 'girl') + '-' + ageWord;
+            case 1:
+                var genderWord;
+                switch (self.gender) {
+                    case 0:
+                        return 'ico-family__girl-wait';
+                    case 1:
+                        return 'ico-family__boy-wait';
+                    case 2:
+                        return 'ico-family__baby';
+                }
+            case 3:
+                return 'ico-family__baby-two';
+        }
     }
 
     self.title = function() {
-        return self.gender == 1 ? 'Сын' : 'Дочь';
+        switch (self.type) {
+            case 0:
+                return self.gender == 1 ? 'Сын' : 'Дочь';
+            case 1:
+                switch (self.gender) {
+                    case 0:
+                        return 'Ждем мальчика';
+                    case 1:
+                        return 'Ждем девочку';
+                    case 2:
+                        return 'Ждем ребенка';
+                }
+            case 3:
+                return 'Ждём двойню';
+        }
+
     }
 }

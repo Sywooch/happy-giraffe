@@ -6,9 +6,14 @@
  * The followings are the available columns in table '{{community}}':
  * @property string $id
  * @property string $title
+ * @property string $short_title
+ * @property string $description
  * @property string $pic
  * @property string $position
  * @property string $css_class
+ *
+ * @property CommunityRubric[] $rubrics
+ * @property Service[] $services
  */
 class Community extends HActiveRecord
 {
@@ -92,6 +97,7 @@ class Community extends HActiveRecord
             'users' => array(self::MANY_MANY, 'User', 'user__users_communities(user_id, community_id)'),
             'usersCount' => array(self::STAT, 'User', 'user__users_communities(user_id, community_id)'),
             'mobileCommunity' => array(self::BELONGS_TO, 'MobileCommunity', 'mobile_community_id'),
+            'services' => array(self::HAS_MANY, 'Service', 'community_id'),
         );
     }
 
@@ -228,5 +234,25 @@ class Community extends HActiveRecord
             ->from(CommunityRubric::model()->tableName())
             ->where('community_id=' . $community_id)
             ->queryColumn();
+    }
+
+    /**
+     * Возвращает модераторов клуба
+     * @return User[]
+     */
+    public function getModerators()
+    {
+        $ids = Yii::app()->db->createCommand()
+            ->select('userid')
+            ->from('auth__assignments')
+            ->where('itemname="moderator"')
+            ->queryColumn();
+
+        $club_moders = array();
+        foreach($ids as $id)
+            if (Yii::app()->authManager->checkAccess('moderator', $id, array('community_id'=>$this->id)))
+                $club_moders [] = $id;
+
+        return User::model()->findAllByPk($club_moders);
     }
 }

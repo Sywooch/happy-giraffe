@@ -18,9 +18,13 @@ if($this->show_form){
             ');
     }
 }?>
-<div style="display:none" class="popup-container">
-    <?php $this->render('step1', compact('model', 'type')); ?>
-</div>
+    <a id="hidden_register_link" href="#" class="fancy" style="display: none;"></a>
+    <div style="display:none">
+        <div id="register">
+            <?php $this->render('step1',compact('model', 'type')); ?>
+            <div class="other-steps"></div>
+        </div>
+    </div>
 <?php
 if ($this->form_type == 'odnoklassniki')
     $this->render('_odnoklassniki');

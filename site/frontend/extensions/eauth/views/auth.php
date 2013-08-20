@@ -50,6 +50,16 @@
             echo '</li>';
         }
     ?>
+<?php elseif ($this->mode == 'signup'): ?>
+
+<ul class="clearfix">
+    <?php foreach ($services as $name => $service): ?>
+        <li class="b-social-big auth-service <?=$service->id?>">
+            <a href="<?=Yii::app()->createUrl('/' . $action, array('service' => $name))?>" class="b-social-big_ico auth-link <?=$service->id?>"></a>
+        </li>
+    <?php endforeach; ?>
+</ul>
+
 <?php elseif ($this->mode !== 'profile'): ?>
 
     <div class="services">

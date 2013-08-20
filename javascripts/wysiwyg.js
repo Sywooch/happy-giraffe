@@ -101,6 +101,7 @@ var Video = function(data, parent) {
         var textarea = this;
 
         var defaultOptions = {
+            observeImages: false,
             initCallback: function() {
                 redactor = this;
             },

@@ -520,7 +520,7 @@ var Register = {
             link.attr('href', '#register');
             link.trigger('click');
 
-            $('#register').find('.reg1').hide();
+            $('#register').find('#register-step1').hide();
             $('#register').find('.other-steps').html(response);
             $('#register').find('select').each(function () {
                 $(this).trigger('liszt:updated');
@@ -543,13 +543,14 @@ var Register = {
         }
     },
     finish:function () {
-        $('.reg2').hide();
-        $('.reg3').show();
-        setTimeout(Register.timer, 1000);
+//        $('.reg2').hide();
+//        $('.reg3').show();
+//        setTimeout(Register.timer, 1000);
         $.post('/signup/finish/', $('#reg-form2').serialize(), function (response) {
-            console.log(response);
+//            console.log(response);
             if (response.status) {
-                Register.url = response.profile;
+                window.location = response.profile;
+//                Register.url = response.profile;
             }
         }, 'json');
     },

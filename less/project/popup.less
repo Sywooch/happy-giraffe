@@ -361,6 +361,10 @@
 .b-sign {
 	font-size: 13px;
 
+	.success &_win {.inline-block();}
+	.errorMessage {display: none;}
+	.error .errorMessage {display: block;}
+
 	&_t {
 		margin: 10px 0 20px;
 		font-size: 40px;
@@ -425,7 +429,7 @@
 		color: #418ac1;
 	}
 	&_win {
-		float: left;
+		display: none;
 		vertical-align: middle;
 		width: 10px;
 		height: 33px;

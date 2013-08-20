@@ -15854,6 +15854,12 @@ select.pregnancy_term + .chzn-container .chzn-results li {
   color: #fd7700;
   text-decoration: none;
 }
+.menu-simple_li__with-drop {
+  background: url(/images/menu-simple_li__with-drop.png) no-repeat 0 4px;
+}
+.menu-simple_li__with-drop.active {
+  background: url(/images/menu-simple_li__with-drop.png) no-repeat -300px 4px;
+}
 .menu-simple_a {
   color: #289fd7;
 }
@@ -19523,22 +19529,26 @@ select.pregnancy_term + .chzn-container .chzn-results li {
 .yiipagination .page {
   display: inline-block;
   margin: 0 3px;
-  padding: 0 10px;
-}
-.yiipagination .page a {
-  color: #a1a1a1;
-}
-.yiipagination .page.selected {
-  background: #6accff;
+  background: #fff;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
+}
+.yiipagination .page a {
+  display: inline-block;
+  padding: 0 10px;
+  color: #b5b5b5;
+  text-decoration: none;
+}
+.yiipagination .page:hover,
+.yiipagination .page.selected {
+  background: #6accff;
   font-weight: bold;
   color: #fff;
 }
+.yiipagination .page:hover a,
 .yiipagination .page.selected a {
   color: #fff;
-  text-decoration: none;
 }
 /* /yiipagination */
 /* default-nav */

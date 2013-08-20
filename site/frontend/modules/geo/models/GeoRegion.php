@@ -90,9 +90,6 @@ class GeoRegion extends HActiveRecord
      */
     public function search()
     {
-        // Warning: Please modify the following code to remove attributes that
-        // should not be searched.
-
         $criteria = new CDbCriteria;
 
         $criteria->compare('id', $this->id, true);
@@ -125,5 +122,26 @@ class GeoRegion extends HActiveRecord
     public function isCity()
     {
         return $this->type == 'г';
+    }
+
+    /**
+     * @param int $country_id
+     * @return array
+     */
+    public static function getRegions($country_id)
+    {
+        $result = array();
+        if (empty($country_id))
+            $regions = GeoRegion::model()->findAll();
+        else
+            $regions = GeoRegion::model()->findAll('country_id=:country_id', array(':country_id' => $country_id));
+
+        foreach ($regions as $region)
+            $result [] = array(
+                'id' => $region->id,
+                'name' => $region->name,
+                'isCity'=> $region->isCity()
+            );
+        return $result;
     }
 }

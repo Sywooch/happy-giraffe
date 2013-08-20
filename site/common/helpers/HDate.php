@@ -442,7 +442,11 @@ class HDate
             $result .= $year.' '. Str::GenerateNoun(array("год", "года", "лет"), $year).", ";
         if ($month > 0)
             $result .= $month.' '.Str::GenerateNoun(array("месяц", "месяца", "месяцев"), $month).", ";
-        $result .= $day.' '. Str::GenerateNoun(array("день", "дня", "дней"), $day)." ";
+        if ($day > 0)
+            $result .= $day.' '. Str::GenerateNoun(array("день", "дня", "дней"), $day)." ";
+
+        $result = trim($result);
+        $result = trim($result, ',');
         return $result;
     }
 }

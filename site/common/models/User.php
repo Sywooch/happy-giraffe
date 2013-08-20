@@ -1381,6 +1381,20 @@ class User extends HActiveRecord
         $data['birthday']['year'] = (int)date("Y", $birthday);
         $data['birthday']['min_year'] = 1910;
         $data['birthday']['max_year'] = (int)date("Y");
+        $data['email_subscription'] = $this->mail_subs === null ? 1 : $this->mail_subs->weekly_news == 1 ? 1 : 0;
+        $data['location'] = array(
+            'countries' => GeoCountry::getCountries(),
+            'regions' => array(),
+            'region_id' => $this->address->region_id,
+            'city_id' => (int)$this->address->city_id,
+        );
+        if ($this->address->country) {
+            $data['location']['country_id'] = $this->address->country_id;
+            $data['location']['country_code'] = $this->address->country->iso_code;
+            $data['location']['regions'] = GeoRegion::getRegions($this->address->country_id);
+        }
+        if ($this->address->city)
+            $data['location']['city_name'] = $this->address->city->name;
 
         return $data;
     }

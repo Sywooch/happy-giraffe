@@ -38,11 +38,13 @@ class SettingsController extends HController
 
     public function actionPersonal()
     {
+        $this->pageTitle = 'Мои настройки - Личные данные';
         $this->render('personal');
     }
 
     public function actionSocial()
     {
+        $this->pageTitle = 'Мои настройки - Социальные сети';
         $this->render('social');
     }
 
@@ -80,7 +82,7 @@ class SettingsController extends HController
     {
         $attr = Yii::app()->request->getPost('attribute');
         $value = Yii::app()->request->getPost('value');
-        if (in_array($attr, array('first_name', 'last_name', 'birthday'))) {
+        if (in_array($attr, array('first_name', 'last_name', 'birthday', 'gender'))) {
             $this->user->$attr = $value;
             $success = $this->user->save();
             echo CJSON::encode(array(
@@ -88,5 +90,73 @@ class SettingsController extends HController
                 'error' => $this->user->getErrorsText()
             ));
         }
+    }
+
+    public function actionMailSubscription(){
+        $value = Yii::app()->request->getPost('value');
+        Yii::app()->user->getModel()->getMailSubs()->weekly_news = $value;
+        Yii::app()->user->getModel()->getMailSubs()->save();
+    }
+
+    public function actionRemove()
+    {
+        FriendEvent::userDeleted($this->user);
+        $this->user->deleted = 1;
+        $this->user->update(array('deleted'));
+        Yii::app()->user->logout();
+        $this->redirect('/');
+    }
+
+    public function actionRegions(){
+        $country_id = Yii::app()->request->getPost('country_id');
+        echo CJSON::encode(GeoRegion::getRegions($country_id));
+    }
+
+    public function actionCities()
+    {
+        $term = Yii::app()->request->getPost('term');
+        $region_id = Yii::app()->request->getPost('region_id');
+        $filter_parts = FilterParts::model()->findAll();
+        foreach ($filter_parts as $filter_part) {
+            $term = str_replace($filter_part->part . ' ', '', $term);
+        }
+        $term = trim($term);
+
+        $cities = GeoCity::model()->findAll(array(
+            'condition' => 't.name LIKE :term AND t.region_id = :region_id',
+            'params' => array(
+                ':term' => $term . '%',
+                ':region_id' => $region_id,
+            ),
+            'limit' => 10,
+            'with' => array(
+                'district'
+            )
+        ));
+
+        $_cities = array();
+        foreach ($cities as $city) {
+            $_cities[] = array(
+                'label' => $city->getLabel($cities),
+                'name' => $city->name,
+                'id' => (int)$city->id,
+            );
+        }
+        echo CJSON::encode($_cities);
+    }
+
+    public function actionSaveLocation()
+    {
+        $country_id = Yii::app()->request->getPost('country_id');
+        $region_id = Yii::app()->request->getPost('region_id');
+        $city_id = Yii::app()->request->getPost('city_id');
+
+        $user = Yii::app()->user->getModel();
+        $address = $user->address;
+        $address->country_id = empty($country_id) ? null : $country_id;
+        $address->region_id = empty($region_id) ? null : $region_id;
+        $address->city_id = empty($city_id) ? null : $city_id;
+
+        echo CJSON::encode(array('status' => $address->save()));
     }
 }

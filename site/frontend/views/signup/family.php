@@ -43,7 +43,7 @@
                     </div>
                     <div class="textalign-c font-big">
                         <!-- Для удобства число можно положить в span или другой строчный тег -->
-                        Членов семьи: 5
+                        Членов семьи: <span data-bind="text: familyMembersCount"></span>
                     </div>
                 </div>
 
@@ -82,7 +82,7 @@
 
                     <div class="b-family b-family__bg-none margin-b10">
                         <ul class="b-family_ul">
-                            <li class="b-family_li">
+                            <li class="b-family_li" data-bind="draggable: new FamilyBaby(1, null, 1)">
                                 <div class="b-family_img-hold">
                                     <div class="ico-family ico-family__boy-wait"></div>
                                 </div>
@@ -90,7 +90,7 @@
                                     <span>Ждем мальчика</span>
                                 </div>
                             </li>
-                            <li class="b-family_li">
+                            <li class="b-family_li" data-bind="draggable: new FamilyBaby(0, null, 1)">
                                 <div class="b-family_img-hold">
                                     <div class="ico-family ico-family__girl-wait"></div>
                                 </div>
@@ -98,7 +98,7 @@
                                     <span>Ждем девочку</span>
                                 </div>
                             </li>
-                            <li class="b-family_li">
+                            <li class="b-family_li" data-bind="draggable: new FamilyBaby(2, null, 1)">
                                 <div class="b-family_img-hold">
                                     <div class="ico-family ico-family__baby"></div>
                                 </div>
@@ -106,7 +106,7 @@
                                     <span>Ждем ребенка</span>
                                 </div>
                             </li>
-                            <li class="b-family_li">
+                            <li class="b-family_li" data-bind="draggable: new FamilyBaby(2, null, 3)">
                                 <div class="b-family_img-hold">
                                     <div class="ico-family ico-family__baby-two"></div>
                                 </div>

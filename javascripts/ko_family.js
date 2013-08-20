@@ -1,30 +1,24 @@
-ko.bindingHandlers.drag = {
+ko.bindingHandlers.css2 = ko.bindingHandlers.css;
+
+ko.bindingHandlers.draggable = {
     init: function(element, valueAccessor, allBindingsAccessor, viewModel, context) {
         var value = valueAccessor();
         $(element).draggable({
-            containment: 'window',
-            helper: function(evt, ui) {
-                var h = $(element).clone().css({
-                    width: $(element).width(),
-                    height: $(element).height()
-                });
-                h.data('ko.draggable.data', value(context, evt));
-                return h;
-            },
-            appendTo: 'body'
+            helper: 'clone',
+            start: function(event, ui) {
+                viewModel.beingDragged(value);
+            }
         });
     }
 };
 
-ko.bindingHandlers.drop = {
+ko.bindingHandlers.droppable = {
     init: function(element, valueAccessor, allBindingsAccessor, viewModel, context) {
         var value = valueAccessor();
         $(element).droppable({
-            tolerance: 'pointer',
             hoverClass: 'dragover',
-            activeClass: 'dragActive',
-            drop: function(evt, ui) {
-                value(ui.helper.data('ko.draggable.data'), context);
+            drop: function(event, ui) {
+                value(context.$data);
             }
         });
     }
@@ -33,20 +27,17 @@ ko.bindingHandlers.drop = {
 var FamilyViewModel = function(data) {
     var self = this;
 
+    self.beingDragged = ko.observable(null);
     self.family = ko.observableArray();
 
     self.add = function(content) {
-        console.log('123');
         self.firstEmpty().content(content);
     };
 
-    self.drag = function(data) {
+    self.drop = function(data) {
         console.log(data);
-    };
-
-    self.drop = function(data, context) {
-        console.log(data);
-        console.log(context);
+        console.log(self.beingDragged());
+        data.content(self.beingDragged());
     };
 
     self.firstEmpty = ko.computed(function() {
@@ -93,8 +84,6 @@ var FamilyViewModel = function(data) {
 var FamilyMe = function(data, parent) {
     var self = this;
 
-    console.log(parent);
-
     self.gender = data.gender;
     self.relationshipStatus = ko.observable(data.relationshipStatus);
 
@@ -109,7 +98,15 @@ var FamilyListElement = function() {
     self.content = ko.observable(null);
 
     self.cssClass = ko.computed(function() {
-        return self.content() === null ? '' : self.content().cssClass();
+        return self.content() === null ? false : self.content().cssClass();
+    });
+
+    self.title = ko.computed(function() {
+        return self.content() === null ? false : self.content().title();
+    })
+
+    self.isEmpty = ko.computed(function() {
+        return self.content() === null;
     });
 }
 
@@ -121,6 +118,38 @@ var FamilyPartner = function(data) {
     });
 }
 
-var FamilyBaby = function() {
+var FamilyBaby = function(gender, ageGroup) {
+    var self = this;
 
+    self.gender = gender;
+    self.ageGroup = ageGroup;
+
+    self.cssClass = function() {
+        var ageWord;
+        switch (self.ageGroup) {
+            case 0:
+                ageWord = 'small';
+                break;
+            case 1:
+                ageWord = '3';
+                break;
+            case 2:
+                ageWord = '5';
+                break;
+            case 3:
+                ageWord = '8';
+                break;
+            case 4:
+                ageWord = '14';
+                break;
+            case 5:
+                ageWord = '19';
+        }
+
+        return 'ico-family__' + (self.gender == 1 ? 'boy' : 'girl') + '-' + ageWord;
+    }
+
+    self.title = function() {
+        return self.gender == 1 ? 'Сын' : 'Дочь';
+    }
 }

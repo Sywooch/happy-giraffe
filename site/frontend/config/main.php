@@ -111,6 +111,7 @@ return array(
         'gallery',
         'profile',
         'search',
+        'community',
 	),
 	// application components
 	'components'=>array(

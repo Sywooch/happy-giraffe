@@ -62,8 +62,23 @@ class UserCommunitySubscription extends HActiveRecord
         $criteria = new CDbCriteria;
         $criteria->compare('community_id', $community_id);
         $criteria->with = array('clubSubscriber');
-        $criteria->limit = 100;
+        $criteria->limit = 9;
         return User::model()->findAll($criteria);
+    }
+
+    /**
+     * Возвращает количество подписчиков
+     *
+     * @param int $community_id
+     * @return int
+     */
+    public function getSubscribersCount($community_id)
+    {
+        return Yii::app()->db->createCommand()
+            ->select('count(*)')
+            ->from($this->tableName())
+            ->where('community_id=:community_id', array(':community_id' => $community_id))
+            ->queryScalar();
     }
 
     /**

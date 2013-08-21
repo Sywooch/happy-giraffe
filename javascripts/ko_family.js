@@ -18,7 +18,10 @@ ko.bindingHandlers.droppable = {
         $(element).droppable({
             hoverClass: 'dragover',
             drop: function(event, ui) {
-                value(context.$data);
+                if (value(context.$data) === false)
+                    $(element).addClass('dragover-error', 500, function() {
+                        $(this).delay(2000).removeClass('dragover-error', 500);
+                    });
             }
         });
     }
@@ -35,6 +38,13 @@ var FamilyViewModel = function(data) {
     };
 
     self.drop = function(data) {
+        if (self.beingDragged() instanceof FamilyPartner) {
+            if (self.hasPartner())
+                return false;
+            else
+                self.me().relationshipStatus(self.beingDragged().relationshipStatus);
+        }
+
         data.content(self.beingDragged());
         self.family.valueHasMutated();
     };
@@ -46,9 +56,13 @@ var FamilyViewModel = function(data) {
     });
 
     self.getAdultCssClass = function(gender, relationshipStatus) {
+        console.log(gender, relationshipStatus);
+
         if (gender == 0) {
             switch (relationshipStatus) {
+                case null:
                 case 1:
+                case 2:
                     return 'ico-family__wife';
                 case 3:
                     return 'ico-family__girl-friend';
@@ -57,7 +71,9 @@ var FamilyViewModel = function(data) {
             }
         } else {
             switch (relationshipStatus) {
+                case null:
                 case 1:
+                case 2:
                     return 'ico-family__husband';
                 case 3:
                     return 'ico-family__boy-friend';
@@ -71,6 +87,12 @@ var FamilyViewModel = function(data) {
         for (var i = 0; i < n; i++)
             self.family.push(new FamilyListElement());
     }
+
+    self.hasPartner = ko.computed(function() {
+        return ko.utils.arrayFirst(self.family(), function(element) {
+            return element.content() instanceof FamilyPartner;
+        });
+    });
 
     self.familyMembersCount = ko.computed(function() {
         return self.family().reduce(function(previousValue, currentValue) {

@@ -24,10 +24,9 @@
     </div>
 
     <div class="row">
-        <?php echo $form->labelEx($model, 'category_id'); ?>
-        <?php echo $form->dropDownList($model, 'category_id',
-        CHtml::listData(ServiceCategory::model()->findAll(), 'id', 'title')); ?>
-        <?php echo $form->error($model, 'category_id'); ?>
+        <?php echo $form->labelEx($model, 'community_id'); ?>
+        <?php echo $form->dropDownList($model, 'community_id', CHtml::listData(Community::model()->findAll(), 'id', 'title'), array('empty' => '--')); ?>
+        <?php echo $form->error($model, 'community_id'); ?>
     </div>
 
     <div class="row">

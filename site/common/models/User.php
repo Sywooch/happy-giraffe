@@ -1406,7 +1406,7 @@ class User extends HActiveRecord
         return array(
             'me' => array(
                 'gender' => (int) $this->gender,
-                'relationshipStatus' => (int) $this->relationship_status,
+                'relationshipStatus' => $this->relationship_status === null ? null : (int) $this->relationship_status,
             ),
         );
     }

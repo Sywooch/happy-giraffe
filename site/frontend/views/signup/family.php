@@ -30,14 +30,7 @@
                                 </div>
                             </li>
                             <!-- ko foreach: family -->
-                                <li class="b-family_li" data-bind="droppable: $root.drop, css: { 'b-family_li__empty' : isEmpty }, if: ! isEmpty()">
-                                    <div class="b-family_img-hold">
-                                        <div class="ico-family" data-bind="css: cssClass"></div>
-                                    </div>
-                                    <div class="b-family_tx">
-                                        <span data-bind="text: title"></span>
-                                    </div>
-                                </li>
+                                <li class="b-family_li" data-bind="droppable: $root.drop, css: { 'b-family_li__empty' : isEmpty }, template: { name : 'element-template', if: ! isEmpty() }"></li>
                             <!-- /ko -->
                         </ul>
                     </div>
@@ -55,7 +48,7 @@
                         <!-- Объект для перетаскивания .b-family_li -->
                             <li class="b-family_li" data-bind="draggable: partnerModels[0], template: { name : 'element-template', data : partnerModels[0] }"></li>
                             <li class="b-family_li" data-bind="draggable: partnerModels[1], template: { name : 'element-template', data : partnerModels[1] }"></li>
-                            <li class="b-family_li" data-bind="draggable: partnerModels[1], template: { name : 'element-template', data : partnerModels[2] }"></li>
+                            <li class="b-family_li" data-bind="draggable: partnerModels[2], template: { name : 'element-template', data : partnerModels[2] }"></li>
                         </ul>
                     </div>
 

@@ -11,9 +11,11 @@
  * @property int $photo_id
  * @property int $show
  * @property int $using_count
+ * @property int $community_id
  *
  * The followings are the available model relations:
  * @property ServiceCategory $category
+ * @property Community $community
  * @property AlbumPhoto $photo
  */
 class Service extends HActiveRecord
@@ -47,7 +49,7 @@ class Service extends HActiveRecord
             array('title, description, url', 'required'),
             array('title, url', 'length', 'max' => 255),
             array('url', 'url'),
-            array('photo_id', 'numerical', 'integerOnly' => true),
+            array('photo_id, community_id', 'numerical', 'integerOnly' => true),
             array('category_id', 'exist', 'attributeName' => 'id', 'className' => 'ServiceCategory'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
@@ -65,6 +67,7 @@ class Service extends HActiveRecord
         return array(
             'category' => array(self::BELONGS_TO, 'ServiceCategory', 'category_id'),
             'photo' => array(self::BELONGS_TO, 'AlbumPhoto', 'photo_id'),
+            'community' => array(self::BELONGS_TO, 'Community', 'community_id'),
             'commentsCount' => array(self::STAT, 'Comment', 'entity_id', 'condition' => 'entity=:modelName', 'params' => array(':modelName' => get_class($this))),
         );
     }
@@ -72,7 +75,6 @@ class Service extends HActiveRecord
     public function search()
     {
         $criteria = new CDbCriteria;
-
         $criteria->compare('id', $this->id, true);
         $criteria->compare('title', $this->title, true);
         $criteria->compare('url', $this->url, true);

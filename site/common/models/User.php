@@ -1408,6 +1408,14 @@ class User extends HActiveRecord
                 'gender' => (int) $this->gender,
                 'relationshipStatus' => $this->relationship_status === null ? null : (int) $this->relationship_status,
             ),
+            'babies' => array_map(function($baby) {
+                return array(
+                    'id' => (int) $baby->id,
+                    'gender' => (int) $baby->sex,
+                    'ageGroup' => (int) $baby->age_group,
+                    'type' => $baby->type === null ? null : (int) $baby->type,
+                );
+            }, $this->babies),
         );
     }
 

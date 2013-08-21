@@ -28,6 +28,8 @@ ko.bindingHandlers.droppable = {
 };
 
 var FamilyViewModel = function(data) {
+    console.log(data);
+
     var self = this;
 
     self.beingDragged = ko.observable(null);
@@ -56,8 +58,6 @@ var FamilyViewModel = function(data) {
     });
 
     self.getAdultCssClass = function(gender, relationshipStatus) {
-        console.log(gender, relationshipStatus);
-
         if (gender == 0) {
             switch (relationshipStatus) {
                 case null:
@@ -111,6 +111,34 @@ var FamilyViewModel = function(data) {
             self.addListElements(3);
     });
 
+    self.save = function() {
+        var data = {};
+        var babies = [];
+        ko.utils.arrayForEach(self.family(), function(element) {
+            if (element.content() instanceof FamilyBaby && element.content().isNewRecord)
+                babies.push({ gender : element.content().gender, ageGroup : element.content().ageGroup, type : element.content().type });
+        });
+        data.babies = babies;
+        $.post('/family/save/', data, function(response) {
+            console.log(response);
+        });
+    }
+
+    self.init = function() {
+        switch (self.me().relationshipStatus()) {
+            case 1:
+            case 3:
+            case 4:
+                self.add(new FamilyPartner({ relationshipStatus : self.me().relationshipStatus() }, self));
+        }
+
+
+
+        for (var i in data.babies) {
+            self.add(new FamilyBaby(data.babies[i], self));
+        }
+    }
+
     self.me = ko.observable(new FamilyMe(data.me, self));
     self.partnerModels = [
         new FamilyPartner({ relationshipStatus : 1 }, self),
@@ -122,28 +150,23 @@ var FamilyViewModel = function(data) {
         new FamilyBaby({ gender : 0, ageGroup : null, type : 1 }, self),
         new FamilyBaby({ gender : 2, ageGroup : null, type : 1 }, self),
         new FamilyBaby({ gender : 2, ageGroup : null, type : 3 }, self),
-        new FamilyBaby({ gender : 0, ageGroup : 0, type : 0 }, self),
-        new FamilyBaby({ gender : 1, ageGroup : 0, type : 0 }, self),
-        new FamilyBaby({ gender : 0, ageGroup : 1, type : 0 }, self),
-        new FamilyBaby({ gender : 1, ageGroup : 1, type : 0 }, self),
-        new FamilyBaby({ gender : 0, ageGroup : 2, type : 0 }, self),
-        new FamilyBaby({ gender : 1, ageGroup : 2, type : 0 }, self),
-        new FamilyBaby({ gender : 0, ageGroup : 3, type : 0 }, self),
-        new FamilyBaby({ gender : 1, ageGroup : 3, type : 0 }, self),
-        new FamilyBaby({ gender : 0, ageGroup : 4, type : 0 }, self),
-        new FamilyBaby({ gender : 1, ageGroup : 4, type : 0 }, self),
-        new FamilyBaby({ gender : 0, ageGroup : 5, type : 0 }, self),
-        new FamilyBaby({ gender : 1, ageGroup : 5, type : 0 }, self)
+        new FamilyBaby({ gender : 0, ageGroup : 0, type : null }, self),
+        new FamilyBaby({ gender : 1, ageGroup : 0, type : null }, self),
+        new FamilyBaby({ gender : 0, ageGroup : 1, type : null }, self),
+        new FamilyBaby({ gender : 1, ageGroup : 1, type : null }, self),
+        new FamilyBaby({ gender : 0, ageGroup : 2, type : null }, self),
+        new FamilyBaby({ gender : 1, ageGroup : 2, type : null }, self),
+        new FamilyBaby({ gender : 0, ageGroup : 3, type : null }, self),
+        new FamilyBaby({ gender : 1, ageGroup : 3, type : null }, self),
+        new FamilyBaby({ gender : 0, ageGroup : 4, type : null }, self),
+        new FamilyBaby({ gender : 1, ageGroup : 4, type : null }, self),
+        new FamilyBaby({ gender : 0, ageGroup : 5, type : null }, self),
+        new FamilyBaby({ gender : 1, ageGroup : 5, type : null }, self)
     ];
 
     self.addListElements(8);
 
-    switch (self.me().relationshipStatus()) {
-        case '1':
-        case '3':
-        case '4':
-            self.add(new FamilyPartner(self.me().relationshipStatus()));
-    }
+    self.init();
 }
 
 var FamilyMe = function(data, parent) {
@@ -210,13 +233,15 @@ var FamilyPartner = function(data, parent) {
 var FamilyBaby = function(data, parent) {
     var self = this;
 
+    self.id = data.id === undefined ? null : data.id;
+    self.isNewRecord = self.id === null;
     self.gender = data.gender;
     self.ageGroup = data.ageGroup;
     self.type = data.type;
 
     self.cssClass = function() {
         switch (self.type) {
-            case 0:
+            case null:
                 var ageWord;
                 switch (self.ageGroup) {
                     case 0:
@@ -256,14 +281,14 @@ var FamilyBaby = function(data, parent) {
 
     self.title = function() {
         switch (self.type) {
-            case 0:
+            case null:
                 return self.gender == 1 ? 'Сын' : 'Дочь';
             case 1:
                 switch (self.gender) {
                     case 0:
-                        return 'Ждем мальчика';
-                    case 1:
                         return 'Ждем девочку';
+                    case 1:
+                        return 'Ждем мальчика';
                     case 2:
                         return 'Ждем ребенка';
                 }

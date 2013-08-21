@@ -23,10 +23,10 @@ class DefaultController extends HController
     public function actionForum($community_id, $rubric_id = null)
     {
         $community = Community::model()->findByPk($community_id);
-        $users = UserCommunitySubscription::model()->getSubscribers($community->id);
+        $users = UserCommunitySubscription::model()->getSubscribers($community->id, 6);
         $user_count = UserCommunitySubscription::model()->getSubscribersCount($community->id);
 
-        $this->render('community', compact('community', 'users', 'user_count', 'rubric_id'));
+        $this->render('forum', compact('community', 'users', 'user_count', 'rubric_id'));
     }
 
     public function actionView($community_id, $content_type_slug, $content_id)

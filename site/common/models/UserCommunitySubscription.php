@@ -55,14 +55,15 @@ class UserCommunitySubscription extends HActiveRecord
      * возвращает всех подписчиков клуба
      *
      * @param int $community_id id клуба
+     * @param int $limit
      * @return User[]
      */
-    public function getSubscribers($community_id)
+    public function getSubscribers($community_id, $limit = 9)
     {
         $criteria = new CDbCriteria;
         $criteria->compare('community_id', $community_id);
         $criteria->with = array('clubSubscriber');
-        $criteria->limit = 9;
+        $criteria->limit = $limit;
         return User::model()->findAll($criteria);
     }
 

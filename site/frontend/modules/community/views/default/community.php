@@ -14,23 +14,13 @@ Yii::app()->clientScript->registerScriptFile('/javascripts/ko_community.js');
 <div class="b-section b-section__club b-section__green">
     <div class="b-section_hold">
         <div class="content-cols clearfix">
-            <div class="col-1">
-                <div class="club-list club-list__large clearfix">
-                    <ul class="club-list_ul textalign-c clearfix">
-                        <li class="club-list_li">
-                            <a href="" class="club-list_i">
-                                <span class="club-list_img-hold">
-                                    <img src="/images/club/3-w240.jpg" alt="" class="club-list_img">
-                                </span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+
+            <?php $this->renderPartial('_main_image', array('community' => $community, 'size' => 240)); ?>
+
             <div class="col-23-middle clearfix js-community-subscription">
 
                 <?php $this->renderPartial('_moderators', compact('moderators', 'community')); ?>
-                <?php $this->renderPartial('_links', compact('community')); ?>
+                <?php $this->renderPartial('_links', array('community' => $community, 'root' => true)); ?>
 
             </div>
         </div>

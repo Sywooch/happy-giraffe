@@ -191,7 +191,7 @@ class Community extends HActiveRecord
 
     public function getUrl()
     {
-        return Yii::app()->createUrl('community/list', array(
+        return Yii::app()->createUrl('community/default/community', array(
             'community_id' => $this->id,
         ));
     }

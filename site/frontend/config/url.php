@@ -119,7 +119,7 @@ return array(
         'news/<content_type_slug:[a-z]+><content_id:\d+>' => array('community/view', 'defaultParams' => array('community_id' => 36)),
 
         'community/<_a:(subscribe)>/'=>'community/default/<_a>',
-        'community/<community_id:\d+>/forum/rubric/<rubric_id:\d+>' => 'community/default/community',
+        'community/<community_id:\d+>/forum/rubric/<rubric_id:\d+>' => 'community/default/forum',
         'community/<community_id:\d+>/forum/<content_type_slug:\w+>/<content_id:\d+>' => 'community/default/view',
         'community/<community_id:\d+>/services'=>'community/default/services',
         'community/<community_id:\d+>/forum/' => 'community/default/forum',

@@ -466,18 +466,24 @@
 	.page {
 		.inline-block();
 		margin: 0 3px;
-		padding: 0 10px;
+		background: #fff;
+		.border-radius(3px);
 	}
-	.page a {color: #a1a1a1;}
+	.page a {
+		.inline-block();
+		padding: 0 10px;
+		color: #b5b5b5;
+		text-decoration: none;
+	}
+	.page:hover,
 	.page.selected {
 		background: #6accff;
-		.border-radius(3px);
 		font-weight: bold;
 		color: #fff;
 	}
+	.page:hover a,
 	.page.selected a {
 		color: #fff;
-		text-decoration: none;
 	}
 }
 /* /yiipagination */

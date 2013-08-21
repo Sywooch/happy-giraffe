@@ -198,7 +198,9 @@
 									<div class="float-l">
 										<div class="like-control like-control__smallest clearfix">
 											<a href="" class="like-control_ico like-control_ico__like">865</a>
-											<a href="" class="like-control_ico like-control_ico__favorites active">1465</a>
+											<div class="favorites-control">
+												<a href="" class="favorites-control_a">789</a>
+											</div>
 										</div>
 									</div>
 									<div class="b-article-prev_cont clearfix">
@@ -233,7 +235,9 @@
 									<div class="float-l">
 										<div class="like-control like-control__smallest clearfix">
 											<a href="" class="like-control_ico like-control_ico__like active">5</a>
-											<a href="" class="like-control_ico like-control_ico__favorites">15</a>
+											<div class="favorites-control">
+												<a href="" class="favorites-control_a">789</a>
+											</div>
 										</div>
 									</div>
 									<div class="b-article-prev_cont clearfix">
@@ -321,7 +325,9 @@
 									<div class="float-l">
 										<div class="like-control like-control__smallest clearfix">
 											<a href="" class="like-control_ico like-control_ico__like">865</a>
-											<a href="" class="like-control_ico like-control_ico__favorites active">1465</a>
+											<div class="favorites-control">
+												<a href="" class="favorites-control_a">789</a>
+											</div>
 										</div>
 									</div>
 									<div class="b-article-prev_cont clearfix">
@@ -354,7 +360,9 @@
 									<div class="float-l">
 										<div class="like-control like-control__smallest clearfix">
 											<a href="" class="like-control_ico like-control_ico__like active">5</a>
-											<a href="" class="like-control_ico like-control_ico__favorites">15</a>
+											<div class="favorites-control">
+												<a href="" class="favorites-control_a">789</a>
+											</div>
 										</div>
 									</div>
 									<div class="b-article-prev_cont clearfix">

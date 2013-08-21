@@ -6,19 +6,11 @@
 <head>
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/head.php'; ?>
 </head>
-<body class="body-club">
+<body class="body-gray">
 
-	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/top-line-menu.php'; ?>
-	
 <div class="layout-container">
 	<div class="layout-wrapper">
-		<!-- Вставка секции в шапке страницы -->
-		<?php $headerSection = '
-		<a class="layout-header-section_a" href="">
-			<img alt="" src="/images/section/cook/banner-header-section.jpg" class="layout-header-section_img">
-			<span class="layout-header-section_text">Кулинария</span>
-		</a>
-		'?>
+		
 		<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/layout-header.php'; ?>
 		
 		<div id="content" class="clearfix">

@@ -52,7 +52,7 @@
 					<div class="col-1">
 						<div class="club-list club-list__large clearfix">
 							<ul class="club-list_ul textalign-c clearfix">
-								<li class="club-list_li">
+								<li class="club-list_li club-list_li__in">
 									<a href="" class="club-list_i">
 										<span class="club-list_img-hold">
 											<img src="/images/club/9-w240.jpg" alt="" class="club-list_img">
@@ -143,7 +143,7 @@
 				
 				<div class="menu-simple">
 					<ul class="menu-simple_ul">
-						<li class="menu-simple_li">
+						<li class="menu-simple_li active">
 							<a class="menu-simple_a" href="">Все рецепты</a>
 						</li>
 						<li class="menu-simple_li">

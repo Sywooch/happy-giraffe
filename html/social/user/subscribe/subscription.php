@@ -198,7 +198,9 @@
 									<div class="float-l">
 										<div class="like-control like-control__smallest clearfix">
 											<a href="" class="like-control_ico like-control_ico__like">865</a>
-											<a href="" class="like-control_ico like-control_ico__favorites active">1465</a>
+											<div class="favorites-control">
+												<a href="" class="favorites-control_a active">789</a>
+											</div>
 										</div>
 									</div>
 									<div class="b-article-prev_cont clearfix">
@@ -233,7 +235,9 @@
 									<div class="float-l">
 										<div class="like-control like-control__smallest clearfix">
 											<a href="" class="like-control_ico like-control_ico__like active">5</a>
-											<a href="" class="like-control_ico like-control_ico__favorites">15</a>
+											<div class="favorites-control">
+												<a href="" class="favorites-control_a">789</a>
+											</div>
 										</div>
 									</div>
 									<div class="b-article-prev_cont clearfix">
@@ -321,7 +325,39 @@
 									<div class="float-l">
 										<div class="like-control like-control__smallest clearfix">
 											<a href="" class="like-control_ico like-control_ico__like">865</a>
-											<a href="" class="like-control_ico like-control_ico__favorites active">1465</a>
+											<div class="favorites-control">
+												<a href="" class="favorites-control_a active">789</a>
+												<div class="favorites-add-popup favorites-add-popup__right">
+												    <div class="favorites-add-popup_t">Добавить запись в избранное</div>
+												    <div class="favorites-add-popup_i clearfix">
+												        <img  alt="werwer">
+												        <div data-bind="text: title" class="favorites-add-popup_i-hold">werwer</div>
+												    </div>
+												    <div class="favorites-add-popup_row">
+												        <label class="favorites-add-popup_label" for="">Теги:</label>
+												    </div>
+												    <div class="favorites-add-popup_row margin-b10" style="display: none;">
+												        <a href="" class="textdec-none">
+												            <span class="ico-plus2 margin-r5"></span>
+												            <span class="a-pseudo-gray color-gray">Добавить</span>
+												        </a>
+												    </div>
+												    <div  class="favorites-add-popup_row margin-b10">
+												        <input type="text" placeholder="Вводите теги через запятую или Enter" class="favorites-add-popup_itx-tag ui-autocomplete-input">
+												    </div>
+												    <div class="favorites-add-popup_row">
+												        <label class="favorites-add-popup_label" for="">Комментарий:</label>
+												        <div class="float-r color-gray">0/150</div>
+												    </div>
+												    <div class="favorites-add-popup_row">
+												        <textarea maxlength="150" placeholder="Введите комментарий" class="favorites-add-popup_textarea" rows="2" cols="25" id="" name=""></textarea>
+												    </div>
+												    <div class="favorites-add-popup_row textalign-c margin-t15">
+												        <a class="btn-gray-light" href="javascript:void(0)">Отменить</a>
+												        <a  class="btn-green" href="javascript:void(0)">Добавить</a>
+												    </div>
+												</div>
+											</div>
 										</div>
 									</div>
 									<div class="b-article-prev_cont clearfix">
@@ -354,7 +390,9 @@
 									<div class="float-l">
 										<div class="like-control like-control__smallest clearfix">
 											<a href="" class="like-control_ico like-control_ico__like active">5</a>
-											<a href="" class="like-control_ico like-control_ico__favorites">15</a>
+											<div class="favorites-control">
+												<a href="" class="favorites-control_a">7859</a>
+											</div>
 										</div>
 									</div>
 									<div class="b-article-prev_cont clearfix">

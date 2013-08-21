@@ -394,6 +394,63 @@ $(document).ready(function () {
 	</div>
 </div>
 
+<div class="b-article clearfix">
+	<div class="float-l">
+		<div class="like-control like-control__small-indent clearfix">
+			<a href="" class="ava male">
+				<span class="icon-status status-online"></span>
+				<img alt="" src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg">
+			</a>
+		</div>
+		<div class="like-control clearfix">
+			<a href="" class="like-control_ico like-control_ico__like">865</a>
+			<a href="" class="like-control_ico like-control_ico__repost">5</a>
+			<a href="" class="like-control_ico like-control_ico__favorites active">123865</a>
+		</div>
+	</div>
+	<div class="b-article_cont clearfix">
+		<div class="b-article_cont-tale"></div>
+		<div class="b-article_header clearfix">
+			<div class="meta-gray">
+				<a href="" class="meta-gray_comment">
+					<span class="ico-comment ico-comment__gray"></span>
+					<span class="meta-gray_tx">35</span>
+				</a>
+				<div class="meta-gray_view">
+					<span class="ico-view ico-view__gray"></span>
+					<span class="meta-gray_tx">305</span>
+				</div>
+			</div>
+			<div class="float-l">
+				<a href="" class="b-article_author">Ангелина Богоявленская</a>
+				<span class="font-smallest color-gray">Сегодня 13:25</span>
+			</div>
+		</div>
+		<h2 class="b-article_t">
+			<a href="" class="b-article_t-a">Самое лучшее утро </a>
+		</h2>
+		<div class="b-article_in clearfix">
+			<div class="wysiwyg-content clearfix">
+				<p>	Недавно посмотрел фильм </p>
+			</div>
+				
+		</div>
+		
+		<div class="comments-gray">
+			<div class="comments-gray_add clearfix">
+				
+				<div class="comments-gray_ava">
+					<a href="" class="ava small female"></a>
+				</div>
+				<div class="comments-gray_frame">
+					<input type="text" name="" id="" class="comments-gray_add-itx itx-gray" placeholder="Ваш комментарий">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
 <div class="b-article b-article__user-status clearfix">
 	<div class="float-l">
 		<div class="like-control like-control__small-indent clearfix">

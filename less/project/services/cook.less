@@ -206,12 +206,12 @@
 
 .cook-cat .icon-product-10 {width:49px;height:22px;background-position:0 -1067px;}
 .cook-cat.active .icon-product-10, .cook-cat:hover .icon-product-10 {background-position:-50px -1067px;}
-
+/*
 .cook-more {}
 .cook-more .block-title {font-size:16px;color:#494a4a;padding-bottom:20px;}
 .cook-more .block-title .btn {position:relative;top:-5px;}
-.cook-more > ul {list-style:none;margin-left: 15px;}
-.cook-more > ul > li {float:left;width:140px;padding: 0 15px;}
+.cook-more > ul {list-style:none;}
+.cook-more > ul > li {}
 .cook-more > ul > li .item-title {font: bold 13px/16px Tahoma, Arial, Verdana, sans-serif;margin-bottom:7px;color: #3088c8;}
 .cook-more > ul > li .item-title > a{color: #3088c8;}
 .cook-more > ul > li .user {margin-bottom:5px;}
@@ -223,6 +223,28 @@
 .cook-more > ul > li .content img {display:block;max-width:100%;}
 .cook-more > ul > li .content p {margin-top:5px;font-size:11px;line-height:19px;}
 .cook-more > ul > li .content b {display:block;line-height:1.2;}
+*/
+.cook-more {
+    margin: 30px 0px 30px 20px;
+    line-height: 14px;
+
+    &_top {
+        padding-bottom:20px;
+        font-size:16px;
+        color:#494a4a;
+    }
+    &_li {
+        float: left;
+        width: 120px;
+        margin-right: 20px;
+    }
+    &_author {margin-bottom: 8px;}
+    &_author .ava {margin-right: 6px;}
+    &_t {
+        font: bold 11px/14px Tahoma, Arial, Verdana, sans-serif;
+        margin: 5px 0;
+    }
+}
 
 .recipe-search {position: relative;margin-top: 15px;}
 .recipe-search .text {
@@ -373,11 +395,6 @@
 .cook-title-cat > p {line-height: 19px;font-size: 13px;}
 .cook-title-cat .cook-cat.active{display: inline-block;*zoom:1;*display:inline;vertical-align: middle;margin-right: 10px;}
 
-.recipe-article .ingredients {list-style:none;margin-bottom:20px;}
-.recipe-article .ingredients > li {margin:8px 0;font-size: 13px;}
-.recipe-article .ingredients .name {color: #029AD2;}
-.recipe-article .ingredients .amount {color: #494A4A;font-size: 11px;font-style: italic;}
-
 .recipe-article p {margin-bottom:1em;line-height:19px;}
 
 .recipe-article .recipe-photo {width:460px;margin-bottom:20px;float:left;overflow:hidden;}
@@ -465,26 +482,140 @@
     margin:-11px 10px;
 }
 
-.recipe-article .recipe-right {float:right;margin:0 0 20px 5px;width:180px;}
-.recipe-article .nutrition {padding:16px 19px;background: #fff;margin:0;}
-.recipe-article .nutrition .block-title {color:#363535;font-size:14px;margin-bottom:10px;}
-.recipe-article .nutrition .block-title span {color:#9e9d9d;}
-.recipe-article .nutrition .portion {margin-bottom:10px;color:#038ae0;font-size:11px;font-family:tahoma, arial, helvetica, sans-serif;}
-.recipe-article .nutrition .portion a {display:inline-block;*zoom:1;*display:inline;padding:1px 0px;text-decoration:none;border-bottom:1px dashed #038ae0;margin:0 5px;}
-.recipe-article .nutrition .portion a.active {background:#fff9d2;border:0;padding:1px 5px;margin:0;}
-.recipe-article .nutrition .portion a:hover {border-color:#fff;}
-.recipe-article .nutrition .portion a.disabled {color:#c5c6c7;border:0;}
 
-.recipe-article .nutrition ul {list-style:none;}
-.recipe-article .nutrition ul li {font-size:15px;padding:4px 0;}
-.recipe-article .nutrition ul li .icon {display:inline-block;*zoom:1;*display:inline;width:50px;text-align:center;margin-right:15px;font-size:10px;font:tahoma, arial, helvetica, sans-serif;color:#9e9d9d;vertical-align:middle;position:relative;top:4px;line-height:1;}
-.recipe-article .nutrition ul li .icon i {display:block;margin:0 auto 2px;width:20px;height:20px;background:#f0f0f0;color:#333;text-align:center;line-height:20px;font-size:14px;font-style:normal;font-weight:bold; -moz-border-radius:10px;-webkit-border-radius:10px;border-radius:10px;behavior: url(/stylesheets/PIE.htc);}
-.recipe-article .nutrition ul li.n-calories .icon i {background-color:#62a0f5;width:30px;height:30px;line-height:30px;font-size:20px;color:#fff; -moz-border-radius:15px;-webkit-border-radius:15px;border-radius:15px;behavior: url(/stylesheets/PIE.htc);}
-.recipe-article .nutrition ul li.n-protein .icon i {background-color:#f68704;color:#fff;}
-.recipe-article .nutrition ul li.n-fat .icon i {background-color:#abb71d;color:#fff;}
-.recipe-article .nutrition ul li.n-carbohydrates .icon i {background-color:#fcbe03;color:#fff;}
-.recipe-article .nutrition ul li .gray {font-size:11px;color:#9e9d9d;}
-.recipe-article .nutrition .nutrition-tx {display: inline-block;*zoom:1;*display:inline;width: 70px;vertical-align: middle;line-height: 14px;}
+.ingredients {
+    list-style:none;
+    margin-bottom:20px;
+    
+    li.ingredient {
+        padding: 5px 0 !important;
+        font-size: 13px;
+        background: none !important;
+    }
+    .name {color: #289FD7;}
+    .amount {color: #656565;font-size: 11px;font-style: italic;}
+}
+
+.recipe-desc {
+    margin: -15px -20px 10px;
+    padding: 0 20px;
+    background: #d1ebff;
+
+    .location {
+        .inline-block();
+        vertical-align: middle;
+        margin-right: 10px;
+        font-size: 12px;
+        color: #289FD7;
+    }
+    &_holder {
+        .inline-block();
+        vertical-align: middle;
+        border: 1px solid #b9d9f2;
+        border-width: 0 1px;
+        padding: 0 10px;
+        margin: 0 10px;
+    }
+    &_i {
+        .inline-block();
+        padding: 13px 5px 10px;
+    }
+    &_ico {
+        .inline-block();
+        vertical-align: middle;
+        width: 37px;
+        height: 40px;
+        margin: 0 4px 0 0;
+        background: url(/images/recipe-desc_ico.png) no-repeat;
+    }
+    &_ico__time-1 {background-position: 0 0;}
+    &_ico__time-2 {background-position: -37px 0;}
+    &_ico__yield  {background-position: -75px 0;}
+}
+
+
+/* !important in block for change style .b-article */
+.nutrition {
+    position: relative;
+    padding:12px 15px;
+    background: #fff;
+    margin:0;
+
+    &_t {font-size: 13px;}
+    &_hold {
+        display: none;
+        position: absolute;
+        top: 35px;
+        left: 0px;
+        width: 100%;
+        padding: 10px;
+        background: #fff;
+    }
+    &_portion {
+        margin:0 5px 10px 35px;
+        color:#a0a0a0;
+        font-size:11px;
+        font-family:tahoma, arial, helvetica, sans-serif;
+    }
+    &_portion-a {
+        .inline-block();
+        padding:2px 8px;
+        text-decoration:none !important;
+        margin:0 5px;
+        color: #8e8e8e !important;
+    }
+    &_portion-a:hover {text-decoration: underline !important;}
+    &_portion-a.active {
+        background:#fdf48f;
+        color: #171717 !important;
+        text-decoration:none !important;
+    }
+    &_ul {margin: 5px 0 0 !important;}
+    &_li {
+        font-size:12px;
+        padding:4px 0 !important;
+        background: none !important;
+    }
+    &_icon {
+        .inline-block();
+        vertical-align:middle;
+
+    }
+    &_icon i {
+        position:relative;
+        top: -2px;
+        .inline-block();
+        vertical-align: middle;
+        margin:0 10px 2px 5px;
+        width:20px;
+        height:20px;
+        background:#f0f0f0;
+        color:#333;
+        text-align:center;
+        line-height:20px;
+        font-size:14px;
+        font-style:normal;
+        font-weight:bold;
+        .border-radius(10px);
+    }
+    &_icon__calories i {
+        margin: 0 5px 2px 0;
+        width:30px;
+        height:30px;
+        line-height:30px;
+        font-size:20px;
+        color:#fff;
+        .border-radius(15px);
+        background-color:#62a0f5;
+    }
+    &_icon__protein i {background-color:#f68704;color:#fff;}
+    &_icon__fat i {background-color:#abb71d;color:#fff;}
+    &_icon__carbohydrates i {background-color:#fcbe03;color:#fff;}
+    &_tx {
+        .inline-block();
+        vertical-align: middle;
+    }
+}
 
 .recipe-article .instructions-list {
     margin:0;
@@ -506,8 +637,14 @@
     color: #6f6f6f;
 }
 
-.cook-article-tags {float: left;margin: 35px 5px;}
+.cook-article-tags {float: left;margin: 20px 5px 35px 20px;}
 .cook-article-tags-title {float: left;width: 50px;text-align: center;font:italic 14px/29px Georgia, 'Times New Roman', Times, serif;color: #6c6e6f;background: #fafca4;}
+
+.cook-article-tags-list {float: left;width:375px;list-style: none;background: #fff;padding: 4px 10px ;}
+.cook-article-tags-list > li {float: left;margin: 0 10px;font-size: 11px;line-height: 22px;}
+.cook-article-tags-list > li > a {text-decoration: underline;}
+.cook-article-tags-list > li > a:hover {text-decoration: none;}
+
 
 .cook-diabets {
     float: right;
@@ -627,11 +764,6 @@
 #cook-recipe .search .btn {float:left;position:relative;top:-2px;margin-left:-1px;}
 
 #cook-recipe .recipe-article .cook-instructions em {color: #494A4A;}
-
-#cook-recipe .cook-article-tags-list {float: left;width:410px;list-style: none;background: #fff;padding: 4px 10px ;}
-#cook-recipe .cook-article-tags-list > li {float: left;margin: 0 10px;font-size: 11px;line-height: 22px;}
-#cook-recipe .cook-article-tags-list > li > a {text-decoration: underline;}
-#cook-recipe .cook-article-tags-list > li > a:hover {text-decoration: none;}
 
 #cook-recipe-search {}
 #cook-recipe-search .title {margin-bottom:70px;}

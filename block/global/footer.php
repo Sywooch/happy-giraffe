@@ -1,27 +1,27 @@
-<div id="footer" class="layout-footer clearfix">
+<div class="layout-footer clearfix">
+	<div class="layout-footer_hold">
+		
+		<ul class="footer-list">
+			<li class="footer-list_li"><a href="" class="footer-list_a">Мобильная версия</a></li>
+			<li class="footer-list_li"><a href="" class="footer-list_a">О проекте</a></li>
+			<li class="footer-list_li active"><a href="" class="footer-list_a">Правила</a></li>
+			<li class="footer-list_li"><a href="" class="footer-list_a">Задать вопрос</a></li>
+			<li class="footer-list_li"><a href="" class="footer-list_a">Реклама </a></li>
+			<li class="footer-list_li"><a href="" class="footer-list_a">Контакты </a></li>
+			<li class="footer-list_li"><a href="" class="footer-list_a">Партнер "Рамблера"</a></li>
+		</ul>
+		<ul class="footer-ul-bold">
+			<li class="footer-ul-bold_li"><a href="" class="footer-ul-bold_a">Беременность и дети</a></li>
+			<li class="footer-ul-bold_li"><a href="" class="footer-ul-bold_a">Наш дом</a></li>
+			<li class="footer-ul-bold_li active"><a href="" class="footer-ul-bold_a">Красота и здоровье</a></li>
+			<li class="footer-ul-bold_li"><a href="" class="footer-ul-bold_a">Мужчина и женщина</a></li>
+			<li class="footer-ul-bold_li"><a href="" class="footer-ul-bold_a">Интересы и увлечения</a></li>
+			<li class="footer-ul-bold_li"><a href="" class="footer-ul-bold_a">Отдых</a></li>
+		</ul>
+		
+		<div class="layout-footer_tx">2012–2013 Веселый Жираф. Новости моды, музыки, искусства. Афиша мероприятий. Интервью. Фотографии. <br> Использование материалов Весёлого Жирафа разрешено только при наличии активной ссылки на источник. <br> Все права на картинки и тексты принадлежат их авторам. Сайт предназначен для лиц старше 16 лет.</div>
+	</div>
 	
-<!-- 	<div class="clearfix">
-		<a href="" class="mobile-version">Мобильная версия</a>
-	</div>
-	<div class="a-right">
-		<a href="">Политика конфедециальности</a> &nbsp; | &nbsp; <a href="">Пользовательское соглашение</a>
-	</div> -->
-	<div class="float-r margin-r20 color-gray">
-	Написать нам: <a href="mailto:info@happy-giraffe.ru">info@happy-giraffe.ru</a>
-	</div>
-	<div class="counter-rambler">
-		<div id="counter-rambler" class="counter-rambler_i" ></div>
-		<a href="http://www.rambler.ru/" class="counter-rambler_a">Партнер «Рамблера»</a>
-	</div>
-	<!-- не добавлять класс copy -->
-	<div class="layout-footer_copy copy">
-		<p>Весёлый жираф &nbsp; © 2012 &nbsp; Все права защищены 
-			<img src="/images/icon-18+.png" alt="" class="icon-18"/>
-			<a href="">Правила модерации</a>
-		</p>
-	</div>
-	
-</div>
 
 <!-- Счетчик рамблер  -->
 <script type="text/javascript">

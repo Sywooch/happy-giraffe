@@ -3,6 +3,7 @@
 class ClubsWidget extends UserCoreWidget
 {
     public $data = array();
+    public $size = 'Small';
 
     public function init()
     {
@@ -10,6 +11,9 @@ class ClubsWidget extends UserCoreWidget
         $this->visible = $this->isMyProfile || !empty($this->user->communities);
         if ($this->visible)
             $this->data = $this->getUserCommunitiesData();
+
+        $this->viewFile = get_class($this).$this->size;
+        Yii::app()->clientScript->registerPackage('ko_profile');
     }
 
     /**

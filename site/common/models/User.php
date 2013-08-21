@@ -1401,6 +1401,16 @@ class User extends HActiveRecord
         return $data;
     }
 
+    public function getFamilyData()
+    {
+        return array(
+            'me' => array(
+                'gender' => (int) $this->gender,
+                'relationshipStatus' => $this->relationship_status === null ? null : (int) $this->relationship_status,
+            ),
+        );
+    }
+
     public function getAva()
     {
         return '';

@@ -43,7 +43,7 @@ return array(
 
         //===================== Subscribes =========================//
         'subscribe/my'=>'subscribe/default/index',
-        'subscribe/recommends'=>'subscribe/recommends/index',
+        'subscribe/recommends'=>'subscribe/default/recommends',
 
 
         // ajax controller

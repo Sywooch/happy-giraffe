@@ -88,11 +88,11 @@ class UserCommunitySubscription extends HActiveRecord
      * @param int $user_id
      * @return int[]
      */
-    public function getSubUserIds($user_id)
+    public static function getSubUserCommunities($user_id)
     {
         return Yii::app()->db->createCommand()
             ->select('community_id')
-            ->from($this->tableName())
+            ->from(self::model()->tableName())
             ->where('user_id=:user_id', array(':user_id' => $user_id))
             ->queryColumn();
     }
@@ -155,5 +155,22 @@ class UserCommunitySubscription extends HActiveRecord
         $model->user_id = Yii::app()->user->id;
         $model->community_id = $community_id;
         return $model->save();
+    }
+
+    /**
+     * сообщества, на которые не подписан
+     *
+     * @param int $user_id
+     * @return int[]
+     */
+    public static function notSubscribedClubIds($user_id)
+    {
+        $all_club_ids = Yii::app()->db->cache(3600)->createCommand()
+            ->select('id')
+            ->from('community__communities')
+            ->queryColumn();
+
+        $subscribed_ids = self::getSubUserCommunities($user_id);
+        return array_diff($all_club_ids, $subscribed_ids);
     }
 }

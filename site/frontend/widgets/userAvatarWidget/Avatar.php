@@ -16,6 +16,8 @@ class Avatar extends CWidget
     public $size = self::SIZE_MEDIUM;
     public $location = false;
     public $age = false;
+    public $message_link = true;
+    public $blog_link = true;
 
 	public function run()
 	{

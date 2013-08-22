@@ -185,6 +185,33 @@ ko.bindingHandlers.toggleVisible = {
     }
 };
 
+
+function BlogSubscription(subscriptionData) {
+    var self = this;
+
+    self.subscribed = ko.observable(subscriptionData['subscribed']);
+    self.count = ko.observable(subscriptionData['count']);
+    self.user_id = ko.observable(subscriptionData['user_id']);
+
+    self.toggleSubscription = function () {
+        $.post('/newblog/subscribeToggle/', {user_id: self.user_id()}, function (response) {
+            if (response.status) {
+                if (self.subscribed()) {
+                    self.subscribed(false);
+                    self.count(self.count() - 1);
+                } else {
+                    self.subscribed(true);
+                    self.count(self.count() + 1);
+                }
+            }
+        }, 'json');
+    };
+    self.isSubscribed = ko.computed(function () {
+        return self.subscribed();
+    });
+}
+
+
 //блок поиска в блоге
 $(function() {
     BlogSearch.init();

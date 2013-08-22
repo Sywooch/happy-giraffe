@@ -81,17 +81,23 @@ var FamilyViewModel = function(data) {
                     return 'ico-family__fiance';
             }
         }
-    }
+    };
 
     self.addListElements = function(n) {
         for (var i = 0; i < n; i++)
             self.family.push(new FamilyListElement());
-    }
+    };
+
+    self.partner = ko.computed(function() {
+        for (var i in self.family()) {
+            if (self.family()[i].content() instanceof FamilyPartner)
+                return self.family()[i].content();
+        }
+        return null;
+    });
 
     self.hasPartner = ko.computed(function() {
-        return ko.utils.arrayFirst(self.family(), function(element) {
-            return element.content() instanceof FamilyPartner;
-        });
+        return self.partner() !== null;
     });
 
     self.familyMembersCount = ko.computed(function() {
@@ -119,6 +125,9 @@ var FamilyViewModel = function(data) {
                 babies.push({ gender : element.content().gender, ageGroup : element.content().ageGroup, type : element.content().type });
         });
         data.babies = babies;
+        data.createPartner = self.hasPartner() && self.partner().isNewRecord;
+        data.relationshipStatus = self.me().relationshipStatus();
+        console.log(data);
         $.post('/family/save/', data, function(response) {
             console.log(response);
         });
@@ -129,13 +138,11 @@ var FamilyViewModel = function(data) {
             case 1:
             case 3:
             case 4:
-                self.add(new FamilyPartner({ relationshipStatus : self.me().relationshipStatus() }, self));
+                self.add(new FamilyPartner({ relationshipStatus : self.me().relationshipStatus(), isNewRecord : false }, self));
         }
 
-
-
         for (var i in data.babies) {
-            self.add(new FamilyBaby(data.babies[i], self));
+            self.add(new FamilyBaby($.extend({}, data.babies[i], { isNewRecord : false }), self));
         }
     }
 
@@ -201,6 +208,7 @@ var FamilyListElement = function() {
 var FamilyPartner = function(data, parent) {
     var self = this;
 
+    self.isNewRecord = data.isNewRecord === undefined ? true : data.isNewRecord;
     self.relationshipStatus = data.relationshipStatus;
 
     self.cssClass = function() {
@@ -233,8 +241,7 @@ var FamilyPartner = function(data, parent) {
 var FamilyBaby = function(data, parent) {
     var self = this;
 
-    self.id = data.id === undefined ? null : data.id;
-    self.isNewRecord = self.id === null;
+    self.isNewRecord = data.isNewRecord === undefined ? true : data.isNewRecord;
     self.gender = data.gender;
     self.ageGroup = data.ageGroup;
     self.type = data.type;

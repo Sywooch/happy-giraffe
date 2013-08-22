@@ -1,0 +1,15 @@
+/**
+ * Author: alexk984
+ * Date: 21.08.13
+ */
+function CommunitySubscription(active, community_id) {
+    var self = this;
+    self.active = ko.observable(active);
+    self.community_id = community_id;
+    self.subscribe = function () {
+        $.post('/community/subscribe/', {community_id: self.community_id}, function (response) {
+            if (response.status)
+                self.active(true);
+        }, 'json');
+    }
+}

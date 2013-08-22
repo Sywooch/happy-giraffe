@@ -10,7 +10,7 @@
             <a href="" class="b-registration_skip">Пропустить этот шаг</a>
             <a href="" class="btn-green btn-h46">Готово, продолжить</a>
         </div>
-        <div class="b-registration_t">Александра, расскажите о вашей семье</div>
+        <div class="b-registration_t"><?=Yii::app()->user->model->first_name?>, расскажите о вашей семье</div>
     </div>
 
     <div class="content-cols">
@@ -148,6 +148,8 @@
 </script>
 
 <script type="text/javascript">
-    familyVM = new FamilyViewModel(<?=CJSON::encode($json)?>);
-    ko.applyBindings(familyVM);
+    $(function() {
+        familyVM = new FamilyViewModel(<?=CJSON::encode($json)?>);
+        ko.applyBindings(familyVM);
+    });
 </script>

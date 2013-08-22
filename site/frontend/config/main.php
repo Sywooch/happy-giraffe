@@ -113,6 +113,7 @@ return array(
         'search',
         'community',
         'subscribe',
+        'family',
 	),
 	// application components
 	'components'=>array(

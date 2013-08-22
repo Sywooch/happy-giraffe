@@ -2819,6 +2819,7 @@
   margin: 0 -20px 10px !important;
 }
 .wysiwyg-v_toolbar {
+  position: relative;
   float: left;
   margin: 20px 0 0;
   padding: 5px 30px 5px 0;
@@ -12139,13 +12140,6 @@ ul.letters li a:hover {
 .wysiwyg-content p {
   margin: 0 0 15px;
 }
-.wysiwyg-content a {
-  color: #319fe4;
-  text-decoration: none;
-}
-.wysiwyg-content a:hover {
-  text-decoration: underline;
-}
 .wysiwyg-content img {
   margin: 0 0 5px;
 }
@@ -12155,13 +12149,13 @@ ul.letters li a:hover {
 }
 .wysiwyg-content h2 {
   margin: 40px 0 15px;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: bold;
   color: #186fb8;
 }
 .wysiwyg-content h3 {
   margin: 20px 0 10px;
-  font-size: 13px;
+  font-size: 16px;
   font-weight: bold;
   color: #333;
 }
@@ -14781,8 +14775,12 @@ table.fr_recipe_tb td {
   padding-left: 25px;
   padding-right: 25px;
 }
+.b-add-img_hold .file-fake {
+  vertical-align: middle;
+}
 .b-add-img_t {
   display: inline-block;
+  vertical-align: middle;
   margin: 0 20px 0 0;
   width: 280px;
   text-align: center;

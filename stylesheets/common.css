@@ -786,7 +786,7 @@ a.pseudo:hover,
   border-color: #2c95d6;
 }
 .a-imitation {
-  color: #029AD2;
+  color: #289FD7;
 }
 .a-pseudo-icon {
   display: inline-block;
@@ -971,6 +971,23 @@ a.pseudo:hover,
 }
 .i-highlight__big {
   padding: 2px 10px;
+}
+.video-preview {
+  position: relative;
+  display: block;
+}
+.video-preview:after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 97px;
+  height: 97px;
+  margin: -48px 0 0 -48px;
+  background: url(/images/video-preview.png) no-repeat;
+}
+.video-preview:hover:after {
+  background-position: 0 -100px;
 }
 /* icons */
 .ico-friends-small {

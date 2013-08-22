@@ -8,10 +8,12 @@ ko.bindingHandlers.length = {
 
 var BlogViewModel = function(data) {
     var self = this;
-    self.titleValue = ko.observable(data.title);
-    self.descriptionValue = ko.observable(data.description);
     self.title = ko.observable(data.title);
     self.description = ko.observable(data.description);
+    self.draftTitleValue = ko.observable(data.title);
+    self.draftDescriptionValue = ko.observable(data.description);
+    self.draftTitle = ko.observable(data.title);
+    self.draftDescription = ko. observable(data.description);
     self.photo = ko.observable(data.photo === null ? null : new Photo(data.photo));
     self.draftPhoto = ko.observable(data.photo === null ? null : new Photo(data.photo));
     self.currentRubricId = data.currentRubricId;
@@ -23,12 +25,16 @@ var BlogViewModel = function(data) {
         return self.description().replace(/\n/g, '<br />');
     });
 
+    self.draftDescriptionToShow = ko.computed(function() {
+        return self.draftDescription().replace(/\n/g, '<br />');
+    });
+
     self.setTitle = function() {
-        self.title(self.titleValue());
+        self.draftTitle(self.draftTitleValue());
     }
 
     self.setDescription = function() {
-        self.description(self.descriptionValue());
+        self.draftDescription(self.draftDescriptionValue());
     }
 
     self.titleHandler = function(data, event) {
@@ -39,7 +45,9 @@ var BlogViewModel = function(data) {
     }
 
     self.save = function() {
-        $.post(data.updateUrl, { blog_title : self.title(), blog_description : self.description(), blog_photo_id : self.draftPhoto().id(), blog_photo_position : position }, function(response) {
+        $.post(data.updateUrl, { blog_title : self.draftTitle(), blog_description : self.draftDescription(), blog_photo_id : self.draftPhoto().id(), blog_photo_position : position }, function(response) {
+            self.title(self.draftTitle());
+            self.description(self.draftDescription());
             self.photo().thumbSrc(response.thumbSrc);
             $.fancybox.close();
         }, 'json');

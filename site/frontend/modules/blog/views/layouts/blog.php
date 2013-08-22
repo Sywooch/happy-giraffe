@@ -25,7 +25,7 @@
         <div class="col-23-middle">
             <div class="user-add-record clearfix">
                 <div class="user-add-record_ava-hold">
-                    <?php $this->widget('Avatar', array('user' => Yii::app()->user->getModel())); ?>
+                    <?php $this->widget('Avatar', array('user' => Yii::app()->user->getModel())) ?>
                 </div>
                 <div class="user-add-record_hold">
                     <div class="user-add-record_tx">Я хочу добавить</div>
@@ -45,7 +45,7 @@
 <div class="content-cols clearfix">
     <div class="col-1">
 
-        <?php $this->widget('Avatar', array('user' => $this->user, 'size' => 200)); ?>
+        <?php $this->widget('Avatar', array('user' => $this->user, 'size' => 200, 'message_link' => false, 'blog_link' => false)); ?>
 
         <div class="aside-blog-desc blogInfo" data-bind="visible: description().length > 0">
             <div class="aside-blog-desc_tx" data-bind="html: description"></div>

@@ -11,6 +11,7 @@ class SubscribeModule extends CWebModule
 		$this->setImport(array(
 			'subscribe.models.*',
 			'subscribe.components.*',
+            'site.frontend.modules.profile.widgets.*'
 		));
 	}
 

@@ -4,16 +4,18 @@ class ClubsWidget extends UserCoreWidget
 {
     public $data = array();
     public $size = 'Small';
+    public $userClubs = true;
 
     public function init()
     {
         parent::init();
         $this->visible = $this->isMyProfile || !empty($this->user->communities);
-        if ($this->visible)
+        if ($this->visible){
             $this->data = $this->getUserCommunitiesData();
 
-        $this->viewFile = get_class($this).$this->size;
-        Yii::app()->clientScript->registerPackage('ko_profile');
+            $this->viewFile = get_class($this).$this->size;
+            Yii::app()->clientScript->registerPackage('ko_profile');
+        }
     }
 
     /**
@@ -23,11 +25,17 @@ class ClubsWidget extends UserCoreWidget
     private function getUserCommunitiesData()
     {
         $data = array();
-        foreach ($this->user->communitySubscriptions as $subscription) {
+        if ($this->userClubs)
+            $communities = UserCommunitySubscription::getSubUserCommunities($this->user->id);
+        else
+            $communities = UserCommunitySubscription::notSubscribedClubIds($this->user->id);
+        $communities = Community::model()->findAllByPk($communities);
+
+        foreach ($communities as $community) {
             $data [] = array(
-                'id' => $subscription->community->id,
-                'title' => $subscription->community->title,
-                'have' => ($this->isMyProfile) ? true : ((Yii::app()->user->isGuest) ? false : UserCommunitySubscription::subscribed($this->user->id, $subscription->community->id)),
+                'id' => $community->id,
+                'title' => $community->title,
+                'have' => ($this->isMyProfile && $this->userClubs) ? true : ((Yii::app()->user->isGuest) ? false : UserCommunitySubscription::subscribed($this->user->id, $community->id)),
             );
         }
         return $data;

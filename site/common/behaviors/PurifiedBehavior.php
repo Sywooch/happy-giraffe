@@ -194,15 +194,20 @@ class PurifiedBehavior extends CActiveRecordBehavior
 
     private function setWidgets($text)
     {
-        return preg_replace_callback('#<!-- widget: (.*) -->(.*)<!-- /widget -->#sU', function($matches) {
-            $data = CJSON::decode($matches[1]);
-            extract($data);
-            if (isset($entity) && isset($entity_id)){
-                $model = CActiveRecord::model($entity)->findByPk($entity_id);
-                if ($model)
-                    return $model->widget;
+        return preg_replace_callback('#<!-- widget: (.*) -->(.*)<!-- /widget -->#sU', array($this, 'replaceWidgets'), $text);
+    }
+
+    private function replaceWidgets($matches)
+    {
+        $data = CJSON::decode($matches[1]);
+        extract($data);
+        if (isset($entity) && isset($entity_id)){
+            $model = CActiveRecord::model($entity)->findByPk($entity_id);
+            if ($model){
+                $comments = get_class($this->getOwner()) == 'Comment';
+                return $model->getWidget(false, $comments);
             }
-            return '';
-        }, $text);
+        }
+        return '';
     }
 }

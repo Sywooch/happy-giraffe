@@ -17,19 +17,19 @@ class ExternalImagesBehavior extends CActiveRecordBehavior
         $attributes = array_keys($this->owner->getAttributes($this->attributes));
         foreach ($attributes as $attr) {
             try {
-                $doc = phpQuery::newDocumentXHTML($this->owner->$attr, 'utf-8');
+                $doc = phpQuery::newDocumentHTML($this->owner->$attr, 'utf-8');
             } catch (Exception $e) {
                 $tidy_config = array(
                     'show-body-only' => true,
                 );
                 $tidy = tidy_repair_string($this->owner->$attr, $tidy_config, 'utf8');
-                $doc = phpQuery::newDocumentXHTML($tidy, 'utf-8');
+                $doc = phpQuery::newDocumentHTML($tidy, 'utf-8');
             }
 
             foreach (pq('img') as $e) {
                 $src = pq($e)->attr('src');
+                $element = null;
                 if (strpos($src, Yii::app()->params['photos_url']) !== 0 && strpos($src, '/') !== 0) {
-
                     if (isset($this->owner->author_id))
                         $author_id = $this->owner->author_id;
                     elseif (isset($this->owner->content) && isset($this->owner->content->author_id))
@@ -41,6 +41,7 @@ class ExternalImagesBehavior extends CActiveRecordBehavior
                     if ($photo !== false) {
                         $newSrc = $photo->getPreviewUrl(700, 700, Image::WIDTH);
                         pq($e)->attr('src', $newSrc);
+                        $element = pq($e);
                         Yii::log(
                             'Image was replaced' . "\n" .
                             '------------------------------' . "\n" .
@@ -61,6 +62,21 @@ class ExternalImagesBehavior extends CActiveRecordBehavior
                                 '------------------------------' . "\n"
                         , 'warning');
                     }
+                }else{
+                    //если ссылки на фотки с http://img.happy-giraffe.ru/
+                    $photo = AlbumPhoto::getPhotoFromUrl($src);
+                    if (count(pq($e)->parent()->children()) == 1)
+                        $element = pq($e)->parent();
+                    else
+                        $element = pq($e);
+                }
+
+                if ($photo && $element){
+                    //добавляем <--widget-->
+                    pq($element)->replaceWith(Yii::app()->controller->renderFile(Yii::getPathOfAlias('site.frontend.views.albums._widget') . '.php', array(
+                        'model' => $photo,
+                        'comments' => (get_class($this->owner) == 'Comment') ? true : false
+                    ), true));
                 }
             }
 

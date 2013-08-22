@@ -25,14 +25,7 @@ class SettingsController extends HController
 
         $photo = ! empty($user->blog_photo_id) ? AlbumPhoto::model()->findByPk($user->blog_photo_id) : AlbumPhoto::createByUrl('http://109.87.248.203/images/jcrop-blog.jpg', Yii::app()->user->id);
 
-        $image = Yii::createComponent(array(
-            'class' => 'site.frontend.extensions.EPhpThumb.EPhpThumb',
-            'options' => array(
-                'resizeUp' => true,
-            ),
-        ));
-        $image->init();
-        $image = $image->create($photo->getOriginalPath());
+        $image = Yii::app()->phpThumb->create($photo->getOriginalPath());
         $rx = 720 / $p['w'];
         $ry = 128 / $p['h'];
         $width = round($rx * $photo->width);

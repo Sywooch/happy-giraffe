@@ -12,10 +12,12 @@ class BasicVideo extends CComponent
     public $url;
     public $oembed;
 
+    protected $oembedParams = array('maxwidth' => 580);
+
     public function __construct($url)
     {
         $this->url = $url;
-        $this->oembed = new OEmbed($url, array('maxwidth' => 580));
+        $this->oembed = new OEmbed($url, $this->oembedParams);
     }
 
     public function getEmbed()

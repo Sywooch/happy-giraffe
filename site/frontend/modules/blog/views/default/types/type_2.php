@@ -28,7 +28,7 @@ $post = $data->post;
     <div class="b-article_in clearfix">
         <div class="wysiwyg-content clearfix">
             <div class="b-article_in-img">
-                <?=CHtml::link(CHtml::image($data->video->photo->getPreviewUrl(580, null, Image::WIDTH), '', array('class' => 'video-preview')), $data->url)?>
+                <?=CHtml::link(CHtml::image($data->video->photo->getPreviewUrl(580, null, Image::WIDTH), ''), $data->url, array('class' => 'video-preview'))?>
             </div>
             <p><?=$data->getContentText(500, '') ?></p>
         </div>

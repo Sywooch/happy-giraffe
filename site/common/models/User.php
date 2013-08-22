@@ -1410,7 +1410,6 @@ class User extends HActiveRecord
             ),
             'babies' => array_map(function($baby) {
                 return array(
-                    'id' => (int) $baby->id,
                     'gender' => (int) $baby->sex,
                     'ageGroup' => (int) $baby->age_group,
                     'type' => $baby->type === null ? null : (int) $baby->type,

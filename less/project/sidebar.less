@@ -201,7 +201,7 @@
 
 .readers2 {
 	position: relative;
-	margin: 30px 0 20px;
+	margin: 30px 0 30px;
 	padding: 15px 20px;
 	background: #f6f6f6;
 	background: rgba(255,255,255,.4);
@@ -217,6 +217,7 @@
 	&__blog-preview &_count {margin-bottom: 5px;}
 	.btn-green {
 		margin: -33px 0 15px;
+		font-size: 14px;
 	}
 	&_ul {
 		margin: 0 0 10px;
@@ -318,13 +319,19 @@
 		color: #fd7700;
 		text-decoration: none;
 	}
+	&_li.active &_count {
+		font-size: 13px;
+		color: #535353;
+	}
 	&_li__with-drop {background: url(/images/menu-simple_li__with-drop.png) no-repeat 0 4px;}
 	&_li__with-drop.active {background: url(/images/menu-simple_li__with-drop.png) no-repeat -300px 4px;}
+	&_li__with-drop &_li {margin: 2px 0;}
 	&_a {color: #289fd7;}
 	&_count {
 		.inline-block();
 		margin: 0 4px;
 		font-size: 9px;
+		line-height: 15px;
 		color: #acacac;
 	}
 

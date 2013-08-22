@@ -97,7 +97,7 @@
 				<div class="aside-filter">
 				
 					<div class="aside-filter_search clearfix">
-						<input type="text" name="" id="" class="aside-filter_search-itx" placeholder="Рецепт или ингридаент">
+						<input type="text" name="" id="" class="aside-filter_search-itx" placeholder="Поиск рецепта">
 						<!-- 
 						В начале ввода текста, скрыть aside-filter_search-btn добавить класс active"
 						 -->
@@ -183,9 +183,8 @@
 			<div class="col-23-middle ">
 			
 			
-				<div class="clearfix margin-l20 margin-b20">
-					<div class="font-big margin-t10">Найдено  <span class="i-highlight">2 258</span>   рецептов</div>
-				</div>
+				<div class="i-search-t">Найдено  <span class="i-highlight">2 258</span>   рецептов</div>
+				
 				<div class="col-gray">
 
 					<div class="b-article clearfix">
@@ -221,7 +220,7 @@
 								</div>
 							</div>
 							<h2 class="b-article_t">
-								<a href="" class="b-article_t-a">Самое лучшее утро - просыпаюсь, а ты рядом</a>
+								<a href="" class="b-article_t-a">Самое лучшее  <span class="search-highlight"> утро</span> - просыпаюсь, а ты рядом</a>
 							</h2>
 							<div class="b-article_in clearfix">
 								<div class="wysiwyg-content clearfix">

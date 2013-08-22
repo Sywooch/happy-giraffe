@@ -49,8 +49,8 @@
 							<li class="crumbs-small_li"><a href="" class="crumbs-small_a">Главная</a></li> &gt;
 							<li class="crumbs-small_li"><a href="" class="crumbs-small_a">Наш дом</a></li> &gt;
 							<li class="crumbs-small_li"><a href="" class="crumbs-small_a">Готовим на кухне </a></li> &gt;
-							<li class="crumbs-small_li"><span class="crumbs-small_last">Кулинарные рецепты</span></li>
-							<li class="crumbs-small_li"><span class="crumbs-small_last">Торты и пирожные </span></li>
+							<li class="crumbs-small_li"><a href="" class="crumbs-small_a">Кулинарные рецепты </a></li> &gt;
+							<li class="crumbs-small_li"><a href="" class="crumbs-small_a">Торты и пирожные </a></li> &gt;
 							<li class="crumbs-small_li"><span class="crumbs-small_last">Торт «Зебра»</span></li>
 						</ul>
 					</div>
@@ -147,7 +147,7 @@
 				
 				<div class="menu-simple">
 					<ul class="menu-simple_ul">
-						<li class="menu-simple_li active">
+						<li class="menu-simple_li">
 							<a class="menu-simple_a" href="">Все рецепты</a>
 							<div class="menu-simple_count">789</div>
 						</li>
@@ -171,7 +171,7 @@
 							<a class="menu-simple_a" href="">Сладкая выпечка </a>
 							<div class="menu-simple_count">7</div>
 						</li>
-						<li class="menu-simple_li">
+						<li class="menu-simple_li active">
 							<a class="menu-simple_a" href="">Торты и пирожные </a>
 							<div class="menu-simple_count">79</div>
 						</li>
@@ -292,17 +292,16 @@
 											
 											<div class="nutrition_hold display-b">
 												<div class="nutrition_portion">
-													<a class="nutrition_portion-a active" href="">На 100 г</a>
-													<a class="nutrition_portion-a" href="">На порцию</a>
+													<a class="nutrition_portion-a" href="">На 100 г</a>
+													<a class="nutrition_portion-a active" href="">На порцию</a>
 												</div>
 												<ul class="nutrition_ul">
 													<li class="nutrition_li">
 														<div class="nutrition_icon nutrition_icon__calories">
 															<i>К</i>
-															Калории
 														</div>
 														<div class="nutrition_tx">
-															- 
+															Калории - 
 															<span class="calories">11589,2</span>
 															<span class="nutrition_measure">ккал.</span>
 														</div>
@@ -310,10 +309,9 @@
 													<li class="nutrition_li">
 														<div class="nutrition_icon nutrition_icon__protein">
 															<i>Б</i>
-															Белки
 														</div>
 														<div class="nutrition_tx">
-															- 
+															Белки - 
 															<span class="protein">18</span>
 															<span class="nutrition_measure">г.</span>
 														</div>
@@ -321,10 +319,9 @@
 													<li class="nutrition_li">
 														<div class="nutrition_icon nutrition_icon__fat">
 															<i>Ж</i>
-															Жиры
 														</div>
 														<div class="nutrition_tx">
-															- 
+															Жиры - 
 															<span class="fat">10</span>
 															<span class="nutrition_measure">г.</span>
 														</div>
@@ -332,10 +329,9 @@
 													<li class="nutrition_li">
 														<div class="nutrition_icon nutrition_icon__carbohydrates">
 															<i>У</i>
-															Углеводы
 														</div>
 														<div class="nutrition_tx">
-															- 
+															Углеводы - 
 															<span class="carbohydrates">70</span>
 															<span class="nutrition_measure">г.</span>
 														</div>

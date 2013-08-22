@@ -244,6 +244,7 @@
         font: bold 11px/14px Tahoma, Arial, Verdana, sans-serif;
         margin: 5px 0;
     }
+    &_t > a {color: #3088c8;}
 }
 
 .recipe-search {position: relative;margin-top: 15px;}
@@ -481,14 +482,14 @@
     height: 52px;
     margin:-11px 10px;
 }
-
+.recipe-article .recipe-right {float:right;margin:0 0 20px 5px;width:180px;}
 
 .ingredients {
     list-style:none;
     margin-bottom:20px;
     
     li.ingredient {
-        padding: 5px 0 !important;
+        padding: 3px 0 !important;
         font-size: 13px;
         background: none !important;
     }
@@ -502,12 +503,14 @@
     background: #d1ebff;
 
     .location {
+
         .inline-block();
         vertical-align: middle;
         margin-right: 10px;
         font-size: 12px;
         color: #289FD7;
     }
+    .location_tx {max-width: 100px;}
     &_holder {
         .inline-block();
         vertical-align: middle;
@@ -537,8 +540,7 @@
 /* !important in block for change style .b-article */
 .nutrition {
     position: relative;
-    padding:12px 15px;
-    background: #fff;
+    padding:7px 20px;
     margin:0;
 
     &_t {font-size: 13px;}
@@ -546,13 +548,29 @@
         display: none;
         position: absolute;
         top: 35px;
-        left: 0px;
-        width: 100%;
+        left: 10px;
+        width: 190px;
         padding: 10px;
         background: #fff;
+        border: 1px solid #eee;
+        .border-radius(5px);
+        .box-shadow(0 2px 2px rgba(0,0,0,0.2));
+    }
+    &_hold:after {
+        content:'';
+        position: absolute;
+        top: -4px;
+        left: 50%;
+        margin-left: -4px;
+        width:10px;
+        height:10px;
+        background:#fff;
+        z-index:1;
+        box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.12);
+        .rotate(135deg);
     }
     &_portion {
-        margin:0 5px 10px 35px;
+        margin:0 5px 5px 27px;
         color:#a0a0a0;
         font-size:11px;
         font-family:tahoma, arial, helvetica, sans-serif;
@@ -570,20 +588,22 @@
         color: #171717 !important;
         text-decoration:none !important;
     }
-    &_ul {margin: 5px 0 0 !important;}
+    &_ul {margin: 0 !important;}
     &_li {
         font-size:12px;
-        padding:4px 0 !important;
+        padding:6px 0 !important;
         background: none !important;
+        color: #656565;
     }
     &_icon {
         .inline-block();
         vertical-align:middle;
-
+        position: relative;
+        top: 1px;
     }
     &_icon i {
         position:relative;
-        top: -2px;
+        top: -1px;
         .inline-block();
         vertical-align: middle;
         margin:0 10px 2px 5px;
@@ -640,15 +660,15 @@
 .cook-article-tags {float: left;margin: 20px 5px 35px 20px;}
 .cook-article-tags-title {float: left;width: 50px;text-align: center;font:italic 14px/29px Georgia, 'Times New Roman', Times, serif;color: #6c6e6f;background: #fafca4;}
 
-.cook-article-tags-list {float: left;width:375px;list-style: none;background: #fff;padding: 4px 10px ;}
-.cook-article-tags-list > li {float: left;margin: 0 10px;font-size: 11px;line-height: 22px;}
+.cook-article-tags-list {float: left;width:360px;list-style: none;background: #f1f6f9;padding: 4px 10px 10px;}
+.cook-article-tags-list > li {float: left;margin: 0 10px;font: 11px/22px Tahoma, Arial, Verdana, sans-serif;}
 .cook-article-tags-list > li > a {text-decoration: underline;}
 .cook-article-tags-list > li > a:hover {text-decoration: none;}
 
 
 .cook-diabets {
     float: right;
-    margin: 10px 10px 0;
+    margin: 10px 20px 0 0;
     text-align: center;
     width: 90px;
 }

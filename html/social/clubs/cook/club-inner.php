@@ -145,44 +145,57 @@
 				
 				<div class="menu-simple">
 					<ul class="menu-simple_ul">
-						<li class="menu-simple_li active">
+						<li class="menu-simple_li">
 							<a class="menu-simple_a" href="">Все рецепты</a>
+							<div class="menu-simple_count">789</div>
 						</li>
 						<li class="menu-simple_li">
 							<a class="menu-simple_a" href="">Первые блюда</a>
+							<div class="menu-simple_count">789</div>
 						</li>
 						<li class="menu-simple_li">
 							<a class="menu-simple_a" href="">Вторые блюда </a>
+							<div class="menu-simple_count">789</div>
 						</li>
 						<li class="menu-simple_li">
 							<a class="menu-simple_a" href="">Салаты  </a>
+							<div class="menu-simple_count">789</div>
 						</li>
 						<li class="menu-simple_li">
 							<a class="menu-simple_a" href="">Закуски и бутерброды </a>
+							<div class="menu-simple_count">789</div>
 						</li>
 						<li class="menu-simple_li">
 							<a class="menu-simple_a" href="">Сладкая выпечка </a>
+							<div class="menu-simple_count">7</div>
 						</li>
-						<li class="menu-simple_li">
+						<li class="menu-simple_li active">
 							<a class="menu-simple_a" href="">Торты и пирожные </a>
+							<div class="menu-simple_count">79</div>
 						</li>
 						<li class="menu-simple_li">
 							<a class="menu-simple_a" href="">Несладкая выпечка </a>
+							<div class="menu-simple_count">123789</div>
 						</li>
 						<li class="menu-simple_li">
 							<a class="menu-simple_a" href="">Торты и пирожные </a>
+							<div class="menu-simple_count">79</div>
 						</li>
 						<li class="menu-simple_li">
 							<a class="menu-simple_a" href="">Десерты </a>
+							<div class="menu-simple_count">9</div>
 						</li>
 						<li class="menu-simple_li">
 							<a class="menu-simple_a" href="">Напитки </a>
+							<div class="menu-simple_count">71189</div>
 						</li>
 						<li class="menu-simple_li">
 							<a class="menu-simple_a" href="">Соусы и кремы </a>
+							<div class="menu-simple_count">23434</div>
 						</li>
 						<li class="menu-simple_li">
 							<a class="menu-simple_a" href="">Консервация </a>
+							<div class="menu-simple_count">782239</div>
 						</li>
 					</ul>
 				</div>
@@ -198,13 +211,12 @@
 			
 				<div class="clearfix margin-r20 margin-b20">
 					<a href="" class="btn-blue btn-h46 float-r">Добавить рецепт</a>
+				</div>
+				<div class="col-gray">
 					<div class="heading-title margin-b5 clearfix">
 						Торты и пирожные
 					</div>
 					<p class="font-middle margin-l20">Одним из основных свидетельств правильного течения <br> беременности является набор веса согласно принятым нормам. </p>
-				</div>
-				<div class="col-gray">
-
 					<div class="b-article clearfix">
 						<div class="float-l">
 							<div class="like-control like-control__small-indent clearfix">

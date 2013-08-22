@@ -239,13 +239,16 @@
 							<div class="clearfix">
 								<div class="float-r font-small color-gray">20/250</div>
 							</div>
-							<textarea name="" class="popup-blog-set_itx" placeholder="Краткое описание"></textarea>
+							<textarea name="" class="popup-blog-set_itx" placeholder="Краткое описание">
+								цукцук
+								цукцуккккк
+							</textarea>
 							<div class="margin-t5 margin-b10 clearfix">
 								<button class="btn-green float-r">Ok</button>
 							</div>
 						</div>
 						<div class="popup-blog-set_col-wide">
-							<label for="" class="popup-blog-set_label">Название блога</label>
+							<label for="" class="popup-blog-set_label">Выберите фон</label>
 							<div class="margin-t15 clearfix">
 								<div class="popup-blog-set_jcrop">
 									<img src="/images/jcrop-blog.jpg" alt=""  class="popup-blog-set_jcrop-img" width='300' height='270'>

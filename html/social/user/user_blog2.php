@@ -698,18 +698,20 @@
 									<span class="custom-like_icon twitter"></span>
 									<span class="custom-like_value">10</span>
 								</a>
+							
+							
+								<div class="nav-article clearfix">
+									<div class="nav-article_left">
+										<a class="nav-article_arrow nav-article_arrow__left" href=""></a>
+										<a class="nav-article_a" href="">Очень красивые пропорции у нашего ведущего</a>
+									</div>
+									<div class="nav-article_right">
+										<a class="nav-article_arrow nav-article_arrow__right" href=""></a>
+										<a class="nav-article_a" href="">Очень красивые пропорции Очень красивые пропорции у нашего ведущего у нашего ведущего</a>
+									</div>
+								</div>
 							</div>
 							
-							<div class="nav-article clearfix">
-								<div class="nav-article_left">
-									<a class="nav-article_arrow nav-article_arrow__left" href=""></a>
-									<a class="nav-article_a" href="">Очень красивые пропорции у нашего ведущего</a>
-								</div>
-								<div class="nav-article_right">
-									<a class="nav-article_arrow nav-article_arrow__right" href=""></a>
-									<a class="nav-article_a" href="">Очень красивые пропорции Очень красивые пропорции у нашего ведущего у нашего ведущего</a>
-								</div>
-							</div>
 							<div class="comments-gray">
 								<div class="comments-gray_add clearfix">
 									

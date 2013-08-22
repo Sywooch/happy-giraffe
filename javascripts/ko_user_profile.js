@@ -220,27 +220,31 @@ var BlogSubscription = function (data) {
 };
 
 /*********************** subscribe community ***********************/
-var UserClubsWidget = function (data) {
+var UserClubsWidget = function (data, size) {
     var self = this;
     self.clubs = ko.observableArray(ko.utils.arrayMap(data, function (club) {
-        return new UserClub(club);
+        return new UserClub(club, size);
     }));
     self.count = ko.computed(function () {
         return self.clubs().length;
     });
 };
 
-var UserClub = function (data) {
+var UserClub = function (data, size) {
     var self = this;
+    self.size = size;
     self.id = ko.observable(data.id);
     self.title = ko.observable(data.title);
     self.have = ko.observable(data.have);
 
     self.url = ko.computed(function () {
-        return '/community/' + self.id() + '/forum/';
+        return '/community/' + self.id() + '/';
     });
     self.src = ko.computed(function () {
-        return '/images/club/' + self.id() + '.png';
+        if (self.size == 'Big')
+            return '/images/club/' + self.id() + '-w130.png';
+        else
+            return '/images/club/' + self.id() + '.png';
     });
     self.toggle = function () {
         $.post('/ajaxSimple/communityToggle/', {community_id: self.id()}, function (response) {

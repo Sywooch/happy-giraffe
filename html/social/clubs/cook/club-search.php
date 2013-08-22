@@ -94,114 +94,97 @@
 		<div class="content-cols clearfix">
 			<div class="col-1">
 			
-				<div class="readers2">
-					<a class="btn-green btn-medium" href="">Вступить в клуб</a>
-					<ul class="readers2_ul clearfix">
-						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-								<span class="icon-status status-online"></span>
-								<img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
-							</a>
-						</li>
-						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-								<img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
-							</a>
-						</li>
-						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-								<span class="icon-status status-online"></span>
-								<img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
-							</a>
-						</li>
-						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-							</a>
-						</li>
-						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-								<span class="icon-status status-online"></span>
-								<img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
-							</a>
-						</li>
-						<li class="readers2_li clearfix">
-							<a class="ava male small" href="">
-								<span class="icon-status status-online"></span>
-							</a>
-						</li>
-					</ul>
-					<div class="clearfix">
-						<div class="readers2_count">Все участники клуба (129)</div>
+				<div class="aside-filter">
+				
+					<div class="aside-filter_search clearfix">
+						<input type="text" name="" id="" class="aside-filter_search-itx" placeholder="Рецепт или ингридаент">
+						<!-- 
+						В начале ввода текста, скрыть aside-filter_search-btn добавить класс active"
+						 -->
+						<button class="aside-filter_search-btn active"></button>
 					</div>
+					<div class="aside-filter_sepor"></div>
+					<div class="aside-filter_row margin-b10 clearfix">
+						<div class="aside-filter_t">Тип блюда</div>
+						<div class="chzn-bluelight">
+							<select class="chzn">
+								<option selected="selected">Любой</option>
+								<option>Первое</option>
+								<option>Второе</option>
+								<option>Десерт</option>								
+							</select>
+						</div>
+					</div>
+					<div class="aside-filter_row margin-b10 clearfix">
+						<div class="aside-filter_t">Кухня</div>
+						<div class="chzn-bluelight">
+							<select class="chzn">
+								<option selected="selected">Любая</option>
+								<option>Русская</option>
+								<option>Грузинска</option>
+								<option>Японская</option>		
+								<option>Русская</option>
+								<option>Грузинска</option>
+								<option>Японская</option>		
+								<option>Русская</option>
+								<option>Грузинска</option>
+								<option>Японская</option>		
+								<option>Русская</option>
+								<option>Грузинска</option>
+								<option>Японская</option>								
+							</select>
+						</div>
+					</div>
+					<div class="aside-filter_sepor"></div>
+					
+					<div class="aside-filter_row margin-b10 clearfix">
+						<div class="aside-filter_t">Затраченное время</div>
+						<div class="chzn-bluelight">
+							<select class="chzn">
+								<option selected="selected">Не важно</option>
+								<option>5 минут</option>
+								<option>10 минут</option>
+								<option>20 минут</option>
+								<option>30 минут</option>
+								<option>1 час</option>
+								<option>1 час 30 минут</option>		
+								<option>2 часа</option>								
+							</select>
+						</div>
+					</div>
+					<div class="aside-filter_sepor"></div>
+					
+					<div class="aside-filter_row clearfix">
+						<div class="aside-filter_t">Диетические предпочтения</div>
+						<div class="margin-b10 clearfix">
+							<input type="checkbox" name="b-radio3" id="checkbox9" class="aside-filter_radio">
+							<label for="checkbox9" class="aside-filter_label-radio aside-filter_label-radio__checkbox">Для диабетиков</label>
+						</div>
+						<div class="margin-b10 clearfix">
+							<input type="checkbox" name="b-radio3" id="checkbox10" class="aside-filter_radio">
+							<label for="checkbox10" class="aside-filter_label-radio aside-filter_label-radio__checkbox">Низкокалорийные</label>
+						</div>
+						<div class="margin-b10 clearfix">
+							<input type="checkbox" name="b-radio3" id="checkbox11" class="aside-filter_radio">
+							<label for="checkbox11" class="aside-filter_label-radio aside-filter_label-radio__checkbox">Низкоуглеводные</label>
+						</div>
+						<div class="margin-b10 clearfix">
+							<input type="checkbox" name="b-radio3" id="checkbox12" class="aside-filter_radio" checked>
+							<label for="checkbox12" class="aside-filter_label-radio aside-filter_label-radio__checkbox">Низкожирные</label>
+						</div>
+						
+					</div>
+						
 				</div>
-				
-				<div class="sidebar-search sidebar-search__gray clearfix">
-					<input type="text" placeholder="Поиск из 15611 рецептов" class="sidebar-search_itx" id="" name="">
-					<!-- 
-					В начале ввода текста, скрыть sidebar-search_btn добавить класс active"
-					 -->
-					<button class="sidebar-search_btn"></button>
-				</div>
-				
-				<div class="menu-simple">
-					<ul class="menu-simple_ul">
-						<li class="menu-simple_li active">
-							<a class="menu-simple_a" href="">Все рецепты</a>
-						</li>
-						<li class="menu-simple_li">
-							<a class="menu-simple_a" href="">Первые блюда</a>
-						</li>
-						<li class="menu-simple_li">
-							<a class="menu-simple_a" href="">Вторые блюда </a>
-						</li>
-						<li class="menu-simple_li">
-							<a class="menu-simple_a" href="">Салаты  </a>
-						</li>
-						<li class="menu-simple_li">
-							<a class="menu-simple_a" href="">Закуски и бутерброды </a>
-						</li>
-						<li class="menu-simple_li">
-							<a class="menu-simple_a" href="">Сладкая выпечка </a>
-						</li>
-						<li class="menu-simple_li">
-							<a class="menu-simple_a" href="">Торты и пирожные </a>
-						</li>
-						<li class="menu-simple_li">
-							<a class="menu-simple_a" href="">Несладкая выпечка </a>
-						</li>
-						<li class="menu-simple_li">
-							<a class="menu-simple_a" href="">Торты и пирожные </a>
-						</li>
-						<li class="menu-simple_li">
-							<a class="menu-simple_a" href="">Десерты </a>
-						</li>
-						<li class="menu-simple_li">
-							<a class="menu-simple_a" href="">Напитки </a>
-						</li>
-						<li class="menu-simple_li">
-							<a class="menu-simple_a" href="">Соусы и кремы </a>
-						</li>
-						<li class="menu-simple_li">
-							<a class="menu-simple_a" href="">Консервация </a>
-						</li>
-					</ul>
-				</div>
-				
-				<div class="banner">
-					<a href="">
-						<img src="/images/banners/6.jpg" alt="">
-					</a>
+				<div class="clearfix">
+					<a href="" class="a-pseudo-gray float-r margin-r5">Сбросить все</a>
 				</div>
 			</div>
 			<div class="col-23-middle ">
 			
 			
-				<div class="clearfix margin-r20 margin-b20">
-					<a href="" class="btn-blue btn-h46 float-r">Добавить рецепт</a>
-					<div class="heading-title margin-b5 clearfix">
-						Торты и пирожные
-					</div>
-					<p class="font-middle margin-l20">Одним из основных свидетельств правильного течения <br> беременности является набор веса согласно принятым нормам. </p>
+				<div class="clearfix margin-l20 margin-b20">
+					<div class="font-big margin-t10">Найдено  <span class="i-highlight">2 258</span>   рецептов</div>
 				</div>
 				<div class="col-gray">
 

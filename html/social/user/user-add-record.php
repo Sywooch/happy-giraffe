@@ -958,6 +958,16 @@ $(document).ready(function () {
 						<textarea name="" class="wysiwyg-redactor-v"></textarea>
 					</div>
 					
+					<div class="clearfix textalign-r">
+						<div style="" class="errorSummary" id="blog-form_es_">
+							<p>Необходимо исправить следующие ошибки:</p>
+							<ul>
+								<li>Необходимо заполнить поле Заголовок.</li>
+								<li>Необходимо заполнить поле Текст.</li>
+							</ul>
+						</div>
+					</div>
+					
 					<div class=" clearfix">
 						<a href="" class="btn-blue btn-h46 float-r">Добавить</a>
 						<a href="" class="btn-gray-light btn-h46 float-r margin-r15">Отменить</a>

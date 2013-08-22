@@ -216,7 +216,7 @@
 #wysiwygRemoveLink {width:260px;}
 #wysiwygRemoveLink .title {margin:20px 0 30px;text-align:center;}
 
-
+/*
 .wysiwyg-content {font-size:13px;line-height:19px;color:#000;}
 .wysiwyg-content h2 {color:#0281b0;font-size:18px;line-height:normal;margin:0 0 10px;}
 .wysiwyg-content h3 {line-height:normal;font-size:14px;line-height:normal;color:#2e2e2e;margin:0 0 10px;}
@@ -233,6 +233,67 @@
 .wysiwyg-content img {margin-top:10px;}
 .wysiwyg-content .brushed{ background: none repeat scroll 0 0 #FCFBD5; margin: 20px 0; padding: 10px;}
 .wysiwyg-content.side {margin-left:330px;padding-top:15px;}
+*/
+
+.wysiwyg-content {
+    padding: 0 20px;
+    font-size: 14px;
+    line-height: 19px;
+    color: #333;
+    min-height:150px;
+
+    p {margin: 0 0 15px !important;line-height: 19px !important;}
+    a {color: #319fe4;text-decoration:none;}
+    a:hover {text-decoration: underline;}
+    img {margin: 0 0 5px;}
+    .content-img  {float: none;margin: 0;}
+    h2 {
+        margin: 40px 0 15px;
+        font-size: 16px;
+        font-weight: bold;
+        color: #186fb8;
+    }
+    h3 {
+        margin: 20px 0 10px;
+        font-size: 13px;
+        font-weight: bold;
+        color: #333;
+    }
+    & &_t-sub {
+        font: 26px/30px Arial, Tahoma, Verdana, sans-serif;
+        color: #0d0d0d;
+        margin: 20px 0 15px;
+    }
+    ul {
+        margin: 15px 0;
+        padding: 0;
+        list-style: none;
+    }
+    ul li {
+        margin: 0;
+        padding:5px 0 5px 27px;
+        background: url(/images/bullet.png) no-repeat 4px 10px;
+    }
+    li .b-article_in-img {margin-left: -47px;}
+    ol {
+        margin: 15px 0;
+        padding: 0;
+        counter-reset: item;
+        list-style-type: none;
+    }
+    ol li {
+        margin: 0;
+        padding:5px 0 5px 27px;
+    }
+    ol li:before {
+        font:bold 14px Arial, Tahoma, Verdana, sans-serif;
+        color: #333;
+        margin:0 0 0 -25px;
+        float: left;
+        content: counters(item, '.') '.'; /* crash IE7 */
+        counter-increment: item;
+    }
+}
 
 /* */
 
@@ -562,56 +623,6 @@ table.fr_recipe_tb td { width: 50%;}
         max-width: 580px;
         margin: 0;
     }
-    &_in .wysiwyg-content {
-        padding: 0 20px;
-        font-size: 14px;
-        line-height: 19px;
-        color: #333;
-    }
-    &_in .wysiwyg-content p {margin: 0 0 15px !important;line-height: 19px !important;}
-    &_in .wysiwyg-content a {color: #319fe4;}
-    &_in .wysiwyg-content img {margin: 0 0 5px;}
-    &_in .wysiwyg-content .content-img  {float: none;margin: 0;}
-    &_in .wysiwyg-content h2 {
-        margin: 40px 0 15px;
-        font-size: 16px;
-        font-weight: bold;
-        color: #186fb8;
-    }
-    &_in .wysiwyg-content h3 {
-        margin: 20px 0 10px;
-        font-size: 13px;
-        font-weight: bold;
-        color: #333;
-    }
-    &_in .wysiwyg-content ul {
-        margin: 15px 0;
-        padding: 0;
-        list-style: none;
-    }
-    &_in .wysiwyg-content ul li {
-        margin: 0;
-        padding:5px 0 5px 27px;
-        background: url(/images/bullet.png) no-repeat 4px 10px;
-    }
-    &_in .wysiwyg-content ol {
-        margin: 15px 0;
-        padding: 0;
-        counter-reset: item;
-        list-style-type: none;
-    }
-    &_in .wysiwyg-content ol li {
-        margin: 0;
-        padding:5px 0 5px 27px;
-    }
-    &_in .wysiwyg-content ol li:before {
-        font:bold 14px Arial, Tahoma, Verdana, sans-serif;
-        color: #333;
-        margin:0 0 0 -25px;
-        float: left;
-        content: counters(item, '.') '.'; /* crash IE7 */
-        counter-increment: item;
-    }
     &_in .like-control__smallest {border-left: 1px solid #fff;}
     &_repost-comment {
         margin: 30px 20px 45px;
@@ -770,7 +781,7 @@ table.fr_recipe_tb td { width: 50%;}
 .like-control {
     position: relative;
     width: 72px;
-    padding: 25px 14px;
+    padding: 20px 14px;
     background: #ffe535;
     .border-radius(3px);
     text-align: center;
@@ -802,6 +813,8 @@ table.fr_recipe_tb td { width: 50%;}
         -moz-border-bottom-right-radius: 4px;
         border-bottom-right-radius: 4px;
     }
+    &__smallest .favorites-control {float: none;}
+    &__smallest .favorites-control_a,
     &__smallest &_ico{
         display: block;
         width: 25px;
@@ -813,9 +826,13 @@ table.fr_recipe_tb td { width: 50%;}
 
     &__smallest &_ico.active,
     &__smallest &_ico:hover {background-position: 0 -100px;}
+    &__smallest .favorites-control_a,
     &__smallest &_ico__favorites {background-position: -25px 0;}
     &__smallest &_ico__favorites.active,
+    &__smallest .favorites-control_a.active,
+    &__smallest .favorites-control_a:hover,
     &__smallest &_ico__favorites:hover {background-position: -25px -100px;}
+    &__smallest .favorites-add-popup {left: 35px;top: -13px;}
 
     &_ico {
         .inline-block();
@@ -833,6 +850,17 @@ table.fr_recipe_tb td { width: 50%;}
     &_ico__favorites {background-position: -90px 0;}
     &_ico__favorites.active,
     &_ico__favorites:hover {background-position: -90px -100px;}
+    &_ico__cook {
+        width: 72px;
+        margin: 10px -14px -20px;
+        padding: 100px 14px 20px;
+        background:#b7ce4a url(/images/b-article_control-ico__cook.png) no-repeat 14px 20px;
+        -webkit-border-bottom-left-radius: 3px;
+        -moz-border-bottom-left-radius: 3px;
+        border-bottom-left-radius: 3px;
+    }
+    &_ico__cook.active,
+    &_ico__cook:hover {background-position: -86px 20px;}
     &_repost-complete {
         .inline-block();
         margin: 8px 0 0;
@@ -1342,6 +1370,7 @@ table.fr_recipe_tb td { width: 50%;}
     &_ava {
         float: left;
         margin-right: 10px;
+        margin-top: 3px;
     }
     &_frame {margin-left: 35px;}
     &_header {overflow: hidden; }
@@ -1708,22 +1737,13 @@ table.fr_recipe_tb td { width: 50%;}
         background: url(/images/popup-blog-set_close.png) no-repeat;
     }
     &_close:hover {background-position: 0 -22px;}
-    &:after {
-        content:'';
-        position: absolute;
-        left: 285px;
-        top: -28px;
-        width: 44px;
-        height: 28px;
-        background: url(/images/b-settings-blue_tale.png) no-repeat;
-    }
     &_col-narrow {
         float: left;
         width: 360px;
     }
     &_col-wide {
         float: right;
-        width: 500px;
+        width: 515px;
     }
     &_label {
         display: block;
@@ -3004,7 +3024,7 @@ table.fr_recipe_tb td { width: 50%;}
         width: 25%;
         margin: 6px 0;
         font-size: 15px;
-        line-height: 19px;
+        line-height: 20px;
     }
     &_li-a.active {
         font-weight: bold;

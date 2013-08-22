@@ -9,6 +9,8 @@ ko.bindingHandlers.length = {
 var BlogViewModel = function(data) {
     var self = this;
 
+    self.jcrop = ko.observable(null);
+
     self.title = ko.observable(data.title);
     self.draftTitleValue = ko.observable(data.title);
     self.draftTitle = ko.observable(data.title);
@@ -60,6 +62,58 @@ var BlogViewModel = function(data) {
     self.addRubric = function() {
         self.rubrics.push(new Rubric({ id : null, title : '', beingEdited : true }, self));
     }
+
+    self.showPreview = function(coords) {
+        position = coords;
+
+        var rx = 720 / coords.w;
+        var ry = 128 / coords.h;
+
+        $('#preview').css({
+            width: Math.round(rx * self.draftPhoto().width()) + 'px',
+            height: Math.round(ry * self.draftPhoto().height()) + 'px',
+            marginLeft: '-' + Math.round(rx * coords.x) + 'px',
+            marginTop: '-' + Math.round(ry * coords.y) + 'px'
+        });
+    };
+
+    self.initJcrop = function() {
+        $('.popup-blog-set_jcrop-img').Jcrop({
+            setSelect: [ self.photo().position().x, self.photo().position().y, self.photo().position().x2, self.photo().position().y2 ],
+            onChange: showPreview,
+            onSelect: showPreview,
+            aspectRatio: 720 / 128,
+            boxWidth: 320
+        }, function(){
+            self.jcrop(this);
+        });
+
+        $('#upload-target').on('load', function() {
+            var response = $(this).contents().find('#response').text();
+            if (response.length > 0) {
+                self.draftPhoto(new Photo($.parseJSON(response)));
+                self.jcrop().destroy();
+                self.jcrop(null);
+                var x = self.draftPhoto().width()/2 - 720/2;
+                var y = self.draftPhoto().height()/2 - 128/2;
+                var x2 = x + 720;
+                var y2 = y + 128;
+                $('.popup-blog-set_jcrop-img').Jcrop({
+                    setSelect: [ x, y, x2, y2 ],
+                    onChange: showPreview,
+                    onSelect: showPreview,
+                    aspectRatio: 720 / 128,
+                    boxWidth: 320
+                }, function(){
+                    self.jcrop(this);
+                });
+            }
+        });
+    };
+
+    self.showJcrop = ko.computed(function() {
+        return self.jcrop() !== null;
+    });
 }
 
 var Photo = function(data) {

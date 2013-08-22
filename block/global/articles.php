@@ -39,7 +39,10 @@
 				<p>	Недавно посмотрел фильм "Убить Дракона" снятый в 1988 году с Абдуловым в главной роли. По мотивам пьесы Евгения Шварца «Дракон».</p>
 				<div class="b-article_in-img">
 									
-					<a href="" class="video-preview"><img alt="" src="http://img.dev.happy-giraffe.ru/thumbs/580x/16534/f464362269821285b5b2aa67855267da.jpeg"></a>
+					<a href="" class="video-preview">
+						<img alt="" src="http://img.dev.happy-giraffe.ru/thumbs/580x/16534/f464362269821285b5b2aa67855267da.jpeg">
+						<span class="video-preview_overlay"></span>
+					</a>
 				</div>
 			</div>
 		</div>

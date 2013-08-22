@@ -976,8 +976,10 @@ a.pseudo:hover,
   position: relative;
   display: block;
 }
-.video-preview:after {
-  content: '';
+.video-preview:hover .video-preview_overlay {
+  background-position: 0 -100px;
+}
+.video-preview_overlay {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -985,9 +987,7 @@ a.pseudo:hover,
   height: 97px;
   margin: -48px 0 0 -48px;
   background: url(/images/video-preview.png) no-repeat;
-}
-.video-preview:hover:after {
-  background-position: 0 -100px;
+  z-index: 10;
 }
 /* icons */
 .ico-friends-small {

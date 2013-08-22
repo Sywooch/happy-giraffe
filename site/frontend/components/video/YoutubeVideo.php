@@ -9,6 +9,8 @@
 
 class YoutubeVideo extends BasicVideo
 {
+    protected $oembedParams = array('maxwidth' => 580, 'maxheight' => 580);
+
     public function getId()
     {
         parse_str(parse_url($this->url, PHP_URL_QUERY), $params);

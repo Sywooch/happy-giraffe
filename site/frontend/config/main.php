@@ -316,6 +316,12 @@ return array(
             'token_auth' => '2e20e09969eb34201467c8339dce749d',
             'idSite' => 1,
         ),
+        'phpThumb' => array(
+            'class' => 'ext.EPhpThumb.EPhpThumb',
+            'options' => array(
+                'resizeUp' => true,
+            ),
+        ),
 	),
 
 	// application-level parameters that can be accessed

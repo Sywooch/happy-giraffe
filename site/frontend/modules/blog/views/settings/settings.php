@@ -69,7 +69,7 @@
                     <div class="float-l">
 
                         <div class="aside-blog-desc">
-                            <div class="aside-blog-desc_tx" data-bind="html: description"></div>
+                            <div class="aside-blog-desc_tx" data-bind="html: descriptionToShow"></div>
                         </div>
                     </div>
                 </div>

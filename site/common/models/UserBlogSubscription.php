@@ -59,14 +59,15 @@ class UserBlogSubscription extends HActiveRecord
      * возвращает всех подписчиков блога
      *
      * @param int $user_id id автора блога
+     * @param int $limit
      * @return User[]
      */
-    public function getSubscribers($user_id)
+    public function getSubscribers($user_id, $limit = 7)
     {
         $criteria = new CDbCriteria;
         $criteria->compare('user2_id', $user_id);
         $criteria->with = array('subscriber', 'avatar');
-        $criteria->limit = 7;
+        $criteria->limit = $limit;
         return User::model()->findAll($criteria);
     }
 
@@ -91,11 +92,11 @@ class UserBlogSubscription extends HActiveRecord
      * @param int $user_id
      * @return int[]
      */
-    public function getSubUserIds($user_id)
+    public static function getSubUserIds($user_id)
     {
         return Yii::app()->db->createCommand()
             ->select('user2_id')
-            ->from($this->tableName())
+            ->from(self::model()->tableName())
             ->where('user_id=:user_id', array(':user_id' => $user_id))
             ->queryColumn();
     }
@@ -158,5 +159,38 @@ class UserBlogSubscription extends HActiveRecord
         $model->user_id = Yii::app()->user->id;
         $model->user2_id = $user2_id;
         return $model->save();
+    }
+
+    /**
+     * Блоги, на которые не подписан
+     *
+     * @param int $user_id
+     * @return int[]
+     */
+    public static function notSubscribedUserIds($user_id)
+    {
+        $all_club_ids = Yii::app()->db->createCommand()->cache(3600)
+            ->select('id')
+            ->from('community__communities')
+            ->queryColumn();
+
+        $subscribed_ids = self::getSubUserIds($user_id);
+        return array_diff($all_club_ids, $subscribed_ids);
+    }
+
+    /**
+     * @param int $user_id
+     * @return array
+     */
+    public static function getTopSubscription($user_id)
+    {
+        return Yii::app()->db->createCommand()
+            ->select('user2_id, count(user2_id) as count')
+            ->from(self::model()->tableName())
+            ->where('user2_id NOT IN (Select user2_id from '.self::model()->tableName().' where user_id=:user_id)', array(':user_id' => $user_id))
+            ->group('user2_id')
+            ->order('count')
+            ->limit(20)
+            ->queryColumn();
     }
 }

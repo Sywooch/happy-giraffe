@@ -3,18 +3,8 @@
  * @var $this ClubsWidget
  */
 ?>
-<div class="club-list clearfix" id="user-clubs">
-    <div class="clearfix">
-        <span class="heading-small">Мои клубы <span
-                class="color-gray">(<!-- ko text: count --><!-- /ko -->)</span> </span>
-    </div>
+<div class="club-list club-list__big clearfix" id="user-clubs">
     <ul class="club-list_ul clearfix">
-        <?php if ($this->isMyProfile): ?>
-            <li class="club-list_li">
-                <a href="" class="club-list_add"></a>
-            </li>
-        <?php endif ?>
-
         <!-- ko foreach: clubs -->
         <li class="club-list_li" data-bind="css: {'club-list_li__in': have()}">
             <a href="" class="club-list_i" data-bind="attr: {href: url}">
@@ -30,7 +20,7 @@
 </div>
 <script type="text/javascript">
     $(function () {
-        vm = new UserClubsWidget(<?=CJSON::encode($this->data)?>);
+        vm = new UserClubsWidget(<?=CJSON::encode($this->data)?>, '<?=$this->size ?>');
         ko.applyBindings(vm, document.getElementById('user-clubs'));
     });
 </script>

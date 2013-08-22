@@ -1097,7 +1097,7 @@ class User extends HActiveRecord
 
     public function getBlogTitle()
     {
-        return (empty($this->blog_title)) ? 'Блог - ' . $this->fullName : $this->blog_title;
+        return $this->blog_title === null ? 'Блог - ' . $this->fullName : $this->blog_title;
     }
 
     function createPassword($length)

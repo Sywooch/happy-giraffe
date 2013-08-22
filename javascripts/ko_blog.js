@@ -19,12 +19,16 @@ var BlogViewModel = function(data) {
         return new Rubric(rubric, self);
     }));
 
+    self.descriptionToShow = ko.computed(function() {
+        return self.description().replace(/\n/g, '<br />');
+    });
+
     self.setTitle = function() {
         self.title(self.titleValue());
     }
 
     self.setDescription = function() {
-        self.description(self.descriptionValue().replace(/\n/g, '<br />'));
+        self.description(self.descriptionValue());
     }
 
     self.titleHandler = function(data, event) {

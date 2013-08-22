@@ -133,37 +133,7 @@
 
         $(function() {
             ko.applyBindings(blogVM, document.getElementById('popup-blog-set'));
-            jcrop_api = null;
-            $('.popup-blog-set_jcrop-img').Jcrop({
-                setSelect: [ blogVM.photo().position().x, blogVM.photo().position().y, blogVM.photo().position().x2, blogVM.photo().position().y2 ],
-                onChange: showPreview,
-                onSelect: showPreview,
-                aspectRatio: 720 / 128,
-                boxWidth: 320
-            }, function(){
-                jcrop_api = this;
-            });
-
-            $('#upload-target').on('load', function() {
-                var response = $(this).contents().find('#response').text();
-                if (response.length > 0) {
-                    blogVM.draftPhoto(new Photo($.parseJSON(response)));
-                    jcrop_api.destroy();
-                    var x = blogVM.draftPhoto().width()/2 - 720/2;
-                    var y = blogVM.draftPhoto().height()/2 - 128/2;
-                    var x2 = x + 720;
-                    var y2 = y + 128;
-                    $('.popup-blog-set_jcrop-img').Jcrop({
-                        setSelect: [ x, y, x2, y2 ],
-                        onChange: showPreview,
-                        onSelect: showPreview,
-                        aspectRatio: 720 / 128,
-                        boxWidth: 320
-                    }, function(){
-                        jcrop_api = this;
-                    });
-                }
-            });
+            blogVM.initJcrop();
         });
     </script>
 </div

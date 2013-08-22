@@ -16,8 +16,10 @@ class SettingsController extends HController
 
     public function actionUpdate()
     {
+        $blogTitle = Yii::app()->request->getPost('blog_title');
+
         $user = Yii::app()->user->model;
-        $user->blog_title = Yii::app()->request->getPost('blog_title');
+        $user->blog_title = $blogTitle == $user->getDefaultBlogTitle() ? null : $blogTitle;
         $user->blog_description = Yii::app()->request->getPost('blog_description');
         $user->blog_photo_id = Yii::app()->request->getPost('blog_photo_id');
         $p = Yii::app()->request->getPost('blog_photo_position');

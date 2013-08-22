@@ -1,4 +1,3 @@
-<?php $this->beginContent('//layouts/common_new'); ?>
 <?php
     Yii::app()->clientScript
         ->registerCssFile('/stylesheets/user.css')
@@ -9,9 +8,9 @@
         ->registerScriptFile('/javascripts/upload/FileAPI.exif.js', CClientScript::POS_BEGIN)
     ;
 
-    //Yii::app()->controller->widget('site.common.extensions.imperavi-redactor-widget.ImperaviRedactorWidget', array('onlyRegisterScript' => true));
-
+    $data = $this->getBlogData();
 ?>
+<?php $this->beginContent('//layouts/common_new'); ?>
 <?php if (!Yii::app()->user->isGuest):?>
     <div class="content-cols clearfix">
         <div class="col-1">
@@ -47,8 +46,8 @@
 
         <?php $this->widget('Avatar', array('user' => $this->user, 'size' => 200, 'message_link' => false, 'blog_link' => false)); ?>
 
-        <div class="aside-blog-desc blogInfo" data-bind="visible: description().length > 0">
-            <div class="aside-blog-desc_tx" data-bind="html: description"></div>
+        <div class="aside-blog-desc blogInfo" data-bind="visible: descriptionToShow().length > 0">
+            <div class="aside-blog-desc_tx" data-bind="html: descriptionToShow"><?=$data['description']?></div>
         </div>
 
         <?php $this->renderPartial('_subscribers'); ?>
@@ -57,11 +56,11 @@
 
     </div>
     <div class="col-23-middle col-gray">
-        <div class="blog-title-b blogInfo" data-bind="visible: title().length > 0">
+        <div class="blog-title-b blogInfo">
             <div class="blog-title-b_img-hold">
                 <img alt="" class="blog-title-b_img" data-bind="attr: { src : photo().thumbSrc() }">
             </div>
-            <h1 class="blog-title-b_t" data-bind="text: title"></h1>
+            <h1 class="blog-title-b_t" data-bind="text: title, visible: title().length > 0"><?=$data['title']?></h1>
         </div>
 
         <?=$content ?>
@@ -69,7 +68,7 @@
 
 </div>
 <script type="text/javascript">
-    blogVM = new BlogViewModel(<?=CJSON::encode($this->getBlogData())?>);
+    blogVM = new BlogViewModel(<?=CJSON::encode($data)?>);
     $(".blogInfo").each(function(index, el) {
         ko.applyBindings(blogVM, el);
     });

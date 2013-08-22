@@ -41,6 +41,11 @@ return array(
         'services/<category_id:\d+>' => 'site/services',
         'services' => 'site/services',
 
+        //===================== Subscribes =========================//
+        'subscribe/my'=>'subscribe/default/index',
+        'subscribe/recommends'=>'subscribe/default/recommends',
+
+
         // ajax controller
         'ajax/duelShow/question_id/<question_id:\d+>' => 'ajax/duelShow',
         'ajaxSimple/<_a>'=>'ajaxSimple/<_a>',

@@ -112,6 +112,7 @@ return array(
         'profile',
         'search',
         'community',
+        'subscribe',
         'family',
 	),
 	// application components

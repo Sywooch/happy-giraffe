@@ -17,13 +17,13 @@ class ExternalImagesBehavior extends CActiveRecordBehavior
         $attributes = array_keys($this->owner->getAttributes($this->attributes));
         foreach ($attributes as $attr) {
             try {
-                $doc = phpQuery::newDocumentHTML($this->owner->$attr, 'utf8');
+                $doc = phpQuery::newDocumentXHTML($this->owner->$attr, 'utf8');
             } catch (Exception $e) {
                 $tidy_config = array(
                     'show-body-only' => true,
                 );
                 $tidy = tidy_repair_string($this->owner->$attr, $tidy_config, 'utf8');
-                $doc = phpQuery::newDocumentHTML($tidy, 'utf8');
+                $doc = phpQuery::newDocumentXHTML($tidy, 'utf8');
             }
 
             foreach (pq('img') as $e) {

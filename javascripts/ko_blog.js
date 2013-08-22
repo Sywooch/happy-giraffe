@@ -8,14 +8,18 @@ ko.bindingHandlers.length = {
 
 var BlogViewModel = function(data) {
     var self = this;
+
     self.title = ko.observable(data.title);
-    self.description = ko.observable(data.description);
     self.draftTitleValue = ko.observable(data.title);
-    self.draftDescriptionValue = ko.observable(data.description);
     self.draftTitle = ko.observable(data.title);
+
+    self.description = ko.observable(data.description);
+    self.draftDescriptionValue = ko.observable(data.description);
     self.draftDescription = ko. observable(data.description);
+
     self.photo = ko.observable(data.photo === null ? null : new Photo(data.photo));
     self.draftPhoto = ko.observable(data.photo === null ? null : new Photo(data.photo));
+
     self.currentRubricId = data.currentRubricId;
     self.rubrics = ko.observableArray(ko.utils.arrayMap(data.rubrics, function(rubric) {
         return new Rubric(rubric, self);

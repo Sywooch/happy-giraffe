@@ -13,7 +13,6 @@
  * @property string $response_id
  * @property string $quote_id
  * @property string $quote_text
- * @property string $position
  * @property string $removed
  *
  * The followings are the available model relations:
@@ -61,7 +60,7 @@ class Comment extends HActiveRecord
             array('text', 'required', 'on' => 'default'),
             array('author_id, entity_id, response_id, quote_id', 'length', 'max' => 11),
             array('entity', 'length', 'max' => 255),
-            array('text, position, quote_text, selectable_quote', 'safe'),
+            array('text, quote_text, selectable_quote', 'safe'),
             array('removed', 'boolean'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
@@ -103,7 +102,6 @@ class Comment extends HActiveRecord
             'response_id' => 'Response id',
             'quote_id' => 'Quote id',
             'quote_text' => 'Quote text',
-            'position' => 'Позиция',
             'removed' => 'Удален',
         );
     }
@@ -114,20 +112,8 @@ class Comment extends HActiveRecord
      */
     public function search()
     {
-        // Warning: Please modify the following code to remove attributes that
-        // should not be searched.
-
         $criteria = new CDbCriteria;
-
         $criteria->compare('id', $this->id, true);
-        $criteria->compare('text', $this->text, true);
-        $criteria->compare('created', $this->created, true);
-        $criteria->compare('author_id', $this->author_id, true);
-        $criteria->compare('entity', $this->entity, true);
-        $criteria->compare('entity_id', $this->entity_id, true);
-        $criteria->compare('response_id', $this->response_id, true);
-        $criteria->compare('quote_id', $this->quote_id, true);
-        $criteria->compare('removed', $this->removed, true);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
@@ -156,7 +142,7 @@ class Comment extends HActiveRecord
             'duplicate' => array(
                 'class' => 'site.common.behaviors.DuplicateBehavior',
                 'attribute' => 'text',
-                'error_text' => 'Вы только что создали рецепт с таким названием'
+                'error_text' => 'Вы только что создали комментарий с таким названием'
             )
         );
     }
@@ -237,40 +223,9 @@ class Comment extends HActiveRecord
 
     public function beforeSave()
     {
-        /* Вырезка цитаты */
-        $find = '/<div class="quote">(.*)<\/div>/ims';
-        preg_match($find, $this->text, $matches);
-        if (isset($this->quote_id)) {
-            if (count($matches) > 0) {
-                $this->text = preg_replace($find, '', $this->text);
-                if ($this->selectable_quote == 1) {
-                    $this->quote_text = $matches[1];
-                }
-            } else {
-                $this->quote_text = '';
-                $this->quote_id = null;
-            }
-        }
-
-        if (isset($this->response_id) && $this->response_id == '')
+        if (empty($this->response_id))
             $this->response_id = null;
 
-
-        if ($this->isNewRecord) {
-            $criteria = new CDbCriteria(array(
-                'select' => 'position',
-                'order' => 'created DESC',
-                'limit' => 1,
-                'condition' => 'entity = :entity and entity_id = :entity_id',
-                'params' => array(':entity' => $this->entity, ':entity_id' => $this->entity_id)
-            ));
-            $model = $this->find($criteria);
-            if (!$model)
-                $position = 1;
-            else
-                $position = $model->position + 1;
-            $this->position = $position;
-        }
         return parent::beforeSave();
     }
 
@@ -280,14 +235,7 @@ class Comment extends HActiveRecord
         NotificationDelete::commentDeleted($this);
         Scoring::commentRemoved($this);
 
-
         return false;
-    }
-
-    public function afterDelete()
-    {
-        $this->renewPosition();
-        parent::afterDelete();
     }
 
     public static function getUserAvarageCommentsCount($user)
@@ -300,52 +248,6 @@ class Comment extends HActiveRecord
             $days = 1;
 
         return round($comments_count / $days);
-    }
-
-
-    /**
-     * Пересчитывает позиции группы коментариев внутри сущности
-     */
-    public function renewPosition()
-    {
-        $criteria = new CDbCriteria(array(
-            'select' => '*',
-            'order' => 'created ASC',
-            'condition' => 'entity = :entity and entity_id = :entity_id',
-            'params' => array(':entity' => $this->entity, ':entity_id' => $this->entity_id)
-        ));
-        $index = 0;
-        $comments = Comment::model()->findAll($criteria);
-        foreach ($comments as $model) {
-            $index++;
-            $model->position = $index;
-            $model->save();
-        }
-    }
-
-    /**
-     * @static
-     * Пересчитывает позиции ВСЕХ комментариев
-     */
-    public static function updateComments()
-    {
-        $criteria = new CDbCriteria;
-        $criteria->group = 'entity, entity_id';
-        $criteria->select = '*';
-        $comments = Comment::model()->findAll($criteria);
-        foreach ($comments as $c) {
-            $cr = new CDbCriteria;
-            $cr->condition = 'entity = :entity and entity_id = :entity_id';
-            $cr->params = array(':entity' => $c->entity, ':entity_id' => $c->entity_id);
-            $cr->order = 'created ASC';
-            $comment = Comment::model()->findAll($cr);
-            $index = 0;
-            foreach ($comment as $km) {
-                $index++;
-                $km->position = $index;
-                $km->save(false);
-            }
-        }
     }
 
     public function getUrl($absolute = false)

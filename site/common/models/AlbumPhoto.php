@@ -682,9 +682,14 @@ class AlbumPhoto extends HActiveRecord
         return $title;
     }
 
-    public function getWidget()
+    /**
+     * @param bool $edit в редактировании
+     * @param bool $comments в комментариях
+     * @return string
+     */
+    public function getWidget($edit = false, $comments = false)
     {
-        return Yii::app()->controller->renderPartial('//albums/_widget', array('model' => $this), true);
+        return Yii::app()->controller->renderPartial('//albums/_widget', array('model' => $this, 'edit' => $edit, 'comments' => $comments), true);
     }
 
     protected function setDimensions()
@@ -753,6 +758,13 @@ class AlbumPhoto extends HActiveRecord
     public static function getPhotoFromUrl($url)
     {
         if (preg_match('/http:\/\/img.happy-giraffe.ru\/thumbs\/[\d]+x[\d]+\/[\d]+\/([^\"]+)/', $url, $m)) {
+            return AlbumPhoto::model()->findByAttributes(array('fs_name' => $m[1]));
+        }
+        #TODO для тестирования
+        if (preg_match('/http:\/\/img.dev.happy-giraffe.ru\/thumbs\/[\d]+x[\d]+\/[\d]+\/([^\"]+)/', $url, $m)) {
+            return AlbumPhoto::model()->findByAttributes(array('fs_name' => $m[1]));
+        }
+        if (preg_match('/http:\/\/img.happy-giraffe.com\/thumbs\/[\d]+x[\d]+\/[\d]+\/([^\"]+)/', $url, $m)) {
             return AlbumPhoto::model()->findByAttributes(array('fs_name' => $m[1]));
         }
 

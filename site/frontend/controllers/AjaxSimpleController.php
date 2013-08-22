@@ -156,7 +156,7 @@ class AjaxSimpleController extends CController
         echo CJSON::encode(array(
             'status' => 200,
             'id' => $model->id,
-            'html' => $model->getWidget(),
+            'html' => $model->getWidget(true),
             'image_url' => $model->getOriginalUrl(),
             'width' => $width,
             'height' => $height,

@@ -23,6 +23,7 @@ function CommentViewModel(data) {
         setTimeout(function () {
             self.editor.redactor('focusEnd');
         }, 100);
+        return true;
     };
 
     self.getCount = ko.computed(function () {

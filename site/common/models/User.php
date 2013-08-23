@@ -1422,6 +1422,23 @@ class User extends HActiveRecord
         );
     }
 
+    public function getBlogData()
+    {
+        return array(
+            'authorId' => $this->id,
+            'title' => $this->getBlogTitle(),
+            'description' => $this->blog_description,
+            'photo' => $this->getBlogPhoto(),
+            'rubrics' => array_map(function ($rubric) {
+                return array(
+                    'id' => $rubric->id,
+                    'title' => $rubric->title,
+                    'url' => Yii::app()->createUrl('/blog/default/index', array('user_id' => $rubric->user_id, 'rubric_id' => $rubric->id)),
+                );
+            }, $this->blog_rubrics),
+        );
+    }
+
     public function getAva()
     {
         return '';

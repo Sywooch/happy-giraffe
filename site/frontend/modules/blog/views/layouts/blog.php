@@ -1,10 +1,11 @@
 <?php
-    Yii::app()->clientScript
-        ->registerCssFile('/stylesheets/user.css')
-        ->registerPackage('ko_blog')
-        ->registerPackage('ko_upload');
+Yii::app()->clientScript
+    ->registerCssFile('/stylesheets/user.css')
+    ->registerPackage('ko_blog')
+    ->registerPackage('ko_upload');
 
-    $data = $this->getBlogData();
+$data = $this->getBlogData();
+$data['currentRubricId'] = $this->rubric_id;
 ?>
 <?php $this->beginContent('//layouts/common_new'); ?>
 <?php if (!Yii::app()->user->isGuest):?>

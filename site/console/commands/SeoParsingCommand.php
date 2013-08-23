@@ -222,6 +222,11 @@ class SeoParsingCommand extends CConsoleCommand
 
     public function actionAddLiSite($id){
         $site = LiSite::model()->findByPk($id);
+        $exist = Site::model()->findByAttributes(array('url'=>$site->url));
+        if ($exist){
+            echo "exist\n";
+            Yii::app()->end();
+        }
         $site2= new Site;
         $site2->name =$site->url;
         $site2->url =$site->url;

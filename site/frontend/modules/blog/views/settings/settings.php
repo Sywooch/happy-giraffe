@@ -37,7 +37,7 @@
                     <div class="popup-blog-set_col-wide">
                         <label for="" class="popup-blog-set_label">Название блога</label>
                         <div class="margin-t15 clearfix">
-                            <div class="popup-blog-set_jcrop">
+                            <div class="popup-blog-set_jcrop" data-bind="style: { height : showJcrop ? 'auto' : '0' }" style="overflow: hidden;">
                                 <img alt="" class="popup-blog-set_jcrop-img" data-bind="attr: { src : draftPhoto().originalSrc() }">
                             </div>
                             <div class="float-l">

@@ -19,17 +19,17 @@
                     <div class="popup-blog-set_col-narrow">
                         <label for="" class="popup-blog-set_label">Название блога</label>
                         <div class="clearfix">
-                            <div class="float-r font-small color-gray" data-bind="length: { attribute : titleValue, maxLength : 50 }"></div>
+                            <div class="float-r font-small color-gray" data-bind="length: { attribute : draftTitleValue, maxLength : 50 }"></div>
                         </div>
-                        <input type="text" class="popup-blog-set_itx" placeholder="Введите название" data-bind="value: titleValue, valueUpdate: 'keyup', event: { keypress : titleHandler }" maxlength="50">
+                        <input type="text" class="popup-blog-set_itx" placeholder="Введите название" data-bind="value: draftTitleValue, valueUpdate: 'keyup', event: { keypress : titleHandler }" maxlength="50">
                         <div class="margin-t5 margin-b10 clearfix">
                             <button class="btn-green float-r" data-bind="click: setTitle">Ok</button>
                         </div>
                         <label for="" class="popup-blog-set_label">Краткое описание</label>
                         <div class="clearfix">
-                            <div class="float-r font-small color-gray" data-bind="length: { attribute : descriptionValue, maxLength : 150 }"></div>
+                            <div class="float-r font-small color-gray" data-bind="length: { attribute : draftDescriptionValue, maxLength : 150 }"></div>
                         </div>
-                        <textarea class="popup-blog-set_itx" placeholder="Краткое описание" data-bind="value: descriptionValue, valueUpdate: 'keyup'"></textarea>
+                        <textarea class="popup-blog-set_itx" placeholder="Краткое описание" data-bind="value: draftDescriptionValue, valueUpdate: 'keyup'"></textarea>
                         <div class="margin-t5 margin-b10 clearfix">
                             <button class="btn-green float-r" data-bind="click: setDescription">Ok</button>
                         </div>
@@ -38,7 +38,7 @@
                         <label for="" class="popup-blog-set_label">Название блога</label>
                         <div class="margin-t15 clearfix">
                             <div class="popup-blog-set_jcrop">
-                                <img alt="" class="popup-blog-set_jcrop-img" data-bind="attr: { src : draftPhoto().originalSrc() }">
+                                <img alt="" class="popup-blog-set_jcrop-img" data-bind="attr: { src : draftPhoto().originalSrc() }" style="display: none;">
                             </div>
                             <div class="float-l">
                                 <div class="margin-b10 clearfix">
@@ -63,13 +63,13 @@
                             <div class="blog-title-b_img-hold">
                                 <img alt="" class="blog-title-b_img" id="preview" data-bind="attr: { src : draftPhoto().originalSrc() }">
                             </div>
-                            <h1 class="blog-title-b_t" data-bind="text: title"></h1>
+                            <h1 class="blog-title-b_t" data-bind="text: draftTitle, visible: draftTitle().length > 0"></h1>
                         </div>
                     </div>
                     <div class="float-l">
 
-                        <div class="aside-blog-desc">
-                            <div class="aside-blog-desc_tx" data-bind="html: description"></div>
+                        <div class="aside-blog-desc" data-bind="visible: draftDescriptionToShow().length > 0">
+                            <div class="aside-blog-desc_tx" data-bind="html: draftDescriptionToShow"></div>
                         </div>
                     </div>
                 </div>
@@ -133,37 +133,7 @@
 
         $(function() {
             ko.applyBindings(blogVM, document.getElementById('popup-blog-set'));
-            jcrop_api = null;
-            $('.popup-blog-set_jcrop-img').Jcrop({
-                setSelect: [ blogVM.photo().position().x, blogVM.photo().position().y, blogVM.photo().position().x2, blogVM.photo().position().y2 ],
-                onChange: showPreview,
-                onSelect: showPreview,
-                aspectRatio: 720 / 128,
-                boxWidth: 320
-            }, function(){
-                jcrop_api = this;
-            });
-
-            $('#upload-target').on('load', function() {
-                var response = $(this).contents().find('#response').text();
-                if (response.length > 0) {
-                    blogVM.draftPhoto(new Photo($.parseJSON(response)));
-                    jcrop_api.destroy();
-                    var x = blogVM.draftPhoto().width()/2 - 720/2;
-                    var y = blogVM.draftPhoto().height()/2 - 128/2;
-                    var x2 = x + 720;
-                    var y2 = y + 128;
-                    $('.popup-blog-set_jcrop-img').Jcrop({
-                        setSelect: [ x, y, x2, y2 ],
-                        onChange: showPreview,
-                        onSelect: showPreview,
-                        aspectRatio: 720 / 128,
-                        boxWidth: 320
-                    }, function(){
-                        jcrop_api = this;
-                    });
-                }
-            });
+            blogVM.initJcrop();
         });
     </script>
 </div

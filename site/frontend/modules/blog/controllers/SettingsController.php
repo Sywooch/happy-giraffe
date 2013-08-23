@@ -17,22 +17,24 @@ class SettingsController extends HController
     public function actionUpdate()
     {
         $blogTitle = Yii::app()->request->getPost('blog_title');
+        $blogDescription = Yii::app()->request->getPost('blog_description');
+        $blogPhotoPosition = Yii::app()->request->getPost('blog_photo_position');
+        $blogPhotoId = CJSON::decode(Yii::app()->request->getPost('blog_photo_id'));
 
         $user = Yii::app()->user->model;
         $user->blog_title = $blogTitle == $user->getDefaultBlogTitle() ? null : $blogTitle;
-        $user->blog_description = Yii::app()->request->getPost('blog_description');
-        $user->blog_photo_id = Yii::app()->request->getPost('blog_photo_id');
-        $p = Yii::app()->request->getPost('blog_photo_position');
-        $user->blog_photo_position = CJSON::encode($p);
+        $user->blog_description = $blogDescription;
 
-        $photo = ! empty($user->blog_photo_id) ? AlbumPhoto::model()->findByPk($user->blog_photo_id) : AlbumPhoto::createByUrl('http://109.87.248.203/images/jcrop-blog.jpg', Yii::app()->user->id);
-
+        $photo = $blogPhotoId !== null ? AlbumPhoto::model()->findByPk($blogPhotoId) : AlbumPhoto::createByUrl('http://dev.happy-giraffe.ru/images/jcrop-blog.jpg', Yii::app()->user->id);
         $image = Yii::app()->phpThumb->create($photo->getOriginalPath());
-        $rx = 720 / $p['w'];
-        $ry = 128 / $p['h'];
+        $rx = 720 / $blogPhotoPosition['w'];
+        $ry = 128 / $blogPhotoPosition['h'];
         $width = round($rx * $photo->width);
         $height = round($ry * $photo->height);
-        $image->resize($width, $height)->crop($rx * $p['x'], $ry * $p['y'], $rx * $p['w'], $ry * $p['h'])->save($photo->getBlogPath());
+        $image->resize($width, $height)->crop($rx * $blogPhotoPosition['x'], $ry * $blogPhotoPosition['y'], $rx * $blogPhotoPosition['w'], $ry * $blogPhotoPosition['h'])->save($photo->getBlogPath());
+        $user->blog_photo_id = $photo->id;
+        $user->blog_photo_position = CJSON::encode($blogPhotoPosition);
+
         $success = $user->save(true, array('blog_title', 'blog_description', 'blog_photo_id', 'blog_photo_position'));
         $response = compact('success');
         if ($success)

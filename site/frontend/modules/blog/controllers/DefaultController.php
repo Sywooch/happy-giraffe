@@ -224,14 +224,7 @@ class DefaultController extends HController
         return array(
             'title' => $this->user->getBlogTitle(),
             'description' => $this->user->blog_description,
-            'photo' => array(
-                'id' => $this->user->blogPhoto === null ? null : $this->user->blogPhoto->id,
-                'originalSrc' => $this->user->getBlogPhotoOriginal(),
-                'thumbSrc' => $this->user->getBlogPhotoThumb(),
-                'width' => $this->user->getBlogPhotoWidth(),
-                'height' => $this->user->getBlogPhotoHeight(),
-                'position' => $this->user->getBlogPhotoPosition(),
-            ),
+            'photo' => $this->user->getBlogPhoto(),
             'rubrics' => array_map(function ($rubric) {
                 return array(
                     'id' => $rubric->id,

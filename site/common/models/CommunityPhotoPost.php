@@ -66,6 +66,13 @@ class CommunityPhotoPost extends HActiveRecord
                 'class' => 'site.common.behaviors.PreviewBehavior',
                 'small_preview' => true,
             ),
+            'purified' => array(
+                'class' => 'site.common.behaviors.PurifiedBehavior',
+                'attributes' => array('preview'),
+                'options' => array(
+                    'AutoFormat.Linkify' => true,
+                ),
+            ),
         );
     }
 

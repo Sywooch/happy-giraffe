@@ -213,10 +213,10 @@
 					<a href="" class="btn-blue btn-h46 float-r">Добавить рецепт</a>
 				</div>
 				<div class="col-gray">
-					<div class="heading-title margin-b5 clearfix">
+					<div class="heading-title margin-b5 margin-t15 clearfix">
 						Торты и пирожные
 					</div>
-					<p class="font-middle margin-l20">Одним из основных свидетельств правильного течения <br> беременности является набор веса согласно принятым нормам. </p>
+					<p class="margin-l20 color-gray-dark">Одним из основных свидетельств правильного течения <br> беременности является набор веса согласно принятым нормам. </p>
 					<div class="b-article clearfix">
 						<div class="float-l">
 							<div class="like-control like-control__small-indent clearfix">

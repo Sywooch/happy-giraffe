@@ -525,6 +525,10 @@ html.top-nav-fixed {
   color: #a9a6a6 !important;
   border-color: #a9a6a6;
 }
+.color-gray-dark {
+  color: #717171 !important;
+  border-color: #a9a6a6;
+}
 .font-smallest {
   font-size: 9px !important;
   line-height: 11px !important;
@@ -1564,6 +1568,7 @@ a.pseudo:hover,
 }
 /* /icons */
 .logo {
+  position: relative;
   margin: 0 auto;
   padding: 10px 0 15px;
   overflow: hidden;
@@ -1577,9 +1582,8 @@ a.pseudo:hover,
   margin: 0 auto;
 }
 .logo_slogan {
-  display: block;
-  text-indent: -9999px;
-  overflow: hidden;
+  position: absolute;
+  left: -9000px;
 }
 /* errors */
 .error input[type=text],
@@ -6736,7 +6740,6 @@ select.pregnancy_term + .chzn-container .chzn-results li {
 }
 .chzn-bluelight {
   display: inline-block;
-  height: 25px;
   min-width: 78px;
   width: 100%;
 }
@@ -11502,7 +11505,7 @@ select.pregnancy_term + .chzn-container .chzn-results li {
 */
 .layout-header {
   position: relative;
-  padding: 10px 10px 0;
+  padding: 20px 10px 5px;
   margin-bottom: 20px;
 }
 .layout-header .logo {
@@ -11512,7 +11515,7 @@ select.pregnancy_term + .chzn-container .chzn-results li {
 }
 .layout-header_logout {
   position: absolute;
-  top: 5px;
+  top: 10px;
   right: 0;
   padding: 2px 20px 2px 0;
   text-decoration: none;
@@ -13157,9 +13160,9 @@ select.pregnancy_term + .chzn-container .chzn-results li {
   display: none;
   position: absolute;
   top: 46px;
-  left: 50%;
+  left: -180px;
   width: 220px;
-  margin: 0 0 0 -120px;
+  margin: 0;
   padding: 10px;
   background: #fff;
   border: 1px solid #DFDFDF;
@@ -13175,12 +13178,11 @@ select.pregnancy_term + .chzn-container .chzn-results li {
   content: '';
   position: absolute;
   top: -5px;
-  left: 50%;
+  right: 35px;
   height: 10px;
   width: 10px;
   z-index: 1;
   background: #FFFFFF;
-  margin: 0 0 0 -5px;
   -webkit-transform: rotate(-135deg);
   -moz-transform: rotate(-135deg);
   -ms-transform: rotate(-135deg);
@@ -15951,8 +15953,12 @@ select.pregnancy_term + .chzn-container .chzn-results li {
 .menu-simple_li__with-drop.active {
   background: url(/images/menu-simple_li__with-drop.png) no-repeat -300px 4px;
 }
+.menu-simple_li__with-drop ul {
+  margin-bottom: 10px;
+}
 .menu-simple_li__with-drop .menu-simple_li {
   margin: 2px 0;
+  font-size: 12px;
 }
 .menu-simple_a {
   color: #289fd7;
@@ -19664,14 +19670,13 @@ select.pregnancy_term + .chzn-container .chzn-results li {
   color: #b5b5b5;
   text-decoration: none;
 }
-.yiipagination .page:hover a {
-  color: #888;
-}
+.yiipagination .page:hover,
 .yiipagination .page.selected {
   background: #6accff;
   font-weight: bold;
   color: #fff;
 }
+.yiipagination .page:hover a,
 .yiipagination .page.selected a {
   color: #fff;
 }

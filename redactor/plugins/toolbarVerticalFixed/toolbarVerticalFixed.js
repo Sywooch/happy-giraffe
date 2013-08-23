@@ -17,7 +17,6 @@ RedactorPlugins.toolbarVerticalFixed = {
 		var left = 'auto';
 
 		var end = boxTop + this.$box.height() - toolbarHolder.height();
-console.log(scrollTop, toolbarHolder.height());
 		if (scrollTop > boxTop)
 		{
 			var width = 'auto';

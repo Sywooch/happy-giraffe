@@ -1,10 +1,10 @@
 	<div class="layout-header clearfix">
 		<div class="layout-header_hold clearfix">
 				
-			<div class="logo-box">
-				<a href="/" class="logo" title="happy-giraffe.ru – Домашняя страница">Веселый жираф - сайт для все семьи</a>
-				<span>САЙТ ДЛЯ ВСЕЙ СЕМЬИ</span>
-			</div>
+			<h1 class="logo">
+				<a href="/" class="logo_i" title="Веселый жираф - сайт для все семьи">Веселый жираф - сайт для все семьи</a>
+				<strong class="logo_slogan">САЙТ ДЛЯ ВСЕЙ СЕМЬИ</strong>
+			</h1>
 			<div class="header-menu">
 				<ul class="header-menu_ul clearfix">
 					<li class="header-menu_li">
@@ -13,10 +13,11 @@
 							<span class="header-menu_tx">Мой <br> Жираф</span>
 						</a>
 					</li>
-					<li class="header-menu_li">
+					<li class="header-menu_li active">
 						<a href="" class="header-menu_a">
 							<span class="header-menu_ico header-menu_ico__notice"></span>
 							<span class="header-menu_tx">Мои <br> уведомления</span>
+							<span class="header-menu_count">256</span>
 						</a>
 					</li>
 					<li class="header-menu_li">
@@ -40,15 +41,17 @@
 							<span class="header-menu_tx">Моя <br> семья</span>
 						</a>
 					</li>
-					<li class="header-menu_li">
+					<li class="header-menu_li active">
 						<a href="" class="header-menu_a">
 							<span class="header-menu_ico header-menu_ico__im"></span>
+							<span class="header-menu_tx">Мои <br> сообщения</span>
 							<span class="header-menu_count">25456</span>
 						</a>
 					</li>
-					<li class="header-menu_li">
+					<li class="header-menu_li active">
 						<a href="" class="header-menu_a">
 							<span class="header-menu_ico header-menu_ico__friend"></span>
+							<span class="header-menu_tx">Мои <br> друзья</span>
 							<span class="header-menu_count">2</span>
 						</a>
 					</li>

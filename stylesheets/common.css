@@ -740,6 +740,31 @@ hr,
   padding: 3px 10px;
   line-height: 16px;
 }
+::-webkit-input-placeholder {
+  color: #b6b6b6;
+  font-weight: normal;
+  opacity: 1;
+}
+::-moz-placeholder {
+  color: #b6b6b6;
+  font-weight: normal;
+  opacity: 1;
+}
+:-moz-placeholder {
+  color: #b6b6b6;
+  font-weight: normal;
+  opacity: 1;
+}
+:placeholder {
+  color: #b6b6b6;
+  font-weight: normal;
+  opacity: 1;
+}
+.placeholder {
+  color: #b6b6b6;
+  font-weight: normal;
+  opacity: 1;
+}
 .msg-win {
   color: #3cae31;
   font-size: 13px;
@@ -1538,48 +1563,23 @@ a.pseudo:hover,
   background-position: 0 0;
 }
 /* /icons */
-.logo-box {
+.logo {
   margin: 0 auto;
-  text-align: center;
-  color: #8d5bbc;
-  text-transform: uppercase;
-  font-size: 10px;
-  letter-spacing: 3px;
-  line-height: 25px;
-  padding: 25px 0 15px;
+  padding: 10px 0 15px;
+  overflow: hidden;
 }
-.logo-box > .logo {
+.logo_i {
   display: block;
-  width: 198px;
-  height: 93px;
-  background: url(../images/common.png) no-repeat 0 -200px;
+  width: 181px;
+  height: 104px;
+  background: url(../images/logo.png) no-repeat;
   text-indent: -9999px;
   margin: 0 auto;
 }
-::-webkit-input-placeholder {
-  color: #b6b6b6;
-  font-weight: normal;
-  opacity: 1;
-}
-::-moz-placeholder {
-  color: #b6b6b6;
-  font-weight: normal;
-  opacity: 1;
-}
-:-moz-placeholder {
-  color: #b6b6b6;
-  font-weight: normal;
-  opacity: 1;
-}
-:placeholder {
-  color: #b6b6b6;
-  font-weight: normal;
-  opacity: 1;
-}
-.placeholder {
-  color: #b6b6b6;
-  font-weight: normal;
-  opacity: 1;
+.logo_slogan {
+  display: block;
+  text-indent: -9999px;
+  overflow: hidden;
 }
 /* errors */
 .error input[type=text],
@@ -11551,9 +11551,9 @@ select.pregnancy_term + .chzn-container .chzn-results li {
   padding: 10px 10px 0;
   margin-bottom: 20px;
 }
-.layout-header .logo-box {
+.layout-header .logo {
   float: left;
-  margin: 0 40px 0 40px;
+  margin: 5px 40px 0 40px;
   padding: 0;
 }
 .layout-header_logout {
@@ -11583,6 +11583,18 @@ select.pregnancy_term + .chzn-container .chzn-results li {
   margin: 5px 8px;
   width: 70px;
   text-align: center;
+}
+.header-menu_li.active .header-menu_ico__notice {
+  background-position: -50px -50px;
+}
+.header-menu_li.active .header-menu_ico__im {
+  background-position: -50px -200px;
+}
+.header-menu_li.active .header-menu_tx {
+  display: none;
+}
+.header-menu_li.active .header-menu_count {
+  display: inline-block;
 }
 .header-menu_li__sepor {
   width: 1px;
@@ -11631,8 +11643,8 @@ select.pregnancy_term + .chzn-container .chzn-results li {
   color: #a187bb;
 }
 .header-menu_count {
-  display: inline-block;
-  margin: 2px 0;
+  display: none;
+  margin: 4px 0 0;
   padding: 0 4px;
   color: #fff;
   background-color: #cd0000;
@@ -11646,6 +11658,24 @@ select.pregnancy_term + .chzn-container .chzn-results li {
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
+}
+.logo-box {
+  margin: 0 auto;
+  text-align: center;
+  color: #8d5bbc;
+  text-transform: uppercase;
+  font-size: 10px;
+  letter-spacing: 3px;
+  line-height: 25px;
+  padding: 25px 0 15px;
+}
+.logo-box > .logo {
+  display: block;
+  width: 198px;
+  height: 93px;
+  background: url(../images/common.png) no-repeat 0 -200px;
+  text-indent: -9999px;
+  margin: 0 auto;
 }
 .top-nav-fixed #header-new {
   z-index: 90;

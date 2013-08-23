@@ -4914,12 +4914,12 @@
   height: 10px;
   background: #fff;
   z-index: 1;
-  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.12);
-  -webkit-transform: rotate(135deg);
-  -moz-transform: rotate(135deg);
-  -ms-transform: rotate(135deg);
-  -o-transform: rotate(135deg);
-  transform: rotate(135deg);
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.12);
+  -webkit-transform: rotate(-135deg);
+  -moz-transform: rotate(-135deg);
+  -ms-transform: rotate(-135deg);
+  -o-transform: rotate(-135deg);
+  transform: rotate(-135deg);
 }
 .nutrition_portion {
   margin: 0 5px 5px 27px;
@@ -5042,7 +5042,7 @@
   float: left;
   width: 360px;
   list-style: none;
-  background: #f1f6f9;
+  background: #fafafa;
   padding: 4px 10px 10px;
 }
 .cook-article-tags-list > li {
@@ -12136,6 +12136,7 @@ ul.letters li a:hover {
   font-size: 14px;
   line-height: 19px;
   color: #333;
+  word-wrap: break-word;
 }
 .wysiwyg-content p {
   margin: 0 0 15px;

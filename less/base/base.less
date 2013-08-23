@@ -87,6 +87,13 @@ hr,
 		line-height: 16px;
 	}
 }
+
+::-webkit-input-placeholder { color: #b6b6b6;font-weight: normal;opacity: 1;}
+::-moz-placeholder{ color: #b6b6b6;font-weight: normal;opacity: 1;}
+:-moz-placeholder{ color: #b6b6b6;font-weight: normal;opacity: 1;}
+:placeholder { color: #b6b6b6;font-weight: normal;opacity: 1;}
+.placeholder { color: #b6b6b6;font-weight: normal;opacity: 1;}
+
 .msg-win {color: #3cae31;font-size: 13px;}
 .msg-error {color: #ff8686;font-size: 13px;}
 
@@ -598,14 +605,25 @@ a.pseudo:hover,
 }
 /* /icons */
 
-.logo-box {margin: 0 auto;text-align:center;color:#8d5bbc;text-transform:uppercase;font-size:10px;letter-spacing:3px;line-height:25px;padding: 25px 0 15px;}
-.logo-box > .logo {display:block;width:198px;height:93px;background:url(../images/common.png) no-repeat 0 -200px;text-indent:-9999px;margin:0 auto;}
+.logo {
+	margin: 0 auto;
+	padding: 10px 0 15px;
+	overflow: hidden;
 
-::-webkit-input-placeholder { color: #b6b6b6;font-weight: normal;opacity: 1;}
-::-moz-placeholder{ color: #b6b6b6;font-weight: normal;opacity: 1;}
-:-moz-placeholder{ color: #b6b6b6;font-weight: normal;opacity: 1;}
-:placeholder { color: #b6b6b6;font-weight: normal;opacity: 1;}
-.placeholder { color: #b6b6b6;font-weight: normal;opacity: 1;}
+	&_i {
+		display:block;
+		width:181px;
+		height:104px;
+		background:url(../images/logo.png) no-repeat;
+		text-indent:-9999px;
+		margin:0 auto;
+	}
+	&_slogan {
+		display: block;
+		text-indent: -9999px;
+		overflow: hidden;
+	}
+}
 
 /* errors */
 .error input[type=text],

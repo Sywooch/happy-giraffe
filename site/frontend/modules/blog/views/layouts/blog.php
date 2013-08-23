@@ -47,7 +47,7 @@
         </div>
 
         <?php $this->renderPartial('_subscribers'); ?>
-        <?php $this->renderPartial('_rubric_list'); ?>
+        <?php $this->renderPartial('_rubric_list', array('currentRubricId' => $this->rubric_id)); ?>
         <?php $this->renderPartial('_popular'); ?>
 
     </div>

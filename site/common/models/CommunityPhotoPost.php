@@ -68,7 +68,7 @@ class CommunityPhotoPost extends HActiveRecord
             ),
             'purified' => array(
                 'class' => 'site.common.behaviors.PurifiedBehavior',
-                'attributes' => array('preview'),
+                'attributes' => array('preview', 'text'),
                 'options' => array(
                     'AutoFormat.Linkify' => true,
                 ),

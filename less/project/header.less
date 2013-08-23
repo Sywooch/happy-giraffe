@@ -15,9 +15,9 @@
 	padding: 10px 10px 0;
 	margin-bottom: 20px;
 
-	.logo-box {
+	.logo {
 		float: left;
-		margin:0 40px 0 40px;
+		margin:5px 40px 0 40px;
 		padding: 0;
 	}
 	&_hold {}
@@ -49,6 +49,10 @@
 		width: 70px;
 		text-align: center;
 	}
+	&_li.active &_ico__notice    {background-position: -50px -50px;}
+	&_li.active &_ico__im        {background-position: -50px -200px;}
+	&_li.active &_tx {display: none;}
+	&_li.active &_count {.inline-block();}
 	&_li__sepor {
 		width: 1px;
 		height: 75px;
@@ -69,7 +73,7 @@
 	}
 	&_ico__giraffe   {background-position: 0 0;}
 	&_ico__notice    {background-position: 0 -50px;}
-	&_ico__favorite {background-position: 0 -100px;}
+	&_ico__favorite  {background-position: 0 -100px;}
 	&_ico__family    {background-position: 0 -150px;}
 	&_ico__im        {background-position: 0 -200px;}
 	&_ico__friend    {background-position: 0 -250px;}
@@ -80,14 +84,17 @@
 		color: #a187bb;
 	}
 	&_count {
-		.inline-block();
-		margin: 2px 0;
+		display: none;
+		margin: 4px 0 0;
 		padding: 0 4px;
 		color: #fff;
 		.gvertical(#ff1a00, #cd0000);
 		.border-radius(4px);
 	}
 }
+
+.logo-box {margin: 0 auto;text-align:center;color:#8d5bbc;text-transform:uppercase;font-size:10px;letter-spacing:3px;line-height:25px;padding: 25px 0 15px;}
+.logo-box > .logo {display:block;width:198px;height:93px;background:url(../images/common.png) no-repeat 0 -200px;text-indent:-9999px;margin:0 auto;}
 
 .top-nav-fixed #header-new{z-index:90;padding-top: 0;}
 #header-new {margin-bottom:20px;position:relative;padding-top: 42px;}

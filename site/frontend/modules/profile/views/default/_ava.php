@@ -4,7 +4,7 @@
  * @author Alex Kireev <alexk984@gmail.com>
  */
 Yii::app()->clientScript
-    ->registerPackage('jo_upload');
+    ->registerPackage('ko_upload');
 
 if (!empty($user->avatar_id) && !empty($user->avatar->userAvatar)) {
     $userAva = $user->avatar->userAvatar;
@@ -81,7 +81,7 @@ if (Yii::app()->user->id != $user->id):
                                         </div>
                                         <div class="file-fake">
                                             <button class="btn-green btn-medium file-fake_btn">Обзор</button>
-                                            <input class="js-upload-files" type="file" name="">
+                                            <input class="js-upload-files-multiple" type="file" name="">
                                         </div>
                                     </div>
                                     <div class="b-add-img_html5-tx">или перетащите фото сюда</div>
@@ -90,8 +90,6 @@ if (Yii::app()->user->id != $user->id):
                                         будут удаляться
                                     </div>
                                     <!-- /ko -->
-
-                                    <div class="js-image" style="opacity: 0.5" data-bind="visible: status() == 1"></div>
 
                                     <div class="b-add-img_i-vert" data-bind="visible: status() == 1"></div>
                                     <div class="b-add-img_i-load" data-bind="visible: status() == 1">
@@ -132,9 +130,8 @@ if (Yii::app()->user->id != $user->id):
     </div>
 <?php endif; ?>
 <script type="text/javascript">
-    var UserAva = function (data) {
+    var UserAva = function (data, container_selector) {
         var self = this;
-        self.file = ko.observable(null);
         self.image_url = ko.observable(data.image_url);
         self.old_url = ko.observable(self.image_url());
         self.id = ko.observable(data.source_id);
@@ -198,55 +195,38 @@ if (Yii::app()->user->id != $user->id):
             });
         };
 
-        self.upload = function (file) {
-            self.status(0);
-            self.file(file);
-
+        self.upload = function () {
             if (self.jcrop_api !== null)
                 self.jcrop_api.destroy();
-
-            self.file().xhr = FileAPI.upload({
-                url: '/ajaxSimple/uploadPhoto/',
-                imageAutoOrientation: true,
-                files: { file: self.file() },
-                upload: function () {
-                    self.status(1);
-                },
-                progress: function (evt) {
-                    var percent = evt.loaded / evt.total * 100;
-                    self._progress(percent);
-                },
-                complete: function (err, xhr) {
-                    var response = $.parseJSON('[' + xhr.response + ']')[0];
-                    self.width = response.width;
-                    self.height = response.height;
-                    self.id(response.id);
-                    self.image_url(response.image_url);
-
-                    setTimeout(function () {
-                        //$('#jcrop_target').load(function () {
-                        self._progress(100);
-                        self.status(2);
-                        $('#jcrop_target').Jcrop({
-                            setSelect: [200, 200, 120, 120],
-                            trueSize: [self.width, self.height],
-                            onChange: self.showPreview,
-                            onSelect: self.showPreview,
-                            aspectRatio: 1,
-                            boxWidth: 438,
-                            minSize: [200, 200]
-                        }, function () {
-                            self.jcrop_api = this;
-                        });
-                        //});
-                    }, 200);
-                }
-            });
+            self.status(1);
         };
 
         self.progress = ko.computed(function () {
             return self._progress() + '%';
         });
+
+        self.complete = function(response){
+            self.width = response.width;
+            self.height = response.height;
+            self.id(response.id);
+            self.image_url(response.image_url);
+            self.status(2);
+
+            setTimeout(function () {
+                self.status(2);
+                $('#jcrop_target').Jcrop({
+                    setSelect: [200, 200, 120, 120],
+                    trueSize: [self.width, self.height],
+                    onChange: self.showPreview,
+                    onSelect: self.showPreview,
+                    aspectRatio: 1,
+                    boxWidth: 438,
+                    minSize: [200, 200]
+                }, function () {
+                    self.jcrop_api = this;
+                });
+            }, 200);
+        };
 
         $.each($('.b-add-img'), function () {
             $(this)[0].ondragover = function () {
@@ -257,9 +237,26 @@ if (Yii::app()->user->id != $user->id):
             };
         });
 
+        $(container_selector+' .js-upload-files-multiple').fileupload({
+            dataType: 'json',
+            url: '/ajaxSimple/uploadAvatar/',
+            dropZone: $('#popup-upload-ava'),
+            add: function (e, data) {
+                self.upload();
+                data.submit();
+            },
+            done: function (e, data) {
+                self.complete(data.result);
+            }
+        });
+
+        $(container_selector+' .js-upload-files-multiple').bind('fileuploadprogress', function (e, data) {
+            self._progress(data.loaded * 100 / data.total);
+        });
+
     };
 
-    var vm = new UserAva(<?=CJSON::encode($json)?>);
+    var vm = new UserAva(<?=CJSON::encode($json)?>, '#popup-upload-ava');
     $(".upload-avatar-vm").each(function (index, el) {
         ko.applyBindings(vm, el);
     });

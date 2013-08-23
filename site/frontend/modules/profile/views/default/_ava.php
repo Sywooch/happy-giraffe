@@ -4,10 +4,7 @@
  * @author Alex Kireev <alexk984@gmail.com>
  */
 Yii::app()->clientScript
-    ->registerScript('file-upload2', 'var FileAPI = { debug: false, pingUrl: false }', CClientScript::POS_HEAD)
-    ->registerScriptFile('/javascripts/upload/FileAPI.min.js', CClientScript::POS_BEGIN)
-    ->registerScriptFile('/javascripts/upload/FileAPI.id3.js', CClientScript::POS_BEGIN)
-    ->registerScriptFile('/javascripts/upload/FileAPI.exif.js', CClientScript::POS_BEGIN);
+    ->registerPackage('jo_upload');
 
 if (!empty($user->avatar_id) && !empty($user->avatar->userAvatar)) {
     $userAva = $user->avatar->userAvatar;
@@ -187,18 +184,6 @@ if (Yii::app()->user->id != $user->id):
                     self.jcrop_api.destroy();
             }, 500);
         };
-        self.onFiles = function (files) {
-            FileAPI.each(files, function (file) {
-                if (file.size >= 6 * FileAPI.MB)
-                    alert('Размер файла больше 6Мб');
-                else if (file.size === void 0)
-                    alert('Ошибка получения файла');
-//                else if (info.width < 438)
-//                    alert('Слишком маленькое фото');
-                else
-                    self.upload(file);
-            });
-        };
 
         self.showPreview = function (coordinates) {
             self.coordinates = coordinates;
@@ -216,9 +201,6 @@ if (Yii::app()->user->id != $user->id):
         self.upload = function (file) {
             self.status(0);
             self.file(file);
-            FileAPI.Image(self.file()).resize(438, 1000, 'max').get(function (err, img) {
-                $('#popup-upload-ava .js-image').prepend(img);
-            });
 
             if (self.jcrop_api !== null)
                 self.jcrop_api.destroy();
@@ -264,19 +246,6 @@ if (Yii::app()->user->id != $user->id):
 
         self.progress = ko.computed(function () {
             return self._progress() + '%';
-        });
-
-        if (FileAPI.support.dnd) {
-            $('.b-add-img_html5-tx').show();
-            $('#popup-upload-ava .b-add-img').dnd(function (over) {
-            }, function (files) {
-                self.onFiles(files);
-            });
-        }
-        $('#popup-upload-ava .js-upload-files').on('change', function (evt) {
-            var files = FileAPI.getFiles(evt);
-            self.onFiles(files);
-            FileAPI.reset(evt.currentTarget);
         });
 
         $.each($('.b-add-img'), function () {

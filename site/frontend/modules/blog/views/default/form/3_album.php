@@ -56,7 +56,7 @@ $model = new AlbumPhoto();
 
     var PhotoAlbumViewModel = function (data) {
         var self = this;
-        self.upload = ko.observable(new UploadPhotos(null, true));
+        self.upload = ko.observable(new UploadPhotos(null, true, '#popup-user-add-photo'));
         self.showDropdown = ko.observable(false);
         self.newAlbumTitle = ko.observable('');
         self.albumsList = ko.observableArray(ko.utils.arrayMap(data.albumsList, function(album) {
@@ -97,18 +97,6 @@ $model = new AlbumPhoto();
                 }, 'json');
             }
         }
-
-        if (FileAPI.support.dnd) {
-            $('.b-add-img_html5-tx').show();
-            $('#popup-user-add-photo .b-add-img').dnd(function (over) {}, function (files) {
-                self.upload().onFiles(files);
-            });
-        }
-        $('#popup-user-add-photo .js-upload-files-multiple').on('change', function (evt) {
-            var files = FileAPI.getFiles(evt);
-            self.upload().onFiles(files);
-            FileAPI.reset(evt.currentTarget);
-        });
     };
 
     var UserAlbum = function(data) {

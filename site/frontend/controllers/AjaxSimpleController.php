@@ -151,15 +151,11 @@ class AjaxSimpleController extends CController
         foreach ($_FILES as $file)
             $model = AlbumPhoto::model()->createUserTempPhoto($file);
 
-        list($width, $height) = getimagesize($model->getOriginalPath());
-        $model->getPreviewUrl(200, 200, false, true);
         echo CJSON::encode(array(
             'status' => 200,
             'id' => $model->id,
             'html' => $model->getWidget(true),
-            'image_url' => $model->getOriginalUrl(),
-            'width' => $width,
-            'height' => $height,
+            'url' => $model->getPreviewUrl(480, 250, Image::WIDTH),
         ));
     }
 

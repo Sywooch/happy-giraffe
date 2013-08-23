@@ -11,7 +11,7 @@ class PhotoCollectionViewWidget extends CWidget
 {
     public $collection;
     public $width = 580;
-    public $maxHeight = 190;
+    public $maxHeight = 240;
     public $minPhotos = 2;
     public $maxRows = false;
 

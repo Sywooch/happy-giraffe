@@ -219,5 +219,18 @@ class SeoParsingCommand extends CConsoleCommand
             echo round(100 * $i / $count, 2) . "%\n";
         }
     }
+
+    public function actionAddLiSite($id){
+        $site = LiSite::model()->findByPk($id);
+        $site2= new Site;
+        $site2->name =$site->url;
+        $site2->url =$site->url;
+        $site2->password =$site->password;
+        $site2->type = Site::TYPE_LI;
+        if ($site2->save()){
+            echo $site2->id."\n";
+        }else
+            echo "error\n";
+    }
 }
 

@@ -40,7 +40,7 @@ class SettingsController extends HController
         $success = $user->save(true, array('blog_title', 'blog_description', 'blog_photo_id', 'blog_photo_position', 'blog_show_rubrics'));
         $response = compact('success');
         if ($success)
-            $response['thumbSrc'] = $photo->getBlogUrl() . '?' . time();
+            $response['thumbSrc'] = $photo->getBlogUrl();
         echo CJSON::encode($response);
     }
 

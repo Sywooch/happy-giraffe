@@ -3,7 +3,7 @@
  * Author: alexk984
  * Date: 28.06.13
  */
-function UploadPhotos(data, multi) {
+function UploadPhotos(data, multi, container_selector) {
     var self = this;
     self.photos = ko.observableArray([]);
     self.multi = ko.observable(multi);
@@ -13,37 +13,24 @@ function UploadPhotos(data, multi) {
             self.photos.push(new UploadedPhoto(null, self, photo, ''));
         });
     }
-    self.active = false;
 
-    self.onFiles = function (files) {
-        FileAPI.each(files, function (file) {
-            if (file.size >= 4 * FileAPI.MB)
-                var photo = new UploadedPhoto(file, self, null, 'Размер файла больше 4Мб');
-            else if (file.size === void 0)
-                var photo = new UploadedPhoto(file, self, null, 'Ошибка получения файла');
-            else
-                var photo = new UploadedPhoto(file, self, null, '');
-
-            self.photos.push(photo);
-        });
-
-        self.start();
+    self.addPhoto = function (name) {
+        self.photos.push(new UploadedPhoto(name, self, null, ''));
     };
-    self.start = function () {
-        if (!self.active)
-            ko.utils.arrayFirst(self.photos(), function (photo) {
-                if (photo.status() == 0) {
-                    photo.upload();
-                }
-            });
-    };
-
     self.getPhotoIds = function () {
         var ids = [];
         for (var i = 0; i < self.photos().length; i++)
             ids.push(self.photos()[i].id());
 
         return ids;
+    };
+    self.findPhotoByName = function(name){
+        var result = null;
+        ko.utils.arrayForEach(self.photos(), function (photo) {
+            if (photo.name == name)
+                result = photo;
+        });
+        return result;
     };
     self.openLoad = function(data, event){
         if (self.photos().length < 1)
@@ -71,79 +58,52 @@ function UploadPhotos(data, multi) {
             $('.b-add-img').removeClass('dragover')
         };
     });
+
+    $(container_selector+' .js-upload-files-multiple').fileupload({
+        dataType: 'json',
+        url: '/ajaxSimple/uploadPhoto/',
+        dropZone: $('#upload-files'),
+        add: function (e, data) {
+            self.addPhoto(data.files[0].name);
+            data.submit();
+        },
+        done: function (e, data) {
+            self.findPhotoByName(data.files[0].name).complete(data.result);
+        }
+    });
+
+    $(container_selector+' .js-upload-files-multiple').bind('fileuploadprogress', function (e, data) {
+        console.log(data.loaded * 100 / data.total);
+        self.findPhotoByName(data.files[0].name)._progress(data.loaded * 100 / data.total);
+    });
 }
 
-function UploadedPhoto(file, parent, photo, error) {
+function UploadedPhoto(name, parent, photo, error) {
     var self = this;
 
     self.parent = parent;
-    self.canvas = ko.observable('');
+    self.name = name;
     self.error = ko.observable(error);
     self.html = '';
 
-    if (file != null) {
-        self.file = file;
-        self.uid = FileAPI.uid(file);
+    if (name != null) {
         self.id = ko.observable('');
         self.status = ko.observable(0);
         self._progress = ko.observable(0);
-
-        if (/^image/.test(self.file.type)) {
-            if (self.parent.photos().length == 0)
-                FileAPI.Image(self.file).resize(480, 250, 'max').get(function (err, img) {
-                    $('#uploaded_photo_' + self.uid + ' .js-image').prepend(img);
-                });
-            else {
-                if (self.parent.photos().length == 1) {
-
-                    //переделываем превью первой фотки на маленькое
-                    var first_image = self.parent.photos()[0];
-                    if (first_image.file) {
-                        FileAPI.Image(first_image.file).resize(195, 125, 'max').get(function (err, img) {
-                            first_image.canvas(img);
-                            $('#uploaded_photo_' + first_image.uid + ' .js-image').html('').prepend(img);
-                        });
-                    }
-                }
-                FileAPI.Image(self.file).resize(195, 125, 'max').get(function (err, img) {
-                    self.canvas(img);
-                    $('#uploaded_photo_' + self.uid + ' .js-image').prepend(img);
-                });
-            }
-        }
+        self.url = ko.observable('');
     } else {
-        self.file = null;
         self.id = ko.observable(photo.id);
-        self.uid = photo.id;
         self.status = ko.observable(2);
         self._progress = ko.observable(100);
-        self.url = photo.url;
+        self.url = ko.observable(photo.url);
     }
 
-    self.upload = function () {
-        if (!self.isError())
-            self.file.xhr = FileAPI.upload({
-                url: '/ajaxSimple/uploadPhoto/',
-                imageAutoOrientation: true,
-                files: { file: file },
-                upload: function () {
-                    self.status(1);
-                },
-                progress: function (evt) {
-                    var percent = evt.loaded / evt.total * 100;
-                    self._progress(percent);
-                },
-                complete: function (err, xhr) {
-                    var response = $.parseJSON('[' + xhr.response + ']')[0];
-                    self.id(response.id);
-                    self.html = response.html;
-                    self._progress(100);
-                    self.status(2);
-                    $('#uploaded_photo_' + self.uid + ' .js-image').css({ opacity: 1 });
-                    self.parent.active = false;
-                    self.parent.start();
-                }
-            });
+    self.complete = function (response) {
+        console.log(response);
+        self.id(response.id);
+        self.html = response.html;
+        self.status(2);
+        self.url(response.url);
     };
 
     self.progress = ko.computed(function () {
@@ -151,8 +111,6 @@ function UploadedPhoto(file, parent, photo, error) {
     });
 
     self.remove = function () {
-        if (self.file && self.file.xhr)
-            self.file.xhr.abort();
         self.parent.photos.remove(self);
     };
     self.isSingle = ko.computed(function () {

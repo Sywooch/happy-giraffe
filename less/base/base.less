@@ -225,8 +225,8 @@ a.pseudo:hover,
 	position: relative;
 	display: block;
 
-	&:after {
-		content:'';
+	&:hover &_overlay{background-position: 0 -100px;}
+	&_overlay {
 		position: absolute;
 		top: 50%;
 		left: 50%;
@@ -234,8 +234,8 @@ a.pseudo:hover,
 		height: 97px;
 		margin: -48px 0 0 -48px;
 		background: url(/images/video-preview.png) no-repeat;
+		z-index: 10;
 	}
-	&:hover:after {background-position: 0 -100px;}
 }
 
 /* icons */

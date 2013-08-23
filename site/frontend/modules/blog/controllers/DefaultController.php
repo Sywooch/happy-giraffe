@@ -224,15 +224,6 @@ class DefaultController extends HController
         return array(
             'title' => $this->user->getBlogTitle(),
             'description' => $this->user->blog_description,
-            'rubrics' => array_map(function ($rubric) {
-                return array(
-                    'id' => $rubric->id,
-                    'title' => $rubric->title,
-                    'url' => Yii::app()->createUrl('/blog/default/index', array('user_id' => $rubric->user_id, 'rubric_id' => $rubric->id)),
-                );
-            }, $this->user->blog_rubrics),
-            'currentRubricId' => $this->rubric_id,
-            'updateUrl' => $this->createUrl('settings/update'),
             'photo' => array(
                 'id' => $this->user->blogPhoto === null ? null : $this->user->blogPhoto->id,
                 'originalSrc' => $this->user->getBlogPhotoOriginal(),
@@ -241,6 +232,14 @@ class DefaultController extends HController
                 'height' => $this->user->getBlogPhotoHeight(),
                 'position' => $this->user->getBlogPhotoPosition(),
             ),
+            'rubrics' => array_map(function ($rubric) {
+                return array(
+                    'id' => $rubric->id,
+                    'title' => $rubric->title,
+                    'url' => Yii::app()->createUrl('/blog/default/index', array('user_id' => $rubric->user_id, 'rubric_id' => $rubric->id)),
+                );
+            }, $this->user->blog_rubrics),
+            'currentRubricId' => $this->rubric_id,
         );
     }
 

@@ -1,10 +1,11 @@
 <?php
-    Yii::app()->clientScript
-        ->registerCssFile('/stylesheets/user.css')
-        ->registerPackage('ko_blog')
-        ->registerPackage('ko_upload');
+Yii::app()->clientScript
+    ->registerCssFile('/stylesheets/user.css')
+    ->registerPackage('ko_blog')
+    ->registerPackage('ko_upload');
 
-    $data = $this->getBlogData();
+$data = $this->user->getBlogData();
+$data['currentRubricId'] = $this->rubric_id;
 ?>
 <?php $this->beginContent('//layouts/common_new'); ?>
 <?php if (!Yii::app()->user->isGuest):?>
@@ -47,14 +48,16 @@
         </div>
 
         <?php $this->renderPartial('_subscribers'); ?>
-        <?php $this->renderPartial('_rubric_list'); ?>
+        <div class="menu-simple blogInfo" id="rubricsList" data-bind="visible: showRubrics">
+        <?php $this->renderPartial('_rubric_list', array('currentRubricId' => $this->rubric_id)); ?>
+        </div>
         <?php $this->renderPartial('_popular'); ?>
 
     </div>
     <div class="col-23-middle col-gray">
         <div class="blog-title-b blogInfo">
             <div class="blog-title-b_img-hold">
-                <img alt="" class="blog-title-b_img" data-bind="attr: { src : photo().thumbSrc() }">
+                <img alt="" class="blog-title-b_img" data-bind="attr: { src : photoThumbSrcToShow }">
             </div>
             <h1 class="blog-title-b_t" data-bind="text: title, visible: title().length > 0"><?=$data['title']?></h1>
         </div>

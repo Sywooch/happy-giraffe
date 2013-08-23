@@ -204,7 +204,8 @@ class PurifiedBehavior extends CActiveRecordBehavior
         if (isset($entity) && isset($entity_id)){
             $model = CActiveRecord::model($entity)->findByPk($entity_id);
             if ($model){
-                $comments = get_class($this->getOwner()) == 'Comment';
+                $class = get_class($this->getOwner());
+                $comments = ($class == 'Comment');
                 return $model->getWidget(false, $comments);
             }
         }

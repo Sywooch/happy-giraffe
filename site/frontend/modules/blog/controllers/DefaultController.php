@@ -222,9 +222,11 @@ class DefaultController extends HController
     protected function getBlogData()
     {
         return array(
+            'authorId' => $this->user->id,
             'title' => $this->user->getBlogTitle(),
             'description' => $this->user->blog_description,
             'photo' => $this->user->getBlogPhoto(),
+            'currentRubricId' => $this->rubric_id,
             'rubrics' => array_map(function ($rubric) {
                 return array(
                     'id' => $rubric->id,
@@ -232,7 +234,6 @@ class DefaultController extends HController
                     'url' => Yii::app()->createUrl('/blog/default/index', array('user_id' => $rubric->user_id, 'rubric_id' => $rubric->id)),
                 );
             }, $this->user->blog_rubrics),
-            'currentRubricId' => $this->rubric_id,
         );
     }
 
@@ -270,6 +271,12 @@ class DefaultController extends HController
             $rubric->delete();
         }
         echo CJSON::encode(array('status' => true));
+    }
+
+    public function actionRubricsList($userId, $currentRubricId = null)
+    {
+        $this->user = $this->loadUser($userId);
+        $this->renderPartial('_rubric_list', array('currentRubricId' => $currentRubricId));
     }
 
     /**

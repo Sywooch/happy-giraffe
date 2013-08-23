@@ -9,6 +9,8 @@ ko.bindingHandlers.length = {
 var BlogViewModel = function(data) {
     var self = this;
 
+    self.authorId = data.authorId;
+
     // title
     self.title = ko.observable(data.title);
     self.draftTitleValue = ko.observable(data.title);
@@ -43,7 +45,7 @@ var BlogViewModel = function(data) {
     }
 
     // photo
-    self.jcrop = ko.observable(null);
+    self.jcrop = null;
     self.photoThumbSrc = ko.observable(data.photo.thumbSrc);
     self.draftPhoto = ko.observable(data.photo === null ? null : new Photo(data.photo));
 
@@ -54,11 +56,19 @@ var BlogViewModel = function(data) {
 
     self.save = function() {
         $.post('/blog/settings/update/', { blog_title : self.draftTitle(), blog_description : self.draftDescription(), blog_photo_id : self.draftPhoto().id(), blog_photo_position : position }, function(response) {
-            self.title(self.draftTitle());
-            self.description(self.draftDescription());
-            self.photoThumbSrc(response.thumbSrc);
-            self.draftPhoto().position(position);
-            $.fancybox.close();
+            if (response.success) {
+                self.title(self.draftTitle());
+                self.description(self.draftDescription());
+                self.photoThumbSrc(response.thumbSrc);
+                self.draftPhoto().position(position);
+                $.fancybox.close();
+                var data = { userId : self.authorId };
+                if (self.currentRubricId !== null)
+                    data.currentRubricId = self.currentRubricId;
+                $.get('/blog/default/rubricsList', data, function(response) {
+                    $('#rubricsList').replaceWith(response);
+                });
+            }
         }, 'json');
     }
 
@@ -88,20 +98,20 @@ var BlogViewModel = function(data) {
             aspectRatio: 720 / 128,
             boxWidth: 320
         }, function(){
-            self.jcrop(this);
+            self.jcrop = this;
         });
 
         $('#upload-target').on('load', function() {
             var response = $(this).contents().find('#response').text();
             if (response.length > 0) {
                 self.draftPhoto(new Photo($.parseJSON(response)));
-                self.jcrop().setImage(self.draftPhoto().originalSrc(), function() {
+                self.jcrop.setImage(self.draftPhoto().originalSrc(), function() {
                     var x = self.draftPhoto().width()/2 - 720/2;
                     var y = self.draftPhoto().height()/2 - 128/2;
                     var x2 = x + 720;
                     var y2 = y + 128;
 
-                    self.jcrop().setSelect([ x, y, x2, y2 ]);
+                    self.jcrop.setSelect([ x, y, x2, y2 ]);
                 });
             }
         });

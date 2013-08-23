@@ -74,11 +74,7 @@ class SettingsController extends HController
 
     public function actionUploadPhoto()
     {
-        $file = CUploadedFile::getInstanceByName('photo');
-        $model = new AlbumPhoto();
-        $model->author_id = Yii::app()->user->id;
-        $model->file = $file;
-        $model->create();
+        $model = AlbumPhoto::model()->createUserTempPhoto($_FILES['photo']);
 
         $response = array(
             'id' => $model->id,

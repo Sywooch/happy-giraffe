@@ -1,8 +1,4 @@
-<?php if ($this->beginCache('blog-popular', array(
-    'duration' => 600,
-    'varyByParam' => array('user_id'),
-))
-): ?>
+
     <?php $popular_articles = $this->user->getBlogPopular() ?>
     <?php if (!empty($popular_articles)): ?>
         <div class="fast-articles2">
@@ -34,17 +30,21 @@
                     </div>
 
                     <div class="fast-articles2_i-desc"><?= $b->getContentText(100, '') ?></div>
-                    <?php $photo = $b->getPhoto() ?>
-                    <?php if ($photo !== null): ?>
+                    <?php if ($b->type_id == 3): ?>
                         <div class="fast-articles2_i-img-hold">
-                            <a href="<?= $b->url ?>">
-                                <img src="<?= $photo->getPreviewUrl(190, 300, Image::WIDTH) ?>"alt="" class="fast-articles2_i-img">
-                            </a>
+                            <?php $this->widget('PhotoCollectionViewWidget', array('width' => 190, 'maxHeight' => 100, 'maxRows' => 2, 'minPhotos' => 1, 'collection' => new PhotoPostPhotoCollection(array('contentId' => $b->id)))); ?>
                         </div>
-                    <?php endif ?>
+                    <?php else: ?>
+                        <?php $photo = $b->getPhoto() ?>
+                        <?php if ($photo !== null): ?>
+                            <div class="fast-articles2_i-img-hold">
+                                <a href="<?= $b->url ?>">
+                                    <img src="<?= $photo->getPreviewUrl(190, 300, Image::WIDTH) ?>"alt="" class="fast-articles2_i-img">
+                                </a>
+                            </div>
+                        <?php endif ?>
+                    <?php endif; ?>
                 </div>
             <?php endforeach; ?>
         </div>
     <?php endif;
-    $this->endCache();
-endif;

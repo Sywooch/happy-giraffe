@@ -3,6 +3,16 @@
 return array(
     'class' => 'application.components.ClientScript',
     'packages' => array(
+        'jcrop' => array(
+            'baseUrl' => '/',
+            'js' => array(
+                'javascripts/jquery.Jcrop.min.js',
+            ),
+            'css' => array(
+                'stylesheets/jquery.Jcrop.min.css',
+            ),
+            'depends' => array('jquery'),
+        ),
         'comet' => array(
             'baseUrl' => '/',
             'js' => array(
@@ -39,9 +49,8 @@ return array(
                 'javascripts/ko_blog.js',
                 'javascripts/ko_gallery.js',
                 'javascripts/upload.js',
-                'javascripts/jquery.Jcrop.min.js',
             ),
-            'depends' => array('knockout', 'gallery', 'jquery'),
+            'depends' => array('knockout', 'gallery', 'jcrop'),
         ),
         'ko_profile' => array(
             'baseUrl' => '/',
@@ -49,9 +58,8 @@ return array(
                 'javascripts/ko_gallery.js',
                 'javascripts/ko_user_profile.js',
                 'javascripts/upload.js',
-                'javascripts/jquery.Jcrop.min.js',
             ),
-            'depends' => array('knockout', 'gallery', 'jquery'),
+            'depends' => array('knockout', 'gallery', 'jcrop'),
         ),
 
         'ko_search' => array(

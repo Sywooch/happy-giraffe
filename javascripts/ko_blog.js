@@ -11,21 +11,26 @@ var BlogViewModel = function(data) {
 
     self.jcrop = ko.observable(null);
 
+    // title
     self.title = ko.observable(data.title);
     self.draftTitleValue = ko.observable(data.title);
     self.draftTitle = ko.observable(data.title);
 
+    self.setTitle = function() {
+        self.draftTitle(self.draftTitleValue());
+    }
+
+    self.titleHandler = function(data, event) {
+        if (event.which == 13)
+            self.setTitle()
+        else
+            return true;
+    }
+
+    // description
     self.description = ko.observable(data.description);
     self.draftDescriptionValue = ko.observable(data.description);
     self.draftDescription = ko. observable(data.description);
-
-    self.photo = ko.observable(data.photo === null ? null : new Photo(data.photo));
-    self.draftPhoto = ko.observable(data.photo === null ? null : new Photo(data.photo));
-
-    self.currentRubricId = data.currentRubricId;
-    self.rubrics = ko.observableArray(ko.utils.arrayMap(data.rubrics, function(rubric) {
-        return new Rubric(rubric, self);
-    }));
 
     self.descriptionToShow = ko.computed(function() {
         return self.description().replace(/\n/g, '<br />');
@@ -35,20 +40,18 @@ var BlogViewModel = function(data) {
         return self.draftDescription().replace(/\n/g, '<br />');
     });
 
-    self.setTitle = function() {
-        self.draftTitle(self.draftTitleValue());
-    }
-
     self.setDescription = function() {
         self.draftDescription(self.draftDescriptionValue());
     }
 
-    self.titleHandler = function(data, event) {
-        if (event.which == 13)
-            self.setTitle()
-        else
-            return true;
-    }
+    // photo
+    self.photo = ko.observable(data.photo === null ? null : new Photo(data.photo));
+    self.draftPhoto = ko.observable(data.photo === null ? null : new Photo(data.photo));
+
+    self.currentRubricId = data.currentRubricId;
+    self.rubrics = ko.observableArray(ko.utils.arrayMap(data.rubrics, function(rubric) {
+        return new Rubric(rubric, self);
+    }));
 
     self.save = function() {
         $.post(data.updateUrl, { blog_title : self.draftTitle(), blog_description : self.draftDescription(), blog_photo_id : self.draftPhoto().id(), blog_photo_position : position }, function(response) {

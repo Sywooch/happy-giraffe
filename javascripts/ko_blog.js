@@ -50,6 +50,8 @@ var BlogViewModel = function(data) {
     self.draftPhoto = ko.observable(data.photo === null ? null : new Photo(data.photo));
 
     // rubrics
+    self.showRubrics = ko.observable(data.showRubrics);
+    self.showRubricsValue = ko.observable(data.showRubrics);
     self.currentRubricId = data.currentRubricId;
     self.rubrics = ko.observableArray(ko.utils.arrayMap(data.rubrics, function(rubric) {
         return new Rubric(rubric, self);
@@ -63,16 +65,17 @@ var BlogViewModel = function(data) {
         var data = { userId : self.authorId };
         if (self.currentRubricId !== null)
             data.currentRubricId = self.currentRubricId;
-        $.get('/blog/default/rubricsList', data, function(response) {
-            $('#rubricsList').replaceWith(response);
+        $.get('/blog/default/rubricsList/', data, function(response) {
+            $('#rubricsList').html(response);
         });
     }
 
     self.save = function() {
-        $.post('/blog/settings/update/', { blog_title : self.draftTitle(), blog_description : self.draftDescription(), blog_photo_id : self.draftPhoto().id(), blog_photo_position : position }, function(response) {
+        $.post('/blog/settings/update/', { blog_title : self.draftTitle(), blog_description : self.draftDescription(), blog_photo_id : self.draftPhoto().id(), blog_photo_position : position, blog_show_rubrics : self.showRubricsValue() }, function(response) {
             if (response.success) {
                 self.title(self.draftTitle());
                 self.description(self.draftDescription());
+                self.showRubrics(self.showRubricsValue());
                 self.photoThumbSrc(response.thumbSrc);
                 self.draftPhoto().position(position);
                 $.fancybox.close();

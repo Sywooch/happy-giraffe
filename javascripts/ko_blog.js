@@ -9,8 +9,6 @@ ko.bindingHandlers.length = {
 var BlogViewModel = function(data) {
     var self = this;
 
-    self.jcrop = ko.observable(null);
-
     // title
     self.title = ko.observable(data.title);
     self.draftTitleValue = ko.observable(data.title);
@@ -45,6 +43,7 @@ var BlogViewModel = function(data) {
     }
 
     // photo
+    self.jcrop = ko.observable(null);
     self.photo = ko.observable(data.photo === null ? null : new Photo(data.photo));
     self.draftPhoto = ko.observable(data.photo === null ? null : new Photo(data.photo));
 
@@ -106,10 +105,6 @@ var BlogViewModel = function(data) {
             }
         });
     };
-
-    self.showJcrop = ko.computed(function() {
-        return self.jcrop() !== null;
-    });
 }
 
 var Photo = function(data) {

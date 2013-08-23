@@ -49,10 +49,24 @@ var BlogViewModel = function(data) {
     self.photoThumbSrc = ko.observable(data.photo.thumbSrc);
     self.draftPhoto = ko.observable(data.photo === null ? null : new Photo(data.photo));
 
+    // rubrics
     self.currentRubricId = data.currentRubricId;
     self.rubrics = ko.observableArray(ko.utils.arrayMap(data.rubrics, function(rubric) {
         return new Rubric(rubric, self);
     }));
+
+    self.addRubric = function() {
+        self.rubrics.push(new Rubric({ id : null, title : '', beingEdited : true }, self));
+    }
+
+    self.updateRubrics = function() {
+        var data = { userId : self.authorId };
+        if (self.currentRubricId !== null)
+            data.currentRubricId = self.currentRubricId;
+        $.get('/blog/default/rubricsList', data, function(response) {
+            $('#rubricsList').replaceWith(response);
+        });
+    }
 
     self.save = function() {
         $.post('/blog/settings/update/', { blog_title : self.draftTitle(), blog_description : self.draftDescription(), blog_photo_id : self.draftPhoto().id(), blog_photo_position : position }, function(response) {
@@ -62,18 +76,9 @@ var BlogViewModel = function(data) {
                 self.photoThumbSrc(response.thumbSrc);
                 self.draftPhoto().position(position);
                 $.fancybox.close();
-                var data = { userId : self.authorId };
-                if (self.currentRubricId !== null)
-                    data.currentRubricId = self.currentRubricId;
-                $.get('/blog/default/rubricsList', data, function(response) {
-                    $('#rubricsList').replaceWith(response);
-                });
+                self.updateRubrics();
             }
         }, 'json');
-    }
-
-    self.addRubric = function() {
-        self.rubrics.push(new Rubric({ id : null, title : '', beingEdited : true }, self));
     }
 
     self.showPreview = function(coords) {

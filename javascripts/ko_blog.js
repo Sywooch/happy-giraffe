@@ -54,7 +54,7 @@ var BlogViewModel = function(data) {
     }));
 
     self.save = function() {
-        $.post(data.updateUrl, { blog_title : self.draftTitle(), blog_description : self.draftDescription(), blog_photo_id : self.draftPhoto().id(), blog_photo_position : position }, function(response) {
+        $.post('/blog/settings/update/', { blog_title : self.draftTitle(), blog_description : self.draftDescription(), blog_photo_id : self.draftPhoto().id(), blog_photo_position : position }, function(response) {
             self.title(self.draftTitle());
             self.description(self.draftDescription());
             self.photo().thumbSrc(response.thumbSrc);

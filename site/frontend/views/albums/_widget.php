@@ -15,7 +15,7 @@ if (!$edit):
 ?><!-- widget: { entity : 'AlbumPhoto', entity_id : '<?php echo $model->id ?>' } --><?php
 endif;
 if ($comments):?>
-    <img src="<?php echo $model->getPreviewUrl(485, 1000) ?>">
+    <a href="javascript:;"><img src="<?php echo $model->getPreviewUrl(165, 1000) ?>"></a>
 <?php else:?>
 <?php if ($model->width >= 580):
     ?><div class="b-article_in-img"><img src="<?php echo $model->getPreviewUrl(580, 1000) ?>" class="content-img"<?php echo $add ?>></div><?php

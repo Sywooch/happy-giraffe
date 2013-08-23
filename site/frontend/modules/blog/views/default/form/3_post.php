@@ -94,7 +94,7 @@
     var PhotoPostViewModel = function (data) {
         var self = this;
         ko.utils.extend(self, new BlogFormViewModel(data));
-        self.upload = ko.observable(new UploadPhotos(data.photos, true));
+        self.upload = ko.observable(new UploadPhotos(data.photos, true, '#popup-user-add-photo-post'));
 
         self.add = function () {
             $('#CommunityPhotoPost_photos').val(self.upload().getPhotoIds());
@@ -105,18 +105,6 @@
                 alert('Минимум 3 фото')
             }
         }
-
-        if (FileAPI.support.dnd) {
-            $('.b-add-img_html5-tx').show();
-            $('#popup-user-add-photo-post .b-add-img').dnd(function (over) {}, function (files) {
-                self.upload().onFiles(files);
-            });
-        }
-        $('#popup-user-add-photo-post .js-upload-files-multiple').on('change', function (evt) {
-            var files = FileAPI.getFiles(evt);
-            self.upload().onFiles(files);
-            FileAPI.reset(evt.currentTarget);
-        });
     };
     var formVM1 = new PhotoPostViewModel(<?=CJSON::encode($json)?>);
     ko.applyBindings(formVM1, document.getElementById('popup-user-add-photo-post'));

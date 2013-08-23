@@ -9,38 +9,13 @@ ko.bindingHandlers.length = {
 var BlogViewModel = function(data) {
     var self = this;
 
-    self.jcrop = ko.observable(null);
-
+    // title
     self.title = ko.observable(data.title);
     self.draftTitleValue = ko.observable(data.title);
     self.draftTitle = ko.observable(data.title);
 
-    self.description = ko.observable(data.description);
-    self.draftDescriptionValue = ko.observable(data.description);
-    self.draftDescription = ko. observable(data.description);
-
-    self.photo = ko.observable(data.photo === null ? null : new Photo(data.photo));
-    self.draftPhoto = ko.observable(data.photo === null ? null : new Photo(data.photo));
-
-    self.currentRubricId = data.currentRubricId;
-    self.rubrics = ko.observableArray(ko.utils.arrayMap(data.rubrics, function(rubric) {
-        return new Rubric(rubric, self);
-    }));
-
-    self.descriptionToShow = ko.computed(function() {
-        return self.description().replace(/\n/g, '<br />');
-    });
-
-    self.draftDescriptionToShow = ko.computed(function() {
-        return self.draftDescription().replace(/\n/g, '<br />');
-    });
-
     self.setTitle = function() {
         self.draftTitle(self.draftTitleValue());
-    }
-
-    self.setDescription = function() {
-        self.draftDescription(self.draftDescriptionValue());
     }
 
     self.titleHandler = function(data, event) {
@@ -50,11 +25,39 @@ var BlogViewModel = function(data) {
             return true;
     }
 
+    // description
+    self.description = ko.observable(data.description);
+    self.draftDescriptionValue = ko.observable(data.description);
+    self.draftDescription = ko. observable(data.description);
+
+    self.descriptionToShow = ko.computed(function() {
+        return self.description().replace(/\n/g, '<br />');
+    });
+
+    self.draftDescriptionToShow = ko.computed(function() {
+        return self.draftDescription().replace(/\n/g, '<br />');
+    });
+
+    self.setDescription = function() {
+        self.draftDescription(self.draftDescriptionValue());
+    }
+
+    // photo
+    self.jcrop = ko.observable(null);
+    self.photoThumbSrc = ko.observable(data.photo.thumbSrc);
+    self.draftPhoto = ko.observable(data.photo === null ? null : new Photo(data.photo));
+
+    self.currentRubricId = data.currentRubricId;
+    self.rubrics = ko.observableArray(ko.utils.arrayMap(data.rubrics, function(rubric) {
+        return new Rubric(rubric, self);
+    }));
+
     self.save = function() {
-        $.post(data.updateUrl, { blog_title : self.draftTitle(), blog_description : self.draftDescription(), blog_photo_id : self.draftPhoto().id(), blog_photo_position : position }, function(response) {
+        $.post('/blog/settings/update/', { blog_title : self.draftTitle(), blog_description : self.draftDescription(), blog_photo_id : self.draftPhoto().id(), blog_photo_position : position }, function(response) {
             self.title(self.draftTitle());
             self.description(self.draftDescription());
-            self.photo().thumbSrc(response.thumbSrc);
+            self.photoThumbSrc(response.thumbSrc);
+            self.draftPhoto().position(position);
             $.fancybox.close();
         }, 'json');
     }
@@ -79,7 +82,7 @@ var BlogViewModel = function(data) {
 
     self.initJcrop = function() {
         $('.popup-blog-set_jcrop-img').Jcrop({
-            setSelect: [ self.photo().position().x, self.photo().position().y, self.photo().position().x2, self.photo().position().y2 ],
+            setSelect: [ self.draftPhoto().position().x, self.draftPhoto().position().y, self.draftPhoto().position().x2, self.draftPhoto().position().y2 ],
             onChange: showPreview,
             onSelect: showPreview,
             aspectRatio: 720 / 128,
@@ -92,34 +95,17 @@ var BlogViewModel = function(data) {
             var response = $(this).contents().find('#response').text();
             if (response.length > 0) {
                 self.draftPhoto(new Photo($.parseJSON(response)));
-                self.jcrop().setImage(self.draftPhoto().originalSrc());
-                var x = self.draftPhoto().width()/2 - 720/2;
-                var y = self.draftPhoto().height()/2 - 128/2;
-                var x2 = x + 720;
-                var y2 = y + 128;
-                self.jcrop().setSelect([ x, y, x2, y2 ]);
-//                self.jcrop().destroy();
-//                self.jcrop(null);
-//                var x = self.draftPhoto().width()/2 - 720/2;
-//                var y = self.draftPhoto().height()/2 - 128/2;
-//                var x2 = x + 720;
-//                var y2 = y + 128;
-//                $('.popup-blog-set_jcrop-img').Jcrop({
-//                    setSelect: [ x, y, x2, y2 ],
-//                    onChange: showPreview,
-//                    onSelect: showPreview,
-//                    aspectRatio: 720 / 128,
-//                    boxWidth: 320
-//                }, function(){
-//                    self.jcrop(this);
-//                });
+                self.jcrop().setImage(self.draftPhoto().originalSrc(), function() {
+                    var x = self.draftPhoto().width()/2 - 720/2;
+                    var y = self.draftPhoto().height()/2 - 128/2;
+                    var x2 = x + 720;
+                    var y2 = y + 128;
+
+                    self.jcrop().setSelect([ x, y, x2, y2 ]);
+                });
             }
         });
     };
-
-    self.showJcrop = ko.computed(function() {
-        return self.jcrop() !== null;
-    });
 }
 
 var Photo = function(data) {

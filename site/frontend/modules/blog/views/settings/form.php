@@ -29,7 +29,7 @@
                         <div class="clearfix">
                             <div class="float-r font-small color-gray" data-bind="length: { attribute : draftDescriptionValue, maxLength : 150 }"></div>
                         </div>
-                        <textarea class="popup-blog-set_itx" placeholder="Краткое описание" data-bind="value: draftDescriptionValue, valueUpdate: 'keyup'"></textarea>
+                        <textarea class="popup-blog-set_itx" placeholder="Краткое описание" data-bind="value: draftDescriptionValue, valueUpdate: 'keyup'" maxlength="150"></textarea>
                         <div class="margin-t5 margin-b10 clearfix">
                             <button class="btn-green float-r" data-bind="click: setDescription">Ok</button>
                         </div>

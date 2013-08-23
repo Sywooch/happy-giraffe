@@ -11,9 +11,8 @@ class PhotoCollectionViewWidget extends CWidget
 {
     public $collection;
     public $width = 580;
-    public $maxHeight = 190;
-//    public $thresholdCoefficient = 0.775;
-    public $minPhotos = 3;
+    public $maxHeight = 250;
+    public $minPhotos = 2;
     public $maxRows = false;
 
     public function run()
@@ -56,16 +55,6 @@ class PhotoCollectionViewWidget extends CWidget
         }, 0);
     }
 
-//    public function getThreshold($photos)
-//    {
-//        $balance = array_reduce($photos, function($v, $w) {
-//            $v += (($w->width / $w->height) > 1) ? 1 : -1;
-//            return $v;
-//        }, 0);
-//        $orientCoefficient = $balance <= 0 ? 2 : 1;
-//        return $this->width / count($photos) * $this->thresholdCoefficient * $orientCoefficient;
-//    }
-
     protected function registerScripts()
     {
         $basePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR;
@@ -79,21 +68,3 @@ class PhotoCollectionViewWidget extends CWidget
         $this->widget('application.widgets.newCommentWidget.NewCommentWidget', array('registerScripts' => true));
     }
 }
-
-//class PhotoCollectionViewWidget extends CWidget
-//{
-//    public function run()
-//    {
-//        $this->registerScripts();
-//    }
-//
-//    protected function registerScripts()
-//    {
-//        $basePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR;
-//        $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
-//        Yii::app()->clientScript
-//            ->registerScriptFile('/javascripts/ko_gallery.js')
-//            ->registerScriptFile($baseUrl . '/PhotoCollectionViewWidget.js')
-//        ;
-//    }
-//}

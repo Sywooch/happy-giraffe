@@ -1,5 +1,5 @@
 <!-- ko with: upload -->
-<div class="b-add-img" data-bind="attr: {'class': 'b-add-img ' + multiClass() }">
+<div id="upload-files" class="b-add-img" data-bind="attr: {'class': 'b-add-img ' + multiClass() }">
     <div class="b-add-img_hold">
         <div class="b-add-img_t">
             Загрузите фотографии с компьютера
@@ -11,20 +11,18 @@
             <input type="file" class="js-upload-files-multiple" data-bind="click: openLoad">
             <!-- /ko -->
             <!-- ko if: multi() -->
-            <input type="file" class="js-upload-files-multiple" multiple/>
+            <input type="file" name="files[]" data-url="/ajaxSimple/uploadPhoto/" class="js-upload-files-multiple" multiple/>
             <!-- /ko -->
         </div>
     </div>
     <div class="textalign-c clearfix">
         <!-- ko foreach: photos -->
-        <div class="b-add-img_i" data-bind="attr: {id: 'uploaded_photo_' + uid}, css: {'b-add-img_i__single': isSingle(), 'error': isError()}" style="overflow: hidden;">
+        <div class="b-add-img_i" data-bind="css: {'b-add-img_i__single': isSingle(), 'error': isError()}">
 
             <div class="b-add-img_i-error-tx" data-bind="text: error, visible: isError()"></div>
 
-            <div class="js-image" style="opacity: 0.5"></div>
-
-            <!-- ko if: file === null -->
-            <img class="b-add-img_i-img" data-bind="attr: {src: url}">
+            <!-- ko if: url() != '' -->
+            <img class="b-add-img_i-img" data-bind="attr: {src: url()}">
             <!-- /ko -->
 
             <!-- ko if: !isError() -->

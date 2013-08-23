@@ -274,7 +274,7 @@ class DefaultController extends HController
     {
         $id = Yii::app()->request->getPost('id');
         $rubric = CommunityRubric::model()->findByPk($id);
-        if ($rubric->user_id == Yii::app()->user->id){
+        if ($rubric->user_id == Yii::app()->user->id) {
             $rubric->delete();
         }
         echo CJSON::encode(array('status' => true));

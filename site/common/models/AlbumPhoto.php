@@ -711,14 +711,23 @@ class AlbumPhoto extends HActiveRecord
      */
     public function createUserTempPhoto($file)
     {
+        if (is_array($file['type']))
+            $file['type'] = $file['type'][0];
         if ($file['type'] != 'image/png' && $file['type'] != 'image/jpeg')
             return null;
+
+        if (is_array($file['name']))
+            $file['name'] = $file['name'][0];
+        if (is_array($file['tmp_name']))
+            $file['tmp_name'] = $file['tmp_name'][0];
 
         $model = new AlbumPhoto();
         $model->author_id = Yii::app()->user->id;
         $model->fs_name = $this->copyUserFile($file['name'], $file['tmp_name'], $model->author_id);
         $model->file_name = $file['name'];
-        $model->save(false);
+        if (!$model->save(false)){
+            var_dump($model->getErrors());
+        }
 
         return $model;
     }

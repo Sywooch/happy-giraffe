@@ -90,5 +90,14 @@ return array(
             ),
             'depends' => array('knockout', 'jquery.ui'),
         ),
+        'ko_upload' => array(
+            'baseUrl' => '/',
+            'js' => array(
+                'jQuery-File-Upload/js/vendor/jquery.ui.widget.js',
+                'jQuery-File-Upload/js/jquery.iframe-transport.js',
+                'jQuery-File-Upload/js/jquery.fileupload.js',
+            ),
+            'depends' => array('knockout'),
+        ),
     )
 );

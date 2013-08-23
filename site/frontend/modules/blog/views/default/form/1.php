@@ -52,7 +52,7 @@
 
     <div class="wysiwyg-v wysiwyg-blue clearfix">
         <?=$form->textArea($slaveModel, 'text', array('class' => 'wysiwyg-redactor-v'))?>
-        <?=$form->error($slaveModel, 'text')?>
+        <div style="display: none;"><?=$form->error($slaveModel, 'text')?></div>
     </div>
 
     <div class="clearfix">

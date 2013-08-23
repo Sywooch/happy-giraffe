@@ -912,7 +912,7 @@ class User extends HActiveRecord
 
     public function getBlogUrl()
     {
-        return $this->hasBlogPosts() ? Yii::app()->createUrl('/blog/default/index', array('user_id' => $this->id)) : false;
+        return Yii::app()->createUrl('/blog/default/index', array('user_id' => $this->id));
     }
 
     public function hasBlogPosts()

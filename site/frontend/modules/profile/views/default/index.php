@@ -41,7 +41,7 @@ Yii::app()->clientScript->registerPackage('ko_profile');
                     <div class="user-btns_separator"></div>
                 <?php endif ?>
 
-                <?php $blogUrl = $user->getBlogUrl(); if ($blogUrl !== false): ?>
+                <?php if ($user->hasBlogPosts() || $user->id == Yii::app()->user->id): ?>
                 <a href="<?=$user->getBlogUrl() ?>"
                    class="user-btns_i powertip">
                     		<span class="user-btns_ico-hold user-btns_ico-hold__blog">

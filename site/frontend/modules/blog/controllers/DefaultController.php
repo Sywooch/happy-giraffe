@@ -219,24 +219,6 @@ class DefaultController extends HController
         }
     }
 
-    protected function getBlogData()
-    {
-        return array(
-            'authorId' => $this->user->id,
-            'title' => $this->user->getBlogTitle(),
-            'description' => $this->user->blog_description,
-            'photo' => $this->user->getBlogPhoto(),
-            'currentRubricId' => $this->rubric_id,
-            'rubrics' => array_map(function ($rubric) {
-                return array(
-                    'id' => $rubric->id,
-                    'title' => $rubric->title,
-                    'url' => Yii::app()->createUrl('/blog/default/index', array('user_id' => $rubric->user_id, 'rubric_id' => $rubric->id)),
-                );
-            }, $this->user->blog_rubrics),
-        );
-    }
-
     public function actionCreateRubric()
     {
         $title = Yii::app()->request->getPost('title');

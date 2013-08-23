@@ -4,7 +4,7 @@ Yii::app()->clientScript
     ->registerPackage('ko_blog')
     ->registerPackage('ko_upload');
 
-$data = $this->getBlogData();
+$data = $this->user->getBlogData();
 $data['currentRubricId'] = $this->rubric_id;
 ?>
 <?php $this->beginContent('//layouts/common_new'); ?>
@@ -48,7 +48,9 @@ $data['currentRubricId'] = $this->rubric_id;
         </div>
 
         <?php $this->renderPartial('_subscribers'); ?>
+        <div class="menu-simple blogInfo" id="rubricsList" data-bind="visible: showRubrics">
         <?php $this->renderPartial('_rubric_list', array('currentRubricId' => $this->rubric_id)); ?>
+        </div>
         <?php $this->renderPartial('_popular'); ?>
 
     </div>

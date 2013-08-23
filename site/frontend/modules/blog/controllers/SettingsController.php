@@ -11,7 +11,7 @@ class SettingsController extends HController
 {
     public function actionForm()
     {
-        $this->renderPartial('settings');
+        $this->renderPartial('form');
     }
 
     public function actionUpdate()
@@ -20,10 +20,12 @@ class SettingsController extends HController
         $blogDescription = Yii::app()->request->getPost('blog_description');
         $blogPhotoPosition = Yii::app()->request->getPost('blog_photo_position');
         $blogPhotoId = CJSON::decode(Yii::app()->request->getPost('blog_photo_id'));
+        $blogShowRubrics = CJSON::decode(Yii::app()->request->getPost('blog_show_rubrics'));
 
         $user = Yii::app()->user->model;
         $user->blog_title = $blogTitle == $user->getDefaultBlogTitle() ? null : $blogTitle;
         $user->blog_description = $blogDescription;
+        $user->blog_show_rubrics = $blogShowRubrics;
 
         $photo = $blogPhotoId !== null ? AlbumPhoto::model()->findByPk($blogPhotoId) : AlbumPhoto::createByUrl('http://dev.happy-giraffe.ru/images/jcrop-blog.jpg', Yii::app()->user->id);
         $image = Yii::app()->phpThumb->create($photo->getOriginalPath());
@@ -35,7 +37,7 @@ class SettingsController extends HController
         $user->blog_photo_id = $photo->id;
         $user->blog_photo_position = CJSON::encode($blogPhotoPosition);
 
-        $success = $user->save(true, array('blog_title', 'blog_description', 'blog_photo_id', 'blog_photo_position'));
+        $success = $user->save(true, array('blog_title', 'blog_description', 'blog_photo_id', 'blog_photo_position', 'blog_show_rubrics'));
         $response = compact('success');
         if ($success)
             $response['thumbSrc'] = $photo->getBlogUrl() . '?' . time();

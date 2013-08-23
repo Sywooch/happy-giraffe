@@ -70,7 +70,7 @@ class SeoParsingCommand extends CConsoleCommand
                 SeoUserAttributes::setAttribute('last_li_parsed_' . date("Y-m"), $site->id, 1);
             }
         } else {
-            $parser = new LiParser(true, false);
+            $parser = new LiParser(true, true);
             $parser->start($site, $this->prev_year, 1, date("n") );
         }
     }

@@ -1,36 +1,18 @@
 var WysiwygPhotoUpload = function () {
     var self = this;
-    self.upload = ko.observable(new UploadPhotos(null, false));
+    self.upload = ko.observable(new UploadPhotos(null, false, '#redactor-popup_b-photo'));
 
     self.add = function () {
         var html = '';
         ko.utils.arrayForEach(self.upload().photos(), function(photo) {
             html += photo.html;
         });
-        console.log('df');
         redactor.insertHtmlAdvanced(html);
         self.close();
     };
     self.close = function(){
         $('#redactor-popup_b-photo').addClass('display-n');
     };
-
-    $('#redactor-popup_b-photo .js-upload-files-multiple').on('change', function (evt) {
-        if (self.upload().photos().length < 1){
-            var files = FileAPI.getFiles(evt);
-            self.upload().onFiles(files);
-            FileAPI.reset(evt.currentTarget);
-        }
-    });
-
-    if (FileAPI.support.dnd) {
-        $('.b-add-img_html5-tx').show();
-
-        $('#redactor-popup_b-photo .b-add-img__for-single').dnd(function (over) {}, function (files) {
-            if (self.upload().photos().length < 1)
-                self.upload().onFiles(files);
-        });
-    }
 };
 
 var WysiwygLink = function(data) {

@@ -44,7 +44,7 @@ var BlogViewModel = function(data) {
 
     // photo
     self.jcrop = ko.observable(null);
-    self.photo = ko.observable(data.photo === null ? null : new Photo(data.photo));
+    self.photoThumbSrc = ko.observable(data.photo.thumbSrc);
     self.draftPhoto = ko.observable(data.photo === null ? null : new Photo(data.photo));
 
     self.currentRubricId = data.currentRubricId;
@@ -56,7 +56,8 @@ var BlogViewModel = function(data) {
         $.post('/blog/settings/update/', { blog_title : self.draftTitle(), blog_description : self.draftDescription(), blog_photo_id : self.draftPhoto().id(), blog_photo_position : position }, function(response) {
             self.title(self.draftTitle());
             self.description(self.draftDescription());
-            self.photo().thumbSrc(response.thumbSrc);
+            self.photoThumbSrc(response.thumbSrc);
+            self.draftPhoto().position(position);
             $.fancybox.close();
         }, 'json');
     }
@@ -81,7 +82,7 @@ var BlogViewModel = function(data) {
 
     self.initJcrop = function() {
         $('.popup-blog-set_jcrop-img').Jcrop({
-            setSelect: [ self.photo().position().x, self.photo().position().y, self.photo().position().x2, self.photo().position().y2 ],
+            setSelect: [ self.draftPhoto().position().x, self.draftPhoto().position().y, self.draftPhoto().position().x2, self.draftPhoto().position().y2 ],
             onChange: showPreview,
             onSelect: showPreview,
             aspectRatio: 720 / 128,

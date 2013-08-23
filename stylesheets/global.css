@@ -2799,6 +2799,9 @@
   -moz-border-radius: 4px;
   border-radius: 4px;
 }
+.wysiwyg-v .redactor_editor:focus {
+  border-color: #A0CEEE;
+}
 .wysiwyg-v .redactor-popup_b-photo {
   bottom: -12px;
   left: 44px;
@@ -4914,12 +4917,12 @@
   height: 10px;
   background: #fff;
   z-index: 1;
-  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.12);
-  -webkit-transform: rotate(135deg);
-  -moz-transform: rotate(135deg);
-  -ms-transform: rotate(135deg);
-  -o-transform: rotate(135deg);
-  transform: rotate(135deg);
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.12);
+  -webkit-transform: rotate(-135deg);
+  -moz-transform: rotate(-135deg);
+  -ms-transform: rotate(-135deg);
+  -o-transform: rotate(-135deg);
+  transform: rotate(-135deg);
 }
 .nutrition_portion {
   margin: 0 5px 5px 27px;
@@ -5042,7 +5045,7 @@
   float: left;
   width: 360px;
   list-style: none;
-  background: #f1f6f9;
+  background: #fafafa;
   padding: 4px 10px 10px;
 }
 .cook-article-tags-list > li {
@@ -9282,11 +9285,11 @@
 /* /map-route-share */
 /* link-box */
 .link-box {
-  border: 1px solid #c4daf1;
+  border: 1px solid #DAEBF5;
   padding: 7px;
-  -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
-  -moz-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+.link-box:hover {
+  border-color: #A0CEEE;
 }
 .link-box_a {
   color: #38a5f4;
@@ -12136,6 +12139,7 @@ ul.letters li a:hover {
   font-size: 14px;
   line-height: 19px;
   color: #333;
+  word-wrap: break-word;
 }
 .wysiwyg-content p {
   margin: 0 0 15px;
@@ -13185,13 +13189,6 @@ table.fr_recipe_tb td {
 .photo-preview-row .photo-grid_row {
   margin: 0;
 }
-.photo-preview-row .photo-grid_i {
-  -moz-transition: all 0.3s ease;
-  -ms-transition: all 0.3s ease;
-  -o-transition: all 0.3s ease;
-  -webkit-transition: all 0.3s ease;
-  transition: all 0.3s ease;
-}
 .photo-preview-row .photo-grid_i:hover {
   position: relative;
   z-index: 10;
@@ -13840,11 +13837,7 @@ table.fr_recipe_tb td {
   display: inline-block;
   margin: 3px 0 0;
   cursor: pointer;
-  -moz-transition: all 0.4s ease;
-  -ms-transition: all 0.4s ease;
-  -o-transition: all 0.4s ease;
-  -webkit-transition: all 0.4s ease;
-  transition: all 0.4s ease;
+  border: 1px solid #fff;
 }
 .comments-gray_photo:hover {
   z-index: 10;
@@ -13853,9 +13846,6 @@ table.fr_recipe_tb td {
   -ms-transform: scale(2.4);
   -o-transform: scale(2.4);
   transform: scale(2.4);
-  -webkit-box-shadow: 0 0 7px rgba(0, 0, 0, 0.9);
-  -moz-box-shadow: 0 0 7px rgba(0, 0, 0, 0.9);
-  box-shadow: 0 0 7px rgba(0, 0, 0, 0.9);
 }
 .comments-gray_photo:hover .comments-gray_photo-overlay {
   opacity: 1;
@@ -13866,18 +13856,12 @@ table.fr_recipe_tb td {
 }
 .comments-gray_photo-overlay {
   position: absolute;
-  top: -1px;
-  left: -1px;
-  right: -1px;
-  bottom: -1px;
-  border: 1px solid #fff;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
   background: #222;
   background: rgba(78, 41, 114, 0.5);
-  -moz-transition: all 0.4s ease;
-  -ms-transition: all 0.4s ease;
-  -o-transition: all 0.4s ease;
-  -webkit-transition: all 0.4s ease;
-  transition: all 0.4s ease;
   opacity: 0;
 }
 .ie8 .comments-gray_photo-overlay {
@@ -14072,7 +14056,7 @@ table.fr_recipe_tb td {
   background: #ffe535;
 }
 .user-add-record__small {
-  margin-bottom: 15px;
+  margin-bottom: 20px;
   padding: 6px 7px 6px 20px;
 }
 .user-add-record__small .user-add-record_ico {
@@ -15674,7 +15658,7 @@ table.fr_recipe_tb td {
   background: #405ba6 url(/images/club/27-header.jpg) no-repeat 50% 0;
 }
 .b-section__club-cook {
-  background: #cc7930 url(/images/club/9-header.jpg) no-repeat 50% 0;
+  background: #7da21e url(/images/club/9-header.jpg) no-repeat 50% 0;
 }
 .b-section__club-handiwork {
   background: #d74031 url(/images/club/24-header.jpg) no-repeat 50% 0;

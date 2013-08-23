@@ -45,10 +45,10 @@
 					</div>
 					<div class="user-add-record_hold">
 						<div class="user-add-record_tx">Я хочу добавить</div>
-						<a href="#popup-user-add-article"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__article fancy">Статью</a>
-						<a href="#popup-user-add-photo"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__photo fancy">Фото</a>
-						<a href="#popup-user-add-video"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__video fancy active">Видео</a>
-						<a href="#popup-user-add-status"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__status fancy">Статус</a>
+						<a href="#popup-user-add-article"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__article fancy-top">Статью</a>
+						<a href="#popup-user-add-photo"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__photo fancy-top ">Фото</a>
+						<a href="#popup-user-add-video"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__video fancy-top active">Видео</a>
+						<a href="#popup-user-add-status"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__status fancy-top">Статус</a>
 					</div>
 				</div>
 			</div>
@@ -670,10 +670,10 @@
 					</div>
 					<div class="user-add-record_hold">
 						<div class="user-add-record_tx">Я хочу добавить</div>
-						<a href="#popup-user-add-article" class="user-add-record_ico user-add-record_ico__article active fancy">Статью</a>
-						<a href="#popup-user-add-photo" class="user-add-record_ico user-add-record_ico__photo fancy">Фото</a>
-						<a href="#popup-user-add-video" class="user-add-record_ico user-add-record_ico__video fancy">Видео</a>
-						<a href="#popup-user-add-status"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__status fancy">Статус</a>
+						<a href="#popup-user-add-article" class="user-add-record_ico user-add-record_ico__article active fancy-top">Статью</a>
+						<a href="#popup-user-add-photo" class="user-add-record_ico user-add-record_ico__photo fancy-top">Фото</a>
+						<a href="#popup-user-add-video" class="user-add-record_ico user-add-record_ico__video fancy-top">Видео</a>
+						<a href="#popup-user-add-status"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__status fancy-top">Статус</a>
 					</div>
 				</div>
 				
@@ -1021,14 +1021,14 @@ $(document).ready(function () {
 					</div>
 					<div class="user-add-record_hold">
 						<div class="user-add-record_tx">Я хочу добавить</div>
-						<a href="#popup-user-add-article" class="user-add-record_ico user-add-record_ico__article fancy">Статью</a>
-						<a href="#popup-user-add-photo" class="user-add-record_ico user-add-record_ico__photo fancy">Фото</a>
-						<a href="#popup-user-add-video" class="user-add-record_ico user-add-record_ico__video active fancy">Видео</a>
-						<a href="#popup-user-add-status"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__status fancy">Статус</a>
+						<a href="#popup-user-add-article" class="user-add-record_ico user-add-record_ico__article fancy-top">Статью</a>
+						<a href="#popup-user-add-photo" class="user-add-record_ico user-add-record_ico__photo fancy-top">Фото</a>
+						<a href="#popup-user-add-video" class="user-add-record_ico user-add-record_ico__video active fancy-top">Видео</a>
+						<a href="#popup-user-add-status"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__status fancy-top">Статус</a>
 					</div>
 				</div>
 				
-				<div class="b-settings-blue b-settings-blue__video">
+				<div class="b-settings-blue b-settings-blue__video display-n">
 					<div class="b-settings-blue_tale"></div>
 					<div class="b-settings-blue_head">
 						<div class="b-settings-blue_row clearfix">
@@ -1140,10 +1140,10 @@ $(document).ready(function () {
 					</div>
 					<div class="user-add-record_hold">
 						<div class="user-add-record_tx">Я хочу добавить</div>
-						<a href="#popup-user-add-article" class="user-add-record_ico user-add-record_ico__article fancy">Статью</a>
-						<a href="#popup-user-add-photo" class="user-add-record_ico user-add-record_ico__photo active fancy">Фото</a>
-						<a href="#popup-user-add-video" class="user-add-record_ico user-add-record_ico__video fancy">Видео</a>
-						<a href="#popup-user-add-status"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__status fancy">Статус</a>
+						<a href="#popup-user-add-article" class="user-add-record_ico user-add-record_ico__article fancy-top">Статью</a>
+						<a href="#popup-user-add-photo" class="user-add-record_ico user-add-record_ico__photo active fancy-top">Фото</a>
+						<a href="#popup-user-add-video" class="user-add-record_ico user-add-record_ico__video fancy-top">Видео</a>
+						<a href="#popup-user-add-status"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__status fancy-top">Статус</a>
 					</div>
 				</div>
 				
@@ -1172,7 +1172,7 @@ $(document).ready(function () {
 					</div>
 				</div>
 				
-				<div class="b-settings-blue b-settings-blue__photo">
+				<div class="b-settings-blue b-settings-blue__photo display-n">
 					<div class="b-settings-blue_tale"></div>
 					<div class="b-settings-blue_head">
 						<div class="b-settings-blue_row clearfix">
@@ -1265,7 +1265,7 @@ $(document).ready(function () {
 					</div>
 				</div>
 				
-				<div class="b-settings-blue b-settings-blue__photo">
+				<div class="b-settings-blue b-settings-blue__photo display-n">
 					<div class="b-settings-blue_tale"></div>
 					<div class="b-settings-blue_head">
 						<div class="b-settings-blue_row clearfix">
@@ -1354,7 +1354,7 @@ $(document).ready(function () {
 					</div>
 				</div>
 				
-				<div class="b-settings-blue b-settings-blue__photo">
+				<div class="b-settings-blue b-settings-blue__photo display-n">
 					<div class="b-settings-blue_tale"></div>
 					<div class="b-settings-blue_head">
 						<div class="b-settings-blue_row clearfix">
@@ -1509,10 +1509,10 @@ $(document).ready(function () {
 					</div>
 					<div class="user-add-record_hold">
 						<div class="user-add-record_tx">Я хочу добавить</div>
-						<a href="#popup-user-add-article" class="user-add-record_ico user-add-record_ico__article fancy">Статью</a>
-						<a href="#popup-user-add-photo" class="user-add-record_ico user-add-record_ico__photo fancy">Фото</a>
-						<a href="#popup-user-add-video" class="user-add-record_ico user-add-record_ico__video fancy">Видео</a>
-						<a href="#popup-user-add-status"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__status active fancy">Статус</a>
+						<a href="#popup-user-add-article" class="user-add-record_ico user-add-record_ico__article fancy-top">Статью</a>
+						<a href="#popup-user-add-photo" class="user-add-record_ico user-add-record_ico__photo fancy-top">Фото</a>
+						<a href="#popup-user-add-video" class="user-add-record_ico user-add-record_ico__video fancy-top">Видео</a>
+						<a href="#popup-user-add-status"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__status active fancy-top">Статус</a>
 					</div>
 				</div>
 				
@@ -1582,7 +1582,7 @@ $(document).ready(function () {
 					
 				</div>
 				
-				<div class="b-settings-blue b-settings-blue__status">
+				<div class="b-settings-blue b-settings-blue__status display-n">
 					<div class="b-settings-blue_tale"></div>
 					
 					<div class="b-status-add clearfix">
@@ -1649,7 +1649,7 @@ $(document).ready(function () {
 					
 				</div>
 				
-				<div class="b-settings-blue b-settings-blue__status">
+				<div class="b-settings-blue b-settings-blue__status display-n">
 					<div class="b-settings-blue_tale"></div>
 					
 					<div class="b-status-add clearfix">

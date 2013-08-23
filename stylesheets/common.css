@@ -525,6 +525,10 @@ html.top-nav-fixed {
   color: #a9a6a6 !important;
   border-color: #a9a6a6;
 }
+.color-gray-dark {
+  color: #717171 !important;
+  border-color: #a9a6a6;
+}
 .font-smallest {
   font-size: 9px !important;
   line-height: 11px !important;
@@ -739,6 +743,31 @@ hr,
   background: #fff;
   padding: 3px 10px;
   line-height: 16px;
+}
+::-webkit-input-placeholder {
+  color: #b6b6b6;
+  font-weight: normal;
+  opacity: 1;
+}
+::-moz-placeholder {
+  color: #b6b6b6;
+  font-weight: normal;
+  opacity: 1;
+}
+:-moz-placeholder {
+  color: #b6b6b6;
+  font-weight: normal;
+  opacity: 1;
+}
+:placeholder {
+  color: #b6b6b6;
+  font-weight: normal;
+  opacity: 1;
+}
+.placeholder {
+  color: #b6b6b6;
+  font-weight: normal;
+  opacity: 1;
 }
 .msg-win {
   color: #3cae31;
@@ -1538,48 +1567,23 @@ a.pseudo:hover,
   background-position: 0 0;
 }
 /* /icons */
-.logo-box {
+.logo {
+  position: relative;
   margin: 0 auto;
-  text-align: center;
-  color: #8d5bbc;
-  text-transform: uppercase;
-  font-size: 10px;
-  letter-spacing: 3px;
-  line-height: 25px;
-  padding: 25px 0 15px;
+  padding: 10px 0 15px;
+  overflow: hidden;
 }
-.logo-box > .logo {
+.logo_i {
   display: block;
-  width: 198px;
-  height: 93px;
-  background: url(../images/common.png) no-repeat 0 -200px;
+  width: 181px;
+  height: 104px;
+  background: url(../images/logo.png) no-repeat;
   text-indent: -9999px;
   margin: 0 auto;
 }
-::-webkit-input-placeholder {
-  color: #b6b6b6;
-  font-weight: normal;
-  opacity: 1;
-}
-::-moz-placeholder {
-  color: #b6b6b6;
-  font-weight: normal;
-  opacity: 1;
-}
-:-moz-placeholder {
-  color: #b6b6b6;
-  font-weight: normal;
-  opacity: 1;
-}
-:placeholder {
-  color: #b6b6b6;
-  font-weight: normal;
-  opacity: 1;
-}
-.placeholder {
-  color: #b6b6b6;
-  font-weight: normal;
-  opacity: 1;
+.logo_slogan {
+  position: absolute;
+  left: -9000px;
 }
 /* errors */
 .error input[type=text],
@@ -1782,52 +1786,6 @@ textarea.error,
   float: none;
 }
 /* jcarousel */
-/* jcrop-holder */
-.jcrop-holder {
-  text-align: left;
-}
-.jcrop-vline,
-.jcrop-hline {
-  font-size: 0px;
-  position: absolute;
-  background: #ffffff url('/images/Jcrop.gif') top left repeat;
-}
-.jcrop-vline {
-  height: 100%;
-  width: 1px !important;
-}
-.jcrop-hline {
-  width: 100%;
-  height: 1px !important;
-}
-.jcrop-vline.right {
-  right: 0px;
-}
-.jcrop-hline.bottom {
-  bottom: 0px;
-}
-.jcrop-handle {
-  font-size: 1px;
-  width: 7px !important;
-  height: 7px !important;
-  border: 1px #eee solid;
-  background-color: #333;
-}
-.jcrop-tracker {
-  width: 100%;
-  height: 100%;
-}
-.custom .jcrop-vline,
-.custom .jcrop-hline {
-  background: yellow;
-}
-.custom .jcrop-handle {
-  border-color: black;
-  background-color: #C7BB00;
-  -moz-border-radius: 3px;
-  -webkit-border-radius: 3px;
-}
-/* /jcrop-holder */
 /* /js plugin class */
 /* /base layout
 ---------------------------------------------------------*//*  buttons */
@@ -6782,7 +6740,6 @@ select.pregnancy_term + .chzn-container .chzn-results li {
 }
 .chzn-bluelight {
   display: inline-block;
-  height: 25px;
   min-width: 78px;
   width: 100%;
 }
@@ -11548,17 +11505,17 @@ select.pregnancy_term + .chzn-container .chzn-results li {
 */
 .layout-header {
   position: relative;
-  padding: 10px 10px 0;
+  padding: 20px 10px 5px;
   margin-bottom: 20px;
 }
-.layout-header .logo-box {
+.layout-header .logo {
   float: left;
-  margin: 0 40px 0 40px;
+  margin: 5px 40px 0 40px;
   padding: 0;
 }
 .layout-header_logout {
   position: absolute;
-  top: 5px;
+  top: 10px;
   right: 0;
   padding: 2px 20px 2px 0;
   text-decoration: none;
@@ -11583,6 +11540,18 @@ select.pregnancy_term + .chzn-container .chzn-results li {
   margin: 5px 8px;
   width: 70px;
   text-align: center;
+}
+.header-menu_li.active .header-menu_ico__notice {
+  background-position: -50px -50px;
+}
+.header-menu_li.active .header-menu_ico__im {
+  background-position: -50px -200px;
+}
+.header-menu_li.active .header-menu_tx {
+  display: none;
+}
+.header-menu_li.active .header-menu_count {
+  display: inline-block;
 }
 .header-menu_li__sepor {
   width: 1px;
@@ -11631,8 +11600,8 @@ select.pregnancy_term + .chzn-container .chzn-results li {
   color: #a187bb;
 }
 .header-menu_count {
-  display: inline-block;
-  margin: 2px 0;
+  display: none;
+  margin: 4px 0 0;
   padding: 0 4px;
   color: #fff;
   background-color: #cd0000;
@@ -11646,6 +11615,24 @@ select.pregnancy_term + .chzn-container .chzn-results li {
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
+}
+.logo-box {
+  margin: 0 auto;
+  text-align: center;
+  color: #8d5bbc;
+  text-transform: uppercase;
+  font-size: 10px;
+  letter-spacing: 3px;
+  line-height: 25px;
+  padding: 25px 0 15px;
+}
+.logo-box > .logo {
+  display: block;
+  width: 198px;
+  height: 93px;
+  background: url(../images/common.png) no-repeat 0 -200px;
+  text-indent: -9999px;
+  margin: 0 auto;
 }
 .top-nav-fixed #header-new {
   z-index: 90;
@@ -13173,9 +13160,9 @@ select.pregnancy_term + .chzn-container .chzn-results li {
   display: none;
   position: absolute;
   top: 46px;
-  left: 50%;
+  left: -180px;
   width: 220px;
-  margin: 0 0 0 -120px;
+  margin: 0;
   padding: 10px;
   background: #fff;
   border: 1px solid #DFDFDF;
@@ -13191,12 +13178,11 @@ select.pregnancy_term + .chzn-container .chzn-results li {
   content: '';
   position: absolute;
   top: -5px;
-  left: 50%;
+  right: 35px;
   height: 10px;
   width: 10px;
   z-index: 1;
   background: #FFFFFF;
-  margin: 0 0 0 -5px;
   -webkit-transform: rotate(-135deg);
   -moz-transform: rotate(-135deg);
   -ms-transform: rotate(-135deg);
@@ -15967,8 +15953,12 @@ select.pregnancy_term + .chzn-container .chzn-results li {
 .menu-simple_li__with-drop.active {
   background: url(/images/menu-simple_li__with-drop.png) no-repeat -300px 4px;
 }
+.menu-simple_li__with-drop ul {
+  margin-bottom: 10px;
+}
 .menu-simple_li__with-drop .menu-simple_li {
   margin: 2px 0;
+  font-size: 12px;
 }
 .menu-simple_a {
   color: #289fd7;
@@ -19680,14 +19670,13 @@ select.pregnancy_term + .chzn-container .chzn-results li {
   color: #b5b5b5;
   text-decoration: none;
 }
-.yiipagination .page:hover a {
-  color: #888;
-}
+.yiipagination .page:hover,
 .yiipagination .page.selected {
   background: #6accff;
   font-weight: bold;
   color: #fff;
 }
+.yiipagination .page:hover a,
 .yiipagination .page.selected a {
   color: #fff;
 }

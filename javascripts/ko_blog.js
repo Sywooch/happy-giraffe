@@ -49,6 +49,10 @@ var BlogViewModel = function(data) {
     self.photoThumbSrc = ko.observable(data.photo.thumbSrc);
     self.draftPhoto = ko.observable(data.photo === null ? null : new Photo(data.photo));
 
+    self.photoThumbSrcToShow = ko.computed(function() {
+        return self.photoThumbSrc() + '?t=' + Math.floor(Math.random() * (1000000 - 1) + 1);
+    });
+
     // rubrics
     self.showRubrics = ko.observable(data.showRubrics);
     self.showRubricsValue = ko.observable(data.showRubrics);
@@ -77,6 +81,7 @@ var BlogViewModel = function(data) {
                 self.description(self.draftDescription());
                 self.showRubrics(self.showRubricsValue());
                 self.photoThumbSrc(response.thumbSrc);
+                self.photoThumbSrc.valueHasMutated();
                 self.draftPhoto().position(position);
                 $.fancybox.close();
                 self.updateRubrics();

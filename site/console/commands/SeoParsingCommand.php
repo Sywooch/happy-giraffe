@@ -70,8 +70,8 @@ class SeoParsingCommand extends CConsoleCommand
                 SeoUserAttributes::setAttribute('last_li_parsed_' . date("Y-m"), $site->id, 1);
             }
         } else {
-            $parser = new LiParser(false, true);
-            $parser->start($site, $this->prev_year, $this->prev_month, $this->prev_month);
+            $parser = new LiParser(true, false);
+            $parser->start($site, $this->prev_year, 1, date("n") );
         }
     }
 
@@ -143,81 +143,6 @@ class SeoParsingCommand extends CConsoleCommand
         $parser = new LiPassword(true, $debug);
         $parser->rus_proxy = false;
         $parser->start();
-    }
-
-    public function actionImport()
-    {
-        Yii::import('site.seo.modules.competitors.models.*');
-
-        $criteria = new CDbCriteria;
-        $criteria->limit = 1000;
-        $criteria->offset = 0;
-
-        $i = 0;
-        $count = SiteKeywordVisit2::model()->count();
-        $models = array(0);
-        while (!empty($models)) {
-            $models = SiteKeywordVisit2::model()->findAll($criteria);
-
-            foreach ($models as $model) {
-                $keyword_id = Keyword::GetKeyword($model->keyword)->id;
-                $model2 = SiteKeywordVisit::model()->findByAttributes(array(
-                    'keyword_id' => $keyword_id,
-                    'site_id' => $model->site_id,
-                    'year' => $model->year,
-                ));
-                if ($model2 === null) {
-                    $model2 = new SiteKeywordVisit();
-                    $model2->keyword_id = $keyword_id;
-                }
-                foreach($model2->getAttributes() as $name => $value)
-                    if (!empty($model->$name) && $name != 'id')
-                        $model2->$name = $model->$name;
-                $model2->save();
-                $i++;
-            }
-
-            $criteria->offset += 1000;
-
-            echo round(100 * $i / $count, 2) . "%\n";
-        }
-    }
-
-    public function actionExport()
-    {
-        Yii::import('site.seo.modules.competitors.models.*');
-
-        $criteria = new CDbCriteria;
-        $criteria->limit = 1000;
-        $criteria->offset = 0;
-
-        $i = 0;
-        $count = SiteKeywordVisit::model()->count();
-        $models = array(0);
-        while (!empty($models)) {
-            $models = SiteKeywordVisit::model()->findAll($criteria);
-
-            foreach ($models as $model) {
-                $model2 = SiteKeywordVisit2::model()->findByAttributes(array(
-                    'keyword' => $model->keyword->name,
-                    'site_id' => $model->site_id,
-                    'year' => $model->year,
-                ));
-                if ($model2 === null) {
-                    $model2 = new SiteKeywordVisit2();
-                    $model2->keyword = $model->keyword->name;
-                }
-              foreach($model2->getAttributes() as $name => $value)
-                  if (!empty($model->attributes[$name]))
-                        $model2->attributes[$name] = $model->attributes[$name];
-                $model2->save();
-                $i++;
-            }
-
-            $criteria->offset += 1000;
-
-            echo round(100 * $i / $count, 2) . "%\n";
-        }
     }
 
     public function actionAddLiSite($id){

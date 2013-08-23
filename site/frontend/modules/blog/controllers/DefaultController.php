@@ -219,31 +219,6 @@ class DefaultController extends HController
         }
     }
 
-    protected function getBlogData()
-    {
-        return array(
-            'title' => $this->user->getBlogTitle(),
-            'description' => $this->user->blog_description,
-            'rubrics' => array_map(function ($rubric) {
-                return array(
-                    'id' => $rubric->id,
-                    'title' => $rubric->title,
-                    'url' => Yii::app()->createUrl('/blog/default/index', array('user_id' => $rubric->user_id, 'rubric_id' => $rubric->id)),
-                );
-            }, $this->user->blog_rubrics),
-            'currentRubricId' => $this->rubric_id,
-            'updateUrl' => $this->createUrl('settings/update'),
-            'photo' => array(
-                'id' => $this->user->blogPhoto === null ? null : $this->user->blogPhoto->id,
-                'originalSrc' => $this->user->getBlogPhotoOriginal(),
-                'thumbSrc' => $this->user->getBlogPhotoThumb(),
-                'width' => $this->user->getBlogPhotoWidth(),
-                'height' => $this->user->getBlogPhotoHeight(),
-                'position' => $this->user->getBlogPhotoPosition(),
-            ),
-        );
-    }
-
     public function actionCreateRubric()
     {
         $title = Yii::app()->request->getPost('title');
@@ -278,6 +253,12 @@ class DefaultController extends HController
             $rubric->delete();
         }
         echo CJSON::encode(array('status' => true));
+    }
+
+    public function actionRubricsList($userId, $currentRubricId = null)
+    {
+        $this->user = $this->loadUser($userId);
+        $this->renderPartial('_rubric_list', array('currentRubricId' => $currentRubricId));
     }
 
     /**

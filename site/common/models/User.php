@@ -557,36 +557,35 @@ class User extends HActiveRecord
             Yii::app()->cache->delete($cacheKey);
     }
 
-    public function getBlogPhotoOriginal()
+    public function getBlogPhoto()
     {
-        return $this->blogPhoto === null ? '/images/jcrop-blog.jpg' : $this->blogPhoto->getOriginalUrl();
+        return $this->blogPhoto === null ? $this->getDefaultBlogPhoto() : array(
+            'id' => $this->blogPhoto->id,
+            'originalSrc' => $this->blogPhoto->getOriginalUrl(),
+            'thumbSrc' => $this->blogPhoto->getBlogUrl(),
+            'width' => $this->blogPhoto->width,
+            'height' => $this->blogPhoto->height,
+            'position' => CJSON::decode($this->blog_photo_position),
+        );
     }
 
-    public function getBlogPhotoThumb()
+    public function getDefaultBlogPhoto()
     {
-        return $this->blogPhoto === null ? '/images/blog-title-b_img.jpg' : $this->blogPhoto->getBlogUrl();
-    }
-
-    public function getBlogPhotoPosition()
-    {
-        return $this->blogPhoto === null ? array(
-            'h' => 130,
-            'w' => 730,
-            'x' => 0,
-            'x2' => 730,
-            'y' => 68,
-            'y2' => 198,
-        ) : CJSON::decode($this->blog_photo_position);
-    }
-
-    public function getBlogPhotoWidth()
-    {
-        return $this->blogPhoto === null ? 730 : $this->blogPhoto->width;
-    }
-
-    public function getBlogPhotoHeight()
-    {
-        return $this->blogPhoto === null ? 520 : $this->blogPhoto->height;
+        return array(
+            'id' => null,
+            'originalSrc' => '/images/jcrop-blog.jpg',
+            'thumbSrc' => '/images/blog-title-b_img.jpg',
+            'width' => 730,
+            'height' => 520,
+            'position' => array(
+                'h' => 130,
+                'w' => 730,
+                'x' => 0,
+                'x2' => 730,
+                'y' => 68,
+                'y2' => 198,
+            ),
+        );
     }
 
     public function getAvaOrDefaultImage($size = Avatar::SIZE_MEDIUM)
@@ -1420,6 +1419,24 @@ class User extends HActiveRecord
                     'type' => $baby->type === null ? null : (int) $baby->type,
                 );
             }, $this->babies),
+        );
+    }
+
+    public function getBlogData()
+    {
+        return array(
+            'authorId' => $this->id,
+            'title' => $this->getBlogTitle(),
+            'description' => $this->blog_description,
+            'photo' => $this->getBlogPhoto(),
+            'rubrics' => array_map(function ($rubric) {
+                return array(
+                    'id' => $rubric->id,
+                    'title' => $rubric->title,
+                    'url' => Yii::app()->createUrl('/blog/default/index', array('user_id' => $rubric->user_id, 'rubric_id' => $rubric->id)),
+                );
+            }, $this->blog_rubrics),
+            'showRubrics' => (bool) $this->blog_show_rubrics,
         );
     }
 

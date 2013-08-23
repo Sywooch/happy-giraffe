@@ -77,7 +77,7 @@
 
             <div class="tab-box tab-box-2" style="display: none;">
                 <div class="b-checkbox margin-b10">
-                    <input type="checkbox" id="b-checkbox_label" class="b-checkbox_checkbox">
+                    <input type="checkbox" id="b-checkbox_label" class="b-checkbox_checkbox" data-bind="checked: showRubricsValue">
                     <label for="b-checkbox_label" class="b-checkbox_label">Показывать рубрики на странице блога</label>
                 </div>
                 <!-- ko foreach: rubrics -->

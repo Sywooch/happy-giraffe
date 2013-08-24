@@ -83,7 +83,7 @@
                 <!-- ko foreach: rubrics -->
                 <div class="margin-b10 clearfix">
                     <!-- ko if: ! beingEdited() -->
-                    <a href="javascript:void(0)" class="popup-blog-set_rubric" data-bind="text: title"></a>
+                    <span class="popup-blog-set_rubric" data-bind="text: title"></span>
                     <a class="message-ico message-ico__edit" data-bind="click: edit"></a>
                     <a class="message-ico message-ico__del" data-bind="click: remove"></a>
                     <!-- /ko -->

@@ -1433,7 +1433,6 @@ class User extends HActiveRecord
                 return array(
                     'id' => $rubric->id,
                     'title' => $rubric->title,
-                    'url' => Yii::app()->createUrl('/blog/default/index', array('user_id' => $rubric->user_id, 'rubric_id' => $rubric->id)),
                 );
             }, $this->blog_rubrics),
             'showRubrics' => (bool) $this->blog_show_rubrics,

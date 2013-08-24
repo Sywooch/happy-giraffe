@@ -12,7 +12,7 @@ $text = strip_tags($status->text);
         <div class="meta-gray">
             <a href="<?= $data->getUrl(true) ?>" class="meta-gray_comment">
                 <span class="ico-comment ico-comment__gray"></span>
-                <span class="meta-gray_tx"><?=$data->commentsCount ?></span>
+                <span class="meta-gray_tx"><?=$data->getUnknownClassCommentsCount() ?></span>
             </a>
             <div class="meta-gray_view">
                 <span class="ico-view ico-view__gray"></span>

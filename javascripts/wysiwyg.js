@@ -86,6 +86,7 @@ var Video = function(data, parent) {
 
         var defaultOptions = {
             observeImages: false,
+            toolbarExternal: '.wysiwyg-toolbar-btn',
             initCallback: function() {
                 redactor = this;
                 delete formWPU;
@@ -184,7 +185,7 @@ var Video = function(data, parent) {
 
         var toolbarVerticalFixed = options.hasOwnProperty('plugins') && options.plugins.indexOf('toolbarVerticalFixed') != -1;
 
-        $.get('/ajax/redactor/', { toolbarVerticalFixed : toolbarVerticalFixed }, function(response) {
+        $.get('/ajax/redactor/', {}, function(response) {
             textarea.before(response);
             $('.redactor-popup_smiles a').on('click', function() {
                 var pic = $(this).find('img').attr('src');

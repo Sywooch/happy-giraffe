@@ -134,19 +134,6 @@ class UsersCommand extends CConsoleCommand
 
     public function actionTest()
     {
-
-        for ($i = 0; $i < 1000; $i++) {
-            try {
-
-                Yii::app()->db->createCommand()
-                    ->insert('user__blog_subscriptions', array('user_id' => rand(10000, 140000), 'user2_id' => 10));
-            } catch (Exception $err) {
-            }
-        }
-    }
-
-    public function actionTest()
-    {
         $str = 'http://www.happy-giraffe.ru/user/181638/
 http://www.happy-giraffe.ru/user/181065/
 http://www.happy-giraffe.ru/user/186076/

@@ -85,6 +85,7 @@ var Video = function(data, parent) {
         var textarea = this;
 
         var defaultOptions = {
+            lang: 'ru',
             observeImages: false,
             toolbarExternal: '.wysiwyg-toolbar-btn',
             initCallback: function() {
@@ -98,7 +99,7 @@ var Video = function(data, parent) {
             },
             buttonsCustom: {
                 video : {
-                    title: 'video',
+                    title: 'Вставить видео',
                     callback: function(buttonNamem, buttonDOM, buttonObject) {
                         this.selectionSave();
                         video = new Video({ link : '', embed : null });
@@ -107,7 +108,7 @@ var Video = function(data, parent) {
                     }
                 },
                 image : {
-                    title: 'image',
+                    title: 'Вставить фото',
                     callback: function(buttonNamem, buttonDOM, buttonObject) {
                         if (typeof formWPU === 'undefined'){
                             console.log(111);
@@ -121,13 +122,13 @@ var Video = function(data, parent) {
                     }
                 },
                 smile: {
-                    title: 'smile',
+                    title: 'Смайлы',
                     callback: function(buttonName, buttonDOM, buttonObject) {
                         $('.redactor-popup_b-smile').toggleClass('display-n');
                     }
                 },
                 link_add: {
-                    title: 'link_add',
+                    title: 'Вставить ссылку',
                     callback: function(buttonName, buttonDOM, buttonObject) {
                         this.selectionSave();
 
@@ -162,18 +163,18 @@ var Video = function(data, parent) {
                     }
                 },
                 link_del: {
-                    title: 'link_del',
+                    title: 'Удалить ссылку',
                     exec: 'unlink'
                 },
                 h2: {
-                    title: 'h2',
+                    title: 'Средний заголовок',
                     callback: function(buttonName, buttonDOM, buttonObject) {
                         a = buttonDOM;
                         buttonDOM.hasClass('redactor_act') ? document.execCommand('formatBlock', false, 'p') : document.execCommand('formatBlock', false, buttonName);
                     }
                 },
                 h3: {
-                    title: 'h3',
+                    title: 'Малый заголовок',
                     callback: function(buttonName, buttonDOM, buttonObject) {
                         buttonDOM.hasClass('redactor_act') ? document.execCommand('formatBlock', false, 'p') : document.execCommand('formatBlock', false, buttonName);
                     }
@@ -187,6 +188,14 @@ var Video = function(data, parent) {
 
         $.get('/ajax/redactor/', {}, function(response) {
             textarea.before(response);
+
+            $.extend($.Redactor.opts.langs['ru'], {
+                bold: 'Жирный',
+                italic: 'Курсив',
+                unorderedlist: 'Маркеры',
+                orderedlist: 'Нумерация'
+            });
+
             $('.redactor-popup_smiles a').on('click', function() {
                 var pic = $(this).find('img').attr('src');
                 redactor.insertHtml('<img class="smile" src="' + pic + '" />');

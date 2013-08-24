@@ -15,7 +15,8 @@ function UploadPhotos(data, multi, container_selector) {
     }
 
     self.addPhoto = function (name) {
-        self.photos.push(new UploadedPhoto(name, self, null, ''));
+        if (self.multi() || self.photos().length < 1)
+            self.photos.push(new UploadedPhoto(name, self, null, ''));
     };
     self.getPhotoIds = function () {
         var ids = [];
@@ -64,8 +65,10 @@ function UploadPhotos(data, multi, container_selector) {
         url: '/ajaxSimple/uploadPhoto/',
         dropZone: $('#upload-files'),
         add: function (e, data) {
-            self.addPhoto(data.files[0].name);
-            data.submit();
+            if (self.multi() || self.photos().length < 1){
+                self.addPhoto(data.files[0].name);
+                data.submit();
+            }
         },
         done: function (e, data) {
             self.findPhotoByName(data.files[0].name).complete(data.result);
@@ -73,7 +76,6 @@ function UploadPhotos(data, multi, container_selector) {
     });
 
     $(container_selector+' .js-upload-files-multiple').bind('fileuploadprogress', function (e, data) {
-        console.log(data.loaded * 100 / data.total);
         self.findPhotoByName(data.files[0].name)._progress(data.loaded * 100 / data.total);
     });
 }
@@ -99,7 +101,6 @@ function UploadedPhoto(name, parent, photo, error) {
     }
 
     self.complete = function (response) {
-        console.log(response);
         self.id(response.id);
         self.html = response.html;
         self.status(2);

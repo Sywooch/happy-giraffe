@@ -8,10 +8,12 @@ var WysiwygPhotoUpload = function () {
             html += photo.html;
         });
         redactor.insertHtmlAdvanced(html);
+        redactor.sync();
         self.close();
     };
     self.close = function(){
         $('#redactor-popup_b-photo').addClass('display-n');
+        self.upload().photos.removeAll();
     };
 };
 
@@ -86,6 +88,7 @@ var Video = function(data, parent) {
             observeImages: false,
             initCallback: function() {
                 redactor = this;
+                delete formWPU;
             },
             activeButtonsAdd: {
                 h2: 'h2',
@@ -106,10 +109,12 @@ var Video = function(data, parent) {
                     title: 'image',
                     callback: function(buttonNamem, buttonDOM, buttonObject) {
                         if (typeof formWPU === 'undefined'){
+                            console.log(111);
                             formWPU = new WysiwygPhotoUpload();
                             ko.applyBindings(formWPU, document.getElementById('redactor-popup_b-photo'));
                         }else{
-                            formWPU.upload().photos([]);
+                            console.log(222);
+                            formWPU.upload().photos.removeAll();
                         }
                         $('.redactor-popup_b-photo').toggleClass('display-n');
                     }

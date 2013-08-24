@@ -52,7 +52,6 @@
     <!-- ko with: video -->
     <div class="b-settings-blue_add-video clearfix" data-bind="visible: embed() === null">
         <?=$form->textField($slaveModel, 'link', array('class' => 'itx-simple w-400 float-l', 'placeholder' => 'Введите ссылку на видео', 'data-bind' => 'value: link, valueUpdate: \'keyup\''))?>
-        <?=$form->error($slaveModel, 'text')?>
         <button class="btn-green" data-bind="css: { 'btn-inactive' : link().length == 0 }, click: check">Загрузить  видео</button>
         <div class="b-settings-blue_add-video-load" data-bind="visible: previewLoading">
             <img src="/images/ico/ajax-loader.gif" alt=""> <br>
@@ -62,6 +61,7 @@
             Не удалось загрузить видео. <br>
             Возможно, URL указан неправильно либо ведет на неподдерживаемый сайт.
         </div>
+        <?=$form->error($slaveModel, 'link')?>
     </div>
     <div class="b-settings-blue_video clearfix" data-bind="visible: embed() !== null">
         <a class="b-settings-blue_video-del ico-close2 powertip" title="Удалить" data-bind="click: remove"></a>
@@ -70,12 +70,9 @@
     <!-- /ko -->
     <div class="b-settings-blue_row clearfix">
         <?=$form->textArea($slaveModel, 'text', array('cols' => 80, 'rows' => 5, 'class' => 'b-settings-blue_textarea itx-simple', 'placeholder' => 'Ваш комментарий'))?>
-
+        <?=$form->error($slaveModel, 'text')?>
     </div>
     <div class="clearfix">
-        <?=$form->errorSummary(array($model, $slaveModel)) ?>
-    </div>
-    <div class=" clearfix">
         <button class="btn-blue btn-h46 float-r btn-inactive"><?=$model->isNewRecord ? 'Добавить' : 'Редактировать'?></button>
         <a href="javascript:void(0)" onclick="$.fancybox.close()" class="btn-gray-light btn-h46 float-r margin-r15">Отменить</a>
 

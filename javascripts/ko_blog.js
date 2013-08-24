@@ -145,7 +145,6 @@ var Rubric = function(data, parent) {
     var self = this;
     self.id = ko.observable(data.id);
     self.title = ko.observable(data.title);
-    self.url = ko.observable(data.url);
     self.editedTitle = ko.observable(data.title);
     self.beingEdited = ko.observable((typeof data.beingEdited === 'undefinded') ? false : data.beingEdited);
 

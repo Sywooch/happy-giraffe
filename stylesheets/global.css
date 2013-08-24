@@ -12914,6 +12914,11 @@ table.fr_recipe_tb td {
 }
 .b-article_removed-a {
   font-size: 12px;
+  text-decoration: none;
+  border-bottom: 1px dotted #289FD7;
+}
+.b-article_removed-a:hover {
+  border-bottom: none;
 }
 /* /b-article */
 /* b-article-prev */

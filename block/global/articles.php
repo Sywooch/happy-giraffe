@@ -9,8 +9,13 @@
 		</div>
 		<div class="like-control clearfix">
 			<a href="" class="like-control_ico like-control_ico__like">865</a>
-			<a href="" class="like-control_ico like-control_ico__repost">5</a>
-			<a href="" class="like-control_ico like-control_ico__favorites active">123865</a>
+			<div class="position-rel">
+				<a href="" class="like-control_ico like-control_ico__repost">5</a>
+			</div>
+			<div class="position-rel">
+				<a href="" class="favorites-control_a active">123865</a>
+				
+			</div>
 		</div>
 	</div>
 	<div class="b-article_cont clearfix">
@@ -406,8 +411,32 @@ $(document).ready(function () {
 		</div>
 		<div class="like-control clearfix">
 			<a href="" class="like-control_ico like-control_ico__like">865</a>
-			<a href="" class="like-control_ico like-control_ico__repost">5</a>
-			<a href="" class="like-control_ico like-control_ico__favorites active">123865</a>
+			<div class="position-rel">
+				<a href="" class="like-control_ico like-control_ico__repost">5</a>
+				
+				<div class="favorites-add-popup favorites-add-popup__right">
+					<div class="favorites-add-popup_t">Добавить запись в мой блог</div>
+					<div class="favorites-add-popup_i clearfix">
+						<img src="/images/example/w60-h40.jpg" alt="" class="favorites-add-popup_i-img">
+						<div class="favorites-add-popup_i-hold">Неравный брак. Смертельно опасен или жизненно необходим?</div>
+					</div>
+					<div class="favorites-add-popup_row">
+						<label for="" class="favorites-add-popup_label">Комментарий:</label>
+						<div class="float-r color-gray">0/150</div>
+					</div>
+					<div class="favorites-add-popup_row">
+						<textarea name="" id="" cols="25" rows="2" class="favorites-add-popup_textarea" placeholder="Введите комментарий"></textarea>
+					</div>
+					<div class="favorites-add-popup_row textalign-c margin-t10">
+						<a href="" class="btn-gray-light">Отменить</a>
+						<a href="" class="btn-green">Сохранить</a>
+					</div>
+				</div>
+			</div>
+			<div class="position-rel">
+				<a href="" class="favorites-control_a active">123865</a>
+				
+			</div>
 		</div>
 	</div>
 	<div class="b-article_cont clearfix">
@@ -463,8 +492,13 @@ $(document).ready(function () {
 		</div>
 		<div class="like-control clearfix">
 			<a href="" class="like-control_ico like-control_ico__like">865</a>
-			<a href="" class="like-control_ico like-control_ico__repost">5</a>
-			<a href="" class="like-control_ico like-control_ico__favorites active">123865</a>
+			<div class="position-rel">
+				<a href="" class="like-control_ico like-control_ico__repost">5</a>
+			</div>
+			<div class="position-rel">
+				<a href="" class="favorites-control_a active">123865</a>
+				
+			</div>
 		</div>
 	</div>
 	<div class="b-article_cont clearfix">
@@ -526,8 +560,13 @@ $(document).ready(function () {
 		</div>
 		<div class="like-control clearfix">
 			<a href="" class="like-control_ico like-control_ico__like">865</a>
-			<a href="" class="like-control_ico like-control_ico__repost">5</a>
-			<a href="" class="like-control_ico like-control_ico__favorites active">123865</a>
+			<div class="position-rel">
+				<a href="" class="like-control_ico like-control_ico__repost">5</a>
+			</div>
+			<div class="position-rel">
+				<a href="" class="favorites-control_a active">123865</a>
+				
+			</div>
 		</div>
 	</div>
 	<div class="b-article_cont clearfix">

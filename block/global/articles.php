@@ -169,7 +169,7 @@
 $(document).ready(function () { 
   $('.wysiwyg-redactor').redactor({
       autoresize: true,
-      toolbarExternal: '.wysiwyg-h_toolbar-btn',
+      toolbarExternal: '.wysiwyg-toolbar-btn',
 
       buttons: ['bold', 'italic', 'underline', '|', 'image', 'video', 'smile'],
       buttonsCustom: {
@@ -199,8 +199,8 @@ $(document).ready(function () {
 });
 	</script>
 					<div class="wysiwyg-h">
-						<div class="wysiwyg-h_toolbar">
-							<div class="wysiwyg-h_toolbar-btn"></div>
+						<div class="wysiwyg-toolbar">
+							<div class="wysiwyg-toolbar-btn"></div>
 							
 							<div class="redactor-popup redactor-popup_b-photo" >
 								<a href="" class="redactor-popup_close ico-close3 powertip" title="Закрыть"></a>

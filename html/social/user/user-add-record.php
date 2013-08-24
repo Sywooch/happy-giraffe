@@ -727,7 +727,7 @@ $(document).ready(function () {
       plugins: ['toolbarVerticalFixed'],
       minHeight: 410,
       autoresize: true,
-      toolbarExternal: '.wysiwyg-v_toolbar-btn',
+      toolbarExternal: '.wysiwyg-toolbar-btn',
 
       /* В базовом варианте нет кнопок 'h2', 'h3', 'link_add', 'link_del' но их функции реализованы с помощью выпадающих списков */
       buttons: ['bold', 'italic', 'underline', 'deleted', 'h2', 'h3', 'unorderedlist', 'orderedlist', 'link_add', 'link_del', 'image', 'video', 'smile'],
@@ -771,8 +771,8 @@ $(document).ready(function () {
   });
 });
 						</script>
-					<div class="wysiwyg-v_toolbar">
-						<div class="wysiwyg-v_toolbar-btn"></div>
+					<div class="wysiwyg-toolbar">
+						<div class="wysiwyg-toolbar-btn"></div>
 						<div class="redactor-popup redactor-popup_b-photo display-n" >
 							<a href="" class="redactor-popup_close ico-close3 powertip" title="Закрыть"></a>
 							<div class="redactor-popup_tale"></div>

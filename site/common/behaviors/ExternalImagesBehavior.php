@@ -40,7 +40,7 @@ class ExternalImagesBehavior extends CActiveRecordBehavior
                     if ($photo !== false) {
                         $newSrc = $photo->getPreviewUrl(700, 700, Image::WIDTH);
                         pq($e)->attr('src', $newSrc);
-                        $element = pq($e);
+                        $element = $e;
                         Yii::log(
                             'Image was replaced' . "\n" .
                             '------------------------------' . "\n" .
@@ -64,10 +64,7 @@ class ExternalImagesBehavior extends CActiveRecordBehavior
                 } else {
                     //если ссылки на фотки с http://img.happy-giraffe.ru/
                     $photo = AlbumPhoto::getPhotoFromUrl($src);
-                    if (count(pq($e)->parent()->children()) == 1)
-                        $element = pq($e)->parent();
-                    else
-                        $element = pq($e);
+                    $element = $e;
                 }
 
                 if ($photo && $element) {

@@ -79,17 +79,21 @@ NotificationRead::getInstance()->SetVisited();
 
                 <!-- ko if: editMode() -->
                 <?php if (!$this->gallery):?>
-                <div class="js-edit-field" data-bind="attr: {id: 'text' + id()}, html: html, enterKey: Enter"></div>
-                <div class="redactor-control clearfix">
-                    <div class="redactor-control_key">
-                        <input type="checkbox" class="redactor-control_key-checkbox" id="redactor-control_key-checkbox"  data-bind="checked: $parent.enterSetting, click: $parent.focusEditor">
-                        <label class="redactor-control_key-label" for="redactor-control_key-checkbox">Enter - отправить</label>
+
+                    <div class="wysiwyg-h">
+                        <div class="js-edit-field" data-bind="attr: {id: 'text' + id()}, html: html, enterKey: Enter"></div>
                     </div>
-                    <button class="btn-green" data-bind="click: Edit">Отправить</button>
-                </div>
-                <?php else: ?>
-                    <input type="text" class="comments-gray_add-itx itx-gray" data-bind="attr: {id: 'text' + id()}, html: html, enterKey: Enter">
-                <?php endif ?>
+
+                    <div class="redactor-control clearfix">
+                        <div class="redactor-control_key">
+                            <input type="checkbox" class="redactor-control_key-checkbox" id="redactor-control_key-checkbox"  data-bind="checked: $parent.enterSetting, click: $parent.focusEditor">
+                            <label class="redactor-control_key-label" for="redactor-control_key-checkbox">Enter - отправить</label>
+                        </div>
+                        <button class="btn-green" data-bind="click: Edit">Отправить</button>
+                    </div>
+                    <?php else: ?>
+                        <input type="text" class="comments-gray_add-itx itx-gray" data-bind="attr: {id: 'text' + id()}, html: html, enterKey: Enter">
+                    <?php endif ?>
                 <!-- /ko -->
 
             </div>
@@ -124,7 +128,9 @@ NotificationRead::getInstance()->SetVisited();
             <div class="comments-gray_frame">
                 <input type="text" class="comments-gray_add-itx itx-gray" placeholder="Ваш комментарий" data-bind="click:openComment, visible: !opened()">
                 <!-- ko if: opened() -->
-                <div id="add_<?=$this->objectName ?>" data-bind="enterKey: Enter"></div>
+                <div class="wysiwyg-h">
+                    <div id="add_<?=$this->objectName ?>" data-bind="enterKey: Enter"></div>
+                </div>
                 <div class="redactor-control clearfix">
 
                     <!-- ko if: response() -->

@@ -51,6 +51,7 @@
     </div>
 
     <div class="wysiwyg-v wysiwyg-blue clearfix">
+        <?php $slaveModel->text = $slaveModel->forEdit->text ?>
         <?=$form->textArea($slaveModel, 'text', array('class' => 'wysiwyg-redactor-v'))?>
         <div style="display: none;"><?=$form->error($slaveModel, 'text')?></div>
     </div>

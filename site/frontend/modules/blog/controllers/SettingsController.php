@@ -39,7 +39,7 @@ class SettingsController extends HController
 
         if ($rubricsToRename !== null)
             foreach ($rubricsToRename as $id => $title)
-                CommunityContent::model()->updateByPk($id, array('title' => $title));
+                CommunityRubric::model()->updateByPk($id, array('title' => $title));
 
         if ($rubricsToRemove !== null)
             CommunityRubric::model()->deleteAllByAttributes(array('id' => $rubricsToRemove));

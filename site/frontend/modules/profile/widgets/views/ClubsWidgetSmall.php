@@ -5,13 +5,12 @@
 ?>
 <div class="club-list clearfix" id="user-clubs">
     <div class="clearfix">
-        <span class="heading-small">Мои клубы <span
-                class="color-gray">(<!-- ko text: count --><!-- /ko -->)</span> </span>
+        <span class="heading-small">Мои клубы <span class="color-gray">(<!-- ko text: count --><!-- /ko -->)</span> </span>
     </div>
     <ul class="club-list_ul clearfix">
         <?php if ($this->isMyProfile): ?>
             <li class="club-list_li">
-                <a href="" class="club-list_add"></a>
+                <a href="<?=Yii::app()->createUrl('/subscribe/default/recommends') ?>" class="club-list_add"></a>
             </li>
         <?php endif ?>
 

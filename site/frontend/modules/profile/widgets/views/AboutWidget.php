@@ -6,7 +6,7 @@
     <div class="about-self" id="user-about">
         <h3 class="heading-small margin-b5">О себе
             <!-- ko if: canEdit() -->
-            <a href="" class="a-pseudo-icon"><span class="ico-edit"></span><span class="a-pseudo-icon_tx" data-bind="click: edit">Редактировать</span></a>
+            <a href="" class="a-pseudo-icon"><span class="ico-edit"></span><span class="a-pseudo-icon_tx" data-bind="click: edit"></span></a>
             <!-- /ko -->
         </h3>
         <div class="about-self_ctn">

@@ -21,12 +21,35 @@ class SettingsController extends HController
         $blogPhotoPosition = Yii::app()->request->getPost('blog_photo_position');
         $blogPhotoId = CJSON::decode(Yii::app()->request->getPost('blog_photo_id'));
         $blogShowRubrics = CJSON::decode(Yii::app()->request->getPost('blog_show_rubrics'));
+        $rubricsToRename = Yii::app()->request->getPost('rubricsToRename');
+        $rubricsToRemove = Yii::app()->request->getPost('rubricsToRemove');
+        $rubricsToCreate = Yii::app()->request->getPost('rubricsToCreate');
+
+        // rubrics
+        if ($rubricsToCreate!== null) {
+            $createdRubricsIds = array();
+            foreach ($rubricsToCreate as $title) {
+                $model = new CommunityRubric();
+                $model->title = $title;
+                $model->user_id = Yii::app()->user->id;
+                $model->save();
+                $createdRubricsIds[] = $model->id;
+            }
+        }
+
+        if ($rubricsToRename !== null)
+            foreach ($rubricsToRename as $rubric)
+                CommunityContent::model()->updateByPk($rubric['id'], array('title' => $rubric['title']));
+
+        if ($rubricsToRemove !== null)
+            CommunityRubric::model()->deleteAllByAttributes(array('id' => $rubricsToRemove));
 
         $user = Yii::app()->user->model;
         $user->blog_title = $blogTitle == $user->getDefaultBlogTitle() ? null : $blogTitle;
         $user->blog_description = $blogDescription;
         $user->blog_show_rubrics = $blogShowRubrics;
 
+        // photo
         $photo = $blogPhotoId !== null ? AlbumPhoto::model()->findByPk($blogPhotoId) : AlbumPhoto::createByUrl('http://dev.happy-giraffe.ru/images/jcrop-blog.jpg', Yii::app()->user->id);
         $image = Yii::app()->phpThumb->create($photo->getOriginalPath());
         $rx = 720 / $blogPhotoPosition['w'];
@@ -39,8 +62,11 @@ class SettingsController extends HController
 
         $success = $user->save(true, array('blog_title', 'blog_description', 'blog_photo_id', 'blog_photo_position', 'blog_show_rubrics'));
         $response = compact('success');
-        if ($success)
+        if ($success) {
             $response['thumbSrc'] = $photo->getBlogUrl();
+            if ($rubricsToCreate !== null)
+                $response['createdRubricsIds'] = $createdRubricsIds;
+        }
         echo CJSON::encode($response);
     }
 

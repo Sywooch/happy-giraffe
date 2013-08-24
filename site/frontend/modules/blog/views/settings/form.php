@@ -83,9 +83,14 @@
                 <!-- ko foreach: rubrics -->
                 <div class="margin-b10 clearfix">
                     <!-- ko if: ! beingEdited() -->
-                    <span class="popup-blog-set_rubric" data-bind="text: title"></span>
-                    <a class="message-ico message-ico__edit" data-bind="click: edit"></a>
-                    <a class="message-ico message-ico__del" data-bind="click: remove"></a>
+                    <span class="popup-blog-set_rubric" data-bind="text: title, css: { 'color-gray' : isRemoved }"></span>
+                        <!-- ko if: ! isRemoved() -->
+                            <a class="message-ico message-ico__edit" data-bind="click: edit"></a>
+                            <a class="message-ico message-ico__del" data-bind="click: remove"></a>
+                        <!-- /ko -->
+                        <!-- ko if: isRemoved -->
+                            <a class="font-small a-pseudo" data-bind="click: restore">Восстановить</a>
+                        <!-- /ko -->
                     <!-- /ko -->
                     <!-- ko if: beingEdited -->
                     <div class="clearfix w-400">

@@ -747,27 +747,12 @@ hr,
   padding: 3px 10px;
   line-height: 16px;
 }
-::-webkit-input-placeholder {
-  color: #b6b6b6;
-  font-weight: normal;
-  opacity: 1;
-}
-::-moz-placeholder {
-  color: #b6b6b6;
-  font-weight: normal;
-  opacity: 1;
-}
 :-moz-placeholder {
   color: #b6b6b6;
   font-weight: normal;
   opacity: 1;
 }
-:placeholder {
-  color: #b6b6b6;
-  font-weight: normal;
-  opacity: 1;
-}
-.placeholder {
+::-moz-placeholder {
   color: #b6b6b6;
   font-weight: normal;
   opacity: 1;
@@ -794,7 +779,7 @@ a.info {
 .a-pseudo,
 a.pseudo {
   text-decoration: none;
-  border-bottom: 1px dotted #0498b8;
+  border-bottom: 1px dotted #289FD7;
 }
 .a-pseudo-gray {
   text-decoration: none;

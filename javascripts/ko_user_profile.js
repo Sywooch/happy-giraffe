@@ -6,6 +6,7 @@ function UserAboutWidget(about) {
     self.editMode = ko.observable(false);
 
     self.edit = function () {
+        console.log('sfahshf');
         self.new_about(self.about());
         self.editMode(true);
     };

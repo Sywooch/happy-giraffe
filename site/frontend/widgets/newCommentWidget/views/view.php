@@ -31,7 +31,7 @@ NotificationRead::getInstance()->SetVisited();
                 <a href="" class="btn-green" data-bind="click: goBottom, visible: allCount() > 10">Добавить</a>
             <?php endif ?>
         <?php else: ?>
-            <a href="<?= $this->model->getUrl() ?>" class="comments-gray_t-a">
+            <a href="<?= $this->model->getUrl(true) ?>" class="comments-gray_t-a">
                 <span class="comments-gray_t-a-tx">Все комментарии (<span data-bind="text:allCount"></span>)</span>
                 <?php if ($this->full):?>
                     <a href="" class="btn-green" data-bind="click: goBottom">Добавить</a>

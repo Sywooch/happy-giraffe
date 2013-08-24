@@ -22,7 +22,7 @@ $ViewModelData = $model->getSettingsViewModel();
             </div>
             <div class="article-settings_hold" data-bind="slideVisible: displayOptions()">
                 <div class="article-settings_i">
-                    <a href="" class="article-settings_a article-settings_a__pin powertip" data-bind="click: attach, css: {active: attached}" title="Прикрепить сверху"></a>
+                    <a href="" class="article-settings_a article-settings_a__pin powertip" data-bind="click: attach, css: {active: attached}" title="Прикрепить"></a>
                 </div>
                 <div class="article-settings_i">
                     <a href="<?=$this->createUrl('/blog/default/form', array('id' => $model->id))?>" data-theme="transparent" class="article-settings_a article-settings_a__edit powertip fancy" title="Редактировать"></a>

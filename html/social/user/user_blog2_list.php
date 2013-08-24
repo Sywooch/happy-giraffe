@@ -305,9 +305,13 @@
 						<a href="" class="btn-green  margin-t5">Ok</a>
 					</div>
 					<div class="margin-b10 clearfix">
-						<a href="" class="popup-blog-set_rubric">Отношения между мужчиной и женщиной</a>
+						<span class="popup-blog-set_rubric">Отношения между мужчиной и женщиной</span>
 						<a href="" class="message-ico message-ico__edit"></a>
 						<a href="" class="message-ico message-ico__del"></a>
+					</div>
+					<div class="margin-b10 clearfix">
+						<span class="popup-blog-set_rubric color-gray">Отношения между мужчиной и женщиной</span>
+						<a href="" class="font-small a-pseudo">Восстановить</a>
 					</div>
 					<div class="margin-b10 clearfix">
 						<a href="" class="btn-green btn-medium">Добавить рубрику</a>

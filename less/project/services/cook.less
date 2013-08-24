@@ -224,8 +224,9 @@
 .cook-more > ul > li .content p {margin-top:5px;font-size:11px;line-height:19px;}
 .cook-more > ul > li .content b {display:block;line-height:1.2;}
 */
+
 .cook-more {
-    margin: 30px 0px 30px 20px;
+    margin: 30px 0px 0 20px;
     line-height: 14px;
 
     &_top {
@@ -234,15 +235,17 @@
         color:#494a4a;
     }
     &_li {
-        float: left;
-        width: 120px;
-        margin-right: 20px;
+        .inline-block();
+        vertical-align: top;
+        width: 24%;
+        margin-bottom: 40px;
     }
     &_author {margin-bottom: 8px;}
     &_author .ava {margin-right: 6px;}
     &_t {
         font: bold 11px/14px Tahoma, Arial, Verdana, sans-serif;
         margin: 5px 0;
+        max-width: 130px;
     }
     &_t > a {color: #3088c8;}
 }

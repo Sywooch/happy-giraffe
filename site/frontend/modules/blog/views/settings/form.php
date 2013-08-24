@@ -29,13 +29,13 @@
                         <div class="clearfix">
                             <div class="float-r font-small color-gray" data-bind="length: { attribute : draftDescriptionValue, maxLength : 150 }"></div>
                         </div>
-                        <textarea class="popup-blog-set_itx" placeholder="Краткое описание" data-bind="value: draftDescriptionValue, valueUpdate: 'keyup'"></textarea>
+                        <textarea class="popup-blog-set_itx" placeholder="Краткое описание" data-bind="value: draftDescriptionValue, valueUpdate: 'keyup'" maxlength="150" rows="3"></textarea>
                         <div class="margin-t5 margin-b10 clearfix">
                             <button class="btn-green float-r" data-bind="click: setDescription">Ok</button>
                         </div>
                     </div>
                     <div class="popup-blog-set_col-wide">
-                        <label for="" class="popup-blog-set_label">Название блога</label>
+                        <label for="" class="popup-blog-set_label">Выберите фон</label>
                         <div class="margin-t15 clearfix">
                             <div class="popup-blog-set_jcrop">
                                 <img alt="" class="popup-blog-set_jcrop-img" data-bind="attr: { src : draftPhoto().originalSrc() }" style="display: none;">

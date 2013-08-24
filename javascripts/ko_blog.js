@@ -94,12 +94,13 @@ var BlogViewModel = function(data) {
     self.applyRubricsUpdate = function(createdRubricsIds) {
         var i = 0;
         ko.utils.arrayForEach(self.rubrics(), function(rubric) {
-            if (rubric.isRemoved())
-                self.rubrics.remove(rubric);
             if (rubric.isRenamed())
                 rubric.isRenamed(false);
             if (rubric.id() === null)
                 rubric.id(createdRubricsIds[i++]);
+        });
+        self.rubrics.remove(function(rubric) {
+            return rubric.isRemoved();
         });
     }
 

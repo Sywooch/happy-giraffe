@@ -18,7 +18,7 @@
 
         <div class="b-article_removed" style="display: none;" data-bind="visible: removed()">
             <div class="b-article_removed-hold">
-                <div class="b-article_removed-tx">Ваша запись успешно удалена</div>
+                <div class="b-article_removed-tx">Ваша запись удалена!</div>
                 <a class="b-article_removed-a" data-bind="click: restore">Восстановить</a>
             </div>
         </div>

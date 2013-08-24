@@ -28,7 +28,7 @@
                 <div class="float-r font-small color-gray margin-3" data-bind="length: { attribute : title, maxLength : 50 }"></div>
             </div>
             <?=$form->label($model, 'title', array('class' => 'b-settings-blue_label'))?>
-            <?=$form->textField($model, 'title', array('class' => 'itx-simple w-400', 'placeholder' => 'Введите заголовок статьи', 'data-bind' => 'value: title, valueUpdate: \'keyup\''))?>
+            <?=$form->textField($model, 'title', array('class' => 'itx-simple w-400', 'placeholder' => 'Придумайте заголовок', 'data-bind' => 'value: title, valueUpdate: \'keyup\''))?>
             <?=$form->error($model, 'title')?>
         </div>
         <div class="b-settings-blue_row clearfix">

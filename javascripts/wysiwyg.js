@@ -86,6 +86,7 @@ var Video = function(data, parent) {
 
         var defaultOptions = {
             observeImages: false,
+            toolbarExternal: '.wysiwyg-toolbar-btn',
             initCallback: function() {
                 redactor = this;
                 delete formWPU;

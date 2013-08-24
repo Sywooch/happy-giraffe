@@ -98,7 +98,6 @@
         plugins: ['toolbarVerticalFixed'],
         minHeight: 410,
         autoresize: true,
-        toolbarExternal: '.wysiwyg-v_toolbar-btn',
         buttons: ['bold', 'italic', 'underline', 'deleted', 'h2', 'h3', 'unorderedlist', 'orderedlist', 'link_add', 'link_del', 'image', 'video', 'smile']
     });
 

@@ -7,14 +7,6 @@
 <script type="text/javascript" src="/redactor/redactor.js"></script>
 <script type="text/javascript" src="/redactor/plugins/toolbarVerticalFixed/toolbarVerticalFixed.js"></script>
 
-<?php if ($toolbarVerticalFixed): ?>
-<div class="wysiwyg-v_toolbar">
-    <div class="wysiwyg-v_toolbar-btn"></div>
-<?php else: ?>
-<div class="wysiwyg-h_toolbar">
-    <div class="wysiwyg-h_toolbar-btn"></div>
-<?php endif; ?>
-
 <div class="redactor-popup redactor-popup_b-smile display-n">
     <a href="javascript:void(0)" class="redactor-popup_close ico-close3 powertip" title="Закрыть" onclick="$(this).parents('.redactor-popup').addClass('display-n');"></a>
     <div class="redactor-popup_tale"></div>
@@ -187,5 +179,3 @@
     </div>
 </div>
 <!-- /ko -->
-
-</div>

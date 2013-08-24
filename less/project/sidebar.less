@@ -386,6 +386,7 @@
 
 	&__favorites &_i {padding-left: 15px;}
 	&__favorites &_count {float: right;}
+
 	&__blue &_i {
 		background: #e0f2ff;
 		color: #9e9d9e;
@@ -400,6 +401,29 @@
 		font-weight: normal;
 	}
 
+	&__purple &_i {
+		padding: 10px;
+		background: #fff;
+	}
+	&__purple &_i:hover,
+	&__purple &_i.active {
+		background: #947bab;
+		color: #fff;
+		font-weight: bold;
+	}
+	&__purple &_i.active &_ico-img {border-color: #947bab;}
+	&__purple &_tx {padding-left: 10px;}
+	&__purple &_count {
+		position: absolute;
+		top: 50%;
+		right: 15px;
+		margin: -9px 0 0;
+		font-weight: normal;
+		background: #0eba23;
+		color: #fff;
+		.border-radius(4px);
+	}
+
 	&_i {
 		display: block;
 		position: relative;
@@ -407,6 +431,7 @@
 		padding: 20px;
 		background: #f9f9f9;
 		color: #3b3a3a;
+		line-height: 13px;
 		text-decoration: none;
 		cursor: pointer;
 		.border-radius(5px);
@@ -470,22 +495,15 @@
 		background-position: -200px 0;
 	}
 
+	&_hold {
+		display: table-cell;
+		width: 220px;
+		height: 50px;
+		vertical-align: middle; 
+	}
 	&_count {
 		color: #594c62;
-		padding: 0 3px;
-	}
-	&_row {padding: 15px 20px 15px;}
-	&_row .ico-plus2 {margin-right: 5px;}
-	&_i-add {}
-	&_i-add-itx {
-		.inline-block();
-		vertical-align: middle;
-		width: 150px;
-		margin-right: 5px;
-		border: 1px solid #E1E1E1;
-		background: #fff;
-		padding: 3px 10px;
-		line-height: 16px;
+		padding: 2px 3px;
 	}
 	&_tx {
 		.inline-block();
@@ -499,6 +517,14 @@
 		margin-right: 10px;
 		background: url(/images/ico/menu-list_ico.png) no-repeat;
 	}
+	&_ico-img {
+		.inline-block();
+		vertical-align: middle;
+		border: 1px solid #e9e3ef;
+		.border-radius(4px);
+	}
+	&_ico-img > img {display: block;}
+	&_ico-img + &_tx {width: 80px;}
 	&_overlay {
 		position: absolute;
 		top: 0;
@@ -507,6 +533,19 @@
 		left: 0;
 		background: #f0f0f0;
 		background: rgba(240,240,240,.75);
+	}
+	&_row {padding: 15px 20px 15px;}
+	&_row .ico-plus2 {margin-right: 5px;}
+	&_i-add {}
+	&_i-add-itx {
+		.inline-block();
+		vertical-align: middle;
+		width: 150px;
+		margin-right: 5px;
+		border: 1px solid #E1E1E1;
+		background: #fff;
+		padding: 3px 10px;
+		line-height: 16px;
 	}
 }
 /* /menu-list */

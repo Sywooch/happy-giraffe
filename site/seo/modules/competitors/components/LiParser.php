@@ -13,6 +13,7 @@ class LiParser extends LiBaseParser
 
     public function start($site_id, $year, $month_from, $month_to)
     {
+        $this->removeCookieFile();
         $this->site = $this->loadModel($site_id);
         $this->log('Start parsing site ' . $this->site->id . ' ' . $this->site->name);
 

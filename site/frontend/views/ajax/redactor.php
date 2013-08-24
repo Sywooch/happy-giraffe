@@ -10,6 +10,9 @@
 <?php if ($toolbarVerticalFixed): ?>
 <div class="wysiwyg-v_toolbar">
     <div class="wysiwyg-v_toolbar-btn"></div>
+<?php else: ?>
+<div class="wysiwyg-h_toolbar">
+    <div class="wysiwyg-h_toolbar-btn"></div>
 <?php endif; ?>
 
 <div class="redactor-popup redactor-popup_b-smile display-n">
@@ -185,6 +188,4 @@
 </div>
 <!-- /ko -->
 
-<?php if ($toolbarVerticalFixed): ?>
 </div>
-<?php endif; ?>

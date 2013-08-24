@@ -150,6 +150,10 @@ function UserInterest(data, parent) {
     self.users = ko.observableArray([]);
     self.count = ko.observable(null);
 
+    self.isActive = ko.computed(function () {
+        return self.active() && !self.parent.isMyProfile;
+    });
+
     self.toggle = function () {
         if (!self.busy())
             $.post('/profile/toggleInterest/', {id: self.id()}, function (response) {
@@ -211,7 +215,7 @@ var BlogSubscription = function (data) {
     var self = this;
     self.active = ko.observable(data.active);
     self.id = ko.observable(data.id);
-    self.toggle = function(){
+    self.toggle = function () {
         $.post('/profile/subscribeBlog/', {id: self.id()}, function (response) {
             if (response.status)
                 self.active(!self.active());

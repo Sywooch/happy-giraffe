@@ -93,24 +93,6 @@ class UsersCommand extends CConsoleCommand
         UserAttributes::set($user->id, 'fire_time', time());
     }
 
-    public function actionTest(){
-        $criteria = new CDbCriteria;
-        $criteria->limit = 100;
-        $criteria->offset = 0;
-
-        $models = array(0);
-        while (!empty($models)) {
-            $models = UserSocialService::model()->findAll($criteria);
-
-            foreach ($models as $model) {
-                if (!isset($model->user->id))
-                    echo $model->user_id."\n";
-            }
-
-            $criteria->offset += 100;
-        }
-    }
-
     /**
      * Удаление в назначениях прав несуществующих юзеров
      */
@@ -146,6 +128,25 @@ class UsersCommand extends CConsoleCommand
 
             if ($criteria->offset % 100 == 0)
                 echo $user->id."\n";
+        }
+    }
+
+    public function actionTest()
+    {
+        $str = 'http://www.happy-giraffe.ru/user/181638/
+http://www.happy-giraffe.ru/user/181065/
+http://www.happy-giraffe.ru/user/186076/
+http://www.happy-giraffe.ru/user/186070/';
+        preg_match_all("/\/user\/([\d]+)\//",$str, $matches);
+
+        foreach($matches[1] as $match)
+            echo $match.",";
+    }
+
+    public function actionSetEditors($ids){
+        $ids = explode(",", $ids);
+        foreach($ids as $id){
+            Yii::app()->db->createCommand()->update('users', array('group'=>UserGroup::EDITOR), 'id='.$id);
         }
     }
 }

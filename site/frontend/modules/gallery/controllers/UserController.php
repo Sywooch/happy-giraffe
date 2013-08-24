@@ -9,19 +9,32 @@
 
 class UserController extends HController
 {
-    public $layout = '//layouts/common_new';
+    public $layout = 'user_albums';
+    public $user;
 
-    public function actionIndex($userId)
+    protected  function beforeAction($action)
     {
-        $scopes = !Yii::app()->user->isGuest && Yii::app()->user->id == $userId ? array() : array('noSystem');
-        $dataProvider = Album::model()->findByUser($userId, false, false, $scopes);
+        $this->user = User::model()->findByPk(Yii::app()->request->getParam('user_id'));
+        if ($this->user === null)
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
-        $this->render('index', compact('dataProvider', 'userId'));
+        return parent::beforeAction($action);
     }
 
-    public function actionView($userId, $albumId)
+    public function actionIndex($user_id)
     {
-        $data = Album::model()->findByPk($albumId);
-        $this->render('view', compact('data'));
+        $scopes = !Yii::app()->user->isGuest && Yii::app()->user->id == $user_id ? array() : array('noSystem');
+        $dataProvider = Album::model()->findByUser($user_id, false, false, $scopes);
+
+        $this->render('index', compact('dataProvider', 'user_id'));
+    }
+
+    public function actionView($user_id, $album_id)
+    {
+        $data = Album::model()->findByPk($album_id);
+        if ($data->author_id != $user_id)
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+
+        $this->render('_album', array('data' => $data, 'full' => true));
     }
 }

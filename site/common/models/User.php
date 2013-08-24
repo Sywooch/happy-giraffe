@@ -910,11 +910,6 @@ class User extends HActiveRecord
         return Yii::app()->$method($route, $params);
     }
 
-    public function getBlogUrl()
-    {
-        return Yii::app()->createUrl('/blog/default/index', array('user_id' => $this->id));
-    }
-
     public function hasBlogPosts()
     {
         return Yii::app()->db->createCommand()
@@ -926,9 +921,14 @@ class User extends HActiveRecord
             ->queryScalar();
     }
 
+    public function getBlogUrl()
+    {
+        return Yii::app()->createUrl('/blog/default/index', array('user_id' => $this->id));
+    }
+
     public function getPhotosUrl()
     {
-        return Yii::app()->createUrl('/albums/user', array('id' => $this->id));
+        return Yii::app()->createUrl('/gallery/user/index', array('user_id' => $this->id));
     }
 
     public function getDialogUrl()

@@ -76,7 +76,7 @@
     <?php endif ?>
 </div>
 <script type="text/html" id="user-interest-template">
-    <a href="javascript:;" class="b-interest_i" data-bind="text: title, css: {active: active()}, event: { mouseover: enableDetails, mouseout: disableDetails}"></a>
+    <a href="javascript:;" class="b-interest_i" data-bind="text: title, css: {active: isActive}, event: { mouseover: enableDetails, mouseout: disableDetails}"></a>
 
     <div class="b-interest_popup" data-bind="fadeVisible: showDetails, event: { mouseover: function(){$data.hover(true);}, mouseout: function(){$data.hover(false);$data.disableDetails();}}">
         <div class="margin-b5 clearfix">

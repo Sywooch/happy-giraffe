@@ -74,8 +74,47 @@ var BlogViewModel = function(data) {
         });
     }
 
+    self.rubricsUpdateData = function() {
+        var data = {
+            toRename: {},
+            toRemove: [],
+            toCreate: []
+        };
+        ko.utils.arrayForEach(self.rubrics(), function(rubric) {
+            if (rubric.isRenamed() && ! rubric.isRemoved())
+                data.toRename[rubric.id()] = rubric.title();
+            if (rubric.isRemoved())
+                data.toRemove.push(rubric.id());
+            if (rubric.id() === null)
+                data.toCreate.push(rubric.title());
+        });
+        return data;
+    }
+
+    self.applyRubricsUpdate = function(createdRubricsIds) {
+        var i = 0;
+        ko.utils.arrayForEach(self.rubrics(), function(rubric) {
+            if (rubric.isRemoved())
+                self.rubrics.remove(rubric);
+            if (rubric.isRenamed())
+                rubric.isRenamed(false);
+            if (rubric.id() === null)
+                rubric.id(createdRubricsIds[i++]);
+        });
+    }
+
     self.save = function() {
-        $.post('/blog/settings/update/', { blog_title : self.draftTitle(), blog_description : self.draftDescription(), blog_photo_id : self.draftPhoto().id(), blog_photo_position : position, blog_show_rubrics : self.showRubricsValue() }, function(response) {
+        var rubricsUpdateData = self.rubricsUpdateData();
+        $.post('/blog/settings/update/', {
+            blog_title: self.draftTitle(),
+            blog_description: self.draftDescription(),
+            blog_photo_id: self.draftPhoto().id(),
+            blog_photo_position: position,
+            blog_show_rubrics: self.showRubricsValue(),
+            rubricsToRename: rubricsUpdateData.toRename,
+            rubricsToRemove: rubricsUpdateData.toRemove,
+            rubricsToCreate: rubricsUpdateData.toCreate
+        }, function(response) {
             if (response.success) {
                 self.title(self.draftTitle());
                 self.description(self.draftDescription());
@@ -83,6 +122,7 @@ var BlogViewModel = function(data) {
                 self.photoThumbSrc(response.thumbSrc);
                 self.photoThumbSrc.valueHasMutated();
                 self.draftPhoto().position(position);
+                self.applyRubricsUpdate(response.createdRubricsIds);
                 $.fancybox.close();
                 self.updateRubrics();
             }
@@ -147,6 +187,8 @@ var Rubric = function(data, parent) {
     self.title = ko.observable(data.title);
     self.editedTitle = ko.observable(data.title);
     self.beingEdited = ko.observable((typeof data.beingEdited === 'undefinded') ? false : data.beingEdited);
+    self.isRenamed = ko.observable(false);
+    self.isRemoved = ko.observable(false);
 
     self.titleHandler = function(data, event) {
         if (event.which == 13)
@@ -160,36 +202,18 @@ var Rubric = function(data, parent) {
     }
 
     self.save = function() {
-        self.id() === null ? self.create() : self.update();
-    }
-
-    self.create = function() {
-        $.post('/blog/settings/rubricCreate/', { title : self.editedTitle() }, function(response) {
-            if (response.success) {
-                self.id(response.id);
-                self.title(self.editedTitle());
-                self.beingEdited(false);
-            }
-        }, 'json');
-    }
-
-    self.update = function() {
-        if (self.title() == self.editedTitle())
-            self.beingEdited(false);
-        else
-            $.post('/blog/settings/rubricEdit/', { id : self.id(), title : self.editedTitle() }, function(response) {
-                if (response.success) {
-                    self.title(self.editedTitle());
-                    self.beingEdited(false);
-                }
-            }, 'json');
+        self.title(self.editedTitle());
+        self.beingEdited(false);
+        if (self.id() !== null)
+            self.isRenamed(true);
     }
 
     self.remove = function() {
-        $.post('/blog/settings/rubricRemove/', { id : self.id() }, function(response) {
-            if (response.success)
-                parent.rubrics.remove(self);
-        }, 'json');
+        self.id() === null ? parent.rubrics.remove(self) : self.isRemoved(true);
+    }
+
+    self.restore = function() {
+        self.isRemoved(false);
     }
 }
 

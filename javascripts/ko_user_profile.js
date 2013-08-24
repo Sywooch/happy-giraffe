@@ -211,7 +211,7 @@ function UserInterestUser(data) {
 
 
 /*********************** subscribe blog ***********************/
-var BlogSubscription = function (data) {
+var ProfileBlogSubscription = function (data) {
     var self = this;
     self.active = ko.observable(data.active);
     self.id = ko.observable(data.id);

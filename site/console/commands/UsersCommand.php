@@ -144,4 +144,23 @@ class UsersCommand extends CConsoleCommand
             }
         }
     }
+
+    public function actionTest()
+    {
+        $str = 'http://www.happy-giraffe.ru/user/181638/
+http://www.happy-giraffe.ru/user/181065/
+http://www.happy-giraffe.ru/user/186076/
+http://www.happy-giraffe.ru/user/186070/';
+        preg_match_all("/\/user\/([\d]+)\//",$str, $matches);
+
+        foreach($matches[1] as $match)
+            echo $match.",";
+    }
+
+    public function actionSetEditors($ids){
+        $ids = explode(",", $ids);
+        foreach($ids as $id){
+            Yii::app()->db->createCommand()->update('users', array('group'=>UserGroup::EDITOR), 'id='.$id);
+        }
+    }
 }

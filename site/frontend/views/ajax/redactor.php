@@ -5,6 +5,7 @@
 ?>
 
 <script type="text/javascript" src="/redactor/redactor.js"></script>
+<script type="text/javascript" src="/redactor/lang/ru.js"></script>
 <script type="text/javascript" src="/redactor/plugins/toolbarVerticalFixed/toolbarVerticalFixed.js"></script>
 
 <?php if ($toolbarVerticalFixed): ?>

@@ -169,7 +169,7 @@
 $(document).ready(function () { 
   $('.wysiwyg-redactor').redactor({
       autoresize: true,
-      toolbarExternal: '.wysiwyg-h_toolbar-btn',
+      toolbarExternal: '.wysiwyg-toolbar-btn',
 
       buttons: ['bold', 'italic', 'underline', '|', 'image', 'video', 'smile'],
       buttonsCustom: {
@@ -199,10 +199,10 @@ $(document).ready(function () {
 });
 	</script>
 					<div class="wysiwyg-h">
-						<div class="wysiwyg-h_toolbar">
-							<div class="wysiwyg-h_toolbar-btn"></div>
+						<div class="wysiwyg-toolbar">
+							<div class="wysiwyg-toolbar-btn"></div>
 							
-							<div class="redactor-popup redactor-popup_b-photo redactor-popup__down" >
+							<div class="redactor-popup redactor-popup_b-photo" >
 								<a href="" class="redactor-popup_close ico-close3 powertip" title="Закрыть"></a>
 								<div class="redactor-popup_tale"></div>
 								<div class="redactor-popup_t">Загрузите фото</div>
@@ -236,7 +236,7 @@ $(document).ready(function () {
 							</div>
 							
 							
-							<div class="redactor-popup redactor-popup_b-video redactor-popup__down display-n" >
+							<div class="redactor-popup redactor-popup_b-video display-n" >
 								<a href="" class="redactor-popup_close ico-close3 powertip" title="Закрыть"></a>
 								<div class="redactor-popup_tale"></div>
 								<div class="redactor-popup_t">Загрузите видео</div>
@@ -257,7 +257,7 @@ $(document).ready(function () {
 								</div>
 							</div>
 							
-							<div class="redactor-popup redactor-popup_b-smile redactor-popup__down display-n">
+							<div class="redactor-popup redactor-popup_b-smile display-n">
 								<a href="" class="redactor-popup_close ico-close3 powertip" title="Закрыть"></a>
 								<div class="redactor-popup_tale"></div>
 								<div class="redactor-popup_t">Выберите смайл</div>
@@ -357,7 +357,7 @@ $(document).ready(function () {
 								</table>
 							</div>
 							
-							<div class="redactor-popup redactor-popup_b-link redactor-popup__down  display-n">
+							<div class="redactor-popup redactor-popup_b-link display-n">
 									<a href="" class="redactor-popup_close ico-close3 powertip" title="Закрыть"></a>
 									<div class="redactor-popup_tale"></div>
 									<div class="redactor-popup_t">Ссылка</div>

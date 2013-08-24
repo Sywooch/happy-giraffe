@@ -747,12 +747,27 @@ hr,
   padding: 3px 10px;
   line-height: 16px;
 }
-:-moz-placeholder {
+::-webkit-input-placeholder {
   color: #b6b6b6;
   font-weight: normal;
   opacity: 1;
 }
 ::-moz-placeholder {
+  color: #b6b6b6;
+  font-weight: normal;
+  opacity: 1;
+}
+:-moz-placeholder {
+  color: #b6b6b6;
+  font-weight: normal;
+  opacity: 1;
+}
+:placeholder {
+  color: #b6b6b6;
+  font-weight: normal;
+  opacity: 1;
+}
+.placeholder {
   color: #b6b6b6;
   font-weight: normal;
   opacity: 1;

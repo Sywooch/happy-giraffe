@@ -87,6 +87,7 @@ var Video = function(data, parent) {
         var defaultOptions = {
             lang: 'ru',
             observeImages: false,
+            toolbarExternal: '.wysiwyg-toolbar-btn',
             initCallback: function() {
                 redactor = this;
                 delete formWPU;
@@ -185,7 +186,7 @@ var Video = function(data, parent) {
 
         var toolbarVerticalFixed = options.hasOwnProperty('plugins') && options.plugins.indexOf('toolbarVerticalFixed') != -1;
 
-        $.get('/ajax/redactor/', { toolbarVerticalFixed : toolbarVerticalFixed }, function(response) {
+        $.get('/ajax/redactor/', {}, function(response) {
             textarea.before(response);
 
             $.extend($.Redactor.opts.langs['ru'], {

@@ -312,7 +312,7 @@ $(document).ready(function () {
 							
 							
 							
-								<div class="redactor-popup redactor-popup__down redactor-popup_b-photo">
+								<div class="redactor-popup redactor-popup_b-photo">
 									<a href="" class="redactor-popup_close ico-close3 powertip" title="Закрыть"></a>
 									<div class="redactor-popup_tale"></div>
 									<div class="redactor-popup_t">Загрузите фото</div>
@@ -456,7 +456,7 @@ $(document).ready(function () {
 									<button class="btn-green">Отправить</button>
 								</div>
 							
-								<div class="redactor-popup redactor-popup__down redactor-popup_b-video" >
+								<div class="redactor-popup redactor-popup_b-video" >
 									<a href="" class="redactor-popup_close ico-close3 powertip" title="Закрыть"></a>
 									<div class="redactor-popup_tale"></div>
 									<div class="redactor-popup_t">Загрузите видео</div>

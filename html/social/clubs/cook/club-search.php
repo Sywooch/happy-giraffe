@@ -347,8 +347,8 @@
 										<input type="text" name="" id="" class="comments-gray_add-itx itx-gray" placeholder="Ваш комментарий">
 							
 										<div class="wysiwyg-h display-n">
-											<div class="wysiwyg-h_toolbar">
-												<div class="wysiwyg-h_toolbar-btn"></div>
+											<div class="wysiwyg-toolbar">
+												<div class="wysiwyg-toolbar-btn"></div>
 												
 												<div class="redactor-popup redactor-popup_b-photo redactor-popup__down" >
 													<a href="" class="redactor-popup_close ico-close3 powertip" title="Закрыть"></a>

@@ -251,6 +251,9 @@ var UserClub = function (data, size) {
         else
             return '/images/club/' + self.id() + '.png';
     });
+    self.tooltipText = ko.computed(function () {
+        return self.have() ? 'Покинуть клуб': 'Вступить в клуб';
+    });
     self.toggle = function () {
         $.post('/ajaxSimple/communityToggle/', {community_id: self.id()}, function (response) {
             if (response.status)

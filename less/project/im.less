@@ -15,9 +15,11 @@
 
 .im {
 	position: relative;
-	margin: -20px 0 -50px -20px;
+	margin: 0px 0 -50px -20px;
 	/*min-height: 470px;*/
 	background: #fff;
+	.border-radius(10px);
+
 	&:after,
 	&:before {
 		content:'';
@@ -27,6 +29,7 @@
 		height: 11px;
 		background: url(/images/im/im.png) repeat-x;
 		z-index: 150;
+		.border-radius(10px);
 	}
 	&:after {
 		top: auto;
@@ -34,18 +37,18 @@
 	}
 	&__fixed .im-sidebar {
 		position: fixed;
-		top: 42px;
+		top: 0;
 	}
 	&__fixed .im-center_top {
 		position: fixed;
-		top: 53px;
+		top: 11px;
 	}
 
 	&__fixed .im-center_bottom {position: fixed;}
 	&__fixed:after {position: fixed;}
 	&__fixed:before {
 		position: fixed;
-		top: 42px;
+		top: 0;
 	}
 	.ie8 &__fixed:after,
 	.ie8 &__fixed:before {display: none;}
@@ -133,6 +136,7 @@
 		position: relative;
 		height: 180px;
 		background: none;
+		z-index: 110;
 	}
 	.cap-empty_hold {
 		/*margin-top: 0;*/
@@ -163,7 +167,7 @@
 		position: fixed;
 		bottom: 0;
 		width: 685px;
-		min-height: 80px;
+		min-height: 117px;
 		background: #fff;
 		z-index: 102;
 	}
@@ -521,7 +525,7 @@
 	position: fixed;
 	width: 685px;
 	bottom: 30px;
-	top: 203px; // высота шапки + верхнего меню
+	top: 154px; // высота шапки 
 	margin: 80px 0 0;
 	border: 1px solid #cce2f1;
 	background: #ebf4ff;

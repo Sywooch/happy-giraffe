@@ -10,8 +10,7 @@ RedactorPlugins.toolbarVerticalFixed = {
 	toolbarObserveScroll1: function()
 	{
 
-		
-		var toolbarHolder = $('.wysiwyg-v_toolbar');
+		var toolbarHolder = $('.wysiwyg-toolbar');
 		var scrollTop = $(this.opts.toolbarFixedTarget).scrollTop();
 		var boxTop = this.$box.offset().top;
 		var left = 'auto';

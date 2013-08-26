@@ -8,8 +8,6 @@
 	
 </head>
 <body class="body-gray">
-
-	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/top-line-menu.php'; ?>
 	
 <div class="layout-container">
 	<div class="layout-wrapper">

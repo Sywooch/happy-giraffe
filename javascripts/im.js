@@ -8,15 +8,13 @@ function scrollFix() {
 
 var im = {};
 
-im.topLineMenuHeight = 61;
-im.tabsHeight = 45;
+im.tabsHeight = 0;
 /*im.userListIndentFix = 198;*/
 im.userListIndent = 180;
 im.minHeight = 460;
 
 im.viewHeight = function () {
-    console.log(im.windowHeight, im.topHeight + im.bottomHeight + im.headerHeight + im.topLineMenuHeight);
-    return im.windowHeight - im.topHeight - im.bottomHeight - im.headerHeight - im.topLineMenuHeight;
+    return im.windowHeight - im.topHeight - im.bottomHeight - im.headerHeight - 20;
 }
 
 /* Прокручивание в конец страницы */
@@ -77,13 +75,14 @@ im.scrollIm = function (){
         im.wrapper.css('top', imTopScroll);*/
 
          /* заглушка */
+         console.log(im.headerHeight)
          $('.im-cap').css('top', im.headerHeight + im.tabsHeight - im.containerScroll);
     }
 }
 
 /* im - instant messeger for user */
 $(window).load(function() {
-    im.container = $('.layout-container');
+    im.container = $(window);
     im.imBlock = $(".im");
     im.sidebar = $('.im-sidebar');
     im.userList = $('.im-user-list');
@@ -92,7 +91,7 @@ $(window).load(function() {
     im.bottom = $('.im-center_bottom');
 
     im.windowHeight = $(window).height();
-    im.headerHeight = $('#header-new').height();
+    im.headerHeight = $('.layout-header').height();
     im.topHeight = $('.im-center_top').height();
     im.bottomHeight = im.bottom.height();
     im.height = im.wrapper.height();

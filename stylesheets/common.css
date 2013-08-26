@@ -11537,13 +11537,15 @@ select.pregnancy_term + .chzn-container .chzn-results li {
 */
 .layout-header {
   position: relative;
-  padding: 20px 10px 5px;
-  margin-bottom: 20px;
 }
 .layout-header .logo {
   float: left;
   margin: 5px 40px 0 40px;
   padding: 0;
+}
+.layout-header_hold {
+  padding: 20px 10px 5px;
+  margin-bottom: 20px;
 }
 .layout-header_logout {
   position: absolute;

@@ -1,8 +1,8 @@
 ﻿<!DOCTYPE html>
-<!--[if lt IE 8]>      <html class="top-nav-fixed ie7 im-fixed"> <![endif]-->
-<!--[if IE 8]>         <html class="top-nav-fixed ie8 im-fixed"> <![endif]-->
-<!--[if IE 9]>         <html class="top-nav-fixed ie9 im-fixed"> <![endif]-->
-<!--[if gt IE 9]><!--> <html class="top-nav-fixed im-fixed"> <!--<![endif]-->
+<!--[if lt IE 8]>      <html class="ie7"> <![endif]-->
+<!--[if IE 8]>         <html class="ie8"> <![endif]-->
+<!--[if IE 9]>         <html class="ie9"> <![endif]-->
+<!--[if gt IE 9]><!--> <html class=""> <!--<![endif]-->
 <head>
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/head.php'; ?>
 	<script type="text/javascript" src="/javascripts/im.js"></script>
@@ -10,35 +10,13 @@
 </head>
 <body class="body-gray">
 
-	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/top-line-menu.php'; ?>
 	
 <div class="layout-container">
 <div class="layout-container_hold">
 	<div class="layout-wrapper">
-		<div id="header-new" class="clearfix">
-			<div class="header-in">
-				<div class="clearfix">
-					
-					<div class="search-box clearfix">
-						<div class="input">
-							<input type="text" />
-						</div>
-						<button class="btn-green btn-green-medium">Поиск</button>
-					</div>
-					
-					<div class="logo-box">
-						<a href="/" class="logo" title="happy-giraffe.ru – Домашняя страница">Ключевые слова сайта</a>
-						<span>САЙТ ДЛЯ ВСЕЙ СЕМЬИ</span>
-					</div>
-					
-					<div class="banner-box">
-						<a href=""><img src="/images/contest/banner-w300-8.jpg" /></a>
-					</div>
-				</div>
-				
-			</div>
-			
-		</div>
+	
+		<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/header-new.php'; ?>
+		
 		<div class="layout-content">	
 		<div class="im">
 		<div class="im_hold clearfix">

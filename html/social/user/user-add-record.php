@@ -1028,7 +1028,7 @@ $(document).ready(function () {
 					</div>
 				</div>
 				
-				<div class="b-settings-blue b-settings-blue__video display-n">
+				<div class="b-settings-blue b-settings-blue__video">
 					<div class="b-settings-blue_tale"></div>
 					<div class="b-settings-blue_head">
 						<div class="b-settings-blue_row clearfix">
@@ -1075,7 +1075,7 @@ $(document).ready(function () {
 						<!-- При вводе текста убрать класс .btn-inactive с кнопки для ее активирования -->
 						<input type="text" name="" id="" class="itx-simple w-400 float-l" placeholder="Введите ссылку на видео">
 						<button class="btn-green btn-inactive">Загрузить  видео</button>
-						<div class="b-settings-blue_add-video-error">
+						<div class="errorMessage">
 							Не удалось загрузить видео. <br>
 							Возможно, URL указан неправильно либо ведет на неподдерживаемый сайт.
 						</div>

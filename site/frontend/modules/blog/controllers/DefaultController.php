@@ -20,6 +20,10 @@ class DefaultController extends HController
 
     public function actionIndex($user_id, $rubric_id = null)
     {
+        $video = Video::factory('http://www.youtube.com/watch?v=vbAf_ll1g8w');
+        echo $video->html;
+        die;
+
         $this->user = $this->loadUser($user_id);
         $this->pageTitle = $this->user->getBlogTitle();
         $this->rubric_id = $rubric_id;
@@ -207,8 +211,20 @@ class DefaultController extends HController
 
     public function actionVideoPreview($url)
     {
-        $video = Video::factory($url);
-        echo CJSON::encode($video->embed);
+        try {
+            $video = Video::factory($url);
+            $response = array(
+                'success' => true,
+                'html' => $video->embed,
+            );
+        }
+        catch (CException $e) {
+            $response = array(
+                'success' => false,
+            );
+        }
+
+        echo CJSON::encode($response);
     }
 
     protected function performAjaxValidation($models)

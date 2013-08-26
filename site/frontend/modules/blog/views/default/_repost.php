@@ -4,6 +4,8 @@
  * @var $data BlogContent
  * @var $full bool
  */
+
+$source = $data->source;
 ?><div class="clearfix">
     <div class="float-l">
         <div class="like-control like-control__repost clearfix">
@@ -21,7 +23,7 @@
             </div>
         </div>
         <h2 class="b-article_t">
-            <p><?=$data->source->title ?></p>
+            <p><?=$source->title ?></p>
         </h2>
         <div class="b-article_in">
             <div class="b-article_repost-comment">

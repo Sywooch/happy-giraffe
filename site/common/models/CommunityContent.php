@@ -45,6 +45,7 @@ class CommunityContent extends HActiveRecord
     const TYPE_PHOTO_POST = 3;
     const TYPE_MORNING = 4;
     const TYPE_STATUS = 5;
+    const TYPE_REPOST = 6;
 
     const USERS_COMMUNITY = 999999;
 
@@ -263,7 +264,7 @@ class CommunityContent extends HActiveRecord
 
         if ($this->isNewRecord) {
             if ($this->type_id != self::TYPE_MORNING) {
-                if ($this->isFromBlog) {
+                if ($this->getIsFromBlog()) {
                     UserAction::model()->add($this->author_id, UserAction::USER_ACTION_BLOG_CONTENT_ADDED, array('model' => $this));
                 } elseif ($this->rubric->community_id != Community::COMMUNITY_NEWS) {
                     UserAction::model()->add($this->author_id, UserAction::USER_ACTION_COMMUNITY_CONTENT_ADDED, array('model' => $this));
@@ -273,7 +274,7 @@ class CommunityContent extends HActiveRecord
             if ($this->type_id == self::TYPE_STATUS)
                 FriendEventManager::add(FriendEvent::TYPE_STATUS_UPDATED, array('model' => $this));
 
-            if (in_array($this->type_id, array(self::TYPE_POST, self::TYPE_VIDEO))){
+            if (in_array($this->type_id, array(self::TYPE_POST, self::TYPE_VIDEO))) {
                 Scoring::contentCreated($this);
                 FriendEventManager::add(FriendEvent::TYPE_POST_ADDED, array('model' => $this));
             }
@@ -434,7 +435,7 @@ class CommunityContent extends HActiveRecord
     {
         $criteria = new CDbCriteria(array(
             'order' => 't.created DESC',
-            'condition' => '(rubric.user_id IS NOT NULL OR t.type_id = 5) AND t.author_id = :user_id',
+            'condition' => '(rubric.user_id IS NOT NULL OR t.type_id IN (5,6)) AND t.author_id = :user_id',
             'params' => array(':user_id' => $user_id),
             'with' => array('rubric'),
         ));
@@ -571,7 +572,9 @@ class CommunityContent extends HActiveRecord
      */
     public function getIsFromBlog()
     {
-        return ($this->rubric_id !== null && $this->getRelated('rubric')->user_id !== null) || $this->type_id == 5;
+        return ($this->rubric_id !== null && $this->getRelated('rubric')->user_id !== null)
+        || $this->type_id == self::TYPE_STATUS
+        || $this->type_id == self::TYPE_REPOST;
     }
 
     /**
@@ -720,7 +723,7 @@ class CommunityContent extends HActiveRecord
      */
     public function getContentText($length = 128, $etc = '...')
     {
-        if ($this->getContent() === null){
+        if ($this->getContent() === null) {
             echo $this->id;
             Yii::app()->end();
         }
@@ -860,15 +863,6 @@ class CommunityContent extends HActiveRecord
     }
 
     /**
-     * Возвращает пост для отображения
-     * @return CommunityContent
-     */
-    public function getSourceContent()
-    {
-        return empty($this->source_id) ? $this : $this->source;
-    }
-
-    /**
      * Прикрепить запись блога сверху
      * @return bool
      */
@@ -912,6 +906,30 @@ class CommunityContent extends HActiveRecord
     public function restore()
     {
         return self::model()->updateByPk($this->id, array('removed' => 0)) > 0;
+    }
+
+
+    /******************************** Repost ********************************************/
+    /**
+     * Возвращает пост для отображения
+     * @return CommunityContent
+     */
+    public function getSourceContent()
+    {
+        return empty($this->source_id) ? $this : $this->source;
+    }
+
+    /**
+     * Репостил ли эту запись пользователь
+     * @param int $user_id
+     * @return bool
+     */
+    public function userReposted($user_id)
+    {
+        return CommunityContent::model()->exists('author_id=:author_id AND source_id=:id', array(
+            ':author_id' => $user_id,
+            ':id' => $this->id
+        ));
     }
 
     /**

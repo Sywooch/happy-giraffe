@@ -187,15 +187,7 @@ class Comment extends HActiveRecord
                 $relatedModel->update(array('last_updated'));
                 //$relatedModel->sendEvent();
 
-                //пересчитываем рейтинг только если кол-во комментариев кратно 5-ти
-                $commentsCount = Yii::app()->db->createCommand()
-                    ->select('count(*)')
-                    ->from('comments')
-                    ->where('entity=:entity AND entity_id=:entity_id AND removed = 0',
-                        array(':entity' => $this->entity, ':entity_id' => $this->entity_id))
-                    ->queryScalar();
-                if ($commentsCount % 5 == 0)
-                    PostRating::reCalc($relatedModel);
+                PostRating::reCalcFromComments($this);
             }
 
             Yii::import('site.frontend.modules.routes.models.*');

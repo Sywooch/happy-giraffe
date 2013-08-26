@@ -250,6 +250,7 @@ class CommunityContent extends HActiveRecord
         if ($this->isNewRecord) {
             $this->last_updated = new CDbExpression('NOW()');
         }
+
         return parent::beforeSave();
     }
 

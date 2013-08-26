@@ -8,6 +8,25 @@
  */
 class AjaxSimpleController extends CController
 {
+    public function filters()
+    {
+        return array(
+            'ajaxOnly',
+            'accessControl',
+        );
+    }
+
+    public function accessRules()
+    {
+        return array(
+            array('deny',
+                'actions' => array('*'),
+                'users' => array('?'),
+            ),
+        );
+    }
+
+
     public function actionLike()
     {
         if (Yii::app()->user->isGuest)
@@ -188,7 +207,7 @@ class AjaxSimpleController extends CController
                 }
             }
 
-        echo CJSON::encode(array('status' => true, 'redirectUrl' => $this->createUrl('/gallery/user/view', array('userId' => Yii::app()->user->id, 'albumId' => $album->id))));
+        echo CJSON::encode(array('status' => true, 'redirectUrl' => $this->createUrl('/gallery/user/view', array('user_id' => Yii::app()->user->id, 'album_id' => $album->id))));
     }
 
     public function actionCommunityToggle()

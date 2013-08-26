@@ -5,10 +5,7 @@
 ?><div class="user-awards">
     <div class="clearfix">
         <span class="ico-cup-small"></span> &nbsp;
-        <span class="heading-small">Мои <?=($this->isMyProfile) ? 'успехи' : 'награды'; ?></span>
-        <?php if (count($this->awards) > 12):?>
-            <a href="<?=Yii::app()->createUrl('/profile/default/awards', array('user_id'=>$this->user->id)) ?>" class="padding-l20">Смотреть все</a>
-        <?php endif ?>
+        <a href="<?=Yii::app()->createUrl('/profile/default/awards', array('user_id'=>$this->user->id)) ?>" class="heading-small">Мои <?=($this->isMyProfile) ? 'успехи' : 'награды'; ?></a>
     </div>
     <ul class="user-awards_ul clearfix">
         <?php foreach ($this->awards as $award): ?>
@@ -26,7 +23,6 @@
                         <div class="clearfix"><?=$award->getAward()->title ?></div>
                         <div class="font-smallest">Получен <?=Yii::app()->dateFormatter->format('d MMM yyyy',strtotime($award->created)) ?></div>
                         <div class="user-awards_popup-count">+ <?=$award->getAward()->scores ?> баллов</div>
-                        <a href="" class="user-awards_popup-more">Как получить трофеи</a>
                     </div>
                 </div>
             </li>

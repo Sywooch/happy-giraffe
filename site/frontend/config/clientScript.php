@@ -114,5 +114,12 @@ return array(
             ),
             'depends' => array('knockout'),
         ),
+        'ko_layout' => array(
+            'baseUrl' => '/',
+            'js' => array(
+                'javascripts/ko_layout.js',
+            ),
+            'depends' => array('knockout'),
+        ),
     )
 );

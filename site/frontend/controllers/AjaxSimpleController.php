@@ -42,9 +42,41 @@ class AjaxSimpleController extends CController
             echo CJSON::encode(array('status' => false));
     }
 
-    public function actionRepost()
+    /**
+     * Репост записи
+     */
+    public function actionRepostCreate()
     {
+        $data = Yii::app()->request->getPost('Repost');
+        $source = CommunityContent::model()->findByPk($data['model_id']);
+        $model = new CommunityContent();
+        $model->source_id = $source->id;
+        $model->type_id = CommunityContent::TYPE_REPOST;
+        $model->author_id = Yii::app()->user->id;
+        $model->title = $source->title;
+        $model->preview = trim(strip_tags($data['note']));
+        if ($model->save())
+            $response = array('success' => true);
+        else
+            $response = array('success' => false);
 
+        echo CJSON::encode($response);
+    }
+
+    /**
+     * Удалить репост
+     */
+    public function actionRepostDelete()
+    {
+        $source_id = Yii::app()->request->getPost('modelId');
+        $model = CommunityContent::model()->find('source_id=:source_id AND author_id=:author_id', array(
+            'source_id' => $source_id,
+            'author_id' => Yii::app()->user->id,
+        ));
+        if ($model)
+            Yii::app()->db->createCommand()->delete('community__contents', 'id=' . $model->id);
+
+        echo CJSON::encode(array('success' => true));
     }
 
     /**

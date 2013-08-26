@@ -108,6 +108,6 @@ class ScoreAward extends HActiveRecord
      */
     public function getIconUrl($size)
     {
-        return '/images/scores/awards/award-' . $this->id . '-' . $size . '.png';
+        return '/images/scores/awards/' . $this->id . '-' . $size . '.png';
     }
 }

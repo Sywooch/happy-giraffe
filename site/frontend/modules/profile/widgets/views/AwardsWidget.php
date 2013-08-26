@@ -23,7 +23,6 @@
                         <div class="clearfix"><?=$award->getAward()->title ?></div>
                         <div class="font-smallest">Получен <?=Yii::app()->dateFormatter->format('d MMM yyyy',strtotime($award->created)) ?></div>
                         <div class="user-awards_popup-count">+ <?=$award->getAward()->scores ?> баллов</div>
-                        <a href="" class="user-awards_popup-more">Как получить трофеи</a>
                     </div>
                 </div>
             </li>

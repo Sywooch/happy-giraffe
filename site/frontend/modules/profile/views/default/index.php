@@ -50,10 +50,10 @@ Yii::app()->clientScript->registerPackage('ko_profile');
                     <span class="user-btns_tx"><?= $user->blogPostsCount . ' <br> ' . Str::GenerateNoun(array('запись', 'записи', 'записей'), $user->blogPostsCount) ?></span>
                 </a>
                 <?php endif ?>
-                <a href="<?= $this->createUrl('/gallery/user/index', array('userId' => $user->id)) ?>" class="user-btns_i powertip">
-                    		<span class="user-btns_ico-hold user-btns_ico-hold__photo">
-                    			<span class="user-btns_ico"></span>
-                    		</span>
+                <a href="<?=$user->getPhotosUrl()?>" class="user-btns_i powertip">
+                    <span class="user-btns_ico-hold user-btns_ico-hold__photo">
+                        <span class="user-btns_ico"></span>
+                    </span>
                     <span class="user-btns_tx"><?= $user->getPhotosCount() ?> <br> фото</span>
                 </a>
             </div>
@@ -83,8 +83,10 @@ Yii::app()->clientScript->registerPackage('ko_profile');
 
         <?php $this->widget('InterestsWidget', array('user' => $user)); ?>
 
-        <?php $this->widget('UserPhotosWidget', array('userId' => $user->id)); ?>
-
+        <div class="photo-preview-row clearfix">
+            <h3 class="heading-small margin-b10">Мои фото</h3>
+            <?php $this->widget('UserPhotosWidget', array('userId' => $user->id)); ?>
+        </div>
 
         <div class="col-23-middle">
 

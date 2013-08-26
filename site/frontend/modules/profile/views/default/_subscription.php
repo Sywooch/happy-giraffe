@@ -14,6 +14,8 @@ $json = array(
     <h3 class="heading-small float-l margin-t5">Моя активность</h3>
 </div>
 <script type="text/javascript">
-    var vm = new BlogSubscription(<?=CJSON::encode($json)?>);
-    ko.applyBindings(vm, document.getElementById('blog-subscription'));
+    $(function() {
+        var vm = new ProfileBlogSubscription(<?=CJSON::encode($json)?>);
+        ko.applyBindings(vm, document.getElementById('blog-subscription'));
+    });
 </script>

@@ -143,10 +143,11 @@ class UserScores extends HActiveRecord
     public static function getNextPrev($user_id, $some_award)
     {
         $awards = self::model()->getAwardsWithAchievements($user_id);
-        foreach($awards as $key => $award){
-            if ($award->id == $award->id && get_class($award) == get_class($some_award)){
-                $prev = isset($awards[$key - 1])?$awards[$key - 1]:null;
-                $next = isset($awards[$key + 1])?$awards[$key + 1]:null;
+
+        foreach ($awards as $key => $award) {
+            if ($award->id == $some_award->id && get_class($award) == get_class($some_award)) {
+                $prev = isset($awards[$key - 1]) ? $awards[$key - 1] : null;
+                $next = isset($awards[$key + 1]) ? $awards[$key + 1] : null;
                 return array($next, $prev);
             }
         }

@@ -6,15 +6,13 @@
     <div class="about-self" id="user-about">
         <h3 class="heading-small margin-b5">О себе
             <!-- ko if: canEdit() -->
-            <a href="" class="a-pseudo-icon"><span class="ico-edit"></span><span class="a-pseudo-icon_tx" data-bind="click: edit">Редактировать</span></a>
+            <a href="" class="a-pseudo-icon" data-bind="click: edit"><span class="ico-edit"></span><span class="a-pseudo-icon_tx"></span></a>
             <!-- /ko -->
         </h3>
         <div class="about-self_ctn">
 
             <!-- ko if: !editMode() -->
-                <!-- ko if: about().length == 0 -->
-                <a href="" class="a-pseudo-grayblue" data-bind="click: edit">Напишите пару слов о себе</a>
-                <!-- /ko -->
+                <a href="" class="a-pseudo-grayblue" data-bind="click: edit, visible: about().length == 0">Напишите пару слов о себе</a>
 
                 <!-- ko if: about().length != 0 -->
                     <!--ko text: about--><?=$user->about ?><!--/ko-->
@@ -22,13 +20,11 @@
             <!-- /ko -->
 
             <!-- ko if: editMode() -->
-
             <textarea name="" id="" cols="30" rows="" class="about-self_textarea" placeholder="Введите текст" data-bind="value: new_about"></textarea>
             <div class="clearfix">
                 <a href="" class="btn-blue margin-r10" data-bind="click: accept">Добавить</a>
                 <a href="" class="btn-gray-light" data-bind="click: decline">Отменить</a>
             </div>
-
             <!-- /ko -->
 
         </div>

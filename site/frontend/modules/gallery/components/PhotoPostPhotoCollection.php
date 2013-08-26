@@ -6,7 +6,7 @@ class PhotoPostPhotoCollection extends PhotoCollection
 
     public function generateIds()
     {
-        return Yii::app()->db->createCommand("SELECT i.photo_id FROM community__content_gallery_items i INNER JOIN community__content_gallery g ON i.gallery_id = g.id WHERE g.content_id = :content_id AND hidden=0 AND removed=0")->queryColumn(array(':content_id' => $this->contentId));
+        return Yii::app()->db->createCommand("SELECT i.photo_id FROM community__content_gallery_items i INNER JOIN community__content_gallery g ON i.gallery_id = g.id WHERE g.content_id = :content_id")->queryColumn(array(':content_id' => $this->contentId));
     }
 
     protected function getIdsCacheDependency()

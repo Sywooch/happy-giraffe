@@ -1264,18 +1264,6 @@ class User extends HActiveRecord
     }
 
     /**
-     * Репостил ли пользователь запись
-     *
-     * @param CommunityContent $model
-     * @return bool
-     */
-    public function isReposted($model)
-    {
-        return CommunityContent::model()->exists('author_id=:author_id AND source_id=:model_id',
-            array(':model_id' => $model->id, ':author_id' => $this->id));
-    }
-
-    /**
      * Добавлял ли пользователь запись в избранное
      *
      * @param CommunityContent $model

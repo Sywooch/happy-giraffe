@@ -11,7 +11,9 @@ $ownArticle = $model->author_id == Yii::app()->user->id;
 <div class="js-like-control<?php if ($ownArticle) echo ' like-control__self' ?>" data-bind="visible: ! removed()">
     <div class="like-control like-control__pinned clearfix">
         <a href="javascript:;" class="like-control_ico like-control_ico__like powertip<?php if (!Yii::app()->user->isGuest && Yii::app()->user->getModel()->isLiked($model)) echo ' active' ?>" onclick="HgLike(this, 'BlogContent',<?=$model->id ?>);"<?php if (!$ownArticle) echo ' title="Нравится"' ?>><?=PostRating::likesCount($model) ?></a>
-        <a href="javascript:;" class="like-control_ico like-control_ico__repost powertip<?php if (!Yii::app()->user->isGuest && Yii::app()->user->getModel()->isReposted($model)) echo ' active' ?>"<?php if (!$ownArticle) echo ' title="Репост"' ?>><?=$model->sourceCount ?></a>
+        <!-- ko stopBinding: true -->
+        <?php $this->widget('application.modules.blog.widgets.RepostWidget', array('model' => $model, 'right' => true)); ?>
+        <!-- /ko -->
         <!-- ko stopBinding: true -->
         <?php $this->widget('FavouriteWidget', array('model' => $model, 'right' => true)); ?>
         <!-- /ko -->

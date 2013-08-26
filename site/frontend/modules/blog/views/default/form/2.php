@@ -32,7 +32,7 @@
             <?=$form->error($model, 'title')?>
         </div>
         <div class="b-settings-blue_row clearfix">
-            <label for="" class="b-settings-blue_label">Рубрика</label>
+            <?=$form->label($model, 'rubric_id', array('class' => 'b-settings-blue_label'))?>
             <div class="w-400 float-l">
                 <div class="chzn-itx-simple js-select-rubric">
                     <select name="<?=CHtml::activeName($model, 'rubric_id')?>" id="<?=CHtml::activeId($model, 'rubric_id')?>" data-bind="options: rubricsList,
@@ -43,7 +43,7 @@
                     optionsValue: function(rubric) {
                         return rubric.id;
                     },
-                    chosenRubric: {}"></select>
+                    chosenRubric: {}" data-placeholder="Выберите рубрику или создайте новую"></select>
                     <?=$form->error($model, 'rubric_id')?>
                 </div>
             </div>
@@ -105,7 +105,7 @@
 
 <?php $this->endWidget(); ?>
 
-<script>
+<script type="text/javascript">
     var BlogFormVideoViewModel = function(data) {
         var self = this;
         ko.utils.extend(self, new BlogFormViewModel(data));

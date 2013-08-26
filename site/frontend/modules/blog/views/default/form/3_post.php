@@ -34,7 +34,7 @@
                     optionsValue: function(rubric) {
                         return rubric.id;
                     },
-                    chosenRubric: {}"></select>
+                    chosenRubric: {}" data-placeholder="Выберите рубрику или создайте новую"></select>
                     <?=$form->error($model, 'rubric_id')?>
                 </div>
             </div>

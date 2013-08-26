@@ -41,7 +41,7 @@ $data['currentRubricId'] = $this->rubric_id;
 <div class="content-cols clearfix">
     <div class="col-1">
 
-        <?php $this->widget('Avatar', array('user' => $this->user, 'size' => 200, 'message_link' => false, 'blog_link' => false)); ?>
+        <?php $this->widget('Avatar', array('user' => $this->user, 'size' => 200, 'message_link' => false, 'blog_link' => false, 'location' => true, 'age' => true)); ?>
 
         <div class="aside-blog-desc blogInfo" data-bind="visible: descriptionToShow().length > 0">
             <div class="aside-blog-desc_tx" data-bind="html: descriptionToShow"><?=$data['description']?></div>

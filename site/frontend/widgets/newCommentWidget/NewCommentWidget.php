@@ -44,7 +44,7 @@ class NewCommentWidget extends CWidget
 
     public function run()
     {
-        self::registerScripts();
+        Yii::app()->clientScript->registerPackage('ko_comments');
 
         if ($this->registerScripts === false) {
             $this->objectName = 'new_comment_' . $this->entity . $this->entity_id . time();
@@ -54,15 +54,6 @@ class NewCommentWidget extends CWidget
             else
                 $this->render('view', array('comments' => $this->getComments()));
         }
-    }
-
-    public static function registerScripts()
-    {
-        $basePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR;
-        $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
-        Yii::app()->clientScript
-            ->registerScriptFile($baseUrl . '/comment.js', CClientScript::POS_HEAD)
-            ->registerScriptFile('/javascripts/knockout.mapping-latest.js');
     }
 
     /**

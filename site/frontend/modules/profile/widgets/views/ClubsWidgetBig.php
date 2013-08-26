@@ -13,7 +13,11 @@
                 </span>
                 <span class="club-list_i-name" data-bind="text: title"></span>
             </a>
-            <a href="" class="club-list_check powertip" data-bind="click: toggle"></a>
+            <?php if (Yii::app()->user->isGuest):?>
+                <a href="#login" class="club-list_check powertip" data-bind="tooltip: tooltipText"></a>
+            <?php else: ?>
+                <a href="" class="club-list_check powertip" data-bind="click: toggle, tooltip: tooltipText"></a>
+            <?php endif ?>
         </li>
         <!-- /ko -->
     </ul>

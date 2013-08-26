@@ -9,7 +9,7 @@
 ?><div class="nav-article margin-b15 margin-t15 clearfix">
     <?php if ($prev !== null):?>
         <div class="nav-article_left">
-            <a class="nav-article_arrow nav-article_arrow__left" href=""></a>
+            <a class="nav-article_arrow nav-article_arrow__left" href="<?=$prev->getUrl() ?>"></a>
             <div class="nav-article_hold">
                 <div class="display-ib verticalalign-m margin-r5">
                     <a href="<?=$prev->getUrl() ?>" class="award-ico"><img src="<?=$prev->getAward()->getIconUrl(46)?>" alt=""></a>

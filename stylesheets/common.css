@@ -1902,7 +1902,6 @@ textarea.error,
   line-height: 75px;
   padding: 0 35px;
   font-size: 34px;
-  font-weight: bold;
   -webkit-border-radius: 8px;
   -moz-border-radius: 8px;
   border-radius: 8px;
@@ -16055,12 +16054,57 @@ select.pregnancy_term + .chzn-container .chzn-results li {
 /* menu-list */
 .menu-list {
   position: relative;
+  /*&_i__all {background: #e7dcef;}
+	&_i__all:hover {background: #efe5f8;}
+	&_i__all.active {background: #947bab;}*/
+
+  /*&_i__all.active &_ico {background-position: 0 -20px;}
+	&_i__all2 {background: #e7dcef;}
+	&_i__all2:hover {background: #efe5f8;}
+	&_i__all2.active {background: #947bab;}*/
+
+  /*&_i__all2.active &_ico {background-position: -120px -20px;}
+	&_i__post {background: #ddeefd;}
+	&_i__post:hover {background: #ebf6ff;}
+	&_i__post.active {background: #7ab3e4;}*/
+
+  /*&_i__post.active &_ico {background-position: -20px -20px;}
+	&_i__photo {background: #d3fbd7;}
+	&_i__photo:hover {background: #eafeec;}
+	&_i__photo.active {background: #51b95b;}*/
+
+  /*&_i__photo.active &_ico {background-position: -40px -20px;}
+	&_i__video {background: #ffe0e0;}
+	&_i__video:hover {background: #ffe9e9;}
+	&_i__video.active {background: #f77979;}*/
+
+  /*&_i__video.active &_ico {background-position: -60px -20px;}
+	&_i__master {background: #f6e6f8;}
+	&_i__master:hover {background: #fef1ff;}
+	&_i__master.active {background: #c483ca;}*/
+
+  /*&_i__cook {background: #fff7d8;}
+	&_i__cook:hover {background: #fffae8;}
+	&_i__cook.active {background: #f6d44a;}
+	*/
+
+  /*&_i__cook.active &_ico {background-position: -100px -20px;}*/
+
 }
 .menu-list__favorites .menu-list_i {
   padding-left: 15px;
 }
+.menu-list__favorites .menu-list_i:hover,
+.menu-list__favorites .menu-list_i.active {
+  background: #947bab;
+  color: #fff;
+  font-weight: bold;
+}
 .menu-list__favorites .menu-list_count {
   float: right;
+}
+.menu-list__favorites .menu-list_i:hover .menu-list_count {
+  color: #fff;
 }
 .menu-list__blue .menu-list_i {
   background: #e0f2ff;
@@ -16140,110 +16184,30 @@ select.pregnancy_term + .chzn-container .chzn-results li {
   right: 10px;
   display: none;
 }
-.menu-list_i__all {
-  background: #e7dcef;
-}
-.menu-list_i__all:hover {
-  background: #efe5f8;
-}
-.menu-list_i__all.active {
-  background: #947bab;
-}
 .menu-list_i__all .menu-list_ico {
   background-position: 0 0;
-}
-.menu-list_i__all.active .menu-list_ico {
-  background-position: 0 -20px;
-}
-.menu-list_i__all2 {
-  background: #e7dcef;
-}
-.menu-list_i__all2:hover {
-  background: #efe5f8;
-}
-.menu-list_i__all2.active {
-  background: #947bab;
 }
 .menu-list_i__all2 .menu-list_ico {
   background-position: -120px 0;
 }
-.menu-list_i__all2.active .menu-list_ico {
-  background-position: -120px -20px;
-}
-.menu-list_i__post {
-  background: #ddeefd;
-}
-.menu-list_i__post:hover {
-  background: #ebf6ff;
-}
-.menu-list_i__post.active {
-  background: #7ab3e4;
-}
 .menu-list_i__post .menu-list_ico {
   background-position: -20px 0;
-}
-.menu-list_i__post.active .menu-list_ico {
-  background-position: -20px -20px;
-}
-.menu-list_i__photo {
-  background: #d3fbd7;
-}
-.menu-list_i__photo:hover {
-  background: #eafeec;
-}
-.menu-list_i__photo.active {
-  background: #51b95b;
 }
 .menu-list_i__photo .menu-list_ico {
   background-position: -40px 0;
 }
-.menu-list_i__photo.active .menu-list_ico {
-  background-position: -40px -20px;
-}
-.menu-list_i__video {
-  background: #ffe0e0;
-}
-.menu-list_i__video:hover {
-  background: #ffe9e9;
-}
-.menu-list_i__video.active {
-  background: #f77979;
-}
 .menu-list_i__video .menu-list_ico {
   background-position: -60px 0;
-}
-.menu-list_i__video.active .menu-list_ico {
-  background-position: -60px -20px;
-}
-.menu-list_i__master {
-  background: #f6e6f8;
-}
-.menu-list_i__master:hover {
-  background: #fef1ff;
-}
-.menu-list_i__master.active {
-  background: #c483ca;
 }
 .menu-list_i__master .menu-list_ico {
   background-position: -80px 0;
 }
+.menu-list_i__master:hover .menu-list_ico,
 .menu-list_i__master.active .menu-list_ico {
   background-position: -80px -20px;
 }
-.menu-list_i__cook {
-  background: #fff7d8;
-}
-.menu-list_i__cook:hover {
-  background: #fffae8;
-}
-.menu-list_i__cook.active {
-  background: #f6d44a;
-}
 .menu-list_i__cook .menu-list_ico {
   background-position: -100px 0;
-}
-.menu-list_i__cook.active .menu-list_ico {
-  background-position: -100px -20px;
 }
 .menu-list_i__activity .menu-list_ico {
   background-position: -140px 0;

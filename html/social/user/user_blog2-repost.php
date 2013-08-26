@@ -213,10 +213,8 @@
 						<h2 class="b-article_t">
 							Самое лучшее утро - просыпаюсь, а ты рядом
 						</h2>
-						<div class="b-article_in">
-							<div class="b-article_repost-comment">
-								Круто! Мне понравился пост. Советую всем.
-							</div>
+						<div class="b-article_repost-comment">
+							Круто! Мне понравился пост. Советую всем.
 						</div>
 					</div>
 				</div>

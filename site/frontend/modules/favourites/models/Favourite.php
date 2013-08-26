@@ -165,6 +165,23 @@ class Favourite extends CActiveRecord
         return parent::beforeSave();
     }
 
+    public function afterSave()
+    {
+        PostRating::reCalc($this->getRelatedModel());
+        parent::afterSave();
+    }
+
+    public function afterDelete()
+    {
+        PostRating::reCalc($this->getRelatedModel());
+        return parent::afterDelete();
+    }
+
+    protected function getRelatedModel()
+    {
+        return CActiveRecord::model($this->model_name)->resetScope()->findByPk($this->model_id);
+    }
+
     protected function processTags($tagsNames)
     {
         $tagsArray = is_array($tagsNames) ? $tagsNames : explode(',', $tagsNames);

@@ -26,6 +26,10 @@ class AjaxSimpleController extends CController
         );
     }
 
+    public function actionView()
+    {
+        //PostRating::reCalcFromViews($model);
+    }
 
     public function actionLike()
     {
@@ -40,6 +44,8 @@ class AjaxSimpleController extends CController
             echo CJSON::encode(array('status' => true));
         } else
             echo CJSON::encode(array('status' => false));
+
+        PostRating::reCalc($model);
     }
 
     /**
@@ -59,8 +65,8 @@ class AjaxSimpleController extends CController
             $response = array('success' => true);
         else
             $response = array('success' => false);
-
         echo CJSON::encode($response);
+        PostRating::reCalc($source);
     }
 
     /**
@@ -68,15 +74,16 @@ class AjaxSimpleController extends CController
      */
     public function actionRepostDelete()
     {
-        $source_id = Yii::app()->request->getPost('modelId');
+        $source = CommunityContent::model()->findByPk(Yii::app()->request->getPost('modelId'));
         $model = CommunityContent::model()->find('source_id=:source_id AND author_id=:author_id', array(
-            'source_id' => $source_id,
+            'source_id' => $source->id,
             'author_id' => Yii::app()->user->id,
         ));
         if ($model)
             Yii::app()->db->createCommand()->delete('community__contents', 'id=' . $model->id);
 
         echo CJSON::encode(array('success' => true));
+        PostRating::reCalc($source);
     }
 
     /**

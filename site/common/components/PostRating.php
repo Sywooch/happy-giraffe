@@ -7,16 +7,52 @@
 class PostRating
 {
     /**
+     * Пересчет рейтинга после добавления комментария к записи
+     * пересчитываем рейтинг только если кол-во комментариев кратно 5-ти
+     *
+     * @param Comment $comment
+     */
+    public static function reCalcFromComments($comment)
+    {
+        $commentsCount = Yii::app()->db->createCommand()
+            ->select('count(*)')
+            ->from('comments')
+            ->where('entity=:entity AND entity_id=:entity_id AND removed = 0',
+                array(':entity' => $comment->entity, ':entity_id' => $comment->entity_id))
+            ->queryScalar();
+        if ($commentsCount % 5 == 0)
+            PostRating::reCalc($comment->relatedModel);
+    }
+
+    /**
+     * Пересчет рейтинга после просмотра записи
+     *
+     * @param CommunityContent $model
+     */
+    public static function reCalcFromViews($model)
+    {
+        $count = PageView::model()->viewsByPath($model->getUrl());
+        if ($count % 50 == 0)
+            PostRating::reCalc($model);
+    }
+
+    /**
      * @param CActiveRecord $model
      */
     public static function reCalc($model)
     {
-        if (get_class($model) != 'CommunityContent')
+        if (method_exists($model, 'getIsFromBlog')){
+            if ($model->getIsFromBlog())
+                $model = BlogContent::model()->findByPk($model->id);
+            else
+                $model = CommunityContent::model()->findByPk($model->id);
+        }
+        if (get_class($model) != 'CommunityContent' && get_class($model) != 'BlogContent')
             return ;
 
-        $model->rating = self::repostCount($model) + self::likesCount($model) + self::favouritesCount($model)
-            + self::comments($model) + self::views($model);
-        $model->update(array('rating'));
+        $model->rate = round(self::repostCount($model) + self::likesCount($model) + self::favouritesCount($model)
+            + self::comments($model) + self::views($model));
+        $model->update(array('rate'));
     }
 
     /**
@@ -52,7 +88,7 @@ class PostRating
      */
     public static function comments($model)
     {
-        return floor($model->getUnknownClassCommentsCount() * 0.2);
+        return floor($model->commentsCount * 0.2);
     }
 
     /**

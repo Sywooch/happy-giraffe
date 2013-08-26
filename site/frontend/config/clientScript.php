@@ -3,6 +3,12 @@
 return array(
     'class' => 'application.components.ClientScript',
     'packages' => array(
+        'powertip' => array(
+            'baseUrl' => '/',
+            'js' => array(
+                'javascripts/jquery.powertip.js',
+            ),
+        ),
         'jcrop' => array(
             'baseUrl' => '/',
             'js' => array(
@@ -28,6 +34,7 @@ return array(
             ),
             'depends' => array(
                 'jquery',
+                'powertip',
             ),
         ),
         'history' => array(
@@ -104,6 +111,13 @@ return array(
                 'jQuery-File-Upload/js/vendor/jquery.ui.widget.js',
                 'jQuery-File-Upload/js/jquery.iframe-transport.js',
                 'jQuery-File-Upload/js/jquery.fileupload.js',
+            ),
+            'depends' => array('knockout'),
+        ),
+        'ko_layout' => array(
+            'baseUrl' => '/',
+            'js' => array(
+                'javascripts/ko_layout.js',
             ),
             'depends' => array('knockout'),
         ),

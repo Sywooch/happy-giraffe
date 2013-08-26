@@ -9,44 +9,22 @@
 
 class Video extends CComponent
 {
-    const YOUTUBE_PROVIDER = 0;
-    const VIMEO_PROVIDER = 1;
-    const RUTUBE_PROVIDER = 2;
-
-    public static $providers = array(
-        self::YOUTUBE_PROVIDER => array(
-            'regex' => '|https?://(www\.)?youtube.com/watch.*|i',
-            'endpoint' => 'http://www.youtube.com/oembed',
-            'class' => 'YoutubeVideo',
-        ),
-        self::VIMEO_PROVIDER => array(
-            'regex' => '|https?://(www\.)?vimeo.com/.*|i',
-            'endpoint' => 'http://vimeo.com/api/oembed.json',
-            'class' => 'VimeoVideo',
-        ),
-        self::RUTUBE_PROVIDER => array(
-            'regex' => '|https?://(www\.)?rutube.ru/.*|i',
-            'endpoint' => 'http://rutube.ru/api/oembed/',
-            'class' => 'RutubeVideo',
-        ),
+    public static $providerToClass = array(
+        OEmbed::YOUTUBE_PROVIDER => 'YoutubeVideo',
+        OEmbed::VIMEO_PROVIDER => 'VimeoVideo',
+        OEmbed::RUTUBE_PROVIDER => 'RutubeVideo',
     );
-
-    public static function getProvider($url)
-    {
-        foreach (self::$providers as $provider => $providerData) {
-            if (preg_match($providerData['regex'], $url))
-                return $provider;
-        }
-        return false;
-    }
 
     public static function factory($url)
     {
-        $provider = self::getProvider($url);
-        if ($provider === false)
-            return false;
+        $provider = OEmbed::getProvider($url);
 
-        $class = self::$providers[$provider]['class'];
-        return new $class($url);
+        if ($provider === false)
+            throw new CException('Provider is not recognized');
+
+        $className = self::$providerToClass[$provider];
+        $object = new $className($url);
+        $object->oembedProvider = $provider;
+        return $object;
     }
 }

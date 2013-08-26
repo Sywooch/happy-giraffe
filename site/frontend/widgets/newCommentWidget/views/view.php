@@ -98,7 +98,7 @@ NotificationRead::getInstance()->SetVisited();
 
             </div>
 
-            <div class="comments-gray_control" data-bind="css: {'comments-gray_control__self': ownComment()}, visible: (!editMode() && !photoUrl())">
+            <div class="comments-gray_control" data-bind="css: {'comments-gray_control__self': ownComment()}, visible: (!editMode() && !photoUrl() && !removed())">
                 <div class="comments-gray_control-hold">
 
                     <div class="clearfix" data-bind="visible: (!ownComment() && !$parent.gallery())">

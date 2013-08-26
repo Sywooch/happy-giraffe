@@ -121,7 +121,7 @@ class DefaultController extends HController
     {
         $this->user = $this->loadUser(Yii::app()->user->id);
         if ($id === null) {
-            $model = new BlogContent();
+            $model = new BlogContent('default');
             $model->type_id = $type;
             $slug = $model->type->slug;
             $slaveModelName = 'Community' . ucfirst($slug);

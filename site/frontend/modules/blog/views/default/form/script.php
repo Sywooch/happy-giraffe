@@ -5,7 +5,7 @@
         {
             viewModel.rubricsList.unshift(new BlogRubric({ id : undefined, title : undefined }));
             $(element).addClass('chzn');
-            $(element).chosen({allow_single_deselect: true}).ready(function(){
+            $(element).chosen().ready(function(){
                 $('.js-select-rubric').find('.chzn-drop').append('<div class="chzn-itx-simple_add" id="rubricAddForm"><div class="chzn-itx-simple_add-hold"> <input type="text" class="chzn-itx-simple_add-itx" placeholder="Создайте новую" data-bind="value: newRubricTitle, valueUpdate: \'keyup\'"> <a class="chzn-itx-simple_add-del" data-bind="visible: newRubricTitle().length > 0, click: clearNewRubricTitle"></a> </div> <button class="btn-green" data-bind="click: createRubric">Ok</button> </div>');
                 ko.applyBindings(viewModel, document.getElementById('rubricAddForm'));
             });
@@ -35,7 +35,6 @@
         self.rubricsList = ko.observableArray(ko.utils.arrayMap(data.rubricsList, function(rubric) {
             return new BlogRubric(rubric);
         }));
-        console.log(data.rubricsList.length > 1 ? undefined : data.rubricsList[0]);
         self.selectedRubric = ko.observable(data.rubricsList.length > 1 ? undefined : data.rubricsList[0].id);
 
         self.clearNewRubricTitle = function() {

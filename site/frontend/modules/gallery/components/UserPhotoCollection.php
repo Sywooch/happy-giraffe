@@ -13,12 +13,12 @@ class UserPhotoCollection extends PhotoCollection
 
     public function generateIds()
     {
-        return Yii::app()->db->createCommand("SELECT id FROM album__photos WHERE author_id = :userId")->queryColumn(array(':userId' => $this->userId));
+        return Yii::app()->db->createCommand("SELECT id FROM album__photos WHERE author_id = :userId AND hidden=0 AND removed=0 ORDER BY id desc")->queryColumn(array(':userId' => $this->userId));
     }
 
     public function notEmpty()
     {
-        return null != Yii::app()->db->createCommand("SELECT id FROM album__photos WHERE author_id = :userId limit 1")->queryScalar(array(':userId' => $this->userId));
+        return null != Yii::app()->db->createCommand("SELECT id FROM album__photos WHERE author_id = :userId AND hidden=0 AND removed=0 limit 1")->queryScalar(array(':userId' => $this->userId));
     }
 
     protected function getIdsCacheDependency()

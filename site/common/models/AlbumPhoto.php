@@ -12,6 +12,7 @@
  * @property string $title
  * @property int $width
  * @property int $height
+ * @property int $hidden
  * @property string $created
  * @property string $updated
  *
@@ -135,7 +136,7 @@ class AlbumPhoto extends HActiveRecord
     {
         return array(
             'active' => array(
-                'condition' => $this->tableAlias . '.removed = 0',
+                'condition' => $this->tableAlias . '.removed = 0 AND '.$this->tableAlias . '.hidden = 0',
             ),
         );
     }
@@ -701,6 +702,7 @@ class AlbumPhoto extends HActiveRecord
      * Создает временную модель с загруженным пользователем файлом
      *
      * @param $file
+     * @param $hidden скрыто ли фото
      * Информация о загруженном файле
      * ["name"]=> название исходного файла
      * ["type"]=> "image/png" "image/jpeg"
@@ -709,7 +711,7 @@ class AlbumPhoto extends HActiveRecord
      * ["size"]=>
      * @return AlbumPhoto
      */
-    public function createUserTempPhoto($file)
+    public function createUserTempPhoto($file, $hidden = 0)
     {
         if (is_array($file['type']))
             $file['type'] = $file['type'][0];
@@ -725,6 +727,7 @@ class AlbumPhoto extends HActiveRecord
         $model->author_id = Yii::app()->user->id;
         $model->fs_name = $this->copyUserFile($file['name'], $file['tmp_name'], $model->author_id);
         $model->file_name = $file['name'];
+        $model->hidden = $hidden;
         if (!$model->save(false)){
             var_dump($model->getErrors());
         }

@@ -78,10 +78,14 @@ class UserAvatar extends CActiveRecord
         $ava->album_id = Album::TYPE_FAMILY;
         $ava->file_name = $source->file_name;
         $ava->fs_name = 'ava' . $source->fs_name;
+        $ava->hidden = 1;
         $ava->savePhotoFromPhpThumb(self::createAvatarFile($source, $x, $y, $w, $h));
 
         User::model()->updateByPk(Yii::app()->user->id, array('avatar_id' => $ava->id));
         self::saveCoordinates($source_id, $x, $y, $w, $h, $ava);
+
+        $source->hidden = 0;
+        $source->update(array('hidden'));
 
         return $ava;
     }

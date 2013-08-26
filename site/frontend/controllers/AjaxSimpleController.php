@@ -181,7 +181,7 @@ class AjaxSimpleController extends CController
     public function actionUploadAvatar()
     {
         foreach ($_FILES as $file)
-            $model = AlbumPhoto::model()->createUserTempPhoto($file);
+            $model = AlbumPhoto::model()->createUserTempPhoto($file, 1);
 
         list($width, $height) = getimagesize($model->getOriginalPath());
         $model->getPreviewUrl(200, 200, false, true);

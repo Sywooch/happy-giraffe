@@ -13,7 +13,7 @@ class AlbumPhotoCollection extends PhotoCollection
 
     public function generateIds()
     {
-        return Yii::app()->db->createCommand("SELECT id FROM album__photos WHERE album_id = :album_id")->queryColumn(array(':album_id' => $this->albumId));
+        return Yii::app()->db->createCommand("SELECT id FROM album__photos WHERE album_id = :album_id AND hidden=0 AND removed=0")->queryColumn(array(':album_id' => $this->albumId));
     }
 
     protected function getIdsCacheDependency()

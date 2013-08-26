@@ -53,7 +53,7 @@ class ConvertNewCommand extends CConsoleCommand
 
     public function actionConvertPhotoTest($id)
     {
-        $model = CommunityPost::model()->findByAttributes(array('content_id'=>$id));
+        $model = CommunityPost::model()->findByAttributes(array('content_id' => $id));
         if (strpos($model->text, '<img') !== false && strpos($model->text, '<!-- widget:') === false) {
             $model->text = $this->replaceImages($model, $model->text);
             $model->save();
@@ -79,7 +79,7 @@ class ConvertNewCommand extends CConsoleCommand
             } else {
 
                 $alt = pq($image)->attr('alt');
-                if (empty($photo->title) && !empty($alt) && $alt !== 'null'){
+                if (empty($photo->title) && !empty($alt) && $alt !== 'null') {
                     $photo->title = $alt;
                     $photo->update(array('title'));
                 }
@@ -105,6 +105,27 @@ class ConvertNewCommand extends CConsoleCommand
         if (strpos($src, '/') === 0)
             $src = 'http://www.happy-giraffe.ru' . $src;
         return AlbumPhoto::createByUrl($src, $model->content->author_id, Album::TYPE_DIALOGS);
+    }
+
+    public function actionRating()
+    {
+        Yii::import('site.common.models.mongo.*');
+        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
+        Yii::import('site.frontend.modules.favourites.models.*');
+
+        $criteria = new CDbCriteria;
+        $criteria->limit = 100;
+        $criteria->offset = 0;
+
+        $models = array(0);
+        while (!empty($models)) {
+            $models = CommunityContent::model()->findAll($criteria);
+            foreach ($models as $model)
+                PostRating::reCalc($model);
+
+            $criteria->offset += 100;
+            echo $criteria->offset . "\n";
+        }
     }
 }
 

@@ -3,6 +3,12 @@
 return array(
     'class' => 'application.components.ClientScript',
     'packages' => array(
+        'powertip' => array(
+            'baseUrl' => '/',
+            'js' => array(
+                'javascripts/jquery.powertip.js',
+            ),
+        ),
         'jcrop' => array(
             'baseUrl' => '/',
             'js' => array(
@@ -28,6 +34,7 @@ return array(
             ),
             'depends' => array(
                 'jquery',
+                'powertip',
             ),
         ),
         'history' => array(

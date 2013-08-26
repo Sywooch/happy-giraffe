@@ -7,7 +7,7 @@ Yii::app()->clientScript
 $data = $this->user->getBlogData();
 $data['currentRubricId'] = $this->rubric_id;
 ?>
-<?php $this->beginContent('//layouts/common_new'); ?>
+<?php $this->beginContent('//layouts/main'); ?>
 <?php if (!Yii::app()->user->isGuest):?>
     <div class="content-cols clearfix">
         <div class="col-1">

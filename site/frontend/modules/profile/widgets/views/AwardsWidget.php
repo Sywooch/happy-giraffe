@@ -5,7 +5,11 @@
 ?><div class="user-awards">
     <div class="clearfix">
         <span class="ico-cup-small"></span> &nbsp;
-        <a href="<?=Yii::app()->createUrl('/profile/default/awards', array('user_id'=>$this->user->id)) ?>" class="heading-small">Мои <?=($this->isMyProfile) ? 'успехи' : 'награды'; ?></a>
+        <?php if ($this->isMyProfile):?>
+            <a href="<?=Yii::app()->createUrl('/scores/default/index') ?>" class="heading-small">Мои успехи</a>
+        <?php else: ?>
+            <a href="<?=Yii::app()->createUrl('/profile/default/awards', array('user_id'=>$this->user->id)) ?>" class="heading-small">Мои награды</a>
+        <?php endif ?>
     </div>
     <ul class="user-awards_ul clearfix">
         <?php foreach ($this->awards as $award): ?>

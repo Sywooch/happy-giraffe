@@ -89,12 +89,9 @@
         self.check = function() {
             self.previewError(false);
             self.previewLoading(true);
-            $.get('/newblog/videoPreview/', { url : self.link() }, function(html) {
+            $.get('/newblog/videoPreview/', { url : self.link() }, function(response) {
                 self.previewLoading(false);
-                if (html === false)
-                    self.previewError(true);
-                else
-                    self.embed(html);
+                response.success ? self.embed(response.html) : self.previewError(true);
             }, 'json');
         };
 

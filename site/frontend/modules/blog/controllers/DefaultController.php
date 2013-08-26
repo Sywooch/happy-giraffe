@@ -207,8 +207,20 @@ class DefaultController extends HController
 
     public function actionVideoPreview($url)
     {
-        $video = Video::factory($url);
-        echo CJSON::encode($video->embed);
+        try {
+            $video = Video::factory($url);
+            $response = array(
+                'success' => true,
+                'html' => $video->embed,
+            );
+        }
+        catch (CException $e) {
+            $response = array(
+                'success' => false,
+            );
+        }
+
+        echo CJSON::encode($response);
     }
 
     protected function performAjaxValidation($models)

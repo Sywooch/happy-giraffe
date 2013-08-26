@@ -57,10 +57,6 @@
             <img src="/images/ico/ajax-loader.gif" alt=""> <br>
             Подждите видео загружается
         </div>
-        <div class="b-settings-blue_add-video-error" data-bind="visible: previewError">
-            Не удалось загрузить видео. <br>
-            Возможно, URL указан неправильно либо ведет на неподдерживаемый сайт.
-        </div>
         <?=$form->error($slaveModel, 'link')?>
     </div>
     <div class="b-settings-blue_video clearfix" data-bind="visible: embed() !== null">

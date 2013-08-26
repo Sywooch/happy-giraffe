@@ -5,6 +5,7 @@
 	</div>
 	<div class="comments-gray_hold">
 		<div class="comments-gray_i comments-gray_i__self">
+			<a href="" class="comments-gray_like like-hg-small" title="Нравится">78</a>
 			<div class="comments-gray_ava">
 				<a href="" class="ava small male"></a>
 			</div>

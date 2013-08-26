@@ -8,6 +8,25 @@
  */
 class AjaxSimpleController extends CController
 {
+    public function filters()
+    {
+        return array(
+            'ajaxOnly',
+            'accessControl',
+        );
+    }
+
+    public function accessRules()
+    {
+        return array(
+            array('deny',
+                'actions' => array('*'),
+                'users' => array('?'),
+            ),
+        );
+    }
+
+
     public function actionLike()
     {
         if (Yii::app()->user->isGuest)

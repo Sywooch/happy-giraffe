@@ -6,6 +6,7 @@
  */
 
 $post = $data->post;
+$photo = $data->getPhoto()
 ?>
 <?php if ($full):?>
     <h2 class="b-article_t">
@@ -26,7 +27,7 @@ $post = $data->post;
     <div class="b-article_in clearfix">
         <div class="wysiwyg-content clearfix">
             <p><?=$data->preview ?></p>
-            <?php if ($photo = $data->getPhoto()):?>
+            <?php if ($photo):?>
                 <div class="b-article_in-img">
                     <img src="<?=$photo->getPreviewUrl(580, 1000, Image::WIDTH) ?>" class="content-img">
                 </div>

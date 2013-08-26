@@ -27,10 +27,10 @@ class CommunityPost extends HActiveRecord
     public function behaviors()
     {
         return array(
-//            'previewSave' => array(
-//                'class' => 'site.common.behaviors.PreviewBehavior',
-//                'small_preview' => true,
-//            ),
+            'previewSave' => array(
+                'class' => 'site.common.behaviors.PreviewBehavior',
+                'small_preview' => true,
+            ),
             'addImageTags' => array(
                 'class' => 'site.common.behaviors.AddImageTagsBehavior',
             ),
@@ -146,8 +146,11 @@ class CommunityPost extends HActiveRecord
 
     public function searchImage()
     {
-        if (preg_match('/http:\/\/img.happy-giraffe.ru\/thumbs\/[\d]+x[\d]+\/[\d]+\/([^\"]+)/', $this->text, $m)) {
-            $photo = AlbumPhoto::model()->findByAttributes(array('fs_name' => $m[1]));
+        #TODO DEBUG
+        if (preg_match('/http:\/\/img.happy-giraffe.ru\/thumbs\/[\d]+x[\d]+\/[\d]+\/([^\"]+)/', $this->text, $m)
+        || preg_match('/http:\/\/img.happy-giraffe.com\/thumbs\/[\d]+x[\d]+\/[\d]+\/([^\"]+)/', $this->text, $m)
+        || preg_match('/http:\/\/img.dev.happy-giraffe.ru\/thumbs\/[\d]+x[\d]+\/[\d]+\/([^\"]+)/', $this->text, $m)) {
+            $photo = AlbumPhoto::model()->resetScope()->findByAttributes(array('fs_name' => $m[1]));
             if (isset($photo)) {
                 $this->photo_id = $photo->id;
             }

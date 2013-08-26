@@ -178,8 +178,7 @@ return array(
         'contest/work<id:\d+>' => 'contest/default/work',
         'contest/<_a>/<id:\d+>' => 'contest/default/<_a>',
 
-        '<_m:(geo|im|signal|scores|cook|contest)>/' => '<_m>/default/index',
-        '<_m:(geo|im|signal)>/<_a>' => '<_m>/default/<_a>',
+        '<_m:(scores|cook|contest)>/' => '<_m>/default/index',
         'commentator' => 'signal/commentator/index',
         'commentator/links/<month:\d\d\d\d-\d\d>' => 'signal/commentator/links',
         'commentator/award/<type:\w+>' => 'signal/commentator/award',

@@ -225,19 +225,32 @@ var ProfileBlogSubscription = function (data) {
 };
 
 /*********************** subscribe community ***********************/
-var UserClubsWidget = function (data, size) {
+var UserClubsWidget = function (data, params) {
     var self = this;
+
+    self.limit = params.limit;
+    self.deleteClub = params.deleteClub;
+    self.size = params.size;
     self.clubs = ko.observableArray(ko.utils.arrayMap(data, function (club) {
-        return new UserClub(club, size);
+        return new UserClub(club, self.size, self);
     }));
     self.count = ko.computed(function () {
         return self.clubs().length;
     });
+    self.TopClubs = ko.computed(function () {
+        var shortList = [];
+        ko.utils.arrayForEach(self.clubs(), function (club) {
+            if (shortList.length < self.limit)
+                shortList.push(club);
+        });
+        return shortList;
+    });
 };
 
-var UserClub = function (data, size) {
+var UserClub = function (data, size, parent) {
     var self = this;
     self.size = size;
+    self.parent = parent;
     self.id = ko.observable(data.id);
     self.title = ko.observable(data.title);
     self.have = ko.observable(data.have);
@@ -256,8 +269,13 @@ var UserClub = function (data, size) {
     });
     self.toggle = function () {
         $.post('/ajaxSimple/communityToggle/', {community_id: self.id()}, function (response) {
-            if (response.status)
+            if (response.status){
                 self.have(!self.have());
+                if (self.parent.deleteClub && self.have()){
+                    console.log('remove');
+                    self.parent.clubs.remove(self);
+                }
+            }
         }, 'json');
     }
 };

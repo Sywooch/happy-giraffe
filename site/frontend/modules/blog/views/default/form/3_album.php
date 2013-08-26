@@ -16,7 +16,7 @@ $model = new AlbumPhoto();
                         optionsValue: function(album) {
                             return album.id;
                         },
-                        chosenAlbum: {}"></select>
+                        chosenAlbum: {}" data-placeholder="Выберите альбом или создайте новый"></select>
                     <?=CHtml::error($model, 'album_id')?>
                 </div>
             </div>
@@ -42,9 +42,10 @@ $model = new AlbumPhoto();
     {
         init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext)
         {
+            viewModel.albumsList.unshift(new UserAlbum({ id : undefined, title : undefined }));
             $(element).addClass('chzn');
             $(element).chosen().ready(function(){
-                $('#popup-user-add-photo .chzn-itx-simple').find('.chzn-drop').append('<div class="chzn-itx-simple_add" id="albumAddForm"><div class="chzn-itx-simple_add-hold"> <input type="text" class="chzn-itx-simple_add-itx" placeholder="Добавить альбом" data-bind="value: newAlbumTitle, valueUpdate: \'keyup\'"> <a class="chzn-itx-simple_add-del" data-bind="visible: newAlbumTitle().length > 0, click: clearNewAlbumTitle"></a> </div> <button class="btn-green" data-bind="click: createAlbum">Ok</button> </div>');
+                $('#popup-user-add-photo .chzn-itx-simple').find('.chzn-drop').append('<div class="chzn-itx-simple_add" id="albumAddForm"><div class="chzn-itx-simple_add-hold"> <input type="text" class="chzn-itx-simple_add-itx" placeholder="Создайте новый" data-bind="value: newAlbumTitle, valueUpdate: \'keyup\'"> <a class="chzn-itx-simple_add-del" data-bind="visible: newAlbumTitle().length > 0, click: clearNewAlbumTitle"></a> </div> <button class="btn-green" data-bind="click: createAlbum">Ok</button> </div>');
                 ko.applyBindings(viewModel, document.getElementById('albumAddForm'));
             });
         },
@@ -62,7 +63,7 @@ $model = new AlbumPhoto();
         self.albumsList = ko.observableArray(ko.utils.arrayMap(data.albumsList, function(album) {
             return new UserAlbum(album);
         }));
-        self.selectedAlbum = ko.observable(data.albumsList[0]);
+        self.selectedAlbum = ko.observable(data.albumsList.length > 1 ? undefined : data.albumsList[0]);
 
         self.clearNewAlbumTitle = function() {
             self.newAlbumTitle('');

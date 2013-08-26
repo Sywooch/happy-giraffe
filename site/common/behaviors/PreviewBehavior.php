@@ -6,9 +6,9 @@ class PreviewBehavior extends CActiveRecordBehavior
     const LIMIT_BIG = 500;
     public $small_preview = false;
 
-    public function beforeSave($event)
+    public function afterSave($event)
     {
-        parent::beforeSave($event);
+        parent::afterSave($event);
 
         $this->owner->content->preview = $this->generatePreview($this->owner->text);
         $this->owner->content->save(false);
@@ -21,8 +21,8 @@ class PreviewBehavior extends CActiveRecordBehavior
      */
     private function generatePreview($text)
     {
-        Yii::import('site.frontend.extensions.phpQuery.phpQuery');
-        $doc = phpQuery::newDocumentXHTML($text, $charset = 'utf-8');
+        include_once Yii::getPathOfAlias('site.frontend.vendor.simplehtmldom_1_5') . DIRECTORY_SEPARATOR . 'simple_html_dom.php';
+        $doc = str_get_html($text);
 
         if (Str::htmlTextLength($text) == 0)
             return '';
@@ -30,11 +30,12 @@ class PreviewBehavior extends CActiveRecordBehavior
         if ($this->small_preview || strstr($text, '<img') === TRUE) {
             //если есть фото или известно что нужно показаться короткое превью, берем первый параграф
             $p_list = $doc->find('p');
+
             if (count($p_list) == 0)
                 return '<p>' . Str::getDescription($text, self::LIMIT_SMALL*2) . '</p>';
 
             foreach ($p_list as $p) {
-                $p_text = pq($p)->text();
+                $p_text = trim($p->plaintext);
                 if (!empty($p_text))
                     return '<p>' . Str::getDescription($p_text, self::LIMIT_SMALL*2) . '</p>';
             }

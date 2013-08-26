@@ -1,7 +1,7 @@
 <?php $this->beginContent('//layouts/common_new'); ?>
     <div class="content-cols clearfix">
         <div class="col-1">
-            <?php $this->widget('Avatar', array('user' => $this->user, 'size' => 200)); ?>
+            <?php $this->widget('Avatar', array('user' => $this->user, 'size' => 200, 'location' => true, 'age' => true)); ?>
         </div>
         <div class="col-23-middle col-gray">
             <ul class="breadcrumbs-big clearfix">

@@ -10,7 +10,7 @@
     <span class="i-highlight i-highlight__big font-big">Рекомендуем вам вступить в клубы</span>
 </div>
 
-<?php $this->widget('ClubsWidget', array('user' => Yii::app()->user->getModel(), 'size' => 'Big', 'userClubs' => false)); ?>
+    <?php $this->widget('ClubsWidget', array('user' => Yii::app()->user->getModel(), 'size' => 'Big', 'userClubs' => false, 'limit' => 8, 'deleteClub' => true)); ?>
 
 <div class="clearfix">
     <span class="i-highlight i-highlight__big font-big">Рекомендуем вам подписаться на блоги</span>

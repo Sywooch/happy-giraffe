@@ -63,19 +63,23 @@ return array(
             'baseUrl' => '/',
             'js' => array(
                 'javascripts/ko_blog.js',
-                'javascripts/ko_gallery.js',
-                'javascripts/upload.js',
             ),
-            'depends' => array('knockout', 'gallery', 'jcrop', 'ko_comments'),
+            'depends' => array('knockout', 'gallery', 'jcrop', 'ko_upload'),
+        ),
+        'ko_community' => array(
+            'baseUrl' => '/',
+            'js' => array(
+                'javascripts/ko_community.js',
+            ),
+            'depends' => array('ko_blog', 'ko_upload'),
         ),
         'ko_profile' => array(
             'baseUrl' => '/',
             'js' => array(
                 'javascripts/ko_gallery.js',
                 'javascripts/ko_user_profile.js',
-                'javascripts/upload.js',
             ),
-            'depends' => array('knockout', 'gallery', 'jcrop', 'ko_comments'),
+            'depends' => array('knockout', 'gallery', 'jcrop', 'ko_comments', 'ko_upload'),
         ),
         'ko_search' => array(
             'baseUrl' => '/',
@@ -116,6 +120,7 @@ return array(
         'ko_upload' => array(
             'baseUrl' => '/',
             'js' => array(
+                'javascripts/upload.js',
                 'jQuery-File-Upload/js/vendor/jquery.ui.widget.js',
                 'jQuery-File-Upload/js/jquery.iframe-transport.js',
                 'jQuery-File-Upload/js/jquery.fileupload.js',

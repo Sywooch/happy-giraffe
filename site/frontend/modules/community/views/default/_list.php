@@ -8,7 +8,7 @@
     $this->widget('zii.widgets.CListView', array(
         'cssFile' => false,
         'ajaxUpdate' => false,
-        'dataProvider' => CommunityContent::model()->getContents($community->id, $rubric_id, null),
+        'dataProvider' => CommunityContent::model()->getContents($this->community->id, $rubric_id, null),
         'itemView' => 'blog.views.default.view',
         'pager' => array(
             'class' => 'HLinkPager',

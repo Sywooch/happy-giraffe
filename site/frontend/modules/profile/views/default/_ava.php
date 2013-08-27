@@ -43,15 +43,15 @@ if (Yii::app()->user->id != $user->id):
         <?php endif; ?>
     </div>
 <?php else: ?>
-    <div class="b-ava-large upload-avatar-vm">
-            <a href="#popup-upload-ava" class="ava large fancy" data-theme="transparent" data-bind="click:load">
-                <?php if (!empty($user->avatar_id)):?>
-                    <img src="<?= $user->getAvatarUrl(Avatar::SIZE_LARGE) ?>" alt=""/>
-                    <span class="b-ava-large_photo-change">Изменить <br>главное фото</span>
-                <?php else: ?>
-                    <span class="b-ava-large_photo-add" data-bind="click:load">Добавить <br>главное фото</span>
-                <?php endif ?>
-            </a>
+    <div class="b-ava-large">
+        <a href="#popup-upload-ava" class="ava large fancy" data-theme="transparent" data-bind="click:load">
+            <?php if (!empty($user->avatar_id)):?>
+                <img src="<?= $user->getAvatarUrl(Avatar::SIZE_LARGE) ?>" alt=""/>
+                <span class="b-ava-large_photo-change">Изменить <br>главное фото</span>
+            <?php else: ?>
+                <span class="b-ava-large_photo-add" data-bind="click:load">Добавить <br>главное фото</span>
+            <?php endif ?>
+        </a>
 
         <?php if ($user->online): ?>
             <span class="b-ava-large_online">На сайте</span>
@@ -62,47 +62,48 @@ if (Yii::app()->user->id != $user->id):
     </div>
 
     <div style="display: none;">
-        <div id="popup-upload-ava" class="popup-upload-ava upload-avatar-vm">
+        <div id="popup-upload-ava" class="popup-upload-ava">
             <a href="" class="popup-transparent-close powertip" data-bind="click: cancel" title="Закрыть"></a>
 
             <div class="clearfix">
                 <div class="w-720">
 
-                    <div class="b-settings-blue">
+                    <div class="b-settings-blue" id="upload_ava_block">
                         <div class="popup-upload-ava_t">Главное фото</div>
                         <div class="clearfix">
                             <div class="popup-upload-ava_left">
                                 <div class="b-add-img b-add-img__for-single">
-                                    <!-- ko if: status() == 0 -->
-                                    <div class="b-add-img_hold">
-                                        <div class="b-add-img_t">
-                                            Загрузите фотографию с компьютера
-                                            <div class="b-add-img_t-tx">Поддерживаемые форматы: jpg и png</div>
+
+                                    <div data-bind="visible: status() == 0">
+                                        <div class="b-add-img_hold">
+                                            <div class="b-add-img_t">
+                                                Загрузите фотографию с компьютера
+                                                <div class="b-add-img_t-tx">Поддерживаемые форматы: jpg и png</div>
+                                            </div>
+                                            <div class="file-fake">
+                                                <button class="btn-green btn-medium file-fake_btn">Обзор</button>
+                                                <input class="js-upload-files-multiple" type="file">
+                                            </div>
                                         </div>
-                                        <div class="file-fake">
-                                            <button class="btn-green btn-medium file-fake_btn">Обзор</button>
-                                            <input class="js-upload-files-multiple" type="file" name="">
+                                        <div class="b-add-img_html5-tx">или перетащите фото сюда</div>
+                                        <div class="b-add-img_desc">Загружайте пожалуйста свои фотографии, фото будут
+                                            проверяться, <br> и если их содержание не будет соответствуют этике сайта, <br>
+                                            будут удаляться
                                         </div>
                                     </div>
-                                    <div class="b-add-img_html5-tx">или перетащите фото сюда</div>
-                                    <div class="b-add-img_desc">Загружайте пожалуйста свои фотографии, фото будут
-                                        проверяться, <br> и если их содержание не будет соответствуют этике сайта, <br>
-                                        будут удаляться
-                                    </div>
-                                    <!-- /ko -->
 
                                     <div class="b-add-img_i-vert" data-bind="visible: status() == 1"></div>
                                     <div class="b-add-img_i-load" data-bind="visible: status() == 1">
-                                        <div class="b-add-img_i-load-progress"
-                                             data-bind="style: {width: progress}"></div>
+                                        <div class="b-add-img_i-load-progress" data-bind="style: {width: progress}"></div>
                                     </div>
 
-                                    <img id="jcrop_target" src="" alt=""
-                                         data-bind="attr: {src: image_url()}, visible: status() == 2"/>
+                                    <img id="jcrop_target" src=""  data-bind="attr: {src: image_url()}, visible: status() == 2"/>
+
+                                    <a href="" class="b-add-img_i-del ico-close2 powertip" data-bind="click: remove, visible: status() == 2" title="Удалить фото"></a>
 
                                 </div>
                             </div>
-                            <div class="popup-upload-ava_right">
+                            <div class="popup-upload-ava_right" data-bind="visible: status() == 2">
                                 <div class="popup-upload-ava_t">Просмотр</div>
                                 <div class="popup-upload-ava_prev">
                                     <div class="b-ava-large">
@@ -118,8 +119,7 @@ if (Yii::app()->user->id != $user->id):
                         </div>
                         <div class="textalign-c margin-t10 clearfix">
                             <a class="btn-gray-light btn-h46 margin-r15" href="" data-bind="click: cancel">Отменить</a>
-                            <a class="btn-blue btn-h46" href=""
-                               data-bind="click: save, css: {'btn-inactive': status() != 2}">Сохранить</a>
+                            <a class="btn-blue btn-h46" href="" data-bind="click: save, css: {'btn-inactive': status() != 2}">Сохранить</a>
                         </div>
 
                     </div>
@@ -228,6 +228,14 @@ if (Yii::app()->user->id != $user->id):
             }, 200);
         };
 
+        self.remove = function(){
+            if (self.jcrop_api !== null)
+                self.jcrop_api.destroy();
+            self.image_url(null);
+            self.status(0);
+            self.id = ko.observable(null);
+        };
+
         $.each($('.b-add-img'), function () {
             $(this)[0].ondragover = function () {
                 $('.b-add-img').addClass('dragover')
@@ -237,10 +245,10 @@ if (Yii::app()->user->id != $user->id):
             };
         });
 
-        $(container_selector+' .js-upload-files-multiple').fileupload({
+        $(container_selector + ' .js-upload-files-multiple').fileupload({
             dataType: 'json',
             url: '/ajaxSimple/uploadAvatar/',
-            dropZone: $('#popup-upload-ava'),
+            dropZone: $('#upload_ava_block'),
             add: function (e, data) {
                 self.upload();
                 data.submit();
@@ -257,9 +265,7 @@ if (Yii::app()->user->id != $user->id):
     };
 
     var vm = new UserAva(<?=CJSON::encode($json)?>, '#popup-upload-ava');
-    $(".upload-avatar-vm").each(function (index, el) {
-        ko.applyBindings(vm, el);
-    });
+    ko.applyBindings(vm, document.getElementById('#popup-upload-ava'));
 </script>
 <style type="text/css">
     #popup-upload-ava img {

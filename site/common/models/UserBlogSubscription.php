@@ -162,23 +162,8 @@ class UserBlogSubscription extends HActiveRecord
     }
 
     /**
-     * Блоги, на которые не подписан
+     * Топ-20 блогов, на которые не подписан
      *
-     * @param int $user_id
-     * @return int[]
-     */
-    public static function notSubscribedUserIds($user_id)
-    {
-        $all_club_ids = Yii::app()->db->createCommand()->cache(3600)
-            ->select('id')
-            ->from('community__communities')
-            ->queryColumn();
-
-        $subscribed_ids = self::getSubUserIds($user_id);
-        return array_diff($all_club_ids, $subscribed_ids);
-    }
-
-    /**
      * @param int $user_id
      * @return array
      */

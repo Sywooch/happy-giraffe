@@ -7,14 +7,20 @@
  */
 $subscribers_count = UserBlogSubscription::model()->subscribersCount($user->id);
 $subscribers = UserBlogSubscription::model()->getSubscribers($user->id, 5);
-$posts = $user->getBlogPopular()
-
-?><div class="blog-preview">
+$posts = $user->getBlogPopular();
+$params = array(
+    'subscribed'=>UserBlogSubscription::isSubscribed(Yii::app()->user->id, $user->id),
+    'count'=>(int)UserBlogSubscription::model()->subscribersCount($user->id),
+    'user_id'=>$user->id
+);
+?>
+<div id="js-blog-subs-<?=$user->id ?>" class="blog-preview"<?php
+        if (!$params['subscribed']) echo ' data-bind="visible: !isSubscribed()"' ?>>
     <div class="blog-preview_ava-hold">
         <?php $this->widget('Avatar', array('user' => $user)); ?>
     </div>
 
-    <div class="blog-preview_desc" id="js-blog-subs-<?=$user->id ?>">
+    <div class="blog-preview_desc">
         <a href="<?=$user->url ?>" class="blog-preview_author textdec-onhover"><?=$user->getFullName() ?></a>
         <h2 class="blog-preview_t"><a href="<?=$user->getBlogUrl() ?>"><?=$user->blog_title ?></a></h2>
 
@@ -40,12 +46,15 @@ $posts = $user->getBlogPopular()
             </ul>
 
         </div>
+
         <!-- ko if: isSubscribed() -->
         <a href="" class="btn-gray-light btn-medium" data-bind="click:toggleSubscription">Отписаться</a>
         <!-- /ko -->
+
         <!-- ko if: !isSubscribed() -->
         <a href="" class="btn-green btn-h46" data-bind="click:toggleSubscription">Подписаться</a>
         <!-- /ko -->
+
     </div>
 
     <div class="blog-preview_articles">
@@ -94,11 +103,7 @@ $posts = $user->getBlogPopular()
     </div>
 </div>
 <script type="text/javascript">
-    var subscriptionData = <?=CJSON::encode(array(
-            'subscribed'=>UserBlogSubscription::isSubscribed(Yii::app()->user->id, $user->id),
-            'count'=>(int)UserBlogSubscription::model()->subscribersCount($user->id),
-            'user_id'=>$user->id
-        ))?>;
+    var subscriptionData = <?=CJSON::encode($params)?>;
     var subscription = new BlogSubscription(subscriptionData);
     ko.applyBindings(subscription, document.getElementById('js-blog-subs-<?=$user->id ?>'));
 </script>

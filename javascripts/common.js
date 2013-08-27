@@ -550,8 +550,11 @@ var Register = {
 
             $('#register').find('#register-step1').hide();
             $('#register').find('.other-steps').html(response);
-            $('#register').find('select').each(function () {
-                $(this).trigger('liszt:updated');
+            $('#register').find('.chzn').each(function () {
+                var $this = $(this);
+                $this.chosen({
+                    allow_single_deselect:$this.hasClass('chzn-deselect')
+                })
             });
         });
     },

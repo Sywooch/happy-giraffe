@@ -56,7 +56,6 @@
 			</div>
 		</div>
 		
-		
 		<div class="b-section">
 			<div class="b-section_hold">
 				<div class="content-cols clearfix">

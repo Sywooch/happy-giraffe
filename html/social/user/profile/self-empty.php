@@ -818,6 +818,7 @@ $(function() {
 								<div class="b-add-img_html5-tx display-n">или перетащите фото сюда</div>
 								<div class="b-add-img_desc display-n">Загружайте пожалуйста свои фотографии, фото будут проверяться, <br> и если их содержание не будет соответствуют этике сайта, <br> будут удаляться</div>
 								<img src="/images/example/w700-h740-1.jpg" alt="">
+								<a class="b-add-img_i-del ico-close2 powertip" title="Удалить" href=""></a>
 							</div>
 						</div>
 						<div class="popup-upload-ava_right">

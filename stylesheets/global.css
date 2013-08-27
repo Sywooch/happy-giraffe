@@ -8503,53 +8503,90 @@
   font-size: 13px;
   line-height: 19px;
 }
-#horoscope .horoscope-list ul {
-  list-style: none;
+/*#horoscope .horoscope-list ul {list-style:none;padding-top:25px;margin-right: -20px;}
+#horoscope .horoscope-list ul li {
+    display:inline-block;
+    *zoom:1;
+    *display:inline;
+    vertical-align:top;
+    width:194px;
+    margin:0 10px 20px 0;
+    padding:8px;
+    border:2px solid #e3f0fe;
+    -webkit-border-radius:7px;
+    -moz-border-radius:7px;
+    -ms-border-radius:7px;
+    border-radius:7px;
+    behavior:url(/stylesheets/PIE.htc);
+}
+#horoscope .horoscope-list ul li .img {margin-bottom:10px;}
+#horoscope .horoscope-list ul li .img img {float: left;}
+#horoscope .horoscope-list ul li .img .date {vertical-align:top;text-align:center;padding-top:12px;color:#2d2d2d;font-size:10px;}
+#horoscope .horoscope-list ul li .img .date > a,
+#horoscope .horoscope-list ul li .img .date span {display:block;margin:5px 0 0; font:italic 23px/1.1em times new roman, serif;color:#186FB8;}
+#horoscope .horoscope-list ul li .text {font-size:11px;line-height:16px;color:#626262;}
+#horoscope .horoscope-list ul li .text .btn-small {margin: 7px auto 5px;}
+*/
+.horoscopes-big_ul {
   padding-top: 25px;
   margin-right: -20px;
 }
-#horoscope .horoscope-list ul li {
+.horoscopes-big_i {
+  position: relative;
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   vertical-align: top;
   width: 194px;
-  margin: 0 10px 20px 0;
-  padding: 8px;
-  border: 2px solid #e3f0fe;
-  -webkit-border-radius: 7px;
-  -moz-border-radius: 7px;
-  -ms-border-radius: 7px;
-  border-radius: 7px;
-  behavior: url(/stylesheets/PIE.htc);
-}
-#horoscope .horoscope-list ul li .img {
-  margin-bottom: 10px;
-}
-#horoscope .horoscope-list ul li .img img {
-  float: left;
-}
-#horoscope .horoscope-list ul li .img .date {
-  vertical-align: top;
+  margin: 0 15px 15px 0;
+  padding: 8px 8px 12px;
+  background: #fbfbfb;
   text-align: center;
-  padding-top: 12px;
-  color: #2d2d2d;
-  font-size: 10px;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
 }
-#horoscope .horoscope-list ul li .img .date > a,
-#horoscope .horoscope-list ul li .img .date span {
+.horoscopes-big_i:hover .horoscopes-big_hold {
   display: block;
-  margin: 5px 0 0;
-  font: italic 23px/1.1em times new roman, serif;
-  color: #186FB8;
 }
-#horoscope .horoscope-list ul li .text {
-  font-size: 11px;
+.horoscopes-big_img {
+  margin: 5px 25px -5px;
+}
+.horoscopes-big_t {
+  margin: 0;
+  font: italic 25px/25px 'Times New Roman', Georgia, Times, serif;
+  color: #625f5f;
+}
+.horoscopes-big_time {
+  color: #65a2e0;
+}
+.horoscopes-big_hold {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 17px;
+  text-align: left;
+  color: #fff;
+  border: 2px solid #4979bb;
+  background: #3e76c3;
+  background: rgba(62, 118, 195, 0.8);
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  border-radius: 8px;
+}
+.horoscopes-big_t-sub {
+  font: italic 25px/25px 'Times New Roman', Georgia, Times, serif;
+}
+.horoscopes-big_time-sub {
+  padding: 0 5px;
+  font-size: 10px;
+  color: #c0cbe6;
+}
+.horoscopes-big_desc {
+  margin: 5px 0 15px;
   line-height: 16px;
-  color: #626262;
-}
-#horoscope .horoscope-list ul li .text .btn-small {
-  margin: 7px auto 5px;
+  color: #dbe8f9;
 }
 #horoscope .horoscope-one {
   padding: 7px 0 0;
@@ -8758,7 +8795,7 @@
 }
 .horoscope-compatibility {
   border: 1px solid #EEE;
-  margin-bottom: 30px;
+  margin: 20px 0 30px;
   background: #fafafa url(/images/widget/horoscope/horoscope-compatibility.png) no-repeat 100% 50%;
   padding: 20px 20px 30px;
 }
@@ -13018,7 +13055,7 @@ table.fr_recipe_tb td {
 .b-article_repost-comment {
   display: inline-block;
   margin: 10px 20px 25px;
-  padding: 15px 20px;
+  padding: 12px 20px 15px;
   font-size: 20px;
   line-height: 25px;
   color: #5A5959;
@@ -13321,8 +13358,8 @@ table.fr_recipe_tb td {
 }
 .like-control_repost-complete {
   display: inline-block;
-  margin: 8px 0 0;
-  width: 21px;
+  margin: 5px auto 3px;
+  width: 22px;
   height: 14px;
   background: url(/images/like-control_repost-complete.png) no-repeat;
 }
@@ -15921,6 +15958,10 @@ table.fr_recipe_tb td {
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
   border-radius: 0;
+}
+.popup-upload-ava .b-add-img_i-del {
+  top: 0;
+  right: -20px;
 }
 .popup-upload-ava_t {
   margin: 0 0 15px;

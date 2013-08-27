@@ -145,6 +145,10 @@
 				
 				<div class="menu-simple">
 					<ul class="menu-simple_ul">
+						<li class="menu-simple_li active">
+							<a class="menu-simple_a" href="">Блюда из рыбы</a>
+							<div class="menu-simple_count">158</div>
+						</li>
 						<li class="menu-simple_li">
 							<a class="menu-simple_a" href="">Все рецепты</a>
 							<div class="menu-simple_count">789</div>
@@ -169,7 +173,7 @@
 							<a class="menu-simple_a" href="">Сладкая выпечка </a>
 							<div class="menu-simple_count">7</div>
 						</li>
-						<li class="menu-simple_li active">
+						<li class="menu-simple_li">
 							<a class="menu-simple_a" href="">Торты и пирожные </a>
 							<div class="menu-simple_count">79</div>
 						</li>
@@ -213,7 +217,7 @@
 					<a href="" class="btn-blue btn-h46 float-r">Добавить рецепт</a>
 				</div>
 				<div class="col-gray">
-					<div class="heading-title margin-b5 margin-t15 clearfix">
+					<div class="heading-title margin-b10 margin-t15 clearfix">
 						Блюда из рыбы
 					</div>
 					<p class="margin-l20 margin-r40 color-gray-dark">Одним из основных свидетельств правильного течения беременности является набор веса согласно принятым нормам. Оптимальный набор веса при беременности — это 10–14 кг. Набираемый вес при беременности. </p>
@@ -294,6 +298,32 @@
 								<div class="cook-more_author clearfix">
 									<a class="ava female small"></a>
 									<div class="clearfix">
+										<a class="textdec-onhover" href="">Дарья</a>
+										<div class="color-gray font-smallest">Сегодня, 13:25</div>
+									</div>
+								</div>
+								<div class="cook-more_cnt">
+									<a href=""><img width="120" height="105" src="/images/cook_more_img_01.jpg"></a>
+								</div>
+								<div class="cook-more_t"><a href="">Ригатони</a></div>
+							</li>
+							<li class="cook-more_li">
+								<div class="cook-more_author clearfix">
+									<a class="ava female small"></a>
+									<div class="clearfix">
+										<a class="textdec-onhover" href="">Леопольда</a>
+										<div class="color-gray font-smallest">Сегодня, 13:25</div>
+									</div>
+								</div>
+								<div class="cook-more_cnt">
+									<a href=""><img width="120" height="105" src="/images/example/w120-h105-2.jpg"></a>
+								</div>
+								<div class="cook-more_t"><a href="">Ригатони помидор говядины</a></div>
+							</li>
+							<li class="cook-more_li">
+								<div class="cook-more_author clearfix">
+									<a class="ava female small"></a>
+									<div class="clearfix">
 										<a class="textdec-onhover" href="">Леопольда</a>
 										<div class="color-gray font-smallest">Сегодня, 13:25</div>
 									</div>
@@ -330,6 +360,32 @@
 								</div>
 								<div class="cook-more_t"><a href="">Ригатони помидор говядины</a></div>
 							</li>
+							<li class="cook-more_li">
+								<div class="cook-more_author clearfix">
+									<a class="ava female small"></a>
+									<div class="clearfix">
+										<a class="textdec-onhover" href="">Дарья</a>
+										<div class="color-gray font-smallest">Сегодня, 13:25</div>
+									</div>
+								</div>
+								<div class="cook-more_cnt">
+									<a href=""><img width="120" height="105" src="/images/cook_more_img_01.jpg"></a>
+								</div>
+								<div class="cook-more_t"><a href="">Ригатони</a></div>
+							</li>
+							<li class="cook-more_li">
+								<div class="cook-more_author clearfix">
+									<a class="ava female small"></a>
+									<div class="clearfix">
+										<a class="textdec-onhover" href="">Леопольда</a>
+										<div class="color-gray font-smallest">Сегодня, 13:25</div>
+									</div>
+								</div>
+								<div class="cook-more_cnt">
+									<a href=""><img width="120" height="105" src="/images/example/w120-h105-2.jpg"></a>
+								</div>
+								<div class="cook-more_t"><a href="">Ригатони помидор говядины</a></div>
+							</li>
 							
 						</ul>
 					</div>
@@ -337,7 +393,7 @@
 							<a href="" class="i-more i-more__big">еще 150 рецептов</a>
 						</div>
 					
-					<p class="margin-20 color-gray-dark margin-b40">Одним из основных свидетельств правильного течения <br> беременности является набор веса согласно принятым нормам. </p>			
+					<p class="margin-20 color-gray-dark margin-b40">Одним из основных свидетельств правильного течения беременности является набор веса согласно принятым нормам. </p>			
 
 				</div>
 			</div>

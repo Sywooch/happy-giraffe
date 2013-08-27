@@ -225,7 +225,7 @@
 						</div>
 					</div>
 					<div class="b-user-status_hold clearfix">
-						<a href="" class="b-user-status_hold-a">	Говори себе с утра: Счастье, нам вставать пора!!! Так со Счастьем и вставай, от себя не отпускай!!!</a>
+						<a href="" class="b-user-status_hold-a">	ГовориГовориГовориГовориГовориГовориГовориГовориГовориГовориГовориГовори себе с утра: Счастье, нам вставать пора!!! Так со Счастьем и вставай, от себя не отпускай!!!</a>
 						
 						<div class="textalign-r clearfix">
 							<div class="b-user-mood">

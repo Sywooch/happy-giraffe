@@ -145,6 +145,10 @@
 				
 				<div class="menu-simple">
 					<ul class="menu-simple_ul">
+						<li class="menu-simple_li active">
+							<a class="menu-simple_a" href="">Блюда из рыбы</a>
+							<div class="menu-simple_count">158</div>
+						</li>
 						<li class="menu-simple_li">
 							<a class="menu-simple_a" href="">Все рецепты</a>
 							<div class="menu-simple_count">789</div>
@@ -213,10 +217,10 @@
 					<a href="" class="btn-blue btn-h46 float-r">Добавить рецепт</a>
 				</div>
 				<div class="col-gray">
-					<div class="heading-title margin-b5 margin-t15 clearfix">
-						Торты и пирожные
+					<div class="heading-title margin-b10 margin-t15 clearfix">
+						Блюда из рыбы
 					</div>
-					<p class="margin-l20 margin-r40 color-gray-dark">Одним из основных свидетельств правильного течения <br> беременности является набор веса согласно принятым нормам. </p>
+					<p class="margin-l20 margin-r40 color-gray-dark">Одним из основных свидетельств правильного течения  беременности является набор веса согласно принятым нормам. </p>
 					<div class="b-article clearfix">
 						<div class="float-l">
 							<div class="like-control like-control__small-indent clearfix">

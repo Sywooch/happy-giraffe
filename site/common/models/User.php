@@ -398,7 +398,8 @@ class User extends HActiveRecord
             'assigns' => 'Права',
             'last_active' => 'Последняя активность',
             'url' => 'Профиль',
-            'verifyCode' => 'Код'
+            'verifyCode' => 'Код',
+            'passwordRepeat' => 'Пароль',
         );
     }
 

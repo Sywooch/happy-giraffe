@@ -3,6 +3,7 @@
  * @var $this DefaultController
  * @var $data BlogContent
  * @var $full bool
+ * @var bool $showTitle
  */
 
 $status = $data->getStatus();

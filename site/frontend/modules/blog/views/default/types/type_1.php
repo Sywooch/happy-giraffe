@@ -3,6 +3,7 @@
  * @var $this DefaultController
  * @var $data BlogContent
  * @var $full bool
+ * @var bool $showTitle
  */
 
 $post = $data->post;
@@ -20,9 +21,11 @@ $photo = $data->getPhoto()
     </div>
     <?php if ($data->gallery !== null) $this->renderPartial('photo_gallery', array('data' => $data)); ?>
 <?php else: ?>
-    <h2 class="b-article_t">
-        <a href="<?=$data->getUrl() ?>" class="b-article_t-a"><?=$data->title ?></a>
-    </h2>
+    <?php if ($showTitle):?>
+        <h2 class="b-article_t">
+            <a href="<?=$data->getUrl() ?>" class="b-article_t-a"><?=$data->title ?></a>
+        </h2>
+    <?php endif ?>
 
     <div class="b-article_in clearfix">
         <div class="wysiwyg-content clearfix">

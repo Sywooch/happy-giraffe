@@ -43,12 +43,21 @@ return array(
                 'javascripts/history.js',
             ),
         ),
+        'ko_comments' => array(
+            'baseUrl' => '/',
+            'js' => array(
+                'javascripts/knockout.mapping-latest.js',
+                'javascripts/comments.js',
+                'javascripts/wysiwyg.js',
+            ),
+            'depends' => array('knockout'),
+        ),
         'gallery' => array(
             'baseUrl' => '/',
             'js' => array(
                 'javascripts/ko_gallery.js',
             ),
-            'depends' => array('knockout'),
+            'depends' => array('knockout', 'ko_comments'),
         ),
         'ko_blog' => array(
             'baseUrl' => '/',
@@ -57,7 +66,7 @@ return array(
                 'javascripts/ko_gallery.js',
                 'javascripts/upload.js',
             ),
-            'depends' => array('knockout', 'gallery', 'jcrop'),
+            'depends' => array('knockout', 'gallery', 'jcrop', 'ko_comments'),
         ),
         'ko_profile' => array(
             'baseUrl' => '/',
@@ -66,9 +75,8 @@ return array(
                 'javascripts/ko_user_profile.js',
                 'javascripts/upload.js',
             ),
-            'depends' => array('knockout', 'gallery', 'jcrop'),
+            'depends' => array('knockout', 'gallery', 'jcrop', 'ko_comments'),
         ),
-
         'ko_search' => array(
             'baseUrl' => '/',
             'js' => array(

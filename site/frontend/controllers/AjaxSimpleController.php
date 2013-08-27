@@ -54,7 +54,7 @@ class AjaxSimpleController extends CController
     public function actionRepostCreate()
     {
         $data = Yii::app()->request->getPost('Repost');
-        $source = CommunityContent::model()->findByPk($data['model_id']);
+        $source = CommunityContent::model()->resetScope()->findByPk($data['model_id']);
         $model = new CommunityContent();
         $model->source_id = $source->id;
         $model->type_id = CommunityContent::TYPE_REPOST;

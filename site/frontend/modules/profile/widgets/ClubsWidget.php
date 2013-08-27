@@ -3,17 +3,35 @@
 class ClubsWidget extends UserCoreWidget
 {
     public $data = array();
+    /**
+     * Размер виджета, есть 2 размера, вьюхи лежат в разных файлах
+     * @var string
+     */
     public $size = 'Small';
+    /**
+     * Сколько максимум клубов выводим
+     * @var int
+     */
+    public $limit = 100;
+    /**
+     * Удаляем ли клуб после того как пользователь отписался?
+     * @var bool
+     */
+    public $deleteClub = false;
+    /**
+     * клубы на которые подписан пользователь или на которые он не подписан
+     * @var bool
+     */
     public $userClubs = true;
 
     public function init()
     {
         parent::init();
         $this->visible = $this->isMyProfile || !empty($this->user->communities);
-        if ($this->visible){
+        if ($this->visible) {
             $this->data = $this->getUserCommunitiesData();
 
-            $this->viewFile = get_class($this).$this->size;
+            $this->viewFile = get_class($this) . $this->size;
             Yii::app()->clientScript->registerPackage('ko_profile');
         }
     }
@@ -39,5 +57,18 @@ class ClubsWidget extends UserCoreWidget
             );
         }
         return $data;
+    }
+
+    /**
+     * Возвращает параметры для передачи в js-объект
+     * @return array
+     */
+    public function getParams()
+    {
+        return array(
+            'size' => $this->size,
+            'limit' => $this->limit,
+            'deleteClub' => $this->deleteClub,
+        );
     }
 }

@@ -5,7 +5,7 @@
 ?>
 <div class="club-list club-list__big clearfix" id="user-clubs">
     <ul class="club-list_ul clearfix">
-        <!-- ko foreach: clubs -->
+        <!-- ko foreach: TopClubs -->
         <li class="club-list_li" data-bind="css: {'club-list_li__in': have()}">
             <a href="" class="club-list_i" data-bind="attr: {href: url}">
                 <span class="club-list_img-hold">
@@ -24,7 +24,7 @@
 </div>
 <script type="text/javascript">
     $(function () {
-        vm = new UserClubsWidget(<?=CJSON::encode($this->data)?>, '<?=$this->size ?>');
+        vm = new UserClubsWidget(<?=CJSON::encode($this->data)?>, <?=CJSON::encode($this->getParams()) ?>);
         ko.applyBindings(vm, document.getElementById('user-clubs'));
     });
 </script>

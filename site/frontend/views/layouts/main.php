@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <!--[if lt IE 8]>      <html class="ie7"> <![endif]-->
 <!--[if IE 8]>         <html class="ie8"> <![endif]-->
 <!--[if IE 9]>         <html class="ie9"> <![endif]-->
@@ -7,14 +7,23 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title><?=$this->pageTitle?></title>
         <?php
+        $r = time();
             Yii::app()->clientScript
                 ->registerCssFile('/redactor/redactor.css')
                 ->registerCssFile('/stylesheets/common.css')
                 ->registerCssFile('/stylesheets/global.css')
-                ->registerCssFile('/stylesheets//user.css')
+                ->registerCssFile('/stylesheets/user.css')
                 ->registerCssFile('/stylesheets/baby.css')
                 ->registerCoreScript('jquery')
                 ->registerPackage('ko_layout')
+
+                ->registerScriptFile('/javascripts/jquery.fancybox-1.3.4.js')
+                ->registerScriptFile('/javascripts/chosen.jquery.min.js')
+                ->registerScriptFile('/javascripts/jquery.powertip.js')
+                ->registerScriptFile('/javascripts/common.js?'.$r)
+                ->registerScriptFile('/javascripts/tooltipsy.min.js')
+                ->registerScriptFile('/javascripts/addtocopy.js')
+                ->registerScriptFile('/javascripts/jquery.placeholder.min.js')
             ;
         ?>
 
@@ -32,65 +41,69 @@
                             <?=HHtml::link('Веселый жираф - сайт для всей семьи', '/', array('class' => 'logo_i', 'title' => 'Веселый жираф - сайт для всей семьи'), true)?>
                             <strong class="logo_slogan">САЙТ ДЛЯ ВСЕЙ СЕМЬИ</strong>
                         </h1>
-                        <div class="header-menu layout-binding">
-                            <ul class="header-menu_ul clearfix">
-                                <li class="header-menu_li">
-                                    <a href="" class="header-menu_a">
-                                        <span class="header-menu_ico header-menu_ico__giraffe"></span>
-                                        <span class="header-menu_tx">Мой <br> Жираф</span>
-                                    </a>
-                                </li>
-                                <li class="header-menu_li" data-bind="css: { active : newNotificationsCount() > 0 }">
-                                    <a href="<?=$this->createUrl('/notifications/default/index')?>" class="header-menu_a">
-                                        <span class="header-menu_ico header-menu_ico__notice"></span>
-                                        <span class="header-menu_tx">Мои <br> уведомления</span>
-                                        <span class="header-menu_count" data-bind="text: newNotificationsCount"></span>
-                                    </a>
-                                </li>
-                                <li class="header-menu_li">
-                                    <a href="<?=$this->createUrl('/favourites/default/index')?>" class="header-menu_a">
-                                        <span class="header-menu_ico header-menu_ico__favorite"></span>
-                                        <span class="header-menu_tx">Мое <br> избранное</span>
-                                    </a>
-                                </li>
-                                <li class="header-menu_li header-menu_li__sepor"></li>
-                                <li class="header-menu_li">
-                                    <a href="<?=Yii::app()->user->model->url?>" class="header-menu_a">
-                                        <span class="ava middle">
-                                            <img src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" alt="">
-                                        </span>
-                                        <span class="header-menu_tx">Моя <br> страница</span>
-                                    </a>
-                                </li>
-                                <li class="header-menu_li">
-                                    <a href="" class="header-menu_a">
-                                        <span class="header-menu_ico header-menu_ico__family"></span>
-                                        <span class="header-menu_tx">Моя <br> семья</span>
-                                    </a>
-                                </li>
-                                <li class="header-menu_li" data-bind="css: { active : newMessagesCount() > 0 }">
-                                    <a href="<?=$this->createUrl('/messaging/default/index')?>" class="header-menu_a">
-                                        <span class="header-menu_ico header-menu_ico__im"></span>
-                                        <span class="header-menu_tx">Мои <br> сообщения</span>
-                                        <span class="header-menu_count" data-bind="text: newMessagesCount"></span>
-                                    </a>
-                                </li>
-                                <li class="header-menu_li" data-bind="css: { active : newFriendsCount() > 0 }">
-                                    <a href="" class="header-menu_a">
-                                        <span class="header-menu_ico header-menu_ico__friend"></span>
-                                        <span class="header-menu_tx">Мои <br> друзья</span>
-                                        <span class="header-menu_count" data-bind="text: newFriendsCount"></span>
-                                    </a>
-                                </li>
-                                <li class="header-menu_li">
-                                    <a href="" class="header-menu_a">
-                                        <span class="header-menu_ico header-menu_ico__award"></span>
-                                        <span class="header-menu_tx">Мои <br> успехи</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <a href="<?=Yii::app()->createUrl('/site/logout')?>" class="layout-header_logout">Выход</a>
+                        <?php if (!Yii::app()->user->isGuest):?>
+                            <div class="header-menu layout-binding">
+                                <ul class="header-menu_ul clearfix">
+                                    <li class="header-menu_li">
+                                        <a href="" class="header-menu_a">
+                                            <span class="header-menu_ico header-menu_ico__giraffe"></span>
+                                            <span class="header-menu_tx">Мой <br> Жираф</span>
+                                        </a>
+                                    </li>
+                                    <li class="header-menu_li" data-bind="css: { active : newNotificationsCount() > 0 }">
+                                        <a href="<?=$this->createUrl('/notifications/default/index')?>" class="header-menu_a">
+                                            <span class="header-menu_ico header-menu_ico__notice"></span>
+                                            <span class="header-menu_tx">Мои <br> уведомления</span>
+                                            <span class="header-menu_count" data-bind="text: newNotificationsCount"></span>
+                                        </a>
+                                    </li>
+                                    <li class="header-menu_li">
+                                        <a href="<?=$this->createUrl('/favourites/default/index')?>" class="header-menu_a">
+                                            <span class="header-menu_ico header-menu_ico__favorite"></span>
+                                            <span class="header-menu_tx">Мое <br> избранное</span>
+                                        </a>
+                                    </li>
+                                    <li class="header-menu_li header-menu_li__sepor"></li>
+                                    <li class="header-menu_li">
+                                        <a href="<?=Yii::app()->user->model->url?>" class="header-menu_a">
+                                            <span class="ava middle">
+                                                <img src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" alt="">
+                                            </span>
+                                            <span class="header-menu_tx">Моя <br> страница</span>
+                                        </a>
+                                    </li>
+                                    <li class="header-menu_li">
+                                        <a href="" class="header-menu_a">
+                                            <span class="header-menu_ico header-menu_ico__family"></span>
+                                            <span class="header-menu_tx">Моя <br> семья</span>
+                                        </a>
+                                    </li>
+                                    <li class="header-menu_li" data-bind="css: { active : newMessagesCount() > 0 }">
+                                        <a href="<?=$this->createUrl('/messaging/default/index')?>" class="header-menu_a">
+                                            <span class="header-menu_ico header-menu_ico__im"></span>
+                                            <span class="header-menu_tx">Мои <br> сообщения</span>
+                                            <span class="header-menu_count" data-bind="text: newMessagesCount"></span>
+                                        </a>
+                                    </li>
+                                    <li class="header-menu_li" data-bind="css: { active : newFriendsCount() > 0 }">
+                                        <a href="" class="header-menu_a">
+                                            <span class="header-menu_ico header-menu_ico__friend"></span>
+                                            <span class="header-menu_tx">Мои <br> друзья</span>
+                                            <span class="header-menu_count" data-bind="text: newFriendsCount"></span>
+                                        </a>
+                                    </li>
+                                    <li class="header-menu_li">
+                                        <a href="" class="header-menu_a">
+                                            <span class="header-menu_ico header-menu_ico__award"></span>
+                                            <span class="header-menu_tx">Мои <br> успехи</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <a href="<?=Yii::app()->createUrl('/site/logout')?>" class="layout-header_logout">Выход</a>
+                        <?php else: ?>
+
+                        <?php endif ?>
                     </div>
 
                 </div>

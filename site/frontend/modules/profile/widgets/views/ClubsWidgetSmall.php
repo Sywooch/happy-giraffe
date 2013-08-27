@@ -33,7 +33,7 @@
 </div>
 <script type="text/javascript">
     $(function () {
-        vm = new UserClubsWidget(<?=CJSON::encode($this->data)?>, '<?=$this->size ?>');
+        vm = new UserClubsWidget(<?=CJSON::encode($this->data)?>, <?=CJSON::encode($this->getParams()) ?>);
         ko.applyBindings(vm, document.getElementById('user-clubs'));
     });
 </script>

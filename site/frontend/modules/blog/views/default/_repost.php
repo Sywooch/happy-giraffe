@@ -24,7 +24,7 @@ $source = $data->source;
             </div>
         </div>
         <h2 class="b-article_t">
-            <p><?= $source->title ?></p>
+            <a href="<?=$source->getUrl() ?>" class="b-article_t-a"><?= $source->title ?></a>
         </h2>
         <?php if (!empty($data->preview)):?>
         <div class="b-article_repost-comment">

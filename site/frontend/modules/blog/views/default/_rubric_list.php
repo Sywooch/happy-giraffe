@@ -20,7 +20,7 @@ $items = array_map(function ($rubric) use ($currentRubricId) {
     );
 }, $rubric_list);
 array_unshift($items, array(
-    'label' => 'Все записи',
+    'label' => 'Все записи блога',
     'url' => $this->user->getBlogUrl(),
     'linkOptions' => array('class' => 'menu-simple_a'),
     'active' => $currentRubricId === null,

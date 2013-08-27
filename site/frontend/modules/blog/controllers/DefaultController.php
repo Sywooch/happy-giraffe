@@ -141,6 +141,7 @@ class DefaultController extends HController
                     'title' => $rubric->title,
                 );
             }, $this->user->blog_rubrics),
+            'selectedRubric' => $id === null ? null : $model->rubric_id,
         );
         if ($model->type_id == CommunityContent::TYPE_STATUS) {
             $json['moods'] = array_map(function ($mood) {

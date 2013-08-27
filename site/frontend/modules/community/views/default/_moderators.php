@@ -1,7 +1,7 @@
 <div class="b-section_transp">
-    <h1 class="b-section_transp-t"><?=$community->title ?></h1>
+    <h1 class="b-section_transp-t"><?=$this->community->title ?></h1>
 
-    <div class="b-section_transp-desc"><?=$community->description ?></div>
+    <div class="b-section_transp-desc"><?=$this->community->description ?></div>
 
     <a href="" class="b-section_club-add" data-bind="click: subscribe, visible: !active()">
         <span class="b-section_club-add-tx">Вступить в клуб</span>

@@ -14,9 +14,12 @@
                 ->registerCssFile('/stylesheets/global.css')
                 ->registerCssFile('/stylesheets/user.css')
                 ->registerCssFile('/stylesheets/baby.css')
+
                 ->registerCoreScript('jquery')
+                ->registerCoreScript('yiiactiveform')
                 ->registerPackage('ko_layout')
 
+                ->registerCssFile('/stylesheets/jquery.fancybox-1.3.4.css')
                 ->registerScriptFile('/javascripts/jquery.fancybox-1.3.4.js')
                 ->registerScriptFile('/javascripts/chosen.jquery.min.js')
                 ->registerScriptFile('/javascripts/jquery.powertip.js')

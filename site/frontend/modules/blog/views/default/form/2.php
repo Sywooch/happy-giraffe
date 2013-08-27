@@ -15,6 +15,10 @@
     'enableClientValidation' => true,
     'clientOptions' => array(
         'validateOnSubmit' => true,
+        'afterValidate' => new CJavaScriptExpression('js:function(form, data, hasError) {
+            formVM.hasError(hasError);
+            return ! hasError;
+        }'),
     ),
 )); ?>
 
@@ -57,7 +61,7 @@
             <img src="/images/ico/ajax-loader.gif" alt=""> <br>
             Подждите видео загружается
         </div>
-        <?=$form->error($slaveModel, 'link')?>
+        <?=$form->error($slaveModel, 'link', array('data-bind' => 'visible: ! previewLoading()'))?>
     </div>
     <div class="b-settings-blue_video clearfix" data-bind="visible: embed() !== null">
         <a class="b-settings-blue_video-del ico-close2 powertip" title="Удалить" data-bind="click: remove"></a>
@@ -69,7 +73,7 @@
         <?=$form->error($slaveModel, 'text')?>
     </div>
     <div class="clearfix">
-        <button class="btn-blue btn-h46 float-r btn-inactive"><?=$model->isNewRecord ? 'Добавить' : 'Редактировать'?></button>
+        <button class="btn-blue btn-h46 float-r" data-bind="css: { 'btn-inactive' : hasError }"><?=$model->isNewRecord ? 'Добавить' : 'Редактировать'?></button>
         <a href="javascript:void(0)" onclick="$.fancybox.close()" class="btn-gray-light btn-h46 float-r margin-r15">Отменить</a>
 
         <div class="float-l">

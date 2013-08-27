@@ -15,6 +15,10 @@
     'enableClientValidation' => true,
     'clientOptions' => array(
         'validateOnSubmit' => true,
+        'afterValidate' => new CJavaScriptExpression('js:function(form, data, hasError) {
+            formVM.hasError(hasError);
+            return ! hasError;
+        }'),
     ),
 )); ?>
 
@@ -61,7 +65,7 @@
     </div>
 
     <div class=" clearfix">
-        <button class="btn-blue btn-h46 float-r"><?=$model->isNewRecord ? 'Добавить' : 'Редактировать'?></button>
+        <button class="btn-blue btn-h46 float-r" data-bind="css: { 'btn-inactive' : hasError }"><?=$model->isNewRecord ? 'Добавить' : 'Редактировать'?></button>
         <a href="javascript:void(0)" onclick="$.fancybox.close()" class="btn-gray-light btn-h46 float-r margin-r15">Отменить</a>
 
         <div class="float-l">

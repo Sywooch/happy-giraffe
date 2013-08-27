@@ -27,6 +27,7 @@
 
     var BlogFormViewModel = function(data) {
         var self = this;
+        self.hasError = ko.observable(false);
         self.title = ko.observable(data.title);
         self.privacyOptions = ko.observableArray([new BlogPrivacyOption({ value : 0, title : 'для <br>всех', cssClass : 'all' }, self), new BlogPrivacyOption({ value : 1, title : 'только <br>друзьям', cssClass : 'friend' }, self)]);
         self.selectedPrivacyOptionIndex = ko.observable(data.privacy);
@@ -35,7 +36,7 @@
         self.rubricsList = ko.observableArray(ko.utils.arrayMap(data.rubricsList, function(rubric) {
             return new BlogRubric(rubric);
         }));
-        self.selectedRubric = ko.observable(data.rubricsList.length > 1 ? undefined : data.rubricsList[0].id);
+        self.selectedRubric = ko.observable(data.selectedRubric === null ? (data.rubricsList.length > 1 ? undefined : data.rubricsList[0].id) : data.selectedRubric);
 
         self.clearNewRubricTitle = function() {
             self.newRubricTitle('');

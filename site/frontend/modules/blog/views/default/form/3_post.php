@@ -6,6 +6,10 @@
         'enableClientValidation' => true,
         'clientOptions' => array(
             'validateOnSubmit' => true,
+            'afterValidate' => new CJavaScriptExpression('js:function(form, data, hasError) {
+                formVM1.hasError(hasError);
+                return ! hasError;
+            }'),
         ),
     )); ?>
 
@@ -51,7 +55,7 @@
         <?=$form->errorSummary(array($model, $slaveModel)) ?>
     </div>
     <div class=" clearfix">
-        <button class="btn-blue btn-h46 float-r btn-inactive" data-bind="click: add, css: {'btn-inactive': upload().photos().length < 3}"><?=$model->isNewRecord ? 'Добавить' : 'Редактировать'?></button>
+        <button class="btn-blue btn-h46 float-r btn-inactive" data-bind="click: add, css: { 'btn-inactive': upload().photos().length < 3 || hasError() }"><?=$model->isNewRecord ? 'Добавить' : 'Редактировать'?></button>
         <a href="" class="btn-gray-light btn-h46 float-r margin-r15" onclick="$.fancybox.close();return false;">Отменить</a>
 
         <div class="float-l">

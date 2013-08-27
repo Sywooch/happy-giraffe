@@ -24,7 +24,8 @@ class RepostWidget extends CWidget
         if (! Yii::app()->user->isGuest) {
             $id = 'Repost_' . get_class($this->model) . '_' . $this->model->id;
             $active = (bool) $this->model->userReposted(Yii::app()->user->id);
-            $json = compact('count', 'active', 'modelName', 'modelId', 'entity');
+            $ownContent = $this->model->author_id == Yii::app()->user->id;
+            $json = compact('count', 'active', 'modelName', 'modelId', 'entity', 'ownContent');
             $data = compact('id', 'json');
         } else
             $data = compact('count');

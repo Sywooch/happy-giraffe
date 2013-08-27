@@ -31,7 +31,7 @@ else
         <!-- ko stopBinding: true -->
         <?php $this->renderPartial('blog.views.default._post_header', array('model' => $source, 'full' => $full)); ?>
 
-        <?php $this->renderPartial('blog.views.default.types/type_' . $source->type_id, array('data' => $source, 'full' => $full)); ?>
+        <?php $this->renderPartial('blog.views.default.types/type_' . $source->type_id, array('data' => $source, 'full' => $full, 'showTitle' => empty($data->source_id) ? true : false)); ?>
 
         <?php if ($full) $this->renderPartial('_likes', array('data' => $source)); ?>
 

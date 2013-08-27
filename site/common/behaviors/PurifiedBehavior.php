@@ -17,7 +17,7 @@ class PurifiedBehavior extends CActiveRecordBehavior
         'Attr.AllowedFrameTargets' => array('_blank' => true),
         'Attr.AllowedRel' => array('nofollow'),
         'HTML.SafeIframe' => true,
-        'URI.SafeIframeRegexp' => '%^(http://www.youtube.com/embed/|http://player.vimeo.com/video/|https://w.soundcloud.com/)%',
+        'URI.SafeIframeRegexp' => '%.*%',
         'HTML.SafeObject' => true,
     );
 

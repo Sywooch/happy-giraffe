@@ -56,8 +56,10 @@ class DefaultController extends HController
             NotificationRead::getInstance()->setContentModel($content);
             UserPostView::getInstance()->checkView(Yii::app()->user->id, $content->id);
         }
+        $users = UserCommunitySubscription::model()->getSubscribers($this->community->id, 6);
+        $user_count = UserCommunitySubscription::model()->getSubscribersCount($this->community->id);
 
-        $this->render('view', compact('content'));
+        $this->render('view', compact('content', 'users', 'user_count'));
     }
 
     public function actionServices($community_id)
@@ -87,7 +89,7 @@ class DefaultController extends HController
         if (!empty($content_type_slug) && !in_array($content_type_slug, array('post', 'video', 'photoPost')))
             throw new CHttpException(404, 'Страницы не существует');
 
-        if ($this->community_id != $content->rubric->community->id || $content_type_slug != $content->type->slug) {
+        if ($this->community->id != $content->rubric->community->id || $content_type_slug != $content->type->slug) {
             header("HTTP/1.1 301 Moved Permanently");
             header("Location: " . $content->url);
             Yii::app()->end();

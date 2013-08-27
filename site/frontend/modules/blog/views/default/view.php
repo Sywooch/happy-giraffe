@@ -33,9 +33,9 @@ else
 
         <?php $this->renderPartial('blog.views.default.types/type_' . $source->type_id, array('data' => $source, 'full' => $full, 'showTitle' => empty($data->source_id) ? true : false)); ?>
 
-        <?php if ($full) $this->renderPartial('_likes', array('data' => $source)); ?>
+        <?php if ($full) $this->renderPartial('blog.views.default._likes', array('data' => $source)); ?>
 
-        <?php if ($full && $data->type_id != CommunityContentType::TYPE_STATUS) $this->renderPartial('_prev_next', compact('data')); ?>
+        <?php if ($full && $data->type_id != CommunityContentType::TYPE_STATUS) $this->renderPartial('blog.views.default._prev_next', compact('data')); ?>
 
         <?php $this->widget('application.widgets.newCommentWidget.NewCommentWidget', array('model' => $data, 'full' => $full)); ?>
         <!-- /ko -->

@@ -73,48 +73,17 @@
                                 <div class="clearfix">
                                     <div class="w-70 float-l margin-r5">
                                         <div class="chzn-itx-simple">
-                                            <select class="chzn"  data-placeholder="день">
-                                                <option value=""></option>
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>32</option>
-                                                <option>32</option>
-                                                <option>32</option>
-                                                <option>32</option>
-                                            </select>
+                                            <?=$form->dropDownList($model, 'day',  array_combine(range(1, 31), range(1, 31)), array('class' => 'chzn', 'data-placeholder' => 'день', 'empty' => ''))?>
                                         </div>
                                     </div>
                                     <div class="w-110 float-l margin-r5">
                                         <div class="chzn-itx-simple">
-                                            <select class="chzn" data-placeholder="месяц">
-                                                <option value=""></option>
-                                                <option>Января</option>
-                                                <option>Февраля</option>
-                                                <option>Марта</option>
-                                                <option>Апреля</option>
-                                                <option>Майя</option>
-                                                <option>Июня</option>
-                                                <option>Июля</option>
-                                                <option>Августа</option>
-                                                <option>Сентября</option>
-                                                <option>Октября</option>
-                                                <option>Ноября</option>
-                                                <option>Декабря</option>
-                                            </select>
+                                            <?=$form->dropDownList($model, 'month', array_combine(range(1, 12), array('января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря')), array('class' => 'chzn', 'data-placeholder' => 'месяц', 'empty' => ''))?>
                                         </div>
                                     </div>
                                     <div class="w-80 float-l">
                                         <div class="chzn-itx-simple">
-                                            <select class="chzn" data-placeholder="год">
-                                                <option value=""></option>
-                                                <option>1912</option>
-                                                <option>1913</option>
-                                                <option>1914</option>
-                                                <option>1915</option>
-                                                <option>1916</option>
-                                                <option>1988</option>
-                                                <option>1999</option>
-                                            </select>
+                                            <?=$form->dropDownList($model, 'year', array_combine(range(1910, date("Y")), range(1910, date("Y"))), array('class' => 'chzn', 'data-placeholder' => 'год', 'empty' => ''))?>
                                         </div>
                                     </div>
                                 </div>
@@ -127,6 +96,7 @@
                             <div class="b-sign_itx-hold">
                                 <div class="b-radio-icons">
                                     <?=$form->radioButtonList($model, 'gender', array('0' => '<span class="ico-male"></span>', '1' => '<span class="ico-female"></span>'), array('class' => 'b-radio-icons_radio', 'uncheckValue' => null, 'separator' => '', 'labelOptions' => array('class' => 'b-radio-icons_label')))?>
+                                    <?=$form->error($model, 'gender')?>
                                     <div class="b-sign_win"></div>
                                 </div>
                             </div>

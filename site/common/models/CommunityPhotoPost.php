@@ -76,9 +76,17 @@ class CommunityPhotoPost extends HActiveRecord
         );
     }
 
-    public function beforeSave()
+    public function beforeValidate()
     {
         $this->photos = explode(',', $this->photos);
+        if (count($this->photos) < 3)
+            $this->addError('photos', 'Добавьте хотя бы 3 фото');
+
+        return parent::beforeValidate();
+    }
+
+    public function beforeSave()
+    {
         $this->photo_id = $this->photos[0];
         $this->text = strip_tags($this->text, '<p>');
 

@@ -19,7 +19,7 @@ $data['currentRubricId'] = $this->rubric_id;
             </div>
         </div>
         <div class="col-23-middle">
-            <div class="user-add-record clearfix">
+            <div class="user-add-record clearfix<?php if (Yii::app()->user->id != $this->user->id) echo ' user-add-record__small' ?>">
                 <div class="user-add-record_ava-hold">
                     <?php $this->widget('Avatar', array('user' => Yii::app()->user->getModel())) ?>
                 </div>

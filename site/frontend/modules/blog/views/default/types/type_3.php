@@ -16,7 +16,7 @@ $collection = new PhotoPostPhotoCollection(array('contentId' => $data->id));
 
     <div class="b-article_in clearfix">
         <div class="wysiwyg-content clearfix">
-            <p><?=$data->photoPost->purified->text ?></p>
+            <p><?=str_replace("\n", '<br>', $data->photoPost->text) ?></p>
         </div>
         <?php
         $this->widget('PhotoCollectionViewWidget', array(

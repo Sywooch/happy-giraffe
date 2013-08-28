@@ -3,8 +3,6 @@
 
 class DefaultController extends HController
 {
-    public $layout = '//layouts/common_new';
-
     const QUERY_RESPONSE_TYPE_TAG = 0;
     const QUERY_RESPONSE_TYPE_KEYWORD = 1;
 

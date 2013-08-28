@@ -5,10 +5,11 @@ $this->beginContent('//layouts/main'); ?>
     <div class="content-cols clearfix">
         <div class="col-1">
             <div class="sidebar-search clearfix">
-                <input type="text" placeholder="Поиск по сайту" class="sidebar-search_itx" id="" name="">
+                <input type="text" placeholder="Поиск по сайту" class="sidebar-search_itx">
                 <button class="sidebar-search_btn"></button>
             </div>
         </div>
+
         <div class="col-23-middle">
             <?php if (!Yii::app()->user->isGuest): ?>
                 <div class="user-add-record user-add-record__small clearfix">

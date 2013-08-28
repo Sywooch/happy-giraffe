@@ -1,4 +1,8 @@
-<div class="widget-friends clearfix">
+<?php
+$users = UserCommunitySubscription::model()->getSubscribers($this->community->id);
+$user_count = UserCommunitySubscription::model()->getSubscribersCount($this->community->id);
+
+?><div class="widget-friends clearfix">
     <div class="clearfix">
         <span class="heading-small">Участники клуба <span class="color-gray">(<?= $user_count ?>)</span> </span>
     </div>

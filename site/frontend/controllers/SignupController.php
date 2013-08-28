@@ -178,7 +178,7 @@ class SignupController extends HController
     {
         $steps = array(
             array('email'),
-            array('first_name', 'last_name', 'password', 'gender', 'email', 'birthday', 'baby_birthday'),
+            array('first_name', 'last_name', 'password', 'passwordRepeat', 'gender', 'email', 'birthday', 'baby_birthday'),
         );
 
         if (isset($_POST['form_type']) && $_POST['form_type'] == 'horoscope') {

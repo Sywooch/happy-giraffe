@@ -32,8 +32,10 @@
                 <div class="float-r font-small color-gray margin-3" data-bind="length: { attribute : title, maxLength : 50 }"></div>
             </div>
             <?=$form->label($model, 'title', array('class' => 'b-settings-blue_label'))?>
-            <?=$form->textField($model, 'title', array('class' => 'itx-simple w-400', 'placeholder' => 'Придумайте заголовок', 'data-bind' => 'value: title, valueUpdate: \'keyup\''))?>
-            <?=$form->error($model, 'title')?>
+            <div class="w-400 float-l">
+                <?=$form->textField($model, 'title', array('class' => 'itx-simple w-400', 'placeholder' => 'Придумайте заголовок', 'data-bind' => 'value: title, valueUpdate: \'keyup\''))?>
+                <?=$form->error($model, 'title')?>
+            </div>
         </div>
         <div class="b-settings-blue_row clearfix">
             <?=$form->label($model, 'rubric_id', array('class' => 'b-settings-blue_label'))?>

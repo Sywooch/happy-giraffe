@@ -3,12 +3,13 @@
         'id' => 'blog-form',
         'action' => $model->isNewRecord ? array('save') : array('save', 'id' => $model->id),
         'enableAjaxValidation' => true,
-        'enableClientValidation' => true,
+        'enableClientValidation' => false,
         'clientOptions' => array(
+            'validateOnChange' => true,
             'validateOnSubmit' => true,
             'afterValidate' => new CJavaScriptExpression('js:function(form, data, hasError) {
                 formVM1.hasError(hasError);
-                return ! hasError;
+                return !hasError;
             }'),
         ),
     )); ?>
@@ -22,8 +23,10 @@
                 <div class="float-r font-small color-gray margin-3" data-bind="length: { attribute : title, maxLength : 50 }"></div>
             </div>
             <?=$form->label($model, 'title', array('class' => 'b-settings-blue_label')) ?>
-            <?=$form->textField($model, 'title', array('class' => 'itx-simple w-400', 'placeholder' => 'Введите заголовок статьи', 'data-bind' => 'value: title, valueUpdate: \'keydown\'')) ?>
-            <?=$form->error($model, 'title') ?>
+            <div class="w-400 float-l">
+                <?=$form->textField($model, 'title', array('class' => 'itx-simple w-400', 'placeholder' => 'Введите заголовок статьи', 'data-bind' => 'value: title, valueUpdate: \'keydown\'')) ?>
+                <?=$form->error($model, 'title') ?>
+            </div>
         </div>
         <div class="b-settings-blue_row clearfix">
             <label for="" class="b-settings-blue_label">Рубрика</label>
@@ -46,12 +49,15 @@
     </div>
 
     <?php $this->renderPartial('application.views.upload_image_popup'); ?>
+    <div class="clearfix textalign-r" style="display: none;">
+        <?=$form->hiddenField($slaveModel, 'photos') ?>
+        <?=$form->error($slaveModel, 'photos') ?>
+    </div>
 
     <div class="b-settings-blue_row clearfix">
         <?=$form->textArea($slaveModel, 'text', array('class' => 'b-settings-blue_textarea itx-simple', 'placeholder'=>"Ваш текст к фотопосту", 'cols'=>80, 'rows'=>5)) ?>
     </div>
-    <?=$form->hiddenField($slaveModel, 'photos') ?>
-    <div class="clearfix">
+    <div class="clearfix textalign-r">
         <?=$form->errorSummary(array($model, $slaveModel)) ?>
     </div>
     <div class=" clearfix">
@@ -102,12 +108,7 @@
 
         self.add = function () {
             $('#CommunityPhotoPost_photos').val(self.upload().getPhotoIds());
-
-            if (self.upload().photos().length > 2){
-                $('#blog-form').submit();
-            }else{
-                alert('Минимум 3 фото')
-            }
+            $('#blog-form').submit();
         }
     };
     var formVM1 = new PhotoPostViewModel(<?=CJSON::encode($json)?>);

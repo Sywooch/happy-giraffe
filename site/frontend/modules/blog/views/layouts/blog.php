@@ -19,16 +19,17 @@ $data['currentRubricId'] = $this->rubric_id;
             </div>
         </div>
         <div class="col-23-middle">
-            <div class="user-add-record clearfix">
+            <?php $isMyProfile = (Yii::app()->user->id == $this->user->id) ?>
+            <div class="user-add-record clearfix<?php if (!$isMyProfile) echo ' user-add-record__small' ?>">
                 <div class="user-add-record_ava-hold">
-                    <?php $this->widget('Avatar', array('user' => Yii::app()->user->getModel())) ?>
+                    <?php $this->widget('Avatar', array('user' => Yii::app()->user->getModel(), 'size' => $isMyProfile ? 72 : 40)) ?>
                 </div>
                 <div class="user-add-record_hold">
                     <div class="user-add-record_tx">Я хочу добавить</div>
-                    <a href="<?=$this->createUrl('form', array('type' => 1))?>"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__article fancy">Статью</a>
-                    <a href="<?=$this->createUrl('form', array('type' => 3))?>"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__photo fancy">Фото</a>
-                    <a href="<?=$this->createUrl('form', array('type' => 2))?>"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__video fancy">Видео</a>
-                    <a href="<?=$this->createUrl('form', array('type' => 5))?>"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__status fancy">Статус</a>
+                    <a href="<?=$this->createUrl('form', array('type' => 1))?>"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__article fancy-top"><?php if ($isMyProfile) echo 'Статью'?></a>
+                    <a href="<?=$this->createUrl('form', array('type' => 3))?>"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__photo fancy-top"><?php if ($isMyProfile) echo 'Фото'?></a>
+                    <a href="<?=$this->createUrl('form', array('type' => 2))?>"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__video fancy-top"><?php if ($isMyProfile) echo 'Видео'?></a>
+                    <a href="<?=$this->createUrl('form', array('type' => 5))?>"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__status fancy-top"><?php if ($isMyProfile) echo 'Статус'?></a>
                 </div>
             </div>
             <?php if (Yii::app()->user->id == $this->user->id):?>

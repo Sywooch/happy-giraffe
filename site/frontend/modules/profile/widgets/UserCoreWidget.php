@@ -6,6 +6,7 @@ class UserCoreWidget extends CWidget
      * @var User
      */
     public $user;
+    public $uniqid;
 
     protected $isMyProfile = false;
     protected $visible = true;
@@ -14,6 +15,7 @@ class UserCoreWidget extends CWidget
     public function init()
     {
         $this->isMyProfile = $this->user->id == Yii::app()->user->id;
+        $this->uniqid = uniqid();
     }
 
     public function run()

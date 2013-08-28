@@ -12,8 +12,3 @@
         </div>
     </div>
 </div>
-<script type="text/javascript">
-    $(function() {
-        $.fancybox.center();
-    });
-</script>

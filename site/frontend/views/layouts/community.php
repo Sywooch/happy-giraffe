@@ -19,13 +19,13 @@ $this->beginContent('//layouts/main'); ?>
                     <div class="user-add-record_hold">
                         <div class="user-add-record_tx">Я хочу добавить</div>
                         <a href="<?= $this->createUrl('/blog/default/form', array('type' => 1)) ?>" data-theme="transparent"
-                           class="user-add-record_ico user-add-record_ico__article fancy powertip" title="Статью"></a>
+                           class="user-add-record_ico user-add-record_ico__article fancy-top powertip" title="Статью"></a>
                         <a href="<?= $this->createUrl('/blog/default/form', array('type' => 3)) ?>" data-theme="transparent"
-                           class="user-add-record_ico user-add-record_ico__photo fancy powertip" title="Фото"></a>
+                           class="user-add-record_ico user-add-record_ico__photo fancy-top powertip" title="Фото"></a>
                         <a href="<?= $this->createUrl('/blog/default/form', array('type' => 2)) ?>" data-theme="transparent"
-                           class="user-add-record_ico user-add-record_ico__video fancy powertip" title="Видео"></a>
+                           class="user-add-record_ico user-add-record_ico__video fancy-top powertip" title="Видео"></a>
                         <a href="<?= $this->createUrl('/blog/default/form', array('type' => 5)) ?>" data-theme="transparent"
-                           class="user-add-record_ico user-add-record_ico__status fancy powertip" title="Статус"></a>
+                           class="user-add-record_ico user-add-record_ico__status fancy-top powertip" title="Статус"></a>
                     </div>
                 </div>
             <?php endif ?>

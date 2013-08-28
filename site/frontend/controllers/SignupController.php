@@ -156,17 +156,17 @@ class SignupController extends HController
                 $model->last_ip = $_SERVER['REMOTE_ADDR'];
                 $model->save(false);
 
-                $redirectUrl = Yii::app()->user->getState('redirectUrl');
-                if (!empty($redirectUrl)) {
-                    $url = $redirectUrl;
-                    Yii::app()->user->setState('redirectUrl', null);
-                } else
-                    $url = Yii::app()->createAbsoluteUrl('profile/default/index', array('user_id' => $model->id));
+//                $redirectUrl = Yii::app()->user->getState('redirectUrl');
+//                if (!empty($redirectUrl)) {
+//                    $url = $redirectUrl;
+//                    Yii::app()->user->setState('redirectUrl', null);
+//                } else
+//                    $url = Yii::app()->createAbsoluteUrl('profile/default/index', array('user_id' => $model->id));
 
 
                 echo CJSON::encode(array(
                     'status' => true,
-                    'profile' => $url
+                    'url' => $this->createUrl('/profile/default/signup'),
                 ));
                 Yii::app()->end();
             }

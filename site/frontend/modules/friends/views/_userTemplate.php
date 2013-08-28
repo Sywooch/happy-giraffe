@@ -30,7 +30,7 @@
         </div>
 
         <div class="friends-list_group">
-            <a class="friends-list_group-a" onclick="$(this).next().toggle()" data-bind="visible: $root.lists().length > 0, text: listLabel, tooltip: 'Изменить список'"></a>
+            <a class="friends-list_group-a" onclick="$(this).next().toggle()" data-bind="visible: $root.lists().length > 0, text: listLabel"></a>
             <div class="friends-list_group-popup">
                 <a class="friends-list_group-popup-a" onclick="$(this).parent().hide()" data-bind="click: unbindList, visible: listId() !== null">Все друзья</a>
                 <!-- ko foreach: $root.lists -->

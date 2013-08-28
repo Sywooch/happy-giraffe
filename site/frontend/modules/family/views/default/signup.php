@@ -7,8 +7,8 @@
 <div class="b-registration">
     <div class="b-registration_row clearfix">
         <div class="float-r">
-            <a href="" class="b-registration_skip">Пропустить этот шаг</a>
-            <a href="" class="btn-green btn-h46">Готово, продолжить</a>
+            <a class="b-registration_skip" data-bind="click: save">Пропустить этот шаг</a>
+            <a class="btn-green btn-h46" data-bind="click: save">Готово, продолжить</a>
         </div>
         <div class="b-registration_t"><?=Yii::app()->user->model->first_name?>, расскажите о вашей семье</div>
     </div>
@@ -132,8 +132,8 @@
 
     <div class="b-registration_row clearfix">
         <div class="float-r">
-            <a href="" class="b-registration_skip">Пропустить этот шаг</a>
-            <a href="" class="btn-green btn-h46">Готово, продолжить</a>
+            <a class="b-registration_skip" data-bind="click: save">Пропустить этот шаг</a>
+            <a class="btn-green btn-h46" data-bind="click: save">Готово, продолжить</a>
         </div>
     </div>
 </div>

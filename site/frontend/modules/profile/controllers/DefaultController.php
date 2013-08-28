@@ -186,6 +186,13 @@ class DefaultController extends HController
         echo CJSON::encode(array('status' => true));
     }
 
+    public function actionSignup()
+    {
+        $this->loadUser(Yii::app()->user->id);
+        $this->layout = '//layouts/simple';
+        $this->render('signup');
+    }
+
     /**
      * Load user
      * @param int $id user id

@@ -183,6 +183,7 @@ class DefaultController extends HController
     public function actionSave($id = null)
     {
         $model = ($id === null) ? new BlogContent() : BlogContent::model()->findByPk($id);
+        $model->scenario = 'default';
         $model->attributes = $_POST['BlogContent'];
         if ($model->type_id == CommunityContent::TYPE_STATUS)
             $model->scenario = 'status';

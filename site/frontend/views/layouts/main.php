@@ -14,7 +14,7 @@
                 ->registerCssFile('/stylesheets/global.css')
                 ->registerCssFile('/stylesheets/user.css')
                 ->registerCssFile('/stylesheets/baby.css')
-                ->registerCssFile('http://fonts.googleapis.com/css?family=Roboto:300,subset=latin,cyrillic-ext,cyrillic')
+                ->registerCssFile('http://fonts.googleapis.com/css?family=Roboto:300&subset=latin,cyrillic-ext')
 
                 ->registerCoreScript('jquery')
                 ->registerCoreScript('yiiactiveform')

@@ -32,8 +32,10 @@
                 <div class="float-r font-small color-gray margin-3" data-bind="length: { attribute : title, maxLength : 50 }"></div>
             </div>
             <?=$form->label($model, 'title', array('class' => 'b-settings-blue_label'))?>
-            <?=$form->textField($model, 'title', array('class' => 'itx-simple w-400', 'placeholder' => 'Придумайте заголовок', 'data-bind' => 'value: title, valueUpdate: \'keyup\''))?>
-            <?=$form->error($model, 'title')?>
+            <div class="w-400 float-l">
+                <?=$form->textField($model, 'title', array('class' => 'itx-simple w-400', 'placeholder' => 'Придумайте заголовок', 'data-bind' => 'value: title, valueUpdate: \'keyup\''))?>
+                <?=$form->error($model, 'title')?>
+            </div>
         </div>
         <div class="b-settings-blue_row clearfix">
             <?=$form->label($model, 'rubric_id', array('class' => 'b-settings-blue_label'))?>
@@ -60,7 +62,7 @@
         <div style="display: none;"><?=$form->error($slaveModel, 'text')?></div>
     </div>
 
-    <div class="clearfix">
+    <div class="clearfix textalign-r">
         <?=$form->errorSummary(array($model, $slaveModel)) ?>
     </div>
 
@@ -68,7 +70,7 @@
         <button class="btn-blue btn-h46 float-r" data-bind="css: { 'btn-inactive' : hasError }"><?=$model->isNewRecord ? 'Добавить' : 'Редактировать'?></button>
         <a href="javascript:void(0)" onclick="$.fancybox.close()" class="btn-gray-light btn-h46 float-r margin-r15">Отменить</a>
 
-        <div class="float-l">
+        <div class="float-l margin-165">
             <div class="privacy-select clearfix">
                 <?=$form->hiddenField($model, 'privacy', array('data-bind' => 'value: selectedPrivacyOption().value()'))?>
                 <div class="privacy-select_hold clearfix">

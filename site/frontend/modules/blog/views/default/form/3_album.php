@@ -1,6 +1,22 @@
 <?php
 $model = new AlbumPhoto();
 ?><div class="b-settings-blue b-settings-blue__photo" id="popup-user-add-photo" style="display: none;">
+
+    <?php $form = $this->beginWidget('CActiveForm', array(
+        'id' => 'album-form',
+        'action' => '/ajaxSimple/albumValidate/',
+        'enableAjaxValidation' => true,
+        'enableClientValidation' => false,
+        'clientOptions' => array(
+            'validateOnSubmit' => true,
+            'afterValidate' => new CJavaScriptExpression('js:function(form, data, hasError) {
+                if (!hasError)
+                    photoFormVM.add();
+                return false;
+        }'),
+        ),
+    )); ?>
+
     <div class="b-settings-blue_tale"></div>
     <div class="b-settings-blue_head">
         <div class="b-settings-blue_row clearfix">
@@ -17,7 +33,7 @@ $model = new AlbumPhoto();
                             return album.id;
                         },
                         chosenAlbum: {}" data-placeholder="Выберите альбом или создайте новый"></select>
-                    <?=CHtml::error($model, 'album_id')?>
+                    <?=$form->error($model, 'album_id')?>
                 </div>
             </div>
         </div>
@@ -25,16 +41,19 @@ $model = new AlbumPhoto();
 
     <?php $this->renderPartial('application.views.upload_image_popup'); ?>
 
-    <div class=" clearfix">
-        <button class="btn-blue btn-h46 float-r btn-inactive" data-bind="click: add, css: {'btn-inactive': upload().photos().length == 0}"><?=$model->isNewRecord ? 'Добавить' : 'Редактировать'?></button>
-        <a href="javascript:;" class="btn-gray-light btn-h46 float-r margin-r15" onclick="$.fancybox.close()">Отменить</a>
-
-        <div class="float-l">
-            <div class="privacy-select clearfix">
-
-            </div>
-        </div>
+    <div class="clearfix textalign-r">
+        <!-- ko if: upload().photos().length == 0 -->
+        <?=$form->hiddenField($model, 'id')?>
+        <?=$form->error($model, 'id') ?>
+        <!-- /ko -->
     </div>
+
+    <div class=" clearfix">
+        <button class="btn-blue btn-h46 float-r btn-inactive" data-bind="css: {'btn-inactive': upload().photos().length == 0}"><?=$model->isNewRecord ? 'Добавить' : 'Редактировать'?></button>
+        <a href="javascript:;" class="btn-gray-light btn-h46 float-r margin-r15" onclick="$.fancybox.close()">Отменить</a>
+    </div>
+
+    <?php $this->endWidget(); ?>
 </div>
 
 <script type="text/javascript">
@@ -107,6 +126,6 @@ $model = new AlbumPhoto();
     }
 
 
-    var formVM2 = new PhotoAlbumViewModel(<?=CJSON::encode($json)?>);
-    ko.applyBindings(formVM2, document.getElementById('popup-user-add-photo'));
+    var photoFormVM = new PhotoAlbumViewModel(<?=CJSON::encode($json)?>);
+    ko.applyBindings(photoFormVM, document.getElementById('popup-user-add-photo'));
 </script>

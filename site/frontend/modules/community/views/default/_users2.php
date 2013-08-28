@@ -1,4 +1,8 @@
-<div class="readers2 js-community-subscription">
+<?php
+$users = UserCommunitySubscription::model()->getSubscribers($this->community->id, 6);
+$user_count = UserCommunitySubscription::model()->getSubscribersCount($this->community->id);
+
+?><div class="readers2 js-community-subscription">
     <a class="btn-green btn-medium" href="" data-bind="click: subscribe, visible: !active()">Вступить в клуб</a>
     <ul class="readers2_ul clearfix">
         <?php foreach ($users as $user): ?>

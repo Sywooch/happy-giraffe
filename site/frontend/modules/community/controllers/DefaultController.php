@@ -2,12 +2,13 @@
 
 class DefaultController extends HController
 {
-    public $layout = 'community';
+    public $layout = '//layouts/community';
     public $breadcrumbs = false;
     /**
      * @var Community
      */
     public $community;
+    public $rubric_id;
 
     public function beforeAction($action)
     {
@@ -22,8 +23,6 @@ class DefaultController extends HController
      */
     public function actionCommunity($community_id)
     {
-        $users = UserCommunitySubscription::model()->getSubscribers($this->community->id);
-        $user_count = UserCommunitySubscription::model()->getSubscribersCount($this->community->id);
         $moderators = $this->community->getModerators();
 
         $rubric_id = null;
@@ -38,28 +37,28 @@ class DefaultController extends HController
      */
     public function actionForum($community_id, $rubric_id = null)
     {
-        $users = UserCommunitySubscription::model()->getSubscribers($this->community->id, 6);
-        $user_count = UserCommunitySubscription::model()->getSubscribersCount($this->community->id);
+        $this->layout = 'forum';
+        $this->rubric_id = $rubric_id;
 
-        $this->render('forum', compact('users', 'user_count', 'rubric_id'));
+        $this->render('list');
     }
 
     public function actionView($community_id, $content_type_slug, $content_id)
     {
+        $this->layout = 'forum';
         $content = $this->loadContent($content_id, $content_type_slug);
         if (!empty($content->uniqueness) && $content->uniqueness < 50)
             Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
 
         $this->pageTitle = $content->title;
+        $this->rubric_id = $content->rubric_id;
 
         if (!Yii::app()->user->isGuest){
             NotificationRead::getInstance()->setContentModel($content);
             UserPostView::getInstance()->checkView(Yii::app()->user->id, $content->id);
         }
-        $users = UserCommunitySubscription::model()->getSubscribers($this->community->id, 6);
-        $user_count = UserCommunitySubscription::model()->getSubscribersCount($this->community->id);
 
-        $this->render('view', compact('content', 'users', 'user_count'));
+        $this->render('view', compact('content'));
     }
 
     public function actionServices($community_id)

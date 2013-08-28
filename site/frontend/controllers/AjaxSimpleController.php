@@ -256,6 +256,17 @@ class AjaxSimpleController extends CController
         echo CJSON::encode(array('status' => true));
     }
 
+    public function actionAlbumValidate()
+    {
+        $errors = array();
+        if (empty($_POST['AlbumPhoto']['album_id']))
+            $errors ['AlbumPhoto_album_id'] = array('Выберите альбом');
+        if (isset($_POST['AlbumPhoto']['id']) && empty($_POST['AlbumPhoto']['id']))
+            $errors ['AlbumPhoto_id'] = array('Добавьте хотя бы одну фотографию');
+
+        echo CJSON::encode($errors);
+    }
+
     /**
      * Загрузка нового комментария
      *

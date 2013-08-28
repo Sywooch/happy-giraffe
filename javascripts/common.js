@@ -821,6 +821,31 @@ function HgLike(el, entity, entity_id){
     }, 'json');
 }
 
+$('body').delegate('a.fancy-top', 'click', function () {
+    var onComplete_function = function () {
+
+        var scTop = $(document).scrollTop();
+        var box = $('#fancybox-wrap');
+
+        boxTop = parseInt(Math.max(scTop + 20));
+        box
+            .stop()
+            .animate({
+                'top' : boxTop
+            }, 200);
+
+    };
+
+    $(this).clone().fancybox({
+        overlayColor:'#2d1a3f',
+        overlayOpacity:'0.6',
+        padding:0,
+        showCloseButton:false,
+        centerOnScroll:false,
+        onComplete:onComplete_function
+    }).trigger('click');
+    return false;
+});
 
 (function($) { 
 

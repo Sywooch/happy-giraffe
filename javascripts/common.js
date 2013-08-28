@@ -580,7 +580,7 @@ var Register = {
         $.post('/signup/finish/', $('#reg-form2').serialize(), function (response) {
 //            console.log(response);
             if (response.status) {
-                window.location = response.profile;
+                window.location = response.url;
 //                Register.url = response.profile;
             }
         }, 'json');

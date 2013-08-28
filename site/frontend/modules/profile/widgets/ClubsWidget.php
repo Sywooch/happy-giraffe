@@ -14,6 +14,11 @@ class ClubsWidget extends UserCoreWidget
      */
     public $limit = 100;
     /**
+     * Сколько клубов пропустить
+     * @var int
+     */
+    public $offset = 0;
+    /**
      * Удаляем ли клуб после того как пользователь отписался?
      * @var bool
      */
@@ -68,6 +73,7 @@ class ClubsWidget extends UserCoreWidget
         return array(
             'size' => $this->size,
             'limit' => $this->limit,
+            'offset' => $this->offset,
             'deleteClub' => $this->deleteClub,
         );
     }

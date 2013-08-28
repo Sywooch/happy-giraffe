@@ -25,7 +25,6 @@ class DefaultController extends HController
     {
         $this->layout = '//layouts/common_new';
         $user = User::model()->active()->with(array(
-            'status',
             'purpose',
             'avatar',
             'address',

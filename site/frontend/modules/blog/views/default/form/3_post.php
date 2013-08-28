@@ -95,12 +95,6 @@
 
 </div>
 <script type="text/javascript">
-    $('#CommunityPhotoPost_text').redactorHG({
-        minHeight: 80,
-        autoresize: true,
-        buttons: []
-    });
-
     var PhotoPostViewModel = function (data) {
         var self = this;
         ko.utils.extend(self, new BlogFormViewModel(data));

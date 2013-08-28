@@ -66,13 +66,6 @@ class CommunityPhotoPost extends HActiveRecord
                 'class' => 'site.common.behaviors.PreviewBehavior',
                 'small_preview' => true,
             ),
-            'purified' => array(
-                'class' => 'site.common.behaviors.PurifiedBehavior',
-                'attributes' => array('preview', 'text'),
-                'options' => array(
-                    'AutoFormat.Linkify' => true,
-                ),
-            ),
         );
     }
 
@@ -88,7 +81,7 @@ class CommunityPhotoPost extends HActiveRecord
     public function beforeSave()
     {
         $this->photo_id = $this->photos[0];
-        $this->text = strip_tags($this->text, '<p>');
+        $this->text = strip_tags($this->text);
 
         return parent::beforeSave();
     }

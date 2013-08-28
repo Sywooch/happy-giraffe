@@ -17,6 +17,7 @@ class RepostWidget extends CWidget
 
     public function run()
     {
+        $this->registerScripts();
         $count = (int) $this->model->sourceCount;
         $modelName = get_class($this->model);
         $modelId = $this->model->id;
@@ -31,6 +32,15 @@ class RepostWidget extends CWidget
             $data = compact('count');
 
         $this->render($this->getViewByEntity($entity), $data);
+    }
+
+    public function registerScripts()
+    {
+        $basePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR;
+        $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
+        Yii::app()->clientScript
+            ->registerScriptFile($baseUrl . '/RepostWidget.js')
+        ;
     }
 
     protected function getViewByEntity($entity) {

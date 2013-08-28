@@ -2,28 +2,7 @@
 
 <div class="content-cols">
     <div class="col-1">
-        <div class="b-ava-large">
-            <div class="b-ava-large_ava-hold clearfix">
-                <a class="ava large female" href="">
-                </a>
-                <span class="b-ava-large_online">На сайте</span>
-                <a href="" class="b-ava-large_bubble b-ava-large_bubble__dialog powertip" title="Начать диалог">
-                    <span class="b-ava-large_ico b-ava-large_ico__mail"></span>
-                    <span class="b-ava-large_bubble-tx">+5</span>
-                </a>
-                <a href="" class="b-ava-large_bubble b-ava-large_bubble__photo powertip" title="Фотографии">
-                    <span class="b-ava-large_ico b-ava-large_ico__photo"></span>
-                    <span class="b-ava-large_bubble-tx">+50</span>
-                </a>
-                <a href="" class="b-ava-large_bubble b-ava-large_bubble__blog powertip" title="Записи в блоге">
-                    <span class="b-ava-large_ico b-ava-large_ico__blog"></span>
-                    <span class="b-ava-large_bubble-tx">+999</span>
-                </a>
-            </div>
-            <div class="textalign-c">
-                <a href="" class="b-ava-large_a">Александр Богоявленский</a>
-            </div>
-        </div>
+        <?php $this->widget('Avatar', array('user' => Yii::app()->user->model, 'size' => 200, 'message_link' => false, 'blog_link' => false, 'location' => true, 'age' => true)); ?>
 
         <div class="menu-list">
             <a class="menu-list_i active" data-bind="click: selectAll, css: { active : selectedListId() === null && activeTab() == 0 && newSelected() === false }">

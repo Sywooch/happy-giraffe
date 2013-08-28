@@ -91,14 +91,14 @@
                                         </a>
                                     </li>
                                     <li class="header-menu_li" data-bind="css: { active : newFriendsCount() > 0 }">
-                                        <a href="" class="header-menu_a">
+                                        <a href="<?=$this->createUrl('/friends/default/index')?>" class="header-menu_a">
                                             <span class="header-menu_ico header-menu_ico__friend"></span>
                                             <span class="header-menu_tx">Мои <br> друзья</span>
                                             <span class="header-menu_count" data-bind="text: newFriendsCount"></span>
                                         </a>
                                     </li>
                                     <li class="header-menu_li">
-                                        <a href="" class="header-menu_a">
+                                        <a href="<?=$this->createUrl('/scores/default/index')?>" class="header-menu_a">
                                             <span class="header-menu_ico header-menu_ico__award"></span>
                                             <span class="header-menu_tx">Мои <br> успехи</span>
                                         </a>

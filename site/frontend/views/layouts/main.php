@@ -45,6 +45,7 @@
                             <strong class="logo_slogan">САЙТ ДЛЯ ВСЕЙ СЕМЬИ</strong>
                         </h1>
                         <?php if (!Yii::app()->user->isGuest):?>
+                            <!-- ko stopBinding: true -->
                             <div class="header-menu layout-binding">
                                 <ul class="header-menu_ul clearfix">
                                     <li class="header-menu_li">
@@ -103,6 +104,7 @@
                                     </li>
                                 </ul>
                             </div>
+                            <!-- /ko -->
                             <a href="<?=Yii::app()->createUrl('/site/logout')?>" class="layout-header_logout">Выход</a>
                         <?php else: ?>
 

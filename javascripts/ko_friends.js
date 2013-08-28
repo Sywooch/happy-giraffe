@@ -24,7 +24,7 @@ function FriendsViewModel(data) {
     self.newSelected = ko.observable(false);
 
     self.clearSearchQuery = function() {
-        self.searchQuery('');
+        self.instantaneousQuery('');
     }
 
     self.selectAll = function() {
@@ -248,6 +248,10 @@ function IncomingFriendRequest(data, parent) {
                 parent.incomingRequestsCount(parent.incomingRequestsCount() - 1);
                 if (self.user.online)
                     parent.friendsOnlineCount(parent.friendsOnlineCount() + 1);
+
+                console.log(parent.incomingRequestsCount());
+                if (parent.incomingRequestsCount() == 0)
+                    parent.selectTab(0);
             }
         }, 'json');
     }
@@ -263,8 +267,10 @@ function IncomingFriendRequest(data, parent) {
 
     self.restore = function() {
         $.post('/friends/requests/restore/', { requestId : self.id }, function(response) {
-            if (response.success)
+            if (response.success) {
                 self.removed(false);
+                parent.incomingRequestsCount(parent.incomingRequestsCount() + 1);
+            }
         }, 'json');
     }
 }

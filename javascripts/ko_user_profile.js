@@ -229,6 +229,7 @@ var UserClubsWidget = function (data, params) {
     var self = this;
 
     self.limit = params.limit;
+    self.offset = params.offset;
     self.deleteClub = params.deleteClub;
     self.size = params.size;
     self.clubs = ko.observableArray(ko.utils.arrayMap(data, function (club) {
@@ -240,7 +241,7 @@ var UserClubsWidget = function (data, params) {
     self.TopClubs = ko.computed(function () {
         var shortList = [];
         ko.utils.arrayForEach(self.clubs(), function (club) {
-            if (shortList.length < self.limit)
+            if (self.clubs().indexOf(club) >= self.offset && shortList.length < self.limit)
                 shortList.push(club);
         });
         return shortList;

@@ -28,10 +28,9 @@ ko.bindingHandlers.droppable = {
 };
 
 var FamilyViewModel = function(data) {
-    console.log(data);
-
     var self = this;
 
+    self.callback = data.callback;
     self.beingDragged = ko.observable(null);
     self.family = ko.observableArray([]);
 
@@ -129,7 +128,7 @@ var FamilyViewModel = function(data) {
         data.relationshipStatus = self.me().relationshipStatus();
         console.log(data);
         $.post('/family/save/', data, function(response) {
-            console.log(response);
+            eval(self.callback);
         });
     }
 

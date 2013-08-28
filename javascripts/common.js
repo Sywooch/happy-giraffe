@@ -523,8 +523,11 @@ var Register = {
 
             $('#register').find('#register-step1').hide();
             $('#register').find('.other-steps').html(response);
-            $('#register').find('select').each(function () {
-                $(this).trigger('liszt:updated');
+            $('#register').find('.chzn').each(function () {
+                var $this = $(this);
+                $this.chosen({
+                    allow_single_deselect:$this.hasClass('chzn-deselect')
+                })
             });
         });
     },
@@ -550,7 +553,7 @@ var Register = {
         $.post('/signup/finish/', $('#reg-form2').serialize(), function (response) {
 //            console.log(response);
             if (response.status) {
-                window.location = response.profile;
+                window.location = response.url;
 //                Register.url = response.profile;
             }
         }, 'json');
@@ -791,6 +794,31 @@ function HgLike(el, entity, entity_id){
     }, 'json');
 }
 
+$('body').delegate('a.fancy-top', 'click', function () {
+    var onComplete_function = function () {
+
+        var scTop = $(document).scrollTop();
+        var box = $('#fancybox-wrap');
+
+        boxTop = parseInt(Math.max(scTop + 20));
+        box
+            .stop()
+            .animate({
+                'top' : boxTop
+            }, 200);
+
+    };
+
+    $(this).clone().fancybox({
+        overlayColor:'#2d1a3f',
+        overlayOpacity:'0.6',
+        padding:0,
+        showCloseButton:false,
+        centerOnScroll:false,
+        onComplete:onComplete_function
+    }).trigger('click');
+    return false;
+});
 
 (function($) { 
 

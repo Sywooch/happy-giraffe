@@ -15,6 +15,34 @@
 	  });
 	</script>
 
+	<script>
+    $('body').delegate('a.fancy-top', 'click', function () {
+        var onComplete_function = function () {
+
+            var scTop = $(document).scrollTop();
+            var box = $('#fancybox-wrap');
+
+            boxTop = parseInt(Math.max(scTop + 20));
+            box
+                .stop()
+                .animate({
+                    'top' : boxTop
+                }, 200);
+            
+        };
+
+        $(this).clone().fancybox({
+            overlayColor:'#2d1a3f',
+            overlayOpacity:'0.6',
+            padding:0,
+            showCloseButton:false,
+            centerOnScroll:false,
+            onComplete:onComplete_function
+        }).trigger('click');
+        return false;
+    });
+	</script>
+
 </head>
 <body class="body-gray">
 
@@ -657,7 +685,7 @@
 <div class="display-n">
 	<!-- popup-user-add-article -->
 	<div id="popup-user-add-article" class="popup-user-add-record">
-		<a class="popup-transparent-close powertip" onclick="$.fancybox.close();" href="javascript:void(0);" title="Закрыть"></a>
+		<a class="popup-transparent-close" onclick="$.fancybox.close();" href="javascript:void(0);" title="Закрыть"></a>
 		<div class="clearfix">
 			<div class="w-720 float-r">
 				
@@ -1008,7 +1036,7 @@ $(document).ready(function () {
 	
 	<!-- popup-user-add-video -->
 	<div id="popup-user-add-video" class="popup-user-add-record">
-		<a class="popup-transparent-close powertip" onclick="$.fancybox.close();" href="javascript:void(0);" title="Закрыть"></a>
+		<a class="popup-transparent-close" onclick="$.fancybox.close();" href="javascript:void(0);" title="Закрыть"></a>
 		<div class="clearfix">
 			<div class="w-720 float-r">
 				
@@ -1127,7 +1155,7 @@ $(document).ready(function () {
 	
 	<!-- popup-user-add-photo -->
 	<div id="popup-user-add-photo" class="popup-user-add-record">
-		<a class="popup-transparent-close powertip" onclick="$.fancybox.close();" href="javascript:void(0);" title="Закрыть"></a>
+		<a class="popup-transparent-close" onclick="$.fancybox.close();" href="javascript:void(0);" title="Закрыть"></a>
 		<div class="clearfix">
 			<div class="w-720 float-r">
 				
@@ -1496,7 +1524,7 @@ $(document).ready(function () {
 	
 	<!-- popup-user-add-status -->
 	<div id="popup-user-add-status" class="popup-user-add-record">
-		<a class="popup-transparent-close powertip" onclick="$.fancybox.close();" href="javascript:void(0);" title="Закрыть"></a>
+		<a class="popup-transparent-close" onclick="$.fancybox.close();" href="javascript:void(0);" title="Закрыть"></a>
 		<div class="clearfix">
 			<div class="w-720 float-r">
 				

@@ -466,8 +466,11 @@ $(document).ready(function () {
 			</div>
 				
 		</div>
-		
+		<div class="textalign-r margin-15">
+	        <a class="b-article_more" href="">Смотреть далее</a>
+	    </div>
 		<div class="comments-gray">
+			<div class="comments-gray_t"></div>
 			<div class="comments-gray_add clearfix">
 				
 				<div class="comments-gray_ava">
@@ -521,7 +524,7 @@ $(document).ready(function () {
 		</div>
 		<div class="b-article_in clearfix">
 			<div class="b-article_user-status clearfix">
-				<a href="" class="b-article_user-status-a">	Говори </a>
+				<a href="" class="b-article_user-status-a">	ГовориГовориГовориГовориГовориГовориГовориГовориГовориГовориГовориГовориГовориГовориГовориГовори </a>
 				
 				<div class="textalign-r clearfix">
 					<div class="b-user-mood">
@@ -537,6 +540,7 @@ $(document).ready(function () {
 		</div>
 		
 		<div class="comments-gray">
+			<div class="comments-gray_t"></div>
 			<div class="comments-gray_add clearfix">
 				
 				<div class="comments-gray_ava">

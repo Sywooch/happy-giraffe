@@ -290,10 +290,10 @@ $(function() {
     $('.b-interest_li').bind({
     	mouseover: function(){
 
-    		$(this).find('.b-interest_popup').stop(true, true).fadeIn(200);
+    		$(this).find('.b-interest_popup').stop(true, true).fadeIn(0);
     	},
     	mouseout: function(){
-    		$(this).find('.b-interest_popup').stop(true, true).delay(200).fadeOut(200);
+    		$(this).find('.b-interest_popup').stop(true, true).fadeOut(0);
 
     	}
 
@@ -323,6 +323,9 @@ $(function() {
 						</li>
 						<li class="b-interest_li">
 							<a href="" class="b-interest_i active">Морская рыбалка</a>
+						</li>
+						<li class="b-interest_li">
+							<a href="" class="b-interest_add"></a>
 						</li>
 					</ul>
 				</div>

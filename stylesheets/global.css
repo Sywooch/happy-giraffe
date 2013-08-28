@@ -6668,24 +6668,21 @@
 }
 #calories-calculator div.title {
   height: 285px;
-  background: url(/images/bg_calories_calculator_title.jpg) no-repeat right top;
-  border: 1px solid #ebe1f5;
-  padding-left: 30px;
-  padding-top: 50px;
-  font-weight: normal;
-  margin-bottom: 30px;
+  background: #ffffff url(/images/bg_calories_calculator_title.jpg) no-repeat right 20px;
+  padding: 30px 20px 30px 30px;
+  font-weight: 400;
 }
 #calories-calculator div.title span {
   font-family: tahoma, arial, helvetica, sans-serif;
   display: block;
-  font-size: 50px;
+  font-size: 45px;
   color: #88ab20;
-  margin-bottom: 15px;
+  margin: 25px 0 15px;
 }
 #calories-calculator div.title h2 {
   font-family: tahoma, arial, helvetica, sans-serif;
-  font-weight: normal;
-  font-size: 36px;
+  font-weight: 400;
+  font-size: 31px;
   color: #9bc12b;
   line-height: 1;
   margin-bottom: 30px;
@@ -6693,22 +6690,25 @@
 #calories-calculator div.title h1 {
   font-size: 32px;
   color: #737373;
-  font-weight: normal;
+  font-weight: 400;
+  font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, Tahoma, sans-serif;
 }
 #calories-calculator .calculator {
-  margin-bottom: 50px;
+  padding: 20px 20px 20px;
+  background: #fafafa;
 }
 #calories-calculator .calculator table {
-  font-size: 13px;
+  font-size: 12px;
   width: 100%;
+  color: #4c4d4d;
+  margin-bottom: 30px;
 }
 #calories-calculator .calculator table td {
   padding: 3px;
   text-align: center;
   vertical-align: middle;
-}
-#calories-calculator .calculator table thead {
-  color: #4c4d4d;
+  float: none;
+  width: auto;
 }
 #calories-calculator .calculator table thead td {
   vertical-align: bottom;
@@ -6727,13 +6727,9 @@
   line-height: 20px;
   color: #fff;
   margin: 0 auto 2px;
-}
-#calories-calculator .calculator table thead .calories-icon {
-  /*css3*/
   -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
   border-radius: 10px;
-  behavior: url(/stylesheets/PIE.htc);
 }
 #calories-calculator .calculator table thead .calories-icon.orange {
   background: #f68704;
@@ -6753,11 +6749,23 @@
   padding-left: 13px;
 }
 #calories-calculator .calculator table tbody input[type=text] {
-  padding: 3px 9px;
-  border: 1px solid #a9c8f3;
-  margin: 0;
-  font-size: 13px;
-  line-height: 17px;
+  width: 100%;
+  border: 1px solid #e6e6e6;
+  padding: 7px 10px;
+  background: #fff;
+  color: #070707;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  -moz-transition: all 0.4s ease;
+  -ms-transition: all 0.4s ease;
+  -o-transition: all 0.4s ease;
+  -webkit-transition: all 0.4s ease;
+  transition: all 0.4s ease;
 }
 #calories-calculator .calculator table tbody select {
   height: 25px;
@@ -6765,41 +6773,52 @@
   width: 100px;
 }
 #calories-calculator .calculator table tbody .value {
-  height: 25px;
-  width: 85px;
-  background: #e5f4ff;
-  line-height: 25px;
+  margin: 0 7px;
+  height: 34px;
+  width: 70px;
+  background: #e8f4ff;
+  line-height: 34px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.15);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.15);
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+#calories-calculator .calculator table tbody .col-4 .value {
+  background: #feebd4;
+}
+#calories-calculator .calculator table tbody .col-5 .value {
+  background: #f2fce1;
+}
+#calories-calculator .calculator table tbody .col-6 .value {
+  background: #fffae2;
 }
 #calories-calculator .calculator table tbody .col-1 {
   text-align: left;
 }
 #calories-calculator .calculator table tbody .col-1 input {
-  width: 360px;
+  width: 340px;
 }
 #calories-calculator .calculator table tbody .col-2 input {
-  width: 30px;
+  width: 40px;
   text-align: center;
 }
 #calories-calculator .calculator table tbody .col-3 {
   padding-right: 10px;
 }
-#calories-calculator .calculator table tr.add td {
-  padding: 15px 3px 35px;
-}
-#calories-calculator .calculator table tr.add .btn {
-  margin-right: 20px;
-}
-#calories-calculator .calculator table tr.add .btn span {
-  text-transform: none;
-  font-weight: bold;
-  font-family: arial, helvetica, sans-serif;
-  font-size: 16px;
-}
 #calories-calculator .calculator table tr.summary td {
   background: #fdfbe9;
 }
+#calories-calculator .calculator table tr.summary .btn-green {
+  margin-bottom: 10px;
+}
 #calories-calculator .calculator table tr.summary .col-1 {
-  background: #fff;
+  background: #fafafa;
+  padding: 5px 0 0;
+  font-size: 11px;
+  line-height: 14px;
+  color: #b6b5b5;
 }
 #calories-calculator .calculator table tr.summary .col-23 {
   text-align: right;
@@ -6810,17 +6829,30 @@
 }
 #calories-calculator .calculator table .remove {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
-  width: 12px;
-  height: 14px;
-  background: url(/images/common.png) no-repeat -314px -135px;
   vertical-align: middle;
   position: relative;
   top: -1px;
+  width: 11px;
+  height: 11px;
+  background: url(/images/ico/ico-close3.png) no-repeat;
 }
 #calories-calculator .calculator table .remove:hover {
-  background-position: -314px -148px;
+  background-position: 0 -11px;
+}
+#calories-calculator .wysiwyg-content {
+  background: #f5f5f5;
+  padding: 30px 20px 20px;
+  -webkit-border-bottom-right-radius: 5px;
+  -moz-border-bottom-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  -webkit-border-bottom-left-radius: 5px;
+  -moz-border-bottom-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+#calories-calculator .wysiwyg-content h2 {
+  margin-top: 0;
+  font-weight: normal;
+  color: #4c4d4d;
 }
 #spices .title {
   height: 114px;
@@ -8480,8 +8512,17 @@
   color: #e56a78;
 }
 /* horoscope */
+#horoscope {
+  margin-bottom: 20px;
+}
 #horoscope p {
   padding-right: 20px;
+}
+#horoscope .wysiwyg-content {
+  padding: 0;
+}
+#horoscope .heading-title {
+  margin-left: 0;
 }
 #horoscope .horoscope-otherday {
   font-size: 13px;
@@ -8496,7 +8537,6 @@
   padding: 9px 0;
 }
 #horoscope .horoscope-list {
-  padding: 5px;
   margin-bottom: 10px;
 }
 #horoscope .horoscope-list p {
@@ -8529,14 +8569,14 @@
 */
 .horoscopes-big_ul {
   padding-top: 25px;
-  margin-right: -20px;
+  margin-right: -25px;
 }
 .horoscopes-big_i {
   position: relative;
   display: inline-block;
   vertical-align: top;
-  width: 194px;
-  margin: 0 15px 15px 0;
+  width: 195px;
+  margin: 0 20px 20px 0;
   padding: 8px 8px 12px;
   background: #fbfbfb;
   text-align: center;
@@ -8576,7 +8616,7 @@
   border-radius: 8px;
 }
 .horoscopes-big_t-sub {
-  font: italic 25px/25px 'Times New Roman', Georgia, Times, serif;
+  font: italic 22px/25px 'Times New Roman', Georgia, Times, serif;
 }
 .horoscopes-big_time-sub {
   padding: 0 5px;
@@ -8592,7 +8632,7 @@
   padding: 7px 0 0;
 }
 #horoscope .horoscope-one .block-in {
-  padding: 20px 0 30px;
+  padding: 20px 0 40px;
   background-color: #f5f5f5;
   background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#fafafa), to(#f5f5f5));
   background-image: -webkit-linear-gradient(top, #fafafa, #f5f5f5);
@@ -8631,14 +8671,10 @@
 }
 #horoscope .horoscope-one .img .in {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   vertical-align: top;
 }
 #horoscope .horoscope-one .img .date {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   vertical-align: top;
   padding-top: 45px;
   color: #555;
@@ -8667,14 +8703,20 @@
 }
 #horoscope .horoscope-one .dates ul li a {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   padding: 2px 6px;
 }
 #horoscope .horoscope-one .dates ul li.active a {
   background: #fff8bb;
   text-decoration: none;
   cursor: default;
+}
+#horoscope .horoscope-one .a-left {
+  padding-right: 23px;
+  background: url(/images/i-more__left.png) no-repeat 100% 8px;
+}
+#horoscope .horoscope-one .a-right {
+  padding-left: 23px;
+  background: url(/images/i-more.png) no-repeat 0 8px;
 }
 #horoscope .horoscope-one .text {
   padding: 30px 0 10px;
@@ -8795,9 +8837,12 @@
 }
 .horoscope-compatibility {
   border: 1px solid #EEE;
-  margin: 20px 0 30px;
+  margin: 0 0 30px;
   background: #fafafa url(/images/widget/horoscope/horoscope-compatibility.png) no-repeat 100% 50%;
   padding: 20px 20px 30px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  border-radius: 8px;
 }
 .horoscope-compatibility .block-title {
   color: #0d0d0d;
@@ -8892,7 +8937,7 @@
   *zoom: 1;
   *display: inline;
   vertical-align: top;
-  margin-bottom: 25px;
+  margin-bottom: 35px;
 }
 .horoscope-compatibility-list.wide > ul > li {
   width: 27%;
@@ -8901,10 +8946,10 @@
   list-style: none;
 }
 .horoscope-compatibility-list > ul > li ul li {
-  padding: 5px 0;
+  margin: 7px 0;
 }
 .horoscope-compatibility-list > ul > li .img {
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 .horoscope-compatibility-list > ul > li .img img {
   vertical-align: top;
@@ -8944,8 +8989,8 @@
   width: 130px;
 }
 .fast-horoscope {
+  margin: 5px 0 0;
   padding: 20px;
-  border: 1px solid #ddd;
   width: 200px;
   float: right;
   background: #fafafa;
@@ -8957,11 +9002,9 @@
   margin-bottom: 10px;
 }
 .fast-horoscope .block-title .in {
+  float: left;
   color: #2f2f2f;
   font: italic 23px/23px times new roman, serif;
-  display: inline-block;
-  *zoom: 1;
-  *display: inline;
   width: 120px;
   text-align: center;
 }
@@ -9011,6 +9054,9 @@
   font-size: 11px;
   line-height: 17px;
   color: #626262;
+}
+.fast-horoscope ul li .text a {
+  padding: 0 3px;
 }
 .horoscope-subscribe {
   margin: 20px 0;
@@ -12058,7 +12104,8 @@ ul.letters li a:hover {
   margin: 2px 10px 0 5px;
 }
 .entry-tags {
-  padding: 10px 25px 10px;
+  margin: 0;
+  padding: 10px 25px 20px;
   background: #fff ;
 }
 .entry-tags_hold {
@@ -12388,7 +12435,7 @@ ul.letters li a:hover {
 .wysiwyg-content.side {margin-left:330px;padding-top:15px;}
 */
 .wysiwyg-content {
-  padding: 0 20px;
+  padding: 0;
   font-size: 14px;
   line-height: 19px;
   color: #333;
@@ -12403,6 +12450,14 @@ ul.letters li a:hover {
 .wysiwyg-content .content-img {
   float: none;
   margin: 0;
+}
+.wysiwyg-content .brushed {
+  margin: 20px 0;
+  padding: 15px 20px 5px;
+  border-left: 3px solid #98bf59;
+  background: #f2fce2;
+  font: italic 12px/19px Georgia, 'Times New Roman', Times, serif;
+  color: #727272;
 }
 .wysiwyg-content h2 {
   margin: 40px 0 15px;
@@ -13036,8 +13091,11 @@ table.fr_recipe_tb td {
 .b-article__user-status .b-article_cont-tale {
   border-right-color: #cdecff;
 }
+.b-article .wysiwyg-content {
+  padding: 0 20px;
+}
 .b-article_in {
-  min-height: 164px;
+  min-height: 81px;
   word-wrap: break-word;
 }
 .b-article_in-img {
@@ -13066,6 +13124,7 @@ table.fr_recipe_tb td {
   position: relative;
   float: left;
   width: 580px;
+  min-height: 102px;
   padding: 12px 0 0;
   background: #fff;
   -webkit-border-radius: 3px;
@@ -13131,8 +13190,9 @@ table.fr_recipe_tb td {
   color: #fff;
 }
 .b-article_user-status {
-  max-width: 560px;
-  height: 168px;
+  width: 540px;
+  max-width: 540px;
+  height: 153px;
   display: table-cell;
   vertical-align: middle;
   padding: 20px 20px ;
@@ -13155,6 +13215,14 @@ table.fr_recipe_tb td {
   left: 0;
   background: #fff;
   z-index: 5;
+}
+.b-article_removed:after {
+  content: '';
+  position: absolute;
+  left: -20px;
+  top: 35px;
+  border: 10px solid transparent;
+  border-right-color: #fff;
 }
 .b-article_removed-hold {
   position: absolute;
@@ -15076,6 +15144,9 @@ table.fr_recipe_tb td {
   margin: 0 20px 40px;
   padding: 15px 50px;
   background: #cdecff;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
 }
 .b-user-status:after {
   content: '';
@@ -15153,9 +15224,7 @@ table.fr_recipe_tb td {
 /* heading-title */
 .heading-title {
   margin: 5px 20px 10px;
-  font-size: 35px;
-  line-height: 35px;
-  font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, Tahoma, sans-serif;
+  font: normal 35px/35px 'Roboto', 'Helvetica Neue', Helvetica, Arial, Tahoma, sans-serif;
 }
 /* /heading-title */
 /* heading-small */
@@ -15244,7 +15313,7 @@ table.fr_recipe_tb td {
   display: inline-block;
   vertical-align: middle;
   width: 140px;
-  height: 24px;
+  height: 20px;
   margin: 0 10px;
   background: url(/images/b-interest_add.png) no-repeat;
 }
@@ -15411,6 +15480,9 @@ table.fr_recipe_tb td {
   background: #fff;
   vertical-align: top;
 }
+.b-interest_choice-col .a-pseudo {
+  margin-left: 14px;
+}
 /* /b-interest */
 /* widget-friends */
 .widget-friends {
@@ -15481,7 +15553,6 @@ table.fr_recipe_tb td {
   border-radius: 50px;
 }
 .user-awards_popup {
-  display: none;
   position: absolute;
   z-index: 10;
   top: 60px;
@@ -15527,12 +15598,19 @@ table.fr_recipe_tb td {
 .user-awards_popup-img {
   display: inline-block;
   vertical-align: middle;
-  margin-right: 10px;
+  margin-right: 5px;
+  border: 2px solid #fff;
+  -webkit-border-radius: 43px;
+  -moz-border-radius: 43px;
+  border-radius: 43px;
+}
+.user-awards_popup-img img {
+  display: block;
 }
 .user-awards_popup-desc {
   display: inline-block;
   vertical-align: middle;
-  width: 122px;
+  width: 120px;
   color: #c4dcf9;
 }
 .user-awards_popup-count {
@@ -15749,7 +15827,7 @@ table.fr_recipe_tb td {
   color: #186fb8;
 }
 .b-section_ul {
-  margin: 10px 0 0;
+  margin: 18px 0 0;
 }
 .b-section_ul__white .b-section_li-a {
   color: #fff;
@@ -15847,7 +15925,7 @@ table.fr_recipe_tb td {
 .user-btns_i {
   float: left;
   width: 58px;
-  margin: 2px 1px 0 0;
+  margin: 2px 2px 0 2px;
   text-align: center;
   color: #fff;
   text-decoration: none;

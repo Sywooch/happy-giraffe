@@ -707,7 +707,7 @@ $(function() {
 										<a href="" class="b-interest_i b-interest_i__white">Кошки</a>
 									</li>
 								</ul>
-								<a href="" class="a-pseudo margin-l10">Показать еще 50</a>
+								<a href="" class="a-pseudo">Показать еще 50</a>
 							</div>
 						</div>
 						<div class="clearfix">

@@ -273,7 +273,9 @@
 								<div class="career-achievement_tx"> Новое достижение <br> Частый гость</div>
 							</div>
 							<div class="career-achievement_center">
-								<img src="/images/scores/achievements/34-84.png" alt="">
+								<div class="career-achievement_scores-ico">
+									<img src="/images/scores/achievements/34-84.png" alt="">
+								</div>
 							</div>
 							<div class="career-achievement_right">
 								<div class="career-achievement_ball">
@@ -292,7 +294,9 @@
 								<div class="career-achievement_tx"> Новый трофей <br> Орден путешественника</div>
 							</div>
 							<div class="career-achievement_center">
-								<img src="/images/scores/awards/3-84.png" alt="">
+								<div class="career-achievement_scores-ico">
+									<img src="/images/scores/awards/3-84.png" alt="">
+								</div>
 							</div>
 							<div class="career-achievement_right">
 								<div class="career-achievement_ball">
@@ -311,7 +315,9 @@
 								<div class="career-achievement_congratulation-slogan">Комментируйте чаще записи! <br> 2-я строка</div>
 							</div>
 							<div class="career-achievement_center">
-								<img src="/images/scores/awards/3-84.png" alt="">
+								<div class="career-achievement_scores-ico">
+									<img src="/images/scores/awards/3-84.png" alt="">
+								</div>
 							</div>
 							<div class="career-achievement_right">
 								<div class="career-achievement_ball">
@@ -331,7 +337,9 @@
 								<div class="career-achievement_congratulation-slogan">Комментируйте чаще записи! <br> 2-я строка</div>
 							</div>
 							<div class="career-achievement_center">
-								<img src="/images/scores/awards/3-84.png" alt="">
+								<div class="career-achievement_scores-ico">
+									<img src="/images/scores/awards/3-84.png" alt="">
+								</div>
 							</div>
 							<div class="career-achievement_right">
 								<div class="career-achievement_ball">

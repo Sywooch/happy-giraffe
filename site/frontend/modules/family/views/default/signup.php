@@ -1,7 +1,7 @@
 <?php
-    Yii::app()->clientScript
-        ->registerPackage('ko_family')
-    ;
+Yii::app()->clientScript
+    ->registerPackage('ko_family')
+;
 ?>
 
 <div class="b-registration">

@@ -4,7 +4,8 @@ class DefaultController extends HController
 {
     public function actionIndex()
     {
-        $this->render('index');
+        $json = Yii::app()->user->model->getFamilyData();
+        $this->render('index', compact('json'));
     }
 
 	public function actionSignup()

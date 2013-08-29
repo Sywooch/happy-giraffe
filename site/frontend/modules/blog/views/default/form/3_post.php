@@ -44,6 +44,7 @@
                     chosenRubric: {}" data-placeholder="Выберите рубрику или создайте новую"></select>
                     <?=$form->error($model, 'rubric_id')?>
                 </div>
+                <div class="color-gray font-small margin-t5">Если вы не выберете рубрику, запись добавится в рубрику "Обо всем"</div>
             </div>
         </div>
     </div>

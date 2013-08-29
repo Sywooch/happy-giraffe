@@ -63,10 +63,8 @@ $params = array(
             <div class="b-article-prev clearfix">
                 <div class="float-l">
                     <div class="like-control like-control__smallest clearfix">
-                        <a href="javascript:;" class="like-control_ico like-control_ico__like powertip<?php if (!Yii::app()->user->isGuest && Yii::app()->user->getModel()->isLiked($model)) echo ' active' ?>" onclick="HgLike(this, 'BlogContent',<?=$model->id ?>);" title="Нравится"><?=PostRating::likesCount($model) ?></a>
-                        <!-- ko stopBinding: true -->
+                        <?php $this->widget('application.modules.blog.widgets.LikeWidget', array('model' => $model)); ?>
                         <?php $this->widget('FavouriteWidget', array('model' => $model, 'right' => true)); ?>
-                        <!-- /ko -->
                     </div>
                 </div>
                 <div class="b-article-prev_cont clearfix">

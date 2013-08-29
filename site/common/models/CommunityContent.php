@@ -81,7 +81,6 @@ class CommunityContent extends HActiveRecord
         return array(
             array('title', 'required', 'except' => 'status', 'message' => 'Вы не придумали заголовок'),
             array('author_id, type_id', 'required'),
-            array('rubric_id', 'required', 'except' => 'status, repost', 'message' => 'Вы не выбрали рубрику'),
             array('title', 'length', 'max' => 50),
             array('meta_title, meta_description, meta_keywords', 'length', 'max' => 255),
             array('author_id, rubric_id, type_id', 'length', 'max' => 11),
@@ -246,6 +245,9 @@ class CommunityContent extends HActiveRecord
 
     public function beforeSave()
     {
+        if (empty($this->rubric_id))
+            $this->rubric_id = CommunityRubric::getDefaultUserRubric($this->author_id);
+
         $this->title = strip_tags($this->title);
         if ($this->isNewRecord) {
             $this->last_updated = new CDbExpression('NOW()');

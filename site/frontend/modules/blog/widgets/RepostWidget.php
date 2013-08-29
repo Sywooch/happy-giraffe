@@ -17,7 +17,8 @@ class RepostWidget extends CWidget
 
     public function run()
     {
-        $this->registerScripts();
+        Yii::app()->clientScript->registerPackage('ko_post');
+
         $count = (int) $this->model->sourceCount;
         $modelName = get_class($this->model);
         $modelId = $this->model->id;
@@ -26,7 +27,14 @@ class RepostWidget extends CWidget
             $id = 'Repost_' . get_class($this->model) . '_' . $this->model->id;
             $active = (bool) $this->model->userReposted(Yii::app()->user->id);
             $ownContent = $this->model->author_id == Yii::app()->user->id;
-            $json = compact('count', 'active', 'modelName', 'modelId', 'entity', 'ownContent');
+            $rubricsList =  array_map(function ($rubric) {
+                return array(
+                    'id' => $rubric->id,
+                    'title' => $rubric->title,
+                );
+            }, Yii::app()->user->getModel()->blog_rubrics);
+
+            $json = compact('count', 'active', 'modelName', 'modelId', 'entity', 'ownContent', 'rubricsList');
             $data = compact('id', 'json');
         } else
             $data = compact('count');
@@ -34,16 +42,7 @@ class RepostWidget extends CWidget
         $this->render($this->getViewByEntity($entity), $data);
     }
 
-    public function registerScripts()
-    {
-        $basePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR;
-        $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
-        Yii::app()->clientScript
-            ->registerScriptFile($baseUrl . '/RepostWidget.js')
-        ;
-    }
-
     protected function getViewByEntity($entity) {
-        return ($entity == 'cook') ? 'cook' : 'index';
+        return ($entity == 'cook') ? 'repost_cook' : 'repost';
     }
 }

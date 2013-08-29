@@ -6,6 +6,19 @@
         <div class="favorites-add-popup_i-hold" data-bind="text: title"></div>
     </div>
     <div class="favorites-add-popup_row">
+        <div class="chzn-itx-simple js-select-rubric">
+            <select name="rubric_id" data-bind="options: rubricsList,
+                    value: selectedRubric,
+                    optionsText: function(rubric) {
+                        return rubric.title;
+                    },
+                    optionsValue: function(rubric) {
+                        return rubric.id;
+                    },
+                    chosenRubric: {}" data-placeholder="Выберите рубрику"></select>
+        </div>
+    </div>
+    <div class="favorites-add-popup_row">
         <label for="" class="favorites-add-popup_label">Комментарий:</label>
         <div class="float-r color-gray" data-bind="text: note().length + '/150'"></div>
     </div>

@@ -78,6 +78,7 @@ return array(
             'js' => array(
                 'javascripts/ko_gallery.js',
                 'javascripts/ko_user_profile.js',
+                'javascripts/ko_blog.js',
             ),
             'depends' => array('knockout', 'gallery', 'jcrop', 'ko_comments', 'ko_upload'),
         ),

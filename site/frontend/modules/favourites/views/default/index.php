@@ -1,6 +1,5 @@
 <?php
 Yii::app()->clientScript->registerPackage('ko_favourites');
-Yii::import('application.widgets.newCommentWidget.NewCommentWidget');
 ?>
 
 <div class="content-cols clearfix">

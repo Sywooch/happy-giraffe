@@ -4,9 +4,6 @@
  */
 
 Yii::app()->clientScript->registerPackage('ko_search');
-
-Yii::import('application.widgets.newCommentWidget.NewCommentWidget');
-NewCommentWidget::registerScripts();
 ?>
 
 <div class="content-search">

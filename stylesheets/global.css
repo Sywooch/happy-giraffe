@@ -13620,8 +13620,7 @@ table.fr_recipe_tb td {
   font-size: 18px;
 }
 .photo-preview-row_add {
-  display: inline-block;
-  vertical-align: middle;
+  float: left;
   width: 121px;
   height: 104px;
   margin: 0 0 0 5px;
@@ -14338,6 +14337,7 @@ table.fr_recipe_tb td {
 .article-settings_hold {
   display: none;
   background: #f0f0f0;
+  padding-bottom: 5px;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
@@ -14382,6 +14382,13 @@ table.fr_recipe_tb td {
 .article-settings_a__delete.active,
 .article-settings_a__delete:hover {
   background-position: -160px -30px;
+}
+.article-settings_a__add {
+  background-position: -200px 0;
+}
+.article-settings_a__add.active,
+.article-settings_a__add:hover {
+  background-position: -200px -30px;
 }
 .article-settings_drop {
   position: absolute;

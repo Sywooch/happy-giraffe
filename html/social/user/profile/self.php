@@ -243,10 +243,10 @@
 							</div>
 							<div class="article-settings_hold display-b">
 								<div class="article-settings_i">
-									<a href="" class="article-settings_a article-settings_a__edit powertip"  title="Редактировать"></a>
+									<a href="" class="article-settings_a article-settings_a__add powertip"  title="Новый статус"></a>
 								</div>
 								<div class="article-settings_i">
-									<a href="" class="article-settings_a article-settings_a__delete powertip"  title="Удалить"></a>
+									<a href="" class="article-settings_a article-settings_a__edit powertip"  title="Редактировать"></a>
 								</div>
 							</div>
 						</div>

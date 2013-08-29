@@ -320,29 +320,59 @@ Yii::app()->clientScript
             <div class="family-settings_desc">
                 <div class="form-settings">
                     <div class="form-settings_label-row" data-bind="text: titleLabel()"></div>
-                    <!-- ko if: ! nameBeingEdited() -->
-                        <div class="clearfix">
-                            <div class="form-settings_elem">
-                                <span class="form-settings_name" data-bind="text: name"></span>
-                                <a class="a-pseudo-icon powertip" title="Редактировать" data-bind="click: editName">
-                                    <span class="ico-edit"></span>
-                                </a>
+
+                    <div class="clearfix">
+                        <div class="form-settings_elem">
+                            <!-- ko if: ! nameBeingEdited() -->
+                            <span class="form-settings_name" data-bind="text: name"></span>
+                            <a class="a-pseudo-icon powertip" title="Редактировать" data-bind="click: editName">
+                                <span class="ico-edit"></span>
+                            </a>
+                            <!-- /ko -->
+                            <!-- ko if: nameBeingEdited -->
+                            <div class="float-l w-300">
+                                <input type="text" value="Ангелина" class="itx-gray" data-bind="value: nameValue">
                             </div>
+                            <button class="btn-green btn-small margin-l10" data-bind="click: saveName">Ok</button>
+                            <!-- /ko -->
                         </div>
-                    <!-- /ko -->
-                    <!-- ko if: nameBeingEdited -->
-                        <div class="clearfix">
-                            <div class="form-settings_elem">
-                                <div class="float-l w-300">
-                                    <input type="text" value="Ангелина" class="itx-gray" data-bind="value: nameValue">
+                    </div>
+                    <!-- ko if: $data instanceof FamilyMainBaby -->
+                    <div class="form-settings_label-row" data-bind="text: birthdayLabel()"></div>
+                    <div class="clearfix">
+                        <div class="form-settings_elem">
+                            <!-- ko if: ! birthdayBeingEdited() -->
+                            <span data-bind="text: birthdayText"></span>
+                            <a class="a-pseudo-icon" data-bind="click: editBirthday">
+                                <span class="ico-edit"></span>
+                            </a>
+                            <!-- /ko -->
+                            <!-- ko if: birthdayBeingEdited -->
+                            <div class="clearfix">
+                                <div class="w-90 float-l margin-r10">
+                                    <div class="chzn-gray">
+                                        <select data-bind="options: $root.days, value: dayValue, chosen: {}" data-placeholder="день"></select>
+                                    </div>
                                 </div>
-                                <button class="btn-green btn-small margin-l10" data-bind="click: saveName">Ok</button>
+                                <div class="w-100 float-l margin-r10">
+                                    <div class="chzn-gray">
+                                        <select class="chzn" data-bind="options: $root.monthes, optionsText: 'name', optionsValue: 'id', value: monthValue, chosen: {}" data-placeholder="месяц"></select>
+                                    </div>
+                                </div>
+                                <div class="w-90 float-l">
+                                    <div class="chzn-gray">
+                                        <select class="chzn" data-bind="options: $root.years, value: yearValue, chosen: {}" data-placeholder="год"></select>
+                                    </div>
+                                </div>
+                                <button class="btn-green btn-small margin-l10" data-bind="click: saveBirthday">Ok</button>
                             </div>
+                            <!-- /ko -->
                         </div>
+                    </div>
                     <!-- /ko -->
                     <div class="form-settings_label-row">
                         <span data-bind="text: noticeLabel()"></span>
-                        <a class="a-pseudo-icon powertip" title="Редактировать" data-bind="click: editNotice">
+                        <a class="a-pseudo-icon powertip" title="Редактировать" data-bind="click: editNotice, if: ! noticeBeingEdited()">
                             <span class="ico-edit"></span>
                         </a>
                     </div>

@@ -1410,6 +1410,7 @@ class User extends HActiveRecord
                     'id' => (string) $baby->id,
                     'name' => (string) $baby->name,
                     'notice' => (string) $baby->notice,
+                    'birthday' => $baby->birthday,
                     'gender' => (int) $baby->sex,
                     'ageGroup' => (int) $baby->age_group,
                     'type' => $baby->type === null ? null : (int) $baby->type,

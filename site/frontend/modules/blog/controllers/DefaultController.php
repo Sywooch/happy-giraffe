@@ -50,7 +50,7 @@ class DefaultController extends HController
         else
             $this->pageTitle = $content->title;
 
-        $this->rubric_id = ($content->type_id == 5) ? null : $content->rubric->id;
+        $this->rubric_id = $content->rubric->id;
 
         if (!empty($content->uniqueness) && $content->uniqueness < 50)
             Yii::app()->clientScript->registerMetaTag('noindex', 'robots');

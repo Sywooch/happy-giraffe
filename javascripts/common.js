@@ -836,6 +836,11 @@ function HgLike(el, entity, entity_id){
 //блок поиска
 $(function() {
     SiteSearch.init();
+
+    $('body').delegate('a.js-hg_alert', 'click', function(e){
+        $(this).next().fadeIn(200).delay(2000).fadeOut(200);
+        e.preventDefault();
+    });
 });
 
 var SiteSearch = {

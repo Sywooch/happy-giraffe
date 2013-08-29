@@ -588,11 +588,9 @@
 
 								<div class="comments-gray comments-gray__map-route">
 									<div class="comments-gray_t">
-										<div class="margin-b10">
-											<span class="comments-gray_t-a-tx">Все комментарии (28)</span>
-											<a class="btn-green" href="">Добавить</a>
-										</div>
-										<div class="color-gray fontstyle-i margin-b5">Отзавы водителей о состоянии трассы Киев Донецк</div>
+										<span class="comments-gray_t-a-tx">Все комментарии (28)</span>
+										<a class="btn-green" href="">Добавить</a>
+										<div class="color-gray fontstyle-i margin-b5 margin-t10">Отзавы водителей о состоянии трассы Киев Донецк</div>
 									</div>
 									<div class="comments-gray_hold">
 										<div class="comments-gray_i comments-gray_i__self">

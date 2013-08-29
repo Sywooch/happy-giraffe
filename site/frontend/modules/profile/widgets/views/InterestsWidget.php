@@ -76,13 +76,13 @@
     <?php endif ?>
 </div>
 <script type="text/html" id="user-interest-template">
-    <a href="javascript:;" class="b-interest_i" data-bind="text: title, css: {active: isActive}, event: { mouseover: enableDetails, mouseout: disableDetails}"></a>
+    <a href="javascript:;" class="b-interest_i" data-bind="text: title, css: {active: isActive}, event: { mouseover: enableDetails}"></a>
 
-    <div class="b-interest_popup" data-bind="fadeVisible: showDetails, event: { mouseover: function(){$data.hover(true);}, mouseout: function(){$data.hover(false);$data.disableDetails();}}">
+    <div class="b-interest_popup">
         <div class="margin-b5 clearfix">
             <!-- ko foreach: users -->
             <a class="ava small" href="" data-bind="attr: {href: url}, css: avatarClass()">
-                <img src="" alt="" data-bind="attr: {src: ava}">
+                <img src="" data-bind="attr: {src: ava}">
             </a>
             <!-- /ko -->
         </div>
@@ -101,5 +101,11 @@
     $(function () {
         vm = new UserInterestsWidget(<?=CJSON::encode($this->data)?>);
         ko.applyBindings(vm, document.getElementById('user-interests'));
+    });
+
+    $('body').delegate('.b-interest_li', 'mouseenter', function(e){
+        $(this).find('.b-interest_popup').stop(true, true).delay(200).fadeIn(200);
+    }).delegate('.b-interest_li', 'mouseleave', function(e){
+        $(this).find('.b-interest_popup').stop(true, true).delay(200).fadeOut(200);
     });
 </script>

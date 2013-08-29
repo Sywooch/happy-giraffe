@@ -44,7 +44,7 @@ if (Yii::app()->user->id != $user->id):
     </div>
 <?php else: ?>
     <div class="b-ava-large">
-        <a href="#popup-upload-ava" class="ava large fancy" data-theme="transparent" data-bind="click:load">
+        <a href="#popup-upload-ava" class="ava <?= $user->gender == 1 ? 'male' : 'female' ?> large fancy" data-theme="transparent" data-bind="click:load">
             <?php if (!empty($user->avatar_id)):?>
                 <img src="<?= $user->getAvatarUrl(Avatar::SIZE_LARGE) ?>" alt=""/>
                 <span class="b-ava-large_photo-change">Изменить <br>главное фото</span>
@@ -103,11 +103,11 @@ if (Yii::app()->user->id != $user->id):
 
                                 </div>
                             </div>
-                            <div class="popup-upload-ava_right" data-bind="visible: status() == 2">
+                            <div class="popup-upload-ava_right">
                                 <div class="popup-upload-ava_t">Просмотр</div>
                                 <div class="popup-upload-ava_prev">
                                     <div class="b-ava-large">
-                                        <div class="ava large">
+                                        <div class="ava <?= $user->gender == 1 ? 'male' : 'female' ?> large">
                                             <img id="preview" src="" alt="" data-bind="attr: {src: image_url()}"/>
                                         </div>
                                     </div>

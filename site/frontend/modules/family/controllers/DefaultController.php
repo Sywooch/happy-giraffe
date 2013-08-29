@@ -5,6 +5,7 @@ class DefaultController extends HController
     public function actionIndex()
     {
         $json = Yii::app()->user->model->getFamilyData();
+        $json['currentYear'] = date("Y");
         $this->render('index', compact('json'));
     }
 

@@ -87,7 +87,7 @@
             <!-- /ko -->
         </div>
         <div class="clearfix">
-            <span data-bind="visible: count() > 6">и еще <!--ko text: count() - 6 --><!--/ko--></span>
+            <span class="color-gray" data-bind="visible: count() > 6">и еще <!--ko text: (count() - 6) --><!--/ko--></span>
 
             <?php if (!Yii::app()->user->isGuest):?>
             <a href="" class="btn-green btn-small margin-l20" data-bind="click: toggle, visible: !active()">Добавить мне</a>

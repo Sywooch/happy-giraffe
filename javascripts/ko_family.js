@@ -325,6 +325,37 @@ var FamilyBaby = function(data, parent) {
 var FamilyMainViewModel = function(data) {
     var self = this;
 
+    self.currentYear = data.currentYear;
+
+    self.days = [];
+    for (var i = 1; i <= 31; i++)
+        self.days.push(i);
+
+    self.years = [];
+    for (var i = self.currentYear - 18; i <= self.currentYear; i++)
+        self.years.push(i);
+
+    self.monthes = [
+        new FamilyMainMonth({ id : 1, name : 'января' }),
+        new FamilyMainMonth({ id : 2, name : 'февраля' }),
+        new FamilyMainMonth({ id : 3, name : 'марта' }),
+        new FamilyMainMonth({ id : 4, name : 'апреля' }),
+        new FamilyMainMonth({ id : 5, name : 'мая' }),
+        new FamilyMainMonth({ id : 6, name : 'июня' }),
+        new FamilyMainMonth({ id : 7, name : 'июля' }),
+        new FamilyMainMonth({ id : 8, name : 'августа' }),
+        new FamilyMainMonth({ id : 9, name : 'сентября' }),
+        new FamilyMainMonth({ id : 10, name : 'октября' }),
+        new FamilyMainMonth({ id : 11, name : 'ноября' }),
+        new FamilyMainMonth({ id : 12, name : 'декабря' })
+    ];
+
+    self.getMonthLabel = function(id) {
+        return ko.utils.arrayFirst(self.monthes, function(month) {
+            return month.id == id;
+        });
+    }
+
     self.me = ko.observable(new FamilyMainMe(data.me, self));
     self.partner = ko.observable(data.partner === null ? null : new FamilyMainPartner(data.partner, self));
     self.babies = ko.utils.arrayMap(data.babies, function(baby) {
@@ -436,6 +467,42 @@ var FamilyMainBaby = function(data, parent) {
     ko.utils.extend(self, new FamilyCommonBaby(data));
     ko.utils.extend(self, new FamilyMainMember(data));
 
+    // birthday
+    self.birthday = ko.observable(data.birthday);
+    self.birthdayBeingEdited = ko.observable(false);
+
+    var birthdayArray = self.birthday().split('-');
+    self.day = ko.observable(birthdayArray[2]);
+    self.month = ko.observable(birthdayArray[1]);
+    self.year = ko.observable(birthdayArray[0]);
+
+    self.dayValue = ko.observable(birthdayArray[2]);
+    self.monthValue = ko.observable(birthdayArray[1]);
+    self.yearValue = ko.observable(birthdayArray[0]);
+
+    self.birthdayText = ko.computed(function () {
+        return self.day() + ' ' + parent.getMonthLabel(self.month()).name + ' ' + self.year() + ' г.';
+    });
+
+    self.birthdayValue = function() {
+        return self.yearValue() + '-' + ("0" + self.monthValue()).slice(-2) + '-' + ("0" + self.dayValue()).slice(-2);
+    }
+
+    self.editBirthday = function() {
+        self.birthdayBeingEdited(true);
+    }
+
+    self.saveBirthday = function() {
+        $.post('/family/baby/updateAttribute/', { id : self.id, attribute : 'birthday', value : self.birthdayValue() }, function(response) {
+            if (response.success) {
+                self.day(self.dayValue());
+                self.month(self.monthValue());
+                self.year(self.yearValue());
+                self.birthdayBeingEdited(false);
+            }
+        }, 'json');
+    }
+
     self.saveName = function() {
         $.post('/family/baby/updateAttribute/', { id : self.id, attribute : 'name', value : self.nameValue() }, function(response) {
             self.saveNameCallback(response);
@@ -474,4 +541,14 @@ var FamilyMainBaby = function(data, parent) {
     self.photosLabel = function() {
         return self.gender == 1 ? 'Фото моего сына' : 'Фото моей дочери';
     }
+
+    self.birthdayLabel = function() {
+        return self.gender == 1 ? 'День рождения моего сына' : 'День рождения моей дочери';
+    }
+}
+
+var FamilyMainMonth = function(data, parent) {
+    var self = this;
+    self.id = data.id;
+    self.name = data.name;
 }

@@ -1,5 +1,6 @@
 var ENTER_KEY_SEND = 1;
 function CommentViewModel(data) {
+    console.log(data);
     var self = this;
     ko.mapping.fromJS(data, {}, self);
     self.opened = ko.observable(false);

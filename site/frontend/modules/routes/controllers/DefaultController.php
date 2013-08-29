@@ -2,6 +2,9 @@
 
 class DefaultController extends HController
 {
+    public $layout = '//layouts/community';
+    public $community;
+
     public function filters()
     {
         return array(
@@ -10,13 +13,11 @@ class DefaultController extends HController
         );
     }
 
-    public function actions()
+    public function beforeAction($action)
     {
-        return array(
-            'captcha' => array(
-                'class' => 'CCaptchaAction',
-            ),
-        );
+        $this->community = Community::model()->findByPk(27);
+
+        return parent::beforeAction($action);
     }
 
     /**
@@ -98,23 +99,6 @@ class DefaultController extends HController
         } else {
             var_dump($model->getErrors());
         }
-    }
-
-    public function actionTest()
-    {
-//        $city = GeoCity::model()->findByPk(14798);
-//        echo $city->getFullName()."<br>";
-//        $parser = new GoogleCoordinatesParser;
-//        $parser->city = $city;
-//        $parser->parseCity();
-//
-//        var_dump($parser->coordinates->attributes);
-
-//        $r = GoogleRouteParser::getUrl(Route::model()->findByPk(2634));
-//        var_dump($r);
-
-//        $p = new GoogleRouteParser;
-//        $p->parseRoute(Route::model()->findByPk(2634));
     }
 
     public function actionReparseGoogle($id)

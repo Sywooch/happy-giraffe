@@ -21,7 +21,9 @@ foreach($comments as $comment)
     NotificationRead::getInstance()->addShownComment($comment);
 NotificationRead::getInstance()->SetVisited();
 
-?><div class="comments-gray <?=$this->objectName ?>" id="<?=$this->objectName ?>">
+?>
+<!-- ko stopBinding: true -->
+<div class="comments-gray <?=$this->objectName ?>" id="<?=$this->objectName ?>">
     <div id="comment_list"></div>
     <div class="comments-gray_t">
 
@@ -37,6 +39,10 @@ NotificationRead::getInstance()->SetVisited();
                     <a href="" class="btn-green" data-bind="click: goBottom">Добавить</a>
                 <?php endif ?>
             </a>
+        <?php endif ?>
+
+        <?php if (!empty($this->notice)):?>
+            <div class="color-gray fontstyle-i margin-b5 margin-t10"><?=$this->notice ?></div>
         <?php endif ?>
 
     </div>
@@ -157,6 +163,7 @@ NotificationRead::getInstance()->SetVisited();
     <?php endif ?>
 
 </div>
+<!-- /ko -->
 <script type="text/javascript">
     var CURRENT_USER_ID = '<?=Yii::app()->user->id ?>';
     $(function () {

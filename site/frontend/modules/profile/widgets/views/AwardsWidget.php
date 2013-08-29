@@ -18,7 +18,7 @@
                     <img src="<?=$award->getAward()->getIconUrl(46) ?>" alt="<?=$award->getAward()->title ?>" class="user-awards_img">
                     <span class="user-awards_overlay"></span>
                 </a>
-                <div class="user-awards_popup user-awards_popup__2">
+                <div class="user-awards_popup user-awards_popup__2" style="display: none;">
                     <div class="user-awards_popup-tale"></div>
                     <div class="user-awards_popup-img">
                         <img src="<?=$award->getAward()->getIconUrl(84) ?>" alt="<?=$award->getAward()->title ?>">

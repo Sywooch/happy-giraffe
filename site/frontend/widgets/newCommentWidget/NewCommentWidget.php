@@ -30,6 +30,7 @@ class NewCommentWidget extends CWidget
      * @var bool Если галерея, всё работает немного иначе
      */
     public $gallery = false;
+    public $notice = '';
 
     public function init()
     {

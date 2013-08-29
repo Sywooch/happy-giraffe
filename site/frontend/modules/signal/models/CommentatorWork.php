@@ -12,7 +12,7 @@ class CommentatorWork extends EMongoDocument
     /**
      * Максимальное количество пропусков статей для комментирования
      */
-    const MAX_SKIPS = 30;
+    const MAX_SKIPS = 50;
 
     /**
      * @var int id комментатора

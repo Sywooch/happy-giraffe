@@ -23,8 +23,8 @@ class DefaultController extends HController
      */
     public function actionIndex($user_id)
     {
-        $this->layout = '//layouts/common_new';
-        $user = User::model()->active()->with(array(
+        $this->layout = '//layouts/main';
+        $this->user = User::model()->active()->with(array(
             'purpose',
             'avatar',
             'address',
@@ -34,11 +34,11 @@ class DefaultController extends HController
             'score',
             'albumsCount',
         ))->findByPk($user_id);
-        if ($user === null)
+        if ($this->user === null)
             throw new CHttpException(404, 'Пользователь не найден');
-        $this->pageTitle = $user->fullName . ' на Веселом Жирафе';
+        $this->pageTitle = $this->user->fullName . ' на Веселом Жирафе';
 
-        $this->render('index', compact('user'));
+        $this->render('index', array('user' => $this->user));
     }
 
     /**

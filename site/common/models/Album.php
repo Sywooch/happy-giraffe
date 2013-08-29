@@ -131,10 +131,10 @@ class Album extends HActiveRecord
                 'condition' => $this->tableAlias . '.removed = 0',
             ),
             'noSystem' => array(
-                'condition' => $this->tableAlias . '.type = 0 or ' . $this->tableAlias . '.type = 1 or ' . $this->tableAlias . '.type = 3',
+                'condition' => $this->tableAlias . '.type IN (0,1,3)',
             ),
             'system' => array(
-                'condition' => $this->tableAlias . '.type != 0 and ' . $this->tableAlias . '.type != 1 and ' . $this->tableAlias . '.type != 3',
+                'condition' => $this->tableAlias . '.type NOT IN (0,1,3)',
             ),
             'permission' => /*$permission->toArray()*/
             array(),
@@ -167,6 +167,15 @@ class Album extends HActiveRecord
         );
     }
 
+    /**
+     * Найти альбомы пользователя
+     *
+     * @param int $author_id
+     * @param bool $permission разрешение - только друзьям/всем
+     * @param bool $system показывать ли системные альбомы
+     * @param array $scopes дополнительные условия
+     * @return CActiveDataProvider
+     */
     public function findByUser($author_id, $permission = false, $system = false, $scopes = array())
     {
         $criteria = new CDbCriteria;
@@ -177,12 +186,11 @@ class Album extends HActiveRecord
             $criteria->addCondition('permission = :permission and (type = 0 || type = 1)');
             $criteria->params[':permission'] = $permission;
         }
-        if ($system !== false) {
-            if ($system == 1)
-                array_push($criteria->scopes, 'system');
-            else
-                array_push($criteria->scopes, 'noSystem');
-        }
+        if ($system)
+            array_push($criteria->scopes, 'system');
+        else
+            array_push($criteria->scopes, 'noSystem');
+
         array_push($criteria->scopes, 'active');
         array_push($criteria->scopes, 'permission');
         $criteria->scopes = array_merge($criteria->scopes, $scopes);
@@ -209,11 +217,19 @@ class Album extends HActiveRecord
             return $this->photos;
     }
 
-    public function getSystemAlbums()
+    /**
+     * Возвращает id всех служебных альбомов пользователя
+     *
+     * @param int $user_id
+     * @return array
+     */
+    public function getUserSystemAlbumIds($user_id)
     {
-        $albums = array();
-        $criteria = new CDbCriteria;
-        $criteria->addCondition('album_id is null');
+        return Yii::app()->db->createCommand()
+            ->select('id')
+            ->from($this->tableName())
+            ->where('type NOT IN (0,1,3) AND author_id=:author_id', array(':author_id' => $user_id))
+            ->queryColumn();
     }
 
     public function getIsNotSystem()
@@ -279,7 +295,7 @@ class Album extends HActiveRecord
     public function getPhotoCollectionDependency()
     {
         return array(
-            'class'=>'system.caching.dependencies.CDbCacheDependency',
+            'class' => 'system.caching.dependencies.CDbCacheDependency',
             'sql' => 'SELECT MAX(created) FROM album__photos WHERE album_id = :album_id',
             'params' => array(':album_id' => $this->id),
         );

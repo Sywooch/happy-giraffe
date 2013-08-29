@@ -13397,8 +13397,8 @@ table.fr_recipe_tb td {
 .like-control__self .like-control_ico__repost:hover {
   background-position: -45px 0;
 }
-.like-control__self .like-control_ico__favorites:hover {
-  background-position: -45px 0;
+.like-control__self .favorites-control_a:hover {
+  background-position: -90px 0;
 }
 .like-control_ico {
   display: inline-block;

@@ -10,7 +10,7 @@
 	<script type="text/javascript">
 	$(".chzn").chosen().ready(function(){
 	    
-	    $('.chzn-itx-simple').find('.chzn-drop').append("<div class='chzn-itx-simple_add clearfix'><button class='btn-green'>Ok</button><div class='chzn-itx-simple_add-hold'> <input type='text' name='' id='' class='chzn-itx-simple_add-itx'> <a href='' class='chzn-itx-simple_add-del'></a> </div>  </div>");
+	    $('.chzn-itx-simple').find('.chzn-drop').append("<div class='chzn-itx-simple_add clearfix'><button class='btn-green'>Ok</button><div class='chzn-itx-simple_add-hold'> <input type='text' name='' id='' class='chzn-itx-simple_add-itx' placeholder="Создать новую рубрику"> <a href='' class='chzn-itx-simple_add-del'></a> </div>  </div>");
 
 	  });
 	</script>
@@ -726,8 +726,8 @@
 							<label for="" class="b-settings-blue_label">Рубрика</label>
 							<div class="w-400 float-l">
 								<div class="chzn-itx-simple">
-									<select class="chzn">
-										<option selected="selected">0</option>
+									<select class="chzn" data-placeholder="Выберите рубрику">
+										<option></option>
 										<option>Россия</option>
 										<option>2</option>
 										<option>32</option>						
@@ -742,13 +742,13 @@
 									<div class='chzn-itx-simple_add clearfix'>
 										<button class='btn-green'>Ok</button>
 										<div class='chzn-itx-simple_add-hold'>
-											<input type='text' name='' id='' class='chzn-itx-simple_add-itx'>
+											<input type='text' name='' id='' class='chzn-itx-simple_add-itx' placeholder="Создать новую рубрику">
 											<a href='' class='chzn-itx-simple_add-del'></a>
 										</div>
 									</div>
 									-->
 								</div>
-								<div class="color-gray font-small margin-t5">Если вы не выберете рубрику, то запись добавится в рубрику "Обо всем"</div>
+								<div class="color-gray font-small margin-t5">Если вы не выберете рубрику, запись добавится в рубрику "Обо всем"</div>
 							</div>
 						</div>
 					</div>
@@ -1217,14 +1217,14 @@ $(document).ready(function () {
 							</div>
 							<label for="" class="b-settings-blue_label">Заголовок</label>
 							<div class="float-l w-400">
-								<input type="text" name="" id="" class="itx-simple w-400" placeholder="Введите заголовок видео">
+								<input type="text" name="" id="" class="itx-simple w-400" placeholder="Введите заголовок фото">
 							</div>
 						</div>
 						<div class="b-settings-blue_row clearfix">
 							<label for="" class="b-settings-blue_label">Рубрика</label>
 							<div class="w-400 float-l">
 								<div class="chzn-itx-simple">
-									<select class="chzn" data-placeholder="Выберите или создайте рубрику">
+									<select class="chzn" data-placeholder="Выберите рубрику">
 										<option></option>
 										<option>Россия</option>
 										<option>2</option>
@@ -1310,7 +1310,7 @@ $(document).ready(function () {
 							<label for="" class="b-settings-blue_label">Фотоальбом</label>
 							<div class="w-400 float-l">
 								<div class="chzn-itx-simple">
-									<select class="chzn" data-placeholder="Выберите или создайте рубрику">
+									<select class="chzn" data-placeholder="Выберите рубрику">
 										<option></option>
 										<option>Россия</option>
 										<option>2</option>

@@ -442,18 +442,18 @@ $(document).ready(function () {
 							<div class='chzn-itx-simple_add clearfix'>
 								<button class='btn-green'>Ok</button>
 								<div class='chzn-itx-simple_add-hold'>
-									<input type='text' name='' id='' class='chzn-itx-simple_add-itx'>
+									<input type='text' name='' id='' class='chzn-itx-simple_add-itx' placeholder="Создать новую рубрику">
 									<a href='' class='chzn-itx-simple_add-del'></a>
 								</div>
 							</div>
 							-->
-	<script type="text/javascript">
-	$(".chzn").chosen().ready(function(){
-	    
-	    $('.chzn-itx-simple').find('.chzn-drop').append("<div class='chzn-itx-simple_add clearfix'><button class='btn-green'>Ok</button><div class='chzn-itx-simple_add-hold'> <input type='text' name='' id='' class='chzn-itx-simple_add-itx'> <a href='' class='chzn-itx-simple_add-del'></a> </div>  </div>");
+							<script type="text/javascript">
+							$(".chzn").chosen().ready(function(){
+							    
+							    $('.chzn-itx-simple').find('.chzn-drop').append("<div class='chzn-itx-simple_add clearfix'><button class='btn-green'>Ok</button><div class='chzn-itx-simple_add-hold'> <input type='text' name='' id='' class='chzn-itx-simple_add-itx' placeholder='Создать новую рубрику'> <a href='' class='chzn-itx-simple_add-del'></a> </div>  </div>");
 
-	  });
-	</script>
+							  });
+							</script>
 						</div>
 					</div>
 					<div class="favorites-add-popup_row">

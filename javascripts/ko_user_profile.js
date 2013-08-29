@@ -149,6 +149,7 @@ function UserInterest(data, parent) {
     self.busy = ko.observable(false);
 
     self.users = ko.observableArray([]);
+    self.detailsLoad = ko.observable(0);
     self.count = ko.observable(null);
 
     self.isActive = ko.computed(function () {
@@ -172,31 +173,22 @@ function UserInterest(data, parent) {
             }, 'json');
     };
 
-    self.showDetails = ko.observable(false);
-    self.hover = ko.observable(false);
     self.loadDetails = function () {
-        $.post('/profile/interestData/', {id: self.id()}, function (response) {
-            if (response.status) {
-                ko.utils.arrayMap(response.users, function (user) {
-                    self.users.push(new UserInterestUser(user));
-                });
-                self.count(response.count);
-                self.showDetails(true);
-            }
-        }, 'json');
+        if (self.detailsLoad() == 0){
+            self.detailsLoad(1);
+            $.post('/profile/interestData/', {id: self.id()}, function (response) {
+                if (response.status) {
+                    ko.utils.arrayMap(response.users, function (user) {
+                        self.users.push(new UserInterestUser(user));
+                    });
+                    self.count(response.count);
+                }
+            }, 'json');
+        }
     };
     self.enableDetails = function () {
-        self.hover(true);
         if (self.count() === null)
             self.loadDetails();
-        else
-            self.showDetails(true);
-    };
-    self.disableDetails = function () {
-        self.hover(false);
-        setTimeout(function () {
-            if (!self.hover()) self.showDetails(false)
-        }, 300);
     };
 }
 

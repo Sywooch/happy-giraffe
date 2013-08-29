@@ -6,10 +6,10 @@
 class SendRoute extends CModel
 {
     // результат проверки
-    public $verifyCode;
     public $own_email;
     public $friend_email;
     public $route_id;
+    public $message;
 
 
     function rules()
@@ -17,7 +17,7 @@ class SendRoute extends CModel
         $rules = array(
             array('friend_email, route_id', 'required', 'message' => 'Введите {attribute}'),
             array('own_email, friend_email', 'email', 'message' => 'Введите правильный E-mail'),
-            array('verifyCode', 'captcha', 'allowEmpty' => !Yii::app()->user->isGuest || !CCaptcha::checkRequirements()),
+            array('message', 'safe'),
         );
 
         if (Yii::app()->user->isGuest)
@@ -29,9 +29,9 @@ class SendRoute extends CModel
     function attributeLabels()
     {
         return array(
-            'verifyCode' => 'Код проверки',
             'own_email' => 'Свой E-mail',
             'friend_email' => 'E-mail друга',
+            'message' => 'Сообщение',
         );
     }
 
@@ -49,7 +49,10 @@ class SendRoute extends CModel
         $route = Route::model()->findByPk($this->route_id);
         $title = $route->getTexts();
         $title = $title[0];
-        $email_text = $title . '<br>' . $route->getUrl(true);
+        if (!empty($this->message))
+            $email_text = $this->message . '<br>' . '<br>' .$title  . '<br>' .$route->getUrl(true);
+        else
+            $email_text = $title . '<br>' . $this->message . '<br>' . $route->getUrl(true);
         $subject = $title;
 
         if (!Yii::app()->user->isGuest) {

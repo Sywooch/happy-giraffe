@@ -58,7 +58,6 @@
  * @property UserPartner partner
  * @property Baby[] babies
  * @property AlbumPhoto $avatar
- * @property UserStatus status
  * @property UserMailSub $mail_subs
  * @property UserAddress $address
  * @property int $activeCommentsCount

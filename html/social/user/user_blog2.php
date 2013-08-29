@@ -204,13 +204,23 @@
 						</div>
 						<div class="js-like-control">
 							<div class="like-control like-control__self clearfix">
-								<a href="" class="like-control_ico like-control_ico__like">865</a>
+								<div class="position-rel">
+									<a href="" class="like-control_ico like-control_ico__like">865</a>
+									<div class="favorites-add-popup favorites-add-popup__right">
+										<div class="favorites-add-popup_t">Вы не можете ставить "Нравиться" к своей записи</div>
+									</div>
+								</div>
 								<div class="position-rel">
 									<a href="" class="like-control_ico like-control_ico__repost">5</a>
+									<div class="favorites-add-popup favorites-add-popup__right">
+										<div class="favorites-add-popup_t">Вы не можете делать репост своей записи</div>
+									</div>
 								</div>
 								<div class="position-rel">
 									<a href="" class="favorites-control_a">123865</a>
-									
+									<div class="favorites-add-popup favorites-add-popup__right">
+										<div class="favorites-add-popup_t">Нельзя добавить в избранное свою записи</div>
+									</div>
 								</div>
 							</div>
 							<div class="article-settings">

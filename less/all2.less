@@ -652,7 +652,7 @@ table.fr_recipe_tb td { width: 50%;}
         position: relative;
         float: left;
         width: 580px;
-        min-height:102px;
+        min-height:103px;
         padding: 12px 0 0;
         background: #fff;
         .border-radius(3px);
@@ -879,6 +879,7 @@ table.fr_recipe_tb td { width: 50%;}
 
     &__self &_ico__like:hover {background-position: 0 0;}
     &__self &_ico__repost:hover {background-position: -45px 0;}
+    &__self &_ico__favorites:hover {background-position: -45px 0;}
 
     &_ico {
         .inline-block();
@@ -909,7 +910,7 @@ table.fr_recipe_tb td { width: 50%;}
     &_ico__cook:hover {background-position: -86px 20px;}
     &_repost-complete {
         .inline-block();
-        margin: 5px auto 3px;
+        margin: 6px auto 3px;
         width: 22px;
         height: 14px;
         background: url(/images/like-control_repost-complete.png) no-repeat;
@@ -1607,7 +1608,11 @@ table.fr_recipe_tb td { width: 50%;}
         text-align: center;
         position: relative;
     }
-    &_hold {display: none;}
+    &_hold {
+        display: none;
+        background: #f0f0f0;
+        .border-radius(5px);
+    }
     &_a {
         .inline-block();
         width: 40px;
@@ -2311,7 +2316,7 @@ table.fr_recipe_tb td { width: 50%;}
 /* b-user-status */
 .b-user-status {
     margin: 0 20px 40px;
-    padding: 15px 50px;
+    padding: 15px 60px;
     background: #cdecff;
     .border-radius(5px);
     
@@ -2323,6 +2328,12 @@ table.fr_recipe_tb td { width: 50%;}
         width: 46px;
         height: 23px;
         background: url(/images/b-user-status__after.png) no-repeat;
+    }
+    .article-settings {
+        position: absolute;
+        top: -5px;
+        right: 15px;
+        width: 40px;
     }
     &_hold {
         margin: 15px 0 0;
@@ -2496,6 +2507,7 @@ table.fr_recipe_tb td { width: 50%;}
     &_li:hover &_i.active {color: #fff;}
     &_li:hover &_i__white.active {color: #bbb;}
     &_li:hover &_i__green {color: #fff;}
+    &_li:hover &_popup {display: block;}
     &_li .b-itx-add {margin: -3px 0 -2px;}
     &_i {
         position: relative;
@@ -2546,7 +2558,6 @@ table.fr_recipe_tb td { width: 50%;}
     }
     &_i__white.active:after {display: none;}
     &_i .ico-plus {margin-left: 3px;}
-
 
     &_popup {
         display: none;
@@ -2676,7 +2687,7 @@ table.fr_recipe_tb td { width: 50%;}
         .border-radius(50px);
     }
     &_popup {
-        
+        display: none;
         position: absolute;
         z-index: 10;
         top: 60px;

@@ -89,10 +89,10 @@ hr,
 }
 
 ::-webkit-input-placeholder { color: #b6b6b6;font-weight: normal;opacity: 1;}
-::-moz-placeholder{ color: #b6b6b6;font-weight: normal;opacity: 1;}
-:-moz-placeholder{ color: #b6b6b6;font-weight: normal;opacity: 1;}
-:placeholder { color: #b6b6b6;font-weight: normal;opacity: 1;}
-.placeholder { color: #b6b6b6;font-weight: normal;opacity: 1;}
+::-moz-placeholder          { color: #b6b6b6;font-weight: normal;opacity: 1;}
+:-moz-placeholder           { color: #b6b6b6;font-weight: normal;opacity: 1;}
+:placeholder                { color: #b6b6b6;font-weight: normal;opacity: 1;}
+.placeholder                { color: #b6b6b6;font-weight: normal;opacity: 1;}
 
 .msg-win {color: #3cae31;font-size: 13px;}
 .msg-error {color: #ff8686;font-size: 13px;}
@@ -463,17 +463,17 @@ a.pseudo:hover,
 	height: 30px;
 	background: url(/images/ico/ico-redactor.png) no-repeat;
 }
-.ico-redactor__interest {background-position: 0 0;}
+.ico-redactor__interest        {background-position: 0 0;}
 .ico-redactor__interest:hover  {background-position: 0 -60px;}
 .ico-redactor__interest.active {background-position: 0 -30px;}
-.ico-redactor__blog     {background-position: -30px 0;}
-.ico-redactor__blog:hover {background-position: -30px -60px;}
+.ico-redactor__blog        {background-position: -30px 0;}
+.ico-redactor__blog:hover  {background-position: -30px -60px;}
 .ico-redactor__blog.active {background-position: -30px -30px;}
-.ico-redactor__social   {background-position: -60px 0;}
-.ico-redactor__social:hover {background-position: -60px -60px;}
+.ico-redactor__social        {background-position: -60px 0;}
+.ico-redactor__social:hover  {background-position: -60px -60px;}
 .ico-redactor__social.active {background-position: -60px -30px;}
-.ico-redactor__mail     {background-position: -90px 0;}
-.ico-redactor__mail:hover{background-position: -90px -60px;}
+.ico-redactor__mail       {background-position: -90px 0;}
+.ico-redactor__mail:hover {background-position: -90px -60px;}
 .ico-redactor__mail.active{background-position: -90px -30px;}
 .ico-cup {
 	.inline-block();
@@ -531,9 +531,7 @@ a.pseudo:hover,
 	height: 13px;
 	background: url(/images/ico/ico-close2.png) no-repeat;
 }
-.ico-close2:hover {
-	background: url(/images/ico/ico-close2-hover.png) no-repeat;
-}
+.ico-close2:hover {background: url(/images/ico/ico-close2-hover.png) no-repeat;}
 .ico-close3 {
 	.inline-block();
 	width: 11px;
@@ -549,7 +547,7 @@ a.pseudo:hover,
 }
 .ico-close4:hover {background-position: 0 0;}
 .icon-status {
-	display:inline-block;*zoom:1;*display:inline;
+	.inline-block();
 	width:12px;
 	height:12px;
 	position:relative;
@@ -558,7 +556,7 @@ a.pseudo:hover,
 	margin-right:2px;
 	.border-radius(6px);
 }
-.icon-status.status-online {background: #0fc612;}
+.icon-status.status-online  {background: #0fc612;}
 .icon-status.status-offline {background: #b8b8b8;}
 .ico-comment{
 	.inline-block();
@@ -568,7 +566,7 @@ a.pseudo:hover,
 	vertical-align:middle;
 	margin-right:3px;
 
-	&__gray {background-position: -218px -323px;}
+	&__gray       {background-position: -218px -323px;}
 	&__gray:hover {background-position: -218px -295px;}
 }
 .ico-view{
@@ -598,10 +596,10 @@ a.pseudo:hover,
 	vertical-align:middle;
 	margin-right:3px;
 
-	&__all {background-position: 0 0;}
+	&__all          {background-position: 0 0;}
 	&__all.active,
-	&__all:hover {background-position: 0 -30px;}
-	&__friend {background-position: -40px 0;}
+	&__all:hover    {background-position: 0 -30px;}
+	&__friend       {background-position: -40px 0;}
 	&__friend.active,
 	&__friend:hover {background-position: -40px -30px;}
 }
@@ -764,7 +762,7 @@ textarea.error,
 	}
 }
 
-#tooltip {display:block;position:absolute;background:#fffac8;color:#929292;padding:2px 10px;border:1px solid #f3eca9;font-size:12px;z-index:3000;-moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;behavior: url(/stylesheets/PIE.htc);}
+#tooltip {display:block;position:absolute;background:#fffac8;color:#929292;padding:2px 10px;border:1px solid #f3eca9;font-size:12px;z-index:3000;-moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;}
 #tooltip h3 {font-weight:normal;font-size:12px;}
 
 .infscr-loading-hold {

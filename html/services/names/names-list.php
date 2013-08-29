@@ -7,16 +7,21 @@
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/head.php'; ?>
 
 </head>
-<body class="body-club">
+<body class="body-gray">
 
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/top-line-menu.php'; ?>
 	
 <div class="layout-container">
 	<div class="layout-wrapper">
 		<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/layout-header.php'; ?>
-			
-		<div id="content" class="layout-content clearfix">
-			
+        
+        <div class="layout-content clearfix">
+        
+        <?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/club-top.php'; ?>
+
+        <div class="content-cols margin-l-20">
+            <div class="col-white padding-20 clearfix">
+                
 			<div id="baby">
 				<div class="content-box clearfix">
 
@@ -32,33 +37,33 @@
 						    </ul>
 					</div>
 					<ul class="letters">
-					    <li class="active"><a href="#">Все</a></li>
-					    <li><a href="#">А</a></li>
-					    <li><a href="#">Б</a></li>
-					    <li><a href="#">В</a></li>
-					    <li><a href="#">Г</a></li>
-					    <li><a href="#">Д</a></li>
-					    <li><a href="#">Е</a></li>
-					    <li><a href="#">Ж</a></li>
-					    <li><a href="#">З</a></li>
-					    <li><a href="#">И</a></li>
-					    <li><a href="#">К</a></li>
-					    <li><a href="#">Л</a></li>
-					    <li><a href="#">М</a></li>
-					    <li><a href="#">Н</a></li>
-					    <li><a href="#">О</a></li>
-					    <li><a href="#">П</a></li>
-					    <li><a href="#">Р</a></li>
-					    <li><a href="#">С</a></li>
-					    <li><a href="#">Т</a></li>
-					    <li><a href="#">У</a></li>
-					    <li><a href="#">Ф</a></li>
-					    <li><a href="#">Х</a></li>
-					    <li><a href="#">Ц</a></li>
-					    <li><a href="#">Ч</a></li>
-					    <li><a href="#">Э</a></li>
-					    <li><a href="#">Ю</a></li>
-					    <li><a href="#">Я</a></li>
+                        <li class="active"><a href="#">Все</a></li>
+                        <li><a href="#">А</a></li>
+                        <li><a href="#">Б</a></li>
+                        <li><a href="#">В</a></li>
+                        <li><a href="#">Г</a></li>
+                        <li><a href="#">Д</a></li>
+                        <li><a href="#">Е</a></li>
+                        <li><a href="#">Ж</a></li>
+                        <li><a href="#">З</a></li>
+                        <li><a href="#">И</a></li>
+                        <li><a href="#">К</a></li>
+                        <li><a href="#">Л</a></li>
+                        <li><a href="#">М</a></li>
+                        <li><a href="#">Н</a></li>
+                        <li><a href="#">О</a></li>
+                        <li><a href="#">П</a></li>
+                        <li><a href="#">Р</a></li>
+                        <li><a href="#">С</a></li>
+                        <li><a href="#">Т</a></li>
+                        <li><a href="#">У</a></li>
+                        <li><a href="#">Ф</a></li>
+                        <li><a href="#">Х</a></li>
+                        <li><a href="#">Ц</a></li>
+                        <li><a href="#">Ч</a></li>
+                        <li><a href="#">Э</a></li>
+                        <li><a href="#">Ю</a></li>
+                        <li><a href="#">Я</a></li>
 					</ul>
 					<div class="content_block">
 					    <div class="view_name gender-link">
@@ -67,7 +72,7 @@
 						    <a class="boy_names" href="#">Мальчики</a>
 						    <a class="girl_names" href="#">Девочки</a>
 						</div>
-				    <p class="names_header">Все имена</p>
+				    <p class="names_header">Имена на букву <span>М</span></p>
 				    
 					<div class="clear"></div>
 
@@ -225,33 +230,38 @@
 </div>
 </div><div class="clearfix"></div>
 
-        <div class="pagination pagination-center clearfix">
-        <ul id="yw0" class="yiiPager"><li class="first hidden"><a href="#"></a></li>
-<li class="previous hidden"><a href="#"></a></li>
-<li class="page selected"><a href="#"></li>
-<li class="page"><a href="#">2</a></li>
-<li class="page"><a href="#">3</a></li>
-<li class="page"><a href="#">4</a></li>
-<li class="page"><a href="#">5</a></li>
-<li class="page"><a href="#">6</a></li>
-<li class="page"><a href="#">7</a></li>
-<li class="page"><a href="#">8</a></li>
-<li class="page"><a href="#">9</a></li>
-<li class="page"><a href="#">10</a></li>
-<li class="next"><a href="#">...</a></li>
-<li class="last"><a href="#"></a></li></ul>    </div>
+
+<div class="yiipagination">
+    <div class="pager">
+        <ul class="yiiPager" id="yw1">
+            <li class="page"><a href="">1</a></li>
+            <li class="page"><a href="">2</a></li>
+            <li class="page selected"><a href="">3</a></li>
+            <li class="page"><a href="">4</a></li>
+            <li class="page"><a href="">5</a></li>
+            <li class="page"><a href="">6</a></li>
+            <li class="page"><a href="">7</a></li>
+            <li class="page"><a href="">8</a></li>
+            <li class="page"><a href="">9</a></li>
+            <li class="page"><a href="">10</a></li>
+        </ul>
+    </div>
+</div>
+    </div>
     </div>
 
 
 						</div>
-					</div>
+                    </div>
+                </div>
+			</div>
 
 		</div>  	
-		
+		<a href="#layout" id="btn-up-page"></a>
 		<div class="footer-push"></div>
 		
 	</div>
-	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/footer.php'; ?>
 </div>
+	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/footer.php'; ?>
 </body>
 </html>

@@ -410,7 +410,7 @@
 							<p>Этот день открывает массу возможностей, но воспользоваться можно только одной из них, так что придется выбирать, и выбор будет нелегким.</p>
 							
 						</div>
-						
+						<div class="margin-t30">
 						<div class="horoscope-compatibility clearfix">
 							
 							<div class="block-title">Совместимость знаков</div>
@@ -499,6 +499,7 @@ var Horoscope = {
 								<ul><li>Укажите 2-й знак зодиака</li></ul>
 							</div>
 							
+						</div>
 						</div>
 						
 					</div>

@@ -392,6 +392,9 @@ html.top-nav-fixed {
 .margin-l65 {
   margin-left: 65px !important;
 }
+.margin-l140 {
+  margin-left: 140px !important;
+}
 .nopadding,
 .padding-0 {
   padding: 0 !important;
@@ -15971,6 +15974,12 @@ select.pregnancy_term + .chzn-container .chzn-results li {
 /* menu-simple */
 .menu-simple {
   margin: 35px 0;
+}
+.menu-simple__after-article {
+  margin: 30px 0 60px 150px;
+}
+.menu-simple__after-article .menu-simple_li {
+  padding: 0;
 }
 .menu-simple_li {
   margin: 7px 0;

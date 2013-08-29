@@ -59,14 +59,17 @@ class AjaxSimpleController extends CController
         $model->source_id = $source->id;
         $model->type_id = CommunityContent::TYPE_REPOST;
         $model->author_id = Yii::app()->user->id;
+        if (!empty($data['rubric_id']))
+            $model->rubric_id = $data['rubric_id'];
         $model->title = $source->title;
         $model->preview = trim(strip_tags($data['note']));
-        if ($model->save())
+        if ($model->save()){
             $response = array('success' => true);
+            PostRating::reCalc($source);
+        }
         else
-            $response = array('success' => false);
+            $response = array('success' => false, 'errors'=>$model->getErrorsText());
         echo CJSON::encode($response);
-        PostRating::reCalc($source);
     }
 
     /**

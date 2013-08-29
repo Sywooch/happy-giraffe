@@ -59,6 +59,13 @@ return array(
             ),
             'depends' => array('knockout', 'ko_comments'),
         ),
+        'ko_post' => array(
+            'baseUrl' => '/',
+            'js' => array(
+                'javascripts/ko_post.js',
+            ),
+            'depends' => array('knockout', 'ko_favourites'),
+        ),
         'ko_blog' => array(
             'baseUrl' => '/',
             'js' => array(

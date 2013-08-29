@@ -4,11 +4,8 @@
  * @var HActiveRecord $slaveModel
  * @var $json
  */
-?>
 
-<?php $this->renderPartial('form/script'); ?>
-
-<?php $form = $this->beginWidget('CActiveForm', array(
+$form = $this->beginWidget('CActiveForm', array(
     'id' => 'blog-form',
     'action' => $model->isNewRecord ? array('save') : array('save', 'id' => $model->id),
     'enableAjaxValidation' => true,

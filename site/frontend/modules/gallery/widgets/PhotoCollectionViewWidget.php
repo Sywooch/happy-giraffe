@@ -14,6 +14,7 @@ class PhotoCollectionViewWidget extends CWidget
     public $maxHeight = 230;
     public $minPhotos = 2;
     public $maxRows = false;
+    public $return = false;
 
     public function run()
     {
@@ -44,7 +45,10 @@ class PhotoCollectionViewWidget extends CWidget
             }
         }
 
-        $this->render('PhotoCollectionViewWidget', compact('collection', 'grid'));
+        if ($this->return)
+            return $this->render('PhotoCollectionViewWidget', compact('collection', 'grid'), true);
+        else
+            $this->render('PhotoCollectionViewWidget', compact('collection', 'grid'));
     }
 
     public function getHeight($photos)

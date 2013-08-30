@@ -12,6 +12,9 @@ $text = strip_tags($status->text);
 <div class="b-article_in clearfix">
     <div class="b-article_user-status clearfix">
         <?php if (!$full):?>
+            <?php if ($show_new && ViewedPost::getInstance()->isViewed($data->id)): ?>
+                <div class="b-article_t-new">новое</div>
+            <?php endif ?>
             <a href="<?=$data->getUrl() ?>" class="b-article_user-status-a"><?=$text ?></a>
         <?php else: ?>
             <span class="b-article_user-status-a"><?=$text?></span>

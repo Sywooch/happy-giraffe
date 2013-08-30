@@ -319,7 +319,9 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
         <div class="family-settings_hold clearfix">
             <div class="family-settings_photo">
                 <div class="family-settings_photo-hold">
-                    <img src="/images/example/photo-grid-5.jpg" alt="" class="family-settings_photo-img">
+                    <!-- ko if: photoToShow() !== null -->
+                    <img alt="" class="family-settings_photo-img" data-bind="attr: { src : photoToShow().bigThumbSrc }">
+                    <!-- /ko -->
                 </div>
             </div>
             <div class="family-settings_desc">

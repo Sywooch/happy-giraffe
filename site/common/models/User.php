@@ -1395,6 +1395,9 @@ class User extends HActiveRecord
 
     public function getFamilyData()
     {
+        $partnerPhotoCollection = new AttachPhotoCollection(array('entityName' => 'UserPartner', 'entityId' => $this->partner->id));
+        $partnerPhotoCollectionPhotos = $partnerPhotoCollection->getAllPhotos();
+
         return array(
             'me' => array(
                 'gender' => (int) $this->gender,
@@ -1404,6 +1407,13 @@ class User extends HActiveRecord
                 'id' => (string) $this->partner->id,
                 'name' => (string) $this->partner->name,
                 'notice' => (string) $this->partner->notice,
+                'photos' => array_map(function($photo) {
+                    return array(
+                        'id' => $photo->id,
+                        'bigThumbSrc' => $photo->getPreviewUrl(220, null, Image::WIDTH),
+                        'smallThumbSrc' => $photo->getPreviewUrl(null, 150, Image::HEIGHT),
+                    );
+                }, $partnerPhotoCollectionPhotos),
             ),
             'babies' => array_map(function($baby) {
                 return array(

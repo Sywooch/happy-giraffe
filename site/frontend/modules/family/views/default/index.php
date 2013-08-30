@@ -415,7 +415,11 @@ Yii::app()->clientScript
                                 </div>
                             </div>
                         </div>
-                        <a href="" class="photo-preview-row_add"></a>
+                        <span class="photo-preview-row_add file-fake">
+                            <?=CHtml::beginForm(array('partner/uploadPhoto'), 'post', array('target' => 'upload-target', 'enctype' => 'multipart/form-data'))?>
+                                <input type="file" name="photo" onchange="submit()">
+                            <?=CHtml::endForm()?>
+                        </span>
                     </div>
                 </div>
             </div>

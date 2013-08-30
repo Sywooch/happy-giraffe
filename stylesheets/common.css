@@ -11552,7 +11552,7 @@ select.pregnancy_term + .chzn-container .chzn-results li {
 .layout-header {
   position: relative;
 }
-.layout-header .logo {
+.layout-header_hold .logo {
   float: left;
   margin: 5px 40px 0 40px;
   padding: 0;

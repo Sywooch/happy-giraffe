@@ -2,6 +2,7 @@
 Yii::app()->clientScript
     ->registerPackage('ko_family')
 ;
+$this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
 ?>
 
 <div class="content-cols clearfix">
@@ -399,28 +400,27 @@ Yii::app()->clientScript
             <h3 class="heading-small margin-b10" data-bind="text: photosLabel()"></h3>
             <div class="photo-preview-row_hold">
                 <div class="photo-grid clearfix">
-                    <div class="photo-grid_row clearfix">
-                        <!-- Высота фотографий 105пк -->
-                        <div class="photo-grid_i">
-                            <img alt="" src="/images/example/photo-grid-7.jpg" class="photo-grid_img">
-                            <div class="photo-grid_overlay">
-                                <span class="photo-grid_zoom"></span>
-                                <div class="photo-grid_overlay-row">
-                                    <label for="photo-grid_check1" class="photo-grid_checbox-label powertip" title="Сделать основным">
-                                        <input type="checkbox" name="" id="photo-grid_check1" class="photo-grid_checkbox">
-                                    </label>
-                                    <div class="float-r">
-                                        <a href="" class="ico-del ico-del__white powertip" title="Удалить"></a>
-                                    </div>
+                    <!-- ko foreach: photos -->
+                    <div class="photo-grid_i" data-bind="click: open">
+                        <img alt="" class="photo-grid_img" data-bind="attr: { src : smallThumbSrc }">
+                        <div class="photo-grid_overlay">
+                            <span class="photo-grid_zoom"></span>
+                            <div class="photo-grid_overlay-row">
+                                <label for="photo-grid_check1" class="photo-grid_checbox-label powertip" title="Сделать основным">
+                                    <input type="checkbox" name="" id="photo-grid_check1" class="photo-grid_checkbox">
+                                </label>
+                                <div class="float-r">
+                                    <a href="" class="ico-del ico-del__white powertip" title="Удалить"></a>
                                 </div>
                             </div>
                         </div>
-                        <span class="photo-preview-row_add file-fake">
-                            <?=CHtml::beginForm(array('partner/uploadPhoto'), 'post', array('target' => 'upload-target', 'enctype' => 'multipart/form-data'))?>
-                                <input type="file" name="photo" onchange="submit()">
-                            <?=CHtml::endForm()?>
-                        </span>
                     </div>
+                    <!-- /ko -->
+                    <span class="photo-preview-row_add file-fake">
+                        <?=CHtml::beginForm(array('partner/uploadPhoto'), 'post', array('target' => 'upload-target', 'enctype' => 'multipart/form-data'))?>
+                            <input type="file" name="photo" onchange="submit()">
+                        <?=CHtml::endForm()?>
+                    </span>
                 </div>
             </div>
         </div>

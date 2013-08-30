@@ -373,6 +373,13 @@ var FamilyMainViewModel = function(data) {
             return baby.type == 1 || baby.type == 2;
         });
     });
+
+    $('#upload-target').on('load', function() {
+        var response = $(this).contents().find('#response').text();
+        if (response.length > 0) {
+            console.log(response);
+        }
+    });
 }
 
 var FamilyMainMe = function(data, parent) {

@@ -149,6 +149,7 @@ function UserInterest(data, parent) {
     self.busy = ko.observable(false);
 
     self.users = ko.observableArray([]);
+    self.detailsLoad = ko.observable(0);
     self.count = ko.observable(null);
 
     self.isActive = ko.computed(function () {
@@ -172,31 +173,22 @@ function UserInterest(data, parent) {
             }, 'json');
     };
 
-    self.showDetails = ko.observable(false);
-    self.hover = ko.observable(false);
     self.loadDetails = function () {
-        $.post('/profile/interestData/', {id: self.id()}, function (response) {
-            if (response.status) {
-                ko.utils.arrayMap(response.users, function (user) {
-                    self.users.push(new UserInterestUser(user));
-                });
-                self.count(response.count);
-                self.showDetails(true);
-            }
-        }, 'json');
+        if (self.detailsLoad() == 0){
+            self.detailsLoad(1);
+            $.post('/profile/interestData/', {id: self.id()}, function (response) {
+                if (response.status) {
+                    ko.utils.arrayMap(response.users, function (user) {
+                        self.users.push(new UserInterestUser(user));
+                    });
+                    self.count(response.count);
+                }
+            }, 'json');
+        }
     };
     self.enableDetails = function () {
-        self.hover(true);
         if (self.count() === null)
             self.loadDetails();
-        else
-            self.showDetails(true);
-    };
-    self.disableDetails = function () {
-        self.hover(false);
-        setTimeout(function () {
-            if (!self.hover()) self.showDetails(false)
-        }, 300);
     };
 }
 
@@ -279,4 +271,140 @@ var UserClub = function (data, size, parent) {
             }
         }, 'json');
     }
+};
+
+/************************** Загрузка аватары ***********************************/
+var UserAva = function (data, container_selector) {
+    var self = this;
+    self.image_url = ko.observable(data.image_url);
+    self.old_url = ko.observable(self.image_url());
+    self.id = ko.observable(data.source_id);
+    self.status = ko.observable(0);
+    self._progress = ko.observable(0);
+
+    self.jcrop_api = null;
+    self.width = data.width;
+    self.height = data.height;
+    self.coordinates = data.coordinates;
+
+    self.load = function () {
+        if (self.image_url()) {
+            self.status(2);
+            $('#jcrop_target').Jcrop({
+                trueSize: [self.width, self.height],
+                onChange: self.showPreview,
+                onSelect: self.showPreview,
+                aspectRatio: 1,
+                boxWidth: 438,
+                minSize: [200, 200]
+            }, function () {
+                self.jcrop_api = this;
+            });
+
+            if (self.coordinates.length > 0) {
+                setTimeout(function () {
+                    self.jcrop_api.setSelect(self.coordinates);
+                }, 200);
+            }
+        }
+    };
+
+    self.save = function () {
+        $.post('/profile/setAvatar/', {source_id: self.id, coordinates: self.coordinates}, function (response) {
+            if (response.status) {
+                window.location.reload();
+            }
+        }, 'json');
+    };
+    self.cancel = function () {
+        self.image_url(self.old_url());
+        $.fancybox.close();
+        window.setTimeout(function(){
+            self.status(0);
+            if (self.jcrop_api != null)
+                self.jcrop_api.destroy();
+        }, 500);
+    };
+
+    self.showPreview = function (coordinates) {
+        self.coordinates = coordinates;
+        var rx = 200 / coordinates.w;
+        var ry = 200 / coordinates.h;
+
+        $('#preview').css({
+            width: Math.round(rx * self.width) + 'px',
+            height: Math.round(ry * self.height) + 'px',
+            marginLeft: '-' + Math.round(rx * coordinates.x) + 'px',
+            marginTop: '-' + Math.round(ry * coordinates.y) + 'px'
+        });
+    };
+
+    self.upload = function () {
+        if (self.jcrop_api !== null)
+            self.jcrop_api.destroy();
+        self.status(1);
+    };
+
+    self.progress = ko.computed(function () {
+        return self._progress() + '%';
+    });
+
+    self.complete = function(response){
+        self.width = response.width;
+        self.height = response.height;
+        self.id(response.id);
+        self.image_url(response.image_url);
+        $('#jcrop_target').removeAttr('style');
+        self.status(2);
+
+        setTimeout(function () {
+            self.status(2);
+            $('#jcrop_target').Jcrop({
+                setSelect: [200, 200, 120, 120],
+                trueSize: [self.width, self.height],
+                onChange: self.showPreview,
+                onSelect: self.showPreview,
+                aspectRatio: 1,
+                boxWidth: 438,
+                minSize: [200, 200]
+            }, function () {
+                self.jcrop_api = this;
+            });
+        }, 200);
+    };
+
+    self.remove = function(){
+        if (self.jcrop_api !== null)
+            self.jcrop_api.destroy();
+        self.image_url(null);
+        self.status(0);
+        self.id = ko.observable(null);
+    };
+
+    $.each($('.b-add-img'), function () {
+        $(this)[0].ondragover = function () {
+            $('.b-add-img').addClass('dragover')
+        };
+        $(this)[0].ondragleave = function () {
+            $('.b-add-img').removeClass('dragover')
+        };
+    });
+
+    $(container_selector + ' .js-upload-files-multiple').fileupload({
+        dataType: 'json',
+        url: '/ajaxSimple/uploadAvatar/',
+        dropZone: $('#upload_ava_block'),
+        add: function (e, data) {
+            self.upload();
+            data.submit();
+        },
+        done: function (e, data) {
+            self.complete(data.result);
+        }
+    });
+
+    $(container_selector+' .js-upload-files-multiple').bind('fileuploadprogress', function (e, data) {
+        self._progress(data.loaded * 100 / data.total);
+    });
+
 };

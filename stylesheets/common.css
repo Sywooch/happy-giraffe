@@ -287,6 +287,9 @@ html.top-nav-fixed {
 .margin-20 {
   margin: 20px !important;
 }
+.margin-t-10 {
+  margin-top: -10px !important;
+}
 .margin-t3 {
   margin-top: 3px !important;
 }
@@ -388,6 +391,9 @@ html.top-nav-fixed {
 }
 .margin-l65 {
   margin-left: 65px !important;
+}
+.margin-l140 {
+  margin-left: 140px !important;
 }
 .nopadding,
 .padding-0 {
@@ -1484,8 +1490,6 @@ a.pseudo:hover,
 }
 .icon-status {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   width: 12px;
   height: 12px;
   position: relative;
@@ -1757,7 +1761,6 @@ textarea.error,
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   border-radius: 5px;
-  behavior: url(/stylesheets/PIE.htc);
 }
 #tooltip h3 {
   font-weight: normal;
@@ -6733,11 +6736,12 @@ select.pregnancy_term + .chzn-container .chzn-results li {
   -ms-box-sizing: border-box;
   box-sizing: border-box;
 }
+.chzn-itx-simple_add .btn-green {
+  float: right;
+}
 .chzn-itx-simple_add-hold {
-  display: inline-block;
   position: relative;
-  width: 325px;
-  margin-right: 7px;
+  margin-right: 60px;
 }
 .chzn-itx-simple_add-itx {
   width: 100%;
@@ -15971,6 +15975,12 @@ select.pregnancy_term + .chzn-container .chzn-results li {
 .menu-simple {
   margin: 35px 0;
 }
+.menu-simple__after-article {
+  margin: 30px 0 60px 150px;
+}
+.menu-simple__after-article .menu-simple_li {
+  padding: 0;
+}
 .menu-simple_li {
   margin: 7px 0;
   padding: 0 15px;
@@ -16509,6 +16519,7 @@ select.pregnancy_term + .chzn-container .chzn-results li {
   position: relative;
   margin: 0 0 1px;
   padding: 20px 20px;
+  border: 1px solid #f8f8f8;
   background: #f8f8f8;
 }
 .career-achievement:hover {
@@ -19712,7 +19723,7 @@ select.pregnancy_term + .chzn-container .chzn-results li {
 /* /pagination */
 /* yiipagination */
 .yiipagination {
-  margin: 30px 0 50px 100px;
+  margin: 30px 0 50px;
   font-size: 17px;
   line-height: 30px;
   color: #a1a1a1;
@@ -20609,7 +20620,7 @@ select.pregnancy_term + .chzn-container .chzn-results li {
   border-color: #f8bdbd;
 }
 .b-family__square .b-family_li__empty {
-  height: 72px;
+  height: 70px;
   border: 2px dashed #95d0e6;
 }
 .b-family__square .b-family_img-hold {

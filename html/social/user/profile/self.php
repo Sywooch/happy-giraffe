@@ -237,6 +237,19 @@
 								</div>
 							</div>
 						</div>
+						<div class="article-settings">
+							<div class="article-settings_i">
+								<a href="" class="article-settings_a article-settings_a__settings powertip" title="Настройки"></a>
+							</div>
+							<div class="article-settings_hold display-b">
+								<div class="article-settings_i">
+									<a href="" class="article-settings_a article-settings_a__add powertip"  title="Новый статус"></a>
+								</div>
+								<div class="article-settings_i">
+									<a href="" class="article-settings_a article-settings_a__edit powertip"  title="Редактировать"></a>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 				
@@ -263,9 +276,8 @@
 				<div class="about-self">
 					<h3 class="heading-small margin-b5">
 						О себе
-						<a href="" class="a-pseudo-icon">
+						<a href="" class="a-pseudo-icon powertip" title="Редактировать">
 							<span class="ico-edit"></span>
-							<span class="a-pseudo-icon_tx">Редактировать</span>
 						</a>
 					</h3>
 					<div class="about-self_ctn">Рада, что заглянули на мою страничку, а так же для вас открыта дверь моего дневника, возможно мы подружимся и найдем, что сказать друг другу... ах, да...обо мне... чувство юмора имеется, на шею не сажусь, проблемами не загружаю, мозг "не выношу".. ..пионеры, проходите мимо, все одно попадете в черны… </div>
@@ -310,7 +322,7 @@ $(function() {
 									<a class="ava small" href=""></a>
 								</div>
 								<div class="clearfix">
-									<a href="">и еще 358</a>
+									<span>и еще 358</span>
 									<a href="" class="btn-green btn-small margin-l20">Добавить мне</a>
 								</div>
 							</div>

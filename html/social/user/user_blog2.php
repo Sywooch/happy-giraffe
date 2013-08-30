@@ -202,15 +202,67 @@
 								<img alt="" src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg">
 							</a>
 						</div>
-						<div class="js-like-control">
+						<script>
+						$(window).load(function() {
+							/*
+							block - элемент, что фиксируется
+							elementStop - до какого элемента фиксируется
+							blockIndent - отступ
+							*/
+							function likeControlFixed(block, elementStop, blockIndent) {
+
+								var block = $(block);
+								var blockTop = block.offset().top;
+								var blockHeight = block.height();
+
+								var stopTop = $(elementStop).offset().top;
+								var blockStopTop = stopTop - blockTop - blockHeight - blockIndent;
+
+								$(window).scroll(function() {
+							        var windowScrollTop = $(window).scrollTop();
+							        if (windowScrollTop > blockTop-blockIndent && windowScrollTop+blockHeight < stopTop-blockIndent) {
+							        	block.css({
+											'position': 'fixed', 
+											'top'     : '20px'
+										});
+							        } else {
+
+										block.css({
+											'position': 'relative', 
+											'top'     : 'auto'
+										});
+							        	if (windowScrollTop+blockHeight > stopTop-20) {
+							        		
+							        		block.css({ 
+											'top'     : blockStopTop
+										});
+							        	}
+							        }
+							    });
+							}
+
+							likeControlFixed('.js-like-control', '.comments-gray', 20);
+						})
+						</script>
+						<div class="js-like-control" >
 							<div class="like-control like-control__self clearfix">
-								<a href="" class="like-control_ico like-control_ico__like">865</a>
+								<div class="position-rel">
+									<a href="" class="like-control_ico like-control_ico__like">865</a>
+									<div class="favorites-add-popup favorites-add-popup__right">
+										<div class="">Вы не можете ставить "Нравиться" к своей записи</div>
+									</div>
+								</div>
 								<div class="position-rel">
 									<a href="" class="like-control_ico like-control_ico__repost">5</a>
+									<div class="favorites-add-popup favorites-add-popup__right">
+										<div class="">Вы не можете делать репост своей записи</div>
+									</div>
 								</div>
 								<div class="position-rel">
 									<a href="" class="favorites-control_a">123865</a>
-									
+									<div class="favorites-add-popup favorites-add-popup__right">
+										<div class="">Вы не можете добавить свою запись в Избранное</div>
+									</div>
 								</div>
 							</div>
 							<div class="article-settings">
@@ -461,92 +513,178 @@
 
 				
 				<!-- Пример открытого статуса юзера -->
-					<div class="b-article b-article__user-status clearfix">
-						<div class="float-l">
-							<div class="like-control like-control__small-indent clearfix">
-								<a href="" class="ava male">
-									<span class="icon-status status-online"></span>
-									<img alt="" src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg">
+				<div class="b-article b-article__user-status clearfix">
+					<div class="float-l">
+						<div class="like-control like-control__small-indent clearfix">
+							<a href="" class="ava male">
+								<span class="icon-status status-online"></span>
+								<img alt="" src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg">
+							</a>
+						</div>
+						<div class="like-control clearfix">
+							<a href="" class="like-control_ico like-control_ico__like">865</a>
+							<a href="" class="like-control_ico like-control_ico__repost">5</a>
+							<a href="" class="like-control_ico like-control_ico__favorites active">123865</a>
+						</div>
+					</div>
+					<div class="b-article_cont clearfix">
+						<div class="b-article_cont-tale"></div>
+						<div class="b-article_header clearfix">
+							<div class="meta-gray">
+								<a href="" class="meta-gray_comment">
+									<span class="ico-comment ico-comment__gray"></span>
+									<span class="meta-gray_tx">35</span>
 								</a>
+								<div class="meta-gray_view">
+									<span class="ico-view ico-view__gray"></span>
+									<span class="meta-gray_tx">305</span>
+								</div>
 							</div>
-							<div class="like-control clearfix">
-								<a href="" class="like-control_ico like-control_ico__like">865</a>
-								<a href="" class="like-control_ico like-control_ico__repost">5</a>
-								<a href="" class="like-control_ico like-control_ico__favorites active">123865</a>
+							<div class="float-l">
+								<a href="" class="b-article_author">Ангелина Богоявленская</a>
+								<span class="font-smallest color-gray">Сегодня 13:25</span>
 							</div>
 						</div>
-						<div class="b-article_cont clearfix">
-							<div class="b-article_cont-tale"></div>
-							<div class="b-article_header clearfix">
-								<div class="meta-gray">
-									<a href="" class="meta-gray_comment">
-										<span class="ico-comment ico-comment__gray"></span>
-										<span class="meta-gray_tx">35</span>
-									</a>
-									<div class="meta-gray_view">
-										<span class="ico-view ico-view__gray"></span>
-										<span class="meta-gray_tx">305</span>
-									</div>
-								</div>
-								<div class="float-l">
-									<a href="" class="b-article_author">Ангелина Богоявленская</a>
-									<span class="font-smallest color-gray">Сегодня 13:25</span>
-								</div>
-							</div>
-							<div class="b-article_in clearfix">
-								<div class="b-article_user-status clearfix">
-									<span class="b-article_user-status-a">	Говори </span>
-									
-									<div class="textalign-r clearfix">
-										<div class="b-user-mood">
-											<div class="b-user-mood_hold">
-												<div class="b-user-mood_tx">Мое настроение -</div>
-											</div>
-											<div class="b-user-mood_img">
-												<img src="/images/widget/mood/6.png">
-											</div>
+						<div class="b-article_in clearfix">
+							<div class="b-article_user-status clearfix">
+								<span class="b-article_user-status-a">	Говори </span>
+								
+								<div class="textalign-r clearfix">
+									<div class="b-user-mood">
+										<div class="b-user-mood_hold">
+											<div class="b-user-mood_tx">Мое настроение -</div>
+										</div>
+										<div class="b-user-mood_img">
+											<img src="/images/widget/mood/6.png">
 										</div>
 									</div>
 								</div>
 							</div>
-							
-							<div class="custom-likes-b custom-likes-b__like-white">
-								<div class="custom-likes-b_slogan">Поделитесь с друзьями!</div>
-								<a href="" class="custom-like">
-									<span class="custom-like_icon odnoklassniki"></span>
-									<span class="custom-like_value">0</span>
-								</a>
-								<a href="" class="custom-like">
-									<span class="custom-like_icon vkontakte"></span>
-									<span class="custom-like_value">1900</span>
-								</a>
-							
-								<a href="" class="custom-like">
-									<span class="custom-like_icon facebook"></span>
-									<span class="custom-like_value">150</span>
-								</a>
-							
-								<a href="" class="custom-like">
-									<span class="custom-like_icon twitter"></span>
-									<span class="custom-like_value">10</span>
-								</a>
-							
-							
-								<div class="nav-article clearfix">
-									<div class="nav-article_left">
-										<a class="nav-article_arrow nav-article_arrow__left" href=""></a>
-										<a class="nav-article_a" href="">Очень красивые пропорции у нашего ведущего</a>
-									</div>
-									<div class="nav-article_right">
-										<a class="nav-article_arrow nav-article_arrow__right" href=""></a>
-										<a class="nav-article_a" href="">Очень красивые пропорции Очень красивые пропорции у нашего ведущего у нашего ведущего</a>
-									</div>
+						</div>
+						
+						<div class="custom-likes-b custom-likes-b__like-white">
+							<div class="custom-likes-b_slogan">Поделитесь с друзьями!</div>
+							<a href="" class="custom-like">
+								<span class="custom-like_icon odnoklassniki"></span>
+								<span class="custom-like_value">0</span>
+							</a>
+							<a href="" class="custom-like">
+								<span class="custom-like_icon vkontakte"></span>
+								<span class="custom-like_value">1900</span>
+							</a>
+						
+							<a href="" class="custom-like">
+								<span class="custom-like_icon facebook"></span>
+								<span class="custom-like_value">150</span>
+							</a>
+						
+							<a href="" class="custom-like">
+								<span class="custom-like_icon twitter"></span>
+								<span class="custom-like_value">10</span>
+							</a>
+						
+						
+							<div class="nav-article clearfix">
+								<div class="nav-article_left">
+									<a class="nav-article_arrow nav-article_arrow__left" href=""></a>
+									<a class="nav-article_a" href="">Очень красивые пропорции у нашего ведущего</a>
+								</div>
+								<div class="nav-article_right">
+									<a class="nav-article_arrow nav-article_arrow__right" href=""></a>
+									<a class="nav-article_a" href="">Очень красивые пропорции Очень красивые пропорции у нашего ведущего у нашего ведущего</a>
 								</div>
 							</div>
-							
-							<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/comments-gray-empty.php'; ?>
+						</div>
+						
+						<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/comments-gray-empty.php'; ?>
+
+					</div>
+				</div>
+
+
+				<div class="b-article clearfix">
+					<div class="float-l">
+						<div class="like-control like-control__small-indent clearfix">
+							<a href="" class="ava male">
+								<span class="icon-status status-online"></span>
+								<img alt="" src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg">
+							</a>
+						</div>
+						<div class="like-control clearfix">
+							<a href="" class="like-control_ico like-control_ico__like">865</a>
+							<div class="position-rel">
+								<a href="" class="like-control_ico like-control_ico__repost">5</a>
+								
+							</div>
+							<div class="position-rel">
+								<a href="" class="favorites-control_a active">123865</a>
+								
+							</div>
 						</div>
 					</div>
+					<div class="b-article_cont clearfix">
+						<div class="b-article_cont-tale"></div>
+						<div class="b-article_header clearfix">
+							<div class="meta-gray">
+								<a href="" class="meta-gray_comment">
+									<span class="ico-comment ico-comment__gray"></span>
+									<span class="meta-gray_tx">35</span>
+								</a>
+								<div class="meta-gray_view">
+									<span class="ico-view ico-view__gray"></span>
+									<span class="meta-gray_tx">305</span>
+								</div>
+							</div>
+							<div class="float-l">
+								<a href="" class="b-article_author">Ангелина Богоявленская</a>
+								<span class="font-smallest color-gray">Сегодня 13:25</span>
+							</div>
+						</div>
+						<h2 class="b-article_t">
+							<a href="" class="b-article_t-a">Самое лучшее утро </a>
+						</h2>
+						<div class="b-article_in clearfix">
+							<div class="wysiwyg-content clearfix">
+								<p>	Недавно посмотрел фильм </p>
+							</div>
+								
+						</div>
+						<div class="textalign-r margin-15">
+					        <a class="b-article_more" href="">Смотреть далее</a>
+					    </div>
+						<div class="comments-gray">
+							<div class="comments-gray_t"></div>
+							<div class="comments-gray_add clearfix">
+								
+								<div class="comments-gray_ava">
+									<a href="" class="ava small female"></a>
+								</div>
+								<div class="comments-gray_frame">
+									<input type="text" name="" id="" class="comments-gray_add-itx itx-gray" placeholder="Ваш комментарий">
+								</div>
+							</div>
+						</div>
+
+
+					</div>
+				</div>
+
+
+				<div class="menu-simple menu-simple__after-article">
+					<h3 class="margin-b15">Вам может быть интересно</h3>
+					<ul class="menu-simple_ul">
+						<li class="menu-simple_li">
+							<a class="menu-simple_a" href="">Как правильно встречать мужа с работы</a>
+						</li>
+						<li class="menu-simple_li">
+							<a class="menu-simple_a" href="">Детские передачи</a>
+						</li>
+						<li class="menu-simple_li">
+							<a class="menu-simple_a" href="">Рутина отношений убивает супружество</a>
+						</li>
+					</ul>
+				</div>
+
 			</div>
 		</div>
 		</div>

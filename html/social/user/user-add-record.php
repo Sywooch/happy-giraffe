@@ -10,37 +10,41 @@
 	<script type="text/javascript">
 	$(".chzn").chosen().ready(function(){
 	    
-	    $('.chzn-itx-simple').find('.chzn-drop').append("<div class='chzn-itx-simple_add'><div class='chzn-itx-simple_add-hold'> <input type='text' name='' id='' class='chzn-itx-simple_add-itx'> <a href='' class='chzn-itx-simple_add-del'></a> </div> <button class='btn-green'>Ok</button> </div>");
+	    $('.chzn-itx-simple').find('.chzn-drop').append("<div class='chzn-itx-simple_add clearfix'><button class='btn-green'>Ok</button><div class='chzn-itx-simple_add-hold'> <input type='text' name='' id='' class='chzn-itx-simple_add-itx' placeholder="Создать новую рубрику"> <a href='' class='chzn-itx-simple_add-del'></a> </div>  </div>");
 
 	  });
 	</script>
 
 	<script>
-    $('body').delegate('a.fancy-top', 'click', function () {
-        var onComplete_function = function () {
+	$(document).ready(function () {
 
-            var scTop = $(document).scrollTop();
-            var box = $('#fancybox-wrap');
 
-            boxTop = parseInt(Math.max(scTop + 20));
-            box
-                .stop()
-                .animate({
-                    'top' : boxTop
-                }, 200);
-            
-        };
+	    $('body').delegate('a.fancy-top', 'click', function () {
+	        var onComplete_function = function () {
 
-        $(this).clone().fancybox({
-            overlayColor:'#2d1a3f',
-            overlayOpacity:'0.6',
-            padding:0,
-            showCloseButton:false,
-            centerOnScroll:false,
-            onComplete:onComplete_function
-        }).trigger('click');
-        return false;
-    });
+	            var scTop = $(document).scrollTop();
+	            var box = $('#fancybox-wrap');
+
+	            boxTop = parseInt(Math.max(scTop + 20));
+	            box
+	                .stop()
+	                .animate({
+	                    'top' : boxTop
+	                }, 200);
+	            
+	        };
+
+	        $(this).clone().fancybox({
+	            overlayColor:'#2d1a3f',
+	            overlayOpacity:'0.6',
+	            padding:0,
+	            showCloseButton:false,
+	            centerOnScroll:false,
+	            onComplete:onComplete_function
+	        }).trigger('click');
+	        return false;
+	    });
+	})
 	</script>
 
 </head>
@@ -134,10 +138,25 @@
 							</a>
 						</div>
 						<div class="js-like-control">
-							<div class="like-control like-control__pinned clearfix">
-								<a href="" class="like-control_ico like-control_ico__like">865</a>
-								<a href="" class="like-control_ico like-control_ico__repost">5</a>
-								<a href="" class="like-control_ico like-control_ico__favorites active">123865</a>
+							<div class="like-control like-control__self clearfix">
+								<div class="position-rel">
+									<a href="" class="like-control_ico like-control_ico__like">865</a>
+									<div class="favorites-add-popup favorites-add-popup__right">
+										<div class="">Вы не можете ставить "Нравиться" к своей записи</div>
+									</div>
+								</div>
+								<div class="position-rel">
+									<a href="" class="like-control_ico like-control_ico__repost">5</a>
+									<div class="favorites-add-popup favorites-add-popup__right">
+										<div class="">Вы не можете делать репост своей записи</div>
+									</div>
+								</div>
+								<div class="position-rel">
+									<a href="" class="favorites-control_a">123865</a>
+									<div class="favorites-add-popup favorites-add-popup__right">
+										<div class="">Вы не можете добавить свою запись в Избранное</div>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -709,7 +728,7 @@
 					<div class="b-settings-blue_tale"></div>
 					<div class="b-settings-blue_head">
 						<div class="b-settings-blue_row clearfix">
-							<div class="clearfix">
+							<div class="clearfix margin-t-10">
 								<div class="float-r font-small color-gray margin-3">0/50</div>
 							</div>
 							<label for="" class="b-settings-blue_label">Заголовок</label>
@@ -722,8 +741,8 @@
 							<label for="" class="b-settings-blue_label">Рубрика</label>
 							<div class="w-400 float-l">
 								<div class="chzn-itx-simple">
-									<select class="chzn">
-										<option selected="selected">0</option>
+									<select class="chzn" data-placeholder="Выберите рубрику">
+										<option></option>
 										<option>Россия</option>
 										<option>2</option>
 										<option>32</option>						
@@ -734,15 +753,17 @@
 										<option>132</option>						
 										<option>132</option>						
 									</select>
-									<!-- <div class="chzn-itx-simple_add">
-										<div class="chzn-itx-simple_add-hold">
-											<input type="text" name="" id="" class="chzn-itx-simple_add-itx">
-											<a href="" class="chzn-itx-simple_add-del"></a>
+									<!--
+									<div class='chzn-itx-simple_add clearfix'>
+										<button class='btn-green'>Ok</button>
+										<div class='chzn-itx-simple_add-hold'>
+											<input type='text' name='' id='' class='chzn-itx-simple_add-itx' placeholder="Создать новую рубрику">
+											<a href='' class='chzn-itx-simple_add-del'></a>
 										</div>
-										<button class="btn-green">Ok</button>
-									</div> -->
+									</div>
+									-->
 								</div>
-								<div class="errorMessage">Необходимо выбрать рубрику.</div>
+								<div class="color-gray font-small margin-t5">Если вы не выберете рубрику, запись добавится в рубрику "Обо всем"</div>
 							</div>
 						</div>
 					</div>
@@ -1060,7 +1081,7 @@ $(document).ready(function () {
 					<div class="b-settings-blue_tale"></div>
 					<div class="b-settings-blue_head">
 						<div class="b-settings-blue_row clearfix">
-							<div class="clearfix">
+							<div class="clearfix margin-t-10">
 								<div class="float-r font-small color-gray margin-3">0/50</div>
 							</div>
 							<label for="" class="b-settings-blue_label">Заголовок</label>
@@ -1078,13 +1099,15 @@ $(document).ready(function () {
 										<option>Россия</option>
 										<option>2</option>						
 									</select>
-									<!-- <div class="chzn-itx-simple_add">
-										<div class="chzn-itx-simple_add-hold">
-											<input type="text" name="" id="" class="chzn-itx-simple_add-itx">
-											<a href="" class="chzn-itx-simple_add-del"></a>
+									<!--
+									<div class='chzn-itx-simple_add clearfix'>
+										<button class='btn-green'>Ok</button>
+										<div class='chzn-itx-simple_add-hold'>
+											<input type='text' name='' id='' class='chzn-itx-simple_add-itx'>
+											<a href='' class='chzn-itx-simple_add-del'></a>
 										</div>
-										<button class="btn-green">Ok</button>
-									</div> -->
+									</div>
+									-->
 								</div>
 								<div class="errorMessage">Введите рубрику</div>
 							</div>
@@ -1209,15 +1232,15 @@ $(document).ready(function () {
 							</div>
 							<label for="" class="b-settings-blue_label">Заголовок</label>
 							<div class="float-l w-400">
-								<input type="text" name="" id="" class="itx-simple w-400" placeholder="Введите заголовок видео">
+								<input type="text" name="" id="" class="itx-simple w-400" placeholder="Введите заголовок фото">
 							</div>
 						</div>
 						<div class="b-settings-blue_row clearfix">
 							<label for="" class="b-settings-blue_label">Рубрика</label>
 							<div class="w-400 float-l">
 								<div class="chzn-itx-simple">
-									<select class="chzn">
-										<option selected="selected">0</option>
+									<select class="chzn" data-placeholder="Выберите рубрику">
+										<option></option>
 										<option>Россия</option>
 										<option>2</option>
 										<option>32</option>						
@@ -1228,13 +1251,15 @@ $(document).ready(function () {
 										<option>132</option>						
 										<option>132</option>						
 									</select>
-									<!-- <div class="chzn-itx-simple_add">
-										<div class="chzn-itx-simple_add-hold">
-											<input type="text" name="" id="" class="chzn-itx-simple_add-itx">
-											<a href="" class="chzn-itx-simple_add-del"></a>
+									<!--
+									<div class='chzn-itx-simple_add clearfix'>
+										<button class='btn-green'>Ok</button>
+										<div class='chzn-itx-simple_add-hold'>
+											<input type='text' name='' id='' class='chzn-itx-simple_add-itx'>
+											<a href='' class='chzn-itx-simple_add-del'></a>
 										</div>
-										<button class="btn-green">Ok</button>
-									</div> -->
+									</div>
+									-->
 								</div>
 							</div>
 						</div>
@@ -1300,8 +1325,8 @@ $(document).ready(function () {
 							<label for="" class="b-settings-blue_label">Фотоальбом</label>
 							<div class="w-400 float-l">
 								<div class="chzn-itx-simple">
-									<select class="chzn">
-										<option selected="selected">0</option>
+									<select class="chzn" data-placeholder="Выберите рубрику">
+										<option></option>
 										<option>Россия</option>
 										<option>2</option>
 										<option>32</option>						
@@ -1312,13 +1337,15 @@ $(document).ready(function () {
 										<option>132</option>						
 										<option>132</option>						
 									</select>
-									<!-- <div class="chzn-itx-simple_add">
-										<div class="chzn-itx-simple_add-hold">
-											<input type="text" name="" id="" class="chzn-itx-simple_add-itx">
-											<a href="" class="chzn-itx-simple_add-del"></a>
+									<!--
+									<div class='chzn-itx-simple_add clearfix'>
+										<button class='btn-green'>Ok</button>
+										<div class='chzn-itx-simple_add-hold'>
+											<input type='text' name='' id='' class='chzn-itx-simple_add-itx'>
+											<a href='' class='chzn-itx-simple_add-del'></a>
 										</div>
-										<button class="btn-green">Ok</button>
-									</div> -->
+									</div>
+									-->
 								</div>
 							</div>
 						</div>
@@ -1389,8 +1416,8 @@ $(document).ready(function () {
 							<label for="" class="b-settings-blue_label">Фотоальбом</label>
 							<div class="w-400 float-l">
 								<div class="chzn-itx-simple">
-									<select class="chzn">
-										<option selected="selected">0</option>
+									<select class="chzn" data-placeholder="Выберите или создайте рубрику">
+										<option></option>
 										<option>Россия</option>
 										<option>2</option>
 										<option>32</option>						
@@ -1401,13 +1428,15 @@ $(document).ready(function () {
 										<option>132</option>						
 										<option>132</option>						
 									</select>
-									<!-- <div class="chzn-itx-simple_add">
-										<div class="chzn-itx-simple_add-hold">
-											<input type="text" name="" id="" class="chzn-itx-simple_add-itx">
-											<a href="" class="chzn-itx-simple_add-del"></a>
+									<!--
+									<div class='chzn-itx-simple_add clearfix'>
+										<button class='btn-green'>Ok</button>
+										<div class='chzn-itx-simple_add-hold'>
+											<input type='text' name='' id='' class='chzn-itx-simple_add-itx'>
+											<a href='' class='chzn-itx-simple_add-del'></a>
 										</div>
-										<button class="btn-green">Ok</button>
-									</div> -->
+									</div>
+									-->
 								</div>
 							</div>
 						</div>

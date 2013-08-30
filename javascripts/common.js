@@ -56,9 +56,9 @@ $(document).ready(function () {
         }
     });
 
-    $('.layout-container').scroll(function () {
-        var contanerScroll = $('.layout-container').scrollTop();
-        if (contanerScroll > $('#header-new').height()) {
+    $(window).scroll(function () {
+        var contanerScroll = $(window).scrollTop();
+        if (contanerScroll > $('.layout-header').height()) {
             $('#btn-up-page').fadeIn(600);
         } else {
             $('#btn-up-page').fadeOut(600)
@@ -66,7 +66,7 @@ $(document).ready(function () {
     });
 
     $('#btn-up-page').click(function () {
-        $('.layout-container').stop().animate({scrollTop:0}, "normal");
+        $('html').animate({scrollTop:0}, "normal");
         return false
     });
 
@@ -794,35 +794,9 @@ function HgLike(el, entity, entity_id){
     }, 'json');
 }
 
-$('body').delegate('a.fancy-top', 'click', function () {
-    var onComplete_function = function () {
+(function($) {
 
-        var scTop = $(document).scrollTop();
-        var box = $('#fancybox-wrap');
-
-        boxTop = parseInt(Math.max(scTop + 20));
-        box
-            .stop()
-            .animate({
-                'top' : boxTop
-            }, 200);
-
-    };
-
-    $(this).clone().fancybox({
-        overlayColor:'#2d1a3f',
-        overlayOpacity:'0.6',
-        padding:0,
-        showCloseButton:false,
-        centerOnScroll:false,
-        onComplete:onComplete_function
-    }).trigger('click');
-    return false;
-});
-
-(function($) { 
-
-    var defaults = { 
+    var defaults = {
         posTop : 42,
         minPosBottom : 200
     };
@@ -857,4 +831,36 @@ $('body').delegate('a.fancy-top', 'click', function () {
     };
 
 })(jQuery);
+
+
+//блок поиска
+$(function() {
+    SiteSearch.init();
+
+    $('body').delegate('a.js-hg_alert', 'click', function(e){
+        $(this).next().fadeIn(200).delay(2000).fadeOut(200);
+        e.preventDefault();
+    });
+});
+
+var SiteSearch = {
+    init:function(){
+        if ($('#site-search').val() != '')
+            $('#site-search-btn').addClass('active');
+    },
+    keyUp: function(el){
+        if ($(el).val() != '')
+            $('#site-search-btn').addClass('active');
+        else
+            $('#site-search-btn').removeClass('active');
+    },
+    click:function(){
+        if ($('#site-search').val() != ''){
+            $('#site-search').val('');
+            $('#site-search-btn').removeClass('active');
+            return false;
+        }
+        return true;
+    }
+}
 

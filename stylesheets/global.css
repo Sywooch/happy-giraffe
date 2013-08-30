@@ -25,7 +25,7 @@
   background: #fff;
 }
 .aside-filter_search-btn {
-  background: url("/images/col-1_search-btn.png") no-repeat 50% 50%;
+  background: url("/images/col-1_search-btn.png") no-repeat 0 50%;
   border: 0;
   cursor: pointer;
   float: right;
@@ -534,7 +534,7 @@
 .friends-list_i {
   display: inline-block;
   vertical-align: top;
-  margin: 0px 13px 30px 12px;
+  margin: 5px 13px 25px 12px;
   width: 206px;
   text-align: center;
   position: relative;
@@ -543,6 +543,7 @@
   display: block;
   width: 205px;
   height: 205px;
+  margin-top: 10px;
   background: url(/images/friends-list_find.png) no-repeat;
 }
 .friends-list_find:hover {
@@ -2666,7 +2667,11 @@
 .redactor_editor .a-imitation,
 .redactor_editor a {
   color: #319fe4 !important;
-  text-decoration: none !important;
+  text-decoration: underline !important;
+}
+.redactor_editor .a-imitation:hover,
+.redactor_editor a:hover {
+  text-decoration: none;
 }
 .redactor_editor ul {
   margin: 15px 0;
@@ -6668,24 +6673,30 @@
 }
 #calories-calculator div.title {
   height: 285px;
-  background: #ffffff url(/images/bg_calories_calculator_title.jpg) no-repeat right 20px;
+  background: #ffffff url(/images/bg_calories_calculator_title.jpg) no-repeat right 40px;
   padding: 30px 20px 30px 30px;
   font-weight: 400;
+  -webkit-border-top-right-radius: 5px;
+  -moz-border-top-right-radius: 5px;
+  border-top-right-radius: 5px;
+  -webkit-border-top-left-radius: 5px;
+  -moz-border-top-left-radius: 5px;
+  border-top-left-radius: 5px;
 }
 #calories-calculator div.title span {
   font-family: tahoma, arial, helvetica, sans-serif;
   display: block;
   font-size: 45px;
   color: #88ab20;
-  margin: 25px 0 15px;
+  margin: 50px 0 25px;
 }
 #calories-calculator div.title h2 {
   font-family: tahoma, arial, helvetica, sans-serif;
   font-weight: 400;
   font-size: 31px;
   color: #9bc12b;
-  line-height: 1;
-  margin-bottom: 30px;
+  line-height: 1.05;
+  margin-bottom: 60px;
 }
 #calories-calculator div.title h1 {
   font-size: 32px;
@@ -6747,6 +6758,7 @@
   font-size: 18px;
   text-align: left;
   padding-left: 13px;
+  color: #333;
 }
 #calories-calculator .calculator table tbody input[type=text] {
   width: 100%;
@@ -6803,12 +6815,13 @@
 #calories-calculator .calculator table tbody .col-2 input {
   width: 40px;
   text-align: center;
+  margin: 0 7px;
 }
 #calories-calculator .calculator table tbody .col-3 {
   padding-right: 10px;
 }
 #calories-calculator .calculator table tr.summary td {
-  background: #fdfbe9;
+  background: #fffee0;
 }
 #calories-calculator .calculator table tr.summary .btn-green {
   margin-bottom: 10px;
@@ -6825,7 +6838,7 @@
   font-weight: bold;
 }
 #calories-calculator .calculator table tr.summary .col-8 {
-  background: #fff;
+  background: #fafafa;
 }
 #calories-calculator .calculator table .remove {
   display: inline-block;
@@ -6852,7 +6865,7 @@
 #calories-calculator .wysiwyg-content h2 {
   margin-top: 0;
   font-weight: normal;
-  color: #4c4d4d;
+  color: #333;
 }
 #spices .title {
   height: 114px;
@@ -9715,11 +9728,15 @@
 /* /map-route-desc */
 /* /services route map */
 /* names version 1 */
-.right_block .choice_name {
+#baby .right_block {
+  padding: 0;
+  background: none;
+}
+#baby .choice_name {
   background: url("/images/choice_name.jpg") no-repeat left top;
   height: 287px;
 }
-#content .right_block .choice_name div.title-in {
+#baby .choice_name div.title-in {
   font-size: 50px;
   color: #505152;
   position: relative;
@@ -9729,18 +9746,18 @@
   background: none;
   font-weight: bold;
 }
-#content .right_block .choice_name div.title-in span {
+#baby .choice_name div.title-in span {
   font-weight: normal;
   display: block;
   margin-left: 260px;
 }
-.right_block ul.choice_name_navi {
+#baby ul.choice_name_navi {
   position: absolute;
   bottom: 0;
   margin: 0 0 0 204px;
   padding: 0;
 }
-.right_block ul.choice_name_navi li {
+#baby ul.choice_name_navi li {
   list-style: none;
   float: left;
   height: 60px;
@@ -9748,7 +9765,7 @@
   padding: 0 0 0 14px;
   margin: 0 3px 0 0;
 }
-.right_block ul.choice_name_navi li a {
+#baby ul.choice_name_navi li a {
   font-size: 18px;
   height: 19px;
   padding: 21px 9px 20px 9px;
@@ -9758,86 +9775,86 @@
   text-decoration: none;
   background: url("../images/name_navi_bg.png") repeat left top;
 }
-.right_block ul.choice_name_navi li a ins {
+#baby ul.choice_name_navi li a ins {
   text-decoration: none;
 }
-.right_block ul.choice_name_navi li a:hover ins {
+#baby ul.choice_name_navi li a:hover ins {
   border-bottom: none;
 }
-.right_block ul.choice_name_navi li span {
+#baby ul.choice_name_navi li span {
   display: block;
   float: left;
   background: url("../images/name_navi_right.png") no-repeat left top;
   width: 14px;
   height: 60px;
 }
-.right_block ul.choice_name_navi li.active,
-.right_block ul.choice_name_navi li.like.active {
+#baby ul.choice_name_navi li.active,
+#baby ul.choice_name_navi li.like.active {
   background: url("../images/name_navi_active_left.png") no-repeat left top;
   padding: 0 0 0 18px;
 }
-.right_block ul.choice_name_navi li.active a,
-.right_block ul.choice_name_navi li.like.active a {
+#baby ul.choice_name_navi li.active a,
+#baby ul.choice_name_navi li.like.active a {
   color: #724c99;
   background: #fff;
   border-bottom: none;
   padding: 21px 5px 20px 5px;
 }
-.right_block ul.choice_name_navi li.active span,
-.right_block ul.choice_name_navi li.like.active span {
+#baby ul.choice_name_navi li.active span,
+#baby ul.choice_name_navi li.like.active span {
   background: url("../images/name_navi_active_right.png") no-repeat left top;
   width: 18px;
 }
-.right_block ul.choice_name_navi li.like {
+#baby ul.choice_name_navi li.like {
   background: url("../images/name_navi_like_left.png") no-repeat left top;
 }
-.right_block ul.choice_name_navi li.like a {
+#baby ul.choice_name_navi li.like a {
   background: url("../images/name_navi_like_bg.png") repeat left top;
 }
-.right_block ul.choice_name_navi li.like span {
+#baby ul.choice_name_navi li.like span {
   background: url("../images/name_navi_like_right.png") no-repeat left top;
 }
-ul.letters {
+#baby ul.letters {
   margin: 24px 0 0 0;
   padding: 12px 11px 12px 70px;
   background: #fefceb;
 }
-ul.letters li {
+#baby ul.letters li {
   display: inline;
   list-style: none;
   font-size: 14px;
   padding: 2px 9px 2px 8px;
   margin: 0;
 }
-ul.letters.month {
+#baby ul.letters.month {
   padding: 12px 0 12px 70px;
 }
-ul.letters.month li {
+#baby ul.letters.month li {
   padding: 2px 10px 2px 12px;
 }
-ul.letters li.active {
+#baby ul.letters li.active {
   font-size: 20px;
   font-weight: bold;
   color: #ee309b;
   background: #fdf496;
 }
-ul.letters li.active a {
+#baby ul.letters li.active a {
   color: #ee309b;
 }
-ul.letters li a {
+#baby ul.letters li a {
   color: #272527;
   text-decoration: none;
 }
-ul.letters li a:hover {
+#baby ul.letters li a:hover {
   text-decoration: underline;
 }
-.content_block {
-  padding: 29px 11px 0 70px;
+#baby .content_block {
+  padding: 29px 0px 0 60px;
 }
-.content_block .view_name {
+#baby .content_block .view_name {
   float: right;
 }
-.content_block .view_name a {
+#baby .content_block .view_name a {
   float: left;
   display: block;
   zoom: 1;
@@ -9847,46 +9864,46 @@ ul.letters li a:hover {
   margin: 0 7px 0 2px;
   font-size: 11px;
 }
-.content_block .view_name p {
+#baby .content_block .view_name p {
   float: left;
   font-size: 13px;
   color: #b6b6b6;
   margin: 41px 23px 0 0;
 }
-.content_block .view_name a.active {
+#baby .content_block .view_name a.active {
   background-color: #fdf5a2;
 }
-.content_block .view_name a.all_names {
+#baby .content_block .view_name a.all_names {
   background-image: url("../images/all_names.png");
   background-repeat: no-repeat;
   background-position: center 11px;
 }
-.content_block .view_name a.boy_names {
+#baby .content_block .view_name a.boy_names {
   background-image: url("../images/boy_names.png");
   background-repeat: no-repeat;
   background-position: center 11px;
 }
-.content_block .view_name a.girl_names {
+#baby .content_block .view_name a.girl_names {
   background-image: url("../images/girl_names.png");
   background-repeat: no-repeat;
   background-position: center 13px;
   color: #ffaed2;
 }
-.content_block .names_header {
+#baby .content_block .names_header {
   font-size: 25px;
   line-height: 35px;
   font-weight: bold;
   color: #3088b1;
   padding: 22px 0 0 0;
 }
-.content_block .names_header.like {
+#baby .content_block .names_header.like {
   background: url("../images/heart_like_big.png") no-repeat right top;
   display: inline-block;
   *zoom: 1;
   *display: inline;
   padding: 36px 74px 0 0;
 }
-.content_block .names_header span {
+#baby .content_block .names_header span {
   font-size: 45px;
   color: #fd4195;
   padding: 5px 20px;
@@ -9895,7 +9912,7 @@ ul.letters li a:hover {
   top: -8px;
   background-color: #fdf5a2;
 }
-.content_block .names_header.calendar span {
+#baby .content_block .names_header.calendar span {
   font-size: 25px;
   top: 0;
 }
@@ -9981,7 +9998,7 @@ ul.letters li a:hover {
   font-weight: bold;
   color: #605f5f;
 }
-#content .name_info h1 {
+#baby .name_info h1 {
   display: inline-block;
   *zoom: 1;
   *display: inline;
@@ -9991,7 +10008,7 @@ ul.letters li a:hover {
   font-weight: bold;
   color: #fb3da8;
 }
-#content .name_info a.like_name {
+#baby .name_info a.like_name {
   display: inline-block;
   *zoom: 1;
   *display: inline;
@@ -9999,7 +10016,7 @@ ul.letters li a:hover {
   width: 70px;
   height: 48px;
 }
-#content .name_info a.like_name.empty_heart {
+#baby .name_info a.like_name.empty_heart {
   background: url("../images/name_heart_empty_big.png") no-repeat right top;
 }
 .name_info p.name {
@@ -10008,13 +10025,13 @@ ul.letters li a:hover {
   line-height: 20px;
   padding: 27px 0 0 0;
 }
-#content .name_info h1.boy {
+#baby .name_info h1.boy {
   color: #2CA3FE;
 }
 .name_info p.name span.boy {
   color: #2CA3FE;
 }
-#content .name_info h1.girl {
+#baby .name_info h1.girl {
   color: #fb3da8;
 }
 .name_info p.name span.girl {
@@ -10220,7 +10237,6 @@ ul.letters li a:hover {
   -moz-border-radius: 15px;
   -ms-border-radius: 15px;
   border-radius: 15px;
-  behavior: url(/stylesheets/PIE.htc);
 }
 .aside-search_submit {
   position: absolute;
@@ -10269,8 +10285,6 @@ ul.letters li a:hover {
 }
 .aside-menu .ico-name-favorites {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   width: 27px;
   height: 33px;
   margin-right: 6px;
@@ -10278,8 +10292,6 @@ ul.letters li a:hover {
 }
 .aside-menu_a-hold {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
   vertical-align: middle;
   line-height: 13px;
 }
@@ -13124,7 +13136,7 @@ table.fr_recipe_tb td {
   position: relative;
   float: left;
   width: 580px;
-  min-height: 102px;
+  min-height: 103px;
   padding: 12px 0 0;
   background: #fff;
   -webkit-border-radius: 3px;
@@ -13385,6 +13397,9 @@ table.fr_recipe_tb td {
 .like-control__self .like-control_ico__repost:hover {
   background-position: -45px 0;
 }
+.like-control__self .favorites-control_a:hover {
+  background-position: -90px 0;
+}
 .like-control_ico {
   display: inline-block;
   min-width: 45px;
@@ -13426,7 +13441,7 @@ table.fr_recipe_tb td {
 }
 .like-control_repost-complete {
   display: inline-block;
-  margin: 5px auto 3px;
+  margin: 6px auto 3px;
   width: 22px;
   height: 14px;
   background: url(/images/like-control_repost-complete.png) no-repeat;
@@ -13605,8 +13620,7 @@ table.fr_recipe_tb td {
   font-size: 18px;
 }
 .photo-preview-row_add {
-  display: inline-block;
-  vertical-align: middle;
+  float: left;
   width: 121px;
   height: 104px;
   margin: 0 0 0 5px;
@@ -14322,6 +14336,11 @@ table.fr_recipe_tb td {
 }
 .article-settings_hold {
   display: none;
+  background: #f0f0f0;
+  padding-bottom: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
 }
 .article-settings_a {
   display: inline-block;
@@ -14363,6 +14382,13 @@ table.fr_recipe_tb td {
 .article-settings_a__delete.active,
 .article-settings_a__delete:hover {
   background-position: -160px -30px;
+}
+.article-settings_a__add {
+  background-position: -200px 0;
+}
+.article-settings_a__add.active,
+.article-settings_a__add:hover {
+  background-position: -200px -30px;
 }
 .article-settings_drop {
   position: absolute;
@@ -15142,7 +15168,7 @@ table.fr_recipe_tb td {
 /* b-user-status */
 .b-user-status {
   margin: 0 20px 40px;
-  padding: 15px 50px;
+  padding: 15px 60px;
   background: #cdecff;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
@@ -15156,6 +15182,12 @@ table.fr_recipe_tb td {
   width: 46px;
   height: 23px;
   background: url(/images/b-user-status__after.png) no-repeat;
+}
+.b-user-status .article-settings {
+  position: absolute;
+  top: -5px;
+  right: 15px;
+  width: 40px;
 }
 .b-user-status_hold {
   margin: 15px 0 0;
@@ -15336,6 +15368,9 @@ table.fr_recipe_tb td {
 }
 .b-interest_li:hover .b-interest_i__green {
   color: #fff;
+}
+.b-interest_li:hover .b-interest_popup {
+  display: block;
 }
 .b-interest_li .b-itx-add {
   margin: -3px 0 -2px;
@@ -15553,6 +15588,7 @@ table.fr_recipe_tb td {
   border-radius: 50px;
 }
 .user-awards_popup {
+  display: none;
   position: absolute;
   z-index: 10;
   top: 60px;
@@ -15752,7 +15788,7 @@ table.fr_recipe_tb td {
 /* /club-list */
 /* section-user */
 .section-lilac {
-  margin: 20px -9000px 16px;
+  margin: 0 -9000px 16px;
   padding: 20px 9000px 25px;
   background: #ac8fc5;
   color: #fff;
@@ -16010,6 +16046,9 @@ table.fr_recipe_tb td {
 }
 .user-btns_ico-hold__friend .user-btns_ico {
   background-position: -150px 0;
+}
+.user-btns_ico-hold__friend {
+  background: #fee652;
 }
 .user-btns_ico {
   display: block;

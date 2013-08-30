@@ -23,7 +23,7 @@ Yii::app()->clientScript
                         <ul class="b-family_ul">
                             <li class="b-family_li" data-bind="with: me">
                                 <div class="b-family_img-hold">
-                                    <div class="ico-family" data-bind="css: cssClass"></div>
+                                    <div class="ico-family" data-bind="css: cssClass()"></div>
                                 </div>
                                 <div class="b-family_tx">
                                     <span>Я</span>

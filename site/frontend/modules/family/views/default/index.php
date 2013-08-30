@@ -322,6 +322,9 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
                     <!-- ko if: photoToShow() !== null -->
                     <img alt="" class="family-settings_photo-img" data-bind="attr: { src : photoToShow().bigThumbSrc }">
                     <!-- /ko -->
+                    <!-- ko if: photoToShow() === null -->
+                    <div class="ico-family-big" data-bind="css: bigCssClass()"></div>
+                    <!-- /ko -->
                 </div>
             </div>
             <div class="family-settings_desc">

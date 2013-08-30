@@ -19,6 +19,7 @@
                 ->registerCoreScript('jquery')
                 ->registerCoreScript('yiiactiveform')
                 ->registerPackage('ko_layout')
+                ->registerPackage('ko_post')
 
                 ->registerCssFile('/stylesheets/jquery.fancybox-1.3.4.css')
                 ->registerScriptFile('/javascripts/jquery.fancybox-1.3.4.js')

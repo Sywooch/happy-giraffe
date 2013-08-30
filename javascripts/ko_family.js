@@ -377,7 +377,8 @@ var FamilyMainViewModel = function(data) {
     $('#upload-target').on('load', function() {
         var response = $(this).contents().find('#response').text();
         if (response.length > 0) {
-            self.partner().photos.push(new FamilyMainPhoto(response));
+            var data = $.parseJSON(response);
+            self.partner().photos.unshift(new FamilyMainPhoto(data, self.partner()));
         }
     });
 }
@@ -572,7 +573,6 @@ var FamilyMainPhoto = function(data, parent) {
     self.smallThumbSrc = data.smallThumbSrc;
 
     self.open = function() {
-        alert('123');
         PhotoCollectionViewWidget.open('AttachPhotoCollection', { entityName : 'UserPartner', entityId : parent.id }, self.id);
     }
 }

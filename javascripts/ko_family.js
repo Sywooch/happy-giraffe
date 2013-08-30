@@ -460,7 +460,7 @@ var FamilyMainPartner = function(data, parent) {
     self.NOTICE_VALUES = ['О моей жене', 'О моей невесте', 'О моей подруге', 'О моем муже', 'О моем женихе', 'О моем друге'];
     self.PHOTOS_VALUES = ['Фото моей жены', 'Фото моей невесты', 'Фото моей подруги', 'Фото моего мужа', 'Фото моего жениха', 'Фото моего друга'];
     self.PHOTO_UPLOAD_URL = '/family/partner/uploadPhoto/';
-    self.PHOTO_UPLOAD_TARGET = 'parter-upload-target';
+    self.PHOTO_UPLOAD_TARGET = 'partner-upload-target';
     self.ENTITY_NAME = 'UserPartner';
 
     self.saveName = function() {
@@ -596,7 +596,12 @@ var FamilyMainPhoto = function(data, parent) {
     self.smallThumbSrc = data.smallThumbSrc;
 
     self.open = function() {
-        console.log(parent);
         PhotoCollectionViewWidget.open('AttachPhotoCollection', { entityName : parent.ENTITY_NAME, entityId : parent.id }, self.id);
+    }
+
+    self.remove = function() {
+        $.post('/albums/removeUploadPhoto/', { id : self.id }, function() {
+            parent.photos.remove(self);
+        });
     }
 }

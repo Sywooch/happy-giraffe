@@ -15,10 +15,13 @@ class PhotoCollectionViewWidget extends CWidget
     public $minPhotos = 2;
     public $maxRows = false;
     public $return = false;
+    public $registerScripts = false;
 
     public function run()
     {
         $this->registerScripts();
+        if ($this->registerScripts)
+            return true;
 
         $grid = array();
         $buffer = array();

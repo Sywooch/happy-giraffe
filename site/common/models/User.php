@@ -1411,7 +1411,7 @@ class User extends HActiveRecord
                     return array(
                         'id' => $photo->id,
                         'bigThumbSrc' => $photo->getPreviewUrl(220, null, Image::WIDTH),
-                        'smallThumbSrc' => $photo->getPreviewUrl(null, 150, Image::HEIGHT),
+                        'smallThumbSrc' => $photo->getPreviewUrl(null, 105, Image::HEIGHT),
                     );
                 }, $partnerPhotoCollectionPhotos),
             ),

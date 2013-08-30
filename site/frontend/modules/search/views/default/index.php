@@ -4,15 +4,12 @@
  */
 
 Yii::app()->clientScript->registerPackage('ko_search');
-
-Yii::import('application.widgets.newCommentWidget.NewCommentWidget');
-NewCommentWidget::registerScripts();
 ?>
 
 <div class="content-search">
     <div class="content-search_top clearfix">
         <div class="content-search_t">
-            <a href="" class="ava small"></a>
+            <?php if (!Yii::app()->user->isGuest) $this->widget('Avatar', array('user' => Yii::app()->user->model, 'size' => Avatar::SIZE_MICRO)); ?>
             Я ищу
         </div>
         <div class="content-search_itx-hold">

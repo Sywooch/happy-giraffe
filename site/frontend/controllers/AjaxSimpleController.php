@@ -59,14 +59,17 @@ class AjaxSimpleController extends CController
         $model->source_id = $source->id;
         $model->type_id = CommunityContent::TYPE_REPOST;
         $model->author_id = Yii::app()->user->id;
+        if (!empty($data['rubric_id']))
+            $model->rubric_id = $data['rubric_id'];
         $model->title = $source->title;
         $model->preview = trim(strip_tags($data['note']));
-        if ($model->save())
+        if ($model->save()){
             $response = array('success' => true);
+            PostRating::reCalc($source);
+        }
         else
-            $response = array('success' => false);
+            $response = array('success' => false, 'errors'=>$model->getErrorsText());
         echo CJSON::encode($response);
-        PostRating::reCalc($source);
     }
 
     /**
@@ -220,7 +223,7 @@ class AjaxSimpleController extends CController
     public function actionUploadAvatar()
     {
         foreach ($_FILES as $file)
-            $model = AlbumPhoto::model()->createUserTempPhoto($file, 1);
+            $model = AlbumPhoto::model()->createUserTempPhoto($file);
 
         list($width, $height) = getimagesize($model->getOriginalPath());
         $model->getPreviewUrl(200, 200, false, true);
@@ -237,12 +240,15 @@ class AjaxSimpleController extends CController
     {
         $photos = AlbumPhoto::model()->findAllByPk(Yii::app()->request->getPost('photo_ids'));
         $album = Album::model()->findByPk(Yii::app()->request->getPost('album_id'));
+        if (empty($album))
+            $album = Album::getAlbumByType(Yii::app()->user->id, Album::TYPE_PRIVATE);
 
         if ($album->author_id == Yii::app()->user->id)
             foreach ($photos as $photo) {
                 if ($photo->author_id == Yii::app()->user->id) {
                     $photo->album_id = $album->id;
-                    $photo->update(array('album_id'));
+                    $photo->hidden = 0;
+                    $photo->save();
                 }
             }
 
@@ -259,8 +265,6 @@ class AjaxSimpleController extends CController
     public function actionAlbumValidate()
     {
         $errors = array();
-        if (empty($_POST['AlbumPhoto']['album_id']))
-            $errors ['AlbumPhoto_album_id'] = array('Выберите альбом');
         if (isset($_POST['AlbumPhoto']['id']) && empty($_POST['AlbumPhoto']['id']))
             $errors ['AlbumPhoto_id'] = array('Добавьте хотя бы одну фотографию');
 

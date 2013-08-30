@@ -1,9 +1,9 @@
 <div class="widget-friends clearfix">
     <div class="clearfix">
         <?php if (!$this->isMyProfile):?>
-            <a href="<?=Yii::app()->createUrl('/profile/default/friends', array('user_id' => $user->id)) ?>" class="heading-small">Мои друзья <span class="color-gray">(<?=$user->getFriendsCount() ?>)</span> </a>
+            <a href="<?=Yii::app()->createUrl('/profile/default/friends', array('user_id' => $user->id)) ?>" class="heading-small">Мои друзья </a>&nbsp;<span class="heading-small color-gray">(<?=$user->getFriendsCount() ?>)</span>
         <?php else: ?>
-            <a href="<?=Yii::app()->createUrl('/friends/default/index') ?>" class="heading-small">Мои друзья <span class="color-gray">(<?=$user->getFriendsCount() ?>)</span> </a>
+            <a href="<?=Yii::app()->createUrl('/friends/default/index') ?>" class="heading-small">Мои друзья</a>&nbsp;<span class="heading-small color-gray">(<?=$user->getFriendsCount() ?>)</span>
         <?php endif ?>
     </div>
     <ul class="widget-friends_ul clearfix">

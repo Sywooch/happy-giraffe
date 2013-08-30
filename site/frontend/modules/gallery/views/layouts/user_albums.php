@@ -1,4 +1,4 @@
-<?php $this->beginContent('//layouts/common_new'); ?>
+<?php $this->beginContent('//layouts/main'); ?>
     <div class="content-cols clearfix">
         <div class="col-1">
             <?php $this->widget('Avatar', array('user' => $this->user, 'size' => 200, 'location' => true, 'age' => true)); ?>

@@ -44,7 +44,7 @@ if (Yii::app()->user->id != $user->id):
     </div>
 <?php else: ?>
     <div class="b-ava-large">
-        <a href="#popup-upload-ava" class="ava large fancy" data-theme="transparent" data-bind="click:load">
+        <a href="#popup-upload-ava" class="ava <?= $user->gender == 1 ? 'male' : 'female' ?> large fancy" data-theme="transparent" data-bind="click:load">
             <?php if (!empty($user->avatar_id)):?>
                 <img src="<?= $user->getAvatarUrl(Avatar::SIZE_LARGE) ?>" alt=""/>
                 <span class="b-ava-large_photo-change">Изменить <br>главное фото</span>
@@ -103,12 +103,12 @@ if (Yii::app()->user->id != $user->id):
 
                                 </div>
                             </div>
-                            <div class="popup-upload-ava_right" data-bind="visible: status() == 2">
+                            <div class="popup-upload-ava_right">
                                 <div class="popup-upload-ava_t">Просмотр</div>
                                 <div class="popup-upload-ava_prev">
                                     <div class="b-ava-large">
-                                        <div class="ava large">
-                                            <img id="preview" src="" alt="" data-bind="attr: {src: image_url()}"/>
+                                        <div class="ava <?= $user->gender == 1 ? 'male' : 'female' ?> large">
+                                            <img id="preview" src="" alt="" data-bind="attr: {src: image_url()}, visible: status() == 2"/>
                                         </div>
                                     </div>
                                 </div>
@@ -130,140 +130,6 @@ if (Yii::app()->user->id != $user->id):
     </div>
 <?php endif; ?>
 <script type="text/javascript">
-    var UserAva = function (data, container_selector) {
-        var self = this;
-        self.image_url = ko.observable(data.image_url);
-        self.old_url = ko.observable(self.image_url());
-        self.id = ko.observable(data.source_id);
-        self.status = ko.observable(0);
-        self._progress = ko.observable(0);
-
-        self.jcrop_api = null;
-        self.width = data.width;
-        self.height = data.height;
-        self.coordinates = data.coordinates;
-
-        self.load = function () {
-            if (self.image_url()) {
-                self.status(2);
-                $('#jcrop_target').Jcrop({
-                    trueSize: [self.width, self.height],
-                    onChange: self.showPreview,
-                    onSelect: self.showPreview,
-                    aspectRatio: 1,
-                    boxWidth: 438,
-                    minSize: [200, 200]
-                }, function () {
-                    self.jcrop_api = this;
-                });
-
-                if (self.coordinates.length > 0) {
-                    setTimeout(function () {
-                        self.jcrop_api.setSelect(self.coordinates);
-                    }, 200);
-                }
-            }
-        };
-
-        self.save = function () {
-            $.post('/profile/setAvatar/', {source_id: self.id, coordinates: self.coordinates}, function (response) {
-                if (response.status) {
-                    window.location.reload();
-                }
-            }, 'json');
-        };
-        self.cancel = function () {
-            self.image_url(self.old_url());
-            $.fancybox.close();
-            window.setTimeout(function(){
-                self.status(0);
-                if (self.jcrop_api != null)
-                    self.jcrop_api.destroy();
-            }, 500);
-        };
-
-        self.showPreview = function (coordinates) {
-            self.coordinates = coordinates;
-            var rx = 200 / coordinates.w;
-            var ry = 200 / coordinates.h;
-
-            $('#preview').css({
-                width: Math.round(rx * self.width) + 'px',
-                height: Math.round(ry * self.height) + 'px',
-                marginLeft: '-' + Math.round(rx * coordinates.x) + 'px',
-                marginTop: '-' + Math.round(ry * coordinates.y) + 'px'
-            });
-        };
-
-        self.upload = function () {
-            if (self.jcrop_api !== null)
-                self.jcrop_api.destroy();
-            self.status(1);
-        };
-
-        self.progress = ko.computed(function () {
-            return self._progress() + '%';
-        });
-
-        self.complete = function(response){
-            self.width = response.width;
-            self.height = response.height;
-            self.id(response.id);
-            self.image_url(response.image_url);
-            self.status(2);
-
-            setTimeout(function () {
-                self.status(2);
-                $('#jcrop_target').Jcrop({
-                    setSelect: [200, 200, 120, 120],
-                    trueSize: [self.width, self.height],
-                    onChange: self.showPreview,
-                    onSelect: self.showPreview,
-                    aspectRatio: 1,
-                    boxWidth: 438,
-                    minSize: [200, 200]
-                }, function () {
-                    self.jcrop_api = this;
-                });
-            }, 200);
-        };
-
-        self.remove = function(){
-            if (self.jcrop_api !== null)
-                self.jcrop_api.destroy();
-            self.image_url(null);
-            self.status(0);
-            self.id = ko.observable(null);
-        };
-
-        $.each($('.b-add-img'), function () {
-            $(this)[0].ondragover = function () {
-                $('.b-add-img').addClass('dragover')
-            };
-            $(this)[0].ondragleave = function () {
-                $('.b-add-img').removeClass('dragover')
-            };
-        });
-
-        $(container_selector + ' .js-upload-files-multiple').fileupload({
-            dataType: 'json',
-            url: '/ajaxSimple/uploadAvatar/',
-            dropZone: $('#upload_ava_block'),
-            add: function (e, data) {
-                self.upload();
-                data.submit();
-            },
-            done: function (e, data) {
-                self.complete(data.result);
-            }
-        });
-
-        $(container_selector+' .js-upload-files-multiple').bind('fileuploadprogress', function (e, data) {
-            self._progress(data.loaded * 100 / data.total);
-        });
-
-    };
-
     var vm = new UserAva(<?=CJSON::encode($json)?>, '#popup-upload-ava');
     ko.applyBindings(vm, document.getElementById('#popup-upload-ava'));
 </script>

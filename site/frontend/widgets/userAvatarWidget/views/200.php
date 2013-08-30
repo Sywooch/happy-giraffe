@@ -24,7 +24,7 @@
             <span class="b-ava-large_bubble-tx"><?=$this->user->getPhotosCount() ?></span>
         </a>
 
-        <?php if ($this->blog_link): ?>
+        <?php if ($this->blog_link && $this->user->hasBlogPosts()): ?>
             <?php $blogUrl = $this->user->getBlogUrl(); if ($blogUrl !== false): ?>
             <a href="<?=$this->user->getBlogUrl()?>" class="b-ava-large_bubble b-ava-large_bubble__blog powertip" title="Записи в блоге">
                 <span class="b-ava-large_ico b-ava-large_ico__blog"></span>

@@ -127,5 +127,32 @@ class ConvertNewCommand extends CConsoleCommand
             echo $criteria->offset . "\n";
         }
     }
+
+    /**
+     * Установить рубрику для постов у которых её нет
+     */
+    public function actionSetStatusesRubric()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->limit = 1000;
+        $criteria->offset = 0;
+        $criteria->condition = 'rubric_id IS NULL';
+
+        $models = array(0);
+        while (!empty($models)) {
+            $models = CommunityContent::model()->resetScope()->findAll($criteria);
+            foreach ($models as $model){
+                if (empty($model->rubric_id))
+                    $model->rubric_id = CommunityRubric::getDefaultUserRubric($model->author_id);
+                if (!empty($model->rubric_id))
+                    $model->update(array('rubric_id'));
+                else
+                    echo 1;
+            }
+
+            $criteria->offset += 1000;
+            echo $criteria->offset . "\n";
+        }
+    }
 }
 

@@ -3,7 +3,7 @@
  * @var User $user
  */
 $user = $this->user;
-$this->beginContent('//layouts/common_new'); ?>
+$this->beginContent('//layouts/main'); ?>
     <div class="content-cols">
         <div class="col-1">
             <?php $this->widget('Avatar', array('user' => $user, 'size' => 200, 'location' => true)) ?>

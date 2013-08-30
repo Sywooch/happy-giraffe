@@ -559,3 +559,10 @@ var FamilyMainMonth = function(data, parent) {
     self.id = data.id;
     self.name = data.name;
 }
+
+var FamilyMainPhoto = function(data, parent) {
+    var self = this;
+    self.id = data.id;
+    self.bigThumbSrc = data.bigThumbSrc;
+    self.smallThumbSrc = data.smallThumbSrc;
+}

@@ -411,8 +411,9 @@ var FamilyMainMember = function(data, parent) {
     self.id = data.id;
 
     // photos
+    self.mainPhotoId = ko.observable(data.mainPhotoId);
     self.photos = ko.observableArray(ko.utils.arrayMap(data.photos, function(photo) {
-        return new FamilyMainPhoto(photo, parent);
+        return new FamilyMainPhoto(photo, parent, self);
     }));
 
     // name
@@ -459,7 +460,7 @@ var FamilyMainPartner = function(data, parent) {
     self.TITLE_VALUES = ['Моя жена', 'Моя невеста', 'Моя подруга', 'Мой муж', 'Мой жених', 'Мой друг'];
     self.NOTICE_VALUES = ['О моей жене', 'О моей невесте', 'О моей подруге', 'О моем муже', 'О моем женихе', 'О моем друге'];
     self.PHOTOS_VALUES = ['Фото моей жены', 'Фото моей невесты', 'Фото моей подруги', 'Фото моего мужа', 'Фото моего жениха', 'Фото моего друга'];
-    self.PHOTO_UPLOAD_URL = '/family/partner/uploadPhoto/';
+    self.PHOTO_UPLOAD_URL = '/family/photo/partnerUpload/';
     self.PHOTO_UPLOAD_TARGET = 'partner-upload-target';
     self.ENTITY_NAME = 'UserPartner';
 
@@ -499,7 +500,7 @@ var FamilyMainBaby = function(data, parent) {
     var self = this;
     ko.utils.extend(self, new FamilyCommonBaby(data, self));
     ko.utils.extend(self, new FamilyMainMember(data, self));
-    self.PHOTO_UPLOAD_URL = '/family/baby/uploadPhoto/';
+    self.PHOTO_UPLOAD_URL = '/family/photo/babyUpload/';
     self.PHOTO_UPLOAD_TARGET = 'baby-upload-target';
     self.ENTITY_NAME = 'Baby';
 
@@ -589,7 +590,7 @@ var FamilyMainMonth = function(data, parent) {
     self.name = data.name;
 }
 
-var FamilyMainPhoto = function(data, parent) {
+var FamilyMainPhoto = function(data, parent, member) {
     var self = this;
     self.id = data.id;
     self.bigThumbSrc = data.bigThumbSrc;
@@ -597,11 +598,30 @@ var FamilyMainPhoto = function(data, parent) {
 
     self.open = function() {
         PhotoCollectionViewWidget.open('AttachPhotoCollection', { entityName : parent.ENTITY_NAME, entityId : parent.id }, self.id);
-    }
+    };
 
     self.remove = function() {
         $.post('/albums/removeUploadPhoto/', { id : self.id }, function() {
             parent.photos.remove(self);
         });
-    }
+    };
+
+    self.isMain = ko.computed({
+        read: function() {
+            return member.mainPhotoId() == self.id;
+        },
+        write: function(value) {
+            if (value) {
+                $.post('/family/photo/setMainPhoto/', { entityName : parent.ENTITY_NAME, entityId : parent.id, photoId : self.id }, function(response) {
+                    if (response.success)
+                        member.mainPhotoId(self.id);
+                }, 'json');
+            } else {
+                $.post('/family/photo/unsetMainPhoto/', { entityName : parent.ENTITY_NAME, entityId : parent.id }, function(response) {
+                    if (response.success)
+                        member.mainPhotoId(null);
+                }, 'json');
+            }
+        }
+    });
 }

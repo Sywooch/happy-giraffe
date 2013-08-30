@@ -29,18 +29,66 @@ ko.bindingHandlers.droppable = {
 
 // common models
 
+var FamilyCommonAdult = function(data, parent) {
+    var self = this;
+
+    self.getAdultCssClass = function(gender, relationshipStatus) {
+        if (gender == 0) {
+            switch (relationshipStatus) {
+                case null:
+                case 1:
+                case 2:
+                    return 'wife';
+                case 3:
+                    return 'girl-friend';
+                case 4:
+                    return 'bride';
+            }
+        } else {
+            switch (relationshipStatus) {
+                case null:
+                case 1:
+                case 2:
+                    return 'husband';
+                case 3:
+                    return 'boy-friend';
+                case 4:
+                    return 'fiance';
+            }
+        }
+    };
+}
+
 var FamilyCommonMe = function(data, parent) {
     var self = this;
+    ko.utils.extend(self, new FamilyCommonAdult(data, parent));
 
     self.gender = data.gender;
     self.relationshipStatus = ko.observable(data.relationshipStatus);
+
+    self.cssClass = function() {
+        return 'ico-family__' + self.getAdultCssClass(self.gender, self.relationshipStatus());
+    }
+
+    self.bigCssClass = function() {
+        return 'ico-family-big__' + self.getAdultCssClass(self.gender, self.relationshipStatus());
+    }
 }
 
-var FamilyCommonPartner = function(data, parent) {
+var FamilyCommonPartner = function(data, parent, root) {
     var self = this;
+    ko.utils.extend(self, new FamilyCommonAdult(data, parent));
 
     self.isNewRecord = data.isNewRecord === undefined ? true : data.isNewRecord;
     self.relationshipStatus = data.relationshipStatus;
+
+    self.cssClass = function() {
+        return 'ico-family__' + self.getAdultCssClass((1 + root.me().gender) % 2, self.relationshipStatus);
+    }
+
+    self.bigCssClass = function() {
+        return 'ico-family-big__' + self.getAdultCssClass((1 + root.me().gender) % 2, self.relationshipStatus);
+    }
 }
 
 var FamilyCommonBaby = function(data, parent) {
@@ -50,6 +98,54 @@ var FamilyCommonBaby = function(data, parent) {
     self.gender = data.gender;
     self.ageGroup = data.ageGroup;
     self.type = data.type;
+
+    self.cssClassKeyword = function() {
+        switch (self.type) {
+            case null:
+                var ageWord;
+                switch (self.ageGroup) {
+                    case 0:
+                        ageWord = 'small';
+                        break;
+                    case 1:
+                        ageWord = '3';
+                        break;
+                    case 2:
+                        ageWord = '5';
+                        break;
+                    case 3:
+                        ageWord = '8';
+                        break;
+                    case 4:
+                        ageWord = '14';
+                        break;
+                    case 5:
+                        ageWord = '19';
+                }
+
+                return (self.gender == 1 ? 'boy' : 'girl') + '-' + ageWord;
+            case 1:
+                var genderWord;
+                switch (self.gender) {
+                    case 0:
+                        return 'girl-wait';
+                    case 1:
+                        return 'boy-wait';
+                    case 2:
+                        return 'baby';
+                }
+            case 3:
+                return 'baby-two';
+        }
+    }
+
+    self.cssClass = function() {
+        return 'ico-family__' + self.cssClassKeyword();
+    }
+
+    self.bigCssClass = function() {
+        return 'ico-family-big__' + self.cssClassKeyword();
+    }
 }
 
 var FamilyViewModel = function(data) {
@@ -80,32 +176,6 @@ var FamilyViewModel = function(data) {
             return element.content() == null;
         });
     });
-
-    self.getAdultCssClass = function(gender, relationshipStatus) {
-        if (gender == 0) {
-            switch (relationshipStatus) {
-                case null:
-                case 1:
-                case 2:
-                    return 'ico-family__wife';
-                case 3:
-                    return 'ico-family__girl-friend';
-                case 4:
-                    return 'ico-family__bride';
-            }
-        } else {
-            switch (relationshipStatus) {
-                case null:
-                case 1:
-                case 2:
-                    return 'ico-family__husband';
-                case 3:
-                    return 'ico-family__boy-friend';
-                case 4:
-                    return 'ico-family__fiance';
-            }
-        }
-    };
 
     self.addListElements = function(n) {
         for (var i = 0; i < n; i++)
@@ -151,7 +221,6 @@ var FamilyViewModel = function(data) {
         data.babies = babies;
         data.createPartner = self.hasPartner() && self.partner().isNewRecord;
         data.relationshipStatus = self.me().relationshipStatus();
-        console.log(data);
         $.post('/family/save/', data, function(response) {
             eval(self.callback);
         });
@@ -220,20 +289,12 @@ var FamilyListElement = function() {
 
 var FamilyMe = function(data, parent) {
     var self = this;
-    ko.utils.extend(self, new FamilyCommonMe(data));
-
-    self.cssClass = ko.computed(function() {
-        return parent.getAdultCssClass(self.gender, self.relationshipStatus());
-    });
+    ko.utils.extend(self, new FamilyCommonMe(data, parent));
 }
 
 var FamilyPartner = function(data, parent) {
     var self = this;
-    ko.utils.extend(self, new FamilyCommonPartner(data));
-
-    self.cssClass = function() {
-        return parent.getAdultCssClass((1 + parent.me().gender) % 2, self.relationshipStatus);
-    }
+    ko.utils.extend(self, new FamilyCommonPartner(data, self, parent));
 
     self.title = function() {
         if (parent.me().gender == 0) {
@@ -261,46 +322,6 @@ var FamilyPartner = function(data, parent) {
 var FamilyBaby = function(data, parent) {
     var self = this;
     ko.utils.extend(self, new FamilyCommonBaby(data));
-
-    self.cssClass = function() {
-        switch (self.type) {
-            case null:
-                var ageWord;
-                switch (self.ageGroup) {
-                    case 0:
-                        ageWord = 'small';
-                        break;
-                    case 1:
-                        ageWord = '3';
-                        break;
-                    case 2:
-                        ageWord = '5';
-                        break;
-                    case 3:
-                        ageWord = '8';
-                        break;
-                    case 4:
-                        ageWord = '14';
-                        break;
-                    case 5:
-                        ageWord = '19';
-                }
-
-                return 'ico-family__' + (self.gender == 1 ? 'boy' : 'girl') + '-' + ageWord;
-            case 1:
-                var genderWord;
-                switch (self.gender) {
-                    case 0:
-                        return 'ico-family__girl-wait';
-                    case 1:
-                        return 'ico-family__boy-wait';
-                    case 2:
-                        return 'ico-family__baby';
-                }
-            case 3:
-                return 'ico-family__baby-two';
-        }
-    }
 
     self.title = function() {
         switch (self.type) {
@@ -358,24 +379,24 @@ var FamilyMainViewModel = function(data) {
 
     self.me = ko.observable(new FamilyMainMe(data.me, self));
     self.partner = ko.observable(data.partner === null ? null : new FamilyMainPartner(data.partner, self));
-    self.babies = ko.utils.arrayMap(data.babies, function(baby) {
+    self.babies = ko.observableArray(ko.utils.arrayMap(data.babies, function(baby) {
         return new FamilyMainBaby(baby, self);
-    });
+    }));
 
     self.normalBabies = ko.computed(function() {
-        return ko.utils.arrayFilter(self.babies, function(baby) {
+        return ko.utils.arrayFilter(self.babies(), function(baby) {
             return baby.type == null;
         });
     });
 
     self.waitingBaby = ko.computed(function() {
-        return ko.utils.arrayFirst(self.babies, function(baby) {
+        return ko.utils.arrayFirst(self.babies(), function(baby) {
             return baby.type == 1 || baby.type == 2;
         });
     });
 
     self.getBabyById = function(id) {
-        return ko.utils.arrayFirst(self.babies, function(baby) {
+        return ko.utils.arrayFirst(self.babies(), function(baby) {
             return baby.id == id;
         });
     };
@@ -384,7 +405,7 @@ var FamilyMainViewModel = function(data) {
         var response = $(this).contents().find('#response').text();
         if (response.length > 0) {
             var data = $.parseJSON(response);
-            self.partner().photos.unshift(new FamilyMainPhoto(data.photo, self.partner()));
+            self.partner().photos.unshift(new FamilyMainPhoto(data.photo, self.partner(), self));
         }
     });
 
@@ -393,9 +414,7 @@ var FamilyMainViewModel = function(data) {
         if (response.length > 0) {
             var data = $.parseJSON(response);
             var baby = self.getBabyById(data.id);
-            console.log(baby);
-            console.log(data.photo);
-            baby.photos.unshift(new FamilyMainPhoto(data.photo, baby));
+            baby.photos.unshift(new FamilyMainPhoto(data.photo, baby, self));
         }
     });
 }
@@ -413,7 +432,7 @@ var FamilyMainMember = function(data, parent) {
     // photos
     self.mainPhotoId = ko.observable(data.mainPhotoId);
     self.photos = ko.observableArray(ko.utils.arrayMap(data.photos, function(photo) {
-        return new FamilyMainPhoto(photo, parent, self);
+        return new FamilyMainPhoto(photo, self);
     }));
     self.mainPhoto = ko.computed(function() {
         return ko.utils.arrayFirst(self.photos(), function(photo) {
@@ -463,8 +482,9 @@ var FamilyMainMember = function(data, parent) {
 
 var FamilyMainPartner = function(data, parent) {
     var self = this;
-    ko.utils.extend(self, new FamilyCommonPartner(data, self));
+    ko.utils.extend(self, new FamilyCommonPartner(data, self, parent));
     ko.utils.extend(self, new FamilyMainMember(data, self));
+
     self.TITLE_VALUES = ['Моя жена', 'Моя невеста', 'Моя подруга', 'Мой муж', 'Мой жених', 'Мой друг'];
     self.NOTICE_VALUES = ['О моей жене', 'О моей невесте', 'О моей подруге', 'О моем муже', 'О моем женихе', 'О моем друге'];
     self.PHOTOS_VALUES = ['Фото моей жены', 'Фото моей невесты', 'Фото моей подруги', 'Фото моего мужа', 'Фото моего жениха', 'Фото моего друга'];
@@ -598,19 +618,19 @@ var FamilyMainMonth = function(data, parent) {
     self.name = data.name;
 }
 
-var FamilyMainPhoto = function(data, parent, member) {
+var FamilyMainPhoto = function(data, member) {
     var self = this;
     self.id = data.id;
     self.bigThumbSrc = data.bigThumbSrc;
     self.smallThumbSrc = data.smallThumbSrc;
 
     self.open = function() {
-        PhotoCollectionViewWidget.open('AttachPhotoCollection', { entityName : parent.ENTITY_NAME, entityId : parent.id }, self.id);
+        PhotoCollectionViewWidget.open('AttachPhotoCollection', { entityName : member.ENTITY_NAME, entityId : member.id }, self.id);
     };
 
     self.remove = function() {
         $.post('/albums/removeUploadPhoto/', { id : self.id }, function() {
-            parent.photos.remove(self);
+            member.photos.remove(self);
         });
     };
 
@@ -620,12 +640,12 @@ var FamilyMainPhoto = function(data, parent, member) {
         },
         write: function(value) {
             if (value) {
-                $.post('/family/photo/setMainPhoto/', { entityName : parent.ENTITY_NAME, entityId : parent.id, photoId : self.id }, function(response) {
+                $.post('/family/photo/setMainPhoto/', { entityName : member.ENTITY_NAME, entityId : member.id, photoId : self.id }, function(response) {
                     if (response.success)
                         member.mainPhotoId(self.id);
                 }, 'json');
             } else {
-                $.post('/family/photo/unsetMainPhoto/', { entityName : parent.ENTITY_NAME, entityId : parent.id }, function(response) {
+                $.post('/family/photo/unsetMainPhoto/', { entityName : member.ENTITY_NAME, entityId : member.id }, function(response) {
                     if (response.success)
                         member.mainPhotoId(null);
                 }, 'json');

@@ -37,6 +37,6 @@ class PartnerController extends HController
         $attach->save();
 
         $response = array('id' => $model->id);
-        $this->render('/uploadPhoto', compact('response'));
+        $this->renderPartial('/uploadPhoto', compact('response'));
     }
 }

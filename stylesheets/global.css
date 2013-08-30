@@ -13318,6 +13318,10 @@ table.fr_recipe_tb td {
 }
 /* /b-photopost */
 /* like-control */
+.js-like-control {
+  position: relative;
+  z-index: 2;
+}
 .like-control {
   position: relative;
   width: 72px;

@@ -14,7 +14,14 @@ class AttachPhotoCollection extends PhotoCollection
 
     public function generateIds()
     {
-        return Yii::app()->db->createCommand("SELECT photo_id FROM album__photo_attaches WHERE entity = :entityName AND entity_id = :entityId ORDER BY id DESC")->queryColumn(array(':entityName' => $this->entityName, ':entityId' => $this->entityId));
+        $sql = "
+            SELECT photo_id
+            FROM album__photo_attaches pa
+            JOIN album__photos p ON p.id = pa.photo_id
+            WHERE pa.entity = :entityName AND pa.entity_id = :entityId AND p.removed = 0 AND p.hidden = 0
+            ORDER BY pa.id DESC
+        ";
+        return Yii::app()->db->createCommand($sql)->queryColumn(array(':entityName' => $this->entityName, ':entityId' => $this->entityId));
     }
 
     protected function getIdsCacheDependency()

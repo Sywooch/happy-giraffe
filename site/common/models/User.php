@@ -1416,6 +1416,9 @@ class User extends HActiveRecord
                 }, $partnerPhotoCollectionPhotos),
             ),
             'babies' => array_map(function($baby) {
+                $babyPhotoCollection = new AttachPhotoCollection(array('entityName' => 'Baby', 'entityId' => $baby->id));
+                $babyPhotoCollectionPhotos = $babyPhotoCollection->getAllPhotos();
+
                 return array(
                     'id' => (string) $baby->id,
                     'name' => (string) $baby->name,
@@ -1424,6 +1427,13 @@ class User extends HActiveRecord
                     'gender' => (int) $baby->sex,
                     'ageGroup' => (int) $baby->age_group,
                     'type' => $baby->type === null ? null : (int) $baby->type,
+                    'photos' => array_map(function($photo) {
+                        return array(
+                            'id' => $photo->id,
+                            'bigThumbSrc' => $photo->getPreviewUrl(220, null, Image::WIDTH),
+                            'smallThumbSrc' => $photo->getPreviewUrl(null, 105, Image::HEIGHT),
+                        );
+                    }, $babyPhotoCollectionPhotos),
                 );
             }, $this->babies),
         );

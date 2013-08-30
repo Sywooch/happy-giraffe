@@ -37,9 +37,11 @@ class PartnerController extends HController
         $attach->save();
 
         $response = array(
-            'id' => $photo->id,
-            'bigThumbSrc' => $photo->getPreviewUrl(220, null, Image::WIDTH),
-            'smallThumbSrc' => $photo->getPreviewUrl(null, 105, Image::HEIGHT),
+            'photo' => array(
+                'id' => $photo->id,
+                'bigThumbSrc' => $photo->getPreviewUrl(220, null, Image::WIDTH),
+                'smallThumbSrc' => $photo->getPreviewUrl(null, 105, Image::HEIGHT),
+            ),
         );
         $this->renderPartial('/uploadPhoto', compact('response'));
     }

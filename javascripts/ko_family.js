@@ -377,7 +377,7 @@ var FamilyMainViewModel = function(data) {
     $('#upload-target').on('load', function() {
         var response = $(this).contents().find('#response').text();
         if (response.length > 0) {
-            console.log(response);
+            self.partner().photos.push(new FamilyMainPhoto(response));
         }
     });
 }
@@ -391,6 +391,11 @@ var FamilyMainMember = function(data, parent) {
     var self = this;
 
     self.id = data.id;
+
+    // photos
+    self.photos = ko.observableArray(ko.utils.arrayMap(data.photos, function(photo) {
+        return new FamilyMainPhoto(photo, self);
+    }));
 
     // name
     self.name = ko.observable(data.name);
@@ -565,4 +570,9 @@ var FamilyMainPhoto = function(data, parent) {
     self.id = data.id;
     self.bigThumbSrc = data.bigThumbSrc;
     self.smallThumbSrc = data.smallThumbSrc;
+
+    self.open = function() {
+        alert('123');
+        PhotoCollectionViewWidget.open('AttachPhotoCollection', { entityName : 'UserPartner', entityId : parent.id }, self.id);
+    }
 }

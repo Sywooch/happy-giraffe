@@ -301,6 +301,8 @@ Yii::app()->clientScript
     </div>
 </div>
 
+<iframe name="upload-target" id="upload-target" style="display: none;"></iframe>
+
 <script type="text/javascript">
     $(function() {
         familyMainVM = new FamilyMainViewModel(<?=CJSON::encode($json)?>);

@@ -87,7 +87,7 @@ class UserBlogSubscription extends HActiveRecord
     }
 
     /**
-     * Возвращает список id юзеров, на блоги которых одписан
+     * Возвращает список id юзеров, на блоги которых подписан
      *
      * @param int $user_id
      * @return int[]

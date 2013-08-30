@@ -23,6 +23,9 @@ $photo = $data->getPhoto()
 <?php else: ?>
     <?php if ($showTitle):?>
         <h2 class="b-article_t">
+            <?php if ($show_new && ViewedPost::getInstance()->isViewed($data->id)): ?>
+                <div class="b-article_t-new">новое</div>
+            <?php endif ?>
             <a href="<?=$data->getUrl() ?>" class="b-article_t-a"><?=$data->title ?></a>
         </h2>
     <?php endif ?>

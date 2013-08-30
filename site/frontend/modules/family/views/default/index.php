@@ -302,7 +302,8 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
     </div>
 </div>
 
-<iframe name="upload-target" id="upload-target" style="display: none;"></iframe>
+<iframe name="partner-upload-target" id="partner-upload-target" style="display: none;"></iframe>
+<iframe name="baby-upload-target" id="baby-upload-target" style="display: none;"></iframe>
 
 <script type="text/javascript">
     $(function() {
@@ -406,20 +407,23 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
                         <div class="photo-grid_overlay">
                             <span class="photo-grid_zoom"></span>
                             <div class="photo-grid_overlay-row">
-                                <label for="photo-grid_check1" class="photo-grid_checbox-label powertip" title="Сделать основным">
+                                <label for="photo-grid_check1" class="photo-grid_checbox-label" data-bind="tooltip: 'Сделать основным'">
                                     <input type="checkbox" name="" id="photo-grid_check1" class="photo-grid_checkbox">
                                 </label>
                                 <div class="float-r">
-                                    <a href="" class="ico-del ico-del__white powertip" title="Удалить"></a>
+                                    <a href="" class="ico-del ico-del__white" data-bind="tooltip: 'Удалить'"></a>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <!-- /ko -->
                     <span class="photo-preview-row_add file-fake">
-                        <?=CHtml::beginForm(array('partner/uploadPhoto'), 'post', array('target' => 'upload-target', 'enctype' => 'multipart/form-data'))?>
+                        <form method="post" enctype="multipart/form-data" data-bind="attr: { action : PHOTO_UPLOAD_URL, target : PHOTO_UPLOAD_TARGET }">
+                            <!-- ko if: $data instanceof FamilyMainBaby -->
+                            <input type="hidden" data-bind="value: id" name="id">
+                            <!-- /ko -->
                             <input type="file" name="photo" onchange="submit()">
-                        <?=CHtml::endForm()?>
+                        </form>
                     </span>
                 </div>
             </div>

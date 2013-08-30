@@ -112,7 +112,7 @@ return array(
         'profile',
         'search',
         'community',
-        'subscribe',
+        'myGiraffe',
         'family',
 	),
 	// application components

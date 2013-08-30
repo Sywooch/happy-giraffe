@@ -64,7 +64,7 @@ return array(
             'js' => array(
                 'javascripts/ko_post.js',
             ),
-            'depends' => array('knockout', 'ko_favourites'),
+            'depends' => array('knockout', 'ko_favourites', 'ko_upload'),
         ),
         'ko_blog' => array(
             'baseUrl' => '/',

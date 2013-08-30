@@ -415,6 +415,14 @@ var FamilyMainMember = function(data, parent) {
     self.photos = ko.observableArray(ko.utils.arrayMap(data.photos, function(photo) {
         return new FamilyMainPhoto(photo, parent, self);
     }));
+    self.mainPhoto = ko.computed(function() {
+        return ko.utils.arrayFirst(self.photos(), function(photo) {
+            return self.mainPhotoId() == photo.id;
+        });
+    });
+    self.photoToShow = ko.computed(function() {
+        return self.photos().length > 0 ? (self.mainPhoto() !== null ? self.mainPhoto() : self.photos()[0]) : null;
+    });
 
     // name
     self.name = ko.observable(data.name);

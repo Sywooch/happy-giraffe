@@ -213,7 +213,9 @@
 				                                    </div>
 				                                </div>
 				                            </div>
-				                   		 <a href="" class="photo-preview-row_add"></a>
+				                   		<span class="photo-preview-row_add file-fake">
+				                   			<input type="file" name="">
+				                   		</span>
 				                        </div>
 				                    </div>
 				                </div>
@@ -269,7 +271,9 @@
 				                                    </div>
 				                                </div>
 				                            </div>
-				                   		 <a href="" class="photo-preview-row_add"></a>
+				                   		 <span class="photo-preview-row_add file-fake">
+				                   			<input type="file" name="">
+				                   		</span>
 				                        </div>
 				                    </div>
 				                </div>
@@ -324,7 +328,9 @@
 				                    <div class="photo-grid clearfix">
 				                        <div class="photo-grid_row clearfix">
 				                           
-				                   			<a href="" class="photo-preview-row_add"></a>
+				                   			<span class="photo-preview-row_add file-fake">
+					                   			<input type="file" name="">
+					                   		</span>
 				                        </div>
 				                    </div>
 				                </div>
@@ -442,7 +448,9 @@
 				                    <div class="photo-grid clearfix">
 				                        <div class="photo-grid_row clearfix">
 				                           
-				                   			<a href="" class="photo-preview-row_add"></a>
+				                   			<span class="photo-preview-row_add file-fake">
+					                   			<input type="file" name="">
+					                   		</span>
 				                        </div>
 				                    </div>
 				                </div>

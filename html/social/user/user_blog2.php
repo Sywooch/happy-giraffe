@@ -217,28 +217,32 @@
 
 								var stopTop = $(elementStop).offset().top;
 								var blockStopTop = stopTop - blockTop - blockHeight - blockIndent;
+								
 
-								$(window).scroll(function() {
-							        var windowScrollTop = $(window).scrollTop();
-							        if (windowScrollTop > blockTop-blockIndent && windowScrollTop+blockHeight < stopTop-blockIndent) {
-							        	block.css({
-											'position': 'fixed', 
-											'top'     : '20px'
-										});
-							        } else {
+								if (stopTop-blockTop-blockHeight-blockIndent > 0) {
 
-										block.css({
-											'position': 'relative', 
-											'top'     : 'auto'
-										});
-							        	if (windowScrollTop+blockHeight > stopTop-20) {
-							        		
-							        		block.css({ 
-											'top'     : blockStopTop
-										});
-							        	}
-							        }
-							    });
+									$(window).scroll(function() {
+								        var windowScrollTop = $(window).scrollTop();
+								        if (windowScrollTop > blockTop-blockIndent && windowScrollTop+blockHeight < stopTop-blockIndent) {
+								        	block.css({
+												'position': 'fixed', 
+												'top'     : blockIndent+'px'
+											});
+								        } else {
+
+											block.css({
+												'position': 'relative', 
+												'top'     : 'auto'
+											});
+
+								        	if (windowScrollTop + blockHeight > stopTop - blockIndent) {
+								        		block.css({ 
+												'top'     : blockStopTop
+											});
+								        	}
+								        }
+								    });
+								}
 							}
 
 							likeControlFixed('.js-like-control', '.comments-gray', 20);

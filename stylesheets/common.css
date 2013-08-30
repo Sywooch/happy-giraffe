@@ -6900,6 +6900,14 @@ select.pregnancy_term + .chzn-container .chzn-results li {
   /* /col-1 */
 
 }
+.content-cols:after {
+  display: block;
+  content: '.';
+  height: 0;
+  clear: both;
+  line-height: 0;
+  font-size: 0;
+}
 .content-cols .col-1 {
   width: 240px;
   padding-right: 20px;
@@ -11544,7 +11552,7 @@ select.pregnancy_term + .chzn-container .chzn-results li {
 .layout-header {
   position: relative;
 }
-.layout-header .logo {
+.layout-header_hold .logo {
   float: left;
   margin: 5px 40px 0 40px;
   padding: 0;

@@ -1,6 +1,6 @@
 <ul class="breadcrumbs-big clearfix">
     <li class="breadcrumbs-big_i">
-        <a href="" class="breadcrumbs-big_a">Мой Жираф</a>
+        <a href="/my/" class="breadcrumbs-big_a">Мой Жираф</a>
     </li>
     <li class="breadcrumbs-big_i">Мои подписки</li>
 </ul>

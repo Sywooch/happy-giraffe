@@ -73,5 +73,6 @@ class PhotoCollectionViewWidget extends CWidget
         ;
 
         $this->widget('application.widgets.newCommentWidget.NewCommentWidget', array('registerScripts' => true));
+        $this->widget('application.modules.favourites.widgets.FavouriteWidget', array('registerScripts' => true));
     }
 }

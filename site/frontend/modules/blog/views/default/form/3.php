@@ -5,7 +5,6 @@
  * @var $json
  */
 ?>
-<?php $this->renderPartial('form/script'); ?>
 
 <div class="b-settings-blue b-settings-blue__photo"<?php if (!$model->isNewRecord) echo ' style="display:none;"' ?>>
     <div class="b-settings-blue_tale"></div>

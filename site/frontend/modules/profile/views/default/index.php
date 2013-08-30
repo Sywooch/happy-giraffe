@@ -83,22 +83,27 @@ Yii::app()->clientScript->registerPackage('ko_profile');
 
         <?php $this->widget('InterestsWidget', array('user' => $user)); ?>
 
-        <div class="photo-preview-row clearfix">
-            <h3 class="heading-small margin-b10">Мои фото</h3>
-            <?php $this->widget('UserPhotosWidget', array('userId' => $user->id)); ?>
-        </div>
+        <?php if ($user->getPhotosCount() > 3):?>
+            <div class="photo-preview-row clearfix">
+                <h3 class="heading-small margin-b10">Мои фото</h3>
+                <?php $this->widget('UserPhotosWidget', array('userId' => $user->id)); ?>
+            </div>
+        <?php endif ?>
 
         <div class="col-23-middle">
 
         </div>
 
         <!-- Статьи -->
-        <div class="col-gray">
+        <?php $dataProvider = CommunityContent::model()->getBlogContents($user->id, null) ?>
+        <?php if ($user->id == Yii::app()->user->id || $dataProvider->totalItemCount > 0):?>
+            <div class="col-gray">
 
-            <?php $this->renderPartial('_subscription', array('user' => $user)); ?>
+                <?php $this->renderPartial('_subscription', array('user' => $user)); ?>
 
-            <?php $this->renderPartial('_activity', array('user' => $user)); ?>
+                <?php $this->renderPartial('_activity', array('user' => $user, 'dataProvider' => $dataProvider)); ?>
 
-        </div>
+            </div>
+        <?php endif ?>
     </div>
 </div>

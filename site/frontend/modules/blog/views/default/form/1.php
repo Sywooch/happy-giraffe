@@ -4,11 +4,8 @@
  * @var HActiveRecord $slaveModel
  * @var $json
  */
-?>
 
-<?php $this->renderPartial('form/script'); ?>
-
-<?php $form = $this->beginWidget('CActiveForm', array(
+$form = $this->beginWidget('CActiveForm', array(
     'id' => 'blog-form',
     'action' => $model->isNewRecord ? array('save') : array('save', 'id' => $model->id),
     'enableAjaxValidation' => true,
@@ -52,6 +49,7 @@
                     chosenRubric: {}" data-placeholder="Выберите рубрику или создайте новую"></select>
                     <?=$form->error($model, 'rubric_id')?>
                 </div>
+                <div class="color-gray font-small margin-t5">Если вы не выберете рубрику, запись добавится в рубрику "Обо всем"</div>
             </div>
         </div>
     </div>

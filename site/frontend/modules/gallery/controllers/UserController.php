@@ -23,8 +23,7 @@ class UserController extends HController
 
     public function actionIndex($user_id)
     {
-        $scopes = !Yii::app()->user->isGuest && Yii::app()->user->id == $user_id ? array() : array('noSystem');
-        $dataProvider = Album::model()->findByUser($user_id, false, false, $scopes);
+        $dataProvider = Album::model()->findByUser($user_id);
 
         $this->render('index', compact('dataProvider', 'user_id'));
     }

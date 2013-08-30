@@ -59,6 +59,13 @@ return array(
             ),
             'depends' => array('knockout', 'ko_comments'),
         ),
+        'ko_post' => array(
+            'baseUrl' => '/',
+            'js' => array(
+                'javascripts/ko_post.js',
+            ),
+            'depends' => array('knockout', 'ko_favourites'),
+        ),
         'ko_blog' => array(
             'baseUrl' => '/',
             'js' => array(
@@ -78,6 +85,7 @@ return array(
             'js' => array(
                 'javascripts/ko_gallery.js',
                 'javascripts/ko_user_profile.js',
+                'javascripts/ko_blog.js',
             ),
             'depends' => array('knockout', 'gallery', 'jcrop', 'ko_comments', 'ko_upload'),
         ),

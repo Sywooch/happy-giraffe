@@ -149,4 +149,18 @@ class CommunityRubric extends HActiveRecord
             ->where('author_id = :user_id AND removed = 0', array(':user_id' => $user_id))
             ->queryColumn();
     }
+
+    /**
+     * @param int $user_id
+     * @return mixed
+     */
+    public static function getDefaultUserRubric($user_id)
+    {
+        return Yii::app()->db->createCommand()
+            ->select('id')
+            ->from(self::model()->tableName())
+            ->where('user_id = :user_id', array(':user_id' => $user_id))
+            ->order('id asc')
+            ->queryScalar();
+    }
 }

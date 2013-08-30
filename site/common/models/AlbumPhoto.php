@@ -159,7 +159,10 @@ class AlbumPhoto extends HActiveRecord
 
     public function beforeSave()
     {
+        if (empty($this->album_id))
+            $this->album_id = Album::getAlbumByType($this->author_id, Album::TYPE_PRIVATE)->id;
         $this->setDimensions();
+
         return parent::beforeSave();
     }
 
@@ -182,7 +185,7 @@ class AlbumPhoto extends HActiveRecord
         $this->save(false);
         NotificationDelete::entityRemoved($this);
 
-        if (!empty($this->album_id) && ($this->album->type == 0 || $this->album->type == 1))
+        if (!empty($this->album_id) && in_array($this->album->type, array(0,1,3)))
             Scoring::photoRemoved($this);
 
         return false;
@@ -711,7 +714,7 @@ class AlbumPhoto extends HActiveRecord
      * ["size"]=>
      * @return AlbumPhoto
      */
-    public function createUserTempPhoto($file, $hidden = 0)
+    public function createUserTempPhoto($file, $hidden = 1)
     {
         if (is_array($file['type']))
             $file['type'] = $file['type'][0];

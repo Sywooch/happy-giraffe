@@ -122,6 +122,10 @@
 			</div>
 			<div class="col-23-middle col-gray">
 				
+				<div class="clearfix textalign-r margin-20">
+					<span class="color-gray-dark padding-r5">Показывать только новые </span>
+					<a class="a-checkbox active" href=""></a>
+				</div>
 				<div class="b-article clearfix">
 					<div class="float-l">
 						<div class="like-control like-control__small-indent clearfix">

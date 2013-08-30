@@ -42,8 +42,13 @@ return array(
         'services' => 'site/services',
 
         //===================== Subscribes =========================//
-        'subscribe/my'=>'subscribe/default/index',
-        'subscribe/recommends'=>'subscribe/default/recommends',
+        'subscribes'=>'myGiraffe/default/subscribes',
+        'recommends'=>'myGiraffe/default/recommends',
+        'my/friends' => array('myGiraffe/default/index', 'defaultParams' => array('type' => 2)),
+        'my/blogs' => array('myGiraffe/default/index', 'defaultParams' => array('type' => 3)),
+        'my/community/<community_id:\d+>' => array('myGiraffe/default/index', 'defaultParams' => array('type' => 4)),
+        'my'  => array('myGiraffe/default/index', 'defaultParams' => array('type' => 1)),
+        'my/<_a>' => 'myGiraffe/default/<_a>',
 
 
         // ajax controller

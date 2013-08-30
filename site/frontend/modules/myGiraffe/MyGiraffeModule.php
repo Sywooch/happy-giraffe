@@ -1,6 +1,6 @@
 <?php
 
-class SubscribeModule extends CWebModule
+class MyGiraffeModule extends CWebModule
 {
 	public function init()
 	{
@@ -9,8 +9,8 @@ class SubscribeModule extends CWebModule
 
 		// import the module-level models and components
 		$this->setImport(array(
-			'subscribe.models.*',
-			'subscribe.components.*',
+			'myGiraffe.models.*',
+			'myGiraffe.components.*',
             'site.frontend.modules.profile.widgets.*'
 		));
 	}

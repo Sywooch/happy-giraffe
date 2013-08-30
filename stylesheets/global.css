@@ -13491,11 +13491,8 @@ table.fr_recipe_tb td {
 .photo-grid_i {
   position: relative;
   float: left;
-  margin: 0 0 5px 5px;
+  margin: 0 5px 0 0;
   cursor: pointer;
-}
-.photo-grid_i:first-child {
-  margin-left: 0;
 }
 .photo-grid_i:hover .photo-grid_overlay {
   z-index: 10;

@@ -411,7 +411,7 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
                                     <input type="checkbox" name="" id="photo-grid_check1" class="photo-grid_checkbox">
                                 </label>
                                 <div class="float-r">
-                                    <a href="" class="ico-del ico-del__white" data-bind="tooltip: 'Удалить'"></a>
+                                    <a href="" class="ico-del ico-del__white" data-bind="click: remove, clickBubble: false, tooltip: 'Удалить'"></a>
                                 </div>
                             </div>
                         </div>

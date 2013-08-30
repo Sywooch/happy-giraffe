@@ -1407,6 +1407,7 @@ class User extends HActiveRecord
                 'id' => (string) $this->partner->id,
                 'name' => (string) $this->partner->name,
                 'notice' => (string) $this->partner->notice,
+                'mainPhotoId' => $this->partner->main_photo_id,
                 'photos' => array_map(function($photo) {
                     return array(
                         'id' => $photo->id,
@@ -1427,6 +1428,7 @@ class User extends HActiveRecord
                     'gender' => (int) $baby->sex,
                     'ageGroup' => (int) $baby->age_group,
                     'type' => $baby->type === null ? null : (int) $baby->type,
+                    'mainPhotoId' => $baby->main_photo_id,
                     'photos' => array_map(function($photo) {
                         return array(
                             'id' => $photo->id,

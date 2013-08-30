@@ -207,7 +207,8 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
                 </div>
             </div>
 
-            <!-- ko template: { name : 'member-template', data : partner } --><!-- /ko-->
+
+            <!-- ko template: { name : 'member-template', data : partner, if : partner() !== null } --><!-- /ko-->
             <!-- ko template: { name : 'member-template', foreach : normalBabies } --><!-- /ko -->
 
 
@@ -408,7 +409,7 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
                             <span class="photo-grid_zoom"></span>
                             <div class="photo-grid_overlay-row">
                                 <label for="photo-grid_check1" class="photo-grid_checbox-label" data-bind="tooltip: 'Сделать основным'">
-                                    <input type="checkbox" name="" id="photo-grid_check1" class="photo-grid_checkbox">
+                                    <input type="checkbox" class="photo-grid_checkbox" data-bind="checked: isMain, click: function() { return true; }, clickBubble: false">
                                 </label>
                                 <div class="float-r">
                                     <a href="" class="ico-del ico-del__white" data-bind="click: remove, clickBubble: false, tooltip: 'Удалить'"></a>

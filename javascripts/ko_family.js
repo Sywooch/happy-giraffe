@@ -374,11 +374,28 @@ var FamilyMainViewModel = function(data) {
         });
     });
 
-    $('#upload-target').on('load', function() {
+    self.getBabyById = function(id) {
+        return ko.utils.arrayFirst(self.babies, function(baby) {
+            return baby.id == id;
+        });
+    };
+
+    $('#partner-upload-target').on('load', function() {
         var response = $(this).contents().find('#response').text();
         if (response.length > 0) {
             var data = $.parseJSON(response);
-            self.partner().photos.unshift(new FamilyMainPhoto(data, self.partner()));
+            self.partner().photos.unshift(new FamilyMainPhoto(data.photo, self.partner()));
+        }
+    });
+
+    $('#baby-upload-target').on('load', function() {
+        var response = $(this).contents().find('#response').text();
+        if (response.length > 0) {
+            var data = $.parseJSON(response);
+            var baby = self.getBabyById(data.id);
+            console.log(baby);
+            console.log(data.photo);
+            baby.photos.unshift(new FamilyMainPhoto(data.photo, baby));
         }
     });
 }
@@ -395,7 +412,7 @@ var FamilyMainMember = function(data, parent) {
 
     // photos
     self.photos = ko.observableArray(ko.utils.arrayMap(data.photos, function(photo) {
-        return new FamilyMainPhoto(photo, self);
+        return new FamilyMainPhoto(photo, parent);
     }));
 
     // name
@@ -437,11 +454,14 @@ var FamilyMainMember = function(data, parent) {
 
 var FamilyMainPartner = function(data, parent) {
     var self = this;
-    ko.utils.extend(self, new FamilyCommonPartner(data));
-    ko.utils.extend(self, new FamilyMainMember(data));
+    ko.utils.extend(self, new FamilyCommonPartner(data, self));
+    ko.utils.extend(self, new FamilyMainMember(data, self));
     self.TITLE_VALUES = ['Моя жена', 'Моя невеста', 'Моя подруга', 'Мой муж', 'Мой жених', 'Мой друг'];
     self.NOTICE_VALUES = ['О моей жене', 'О моей невесте', 'О моей подруге', 'О моем муже', 'О моем женихе', 'О моем друге'];
     self.PHOTOS_VALUES = ['Фото моей жены', 'Фото моей невесты', 'Фото моей подруги', 'Фото моего мужа', 'Фото моего жениха', 'Фото моего друга'];
+    self.PHOTO_UPLOAD_URL = '/family/partner/uploadPhoto/';
+    self.PHOTO_UPLOAD_TARGET = 'parter-upload-target';
+    self.ENTITY_NAME = 'UserPartner';
 
     self.saveName = function() {
         $.post('/family/partner/updateAttribute/', { attribute : 'name', value : self.nameValue() }, function(response) {
@@ -477,8 +497,11 @@ var FamilyMainPartner = function(data, parent) {
 
 var FamilyMainBaby = function(data, parent) {
     var self = this;
-    ko.utils.extend(self, new FamilyCommonBaby(data));
-    ko.utils.extend(self, new FamilyMainMember(data));
+    ko.utils.extend(self, new FamilyCommonBaby(data, self));
+    ko.utils.extend(self, new FamilyMainMember(data, self));
+    self.PHOTO_UPLOAD_URL = '/family/baby/uploadPhoto/';
+    self.PHOTO_UPLOAD_TARGET = 'baby-upload-target';
+    self.ENTITY_NAME = 'Baby';
 
     // birthday
     self.birthday = ko.observable(data.birthday);
@@ -573,6 +596,7 @@ var FamilyMainPhoto = function(data, parent) {
     self.smallThumbSrc = data.smallThumbSrc;
 
     self.open = function() {
-        PhotoCollectionViewWidget.open('AttachPhotoCollection', { entityName : 'UserPartner', entityId : parent.id }, self.id);
+        console.log(parent);
+        PhotoCollectionViewWidget.open('AttachPhotoCollection', { entityName : parent.ENTITY_NAME, entityId : parent.id }, self.id);
     }
 }

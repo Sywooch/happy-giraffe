@@ -202,7 +202,49 @@
 								<img alt="" src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg">
 							</a>
 						</div>
-						<div class="js-like-control">
+						<script>
+						$(window).load(function() {
+							/*
+							block - элемент, что фиксируется
+							elementStop - до какого элемента фиксируется
+							blockIndent - отступ
+							*/
+							function likeControlFixed(block, elementStop, blockIndent) {
+
+								var block = $(block);
+								var blockTop = block.offset().top;
+								var blockHeight = block.height();
+
+								var stopTop = $(elementStop).offset().top;
+								var blockStopTop = stopTop - blockTop - blockHeight - blockIndent;
+
+								$(window).scroll(function() {
+							        var windowScrollTop = $(window).scrollTop();
+							        if (windowScrollTop > blockTop-blockIndent && windowScrollTop+blockHeight < stopTop-blockIndent) {
+							        	block.css({
+											'position': 'fixed', 
+											'top'     : '20px'
+										});
+							        } else {
+
+										block.css({
+											'position': 'relative', 
+											'top'     : 'auto'
+										});
+							        	if (windowScrollTop+blockHeight > stopTop-20) {
+							        		
+							        		block.css({ 
+											'top'     : blockStopTop
+										});
+							        	}
+							        }
+							    });
+							}
+
+							likeControlFixed('.js-like-control', '.comments-gray', 20);
+						})
+						</script>
+						<div class="js-like-control" >
 							<div class="like-control like-control__self clearfix">
 								<div class="position-rel">
 									<a href="" class="like-control_ico like-control_ico__like">865</a>

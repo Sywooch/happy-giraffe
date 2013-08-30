@@ -16519,6 +16519,7 @@ select.pregnancy_term + .chzn-container .chzn-results li {
   position: relative;
   margin: 0 0 1px;
   padding: 20px 20px;
+  border: 1px solid #f8f8f8;
   background: #f8f8f8;
 }
 .career-achievement:hover {
@@ -20619,7 +20620,7 @@ select.pregnancy_term + .chzn-container .chzn-results li {
   border-color: #f8bdbd;
 }
 .b-family__square .b-family_li__empty {
-  height: 72px;
+  height: 70px;
   border: 2px dashed #95d0e6;
 }
 .b-family__square .b-family_img-hold {

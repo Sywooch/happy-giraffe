@@ -31,8 +31,8 @@
                     	<span class="location_tx">Ярославская обл. <br>Переславль-Залесский</span>
                     </div>
                     <div class="user-btns clearfix">
-                    	<a href="" class="user-btns_i powertip" title="Добавить в друзья">
-                    		<span class="user-btns_ico-hold user-btns_ico-hold__friend-add">
+                    	<a href="" class="user-btns_i powertip" title="Друг">
+                    		<span class="user-btns_ico-hold user-btns_ico-hold__friend">
                     			<span class="user-btns_ico"></span>
                     		</span>
                     		<span class="user-btns_tx"></span>

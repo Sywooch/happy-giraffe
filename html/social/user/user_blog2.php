@@ -327,7 +327,31 @@
 						</h2>
 						<div class="b-article_in clearfix">
 							<div class="wysiwyg-content clearfix">
+								<div class="b-article_in-img">
+									<iframe width="580" height="320" frameborder="0" allowfullscreen="" src="http://www.youtube.com/embed/pehSAUTqjRs?wmode=transparent"></iframe>
+								</div>
+								<p>	Недавно посмотрел фильм "Убить Дракона" снятый в 1988 году с Абдуловым в главной роли. По мотивам пьесы Евгения Шварца «Дракон».</p>
+								<ol>
+									<li>Практически нет девушки, которая не переживала бы за отношения героев "Сумерек" как в на экранах, так и в жизни. Но, к сожалению, даже несмотря на то, что недавно герои "Сумерек" радовали всех тем, что у них невероятный роман  и в рельной жизни, а не только лишь на экране, все же <a href="">Роберт Паттинсон</a>  и Кристен Стюарт расстались и пока реши</li>
+									<li>Но, к сожалению, даже несмотря на то, что недавно герои "Сумерек" радовали всех тем, что у них невероятный роман  и в рельной жизни, а не только лишь на экране, все же <a href="">Роберт Паттинсон</a>  и Кристен Стюарт расстались и пока реши</li>
+									<li> <a href="">Роберт Паттинсон</a>  и Кристен Стюарт расстались и пока реши</li>
+									<li>Практически нет девушки, которая не переживала бы за отношения героев "Сумерек" как в на экранах, так и в жизни. Но, к сожалению, даже несмотря на то, что недавно герои "Сумерек" радовали всех тем, что у них невероятный роман  и в рельной жизни, а не только лишь на экране, все же <a href="">Роберт Паттинсон</a>  и Кристен Стюарт расстались и пока реши</li>
+								</ol>
+								<p>Практически нет девушки, которая не переживала бы за отношения героев "Сумерек" как в на экранах, так и в жизни. Но, к сожалению, даже несмотря на то, что недавно герои "Сумерек" радовали всех тем, что у них невероятный роман  и в рельной жизни, а не только лишь на экране, все же <a href="">Роберт Паттинсон</a>  и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.</p>
 								
+								<div class="clearfix">
+									<img title="Убить Дракона. Фантасмагория или сказка для взрослых. фото 1" src="http://img.happy-giraffe.ru/thumbs/700x700/16534/3733dd340b221ac3052b5cef11288870.jpg" class="content-img" alt="Убить Дракона. Фантасмагория или сказка для взрослых. фото 1">
+								</div>
+								<h2>H2 Где можно поменять название трека</h2>
+								<p>	Недавно посмотрел фильм "Убить Дракона" снятый в 1988 году с Абдуловым в главной роли. По мотивам пьесы Евгения Шварца «Дракон».</p>
+								<div class="b-article_in-img">
+									<img title="Ночные гости - кто они фото 1" src="http://img.happy-giraffe.ru/thumbs/700x700/56/edad8d334a0b4a086a50332a2d8fd0fe.JPG" class="content-img" alt="Ночные гости - кто они фото 1">
+								</div>
+								<ul>
+									<li>я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.  я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически </li>
+									<li>я не нашел, где можно поменять название трека.</li>
+									<li>Меняя название трека в <strong>Меняя название трека</strong> альбоме он автоматически производит поиск <a href="">Меняя название трека </a>по сайту и подцепляет естественно студийные версии песен вместо нужных.  я не нашел, где можно поменять название трека. <b>Меняя название трека</b>  в альбоме он автоматически </li>
+								</ul>
 								<p>и подцепляет естественно студийные версии песен вместо нужных. и подцепляет естественно студийные версии песен вместо нужных.  я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически  и подцепляет естественно студийные версии песен вместо нужных.  я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически </p>
 								<h2>H2 Где можно поменять название трека</h2>
 								<p>	Недавно <i>посмотрел фильм "Убить Дракона" снятый</i>  в 1988 году с <em>Абдуловым в главной роли</em> . По мотивам <strike>пьесы Евгения Шварца</strike>  «Дракон».</p>
@@ -339,6 +363,152 @@
 									<li>третье </li>
 								</ul>
 							</div>
+						</div>
+						
+						<div class="b-photopost">
+							<h2 class="b-photopost_t">Цветы из бумаги объемные</h2>
+							<div class="photo-grid clearfix">
+                                <div class="photo-grid_row clearfix">
+                                    <!-- Ловить клик на photo-grid_i для показа увеличенного фото -->
+                                    <div class="photo-grid_i">
+                                        <img alt="" src="/images/example/photo-grid-1.jpg" class="photo-grid_img">
+                                        <div class="photo-grid_overlay">
+                                            <span class="photo-grid_zoom powertip"></span>
+                                            <div class="like-control like-control__smallest clearfix">
+                                                <a class="like-control_ico like-control_ico__like powertip" href="">865</a>
+                                                <a class="like-control_ico like-control_ico__favorites powertip" href="">55</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="photo-grid_i">
+                                        <img alt="" src="/images/example/photo-grid-2.jpg" class="photo-grid_img">
+                                        <div class="photo-grid_overlay">
+                                            <span class="photo-grid_zoom powertip"></span>
+                                            <div class="like-control like-control__smallest clearfix">
+                                                <a class="like-control_ico like-control_ico__like powertip" href="">865</a>
+                                                <a class="like-control_ico like-control_ico__favorites powertip" href="">55</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="photo-grid_i">
+                                        <img alt="" src="/images/example/photo-grid-3.jpg" class="photo-grid_img">
+                                        <div class="photo-grid_overlay">
+                                            <span class="photo-grid_zoom powertip"></span>
+                                            <div class="like-control like-control__smallest clearfix">
+                                                <a class="like-control_ico like-control_ico__like powertip" href="">865</a>
+                                                <a class="like-control_ico like-control_ico__favorites powertip" href="">55</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="photo-grid_row clearfix">
+                                    <!-- Ловить клик на photo-grid_i для показа увеличенного фото -->
+                                    <div class="photo-grid_i">
+                                        <img alt="" src="/images/example/photo-grid-4.jpg" class="photo-grid_img">
+                                        <div class="photo-grid_overlay">
+                                            <span class="photo-grid_zoom powertip"></span>
+                                            <div class="like-control like-control__smallest clearfix">
+                                                <a class="like-control_ico like-control_ico__like powertip" href="">865</a>
+                                                <a class="like-control_ico like-control_ico__favorites powertip" href="">55</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="photo-grid_i">
+                                        <img alt="" src="/images/example/photo-grid-5.jpg" class="photo-grid_img">
+                                        <div class="photo-grid_overlay">
+                                            <span class="photo-grid_zoom powertip"></span>
+                                            <div class="like-control like-control__smallest clearfix">
+                                                <a class="like-control_ico like-control_ico__like powertip" href="">865</a>
+                                                <a class="like-control_ico like-control_ico__favorites powertip" href="">55</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="photo-grid_i">
+                                        <img alt="" src="/images/example/photo-grid-6.jpg" class="photo-grid_img">
+                                        <div class="photo-grid_overlay">
+                                            <span class="photo-grid_zoom powertip"></span>
+                                            <div class="like-control like-control__smallest clearfix">
+                                                <a class="like-control_ico like-control_ico__like powertip" href="">865</a>
+                                                <a class="like-control_ico like-control_ico__favorites powertip" href="">55</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="photo-grid_row clearfix">
+                                    <!-- Ловить клик на photo-grid_i для показа увеличенного фото -->
+                                    <div class="photo-grid_i">
+                                        <img alt="" src="/images/example/photo-grid-3.jpg" class="photo-grid_img">
+                                        <div class="photo-grid_overlay">
+                                            <span class="photo-grid_zoom powertip"></span>
+                                            <div class="like-control like-control__smallest clearfix">
+                                                <a class="like-control_ico like-control_ico__like powertip" href="">865</a>
+                                                <a class="like-control_ico like-control_ico__favorites powertip" href="">55</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="photo-grid_i">
+                                        <img alt="" src="/images/example/photo-grid-1.jpg" class="photo-grid_img">
+                                        <div class="photo-grid_overlay">
+                                            <span class="photo-grid_zoom powertip"></span>
+                                            <div class="like-control like-control__smallest clearfix">
+                                                <a class="like-control_ico like-control_ico__like powertip" href="">865</a>
+                                                <a class="like-control_ico like-control_ico__favorites powertip" href="">55</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="photo-grid_i">
+                                        <img alt="" src="/images/example/photo-grid-2.jpg" class="photo-grid_img">
+                                        <div class="photo-grid_overlay">
+                                            <span class="photo-grid_zoom powertip"></span>
+                                            <div class="like-control like-control__smallest clearfix">
+                                                <a class="like-control_ico like-control_ico__like powertip" href="">865</a>
+                                                <a class="like-control_ico like-control_ico__favorites powertip" href="">55</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+							<div class="textalign-r">                 
+                                <a class="b-article_more b-article_more__white" href="">Смотреть 25 фото</a>
+                            </div>
+						</div>
+						
+						<div class="custom-likes-b">
+							<div class="custom-likes-b_slogan">Поделитесь с друзьями!</div>
+							<a href="" class="custom-like">
+								<span class="custom-like_icon odnoklassniki"></span>
+								<span class="custom-like_value">0</span>
+							</a>
+							<a href="" class="custom-like">
+								<span class="custom-like_icon vkontakte"></span>
+								<span class="custom-like_value">1900</span>
+							</a>
+						
+							<a href="" class="custom-like">
+								<span class="custom-like_icon facebook"></span>
+								<span class="custom-like_value">150</span>
+							</a>
+						
+							<a href="" class="custom-like">
+								<span class="custom-like_icon twitter"></span>
+								<span class="custom-like_value">10</span>
+							</a>
+						</div>
+						<div class="nav-article clearfix">
+							<div class="nav-article_left">
+								<a href="" class="nav-article_arrow nav-article_arrow__left"></a>
+								<a href="" class="nav-article_a">Очень красивые пропорции у нашего ведущего</a>
+							</div>
+							<div class="nav-article_right">
+								<a href="" class="nav-article_arrow nav-article_arrow__right"></a>
+								<a href="" class="nav-article_a">Очень красивые пропорции Очень красивые пропорции у нашего ведущего у нашего ведущего</a>
+							</div>
+						</div>
+						
+						<div class="article-banner">
+							<a href="">
+								<img border="0" title="" alt="" src="/images/example/w540-h285.jpg">
+							</a>
 						</div>
 						
 						<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/comments-gray-open.php'; ?>

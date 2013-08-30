@@ -210,6 +210,7 @@
 				<div class="col-23-middle col-gray clearfix">
 				
 					<div class="friends-list friends-list__family margin-t20">
+
 						<div class="friends-list_i">
 							<div class="b-ava-large">
 								<div class="b-ava-large_ava-hold clearfix">
@@ -235,14 +236,14 @@
 								</div>
 								<div class="textalign-c">
 									<a href="" class="b-ava-large_a">Александр Богоявленский</a>
-									<span class="font-smallest color-gray"> 139 лет</span>
+									<span class="font-smallest color-gray"> 19 лет</span>
 								</div>
 							</div>
 							<div class="friends-list_location clearfix">
-                   				<div class="flag flag-ua" title="Украина"></div>
-                   				Украина, Астраханская область
+                   				<div class="flag flag-kz" title="Россия"></div>
+                   				Казахстан, Переславль-Залесский, Астраханская область
                    			</div>
-                   			<div class="b-family">
+							<div class="b-family">
 								<ul class="b-family_ul">
 									<li class="b-family_li">
 										<div class="b-family_img-hold">
@@ -256,32 +257,12 @@
 									</li>
 									<li class="b-family_li">
 										<div class="b-family_img-hold">
-											<img class="b-family_img" alt="" src="/images/example/w60-h40.jpg">
+											<div class="ico-family ico-family__boy-19"></div>
 										</div>
 										<div class="b-family_tx">
 											<span>Сын</span> <br>
-											<span>Александsdfsdfsdfsdfр</span> <br>
-											<span>10 лет</span>
-										</div>
-									</li>
-									<li class="b-family_li">
-										<div class="b-family_img-hold">
-											<img class="b-family_img" alt="" src="/images/example/w64-h61-1.jpg">
-										</div>
-										<div class="b-family_tx">
-											<span>Дочь</span> <br>
-											<span>Снежана</span> <br>
-											<span>2,5 года</span>
-										</div>
-									</li>
-									<li class="b-family_li">
-										<div class="b-family_img-hold">
-											<div class="ico-family ico-family__girl-small"></div>
-										</div>
-										<div class="b-family_tx">
-											<span>Дочь</span> <br>
-											<span>Снежана</span> <br>
-											<span>2,5 года</span>
+											<span>Алекс</span> <br>
+											<span>18 лет</span>
 										</div>
 									</li>
 									<li class="b-family_li">
@@ -294,17 +275,15 @@
 											<span>2,5 года</span>
 										</div>
 									</li>
-									<li class="b-family_li">
-										<div class="b-family_img-hold">
-											<a class="b-family_more" href="">еще 3</a>
-										</div>
-										<div class="b-family_tx">
-										</div>
-									</li>
 								</ul>
 							</div>
-                   			
+							<div class="cap-empty cap-empty__smile">
+								<div class="cap-empty_hold">
+									<div class="cap-empty_tx">Приглашение <br> отправлено </div>
+								</div>
+							</div>
 						</div>
+
 						<div class="friends-list_i">
 							<div class="b-ava-large">
 								<div class="b-ava-large_ava-hold clearfix">

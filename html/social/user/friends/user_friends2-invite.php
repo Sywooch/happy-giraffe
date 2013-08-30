@@ -301,13 +301,6 @@
 									</li>
 								</ul>
 							</div>
-							<!-- <div class="friends-list_reject">
-								<div class="friends-list_reject-tx">Вы отклонили <br> предложение </div>
-								<div class="color-gray margin-5">Пользователь успешно <br> удален из этого списка</div>
-								<div class="clearfix">
-									<a href="" class="a-pseudo">Восстановить?</a>
-								</div>
-							</div> -->
 							<div class="cap-empty">
 								<div class="cap-empty_hold">
 									<div class="cap-empty_tx">Вы отклонили <br> предложение</div>
@@ -363,6 +356,79 @@
 										</div>
 									</li>
 								</ul>
+							</div>
+						</div>
+
+						<div class="friends-list_i">
+							<div class="b-ava-large">
+								<div class="b-ava-large_ava-hold clearfix">
+									<a class="ava large" href="">
+										<img alt="" src="/images/example/ava-large.jpg">
+									</a>
+									<span class="b-ava-large_online">На сайте</span>
+									<a href="" class="b-ava-large_bubble b-ava-large_bubble__dialog powertip" title="Начать диалог">
+										<span class="b-ava-large_ico b-ava-large_ico__mail"></span>
+										<span class="b-ava-large_bubble-tx">+5</span>
+									</a>
+									<a href="" class="b-ava-large_bubble b-ava-large_bubble__photo powertip" title="Фотографии">
+										<span class="b-ava-large_ico b-ava-large_ico__photo"></span>
+										<span class="b-ava-large_bubble-tx">+50</span>
+									</a>
+									<a href="" class="b-ava-large_bubble b-ava-large_bubble__blog powertip" title="Записи в блоге">
+										<span class="b-ava-large_ico b-ava-large_ico__blog"></span>
+										<span class="b-ava-large_bubble-tx">+999</span>
+									</a>
+									<a href="" class="b-ava-large_bubble b-ava-large_bubble__friend-add powertip" title="Добавить в друзья">
+										<span class="b-ava-large_ico b-ava-large_ico__friend-add"></span>
+									</a>
+								</div>
+								<div class="textalign-c">
+									<a href="" class="b-ava-large_a">Александр Богоявленский</a>
+									<span class="font-smallest color-gray"> 19 лет</span>
+								</div>
+							</div>
+							<div class="friends-list_location clearfix">
+                   				<div class="flag flag-kz" title="Россия"></div>
+                   				Казахстан, Переславль-Залесский, Астраханская область
+                   			</div>
+							<div class="b-family">
+								<ul class="b-family_ul">
+									<li class="b-family_li">
+										<div class="b-family_img-hold">
+											<!-- Размеры изображений 55*55пк -->
+											<img class="b-family_img" alt="" src="/images/example/w41-h49-1.jpg">
+										</div>
+										<div class="b-family_tx">
+											<span>Жена</span> <br>
+											<span>Елена</span>
+										</div>
+									</li>
+									<li class="b-family_li">
+										<div class="b-family_img-hold">
+											<div class="ico-family ico-family__boy-19"></div>
+										</div>
+										<div class="b-family_tx">
+											<span>Сын</span> <br>
+											<span>Алекс</span> <br>
+											<span>18 лет</span>
+										</div>
+									</li>
+									<li class="b-family_li">
+										<div class="b-family_img-hold">
+											<div class="ico-family ico-family__boy-small"></div>
+										</div>
+										<div class="b-family_tx">
+											<span>Дочь</span> <br>
+											<span>Снежана</span> <br>
+											<span>2,5 года</span>
+										</div>
+									</li>
+								</ul>
+							</div>
+							<div class="cap-empty">
+								<div class="cap-empty_hold">
+									<div class="cap-empty_tx">Приглашение <br> отменено</div>
+								</div>
 							</div>
 						</div>
 												

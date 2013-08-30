@@ -6900,6 +6900,14 @@ select.pregnancy_term + .chzn-container .chzn-results li {
   /* /col-1 */
 
 }
+.content-cols:after {
+  display: block;
+  content: '.';
+  height: 0;
+  clear: both;
+  line-height: 0;
+  font-size: 0;
+}
 .content-cols .col-1 {
   width: 240px;
   padding-right: 20px;

@@ -15297,6 +15297,9 @@ table.fr_recipe_tb td {
 .cap-empty__rel .cap-empty_hold {
   margin-top: -100px;
 }
+.cap-empty__smile .cap-empty_hold {
+  background: url(/images/cap-empty_hold__smile.png) no-repeat 50% 0;
+}
 .cap-empty_hold {
   position: absolute;
   top: 50%;

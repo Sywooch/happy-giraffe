@@ -181,19 +181,24 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
                     <!-- ko if: noticeIsEditable -->
                         <div class="form-settings_label-row">
                             <span data-bind="text: noticeLabel()"></span>
-                            <!-- ko if: $root.canEdit -->
-                            <a class="a-pseudo-icon powertip" title="Редактировать" data-bind="click: editNotice, if: ! noticeBeingEdited()">
+                            <!-- ko if: $root.canEdit && ! noticeBeingEdited() -->
+                            <a class="a-pseudo-icon powertip" title="Редактировать" data-bind="click: editNotice">
                                 <span class="ico-edit"></span>
                             </a>
                             <!-- /ko -->
                         </div>
-                        <!-- ko if: ! noticeBeingEdited() && notice().length > 0 -->
-                            <div class="family-settings_about clearfix" data-bind="text: notice"></div>
+                        <!-- ko if: ! noticeBeingEdited() -->
+                            <!-- ko if: notice().length > 0 -->
+                                <div class="family-settings_about clearfix" data-bind="text: notice"></div>
+                            <!-- /ko -->
+                            <!-- ko if: notice().length == 0 -->
+                                <div class="family-settings_about clearfix"><a class="a-pseudo-gray" data-bind="text: noticePlaceholderLabel(), click: editNotice"></a></div>
+                            <!-- /ko -->
                         <!-- /ko -->
                         <!-- ko if: noticeBeingEdited -->
                             <div class="family-settings_about clearfix">
                                 <div class="w-300">
-                                    <textarea cols="30" rows="4" class="itx-gray" data-bind="value: noticeValue"></textarea>
+                                    <textarea cols="30" rows="4" class="itx-gray" data-bind="value: noticeValue, attr: { placeholder : noticePlaceholderLabel() }"></textarea>
                                     <div class="clearfix margin-t5">
                                         <button class="btn-green  btn-small margin-r5" data-bind="click: saveNotice">Сохранить</button>
                                         <a class="btn-gray-light  btn-small" data-bind="click: cancelEditNotice">Отменить</a>

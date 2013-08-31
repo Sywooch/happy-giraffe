@@ -348,15 +348,16 @@ var FamilyMainViewModel = function(data) {
 
     self.currentYear = data.currentYear;
 
-    self.days = [];
+    self.days = [undefined];
     for (var i = 1; i <= 31; i++)
         self.days.push(i);
 
-    self.years = [];
+    self.years = [undefined];
     for (var i = self.currentYear - 18; i <= self.currentYear; i++)
         self.years.push(i);
 
     self.monthes = [
+        new FamilyMainMonth({ id : undefined, name : undefined }),
         new FamilyMainMonth({ id : 1, name : 'января' }),
         new FamilyMainMonth({ id : 2, name : 'февраля' }),
         new FamilyMainMonth({ id : 3, name : 'марта' }),
@@ -428,6 +429,9 @@ var FamilyMainMember = function(data, parent) {
     var self = this;
 
     self.id = data.id;
+    self.nameIsEditable = true;
+    self.noticeIsEditable = true;
+    self.photosAreEditable = true;
 
     // photos
     self.mainPhotoId = ko.observable(data.mainPhotoId);
@@ -528,6 +532,9 @@ var FamilyMainBaby = function(data, parent) {
     var self = this;
     ko.utils.extend(self, new FamilyCommonBaby(data, self));
     ko.utils.extend(self, new FamilyMainMember(data, self));
+    self.nameIsEditable = self.type === null;
+    self.noticeIsEditable = self.type === null;
+    self.photosAreEditable = self.type === null;
     self.PHOTO_UPLOAD_URL = '/family/photo/babyUpload/';
     self.PHOTO_UPLOAD_TARGET = 'baby-upload-target';
     self.ENTITY_NAME = 'Baby';
@@ -536,17 +543,23 @@ var FamilyMainBaby = function(data, parent) {
     self.birthday = ko.observable(data.birthday);
     self.birthdayBeingEdited = ko.observable(false);
 
-    var birthdayArray = self.birthday().split('-');
-    self.day = ko.observable(birthdayArray[2]);
-    self.month = ko.observable(birthdayArray[1]);
-    self.year = ko.observable(birthdayArray[0]);
+    if (self.birthday() !== null) {
+        var birthdayArray = self.birthday().split('-');
+        var day = birthdayArray[2], month = birthdayArray[1], year = birthdayArray[0];
+    }
+    else
+        var day = undefined, month = undefined, year = undefined
 
-    self.dayValue = ko.observable(birthdayArray[2]);
-    self.monthValue = ko.observable(birthdayArray[1]);
-    self.yearValue = ko.observable(birthdayArray[0]);
+    self.day = ko.observable(day);
+    self.month = ko.observable(month);
+    self.year = ko.observable(year);
+
+    self.dayValue = ko.observable(day);
+    self.monthValue = ko.observable(month);
+    self.yearValue = ko.observable(year);
 
     self.birthdayText = ko.computed(function () {
-        return self.day() + ' ' + parent.getMonthLabel(self.month()).name + ' ' + self.year() + ' г.';
+        return self.birthday() === null ? 'не указан' : self.day() + ' ' + parent.getMonthLabel(self.month()).name + ' ' + self.year() + ' г.';
     });
 
     self.birthdayValue = function() {
@@ -563,6 +576,7 @@ var FamilyMainBaby = function(data, parent) {
                 self.day(self.dayValue());
                 self.month(self.monthValue());
                 self.year(self.yearValue());
+                self.birthday(self.birthdayValue());
                 self.birthdayBeingEdited(false);
             }
         }, 'json');
@@ -608,7 +622,7 @@ var FamilyMainBaby = function(data, parent) {
     }
 
     self.birthdayLabel = function() {
-        return self.gender == 1 ? 'День рождения моего сына' : 'День рождения моей дочери';
+        return self.type === null ? (self.gender == 1 ? 'День рождения моего сына' : 'День рождения моей дочери') : 'Приблизительная дата родов';
     }
 }
 

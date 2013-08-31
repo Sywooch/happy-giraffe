@@ -438,6 +438,7 @@ class User extends HActiveRecord
         if ($this->trackable->isChanged('mood_id'))
             UserAction::model()->add($this->id, UserAction::USER_ACTION_MOOD_CHANGED, array('model' => $this));
 
+        Yii::import('site.frontend.modules.myGiraffe.models.*');
         ViewedPost::getInstance($this->id);
 
         foreach ($this->social_services as $service) {

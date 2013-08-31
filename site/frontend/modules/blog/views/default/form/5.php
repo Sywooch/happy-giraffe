@@ -19,6 +19,7 @@ $form = $this->beginWidget('CActiveForm', array(
     ),
 )); ?>
 
+<?php if (isset($_GET['redirect'])) echo CHtml::hiddenField('redirect', $_GET['redirect']) ?>
 <?=$form->hiddenField($model, 'type_id')?>
 
 <div id="popup-user-add-status" class="b-settings-blue b-settings-blue__status">

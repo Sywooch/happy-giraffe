@@ -40,6 +40,8 @@
     <body class="body-gray">
         <div class="layout-container">
             <div class="layout-wrapper">
+
+                <?php if (!Yii::app()->user->isGuest):?>
                 <div class="layout-header clearfix">
                     <div class="layout-header_hold clearfix">
 
@@ -47,7 +49,6 @@
                             <?=HHtml::link('Веселый жираф - сайт для всей семьи', '/', array('class' => 'logo_i', 'title' => 'Веселый жираф - сайт для всей семьи'), true)?>
                             <strong class="logo_slogan">САЙТ ДЛЯ ВСЕЙ СЕМЬИ</strong>
                         </h1>
-                        <?php if (!Yii::app()->user->isGuest):?>
                             <!-- ko stopBinding: true -->
                             <div class="header-menu layout-binding">
                                 <ul class="header-menu_ul clearfix">
@@ -109,65 +110,152 @@
                             </div>
                             <!-- /ko -->
                             <a href="<?=Yii::app()->createUrl('/site/logout')?>" class="layout-header_logout">Выход</a>
-                        <?php else: ?>
-
-                        <?php endif ?>
                     </div>
-
                 </div>
-
-                <div class="layout-content clearfix">
-                    <div class="content-cols clearfix">
-                        <div class="col-1">
-                            <div class="sidebar-search clearfix">
-                                <form action="/search/">
-                                    <input type="text" placeholder="Поиск по сайту" class="sidebar-search_itx" name="query" id="site-search" onkeyup="SiteSearch.keyUp(this)">
-                                    <input type="button" class="sidebar-search_btn" id="site-search-btn" onclick="return SiteSearch.click()"/>
-                                </form>
+                <?php else: ?>
+                    <div class="layout-header layout-header__nologin clearfix">
+                        <div class="content-cols clearfix">
+                            <div class="col-1">
+                                <h1 class="logo">
+                                    <a href="/" class="logo_i" title="Веселый жираф - сайт для все семьи">Веселый жираф - сайт для все семьи</a>
+                                    <strong class="logo_slogan">САЙТ ДЛЯ ВСЕЙ СЕМЬИ</strong>
+                                </h1>
+                                <div class="sidebar-search clearfix">
+                                    <form action="/search/">
+                                        <input type="text" placeholder="Поиск по сайту" class="sidebar-search_itx" name="query" id="site-search" onkeyup="SiteSearch.keyUp(this)">
+                                        <input type="button" class="sidebar-search_btn" id="site-search-btn" onclick="return SiteSearch.click()"/>
+                                    </form>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-23-middle">
-                            <?php if (!Yii::app()->user->isGuest):?>
-                                <?php if (isset($this->user) && $this->user->id == Yii::app()->user->id):?>
-                                    <div class="user-add-record clearfix">
-                                        <div class="user-add-record_ava-hold">
-                                            <?php $this->widget('Avatar', array('user' => Yii::app()->user->getModel())); ?>
-                                        </div>
-                                        <div class="user-add-record_hold">
-                                            <div class="user-add-record_tx">Я хочу добавить</div>
-                                            <a href="<?=$this->createUrl('/blog/default/form', array('type' => 1))?>"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__article fancy">Статью</a>
-                                            <a href="<?=$this->createUrl('/blog/default/form', array('type' => 3))?>"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__photo fancy">Фото</a>
-                                            <a href="<?=$this->createUrl('/blog/default/form', array('type' => 2))?>"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__video fancy">Видео</a>
-                                            <a href="<?=$this->createUrl('/blog/default/form', array('type' => 5))?>"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__status fancy">Статус</a>
+                            <div class="col-23">
+                                <div class="b-join clearfix">
+                                    <div class="b-join_left">
+                                        <div class="b-join_tx"> <span class="b-join_tx-big"> 4 500 000</span> мам и пап</div>
+                                        <div class="b-join_slogan">уже на Веселом Жирафе!</div>
+                                    </div>
+                                    <div class="b-join_right">
+                                        <a href="" class="btn-green btn-big">Присоединяйтесь!</a>
+                                        <div class="clearfix">
+                                            <a href="#login" class="display-ib verticalalign-m fancy">Войти</a>
+                                            <span class="i-or">или</span>
+                                            <a class="custom-like" href="">
+                                                <span class="custom-like_icon odnoklassniki"></span>
+                                            </a>
+                                            <a class="custom-like" href="">
+                                                <span class="custom-like_icon vkontakte"></span>
+                                            </a>
+
+                                            <a class="custom-like" href="">
+                                                <span class="custom-like_icon facebook"></span>
+                                            </a>
+
+                                            <a class="custom-like" href="">
+                                                <span class="custom-like_icon twitter"></span>
+                                            </a>
                                         </div>
                                     </div>
-                                <?php else: ?>
-                                    <div class="user-add-record user-add-record__small clearfix">
-                                        <div class="user-add-record_ava-hold">
-                                            <?php $this->widget('Avatar', array('user' => Yii::app()->user->getModel(), 'size' => 40)); ?>
+                                </div>
+                            </div>
+                        </div>
+                        <script>
+                            $(window).load(function() {
+                                /*
+                                 block - элемент, что фиксируется
+                                 elementStop - до какого элемента фиксируется
+                                 blockIndent - отступ
+                                 */
+                                function bJoinRowFixed() {
+
+                                    var block = $('.js-b-join-row');
+                                    var blockTop = block.offset().top;
+
+                                    var startTop = $('.layout-header').height();
+
+
+                                    $(window).scroll(function() {
+                                        var windowScrollTop = $(window).scrollTop();
+                                        if (windowScrollTop > startTop) {
+                                            block.fadeIn();
+                                        } else {
+
+                                            block.fadeOut();
+
+                                        }
+                                    });
+                                }
+
+                                bJoinRowFixed('.js-b-join-row');
+                            })
+                        </script>
+                        <div class="b-join-row js-b-join-row">
+                            <div class="b-join-row_hold">
+                                <div class="b-join-row_logo"></div>
+                                <div class="b-join-row_tx"> <span class="b-join-row_tx-big"> 4 500 000</span> мам и пап</div>
+                                <div class="b-join-row_slogan">уже на Веселом Жирафе!</div>
+                                <a href="" class="btn-green btn-h46">Присоединяйтесь!</a>
+                            </div>
+                        </div>
+
+                        <?php $this->widget('application.widgets.registerWidget.RegisterWidget');
+                        $this->widget('application.widgets.loginWidget.LoginWidget'); ?>
+
+                    </div>
+                <?php endif ?>
+
+                <div class="layout-content clearfix">
+                    <?php if (!Yii::app()->user->isGuest):?>
+                        <div class="content-cols clearfix">
+                            <div class="col-1">
+                                <div class="sidebar-search clearfix">
+                                    <form action="/search/">
+                                        <input type="text" placeholder="Поиск по сайту" class="sidebar-search_itx" name="query" id="site-search" onkeyup="SiteSearch.keyUp(this)">
+                                        <input type="button" class="sidebar-search_btn" id="site-search-btn" onclick="return SiteSearch.click()"/>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="col-23-middle">
+                                <?php if (!Yii::app()->user->isGuest):?>
+                                    <?php if (isset($this->user) && $this->user->id == Yii::app()->user->id):?>
+                                        <div class="user-add-record clearfix">
+                                            <div class="user-add-record_ava-hold">
+                                                <?php $this->widget('Avatar', array('user' => Yii::app()->user->getModel())); ?>
+                                            </div>
+                                            <div class="user-add-record_hold">
+                                                <div class="user-add-record_tx">Я хочу добавить</div>
+                                                <a href="<?=$this->createUrl('/blog/default/form', array('type' => 1))?>"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__article fancy">Статью</a>
+                                                <a href="<?=$this->createUrl('/blog/default/form', array('type' => 3))?>"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__photo fancy">Фото</a>
+                                                <a href="<?=$this->createUrl('/blog/default/form', array('type' => 2))?>"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__video fancy">Видео</a>
+                                                <a href="<?=$this->createUrl('/blog/default/form', array('type' => 5))?>"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__status fancy">Статус</a>
+                                            </div>
                                         </div>
-                                        <div class="user-add-record_hold">
-                                            <div class="user-add-record_tx">Я хочу добавить</div>
-                                            <a href="<?= $this->createUrl('/blog/default/form', array('type' => 1)) ?>" data-theme="transparent" class="user-add-record_ico user-add-record_ico__article fancy powertip" title="Статью"></a>
-                                            <a href="<?= $this->createUrl('/blog/default/form', array('type' => 3)) ?>" data-theme="transparent" class="user-add-record_ico user-add-record_ico__photo fancy powertip" title="Фото"></a>
-                                            <a href="<?= $this->createUrl('/blog/default/form', array('type' => 2)) ?>" data-theme="transparent" class="user-add-record_ico user-add-record_ico__video fancy powertip" title="Видео"></a>
-                                            <a href="<?= $this->createUrl('/blog/default/form', array('type' => 5)) ?>" data-theme="transparent" class="user-add-record_ico user-add-record_ico__status fancy powertip" title="Статус"></a>
+                                    <?php else: ?>
+                                        <div class="user-add-record user-add-record__small clearfix">
+                                            <div class="user-add-record_ava-hold">
+                                                <?php $this->widget('Avatar', array('user' => Yii::app()->user->getModel(), 'size' => 40)); ?>
+                                            </div>
+                                            <div class="user-add-record_hold">
+                                                <div class="user-add-record_tx">Я хочу добавить</div>
+                                                <a href="<?= $this->createUrl('/blog/default/form', array('type' => 1)) ?>" data-theme="transparent" class="user-add-record_ico user-add-record_ico__article fancy powertip" title="Статью"></a>
+                                                <a href="<?= $this->createUrl('/blog/default/form', array('type' => 3)) ?>" data-theme="transparent" class="user-add-record_ico user-add-record_ico__photo fancy powertip" title="Фото"></a>
+                                                <a href="<?= $this->createUrl('/blog/default/form', array('type' => 2)) ?>" data-theme="transparent" class="user-add-record_ico user-add-record_ico__video fancy powertip" title="Видео"></a>
+                                                <a href="<?= $this->createUrl('/blog/default/form', array('type' => 5)) ?>" data-theme="transparent" class="user-add-record_ico user-add-record_ico__status fancy powertip" title="Статус"></a>
+                                            </div>
+                                        </div>
+                                    <?php endif ?>
+                                <?php endif ?>
+
+                                <?php if (!empty($this->breadcrumbs)):?>
+                                    <div class="padding-l20">
+                                        <div class="crumbs-small clearfix">
+                                            <?php $this->widget('HBreadcrumbs', array(
+                                                'links' => $this->breadcrumbs,
+                                            )); ?>
                                         </div>
                                     </div>
                                 <?php endif ?>
-                            <?php endif ?>
-
-                            <?php if (!empty($this->breadcrumbs)):?>
-                                <div class="padding-l20">
-                                    <div class="crumbs-small clearfix">
-                                        <?php $this->widget('HBreadcrumbs', array(
-                                            'links' => $this->breadcrumbs,
-                                        )); ?>
-                                    </div>
-                                </div>
-                            <?php endif ?>
+                            </div>
                         </div>
-                    </div>
+                    <?php endif ?>
 
                     <?=$content?>
                 </div>

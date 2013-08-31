@@ -167,6 +167,9 @@ var FamilyViewModel = function(data) {
                 self.me().relationshipStatus(self.beingDragged().relationshipStatus);
         }
 
+        if (self.beingDragged() instanceof FamilyBaby && self.beingDragged().type !== null && self.hasWaitingBaby())
+            return false;
+
         data.content(self.beingDragged());
         self.family.valueHasMutated();
     };
@@ -194,6 +197,14 @@ var FamilyViewModel = function(data) {
         return self.partner() !== null;
     });
 
+    self.hasWaitingBaby = ko.computed(function() {
+        for (var i in self.family()) {
+            if (self.family()[i].content() instanceof FamilyBaby && self.family()[i].content().type !== null)
+                return true;
+        }
+        return false;
+    })
+
     self.familyMembersCount = ko.computed(function() {
         return self.family().reduce(function(previousValue, currentValue) {
             return previousValue + ! currentValue.isEmpty();
@@ -216,7 +227,7 @@ var FamilyViewModel = function(data) {
         var babies = [];
         ko.utils.arrayForEach(self.family(), function(element) {
             if (element.content() instanceof FamilyBaby && element.content().isNewRecord)
-                babies.push({ gender : element.content().gender, ageGroup : element.content().ageGroup, type : element.content().type });
+                babies.push({ sex : element.content().gender, age_group : element.content().ageGroup, type : element.content().type });
         });
         data.babies = babies;
         data.createPartner = self.hasPartner() && self.partner().isNewRecord;

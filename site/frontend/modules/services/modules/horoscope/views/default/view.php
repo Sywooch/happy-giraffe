@@ -3,11 +3,10 @@
  * @var $model Horoscope
  */
 ?><?php $time = strtotime($model->date);?>
+
 <div class="horoscope-one">
 
     <div class="block-in">
-
-        <h1><?=$this->title ?></h1>
 
         <div class="img">
 

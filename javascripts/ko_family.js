@@ -73,6 +73,10 @@ var FamilyCommonMe = function(data, parent) {
     self.bigCssClass = function() {
         return 'ico-family-big__' + self.getAdultCssClass(self.gender, self.relationshipStatus());
     }
+
+    self.title = function() {
+        return 'Я';
+    }
 }
 
 var FamilyCommonPartner = function(data, parent, root) {
@@ -89,6 +93,28 @@ var FamilyCommonPartner = function(data, parent, root) {
     self.bigCssClass = function() {
         return 'ico-family-big__' + self.getAdultCssClass((1 + root.me().gender) % 2, root.me().relationshipStatus());
     }
+
+    self.title = function() {
+        if (root.me().gender == 0) {
+            switch (root.me().relationshipStatus()) {
+                case 1:
+                    return 'Жена';
+                case 3:
+                    return 'Подруга';
+                case 4:
+                    return 'Невеста';
+            }
+        } else {
+            switch (root.me().relationshipStatus()) {
+                case 1:
+                    return 'Жена';
+                case 3:
+                    return 'Подруга';
+                case 4:
+                    return 'Невеста';
+            }
+        }
+    };
 }
 
 var FamilyCommonBaby = function(data, parent) {
@@ -145,6 +171,25 @@ var FamilyCommonBaby = function(data, parent) {
 
     self.bigCssClass = function() {
         return 'ico-family-big__' + self.cssClassKeyword();
+    }
+
+    self.title = function() {
+        switch (self.type) {
+            case null:
+                return self.gender == 1 ? 'Сын' : 'Дочь';
+            case 1:
+                switch (self.gender) {
+                    case 0:
+                        return 'Ждем девочку';
+                    case 1:
+                        return 'Ждем мальчика';
+                    case 2:
+                        return 'Ждем ребенка';
+                }
+            case 3:
+                return 'Ждем двойню';
+        }
+
     }
 }
 
@@ -306,52 +351,11 @@ var FamilyMe = function(data, parent) {
 var FamilyPartner = function(data, parent) {
     var self = this;
     ko.utils.extend(self, new FamilyCommonPartner(data, self, parent));
-
-    self.title = function() {
-        if (parent.me().gender == 0) {
-            switch (self.relationshipStatus) {
-                case 1:
-                    return 'Жена';
-                case 3:
-                    return 'Подруга';
-                case 4:
-                    return 'Невеста';
-            }
-        } else {
-            switch (self.relationshipStatus) {
-                case 1:
-                    return 'Жена';
-                case 3:
-                    return 'Подруга';
-                case 4:
-                    return 'Невеста';
-            }
-        }
-    };
 }
 
 var FamilyBaby = function(data, parent) {
     var self = this;
     ko.utils.extend(self, new FamilyCommonBaby(data));
-
-    self.title = function() {
-        switch (self.type) {
-            case null:
-                return self.gender == 1 ? 'Сын' : 'Дочь';
-            case 1:
-                switch (self.gender) {
-                    case 0:
-                        return 'Ждем девочку';
-                    case 1:
-                        return 'Ждем мальчика';
-                    case 2:
-                        return 'Ждем ребенка';
-                }
-            case 3:
-                return 'Ждем двойню';
-        }
-
-    }
 }
 
 var FamilyMainViewModel = function(data) {
@@ -422,7 +426,7 @@ var FamilyMainViewModel = function(data) {
         var response = $(this).contents().find('#response').text();
         if (response.length > 0) {
             var data = $.parseJSON(response);
-            self.me().photos.unshift(new FamilyMainPhoto(data.photo, self.partner(), self));
+            self.me().photos.unshift(new FamilyMainPhoto(data.photo, self.me(), self));
         }
     });
 

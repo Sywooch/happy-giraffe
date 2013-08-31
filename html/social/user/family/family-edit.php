@@ -339,12 +339,11 @@
 											</div>
 										</div>
 										<div class="form-settings_label-row">
-											О моей дочери 
-											<a href="" class="a-pseudo-icon powertip" title="Редактировать">
-												<span class="ico-edit"></span>
-											</a>
+											О моей дочери
 										</div>
-										<div class="family-settings_about clearfix">Рада, что заглянули на мою страничку, а так же для вас открыта дверь моего дневника, возможно мы подружимся и найдем, что сказать друг другу... </div>
+										<div class="family-settings_about clearfix">
+											<a href="" class="a-pseudo-gray">Напишите пару слов о вашей дочери</a>
+										</div>
 									</div>
 								</div>
 							</div>

@@ -63,7 +63,7 @@ class DefaultController extends HController
 
     public function actionServices($community_id)
     {
-
+        $this->render('services');
     }
 
     public function actionSubscribe()

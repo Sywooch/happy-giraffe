@@ -51,7 +51,7 @@
                             <div class="header-menu layout-binding">
                                 <ul class="header-menu_ul clearfix">
                                     <li class="header-menu_li">
-                                        <a href="" class="header-menu_a">
+                                        <a href="<?=$this->createUrl('/myGiraffe/default/index', array('type'=>1))?>" class="header-menu_a">
                                             <span class="header-menu_ico header-menu_ico__giraffe"></span>
                                             <span class="header-menu_tx">Мой <br> Жираф</span>
                                         </a>
@@ -154,6 +154,16 @@
                                         </div>
                                     </div>
                                 <?php endif ?>
+                            <?php endif ?>
+
+                            <?php if (!empty($this->breadcrumbs)):?>
+                                <div class="padding-l20">
+                                    <div class="crumbs-small clearfix">
+                                        <?php $this->widget('HBreadcrumbs', array(
+                                            'links' => $this->breadcrumbs,
+                                        )); ?>
+                                    </div>
+                                </div>
                             <?php endif ?>
                         </div>
                     </div>

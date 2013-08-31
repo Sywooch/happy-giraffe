@@ -1,5 +1,4 @@
-<?php $this->beginContent('//layouts/common_new'); ?>
-<?php Yii::app()->clientScript->registerCssFile('/stylesheets/user.css'); ?>
+<?php $this->beginContent('//layouts/main'); ?>
     <div class="content-cols clearfix">
 
         <div class="col-1">

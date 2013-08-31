@@ -346,6 +346,7 @@ var FamilyBaby = function(data, parent) {
 var FamilyMainViewModel = function(data) {
     var self = this;
 
+    self.canEdit = data.canEdit;
     self.currentYear = data.currentYear;
 
     self.days = [undefined];

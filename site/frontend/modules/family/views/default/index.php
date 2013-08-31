@@ -102,112 +102,7 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
             </div>
         </div>
         <div class="col-gray padding-20">
-
-            <div class="family-settings clearfix">
-                <div class="family-settings_hold clearfix">
-                    <div class="family-settings_photo">
-                        <div class="family-settings_photo-hold">
-                            <img src="/images/example/w220-h165-1.jpg" alt="" class="family-settings_photo-img">
-                        </div>
-                    </div>
-                    <div class="family-settings_desc">
-                        <div class="form-settings">
-                            <div class="form-settings_label-row">Я</div>
-                            <div class="">
-                                <span class="form-settings_name">Иван</span>
-                                <a href="" class="a-pseudo-icon powertip" title="Редактировать">
-                                    <span class="ico-edit"></span>
-                                </a>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-                <!-- max-width 640px -->
-                <div class="photo-preview-row photo-preview-row__add clearfix">
-                    <h3 class="heading-small margin-b10">Мои фото</h3>
-                    <div class="photo-preview-row_hold">
-                        <div class="photo-grid clearfix">
-                            <div class="photo-grid_row clearfix">
-                                <!-- Высота фотографий 105пк -->
-                                <div class="photo-grid_i">
-                                    <img alt="" src="/images/example/photo-grid-7.jpg" class="photo-grid_img">
-                                    <div class="photo-grid_overlay">
-                                        <span class="photo-grid_zoom"></span>
-                                        <div class="photo-grid_overlay-row">
-                                            <label for="photo-grid_check1" class="photo-grid_checbox-label powertip" title="Сделать основным">
-                                                <input type="checkbox" name="" id="photo-grid_check1" class="photo-grid_checkbox">
-                                            </label>
-                                            <div class="float-r">
-                                                <a href="" class="ico-del ico-del__white powertip" title="Удалить"></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="photo-grid_i">
-                                    <img alt="" src="/images/example/photo-grid-8.jpg" class="photo-grid_img">
-                                    <div class="photo-grid_overlay">
-                                        <span class="photo-grid_zoom"></span>
-                                        <div class="photo-grid_overlay-row">
-                                            <label for="photo-grid_check1" class="photo-grid_checbox-label powertip" title="Сделать основным">
-                                                <input type="checkbox" name="" id="photo-grid_check1" class="photo-grid_checkbox">
-                                            </label>
-                                            <div class="float-r">
-                                                <a href="" class="ico-del ico-del__white powertip" title="Удалить"></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="photo-grid_i">
-                                    <img alt="" src="/images/example/photo-grid-9.jpg" class="photo-grid_img">
-                                    <div class="photo-grid_overlay">
-                                        <span class="photo-grid_zoom"></span>
-                                        <div class="photo-grid_overlay-row">
-                                            <label for="photo-grid_check1" class="photo-grid_checbox-label powertip" title="Сделать основным">
-                                                <input type="checkbox" name="" id="photo-grid_check1" class="photo-grid_checkbox">
-                                            </label>
-                                            <div class="float-r">
-                                                <a href="" class="ico-del ico-del__white powertip" title="Удалить"></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="photo-grid_i">
-                                    <img alt="" src="/images/example/photo-grid-10.jpg" class="photo-grid_img">
-                                    <div class="photo-grid_overlay">
-                                        <span class="photo-grid_zoom"></span>
-                                        <div class="photo-grid_overlay-row">
-                                            <label for="photo-grid_check1" class="photo-grid_checbox-label powertip" title="Сделать основным">
-                                                <input type="checkbox" name="" id="photo-grid_check1" class="photo-grid_checkbox">
-                                            </label>
-                                            <div class="float-r">
-                                                <a href="" class="ico-del ico-del__white powertip" title="Удалить"></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="photo-grid_i">
-                                    <img alt="" src="/images/example/photo-grid-12.jpg" class="photo-grid_img">
-                                    <div class="photo-grid_overlay">
-                                        <span class="photo-grid_zoom"></span>
-                                        <div class="photo-grid_overlay-row">
-                                            <label for="photo-grid_check1" class="photo-grid_checbox-label powertip" title="Сделать основным">
-                                                <input type="checkbox" name="" id="photo-grid_check1" class="photo-grid_checkbox">
-                                            </label>
-                                            <div class="float-r">
-                                                <a href="" class="ico-del ico-del__white powertip" title="Удалить"></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                             <a href="" class="photo-preview-row_add"></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
+            <!-- ko template: { name : 'member-template', data : me } --><!-- /ko -->
             <!-- ko template: { name : 'member-template', data : partner, if : partner() !== null } --><!-- /ko-->
             <!-- ko template: { name : 'member-template', foreach : normalBabies } --><!-- /ko -->
             <!-- ko template: { name : 'member-template', data : waitingBaby, if : waitingBaby } --><!-- /ko -->
@@ -215,6 +110,7 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
     </div>
 </div>
 
+<iframe name="me-upload-target" id="me-upload-target" style="display: none;"></iframe>
 <iframe name="partner-upload-target" id="partner-upload-target" style="display: none;"></iframe>
 <iframe name="baby-upload-target" id="baby-upload-target" style="display: none;"></iframe>
 
@@ -227,7 +123,9 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
 
 <script type="text/html" id="member-template">
     <div class="family-settings clearfix">
+        <!-- ko if: ! ($data instanceof FamilyMainMe) -->
         <a href="" class="ico-close2 powertip family-settings_del" title="Удалить"></a>
+        <!-- /ko -->
         <div class="family-settings_hold clearfix">
             <div class="family-settings_photo">
                 <div class="family-settings_photo-hold">

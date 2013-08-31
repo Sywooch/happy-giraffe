@@ -9,6 +9,26 @@
 
 class PhotoController extends HController
 {
+    public function actionMeUpload()
+    {
+        $photo = AlbumPhoto::model()->createUserTempPhoto($_FILES['photo']);
+
+        $attach = new AttachPhoto();
+        $attach->entity = 'User';
+        $attach->entity_id = Yii::app()->user->id;
+        $attach->photo_id = $photo->id;
+        $attach->save();
+
+        $response = array(
+            'photo' => array(
+                'id' => $photo->id,
+                'bigThumbSrc' => $photo->getPreviewUrl(220, null, Image::WIDTH),
+                'smallThumbSrc' => $photo->getPreviewUrl(null, 105, Image::HEIGHT),
+            ),
+        );
+        $this->renderPartial('uploadPhoto', compact('response'));
+    }
+
     public function actionPartnerUpload()
     {
         $photo = AlbumPhoto::model()->createUserTempPhoto($_FILES['photo']);

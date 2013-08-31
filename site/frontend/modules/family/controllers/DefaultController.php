@@ -2,10 +2,12 @@
 
 class DefaultController extends HController
 {
-    public function actionIndex()
+    public function actionIndex($userId)
     {
-        $json = Yii::app()->user->model->getFamilyData();
+        $user = User::model()->findByPk($userId);
+        $json = $user->getFamilyData();
         $json['currentYear'] = date("Y");
+        $json['canEdit'] = $user->id == Yii::app()->user->id;
         $this->render('index', compact('json'));
     }
 

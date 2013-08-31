@@ -936,6 +936,11 @@ class User extends HActiveRecord
         return Yii::app()->createUrl('/messaging/default/index', array('interlocutorId' => $this->id));
     }
 
+    public function getFamilyUrl()
+    {
+        return Yii::app()->createUrl('/family/default/index', array('userId' => $this->id));
+    }
+
     public function getBlogWidget()
     {
         $criteria = new CDbCriteria(array(

@@ -123,7 +123,7 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
 
 <script type="text/html" id="member-template">
     <div class="family-settings clearfix">
-        <!-- ko if: ! ($data instanceof FamilyMainMe) -->
+        <!-- ko if: $root.canEdit && ! ($data instanceof FamilyMainMe) -->
         <a href="" class="ico-close2 powertip family-settings_del" title="Удалить"></a>
         <!-- /ko -->
         <div class="family-settings_hold clearfix">
@@ -145,9 +145,11 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
                             <div class="form-settings_elem">
                                 <!-- ko if: ! nameBeingEdited() -->
                                     <span class="form-settings_name" data-bind="text: name"></span>
-                                    <a class="a-pseudo-icon powertip" title="Редактировать" data-bind="click: editName">
-                                        <span class="ico-edit"></span>
-                                    </a>
+                                    <!-- ko if: $root.canEdit -->
+                                        <a class="a-pseudo-icon powertip" title="Редактировать" data-bind="click: editName">
+                                            <span class="ico-edit"></span>
+                                        </a>
+                                    <!-- /ko -->
                                 <!-- /ko -->
                                 <!-- ko if: nameBeingEdited -->
                                     <div class="float-l w-300">
@@ -164,9 +166,11 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
                             <div class="form-settings_elem">
                                 <!-- ko if: ! birthdayBeingEdited() -->
                                     <span data-bind="text: birthdayText"></span>
-                                    <a class="a-pseudo-icon" data-bind="click: editBirthday">
-                                        <span class="ico-edit"></span>
-                                    </a>
+                                    <!-- ko if: $root.canEdit -->
+                                        <a class="a-pseudo-icon" data-bind="click: editBirthday">
+                                            <span class="ico-edit"></span>
+                                        </a>
+                                    <!-- /ko -->
                                 <!-- /ko -->
                                 <!-- ko if: birthdayBeingEdited -->
                                     <div class="clearfix">
@@ -194,9 +198,11 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
                     <!-- ko if: noticeIsEditable -->
                         <div class="form-settings_label-row">
                             <span data-bind="text: noticeLabel()"></span>
+                            <!-- ko if: $root.canEdit -->
                             <a class="a-pseudo-icon powertip" title="Редактировать" data-bind="click: editNotice, if: ! noticeBeingEdited()">
                                 <span class="ico-edit"></span>
                             </a>
+                            <!-- /ko -->
                         </div>
                         <!-- ko if: ! noticeBeingEdited() && notice().length > 0 -->
                             <div class="family-settings_about clearfix" data-bind="text: notice"></div>
@@ -226,6 +232,7 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
                                 <img alt="" class="photo-grid_img" data-bind="attr: { src : smallThumbSrc }">
                                 <div class="photo-grid_overlay">
                                     <span class="photo-grid_zoom"></span>
+                                    <!-- ko if: $root.canEdit -->
                                     <div class="photo-grid_overlay-row">
                                         <label for="photo-grid_check1" class="photo-grid_checbox-label" data-bind="tooltip: 'Сделать основным'">
                                             <input type="checkbox" class="photo-grid_checkbox" data-bind="checked: isMain, click: function() { return true; }, clickBubble: false">
@@ -234,9 +241,11 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
                                             <a href="" class="ico-del ico-del__white" data-bind="click: remove, clickBubble: false, tooltip: 'Удалить'"></a>
                                         </div>
                                     </div>
+                                    <!-- /ko -->
                                 </div>
                             </div>
                         <!-- /ko -->
+                        <!-- ko if: $root.canEdit -->
                         <span class="photo-preview-row_add file-fake">
                             <form method="post" enctype="multipart/form-data" data-bind="attr: { action : PHOTO_UPLOAD_URL, target : PHOTO_UPLOAD_TARGET }">
                                 <!-- ko if: $data instanceof FamilyMainBaby -->
@@ -245,6 +254,7 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
                                 <input type="file" name="photo" onchange="submit()">
                             </form>
                         </span>
+                        <!-- /ko -->
                     </div>
                 </div>
             </div>

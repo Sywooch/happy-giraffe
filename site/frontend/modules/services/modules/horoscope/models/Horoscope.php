@@ -576,7 +576,7 @@ class Horoscope extends HActiveRecord
                 'year' => $this->year
             ));
 
-        return Yii::app()->createUrl($this->getType(), array('zodiac' => $this->getZodiacSlug()));
+        return Yii::app()->createUrl('/services/horoscope/default/'.$this->getType(), array('zodiac' => $this->getZodiacSlug()));
     }
 
     public function getName()

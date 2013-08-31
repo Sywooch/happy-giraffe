@@ -29,6 +29,7 @@
                 ->registerScriptFile('/javascripts/tooltipsy.min.js')
                 ->registerScriptFile('/javascripts/addtocopy.js')
                 ->registerScriptFile('/javascripts/jquery.placeholder.min.js')
+                ->registerScriptFile('/javascripts/base64.js')
             ;
         ?>
 

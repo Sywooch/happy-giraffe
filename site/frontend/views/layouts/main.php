@@ -72,7 +72,7 @@
                                     </li>
                                     <li class="header-menu_li header-menu_li__sepor"></li>
                                     <li class="header-menu_li">
-                                        <a href="<?=Yii::app()->user->model->url?>" class="header-menu_a">
+                                        <a href="<?=Yii::app()->user->model->getUrl()?>" class="header-menu_a">
                                             <span class="ava middle">
                                                 <img src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" alt="">
                                             </span>
@@ -80,7 +80,7 @@
                                         </a>
                                     </li>
                                     <li class="header-menu_li">
-                                        <a href="" class="header-menu_a">
+                                        <a href="<?=Yii::app()->user->model->getFamilyUrl()?>" class="header-menu_a">
                                             <span class="header-menu_ico header-menu_ico__family"></span>
                                             <span class="header-menu_tx">Моя <br> семья</span>
                                         </a>

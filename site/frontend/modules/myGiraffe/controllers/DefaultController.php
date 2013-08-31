@@ -8,6 +8,26 @@ class DefaultController extends HController
      */
     public $user;
 
+    public function filters()
+    {
+        return array(
+            'accessControl',
+            'onlyNew + onlyAjax'
+        );
+    }
+
+    public function accessRules()
+    {
+        return array(
+            array('allow',
+                'users' => array('@'),
+            ),
+            array('deny',
+                'users' => array('*'),
+            ),
+        );
+    }
+
     public function beforeAction($action)
     {
         $this->user = Yii::app()->user->getModel();

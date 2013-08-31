@@ -12,6 +12,11 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
         <div class="b-family b-family__bg-white">
             <div class="b-family_top b-family_top__blue"></div>
             <ul class="b-family_ul">
+                <!-- ko template: { name : 'member-small-template', data : me } --><!-- /ko -->
+                <!-- ko template: { name : 'member-small-template', data : partner, if : partner() !== null } --><!-- /ko-->
+                <!-- ko template: { name : 'member-small-template', foreach : normalBabies } --><!-- /ko -->
+                <!-- ko template: { name : 'member-small-template', data : waitingBaby, if : waitingBaby } --><!-- /ko -->
+                <?php if (false): ?>
                 <li class="b-family_li">
                     <div class="b-family_img-hold">
                         <!-- Размеры изображений 55*55пк -->
@@ -61,6 +66,7 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
                         <span>2,5 года</span>
                     </div>
                 </li>
+                <?php endif; ?>
             </ul>
             <div class="textalign-c">
                 <!-- Для удобства число можно положить в span или другой строчный тег -->
@@ -253,4 +259,23 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
             </div>
         <!-- /ko -->
     </div>
+</script>
+
+<script type="text/html" id="member-small-template">
+    <li class="b-family_li">
+        <div class="b-family_img-hold">
+            <!-- ko if: photoToShow() !== null -->
+                <img alt="" class="b-family_img" data-bind="attr: { src : photoToShow().bigThumbSrc }">
+            <!-- /ko -->
+            <!-- ko if: photoToShow() === null -->
+                <div class="ico-family" data-bind="css: cssClass()"></div>
+            <!-- /ko -->
+        </div>
+        <div class="b-family_tx">
+            <span data-bind="text: title()">Я</span>
+            <!-- ko if: name().length > 0 -->
+            <br><span>Иван</span>
+            <!-- /ko -->
+        </div>
+    </li>
 </script>

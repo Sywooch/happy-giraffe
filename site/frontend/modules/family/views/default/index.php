@@ -64,7 +64,7 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
             </ul>
             <div class="textalign-c">
                 <!-- Для удобства число можно положить в span или другой строчный тег -->
-                <span class="font-big padding-r5"> Членов семьи: 5 </span>
+                <span class="font-big padding-r5"> Членов семьи: <span data-bind="text: familyMembersCount"></span> </span>
                 <a href="" class="a-pseudo font-middle">Изменить</a>
             </div>
         </div>
@@ -75,7 +75,7 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
         <div class="heading-title">
             Моя семья
             <div class="float-r position-r">
-                <span class="font-big padding-r5"> Членов семьи: 5 </span>
+                <span class="font-big padding-r5"> Членов семьи: <span data-bind="text: familyMembersCount"></span> </span>
                 <a href="" class="a-pseudo font-middle">Изменить</a>
             </div>
         </div>
@@ -102,7 +102,7 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
 <script type="text/html" id="member-template">
     <div class="family-settings clearfix">
         <!-- ko if: $root.canEdit && ! ($data instanceof FamilyMainMe) -->
-        <a href="" class="ico-close2 powertip family-settings_del" title="Удалить"></a>
+        <a class="ico-close2 powertip family-settings_del" title="Удалить" data-bind="click: remove"></a>
         <!-- /ko -->
         <div class="family-settings_hold clearfix">
             <div class="family-settings_photo">
@@ -148,11 +148,16 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
                         <div class="clearfix">
                             <div class="form-settings_elem">
                                 <!-- ko if: ! birthdayBeingEdited() -->
-                                    <span data-bind="text: birthdayText"></span>
-                                    <!-- ko if: $root.canEdit -->
+                                    <!-- ko if: birthday() !== null -->
+                                        <span data-bind="text: birthdayText"></span>
+                                    <!-- /ko -->
+                                    <!-- ko if: $root.canEdit && birthday() !== null -->
                                         <a class="a-pseudo-icon" data-bind="click: editBirthday">
                                             <span class="ico-edit"></span>
                                         </a>
+                                    <!-- /ko -->
+                                    <!-- ko if: $root.canEdit && birthday() === null -->
+                                        <a class="a-pseudo-gray" data-bind="text: birthdayPlaceholderLabel(), click: editBirthday"></a>
                                     <!-- /ko -->
                                 <!-- /ko -->
                                 <!-- ko if: birthdayBeingEdited -->

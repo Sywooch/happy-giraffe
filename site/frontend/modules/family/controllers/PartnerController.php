@@ -25,4 +25,11 @@ class PartnerController extends HController
         $response = compact('success');
         echo CJSON::encode($response);
     }
+
+    public function actionRemove()
+    {
+        $success = $this->partner->delete();
+        $response = compact('success');
+        echo CJSON::encode($response);
+    }
 }

@@ -83,11 +83,11 @@ var FamilyCommonPartner = function(data, parent, root) {
     self.relationshipStatus = data.relationshipStatus;
 
     self.cssClass = function() {
-        return 'ico-family__' + self.getAdultCssClass((1 + root.me().gender) % 2, self.relationshipStatus);
+        return 'ico-family__' + self.getAdultCssClass((1 + root.me().gender) % 2, root.me().relationshipStatus());
     }
 
     self.bigCssClass = function() {
-        return 'ico-family-big__' + self.getAdultCssClass((1 + root.me().gender) % 2, self.relationshipStatus);
+        return 'ico-family-big__' + self.getAdultCssClass((1 + root.me().gender) % 2, root.me().relationshipStatus());
     }
 }
 
@@ -404,8 +404,12 @@ var FamilyMainViewModel = function(data) {
 
     self.waitingBaby = ko.computed(function() {
         return ko.utils.arrayFirst(self.babies(), function(baby) {
-            return baby.type == 1 || baby.type == 2;
+            return baby.type !== null;
         });
+    });
+
+    self.familyMembersCount = ko.computed(function() {
+        return 1 + self.babies().length + (self.partner() === null ? 0 : 1);
     });
 
     self.getBabyById = function(id) {
@@ -552,6 +556,13 @@ var FamilyMainPartner = function(data, parent) {
         }, 'json');
     }
 
+    self.remove = function() {
+        $.post('/family/partner/remove/', function(response) {
+            if (response.success)
+                parent.partner(null);
+        }, 'json');
+    }
+
     // labels
     self.titleLabel = function() {
         return self.getLabel(self.TITLE_VALUES);
@@ -611,7 +622,7 @@ var FamilyMainBaby = function(data, parent) {
     self.yearValue = ko.observable(year);
 
     self.birthdayText = ko.computed(function () {
-        return self.birthday() === null ? 'не указан' : self.day() + ' ' + parent.getMonthLabel(self.month()).name + ' ' + self.year() + ' г.';
+        return self.day() + ' ' + parent.getMonthLabel(self.month()).name + ' ' + self.year() + ' г.';
     });
 
     self.birthdayValue = function() {
@@ -643,6 +654,13 @@ var FamilyMainBaby = function(data, parent) {
     self.saveNotice = function() {
         $.post('/family/baby/updateAttribute/', { id : self.id, attribute : 'notice', value : self.noticeValue() }, function(response) {
             self.saveNoticeCallback(response);
+        }, 'json');
+    }
+
+    self.remove = function() {
+        $.post('/family/baby/remove/', { id : self.id }, function(response) {
+            if (response.success)
+                parent.babies.remove(self);
         }, 'json');
     }
 
@@ -683,6 +701,10 @@ var FamilyMainBaby = function(data, parent) {
 
     self.noticePlaceholderLabel = function() {
         return self.gender == 1 ? 'Напишите пару слов о вашем сыне' : 'Напишите пару слов о вашей дочери';
+    }
+
+    self.birthdayPlaceholderLabel = function() {
+        return self.type === null ? (self.gender == 1 ? 'Введите дату рождения вашего сына' : 'Введите дату рождения вашей дочери') : 'Введите приблизительную дату родов';
     }
 }
 

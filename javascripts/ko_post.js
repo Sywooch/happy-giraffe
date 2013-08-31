@@ -176,3 +176,56 @@ function RepostWidget(data) {
     });
 }
 
+
+/**
+ * Настройки записи в блог
+ */
+function BlogRecordSettings(data) {
+    var self = this;
+    ko.mapping.fromJS(data, {}, self);
+    self.displayOptions = ko.observable(false);
+    self.displayPrivacy = ko.observable(false);
+    self.removed = ko.observable(false);
+
+    self.attach = function(){
+        $.post('/newblog/attachBlog/', {id: self.id()}, function (response) {
+            if (response.status) {
+                self.attached(!self.attached());
+            }
+        }, 'json');
+        self.displayOptions(false);
+    };
+    self.show = function(){
+        self.displayOptions(!self.displayOptions());
+    };
+    self.showPrivacy = function(){
+        self.displayPrivacy(!self.displayPrivacy());
+    };
+    self.privacyClass = ko.computed(function () {
+        if (self.privacy() == 0)
+            return 'ico-users__all';
+        else return 'ico-users__friend';
+    });
+    self.setPrivacy = function(privacy){
+        $.post('/newblog/updatePrivacy/', {id: self.id(), privacy:privacy}, function (response) {
+            if (response.status) {
+                self.privacy(privacy);
+                self.displayPrivacy(false);
+            }
+        }, 'json');
+
+    };
+    self.remove = function() {
+        $.post('/newblog/remove/', { id : self.id() }, function(response) {
+            if (response.success)
+                self.removed(true);
+        }, 'json');
+    }
+    self.restore = function() {
+        $.post('/newblog/restore/', { id : self.id() }, function(response) {
+            if (response.success)
+                self.removed(false);
+        }, 'json');
+    }
+}
+

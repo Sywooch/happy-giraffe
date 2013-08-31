@@ -198,7 +198,10 @@ class DefaultController extends HController
         $success = $model->withRelated->save(true, array($slug));
 
         if ($success) {
-            $this->redirect($model->url);
+            if (isset($_POST['redirect']))
+                $this->redirect($_POST['redirect']);
+            else
+                $this->redirect($model->url);
         } else {
             echo 'Root:<br />';
             var_dump($model->getErrors());

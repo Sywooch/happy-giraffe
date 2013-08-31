@@ -13,7 +13,7 @@ class LikeWidget extends CWidget {
     public function run()
     {
         $count = (int) PostRating::likesCount($this->model);
-        $active = Yii::app()->user->getModel()->isLiked($this->model);
+        $active = !Yii::app()->user->isGuest && Yii::app()->user->getModel()->isLiked($this->model);
 
         $this->render('like', compact('count', 'active'));
     }

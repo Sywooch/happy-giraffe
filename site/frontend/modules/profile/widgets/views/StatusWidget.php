@@ -1,5 +1,6 @@
 <?php
 /**
+ * @var $this StatusWidget
  * @var $data BlogContent
  * @var $full bool
  */
@@ -39,5 +40,21 @@ $text = strip_tags($status->text);
                 </div>
             </div>
         <?php endif; ?>
+
+        <?php if ($this->isMyProfile):?>
+            <div class="article-settings">
+                <div class="article-settings_i">
+                    <a href="javascript:;" class="article-settings_a article-settings_a__settings powertip" onclick="$(this).parent().next().slideToggle(300);"></a>
+                </div>
+                <div class="article-settings_hold" style="display: none;">
+                    <div class="article-settings_i">
+                        <a href="<?=Yii::app()->createUrl('/blog/default/form', array('type' => 5, 'redirect'=>'/user/'.Yii::app()->user->id))?>" data-theme="transparent" class="article-settings_a article-settings_a__add powertip fancy" title="Редактировать"></a>
+                    </div>
+                    <div class="article-settings_i">
+                        <a href="<?=Yii::app()->createUrl('/blog/default/form', array('id' => $data->id, 'redirect'=>'/user/'.Yii::app()->user->id))?>" data-theme="transparent" class="article-settings_a article-settings_a__edit powertip fancy" title="Редактировать"></a>
+                    </div>
+                </div>
+            </div>
+        <?php endif ?>
     </div>
 </div>

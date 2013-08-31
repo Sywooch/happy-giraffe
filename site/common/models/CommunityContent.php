@@ -162,9 +162,9 @@ class CommunityContent extends HActiveRecord
             'pingable' => array(
                 'class' => 'site.common.behaviors.PingableBehavior',
             ),
-            'duplicate' => array(
-                'class' => 'site.common.behaviors.DuplicateBehavior',
-            ),
+//            'duplicate' => array(
+//                'class' => 'site.common.behaviors.DuplicateBehavior',
+//            ),
         );
     }
 

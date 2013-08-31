@@ -537,6 +537,8 @@ var FamilyMainPartner = function(data, parent) {
     self.TITLE_VALUES = ['Моя жена', 'Моя невеста', 'Моя подруга', 'Мой муж', 'Мой жених', 'Мой друг'];
     self.NOTICE_VALUES = ['О моей жене', 'О моей невесте', 'О моей подруге', 'О моем муже', 'О моем женихе', 'О моем друге'];
     self.PHOTOS_VALUES = ['Фото моей жены', 'Фото моей невесты', 'Фото моей подруги', 'Фото моего мужа', 'Фото моего жениха', 'Фото моего друга'];
+    self.NAME_PLACEHOLDER_VALUES = ['Введите имя вашей жены', 'Введите имя вашей невесты', 'Введите имя вашей подруги', 'Введите имя вашего мужа', 'Введите имя вашего жениха', 'Введите имя вашего друга'];
+    self.NOTICE_PLACEHOLDER_VALUES = ['Напишите пару слов о вашей жене', 'Напишите пару слов о вашей невесте', 'Напишите пару слов о вашей подруге', 'Напишите пару слов о вашем муже', 'Напишите пару слов о вашем женихе', 'Напишите пару слов о вашем друге'];
 
     self.saveName = function() {
         $.post('/family/partner/updateAttribute/', { attribute : 'name', value : self.nameValue() }, function(response) {
@@ -561,6 +563,14 @@ var FamilyMainPartner = function(data, parent) {
 
     self.photosLabel = function() {
         return self.getLabel(self.PHOTOS_VALUES);
+    }
+
+    self.namePlaceholderLabel = function() {
+        return self.getLabel(self.NAME_PLACEHOLDER_VALUES);
+    }
+
+    self.noticePlaceholderLabel = function() {
+        return self.getLabel(self.NAME_PLACEHOLDER_VALUES);
     }
 
     self.getLabel = function(values) {
@@ -665,6 +675,14 @@ var FamilyMainBaby = function(data, parent) {
 
     self.birthdayLabel = function() {
         return self.type === null ? (self.gender == 1 ? 'День рождения моего сына' : 'День рождения моей дочери') : 'Приблизительная дата родов';
+    }
+
+    self.namePlaceholderLabel = function() {
+        return self.gender == 1 ? 'Введите имя вашего сына' : 'Введите имя вашей дочери';
+    }
+
+    self.noticePlaceholderLabel = function() {
+        return self.gender == 1 ? 'Напишите пару слов о вашем сыне' : 'Напишите пару слов о вашей дочери';
     }
 }
 

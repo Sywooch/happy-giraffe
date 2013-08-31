@@ -570,7 +570,7 @@ var FamilyMainPartner = function(data, parent) {
     }
 
     self.noticePlaceholderLabel = function() {
-        return self.getLabel(self.NAME_PLACEHOLDER_VALUES);
+        return self.getLabel(self.NOTICE_PLACEHOLDER_VALUES);
     }
 
     self.getLabel = function(values) {

@@ -402,6 +402,14 @@ var FamilyMainViewModel = function(data) {
         });
     };
 
+    $('#me-upload-target').on('load', function() {
+        var response = $(this).contents().find('#response').text();
+        if (response.length > 0) {
+            var data = $.parseJSON(response);
+            self.me().photos.unshift(new FamilyMainPhoto(data.photo, self.partner(), self));
+        }
+    });
+
     $('#partner-upload-target').on('load', function() {
         var response = $(this).contents().find('#response').text();
         if (response.length > 0) {
@@ -420,11 +428,6 @@ var FamilyMainViewModel = function(data) {
     });
 }
 
-var FamilyMainMe = function(data, parent) {
-    var self = this;
-    ko.utils.extend(self, new FamilyCommonMe(data));
-}
-
 var FamilyMainMember = function(data, parent) {
     var self = this;
 
@@ -436,7 +439,7 @@ var FamilyMainMember = function(data, parent) {
     // photos
     self.mainPhotoId = ko.observable(data.mainPhotoId);
     self.photos = ko.observableArray(ko.utils.arrayMap(data.photos, function(photo) {
-        return new FamilyMainPhoto(photo, self);
+        return new FamilyMainPhoto(photo, self, parent);
     }));
     self.mainPhoto = ko.computed(function() {
         return ko.utils.arrayFirst(self.photos(), function(photo) {
@@ -484,17 +487,44 @@ var FamilyMainMember = function(data, parent) {
     }
 }
 
+var FamilyMainMe = function(data, parent) {
+    var self = this;
+    self.PHOTO_UPLOAD_URL = '/family/photo/meUpload/';
+    self.PHOTO_UPLOAD_TARGET = 'me-upload-target';
+    self.ENTITY_NAME = 'User';
+    ko.utils.extend(self, new FamilyCommonMe(data, self));
+    ko.utils.extend(self, new FamilyMainMember(data, self));
+
+    self.noticeIsEditable = false;
+    self.photosAreEditable = true;
+
+    self.saveName = function() {
+        $.post('/family/me/updateAttribute/', { attribute : 'first_name', value : self.nameValue() }, function(response) {
+            self.saveNameCallback(response);
+        }, 'json');
+    }
+
+    // labels
+    self.titleLabel = function() {
+        return 'Я';
+    }
+
+    self.photosLabel = function() {
+        return 'Мои фото';
+    }
+}
+
 var FamilyMainPartner = function(data, parent) {
     var self = this;
+    self.PHOTO_UPLOAD_URL = '/family/photo/partnerUpload/';
+    self.PHOTO_UPLOAD_TARGET = 'partner-upload-target';
+    self.ENTITY_NAME = 'UserPartner';
     ko.utils.extend(self, new FamilyCommonPartner(data, self, parent));
     ko.utils.extend(self, new FamilyMainMember(data, self));
 
     self.TITLE_VALUES = ['Моя жена', 'Моя невеста', 'Моя подруга', 'Мой муж', 'Мой жених', 'Мой друг'];
     self.NOTICE_VALUES = ['О моей жене', 'О моей невесте', 'О моей подруге', 'О моем муже', 'О моем женихе', 'О моем друге'];
     self.PHOTOS_VALUES = ['Фото моей жены', 'Фото моей невесты', 'Фото моей подруги', 'Фото моего мужа', 'Фото моего жениха', 'Фото моего друга'];
-    self.PHOTO_UPLOAD_URL = '/family/photo/partnerUpload/';
-    self.PHOTO_UPLOAD_TARGET = 'partner-upload-target';
-    self.ENTITY_NAME = 'UserPartner';
 
     self.saveName = function() {
         $.post('/family/partner/updateAttribute/', { attribute : 'name', value : self.nameValue() }, function(response) {
@@ -530,14 +560,14 @@ var FamilyMainPartner = function(data, parent) {
 
 var FamilyMainBaby = function(data, parent) {
     var self = this;
+    self.PHOTO_UPLOAD_URL = '/family/photo/babyUpload/';
+    self.PHOTO_UPLOAD_TARGET = 'baby-upload-target';
+    self.ENTITY_NAME = 'Baby';
     ko.utils.extend(self, new FamilyCommonBaby(data, self));
     ko.utils.extend(self, new FamilyMainMember(data, self));
     self.nameIsEditable = self.type === null;
     self.noticeIsEditable = self.type === null;
     self.photosAreEditable = self.type === null;
-    self.PHOTO_UPLOAD_URL = '/family/photo/babyUpload/';
-    self.PHOTO_UPLOAD_TARGET = 'baby-upload-target';
-    self.ENTITY_NAME = 'Baby';
 
     // birthday
     self.birthday = ko.observable(data.birthday);
@@ -632,14 +662,14 @@ var FamilyMainMonth = function(data, parent) {
     self.name = data.name;
 }
 
-var FamilyMainPhoto = function(data, member) {
+var FamilyMainPhoto = function(data, member, memberParent) {
     var self = this;
     self.id = data.id;
     self.bigThumbSrc = data.bigThumbSrc;
     self.smallThumbSrc = data.smallThumbSrc;
 
     self.open = function() {
-        PhotoCollectionViewWidget.open('AttachPhotoCollection', { entityName : member.ENTITY_NAME, entityId : member.id }, self.id);
+        PhotoCollectionViewWidget.open('AttachPhotoCollection', { entityName : memberParent.ENTITY_NAME, entityId : member.id }, self.id);
     };
 
     self.remove = function() {
@@ -653,13 +683,14 @@ var FamilyMainPhoto = function(data, member) {
             return member.mainPhotoId() == self.id;
         },
         write: function(value) {
+            console.log(member);
             if (value) {
-                $.post('/family/photo/setMainPhoto/', { entityName : member.ENTITY_NAME, entityId : member.id, photoId : self.id }, function(response) {
+                $.post('/family/photo/setMainPhoto/', { entityName : memberParent.ENTITY_NAME, entityId : member.id, photoId : self.id }, function(response) {
                     if (response.success)
                         member.mainPhotoId(self.id);
                 }, 'json');
             } else {
-                $.post('/family/photo/unsetMainPhoto/', { entityName : member.ENTITY_NAME, entityId : member.id }, function(response) {
+                $.post('/family/photo/unsetMainPhoto/', { entityName : memberParent.ENTITY_NAME, entityId : member.id }, function(response) {
                     if (response.success)
                         member.mainPhotoId(null);
                 }, 'json');

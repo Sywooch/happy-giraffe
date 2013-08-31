@@ -155,6 +155,16 @@
                                     </div>
                                 <?php endif ?>
                             <?php endif ?>
+
+                            <?php if (!empty($this->breadcrumbs)):?>
+                                <div class="padding-l20">
+                                    <div class="crumbs-small clearfix">
+                                        <?php $this->widget('HBreadcrumbs', array(
+                                            'links' => $this->breadcrumbs,
+                                        )); ?>
+                                    </div>
+                                </div>
+                            <?php endif ?>
                         </div>
                     </div>
 

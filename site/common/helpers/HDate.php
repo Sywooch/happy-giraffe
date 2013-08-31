@@ -115,7 +115,7 @@ class HDate
 
     public static function ruMonthShort($num)
     {
-        switch ($num) {
+        switch ((int)$num) {
             case 1 :
                 return "янв";
             case 2  :

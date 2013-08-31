@@ -13,8 +13,10 @@
 .layout-header {
 	position:relative;
 	
-
-	.logo {
+	&__nologin {
+		padding: 20px 0 20px 20px;
+	}
+	&_hold .logo {
 		float: left;
 		margin:5px 40px 0 40px;
 		padding: 0;
@@ -92,6 +94,87 @@
 		color: #fff;
 		.gvertical(#ff1a00, #cd0000);
 		.border-radius(4px);
+	}
+}
+
+.b-join {
+	padding: 25px 20px 35px 40px;
+	background: #fffad0;
+
+	&_left {
+		float: left;
+		width: 340px;
+	}
+	&_tx {
+		margin: 30px 0 10px;
+		font-size: 30px;
+		color: #1c1c1c;
+	}
+	&_tx-big {
+		font-size: 35px;
+		padding-right: 5px;
+	}
+	&_slogan {
+		font: 28px/1em 'Roboto', 'Helvetica Neue', Helvetica, Arial, Tahoma, sans-serif;
+		color: #434243;
+	}
+	&_right {
+		float: right;
+		width: 270px;
+		text-align: center;
+	}
+	&_right .btn-big {
+		font-size: 23px;
+		margin-bottom: 11px;
+		padding: 0 32px;
+	}
+	&_right .custom-like {
+		vertical-align: middle;
+		margin: 0 1px;
+	}
+}
+
+.b-join-row {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	padding: 10px 0;
+	background: #fffacc;
+	background: rgba(255,250,204,.9);
+	.box-shadow(0 2px 2px rgba(0,0,0,0.15));
+	z-index: 900;
+
+	.btn-green {margin-left: 20px;}
+	&_hold {
+		width: 880px;
+		margin: 0 auto;
+	}
+	&_logo {
+		.inline-block();
+		vertical-align: middle;
+		width: 55px;
+		height: 55px;
+		background: url(/images/b-join-row_logo.png) no-repeat;
+	}
+	&_tx {
+		.inline-block();
+		vertical-align: middle;
+		margin: 0 10px;
+		font-size: 26px;
+		line-height: 1em;
+		color: #1c1c1c;
+	}
+	&_tx-big {
+		font-size: 30px;
+		padding-right: 3px;
+	}
+	&_slogan {
+		.inline-block();
+		vertical-align: middle;
+		font: 26px/1em 'Roboto', 'Helvetica Neue', Helvetica, Arial, Tahoma, sans-serif;
+		color: #434243;
 	}
 }
 

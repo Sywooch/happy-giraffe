@@ -1041,6 +1041,13 @@ a.pseudo:hover,
 .i-more__big:hover {
   text-decoration: none;
 }
+.i-or {
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0 5px;
+  font: italic 12px/1em Georgia, 'Times New Roman', Times, serif;
+  color: #a9aaaa;
+}
 .video-preview {
   position: relative;
   display: block;
@@ -6997,6 +7004,9 @@ select.pregnancy_term + .chzn-container .chzn-results li {
   padding-left: 20px;
   float: left;
 }
+.content-cols .col-gray-light,
+.content-cols .col-gray,
+.content-cols .col-white-hoar,
 .content-cols .col-white {
   border: 1px solid transparent;
   border-width: 1px 0;
@@ -7006,23 +7016,14 @@ select.pregnancy_term + .chzn-container .chzn-results li {
   -moz-border-radius: 8px;
   border-radius: 8px;
 }
+.content-cols .col-white-hoar {
+  background: #fafafa;
+}
 .content-cols .col-gray {
-  border: 1px solid transparent;
-  border-width: 1px 0;
-  margin: -1px 0;
   background: #ebebeb;
-  -webkit-border-radius: 8px;
-  -moz-border-radius: 8px;
-  border-radius: 8px;
 }
 .content-cols .col-gray-light {
-  border: 1px solid transparent;
-  border-width: 1px 0;
-  margin: -1px 0;
   background: #f8f8f8;
-  -webkit-border-radius: 8px;
-  -moz-border-radius: 8px;
-  border-radius: 8px;
 }
 /* old code */
 .content-search > span {
@@ -11552,6 +11553,9 @@ select.pregnancy_term + .chzn-container .chzn-results li {
 .layout-header {
   position: relative;
 }
+.layout-header__nologin {
+  padding: 20px 0 20px 20px;
+}
 .layout-header_hold .logo {
   float: left;
   margin: 5px 40px 0 40px;
@@ -11663,6 +11667,87 @@ select.pregnancy_term + .chzn-container .chzn-results li {
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
+}
+.b-join {
+  padding: 25px 20px 35px 40px;
+  background: #fffad0;
+}
+.b-join_left {
+  float: left;
+  width: 340px;
+}
+.b-join_tx {
+  margin: 30px 0 10px;
+  font-size: 30px;
+  color: #1c1c1c;
+}
+.b-join_tx-big {
+  font-size: 35px;
+  padding-right: 5px;
+}
+.b-join_slogan {
+  font: 28px/1em 'Roboto', 'Helvetica Neue', Helvetica, Arial, Tahoma, sans-serif;
+  color: #434243;
+}
+.b-join_right {
+  float: right;
+  width: 270px;
+  text-align: center;
+}
+.b-join_right .btn-big {
+  font-size: 23px;
+  margin-bottom: 11px;
+  padding: 0 32px;
+}
+.b-join_right .custom-like {
+  vertical-align: middle;
+  margin: 0 1px;
+}
+.b-join-row {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 10px 0;
+  background: #fffacc;
+  background: rgba(255, 250, 204, 0.9);
+  -webkit-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.15);
+  z-index: 900;
+}
+.b-join-row .btn-green {
+  margin-left: 20px;
+}
+.b-join-row_hold {
+  width: 880px;
+  margin: 0 auto;
+}
+.b-join-row_logo {
+  display: inline-block;
+  vertical-align: middle;
+  width: 55px;
+  height: 55px;
+  background: url(/images/b-join-row_logo.png) no-repeat;
+}
+.b-join-row_tx {
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0 10px;
+  font-size: 26px;
+  line-height: 1em;
+  color: #1c1c1c;
+}
+.b-join-row_tx-big {
+  font-size: 30px;
+  padding-right: 3px;
+}
+.b-join-row_slogan {
+  display: inline-block;
+  vertical-align: middle;
+  font: 26px/1em 'Roboto', 'Helvetica Neue', Helvetica, Arial, Tahoma, sans-serif;
+  color: #434243;
 }
 .logo-box {
   margin: 0 auto;
@@ -20746,6 +20831,9 @@ select.pregnancy_term + .chzn-container .chzn-results li {
 }
 .family-settings .form-settings_elem {
   color: #504f4f;
+}
+.family-settings .photo-grid_i {
+  margin-bottom: 5px;
 }
 .family-settings_hold {
   margin-bottom: 20px;

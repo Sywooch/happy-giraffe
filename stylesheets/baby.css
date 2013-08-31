@@ -652,8 +652,15 @@
 #test-navel .step .result .r-text p.red {color:#cd1616;}
 
 
-#baby-sex {margin-bottom:40px;}
-#baby-sex .block-title {text-align:center;margin-bottom:40px;}
+#baby-sex {
+	padding: 0 0 20px;
+	background: #f6f6f6;
+}
+#baby-sex .block-title {text-align:center;margin:30px 0 40px;}
+#baby-sex .block-title h1 {
+	font: 35px/35px 'Roboto', 'Helvetica Neue', Helvetica, Arial, Tahoma, sans-serif;
+	color: #0d0d0d;
+}
 #baby-sex .chart {height:510px;background:url(/images/bg_baby_sex_all.png) no-repeat top;position:relative;width:542px;margin:0 auto;}
 #baby-sex a {display:block;position:absolute;text-align:center;}
 #baby-sex a .icon {display:block;margin:35px auto 8px;background:url(/images/baby_sex.png) no-repeat 0 0;}

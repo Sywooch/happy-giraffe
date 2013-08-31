@@ -13491,11 +13491,8 @@ table.fr_recipe_tb td {
 .photo-grid_i {
   position: relative;
   float: left;
-  margin: 0 0 5px 5px;
+  margin: 0 5px 0 0;
   cursor: pointer;
-}
-.photo-grid_i:first-child {
-  margin-left: 0;
 }
 .photo-grid_i:hover .photo-grid_overlay {
   z-index: 10;
@@ -16461,3 +16458,34 @@ table.fr_recipe_tb td {
   color: #fd7700;
 }
 /* /crumbs-small */
+/* club-services */
+.club-services {
+  margin: 20px 0 60px;
+}
+.club-services_i {
+  display: inline-block;
+  vertical-align: top;
+  width: 292px;
+  margin-left: 20px;
+  padding: 20px 15px 20px 20px;
+  background: #f5f5f5;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+.club-services_img {
+  float: left;
+}
+.club-services_desc {
+  margin-left: 120px;
+}
+.club-services_t {
+  font-weight: bold;
+  color: #308ecf;
+}
+.club-services_tx {
+  margin: 5px 0 0;
+  font-size: 13px;
+  color: #515151;
+}
+/* /club-services */

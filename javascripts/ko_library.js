@@ -38,6 +38,31 @@ ko.bindingHandlers.fadeVisible = {
     }
 };
 
+ko.bindingHandlers.slideVisible = {
+    init: function(element, valueAccessor) {
+        var value = valueAccessor();
+        $(element).toggle(ko.utils.unwrapObservable(value));
+    },
+    update: function(element, valueAccessor) {
+        var value = valueAccessor();
+        if (value && !$(element).is(':visible') || !value && $(element).is(':visible'))
+            $(element).slideToggle(300);
+    }
+};
+
+ko.bindingHandlers.toggleVisible = {
+    init: function(element, valueAccessor) {
+        var value = valueAccessor();
+        $(element).toggle(ko.utils.unwrapObservable(value));
+    },
+    update: function(element, valueAccessor) {
+        var value = valueAccessor();
+        if (value && !$(element).is(':visible') || !value && $(element).is(':visible'))
+            $(element).toggle(200);
+    }
+};
+
+
 ko.bindingHandlers.chosen =
 {
     init: function(element)
@@ -50,7 +75,6 @@ ko.bindingHandlers.chosen =
         $(element).trigger('liszt:updated');
     }
 };
-
 
 
 //jqAuto -- main binding (should contain additional options to pass to autocomplete)

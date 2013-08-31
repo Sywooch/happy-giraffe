@@ -141,108 +141,110 @@
 								<h3 class="heading-small margin-b10">Мои фото</h3>
 				                <div class="photo-preview-row_hold">
 				                    <div class="photo-grid clearfix">
-			                            <!-- Высота фотографий 105пк -->
-			                            <div class="photo-grid_i">
-			                                <img alt="" src="/images/example/photo-grid-7.jpg" class="photo-grid_img">
-			                                <div class="photo-grid_overlay">
-			                                    <span class="photo-grid_zoom"></span>
-			                                    <div class="photo-grid_overlay-row">
-			                                    	<label for="photo-grid_check1" class="photo-grid_checbox-label powertip" title="Сделать основным">
-			                                    		<input type="checkbox" name="" id="photo-grid_check1" class="photo-grid_checkbox">
-			                                    	</label>
-			                                    	<div class="float-r">
-			                                    		<a href="" class="ico-del ico-del__white powertip" title="Удалить"></a>
-			                                    	</div>
-			                                    </div>
-			                                </div>
-			                            </div>
-			                            <div class="photo-grid_i">
-			                                <img alt="" src="/images/example/photo-grid-8.jpg" class="photo-grid_img">
-			                                <div class="photo-grid_overlay">
-			                                    <span class="photo-grid_zoom"></span>
-			                                    <div class="photo-grid_overlay-row">
-			                                    	<label for="photo-grid_check1" class="photo-grid_checbox-label powertip" title="Сделать основным">
-			                                    		<input type="checkbox" name="" id="photo-grid_check1" class="photo-grid_checkbox">
-			                                    	</label>
-			                                    	<div class="float-r">
-			                                    		<a href="" class="ico-del ico-del__white powertip" title="Удалить"></a>
-			                                    	</div>
-			                                    </div>
-			                                </div>
-			                            </div>
-			                            <div class="photo-grid_i">
-			                                <img alt="" src="/images/example/photo-grid-9.jpg" class="photo-grid_img">
-			                                <div class="photo-grid_overlay">
-			                                    <span class="photo-grid_zoom"></span>
-			                                    <div class="photo-grid_overlay-row">
-			                                    	<label for="photo-grid_check1" class="photo-grid_checbox-label powertip" title="Сделать основным">
-			                                    		<input type="checkbox" name="" id="photo-grid_check1" class="photo-grid_checkbox">
-			                                    	</label>
-			                                    	<div class="float-r">
-			                                    		<a href="" class="ico-del ico-del__white powertip" title="Удалить"></a>
-			                                    	</div>
-			                                    </div>
-			                                </div>
-			                            </div>
-			                            <div class="photo-grid_i">
-			                                <img alt="" src="/images/example/photo-grid-10.jpg" class="photo-grid_img">
-			                                <div class="photo-grid_overlay">
-			                                    <span class="photo-grid_zoom"></span>
-			                                    <div class="photo-grid_overlay-row">
-			                                    	<label for="photo-grid_check1" class="photo-grid_checbox-label powertip" title="Сделать основным">
-			                                    		<input type="checkbox" name="" id="photo-grid_check1" class="photo-grid_checkbox">
-			                                    	</label>
-			                                    	<div class="float-r">
-			                                    		<a href="" class="ico-del ico-del__white powertip" title="Удалить"></a>
-			                                    	</div>
-			                                    </div>
-			                                </div>
-			                            </div>
-			                            <div class="photo-grid_i">
-			                                <img alt="" src="/images/example/photo-grid-12.jpg" class="photo-grid_img">
-			                                <div class="photo-grid_overlay">
-			                                    <span class="photo-grid_zoom"></span>
-			                                    <div class="photo-grid_overlay-row">
-			                                    	<label for="photo-grid_check1" class="photo-grid_checbox-label powertip" title="Сделать основным">
-			                                    		<input type="checkbox" name="" id="photo-grid_check1" class="photo-grid_checkbox">
-			                                    	</label>
-			                                    	<div class="float-r">
-			                                    		<a href="" class="ico-del ico-del__white powertip" title="Удалить"></a>
-			                                    	</div>
-			                                    </div>
-			                                </div>
-			                            </div>
-			                            <div class="photo-grid_i">
-			                                <img alt="" src="/images/example/photo-grid-10.jpg" class="photo-grid_img">
-			                                <div class="photo-grid_overlay">
-			                                    <span class="photo-grid_zoom"></span>
-			                                    <div class="photo-grid_overlay-row">
-			                                    	<label for="photo-grid_check1" class="photo-grid_checbox-label powertip" title="Сделать основным">
-			                                    		<input type="checkbox" name="" id="photo-grid_check1" class="photo-grid_checkbox">
-			                                    	</label>
-			                                    	<div class="float-r">
-			                                    		<a href="" class="ico-del ico-del__white powertip" title="Удалить"></a>
-			                                    	</div>
-			                                    </div>
-			                                </div>
-			                            </div>
-			                            <div class="photo-grid_i">
-			                                <img alt="" src="/images/example/photo-grid-12.jpg" class="photo-grid_img">
-			                                <div class="photo-grid_overlay">
-			                                    <span class="photo-grid_zoom"></span>
-			                                    <div class="photo-grid_overlay-row">
-			                                    	<label for="photo-grid_check1" class="photo-grid_checbox-label powertip" title="Сделать основным">
-			                                    		<input type="checkbox" name="" id="photo-grid_check1" class="photo-grid_checkbox">
-			                                    	</label>
-			                                    	<div class="float-r">
-			                                    		<a href="" class="ico-del ico-del__white powertip" title="Удалить"></a>
-			                                    	</div>
-			                                    </div>
-			                                </div>
-			                            </div>
-				                   		<span class="photo-preview-row_add file-fake">
-				                   			<input type="file" name="">
-				                   		</span>
+				                    	<div class="photo-grid_row">
+				                            <!-- Высота фотографий 105пк -->
+				                            <div class="photo-grid_i">
+				                                <img alt="" src="/images/example/photo-grid-7.jpg" class="photo-grid_img">
+				                                <div class="photo-grid_overlay">
+				                                    <span class="photo-grid_zoom"></span>
+				                                    <div class="photo-grid_overlay-row">
+				                                    	<label for="photo-grid_check1" class="photo-grid_checbox-label powertip" title="Сделать основным">
+				                                    		<input type="checkbox" name="" id="photo-grid_check1" class="photo-grid_checkbox">
+				                                    	</label>
+				                                    	<div class="float-r">
+				                                    		<a href="" class="ico-del ico-del__white powertip" title="Удалить"></a>
+				                                    	</div>
+				                                    </div>
+				                                </div>
+				                            </div>
+				                            <div class="photo-grid_i">
+				                                <img alt="" src="/images/example/photo-grid-8.jpg" class="photo-grid_img">
+				                                <div class="photo-grid_overlay">
+				                                    <span class="photo-grid_zoom"></span>
+				                                    <div class="photo-grid_overlay-row">
+				                                    	<label for="photo-grid_check1" class="photo-grid_checbox-label powertip" title="Сделать основным">
+				                                    		<input type="checkbox" name="" id="photo-grid_check1" class="photo-grid_checkbox">
+				                                    	</label>
+				                                    	<div class="float-r">
+				                                    		<a href="" class="ico-del ico-del__white powertip" title="Удалить"></a>
+				                                    	</div>
+				                                    </div>
+				                                </div>
+				                            </div>
+				                            <div class="photo-grid_i">
+				                                <img alt="" src="/images/example/photo-grid-9.jpg" class="photo-grid_img">
+				                                <div class="photo-grid_overlay">
+				                                    <span class="photo-grid_zoom"></span>
+				                                    <div class="photo-grid_overlay-row">
+				                                    	<label for="photo-grid_check1" class="photo-grid_checbox-label powertip" title="Сделать основным">
+				                                    		<input type="checkbox" name="" id="photo-grid_check1" class="photo-grid_checkbox">
+				                                    	</label>
+				                                    	<div class="float-r">
+				                                    		<a href="" class="ico-del ico-del__white powertip" title="Удалить"></a>
+				                                    	</div>
+				                                    </div>
+				                                </div>
+				                            </div>
+				                            <div class="photo-grid_i">
+				                                <img alt="" src="/images/example/photo-grid-10.jpg" class="photo-grid_img">
+				                                <div class="photo-grid_overlay">
+				                                    <span class="photo-grid_zoom"></span>
+				                                    <div class="photo-grid_overlay-row">
+				                                    	<label for="photo-grid_check1" class="photo-grid_checbox-label powertip" title="Сделать основным">
+				                                    		<input type="checkbox" name="" id="photo-grid_check1" class="photo-grid_checkbox">
+				                                    	</label>
+				                                    	<div class="float-r">
+				                                    		<a href="" class="ico-del ico-del__white powertip" title="Удалить"></a>
+				                                    	</div>
+				                                    </div>
+				                                </div>
+				                            </div>
+				                            <div class="photo-grid_i">
+				                                <img alt="" src="/images/example/photo-grid-12.jpg" class="photo-grid_img">
+				                                <div class="photo-grid_overlay">
+				                                    <span class="photo-grid_zoom"></span>
+				                                    <div class="photo-grid_overlay-row">
+				                                    	<label for="photo-grid_check1" class="photo-grid_checbox-label powertip" title="Сделать основным">
+				                                    		<input type="checkbox" name="" id="photo-grid_check1" class="photo-grid_checkbox">
+				                                    	</label>
+				                                    	<div class="float-r">
+				                                    		<a href="" class="ico-del ico-del__white powertip" title="Удалить"></a>
+				                                    	</div>
+				                                    </div>
+				                                </div>
+				                            </div>
+				                            <div class="photo-grid_i">
+				                                <img alt="" src="/images/example/photo-grid-10.jpg" class="photo-grid_img">
+				                                <div class="photo-grid_overlay">
+				                                    <span class="photo-grid_zoom"></span>
+				                                    <div class="photo-grid_overlay-row">
+				                                    	<label for="photo-grid_check1" class="photo-grid_checbox-label powertip" title="Сделать основным">
+				                                    		<input type="checkbox" name="" id="photo-grid_check1" class="photo-grid_checkbox">
+				                                    	</label>
+				                                    	<div class="float-r">
+				                                    		<a href="" class="ico-del ico-del__white powertip" title="Удалить"></a>
+				                                    	</div>
+				                                    </div>
+				                                </div>
+				                            </div>
+				                            <div class="photo-grid_i">
+				                                <img alt="" src="/images/example/photo-grid-12.jpg" class="photo-grid_img">
+				                                <div class="photo-grid_overlay">
+				                                    <span class="photo-grid_zoom"></span>
+				                                    <div class="photo-grid_overlay-row">
+				                                    	<label for="photo-grid_check1" class="photo-grid_checbox-label powertip" title="Сделать основным">
+				                                    		<input type="checkbox" name="" id="photo-grid_check1" class="photo-grid_checkbox">
+				                                    	</label>
+				                                    	<div class="float-r">
+				                                    		<a href="" class="ico-del ico-del__white powertip" title="Удалить"></a>
+				                                    	</div>
+				                                    </div>
+				                                </div>
+				                            </div>
+					                   		<span class="photo-preview-row_add file-fake">
+					                   			<input type="file" name="">
+					                   		</span>
+					                    </div>
 				                    </div>
 				                </div>
 			                </div>
@@ -337,12 +339,11 @@
 											</div>
 										</div>
 										<div class="form-settings_label-row">
-											О моей дочери 
-											<a href="" class="a-pseudo-icon powertip" title="Редактировать">
-												<span class="ico-edit"></span>
-											</a>
+											О моей дочери
 										</div>
-										<div class="family-settings_about clearfix">Рада, что заглянули на мою страничку, а так же для вас открыта дверь моего дневника, возможно мы подружимся и найдем, что сказать друг другу... </div>
+										<div class="family-settings_about clearfix">
+											<a href="" class="a-pseudo-gray">Напишите пару слов о вашей дочери</a>
+										</div>
 									</div>
 								</div>
 							</div>

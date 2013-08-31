@@ -320,7 +320,7 @@ return array(
         'search' => 'search/default/index',
         'search/default/get' => 'search/default/get',
 
-        'family' => 'family/default/index',
+        'user/<userId:\d+>/family' => 'family/default/index',
         'family/<_a>' => 'family/default/<_a>',
     ),
 );

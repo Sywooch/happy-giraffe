@@ -7004,6 +7004,9 @@ select.pregnancy_term + .chzn-container .chzn-results li {
   padding-left: 20px;
   float: left;
 }
+.content-cols .col-gray-light,
+.content-cols .col-gray,
+.content-cols .col-white-hoar,
 .content-cols .col-white {
   border: 1px solid transparent;
   border-width: 1px 0;
@@ -7013,23 +7016,14 @@ select.pregnancy_term + .chzn-container .chzn-results li {
   -moz-border-radius: 8px;
   border-radius: 8px;
 }
+.content-cols .col-white-hoar {
+  background: #fafafa;
+}
 .content-cols .col-gray {
-  border: 1px solid transparent;
-  border-width: 1px 0;
-  margin: -1px 0;
   background: #ebebeb;
-  -webkit-border-radius: 8px;
-  -moz-border-radius: 8px;
-  border-radius: 8px;
 }
 .content-cols .col-gray-light {
-  border: 1px solid transparent;
-  border-width: 1px 0;
-  margin: -1px 0;
   background: #f8f8f8;
-  -webkit-border-radius: 8px;
-  -moz-border-radius: 8px;
-  border-radius: 8px;
 }
 /* old code */
 .content-search > span {

@@ -17,7 +17,7 @@ class FavouriteWidget extends CWidget
     {
         $this->registerScripts();
         if ($this->registerScripts)
-            return;
+            return true;
 
         $count = (int) Favourite::model()->getCountByModel($this->model);
         $modelName = get_class($this->model);

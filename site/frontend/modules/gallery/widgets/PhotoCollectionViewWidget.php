@@ -14,10 +14,14 @@ class PhotoCollectionViewWidget extends CWidget
     public $maxHeight = 230;
     public $minPhotos = 2;
     public $maxRows = false;
+    public $return = false;
+    public $registerScripts = false;
 
     public function run()
     {
         $this->registerScripts();
+        if ($this->registerScripts)
+            return true;
 
         $grid = array();
         $buffer = array();
@@ -44,7 +48,10 @@ class PhotoCollectionViewWidget extends CWidget
             }
         }
 
-        $this->render('PhotoCollectionViewWidget', compact('collection', 'grid'));
+        if ($this->return)
+            return $this->render('PhotoCollectionViewWidget', compact('collection', 'grid'), true);
+        else
+            $this->render('PhotoCollectionViewWidget', compact('collection', 'grid'));
     }
 
     public function getHeight($photos)
@@ -66,5 +73,6 @@ class PhotoCollectionViewWidget extends CWidget
         ;
 
         $this->widget('application.widgets.newCommentWidget.NewCommentWidget', array('registerScripts' => true));
+        $this->widget('application.modules.favourites.widgets.FavouriteWidget', array('registerScripts' => true));
     }
 }

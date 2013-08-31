@@ -315,6 +315,7 @@ class User extends HActiveRecord
 
             'purpose' => array(self::HAS_ONE, 'UserPurpose', 'user_id', 'order' => 'purpose.created DESC'),
             'albums' => array(self::HAS_MANY, 'Album', 'author_id', 'scopes' => array('active', 'permission')),
+            'privateAlbum' => array(self::HAS_ONE, 'Album', 'author_id'),
             'simpleAlbums' => array(self::HAS_MANY, 'Album', 'author_id', 'condition' => 'type=0'),
             'interests' => array(self::MANY_MANY, 'Interest', 'interest__users_interests(interest_id, user_id)'),
             'mood' => array(self::BELONGS_TO, 'UserMood', 'mood_id'),
@@ -938,6 +939,11 @@ class User extends HActiveRecord
         return Yii::app()->createUrl('/messaging/default/index', array('interlocutorId' => $this->id));
     }
 
+    public function getFamilyUrl()
+    {
+        return Yii::app()->createUrl('/family/default/index', array('userId' => $this->id));
+    }
+
     public function getBlogWidget()
     {
         $criteria = new CDbCriteria(array(
@@ -1398,17 +1404,43 @@ class User extends HActiveRecord
 
     public function getFamilyData()
     {
+        $partnerPhotoCollection = new AttachPhotoCollection(array('entityName' => 'UserPartner', 'entityId' => $this->partner->id));
+        $partnerPhotoCollectionPhotos = $partnerPhotoCollection->getAllPhotos();
+        $myPhotoCollection = new AttachPhotoCollection(array('entityName' => 'User', 'entityId' => $this->id));
+        $myPhotoCollectionPhotos = $myPhotoCollection->getAllPhotos();
+
         return array(
             'me' => array(
+                'id' => $this->id,
+                'name' => $this->first_name,
                 'gender' => (int) $this->gender,
                 'relationshipStatus' => $this->relationship_status === null ? null : (int) $this->relationship_status,
+                'mainPhotoId' => $this->main_photo_id,
+                'photos' => array_map(function($photo) {
+                    return array(
+                        'id' => $photo->id,
+                        'bigThumbSrc' => $photo->getPreviewUrl(220, null, Image::WIDTH),
+                        'smallThumbSrc' => $photo->getPreviewUrl(null, 105, Image::HEIGHT),
+                    );
+                }, $myPhotoCollectionPhotos),
             ),
             'partner' => $this->partner === null ? null : array(
                 'id' => (string) $this->partner->id,
                 'name' => (string) $this->partner->name,
                 'notice' => (string) $this->partner->notice,
+                'mainPhotoId' => $this->partner->main_photo_id,
+                'photos' => array_map(function($photo) {
+                    return array(
+                        'id' => $photo->id,
+                        'bigThumbSrc' => $photo->getPreviewUrl(220, null, Image::WIDTH),
+                        'smallThumbSrc' => $photo->getPreviewUrl(null, 105, Image::HEIGHT),
+                    );
+                }, $partnerPhotoCollectionPhotos),
             ),
             'babies' => array_map(function($baby) {
+                $babyPhotoCollection = new AttachPhotoCollection(array('entityName' => 'Baby', 'entityId' => $baby->id));
+                $babyPhotoCollectionPhotos = $babyPhotoCollection->getAllPhotos();
+
                 return array(
                     'id' => (string) $baby->id,
                     'name' => (string) $baby->name,
@@ -1417,6 +1449,14 @@ class User extends HActiveRecord
                     'gender' => (int) $baby->sex,
                     'ageGroup' => (int) $baby->age_group,
                     'type' => $baby->type === null ? null : (int) $baby->type,
+                    'mainPhotoId' => $baby->main_photo_id,
+                    'photos' => array_map(function($photo) {
+                        return array(
+                            'id' => $photo->id,
+                            'bigThumbSrc' => $photo->getPreviewUrl(220, null, Image::WIDTH),
+                            'smallThumbSrc' => $photo->getPreviewUrl(null, 105, Image::HEIGHT),
+                        );
+                    }, $babyPhotoCollectionPhotos),
                 );
             }, $this->babies),
         );

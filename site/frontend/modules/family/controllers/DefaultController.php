@@ -8,7 +8,7 @@ class DefaultController extends HController
         $json = $user->getFamilyData();
         $json['currentYear'] = date("Y");
         $json['canEdit'] = $user->id == Yii::app()->user->id;
-        $this->render('index', compact('json'));
+        $this->render('index', compact('json', 'user'));
     }
 
 	public function actionSignup()

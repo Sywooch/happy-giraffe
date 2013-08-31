@@ -7,29 +7,7 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
 
 <div class="content-cols clearfix">
     <div class="col-1">
-        <div class="b-ava-large">
-            <div class="b-ava-large_ava-hold clearfix">
-                <a class="ava large" href="">
-                    <img alt="" src="/images/example/ava-large.jpg">
-                </a>
-                <span class="b-ava-large_online">На сайте</span>
-                <a href="" class="b-ava-large_bubble b-ava-large_bubble__dialog powertip" title="Начать диалог">
-                    <span class="b-ava-large_ico b-ava-large_ico__mail"></span>
-                    <span class="b-ava-large_bubble-tx">+5</span>
-                </a>
-                <a href="" class="b-ava-large_bubble b-ava-large_bubble__photo powertip" title="Фотографии">
-                    <span class="b-ava-large_ico b-ava-large_ico__photo"></span>
-                    <span class="b-ava-large_bubble-tx">+50</span>
-                </a>
-                <a href="" class="b-ava-large_bubble b-ava-large_bubble__blog powertip" title="Записи в блоге">
-                    <span class="b-ava-large_ico b-ava-large_ico__blog"></span>
-                    <span class="b-ava-large_bubble-tx">+999</span>
-                </a>
-            </div>
-            <div class="textalign-c">
-                <a href="" class="b-ava-large_a">Александр Богоявленский</a>
-            </div>
-        </div>
+        <?php $this->widget('Avatar', array('user' => $user, 'size' => 200, 'location' => true, 'age' => true)); ?>
 
         <div class="b-family b-family__bg-white">
             <div class="b-family_top b-family_top__blue"></div>

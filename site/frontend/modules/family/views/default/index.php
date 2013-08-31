@@ -122,16 +122,21 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
                         <div class="clearfix">
                             <div class="form-settings_elem">
                                 <!-- ko if: ! nameBeingEdited() -->
-                                    <span class="form-settings_name" data-bind="text: name"></span>
+                                    <span class="form-settings_name" data-bind="text: name, visible: name().length > 0"></span>
                                     <!-- ko if: $root.canEdit -->
-                                        <a class="a-pseudo-icon powertip" title="Редактировать" data-bind="click: editName">
-                                            <span class="ico-edit"></span>
-                                        </a>
+                                        <!-- ko if: name().length > 0 -->
+                                            <a class="a-pseudo-icon powertip" title="Редактировать" data-bind="click: editName">
+                                                <span class="ico-edit"></span>
+                                            </a>
+                                        <!-- /ko -->
+                                        <!-- ko if: name().length == 0 -->
+                                            <a class="a-pseudo-gray" data-bind="text: namePlaceholderLabel(), click: editName"></a>
+                                        <!-- /ko -->
                                     <!-- /ko -->
                                 <!-- /ko -->
                                 <!-- ko if: nameBeingEdited -->
                                     <div class="float-l w-300">
-                                        <input type="text" value="Ангелина" class="itx-gray" data-bind="value: nameValue">
+                                        <input type="text" class="itx-gray" data-bind="value: nameValue, attr: { placeholder : namePlaceholderLabel() }">
                                     </div>
                                     <button class="btn-green btn-small margin-l10" data-bind="click: saveName">Ok</button>
                                 <!-- /ko -->

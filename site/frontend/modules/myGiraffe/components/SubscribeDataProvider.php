@@ -22,24 +22,56 @@ class SubscribeDataProvider
     public static function getDataProvider($user_id, $type, $community_id = null)
     {
         if (!empty($community_id))
-            return CommunityContent::model()->getContents($community_id, null, null);
-        if ($type == self::TYPE_FRIENDS)
-            return self::getFriendsContent($user_id);
-        if ($type == self::TYPE_BLOGS)
-            return self::getBlogsContent($user_id);
+            $criteria = self::getCommunityCriteria($community_id);
+        elseif ($type == self::TYPE_FRIENDS)
+            $criteria = self::getFriendsContent($user_id); elseif ($type == self::TYPE_BLOGS)
+            $criteria = self::getBlogsCriteria($user_id); else
+            $criteria = self::getAllContent($user_id);
 
-        return new CActiveDataProvider('CommunityContent');
+        if (UserAttributes::get(Yii::app()->user->id, 'my_giraffe_only_new')) {
+            $criteria->addNotInCondition('t.id', ViewedPost::getInstance()->viewed_ids);
+            if (isset($_GET['page']))
+                $_GET['page'] = 1;
+        }
+
+        $criteria->order = 't.id desc';
+
+        return new CActiveDataProvider('CommunityContent', array(
+            'criteria' => $criteria,
+            'pagination' => array('pageVar' => 'page')
+        ));
+    }
+
+    public static function getAllContent($user_id)
+    {
+        $criteria = new CDbCriteria;
+        $criteria->with = array('rubric');
+        $criteria->addInCondition('community_id', UserCommunitySubscription::getSubUserCommunities($user_id), 'OR');
+        $criteria->addInCondition('author_id', UserBlogSubscription::getSubUserIds($user_id), 'OR');
+        return $criteria;
     }
 
     /**
      * Посты друзей
+     *
      * @param int $user_id
      * @return CActiveDataProvider
      */
     public static function getFriendsContent($user_id)
     {
-
         return new CActiveDataProvider('CommunityContent');
+    }
+
+    /**
+     * @param int $community_id
+     * @return mixed
+     */
+    public static function getCommunityCriteria($community_id)
+    {
+        $criteria = new CDbCriteria;
+        $criteria->with = array('rubric');
+        $criteria->compare('community_id', $community_id, false, 'OR');
+        return $criteria;
     }
 
     /**
@@ -48,11 +80,10 @@ class SubscribeDataProvider
      * @param int $user_id
      * @return CActiveDataProvider
      */
-    public static function getBlogsContent($user_id)
+    public static function getBlogsCriteria($user_id)
     {
         $criteria = new CDbCriteria;
-        $criteria->addInCondition('author_id', UserBlogSubscription::getSubUserIds($user_id));
-        $criteria->order = 'id desc';
-        return new CActiveDataProvider('CommunityContent');
+        $criteria->addInCondition('author_id', UserBlogSubscription::getSubUserIds($user_id), 'OR');
+        return $criteria;
     }
 } 

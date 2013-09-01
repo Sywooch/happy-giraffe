@@ -1,6 +1,9 @@
 var RecipesSearchViewModel = function(data) {
     var self = this;
 
+    self.posts = ko.observable('');
+    self.page = ko.observable(0);
+
     // query
     self.instantaneousQuery = ko.observable('');
     self.throttledQuery = ko.computed(self.instantaneousQuery).extend({ throttle: 400 });
@@ -36,17 +39,17 @@ var RecipesSearchViewModel = function(data) {
     self.lowFat = ko.observable(false);
 
     self.search = function() {
-        console.log(self.throttledQuery());
-        console.log(self.selectedRecipeType());
-        console.log(self.selectedCuisine());
-        console.log(self.selectedDuration());
-        console.log(self.forDiabetics1());
-        console.log(self.lowCal());
-        console.log(self.forDiabetics2());
-        console.log(self.lowFat());
+        $.post('/cook/recipe/searchResult/', { page : self.page()  }, function(response) {
+            self.posts(response.posts);
+            $('.pager a').on('click', function() {
+                self.page(parseInt($(this).text()) - 1);
+                return false;
+            });
+        }, 'json');
     }
 
     self.reset = function() {
+        self.page(1);
         self.instantaneousQuery('');
         self.selectedRecipeType(null);
         self.selectedCuisine(null);
@@ -58,6 +61,7 @@ var RecipesSearchViewModel = function(data) {
     }
 
     ko.computed(function() {
+        self.page();
         self.throttledQuery();
         self.selectedRecipeType();
         self.selectedCuisine();

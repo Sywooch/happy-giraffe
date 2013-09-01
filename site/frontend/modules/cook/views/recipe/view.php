@@ -205,32 +205,26 @@
                 <?=$recipe->purified->text?>
             </div>
             <div class="clearfix">
+                <?php if ($recipe->servings): ?>
                 <div class="cook-diabets">
-                    <!--
-                    Диаграмма для диабетиков имеет 4 состояния на сколько не подходит
-                    val0 (по умолчанию даже без класса)
-                    val33
-                    val66
-                    val100
-                    -->
-                    <div class="cook-diabets-chart val33">
-                        <span class="text">20.5</span>
+                    <div class="cook-diabets-chart <?=$recipe->getBakeryItemsCssClass() ?>">
+                        <span class="text"><?=$recipe->bakeryItems?></span>
                     </div>
-                    <div class="cook-diabets-desc">Подходит для диабетиков</div>
+                    <div class="cook-diabets-desc"><?=$recipe->getBakeryItemsText() ?></div>
                 </div>
+                <?php endif; ?>
 
+                <?php $tags = $recipe->getNotEmptyTags(); ?>
+                <?php if ($tags): ?>
                 <div class="cook-article-tags">
                     <div class="cook-article-tags-title">Теги</div>
                     <ul class="cook-article-tags-list">
-                        <li><a href="">Рыбные блюда</a></li>
-                        <li><a href="">Рыбные блюда</a></li>
-                        <li><a href="">Рыбные </a></li>
-                        <li><a href="">Рыбные 234234 блюда</a></li>
-                        <li><a href="">Рыбные блюда</a></li>
-                        <li><a href="">Рыбные блюда</a></li>
-                        <li><a href="">Рыбные блюда</a></li>
+                        <?php foreach ($tags as $tag): ?>
+                            <li><a href="<?=$tag->getUrl() ?>"><?=strip_tags($tag->title) ?></a></li>
+                        <?php endforeach; ?>
                     </ul>
                 </div>
+                <?php endif; ?>
             </div>
         </div>
 
@@ -266,69 +260,32 @@
             </div>
         </div>
 
-        <div class="cook-more clearfix">
-            <div class="cook-more_top">
-                Еще вкусненькое
+        <?php if ($recipe->more): ?>
+            <div class="cook-more clearfix">
+                <div class="cook-more_top">
+                    Еще вкусненькое
+                </div>
+                <ul class="cook-more_ul clearfix">
+                    <?php foreach ($recipe->more as $m): ?>
+                        <li class="cook-more_li">
+                            <div class="cook-more_author clearfix">
+                                <?php $this->widget('Avatar', array('user' => $recipe->author, 'size' => 24)) ?>
+                                <div class="clearfix">
+                                    <a class="textdec-onhover" href="<?=$m->author->getUrl() ?>"><?=$m->author->getFullName() ?></a>
+                                    <div class="color-gray font-smallest"><?=Yii::app()->dateFormatter->format("d MMMM yyyy, H:mm", $m->created)?></div>
+                                </div>
+                            </div>
+                            <?php if ($m->mainPhoto): ?>
+                                <div class="cook-more_cnt">
+                                    <?=CHtml::link(CHtml::image($m->getPreview(120, 105)), $m->url)?>
+                                </div>
+                            <?php endif; ?>
+                            <div class="cook-more_t"><?=CHtml::link($m->title, $m->url)?></div>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
             </div>
-            <ul class="cook-more_ul clearfix">
-                <li class="cook-more_li">
-                    <div class="cook-more_author clearfix">
-                        <a class="ava female small"></a>
-                        <div class="clearfix">
-                            <a class="textdec-onhover" href="">Дарья</a>
-                            <div class="color-gray font-smallest">Сегодня, 13:25</div>
-                        </div>
-                    </div>
-                    <div class="cook-more_cnt">
-                        <a href="">
-                        <!-- img max-width 120px -->
-                        <img width="120" height="105" src="/images/cook_more_img_01.jpg">
-                        </a>
-                    </div>
-                    <div class="cook-more_t"><a href="">Ригатони макароны с соусом из помидор говядины</a></div>
-                </li>
-                <li class="cook-more_li">
-                    <div class="cook-more_author clearfix">
-                        <a class="ava female small"></a>
-                        <div class="clearfix">
-                            <a class="textdec-onhover" href="">Дарья</a>
-                            <div class="color-gray font-smallest">Сегодня, 13:25</div>
-                        </div>
-                    </div>
-                    <div class="cook-more_cnt">
-                        <a href=""><img width="120" height="105" src="/images/cook_more_img_01.jpg"></a>
-                    </div>
-                    <div class="cook-more_t"><a href="">Ригатони</a></div>
-                </li>
-                <li class="cook-more_li">
-                    <div class="cook-more_author clearfix">
-                        <a class="ava female small"></a>
-                        <div class="clearfix">
-                            <a class="textdec-onhover" href="">Леопольда</a>
-                            <div class="color-gray font-smallest">Сегодня, 13:25</div>
-                        </div>
-                    </div>
-                    <div class="cook-more_cnt">
-                        <a href=""><img width="120" height="105" src="/images/cook_more_img_01.jpg"></a>
-                    </div>
-                    <div class="cook-more_t"><a href="">Ригатони помидор говядины</a></div>
-                </li>
-                <li class="cook-more_li">
-                    <div class="cook-more_author clearfix">
-                        <a class="ava female small"></a>
-                        <div class="clearfix">
-                            <a class="textdec-onhover" href="">Дарья</a>
-                            <div class="color-gray font-smallest">Сегодня, 13:25</div>
-                        </div>
-                    </div>
-                    <div class="cook-more_cnt">
-                        <a href=""><img width="120" height="105" src="/images/cook_more_img_01.jpg"></a>
-                    </div>
-                    <div class="cook-more_t"><a href="">Ригатони макароны с соусом из помидор говядины</a></div>
-                </li>
-
-            </ul>
-        </div>
+        <?php endif; ?>
 
         <?php $this->widget('application.widgets.newCommentWidget.NewCommentWidget', array('model' => $recipe, 'full' => true)); ?>
     </div>

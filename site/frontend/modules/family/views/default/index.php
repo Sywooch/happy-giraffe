@@ -71,7 +71,7 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
             <div class="textalign-c">
                 <!-- Для удобства число можно положить в span или другой строчный тег -->
                 <span class="font-big padding-r5"> Членов семьи: <span data-bind="text: familyMembersCount"></span> </span>
-                <a href="" class="a-pseudo font-middle">Изменить</a>
+                <a class="a-pseudo font-middle" data-bind="click: change">Изменить</a>
             </div>
         </div>
 
@@ -82,7 +82,10 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
             Моя семья
             <div class="float-r position-r">
                 <span class="font-big padding-r5"> Членов семьи: <span data-bind="text: familyMembersCount"></span> </span>
-                <a href="" class="a-pseudo font-middle">Изменить</a>
+                <a class="a-pseudo font-middle" data-bind="click: change">Изменить</a>
+                <div data-bind="visible: addIsOpened">
+                    <?=$this->renderPartial('_add')?>
+                </div>
             </div>
         </div>
         <div class="col-gray padding-20">
@@ -279,3 +282,5 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
         </div>
     </li>
 </script>
+
+<?php $this->renderPartial('_add_element'); ?>

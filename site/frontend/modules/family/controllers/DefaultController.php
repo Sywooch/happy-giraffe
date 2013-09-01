@@ -61,5 +61,11 @@ class DefaultController extends HController
                 $baby->parent_id = $user->id;
                 $baby->save();
             }
+
+        $data = $user->getFamilyData();
+        $data['currentYear'] = date("Y");
+        $data['canEdit'] = $user->id == Yii::app()->user->id;
+        $response = compact('data');
+        echo CJSON::encode($response);
     }
 }

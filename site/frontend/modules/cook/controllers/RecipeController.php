@@ -336,23 +336,23 @@ class RecipeController extends HController
         $this->render('view', compact('recipe'));
     }
 
-    public function actionSearch($type = null, $text = false)
-    {
-        $this->layout = '//layouts/recipe';
-        $this->pageTitle = 'Поиск рецептов';
-        $this->currentType = $type;
-        $text = urldecode($text);
-        Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
-
-        $this->breadcrumbs = array(
-            'Кулинария' => array('/cook'),
-            ($this->section == 0 ? 'Кулинарные рецепты' : 'Рецепты для мультиварок') => array('/cook/recipe/index', 'section' => $this->section),
-            'Поиск',
-        );
-
-        list($dataProvider, $this->counts) = CookRecipe::model()->searchByName($text, $type);
-        $this->render('search', compact('dataProvider', 'text', 'type'));
-    }
+//    public function actionSearch($type = null, $text = false)
+//    {
+//        $this->layout = '//layouts/recipe';
+//        $this->pageTitle = 'Поиск рецептов';
+//        $this->currentType = $type;
+//        $text = urldecode($text);
+//        Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
+//
+//        $this->breadcrumbs = array(
+//            'Кулинария' => array('/cook'),
+//            ($this->section == 0 ? 'Кулинарные рецепты' : 'Рецепты для мультиварок') => array('/cook/recipe/index', 'section' => $this->section),
+//            'Поиск',
+//        );
+//
+//        list($dataProvider, $this->counts) = CookRecipe::model()->searchByName($text, $type);
+//        $this->render('search', compact('dataProvider', 'text', 'type'));
+//    }
 
     public function actionSearchByIngredients()
     {

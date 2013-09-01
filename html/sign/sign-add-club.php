@@ -79,7 +79,7 @@
 								<li class="club-list_li">
 									<a class="club-list_i" href="">
 										<span class="club-list_img-hold">
-											<img class="club-list_img" alt="" src="/images/club/9-w130.png">
+											<img class="club-list_img" alt="" src="/images/club/22-w130.png">
 											<span class="club-list_img-overlay"></span>
 										</span>
 										<span class="club-list_i-name">Готовим на кухне</span>
@@ -186,7 +186,7 @@
 								<li class="club-list_li">
 									<a class="club-list_i" href="">
 										<span class="club-list_img-hold">
-											<img class="club-list_img" alt="" src="/images/club/9-w130.png">
+											<img class="club-list_img" alt="" src="/images/club/22-w130.png">
 											<span class="club-list_img-overlay"></span>
 										</span>
 										<span class="club-list_i-name">Готовим на кухне</span>

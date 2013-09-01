@@ -1,25 +1,52 @@
 
-#test-pregnancy {border:1px solid #f0e8f7;margin-bottom:30px;}
-#test-pregnancy .step {width:698px;height:555px;position:relative;}
-#test-pregnancy .step > img {position:relative;z-index:1;}
+#test-pregnancy {margin-bottom:30px;}
+#test-pregnancy .step {width:720px;height:555px;position:relative;background: #f6f6f6;}
+#test-pregnancy .step > img {
+	position:relative;
+	z-index:1;
+	float: right;
+	-webkit-border-top-left-radius: 5px;
+	-moz-border-top-left-radius: 5px;
+	border-top-left-radius: 5px;
+	-webkit-border-top-right-radius: 5px;
+	-moz-border-top-right-radius: 5px;
+	border-top-right-radius: 5px;
+}
 #test-pregnancy .step-in {position:absolute;z-index:2;top:0;left:0;padding:25px;}
 #test-pregnancy .step .title h1 {font:bold 50px/1 tahoma, arial, helvetica, sans-serif;color:#3e3e3e;margin-bottom:25px;}
 #test-pregnancy .step .title span {color:#a582c7;font-size:48px;display:block;}
-#test-pregnancy .step .text {background:#fff;padding:15px 25px;width:310px;font:italic 18px times new roman, serif;color:#5f5e5e;margin-bottom:45px; -webkit-border-radius:20px;-moz-border-radius:20px;border-radius:20px; box-shadow:0 0 5px #e8dbf7;behavior: url(/stylesheets/PIE.htc);}
+#test-pregnancy .step .text {
+	background:#fff;
+	padding:15px 25px;
+	width:310px;
+	font:italic 18px times new roman, serif;
+	color:#5f5e5e;
+	margin-bottom:45px;
+	.border-radius(20px);
+	.box-shadow(0 0 4px rgba(137,137,137,0.2));
+	}
 #test-pregnancy .step .btn-holder {width:385px;text-align:center;}
 #test-pregnancy .step .btn {width:360px;text-align:center;}
-#test-pregnancy .step .btn button {font:bold 30px arial, helvetica, sans-serif;color: #a46307;padding:0 25px;height: 58px;border: 1px solid #f1d419;background: url(../images/bg_yellow_av.png) 0 0 repeat-x;cursor:pointer; border-radius: 10px;-moz-border-radius: 10px;-webkit-border-radius: 10px;behavior: url(/stylesheets/PIE.htc);}
+#test-pregnancy .step .btn button {font:bold 30px arial, helvetica, sans-serif;color: #a46307;padding:0 25px;height: 58px;border: 1px solid #f1d419;background: url(../images/bg_yellow_av.png) 0 0 repeat-x;cursor:pointer; border-radius: 10px;-moz-border-radius: 10px;-webkit-border-radius: 10px;}
 
-#test-pregnancy .step .question {width:400px;padding:15px 25px 35px;background:#fff;background:rgba(255,255,255,0.7);font-size:25px; -webkit-border-radius:20px;-moz-border-radius:20px;border-radius:20px; box-shadow:0 0 5px #e8dbf7;behavior: url(/stylesheets/PIE.htc);}
+#test-pregnancy .step .question {
+	width:400px;
+	padding:15px 25px 35px;
+	background:#fff;
+	background:rgba(255,255,255,0.7);
+	font-size:25px;
+	.border-radius(20px);
+	.box-shadow(0 0 4px rgba(137,137,137,0.2));
+	}
 #test-pregnancy .step .question .q-title {padding:20px 0 30px;line-height: 30px;}
 #test-pregnancy .step .question .q-options {list-style:none;padding:0 15px;}
 #test-pregnancy .step .question .q-options li {padding:10px 0;}
 #test-pregnancy .step .question .q-options label {font-size:22px;color:#969696;cursor:pointer;padding-left: 28px;display: block;}
 #test-pregnancy .step .question .q-options label:hover {color:#5d5c5c;}
 #test-pregnancy .step .question .q-options label:active {color:#8b5fb5;}
-#test-pregnancy .step .question .q-options label input[type="radio"] {float: left;margin: 7px 7px 0 -28px;}
+#test-pregnancy .step .question .q-options label input[type="radio"] {float: left;margin: 5px 7px 0 -28px;}
 #test-pregnancy .step .question .q-options label span {display:inline-block;*zoom:1;*display:inline;vertical-align:top;}
 
 #test-pregnancy .step .result {}
 #test-pregnancy .step .result .r-title {font-size:24px;margin-left:25px;margin-bottom:10px;}
-#test-pregnancy .step .result .r-text {background:#fff;padding:15px 25px;width:310px;font-size:14px;color:#5f5e5e;margin-bottom:45px;line-height:26px;/*css3*/ -webkit-border-radius:20px;-moz-border-radius:20px;border-radius:20px; box-shadow:0 0 5px #e8dbf7;behavior: url(/stylesheets/PIE.htc);}
+#test-pregnancy .step .result .r-text {background:#fff;padding:15px 25px;width:310px;font-size:14px;color:#5f5e5e;margin-bottom:45px;line-height:26px;/*css3*/ -webkit-border-radius:20px;-moz-border-radius:20px;border-radius:20px; box-shadow:0 0 5px #e8dbf7;}

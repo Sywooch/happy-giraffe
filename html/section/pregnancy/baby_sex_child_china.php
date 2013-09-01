@@ -273,8 +273,7 @@
 								<div class="assistance-count">
 									<div class="assistance_text">Сервис помог определить пол уже</div>
 									<div class="assistance-count_all clearfix">
-										<span class="assistance-count_item">0</span>
-										<span class="assistance-count_item">0</span>
+										<!-- Количесво знаков 6 -->
 										<span class="assistance-count_item">0</span>
 										<span class="assistance-count_item">0</span>
 										<span class="assistance-count_item active">1</span>

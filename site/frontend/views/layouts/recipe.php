@@ -60,61 +60,6 @@
                         <div class="menu-simple_count"><?=isset($this->counts[$id]) ? $this->counts[$id] : 0?></div>
                     </li>
                 <?php endforeach; ?>
-
-                <?php if (false): ?>
-                <li class="menu-simple_li">
-                    <a class="menu-simple_a" href="">Все рецепты</a>
-                    <div class="menu-simple_count">789</div>
-                </li>
-                <li class="menu-simple_li">
-                    <a class="menu-simple_a" href="">Первые блюда</a>
-                    <div class="menu-simple_count">789</div>
-                </li>
-                <li class="menu-simple_li">
-                    <a class="menu-simple_a" href="">Вторые блюда </a>
-                    <div class="menu-simple_count">789</div>
-                </li>
-                <li class="menu-simple_li">
-                    <a class="menu-simple_a" href="">Салаты  </a>
-                    <div class="menu-simple_count">789</div>
-                </li>
-                <li class="menu-simple_li">
-                    <a class="menu-simple_a" href="">Закуски и бутерброды </a>
-                    <div class="menu-simple_count">789</div>
-                </li>
-                <li class="menu-simple_li">
-                    <a class="menu-simple_a" href="">Сладкая выпечка </a>
-                    <div class="menu-simple_count">7</div>
-                </li>
-                <li class="menu-simple_li active">
-                    <a class="menu-simple_a" href="">Торты и пирожные </a>
-                    <div class="menu-simple_count">79</div>
-                </li>
-                <li class="menu-simple_li">
-                    <a class="menu-simple_a" href="">Несладкая выпечка </a>
-                    <div class="menu-simple_count">123789</div>
-                </li>
-                <li class="menu-simple_li">
-                    <a class="menu-simple_a" href="">Торты и пирожные </a>
-                    <div class="menu-simple_count">79</div>
-                </li>
-                <li class="menu-simple_li">
-                    <a class="menu-simple_a" href="">Десерты </a>
-                    <div class="menu-simple_count">9</div>
-                </li>
-                <li class="menu-simple_li">
-                    <a class="menu-simple_a" href="">Напитки </a>
-                    <div class="menu-simple_count">71189</div>
-                </li>
-                <li class="menu-simple_li">
-                    <a class="menu-simple_a" href="">Соусы и кремы </a>
-                    <div class="menu-simple_count">23434</div>
-                </li>
-                <li class="menu-simple_li">
-                    <a class="menu-simple_a" href="">Консервация </a>
-                    <div class="menu-simple_count">782239</div>
-                </li>
-                <?php endif; ?>
             </ul>
         </div>
 

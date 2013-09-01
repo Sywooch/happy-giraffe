@@ -1,4 +1,4 @@
-<div class="b-article clearfix">
+<div class="b-article clearfix" id="recipe">
     <div class="float-l">
         <div class="like-control like-control__small-indent clearfix">
             <a href="" class="ava male">
@@ -84,22 +84,23 @@
 
                 <div class="clearfix">
                     <div class="nutrition float-r">
-                        <!-- Клик на ссылку меняет отображение nutrition_hold display:none; display:block; -->
-                        <a href="" class="nutrition_t a-pseudo">Калорийность блюда - 588 ккал</a>
+                        <a class="nutrition_t a-pseudo" data-bind="click: rootNutritionHandler">Калорийность блюда - 588 ккал</a>
 
-                        <div class="nutrition_hold display-b">
+                        <div class="nutrition_hold" data-bind="css: { 'display-b' : showNutritions() !== false }">
                             <div class="nutrition_portion">
-                                <a class="nutrition_portion-a" href="">На 100 г</a>
-                                <a class="nutrition_portion-a active" href="">На порцию</a>
+                                <a class="nutrition_portion-a" data-bind="css: { active : showNutritions() == SHOW_NUTRITIONS_100G }, click: function(data, event) { setNutrition(SHOW_NUTRITIONS_100G, data, event) }">На 100 г</a>
+                                <?php if ($recipe->servings): ?>
+                                    <a class="nutrition_portion-a" data-bind="css: { active : showNutritions() == SHOW_NUTRITIONS_SERVING }, click: function(data, event) { setNutrition(SHOW_NUTRITIONS_SERVING, data, event) }">На порцию</a>
+                                <?php endif; ?>
                             </div>
-                            <ul class="nutrition_ul">
+                            <ul class="nutrition_ul" data-bind="visible: showNutritions() == SHOW_NUTRITIONS_100G">
                                 <li class="nutrition_li">
                                     <div class="nutrition_icon nutrition_icon__calories">
                                         <i>К</i>
                                     </div>
                                     <div class="nutrition_tx">
                                         Калории -
-                                        <span class="calories">11589,2</span>
+                                        <span class="calories"><?=$recipe->getNutritionalsPer100g(1)?></span>
                                         <span class="nutrition_measure">ккал.</span>
                                     </div>
                                 </li>
@@ -109,7 +110,7 @@
                                     </div>
                                     <div class="nutrition_tx">
                                         Белки -
-                                        <span class="protein">18</span>
+                                        <span class="protein"><?=$recipe->getNutritionalsPer100g(3)?></span>
                                         <span class="nutrition_measure">г.</span>
                                     </div>
                                 </li>
@@ -119,7 +120,7 @@
                                     </div>
                                     <div class="nutrition_tx">
                                         Жиры -
-                                        <span class="fat">10</span>
+                                        <span class="fat"><?=$recipe->getNutritionalsPer100g(2)?></span>
                                         <span class="nutrition_measure">г.</span>
                                     </div>
                                 </li>
@@ -129,69 +130,79 @@
                                     </div>
                                     <div class="nutrition_tx">
                                         Углеводы -
-                                        <span class="carbohydrates">70</span>
+                                        <span class="carbohydrates"><?=$recipe->getNutritionalsPer100g(4)?></span>
                                         <span class="nutrition_measure">г.</span>
                                     </div>
                                 </li>
 
                             </ul>
+                            <?php if ($recipe->servings): ?>
+                                <ul class="nutrition_ul" data-bind="visible: showNutritions() == SHOW_NUTRITIONS_SERVING">
+                                    <li class="nutrition_li">
+                                        <div class="nutrition_icon nutrition_icon__calories">
+                                            <i>К</i>
+                                        </div>
+                                        <div class="nutrition_tx">
+                                            Калории -
+                                            <span class="calories"><?=$recipe->getNutritionalsPerServing(1)?></span>
+                                            <span class="nutrition_measure">ккал.</span>
+                                        </div>
+                                    </li>
+                                    <li class="nutrition_li">
+                                        <div class="nutrition_icon nutrition_icon__protein">
+                                            <i>Б</i>
+                                        </div>
+                                        <div class="nutrition_tx">
+                                            Белки -
+                                            <span class="protein"><?=$recipe->getNutritionalsPerServing(3)?></span>
+                                            <span class="nutrition_measure">см.</span>
+                                        </div>
+                                    </li>
+                                    <li class="nutrition_li">
+                                        <div class="nutrition_icon nutrition_icon__fat">
+                                            <i>Ж</i>
+                                        </div>
+                                        <div class="nutrition_tx">
+                                            Жиры -
+                                            <span class="fat"><?=$recipe->getNutritionalsPerServing(2)?></span>
+                                            <span class="nutrition_measure">г.</span>
+                                        </div>
+                                    </li>
+                                    <li class="nutrition_li">
+                                        <div class="nutrition_icon nutrition_icon__carbohydrates">
+                                            <i>У</i>
+                                        </div>
+                                        <div class="nutrition_tx">
+                                            Углеводы -
+                                            <span class="carbohydrates"><?=$recipe->getNutritionalsPerServing(4)?></span>
+                                            <span class="nutrition_measure">г.</span>
+                                        </div>
+                                    </li>
 
+                                </ul>
+                            <?php endif; ?>
                         </div>
 
 
                     </div>
 
-                    <h2 class="wysiwyg-content_t-sub">Ингредиенты</h2>
-                    <ul class="ingredients">
-                        <li class="ingredient">
-                            <span class="name">Скумбрия</span>
-                            - <span class="amount">
-                            1&nbsp;штука</span>
-                        </li>
-                            <li class="ingredient">
-                            <span class="name">Лимон</span>
-                            - <span class="amount">
-                            1&nbsp;штука</span>
-                        </li>
-                            <li class="ingredient">
-                            <span class="name">Лук репчатый</span>
-                            - <span class="amount">
-                            1&nbsp;штука</span>
-                        </li>
-                            <li class="ingredient">
-                            <span class="name">Прованские травы</span>
-                            - <span class="amount">
-                            25&nbsp;граммов</span>
-                        </li>
-                    </ul>
+                    <?php if ($recipe->ingredients): ?>
+                        <h2 class="wysiwyg-content_t-sub">Ингредиенты</h2>
+                        <ul class="ingredients">
+                            <?php foreach ($recipe->ingredients as $i): ?>
+                                <li class="ingredient">
+                                    <span class="name"><?=$i->ingredient->title?></span>
+                                    - <span class="amount">
+                                    <?php if ($i->unit->type != 'undefined'): ?><?=$i->display_value?>&nbsp;<?php endif; ?><?=$i->noun?></span>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
+                    <?php endif; ?>
                 </div>
 
 
                 <h2 class="wysiwyg-content_t-sub">Приготовление</h2>
-                <p>	Недавно посмотрел фильм "Убить Дракона" снятый в 1988 году с Абдуловым в главной роли. По мотивам пьесы Евгения Шварца «Дракон».</p>
-                <ol>
-                    <li>Практически нет девушки, которая не переживала бы за отношения героев "Сумерек" как в на экранах, так и в жизни. Но, к сожалению, даже несмотря на то, что недавно герои "Сумерек" радовали всех тем, что у них невероятный роман  и в рельной жизни, а не только лишь на экране, все же <a href="">Роберт Паттинсон</a>  и Кристен Стюарт расстались и пока реши</li>
-                    <li><p>Но, к сожалению, даже несмотря на то, что недавно герои "Сумерек" радовали всех тем, </p>
-                    <div class="b-article_in-img">
-                        <img title="Ночные гости - кто они фото 1" src="http://img.happy-giraffe.ru/thumbs/700x700/56/edad8d334a0b4a086a50332a2d8fd0fe.JPG" class="content-img" alt="Ночные гости - кто они фото 1">
-                    </div>
-                    <p>что у них невероятный роман  и в рельной жизни, а не только лишь на экране, все же <a href="">Роберт Паттинсон</a>  и Кристен Стюарт расстались и пока реши</p></li>
-                    <li> <a href="">Роберт Паттинсон</a>  и Кристен Стюарт расстались и пока реши</li>
-                    <li>Практически нет девушки, которая не переживала бы за отношения героев "Сумерек" как в на экранах, так и в жизни. Но, к сожалению, даже несмотря на то, что недавно герои "Сумерек" радовали всех тем, что у них невероятный роман  и в рельной жизни, а не только лишь на экране, все же <a href="">Роберт Паттинсон</a>  и Кристен Стюарт расстались и пока реши</li>
-                </ol>
-                <p>Практически нет девушки, которая не переживала бы за отношения героев "Сумерек" как в на экранах, так и в жизни. Но, к сожалению, даже несмотря на то, что недавно герои "Сумерек" радовали всех тем, что у них невероятный роман  и в рельной жизни, а не только лишь на экране, все же <a href="">Роберт Паттинсон</a>  и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.</p>
-
-                <h2>H2 Где можно поменять название трека</h2>
-                <p>	Недавно посмотрел фильм "Убить Дракона" снятый в 1988 году с Абдуловым в главной роли. По мотивам пьесы Евгения Шварца «Дракон».</p>
-                <div class="b-article_in-img">
-                    <img title="Ночные гости - кто они фото 1" src="http://img.happy-giraffe.ru/thumbs/700x700/56/edad8d334a0b4a086a50332a2d8fd0fe.JPG" class="content-img" alt="Ночные гости - кто они фото 1">
-                </div>
-                <ul>
-                    <li>я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.  я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически </li>
-                    <li>я не нашел, где можно поменять название трека.</li>
-                    <li>Меняя название трека в <strong>Меняя название трека</strong> альбоме он автоматически производит поиск <a href="">Меняя название трека </a>по сайту и подцепляет естественно студийные версии песен вместо нужных.  я не нашел, где можно поменять название трека. <b>Меняя название трека</b>  в альбоме он автоматически </li>
-                </ul>
-                <p>и подцепляет естественно студийные версии песен вместо нужных. и подцепляет естественно студийные версии песен вместо нужных.  я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически  и подцепляет естественно студийные версии песен вместо нужных.  я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически </p>
+                <?=$recipe->purified->text?>
             </div>
             <div class="clearfix">
                 <div class="cook-diabets">
@@ -319,179 +330,29 @@
             </ul>
         </div>
 
-        <div class="comments-gray">
-            <div class="comments-gray_t">
-                <span class="comments-gray_t-a-tx">Все комментарии (28)</span>
-                <a href="" class="btn-green">Добавить</a>
-            </div>
-            <div class="comments-gray_hold">
-                <div class="comments-gray_i comments-gray_i__self">
-                    <div class="comments-gray_ava">
-                        <a href="" class="ava small male"></a>
-                    </div>
-                    <div class="comments-gray_frame">
-                        <div class="comments-gray_header clearfix">
-                            <a href="" class="comments-gray_author">Ангелина Богоявленская </a>
-                            <span class="font-smallest color-gray">Сегодня 13:25</span>
-                        </div>
-                        <div class="comments-gray_cont wysiwyg-content">
-                            <p><span class="a-imitation">Вася Пупкин,</span> 	Мне безумно жалко всех женщин, но особенно Тину Кароль, я просто представить себе не могу <a href="">как она все это переживет</a> как она все это переживет(</p>
-                            <p>я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.  я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически </p>
-                        </div>
-                    </div>
-                    <div class="comments-gray_control comments-gray_control__self">
-                        <div class="comments-gray_control-hold">
-                            <div class="clearfix">
-                                <a href="" class="message-ico message-ico__edit powertip" title="Редактировать"></a>
-                            </div>
-                            <div class="clearfix">
-                                <a href="" class="message-ico message-ico__del powertip" title="Удалить"></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="comments-gray_i">
-                    <a href="" class="comments-gray_like like-hg-small powertip" title="Нравится">78</a>
-                    <div class="comments-gray_ava">
-                        <a href="" class="ava small female"></a>
-                    </div>
-                    <div class="comments-gray_frame">
-                        <div class="comments-gray_header clearfix">
-                            <a href="" class="comments-gray_author">Анг Богоявлен </a>
-                            <span class="font-smallest color-gray">Сегодня 14:25</span>
-                        </div>
-                        <div class="comments-gray_cont wysiwyg-content">
-                            <p>я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.  я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически </p>
-                        </div>
-                    </div>
-
-                    <div class="comments-gray_control comments-gray_control__one">
-                        <div class="comments-gray_control-hold">
-                            <div class="clearfix">
-                                <a href="" class="comments-gray_quote-ico powertip" title="Ответить"></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="comments-gray_i">
-                    <a href="" class="comments-gray_like like-hg-small powertip" title="Нравится">7918</a>
-                    <div class="comments-gray_ava">
-                        <a href="" class="ava small female"></a>
-                    </div>
-                    <div class="comments-gray_frame">
-                        <div class="comments-gray_header clearfix">
-                            <a href="" class="comments-gray_author">Анг Богоявлен </a>
-                            <span class="font-smallest color-gray">Сегодня 14:25</span>
-                        </div>
-                        <div class="comments-gray_cont wysiwyg-content">
-                            <p>я не нашел, где можно поменять название трека. </p>
-                        </div>
-                    </div>
-
-                    <div class="comments-gray_control">
-                        <div class="comments-gray_control-hold">
-                            <div class="clearfix">
-                                <a href="" class="comments-gray_quote-ico powertip" title="Ответить"></a>
-                            </div>
-                            <div class="clearfix">
-                                <a href="" class="message-ico message-ico__del powertip" title="Удалить"></a>
-                            </div>
-                        </div>
-                        <div class="clearfix">
-                            <a href="" class="message-ico message-ico__warning powertip" title="Пожаловаться"></a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="comments-gray_i comments-gray_i__recovery">
-                    <div class="comments-gray_ava">
-                        <a href="" class="ava small female"></a>
-                    </div>
-                    <div class="comments-gray_frame">
-                        <div class="comments-gray_header clearfix">
-                            <a href="" class="comments-gray_author">Анг Богоявлен </a>
-                            <span class="font-smallest color-gray">Сегодня 14:25</span>
-                        </div>
-                        <div class="comments-gray_cont wysiwyg-content">
-                            <p>Комментарий успешно удален.<a href="" class="comments-gray_a-recovery">Восстановить?</a> </p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="comments-gray_i">
-                    <a href="" class="comments-gray_like like-hg-small powertip" title="Нравится">78</a>
-                    <div class="comments-gray_ava">
-                        <a href="" class="ava small female"></a>
-                    </div>
-                    <div class="comments-gray_frame">
-                        <div class="comments-gray_header clearfix">
-                            <a href="" class="comments-gray_author">Анг Богоявлен </a>
-                            <span class="font-smallest color-gray">Сегодня 14:25</span>
-                        </div>
-                        <div class="comments-gray_cont wysiwyg-content">
-                            <p>я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически производит поиск по сайту </p>
-                            <p>
-                                <a href="" class="comments-gray_cont-img-w">
-                                    <!--    max-width: 170px;  max-height: 110px; -->
-                                    <img src="/images/example/w170-h110.jpg" alt="">
-                                </a>
-                                <a href="" class="comments-gray_cont-img-w">
-                                    <img src="/images/example/w220-h309-1.jpg" alt="">
-                                </a>
-                                <a href="" class="comments-gray_cont-img-w">
-                                    <img src="/images/example/w200-h133-1.jpg" alt="">
-                                </a>
-                            </p>
-                            <p>и подцепляет естественно студийные версии песен вместо нужных.  я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически </p>
-                        </div>
-                    </div>
-
-                    <div class="comments-gray_control">
-                        <div class="comments-gray_control-hold">
-                            <div class="clearfix">
-                                <a href="" class="comments-gray_quote-ico powertip" title="Ответить"></a>
-                            </div>
-                        </div>
-                        <div class="clearfix">
-                            <a href="" class="message-ico message-ico__warning powertip" title="Пожаловаться"></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="comments-gray_add active clearfix">
-
-                <div class="comments-gray_ava">
-                    <a class="ava small female" href=""></a>
-                </div>
-
-                <div class="comments-gray_frame clearfix">
-                    <!-- input hidden -->
-                    <input type="text" placeholder="Ваш комментарий" class="comments-gray_add-itx itx-gray display-n" id="" name="">
-
-                    <div class="redactor_box"><ul class="redactor_toolbar" id="redactor_toolbar_0"><li><a class="redactor_btn redactor_btn_bold" title="Bold" href="javascript:;" tabindex="-1"></a></li><li><a class="redactor_btn redactor_btn_italic" title="Italic" href="javascript:;" tabindex="-1"></a></li><li><a class="redactor_btn redactor_btn_underline" title="Underline" href="javascript:;" tabindex="-1"></a></li><li class="redactor_separator"></li><li><a class="redactor_btn redactor_btn_image" title="Insert Image" href="javascript:;" tabindex="-1"></a></li><li><a class="redactor_btn redactor_btn_video" title="Insert Video" href="javascript:;" tabindex="-1"></a></li><li><a class="redactor_btn redactor_btn_smile" title="smile" href="javascript:;" tabindex="-1"></a></li></ul>
-                    <div contenteditable="true" class="redactor_wysiwyg-redactor redactor_editor" dir="ltr">
-                         <p><span class="a-imitation">Вася Пупкин,</span> стальной текст сообщения</p>
-                    </div>
-                    <textarea class="wysiwyg-redactor" name="" dir="ltr" style="display: none;"></textarea></div>
-                    <div class="">
-                        <div class="redactor-control clearfix">
-                            <div class="redactor-control_quote">
-                                <span class="comments-gray_quote-ico active"></span>
-                                <span class="redactor-control_quote-tx">Вася Пупкин</span>
-                                <a href="" class="ico-close3 powertip" title="Отменить ответ"></a>
-                            </div>
-                            <div class="float-r">
-                                <div class="redactor-control_key">
-                                    <input type="checkbox" name="" id="redactor-control_key-checkbox" class="redactor-control_key-checkbox">
-                                    <label for="redactor-control_key-checkbox" class="redactor-control_key-label">Enter - отправить</label>
-                                </div>
-                                <button class="btn-green">Отправить</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <?php $this->widget('application.widgets.newCommentWidget.NewCommentWidget', array('model' => $recipe, 'full' => true)); ?>
     </div>
 </div>
+
+<script type="text/javascript">
+    var RecipeViewModel = function() {
+        var self = this;
+        self.SHOW_NUTRITIONS_100G = 0;
+        self.SHOW_NUTRITIONS_SERVING = 1;
+        self.showNutritions = ko.observable(false);
+
+        self.rootNutritionHandler = function() {
+            if (self.showNutritions() === false)
+                self.showNutritions(self.SHOW_NUTRITIONS_100G)
+            else
+                self.showNutritions(false);
+        }
+
+        self.setNutrition = function(value) {
+            self.showNutritions(value);
+        }
+    }
+
+    recipeVM = new RecipeViewModel();
+    ko.applyBindings(recipeVM, document.getElementById('recipe'));
+</script>

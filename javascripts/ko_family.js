@@ -548,6 +548,10 @@ var FamilyMainMe = function(data, parent) {
     self.photosLabel = function() {
         return 'Мои фото';
     }
+
+    self.namePlaceholderLabel = function() {
+        return 'Введите свое имя';
+    }
 }
 
 var FamilyMainPartner = function(data, parent) {

@@ -354,6 +354,31 @@ class RecipeController extends HController
 //        $this->render('search', compact('dataProvider', 'text', 'type'));
 //    }
 
+    public function actionSearch($query = '')
+    {
+        $this->layout = '//layouts/community';
+        $_types = CookRecipe::model()->types;
+        $types = array_map(function($id, $title) {
+            if ($id == 0) {
+                $id = null;
+                $title = 'Любой';
+            }
+            return compact('id', 'title');
+        }, array_keys($_types), $_types);
+        $cuisines = array_map(function($cuisine) {
+            return array(
+                'id' => $cuisine->id,
+                'title' => $cuisine->title,
+            );
+        }, CookCuisine::model()->findAll());
+        $_durations = CookRecipe::model()->getDurationLabels();
+        $durations = array_map(function($id, $title) {
+            return compact('id', 'title');
+        }, array_keys($_durations), $_durations);
+        $json = compact('types', 'cuisines', 'durations');
+        $this->render('search', compact('json'));
+    }
+
     public function actionSearchByIngredients()
     {
         $this->pageTitle = 'Поиск рецептов по ингредиентам';

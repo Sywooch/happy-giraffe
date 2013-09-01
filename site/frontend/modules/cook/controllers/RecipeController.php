@@ -379,6 +379,23 @@ class RecipeController extends HController
         $this->render('search', compact('json'));
     }
 
+    public function actionSearchResult()
+    {
+        $page = Yii::app()->request->getPost('page');
+
+        $dp = new CActiveDataProvider('CookRecipe', array(
+            'pagination' => array(
+                'pageSize' => 10,
+                'currentPage' => $page,
+            ),
+        ));
+
+        $posts = $this->renderPartial('searchResult', compact('dp'), true);
+        $count = $dp->totalItemCount;
+        $response = compact('posts', 'count');
+        echo CJSON::encode($response);
+    }
+
     public function actionSearchByIngredients()
     {
         $this->pageTitle = 'Поиск рецептов по ингредиентам';

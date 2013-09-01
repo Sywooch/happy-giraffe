@@ -1,7 +1,9 @@
 <?php
-    Yii::app()->clientScript
-        ->registerPackage('ko_recipes_search')
-    ;
+Yii::app()->clientScript
+    ->registerPackage('ko_recipes_search')
+;
+
+$this->widget('FavouriteWidget', array('registerScripts' => true));
 ?>
 
 <div class="content-cols clearfix">
@@ -67,7 +69,7 @@
 
         <div class="i-search-t">Найдено  <span class="i-highlight">2 258</span>   рецептов</div>
 
-        <div class="col-gray">
+        <div class="col-gray" data-bind="html: posts">
 
             <div class="b-article clearfix">
                 <div class="float-l">

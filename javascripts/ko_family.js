@@ -278,8 +278,11 @@ var FamilyViewModel = function(data) {
         data.createPartner = self.hasPartner() && self.partner().isNewRecord;
         data.relationshipStatus = self.me().relationshipStatus();
         $.post('/family/save/', data, function(response) {
-            eval(self.callback);
-        });
+            if (typeof self.callback === 'function')
+                self.callback(response);
+            else
+                eval(self.callback);
+        }, 'json');
     }
 
     self.init = function() {
@@ -363,6 +366,7 @@ var FamilyMainViewModel = function(data) {
 
     self.canEdit = data.canEdit;
     self.currentYear = data.currentYear;
+    self.addIsOpened = ko.observable(false);
 
     self.days = [undefined];
     for (var i = 1; i <= 31; i++)
@@ -420,6 +424,18 @@ var FamilyMainViewModel = function(data) {
         return ko.utils.arrayFirst(self.babies(), function(baby) {
             return baby.id == id;
         });
+    };
+
+    self.change = function() {
+        data.callback = function(response) {
+            ko.cleanNode('body');
+            familyMainVM = new FamilyMainViewModel(response.data);
+            ko.applyBindings(familyMainVM);
+        }
+        familyVm = new FamilyViewModel(data);
+        ko.cleanNode('#b-family-add');
+        ko.applyBindings(familyVm, document.getElementById('b-family-add'));
+        self.addIsOpened(true);
     };
 
     $('#me-upload-target').on('load', function() {

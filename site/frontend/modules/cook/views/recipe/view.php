@@ -1,16 +1,14 @@
 <div class="b-article clearfix" id="recipe">
     <div class="float-l">
         <div class="like-control like-control__small-indent clearfix">
-            <a href="" class="ava male">
-                <span class="icon-status status-online"></span>
-                <img alt="" src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg">
-            </a>
+            <?php $this->widget('Avatar', array('user' => $recipe->author)) ?>
         </div>
         <div class="js-like-control">
             <div class="like-control like-control__pinned clearfix">
-                <a href="" class="like-control_ico like-control_ico__like">865</a>
-                <a href="" class="like-control_ico like-control_ico__repost">5</a>
-                <a href="" class="like-control_ico like-control_ico__cook ">123865</a>
+                <?php $this->widget('application.modules.blog.widgets.LikeWidget', array('model' => $recipe)); ?>
+                <!-- ko stopBinding: true -->
+                    <?php $this->widget('FavouriteWidget', array('model' => $recipe, 'right' => true)); ?>
+                <!-- /ko -->
             </div>
         </div>
     </div>

@@ -19,18 +19,18 @@
         <div class="b-article_cont-tale"></div>
         <div class="b-article_header clearfix">
             <div class="meta-gray">
-                <a href="" class="meta-gray_comment">
+                <a href="<?= $recipe->getUrl(true) ?>" class="meta-gray_comment">
                     <span class="ico-comment ico-comment__gray"></span>
-                    <span class="meta-gray_tx">35</span>
+                    <span class="meta-gray_tx"><?=$recipe->commentsCount ?></span>
                 </a>
                 <div class="meta-gray_view">
                     <span class="ico-view ico-view__gray"></span>
-                    <span class="meta-gray_tx">305</span>
+                    <span class="meta-gray_tx"><?=PageView::model()->viewsByPath($recipe->getUrl())?></span>
                 </div>
             </div>
             <div class="float-l">
-                <a href="" class="b-article_author">Ангелина Богоявленская</a>
-                <span class="font-smallest color-gray">Сегодня 13:25</span>
+                <a href="<?=$recipe->author->getUrl() ?>" class="b-article_author"><?=$recipe->author->getFullName() ?></a>
+                <span class="font-smallest color-gray"><?=Yii::app()->dateFormatter->format("d MMMM yyyy, H:mm", $recipe->created)?></span>
             </div>
         </div>
         <!-- Название блюда должно иметь класс fn  для микроформатов -->
@@ -39,7 +39,7 @@
         </h1>
         <div class="b-article_in clearfix">
             <div class="wysiwyg-content clearfix">
-                <p>У меня есть уже один рецепт "Зебры".А этим рецептом поделилась со мной моя читательница...Я обещала попробовать сделать, и вот... я сделала! Эта "Зебра" у меня  получилась  воздушнее, мягче, рассыпчатей... По вкусу напомнила кекс... Остается мягкой и вкусной даже на следующий день! </p>
+                <!--<p>У меня есть уже один рецепт "Зебры".А этим рецептом поделилась со мной моя читательница...Я обещала попробовать сделать, и вот... я сделала! Эта "Зебра" у меня  получилась  воздушнее, мягче, рассыпчатей... По вкусу напомнила кекс... Остается мягкой и вкусной даже на следующий день! </p>-->
                 <div class="b-article_in-img">
                     <img alt="Ночные гости - кто они фото 1" class="content-img" src="http://img.happy-giraffe.ru/thumbs/700x700/56/edad8d334a0b4a086a50332a2d8fd0fe.JPG" title="Ночные гости - кто они фото 1">
                 </div>

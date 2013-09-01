@@ -195,7 +195,7 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
                     <!-- ko if: noticeIsEditable -->
                         <div class="form-settings_label-row">
                             <span data-bind="text: noticeLabel()"></span>
-                            <!-- ko if: $root.canEdit && ! noticeBeingEdited() -->
+                            <!-- ko if: $root.canEdit && ! noticeBeingEdited() && notice().length > 0 -->
                             <a class="a-pseudo-icon powertip" title="Редактировать" data-bind="click: editNotice">
                                 <span class="ico-edit"></span>
                             </a>

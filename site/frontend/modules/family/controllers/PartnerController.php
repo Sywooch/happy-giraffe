@@ -30,7 +30,7 @@ class PartnerController extends HController
     {
         $user = Yii::app()->user->model;
         $user->relationship_status = null;
-        $success = $user->save(true, array('relationship_status') && $this->partner->delete();
+        $success = $user->save(true, array('relationship_status') && $this->partner->delete());
         $response = compact('success');
         echo CJSON::encode($response);
     }

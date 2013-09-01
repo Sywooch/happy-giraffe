@@ -142,5 +142,12 @@ return array(
             ),
             'depends' => array('knockout'),
         ),
+        'ko_recipes_search' => array(
+            'baseUrl' => '/',
+            'js' => array(
+                'javascripts/ko_recipes_search.js',
+            ),
+            'depends' => array('knockout'),
+        ),
     )
 );

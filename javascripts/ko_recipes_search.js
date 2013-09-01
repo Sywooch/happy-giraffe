@@ -42,7 +42,24 @@ var RecipesSearchViewModel = function(data) {
 
     self.search = function() {
         self.loading(true);
-        $.post('/cook/recipe/searchResult/', { page : self.page()  }, function(response) {
+        var data = {};
+        if (self.throttledQuery() != '')
+            data.query = self.throttledQuery();
+        if (self.selectedRecipeType() !== null)
+            data.type = self.selectedRecipeType();
+        if (self.selectedCuisine() !== null)
+            data.cuisine = self.selectedCuisine();
+        if (self.selectedDuration() !== null)
+            data.duration = self.selectedDuration();
+        if (self.forDiabetics1() || self.forDiabetics2())
+            data.forDiabetics = true;
+        if (self.lowCal())
+            data.lowCal = true;
+        if (self.lowFat())
+            data.lowFat = true;
+        if (self.page() != 0)
+            data.page = self.page();
+        $.post('/cook/recipe/searchResult/', data, function(response) {
             self.posts(response.posts);
             self.count(response.count);
             setTimeout(function() {

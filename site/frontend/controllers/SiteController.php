@@ -2,7 +2,7 @@
 
 class SiteController extends HController
 {
-    public $layout = '//layouts/main_old';
+    public $layout = '//layouts/main';
 	/**
 	 * Declares class-based actions.
 	 */

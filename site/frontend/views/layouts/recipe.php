@@ -73,7 +73,7 @@
 
 
         <div class="clearfix margin-r20 margin-b20">
-            <a href="" class="btn-blue btn-h46 float-r">Добавить рецепт</a>
+            <a href="<?=$this->createUrl('/cook/recipe/add')?>" class="btn-blue btn-h46 float-r">Добавить рецепт</a>
         </div>
         <div class="col-gray">
 

@@ -107,11 +107,13 @@
 				</div>
 				
 				<div class="col-23-middle clearfix">
-					<div class="heading-title">
-						Моя семья
-						<div class="float-r position-r">
+					<div class="clearfix margin-r20">
+						<div class="float-r position-r margin-t15">
 							<span class="font-big padding-r5"> Членов семьи: 5 </span>
 							<a href="" class="a-pseudo font-middle">Изменить</a>
+						</div>
+						<div class="heading-title">
+							Моя семья
 						</div>
 					</div>
 					<div class="col-gray padding-20">

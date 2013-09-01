@@ -1,7 +1,9 @@
 var RecipesSearchViewModel = function(data) {
     var self = this;
 
+    self.loading = ko.observable(true);
     self.posts = ko.observable('');
+    self.count = ko.observable(0);
     self.page = ko.observable(0);
 
     // query
@@ -39,12 +41,19 @@ var RecipesSearchViewModel = function(data) {
     self.lowFat = ko.observable(false);
 
     self.search = function() {
+        self.loading(true);
         $.post('/cook/recipe/searchResult/', { page : self.page()  }, function(response) {
             self.posts(response.posts);
-            $('.pager a').on('click', function() {
-                self.page(parseInt($(this).text()) - 1);
-                return false;
-            });
+            self.count(response.count);
+            setTimeout(function() {
+                $('.pager a').on('click', function() {
+
+                    recipeSearchVM.page(parseInt($(this).text()) - 1);
+                    return false;
+                });
+            }, 0);
+            self.loading(false);
+            $('html').animate({ scrollTop: 0 }, "slow");
         }, 'json');
     }
 

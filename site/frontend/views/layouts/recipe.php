@@ -54,6 +54,14 @@
 
         <div class="menu-simple">
             <ul class="menu-simple_ul">
+                <?php foreach (CActiveRecord::model($this->modelName)->types as $id => $label): ?>
+                    <li class="menu-simple_li<?php if ($this->currentType == $id): ?> active<?php endif; ?>">
+                        <?=HHtml::link($label, $this->getTypeUrl($id), array('class' => 'menu-simple_a'), true)?>
+                        <div class="menu-simple_count"><?=isset($this->counts[$id]) ? $this->counts[$id] : 0?></div>
+                    </li>
+                <?php endforeach; ?>
+
+                <?php if (false): ?>
                 <li class="menu-simple_li">
                     <a class="menu-simple_a" href="">Все рецепты</a>
                     <div class="menu-simple_count">789</div>
@@ -106,6 +114,7 @@
                     <a class="menu-simple_a" href="">Консервация </a>
                     <div class="menu-simple_count">782239</div>
                 </li>
+                <?php endif; ?>
             </ul>
         </div>
 

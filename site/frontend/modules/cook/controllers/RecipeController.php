@@ -379,16 +379,18 @@ class RecipeController extends HController
         $this->render('search', compact('json'));
     }
 
-    public function actionSearchResult()
+    public function actionSearchResult($query = '', $type = null, $cuisine = null, $duration = null, $lowFat = false, $forDiabetics = false, $lowCal = false)
     {
-        $page = Yii::app()->request->getPost('page');
+        $query = Yii::app()->request->getPost('query', '');
+        $type = Yii::app()->request->getPost('type');
+        $cuisine = Yii::app()->request->getPost('cuisine');
+        $duration = Yii::app()->request->getPost('duration');
+        $lowFat = Yii::app()->request->getPost('lowFat', false);
+        $forDiabetics = Yii::app()->request->getPost('forDiabetics', false);
+        $lowCal = Yii::app()->request->getPost('lowCal', false);
+        $page = Yii::app()->request->getPost('page', 0);
 
-        $dp = new CActiveDataProvider('CookRecipe', array(
-            'pagination' => array(
-                'pageSize' => 10,
-                'currentPage' => $page,
-            ),
-        ));
+        $dp = SearchManager::getDataProvider($query, $type, $cuisine, $duration, $lowFat, $forDiabetics, $lowCal, $page);
 
         $posts = $this->renderPartial('searchResult', compact('dp'), true);
         $count = $dp->totalItemCount;

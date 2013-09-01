@@ -29,18 +29,92 @@ ko.bindingHandlers.droppable = {
 
 // common models
 
+var FamilyCommonAdult = function(data, parent) {
+    var self = this;
+
+    self.getAdultCssClass = function(gender, relationshipStatus) {
+        if (gender == 0) {
+            switch (relationshipStatus) {
+                case null:
+                case 1:
+                case 2:
+                    return 'wife';
+                case 3:
+                    return 'girl-friend';
+                case 4:
+                    return 'bride';
+            }
+        } else {
+            switch (relationshipStatus) {
+                case null:
+                case 1:
+                case 2:
+                    return 'husband';
+                case 3:
+                    return 'boy-friend';
+                case 4:
+                    return 'fiance';
+            }
+        }
+    };
+}
+
 var FamilyCommonMe = function(data, parent) {
     var self = this;
+    ko.utils.extend(self, new FamilyCommonAdult(data, parent));
 
     self.gender = data.gender;
     self.relationshipStatus = ko.observable(data.relationshipStatus);
+
+    self.cssClass = function() {
+        return 'ico-family__' + self.getAdultCssClass(self.gender, self.relationshipStatus());
+    }
+
+    self.bigCssClass = function() {
+        return 'ico-family-big__' + self.getAdultCssClass(self.gender, self.relationshipStatus());
+    }
+
+    self.title = function() {
+        return 'Я';
+    }
 }
 
-var FamilyCommonPartner = function(data, parent) {
+var FamilyCommonPartner = function(data, parent, root) {
     var self = this;
+    ko.utils.extend(self, new FamilyCommonAdult(data, parent));
 
     self.isNewRecord = data.isNewRecord === undefined ? true : data.isNewRecord;
     self.relationshipStatus = data.relationshipStatus;
+
+    self.cssClass = function() {
+        return 'ico-family__' + self.getAdultCssClass((1 + root.me().gender) % 2, root.me().relationshipStatus());
+    }
+
+    self.bigCssClass = function() {
+        return 'ico-family-big__' + self.getAdultCssClass((1 + root.me().gender) % 2, root.me().relationshipStatus());
+    }
+
+    self.title = function() {
+        if (root.me().gender == 0) {
+            switch (root.me().relationshipStatus()) {
+                case 1:
+                    return 'Жена';
+                case 3:
+                    return 'Подруга';
+                case 4:
+                    return 'Невеста';
+            }
+        } else {
+            switch (root.me().relationshipStatus()) {
+                case 1:
+                    return 'Жена';
+                case 3:
+                    return 'Подруга';
+                case 4:
+                    return 'Невеста';
+            }
+        }
+    };
 }
 
 var FamilyCommonBaby = function(data, parent) {
@@ -50,6 +124,73 @@ var FamilyCommonBaby = function(data, parent) {
     self.gender = data.gender;
     self.ageGroup = data.ageGroup;
     self.type = data.type;
+
+    self.cssClassKeyword = function() {
+        switch (self.type) {
+            case null:
+                var ageWord;
+                switch (self.ageGroup) {
+                    case 0:
+                        ageWord = 'small';
+                        break;
+                    case 1:
+                        ageWord = '3';
+                        break;
+                    case 2:
+                        ageWord = '5';
+                        break;
+                    case 3:
+                        ageWord = '8';
+                        break;
+                    case 4:
+                        ageWord = '14';
+                        break;
+                    case 5:
+                        ageWord = '19';
+                }
+
+                return (self.gender == 1 ? 'boy' : 'girl') + '-' + ageWord;
+            case 1:
+                var genderWord;
+                switch (self.gender) {
+                    case 0:
+                        return 'girl-wait';
+                    case 1:
+                        return 'boy-wait';
+                    case 2:
+                        return 'baby';
+                }
+            case 3:
+                return 'baby-two';
+        }
+    }
+
+    self.cssClass = function() {
+        return 'ico-family__' + self.cssClassKeyword();
+    }
+
+    self.bigCssClass = function() {
+        return 'ico-family-big__' + self.cssClassKeyword();
+    }
+
+    self.title = function() {
+        switch (self.type) {
+            case null:
+                return self.gender == 1 ? 'Сын' : 'Дочь';
+            case 1:
+                switch (self.gender) {
+                    case 0:
+                        return 'Ждем девочку';
+                    case 1:
+                        return 'Ждем мальчика';
+                    case 2:
+                        return 'Ждем ребенка';
+                }
+            case 3:
+                return 'Ждем двойню';
+        }
+
+    }
 }
 
 var FamilyViewModel = function(data) {
@@ -71,6 +212,9 @@ var FamilyViewModel = function(data) {
                 self.me().relationshipStatus(self.beingDragged().relationshipStatus);
         }
 
+        if (self.beingDragged() instanceof FamilyBaby && self.beingDragged().type !== null && self.hasWaitingBaby())
+            return false;
+
         data.content(self.beingDragged());
         self.family.valueHasMutated();
     };
@@ -80,32 +224,6 @@ var FamilyViewModel = function(data) {
             return element.content() == null;
         });
     });
-
-    self.getAdultCssClass = function(gender, relationshipStatus) {
-        if (gender == 0) {
-            switch (relationshipStatus) {
-                case null:
-                case 1:
-                case 2:
-                    return 'ico-family__wife';
-                case 3:
-                    return 'ico-family__girl-friend';
-                case 4:
-                    return 'ico-family__bride';
-            }
-        } else {
-            switch (relationshipStatus) {
-                case null:
-                case 1:
-                case 2:
-                    return 'ico-family__husband';
-                case 3:
-                    return 'ico-family__boy-friend';
-                case 4:
-                    return 'ico-family__fiance';
-            }
-        }
-    };
 
     self.addListElements = function(n) {
         for (var i = 0; i < n; i++)
@@ -123,6 +241,14 @@ var FamilyViewModel = function(data) {
     self.hasPartner = ko.computed(function() {
         return self.partner() !== null;
     });
+
+    self.hasWaitingBaby = ko.computed(function() {
+        for (var i in self.family()) {
+            if (self.family()[i].content() instanceof FamilyBaby && self.family()[i].content().type !== null)
+                return true;
+        }
+        return false;
+    })
 
     self.familyMembersCount = ko.computed(function() {
         return self.family().reduce(function(previousValue, currentValue) {
@@ -146,15 +272,17 @@ var FamilyViewModel = function(data) {
         var babies = [];
         ko.utils.arrayForEach(self.family(), function(element) {
             if (element.content() instanceof FamilyBaby && element.content().isNewRecord)
-                babies.push({ gender : element.content().gender, ageGroup : element.content().ageGroup, type : element.content().type });
+                babies.push({ sex : element.content().gender, age_group : element.content().ageGroup, type : element.content().type });
         });
         data.babies = babies;
         data.createPartner = self.hasPartner() && self.partner().isNewRecord;
         data.relationshipStatus = self.me().relationshipStatus();
-        console.log(data);
         $.post('/family/save/', data, function(response) {
-            eval(self.callback);
-        });
+            if (typeof self.callback === 'function')
+                self.callback(response);
+            else
+                eval(self.callback);
+        }, 'json');
     }
 
     self.init = function() {
@@ -220,122 +348,36 @@ var FamilyListElement = function() {
 
 var FamilyMe = function(data, parent) {
     var self = this;
-    ko.utils.extend(self, new FamilyCommonMe(data));
-
-    self.cssClass = ko.computed(function() {
-        return parent.getAdultCssClass(self.gender, self.relationshipStatus());
-    });
+    ko.utils.extend(self, new FamilyCommonMe(data, parent));
 }
 
 var FamilyPartner = function(data, parent) {
     var self = this;
-    ko.utils.extend(self, new FamilyCommonPartner(data));
-
-    self.cssClass = function() {
-        return parent.getAdultCssClass((1 + parent.me().gender) % 2, self.relationshipStatus);
-    }
-
-    self.title = function() {
-        if (parent.me().gender == 0) {
-            switch (self.relationshipStatus) {
-                case 1:
-                    return 'Жена';
-                case 3:
-                    return 'Подруга';
-                case 4:
-                    return 'Невеста';
-            }
-        } else {
-            switch (self.relationshipStatus) {
-                case 1:
-                    return 'Жена';
-                case 3:
-                    return 'Подруга';
-                case 4:
-                    return 'Невеста';
-            }
-        }
-    };
+    ko.utils.extend(self, new FamilyCommonPartner(data, self, parent));
 }
 
 var FamilyBaby = function(data, parent) {
     var self = this;
     ko.utils.extend(self, new FamilyCommonBaby(data));
-
-    self.cssClass = function() {
-        switch (self.type) {
-            case null:
-                var ageWord;
-                switch (self.ageGroup) {
-                    case 0:
-                        ageWord = 'small';
-                        break;
-                    case 1:
-                        ageWord = '3';
-                        break;
-                    case 2:
-                        ageWord = '5';
-                        break;
-                    case 3:
-                        ageWord = '8';
-                        break;
-                    case 4:
-                        ageWord = '14';
-                        break;
-                    case 5:
-                        ageWord = '19';
-                }
-
-                return 'ico-family__' + (self.gender == 1 ? 'boy' : 'girl') + '-' + ageWord;
-            case 1:
-                var genderWord;
-                switch (self.gender) {
-                    case 0:
-                        return 'ico-family__girl-wait';
-                    case 1:
-                        return 'ico-family__boy-wait';
-                    case 2:
-                        return 'ico-family__baby';
-                }
-            case 3:
-                return 'ico-family__baby-two';
-        }
-    }
-
-    self.title = function() {
-        switch (self.type) {
-            case null:
-                return self.gender == 1 ? 'Сын' : 'Дочь';
-            case 1:
-                switch (self.gender) {
-                    case 0:
-                        return 'Ждем девочку';
-                    case 1:
-                        return 'Ждем мальчика';
-                    case 2:
-                        return 'Ждем ребенка';
-                }
-            case 3:
-                return 'Ждем двойню';
-        }
-
-    }
 }
 
 var FamilyMainViewModel = function(data) {
     var self = this;
 
+    self.canEdit = data.canEdit;
     self.currentYear = data.currentYear;
+    self.addIsOpened = ko.observable(false);
 
-    self.days = [];
+    self.days = [undefined];
     for (var i = 1; i <= 31; i++)
         self.days.push(i);
 
-    self.years = [];
+    self.years = [undefined];
     for (var i = self.currentYear - 18; i <= self.currentYear; i++)
         self.years.push(i);
 
     self.monthes = [
+        new FamilyMainMonth({ id : undefined, name : undefined }),
         new FamilyMainMonth({ id : 1, name : 'января' }),
         new FamilyMainMonth({ id : 2, name : 'февраля' }),
         new FamilyMainMonth({ id : 3, name : 'марта' }),
@@ -358,32 +400,91 @@ var FamilyMainViewModel = function(data) {
 
     self.me = ko.observable(new FamilyMainMe(data.me, self));
     self.partner = ko.observable(data.partner === null ? null : new FamilyMainPartner(data.partner, self));
-    self.babies = ko.utils.arrayMap(data.babies, function(baby) {
+    self.babies = ko.observableArray(ko.utils.arrayMap(data.babies, function(baby) {
         return new FamilyMainBaby(baby, self);
-    });
+    }));
 
     self.normalBabies = ko.computed(function() {
-        return ko.utils.arrayFilter(self.babies, function(baby) {
+        return ko.utils.arrayFilter(self.babies(), function(baby) {
             return baby.type == null;
         });
     });
 
     self.waitingBaby = ko.computed(function() {
-        return ko.utils.arrayFirst(self.babies, function(baby) {
-            return baby.type == 1 || baby.type == 2;
+        return ko.utils.arrayFirst(self.babies(), function(baby) {
+            return baby.type !== null;
         });
     });
-}
 
-var FamilyMainMe = function(data, parent) {
-    var self = this;
-    ko.utils.extend(self, new FamilyCommonMe(data));
+    self.familyMembersCount = ko.computed(function() {
+        return 1 + self.babies().length + (self.partner() === null ? 0 : 1);
+    });
+
+    self.getBabyById = function(id) {
+        return ko.utils.arrayFirst(self.babies(), function(baby) {
+            return baby.id == id;
+        });
+    };
+
+    self.change = function() {
+        data.callback = function(response) {
+            ko.cleanNode('body');
+            familyMainVM = new FamilyMainViewModel(response.data);
+            ko.applyBindings(familyMainVM);
+        }
+        familyVm = new FamilyViewModel(data);
+        ko.cleanNode('#b-family-add');
+        ko.applyBindings(familyVm, document.getElementById('b-family-add'));
+        self.addIsOpened(true);
+    };
+
+    $('#me-upload-target').on('load', function() {
+        var response = $(this).contents().find('#response').text();
+        if (response.length > 0) {
+            var data = $.parseJSON(response);
+            self.me().photos.unshift(new FamilyMainPhoto(data.photo, self.me(), self));
+        }
+    });
+
+    $('#partner-upload-target').on('load', function() {
+        var response = $(this).contents().find('#response').text();
+        if (response.length > 0) {
+            var data = $.parseJSON(response);
+            self.partner().photos.unshift(new FamilyMainPhoto(data.photo, self.partner(), self));
+        }
+    });
+
+    $('#baby-upload-target').on('load', function() {
+        var response = $(this).contents().find('#response').text();
+        if (response.length > 0) {
+            var data = $.parseJSON(response);
+            var baby = self.getBabyById(data.id);
+            baby.photos.unshift(new FamilyMainPhoto(data.photo, baby, self));
+        }
+    });
 }
 
 var FamilyMainMember = function(data, parent) {
     var self = this;
 
     self.id = data.id;
+    self.nameIsEditable = true;
+    self.noticeIsEditable = true;
+    self.photosAreEditable = true;
+
+    // photos
+    self.mainPhotoId = ko.observable(data.mainPhotoId);
+    self.photos = ko.observableArray(ko.utils.arrayMap(data.photos, function(photo) {
+        return new FamilyMainPhoto(photo, self, parent);
+    }));
+    self.mainPhoto = ko.computed(function() {
+        return ko.utils.arrayFirst(self.photos(), function(photo) {
+            return self.mainPhotoId() == photo.id;
+        });
+    });
+    self.photoToShow = ko.computed(function() {
+        return self.photos().length > 0 ? (self.mainPhoto() !== null ? self.mainPhoto() : self.photos()[0]) : null;
+    });
 
     // name
     self.name = ko.observable(data.name);
@@ -422,13 +523,50 @@ var FamilyMainMember = function(data, parent) {
     }
 }
 
+var FamilyMainMe = function(data, parent) {
+    var self = this;
+    self.PHOTO_UPLOAD_URL = '/family/photo/meUpload/';
+    self.PHOTO_UPLOAD_TARGET = 'me-upload-target';
+    self.ENTITY_NAME = 'User';
+    ko.utils.extend(self, new FamilyCommonMe(data, self));
+    ko.utils.extend(self, new FamilyMainMember(data, self));
+
+    self.noticeIsEditable = false;
+    self.photosAreEditable = true;
+
+    self.saveName = function() {
+        $.post('/family/me/updateAttribute/', { attribute : 'first_name', value : self.nameValue() }, function(response) {
+            self.saveNameCallback(response);
+        }, 'json');
+    }
+
+    // labels
+    self.titleLabel = function() {
+        return 'Я';
+    }
+
+    self.photosLabel = function() {
+        return 'Мои фото';
+    }
+
+    self.namePlaceholderLabel = function() {
+        return 'Введите свое имя';
+    }
+}
+
 var FamilyMainPartner = function(data, parent) {
     var self = this;
-    ko.utils.extend(self, new FamilyCommonPartner(data));
-    ko.utils.extend(self, new FamilyMainMember(data));
+    self.PHOTO_UPLOAD_URL = '/family/photo/partnerUpload/';
+    self.PHOTO_UPLOAD_TARGET = 'partner-upload-target';
+    self.ENTITY_NAME = 'UserPartner';
+    ko.utils.extend(self, new FamilyCommonPartner(data, self, parent));
+    ko.utils.extend(self, new FamilyMainMember(data, self));
+
     self.TITLE_VALUES = ['Моя жена', 'Моя невеста', 'Моя подруга', 'Мой муж', 'Мой жених', 'Мой друг'];
     self.NOTICE_VALUES = ['О моей жене', 'О моей невесте', 'О моей подруге', 'О моем муже', 'О моем женихе', 'О моем друге'];
     self.PHOTOS_VALUES = ['Фото моей жены', 'Фото моей невесты', 'Фото моей подруги', 'Фото моего мужа', 'Фото моего жениха', 'Фото моего друга'];
+    self.NAME_PLACEHOLDER_VALUES = ['Введите имя вашей жены', 'Введите имя вашей невесты', 'Введите имя вашей подруги', 'Введите имя вашего мужа', 'Введите имя вашего жениха', 'Введите имя вашего друга'];
+    self.NOTICE_PLACEHOLDER_VALUES = ['Напишите пару слов о вашей жене', 'Напишите пару слов о вашей невесте', 'Напишите пару слов о вашей подруге', 'Напишите пару слов о вашем муже', 'Напишите пару слов о вашем женихе', 'Напишите пару слов о вашем друге'];
 
     self.saveName = function() {
         $.post('/family/partner/updateAttribute/', { attribute : 'name', value : self.nameValue() }, function(response) {
@@ -439,6 +577,13 @@ var FamilyMainPartner = function(data, parent) {
     self.saveNotice = function() {
         $.post('/family/partner/updateAttribute/', { attribute : 'notice', value : self.noticeValue() }, function(response) {
             self.saveNoticeCallback(response);
+        }, 'json');
+    }
+
+    self.remove = function() {
+        $.post('/family/partner/remove/', function(response) {
+            if (response.success)
+                parent.partner(null);
         }, 'json');
     }
 
@@ -455,6 +600,14 @@ var FamilyMainPartner = function(data, parent) {
         return self.getLabel(self.PHOTOS_VALUES);
     }
 
+    self.namePlaceholderLabel = function() {
+        return self.getLabel(self.NAME_PLACEHOLDER_VALUES);
+    }
+
+    self.noticePlaceholderLabel = function() {
+        return self.getLabel(self.NOTICE_PLACEHOLDER_VALUES);
+    }
+
     self.getLabel = function(values) {
         var gender = (1 + parent.me().gender) % 2;
         var relationshipStatus = parent.me().relationshipStatus();
@@ -464,21 +617,33 @@ var FamilyMainPartner = function(data, parent) {
 
 var FamilyMainBaby = function(data, parent) {
     var self = this;
-    ko.utils.extend(self, new FamilyCommonBaby(data));
-    ko.utils.extend(self, new FamilyMainMember(data));
+    self.PHOTO_UPLOAD_URL = '/family/photo/babyUpload/';
+    self.PHOTO_UPLOAD_TARGET = 'baby-upload-target';
+    self.ENTITY_NAME = 'Baby';
+    ko.utils.extend(self, new FamilyCommonBaby(data, self));
+    ko.utils.extend(self, new FamilyMainMember(data, self));
+    self.nameIsEditable = self.type === null;
+    self.noticeIsEditable = self.type === null;
+    self.photosAreEditable = self.type === null;
 
     // birthday
     self.birthday = ko.observable(data.birthday);
     self.birthdayBeingEdited = ko.observable(false);
 
-    var birthdayArray = self.birthday().split('-');
-    self.day = ko.observable(birthdayArray[2]);
-    self.month = ko.observable(birthdayArray[1]);
-    self.year = ko.observable(birthdayArray[0]);
+    if (self.birthday() !== null) {
+        var birthdayArray = self.birthday().split('-');
+        var day = birthdayArray[2], month = birthdayArray[1], year = birthdayArray[0];
+    }
+    else
+        var day = undefined, month = undefined, year = undefined
 
-    self.dayValue = ko.observable(birthdayArray[2]);
-    self.monthValue = ko.observable(birthdayArray[1]);
-    self.yearValue = ko.observable(birthdayArray[0]);
+    self.day = ko.observable(day);
+    self.month = ko.observable(month);
+    self.year = ko.observable(year);
+
+    self.dayValue = ko.observable(day);
+    self.monthValue = ko.observable(month);
+    self.yearValue = ko.observable(year);
 
     self.birthdayText = ko.computed(function () {
         return self.day() + ' ' + parent.getMonthLabel(self.month()).name + ' ' + self.year() + ' г.';
@@ -498,6 +663,7 @@ var FamilyMainBaby = function(data, parent) {
                 self.day(self.dayValue());
                 self.month(self.monthValue());
                 self.year(self.yearValue());
+                self.birthday(self.birthdayValue());
                 self.birthdayBeingEdited(false);
             }
         }, 'json');
@@ -512,6 +678,13 @@ var FamilyMainBaby = function(data, parent) {
     self.saveNotice = function() {
         $.post('/family/baby/updateAttribute/', { id : self.id, attribute : 'notice', value : self.noticeValue() }, function(response) {
             self.saveNoticeCallback(response);
+        }, 'json');
+    }
+
+    self.remove = function() {
+        $.post('/family/baby/remove/', { id : self.id }, function(response) {
+            if (response.success)
+                parent.babies.remove(self);
         }, 'json');
     }
 
@@ -543,7 +716,19 @@ var FamilyMainBaby = function(data, parent) {
     }
 
     self.birthdayLabel = function() {
-        return self.gender == 1 ? 'День рождения моего сына' : 'День рождения моей дочери';
+        return self.type === null ? (self.gender == 1 ? 'День рождения моего сына' : 'День рождения моей дочери') : 'Приблизительная дата родов';
+    }
+
+    self.namePlaceholderLabel = function() {
+        return self.gender == 1 ? 'Введите имя вашего сына' : 'Введите имя вашей дочери';
+    }
+
+    self.noticePlaceholderLabel = function() {
+        return self.gender == 1 ? 'Напишите пару слов о вашем сыне' : 'Напишите пару слов о вашей дочери';
+    }
+
+    self.birthdayPlaceholderLabel = function() {
+        return self.type === null ? (self.gender == 1 ? 'Введите дату рождения вашего сына' : 'Введите дату рождения вашей дочери') : 'Введите приблизительную дату родов';
     }
 }
 
@@ -551,4 +736,41 @@ var FamilyMainMonth = function(data, parent) {
     var self = this;
     self.id = data.id;
     self.name = data.name;
+}
+
+var FamilyMainPhoto = function(data, member, memberParent) {
+    var self = this;
+    self.id = data.id;
+    self.bigThumbSrc = data.bigThumbSrc;
+    self.smallThumbSrc = data.smallThumbSrc;
+
+    self.open = function() {
+        PhotoCollectionViewWidget.open('AttachPhotoCollection', { entityName : memberParent.ENTITY_NAME, entityId : member.id }, self.id);
+    };
+
+    self.remove = function() {
+        $.post('/albums/removeUploadPhoto/', { id : self.id }, function() {
+            member.photos.remove(self);
+        });
+    };
+
+    self.isMain = ko.computed({
+        read: function() {
+            return member.mainPhotoId() == self.id;
+        },
+        write: function(value) {
+            console.log(member);
+            if (value) {
+                $.post('/family/photo/setMainPhoto/', { entityName : memberParent.ENTITY_NAME, entityId : member.id, photoId : self.id }, function(response) {
+                    if (response.success)
+                        member.mainPhotoId(self.id);
+                }, 'json');
+            } else {
+                $.post('/family/photo/unsetMainPhoto/', { entityName : memberParent.ENTITY_NAME, entityId : member.id }, function(response) {
+                    if (response.success)
+                        member.mainPhotoId(null);
+                }, 'json');
+            }
+        }
+    });
 }

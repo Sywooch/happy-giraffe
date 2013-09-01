@@ -39,31 +39,47 @@
         </h1>
         <div class="b-article_in clearfix">
             <div class="wysiwyg-content clearfix">
-                <p>У меня есть уже один рецепт "Зебры".А этим рецептом поделилась со мной моя читательница...Я обещала попробовать сделать, и вот... я сделала! Эта "Зебра" у меня  получилась  воздушнее, мягче, рассыпчатей... По вкусу напомнила кекс... Остается мягкой и вкусной даже на следующий день! </p>
-                <div class="b-article_in-img">
-                    <img alt="Ночные гости - кто они фото 1" class="content-img" src="http://img.happy-giraffe.ru/thumbs/700x700/56/edad8d334a0b4a086a50332a2d8fd0fe.JPG" title="Ночные гости - кто они фото 1">
-                </div>
+                <!--<p>У меня есть уже один рецепт "Зебры".А этим рецептом поделилась со мной моя читательница...Я обещала попробовать сделать, и вот... я сделала! Эта "Зебра" у меня  получилась  воздушнее, мягче, рассыпчатей... По вкусу напомнила кекс... Остается мягкой и вкусной даже на следующий день! </p>-->
+                <?php if ($recipe->mainPhoto !== null): ?>
+                    <div class="b-article_in-img">
+                        <?=CHtml::image($recipe->mainPhoto->getPreviewUrl(580, null, Image::WIDTH), $recipe->mainPhoto->title, array('class' => 'content-img'))?>
+                    </div>
+                <?php else: ?>
+                    <br>
+                <?php endif; ?>
 
                 <!-- Всталвять или после изображения или после <br> или пустого <p> -->
                 <div class="recipe-desc clearfix">
-                    <div class="location clearfix">
-                        <span class="flag-big flag-big-ua"></span>
-                        <span class="location_tx">Украинская кухня</span>
-                    </div>
-                    <div class="recipe-desc_holder">
-                        <div class="recipe-desc_i">
-                            <div class="recipe-desc_ico recipe-desc_ico__time-1 powertip" title="Время подготовки"></div>
-                            02 : 00
+                    <?php if ($recipe->cuisine): ?>
+                        <div class="location clearfix">
+                            <?php if (!empty($recipe->cuisine->country_id)):?>
+                                <span class="flag-big flag-big-<?=$recipe->cuisine->country->iso_code ?>"></span>
+                            <?php endif; ?>
+                            <span class="location_tx"><?=$recipe->cuisine->title?></span>
                         </div>
-                        <div class="recipe-desc_i">
-                            <div class="recipe-desc_ico recipe-desc_ico__time-2 powertip" title="Время приготовления"></div>
-                            02 : 00
+                    <?php endif; ?>
+                    <?php if ($recipe->preparation_duration || $recipe->cooking_duration): ?>
+                        <div class="recipe-desc_holder">
+                            <?php if ($recipe->preparation_duration): ?>
+                                <div class="recipe-desc_i">
+                                    <div class="recipe-desc_ico recipe-desc_ico__time-1 powertip" title="Время подготовки"></div>
+                                    <?=$recipe->preparation_duration_h?> : <?=$recipe->preparation_duration_m?>
+                                </div>
+                            <?php endif; ?>
+                            <?php if ($recipe->cooking_duration): ?>
+                                <div class="recipe-desc_i">
+                                    <div class="recipe-desc_ico recipe-desc_ico__time-2 powertip" title="Время приготовления"></div>
+                                    <?=$recipe->cooking_duration_h?> : <?=$recipe->cooking_duration_m?>
+                                </div>
+                            <?php endif; ?>
                         </div>
-                    </div>
-                    <div class="recipe-desc_i">
-                        <div class="recipe-desc_ico recipe-desc_ico__yield powertip" title="Количество порций"></div>
-                        на <span class="yeild">6 персон</span>
-                    </div>
+                    <?php endif; ?>
+                    <?php if ($recipe->servings): ?>
+                        <div class="recipe-desc_i">
+                            <div class="recipe-desc_ico recipe-desc_ico__yield powertip" title="Количество порций"></div>
+                            на <span class="yeild"><?=$recipe->servings?> <?=Str::GenerateNoun(array('персона', 'персоны', 'персон'), $recipe->servings)?></span>
+                        </div>
+                    <?php endif; ?>
                 </div>
 
                 <div class="clearfix">

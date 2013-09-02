@@ -7,7 +7,8 @@ var RecipesSearchViewModel = function(data) {
     self.page = ko.observable(0);
 
     // query
-    self.instantaneousQuery = ko.observable('');
+    console.log(data.query);
+    self.instantaneousQuery = ko.observable(data.query);
     self.throttledQuery = ko.computed(self.instantaneousQuery).extend({ throttle: 400 });
 
     self.clearQuery = function() {

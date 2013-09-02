@@ -1,7 +1,7 @@
 /* Высчитывание ширины контейнера .layout-container без браузерного скрола */
 function scrollFix() {
     
-    var widthFixBlock = $('.layout-container_hold')
+    var widthFixBlock = $('.layout-container')
     var widthFix = widthFixBlock.parent().width();
     widthFixBlock.width(widthFix - getScrollBarWidth() + 'px'); 
 }
@@ -19,7 +19,7 @@ im.viewHeight = function () {
 
 /* Прокручивание в конец страницы */
 im.scrollTop = function () {
-    im.container.scrollTop($('.layout-container_hold').height());
+    im.container.scrollTop($('.layout-container').height());
 }
 
 /* Высота в sidebar списка собеседников */

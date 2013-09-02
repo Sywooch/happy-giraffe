@@ -12,7 +12,7 @@ $this->beginContent('//layouts/main'); ?>
                         <li class="club-list_li">
                             <a href="<?=$this->createUrl('/community/default/community', array('community_id'=>$this->community->id)) ?>" class="club-list_i">
                                 <span class="club-list_img-hold">
-                                    <img src="/images/club/<?=$this->community->id ?>-w130.jpg" class="club-list_img">
+                                    <img src="/images/club/<?=$this->community->id ?>-w130.png" class="club-list_img">
                                 </span>
                             </a>
                         </li>
@@ -28,13 +28,19 @@ $this->beginContent('//layouts/main'); ?>
                         <ul class="b-section_ul margin-l30 clearfix<?php if (isset($root)) echo ' b-section_ul__white'; ?>">
                             <li class="b-section_li">
                                 <a href="<?=$this->createUrl('/community/default/forum', array('community_id'=>$this->community->id)) ?>"
-                                   class="b-section_li-a<?php if (isset($forum)) echo ' active' ?>">Форум</a>
+                                   class="b-section_li-a<?php if (isset($this->forum) && $this->forum) echo ' active' ?>">Форум</a>
                             </li>
-                            <?php foreach($this->community->services as $service):?>
+                            <?php if (count($this->community->services) < 2):?>
+                                <?php foreach($this->community->services as $service):?>
+                                    <li class="b-section_li">
+                                        <a href="<?=$service->getUrl() ?>" class="b-section_li-a<?php if (isset($service_id) && $service_id = $service->id) echo ' active' ?>"><?=$service->title ?></a>
+                                    </li>
+                                <?php endforeach ?>
+                            <?php else: ?>
                                 <li class="b-section_li">
-                                    <a href="<?=$service->getUrl() ?>" class="b-section_li-a<?php if (isset($service_id) && $service_id = $service->id) echo ' active' ?>"><?=$service->title ?></a>
+                                    <a href="<?=$this->createUrl('/community/default/services', array('community_id'=>$this->community->id)) ?>" class="b-section_li-a<?php if (Yii::app()->controller->action->id == 'services' ) echo ' active' ?>">Сервисы</a>
                                 </li>
-                            <?php endforeach ?>
+                            <?php endif ?>
                         </ul>
                     </div>
 

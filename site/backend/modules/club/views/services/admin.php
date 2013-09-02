@@ -22,6 +22,11 @@
             'type' => 'raw'
         ),
         array(
+            'name' => 'community_id',
+            'value' => '$data->CommunitiesText()',
+            'type' => 'raw'
+        ),
+        array(
             'class' => 'CButtonColumn',
             'template' => '{update}{delete}'
         ),

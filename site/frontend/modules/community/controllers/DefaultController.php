@@ -9,6 +9,7 @@ class DefaultController extends HController
      */
     public $community;
     public $rubric_id;
+    public $forum = false;
 
     public function beforeAction($action)
     {
@@ -39,6 +40,7 @@ class DefaultController extends HController
     {
         $this->layout = 'forum';
         $this->rubric_id = $rubric_id;
+        $this->forum = true;
 
         $this->render('list');
     }
@@ -46,6 +48,7 @@ class DefaultController extends HController
     public function actionView($community_id, $content_type_slug, $content_id)
     {
         $this->layout = 'forum';
+        $this->forum = true;
         $content = $this->loadContent($content_id, $content_type_slug);
         if (!empty($content->uniqueness) && $content->uniqueness < 50)
             Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
@@ -63,7 +66,8 @@ class DefaultController extends HController
 
     public function actionServices($community_id)
     {
-        $this->render('services');
+        $services = $this->community->services;
+        $this->render('services', compact('services'));
     }
 
     public function actionSubscribe()

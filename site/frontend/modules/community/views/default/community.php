@@ -12,5 +12,5 @@
     <?php $this->renderPartial('_rubrics'); ?>
 </div>
 <div class="col-23-middle ">
-    <?php $this->renderPartial('_list'); ?>
+    <?php $this->renderPartial('list'); ?>
 </div>

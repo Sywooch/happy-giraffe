@@ -8,6 +8,7 @@ var LayoutViewModel = function(data) {
 
     $(function() {
         Comet.prototype.incNewFriendsCount = function(result, id) {
+            alert('123');
             self.newFriendsCount(self.newFriendsCount() + 1);
         };
 

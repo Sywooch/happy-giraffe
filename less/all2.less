@@ -559,12 +559,15 @@ table.fr_recipe_tb td { width: 50%;}
 
 /* blog-title-b */
 .blog-title-b {
-    margin: 0 0 30px;
+    position: relative;
+    margin: -1px 0 30px;
     width: 720px;
+
     &_img-hold {
         width: 720px;
-        height: 128px;
+        min-height: 40px;
         overflow: hidden;
+        background: #fafafa;
         .border-radius(4px);
     }
     &_img-hold img{
@@ -584,13 +587,16 @@ table.fr_recipe_tb td { width: 50%;}
 /* /blog-title-b */
 
 .blog-settings {
-    .inline-block();
-    margin: 8px 10px 6px 25px;
-    padding: 2px 0 0 22px;
-    color: #a8a7a7;
-    text-decoration: none;
-    background: url(/images/blog-settings.png) no-repeat;
-    &:hover {color: #888;}
+    position: absolute;
+    top: 7px;
+    right: 0;
+    width: 30px;
+    height: 26px;
+    padding: 0;
+    background:rgba(0,0,0,0.3) url(/images/blog-settings.png) no-repeat 0 -2px;
+    .border-radius(3px);
+
+    &:hover {background-position: 0 -32px;}
 }
 
 /* blog-preview */
@@ -1805,7 +1811,16 @@ table.fr_recipe_tb td { width: 50%;}
         margin:0 -20px 0 0;
         .scale(0.95);
     }
+    .blog-title-b_img-hold {
+        height: 128px;
+        background: #f1f9fc;
+    }
     .tabs-white_cont {min-height: 300px;}
+    .b-add-img {
+        border: 1px solid #C8E4EE;
+        padding: 0;
+        .border-radius(0);
+    }
 
     &_close {
         position: absolute;
@@ -1830,11 +1845,17 @@ table.fr_recipe_tb td { width: 50%;}
         color: #418ac1;
     }
     &_jcrop {
+        position: relative;
         float: left;
         margin: 0 20px 25px 0;
         width: 320px;
     }
     &_jcrop img { max-width: none;}
+    &_del {
+        position: absolute;
+        top: -18px;
+        right: 0px;
+    }
     &_sepor {
         margin: 15px 0 5px;
         border-top: 1px solid #d8ebf5;
@@ -2464,10 +2485,12 @@ table.fr_recipe_tb td { width: 50%;}
     left: 0;
     background: #F0F0F0;
     z-index: 100;
-
+    
+    &__photoalbum,
+    &__blog,
     &__rel {
         position: relative;
-        height: 400px;
+        height: 440px;
         .border-radius(10px);
         top: auto;
         left: auto;
@@ -2477,6 +2500,17 @@ table.fr_recipe_tb td { width: 50%;}
     }
     &__rel &_hold {margin-top: -100px;}
     &__smile &_hold {background: url(/images/cap-empty_hold__smile.png) no-repeat 50% 0;}
+    &__blog &_hold {
+        margin-top: -150px;
+        padding-top: 125px;
+        background: url(/images/cap-empty__blog_hold.png) no-repeat 50% 0;
+    }
+    &__photoalbum &_hold {
+        margin-top: -135px;
+        padding-top: 135px;
+        background: url(/images/cap-empty__photalbum_hold.png) no-repeat 50% 0;
+    }
+
     &_hold {
         position: absolute;
         top: 50%;
@@ -2916,10 +2950,10 @@ table.fr_recipe_tb td { width: 50%;}
         .box-shadow(inset 0 0 5px rgba(0,0,0,0.2));
     }
     &__club {min-height:275px;}
-    &__club-35 {background:#84b142 url(/images/club/35-header.jpg) no-repeat 50% 0;}
-    &__club-22 {background:#7da21e url(/images/club/22-header.jpg) no-repeat 50% 0;}
-    &__club-27 {background:#405ba6 url(/images/club/27-header.jpg) no-repeat 50% 0;}
-    &__club-38 {background:#d74031 url(/images/club/38-header.jpg) no-repeat 50% 0;}
+    &__club-7 {background:#7da21e url(/images/club/7-header.jpg) no-repeat 50% 0;}
+    &__club-16 {background:#d74031 url(/images/club/16-header.jpg) no-repeat 50% 0;}
+    &__club-17 {background:#84b142 url(/images/club/17-header.jpg) no-repeat 50% 0;}
+    &__club-18 {background:#405ba6 url(/images/club/18-header.jpg) no-repeat 50% 0;}
 
     .club-list,
     .club-list_ul,
@@ -2968,6 +3002,7 @@ table.fr_recipe_tb td { width: 50%;}
         text-shadow: 0 2px 3px rgba(0,0,0,.5);
     }
     &_transp-desc {
+        padding: 0 30px;
         text-shadow: 0 2px 3px rgba(0,0,0,.5);
     }
     &_club-add {

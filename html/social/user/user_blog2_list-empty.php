@@ -183,20 +183,20 @@
 				
 			</div>
 			<div class="col-23-middle">
-				<a href="#popup-blog-set" data-theme="transparent" class="blog-settings fancy">Настройки блога</a>
 			
 				<div class="col-gray">
 					<div class="blog-title-b">
+						<a href="#popup-blog-set" data-theme="transparent" class="blog-settings fancy powertip" title="Настройки блога"></a>
 						<div class="blog-title-b_img-hold">
-							<img src="/images/example/w720-h128.jpg" alt="" class="blog-title-b_img">
 						</div>
 						<h1 class="blog-title-b_t">Блог о красивой любви </h1>
 					</div>
 					
-					<div class="cap-empty cap-empty__rel">
+					<div class="cap-empty cap-empty__blog">
 						<div class="cap-empty_hold">
-							<div class="cap-empty_tx">В этом блоге нет записей. </div>
-							<div class="cap-empty_gray">Ждем от вас что-нибудь новенькое!</div>
+							<div class="cap-empty_tx margin-b10">В вашем блоге пока нет записей.</div>
+							<div class="cap-empty_gray">Будьте активны! Добавляйте записи, фото, видео.</div>
+							<a href="" class="btn-blue btn-h46 margin-t15">Добавить запись</a>
 						</div>
 					</div>
 					
@@ -255,17 +255,18 @@
 						<div class="popup-blog-set_col-wide">
 							<label for="" class="popup-blog-set_label">Выберите фон</label>
 							<div class="margin-t15 clearfix">
-								<div class="popup-blog-set_jcrop">
-									<img src="/images/jcrop-blog.jpg" alt=""  class="popup-blog-set_jcrop-img" width='300' height='270'>
-								</div>
-								<div class="float-l">
-									<div class="margin-b10 clearfix">
+								<div class="b-add-img b-add-img__for-single">
+									<div class="b-add-img_hold">
+										<div class="b-add-img_t">
+											Загрузите фотографии с компьютера
+											<div class="b-add-img_t-tx">Поддерживаемые форматы: jpg и png</div>
+										</div>
 										<div class="file-fake">
-											<button class="btn-green btn-medium file-fake_btn">Загрузить  фото</button>
+											<button class="btn-green btn-medium file-fake_btn">Обзор</button>
 											<input type="file" name="">
 										</div>
 									</div>
-									<div class="color-gray font-small">Разрешенные форматы файлов <br> JPG, GIF или  PNG. <br>Максимальный размер 700 Кб. </div>
+									<div class="b-add-img_html5-tx">или перетащите фото сюда</div>
 								</div>
 							</div>
 						</div>
@@ -277,7 +278,7 @@
 						<div class="float-r">
 							<div class="blog-title-b">
 								<div class="blog-title-b_img-hold">
-									<img src="/images/blog-title-b_img.jpg" alt="" class="blog-title-b_img">
+									
 								</div>
 								<h1 class="blog-title-b_t">Блог о красивой любви </h1>
 							</div>

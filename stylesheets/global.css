@@ -875,7 +875,7 @@
 }*/
 .im {
   position: relative;
-  margin: 0px 0 -50px -20px;
+  margin: 0px 0 0px -20px;
   /*min-height: 470px;*/
 
   background: #fff;
@@ -891,7 +891,7 @@
   width: 1000px;
   height: 11px;
   background: url(/images/im/im.png) repeat-x;
-  z-index: 150;
+  z-index: 80;
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   border-radius: 10px;
@@ -1082,8 +1082,8 @@
   bottom: 0;
   width: 685px;
   min-height: 117px;
-  background: #fff;
   z-index: 102;
+  background: #ffffff url(/images/im/im.png) repeat-x -15px 100%;
 }
 .im-center_bottom-hold {
   padding-bottom: 30px;
@@ -13183,13 +13183,15 @@ table.fr_recipe_tb td {
 /* /end baby_handbook_add_recipe.html */
 /* blog-title-b */
 .blog-title-b {
-  margin: 0 0 30px;
+  position: relative;
+  margin: -1px 0 30px;
   width: 720px;
 }
 .blog-title-b_img-hold {
   width: 720px;
-  height: 128px;
+  min-height: 40px;
   overflow: hidden;
+  background: #fafafa;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
@@ -13211,15 +13213,19 @@ table.fr_recipe_tb td {
 }
 /* /blog-title-b */
 .blog-settings {
-  display: inline-block;
-  margin: 8px 10px 6px 25px;
-  padding: 2px 0 0 22px;
-  color: #a8a7a7;
-  text-decoration: none;
-  background: url(/images/blog-settings.png) no-repeat;
+  position: absolute;
+  top: 7px;
+  right: 0;
+  width: 30px;
+  height: 26px;
+  padding: 0;
+  background: rgba(0, 0, 0, 0.3) url(/images/blog-settings.png) no-repeat 0 -2px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
 }
 .blog-settings:hover {
-  color: #888;
+  background-position: 0 -32px;
 }
 /* blog-preview */
 .blog-preview {
@@ -14754,8 +14760,19 @@ table.fr_recipe_tb td {
   -o-transform: scale(0.95);
   transform: scale(0.95);
 }
+.popup-blog-set .blog-title-b_img-hold {
+  height: 128px;
+  background: #f1f9fc;
+}
 .popup-blog-set .tabs-white_cont {
   min-height: 300px;
+}
+.popup-blog-set .b-add-img {
+  border: 1px solid #C8E4EE;
+  padding: 0;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
 }
 .popup-blog-set_close {
   position: absolute;
@@ -14782,12 +14799,18 @@ table.fr_recipe_tb td {
   color: #418ac1;
 }
 .popup-blog-set_jcrop {
+  position: relative;
   float: left;
   margin: 0 20px 25px 0;
   width: 320px;
 }
 .popup-blog-set_jcrop img {
   max-width: none;
+}
+.popup-blog-set_del {
+  position: absolute;
+  top: -18px;
+  right: 0px;
 }
 .popup-blog-set_sepor {
   margin: 15px 0 5px;
@@ -15469,9 +15492,11 @@ table.fr_recipe_tb td {
   background: #F0F0F0;
   z-index: 100;
 }
+.cap-empty__photoalbum,
+.cap-empty__blog,
 .cap-empty__rel {
   position: relative;
-  height: 400px;
+  height: 440px;
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   border-radius: 10px;
@@ -15486,6 +15511,16 @@ table.fr_recipe_tb td {
 }
 .cap-empty__smile .cap-empty_hold {
   background: url(/images/cap-empty_hold__smile.png) no-repeat 50% 0;
+}
+.cap-empty__blog .cap-empty_hold {
+  margin-top: -150px;
+  padding-top: 125px;
+  background: url(/images/cap-empty__blog_hold.png) no-repeat 50% 0;
+}
+.cap-empty__photoalbum .cap-empty_hold {
+  margin-top: -135px;
+  padding-top: 135px;
+  background: url(/images/cap-empty__photalbum_hold.png) no-repeat 50% 0;
 }
 .cap-empty_hold {
   position: absolute;
@@ -16035,17 +16070,17 @@ table.fr_recipe_tb td {
 .b-section__club {
   min-height: 275px;
 }
-.b-section__club-35 {
-  background: #84b142 url(/images/club/35-header.jpg) no-repeat 50% 0;
+.b-section__club-7 {
+  background: #7da21e url(/images/club/7-header.jpg) no-repeat 50% 0;
 }
-.b-section__club-22 {
-  background: #7da21e url(/images/club/22-header.jpg) no-repeat 50% 0;
+.b-section__club-16 {
+  background: #d74031 url(/images/club/16-header.jpg) no-repeat 50% 0;
 }
-.b-section__club-27 {
-  background: #405ba6 url(/images/club/27-header.jpg) no-repeat 50% 0;
+.b-section__club-17 {
+  background: #84b142 url(/images/club/17-header.jpg) no-repeat 50% 0;
 }
-.b-section__club-38 {
-  background: #d74031 url(/images/club/38-header.jpg) no-repeat 50% 0;
+.b-section__club-18 {
+  background: #405ba6 url(/images/club/18-header.jpg) no-repeat 50% 0;
 }
 .b-section .club-list,
 .b-section .club-list_ul,
@@ -16103,6 +16138,7 @@ table.fr_recipe_tb td {
   text-shadow: 0 2px 3px rgba(0, 0, 0, 0.5);
 }
 .b-section_transp-desc {
+  padding: 0 30px;
   text-shadow: 0 2px 3px rgba(0, 0, 0, 0.5);
 }
 .b-section_club-add {

@@ -16,7 +16,7 @@
 	
 		<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/header-new.php'; ?>
 		
-		<div class="layout-content">
+		<div class="layout-content margin-b0">
 			<div class="content-cols clearfix">
 				<div class="col-1">
 					<div class="sidebar-search clearfix">

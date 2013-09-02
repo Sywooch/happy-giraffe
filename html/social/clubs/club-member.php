@@ -46,7 +46,7 @@
 		</div>
 		
 		
-		<div class="b-section b-section__club b-section__club-35">
+		<div class="b-section b-section__club b-section__club-17">
 			<div class="b-section_hold">
 				<div class="content-cols clearfix">
 					<div class="col-1">
@@ -55,7 +55,7 @@
 								<li class="club-list_li  club-list_li__in">
 									<a href="" class="club-list_i">
 										<span class="club-list_img-hold">
-											<img src="/images/club/35-w240.jpg" alt="" class="club-list_img">
+											<img src="/images/club/17-w240.png" alt="" class="club-list_img">
 										</span>
 									</a>
 								</li>
@@ -65,7 +65,7 @@
 					<div class="col-23-middle clearfix">
 						<div class="b-section_transp">
 							<h1 class="b-section_transp-t">Цветы в доме</h1>
-							<div class="b-section_transp-desc">Здесь собрано все что нужно для цветоводов. Растения, удобрения <br>чувство юмора имеется, на шею не сажусь, проблемами не загружаю. </div>
+							<div class="b-section_transp-desc">Здесь собрано все что нужно для цветоводов. Растения, удобрения чувство юмора имеется, на шею не сажусь, проблемами не загружаю. </div>
 							<div class="b-section_club-moder">
 								<span class="b-section_club-moder-tx">Модераторы <br> клуба</span>
 								<a href="" class="ava"><img src="/images/user_friends_img.jpg"></a>

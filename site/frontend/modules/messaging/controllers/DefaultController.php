@@ -10,7 +10,7 @@ class DefaultController extends HController
 {
     const CONTACTS_PER_PAGE = 50;
 
-    public $layout = '//layouts/main_old';
+    public $layout = '//layouts/common_new';
     public $tempLayout = true;
 
     public function filters()

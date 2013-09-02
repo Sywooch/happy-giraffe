@@ -1622,6 +1622,11 @@ a.pseudo:hover,
   padding: 10px 0 15px;
   overflow: hidden;
 }
+.logo__big .logo_i {
+  width: 280px;
+  height: 160px;
+  background: url(/images/logo__big.png) no-repeat;
+}
 .logo_i {
   display: block;
   width: 181px;

@@ -3051,7 +3051,37 @@
   color: #319FE4;
 }
 /* /redactor-control */
-/* section */
+/* start-page */
+.start-page .custom-like {
+  margin: 0 2px;
+  vertical-align: middle;
+}
+.start-page_row__head {
+  background: url(/images/start-page_row__head.jpg) no-repeat 50% 0;
+}
+.start-page_hold {
+  width: 980px;
+  margin: 0 auto;
+  padding: 0 0 0 20px;
+}
+.start-page_head {
+  padding: 70px 700px 132px 0;
+}
+.start-page_head .btn-big {
+  font-size: 23px;
+  margin: 10px 0 23px;
+  padding: 0 40px;
+}
+.start-page_head-desc {
+  text-align: center;
+}
+.start-page_counter-desc {
+  display: inline-block;
+  vertical-align: middle;
+  color: #000;
+  font: 34px/36px 'Roboto', 'Helvetica Neue', Helvetica, Arial, Tahoma, sans-serif;
+}
+/* start-page *//* section */
 .section {
   margin: 0 -3000px 40px;
   padding: 12px 0 0;
@@ -15281,6 +15311,15 @@ table.fr_recipe_tb td {
   font-weight: normal;
 }
 /* /heading-small */
+/* heading-medium */
+.heading-medium {
+  margin: 0;
+  font-size: 20px;
+  line-height: 22px;
+  color: #111;
+  font-weight: normal;
+}
+/* /heading-medium */
 /* cap-empty */
 .cap-empty {
   position: absolute;
@@ -15754,7 +15793,7 @@ table.fr_recipe_tb td {
   display: block;
   color: #3782c1;
   text-align: center;
-  font: bold 11px/16px Tahoma, Arial, Verdana, sans-serif;
+  font: bold 11px/14px Tahoma, Arial, Verdana, sans-serif;
 }
 .club-list_i:hover {
   text-decoration: none;
@@ -15846,6 +15885,13 @@ table.fr_recipe_tb td {
   margin: 15px -9000px 20px;
   padding: 25px 9000px 20px;
   background: #fafafa;
+}
+.b-section__collection {
+  padding: 20px 0 15px;
+  background: #5a4072;
+  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
 }
 .b-section__club {
   min-height: 275px;
@@ -15964,9 +16010,9 @@ table.fr_recipe_tb td {
 .b-section_collection-t {
   display: inline-block;
   vertical-align: middle;
-  margin: 0 0 0 25px;
+  margin: 0 0 0 60px;
   font: 60px/1em 'Roboto', 'Helvetica Neue', Helvetica, Arial, Tahoma, sans-serif;
-  color: #232323;
+  color: #fff;
 }
 /* /b-section */
 /* location */
@@ -16521,6 +16567,7 @@ table.fr_recipe_tb td {
   display: inline-block;
   vertical-align: middle;
   width: 165px;
+  line-height: 14px;
 }
 .club-services_t {
   font-weight: bold;

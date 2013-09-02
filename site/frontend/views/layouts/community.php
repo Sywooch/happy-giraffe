@@ -54,7 +54,6 @@ $this->beginContent('//layouts/main'); ?>
     <?=$content ?>
 </div>
 
-
 <script type="text/javascript">
     $(function() {
         vm = new CommunitySubscription(<?=CJSON::encode(UserClubSubscription::subscribed(Yii::app()->user->id, $this->club->id))?>, <?=$this->club->id ?>);

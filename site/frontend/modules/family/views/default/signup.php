@@ -138,14 +138,7 @@ Yii::app()->clientScript
     </div>
 </div>
 
-<script type="text/html" id="element-template">
-    <div class="b-family_img-hold">
-        <div class="ico-family" data-bind="css: cssClass()"></div>
-    </div>
-    <div class="b-family_tx">
-        <span data-bind="text: title()"></span>
-    </div>
-</script>
+<?php $this->render('_add_element'); ?>
 
 <script type="text/javascript">
     $(function() {

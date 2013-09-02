@@ -20,7 +20,8 @@ class DefaultController extends HController
         } else
             $url = Yii::app()->createAbsoluteUrl('profile/default/index', array('user_id' => Yii::app()->user->id));
         $json = Yii::app()->user->model->getFamilyData();
-        $json['callback'] = 'window.location.href = \'' . $url . '\';';
+        //$json['callback'] = 'window.location.href = \'' . $url . '\';';
+        $json['callback'] = '';
         $this->layout = '//layouts/simple';
         $this->render('signup', compact('json'));
 	}
@@ -60,5 +61,11 @@ class DefaultController extends HController
                 $baby->parent_id = $user->id;
                 $baby->save();
             }
+
+        $data = $user->getFamilyData();
+        $data['currentYear'] = date("Y");
+        $data['canEdit'] = $user->id == Yii::app()->user->id;
+        $response = compact('data');
+        echo CJSON::encode($response);
     }
 }

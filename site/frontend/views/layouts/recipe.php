@@ -1,111 +1,86 @@
-<?php $this->beginContent('//layouts/main'); ?>
+<?php $this->beginContent('//layouts/community'); ?>
 
-<div id="cook-recipe">
+<div class="content-cols clearfix">
+    <div class="col-1">
 
-    <?php if ($this->section == 1): ?>
-        <div class="title title-recipes-1">
-            <h1>Рецепты для <span>МУЛЬТИВАРОК</span></h1>
+        <div class="readers2">
+            <a class="btn-green btn-medium" href="">Вступить в клуб</a>
+            <ul class="readers2_ul clearfix">
+                <li class="readers2_li clearfix">
+                    <a class="ava female small" href="">
+                        <span class="icon-status status-online"></span>
+                        <img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
+                    </a>
+                </li>
+                <li class="readers2_li clearfix">
+                    <a class="ava female small" href="">
+                        <img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
+                    </a>
+                </li>
+                <li class="readers2_li clearfix">
+                    <a class="ava female small" href="">
+                        <span class="icon-status status-online"></span>
+                        <img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
+                    </a>
+                </li>
+                <li class="readers2_li clearfix">
+                    <a class="ava female small" href="">
+                    </a>
+                </li>
+                <li class="readers2_li clearfix">
+                    <a class="ava female small" href="">
+                        <span class="icon-status status-online"></span>
+                        <img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
+                    </a>
+                </li>
+                <li class="readers2_li clearfix">
+                    <a class="ava male small" href="">
+                        <span class="icon-status status-online"></span>
+                    </a>
+                </li>
+            </ul>
+            <div class="clearfix">
+                <div class="readers2_count">Все участники клуба (129)</div>
+            </div>
         </div>
-    <?php endif; ?>
 
-    <div class="clearfix">
-
-        <div class="main">
-
-            <div class="main-in">
-
-                <?=$content?>
-
-            </div>
-
+        <div class="sidebar-search sidebar-search__gray clearfix">
+            <input type="text" placeholder="Поиск из 15611 рецептов" class="sidebar-search_itx" id="" name="">
+            <!--
+            В начале ввода текста, скрыть sidebar-search_btn добавить класс active"
+             -->
+            <button class="sidebar-search_btn"></button>
         </div>
 
-        <div class="side-left">
-
-            <div style="margin-bottom: 40px;">
-                <?php $this->renderPartial('//banners/adfox'); ?>
-            </div>
-
-            <div class="recipe-search clearfix">
-                <?=CHtml::beginForm('/cook/recipe/search', 'get')?>
-                    <input type="text" name="text" value="<?php if (isset($_GET['text'])) echo urldecode($_GET['text']) ?>" class="text" placeholder="Поиск из <?=$count = CookRecipe::model()->cache(3600)->count() ?> <?=Str::GenerateNoun(array('рецепта', 'рецептов', 'рецептов'), $count) ?>">
-                    <input type="submit" value="" class="submit">
-                <?=CHtml::endForm()?>
-            </div>
-
-            <div class="recipe-menu">
-                <ul>
-                    <li>
-                        <a href="<?=(Yii::app()->user->isGuest) ? '#login' : $this->createUrl('/cook/recipe/form', array('section' => $this->section))?>"
-                           data-theme="white-square"<?php if (Yii::app()->user->isGuest) echo 'class="fancy"'?>>
-                                <span class="icon-holder">
-                                    <i class="icon-cook-add"></i>
-                                </span><span class="link-holder">
-                                    <span class="link">Добавить рецепт</span>
-                                </span>
-                        </a>
+        <div class="menu-simple">
+            <ul class="menu-simple_ul">
+                <?php foreach (CActiveRecord::model($this->modelName)->types as $id => $label): ?>
+                    <li class="menu-simple_li<?php if ($this->currentType == $id): ?> active<?php endif; ?>">
+                        <?=HHtml::link($label, $this->getTypeUrl($id), array('class' => 'menu-simple_a'), true)?>
+                        <div class="menu-simple_count"><?=isset($this->counts[$id]) ? $this->counts[$id] : 0?></div>
                     </li>
-                    <li>
-                        <a href="<?=(Yii::app()->user->isGuest) ? '#login' : $this->createUrl('/favourites/default/index', array('entity' => 'cook'))?>"
-                           data-theme="white-square"<?php if (Yii::app()->user->isGuest) echo 'class="fancy"'?>>
-                                <span class="icon-holder">
-                                    <i class="icon-cook-book"></i>
-                                </span><span class="link-holder">
-                                    <span class="link">Моя кулинарная книга</span>
-                                    <span id="cookbook-recipe-count" class="pink"><?=$count = (Yii::app()->user->isGuest) ? 0 : FavouritesManager::getCountByUserId(Yii::app()->user->id, 'cook') ?> <?=Str::GenerateNoun(array('рецепт', 'рецепта', 'рецептов'), $count) ?></span>
-                                </span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="recipe-categories">
-                <ul>
-                    <?php foreach (CActiveRecord::model($this->modelName)->types as $id => $label): ?>
-                        <li<?php if ($this->currentType == $id): ?> class="active"<?php endif; ?>>
-                            <?php
-                            $count = isset($this->counts[$id]) ? $this->counts[$id] : 0;
-                            $text = '<span class="cook-cat-holder"><i class="icon-cook-cat icon-recipe-'.$id.'"></i></span>
-                                <span class="cook-cat-frame">
-                                    <span>'.$label.'</span>
-                                    <span class="count">' . $count . '</span>
-                                </span>';
-                                    echo HHtml::link($text, $this->getTypeUrl($id), array('class'=>($this->currentType == $id)?'cook-cat active':'cook-cat'), true)
-                            ?>
-                            <img src="/images/recipe-categories-arrow.png" alt="" class="tale">
-                        </li>
-                    <?php endforeach; ?>
-                </ul>
-
-                <?php if ($this->action->id == 'view'): ?>
-                    <div style="width: 160px; margin: 40px auto;">
-                        <script async src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                        <!-- ÕÂ·ÓÒÍÂ· -->
-                        <ins class="adsbygoogle"
-                             style="display:inline-block;width:160px;height:600px"
-                             data-ad-client="ca-pub-3807022659655617"
-                             data-ad-slot="7252172488"></ins>
-                        <script>
-                            (adsbygoogle = window.adsbygoogle || []).push({});
-                        </script>
-                    </div>
-                <?php endif; ?>
-
-                <?php if (false): ?>
-                <div class="banner-box">
-                    <?php $this->renderPartial('//banners/cooking'); ?>
-                </div>
-                <?php endif; ?>
-
-            </div>
-
+                <?php endforeach; ?>
+            </ul>
         </div>
 
+        <div class="banner">
+            <a href="">
+                <img src="/images/banners/6.jpg" alt="">
+            </a>
+        </div>
     </div>
+    <div class="col-23-middle ">
 
-    <?php //$sql_stats = YII::app()->db->getStats();
-    //echo $sql_stats[0] . ' запросов к БД, время выполнения запросов - ' . sprintf('%0.5f', $sql_stats[1]) . ' c.'; ?>
 
+        <div class="clearfix margin-r20 margin-b20">
+            <a href="<?=$this->createUrl('/cook/recipe/add')?>" class="btn-blue btn-h46 float-r">Добавить рецепт</a>
+        </div>
+        <div class="col-gray">
+
+            <?=$content?>
+
+        </div>
+    </div>
 </div>
 
 <?php $this->endContent(); ?>

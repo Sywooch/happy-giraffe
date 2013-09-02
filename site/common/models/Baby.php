@@ -51,14 +51,22 @@ class Baby extends HActiveRecord
     public function rules()
     {
         return array(
-            array('parent_id', 'required'),
-            array('name', 'required', 'on'=>'realBaby'),
-            array('birthday', 'type', 'type' => 'date', 'message' => '{attribute}: is not a date!', 'dateFormat' => 'yyyy-MM-dd'),
-            array('parent_id, age_group', 'numerical', 'integerOnly'=>true),
+            array('age_group', 'numerical', 'integerOnly' => true, 'min' => 0, 'max' => 5),
+            array('name', 'length', 'max' => 50),
+            array('birthday', 'date', 'format' => 'yyyy-MM-dd'),
             array('sex', 'numerical', 'integerOnly' => true, 'min' => 0, 'max' => 2),
-            array('name', 'length', 'max'=>255),
-            array('notice', 'length', 'max'=>100),
-            array('birthday', 'safe'),
+            array('notice', 'length', 'max' => 100),
+            array('type', 'numerical', 'integerOnly' => true, 'min' => 1, 'max' => 3),
+            array('main_photo_id', 'exist', 'className' => 'AlbumPhoto', 'attributeName' => 'id'),
+
+//            array('parent_id', 'required'),
+//            array('name', 'required', 'on'=>'realBaby'),
+//            array('birthday', 'type', 'type' => 'date', 'message' => '{attribute}: is not a date!', 'dateFormat' => 'yyyy-MM-dd'),
+//            array('parent_id, age_group', 'numerical', 'integerOnly'=>true),
+//            array('sex', 'numerical', 'integerOnly' => true, 'min' => 0, 'max' => 2),
+//            array('name', 'length', 'max'=>255),
+//            array('notice', 'length', 'max'=>100),
+//            array('birthday', 'safe'),
         );
     }
 

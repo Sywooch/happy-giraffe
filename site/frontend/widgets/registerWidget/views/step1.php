@@ -56,7 +56,7 @@
                     </div>
                     <div class="b-sign_bottom">
                         Вы уже зарегистрированы?
-                        <a href="" class="margin-l10">Войти</a>
+                        <a href="#login" class="margin-l10 fancy" data-theme="transparent">Войти</a>
                     </div>
                 </div>
 

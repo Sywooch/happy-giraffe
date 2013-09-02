@@ -67,9 +67,8 @@
 								<div class="form-settings_elem">
 									<div class="">
 										<span class="form-settings_name">Ангелина</span>
-										<a class="a-pseudo-icon" href="">
+										<a href="" class="a-pseudo-icon powertip" title="Редактировать">
 											<span class="ico-edit"></span>
-											<span class="a-pseudo-icon_tx">Редактировать</span>
 										</a>
 									</div>
 									<!-- Блок редатирования поля -->
@@ -86,9 +85,8 @@
 								<div class="form-settings_elem">
 									<div class="display-n">
 										<span class="form-settings_name">Богоявленская</span>
-										<a class="a-pseudo-icon" href="">
+										<a href="" class="a-pseudo-icon powertip" title="Редактировать">
 											<span class="ico-edit"></span>
-											<span class="a-pseudo-icon_tx">Редактировать</span>
 										</a>
 									</div>
 									<!-- Блок редатирования поля -->
@@ -105,9 +103,8 @@
 								<div class="form-settings_elem">
 									<div class="">
 										<span class="">28 января 1989 г.</span>
-										<a class="a-pseudo-icon" href="">
+										<a href="" class="a-pseudo-icon powertip" title="Редактировать">
 											<span class="ico-edit"></span>
-											<span class="a-pseudo-icon_tx">Редактировать</span>
 										</a>
 									</div>
 									<!-- Блок редатирования поля -->
@@ -119,9 +116,8 @@
 								<div class="form-settings_elem">
 									<div class="display-n">
 										<span class="">28 января 1989 г.</span>
-										<a class="a-pseudo-icon" href="">
+										<a href="" class="a-pseudo-icon powertip" title="Редактировать">
 											<span class="ico-edit"></span>
-											<span class="a-pseudo-icon_tx">Редактировать</span>
 										</a>
 									</div>
 									<!-- Блок редатирования поля -->
@@ -210,9 +206,8 @@
 								<div class="form-settings_elem">
 									<div class="">
 										<span class="">akuv@mail.ru</span>
-										<a class="a-pseudo-icon" href="">
+										<a href="" class="a-pseudo-icon powertip" title="Редактировать">
 											<span class="ico-edit"></span>
-											<span class="a-pseudo-icon_tx">Редактировать</span>
 										</a>
 									</div>
 									<!-- Блок редатирования поля -->
@@ -231,9 +226,8 @@
 					                    	<span class="flag-big flag-big-ua"></span>
 					                    	<span class="location_tx">Ярославская обл. <br>Переславль-Залесский</span>
 					                    </div>
-										<a class="a-pseudo-icon" href="">
+										<a href="" class="a-pseudo-icon powertip" title="Редактировать">
 											<span class="ico-edit"></span>
-											<span class="a-pseudo-icon_tx">Редактировать</span>
 										</a>
 									</div>
 									<!-- Блок редатирования поля -->
@@ -250,9 +244,8 @@
 					                    	<span class="flag-big flag-big-ua"></span>
 					                    	<span class="location_tx">Ярославская обл. <br>Переславль-Залесский</span>
 					                    </div>
-										<a class="a-pseudo-icon" href="">
+										<a href="" class="a-pseudo-icon powertip" title="Редактировать">
 											<span class="ico-edit"></span>
-											<span class="a-pseudo-icon_tx">Редактировать</span>
 										</a>
 									</div>
 									<!-- Блок редатирования поля -->
@@ -312,7 +305,7 @@
 								</div>
 							</div>
 							
-							<div class="margin-b30">Я  хочу <a href="" class="btn-gray-light btn-small margin-5">Удалить анкету </a> , потеряв всю введенную информацию без возможности восстановления. </div>
+							<div class="margin-b30">Я  хочу <a href="" class="btn-gray-light btn-small">Удалить анкету </a>, потеряв всю введенную информацию без возможности восстановления. </div>
 							<div class="">
 								<a href="" class="a-checkbox active"></a>
 								Я  хочу получать еженедельные новости от Веселого жирафа. 

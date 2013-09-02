@@ -10,7 +10,17 @@ var LayoutViewModel = function(data) {
             self.newFriendsCount(self.newFriendsCount() + 1);
         };
 
+        Comet.prototype.incNewMessagesCount = function(result, id) {
+            self.newMessagesCount(self.newMessagesCount() + 1);
+        };
+
+        Comet.prototype.incNewNotificationsCount = function(result, id) {
+            self.incNewNotificationsCount(self.incNewNotificationsCount() + 1);
+        };
+
+        comet.addEvent(1000, 'incNewNotificationsCount');
         comet.addEvent(1001, 'incNewFriendsCount');
+        comet.addEvent(2000, 'incNewMessagesCount');
     });
 
 }

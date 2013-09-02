@@ -656,16 +656,18 @@ var PasswordRecovery = {
         var f = function () {
             $('a[href="#login"]').trigger('click');
         }
+        $('#login-retrieve .recovery-success').hide();
+        $('#login-retrieve .recovery-fail').hide();
         $.post($(form).attr('action'), $(form).serialize(), function (response) {
-            $('.sent').html(response.message).show();
-            if (response.status != 'error') {
-                $(button).val('Вход на сайт');
+            if (response.success) {
+                $('#login-retrieve .recovery-success').show();
                 $(form).submit(function (e) {
                     e.preventDefault();
                     f();
                 });
                 setTimeout(f, 5000);
-            }
+            } else
+                $('#login-retrieve .recovery-fail').show();
         }, 'json');
     }
 }

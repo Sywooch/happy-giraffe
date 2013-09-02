@@ -65,7 +65,7 @@
                                         <label for="" class="b-sign_label"></label>
                                     </div>
                                     <div class="b-sign_itx-hold">
-                                        <a href="" class="display-ib margin-t15">Забыли пароль?</a>
+                                        <?= HHtml::link('Забыли пароль?', $this->controller->createUrl('/site/passwordRecoveryForm'), array('class'=>'display-ib margin-t15 fancy', 'data-theme'=>'transparent'), true) ?>
                                         <button class="float-r btn-blue btn-h46">Войти</button>
                                     </div>
                                 </div>

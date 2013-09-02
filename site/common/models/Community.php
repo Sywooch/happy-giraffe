@@ -1,9 +1,9 @@
 <?php
 
 /**
- * This is the model class for table "{{community}}".
+ * This is the model class for table "{{community__forums}}".
  *
- * The followings are the available columns in table '{{community}}':
+ * The followings are the available columns in table '{{community__forums}}':
  * @property string $id
  * @property string $title
  * @property string $short_title
@@ -11,9 +11,9 @@
  * @property string $pic
  * @property string $position
  * @property string $css_class
+ * @property string $club_id
  *
  * @property CommunityRubric[] $rubrics
- * @property Service[] $services
  */
 class Community extends HActiveRecord
 {
@@ -64,7 +64,7 @@ class Community extends HActiveRecord
      */
     public function tableName()
     {
-        return 'community__communities';
+        return 'community__forums';
     }
 
     /**
@@ -97,7 +97,7 @@ class Community extends HActiveRecord
             'users' => array(self::MANY_MANY, 'User', 'user__users_communities(user_id, community_id)'),
             'usersCount' => array(self::STAT, 'User', 'user__users_communities(user_id, community_id)'),
             'mobileCommunity' => array(self::BELONGS_TO, 'MobileCommunity', 'mobile_community_id'),
-            'services' => array(self::MANY_MANY, 'Service', 'services__communities(service_id, community_id)'),
+            'club' => array(self::BELONGS_TO, 'CommunityClub', 'club_id'),
         );
     }
 
@@ -166,9 +166,6 @@ class Community extends HActiveRecord
      */
     public function search()
     {
-        // Warning: Please modify the following code to remove attributes that
-        // should not be searched.
-
         $criteria = new CDbCriteria;
 
         $criteria->compare('id', $this->id, true);
@@ -187,16 +184,6 @@ class Community extends HActiveRecord
         ));
     }
 
-    public function getLast($limit = 10)
-    {
-        return CommunityContent::model()->cache(180)->findAll(array(
-            'limit' => $limit,
-            'order' => 'created DESC',
-            'condition' => 'rubric_id IN ('.implode(',', self::getRubricIds($this->id)).')',
-            'with' => array('type', 'rubric'),
-        ));
-    }
-
     public function getBanners($limit = 2)
     {
         return CommunityBanner::model()->findAll(array(
@@ -205,11 +192,6 @@ class Community extends HActiveRecord
             'order' => new CDbExpression('RAND()'),
             'condition' => 'rubric_id IN ('.implode(',', self::getRubricIds($this->id)).') AND t.photo_id IS NOT NULL',
         ));
-    }
-
-    public function getShortTitle()
-    {
-        return (empty($this->short_title)) ? $this->title : $this->short_title;
     }
 
     /**
@@ -225,25 +207,5 @@ class Community extends HActiveRecord
             ->from(CommunityRubric::model()->tableName())
             ->where('community_id=' . $community_id)
             ->queryColumn();
-    }
-
-    /**
-     * Возвращает модераторов клуба
-     * @return User[]
-     */
-    public function getModerators()
-    {
-        $ids = Yii::app()->db->createCommand()
-            ->select('userid')
-            ->from('auth__assignments')
-            ->where('itemname="moderator"')
-            ->queryColumn();
-
-        $club_moders = array();
-        foreach($ids as $id)
-            if (Yii::app()->authManager->checkAccess('moderator', $id, array('community_id'=>$this->id)))
-                $club_moders [] = $id;
-
-        return User::model()->findAllByPk($club_moders);
     }
 }

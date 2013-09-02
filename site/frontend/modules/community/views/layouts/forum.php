@@ -2,7 +2,7 @@
 
     <div class="col-1">
         <?php $this->renderPartial('_users2'); ?>
-        <?php $this->renderPartial('_rubrics'); ?>
+        <?php $this->renderPartial('_rubrics', array('rubrics'=>$this->forum->rubrics)); ?>
     </div>
 
     <div class="col-23-middle ">

@@ -64,7 +64,7 @@
                                             <span class="header-menu_tx">Мой <br> Жираф</span>
                                         </a>
                                     </li>
-                                    <li class="header-menu_li" data-bind="css: { active : newNotificationsCount() > 0 }">
+                                    <li class="header-menu_li" data-bind="css: { active : newNotificationsCount() > 0 && activeModule() != 'notifications' }">
                                         <a href="<?=$this->createUrl('/notifications/default/index')?>" class="header-menu_a">
                                             <span class="header-menu_ico header-menu_ico__notice"></span>
                                             <span class="header-menu_tx">Мои <br> уведомления</span>
@@ -90,14 +90,14 @@
                                             <span class="header-menu_tx">Моя <br> семья</span>
                                         </a>
                                     </li>
-                                    <li class="header-menu_li" data-bind="css: { active : newMessagesCount() > 0 }">
+                                    <li class="header-menu_li" data-bind="css: { active : newMessagesCount() > 0 && activeModule() != 'messaging' }">
                                         <a href="<?=$this->createUrl('/messaging/default/index')?>" class="header-menu_a">
                                             <span class="header-menu_ico header-menu_ico__im"></span>
                                             <span class="header-menu_tx">Мои <br> сообщения</span>
                                             <span class="header-menu_count" data-bind="text: newMessagesCount"></span>
                                         </a>
                                     </li>
-                                    <li class="header-menu_li" data-bind="css: { active : newFriendsCount() > 0 }">
+                                    <li class="header-menu_li" data-bind="css: { active : newFriendsCount() > 0 && activeModule() != 'friends' }">
                                         <a href="<?=$this->createUrl('/friends/default/index')?>" class="header-menu_a">
                                             <span class="header-menu_ico header-menu_ico__friend"></span>
                                             <span class="header-menu_tx">Мои <br> друзья</span>

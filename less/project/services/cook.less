@@ -501,26 +501,27 @@
 }
 
 .recipe-desc {
-    margin: -15px -20px 10px;
+    margin: -10px -20px 10px;
     padding: 0 20px;
     background: #d1ebff;
 
     .location {
-
         .inline-block();
         vertical-align: middle;
-        margin-right: 10px;
+        border-right: 1px solid #b9d9f2;;
+        margin: 0 10px 0 0;
+        padding: 15px 15px 15px 0;
         font-size: 12px;
         color: #289FD7;
     }
-    .location_tx {max-width: 100px;}
+    .location_tx {max-width: 105px;}
     &_holder {
         .inline-block();
         vertical-align: middle;
-        border: 1px solid #b9d9f2;
+        border-right: 1px solid #b9d9f2;
         border-width: 0 1px;
-        padding: 0 10px;
-        margin: 0 10px;
+        padding-right: 10px;
+        margin-right: 10px;
     }
     &_i {
         .inline-block();
@@ -591,7 +592,9 @@
         color: #171717 !important;
         text-decoration:none !important;
     }
-    &_ul {margin: 0 !important;}
+    &_portion-a.disabled {color: #bbb !important;}
+    &_portion-a.disabled:hover {text-decoration: none !important;}
+    &_ul {margin: 0 0 5px !important;}
     &_li {
         font-size:12px;
         padding:6px 0 !important;

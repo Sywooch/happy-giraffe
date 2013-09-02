@@ -290,8 +290,8 @@
 											
 											<div class="nutrition_hold display-b">
 												<div class="nutrition_portion">
-													<a class="nutrition_portion-a" href="">На 100 г</a>
-													<a class="nutrition_portion-a active" href="">На порцию</a>
+													<a class="nutrition_portion-a active " href="">На 100 г</a>
+													<a class="nutrition_portion-a disabled" href="">На порцию</a>
 												</div>
 												<ul class="nutrition_ul">
 													<li class="nutrition_li">

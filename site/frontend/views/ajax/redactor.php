@@ -128,7 +128,7 @@
             </div>
             <div class="redactor-popup_add-video-load" data-bind="visible: previewLoading">
                 <img src="/images/ico/ajax-loader.gif" alt=""> <br>
-                Подждите видео загружается
+                Подждите, видео загружается
             </div>
             <div class="redactor-popup_add-video-error" data-bind="visible: previewError">
                 Не удалось загрузить видео. <br>

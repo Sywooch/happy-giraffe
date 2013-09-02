@@ -47,7 +47,7 @@
         <!-- ko if: $data.constructor.name == 'IncomingFriendRequest' && removed() -->
         <div class="cap-empty">
             <div class="cap-empty_hold">
-                <div class="cap-empty_tx">Вы отклонили <br> предложение</div>
+                <div class="cap-empty_tx">Вы отклонили предложение дружбы</div>
                 <span class="cap-empty_gray">Пользователь успешно <br> удален из этого списка</span>
                 <div class="clearfix">
                     <a class="a-pseudo" data-bind="click: restore">Восстановить?</a>

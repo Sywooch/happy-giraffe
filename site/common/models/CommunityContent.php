@@ -79,7 +79,7 @@ class CommunityContent extends HActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('title', 'required', 'except' => 'status', 'message' => 'Вы не придумали заголовок'),
+            array('title', 'required', 'except' => 'status'),
             array('author_id, type_id', 'required'),
             array('title', 'length', 'max' => 50),
             array('meta_title, meta_description, meta_keywords', 'length', 'max' => 255),

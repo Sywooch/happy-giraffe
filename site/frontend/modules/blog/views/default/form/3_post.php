@@ -24,7 +24,7 @@
             </div>
             <?=$form->label($model, 'title', array('class' => 'b-settings-blue_label')) ?>
             <div class="w-400 float-l">
-                <?=$form->textField($model, 'title', array('class' => 'itx-simple w-400', 'placeholder' => 'Введите заголовок статьи', 'data-bind' => 'value: title, valueUpdate: \'keydown\'')) ?>
+                <?=$form->textField($model, 'title', array('class' => 'itx-simple w-400', 'placeholder' => 'Придумайте заголовок', 'data-bind' => 'value: title, valueUpdate: \'keydown\'')) ?>
                 <?=$form->error($model, 'title') ?>
             </div>
         </div>

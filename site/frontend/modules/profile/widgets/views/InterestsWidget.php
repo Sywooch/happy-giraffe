@@ -24,7 +24,7 @@
         <!-- ko if: adding() -->
         <ul class="b-interest_ul clearfix">
             <li class="b-interest_li" data-bind="visible: interests().length == 0">
-                <span class="color-gray">Выберите категорию и добавьте интерес просто кликнув по нему, или </span>
+                <span class="color-gray">Добавьте интерес, просто кликнув по нему, или </span>
             </li>
 
             <ul class="clearfix">

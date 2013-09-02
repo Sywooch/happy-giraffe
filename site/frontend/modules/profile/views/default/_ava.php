@@ -86,10 +86,10 @@ if (Yii::app()->user->id != $user->id):
                                             </div>
                                         </div>
                                         <div class="b-add-img_html5-tx">или перетащите фото сюда</div>
-                                        <div class="b-add-img_desc">Загружайте пожалуйста свои фотографии, фото будут
+                                        <!--<div class="b-add-img_desc">Загружайте пожалуйста свои фотографии, фото будут
                                             проверяться, <br> и если их содержание не будет соответствуют этике сайта, <br>
                                             будут удаляться
-                                        </div>
+                                        </div>-->
                                     </div>
 
                                     <div class="b-add-img_i-vert" data-bind="visible: status() == 1"></div>
@@ -112,9 +112,7 @@ if (Yii::app()->user->id != $user->id):
                                         </div>
                                     </div>
                                 </div>
-                                <div class="color-gray font-small">Так будет выглядеть ваше главное фото на страницах
-                                    сайта
-                                </div>
+                                <div class="color-gray font-small">Так будет выглядеть ваше фото на страницах сайта</div>
                             </div>
                         </div>
                         <div class="textalign-c margin-t10 clearfix">

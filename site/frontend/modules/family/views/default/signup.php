@@ -41,7 +41,7 @@ Yii::app()->clientScript
                 </div>
 
                 <div class="b-family-structure_upload">
-                    <div class="textalign-c margin-b40 font-big">Все просто. Перетащите в пустые квадраты <br>членов вашей семьи</div>
+                    <div class="textalign-c margin-b40 font-big">Перетащите в пустые квадраты  членов вашей семьи</div>
 
                     <div class="b-family b-family__bg-none margin-b10">
                         <ul class="b-family_ul">

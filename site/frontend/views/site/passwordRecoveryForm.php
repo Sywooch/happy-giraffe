@@ -14,7 +14,7 @@
                         <?=CHtml::beginForm(array('site/passwordRecovery'), 'post', array('onsubmit' => 'PasswordRecovery.send(this); return false;'))?>
                         <div class="b-sign_retrieve-hold">
                             <div class="margin-b20 clearfix">
-                                Пожалуйста введите ваш e-mail адрес. <br> Вам будет выслано письмо с вашим паролем.
+                                Пожалуйста, введите ваш e-mail адрес. <br> Вам будет выслано письмо с вашим паролем.
                             </div>
                             <div class="clearfix">
                                 <div class="b-sign_label-hold">

@@ -3,53 +3,11 @@
 <div class="content-cols clearfix">
     <div class="col-1">
 
-        <div class="readers2">
-            <a class="btn-green btn-medium" href="">Вступить в клуб</a>
-            <ul class="readers2_ul clearfix">
-                <li class="readers2_li clearfix">
-                    <a class="ava female small" href="">
-                        <span class="icon-status status-online"></span>
-                        <img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
-                    </a>
-                </li>
-                <li class="readers2_li clearfix">
-                    <a class="ava female small" href="">
-                        <img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
-                    </a>
-                </li>
-                <li class="readers2_li clearfix">
-                    <a class="ava female small" href="">
-                        <span class="icon-status status-online"></span>
-                        <img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
-                    </a>
-                </li>
-                <li class="readers2_li clearfix">
-                    <a class="ava female small" href="">
-                    </a>
-                </li>
-                <li class="readers2_li clearfix">
-                    <a class="ava female small" href="">
-                        <span class="icon-status status-online"></span>
-                        <img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
-                    </a>
-                </li>
-                <li class="readers2_li clearfix">
-                    <a class="ava male small" href="">
-                        <span class="icon-status status-online"></span>
-                    </a>
-                </li>
-            </ul>
-            <div class="clearfix">
-                <div class="readers2_count">Все участники клуба (129)</div>
-            </div>
-        </div>
+        <?php $this->renderPartial('application.modules.community.views.default._users2'); ?>
 
         <div class="sidebar-search sidebar-search__gray clearfix">
             <?=CHtml::beginForm(array('search'), 'get')?>
             <input type="text" placeholder="Поиск из <?=CookRecipe::model()->count()?> рецептов" class="sidebar-search_itx" name="query">
-            <!--
-            В начале ввода текста, скрыть sidebar-search_btn добавить класс active"
-             -->
             <button class="sidebar-search_btn"></button>
             <?=CHtml::endForm()?>
         </div>

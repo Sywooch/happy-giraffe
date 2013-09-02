@@ -227,8 +227,8 @@ class HController extends CController
 
         if (! Yii::app()->user->isGuest) {
             $data['newNotificationsCount'] = (int) Notification::model()->getUnreadCount();
-            $data['newMessagesCount'] = (int) FriendRequest::model()->getUserCount(Yii::app()->user->id);
-            $data['newFriendsCount'] = (int) MessagingManager::unreadMessagesCount(Yii::app()->user->id);
+            $data['newMessagesCount'] = (int) MessagingManager::unreadMessagesCount(Yii::app()->user->id);
+            $data['newFriendsCount'] = (int) FriendRequest::model()->getUserCount(Yii::app()->user->id);
         }
 
         return $data;

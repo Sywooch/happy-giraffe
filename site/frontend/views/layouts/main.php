@@ -31,6 +31,12 @@
                 ->registerScriptFile('/javascripts/jquery.placeholder.min.js')
                 ->registerScriptFile('/javascripts/base64.js')
             ;
+
+            if (! Yii::app()->user->isGuest)
+                Yii::app()->clientScript
+                    ->registerPackage('comet')
+                    ->registerScript('Realplexor-reg', 'comet.connect(\'http://' . Yii::app()->comet->host . '\', \'' . Yii::app()->comet->namespace . '\', \'' . UserCache::GetCurrentUserCache() . '\');')
+                ;
         ?>
 
         <!--[if IE 7]>
@@ -58,7 +64,7 @@
                                             <span class="header-menu_tx">Мой <br> Жираф</span>
                                         </a>
                                     </li>
-                                    <li class="header-menu_li" data-bind="css: { active : newNotificationsCount() > 0 }">
+                                    <li class="header-menu_li" data-bind="css: { active : newNotificationsCount() > 0 && activeModule() != 'notifications' }">
                                         <a href="<?=$this->createUrl('/notifications/default/index')?>" class="header-menu_a">
                                             <span class="header-menu_ico header-menu_ico__notice"></span>
                                             <span class="header-menu_tx">Мои <br> уведомления</span>
@@ -74,9 +80,7 @@
                                     <li class="header-menu_li header-menu_li__sepor"></li>
                                     <li class="header-menu_li">
                                         <a href="<?=Yii::app()->user->model->getUrl()?>" class="header-menu_a">
-                                            <span class="ava middle">
-                                                <img src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" alt="">
-                                            </span>
+                                            <?php $this->widget('Avatar', array('user' => Yii::app()->user->getModel(), 'size' => 40)); ?>
                                             <span class="header-menu_tx">Моя <br> страница</span>
                                         </a>
                                     </li>
@@ -86,14 +90,14 @@
                                             <span class="header-menu_tx">Моя <br> семья</span>
                                         </a>
                                     </li>
-                                    <li class="header-menu_li" data-bind="css: { active : newMessagesCount() > 0 }">
+                                    <li class="header-menu_li" data-bind="css: { active : newMessagesCount() > 0 && activeModule() != 'messaging' }">
                                         <a href="<?=$this->createUrl('/messaging/default/index')?>" class="header-menu_a">
                                             <span class="header-menu_ico header-menu_ico__im"></span>
                                             <span class="header-menu_tx">Мои <br> сообщения</span>
                                             <span class="header-menu_count" data-bind="text: newMessagesCount"></span>
                                         </a>
                                     </li>
-                                    <li class="header-menu_li" data-bind="css: { active : newFriendsCount() > 0 }">
+                                    <li class="header-menu_li" data-bind="css: { active : newFriendsCount() > 0 && activeModule() != 'friends' }">
                                         <a href="<?=$this->createUrl('/friends/default/index')?>" class="header-menu_a">
                                             <span class="header-menu_ico header-menu_ico__friend"></span>
                                             <span class="header-menu_tx">Мои <br> друзья</span>
@@ -202,7 +206,7 @@
                     </div>
                 <?php endif ?>
 
-                <div class="layout-content clearfix">
+                <div class="layout-content clearfix<?php if ($this->route == 'messaging/default/index'): ?> margin-b0<?php endif; ?>">
                     <?php if (!Yii::app()->user->isGuest):?>
                         <div class="content-cols clearfix">
                             <div class="col-1">
@@ -263,42 +267,46 @@
                 <a href="#layout" id="btn-up-page"></a>
                 <div class="footer-push"></div>
             </div>
-            <div class="layout-footer clearfix">
-                <div class="layout-footer_hold">
+            <?php if ($this->route != 'messaging/default/index'): ?>
+                <div class="layout-footer clearfix">
+                    <div class="layout-footer_hold">
 
-                    <ul class="footer-list">
-                        <li class="footer-list_li"><a href="" class="footer-list_a">Мобильная версия</a></li>
-                        <li class="footer-list_li"><a href="" class="footer-list_a">О проекте</a></li>
-                        <li class="footer-list_li"><a href="" class="footer-list_a">Правила</a></li>
-                        <li class="footer-list_li"><a href="" class="footer-list_a">Задать вопрос</a></li>
-                        <li class="footer-list_li"><a href="" class="footer-list_a">Реклама </a></li>
-                        <li class="footer-list_li"><a href="" class="footer-list_a">Контакты </a></li>
-                        <li class="footer-list_li"><a href="" class="footer-list_a">Партнер "Рамблера"</a></li>
-                    </ul>
-                    <ul class="footer-ul-bold">
-                        <li class="footer-ul-bold_li"><a href="/section/1/" class="footer-ul-bold_a">Беременность и дети</a></li>
-                        <li class="footer-ul-bold_li"><a href="/section/2/" class="footer-ul-bold_a">Наш дом</a></li>
-                        <li class="footer-ul-bold_li"><a href="/section/3/" class="footer-ul-bold_a">Красота и здоровье</a></li>
-                        <li class="footer-ul-bold_li"><a href="/section/4/" class="footer-ul-bold_a">Мужчина и женщина</a></li>
-                        <li class="footer-ul-bold_li"><a href="/section/5/" class="footer-ul-bold_a">Интересы и увлечения</a></li>
-                        <li class="footer-ul-bold_li"><a href="/section/6/" class="footer-ul-bold_a">Отдых</a></li>
-                    </ul>
+                        <ul class="footer-list">
+                            <li class="footer-list_li"><a href="" class="footer-list_a">Мобильная версия</a></li>
+                            <li class="footer-list_li"><a href="" class="footer-list_a">О проекте</a></li>
+                            <li class="footer-list_li"><a href="" class="footer-list_a">Правила</a></li>
+                            <li class="footer-list_li"><a href="" class="footer-list_a">Задать вопрос</a></li>
+                            <li class="footer-list_li"><a href="" class="footer-list_a">Реклама </a></li>
+                            <li class="footer-list_li"><a href="" class="footer-list_a">Контакты </a></li>
+                            <li class="footer-list_li"><a href="" class="footer-list_a">Партнер "Рамблера"</a></li>
+                        </ul>
+                        <ul class="footer-ul-bold">
+                            <li class="footer-ul-bold_li"><a href="/section/1/" class="footer-ul-bold_a">Беременность и дети</a></li>
+                            <li class="footer-ul-bold_li"><a href="/section/2/" class="footer-ul-bold_a">Наш дом</a></li>
+                            <li class="footer-ul-bold_li"><a href="/section/3/" class="footer-ul-bold_a">Красота и здоровье</a></li>
+                            <li class="footer-ul-bold_li"><a href="/section/4/" class="footer-ul-bold_a">Мужчина и женщина</a></li>
+                            <li class="footer-ul-bold_li"><a href="/section/5/" class="footer-ul-bold_a">Интересы и увлечения</a></li>
+                            <li class="footer-ul-bold_li"><a href="/section/6/" class="footer-ul-bold_a">Отдых</a></li>
+                        </ul>
 
-                    <div class="layout-footer_tx"> &copy; 2012-2013 Веселый Жираф. Социальная сеть для всей семьи. Использование редакционных материалов happy-giraffe.ru возможно только <br> с письменного разрешения редакции и/или при наличии активной ссылки на источник. Все права на пользовательские картинки и тексты принадлежат их авторам.
-                        Сайт предназначен для лиц старше 16 лет.</div>
+                        <div class="layout-footer_tx"> &copy; 2012-2013 Веселый Жираф. Социальная сеть для всей семьи. Использование редакционных материалов happy-giraffe.ru возможно только <br> с письменного разрешения редакции и/или при наличии активной ссылки на источник. Все права на пользовательские картинки и тексты принадлежат их авторам.
+                            Сайт предназначен для лиц старше 16 лет.</div>
+                    </div>
                 </div>
-            </div>
+            <?php endif; ?>
         </div>
 
         <div class="display-n">
 
         </div>
 
-        <script type="text/javascript">
-            var layoutVM = new LayoutViewModel();
-            $(".layout-binding").each(function(index, el) {
-                ko.applyBindings(layoutVM, el);
-            });
-        </script>
+        <?php if (! Yii::app()->user->isGuest): ?>
+            <script type="text/javascript">
+                var layoutVM = new LayoutViewModel(<?=CJSON::encode($this->getLayoutData())?>);
+                $(".layout-binding").each(function(index, el) {
+                    ko.applyBindings(layoutVM, el);
+                });
+            </script>
+        <?php endif; ?>
     </body>
 </html>

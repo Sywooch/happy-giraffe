@@ -5,7 +5,7 @@
         <?php $this->renderPartial('_recipe_parts/_header', array('recipe' => $recipe, 'full' => true)); ?>
         <!-- Название блюда должно иметь класс fn  для микроформатов -->
         <h1 class="b-article_t fn">
-            Торт «Зебра»
+            <?=$recipe->title?>
         </h1>
         <div class="b-article_in clearfix">
             <div class="wysiwyg-content clearfix">

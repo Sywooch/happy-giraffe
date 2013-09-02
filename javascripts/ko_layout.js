@@ -8,9 +8,12 @@ var LayoutViewModel = function(data) {
         observable(observable() + 1);
     }
 
-    Comet.prototype.incNewFriendsCount = function(result, id) {
-        self.inc(self.newFriendsCount());
-    };
+    $(function() {
+        Comet.prototype.incNewFriendsCount = function(result, id) {
+            alert('123');
+        };
 
-    comet.addEvent(1001, 'incNewFriendsCount');
+        comet.addEvent(1001, 'incNewFriendsCount');
+    });
+
 }

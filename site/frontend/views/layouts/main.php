@@ -206,7 +206,7 @@
                     </div>
                 <?php endif ?>
 
-                <div class="layout-content clearfix">
+                <div class="layout-content clearfix<?php if ($this->route == 'messaging/default/index'): ?> margin-b0<?php endif; ?>">
                     <?php if (!Yii::app()->user->isGuest):?>
                         <div class="content-cols clearfix">
                             <div class="col-1">

@@ -455,9 +455,9 @@ class CommunityController extends HController
     public function getCommunityUrls()
     {
         $models = Yii::app()->db->createCommand()
-            ->select('community__communities.id AS community_id')
-            ->from('community__communities')
-            ->order('community__communities.id ASC')
+            ->select('community__forums.id AS community_id')
+            ->from('community__forums')
+            ->order('community__forums.id ASC')
             ->queryAll();
         foreach ($models as $model) {
             $data[] = array(

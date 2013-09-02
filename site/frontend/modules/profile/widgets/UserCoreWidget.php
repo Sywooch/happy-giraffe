@@ -14,7 +14,7 @@ class UserCoreWidget extends CWidget
 
     public function init()
     {
-        $this->isMyProfile = $this->user->id == Yii::app()->user->id;
+        $this->isMyProfile = ($this->user) ? ($this->user->id == Yii::app()->user->id ? true : false) : false;
         $this->uniqid = uniqid();
     }
 

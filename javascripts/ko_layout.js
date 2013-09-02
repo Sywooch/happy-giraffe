@@ -1,6 +1,6 @@
-var LayoutViewModel = function() {
+var LayoutViewModel = function(data) {
     var self = this;
-    self.newNotificationsCount = ko.observable(0);
-    self.newMessagesCount = ko.observable(1);
-    self.newFriendsCount = ko.observable(0);
+    self.newNotificationsCount = ko.observable(data.newNotificationsCount);
+    self.newMessagesCount = ko.observable(data.newMessagesCount);
+    self.newFriendsCount = ko.observable(data.newFriendsCount);
 }

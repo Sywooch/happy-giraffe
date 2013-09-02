@@ -4,13 +4,9 @@ var LayoutViewModel = function(data) {
     self.newMessagesCount = ko.observable(data.newMessagesCount);
     self.newFriendsCount = ko.observable(data.newFriendsCount);
 
-    self.inc = function(observable) {
-        observable(observable() + 1);
-    }
-
     $(function() {
         Comet.prototype.incNewFriendsCount = function(result, id) {
-            alert('123');
+            self.newFriendsCount(self.newFriendsCount() + 1);
         };
 
         comet.addEvent(1001, 'incNewFriendsCount');

@@ -220,4 +220,17 @@ class HController extends CController
         if ($newMobile == 1)
             $this->redirect('http://m.happy-giraffe.ru' . $_SERVER['REQUEST_URI']);
     }
+
+    public function getLayoutData()
+    {
+        $data = array();
+
+        if (! Yii::app()->user->isGuest) {
+            $data['notificationsCount'] = Notification::model()->getUnreadCount();
+            $data['friendsCount'] = FriendRequest::model()->getUserCount(Yii::app()->user->id);
+            $data['imCount'] = MessagingManager::unreadMessagesCount(Yii::app()->user->id);
+        }
+
+        return $data;
+    }
 }

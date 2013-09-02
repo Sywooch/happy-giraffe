@@ -147,7 +147,7 @@ function FriendsSearchViewModel(data) {
             self.users(ko.utils.arrayMap(users, function(user) {
                 return new OutgoingFriendRequest(user, self);
             }));
-            $(".layout-container").animate({ scrollTop: 0 }, "slow");
+            $("body").animate({ scrollTop: 0 }, "slow");
         });
     }
 
@@ -162,7 +162,7 @@ function FriendsSearchViewModel(data) {
     self.updateRegions();
     self.search();
 
-    $('.layout-container').scroll(function() {
+    $(window).scroll(function() {
         if (self.loading() === false && self.users().length > 0 && self.currentPage() != self.pageCount() && (($('.layout-container').scrollTop() + $('.layout-container').height()) > ($('.layout-container').prop('scrollHeight') - 200)))
             self.nextPage();
     });

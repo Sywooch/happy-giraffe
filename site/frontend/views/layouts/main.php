@@ -267,31 +267,33 @@
                 <a href="#layout" id="btn-up-page"></a>
                 <div class="footer-push"></div>
             </div>
-            <div class="layout-footer clearfix">
-                <div class="layout-footer_hold">
+            <?php if ($this->route != 'messaging/default/index'): ?>
+                <div class="layout-footer clearfix">
+                    <div class="layout-footer_hold">
 
-                    <ul class="footer-list">
-                        <li class="footer-list_li"><a href="" class="footer-list_a">Мобильная версия</a></li>
-                        <li class="footer-list_li"><a href="" class="footer-list_a">О проекте</a></li>
-                        <li class="footer-list_li"><a href="" class="footer-list_a">Правила</a></li>
-                        <li class="footer-list_li"><a href="" class="footer-list_a">Задать вопрос</a></li>
-                        <li class="footer-list_li"><a href="" class="footer-list_a">Реклама </a></li>
-                        <li class="footer-list_li"><a href="" class="footer-list_a">Контакты </a></li>
-                        <li class="footer-list_li"><a href="" class="footer-list_a">Партнер "Рамблера"</a></li>
-                    </ul>
-                    <ul class="footer-ul-bold">
-                        <li class="footer-ul-bold_li"><a href="" class="footer-ul-bold_a">Беременность и дети</a></li>
-                        <li class="footer-ul-bold_li"><a href="" class="footer-ul-bold_a">Наш дом</a></li>
-                        <li class="footer-ul-bold_li"><a href="" class="footer-ul-bold_a">Красота и здоровье</a></li>
-                        <li class="footer-ul-bold_li"><a href="" class="footer-ul-bold_a">Мужчина и женщина</a></li>
-                        <li class="footer-ul-bold_li"><a href="" class="footer-ul-bold_a">Интересы и увлечения</a></li>
-                        <li class="footer-ul-bold_li"><a href="" class="footer-ul-bold_a">Отдых</a></li>
-                    </ul>
+                        <ul class="footer-list">
+                            <li class="footer-list_li"><a href="" class="footer-list_a">Мобильная версия</a></li>
+                            <li class="footer-list_li"><a href="" class="footer-list_a">О проекте</a></li>
+                            <li class="footer-list_li"><a href="" class="footer-list_a">Правила</a></li>
+                            <li class="footer-list_li"><a href="" class="footer-list_a">Задать вопрос</a></li>
+                            <li class="footer-list_li"><a href="" class="footer-list_a">Реклама </a></li>
+                            <li class="footer-list_li"><a href="" class="footer-list_a">Контакты </a></li>
+                            <li class="footer-list_li"><a href="" class="footer-list_a">Партнер "Рамблера"</a></li>
+                        </ul>
+                        <ul class="footer-ul-bold">
+                            <li class="footer-ul-bold_li"><a href="" class="footer-ul-bold_a">Беременность и дети</a></li>
+                            <li class="footer-ul-bold_li"><a href="" class="footer-ul-bold_a">Наш дом</a></li>
+                            <li class="footer-ul-bold_li"><a href="" class="footer-ul-bold_a">Красота и здоровье</a></li>
+                            <li class="footer-ul-bold_li"><a href="" class="footer-ul-bold_a">Мужчина и женщина</a></li>
+                            <li class="footer-ul-bold_li"><a href="" class="footer-ul-bold_a">Интересы и увлечения</a></li>
+                            <li class="footer-ul-bold_li"><a href="" class="footer-ul-bold_a">Отдых</a></li>
+                        </ul>
 
-                    <div class="layout-footer_tx"> &copy; 2012-2013 Веселый Жираф. Социальная сеть для всей семьи. Использование редакционных материалов happy-giraffe.ru возможно только <br> с письменного разрешения редакции и/или при наличии активной ссылки на источник. Все права на пользовательские картинки и тексты принадлежат их авторам.
-                        Сайт предназначен для лиц старше 16 лет.</div>
+                        <div class="layout-footer_tx"> &copy; 2012-2013 Веселый Жираф. Социальная сеть для всей семьи. Использование редакционных материалов happy-giraffe.ru возможно только <br> с письменного разрешения редакции и/или при наличии активной ссылки на источник. Все права на пользовательские картинки и тексты принадлежат их авторам.
+                            Сайт предназначен для лиц старше 16 лет.</div>
+                    </div>
                 </div>
-            </div>
+            <?php endif; ?>
         </div>
 
         <div class="display-n">

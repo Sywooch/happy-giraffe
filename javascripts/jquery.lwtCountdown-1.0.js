@@ -1,6 +1,6 @@
 /*!
- * jQuery Countdown plugin v1.0
- * http://www.littlewebthings.com/projects/countdown/
+ * jQuery countUp plugin v1.0
+ * http://www.littlewebthings.com/projects/countUp/
  *
  * Copyright 2010, Vassilis Dourdounis
  * 
@@ -24,44 +24,46 @@
  */
 (function($){
 
-	$.fn.countDown = function (options) {
+	$.fn.countUp = function (options) {
 
 		config = {};
 
 		$.extend(config, options);
-		numberSet = this.setCountDown(config);
-		
+		numberSet = this.setcountUp(config);
+
 		var $this = $(this);
-		console.log($this);
+
+		var randomNumberMax = options.randomNumberMax;
+		var randomNumberMin = 0;
+		console.log(randomNumberMax);
 		if (config.onComplete)
 		{
 			$.data($this[0], 'callback', config.onComplete);
 		}
 
 		$(this).find('.counter-users_digit').html('<div class="top"></div><div class="bottom"></div>');
-		$(this).doCountDown($(this).attr('id'), numberSet, 500);
+		$(this).docountUp($(this).attr('id'), numberSet, 500, randomNumberMin, randomNumberMax);
 
 		return this;
 
 	};
 
-	$.fn.stopCountDown = function () {
+	$.fn.stopcountUp = function () {
 		clearTimeout($.data(this[0], 'timer'));
 	};
 
-	$.fn.startCountDown = function () {
-		this.doCountDown($(this).attr('id'),$.data(this[0], 'numberSet'), 500);
+	$.fn.startcountUp = function () {
+		this.docountUp($this,$.data(this[0], 'numberSet'), 500, randomNumberMin, randomNumberMax);
 	};
 
-	$.fn.setCountDown = function (options) {
-
+	$.fn.setcountUp = function (options) {
 		var numberSet = options.numberSet;
 		$.data(this[0], 'numberSet', numberSet);
 
 		return numberSet;
 	};
 
-	$.fn.doCountDown = function (id, numberSet, duration) {
+	$.fn.docountUp = function (id, numberSet, duration, randomNumberMin, randomNumberMax) {
 		$this = $('#' + id);
 
 		$this.dashChangeTo(id, 'counter-users_dash', numberSet, duration ? duration : 500);
@@ -69,14 +71,23 @@
 		if (numberSet > 0)
 		{
 			e = $this;
-			numberSet++;
-			t = setTimeout(function() { e.doCountDown(id, numberSet) } , 1000);
+			randomNumber = getRandomInt(randomNumberMax, randomNumberMin);
+
+			numberSet = numberSet + randomNumber;
+			t = setTimeout(function() { e.docountUp(id, numberSet, duration, randomNumberMin, randomNumberMax) } , 1000);
 			$.data(e[0], 'timer', t);
 		} 
 		else if (cb = $.data($this[0], 'callback')) 
 		{
 			$.data($this[0], 'callback')();
 		}
+
+		// использование Math.round() даст неравномерное распределение!
+		function getRandomInt(min, max)
+		{
+		  return Math.floor(Math.random() * (max - min + 1)) + min;
+		}
+
 
 	};
 
@@ -98,6 +109,7 @@
 		}
 		digit.top = digit.find('.top');
 		digit.bottom = digit.find('.bottom');
+
 		if (digit.top.html() != n + '')
 		{
 
@@ -105,9 +117,9 @@
 			digit.top.html((n ? n : '0')).slideDown(duration);
 
 			digit.bottom.animate({'height': ''}, duration, function() {
-				digit.bottom.html($(digit + ' div.top').html());
+				digit.bottom.html(digit.top.html());
 				digit.bottom.css({'display': 'block', 'height': ''});
-				digit.bottom.hide().slideUp(10);
+				digit.top.hide().slideUp(10);
 
 			
 			});

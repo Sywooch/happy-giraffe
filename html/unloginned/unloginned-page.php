@@ -113,7 +113,7 @@
 		</div>
 
 		<div class="layout-content clearfix">
-		<div class="b-section b-section__club b-section__22">
+		<div class="b-section b-section__club b-section__club-22">
 			<div class="b-section_hold">
 				<div class="content-cols clearfix">
 					<div class="col-1">
@@ -122,7 +122,7 @@
 								<li class="club-list_li club-list_li__in">
 									<a class="club-list_i" href="">
 										<span class="club-list_img-hold">
-											<img class="club-list_img" alt="" src="/images/club/9-w240.jpg">
+											<img class="club-list_img" alt="" src="/images/club/22-w240.jpg">
 										</span>
 									</a>
 								</li>

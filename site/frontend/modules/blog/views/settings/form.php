@@ -29,7 +29,7 @@
                         <div class="clearfix">
                             <div class="float-r font-small color-gray" data-bind="length: { attribute : draftDescriptionValue, maxLength : 150 }"></div>
                         </div>
-                        <textarea class="popup-blog-set_itx" placeholder="Краткое описание" data-bind="value: draftDescriptionValue, valueUpdate: 'keyup'" maxlength="150" rows="3"></textarea>
+                        <textarea class="popup-blog-set_itx" placeholder="Введите описание блога" data-bind="value: draftDescriptionValue, valueUpdate: 'keyup'" maxlength="150" rows="3"></textarea>
                         <div class="margin-t5 margin-b10 clearfix">
                             <button class="btn-green float-r" data-bind="click: setDescription">Ok</button>
                         </div>
@@ -55,7 +55,7 @@
                     </div>
                 </div>
                 <div class="popup-blog-set_sepor">
-                    <span class="popup-blog-set_sepor-tx">Так будет выглядеть на странице</span>
+                    <span class="popup-blog-set_sepor-tx">Так будет выглядеть ваш блог</span>
                 </div>
                 <div class="clearfix">
                     <div class="float-r">

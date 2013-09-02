@@ -133,7 +133,7 @@ return array(
         'community/<forum_id:\d+>/forum/rubric/<rubric_id:\d+>' => 'community/default/forum',
         'community/<forum_id:\d+>/forum/<content_type_slug:\w+>/<content_id:\d+>' => 'community/default/view',
         'community/<club_id:\d+>/services'=>'community/default/services',
-        'community/<club_id:\d+>/forum/' => 'community/default/forum',
+        'community/<forum_id:\d+>/forum/' => 'community/default/forum',
         'community/<club_id:\d+>/'=>'community/default/club',
 //        'community/<community_id:\d+>/forum/rubric/<rubric_id:\d+>/<content_type_slug:\w+>' => 'community/list',
 //        'community/<community_id:\d+>/forum/rubric/<rubric_id:\d+>' => 'community/list',

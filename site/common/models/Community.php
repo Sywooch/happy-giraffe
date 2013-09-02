@@ -97,7 +97,7 @@ class Community extends HActiveRecord
             'users' => array(self::MANY_MANY, 'User', 'user__users_communities(user_id, community_id)'),
             'usersCount' => array(self::STAT, 'User', 'user__users_communities(user_id, community_id)'),
             'mobileCommunity' => array(self::BELONGS_TO, 'MobileCommunity', 'mobile_community_id'),
-            'services' => array(self::HAS_MANY, 'Service', 'community_id'),
+            'services' => array(self::MANY_MANY, 'Service', 'services__communities(service_id, community_id)'),
         );
     }
 
@@ -178,15 +178,6 @@ class Community extends HActiveRecord
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
         ));
-    }
-
-    public function behaviors()
-    {
-        return array(
-            'ESaveRelatedBehavior' => array(
-                'class' => 'site.common.behaviors.ESaveRelatedBehavior',
-            ),
-        );
     }
 
     public function getUrl()

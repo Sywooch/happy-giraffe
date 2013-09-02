@@ -14,8 +14,8 @@
  * @property int $community_id
  *
  * The followings are the available model relations:
- * @property ServiceCategory $category
  * @property Community $community
+ * @property Community[] $communities
  * @property AlbumPhoto $photo
  */
 class Service extends HActiveRecord
@@ -50,10 +50,16 @@ class Service extends HActiveRecord
             array('title, url', 'length', 'max' => 255),
             array('url', 'url'),
             array('photo_id, community_id', 'numerical', 'integerOnly' => true),
-            array('category_id', 'exist', 'attributeName' => 'id', 'className' => 'ServiceCategory'),
-            // The following rule is used by search().
-            // Please remove those attributes that should not be searched.
             array('id, title, description, url', 'safe', 'on' => 'search'),
+        );
+    }
+
+    public function behaviors()
+    {
+        return array(
+            'withRelated' => array(
+                'class' => 'site.common.extensions.wr.WithRelatedBehavior',
+            )
         );
     }
 
@@ -62,12 +68,10 @@ class Service extends HActiveRecord
      */
     public function relations()
     {
-        // NOTE: you may need to adjust the relation name and the related
-        // class name for the relations automatically generated below.
         return array(
-            'category' => array(self::BELONGS_TO, 'ServiceCategory', 'category_id'),
             'photo' => array(self::BELONGS_TO, 'AlbumPhoto', 'photo_id'),
             'community' => array(self::BELONGS_TO, 'Community', 'community_id'),
+            'communities' => array(self::MANY_MANY, 'Community', 'services__communities(service_id, community_id)'),
             'commentsCount' => array(self::STAT, 'Comment', 'entity_id', 'condition' => 'entity=:modelName', 'params' => array(':modelName' => get_class($this))),
         );
     }
@@ -76,13 +80,22 @@ class Service extends HActiveRecord
     {
         $criteria = new CDbCriteria;
         $criteria->compare('id', $this->id, true);
-        $criteria->compare('title', $this->title, true);
+        $criteria->compare('community_id', $this->community_id, true);
         $criteria->compare('url', $this->url, true);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
             'pagination' => array('pageSize' => 100),
         ));
+    }
+
+    public function CommunitiesText()
+    {
+        $str = array();
+        foreach ($this->communities as $community)
+            $str [] = $community->title;
+
+        return implode(', ', $str);
     }
 
     public function scopes()
@@ -189,7 +202,8 @@ class Service extends HActiveRecord
         return $this->commentsCount;
     }
 
-    public function getPhoto(){
+    public function getPhoto()
+    {
         return null;
     }
 
@@ -207,5 +221,13 @@ class Service extends HActiveRecord
             return 'Сервисы';
 
         return $this->title;
+    }
+
+    public function isInCommunity($c_id)
+    {
+        foreach($this->communities as $community)
+            if ($community->id == $c_id)
+                return true;
+        return false;
     }
 }

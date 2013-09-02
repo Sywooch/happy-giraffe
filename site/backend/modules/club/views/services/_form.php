@@ -1,4 +1,8 @@
-<?=CHtml::link('К таблице', array('admin'))?>
+<?php
+/**
+ * @var CActiveForm $form
+ */
+?><?=CHtml::link('К таблице', array('admin'))?>
 
 <div class="form">
 
@@ -27,6 +31,14 @@
         <?php echo $form->labelEx($model, 'community_id'); ?>
         <?php echo $form->dropDownList($model, 'community_id', CHtml::listData(Community::model()->findAll(), 'id', 'title'), array('empty' => '--')); ?>
         <?php echo $form->error($model, 'community_id'); ?>
+    </div>
+
+    <div class="row">
+        <?php foreach(Community::model()->findAll() as $community){ ?>
+        <?= CHtml::checkBox('Service[communities][' . $community->id . ']', $model->isInCommunity($community->id)) ?>
+        <?= CHtml::label($community->title, 'Service_communities_' . $community->id, array('style' => 'display:inline')) ?>
+            <br/>
+        <?php } ?>
     </div>
 
     <div class="row">
@@ -96,3 +108,8 @@
 
     })
 </script>
+<style type="text/css">
+    #Service_community_id label {
+        display: inline;
+    }
+</style>

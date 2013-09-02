@@ -34,7 +34,8 @@
 
             if (! Yii::app()->user->isGuest)
                 Yii::app()->clientScript
-                 ->registerScript('Realplexor-reg', 'comet.connect(\'http://' . Yii::app()->comet->host . '\', \'' . Yii::app()->comet->namespace . '\', \'' . UserCache::GetCurrentUserCache() . '\');')
+                    ->registerPackage('comet')
+                    ->registerScript('Realplexor-reg', 'comet.connect(\'http://' . Yii::app()->comet->host . '\', \'' . Yii::app()->comet->namespace . '\', \'' . UserCache::GetCurrentUserCache() . '\');')
                 ;
         ?>
 

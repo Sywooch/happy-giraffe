@@ -147,7 +147,7 @@ function FriendsSearchViewModel(data) {
             self.users(ko.utils.arrayMap(users, function(user) {
                 return new OutgoingFriendRequest(user, self);
             }));
-            $("body").animate({ scrollTop: 0 }, "slow");
+            $(".layout-container").animate({ scrollTop: 0 }, "slow");
         });
     }
 
@@ -163,7 +163,7 @@ function FriendsSearchViewModel(data) {
     self.search();
 
     $(window).scroll(function() {
-        if (self.loading() === false && self.users().length > 0 && self.currentPage() != self.pageCount() && (($('.layout-container').scrollTop() + $('.layout-container').height()) > ($('.layout-container').prop('scrollHeight') - 200)))
+        if (self.loading() === false && self.users().length > 0 && self.currentPage() != self.pageCount() && (($(window).scrollTop() + $(window).height()) > (document.documentElement.scrollHeight - 500)))
             self.nextPage();
     });
 

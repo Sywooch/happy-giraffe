@@ -31,6 +31,11 @@
                 ->registerScriptFile('/javascripts/jquery.placeholder.min.js')
                 ->registerScriptFile('/javascripts/base64.js')
             ;
+
+            if (! Yii::app()->user->isGuest)
+                Yii::app()->clientScript
+                 ->registerScript('Realplexor-reg', 'comet.connect(\'http://' . Yii::app()->comet->host . '\', \'' . Yii::app()->comet->namespace . '\', \'' . UserCache::GetCurrentUserCache() . '\');')
+                ;
         ?>
 
         <!--[if IE 7]>
@@ -74,9 +79,7 @@
                                     <li class="header-menu_li header-menu_li__sepor"></li>
                                     <li class="header-menu_li">
                                         <a href="<?=Yii::app()->user->model->getUrl()?>" class="header-menu_a">
-                                            <span class="ava middle">
-                                                <img src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" alt="">
-                                            </span>
+                                            <?php $this->widget('Avatar', array('user' => Yii::app()->user->getModel(), 'size' => 40)); ?>
                                             <span class="header-menu_tx">Моя <br> страница</span>
                                         </a>
                                     </li>
@@ -295,7 +298,7 @@
         </div>
 
         <script type="text/javascript">
-            var layoutVM = new LayoutViewModel();
+            var layoutVM = new LayoutViewModel(<?=CJSON::encode($this->getLayoutData())?>);
             $(".layout-binding").each(function(index, el) {
                 ko.applyBindings(layoutVM, el);
             });

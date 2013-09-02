@@ -226,7 +226,7 @@ class HController extends CController
         $newNotificationsCount = (int) Notification::model()->getUnreadCount();
         $newMessagesCount = (int) MessagingManager::unreadMessagesCount(Yii::app()->user->id);
         $newFriendsCount = (int) FriendRequest::model()->getUserCount(Yii::app()->user->id);
-        $activeModule = $this->module ? $this->module->id ? null;
+        $activeModule = $this->module ? $this->module->id : null;
 
         return compact('newNotificationsCount', 'newMessagesCount', 'newFriendsCount', 'activeModule');
     }

@@ -75,7 +75,7 @@ Yii::app()->clientScript->registerPackage('ko_search');
         <!-- ko if: loaded() && totalCount() == 0 -->
         <div class="cap-empty cap-empty__rel">
             <div class="cap-empty_hold">
-                <div class="cap-empty_tx">По вашему запросу ни чего не найдено.</div>
+                <div class="cap-empty_tx">По данным параметрам ничего не найдено.</div>
                 <a href="" class="cap-empty_a">Начать новый поиск</a>
             </div>
         </div>

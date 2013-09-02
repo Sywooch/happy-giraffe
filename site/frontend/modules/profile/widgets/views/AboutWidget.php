@@ -12,7 +12,7 @@
         <div class="about-self_ctn">
 
             <!-- ko if: !editMode() -->
-                <a href="" class="a-pseudo-grayblue" data-bind="click: edit, visible: about().length == 0">Напишите пару слов о себе</a>
+                <a href="" class="a-pseudo-grayblue" data-bind="click: edit, visible: about().length == 0">Напишите несколько слов о себе</a>
 
                 <!-- ko if: about().length != 0 -->
                     <!--ko text: about--><?=$user->about ?><!--/ko-->

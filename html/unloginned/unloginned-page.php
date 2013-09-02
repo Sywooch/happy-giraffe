@@ -39,20 +39,32 @@
 							<div class="clearfix">
 								<a href="" class="display-ib verticalalign-m">Войти</a>
 								<span class="i-or">или</span>
-								<a class="custom-like" href="">
-									<span class="custom-like_icon odnoklassniki"></span>
-								</a>
-								<a class="custom-like" href="">
-									<span class="custom-like_icon vkontakte"></span>
-								</a>
+								<ul class="display-ib verticalalign-m">
+									<li class="display-ib">
+										<a class="custom-like" href="">
+											<span class="custom-like_icon odnoklassniki"></span>
+										</a>
+									</li>
+									<li class="display-ib">
+										<a class="custom-like" href="">
+											<span class="custom-like_icon vkontakte"></span>
+										</a>
+									</li>
+									<li class="display-ib">
+										<a class="custom-like" href="">
+											<span class="custom-like_icon facebook"></span>
+										</a>
+									</li>
+									<li class="display-ib">
+										<a class="custom-like" href="">
+											<span class="custom-like_icon twitter"></span>
+										</a>
+									</li>
+								</ul>
+								
 							
-								<a class="custom-like" href="">
-									<span class="custom-like_icon facebook"></span>
-								</a>
+								
 							
-								<a class="custom-like" href="">
-									<span class="custom-like_icon twitter"></span>
-								</a>
 							</div>
 						</div>
 					</div>

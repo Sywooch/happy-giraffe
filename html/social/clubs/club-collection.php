@@ -56,11 +56,11 @@
 			</div>
 		</div>
 		
-		<div class="b-section">
+		<div class="b-section b-section__collection">
 			<div class="b-section_hold">
 				<div class="b-section_collection">
 					<img src="/images/club/collection/1.png" alt="" class="b-section_collection-img">
-					<div class="b-section_collection-t">Интересы и увлечения</div>
+					<div class="b-section_collection-t">Беременность и дети</div>
 				</div>
 			</div>
 		</div>
@@ -68,9 +68,9 @@
 		<div class="content-cols clearfix">
 			<div class="col-1">
 			
-				<div class="club-list clearfix">
+				<div class="club-list margin-t20 clearfix">
 					<div class="clearfix textalign-c">
-						<span class="heading-small">Выбери свой клуб </span>
+						<span class="heading-medium">Выбери свой клуб </span>
 					</div>
 					<ul class="club-list_ul clearfix">
 						<li class="club-list_li">
@@ -150,7 +150,7 @@
 							
 				<div class="club-services club-services__sidebar">
 					<div class="clearfix textalign-c">
-						<span class="heading-small">Популярные сервисы </span>
+						<span class="heading-medium">Популярные сервисы </span>
 					</div>
 					<div class="club-services_heading-sub textalign-c">для мастеров</div>
 					<div class="club-services_i clearfix">
@@ -174,7 +174,7 @@
 			</div>
 			<div class="col-23-middle ">
 				<div class="col-gray">
-					<div class="heading-small margin-20">Прямой эфир</div>
+					<div class="heading-medium margin-20">Прямой эфир</div>
 					<div class="b-article clearfix">
 						<div class="float-l">
 							<div class="like-control like-control__small-indent clearfix">

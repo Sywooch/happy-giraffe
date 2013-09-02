@@ -91,7 +91,7 @@ $(window).load(function() {
     im.bottom = $('.im-center_bottom');
 
     im.windowHeight = $(window).height();
-    im.headerHeight = $('.layout-header').height();
+    im.headerHeight = $('.layout-header').height() + $('.content-cols').height();
     im.topHeight = $('.im-center_top').height();
     im.bottomHeight = im.bottom.height();
     im.height = im.wrapper.height();

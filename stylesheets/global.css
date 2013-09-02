@@ -9885,23 +9885,16 @@
   background: none;
 }
 #baby .choice_name {
-  background: url("/images/choice_name.jpg") no-repeat left top;
+  background: url("/images/services/names/choice_name.jpg") no-repeat left top;
   height: 287px;
 }
 #baby .choice_name div.title-in {
-  font-size: 50px;
+  font: normal 50px/1em Tahoma, Arial, Verdana, sans-serif;
   color: #505152;
   position: relative;
-  left: 90px;
-  top: 25px;
-  line-height: 1;
+  left: 54px;
+  top: 27px;
   background: none;
-  font-weight: bold;
-}
-#baby .choice_name div.title-in span {
-  font-weight: normal;
-  display: block;
-  margin-left: 260px;
 }
 #baby ul.choice_name_navi {
   position: absolute;
@@ -12621,6 +12614,10 @@
 .wysiwyg-content .content-img {
   float: none;
   margin: 0;
+}
+.wysiwyg-content .h2-services {
+  font-weight: normal;
+  color: #0D0D0D;
 }
 .wysiwyg-content h2 {
   margin: 40px 0 15px;

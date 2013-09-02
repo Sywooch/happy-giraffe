@@ -375,7 +375,7 @@ class RecipeController extends HController
         $durations = array_map(function($id, $title) {
             return compact('id', 'title');
         }, array_keys($_durations), $_durations);
-        $json = compact('types', 'cuisines', 'durations');
+        $json = compact('types', 'cuisines', 'durations', 'query');
         $this->render('search', compact('json'));
     }
 

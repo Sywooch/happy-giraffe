@@ -28,6 +28,7 @@ class DefaultController extends HController
      */
     public function actionClub($club_id)
     {
+        $this->layout = '//layouts/main';
         $this->loadClub($club_id);
         $this->pageTitle = $this->club->title;
         $moderators = $this->club->getModerators();

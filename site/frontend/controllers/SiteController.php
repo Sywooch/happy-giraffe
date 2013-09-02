@@ -394,17 +394,9 @@ class SiteController extends HController
         $password = $user->createPassword(12);
         $user->password = $user->hashPassword($password);
 
-        if (! ($user->save() &&  Yii::app()->email->send($user, 'passwordRecovery', array('password' => $password)))) {
-            echo CJSON::encode(array(
-                'status' => 'error',
-                'message' => '<span>Произошла неизвестная ошибка. Попробуйте ещё раз.</span>',
-            ));
-        } else {
-            echo CJSON::encode(array(
-                'status' => 'ok',
-                'message' => '<span>На ваш e-mail адрес было выслано письмо с вашим паролем</span><br/><span>(также проверьте, пожалуйста, папку «Спам»)</span>',
-            ));
-        }
+        $success = $user->save() &&  Yii::app()->email->send($user, 'passwordRecovery', array('password' => $password));
+        $response = compact('success');
+        echo CJSON::encode($response);
     }
 
     public function actionFixPhoto($id)

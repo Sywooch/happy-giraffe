@@ -9,6 +9,7 @@ class RecipeController extends HController
     public $currentType = null;
     public $modelName;
     public $section;
+    public $community;
 
     public function filters()
     {
@@ -34,6 +35,8 @@ class RecipeController extends HController
 
     protected function beforeAction($action)
     {
+        $this->community = Community::model()->findByPk(22);
+
         if (isset($this->actionParams['section']) && isset(CookRecipe::model()->sectionsMap[$this->actionParams['section']])) {
             $this->modelName = CookRecipe::model()->sectionsMap[$this->actionParams['section']];
             $this->section = $this->actionParams['section'];
@@ -333,22 +336,66 @@ class RecipeController extends HController
         $this->render('view', compact('recipe'));
     }
 
-    public function actionSearch($type = null, $text = false)
+//    public function actionSearch($type = null, $text = false)
+//    {
+//        $this->layout = '//layouts/recipe';
+//        $this->pageTitle = 'Поиск рецептов';
+//        $this->currentType = $type;
+//        $text = urldecode($text);
+//        Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
+//
+//        $this->breadcrumbs = array(
+//            'Кулинария' => array('/cook'),
+//            ($this->section == 0 ? 'Кулинарные рецепты' : 'Рецепты для мультиварок') => array('/cook/recipe/index', 'section' => $this->section),
+//            'Поиск',
+//        );
+//
+//        list($dataProvider, $this->counts) = CookRecipe::model()->searchByName($text, $type);
+//        $this->render('search', compact('dataProvider', 'text', 'type'));
+//    }
+
+    public function actionSearch($query = '')
     {
-        $this->layout = '//layouts/recipe';
-        $this->pageTitle = 'Поиск рецептов';
-        $this->currentType = $type;
-        $text = urldecode($text);
-        Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
+        $this->layout = '//layouts/community';
+        $_types = CookRecipe::model()->types;
+        $types = array_map(function($id, $title) {
+            if ($id == 0) {
+                $id = null;
+                $title = 'Любой';
+            }
+            return compact('id', 'title');
+        }, array_keys($_types), $_types);
+        $cuisines = array_map(function($cuisine) {
+            return array(
+                'id' => $cuisine->id,
+                'title' => $cuisine->title,
+            );
+        }, CookCuisine::model()->findAll());
+        $_durations = CookRecipe::model()->getDurationLabels();
+        $durations = array_map(function($id, $title) {
+            return compact('id', 'title');
+        }, array_keys($_durations), $_durations);
+        $json = compact('types', 'cuisines', 'durations');
+        $this->render('search', compact('json'));
+    }
 
-        $this->breadcrumbs = array(
-            'Кулинария' => array('/cook'),
-            ($this->section == 0 ? 'Кулинарные рецепты' : 'Рецепты для мультиварок') => array('/cook/recipe/index', 'section' => $this->section),
-            'Поиск',
-        );
+    public function actionSearchResult($query = '', $type = null, $cuisine = null, $duration = null, $lowFat = false, $forDiabetics = false, $lowCal = false)
+    {
+        $query = Yii::app()->request->getPost('query', '');
+        $type = Yii::app()->request->getPost('type');
+        $cuisine = Yii::app()->request->getPost('cuisine');
+        $duration = Yii::app()->request->getPost('duration');
+        $lowFat = Yii::app()->request->getPost('lowFat', false);
+        $forDiabetics = Yii::app()->request->getPost('forDiabetics', false);
+        $lowCal = Yii::app()->request->getPost('lowCal', false);
+        $page = Yii::app()->request->getPost('page', 0);
 
-        list($dataProvider, $this->counts) = CookRecipe::model()->searchByName($text, $type);
-        $this->render('search', compact('dataProvider', 'text', 'type'));
+        $dp = SearchManager::getDataProvider($query, $type, $cuisine, $duration, $lowFat, $forDiabetics, $lowCal, $page);
+
+        $posts = $this->renderPartial('searchResult', compact('dp'), true);
+        $count = $dp->totalItemCount;
+        $response = compact('posts', 'count');
+        echo CJSON::encode($response);
     }
 
     public function actionSearchByIngredients()

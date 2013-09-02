@@ -23,4 +23,12 @@ class BabyController extends HController
         $response = compact('success');
         echo CJSON::encode($response);
     }
+
+    public function actionRemove()
+    {
+        $id = Yii::app()->request->getPost('id');
+        $success = Baby::model()->deleteByPk($id) > 0;
+        $response = compact('success');
+        echo CJSON::encode($response);
+    }
 }

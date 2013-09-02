@@ -1404,12 +1404,10 @@ class User extends HActiveRecord
 
     public function getFamilyData()
     {
-        $partnerPhotoCollection = new AttachPhotoCollection(array('entityName' => 'UserPartner', 'entityId' => $this->partner->id));
-        $partnerPhotoCollectionPhotos = $partnerPhotoCollection->getAllPhotos();
         $myPhotoCollection = new AttachPhotoCollection(array('entityName' => 'User', 'entityId' => $this->id));
         $myPhotoCollectionPhotos = $myPhotoCollection->getAllPhotos();
 
-        return array(
+        $result = array(
             'me' => array(
                 'id' => $this->id,
                 'name' => $this->first_name,
@@ -1423,19 +1421,6 @@ class User extends HActiveRecord
                         'smallThumbSrc' => $photo->getPreviewUrl(null, 105, Image::HEIGHT),
                     );
                 }, $myPhotoCollectionPhotos),
-            ),
-            'partner' => $this->partner === null ? null : array(
-                'id' => (string) $this->partner->id,
-                'name' => (string) $this->partner->name,
-                'notice' => (string) $this->partner->notice,
-                'mainPhotoId' => $this->partner->main_photo_id,
-                'photos' => array_map(function($photo) {
-                    return array(
-                        'id' => $photo->id,
-                        'bigThumbSrc' => $photo->getPreviewUrl(220, null, Image::WIDTH),
-                        'smallThumbSrc' => $photo->getPreviewUrl(null, 105, Image::HEIGHT),
-                    );
-                }, $partnerPhotoCollectionPhotos),
             ),
             'babies' => array_map(function($baby) {
                 $babyPhotoCollection = new AttachPhotoCollection(array('entityName' => 'Baby', 'entityId' => $baby->id));
@@ -1460,6 +1445,27 @@ class User extends HActiveRecord
                 );
             }, $this->babies),
         );
+
+        if ($this->partner !== null) {
+            $partnerPhotoCollection = new AttachPhotoCollection(array('entityName' => 'UserPartner', 'entityId' => $this->partner->id));
+            $partnerPhotoCollectionPhotos = $partnerPhotoCollection->getAllPhotos();
+            $result['partner'] = $this->partner === null ? null : array(
+                'id' => (string) $this->partner->id,
+                'name' => (string) $this->partner->name,
+                'notice' => (string) $this->partner->notice,
+                'mainPhotoId' => $this->partner->main_photo_id,
+                'photos' => array_map(function($photo) {
+                    return array(
+                        'id' => $photo->id,
+                        'bigThumbSrc' => $photo->getPreviewUrl(220, null, Image::WIDTH),
+                        'smallThumbSrc' => $photo->getPreviewUrl(null, 105, Image::HEIGHT),
+                    );
+                }, $partnerPhotoCollectionPhotos),
+            );
+        } else
+            $result['partner'] = null;
+
+        return $result;
     }
 
     public function getBlogData()

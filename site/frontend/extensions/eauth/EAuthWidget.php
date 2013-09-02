@@ -102,7 +102,7 @@ class EAuthWidget extends CWidget {
 
 		$assets_path = dirname(__FILE__).DIRECTORY_SEPARATOR.'assets';
 		$url = Yii::app()->assetManager->publish($assets_path, false, -1, YII_DEBUG);
-		$cs->registerCssFile($url.'/css/auth.css');
+		// $cs->registerCssFile($url.'/css/auth.css');
 
 		// Open the authorization dilalog in popup window.
 		if ($this->popup) {

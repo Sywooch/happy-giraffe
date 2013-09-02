@@ -117,6 +117,9 @@ return array(
 	),
 	// application components
 	'components'=>array(
+        'coreMessages' => array(
+            'basePath' => null,
+        ),
         'clientScript' => require_once(dirname(__FILE__) . '/clientScript.php'),
 		'widgetFactory' => array(
 			'widgets' => array(

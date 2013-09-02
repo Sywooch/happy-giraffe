@@ -12,7 +12,7 @@
         <?php if ($this->model->author_id == Yii::app()->user->id):?>
             <a class="like-control_ico like-control_ico__cook js-hg_alert" data-bind="text: count"></a>
             <div class="favorites-add-popup favorites-add-popup__right" style="display: none;">
-                <div>Свою запись нельзя добавить в избранное</div>
+                <div>Вы не можете добавлять свою запись в Избранное</div>
             </div>
         <?php else: ?>
             <a class="like-control_ico like-control_ico__cook" data-bind="text: count, css: { active : active }, tooltip: active() ? 'Удалить из избранного' : 'В избранное', click: clickHandler"></a>

@@ -24,15 +24,20 @@ $data['currentRubricId'] = $this->rubric_id;
         <?php $this->renderPartial('_popular'); ?>
 
     </div>
-    <div class="col-23-middle col-gray">
-        <div class="blog-title-b blogInfo">
-            <div class="blog-title-b_img-hold">
-                <img alt="" class="blog-title-b_img" data-bind="attr: { src : photoThumbSrcToShow }">
+    <div class="col-23-middle">
+        <?php if (Yii::app()->user->id == $this->user->id):?>
+            <a href="<?=$this->createUrl('settings/form')?>" data-theme="transparent" class="blog-settings fancy">Настройки блога</a>
+        <?php endif ?>
+        <div class="col-gray">
+            <div class="blog-title-b blogInfo">
+                <div class="blog-title-b_img-hold">
+                    <img alt="" class="blog-title-b_img" data-bind="attr: { src : photoThumbSrcToShow }">
+                </div>
+                <h1 class="blog-title-b_t" data-bind="text: title, visible: title().length > 0"><?=$data['title']?></h1>
             </div>
-            <h1 class="blog-title-b_t" data-bind="text: title, visible: title().length > 0"><?=$data['title']?></h1>
-        </div>
 
-        <?=$content ?>
+            <?=$content ?>
+        </div>
     </div>
 
 </div>

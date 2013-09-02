@@ -59,7 +59,7 @@ $form = $this->beginWidget('CActiveForm', array(
         <button class="btn-green" data-bind="css: { 'btn-inactive' : link().length == 0 }, click: check">Загрузить  видео</button>
         <div class="b-settings-blue_add-video-load" data-bind="visible: previewLoading">
             <img src="/images/ico/ajax-loader.gif" alt=""> <br>
-            Подждите видео загружается
+            Подждите, видео загружается
         </div>
         <?=$form->error($slaveModel, 'link', array('data-bind' => 'visible: ! previewLoading()'))?>
     </div>

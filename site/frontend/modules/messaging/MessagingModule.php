@@ -15,10 +15,6 @@ class MessagingModule extends CWebModule
 
         Yii::app()->clientScript
             ->registerPackage('ko_im')
-            ->registerScriptFile('/javascripts/soundmanager2.js')
-            ->registerScriptFile('/ckeditor/ckeditor.js')
-            ->registerScriptFile('/javascripts/im.js?t=' . time())
-            ->registerScriptFile('/javascripts/messaging.js?t=' . time())
         ;
 	}
 

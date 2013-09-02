@@ -107,9 +107,13 @@ return array(
         'ko_im' => array(
             'baseUrl' => '/',
             'js' => array(
+                'javascripts/messaging.js',
+                'javascripts/im.js',
                 'javascripts/knockout.mapping-latest.js',
+                'javascripts/soundmanager2.js',
+                'javascripts/wysiwyg.js',
             ),
-            'depends' => array('knockout'),
+            'depends' => array('knockout', 'comet'),
         ),
         'ko_favourites' => array(
             'baseUrl' => '/',

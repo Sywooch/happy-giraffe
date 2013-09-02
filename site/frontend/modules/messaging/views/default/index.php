@@ -117,7 +117,7 @@ Yii::app()->controller->widget('site.common.extensions.imperavi-redactor-widget.
                     <!-- ko if: interlocutor() !== null && interlocutor().isBlocked() -->
                     <div class="cap-empty">
                         <div class="cap-empty_hold">
-                            <div class="cap-empty_tx">Этот пользователь вас заблокировал</div>
+                            <div class="cap-empty_tx">Этот пользователь вас заблокировал!</div>
                             <span class="cap-empty_gray">Вы не можете отправлять ему сообщения</span>
                         </div>
                     </div>

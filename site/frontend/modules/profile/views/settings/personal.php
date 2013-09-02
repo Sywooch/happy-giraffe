@@ -50,7 +50,7 @@ Yii::app()->clientScript->registerScriptFile('/javascripts/ko_settings.js'); ?>
     <div class="margin-b30">Я  хочу <?php echo CHtml::link('Удалить анкету ', array('remove'), array('class' => 'btn-gray-light btn-small margin-5', 'confirm' => 'Вы действительно хотите удалить анкету?')) ?>, потеряв всю введенную информацию без возможности восстановления.</div>
     <div class="">
         <a href="" class="a-checkbox" data-bind="click: toggleEmails, css: {active: email_subscription() == 1}"></a>
-        Я  хочу получать еженедельные новости от Веселого жирафа.
+        Я хочу получать еженедельные новости от Веселого Жирафа.
     </div>
 </div>
 

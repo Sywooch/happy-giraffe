@@ -134,9 +134,9 @@
                                         <div class="b-join_slogan">уже на Веселом Жирафе!</div>
                                     </div>
                                     <div class="b-join_right">
-                                        <a href="" class="btn-green btn-big">Присоединяйтесь!</a>
+                                        <a href="#register" class="btn-green btn-big fancy" data-theme="transparent">Присоединяйтесь!</a>
                                         <div class="clearfix">
-                                            <a href="#login" class="display-ib verticalalign-m fancy">Войти</a>
+                                            <a href="#login" class="display-ib verticalalign-m fancy" data-theme="transparent">Войти</a>
                                             <span class="i-or">или</span>
                                             <a class="custom-like" href="">
                                                 <span class="custom-like_icon odnoklassniki"></span>

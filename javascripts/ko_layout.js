@@ -1,4 +1,6 @@
 var LayoutViewModel = function(data) {
+    console.log(data);
+
     var self = this;
     self.newNotificationsCount = ko.observable(data.newNotificationsCount);
     self.newMessagesCount = ko.observable(data.newMessagesCount);

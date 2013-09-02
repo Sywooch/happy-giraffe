@@ -45,11 +45,13 @@
         </div>
 
         <div class="sidebar-search sidebar-search__gray clearfix">
-            <input type="text" placeholder="Поиск из 15611 рецептов" class="sidebar-search_itx" id="" name="">
+            <?=CHtml::beginForm(array('search'), 'get')?>
+            <input type="text" placeholder="Поиск из <?=CookRecipe::model()->count()?> рецептов" class="sidebar-search_itx" name="query">
             <!--
             В начале ввода текста, скрыть sidebar-search_btn добавить класс active"
              -->
             <button class="sidebar-search_btn"></button>
+            <?=CHtml::endForm()?>
         </div>
 
         <div class="menu-simple">

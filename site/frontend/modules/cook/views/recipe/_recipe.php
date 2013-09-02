@@ -7,11 +7,12 @@
         </h2>
         <div class="b-article_in clearfix">
             <div class="wysiwyg-content clearfix">
-                <p><?=Str::truncate(strip_tags($data->text), 400)?></p>
                 <?php if ($data->mainPhoto !== null): ?>
                     <div class="b-article_in-img">
                         <?=CHtml::image($data->mainPhoto->getPreviewUrl(580, null, Image::WIDTH), $data->mainPhoto->title, array('class' => 'content-img'))?>
                     </div>
+                <?php else: ?>
+                    <p><?=Str::truncate(strip_tags($data->text), 400)?></p>
                 <?php endif; ?>
             </div>
         </div>

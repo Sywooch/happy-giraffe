@@ -300,11 +300,13 @@
 
         </div>
 
-        <script type="text/javascript">
-            var layoutVM = new LayoutViewModel(<?=CJSON::encode($this->getLayoutData())?>);
-            $(".layout-binding").each(function(index, el) {
-                ko.applyBindings(layoutVM, el);
-            });
-        </script>
+        <?php if (! Yii::app()->user->isGuest); ?>
+            <script type="text/javascript">
+                var layoutVM = new LayoutViewModel(<?=CJSON::encode($this->getLayoutData())?>);
+                $(".layout-binding").each(function(index, el) {
+                    ko.applyBindings(layoutVM, el);
+                });
+            </script>
+        <?php endif; ?>
     </body>
 </html>

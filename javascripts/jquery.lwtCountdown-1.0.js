@@ -35,7 +35,6 @@
 
 		var randomNumberMax = options.randomNumberMax;
 		var randomNumberMin = 0;
-		console.log(randomNumberMax);
 		if (config.onComplete)
 		{
 			$.data($this[0], 'callback', config.onComplete);

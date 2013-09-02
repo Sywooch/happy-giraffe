@@ -5206,27 +5206,29 @@
   font-style: italic;
 }
 .recipe-desc {
-  margin: -15px -20px 10px;
+  margin: -10px -20px 10px;
   padding: 0 20px;
   background: #d1ebff;
 }
 .recipe-desc .location {
   display: inline-block;
   vertical-align: middle;
-  margin-right: 10px;
+  border-right: 1px solid #b9d9f2;
+  margin: 0 10px 0 0;
+  padding: 15px 15px 15px 0;
   font-size: 12px;
   color: #289FD7;
 }
 .recipe-desc .location_tx {
-  max-width: 100px;
+  max-width: 105px;
 }
 .recipe-desc_holder {
   display: inline-block;
   vertical-align: middle;
-  border: 1px solid #b9d9f2;
+  border-right: 1px solid #b9d9f2;
   border-width: 0 1px;
-  padding: 0 10px;
-  margin: 0 10px;
+  padding-right: 10px;
+  margin-right: 10px;
 }
 .recipe-desc_i {
   display: inline-block;
@@ -5312,8 +5314,14 @@
   color: #171717 !important;
   text-decoration: none !important;
 }
+.nutrition_portion-a.disabled {
+  color: #bbb !important;
+}
+.nutrition_portion-a.disabled:hover {
+  text-decoration: none !important;
+}
 .nutrition_ul {
-  margin: 0 !important;
+  margin: 0 0 5px !important;
 }
 .nutrition_li {
   font-size: 12px;

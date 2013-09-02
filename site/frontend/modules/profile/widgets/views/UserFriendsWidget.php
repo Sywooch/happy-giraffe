@@ -9,7 +9,7 @@
     <ul class="widget-friends_ul clearfix">
         <?php if (count($friends) < 9):?>
             <li class="widget-friends_find">
-                <a href="<?=$this->createUrl('/friends/search/') ?>" class="widget-friends_find-a"></a>
+                <a href="<?=Yii::app()->createUrl('/friends/search/') ?>" class="widget-friends_find-a"></a>
             </li>
         <?php endif ?>
         <?php foreach ($friends as $f): ?>

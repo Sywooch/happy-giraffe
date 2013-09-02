@@ -857,7 +857,7 @@
 .assistance-users {float:right;position:relative;text-align:center;padding:5px 25px 5px 10px;width:335px;}
 .assistance-users_list {list-style:none;margin: 0 auto;}
 .assistance-users_list-item {float:left;margin:0 5px 6px 4px;}
-.assistance-users_other {color:#9b63b9;}
+.assistance-users_other {color:#a9a6a6;}
 
 /* unlogined user start page */
 .all-users-visit{border:1px solid #e7e7e7;padding:20px 25px;margin-bottom:20px;}
@@ -992,6 +992,7 @@
 	&__square &_tx {
 		width: auto;
 		background: none;
+		color: #1a1a1a;
 	}
 
 	&_top {
@@ -1017,8 +1018,10 @@
 	&_li {
 		.inline-block();
 		vertical-align: top;
+		position: relative;
 		margin: 0 7px 13px;
 	}
+	&_li:hover &_del {display: block;}
 	&_img-hold {
 		display: table-cell;
 		vertical-align: middle;
@@ -1060,6 +1063,12 @@
 		.border-radius(5px);
 	}
 	&_add-b:hover {background-color: rgba(0,0,0,.3);}
+	&_del {
+		display: none;
+		position: absolute;
+		top: 7px;
+		right: 7px;
+	}
 }
 /* /b-family */
 

@@ -52,6 +52,7 @@
 											<div class="b-family_tx">
 												<span>Муж</span>
 											</div>
+											<a href="" class="ico-close b-family_del"></a>
 										</li>
 										<li class="b-family_li">
 											<div class="b-family_img-hold">
@@ -60,6 +61,7 @@
 											<div class="b-family_tx">
 												<span>Ждем мальчика</span> 
 											</div>
+											<a href="" class="ico-close b-family_del"></a>
 										</li>
 										<li class="b-family_li">
 											<div class="b-family_img-hold">
@@ -68,6 +70,7 @@
 											<div class="b-family_tx">
 												<span>Дочь</span>
 											</div>
+											<a href="" class="ico-close b-family_del"></a>
 										</li>
 										<li class="b-family_li">
 											<div class="b-family_img-hold">
@@ -76,6 +79,7 @@
 											<div class="b-family_tx">
 												<span>Дочь</span>
 											</div>
+											<a href="" class="ico-close b-family_del"></a>
 										</li>
 										<!-- Когда курсор мыши с зажатой иконкой над квадратом добавить класс dragover -->
 										<li class="b-family_li b-family_li__empty dragover"></li>

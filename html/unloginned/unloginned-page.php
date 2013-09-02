@@ -101,7 +101,7 @@
 		</div>
 
 		<div class="layout-content clearfix">
-		<div class="b-section b-section__club b-section__club-cook">
+		<div class="b-section b-section__club b-section__22">
 			<div class="b-section_hold">
 				<div class="content-cols clearfix">
 					<div class="col-1">

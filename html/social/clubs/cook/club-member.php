@@ -46,7 +46,7 @@
 		</div>
 		
 		
-		<div class="b-section b-section__club b-section__club-cook">
+		<div class="b-section b-section__club b-section__club-22">
 			<div class="b-section_hold">
 				<div class="content-cols clearfix">
 					<div class="col-1">

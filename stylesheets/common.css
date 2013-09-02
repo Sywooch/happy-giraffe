@@ -554,6 +554,9 @@ html.top-nav-fixed {
   font-size: 16px !important;
   line-height: 20px;
 }
+.fontstyle-b {
+  font-style: bold;
+}
 .fontstyle-i {
   font-style: italic;
 }
@@ -2171,7 +2174,7 @@ textarea.error,
   background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2QzZDNkMyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNiN2I3YjciIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
 }
 .btn-gray-light {
-  color: #434343;
+  color: #757575;
   background-color: #dadadb;
   background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f8f8f8), to(#dadadb));
   background-image: -webkit-linear-gradient(top, #f8f8f8, #dadadb);
@@ -20458,7 +20461,7 @@ select.pregnancy_term + .chzn-container .chzn-results li {
   margin: 0 5px 6px 4px;
 }
 .assistance-users_other {
-  color: #9b63b9;
+  color: #a9a6a6;
 }
 /* unlogined user start page */
 .all-users-visit {
@@ -20729,6 +20732,7 @@ select.pregnancy_term + .chzn-container .chzn-results li {
 .b-family__square .b-family_tx {
   width: auto;
   background: none;
+  color: #1a1a1a;
 }
 .b-family_top {
   margin: 0 auto 15px;
@@ -20755,7 +20759,11 @@ select.pregnancy_term + .chzn-container .chzn-results li {
 .b-family_li {
   display: inline-block;
   vertical-align: top;
+  position: relative;
   margin: 0 7px 13px;
+}
+.b-family_li:hover .b-family_del {
+  display: block;
 }
 .b-family_img-hold {
   display: table-cell;
@@ -20807,6 +20815,12 @@ select.pregnancy_term + .chzn-container .chzn-results li {
 }
 .b-family_add-b:hover {
   background-color: rgba(0, 0, 0, 0.3);
+}
+.b-family_del {
+  display: none;
+  position: absolute;
+  top: 7px;
+  right: 7px;
 }
 /* /b-family */
 /* family-settings */

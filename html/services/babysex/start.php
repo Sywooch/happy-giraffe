@@ -67,8 +67,8 @@
 			<div class="col-23-middle ">
 			
 				<div class="col-white-hoar">
-					<script type="text/javascript" src="http://www.timegenerator.ru/s/f067244913ddc7ce2f0538d2b0ef8b66.js"></script>
-					<!-- Сам сервис -->					
+					
+					<!-- Cервис -->					
 					<div id="baby-sex">
 						
 			            <div class="block-title"><h1>Определение пола ребенка</h1></div>

@@ -107,11 +107,13 @@
 				</div>
 				
 				<div class="col-23-middle clearfix">
-					<div class="heading-title">
-						Моя семья
-						<div class="float-r position-r">
+					<div class="clearfix margin-r20">
+						<div class="float-r position-r margin-t15">
 							<span class="font-big padding-r5"> Членов семьи: 5 </span>
 							<a href="" class="a-pseudo font-middle">Изменить</a>
+						</div>
+						<div class="heading-title">
+							Моя семья
 						</div>
 					</div>
 					<div class="col-gray padding-20">
@@ -479,6 +481,14 @@
 						
 						<div class="family-settings clearfix">
 							<a href="" class="ico-close2 powertip family-settings_del" title="Удалить"></a>
+							<!-- Заглушка удаления -->
+							<div class="cap-empty">
+								<div class="cap-empty_hold">
+									<div class="cap-empty_tx">Все данные о вашем муже успешно удалены</div>
+									<a class="cap-empty_a" href="">Восстановить</a>
+								</div>
+							</div>
+
 							<div class="family-settings_hold clearfix">
 								<div class="family-settings_photo">
 									<div class="family-settings_photo-hold">

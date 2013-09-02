@@ -420,7 +420,20 @@ $(function() {
 						</li>
 						<li class="b-interest_li">
 							<a href="" class="b-interest_i active">Морская рыбалка</a>
-							
+							<div class="b-interest_popup">
+								<div class="margin-b5 clearfix">
+									<a class="ava small" href=""><img src="http://img.happy-giraffe.ru/avatars/15496/small/avatar.jpeg" alt=""></a>
+									<a class="ava small" href=""><img src="http://img.happy-giraffe.ru/avatars/15292/small/avatar.jpeg" alt=""></a>
+									<a class="ava small" href=""></a>
+									<a class="ava small" href=""><img src="http://img.happy-giraffe.ru/avatars/15496/small/avatar.jpeg" alt=""></a>
+									<a class="ava small" href=""><img src="http://img.happy-giraffe.ru/avatars/15292/small/avatar.jpeg" alt=""></a>
+									<a class="ava small" href=""></a>
+								</div>
+								<div class="clearfix">
+									<span>и еще 358</span>
+									<a href="" class="btn-green btn-small margin-l20">Убрать</a>
+								</div>
+							</div>
 						</li>
 						<li class="b-interest_li">
 							<a href="" class="b-interest_i">Комедия</a>
@@ -449,13 +462,28 @@ $(function() {
 									<a class="ava small" href=""></a>
 								</div>
 								<div class="clearfix">
-									<a href="">и еще 358</a>
+									<span>и еще 358</span>
 									<a href="" class="btn-green btn-small margin-l20">Добавить мне</a>
 								</div>
 							</div>
 						</li>
 						<li class="b-interest_li">
 							<a href="" class="b-interest_i">Морская рыбалка и на реке тоже</a>
+							<div class="b-interest_popup">
+								<!-- <div class="margin-b5 clearfix">
+									<a class="ava small" href=""><img src="http://img.happy-giraffe.ru/avatars/15496/small/avatar.jpeg" alt=""></a>
+									<a class="ava small" href=""><img src="http://img.happy-giraffe.ru/avatars/15292/small/avatar.jpeg" alt=""></a>
+									<a class="ava small" href=""></a>
+									<a class="ava small" href=""><img src="http://img.happy-giraffe.ru/avatars/15496/small/avatar.jpeg" alt=""></a>
+									<a class="ava small" href=""><img src="http://img.happy-giraffe.ru/avatars/15292/small/avatar.jpeg" alt=""></a>
+									<a class="ava small" href=""></a>
+								</div>
+								<div class="clearfix">
+									<span>и еще 358</span>
+									<a href="" class="btn-gray-light btn-small margin-l20">Добавить мне</a>
+								</div> -->
+								<div class="clearfix color-gray">Вы не можете добавить больше 25 интересов</div>
+							</div>
 						</li>
 						<li class="b-interest_li">
 							<a href="" class="b-interest_i">Комедия</a>

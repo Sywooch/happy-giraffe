@@ -775,7 +775,7 @@ $(function() {
 									</div>
 								</div>
 								<div class="b-add-img_html5-tx">или перетащите фото сюда</div>
-								<div class="b-add-img_desc">Загружайте пожалуйста свои фотографии, фото будут проверяться, <br> и если их содержание не будет соответствуют этике сайта, <br> будут удаляться</div>
+								
 							</div>
 						</div>
 						<div class="popup-upload-ava_right">

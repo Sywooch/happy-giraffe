@@ -34,6 +34,11 @@ class ClubsWidget extends UserCoreWidget
      */
     public $clubs;
 
+    /**
+     * @var bool
+     */
+    public $signup = false;
+
     public function init()
     {
         parent::init();
@@ -42,7 +47,7 @@ class ClubsWidget extends UserCoreWidget
         if ($this->visible) {
             $this->data = $this->getUserClubsData();
 
-            $this->viewFile = get_class($this) . $this->size;
+            $this->viewFile = get_class($this) . $this->size . ($this->signup ? 'Signup' : '');
             Yii::app()->clientScript->registerPackage('ko_profile');
         }
     }

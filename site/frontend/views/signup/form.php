@@ -95,7 +95,7 @@
                             </div>
                             <div class="b-sign_itx-hold">
                                 <div class="b-radio-icons">
-                                    <?=$form->radioButtonList($model, 'gender', array('0' => '<span class="ico-male"></span>', '1' => '<span class="ico-female"></span>'), array('class' => 'b-radio-icons_radio', 'uncheckValue' => null, 'separator' => '', 'labelOptions' => array('class' => 'b-radio-icons_label')))?>
+                                    <?=$form->radioButtonList($model, 'gender', array('1' => '<span class="ico-male"></span>', '0' => '<span class="ico-female"></span>'), array('class' => 'b-radio-icons_radio', 'uncheckValue' => null, 'separator' => '', 'labelOptions' => array('class' => 'b-radio-icons_label')))?>
                                     <?=$form->error($model, 'gender')?>
                                     <div class="b-sign_win"></div>
                                 </div>

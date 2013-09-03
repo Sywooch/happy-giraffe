@@ -64,6 +64,8 @@ return array(
         'application.widgets.userAvatarWidget.*',
         'application.modules.gallery.components.*',
         'application.modules.gallery.widgets.*',
+        'application.modules.myGiraffe.models.*',
+        'application.modules.myGiraffe.components.*',
     ),
 
 	'sourceLanguage' => 'en',

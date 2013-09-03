@@ -47,7 +47,8 @@ class ScoreInputNewPost extends ScoreInputEntity
      * @param $user_id int id пользователя
      * @param $entity CActiveRecord модель
      */
-    public function remove($user_id, $entity){
+    public function remove($user_id, $entity)
+    {
         parent::remove($user_id, $entity);
     }
 
@@ -68,7 +69,7 @@ class ScoreInputNewPost extends ScoreInputEntity
     public function addMassive($user_id, $ids)
     {
         $this->user_id = (int)$user_id;
-        $this->scores = ScoreAction::getActionScores($this->type)*count($ids);
+        $this->scores = ScoreAction::getActionScores($this->type) * count($ids);
         $this->getCollection()->insert(array(
             'type' => $this->type,
             'user_id' => (int)$this->user_id,

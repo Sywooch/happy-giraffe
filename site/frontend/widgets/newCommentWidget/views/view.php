@@ -50,6 +50,19 @@ NotificationRead::getInstance()->SetVisited();
 
     <div class="comments-gray_hold" data-bind="visible: comments().length > 0">
 
+        <div data-bind="visible: false">
+        <?php foreach ($comments as $comment): ?>
+            <div class="comments-gray_i">
+                <div class="comments-gray_frame">
+                    <div class="comments-gray_header clearfix"><?=$comment->author->getFullName() ?></div>
+                    <div class="comments-gray_cont wysiwyg-content">
+                        <div><?=$comment->purified->text ?></div>
+                    </div>
+                </div>
+            </div>
+        <?php endforeach; ?>
+        </div>
+
         <!-- ko foreach: comments -->
         <div class="comments-gray_i" data-bind="css: {'comments-gray_i__self': ownComment(), 'comments-gray_i__recovery': removed()}, attr: {id: 'comment_'+id()}">
 

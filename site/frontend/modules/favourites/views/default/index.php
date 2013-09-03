@@ -1,5 +1,7 @@
 <?php
 Yii::app()->clientScript->registerPackage('ko_favourites');
+$this->widget('FavouriteWidget', array('registerScripts' => true));
+Yii::app()->clientScript->registerPackage('ko_comments');
 ?>
 
 <div class="content-cols clearfix">

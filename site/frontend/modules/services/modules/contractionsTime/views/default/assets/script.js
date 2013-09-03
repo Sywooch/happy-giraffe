@@ -67,7 +67,7 @@ Shvatka.prototype.setDataToTable = function()
         +"</td><td class='col-3'>"+getTime(this.end)
         +"</td><td class='col-4'>"+getTimeString(this.length)
         +"</td><td class='col-5'>"+pr
-        +"</td><td class='col-6'><a class='remove' href='#'>Удалить</a></td>"
+        +"</td><td class='col-6'><a class='remove' href=''>Удалить</a></td>"
         +"</tr>");
 }
 

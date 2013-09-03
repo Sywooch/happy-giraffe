@@ -27,8 +27,8 @@
                                 'enableAjaxValidation' => true,
                                 'clientOptions' => array(
                                     'validateOnSubmit' => true,
-                                    'validateOnChange' => true,
-                                    'validateOnType' => true,
+                                    'validateOnChange' => false,
+                                    'validateOnType' => false,
                                     'validationUrl' => Yii::app()->createUrl('/signup/validate', array('step' => 1)),
                                     'afterValidate' => "js:function(form, data, hasError) {
                                                 if (!hasError){

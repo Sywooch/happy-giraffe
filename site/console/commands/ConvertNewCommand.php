@@ -36,7 +36,7 @@ class ConvertNewCommand extends CConsoleCommand
         $criteria = new CDbCriteria;
         $criteria->limit = 1000;
         $criteria->with = array('content');
-        $criteria->condition = 't.id > 14190';
+        $criteria->condition = 'content.id > 14190';
         $criteria->offset = 0;
 
         $models = array(0);

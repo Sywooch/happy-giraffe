@@ -3052,6 +3052,10 @@
 }
 /* /redactor-control */
 /* start-page */
+.start-page {
+  width: 100%;
+  overflow: hidden;
+}
 .start-page .custom-like {
   margin: 0 2px;
   vertical-align: middle;
@@ -12646,6 +12650,7 @@
 .wysiwyg-content .h2-services {
   font-weight: normal;
   color: #0D0D0D;
+  font-size: 20px;
 }
 .wysiwyg-content h2 {
   margin: 40px 0 15px;
@@ -12703,11 +12708,14 @@
   padding: 15px 20px 5px;
   border-left: 3px solid #98bf59;
   background: #f2fce2;
-  font: 12px/19px Georgia, 'Times New Roman', Times, serif;
+  font: italic 12px/19px Georgia, 'Times New Roman', Times, serif;
   color: #727272;
 }
 .brushed ul li {
   background: url(/images/brushed-li.png) no-repeat 8px 12px;
+}
+.brushed b {
+  font-style: normal;
 }
 .content-more {
   padding-bottom: 20px;

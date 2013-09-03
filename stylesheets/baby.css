@@ -404,19 +404,24 @@ background-image: linear-gradient(top, #e9a538, #df6b1a);
 background-repeat: repeat-x;
 }
 #baby .contractions-form .time {
-width:264px;
+width:260px;
 text-align:center;
-margin-top:20px;
+margin-top:25px;
 font: 84px/1 Arial, Tahoma, Verdana, sans-serif;
+text-indent: 6px;
 letter-spacing: 6px;
 color:#292929;
+background: #f7f7f7;
+-webkit-border-radius: 5px;
+-moz-border-radius: 5px;
+border-radius: 5px;
 }
 
 
 
 #baby .contractions-summary {color:#474747;background: #fff;}
 #baby .contractions-summary .result-table {margin-bottom:30px;width:100%;}
-#baby .contractions-summary .result-table td {padding:20px;text-align:center;}
+#baby .contractions-summary .result-table td {padding:20px 10px;text-align:center;}
 #baby .contractions-summary .result-table thead td {background:#cfb7df;text-align:center;color:#fff;font-family:tahoma, arial, sans-serif;font-size:15px;}
 #baby .contractions-summary .result-table tbody td {vertical-align:middle;float: none;width: auto;}
 #baby .contractions-summary .result-table tbody tr.even td,
@@ -426,13 +431,18 @@ color:#292929;
 #baby .contractions-summary .result-table .col-3 {color:#a3a2a2;font-size:25px;}
 #baby .contractions-summary .result-table .col-4 {color:#f96eae;font-size:30px;}
 #baby .contractions-summary .result-table .col-5 {color:#f96eae;font-size:30px;}
-#baby .contractions-summary .result-table .remove {padding-top:22px;background:url(../images/bg_popup_close.gif) no-repeat top;line-height:1;color:#babcbd;font-size:11px;font-family:tahoma, arial, sans-serif;display:inline-block;*zoom:1;*display:inline;cursor:pointer;}
+#baby .contractions-summary .result-table .remove {
+	padding-top:22px;
+	background:url(/images/ico/ico-close.png) no-repeat 50% 40%;
+	line-height:1;color:#babcbd;font-size:11px;font-family:tahoma, arial, sans-serif;display:inline-block;*zoom:1;*display:inline;cursor:pointer;}
+#baby .contractions-summary .result-table .remove:hover {background: url(/images/ico/ico-close-hover.png) no-repeat 50% 40%;}
 #baby .contractions-summary .block-in {padding:25px;}
+#baby .contractions-summary .block-in:after {display:block;content:'.';height:0;clear:both;line-height:0;font-size:0;} /* clearfix */
 #baby .contractions-summary .box-left {float:left;width:180px;}
 #baby .contractions-summary .box-main {margin-left:200px;}
 #baby .contractions-summary big {font-size:25px;color:#dd72b9;margin-bottom:10px;display:block;text-align:center;padding:15px 0;}
 #baby .contractions-summary .summary-title {color:#906ab3;font-size:25px;margin-bottom:10px;}
-#baby .contractions-summary p {margin:1em 0;}
+#baby .contractions-summary p {margin:1em 0; color: #333333;font-size: 14px;line-height: 19px;word-wrap: break-word;}
 #baby .contractions-summary .result-text {color:#fc93ce;font-size:16px;text-align:center;}
 #baby .contractions-summary .result-text img {margin-bottom:15px;}
 
@@ -656,9 +666,9 @@ padding:12px 0;
 #baby .placenta_calculation span.comm_to {font:12px/15px arial, sans-serif;color:#b2b0b3;display:block;padding:10px 0 0 5px;}
 #baby .placenta_calculation .placenta_submit {
 	position:absolute;
-	right:10px;
+	right:60px;
 	top:250px;
-	width:280px;
+	width:240px;
 	height:65px;
 	background:url(../images/btn_pregnancy_weight_form.png) no-repeat;
 	border:0;

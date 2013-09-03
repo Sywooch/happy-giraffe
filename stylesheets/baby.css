@@ -331,20 +331,96 @@
 #baby .pregnancy-weight-summary .weight-table > table > tbody > tr > td > table > tbody > tr.active td {background:#fffcd3;color:#fa3cae;}
 #baby .pregnancy-weight-summary .weight-table > table > tbody > tr > td > table > tbody > tr.active td.col-1 {color:#e0239f;}
 
-#baby .contractions-form {position:absolute;padding-left:75px;top:200px;left:0;padding-top:170px;background:url(../images/bg_contractions_form.png) no-repeat;width:500px;}
-#baby .contractions-form.started {background-image:url(../images/bg_contractions_form_started.png);}
-#baby .contractions-form button {width:264px;height:110px;background:url(../images/btn_contractions_form.png) no-repeat;border:0;font:bold 60px arial, sans-serif;color:#fff;cursor:pointer;}
-#baby .contractions-form.started button {background-image:url(../images/btn_contractions_form_started.png);}
-#baby .contractions-form .time {width:264px;text-align:center;margin-top:20px;font:bold 60px/1 arial, sans-serif;color:#fff;}
+#baby .contractions-time-banner {
+	position: relative;
+	background: #f6f6f6 url(/images/services/contractionsTime/section_banner.jpg) no-repeat;
+	margin-top: -1px;
+	height: 635px;
+}
+#baby .contractions-time-banner_t {
+	position: absolute;
+	top: 50px;
+	left: 20px;
+	width: 370px;
+	color: #292929;
+	font: 50px/0.9em 'Roboto', 'Helvetica Neue', Helvetica, Arial, Tahoma, sans-serif;
+	text-align: center;
+}
+#baby .contractions-time-banner_name {
+	font: 18px/22px Tahoma, Arial, Verdana, sans-serif;
+	color: #6b6a6a;
+	margin-bottom: 10px;
+}
+#baby .contractions-form {position:absolute;padding-left:75px;top:200px;left:0;padding-top:165px;background:url(../images/services/contractionsTime/bg_contractions_form.png) no-repeat;width:500px;}
+#baby .contractions-form.started {background-image:url(/images/services/contractionsTime/bg_contractions_form_started.png);}
+#baby .contractions-form button {
+width:264px;
+height:110px;
+border:0;
+font:bold 60px arial, sans-serif;
+color:#fff;
+cursor:pointer;
+-webkit-border-radius: 5px;
+-moz-border-radius: 5px;
+border-radius: 5px;
+background-color: #21a34a;
+background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#49cf43), to(#21a34a));
+background-image: -webkit-linear-gradient(top, #49cf43, #21a34a);
+background-image: -moz-linear-gradient(top, #49cf43, #21a34a);
+background-image: -ms-linear-gradient(top, #49cf43, #21a34a);
+background-image: -o-linear-gradient(top, #49cf43, #21a34a);
+background-image: linear-gradient(top, #49cf43, #21a34a);
+background-repeat: repeat-x;
+}
+#baby .contractions-form button:hover {
+background-color: #089735;
+background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#54cf4e), to(#089735));
+background-image: -webkit-linear-gradient(top, #54cf4e, #089735);
+background-image: -moz-linear-gradient(top, #54cf4e, #089735);
+background-image: -ms-linear-gradient(top, #54cf4e, #089735);
+background-image: -o-linear-gradient(top, #54cf4e, #089735);
+background-image: linear-gradient(top, #54cf4e, #089735);
+background-repeat: repeat-x;
+}
 
-#baby .contractions-summary {color:#474747;}
-#baby .contractions-summary .result-table {margin-top:20px;margin-bottom:30px;width:100%;}
-#baby .contractions-summary .result-table td {padding:10px;text-align:center;}
+#baby .contractions-form.started button {
+  background-color: #ef7608;
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#faa850), to(#ef7608));
+  background-image: -webkit-linear-gradient(top, #faa850, #ef7608);
+  background-image: -moz-linear-gradient(top, #faa850, #ef7608);
+  background-image: -ms-linear-gradient(top, #faa850, #ef7608);
+  background-image: -o-linear-gradient(top, #faa850, #ef7608);
+  background-image: linear-gradient(top, #faa850, #ef7608);
+  background-repeat: repeat-x;
+}
+#baby .contractions-form.started button:hover {
+background-color: #df6b1a;
+background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#e9a538), to(#df6b1a));
+background-image: -webkit-linear-gradient(top, #e9a538, #df6b1a);
+background-image: -moz-linear-gradient(top, #e9a538, #df6b1a);
+background-image: -ms-linear-gradient(top, #e9a538, #df6b1a);
+background-image: -o-linear-gradient(top, #e9a538, #df6b1a);
+background-image: linear-gradient(top, #e9a538, #df6b1a);
+background-repeat: repeat-x;
+}
+#baby .contractions-form .time {
+width:264px;
+text-align:center;
+margin-top:20px;
+font: 84px/1 Arial, Tahoma, Verdana, sans-serif;
+letter-spacing: 6px;
+color:#292929;
+}
+
+
+
+#baby .contractions-summary {color:#474747;background: #fff;}
+#baby .contractions-summary .result-table {margin-bottom:30px;width:100%;}
+#baby .contractions-summary .result-table td {padding:20px;text-align:center;}
 #baby .contractions-summary .result-table thead td {background:#cfb7df;text-align:center;color:#fff;font-family:tahoma, arial, sans-serif;font-size:15px;}
-#baby .contractions-summary .result-table thead td:first-child {/*css3*/ border-radius:20px 0 0 0;-moz-border-radius:20px 0 0 0;-webkit-border-radius:20px 0 0 0;behavior: url(/stylesheets/PIE.htc);}
-#baby .contractions-summary .result-table thead td:last-child {/**/ border-radius:0 20px 0 0;-moz-border-radius:0 20px 0 0;-webkit-border-radius:0 20px 0 0;}
-#baby .contractions-summary .result-table tbody td {vertical-align:middle;}
-#baby .contractions-summary .result-table tbody tr.even td, #baby .contractions-summary .result-table tfoot td {background:#fbf6ff;}
+#baby .contractions-summary .result-table tbody td {vertical-align:middle;float: none;width: auto;}
+#baby .contractions-summary .result-table tbody tr.even td,
+#baby .contractions-summary .result-table tfoot td {background:#fbf6ff;}
 #baby .contractions-summary .result-table .col-1 {color:#cecece;font:bold 35px arial black, arial, sans-serif;}
 #baby .contractions-summary .result-table .col-2 {color:#a3a2a2;font-size:25px;}
 #baby .contractions-summary .result-table .col-3 {color:#a3a2a2;font-size:25px;}

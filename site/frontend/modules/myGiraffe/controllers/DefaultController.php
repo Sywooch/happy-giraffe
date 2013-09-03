@@ -39,7 +39,7 @@ class DefaultController extends HController
         $this->layout = '//layouts/main';
 
         $dp = SubscribeDataProvider::getDataProvider($this->user->id, $type, $community_id);
-        $communities = Community::model()->findAllByPk(UserClubSubscription::getSubUserClubs($this->user->id));
+        $communities = CommunityClub::model()->findAllByPk(UserClubSubscription::getSubUserClubs($this->user->id));
 
         $this->render('my_giraffe', compact('dp', 'communities', 'type', 'community_id'));
     }

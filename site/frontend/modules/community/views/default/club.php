@@ -1,6 +1,6 @@
 <?php
 Yii::app()->clientScript->registerPackage('ko_community');
-?><div class="b-section b-section__club b-section__green">
+?><div class="b-section b-section__club b-section__club-<?=$this->club->id ?>">
     <div class="b-section_hold">
         <div class="content-cols clearfix">
             <div class="col-1">
@@ -27,7 +27,7 @@ Yii::app()->clientScript->registerPackage('ko_community');
                         <span class="b-section_club-add-tx">Вступить в клуб</span>
                     </a>
 
-                    <div class="b-section_club-moder" data-bind="visible: active()">
+                    <div class="b-section_club-moder" style="display: none;">
                         <span class="b-section_club-moder-tx">Модераторы <br> клуба</span>
                         <?php foreach ($moderators as $moderator): ?>
                             <?php $this->widget('Avatar', array('user' => $moderator)); ?>
@@ -35,11 +35,9 @@ Yii::app()->clientScript->registerPackage('ko_community');
                     </div>
                 </div>
 
-                <div class="clearfix">
-                    <ul class="b-section_ul b-section_ul__white margin-l30 clearfix">
-                        <?php $this->renderPartial('_links'); ?>
-                    </ul>
-                </div>
+                <ul class="b-section_ul b-section_ul__white margin-l30 clearfix">
+                    <?php $this->renderPartial('_links'); ?>
+                </ul>
             </div>
         </div>
     </div>
@@ -60,7 +58,7 @@ Yii::app()->clientScript->registerPackage('ko_community');
 
 <script type="text/javascript">
     $(function() {
-        vm = new CommunitySubscription(<?=CJSON::encode(UserClubSubscription::subscribed(Yii::app()->user->id, $this->club->id))?>, <?=$this->club->id ?>);
+        vm = new CommunitySubscription(<?=CJSON::encode(UserClubSubscription::subscribed(Yii::app()->user->id, $this->club->id))?>, <?=$this->club->id ?>, <?=(int)UserClubSubscription::model()->getSubscribersCount($this->club->id) ?>);
         $(".js-community-subscription").each(function(index, el) {ko.applyBindings(vm, el)});
     });
 </script>

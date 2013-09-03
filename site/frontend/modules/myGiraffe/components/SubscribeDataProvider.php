@@ -45,8 +45,8 @@ class SubscribeDataProvider
     public static function getAllContent($user_id)
     {
         $criteria = new CDbCriteria;
-        $criteria->with = array('rubric');
-        $criteria->addInCondition('community_id', UserClubSubscription::getSubUserClubs($user_id), 'OR');
+        $criteria->with = array('rubric', 'rubric.community');
+        $criteria->addInCondition('community.club_id', UserClubSubscription::getSubUserClubs($user_id), 'OR');
         $criteria->addInCondition('author_id', UserBlogSubscription::getSubUserIds($user_id), 'OR');
         return $criteria;
     }
@@ -69,8 +69,8 @@ class SubscribeDataProvider
     public static function getCommunityCriteria($community_id)
     {
         $criteria = new CDbCriteria;
-        $criteria->with = array('rubric');
-        $criteria->compare('community_id', $community_id, false, 'OR');
+        $criteria->with = array('rubric', 'rubric.community');
+        $criteria->compare('community.club_id', $community_id, false, 'OR');
         return $criteria;
     }
 

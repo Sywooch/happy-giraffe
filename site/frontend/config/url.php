@@ -128,7 +128,13 @@ return array(
         'news' => array('community/list', 'defaultParams' => array('community_id' => 36)),
         'news/<content_type_slug:[a-z]+><content_id:\d+>' => array('community/view', 'defaultParams' => array('community_id' => 36)),
 
-        'section/<section_id:\d>/'=>'community/default/section',
+        'pregnancy-and-children' => array('community/default/section', 'defaultParams' => array('section_id' => 1)),
+        'home' => array('community/default/section', 'defaultParams' => array('section_id' => 2)),
+        'beauty-and-health' => array('community/default/section', 'defaultParams' => array('section_id' => 3)),
+        'husband-and-wife' => array('community/default/section', 'defaultParams' => array('section_id' => 4)),
+        'interests-and-hobby' => array('community/default/section', 'defaultParams' => array('section_id' => 5)),
+        'family-outing' => array('community/default/section', 'defaultParams' => array('section_id' => 6)),
+
         'community/<_a:(subscribe)>/'=>'community/default/<_a>',
         'community/<forum_id:\d+>/forum/rubric/<rubric_id:\d+>' => 'community/default/forum',
         'community/<forum_id:\d+>/forum/<content_type_slug:\w+>/<content_id:\d+>' => 'community/default/view',

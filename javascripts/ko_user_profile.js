@@ -252,16 +252,13 @@ var UserClub = function (data, size, parent) {
         return '/community/' + self.id() + '/';
     });
     self.src = ko.computed(function () {
-        if (self.size == 'Big')
-            return '/images/club/' + self.id() + '-w130.png';
-        else
-            return '/images/club/' + self.id() + '.png';
+        return '/images/club/' + self.id() + '-w130.png';
     });
     self.tooltipText = ko.computed(function () {
         return self.have() ? 'Покинуть клуб': 'Вступить в клуб';
     });
     self.toggle = function () {
-        $.post('/ajaxSimple/communityToggle/', {community_id: self.id()}, function (response) {
+        $.post('/ajaxSimple/clubToggle/', {club_id: self.id()}, function (response) {
             if (response.status){
                 self.have(!self.have());
                 if (self.parent.deleteClub && self.have()){

@@ -1,3 +1,5 @@
+<div class="col-white-hoar">
+
 <div class="test" id="test-pregnancy">
 
 <div class="step splash">
@@ -14,7 +16,7 @@
 
         <div class="text">Онлайн-тест на беременность – прекрасная возможность подтвердить или опровергнуть свои мысли по поводу возможной беременности, особенно если под рукой нет экспресс-теста, а приём гинеколога состоится не раньше чем завтра.</div>
 
-        <div class="btn"><button class="test_begin" onclick="Test.Start();">ПРОЙТИ ТЕСТ</button></div>
+        <div class="btn"><button class="btn-gold btn-large" onclick="Test.Start();">ПРОЙТИ ТЕСТ</button></div>
 
     </div>
 
@@ -80,7 +82,7 @@ foreach ($test->testQuestions as $question):?>
 
 		</div>
 
-		<div class="btn"><button class="test_begin">ПРОЙТИ ТЕСТ</button></div>
+		<div class="btn"><button class="btn-gold btn-large">ПРОЙТИ ТЕСТ</button></div>
 
     </div>
 </div>
@@ -109,22 +111,24 @@ foreach ($test->testQuestions as $question):?>
 
 		</div>
 
-		<div class="btn"><button class="test_begin" onclick="Test.Restart(); return false;">ПРОЙТИ ЕЩЕ РАЗ</button></div>
+		<div class="btn"><button class="btn-gold btn-large" onclick="Test.Restart(); return false;">ПРОЙТИ ЕЩЕ РАЗ</button></div>
 
     </div>
 </div>
 <?php endforeach; ?>
 </div>
 
-<?php $this->widget('application.widgets.serviceSocial.serviceSocialWidget', array(
-    'service' => Service::model()->findByPk(9),
-    'image' => '/images/test/3/bg_test_pregnancy.jpg',
-    'description' => 'Онлайн-тест на беременность – прекрасная возможность подтвердить или опровергнуть свои мысли по поводу возможной беременности, особенно если под рукой нет экспресс-теста, а приём гинеколога состоится не раньше чем завтра.',
-    'counter_title'=>array('Тест на беременность прошли уже', array('пользователь','пользователя','пользователей'))
-)); ?>
+    <?php $this->widget('application.widgets.serviceSocial.serviceSocialWidget', array(
+        'service' => Service::model()->findByPk(9),
+        'image' => '/images/test/3/bg_test_pregnancy.jpg',
+        'description' => 'Онлайн-тест на беременность – прекрасная возможность подтвердить или опровергнуть свои мысли по поводу возможной беременности, особенно если под рукой нет экспресс-теста, а приём гинеколога состоится не раньше чем завтра.',
+        'counter_title'=>array('Тест на беременность прошли уже', array('пользователь','пользователя','пользователей'))
+    )); ?>
 
-<br><br>
-<div class="wysiwyg-content">
-    <h1><?php echo $test->title ?></h1>
-    <?php echo $test->text ?>
+    <div class="margin-20">
+        <div class="wysiwyg-content">
+            <h1><?php echo $test->title ?></h1>
+            <?php echo $test->text ?>
+        </div>
+    </div>
 </div>

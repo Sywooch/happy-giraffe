@@ -2,14 +2,11 @@
 /**
  * @var AwardsWidget $this
  */
+$url = $this->isMyProfile ? Yii::app()->createUrl('/scores/default/index') : Yii::app()->createUrl('/profile/default/awards', array('user_id'=>$this->user->id));
 ?><div class="user-awards">
     <div class="clearfix">
-        <span class="ico-cup-small"></span> &nbsp;
-        <?php if ($this->isMyProfile):?>
-            <a href="<?=Yii::app()->createUrl('/scores/default/index') ?>" class="heading-small">Мои успехи</a>
-        <?php else: ?>
-            <a href="<?=Yii::app()->createUrl('/profile/default/awards', array('user_id'=>$this->user->id)) ?>" class="heading-small">Мои награды</a>
-        <?php endif ?>
+        <a href="<?=$url ?>"><span class="ico-cup-small"></span></a> &nbsp;
+        <a href="<?=$url ?>" class="heading-small"><?=$this->isMyProfile?'Мои успехи':'Мои награды'?></a>
     </div>
     <ul class="user-awards_ul clearfix">
         <?php foreach ($this->awards as $award): ?>

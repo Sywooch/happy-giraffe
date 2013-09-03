@@ -3,6 +3,7 @@
  * @var $service Service
  */
 $users = $service->getLastUsers();
+$user_count = $service->getUsersCount();
 ?><div class="assistance-users">
     <div class="assistance_text">Последние, кто воспользовались сервисом:</div>
     <ul class="assistance-users_list clearfix"<?php
@@ -11,12 +12,11 @@ $users = $service->getLastUsers();
         ?>>
         <?php foreach ($users as $user): ?>
             <li class="assistance-users_list-item">
-                <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
-                'user' => $user,
-                'size' => 'small',
-                'small' => true,
-            )); ?>
+                <?php $this->widget('Avatar', array('user' => $user, 'size' => Avatar::SIZE_MICRO)); ?>
             </li>
         <?php endforeach; ?>
+        <?php if ($user_count > 20):?>
+            <span class="assistance-users_other">и еще <?=($user_count - 20) ?></span>
+        <?php endif ?>
     </ul>
 </div>

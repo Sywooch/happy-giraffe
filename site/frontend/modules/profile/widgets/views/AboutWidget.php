@@ -6,7 +6,7 @@
     <div class="about-self" id="user-about">
         <h3 class="heading-small margin-b5">О себе
             <!-- ko if: canEdit() -->
-            <a href="" class="a-pseudo-icon" data-bind="click: edit"><span class="ico-edit"></span><span class="a-pseudo-icon_tx"></span></a>
+            <a href="" class="a-pseudo-icon powertip" data-bind="click: edit, tooltip: 'Редактировать'"><span class="ico-edit"></span><span class="a-pseudo-icon_tx"></span></a>
             <!-- /ko -->
         </h3>
         <div class="about-self_ctn">

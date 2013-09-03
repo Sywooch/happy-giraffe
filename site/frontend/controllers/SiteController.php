@@ -97,11 +97,9 @@ class SiteController extends HController
 	 */
 	public function actionIndex()
 	{
+        $this->layout = '//layouts/common';
 		$this->pageTitle = 'Веселый Жираф - сайт для всей семьи';
-        Yii::import('site.frontend.widgets.*');
-        Yii::import('site.frontend.widgets.home.*');
-        $user = Yii::app()->user->getModel();
-        $this->render('home', compact('user'));
+        $this->render('home');
 	}
 
 	/**

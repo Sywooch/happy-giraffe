@@ -12,11 +12,11 @@
             <div class="margin-20">
                 <span class="i-highlight i-highlight__big font-big">Веселый Жираф вам рекомендует</span>
             </div>
-            <?php $this->widget('application.modules.profile.widgets.ClubsWidget', array('size' => 'Big', 'limit' => 10, 'userClubs' => false, 'user' => $this->user)); ?>
+            <?php $this->widget('application.modules.profile.widgets.ClubsWidget', array('size' => 'Big', 'signup' => true, 'limit' => 10, 'userClubs' => false, 'user' => $this->user)); ?>
             <div class="margin-20">
                 <span class="i-highlight i-highlight__big font-big">Еще вам могут быть интересны</span>
             </div>
-            <?php $this->widget('application.modules.profile.widgets.ClubsWidget', array('size' => 'Big', 'limit' => 10, 'offset' => 10, 'userClubs' => false, 'user' => $this->user)); ?>
+            <?php $this->widget('application.modules.profile.widgets.ClubsWidget', array('size' => 'Big', 'signup' => true, 'limit' => 10, 'offset' => 10, 'userClubs' => false, 'user' => $this->user)); ?>
         </div>
     </div>
 

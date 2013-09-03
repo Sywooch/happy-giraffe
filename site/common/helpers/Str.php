@@ -153,6 +153,6 @@ class Str
 
     public static function htmlTextLength($html)
     {
-        return mb_strlen(trim(strip_tags($html)),'UTF-8');
+        return mb_strlen(trim(strip_tags($html, '<p>')),'UTF-8');
     }
 }

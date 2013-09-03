@@ -9,7 +9,7 @@ class RecipeController extends HController
     public $currentType = null;
     public $modelName;
     public $section;
-    public $community;
+    public $club;
 
     public function filters()
     {
@@ -35,7 +35,7 @@ class RecipeController extends HController
 
     protected function beforeAction($action)
     {
-        $this->community = Community::model()->findByPk(22);
+        $this->club = CommunityClub::model()->findByPk(7);
 
         if (isset($this->actionParams['section']) && isset(CookRecipe::model()->sectionsMap[$this->actionParams['section']])) {
             $this->modelName = CookRecipe::model()->sectionsMap[$this->actionParams['section']];

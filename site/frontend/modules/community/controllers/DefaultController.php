@@ -30,6 +30,8 @@ class DefaultController extends HController
     {
         $this->layout = '//layouts/main';
         $this->loadClub($club_id);
+        $this->breadcrumbs = array($this->club->section->title => $this->club->section->getUrl(), $this->club->title);
+
         $this->pageTitle = $this->club->title;
         $moderators = $this->club->getModerators();
 
@@ -51,6 +53,12 @@ class DefaultController extends HController
         $this->rubric_id = $rubric_id;
         $this->forum = $forum;
 
+        $this->breadcrumbs = array(
+            $this->club->section->title => $this->club->section->getUrl(),
+            $this->club->title => $this->club->getUrl(),
+            $this->forum->title
+        );
+
         $this->render('list', $forum);
     }
 
@@ -66,7 +74,7 @@ class DefaultController extends HController
         $this->pageTitle = $content->title;
         $this->rubric_id = $content->rubric_id;
 
-        if (!Yii::app()->user->isGuest){
+        if (!Yii::app()->user->isGuest) {
             NotificationRead::getInstance()->setContentModel($content);
             UserPostView::getInstance()->checkView(Yii::app()->user->id, $content->id);
         }
@@ -96,7 +104,8 @@ class DefaultController extends HController
      * @throws CHttpException
      * @return CommunityContent
      */
-    public function loadContent($id, $content_type_slug){
+    public function loadContent($id, $content_type_slug)
+    {
         $content = CommunityContent::model()->findByPk($id);
         if ($content === null)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
@@ -118,7 +127,8 @@ class DefaultController extends HController
      * @return CommunitySection
      * @throws CHttpException
      */
-    public function loadSection($id){
+    public function loadSection($id)
+    {
         $model = CommunitySection::model()->findByPk($id);
         if ($model === null)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
@@ -130,7 +140,8 @@ class DefaultController extends HController
      * @return CommunityClub
      * @throws CHttpException
      */
-    public function loadClub($id){
+    public function loadClub($id)
+    {
         $this->club = CommunityClub::model()->findByPk($id);
         if ($this->club === null)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
@@ -141,7 +152,8 @@ class DefaultController extends HController
      * @return Community
      * @throws CHttpException
      */
-    public function loadForum($id){
+    public function loadForum($id)
+    {
         $model = Community::model()->findByPk($id);
         $this->club = $model->club;
         if ($model === null)

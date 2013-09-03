@@ -250,6 +250,8 @@ class AlbumPhoto extends HActiveRecord
             $ext = 'gif'; elseif ($mimetype == 'image/png')
             $ext = 'png'; elseif ($mimetype == 'image/tiff')
             $ext = 'tiff';
+        else
+            return false;
 
         $model = new AlbumPhoto();
         $model->author_id = $user_id;

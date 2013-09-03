@@ -23,9 +23,11 @@
         <div class="club-services">
             <?php foreach ($services as $service): ?>
                 <div class="club-services_i clearfix">
-                    <div class="club-services_img">
-                        <?=CHtml::link(CHtml::image($service->photo->getPreviewUrl(104, null, Image::WIDTH)), $service->url)?>
-                    </div>
+                    <?php if ($service->photo_id !== null):?>
+                        <div class="club-services_img">
+                            <?=CHtml::link(CHtml::image($service->photo->getPreviewUrl(104, null, Image::WIDTH)), $service->url)?>
+                        </div>
+                    <?php endif ?>
                     <div class="club-services_desc">
                         <a href="<?=$service->url ?>" class="club-services_t"><?=$service->title?></a>
                         <div class="club-services_tx">

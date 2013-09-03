@@ -187,7 +187,7 @@ class SignupController extends HController
             $model = new User('signup');
 
         $model->setAttributes($_POST['User']);
-        if (isset($_POST['User']['day']) && isset($_POST['User']['month']) && isset($_POST['User']['year']))
+        if (! empty($_POST['User']['day']) && ! empty($_POST['User']['month']) && ! empty($_POST['User']['year']))
             $model->birthday = $_POST['User']['year'] . '-' . str_pad($_POST['User']['month'], 2, '0', STR_PAD_LEFT) . '-' . str_pad($_POST['User']['day'], 2, '0', STR_PAD_LEFT);
 
         $model->validate($steps[$step - 1]);

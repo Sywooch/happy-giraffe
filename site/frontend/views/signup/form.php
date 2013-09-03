@@ -87,7 +87,10 @@
                                         </div>
                                     </div>
                                 </div>
+                                <?=$form->hiddenField($model, 'birthday')?>
+                                <?=$form->error($model, 'birthday')?>
                             </div>
+                            <div class="b-sign_win"></div>
                         </div>
                         <div class="float-l w-50p">
                             <div class="b-sign_label-hold">

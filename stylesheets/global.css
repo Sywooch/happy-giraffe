@@ -14768,11 +14768,16 @@ table.fr_recipe_tb td {
   min-height: 300px;
 }
 .popup-blog-set .b-add-img {
-  border: 1px solid #C8E4EE;
+  width: 438px;
+  border: 1px solid #c8e4ee;
   padding: 0;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
   border-radius: 0;
+}
+.popup-blog-set .b-add-img_i-del {
+  top: 0;
+  right: -20px;
 }
 .popup-blog-set_close {
   position: absolute;
@@ -15602,9 +15607,6 @@ table.fr_recipe_tb td {
 }
 .b-interest_li:hover .b-interest_i__green {
   color: #fff;
-}
-.b-interest_li:hover .b-interest_popup {
-  display: block;
 }
 .b-interest_li .b-itx-add {
   margin: -3px 0 -2px;

@@ -250,6 +250,27 @@
 						<div class="popup-blog-set_col-wide">
 							<label for="" class="popup-blog-set_label">Выберите фон</label>
 							<div class="margin-t15 clearfix">
+								<div class="b-add-img b-add-img__for-single">
+									<div class="display-n">
+									<div class="b-add-img_hold">
+										<div class="b-add-img_t">
+											Загрузите фотографию с компьютера
+											<div class="b-add-img_t-tx">Поддерживаемые форматы: jpg и png</div>
+										</div>
+										<div class="file-fake">
+											<button class="btn-green btn-medium file-fake_btn">Обзор</button>
+											<input type="file" name="">
+										</div>
+									</div>
+									<div class="b-add-img_html5-tx">или перетащите фото сюда</div>
+									<div class="b-add-img_desc">Загружайте пожалуйста свои фотографии, фото будут проверяться, <br> и если их содержание не будет соответствуют этике сайта, <br> будут удаляться</div>
+									</div>
+									<div class="popup-blog-set_jcrop">
+										<img src="/images/jcrop-blog.jpg" alt=""  class="popup-blog-set_jcrop-img" width='438' height='470'>
+									</div>
+									<a class="b-add-img_i-del ico-close2 powertip" href="" style=""></a>
+								</div>
+								<!-- 
 								<div class="popup-blog-set_jcrop">
 									<img src="/images/jcrop-blog.jpg" alt=""  class="popup-blog-set_jcrop-img" width='300' height='270'>
 									<a href="" class="popup-blog-set_del ico-close2 powertip" title="Удалить"></a>
@@ -262,7 +283,7 @@
 										</div>
 									</div>
 									<div class="color-gray font-small">Разрешенные форматы файлов <br> JPG, GIF или  PNG. <br>Максимальный размер 700 Кб. </div>
-								</div>
+								</div> -->
 							</div>
 						</div>
 					</div>

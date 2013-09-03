@@ -258,7 +258,7 @@
 								<div class="b-add-img b-add-img__for-single">
 									<div class="b-add-img_hold">
 										<div class="b-add-img_t">
-											Загрузите фотографии с компьютера
+											Загрузите фотографию с компьютера
 											<div class="b-add-img_t-tx">Поддерживаемые форматы: jpg и png</div>
 										</div>
 										<div class="file-fake">
@@ -267,7 +267,7 @@
 										</div>
 									</div>
 									<div class="b-add-img_html5-tx">или перетащите фото сюда</div>
-									<a class="b-add-img_i-del ico-close2 powertip" href="" title="Удалить"></a>
+									<div class="b-add-img_desc">Загружайте пожалуйста свои фотографии, фото будут проверяться, <br> и если их содержание не будет соответствуют этике сайта, <br> будут удаляться</div>
 								</div>
 							</div>
 						</div>

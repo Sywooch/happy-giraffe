@@ -440,9 +440,6 @@ class User extends HActiveRecord
         if ($this->trackable->isChanged('mood_id'))
             UserAction::model()->add($this->id, UserAction::USER_ACTION_MOOD_CHANGED, array('model' => $this));
 
-        Yii::import('site.frontend.modules.myGiraffe.models.*');
-        ViewedPost::getInstance($this->id);
-
         foreach ($this->social_services as $service) {
             $service->user_id = $this->id;
             $service->save();
@@ -456,6 +453,11 @@ class User extends HActiveRecord
             $rubric->title = 'Обо всём';
             $rubric->user_id = $this->id;
             $rubric->save();
+
+            Yii::import('site.frontend.modules.myGiraffe.models.*');
+            ViewedPost::getInstance($this->id);
+
+            Friend::model()->addCommentatorAsFriend($this->id);
 
             //create some tables
             Yii::app()->db->createCommand()->insert(UserPriority::model()->tableName(), array('user_id' => $this->id));

@@ -8,6 +8,9 @@
             <div class="career-achievement_left">
                 <div class="career-achievement_time font-smallest color-gray"><?= HDate::GetFormattedTime($model->updated) ?></div>
                 <div class="career-achievement_tx"><?=$model->getTitle() ?></div>
+                <?php if (method_exists($model, 'getLink')):?>
+                    <?=$model->getLink() ?>
+                <?php endif ?>
             </div>
             <div class="career-achievement_center">
                 <?php if (method_exists($model, 'getImage')):?>

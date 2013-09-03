@@ -1,6 +1,6 @@
 <?php
-$users = UserCommunitySubscription::model()->getSubscribers($this->community->id);
-$user_count = UserCommunitySubscription::model()->getSubscribersCount($this->community->id);
+$users = UserClubSubscription::model()->getSubscribers($this->club->id);
+$user_count = UserClubSubscription::model()->getSubscribersCount($this->club->id);
 
 ?><div class="widget-friends clearfix">
     <div class="clearfix">

@@ -255,10 +255,10 @@ class AjaxSimpleController extends CController
         echo CJSON::encode(array('status' => true, 'redirectUrl' => $this->createUrl('/gallery/user/view', array('user_id' => Yii::app()->user->id, 'album_id' => $album->id))));
     }
 
-    public function actionCommunityToggle()
+    public function actionClubToggle()
     {
-        $community_id = Yii::app()->request->getPost('community_id');
-        UserCommunitySubscription::toggle($community_id);
+        $club_id = Yii::app()->request->getPost('club_id');
+        UserClubSubscription::toggle($club_id);
         echo CJSON::encode(array('status' => true));
     }
 

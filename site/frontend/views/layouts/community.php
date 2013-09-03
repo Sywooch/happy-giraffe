@@ -10,9 +10,9 @@ $this->beginContent('//layouts/main'); ?>
                 <div class="club-list club-list__large clearfix">
                     <ul class="club-list_ul textalign-c clearfix">
                         <li class="club-list_li">
-                            <a href="<?=$this->createUrl('/community/default/community', array('community_id'=>$this->community->id)) ?>" class="club-list_i">
+                            <a href="<?=$this->createUrl('/community/default/club', array('club_id'=>$this->club->id)) ?>" class="club-list_i">
                                 <span class="club-list_img-hold">
-                                    <img src="/images/club/<?=$this->community->id ?>-w130.png" class="club-list_img">
+                                    <img src="/images/club/<?=$this->club->id ?>-w130.png" class="club-list_img">
                                 </span>
                             </a>
                         </li>
@@ -22,25 +22,11 @@ $this->beginContent('//layouts/main'); ?>
 
             <div class="col-23-middle">
                 <div class="padding-l20">
-                    <h1 class="b-section_t"><a href=""><?=$this->community->title ?></a></h1>
+                    <h1 class="b-section_t"><a href="<?=$this->createUrl('/community/default/club', array('club_id'=>$this->club->id)) ?>"><?=$this->club->title ?></a></h1>
 
                     <div class="clearfix">
-                        <ul class="b-section_ul margin-l30 clearfix<?php if (isset($root)) echo ' b-section_ul__white'; ?>">
-                            <li class="b-section_li">
-                                <a href="<?=$this->createUrl('/community/default/forum', array('community_id'=>$this->community->id)) ?>"
-                                   class="b-section_li-a<?php if (isset($this->forum) && $this->forum) echo ' active' ?>">Форум</a>
-                            </li>
-                            <?php if (count($this->community->services) < 2):?>
-                                <?php foreach($this->community->services as $service):?>
-                                    <li class="b-section_li">
-                                        <a href="<?=$service->getUrl() ?>" class="b-section_li-a<?php if (isset($service_id) && $service_id = $service->id) echo ' active' ?>"><?=$service->title ?></a>
-                                    </li>
-                                <?php endforeach ?>
-                            <?php else: ?>
-                                <li class="b-section_li">
-                                    <a href="<?=$this->createUrl('/community/default/services', array('community_id'=>$this->community->id)) ?>" class="b-section_li-a<?php if (Yii::app()->controller->action->id == 'services' ) echo ' active' ?>">Сервисы</a>
-                                </li>
-                            <?php endif ?>
+                        <ul class="b-section_ul margin-l30 clearfix">
+                            <?php $this->renderPartial('application.modules.community.views.default._links'); ?>
                         </ul>
                     </div>
 
@@ -54,10 +40,9 @@ $this->beginContent('//layouts/main'); ?>
     <?=$content ?>
 </div>
 
-
 <script type="text/javascript">
     $(function() {
-        vm = new CommunitySubscription(<?=CJSON::encode(UserCommunitySubscription::subscribed(Yii::app()->user->id, $this->community->id))?>, <?=$this->community->id ?>);
+        vm = new CommunitySubscription(<?=CJSON::encode(UserClubSubscription::subscribed(Yii::app()->user->id, $this->club->id))?>, <?=$this->club->id ?>, <?=(int)UserClubSubscription::model()->getSubscribersCount($this->club->id) ?>);
         $(".js-community-subscription").each(function(index, el) {ko.applyBindings(vm, el)});
     });
 </script>

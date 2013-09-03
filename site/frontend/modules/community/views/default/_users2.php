@@ -1,6 +1,6 @@
 <?php
-$users = UserCommunitySubscription::model()->getSubscribers($this->community->id, 6);
-$user_count = UserCommunitySubscription::model()->getSubscribersCount($this->community->id);
+$users = UserClubSubscription::model()->getSubscribers($this->club->id, 6);
+$user_count = UserClubSubscription::model()->getSubscribersCount($this->club->id);
 
 ?><div class="readers2 js-community-subscription">
     <a class="btn-green btn-medium" href="" data-bind="click: subscribe, visible: !active()">Вступить в клуб</a>
@@ -12,6 +12,6 @@ $user_count = UserCommunitySubscription::model()->getSubscribersCount($this->com
         <?php endforeach; ?>
     </ul>
     <div class="clearfix">
-        <div class="readers2_count">Все участники клуба (<?= $user_count ?>)</div>
+        <div class="readers2_count">Все участники клуба (<!-- ko text: count --><!-- /ko -->)</div>
     </div>
 </div>

@@ -21,7 +21,7 @@
         <p class="margin-l20 margin-r40 color-gray-dark">Одним из основных свидетельств правильного течения беременности является набор веса согласно принятым нормам. Оптимальный набор веса при беременности — это 10–14 кг.  </p>
 
         <div class="club-services">
-            <?php foreach ($services as $service): ?>
+            <?php foreach ($services as $service) if ($service->show) { ?>
                 <div class="club-services_i clearfix">
                     <?php if ($service->photo_id !== null):?>
                         <div class="club-services_img">
@@ -35,7 +35,7 @@
                         </div>
                     </div>
                 </div>
-            <?php endforeach; ?>
+            <?php } ?>
         </div>
 
     </div>

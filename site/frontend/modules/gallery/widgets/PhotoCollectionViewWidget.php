@@ -16,6 +16,8 @@ class PhotoCollectionViewWidget extends CWidget
     public $maxRows = false;
     public $return = false;
     public $registerScripts = false;
+    public $href = null;
+    public $borderSize = 5;
 
     public function run()
     {
@@ -34,7 +36,7 @@ class PhotoCollectionViewWidget extends CWidget
                 continue;
 
             $buffer[] = $photo;
-            $height = floor($this->getHeight($buffer));
+            $height = ceil($this->getHeight($buffer));
 
             if ($this->collection->count == $photosCount || (($this->collection->count - $photosCount) >= $this->minPhotos  && count($buffer) >= $this->minPhotos && $height <= $this->maxHeight)) {
                 $grid[] = array(
@@ -56,7 +58,7 @@ class PhotoCollectionViewWidget extends CWidget
 
     public function getHeight($photos)
     {
-        return ($this->width - count($photos) * 4) / array_reduce($photos, function($v, $w) {
+        return ($this->width - (count($photos) - 1) * $this->borderSize) / array_reduce($photos, function($v, $w) {
             $v += $w->width / $w->height;
             return $v;
         }, 0);

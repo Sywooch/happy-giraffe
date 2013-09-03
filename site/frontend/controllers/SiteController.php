@@ -97,9 +97,15 @@ class SiteController extends HController
 	 */
 	public function actionIndex()
 	{
+        //$models = Favourites::getArticlesByDate(Favourites::BLOCK_INTERESTING, date("Y-m-d"), 2);
+        $models = BlogContent::model()->findAll(array(
+            'order' => 't.id DESC',
+            'limit' => 6,
+            'with' => array('type'),
+        ));
         $this->layout = '//layouts/common';
 		$this->pageTitle = 'Веселый Жираф - сайт для всей семьи';
-        $this->render('home');
+        $this->render('home', compact('models'));
 	}
 
 	/**

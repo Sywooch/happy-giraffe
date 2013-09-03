@@ -3,16 +3,6 @@ Yii::app()->clientScript
     ->registerCoreScript('yiiactiveform')
     ->registerPackage('ko_layout')
     ->registerPackage('ko_post')
-
-    ->registerCssFile('/stylesheets/jquery.fancybox-1.3.4.css')
-    ->registerScriptFile('/javascripts/jquery.fancybox-1.3.4.js')
-    ->registerScriptFile('/javascripts/chosen.jquery.min.js')
-    ->registerScriptFile('/javascripts/jquery.powertip.js')
-    ->registerScriptFile('/javascripts/common.js')
-    ->registerScriptFile('/javascripts/tooltipsy.min.js')
-    ->registerScriptFile('/javascripts/addtocopy.js')
-    ->registerScriptFile('/javascripts/jquery.placeholder.min.js')
-    ->registerScriptFile('/javascripts/base64.js')
 ;
 
 if (! Yii::app()->user->isGuest)

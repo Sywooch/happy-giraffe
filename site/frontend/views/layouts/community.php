@@ -25,7 +25,7 @@ $this->beginContent('//layouts/main'); ?>
                     <h1 class="b-section_t"><a href="<?=$this->createUrl('/community/default/club', array('club_id'=>$this->club->id)) ?>"><?=$this->club->title ?></a></h1>
 
                     <div class="clearfix">
-                        <ul class="b-section_ul margin-l30 clearfix">
+                        <ul class="b-section_ul clearfix">
                             <?php $this->renderPartial('application.modules.community.views.default._links'); ?>
                         </ul>
                     </div>

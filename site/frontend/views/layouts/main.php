@@ -247,7 +247,7 @@ if (! Yii::app()->user->isGuest)
         <div class="footer-push"></div>
     </div>
     <?php if ($this->route != 'messaging/default/index'): ?>
-        <?php $this->renderPartial('/_footer'); ?>
+        <?php $this->renderPartial('//_footer'); ?>
     <?php endif; ?>
 </div>
 

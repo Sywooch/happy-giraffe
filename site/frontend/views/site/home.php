@@ -431,5 +431,5 @@
 	</div>
 
 	<div class="footer-push"></div>
-    <?php $this->renderPartial('/_footer'); ?>
+    <?php $this->renderPartial('//_footer'); ?>
 </div>

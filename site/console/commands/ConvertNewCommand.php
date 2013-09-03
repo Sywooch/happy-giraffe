@@ -6,6 +6,9 @@
 
 class ConvertNewCommand extends CConsoleCommand
 {
+    /**
+     * вычисление ширины/высоты фоток
+     */
     public function actionUpdatePhotos()
     {
         $criteria = new CDbCriteria;
@@ -28,25 +31,24 @@ class ConvertNewCommand extends CConsoleCommand
     /**
      * Создание фото-постов из постов с галереями
      */
-    public function actionConvertPhotoImages()
+    public function actionConvertPostPhotos()
     {
         $criteria = new CDbCriteria;
-        $criteria->limit = 100;
+        $criteria->limit = 1000;
+        $criteria->with = array('content');
+        $criteria->condition = 'content.id > 14190';
         $criteria->offset = 0;
 
         $models = array(0);
         while (!empty($models)) {
             $models = CommunityPost::model()->findAll($criteria);
-            foreach ($models as $model) {
-                if (empty($model->content)) {
-                    $model->delete();
-                } elseif (strpos($model->text, '<img') !== false && strpos($model->text, '<!-- widget:') === false) {
-                    $model->text = $this->replaceImages($model, $model->text);
+            foreach ($models as $model){
+                if (strpos($model->text, '<img') !== false && strpos($model->text, '<!-- widget:') === false)
                     $model->save();
-                }
+                echo $model->content_id."\n";
             }
 
-            $criteria->offset += 100;
+            $criteria->offset += 1000;
             echo $criteria->offset . "\n";
         }
     }
@@ -55,58 +57,13 @@ class ConvertNewCommand extends CConsoleCommand
     {
         $model = CommunityPost::model()->findByAttributes(array('content_id' => $id));
         if (strpos($model->text, '<img') !== false && strpos($model->text, '<!-- widget:') === false) {
-            $model->text = $this->replaceImages($model, $model->text);
             $model->save();
         }
     }
 
     /**
-     * @param CommunityPost $model
-     * @param string $text
-     * @return string
+     * пересчитать рейтинг статей, нужен для блока "лучшие записи блога"
      */
-    private function replaceImages($model, $text)
-    {
-        Yii::import('site.frontend.extensions.phpQuery.phpQuery');
-
-        $doc = phpQuery::newDocumentHTML($text);
-        foreach ($doc->find('img') as $image) {
-            $photo = AlbumPhoto::getPhotoFromUrl(pq($image)->attr('src'));
-            if (empty($photo)) {
-                $photo = $this->createPhoto($model, pq($image)->attr('src'));
-                if (!$photo)
-                    pq($image)->replaceWith('');
-            } else {
-
-                $alt = pq($image)->attr('alt');
-                if (empty($photo->title) && !empty($alt) && $alt !== 'null') {
-                    $photo->title = $alt;
-                    $photo->update(array('title'));
-                }
-
-                pq($image)->replaceWith($this->renderFile(Yii::getPathOfAlias('site.frontend.views.albums._widget') . '.php', array(
-                    'model' => $photo
-                ), true));
-            }
-        }
-
-        $text = $doc->html();
-        $doc->unloadDocument();
-
-        return $text;
-    }
-
-    /**
-     * @param CommunityPost $model
-     * @param string $src
-     */
-    private function createPhoto($model, $src)
-    {
-        if (strpos($src, '/') === 0)
-            $src = 'http://www.happy-giraffe.ru' . $src;
-        return AlbumPhoto::createByUrl($src, $model->content->author_id, Album::TYPE_DIALOGS);
-    }
-
     public function actionRating()
     {
         Yii::import('site.common.models.mongo.*');
@@ -141,7 +98,7 @@ class ConvertNewCommand extends CConsoleCommand
         $models = array(0);
         while (!empty($models)) {
             $models = CommunityContent::model()->resetScope()->findAll($criteria);
-            foreach ($models as $model){
+            foreach ($models as $model) {
                 if (empty($model->rubric_id))
                     $model->rubric_id = CommunityRubric::getDefaultUserRubric($model->author_id);
                 if (!empty($model->rubric_id))

@@ -41,10 +41,6 @@ class CommunityVideo extends HActiveRecord
                 ),
                 'show_video' => false,
             ),
-            'externalImages' => array(
-                'class' => 'site.common.behaviors.ExternalImagesBehavior',
-                'attributes' => array('text'),
-            ),
 		);
 	}
 

@@ -25,7 +25,7 @@ class HBreadcrumbs extends CWidget
         echo "<li class=\"crumbs-small_li\">Я здесь:</li>\n";
         $links=array();
         if($this->homeLink===null)
-            $links[]=CHtml::link(Yii::t('zii','Home'),Yii::app()->homeUrl);
+            $links[]=CHtml::link('Главная',Yii::app()->homeUrl);
         elseif($this->homeLink!==false)
             $links[]=$this->homeLink;
         foreach($this->links as $label=>$url)

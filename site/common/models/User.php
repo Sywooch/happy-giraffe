@@ -64,6 +64,7 @@
  * @property int $blogPostsCount
  * @property int $communityPostsCount
  * @property int $albumsCount
+ * @property CommunityClub[] $clubSubscriptions
  *
  * @method User active()
  */
@@ -350,8 +351,8 @@ class User extends HActiveRecord
 
             'friendLists' => array(self::HAS_MANY, 'FriendList', 'list_id'),
             'subscriber' => array(self::HAS_ONE, 'UserBlogSubscription', 'user_id'),
-            'clubSubscriber' => array(self::HAS_ONE, 'UserCommunitySubscription', 'user_id'),
-            'communitySubscriptions' => array(self::HAS_MANY, 'UserCommunitySubscription', 'user_id'),
+            'clubSubscriber' => array(self::HAS_ONE, 'UserClubSubscription', 'user_id'),
+            'clubSubscriptions' => array(self::HAS_MANY, 'UserClubSubscription', 'user_id'),
 
             'blogPhoto' => array(self::BELONGS_TO, 'AlbumPhoto', 'blog_photo_id'),
         );
@@ -439,9 +440,6 @@ class User extends HActiveRecord
         if ($this->trackable->isChanged('mood_id'))
             UserAction::model()->add($this->id, UserAction::USER_ACTION_MOOD_CHANGED, array('model' => $this));
 
-        Yii::import('site.frontend.modules.myGiraffe.models.*');
-        ViewedPost::getInstance($this->id);
-
         foreach ($this->social_services as $service) {
             $service->user_id = $this->id;
             $service->save();
@@ -455,6 +453,11 @@ class User extends HActiveRecord
             $rubric->title = 'Обо всём';
             $rubric->user_id = $this->id;
             $rubric->save();
+
+            Yii::import('site.frontend.modules.myGiraffe.models.*');
+            ViewedPost::getInstance($this->id);
+
+            Friend::model()->addCommentatorAsFriend($this->id);
 
             //create some tables
             Yii::app()->db->createCommand()->insert(UserPriority::model()->tableName(), array('user_id' => $this->id));

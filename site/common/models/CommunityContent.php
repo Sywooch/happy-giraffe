@@ -366,7 +366,7 @@ class CommunityContent extends HActiveRecord
                 } else {
                     $route = '/community/default/view';
                     $params = array(
-                        'community_id' => $this->rubric->community_id,
+                        'forum_id' => $this->rubric->community_id,
                         'content_type_slug' => $this->type->slug,
                         'content_id' => $this->id,
                     );
@@ -397,21 +397,20 @@ class CommunityContent extends HActiveRecord
 
     /*********************************************** Get dataProviders ************************************************/
     /**
-     * Возвращает записи в клуб
+     * Возвращает записи в форум
      *
-     * @param int $community_id id сообщества
+     * @param int $forum_id id форума
      * @param int $rubric_id id рубрики
-     * @param string $content_type_slug тип записей
      * @return CActiveDataProvider
      */
-    public function getContents($community_id, $rubric_id, $content_type_slug)
+    public function getContents($forum_id, $rubric_id)
     {
         $criteria = new CDbCriteria(array(
             'order' => 't.created DESC',
             'with' => array('rubric', 'type')
         ));
 
-        $criteria->compare('community_id', $community_id);
+        $criteria->compare('community_id', $forum_id);
         $criteria->scopes = array('active');
 
         if ($rubric_id !== null) {
@@ -419,8 +418,47 @@ class CommunityContent extends HActiveRecord
             $criteria->params[':rubric_id'] = $rubric_id;
         }
 
-        if ($content_type_slug !== null)
-            $criteria->compare('slug', $content_type_slug);
+        return new CActiveDataProvider($this, array(
+            'criteria' => $criteria,
+        ));
+    }
+
+    /**
+     * Возвращает все записи в раздел
+     *
+     * @param int $section_id id раздела
+     * @return CActiveDataProvider
+     */
+    public function getSectionContents($section_id)
+    {
+        $criteria = new CDbCriteria(array(
+            'order' => 't.created DESC',
+            'with' => array('rubric', 'rubric.community', 'rubric.community.club')
+        ));
+
+        $criteria->compare('section_id', $section_id);
+        $criteria->scopes = array('active');
+
+        return new CActiveDataProvider($this, array(
+            'criteria' => $criteria,
+        ));
+    }
+
+    /**
+     * Возвращает все записи в раздел
+     *
+     * @param int $club_id id раздела
+     * @return CActiveDataProvider
+     */
+    public function getClubContents($club_id)
+    {
+        $criteria = new CDbCriteria(array(
+            'order' => 't.created DESC',
+            'with' => array('rubric', 'rubric.community')
+        ));
+
+        $criteria->compare('club_id', $club_id);
+        $criteria->scopes = array('active');
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,

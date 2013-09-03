@@ -1,18 +1,18 @@
 <?php
 
 /**
- * This is the model class for table "user__community_subscriptions".
+ * This is the model class for table "user__club_subscriptions".
  *
- * The followings are the available columns in table 'user__community_subscriptions':
+ * The followings are the available columns in table 'user__club_subscriptions':
  * @property int $user_id
- * @property int $community_id
+ * @property int $club_id
  */
-class UserCommunitySubscription extends HActiveRecord
+class UserClubSubscription extends HActiveRecord
 {
     /**
      * Returns the static model of the specified AR class.
      * @param string $className active record class name.
-     * @return UserCommunitySubscription the static model class
+     * @return UserClubSubscription the static model class
      */
     public static function model($className = __CLASS__)
     {
@@ -24,7 +24,7 @@ class UserCommunitySubscription extends HActiveRecord
      */
     public function tableName()
     {
-        return 'user__community_subscriptions';
+        return 'user__club_subscriptions';
     }
 
     /**
@@ -33,10 +33,10 @@ class UserCommunitySubscription extends HActiveRecord
     public function rules()
     {
         return array(
-            array('user_id, community_id', 'required'),
+            array('user_id, club_id', 'required'),
             array('user_id', 'length', 'max' => 10),
-            array('community_id', 'length', 'max' => 11),
-            array('user_id, community_id', 'safe', 'on' => 'search'),
+            array('club_id', 'length', 'max' => 11),
+            array('user_id, club_id', 'safe', 'on' => 'search'),
         );
     }
 
@@ -47,21 +47,21 @@ class UserCommunitySubscription extends HActiveRecord
     {
         return array(
             'user' => array(self::BELONGS_TO, 'User', 'user_id'),
-            'community' => array(self::BELONGS_TO, 'Community', 'community_id'),
+            'club' => array(self::BELONGS_TO, 'CommunityClub', 'club_id'),
         );
     }
 
     /**
      * возвращает всех подписчиков клуба
      *
-     * @param int $community_id id клуба
+     * @param int $club_id id клуба
      * @param int $limit
      * @return User[]
      */
-    public function getSubscribers($community_id, $limit = 9)
+    public function getSubscribers($club_id, $limit = 9)
     {
         $criteria = new CDbCriteria;
-        $criteria->compare('community_id', $community_id);
+        $criteria->compare('club_id', $club_id);
         $criteria->with = array('clubSubscriber');
         $criteria->limit = $limit;
         return User::model()->findAll($criteria);
@@ -70,15 +70,15 @@ class UserCommunitySubscription extends HActiveRecord
     /**
      * Возвращает количество подписчиков
      *
-     * @param int $community_id
+     * @param int $club_id
      * @return int
      */
-    public function getSubscribersCount($community_id)
+    public function getSubscribersCount($club_id)
     {
         return Yii::app()->db->createCommand()
             ->select('count(*)')
             ->from($this->tableName())
-            ->where('community_id=:community_id', array(':community_id' => $community_id))
+            ->where('club_id=:club_id', array(':club_id' => $club_id))
             ->queryScalar();
     }
 
@@ -88,10 +88,10 @@ class UserCommunitySubscription extends HActiveRecord
      * @param int $user_id
      * @return int[]
      */
-    public static function getSubUserCommunities($user_id)
+    public static function getSubUserClubs($user_id)
     {
         return Yii::app()->db->createCommand()
-            ->select('community_id')
+            ->select('club_id')
             ->from(self::model()->tableName())
             ->where('user_id=:user_id', array(':user_id' => $user_id))
             ->queryColumn();
@@ -100,29 +100,29 @@ class UserCommunitySubscription extends HActiveRecord
     /**
      * Меняет подписку на клуб - если нет - добалвяет, если есть - удаляет
      *
-     * @param int $community_id
+     * @param int $club_id
      * @return bool успех
      */
-    public static function toggle($community_id)
+    public static function toggle($club_id)
     {
-        $model = self::model()->find('user_id=:user_id AND community_id=:community_id', array(
+        $model = self::model()->find('user_id=:user_id AND club_id=:club_id', array(
             ':user_id' => Yii::app()->user->id,
-            ':community_id' => $community_id,
+            ':club_id' => $club_id,
         ));
-        return $model === null ? self::add($community_id) : $model->delete();
+        return $model === null ? self::add($club_id) : $model->delete();
     }
 
     /**
      * Отписать пользователя user от клубы
      * @param int $user_id
-     * @param int $community_id
+     * @param int $club_id
      * @return bool успех
      */
-    public static function unSubscribe($user_id, $community_id)
+    public static function unSubscribe($user_id, $club_id)
     {
-        $model = self::model()->find('user_id=:user_id AND community_id=:community_id', array(
+        $model = self::model()->find('user_id=:user_id AND club_id=:club_id', array(
             ':user_id' => $user_id,
-            ':community_id' => $community_id,
+            ':club_id' => $club_id,
         ));
         return $model !== null ? true : $model->delete();
     }
@@ -131,14 +131,14 @@ class UserCommunitySubscription extends HActiveRecord
      * Подписан ли user на клуб
      *
      * @param int $user_id
-     * @param int $community_id
+     * @param int $club_id
      * @return bool успех
      */
-    public static function subscribed($user_id, $community_id)
+    public static function subscribed($user_id, $club_id)
     {
-        $model = self::model()->find('user_id=:user_id AND community_id=:community_id', array(
+        $model = self::model()->find('user_id=:user_id AND club_id=:club_id', array(
             ':user_id' => $user_id,
-            ':community_id' => $community_id,
+            ':club_id' => $club_id,
         ));
         return $model !== null;
     }
@@ -146,14 +146,14 @@ class UserCommunitySubscription extends HActiveRecord
     /**
      * Добавляет подписку на клуб
      *
-     * @param int $community_id
+     * @param int $club_id
      * @return bool успех
      */
-    public static function add($community_id)
+    public static function add($club_id)
     {
         $model = new self;
         $model->user_id = Yii::app()->user->id;
-        $model->community_id = $community_id;
+        $model->club_id = $club_id;
         return $model->save();
     }
 
@@ -167,10 +167,10 @@ class UserCommunitySubscription extends HActiveRecord
     {
         $all_club_ids = Yii::app()->db->cache(3600)->createCommand()
             ->select('id')
-            ->from('community__communities')
+            ->from('community__clubs')
             ->queryColumn();
 
-        $subscribed_ids = self::getSubUserCommunities($user_id);
+        $subscribed_ids = self::getSubUserClubs($user_id);
         return array_diff($all_club_ids, $subscribed_ids);
     }
 }

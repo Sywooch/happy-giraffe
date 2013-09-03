@@ -28,6 +28,11 @@ class ClubsWidget extends UserCoreWidget
      * @var bool
      */
     public $userClubs = true;
+    /**
+     * Клубы, которые показываем
+     * @var CommunityClub[]
+     */
+    public $clubs;
 
     /**
      * @var bool
@@ -37,9 +42,10 @@ class ClubsWidget extends UserCoreWidget
     public function init()
     {
         parent::init();
-        $this->visible = $this->isMyProfile || !empty($this->user->communities);
+
+        $this->visible = ($this->user) ? $this->isMyProfile || !empty($this->user->clubSubscriptions) : true;
         if ($this->visible) {
-            $this->data = $this->getUserCommunitiesData();
+            $this->data = $this->getUserClubsData();
 
             $this->viewFile = get_class($this) . $this->size . ($this->signup ? 'Signup' : '');
             Yii::app()->clientScript->registerPackage('ko_profile');
@@ -50,20 +56,22 @@ class ClubsWidget extends UserCoreWidget
      * Возвращает информацию о сообществах
      * @return array
      */
-    private function getUserCommunitiesData()
+    private function getUserClubsData()
     {
         $data = array();
-        if ($this->userClubs)
-            $communities = UserCommunitySubscription::getSubUserCommunities($this->user->id);
-        else
-            $communities = UserCommunitySubscription::notSubscribedClubIds($this->user->id);
-        $communities = Community::model()->findAllByPk($communities);
+        if (empty($this->clubs)){
+            if ($this->userClubs)
+                $this->clubs = UserClubSubscription::getSubUserClubs($this->user->id);
+            else
+                $this->clubs = UserClubSubscription::notSubscribedClubIds($this->user->id);
+        }
+        $clubs = CommunityClub::model()->findAllByPk($this->clubs);
 
-        foreach ($communities as $community) {
+        foreach ($clubs as $club) {
             $data [] = array(
-                'id' => $community->id,
-                'title' => $community->title,
-                'have' => ($this->isMyProfile && $this->userClubs) ? true : ((Yii::app()->user->isGuest) ? false : UserCommunitySubscription::subscribed($this->user->id, $community->id)),
+                'id' => $club->id,
+                'title' => $club->title,
+                'have' => Yii::app()->user->isGuest ? false : UserClubSubscription::subscribed($this->user->id, $club->id),
             );
         }
         return $data;

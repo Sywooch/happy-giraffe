@@ -75,7 +75,7 @@ class UserAvatar extends CActiveRecord
 
         $ava = new AlbumPhoto();
         $ava->author_id = $user_id;
-        $ava->album_id = Album::TYPE_PRIVATE;
+        $ava->album_id = Album::getAlbumByType($user_id, Album::TYPE_PRIVATE)->id;
         $ava->file_name = $source->file_name;
         $ava->fs_name = 'ava' . $source->fs_name;
         $ava->hidden = 1;
@@ -85,7 +85,7 @@ class UserAvatar extends CActiveRecord
         self::saveCoordinates($source_id, $x, $y, $w, $h, $ava);
 
         $source->hidden = 0;
-        $source->album_id = Album::TYPE_PRIVATE;
+        $source->album_id = Album::getAlbumByType($user_id, Album::TYPE_PRIVATE)->id;
         $source->update(array('hidden', 'album_id'));
 
         return $ava;

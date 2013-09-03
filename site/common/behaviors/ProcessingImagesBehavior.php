@@ -4,11 +4,14 @@
  * User: solivager
  * Date: 11/15/12
  * Time: 4:08 PM
- * To change this template use File | Settings | File Templates.
  */
-class ExternalImagesBehavior extends CActiveRecordBehavior
+class ProcessingImagesBehavior extends CActiveRecordBehavior
 {
     public $attributes = true;
+    public $searchPreviewPhoto = false;
+
+    private $first_big_photo;
+    private $preview_photo;
 
     public function beforeSave($event)
     {
@@ -18,6 +21,7 @@ class ExternalImagesBehavior extends CActiveRecordBehavior
         foreach ($attributes as $attr) {
             $doc = str_get_html($this->owner->$attr);
 
+            $num = 1;
             foreach ($doc->find('img') as $image) {
                 $element = null;
                 if (strpos($image->src, Yii::app()->params['photos_url']) !== 0 && strpos($image->src, '/') !== 0) {
@@ -27,7 +31,7 @@ class ExternalImagesBehavior extends CActiveRecordBehavior
                         $author_id = $this->owner->content->author_id; else
                         $author_id = Yii::app()->user->id;
 
-                    $photo = AlbumPhoto::createByUrl($image->src, $author_id, 2);
+                    $photo = AlbumPhoto::createByUrl($image->src, $author_id, 2, $this->owner->content->title . ' фото ' . $num);
                     if ($photo !== false) {
                         $newSrc = $photo->getPreviewUrl(700, 700, Image::WIDTH);
                         $image->src = $newSrc;
@@ -41,6 +45,7 @@ class ExternalImagesBehavior extends CActiveRecordBehavior
                             'Entity id: ' . $this->owner->id . "\n" .
                             '------------------------------' . "\n"
                             , 'warning');
+                        $num++;
                     } else {
                         $image->outertext = '';
                         Yii::log(
@@ -53,18 +58,39 @@ class ExternalImagesBehavior extends CActiveRecordBehavior
                             , 'warning');
                     }
                 } else {
+                    #TODO когда удаляешь фото нумерация картинок сбивается
                     //если ссылки на фотки с http://img.happy-giraffe.ru/
                     $photo = AlbumPhoto::getPhotoFromUrl($image->src);
+                    if ($photo && empty($photo->title)) {
+                        $photo->title = $this->owner->content->title . ' фото ' . $num;
+                        $photo->save(false);
+                    }
                     $element = $image;
                 }
 
-                if ($photo && $element) {
+                if ($photo)
+                    $num++;
+
+                //выбор фото для превью
+                if ($this->searchPreviewPhoto && $photo){
+                    if (empty($this->first_big_photo) && $photo->width >= 580)
+                        $this->first_big_photo = $photo;
+                    if (empty($this->preview_photo))
+                        $this->preview_photo = $photo;
+                }
+
+                if (isset($photo) && $photo && $element) {
                     //если не смайл добавляем <--widget-->
-                    if (strstr($image->src, '/images/widget/smiles/') === FALSE)
-                        $element->outertext = Yii::app()->controller->renderFile(Yii::getPathOfAlias('site.frontend.views.albums._widget') . '.php', array(
+                    if (strstr($image->src, '/images/widget/smiles/') === FALSE) {
+                        if (isset(Yii::app()->controller))
+                            $controller = Yii::app()->controller;
+                        else
+                            $controller = new CController('YiiC');
+                        $element->outertext = $controller->renderInternal(Yii::getPathOfAlias('site.frontend.views.albums._widget') . '.php', array(
                             'model' => $photo,
                             'comments' => (get_class($this->owner) == 'Comment') ? true : false
                         ), true);
+                    }
                 }
             }
 
@@ -91,6 +117,15 @@ class ExternalImagesBehavior extends CActiveRecordBehavior
             }
 
             $this->owner->$attr = $doc->save();
+        }
+
+        if ($this->searchPreviewPhoto){
+            if (!empty($this->first_big_photo))
+                $this->owner->photo_id = $this->first_big_photo->id;
+            elseif (!empty($this->preview_photo))
+                $this->owner->photo_id = $this->preview_photo->id;
+            else
+                $this->owner->photo_id = null;
         }
 
         parent::beforeSave($event);

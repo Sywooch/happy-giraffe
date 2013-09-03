@@ -135,8 +135,8 @@ class Comment extends HActiveRecord
                     'AutoFormat.Linkify' => true,
                 ),
             ),
-            'externalImages' => array(
-                'class' => 'site.common.behaviors.ExternalImagesBehavior',
+            'processingImages' => array(
+                'class' => 'site.common.behaviors.ProcessingImagesBehavior',
                 'attributes' => array('text'),
             ),
             'duplicate' => array(

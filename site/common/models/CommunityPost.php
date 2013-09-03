@@ -27,13 +27,6 @@ class CommunityPost extends HActiveRecord
     public function behaviors()
     {
         return array(
-            'previewSave' => array(
-                'class' => 'site.common.behaviors.PreviewBehavior',
-                'small_preview' => true,
-            ),
-            'addImageTags' => array(
-                'class' => 'site.common.behaviors.AddImageTagsBehavior',
-            ),
             'purified' => array(
                 'class' => 'site.common.behaviors.PurifiedBehavior',
                 'attributes' => array('text'),
@@ -44,9 +37,13 @@ class CommunityPost extends HActiveRecord
                     'AutoFormat.Linkify' => true,
                 ),
             ),
-            'externalImages' => array(
-                'class' => 'site.common.behaviors.ExternalImagesBehavior',
+            'processingImages' => array(
+                'class' => 'site.common.behaviors.ProcessingImagesBehavior',
                 'attributes' => array('text'),
+                'searchPreviewPhoto' => true
+            ),
+            'previewSave' => array(
+                'class' => 'site.common.behaviors.PreviewBehavior',
             ),
             'forEdit' => array(
                 'class' => 'site.common.behaviors.PrepareForEdit',
@@ -117,7 +114,6 @@ class CommunityPost extends HActiveRecord
         parent::afterSave();
     }
 
-
     protected function afterFind()
     {
         if (isset(Yii::app()->controller->route) && Yii::app()->controller->route == 'community/edit')
@@ -126,34 +122,8 @@ class CommunityPost extends HActiveRecord
         parent::afterFind();
     }
 
-    protected function beforeSave()
+    public function getPhoto()
     {
-        if ($this->isNewRecord)
-            $this->searchImage(Yii::app()->user->id);
-        else {
-            if (isset($this->content->author_id))
-                $this->searchImage($this->content->author_id);
-        }
-
-        $this->text = str_replace('<hr class="gallery" />', '<!--gallery-->', $this->text);
-
-        return parent::beforeSave();
-    }
-
-    public function getPhoto(){
         return $this->photo;
-    }
-
-    public function searchImage()
-    {
-        #TODO DEBUG
-        if (preg_match('/http:\/\/img.happy-giraffe.ru\/thumbs\/[\d]+x[\d]+\/[\d]+\/([^\"]+)/', $this->text, $m)
-        || preg_match('/http:\/\/img.happy-giraffe.com\/thumbs\/[\d]+x[\d]+\/[\d]+\/([^\"]+)/', $this->text, $m)
-        || preg_match('/http:\/\/img.dev.happy-giraffe.ru\/thumbs\/[\d]+x[\d]+\/[\d]+\/([^\"]+)/', $this->text, $m)) {
-            $photo = AlbumPhoto::model()->resetScope()->findByAttributes(array('fs_name' => $m[1]));
-            if (isset($photo)) {
-                $this->photo_id = $photo->id;
-            }
-        }
     }
 }

@@ -123,8 +123,8 @@ class RecipeBookRecipe extends HActiveRecord
                 'createAttribute' => 'created',
                 'updateAttribute' => 'updated',
             ),
-            'externalImages' => array(
-                'class' => 'site.common.behaviors.ExternalImagesBehavior',
+            'processingImages' => array(
+                'class' => 'site.common.behaviors.ProcessingImagesBehavior',
                 'attributes' => array('text'),
             ),
         );

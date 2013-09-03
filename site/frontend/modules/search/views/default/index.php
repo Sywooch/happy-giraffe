@@ -4,6 +4,8 @@
  */
 
 Yii::app()->clientScript->registerPackage('ko_search');
+$this->widget('FavouriteWidget', array('registerScripts' => true));
+Yii::app()->clientScript->registerPackage('ko_comments');
 ?>
 
 <div class="content-search">

@@ -24,16 +24,7 @@ class DefaultController extends HController
     public function actionIndex($user_id)
     {
         $this->layout = '//layouts/main';
-        $this->user = User::model()->active()->with(array(
-            'purpose',
-            'avatar',
-            'address',
-            'partner',
-            'babies',
-            'mood',
-            'score',
-            'albumsCount',
-        ))->findByPk($user_id);
+        $this->user = User::model()->active()->findByPk($user_id);
         if ($this->user === null)
             throw new CHttpException(404, 'Пользователь не найден');
         $this->pageTitle = $this->user->fullName . ' на Веселом Жирафе';

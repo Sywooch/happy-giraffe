@@ -10,5 +10,7 @@ $description = $model->getDescription();
     <div class="career-achievement_congratulation-slogan"><?=$description[1]; ?></div>
 </div>
 <div class="career-achievement_center">
-    <?=$model->getImage() ?>
+    <div class="career-achievement_scores-ico">
+        <?=$model->getImage() ?>
+    </div>
 </div>

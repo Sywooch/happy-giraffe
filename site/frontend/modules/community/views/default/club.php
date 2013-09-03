@@ -35,7 +35,7 @@ Yii::app()->clientScript->registerPackage('ko_community');
                     </div>
                 </div>
 
-                <ul class="b-section_ul b-section_ul__white margin-l30 clearfix">
+                <ul class="b-section_ul b-section_ul__white clearfix">
                     <?php $this->renderPartial('_links'); ?>
                 </ul>
             </div>

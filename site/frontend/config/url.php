@@ -133,7 +133,7 @@ return array(
         'beauty-and-health' => array('community/default/section', 'defaultParams' => array('section_id' => 3)),
         'husband-and-wife' => array('community/default/section', 'defaultParams' => array('section_id' => 4)),
         'interests-and-hobby' => array('community/default/section', 'defaultParams' => array('section_id' => 5)),
-        'family-outing' => array('community/default/section', 'defaultParams' => array('section_id' => 6)),
+        'family-holiday' => array('community/default/section', 'defaultParams' => array('section_id' => 6)),
 
         'community/<_a:(subscribe)>/'=>'community/default/<_a>',
         'community/<forum_id:\d+>/forum/rubric/<rubric_id:\d+>' => 'community/default/forum',

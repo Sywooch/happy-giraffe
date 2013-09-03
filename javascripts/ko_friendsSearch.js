@@ -147,7 +147,7 @@ function FriendsSearchViewModel(data) {
             self.users(ko.utils.arrayMap(users, function(user) {
                 return new OutgoingFriendRequest(user, self);
             }));
-            $(".layout-container").animate({ scrollTop: 0 }, "slow");
+            $("body").animate({ scrollTop: 0 }, "slow");
         });
     }
 

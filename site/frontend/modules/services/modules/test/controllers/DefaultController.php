@@ -1,26 +1,11 @@
 <?php
 
-class DefaultController extends HController
+class DefaultController extends ServiceController
 {
+    const SERVICE_ID = 9;
     /**
      * @todo добавить в sitemap
      */
-    public $layout = '//layouts/new';
-
-    public function filters()
-    {
-        return array(
-//            array(
-//                'COutputCache + view',
-//                'duration' => 10,
-//                'varyByParam' => array('slug'),
-//            ),
-//            array(
-//                'COutputCache + index',
-//                'duration' => 10,
-//            ),
-        );
-    }
 
     public function actionIndex()
     {

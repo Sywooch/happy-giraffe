@@ -49,7 +49,7 @@ class DefaultController extends HController
     {
         $forum = $this->loadForum($forum_id);
         $this->pageTitle = $forum->title;
-        $this->layout = 'forum';
+        $this->layout = '//layouts/forum';
         $this->rubric_id = $rubric_id;
         $this->forum = $forum;
 
@@ -65,7 +65,7 @@ class DefaultController extends HController
     public function actionView($forum_id, $content_type_slug, $content_id)
     {
         $forum = $this->loadForum($forum_id);
-        $this->layout = 'forum';
+        $this->layout = '//layouts/forum';
         $this->forum = $forum;
         $content = $this->loadContent($content_id, $content_type_slug);
         if (!empty($content->uniqueness) && $content->uniqueness < 50)

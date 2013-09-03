@@ -1,11 +1,11 @@
 <?php
 
-class DefaultController extends HController
+class DefaultController extends ServiceController
 {
+    const SERVICE_ID = 1;
     /**
      * @todo имена
      */
-
     public $layout = 'names';
     public $likes = 0;
 
@@ -33,10 +33,8 @@ class DefaultController extends HController
 
     public function init()
     {
-        $service = Service::model()->findByPk(1);
-        $service->userUsedService();
-
         parent::init();
+        $this->service->userUsedService();
     }
 
     public function actionIndex($letter = null, $gender = null)

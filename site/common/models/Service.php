@@ -170,6 +170,13 @@ class Service extends HActiveRecord
         return $sorted_users;
     }
 
+    public function getUsersCount()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->compare('service_id', $this->id);
+        return ServiceUser::model()->count($criteria);
+    }
+
     /**
      * @return int
      */

@@ -138,7 +138,7 @@ Yii::app()->clientScript
     </div>
 </div>
 
-<?php $this->render('_add_element'); ?>
+<?php $this->renderPartial('_add_element'); ?>
 
 <script type="text/javascript">
     $(function() {

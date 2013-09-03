@@ -225,7 +225,7 @@ class User extends HActiveRecord
             //signup
             array('first_name, last_name, password, passwordRepeat', 'required', 'on' => 'signup,signup_full', 'message' => 'Поле является обязательным'),
             array('email', 'required', 'on' => 'signup,signup_full', 'message' => 'Введите ваш E-mail адрес'),
-            array('birthday', 'required', 'on' => 'signup_full', 'message' => 'Поле является обязательным'),
+            array('birthday', 'required', 'on' => 'signup,signup_full', 'message' => 'Поле является обязательным'),
             array('gender', 'required', 'on' => 'signup,signup_full', 'message' => 'укажите свой пол'),
             array('first_name, last_name, gender, birthday, photo', 'safe', 'on' => 'signup,signup_full'),
             array('email', 'unique', 'on' => 'signup,signup_full', 'message' => 'Этот E-Mail уже используется'),

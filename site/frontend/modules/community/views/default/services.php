@@ -15,10 +15,10 @@
 <div class="col-23-middle ">
 
     <div class="col-gray">
-        <div class="heading-title margin-b10 margin-t15 clearfix">
+        <div class="heading-title margin-b10 margin-t15 clearfix" style="display: none;">
             Сервисы для кулинаров
         </div>
-        <p class="margin-l20 margin-r40 color-gray-dark">Одним из основных свидетельств правильного течения беременности является набор веса согласно принятым нормам. Оптимальный набор веса при беременности — это 10–14 кг.  </p>
+        <p class="margin-l20 margin-r40 color-gray-dark"><?=$this->club->services_description ?></p>
 
         <div class="club-services">
             <?php foreach ($services as $service) if ($service->show) { ?>

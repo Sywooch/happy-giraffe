@@ -7,6 +7,7 @@
  * @property string $id
  * @property string $title
  * @property string $description
+ * @property string $services_description
  * @property string $section_id
  *
  * The followings are the available model relations:
@@ -75,6 +76,7 @@ class CommunityClub extends HActiveRecord
 			'id' => 'ID',
 			'title' => 'Title',
 			'description' => 'Description',
+			'services_description' => 'Service Description',
 			'section_id' => 'Section',
 		);
 	}

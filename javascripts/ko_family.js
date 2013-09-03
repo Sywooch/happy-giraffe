@@ -84,34 +84,34 @@ var FamilyCommonPartner = function(data, parent, root) {
     ko.utils.extend(self, new FamilyCommonAdult(data, parent));
 
     self.isNewRecord = data.isNewRecord === undefined ? true : data.isNewRecord;
-    self.relationshipStatus = data.relationshipStatus;
+    self.relationshipStatus = data.relationshipStatus !== undefined ? data.relationshipStatus : root.me().relationshipStatus;
 
     self.cssClass = function() {
-        return 'ico-family__' + self.getAdultCssClass((1 + root.me().gender) % 2, root.me().relationshipStatus());
+        return 'ico-family__' + self.getAdultCssClass((1 + root.me().gender) % 2, self.relationshipStatus);
     }
 
     self.bigCssClass = function() {
-        return 'ico-family-big__' + self.getAdultCssClass((1 + root.me().gender) % 2, root.me().relationshipStatus());
+        return 'ico-family-big__' + self.getAdultCssClass((1 + root.me().gender) % 2, self.relationshipStatus);
     }
 
     self.title = function() {
         if (root.me().gender == 0) {
-            switch (root.me().relationshipStatus()) {
+            switch (self.relationshipStatus) {
                 case 1:
-                    return 'Жена';
+                    return 'Муж';
                 case 3:
-                    return 'Подруга';
+                    return 'Жених';
                 case 4:
-                    return 'Невеста';
+                    return 'Друг';
             }
         } else {
-            switch (root.me().relationshipStatus()) {
+            switch (self.relationshipStatus) {
                 case 1:
                     return 'Жена';
                 case 3:
-                    return 'Подруга';
-                case 4:
                     return 'Невеста';
+                case 4:
+                    return 'Подруга';
             }
         }
     };

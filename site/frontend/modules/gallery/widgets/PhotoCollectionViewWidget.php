@@ -16,6 +16,7 @@ class PhotoCollectionViewWidget extends CWidget
     public $maxRows = false;
     public $return = false;
     public $registerScripts = false;
+    public $href = null;
 
     public function run()
     {

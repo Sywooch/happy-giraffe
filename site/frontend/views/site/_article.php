@@ -47,7 +47,7 @@
             <?php endif; ?>
             <?php if ($model->type_id == CommunityContent::TYPE_PHOTO_POST): ?>
                 <div class="b-article_in-img">
-                    <?php $this->widget('PhotoCollectionViewWidget', array('width' => 235, 'maxHeight' => 100, 'href' => $model->url, 'maxRows' => 3, 'minPhotos' => 1, 'collection' => new PhotoPostPhotoCollection(array('contentId' => $model->id)))); ?>
+                    <?php $this->widget('PhotoCollectionViewWidget', array('width' => 245, 'maxHeight' => 100, 'href' => $model->url, 'maxRows' => 3, 'minPhotos' => 1, 'collection' => new PhotoPostPhotoCollection(array('contentId' => $model->id)))); ?>
                 </div>
             <?php endif; ?>
         </div>

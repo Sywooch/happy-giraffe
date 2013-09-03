@@ -35,7 +35,6 @@ class ConvertNewCommand extends CConsoleCommand
     {
         $criteria = new CDbCriteria;
         $criteria->limit = 1000;
-        $criteria->compare('content.author_id', 15266);
         $criteria->with = array('content');
         $criteria->offset = 0;
 

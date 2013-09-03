@@ -138,8 +138,8 @@ function FriendsViewModel(data) {
 
     self.init();
 
-    $('.layout-container').scroll(function() {
-        if (self.activeTab() <= 1 && self.loading() === false && self.lastPage() === false && (($('.layout-container').scrollTop() + $('.layout-container').height()) > ($('.layout-container').prop('scrollHeight') - 200)))
+    $(window).scroll(function() {
+        if (self.activeTab() <= 1 && self.loading() === false && self.lastPage() === false && (($(window).scrollTop() + $(window).height()) > (document.documentElement.scrollHeight - 500)))
             self.nextPage();
     });
 

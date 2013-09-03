@@ -123,8 +123,8 @@ function FavouritesViewModel(data) {
 
     self.init();
 
-    $('.layout-container').scroll(function() {
-        if (self.loading() === false && self.lastPage() === false && (($('.layout-container').scrollTop() + $('.layout-container').height()) > ($('.layout-container').prop('scrollHeight') - 200)))
+    $(window).scroll(function() {
+        if (self.loading() === false && self.lastPage() === false && (($(window).scrollTop() + $(window).height()) > (document.documentElement.scrollHeight - 500)))
             self.nextPage();
     });
 }

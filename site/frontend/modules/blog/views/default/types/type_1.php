@@ -32,10 +32,10 @@ $photo = $data->getPhoto()
 
     <div class="b-article_in clearfix">
         <div class="wysiwyg-content clearfix">
-            <p><?=$data->preview ?></p>
-            <?php if ($photo):?>
+            <?=$data->preview ?>
+            <?php if ($photo && $photo->width >= 580):?>
                 <div class="b-article_in-img">
-                    <img src="<?=$photo->getPreviewUrl(580, 1000, Image::WIDTH) ?>" class="content-img">
+                    <img src="<?=$photo->getPreviewUrl(580, 1100) ?>" class="content-img"<?php if ($photo->title) echo ' alt="'.$photo->title.'" title="'.$photo->title.'"'?>>
                 </div>
             <?php endif ?>
         </div>

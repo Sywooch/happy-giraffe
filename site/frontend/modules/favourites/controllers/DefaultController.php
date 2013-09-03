@@ -10,7 +10,7 @@ class DefaultController extends HController
     {
         return array(
             'accessControl',
-            'ajaxOnly - index',
+           // 'ajaxOnly - index',
         );
     }
 

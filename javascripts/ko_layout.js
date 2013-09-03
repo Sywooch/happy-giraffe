@@ -3,6 +3,8 @@ var LayoutViewModel = function(data) {
     self.newNotificationsCount = ko.observable(data.newNotificationsCount);
     self.newMessagesCount = ko.observable(data.newMessagesCount);
     self.newFriendsCount = ko.observable(data.newFriendsCount);
+    self.newPostsCount = ko.observable(data.newPostsCount);
+    self.newScoreCount = ko.observable(data.newScoreCount);
     self.activeModule = ko.observable(data.activeModule);
 
     $(function() {
@@ -18,9 +20,14 @@ var LayoutViewModel = function(data) {
             self.incNewNotificationsCount(self.incNewNotificationsCount() + 1);
         };
 
+        Comet.prototype.incScoresCount = function(result, id) {
+            self.newScoreCount(self.newScoreCount() + 1);
+        };
+
         comet.addEvent(1000, 'incNewNotificationsCount');
         comet.addEvent(1001, 'incNewFriendsCount');
         comet.addEvent(2000, 'incNewMessagesCount');
+        comet.addEvent(23, 'incScoresCount');
     });
 
 }

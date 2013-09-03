@@ -267,13 +267,11 @@
 #baby .pregnancy-weight-form button {
 	width:233px;
 	height:90px;
+	margin: 10px 0 0 15px;
+	padding: 0 0 5px;
 	background:url(../images/btn_pregnancy_weight_form.png) no-repeat;
 	border:0;
-	font-size:30px;
-	line-height:1;
-	font-family:tahoma, arial, sans-serif;
-	margin-top:10px;
-	margin-left:15px;
+	font: 30px/1em Tahoma, Arial, Verdana, sans-serif;
 	cursor:pointer;
 	color: #704224;
 	background-color: #fdd601;

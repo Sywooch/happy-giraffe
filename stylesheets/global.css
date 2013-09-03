@@ -13233,6 +13233,7 @@ table.fr_recipe_tb td {
   border-radius: 4px;
 }
 .blog-title-b_img-hold img {
+  display: block;
   max-width: none;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
@@ -13472,6 +13473,12 @@ table.fr_recipe_tb td {
 }
 .b-article-prev .b-article_in-img {
   margin: 8px -10px -12px;
+}
+.b-article-prev .photo-grid {
+  margin: 0 0 -1px;
+}
+.b-article-prev .photo-grid_i {
+  margin: 0 1px 0 0;
 }
 .b-article-prev_cont {
   position: relative;

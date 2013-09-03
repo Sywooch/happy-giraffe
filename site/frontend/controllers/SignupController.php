@@ -67,16 +67,7 @@ class SignupController extends HController
             }
             $model->register_date = date('Y-m-d H:i:s');
 
-            $transaction = Yii::app()->db->beginTransaction();
-            try {
-                $result = $model->save(true, array('first_name', 'last_name', 'password', 'email', 'gender', 'birthday'));
-                $transaction->commit();
-            } catch (Exception $e) {
-                $transaction->rollback();
-                $result = false;
-            }
-
-            if ($result) {
+            if ($model->save(true, array('first_name', 'last_name', 'password', 'email', 'gender', 'birthday'))) {
                 UserRegister::create($model->id);
 
                 if (!empty($model->baby_birthday)) {

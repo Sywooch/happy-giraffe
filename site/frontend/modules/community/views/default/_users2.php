@@ -12,6 +12,6 @@ $user_count = UserClubSubscription::model()->getSubscribersCount($this->club->id
         <?php endforeach; ?>
     </ul>
     <div class="clearfix">
-        <div class="readers2_count">Все участники клуба (<?= $user_count ?>)</div>
+        <div class="readers2_count">Все участники клуба (<!-- ko text: count --><!-- /ko -->)</div>
     </div>
 </div>

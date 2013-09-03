@@ -11,7 +11,9 @@
             </div>
             <div class="career-achievement_center">
                 <?php if (method_exists($model, 'getImage')):?>
+                    <div class="career-achievement_scores-ico">
                     <?=$model->getImage() ?>
+                    </div>
                 <?php else: ?>
                     <div class="career-achievement-ico <?=$model->getIcon() ?>"></div>
                 <?php endif ?>

@@ -64,10 +64,12 @@ class ProcessingImagesBehavior extends CActiveRecordBehavior
                     if ($photo && empty($photo->title)) {
                         $photo->title = $this->owner->content->title . ' фото ' . $num;
                         $photo->save(false);
-                        $num++;
                     }
                     $element = $image;
                 }
+
+                if ($photo)
+                    $num++;
 
                 //выбор фото для превью
                 if ($this->searchPreviewPhoto && $photo){

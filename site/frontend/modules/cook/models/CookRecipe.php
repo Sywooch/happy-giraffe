@@ -351,6 +351,11 @@ class CookRecipe extends CActiveRecord
         return $this->_nutritionals;
     }
 
+    public function getTotalCalories()
+    {
+        return round($this->nutritionals['total']['nutritionals'][1], 2);
+    }
+
     public function getNutritionalsPer100g($nutritional_id)
     {
         return round($this->nutritionals['g100']['nutritionals'][$nutritional_id], 2);

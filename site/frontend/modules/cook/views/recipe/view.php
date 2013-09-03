@@ -54,14 +54,12 @@
 
                 <div class="clearfix">
                     <div class="nutrition float-r">
-                        <a class="nutrition_t a-pseudo" data-bind="click: rootNutritionHandler">Калорийность блюда - 588 ккал</a>
+                        <a class="nutrition_t a-pseudo" data-bind="click: rootNutritionHandler">Калорийность блюда - <?=$recipe->getTotalCalories()?> ккал</a>
 
                         <div class="nutrition_hold" data-bind="css: { 'display-b' : showNutritions() !== false }">
                             <div class="nutrition_portion">
                                 <a class="nutrition_portion-a" data-bind="css: { active : showNutritions() == SHOW_NUTRITIONS_100G }, click: function(data, event) { setNutrition(SHOW_NUTRITIONS_100G, data, event) }">На 100 г</a>
-                                <?php if ($recipe->servings): ?>
-                                    <a class="nutrition_portion-a" data-bind="css: { active : showNutritions() == SHOW_NUTRITIONS_SERVING }, click: function(data, event) { setNutrition(SHOW_NUTRITIONS_SERVING, data, event) }">На порцию</a>
-                                <?php endif; ?>
+                                <a class="nutrition_portion-a" data-bind="css: { active : showNutritions() == SHOW_NUTRITIONS_SERVING, disabled : ! hasServings }, click: function(data, event) { if (hasServings) setNutrition(SHOW_NUTRITIONS_SERVING, data, event) }">На порцию</a>
                             </div>
                             <ul class="nutrition_ul" data-bind="visible: showNutritions() == SHOW_NUTRITIONS_100G">
                                 <li class="nutrition_li">
@@ -262,11 +260,12 @@
 </div>
 
 <script type="text/javascript">
-    var RecipeViewModel = function() {
+    var RecipeViewModel = function(data) {
         var self = this;
         self.SHOW_NUTRITIONS_100G = 0;
         self.SHOW_NUTRITIONS_SERVING = 1;
         self.showNutritions = ko.observable(false);
+        self.hasServings = data.hasServings;
 
         self.rootNutritionHandler = function() {
             if (self.showNutritions() === false)
@@ -280,6 +279,6 @@
         }
     }
 
-    recipeVM = new RecipeViewModel();
+    recipeVM = new RecipeViewModel(<?=CJSON::encode(array('hasServings' => $recipe->servings !== null))?>);
     ko.applyBindings(recipeVM, document.getElementById('recipe'));
 </script>

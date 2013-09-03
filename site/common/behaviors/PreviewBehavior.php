@@ -31,16 +31,11 @@ class PreviewBehavior extends CActiveRecordBehavior
         if ($this->small_preview || isset($this->owner->photo_id) && !empty($this->owner->photo_id) && $this->owner->photo->width >= 580) {
             //если есть фото или известно что нужно показаться короткое превью, берем первый параграф
             $p_list = $doc->find('p');
-            echo '1';
             if (count($p_list) == 0)
                 return '<p>' . Str::truncate($text, self::LIMIT_SMALL * 2) . '</p>';
 
-            echo '2';
             foreach ($p_list as $p) {
-                echo $p->plaintext."\n";
                 $p_text = $this->getParagraphText($p);
-                echo $p_text."\n";
-                //Yii::app()->end();
                 if (!empty($p_text))
                     return '<p>' . Str::truncate($p_text, self::LIMIT_SMALL * 2) . '</p>';
             }

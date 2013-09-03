@@ -76,7 +76,7 @@
 								<a href="" class="ava female"></a>
 							</div>
 						</div>
-						<ul class="b-section_ul b-section_ul__white margin-l30 clearfix">
+						<ul class="b-section_ul b-section_ul__white clearfix">
 							<li class="b-section_li"><a href="" class="b-section_li-a">Форум</a></li>
 							<li class="b-section_li"><a href="" class="b-section_li-a">Маршруты</a></li>
 						</ul>

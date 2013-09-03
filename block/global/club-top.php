@@ -47,7 +47,7 @@
 						<li class="club-list_li">
 							<a href="" class="club-list_i">
 								<span class="club-list_img-hold">
-									<img src="/images/club/22-w130.png" alt="" class="club-list_img">
+									<img src="/images/club/7-w130.png" alt="" class="club-list_img">
 								</span>
 							</a>
 						</li>

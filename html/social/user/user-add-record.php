@@ -763,7 +763,7 @@
 									</div>
 									-->
 								</div>
-								<div class="color-gray font-small margin-t5">Если вы не выберете рубрику, запись добавится в рубрику "Обо всем"</div>
+								<div class="b-settings-blue_row-desc">Если вы не выберете рубрику, запись добавится в рубрику "Обо всем"</div>
 							</div>
 						</div>
 					</div>

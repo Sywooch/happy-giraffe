@@ -267,6 +267,7 @@
 										</div>
 									</div>
 									<div class="b-add-img_html5-tx">или перетащите фото сюда</div>
+									<a class="b-add-img_i-del ico-close2 powertip" href="" title="Удалить"></a>
 								</div>
 							</div>
 						</div>

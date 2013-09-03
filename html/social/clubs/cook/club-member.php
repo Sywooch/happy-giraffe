@@ -65,7 +65,7 @@
 					<div class="col-23-middle clearfix">
 						<div class="b-section_transp">
 							<h1 class="b-section_transp-t">Готовим на кухне</h1>
-							<div class="b-section_transp-desc">Здесь собрано все что нужно для цветоводов. Растения, удобрения <br>чувство юмора имеется, на шею не сажусь, проблемами не загружаю. </div>
+							<div class="b-section_transp-desc">Здесь собрано все что нужно для цветоводов. Растения, удобрения <br>чувство юмора имеется, на шею не сажусь, проблемами не загружаю.на шею не сажусь, проблемами не загружаю. </div>
 							<div class="b-section_club-moder">
 								<span class="b-section_club-moder-tx">Модераторы <br> клуба</span>
 								<a href="" class="ava"><img src="/images/user_friends_img.jpg"></a>
@@ -76,7 +76,7 @@
 								<a href="" class="ava female"></a>
 							</div>
 						</div>
-						<ul class="b-section_ul b-section_ul__white margin-l30 clearfix">
+						<ul class="b-section_ul b-section_ul__white clearfix">
 							<li class="b-section_li"><a href="" class="b-section_li-a">Рецепты</a></li>
 							<li class="b-section_li"><a href="" class="b-section_li-a">Для детей</a></li>
 							<li class="b-section_li"><a href="" class="b-section_li-a">Для мультиварки</a></li>

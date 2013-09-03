@@ -378,13 +378,13 @@
 					</li>
 					<li class="start-page_club-li">
 						<a href="" class="start-page_club-i">
-							<img src="/images/club/collection/3.png" alt="" class="start-page_club-img">
+							<img src="/images/club/collection/4.png" alt="" class="start-page_club-img">
 							<span class="start-page_club-tx">Муж и жена</span>
 						</a>
 					</li>
 					<li class="start-page_club-li">
 						<a href="" class="start-page_club-i">
-							<img src="/images/club/collection/4.png" alt="" class="start-page_club-img">
+							<img src="/images/club/collection/3.png" alt="" class="start-page_club-img">
 							<span class="start-page_club-tx">Красота <br> и здоровье</span>
 						</a>
 					</li>

@@ -305,7 +305,7 @@
     padding: 15px 20px 5px;
     border-left: 3px solid #98bf59;
     background: #f2fce2;
-    font: italic 12px/19px Georgia, 'Times New Roman', Times, serif;
+    font: 12px/19px Georgia, 'Times New Roman', Times, serif;
     color: #727272;
 
     ul li {
@@ -1967,8 +1967,11 @@ table.fr_recipe_tb td { width: 50%;}
         width: 490px;
         margin: 0 auto 20px;
     }
-    &_row {
-        margin-bottom: 15px;
+    &_row {margin-bottom: 15px;}
+    &_row-desc {
+        margin-top: 5px;
+        font: 11px/13px Tahoma, Arial, Verdana, sans-serif;
+        color: #8BB6D0;
     }
     &_label {
         float: left;
@@ -2793,7 +2796,7 @@ table.fr_recipe_tb td { width: 50%;}
         vertical-align: middle;
         margin-right: 5px;
         border: 2px solid #fff;
-        .border-radius(43px);
+        .border-radius(50px);
     }
     &_popup-img img {display: block;}
     &_popup-desc {
@@ -2969,6 +2972,7 @@ table.fr_recipe_tb td { width: 50%;}
     }
     &_t > a {color: #186fb8;}
     &_ul {margin: 18px 0 0;}
+    &_ul__white {margin-left: 30px;}
     &_ul__white &_li-a {color: #fff;}
     &_li {
         float: left;
@@ -2985,23 +2989,22 @@ table.fr_recipe_tb td { width: 50%;}
     }
     &_transp {
         width: 480px;
-        height: 203px;
         margin: 0 auto 29px;
-        padding: 0 0 10px;
+        padding: 8px 0 10px;
         text-align: center;
         color: #fff;
         background: rgba(0,0,0,.25);
         .border-radius(5px);
     }
     &_transp-t {
-        margin-bottom: 7px;
-        font-size: 50px;
-        line-height: normal;
-        font-weight: bold;
+        margin-bottom: 0;
+        font: bold 50px/55px Arial, Tahoma, Verdana, sans-serif;
         color: #fff;
         text-shadow: 0 2px 3px rgba(0,0,0,.5);
     }
     &_transp-desc {
+        height: 48px;
+        line-height: 16px;
         padding: 0 30px;
         text-shadow: 0 2px 3px rgba(0,0,0,.5);
     }
@@ -3019,7 +3022,7 @@ table.fr_recipe_tb td { width: 50%;}
         border-bottom: 1px dashed #fff;
     }
     &_club-moder {
-        margin: 15px 0 10px;
+        margin: 10px 0 10px;
         text-align: center;
         font-size: 16px;
     }

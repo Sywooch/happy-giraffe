@@ -138,6 +138,7 @@
 							<div class="career-achievement_left">
 								<div class="career-achievement_time font-smallest color-gray">Сегодня, 13:25</div>
 								<div class="career-achievement_tx"> Первая запись в блоге</div>
+								<a href="" class="career-achievement_a">Привет все! Привет все! Привет все! Привет все! Привет все! Привет все! Привет все!</a>
 							</div>
 							<div class="career-achievement_center">
 								<div class="career-achievement-ico career-achievement-ico__blog"></div>

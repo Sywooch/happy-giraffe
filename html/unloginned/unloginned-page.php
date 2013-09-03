@@ -143,7 +143,7 @@
 								<a class="ava female" href=""></a>
 							</div>
 						</div>
-						<ul class="b-section_ul b-section_ul__white margin-l30 clearfix">
+						<ul class="b-section_ul b-section_ul__white clearfix">
 							<li class="b-section_li"><a class="b-section_li-a" href="">Рецепты</a></li>
 							<li class="b-section_li"><a class="b-section_li-a" href="">Для детей</a></li>
 							<li class="b-section_li"><a class="b-section_li-a" href="">Для мультиварки</a></li>

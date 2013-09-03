@@ -12675,7 +12675,7 @@
   padding: 15px 20px 5px;
   border-left: 3px solid #98bf59;
   background: #f2fce2;
-  font: italic 12px/19px Georgia, 'Times New Roman', Times, serif;
+  font: 12px/19px Georgia, 'Times New Roman', Times, serif;
   color: #727272;
 }
 .brushed ul li {
@@ -14943,6 +14943,11 @@ table.fr_recipe_tb td {
 .b-settings-blue_row {
   margin-bottom: 15px;
 }
+.b-settings-blue_row-desc {
+  margin-top: 5px;
+  font: 11px/13px Tahoma, Arial, Verdana, sans-serif;
+  color: #8BB6D0;
+}
 .b-settings-blue_label {
   float: left;
   width: 80px;
@@ -15865,9 +15870,9 @@ table.fr_recipe_tb td {
   vertical-align: middle;
   margin-right: 5px;
   border: 2px solid #fff;
-  -webkit-border-radius: 43px;
-  -moz-border-radius: 43px;
-  border-radius: 43px;
+  -webkit-border-radius: 50px;
+  -moz-border-radius: 50px;
+  border-radius: 50px;
 }
 .user-awards_popup-img img {
   display: block;
@@ -16101,6 +16106,9 @@ table.fr_recipe_tb td {
 .b-section_ul {
   margin: 18px 0 0;
 }
+.b-section_ul__white {
+  margin-left: 30px;
+}
 .b-section_ul__white .b-section_li-a {
   color: #fff;
 }
@@ -16119,9 +16127,8 @@ table.fr_recipe_tb td {
 }
 .b-section_transp {
   width: 480px;
-  height: 203px;
   margin: 0 auto 29px;
-  padding: 0 0 10px;
+  padding: 8px 0 10px;
   text-align: center;
   color: #fff;
   background: rgba(0, 0, 0, 0.25);
@@ -16130,14 +16137,14 @@ table.fr_recipe_tb td {
   border-radius: 5px;
 }
 .b-section_transp-t {
-  margin-bottom: 7px;
-  font-size: 50px;
-  line-height: normal;
-  font-weight: bold;
+  margin-bottom: 0;
+  font: bold 50px/55px Arial, Tahoma, Verdana, sans-serif;
   color: #fff;
   text-shadow: 0 2px 3px rgba(0, 0, 0, 0.5);
 }
 .b-section_transp-desc {
+  height: 48px;
+  line-height: 16px;
   padding: 0 30px;
   text-shadow: 0 2px 3px rgba(0, 0, 0, 0.5);
 }
@@ -16157,7 +16164,7 @@ table.fr_recipe_tb td {
   border-bottom: 1px dashed #fff;
 }
 .b-section_club-moder {
-  margin: 15px 0 10px;
+  margin: 10px 0 10px;
   text-align: center;
   font-size: 16px;
 }

@@ -49,11 +49,11 @@ class DefaultController extends HController
     {
         $forum = $this->loadForum($forum_id);
         $this->pageTitle = $forum->title;
-        $this->layout = '//layouts/forum';
+        $this->layout = ($forum_id == Community::COMMUNITY_NEWS) ? '//layouts/news' : '//layouts/forum';
         $this->rubric_id = $rubric_id;
         $this->forum = $forum;
 
-        $this->breadcrumbs = array(
+        $this->breadcrumbs = ($forum_id == Community::COMMUNITY_NEWS) ? array() : array(
             $this->club->section->title => $this->club->section->getUrl(),
             $this->club->title => $this->club->getUrl(),
             $this->forum->title
@@ -67,7 +67,7 @@ class DefaultController extends HController
     public function actionView($forum_id, $content_type_slug, $content_id)
     {
         $forum = $this->loadForum($forum_id);
-        $this->layout = '//layouts/forum';
+        $this->layout = ($forum_id == Community::COMMUNITY_NEWS) ? '//layouts/news' : '//layouts/forum';
         $this->forum = $forum;
         $content = $this->loadContent($content_id, $content_type_slug);
         if (!empty($content->uniqueness) && $content->uniqueness < 50)
@@ -150,7 +150,7 @@ class DefaultController extends HController
         if (!empty($content_type_slug) && !in_array($content_type_slug, array('post', 'video', 'photoPost')))
             throw new CHttpException(404, 'Страницы не существует');
 
-        if ($this->club->id != $content->rubric->community->club_id || $content_type_slug != $content->type->slug) {
+        if ($this->club !== null && $this->club->id != $content->rubric->community->club_id || $content_type_slug != $content->type->slug) {
             header("HTTP/1.1 301 Moved Permanently");
             header("Location: " . $content->url);
             Yii::app()->end();
@@ -196,5 +196,19 @@ class DefaultController extends HController
         if ($model === null)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
         return $model;
+    }
+
+    public function getUrl($overwrite = array(), $route = '/community/default/forum')
+    {
+        $params = array_filter(CMap::mergeArray(
+            array(
+                'forum_id' => $this->forum->id,
+                'rubric_id' => isset($this->actionParams['rubric_id']) ? $this->actionParams['rubric_id'] : null,
+                'content_type_slug' => isset($this->actionParams['content_type_slug']) ? $this->actionParams['content_type_slug'] : null,
+            ),
+            $overwrite
+        ));
+
+        return $this->createUrl($route, $params);
     }
 }

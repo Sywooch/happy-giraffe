@@ -565,7 +565,7 @@ class User extends HActiveRecord
 
     public function getBlogPhoto()
     {
-        return $this->blogPhoto === null ? $this->getDefaultBlogPhoto() : array(
+        return $this->blogPhoto === null ? null : array(
             'id' => $this->blogPhoto->id,
             'originalSrc' => $this->blogPhoto->getOriginalUrl(),
             'thumbSrc' => $this->blogPhoto->getBlogUrl(),

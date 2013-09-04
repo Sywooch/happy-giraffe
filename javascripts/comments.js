@@ -143,7 +143,9 @@ function NewComment(data, parent) {
     });
 
     self.Like = function () {
-        if (CURRENT_USER_ID != self.author.id()) {
+        if (userIsGuest)
+            $('a[href=#login]').trigger('click');
+        else if (CURRENT_USER_ID != self.author.id()) {
             $.post('/ajaxSimple/commentLike/', {id: self.id}, function (response) {
                 if (response.status) {
                     if (self.userLikes()) {
@@ -201,7 +203,10 @@ function NewComment(data, parent) {
     };
 
     self.Reply = function () {
-        self.parent.Reply(self);
+        if (userIsGuest)
+            $('a[href=#login]').trigger('click');
+        else
+            self.parent.Reply(self);
     };
 
     self.Enter = function () {

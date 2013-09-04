@@ -126,9 +126,13 @@ class ConvertNewCommand extends CConsoleCommand
             $models = CommunityVideo::model()->findAll($criteria);
             foreach ($models as $model)
                 if (isset($model->content)) {
-                    $video = Video::factory($model->link);
-                    $model->embed = $video->embed;
-                    $model->save(true, array('embed'));
+                    try {
+                        $video = Video::factory($model->link);
+                        $model->embed = $video->embed;
+                        $model->save(true, array('embed'));
+                    } catch (Exception $e) {
+
+                    }
                 }
 
             $criteria->offset += 1000;

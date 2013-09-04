@@ -170,7 +170,9 @@
 
 
                 <h2 class="wysiwyg-content_t-sub">Приготовление</h2>
-                <?=$recipe->purified->text?>
+                <div class="instructions">
+                    <?=$recipe->purified->text?>
+                </div>
             </div>
             <div class="clearfix">
                 <?php if ($recipe->servings): ?>

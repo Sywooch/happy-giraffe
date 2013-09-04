@@ -258,15 +258,18 @@ var UserClub = function (data, size, parent) {
         return self.have() ? 'Покинуть клуб': 'Вступить в клуб';
     });
     self.toggle = function () {
-        $.post('/ajaxSimple/clubToggle/', {club_id: self.id()}, function (response) {
-            if (response.status){
-                self.have(!self.have());
-                if (self.parent.deleteClub && self.have()){
-                    console.log('remove');
-                    self.parent.clubs.remove(self);
+        if (userIsGuest)
+            $('a[href=#login]').trigger('click');
+        else
+            $.post('/ajaxSimple/clubToggle/', {club_id: self.id()}, function (response) {
+                if (response.status){
+                    self.have(!self.have());
+                    if (self.parent.deleteClub && self.have()){
+                        console.log('remove');
+                        self.parent.clubs.remove(self);
+                    }
                 }
-            }
-        }, 'json');
+            }, 'json');
     }
 };
 

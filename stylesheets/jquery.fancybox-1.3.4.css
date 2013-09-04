@@ -216,9 +216,9 @@
     width: 11px;}
 .white-simple-theme #fancybox-close:hover {background-position:-315px -149px;}
 
-.transparent-theme .fancybox-bg {display: none;}
-.transparent-theme #fancybox-outer {padding:0;background:none;}
-.transparent-theme #fancybox-wrap {padding:0;background:none;}
+.fancybox-bg {display: none;}
+#fancybox-outer {padding:0;background:none;}
+#fancybox-wrap {padding:0;background:none;}
 
 
 #fancybox-bg-n {

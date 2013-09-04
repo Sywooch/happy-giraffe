@@ -107,8 +107,10 @@ class CommunityVideo extends HActiveRecord
         try {
             $video = Video::factory($this->link);
             $this->embed = $video->embed;
-            $photo = AlbumPhoto::createByUrl($video->thumbnail, $this->isNewRecord ? Yii::app()->user->id : $this->content->author_id, Album::TYPE_PREVIEW);
-            $this->photo_id = $photo->id;
+            if (isset($this->content)){
+                $photo = AlbumPhoto::createByUrl($video->thumbnail, $this->isNewRecord ? Yii::app()->user->id : $this->content->author_id, Album::TYPE_PREVIEW);
+                $this->photo_id = $photo->id;
+            }
             return parent::beforeValidate();
         }
         catch (CException $e) {

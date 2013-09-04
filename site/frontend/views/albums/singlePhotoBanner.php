@@ -118,8 +118,6 @@ if (isset($model->content) && method_exists($model->content, 'isValentinePost') 
 }
 else {
     $this->widget('site.frontend.widgets.socialLike.SocialLikeWidget', array(
-        'title' => 'Вам понравилось фото?',
-        'notice' => (get_class($model) == 'Contest') ? '<big>Это конкурсные баллы</big><p>Нажатие на кнопку социальных сетей +1 балл.<br />Нажатие сердечка от Весёлого Жирафа +2 балла.</p>' : '<big>Рейтинг фото</big><p>Он показывает, насколько нравится ваше фото другим пользователям. Если фото интересное, то пользователи его смотрят, комментируют, увеличивают лайки социальных сетей.</p>',
         'model' => (get_class($model) == 'Contest') ? $photo->getAttachByEntity('ContestWork')->model : $photo,
         'type' => 'simple',
         'options' => array(

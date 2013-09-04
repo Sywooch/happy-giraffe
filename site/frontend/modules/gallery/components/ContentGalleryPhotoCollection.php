@@ -17,7 +17,7 @@ class ContentGalleryPhotoCollection extends PhotoCollection
             SELECT i.photo_id
             FROM community__content_gallery_items i
             INNER JOIN community__content_gallery g ON i.gallery_id = g.id
-            WHERE g.content_id = :contentId;
+            WHERE g.content_id = :content_id;
         ";
         return Yii::app()->db->createCommand($sql)->queryColumn(array(':content_id' => $this->contentId));
     }
@@ -28,7 +28,7 @@ class ContentGalleryPhotoCollection extends PhotoCollection
             SELECT COUNT(*)
             FROM community__content_gallery_items i
             INNER JOIN community__content_gallery g ON i.gallery_id = g.id
-            WHERE g.content_id = 3335;
+            WHERE g.content_id = :content_id;
         ";
         $dependency = new CDbCacheDependency($sql);
         $dependency->params = array(':content_id' => $this->contentId);

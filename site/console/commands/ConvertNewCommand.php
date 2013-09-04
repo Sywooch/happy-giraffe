@@ -41,10 +41,10 @@ class ConvertNewCommand extends CConsoleCommand
         $models = array(0);
         while (!empty($models)) {
             $models = CommunityPost::model()->findAll($criteria);
-            foreach ($models as $model){
+            foreach ($models as $model) {
                 if (strpos($model->text, '<img') !== false && strpos($model->text, '<!-- widget:') === false)
                     $model->save();
-                echo $model->content_id."\n";
+                echo $model->content_id . "\n";
             }
 
             $criteria->offset += 1000;
@@ -122,13 +122,14 @@ class ConvertNewCommand extends CConsoleCommand
         $criteria->offset = 0;
 
         $models = array(0);
-        while (! empty($models)) {
+        while (!empty($models)) {
             $models = CommunityVideo::model()->findAll($criteria);
-            foreach ($models as $model) {
-                $video = Video::factory($model->link);
-                $model->embed = $video->embed;
-                $model->save(true, array('embed'));
-            }
+            foreach ($models as $model)
+                if (isset($model->content)) {
+                    $video = Video::factory($model->link);
+                    $model->embed = $video->embed;
+                    $model->save(true, array('embed'));
+                }
 
             $criteria->offset += 1000;
             echo $criteria->offset . "\n";

@@ -178,6 +178,4 @@
     $this->endWidget();
 ?>
 
-<?php
-    $this->widget('application.widgets.seo.SeoLinksWidget');
-?>
+<?php $this->widget('application.widgets.seo.SeoLinksWidget'); ?>

@@ -93,8 +93,14 @@ class HGLike extends HMongoModel
      */
     public function countByEntity($entity)
     {
+        if (method_exists($entity, 'getIsFromBlog')) {
+            if ($entity->getIsFromBlog())
+                $entity_name = 'BlogContent';
+            else
+                $entity_name = 'CommunityContent';
+        } else
+            $entity_name = get_class($entity);
         $entity_id = (int)$entity->primaryKey;
-        $entity_name = get_class($entity);
 
         return $this->getCollection()->count(array(
             'entity_id' => $entity_id,
@@ -111,7 +117,7 @@ class HGLike extends HMongoModel
     public function saveByEntity($entity)
     {
         $model = $this->findByEntity($entity);
-        if ($model){
+        if ($model) {
             $model->delete();
             PostRating::reCalc($entity);
             return false;

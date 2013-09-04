@@ -37,7 +37,16 @@
 		</div>
 		<div class="photo-window_top-hold">
 			<div class="photo-window_count">25 фото из 52</div>
-			<div class="photo-window_t">Детский лагерь «Зеркальный». Ленинградская область. Ленинградская область. Ленинградская область. Ленинградская область. Ленинградская область.</div>
+			<div class="photo-window_t clearfix">
+				<div class="display-ib w-50p margin-t5">
+					<input type="text" class="itx-simple" id="" name="" placeholder="Введите заголовок фото">
+				</div>
+				<!--  
+				Если нужно ограничение в количестве символов
+				<div class="display-ib color-gray font-small">5/50</div>
+				-->
+				<button class="btn-green btn-small margin-l10">Ok</button>
+			</div>
 		</div>
 		
 	</div>
@@ -95,6 +104,12 @@
 	</div>
 	
 	<div class="photo-window_bottom">
+		<div class="display-ib w-500 verticalalign-b">
+			
+			<textarea name="" id="" cols="30" rows="2" class="itx-simple" placeholder="Введите описание фото"></textarea>
+		</div>
+		<button class="btn-green btn-small margin-l10 verticalalign-b">Ok</button>
+		<!--
 		<script type="text/javascript">
 		$(document).ready(function () {
 			$('.photo-window_bottom').click(function(){
@@ -102,13 +117,14 @@
 			});
 		});
 		</script>
-		<div class="photo-window_desc">
+		-->
+		<!-- <div class="photo-window_desc">
 			<p>В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, спокойные игры <span class="photo-window_desc-more"> ... <a href="javascript:void(0)" >Читать полностью</a> </span></p>
 		</div>
 		<div class="photo-window_desc photo-window_desc__full">
 			<p>В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, спокойные игры В круглогодичном лечебно-развлекательном лагере</p>
 			<p>В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, эстафеты и спокойные игры.  <a href="javascript:void(0)" class="">Кратко</a> </p>
-		</div>
+		</div> -->
 	</div>
 
 	<div class="photo-window_right">

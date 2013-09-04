@@ -95,6 +95,8 @@ class PurifiedBehavior extends CActiveRecordBehavior
                 if (pq($link)->attr('target') != '_blank')
                     pq($link)->attr('target', '_blank');
 
+                pq($link)->attr('href', '/site/out/?url=' . pq($link)->attr('href'));
+
             } else {
                 //внутренние ссылки обрабатываем дополнительно
                 pq($link)->removeAttr('target');

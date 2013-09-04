@@ -170,7 +170,7 @@
 						<li class="club-list_li club-list_li__in">
 							<a href="" class="club-list_i">
 								<span class="club-list_img-hold">
-									<img src="/images/club/2.png" alt="" class="club-list_img">
+									<img src="/images/club/2-w130.png" alt="" class="club-list_img">
 								</span>
 								<span class="club-list_i-name">Дети</span>
 							</a>
@@ -179,7 +179,7 @@
 						<li class="club-list_li club-list_li__in">
 							<a href="" class="club-list_i">
 								<span class="club-list_img-hold">
-									<img src="/images/club/3.png" alt="" class="club-list_img">
+									<img src="/images/club/3-w130.png" alt="" class="club-list_img">
 								</span>
 								<span class="club-list_i-name">Цветы в доме</span>
 							</a>
@@ -188,7 +188,7 @@
 						<li class="club-list_li club-list_li__in">
 							<a href="" class="club-list_i">
 								<span class="club-list_img-hold">
-									<img src="/images/club/4.png" alt="" class="club-list_img">
+									<img src="/images/club/4-w130.png" alt="" class="club-list_img">
 								</span>
 								<span class="club-list_i-name">Свадьба</span>
 							</a>
@@ -197,7 +197,7 @@
 						<li class="club-list_li">
 							<a href="" class="club-list_i">
 								<span class="club-list_img-hold">
-									<img src="/images/club/8.png" alt="" class="club-list_img">
+									<img src="/images/club/8-w130.png" alt="" class="club-list_img">
 								</span>
 								<span class="club-list_i-name">Красота и мода</span>
 							</a>

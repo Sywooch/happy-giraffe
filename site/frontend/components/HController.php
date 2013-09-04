@@ -78,6 +78,8 @@ class HController extends CController
         if ($_SERVER['HTTP_HOST'] == 'dev.happy-giraffe.ru') {
             Yii::app()->clientScript->registerMetaTag('noindex,nofollow', 'robots');
         }
+        if (isset($_GET['CommunityContent_page']) || isset($_GET['BlogContent_page']))
+            Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
 
         if (!Yii::app()->user->isGuest && (Yii::app()->user->model->blocked == 1 || Yii::app()->user->model->deleted == 1))
             Yii::app()->user->logout();

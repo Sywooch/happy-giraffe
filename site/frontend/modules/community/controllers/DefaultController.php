@@ -59,6 +59,7 @@ class DefaultController extends HController
             $this->forum->title
         );
 
+        Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
         $this->render('list', $forum);
     }
 

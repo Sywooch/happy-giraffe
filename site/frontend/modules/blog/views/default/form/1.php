@@ -47,6 +47,15 @@ $form = $this->beginWidget('CActiveForm', array(
         <div style="display: none;"><?=$form->error($slaveModel, 'text')?></div>
     </div>
 
+    <?php if (!empty($club_id) && Yii::app()->user->checkAccess('editor')): ?>
+        <div class="clearfix">
+            <div class="row-title"><?= $form->label($model, 'by_happy_giraffe'); ?>:</div>
+            <div class="row-elements">
+                <?= $form->checkBox($model, 'by_happy_giraffe'); ?>
+            </div>
+        </div>
+    <?php endif; ?>
+
     <div class="clearfix textalign-r">
         <?=$form->errorSummary(array($model, $slaveModel)) ?>
     </div>

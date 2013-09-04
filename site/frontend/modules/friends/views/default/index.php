@@ -1,4 +1,6 @@
-<?php Yii::app()->clientScript->registerPackage('ko_friends'); ?>
+<?php
+Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
+Yii::app()->clientScript->registerPackage('ko_friends'); ?>
 
 <div class="content-cols">
     <div class="col-1">

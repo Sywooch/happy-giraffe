@@ -5,10 +5,12 @@
         </div>
         <div class="user-add-record_hold js_add_menu">
             <div class="user-add-record_tx">Я хочу добавить</div>
-            <a href="<?=$this->createUrl('form', array('type' => 1))?>" class="user-add-record_ico user-add-record_ico__article fancy-top <?php if ($type == 1) echo 'active' ?>">Статью</a>
-            <a href="<?=$this->createUrl('form', array('type' => 3))?>" class="user-add-record_ico user-add-record_ico__photo fancy-top <?php if ($type == 3) echo 'active' ?>">Фото</a>
-            <a href="<?=$this->createUrl('form', array('type' => 2))?>" class="user-add-record_ico user-add-record_ico__video fancy-top <?php if ($type == 2) echo 'active' ?>">Видео</a>
-            <a href="<?=$this->createUrl('form', array('type' => 5))?>" class="user-add-record_ico user-add-record_ico__status fancy-top <?php if ($type == 5) echo 'active' ?>">Статус</a>
+            <a href="<?=$this->createUrl('form', array('type' => 1, 'club_id' => $club_id))?>" class="user-add-record_ico user-add-record_ico__article fancy-top <?php if ($type == 1) echo 'active' ?>">Статью</a>
+            <a href="<?=$this->createUrl('form', array('type' => 3, 'club_id' => $club_id))?>" class="user-add-record_ico user-add-record_ico__photo fancy-top <?php if ($type == 3) echo 'active' ?>">Фото</a>
+            <a href="<?=$this->createUrl('form', array('type' => 2, 'club_id' => $club_id))?>" class="user-add-record_ico user-add-record_ico__video fancy-top <?php if ($type == 2) echo 'active' ?>">Видео</a>
+            <?php if (empty($club_id)):?>
+                <a href="<?=$this->createUrl('form', array('type' => 5))?>" class="user-add-record_ico user-add-record_ico__status fancy-top <?php if ($type == 5) echo 'active' ?>">Статус</a>
+            <?php endif ?>
         </div>
     </div>
 <?php endif; ?>

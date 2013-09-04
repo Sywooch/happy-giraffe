@@ -1,18 +1,23 @@
-<div class="b-settings-blue b-settings-blue__photo" id="popup-user-add-photo-post"<?php if ($model->isNewRecord) echo ' style="display:none;"' ?>>
-    <?php $form = $this->beginWidget('CActiveForm', array(
+<div class="b-settings-blue b-settings-blue__photo" id="popup-user-add-photo-post"<?php if ($model->isNewRecord && empty($club_id)) echo ' style="display:none;"' ?>>
+    <?php if (empty($club_id)){
+        $action = $model->isNewRecord ? array('save') : array('save', 'id' => $model->id);
+    }else
+        $action = $model->isNewRecord ? array('/community/default/save') : array('/community/default/save', 'id' => $model->id);
+
+    $form = $this->beginWidget('CActiveForm', array(
         'id' => 'blog-form',
-        'action' => $model->isNewRecord ? array('save') : array('save', 'id' => $model->id),
+        'action' => $action,
         'enableAjaxValidation' => true,
-        'enableClientValidation' => false,
-        'clientOptions' => array(
-            'validateOnChange' => true,
-            'validateOnSubmit' => true,
-            'afterValidate' => new CJavaScriptExpression('js:function(form, data, hasError) {
-                formVM1.hasError(hasError);
-                return !hasError;
-            }'),
-        ),
-    )); ?>
+            'enableClientValidation' => false,
+            'clientOptions' => array(
+                'validateOnChange' => true,
+                'validateOnSubmit' => true,
+                'afterValidate' => new CJavaScriptExpression('js:function(form, data, hasError) {
+                    formVM1.hasError(hasError);
+                    return !hasError;
+                }'),
+            ),
+        )); ?>
 
     <?=$form->hiddenField($model, 'type_id')?>
 
@@ -28,25 +33,7 @@
                 <?=$form->error($model, 'title') ?>
             </div>
         </div>
-        <div class="b-settings-blue_row clearfix">
-            <label for="" class="b-settings-blue_label">Рубрика</label>
-
-            <div class="w-400 float-l">
-                <div class="chzn-itx-simple js-select-rubric">
-                    <select name="<?=CHtml::activeName($model, 'rubric_id')?>" id="<?=CHtml::activeId($model, 'rubric_id')?>" data-bind="options: rubricsList,
-                    value: selectedRubric,
-                    optionsText: function(rubric) {
-                        return rubric.title;
-                    },
-                    optionsValue: function(rubric) {
-                        return rubric.id;
-                    },
-                    chosenRubric: {}" data-placeholder="Выберите рубрику или создайте новую"></select>
-                    <?=$form->error($model, 'rubric_id')?>
-                </div>
-                <div class="b-settings-blue_row-desc">Если вы не выберете рубрику, запись добавится в рубрику "Обо всем"</div>
-            </div>
-        </div>
+        <?php $this->renderPartial('form/_rubric', array('model' => $model, 'form' => $form, 'club_id' => $club_id)); ?>
     </div>
 
     <?php $this->renderPartial('application.views.upload_image_popup'); ?>
@@ -65,31 +52,33 @@
         <button class="btn-blue btn-h46 float-r btn-inactive" data-bind="click: add, css: { 'btn-inactive': upload().photos().length < 3 || hasError() }"><?=$model->isNewRecord ? 'Добавить' : 'Редактировать'?></button>
         <a href="" class="btn-gray-light btn-h46 float-r margin-r15" onclick="$.fancybox.close();return false;">Отменить</a>
 
-        <div class="float-l">
-            <div class="privacy-select clearfix">
-                <?=$form->hiddenField($model, 'privacy', array('data-bind' => 'value: selectedPrivacyOption().value()')) ?>
-                <div class="privacy-select_hold clearfix">
-                    <div class="privacy-select_tx">Для кого:</div>
-                    <div class="privacy-select_drop-hold">
-                        <a class="privacy-select_a"
-                           data-bind="click: $root.toggleDropdown, with: selectedPrivacyOption()">
-                            <span class="ico-users active" data-bind="css: 'ico-users__' + cssClass()"></span>
-                            <span class="privacy-select_a-tx" data-bind="html: title"></span>
-                        </a>
-                    </div>
-                    <div class="privacy-select_drop" data-bind="css: { 'display-b' : showDropdown}">
-                        <!-- ko foreach: privacyOptions -->
-                        <div class="privacy-select_i">
-                            <a class="privacy-select_a" data-bind="click: select">
-                                <span class="ico-users" data-bind="css: 'ico-users__' + cssClass()"></span>
+        <?php if (empty($club_id)):?>
+            <div class="float-l">
+                <div class="privacy-select clearfix">
+                    <?=$form->hiddenField($model, 'privacy', array('data-bind' => 'value: selectedPrivacyOption().value()')) ?>
+                    <div class="privacy-select_hold clearfix">
+                        <div class="privacy-select_tx">Для кого:</div>
+                        <div class="privacy-select_drop-hold">
+                            <a class="privacy-select_a"
+                               data-bind="click: $root.toggleDropdown, with: selectedPrivacyOption()">
+                                <span class="ico-users active" data-bind="css: 'ico-users__' + cssClass()"></span>
                                 <span class="privacy-select_a-tx" data-bind="html: title"></span>
                             </a>
                         </div>
-                        <!-- /ko -->
+                        <div class="privacy-select_drop" data-bind="css: { 'display-b' : showDropdown}">
+                            <!-- ko foreach: privacyOptions -->
+                            <div class="privacy-select_i">
+                                <a class="privacy-select_a" data-bind="click: select">
+                                    <span class="ico-users" data-bind="css: 'ico-users__' + cssClass()"></span>
+                                    <span class="privacy-select_a-tx" data-bind="html: title"></span>
+                                </a>
+                            </div>
+                            <!-- /ko -->
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        <?php endif ?>
     </div>
 
     <?php $this->endWidget(); ?>

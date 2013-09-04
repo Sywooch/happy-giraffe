@@ -138,7 +138,7 @@
 
     <div class="margin-b30 clearfix">
     <?php foreach ($services as $name => $service): ?>
-        <a href="<?=Yii::app()->createUrl('/', array('/' . $action, 'service' => $name, 'settings' => true))  ?>" class="b-social-big" <?php if(UserSocialService::model()->findByUser($name, Yii::app()->user->id) !== null): ?> style="display: none;"<?php endif; ?>>
+        <a href="<?=Yii::app()->createUrl('/' . $action, array('service' => $name, 'settings' => true))  ?>" class="b-social-big" <?php if(UserSocialService::model()->findByUser($name, Yii::app()->user->id) !== null): ?> style="display: none;"<?php endif; ?>>
             <span class="b-social-big_ico <?=$service->id?>"></span>
         </a>
     <?php endforeach; ?>

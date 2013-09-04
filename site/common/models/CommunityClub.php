@@ -113,7 +113,7 @@ class CommunityClub extends HActiveRecord
     {
         $result = array();
         foreach ($this->communities as $community)
-            if ($community->id != 21 AND $community->id != 22)
+            if ($community->id != 21 && $community->id != 22 && $community->id != 19)
                 $result[] = $community;
         return $result;
     }

@@ -1096,9 +1096,9 @@ class User extends HActiveRecord
         }
     }
 
-    public function getBlogPopular()
+    public function getBlogPopular($limit = 10)
     {
-        return ($this->blogPostsCount <= 10) ? array() : BlogContent::model()->findAll(array(
+        return ($this->blogPostsCount <= $limit) ? array() : BlogContent::model()->findAll(array(
             'with' => array('rubric', 'commentsCount', 'type'),
             'condition' => 'rubric.user_id = :user_id',
             'params' => array(':user_id' => $this->id),

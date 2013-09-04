@@ -694,7 +694,7 @@ function MessagingViewModel(data) {
     $(window).load(function() {
         self.messages.subscribe(function() {
             im.holdHeights();
-            im.container.scrollTop($('.layout-container_hold').height());
+            im.container.scrollTop($('.layout-container').height());
         });
 
         im.container.scroll(function() {

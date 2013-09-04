@@ -111,5 +111,29 @@ class ConvertNewCommand extends CConsoleCommand
             echo $criteria->offset . "\n";
         }
     }
+
+    public function actionFixVideos()
+    {
+        Yii::import('site.frontend.components.OEmbed');
+        Yii::import('site.frontend.components.video.*');
+
+        $criteria = new CDbCriteria();
+        $criteria->order = 'id ASC';
+        $criteria->limit = 1000;
+        $criteria->offset = 0;
+
+        $models = array(0);
+        while (! empty($models)) {
+            $models = CommunityVideo::model()->findAll($criteria);
+            foreach ($models as $model) {
+                $video = Video::factory($model->link);
+                $model->embed = $video->embed;
+                $model->save(true, array('embed'));
+            }
+
+            $criteria->offset += 1000;
+            echo $criteria->offset . "\n";
+        }
+    }
 }
 

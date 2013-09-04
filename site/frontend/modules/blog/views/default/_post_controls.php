@@ -32,7 +32,8 @@ $ownArticle = $model->author_id == Yii::app()->user->id;
                     <a href="" class="article-settings_a article-settings_a__pin powertip" data-bind="click: attach, css: {active: attached}" title="Прикрепить"></a>
                 </div>
                 <div class="article-settings_i">
-                    <a href="<?=$this->createUrl('/blog/default/form', array('id' => $model->id))?>" class="article-settings_a article-settings_a__edit powertip fancy" title="Редактировать"></a>
+                    <a href="<?= $this->createUrl('/blog/default/form', array('id' => $model->id, 'club_id' => $model->getIsFromBlog() ? '' : $model->rubric->community_id)) ?>"
+                       class="article-settings_a article-settings_a__edit powertip fancy" title="Редактировать"></a>
                 </div>
                 <div class="article-settings_i">
                     <a href="javascript:;" class="ico-users powertip" data-bind="css: {active: displayPrivacy, 'ico-users__friend': privacy() == 1, 'ico-users__all': privacy() == 0}, click: showPrivacy" title="Приватность"></a>

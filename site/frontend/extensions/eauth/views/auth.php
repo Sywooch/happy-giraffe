@@ -112,7 +112,7 @@
                                         <span class="custom-like">
                                             <span class="custom-like_icon <?=$service->id?>"></span>
                                         </span>
-                        <span>Одноклассники</span>
+                        <span><?php var_dump($service)?></span>
                     </td>
                     <td class="form-settings_td"
                         <?php if ($us->urlString != ''): ?>
@@ -130,6 +130,8 @@
                 </tr>
             <?php endif; ?>
         <?php endforeach; ?>
+        </tbody>
+        </table>
     <?php endif; ?>
 
     <div class="form-settings_t">Добавить профиль</div>

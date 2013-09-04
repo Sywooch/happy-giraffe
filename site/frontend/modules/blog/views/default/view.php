@@ -42,3 +42,4 @@ else
     </div>
 
 </div>
+<?php $this->widget('application.widgets.seo.SeoLinksWidget'); ?>

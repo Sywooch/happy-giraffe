@@ -273,3 +273,4 @@
     recipeVM = new RecipeViewModel(<?=CJSON::encode(array('hasServings' => $recipe->servings !== null))?>);
     ko.applyBindings(recipeVM, document.getElementById('recipe'));
 </script>
+<?php $this->widget('application.widgets.seo.SeoLinksWidget'); ?>

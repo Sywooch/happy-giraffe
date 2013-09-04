@@ -1363,7 +1363,7 @@ class User extends HActiveRecord
             case 72:
                 return $this->avatar->getAvatarUrl('ava');
             case 24:
-                return $this->avatar->getAvatarUrl('micro');
+                return $this->avatar->getAvatarUrl('small');
         }
 
         return '';

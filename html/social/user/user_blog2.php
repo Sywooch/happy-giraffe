@@ -564,29 +564,29 @@
 							</div>
 						</div>
 						
-						<div class="custom-likes-b custom-likes-b__like-white">
-							<div class="custom-likes-b_slogan">Поделитесь с друзьями!</div>
-							<a href="" class="custom-like">
-								<span class="custom-like_icon odnoklassniki"></span>
-								<span class="custom-like_value">0</span>
-							</a>
-							<a href="" class="custom-like">
-								<span class="custom-like_icon vkontakte"></span>
-								<span class="custom-like_value">1900</span>
-							</a>
-						
-							<a href="" class="custom-like">
-								<span class="custom-like_icon facebook"></span>
-								<span class="custom-like_value">150</span>
-							</a>
-						
-							<a href="" class="custom-like">
-								<span class="custom-like_icon twitter"></span>
-								<span class="custom-like_value">10</span>
-							</a>
-						
-						
+						<div class="bg-white clearfix">
+							<div class="custom-likes-b custom-likes-b__like-white">
+								<div class="custom-likes-b_slogan">Поделитесь с друзьями!</div>
+								<a href="" class="custom-like">
+									<span class="custom-like_icon odnoklassniki"></span>
+									<span class="custom-like_value">0</span>
+								</a>
+								<a href="" class="custom-like">
+									<span class="custom-like_icon vkontakte"></span>
+									<span class="custom-like_value">1900</span>
+								</a>
 							
+								<a href="" class="custom-like">
+									<span class="custom-like_icon facebook"></span>
+									<span class="custom-like_value">150</span>
+								</a>
+							
+								<a href="" class="custom-like">
+									<span class="custom-like_icon twitter"></span>
+									<span class="custom-like_value">10</span>
+								</a>
+							
+							</div>
 							<div class="nav-article clearfix">
 								<div class="nav-article_left">
 									<a href="" class="nav-article_a">Очень красивые пропорции у нашего ведущего</a>

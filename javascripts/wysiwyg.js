@@ -65,12 +65,12 @@ var Video = function(data, parent) {
     self.check = function() {
         self.previewError(false);
         self.previewLoading(true);
-        $.get('/newblog/videoPreview/', { url : self.link() }, function(html) {
+        $.get('/newblog/videoPreview/', { url : self.link() }, function(response) {
             self.previewLoading(false);
-            if (html === false)
+            if (response.success === false)
                 self.previewError(true);
             else
-                self.embed(html);
+                self.embed(response.html);
         }, 'json');
     };
 

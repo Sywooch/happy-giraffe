@@ -30,41 +30,7 @@ Yii::app()->clientScript
 		</div>
 	</div>
 
-	<div class="start-page_row start-page_row__counter">
-		<div class="start-page_hold">
-			<div class="start-page_counter">
-				<div class="start-page_counter-desc">
-					Нас посетило уже
-				</div>
-
-				<!-- Countdown dashboard start -->
-				<div id="counter-users" class="counter-users">
-					<div class="counter-users_dash counter-users_dash__millions">
-						<div class="counter-users_digit">6</div>
-						<div class="counter-users_digit">2</div>
-					</div>
-
-					<div class="counter-users_dash counter-users_dash__thousands">
-						<div class="counter-users_digit">0</div>
-						<div class="counter-users_digit">7</div>
-						<div class="counter-users_digit">2</div>
-					</div>
-
-					<div class="counter-users_dash counter-users_dash__hundreds">
-						<div class="counter-users_digit">1</div>
-						<div class="counter-users_digit">9</div>
-						<div class="counter-users_digit">0</div>
-					</div>
-
-				</div>
-				<!-- Countdown dashboard end -->
-				<div class="start-page_counter-desc">
-					мам и пап!
-				</div>
-
-			</div>
-		</div>
-	</div>
+	<?php $this->widget('application.widgets.home.CounterWidget')?>
 
 	<div class="start-page_row start-page_row__articles">
 		<div class="start-page_hold">

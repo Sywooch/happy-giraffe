@@ -437,6 +437,7 @@ class CommunityContent extends HActiveRecord
             'with' => array('rubric', 'rubric.community', 'rubric.community.club')
         ));
 
+        $criteria->addCondition('club.id != 21 AND club.id != 22');
         $criteria->compare('section_id', $section_id);
         $criteria->scopes = array('active');
 

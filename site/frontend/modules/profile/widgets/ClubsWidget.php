@@ -67,13 +67,14 @@ class ClubsWidget extends UserCoreWidget
         }
         $clubs = CommunityClub::model()->findAllByPk($this->clubs);
 
-        foreach ($clubs as $club) {
-            $data [] = array(
-                'id' => $club->id,
-                'title' => $club->title,
-                'have' => Yii::app()->user->isGuest ? false : UserClubSubscription::subscribed($this->user->id, $club->id),
-            );
-        }
+        foreach ($clubs as $club)
+            if ($club->id != 21 && $club->id != 22) {
+                $data [] = array(
+                    'id' => $club->id,
+                    'title' => $club->title,
+                    'have' => Yii::app()->user->isGuest ? false : UserClubSubscription::subscribed($this->user->id, $club->id),
+                );
+            }
         return $data;
     }
 

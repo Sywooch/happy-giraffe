@@ -8,7 +8,7 @@
             <li class="footer-list_li"><span>Задать вопрос</span></li>
             <li class="footer-list_li"><span>Реклама </span></li>
             <li class="footer-list_li"><span>Контакты </span></li>
-            <li class="footer-list_li"><span>Партнер "Рамблера"</span></li>
+            <li class="footer-list_li"><a href="http://www.rambler.ru/">Партнер "Рамблера"</a></li>
         </ul>
         <?php if ($this->route != 'site/index'): ?>
             <ul class="footer-ul-bold">

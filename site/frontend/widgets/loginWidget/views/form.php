@@ -63,7 +63,7 @@
                         </div>
                         <div class="b-sign_bottom">
                             Вы еще не зарегистрированы?
-                            <a href="#register" class="margin-l10 fancy" data-theme="transparent">Регистрация</a>
+                            <a href="#register" class="margin-l10 fancy">Регистрация</a>
                         </div>
                     </div>
 

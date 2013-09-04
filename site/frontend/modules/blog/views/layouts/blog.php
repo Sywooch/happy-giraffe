@@ -26,7 +26,7 @@ $data['currentRubricId'] = $this->rubric_id;
     </div>
     <div class="col-23-middle">
         <?php if (Yii::app()->user->id == $this->user->id):?>
-            <a href="<?=$this->createUrl('settings/form')?>" data-theme="transparent" class="blog-settings fancy">Настройки блога</a>
+            <a href="<?=$this->createUrl('settings/form')?>" class="blog-settings fancy">Настройки блога</a>
         <?php endif ?>
         <div class="col-gray">
             <div class="blog-title-b blogInfo">

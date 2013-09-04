@@ -113,9 +113,9 @@ $user = Yii::app()->user->getModel();
                                 <div class="b-join_slogan">уже на Веселом Жирафе!</div>
                             </div>
                             <div class="b-join_right">
-                                <a href="#register" class="btn-green btn-big fancy" data-theme="transparent">Присоединяйтесь!</a>
+                                <a href="#register" class="btn-green btn-big fancy">Присоединяйтесь!</a>
                                 <div class="clearfix">
-                                    <a href="#login" class="display-ib verticalalign-m fancy" data-theme="transparent">Войти</a>
+                                    <a href="#login" class="display-ib verticalalign-m fancy">Войти</a>
                                     <span class="i-or">или</span>
                                     <?php Yii::app()->eauth->renderWidget(array('action' => 'site/login', 'mode' => 'home', 'predefinedServices' => array('odnoklassniki', 'vkontakte', 'facebook', 'twitter'))); ?>
                                 </div>
@@ -158,7 +158,7 @@ $user = Yii::app()->user->getModel();
                         <div class="b-join-row_logo"></div>
                         <div class="b-join-row_tx"> <span class="b-join-row_tx-big"> 4 500 000</span> мам и пап</div>
                         <div class="b-join-row_slogan">уже на Веселом Жирафе!</div>
-                        <a href="#register" class="btn-green btn-h46 fancy" data-theme="transparent">Присоединяйтесь!</a>
+                        <a href="#register" class="btn-green btn-h46 fancy">Присоединяйтесь!</a>
                     </div>
                 </div>
 
@@ -188,10 +188,10 @@ $user = Yii::app()->user->getModel();
                                     </div>
                                     <div class="user-add-record_hold">
                                         <div class="user-add-record_tx">Я хочу добавить</div>
-                                        <a href="<?=$this->createUrl('/blog/default/form', array('type' => 1))?>"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__article fancy">Статью</a>
-                                        <a href="<?=$this->createUrl('/blog/default/form', array('type' => 3))?>"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__photo fancy">Фото</a>
-                                        <a href="<?=$this->createUrl('/blog/default/form', array('type' => 2))?>"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__video fancy">Видео</a>
-                                        <a href="<?=$this->createUrl('/blog/default/form', array('type' => 5))?>"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__status fancy">Статус</a>
+                                        <a href="<?=$this->createUrl('/blog/default/form', array('type' => 1))?>"  class="user-add-record_ico user-add-record_ico__article fancy">Статью</a>
+                                        <a href="<?=$this->createUrl('/blog/default/form', array('type' => 3))?>"  class="user-add-record_ico user-add-record_ico__photo fancy">Фото</a>
+                                        <a href="<?=$this->createUrl('/blog/default/form', array('type' => 2))?>"  class="user-add-record_ico user-add-record_ico__video fancy">Видео</a>
+                                        <a href="<?=$this->createUrl('/blog/default/form', array('type' => 5))?>"  class="user-add-record_ico user-add-record_ico__status fancy">Статус</a>
                                     </div>
                                 </div>
                             <?php else: ?>
@@ -201,10 +201,10 @@ $user = Yii::app()->user->getModel();
                                     </div>
                                     <div class="user-add-record_hold">
                                         <div class="user-add-record_tx">Я хочу добавить</div>
-                                        <a href="<?= $this->createUrl('/blog/default/form', array('type' => 1)) ?>" data-theme="transparent" class="user-add-record_ico user-add-record_ico__article fancy powertip" title="Статью"></a>
-                                        <a href="<?= $this->createUrl('/blog/default/form', array('type' => 3)) ?>" data-theme="transparent" class="user-add-record_ico user-add-record_ico__photo fancy powertip" title="Фото"></a>
-                                        <a href="<?= $this->createUrl('/blog/default/form', array('type' => 2)) ?>" data-theme="transparent" class="user-add-record_ico user-add-record_ico__video fancy powertip" title="Видео"></a>
-                                        <a href="<?= $this->createUrl('/blog/default/form', array('type' => 5)) ?>" data-theme="transparent" class="user-add-record_ico user-add-record_ico__status fancy powertip" title="Статус"></a>
+                                        <a href="<?= $this->createUrl('/blog/default/form', array('type' => 1)) ?>" class="user-add-record_ico user-add-record_ico__article fancy powertip" title="Статью"></a>
+                                        <a href="<?= $this->createUrl('/blog/default/form', array('type' => 3)) ?>" class="user-add-record_ico user-add-record_ico__photo fancy powertip" title="Фото"></a>
+                                        <a href="<?= $this->createUrl('/blog/default/form', array('type' => 2)) ?>" class="user-add-record_ico user-add-record_ico__video fancy powertip" title="Видео"></a>
+                                        <a href="<?= $this->createUrl('/blog/default/form', array('type' => 5)) ?>" class="user-add-record_ico user-add-record_ico__status fancy powertip" title="Статус"></a>
                                     </div>
                                 </div>
                             <?php endif ?>
@@ -238,12 +238,13 @@ $user = Yii::app()->user->getModel();
 
 </div>
 
-<?php if (! Yii::app()->user->isGuest): ?>
-    <script type="text/javascript">
+<script type="text/javascript">
+    var userIsGuest = <?=Yii::app()->user->isGuest?'true':'false' ?>;
+    <?php if (! Yii::app()->user->isGuest): ?>
         var layoutVM = new LayoutViewModel(<?=CJSON::encode($this->getLayoutData())?>);
         $(".layout-binding").each(function(index, el) {
             ko.applyBindings(layoutVM, el);
         });
-    </script>
-<?php endif; ?>
+    <?php endif; ?>
+</script>
 <?php $this->endContent(); ?>

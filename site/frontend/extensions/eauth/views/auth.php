@@ -112,7 +112,7 @@
                                         <span class="custom-like">
                                             <span class="custom-like_icon <?=$service->id?>"></span>
                                         </span>
-                        <span>Одноклассники</span>
+                        <span><?= $service->title?></span>
                     </td>
                     <td class="form-settings_td"
                         <?php if ($us->urlString != ''): ?>
@@ -130,13 +130,15 @@
                 </tr>
             <?php endif; ?>
         <?php endforeach; ?>
+        </tbody>
+        </table>
     <?php endif; ?>
 
     <div class="form-settings_t">Добавить профиль</div>
 
     <div class="margin-b30 clearfix">
     <?php foreach ($services as $name => $service): ?>
-        <a href="<?=Yii::app()->createUrl('/', array('/' . $action, 'service' => $name, 'settings' => true))  ?>" class="b-social-big" <?php if(UserSocialService::model()->findByUser($name, Yii::app()->user->id) !== null): ?> style="display: none;"<?php endif; ?>>
+        <a href="<?=Yii::app()->createUrl('/' . $action, array('service' => $name, 'settings' => true))  ?>" class="b-social-big" <?php if(UserSocialService::model()->findByUser($name, Yii::app()->user->id) !== null): ?> style="display: none;"<?php endif; ?>>
             <span class="b-social-big_ico <?=$service->id?>"></span>
         </a>
     <?php endforeach; ?>

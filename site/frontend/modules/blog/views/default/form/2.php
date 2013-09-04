@@ -3,11 +3,16 @@
  * @var CommunityContent $model
  * @var HActiveRecord $slaveModel
  * @var $json
+ * @var int $club_id
  */
+if (empty($club_id)){
+    $action = $model->isNewRecord ? array('save') : array('save', 'id' => $model->id);
+}else
+    $action = $model->isNewRecord ? array('/community/default/save') : array('/community/default/save', 'id' => $model->id);
 
 $form = $this->beginWidget('CActiveForm', array(
     'id' => 'blog-form',
-    'action' => $model->isNewRecord ? array('save') : array('save', 'id' => $model->id),
+    'action' => $action,
     'enableAjaxValidation' => true,
     'enableClientValidation' => true,
     'clientOptions' => array(
@@ -34,24 +39,7 @@ $form = $this->beginWidget('CActiveForm', array(
                 <?=$form->error($model, 'title')?>
             </div>
         </div>
-        <div class="b-settings-blue_row clearfix">
-            <?=$form->label($model, 'rubric_id', array('class' => 'b-settings-blue_label'))?>
-            <div class="w-400 float-l">
-                <div class="chzn-itx-simple js-select-rubric">
-                    <select name="<?=CHtml::activeName($model, 'rubric_id')?>" id="<?=CHtml::activeId($model, 'rubric_id')?>" data-bind="options: rubricsList,
-                    value: selectedRubric,
-                    optionsText: function(rubric) {
-                        return rubric.title;
-                    },
-                    optionsValue: function(rubric) {
-                        return rubric.id;
-                    },
-                    chosenRubric: {}" data-placeholder="Выберите рубрику или создайте новую"></select>
-                    <?=$form->error($model, 'rubric_id')?>
-                </div>
-                <div class="b-settings-blue_row-desc">Если вы не выберете рубрику, запись добавится в рубрику "Обо всем"</div>
-            </div>
-        </div>
+        <?php $this->renderPartial('form/_rubric', array('model' => $model, 'form' => $form, 'club_id' => $club_id)); ?>
     </div>
     <!-- ko with: video -->
     <div class="b-settings-blue_add-video clearfix" data-bind="visible: embed() === null">
@@ -76,30 +64,32 @@ $form = $this->beginWidget('CActiveForm', array(
         <button class="btn-blue btn-h46 float-r" data-bind="css: { 'btn-inactive' : hasError }"><?=$model->isNewRecord ? 'Добавить' : 'Редактировать'?></button>
         <a href="javascript:void(0)" onclick="$.fancybox.close()" class="btn-gray-light btn-h46 float-r margin-r15">Отменить</a>
 
-        <div class="float-l">
-            <div class="privacy-select clearfix">
-                <?=$form->hiddenField($model, 'privacy', array('data-bind' => 'value: selectedPrivacyOption().value()'))?>
-                <div class="privacy-select_hold clearfix">
-                    <div class="privacy-select_tx">Для кого:</div>
-                    <div class="privacy-select_drop-hold">
-                        <a class="privacy-select_a" data-bind="click: $root.toggleDropdown, with: selectedPrivacyOption()">
-                            <span class="ico-users active" data-bind="css: 'ico-users__' + cssClass()"></span>
-                            <span class="privacy-select_a-tx" data-bind="html: title"></span>
-                        </a>
-                    </div>
-                    <div class="privacy-select_drop" data-bind="css: { 'display-b' : showDropdown}">
-                        <!-- ko foreach: privacyOptions -->
-                        <div class="privacy-select_i">
-                            <a class="privacy-select_a" data-bind="click: select">
-                                <span class="ico-users" data-bind="css: 'ico-users__' + cssClass()"></span>
+        <?php if (empty($club_id)):?>
+            <div class="float-l">
+                <div class="privacy-select clearfix">
+                    <?=$form->hiddenField($model, 'privacy', array('data-bind' => 'value: selectedPrivacyOption().value()'))?>
+                    <div class="privacy-select_hold clearfix">
+                        <div class="privacy-select_tx">Для кого:</div>
+                        <div class="privacy-select_drop-hold">
+                            <a class="privacy-select_a" data-bind="click: $root.toggleDropdown, with: selectedPrivacyOption()">
+                                <span class="ico-users active" data-bind="css: 'ico-users__' + cssClass()"></span>
                                 <span class="privacy-select_a-tx" data-bind="html: title"></span>
                             </a>
                         </div>
-                        <!-- /ko -->
+                        <div class="privacy-select_drop" data-bind="css: { 'display-b' : showDropdown}">
+                            <!-- ko foreach: privacyOptions -->
+                            <div class="privacy-select_i">
+                                <a class="privacy-select_a" data-bind="click: select">
+                                    <span class="ico-users" data-bind="css: 'ico-users__' + cssClass()"></span>
+                                    <span class="privacy-select_a-tx" data-bind="html: title"></span>
+                                </a>
+                            </div>
+                            <!-- /ko -->
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        <?php endif ?>
     </div>
 </div>
 

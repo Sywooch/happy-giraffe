@@ -109,8 +109,8 @@ $user = Yii::app()->user->getModel();
                     <div class="col-23">
                         <div class="b-join clearfix">
                             <div class="b-join_left">
-                                <div class="b-join_tx"> <span class="b-join_tx-big"> 4 500 000</span> мам и пап</div>
-                                <div class="b-join_slogan">уже на Веселом Жирафе!</div>
+                                <div class="b-join_tx"> Более <span class="b-join_tx-big"> 20 000 000</span> мам и пап</div>
+                                <div class="b-join_slogan">уже посетили Веселый Жираф!</div>
                             </div>
                             <div class="b-join_right">
                                 <a href="#register" class="btn-green btn-big fancy">Присоединяйтесь!</a>
@@ -156,8 +156,8 @@ $user = Yii::app()->user->getModel();
                 <div class="b-join-row js-b-join-row">
                     <div class="b-join-row_hold">
                         <div class="b-join-row_logo"></div>
-                        <div class="b-join-row_tx"> <span class="b-join-row_tx-big"> 4 500 000</span> мам и пап</div>
-                        <div class="b-join-row_slogan">уже на Веселом Жирафе!</div>
+                        <div class="b-join-row_tx">Более <span class="b-join-row_tx-big"> 20 000 000</span> мам и пап</div>
+                        <div class="b-join-row_slogan">уже посетили Веселый Жираф!</div>
                         <a href="#register" class="btn-green btn-h46 fancy">Присоединяйтесь!</a>
                     </div>
                 </div>

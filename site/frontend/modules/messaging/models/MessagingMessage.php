@@ -97,6 +97,13 @@ class MessagingMessage extends HActiveRecord
                 'updateAttribute' => 'updated',
                 'setUpdateOnCreate' => true,
             ),
+            'purified' => array(
+                'class' => 'site.common.behaviors.PurifiedBehavior',
+                'attributes' => array('text'),
+                'options' => array(
+                    'AutoFormat.Linkify' => true,
+                ),
+            ),
         );
     }
 
@@ -184,7 +191,7 @@ class MessagingMessage extends HActiveRecord
         return array(
             'id' => (int) $this->id,
             'author_id' => (int) $this->author_id,
-            'text' => $this->text,
+            'text' => $this->purified->text,
             'created' => Yii::app()->dateFormatter->format("d MMMM yyyy, H:mm", ($this->created instanceof CDbExpression) ? time() : $this->created),
             'read' => (bool) $this->isReadByInterlocutor,
             'images' => $images,

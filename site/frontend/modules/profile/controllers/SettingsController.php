@@ -7,6 +7,14 @@ class SettingsController extends HController
     public $user;
     public $title = 'Мои настройки';
 
+    public function filters()
+    {
+        return array(
+            'accessControl',
+            'ajaxOnly - personal, social, password',
+        );
+    }
+
     public function accessRules()
     {
         return array(

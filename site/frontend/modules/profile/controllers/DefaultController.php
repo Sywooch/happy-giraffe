@@ -60,6 +60,8 @@ class DefaultController extends HController
             $data = compact('users');
             echo CJSON::encode($data);
         } else {
+            Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
+
             $this->loadUser($user_id);
             $this->title = 'Друзья';
             $dataProvider = new CActiveDataProvider('Friend', array(
@@ -79,6 +81,7 @@ class DefaultController extends HController
 
     public function actionAwards($user_id)
     {
+        Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
         $this->loadUser($user_id);
         $this->title = 'Награды';
         $awards = UserScores::model()->getAwardsWithAchievements($this->user->id);
@@ -88,6 +91,7 @@ class DefaultController extends HController
 
     public function actionAward($user_id, $id, $type)
     {
+        Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
         $this->loadUser($user_id);
         $this->title = 'Награды';
         if ($type == 'award')

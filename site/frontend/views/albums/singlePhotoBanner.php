@@ -53,12 +53,7 @@
 
                     <div class="user clearfix">
 
-                        <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
-                            'user' => $photo->author,
-                            'size' => 'small',
-                            'sendButton' => false,
-                            'location' => false
-                        )); ?>
+                        <?php $this->widget('Avatar', array('user' => Yii::app()->user->model, 'size' => Avatar::SIZE_MICRO)); ?>
 
                         <?php $this->widget('FavouriteWidget', array('model' => $photo)); ?>
 
@@ -119,10 +114,7 @@ if (isset($model->content) && method_exists($model->content, 'isValentinePost') 
         ),
     ));
 
-    $this->widget('site.frontend.widgets.commentWidget.CommentWidget', array(
-        'model' => $post,
-        'photoContainer'=>true
-    ));
+    $this->widget('application.widgets.newCommentWidget.NewCommentWidget', array('model' => $photo, 'full' => true));
 }
 else {
     $this->widget('site.frontend.widgets.socialLike.SocialLikeWidget', array(
@@ -148,8 +140,5 @@ else {
     </div>
     <?php }
 
-    $this->widget('site.frontend.widgets.commentWidget.CommentWidget', array(
-        'model' => $photo,
-        'photoContainer'=>true
-    ));
+    $this->widget('application.widgets.newCommentWidget.NewCommentWidget', array('model' => $photo, 'full' => true));
 }

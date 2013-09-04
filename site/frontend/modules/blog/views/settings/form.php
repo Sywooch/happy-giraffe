@@ -36,6 +36,27 @@
                     </div>
                     <div class="popup-blog-set_col-wide">
                         <label for="" class="popup-blog-set_label">Выберите фон</label>
+                        <div class="b-add-img b-add-img__for-single">
+                            <div class="b-add-img_hold" data-bind="visible: draftPhoto() === null">
+                                <div class="b-add-img_t">
+                                    Загрузите фотографию с компьютера
+                                    <div class="b-add-img_t-tx">Поддерживаемые форматы: jpg и png</div>
+                                </div>
+                                <div class="file-fake">
+                                    <?=CHtml::beginForm(array('settings/uploadPhoto'), 'post', array('target' => 'upload-target', 'enctype' => 'multipart/form-data'))?>
+                                    <button class="btn-green btn-medium file-fake_btn">Обзор</button>
+                                    <input type="file" name="photo" onchange="submit()">
+                                    <?=CHtml::endForm()?>
+                                </div>
+                            </div>
+                            <!-- ko if: draftPhoto() !== null -->
+                            <div class="popup-blog-set_jcrop">
+                                <img alt=""  class="popup-blog-set_jcrop-img" data-bind="attr: { src : draftPhoto().originalSrc() }">
+                            </div>
+                            <a class="b-add-img_i-del ico-close2 powertip" data-bind="click: removeDraftPhoto"></a>
+                            <!-- /ko -->
+                        </div>
+                        <?php if (false): ?>
                         <div class="margin-t15 clearfix">
                             <div class="popup-blog-set_jcrop">
                                 <img alt="" class="popup-blog-set_jcrop-img" data-bind="attr: { src : draftPhoto().originalSrc() }" style="display: none;">
@@ -52,6 +73,7 @@
                                 <div class="color-gray font-small">Разрешенные форматы файлов <br> JPG, GIF или  PNG. <br>Максимальный размер 700 Кб. </div>
                             </div>
                         </div>
+                        <?php endif; ?>
                     </div>
                 </div>
                 <div class="popup-blog-set_sepor">
@@ -60,7 +82,7 @@
                 <div class="clearfix">
                     <div class="float-r">
                         <div class="blog-title-b">
-                            <div class="blog-title-b_img-hold">
+                            <div class="blog-title-b_img-hold" data-bind="if: draftPhoto() !== null">
                                 <img alt="" class="blog-title-b_img" id="preview" data-bind="attr: { src : draftPhoto().originalSrc() }">
                             </div>
                             <h1 class="blog-title-b_t" data-bind="text: draftTitle, visible: draftTitle().length > 0"></h1>

@@ -31,7 +31,7 @@ class ProcessingImagesBehavior extends CActiveRecordBehavior
                         $author_id = $this->owner->content->author_id; else
                         $author_id = Yii::app()->user->id;
 
-                    $photo = AlbumPhoto::createByUrl($image->src, $author_id, 2, $this->owner->content->title . ' фото ' . $num);
+                    $photo = AlbumPhoto::createByUrl($image->src, $author_id, 2, isset($this->owner->content) ? $this->owner->content->title . ' фото ' . $num : null);
                     if ($photo !== false) {
                         $newSrc = $photo->getPreviewUrl(700, 700, Image::WIDTH);
                         $image->src = $newSrc;
@@ -61,7 +61,7 @@ class ProcessingImagesBehavior extends CActiveRecordBehavior
                     #TODO когда удаляешь фото нумерация картинок сбивается
                     //если ссылки на фотки с http://img.happy-giraffe.ru/
                     $photo = AlbumPhoto::getPhotoFromUrl($image->src);
-                    if ($photo && empty($photo->title)) {
+                    if ($photo && empty($photo->title) && isset($this->owner->content)) {
                         $photo->title = $this->owner->content->title . ' фото ' . $num;
                         $photo->save(false);
                     }
@@ -72,7 +72,7 @@ class ProcessingImagesBehavior extends CActiveRecordBehavior
                     $num++;
 
                 //выбор фото для превью
-                if ($this->searchPreviewPhoto && $photo){
+                if ($this->searchPreviewPhoto && $photo) {
                     if (empty($this->first_big_photo) && $photo->width >= 580)
                         $this->first_big_photo = $photo;
                     if (empty($this->preview_photo))
@@ -119,12 +119,11 @@ class ProcessingImagesBehavior extends CActiveRecordBehavior
             $this->owner->$attr = $doc->save();
         }
 
-        if ($this->searchPreviewPhoto){
+        if ($this->searchPreviewPhoto) {
             if (!empty($this->first_big_photo))
                 $this->owner->photo_id = $this->first_big_photo->id;
             elseif (!empty($this->preview_photo))
-                $this->owner->photo_id = $this->preview_photo->id;
-            else
+                $this->owner->photo_id = $this->preview_photo->id; else
                 $this->owner->photo_id = null;
         }
 

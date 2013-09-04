@@ -40,6 +40,8 @@ class DefaultController extends HController
 
         $dp = SubscribeDataProvider::getDataProvider($this->user->id, $type, $community_id);
         $communities = CommunityClub::model()->findAllByPk(UserClubSubscription::getSubUserClubs($this->user->id));
+        if (empty($communities))
+            $this->redirect($this->createUrl('recommends'));
 
         $this->render('my_giraffe', compact('dp', 'communities', 'type', 'community_id'));
     }

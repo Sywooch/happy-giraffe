@@ -12,7 +12,6 @@ class ConvertNewCommand extends CConsoleCommand
     public function actionUpdatePhotos()
     {
         $criteria = new CDbCriteria;
-        $criteria->compare('author_id', 9990);
         $criteria->limit = 1000;
         $criteria->offset = 0;
 

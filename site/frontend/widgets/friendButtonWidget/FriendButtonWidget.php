@@ -12,6 +12,7 @@ class FriendButtonWidget extends CWidget
     const STATUS_ACCEPT = 4;
 
     public $user;
+    public $view = 'common';
 
     public function run()
     {
@@ -20,7 +21,7 @@ class FriendButtonWidget extends CWidget
             'id' => $this->user->id,
             'status' => $status,
         );
-        $this->render('FriendButtonWidget', array(
+        $this->render($this->view, array(
             'data' => $data,
             'id' => uniqid(),
         ));

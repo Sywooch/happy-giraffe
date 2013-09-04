@@ -41,7 +41,7 @@ class DefaultController extends HController
             );
         }, FriendsManager::getLists(Yii::app()->user->id));
 
-        $data = compact('friendsCount', 'friendsOnlineCount', 'incomingRequestsCount', 'outgoingRequestsCount', 'lists', 'friendsNewCount');
+        $data = compact('friendsCount', 'friendsOnlineCount', 'friendsNewCount', 'incomingRequestsCount', 'outgoingRequestsCount', 'lists');
 
         $this->pageTitle = 'Мои друзья';
         $this->render('index', CJSON::encode($data));
@@ -58,7 +58,7 @@ class DefaultController extends HController
                     'online' => (bool) $friend->friend->online,
                     'firstName' => $friend->friend->first_name,
                     'lastName' => $friend->friend->last_name,
-                    'ava' => $friend->friend->getAva('large'),
+                    'ava' => $friend->friend->getAvatarUrl(Avatar::SIZE_LARGE),
                     'gender' => $friend->friend->gender,
                 ),
                 'pCount' => $friend->pCount,

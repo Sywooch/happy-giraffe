@@ -18,7 +18,7 @@
                 <li class="nav-hor_li<?php if ($entity == $active) echo ' active' ?>">
                     <?php $_url = $this->createUrl('/commentators/default/'.$url, array('month'=>$month, 'user_id'=>$user->id))?>
                     <a class="nav-hor_i" href="<?=$_url ?>">
-                        <span class="ava small"><?=CHtml::image($user->getAva('small')) ?></span>
+                        <span class="ava small"><?=CHtml::image($user->getAvatarUrl(Avatar::SIZE_MICRO)) ?></span>
                         <span class="nav-hor_tx"><?=$user->fullName ?></span>
                     </a>
                     <a href="javascript:;" class="nav-hor_close"onclick="SeoModule.removeUser('commentators', <?=$user->id ?>, this)"></a>

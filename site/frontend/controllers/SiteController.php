@@ -2,6 +2,7 @@
 
 class SiteController extends HController
 {
+    public $layout = '//layouts/main';
 	/**
 	 * Declares class-based actions.
 	 */
@@ -30,19 +31,6 @@ class SiteController extends HController
     {
         if ($this->action->id != 'error')
             parent::afterRender($view, $output);
-    }
-
-    public function actionServices($category_id = null)
-    {
-        $categories = ServiceCategory::model()->with('servicesCount')->findAll();
-
-        $criteria = new CDbCriteria;
-        $criteria->compare('t.id', $category_id);
-
-        $services = ServiceCategory::model()->with('services')->findAll($criteria);
-
-        $this->pageTitle = 'Полезные сервисы для всей семьи';
-        $this->render('services', compact('categories', 'services', 'category_id'));
     }
 
     public function actionSeoHide($hash)
@@ -96,11 +84,14 @@ class SiteController extends HController
 	 */
 	public function actionIndex()
 	{
+        if (! Yii::app()->user->isGuest)
+            $this->redirect(array('myGiraffe/default/index', 'type' => 1));
+
+        $models = Favourites::getArticlesByDate(Favourites::BLOCK_INTERESTING, date("Y-m-d"), 6);
+
+        $this->layout = '//layouts/common';
 		$this->pageTitle = 'Веселый Жираф - сайт для всей семьи';
-        Yii::import('site.frontend.widgets.*');
-        Yii::import('site.frontend.widgets.home.*');
-        $user = Yii::app()->user->getModel();
-        $this->render('home', compact('user'));
+        $this->render('home', compact('models'));
 	}
 
 	/**
@@ -344,7 +335,6 @@ class SiteController extends HController
         if (!$user->email_confirmed){
             $user->email_confirmed = 1;
             $user->update(array('email_confirmed'));
-            Yii::app()->user->getModel()->score->checkFull();
         }
 
         $identity = new SafeUserIdentity($user_id);
@@ -394,17 +384,9 @@ class SiteController extends HController
         $password = $user->createPassword(12);
         $user->password = $user->hashPassword($password);
 
-        if (! ($user->save() &&  Yii::app()->email->send($user, 'passwordRecovery', array('password' => $password)))) {
-            echo CJSON::encode(array(
-                'status' => 'error',
-                'message' => '<span>Произошла неизвестная ошибка. Попробуйте ещё раз.</span>',
-            ));
-        } else {
-            echo CJSON::encode(array(
-                'status' => 'ok',
-                'message' => '<span>На ваш e-mail адрес было выслано письмо с вашим паролем</span><br/><span>(также проверьте, пожалуйста, папку «Спам»)</span>',
-            ));
-        }
+        $success = $user->save() &&  Yii::app()->email->send($user, 'passwordRecovery', array('password' => $password));
+        $response = compact('success');
+        echo CJSON::encode($response);
     }
 
     public function actionFixPhoto($id)
@@ -418,5 +400,14 @@ class SiteController extends HController
         $this->pageTitle = 'Правила модерации на Веселом Жирафе';
 
         $this->render('moder_rules');
+    }
+
+    public function actionTest()
+    {
+        Yii::import('site.frontend.extensions.phpQuery.phpQuery');
+        $url = 'http://habrahabr.ru/post/183598/';
+        $res = LinkParser::getInstance()->parse($url);
+
+        var_dump($res);
     }
 }

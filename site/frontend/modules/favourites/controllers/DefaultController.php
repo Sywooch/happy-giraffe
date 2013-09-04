@@ -10,7 +10,7 @@ class DefaultController extends HController
     {
         return array(
             'accessControl',
-            'ajaxOnly - index',
+           // 'ajaxOnly - index',
         );
     }
 
@@ -45,7 +45,7 @@ class DefaultController extends HController
             switch ($favourite->model_name) {
                 case 'CommunityContent':
                 case 'BlogContent':
-                    $html = Yii::app()->controller->renderPartial('//community/_post', array(
+                    $html = Yii::app()->controller->renderPartial('blog.views.default.view', array(
                         'full' => false,
                         'data' => $favourite->relatedModel,
                     ), true);

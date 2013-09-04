@@ -208,11 +208,13 @@ class SeoUser extends HActiveRecord
         return null;
     }
 
-    public function getAva($size = 'small')
+    public function getAvatarUrl($size = 72)
     {
+        Yii::import('site.frontend.extensions.*');
+        Yii::import('site.frontend.widgets.userAvatarWidget.Avatar');
         $user = $this->getRelatedUser();
         if ($user != null) {
-            return $user->getAva($size);
+            return $user->getAvatarUrl($size);
         }
         return '';
     }

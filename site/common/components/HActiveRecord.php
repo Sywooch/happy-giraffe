@@ -5,6 +5,12 @@
  */
 class HActiveRecord extends CActiveRecord
 {
+    private $_entities = array(
+        'post' => 'Пост',
+        'video' => 'Видео',
+        'photo' => 'Фото',
+    );
+
     public function getPhotoCollection()
     {
         return $this->photos;
@@ -83,6 +89,24 @@ class HActiveRecord extends CActiveRecord
 
     public function getRelatedModel($condition = '', $params = array())
     {
-        return ($this->hasAttribute('entity') && $this->hasAttribute('entity_id')) ? CActiveRecord::model($this->entity)->findByPk($this->entity_id, $condition, $params) : null;
+        return ($this->hasAttribute('entity') && $this->hasAttribute('entity_id')) ? CActiveRecord::model($this->entity)->resetScope()->findByPk($this->entity_id, $condition, $params) : null;
+    }
+
+    public function getEntity()
+    {
+        switch (get_class($this)) {
+            case 'AlbumPhoto':
+                return 'photo';
+            case 'CookRecipe':
+                return 'cook';
+            case 'CommunityContent':
+            case 'BlogContent':
+                return $this->type_id == 1 ? 'post' : 'video';
+        }
+    }
+
+    public function getEntityTitle()
+    {
+        return $this->_entities[$this->entity];
     }
 }

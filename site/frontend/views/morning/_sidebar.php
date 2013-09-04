@@ -144,7 +144,7 @@ $last_time = $this->last_time;
             $prev_day = date("Y-m-d", strtotime('-1 day', $this->time));
             $criteria = new CDbCriteria;
             $criteria->condition = 'type_id=4 AND created >= "' . $prev_day . ' 00:00:00"' . ' AND created <= "' . $prev_day . ' 23:59:59" AND is_published = 1';
-            $prev_day_news_count = CommunityContent::model()->with('photoPost')->count($criteria);
+            $prev_day_news_count = CommunityContent::model()->with('morningPost')->count($criteria);
 
             ?>
             <input type="hidden" value="<?=date("Y-m-d", $this->time)  ?>">

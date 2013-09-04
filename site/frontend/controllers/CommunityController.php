@@ -197,8 +197,10 @@ class CommunityController extends HController
             );
         }
 
-        if (!Yii::app()->user->isGuest)
+        if (!Yii::app()->user->isGuest){
             NotificationRead::getInstance()->setContentModel($content);
+            UserPostView::getInstance()->checkView(Yii::app()->user->id, $content->id);
+        }
 
         $this->render('view', array(
             'data' => $content,
@@ -453,9 +455,9 @@ class CommunityController extends HController
     public function getCommunityUrls()
     {
         $models = Yii::app()->db->createCommand()
-            ->select('community__communities.id AS community_id')
-            ->from('community__communities')
-            ->order('community__communities.id ASC')
+            ->select('community__forums.id AS community_id')
+            ->from('community__forums')
+            ->order('community__forums.id ASC')
             ->queryAll();
         foreach ($models as $model) {
             $data[] = array(

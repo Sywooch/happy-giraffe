@@ -1,86 +1,113 @@
 <?php
-    Yii::app()->clientScript->registerMetaTag('NWGWm2TqrA1HkWzR8YBwRT08wX-3SRzeQIBLi1PMK9M', 'google-site-verification');
-    Yii::app()->clientScript->registerMetaTag('41ad6fe875ade857', 'yandex-verification');
+Yii::app()->clientScript->registerMetaTag('NWGWm2TqrA1HkWzR8YBwRT08wX-3SRzeQIBLi1PMK9M', 'google-site-verification');
+Yii::app()->clientScript->registerMetaTag('41ad6fe875ade857', 'yandex-verification');
+$this->widget('application.widgets.registerWidget.RegisterWidget');
+$this->widget('application.widgets.loginWidget.LoginWidget');
+Yii::app()->clientScript
+    ->registerScriptFile('/javascripts/jquery.fitvids.js')
+;
 ?>
 
-<div id="homepage">
+<div class="start-page">
 
-    <div class="content-cols clearfix">
-
-        <div class="col-1">
-
-            <div style="margin-bottom: 20px;">
-                <?php $this->renderPartial('//banners/adfox'); ?>
-            </div>
-
-            <?php $this->widget('CommunitiesWidget'); ?>
-
-            <?php if (false): ?>
-                <?php $contest_id = 10; ?>
-                <div class="box">
-                    <a href="<?=$this->createUrl('/contest/default/view', array('id' => $contest_id)) ?>"><img
-                        src="/images/contest/banner-w240-<?=$contest_id?>.jpg"></a>
-                </div>
-            <?php endif; ?>
-
-        </div>
-
-        <div class="col-23">
-
-            <?php $this->widget('HelloWidget', array('user' => $user)); ?>
-
-            <div class="clearfix">
-
-                <div class="col-2">
-
-                    <?php if($this->beginCache('home-page-1', array('duration'=>60))) { ?>
-
-                    <?php $this->widget('MostPopularWidget'); ?>
-                    <?php $this->widget('OurServicesWidget'); ?>
-                    <?php $this->widget('BlogWidget'); ?>
-
-                    <?php $this->endCache(); } ?>
-                </div>
-
-                <div class="col-3">
-
-                    <?php $this->widget('OurUsersWidget'); ?>
-
-                    <div class="box homepage-articles">
-
-                        <div class="title">Интерьер <span>и дизайн</span> <i>- сделаем все красиво!</i></div>
-
-                        <ul>
-                            <li><a href="/community/26/forum/"><img src="/images/homepage_articles_img.jpg"></a></li>
-                            <li><a href="/community/26/forum/video/21203/">Интерьер детской комнаты</a></li>
-                            <li><a href="/community/26/forum/post/21351/">Детская комната для маленьких гонщиков</a></li>
-                        </ul>
-
-                        <div class="all-link"><a href="/community/26/forum/">Все статьи (<?=CommunityContent::model()->cache(3600)->with('rubric')->count('community_id=26') ?>)</a></div>
+	<div class="start-page_row start-page_row__head">
+		<div class="start-page_hold">
+			<div class="start-page_head clearfix">
+				<h1 class="logo logo__big">
+					<span class="logo_i" title="Веселый жираф - сайт для все семьи">Веселый жираф - сайт для все семьи</span>
+					<strong class="logo_slogan">САЙТ ДЛЯ ВСЕЙ СЕМЬИ</strong>
+				</h1>
+				<div class="start-page_head-desc">
+                    <a class="btn-green btn-big fancy" href="#register">Присоединяйтесь!</a>
+                    <div class="clearfix">
+                        <a class="display-ib verticalalign-m fancy" href="#login">Войти</a>
+                        <span class="i-or">или</span>
+                        <?php Yii::app()->eauth->renderWidget(array('action' => 'site/login', 'mode' => 'home', 'predefinedServices' => array('odnoklassniki', 'vkontakte', 'facebook', 'twitter'))); ?>
                     </div>
-
-
-                    <div class="box homepage-articles homepage-recipes">
-
-                        <div class="title">Кулинарные <span>рецепты</span> <i>- <b>15000</b> рецептов</i></div>
-
-                        <ul>
-                            <li><a href="/cook/"><img src="/images/homepage_recipes_img.jpg"></a></li>
-                            <li><a href="/community/22/forum/post/18804/">Как варить фасоль – быстро или качественно?</a></li>
-                            <li><a href="/community/22/forum/post/21359/">Как сделать роллы в домашних условиях</a></li>
-                        </ul>
-
-                        <div class="all-link"><a href="/cook/">Все рецепты (<?=CookRecipe::model()->cache(3600)->count() ?>)</a></div>
-
-                    </div>
-
                 </div>
 
-            </div>
+			</div>
+		</div>
+	</div>
 
-        </div>
+	<?php $this->widget('application.widgets.home.CounterWidget')?>
 
-    </div>
+	<div class="start-page_row start-page_row__articles">
+		<div class="start-page_hold">
+			<div class="start-page_articles">
 
+                <?php foreach ($models as $model): ?>
+                    <?php $this->renderPartial('_article', array('model' => $model)); ?>
+                <?php endforeach; ?>
+
+			</div>
+		</div>
+	</div>
+
+	<div class="start-page_row start-page_row__club">
+		<div class="start-page_hold">
+			<div class="start-page_club">
+				<h2 class="start-page_club-t">Выбирайте клубы по интересам</h2>
+				<ul class="start-page_club-ul clearfix">
+					<li class="start-page_club-li">
+						<a href="<?=$this->createUrl('/community/default/section', array('section_id'=>1)) ?>" class="start-page_club-i">
+							<img src="/images/club/collection/1.png" alt="" class="start-page_club-img">
+							<span class="start-page_club-tx">Беременность <br>и дети</span>
+						</a>
+					</li>
+					<li class="start-page_club-li">
+						<a href="<?=$this->createUrl('/community/default/section', array('section_id'=>2)) ?>" class="start-page_club-i">
+							<img src="/images/club/collection/2.png" alt="" class="start-page_club-img">
+							<span class="start-page_club-tx">Наш дом</span>
+						</a>
+					</li>
+					<li class="start-page_club-li">
+						<a href="<?=$this->createUrl('/community/default/section', array('section_id'=>3)) ?>" class="start-page_club-i">
+							<img src="/images/club/collection/4.png" alt="" class="start-page_club-img">
+							<span class="start-page_club-tx">Муж и жена</span>
+						</a>
+					</li>
+					<li class="start-page_club-li">
+						<a href="<?=$this->createUrl('/community/default/section', array('section_id'=>4)) ?>" class="start-page_club-i">
+							<img src="/images/club/collection/3.png" alt="" class="start-page_club-img">
+							<span class="start-page_club-tx">Красота <br> и здоровье</span>
+						</a>
+					</li>
+					<li class="start-page_club-li">
+						<a href="<?=$this->createUrl('/community/default/section', array('section_id'=>5)) ?>" class="start-page_club-i">
+							<img src="/images/club/collection/5.png" alt="" class="start-page_club-img">
+							<span class="start-page_club-tx">Интересы <br> и увлечения</span>
+						</a>
+					</li>
+					<li class="start-page_club-li">
+						<a href="<?=$this->createUrl('/community/default/section', array('section_id'=>6)) ?>" class="start-page_club-i">
+							<img src="/images/club/collection/6.png" alt="" class="start-page_club-img">
+							<span class="start-page_club-tx">Семейный <br> отдых</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<div class="start-page_row start-page_row__join">
+		<div class="start-page_hold">
+			<div class="start-page_join">
+				<a class="btn-green start-page_join-btn fancy" href="#register">Присоединяйтесь!</a>
+                <div class="clearfix">
+                    <span class="i-or">войти через</span>
+                    <?php Yii::app()->eauth->renderWidget(array('action' => 'site/login', 'mode' => 'home', 'predefinedServices' => array('odnoklassniki', 'vkontakte', 'facebook', 'twitter'))); ?>
+                </div>
+			</div>
+		</div>
+	</div>
+
+	<div class="footer-push"></div>
+    <?php $this->renderPartial('//_footer'); ?>
 </div>
 
+<script type="text/javascript">
+    $(document).ready(function(){
+        $(".b-article_in-img").fitVids({ customSelector : "iframe[src*='rutube.ru']" });
+    });
+</script>

@@ -13,6 +13,7 @@
  * @property int $deleted
  * @property integer $gender
  * @property string $birthday
+ * @property string $about
  * @property string $last_active
  * @property integer $online
  * @property string $register_date
@@ -25,6 +26,8 @@
  * @property int $avatar_id
  * @property int $group
  * @property string $updated
+ * @property string $blog_title
+ * @property string $blog_description
  *
  * The followings are the available model relations:
  * @property BagOffer[] $bagOffers
@@ -47,16 +50,21 @@
  * @property RecipeBookRecipeVote[] $recipeBookRecipeVotes
  * @property UserPointsHistory[] $userPointsHistories
  * @property UserSocialService[] $userSocialServices
- * @property UserViaCommunity[] $userViaCommunities
+ * @property Community[] $communities
  * @property VaccineDateVote[] $vaccineDateVotes
  * @property Album[] $albums
+ * @property Album[] $simpleAlbums
  * @property Interest[] interests
  * @property UserPartner partner
  * @property Baby[] babies
  * @property AlbumPhoto $avatar
- * @property UserStatus status
  * @property UserMailSub $mail_subs
- * @property address $address
+ * @property UserAddress $address
+ * @property int $activeCommentsCount
+ * @property int $blogPostsCount
+ * @property int $communityPostsCount
+ * @property int $albumsCount
+ * @property CommunityClub[] $clubSubscriptions
  *
  * @method User active()
  */
@@ -64,6 +72,7 @@ class User extends HActiveRecord
 {
     const HAPPY_GIRAFFE = 1;
 
+    public $passwordRepeat;
     public $verifyCode;
     public $current_password;
     public $new_password;
@@ -157,7 +166,10 @@ class User extends HActiveRecord
 
     public function getNormalizedAge()
     {
-        return $this->age . ' ' . $this->ageSuffix;
+        if ($this->birthday)
+            return $this->age . ' ' . $this->ageSuffix;
+        else
+            return '';
     }
 
     public function getBirthdayString()
@@ -191,42 +203,47 @@ class User extends HActiveRecord
             //general
             array('first_name', 'length', 'max' => 50, 'message' => 'Слишком длинное имя'),
             array('last_name', 'length', 'max' => 50, 'message' => 'Слишком длинная фамилия'),
+            array('about', 'length', 'max' => 10000, 'message' => 'Слишком длинное описание'),
             array('email', 'email', 'message' => 'E-mail не является правильным E-Mail адресом'),
             array('password, current_password, new_password, new_password_repeat', 'length', 'min' => 6, 'max' => 16, 'on' => 'signup, change_password', 'tooShort' => 'минимум 6 символов', 'tooLong' => 'максимум 16 символов'),
             array('online, relationship_status', 'numerical', 'integerOnly' => true),
             array('gender', 'boolean'),
             array('id, phone', 'safe'),
             array('deleted', 'numerical', 'integerOnly' => true),
-            array('birthday, baby_birthday', 'date', 'format' => 'yyyy-MM-dd'),
+            array('birthday, baby_birthday', 'date', 'format' => 'yyyy-MM-dd', 'message' => 'Неправильная дата'),
             array('birthday', 'default', 'value' => NULL),
             array('blocked, login_date, register_date', 'safe'),
             array('mood_id', 'exist', 'className' => 'UserMood', 'attributeName' => 'id'),
             array('profile_access, guestbook_access, im_access', 'in', 'range' => array_keys($this->accessLabels)),
             array('avatar_id', 'numerical', 'allowEmpty' => true),
             array('remember_code', 'numerical'),
-            array('blog_title', 'safe'),
 
             //login
             array('email, password', 'required', 'on' => 'login'),
             array('password', 'passwordValidator', 'on' => 'login'),
 
             //signup
-            array('first_name, last_name, password', 'required', 'on' => 'signup,signup_full', 'message' => 'Поле является обязательным'),
+            array('first_name, last_name, password, passwordRepeat', 'required', 'on' => 'signup,signup_full', 'message' => 'Поле является обязательным'),
             array('email', 'required', 'on' => 'signup,signup_full', 'message' => 'Введите ваш E-mail адрес'),
-            array('birthday', 'required', 'on' => 'signup_full', 'message' => 'Поле является обязательным'),
+            array('birthday', 'required', 'on' => 'signup,signup_full', 'message' => 'Поле является обязательным'),
             array('gender', 'required', 'on' => 'signup,signup_full', 'message' => 'укажите свой пол'),
             array('first_name, last_name, gender, birthday, photo', 'safe', 'on' => 'signup,signup_full'),
             array('email', 'unique', 'on' => 'signup,signup_full', 'message' => 'Этот E-Mail уже используется'),
+            array('passwordRepeat', 'compare', 'compareAttribute' => 'password', 'on' => 'signup,signup_full'),
 
             //change_password
-            array('new_password', 'required', 'on' => 'change_password'),
+            array('current_password, new_password, new_password_repeat, verifyCode', 'required', 'on' => 'change_password'),
             array('current_password', 'validatePassword', 'on' => 'change_password'),
             array('new_password_repeat', 'compare', 'on' => 'change_password', 'compareAttribute' => 'new_password'),
-            array('verifyCode', 'required', 'on' => 'change_password'),
             array('verifyCode', 'captcha', 'on' => 'change_password', 'skipOnError' => true),
 
             //remember_password
             array('password', 'length', 'min' => 6, 'max' => 15, 'on' => 'remember_password', 'tooShort' => 'минимум 6 символов', 'tooLong' => 'максимум 15 символов'),
+
+            //blog
+            array('blog_title', 'length', 'max' => 50),
+            array('blog_description', 'length', 'max' => 150),
+            array('blog_photo_id', 'default', 'setOnEmpty' => true, 'value' => null),
         );
     }
 
@@ -295,10 +312,12 @@ class User extends HActiveRecord
             'userSocialServices' => array(self::HAS_MANY, 'UserSocialService', 'user_id'),
 
             'commentsCount' => array(self::STAT, 'Comment', 'author_id'),
+            'activeCommentsCount' => array(self::STAT, 'Comment', 'author_id', 'condition' => 'removed = 0'),
 
-            'status' => array(self::HAS_ONE, 'UserStatus', 'user_id', 'order' => 'status.created DESC'),
             'purpose' => array(self::HAS_ONE, 'UserPurpose', 'user_id', 'order' => 'purpose.created DESC'),
             'albums' => array(self::HAS_MANY, 'Album', 'author_id', 'scopes' => array('active', 'permission')),
+            'privateAlbum' => array(self::HAS_ONE, 'Album', 'author_id'),
+            'simpleAlbums' => array(self::HAS_MANY, 'Album', 'author_id', 'condition' => 'type=0'),
             'interests' => array(self::MANY_MANY, 'Interest', 'interest__users_interests(interest_id, user_id)'),
             'mood' => array(self::BELONGS_TO, 'UserMood', 'mood_id'),
             'partner' => array(self::HAS_ONE, 'UserPartner', 'user_id'),
@@ -310,7 +329,7 @@ class User extends HActiveRecord
             'cookRecipesCount' => array(self::STAT, 'CookRecipe', 'author_id'),
             'recipeBookRecipesCount' => array(self::STAT, 'RecipeBookRecipe', 'author_id'),
             //'photosCount' => array(self::STAT, 'AlbumPhoto', 'author_id', 'join' => 'JOIN album__albums a ON t.album_id = a.id', 'condition' => 'a.type IN(0, 1, 3)'),
-            'albumsCount' => array(self::STAT, 'Album', 'author_id', 'condition' => 'removed = 0'),
+            'albumsCount' => array(self::STAT, 'Album', 'author_id', 'condition' => 'removed = 0 AND type = 0'),
 
             'communitiesCount' => array(self::STAT, 'Community', 'user__users_communities(user_id, community_id)'),
             'userDialogs' => array(self::HAS_MANY, 'DialogUser', 'user_id'),
@@ -325,9 +344,17 @@ class User extends HActiveRecord
 
             'photos' => array(self::HAS_MANY, 'AlbumPhoto', 'author_id'),
             'mail_subs' => array(self::HAS_ONE, 'UserMailSub', 'user_id'),
+
             'score' => array(self::HAS_ONE, 'UserScores', 'user_id'),
+            'awards' => array(self::HAS_MANY, 'ScoreUserAward', 'user_id'),
+            'achievements' => array(self::MANY_MANY, 'ScoreUserAchievement', 'user_id'),
 
             'friendLists' => array(self::HAS_MANY, 'FriendList', 'list_id'),
+            'subscriber' => array(self::HAS_ONE, 'UserBlogSubscription', 'user_id'),
+            'clubSubscriber' => array(self::HAS_ONE, 'UserClubSubscription', 'user_id'),
+            'clubSubscriptions' => array(self::HAS_MANY, 'UserClubSubscription', 'user_id'),
+
+            'blogPhoto' => array(self::BELONGS_TO, 'AlbumPhoto', 'blog_photo_id'),
         );
     }
 
@@ -367,9 +394,12 @@ class User extends HActiveRecord
             'role' => 'Роль',
             'fullName' => 'Имя пользователя',
             'last_name' => 'Фамилия',
+            'birthday' => 'Дата рождения',
             'assigns' => 'Права',
             'last_active' => 'Последняя активность',
-            'url' => 'Профиль'
+            'url' => 'Профиль',
+            'verifyCode' => 'Код',
+            'passwordRepeat' => 'Пароль',
         );
     }
 
@@ -407,8 +437,6 @@ class User extends HActiveRecord
 
     protected function afterSave()
     {
-        parent::afterSave();
-
         if ($this->trackable->isChanged('mood_id'))
             UserAction::model()->add($this->id, UserAction::USER_ACTION_MOOD_CHANGED, array('model' => $this));
 
@@ -426,13 +454,17 @@ class User extends HActiveRecord
             $rubric->user_id = $this->id;
             $rubric->save();
 
+            Yii::import('site.frontend.modules.myGiraffe.models.*');
+            ViewedPost::getInstance($this->id);
+
+            Friend::model()->addCommentatorAsFriend($this->id);
+
             //create some tables
             Yii::app()->db->createCommand()->insert(UserPriority::model()->tableName(), array('user_id' => $this->id));
             Yii::app()->db->createCommand()->insert(UserScores::model()->tableName(), array('user_id' => $this->id));
             Yii::app()->db->createCommand()->insert(UserAddress::model()->tableName(), array('user_id' => $this->id));
-        } else {
+        } else
             self::clearCache($this->id);
-        }
 
         if ($this->trackable->isChanged('online'))
             $this->sendOnlineStatus();
@@ -531,34 +563,45 @@ class User extends HActiveRecord
             Yii::app()->cache->delete($cacheKey);
     }
 
-    public function getAva($size = 'ava')
+    public function getBlogPhoto()
     {
-        if (empty($this->avatar_id)) {
-            //if ($this->user->gender)
-            return false;
-        }
-
-        switch ($size) {
-            case 'big':
-                return $this->avatar->getPreviewUrl(240, 400, Image::WIDTH);
-            case 'large':
-                return $this->avatar->getPreviewUrl(200, 200, Image::INVERT, true, AlbumPhoto::CROP_SIDE_TOP);
-            default:
-                return $this->avatar->getAvatarUrl($size);
-        }
+        return $this->blogPhoto === null ? $this->getDefaultBlogPhoto() : array(
+            'id' => $this->blogPhoto->id,
+            'originalSrc' => $this->blogPhoto->getOriginalUrl(),
+            'thumbSrc' => $this->blogPhoto->getBlogUrl(),
+            'width' => $this->blogPhoto->width,
+            'height' => $this->blogPhoto->height,
+            'position' => CJSON::decode($this->blog_photo_position),
+        );
     }
 
-    public function getAvaOrDefaultImage($size = 'ava')
+    public function getDefaultBlogPhoto()
+    {
+        return array(
+            'id' => null,
+            'originalSrc' => '/images/jcrop-blog.jpg',
+            'thumbSrc' => '/images/blog-title-b_img.jpg',
+            'width' => 730,
+            'height' => 520,
+            'position' => array(
+                'h' => 130,
+                'w' => 730,
+                'x' => 0,
+                'x2' => 730,
+                'y' => 68,
+                'y2' => 198,
+            ),
+        );
+    }
+
+    public function getAvaOrDefaultImage($size = Avatar::SIZE_MEDIUM)
     {
         if (empty($this->avatar_id)) {
             if ($this->gender == 1)
                 return '';
             return false;
         }
-        if ($size != 'big')
-            return $this->avatar->getAvatarUrl($size);
-        else
-            return $this->avatar->getPreviewUrl(240, 400, Image::WIDTH);
+        return $this->avatar->getAvatarUrl($size);
     }
 
     public function getPartnerPhotoUrl()
@@ -859,7 +902,7 @@ class User extends HActiveRecord
     public function getUrlParams()
     {
         return array(
-            'user/profile',
+            'profile/default/index',
             array(
                 'user_id' => $this->id,
             ),
@@ -873,14 +916,25 @@ class User extends HActiveRecord
         return Yii::app()->$method($route, $params);
     }
 
+    public function hasBlogPosts()
+    {
+        return Yii::app()->db->createCommand()
+            ->select('t.id')
+            ->from('community__contents as t')
+            ->where('community__rubrics.user_id = :user_id', array(':user_id' => $this->id))
+            ->join('community__rubrics', 't.rubric_id = community__rubrics.id')
+            ->limit(1)
+            ->queryScalar();
+    }
+
     public function getBlogUrl()
     {
-        return Yii::app()->createUrl('/blog/list', array('user_id' => $this->id));
+        return Yii::app()->createUrl('/blog/default/index', array('user_id' => $this->id));
     }
 
     public function getPhotosUrl()
     {
-        return Yii::app()->createUrl('/albums/user', array('id' => $this->id));
+        return Yii::app()->createUrl('/gallery/user/index', array('user_id' => $this->id));
     }
 
     public function getDialogUrl()
@@ -888,30 +942,9 @@ class User extends HActiveRecord
         return Yii::app()->createUrl('/messaging/default/index', array('interlocutorId' => $this->id));
     }
 
-    public function addCommunity($community_id)
+    public function getFamilyUrl()
     {
-        $result = Yii::app()->db->createCommand()
-            ->insert('user__users_communities', array('user_id' => $this->id, 'community_id' => $community_id)) != 0;
-        if ($result) {
-            UserAction::model()->add($this->id, UserAction::USER_ACTION_CLUBS_JOINED, array('community_id' => $community_id));
-            FriendEventManager::add(FriendEvent::TYPE_CLUBS_JOINED, array('id' => $community_id, 'user_id' => Yii::app()->user->id));
-        }
-        return $result;
-    }
-
-    public function delCommunity($community_id)
-    {
-        return Yii::app()->db->createCommand()
-            ->delete('user__users_communities', 'user_id = :user_id AND community_id = :community_id', array(':user_id' => $this->id, ':community_id' => $community_id)) != 0;
-    }
-
-    public function isInCommunity($community_id)
-    {
-        return Yii::app()->db->createCommand()
-            ->select('count(*)')
-            ->from('user__users_communities')
-            ->where('user_id = :user_id AND community_id = :community_id', array(':user_id' => $this->id, ':community_id' => $community_id))
-            ->queryScalar() != 0;
+        return Yii::app()->createUrl('/family/default/index', array('userId' => $this->id));
     }
 
     public function getBlogWidget()
@@ -957,7 +990,7 @@ class User extends HActiveRecord
     {
         $array = array();
         if ($this->babyCount() != 0)
-            $array[] = $this->babyCount() . ' ' . HDate::GenerateNoun(array('ребёнок', 'ребёнка', 'детей'), $this->babyCount());
+            $array[] = $this->babyCount() . ' ' . Str::GenerateNoun(array('ребёнок', 'ребёнка', 'детей'), $this->babyCount());
         if ($this->hasBaby(Baby::TYPE_PLANNING))
             $array[] = 'Планируем';
         if ($this->hasBaby(Baby::TYPE_WAIT))
@@ -1063,13 +1096,23 @@ class User extends HActiveRecord
 
     public function getBlogPopular()
     {
-        return BlogContent::model()->findAll(array(
-            'with' => array('rubric','commentsCount'),
+        return ($this->blogPostsCount <= 10) ? array() : BlogContent::model()->findAll(array(
+            'with' => array('rubric', 'commentsCount', 'type'),
             'condition' => 'rubric.user_id = :user_id',
             'params' => array(':user_id' => $this->id),
             'order' => 't.rate DESC',
-            'limit' => 3,
+            'limit' => 2,
         ));
+    }
+
+    public function getBlogTitle()
+    {
+        return $this->blog_title === null ? $this->getDefaultBlogTitle() : $this->blog_title;
+    }
+
+    public function getDefaultBlogTitle()
+    {
+        return 'Блог - ' . $this->fullName;
     }
 
     function createPassword($length)
@@ -1229,5 +1272,224 @@ class User extends HActiveRecord
             return true;
 
         return false;
+    }
+
+    /**
+     * Добавлял ли пользователь запись в избранное
+     *
+     * @param CommunityContent $model
+     * @return bool
+     */
+    public function isAddedToFavourite($model)
+    {
+        return Favourite::model()->exists('model_name="CommunityContent" AND model_id=:model_id AND user_id=:user_id',
+            array(':user_id' => $this->id, ':model_id' => $model->id));
+    }
+
+    /**
+     * Лайкал ли пользователь запись
+     *
+     * @param CommunityContent $model
+     * @return bool
+     */
+    public function isLiked($model)
+    {
+        return (bool)HGLike::model()->hasLike($model, $this->id);
+    }
+
+    /**
+     * Сколько времени зарегистрирован
+     * @return string
+     */
+    public function withUs()
+    {
+        return HDate::spentDays(strtotime($this->register_date));
+    }
+
+    /**
+     * @return CommunityContent
+     */
+    public function getLastStatus()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->compare('author_id', $this->id);
+        $criteria->compare('removed', 0);
+        $criteria->compare('type_id', CommunityContent::TYPE_STATUS);
+        $criteria->order = 'id desc';
+
+        return CommunityContent::model()->resetScope()->find($criteria);
+    }
+
+    /**
+     * Возвращает активность пользователя
+     * @return CActiveDataProvider
+     */
+    public function getActivityDataProvider()
+    {
+        $dataProvider = new CActiveDataProvider(CommunityContent::model()->resetScope()->active(), array(
+            'criteria' => array(
+                'condition' => 'removed = 0 and author_id = :user_id',
+                'params' => array(':user_id' => $this->id),
+                'order' => 'created desc'
+            ),
+            'pagination' => array('pageSize' => 20)
+        ));
+
+        return $dataProvider;
+    }
+
+    /**
+     * Новый метод получения url аватарки пользователя
+     *
+     * @param int $size размер авы в пикселях
+     * @return string url авы
+     */
+    public function getAvatarUrl($size = 72)
+    {
+        if (empty($this->avatar_id))
+            return false;
+
+        //новая схема хранения аватарок
+        if (!empty($this->avatar->userAvatar))
+            return $this->avatar->getPreviewUrl($size, $size, Image::INVERT, true, AlbumPhoto::CROP_SIDE_TOP);
+
+        //временная проверка для выдачи старых аватарок
+        #TODO когда большая часть перейдет на новые авы есть смысл удалить старый механизм вместе с авами
+        switch ($size) {
+            case 200:
+                return $this->avatar->getPreviewUrl(200, 200, Image::INVERT, true, AlbumPhoto::CROP_SIDE_TOP);
+            case 72:
+                return $this->avatar->getAvatarUrl('ava');
+            case 24:
+                return $this->avatar->getAvatarUrl('micro');
+        }
+
+        return '';
+    }
+
+    /**
+     * Возвращает данные пользователя
+     * @return array
+     */
+    public function getSettingsData()
+    {
+        $data = array();
+        foreach ($this->getAttributes() as $attribute => $value)
+            $data[$attribute] = array(
+                'attribute' => $attribute,
+                'value' => $value,
+                'label' => $this->getAttributeLabel($attribute),
+            );
+
+        $birthday = strtotime($this->birthday);
+        $data['birthday']['day'] = (int)date("d", $birthday);
+        $data['birthday']['month'] = (int)date("m", $birthday);
+        $data['birthday']['year'] = (int)date("Y", $birthday);
+        $data['birthday']['min_year'] = 1910;
+        $data['birthday']['max_year'] = (int)date("Y");
+        $data['email_subscription'] = $this->mail_subs === null ? 1 : $this->mail_subs->weekly_news == 1 ? 1 : 0;
+        $data['location'] = array(
+            'countries' => GeoCountry::getCountries(),
+            'regions' => array(),
+            'region_id' => $this->address->region_id,
+            'city_id' => (int)$this->address->city_id,
+        );
+        if ($this->address->country) {
+            $data['location']['country_id'] = $this->address->country_id;
+            $data['location']['country_code'] = $this->address->country->iso_code;
+            $data['location']['regions'] = GeoRegion::getRegions($this->address->country_id);
+        }
+        if ($this->address->city)
+            $data['location']['city_name'] = $this->address->city->name;
+
+        return $data;
+    }
+
+    public function getFamilyData()
+    {
+        $myPhotoCollection = new AttachPhotoCollection(array('entityName' => 'User', 'entityId' => $this->id));
+        $myPhotoCollectionPhotos = $myPhotoCollection->getAllPhotos();
+
+        $result = array(
+            'me' => array(
+                'id' => $this->id,
+                'name' => $this->first_name,
+                'gender' => (int) $this->gender,
+                'relationshipStatus' => $this->relationship_status === null ? null : (int) $this->relationship_status,
+                'mainPhotoId' => $this->main_photo_id,
+                'photos' => array_map(function($photo) {
+                    return array(
+                        'id' => $photo->id,
+                        'bigThumbSrc' => $photo->getPreviewUrl(220, null, Image::WIDTH),
+                        'smallThumbSrc' => $photo->getPreviewUrl(null, 105, Image::HEIGHT),
+                    );
+                }, $myPhotoCollectionPhotos),
+            ),
+            'babies' => array_map(function($baby) {
+                $babyPhotoCollection = new AttachPhotoCollection(array('entityName' => 'Baby', 'entityId' => $baby->id));
+                $babyPhotoCollectionPhotos = $babyPhotoCollection->getAllPhotos();
+
+                return array(
+                    'id' => (string) $baby->id,
+                    'name' => (string) $baby->name,
+                    'notice' => (string) $baby->notice,
+                    'birthday' => $baby->birthday,
+                    'gender' => (int) $baby->sex,
+                    'ageGroup' => (int) $baby->age_group,
+                    'type' => $baby->type === null ? null : (int) $baby->type,
+                    'mainPhotoId' => $baby->main_photo_id,
+                    'photos' => array_map(function($photo) {
+                        return array(
+                            'id' => $photo->id,
+                            'bigThumbSrc' => $photo->getPreviewUrl(220, null, Image::WIDTH),
+                            'smallThumbSrc' => $photo->getPreviewUrl(null, 105, Image::HEIGHT),
+                        );
+                    }, $babyPhotoCollectionPhotos),
+                );
+            }, $this->babies),
+        );
+
+        if ($this->partner !== null) {
+            $partnerPhotoCollection = new AttachPhotoCollection(array('entityName' => 'UserPartner', 'entityId' => $this->partner->id));
+            $partnerPhotoCollectionPhotos = $partnerPhotoCollection->getAllPhotos();
+            $result['partner'] = $this->partner === null ? null : array(
+                'id' => (string) $this->partner->id,
+                'name' => (string) $this->partner->name,
+                'notice' => (string) $this->partner->notice,
+                'mainPhotoId' => $this->partner->main_photo_id,
+                'photos' => array_map(function($photo) {
+                    return array(
+                        'id' => $photo->id,
+                        'bigThumbSrc' => $photo->getPreviewUrl(220, null, Image::WIDTH),
+                        'smallThumbSrc' => $photo->getPreviewUrl(null, 105, Image::HEIGHT),
+                    );
+                }, $partnerPhotoCollectionPhotos),
+            );
+        } else
+            $result['partner'] = null;
+
+        return $result;
+    }
+
+    public function getBlogData()
+    {
+        return array(
+            'authorId' => $this->id,
+            'title' => $this->getBlogTitle(),
+            'description' => $this->blog_description,
+            'photo' => $this->getBlogPhoto(),
+            'rubrics' => array_map(function ($rubric) {
+                return array(
+                    'id' => $rubric->id,
+                    'title' => $rubric->title,
+                );
+            }, $this->blog_rubrics),
+            'showRubrics' => (bool) $this->blog_show_rubrics,
+        );
+    }
+
+    public function getAva()
+    {
+        return '';
     }
 }

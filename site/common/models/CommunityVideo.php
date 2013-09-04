@@ -8,11 +8,11 @@
  * @property string $link
  * @property string $text
  * @property string $content_id
- * @property string $player_favicon
- * @property string $player_title
- * @property integer $photo_id
+ * @property string $photo_id
+ * @property string $embed
  *
  * @property AlbumPhoto $photo
+ * @property CommunityContent $content
  */
 class CommunityVideo extends HActiveRecord
 {
@@ -29,21 +29,17 @@ class CommunityVideo extends HActiveRecord
 	public function behaviors()
 	{
 		return array(
-			'cut' => array(
-                'class' => 'site.common.behaviors.CutBehavior',
-				'attributes' => array('text'),
-				'edit_routes' => array('community/edit'),
-			),
+            'previewSave' => array(
+                'class' => 'site.common.behaviors.PreviewBehavior',
+                'small_preview' => true,
+            ),
             'purified' => array(
                 'class' => 'site.common.behaviors.PurifiedBehavior',
                 'attributes' => array('text'),
                 'options' => array(
                     'AutoFormat.Linkify' => true,
                 ),
-            ),
-            'externalImages' => array(
-                'class' => 'site.common.behaviors.ExternalImagesBehavior',
-                'attributes' => array('text'),
+                'show_video' => false,
             ),
 		);
 	}
@@ -65,18 +61,9 @@ class CommunityVideo extends HActiveRecord
 		// will receive user inputs.
 		return array(
 			array('link, text', 'required'),
-			array('content_id', 'required', 'on' => 'edit'),
 			array('link', 'length', 'max' => 255),
             array('link', 'url'),
-			array('content_id', 'length', 'max' => 11),
-			array('content_id, photo_id', 'numerical', 'integerOnly' => true),
-			array('content_id', 'exist', 'attributeName' => 'id', 'className' => 'CommunityContent'),	
-			
-			//array('text', 'filter', 'filter' => array('Filters', 'add_nofollow')),
-			
-			// The following rule is used by search().
-			// Please remove those attributes that should not be searched.
-			array('id, link, text, content_id, player_favicon, player_title', 'safe', 'on'=>'search'),
+            array('link', 'videoUrl'),
 		);
 	}
 
@@ -98,94 +85,44 @@ class CommunityVideo extends HActiveRecord
 	 */
 	public function attributeLabels()
 	{
-		return array(
-			'id' => 'ID',
-			'link' => 'Ссылка на видео',
-			'text' => 'Текст',
-			'content_id' => 'Content',
-			'player_favicon' => 'Player Favicon',
-			'player_title' => 'Player Title',
-		);
+        return array(
+            'id' => 'ID',
+            'link' => 'Ссылка',
+            'text' => 'Текст',
+            'content_id' => 'Content',
+            'photo_id' => 'Photo',
+            'embed' => 'Embed',
+        );
 	}
 
-	/**
-	 * Retrieves a list of models based on the current search/filter conditions.
-	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
-	 */
-	public function search()
-	{
-		// Warning: Please modify the following code to remove attributes that
-		// should not be searched.
-
-		$criteria=new CDbCriteria;
-
-		$criteria->compare('id',$this->id,true);
-		$criteria->compare('link',$this->link,true);
-		$criteria->compare('text',$this->text,true);
-		$criteria->compare('content_id',$this->content_id,true);
-		$criteria->compare('player_favicon',$this->player_favicon,true);
-		$criteria->compare('player_title',$this->player_title,true);
-
-		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-		));
-	}
-
-    public function beforeSave()
-    {
-        if ($this->isNewRecord)
-            $this->searchPreview(Yii::app()->user->id);
-        else {
-            if (isset($this->content->author_id))
-                $this->searchPreview($this->content->author_id);
-        }
-
-        return parent::beforeSave();
-    }
-
+    /**
+     * @return AlbumPhoto
+     */
     public function getPhoto(){
         return $this->photo;
     }
 
-    public function getEmbed()
+    protected function beforeSave()
     {
-        if (empty($this->embed)){
-            $this->searchPreview($this->content->author_id);
-            $this->update(array('photo_id', 'embed'));
-        }
-        return $this->embed;
-    }
-
-    public function searchPreview($author_id)
-    {
-        $video = new Video($this->link);
-        if (empty($video->image))
-            return false;
-
-        $photo = AlbumPhoto::createByUrl($video->image, $author_id, 6);
-        if ($photo){
+        try {
+            $video = Video::factory($this->link);
+            $this->embed = $video->embed;
+            $photo = AlbumPhoto::createByUrl($video->thumbnail, $this->isNewRecord ? Yii::app()->user->id : $this->content->author_id, Album::TYPE_PREVIEW);
             $this->photo_id = $photo->id;
-            $this->embed = $video->code;
+            return parent::beforeValidate();
+        }
+        catch (CException $e) {
+            return false;
         }
     }
 
-    public function getResizedEmbed($width)
+    public function videoUrl($attribute, $params)
     {
-        Yii::import('site.frontend.extensions.phpQuery.phpQuery');
-
-        $embed = $this->getEmbed();
-        if (empty($embed))
-            return '';
-
-        $doc = phpQuery::newDocumentHTML($this->getEmbed(), $charset = 'utf-8');
-        $iframe = $doc->find('iframe');
-        $ratio = pq($iframe)->attr('width') / $width;
-
-        $height = round(pq($iframe)->attr('height') / $ratio);
-
-        $iframe->attr('width', $width);
-        $iframe->attr('height', $height);
-
-        return $doc->html();
+        try {
+            Video::factory($this->$attribute);
+        }
+        catch (CException $e) {
+            $this->addError($attribute, 'Не удалось загрузить видео. <br>Возможно, URL указан неправильно либо ведет на неподдерживаемый сайт.');
+        }
     }
 }

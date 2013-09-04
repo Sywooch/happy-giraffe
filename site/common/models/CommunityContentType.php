@@ -12,8 +12,10 @@ class CommunityContentType extends HActiveRecord
 {
     const TYPE_POST = 1;
     const TYPE_VIDEO = 2;
-    const TYPE_PHOTO = 4;
+    const TYPE_PHOTO = 3;
+    const TYPE_MORNING = 4;
     const TYPE_STATUS = 5;
+    const TYPE_REPOST = 6;
 
 	/**
 	 * Returns the static model of the specified AR class.
@@ -42,8 +44,6 @@ class CommunityContentType extends HActiveRecord
 		return array(
 			array('title', 'required'),
 			array('title', 'length', 'max'=>255),
-			// The following rule is used by search().
-			// Please remove those attributes that should not be searched.
 			array('id, title', 'safe', 'on'=>'search'),
 		);
 	}
@@ -53,40 +53,8 @@ class CommunityContentType extends HActiveRecord
 	 */
 	public function relations()
 	{
-		// NOTE: you may need to adjust the relation name and the related
-		// class name for the relations automatically generated below.
 		return array(
 			'rubrics' => array(self::HAS_MANY, 'CommunityRubric', 'community_id'),
 		);
-	}
-
-	/**
-	 * @return array customized attribute labels (name=>label)
-	 */
-	public function attributeLabels()
-	{
-		return array(
-			'id' => 'ID',
-			'title' => 'Name',
-		);
-	}
-
-	/**
-	 * Retrieves a list of models based on the current search/filter conditions.
-	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
-	 */
-	public function search()
-	{
-		// Warning: Please modify the following code to remove attributes that
-		// should not be searched.
-
-		$criteria=new CDbCriteria;
-
-		$criteria->compare('id',$this->id,true);
-		$criteria->compare('title',$this->name,true);
-
-		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-		));
 	}
 }

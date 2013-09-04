@@ -11,8 +11,8 @@
  * @property string $title
  *
  * The followings are the available model relations:
- * @property AlbumPhotos $photo
- * @property CommunityContents $content
+ * @property AlbumPhoto $photo
+ * @property CommunityContent $content
  */
 class CommunityBanner extends CActiveRecord
 {

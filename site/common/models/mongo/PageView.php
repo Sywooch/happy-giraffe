@@ -104,6 +104,19 @@ class PageView extends HMongoModel
         return $model['views'];
     }
 
+    public function cheat($path, $min, $max)
+    {
+        $model = $this->findByPath($path);
+        if ($model === null) {
+            $this->getCollection()->insert(array(
+                '_id' => $path,
+                'views' => mt_rand($min, $max),
+            ));
+        }
+        else
+            $this->getCollection()->update(array('_id' => $model['_id']), array('$inc' => array('views' => mt_rand($min, $max))));
+    }
+
     /**
      * user-агенты ботов
      *

@@ -27,8 +27,8 @@ function PhotoCollectionViewModel(data) {
 
     self.currentPhoto.subscribe(function () {
         History.pushState(self.currentPhoto(), "Photo " + self.currentPhoto().id, self.currentPhoto().url());
-        _gaq.push(['_trackPageview', path]);
-        yaCounter11221648.hit(path);
+        _gaq.push(['_trackPageview', self.currentPhoto().url()]);
+        yaCounter11221648.hit(self.currentPhoto().url());
     });
 
     self.isFullyLoaded = function () {

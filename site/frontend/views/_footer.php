@@ -2,13 +2,13 @@
     <div class="layout-footer_hold">
 
         <ul class="footer-list">
-            <li class="footer-list_li"><a href="javascript:void(0)" class="footer-list_a">Мобильная версия</a></li>
-            <li class="footer-list_li"><a href="javascript:void(0)" class="footer-list_a">О проекте</a></li>
-            <li class="footer-list_li"><a href="javascript:void(0)" class="footer-list_a">Правила</a></li>
-            <li class="footer-list_li"><a href="javascript:void(0)" class="footer-list_a">Задать вопрос</a></li>
-            <li class="footer-list_li"><a href="javascript:void(0)" class="footer-list_a">Реклама </a></li>
-            <li class="footer-list_li"><a href="javascript:void(0)" class="footer-list_a">Контакты </a></li>
-            <li class="footer-list_li"><a href="javascript:void(0)" class="footer-list_a">Партнер "Рамблера"</a></li>
+            <li class="footer-list_li"><span>Мобильная версия</span></li>
+            <li class="footer-list_li"><span>О проекте</span></li>
+            <li class="footer-list_li"><span>Правила</span></li>
+            <li class="footer-list_li"><span>Задать вопрос</span></li>
+            <li class="footer-list_li"><span>Реклама </span></li>
+            <li class="footer-list_li"><span>Контакты </span></li>
+            <li class="footer-list_li"><span>Партнер "Рамблера"</span></li>
         </ul>
         <?php if ($this->route != 'site/index'): ?>
             <ul class="footer-ul-bold">

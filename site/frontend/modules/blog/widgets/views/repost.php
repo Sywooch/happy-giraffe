@@ -29,7 +29,7 @@
 <?php else: ?>
 
     <div<?php if (!$this->right) echo ' class="favorites-control"'; else echo ' class="position-rel"'; ?>>
-        <a href="#login" class="favorites-control_a powertip fancy" title="В избранное">
+        <a href="#login" class="like-control_ico like-control_ico__repost fancy" title="Репост">
             <?=$count?>
         </a>
     </div>

@@ -2,12 +2,12 @@
     <div class="float-l">
         <div class="like-control like-control__smallest clearfix">
             <?php $this->widget('Avatar', array('user' => $model->author, 'size' => 40)) ?>
-            <a class="like-control_ico like-control_ico__like powertip fancy" href="#login" title="Нравится" data-theme="transparent"><?=PostRating::likesCount($model)?></a>
+            <a class="like-control_ico like-control_ico__like powertip fancy" href="#login" title="Нравится"><?=PostRating::likesCount($model)?></a>
             <div class="position-r">
-                <a class="like-control_ico like-control_ico__repost powertip fancy" title="Репост" href="#login" data-theme="transparent"><?=$model->sourceCount?></a>
+                <a class="like-control_ico like-control_ico__repost powertip fancy" title="Репост" href="#login"><?=$model->sourceCount?></a>
             </div>
             <div class="favorites-control">
-                <a class="favorites-control_a powertip fancy" href="#login" title="В избранное" data-theme="transparent"><?=Favourite::model()->getCountByModel($model)?></a>
+                <a class="favorites-control_a powertip fancy" href="#login" title="В избранное"><?=Favourite::model()->getCountByModel($model)?></a>
             </div>
         </div>
     </div>

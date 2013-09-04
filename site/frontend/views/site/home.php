@@ -18,9 +18,9 @@ Yii::app()->clientScript
 					<strong class="logo_slogan">САЙТ ДЛЯ ВСЕЙ СЕМЬИ</strong>
 				</h1>
 				<div class="start-page_head-desc">
-                    <a class="btn-green btn-big fancy" href="#register" data-theme="transparent">Присоединяйтесь!</a>
+                    <a class="btn-green btn-big fancy" href="#register">Присоединяйтесь!</a>
                     <div class="clearfix">
-                        <a class="display-ib verticalalign-m fancy" href="#login" data-theme="transparent">Войти</a>
+                        <a class="display-ib verticalalign-m fancy" href="#login">Войти</a>
                         <span class="i-or">или</span>
                         <?php Yii::app()->eauth->renderWidget(array('action' => 'site/login', 'mode' => 'home', 'predefinedServices' => array('odnoklassniki', 'vkontakte', 'facebook', 'twitter'))); ?>
                     </div>
@@ -93,7 +93,7 @@ Yii::app()->clientScript
 	<div class="start-page_row start-page_row__join">
 		<div class="start-page_hold">
 			<div class="start-page_join">
-				<a class="btn-green start-page_join-btn fancy" href="#register" data-theme="transparent">Присоединяйтесь!</a>
+				<a class="btn-green start-page_join-btn fancy" href="#register">Присоединяйтесь!</a>
                 <div class="clearfix">
                     <span class="i-or">войти через</span>
                     <?php Yii::app()->eauth->renderWidget(array('action' => 'site/login', 'mode' => 'home', 'predefinedServices' => array('odnoklassniki', 'vkontakte', 'facebook', 'twitter'))); ?>

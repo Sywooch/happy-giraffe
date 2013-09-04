@@ -135,7 +135,7 @@ function CollectionPhoto(data, parent) {
     }
 
     self.url = function () {
-        return parent.url + 'photo/' + self.id + '/';
+        return parent.url + 'photo' + self.id + '/';
     }
 
     self.loadComments = function () {

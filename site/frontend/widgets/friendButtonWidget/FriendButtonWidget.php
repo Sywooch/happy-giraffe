@@ -16,6 +16,9 @@ class FriendButtonWidget extends CWidget
 
     public function run()
     {
+        if ($this->user->id == Yii::app()->user->id)
+            return ;
+
         $status = $this->getStatus();
         $data = array(
             'id' => $this->user->id,

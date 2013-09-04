@@ -8,7 +8,7 @@
         <span class="color-gray" data-bind="visible:!adding()">(<!--ko text: interests().length-->  <!--/ko-->)</span>
         <div class="float-r color-gray font-small margin-t5" data-bind="visible: adding()">Добавлено <!--ko text: interests().length--><!--/ko--> из 25</div>
     </h3>
-    <span class="color-gray" data-bind="visible: interests().length == 0 && !adding()">У вас пока нет интересов</span>
+    <span class="color-gray float-l" data-bind="visible: interests().length == 0 && !adding()">У вас пока нет интересов</span>
     <?php if ($this->isMyProfile):?>
         <a href="" class="b-interest_add" data-bind="visible: interests().length == 0 && !adding(), click: function () {$data.adding(true)}"></a>
     <?php endif ?>
@@ -18,7 +18,7 @@
         <li class="b-interest_li" data-bind="template: { name: 'user-interest-template', data: $data }"></li>
         <!-- /ko -->
         <?php if ($this->isMyProfile):?>
-            <li class="b-interest_li">
+            <li class="b-interest_li" data-bind="visible: interests().length > 0">
                 <a href="" class="b-interest_add" data-bind="click: function () {$data.adding(true)}"></a>
             </li>
         <?php endif ?>

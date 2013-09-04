@@ -410,4 +410,9 @@ class SiteController extends HController
 
         var_dump($res);
     }
+
+    public function actionOut($url)
+    {
+        $this->redirect($url);
+    }
 }

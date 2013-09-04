@@ -17,7 +17,8 @@ class DefaultController extends HController
         $initialPhotos = $collection->getPhotosInRange($initialPhotoId, 5, 5);
         $count = $collection->count;
         $url = $collection->url;
-        $json = compact('initialIndex', 'initialPhotos', 'initialPhotoId', 'count', 'collectionClass', 'collectionOptions', 'url');
+        $userId = Yii::app()->user->id;
+        $json = compact('initialIndex', 'initialPhotos', 'initialPhotoId', 'count', 'collectionClass', 'collectionOptions', 'url', 'userId');
 
         $this->renderPartial('window', compact('json'));
 	}
@@ -46,5 +47,28 @@ class DefaultController extends HController
     {
         $photo = AlbumPhoto::model()->findByPk(Yii::app()->request->getPost('id'));
         echo $this->widget('application.widgets.newCommentWidget.NewCommentWidget', array('model' => $photo, 'gallery' => true), true);
+    }
+
+    public function actionUpdateTitle()
+    {
+        $id = Yii::app()->request->getPost('id');
+        $title = Yii::app()->request->getPost('title');
+
+        $success = AlbumPhoto::model()->updateByPk($id, array('title' => $title)) > 0;
+        $response = compact('success');
+        echo CJSON::encode($response);
+    }
+
+    public function actionUpdateDescription()
+    {
+        $id = Yii::app()->request->getPost('id');
+        $contentId = Yii::app()->request->getPost('contentId');
+        $description = Yii::app()->request->getPost('description');
+
+        $item = CommunityContentGalleryItem::model()->with('gallery')->findByAttributes(array('photo_id' => $id), 'content_id = :contentId', array(':contentId' => $contentId));
+        $item->description = $description;
+        $success = $item->update(array('description'));
+        $response = compact('success');
+        echo CJSON::encode($response);
     }
 }

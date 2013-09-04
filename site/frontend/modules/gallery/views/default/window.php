@@ -14,7 +14,24 @@ $model = AlbumPhoto::model()->findByPk($json['initialPhotoId']);
             </div>
             <div class="photo-window_top-hold">
                 <div class="photo-window_count" data-bind="text: currentNaturalIndex() + ' фото из ' + count"></div>
-                <div class="photo-window_t" data-bind="text: currentPhoto().title"></div>
+                <!-- ko if: currentPhoto().isEditable && currentPhoto().titleBeingEdited() -->
+                <div class="photo-window_t clearfix">
+                    <div class="display-ib w-50p margin-t5">
+                        <input type="text" class="itx-simple" placeholder="Введите заголовок фото" data-bind="value: currentPhoto().titleValue">
+                    </div>
+                    <button class="btn-green btn-small margin-l10" data-bind="click: currentPhoto().saveTitle">Ok</button>
+                </div>
+                <!-- /ko -->
+                <!-- ko if: ! currentPhoto().titleBeingEdited() -->
+                <div class="photo-window_t">
+                    <span data-bind="text: currentPhoto().title()"></span>
+                    <!-- ko if: currentPhoto().isEditable -->
+                        <div class="photo-window_edit">
+                            <a class="ico-edit ico-edit__light" data-bind="click: currentPhoto().editTitle, tooltip: 'Редактировать'"></a>
+                        </div>
+                    <!-- /ko -->
+                </div>
+                <!-- /ko -->
             </div>
 
         </div>
@@ -39,7 +56,16 @@ $model = AlbumPhoto::model()->findByPk($json['initialPhotoId']);
             </div>
         </div>
 
-        <!-- ko if: currentPhoto().description.length > 0 -->
+        <!-- ko if: currentPhoto().isEditable && currentPhoto().descriptionBeingEdited() -->
+        <div class="photo-window_bottom">
+            <div class="display-ib w-500 verticalalign-b">
+                <textarea cols="30" rows="2" class="itx-simple" placeholder="Введите описание фото" data-bind="value: currentPhoto().descriptionValue"></textarea>
+            </div>
+            <button class="btn-green btn-small margin-l10 verticalalign-b" data-bind="click: currentPhoto().saveDescription">Ok</button>
+        </div>
+        <!-- /ko -->
+
+        <!-- ko if: ! currentPhoto().descriptionBeingEdited() && currentPhoto().description().length > 0 -->
         <div class="photo-window_bottom" data-bind="click: currentPhoto().toggleShowFullDescription, css: { active : currentPhoto().showFullDescription }">
             <div class="photo-window_desc">
                 <p><span data-bind="text: currentPhoto().hasLongDescription() ? currentPhoto().shortenDescription() : currentPhoto().description"></span> <span class="photo-window_desc-more" data-bind="visible: currentPhoto().hasLongDescription()"> ... <a href="javascript:void(0)" >Читать полностью</a> </span></p>
@@ -47,6 +73,11 @@ $model = AlbumPhoto::model()->findByPk($json['initialPhotoId']);
             <div class="photo-window_desc photo-window_desc__full">
                 <p><span data-bind="text: currentPhoto().description"></span> <a href="javascript:void(0)">Кратко</a></p>
             </div>
+            <!-- ko if: currentPhoto().isEditable -->
+            <div class="photo-window_edit">
+                <a class="ico-edit ico-edit__light" data-bind="click: currentPhoto().editDescription, tooltio: 'Редактировать'"></a>
+            </div>
+            <!-- /ko -->
         </div>
         <!-- /ko -->
 

@@ -57,6 +57,7 @@ class PhotoPostPhotoCollection extends PhotoCollection
 
     public function getUrl()
     {
-
+        $post = CommunityContent::model()->findByPk($this->contentId);
+        return $post->url;
     }
 }

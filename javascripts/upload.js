@@ -63,7 +63,7 @@ function UploadPhotos(data, multi, container_selector) {
     $(container_selector+' .js-upload-files-multiple').fileupload({
         dataType: 'json',
         url: '/ajaxSimple/uploadPhoto/',
-        dropZone: $('#upload-files'),
+        dropZone: $(container_selector).find('.drop-files'),
         add: function (e, data) {
             if (self.multi() || self.photos().length < 1){
                 self.addPhoto(data.files[0].name);

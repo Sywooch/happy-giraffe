@@ -66,15 +66,7 @@
 						<div class="b-section_transp">
 							<h1 class="b-section_transp-t">Наш автомобиль</h1>
 							<div class="b-section_transp-desc">Здесь собрано все что нужно для цветоводов. Растения, удобрения <br>чувство юмора имеется, на шею не сажусь, проблемами не загружаю. </div>
-							<div class="b-section_club-moder">
-								<span class="b-section_club-moder-tx">Модераторы <br> клуба</span>
-								<a href="" class="ava"><img src="/images/user_friends_img.jpg"></a>
-								<a class="ava male" href="">
-									<span class="icon-status status-online"></span>
-									<img src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg" alt="">
-								</a>
-								<a href="" class="ava female"></a>
-							</div>
+							
 						</div>
 						<ul class="b-section_ul b-section_ul__white clearfix">
 							<li class="b-section_li"><a href="" class="b-section_li-a">Форум</a></li>

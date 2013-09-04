@@ -425,6 +425,7 @@
 									</li>
 								</ul>
 							</div>
+							<!-- На страницп мои приглашения -->
 							<div class="cap-empty">
 								<div class="cap-empty_hold">
 									<div class="cap-empty_tx">Приглашение <br> отменено</div>

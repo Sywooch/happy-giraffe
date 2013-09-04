@@ -45,6 +45,16 @@
     <div class="b-settings-blue_row clearfix">
         <?=$form->textArea($slaveModel, 'text', array('class' => 'b-settings-blue_textarea itx-simple', 'placeholder'=>"Ваш текст к фотопосту", 'cols'=>80, 'rows'=>5)) ?>
     </div>
+
+    <?php if (!empty($club_id) && Yii::app()->user->checkAccess('editor')): ?>
+        <div class="clearfix">
+            <div class="row-title"><?= $form->label($model, 'by_happy_giraffe'); ?>:</div>
+            <div class="row-elements">
+                <?= $form->checkBox($model, 'by_happy_giraffe'); ?>
+            </div>
+        </div>
+    <?php endif; ?>
+
     <div class="clearfix textalign-r">
         <?=$form->errorSummary(array($model, $slaveModel)) ?>
     </div>

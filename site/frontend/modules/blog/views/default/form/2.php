@@ -60,6 +60,16 @@ $form = $this->beginWidget('CActiveForm', array(
         <?=$form->textArea($slaveModel, 'text', array('cols' => 80, 'rows' => 5, 'class' => 'b-settings-blue_textarea itx-simple', 'placeholder' => 'Ваш комментарий'))?>
         <?=$form->error($slaveModel, 'text')?>
     </div>
+
+    <?php if (!empty($club_id) && Yii::app()->user->checkAccess('editor')): ?>
+        <div class="clearfix">
+            <div class="row-title"><?= $form->label($model, 'by_happy_giraffe'); ?>:</div>
+            <div class="row-elements">
+                <?= $form->checkBox($model, 'by_happy_giraffe'); ?>
+            </div>
+        </div>
+    <?php endif; ?>
+
     <div class="clearfix">
         <button class="btn-blue btn-h46 float-r" data-bind="css: { 'btn-inactive' : hasError }"><?=$model->isNewRecord ? 'Добавить' : 'Редактировать'?></button>
         <a href="javascript:void(0)" onclick="$.fancybox.close()" class="btn-gray-light btn-h46 float-r margin-r15">Отменить</a>

@@ -123,9 +123,9 @@ return array(
 
         // community/*
         'community/36.*' => 404,
-        'news/rubric<rubric_id:\d+>' => array('community/list', 'defaultParams' => array('community_id' => 36)),
-        'news' => array('community/list', 'defaultParams' => array('community_id' => 36)),
-        'news/<content_type_slug:[a-z]+><content_id:\d+>' => array('community/view', 'defaultParams' => array('community_id' => 36)),
+        'news/rubric<rubric_id:\d+>' => array('community/default/forum', 'defaultParams' => array('forum_id' => 36)),
+        'news' => array('community/default/forum', 'defaultParams' => array('forum_id' => 36)),
+        'news/<content_type_slug:[a-z]+><content_id:\d+>' => array('community/default/view', 'defaultParams' => array('forum_id' => 36)),
 
         'pregnancy-and-children' => array('community/default/section', 'defaultParams' => array('section_id' => 1)),
         'home' => array('community/default/section', 'defaultParams' => array('section_id' => 2)),

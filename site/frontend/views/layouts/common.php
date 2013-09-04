@@ -34,5 +34,84 @@
     </head>
     <body class="body-gray">
         <?=$content?>
+
+        <!-- Yandex.Metrika counter -->
+        <script type="text/javascript">
+            (function (d, w, c) {
+                (w[c] = w[c] || []).push(function() {
+                    try {
+                        w.yaCounter11221648 = new Ya.Metrika({id:11221648, enableAll: true, trackHash:true, webvisor:true});
+                    } catch(e) {}
+                });
+
+                var n = d.getElementsByTagName("script")[0],
+                    s = d.createElement("script"),
+                    f = function () { n.parentNode.insertBefore(s, n); };
+                s.type = "text/javascript";
+                s.async = true;
+                s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+
+                if (w.opera == "[object Opera]") {
+                    d.addEventListener("DOMContentLoaded", f);
+                } else { f(); }
+            })(document, window, "yandex_metrika_callbacks");
+        </script>
+        <noscript><div><img src="//mc.yandex.ru/watch/11221648" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+        <!-- /Yandex.Metrika counter -->
+
+        <script type="text/javascript">
+
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', '<?=Yii::app()->params['gaCode']  ?>']);
+            _gaq.push(['_trackPageview']);
+
+            (function() {
+                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+        </script>
+
+        <script type="text/javascript">
+            var _top100q = _top100q || [];
+
+            _top100q.push(["setAccount", "2900190"]);
+            _top100q.push(["trackPageviewByLogo", document.getElementById("counter-rambler")]);
+
+
+            (function(){
+                var top100 = document.createElement("script"); top100.type = "text/javascript";
+
+                top100.async = true;
+                top100.src = ("https:" == document.location.protocol ? "https:" : "http:") + "//st.top100.ru/top100/top100.js";
+                var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(top100, s);
+            })();
+        </script>
+
+        <!-- tns-counter.ru -->
+        <script type="text/javascript">
+            (function(win, doc, cb){
+                (win[cb] = win[cb] || []).push(function() {
+                    try {
+                        tnsCounterHappygiraffe_ru = new TNS.TnsCounter({
+                            'account':'happygiraffe_ru',
+                            'tmsec': 'happygiraffe_total'
+                        });
+                    } catch(e){}
+                });
+
+                var tnsscript = doc.createElement('script');
+                tnsscript.type = 'text/javascript';
+                tnsscript.async = true;
+                tnsscript.src = ('https:' == doc.location.protocol ? 'https:' : 'http:') +
+                    '//www.tns-counter.ru/tcounter.js';
+                var s = doc.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(tnsscript, s);
+            })(window, this.document,'tnscounter_callback');
+        </script>
+        <noscript>
+            <img src="//www.tns-counter.ru/V13a****happygiraffe_ru/ru/UTF-8/tmsec=happygiraffe_total/" width="0" height="0" alt="" />
+        </noscript>
+        <!--/ tns-counter.ru -->
     </body>
 </html>

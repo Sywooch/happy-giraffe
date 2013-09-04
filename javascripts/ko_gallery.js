@@ -5,6 +5,7 @@ function PhotoCollectionViewModel(data) {
 
     self.collectionClass = data.collectionClass;
     self.collectionOptions = data.collectionOptions;
+    self.userId = data.userId;
     self.count = data.count;
     self.url = data.url;
     self.photos = ko.utils.arrayMap(data.initialPhotos, function (photo) {
@@ -103,8 +104,8 @@ function PhotoCollectionViewModel(data) {
 function CollectionPhoto(data, parent) {
     var self = this;
     self.id = data.id;
-    self.title = data.title;
-    self.description = data.description;
+    self.title = ko.observable(data.title);
+    self.description = ko.observable(data.description);
     self.src = data.src;
     self.date = data.date;
     self.user = new CollectionPhotoUser(data.user);
@@ -125,11 +126,11 @@ function CollectionPhoto(data, parent) {
     }
 
     self.hasLongDescription = function () {
-        return self.description.split(" ").length > parent.DESCRIPTION_MAX_WORDS;
+        return self.description().split(" ").length > parent.DESCRIPTION_MAX_WORDS;
     }
 
     self.shortenDescription = function () {
-        var array = self.description.split(' ');
+        var array = self.description().split(' ');
         var result = ' ';
         for (var i = 0; i < parent.DESCRIPTION_MAX_WORDS; i++)
             result += array[i] += ' ';
@@ -158,6 +159,38 @@ function CollectionPhoto(data, parent) {
                 }
             }
         }, 'json');
+    }
+
+    self.isEditable = parent.collectionClass == 'PhotoPostPhotoCollection';
+
+    self.titleBeingEdited = ko.observable(data.title.length == 0);
+    self.titleValue = ko.observable(data.title);
+    self.saveTitle = function() {
+        if (self.titleValue().length > 0)
+            $.post('/gallery/default/updateTitle/', { id : self.id, title : self.titleValue() }, function(response) {
+                if (response.success) {
+                    self.title(self.titleValue());
+                    self.titleBeingEdited(false);
+                }
+            }, 'json');
+    }
+    self.editTitle = function() {
+        self.titleBeingEdited(true);
+    }
+
+    self.descriptionBeingEdited = ko.observable(data.description.length == 0);
+    self.descriptionValue = ko.observable(data.description);
+    self.saveDescription = function() {
+        if (self.descriptionValue().length > 0)
+            $.post('/gallery/default/updateDescription/', { id : self.id, contentId : parent.collectionOptions.contentId, description : self.descriptionValue() }, function(response) {
+                if (response.success) {
+                    self.description(self.descriptionValue());
+                    self.descriptionBeingEdited(false);
+                }
+            }, 'json');
+    }
+    self.editDescription = function() {
+        self.descriptionBeingEdited(true);
     }
 }
 

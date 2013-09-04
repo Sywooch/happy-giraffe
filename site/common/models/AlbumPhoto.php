@@ -778,12 +778,12 @@ class AlbumPhoto extends HActiveRecord
             return AlbumPhoto::model()->findByAttributes(array('fs_name' => $m[1]));
         }
         #TODO для тестирования
-        if (preg_match('/http:\/\/img.dev.happy-giraffe.ru\/thumbs\/[\d]+x[\d]+\/[\d]+\/([^\"]+)/', $url, $m)) {
-            return AlbumPhoto::model()->findByAttributes(array('fs_name' => $m[1]));
-        }
-        if (preg_match('/http:\/\/img.happy-giraffe.com\/thumbs\/[\d]+x[\d]+\/[\d]+\/([^\"]+)/', $url, $m)) {
-            return AlbumPhoto::model()->findByAttributes(array('fs_name' => $m[1]));
-        }
+//        if (preg_match('/http:\/\/img.dev.happy-giraffe.ru\/thumbs\/[\d]+x[\d]+\/[\d]+\/([^\"]+)/', $url, $m)) {
+//            return AlbumPhoto::model()->findByAttributes(array('fs_name' => $m[1]));
+//        }
+//        if (preg_match('/http:\/\/img.happy-giraffe.com\/thumbs\/[\d]+x[\d]+\/[\d]+\/([^\"]+)/', $url, $m)) {
+//            return AlbumPhoto::model()->findByAttributes(array('fs_name' => $m[1]));
+//        }
 
         return null;
     }

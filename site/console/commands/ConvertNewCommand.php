@@ -23,8 +23,7 @@ class ConvertNewCommand extends CConsoleCommand
             foreach ($models as $model)
                 $model->save();
 
-            $criteria->offset += 1000;
-            echo $criteria->offset . "\n";
+            echo AlbumPhoto::model()->count($criteria) . "\n";
         }
     }
 

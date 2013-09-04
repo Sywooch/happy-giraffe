@@ -209,14 +209,16 @@
         </noindex>
 
         <div class="nav-article clearfix">
-            <div class="nav-article_left">
-                <a href="<?=$recipe->prev->url?>" class="nav-article_arrow nav-article_arrow__left"></a>
-                <a href="<?=$recipe->prev->url?>" class="nav-article_a"><?=$recipe->prev->title?></a>
-            </div>
-            <div class="nav-article_right">
-                <a href="<?=$recipe->next->url?>" class="nav-article_arrow nav-article_arrow__right"></a>
-                <a href="<?=$recipe->next->url?>" class="nav-article_a"><?=$recipe->next->title?></a>
-            </div>
+            <?php if ($recipe->prev): ?>
+                <div class="nav-article_left">
+                    <a href="<?=$recipe->prev->url?>" class="nav-article_a"><?=$recipe->prev->title?></a>
+                </div>
+            <?php endif; ?>
+            <?php if ($recipe->next): ?>
+                <div class="nav-article_right">
+                    <a href="<?=$recipe->next->url?>" class="nav-article_a"><?=$recipe->next->title?></a>
+                </div>
+            <?php endif; ?>
         </div>
 
         <?php if ($recipe->more): ?>

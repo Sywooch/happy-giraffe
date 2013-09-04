@@ -54,7 +54,7 @@ class CommunitySection extends HActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'clubs' => array(self::HAS_MANY, 'CommunityClub', 'section_id'),
+            'clubs' => array(self::HAS_MANY, 'CommunityClub', 'section_id'),
 		);
 	}
 

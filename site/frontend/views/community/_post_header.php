@@ -29,7 +29,7 @@
                     $class = 'ava small';
                     if ($lc->author->gender !== null) $class .= ' ' . (($lc->author->gender) ? 'male' : 'female');
                     ?>
-                    <?=HHtml::link(CHtml::image($lc->author->getAva('small')), ($lc->author->deleted)?'#':$lc->author->url, array('class' => $class), true)?>
+                    <?=HHtml::link(CHtml::image($lc->author->getAvatarUrl(Avatar::SIZE_MICRO)), ($lc->author->deleted)?'#':$lc->author->url, array('class' => $class), true)?>
                     <?php endforeach; ?>
                 <?php if ($model->commentsCount > count($lastComments)): ?>
                     <?=CHtml::link('и еще ' . ($model->commentsCount - count($lastComments)), $model->getUrl(true))?>

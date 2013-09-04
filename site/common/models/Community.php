@@ -1,14 +1,19 @@
 <?php
 
 /**
- * This is the model class for table "{{community}}".
+ * This is the model class for table "{{community__forums}}".
  *
- * The followings are the available columns in table '{{community}}':
+ * The followings are the available columns in table '{{community__forums}}':
  * @property string $id
  * @property string $title
+ * @property string $short_title
+ * @property string $description
  * @property string $pic
  * @property string $position
  * @property string $css_class
+ * @property string $club_id
+ *
+ * @property CommunityRubric[] $rubrics
  */
 class Community extends HActiveRecord
 {
@@ -59,7 +64,7 @@ class Community extends HActiveRecord
      */
     public function tableName()
     {
-        return 'community__communities';
+        return 'community__forums';
     }
 
     /**
@@ -92,23 +97,8 @@ class Community extends HActiveRecord
             'users' => array(self::MANY_MANY, 'User', 'user__users_communities(user_id, community_id)'),
             'usersCount' => array(self::STAT, 'User', 'user__users_communities(user_id, community_id)'),
             'mobileCommunity' => array(self::BELONGS_TO, 'MobileCommunity', 'mobile_community_id'),
+            'club' => array(self::BELONGS_TO, 'CommunityClub', 'club_id'),
         );
-    }
-
-    public function getContentViewsCount()
-    {
-        $col = PageView::model()->getCollection();
-
-        $keys = array();
-        $initial = array('csum' => 0);
-        $reduce = 'function(obj, prev) { prev.csum += obj.views; }';
-        $condition = array(
-            '_id' => array('$regex' => '/community/' . $this->id . '/'),
-        );
-
-        $query = $col->group($keys, $initial, $reduce, $condition);
-
-        return $query['retval'][0]['csum'];
     }
 
     public function getContentsCount()
@@ -176,9 +166,6 @@ class Community extends HActiveRecord
      */
     public function search()
     {
-        // Warning: Please modify the following code to remove attributes that
-        // should not be searched.
-
         $criteria = new CDbCriteria;
 
         $criteria->compare('id', $this->id, true);
@@ -190,29 +177,10 @@ class Community extends HActiveRecord
         ));
     }
 
-    public function behaviors()
-    {
-        return array(
-            'ESaveRelatedBehavior' => array(
-                'class' => 'site.common.behaviors.ESaveRelatedBehavior',
-            ),
-        );
-    }
-
     public function getUrl()
     {
-        return Yii::app()->createUrl('community/list', array(
+        return Yii::app()->createUrl('community/default/community', array(
             'community_id' => $this->id,
-        ));
-    }
-
-    public function getLast($limit = 10)
-    {
-        return CommunityContent::model()->cache(180)->findAll(array(
-            'limit' => $limit,
-            'order' => 'created DESC',
-            'condition' => 'rubric_id IN ('.implode(',', self::getRubricIds($this->id)).')',
-            'with' => array('type', 'rubric'),
         ));
     }
 
@@ -224,11 +192,6 @@ class Community extends HActiveRecord
             'order' => new CDbExpression('RAND()'),
             'condition' => 'rubric_id IN ('.implode(',', self::getRubricIds($this->id)).') AND t.photo_id IS NOT NULL',
         ));
-    }
-
-    public function getShortTitle()
-    {
-        return (empty($this->short_title)) ? $this->title : $this->short_title;
     }
 
     /**

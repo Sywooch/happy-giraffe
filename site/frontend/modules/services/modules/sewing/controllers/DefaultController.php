@@ -2,8 +2,6 @@
 
 class DefaultController extends HController
 {
-    public $layout = '//layouts/new2';
-
     /**
      * @sitemap
      */

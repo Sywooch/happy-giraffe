@@ -11,6 +11,8 @@ if (empty($model->zodiac1) && !Yii::app()->user->isGuest){
 
     <?php if (isset($showTitle)):?>
         <div class="block-title">Совместимость знаков</div>
+    <?php else: ?>
+        <div class="margin-t20 margin-b20 color-gray font-big">Посмотрите совместимость других знаков</div>
     <?php endif ?>
 
     <?php $form = $this->beginWidget('CActiveForm', array(
@@ -32,7 +34,7 @@ if (empty($model->zodiac1) && !Yii::app()->user->isGuest){
 
     <div class="sign">
         <div class="img" onclick="Horoscope.showSelect(this)"><img src="<?=Horoscope::getZodiacPhoto($model->zodiac1) ?>"></div>
-        <div class="chzn-v2-lilac"<?php if (empty($model->zodiac1)) echo ' style="display:none;"' ?>>
+        <div class="chzn-gray"<?php if (empty($model->zodiac1)) echo ' style="display:none;"' ?>>
         <?=$form->dropDownList($model, 'zodiac1', Horoscope::model()->zodiac_list, array(
         'class'=>'chzn',
         'onchange'=>'Horoscope.ZodiacChange(this)',
@@ -43,7 +45,7 @@ if (empty($model->zodiac1) && !Yii::app()->user->isGuest){
     <div class="plus"></div>
     <div class="sign">
         <div class="img" onclick="Horoscope.showSelect(this)"><img src="<?=Horoscope::getZodiacPhoto($model->zodiac2) ?>"></div>
-        <div class="chzn-v2-lilac"<?php if (empty($model->zodiac2)) echo ' style="display:none;"' ?>>
+        <div class="chzn-gray"<?php if (empty($model->zodiac2)) echo ' style="display:none;"' ?>>
         <?=$form->dropDownList($model, 'zodiac2', Horoscope::model()->zodiac_list, array(
         'class'=>'chzn',
         'onchange'=>'Horoscope.ZodiacChange(this)',

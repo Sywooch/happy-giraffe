@@ -5,7 +5,7 @@
 ?>
 <div class="newcomers_i">
     <div class="user-info clearfix">
-        <a class="ava <?=$data->gender?'male':'female'?>"><img src="<?=$data->getAva() ?>" alt=""></a>
+        <a class="ava <?=$data->gender?'male':'female'?>"><img src="<?=$data->getAvatarUrl() ?>" alt=""></a>
         <div class="user-info_details">
             <?php if ($data->online):?>
                 <div class="online-status">На сайте</div>

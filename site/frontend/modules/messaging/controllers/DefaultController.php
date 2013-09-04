@@ -10,6 +10,7 @@ class DefaultController extends HController
 {
     const CONTACTS_PER_PAGE = 50;
 
+    //public $layout = '//layouts/common_new';
     public $tempLayout = true;
 
     public function filters()
@@ -55,7 +56,7 @@ class DefaultController extends HController
                         'firstName' => $interlocutor->first_name,
                         'lastName' => $interlocutor->last_name,
                         'gender' => $interlocutor->gender,
-                        'avatar' => $interlocutor->getAva('small'),
+                        'avatar' => $interlocutor->getAvatarUrl(Avatar::SIZE_MICRO),
                         'online' => (bool) $interlocutor->online,
                         'isFriend' => (bool) Friend::model()->areFriends(Yii::app()->user->id, $interlocutorId),
                     ),
@@ -70,7 +71,7 @@ class DefaultController extends HController
             'firstName' => Yii::app()->user->model->first_name,
             'lastName' => Yii::app()->user->model->last_name,
             'gender' => (bool) Yii::app()->user->model->gender,
-            'avatar' => Yii::app()->user->model->getAva('small'),
+            'avatar' => Yii::app()->user->model->getAvatarUrl(Avatar::SIZE_MICRO),
             'online' => (bool) Yii::app()->user->model->online,
             'isFriend' => null,
         );

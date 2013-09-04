@@ -115,7 +115,7 @@ class HDate
 
     public static function ruMonthShort($num)
     {
-        switch ($num) {
+        switch ((int)$num) {
             case 1 :
                 return "янв";
             case 2  :
@@ -256,53 +256,6 @@ class HDate
             'year' => $date[2]);
     }
 
-    /**
-     * Формы слов по порядку в массиве (1: день, 2-4:дня, 5-10:дней)
-     *
-     * @static
-     * @param $words
-     * @param $number string
-     */
-    public static function GenerateNoun($words, $number)
-    {
-        switch ($number) {
-            case 11:
-                return $words[2];
-            case 12:
-                return $words[2];
-            case 13:
-                return $words[2];
-            case 14:
-                return $words[2];
-        }
-        if (strstr($number, '.') || strstr($number, ','))
-            return $words[2];
-
-        $last_symbol = substr($number, -1);
-        switch ($last_symbol) {
-            case 1:
-                return $words[0];
-            case 2:
-                return $words[1];
-            case 3:
-                return $words[1];
-            case 4:
-                return $words[1];
-            case 5:
-                return $words[2];
-            case 6:
-                return $words[2];
-            case 7:
-                return $words[2];
-            case 8:
-                return $words[2];
-            case 9:
-                return $words[2];
-            case 0:
-                return $words[2];
-        }
-    }
-
     public static function ageSuffix($year)
     {
         $year = abs($year);
@@ -321,17 +274,14 @@ class HDate
     {
         $ts = (is_int($time)) ? $time : strtotime($time);
 
-        $result = '';
         if (date("Y:m:d", $ts) == date("Y:m:d"))
-            $result .= 'Сегодня';
+            return 'Сегодня' . $delimiter . date("G:i", $ts);
+        elseif (date("Y:m:d", $ts) == date("Y:m:d", strtotime('-1 day')))
+            return 'Вчера' . $delimiter . date("G:i", $ts);
         elseif (date("Y", $ts) == date("Y"))
-            $result .= date("j", $ts) . ' ' . self::ruMonthShort(date("m", $ts));
+            return date("j", $ts) . ' ' . self::ruMonthShort(date("m", $ts));
         else
-            $result .=  date("j", $ts) . ' ' . self::ruMonthShort(date("m", $ts)). ' ' . date("Y", $ts);
-        $result .= $delimiter;
-        $result .= date("G:i", $ts);
-
-        return $result;
+            return date("j", $ts) . ' ' . self::ruMonthShort(date("m", $ts)). ' ' . date("Y", $ts);
     }
 
     public static function GetFormattedTimestamp($ts)
@@ -463,5 +413,40 @@ class HDate
         $last = array_pop($words);
 
         return ((! empty($words)) ? implode(', ', $words) . ' и ' : '') . $last;
+    }
+
+    /**
+     * Сколько времени прошло в годах, месяцах, днях
+     * @param int $sec_time
+     * @return string
+     */
+    public static function spentDays($sec_time)
+    {
+        // Сегодняшняя дата
+        $sec_now = time();
+        // Подсчитываем количество месяцев, лет
+        for($time = $sec_time, $month = 0;
+            $time < $sec_now;
+            $time = $time + date('t', $time) * 86400, $month++){
+            $rtime = $time;
+        }
+        $month = $month - 1;
+        // Количество лет
+        $year = intval($month / 12);
+        // Количество месяцев
+        $month = $month % 12;
+        // Количество дней
+        $day = intval(($sec_now - $rtime) / 86400);
+        $result = '';
+        if ($year > 0)
+            $result .= $year.' '. Str::GenerateNoun(array("год", "года", "лет"), $year).", ";
+        if ($month > 0)
+            $result .= $month.' '.Str::GenerateNoun(array("месяц", "месяца", "месяцев"), $month).", ";
+        if ($day > 0)
+            $result .= $day.' '. Str::GenerateNoun(array("день", "дня", "дней"), $day)." ";
+
+        $result = trim($result);
+        $result = trim($result, ',');
+        return $result;
     }
 }

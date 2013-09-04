@@ -1,34 +1,40 @@
 <?php
 /**
- * @var $model NotificationLike
- * @var $check bool
+ * @var $model NotificationLikes
+ * @var $read bool
  * @author Alex Kireev <alexk984@gmail.com>
  */
 ?>
-<div class="user-notice-list_i ">
+<div class="user-notice-list_i">
     <div class="user-notice-list_i-hold">
-        <div class="user-notice-list_date">
-            <?= HDate::GetFormattedTime($model->updated) ?>
-        </div>
         <div class="user-notice-list_deed">
             <span class="user-notice_ico user-notice_ico__like"></span>
-            <a href="javascript:;" class="user-notice-list_a-big user-notice-list_a-big__like" onclick="$(this).parent().parent().next().toggle()"><?=$model->count ?></a>
-            <span class="user-notice-list_deed-desc">новые лайки за сутки</span>
+            <a href="javascript:;" class="user-notice-list_a-big user-notice-list_a-big__dashed" onclick="$(this).parent().parent().next().toggle()"><?=$model->count ?></a>
         </div>
+        <div class="user-notice-list_desc">
+            <?= HDate::GetFormattedTime($model->updated)?>
+            <br>
+            Новые лайки за сутки
+        </div>
+
         <div class="user-notice-list_post">
         </div>
-        <div class="user-notice-list_check"></div>
+        <?php $this->renderPartial('set_read', array('model' => $model, 'read' => $read)); ?>
     </div>
-    <div class="user-notice-list_like-hold" style="display: none;">
+    <div class="user-notice-list_inner-hold" style="display: none;">
         <?php foreach ($model->articles as $article): ?>
-            <div class="user-notice-list_i user-notice-list_i__like">
+            <?php $content_model = CActiveRecord::model($article['entity'])->findByPk($article['entity_id']); ?>
+            <div class="user-notice-list_i">
                 <div class="user-notice-list_i-hold">
-                    <div class="user-notice-list_date"></div>
                     <div class="user-notice-list_deed">
                         <span class="user-notice_ico user-notice_ico__like-small"></span>
                         <span class="user-notice-list_tx-big color-gray"><?=$article['count'] ?></span>
                     </div>
-                    <?php $this->renderPartial('content_preview', array('entity' => $article['entity'], 'entity_id' => $article['entity_id'])); ?>
+                    <div class="user-notice-list_desc">
+                        <?= HDate::GetFormattedTime($model->updated)?> <br> Лайки к <?= Notification::getContentName($content_model) ?>
+                    </div>
+                    <?php $this->renderPartial('content_preview', array('model' => $content_model)) ?>
+                    <div class="user-notice-list_check"></div>
                 </div>
             </div>
         <?php endforeach; ?>

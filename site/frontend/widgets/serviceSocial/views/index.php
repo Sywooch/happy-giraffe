@@ -11,4 +11,4 @@ $this->render('_service_likes', array(
     <?php $this->render('_assistance_users', compact('service')); ?>
     <?php $this->render('_assistance_count', array('count' => $service->using_count)); ?>
 </div>
-<?php $this->widget('application.widgets.commentWidget.CommentWidget', array('model' => $service));
+<?php $this->widget('application.widgets.newCommentWidget.NewCommentWidget', array('model' => $service));

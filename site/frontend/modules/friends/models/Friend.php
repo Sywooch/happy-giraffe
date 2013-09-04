@@ -25,7 +25,7 @@ class Friend extends CActiveRecord
      * @param string $className active record class name.
      * @return Friend the static model class
      */
-    public static function model($className=__CLASS__)
+    public static function model($className = __CLASS__)
     {
         return parent::model($className);
     }
@@ -47,11 +47,11 @@ class Friend extends CActiveRecord
         // will receive user inputs.
         return array(
             array('user_id, friend_id', 'required'),
-            array('user_id, friend_id, list_id', 'length', 'max'=>11),
+            array('user_id, friend_id, list_id', 'length', 'max' => 11),
             array('created', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, user_id, friend_id, created, list_id', 'safe', 'on'=>'search'),
+            array('id, user_id, friend_id, created, list_id', 'safe', 'on' => 'search'),
         );
     }
 
@@ -92,16 +92,16 @@ class Friend extends CActiveRecord
         // Warning: Please modify the following code to remove attributes that
         // should not be searched.
 
-        $criteria=new CDbCriteria;
+        $criteria = new CDbCriteria;
 
-        $criteria->compare('id',$this->id,true);
-        $criteria->compare('user_id',$this->user_id,true);
-        $criteria->compare('friend_id',$this->friend_id,true);
-        $criteria->compare('created',$this->created,true);
-        $criteria->compare('list_id',$this->list_id,true);
+        $criteria->compare('id', $this->id, true);
+        $criteria->compare('user_id', $this->user_id, true);
+        $criteria->compare('friend_id', $this->friend_id, true);
+        $criteria->compare('created', $this->created, true);
+        $criteria->compare('list_id', $this->list_id, true);
 
         return new CActiveDataProvider($this, array(
-            'criteria'=>$criteria,
+            'criteria' => $criteria,
         ));
     }
 
@@ -127,7 +127,7 @@ class Friend extends CActiveRecord
                 ':user1Id' => $user1Id,
                 ':user2Id' => $user2Id,
             ))
-        &&
+            &&
             Friend::model()->exists('user_id = :user2Id AND friend_id = :user1Id', array(
                 ':user1Id' => $user1Id,
                 ':user2Id' => $user2Id,
@@ -144,7 +144,7 @@ class Friend extends CActiveRecord
         $f2->user_id = $user2Id;
         $f2->friend_id = $user1Id;
 
-        if (! $f1->validate() || ! $f2->validate())
+        if (!$f1->validate() || !$f2->validate())
             return false;
 
         $transaction = Yii::app()->db->beginTransaction();
@@ -153,10 +153,10 @@ class Friend extends CActiveRecord
             $f2->save();
 
             $transaction->commit();
+
+            Scoring::friendAdded($user1Id, $user2Id);
             return true;
-        }
-        catch(Exception $e)
-        {
+        } catch (Exception $e) {
             $transaction->rollback();
             return false;
         }
@@ -170,12 +170,30 @@ class Friend extends CActiveRecord
             Friend::model()->deleteAll('user_id = :user_id AND friend_id = :friend_id', array(':user_id' => $user2Id, ':friend_id' => $user1Id));
 
             $transaction->commit();
+            Scoring::friendRemoved($user1Id, $user2Id);
             return true;
-        }
-        catch(Exception $e)
-        {
+        } catch (Exception $e) {
             $transaction->rollback();
             return false;
         }
+    }
+
+    /**
+     * Добавить пользователю комментатора в друзья
+     * @param int $user_id
+     */
+    public function addCommentatorAsFriend($user_id)
+    {
+        Yii::import('site.frontend.modules.signal.helpers.*');
+        if ($this->getCountByUserId($user_id) > 1)
+            return ;
+
+        $commentator_ids = CommentatorHelper::getCommentatorIdList();
+        shuffle($commentator_ids);
+        foreach($commentator_ids as $commentator_id)
+            if (!$this->areFriends($commentator_id, $user_id)){
+                $this->makeFriendship($commentator_id, $user_id);
+                break;
+            }
     }
 }

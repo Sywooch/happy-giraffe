@@ -145,7 +145,7 @@ class RssController extends HController
         $feed->addChannelTag('generator', 'MyBlogEngine 1.1');
         $feed->addChannelTag('wfw:commentRss', $this->createAbsoluteUrl('rss/comments', array('user_id' => $user->id)));
         $feed->addChannelTag('ya:more', $this->createAbsoluteUrl('rss/user', array('user_id' => $user->id, 'page' => $page + 1)));
-        $feed->addChannelTag('image', array('url' => $user->getAva(), 'width' => 72, 'height' => 72));
+        $feed->addChannelTag('image', array('url' => $user->getAvatarUrl(), 'width' => 72, 'height' => 72));
 
         if ($user->id == User::HAPPY_GIRAFFE) {
             $sql = "(SELECT id, created, 'CommunityContent' AS entity FROM community__contents WHERE type_id = 4 OR by_happy_giraffe = 1)

@@ -1,44 +1,114 @@
 <?php
-class PageView extends EMongoDocument
+/**
+ * Class PageView
+ *
+ * Хранение количества просмотров страниц
+ *
+ * @author Alex Kireev <alexk984@gmail.com>
+ */
+class PageView extends HMongoModel
 {
+    /**
+     * @var PageView
+     */
+    private static $_instance;
+    protected $_collection_name = 'page_views';
+
+    /**
+     * @var int
+     */
     public $views = 0;
 
-    public function getCollectionName()
+    /**
+     * @return PageView
+     */
+    public static function model()
     {
-        return 'page_views';
+        if (null === self::$_instance)
+            self::$_instance = new self();
+
+        return self::$_instance;
     }
 
-    public static function model($className = __CLASS__)
+    private function __construct()
     {
-        return parent::model($className);
     }
 
+    /**
+     * Найти запись по url
+     *
+     * @param string $path
+     * @return array
+     */
     public function findByPath($path)
     {
-        return $this->findByPk($path);
+        return $this->getCollection()->findOne(array('_id' => $path));
     }
 
+    /**
+     * @param string $path
+     * @return int
+     */
     public function viewsByPath($path)
     {
         if (strpos($path, 'http://www.happy-giraffe.ru') === 0)
             $path = str_replace('http://www.happy-giraffe.ru', '', $path);
+        //TODO DEBUG
+        if (strpos($path, 'http://happy-giraffe.com') === 0)
+            $path = str_replace('http://happy-giraffe.com', '', $path);
 
         if (($model = $this->findByPath($path)) !== null)
-            return $model->views;
+            return $model['views'];
         return 0;
     }
 
+    /**
+     * @param string $path
+     * @return int
+     */
     public function incViewsByPath($path)
     {
         if (($model = $this->findByPath($path)) === null) {
-            $model = new $this;
-            $model->_id = $path;
-            $model->save();
+            $this->getCollection()->insert(array(
+                '_id' => $path,
+                'views' => 1,
+            ));
+            return 1;
         }
 
-        return $model->inc();
+        return $this->inc($model);
     }
 
+    /**
+     * Увеличивает кол-во просмотров статьи на 1, проверяет что это не будет и
+     * что он еще не посещал эту страницу. Данные о посещенных страницах хранит
+     * в пользовательской сессии
+     *
+     * @param array $model
+     * @return int кол-во просмотров статьи
+     */
+    public function inc($model)
+    {
+        if (isset($_SERVER['HTTP_USER_AGENT']) && !in_array($_SERVER['HTTP_USER_AGENT'], $this->getBots())) {
+            $viewed_pages = Yii::app()->session->get('viewed_pages');
+            if (strpos($viewed_pages, $this->_id . ',') === false) {
+                $this->getCollection()->update(array('_id' => $model['_id']), array('$inc' => array('views' => 1)));
+
+                $viewed_pages .= ' ' . $this->_id . ',';
+                Yii::app()->session['viewed_pages'] = $viewed_pages;
+
+                return $model['views'] + 1;
+            }
+        }
+
+        return $model['views'];
+    }
+
+    /**
+     * user-агенты ботов
+     *
+     * @return array
+     */
     public static function getBots()
     {
         return array('googlebot', 'google', 'msnbot', 'ia_archiver', 'lycos', 'jeeves', 'scooter',
@@ -50,21 +120,5 @@ class PageView extends EMongoDocument
             'googlebot-image', 'mediapartners-google', 'adsbot-google', 'msnbot-newsblogs',
             'msnbot-products', 'msnbot-media'
         );
-    }
-
-    public function inc()
-    {
-        if (isset($_SERVER['HTTP_USER_AGENT']) && !in_array($_SERVER['HTTP_USER_AGENT'], $this->getBots())) {
-            $viewed_pages = Yii::app()->session->get('viewed_pages');
-            if (strpos($viewed_pages, $this->_id.',') === false) {
-                $this->views++;
-                $this->save();
-
-                $viewed_pages .= ' '.$this->_id.',';
-                Yii::app()->session['viewed_pages'] = $viewed_pages;
-            }
-        }
-
-        return $this->views;
     }
 }

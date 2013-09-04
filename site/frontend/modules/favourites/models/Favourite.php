@@ -14,8 +14,8 @@
  * @property string $note
  *
  * The followings are the available model relations:
- * @property Users $user
- * @property FavouritesTags[] $favouritesTags
+ * @property User $user
+ * @property FavouriteTag[] $favouritesTags
  */
 class Favourite extends CActiveRecord
 {
@@ -165,6 +165,23 @@ class Favourite extends CActiveRecord
         return parent::beforeSave();
     }
 
+    public function afterSave()
+    {
+        PostRating::reCalc($this->getRelatedModel());
+        parent::afterSave();
+    }
+
+    public function afterDelete()
+    {
+        PostRating::reCalc($this->getRelatedModel());
+        return parent::afterDelete();
+    }
+
+    protected function getRelatedModel()
+    {
+        return CActiveRecord::model($this->model_name)->resetScope()->findByPk($this->model_id);
+    }
+
     protected function processTags($tagsNames)
     {
         $tagsArray = is_array($tagsNames) ? $tagsNames : explode(',', $tagsNames);
@@ -201,8 +218,42 @@ class Favourite extends CActiveRecord
                 return 'photo';
             case 'CommunityContent':
             case 'BlogContent':
-                $model = CActiveRecord::model($modelName)->findByPk($modelId);
+                $model = CActiveRecord::model($modelName)->resetScope()->findByPk($modelId);
                 return $model->type_id == 1 ? 'post' : 'video';
         }
+    }
+
+    /**
+     * Возвращает массив добавление в избранное за последние 24 часа
+     * @return array
+     */
+    public function findLastDayFavourites()
+    {
+        $result = array();
+        $t = microtime(true);
+        $favourites = Yii::app()->db->createCommand()
+            ->select('model_name, model_id, count(id) as count')
+            ->from($this->tableName())
+            ->group('model_name, model_id')
+            ->where('created > "'.date("Y-m-d H:i:s", strtotime('-1 day')) .'"')
+            ->queryAll();
+        echo microtime(true) - $t . "\n";
+        echo count($favourites)."\n";
+
+        foreach ($favourites as $favourite) {
+            $model = CActiveRecord::model($favourite['model_name'])->findByPk($favourite['model_id']);
+            if ($model === null)
+                continue;
+            if (!isset($model->author_id))
+                continue;
+
+            if (!isset($result[$model->author_id]))
+                $result[$model->author_id] = array();
+            if (!isset($result[$model->author_id][$favourite['model_name']]))
+                $result[$model->author_id][$favourite['model_name']] = array();
+            $result[$model->author_id][$favourite['model_name']][$favourite['model_id']] = $favourite['count'];
+        }
+
+        return $result;
     }
 }

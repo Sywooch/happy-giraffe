@@ -1,22 +1,24 @@
-<?php
-    Yii::app()->clientScript
-        ->registerScriptFile('/javascripts/knockout-2.2.1.js')
-        ->registerScriptFile('/javascripts/ko_friendsSearch.js?t=' . time())
-    ;
-?>
+<?php Yii::app()->clientScript->registerPackage('ko_friends'); ?>
 
 <div class="content-cols">
     <div class="col-1">
-        <h2 class="col-1_t"> Найти друзей
-            <div class="col-1_sub-t"><a href="<?=$this->createUrl('/friends/default/index')?>" class="">Мои друзья</a></div>
-        </h2>
+        &nbsp;
+    </div>
+    <div class="col-23">
+        <ul class="breadcrumbs-big clearfix">
+            <li class="breadcrumbs-big_i">
+                <a class="breadcrumbs-big_a" href="<?=$this->createUrl('/friends/default/index')?>">Мои друзья (<?=$friendsCount?>)</a>
+            </li>
+            <li class="breadcrumbs-big_i">Найти друзей </li>
+        </ul>
+    </div>
+</div>
+<div class="content-cols">
+    <div class="col-1">
         <div class="aside-filter">
             <form action="">
             <div class="aside-filter_search clearfix">
-                <input type="text" class="aside-filter_search-itx" placeholder="Введите имя и/или фамили" data-bind="value: query, valueUpdate: 'keyup'">
-                <!--
-                В начале ввода текста, скрыть aside-filter_search-btn добавить класс active"
-                 -->
+                <input type="text" class="aside-filter_search-itx" placeholder="Имя и/или фамилия" data-bind="value: instantaneousQuery, valueUpdate: 'keyup'">
                 <button class="aside-filter_search-btn" data-bind="click: clearQuery, css: { active : query() != '' }""></button>
             </div>
             <div class="aside-filter_sepor"></div>
@@ -40,9 +42,7 @@
                         },
                         optionsCaption: 'Выберите страну',
                         chosen: {},
-                        event: { change : updateRegions }">
-
-                        </select>
+                        event: { change : updateRegions }"></select>
                     </div>
                 </div>
                 <div class="aside-filter_toggle" data-bind="visible: regions().length > 0">
@@ -56,24 +56,22 @@
                             return region.id;
                         },
                         optionsCaption: 'Выберите регион',
-                        chosen: {}">
-
-                        </select>
+                        chosen: {}"></select>
                     </div>
                 </div>
             </div>
             <div class="aside-filter_sepor"></div>
             <div class="aside-filter_row clearfix">
                 <div class="aside-filter_t">Пол</div>
-                <input type="radio" name="b-radio2" id="radio3" class="aside-filter_radio" value='' data-bind="checked: gender">
+                <input type="radio" name="b-radio2" id="radio3" class="aside-filter_radio" value="" data-bind="checked: gender">
                 <label for="radio3" class="aside-filter_label-radio">
-                    все
+                    любой
                 </label>
-                <input type="radio" name="b-radio2" id="radio4" class="aside-filter_radio" value='1' data-bind="checked: gender">
+                <input type="radio" name="b-radio2" id="radio4" class="aside-filter_radio" value="1" data-bind="checked: gender">
                 <label for="radio4" class="aside-filter_label-radio">
                     <span class="ico-male"></span>
                 </label>
-                <input type="radio" name="b-radio2" id="radio5" class="aside-filter_radio" value='0' data-bind="checked: gender">
+                <input type="radio" name="b-radio2" id="radio5" class="aside-filter_radio" value="0" data-bind="checked: gender">
                 <label for="radio5" class="aside-filter_label-radio">
                     <span class="ico-female"></span>
                 </label>
@@ -148,43 +146,42 @@
 
             </div>
 
-            <div class="aside-filter_sepor"></div>
-            <div class="aside-filter_row clearfix">
-                <button class="aside-filter_reset"><span class="aside-filter_reset-tx" data-bind="click: clearForm">Сбросить параметры</span></button>
-                <button class="btn-h46 btn-gold float-r" data-bind="click: search">Найти</button>
-            </div>
         </form>
+        </div>
+        <div class="clearfix">
+            <a class="a-pseudo-gray float-r margin-r5" data-bind="click: clearForm">Сбросить все</a>
         </div>
     </div>
 
-    <div class="col-23 clearfix">
+    <div class="col-23-middle col-gray clearfix">
 
-        <div class="friends-list">
-            <!-- ko foreach: { data: users, afterRender: updateTooltip } -->
-            <div class="friends-list_i" data-bind="html: $data"></div>
+        <!-- ko if: users().length == 0 && loading() === false -->
+        <div class="cap-empty cap-empty__rel">
+            <div class="cap-empty_hold">
+                <div class="cap-empty_tx">По данным параметрам ничего не найдено.а</div>
+                <span class="color-gray">Измените параметры поиска</span>
+            </div>
+        </div>
+        <!-- /ko -->
+
+        <!-- ko if: ! (users().length == 0 && loading() === false) -->
+        <div class="friends-list friends-list__family margin-t20">
+            <!-- ko template: { name : 'request-template', foreach : users } -->
+
             <!-- /ko -->
 
             <div id="infscr-loading" data-bind="visible: loading"><img src="/images/ico/ajax-loader.gif" alt="Loading..."><div>Загрузка</div></div>
         </div>
+        <!-- /ko -->
+
     </div>
 </div>
 
 <script type="text/javascript">
-    ko.bindingHandlers.chosen =
-    {
-        init: function(element)
-        {
-            $(element).addClass('chzn');
-            $(element).chosen();
-        },
-        update: function(element)
-        {
-            $(element).trigger('liszt:updated');
-        }
-    };
-
     $(function() {
-        vm = new FriendsSearchViewModel(<?=CJSON::encode($data)?>);
+        vm = new FriendsSearchViewModel(<?=CJSON::encode($json)?>);
         ko.applyBindings(vm);
     });
 </script>
+
+<?php $this->renderPartial('/_requestTemplate'); ?>

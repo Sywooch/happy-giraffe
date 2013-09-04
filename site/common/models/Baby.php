@@ -22,6 +22,7 @@ class Baby extends HActiveRecord
 {
     const TYPE_WAIT = 1;
     const TYPE_PLANNING = 2;
+    const TYPE_TWINS = 3;
 
     const SEX_GIRL = 0;
     const SEX_BOY = 1;
@@ -50,14 +51,22 @@ class Baby extends HActiveRecord
     public function rules()
     {
         return array(
-            array('parent_id', 'required'),
-            array('name', 'required', 'on'=>'realBaby'),
-            array('birthday', 'type', 'type' => 'date', 'message' => '{attribute}: is not a date!', 'dateFormat' => 'yyyy-MM-dd'),
-            array('parent_id, age_group', 'numerical', 'integerOnly'=>true),
+            array('age_group', 'numerical', 'integerOnly' => true, 'min' => 0, 'max' => 5),
+            array('name', 'length', 'max' => 50),
+            array('birthday', 'date', 'format' => 'yyyy-MM-dd'),
             array('sex', 'numerical', 'integerOnly' => true, 'min' => 0, 'max' => 2),
-            array('name', 'length', 'max'=>255),
-            array('notice', 'length', 'max'=>100),
-            array('birthday', 'safe'),
+            array('notice', 'length', 'max' => 100),
+            array('type', 'numerical', 'integerOnly' => true, 'min' => 1, 'max' => 3),
+            array('main_photo_id', 'exist', 'className' => 'AlbumPhoto', 'attributeName' => 'id'),
+
+//            array('parent_id', 'required'),
+//            array('name', 'required', 'on'=>'realBaby'),
+//            array('birthday', 'type', 'type' => 'date', 'message' => '{attribute}: is not a date!', 'dateFormat' => 'yyyy-MM-dd'),
+//            array('parent_id, age_group', 'numerical', 'integerOnly'=>true),
+//            array('sex', 'numerical', 'integerOnly' => true, 'min' => 0, 'max' => 2),
+//            array('name', 'length', 'max'=>255),
+//            array('notice', 'length', 'max'=>100),
+//            array('birthday', 'safe'),
         );
     }
 
@@ -91,7 +100,7 @@ class Baby extends HActiveRecord
         $date2 = new DateTime(date('Y-m-d'));
         $interval = $date1->diff($date2);
 
-        $years_text = ($bold?$interval->y.' ':$interval->y.' ').HDate::GenerateNoun(array('год', 'года', 'лет'), $interval->y);
+        $years_text = ($bold?$interval->y.' ':$interval->y.' ').Str::GenerateNoun(array('год', 'года', 'лет'), $interval->y);
         $month_text = ($bold?$interval->m.' ':$interval->m.' ').'мес.';
         if ($interval->y == 0)
             return $month_text;
@@ -137,7 +146,7 @@ class Baby extends HActiveRecord
         $date1 = new DateTime($this->birthday);
         $date2 = new DateTime(date('Y-m-d'));
         $interval = $date1->diff($date2);
-        return $interval->y.' '.HDate::GenerateNoun(array('год', 'года', 'лет'), $interval->y);*/
+        return $interval->y.' '.Str::GenerateNoun(array('год', 'года', 'лет'), $interval->y);*/
         return $this->getTextAge();
     }
 

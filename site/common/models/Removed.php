@@ -134,4 +134,17 @@ class Removed extends HActiveRecord
     {
         return ($this->type == 4) ? $this->text : self::$types[$this->type];
     }
+
+    /**
+     * @param CActiveRecord $entity
+     */
+    public function restoreByEntity($entity)
+    {
+        $criteria = new CDbCriteria;
+        $criteria->compare('entity', get_class($entity));
+        $criteria->compare('entity_id', $entity->getPrimaryKey());
+        $model = $this->find($criteria);
+        if ($model !== null)
+            $model->delete();
+    }
 }

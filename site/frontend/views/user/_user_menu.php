@@ -1,6 +1,6 @@
 <div class="user-fast-nav">
     <ul class="clearfix">
-        <li><?=CHtml::link('Анкета', array('user/profile', 'user_id' => $user->id))?></li>
+        <li><?=CHtml::link('Анкета', array('profile/default/index', 'user_id' => $user->id))?></li>
         <li><?=CHtml::link('Блог', array('blog/list', 'user_id' => $user->id))?></li>
         <?php if (Yii::app()->user->id == $user->id && isset($showFamily)):?>
             <li><?=CHtml::link('Семья', array('/family'))?></li>

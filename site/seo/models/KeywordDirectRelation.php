@@ -88,15 +88,11 @@ class KeywordDirectRelation
      */
     public function saveRelation($keyword_from_id, $keyword_to_id)
     {
-        //if (!$this->exist($keyword_from_id, $keyword_to_id)) {
-            try {
-                $this->getCollection()->insert(array(
-                    'keyword_from_id' => (int)$keyword_from_id,
-                    'keyword_to_id' => (int)$keyword_to_id
-                ));
-            } catch (Exception $err) {
-
-            }
-        //}
+        if (!$this->exist($keyword_from_id, $keyword_to_id)) {
+            $this->getCollection()->insert(array(
+                'keyword_from_id' => (int)$keyword_from_id,
+                'keyword_to_id' => (int)$keyword_to_id
+            ));
+        }
     }
 }

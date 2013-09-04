@@ -312,17 +312,17 @@ class Horoscope extends HActiveRecord
     public function zodiacDates()
     {
         return $this->zodiac_dates[$this->zodiac]['start'][0] . '.'
-            . sprintf("%02d", $this->zodiac_dates[$this->zodiac]['start'][1])
-            . ' - ' . $this->zodiac_dates[$this->zodiac]['end'][0] . '.'
-            . sprintf('%02d', $this->zodiac_dates[$this->zodiac]['end'][1]);
+        . sprintf("%02d", $this->zodiac_dates[$this->zodiac]['start'][1])
+        . ' - ' . $this->zodiac_dates[$this->zodiac]['end'][0] . '.'
+        . sprintf('%02d', $this->zodiac_dates[$this->zodiac]['end'][1]);
     }
 
     public function someZodiacDates($zodiac)
     {
         return $this->zodiac_dates[$zodiac]['start'][0] . '.'
-            . sprintf("%02d", $this->zodiac_dates[$zodiac]['start'][1])
-            . ' - ' . $this->zodiac_dates[$zodiac]['end'][0] . '.'
-            . sprintf('%02d', $this->zodiac_dates[$zodiac]['end'][1]);
+        . sprintf("%02d", $this->zodiac_dates[$zodiac]['start'][1])
+        . ' - ' . $this->zodiac_dates[$zodiac]['end'][0] . '.'
+        . sprintf('%02d', $this->zodiac_dates[$zodiac]['end'][1]);
     }
 
     public function dateText()
@@ -568,6 +568,17 @@ class Horoscope extends HActiveRecord
         return '#';
     }
 
+    public function getMainUrl()
+    {
+        if (!empty($this->year) && empty($this->month) && $this->year != 2012)
+            return Yii::app()->createUrl('/services/horoscope/default/year', array(
+                'zodiac' => $this->getZodiacSlug(),
+                'year' => $this->year
+            ));
+
+        return Yii::app()->createUrl('/services/horoscope/default/'.$this->getType(), array('zodiac' => $this->getZodiacSlug()));
+    }
+
     public function getName()
     {
         $text = $this->zodiac_list2[$this->zodiac] . ' на ';
@@ -592,12 +603,11 @@ class Horoscope extends HActiveRecord
     public function getTitle()
     {
         if ($this->onYear())
-            return 'Гороскоп ' . $this->zodiacText() . ' на ' . $this->year . ' год';
-        ;
+            return 'Гороскоп ' . $this->zodiacText() . ' на ' . $this->year . ' год';;
         if ($this->onMonth())
             return 'Гороскоп ' . $this->zodiacText() . ' на ' . HDate::ruMonth($this->month) . ' ' . $this->year . ' года';
         return 'Гороскоп ' . $this->zodiacText() . ' на ' .
-            Yii::app()->dateFormatter->format('d MMMM yyyy', strtotime($this->date));
+        Yii::app()->dateFormatter->format('d MMMM yyyy', strtotime($this->date));
     }
 
     /*****************************************************************************************************************/
@@ -654,7 +664,7 @@ class Horoscope extends HActiveRecord
     public function isNearbyZodiac($zodiac_id)
     {
         return $zodiac_id == $this->zodiac + 1 || $zodiac_id == $this->zodiac - 1
-            || ($this->zodiac == 1 && $zodiac_id == 12) || ($this->zodiac == 12 && $zodiac_id == 1);
+        || ($this->zodiac == 1 && $zodiac_id == 12) || ($this->zodiac == 12 && $zodiac_id == 1);
     }
 
     public function dateHoroscopeExist($date)
@@ -788,9 +798,9 @@ class Horoscope extends HActiveRecord
     {
         if (empty($this->month) && !empty($this->year))
             return '<p><span class="red">Здоровье.</span>' . $this->health
-                . '</p><p><span class="red">Карьера.</span>' . $this->career
-                . '</p><p><span class="red">Финансы.</span>' . $this->finance
-                . '</p><p><span class="red">Личная жизнь.</span>' . $this->personal . '</p>';
+            . '</p><p><span class="red">Карьера.</span>' . $this->career
+            . '</p><p><span class="red">Финансы.</span>' . $this->finance
+            . '</p><p><span class="red">Личная жизнь.</span>' . $this->personal . '</p>';
         else
             return $this->text;
     }

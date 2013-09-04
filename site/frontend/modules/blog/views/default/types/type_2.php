@@ -10,7 +10,7 @@ $post = $data->post;
 ?>
 <?php if ($full):?>
     <h2 class="b-article_t">
-        <?=$data->title ?>
+        <?=$data->title ?> <?php $this->widget('site.frontend.widgets.favoritesWidget.FavouritesWidget', array('model' => $data)); ?>
     </h2>
 
     <div class="b-article_in clearfix">

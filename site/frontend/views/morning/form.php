@@ -25,9 +25,9 @@
 
     <div class="inner-title">Позиция</div>
     <div class="pos clearfix">
-        <div class="text"><?=$post->photoPost->position ?></div>
+        <div class="text"><?=$post->morningPost->position ?></div>
         <div class="input" style="display:none;">
-            <input type="text" value="<?=$post->photoPost->position ?>">
+            <input type="text" value="<?=$post->morningPost->position ?>">
             <button class="btn btn-green-small" onclick="Morniing.savePos(this);"><span><span>Ok</span></span>
             </button>
         </div>
@@ -59,7 +59,7 @@
         <br><br>
         <div class="photos">
             <div>
-                <?php foreach ($post->photoPost->photos as $photo): ?>
+                <?php foreach ($post->morningPost->photos as $photo): ?>
                 <?php $this->renderPartial('_photo', compact('photo')); ?>
                 <?php endforeach; ?>
 
@@ -75,7 +75,7 @@
                                 'enctype' => 'multipart/form-data',
                             ),
                         )); ?>
-                        <?php echo CHtml::hiddenField('id', $post->photoPost->id); ?>
+                        <?php echo CHtml::hiddenField('id', $post->morningPost->id); ?>
                         <?php echo CHtml::fileField('file', '', array('class'=>'photo-file')); ?>
                         <?php $this->endWidget(); ?>
                     </a>

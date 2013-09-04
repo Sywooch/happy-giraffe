@@ -102,4 +102,20 @@ class GeoCountry extends HActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
+    /**
+     * @return array
+     */
+    public static function getCountries()
+    {
+        $result = array();
+        $countries = GeoCountry::model()->findAll();
+        foreach ($countries as $country)
+            $result [] = array(
+                'id' => $country->id,
+                'name' => $country->name,
+                'code' => $country->iso_code,
+            );
+        return $result;
+    }
 }

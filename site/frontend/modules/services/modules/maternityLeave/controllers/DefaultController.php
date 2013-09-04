@@ -1,8 +1,8 @@
 <?php
 
-class DefaultController extends HController
+class DefaultController extends ServiceController
 {
-    public $layout = '//layouts/new';
+    const SERVICE_ID = 10;
 
     public function actionIndex()
     {

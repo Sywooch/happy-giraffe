@@ -1,18 +1,3 @@
-ko.bindingHandlers.tooltip = {
-    init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-        $(element).data('powertip', valueAccessor());
-    },
-    update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-        $(element).data('powertip', valueAccessor());
-        $(element).powerTip({
-            placement: 'n',
-            smartPlacement: true,
-            popupId: 'tooltipsy-im',
-            offset: 8
-        });
-    }
-};
-
 function FavouriteWidget(data) {
     var self = this;
 
@@ -106,6 +91,27 @@ function Entity(data, parent) {
     self.note = ko.observable(data.note);
     self.tagsInputIsVisible = ko.observable(self.tags().length == 0);
     self.tagsInputValue = ko.observable('');
+
+    /********** рубрика ***********/
+    self.newRubricTitle = ko.observable('');
+    self.rubricsList = ko.observableArray(ko.utils.arrayMap(data.rubricsList, function(rubric) {
+        return new BlogRubric(rubric);
+    }));
+    self.selectedRubric = ko.observable(data.selectedRubric === null ? (data.rubricsList.length > 1 ? undefined : data.rubricsList[0].id) : data.selectedRubric);
+
+    self.clearNewRubricTitle = function() {
+        self.newRubricTitle('');
+    };
+    self.createRubric = function() {
+        $.post('/newblog/createRubric/', { title : self.newRubricTitle() }, function(response) {
+            if (response.success) {
+                self.rubricsList.push(new BlogRubric({ id : response.id, title : self.newRubricTitle() }));
+                self.selectedRubric(response.id);
+                self.newRubricTitle('');
+                $('body').click();
+            }
+        }, 'json');
+    };
 
     self.removeTag = function(tag) {
         self.tags.remove(tag);

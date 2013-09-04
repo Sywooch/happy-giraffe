@@ -67,7 +67,7 @@ class NotificationRead
     public function addShownComment($comment)
     {
         if (Yii::app()->user->isGuest)
-            return ;
+            return;
 
         $this->comments [] = $comment;
         $this->comment_ids [] = $comment->id;
@@ -130,10 +130,13 @@ class NotificationRead
      * Устанавливает прочитанными уведомления о лайках если есть
      * @param $notifications Notification[]
      */
-    public static function setReadLikes($notifications)
+    public static function setReadSummaryNotifications($notifications)
     {
         foreach ($notifications as $notification)
-            if ($notification->type == Notification::NEW_LIKE)
+            if ($notification->type == Notification::NEW_LIKE
+                || $notification->type == Notification::NEW_FAVOURITE
+                || $notification->type == Notification::NEW_REPOST
+            )
                 $notification->setRead();
     }
 }

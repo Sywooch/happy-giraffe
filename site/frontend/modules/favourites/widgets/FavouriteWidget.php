@@ -9,13 +9,15 @@
 class FavouriteWidget extends CWidget
 {
     public $registerScripts = false;
+    public $right = false;
     public $model;
+    public $applyBindings = true;
 
     public function run()
     {
         $this->registerScripts();
         if ($this->registerScripts)
-            return;
+            return true;
 
         $count = (int) Favourite::model()->getCountByModel($this->model);
         $modelName = get_class($this->model);
@@ -37,7 +39,6 @@ class FavouriteWidget extends CWidget
         $basePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR;
         $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
         Yii::app()->clientScript
-            ->registerScriptFile('/javascripts/knockout-2.2.1.js')
             ->registerScriptFile($baseUrl . '/FavouriteWidget.js')
         ;
     }

@@ -7,6 +7,7 @@ class PurifiedBehavior extends CActiveRecordBehavior
 {
     public $attributes = array();
     public $options = array();
+    public $show_video = true;
 
     private $_defaultOptions = array(
         'URI.AllowedSchemes' => array(
@@ -16,7 +17,7 @@ class PurifiedBehavior extends CActiveRecordBehavior
         'Attr.AllowedFrameTargets' => array('_blank' => true),
         'Attr.AllowedRel' => array('nofollow'),
         'HTML.SafeIframe' => true,
-        'URI.SafeIframeRegexp' => '%^(http://www.youtube.com/embed/|http://player.vimeo.com/video/|https://w.soundcloud.com/)%',
+        'URI.SafeIframeRegexp' => '%.*%',
         'HTML.SafeObject' => true,
     );
 
@@ -29,8 +30,11 @@ class PurifiedBehavior extends CActiveRecordBehavior
                 $purifier = new CHtmlPurifier;
                 $purifier->options = CMap::mergeArray($this->_defaultOptions, $this->options);
                 $value = $this->getOwner()->$name;
-                $value = $this->linkifyYouTubeURLs($value);
-                $value = $this->linkifyVimeo($value);
+                $value = $this->setWidgets($value);
+                if ($this->show_video){
+                    $value = $this->linkifyYouTubeURLs($value);
+                    $value = $this->linkifyVimeo($value);
+                }
                 $value = $purifier->purify($value);
                 $value = $this->fixUrls($value);
                 Yii::app()->cache->set($cacheId, $value);
@@ -115,7 +119,7 @@ class PurifiedBehavior extends CActiveRecordBehavior
 
     public function fetchHtml($matches)
     {
-        $url = 'http://www.youtube.com/oembed?url=' . $matches[0] . '&format=json&maxwidth=700';
+        $url = 'http://www.youtube.com/oembed?url=' . $matches[0] . '&format=json&maxwidth=580';
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -124,12 +128,12 @@ class PurifiedBehavior extends CActiveRecordBehavior
         curl_close($ch);
 
         $json = CJSON::decode($response);
-        return ($httpStatus == 200) ? $json['html'] : $matches[0];
+        return ($httpStatus == 200) ? $this->wrapVideo($json['html']) : $matches[0];
     }
 
     public function vimeo($matches)
     {
-        $url = 'http://vimeo.com/api/oembed.xml?url=' . $matches[0] . '&format=json&maxwidth=700';
+        $url = 'http://vimeo.com/api/oembed.xml?url=' . $matches[0] . '&format=json&maxwidth=580';
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -138,7 +142,7 @@ class PurifiedBehavior extends CActiveRecordBehavior
         curl_close($ch);
 
         $json = CJSON::decode($response);
-        return ($httpStatus == 200) ? $json['html'] : $matches[0];
+        return ($httpStatus == 200) ? $this->wrapVideo($json['html']) : $matches[0];
     }
 
     public function linkifyYouTubeURLs($text) {
@@ -169,10 +173,13 @@ class PurifiedBehavior extends CActiveRecordBehavior
     }
 
     public function linkifyVimeo($text) {
-        $text = preg_replace_callback('~https?://vimeo\.com/\d+~ix',
-            array($this, 'vimeo'),
-            $text);
+        $text = preg_replace_callback('~https?://vimeo\.com/\d+~ix', array($this, 'vimeo'), $text);
         return $text;
+    }
+
+    private function wrapVideo($text)
+    {
+        return '<div class="b-article_in-img">'.$text.'</div>';
     }
 
     private function endsWith($haystack, $needle)
@@ -183,5 +190,25 @@ class PurifiedBehavior extends CActiveRecordBehavior
         }
 
         return (substr($haystack, -$length) === $needle);
+    }
+
+    private function setWidgets($text)
+    {
+        return preg_replace_callback('#<!-- widget: (.*) -->(.*)<!-- /widget -->#sU', array($this, 'replaceWidgets'), $text);
+    }
+
+    private function replaceWidgets($matches)
+    {
+        $data = CJSON::decode($matches[1]);
+        extract($data);
+        if (isset($entity) && isset($entity_id)){
+            $model = CActiveRecord::model($entity)->findByPk($entity_id);
+            if ($model){
+                $class = get_class($this->getOwner());
+                $comments = ($class == 'Comment');
+                return $model->getWidget(false, $comments);
+            }
+        }
+        return '';
     }
 }

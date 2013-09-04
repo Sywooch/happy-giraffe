@@ -67,7 +67,7 @@
                     <div class="recipe-info_ico  recipe-info_ico__time-2"></div>
                     <div class="recipe-info_hold">
                         <div class="recipe-info_desc">кол-во порций</div>
-                        <div class="recipe-info_value">на <?=$recipe->servings?> <?=HDate::GenerateNoun(array('персона', 'персоны', 'персон'), $recipe->servings)?></div>
+                        <div class="recipe-info_value">на <?=$recipe->servings?> <?=Str::GenerateNoun(array('персона', 'персоны', 'персон'), $recipe->servings)?></div>
                     </div>
                 </div>
                 <?php endif; ?>

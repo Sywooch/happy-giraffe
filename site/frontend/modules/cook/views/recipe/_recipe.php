@@ -1,34 +1,24 @@
-<?php
-/* @var $this Controller
- * @var $data CookRecipe
- */
-?><div class="entry recipe-article clearfix">
-
-    <?php $this->renderPartial('cook.views.recipe._recipe_parts._header',array('recipe'=>$data, 'full'=>false)); ?>
-
-    <div class="entry-content">
-
-        <?php $this->renderPartial('cook.views.recipe._recipe_parts/_cook_book', array('recipe' => $data)); ?>
-
-        <div class="recipe-photo">
-            <div class="big">
-                <?php if ($data->mainPhoto) echo HHtml::image($data->mainPhoto->getPreviewUrl(460, null, Image::WIDTH), $data->mainPhoto->title, array('class' => 'photo'), true)?>
+<div class="b-article clearfix">
+    <?php $this->renderPartial('cook.views.recipe._recipe_parts._controls', array('recipe' => $data)); ?>
+    <div class="b-article_cont clearfix">
+        <?php $this->renderPartial('cook.views.recipe._recipe_parts._header', array('recipe' => $data, 'full' => false)); ?>
+        <h2 class="b-article_t">
+            <a href="<?=$data->url?>" class="b-article_t-a"><?=$data->title?></a>
+        </h2>
+        <div class="b-article_in clearfix">
+            <div class="wysiwyg-content clearfix">
+                <p><?=Str::truncate(strip_tags($data->text), 400)?></p>
+                <?php if ($data->mainPhoto !== null): ?>
+                    <div class="b-article_in-img">
+                        <?=CHtml::image($data->mainPhoto->getPreviewUrl(580, null, Image::WIDTH), $data->mainPhoto->title, array('class' => 'content-img'))?>
+                    </div>
+                <?php endif; ?>
             </div>
         </div>
-
-        <div style="clear:left;"></div>
-
-        <?php $this->renderPartial('cook.views.recipe._recipe_parts/_recipe_description', array('recipe' => $data)); ?>
-
-        <h2>Приготовление</h2>
-
-        <div class="instructions wysiwyg-content">
-
-            <p><?=Str::truncate(strip_tags($data->text), 400)?> <?=HHtml::link('Весь рецепт<i class="icon"></i>', $data->url, array('class' => 'read-more'), true)?></p>
+        <div class="textalign-r">
+            <a href="<?=$data->url?>" class="b-article_more">Смотреть далее</a>
         </div>
 
-        <?php $this->renderPartial('cook.views.recipe._recipe_parts/_recipe_tags_edit',array('recipe'=>$data)); ?>
-
+        <?php $this->widget('application.widgets.newCommentWidget.NewCommentWidget', array('model' => $data, 'full' => false)); ?>
     </div>
-
 </div>

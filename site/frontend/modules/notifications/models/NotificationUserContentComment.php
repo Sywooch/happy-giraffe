@@ -45,21 +45,6 @@ class NotificationUserContentComment extends NotificationGroup
     }
 
     /**
-     * Создает модель уведомления для удобой работы с ним
-     *
-     * @param $object array объект, который вернул компонент работы с базой
-     * @return NotificationUserContentComment
-     */
-    public static function createModel($object)
-    {
-        $model = new NotificationUserContentComment;
-        foreach ($object as $key => $value)
-            $model->$key = $value;
-
-        return $model;
-    }
-
-    /**
      * Найти удалить или изменить уведомление, связанное с удаленным комментарием
      * @param $comment
      */
@@ -80,34 +65,6 @@ class NotificationUserContentComment extends NotificationGroup
                 $this->removeCommentId($exist, 'read_model_ids', $comment->id);
             elseif (in_array($comment->id, $exist['unread_model_ids']))
                 $this->removeCommentId($exist, 'unread_model_ids', $comment->id);
-        }
-    }
-
-    public function getText()
-    {
-        switch ($this->entity) {
-            case 'CommunityContent':
-            case 'BlogContent':
-                if ($this->getEntity() === null)
-                    return 'запись не найдена';
-                switch ($this->getEntity()->type_id) {
-                    case CommunityContent::TYPE_POST:
-                        return 'к вашей записи добавлены новые комментарии';
-                    case CommunityContent::TYPE_VIDEO:
-                        return 'к вашему видео добавлены новые комментарии';
-                    case CommunityContent::TYPE_STATUS:
-                        return 'к вашему статусу добавлены новые комментарии';
-                }
-                return 'к вашей записи добавлены новые комментарии';
-                break;
-
-            case 'CookRecipe':
-                return 'к вашему рецепту добавлены новые комментарии';
-            case 'AlbumPhoto':
-                return 'к вашему фото добавлены новые комментарии';
-            default:
-                return 'к вашей записи добавлены новые комментарии';
-                break;
         }
     }
 }

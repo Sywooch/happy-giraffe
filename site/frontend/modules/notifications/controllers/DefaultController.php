@@ -2,6 +2,8 @@
 
 class DefaultController extends HController
 {
+    public $layout = 'notifications';
+
     public function filters()
     {
         return array(
@@ -32,12 +34,12 @@ class DefaultController extends HController
     {
         $this->pageTitle = 'Новые уведомления';
         $list = Notification::model()->getNotificationsList(Yii::app()->user->id, 0, $page);
-        NotificationRead::setReadLikes($list);
+        NotificationRead::setReadSummaryNotifications($list);
 
         if (Yii::app()->request->isAjaxRequest)
-            $this->renderPartial('list', array('list' => $list, 'check' => true));
+            $this->renderPartial('list', array('list' => $list, 'read' => false));
         else
-            $this->render('index', compact('list'));
+            $this->render('index', array('list' => $list, 'read' => false));
     }
 
     public function actionRead($page = 0)
@@ -46,9 +48,9 @@ class DefaultController extends HController
 
         $list = Notification::model()->getNotificationsList(Yii::app()->user->id, 1, $page);
         if (Yii::app()->request->isAjaxRequest)
-            $this->renderPartial('list', array('list' => $list, 'check' => false));
+            $this->renderPartial('list', array('list' => $list, 'read' => true));
         else
-            $this->render('read', compact('list'));
+            $this->render('index', array('list' => $list, 'read' => true));
     }
 
     public function actionReadOne()

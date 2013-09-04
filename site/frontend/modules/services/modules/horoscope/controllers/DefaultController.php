@@ -6,11 +6,14 @@ class DefaultController extends HController
     public $title;
     public $social_title;
 
-    public function filters()
+    public function beforeAction($action)
     {
-        return array(
-            'ajaxOnly + viewed',
+        $this->breadcrumbs = array(
+            'Сервисы'=>array('site/services'),
+            'Гороскопы'
         );
+
+        return parent::beforeAction($action);
     }
 
     /**
@@ -22,7 +25,7 @@ class DefaultController extends HController
         $this->title = 'Гороскоп на сегодня по знакам Зодиака';
         $this->meta_title = $this->title;
 
-        $this->render('index', array('models' => $models, 'type' => 'today'));
+        $this->render('list', array('models' => $models));
     }
 
     /**
@@ -100,7 +103,7 @@ class DefaultController extends HController
             $this->meta_keywords = 'гороскоп на завтра, ежедневный гороскоп';
 
             $models = Horoscope::model()->sortByZodiac()->findAllByAttributes(array('date' => $date));
-            $this->render('tomorrow', array('models' => $models, 'type' => 'tomorrow'));
+            $this->render('list', array('models' => $models));
         } else {
             $zodiac = Horoscope::model()->getZodiacId(trim($zodiac));
             $model = Horoscope::model()->findByAttributes(array('zodiac' => $zodiac, 'date' => $date));
@@ -130,7 +133,7 @@ class DefaultController extends HController
             $this->meta_keywords = 'гороскоп на месяц, ежемесячный гороскоп';
 
             $models = Horoscope::model()->sortByZodiac()->findAllByAttributes(array('year' => date('Y'), 'month' => date('n')));
-            $this->render('month', array('models' => $models, 'type' => 'month'));
+            $this->render('list', array('models' => $models));
         } else {
             if (empty($month)) {
                 $zodiac = Horoscope::model()->getZodiacId($zodiac);
@@ -190,7 +193,7 @@ class DefaultController extends HController
             $this->meta_keywords = 'Гороскоп на ' . $year . ' год, гороскоп ' . $year ;
 
             $models = Horoscope::model()->sortByZodiac()->findAllByAttributes(array('year' => $year, 'month' => null));
-            $this->render('year', array('models' => $models, 'year' => $year));
+            $this->render('list', array('models' => $models));
         } else {
             $zodiac = Horoscope::model()->getZodiacId($zodiac);
 
@@ -206,20 +209,6 @@ class DefaultController extends HController
 
             $this->render('year_one', compact('model'));
         }
-    }
-
-    public function actionViewed()
-    {
-        UserAttributes::set(Yii::app()->user->id, 'horoscope', date("Y-m-d"));
-    }
-
-    public function actionLikes($zodiac, $date)
-    {
-        Yii::app()->clientScript->registerCoreScript('jquery');
-        $this->layout = 'empty';
-        $model = Horoscope::model()->findByAttributes(array('date' => $date, 'zodiac' => $zodiac));
-        if ($model !== null)
-            $this->render('likes_small', array('model' => $model));
     }
 
     public function sitemapView()

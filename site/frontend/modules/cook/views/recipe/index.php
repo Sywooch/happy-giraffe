@@ -1,24 +1,21 @@
-<div class="cook-title-cat">
-    <h1 class="cook-title-cat-h1">
-        <span class="cook-cat active"><i class="icon-cook-cat icon-recipe-<?=$type ?>"></i></span>
-        <span class="cook-title-cat-h1-text"><?=CookRecipe::model()->getTypeString($type) ?></span>
-    </h1>
+<div class="heading-title margin-b10 margin-t15 clearfix">
+    <?=CookRecipe::model()->getTypeString($type) ?>
 </div>
-<?php
+<!--<p class="margin-l20 margin-r40 color-gray-dark">Одним из основных свидетельств правильного течения  беременности является набор веса согласно принятым нормам. </p>-->
 
+<?php
 $this->widget('zii.widgets.CListView', array(
-    'cssFile'=>false,
+    'cssFile' => false,
     'ajaxUpdate' => false,
     'dataProvider' => $dp,
     'itemView' => '_recipe',
-    'summaryText' => 'Показано: {start}-{end} из {count}',
     'pager' => array(
-        'class' => 'AlbumLinkPager',
+        'class' => 'HLinkPager',
     ),
     'template' => '{items}
-            <div class="pagination pagination-center clearfix">
-                {pager}
-            </div>
-        ',
+        <div class="yiipagination">
+            {pager}
+        </div>
+    ',
 ));
-
+?>

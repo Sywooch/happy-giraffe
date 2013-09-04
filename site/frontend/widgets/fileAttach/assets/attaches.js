@@ -72,8 +72,6 @@ Attach.prototype.selectBrowsePhoto = function (button) {
         this.saveCommentPhoto(fsn);
     } else if (this.entity == 'Message' || this.entity == 'Comment' || this.entity == 'CommunityPost' || this.entity == 'CommunityVideo') {
         this.insertToComment(fsn);
-    } else if (this.entity == 'Humor') {
-        this.insertToHumor(fsn);
     } else if (this.entity == 'CookDecoration') {
         this.CookDecorationEdit(fsn);
     } else if (this.entity == 'CookRecipe' || this.entity == 'SimpleRecipe' || this.entity == 'MultivarkaRecipe') {
@@ -108,12 +106,7 @@ Attach.prototype.closeUpload = function (link) {
 Attach.prototype.insertToComment = function (val) {
     var title = $('#photo_title').size() > 0 ? $('#photo_title').val() : null;
     $.post(base_url + '/albums/commentPhoto/', {val:val, title:title}, function (data) {
-        if (CKEDITOR.instances[cke_instance] != undefined) {
-            if (data.title != null && data.title != 'null')
-                CKEDITOR.instances[cke_instance].insertHtml('<p><img src="' + data.src + '" alt="' + data.title + '" title="' + data.title + '" /></p>');
-            else
-                CKEDITOR.instances[cke_instance].insertHtml('<p><img src="' + data.src + '" /></p>');
-        }
+        redactorjs.set(redactorjs.get() + RedactorPlugins.widget.generate(data.entity, data.entity_id, data.html));
         $.fancybox.close();
     }, 'json');
 };
@@ -124,13 +117,6 @@ Attach.prototype.insertToMessage = function (val) {
         $.fancybox.close();
     }, 'json');
 };
-
-Attach.prototype.insertToHumor = function (fsn) {
-    $.post(base_url + '/albums/humorPhoto/', {val:fsn}, function (data) {
-        if (data)
-            document.location.reload();
-    }, 'json');
-}
 
 Attach.prototype.insertToRecipe = function (fsn) {
     var $this = this;

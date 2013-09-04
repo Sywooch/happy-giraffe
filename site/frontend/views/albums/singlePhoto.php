@@ -48,12 +48,7 @@
 
         <div class="user clearfix">
 
-            <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
-                'user' => $photo->author,
-                'size' => 'small',
-                'sendButton' => false,
-                'location' => false
-            )); ?>
+            <?php $this->widget('Avatar', array('user' => $photo->author, 'size' => Avatar::SIZE_MICRO)); ?>
 
             <?php $this->widget('FavouriteWidget', array('model' => $photo)); ?>
 
@@ -135,8 +130,5 @@ else {
         </div>
     <?php }
 
-    $this->widget('site.frontend.widgets.commentWidget.CommentWidget', array(
-        'model' => $photo,
-        'photoContainer'=>true
-    ));
+    $this->widget('application.widgets.newCommentWidget.NewCommentWidget', array('model' => $photo, 'full' => true));
 }

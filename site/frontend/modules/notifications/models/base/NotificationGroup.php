@@ -210,4 +210,12 @@ class NotificationGroup extends Notification
 
         return $this->_entity;
     }
+
+    /**
+     * @return int
+     */
+    public function getText()
+    {
+        return Str::GenerateNoun(array('Новый комментарий', 'Новых комментария', 'Новых комментариев'), $this->count);
+    }
 }

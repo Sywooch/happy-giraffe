@@ -9,12 +9,7 @@
     <?php else: ?>
 
         <a class="ico-redactor ico-redactor__interest js-tooltipsy<?php if (Favourites::inFavourites($model, Favourites::BLOCK_INTERESTING)) echo ' active'; ?>" href="#"
-           onclick="Favourites.toggle(this, 2);return false;" title="Самое интересное"></a>
-
-        <?php if (get_class($model) == 'BlogContent'): ?>
-            <a class="ico-redactor ico-redactor__blog js-tooltipsy<?php if (Favourites::inFavourites($model, Favourites::BLOCK_BLOGS)) echo ' active'; ?>" href="#"
-               onclick="Favourites.toggle(this, 3);return false;" title="Блоги на главную"></a>
-        <?php endif; ?>
+           onclick="Favourites.toggle(this, 2);return false;" title="На главную"></a>
 
         <a class="ico-redactor ico-redactor__social js-tooltipsy<?php if (Favourites::inFavourites($model, Favourites::BLOCK_SOCIAL_NETWORKS)) echo ' active'; ?>" href="#"
            onclick="Favourites.toggle(this, 7);return false;" title="Посты в соцсети"></a>

@@ -25,6 +25,7 @@ return array(
 		'ext.ufile.UFiles',
 		'application.models.*',
 		'application.components.*',
+        'application.components.video.*',
 		'application.helpers.*',
         'application.widgets.*',
         'application.vendor.*',
@@ -33,20 +34,11 @@ return array(
 		'ext.lightopenid.*',
 		'ext.eauth.services.*',
 		'ext.eauth.custom_services.*',
-		'ext.blocks.*',
-		'ext.blocks.blocks.*',
-		'ext.shoppingCart.*',
 		'ext.Captcha',
 		'ext.CaptchaAction',
 		'ext.LinkPager',
-		'ext.wr.WithRelatedBehavior',
 		'ext.image.Image',
-		'ext.CAdvancedArBehavior',
-		'ext.EGMap.*',
         'ext.YiiMongoDbSuite.*',
-        'application.modules.attribute.models.*',
-        'application.modules.im.models.*',
-        'application.modules.im.components.*',
         'application.modules.geo.models.*',
         'application.modules.scores.models.*',
         'application.modules.calendar.models.*',
@@ -62,9 +54,18 @@ return array(
         'application.modules.notifications.models.base.*',
         'application.modules.notifications.models.*',
         'application.modules.notifications.components.*',
+        'application.modules.scores.components.*',
+        'application.modules.scores.models.*',
+        'application.modules.scores.models.input.*',
         'application.modules.favourites.models.*',
         'application.modules.favourites.widgets.*',
         'application.modules.favourites.components.*',
+        'site.common.extensions.imperavi-redactor-widget.ImperaviRedactorWidget',
+        'application.widgets.userAvatarWidget.*',
+        'application.modules.gallery.components.*',
+        'application.modules.gallery.widgets.*',
+        'application.modules.myGiraffe.models.*',
+        'application.modules.myGiraffe.components.*',
     ),
 
 	'sourceLanguage' => 'en',
@@ -107,35 +108,21 @@ return array(
         'notifications',
         'friends',
         'favourites',
+        'scores',
+        'blog',
+        'gallery',
+        'profile',
+        'search',
+        'community',
+        'myGiraffe',
+        'family',
 	),
 	// application components
 	'components'=>array(
-        'clientScript' => array(
-            'class' => 'application.components.ClientScript',
-//            'scriptMap'=>array(
-//                'jquery'=>'http://code.jquery.com/jquery-1.8.0.min.js',
-//            ),
-            'packages' => array(
-                'comet' => array(
-                    'baseUrl' => '/',
-                    'js' => array(
-                        'javascripts/comet.js',
-                        'javascripts/dklab_realplexor.js',
-                    ),
-                ),
-                'user' => array(
-                    'baseUrl' => '/',
-                    'js' => array(
-                        'javascripts/user_common.js',
-                        'javascripts/messages.js',
-                        'javascripts/friends.js',
-                        'javascripts/settings.js',
-                        'javascripts/wantToChat.js',
-                    ),
-                    'depends' => array('comet'),
-                )
-            ),
+        'coreMessages' => array(
+            'basePath' => null,
         ),
+        'clientScript' => require_once(dirname(__FILE__) . '/clientScript.php'),
 		'widgetFactory' => array(
 			'widgets' => array(
 				'LinkPager' => array(
@@ -171,23 +158,26 @@ return array(
                     'class' => 'CustomMailruService',
                     'client_id' => '667969',
                     'client_secret' => '3a0e2674098641394a8e5e0b4328e594',
+                    'title' => 'Mail.ru',
                 ),
                 'odnoklassniki' => array(
                     'class' => 'CustomOdnoklassnikiService',
                     'client_id' => '93721600',
                     'client_secret' => '4E774EFE678A1ECF3D4625F3',
                     'client_public' => 'CBAFBHJGABABABABA',
-                    'title' => 'Odnokl.',
+                    'title' => 'Одноклассники',
                 ),
                 'vkontakte' => array(
                     'class' => 'CustomVKontakteService',
                     'client_id' => '2855330',
                     'client_secret' => 'T9pHwkodkssoEjswy2fw',
+                    'title' => 'Вконтакте',
                 ),
                 'facebook' => array(
                     'class' => 'CustomFacebookService',
                     'client_id' => '412497558776154',
                     'client_secret' => 'dc98234daa8c7a0d943a92423793590d',
+                    'title' => 'Facebook',
                 ),
                 /*'google' => array(
                     'class' => 'CustomGoogleService',
@@ -198,6 +188,7 @@ return array(
                     'class' => 'CustomTwitterService',
                     'key' => '9NY9gDqPgU2DMIYrEv2pCA',
                     'secret' => '2Lk4Q34fINqSrx5BlpKz6qtyCsofI3M9FHRYCElceE',
+                    'title' => 'Twitter',
                 ),
 			),
 		),
@@ -331,7 +322,14 @@ return array(
         ),
         'piwik' => array(
             'class' => 'site.common.components.Piwik',
-            'accessToken' => '2e20e09969eb34201467c8339dce749d',
+            'token_auth' => '2e20e09969eb34201467c8339dce749d',
+            'idSite' => 1,
+        ),
+        'phpThumb' => array(
+            'class' => 'ext.EPhpThumb.EPhpThumb',
+            'options' => array(
+                'resizeUp' => true,
+            ),
         ),
 	),
 

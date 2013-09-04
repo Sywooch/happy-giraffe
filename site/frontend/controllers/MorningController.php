@@ -52,7 +52,7 @@ class MorningController extends HController
         $criteria->condition = 'type_id=4 AND created >= "' . date("Y-m-d") . ' 00:00:00" ';
         if (!Yii::app()->user->checkAccess('editMorning'))
             $criteria->condition .= ' AND is_published = 1';
-        $count = CommunityContent::model()->with('photoPost')->count($criteria);
+        $count = CommunityContent::model()->with('morningPost')->count($criteria);
         if ($count == 0) {
             $this->last_time = strtotime(' - 1 day', $this->last_time);
         }
@@ -60,13 +60,13 @@ class MorningController extends HController
         $this->time = strtotime($date . ' 00:00:00');
 
         $criteria = new CDbCriteria;
-        $criteria->order = 'photoPost.position ASC';
+        $criteria->order = 'morningPost.position ASC';
         $cond = 'type_id=4 AND created >= "' . $date . ' 00:00:00"' . ' AND created <= "' . $date . ' 23:59:59"';
         if (!Yii::app()->user->checkAccess('editMorning'))
             $cond .= ' AND is_published = 1';
 
         $criteria->condition = $cond;
-        $count = CommunityContent::model()->with('photoPost')->count($criteria);
+        $count = CommunityContent::model()->with('morningPost')->count($criteria);
         if ($count == 0) {
             $date = date("Y-m-d", $this->last_time);
             $this->time = $this->last_time;
@@ -75,7 +75,7 @@ class MorningController extends HController
                 $cond .= ' AND is_published = 1';
             $criteria->condition = $cond;
         }
-        $articles = CommunityContent::model()->with('photoPost', 'photoPost.photos')->findAll($criteria);
+        $articles = CommunityContent::model()->with('morningPost', 'morningPost.photos')->findAll($criteria);
 
 //        if (empty($articles) && !Yii::app()->user->checkAccess('editMorning'))
 //            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
@@ -95,9 +95,9 @@ class MorningController extends HController
 
     public function actionView($id)
     {
-        $article = CommunityContent::model()->with('photoPost', 'photoPost.photos')->findByPk($id);
-        if ($article === null || $article->photoPost === null ||
-            ($article->photoPost->is_published != 1 && !Yii::app()->user->checkAccess('editMorning'))
+        $article = CommunityContent::model()->with('morningPost', 'morningPost.photos')->findByPk($id);
+        if ($article === null || $article->morningPost === null ||
+            ($article->morningPost->is_published != 1 && !Yii::app()->user->checkAccess('editMorning'))
         )
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
@@ -134,9 +134,9 @@ class MorningController extends HController
                     $post->type_id = 4;
                     $post->author_id = 1;
                     if ($post->save()) {
-                        $photoPost = new CommunityPhotoPost();
-                        $photoPost->content_id = $post->id;
-                        if ($photoPost->save())
+                        $morningPost = new CommunityMorningPost();
+                        $morningPost->content_id = $post->id;
+                        if ($morningPost->save())
                             $this->redirect($this->createUrl('morning/edit', array('id' => $post->id)));
                         else {
                             $post->delete();
@@ -174,13 +174,13 @@ class MorningController extends HController
         if ($post === null)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
-        $post->photoPost->location = $_POST['location'];
-        $post->photoPost->lat = $_POST['lat'];
-        $post->photoPost->long = $_POST['long'];
-        $post->photoPost->zoom = $_POST['zoom'];
+        $post->morningPost->location = $_POST['location'];
+        $post->morningPost->lat = $_POST['lat'];
+        $post->morningPost->long = $_POST['long'];
+        $post->morningPost->zoom = $_POST['zoom'];
         $file_name = $this->saveImage($_POST['lat'], $_POST['long'], $_POST['zoom']);
-        $post->photoPost->location_image = $file_name;
-        if ($post->photoPost->save()) {
+        $post->morningPost->location_image = $file_name;
+        if ($post->morningPost->save()) {
             $response = array(
                 'status' => true,
                 'html' => $this->renderPartial('_loc', compact('post'), true)
@@ -248,7 +248,7 @@ class MorningController extends HController
         if (!Yii::app()->user->checkAccess('editMorning'))
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
-        $posts = CommunityPhotoPost::model()->findAll('is_published = 0 AND content_id IS NOT NULL ');
+        $posts = CommunityMorningPost::model()->findAll('is_published = 0 AND content_id IS NOT NULL ');
         foreach ($posts as $post) {
             $post->is_published = 1;
             $post->save(false);
@@ -272,7 +272,7 @@ class MorningController extends HController
         $cond = 'type_id=4 AND created >= "' . $date . ' 00:00:00"' . ' AND created <= "' . $date . ' 23:59:59" AND removed = 0';
         if (!Yii::app()->user->checkAccess('editMorning'))
             $cond .= ' AND is_published = 1';
-        return CommunityContent::model()->with('photoPost')->count($cond) != 0;
+        return CommunityContent::model()->with('morningPost')->count($cond) != 0;
     }
 
     public function actionRemoveLocation()
@@ -284,9 +284,9 @@ class MorningController extends HController
         if ($post === null)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
-        $post->photoPost->location = null;
-        $post->photoPost->location_image = null;
-        $post->photoPost->save();
+        $post->morningPost->location = null;
+        $post->morningPost->location_image = null;
+        $post->morningPost->save();
     }
 
     public function actionUpdatePos()
@@ -298,8 +298,8 @@ class MorningController extends HController
         if ($post === null)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
-        $post->photoPost->position = Yii::app()->request->getPost('pos');;
-        echo CJSON::encode(array('status' => $post->photoPost->save()));
+        $post->morningPost->position = Yii::app()->request->getPost('pos');;
+        echo CJSON::encode(array('status' => $post->morningPost->save()));
     }
 
     public function saveImage($lat, $lon, $zoom)

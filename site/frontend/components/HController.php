@@ -23,8 +23,6 @@ class HController extends CController
     public $tempLayout = false;
     public $showLikes = false;
 
-    protected $r = 173;
-
     public function filterAjaxOnly($filterChain)
     {
         if (Yii::app()->getRequest()->getIsAjaxRequest())
@@ -43,10 +41,6 @@ class HController extends CController
         parent::init();
 
         $this->combineStatic();
-        Yii::app()->clientScript
-            ->registerCssFile('/stylesheets/common.css?'.$this->r)
-            ->registerCssFile('/stylesheets/global.css?'.$this->r)
-        ;
 
         // авторизация
         if (isset($this->actionParams['token'])) {
@@ -70,7 +64,7 @@ class HController extends CController
         $this->_mobileRedirect();
 
         // отключение повторной подгрузки jquery
-        /* if (Yii::app()->request->isAjaxRequest) {
+        if (Yii::app()->request->isAjaxRequest) {
             Yii::app()->clientScript->scriptMap = array(
                 'jquery.js' => false,
                 'jquery.min.js' => false,
@@ -78,12 +72,14 @@ class HController extends CController
                 'jquery.ba-bbq.js' => false,
                 'jquery.yiilistview.js' => false,
             );
-        } */
+        }
 
         // noindex для дева
         if ($_SERVER['HTTP_HOST'] == 'dev.happy-giraffe.ru') {
             Yii::app()->clientScript->registerMetaTag('noindex,nofollow', 'robots');
         }
+        if (isset($_GET['CommunityContent_page']) || isset($_GET['BlogContent_page']))
+            Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
 
         if (!Yii::app()->user->isGuest && (Yii::app()->user->model->blocked == 1 || Yii::app()->user->model->deleted == 1))
             Yii::app()->user->logout();
@@ -225,5 +221,18 @@ class HController extends CController
 
         if ($newMobile == 1)
             $this->redirect('http://m.happy-giraffe.ru' . $_SERVER['REQUEST_URI']);
+    }
+
+    public function getLayoutData()
+    {
+        $user = Yii::app()->user->getModel();
+        $newNotificationsCount = (int) Notification::model()->getUnreadCount();
+        $newMessagesCount = (int) MessagingManager::unreadMessagesCount($user->id);
+        $newFriendsCount = (int) FriendRequest::model()->getUserCount($user->id);
+        $newPostsCount = (int) ViewedPost::getInstance()->newPostCount($user->id, SubscribeDataProvider::TYPE_ALL);
+        $newScoreCount = (int) ($user->score->scores - $user->score->seen_scores);
+        $activeModule = $this->module ? $this->module->id : null;
+
+        return compact('newNotificationsCount', 'newMessagesCount', 'newFriendsCount', 'newPostsCount', 'newScoreCount', 'activeModule');
     }
 }

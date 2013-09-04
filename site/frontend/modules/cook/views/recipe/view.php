@@ -222,30 +222,32 @@
         </div>
 
         <?php if ($recipe->more): ?>
-            <div class="cook-more clearfix">
-                <div class="cook-more_top">
-                    Еще вкусненькое
+            <noindex>
+                <div class="cook-more clearfix">
+                    <div class="cook-more_top">
+                        Еще вкусненькое
+                    </div>
+                    <ul class="cook-more_ul clearfix">
+                        <?php foreach ($recipe->more as $m): ?>
+                            <li class="cook-more_li">
+                                <div class="cook-more_author clearfix">
+                                    <?php $this->widget('Avatar', array('user' => $recipe->author, 'size' => 24)) ?>
+                                    <div class="clearfix">
+                                        <a class="textdec-onhover" href="<?=$m->author->getUrl() ?>"><?=$m->author->getFullName() ?></a>
+                                        <div class="color-gray font-smallest"><?=Yii::app()->dateFormatter->format("d MMMM yyyy, H:mm", $m->created)?></div>
+                                    </div>
+                                </div>
+                                <?php if ($m->mainPhoto): ?>
+                                    <div class="cook-more_cnt">
+                                        <?=CHtml::link(CHtml::image($m->getPreview(120, 105)), $m->url)?>
+                                    </div>
+                                <?php endif; ?>
+                                <div class="cook-more_t"><?=CHtml::link($m->title, $m->url)?></div>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
                 </div>
-                <ul class="cook-more_ul clearfix">
-                    <?php foreach ($recipe->more as $m): ?>
-                        <li class="cook-more_li">
-                            <div class="cook-more_author clearfix">
-                                <?php $this->widget('Avatar', array('user' => $recipe->author, 'size' => 24)) ?>
-                                <div class="clearfix">
-                                    <a class="textdec-onhover" href="<?=$m->author->getUrl() ?>"><?=$m->author->getFullName() ?></a>
-                                    <div class="color-gray font-smallest"><?=Yii::app()->dateFormatter->format("d MMMM yyyy, H:mm", $m->created)?></div>
-                                </div>
-                            </div>
-                            <?php if ($m->mainPhoto): ?>
-                                <div class="cook-more_cnt">
-                                    <?=CHtml::link(CHtml::image($m->getPreview(120, 105)), $m->url)?>
-                                </div>
-                            <?php endif; ?>
-                            <div class="cook-more_t"><?=CHtml::link($m->title, $m->url)?></div>
-                        </li>
-                    <?php endforeach; ?>
-                </ul>
-            </div>
+            </noindex>
         <?php endif; ?>
 
         <?php $this->widget('application.widgets.newCommentWidget.NewCommentWidget', array('model' => $recipe, 'full' => true)); ?>

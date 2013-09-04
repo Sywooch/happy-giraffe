@@ -196,27 +196,18 @@
             </div>
         </div>
 
-        <div class="custom-likes-b">
-            <div class="custom-likes-b_slogan">Поделитесь с друзьями!</div>
-            <a href="" class="custom-like">
-                <span class="custom-like_icon odnoklassniki"></span>
-                <span class="custom-like_value">0</span>
-            </a>
-            <a href="" class="custom-like">
-                <span class="custom-like_icon vkontakte"></span>
-                <span class="custom-like_value">1900</span>
-            </a>
+        <noindex>
+            <?php $this->widget('site.frontend.widgets.socialLike.SocialLikeWidget', array(
+                'model' => $recipe,
+                'type' => 'simple',
+                'options' => array(
+                    'title' => $recipe->title,
+                    'image' => $recipe->getContentImage(400),
+                    'description' => $recipe->text,
+                ),
+            )); ?>
+        </noindex>
 
-            <a href="" class="custom-like">
-                <span class="custom-like_icon facebook"></span>
-                <span class="custom-like_value">150</span>
-            </a>
-
-            <a href="" class="custom-like">
-                <span class="custom-like_icon twitter"></span>
-                <span class="custom-like_value">10</span>
-            </a>
-        </div>
         <div class="nav-article clearfix">
             <div class="nav-article_left">
                 <a href="" class="nav-article_arrow nav-article_arrow__left"></a>

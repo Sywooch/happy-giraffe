@@ -97,6 +97,9 @@ class SiteController extends HController
 	 */
 	public function actionIndex()
 	{
+        if (! Yii::app()->user->isGuest)
+            $this->redirect(array('myGiraffe/default/index', 'type' => 1));
+
         //$models = Favourites::getArticlesByDate(Favourites::BLOCK_INTERESTING, date("Y-m-d"), 2);
         $models = BlogContent::model()->findAll(array(
             'order' => 't.id DESC',

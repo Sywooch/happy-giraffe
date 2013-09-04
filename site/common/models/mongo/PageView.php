@@ -87,7 +87,7 @@ class PageView extends HMongoModel
      * @param array $model
      * @return int кол-во просмотров статьи
      */
-    public function inc($model, $n = 1)
+    public function inc($model)
     {
         if (isset($_SERVER['HTTP_USER_AGENT']) && !in_array($_SERVER['HTTP_USER_AGENT'], $this->getBots())) {
             $viewed_pages = Yii::app()->session->get('viewed_pages');
@@ -97,7 +97,7 @@ class PageView extends HMongoModel
                 $viewed_pages .= ' ' . $this->_id . ',';
                 Yii::app()->session['viewed_pages'] = $viewed_pages;
 
-                return $model['views'] + $n;
+                return $model['views'] + 1;
             }
         }
 

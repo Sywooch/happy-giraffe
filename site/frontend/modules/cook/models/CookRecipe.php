@@ -92,6 +92,8 @@ class CookRecipe extends CActiveRecord
     public $cooking_duration_m;
 
     private $_nutritionals = null;
+    private $_prev = null;
+    private $_next = null;
 
     /**
      * Returns the static model of the specified AR class.
@@ -668,30 +670,54 @@ class CookRecipe extends CActiveRecord
         return $this->findAll($criteria);
     }
 
+    public function getPrevRecipes()
+    {
+        if ($this->_prev === null)
+            $this->_prev = $this->findAll(
+                array(
+                    'condition' => 't.id < :current_id AND type = :type',
+                    'params' => array(':current_id' => $this->id, ':type' => $this->type),
+                    'limit' => 3,
+                    'order' => 't.id DESC',
+                    'scopes' => array('active'),
+                    'with' => array('author')
+                )
+            );
+        return $this->_prev;
+    }
+
+    public function getNextRecipes()
+    {
+        if ($this->_next === null)
+            $this->_next = $this->findAll(
+                array(
+                    'condition' => 't.id > :current_id AND type = :type',
+                    'params' => array(':current_id' => $this->id, ':type' => $this->type),
+                    'limit' => 3,
+                    'order' => 't.id',
+                    'scopes' => array('active'),
+                    'with' => array('author')
+                )
+            );
+        return $this->_next;
+    }
+
+    public function getNext($offset = 0)
+    {
+        return isset($this->nextRecipes[$offset]) ? $this->nextRecipes[$offset] : null;
+    }
+
+    public function getPrev($offset = 0)
+    {
+        return isset($this->prevRecipes[$offset]) ? $this->prevRecipes[$offset] : null;
+    }
+
     public function getMore()
     {
-        $prev = $this->findAll(
-            array(
-                'condition' => 't.id < :current_id AND type = :type',
-                'params' => array(':current_id' => $this->id, ':type' => $this->type),
-                'limit' => 2,
-                'order' => 't.id DESC',
-                'scopes' => array('active'),
-                'with' => array('author')
-            )
-        );
-
-        $next = $this->findAll(
-            array(
-                'condition' => 't.id > :current_id AND type = :type',
-                'params' => array(':current_id' => $this->id, ':type' => $this->type),
-                'limit' => 2,
-                'order' => 't.id',
-                'scopes' => array('active'),
-                'with' => array('author')
-            )
-        );
-
+        $next = $this->getNextRecipes();
+        $prev = $this->getPrevRecipes();
+        unset($prev[0]);
+        unset($next[0]);
         return CMap::mergeArray(array_reverse($prev), $next);
     }
 

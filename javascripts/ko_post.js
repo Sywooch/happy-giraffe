@@ -22,6 +22,19 @@ ko.bindingHandlers.chosenRubric =
         $(element).trigger('liszt:updated');
     }
 };
+ko.bindingHandlers.chosenRubricClub =
+{
+    init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext)
+    {
+        viewModel.rubricsList.unshift(new BlogRubric({ id : undefined, title : undefined }));
+        $(element).addClass('chzn');
+        $(element).chosen();
+    },
+    update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext)
+    {
+        $(element).trigger('liszt:updated');
+    }
+};
 
 if ($('.chzn').size() > 0) {
     $('.chzn').each(function () {

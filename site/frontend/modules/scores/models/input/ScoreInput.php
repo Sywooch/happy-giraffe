@@ -381,4 +381,8 @@ class ScoreInput extends HMongoModel
     {
         return 'career-achievement__bluelight';
     }
+
+    public function removeAll(){
+        $this->getCollection()->remove(array());
+    }
 }

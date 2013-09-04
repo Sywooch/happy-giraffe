@@ -35,8 +35,12 @@ class ScoresCommand extends CConsoleCommand
     public function actionAdd()
     {
         $criteria = new CDbCriteria;
-        $criteria->limit = 100;
+        $criteria->limit = 500;
         $criteria->offset = 0;
+
+        Yii::app()->db->createCommand()->update('score__user_scores', array('scores' => 0, 'seen_scores' => 0));
+        ScoreInput::getInstance()->removeAll();
+        Yii::app()->db->createCommand()->delete('score__user_achievements');
 
         $i = 0;
         $models = array(0);
@@ -113,7 +117,8 @@ class ScoresCommand extends CConsoleCommand
             }
 
             $i++;
-            $criteria->offset = $i * 100;
+            $criteria->offset = $i * 500;
+            echo $criteria->offset."\n";
         }
     }
 

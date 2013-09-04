@@ -12,7 +12,7 @@ class ConvertNewCommand extends CConsoleCommand
     public function actionUpdatePhotos()
     {
         $criteria = new CDbCriteria;
-        $criteria->limit = 1000;
+        $criteria->limit = 3000;
         $criteria->offset = 0;
         $criteria->condition = 'width IS NULL';
 

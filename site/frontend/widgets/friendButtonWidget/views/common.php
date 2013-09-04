@@ -4,7 +4,7 @@
 </a>
 <?php else: ?>
 <!-- ko stopBinding: true -->
-<a href="<?=$this->user->url?>" class="b-ava-large_bubble" id="<?=$id?>" data-bind="click: clickHandler, tooltip: tip(), css: bubbleCssClass">
+<a href="<?=$this->user->url?>" class="b-ava-large_bubble b-ava-large_bubble__friend-add-onhover" id="<?=$id?>" data-bind="click: clickHandler, tooltip: tip(), css: bubbleCssClass">
     <span class="b-ava-large_ico" data-bind="css: iconCssClass"></span>
 </a>
 <!-- /ko -->

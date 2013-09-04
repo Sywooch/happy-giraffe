@@ -33,7 +33,7 @@ class InterlocutorsController extends HController
                 'id' => (int) $interlocutorModel->id,
                 'firstName' => $interlocutorModel->first_name,
                 'lastName' => $interlocutorModel->last_name,
-                'avatar' => $interlocutorModel->getAva(),
+                'avatar' => $interlocutorModel->getAvatarUrl(),
                 'online' => (bool) $interlocutorModel->online,
                 'isFriend' => (bool) Friend::model()->areFriends(Yii::app()->user->id, $interlocutorId),
                 'gender' => (bool) $interlocutorModel->gender,

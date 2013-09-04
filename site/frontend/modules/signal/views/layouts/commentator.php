@@ -24,7 +24,6 @@
         ->registerCoreScript('jquery')
         ->registerScriptFile('/javascripts/comet.js')
 
-        ->registerScriptFile('/javascripts/knockout-2.2.1.js')
         ->registerCssFile('/stylesheets/seo2/all.css')
         ->registerScriptFile('/javascripts/dklab_realplexor.js')
         ->registerScriptFile('/javascripts/seo2/jquery.fancybox.pack.js')
@@ -45,7 +44,7 @@
                     <a href="/site/logout/" class="header-page_logout"></a>
 
                     <div class="user-info clearfix">
-                        <a href="<?=$this->user->url ?>" class="ava small"><?=CHtml::image($this->user->getAva('small'))?></a>
+                        <a href="<?=$this->user->url ?>" class="ava small"><?=CHtml::image($this->user->getAvatarUrl(Avatar::SIZE_MICRO))?></a>
 
                         <div class="user-info_details">
                             <a href="<?=$this->user->url ?>" class="user-info_username"><?=$this->user->getFullName()  ?></a>

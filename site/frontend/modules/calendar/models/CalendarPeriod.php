@@ -125,8 +125,10 @@ class CalendarPeriod extends HActiveRecord
 
     public function behaviors()
     {
-        return array('CAdvancedArBehavior',
-            array('class' => 'site.frontend.extensions.CAdvancedArBehavior')
+        return array(
+            'CAdvancedArBehavior' => array(
+                'class' => 'site.frontend.extensions.CAdvancedArBehavior',
+            ),
         );
     }
 

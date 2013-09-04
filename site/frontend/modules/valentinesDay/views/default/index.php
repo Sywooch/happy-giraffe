@@ -119,7 +119,7 @@
                 <?php endforeach; ?>
             </ul>
             <div class="textalign-r">
-                <a href="<?=$recipe_tag->getUrl() ?>" class="valentine-cook_more"><?=$recipe_tag->recipesCount?> <?=HDate::GenerateNoun(array('рецепт', 'рецепта', 'рецептов'), $recipe_tag->recipesCount)?>  с</a>
+                <a href="<?=$recipe_tag->getUrl() ?>" class="valentine-cook_more"><?=$recipe_tag->recipesCount?> <?=Str::GenerateNoun(array('рецепт', 'рецепта', 'рецептов'), $recipe_tag->recipesCount)?>  с</a>
             </div>
         </div>
     </div>

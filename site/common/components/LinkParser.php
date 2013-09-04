@@ -61,6 +61,7 @@ class LinkParser
         return array(
             'title' => $this->getTitle($pq),
             'text' => $this->getText($pq),
+            'images' => $this->getImages($pq),
             'image' => $this->getImage($pq),
         );
     }
@@ -128,6 +129,21 @@ class LinkParser
     private function getPageText()
     {
         return '';
+    }
+
+    /**
+     * Ищет картинки для превью и возвращает массив их url. Первой идет самая подходящая,
+     * затем еще несколько подходящих
+     *
+     * @param phpQueryObject $pq
+     * @return string[]
+     */
+    private function getImages($pq)
+    {
+        $image = $pq->find('meta[property="og:image"]')->attr('content');
+        $images = $this->findProperImages($pq);
+
+        return array_merge(array($image), $images);
     }
 
     /**

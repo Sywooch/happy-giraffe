@@ -213,10 +213,6 @@
                         'url' => array('/club/services'),
                     ),
                     array(
-                        'label' => 'Категории сервисов',
-                        'url' => array('/club/serviceCategories'),
-                    ),
-                    array(
                         'label' => 'Линеечки',
                         'url' => array('/club/line'),
                         'visible' => Yii::app()->user->checkAccess('administrator'),

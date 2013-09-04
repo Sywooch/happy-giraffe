@@ -140,6 +140,7 @@ class ContestWork extends HActiveRecord
             $relatedModel->sendEvent();
 
             FriendEventManager::add(FriendEvent::TYPE_CONTEST_PARTICIPATED, array('id' => $this->id, 'user_id' => $this->author_id));
+            ScoreInputContestParticipation::getInstance()->add($this->author_id, $this->contest_id);
         }
 
         parent::afterSave();

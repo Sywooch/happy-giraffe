@@ -9,10 +9,21 @@ Yii::import('site.common.models.mongo.*');
 Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
 class UsersCommand extends CConsoleCommand
 {
-    public function actionIndex()
-    {
-//        $this->setRole($this->virtual_users, 'virtual user');
-//        $this->setRole($this->moderators, 'moderator');
+    public function actionAddFriends(){
+        $user_ids = Yii::app()->db->createCommand()
+            ->select('id')
+            ->from('users')
+            ->where('register_date > :from AND register_date < :to', array(
+                ':from'=>date("Y-m-d H:i:s", strtotime('-4 hours')),
+                ':to'=>date("Y-m-d H:i:s", strtotime('-3 hours'))
+            ))
+            ->queryColumn();
+        Yii::import('site.frontend.modules.friends.models.*');
+        Yii::import('site.frontend.modules.scores.models.*');
+        Yii::import('site.frontend.modules.scores.components.*');
+        foreach($user_ids as $user_id)
+            Friend::model()->addCommentatorAsFriend($user_id);
+
     }
 
     public function setRole($users, $role)
@@ -93,59 +104,37 @@ class UsersCommand extends CConsoleCommand
         UserAttributes::set($user->id, 'fire_time', time());
     }
 
-    public function actionTest(){
-        $criteria = new CDbCriteria;
-        $criteria->limit = 100;
-        $criteria->offset = 0;
-
-        $models = array(0);
-        while (!empty($models)) {
-            $models = UserSocialService::model()->findAll($criteria);
-
-            foreach ($models as $model) {
-                if (!isset($model->user->id))
-                    echo $model->user_id."\n";
-            }
-
-            $criteria->offset += 100;
-        }
-    }
-
     /**
      * Удаление в назначениях прав несуществующих юзеров
      */
     public function actionAssign()
     {
         $models = AuthAssignment::model()->findAll();
-        foreach($models as $model){
-            $count = User::model()->countByAttributes(array('id'=>$model->userid));
-            if ($count == 0){
+        foreach ($models as $model) {
+            $count = User::model()->countByAttributes(array('id' => $model->userid));
+            if ($count == 0) {
                 echo "id = {$model->userid} user not exist \n\r";
                 $model->delete();
             }
         }
     }
 
-    public function actionGenerateModels(){
-        Yii::import('site.frontend.modules.scores.models.*');
-        Yii::import('site.frontend.modules.geo.models.*');
-        $criteria = new CDbCriteria;
-        $criteria->offset = 0;
+    public function actionTest()
+    {
+        $str = 'http://www.happy-giraffe.ru/user/181638/
+http://www.happy-giraffe.ru/user/181065/
+http://www.happy-giraffe.ru/user/186076/
+http://www.happy-giraffe.ru/user/186070/';
+        preg_match_all("/\/user\/([\d]+)\//",$str, $matches);
 
-        $user = 1;
-        while(!empty($user)){
-            $user = User::model()->find($criteria);
-            if (empty($user->priority))
-                Yii::app()->db->createCommand()->insert(UserPriority::model()->tableName(), array('user_id' => $user->id));
-            if (empty($user->score))
-                Yii::app()->db->createCommand()->insert(UserScores::model()->tableName(), array('user_id' => $user->id));
-            if (empty($user->address))
-                Yii::app()->db->createCommand()->insert(UserAddress::model()->tableName(), array('user_id' => $user->id));
+        foreach($matches[1] as $match)
+            echo $match.",";
+    }
 
-            $criteria->offset++;
-
-            if ($criteria->offset % 100 == 0)
-                echo $user->id."\n";
+    public function actionSetEditors($ids){
+        $ids = explode(",", $ids);
+        foreach($ids as $id){
+            Yii::app()->db->createCommand()->update('users', array('group'=>UserGroup::EDITOR), 'id='.$id);
         }
     }
 }

@@ -61,4 +61,19 @@ class FriendsManager
     {
         return FriendList::model()->with('friendsCount')->findAllByAttributes(array('user_id' => $userId));
     }
+
+    public static function userToJson($user, $isFriend = false)
+    {
+        return array(
+            'id' => $user->id,
+            'online' => (bool) $user->online,
+            'firstName' => $user->first_name,
+            'lastName' => $user->last_name,
+            'ava' => $user->getAvatarUrl(Avatar::SIZE_LARGE),
+            'age' => $user->normalizedAge,
+            'location' => ($user->address->country_id !== null) ? Yii::app()->controller->renderPartial('application.modules.friends.views._location', array('data' => $user), true) : null,
+            'family' => (($user->hasPartner() && ! empty($user->partner->name)) || ! empty($user->babies)) ? Yii::app()->controller->renderPartial('application.modules.friends.views._family', array('data' => $user), true) : null,
+            'isFriend' => $isFriend
+        );
+    }
 }

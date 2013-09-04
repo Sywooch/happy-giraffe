@@ -1,31 +1,20 @@
-<?php
-    Yii::app()->clientScript
-        ->registerScriptFile('/javascripts/knockout-2.2.1.js')
-        ->registerScriptFile('/javascripts/ko_friends.js?t=' . time())
-    ;
-?>
+<?php Yii::app()->clientScript->registerPackage('ko_friends'); ?>
 
 <div class="content-cols">
     <div class="col-1">
-        <h2 class="col-1_t">Мои друзья
-            <div class="col-1_sub-t"><a href="<?=$this->createUrl('/friends/search/index')?>" class="">Найти друзей</a></div>
-        </h2>
+        <?php $this->widget('Avatar', array('user' => Yii::app()->user->model, 'size' => 200, 'message_link' => false, 'blog_link' => false, 'location' => true, 'age' => true)); ?>
 
-        <div class="col-1_search clearfix">
-            <input type="text" class="col-1_search-itx" placeholder="Введите имя или фамилию" data-bind="value: searchQuery, valueUpdate: 'keyup'">
-            <button class="col-1_search-btn" data-bind="css: { active : searchQuery() != '' }, click: clearSearchQuery"></button>
-        </div>
         <div class="menu-list">
-            <a href="javascript:void(0)" class="menu-list_i" data-bind="click: selectAll, css: { active : selectedListId() === null && activeTab() == 0 && newSelected() === false }">
+            <a class="menu-list_i active" data-bind="click: selectAll, css: { active : selectedListId() === null && activeTab() == 0 && newSelected() === false }">
                 <span class="menu-list_tx">Все друзья</span>
                 <span class="menu-list_count" data-bind="text: friendsCount"></span>
             </a>
-            <a href="javascript:void(0)" class="menu-list_i" data-bind="visible: friendsNewCount() > 0, click: selectNew, css: { active : newSelected }">
+            <a class="menu-list_i" data-bind="visible: friendsNewCount() > 0, click: selectNew, css: { active : newSelected }">
                 <span class="menu-list_tx">Новые</span>
                 <span class="menu-list_count" data-bind="text: friendsNewCount"></span>
             </a>
             <!-- ko foreach: lists -->
-            <a href="javascript:void(0)" class="menu-list_i" data-bind="click: select, css: { active : $root.selectedListId() == id() }">
+            <a class="menu-list_i" data-bind="click: select, css: { active : $root.selectedListId() == id() }">
                 <span class="menu-list_tx" data-bind="text: title"></span>
                 <span class="menu-list_count" data-bind="text: friendsCount"></span>
                 <span class="ico-close" data-bind="click: remove, clickBubble: false, visible: friendsCount() == 0"></span>
@@ -41,120 +30,63 @@
                     <button class="ico-plus2" data-bind="click: addList"></button>
                 </div>
             </div>
-            <div class="menu-list_row" data-bind="visible: outgoingRequestsCount() > 0">
-                <div class="color-gray margin-t20" data-bind="text: 'Отправлено ' + outgoingRequestsCount() + ' ' + declOfNum(outgoingRequestsCount(), ['приглашение', 'приглашения', 'приглашений'])"></div>
+            <div class="menu-list_row margin-t20">
+                <a href="<?=$this->createUrl('/friends/search/index')?>" class="btn-green btn-medium margin-b5">Найти новых друзей</a>
+                <div class="color-gray" data-bind="visible: outgoingRequestsCount() > 0, text: 'Отправлено приглашений - ' + outgoingRequestsCount()"></div>
             </div>
         </div>
     </div>
 
-    <div class="col-23 clearfix">
+    <div class="col-23-middle clearfix">
+        <div class="heading-title clearfix">
+            <div class="sidebar-search sidebar-search__gray float-r" data-bind="visible: activeTab() <= 1">
+                <input type="text" placeholder="Введите имя или фамилию" class="sidebar-search_itx" data-bind="value: instantaneousQuery, valueUpdate: 'keyup'">
+                <button class="sidebar-search_btn" data-bind="css: { active : instantaneousQuery() != '' }, click: clearSearchQuery"></button>
+            </div>
+            Мои друзья
+        </div>
 
+        <div class="col-gray clearfix">
         <div class="cont-nav" data-bind="visible: selectedListId() == null">
             <div class="cont-nav_i" data-bind="css: { active : activeTab() == 0 }">
-                <a href="javascript:void(0)" class="cont-nav_a" data-bind="css: { inactive : friendsCount() == 0 }, text: friendsCount() > 0 ? 'Все (' + friendsCount() + ')' : 'Все', click: function(data, event) { if (friendsCount() > 0) selectTab(0, data, event) }"></a>
+                <a class="cont-nav_a" data-bind="css: { inactive : friendsCount() == 0 }, text: friendsCount() > 0 ? 'Все (' + friendsCount() + ')' : 'Все', click: function(data, event) { if (friendsCount() > 0) selectTab(0, data, event) }"></a>
             </div>
             <div class="cont-nav_i" data-bind="css: { active : activeTab() == 1 }">
                 <span class="user-online-status"></span>
-                <a href="javascript:void(0)" class="cont-nav_a" data-bind="css: { inactive : friendsOnlineCount() == 0 }, text: friendsOnlineCount() > 0 ? 'На сайте (' + friendsOnlineCount() + ')' : 'На сайте', click: function(data, event) { if (friendsOnlineCount() > 0) selectTab(1, data, event) }"></a>
+                <a class="cont-nav_a" data-bind="css: { inactive : friendsOnlineCount() == 0 }, text: friendsOnlineCount() > 0 ? 'На сайте (' + friendsOnlineCount() + ')' : 'На сайте', click: function(data, event) { if (friendsOnlineCount() > 0) selectTab(1, data, event) }"></a>
             </div>
             <div class="cont-nav_i" data-bind="css: { active : activeTab() == 2 }">
-                <a href="javascript:void(0)" class="cont-nav_a" data-bind="css: { inactive : incomingRequestsCount() == 0 }, click: function(data, event) { if (incomingRequestsCount() > 0) selectTab(2, data, event) }">Хотят дружить<span class="cont-nav_count" data-bind="visible: incomingRequestsCount() > 0, text: incomingRequestsCount"></span> </a>
+                <a class="cont-nav_a" data-bind="css: { inactive : incomingRequestsCount() == 0 }, click: function(data, event) { if (incomingRequestsCount() > 0) selectTab(2, data, event) }">Хотят дружить<span class="cont-nav_count" data-bind="visible: incomingRequestsCount() > 0, text: incomingRequestsCount"></span> </a>
+            </div>
+            <div class="cont-nav_i" data-bind="css: { active : activeTab() == 3 }">
+                <a class="cont-nav_a" data-bind="css: { inactive : outgoingRequestsCount() == 0 }, click: function(data, event) { if (outgoingRequestsCount() > 0) selectTab(3, data, event) }, text: 'Мои приглашения (' + outgoingRequestsCount() + ')'"></a>
             </div>
         </div>
-
-        <div class="friends-list">
+        <div class="friends-list" data-bind="css: { 'friends-list__family' : activeTab() >= 2 }">
+            <!-- ko if: activeTab() <= 1 -->
             <div class="friends-list_i">
                 <a href="<?=$this->createUrl('/friends/search/index')?>" class="friends-list_find"></a>
             </div>
-            <!-- ko if: $root.activeTab() != 2 -->
-                <!-- ko foreach: friendsToShow -->
-                <div class="friends-list_i">
-                    <!-- ko template: { name: 'user-template', data: user() } --><!-- /ko -->
-                    <div class="friends-list_group">
-                        <a href="javascript:void(0)" class="friends-list_group-a powertip" title="Изменить список" onclick="$(this).next().toggle()" data-bind="visible: $root.lists().length > 0, text: listLabel"></a>
-                        <div class="friends-list_group-popup">
-                            <a href="javascript:void(0)" class="friends-list_group-popup-a" onclick="$(this).parent().hide()" data-bind="click: unbindList, visible: listId() !== null">Все друзья</a>
-                            <!-- ko foreach: $root.lists -->
-                            <a href="javascript:void(0)" class="friends-list_group-popup-a" onclick="$(this).parent().hide()" data-bind="text: title, click: $parent.bindList, visible: $parent.listId() != id()"></a>
-                            <!-- /ko -->
-                        </div>
-                    </div>
-
-                    <div class="friends-list_deleted" data-bind="visible: removed">
-                        <div class="friends-list_deleted-hold">
-                            <a class="friends-list_a" data-bind="text: user().fullName, attr: { href : user().url }"></a>
-                            <div class="friends-list_row color-gray">удалена из списка <br>ваших друзей</div>
-                            <a href="javascript:void(0)" class="a-pseudo" data-bind="click: restore">Восстановить?</a>
-                        </div>
-                    </div>
-                </div>
-                <!-- /ko -->
             <!-- /ko -->
 
-            <!-- ko if: $root.activeTab() == 2 -->
-                <!-- ko foreach: friendsRequests -->
-                <div class="friends-list_i">
-                    <!-- ko template: { name: 'user-template', data: user() } --><!-- /ko -->
-                    <div class="friends-list_group">
-                        <a href="javascript:void(0)" class="btn-green btn-middle" data-bind="click: accept">Принять</a>
-                        <a href="javascript:void(0)" class="btn-gray-light btn-middle" data-bind="click: decline">Отклонить</a>
-                    </div>
-                </div>
-                <!-- /ko -->
+            <!-- ko template: { name : templateName, foreach : templateForeach } -->
+
             <!-- /ko -->
+
 
             <div id="infscr-loading" data-bind="visible: loading"><img src="/images/ico/ajax-loader.gif" alt="Loading..."><div>Загрузка</div></div>
+        </div>
         </div>
     </div>
 </div>
 
 <script type="text/javascript">
-    ko.bindingHandlers.tooltip = {
-        init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-            $(element).data('powertip', valueAccessor());
-        },
-        update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-            $(element).data('powertip', valueAccessor());
-            $(element).powerTip({
-                placement: 'n',
-                smartPlacement: true,
-                popupId: 'tooltipsy-im',
-                offset: 8
-            });
-        }
-    };
-
     $(function() {
         vm = new FriendsViewModel(<?=$data?>);
         ko.applyBindings(vm);
     });
 </script>
 
-<script type="text/html" id="user-template">
-    <div class="friends-list_ava-hold clearfix">
-        <a class="ava large" data-bind="attr: { href : url }, css: avaClass">
-            <img data-bind="visible: ava, attr: { src : ava }" alt="">
-        </a>
-        <span class="friends-list_online" data-bind="visible: online">На сайте</span>
-        <!-- ko if: $root.activeTab() != 2 -->
-        <a href="javascript:void(0)" class="ico-close2 friends-list_close powertip" data-bind="click: $parent.remove, tooltip: 'Удалить из друзей'"></a>
-        <!-- /ko -->
-        <a class="friends-list_bubble friends-list_bubble__dialog powertip" data-bind="attr: { href : dialogUrl }, tooltip: 'Начать диалог'">
-            <span class="friends-list_ico friends-list_ico__mail"></span>
-            <!--<span class="friends-list_bubble-tx">+5</span>-->
-        </a>
-        <a class="friends-list_bubble friends-list_bubble__photo powertip" data-bind="attr: { href : albumsUrl }, tooltip: 'Фотографии'">
-            <span class="friends-list_ico friends-list_ico__photo"></span>
-            <!-- ko if: $root.activeTab() != 2 -->
-            <span class="friends-list_bubble-tx" data-bind="visible: $parent.pCount() > 0, text: '+' + $parent.pCount()"></span>
-            <!-- /ko -->
-        </a>
-        <a class="friends-list_bubble friends-list_bubble__blog powertip" data-bind="attr: { href : blogUrl }, tooltip: 'Записи в блоге'">
-            <span class="friends-list_ico friends-list_ico__blog"></span>
-            <!-- ko if: $root.activeTab() != 2 -->
-            <span class="friends-list_bubble-tx" data-bind="visible: $parent.bCount() > 0, text: '+' + $parent.bCount()"></span>
-            <!-- /ko -->
-        </a>
-    </div>
-    <a class="friends-list_a" data-bind="text: fullName, attr: { href : url }"></a>
-</script>
+<?php $this->renderPartial('/_requestTemplate'); ?>
+<?php $this->renderPartial('/_userTemplate'); ?>
+

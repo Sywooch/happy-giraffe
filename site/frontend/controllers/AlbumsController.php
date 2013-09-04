@@ -565,11 +565,9 @@ class AlbumsController extends HController
             $attach->save();
 
             echo CJSON::encode(array(
-                'src' => $model->getPreviewUrl(700, 700, Image::WIDTH),
-                'id' => $model->primaryKey,
-                'title' => $model->title,
-                'width' => $model->width,
-                'height' => $model->height,
+                'html' => $this->renderPartial('_widget', compact('model'), true),
+                'entity' => get_class($model),
+                'entity_id' => $model->id,
             ));
             Yii::app()->end();
         }
@@ -632,8 +630,6 @@ class AlbumsController extends HController
             UserStatisticAction::avatarLoaded(Yii::app()->user->id);
 
         User::model()->updateByPk(Yii::app()->user->id, array('avatar_id' => $photo->id));
-        UserScores::checkProfileScores(Yii::app()->user->id);
-
         echo $photo->getPreviewUrl(241, 225, Image::WIDTH);
     }
 

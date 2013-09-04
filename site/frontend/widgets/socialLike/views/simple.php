@@ -81,15 +81,9 @@
         ->registerScript('vklike', $js);
     ;
     ?>
+    <div class="custom-likes-b custom-likes-b__like-white">
+    <div class="custom-likes-b_slogan">Поделитесь с друзьями!</div>
     <div class="like-block fast-like-block">
-        <div class="box-2">
-            <?php
-            $this->render('_yh_min', array(
-                'options' => $this->providers['yh'],
-            ));
-            ?>
-        </div>
-
         <div class="box-1">
 
             <div class="share_button">
@@ -169,18 +163,7 @@
                 });
             </script>
         </div>
-
-        <div class="box-3">
-            <div class="rating"><span><?php echo Rating::model()->countByEntity($this->model, false) ?></span></div>
-            <?php if ($this->notice != ''): ?>
-            <div class="icon-info">
-                <div class="tip">
-                    <?php echo $this->notice; ?>
-                </div>
-            </div>
-            <?php endif; ?>
-        </div>
-
+    </div>
     </div>
 
     <?php if (!Yii::app()->user->isGuest && Yii::app()->user->model->group != UserGroup::USER && Yii::app()->user->checkAccess('commentator_panel')):?>

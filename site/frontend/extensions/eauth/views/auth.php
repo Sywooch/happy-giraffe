@@ -112,7 +112,7 @@
                                         <span class="custom-like">
                                             <span class="custom-like_icon <?=$service->id?>"></span>
                                         </span>
-                        <span><?php var_dump($service)?></span>
+                        <span><?= $service->title?></span>
                     </td>
                     <td class="form-settings_td"
                         <?php if ($us->urlString != ''): ?>

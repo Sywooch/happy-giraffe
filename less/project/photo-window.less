@@ -252,7 +252,7 @@ body.gallery {overflow:hidden;}
 	right: 0;
 	bottom: 0;
 	left: 0;
-	z-index: 99;
+	z-index: 910;
 	background-color: #554464;
 	overflow: auto;
 
@@ -299,11 +299,11 @@ body.gallery {overflow:hidden;}
 		top: 0;
 		right: 340px;
 		left: 0;
-		height: 70px;
+		height: 76px;
 		overflow: hidden;
 	}
 	&_top-hold {
-		padding: 5px 200px 0;
+		padding: 5px 10% 0;
 		text-align: center;
 	}
 	&_close {
@@ -321,9 +321,9 @@ body.gallery {overflow:hidden;}
 		color: #bdb3c5;
 	}
 	&_t {
-		margin: 5px 0 0;
+		margin: 2px 0 0;
 		font-size: 18px;
-		line-height: 20px;
+		line-height: 21px;
 		color: #fff;
 	}
 	&_bottom {
@@ -343,6 +343,21 @@ body.gallery {overflow:hidden;}
 	}
 	&_bottom.active &_desc {display: none;}
 	&_bottom.active &_desc__full {display: block;}
+	&_bottom .itx-simple {max-width:100%;min-height:17px;}
+	&_bottom &_edit {
+		position: absolute;
+		bottom: 0;
+		right: -35px;
+	}
+	&_edit {
+		.inline-block();
+		vertical-align: middle;
+		padding: 2px 5px 4px;
+		line-height: 18px;
+		background: #382d42;
+		background: rgba(0,0,0,.3);
+		.border-radius(5px);
+	}
 	&_desc {
 		height: 43px;
 		overflow: hidden;

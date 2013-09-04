@@ -33,19 +33,6 @@ class SiteController extends HController
             parent::afterRender($view, $output);
     }
 
-    public function actionServices($category_id = null)
-    {
-        $categories = ServiceCategory::model()->with('servicesCount')->findAll();
-
-        $criteria = new CDbCriteria;
-        $criteria->compare('t.id', $category_id);
-
-        $services = ServiceCategory::model()->with('services')->findAll($criteria);
-
-        $this->pageTitle = 'Полезные сервисы для всей семьи';
-        $this->render('services', compact('categories', 'services', 'category_id'));
-    }
-
     public function actionSeoHide($hash)
     {
         header('Content-type: text/javascript');
@@ -100,12 +87,8 @@ class SiteController extends HController
         if (! Yii::app()->user->isGuest)
             $this->redirect(array('myGiraffe/default/index', 'type' => 1));
 
-        //$models = Favourites::getArticlesByDate(Favourites::BLOCK_INTERESTING, date("Y-m-d"), 2);
-        $models = BlogContent::model()->findAll(array(
-            'order' => 't.id DESC',
-            'limit' => 6,
-            'with' => array('type'),
-        ));
+        $models = Favourites::getArticlesByDate(Favourites::BLOCK_INTERESTING, date("Y-m-d"), 6);
+
         $this->layout = '//layouts/common';
 		$this->pageTitle = 'Веселый Жираф - сайт для всей семьи';
         $this->render('home', compact('models'));

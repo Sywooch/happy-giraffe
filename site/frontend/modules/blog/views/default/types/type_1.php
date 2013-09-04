@@ -12,6 +12,7 @@ $photo = $data->getPhoto()
 <?php if ($full):?>
     <h2 class="b-article_t">
         <?=$data->title ?>
+        <?php $this->widget('site.frontend.widgets.favoritesWidget.FavouritesWidget', array('model' => $data)); ?>
     </h2>
 
     <div class="b-article_in clearfix">
@@ -27,6 +28,7 @@ $photo = $data->getPhoto()
                 <div class="b-article_t-new">новое</div>
             <?php endif ?>
             <a href="<?=$data->getUrl() ?>" class="b-article_t-a"><?=$data->title ?></a>
+            <?php $this->widget('site.frontend.widgets.favoritesWidget.FavouritesWidget', array('model' => $data)); ?>
         </h2>
     <?php endif ?>
 

@@ -816,6 +816,42 @@ function FriendButtonViewModel(data) {
                 return 'user-btns_ico-hold__friend-added'
         }
     });
+
+    self.bubbleCssClass = ko.computed(function() {
+        switch (self.status()) {
+            case 1:
+                return 'b-ava-large_bubble__friend-onhover';
+            case 2:
+            case 4:
+                return 'b-ava-large_bubble__friend-add';
+            case 3:
+                return 'b-ava-large_bubble__friend-added';
+        }
+    });
+
+    self.iconCssClass = ko.computed(function() {
+        switch (self.status()) {
+            case 1:
+                return 'b-ava-large_ico__friend';
+            case 2:
+            case 4:
+                return 'b-ava-large_ico__friend-add';
+            case 3:
+                return 'b-ava-large_ico__friend-added';
+        }
+    });
+
+    self.tip = ko.computed(function() {
+        switch (self.status()) {
+            case 1:
+                return '';
+            case 2:
+            case 4:
+                return 'Добавить в друзья';
+            case 3:
+                return 'Отменить приглашение'
+        }
+    });
 }
 
 function HgLike(el, entity, entity_id){

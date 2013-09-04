@@ -80,6 +80,8 @@ class DefaultController extends HController
     public function actionSubscribeToggle()
     {
         $blog_author_id = Yii::app()->request->getPost('user_id');
+        if ($blog_author_id == Yii::app()->user->id)
+            return ;
 
         echo CJSON::encode(array('status' => UserBlogSubscription::toggle($blog_author_id)));
     }

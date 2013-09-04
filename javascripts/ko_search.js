@@ -17,7 +17,7 @@ function SearchViewModel(data) {
         return self.menu()[self.activeMenuRowIndex()];
     });
 
-    self.perPageValues = [10, 25, 50];
+    self.perPageValues = [20, 50, 100];
     self.perPage = ko.observable(self.perPageValues[0]);
     self.perPage.subscribe(function(value) {
         self.load();
@@ -29,16 +29,20 @@ function SearchViewModel(data) {
         self.load();
     });
 
-    self.instantaneousQuery = ko.observable(data.query);
-    self.throttledQuery = ko.computed(self.instantaneousQuery).extend({ throttle: 400 });
-    self.throttledQuery.subscribe(function(value) {
-        self.activeMenuRowIndex(null);
-        self.load();
-    });
+    self.query = ko.observable(data.query);
 
     self.setPerPage = function(perPage) {
         self.perPage(perPage);
     };
+
+    self.search = function() {
+        self.activeMenuRowIndex(null);
+        self.load();
+    };
+
+    self.clearQuery = function() {
+        self.query('');
+    }
 
     self.load = function(resetPage) {
         resetPage = (typeof resetPage === "undefined") ? true : resetPage;
@@ -47,11 +51,11 @@ function SearchViewModel(data) {
             self.currentPage(1);
         self.resultsToShow('');
 
-        if (self.throttledQuery() != '') {
+        if (self.query() != '') {
             var data = {
                 perPage: self.perPage(),
                 scoring: self.scoring(),
-                query: self.throttledQuery()
+                query: self.query()
             }
 
             if (self.currentPage() != 1)
@@ -80,6 +84,7 @@ function SearchViewModel(data) {
 
     self.selectAll = function() {
         self.activeMenuRowIndex(null);
+        self.load();
     }
 
     self.pages = ko.computed(function() {
@@ -92,13 +97,17 @@ function SearchViewModel(data) {
     });
 
     self.isMenuVisible = ko.computed(function() {
-        var rowsCount = 0;
-        ko.utils.arrayForEach(self.menu(), function(menuRow) {
-            if (menuRow.count() > 0)
-                rowsCount += 1;
-        });
+        if (self.totalCount() == 0)
+            return true;
+        else {
+            var rowsCount = 0;
+            ko.utils.arrayForEach(self.menu(), function(menuRow) {
+                if (menuRow.count() > 0)
+                    rowsCount += 1;
+            });
 
-        return rowsCount > 1;
+            return rowsCount > 1;
+        }
     });
 
     self.getMenuRowByEntity = function(entity) {

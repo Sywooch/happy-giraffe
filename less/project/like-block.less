@@ -46,30 +46,6 @@
 
 /* like block */
 
-/* fast-like-block */
-
-.fast-like-block {margin:5px auto 20px;text-align:center;background:none;width:auto;}
-.fast-like-block__hg {
-	border: 1px solid #d8ebff;
-	border-width: 1px 0;
-	padding: 30px 30px;
-	margin: 60px 0 -40px;
-}
-.fast-like-block__hg .box-1 {min-width: inherit !important;}
-.fast-like-block__hg.fast-like-block .share_button {margin: 0 10px;vertical-align: baseline;}
-.fast-like-block_t-hg {
-	display: inline-block;*zoom:1;*display:inline;
-	vertical-align: middle;
-	margin-left: 10px;
-	font-size: 22px;
-	color: #aa82d1;
-}
-.fast-like-block__hg .btn-icon.heart.active {vertical-align: middle;display: inline-block;*zoom:1;*display:inline;}
-
-
-.fast-like-block .contest-winners_place.place-big {margin-right:310px;}
-.fast-like-block .box-1 {text-align:center;display:inline-block;*zoom:1;*display:inline;vertical-align:top;margin-top: 15px;min-width:500px;}
-.fast-like-block .share_button {display:inline-block;*zoom:1;*display:inline;vertical-align:middle;text-align:left;margin:0 2px;}
 /* facebook custom like box */
 .fb-custom-like {
 	height:21px;
@@ -373,35 +349,140 @@
 .custom-like-small_value:before,
 .custom-like-small_value:after{content:"";position:absolute;margin:-4px 0 0 -4px;line-height:0;width:0;height:0;left:0;top:50%;border:4px transparent solid;border-left:0;border-right-color:#d5d5d5;}
 .custom-like-small_value:after {margin-left:-3px;border-right-color: white;}
-.custom-like-small-popup {
+
+.custom-likes-b-popup {
+	display: none;
 	position: absolute;
-	top: 33px;
-	left: 0px;
-	width: 190px;
+	top: 46px;
+	left: -180px;
+	width: 220px;
+	margin: 0;
 	padding: 10px;
 	background: #fff;
 	border: 1px solid #DFDFDF;
-	-webkit-box-shadow: 0 0 8px rgba(170, 170, 170, 0.5);
-	box-shadow: 0 0 8px rgba(170, 170, 170, 0.5);
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	border-radius: 5px;
-	display: none;
-}
-.custom-like-small-popup_t {
-	font-size: 15px;
-	margin-bottom: 10px;
-}
-.custom-like-small-popup_it {
-	margin: 0;
-	width: 174px;
-}
-.custom-like-small-popup_textarea {
-	margin: 0;
-	width: 174px;
-	max-width: 174px;
+	.box-shadow(0 2px 3px rgba(170, 170, 170, 0.2));
+	.border-radius(5px);
+	z-index: 100;
+
+	&:after {
+		content:'';
+		position: absolute;
+		top: -5px;
+        right: 35px;
+		height: 10px;
+		width: 10px;
+		z-index: 1;
+		background: #FFFFFF;
+        .rotate(-135deg);
+        .box-shadow(1px 1px 1px rgba(0, 0, 0, 0.2));
+	}
+	&_t {
+		font-size: 12px;
+		font-weight: bold;
+		margin-bottom: 10px;
+		color: #454545;
+	}
+	&_textarea {resize:none;}
+	&_win {
+		position: absolute;
+		top: 1px;
+		right: 1px;
+		bottom: 1px;
+		left: 1px;
+		background: #fff;
+	}
+	&_win-tx {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		margin: -10px 0 0 -76px;
+		padding: 3px 8px;
+		font-size: 14px;
+		color: #171717;
+		background: #fdf48f;
+	}
 }
 
+
+.custom-likes-b {
+	text-align: center;
+	position: relative;
+    &__like-white {
+        padding: 5px 0 20px;
+        background: #fff;
+    }
+	&_slogan {
+		margin: 15px 0 10px;
+		text-align: center;
+		font-size: 13px;
+		color: #929191;
+	}
+}
+
+.custom-like {
+	.inline-block();
+	margin: 0 5px 0 5px;
+	text-decoration: none;
+
+	&_icon {
+		width:32px;
+		height:32px;
+		float:left;
+		background:url(../images/custom-like_icon.png) no-repeat;
+		position: relative;
+		z-index: 2;
+	}
+	&_icon.odnoklassniki         {background-position:0 0;}
+	&:hover &_icon.odnoklassniki {background-position:0 -32px;}
+	&_icon.vkontakte           {background-position:-32px 0;}
+	&:hover &_icon.vkontakte   {background-position:-32px -32px;}
+	&_icon.facebook           {background-position:-64px 0;}
+	&:hover &_icon.facebook   {background-position:-64px -32px;}
+	&_icon.twitter            {background-position:-96px 0;}
+	&:hover &_icon.twitter    {background-position:-96px -32px;}
+	&_icon.mail         {background-position:-128px 0; width: 41px;}
+	&:hover &_icon.mail {background-position:-128px -32px;}
+	&_value {
+		float:left;
+		height:20px;
+		width: 40px;
+		border:1px solid #ddd;
+		margin:6px 0 0 -4px;
+		padding:0 4px;
+		font:11px/20px Arial,Tahoma,Verdana,sans-serif;
+		position:relative;
+		text-align: center;
+		color:#868585;
+		background:#fff;
+	}
+}
+
+
+
+/* fast-like-block */
+
+.fast-like-block {margin:5px auto 20px;text-align:center;background:none;width:auto;}
+.fast-like-block__hg {
+	border: 1px solid #d8ebff;
+	border-width: 1px 0;
+	padding: 30px 30px;
+	margin: 60px 0 -40px;
+}
+.fast-like-block__hg .box-1 {min-width: inherit !important;}
+.fast-like-block__hg.fast-like-block .share_button {margin: 0 10px;vertical-align: baseline;}
+.fast-like-block_t-hg {
+	display: inline-block;*zoom:1;*display:inline;
+	vertical-align: middle;
+	margin-left: 10px;
+	font-size: 22px;
+	color: #aa82d1;
+}
+.fast-like-block__hg .btn-icon.heart.active {vertical-align: middle;display: inline-block;*zoom:1;*display:inline;}
+
+
+.fast-like-block .contest-winners_place.place-big {margin-right:310px;}
+.fast-like-block .box-1 {text-align:center;display:inline-block;*zoom:1;*display:inline;vertical-align:top;margin-top: 15px;min-width:500px;}
+.fast-like-block .share_button {display:inline-block;*zoom:1;*display:inline;vertical-align:middle;text-align:left;margin:0 2px;}
 .fast-like-block .box-2 {text-align:center;display:inline-block;*zoom:1;*display:inline;vertical-align:top;margin-top: 5px;padding:0 10px 0 0;}
 
 .fast-like-block .box-2 .btn-icon {vertical-align:bottom;}
@@ -427,3 +508,22 @@
 .fast-like-block .box-3 .icon-info .tip big {font-size:14px;font-weight:bold;color:#848484;}
 
 
+.b-social-big {
+	.inline-block();
+	margin: 0 15px 20px 0;
+
+	&:hover &_ico {top: -3px;}
+	&_ico {
+		position: relative;
+		.inline-block();
+		width: 73px;
+		height: 73px;
+		background: url(/images/b-social-big_ico.png) no-repeat;
+		/*.box-shadow(0 1px 1px rgba(0,0,0,0.3) inset);*/
+		.border-radius(100px);
+	}
+	&_ico.odnoklassniki {background-position: 0 0;}
+	&_ico.vkontakte   {background-position: -73px 0;}
+	&_ico.facebook   {background-position: -146px 0;}
+	&_ico.twitter   {background-position: -219px 0;}
+}

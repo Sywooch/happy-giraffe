@@ -1,26 +1,25 @@
 /* Высчитывание ширины контейнера .layout-container без браузерного скрола */
 function scrollFix() {
     
-    var widthFixBlock = $('.layout-container_hold')
+    var widthFixBlock = $('.layout-container')
     var widthFix = widthFixBlock.parent().width();
     widthFixBlock.width(widthFix - getScrollBarWidth() + 'px'); 
 }
 
 var im = {};
 
-im.topLineMenuHeight = 23;
-im.tabsHeight = 53;
+im.tabsHeight = 0;
 /*im.userListIndentFix = 198;*/
 im.userListIndent = 180;
 im.minHeight = 460;
 
 im.viewHeight = function () {
-    return im.windowHeight - im.topHeight - im.bottomHeight - im.headerHeight - im.topLineMenuHeight;
+    return im.windowHeight - im.topHeight - im.bottomHeight - im.headerHeight - 20;
 }
 
 /* Прокручивание в конец страницы */
 im.scrollTop = function () {
-    im.container.scrollTop($('.layout-container_hold').height());
+    im.container.scrollTop($('.layout-container').height());
 }
 
 /* Высота в sidebar списка собеседников */
@@ -31,8 +30,6 @@ im.sidebarHeight = function () {
     } else {
         im.userList.height(im.windowHeight - im.headerHeight + im.containerScroll - im.userListIndent - im.bottomHeight);
     }
-
-
 }
 
 im.holdHeights = function  () {
@@ -78,13 +75,14 @@ im.scrollIm = function (){
         im.wrapper.css('top', imTopScroll);*/
 
          /* заглушка */
+         console.log(im.headerHeight)
          $('.im-cap').css('top', im.headerHeight + im.tabsHeight - im.containerScroll);
     }
 }
 
 /* im - instant messeger for user */
 $(window).load(function() {
-    im.container = $('.layout-container');
+    im.container = $(window);
     im.imBlock = $(".im");
     im.sidebar = $('.im-sidebar');
     im.userList = $('.im-user-list');
@@ -93,7 +91,7 @@ $(window).load(function() {
     im.bottom = $('.im-center_bottom');
 
     im.windowHeight = $(window).height();
-    im.headerHeight = $('#header-new').height();
+    im.headerHeight = $('.layout-header').height() + $('.content-cols').height();
     im.topHeight = $('.im-center_top').height();
     im.bottomHeight = im.bottom.height();
     im.height = im.wrapper.height();

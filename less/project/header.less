@@ -1,4 +1,6 @@
 /* headers all */
+
+/*
 .layout-header {padding:42px 0 10px;position:relative;}
 .layout-header .logo-box {float: left;margin:0 125px 0 85px;padding: 15px 0 10px;}
 .layout-header-section {float: left;}
@@ -6,6 +8,178 @@
 .layout-header-section_img {display: inline-block;*zoom:1;*display:inline;vertical-align: middle;}
 .layout-header-section_text {display: inline-block;*zoom:1;*display:inline;font-size: 30px;vertical-align: middle;text-decoration: underline;}
 .layout-header-section_a:hover > .layout-header-section_text {text-decoration: none;}
+*/
+
+.layout-header {
+	position:relative;
+	
+	&__nologin {
+		padding: 20px 0 20px 20px;
+	}
+	&_hold .logo {
+		float: left;
+		margin:5px 40px 0 40px;
+		padding: 0;
+	}
+	&_hold {
+		padding: 20px 10px 5px;
+		margin-bottom: 20px;
+	}
+	&_logout {
+		position: absolute;
+		top: 10px;
+		right: 0;
+		padding: 2px 20px 2px 0;
+		text-decoration: none;
+		color: #a187bb;
+		font-size: 11px;
+		background: url(/images/layout-header_logout.png) no-repeat 100% 50%;
+	}
+	&_logout:hover {text-decoration: underline;}
+}
+
+.header-menu {
+	float: left;
+	margin:15px -25px 0 0;
+
+	.ava {
+		float: none;
+		.inline-block();
+		margin: 5px auto;
+	}
+	&_li {
+		float: left;
+		margin: 5px 8px;
+		width: 70px;
+		text-align: center;
+	}
+	&_li.active &_ico__notice    {background-position: -50px -50px;}
+	&_li.active &_ico__im        {background-position: -50px -200px;}
+	&_li.active &_tx {display: none;}
+	&_li.active &_count {.inline-block();}
+	&_li__sepor {
+		width: 1px;
+		height: 75px;
+		background: #e4daeb;
+		background: rgba(208,191,221,.6)
+	}
+	&_a {
+		.inline-block();
+		text-decoration: none;
+	}
+	&_a:hover &_tx {text-decoration: underline;}
+	&_ico {
+		display: block;
+		width: 50px;
+		height: 50px;
+		margin: 0 auto 5px;
+		background: url(/images/header-menu_ico.png) no-repeat;
+	}
+	&_ico__giraffe   {background-position: 0 0;}
+	&_ico__notice    {background-position: 0 -50px;}
+	&_ico__favorite  {background-position: 0 -100px;}
+	&_ico__family    {background-position: 0 -150px;}
+	&_ico__im        {background-position: 0 -200px;}
+	&_ico__friend    {background-position: 0 -250px;}
+	&_ico__award     {background-position: 0 -300px;}
+	&_tx {
+		.inline-block();
+		font: 11px/12px Tahoma, Arial, Verdana, sans-serif;
+		color: #a187bb;
+	}
+	&_count {
+		display: none;
+		margin: 4px 0 0;
+		padding: 0 4px;
+		color: #fff;
+		.gvertical(#ff1a00, #cd0000);
+		.border-radius(4px);
+	}
+}
+
+.b-join {
+	padding: 25px 20px 35px 40px;
+	background: #fffad0;
+
+	&_left {
+		float: left;
+		width: 340px;
+	}
+	&_tx {
+		margin: 30px 0 10px;
+		font-size: 30px;
+		color: #1c1c1c;
+	}
+	&_tx-big {
+		font-size: 35px;
+		padding-right: 5px;
+	}
+	&_slogan {
+		font: 28px/1em 'Roboto', 'Helvetica Neue', Helvetica, Arial, Tahoma, sans-serif;
+		color: #434243;
+	}
+	&_right {
+		float: right;
+		width: 270px;
+		text-align: center;
+	}
+	&_right .btn-big {
+		font-size: 23px;
+		margin-bottom: 11px;
+		padding: 0 32px;
+	}
+	&_right .custom-like {
+		vertical-align: middle;
+		margin: 0 1px;
+	}
+}
+
+.b-join-row {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	padding: 10px 0;
+	background: #fffacc;
+	background: rgba(255,250,204,.9);
+	.box-shadow(0 2px 2px rgba(0,0,0,0.15));
+	z-index: 900;
+
+	.btn-green {margin-left: 20px;}
+	&_hold {
+		width: 880px;
+		margin: 0 auto;
+	}
+	&_logo {
+		.inline-block();
+		vertical-align: middle;
+		width: 55px;
+		height: 55px;
+		background: url(/images/b-join-row_logo.png) no-repeat;
+	}
+	&_tx {
+		.inline-block();
+		vertical-align: middle;
+		margin: 0 10px;
+		font-size: 26px;
+		line-height: 1em;
+		color: #1c1c1c;
+	}
+	&_tx-big {
+		font-size: 30px;
+		padding-right: 3px;
+	}
+	&_slogan {
+		.inline-block();
+		vertical-align: middle;
+		font: 26px/1em 'Roboto', 'Helvetica Neue', Helvetica, Arial, Tahoma, sans-serif;
+		color: #434243;
+	}
+}
+
+.logo-box {margin: 0 auto;text-align:center;color:#8d5bbc;text-transform:uppercase;font-size:10px;letter-spacing:3px;line-height:25px;padding: 25px 0 15px;}
+.logo-box > .logo {display:block;width:198px;height:93px;background:url(../images/common.png) no-repeat 0 -200px;text-indent:-9999px;margin:0 auto;padding: 0;}
 
 .top-nav-fixed #header-new{z-index:90;padding-top: 0;}
 #header-new {margin-bottom:20px;position:relative;padding-top: 42px;}

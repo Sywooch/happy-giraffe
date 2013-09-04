@@ -19,32 +19,36 @@
 	}
 	&_mark-all {
 		float: right;
-		margin: 30px 45px 0;
+		margin: 20px 45px 0;
 	}
 	&_desc {
-		margin: 0 30px 30px;
+		padding: 20px 0;
 		text-align: center;
 		color: #b6b6b6;
+		background: #f0f0f0;
 		font-size: 14px;
 	}
 	&_ico {
 		.inline-block();
 		vertical-align: middle;
-		width: 60px;
-		height: 50px;
+		width: 40px;
+		height: 45px;
 		background: url(/images/user-notice_ico.png) no-repeat;
 	}
-	&_ico__comment  {background-position: 0 0;}
-	&_ico__answer   {background-position: -60px 0;}
-	&_ico__like     {background-position: -120px 0;}
-	&_ico__discuss  {background-position: -180px 0;}
-	&_ico__like-small{background-position:-240px 0;}
+	&_ico__comment    {background-position: 0 0;}
+	&_ico__answer     {background-position: -40px 0;}
+	&_ico__like       {background-position: -80px 0;}
+	&_ico__like-small {background-position:-120px 0;}
+	&_ico__repost     {background-position: -160px 0;}
+	&_ico__repost-small{background-position:-200px 0;}
+	&_ico__favorites     {background-position: -240px 0;}
+	&_ico__favorites-small{background-position:-280px 0;}
+	&_ico__discuss  {background-position: -320px 0;}
 }
 
 .user-notice-list {
 	position: relative;
-	margin-bottom: 60px;
-	border-bottom:1px dashed #e5f0fe;
+	margin-bottom: 80px;
 
 	#infscr-loading {
 		width: 240px;
@@ -52,17 +56,17 @@
 		margin-left: -135px;
 	}
 
-	&_i {}
-	&_i:hover {background: #f8fbff;}
-	&_i__like &_i-hold{
-		border-top: none;
+	&_i {
+		background: #f8f8f8;
+		margin-top:1px;
 	}
+	&_i:hover &_i,
+	&_i:hover {background: #fff;}
 	&_i-hold {
 		position: relative;
 		.inline-block();
 		height: 90px;
 		width: 100%;
-		border-top: 1px dashed #e5f0fe;
 		vertical-align: middle;
 	}
 	&_i-hold:after {
@@ -72,24 +76,16 @@
 		height: 100%;
 		width: 1px;
 	}
-	&_date {
-		.inline-block();
-		vertical-align: middle;
-		width: 250px;
-		font-size: 11px;
-		font-family: Tahoma, Arial, Verdana, sans-serif;
-		color: #b6b9ba;
-		text-align: center;
-	}
 	&_deed {
 		.inline-block();
-		width: 340px;
+		width: 150px;
+		margin: 0 10px 0 20px;
 		vertical-align: middle;
 	}
-	&_deed-desc {
+	&_desc {
 		.inline-block();
 		vertical-align: middle;
-		max-width:160px;
+		width:160px;
 		margin-left: 10px;
 		font-size: 11px;
 		line-height: 13px;
@@ -100,22 +96,22 @@
 		.inline-block();
 		vertical-align: middle;
 		margin: 0 7px;
-		font-size: 40px;
+		font-size: 24px;
 		line-height: 38px;
 	}
 	&_a-big {
 		.inline-block();
 		vertical-align: middle;
 		margin: 0 7px;
-		font-size: 40px;
-		line-height: 38px;
+		font-size: 30px;
+		line-height: 28px;
 		color: #3097df;
 		text-decoration: none;
 	}
 	&_a-big {border-bottom: 2px solid #3097df;}
-	&_a-big__like {border-bottom: 2px dashed #3097df;}
+	&_a-big__dashed {border-bottom: 2px dotted #3097df;}
 	&_a-big:hover,
-	&_a-big__like:hover {border-bottom-color: transparent;}
+	&_a-big__dashed:hover {border-bottom-color: transparent;}
 	&_post{
 		.inline-block();
 		vertical-align: middle;
@@ -159,6 +155,7 @@
 		margin: 0 auto;
 		background: url(/images/checkbox.png) no-repeat;
 	}
+	&_check-a.active,
 	&_check-a:hover {background-position: -20px 0;}
 	&_markread {
 		position: absolute;
@@ -166,8 +163,8 @@
 		left: 0;
 		bottom: 0;
 		right: 0;
-		background: #fff;
-		background: rgba(255,255,255,.7);
+		background: #f8f8f8;
+		background: rgba(248,248,248,.7);
 	}
 	&_markread-hold {
 		position: absolute;
@@ -175,7 +172,7 @@
 		right: 18px;
 		width: 70px;
 		text-align: center;
-		background: #fff;
+		background: #f8f8f8;
 	}
 	&_ava {
 		.inline-block();
@@ -187,7 +184,7 @@
 		vertical-align: middle;
 		width: 190px;
 		position: relative;
-		padding: 5px 10px;
+		padding: 7px 10px;
 		margin: 2px 0 2px 12px;
 		background: #e1f4ff;
 		font-size: 11px;

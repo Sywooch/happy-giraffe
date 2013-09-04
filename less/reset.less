@@ -25,7 +25,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 	background: transparent;
 }
 
-a {cursor:pointer;color:#029AD2;}
+a {cursor:pointer;color:#289FD7;}
 a:hover {text-decoration:none;}
 /* remember to define focus styles! */
 :focus {outline: 0;}
@@ -91,7 +91,7 @@ input[type="radio"],
 input[type="checkbox"] {cursor: pointer;}
 
 h1 {
-	color: #0281B0;
+	color: #2B2B2B;
 	font-size: 25px;
 	line-height: 25px;
 	margin-bottom: 15px;
@@ -104,7 +104,6 @@ html,
 body {
 	margin: 0;
 	padding: 0;
-	position:relative;
 	font-family:Arial, Tahoma, Verdana, sans-serif;;
 	font-size:12px;
 	line-height:18px;
@@ -118,13 +117,19 @@ body {
 html {height: 100%;}
 html.top-nav-fixed {overflow-y:hidden;}
 .top-nav-fixed body {overflow-y:hidden;overflow-x:hidden;height:100%;}
-.body-gray,
-.body-club {background:#f6f6f6;}
+
+.body-gray {background:#f0f0f0 url(/images/body-gray.png) repeat-x;}
+.body-club {background:#f0f0f0;}
 
 .body-gray #layout,
-.body-broadcast #layout,
-.body-gray .layout-wrapper,
-.body-broadcast .layout-wrapper{background:#f6f6f6;}
+.body-gray .layout-wrapper {background:none;}
 
+.body-broadcast #layout,
+.body-broadcast .layout-wrapper{background:#f0f0f0;}
+
+.body-gray #content,
+.body-broadcast #content,
+.body-gray .layout-content,
+.body-broadcast .layout-content {margin-right: 0;}
 /* /reset layout
 ------------------------------------------------------- */

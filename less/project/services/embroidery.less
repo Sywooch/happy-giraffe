@@ -1,0 +1,861 @@
+/*===== Embroidery section =====*/
+.embroidery_service {
+    display: block;
+    position: relative;
+}
+.embroidery_service .list_yarn {
+    position: absolute;
+    left: 95px;
+    top: 236px;
+    width: 250px;
+    display: block;
+    text-align: center;
+}
+.embroidery_service .list_yarn .cusel {
+    height: 18px;
+    background-position: left top;
+    display:inline-block;*zoom:1;*display:inline;
+    position: relative;
+    cursor: pointer;
+    font-size: 14px;
+    z-index: 1;
+    border: 1px solid #e6d4f6;
+    background: #fff;
+    font: 11px tahoma, sans-serif;
+    color: #575757;
+}
+.embroidery_service .list_yarn .cuselFrameRight {
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 19px;
+    background-position: right top;
+    background: #41b3cc url(../images/sel_violet.png) no-repeat;
+}
+.embroidery_service .list_yarn .cusel .cusel-scroll-wrap {
+    display: block;
+    visibility: hidden;
+    position: absolute;
+    left: 0;
+    top: 100%;
+    border: 1px solid #e6d4f6;
+    background: #fff;
+    min-width: 100%;
+    width: auto;
+    font-size: 11px;
+}
+.embroidery_service .list_yarn .cusel span:hover,
+.embroidery_service .list_yarn .cusel .cuselOptHover {
+    background: #a687c7;
+    color: #fff;
+}
+.embroidery_service .list_yarn .num_cal {
+    width: 218px;
+    z-index: 5;
+    position: relative;
+}
+.embroidery_service .list_yarn .mn_cal {
+    width: 168px;
+    z-index: 6;
+    position: relative;
+}
+.embroidery_service .list_yarn .yr_cal {
+    width: 218px;
+    z-index: 4;
+    position: relative;
+}
+.embroidery_service .list_yarn input.calc_bt {
+    font: 30px tahoma, sans-serif;
+    color: #a46307;
+    width: 220px;
+    height: 58px;
+    border: 1px solid #f1d419;
+    background: url(../images/bg_yellow_av.png) 0 0 repeat-x;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+}
+.embroidery_service .list_yarn ul {list-style:none;}
+.embroidery_service .list_yarn ul li {margin: 0 0 7px 0;}
+.embroidery_service .list_yarn ul li ins {
+    display: block;
+    text-align: center;
+    font: bold 18px/18px arial, sans-serif;
+    color: #fff;
+    padding: 0 0 5px 0;
+}
+.embroidery_service .list_yarn ul li span.title_h {
+    display:inline-block; *zoom:1;*display:inline;
+    padding: 8px;
+    background: url(../images/wh_tr_form.png) 0 0 repeat;
+}
+
+#threads-calculator-form .errorSummary {
+    background: url("/images/wh_trans.png") repeat scroll 0 0 transparent;
+    border-radius: 10px 10px 10px 10px;
+    box-shadow: 0 0 3px 1px #A1A1A1;
+    display: block;
+    left: 25px;
+    padding: 20px;
+    position: absolute;
+    text-align: left;
+    top: 558px;
+    width: 350px;
+}
+.yarn_result {
+    font: 18px/18px arial, sans-serif;
+    color: #1a1a1a;
+    padding: 20px 0 40px 0;
+    text-align: center;
+    position: absolute;
+    left: 25px;
+    top: 558px;
+    display: block;
+    width: 350px;
+    background: url(../images/wh_trans.png) 0 0 repeat;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    box-shadow: 0 0 3px 1px #a1a1a1;
+    -moz-box-shadow: 0 0 3px 1px #a1a1a1;
+    -webkit-box-shadow: 0 0 3px 1px #a1a1a1;
+}
+.yarn_result span.result_sp {
+    display: block;
+    font: bold 30px arial, sans-serif;
+    color: #fc6501;
+}
+.yarn_result ins {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    font: italic 13px/13px arial, sans-serif;
+    color: #4185ca;
+}
+.list_thread {
+    position: absolute;
+    left: 117px;
+    top: 150px;
+    width: 190px;
+    display: block;
+    text-align: center;
+}
+.list_thread input[type=text] {
+    width: 100px;
+    text-align: center;
+    height: 15px;
+    border: 1px solid #e6d4f6;
+    background: #fff;
+    font: 11px/15px tahoma, sans-serif;
+    color: #575757;
+}
+.embroidery_service .list_thread .cusel {
+    height: 18px;
+    background-position: left top;
+    display:inline-block;*zoom:1;*display:inline;
+    position: relative;
+    cursor: pointer;
+    font-size: 14px;
+    z-index: 1;
+    border: 1px solid #e6d4f6;
+    background: #fff;
+    font: 11px tahoma, sans-serif;
+    color: #575757;
+}
+.embroidery_service .list_thread .cuselFrameRight {
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 19px;
+    background-position: right top;
+    background: #41b3cc url(../images/sel_violet.png) no-repeat;
+}
+.embroidery_service .list_thread .cusel .cusel-scroll-wrap {
+    display: block;
+    visibility: hidden;
+    position: absolute;
+    left: 0;
+    top: 100%;
+    border: 1px solid #e6d4f6;
+    background: #fff;
+    min-width: 100%;
+    width: auto;
+    font-size: 12px;
+}
+.embroidery_service .list_thread .cusel span:hover,
+.embroidery_service .list_thread .cusel .cuselOptHover {
+    background: #a687c7;
+    color: #fff;
+}
+.embroidery_service .list_thread .num_cal {
+    width: 100px;
+    z-index: 5;
+    position: relative;
+}
+.embroidery_service .list_thread .yr_cal {
+    width: 100px;
+    z-index: 4;
+    position: relative;
+}
+.embroidery_service .list_thread  input.calc_bt {
+    margin: 10px 0 0 0;
+    font: 25px tahoma, sans-serif;
+    color: #fff;
+    width: 190px;
+    height: 52px;
+    border: 1px solid #47ab31;
+    background: url(../images/bg_green_bt.png) 0 0 repeat-x;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+}
+.embroidery_service .list_thread ul {list-style:none;}
+.embroidery_service .list_thread ul li {margin: 0 0 7px 0;}
+.embroidery_service .list_thread ul li ins {
+    display: block;
+    text-align: center;
+    font: 16px/16px arial, sans-serif;
+    color: #040404;
+    padding: 0 0 5px 0;
+}
+.embroidery_service .list_thread ul li span.title_h {
+    display: block;
+    padding: 8px;
+    background: url(../images/yl_trans.png) 0 0 repeat;
+}
+.thread_result {
+    font: 18px/18px arial, sans-serif;
+    color: #1a1a1a;
+    padding: 20px 0 40px 0;
+    text-align: center;
+    position: absolute;
+    left: 25px;
+    top: 425px;
+    display: block;
+    width: 350px;
+    background: url(../images/wh_trans.png) 0 0 repeat;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    box-shadow: 0 0 3px 1px #a1a1a1;
+    -moz-box-shadow: 0 0 3px 1px #a1a1a1;
+    -webkit-box-shadow: 0 0 3px 1px #a1a1a1;
+}
+
+#threads-calculator-form .errorSummary{
+    background: url("/images/wh_trans.png") repeat scroll 0 0 transparent;
+    border-radius: 10px 10px 10px 10px;
+    top: 425px;
+    box-shadow: 0 0 3px 1px #A1A1A1;
+    color: #1A1A1A;
+    display: block;
+    font: 18px/18px arial,sans-serif;
+    left: 25px;
+    padding: 20px 0 40px;
+    position: absolute;
+    text-align: center;
+    width: 350px;
+}
+.thread_result span.result_sp {
+    display: block;
+    font: bold 30px arial, sans-serif;
+    color: #fc6501;
+}
+.thread_result ins {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    font: italic 13px/13px arial, sans-serif;
+    color: #4185ca;
+}
+.thread_result b {
+    font: bold 25px/25px arial, sans-serif;
+    color: #49ac33;
+    padding: 0 0 0 10px;
+}
+.tissue_left {
+    display: block;
+    width: 293px;
+    position: absolute;
+    left: 40px;
+    top: 142px;
+    text-align: center;
+}
+.tissue_left .tissue_type {
+    position: relative;
+    display: block;
+    width: 264px;
+    height: 120px;
+    margin: 0 auto;
+    padding: 15px 0 0 0;
+    background: url(../images/much_flax.png) 0 0 no-repeat;
+}
+.tissue_left .tissue_type span {
+    display: block;
+    margin: 0 15px 15px 15px;
+    background: url(../images/wh_tr_form.png) 0 0 repeat;
+    padding: 10px;
+    font: 16px/16px tahoma, sans-serif;
+    color: #181718;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+}
+.tissue_left .tissue_type span ins {
+    display: block;
+    font: 35px/35px tahoma, sans-serif;
+    color: #181718;
+    padding: 0 0 3px 0;
+}
+.tissue_left .tissue_calc {
+    margin: 10px 0 0 0;
+    display: block;
+    padding: 15px;
+    background: url(../images/blue_trans.png) 0 0 repeat;
+    border-radius: 15px;
+    -moz-border-radius: 15px;
+    -webkit-border-radius: 15px;
+}
+.tissue_left input.calc_bt {
+    font: 30px tahoma, sans-serif;
+    color: #a46307;
+    width: 220px;
+    height: 58px;
+    border: 1px solid #f1d419;
+    background: url(../images/bg_yellow_av.png) 0 0 repeat-x;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+}
+.tissue_calc ul li {
+    display: block;
+    padding: 5px;
+    margin: 0 0 13px 0;
+    background: url(../images/wh_trans.png) 0 0 repeat;
+    color: #757474;
+}
+.tissue_calc ul li ins {
+    font: 16px/17px arial, sans-serif;
+    color: #131212;
+    display: block;
+    text-align: center;
+    padding: 0 0 5px 0;
+}
+.tissue_calc ul li input.wh_t {
+    margin: 0 3px;
+    width: 50px;
+    text-align: center;
+    height: 17px;
+    background: #fff;
+    border: 1px solid #d9bff2;
+    font: 11px/17px tahoma, sans-serif;
+    color: #575757;
+}
+.tissue_calc ul li input.much_t {
+    margin: 0 3px;
+    width: 34px;
+    text-align: center;
+    height: 17px;
+    background: #fff;
+    border: 1px solid #d9bff2;
+    font: 11px/17px tahoma, sans-serif;
+    color: #575757;
+}
+.tissue_calc ul li .cusel {
+    height: 18px;
+    background-position: left top;
+    display:inline-block;*zoom:1;*display:inline;
+    position: relative;
+    cursor: pointer;
+    font-size: 14px;
+    z-index: 1;
+    border: 1px solid #e6d4f6;
+    background: #fff;
+    font: 11px tahoma, sans-serif;
+    color: #575757;
+}
+.tissue_calc ul li .cuselFrameRight {
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 19px;
+    background-position: right top;
+    background: #41b3cc url(../images/sel_violet.png) no-repeat;
+}
+.tissue_calc ul li .cusel .cusel-scroll-wrap {
+    display: block;
+    visibility: hidden;
+    position: absolute;
+    left: 0;
+    top: 100%;
+    border: 1px solid #e6d4f6;
+    background: #fff;
+    min-width: 100%;
+    width: auto;
+    font-size: 12px;
+}
+.tissue_calc ul li .cusel span:hover,
+.tissue_calc ul li .cusel .cuselOptHover {
+    background: #a687c7;
+    color: #fff;
+}
+.tissue_calc ul li .num_cal {
+    width: 50px;
+    z-index: 5;
+    position: relative;
+}
+.tissue_result {
+    font: 50px/50px arial, sans-serif;
+    color: #fc6501;
+    display: block;
+    padding: 20px 0;
+    background: url(../images/wh_tr_form.png) 0 0 repeat;
+    margin: 10px 0 0 0;
+    border-radius: 15px;
+    -moz-border-radius: 15px;
+    -webkit-border-radius: 15px;
+}
+.tissue_result span {
+    font-size: 35px;
+    color: #a9a7a3;
+}
+.tissue_right {
+    display: block;
+    width: 293px;
+    position: absolute;
+    right: 40px;
+    top: 142px;
+    text-align: center;
+}
+.tissue_right .tissue_type {
+    position: relative;
+    display: block;
+    width: 264px;
+    height: 120px;
+    margin: 0 auto;
+    padding: 15px 0 0 0;
+    background: url(../images/much_canvas.png) 0 0 no-repeat;
+}
+.tissue_right .tissue_type span {
+    height: 70px;
+    display: block;
+    margin: 0 15px 15px 15px;
+    background: url(../images/wh_tr_form.png) 0 0 repeat;
+    padding: 10px;
+    font: 16px/16px tahoma, sans-serif;
+    color: #181718;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+}
+.tissue_right .tissue_type span ins {
+    display: block;
+    font: 35px/70px tahoma, sans-serif;
+    color: #181718;
+    padding: 0 0 3px 0;
+}
+.tissue_right .tissue_calc {
+    margin: 10px 0 0 0;
+    display: block;
+    padding: 15px;
+    background: url(../images/pink_trans.png) 0 0 repeat;
+    border-radius: 15px;
+    -moz-border-radius: 15px;
+    -webkit-border-radius: 15px;
+}
+.tissue_right input.calc_bt {
+    font: 30px tahoma, sans-serif;
+    color: #a46307;
+    width: 220px;
+    height: 58px;
+    border: 1px solid #f1d419;
+    background: url(../images/bg_yellow_av.png) 0 0 repeat-x;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+}
+.tissue_right .tissue_type .style_rarr {
+    display: block;
+    width: 47px;
+    height: 77px;
+    background: url(../images/rd_rarr.png) 0 0 no-repeat;
+    position: absolute;
+    top: 80px;
+    left: 85px;
+}
+.tissue_left .tissue_type .style_rarr {
+    display: block;
+    width: 47px;
+    height: 63px;
+    background: url(../images/ld_rarr.png) 0 0 no-repeat;
+    position: absolute;
+    top: 92px;
+    left: 165px;
+}
+.embroidery_service .errorMessage {display: none !important;}
+.embroidery_service .hide-div div{display: inline;}
+.tissue_left .errorSummary,
+.tissue_right .errorSummary{
+    background: url("../images/wh_tr_form.png") repeat scroll 0 0 transparent;
+    border-radius: 15px 15px 15px 15px;
+    color: #FC6501;
+    display: block;
+    font: 50px/50px arial,sans-serif;
+    margin: 10px 0 0;
+    padding: 10px 0;
+}
+
+/*===== Calculator of loops =====*/
+.right_block .calculator_loops {
+    background: url("../images/calculator.jpg") no-repeat left top;
+    padding: 16px 0 10px 0;
+    height: 653px;
+}
+#content .right_block .calculator_loops h1 {
+    height: 78px;
+    padding: 20px 34px 0 70px;
+}
+.right_block .calculator_loops .form_block {
+    width: 263px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    border-radius: 3px;
+    *behavior: url(/stylesheets/PIE.htc);
+    text-align: center;
+    padding: 20px 15px 10px 15px;
+    float: left;
+}
+.right_block .calculator_loops .form_block p.form_header {
+    font-size: 30px;
+    color: #040404;
+    line-height: 30px;
+    margin: 0 0 10px 0;
+}
+.right_block .calculator_loops .form_block p {
+    font-size: 16px;
+    color: #131212;
+    line-height: 18px;
+}
+.right_block .calculator_loops .form_block .left_column {
+    float: left;
+    width: 120px;
+    margin: 15px 0 0 28px;
+}
+.right_block .calculator_loops .form_block .right_column {margin: 15px 5px 0 0;}
+.right_block .calculator_loops .form_block .left_column, 
+.right_block .calculator_loops .form_block .right_column { text-align: left;}
+.right_block .calculator_loops .form_block .left_column p, 
+.right_block .calculator_loops .form_block .right_column p {
+    font-size: 12px;
+    color: #757474;
+    line-height: 12px;
+    margin: 0 0 2px 0;
+}
+.right_block .calculator_loops .form_block .left_column input, 
+.right_block .calculator_loops .form_block .right_column input {
+    width: 48px;
+    height: 14px;
+    background: #fff;
+    border: 1px solid #d7c4ec;
+    color: #575757;
+    text-align: center;
+    font-size: 11px;
+    font-family: Tahoma, Geneva, Kalimati, sans-serif;
+    margin: 0 0 20px 0;
+}
+.right_block .calculator_loops .form_block .left_column label, 
+.right_block .calculator_loops .form_block .right_column label {
+    font-size: 16px;
+    color: #131212;
+    margin: 0 0 0 4px;
+}
+.right_block .calculator_loops .form_block.green {
+    background: url("../images/calc_green_block.png") no-repeat left top;
+    height: 184px;
+    margin: 30px 10px 0 42px;
+}
+.right_block .calculator_loops .form_block.blue {
+    background: url("../images/calc_blue_block.png") no-repeat left top;
+    height: 122px;
+    margin: 120px 10px 0 8px;
+}
+.right_block .calculator_loops .form_block.pink {
+    background: url("../images/calc_pink_block.png") no-repeat left top;
+    height: 27px;
+    margin: 22px 10px 0 25px;
+    padding: 25px 15px 15px 15px;
+}
+.right_block .calculator_loops .form_block.pink p {
+    float: left;
+    color: #131212;
+    font-size: 16px;
+    width: 49%;
+    text-align: center;
+    padding: 0 0 10px 0;
+}
+.right_block .calculator_loops .form_block.pink p span {
+    color: #fefbb5;
+    font-weight: bold;
+    font-size: 20px;
+}
+.right_block .calculator_loops form input[type="submit"] {
+    float: left;
+    margin: 0 10px 0 60px;
+}
+.right_block .calculator_loops .row {display: inline;}
+.right_block .calculator_loops .errorMessage {display: none !important;}
+.right_block .calculator_loops .errorSummary{
+    background: url("../images/wh_trans.png");
+    margin: 22px 10px 0 25px;
+    padding: 25px 15px 15px;
+    border-radius: 10px;
+    float: left;
+    text-align: center;
+    width: 350px;
+}
+/*===== /Calculator of loops =====*/
+
+/*===== Cost calculation =====*/
+.right_block {
+    background: url("../images/content_bg.png") repeat left top;
+    padding: 10px;
+    position: relative;
+}
+
+.right_block .cost_calculation {
+    background: url("../images/cost_calculation.jpg") no-repeat left top;
+    padding: 16px 0 10px 0;
+}
+
+#content .right_block h1 {
+    background: url("../images/plashka.png") repeat-x left top;
+    height: 98px;
+    text-align: right;
+    padding: 0 34px 0 0;
+    margin: 0 0 12px 0;
+    font-size: 50px;
+    color: #fff;
+    font-family: Tahoma, Geneva, Kalimati, sans-serif;
+    font-weight: normal;
+    display:inline-block;*zoom:1;*display:inline;
+    line-height: 50px;
+}
+
+#content .right_block h1 span {
+    font-size: 35px;
+    display: block;
+    line-height: 35px;
+}
+
+#content .right_block .cost_calculation h1 {padding: 0 34px 0 100px;}
+.right_block .cost_calculation p.form_header {
+    font-size: 30px;
+    text-align: center;
+    color: #040404;
+    line-height: 30px;
+    margin: 10px 0 0 0;
+}
+.right_block .cost_calculation p.form_header span {
+    font-size: 20px;
+    display: block;
+}
+.right_block .cost_calculation p.form_header ins {
+    font-size: 50px;
+    text-decoration: none;
+    color: #fd0505;
+    margin: 0 7px 0 0;
+    top: 10px;
+    vertical-align: bottom;
+}
+.right_block .cost_calculation .form_block p {margin: 0 0 8px 0;}
+.right_block .cost_calculation .form_block p span {
+    font-size: 12px;
+    color: #757474;
+    display: block;
+}
+.right_block .cost_calculation form .form_block {
+    background: rgb(255, 255, 255);
+    background: rgba(255, 255, 255, 0.8);
+    font-size: 16px;
+    color: #131212;
+    width: 200px;
+    height: 70px;
+    text-align: center;
+    float: left;
+    margin: 6px 3px 0 0;
+    padding: 4px 0 0 0;
+    *zoom: 1;
+    *display: inline;
+}
+.right_block .cost_calculation form .form_block.first {
+    width: 232px;
+    margin: 6px 3px 0 18px;
+}
+.right_block .cost_calculation form .form_block label {
+    font-size: 16px;
+    color: #131212;
+}
+.right_block .cost_calculation form .form_block.first label {
+    font-size: 12px;
+    color: #757474;
+}
+.right_block .cost_calculation form .form_block input {
+    font-size: 11px;
+    background: #fff;
+    color: #575757;
+    font-family: Tahoma, Geneva, Kalimati, sans-serif;
+    border: 1px solid #d7c4ec;
+    width: 45px;
+    height: 16px;
+    text-align: center;
+    margin: 0 3px;
+}
+.right_block .cost_calculation form .form_block input[disabled="disabled"] {color: #ccc;}
+.right_block .cost_calculation form .form_big_block {
+    background: rgb(255, 255, 255);
+    background: rgba(255, 255, 255, 0.8);
+    font-size: 12px;
+    color: #757474;
+    padding: 19px;
+    margin: 0 16px 0 18px;
+}
+.right_block .cost_calculation form .form_big_block p {
+    margin: 10px 0 0 0;
+    font-size: 12px;
+    color: #757474;
+}
+.right_block .cost_calculation form .form_big_block p input[type="text"] {
+    font-size: 11px;
+    color: #575757;
+    font-family: Tahoma, Geneva, Kalimati, sans-serif;
+    border: 1px solid #d7c4ec;
+    width: 41px;
+    height: 16px;
+    text-align: center;
+    margin: 0 3px;
+    background: #fff;
+}
+.right_block .cost_calculation form .form_big_block p.children {margin: 4px 0 0 25px;}
+.right_block .cost_calculation form .form_big_block label {
+    font-size: 13px;
+    color: #747474;
+}
+.right_block .cost_calculation form .form_big_block label span {color: #131212;}
+.right_block .cost_calculation form .form_big_block label ins {
+    color: #828181;
+    text-decoration: none;
+    font-size: 13px;
+}
+.right_block .cost_calculation form input[type="submit"], 
+.right_block .calculator_loops form input[type="submit"] {
+    background: url("../images/cost_btn.png") no-repeat left top;
+    width: 257px;
+    height: 70px;
+    color: #854201;
+    font-size: 35px;
+    border: none;
+    margin: 10px auto;
+    display: block;
+}
+.right_block .cost_calculation .total_block {
+    background: url("../images/cost_result.png") no-repeat left top;
+    width: 419px;
+    height: 107px;
+    color: #fefefd;
+    font-size: 14px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 13px 0 0 0;
+}
+.right_block .cost_calculation .total_block p {
+    color: #fefefd;
+    line-height: 23px;
+}
+.right_block .cost_calculation .total_block p span {
+    color: #fcd50e;
+    font-size: 25px;
+    margin: 0 0 0 10px;
+}
+.right_block .cost_calculation .total_block p.big {
+    font-size: 30px;
+    line-height: 33px;
+}
+.right_block .cost_calculation .total_block p.big span {font-size: 35px;}
+.right_block .cost_calculation .input-box {
+    position: relative;
+    margin: 4px 0 0 25px;
+    color: #747474;
+    font-size: 13px;
+}
+.right_block .cost_calculation .input-box span.units {
+    display: block;
+    float: left;
+}
+.right_block .cost_calculation .select-box {
+    width: 47px;
+    height: 18px;
+    position: relative;
+    z-index: 5;
+    float: left;
+    margin: 0 0 0 4px;
+}
+.right_block .cost_calculation .select-box .select-value {
+    width: 27px;
+    height: 14px;
+    padding: 3px 19px 1px 1px;
+    background: url(../images/cost_select.png) no-repeat left top;
+    color: #575757;
+    font-size: 11px;
+    line-height: 11px;
+    cursor: pointer;
+    text-align: center;
+}
+.right_block .cost_calculation .select-box .select-list {
+    display: none;
+    position: absolute;
+    top: 18px;
+    right: 0;
+}
+.right_block .cost_calculation .select-box .select-list ul {
+    width: 47px;
+    text-align: center;
+    overflow: auto;
+    height: 160px;
+    background: #fff;
+}
+.right_block .cost_calculation .select-box .select-list ul li {
+    height: 18px;
+    line-height: 18px;
+    cursor: pointer;
+    color: #575757;
+    font-size: 11px;
+}
+.right_block .cost_calculation .select-box .select-list ul li:hover {background: #f0f0f0;}
+.right_block .cost_calculation .CheckBoxLabelClass.LabelSelected {
+    background: url("../images/check.png") no-repeat scroll 0 0 transparent;
+}
+.right_block .cost_calculation .CheckBoxLabelClass {
+    background: url("../images/no_check.png") no-repeat scroll 0 0 transparent;
+    display:inline-block;*zoom:1;*display:inline;
+    line-height: 16px;
+    margin: 0;
+    padding: 2px 0 0 25px;
+}
+.cost_calculation .form_block.first div{display: inline;}
+.cost_calculation .errorMessage{display: none !important;}
+.cost_calculation .errorSummary{
+    background: url("/images/wh_tr_form.png");
+    margin: 0 auto;
+    padding: 13px 0;
+    text-align: center;
+    width: 419px;
+    border-radius: 15px;
+}
+/*===== /Cost calculation =====*/

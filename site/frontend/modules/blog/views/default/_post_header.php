@@ -5,6 +5,9 @@
 if (!isset($author))
     $author = $model->author;
 
+if ($model->by_happy_giraffe)
+    $author = User::model()->findByPk(1);
+
 ?><div class="b-article_header clearfix">
     <div class="meta-gray">
         <a href="<?= $model->getUrl(true) ?>" class="meta-gray_comment">

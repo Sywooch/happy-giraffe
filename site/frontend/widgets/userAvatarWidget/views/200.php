@@ -33,11 +33,7 @@
             <?php endif ?>
         <?php endif ?>
 
-        <?php if (!Friend::model()->areFriends($this->user->id, Yii::app()->user->id) && Yii::app()->user->id != $this->user->id && !FriendRequest::model()->pendingRequestExists(Yii::app()->user->id, $this->user->id)):?>
-            <a href="javascript:;" onclick="inviteFriend(this, <?=$this->user->id?>, function(el) {$(el).addClass('friends-list_bubble__friend-added'); $(el).find('span').addClass('friends-list_ico__friend-added');})" class="b-ava-large_bubble b-ava-large_bubble__friend-add-onhover powertip" title="Добавить в друзья">
-                <span class="b-ava-large_ico b-ava-large_ico__friend-add"></span>
-            </a>
-        <?php endif ?>
+        <?php $this->widget('application.widgets.friendButtonWidget.FriendButtonWidget', array('user' => $this->user)); ?>
     </div>
     <div class="textalign-c">
         <a href="<?=$this->user->getUrl() ?>" class="b-ava-large_a"><?=$this->user->getFullName() ?></a>

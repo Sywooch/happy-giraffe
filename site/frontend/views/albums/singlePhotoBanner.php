@@ -53,7 +53,7 @@
 
                     <div class="user clearfix">
 
-                        <?php $this->widget('Avatar', array('user' => Yii::app()->user->model, 'size' => Avatar::SIZE_MICRO)); ?>
+                        <?php $this->widget('Avatar', array('user' => $photo->author, 'size' => Avatar::SIZE_MICRO)); ?>
 
                         <?php $this->widget('FavouriteWidget', array('model' => $photo)); ?>
 

@@ -29,24 +29,8 @@
             <div class="heading-medium margin-20">Прямой эфир</div>
 
             <?php
-            $this->widget('zii.widgets.CListView', array(
-                'cssFile' => false,
-                'ajaxUpdate' => false,
-                'dataProvider' => CommunityContent::model()->getSectionContents($section->id),
-                'itemView' => 'blog.views.default.view',
-                'pager' => array(
-                    'class' => 'HLinkPager',
-                ),
-                'template' => '{items}
-                    <div class="yiipagination">
-                        {pager}
-                    </div>
-                ',
-                'emptyText' => '',
-                'viewData' => array('full' => false),
-            ));
-
-            ?>
+            $dp = CommunityContent::model()->getSectionContents($section->id);
+            $this->renderPartial('list', array('dp' => $dp)); ?>
 
         </div>
     </div>

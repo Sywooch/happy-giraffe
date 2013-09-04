@@ -60,7 +60,8 @@ class DefaultController extends HController
         );
 
         Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
-        $this->render('list', $forum);
+        $dp = CommunityContent::model()->getContents($forum->id, $rubric_id);
+        $this->render('list', compact('dp'));
     }
 
     public function actionView($forum_id, $content_type_slug, $content_id)

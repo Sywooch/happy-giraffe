@@ -51,7 +51,7 @@ Yii::app()->clientScript->registerPackage('ko_community');
             $this->renderPartial('_rubrics', array('rubrics' => $this->club->communities[0]->rubrics)); ?>
     </div>
     <div class="col-23-middle ">
-        <?php $this->renderPartial('list'); ?>
+        <?php $this->renderPartial('list', array('dp' => CommunityContent::model()->getClubContents($this->club->id))); ?>
     </div>
 
 </div>

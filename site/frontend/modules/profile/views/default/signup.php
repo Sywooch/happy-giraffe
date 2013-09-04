@@ -1,3 +1,7 @@
+<script type="text/javascript">
+    userIsGuest = 0;
+</script>
+
 <div class="b-registration">
     <div class="b-registration_row clearfix">
         <div class="float-r">

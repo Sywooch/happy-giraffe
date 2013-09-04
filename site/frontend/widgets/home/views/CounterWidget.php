@@ -1,5 +1,5 @@
 <?php
-Yii::app()->clientScript->registerScriptFile('\javascripts\jquery.lwtCountdown-1.0.js');
+Yii::app()->clientScript->registerScriptFile('/javascripts/jquery.lwtCountdown-1.0.js');
 
 ?><div class="start-page_row start-page_row__counter">
     <div class="start-page_hold">

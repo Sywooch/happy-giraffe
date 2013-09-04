@@ -284,4 +284,16 @@ class SiteCommand extends CConsoleCommand
             $criteria->offset = $criteria->offset + 100;
         }
     }
+
+    /**
+     * Запуск каждый час
+     */
+    public function actionCounter()
+    {
+        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
+        Yii::import('site.common.models.mongo.*');
+        $se_visits = GApi::model()->visitors('/', '2012-04-12', date("Y-m-d"));
+        echo $se_visits."\n";
+        UserAttributes::set(1, 'all_visitors_count', $se_visits);
+    }
 }

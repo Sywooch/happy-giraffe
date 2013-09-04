@@ -890,3 +890,17 @@ source albumPhotoSource : src
     sql_attr_string = modelName
 }
 >>>>>>> search
+
+  1 User-agent: Yandex
+  2 Disallow: /albums
+  3 Disallow: /signup
+  4 Disallow: /search
+  5 Disallow: /messaging
+  6 Host: www.happy-giraffe.ru
+  7
+  8 User-agent: *
+  9 Disallow: /albums
+ 10 Disallow: /signup
+ 11 Disallow: /search
+ 12 Disallow: /messaging
+ 13 Sitemap: http://www.happy-giraffe.ru/sitemap.xml

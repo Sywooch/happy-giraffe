@@ -46,7 +46,7 @@ var BlogViewModel = function(data) {
 
     // photo
     self.jcrop = null;
-    self.photoThumbSrc = ko.observable(data.photo.thumbSrc);
+    self.photoThumbSrc = ko.observable(data.photo === null ? null : data.photo.thumbSrc);
     self.draftPhoto = ko.observable(data.photo === null ? null : new Photo(data.photo));
 
     self.photoThumbSrcToShow = ko.computed(function() {
@@ -109,7 +109,7 @@ var BlogViewModel = function(data) {
         $.post('/blog/settings/update/', {
             blog_title: self.draftTitle(),
             blog_description: self.draftDescription(),
-            blog_photo_id: self.draftPhoto().id(),
+            blog_photo_id: self.draftPhoto() === null ? null : self.draftPhoto().id(),
             blog_photo_position: position,
             blog_show_rubrics: self.showRubricsValue(),
             rubricsToRename: rubricsUpdateData.toRename,
@@ -130,6 +130,10 @@ var BlogViewModel = function(data) {
         }, 'json');
     }
 
+    self.removeDraftPhoto = function() {
+        self.draftPhoto(null);
+    }
+
     self.showPreview = function(coords) {
         position = coords;
 
@@ -145,28 +149,48 @@ var BlogViewModel = function(data) {
     };
 
     self.initJcrop = function() {
-        $('.popup-blog-set_jcrop-img').Jcrop({
-            setSelect: [ self.draftPhoto().position().x, self.draftPhoto().position().y, self.draftPhoto().position().x2, self.draftPhoto().position().y2 ],
-            onChange: showPreview,
-            onSelect: showPreview,
-            aspectRatio: 720 / 128,
-            boxWidth: 320
-        }, function(){
-            self.jcrop = this;
-        });
+        if (self.draftPhoto() !== null) {
+            $('.popup-blog-set_jcrop-img').Jcrop({
+                setSelect: [ self.draftPhoto().position().x, self.draftPhoto().position().y, self.draftPhoto().position().x2, self.draftPhoto().position().y2 ],
+                onChange: showPreview,
+                onSelect: showPreview,
+                aspectRatio: 720 / 128,
+                boxWidth: 440
+            }, function(){
+                self.jcrop = this;
+            });
+        }
 
         $('#upload-target').on('load', function() {
+            console.log('123');
             var response = $(this).contents().find('#response').text();
             if (response.length > 0) {
                 self.draftPhoto(new Photo($.parseJSON(response)));
-                self.jcrop.setImage(self.draftPhoto().originalSrc(), function() {
+                if (self.jcrop === null) {
                     var x = self.draftPhoto().width()/2 - 720/2;
                     var y = self.draftPhoto().height()/2 - 128/2;
                     var x2 = x + 720;
                     var y2 = y + 128;
+                    $('.popup-blog-set_jcrop-img').Jcrop({
+                        setSelect: [ x, y, x2, y2 ],
+                        onChange: showPreview,
+                        onSelect: showPreview,
+                        aspectRatio: 720 / 128,
+                        boxWidth: 440
+                    }, function(){
+                        self.jcrop = this;
+                    });
+                } else {
+                    console.log(self.draftPhoto().originalSrc());
+                    self.jcrop.setImage(self.draftPhoto().originalSrc(), function() {
+                        var x = self.draftPhoto().width()/2 - 720/2;
+                        var y = self.draftPhoto().height()/2 - 128/2;
+                        var x2 = x + 720;
+                        var y2 = y + 128;
 
-                    self.jcrop.setSelect([ x, y, x2, y2 ]);
-                });
+                        self.jcrop.setSelect([ x, y, x2, y2 ]);
+                    });
+                }
             }
         });
     };

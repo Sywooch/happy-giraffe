@@ -20,7 +20,7 @@ $photo = $data->getPhoto()
             <?=$data->post->purified->text ?>
         </div>
     </div>
-    <?php if ($data->gallery !== null) $this->renderPartial('photo_gallery', array('data' => $data)); ?>
+    <?php if ($data->gallery !== null) $this->renderPartial('application.modules.blog.views.default.photo_gallery', array('data' => $data)); ?>
 <?php else: ?>
     <?php if ($showTitle):?>
         <h2 class="b-article_t">

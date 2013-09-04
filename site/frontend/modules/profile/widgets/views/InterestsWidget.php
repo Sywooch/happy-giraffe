@@ -4,10 +4,14 @@
  */
 ?>
 <div class="b-interest" id="user-interests" data-bind="css: {'b-interest__addition': adding()}">
-    <h3 class="heading-small margin-b10">Мои интересы <!-- ko if: !adding() --><span class="color-gray">(<!--ko text: interests().length--><!--/ko-->)</span><!-- /ko -->
+    <h3 class="heading-small margin-b10">Мои интересы
+        <span class="color-gray" data-bind="visible:!adding()">(<!--ko text: interests().length-->  <!--/ko-->)</span>
         <div class="float-r color-gray font-small margin-t5" data-bind="visible: adding()">Добавлено <!--ko text: interests().length--><!--/ko--> из 25</div>
     </h3>
     <span class="color-gray" data-bind="visible: interests().length == 0 && !adding()">У вас пока нет интересов</span>
+    <?php if ($this->isMyProfile):?>
+        <a href="" class="b-interest_add" data-bind="visible: interests().length == 0 && !adding(), click: function () {$data.adding(true)}"></a>
+    <?php endif ?>
 
     <ul class="clearfix" data-bind="visible: !adding()">
         <!-- ko foreach: interests -->

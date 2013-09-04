@@ -702,19 +702,23 @@ class CookRecipe extends CActiveRecord
         return $this->_next;
     }
 
-    public function getNext()
+    public function getNext($offset = 0)
     {
-        return $this->nextRecipes[0];
+        return isset($this->nextRecipes[$offset]) ? $this->nextRecipes[$offset] : null;
     }
 
-    public function getPrev()
+    public function getPrev($offset = 0)
     {
-        return $this->prevRecipes[0];
+        return isset($this->prevRecipes[$offset]) ? $this->prevRecipes[$offset] : null;
     }
 
     public function getMore()
     {
-        return array($this->prevRecipes[2], $this->prevRecipes[1], $this->nextRecipes[1], $this->nextRecipes[2]);
+        $next = $this->getNextRecipes();
+        $prev = $this->getPrevRecipes();
+        unset($prev[0]);
+        unset($next[0]);
+        return CMap::mergeArray(array_reverse($prev), $next);
     }
 
     public function getNotEmptyTags()

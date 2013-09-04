@@ -774,7 +774,7 @@ class AlbumPhoto extends HActiveRecord
      */
     public static function getPhotoFromUrl($url)
     {
-        if (preg_match('/http:\/\/img.happy-giraffe.com\/thumbs\/[\d]+x[\d]+\/([\d]+)\/([^\"]+)/', $url, $m)) {
+        if (preg_match('/http:\/\/img.happy-giraffe.ru\/thumbs\/[\d]+x[\d]+\/([\d]+)\/([^\"]+)/', $url, $m)) {
             $user_id = $m[1];
             $photo_name = $m[2];
             return AlbumPhoto::model()->findByAttributes(array('author_id' => $user_id, 'fs_name' => $photo_name));

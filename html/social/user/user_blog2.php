@@ -496,11 +496,9 @@
 						</div>
 						<div class="nav-article clearfix">
 							<div class="nav-article_left">
-								<a href="" class="nav-article_arrow nav-article_arrow__left"></a>
 								<a href="" class="nav-article_a">Очень красивые пропорции у нашего ведущего</a>
 							</div>
 							<div class="nav-article_right">
-								<a href="" class="nav-article_arrow nav-article_arrow__right"></a>
 								<a href="" class="nav-article_a">Очень красивые пропорции Очень красивые пропорции у нашего ведущего у нашего ведущего</a>
 							</div>
 						</div>
@@ -588,14 +586,13 @@
 							</a>
 						
 						
+							
 							<div class="nav-article clearfix">
 								<div class="nav-article_left">
-									<a class="nav-article_arrow nav-article_arrow__left" href=""></a>
-									<a class="nav-article_a" href="">Очень красивые пропорции у нашего ведущего</a>
+									<a href="" class="nav-article_a">Очень красивые пропорции у нашего ведущего</a>
 								</div>
 								<div class="nav-article_right">
-									<a class="nav-article_arrow nav-article_arrow__right" href=""></a>
-									<a class="nav-article_a" href="">Очень красивые пропорции Очень красивые пропорции у нашего ведущего у нашего ведущего</a>
+									<a href="" class="nav-article_a">Очень красивые пропорции Очень красивые пропорции у нашего ведущего у нашего ведущего</a>
 								</div>
 							</div>
 						</div>

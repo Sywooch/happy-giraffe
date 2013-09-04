@@ -66,7 +66,7 @@ $(document).ready(function () {
     });
 
     $('#btn-up-page').click(function () {
-        $('html').animate({scrollTop:0}, "normal");
+        $('html, body').animate({scrollTop:0}, "normal");
         return false
     });
 

@@ -62,13 +62,13 @@ Yii::app()->clientScript
 						</a>
 					</li>
 					<li class="start-page_club-li">
-						<a href="<?=$this->createUrl('/community/default/section', array('section_id'=>3)) ?>" class="start-page_club-i">
+						<a href="<?=$this->createUrl('/community/default/section', array('section_id'=>4)) ?>" class="start-page_club-i">
 							<img src="/images/club/collection/4.png" alt="" class="start-page_club-img">
 							<span class="start-page_club-tx">Муж и жена</span>
 						</a>
 					</li>
 					<li class="start-page_club-li">
-						<a href="<?=$this->createUrl('/community/default/section', array('section_id'=>4)) ?>" class="start-page_club-i">
+						<a href="<?=$this->createUrl('/community/default/section', array('section_id'=>3)) ?>" class="start-page_club-i">
 							<img src="/images/club/collection/3.png" alt="" class="start-page_club-img">
 							<span class="start-page_club-tx">Красота <br> и здоровье</span>
 						</a>

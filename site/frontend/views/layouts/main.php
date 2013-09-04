@@ -10,6 +10,8 @@ if (! Yii::app()->user->isGuest)
         ->registerPackage('comet')
         ->registerScript('Realplexor-reg', 'comet.connect(\'http://' . Yii::app()->comet->host . '\', \'' . Yii::app()->comet->namespace . '\', \'' . UserCache::GetCurrentUserCache() . '\');')
     ;
+
+$user = Yii::app()->user->getModel();
 ?>
 
 <?php $this->beginContent('//layouts/common'); ?>
@@ -27,10 +29,11 @@ if (! Yii::app()->user->isGuest)
                     <!-- ko stopBinding: true -->
                     <div class="header-menu layout-binding">
                         <ul class="header-menu_ul clearfix">
-                            <li class="header-menu_li">
+                            <li class="header-menu_li" data-bind="css: { active : newPostsCount() > 0 && activeModule() != 'myGiraffe' }">
                                 <a href="<?=$this->createUrl('/myGiraffe/default/index', array('type'=>1))?>" class="header-menu_a">
                                     <span class="header-menu_ico header-menu_ico__giraffe"></span>
                                     <span class="header-menu_tx">Мой <br> Жираф</span>
+                                    <span class="header-menu_count" data-bind="text: newPostsCount"></span>
                                 </a>
                             </li>
                             <li class="header-menu_li" data-bind="css: { active : newNotificationsCount() > 0 && activeModule() != 'notifications' }">
@@ -48,8 +51,10 @@ if (! Yii::app()->user->isGuest)
                             </li>
                             <li class="header-menu_li header-menu_li__sepor"></li>
                             <li class="header-menu_li">
-                                <a href="<?=Yii::app()->user->model->getUrl()?>" class="header-menu_a">
-                                    <?php $this->widget('Avatar', array('user' => Yii::app()->user->getModel(), 'size' => 40)); ?>
+                                <a href="<?=$user->getUrl() ?>" class="header-menu_a">
+                                    <span class="ava middle <?=($user->gender == 0)?'female':'male'?>">
+                                        <?=CHtml::image($user->getAvatarUrl(40)) ?>
+                                    </span>
                                     <span class="header-menu_tx">Моя <br> страница</span>
                                 </a>
                             </li>
@@ -73,10 +78,11 @@ if (! Yii::app()->user->isGuest)
                                     <span class="header-menu_count" data-bind="text: newFriendsCount"></span>
                                 </a>
                             </li>
-                            <li class="header-menu_li">
+                            <li class="header-menu_li" data-bind="css: { active : newScoreCount() > 0 && activeModule() != 'scores' }">
                                 <a href="<?=$this->createUrl('/scores/default/index')?>" class="header-menu_a">
                                     <span class="header-menu_ico header-menu_ico__award"></span>
                                     <span class="header-menu_tx">Мои <br> успехи</span>
+                                    <span class="header-menu_count" data-bind="text: newScoreCount"></span>
                                 </a>
                             </li>
                         </ul>

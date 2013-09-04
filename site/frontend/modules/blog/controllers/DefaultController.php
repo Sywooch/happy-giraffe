@@ -80,6 +80,8 @@ class DefaultController extends HController
     public function actionSubscribeToggle()
     {
         $blog_author_id = Yii::app()->request->getPost('user_id');
+        if ($blog_author_id == Yii::app()->user->id)
+            return ;
 
         echo CJSON::encode(array('status' => UserBlogSubscription::toggle($blog_author_id)));
     }
@@ -117,30 +119,46 @@ class DefaultController extends HController
         }
     }
 
-    public function actionForm($id = null, $type = null)
+    public function actionForm($id = null, $type = null, $club_id = false)
     {
         $this->user = $this->loadUser(Yii::app()->user->id);
         if ($id === null) {
-            $model = new BlogContent('default');
+            if ($club_id)
+                $model = new CommunityContent('default_club');
+            else
+                $model = new BlogContent('default');
             $model->type_id = $type;
             $slug = $model->type->slug;
             $slaveModelName = 'Community' . ucfirst($slug);
             $slaveModel = new $slaveModelName();
         } else {
-            $model = BlogContent::model()->findByPk($id);
+            if ($club_id)
+                $model = CommunityContent::model()->findByPk($id);
+            else
+                $model = BlogContent::model()->findByPk($id);
             $slaveModel = $model->getContent();
+        }
+        if ($club_id){
+            $rubricsList = array_map(function ($rubric) {
+                return array(
+                    'id' => $rubric->id,
+                    'title' => $rubric->title,
+                );
+            }, Community::model()->findByPk($club_id)->rubrics);
+        }else{
+            $rubricsList = array_map(function ($rubric) {
+                return array(
+                    'id' => $rubric->id,
+                    'title' => $rubric->title,
+                );
+            }, $this->user->blog_rubrics);
         }
 
         $json = array(
             'title' => (string)$model->title,
             'privacy' => (int)$model->privacy,
             'text' => (string)$slaveModel->text,
-            'rubricsList' => array_map(function ($rubric) {
-                return array(
-                    'id' => $rubric->id,
-                    'title' => $rubric->title,
-                );
-            }, $this->user->blog_rubrics),
+            'rubricsList' => $rubricsList,
             'selectedRubric' => $id === null ? null : $model->rubric_id,
         );
         if ($model->type_id == CommunityContent::TYPE_STATUS) {
@@ -175,9 +193,9 @@ class DefaultController extends HController
         }
 
         if (Yii::app()->request->getPost('short'))
-            $this->renderPartial('form/' . $model->type_id, compact('model', 'slaveModel', 'json'), false, true);
+            $this->renderPartial('form/' . $model->type_id, compact('model', 'slaveModel', 'json', 'club_id'), false, true);
         else
-            $this->renderPartial('form', compact('model', 'slaveModel', 'json'), false, true);
+            $this->renderPartial('form', compact('model', 'slaveModel', 'json', 'club_id'), false, true);
     }
 
     public function actionSave($id = null)

@@ -98,6 +98,41 @@ class DefaultController extends HController
         echo CJSON::encode(array('status' => true));
     }
 
+    public function actionSave($id = null)
+    {
+        $model = ($id === null) ? new CommunityContent() : CommunityContent::model()->findByPk($id);
+        $model->scenario = 'default_club';
+        $model->attributes = $_POST['CommunityContent'];
+        $model->author_id = Yii::app()->user->id;
+        $slug = $model->type->slug;
+        $slaveModelName = 'Community' . ucfirst($slug);
+        $slaveModel = ($id === null) ? new $slaveModelName() : $model->content;
+        $slaveModel->attributes = $_POST[$slaveModelName];
+        $this->performAjaxValidation(array($model, $slaveModel));
+        $model->$slug = $slaveModel;
+        $success = $model->withRelated->save(true, array($slug));
+
+        if ($success) {
+            if (isset($_POST['redirect']))
+                $this->redirect($_POST['redirect']);
+            else
+                $this->redirect($model->url);
+        } else {
+            echo 'Root:<br />';
+            var_dump($model->getErrors());
+            echo 'Slave:<br />';
+            var_dump($slaveModel->getErrors());
+        }
+    }
+
+    protected function performAjaxValidation($models)
+    {
+        if (isset($_POST['ajax']) && $_POST['ajax'] === 'blog-form') {
+            echo CActiveForm::validate($models);
+            Yii::app()->end();
+        }
+    }
+
     /**
      * @param int $id model id
      * @param string $content_type_slug

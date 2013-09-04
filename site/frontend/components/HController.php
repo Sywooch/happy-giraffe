@@ -223,11 +223,14 @@ class HController extends CController
 
     public function getLayoutData()
     {
+        $user = Yii::app()->user->getModel();
         $newNotificationsCount = (int) Notification::model()->getUnreadCount();
-        $newMessagesCount = (int) MessagingManager::unreadMessagesCount(Yii::app()->user->id);
-        $newFriendsCount = (int) FriendRequest::model()->getUserCount(Yii::app()->user->id);
+        $newMessagesCount = (int) MessagingManager::unreadMessagesCount($user->id);
+        $newFriendsCount = (int) FriendRequest::model()->getUserCount($user->id);
+        $newPostsCount = (int) ViewedPost::getInstance()->newPostCount($user->id, SubscribeDataProvider::TYPE_ALL);
+        $newScoreCount = (int) ($user->score->scores - $user->score->seen_scores);
         $activeModule = $this->module ? $this->module->id : null;
 
-        return compact('newNotificationsCount', 'newMessagesCount', 'newFriendsCount', 'activeModule');
+        return compact('newNotificationsCount', 'newMessagesCount', 'newFriendsCount', 'newPostsCount', 'newScoreCount', 'activeModule');
     }
 }

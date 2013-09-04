@@ -12,9 +12,9 @@ class ConvertNewCommand extends CConsoleCommand
     public function actionUpdatePhotos()
     {
         $criteria = new CDbCriteria;
-        $criteria->compare('author_id', 9990);
         $criteria->limit = 1000;
         $criteria->offset = 0;
+        $criteria->condition = 'width IS NULL';
 
         $models = array(0);
         while (!empty($models)) {
@@ -36,7 +36,7 @@ class ConvertNewCommand extends CConsoleCommand
         $criteria = new CDbCriteria;
         $criteria->limit = 1000;
         $criteria->with = array('content');
-        $criteria->condition = 'content.id > 37616';
+        //$criteria->condition = 'content.id > 37616';
         $criteria->offset = 0;
 
         $models = array(0);

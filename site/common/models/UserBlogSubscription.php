@@ -172,7 +172,7 @@ class UserBlogSubscription extends HActiveRecord
         return Yii::app()->db->createCommand()
             ->select('user2_id, count(user2_id) as count')
             ->from(self::model()->tableName())
-            ->where('user2_id NOT IN (Select user2_id from '.self::model()->tableName().' where user_id=:user_id)', array(':user_id' => $user_id))
+            ->where('user2_id NOT IN (Select user2_id from '.self::model()->tableName().' where user_id=:user_id) AND user2_id != :user_id', array(':user_id' => $user_id))
             ->group('user2_id')
             ->order('count')
             ->limit(20)

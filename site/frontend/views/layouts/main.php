@@ -117,20 +117,7 @@ $user = Yii::app()->user->getModel();
                                 <div class="clearfix">
                                     <a href="#login" class="display-ib verticalalign-m fancy" data-theme="transparent">Войти</a>
                                     <span class="i-or">или</span>
-                                    <a class="custom-like" href="">
-                                        <span class="custom-like_icon odnoklassniki"></span>
-                                    </a>
-                                    <a class="custom-like" href="">
-                                        <span class="custom-like_icon vkontakte"></span>
-                                    </a>
-
-                                    <a class="custom-like" href="">
-                                        <span class="custom-like_icon facebook"></span>
-                                    </a>
-
-                                    <a class="custom-like" href="">
-                                        <span class="custom-like_icon twitter"></span>
-                                    </a>
+                                    <?php Yii::app()->eauth->renderWidget(array('action' => 'site/login', 'mode' => 'home', 'predefinedServices' => array('odnoklassniki', 'vkontakte', 'facebook', 'twitter'))); ?>
                                 </div>
                             </div>
                         </div>
@@ -171,7 +158,7 @@ $user = Yii::app()->user->getModel();
                         <div class="b-join-row_logo"></div>
                         <div class="b-join-row_tx"> <span class="b-join-row_tx-big"> 4 500 000</span> мам и пап</div>
                         <div class="b-join-row_slogan">уже на Веселом Жирафе!</div>
-                        <a href="" class="btn-green btn-h46">Присоединяйтесь!</a>
+                        <a href="#register" class="btn-green btn-h46 fancy" data-theme="transparent">Присоединяйтесь!</a>
                     </div>
                 </div>
 

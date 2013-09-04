@@ -105,9 +105,6 @@ class ConvertNewCommand extends CConsoleCommand
                 else
                     echo 1;
             }
-
-            $criteria->offset += 1000;
-            echo $criteria->offset . "\n";
         }
     }
 

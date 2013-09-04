@@ -82,7 +82,7 @@ class CommunityContent extends HActiveRecord
             array('title', 'required', 'except' => 'status'),
             array('author_id, type_id', 'required'),
             array('rubric_id', 'required', 'on' => 'default_club'),
-            array('title', 'length', 'max' => 50),
+            array('title', 'length', 'max' => 100),
             array('meta_title, meta_description, meta_keywords', 'length', 'max' => 255),
             array('author_id, rubric_id, type_id', 'length', 'max' => 11),
             array('author_id, rubric_id, type_id', 'numerical', 'integerOnly' => true),
@@ -437,7 +437,7 @@ class CommunityContent extends HActiveRecord
             'with' => array('rubric', 'rubric.community', 'rubric.community.club')
         ));
 
-        $criteria->addCondition('club.id != 21 AND club.id != 22');
+        $criteria->addCondition('club.id != 21 AND club.id != 22 AND club.id != 19');
         $criteria->compare('section_id', $section_id);
         $criteria->scopes = array('active');
 

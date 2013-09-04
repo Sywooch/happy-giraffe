@@ -1362,6 +1362,8 @@ class User extends HActiveRecord
                 return $this->avatar->getPreviewUrl(200, 200, Image::INVERT, true, AlbumPhoto::CROP_SIDE_TOP);
             case 72:
                 return $this->avatar->getAvatarUrl('ava');
+            case 40:
+                return $this->avatar->getAvatarUrl('ava');
             case 24:
                 return $this->avatar->getAvatarUrl('small');
         }

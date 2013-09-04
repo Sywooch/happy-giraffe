@@ -25,12 +25,8 @@ Yii::app()->clientScript->registerPackage('ko_profile');
             </div>
             <div class="user-btns clearfix">
                 <?php if ($user->id != Yii::app()->user->id):?>
-                    <a href="" class="user-btns_i powertip">
-                        <span class="user-btns_ico-hold user-btns_ico-hold__friend-add">
-                            <span class="user-btns_ico"></span>
-                        </span>
-                        <span class="user-btns_tx"></span>
-                    </a>
+                    <?php $this->widget('application.widgets.friendButtonWidget.FriendButtonWidget', array('user' => $user, 'view' => 'profile')); ?>
+
                     <a href="<?= $this->createUrl('/messaging/default/index', array('interlocutorId' => $user->id)) ?>" class="user-btns_i powertip">
                         		<span class="user-btns_ico-hold user-btns_ico-hold__dialog">
                         			<span class="user-btns_ico"></span>

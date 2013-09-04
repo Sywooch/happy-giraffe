@@ -38,10 +38,12 @@ class ScoresCommand extends CConsoleCommand
         $criteria->limit = 500;
         $criteria->offset = 0;
 
+        echo "remove all\n";
         Yii::app()->db->createCommand()->update('score__user_scores', array('scores' => 0, 'seen_scores' => 0));
         ScoreInput::getInstance()->removeAll();
         Yii::app()->db->createCommand()->delete('score__user_achievements');
 
+        echo "start\n";
         $i = 0;
         $models = array(0);
         while (!empty($models)) {

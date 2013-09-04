@@ -911,6 +911,8 @@ class User extends HActiveRecord
 
     public function getUrl($absolute = false)
     {
+        if ($this->id == self::HAPPY_GIRAFFE)
+            return '/';
         list($route, $params) = $this->urlParams;
         $method = $absolute ? 'createAbsoluteUrl' : 'createUrl';
         return Yii::app()->$method($route, $params);

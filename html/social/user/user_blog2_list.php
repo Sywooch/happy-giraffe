@@ -183,10 +183,10 @@
 				
 			</div>
 			<div class="col-23-middle">
-			
+			<a href="#popup-blog-set" data-theme="transparent" class="blog-settings fancy">Настройки блога</a>
 				<div class="col-gray">
 					<div class="blog-title-b">
-						<a href="#popup-blog-set" data-theme="transparent" class="blog-settings fancy powertip" title="Настройки блога"></a>
+						<!-- <a href="#popup-blog-set" data-theme="transparent" class="blog-settings fancy powertip" title="Настройки блога"></a> -->
 						<div class="blog-title-b_img-hold">
 							<img src="/images/example/w720-h128.jpg" alt="" class="blog-title-b_img">
 						</div>

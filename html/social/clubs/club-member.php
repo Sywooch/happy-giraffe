@@ -76,6 +76,23 @@
 								<a href="" class="ava female"></a>
 							</div>
 						</div>
+						<ul class="b-section_ul b-section_ul__white clearfix">
+							<li class="b-section_li">
+								<a class="b-section_li-a" href="">Здоровье и питание</a>
+							</li>
+							<li class="b-section_li">
+								<a class="b-section_li-a" href="">Ясли и няни</a>
+							</li>
+							<li class="b-section_li">
+								<a class="b-section_li-a" href="">Раннее развитие и обучение</a>
+							</li>
+							<li class="b-section_li">
+								<a class="b-section_li-a" href="">Психология и воспитание</a>
+							</li>
+							<li class="b-section_li">
+								<a class="b-section_li-a" href="">Справочник детских болезней</a>
+							</li>
+						</ul>
 					</div>
 				</div>
 			</div>

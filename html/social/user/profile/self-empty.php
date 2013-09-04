@@ -101,8 +101,13 @@
 				<div class="b-interest">
 					<h3 class="heading-small margin-b10">Мои интересы</h3>
 					<div class="clearfix">
-						<span class="color-gray">У вас пока нет интересов</span>
-						<a href="" class="b-interest_add"></a>
+						<span class="color-gray float-l">У вас пока нет интересов</span>
+						
+						<ul class="b-interest_ul clearfix">
+							<li class="b-interest_li">
+								<a href="" class="b-interest_add"></a>
+							</li>
+						</ul>
 					</div>
 				</div>
 				
@@ -113,13 +118,13 @@
 						<div class="float-r color-gray font-small margin-t5">Добавлено 0 из 25</div>
 					</h3>
 					<ul class="b-interest_ul clearfix">
-							<li class="b-interest_li">
-								<span class="color-gray">Выберите категорию и добавьте интерес просто кликнув по ему,  или </span>
-							</li>
-							<li class="b-interest_li">
-								<a href="" class="b-interest_i b-interest_i__green">Добавить свой интерес <span class="ico-plus margin-l3"></span> </a>
-							</li>
-						</ul>
+						<li class="b-interest_li">
+							<span class="color-gray">Выберите категорию и добавьте интерес просто кликнув по ему,  или </span>
+						</li>
+						<li class="b-interest_li">
+							<a href="" class="b-interest_i b-interest_i__green">Добавить свой интерес <span class="ico-plus margin-l3"></span> </a>
+						</li>
+					</ul>
 					
 					<div class="b-interest_section">
 						<div class="b-interest_section-hold clearfix">

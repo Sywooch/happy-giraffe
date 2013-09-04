@@ -147,8 +147,10 @@ class ConvertNewCommand extends CConsoleCommand
         $models = CommunityContent::model()->findAll($criteria);
         foreach ($models as $m) {
             $v = PageView::model()->findByPath($m->url);
-            $v->views = $v->views + mt_rand(70, 200);
-            $v->save();
+            if ($v !== null) {
+                $v->views = $v->views + mt_rand(70, 200);
+                $v->save();
+            }
         }
     }
 }

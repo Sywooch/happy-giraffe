@@ -1,9 +1,8 @@
 <?php
 
-class DefaultController extends HController
+class DefaultController extends ServiceController
 {
-    public $layout = '//layouts/community';
-    public $community;
+    const SERVICE_ID = 26;
 
     public function filters()
     {
@@ -13,18 +12,12 @@ class DefaultController extends HController
         );
     }
 
-    public function beforeAction($action)
-    {
-        $this->community = Community::model()->findByPk(27);
-
-        return parent::beforeAction($action);
-    }
-
     /**
      * @sitemap dataSource=sitemap
      */
     public function actionIndex($id = null)
     {
+        $this->layout = '//layouts/community';
         $this->meta_title = 'Составь маршрут для автомобиля';
 
         if (empty($id)) {

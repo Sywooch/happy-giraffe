@@ -32,6 +32,7 @@ class CUserSubscriptions
 
     private function __construct($user_id)
     {
+        $this->user_id = $user_id;
     }
 
     /**

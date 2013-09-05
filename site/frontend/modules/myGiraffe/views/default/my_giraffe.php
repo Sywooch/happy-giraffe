@@ -12,8 +12,7 @@
         <?php $this->widget('Avatar', array('user' => Yii::app()->user->model, 'size' => Avatar::SIZE_LARGE)); ?>
 
         <div class="textalign-c margin-b40 clearfix">
-            <a href="<?= $this->createUrl('/myGiraffe/default/recommends') ?>" class="btn-green btn-h46">Жираф
-                рекомендует</a>
+            <a href="<?= $this->createUrl('/myGiraffe/default/recommends') ?>" class="btn-green btn-h46">Жираф рекомендует</a>
         </div>
 
 

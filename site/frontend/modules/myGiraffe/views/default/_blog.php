@@ -7,7 +7,7 @@
  */
 $subscribers_count = UserBlogSubscription::model()->subscribersCount($user->id);
 $subscribers = UserBlogSubscription::model()->getSubscribers($user->id, 5);
-$posts = $user->getBlogPopular(1);
+$posts = $user->getLastBlogRecords(2);
 $params = array(
     'subscribed'=>UserBlogSubscription::isSubscribed(Yii::app()->user->id, $user->id),
     'count'=>(int)UserBlogSubscription::model()->subscribersCount($user->id),

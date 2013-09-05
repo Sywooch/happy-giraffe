@@ -5,31 +5,40 @@
 <!--[if gt IE 9]><!--> <html class=""> <!--<![endif]-->
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title><?=$this->pageTitle?></title>
+            <title><?php
+                if (!empty($this->meta_title))
+                    echo CHtml::encode(trim($this->meta_title));
+                else
+                    echo CHtml::encode($this->pageTitle);
+                ?></title>
         <?php if ($this->rssFeed !== null): ?>
             <?=CHtml::linkTag('alternate', 'application/rss+xml', $this->rssFeed)?>
         <?php endif; ?>
         <?=CHtml::linkTag('shortcut icon', null, '/favicon.bmp')?>
         <?php
-            Yii::app()->clientScript
-                ->registerCssFile('/redactor/redactor.css')
-                ->registerCssFile('/stylesheets/common.css')
-                ->registerCssFile('/stylesheets/global.css')
-                ->registerCssFile('/stylesheets/user.css')
-                ->registerCssFile('/stylesheets/baby.css')
-                ->registerCssFile('http://fonts.googleapis.com/css?family=Roboto:300&subset=latin,cyrillic-ext')
+        $cs = Yii::app()->clientScript;
+        $cs
+            ->registerCssFile('/redactor/redactor.css')
+            ->registerCssFile('/stylesheets/common.css')
+            ->registerCssFile('/stylesheets/global.css')
+            ->registerCssFile('/stylesheets/user.css')
+            ->registerCssFile('/stylesheets/baby.css')
+            ->registerCssFile('http://fonts.googleapis.com/css?family=Roboto:300&subset=latin,cyrillic-ext')
 
-                ->registerCoreScript('jquery')
-                ->registerScriptFile('/javascripts/chosen.jquery.min.js')
-                ->registerScriptFile('/javascripts/jquery.powertip.js')
-                ->registerScriptFile('/javascripts/tooltipsy.min.js')
-                ->registerScriptFile('/javascripts/jquery.placeholder.min.js')
-                ->registerScriptFile('/javascripts/addtocopy.js')
-                ->registerCssFile('/stylesheets/jquery.fancybox-1.3.4.css')
-                ->registerScriptFile('/javascripts/jquery.fancybox-1.3.4.js')
-                ->registerScriptFile('/javascripts/base64.js')
-                ->registerScriptFile('/javascripts/common.js')
+            ->registerCoreScript('jquery')
+            ->registerScriptFile('/javascripts/chosen.jquery.min.js')
+            ->registerScriptFile('/javascripts/jquery.powertip.js')
+            ->registerScriptFile('/javascripts/tooltipsy.min.js')
+            ->registerScriptFile('/javascripts/jquery.placeholder.min.js')
+            ->registerScriptFile('/javascripts/addtocopy.js')
+            ->registerCssFile('/stylesheets/jquery.fancybox-1.3.4.css')
+            ->registerScriptFile('/javascripts/jquery.fancybox-1.3.4.js')
+            ->registerScriptFile('/javascripts/base64.js')
+            ->registerScriptFile('/javascripts/common.js')
             ;
+        $cs->registerMetaTag(trim($this->meta_description), 'description');
+        if (!empty($this->meta_keywords))
+            $cs->registerMetaTag(trim($this->meta_keywords), 'keywords');
         ?>
 
         <!--[if IE 7]>

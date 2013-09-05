@@ -1096,6 +1096,12 @@ class User extends HActiveRecord
         }
     }
 
+    /**
+     * Популярные статьи блога
+     *
+     * @param int $limit
+     * @return array
+     */
     public function getBlogPopular($limit = 10)
     {
         return ($this->blogPostsCount <= $limit) ? array() : BlogContent::model()->findAll(array(
@@ -1104,6 +1110,23 @@ class User extends HActiveRecord
             'params' => array(':user_id' => $this->id),
             'order' => 't.rate DESC',
             'limit' => 2,
+        ));
+    }
+
+    /**
+     * Посление статьи блога
+     *
+     * @param int $limit
+     * @return array
+     */
+    public function getLastBlogRecords($limit = 2)
+    {
+        return BlogContent::model()->findAll(array(
+            'with' => array('rubric', 'commentsCount', 'type'),
+            'condition' => 'rubric.user_id = :user_id AND type_id = 1',
+            'params' => array(':user_id' => $this->id),
+            'order' => 't.id DESC',
+            'limit' => $limit,
         ));
     }
 

@@ -161,7 +161,7 @@ function CollectionPhoto(data, parent) {
         }, 'json');
     }
 
-    self.isEditable = parent.collectionClass == 'PhotoPostPhotoCollection';
+    self.isEditable = parent.collectionClass == 'PhotoPostPhotoCollection' && self.user.id == parent.userId;
 
     self.titleBeingEdited = ko.observable(data.title.length == 0);
     self.titleValue = ko.observable(data.title);

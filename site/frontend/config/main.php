@@ -416,7 +416,7 @@ return array(
                     ),
                     'sitemapBlog.xml' => array(
                         'aliases' => array(
-                            'application.controllers.BlogController',
+                            'application.modules.blog.controllers.DefaultController',
 
                         ),
                     ),

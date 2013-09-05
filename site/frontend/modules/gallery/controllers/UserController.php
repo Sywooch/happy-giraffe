@@ -18,6 +18,9 @@ class UserController extends HController
         if ($this->user === null)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
+        if (isset($_GET['AlbumPhoto_page']))
+            Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
+
         return parent::beforeAction($action);
     }
 

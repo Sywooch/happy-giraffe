@@ -6,6 +6,10 @@
  */
 
 $source = $data->source;
+#TODO отладка бага
+if ($source == null){
+    $data->delete();
+}else{
 ?>
 <div class="clearfix">
     <div class="float-l">
@@ -33,3 +37,4 @@ $source = $data->source;
         <?php endif ?>
     </div>
 </div>
+<?php }

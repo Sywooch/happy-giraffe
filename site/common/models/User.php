@@ -363,6 +363,7 @@ class User extends HActiveRecord
         return AlbumPhoto::model()->count(array(
             'join' => 'JOIN album__albums a ON t.album_id = a.id',
             'condition' => 'a.type IN(0, 1, 3) AND t.author_id = :user_id',
+            'scopes' => array('active'),
             'params' => array(':user_id' => $this->id),
         ));
     }

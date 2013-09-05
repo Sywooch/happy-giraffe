@@ -6,22 +6,27 @@
 </ul>
 
 <div class="col-gray padding-20 clearfix">
-<div class="clearfix">
-    <span class="i-highlight i-highlight__big font-big">Рекомендуем вам вступить в клубы</span>
-</div>
+    <?php if (!empty($clubs)): ?>
+        <div class="clearfix">
+            <span class="i-highlight i-highlight__big font-big">Рекомендуем вам вступить в клубы</span>
+        </div>
 
-    <?php $this->widget('ClubsWidget', array(
-        'user' => Yii::app()->user->getModel(),
-        'size' => 'Big',
-        'userClubs' => false,
-        'limit' => 8,
-        'deleteClub' => true)); ?>
+        <?php $this->widget('ClubsWidget', array(
+            'user' => Yii::app()->user->getModel(),
+            'size' => 'Big',
+            'clubs' => $clubs,
+            'limit' => 8,
+            'deleteClub' => true
+        )); ?>
+    <?php endif ?>
 
-<div class="clearfix">
-    <span class="i-highlight i-highlight__big font-big">Рекомендуем вам подписаться на блоги</span>
-</div>
+    <?php if (!empty($blog_subscriptions)): ?>
+        <div class="clearfix">
+            <span class="i-highlight i-highlight__big font-big">Рекомендуем вам подписаться на блоги</span>
+        </div>
 
-    <?php foreach ($blog_subscriptions as $blog_subscription)
-        $this->renderPartial('_blog', array('user' => $blog_subscription)); ?>
+        <?php foreach ($blog_subscriptions as $blog_subscription)
+            $this->renderPartial('_blog', array('user' => $blog_subscription)); ?>
+    <?php endif ?>
 
 </div>

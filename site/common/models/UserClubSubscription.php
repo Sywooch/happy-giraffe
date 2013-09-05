@@ -83,21 +83,6 @@ class UserClubSubscription extends HActiveRecord
     }
 
     /**
-     * Возвращает список id клубов, на которые подписан
-     *
-     * @param int $user_id
-     * @return int[]
-     */
-    public static function getSubUserClubs($user_id)
-    {
-        return Yii::app()->db->createCommand()
-            ->select('club_id')
-            ->from(self::model()->tableName())
-            ->where('user_id=:user_id', array(':user_id' => $user_id))
-            ->queryColumn();
-    }
-
-    /**
      * Меняет подписку на клуб - если нет - добалвяет, если есть - удаляет
      *
      * @param int $club_id
@@ -155,22 +140,5 @@ class UserClubSubscription extends HActiveRecord
         $model->user_id = Yii::app()->user->id;
         $model->club_id = $club_id;
         return $model->save();
-    }
-
-    /**
-     * сообщества, на которые не подписан
-     *
-     * @param int $user_id
-     * @return int[]
-     */
-    public static function notSubscribedClubIds($user_id)
-    {
-        $all_club_ids = Yii::app()->db->cache(3600)->createCommand()
-            ->select('id')
-            ->from('community__clubs')
-            ->queryColumn();
-
-        $subscribed_ids = self::getSubUserClubs($user_id);
-        return array_diff($all_club_ids, $subscribed_ids);
     }
 }

@@ -162,20 +162,27 @@ class UserBlogSubscription extends HActiveRecord
     }
 
     /**
-     * Топ-20 блогов, на которые не подписан
+     * Топ блогов, на которые не подписан
      *
      * @param int $user_id
      * @return array
      */
     public static function getTopSubscription($user_id)
     {
-        return Yii::app()->db->createCommand()
-            ->select('user2_id, count(user2_id) as count')
-            ->from(self::model()->tableName())
-            ->where('user2_id NOT IN (Select user2_id from '.self::model()->tableName().' where user_id=:user_id) AND user2_id != :user_id', array(':user_id' => $user_id))
-            ->group('user2_id')
-            ->order('count')
-            ->limit(10)
-            ->queryColumn();
+        $subscribed = self::model()->getSubUserIds($user_id);
+        $recommends = array(197101, 197102, 197103, 197202, 16491, 197095);
+        foreach ($subscribed as $subscribe_id)
+            if (($key = array_search($subscribe_id, $recommends)) !== false) {
+                unset($recommends[$key]);
+            }
+        return array_values($recommends);
+//        return Yii::app()->db->createCommand()
+//            ->select('user2_id, count(user2_id) as count')
+//            ->from(self::model()->tableName())
+//            ->where('user2_id NOT IN (Select user2_id from '.self::model()->tableName().' where user_id=:user_id) AND user2_id != :user_id', array(':user_id' => $user_id))
+//            ->group('user2_id')
+//            ->order('count')
+//            ->limit(10)
+//            ->queryColumn();
     }
 }

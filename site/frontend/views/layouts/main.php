@@ -238,7 +238,8 @@ $user = Yii::app()->user->getModel();
         <?php $this->renderPartial('//_footer'); ?>
     <?php endif; ?>
 </div>
-
+<?php $sql_stats = YII::app()->db->getStats();
+echo $sql_stats[0] . ' запросов к БД, время выполнения запросов - ' . sprintf('%0.5f', $sql_stats[1]) . ' c.'; ?>
 <div class="display-n">
 
 </div>

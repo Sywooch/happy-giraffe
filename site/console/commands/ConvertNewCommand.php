@@ -10,7 +10,7 @@ class ConvertNewCommand extends CConsoleCommand
     {
         $criteria = new CDbCriteria;
         $criteria->limit = 1000;
-        $criteria->offset = 0;
+        $criteria->offset = 70000;
         $criteria->order = 'id desc';
 
         $models = array(0);
@@ -18,7 +18,7 @@ class ConvertNewCommand extends CConsoleCommand
             $models = AlbumPhoto::model()->findAll($criteria);
 
             foreach ($models as $model) {
-                if ($model->album->type == Album::TYPE_PRIVATE && $model->galleryItem !== null) {
+                if ($model->album != null && $model->album->type == Album::TYPE_PRIVATE && $model->galleryItem !== null) {
                     $model->album_id = Album::getAlbumByType($model->author_id, Album::TYPE_PHOTO_POST)->id;
                     $model->hidden = 0;
                     $model->save();

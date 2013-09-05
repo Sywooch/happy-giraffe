@@ -91,6 +91,7 @@ class CommunityContent extends HActiveRecord
             array('by_happy_giraffe', 'boolean'),
             array('privacy', 'numerical', 'min' => 0, 'max' => 1),
             array('preview', 'safe'),
+            array('author_id', 'unsafe'),
 
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.

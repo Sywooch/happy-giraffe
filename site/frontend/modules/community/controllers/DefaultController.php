@@ -230,7 +230,7 @@ class DefaultController extends HController
             $data[] = array(
                 'params' => array(
                     'content_id' => $model['id'],
-                    'community_id' => $model['community_id'],
+                    'forum_id' => $model['community_id'],
                     'content_type_slug' => $model['slug'],
                 ),
                 'priority' => 0.5,

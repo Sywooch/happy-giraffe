@@ -21,7 +21,7 @@
     <meta content="176" name="/Optimized">
 
     <?php Yii::app()->clientScript
-        ->registerCoreScript('jquery')
+        ->registerPackage('knockout')
         ->registerScriptFile('/javascripts/comet.js')
 
         ->registerCssFile('/stylesheets/seo2/all.css')

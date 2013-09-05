@@ -256,6 +256,8 @@
     </div>
 </div>
 
+<?php $this->widget('application.widgets.seo.SeoLinksWidget'); ?>
+
 <script type="text/javascript">
     var RecipeViewModel = function(data) {
         var self = this;
@@ -279,4 +281,3 @@
     recipeVM = new RecipeViewModel(<?=CJSON::encode(array('hasServings' => $recipe->servings !== null))?>);
     ko.applyBindings(recipeVM, document.getElementById('recipe'));
 </script>
-<?php $this->widget('application.widgets.seo.SeoLinksWidget'); ?>

@@ -329,6 +329,47 @@
 				                    	</div>
 					                </div>
 						        </div>
+						        <div class="photo-grid_row clearfix" >
+						        	<!-- Высота последней строки 105пк -->
+					                <div class="photo-grid_i">
+			                            <img alt="" src="/images/example/photo-grid-8.jpg" class="photo-grid_img">
+			                            <div class="photo-grid_overlay">
+			                                <span class="photo-grid_zoom powertip"></span>
+			                            </div>
+			                        </div>
+			                        <div class="photo-grid_i">
+			                            <img alt="" src="/images/example/photo-grid-9.jpg" class="photo-grid_img">
+			                            <div class="photo-grid_overlay">
+			                                <span class="photo-grid_zoom powertip"></span>
+			                            </div>
+			                        </div>
+			                        <div class="photo-grid_i">
+			                            <img alt="" src="/images/example/photo-grid-10.jpg" class="photo-grid_img">
+			                            <div class="photo-grid_overlay">
+			                                <span class="photo-grid_zoom powertip"></span>
+			                            </div>
+			                        </div>
+			                        <div class="photo-grid_i">
+			                            <img alt="" src="/images/example/photo-grid-11.jpg" class="photo-grid_img">
+			                            <div class="photo-grid_overlay">
+			                                <span class="photo-grid_zoom powertip"></span>
+			                            </div>
+			                        </div>
+			                        <div class="photo-grid_i">
+			                            <img alt="" src="/images/example/photo-grid-12.jpg" class="photo-grid_img">
+			                            <div class="photo-grid_overlay">
+			                                <span class="photo-grid_zoom powertip"></span>
+			                            </div>
+			                        </div>
+					                <!-- 
+					                	Высота 105пк
+					                	Ширина  90пк
+					            	-->
+					                <div class="photo-grid_last">
+				                        <div class="font-small color-gray margin-b5">смотреть <br> еще фото</div>
+				                        <a class="photo-grid_last-a" href="">58054</a>
+				                    </div>
+						        </div>
 							</div>
 						</div>
 						<div class="custom-likes-b">

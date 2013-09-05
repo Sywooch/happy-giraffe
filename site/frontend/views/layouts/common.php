@@ -6,6 +6,10 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title><?=$this->pageTitle?></title>
+        <?php if ($this->rssFeed !== null): ?>
+            <?=CHtml::linkTag('alternate', 'application/rss+xml', $this->rssFeed)?>
+        <?php endif; ?>
+        <?=CHtml::linkTag('shortcut icon', null, '/favicon.bmp')?>
         <?php
             Yii::app()->clientScript
                 ->registerCssFile('/redactor/redactor.css')

@@ -27,7 +27,9 @@ $data['currentRubricId'] = $this->rubric_id;
         <div class="col-23-middle">
             <div class="col-gray">
                 <div class="blog-title-b blogInfo">
-                    <a href="<?=$this->createUrl('settings/form')?>" data-theme="transparent" class="blog-settings fancy powertip" title="Настройки блога"></a>
+                    <?php if ($this->user->id == Yii::app()->user->id): ?>
+                        <a href="<?=$this->createUrl('settings/form')?>" data-theme="transparent" class="blog-settings fancy powertip" title="Настройки блога"></a>
+                    <?php endif; ?>
                     <div class="blog-title-b_img-hold" data-bind="if: photoThumbSrc() !== null">
                         <img alt="" class="blog-title-b_img" data-bind="attr: { src : photoThumbSrcToShow }">
                     </div>

@@ -369,7 +369,7 @@ class CommentatorWork extends EMongoDocument
     {
         $model = CActiveRecord::model($this->comment_entity)->resetScope()->findByPk($this->comment_entity_id);
 
-        if ($model->removed) {
+        if ($model !== null && $model->removed) {
             $model->full = 1;
             $model->update(array('full'));
             $model = null;

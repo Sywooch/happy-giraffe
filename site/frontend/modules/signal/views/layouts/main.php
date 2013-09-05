@@ -11,7 +11,7 @@
     <?php Yii::app()->clientScript->registerScriptFile('/javascripts/jquery.fancybox-1.3.4.pack.js'); ?>
 
     <?php Yii::app()->clientScript
-    ->registerCoreScript('jquery')
+    ->registerPackage('knockout')
     ->registerScriptFile('/javascripts/common.js')
     ->registerScriptFile('/javascripts/comet.js')
     ->registerScriptFile('/javascripts/jquery.placeholder.min.js')

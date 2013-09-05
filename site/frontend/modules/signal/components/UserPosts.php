@@ -18,7 +18,6 @@ class UserPosts extends PostForCommentator
         $criteria = new CDbCriteria;
         $criteria->select = 't.*';
         $criteria->condition = 't.created >= "' . date("Y-m-d H:i:s", strtotime('-48 hour')) . '" AND `full` IS NULL AND t.removed = 0';
-        $criteria->order = 't.id asc';#TODO убратть после отладки
         $criteria->with = array(
             'author' => array(
                 'select'=>array('id'),

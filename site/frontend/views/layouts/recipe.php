@@ -23,11 +23,19 @@
             </ul>
         </div>
 
-        <div class="banner">
-            <a href="">
-                <img src="/images/banners/6.jpg" alt="">
-            </a>
-        </div>
+        <?php if ($this->action->id == 'view'): ?>
+            <div class="banner">
+                <script async src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                <!-- Giraffe - new -->
+                <ins class="adsbygoogle"
+                     style="display:inline-block;width:240px;height:400px"
+                     data-ad-client="ca-pub-3807022659655617"
+                     data-ad-slot="4550457687"></ins>
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+        <?php endif; ?>
     </div>
     <div class="col-23-middle ">
 

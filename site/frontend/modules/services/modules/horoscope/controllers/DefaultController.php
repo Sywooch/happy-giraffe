@@ -9,7 +9,6 @@ class DefaultController extends HController
     public function beforeAction($action)
     {
         $this->breadcrumbs = array(
-            'Сервисы'=>array('site/services'),
             'Гороскопы'
         );
 

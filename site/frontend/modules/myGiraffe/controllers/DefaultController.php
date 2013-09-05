@@ -37,10 +37,11 @@ class DefaultController extends HController
     public function actionIndex($type = SubscribeDataProvider::TYPE_ALL, $community_id = null)
     {
         $this->layout = '//layouts/main';
+        $this->pageTitle = 'Мой Жираф';
 
         $dp = SubscribeDataProvider::getDataProvider($this->user->id, $type, $community_id);
-        $communities = CommunityClub::model()->findAllByPk(UserClubSubscription::getSubUserClubs($this->user->id));
-        if (empty($communities))
+        $communities = CommunityClub::model()->findAllByPk(CUserSubscriptions::getInstance($this->user->id)->getSubUserClubIds());
+        if ($dp->getTotalItemCount() == 0)
             $this->redirect($this->createUrl('recommends'));
 
         $this->render('my_giraffe', compact('dp', 'communities', 'type', 'community_id'));
@@ -48,14 +49,19 @@ class DefaultController extends HController
 
     public function actionSubscribes()
     {
+        $this->pageTitle = 'Мои подписки';
+
         $blog_subscriptions = User::model()->findAllByPk(UserBlogSubscription::getSubUserIds(Yii::app()->user->id));
         $this->render('subscribes', compact('blog_subscriptions'));
     }
 
     public function actionRecommends()
     {
+        $this->pageTitle = 'Рекомендация подписок';
+
         $blog_subscriptions = User::model()->findAllByPk(UserBlogSubscription::getTopSubscription(Yii::app()->user->id));
-        $this->render('recommends', compact('blog_subscriptions'));
+        $clubs = CUserSubscriptions::getInstance($this->user->id)->getNotSubscribedClubIds();
+        $this->render('recommends', compact('blog_subscriptions', 'clubs'));
     }
 
     public function actionOnlyNew()

@@ -46,7 +46,7 @@ class SubscribeDataProvider
     {
         $criteria = new CDbCriteria;
         $criteria->with = array('rubric', 'rubric.community');
-        $criteria->addInCondition('community.club_id', UserClubSubscription::getSubUserClubs($user_id), 'OR');
+        $criteria->addInCondition('community.club_id', CUserSubscriptions::getInstance($user_id)->getSubUserClubIds(), 'OR');
         $criteria->addInCondition('author_id', UserBlogSubscription::getSubUserIds($user_id), 'OR');
         return $criteria;
     }

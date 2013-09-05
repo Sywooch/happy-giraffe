@@ -24,11 +24,6 @@ class ClubsWidget extends UserCoreWidget
      */
     public $deleteClub = false;
     /**
-     * клубы на которые подписан пользователь или на которые он не подписан
-     * @var bool
-     */
-    public $userClubs = true;
-    /**
      * Клубы, которые показываем
      * @var CommunityClub[]
      */
@@ -59,20 +54,15 @@ class ClubsWidget extends UserCoreWidget
     private function getUserClubsData()
     {
         $data = array();
-        if (empty($this->clubs)){
-            if ($this->userClubs)
-                $this->clubs = UserClubSubscription::getSubUserClubs($this->user->id);
-            else
-                $this->clubs = UserClubSubscription::notSubscribedClubIds($this->user->id);
-        }
-        $clubs = CommunityClub::model()->findAllByPk($this->clubs);
+        if (empty($this->clubs))
+            $this->clubs = CUserSubscriptions::getInstance($this->user->id)->getSubUserClubIds();
 
-        foreach ($clubs as $club)
-            if ($club->id != 21 && $club->id != 22 && $club->id != 19) {
+        $clubs = CommunityClub::model()->findAllByPk($this->clubs);
+        foreach ($clubs as $club) {
                 $data [] = array(
                     'id' => $club->id,
                     'title' => $club->title,
-                    'have' => Yii::app()->user->isGuest ? false : UserClubSubscription::subscribed($this->user->id, $club->id),
+                    'have' => Yii::app()->user->isGuest ? false : CUserSubscriptions::getInstance($this->user->id)->subscribed($club->id),
                 );
             }
         return $data;

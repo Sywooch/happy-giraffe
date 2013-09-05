@@ -141,6 +141,10 @@ class DefaultController extends HController
                 $model = BlogContent::model()->findByPk($id);
             $slaveModel = $model->getContent();
         }
+
+        if (!$model->isNewRecord && !$model->canEdit())
+            Yii::app()->end();
+
         if ($club_id){
             $rubricsList = array_map(function ($rubric) {
                 return array(

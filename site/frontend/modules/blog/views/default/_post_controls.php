@@ -22,19 +22,22 @@ $ownArticle = $model->author_id == Yii::app()->user->id;
         <!-- /ko -->
 
     </div>
-    <?php if ($model->author_id == Yii::app()->user->id):?>
+    <?php if (!Yii::app()->user->isGuest && ($model->canEdit() || $model->canRemove())): ?>
         <div class="article-settings">
             <div class="article-settings_i">
                 <a href="javascript:;" class="article-settings_a article-settings_a__settings powertip" data-bind='css: {active: displayOptions}, click: show' title="Настройки"></a>
             </div>
             <div class="article-settings_hold" data-bind="slideVisible: displayOptions()">
-                <div class="article-settings_i">
-                    <a href="" class="article-settings_a article-settings_a__pin powertip" data-bind="click: attach, css: {active: attached}" title="Прикрепить"></a>
-                </div>
+                <?php if ($model->author_id == Yii::app()->user->id && $model->getIsFromBlog()):?>
+                    <div class="article-settings_i">
+                        <a href="" class="article-settings_a article-settings_a__pin powertip" data-bind="click: attach, css: {active: attached}" title="Прикрепить"></a>
+                    </div>
+                <?php endif ?>
                 <div class="article-settings_i">
                     <a href="<?= $this->createUrl('/blog/default/form', array('id' => $model->id, 'club_id' => $model->getIsFromBlog() ? '' : $model->rubric->community_id)) ?>"
                        class="article-settings_a article-settings_a__edit powertip fancy" title="Редактировать"></a>
                 </div>
+                <?php if ($model->author_id == Yii::app()->user->id && $model->getIsFromBlog()):?>
                 <div class="article-settings_i">
                     <a href="javascript:;" class="ico-users powertip" data-bind="css: {active: displayPrivacy, 'ico-users__friend': privacy() == 1, 'ico-users__all': privacy() == 0}, click: showPrivacy" title="Приватность"></a>
                     <div class="article-settings_drop" data-bind="toggleVisible: displayPrivacy()">
@@ -52,6 +55,7 @@ $ownArticle = $model->author_id == Yii::app()->user->id;
                         </div>
                     </div>
                 </div>
+                <?php endif ?>
                 <div class="article-settings_i">
                     <a class="article-settings_a article-settings_a__delete powertip" data-bind="click: remove" title="Удалить"></a>
                 </div>

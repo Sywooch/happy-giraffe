@@ -121,10 +121,15 @@ class CommunityPhotoPost extends HActiveRecord
 
     private function addPhoto($photoId)
     {
+        $photo = AlbumPhoto::model()->resetScope()->findByPk($photoId);
         $model = new CommunityContentGalleryItem();
         $model->gallery_id = $this->content->gallery->id;
-        $model->photo_id = $photoId;
+        $model->photo_id = $photo->id;
         $model->save();
+
+        $photo->album_id = Album::getAlbumByType($this->content->author_id, Album::TYPE_PHOTO_POST)->id;
+        $photo->hidden = 0;
+        $photo->save();
     }
 
 

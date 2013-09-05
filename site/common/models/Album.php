@@ -25,6 +25,7 @@ class Album extends HActiveRecord
     const TYPE_PRODUCTS = 4;
     const TYPE_RECIPES = 5;
     const TYPE_PREVIEW = 6;
+    const TYPE_PHOTO_POST = 7;
     const TYPE_TEMP = 10;
     const TYPE_VALENTINE = 100;
 
@@ -36,9 +37,9 @@ class Album extends HActiveRecord
         2 => 'Диалоги',
         3 => 'Семейные',
         4 => 'Продукты',
-        5 => 'Украшения блюд',
+        5 => 'Кулинария',
         6 => 'Видео превью',
-        7 => 'Мои рецепты',
+        7 => 'Мои фотопосты',
         100 => 'Валентинки',
     );
 

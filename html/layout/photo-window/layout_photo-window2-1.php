@@ -104,7 +104,7 @@
 	</div>
 	
 	<div class="photo-window_bottom">
-		<div class="display-ib w-500 verticalalign-b">
+		<div class="display-ib verticalalign-b">
 			
 			<textarea name="" id="" cols="30" rows="2" class="itx-simple" placeholder="Введите описание фото"></textarea>
 		</div>

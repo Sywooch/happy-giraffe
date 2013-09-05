@@ -46,7 +46,7 @@
 		</div>
 		
 		
-		<div class="b-section b-section__club b-section__club-1">
+		<div class="b-section b-section__club b-section__club-2">
 			<div class="b-section_hold">
 				<div class="content-cols clearfix">
 					<div class="col-1">
@@ -55,7 +55,7 @@
 								<li class="club-list_li  club-list_li__in">
 									<a href="" class="club-list_i">
 										<span class="club-list_img-hold">
-											<img src="/images/club/17-w240.png" alt="" class="club-list_img">
+											<img src="/images/club/2-w240.png" alt="" class="club-list_img">
 										</span>
 									</a>
 								</li>

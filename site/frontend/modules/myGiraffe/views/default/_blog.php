@@ -9,20 +9,21 @@ $subscribers_count = UserBlogSubscription::model()->subscribersCount($user->id);
 $subscribers = UserBlogSubscription::model()->getSubscribers($user->id, 5);
 $posts = $user->getLastBlogRecords(2);
 $params = array(
-    'subscribed'=>UserBlogSubscription::isSubscribed(Yii::app()->user->id, $user->id),
-    'count'=>(int)UserBlogSubscription::model()->subscribersCount($user->id),
-    'user_id'=>$user->id
+    'subscribed' => UserBlogSubscription::isSubscribed(Yii::app()->user->id, $user->id),
+    'count' => (int)UserBlogSubscription::model()->subscribersCount($user->id),
+    'user_id' => $user->id
 );
 ?>
-<div id="js-blog-subs-<?=$user->id ?>" class="blog-preview"<?php
-        if (!$params['subscribed']) echo ' data-bind="visible: !isSubscribed()"' ?>>
+<div id="js-blog-subs-<?= $user->id ?>" class="blog-preview"<?php
+if (!$params['subscribed']) echo ' data-bind="visible: !isSubscribed()"' ?>>
     <div class="blog-preview_ava-hold">
         <?php $this->widget('Avatar', array('user' => $user)); ?>
     </div>
 
     <div class="blog-preview_desc">
-        <a href="<?=$user->url ?>" class="blog-preview_author textdec-onhover"><?=$user->getFullName() ?></a>
-        <h2 class="blog-preview_t"><a href="<?=$user->getBlogUrl() ?>"><?=$user->blog_title ?></a></h2>
+        <a href="<?= $user->url ?>" class="blog-preview_author textdec-onhover"><?= $user->getFullName() ?></a>
+
+        <h2 class="blog-preview_t"><a href="<?= $user->getBlogUrl() ?>"><?= $user->blog_title ?></a></h2>
 
         <div class="readers2 readers2__blog-preview" data-bind="visible: count() > 0">
             <div class="clearfix">
@@ -63,36 +64,41 @@ $params = array(
             <div class="b-article-prev clearfix">
                 <div class="float-l">
                     <div class="like-control like-control__smallest clearfix">
+                        <!-- ko stopBinding: true -->
                         <?php $this->widget('application.modules.blog.widgets.LikeWidget', array('model' => $model)); ?>
                         <?php $this->widget('FavouriteWidget', array('model' => $model, 'right' => true)); ?>
+                        <!-- /ko -->
                     </div>
                 </div>
                 <div class="b-article-prev_cont clearfix">
                     <div class="clearfix">
                         <div class="meta-gray">
-                            <a href="<?=$model->getUrl() ?>" class="meta-gray_comment">
+                            <a href="<?= $model->getUrl() ?>" class="meta-gray_comment">
                                 <span class="ico-comment ico-comment__gray"></span>
-                                <span class="meta-gray_tx"><?=$model->getUnknownClassCommentsCount() ?></span>
+                                <span class="meta-gray_tx"><?= $model->getUnknownClassCommentsCount() ?></span>
                             </a>
+
                             <div class="meta-gray_view">
                                 <span class="ico-view ico-view__gray"></span>
-                                <span class="meta-gray_tx"><?=PageView::model()->viewsByPath($model->getUrl()) ?></span>
+                                <span
+                                    class="meta-gray_tx"><?= PageView::model()->viewsByPath($model->getUrl()) ?></span>
                             </div>
                         </div>
                         <div class="float-l">
-                            <span class="font-smallest color-gray"><?=HDate::GetFormattedTime($model->created)?></span>
+                            <span
+                                class="font-smallest color-gray"><?= HDate::GetFormattedTime($model->created) ?></span>
                         </div>
                     </div>
                     <div class="b-article-prev_t clearfix">
-                        <?php if ($model->getPhoto() !== null):?>
+                        <?php if ($model->getPhoto() !== null): ?>
                             <div class="b-article-prev_t-img">
-                                <img alt="" src="<?=$model->getPhoto()->getPreviewUrl(60, 40, false, true) ?>">
+                                <img alt="" src="<?= $model->getPhoto()->getPreviewUrl(60, 40, false, true) ?>">
                             </div>
                         <?php endif ?>
-                        <a href="<?=$model->getUrl() ?>" class="b-article-prev_t-a"><?=$model->title ?></a>
+                        <a href="<?= $model->getUrl() ?>" class="b-article-prev_t-a"><?= $model->title ?></a>
                     </div>
                     <div class="b-article-prev_tx clearfix">
-                        <p><?=$model->getContentText(150) ?></p>
+                        <p><?= $model->getContentText(150) ?></p>
                     </div>
                 </div>
             </div>

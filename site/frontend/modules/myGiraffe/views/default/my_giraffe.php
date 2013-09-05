@@ -32,11 +32,14 @@
                 </span>
             </a>
             <a href="<?= $this->createUrl('/myGiraffe/default/index', array('type' => SubscribeDataProvider::TYPE_FRIENDS)) ?>"
-               class="menu-list_i<?php if ($type == SubscribeDataProvider::TYPE_FRIENDS) echo ' active' ?>"
-               style="display: none;">
+               class="menu-list_i<?php if ($type == SubscribeDataProvider::TYPE_FRIENDS) echo ' active' ?>">
                 <span class="menu-list_hold">
                     <span class="menu-list_tx">Новое у друзей</span>
-                    <span class="menu-list_count">+ 2568</span>
+                    <?php $count = ViewedPost::getInstance()->newPostCount(Yii::app()->user->id, SubscribeDataProvider::TYPE_FRIENDS);
+                    if ($count) {
+                        ?>
+                        <span class="menu-list_count">+ <?= $count ?></span>
+                    <?php } ?>
                 </span>
             </a>
             <a href="<?= $this->createUrl('/myGiraffe/default/index', array('type' => SubscribeDataProvider::TYPE_BLOGS)) ?>"

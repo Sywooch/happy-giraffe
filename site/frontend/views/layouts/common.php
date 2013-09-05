@@ -16,12 +16,13 @@
         <?php endif; ?>
         <?=CHtml::linkTag('shortcut icon', null, '/favicon.bmp')?>
         <?php
+        $r = 12;
         $cs = Yii::app()->clientScript;
         $cs
-            ->registerCssFile('/redactor/redactor.css')
-            ->registerCssFile('/stylesheets/common.css')
-            ->registerCssFile('/stylesheets/global.css')
-            ->registerCssFile('/stylesheets/user.css')
+            ->registerCssFile('/redactor/redactor.css?'.$r)
+            ->registerCssFile('/stylesheets/common.css?'.$r)
+            ->registerCssFile('/stylesheets/global.css?'.$r)
+            ->registerCssFile('/stylesheets/user.css?'.$r)
             ->registerCssFile('/stylesheets/baby.css')
             ->registerCssFile('http://fonts.googleapis.com/css?family=Roboto:300&subset=latin,cyrillic-ext')
 
@@ -34,7 +35,7 @@
             ->registerCssFile('/stylesheets/jquery.fancybox-1.3.4.css')
             ->registerScriptFile('/javascripts/jquery.fancybox-1.3.4.js')
             ->registerScriptFile('/javascripts/base64.js')
-            ->registerScriptFile('/javascripts/common.js')
+            ->registerScriptFile('/javascripts/common.js?'.$r)
             ;
         $cs->registerMetaTag(trim($this->meta_description), 'description');
         if (!empty($this->meta_keywords))

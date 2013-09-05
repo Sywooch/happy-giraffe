@@ -108,7 +108,8 @@ class DefaultController extends HController
         $model = ($id === null) ? new CommunityContent() : CommunityContent::model()->findByPk($id);
         $model->scenario = 'default_club';
         $model->attributes = $_POST['CommunityContent'];
-        $model->author_id = Yii::app()->user->id;
+        if ($id === null)
+            $model->author_id = Yii::app()->user->id;
         $slug = $model->type->slug;
         $slaveModelName = 'Community' . ucfirst($slug);
         $slaveModel = ($id === null) ? new $slaveModelName() : $model->content;

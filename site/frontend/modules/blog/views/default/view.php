@@ -39,6 +39,42 @@ else
         <?php if ($full) $this->renderPartial('blog.views.default._prev_next', compact('data')); ?>
         <?php if ($data->type_id == CommunityContent::TYPE_STATUS): ?></div><?php endif; ?>
 
+        <?php if ($full): ?>
+            <!-- ﬂÌ‰ÂÍÒ.ƒËÂÍÚ -->
+            <div id="yandex_ad" style="margin: 50px 20px;"></div>
+            <script type="text/javascript">
+                (function(w, d, n, s, t) {
+                    w[n] = w[n] || [];
+                    w[n].push(function() {
+                        Ya.Direct.insertInto(87026, "yandex_ad", {
+                            site_charset: "utf-8",
+                            ad_format: "direct",
+                            font_size: 0.9,
+                            font_family: "arial",
+                            type: "horizontal",
+                            border_type: "block",
+                            limit: 2,
+                            title_font_size: 3,
+                            site_bg_color: "FFFFFF",
+                            bg_color: "F6F7F8",
+                            border_color: "D0D2DD",
+                            title_color: "289FD7",
+                            url_color: "999999",
+                            text_color: "333333",
+                            hover_color: "51BAEB",
+                            favicon: true
+                        });
+                    });
+                    t = d.getElementsByTagName('head')[0];
+                    s = d.createElement("script");
+                    s.type = "text/javascript";
+                    s.src = "http://an.yandex.ru/system/context.js";
+                    s.setAttribute("async", "true");
+                    t.insertBefore(s, t.firstChild);
+                })(window, document, "yandex_context_callbacks");
+            </script>
+        <?php endif; ?>
+
         <?php $this->widget('application.widgets.newCommentWidget.NewCommentWidget', array('model' => $data, 'full' => $full)); ?>
         <!-- /ko -->
     </div>

@@ -213,8 +213,14 @@ class SeoUser extends HActiveRecord
         Yii::import('site.frontend.extensions.*');
         Yii::import('site.frontend.widgets.userAvatarWidget.Avatar');
         $user = $this->getRelatedUser();
-        if ($user != null) {
-            return $user->getAvatarUrl($size);
+        if ($user != null && isset($user->avatar)) {
+            return implode('/', array(
+                Yii::app()->params['photos_url'],
+                'thumbs',
+                '72x72',
+                $user->id,
+                $user->avatar->fs_name,
+            ));
         }
         return '';
     }

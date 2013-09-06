@@ -10,7 +10,6 @@ class Avatar extends CWidget
      * @var User
      */
     public $user;
-    public $url;
     /**
      * @var string
      */
@@ -22,11 +21,6 @@ class Avatar extends CWidget
 
 	public function run()
 	{
-        if ($this->user->deleted)
-            $this->url = 'javascript:;';
-        else
-            $this->url = $this->user->getUrl();
-
         $this->render($this->size);
 	}
 }

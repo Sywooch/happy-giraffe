@@ -914,6 +914,9 @@ class User extends HActiveRecord
     {
         if ($this->id == self::HAPPY_GIRAFFE)
             return '/';
+        if ($this->deleted)
+            return 'javascript:;';
+
         list($route, $params) = $this->urlParams;
         $method = $absolute ? 'createAbsoluteUrl' : 'createUrl';
         return Yii::app()->$method($route, $params);

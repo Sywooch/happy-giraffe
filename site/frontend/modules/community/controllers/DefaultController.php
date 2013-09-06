@@ -13,7 +13,7 @@ class DefaultController extends HController
 
     protected function afterAction($action)
     {
-        if (Yii::app()->user->isGuest) {
+        if (Yii::app()->user->isGuest && $this->club) {
             $clubs = Yii::app()->user->getState('visitedClubs', array());
             if (array_search($this->club->id, $clubs) === false) {
                 $clubs[] = $this->club->id;

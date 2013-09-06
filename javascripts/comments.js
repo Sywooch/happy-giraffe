@@ -68,6 +68,9 @@ function CommentViewModel(data) {
         }
     };
     self.goBottom = function () {
+        if (userIsGuest)
+            $('a[href=#login]').trigger('click');
+
         if (self.full())
             $('body').stop().animate({scrollTop: $('.layout-wrapper').height()}, "normal");
         self.openComment();

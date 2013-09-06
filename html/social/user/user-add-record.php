@@ -25,7 +25,7 @@
 	            var scTop = $(document).scrollTop();
 	            var box = $('#fancybox-wrap');
 
-	            boxTop = parseInt(Math.max(scTop + 20));
+	            boxTop = parseInt(Math.max(scTop + 40));
 	            box
 	                .stop()
 	                .animate({
@@ -38,6 +38,7 @@
 	            overlayColor:'#2d1a3f',
 	            overlayOpacity:'0.6',
 	            padding:0,
+	            hideOnOverlayClick:false,
 	            showCloseButton:false,
 	            centerOnScroll:false,
 	            onComplete:onComplete_function

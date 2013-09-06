@@ -168,14 +168,6 @@
 
 <?php $this->renderPartial('//banners/community_24_700x346'); ?>
 
-<?php
-    $this->widget('application.widgets.commentWidget.CommentWidget', array(
-        'entity' => get_parent_class($recipe),
-        'entity_id' => $recipe->primaryKey,
-    ));
-    $remove_tmpl = $this->beginWidget('site.frontend.widgets.removeWidget.RemoveWidget');
-    $remove_tmpl->registerTemplates();
-    $this->endWidget();
-?>
+<?php $this->widget('application.widgets.newCommentWidget.NewCommentWidget', array('model' => $recipe, 'full' => true)); ?>
 
 <?php $this->widget('application.widgets.seo.SeoLinksWidget'); ?>

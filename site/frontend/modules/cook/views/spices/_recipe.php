@@ -9,14 +9,7 @@
 <li class="recipe">
     <div class="item-title"><a href=""><?=$recipe->title ?></a></div>
     <div class="user clearfix">
-        <?php
-        $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
-            'user' => $recipe->author,
-            'size' => 'small',
-            'location' => false,
-            'sendButton' => false
-        ));
-        ?>
+        <?php $this->widget('Avatar', array('user' => $recipe->author, 'size' => Avatar::SIZE_MICRO)); ?>
     </div>
     <div class="content">
         <?php if ($recipe->photo): ?>

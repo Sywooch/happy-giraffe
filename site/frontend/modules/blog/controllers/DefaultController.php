@@ -20,6 +20,9 @@ class DefaultController extends HController
 
     public function actionIndex($user_id, $rubric_id = null)
     {
+        if ($user_id == User::HAPPY_GIRAFFE)
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+
         $this->user = $this->loadUser($user_id);
         $this->pageTitle = $this->user->getBlogTitle();
         $this->rubric_id = $rubric_id;
@@ -38,6 +41,8 @@ class DefaultController extends HController
     public function actionView($content_id, $user_id)
     {
         header('X-XSS-Protection: 0');
+        if ($user_id == User::HAPPY_GIRAFFE)
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
         $this->user = $this->loadUser($user_id);
         $content = $this->loadPost($content_id);

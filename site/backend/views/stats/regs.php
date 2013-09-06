@@ -16,8 +16,7 @@
 
     ?>
     <div>
-        <span><?=$date ?>&nbsp;&nbsp;&nbsp;&nbsp;</span><span><?=count($users) ?>
-      | обычная: <?=$types['default'] ?> | гороскоп: <?=$types['horoscope'] ?> | беременность: <?=$types['pregnancy'] ?>  | <?=$percent ?>%
+        <span><?=$date ?>&nbsp;&nbsp;&nbsp;&nbsp;</span><span><?=count($users) ?>: <?=$types['default'] ?>
     </span>
     </div><?php } ?>
 </div>

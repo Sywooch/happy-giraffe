@@ -5,7 +5,7 @@
 ?><div class="b-ava-large">
     <div class="b-ava-large_ava-hold clearfix">
 
-        <a href="<?=$this->url?>" class="ava large">
+        <a href="<?=$this->user->getUrl()?>" class="ava large">
             <?=CHtml::image($this->user->getAvatarUrl(Avatar::SIZE_LARGE))?>
         </a>
 
@@ -36,7 +36,7 @@
         <?php $this->widget('application.widgets.friendButtonWidget.FriendButtonWidget', array('user' => $this->user)); ?>
     </div>
     <div class="textalign-c">
-        <a href="<?=$this->url ?>" class="b-ava-large_a"><?=$this->user->getFullName() ?></a>
+        <a href="<?=$this->user->getUrl() ?>" class="b-ava-large_a"><?=$this->user->getFullName() ?></a>
         <?php if ($this->age):?>
             <span class="font-smallest color-gray"><?=$this->user->getNormalizedAge() ?></span>
         <?php endif ?>

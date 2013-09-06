@@ -30,6 +30,17 @@ class DefaultController extends HController
         );
     }
 
+    protected function afterAction($action)
+    {
+        if (Yii::app()->user->isGuest) {
+            $clubs = Yii::app()->user->getState('visitedBlogs', array());
+            if (array_search($this->user->id, $clubs) === false) {
+                $clubs[] = $this->user->id;
+                Yii::app()->user->setState('visitedBlogs', $clubs);
+            }
+        }
+    }
+
     public function actionIndex($user_id, $rubric_id = null)
     {
         if ($user_id == User::HAPPY_GIRAFFE)

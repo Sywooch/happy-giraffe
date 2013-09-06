@@ -188,6 +188,8 @@ class DefaultController extends HController
             UserClubSubscription::add($clubId);
         foreach ($blogs as $blogId)
             UserBlogSubscription::add($blogId);
+        Yii::app()->user->setState('visitedClubs',null);
+        Yii::app()->user->setState('visitedBlogs',null);
 
         $this->loadUser(Yii::app()->user->id);
         $this->layout = '//layouts/simple';

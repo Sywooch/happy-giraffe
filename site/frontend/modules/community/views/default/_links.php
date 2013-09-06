@@ -1,10 +1,5 @@
 <?php if (!in_array($this->club->id, array(7))):?>
-    <?php if (count($this->club->communities) == 1):?>
-        <li class="b-section_li">
-            <a href="<?=$this->createUrl('/community/default/forum', array('forum_id'=>$this->club->communities[0]->id)) ?>"
-               class="b-section_li-a<?php if (isset($this->forum) && $this->forum !== null) echo ' active' ?>">Форум</a>
-        </li>
-    <?php else: ?>
+    <?php if (count($this->club->communities) > 1):?>
         <?php foreach ($this->club->communities as $community): ?>
             <li class="b-section_li">
                 <a href="<?=$this->createUrl('/community/default/forum', array('forum_id'=>$community->id)) ?>"

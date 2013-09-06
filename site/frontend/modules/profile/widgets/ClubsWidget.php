@@ -34,8 +34,6 @@ class ClubsWidget extends UserCoreWidget
      */
     public $clubs;
 
-    public $all = false;
-
     /**
      * @var bool
      */
@@ -61,15 +59,16 @@ class ClubsWidget extends UserCoreWidget
     private function getUserClubsData()
     {
         $data = array();
-        if (empty($this->clubs) && $this->all === false){
+        if (empty($this->clubs)){
             if ($this->userClubs)
                 $this->clubs = CUserSubscriptions::getInstance($this->user->id)->getSubUserClubIds();
             else
                 $this->clubs = CUserSubscriptions::getInstance($this->user->id)->getNotSubscribedClubIds();
         }
 
-        $clubs = $this->all ? CommunityClub::model()->findAll() : CommunityClub::model()->findAllByPk($this->clubs);
-        foreach ($clubs as $club) {
+        $clubs = CommunityClub::model()->findAllByPk($this->clubs);
+        foreach ($clubs as $club)
+            if ($club->id != 21 && $club->id != 22 && $club->id != 19) {
                 $data [] = array(
                     'id' => $club->id,
                     'title' => $club->title,

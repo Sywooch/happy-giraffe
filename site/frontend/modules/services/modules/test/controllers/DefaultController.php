@@ -2,7 +2,7 @@
 
 class DefaultController extends ServiceController
 {
-    const SERVICE_ID = 9;
+    public $service_id = 9;
     /**
      * @todo добавить в sitemap
      */

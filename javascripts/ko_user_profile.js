@@ -259,10 +259,8 @@ var UserClub = function (data, size, parent) {
     self.id = ko.observable(data.id);
     self.title = ko.observable(data.title);
     self.have = ko.observable(data.have);
+    self.url = ko.observable(data.url);
 
-    self.url = ko.computed(function () {
-        return '/community/' + self.id() + '/';
-    });
     self.src = ko.computed(function () {
         return '/images/club/' + self.id() + '-w130.png';
     });

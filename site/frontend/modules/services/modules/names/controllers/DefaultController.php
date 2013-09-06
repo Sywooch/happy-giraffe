@@ -2,7 +2,7 @@
 
 class DefaultController extends ServiceController
 {
-    const SERVICE_ID = 1;
+    public $service_id = 1;
     /**
      * @todo имена
      */

@@ -2,7 +2,7 @@
 
 class DefaultController extends ServiceController
 {
-    const SERVICE_ID = 10;
+    public $service_id = 10;
 
     public function actionIndex()
     {

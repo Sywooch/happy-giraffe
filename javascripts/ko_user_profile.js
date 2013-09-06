@@ -238,6 +238,18 @@ var UserClubsWidget = function (data, params) {
         });
         return shortList;
     });
+    self.SingupClubs = ko.computed(function() {
+        self.clubs().sort(function(club) {
+            return club.have() ? -1 : 1;
+        });
+
+        var shortList = [];
+        ko.utils.arrayForEach(self.clubs(), function (club) {
+            if (self.clubs().indexOf(club) >= self.offset && shortList.length < self.limit)
+                shortList.push(club);
+        });
+        return shortList;
+    });
 };
 
 var UserClub = function (data, size, parent) {

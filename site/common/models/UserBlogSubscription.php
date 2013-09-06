@@ -170,7 +170,7 @@ class UserBlogSubscription extends HActiveRecord
     public static function getTopSubscription($user_id)
     {
         $subscribed = self::model()->getSubUserIds($user_id);
-        $recommends = array(197101, 197102, 197103, 197202, 16491, 197095);
+        $recommends = array(197101, 197102, 197103, 197202, 16491, 197095, 192192, 192165, 197470, 197475);
         foreach ($subscribed as $subscribe_id)
             if (($key = array_search($subscribe_id, $recommends)) !== false) {
                 unset($recommends[$key]);

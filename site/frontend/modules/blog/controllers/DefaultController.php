@@ -14,7 +14,19 @@ class DefaultController extends HController
     {
         return array(
             'accessControl',
-            //'ajaxOnly - index, view, upload, save',
+            'ajaxOnly - index, view, save',
+        );
+    }
+
+    public function accessRules()
+    {
+        return array(
+            array(
+                'deny',
+                'actions' => array('save', 'remove', 'restore', 'subscribeToggle', 'form'),
+                'users' => array('?'),
+            ),
+
         );
     }
 

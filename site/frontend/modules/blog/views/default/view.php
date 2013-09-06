@@ -41,7 +41,7 @@ else
 
         <?php if ($full): ?>
             <!-- ﬂÌ‰ÂÍÒ.ƒËÂÍÚ -->
-            <div id="yandex_ad" style="padding: 20px;">
+            <div id="yandex_ad" style="padding: 20px; background: #fffff0;">
                 <!-- ﬂÌ‰ÂÍÒ.ƒËÂÍÚ -->
                 <div id="yandex_ad"></div>
                 <script type="text/javascript">

@@ -650,14 +650,42 @@ table.fr_recipe_tb td { width: 50%;}
         word-wrap: break-word;
     }
     &_in-img {
+        position: relative;
         text-align: center;
         margin: 0 -20px 10px;
     }
+    &_in-img:hover &_in-img-overlay {display: block;}
     &_in-img img {
         display: block;
         margin: 0;
     }
     &_in .like-control__smallest {border-left: 1px solid #fff;}
+    &_in-img-desc {
+        margin: -10px -20px 10px;
+        padding: 10px 20px 15px;
+        font: 11px/15px Tahoma, Arial, Verdana, sans-serif;
+        color: #d5cedd;
+        background: #4c385d;
+    }
+    &_in-img-overlay {
+        display: none;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background: #222;
+        background: rgba(78,41,114,.5);
+    }
+    &_in-img-zoom {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin: -20px 0 0 -17px;
+        width: 34px;
+        height: 38px;
+        background: url(/images/photo-grid_zoom.png) no-repeat;
+    }
     &_repost-comment {
         .inline-block();
         margin: 10px 20px 25px;
@@ -710,6 +738,11 @@ table.fr_recipe_tb td { width: 50%;}
         color: #fff;
         font-weight: normal;
         background: #0eba23;
+    }
+    &_album-header {
+        margin: 10px 20px 15px;
+        font: 11px/12px Tahoma, Arial, Verdana, sans-serif;
+        color: #707070;
     }
     &_more {
         .inline-block();
@@ -1035,13 +1068,22 @@ table.fr_recipe_tb td { width: 50%;}
         height: 38px;
         background: url(/images/photo-grid_zoom.png) no-repeat;
     }
+    &_last {
+        display: table-cell;
+        vertical-align: middle;
+        width: 90px;
+        height: 102px;
+        text-align: center;
+        background: #f5f5f5;
+    }
+    &_last .font-small {line-height: 12px;}
+    &_last-a {font-size: 16px;}
 }
 /* /photo-grid */
 
 /* photo-preview-row */
 .photo-preview-row {
-    width: 680px;
-    margin: 10px auto 50px;
+    margin: 10px 20px 50px;
 
     .photo-grid {
         .inline-block();
@@ -1050,9 +1092,7 @@ table.fr_recipe_tb td { width: 50%;}
         overflow: visible;
     }
     .photo-grid_row {margin: 0;}
-    .photo-grid_i {
-        
-    }
+    .photo-grid_i {}
     .photo-grid_i:hover {
         position: relative;
         z-index: 10;
@@ -1092,16 +1132,24 @@ table.fr_recipe_tb td { width: 50%;}
         text-align: left;
         font:bold 14px/18px Tahoma, Arial, Verdana, sans-serif;
     }
+    &_t-small {
+        display: block;
+        margin: 0 0 10px;
+        text-align: left;
+        font: 14px/18px Tahoma, Arial, Verdana, sans-serif;
+        color: #353535;
+    }
     &_hold {background: #f5f5f5;}
     &_hold2 {background: #fff;}
     &_last {
         .inline-block();
         vertical-align: middle;
-        width: 66px;
+        width: 90px;
         text-align: center;
     }
+    &_last .font-small {line-height: 12px;}
     &_a {
-        font-size: 18px;
+        font-size: 16px;
     }
     &_add {
         float: left;

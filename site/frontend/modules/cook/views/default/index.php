@@ -61,15 +61,7 @@
                     <?php foreach ($recipes as $recipe): ?>
                     <li>
                         <div class="user clearfix">
-                            <?php
-                            $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
-                                'user' => $recipe->author,
-                                'size' => 'small',
-                                'location' => false,
-                                'sendButton' => false,
-                                'hideLinks'=>true
-                            ));
-                            ?>
+                            <?php $this->widget('Avatar', array('user' => $recipe->author, 'size' => Avatar::SIZE_MICRO, 'hideLink' => true)); ?>
                         </div>
                         <div class="item-title">
                             <?=CHtml::link($recipe->title, $recipe->url)?>

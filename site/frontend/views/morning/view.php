@@ -90,15 +90,7 @@
             )); ?>
             </noindex>
         </div>
-        <br><br>
-        <?php $this->widget('application.widgets.commentWidget.CommentWidget', array(
-        'model' => $article,
-        )); ?>
-        <?php
-        $remove_tmpl = $this->beginWidget('site.frontend.widgets.removeWidget.RemoveWidget');
-        $remove_tmpl->registerTemplates();
-        $this->endWidget();
-        ?>
+        <?php $this->widget('application.widgets.newCommentWidget.NewCommentWidget', array('model' => $article, 'full' => true)); ?>
 
     </div>
 </div>

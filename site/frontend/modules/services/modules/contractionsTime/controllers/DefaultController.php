@@ -2,7 +2,7 @@
 
 class DefaultController extends ServiceController
 {
-    const SERVICE_ID = 7;
+    public $service_id = 7;
 
     /**
      * @sitemap

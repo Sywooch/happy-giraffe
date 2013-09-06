@@ -5,11 +5,11 @@
         </div>
         <div class="user-add-record_hold js_add_menu">
             <div class="user-add-record_tx">Я хочу добавить</div>
-            <a href="<?=$this->createUrl('form', array('type' => 1, 'club_id' => $club_id))?>" class="user-add-record_ico user-add-record_ico__article <?php if ($type == 1) echo 'active' ?>" onclick="return AddMenu.select(this, 1);">Статью</a>
-            <a href="<?=$this->createUrl('form', array('type' => 3, 'club_id' => $club_id))?>" class="user-add-record_ico user-add-record_ico__photo <?php if ($type == 3) echo 'active' ?>" onclick="return AddMenu.select(this, 3);">Фото</a>
-            <a href="<?=$this->createUrl('form', array('type' => 2, 'club_id' => $club_id))?>" class="user-add-record_ico user-add-record_ico__video <?php if ($type == 2) echo 'active' ?>" onclick="return AddMenu.select(this, 2);">Видео</a>
+            <a href="<?=$this->createUrl('form', array('type' => 1, 'club_id' => $club_id))?>" class="user-add-record_ico user-add-record_ico__article <?php if ($type == 1) echo 'active' ?>" onclick="return AddMenu.select(this, 1, '<?=$club_id ?>');">Статью</a>
+            <a href="<?=$this->createUrl('form', array('type' => 3, 'club_id' => $club_id))?>" class="user-add-record_ico user-add-record_ico__photo <?php if ($type == 3) echo 'active' ?>" onclick="return AddMenu.select(this, 3, '<?=$club_id ?>');">Фото</a>
+            <a href="<?=$this->createUrl('form', array('type' => 2, 'club_id' => $club_id))?>" class="user-add-record_ico user-add-record_ico__video <?php if ($type == 2) echo 'active' ?>" onclick="return AddMenu.select(this, 2, '<?=$club_id ?>');">Видео</a>
             <?php if (empty($club_id)):?>
-                <a href="<?=$this->createUrl('form', array('type' => 5))?>" class="user-add-record_ico user-add-record_ico__status <?php if ($type == 5) echo 'active' ?>" onclick="return AddMenu.select(this, 5);">Статус</a>
+                <a href="<?=$this->createUrl('form', array('type' => 5))?>" class="user-add-record_ico user-add-record_ico__status <?php if ($type == 5) echo 'active' ?>" onclick="return AddMenu.select(this, 5, '<?=$club_id ?>');">Статус</a>
             <?php endif ?>
         </div>
     </div>

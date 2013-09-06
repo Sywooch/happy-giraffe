@@ -2,7 +2,7 @@
 
 class DefaultController extends ServiceController
 {
-    const SERVICE_ID = 6;
+    public $service_id = 6;
 
     public function filters()
     {

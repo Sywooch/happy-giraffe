@@ -67,7 +67,8 @@ class ClubsWidget extends UserCoreWidget
         }
 
         $clubs = CommunityClub::model()->findAllByPk($this->clubs);
-        foreach ($clubs as $club) {
+        foreach ($clubs as $club)
+            if ($club->id != 21 && $club->id != 22 && $club->id != 19) {
                 $data [] = array(
                     'id' => $club->id,
                     'title' => $club->title,

@@ -75,11 +75,37 @@ class UserClubSubscription extends HActiveRecord
      */
     public function getSubscribersCount($club_id)
     {
-        return Yii::app()->db->createCommand()
+        $add = array(
+            1 => 8820,
+            2 => 40580,
+            3 => 36000,
+            4 => 35000,
+            5 => 10000,
+            6 => 8600,
+            7 => 39000,
+            8 => 15000,
+            9 => 10500,
+            10 => 7000,
+            11 => 1350,
+            12 => 20500,
+            13 => 1130,
+            14 => 5300,
+            15 => 16000,
+            16 => 39000,
+            17 => 9500,
+            18 => 5300,
+            19 => 0,
+            20 => 6400,
+            21 => 4600,
+            22 => 10000,
+        );
+        $count = Yii::app()->db->createCommand()
             ->select('count(*)')
             ->from($this->tableName())
             ->where('club_id=:club_id', array(':club_id' => $club_id))
             ->queryScalar();
+
+        return $count + $add[$club_id];
     }
 
     /**

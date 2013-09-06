@@ -55,9 +55,12 @@ class DefaultController extends HController
 
         $this->breadcrumbs = ($forum_id == Community::COMMUNITY_NEWS) ? array() : array(
             $this->club->section->title => $this->club->section->getUrl(),
-            $this->club->title => $this->club->getUrl(),
-            $this->forum->title
         );
+        if (count($this->club->communities) > 1){
+            $this->breadcrumbs[$this->club->title] = $this->club->getUrl();
+            $this->breadcrumbs [] = $this->forum->title;
+        }else
+            $this->breadcrumbs [] = $this->club->title;
 
         Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
         $dp = CommunityContent::model()->getContents($forum->id, $rubric_id);
@@ -78,6 +81,14 @@ class DefaultController extends HController
 
         $this->pageTitle = $content->title;
         $this->rubric_id = $content->rubric_id;
+
+        $this->breadcrumbs = ($forum_id == Community::COMMUNITY_NEWS) ? array() : array(
+            $this->club->section->title => $this->club->section->getUrl(),
+            $this->club->title => $this->club->getUrl(),
+        );
+        if (count($this->club->communities) > 1)
+            $this->breadcrumbs [$this->forum->title] = $this->forum->getUrl();
+        $this->breadcrumbs [] = $content->title;
 
         if (!Yii::app()->user->isGuest) {
             NotificationRead::getInstance()->setContentModel($content);

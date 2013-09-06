@@ -17,8 +17,6 @@
         });
     ';
 
-    $this->widget('application.modules.gallery.widgets.PhotoCollectionViewWidget');
-
     Yii::app()->clientScript
         ->registerScript('photo_gallery_entity_id', 'var photo_gallery_entity_id = "' . $entity_id . '";')
         ->registerScript('cook_decor_list', $js)

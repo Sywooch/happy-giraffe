@@ -35,12 +35,9 @@ return array(
         // site controller
         '/' => 'site/index',
         'js_dynamics/<hash:\w+>.js' => 'site/seoHide',
-        //'search' => 'site/search',
         'moderation'=>'site/moderationRules',
-        'site/<_a:(confirmEmail|resendConfirmEmail|passwordRecovery|passwordRecoveryForm|login|logout|link|fixPhoto|test)>' => 'site/<_a>',
-        //'contest' => 'site/contest',
-        'services/<category_id:\d+>' => 'site/services',
-        'services' => 'site/services',
+        'site/<_a:(confirmEmail|resendConfirmEmail|passwordRecovery|passwordRecoveryForm|login|logout|link)>' => 'site/<_a>',
+
 
         //===================== Subscribes =========================//
         'subscribes'=>'myGiraffe/default/subscribes',
@@ -51,9 +48,8 @@ return array(
         'my'  => array('myGiraffe/default/index', 'defaultParams' => array('type' => 1)),
         'my/<_a>' => 'myGiraffe/default/<_a>',
 
-
         // ajax controller
-        'ajax/duelShow/question_id/<question_id:\d+>' => 'ajax/duelShow',
+        //'ajax/duelShow/question_id/<question_id:\d+>' => 'ajax/duelShow',
         'ajaxSimple/<_a>'=>'ajaxSimple/<_a>',
 
         // signup controller
@@ -122,6 +118,19 @@ return array(
         'blog/add/content_type_slug/<content_type_slug>/rubric_id/<rubric_id:\d+>' => 'blog/add',
         'blog/<_a:(add|empty)>' => 'blog/<_a>',
 
+
+        /************************************************* community  *************************************************/
+        array(
+            'class' => 'application.components.ClubUrlRule',
+            'pattern' => '<club:[\w-]+>',
+            'route' => 'community/default/club',
+        ),
+        array(
+            'class' => 'application.components.ClubUrlRule',
+            'pattern' => '<club:[\w-]+>/services',
+            'route' => 'community/default/services',
+        ),
+
         // community/*
         'community/36.*' => 404,
         'news/rubric<rubric_id:\d+>' => array('community/default/forum', 'defaultParams' => array('forum_id' => 36)),
@@ -138,9 +147,7 @@ return array(
         'community/<_a:(subscribe)>/'=>'community/default/<_a>',
         'community/<forum_id:\d+>/forum/rubric/<rubric_id:\d+>' => 'community/default/forum',
         'community/<forum_id:\d+>/forum/<content_type_slug:\w+>/<content_id:\d+>' => 'community/default/view',
-        'community/<club_id:\d+>/services'=>'community/default/services',
         'community/<forum_id:\d+>/forum/' => 'community/default/forum',
-        'community/<club_id:\d+>/'=>'community/default/club',
 //        'community/<community_id:\d+>/forum/rubric/<rubric_id:\d+>/<content_type_slug:\w+>' => 'community/list',
 //        'community/<community_id:\d+>/forum/rubric/<rubric_id:\d+>' => 'community/list',
 //        'community/<community_id:\d+>/forum/<content_type_slug:\w+>' => 'community/list',

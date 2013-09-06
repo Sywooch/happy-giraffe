@@ -24,7 +24,7 @@
                 </div>
             </div>
             <div class="float-l">
-                <span class="font-smallest color-gray"><?=Yii::app()->dateFormatter->format("d MMMM yyyy, H:mm", $model->created)?></span>
+                <span class="font-smallest color-gray"><?=HDate::GetFormattedTime($model->created)?></span>
             </div>
         </div>
         <div class="b-article-prev_t clearfix">

@@ -9,6 +9,7 @@
  * @property string $description
  * @property string $services_description
  * @property string $section_id
+ * @property string $slug
  *
  * The followings are the available model relations:
  * @property CommunitySection $section
@@ -105,7 +106,7 @@ class CommunityClub extends HActiveRecord
     public function getUrl()
     {
         return Yii::app()->createUrl('community/default/club', array(
-            'club_id' => $this->id,
+            'club' => $this->slug,
         ));
     }
 

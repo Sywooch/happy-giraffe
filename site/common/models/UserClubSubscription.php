@@ -132,12 +132,15 @@ class UserClubSubscription extends HActiveRecord
      * Добавляет подписку на клуб
      *
      * @param int $club_id
+     * @param null $user_id
      * @return bool успех
      */
-    public static function add($club_id)
+    public static function add($club_id, $user_id = null)
     {
-        $model = new self;
-        $model->user_id = Yii::app()->user->id;
+        if (empty($user_id))
+            $user_id = Yii::app()->user->id;
+        $model = new UserClubSubscription;
+        $model->user_id = $user_id;
         $model->club_id = $club_id;
         return $model->save();
     }

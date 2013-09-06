@@ -37,10 +37,11 @@ class DefaultController extends HController
      * Главная страница сообщества
      * @param int $club_id
      */
-    public function actionClub($club_id)
+    public function actionClub($club)
     {
+
         $this->layout = '//layouts/main';
-        $this->loadClub($club_id);
+        $this->loadClub($club);
         $this->breadcrumbs = array($this->club->section->title => $this->club->section->getUrl(), $this->club->title);
 
         $this->pageTitle = $this->club->title;
@@ -109,9 +110,9 @@ class DefaultController extends HController
         $this->render('view', compact('content'));
     }
 
-    public function actionServices($club_id)
+    public function actionServices($club)
     {
-        $this->loadClub($club_id);
+        $this->loadClub($club);
 
         $services = $this->club->services;
         $this->render('services', compact('services'));
@@ -199,13 +200,13 @@ class DefaultController extends HController
     }
 
     /**
-     * @param int $id model id
+     * @param string $slug model slug
      * @return CommunityClub
      * @throws CHttpException
      */
-    public function loadClub($id)
+    public function loadClub($slug)
     {
-        $this->club = CommunityClub::model()->findByPk($id);
+        $this->club = CommunityClub::model()->findByAttributes(array('slug' => $slug));
         if ($this->club === null)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
     }

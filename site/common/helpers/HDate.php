@@ -279,9 +279,9 @@ class HDate
         elseif (date("Y:m:d", $ts) == date("Y:m:d", strtotime('-1 day')))
             return 'Вчера' . $delimiter . date("G:i", $ts);
         elseif (date("Y", $ts) == date("Y"))
-            return date("j", $ts) . ' ' . self::ruMonthShort(date("m", $ts));
+            return Yii::app()->dateFormatter->format('d MMM',$ts);
         else
-            return date("j", $ts) . ' ' . self::ruMonthShort(date("m", $ts)). ' ' . date("Y", $ts);
+            return Yii::app()->dateFormatter->format('d MMM yyyy',$ts);
     }
 
     public static function GetFormattedTimestamp($ts)

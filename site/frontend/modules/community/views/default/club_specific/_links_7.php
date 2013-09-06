@@ -15,5 +15,5 @@
        class="b-section_li-a<?php if (isset($this->forum) && $this->forum !== null && $this->forum->id == 22) echo ' active' ?>">Форум</a>
 </li>
 <li class="b-section_li">
-    <a href="<?=$this->createUrl('/community/default/services', array('club_id'=>$this->club->id)) ?>" class="b-section_li-a<?php if (Yii::app()->controller->action->id == 'services' ) echo ' active' ?>">Сервисы</a>
+    <a href="<?=$this->createUrl('/community/default/services', array('club'=>$this->club->slug)) ?>" class="b-section_li-a<?php if (Yii::app()->controller->action->id == 'services' ) echo ' active' ?>">Сервисы</a>
 </li>

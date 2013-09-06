@@ -74,6 +74,7 @@ class ClubsWidget extends UserCoreWidget
                 $data [] = array(
                     'id' => $club->id,
                     'title' => $club->title,
+                    'url' => $club->getUrl(),
                     'have' => Yii::app()->user->isGuest ? false : CUserSubscriptions::getInstance($this->user->id)->subscribed($club->id),
                 );
             }

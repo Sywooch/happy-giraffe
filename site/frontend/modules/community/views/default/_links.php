@@ -17,7 +17,7 @@
         <?php endforeach ?>
     <?php else: ?>
         <li class="b-section_li">
-            <a href="<?=$this->createUrl('/community/default/services', array('club_id'=>$this->club->id)) ?>" class="b-section_li-a<?php if (Yii::app()->controller->action->id == 'services' ) echo ' active' ?>">Сервисы</a>
+            <a href="<?=$this->createUrl('/community/default/services', array('club'=>$this->club->slug)) ?>" class="b-section_li-a<?php if (Yii::app()->controller->action->id == 'services' ) echo ' active' ?>">Сервисы</a>
         </li>
     <?php endif ?>
 <?php else: ?>

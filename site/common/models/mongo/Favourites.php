@@ -166,7 +166,7 @@ class Favourites extends EMongoDocument
             'post',
             'video'
         );
-        $criteria->select = array('t.id', 't.title', 't.type_id', 't.rubric_id', 't.author_id');
+        $criteria->select = array('t.*');
         $criteria->compare('t.id', $ids);
         $models = CommunityContent::model()->findAll($criteria);
 

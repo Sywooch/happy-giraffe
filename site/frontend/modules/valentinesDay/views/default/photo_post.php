@@ -46,6 +46,7 @@
         )); ?>
         </noindex>
 
-        <?php $this->widget('application.widgets.commentWidget.CommentWidget', array('model' => $post)); ?>
+        <?php $this->widget('application.widgets.newCommentWidget.NewCommentWidget', array('model' => $post, 'full' => true)); ?>
+
     </div>
 </div>

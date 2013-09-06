@@ -8,9 +8,10 @@ class ConvertNewCommand extends CConsoleCommand
 
     public function actionFix()
     {
+        Yii::import('site.frontend.modules.cook.models.*');
         $criteria = new CDbCriteria;
         $criteria->limit = 1000;
-        $criteria->offset = 70000;
+        $criteria->offset = 0;
         $criteria->order = 'id desc';
 
         $models = array(0);
@@ -18,8 +19,8 @@ class ConvertNewCommand extends CConsoleCommand
             $models = AlbumPhoto::model()->findAll($criteria);
 
             foreach ($models as $model) {
-                if ($model->album != null && $model->album->type == Album::TYPE_PRIVATE && $model->galleryItem !== null) {
-                    $model->album_id = Album::getAlbumByType($model->author_id, Album::TYPE_PHOTO_POST)->id;
+                if ($model->album != null && $model->album->type == Album::TYPE_PRIVATE && $model->cookRecipe !== null) {
+                    $model->album_id = Album::getAlbumByType($model->author_id, Album::TYPE_RECIPES)->id;
                     $model->hidden = 0;
                     $model->save();
                 }
@@ -27,6 +28,28 @@ class ConvertNewCommand extends CConsoleCommand
 
             $criteria->offset = $criteria->offset + 1000;
             echo $criteria->offset . "\n";
+        }
+    }
+
+    public function actionFix2()
+    {
+        $i = 0;
+        $rows = 1;
+        while (!empty($rows)) {
+            $rows = Yii::app()->db->createCommand()
+                ->select('*')
+                ->from('user__users_communities')
+                ->offset($i * 1000)
+                ->limit(1000)
+                ->queryAll();
+            foreach($rows as $row){
+                $c = Community::model()->findByPk($row['community_id']);
+                if (!empty($c->club_id) && !UserClubSubscription::subscribed($row['user_id'], $c->club_id))
+                    UserClubSubscription::add($c->club_id, $row['user_id']);
+            }
+
+            echo $i."\n";
+            $i++;
         }
     }
 

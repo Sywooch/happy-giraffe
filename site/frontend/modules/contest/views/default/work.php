@@ -5,7 +5,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts
 
 <div id="gallery">
     <div class="header clearfix">
-        <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => $work->author)); ?>
+        <?php $this->widget('Avatar', array('user' => $work->author)); ?>
     </div>
 
     <div id="photo">
@@ -99,9 +99,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts
     });
 </script>
 
-<?php $this->widget('site.frontend.widgets.commentWidget.CommentWidget', array(
-    'model' => $work,
-)); ?>
+<?php $this->widget('application.widgets.newCommentWidget.NewCommentWidget', array('model' => $work, 'full' => true)); ?>
 
 <?php
 $remove_tmpl = $this->beginWidget('site.frontend.widgets.removeWidget.RemoveWidget');

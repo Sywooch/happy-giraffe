@@ -16,7 +16,7 @@
         <?php endif; ?>
         <?=CHtml::linkTag('shortcut icon', null, '/favicon.bmp')?>
         <?php
-        $r = 13;
+        $r = 15;
         $cs = Yii::app()->clientScript;
         $cs
             ->registerCssFile('/redactor/redactor.css?'.$r)

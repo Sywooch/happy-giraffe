@@ -1,14 +1,7 @@
 <li>
     <div class="user clearfix">
         <div class="user-info clearfix">
-            <?php
-            $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
-                'user' => $data->photo->author,
-                'size' => 'small',
-                'location' => false,
-                'sendButton' => false
-            ));
-            ?>
+            <?php $this->widget('Avatar', array('user' => $data->photo->author, 'size' => Avatar::SIZE_MICRO)); ?>
         </div>
     </div>
     <div class="img">

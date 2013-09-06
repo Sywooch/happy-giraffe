@@ -111,6 +111,7 @@ class AlbumPhoto extends HActiveRecord
             'attach' => array(self::HAS_ONE, 'AttachPhoto', 'photo_id'),
             'userAvatar' => array(self::HAS_ONE, 'UserAvatar', 'avatar_id'),
             'galleryItem' => array(self::HAS_ONE, 'CommunityContentGalleryItem', 'photo_id'),
+            'cookRecipe' => array(self::HAS_ONE, 'CookRecipe', 'photo_id'),
             'remove' => array(self::HAS_ONE, 'Removed', 'entity_id', 'condition' => '`remove`.`entity` = :entity', 'params' => array(':entity' => get_class($this))),
             'commentsCount' => array(self::STAT, 'Comment', 'entity_id', 'condition' => 'entity=:modelName', 'params' => array(':modelName' => get_class($this))),
         );

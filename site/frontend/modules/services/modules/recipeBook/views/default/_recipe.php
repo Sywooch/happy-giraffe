@@ -4,13 +4,7 @@
 
     <div class="entry-header">
 
-        <?php
-            $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
-                'user' => $data->author,
-                'friendButton' => true,
-                'location' => false,
-            ));
-        ?>
+        <?php $this->widget('Avatar', array('user' => $data->author)); ?>
 
         <div class="meta">
             <div class="time"><?=Yii::app()->dateFormatter->format("d MMMM yyyy, H:mm", $data->created)?></div>

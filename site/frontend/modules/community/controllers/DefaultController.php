@@ -11,6 +11,17 @@ class DefaultController extends HController
     public $rubric_id;
     public $forum;
 
+    protected function afterAction($action)
+    {
+        if (Yii::app()->user->isGuest) {
+            $clubs = Yii::app()->user->getState('visitedClubs', array());
+            if (array_search($this->club->id, $clubs) === false) {
+                $clubs[] = $this->club->id;
+                Yii::app()->user->setState('visitedClubs', $clubs);
+            }
+        }
+    }
+
     public function actionSection($section_id)
     {
         $this->layout = '//layouts/main';

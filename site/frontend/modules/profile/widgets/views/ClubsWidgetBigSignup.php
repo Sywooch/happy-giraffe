@@ -5,7 +5,7 @@
 ?>
 <div class="club-list club-list__big margin-l20 clearfix" id="user-clubs-<?=$this->uniqid?>">
     <ul class="club-list_ul clearfix">
-        <!-- ko foreach: TopClubs -->
+        <!-- ko foreach: SingupClubs -->
         <li class="club-list_li" data-bind="css: {'club-list_li__in': have()}">
             <a href="" class="club-list_i" data-bind="click: toggle">
                 <span class="club-list_img-hold">

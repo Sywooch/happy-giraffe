@@ -182,6 +182,13 @@ class DefaultController extends HController
 
     public function actionSignup()
     {
+//        $clubs = Yii::app()->user->getState('visitedClubs', array());
+//        $blogs = Yii::app()->user->getState('visitedBlogs', array());
+//        foreach ($clubs as $clubId)
+//            UserClubSubscription::add($clubId);
+//        foreach ($blogs as $blogId)
+//            UserBlogSubscription::add($blogId);
+
         $this->loadUser(Yii::app()->user->id);
         $this->layout = '//layouts/simple';
         $this->render('signup');

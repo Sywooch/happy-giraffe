@@ -24,6 +24,11 @@ class ClubsWidget extends UserCoreWidget
      */
     public $deleteClub = false;
     /**
+     * клубы на которые подписан пользователь или на которые он не подписан
+     * @var bool
+     */
+    public $userClubs = true;
+    /**
      * Клубы, которые показываем
      * @var CommunityClub[]
      */
@@ -54,8 +59,12 @@ class ClubsWidget extends UserCoreWidget
     private function getUserClubsData()
     {
         $data = array();
-        if (empty($this->clubs))
-            $this->clubs = CUserSubscriptions::getInstance($this->user->id)->getSubUserClubIds();
+        if (empty($this->clubs)){
+            if ($this->userClubs)
+                $this->clubs = CUserSubscriptions::getInstance($this->user->id)->getSubUserClubIds();
+            else
+                $this->clubs = CUserSubscriptions::getInstance($this->user->id)->getNotSubscribedClubIds();
+        }
 
         $clubs = CommunityClub::model()->findAllByPk($this->clubs);
         foreach ($clubs as $club) {

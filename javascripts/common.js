@@ -959,8 +959,12 @@ var SiteSearch = {
 }
 
 var AddMenu = {
-    select: function (el, type) {
-        $.post('/blog/form/type' + type + '/', {short: 1}, function (response) {
+    select: function (el, type, club) {
+        if (club == '')
+            var url = '/blog/form/type' + type + '/';
+        else
+            var url = '/blog/form/type' + type + '/?club_id='+club;
+        $.post(url, {short: 1}, function (response) {
             $('#add_form_container').html(response);
             $('.js_add_menu a').removeClass('active');
             $(el).addClass('active');

@@ -19,7 +19,7 @@ Yii::app()->clientScript->registerPackage('ko_community');
             <div class="col-23-middle clearfix js-community-subscription">
 
                 <div class="b-section_transp">
-                    <h1 class="b-section_transp-t"><?=$this->club->title ?></h1>
+                    <div class="b-section_transp-t"><?=$this->club->title ?></div>
 
                     <div class="b-section_transp-desc"><?=$this->club->description ?></div>
 

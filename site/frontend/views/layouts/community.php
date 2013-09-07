@@ -24,7 +24,7 @@ $this->beginContent('//layouts/main'); ?>
 
             <div class="col-23-middle">
                 <div class="padding-l20">
-                    <h1 class="b-section_t"><a href="<?=$this->club->getUrl() ?>"><?=$this->club->title ?></a></h1>
+                    <div class="b-section_t"><a href="<?=$this->club->getUrl() ?>"><?=$this->club->title ?></a></div>
 
                     <?php if (!in_array($this->club->id, array(19, 21, 22))):?>
                         <div class="clearfix">

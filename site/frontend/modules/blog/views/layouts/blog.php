@@ -48,7 +48,7 @@ $data['currentRubricId'] = $this->rubric_id;
                     <div class="blog-title-b_img-hold" data-bind="if: photoThumbSrc() !== null">
                         <img alt="" class="blog-title-b_img" data-bind="attr: { src : photoThumbSrcToShow }">
                     </div>
-                    <h1 class="blog-title-b_t" data-bind="text: title, visible: title().length > 0"><?=$data['title']?></h1>
+                    <div class="blog-title-b_t" data-bind="text: title, visible: title().length > 0"><?=$data['title']?></div>
                 </div>
 
                 <?=$content ?>

@@ -2,9 +2,9 @@
     <?php $this->renderPartial('cook.views.recipe._recipe_parts._controls', array('recipe' => $data)); ?>
     <div class="b-article_cont clearfix">
         <?php $this->renderPartial('cook.views.recipe._recipe_parts._header', array('recipe' => $data, 'full' => false)); ?>
-        <h2 class="b-article_t">
+        <div class="b-article_t">
             <a href="<?=$data->url?>" class="b-article_t-a"><?=$data->title?></a>
-        </h2>
+        </div>
         <div class="b-article_in clearfix">
             <div class="wysiwyg-content clearfix">
                 <p><?=Str::truncate(strip_tags($data->text), 400)?></p>

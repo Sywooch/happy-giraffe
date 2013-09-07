@@ -9,10 +9,10 @@
 $post = $data->post;
 ?>
 <?php if ($full):?>
-    <h2 class="b-article_t">
+    <h1 class="b-article_t">
         <?=$data->title ?>
         <?php $this->widget('site.frontend.widgets.favoritesWidget.FavouritesWidget', array('model' => $data)); ?>
-    </h2>
+    </h1>
 
     <div class="b-article_in clearfix">
         <div class="wysiwyg-content clearfix">
@@ -24,13 +24,13 @@ $post = $data->post;
     </div>
 <?php else: ?>
     <?php if ($showTitle):?>
-        <h2 class="b-article_t">
+        <div class="b-article_t">
             <?php if ($show_new && ViewedPost::getInstance()->isViewed($data->id)): ?>
                 <div class="b-article_t-new">новое</div>
             <?php endif ?>
             <a href="<?=$data->getUrl() ?>" class="b-article_t-a"><?=$data->title ?></a>
             <?php $this->widget('site.frontend.widgets.favoritesWidget.FavouritesWidget', array('model' => $data)); ?>
-        </h2>
+        </div>
     <?php endif ?>
 
     <div class="b-article_in clearfix">

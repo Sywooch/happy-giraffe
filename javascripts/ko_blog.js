@@ -124,9 +124,7 @@ var BlogViewModel = function(data) {
                 self.title(self.draftTitle());
                 self.description(self.draftDescription());
                 self.showRubrics(self.showRubricsValue());
-                if (self.draftPhoto() !== null)
-                    self.photoThumbSrc(response.thumbSrc);
-                self.photoThumbSrc.valueHasMutated();
+                self.photoThumbSrc((self.draftPhoto() !== null) ? response.thumbSrc : null);
                 self.applyRubricsUpdate(response.createdRubricsIds);
                 $.fancybox.close();
                 self.updateRubrics();

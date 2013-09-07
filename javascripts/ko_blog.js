@@ -106,23 +106,27 @@ var BlogViewModel = function(data) {
 
     self.save = function() {
         var rubricsUpdateData = self.rubricsUpdateData();
-        $.post('/blog/settings/update/', {
+        var data = {
             blog_title: self.draftTitle(),
             blog_description: self.draftDescription(),
-            blog_photo_id: self.draftPhoto() === null ? null : self.draftPhoto().id(),
-            blog_photo_position: position,
             blog_show_rubrics: self.showRubricsValue(),
             rubricsToRename: rubricsUpdateData.toRename,
             rubricsToRemove: rubricsUpdateData.toRemove,
             rubricsToCreate: rubricsUpdateData.toCreate
-        }, function(response) {
+        };
+        if (self.draftPhoto() !== null)
+            data.blog_photo = {
+                id : self.draftPhoto().id(),
+                position : self.draftPhoto().position()
+            };
+        $.post('/blog/settings/update/', data, function(response) {
             if (response.success) {
                 self.title(self.draftTitle());
                 self.description(self.draftDescription());
                 self.showRubrics(self.showRubricsValue());
-                self.photoThumbSrc(response.thumbSrc);
+                if (self.draftPhoto() !== null)
+                    self.photoThumbSrc(response.thumbSrc);
                 self.photoThumbSrc.valueHasMutated();
-                self.draftPhoto().position(position);
                 self.applyRubricsUpdate(response.createdRubricsIds);
                 $.fancybox.close();
                 self.updateRubrics();
@@ -135,7 +139,7 @@ var BlogViewModel = function(data) {
     }
 
     self.showPreview = function(coords) {
-        position = coords;
+        self.draftPhoto().position(coords);
 
         var rx = 720 / coords.w;
         var ry = 128 / coords.h;
@@ -152,8 +156,8 @@ var BlogViewModel = function(data) {
         if (self.draftPhoto() !== null) {
             $('.popup-blog-set_jcrop-img').Jcrop({
                 setSelect: [ self.draftPhoto().position().x, self.draftPhoto().position().y, self.draftPhoto().position().x2, self.draftPhoto().position().y2 ],
-                onChange: showPreview,
-                onSelect: showPreview,
+                onChange: self.showPreview,
+                onSelect: self.showPreview,
                 aspectRatio: 720 / 128,
                 boxWidth: 440
             }, function(){
@@ -162,7 +166,6 @@ var BlogViewModel = function(data) {
         }
 
         $('#upload-target').on('load', function() {
-            console.log('123');
             var response = $(this).contents().find('#response').text();
             if (response.length > 0) {
                 self.draftPhoto(new Photo($.parseJSON(response)));
@@ -173,8 +176,8 @@ var BlogViewModel = function(data) {
                     var y2 = y + 128;
                     $('.popup-blog-set_jcrop-img').Jcrop({
                         setSelect: [ x, y, x2, y2 ],
-                        onChange: showPreview,
-                        onSelect: showPreview,
+                        onChange: self.showPreview,
+                        onSelect: self.showPreview,
                         aspectRatio: 720 / 128,
                         boxWidth: 440
                     }, function(){

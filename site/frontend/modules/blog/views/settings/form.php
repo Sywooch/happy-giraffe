@@ -47,12 +47,10 @@
                                     <input class="js-upload-files-multiple" type="file">
                                 </div>
                             </div>
-                            <!-- ko if: draftPhoto() !== null -->
-                            <div class="popup-blog-set_jcrop">
-                                <img alt=""  class="popup-blog-set_jcrop-img" data-bind="attr: { src : draftPhoto().originalSrc() }">
+                            <div class="popup-blog-set_jcrop" data-bind="visible: draftPhoto() !== null">
+                                <img alt=""  class="popup-blog-set_jcrop-img" data-bind="attr: { src : draftPhoto() === null ? '' : draftPhoto().originalSrc() }" style="display: none;">
                             </div>
-                            <a class="b-add-img_i-del ico-close2 powertip" data-bind="click: removeDraftPhoto"></a>
-                            <!-- /ko -->
+                            <a class="b-add-img_i-del ico-close2 powertip" data-bind="click: removeDraftPhoto, visible: draftPhoto() !== null"></a>
                         </div>
                     </div>
                 </div>

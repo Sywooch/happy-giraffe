@@ -166,7 +166,7 @@ var BlogViewModel = function(data) {
             };
         });
 
-        $('.popup-blog-set_jcrop-img').Jcrop({
+        $('#popup-blog-set .popup-blog-set_jcrop-img').Jcrop({
             onChange: self.showPreview,
             onSelect: self.showPreview,
             aspectRatio: 720 / 128,
@@ -188,6 +188,10 @@ var BlogViewModel = function(data) {
             done: function (e, data) {
                 self.complete(data.result);
             }
+        });
+
+        $('#popup-blog-set .js-upload-files-multiple').bind('fileuploadprogress', function (e, data) {
+            self._progress(data.loaded * 100 / data.total);
         });
     }
 

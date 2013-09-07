@@ -22,6 +22,7 @@ class HController extends CController
 
     public $tempLayout = false;
     public $showLikes = false;
+    public $r = 1378549334;
 
     public function filterAjaxOnly($filterChain)
     {
@@ -40,7 +41,7 @@ class HController extends CController
     {
         parent::init();
 
-        //$this->combineStatic();
+        $this->combineStatic();
 
         // авторизация
         if (isset($this->actionParams['token'])) {
@@ -195,7 +196,7 @@ class HController extends CController
 
             foreach (Yii::app()->params['combineMap'] as $all => $filesArray) {
                 if (file_exists($wwwPath . $all)) {
-                    $to = Yii::app()->request->isAjaxRequest ? false : $all . '?r=' . $this->r;
+                    $to = Yii::app()->request->isAjaxRequest ? false : $all . '?' . $this->r;
                     foreach ($filesArray as $f)
                         Yii::app()->clientScript->scriptMap[$f] = $to;
                 }

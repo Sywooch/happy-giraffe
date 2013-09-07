@@ -45,9 +45,15 @@ var BlogViewModel = function(data) {
     }
 
     // photo
+    self.uploadingPhoto = ko.observable(false);
     self.jcrop = null;
+    self._progress = ko.observable(0);
     self.photoThumbSrc = ko.observable(data.photo === null ? null : data.photo.thumbSrc);
     self.draftPhoto = ko.observable(data.photo === null ? null : new Photo(data.photo));
+
+    self.progress = ko.computed(function () {
+        return self._progress() + '%';
+    });
 
     self.photoThumbSrcToShow = ko.computed(function() {
         return self.photoThumbSrc() + '?t=' + Math.floor(Math.random() * (1000000 - 1) + 1);
@@ -176,6 +182,7 @@ var BlogViewModel = function(data) {
             url: '/blog/settings/uploadPhoto/',
             dropZone: $('#popup-blog-set .b-add-img__for-single'),
             add: function (e, data) {
+                self.uploadingPhoto(true);
                 data.submit();
             },
             done: function (e, data) {
@@ -193,6 +200,7 @@ var BlogViewModel = function(data) {
             var y2 = y + 128;
 
             self.jcrop.setSelect([ x, y, x2, y2 ]);
+            self.uploadingPhoto(false);
         });
     }
 

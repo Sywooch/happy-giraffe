@@ -74,7 +74,7 @@
 						</div>
 						<div class="col-23-middle">
 							<div class="padding-l20">
-								<h1 class="b-section_t"><a href="">Наш автомобиль</a></h1>
+								<div class="b-section_t"><a href="">Наш автомобиль</a></div>
 								<div class="clearfix">
 									<ul class="b-section_ul clearfix">
 										<li class="b-section_li"><a href="" class="b-section_li-a">Форум</a></li>

@@ -17,7 +17,7 @@
 		<div class="start-page_hold">
 			<div class="start-page_head clearfix">
 				<h1 class="logo logo__big">
-					<a href="/" class="logo_i" title="Веселый жираф - сайт для все семьи">Веселый жираф - сайт для все семьи</a>
+					<a href="/" class="logo_i" title="Веселый жираф - сайт для все семьи">Веселый жираф</a>
 					<strong class="logo_slogan">САЙТ ДЛЯ ВСЕЙ СЕМЬИ</strong>
 				</h1>
 				<div class="start-page_head-desc">
@@ -110,9 +110,9 @@
 							<a href="" class="ava middle">
 								<img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg">
 							</a>
-							<a class="like-control_ico like-control_ico__like powertip" href="" title="Нравиться">5</a>
+							<a class="like-control_ico like-control_ico__like powertip" href="" title="Нравиться">0</a>
 							<div class="position-r">
-								<a class="like-control_ico like-control_ico__repost powertip" title="Репост" href="">5</a>
+								<a class="like-control_ico like-control_ico__repost powertip" title="Репост" href="">0</a>
 							</div>
 							<div class="favorites-control">
 								<a class="favorites-control_a powertip" href="" title="В избранное">789</a>

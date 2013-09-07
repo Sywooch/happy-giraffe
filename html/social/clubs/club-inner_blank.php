@@ -62,7 +62,7 @@
 					</div>
 					<div class="col-23-middle">
 						<div class="padding-l20">
-							<h1 class="b-section_t">Выходные с семьей</h1>
+							<div class="b-section_t">Выходные с семьей</div>
 						</div>
 					</div>
 				</div>

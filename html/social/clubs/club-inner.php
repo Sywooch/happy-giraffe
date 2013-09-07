@@ -74,7 +74,7 @@
 					</div>
 					<div class="col-23-middle">
 						<div class="padding-l20">
-							<h1 class="b-section_t"><a href="">Цветы в доме</a></h1>
+							<div class="b-section_t"><a href="">Цветы в доме</a></div>
 							<div class="clearfix">
 								<ul class="b-section_ul clearfix">
 									<li class="b-section_li"><span class="b-section_li-a active">Форум</span></li>

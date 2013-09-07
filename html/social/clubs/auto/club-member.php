@@ -64,7 +64,7 @@
 					</div>
 					<div class="col-23-middle clearfix">
 						<div class="b-section_transp">
-							<h1 class="b-section_transp-t">Наш автомобиль</h1>
+							<div class="b-section_transp-t">Наш автомобиль</div>
 							<div class="b-section_transp-desc">Здесь собрано все что нужно для цветоводов. Растения, удобрения <br>чувство юмора имеется, на шею не сажусь, проблемами не загружаю. </div>
 							
 						</div>

@@ -245,7 +245,11 @@
     word-wrap: break-word;
 
     p {margin: 0 0 15px;}
-    img {margin: 0 0 5px;}
+    img {
+        .inline-block();
+        vertical-align: bottom;
+        margin: 0 0 5px;
+    }
     .content-img  {float: none;margin: 0;}
     .h2-services {
         font-weight: normal;
@@ -902,6 +906,7 @@ table.fr_recipe_tb td { width: 50%;}
     .favorites-control_a {
         .inline-block();
         min-width: 45px;
+        height: 18px;
         padding: 45px 0 0;
         color: #828281;
         background: url(/images/b-article_control-ico.png) no-repeat  -90px 0;
@@ -958,6 +963,7 @@ table.fr_recipe_tb td { width: 50%;}
     &_ico {
         .inline-block();
         min-width: 45px;
+        height: 18px;
         padding: 45px 0 0;
         color: #828281;
         background: url(/images/b-article_control-ico.png) no-repeat;
@@ -2512,6 +2518,7 @@ table.fr_recipe_tb td { width: 50%;}
 .heading-title {
     margin: 5px 20px 10px;
     font: normal 35px/35px 'Roboto', 'Helvetica Neue', Helvetica, Arial, Tahoma, sans-serif;
+    color: #2b2b2b;
 }
 /* /heading-title */
 

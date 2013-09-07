@@ -64,7 +64,7 @@
 					</div>
 					<div class="col-23-middle clearfix">
 						<div class="b-section_transp">
-							<h1 class="b-section_transp-t">Цветы в доме</h1>
+							<div class="b-section_transp-t">Цветы в доме</div>
 							<div class="b-section_transp-desc">Здесь собрано все что нужно для цветоводов. Растения, удобрения <br>чувство юмора имеется, на шею не сажусь, проблемами не загружаю. </div>
 							<a href="" class="b-section_club-add">
 								<span class="b-section_club-add-tx">Вступить в клуб</span>

@@ -47,7 +47,14 @@
                                     <input class="js-upload-files-multiple" type="file">
                                 </div>
                             </div>
-                            <div class="popup-blog-set_jcrop" data-bind="visible: draftPhoto() !== null">
+                            <div class="b-add-img_html5-tx">или перетащите фото сюда</div>
+                            <!-- ko if: uploadingPhoto -->
+                            <div class="b-add-img_i-vert"></div>
+                            <div class="b-add-img_i-load">
+                                <div class="b-add-img_i-load-progress" data-bind="style: {width: progress}"></div>
+                            </div>
+                            <!-- /ko -->
+                            <div class="popup-blog-set_jcrop" data-bind="visible: draftPhoto() !== null && uploadingPhoto() !== true">
                                 <img alt=""  class="popup-blog-set_jcrop-img" data-bind="attr: { src : draftPhoto() === null ? '' : draftPhoto().originalSrc() }" style="display: none;">
                             </div>
                             <a class="b-add-img_i-del ico-close2 powertip" data-bind="click: removeDraftPhoto, visible: draftPhoto() !== null"></a>

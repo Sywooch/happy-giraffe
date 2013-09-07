@@ -238,6 +238,18 @@ var UserClubsWidget = function (data, params) {
         });
         return shortList;
     });
+    self.SingupClubs = ko.computed(function() {
+        self.clubs().sort(function(club) {
+            return club.have() ? -1 : 1;
+        });
+
+        var shortList = [];
+        ko.utils.arrayForEach(self.clubs(), function (club) {
+            if (self.clubs().indexOf(club) >= self.offset && shortList.length < self.limit)
+                shortList.push(club);
+        });
+        return shortList;
+    });
 };
 
 var UserClub = function (data, size, parent) {
@@ -247,10 +259,8 @@ var UserClub = function (data, size, parent) {
     self.id = ko.observable(data.id);
     self.title = ko.observable(data.title);
     self.have = ko.observable(data.have);
+    self.url = ko.observable(data.url);
 
-    self.url = ko.computed(function () {
-        return '/community/' + self.id() + '/';
-    });
     self.src = ko.computed(function () {
         return '/images/club/' + self.id() + '-w130.png';
     });

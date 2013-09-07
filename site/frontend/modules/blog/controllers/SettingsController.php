@@ -18,8 +18,7 @@ class SettingsController extends HController
     {
         $blogTitle = Yii::app()->request->getPost('blog_title');
         $blogDescription = Yii::app()->request->getPost('blog_description');
-        $blogPhotoPosition = Yii::app()->request->getPost('blog_photo_position');
-        $blogPhotoId = CJSON::decode(Yii::app()->request->getPost('blog_photo_id'));
+        $blogPhoto = Yii::app()->request->getPost('blog_photo');
         $blogShowRubrics = CJSON::decode(Yii::app()->request->getPost('blog_show_rubrics'));
         $rubricsToRename = Yii::app()->request->getPost('rubricsToRename');
         $rubricsToRemove = Yii::app()->request->getPost('rubricsToRemove');
@@ -50,20 +49,26 @@ class SettingsController extends HController
         $user->blog_show_rubrics = $blogShowRubrics;
 
         // photo
-        $photo = $blogPhotoId !== null ? AlbumPhoto::model()->findByPk($blogPhotoId) : AlbumPhoto::createByUrl('http://dev.happy-giraffe.ru/images/jcrop-blog.jpg', Yii::app()->user->id);
-        $image = Yii::app()->phpThumb->create($photo->getOriginalPath());
-        $rx = 720 / $blogPhotoPosition['w'];
-        $ry = 128 / $blogPhotoPosition['h'];
-        $width = round($rx * $photo->width);
-        $height = round($ry * $photo->height);
-        $image->resize($width, $height)->crop($rx * $blogPhotoPosition['x'], $ry * $blogPhotoPosition['y'], $rx * $blogPhotoPosition['w'], $ry * $blogPhotoPosition['h'])->save($photo->getBlogPath());
-        $user->blog_photo_id = $photo->id;
-        $user->blog_photo_position = CJSON::encode($blogPhotoPosition);
+        if ($blogPhoto !== null) {
+            $photo = $blogPhoto['id'] !== null ? AlbumPhoto::model()->findByPk($blogPhoto['id']) : AlbumPhoto::createByUrl('http://dev.happy-giraffe.ru/images/jcrop-blog.jpg', Yii::app()->user->id);
+            $image = Yii::app()->phpThumb->create($photo->getOriginalPath());
+            $rx = 720 / $blogPhoto['position']['w'];
+            $ry = 128 / $blogPhoto['position']['h'];
+            $width = round($rx * $photo->width);
+            $height = round($ry * $photo->height);
+            $image->resize($width, $height)->crop($rx * $blogPhoto['position']['x'], $ry * $blogPhoto['position']['y'], $rx * $blogPhoto['position']['w'], $ry * $blogPhoto['position']['h'])->save($photo->getBlogPath());
+            $user->blog_photo_id = $photo->id;
+            $user->blog_photo_position = CJSON::encode($blogPhoto['position']);
+        } else {
+            $user->blog_photo_id = null;
+            $user->blog_photo_position = null;
+        }
 
         $success = $user->save(true, array('blog_title', 'blog_description', 'blog_photo_id', 'blog_photo_position', 'blog_show_rubrics'));
         $response = compact('success');
         if ($success) {
-            $response['thumbSrc'] = $photo->getBlogUrl();
+            if ($blogPhoto !== null)
+                $response['thumbSrc'] = $photo->getBlogUrl();
             if ($rubricsToCreate !== null)
                 $response['createdRubricsIds'] = $createdRubricsIds;
         }

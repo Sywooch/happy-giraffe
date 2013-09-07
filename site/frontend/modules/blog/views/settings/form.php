@@ -143,20 +143,20 @@
     <iframe name="upload-target" id="upload-target" style="display: none;"></iframe>
 
     <script type="text/javascript">
-        function showPreview(coords)
-        {
-            position = coords;
-
-            var rx = 720 / coords.w;
-            var ry = 128 / coords.h;
-
-            $('#preview').css({
-                width: Math.round(rx * blogVM.draftPhoto().width()) + 'px',
-                height: Math.round(ry * blogVM.draftPhoto().height()) + 'px',
-                marginLeft: '-' + Math.round(rx * coords.x) + 'px',
-                marginTop: '-' + Math.round(ry * coords.y) + 'px'
-            });
-        }
+//        function showPreview(coords)
+//        {
+//            position = coords;
+//
+//            var rx = 720 / coords.w;
+//            var ry = 128 / coords.h;
+//
+//            $('#preview').css({
+//                width: Math.round(rx * blogVM.draftPhoto().width()) + 'px',
+//                height: Math.round(ry * blogVM.draftPhoto().height()) + 'px',
+//                marginLeft: '-' + Math.round(rx * coords.x) + 'px',
+//                marginTop: '-' + Math.round(ry * coords.y) + 'px'
+//            });
+//        }
 
         $(function() {
             ko.applyBindings(blogVM, document.getElementById('popup-blog-set'));

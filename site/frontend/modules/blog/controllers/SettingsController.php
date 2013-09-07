@@ -109,7 +109,7 @@ class SettingsController extends HController
 
     public function actionUploadPhoto()
     {
-        $model = AlbumPhoto::model()->createUserTempPhoto($_FILES['photo']);
+        $model = AlbumPhoto::model()->createUserTempPhoto($_FILES['files']);
 
         $response = array(
             'id' => $model->id,
@@ -120,8 +120,7 @@ class SettingsController extends HController
             'position' => null,
         );
 
-        $this->renderPartial('uploadPhoto', compact('response'));
-
+        echo CJSON::encode($response);
     }
 
 //    public function actionTest()

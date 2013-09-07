@@ -43,10 +43,8 @@
                                     <div class="b-add-img_t-tx">Поддерживаемые форматы: jpg и png</div>
                                 </div>
                                 <div class="file-fake">
-                                    <?=CHtml::beginForm(array('settings/uploadPhoto'), 'post', array('target' => 'upload-target', 'enctype' => 'multipart/form-data'))?>
                                     <button class="btn-green btn-medium file-fake_btn">Обзор</button>
-                                    <input type="file" name="photo" onchange="submit()">
-                                    <?=CHtml::endForm()?>
+                                    <input class="js-upload-files-multiple" type="file">
                                 </div>
                             </div>
                             <!-- ko if: draftPhoto() !== null -->
@@ -56,24 +54,6 @@
                             <a class="b-add-img_i-del ico-close2 powertip" data-bind="click: removeDraftPhoto"></a>
                             <!-- /ko -->
                         </div>
-                        <?php if (false): ?>
-                        <div class="margin-t15 clearfix">
-                            <div class="popup-blog-set_jcrop">
-                                <img alt="" class="popup-blog-set_jcrop-img" data-bind="attr: { src : draftPhoto().originalSrc() }" style="display: none;">
-                            </div>
-                            <div class="float-l">
-                                <div class="margin-b10 clearfix">
-                                    <div class="file-fake">
-                                        <?=CHtml::beginForm(array('settings/uploadPhoto'), 'post', array('target' => 'upload-target', 'enctype' => 'multipart/form-data'))?>
-                                        <button class="btn-green btn-medium file-fake_btn">Загрузить  фото</button>
-                                        <input type="file" name="photo" onchange="submit()">
-                                        <?=CHtml::endForm()?>
-                                    </div>
-                                </div>
-                                <div class="color-gray font-small">Разрешенные форматы файлов <br> JPG, GIF или  PNG. <br>Максимальный размер 700 Кб. </div>
-                            </div>
-                        </div>
-                        <?php endif; ?>
                     </div>
                 </div>
                 <div class="popup-blog-set_sepor">
@@ -160,7 +140,7 @@
 
         $(function() {
             ko.applyBindings(blogVM, document.getElementById('popup-blog-set'));
-            blogVM.initJcrop();
+            blogVM.initSettings();
         });
     </script>
 </div

@@ -27,10 +27,10 @@ $user = Yii::app()->user->getModel();
         <div class="layout-header clearfix">
             <div class="layout-header_hold clearfix">
 
-                <h1 class="logo">
+                <div class="logo">
                     <?=HHtml::link('Веселый жираф - сайт для всей семьи', '/', array('class' => 'logo_i', 'title' => 'Веселый жираф - сайт для всей семьи'), true)?>
-                    <strong class="logo_slogan">САЙТ ДЛЯ ВСЕЙ СЕМЬИ</strong>
-                </h1>
+                    <span class="logo_slogan">САЙТ ДЛЯ ВСЕЙ СЕМЬИ</span>
+                </div>
                     <!-- ko stopBinding: true -->
                     <div class="header-menu layout-binding">
                         <ul class="header-menu_ul clearfix">

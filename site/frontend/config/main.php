@@ -396,7 +396,7 @@ return array(
                     ),
                     'sitemapCommunity.xml' => array(
                         'aliases' => array(
-                            'application.controllers.CommunityController',
+                            'application.modules.community.controllers.DefaultController',
                         ),
                     ),
                     'sitemapBlog.xml' => array(

@@ -136,10 +136,6 @@ class CommunityController extends HController
         return $this->createUrl($route, $params);
     }
 
-
-    /**
-     * @sitemap dataSource=sitemapView
-     */
     public function actionView($community_id, $content_type_slug, $content_id, $lastPage = null, $ajax = null)
     {
         if ($community_id == Community::COMMUNITY_VALENTINE)
@@ -424,32 +420,6 @@ class CommunityController extends HController
             'content_type_slug' => $content_type->slug,
             'redirectUrl' => $redirectUrl
         ));
-    }
-
-    public function sitemapView()
-    {
-        $models = Yii::app()->db->createCommand()
-            ->select('c.id, c.created, c.updated, r.community_id, ct.slug')
-            ->from('community__contents c')
-            ->join('community__rubrics r', 'c.rubric_id = r.id')
-            ->join('community__content_types ct', 'c.type_id = ct.id')
-            ->where('r.community_id IS NOT NULL AND c.removed = 0 AND (c.uniqueness >= 50 OR c.uniqueness IS NULL)')
-            ->queryAll();
-
-        $data = array();
-        foreach ($models as $model) {
-            $data[] = array(
-                'params' => array(
-                    'content_id' => $model['id'],
-                    'community_id' => $model['community_id'],
-                    'content_type_slug' => $model['slug'],
-                ),
-                'priority' => 0.5,
-                'lastmod' => ($model['updated'] === null) ? $model['created'] : $model['updated'],
-            );
-        }
-
-        return $data;
     }
 
     public function getCommunityUrls()

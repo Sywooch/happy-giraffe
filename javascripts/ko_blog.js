@@ -152,52 +152,6 @@ var BlogViewModel = function(data) {
         });
     };
 
-    self.initJcrop = function() {
-        if (self.draftPhoto() !== null) {
-            $('.popup-blog-set_jcrop-img').Jcrop({
-                setSelect: [ self.draftPhoto().position().x, self.draftPhoto().position().y, self.draftPhoto().position().x2, self.draftPhoto().position().y2 ],
-                onChange: self.showPreview,
-                onSelect: self.showPreview,
-                aspectRatio: 720 / 128,
-                boxWidth: 440
-            }, function(){
-                self.jcrop = this;
-            });
-        }
-
-        $('#upload-target').on('load', function() {
-            var response = $(this).contents().find('#response').text();
-            if (response.length > 0) {
-                self.draftPhoto(new Photo($.parseJSON(response)));
-                if (self.jcrop === null) {
-                    var x = self.draftPhoto().width()/2 - 720/2;
-                    var y = self.draftPhoto().height()/2 - 128/2;
-                    var x2 = x + 720;
-                    var y2 = y + 128;
-                    $('.popup-blog-set_jcrop-img').Jcrop({
-                        setSelect: [ x, y, x2, y2 ],
-                        onChange: self.showPreview,
-                        onSelect: self.showPreview,
-                        aspectRatio: 720 / 128,
-                        boxWidth: 440
-                    }, function(){
-                        self.jcrop = this;
-                    });
-                } else {
-                    console.log(self.draftPhoto().originalSrc());
-                    self.jcrop.setImage(self.draftPhoto().originalSrc(), function() {
-                        var x = self.draftPhoto().width()/2 - 720/2;
-                        var y = self.draftPhoto().height()/2 - 128/2;
-                        var x2 = x + 720;
-                        var y2 = y + 128;
-
-                        self.jcrop.setSelect([ x, y, x2, y2 ]);
-                    });
-                }
-            }
-        });
-    };
-
     self.initSettings = function() {
         $.each($('.b-add-img'), function () {
             $(this)[0].ondragover = function () {
@@ -208,17 +162,16 @@ var BlogViewModel = function(data) {
             };
         });
 
-        if (self.draftPhoto() !== null) {
-            $('.popup-blog-set_jcrop-img').Jcrop({
-                setSelect: [ self.draftPhoto().position().x, self.draftPhoto().position().y, self.draftPhoto().position().x2, self.draftPhoto().position().y2 ],
-                onChange: self.showPreview,
-                onSelect: self.showPreview,
-                aspectRatio: 720 / 128,
-                boxWidth: 440
-            }, function(){
-                self.jcrop = this;
-            });
-        }
+        $('.popup-blog-set_jcrop-img').Jcrop({
+            onChange: self.showPreview,
+            onSelect: self.showPreview,
+            aspectRatio: 720 / 128,
+            boxWidth: 440
+        }, function(){
+            self.jcrop = this;
+            if (self.draftPhoto() !== null)
+                self.jcrop.setSelect([ self.draftPhoto().position().x, self.draftPhoto().position().y, self.draftPhoto().position().x2, self.draftPhoto().position().y2 ]);
+        });
 
         $('#popup-blog-set .js-upload-files-multiple').fileupload({
             dataType: 'json',
@@ -235,32 +188,62 @@ var BlogViewModel = function(data) {
 
     self.complete = function(response) {
         self.draftPhoto(new Photo(response));
-        if (self.jcrop === null) {
+        self.jcrop.setImage(self.draftPhoto().originalSrc(), function() {
             var x = self.draftPhoto().width()/2 - 720/2;
             var y = self.draftPhoto().height()/2 - 128/2;
             var x2 = x + 720;
             var y2 = y + 128;
-            $('.popup-blog-set_jcrop-img').Jcrop({
-                setSelect: [ x, y, x2, y2 ],
-                onChange: self.showPreview,
-                onSelect: self.showPreview,
-                aspectRatio: 720 / 128,
-                boxWidth: 440
-            }, function(){
-                self.jcrop = this;
-            });
-        } else {
-            console.log(self.draftPhoto().originalSrc());
-            self.jcrop.setImage(self.draftPhoto().originalSrc(), function() {
-                var x = self.draftPhoto().width()/2 - 720/2;
-                var y = self.draftPhoto().height()/2 - 128/2;
-                var x2 = x + 720;
-                var y2 = y + 128;
 
-                self.jcrop.setSelect([ x, y, x2, y2 ]);
-            });
-        }
+            self.jcrop.setSelect([ x, y, x2, y2 ]);
+        });
     }
+
+//    self.initJcrop = function() {
+//        if (self.draftPhoto() !== null) {
+//            $('.popup-blog-set_jcrop-img').Jcrop({
+//                setSelect: [ self.draftPhoto().position().x, self.draftPhoto().position().y, self.draftPhoto().position().x2, self.draftPhoto().position().y2 ],
+//                onChange: self.showPreview,
+//                onSelect: self.showPreview,
+//                aspectRatio: 720 / 128,
+//                boxWidth: 440
+//            }, function(){
+//                self.jcrop = this;
+//            });
+//        }
+//
+//        $('#upload-target').on('load', function() {
+//            var response = $(this).contents().find('#response').text();
+//            if (response.length > 0) {
+//                self.draftPhoto(new Photo($.parseJSON(response)));
+//                if (self.jcrop === null) {
+//                    var x = self.draftPhoto().width()/2 - 720/2;
+//                    var y = self.draftPhoto().height()/2 - 128/2;
+//                    var x2 = x + 720;
+//                    var y2 = y + 128;
+//                    $('.popup-blog-set_jcrop-img').Jcrop({
+//                        setSelect: [ x, y, x2, y2 ],
+//                        onChange: self.showPreview,
+//                        onSelect: self.showPreview,
+//                        aspectRatio: 720 / 128,
+//                        boxWidth: 440
+//                    }, function(){
+//                        self.jcrop = this;
+//                    });
+//                } else {
+//                    $('.popup-blog-set_jcrop-img').Jcrop({
+//                        setSelect: [ x, y, x2, y2 ],
+//                        onChange: self.showPreview,
+//                        onSelect: self.showPreview,
+//                        aspectRatio: 720 / 128,
+//                        boxWidth: 440
+//                    }, function(){
+//                        self.jcrop = this;
+//                    });
+//
+//                }
+//            }
+//        });
+//    };
 }
 
 var Photo = function(data) {

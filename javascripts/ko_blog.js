@@ -197,6 +197,70 @@ var BlogViewModel = function(data) {
             }
         });
     };
+
+    self.initSettings = function() {
+        $.each($('.b-add-img'), function () {
+            $(this)[0].ondragover = function () {
+                $('.b-add-img').addClass('dragover')
+            };
+            $(this)[0].ondragleave = function () {
+                $('.b-add-img').removeClass('dragover')
+            };
+        });
+
+        if (self.draftPhoto() !== null) {
+            $('.popup-blog-set_jcrop-img').Jcrop({
+                setSelect: [ self.draftPhoto().position().x, self.draftPhoto().position().y, self.draftPhoto().position().x2, self.draftPhoto().position().y2 ],
+                onChange: self.showPreview,
+                onSelect: self.showPreview,
+                aspectRatio: 720 / 128,
+                boxWidth: 440
+            }, function(){
+                self.jcrop = this;
+            });
+        }
+
+        $('#popup-blog-set .js-upload-files-multiple').fileupload({
+            dataType: 'json',
+            url: '/blog/settings/uploadPhoto/',
+            dropZone: $('#popup-blog-set .b-add-img__for-single'),
+            add: function (e, data) {
+                data.submit();
+            },
+            done: function (e, data) {
+                self.complete(data.result);
+            }
+        });
+    }
+
+    self.complete = function(response) {
+        self.draftPhoto(new Photo(response));
+        if (self.jcrop === null) {
+            var x = self.draftPhoto().width()/2 - 720/2;
+            var y = self.draftPhoto().height()/2 - 128/2;
+            var x2 = x + 720;
+            var y2 = y + 128;
+            $('.popup-blog-set_jcrop-img').Jcrop({
+                setSelect: [ x, y, x2, y2 ],
+                onChange: self.showPreview,
+                onSelect: self.showPreview,
+                aspectRatio: 720 / 128,
+                boxWidth: 440
+            }, function(){
+                self.jcrop = this;
+            });
+        } else {
+            console.log(self.draftPhoto().originalSrc());
+            self.jcrop.setImage(self.draftPhoto().originalSrc(), function() {
+                var x = self.draftPhoto().width()/2 - 720/2;
+                var y = self.draftPhoto().height()/2 - 128/2;
+                var x2 = x + 720;
+                var y2 = y + 128;
+
+                self.jcrop.setSelect([ x, y, x2, y2 ]);
+            });
+        }
+    }
 }
 
 var Photo = function(data) {

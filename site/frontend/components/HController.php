@@ -41,7 +41,7 @@ class HController extends CController
     {
         parent::init();
 
-        $this->combineStatic();
+        //$this->combineStatic();
 
         // авторизация
         if (isset($this->actionParams['token'])) {

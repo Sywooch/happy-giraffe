@@ -47,13 +47,13 @@ var UserNotification = {
             UserNotification.loading = true;
             UserNotification.page++;
             $.post('?page=' + UserNotification.page, function (response) {
-                if (response == '') {
+                if (response.empty) {
                     UserNotification.disableLoading();
                 } else {
-                    $('#user-notice-list_inner').append(response);
+                    $('#user-notice-list_inner').append(response.html);
                     UserNotification.loading = false;
                 }
-            });
+            }, 'json');
         }
     },
     disableLoading: function () {
@@ -72,7 +72,7 @@ var UserNotification = {
 
 $(function () {
     $(window).scroll(function () {
-        if (($('#user-notice-list_inner').height() - 500) < $(this).scrollTop())
+        if (($('#user-notice-list_inner').height() - 1000) < $(this).scrollTop())
             UserNotification.loadMore();
     });
 });

@@ -4,7 +4,7 @@
  * @author Alex Kireev <alexk984@gmail.com>
  */
 ?>
-<?php if (!empty($list)):?>
+<?php if (!empty($list) || Yii::app()->request->isAjaxRequest):?>
     <?php foreach ($list as $model) :?>
     <div class="user-notice-list_i">
         <?php $this->renderPartial('types/type_' . $model->type, compact('model', 'read')); ?>

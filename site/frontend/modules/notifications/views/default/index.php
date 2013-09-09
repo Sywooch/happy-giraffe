@@ -22,7 +22,7 @@ Yii::app()->clientScript->registerScriptFile($baseUrl . '/notifcations.js', CCli
         <?php endif ?>
     </div>
 
-    <?php if ($read):?>
+    <?php if ($read && !empty($list)):?>
         <div class="user-notice_desc">Уведомления, хранящиеся более 10 дней, удаляются автоматически.</div>
     <?php endif ?>
 

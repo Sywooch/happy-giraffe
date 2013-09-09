@@ -320,4 +320,9 @@ class Album extends HActiveRecord
 
         return $album;
     }
+
+    public function getPhoto()
+    {
+        return null;
+    }
 }

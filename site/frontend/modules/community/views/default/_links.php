@@ -3,11 +3,19 @@
         <?php foreach ($this->club->communities as $community): ?>
             <li class="b-section_li">
                 <a href="<?=$this->createUrl('/community/default/forum', array('forum_id'=>$community->id)) ?>"
-                   class="b-section_li-a<?php if (isset($this->forum) && $this->forum !== null && $this->forum->id == $community->id) echo ' active' ?>"><?=$community->title ?></a>
+                   class="b-section_li-a<?php if (isset($this->forum) && $this->forum !== null
+                       && $this->forum->id == $community->id) echo ' active' ?>"><?=$community->title ?></a>
             </li>
         <?php endforeach; ?>
     <?php endif ?>
-
+    <?php if (count($this->club->communities) == 1 && count($this->club->services) > 0):?>
+        <li class="b-section_li">
+            <a href="<?= $this->createUrl('/community/default/forum', array(
+                'forum_id' => $this->club->communities[0]->id)) ?>"
+               class="b-section_li-a<?php if (isset($this->forum) && $this->forum !== null
+                   && $this->forum->id == $this->club->communities[0]->id) echo ' active' ?>">Форум</a>
+        </li>
+    <?php endif ?>
 
     <?php if (count($this->club->services) < 2):?>
         <?php foreach($this->club->services as $service):?>

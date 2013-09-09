@@ -47,7 +47,7 @@ $i = 1;
                                 <div class="best-list_tx">
                                     <?php $photo = $article->content->getPhoto(); ?>
                                     <?php if (!empty($photo)):?>
-                                        <?php $src = implode('/', array(Yii::app()->params['photos_url'],'thumbs','700x',$photo->author_id,$photo->fs_name)); ?>
+                                        <?php $src = implode('/', array(Yii::app()->params['photos_url'],'thumbs','580x1000',$photo->author_id,$photo->fs_name)); ?>
                                         <img src="<?=$src ?>" alt="" width="318"/>
                                     <?php endif ?>
                                     <p><?= $article->getContentText(450); ?>

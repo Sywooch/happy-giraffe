@@ -62,6 +62,14 @@ class CommunityPhotoPost extends HActiveRecord
     public function behaviors()
     {
         return array(
+            'purified' => array(
+                'class' => 'site.common.behaviors.PurifiedBehavior',
+                'attributes' => array('text'),
+                'options' => array(
+                    'AutoFormat.Linkify' => true,
+                ),
+                'show_video' => false,
+            ),
             'previewSave' => array(
                 'class' => 'site.common.behaviors.PreviewBehavior',
                 'small_preview' => true,

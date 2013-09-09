@@ -275,7 +275,13 @@ class CommentatorHelper
             $data[$user->id] = array(
                 'id' => $user->id,
                 'name' => $user->fullName,
-                'ava' => $user->getAvatarUrl(),
+                'ava' => isset($user->avatar)?implode('/', array(
+                    Yii::app()->params['photos_url'],
+                    'thumbs',
+                    '24x24',
+                    $user->id,
+                    $user->avatar->fs_name,
+                )):'',
             );
 
         return $data;

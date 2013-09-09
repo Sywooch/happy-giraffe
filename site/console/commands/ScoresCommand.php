@@ -29,6 +29,7 @@ class ScoresCommand extends CConsoleCommand
      */
     public function actionIndex()
     {
+        ScoreInput::getInstance()->ensureIndex();
         ScoreInput::getInstance()->CheckClose();
     }
 

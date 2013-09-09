@@ -104,7 +104,7 @@ class ScoreInput extends HMongoModel
     /**
      * Добавляет индекс если не создан
      */
-    protected function ensureIndex()
+    public function ensureIndex()
     {
         $this->getCollection()->ensureIndex(array(
             'user_id' => EMongoCriteria::SORT_DESC,

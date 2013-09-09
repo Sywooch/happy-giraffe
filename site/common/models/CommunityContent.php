@@ -738,15 +738,16 @@ class CommunityContent extends HActiveRecord
      * Возвращает url картинки для превью поста
      *
      * @param int $width ширина картинки
+     * @param null $height
      * @return bool|string
      */
-    public function getContentImage($width = 580)
+    public function getContentImage($width = 580, $height = null)
     {
         if (!isset($this->content))
             return '';
 
         $photo = $this->content->getPhoto();
-        return $photo ? $photo->getPreviewUrl($width, null) : false;
+        return $photo ? $photo->getPreviewUrl($width, $height) : false;
     }
 
     /**

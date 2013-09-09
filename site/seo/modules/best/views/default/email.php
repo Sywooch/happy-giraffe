@@ -34,7 +34,7 @@ $i = 1;
                             <li class="best-list_li b-best_i" id="<?= $model->_id ?>">
 
                                 <div class="user-info clearfix">
-                                    <a href="" class="ava"><img src="<?= $article->author->getAvatarUrl() ?>"/></a>
+                                    <a href="" class="ava"><img src="<?= SeoUser::getAvatarUrlForUser($article->author, 72) ?>"/></a>
                                     <div class="user-info_details">
                                         <a href="" class="user-info_username"><?= $article->author->first_name ?></a>
                                     </div>
@@ -47,7 +47,7 @@ $i = 1;
                                 <div class="best-list_tx">
                                     <?php $photo = $article->content->getPhoto(); ?>
                                     <?php if (!empty($photo)):?>
-                                        <?php $src = implode('/', array(Yii::app()->params['photos_url'],'thumbs','700x',$photo->author_id,$photo->fs_name)); ?>
+                                        <?php $src = implode('/', array(Yii::app()->params['photos_url'],'thumbs','580x1000',$photo->author_id,$photo->fs_name)); ?>
                                         <img src="<?=$src ?>" alt="" width="318"/>
                                     <?php endif ?>
                                     <p><?= $article->getContentText(450); ?>
@@ -62,7 +62,7 @@ $i = 1;
                                     <?php $j = 0; foreach ($article->getUnknownClassComments() as $comment): ?>
                                         <?php if (!empty($comment->author->avatar_id) && !in_array($comment->author->avatar_id, $used)):?>
                                             <?php $j++;$used[] = $comment->author->avatar_id ?>
-                                                <a href="" class="ava small"><img src="<?= $comment->author->getAvatarUrl(Avatar::SIZE_MICRO) ?>"></a>
+                                                <a href="" class="ava small"><img src="<?= SeoUser::getAvatarUrlForUser($comment->author, 24) ?>"></a>
                                             <?php if ($j == 5) break; ?>
                                         <?php endif ?>
                                     <?php endforeach; ?>

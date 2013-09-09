@@ -25,7 +25,7 @@ $commentators = CommentatorWork::model()->findAll($criteria);
                 <td class="external-link_td-user">
                     <div class="user-info clearfix">
                         <?php $url = $this->createUrl('/commentators/default/links', array('month'=>$month, 'user_id'=>$user->id))?>
-                        <a href="<?=$url ?>" class="ava small"><?=CHtml::image($user->getAvatarUrl(Avatar::SIZE_MICRO)) ?></a>
+                        <a href="<?=$url ?>" class="ava small"><?=CHtml::image(SeoUser::getAvatarUrlForUser($user, 24)) ?></a>
                         <div class="user-info_details">
                             <a href="<?=$url ?>" class="user-info_username"><?=$user->fullName ?></a>
                         </div>

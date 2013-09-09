@@ -217,7 +217,7 @@ class SeoUser extends HActiveRecord
             return implode('/', array(
                 Yii::app()->params['photos_url'],
                 'thumbs',
-                '72x72',
+                $size . 'x' . $size,
                 $user->id,
                 $user->avatar->fs_name,
             ));
@@ -225,11 +225,29 @@ class SeoUser extends HActiveRecord
         return '';
     }
 
-    public function getUrl(){
-        return 'http://www.happy-giraffe.ru/user/'.$this->related_user_id.'/';
+    public static function getAvatarUrlForUser($user, $size)
+    {
+        Yii::import('site.frontend.extensions.*');
+        Yii::import('site.frontend.widgets.userAvatarWidget.Avatar');
+        if (isset($user->avatar)) {
+            return implode('/', array(
+                Yii::app()->params['photos_url'],
+                'thumbs',
+                $size . 'x' . $size,
+                $user->id,
+                $user->avatar->fs_name,
+            ));
+        }
+        return '';
     }
 
-    public function getFullName(){
+    public function getUrl()
+    {
+        return 'http://www.happy-giraffe.ru/user/' . $this->related_user_id . '/';
+    }
+
+    public function getFullName()
+    {
         return $this->getRelatedUser()->getFullName();
     }
 
@@ -244,7 +262,7 @@ class SeoUser extends HActiveRecord
 
     public function getTasksCount()
     {
-        if ($this->task_count === null){
+        if ($this->task_count === null) {
             $this->task_count = SeoTask::model()->count('executor_id=' . $this->id . ' AND status >= ' . SeoTask::STATUS_READY
             . ' AND status <= ' . SeoTask::STATUS_TAKEN);
             return $this->task_count;
@@ -284,12 +302,12 @@ class SeoUser extends HActiveRecord
         $authorIds = Yii::app()->db_seo->createCommand()
             ->select('userid')
             ->from('auth__assignments')
-            ->where('itemname = :role', array(':role'=>$role))
+            ->where('itemname = :role', array(':role' => $role))
             ->queryColumn();
         $result = array();
-        $users = SeoUser::model()->active()->findAll('owner_id = '.Yii::app()->user->id);
+        $users = SeoUser::model()->active()->findAll('owner_id = ' . Yii::app()->user->id);
         foreach ($users as $author)
-            if (in_array($author->id, $authorIds)){
+            if (in_array($author->id, $authorIds)) {
                 $result [] = $author;
             }
 

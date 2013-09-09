@@ -38,7 +38,7 @@
                     <a href="/site/logout/" class="header-page_logout"></a>
 
                     <div class="user-info clearfix">
-                        <a href="<?=$this->user->url ?>" class="ava small"><?php //CHtml::image($this->user->getAvatarUrl(Avatar::SIZE_MICRO))?></a>
+                        <a href="<?=$this->user->url ?>" class="ava small"><img src="<?=SeoUser::getAvatarUrlForUser($this->user, 24) ?>" alt=""/></a>
 
                         <div class="user-info_details">
                             <a href="<?=$this->user->url ?>" class="user-info_username"><?=$this->user->getFullName()  ?></a>

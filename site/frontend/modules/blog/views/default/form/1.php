@@ -42,7 +42,7 @@ $form = $this->beginWidget('CActiveForm', array(
     <div class="wysiwyg-v wysiwyg-blue clearfix">
         <?php $slaveModel->text = $slaveModel->forEdit->text ?>
         <?=$form->textArea($slaveModel, 'text', array('class' => 'wysiwyg-redactor-v'))?>
-        <div style="display: none;"><?=$form->error($slaveModel, 'text')?></div>
+        <?=$form->error($slaveModel, 'text')?>
     </div>
 
     <?php if (!empty($club_id) && Yii::app()->user->checkAccess('editor')): ?>
@@ -53,10 +53,6 @@ $form = $this->beginWidget('CActiveForm', array(
             </div>
         </div>
     <?php endif; ?>
-
-    <div class="clearfix textalign-r">
-        <?=$form->errorSummary(array($model, $slaveModel)) ?>
-    </div>
 
     <div class=" clearfix">
         <button class="btn-blue btn-h46 float-r"><?=$model->isNewRecord ? 'Добавить' : 'Редактировать'?></button>

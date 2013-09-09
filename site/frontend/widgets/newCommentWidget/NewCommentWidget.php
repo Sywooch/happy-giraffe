@@ -36,6 +36,12 @@ class NewCommentWidget extends CWidget
     {
         if ($this->model) {
             $this->entity = get_class($this->model);
+            if ($this->entity == 'CommunityContent' || $this->entity == 'BlogContent'){
+                if ($this->model->getIsFromBlog())
+                    $this->entity = 'BlogContent';
+                else
+                    $this->entity = 'CommunityContent';
+            }
             $this->entity_id = $this->model->primaryKey;
         } elseif ($this->entity) {
             $model = call_user_func(array($this->entity, 'model'));

@@ -20,7 +20,7 @@ $photo = $data->getPhoto()
             <?=$data->post->purified->text ?>
         </div>
     </div>
-    <?php if ($data->gallery !== null) $this->renderPartial('application.modules.blog.views.default.photo_gallery', array('data' => $data)); ?>
+    <?php if ($data->gallery !== null && count($data->gallery->items) > 1) $this->renderPartial('application.modules.blog.views.default.photo_gallery', array('data' => $data)); ?>
 <?php else: ?>
     <?php if ($showTitle):?>
         <div class="b-article_t">

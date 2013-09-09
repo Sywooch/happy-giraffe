@@ -18,6 +18,7 @@ return array(
         'site.common.behaviors.*',
         'site.common.models.*',
         'site.common.helpers.*',
+        'site.frontend.components.*',
         'site.frontend.extensions.image.Image',
         'site.frontend.extensions.phpQuery.phpQuery',
         'site.frontend.extensions.directmongosuite.*',

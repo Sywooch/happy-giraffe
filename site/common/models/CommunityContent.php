@@ -740,7 +740,7 @@ class CommunityContent extends HActiveRecord
      * @param int $width ширина картинки
      * @return bool|string
      */
-    public function getContentImage($width = 700)
+    public function getContentImage($width = 580)
     {
         if (!isset($this->content))
             return '';

@@ -100,10 +100,10 @@ $user = Yii::app()->user->getModel();
             <div class="layout-header layout-header__nologin clearfix">
                 <div class="content-cols clearfix">
                     <div class="col-1">
-                        <h1 class="logo">
+                        <div class="logo">
                             <a href="/" class="logo_i" title="Веселый жираф - сайт для все семьи">Веселый жираф - сайт для все семьи</a>
                             <strong class="logo_slogan">САЙТ ДЛЯ ВСЕЙ СЕМЬИ</strong>
-                        </h1>
+                        </div>
                         <div class="sidebar-search clearfix">
                             <form action="/search/">
                                 <input type="text" placeholder="Поиск по сайту" class="sidebar-search_itx" name="query" id="site-search" onkeyup="SiteSearch.keyUp(this)">

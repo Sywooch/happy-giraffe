@@ -1,7 +1,7 @@
 <?php
 /**
  * insert Description
- * 
+ *
  * @author Alex Kireev <alexk984@gmail.com>
  */
 
@@ -16,6 +16,13 @@ class ServiceController extends HController
     {
         $this->service = Service::model()->findByPk($this->service_id);
         $this->club = CommunityClub::model()->findByPk($this->service->community_id);
+
+        $this->breadcrumbs = array(
+            $this->club->section->title => $this->club->section->getUrl(),
+            $this->club->title => $this->club->getUrl(),
+            'Сервисы' => $this->createUrl('/community/default/services', array('club' => $this->club->slug)),
+            $this->service->title
+        );
 
         parent::init();
     }

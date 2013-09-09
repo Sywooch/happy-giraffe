@@ -155,7 +155,7 @@ NotificationRead::getInstance()->SetVisited();
                     <!-- ko if: response() -->
                     <div class="redactor-control_quote">
                         <span class="comments-gray_quote-ico active"></span>
-                        <span class="redactor-control_quote-tx" data-bind="text: response().author.fullName">Вася Пупкин</span>
+                        <span class="redactor-control_quote-tx" data-bind="text: response().author.fullName"></span>
                         <a href="" class="ico-close3 powertip" data-bind="click: removeResponse"></a>
                     </div>
                     <!-- /ko -->

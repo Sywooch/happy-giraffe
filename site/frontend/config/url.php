@@ -21,8 +21,20 @@ return array(
         'findFriends/byStatus' => array('friends/find', 'defaultParams' => array('type' => 3)),
 
         // photo view
-        'user/<user_id:\d+>/blog/post<content_id:\w+>/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'CommunityContentGallery')),
-        'community/<community_id:\d+>/forum/(post|photoPost)/<content_id:\d+>/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'CommunityContentGallery')),
+        //'user/<user_id:\d+>/blog/post<content_id:\w+>/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'CommunityContentGallery')),
+        array(
+            'class' => 'application.components.PhotoUrlRule',
+            'pattern' => 'user/<user_id:\d+>/blog/post<content_id:\w+>/photo<photo_id:\d+>',
+            'route' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'CommunityContentGallery')),
+            'blog' => true,
+        ),
+        //'community/<community_id:\d+>/forum/(post|photoPost)/<content_id:\d+>/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'CommunityContentGallery')),
+        array(
+            'class' => 'application.components.PhotoUrlRule',
+            'pattern' => 'community/<community_id:\d+>/forum/(post|photoPost)/<content_id:\d+>/photo<photo_id:\d+>',
+            'route' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'CommunityContentGallery')),
+            'blog' => false,
+        ),
         'user/<user_id:\d+>/albums/<album_id:\d+>/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'Album')),
         'cook/recipe/<recipe_id:\d+>/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'SimpleRecipe')),
         'cook/multivarka/<recipe_id:\d+>/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'MultivarkaRecipe')),
@@ -35,22 +47,22 @@ return array(
         // site controller
         '/' => 'site/index',
         'js_dynamics/<hash:\w+>.js' => 'site/seoHide',
-        'moderation'=>'site/moderationRules',
+        'moderation' => 'site/moderationRules',
         'site/<_a:(confirmEmail|resendConfirmEmail|passwordRecovery|passwordRecoveryForm|login|logout|link)>' => 'site/<_a>',
 
 
         //===================== Subscribes =========================//
-        'subscribes'=>'myGiraffe/default/subscribes',
-        'recommends'=>'myGiraffe/default/recommends',
+        'subscribes' => 'myGiraffe/default/subscribes',
+        'recommends' => 'myGiraffe/default/recommends',
         'my/friends' => array('myGiraffe/default/index', 'defaultParams' => array('type' => 2)),
         'my/blogs' => array('myGiraffe/default/index', 'defaultParams' => array('type' => 3)),
         'my/community/<community_id:\d+>' => array('myGiraffe/default/index', 'defaultParams' => array('type' => 4)),
-        'my'  => array('myGiraffe/default/index', 'defaultParams' => array('type' => 1)),
+        'my' => array('myGiraffe/default/index', 'defaultParams' => array('type' => 1)),
         'my/<_a>' => 'myGiraffe/default/<_a>',
 
         // ajax controller
         //'ajax/duelShow/question_id/<question_id:\d+>' => 'ajax/duelShow',
-        'ajaxSimple/<_a>'=>'ajaxSimple/<_a>',
+        'ajaxSimple/<_a>' => 'ajaxSimple/<_a>',
 
         // signup controller
         'signup' => 'signup/index',
@@ -144,7 +156,7 @@ return array(
         'interests-and-hobby' => array('community/default/section', 'defaultParams' => array('section_id' => 5)),
         'family-holiday' => array('community/default/section', 'defaultParams' => array('section_id' => 6)),
 
-        'community/<_a:(subscribe)>/'=>'community/default/<_a>',
+        'community/<_a:(subscribe)>/' => 'community/default/<_a>',
         'community/<forum_id:\d+>/forum/rubric/<rubric_id:\d+>' => 'community/default/forum',
         'community/<forum_id:\d+>/forum/<content_type_slug:\w+>/<content_id:\d+>' => 'community/default/view',
         'community/<forum_id:\d+>/forum/' => 'community/default/forum',
@@ -203,8 +215,8 @@ return array(
         'cook/decor/page<page:\d+>' => 'cook/decor/index',
         'cook/decor' => 'cook/decor/index',
 
-        'cook/recipe/tag/valentinesDay/type/<type:\d+>' => array('cook/recipe/tag', 'defaultParams' => array('section' => 0, 'tag'=>97)),
-        'cook/recipe/tag/valentinesDay' => array('cook/recipe/tag', 'defaultParams' => array('section' => 0, 'tag'=>97)),
+        'cook/recipe/tag/valentinesDay/type/<type:\d+>' => array('cook/recipe/tag', 'defaultParams' => array('section' => 0, 'tag' => 97)),
+        'cook/recipe/tag/valentinesDay' => array('cook/recipe/tag', 'defaultParams' => array('section' => 0, 'tag' => 97)),
 
         'cook/recipe/tag/<tag:\d+>/type/<type:\d+>' => array('cook/recipe/tag', 'defaultParams' => array('section' => 0)),
         'cook/recipe/tag/<tag:\d+>' => array('cook/recipe/tag', 'defaultParams' => array('section' => 0)),
@@ -295,10 +307,10 @@ return array(
         'services/<_m:(dailyCalories|weightLoss|idealWeight|bodyFat)>/default/<_c>' => 'services/<_m>/default/<_c>',
         'services/lines/<id:[\d]+>.jpeg' => 'services/lines/default/index',
 
-        'auto/routes/<id:[\d]+>'=>'routes/default/index',
-        'auto/routes/'=>'routes/default/index',
-        'auto/routes/<_a>'=>'routes/default/<_a>',
-        'auto/routes/<_a>/<id:[\d]+>'=>'routes/default/<_a>',
+        'auto/routes/<id:[\d]+>' => 'routes/default/index',
+        'auto/routes/' => 'routes/default/index',
+        'auto/routes/<_a>' => 'routes/default/<_a>',
+        'auto/routes/<_a>/<id:[\d]+>' => 'routes/default/<_a>',
 
         'ValentinesDay' => 'valentinesDay/default/index',
         'ValentinesDay/<_a>' => 'valentinesDay/default/<_a>',

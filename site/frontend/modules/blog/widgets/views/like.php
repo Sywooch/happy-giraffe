@@ -7,7 +7,7 @@
             <div>Вы не можете нажать кнопку "Нравится" в своей записи</div>
         </div>
     <?php else: ?>
-        <a href="javascript:;" class="like-control_ico like-control_ico__like powertip<?php if ($active) echo ' active' ?>"
-           onclick="HgLike(this, '<?=get_class($this->model) ?>',<?=$this->model->id ?>);" title="Нравится"><?=$count ?></a>
+        <a href="" class="like-control_ico like-control_ico__like powertip<?php if ($active) echo ' active' ?>"
+           onclick="HgLike(this, '<?=get_class($this->model) ?>',<?=$this->model->id ?>);return false;" title="Нравится"><?=$count ?></a>
     <?php endif ?>
 <?php endif ?>

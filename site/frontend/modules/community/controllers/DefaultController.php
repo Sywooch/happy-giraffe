@@ -67,15 +67,16 @@ class DefaultController extends HController
 
         $this->breadcrumbs = ($forum_id == Community::COMMUNITY_NEWS) ? array() : array(
             $this->club->section->title => $this->club->section->getUrl(),
+            $this->club->title => $this->club->getUrl()
         );
-        if (count($this->club->communities) > 1) {
-            $this->breadcrumbs[$this->club->title] = $this->club->getUrl();
+        if (count($this->club->communities) > 1)
             $this->breadcrumbs [] = $this->forum->title;
-        } else
-            $this->breadcrumbs [] = $this->club->title;
+        else
+            $this->breadcrumbs [] = 'Форум';
 
         Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
         $dp = CommunityContent::model()->getContents($forum->id, $rubric_id);
+
         $this->render('list', compact('dp'));
     }
 
@@ -99,8 +100,11 @@ class DefaultController extends HController
                 $this->club->section->title => $this->club->section->getUrl(),
                 $this->club->title => $this->club->getUrl(),
             );
-            if ($this->club->communities !== null && count($this->club->communities) > 1)
-                $this->breadcrumbs [$this->forum->title] = $this->forum->getUrl();
+            if ($this->club->communities !== null)
+                if (count($this->club->communities) > 1)
+                    $this->breadcrumbs [$this->forum->title] = $this->forum->getUrl();
+                else
+                    $this->breadcrumbs ['Форум'] = $this->forum->getUrl();
             $this->breadcrumbs [] = $content->title;
         }
 
@@ -115,6 +119,12 @@ class DefaultController extends HController
     public function actionServices($club)
     {
         $this->loadClub($club);
+        $this->pageTitle = $this->club->title.' - Сервисы';
+        $this->breadcrumbs = array(
+            $this->club->section->title => $this->club->section->getUrl(),
+            $this->club->title => $this->club->getUrl(),
+            'Сервисы'
+        );
 
         $services = $this->club->services;
         $this->render('services', compact('services'));

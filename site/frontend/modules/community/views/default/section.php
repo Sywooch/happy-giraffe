@@ -18,7 +18,7 @@
 
         <?php $this->widget('application.modules.profile.widgets.ClubsWidget', array(
             'user' => Yii::app()->user->getModel(),
-            'clubs' => CHtml::listData($section->clubs, 'id', 'id'),
+            'clubs' => $section->getClubIds(),
             'size'=>'Community'
         )); ?>
 

@@ -254,9 +254,9 @@ class Comment extends HActiveRecord
             return '';
         if ($this->entity == 'Service') {
             $url = $entity->getUrl();
-            $page = $this->calcPageNumber();
-            if ($page > 1)
-                $url .= '?Comment_page=' . $page;
+//            $page = $this->calcPageNumber();
+//            if ($page > 1)
+//                $url .= '?Comment_page=' . $page;
             return $url . '#comment_' . $this->id;
         }
 
@@ -264,9 +264,9 @@ class Comment extends HActiveRecord
         $params['#'] = 'comment_' . $this->id;
 
         //add page param
-        $page = $this->calcPageNumber();
-        if ($page > 1)
-            $params['Comment_page'] = $page;
+//        $page = $this->calcPageNumber();
+//        if ($page > 1)
+//            $params['Comment_page'] = $page;
 
         $method = $absolute ? 'createAbsoluteUrl' : 'createUrl';
         return Yii::app()->$method($route, $params);

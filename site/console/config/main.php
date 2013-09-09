@@ -18,7 +18,6 @@ return array(
         'site.common.behaviors.*',
         'site.common.models.*',
         'site.common.helpers.*',
-        'site.frontend.components.*',
         'site.frontend.extensions.image.Image',
         'site.frontend.extensions.phpQuery.phpQuery',
         'site.frontend.extensions.directmongosuite.*',
@@ -114,7 +113,7 @@ return array(
                 'keywords' => 100,
             ),
         ),
-        'urlManager'=> include(Yii::getPathOfAlias('site.frontend.config') . DIRECTORY_SEPARATOR . 'url.php'),
+        'urlManager'=>require_once(dirname(__FILE__).'/url.php'),
         'mc' => array(
             'class' => 'site.common.extensions.mailchimp.MailChimp',
             'apiKey' => 'c0ff51b36480912260a410258b64af5f-us5',

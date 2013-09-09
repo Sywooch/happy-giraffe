@@ -33,23 +33,19 @@ class ConvertNewCommand extends CConsoleCommand
 
     public function actionFix2()
     {
-        $i = 0;
-        $rows = 1;
-        while (!empty($rows)) {
-            $rows = Yii::app()->db->createCommand()
-                ->select('*')
-                ->from('user__users_communities')
-                ->offset($i * 1000)
-                ->limit(1000)
-                ->queryAll();
-            foreach($rows as $row){
-                $c = Community::model()->findByPk($row['community_id']);
-                if (!empty($c->club_id) && !UserClubSubscription::subscribed($row['user_id'], $c->club_id))
-                    UserClubSubscription::add($c->club_id, $row['user_id']);
-            }
-
-            echo $i."\n";
-            $i++;
+        $criteria = new CDbCriteria;
+        $criteria->order = 'id desc';
+        $criteria->limit = 3000;
+        $last_contents = CommunityContent::model()->resetScope()->findAll($criteria);
+        foreach ($last_contents as $last_content) {
+            if ($last_content->getIsFromBlog())
+                $k = Yii::app()->db->createCommand()->update('comments',
+                    array('entity' => 'BlogContent'), 'entity="CommunityContent" AND entity_id='.$last_content->id);
+            else
+                $k = Yii::app()->db->createCommand()->update('comments',
+                    array('entity' => 'CommunityContent'), 'entity="BlogContent" AND entity_id='.$last_content->id);
+            if ($k != 0)
+                echo $k;
         }
     }
 

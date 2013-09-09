@@ -148,20 +148,6 @@ return array(
         'community/<forum_id:\d+>/forum/rubric/<rubric_id:\d+>' => 'community/default/forum',
         'community/<forum_id:\d+>/forum/<content_type_slug:\w+>/<content_id:\d+>' => 'community/default/view',
         'community/<forum_id:\d+>/forum/' => 'community/default/forum',
-//        'community/<community_id:\d+>/forum/rubric/<rubric_id:\d+>/<content_type_slug:\w+>' => 'community/list',
-//        'community/<community_id:\d+>/forum/rubric/<rubric_id:\d+>' => 'community/list',
-//        'community/<community_id:\d+>/forum/<content_type_slug:\w+>' => 'community/list',
-//        'community/<community_id:\d+>/forum' => 'community/list',
-//        'community/<community_id:\d+>/forum/<content_type_slug:\w+>/<content_id:\d+>' => 'community/view',
-//        'community/<community_id:\d+>/forum/<content_type_slug:\w+>/<content_id:\d+>/uploadImage' => 'community/uploadImage',
-//
-//        'community/edit/content_id/<content_id:\d+>' => 'community/edit',
-//        'community/add/community_id/<community_id:\d+>/rubric_id/<rubric_id:\d+>/content_type_slug/<content_type_slug>' => 'community/add',
-//        'community/add/community_id/<community_id:\d+>/rubric_id/<rubric_id:\d+>' => 'community/add',
-//        'community/add/community_id/<community_id:\d+>/content_type_slug/<content_type_slug>' => 'community/add',
-//        'community/add/community_id/<community_id:\d+>' => 'community/add',
-//        'community/recent/community_id/<community_id:\d+>' => 'community/recent',
-//        'community/<_a:(join|add|transfer|edit|weeklyMail)>' => 'community/<_a>',
 
         //global
         '<_c:(settings|ajax|notification|profile|friendRequests|communityRubric|morning|userPopup|features|blog)>/<_a>' => '<_c>/<_a>',

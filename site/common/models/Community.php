@@ -14,6 +14,7 @@
  * @property string $club_id
  *
  * @property CommunityRubric[] $rubrics
+ * @property CommunityClub $club
  */
 class Community extends HActiveRecord
 {

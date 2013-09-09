@@ -15,9 +15,11 @@
 <div class="col-23-middle ">
 
     <div class="col-gray">
-        <div class="heading-title margin-b10 margin-t15 clearfix" style="display: none;">
-            Сервисы для кулинаров
-        </div>
+        <?php if (!empty($this->club->services_title)):?>
+            <div class="heading-title margin-b10 margin-t15 clearfix">
+                <?=$this->club->services_title ?>
+            </div>
+        <?php endif ?>
         <p class="margin-l20 margin-r40 color-gray-dark"><?=$this->club->services_description ?></p>
 
         <div class="club-services">

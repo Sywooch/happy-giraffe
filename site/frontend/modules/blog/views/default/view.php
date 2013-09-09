@@ -15,7 +15,7 @@ else
 <div class="b-article clearfix<?php if ($data->type_id == CommunityContentType::TYPE_STATUS) echo ' b-article__user-status' ?>" id="blog_settings_<?=$data->id ?>">
     <?php if ($data->source_id) $this->renderPartial('blog.views.default._repost', array('data' => $data)); ?>
     <div class="float-l">
-        <?php $this->renderPartial('blog.views.default._post_controls', array('model' => $data->getSourceContent())); ?>
+        <?php $this->renderPartial('blog.views.default._post_controls', array('model' => $data->getSourceContent(), 'isRepost' => !empty($data->source_id))); ?>
     </div>
 
     <div class="b-article_cont clearfix">

@@ -22,7 +22,7 @@ $ownArticle = $model->author_id == Yii::app()->user->id;
         <!-- /ko -->
 
     </div>
-    <?php if (!Yii::app()->user->isGuest && ($model->canEdit() || $model->canRemove())): ?>
+    <?php if (!Yii::app()->user->isGuest && ($model->canEdit() || $model->canRemove()) && !$isRepost): ?>
         <div class="article-settings">
             <div class="article-settings_i">
                 <a href="javascript:;" class="article-settings_a article-settings_a__settings powertip" data-bind='css: {active: displayOptions}, click: show' title="Настройки"></a>

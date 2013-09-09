@@ -81,9 +81,12 @@ class DefaultController extends HController
 
     public function actionAwards($user_id)
     {
-        Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
         $this->loadUser($user_id);
+
+        Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
+        $this->pageTitle = $this->user->getFullName() . ' - Награды';
         $this->title = 'Награды';
+
         $awards = UserScores::model()->getAwardsWithAchievements($this->user->id);
 
         $this->render('awards', compact('awards'));
@@ -91,14 +94,18 @@ class DefaultController extends HController
 
     public function actionAward($user_id, $id, $type)
     {
-        Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
         $this->loadUser($user_id);
-        $this->title = 'Награды';
+        Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
+
         if ($type == 'award')
             $award = ScoreUserAward::model()->findByPk($id);
         elseif ($type == 'achievement')
             $award = ScoreUserAchievement::model()->findByPk($id); else
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+
+        $this->pageTitle = $this->user->getFullName() . ' - ' . $award->getTitle();
+        $this->title = 'Награды';
+
         list($next, $prev) = UserScores::getNextPrev($user_id, $award);
         list($users, $count) = $award->awardUsers();
 
@@ -188,8 +195,8 @@ class DefaultController extends HController
             UserClubSubscription::add($clubId);
         foreach ($blogs as $blogId)
             UserBlogSubscription::add($blogId);
-        Yii::app()->user->setState('visitedClubs',null);
-        Yii::app()->user->setState('visitedBlogs',null);
+        Yii::app()->user->setState('visitedClubs', null);
+        Yii::app()->user->setState('visitedBlogs', null);
 
         $this->loadUser(Yii::app()->user->id);
         $this->layout = '//layouts/simple';

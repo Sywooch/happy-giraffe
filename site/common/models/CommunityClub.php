@@ -8,6 +8,7 @@
  * @property string $title
  * @property string $description
  * @property string $services_description
+ * @property string $services_title
  * @property string $section_id
  * @property string $slug
  *

@@ -33,7 +33,7 @@ $i = 0;
             </div>
 
             <?php
-            $image_url = $model->getContentImage();
+            $image_url = $model->getContentImage(580, 1000);
             if (!empty($image_url))
                 $image_size = getimagesize($image_url);
             else

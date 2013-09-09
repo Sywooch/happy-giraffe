@@ -11,6 +11,7 @@ class MailCommand extends CConsoleCommand
         Yii::import('site.frontend.modules.messaging.models.*');
         Yii::import('site.frontend.modules.messaging.components.*');
         Yii::import('site.frontend.modules.geo.models.*');
+        Yii::import('site.frontend.widgets.userAvatarWidget.Avatar');
         Yii::import('site.common.models.mongo.*');
 
         return true;

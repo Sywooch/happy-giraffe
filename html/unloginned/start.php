@@ -108,7 +108,7 @@
 					<div class="float-l">
 						<div class="like-control like-control__smallest clearfix">
 							<a href="" class="ava middle">
-								<img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg">
+								<img alt="" src="http://img.happy-giraffe.ru/avatars/15292/ava/7f15174692ae858803ca7f2079f1bba0.jpg">
 							</a>
 							<a class="like-control_ico like-control_ico__like powertip" href="" title="Нравиться">0</a>
 							<div class="position-r">
@@ -132,6 +132,9 @@
 								</div>
 							</div>
 							<div class="float-l">
+								<div class="clearfix">
+									<a class="b-article-prev_author" href="">Инна</a>
+								</div>
 								<span class="font-smallest color-gray">Сегодня 13:25</span>
 							</div>
 						</div>
@@ -150,6 +153,7 @@
 					<div class="float-l">
 						<div class="like-control like-control__smallest clearfix">
 							<a href="" class="ava middle">
+								<span class="icon-status status-online"></span>
 								<img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg">
 							</a>
 							<a class="like-control_ico like-control_ico__like powertip" href="" title="Нравиться">5</a>
@@ -174,6 +178,9 @@
 								</div>
 							</div>
 							<div class="float-l">
+								<div class="clearfix">
+									<a class="b-article-prev_author" href="">Галина</a>
+								</div>
 								<span class="font-smallest color-gray">Сегодня 13:25</span>
 							</div>
 						</div>
@@ -193,7 +200,8 @@
 					<div class="float-l">
 						<div class="like-control like-control__smallest clearfix">
 							<a href="" class="ava middle">
-								<img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg">
+								<span class="icon-status status-online"></span>
+								<img alt="" src="http://img.happy-giraffe.ru/avatars/12936/ava/adba5eb2627598e185540ee8d3b87a03.JPG">
 							</a>
 							<a class="like-control_ico like-control_ico__like powertip" href="" title="Нравиться">5</a>
 							<div class="position-r">
@@ -217,6 +225,9 @@
 								</div>
 							</div>
 							<div class="float-l">
+								<div class="clearfix">
+									<a class="b-article-prev_author" href="">Инна</a>
+								</div>
 								<span class="font-smallest color-gray">Сегодня 13:25</span>
 							</div>
 						</div>
@@ -235,6 +246,7 @@
 					<div class="float-l">
 						<div class="like-control like-control__smallest clearfix">
 							<a href="" class="ava middle">
+								<span class="icon-status status-online"></span>
 								<img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg">
 							</a>
 							<a class="like-control_ico like-control_ico__like powertip" href="" title="Нравиться">5</a>
@@ -259,6 +271,9 @@
 								</div>
 							</div>
 							<div class="float-l">
+								<div class="clearfix">
+									<a class="b-article-prev_author" href="">Александр</a>
+								</div>
 								<span class="font-smallest color-gray">Сегодня 13:25</span>
 							</div>
 						</div>
@@ -277,7 +292,8 @@
 					<div class="float-l">
 						<div class="like-control like-control__smallest clearfix">
 							<a href="" class="ava middle">
-								<img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg">
+								<span class="icon-status status-online"></span>
+								<img alt="" src="http://img.happy-giraffe.ru/avatars/12936/ava/adba5eb2627598e185540ee8d3b87a03.JPG">
 							</a>
 							<a class="like-control_ico like-control_ico__like powertip" href="" title="Нравиться">5</a>
 							<div class="position-r">
@@ -301,6 +317,9 @@
 								</div>
 							</div>
 							<div class="float-l">
+								<div class="clearfix">
+									<a class="b-article-prev_author" href="">Нкикита</a>
+								</div>
 								<span class="font-smallest color-gray">Сегодня 13:25</span>
 							</div>
 						</div>
@@ -319,7 +338,7 @@
 					<div class="float-l">
 						<div class="like-control like-control__smallest clearfix">
 							<a href="" class="ava middle">
-								<img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg">
+								<img alt="" src="http://img.happy-giraffe.ru/avatars/15292/ava/7f15174692ae858803ca7f2079f1bba0.jpg">
 							</a>
 							<a class="like-control_ico like-control_ico__like powertip" href="" title="Нравиться">5</a>
 							<div class="position-r">
@@ -343,6 +362,9 @@
 								</div>
 							</div>
 							<div class="float-l">
+								<div class="clearfix">
+									<a class="b-article-prev_author" href="">Александр</a>
+								</div>
 								<span class="font-smallest color-gray">Сегодня 13:25</span>
 							</div>
 						</div>

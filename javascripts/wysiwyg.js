@@ -27,8 +27,6 @@ var WysiwygLink = function(data) {
     }
 
     self.processLink = function() {
-        console.log('process');
-
         var link = '', text = '';
 
         link = self.url();
@@ -45,9 +43,9 @@ var WysiwygLink = function(data) {
         var re = new RegExp('^(http|ftp|https)://' + pattern, 'i');
         var re2 = new RegExp('^' + pattern, 'i');
 
-        if (link.search(re) == -1 && link.search(re2) == 0 && this.opts.linkProtocol)
+        if (link.search(re) == -1 && link.search(re2) == 0 && redactor.opts.linkProtocol)
         {
-            link = this.opts.linkProtocol + link;
+            link = redactor.opts.linkProtocol + link;
         }
 
         redactor.linkInsert('<a href="' + link + '">' + text + '</a>', $.trim(text), link, '');

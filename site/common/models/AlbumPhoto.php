@@ -138,7 +138,7 @@ class AlbumPhoto extends HActiveRecord
     {
         return array(
             'active' => array(
-                'condition' => $this->tableAlias . '.removed = 0 AND '.$this->tableAlias . '.hidden = 0',
+                'condition' => $this->tableAlias . '.removed = 0 AND ' . $this->tableAlias . '.hidden = 0',
             ),
         );
     }
@@ -187,7 +187,7 @@ class AlbumPhoto extends HActiveRecord
         $this->save(false);
         NotificationDelete::entityRemoved($this);
 
-        if (!empty($this->album_id) && in_array($this->album->type, array(0,1,3)))
+        if (!empty($this->album_id) && in_array($this->album->type, array(0, 1, 3)))
             Scoring::photoRemoved($this);
 
         return false;
@@ -250,8 +250,7 @@ class AlbumPhoto extends HActiveRecord
         elseif ($mimetype == 'image/gif')
             $ext = 'gif'; elseif ($mimetype == 'image/png')
             $ext = 'png'; elseif ($mimetype == 'image/tiff')
-            $ext = 'tiff';
-        else
+            $ext = 'tiff'; else
             return false;
 
         $model = new AlbumPhoto();
@@ -575,11 +574,18 @@ class AlbumPhoto extends HActiveRecord
     public function getUrlParams()
     {
         if (!empty($this->galleryItem) && isset($this->galleryItem->gallery->content)) {
-            return array('albums/singlePhoto', array(
-                'photo_id' => $this->id,
-                'community_id' => $this->galleryItem->gallery->content->rubric->community_id,
-                'content_id' => $this->galleryItem->gallery->content_id,
-            ));
+            if ($this->galleryItem->gallery->content->getIsFromBlog())
+                return array('albums/singlePhoto', array(
+                    'photo_id' => $this->id,
+                    'user_id' => $this->galleryItem->gallery->content->author_id,
+                    'content_id' => $this->galleryItem->gallery->content_id,
+                ));
+            else
+                return array('albums/singlePhoto', array(
+                    'photo_id' => $this->id,
+                    'community_id' => $this->galleryItem->gallery->content->rubric->community_id,
+                    'content_id' => $this->galleryItem->gallery->content_id,
+                ));
         } elseif (empty($this->album_id) && !empty($this->attach)) {
             switch ($this->attach->entity) {
                 case 'ContestWork':
@@ -736,7 +742,7 @@ class AlbumPhoto extends HActiveRecord
         $model->fs_name = $this->copyUserFile($file['name'], $file['tmp_name'], $model->author_id);
         $model->file_name = $file['name'];
         $model->hidden = $hidden;
-        if (!$model->save(false)){
+        if (!$model->save(false)) {
             var_dump($model->getErrors());
         }
 

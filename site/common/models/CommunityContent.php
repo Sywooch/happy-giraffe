@@ -280,7 +280,7 @@ class CommunityContent extends HActiveRecord
             if ($this->type_id == self::TYPE_STATUS)
                 FriendEventManager::add(FriendEvent::TYPE_STATUS_UPDATED, array('model' => $this));
 
-            if (in_array($this->type_id, array(self::TYPE_POST, self::TYPE_VIDEO))) {
+            if (in_array($this->type_id, array(self::TYPE_POST, self::TYPE_VIDEO, self::TYPE_PHOTO_POST))) {
                 Scoring::contentCreated($this);
                 FriendEventManager::add(FriendEvent::TYPE_POST_ADDED, array('model' => $this));
             }

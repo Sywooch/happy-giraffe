@@ -325,4 +325,9 @@ class Album extends HActiveRecord
     {
         return null;
     }
+
+    public function getContentTitle()
+    {
+        return $this->title;
+    }
 }

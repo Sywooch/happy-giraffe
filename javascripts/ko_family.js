@@ -27,6 +27,26 @@ ko.bindingHandlers.droppable = {
     }
 };
 
+ko.bindingHandlers.fileupload = {
+    init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+        var value = valueAccessor();
+        $(element).fileupload({
+            dataType: 'json',
+            url: value.url,
+            formData: value.formData,
+            add: function (e, data) {
+                data.submit();
+            },
+            done: function (e, data) {
+                value.callback(data.result, bindingContext.$data);
+            }
+        });
+    },
+    update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+
+    }
+};
+
 // common models
 
 var FamilyCommonAdult = function(data, parent) {
@@ -438,30 +458,9 @@ var FamilyMainViewModel = function(data) {
         self.addIsOpened(true);
     };
 
-    $('#me-upload-target').on('load', function() {
-        var response = $(this).contents().find('#response').text();
-        if (response.length > 0) {
-            var data = $.parseJSON(response);
-            self.me().photos.unshift(new FamilyMainPhoto(data.photo, self.me(), self));
-        }
-    });
-
-    $('#partner-upload-target').on('load', function() {
-        var response = $(this).contents().find('#response').text();
-        if (response.length > 0) {
-            var data = $.parseJSON(response);
-            self.partner().photos.unshift(new FamilyMainPhoto(data.photo, self.partner(), self));
-        }
-    });
-
-    $('#baby-upload-target').on('load', function() {
-        var response = $(this).contents().find('#response').text();
-        if (response.length > 0) {
-            var data = $.parseJSON(response);
-            var baby = self.getBabyById(data.id);
-            baby.photos.unshift(new FamilyMainPhoto(data.photo, baby, self));
-        }
-    });
+    self.photoUploadCallback = function(response, data) {
+        data.photos.unshift(new FamilyMainPhoto(response.photo, data, self));
+    }
 }
 
 var FamilyMainMember = function(data, parent) {
@@ -485,6 +484,9 @@ var FamilyMainMember = function(data, parent) {
     self.photoToShow = ko.computed(function() {
         return self.photos().length > 0 ? (self.mainPhoto() !== null ? self.mainPhoto() : self.photos()[0]) : null;
     });
+    self.photoFormData = function() {
+        return {};
+    }
 
     // name
     self.name = ko.observable(data.name);
@@ -526,7 +528,6 @@ var FamilyMainMember = function(data, parent) {
 var FamilyMainMe = function(data, parent) {
     var self = this;
     self.PHOTO_UPLOAD_URL = '/family/photo/meUpload/';
-    self.PHOTO_UPLOAD_TARGET = 'me-upload-target';
     self.ENTITY_NAME = 'User';
     ko.utils.extend(self, new FamilyCommonMe(data, self));
     ko.utils.extend(self, new FamilyMainMember(data, self));
@@ -557,7 +558,6 @@ var FamilyMainMe = function(data, parent) {
 var FamilyMainPartner = function(data, parent) {
     var self = this;
     self.PHOTO_UPLOAD_URL = '/family/photo/partnerUpload/';
-    self.PHOTO_UPLOAD_TARGET = 'partner-upload-target';
     self.ENTITY_NAME = 'UserPartner';
     ko.utils.extend(self, new FamilyCommonPartner(data, self, parent));
     ko.utils.extend(self, new FamilyMainMember(data, self));
@@ -618,7 +618,6 @@ var FamilyMainPartner = function(data, parent) {
 var FamilyMainBaby = function(data, parent) {
     var self = this;
     self.PHOTO_UPLOAD_URL = '/family/photo/babyUpload/';
-    self.PHOTO_UPLOAD_TARGET = 'baby-upload-target';
     self.ENTITY_NAME = 'Baby';
     ko.utils.extend(self, new FamilyCommonBaby(data, self));
     ko.utils.extend(self, new FamilyMainMember(data, self));
@@ -669,6 +668,8 @@ var FamilyMainBaby = function(data, parent) {
         }, 'json');
     }
 
+
+    // name
     self.saveName = function() {
         $.post('/family/baby/updateAttribute/', { id : self.id, attribute : 'name', value : self.nameValue() }, function(response) {
             self.saveNameCallback(response);
@@ -680,6 +681,12 @@ var FamilyMainBaby = function(data, parent) {
             self.saveNoticeCallback(response);
         }, 'json');
     }
+
+    // photo
+    self.photoFormData = function() {
+        return { id : self.id };
+    }
+
 
     self.remove = function() {
         $.post('/family/baby/remove/', { id : self.id }, function(response) {

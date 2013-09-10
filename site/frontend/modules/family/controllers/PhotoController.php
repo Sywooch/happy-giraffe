@@ -26,7 +26,7 @@ class PhotoController extends HController
                 'smallThumbSrc' => $photo->getPreviewUrl(null, 105, Image::HEIGHT),
             ),
         );
-        $this->renderPartial('uploadPhoto', compact('response'));
+        echo CJSON::encode($response);
     }
 
     public function actionPartnerUpload()
@@ -46,7 +46,7 @@ class PhotoController extends HController
                 'smallThumbSrc' => $photo->getPreviewUrl(null, 105, Image::HEIGHT),
             ),
         );
-        $this->renderPartial('uploadPhoto', compact('response'));
+        echo CJSON::encode($response);
     }
 
     public function actionBabyUpload()
@@ -68,7 +68,7 @@ class PhotoController extends HController
                 'smallThumbSrc' => $photo->getPreviewUrl(null, 105, Image::HEIGHT),
             ),
         );
-        $this->renderPartial('uploadPhoto', compact('response'));
+        echo CJSON::encode($response);
     }
 
     public function actionSetMainPhoto()

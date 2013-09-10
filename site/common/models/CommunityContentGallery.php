@@ -15,34 +15,34 @@
  */
 class CommunityContentGallery extends HActiveRecord
 {
-	public static function model($className=__CLASS__)
-	{
-		return parent::model($className);
-	}
+    public static function model($className = __CLASS__)
+    {
+        return parent::model($className);
+    }
 
-	public function tableName()
-	{
-		return 'community__content_gallery';
-	}
+    public function tableName()
+    {
+        return 'community__content_gallery';
+    }
 
-	public function rules()
-	{
-		return array(
-			array('content_id, title', 'required'),
-			array('content_id', 'length', 'max'=>10),
-			array('title', 'length', 'max'=>255),
+    public function rules()
+    {
+        return array(
+            array('content_id, title', 'required'),
+            array('content_id', 'length', 'max' => 10),
+            array('title', 'length', 'max' => 255),
             array('created', 'safe'),
-		);
-	}
+        );
+    }
 
-	public function relations()
-	{
-		return array(
-			'content' => array(self::BELONGS_TO, 'CommunityContent', 'content_id'),
-			'items' => array(self::HAS_MANY, 'CommunityContentGalleryItem', 'gallery_id'),
-			'count' => array(self::STAT, 'CommunityContentGalleryItem', 'gallery_id'),
-		);
-	}
+    public function relations()
+    {
+        return array(
+            'content' => array(self::BELONGS_TO, 'CommunityContent', 'content_id'),
+            'items' => array(self::HAS_MANY, 'CommunityContentGalleryItem', 'gallery_id'),
+            'count' => array(self::STAT, 'CommunityContentGalleryItem', 'gallery_id'),
+        );
+    }
 
     public function behaviors()
     {
@@ -58,10 +58,9 @@ class CommunityContentGallery extends HActiveRecord
     public function getPhotoCollection()
     {
         $photos = array();
-        foreach ($this->items as $i => $model)
-        {
+        foreach ($this->items as $i => $model) {
             $photo = $model->photo;
-            $photo->w_title = (! empty($model->photo->title)) ? $model->photo->title : $this->title . ' - фото ' . ($i + 1);
+            $photo->w_title = (!empty($model->photo->title)) ? $model->photo->title : $this->title . ' - фото ' . ($i + 1);
             $photo->w_description = $model->description;
             $photos[] = $photo;
         }
@@ -79,9 +78,24 @@ class CommunityContentGallery extends HActiveRecord
     public function getPhotoCollectionDependency()
     {
         return array(
-            'class'=>'system.caching.dependencies.CDbCacheDependency',
+            'class' => 'system.caching.dependencies.CDbCacheDependency',
             'sql' => 'SELECT COUNT(*) FROM community__content_gallery_items WHERE gallery_id = :gallery_id',
             'params' => array(':gallery_id' => $this->id),
         );
+    }
+
+    /**
+     * Возвращает массив id фоток галереи
+     * @return array
+     */
+    public function getPhotoIds()
+    {
+        $result = array();
+        foreach ($this->items as $item) {
+            if ($item->photo)
+                $result[] = $item->photo_id;
+        }
+
+        return $result;
     }
 }

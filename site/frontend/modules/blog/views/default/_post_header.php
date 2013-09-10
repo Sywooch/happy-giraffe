@@ -12,7 +12,7 @@ if ($model->by_happy_giraffe)
     <div class="meta-gray">
         <a href="<?= $model->getUrl(true) ?>" class="meta-gray_comment">
             <span class="ico-comment ico-comment__gray"></span>
-            <span class="meta-gray_tx"><?=$model->getUnknownClassCommentsCount() ?></span>
+            <span class="meta-gray_tx"><?=$model->getCommentsCount() ?></span>
         </a>
         <div class="meta-gray_view">
             <span class="ico-view ico-view__gray"></span>

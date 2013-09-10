@@ -330,4 +330,20 @@ class Album extends HActiveRecord
     {
         return $this->title;
     }
+
+    public function getCommentsCount()
+    {
+        $photoIds = array();
+        foreach ($this->photos as $photo)
+            $photoIds[] = $photo->id;
+        if (empty($photoIds))
+            $photoIds [] = 0;
+
+        return (int)Yii::app()->db->createCommand()
+            ->select('count(id)')
+            ->from('comments')
+            ->where('entity="Album" AND entity_id=:album_id OR entity="AlbumPhoto" AND entity_id IN (' . implode(',', $photoIds) . ') and removed = 0',
+                array(':album_id' => $this->id))
+            ->queryScalar();
+    }
 }

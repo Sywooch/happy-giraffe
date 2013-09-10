@@ -80,3 +80,11 @@ else
 
 </div>
 <?php $this->widget('application.widgets.seo.SeoLinksWidget'); ?>
+
+<?php if ($full): ?>
+<script type="text/javascript">
+    $(function() {
+        likeControlFixed('.js-like-control', '.comments-gray', 20);
+    });
+</script>
+<?php endif; ?>

@@ -162,27 +162,17 @@ class ConvertNewCommand extends CConsoleCommand
         Yii::import('site.frontend.components.OEmbed');
         Yii::import('site.frontend.components.video.*');
 
-        $criteria = new CDbCriteria();
-        $criteria->order = 'id ASC';
-        $criteria->limit = 1000;
-        $criteria->offset = 0;
+        $dp = new CActiveDataProvider('CommunityVideo', array(
+            'criteria' => array(
+                'with' => array('content'),
+                'condition' => 'content.removed = 0',
+            ),
+        ));
+        $iterator = new CDataProviderIterator($dp);
 
-        $models = array(0);
-        while (!empty($models)) {
-            $models = CommunityVideo::model()->findAll($criteria);
-            foreach ($models as $model)
-                if (isset($model->content)) {
-                    try {
-                        $video = Video::factory($model->link);
-                        $model->embed = $video->embed;
-                        $model->save(true, array('embed'));
-                    } catch (Exception $e) {
-
-                    }
-                }
-
-            $criteria->offset += 1000;
-            echo $criteria->offset . "\n";
+        foreach ($iterator as $model) {
+            echo $model->id . "\n";
+            $model->save();
         }
     }
 

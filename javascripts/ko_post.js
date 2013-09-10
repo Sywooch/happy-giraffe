@@ -241,3 +241,38 @@ function BlogRecordSettings(data) {
     }
 }
 
+function likeControlFixed(block, elementStop, blockIndent) {
+
+    var block = $(block);
+    var blockTop = block.offset().top;
+    var blockHeight = block.height();
+
+    var stopTop = $(elementStop).offset().top;
+    var blockStopTop = stopTop - blockTop - blockHeight - blockIndent;
+
+
+    if (stopTop-blockTop-blockHeight-blockIndent > 0) {
+
+        $(window).scroll(function() {
+            var windowScrollTop = $(window).scrollTop();
+            if (windowScrollTop > blockTop-blockIndent && windowScrollTop+blockHeight < stopTop-blockIndent) {
+                block.css({
+                    'position': 'fixed',
+                    'top'     : blockIndent+'px'
+                });
+            } else {
+
+                block.css({
+                    'position': 'relative',
+                    'top'     : 'auto'
+                });
+
+                if (windowScrollTop + blockHeight > stopTop - blockIndent) {
+                    block.css({
+                        'top'     : blockStopTop
+                    });
+                }
+            }
+        });
+    }
+}

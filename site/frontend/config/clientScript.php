@@ -47,7 +47,7 @@ return array(
             'baseUrl' => '/',
             'js' => array(
                 'javascripts/knockout.mapping-latest.js',
-                'javascripts/comments.js',
+                'javascripts/comments.js?2',
                 'javascripts/wysiwyg.js',
             ),
             'depends' => array('knockout'),

@@ -1008,4 +1008,28 @@ class CommunityContent extends HActiveRecord
 
         return $result;
     }
+
+    /**
+     * Возвращает кол-во комментариев к посту, если есть фотогалерея, то плюсует комментарии к фото
+     * @return int
+     */
+    public function getCommentsCount()
+    {
+        if ($this->gallery && in_array($this->type_id, array(self::TYPE_PHOTO_POST, self::TYPE_POST))) {
+            $photo_ids = $this->gallery->getPhotoIds();
+            if (empty($photo_ids))
+                return $this->getUnknownClassCommentsCount();
+
+            return (int)Yii::app()->db->createCommand()
+                ->select('count(id)')
+                ->from('comments')
+                ->where('entity=:entity AND entity_id=:entity_id OR entity="AlbumPhoto" AND entity_id IN ('
+                . implode(',', $photo_ids) . ') and removed = 0', array(
+                    ':entity_id' => $this->id,
+                    ':entity' => $this->getIsFromBlog() ? 'BlogContent' : 'CommunityContent',
+                ))
+                ->queryScalar();
+        }
+        return $this->getUnknownClassCommentsCount();
+    }
 }

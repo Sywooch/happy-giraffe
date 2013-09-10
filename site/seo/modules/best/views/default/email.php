@@ -57,7 +57,7 @@ $i = 1;
 
                                 <div class="best-list_row clearfix">
                                     <span class="best-list_views"><?= PageView::model()->viewsByPath(ltrim($article->url, '.'), true); ?></span>
-                                    <a href="" class="best-list_comments"><?= $article->getUnknownClassCommentsCount() ?></a>
+                                    <a href="" class="best-list_comments"><?= $article->getCommentsCount() ?></a>
                                     <?php $used = array(); ?>
                                     <?php $j = 0; foreach ($article->getUnknownClassComments() as $comment): ?>
                                         <?php if (!empty($comment->author->avatar_id) && !in_array($comment->author->avatar_id, $used)):?>

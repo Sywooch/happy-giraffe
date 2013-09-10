@@ -41,7 +41,7 @@ class DefaultController extends HController
 
         $dp = SubscribeDataProvider::getDataProvider($this->user->id, $type, $community_id);
         $communities = CommunityClub::model()->findAllByPk(CUserSubscriptions::getInstance($this->user->id)->getSubUserClubIds());
-        if ($dp->getTotalItemCount() == 0)
+        if ($dp->getTotalItemCount() == 0 && UserAttributes::get(Yii::app()->user->id, 'my_giraffe_only_new') == 0)
             $this->redirect($this->createUrl('recommends'));
 
         $this->render('my_giraffe', compact('dp', 'communities', 'type', 'community_id'));

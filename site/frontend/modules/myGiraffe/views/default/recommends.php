@@ -15,7 +15,6 @@
             'user' => Yii::app()->user->getModel(),
             'size' => 'Big',
             'clubs' => $clubs,
-            'limit' => 8,
             'deleteClub' => true
         )); ?>
     <?php endif ?>

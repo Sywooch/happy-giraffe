@@ -1,5 +1,5 @@
 <?php
-Yii::app()->clientScript->registerPackage('ko_post');
+Yii::app()->clientScript->registerPackage('ko_blog');
 
 $this->beginContent('//layouts/main'); ?>
 <div class="content-cols">

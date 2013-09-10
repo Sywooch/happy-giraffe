@@ -75,7 +75,7 @@ if (!$params['subscribed']) echo ' data-bind="visible: !isSubscribed()"' ?>>
                         <div class="meta-gray">
                             <a href="<?= $model->getUrl() ?>" class="meta-gray_comment">
                                 <span class="ico-comment ico-comment__gray"></span>
-                                <span class="meta-gray_tx"><?= $model->getUnknownClassCommentsCount() ?></span>
+                                <span class="meta-gray_tx"><?= $model->getCommentsCount() ?></span>
                             </a>
 
                             <div class="meta-gray_view">

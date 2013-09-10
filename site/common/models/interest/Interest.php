@@ -7,6 +7,7 @@
  * @property string $id
  * @property string $title
  * @property string $category_id
+ * @property string $count
  *
  * The followings are the available model relations:
  * @property InterestCategory $category
@@ -73,21 +74,41 @@ class Interest extends HActiveRecord
                 ':user_id' => $user_id,
             ))
             ->queryScalar();
-        if ($exist)
-            return Yii::app()->db->createCommand()->delete('interest__users_interests',
+        if ($exist) {
+            $status = Yii::app()->db->createCommand()->delete('interest__users_interests',
                 'user_id=:user_id AND interest_id=:interest_id', array(
                     ':interest_id' => $interest_id,
                     ':user_id' => $user_id,
                 ));
-        else {
-            if (self::userInterestsCount($user_id) < 25)
-                return Yii::app()->db->createCommand()->insert('interest__users_interests', array(
+            self::model()->recalculateCount($interest_id);
+            return $status;
+        } else {
+            if (self::userInterestsCount($user_id) < 25) {
+                $status = Yii::app()->db->createCommand()->insert('interest__users_interests', array(
                     'interest_id' => $interest_id,
                     'user_id' => $user_id,
                 ));
-            else
+                self::model()->recalculateCount($interest_id);
+                return $status;
+            } else
                 return false;
         }
+    }
+
+    public function recalculateCount($interest_id)
+    {
+        Yii::app()->db->createCommand()
+            ->update('interest__interests', array('count' => $this->getUserCount($interest_id)),
+                'id=:id', array(':id' => $interest_id));
+    }
+
+    public function getUserCount($interest_id)
+    {
+        return Yii::app()->db->createCommand()
+            ->select('count(*)')
+            ->from('interest__users_interests')
+            ->where('interest_id = :interest_id', array(':interest_id' => $interest_id))
+            ->queryScalar();
     }
 
     public static function userInterestsCount($user_id)

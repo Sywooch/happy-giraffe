@@ -22,7 +22,9 @@ $form = $this->beginWidget('CActiveForm', array(
 
 <div id="popup-user-add-status" class="b-settings-blue b-settings-blue__status">
 
-    <div class="b-settings-blue_tale"></div>
+    <?php if ($model->isNewRecord): ?>
+        <div class="b-settings-blue_tale"></div>
+    <?php endif; ?>
 
     <div class="b-status-add clearfix">
         <div class="float-l">

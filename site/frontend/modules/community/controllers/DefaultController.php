@@ -183,7 +183,7 @@ class DefaultController extends HController
     public function loadContent($id, $content_type_slug)
     {
         $content = CommunityContent::model()->findByPk($id);
-        if ($content === null)
+        if ($content === null || $content->getIsFromBlog())
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
         if (!empty($content_type_slug) && !in_array($content_type_slug, array('post', 'video', 'photoPost')))

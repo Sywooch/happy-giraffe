@@ -21,6 +21,11 @@ class RepostWidget extends CWidget
 
         $count = (int) $this->model->sourceCount;
         $modelName = get_class($this->model);
+        if ($modelName == 'CommunityContent' && $this->model->getIsFromBlog())
+            $modelName = 'BlogContent';
+        elseif($modelName == 'BlogContent' && !$this->model->getIsFromBlog())
+            $modelName = 'CommunityContent';
+
         $modelId = $this->model->id;
         $entity = Favourite::model()->getEntityByModel($modelName, $modelId);
         if (! Yii::app()->user->isGuest) {

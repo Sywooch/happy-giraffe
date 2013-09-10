@@ -10,6 +10,9 @@ class FavouriteWidget extends CWidget
 {
     public $registerScripts = false;
     public $right = false;
+    /**
+     * @var CommunityContent
+     */
     public $model;
     public $applyBindings = true;
 
@@ -21,6 +24,11 @@ class FavouriteWidget extends CWidget
 
         $count = (int) Favourite::model()->getCountByModel($this->model);
         $modelName = get_class($this->model);
+        if ($modelName == 'CommunityContent' && $this->model->getIsFromBlog())
+            $modelName = 'BlogContent';
+        elseif($modelName == 'BlogContent' && !$this->model->getIsFromBlog())
+            $modelName = 'CommunityContent';
+
         $modelId = $this->model->id;
         $entity = Favourite::model()->getEntityByModel($modelName, $modelId);
         if (! Yii::app()->user->isGuest) {

@@ -33,19 +33,20 @@ class ConvertNewCommand extends CConsoleCommand
 
     public function actionFix2()
     {
+        Yii::import('site.common.models.mongo.*');
+        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
+
         $criteria = new CDbCriteria;
         $criteria->order = 'id desc';
         $criteria->limit = 3000;
         $last_contents = CommunityContent::model()->resetScope()->findAll($criteria);
-        foreach ($last_contents as $last_content) {
-            if ($last_content->getIsFromBlog())
-                $k = Yii::app()->db->createCommand()->update('comments',
-                    array('entity' => 'BlogContent'), 'entity="CommunityContent" AND entity_id='.$last_content->id);
-            else
-                $k = Yii::app()->db->createCommand()->update('comments',
-                    array('entity' => 'CommunityContent'), 'entity="BlogContent" AND entity_id='.$last_content->id);
-            if ($k != 0)
-                echo $k;
+        foreach ($last_contents as $content) {
+            HGLike::model()->Fix($content);
+            if ($content->getIsFromBlog()) {
+                Yii::app()->db->createCommand()->update('favourites',
+                    array('model_name' => 'BlogContent'),
+                    'model_name="CommunityContent" AND model_id=' . $content->id);
+            }
         }
     }
 

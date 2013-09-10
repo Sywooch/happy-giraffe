@@ -74,6 +74,7 @@ class UserPhotoCollection extends PhotoCollection
 
     public function getUrl()
     {
-
+        $user = User::model()->findByPk($this->userId);
+        return $user->url;
     }
 }

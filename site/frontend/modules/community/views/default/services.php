@@ -20,7 +20,7 @@
                 <?=$this->club->services_title ?>
             </div>
         <?php endif ?>
-        <p class="margin-l20 margin-r40 color-gray-dark"><?=$this->club->services_description ?></p>
+        <p class="margin-20 margin-r40 color-gray-dark"><?=$this->club->services_description ?></p>
 
         <div class="club-services">
             <?php foreach ($services as $service): ?>

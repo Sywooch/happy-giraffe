@@ -4,6 +4,9 @@ class DefaultController extends HController
 {
     public $layout = 'user';
     public $tempLayout = true;
+    /**
+     * @var User
+     */
     public $user;
     public $title;
 
@@ -24,12 +27,11 @@ class DefaultController extends HController
     public function actionIndex($user_id)
     {
         $this->layout = '//layouts/main';
-        $this->user = User::model()->active()->findByPk($user_id);
-        if ($this->user === null)
-            throw new CHttpException(404, 'Пользователь не найден');
+        $this->loadUser($user_id);
         $this->pageTitle = $this->user->fullName . ' на Веселом Жирафе';
+        $dataProvider = CommunityContent::model()->getUserContent($this->user);
 
-        $this->render('index', array('user' => $this->user));
+        $this->render('index', array('user' => $this->user, 'dataProvider' => $dataProvider));
     }
 
     /**

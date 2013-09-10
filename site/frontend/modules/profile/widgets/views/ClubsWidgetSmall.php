@@ -10,7 +10,7 @@
     <ul class="club-list_ul clearfix">
         <?php if ($this->isMyProfile): ?>
             <li class="club-list_li">
-                <a href="<?=Yii::app()->createUrl('/subscribe/default/recommends') ?>" class="club-list_add"></a>
+                <a href="<?=Yii::app()->createUrl('/myGiraffe/default/recommends') ?>" class="club-list_add"></a>
             </li>
         <?php endif ?>
 

@@ -11,7 +11,7 @@ $url = $this->isMyProfile ? Yii::app()->createUrl('/scores/default/index') : Yii
     <ul class="user-awards_ul clearfix">
         <?php foreach ($this->awards as $award): ?>
             <li class="user-awards_li">
-                <a href="<?=$award->getUrl() ?>" class="user-awards_a">
+                <a href="<?=$this->isMyProfile?$url:$award->getUrl() ?>" class="user-awards_a">
                     <img src="<?=$award->getAward()->getIconUrl(46) ?>" alt="<?=$award->getAward()->title ?>" class="user-awards_img">
                     <span class="user-awards_overlay"></span>
                 </a>
@@ -34,10 +34,10 @@ $url = $this->isMyProfile ? Yii::app()->createUrl('/scores/default/index') : Yii
     $(function() {
         $('.user-awards_li').bind({
             mouseover: function(){
-                $(this).find('.user-awards_popup').stop(true, true).fadeIn(200);
+                $(this).find('.user-awards_popup').stop(true, true).delay(200).fadeIn(200);
             },
             mouseout: function(){
-                $(this).find('.user-awards_popup').stop(true, true).delay(200).fadeOut(200);
+                $('.user-awards_ul .user-awards_popup').stop(true, true).delay(100).fadeOut(100);
 
             }
         });

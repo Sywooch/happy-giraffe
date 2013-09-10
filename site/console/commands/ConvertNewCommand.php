@@ -8,52 +8,14 @@ class ConvertNewCommand extends CConsoleCommand
 
     public function actionFix()
     {
-        Yii::import('site.frontend.modules.cook.models.*');
-        $criteria = new CDbCriteria;
-        $criteria->limit = 1000;
-        $criteria->offset = 0;
-        $criteria->order = 'id desc';
-
-        $models = array(0);
-        while (!empty($models)) {
-            $models = AlbumPhoto::model()->findAll($criteria);
-
-            foreach ($models as $model) {
-                if ($model->album != null && $model->album->type == Album::TYPE_PRIVATE && $model->cookRecipe !== null) {
-                    $model->album_id = Album::getAlbumByType($model->author_id, Album::TYPE_RECIPES)->id;
-                    $model->hidden = 0;
-                    $model->save();
-                }
-            }
-
-            $criteria->offset = $criteria->offset + 1000;
-            echo $criteria->offset . "\n";
-        }
+        Yii::import('site.common.models.interest.*');
+        $interest_ids = Yii::app()->db->createCommand()
+            ->select('id')
+            ->from('interest__interests')
+            ->queryColumn();
+        foreach($interest_ids as $interest_id)
+            Interest::model()->recalculateCount($interest_id);
     }
-
-    public function actionFix2()
-    {
-        Yii::import('site.common.models.mongo.*');
-        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
-
-        $criteria = new CDbCriteria;
-        $criteria->order = 'id desc';
-        $criteria->limit = 3000;
-        $last_contents = CommunityContent::model()->resetScope()->findAll($criteria);
-        foreach ($last_contents as $content) {
-            HGLike::model()->Fix($content);
-            if ($content->getIsFromBlog()) {
-                try {
-                    Yii::app()->db->createCommand()->update('favourites',
-                        array('model_name' => 'BlogContent'),
-                        'model_name="CommunityContent" AND model_id=' . $content->id);
-                } catch (Exception $err) {
-                }
-                Yii::app()->db->createCommand()->delete('favourites', 'model_name="CommunityContent" AND model_id=' . $content->id);
-            }
-        }
-    }
-
 
     /**
      * вычисление ширины/высоты фоток

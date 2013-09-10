@@ -249,8 +249,12 @@ function UserLocation(data) {
     };
     self.text = ko.computed(function () {
         var region = self.getRegionById(self.region_id());
-        if (region)
-            return self.getRegionById(self.region_id()).name + ' <br> ' + self.city().name();
+        if (region){
+            if (region.isCity)
+                return self.getRegionById(self.region_id()).name;
+            else
+                return self.getRegionById(self.region_id()).name + ' <br> ' + self.city().name();
+        }
         return '';
     });
     self.CountryChanged = function () {

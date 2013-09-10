@@ -22,7 +22,7 @@ class HController extends CController
 
     public $tempLayout = false;
     public $showLikes = false;
-    public $r = 1378549341;
+    public $r = 1378549342;
 
     public function filterAjaxOnly($filterChain)
     {

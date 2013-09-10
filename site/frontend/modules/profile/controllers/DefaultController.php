@@ -213,7 +213,7 @@ class DefaultController extends HController
     public function loadUser($id)
     {
         $this->user = User::model()->active()->findByPk($id);
-        if ($this->user === null)
+        if ($this->user === null || $id == User::HAPPY_GIRAFFE)
             throw new CHttpException(404, 'Пользователь не найден.');
     }
 }

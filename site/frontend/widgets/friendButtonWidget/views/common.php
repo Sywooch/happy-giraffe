@@ -1,5 +1,5 @@
 <?php if (Yii::app()->user->isGuest): ?>
-<a href="#login" class="b-ava-large_bubble b-ava-large_bubble__friend-add-onhover powertip fancy" title="Добавить в друзья" data-theme="transparent">
+<a href="#login" class="b-ava-large_bubble b-ava-large_bubble__friend-add-onhover powertip fancy" title="Добавить в друзья">
     <span class="b-ava-large_ico b-ava-large_ico__friend-add"></span>
 </a>
 <?php else: ?>

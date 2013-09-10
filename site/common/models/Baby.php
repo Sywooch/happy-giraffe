@@ -54,6 +54,7 @@ class Baby extends HActiveRecord
             array('age_group', 'numerical', 'integerOnly' => true, 'min' => 0, 'max' => 5),
             array('name', 'length', 'max' => 50),
             array('birthday', 'date', 'format' => 'yyyy-MM-dd'),
+            array('birthday', 'babyBirthday'),
             array('sex', 'numerical', 'integerOnly' => true, 'min' => 0, 'max' => 2),
             array('notice', 'length', 'max' => 100),
             array('type', 'numerical', 'integerOnly' => true, 'min' => 1, 'max' => 3),
@@ -92,21 +93,33 @@ class Baby extends HActiveRecord
         return $interval->y;
     }*/
 
-    public function getTextAge($bold = true)
+    public function getTextAge()
     {
-        if ($this->birthday === null) return null;
+        if ($this->birthday === null)
+            return '';
 
         $date1 = new DateTime($this->birthday);
         $date2 = new DateTime(date('Y-m-d'));
         $interval = $date1->diff($date2);
 
-        $years_text = ($bold?$interval->y.' ':$interval->y.' ').Str::GenerateNoun(array('год', 'года', 'лет'), $interval->y);
-        $month_text = ($bold?$interval->m.' ':$interval->m.' ').'мес.';
+        if ($interval->d == 0)
+            return 'Сегодня';
+
+        if ($interval->d < 7)
+            return $interval->d . ' ' . Str::GenerateNoun(array('день', 'дня', 'дней'), $interval->d);
+
+        if ($interval->m == 0) {
+            $weeks = floor($interval->d / 7);
+            return $weeks . ' ' . Str::GenerateNoun(array('неделя', 'недели', 'недель'), $weeks);
+        }
+
         if ($interval->y == 0)
-            return $month_text;
-        if ($interval->y <= 3)
-            return $years_text.' '.$month_text;
-        return $years_text;
+            return $interval->m . ' ' . Str::GenerateNoun(array('месяц', 'месяца', 'месяцев'), $interval->m);
+
+        if ($interval->y < 3)
+            return $interval->y . ' ' . Str::GenerateNoun(array('год', 'года', 'лет'), $interval->y) . ' ' . $interval->m . ' ' . Str::GenerateNoun(array('месяц', 'месяца', 'месяцев'), $interval->m);
+
+        return $interval->y . ' ' . Str::GenerateNoun(array('год', 'года', 'лет'), $interval->y);
     }
 
     public function getAgeImageUrl()
@@ -166,6 +179,27 @@ class Baby extends HActiveRecord
         return $this->photos[$i]->photo->getPreviewUrl(180, 180);
     }
 
+    protected function beforeSave()
+    {
+        $date1 = new DateTime($this->birthday);
+        $date2 = new DateTime(date('Y-m-d'));
+        $interval = $date1->diff($date2);
+        if ($interval->y < 1)
+            $this->age_group = 0;
+        if ($interval->y >= 1 && $interval->y < 3)
+            $this->age_group = 1;
+        if ($interval->y >= 3 && $interval->y < 6)
+            $this->age_group = 2;
+        if ($interval->y >= 6 && $interval->y < 12)
+            $this->age_group = 3;
+        if ($interval->y >= 12 && $interval->y < 18)
+            $this->age_group = 4;
+        if ($interval->y >= 18)
+            $this->age_group = 5;
+
+        return parent::beforeSave();
+    }
+
     protected function afterSave()
     {
         parent::afterSave();
@@ -200,5 +234,23 @@ class Baby extends HActiveRecord
         $bd = new DateTime($this->birthday);
         $interval = $now->diff($bd);
         return $interval->y;
+    }
+
+    public function babyBirthday($attribute, $params)
+    {
+        if ($this->type === null) {
+            $date1 = new DateTime($this->birthday);
+            $date2 = new DateTime(date('Y-m-d'));
+            $interval = $date1->diff($date2);
+            if ($interval->invert == 1)
+                $this->addError($attribute, 'Неверная дата рождения.');
+        }
+        if ($this->type == 1) {
+            $date1 = new DateTime(date('Y-m-d'));
+            $date2 = new DateTime($this->birthday);
+            $interval = $date1->diff($date2);
+            if ($interval->invert == 1 || $interval->y !== 0 || $interval->m > 9)
+                $this->addError($attribute, 'Неверная планируемая дата родов.');
+        }
     }
 }

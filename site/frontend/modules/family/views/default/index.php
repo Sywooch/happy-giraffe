@@ -171,20 +171,23 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
                                     <div class="clearfix">
                                         <div class="w-90 float-l margin-r10">
                                             <div class="chzn-gray">
-                                                <select data-bind="options: $root.days, value: dayValue, chosen: {}" data-placeholder="день"></select>
+                                                <select data-bind="options: days, value: dayValue, chosen: {}" data-placeholder="день"></select>
                                             </div>
                                         </div>
                                         <div class="w-100 float-l margin-r10">
                                             <div class="chzn-gray">
-                                                <select class="chzn" data-bind="options: $root.monthes, optionsText: 'name', optionsValue: 'id', value: monthValue, chosen: {}" data-placeholder="месяц"></select>
+                                                <select class="chzn" data-bind="options: monthes, optionsText: 'name', optionsValue: 'id', value: monthValue, chosen: {}" data-placeholder="месяц"></select>
                                             </div>
                                         </div>
                                         <div class="w-90 float-l">
                                             <div class="chzn-gray">
-                                                <select class="chzn" data-bind="options: $root.years, value: yearValue, chosen: {}" data-placeholder="год"></select>
+                                                <select class="chzn" data-bind="options: years, value: yearValue, chosen: {}" data-placeholder="год"></select>
                                             </div>
                                         </div>
                                         <button class="btn-green btn-small margin-l10" data-bind="click: saveBirthday">Ok</button>
+                                        <!-- ko if: birthdayError() !== null -->
+                                            <div class="errorMessage" data-bind="text: birthdayError"></div>
+                                        <!-- /ko -->
                                     </div>
                                 <!-- /ko -->
                             </div>
@@ -271,6 +274,9 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
             <span data-bind="text: title()">Я</span>
             <!-- ko if: name().length > 0 -->
             <br><span data-bind="text: name"></span>
+            <!-- /ko -->
+            <!-- ko if: $data.type === null && $data.birthday !== null -->
+            <br><span data-bind="text: age"></span>
             <!-- /ko -->
         </div>
     </li>

@@ -147,7 +147,6 @@ class CommunityRubric extends HActiveRecord
             ->select('rubric_id')
             ->from('community__contents')
             ->where('author_id = :user_id AND removed = 0', array(':user_id' => $user_id))
-            ->order('id ASC')
             ->queryColumn();
     }
 

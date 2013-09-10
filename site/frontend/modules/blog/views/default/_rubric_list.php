@@ -1,4 +1,4 @@
-<?php
+ <?php
 /**
  * @var int $currentRubricId
  */
@@ -26,9 +26,11 @@ array_unshift($items, array(
     'active' => $currentRubricId === null,
 ));
 ?>
-<?php $this->widget('zii.widgets.CMenu', array(
-    'items' => $items,
-    'itemCssClass' => 'menu-simple_li',
-    'htmlOptions' => array('class' => 'menu-simple_ul')
-));
-?>
+<?php if (count($rubric_list) > 1): ?>
+    <?php $this->widget('zii.widgets.CMenu', array(
+        'items' => $items,
+        'itemCssClass' => 'menu-simple_li',
+        'htmlOptions' => array('class' => 'menu-simple_ul')
+    ));
+    ?>
+<?php endif; ?>

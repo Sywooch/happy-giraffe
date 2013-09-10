@@ -166,8 +166,8 @@ class ConvertNewCommand extends CConsoleCommand
         $iterator = new CDataProviderIterator($dp);
 
         foreach ($iterator as $model) {
-            if (! $model->save())
-                echo $model->id . "\n";
+            echo $model->id . "\n";
+            $model->save();
         }
     }
 

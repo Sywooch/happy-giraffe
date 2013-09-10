@@ -123,7 +123,7 @@ function CommentViewModel(data) {
     self.Reply = function (comment) {
         self.response(comment);
         self.goBottom();
-        self.editor.html('<span class="a-imitation">' + comment.author.firstName() + ',</span>&nbsp;');
+        self.editor.html('<p><a href="/user/' + comment.author.id() + '/">' + comment.author.firstName() + ',</a>&nbsp;</p>');
     };
 }
 

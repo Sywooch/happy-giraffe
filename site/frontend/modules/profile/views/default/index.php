@@ -91,7 +91,6 @@ Yii::app()->clientScript->registerPackage('ko_profile');
         </div>
 
         <!-- Статьи -->
-        <?php $dataProvider = CommunityContent::model()->getBlogContents($user->id, null) ?>
         <?php if ($user->id == Yii::app()->user->id || $dataProvider->totalItemCount > 0):?>
             <div class="col-gray">
 

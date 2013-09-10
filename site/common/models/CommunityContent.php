@@ -535,6 +535,37 @@ class CommunityContent extends HActiveRecord
         return $criteria;
     }
 
+    /**
+     * Возвращает контент пользователя для его ленты
+     *
+     * @param User $user
+     * @param bool $hide_last_status
+     * @return CActiveDataProvider
+     */
+    public function getUserContent($user, $hide_last_status = true)
+    {
+        $criteria = new CDbCriteria;
+        $criteria->condition = 't.author_id = :user_id';
+        $criteria->params = array(':user_id' => $user->id);
+        if ($hide_last_status) {
+            $last_status = $user->getLastStatus();
+            if ($last_status) {
+                $criteria->condition .= ' AND t.id != :last_status';
+                $criteria->params[':last_status'] = $last_status->id;
+            }
+        }
+        $criteria->order = 't.created DESC';
+        $criteria = $this->addPrivacyCondition($user->id, $criteria);
+
+        $totalItemsCount = $this->resetScope()->active()->count($criteria);
+        $criteria->with = array('rubric', 'author', 'author.avatar', 'commentsCount', 'type', 'sourceCount', 'favouritesCount');
+
+        return new CActiveDataProvider($this->resetScope()->active(), array(
+            'criteria' => $criteria,
+            'totalItemCount' => $totalItemsCount
+        ));
+    }
+
 
     /************************************************ previous next ***************************************************/
     /**

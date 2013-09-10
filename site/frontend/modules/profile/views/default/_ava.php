@@ -39,7 +39,7 @@ if (Yii::app()->user->id != $user->id):
         <?php if ($user->online): ?>
             <span class="b-ava-large_online">На сайте</span>
         <?php else: ?>
-            <span class="b-ava-large_lastvisit">Была на сайте <br> <?= HDate::GetFormattedTime($user->login_date); ?></span>
+            <span class="b-ava-large_lastvisit">Был<?php if ($user->gender == 0) echo 'а' ?> на сайте <br> <?= HDate::GetFormattedTime($user->login_date); ?></span>
         <?php endif; ?>
     </div>
 <?php else: ?>
@@ -56,7 +56,7 @@ if (Yii::app()->user->id != $user->id):
         <?php if ($user->online): ?>
             <span class="b-ava-large_online">На сайте</span>
         <?php else: ?>
-            <span class="b-ava-large_lastvisit">Была на сайте <br> <?= HDate::GetFormattedTime($user->login_date); ?></span>
+            <span class="b-ava-large_lastvisit">Был<?php if ($user->gender == 0) echo 'а' ?> на сайте <br> <?= HDate::GetFormattedTime($user->login_date); ?></span>
         <?php endif; ?>
         <a href="/user/settings/" class="b-ava-large_settings powertip" title="Настройки профиля"></a>
     </div>

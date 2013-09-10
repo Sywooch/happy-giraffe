@@ -11,7 +11,7 @@ $url = $this->isMyProfile ? Yii::app()->createUrl('/scores/default/index') : Yii
     <ul class="user-awards_ul clearfix">
         <?php foreach ($this->awards as $award): ?>
             <li class="user-awards_li">
-                <a href="<?=$award->getUrl() ?>" class="user-awards_a">
+                <a href="<?=$this->isMyProfile?$url:$award->getUrl() ?>" class="user-awards_a">
                     <img src="<?=$award->getAward()->getIconUrl(46) ?>" alt="<?=$award->getAward()->title ?>" class="user-awards_img">
                     <span class="user-awards_overlay"></span>
                 </a>

@@ -8,6 +8,6 @@
         </div>
     <?php else: ?>
         <a href="" class="like-control_ico like-control_ico__like powertip<?php if ($active) echo ' active' ?>"
-           onclick="HgLike(this, '<?=get_class($this->model) ?>',<?=$this->model->id ?>);return false;" title="Нравится"><?=$count ?></a>
+           onclick="HgLike(this, '<?=$this->class ?>',<?=$this->model->id ?>);return false;" title="Нравится"><?=$count ?></a>
     <?php endif ?>
 <?php endif ?>

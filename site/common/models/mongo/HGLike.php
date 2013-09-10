@@ -256,4 +256,17 @@ class HGLike extends HMongoModel
             'user_id' => (int)$user_id,
         )) !== null;
     }
+
+    /**
+     * @param $model CommunityContent
+     */
+    public function Fix($model)
+    {
+        if ($model->getIsFromBlog()) {
+            $this->getCollection()->update(array(
+                'entity_id' => (int)$model->id,
+                'entity_name' => 'CommunityContent',
+            ), array('$set' => array('entity_name' => 'BlogContent')));
+        }
+    }
 }

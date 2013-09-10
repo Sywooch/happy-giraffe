@@ -617,9 +617,7 @@ class CommunityContent extends HActiveRecord
      */
     public function getIsFromBlog()
     {
-        return ($this->rubric_id !== null && $this->getRelated('rubric')->user_id !== null)
-        || $this->type_id == self::TYPE_STATUS
-        || $this->type_id == self::TYPE_REPOST;
+        return $this->getRelated('rubric')->user_id !== null || in_array($this->type_id, array(self::TYPE_STATUS, self::TYPE_REPOST));
     }
 
     /**

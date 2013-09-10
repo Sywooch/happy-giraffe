@@ -97,10 +97,6 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
     </div>
 </div>
 
-<iframe name="me-upload-target" id="me-upload-target" style="display: none;"></iframe>
-<iframe name="partner-upload-target" id="partner-upload-target" style="display: none;"></iframe>
-<iframe name="baby-upload-target" id="baby-upload-target" style="display: none;"></iframe>
-
 <script type="text/javascript">
     $(function() {
         familyMainVM = new FamilyMainViewModel(<?=CJSON::encode($json)?>);
@@ -249,12 +245,7 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
                         <!-- /ko -->
                         <!-- ko if: $root.canEdit -->
                         <span class="photo-preview-row_add file-fake">
-                            <form method="post" enctype="multipart/form-data" data-bind="attr: { action : PHOTO_UPLOAD_URL, target : PHOTO_UPLOAD_TARGET }">
-                                <!-- ko if: $data instanceof FamilyMainBaby -->
-                                    <input type="hidden" data-bind="value: id" name="id">
-                                <!-- /ko -->
-                                <input type="file" name="photo" onchange="submit()">
-                            </form>
+                            <input type="file" name="photo" data-bind="fileupload: { url : PHOTO_UPLOAD_URL, formData : photoFormData(), callback : $root.photoUploadCallback }">
                         </span>
                         <!-- /ko -->
                     </div>

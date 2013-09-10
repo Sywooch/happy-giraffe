@@ -24,7 +24,9 @@ $form = $this->beginWidget('CActiveForm', array(
 <?=$form->hiddenField($model, 'type_id')?>
 
 <div id="popup-user-add-article" class="b-settings-blue b-settings-blue__article">
-    <div class="b-settings-blue_tale"></div>
+    <?php if ($model->isNewRecord): ?>
+        <div class="b-settings-blue_tale"></div>
+    <?php endif; ?>
     <div class="b-settings-blue_head">
         <div class="b-settings-blue_row clearfix">
             <div class="clearfix">

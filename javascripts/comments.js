@@ -21,7 +21,7 @@ function CommentViewModel(data) {
     self.sending = ko.observable(false);
     self.focusEditor = function () {
         setTimeout(function () {
-            self.editor.redactor('focusEnd');
+            self.editor.redactor('focus');
         }, 100);
         return true;
     };
@@ -123,7 +123,7 @@ function CommentViewModel(data) {
     self.Reply = function (comment) {
         self.response(comment);
         self.goBottom();
-        self.editor.html('<span class="a-imitation">' + comment.author.firstName() + ',</span>&nbsp;');
+        self.editor.html('<p><a href="/user/' + comment.author.id() + '/">' + comment.author.firstName() + ',</a>&nbsp;</p>');
     };
 }
 

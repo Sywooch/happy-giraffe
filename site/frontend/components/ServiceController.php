@@ -15,7 +15,15 @@ class ServiceController extends HController
     public function init()
     {
         $this->service = Service::model()->findByPk($this->service_id);
-        $this->club = CommunityClub::model()->findByPk($this->service->community_id);
+
+        $referrer = Yii::app()->request->getUrlReferrer();
+        $club_id = Yii::app()->user->getState('last_club_id');
+        if (!empty($referrer) && !empty($club_id))
+            $this->club = CommunityClub::model()->findByPk($club_id);
+        else{
+            Yii::app()->user->setState('last_club_id', '');
+            $this->club = CommunityClub::model()->findByPk($this->service->community_id);
+        }
 
         $this->breadcrumbs = array(
             $this->club->section->title => $this->club->section->getUrl(),

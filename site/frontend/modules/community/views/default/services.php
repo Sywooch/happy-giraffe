@@ -23,7 +23,7 @@
         <p class="margin-l20 margin-r40 color-gray-dark"><?=$this->club->services_description ?></p>
 
         <div class="club-services">
-            <?php foreach ($services as $service) if ($service->show) { ?>
+            <?php foreach ($services as $service): ?>
                 <div class="club-services_i clearfix">
                     <?php if ($service->photo_id !== null):?>
                         <div class="club-services_img">
@@ -31,13 +31,17 @@
                         </div>
                     <?php endif ?>
                     <div class="club-services_desc">
-                        <a href="<?=$service->url ?>" class="club-services_t"><?=$service->title?></a>
+                        <a href="<?=$service->url ?>" class="club-services_t">
+                            <?=$service->title?>
+                        </a>
+
                         <div class="club-services_tx">
                             <?=$service->description?>
                         </div>
+
                     </div>
                 </div>
-            <?php } ?>
+            <?php endforeach; ?>
         </div>
 
     </div>

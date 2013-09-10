@@ -8,7 +8,7 @@
             </li>
         <?php endforeach; ?>
     <?php endif ?>
-    <?php if (count($this->club->communities) == 1 && count($this->club->services) > 0):?>
+    <?php if (count($this->club->communities) == 1 && count($this->club->services) > 0 || $show_forum):?>
         <li class="b-section_li">
             <a href="<?= $this->createUrl('/community/default/forum', array(
                 'forum_id' => $this->club->communities[0]->id)) ?>"
@@ -20,7 +20,7 @@
     <?php if (count($this->club->services) < 2):?>
         <?php foreach($this->club->services as $service):?>
             <li class="b-section_li">
-                <a href="<?=$service->getUrl() ?>" class="b-section_li-a<?php if (isset($service_id) && $service_id = $service->id) echo ' active' ?>"><?=$service->title ?></a>
+                <a href="<?=$service->getUrl() ?>" class="b-section_li-a<?php if (isset($this->service) && $this->service->id = $service->id) echo ' active' ?>"><?=$service->title ?></a>
             </li>
         <?php endforeach ?>
     <?php else: ?>

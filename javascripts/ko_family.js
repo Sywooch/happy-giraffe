@@ -104,7 +104,7 @@ var FamilyCommonPartner = function(data, parent, root) {
     ko.utils.extend(self, new FamilyCommonAdult(data, parent));
 
     self.isNewRecord = data.isNewRecord === undefined ? true : data.isNewRecord;
-    self.relationshipStatus = data.relationshipStatus !== undefined ? data.relationshipStatus : root.me().relationshipStatus;
+    self.relationshipStatus = data.relationshipStatus !== undefined ? data.relationshipStatus : root.me().relationshipStatus();
 
     self.cssClass = function() {
         return 'ico-family__' + self.getAdultCssClass((1 + root.me().gender) % 2, self.relationshipStatus);

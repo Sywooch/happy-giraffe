@@ -36,7 +36,7 @@ Yii::app()->clientScript->registerPackage('ko_community');
                 </div>
 
                 <ul class="b-section_ul b-section_ul__white clearfix">
-                    <?php $this->renderPartial('_links'); ?>
+                    <?php $this->renderPartial('_links', array('show_forum' => false)); ?>
                 </ul>
             </div>
         </div>

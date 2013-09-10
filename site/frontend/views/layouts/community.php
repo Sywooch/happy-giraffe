@@ -29,7 +29,7 @@ $this->beginContent('//layouts/main'); ?>
                     <?php if (!in_array($this->club->id, array(19, 21, 22))):?>
                         <div class="clearfix">
                             <ul class="b-section_ul clearfix">
-                                <?php $this->renderPartial('application.modules.community.views.default._links'); ?>
+                                <?php $this->renderPartial('application.modules.community.views.default._links', array('show_forum' => true)); ?>
                             </ul>
                         </div>
                     <?php endif ?>

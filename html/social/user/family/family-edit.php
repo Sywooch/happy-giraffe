@@ -366,7 +366,7 @@
 							<div class="family-settings_hold clearfix">
 								<div class="family-settings_photo">
 									<div class="family-settings_photo-hold">
-										<div class="ico-family-big ico-family-big__girl-small"></div>
+										<div class="ico-family-big ico-family-big__girl"></div>
 									</div>
 								</div>
 								<div class="family-settings_desc">

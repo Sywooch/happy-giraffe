@@ -270,7 +270,7 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
         <div class="b-family_tx">
             <span data-bind="text: title()">Я</span>
             <!-- ko if: name().length > 0 -->
-            <br><span>Иван</span>
+            <br><span data-bind="text: name"></span>
             <!-- /ko -->
         </div>
     </li>

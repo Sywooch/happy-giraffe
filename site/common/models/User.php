@@ -318,7 +318,7 @@ class User extends HActiveRecord
             'albums' => array(self::HAS_MANY, 'Album', 'author_id', 'scopes' => array('active', 'permission')),
             'privateAlbum' => array(self::HAS_ONE, 'Album', 'author_id'),
             'simpleAlbums' => array(self::HAS_MANY, 'Album', 'author_id', 'condition' => 'type=0'),
-            'interests' => array(self::MANY_MANY, 'Interest', 'interest__users_interests(interest_id, user_id)'),
+            'interests' => array(self::MANY_MANY, 'Interest', 'interest__users_interests(interest_id, user_id)', 'order'=>'`count` desc'),
             'mood' => array(self::BELONGS_TO, 'UserMood', 'mood_id'),
             'partner' => array(self::HAS_ONE, 'UserPartner', 'user_id'),
 

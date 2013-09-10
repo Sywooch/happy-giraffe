@@ -34,10 +34,10 @@ $url = $this->isMyProfile ? Yii::app()->createUrl('/scores/default/index') : Yii
     $(function() {
         $('.user-awards_li').bind({
             mouseover: function(){
-                $(this).find('.user-awards_popup').stop(true, true).fadeIn(200);
+                $(this).find('.user-awards_popup').stop(true, true).delay(200).fadeIn(200);
             },
             mouseout: function(){
-                $(this).find('.user-awards_popup').stop(true, true).delay(200).fadeOut(200);
+                $('.user-awards_ul .user-awards_popup').stop(true, true).delay(100).fadeOut(100);
 
             }
         });

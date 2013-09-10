@@ -13,6 +13,9 @@ class DefaultController extends HController
 
     protected function afterAction($action)
     {
+        if ($this->club)
+            Yii::app()->user->setState('last_club_id', $this->club->id);
+
         if (Yii::app()->user->isGuest && $this->club) {
             $clubs = Yii::app()->user->getState('visitedClubs', array());
             if (array_search($this->club->id, $clubs) === false) {

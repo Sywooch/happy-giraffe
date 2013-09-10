@@ -142,14 +142,14 @@ var FamilyCommonBaby = function(data, parent) {
 
     self.isNewRecord = data.isNewRecord === undefined ? true : data.isNewRecord;
     self.gender = data.gender;
-    self.ageGroup = data.ageGroup;
+    self.ageGroup = ko.observable(data.ageGroup);
     self.type = data.type;
 
     self.cssClassKeyword = function() {
         switch (self.type) {
             case null:
                 var ageWord;
-                switch (self.ageGroup) {
+                switch (self.ageGroup()) {
                     case 0:
                         ageWord = 'small';
                         break;
@@ -292,7 +292,7 @@ var FamilyViewModel = function(data) {
         var babies = [];
         ko.utils.arrayForEach(self.family(), function(element) {
             if (element.content() instanceof FamilyBaby && element.content().isNewRecord)
-                babies.push({ sex : element.content().gender, age_group : element.content().ageGroup, type : element.content().type });
+                babies.push({ sex : element.content().gender, age_group : element.content().ageGroup(), type : element.content().type });
         });
         data.babies = babies;
         data.createPartner = self.hasPartner() && self.partner().isNewRecord;
@@ -385,38 +385,8 @@ var FamilyMainViewModel = function(data) {
     var self = this;
 
     self.canEdit = data.canEdit;
-    self.currentYear = data.currentYear;
     self.addIsOpened = ko.observable(false);
-
-    self.days = [undefined];
-    for (var i = 1; i <= 31; i++)
-        self.days.push(i);
-
-    self.years = [undefined];
-    for (var i = self.currentYear - 18; i <= self.currentYear; i++)
-        self.years.push(i);
-
-    self.monthes = [
-        new FamilyMainMonth({ id : undefined, name : undefined }),
-        new FamilyMainMonth({ id : 1, name : 'января' }),
-        new FamilyMainMonth({ id : 2, name : 'февраля' }),
-        new FamilyMainMonth({ id : 3, name : 'марта' }),
-        new FamilyMainMonth({ id : 4, name : 'апреля' }),
-        new FamilyMainMonth({ id : 5, name : 'мая' }),
-        new FamilyMainMonth({ id : 6, name : 'июня' }),
-        new FamilyMainMonth({ id : 7, name : 'июля' }),
-        new FamilyMainMonth({ id : 8, name : 'августа' }),
-        new FamilyMainMonth({ id : 9, name : 'сентября' }),
-        new FamilyMainMonth({ id : 10, name : 'октября' }),
-        new FamilyMainMonth({ id : 11, name : 'ноября' }),
-        new FamilyMainMonth({ id : 12, name : 'декабря' })
-    ];
-
-    self.getMonthLabel = function(id) {
-        return ko.utils.arrayFirst(self.monthes, function(month) {
-            return month.id == id;
-        });
-    }
+    self.currentYear = data.currentYear;
 
     self.me = ko.observable(new FamilyMainMe(data.me, self));
     self.partner = ko.observable(data.partner === null ? null : new FamilyMainPartner(data.partner, self));
@@ -626,15 +596,50 @@ var FamilyMainBaby = function(data, parent) {
     self.photosAreEditable = self.type === null;
 
     // birthday
+    self.days = [undefined];
+    for (var i = 1; i <= 31; i++)
+        self.days.push(i);
+
+    self.years = [undefined];
+    var lowYear = self.type === null ? (parent.currentYear - 18) : parent.currentYear;
+    var highYear = self.type === null ? parent.currentYear : (parent.currentYear + 1);
+
+    for (var i = lowYear; i <= highYear; i++)
+        self.years.push(i);
+
+    self.monthes = [
+        new FamilyMainMonth({ id : undefined, name : undefined }),
+        new FamilyMainMonth({ id : 1, name : 'января' }),
+        new FamilyMainMonth({ id : 2, name : 'февраля' }),
+        new FamilyMainMonth({ id : 3, name : 'марта' }),
+        new FamilyMainMonth({ id : 4, name : 'апреля' }),
+        new FamilyMainMonth({ id : 5, name : 'мая' }),
+        new FamilyMainMonth({ id : 6, name : 'июня' }),
+        new FamilyMainMonth({ id : 7, name : 'июля' }),
+        new FamilyMainMonth({ id : 8, name : 'августа' }),
+        new FamilyMainMonth({ id : 9, name : 'сентября' }),
+        new FamilyMainMonth({ id : 10, name : 'октября' }),
+        new FamilyMainMonth({ id : 11, name : 'ноября' }),
+        new FamilyMainMonth({ id : 12, name : 'декабря' })
+    ];
+
+    self.getMonthLabel = function(id) {
+        return ko.utils.arrayFirst(self.monthes, function(month) {
+            return month.id == id;
+        });
+    }
+
+    self.age = ko.observable(data.age);
     self.birthday = ko.observable(data.birthday);
     self.birthdayBeingEdited = ko.observable(false);
+    self.birthdayError = ko.observable(null);
 
     if (self.birthday() !== null) {
         var birthdayArray = self.birthday().split('-');
         var day = birthdayArray[2], month = birthdayArray[1], year = birthdayArray[0];
     }
     else
-        var day = undefined, month = undefined, year = undefined
+        var day = undefined, month = undefined, year = undefined;
 
     self.day = ko.observable(day);
     self.month = ko.observable(month);
@@ -645,7 +650,7 @@ var FamilyMainBaby = function(data, parent) {
     self.yearValue = ko.observable(year);
 
     self.birthdayText = ko.computed(function () {
-        return self.day() + ' ' + parent.getMonthLabel(self.month()).name + ' ' + self.year() + ' г.';
+        return self.day() + ' ' + self.getMonthLabel(self.month()).name + ' ' + self.year() + (self.type === null ? ' г. (' + self.age() + ')' : '');
     });
 
     self.birthdayValue = function() {
@@ -657,14 +662,18 @@ var FamilyMainBaby = function(data, parent) {
     }
 
     self.saveBirthday = function() {
-        $.post('/family/baby/updateAttribute/', { id : self.id, attribute : 'birthday', value : self.birthdayValue() }, function(response) {
+        $.post('/family/baby/updateBirthday/', { id : self.id, value : self.birthdayValue() }, function(response) {
             if (response.success) {
                 self.day(self.dayValue());
                 self.month(self.monthValue());
                 self.year(self.yearValue());
                 self.birthday(self.birthdayValue());
                 self.birthdayBeingEdited(false);
-            }
+                self.age(response.age);
+                self.ageGroup(response.ageGroup);
+                self.birthdayError(null);
+            } else
+                self.birthdayError(response.error);
         }, 'json');
     }
 

@@ -24,6 +24,9 @@
                 </div>
             </div>
             <div class="float-l">
+                <div class="clearfix">
+                    <a class="b-article-prev_author" href="<?=$model->author->getUrl() ?>"><?=$model->author->first_name ?></a>
+                </div>
                 <span class="font-smallest color-gray"><?=HDate::GetFormattedTime($model->created)?></span>
             </div>
         </div>

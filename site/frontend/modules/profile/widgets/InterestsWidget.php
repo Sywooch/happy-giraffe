@@ -22,7 +22,8 @@ class InterestsWidget extends UserCoreWidget
         if ($this->isMyProfile)
             $current_user_interests = $this->interests;
         elseif (!Yii::app()->user->isGuest)
-            $current_user_interests = Yii::app()->user->getModel()->interests; else
+            $current_user_interests = Yii::app()->user->getModel()->interests;
+        else
             $current_user_interests = array();
 
         $this->data['isMyProfile'] = $this->isMyProfile;

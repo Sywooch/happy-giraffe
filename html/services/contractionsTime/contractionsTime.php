@@ -145,7 +145,7 @@
 										
 										<tr class="even">
 											<td></td>
-											<td colspan="5" style="padding-left:80px;"><big>Еще 2 схватки</big></td>
+											<td colspan="5"><big>Еще 2 схватки</big></td>
 											<td></td>
 										</tr>									
 									</tbody>

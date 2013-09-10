@@ -438,7 +438,7 @@ border-radius: 5px;
 #baby .contractions-summary .block-in:after {display:block;content:'.';height:0;clear:both;line-height:0;font-size:0;} /* clearfix */
 #baby .contractions-summary .box-left {float:left;width:180px;}
 #baby .contractions-summary .box-main {margin-left:200px;}
-#baby .contractions-summary big {font-size:25px;color:#dd72b9;margin-bottom:10px;display:block;text-align:center;padding:15px 0;}
+#baby .contractions-summary big {font-size:25px;color:#dd72b9;margin-bottom:10px;display:block;text-align:center;padding:15px 0 0 70px;}
 #baby .contractions-summary .summary-title {color:#906ab3;font-size:25px;margin-bottom:10px;}
 #baby .contractions-summary p {margin:1em 0; color: #333333;font-size: 14px;line-height: 19px;word-wrap: break-word;}
 #baby .contractions-summary .result-text {color:#fc93ce;font-size:16px;text-align:center;}

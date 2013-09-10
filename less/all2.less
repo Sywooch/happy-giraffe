@@ -250,7 +250,7 @@
         vertical-align: bottom;
         margin: 0 0 5px;
     }
-    .content-img  {float: none;margin: 0;}
+    .content-img  {float: none;margin: 0 0 10px;}
     .h2-services {
         font-weight: normal;
         color: #0D0D0D;
@@ -802,9 +802,9 @@ table.fr_recipe_tb td { width: 50%;}
     }
     &_removed-hold {
         position: absolute;
-        top: 50%;
+        top: 100px;
         width: 100%;
-        margin: -100px 0 0;
+        margin: 0;
         padding: 75px 0 0;
         text-align: center;
         color: #2d2d2d;
@@ -1038,14 +1038,15 @@ table.fr_recipe_tb td { width: 50%;}
     overflow: hidden;
 
     &_row {
-        margin: 0 -10px 5px 0;
+        margin: 0 -15px 5px 0;
     }
     &_i {
         position: relative;
         float: left;
-        margin:0 5px 0 0;
+        margin:0 0 0 5px;
         cursor: pointer;
     }
+    &_i:first-child {margin-left: 0;}
     &_i:hover &_overlay {
         z-index: 10;
         opacity: 1;

@@ -162,7 +162,12 @@ class ConvertNewCommand extends CConsoleCommand
         Yii::import('site.frontend.components.OEmbed');
         Yii::import('site.frontend.components.video.*');
 
-        $dp = new CActiveDataProvider('CommunityVideo');
+        $dp = new CActiveDataProvider('CommunityVideo', array(
+            'criteria' => array(
+                'with' => array('content'),
+                'condition' => 'content.removed = 0',
+            ),
+        ));
         $iterator = new CDataProviderIterator($dp);
 
         foreach ($iterator as $model) {

@@ -17,12 +17,12 @@ Yii::app()->clientScript->registerScriptFile($baseUrl . '/notifcations.js', CCli
                 <a href="/notifications/read/" class="cont-nav_a">Прочитанные</a>
             </div>
         </div>
-        <?php if (!$read):?>
+        <?php if (!$read && !empty($list)):?>
             <a href="javascript:;" class="user-notice_mark-all btn-blue" onclick="UserNotification.readAll();">Отметить все как прочитанные</a>
         <?php endif ?>
     </div>
 
-    <?php if ($read && !empty($list)):?>
+    <?php if ($read):?>
         <div class="user-notice_desc">Уведомления, хранящиеся более 10 дней, удаляются автоматически.</div>
     <?php endif ?>
 

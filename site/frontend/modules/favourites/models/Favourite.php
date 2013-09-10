@@ -199,12 +199,23 @@ class Favourite extends CActiveRecord
 
     public function getCountByModel($model)
     {
-        return $this->count('model_name = :model_name AND model_id = :model_id', array(':model_name' => get_class($model), ':model_id' => $model->id));
+        $modelName = get_class($model);
+        if ($modelName == 'CommunityContent' && $model->getIsFromBlog())
+            $modelName = 'BlogContent';
+        elseif($modelName == 'BlogContent' && !$model->getIsFromBlog())
+            $modelName = 'CommunityContent';
+
+        return $this->count('model_name = :model_name AND model_id = :model_id', array(':model_name' => $modelName, ':model_id' => $model->id));
     }
 
     public function getUserHas($userId, $model)
     {
-        return $this->exists('model_name = :model_name AND model_id = :model_id AND user_id = :user_id', array(':model_name' => get_class($model), ':model_id' => $model->id, ':user_id' => $userId));
+        $modelName = get_class($model);
+        if ($modelName == 'CommunityContent' && $model->getIsFromBlog())
+            $modelName = 'BlogContent';
+        elseif($modelName == 'BlogContent' && !$model->getIsFromBlog())
+            $modelName = 'CommunityContent';
+        return $this->exists('model_name = :model_name AND model_id = :model_id AND user_id = :user_id', array(':model_name' => $modelName, ':model_id' => $model->id, ':user_id' => $userId));
     }
 
     public function getEntityByModel($modelName, $modelId)

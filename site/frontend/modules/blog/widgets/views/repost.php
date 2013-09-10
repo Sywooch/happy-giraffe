@@ -4,10 +4,11 @@
  * @var $json
  * @var int $count
  */
+$t = substr((string)microtime(true), -4);
 ?>
 <?php if (! Yii::app()->user->isGuest): ?>
 
-    <div<?php if (!$this->right) echo ' class="favorites-control"'; else echo ' class="position-rel"'; ?> id="<?=$id?>">
+    <div<?php if (!$this->right) echo ' class="favorites-control"'; else echo ' class="position-rel"'; ?> id="<?=$id.$t?>">
         <?php if ($this->model->author_id == Yii::app()->user->id):?>
             <a href="" class="like-control_ico like-control_ico__repost js-hg_alert" data-bind="text: count"></a>
             <div class="favorites-add-popup favorites-add-popup__right" style="display: none;">
@@ -22,7 +23,7 @@
 
     <?php if ($this->applyBindings):?>
     <script type="text/javascript">
-        ko.applyBindings(new RepostWidget(<?=CJSON::encode($json)?>), document.getElementById('<?=$id?>'));
+        ko.applyBindings(new RepostWidget(<?=CJSON::encode($json)?>), document.getElementById('<?=$id.$t?>'));
     </script>
     <?php endif ?>
 

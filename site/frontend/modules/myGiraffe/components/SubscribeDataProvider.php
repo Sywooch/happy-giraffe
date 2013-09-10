@@ -30,6 +30,7 @@ class SubscribeDataProvider
 
         if (UserAttributes::get(Yii::app()->user->id, 'my_giraffe_only_new')) {
             $criteria->addNotInCondition('t.id', ViewedPost::getInstance()->viewed_ids);
+            $criteria->addCondition('t.id > '. ViewedPost::getInstance()->min_id);
             if (isset($_GET['page']))
                 $_GET['page'] = 1;
         }

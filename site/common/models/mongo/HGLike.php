@@ -247,8 +247,14 @@ class HGLike extends HMongoModel
      */
     public function hasLike($entity, $user_id)
     {
+        if (method_exists($entity, 'getIsFromBlog')) {
+            if ($entity->getIsFromBlog())
+                $entity_name = 'BlogContent';
+            else
+                $entity_name = 'CommunityContent';
+        } else
+            $entity_name = get_class($entity);
         $entity_id = (int)$entity->primaryKey;
-        $entity_name = get_class($entity);
 
         return $this->getCollection()->findOne(array(
             'entity_id' => $entity_id,

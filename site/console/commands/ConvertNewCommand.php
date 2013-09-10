@@ -43,9 +43,13 @@ class ConvertNewCommand extends CConsoleCommand
         foreach ($last_contents as $content) {
             HGLike::model()->Fix($content);
             if ($content->getIsFromBlog()) {
-                Yii::app()->db->createCommand()->update('favourites',
-                    array('model_name' => 'BlogContent'),
-                    'model_name="CommunityContent" AND model_id=' . $content->id);
+                try {
+                    Yii::app()->db->createCommand()->update('favourites',
+                        array('model_name' => 'BlogContent'),
+                        'model_name="CommunityContent" AND model_id=' . $content->id);
+                } catch (Exception $err) {
+                }
+                Yii::app()->db->createCommand()->delete('favourites', 'model_name="CommunityContent" AND model_id=' . $content->id);
             }
         }
     }

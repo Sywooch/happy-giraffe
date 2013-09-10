@@ -24,6 +24,26 @@ class BabyController extends HController
         echo CJSON::encode($response);
     }
 
+    public function actionUpdateBirthday()
+    {
+        $id = Yii::app()->request->getPost('id');
+        $value = Yii::app()->request->getPost('value');
+        $baby = Baby::model()->findByPk($id);
+        $baby->birthday = $value;
+        if ($baby->parent_id != Yii::app()->user->id)
+            $success = false;
+        else
+            $success = $baby->save(true, array('birthday', 'age_group'));
+        $response = compact('success');
+        if ($success && $baby->type === null) {
+            $response['ageGroup'] = $baby->age_group;
+            $response['age'] = $baby->getTextAge();
+        }
+        else
+            $response['error'] = $baby->getError('birthday');
+        echo CJSON::encode($response);
+    }
+
     public function actionRemove()
     {
         $id = Yii::app()->request->getPost('id');

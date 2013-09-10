@@ -1465,6 +1465,7 @@ class User extends HActiveRecord
                     'name' => (string) $baby->name,
                     'notice' => (string) $baby->notice,
                     'birthday' => $baby->birthday,
+                    'age' => $baby->getTextAge(),
                     'gender' => (int) $baby->sex,
                     'ageGroup' => (int) $baby->age_group,
                     'type' => $baby->type === null ? null : (int) $baby->type,

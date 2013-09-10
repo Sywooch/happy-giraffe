@@ -6,8 +6,9 @@ class DefaultController extends HController
     {
         $user = User::model()->findByPk($userId);
         $json = $user->getFamilyData();
-        $json['currentYear'] = date("Y");
+        $json['currentYear'] = (int) date("Y");
         $json['canEdit'] = $user->id == Yii::app()->user->id;
+        $this->pageTitle = 'Моя семья';
         $this->render('index', compact('json', 'user'));
     }
 

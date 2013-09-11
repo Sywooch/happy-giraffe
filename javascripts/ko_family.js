@@ -440,6 +440,7 @@ var FamilyMainMember = function(data, parent) {
     self.nameIsEditable = true;
     self.noticeIsEditable = true;
     self.photosAreEditable = true;
+    self.isRemoved = ko.observable(false);
 
     // photos
     self.mainPhotoId = ko.observable(data.mainPhotoId);
@@ -537,6 +538,7 @@ var FamilyMainPartner = function(data, parent) {
     self.PHOTOS_VALUES = ['Фото моей жены', 'Фото моей невесты', 'Фото моей подруги', 'Фото моего мужа', 'Фото моего жениха', 'Фото моего друга'];
     self.NAME_PLACEHOLDER_VALUES = ['Введите имя вашей жены', 'Введите имя вашей невесты', 'Введите имя вашей подруги', 'Введите имя вашего мужа', 'Введите имя вашего жениха', 'Введите имя вашего друга'];
     self.NOTICE_PLACEHOLDER_VALUES = ['Напишите пару слов о вашей жене', 'Напишите пару слов о вашей невесте', 'Напишите пару слов о вашей подруге', 'Напишите пару слов о вашем муже', 'Напишите пару слов о вашем женихе', 'Напишите пару слов о вашем друге'];
+    self.REMOVED_VALUES = ['Все данные о вашей жене успешно удалены', 'Все данные о вашей невесте успешно удалены', 'Все данные о вашей подруге успешно удалены', 'Все данные о вашем муже успешно удалены', 'Все данные о вашем женихе успешно удалены', 'Все данные о вашем друге успешно удалены'];
 
     self.saveName = function() {
         $.post('/family/partner/updateAttribute/', { attribute : 'name', value : self.nameValue() }, function(response) {
@@ -553,7 +555,14 @@ var FamilyMainPartner = function(data, parent) {
     self.remove = function() {
         $.post('/family/partner/remove/', function(response) {
             if (response.success)
-                parent.partner(null);
+                self.isRemoved(true);
+        }, 'json');
+    }
+
+    self.restore = function() {
+        $.post('/family/partner/restore/', { relationshipStatus : parent.me().relationshipStatus() }, function(response) {
+            if (response.success)
+                self.isRemoved(false);
         }, 'json');
     }
 
@@ -576,6 +585,10 @@ var FamilyMainPartner = function(data, parent) {
 
     self.noticePlaceholderLabel = function() {
         return self.getLabel(self.NOTICE_PLACEHOLDER_VALUES);
+    }
+
+    self.removedLabel = function() {
+        return self.getLabel(self.REMOVED_VALUES);
     }
 
     self.getLabel = function(values) {
@@ -696,11 +709,17 @@ var FamilyMainBaby = function(data, parent) {
         return { id : self.id };
     }
 
-
     self.remove = function() {
         $.post('/family/baby/remove/', { id : self.id }, function(response) {
             if (response.success)
-                parent.babies.remove(self);
+                self.isRemoved(true);
+        }, 'json');
+    }
+
+    self.restore = function() {
+        $.post('/family/baby/restore/', { id : self.id }, function(response) {
+            if (response.success)
+                self.isRemoved(false);
         }, 'json');
     }
 
@@ -745,6 +764,20 @@ var FamilyMainBaby = function(data, parent) {
 
     self.birthdayPlaceholderLabel = function() {
         return self.type === null ? (self.gender == 1 ? 'Введите дату рождения вашего сына' : 'Введите дату рождения вашей дочери') : 'Введите приблизительную дату родов';
+    }
+
+    self.removedLabel = function() {
+        if (self.type != 3) {
+            switch (self.gender) {
+                case 0:
+                    return 'Все данные о вашей дочери успешно удалены';
+                case 1:
+                    return 'Все данные о вашем сыне успешно удалены';
+                case 2:
+                    return 'Все данные о вашем ребенке успешно удалены';
+            }
+        } else
+            return 'Все данные о вашей двойне успешно удалены';
     }
 }
 

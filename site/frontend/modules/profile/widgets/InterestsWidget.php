@@ -22,8 +22,7 @@ class InterestsWidget extends UserCoreWidget
         if ($this->isMyProfile)
             $current_user_interests = $this->interests;
         elseif (!Yii::app()->user->isGuest)
-            $current_user_interests = Yii::app()->user->getModel()->interests;
-        else
+            $current_user_interests = Yii::app()->user->getModel()->interests; else
             $current_user_interests = array();
 
         $this->data['isMyProfile'] = $this->isMyProfile;
@@ -47,9 +46,18 @@ class InterestsWidget extends UserCoreWidget
                     $cat['interests'][] = array(
                         'id' => $interest->id,
                         'title' => $interest->title,
+                        'count' => (int)$interest->count,
                     );
                 $this->data['categories'][] = $cat;
             }
+
+            $userInterests = Interest::model()->findAll('category_id IS NULL');
+            foreach ($userInterests as $interest)
+                $this->data['user_interests'][] = array(
+                    'id' => $interest->id,
+                    'title' => $interest->title,
+                    'count' => $interest->count,
+                );
         }
     }
 

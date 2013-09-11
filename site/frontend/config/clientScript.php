@@ -84,7 +84,7 @@ return array(
             'baseUrl' => '/',
             'js' => array(
                 'javascripts/ko_gallery.js',
-                'javascripts/ko_user_profile.js?2',
+                'javascripts/ko_user_profile.js?3',
                 'javascripts/ko_blog.js',
             ),
             'depends' => array('knockout', 'gallery', 'jcrop', 'ko_comments', 'ko_upload'),

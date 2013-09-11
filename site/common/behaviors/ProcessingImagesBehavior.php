@@ -13,6 +13,19 @@ class ProcessingImagesBehavior extends CActiveRecordBehavior
     private $first_big_photo;
     private $preview_photo;
 
+    public function afterSave($event)
+    {
+        $entity = get_class($this->owner);
+        if ($entity == 'BlogContent')
+            $entity = 'CommunityContent';
+        $entity_id = $this->owner->id;
+
+        foreach($this->owner->processed_photos as $photo)
+            AttachPhoto::add($photo, $entity, $entity_id);
+
+        parent::afterSave($event);
+    }
+
     public function beforeSave($event)
     {
         include_once Yii::getPathOfAlias('site.frontend.vendor.simplehtmldom_1_5') . DIRECTORY_SEPARATOR . 'simple_html_dom.php';
@@ -68,8 +81,10 @@ class ProcessingImagesBehavior extends CActiveRecordBehavior
                     $element = $image;
                 }
 
-                if ($photo)
+                if ($photo){
                     $num++;
+                    $this->owner->processed_photos [] = $photo;
+                }
 
                 //выбор фото для превью
                 if ($this->searchPreviewPhoto && $photo) {

@@ -16,6 +16,12 @@
 class CommunityPost extends HActiveRecord
 {
     /**
+     * Массив фото, содержащихся в тексте, заполняется поведением ProcessingImagesBehavior
+     * @var array
+     */
+    public $processed_photos = array();
+
+    /**
      * Returns the static model of the specified AR class.
      * @param string $className
      * @return CommunityPost the static model class

@@ -64,7 +64,7 @@ class FriendsManager
 
     public static function userToJson($user, $isFriend = false)
     {
-        $family = Yii::app()->controller->widget('application.modules.family.widgets.UserFamilyWidget', array('user' => $user, 'return' => true), true);
+        $family = Yii::app()->controller->widget('application.modules.family.widgets.UserFamilyWidget', array('user' => $user), true);
 
         return array(
             'id' => $user->id,

@@ -8,7 +8,7 @@
             </li>
         <?php endforeach; ?>
     <?php endif ?>
-    <?php if (count($this->club->communities) == 1 && count($this->club->services) > 0 || $show_forum):?>
+    <?php if (count($this->club->communities) == 1 && (count($this->club->services) > 0 || $show_forum)):?>
         <li class="b-section_li">
             <a href="<?= $this->createUrl('/community/default/forum', array(
                 'forum_id' => $this->club->communities[0]->id)) ?>"

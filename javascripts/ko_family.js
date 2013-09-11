@@ -376,7 +376,7 @@ var FamilyListElement = function(parent) {
     });
 
     self.remove = function() {
-        if (self.isNewRecord)
+        if (self.content().isNewRecord)
             self.content(null);
         else
             self.content().remove(function() {
@@ -455,8 +455,9 @@ var FamilyMainViewModel = function(data) {
             familyMainVM = new FamilyMainViewModel(response.data);
             ko.applyBindings(familyMainVM);
         }
+        console.log(data);
         familyVm = new FamilyViewModel(data);
-        ko.cleanNode('#b-family-add');
+        ko.cleanNode(document.getElementById('b-family-add'));
         ko.applyBindings(familyVm, document.getElementById('b-family-add'));
         self.addIsOpened(true);
     };

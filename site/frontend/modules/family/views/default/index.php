@@ -109,7 +109,15 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
 <script type="text/html" id="member-template">
     <div class="family-settings clearfix">
         <!-- ko if: $root.canEdit && ! ($data instanceof FamilyMainMe) -->
-        <a class="ico-close2 powertip family-settings_del" title="Удалить" data-bind="click: remove"></a>
+            <a class="ico-close2 powertip family-settings_del" title="Удалить" data-bind="click: remove"></a>
+        <!-- /ko -->
+        <!-- ko if: isRemoved -->
+        <div class="cap-empty">
+            <div class="cap-empty_hold">
+                <div class="cap-empty_tx" data-bind="text: removedLabel()"></div>
+                <a class="cap-empty_a" data-bind="click: restore">Восстановить</a>
+            </div>
+        </div>
         <!-- /ko -->
         <div class="family-settings_hold clearfix">
             <div class="family-settings_photo">

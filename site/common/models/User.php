@@ -296,7 +296,7 @@ class User extends HActiveRecord
     {
         return array(
             'avatar' => array(self::BELONGS_TO, 'AlbumPhoto', 'avatar_id'),
-            'babies' => array(self::HAS_MANY, 'Baby', 'parent_id'),
+            'babies' => array(self::HAS_MANY, 'Baby', 'parent_id', 'condition' => 'babies.removed = 0'),
             'realBabies' => array(self::HAS_MANY, 'Baby', 'parent_id', 'condition' => ' type IS NULL '),
             'social_services' => array(self::HAS_MANY, 'UserSocialService', 'user_id'),
             'communities' => array(self::MANY_MANY, 'Community', 'user__users_communities(user_id, community_id)', 'order' => 'position'),
@@ -320,7 +320,7 @@ class User extends HActiveRecord
             'simpleAlbums' => array(self::HAS_MANY, 'Album', 'author_id', 'condition' => 'type=0'),
             'interests' => array(self::MANY_MANY, 'Interest', 'interest__users_interests(interest_id, user_id)', 'order'=>'`count` desc'),
             'mood' => array(self::BELONGS_TO, 'UserMood', 'mood_id'),
-            'partner' => array(self::HAS_ONE, 'UserPartner', 'user_id'),
+            'partner' => array(self::HAS_ONE, 'UserPartner', 'user_id', 'condition' => 'partner.removed = 0'),
 
             'blog_rubrics' => array(self::HAS_MANY, 'CommunityRubric', 'user_id', 'order' => 'sort ASC, blog_rubrics.id DESC'),
             'blogPostsCount' => array(self::STAT, 'CommunityContent', 'author_id', 'join' => 'JOIN community__rubrics ON t.rubric_id = community__rubrics.id', 'condition' => 'community__rubrics.user_id = t.author_id'),

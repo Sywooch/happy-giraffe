@@ -455,12 +455,17 @@ var FamilyMainViewModel = function(data) {
             familyMainVM = new FamilyMainViewModel(response.data);
             ko.applyBindings(familyMainVM);
         }
-        console.log(data);
-        familyVm = new FamilyViewModel(data);
-        ko.cleanNode(document.getElementById('b-family-add'));
-        ko.applyBindings(familyVm, document.getElementById('b-family-add'));
+        if (typeof familyVm === 'undefined') {
+            familyVm = new FamilyViewModel(data);
+            ko.cleanNode(document.getElementById('b-family-add'));
+            ko.applyBindings(familyVm, document.getElementById('b-family-add'));
+        }
         self.addIsOpened(true);
     };
+
+    self.close = function() {
+        self.addIsOpened(false);
+    }
 
     self.photoUploadCallback = function(response, data) {
         data.photos.unshift(new FamilyMainPhoto(response.photo, data, self));

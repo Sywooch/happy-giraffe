@@ -103,6 +103,7 @@ var FamilyCommonPartner = function(data, parent, root) {
     var self = this;
     ko.utils.extend(self, new FamilyCommonAdult(data, parent));
 
+    self.id = data.id;
     self.isNewRecord = data.isNewRecord === undefined ? true : data.isNewRecord;
     self.relationshipStatus = data.relationshipStatus !== undefined ? data.relationshipStatus : root.me().relationshipStatus();
 
@@ -140,6 +141,7 @@ var FamilyCommonPartner = function(data, parent, root) {
 var FamilyCommonBaby = function(data, parent) {
     var self = this;
 
+    self.id = data.id;
     self.isNewRecord = data.isNewRecord === undefined ? true : data.isNewRecord;
     self.gender = data.gender;
     self.ageGroup = ko.observable(data.ageGroup);
@@ -247,8 +249,16 @@ var FamilyViewModel = function(data) {
 
     self.addListElements = function(n) {
         for (var i = 0; i < n; i++)
-            self.family.push(new FamilyListElement());
+            self.family.push(new FamilyListElement(self));
     };
+
+    self.getBabyElementById = function(id) {
+        for (var i in self.family()) {
+            if (self.family()[i].content() instanceof FamilyBaby && self.family()[i].content().id == id)
+                return self.family()[i];
+        }
+        return null;
+    }
 
     self.partner = ko.computed(function() {
         for (var i in self.family()) {
@@ -314,7 +324,7 @@ var FamilyViewModel = function(data) {
         }
 
         for (var i in data.babies) {
-            self.add(new FamilyBaby($.extend({}, data.babies[i], { isNewRecord : false }), self));
+            self.add(new FamilyBaby($.extend({}, data.babies[i], { isNewRecord : false }), self, self.firstEmpty()));
         }
     }
 
@@ -348,7 +358,7 @@ var FamilyViewModel = function(data) {
     self.init();
 }
 
-var FamilyListElement = function() {
+var FamilyListElement = function(parent) {
     var self = this;
 
     self.content = ko.observable(null);
@@ -364,6 +374,15 @@ var FamilyListElement = function() {
     self.isEmpty = ko.computed(function() {
         return self.content() === null;
     });
+
+    self.remove = function() {
+        if (self.isNewRecord)
+            self.content(null);
+        else
+            self.content().remove(function() {
+                self.content(null);
+            });
+    }
 }
 
 var FamilyMe = function(data, parent) {
@@ -374,11 +393,25 @@ var FamilyMe = function(data, parent) {
 var FamilyPartner = function(data, parent) {
     var self = this;
     ko.utils.extend(self, new FamilyCommonPartner(data, self, parent));
+
+    self.remove = function(callback) {
+        $.post('/family/partner/remove/', { id : self.id }, function(response) {
+            if (response.success)
+                callback();
+        }, 'json');
+    };
 }
 
 var FamilyBaby = function(data, parent) {
     var self = this;
     ko.utils.extend(self, new FamilyCommonBaby(data));
+
+    self.remove = function(callback) {
+        $.post('/family/baby/remove/', { id : self.id }, function(response) {
+            if (response.success)
+                callback();
+        }, 'json');
+    };
 }
 
 var FamilyMainViewModel = function(data) {

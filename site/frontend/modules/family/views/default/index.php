@@ -16,57 +16,6 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
                 <!-- ko template: { name : 'member-small-template', data : partner, if : partner() !== null } --><!-- /ko-->
                 <!-- ko template: { name : 'member-small-template', foreach : normalBabies } --><!-- /ko -->
                 <!-- ko template: { name : 'member-small-template', data : waitingBaby, if : waitingBaby } --><!-- /ko -->
-                <?php if (false): ?>
-                <li class="b-family_li">
-                    <div class="b-family_img-hold">
-                        <!-- Размеры изображений 55*55пк -->
-                        <img src="/images/example/w41-h49-1.jpg" alt="" class="b-family_img">
-                    </div>
-                    <div class="b-family_tx">
-                        <span>Я</span> <br>
-                        <span>Иван</span>
-                    </div>
-                </li>
-                <li class="b-family_li">
-                    <div class="b-family_img-hold">
-                        <img src="/images/example/w60-h40.jpg" alt="" class="b-family_img">
-                    </div>
-                    <div class="b-family_tx">
-                        <span>Жена</span> <br>
-                        <span>Елена</span>
-                    </div>
-                </li>
-                <li class="b-family_li">
-                    <div class="b-family_img-hold">
-                        <img src="/images/example/w64-h61-1.jpg" alt="" class="b-family_img">
-                    </div>
-                    <div class="b-family_tx">
-                        <span>Дочь</span> <br>
-                        <span>Снежана</span> <br>
-                        <span>2,5 года</span>
-                    </div>
-                </li>
-                <li class="b-family_li">
-                    <div class="b-family_img-hold">
-                        <div class="ico-family ico-family__girl-small"></div>
-                    </div>
-                    <div class="b-family_tx">
-                        <span>Дочь</span> <br>
-                        <span>Снежана</span> <br>
-                        <span>2,5 года</span>
-                    </div>
-                </li>
-                <li class="b-family_li">
-                    <div class="b-family_img-hold">
-                        <div class="ico-family ico-family__boy-small"></div>
-                    </div>
-                    <div class="b-family_tx">
-                        <span>Дочь</span> <br>
-                        <span>Снежана</span> <br>
-                        <span>2,5 года</span>
-                    </div>
-                </li>
-                <?php endif; ?>
             </ul>
             <div class="textalign-c">
                 <!-- Для удобства число можно положить в span или другой строчный тег -->
@@ -109,7 +58,15 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
 <script type="text/html" id="member-template">
     <div class="family-settings clearfix">
         <!-- ko if: $root.canEdit && ! ($data instanceof FamilyMainMe) -->
-        <a class="ico-close2 powertip family-settings_del" title="Удалить" data-bind="click: remove"></a>
+            <a class="ico-close2 powertip family-settings_del" title="Удалить" data-bind="click: remove"></a>
+        <!-- /ko -->
+        <!-- ko if: isRemoved -->
+        <div class="cap-empty">
+            <div class="cap-empty_hold">
+                <div class="cap-empty_tx" data-bind="text: removedLabel()"></div>
+                <a class="cap-empty_a" data-bind="click: restore">Восстановить</a>
+            </div>
+        </div>
         <!-- /ko -->
         <div class="family-settings_hold clearfix">
             <div class="family-settings_photo">

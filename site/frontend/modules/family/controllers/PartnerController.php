@@ -30,7 +30,22 @@ class PartnerController extends HController
     {
         $user = Yii::app()->user->model;
         $user->relationship_status = null;
-        $success = $user->save(true, array('relationship_status') && $this->partner->delete());
+        $partner = $user->partner;
+        $partner->removed = 1;
+        $success = $user->save(true, array('relationship_status') && $partner->save(true, array('removed')));
+        $response = compact('success');
+        echo CJSON::encode($response);
+    }
+
+    public function actionRestore()
+    {
+        $relationshipStatus = Yii::app()->request->getPost('relationshipStatus');
+
+        $user = Yii::app()->user->model;
+        $user->relationship_status = $relationshipStatus;
+        $partner = $user->partner;
+        $partner->removed = 0;
+        $success = $user->save(true, array('relationship_status') && $partner->save(true, array('removed')));
         $response = compact('success');
         echo CJSON::encode($response);
     }

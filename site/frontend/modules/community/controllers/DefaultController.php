@@ -235,7 +235,7 @@ class DefaultController extends HController
     {
         $model = Community::model()->findByPk($id);
         $this->club = $model->club;
-        if ($model === null)
+        if ($model === null || $this->club === null)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
         return $model;
     }

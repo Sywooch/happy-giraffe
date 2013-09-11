@@ -102,13 +102,13 @@ class Baby extends HActiveRecord
         $date2 = new DateTime(date('Y-m-d'));
         $interval = $date1->diff($date2);
 
-        if ($interval->d == 0)
+        if ($interval->days == 0)
             return 'Сегодня';
 
-        if ($interval->d < 7)
+        if ($interval->days < 7)
             return $interval->d . ' ' . Str::GenerateNoun(array('день', 'дня', 'дней'), $interval->d);
 
-        if ($interval->m == 0) {
+        if ($interval->m == 0 && $interval->y == 0) {
             $weeks = floor($interval->d / 7);
             return $weeks . ' ' . Str::GenerateNoun(array('неделя', 'недели', 'недель'), $weeks);
         }

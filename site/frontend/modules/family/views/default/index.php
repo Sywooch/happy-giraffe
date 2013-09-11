@@ -20,7 +20,9 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
             <div class="textalign-c">
                 <!-- Для удобства число можно положить в span или другой строчный тег -->
                 <span class="font-big padding-r5"> Членов семьи: <span data-bind="text: familyMembersCount"></span> </span>
-                <a class="a-pseudo font-middle" data-bind="click: change">Изменить</a>
+                <!-- ko if: canEdit -->
+                    <a class="a-pseudo font-middle" data-bind="click: change">Изменить</a>
+                <!-- /ko -->
             </div>
         </div>
 
@@ -30,7 +32,9 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
         <div class="clearfix margin-r20">
             <div class="float-r position-r margin-t15">
                 <span class="font-big padding-r5"> Членов семьи: <span data-bind="text: familyMembersCount"></span> </span>
-                <a class="a-pseudo font-middle" data-bind="click: change">Изменить</a>
+                <!-- ko if: canEdit -->
+                    <a class="a-pseudo font-middle" data-bind="click: change">Изменить</a>
+                <!-- /ko -->
                 <div data-bind="visible: addIsOpened">
                     <?=$this->renderPartial('_add')?>
                 </div>

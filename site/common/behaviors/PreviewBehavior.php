@@ -5,6 +5,15 @@ class PreviewBehavior extends CActiveRecordBehavior
     const LIMIT_SMALL = 180;
     const LIMIT_BIG = 500;
     public $small_preview = false;
+    public $search_video = false;
+
+    public function beforeSave($event)
+    {
+        parent::beforeSave($event);
+
+        if ($this->search_video)
+            $this->searchVideo($this->owner->text);
+    }
 
     public function afterSave($event)
     {
@@ -73,5 +82,34 @@ class PreviewBehavior extends CActiveRecordBehavior
 
         $text = strip_tags($text, '<a><br><br/><strong><b><i><u><strike><h2><h3><ul><ol><li>');
         return trim($text);
+    }
+
+    /**
+     * Поиск видео для превью
+     */
+    private function searchVideo($text)
+    {
+        include_once Yii::getPathOfAlias('site.frontend.vendor.simplehtmldom_1_5') . DIRECTORY_SEPARATOR . 'simple_html_dom.php';
+        $text = trim(preg_replace('/\t+/', ' ', $text));
+        $doc = str_get_html($text);
+
+        //проверим есть ли фото перед видео, если есть, то видео искать не нужно
+        $elements = $doc->find('iframe, img');
+        foreach ($elements as $element) {
+            if ($element->tag == 'img') {
+                $photo = AlbumPhoto::getPhotoFromUrl($element->src);
+                //если перед видео есть подходящее для превью фото, выходим
+                if ($photo !== null && $photo->width >= 580) {
+                    $this->owner->video = null;
+                    return;
+                }
+            } else {
+                try {
+                    $this->owner->video = $element->outertext;
+                    return;
+                } catch (CException $e) {
+                }
+            }
+        }
     }
 }

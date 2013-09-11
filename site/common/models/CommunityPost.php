@@ -8,6 +8,7 @@
  * @property string $text
  * @property string $content_id
  * @property string $photo_id
+ * @property string $video
  *
  * @property CommunityContent $content
  * @property AlbumPhoto $photo
@@ -44,6 +45,7 @@ class CommunityPost extends HActiveRecord
             ),
             'previewSave' => array(
                 'class' => 'site.common.behaviors.PreviewBehavior',
+                'search_video' => true
             ),
             'forEdit' => array(
                 'class' => 'site.common.behaviors.PrepareForEdit',

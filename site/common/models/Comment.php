@@ -30,9 +30,15 @@ class Comment extends HActiveRecord
     const CONTENT_TYPE_ONLY_TEXT = 3;
 
     public $count;
+    /**
+     * Массив фото, содержащихся в тексте, заполняется поведением ProcessingImagesBehavior
+     * @var array
+     */
+    public $processed_photos = array();
 
     /**
      * Returns the static model of the specified AR class.
+     * @param string $className
      * @return Comment the static model class
      */
     public static function model($className = __CLASS__)
@@ -82,7 +88,6 @@ class Comment extends HActiveRecord
             'remove' => array(self::HAS_ONE, 'Removed', 'entity_id', 'condition' => '`remove`.`entity` = :entity', 'params' => array(':entity' => get_class($this))),
 
             'photoAttaches' => array(self::HAS_MANY, 'AttachPhoto', 'entity_id', 'condition' => 'entity = :entity', 'params' => array(':entity' => get_class($this))),
-            //'photoAttaches' => array(self::HAS_MANY, 'AttachPhoto', 'entity_id', 'condition' => '`photoAttaches`.`entity` = :entity', 'params' => array(':entity' => get_class($this))),
             'photoAttach' => array(self::HAS_ONE, 'AttachPhoto', 'entity_id', 'condition' => 'entity = :entity', 'params' => array(':entity' => get_class($this))),
         );
     }

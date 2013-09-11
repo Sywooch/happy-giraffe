@@ -14,7 +14,7 @@ $add = empty($model->title) ? '' : ' title="' . $model->title . '" alt="' . $mod
 if (!$edit) echo '<!-- widget: { entity : "AlbumPhoto", entity_id : "' . $model->id . '" } -->';
 
 if ($comments)
-    echo '<img src="' . $model->getPreviewUrl(485, 110, Image::HEIGHT) . '">';
+    echo '<a href="" class="comments-gray_cont-img-w"><img src="' . $model->getPreviewUrl(485, 110, Image::HEIGHT) . '"></a>';
 else {
     if ($model->width >= 580) {
         if (!$edit)

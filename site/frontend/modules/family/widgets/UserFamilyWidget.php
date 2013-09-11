@@ -10,7 +10,6 @@
 class UserFamilyWidget extends CWidget
 {
     public $user;
-    public $render = false;
 
     public function run()
     {
@@ -36,10 +35,8 @@ class UserFamilyWidget extends CWidget
             $data[] = compact('thumbSrc', 'name', 'iconCssClass', 'title');
         }
 
-        if ($this->rende)
+        if (count($data) > 0)
             $this->render('UserFamilyWidget', compact('data'));
-        else
-            return count($this->data > 0) ? $this->render('UserFamilyWidget', compact('data'), true) : null;
     }
 
     protected function getThumbSrc($model)

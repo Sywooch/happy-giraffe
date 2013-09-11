@@ -3,6 +3,10 @@
     <div class="col-white padding-20">
 
         <div class="b-family-structure clearfix">
+            <!-- ko if: typeof familyMainVM !== 'undefined' -->
+            <a class="ico-close3 powertip" data-bind="click: familyMainVM.close"></a>
+            <!-- /ko -->
+
             <div class="b-family-structure_added">
                 <div class="b-family b-family__square">
                     <div class="b-family_top b-family_top__blue-big"></div>

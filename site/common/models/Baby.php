@@ -117,7 +117,7 @@ class Baby extends HActiveRecord
             return $interval->m . ' ' . Str::GenerateNoun(array('месяц', 'месяца', 'месяцев'), $interval->m);
 
         if ($interval->y < 3)
-            return $interval->y . ' ' . Str::GenerateNoun(array('год', 'года', 'лет'), $interval->y) . ' ' . $interval->m . ' ' . Str::GenerateNoun(array('месяц', 'месяца', 'месяцев'), $interval->m);
+            return $interval->y . ' ' . Str::GenerateNoun(array('год', 'года', 'лет'), $interval->y) . ' ' . ($interval->m > 0 ? $interval->m . ' ' . Str::GenerateNoun(array('месяц', 'месяца', 'месяцев'), $interval->m) : '');
 
         return $interval->y . ' ' . Str::GenerateNoun(array('год', 'года', 'лет'), $interval->y);
     }

@@ -29,6 +29,11 @@
                         <span class="i-highlight i-highlight__big font-big">Осталось ввести еще немного данных</span>
                     </div>
                     <div class="textalign-c margin-b40">
+                        <?php if (! empty($model->photo)): ?>
+                            <div class="display-ib verticalalign-m margin-r20">
+                                <div class="ava"><?=CHtml::image($model->photo)?></div>
+                            </div>
+                        <?php endif; ?>
                         <div class="display-ib verticalalign-m">
                             <div class="b-sign_label-hold margin-r10">
                                 <label for="" class="b-sign_label">Ваш e-mail</label>

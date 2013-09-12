@@ -236,7 +236,7 @@ class SignupController extends HController
             Yii::app()->user->setState('gotoComment', '1');
 
         $model = new User;
-        $attributes = array('email', 'birthday', 'avatar', 'photo', 'first_name', 'last_name');
+        $attributes = array('email', 'birthday', 'avatar', 'photo', 'first_name', 'last_name', 'gender');
         foreach ($attributes as $attribute)
             $model->$attribute = Yii::app()->request->getPost($attribute);
 

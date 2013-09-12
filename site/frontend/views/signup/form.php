@@ -88,7 +88,7 @@
                                     </div>
                                     <div class="w-80 float-l">
                                         <div class="chzn-itx-simple">
-                                            <?=$form->dropDownList($model, 'year', array_combine(range(1910, date("Y")), range(1910, date("Y"))), array('class' => 'chzn', 'data-placeholder' => 'год', 'empty' => ''))?>
+                                            <?=$form->dropDownList($model, 'year', array_combine(range(1910, date("Y") - 16), range(1910, date("Y") - 16)), array('class' => 'chzn', 'data-placeholder' => 'год', 'empty' => ''))?>
                                         </div>
                                     </div>
                                 </div>

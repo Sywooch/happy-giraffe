@@ -15,15 +15,22 @@ class UserFamilyWidget extends CWidget
     {
         $data = array();
 
+        $partnersCount = $this->user->partner === null ? 0 : 1;
+        $membersCount = count($this->user->babies) + $partnersCount;
+        $membersToShow = $membersCount > 6 ? 5 : 6;
+        $showMore = $membersCount > 6;
+
         if ($this->user->partner !== null) {
             $thumbSrc = $this->getThumbSrc($this->user->partner);
             $iconCssClass = $this->getAdultCssClass(($this->user->gender + 1) % 2, $this->user->relationship_status);
             $name = $this->user->partner->name;
             $title = $this->getPartnerTitle();
+            $age = '';
             $data[] = compact('thumbSrc', 'name', 'iconCssClass', 'title');
         }
 
-        foreach ($this->user->babies as $b) {
+        for ($i = $partnersCount; $i < $membersToShow; $i++) {
+            $b = $this->user->babies[$i];
             if ($b->type == 1) {
                 if (time() > strtotime($b->birthday))
                     continue;
@@ -32,11 +39,12 @@ class UserFamilyWidget extends CWidget
             $iconCssClass = $this->getBabyCssClass($b);
             $name = $b->name;
             $title = $this->getBabyTitle($b);
+            $age = $b->getTextAge();
             $data[] = compact('thumbSrc', 'name', 'iconCssClass', 'title');
         }
 
         if (count($data) > 0)
-            $this->render('UserFamilyWidget', compact('data'));
+            $this->render('UserFamilyWidget', compact('data', 'showMore', 'membersCount'));
     }
 
     protected function getThumbSrc($model)

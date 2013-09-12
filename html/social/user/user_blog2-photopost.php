@@ -238,7 +238,7 @@
 								</div>
 							</div>
 							<div class="textalign-c">
-								<a href="" class="add-photo-widget"></a>
+								<a href="#photo-widget" class="add-photo-widget powertip fancy" title="Создать виджет"></a>
 							</div>
 						</div>
 					</div>
@@ -612,5 +612,104 @@
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/footer.php'; ?>
 </div>
 
+<div class="display-n">
+	
+	<div id="photo-widget" class="popup-user-add-record">
+		<div class="clearfix">
+			<div class="w-720 float-r">
+				<div class="b-settings-blue">
+					<!-- <div class="b-settings-blue_tale"></div> -->
+					<div class="b-settings-blue_head">
+						<div class="b-settings-blue_row clearfix">
+							<label for="" class="b-settings-blue_label">Название виджета</label>
+							<div class="w-400 float-l">
+								<input type="text" name="" id="" class="itx-simple">
+							</div>
+						</div>
+					</div>
+							
+					<div class="b-add-img b-add-img__for-multi">
+						<div class="b-add-img_hold">
+							<div class="b-add-img_t">
+								Загрузите фотографии с компьютера
+								<div class="b-add-img_t-tx">Поддерживаемые форматы: jpg и png</div>
+							</div>
+							<div class="file-fake">
+								<button class="btn-green btn-medium file-fake_btn">Обзор</button>
+								<input type="file" name="">
+							</div>
+						</div>
+						<div class="textalign-c clearfix">
+							<div class="b-add-img_i">
+								<img class="b-add-img_i-img" src="/images/example/w440-h340.jpg" alt="">
+								<!-- b-add-img_i-vert для вертикального позиционирования маленькой каритнки -->
+								<div class="b-add-img_i-vert"></div>
+								<div class="b-add-img_i-overlay">
+									<a href="" class="b-add-img_i-del ico-close4"></a>
+								</div>
+							</div>
+							<div class="b-add-img_i">
+								<img class="b-add-img_i-img" src="/images/example/w64-h61-2.jpg" alt="">
+								<div class="b-add-img_i-vert"></div>
+								<div class="b-add-img_i-overlay">
+									<a href="" class="b-add-img_i-del ico-close4"></a>
+								</div>
+							</div>
+							<div class="b-add-img_i">
+								<img class="b-add-img_i-img" src="/images/example/11.jpg" alt="">
+								<div class="b-add-img_i-vert"></div>
+								<div class="b-add-img_i-overlay">
+									<a href="" class="b-add-img_i-del ico-close4"></a>
+								</div>
+							</div>
+							<div class="b-add-img_i">
+								<img class="b-add-img_i-img" src="/images/example/w220-h309-1.jpg" alt="">
+								<div class="b-add-img_i-vert"></div>
+								<div class="b-add-img_i-overlay">
+									<a href="" class="b-add-img_i-del ico-close4"></a>
+								</div>
+							</div>
+							<div class="b-add-img_i">
+								<img class="b-add-img_i-img" src="/images/example/w720-h128.jpg" alt="">
+								<div class="b-add-img_i-vert"></div>
+								<div class="b-add-img_i-overlay">
+									<a href="" class="b-add-img_i-del ico-close4"></a>
+								</div>
+							</div>
+							<div class="b-add-img_i error">
+								<div class="b-add-img_i-error-tx">файл мотик.jpg не удалось загрузить, более 10 Мб</div>
+								<div class="b-add-img_i-vert"></div>
+								<div class="b-add-img_i-overlay">
+									<a href="" class="b-add-img_i-del ico-close4"></a>
+								</div>
+							</div>
+							<div class="b-add-img_i">
+								<img class="b-add-img_i-img opacity-20" src="/images/example/w720-h128.jpg" alt="">
+								<div class="b-add-img_i-vert"></div>
+								<div class="b-add-img_i-load">
+									<div class="b-add-img_i-load-progress" style="width:20%;"></div>
+								</div>
+								<div class="b-add-img_i-overlay">
+									<a href="" class="b-add-img_i-del ico-close4"></a>
+								</div>
+							</div>
+						</div>
+						<!-- Текст приглашения для перетаскивания можно скрыть или удалить при наличии фото -->
+						<div class="b-add-img_html5-tx display-n">или перетащите фото сюда</div>
+					</div>
+					
+					<div class="textalign-c clearfix">
+						<a href="" class="btn-blue btn-h46">Добавить</a>
+						<a href="" class="btn-gray-light btn-h46 margin-r15">Отменить</a>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+</div>
 </body>
 </html>

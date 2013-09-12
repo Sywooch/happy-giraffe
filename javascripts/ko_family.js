@@ -15,6 +15,7 @@ ko.bindingHandlers.draggable = {
 ko.bindingHandlers.droppable = {
     init: function(element, valueAccessor, allBindingsAccessor, viewModel, context) {
         var value = valueAccessor();
+        console.log(value);
         $(element).droppable({
             hoverClass: 'dragover',
             drop: function(event, ui) {
@@ -450,16 +451,13 @@ var FamilyMainViewModel = function(data) {
     };
 
     self.change = function() {
-        data.callback = function(response) {
-            ko.cleanNode('body');
-            familyMainVM = new FamilyMainViewModel(response.data);
-            ko.applyBindings(familyMainVM);
-        }
-        if (typeof familyVm === 'undefined') {
-            familyVm = new FamilyViewModel(data);
-            ko.cleanNode(document.getElementById('b-family-add'));
-            ko.applyBindings(familyVm, document.getElementById('b-family-add'));
-        }
+        $.get('/family/default/data/', function(response) {
+            var data = response.data;
+            data.callback = function(response) {
+                familyVM.mainVM(new FamilyMainViewModel(response.data));
+            }
+            familyVM.addVM(new FamilyViewModel(data));
+        }, 'json');
         self.addIsOpened(true);
     };
 

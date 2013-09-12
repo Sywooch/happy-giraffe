@@ -26,10 +26,10 @@ class UserFamilyWidget extends CWidget
             $name = $this->user->partner->name;
             $title = $this->getPartnerTitle();
             $age = '';
-            $data[] = compact('thumbSrc', 'name', 'iconCssClass', 'title');
+            $data[] = compact('thumbSrc', 'name', 'iconCssClass', 'title', 'age');
         }
 
-        for ($i = $partnersCount; $i < $membersToShow; $i++) {
+        for ($i = $partnersCount; $i < $membersToShow && isset($this->user->babies[$i]); $i++) {
             $b = $this->user->babies[$i];
             if ($b->type == 1) {
                 if (time() > strtotime($b->birthday))
@@ -40,7 +40,7 @@ class UserFamilyWidget extends CWidget
             $name = $b->name;
             $title = $this->getBabyTitle($b);
             $age = $b->getTextAge();
-            $data[] = compact('thumbSrc', 'name', 'iconCssClass', 'title');
+            $data[] = compact('thumbSrc', 'name', 'iconCssClass', 'title', 'age');
         }
 
         if (count($data) > 0)

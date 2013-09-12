@@ -617,8 +617,7 @@
 	<div id="photo-widget" class="popup-user-add-record">
 		<div class="clearfix">
 			<div class="w-720 float-r">
-				<div class="b-settings-blue">
-					<!-- <div class="b-settings-blue_tale"></div> -->
+				<div class="b-settings-blue b-settings-blue__photo-widget">
 					<div class="b-settings-blue_head">
 						<div class="b-settings-blue_row clearfix">
 							<label for="" class="b-settings-blue_label">Название виджета</label>
@@ -627,70 +626,46 @@
 							</div>
 						</div>
 					</div>
-							
+					<div class="textalign-c clearfix">
+						<div class="b-settings-blue_label float-n w-100p">Выберите главное фото для виджета</div>
+					</div>		
 					<div class="b-add-img b-add-img__for-multi">
-						<div class="b-add-img_hold">
-							<div class="b-add-img_t">
-								Загрузите фотографии с компьютера
-								<div class="b-add-img_t-tx">Поддерживаемые форматы: jpg и png</div>
-							</div>
-							<div class="file-fake">
-								<button class="btn-green btn-medium file-fake_btn">Обзор</button>
-								<input type="file" name="">
-							</div>
-						</div>
-						<div class="textalign-c clearfix">
+						<div class="textalign-c padding-t20 clearfix">
 							<div class="b-add-img_i">
 								<img class="b-add-img_i-img" src="/images/example/w440-h340.jpg" alt="">
 								<!-- b-add-img_i-vert для вертикального позиционирования маленькой каритнки -->
 								<div class="b-add-img_i-vert"></div>
 								<div class="b-add-img_i-overlay">
-									<a href="" class="b-add-img_i-del ico-close4"></a>
+									<a href="" class="b-add-img_i-check a-checkbox"></a>
 								</div>
 							</div>
 							<div class="b-add-img_i">
 								<img class="b-add-img_i-img" src="/images/example/w64-h61-2.jpg" alt="">
 								<div class="b-add-img_i-vert"></div>
 								<div class="b-add-img_i-overlay">
-									<a href="" class="b-add-img_i-del ico-close4"></a>
+									<a href="" class="b-add-img_i-check a-checkbox"></a>
 								</div>
 							</div>
 							<div class="b-add-img_i">
 								<img class="b-add-img_i-img" src="/images/example/11.jpg" alt="">
 								<div class="b-add-img_i-vert"></div>
 								<div class="b-add-img_i-overlay">
-									<a href="" class="b-add-img_i-del ico-close4"></a>
+									<a href="" class="b-add-img_i-check a-checkbox"></a>
 								</div>
 							</div>
-							<div class="b-add-img_i">
+							<div class="b-add-img_i b-add-img_i__check">
 								<img class="b-add-img_i-img" src="/images/example/w220-h309-1.jpg" alt="">
 								<div class="b-add-img_i-vert"></div>
 								<div class="b-add-img_i-overlay">
-									<a href="" class="b-add-img_i-del ico-close4"></a>
+									<a href="" class="b-add-img_i-check a-checkbox active"></a>
 								</div>
+								<div class="b-add-img_i-marked"></div>
 							</div>
 							<div class="b-add-img_i">
 								<img class="b-add-img_i-img" src="/images/example/w720-h128.jpg" alt="">
 								<div class="b-add-img_i-vert"></div>
 								<div class="b-add-img_i-overlay">
-									<a href="" class="b-add-img_i-del ico-close4"></a>
-								</div>
-							</div>
-							<div class="b-add-img_i error">
-								<div class="b-add-img_i-error-tx">файл мотик.jpg не удалось загрузить, более 10 Мб</div>
-								<div class="b-add-img_i-vert"></div>
-								<div class="b-add-img_i-overlay">
-									<a href="" class="b-add-img_i-del ico-close4"></a>
-								</div>
-							</div>
-							<div class="b-add-img_i">
-								<img class="b-add-img_i-img opacity-20" src="/images/example/w720-h128.jpg" alt="">
-								<div class="b-add-img_i-vert"></div>
-								<div class="b-add-img_i-load">
-									<div class="b-add-img_i-load-progress" style="width:20%;"></div>
-								</div>
-								<div class="b-add-img_i-overlay">
-									<a href="" class="b-add-img_i-del ico-close4"></a>
+									<a href="" class="b-add-img_i-check a-checkbox"></a>
 								</div>
 							</div>
 						</div>

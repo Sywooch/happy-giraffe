@@ -1,19 +1,33 @@
 .im-fixed {
 
-	body {overflow: hidden;}
-	.im {
-		margin-bottom: 15px;
+	/*body {overflow: hidden;}*/
+	.im {}
+
+	.im-center {}
+	.im-center_top {
+		position: relative;
+		top: 0;
+		padding-top: 7px;
+		background: none;
 	}
 	.im-center_middle {
-		padding: 136px 0 0;
+		padding: 0;
+	}
+	.im-center_middle-hold {
+		position: relative;
+		overflow: hidden;
+		overflow-y: auto;
+		height: 300px;
 	}
 	.im-center_middle-w {
 		position: relative;
-		height: 300px;
-		overflow: auto;
+		bottom: 0;
+		width: auto;
 	}
 	.im-center_bottom {
 		position: relative;
+		bottom: 0;
+		background: none;
 	}
 }
 
@@ -173,9 +187,9 @@
 		position: fixed;
 		bottom: 0;
 		width: 685px;
-		min-height: 117px;
+		/*min-height: 125px;*/
 		z-index: 102;
-		background:#fff url(/images/im/im.png) repeat-x -15px 100%;
+		/*background:#fff url(/images/im/im.png) repeat-x -15px 100%;*/
 	}
 	&_bottom-hold {padding-bottom: 30px;}
 }
@@ -417,13 +431,12 @@
 	&_i:hover .im_watch {display: block;}
 	&_hide-a {
 		.inline-block();
-		margin: 10px 25px 30px;
+		margin: 10px 25px 15px;
 		border-bottom: 1px dashed #838383;
 		line-height: 15px;
 		color: #838383;
 		text-decoration: none;
 	}
-	/*&_hide-b {display: none;}*/
 	&_hide-b .im_watch {background-position: -20px 0;}
 	&_hide-b .im_watch:hover {background-position: -20px -10px;}
 	&_hide-b &_i {background: #f8fbff;}

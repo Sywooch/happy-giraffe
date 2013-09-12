@@ -237,6 +237,9 @@
 									</div>
 								</div>
 							</div>
+							<div class="textalign-c">
+								<a href="" class="add-photo-widget"></a>
+							</div>
 						</div>
 					</div>
 					<div class="b-article_cont clearfix">
@@ -265,6 +268,9 @@
 								<p>Практически нет девушки, которая не переживала бы за отношения героев "Сумерек" как в на экранах, так и в жизни. Но, к сожалению, даже несмотря на то, что недавно герои "Сумерек" радовали всех тем, что у них невероятный роман  и в рельной жизни, а не только лишь на экране, все же <a href="">Роберт Паттинсон</a>  и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.</p>
 								
 							</div>
+							<div class="textalign-c">
+                                <a class="b-article_more" href="">Смотреть 58054 фото</a>
+                            </div>
 							<div class="photo-grid clearfix">
 						        <div class="photo-grid_row clearfix" >
 						        	<!-- Ловить клик на photo-grid_i для показа увеличенного фото -->
@@ -371,6 +377,9 @@
 				                    </div>
 						        </div>
 							</div>
+							<div class="textalign-c">
+                                <a class="b-article_more" href="">Смотреть 58054 фото</a>
+                            </div>
 						</div>
 						<div class="custom-likes-b">
 							<div class="custom-likes-b_slogan">Поделитесь с друзьями!</div>
@@ -404,10 +413,35 @@
 							</div>
 						</div>
 						
-						<div class="article-banner">
-							<a href="">
-								<img border="0" title="" alt="" src="/images/example/w540-h285.jpg">
+						<div class="gallery-widget">
+							<a href="" class="gallery-widget_a">
+								<span class="gallery-widget_t">15 самых красивых пар мира</span>
+								<span class="gallery-widget_img">
+									<img border="0" title="" alt="" src="/images/example/w580-h313.jpg">
+									<span class="ico-play-big"></span>
+								</span>
+								<span class="gallery-widget_count">
+									смотреть
+									<span class="gallery-widget_count-big">25 ФОТО</span>
+								</span>
 							</a>
+							<div class="article-settings">
+								<div class="article-settings_i">
+									<a class="article-settings_a article-settings_a__settings powertip" href="" title="Настройки виджета"></a>
+								</div>
+								<div class="article-settings_hold display-b">
+									<div class="article-settings_i">
+										<a class="article-settings_a article-settings_a__edit powertip" href="" title="Редактировать"></a>
+									</div>
+									<!-- Показываем только один нужный глаз -->
+									<div class="article-settings_i">
+										<a class="article-settings_a article-settings_a__eye powertip" href="" title="Скрыть виджет"></a>
+									</div>
+									<div class="article-settings_i">
+										<a class="article-settings_a article-settings_a__eye-close powertip" href="" title="Отобразить виджет"></a>
+									</div>
+								</div>
+							</div>
 						</div>
 						
 						<div class="comments-gray">

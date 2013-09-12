@@ -134,7 +134,8 @@
 															<div class="ico-family ico-family__husband"></div>
 														</div>
 														<div class="b-family_tx">
-															<span>Муж</span>
+															<span>Муж</span> <br>
+															<span>Тихон</span>
 														</div>
 														<a href="" class="ico-close b-family_del"></a>
 													</li>
@@ -149,19 +150,21 @@
 													</li>
 													<li class="b-family_li">
 														<div class="b-family_img-hold">
-															<div class="ico-family ico-family__girl-small"></div>
+															<div class="ico-family ico-family__baby-plan"></div>
 														</div>
 														<div class="b-family_tx">
-															<span>Дочь</span>
+															<span>Планируем ребенка</span>
 														</div>
 														<a href="" class="ico-close b-family_del"></a>
 													</li>
 													<li class="b-family_li">
 														<div class="b-family_img-hold">
-															<div class="ico-family ico-family__girl-8"></div>
+															<!-- Размеры изображений 55*55пк -->
+															<img src="/images/example/w41-h49-1.jpg" alt="" class="b-family_img">
 														</div>
 														<div class="b-family_tx">
-															<span>Дочь</span>
+															<span>Дочь</span> <br>
+															<span>Aлександра</span>
 														</div>
 														<a href="" class="ico-close b-family_del"></a>
 													</li>
@@ -214,6 +217,14 @@
 											
 											<div class="b-family b-family__bg-none margin-b10">
 												<ul class="b-family_ul">
+													<li class="b-family_li">
+														<div class="b-family_img-hold">
+															<div class="ico-family ico-family__baby-plan"></div>
+														</div>
+														<div class="b-family_tx">
+															<span>Планируем ребенка</span> 
+														</div>
+													</li>
 													<li class="b-family_li">
 														<div class="b-family_img-hold">
 															<div class="ico-family ico-family__boy-wait"></div>

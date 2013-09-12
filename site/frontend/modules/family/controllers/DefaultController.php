@@ -64,4 +64,12 @@ class DefaultController extends HController
         $response = compact('data');
         echo CJSON::encode($response);
     }
+
+    public function actionData()
+    {
+        $user = Yii::app()->user->model;
+        $data = $user->getFamilyData();
+        $response = compact('data');
+        echo CJSON::encode($response);
+    }
 }

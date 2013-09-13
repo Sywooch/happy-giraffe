@@ -77,6 +77,9 @@ class PurifiedBehavior extends CActiveRecordBehavior
         include_once Yii::getPathOfAlias('site.frontend.vendor.simplehtmldom_1_5') . DIRECTORY_SEPARATOR . 'simple_html_dom.php';
 
         $doc = str_get_html($text);
+        if ($doc == false)
+            return $text;
+
         $links = $doc->find('a');
 
         foreach ($links as $link) {

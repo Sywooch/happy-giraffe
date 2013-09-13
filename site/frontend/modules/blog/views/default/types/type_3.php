@@ -43,9 +43,11 @@ $collection = new PhotoPostPhotoCollection(array('contentId' => $data->id));
 
 
     <div class="b-article_in clearfix">
-        <div class="wysiwyg-content clearfix">
-            <?= $data->purified->preview ?>
-        </div>
+        <?php //if (!empty($data->preview)):?>
+            <div class="wysiwyg-content clearfix">
+                <?= $data->purified->preview ?>
+            </div>
+        <?php //endif ?>
         <?php
         $this->widget('PhotoCollectionViewWidget', array(
             'collection' => $collection,

@@ -2,19 +2,16 @@
 /**
  * @var AlbumPhoto $model
  * @var bool $edit редактирование
- * @var bool $comments комментарии
  */
 if (!isset($edit))
     $edit = false;
-if (!isset($comments))
-    $comments = false;
 
 $add = empty($model->title) ? '' : ' title="' . $model->title . '" alt="' . $model->title . '"';
 
 if (!$edit) echo '<!-- widget: { entity : "AlbumPhoto", entity_id : "' . $model->id . '" } -->';
 
-if ($comments)
-    echo '<a href="" class="comments-gray_cont-img-w"><img src="' . $model->getPreviewUrl(485, 110, Image::HEIGHT) . '"></a>';
+if (isset($parentModel) && in_array($parentModel, array('Comment', 'MessagingMessage')))
+    echo '<a class="comments-gray_cont-img-w" onclick="PhotoCollectionViewWidget.open(\'AttachPhotoCollection\', { entityName : \'' . get_class($parentModel) . '\', entityId : \'' . $parentModel->id . '\' })"><img src="' . $model->getPreviewUrl(485, 110, Image::HEIGHT) . '"></a>';
 else {
     if ($model->width >= 580) {
         if (!$edit)

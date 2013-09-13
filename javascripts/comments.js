@@ -223,6 +223,25 @@ function NewComment(data, parent) {
         }
         return true;
     };
+
+    self.openGallery = function() {
+        var collection;
+        var collectionOptions;
+
+        switch(parent.entity()) {
+            case 'CommunityContent':
+            case 'BlogContent':
+                collection = 'PhotoPostPhotoCollection';
+                collectionOptions = { contentId : parent.entity_id };
+                break;
+            case 'Album':
+                collection = 'AlbumPhotoCollection';
+                collectionOptions = { albumId : parent.entity_id };
+                break;
+        }
+
+        PhotoCollectionViewWidget.open(collection, collectionOptions, self.photoId());
+    }
 }
 
 function User(data) {

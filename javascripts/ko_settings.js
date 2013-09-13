@@ -316,3 +316,15 @@ function pad(str, max) {
     str = str.toString();
     return str.length < max ? pad("0" + str, max) : str;
 }
+
+function removeSocialService(el, id, service) {
+    $.post('/profile/settings/removeService/', { id : id }, function(response) {
+        if (response) {
+            if ($(el).siblings().length > 1)
+                $(el).parents('tr').remove();
+            else
+                $(el).parents('table').remove();
+            $('.auth-service.' + service + ' a').show();
+        }
+    });
+}

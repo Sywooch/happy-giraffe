@@ -5,13 +5,13 @@ im.scrollTop = function () {
 }
 
 im.messagesHeight = function () {
-    var h = im.windowHeight - im.headerHeight - im.topHeight - im.bottom.height() - 26; // 31 - отступы в блоках
+    var h = im.windowHeight - im.headerHeight - im.topHeight - im.bottom.height() - 21; // 21 - отступы в блоках
     im.hold.height(h);
 }
 
 im.sidebarHeight = function () {
     var h = im.windowHeight - im.headerHeight - im.bottom.height() - 156; // 156 - отступы в блоках
-    im.userList.height(h);
+    im.userList.height(h - );
 }
 
 
@@ -38,4 +38,4 @@ $(window).load(function() {
         im.messagesHeight();
         im.sidebarHeight();
     });
-})
+});

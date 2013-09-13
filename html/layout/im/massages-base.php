@@ -69,7 +69,6 @@
 						<div class="im_watch powertip" title="Скрыть диалог"></div>
 						<div class="im_count im_count__read powertip" title="Отметить как не прочитанное">44784</div>
 					</div>
-					<a href="" class="im-user-list_hide-a" onclick="im.hideContacts();return false;">Показать скрытые</a>
 					<div class="im-user-list_hide-b">
 						
 						<div class="im-user-list_i clearfix">
@@ -88,6 +87,11 @@
 						
 					</div>
 				</div>
+				<a href="" class="im-sidebar_hide-a" onclick="im.hideContacts();return false;">
+					<!-- On click im-sidebar_hide-a toogle class active on a-checkbox -->
+					<span class="a-checkbox"></span> 
+					<span class="im-sidebar_hide-a-tx">Показать скрытые</span>
+				</a>
 			</div>
 			<div class="im-center">
 			
@@ -418,7 +422,14 @@ $(document).ready(function () {
                   var html = this.get();
               }
           }
-      }
+      },
+      changeCallback: function(html)
+		{	
+			im.messagesHeight();
+			if((im.hold.scrollTop() - im.wrapper.height()) * (-1) < im.hold.height() + 30) {
+				im.scrollTop();
+			}
+		}
   });
 });
 						</script>		

@@ -350,7 +350,7 @@ class AlbumPhoto extends HActiveRecord
     public function getOriginalUrl()
     {
         return implode('/', array(
-            $this->getCdnHost(),
+            YII_DEBUG ? Yii::app()->params['photos_url'] : $this->getCdnHost(),
             $this->original_folder,
             $this->author_id,
             $this->fs_name,
@@ -492,7 +492,7 @@ class AlbumPhoto extends HActiveRecord
     {
         $this->getPreviewPath($width, $height, $master, $crop, $crop_side);
         return implode('/', array(
-            $this->getCdnHost(),
+            YII_DEBUG ? Yii::app()->params['photos_url'] : $this->getCdnHost(),
             $this->thumb_folder,
             $width . 'x' . $height,
             $this->author_id,

@@ -16,6 +16,7 @@ class PurifiedBehavior extends CActiveRecordBehavior
         ),
         'Attr.AllowedFrameTargets' => array('_blank' => true),
         'Attr.AllowedRel' => array('nofollow'),
+        'HTML.AllowedCommentsRegexp'=>true,
         'HTML.SafeIframe' => true,
         'URI.SafeIframeRegexp' => '%.*%',
         'HTML.SafeObject' => true,
@@ -34,9 +35,9 @@ class PurifiedBehavior extends CActiveRecordBehavior
                     $value = $this->linkifyYouTubeURLs($value);
                     $value = $this->linkifyVimeo($value);
                 }
-                $value = $purifier->purify($value);
                 $value = $this->setWidgets($value);
-                $value = $this->fixUrls($value);
+//                $value = $purifier->purify($value);
+//                $value = $this->fixUrls($value);
                 Yii::app()->cache->set($cacheId, $value);
             }
             return $value;
@@ -208,8 +209,9 @@ class PurifiedBehavior extends CActiveRecordBehavior
         extract($data);
         if (isset($entity) && isset($entity_id)){
             $model = CActiveRecord::model($entity)->findByPk($entity_id);
-            if ($model)
+            if ($model){
                 return $model->getWidget(false, $this->getOwner());
+            }
         }
         return '';
     }

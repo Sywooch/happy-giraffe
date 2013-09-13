@@ -12,6 +12,8 @@ if (! Yii::app()->user->isGuest)
     ;
 
 $user = Yii::app()->user->getModel();
+
+$this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
 ?>
 
 <?php $this->beginContent('//layouts/common'); ?>

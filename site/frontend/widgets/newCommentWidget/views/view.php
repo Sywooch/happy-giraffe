@@ -100,7 +100,7 @@ NotificationRead::getInstance()->SetVisited();
                 <?php if (!$this->gallery):?>
 
                     <div class="wysiwyg-h">
-                        <div class="js-edit-field" data-bind="attr: {id: 'text' + id()}, html: html, enterKey: Enter"></div>
+                        <div class="js-edit-field" data-bind="attr: {id: 'text' + id()}, html: editHtml, enterKey: Enter"></div>
                     </div>
 
                     <div class="redactor-control clearfix">
@@ -110,9 +110,9 @@ NotificationRead::getInstance()->SetVisited();
                         </div>
                         <button class="btn-green" data-bind="click: Edit">Отправить</button>
                     </div>
-                    <?php else: ?>
-                        <input type="text" class="comments-gray_add-itx itx-gray" data-bind="attr: {id: 'text' + id()}, html: html, enterKey: Enter">
-                    <?php endif ?>
+                <?php else: ?>
+                    <input type="text" class="comments-gray_add-itx itx-gray" data-bind="attr: {id: 'text' + id()}, html: html, enterKey: Enter">
+                <?php endif ?>
                 <!-- /ko -->
 
             </div>

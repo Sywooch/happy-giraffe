@@ -97,7 +97,7 @@ class ProcessingImagesBehavior extends CActiveRecordBehavior
                         $this->preview_photo = $photo;
                 }
 
-                if (get_class($this->owner) == 'Comment' && $element){
+                if ($element && in_array(get_class($this->owner), array('Comment', 'MessagingMessage'))){
                     $parent = $element->parent();
                     if ($parent && $parent->tag == 'a')
                         $element = $parent;

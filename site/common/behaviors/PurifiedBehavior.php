@@ -37,7 +37,7 @@ class PurifiedBehavior extends CActiveRecordBehavior
                 }
                 $value = $purifier->purify($value);
                 $value = $this->setWidgets($value);
-//                $value = $this->fixUrls($value);
+                $value = $this->fixUrls($value);
                 Yii::app()->cache->set($cacheId, $value);
             }
             return $value;
@@ -74,53 +74,40 @@ class PurifiedBehavior extends CActiveRecordBehavior
 
     private function fixUrls($text)
     {
-        Yii::import('site.frontend.extensions.phpQuery.phpQuery');
+        include_once Yii::getPathOfAlias('site.frontend.vendor.simplehtmldom_1_5') . DIRECTORY_SEPARATOR . 'simple_html_dom.php';
 
-        $doc = phpQuery::newDocumentXHTML($text, $charset = 'utf-8');
+        $doc = str_get_html($text);
         $links = $doc->find('a');
 
         foreach ($links as $link) {
-            $url = pq($link)->attr('href');
-            if (strpos($url, '/user/') === 0 || empty($url))
+            $url = $link->href;
+            if (strpos($url, '/user/') === 0 || empty($url) || strpos($url, '/site/out/?') === 0)
                 continue;
 
             $parsed_url = parse_url($url);
 
             if (!isset($parsed_url['host'])) {
-                pq($link)->remove();
+                $link->outertext = '';
             } elseif (strpos($parsed_url['host'], $_SERVER["HTTP_HOST"]) === false) {
-                //внешние ссылки ставим в noindex
-                if (!pq($link)->parent()->is('noindex'))
-                    pq($link)->wrap('<noindex></noindex>');
-
-                if (pq($link)->attr('rel') != 'nofollow')
-                    pq($link)->attr('rel', 'nofollow');
-
-                if (pq($link)->attr('target') != '_blank')
-                    pq($link)->attr('target', '_blank');
-
-                pq($link)->attr('href', '/site/out/?url=' . pq($link)->attr('href'));
-
+                //внешние ссылки ставим в nofollow, _black, меняет url на /site/out/?url=
+                $link->rel = 'nofollow';
+                $link->target = '_blank';
+                $link->href = '/site/out/?url=' . $link->href;
             } else {
                 //внутренние ссылки обрабатываем дополнительно
-                pq($link)->removeAttr('target');
-
+                $link->target = '';
                 //убираем из конца ссылки лишние символы
-                $url = pq($link)->attr('href');
+                $url = $link->href;
                 $url = str_replace('%C2%A0', '', $url);
                 for ($i = 0; $i < 10; $i++) {
                     $url = trim($url, "., /");
                 }
                 $url = $url . '/';
-
-                pq($link)->attr('href', $url);
+                $link->href = $url;
             }
         }
 
-        $text = $doc->html();
-        $doc->unloadDocument();
-
-        return $text;
+        return $doc->save();
     }
 
     public function fetchHtml($matches)

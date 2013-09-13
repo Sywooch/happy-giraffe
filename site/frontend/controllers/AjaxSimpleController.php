@@ -217,6 +217,7 @@ class AjaxSimpleController extends CController
             'status' => 200,
             'id' => $model->id,
             'html' => $model->getWidget(true),
+            'comment_html' => $model->getWidget(true, new Comment()),
             'url' => $model->getPreviewUrl(480, 250, Image::WIDTH),
         ));
     }

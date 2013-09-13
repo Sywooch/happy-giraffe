@@ -812,6 +812,6 @@ class AlbumPhoto extends HActiveRecord
             'http://img7.happy-giraffe.ru',
         );
 
-        return array_rand($hosts);
+        return $hosts[array_rand($hosts)];
     }
 }

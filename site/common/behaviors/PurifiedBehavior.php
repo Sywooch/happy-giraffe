@@ -19,7 +19,6 @@ class PurifiedBehavior extends CActiveRecordBehavior
         'HTML.SafeIframe' => true,
         'URI.SafeIframeRegexp' => '%.*%',
         'HTML.SafeObject' => true,
-        'HTML.Trusted' => true,
     );
 
     public function __get($name)
@@ -31,12 +30,12 @@ class PurifiedBehavior extends CActiveRecordBehavior
                 $purifier = new CHtmlPurifier;
                 $purifier->options = CMap::mergeArray($this->_defaultOptions, $this->options);
                 $value = $this->getOwner()->$name;
-                $value = $this->setWidgets($value);
                 if ($this->show_video){
                     $value = $this->linkifyYouTubeURLs($value);
                     $value = $this->linkifyVimeo($value);
                 }
                 $value = $purifier->purify($value);
+                $value = $this->setWidgets($value);
                 $value = $this->fixUrls($value);
                 Yii::app()->cache->set($cacheId, $value);
             }

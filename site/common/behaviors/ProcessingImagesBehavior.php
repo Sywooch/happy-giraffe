@@ -112,7 +112,8 @@ class ProcessingImagesBehavior extends CActiveRecordBehavior
                             $controller = new CController('YiiC');
                         $element->outertext = $controller->renderInternal(Yii::getPathOfAlias('site.frontend.views.albums._widget') . '.php', array(
                             'model' => $photo,
-                            'comments' => (get_class($this->owner) == 'Comment') ? true : false
+                            'comments' => (get_class($this->owner) == 'Comment') ? true : false,
+                            'parentModel' => $this->owner,
                         ), true);
                     }
                 }

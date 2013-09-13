@@ -12,9 +12,9 @@ return array(
     'showScriptName' => false,
     'urlSuffix' => '/',
     'rules' => array(
-        'community/<community_id:\d+>' => 'community/list',
-        'community/<community_id:\d+>/forum/<content_type_slug:\w+>/<content_id:\d+>' => 'community/view',
-        'community/<content_id:\d+>/comments' => 'community/comments',
+        'community/<community_id:\d+>' => 'community/default/list',
+        'community/<forum_id:\d+>/forum/<content_type_slug:\w+>/<content_id:\d+>' => 'community/default/view',
+        'community/<content_id:\d+>/comments' => 'community/default/comments',
 
         'user/<user_id:\d+>/blog/post<content_id:\d+>' => 'blog/view',
         'user/<user_id:\d+>/community' => array('user/index', 'defaultParams' => array('show' => 'community')),
@@ -37,8 +37,8 @@ return array(
 
         'contest/<contest_id:\d+>/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'Contest')),
 
-        '' => 'community/index',
+        '' => 'community/default/index',
 
-        '(.*)' => 'community/index',
+        '(.*)' => 'community/default/index',
     ),
 );

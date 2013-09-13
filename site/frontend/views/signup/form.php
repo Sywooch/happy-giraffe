@@ -29,6 +29,11 @@
                         <span class="i-highlight i-highlight__big font-big">Осталось ввести еще немного данных</span>
                     </div>
                     <div class="textalign-c margin-b40">
+                        <?php if (! empty($model->photo)): ?>
+                            <div class="display-ib verticalalign-m margin-r20">
+                                <div class="ava"><?=CHtml::image($model->photo)?></div>
+                            </div>
+                        <?php endif; ?>
                         <div class="display-ib verticalalign-m">
                             <div class="b-sign_label-hold margin-r10">
                                 <label for="" class="b-sign_label">Ваш e-mail</label>
@@ -83,7 +88,7 @@
                                     </div>
                                     <div class="w-80 float-l">
                                         <div class="chzn-itx-simple">
-                                            <?=$form->dropDownList($model, 'year', array_combine(range(1910, date("Y")), range(1910, date("Y"))), array('class' => 'chzn', 'data-placeholder' => 'год', 'empty' => ''))?>
+                                            <?=$form->dropDownList($model, 'year', array_combine(range(1910, date("Y") - 16), range(1910, date("Y") - 16)), array('class' => 'chzn', 'data-placeholder' => 'год', 'empty' => ''))?>
                                         </div>
                                     </div>
                                 </div>

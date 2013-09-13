@@ -1,5 +1,4 @@
-<!-- ko stopBinding: true -->
-<div class="content-cols b-family-add" id="b-family-add">
+<div class="content-cols b-family-add" id="b-family-add" data-bind="with: $root.addVM">
     <div class="col-white padding-20">
 
         <div class="b-family-structure clearfix">
@@ -20,7 +19,7 @@
                             </div>
                         </li>
                         <!-- ko foreach: family -->
-                        <li class="b-family_li" data-bind="droppable: $root.drop, css: { 'b-family_li__empty' : isEmpty }, template: { name : 'element-template', if: ! isEmpty() }"></li>
+                        <li class="b-family_li" data-bind="droppable: $parent.drop, css: { 'b-family_li__empty' : isEmpty }, template: { name : 'element-template', if: ! isEmpty() }"></li>
                         <!-- /ko -->
                     </ul>
                 </div>
@@ -123,4 +122,3 @@
 
     </div>
 </div>
-<!-- /ko -->

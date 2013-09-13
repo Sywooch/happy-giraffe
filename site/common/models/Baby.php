@@ -98,17 +98,20 @@ class Baby extends HActiveRecord
         if ($this->birthday === null)
             return '';
 
+        if ($this->type == self::TYPE_WAIT || $this->type == self::TYPE_TWINS)
+            return $this->getPregnancyWeeks();
+
         $date1 = new DateTime($this->birthday);
         $date2 = new DateTime(date('Y-m-d'));
         $interval = $date1->diff($date2);
 
-        if ($interval->d == 0)
+        if ($interval->days == 0)
             return 'Сегодня';
 
-        if ($interval->d < 7)
+        if ($interval->days < 7)
             return $interval->d . ' ' . Str::GenerateNoun(array('день', 'дня', 'дней'), $interval->d);
 
-        if ($interval->m == 0) {
+        if ($interval->m == 0 && $interval->y == 0) {
             $weeks = floor($interval->d / 7);
             return $weeks . ' ' . Str::GenerateNoun(array('неделя', 'недели', 'недель'), $weeks);
         }
@@ -117,7 +120,7 @@ class Baby extends HActiveRecord
             return $interval->m . ' ' . Str::GenerateNoun(array('месяц', 'месяца', 'месяцев'), $interval->m);
 
         if ($interval->y < 3)
-            return $interval->y . ' ' . Str::GenerateNoun(array('год', 'года', 'лет'), $interval->y) . ' ' . $interval->m . ' ' . Str::GenerateNoun(array('месяц', 'месяца', 'месяцев'), $interval->m);
+            return $interval->y . ' ' . Str::GenerateNoun(array('год', 'года', 'лет'), $interval->y) . ' ' . ($interval->m > 0 ? $interval->m . ' ' . Str::GenerateNoun(array('месяц', 'месяца', 'месяцев'), $interval->m) : '');
 
         return $interval->y . ' ' . Str::GenerateNoun(array('год', 'года', 'лет'), $interval->y);
     }
@@ -181,21 +184,23 @@ class Baby extends HActiveRecord
 
     protected function beforeSave()
     {
-        $date1 = new DateTime($this->birthday);
-        $date2 = new DateTime(date('Y-m-d'));
-        $interval = $date1->diff($date2);
-        if ($interval->y < 1)
-            $this->age_group = 0;
-        if ($interval->y >= 1 && $interval->y < 3)
-            $this->age_group = 1;
-        if ($interval->y >= 3 && $interval->y < 6)
-            $this->age_group = 2;
-        if ($interval->y >= 6 && $interval->y < 12)
-            $this->age_group = 3;
-        if ($interval->y >= 12 && $interval->y < 18)
-            $this->age_group = 4;
-        if ($interval->y >= 18)
-            $this->age_group = 5;
+        if ($this->birthday !== null) {
+            $date1 = new DateTime($this->birthday);
+            $date2 = new DateTime(date('Y-m-d'));
+            $interval = $date1->diff($date2);
+            if ($interval->y < 1)
+                $this->age_group = 0;
+            if ($interval->y >= 1 && $interval->y < 3)
+                $this->age_group = 1;
+            if ($interval->y >= 3 && $interval->y < 6)
+                $this->age_group = 2;
+            if ($interval->y >= 6 && $interval->y < 12)
+                $this->age_group = 3;
+            if ($interval->y >= 12 && $interval->y < 18)
+                $this->age_group = 4;
+            if ($interval->y >= 18)
+                $this->age_group = 5;
+        }
 
         return parent::beforeSave();
     }
@@ -245,7 +250,7 @@ class Baby extends HActiveRecord
             if ($interval->invert == 1)
                 $this->addError($attribute, 'Неверная дата рождения.');
         }
-        if ($this->type == 1) {
+        if ($this->type == self::TYPE_WAIT || $this->type == self::TYPE_TWINS) {
             $date1 = new DateTime(date('Y-m-d'));
             $date2 = new DateTime($this->birthday);
             $interval = $date1->diff($date2);

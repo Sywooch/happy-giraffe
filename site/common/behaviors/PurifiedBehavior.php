@@ -35,9 +35,9 @@ class PurifiedBehavior extends CActiveRecordBehavior
                     $value = $this->linkifyYouTubeURLs($value);
                     $value = $this->linkifyVimeo($value);
                 }
+                $value = $purifier->purify($value);
                 $value = $this->setWidgets($value);
-//                $value = $purifier->purify($value);
-//                $value = $this->fixUrls($value);
+                $value = $this->fixUrls($value);
                 Yii::app()->cache->set($cacheId, $value);
             }
             return $value;

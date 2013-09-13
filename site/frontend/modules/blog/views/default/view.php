@@ -16,10 +16,10 @@ if ($full && $data->type_id == CommunityContent::TYPE_STATUS)
 
 if ($full) {
     if (empty($this->meta_description)){
-        if (empty($data->meta_description))
-            $this->meta_description = $data->meta_description_auto;
-        else
-            $this->meta_description = $data->meta_description;
+//        if (empty($data->meta_description))
+//            $this->meta_description = $data->meta_description_auto;
+//        else
+//            $this->meta_description = $data->meta_description;
     }
 }
 

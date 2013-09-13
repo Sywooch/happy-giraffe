@@ -46,7 +46,9 @@ $photo = $data->getPhoto()
         </div>
     </div>
 
-    <div class="textalign-r margin-15">
-        <a href="<?=$data->getUrl() ?>" class="b-article_more">Смотреть далее</a>
-    </div>
+    <?php if ($data->hasMoreText()):?>
+        <div class="textalign-r margin-15">
+            <a href="<?=$data->getUrl() ?>" class="b-article_more">Смотреть далее</a>
+        </div>
+    <?php endif ?>
 <?php endif ?>

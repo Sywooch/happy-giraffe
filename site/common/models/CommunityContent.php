@@ -259,11 +259,11 @@ class CommunityContent extends HActiveRecord
 
         //generate meta description
         $meta_description_auto = Str::getDescription($this->getContent()->text);
-        if (!empty($meta_description_auto)){
+        if (!empty($meta_description_auto)) {
             if ($this->isNewRecord)
-            $meta_exist = Yii::app()->db->createCommand()->select('id')->from('community__contents')
-                ->where('meta_description_auto=:meta_description_auto', array(':meta_description_auto' => $meta_description_auto))
-                ->queryScalar();
+                $meta_exist = Yii::app()->db->createCommand()->select('id')->from('community__contents')
+                    ->where('meta_description_auto=:meta_description_auto', array(':meta_description_auto' => $meta_description_auto))
+                    ->queryScalar();
             else
                 $meta_exist = Yii::app()->db->createCommand()->select('id')->from('community__contents')
                     ->where('id < :id AND meta_description_auto=:meta_description_auto',
@@ -531,7 +531,7 @@ class CommunityContent extends HActiveRecord
                     'with' => array(
                         'community',
                     ),
-                )    ,
+                ),
             ),
             'order' => 't.created DESC',
             'condition' => 'mobile_community_id = :community_id',
@@ -1087,5 +1087,21 @@ class CommunityContent extends HActiveRecord
                 ->queryScalar();
         }
         return $this->getUnknownClassCommentsCount();
+    }
+
+    /**
+     * Если ли что-то после превью. Проверяется путем сравнения длины превью и текста
+     * @return bool
+     */
+    public function hasMoreText()
+    {
+        $content = $this->getContent();
+        if (isset($content->text)) {
+            $preview = trim(strip_tags($this->preview));
+            $text = trim(strip_tags($this->getContent()->text));
+            return strlen($preview) == strlen($text) ? false : true;
+
+        }
+        return true;
     }
 }

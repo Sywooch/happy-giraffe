@@ -1442,6 +1442,8 @@ class User extends HActiveRecord
         $myPhotoCollectionPhotos = $myPhotoCollection->getAllPhotos();
 
         $result = array(
+            'currentYear' => (int) date("Y"),
+            'canEdit' => $this->id == Yii::app()->user->id,
             'me' => array(
                 'id' => $this->id,
                 'name' => $this->first_name,

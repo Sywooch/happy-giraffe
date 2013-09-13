@@ -236,9 +236,23 @@ class SignupController extends HController
             Yii::app()->user->setState('gotoComment', '1');
 
         $model = new User;
-        $attributes = array('email', 'birthday', 'avatar', 'photo', 'first_name', 'last_name');
+        $attributes = array('email', 'avatar', 'photo', 'first_name', 'last_name', 'gender');
         foreach ($attributes as $attribute)
             $model->$attribute = Yii::app()->request->getPost($attribute);
+        if (($birthday = Yii::app()->request->getPost('birthday')) !== null) {
+            if (strpos($birthday, '-') !== false) {
+                $_birthday = explode('-', $birthday);
+                $model->day = ltrim($_birthday[2], '0');
+                $model->month = ltrim($_birthday[1], '0');
+                $model->year = $_birthday[0];
+            } else {
+                $_birthday = explode('.', $birthday);
+                $model->day = ltrim($_birthday[0], '0');
+                $model->month = ltrim($_birthday[1], '0');
+                if (isset($_birthday[2]))
+                    $model->year = $_birthday[2];
+            }
+        }
 
         $type = Yii::app()->request->getPost('type');
         Yii::app()->user->setState('register_type', $type);

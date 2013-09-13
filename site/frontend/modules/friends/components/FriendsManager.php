@@ -64,6 +64,8 @@ class FriendsManager
 
     public static function userToJson($user, $isFriend = false)
     {
+        $family = Yii::app()->controller->widget('application.modules.family.widgets.UserFamilyWidget', array('user' => $user), true);
+
         return array(
             'id' => $user->id,
             'online' => (bool) $user->online,
@@ -72,7 +74,7 @@ class FriendsManager
             'ava' => $user->getAvatarUrl(Avatar::SIZE_LARGE),
             'age' => $user->normalizedAge,
             'location' => ($user->address->country_id !== null) ? Yii::app()->controller->renderPartial('application.modules.friends.views._location', array('data' => $user), true) : null,
-            'family' => (($user->hasPartner() && ! empty($user->partner->name)) || ! empty($user->babies)) ? Yii::app()->controller->renderPartial('application.modules.friends.views._family', array('data' => $user), true) : null,
+            'family' => $family !== '' ? $family : null,
             'isFriend' => $isFriend
         );
     }

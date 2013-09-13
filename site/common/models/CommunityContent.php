@@ -508,13 +508,21 @@ class CommunityContent extends HActiveRecord
     public function getMobileContents($community_id)
     {
         $criteria = new CDbCriteria(array(
+            'scopes' => array('active'),
+            'with' => array(
+                'rubric' => array(
+                    'with' => array(
+                        'community',
+                    ),
+                )    ,
+            ),
             'order' => 't.created DESC',
             'condition' => 'mobile_community_id = :community_id',
             'params' => array(':community_id' => $community_id),
         ));
         $criteria->addInCondition('type_id', array(self::TYPE_POST, self::TYPE_VIDEO));
 
-        return new CActiveDataProvider($this->active()->full(), array(
+        return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
             'pagination' => array(
                 'pageSize' => 3,

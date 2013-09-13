@@ -25,6 +25,7 @@ class CustomVKontakteService extends VKontakteOAuthService {
         $info = $info['response'][0];
 
         $this->attributes['id'] = $info->uid;
+        $this->attributes['birthday'] = $info->bdate;
         $this->attributes['name'] = $info->first_name.' '.$info->last_name;
         $this->attributes['first_name'] = $info->first_name;
         $this->attributes['last_name'] = $info->last_name;
@@ -35,7 +36,7 @@ class CustomVKontakteService extends VKontakteOAuthService {
         else
             $this->attributes['username'] = 'id'.$info->uid;
 
-        $this->attributes['gender'] = $info->sex == 1 ? 'F' : 'M';
+        $this->attributes['gender'] = $info->sex == 1 ? 0 : 1;
 
         $this->attributes['city'] = $info->city;
         $this->attributes['country'] = $info->country;

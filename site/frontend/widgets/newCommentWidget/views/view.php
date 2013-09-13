@@ -117,14 +117,14 @@ NotificationRead::getInstance()->SetVisited();
 
             </div>
 
-            <div class="comments-gray_control" data-bind="css: {'comments-gray_control__self': ownComment()}, visible: (!editMode() && !photoUrl() && !removed())">
+            <div class="comments-gray_control" data-bind="css: {'comments-gray_control__self': ownComment()}, visible: (!editMode() && !removed())">
                 <div class="comments-gray_control-hold">
 
-                    <div class="clearfix" data-bind="visible: (!ownComment() && !$parent.gallery())">
+                    <div class="clearfix" data-bind="visible: (!ownComment() && !$parent.gallery() && !photoUrl())">
                         <a href="" class="comments-gray_quote-ico powertip" data-bind="click: Reply, tooltip: 'Ответить'"></a>
                     </div>
 
-                    <div class="clearfix" data-bind="visible: canEdit() && !$parent.gallery()">
+                    <div class="clearfix" data-bind="visible: canEdit() && !$parent.gallery() && !photoUrl()">
                         <a href="" class="message-ico message-ico__edit powertip" data-bind="click: GoEdit, tooltip: 'Редактировать'"></a>
                     </div>
 

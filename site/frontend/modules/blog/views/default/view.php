@@ -11,6 +11,18 @@ if (empty($data->source_id))
 else
     $source = $data->source;
 
+if ($full && $data->type_id == CommunityContent::TYPE_STATUS)
+    Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
+
+if ($full) {
+    if (empty($this->meta_description)){
+        if (empty($data->meta_description))
+            $this->meta_description = $data->meta_description_auto;
+        else
+            $this->meta_description = $data->meta_description;
+    }
+}
+
 ?>
 <div class="b-article clearfix<?php if ($data->type_id == CommunityContentType::TYPE_STATUS) echo ' b-article__user-status' ?>" id="blog_settings_<?=$data->id ?>">
     <?php if ($data->source_id) $this->renderPartial('blog.views.default._repost', array('data' => $data)); ?>

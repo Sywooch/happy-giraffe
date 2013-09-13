@@ -14,6 +14,7 @@
  * @property string $meta_title
  * @property string $meta_keywords
  * @property string $meta_description
+ * @property string $meta_description_auto
  * @property int $by_happy_giraffe
  * @property int $uniqueness
  * @property int $full
@@ -254,6 +255,22 @@ class CommunityContent extends HActiveRecord
         $this->title = strip_tags($this->title);
         if ($this->isNewRecord) {
             $this->last_updated = new CDbExpression('NOW()');
+        }
+
+        //generate meta description
+        $meta_description_auto = Str::getDescription($this->getContent()->text);
+        if (!empty($meta_description_auto)){
+            if ($this->isNewRecord)
+            $meta_exist = Yii::app()->db->createCommand()->select('id')->from('community__contents')
+                ->where('meta_description_auto=:meta_description_auto', array(':meta_description_auto' => $meta_description_auto))
+                ->queryScalar();
+            else
+                $meta_exist = Yii::app()->db->createCommand()->select('id')->from('community__contents')
+                    ->where('id < :id AND meta_description_auto=:meta_description_auto',
+                        array(':meta_description_auto' => $meta_description_auto, ':id' => $this->id))
+                    ->queryScalar();
+            if (empty($meta_exist))
+                $this->meta_description_auto = $meta_description_auto;
         }
 
         return parent::beforeSave();

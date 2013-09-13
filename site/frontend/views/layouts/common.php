@@ -36,7 +36,9 @@
             ->registerScriptFile('/javascripts/base64.js')
             ->registerScriptFile('/javascripts/common.js?' . $this->r)
             ;
-        $cs->registerMetaTag(trim($this->meta_description), 'description');
+        if (!empty($this->meta_description))
+            $cs->registerMetaTag(trim($this->meta_description), 'description');
+
         if (!empty($this->meta_keywords))
             $cs->registerMetaTag(trim($this->meta_keywords), 'keywords');
         ?>

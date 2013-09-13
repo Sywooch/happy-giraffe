@@ -17,6 +17,38 @@ class ConvertNewCommand extends CConsoleCommand
             Interest::model()->recalculateCount($interest_id);
     }
 
+    public function actionMeta()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->limit = 1000;
+        $criteria->condition = 'type_id != 6 AND type_id != 4 AND meta_description_auto is null';
+        $criteria->offset = 0;
+        $criteria->order = 'id asc';
+
+        $models = array(0);
+        while (!empty($models)) {
+            $models = CommunityContent::model()->findAll($criteria);
+            foreach ($models as $model) {
+                $meta_description_auto = Str::getDescription($model->getContent()->text);
+                if (!empty($meta_description_auto)) {
+                    $exist = Yii::app()->db->createCommand()
+                        ->select('id')
+                        ->from('community__contents')
+                        ->where('id < :id AND meta_description_auto=:meta_description_auto', array(':meta_description_auto' => $meta_description_auto, ':id' => $model->id))
+                        ->queryScalar();
+                    if ($exist) {
+                        echo "found $model->id \n";
+                        Yii::app()->db->createCommand()->update('community__contents', array('meta_description_auto' => null), 'id=' . $model->id);
+                    } else
+                        Yii::app()->db->createCommand()->update('community__contents', array('meta_description_auto' => $meta_description_auto), 'id=' . $model->id);
+                }
+            }
+
+            $criteria->offset += 1000;
+            echo $criteria->offset . "\n";
+        }
+    }
+
     /**
      * вычисление ширины/высоты фоток
      */
@@ -83,7 +115,7 @@ class ConvertNewCommand extends CConsoleCommand
             }
 
             $criteria->condition = "`t`.`text` LIKE '%<img%' AND `t`.`text` NOT LIKE '%<!--%' AND `t`.`id` > " . $max_id;
-            echo $max_id."\n";
+            echo $max_id . "\n";
         }
     }
 

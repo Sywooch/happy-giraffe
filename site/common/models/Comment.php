@@ -148,7 +148,11 @@ class Comment extends HActiveRecord
                 'class' => 'site.common.behaviors.DuplicateBehavior',
                 'attribute' => 'text',
                 'error_text' => 'Вы только что создали комментарий с таким названием'
-            )
+            ),
+            'forEdit' => array(
+                'class' => 'site.common.behaviors.PrepareForEdit',
+                'attributes' => array('text'),
+            ),
         );
     }
 
@@ -483,6 +487,7 @@ class Comment extends HActiveRecord
         $data = array(
             'id' => (int)$comment->id,
             'html' => $comment->purified->text,
+            'editHtml' => $comment->forEdit->text,
             'created' => Yii::app()->dateFormatter->format("d MMMM yyyy, H:mm", $comment->created),
             'author' => array(
                 'id' => (int)$comment->author->id,

@@ -32,6 +32,9 @@ class ProcessingImagesBehavior extends CActiveRecordBehavior
 
         $attributes = array_keys($this->owner->getAttributes($this->attributes));
         foreach ($attributes as $attr) {
+            if (strpos($this->owner->$attr, '<!-- widget') !== false)
+                continue;
+
             $doc = str_get_html($this->owner->$attr);
 
             $num = 1;
@@ -92,6 +95,12 @@ class ProcessingImagesBehavior extends CActiveRecordBehavior
                         $this->first_big_photo = $photo;
                     if (empty($this->preview_photo))
                         $this->preview_photo = $photo;
+                }
+
+                if (get_class($this->owner) == 'Comment' && $element){
+                    $parent = $element->parent();
+                    if ($parent && $parent->tag == 'a')
+                        $element = $parent;
                 }
 
                 if (isset($photo) && $photo && $element) {

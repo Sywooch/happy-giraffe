@@ -156,6 +156,7 @@ class AjaxSimpleController extends CController
             $response = array(
                 'status' => true,
                 'text' => $comment->text,
+                'editHtml' => $comment->forEdit->text,
             );
         } else {
             $response = array(

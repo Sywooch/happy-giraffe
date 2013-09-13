@@ -15,7 +15,7 @@
 	<div class="layout-wrapper">
 		<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/header-new.php'; ?>
 		
-		<div class="layout-content">	
+		<div class="layout-content margin-b0">	
 		<div class="im im__cap">
 		<div class="im_hold clearfix">
 			<div class="im-sidebar">

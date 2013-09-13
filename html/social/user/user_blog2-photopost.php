@@ -626,7 +626,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="textalign-c clearfix">
+					<div class="textalign-c clearfix margin-b10">
 						<div class="b-settings-blue_label float-n w-100p">Выберите главное фото для виджета</div>
 					</div>		
 					<div class="b-add-img b-add-img__for-multi">
@@ -674,8 +674,8 @@
 					</div>
 					
 					<div class="textalign-c clearfix">
-						<a href="" class="btn-blue btn-h46">Добавить</a>
 						<a href="" class="btn-gray-light btn-h46 margin-r15">Отменить</a>
+						<a href="" class="btn-blue btn-h46">Добавить</a>
 						
 					</div>
 				</div>

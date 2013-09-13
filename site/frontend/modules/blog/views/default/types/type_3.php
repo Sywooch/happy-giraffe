@@ -19,12 +19,16 @@ $collection = new PhotoPostPhotoCollection(array('contentId' => $data->id));
         <div class="wysiwyg-content clearfix">
             <p><?=nl2br($data->photoPost->purified->text)?></p>
         </div>
-        <?php
-        $this->widget('PhotoCollectionViewWidget', array(
+        <div class="textalign-c">
+            <a class="b-article_more" href="javascript:void(0)" onclick="PhotoCollectionViewWidget.open(<?=CJavaScript::encode(get_class($collection))?>, <?=CJavaScript::encode($collection->options)?>, <?=CJavaScript::encode($collection->photoIds[0])?>)">Смотреть <?=$collection->count?> фото</a>
+        </div>
+        <?php $this->widget('PhotoCollectionViewWidget', array(
             'collection' => $collection,
             'width' => 580,
-        ));
-        ?>
+        )); ?>
+        <div class="textalign-c">
+            <a class="b-article_more" href="javascript:void(0)" onclick="PhotoCollectionViewWidget.open(<?=CJavaScript::encode(get_class($collection))?>, <?=CJavaScript::encode($collection->options)?>, <?=CJavaScript::encode($collection->photoIds[0])?>)">Смотреть <?=$collection->count?> фото</a>
+        </div>
     </div>
 <?php else: ?>
     <?php if ($showTitle):?>

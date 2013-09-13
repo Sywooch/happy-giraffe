@@ -10,7 +10,7 @@ $add = empty($model->title) ? '' : ' title="' . $model->title . '" alt="' . $mod
 
 if (!$edit) echo '<!-- widget: { entity : "AlbumPhoto", entity_id : "' . $model->id . '" } -->';
 
-if (isset($parentModel) && in_array($parentModel, array('Comment', 'MessagingMessage')))
+if (isset($parentModel) && in_array(get_class($parentModel), array('Comment', 'MessagingMessage')))
     echo '<a class="comments-gray_cont-img-w" onclick="PhotoCollectionViewWidget.open(\'AttachPhotoCollection\', { entityName : \'' . get_class($parentModel) . '\', entityId : \'' . $parentModel->id . '\' })"><img src="' . $model->getPreviewUrl(485, 110, Image::HEIGHT) . '"></a>';
 else {
     if ($model->width >= 580) {

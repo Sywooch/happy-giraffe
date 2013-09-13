@@ -16,7 +16,7 @@ class PurifiedBehavior extends CActiveRecordBehavior
         ),
         'Attr.AllowedFrameTargets' => array('_blank' => true),
         'Attr.AllowedRel' => array('nofollow'),
-        'HTML.AllowedCommentsRegexp'=>true,
+        'HTML.AllowedCommentsRegexp' => '/widget/',
         'HTML.SafeIframe' => true,
         'URI.SafeIframeRegexp' => '%.*%',
         'HTML.SafeObject' => true,
@@ -31,13 +31,13 @@ class PurifiedBehavior extends CActiveRecordBehavior
                 $purifier = new CHtmlPurifier;
                 $purifier->options = CMap::mergeArray($this->_defaultOptions, $this->options);
                 $value = $this->getOwner()->$name;
-                if ($this->show_video){
+                if ($this->show_video) {
                     $value = $this->linkifyYouTubeURLs($value);
                     $value = $this->linkifyVimeo($value);
                 }
                 $value = $purifier->purify($value);
                 $value = $this->setWidgets($value);
-                $value = $this->fixUrls($value);
+//                $value = $this->fixUrls($value);
                 Yii::app()->cache->set($cacheId, $value);
             }
             return $value;
@@ -86,7 +86,7 @@ class PurifiedBehavior extends CActiveRecordBehavior
 
             $parsed_url = parse_url($url);
 
-            if (!isset($parsed_url['host'])){
+            if (!isset($parsed_url['host'])) {
                 pq($link)->remove();
             } elseif (strpos($parsed_url['host'], $_SERVER["HTTP_HOST"]) === false) {
                 //внешние ссылки ставим в noindex
@@ -108,10 +108,10 @@ class PurifiedBehavior extends CActiveRecordBehavior
                 //убираем из конца ссылки лишние символы
                 $url = pq($link)->attr('href');
                 $url = str_replace('%C2%A0', '', $url);
-                for($i=0;$i<10;$i++){
+                for ($i = 0; $i < 10; $i++) {
                     $url = trim($url, "., /");
                 }
-                $url = $url.'/';
+                $url = $url . '/';
 
                 pq($link)->attr('href', $url);
             }
@@ -151,7 +151,8 @@ class PurifiedBehavior extends CActiveRecordBehavior
         return ($httpStatus == 200) ? $this->wrapVideo($json['html']) : $matches[0];
     }
 
-    public function linkifyYouTubeURLs($text) {
+    public function linkifyYouTubeURLs($text)
+    {
         $text = preg_replace_callback('~
         # Match non-linked youtube URL in the wild. (Rev:20111012)
         https?://         # Required scheme. Either http or https.
@@ -178,14 +179,15 @@ class PurifiedBehavior extends CActiveRecordBehavior
         return $text;
     }
 
-    public function linkifyVimeo($text) {
+    public function linkifyVimeo($text)
+    {
         $text = preg_replace_callback('~https?://vimeo\.com/\d+~ix', array($this, 'vimeo'), $text);
         return $text;
     }
 
     private function wrapVideo($text)
     {
-        return '<div class="b-article_in-img">'.$text.'</div>';
+        return '<div class="b-article_in-img">' . $text . '</div>';
     }
 
     private function endsWith($haystack, $needle)
@@ -207,9 +209,9 @@ class PurifiedBehavior extends CActiveRecordBehavior
     {
         $data = CJSON::decode($matches[1]);
         extract($data);
-        if (isset($entity) && isset($entity_id)){
+        if (isset($entity) && isset($entity_id)) {
             $model = CActiveRecord::model($entity)->findByPk($entity_id);
-            if ($model){
+            if ($model) {
                 return $model->getWidget(false, $this->getOwner());
             }
         }

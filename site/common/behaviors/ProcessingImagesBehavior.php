@@ -40,6 +40,9 @@ class ProcessingImagesBehavior extends CActiveRecordBehavior
             $num = 1;
             foreach ($doc->find('img') as $image) {
                 $element = null;
+                for($i=1;$i<10;$i++)
+                    $image->src = str_replace('http://img' . $i . '.happy-giraffe.ru/', 'http://img.happy-giraffe.ru/', $image->src);
+
                 if (strpos($image->src, Yii::app()->params['photos_url']) !== 0 && strpos($image->src, '/') !== 0) {
                     if (isset($this->owner->author_id))
                         $author_id = $this->owner->author_id;

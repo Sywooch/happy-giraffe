@@ -13,7 +13,7 @@
                         <div class="b-sign_left-soc">
                             <div class="b-sign_sub-t margin-b30">Через социальные сети</div>
                             <div class="clearfix">
-                                <?php Yii::app()->eauth->renderWidget(array('action' => 'signup/index', 'mode' => 'signup', 'predefinedServices' => array('odnoklassniki', 'vkontakte', 'facebook', 'twitter'))); ?>
+                                <?php Yii::app()->eauth->renderWidget(array('action' => 'signup/index', 'mode' => 'signup')); ?>
                             </div>
                         </div>
 

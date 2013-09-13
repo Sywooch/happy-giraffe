@@ -7,10 +7,15 @@
     $cs
         ->registerScriptFile($baseUrl . '/form.js', CClientScript::POS_HEAD)
         ->registerScriptFile('/javascripts/jquery.tmpl.min.js')
+        ->registerScriptFile('/javascripts/jquery.iframe-post-form.js')
         ->registerCoreScript('jquery.ui')
         ->registerCssFile($cs->coreScriptUrl . '/jui/css/base/jquery-ui.css');
     ;
 ?>
+
+<script type="text/javascript">
+    base_url = '';
+</script>
 
 <div class="main">
 

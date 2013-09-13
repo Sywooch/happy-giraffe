@@ -114,7 +114,7 @@
                                         </span>
                         <span><?= $service->title?></span>
                     </td>
-                    <td class="form-settings_td"
+                    <td class="form-settings_td">
                         <?php if ($us->urlString != ''): ?>
                             <?=CHtml::link($us->nameString, $us->urlString, array('target' => '_blank'))?>
                         <?php else: ?>
@@ -122,9 +122,9 @@
                         <?php endif; ?>
                     </td>
                     <td class="form-settings_td">
-                        <a href="" class="a-pseudo-icon">
+                        <a href="javascript:void(0)" class="a-pseudo-icon" onclick="removeSocialService(this, '<?=$us->id?>', '<?=$service->id?>')">
                             <span class="ico-close2"></span>
-                            <span onclick="Settings.removeService(this, <?=$us->id?>, '<?=$service->id?>')" class="a-pseudo-icon_tx">
+                            <span class="a-pseudo-icon_tx">
                         </a>
                     </td>
                 </tr>
@@ -136,12 +136,14 @@
 
     <div class="form-settings_t">Добавить профиль</div>
 
-    <div class="margin-b30 clearfix">
+    <ul class="margin-b30 clearfix">
     <?php foreach ($services as $name => $service): ?>
-        <a href="<?=Yii::app()->createUrl('/' . $action, array('service' => $name, 'settings' => true))  ?>" class="b-social-big" <?php if(UserSocialService::model()->findByUser($name, Yii::app()->user->id) !== null): ?> style="display: none;"<?php endif; ?>>
-            <span class="b-social-big_ico <?=$service->id?>"></span>
-        </a>
+        <li class="b-social-big auth-service <?=$service->id?>">
+            <a href="<?=Yii::app()->createUrl('/' . $action, array('service' => $name))  ?>" class="b-social-big" <?php if(UserSocialService::model()->findByUser($name, Yii::app()->user->id) !== null): ?> style="display: none;"<?php endif; ?>>
+                <span class="b-social-big_ico <?=$service->id?>"></span>
+            </a>
+        </li>
     <?php endforeach; ?>
-    </div>
+    </ul>
 
 <?php endif; ?>

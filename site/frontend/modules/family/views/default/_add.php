@@ -2,9 +2,7 @@
     <div class="col-white padding-20">
 
         <div class="b-family-structure clearfix">
-            <!-- ko if: typeof familyMainVM !== 'undefined' -->
-            <a class="ico-close3 powertip" data-bind="click: familyMainVM.close"></a>
-            <!-- /ko -->
+            <a class="ico-close3 powertip" data-bind="click: $root.mainVM().close"></a>
 
             <div class="b-family-structure_added">
                 <div class="b-family b-family__square">
@@ -44,9 +42,10 @@
                 <div class="b-family b-family__bg-none margin-b10">
                     <ul class="b-family_ul">
                         <li class="b-family_li" data-bind="draggable: childrenModels[0], template: { name : 'fake-element-template', data : childrenModels[0] }"></li>
-                        <li class="b-family_li" data-bind="draggable: childrenModels[1], template: { name : 'fake-element-template', data : childrenModels[1] }"></li>
-                        <li class="b-family_li" data-bind="draggable: childrenModels[2], template: { name : 'fake-element-template', data : childrenModels[2] }"></li>
-                        <li class="b-family_li" data-bind="draggable: childrenModels[3], template: { name : 'fake-element-template', data : childrenModels[3] }"></li>
+                        <li class="b-family_li" data-bind="draggable: childrenModels[0], template: { name : 'fake-element-template', data : childrenModels[1] }"></li>
+                        <li class="b-family_li" data-bind="draggable: childrenModels[1], template: { name : 'fake-element-template', data : childrenModels[2] }"></li>
+                        <li class="b-family_li" data-bind="draggable: childrenModels[2], template: { name : 'fake-element-template', data : childrenModels[3] }"></li>
+                        <li class="b-family_li" data-bind="draggable: childrenModels[3], template: { name : 'fake-element-template', data : childrenModels[4] }"></li>
                     </ul>
                 </div>
 
@@ -55,8 +54,8 @@
                         <div class="color-gray font-small">Дети от 0 до 1 года</div>
                         <div class="b-family b-family__bg-none margin-b10">
                             <ul class="b-family_ul">
-                                <li class="b-family_li" data-bind="draggable: childrenModels[4], template: { name : 'fake-element-template', data : childrenModels[4] }"></li>
-                                <li class="b-family_li" data-bind="draggable: childrenModels[5], template: { name : 'fake-element-template', data : childrenModels[5] }"></li>
+                                <li class="b-family_li" data-bind="draggable: childrenModels[4], template: { name : 'fake-element-template', data : childrenModels[5] }"></li>
+                                <li class="b-family_li" data-bind="draggable: childrenModels[5], template: { name : 'fake-element-template', data : childrenModels[6] }"></li>
                             </ul>
                         </div>
                     </div>
@@ -65,8 +64,8 @@
                         <div class="color-gray font-small">Дети от 1 до 3 лет</div>
                         <div class="b-family b-family__bg-none margin-b10">
                             <ul class="b-family_ul">
-                                <li class="b-family_li" data-bind="draggable: childrenModels[6], template: { name : 'fake-element-template', data : childrenModels[6] }"></li>
-                                <li class="b-family_li" data-bind="draggable: childrenModels[7], template: { name : 'fake-element-template', data : childrenModels[7] }"></li>
+                                <li class="b-family_li" data-bind="draggable: childrenModels[6], template: { name : 'fake-element-template', data : childrenModels[7] }"></li>
+                                <li class="b-family_li" data-bind="draggable: childrenModels[7], template: { name : 'fake-element-template', data : childrenModels[8] }"></li>
                             </ul>
                         </div>
                     </div>
@@ -75,8 +74,8 @@
                         <div class="color-gray font-small">Дети от 3 до 6 лет</div>
                         <div class="b-family b-family__bg-none margin-b10">
                             <ul class="b-family_ul">
-                                <li class="b-family_li" data-bind="draggable: childrenModels[8], template: { name : 'fake-element-template', data : childrenModels[8] }"></li>
-                                <li class="b-family_li" data-bind="draggable: childrenModels[9], template: { name : 'fake-element-template', data : childrenModels[9] }"></li>
+                                <li class="b-family_li" data-bind="draggable: childrenModels[8], template: { name : 'fake-element-template', data : childrenModels[9] }"></li>
+                                <li class="b-family_li" data-bind="draggable: childrenModels[9], template: { name : 'fake-element-template', data : childrenModels[10] }"></li>
                             </ul>
                         </div>
                     </div>
@@ -85,8 +84,8 @@
                         <div class="color-gray font-small">Дети от 6 до 12 лет</div>
                         <div class="b-family b-family__bg-none margin-b10">
                             <ul class="b-family_ul">
-                                <li class="b-family_li" data-bind="draggable: childrenModels[10], template: { name : 'fake-element-template', data : childrenModels[10] }"></li>
-                                <li class="b-family_li" data-bind="draggable: childrenModels[11], template: { name : 'fake-element-template', data : childrenModels[11] }"></li>
+                                <li class="b-family_li" data-bind="draggable: childrenModels[10], template: { name : 'fake-element-template', data : childrenModels[11] }"></li>
+                                <li class="b-family_li" data-bind="draggable: childrenModels[11], template: { name : 'fake-element-template', data : childrenModels[12] }"></li>
                             </ul>
                         </div>
                     </div>
@@ -95,8 +94,8 @@
                         <div class="color-gray font-small">Дети от 12 до 18 лет</div>
                         <div class="b-family b-family__bg-none margin-b10">
                             <ul class="b-family_ul">
-                                <li class="b-family_li" data-bind="draggable: childrenModels[12], template: { name : 'fake-element-template', data : childrenModels[12] }"></li>
-                                <li class="b-family_li" data-bind="draggable: childrenModels[13], template: { name : 'fake-element-template', data : childrenModels[13] }"></li>
+                                <li class="b-family_li" data-bind="draggable: childrenModels[12], template: { name : 'fake-element-template', data : childrenModels[13] }"></li>
+                                <li class="b-family_li" data-bind="draggable: childrenModels[13], template: { name : 'fake-element-template', data : childrenModels[14] }"></li>
                             </ul>
                         </div>
                     </div>
@@ -105,8 +104,8 @@
                         <div class="color-gray font-small">Старше 18 лет</div>
                         <div class="b-family b-family__bg-none margin-b10">
                             <ul class="b-family_ul">
-                                <li class="b-family_li" data-bind="draggable: childrenModels[14], template: { name : 'fake-element-template', data : childrenModels[14] }"></li>
-                                <li class="b-family_li" data-bind="draggable: childrenModels[15], template: { name : 'fake-element-template', data : childrenModels[15] }"></li>
+                                <li class="b-family_li" data-bind="draggable: childrenModels[14], template: { name : 'fake-element-template', data : childrenModels[15] }"></li>
+                                <li class="b-family_li" data-bind="draggable: childrenModels[15], template: { name : 'fake-element-template', data : childrenModels[16] }"></li>
                             </ul>
                         </div>
                     </div>

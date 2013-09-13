@@ -154,12 +154,12 @@ return array(
 			'popup' => true, // Use the popup window instead of redirecting.
             'cache' => false,
 			'services' => array( // You can change the providers and their classes.
-                'mailru' => array(
-                    'class' => 'CustomMailruService',
-                    'client_id' => '667969',
-                    'client_secret' => '3a0e2674098641394a8e5e0b4328e594',
-                    'title' => 'Mail.ru',
-                ),
+//                'mailru' => array(
+//                    'class' => 'CustomMailruService',
+//                    'client_id' => '667969',
+//                    'client_secret' => '3a0e2674098641394a8e5e0b4328e594',
+//                    'title' => 'Mail.ru',
+//                ),
                 'odnoklassniki' => array(
                     'class' => 'CustomOdnoklassnikiService',
                     'client_id' => '93721600',
@@ -173,23 +173,23 @@ return array(
                     'client_secret' => 'T9pHwkodkssoEjswy2fw',
                     'title' => 'Вконтакте',
                 ),
-                'facebook' => array(
-                    'class' => 'CustomFacebookService',
-                    'client_id' => '412497558776154',
-                    'client_secret' => 'dc98234daa8c7a0d943a92423793590d',
-                    'title' => 'Facebook',
-                ),
+//                'facebook' => array(
+//                    'class' => 'CustomFacebookService',
+//                    'client_id' => '412497558776154',
+//                    'client_secret' => 'dc98234daa8c7a0d943a92423793590d',
+//                    'title' => 'Facebook',
+//                ),
                 /*'google' => array(
                     'class' => 'CustomGoogleService',
                     'client_id' => '999100941078.apps.googleusercontent.com',
                     'client_secret' => '6fDvpI0FO0lmhdDTMCl-I8gD',
                 ),*/
-                'twitter' => array(
-                    'class' => 'CustomTwitterService',
-                    'key' => '9NY9gDqPgU2DMIYrEv2pCA',
-                    'secret' => '2Lk4Q34fINqSrx5BlpKz6qtyCsofI3M9FHRYCElceE',
-                    'title' => 'Twitter',
-                ),
+//                'twitter' => array(
+//                    'class' => 'CustomTwitterService',
+//                    'key' => '9NY9gDqPgU2DMIYrEv2pCA',
+//                    'secret' => '2Lk4Q34fINqSrx5BlpKz6qtyCsofI3M9FHRYCElceE',
+//                    'title' => 'Twitter',
+//                ),
 			),
 		),
 		'format' => array(

@@ -30,11 +30,8 @@ class PrepareForEdit extends CActiveRecordBehavior{
         extract($data);
         if (isset($entity) && isset($entity_id)){
             $model = CActiveRecord::model($entity)->findByPk($entity_id);
-            if ($model){
-                $class = get_class($this->getOwner());
-                $comments = ($class == 'Comment');
-                return $model->getWidget(true, $comments);
-            }
+            if ($model)
+                return $model->getWidget(false, $this->getOwner());
         }
         return '';
     }

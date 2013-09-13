@@ -697,12 +697,16 @@ class AlbumPhoto extends HActiveRecord
 
     /**
      * @param bool $edit в редактировании
-     * @param bool $comments в комментариях
+     * @param null $parentModel
      * @return string
      */
-    public function getWidget($edit = false, $comments = false)
+    public function getWidget($edit = false, $parentModel = null)
     {
-        return Yii::app()->controller->renderPartial('//albums/_widget', array('model' => $this, 'edit' => $edit, 'comments' => $comments), true);
+        return Yii::app()->controller->renderPartial('//albums/_widget', array(
+            'model' => $this,
+            'edit' => $edit,
+            'parentModel' => $parentModel
+        ), true);
     }
 
     protected function setDimensions()

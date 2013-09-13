@@ -15,11 +15,6 @@ class UserFamilyWidget extends CWidget
     {
         $data = array();
 
-        $partnersCount = $this->user->partner === null ? 0 : 1;
-        $membersCount = count($this->user->babies) + $partnersCount;
-        $membersToShow = $membersCount > 6 ? 5 : 6;
-        $showMore = $membersCount > 6;
-
         if ($this->user->partner !== null) {
             $thumbSrc = $this->getThumbSrc($this->user->partner);
             $iconCssClass = $this->getAdultCssClass(($this->user->gender + 1) % 2, $this->user->relationship_status);
@@ -29,8 +24,7 @@ class UserFamilyWidget extends CWidget
             $data[] = compact('thumbSrc', 'name', 'iconCssClass', 'title', 'age');
         }
 
-        for ($i = $partnersCount; $i < $membersToShow && isset($this->user->babies[$i]); $i++) {
-            $b = $this->user->babies[$i];
+        foreach ($this->user->babies as $b) {
             if ($b->type == 1) {
                 if (time() > strtotime($b->birthday))
                     continue;

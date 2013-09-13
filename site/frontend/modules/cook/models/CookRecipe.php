@@ -312,7 +312,7 @@ class CookRecipe extends CActiveRecord
     protected function afterSave()
     {
         if ($this->isNewRecord) {
-            $this->sendEvent();
+            //$this->sendEvent();
             $this->book();
 
             UserAction::model()->add($this->author_id, UserAction::USER_ACTION_RECIPE_ADDED, array('model' => $this));

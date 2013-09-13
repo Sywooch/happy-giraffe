@@ -100,4 +100,24 @@ class AttachPhoto extends HActiveRecord
     {
         return CActiveRecord::model($this->entity)->findByPk($this->entity_id);
     }
+
+    /**
+     * Добавление связи с фото
+     *
+     * @param AlbumPhoto $photo
+     * @param string $entity
+     * @param int $entity_id
+     */
+    public static function add($photo, $entity, $entity_id){
+        if ($photo){
+            Yii::app()->db->createCommand()->delete(self::model()->tableName(),
+                'photo_id=:photo_id', array(':photo_id'=>$photo->id));
+
+            $model = new self;
+            $model->photo_id = $photo->id;
+            $model->entity = $entity;
+            $model->entity_id = $entity_id;
+            $model->save();
+        }
+    }
 }

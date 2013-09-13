@@ -80,7 +80,7 @@ class PurifiedBehavior extends CActiveRecordBehavior
 
         foreach ($links as $link) {
             $url = pq($link)->attr('href');
-            if (strpos($url, '/user/') === 0)
+            if (strpos($url, '/user/') === 0 || empty($url))
                 continue;
 
             $parsed_url = parse_url($url);

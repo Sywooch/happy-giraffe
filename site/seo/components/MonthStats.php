@@ -15,7 +15,7 @@ class MonthStats
         Yii::import('site.frontend.modules.messaging.models.*');
         Yii::import('site.frontend.modules.friends.models.*');
         echo "clubs\n";
-        for ($i = 9; $i > 0; $i--) {
+        for ($i = 6; $i > 0; $i--) {
             $this->dates($i);
             $criteria = $this->getCriteria();
             $criteria->with = array('rubric');

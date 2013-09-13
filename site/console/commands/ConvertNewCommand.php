@@ -13,7 +13,7 @@ class ConvertNewCommand extends CConsoleCommand
             ->select('id')
             ->from('interest__interests')
             ->queryColumn();
-        foreach($interest_ids as $interest_id)
+        foreach ($interest_ids as $interest_id)
             Interest::model()->recalculateCount($interest_id);
     }
 
@@ -60,6 +60,30 @@ class ConvertNewCommand extends CConsoleCommand
 
             $criteria->offset += 1000;
             echo $criteria->offset . "\n";
+        }
+    }
+
+    /**
+     * Создание фото-галерей в комментах
+     */
+    public function actionConvertCommentPhotos()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->limit = 1000;
+        $criteria->condition = "`t`.`text` LIKE '%<img%' AND `t`.`text` NOT LIKE '%<!--%' ";
+        $criteria->order = 'id asc';
+        $criteria->offset = 0;
+
+        $models = array(0);
+        while (!empty($models)) {
+            $models = Comment::model()->findAll($criteria);
+            foreach ($models as $model) {
+                $model->save();
+                $max_id = $model->id;
+            }
+
+            $criteria->condition = "`t`.`text` LIKE '%<img%' AND `t`.`text` NOT LIKE '%<!--%' AND `t`.`id` > " . $max_id;
+            echo $max_id."\n";
         }
     }
 

@@ -258,20 +258,20 @@ class CommunityContent extends HActiveRecord
         }
 
         //generate meta description
-        $meta_description_auto = Str::getDescription($this->getContent()->text);
-        if (!empty($meta_description_auto)) {
-            if ($this->isNewRecord)
-                $meta_exist = Yii::app()->db->createCommand()->select('id')->from('community__contents')
-                    ->where('meta_description_auto=:meta_description_auto', array(':meta_description_auto' => $meta_description_auto))
-                    ->queryScalar();
-            else
-                $meta_exist = Yii::app()->db->createCommand()->select('id')->from('community__contents')
-                    ->where('id < :id AND meta_description_auto=:meta_description_auto',
-                        array(':meta_description_auto' => $meta_description_auto, ':id' => $this->id))
-                    ->queryScalar();
-            if (empty($meta_exist))
-                $this->meta_description_auto = $meta_description_auto;
-        }
+//        $meta_description_auto = Str::getDescription($this->getContent()->text);
+//        if (!empty($meta_description_auto)) {
+//            if ($this->isNewRecord)
+//                $meta_exist = Yii::app()->db->createCommand()->select('id')->from('community__contents')
+//                    ->where('meta_description_auto=:meta_description_auto', array(':meta_description_auto' => $meta_description_auto))
+//                    ->queryScalar();
+//            else
+//                $meta_exist = Yii::app()->db->createCommand()->select('id')->from('community__contents')
+//                    ->where('id < :id AND meta_description_auto=:meta_description_auto',
+//                        array(':meta_description_auto' => $meta_description_auto, ':id' => $this->id))
+//                    ->queryScalar();
+//            if (empty($meta_exist))
+//                $this->meta_description_auto = $meta_description_auto;
+//        }
 
         return parent::beforeSave();
     }

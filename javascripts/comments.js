@@ -31,7 +31,7 @@ function CommentViewModel(data) {
     });
 
     self.openComment = function () {
-        if (!self.opened()){
+        if (!self.opened()) {
             self.opened(true);
             ko.utils.arrayForEach(self.comments(), function (comment) {
                 if (comment.editMode())
@@ -79,13 +79,14 @@ function CommentViewModel(data) {
         self.editor = $('#' + id);
         if (!self.gallery()) {
             $('#' + id).redactorHG({
-                initCallback: function() {
+                initCallback: function () {
                     redactor = this;
                     self.focusEditor();
                 },
                 minHeight: 68,
                 autoresize: true,
-                buttons: ['bold', 'italic', 'underline', 'image', 'video', 'smile']
+                buttons: ['bold', 'italic', 'underline', 'image', 'video', 'smile'],
+                comments: true
             });
         }
     };
@@ -112,10 +113,10 @@ function CommentViewModel(data) {
         else
             return '';
     });
-    self.removeResponse = function(){
+    self.removeResponse = function () {
         var str = self.editor.html();
-        str = str.replace('<span data-redactor="verified" class="a-imitation">' + self.response().author.firstName() + ',</span>','');
-        str = str.replace('<span class="a-imitation">' + self.response().author.firstName() + ',</span>','');
+        str = str.replace('<span data-redactor="verified" class="a-imitation">' + self.response().author.firstName() + ',</span>', '');
+        str = str.replace('<span class="a-imitation">' + self.response().author.firstName() + ',</span>', '');
         self.editor.html(str);
         self.response(false);
     };
@@ -165,24 +166,27 @@ function NewComment(data, parent) {
 
     self.GoEdit = function () {
         self.editMode(true);
-        $('#text' + self.id()).val(self.html());
+        $('#text' + self.id()).val(self.editHtml());
         self.parent.initEditor('text' + self.id());
         ko.utils.arrayForEach(self.parent.comments(), function (comment) {
             if (comment.id() != self.id())
                 if (comment.editMode())
                     comment.editMode(false);
-            self.parent.opened(false);
         });
+        self.parent.opened(false);
     };
 
     self.Edit = function () {
         var text = self.parent.getMessageText();
         $.post('/ajaxSimple/editComment/', {id: self.id(), text: text}, function (response) {
             if (response.status) {
-                if (!self.parent.gallery())
+                if (!self.parent.gallery()) {
                     self.parent.editor.redactor('destroy');
+                    self.parent.editor = null;
+                }
                 self.editMode(false);
                 self.html(response.text);
+                self.editHtml(response.editHtml);
             }
         }, 'json');
     };

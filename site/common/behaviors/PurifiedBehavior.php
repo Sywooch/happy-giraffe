@@ -19,6 +19,7 @@ class PurifiedBehavior extends CActiveRecordBehavior
         'HTML.SafeIframe' => true,
         'URI.SafeIframeRegexp' => '%.*%',
         'HTML.SafeObject' => true,
+        'HTML.Trusted' => true,
     );
 
     public function __get($name)

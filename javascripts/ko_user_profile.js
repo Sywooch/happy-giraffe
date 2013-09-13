@@ -6,7 +6,6 @@ function UserAboutWidget(about) {
     self.editMode = ko.observable(false);
 
     self.edit = function () {
-        console.log('sfahshf');
         self.new_about(self.about());
         self.editMode(true);
     };
@@ -69,7 +68,6 @@ function UserInterestsWidget(data) {
         } else {
             var first = [];
             ko.utils.arrayForEach(self.allInterests(), function (interest) {
-                console.log(interest.count());
                 if (first.length <= self.pageSize())
                     first.push(interest);
             });
@@ -299,7 +297,6 @@ var UserClub = function (data, size, parent) {
                 if (response.status) {
                     self.have(!self.have());
                     if (self.parent.deleteClub && self.have()) {
-                        console.log('remove');
                         self.parent.clubs.remove(self);
                     }
                 }

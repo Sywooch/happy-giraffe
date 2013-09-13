@@ -183,6 +183,8 @@ var FamilyCommonBaby = function(data, parent) {
                     case 2:
                         return 'baby';
                 }
+            case 2:
+                return 'baby-plan';
             case 3:
                 return 'baby-two';
         }
@@ -209,6 +211,8 @@ var FamilyCommonBaby = function(data, parent) {
                     case 2:
                         return 'Ждем ребенка';
                 }
+            case 2:
+                return 'Планируем ребенка';
             case 3:
                 return 'Ждем двойню';
         }
@@ -336,6 +340,7 @@ var FamilyViewModel = function(data) {
         new FamilyPartner({ relationshipStatus : 4 }, self)
     ];
     self.childrenModels = [
+        new FamilyBaby({ gender : 2, ageGroup : null, type : 2 }, self),
         new FamilyBaby({ gender : 1, ageGroup : null, type : 1 }, self),
         new FamilyBaby({ gender : 0, ageGroup : null, type : 1 }, self),
         new FamilyBaby({ gender : 2, ageGroup : null, type : 1 }, self),
@@ -644,6 +649,7 @@ var FamilyMainBaby = function(data, parent) {
     self.nameIsEditable = self.type === null;
     self.noticeIsEditable = self.type === null;
     self.photosAreEditable = self.type === null;
+    self.birthdayIsEditable = self.type != 2;
 
     // birthday
     self.days = [undefined];
@@ -774,6 +780,8 @@ var FamilyMainBaby = function(data, parent) {
                     case 2:
                         return 'Мы ждем ребенка';
                 }
+            case 2:
+                return 'Мы планируем ребенка';
             case 3:
                 return 'Мы ждем двойню';
         }

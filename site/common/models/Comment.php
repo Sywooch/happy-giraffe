@@ -502,7 +502,8 @@ class Comment extends HActiveRecord
             'userLikes' => HGLike::model()->hasLike($comment, Yii::app()->user->id),
             'canRemove' => (!Yii::app()->user->isGuest && Yii::app()->user->model->checkAuthItem('removeComment') || Yii::app()->user->id == $comment->author_id || $comment->isEntityAuthor(Yii::app()->user->id)),
             'canEdit' => (!Yii::app()->user->isGuest && Yii::app()->user->model->checkAuthItem('editComment') || Yii::app()->user->id == $comment->author_id),
-            'photoUrl' => ($album_comments && $comment->entity == 'AlbumPhoto') ? $comment->getCommentEntity()->getPreviewUrl(170, 110, false, true) : false
+            'photoUrl' => ($album_comments && $comment->entity == 'AlbumPhoto') ? $comment->getCommentEntity()->getPreviewUrl(170, 110, false, true) : false,
+            'photoId' => ($album_comments && $comment->entity == 'AlbumPhoto') ? $comment->getCommentEntity()->id : false,
         );
         return $data;
     }

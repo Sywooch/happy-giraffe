@@ -127,7 +127,7 @@
 	}
 	&_sound {
 		position: absolute;
-		top: 10px;
+		top: 15px;
 		right: 0;
 		width: 20px;
 		height: 20px;
@@ -372,6 +372,19 @@
 		width: 40px;
 	}
 	&_search-btn.active { background: url(/images/ico/ico-close.png) no-repeat 50% 50%;}
+	&_hide-a {
+		.inline-block();
+		margin: 10px 25px 15px;
+		text-decoration: none;
+	}
+	&_hide-a:hover .a-checkbox {background-position: -20px 0;}
+	&_hide-a-tx {
+		.inline-block();
+		margin-left: 5px;
+		border-bottom: 1px dashed #838383;
+		line-height: 15px;
+		color: #838383;
+	}
 }
 
 .im-user-list {
@@ -418,14 +431,6 @@
 	&_i a {text-decoration: none;}
 	&_i .im_watch {display: none;}
 	&_i:hover .im_watch {display: block;}
-	&_hide-a {
-		.inline-block();
-		margin: 10px 25px 15px;
-		border-bottom: 1px dashed #838383;
-		line-height: 15px;
-		color: #838383;
-		text-decoration: none;
-	}
 	&_hide-b .im_watch {background-position: -20px 0;}
 	&_hide-b .im_watch:hover {background-position: -20px -10px;}
 	&_hide-b &_i {background: #f8fbff;}

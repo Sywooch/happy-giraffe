@@ -615,6 +615,7 @@
 <div class="display-n">
 	
 	<div id="photo-widget" class="popup-user-add-record">
+		<a class="popup-transparent-close" onclick="$.fancybox.close();" href="javascript:void(0);" title="Закрыть"></a>
 		<div class="clearfix">
 			<div class="w-720 float-r">
 				<div class="b-settings-blue b-settings-blue__photo-widget">
@@ -622,7 +623,7 @@
 						<div class="b-settings-blue_row clearfix">
 							<label for="" class="b-settings-blue_label">Название виджета</label>
 							<div class="w-400 float-l">
-								<input type="text" name="" id="" class="itx-simple">
+								<input type="text" name="" id="" class="itx-simple" value="Самое лучшее утро - просыпаюсь, а ты рядом">
 							</div>
 						</div>
 					</div>
@@ -657,8 +658,10 @@
 								<img class="b-add-img_i-img" src="/images/example/w220-h309-1.jpg" alt="">
 								<div class="b-add-img_i-vert"></div>
 								<div class="b-add-img_i-overlay">
+									<!-- active on check  -->
 									<a href="" class="b-add-img_i-check a-checkbox active"></a>
 								</div>
+								<div class="b-add-img_i-overlay-b"></div>
 								<div class="b-add-img_i-marked"></div>
 							</div>
 							<div class="b-add-img_i">
@@ -675,7 +678,7 @@
 					
 					<div class="textalign-c clearfix">
 						<a href="" class="btn-gray-light btn-h46 margin-r15">Отменить</a>
-						<a href="" class="btn-blue btn-h46">Добавить</a>
+						<a href="" class="btn-blue btn-h46">Сохранить</a>
 						
 					</div>
 				</div>

@@ -47,8 +47,8 @@ return array(
             'baseUrl' => '/',
             'js' => array(
                 'javascripts/knockout.mapping-latest.js',
-                'javascripts/comments.js?3',
-                'javascripts/wysiwyg.js',
+                'javascripts/comments.js?4',
+                'javascripts/wysiwyg.js?2',
             ),
             'depends' => array('knockout'),
         ),
@@ -107,7 +107,7 @@ return array(
         'ko_im' => array(
             'baseUrl' => '/',
             'js' => array(
-                'javascripts/messaging.js',
+                'javascripts/messaging.j?2s',
                 'javascripts/im.js',
                 'javascripts/knockout.mapping-latest.js',
                 'javascripts/soundmanager2.js',
@@ -132,7 +132,7 @@ return array(
         'ko_upload' => array(
             'baseUrl' => '/',
             'js' => array(
-                'javascripts/upload.js',
+                'javascripts/upload.js?2',
                 'jQuery-File-Upload/js/vendor/jquery.ui.widget.js',
                 'jQuery-File-Upload/js/jquery.iframe-transport.js',
                 'jQuery-File-Upload/js/jquery.fileupload.js',

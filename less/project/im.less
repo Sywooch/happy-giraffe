@@ -1,39 +1,6 @@
-.im-fixed {
-
-	/*body {overflow: hidden;}*/
-	.im {}
-
-	.im-center {}
-	.im-center_top {
-		position: relative;
-		top: 0;
-		padding-top: 7px;
-		background: none;
-	}
-	.im-center_middle {
-		padding: 0;
-	}
-	.im-center_middle-hold {
-		position: relative;
-		overflow: hidden;
-		overflow-y: auto;
-		height: 300px;
-	}
-	.im-center_middle-w {
-		position: relative;
-		bottom: 0;
-		width: auto;
-	}
-	.im-center_bottom {
-		position: relative;
-		bottom: 0;
-		background: none;
-	}
-}
-
 .im {
 	position: relative;
-	margin: 0px 0 0px -20px;
+	margin: -5px 0 0 -20px;
 	/*min-height: 470px;*/
 	background: #fff;
 	.border-radius(10px);
@@ -161,7 +128,7 @@
 	}
 	&_top {
 		position: relative;
-		padding-top: 7px;
+		padding-top: 2px;
 		-moz-user-select: -moz-none;
 		-o-user-select: none;
 		-khtml-user-select: none;
@@ -184,7 +151,7 @@
 }
 
 .im-tabs {
-	margin:25px 10px 20px;
+	margin:30px 10px 20px;
 
 	&_i {
 		.inline-block();
@@ -342,10 +309,10 @@
 	height: 100%;
 
 	&_t {
-		margin: 35px 10px 18px;
-		font-size: 24px;
+		margin: 18px 16px 15px;
+		font-size: 35px;
+		font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, Tahoma, sans-serif;
 		color: #000;
-		text-align: center;
 	}
 	&_search {
 		position: relative;
@@ -374,16 +341,15 @@
 	&_search-btn.active { background: url(/images/ico/ico-close.png) no-repeat 50% 50%;}
 	&_hide-a {
 		.inline-block();
-		margin: 10px 25px 15px;
+		padding: 10px 12px 5px;
 		text-decoration: none;
 	}
 	&_hide-a:hover .a-checkbox {background-position: -20px 0;}
 	&_hide-a-tx {
 		.inline-block();
 		margin-left: 5px;
-		border-bottom: 1px dashed #838383;
 		line-height: 15px;
-		color: #838383;
+		color: #B6B6B6;
 	}
 }
 
@@ -431,6 +397,7 @@
 	&_i a {text-decoration: none;}
 	&_i .im_watch {display: none;}
 	&_i:hover .im_watch {display: block;}
+	&_hide-b {margin-top: 20px;}
 	&_hide-b .im_watch {background-position: -20px 0;}
 	&_hide-b .im_watch:hover {background-position: -20px -10px;}
 	&_hide-b &_i {background: #f8fbff;}

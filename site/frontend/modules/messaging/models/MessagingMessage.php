@@ -18,6 +18,8 @@
  */
 class MessagingMessage extends HActiveRecord
 {
+    public $processed_photos;
+
     /**
      * Returns the static model of the specified AR class.
      * @param string $className active record class name.
@@ -103,6 +105,10 @@ class MessagingMessage extends HActiveRecord
                 'options' => array(
                     'AutoFormat.Linkify' => true,
                 ),
+            ),
+            'processingImages' => array(
+                'class' => 'site.common.behaviors.ProcessingImagesBehavior',
+                'attributes' => array('text'),
             ),
         );
     }

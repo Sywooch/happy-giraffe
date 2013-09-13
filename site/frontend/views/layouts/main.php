@@ -122,7 +122,7 @@ $user = Yii::app()->user->getModel();
                                 <div class="clearfix">
                                     <a href="#login" class="display-ib verticalalign-m fancy">Войти</a>
                                     <span class="i-or">или</span>
-                                    <?php Yii::app()->eauth->renderWidget(array('action' => 'site/login', 'mode' => 'home', 'predefinedServices' => array('odnoklassniki', 'vkontakte', 'facebook', 'twitter'))); ?>
+                                    <?php Yii::app()->eauth->renderWidget(array('action' => 'site/login', 'mode' => 'home')); ?>
                                 </div>
                             </div>
                         </div>

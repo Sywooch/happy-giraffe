@@ -22,7 +22,7 @@ Yii::app()->clientScript
                     <div class="clearfix">
                         <a class="display-ib verticalalign-m fancy" href="#login">Войти</a>
                         <span class="i-or">или</span>
-                        <?php Yii::app()->eauth->renderWidget(array('action' => 'site/login', 'mode' => 'home', 'predefinedServices' => array('odnoklassniki', 'vkontakte', 'facebook', 'twitter'))); ?>
+                        <?php Yii::app()->eauth->renderWidget(array('action' => 'site/login', 'mode' => 'home')); ?>
                     </div>
                 </div>
 
@@ -96,7 +96,7 @@ Yii::app()->clientScript
 				<a class="btn-green start-page_join-btn fancy" href="#register">Присоединяйтесь!</a>
                 <div class="clearfix">
                     <span class="i-or">войти через</span>
-                    <?php Yii::app()->eauth->renderWidget(array('action' => 'site/login', 'mode' => 'home', 'predefinedServices' => array('odnoklassniki', 'vkontakte', 'facebook', 'twitter'))); ?>
+                    <?php Yii::app()->eauth->renderWidget(array('action' => 'site/login', 'mode' => 'home')); ?>
                 </div>
 			</div>
 		</div>

@@ -117,7 +117,7 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
                             </div>
                         </div>
                     <!-- /ko -->
-                    <!-- ko if: $data instanceof FamilyMainBaby -->
+                    <!-- ko if: $data instanceof FamilyMainBaby && $data.birthdayIsEditable -->
                         <div class="form-settings_label-row" data-bind="text: birthdayLabel()"></div>
                         <div class="clearfix">
                             <div class="form-settings_elem">

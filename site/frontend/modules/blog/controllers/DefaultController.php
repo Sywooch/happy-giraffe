@@ -77,7 +77,7 @@ class DefaultController extends HController
         }
 
         if ($content->type_id == CommunityContentType::TYPE_STATUS)
-            $this->pageTitle = strip_tags($content->status->text);
+            $this->pageTitle = Str::getDescription(strip_tags($content->status->text), 170, '');
         else
             $this->pageTitle = $content->title;
 

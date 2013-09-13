@@ -1,4 +1,8 @@
-<div class="b-article clearfix" id="recipe">
+<?php
+if (empty($this->meta_description))
+    $this->meta_description = Str::getDescription($recipe->text, 300);
+
+?><div class="b-article clearfix" id="recipe">
     <?php $this->renderPartial('_recipe_parts/_controls', array('recipe' => $recipe)); ?>
     <!-- hrecipe -->
     <div class="b-article_cont hrecipe clearfix">

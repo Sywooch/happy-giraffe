@@ -14,7 +14,7 @@ class UserPhotosWidget extends CWidget
     public function run()
     {
         $collection = new UserPhotoCollection(array('userId' => $this->userId));
-        if ($collection->notEmpty())
+        if ($collection->count > 2)
             $this->render('UserPhotosWidget', compact('collection'));
     }
 }

@@ -85,7 +85,7 @@ NotificationRead::getInstance()->SetVisited();
                         <div class="comments-gray_photo">
                             <img src="" class="comments-gray_photo-img" data-bind="attr: {src: photoUrl}">
                             <div class="comments-gray_photo-overlay">
-                                <span class="comments-gray_photo-zoom"></span>
+                                <span class="comments-gray_photo-zoom" data-bind="click: openGallery"></span>
                             </div>
                         </div>
                     </div>

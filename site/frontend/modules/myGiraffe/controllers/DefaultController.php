@@ -71,4 +71,16 @@ class DefaultController extends HController
         UserAttributes::set(Yii::app()->user->id, 'my_giraffe_only_new', $val);
         echo CJSON::encode(array('success' => true));
     }
+
+    public function actionUnsubscribe()
+    {
+        UserAttributes::set(Yii::app()->user->id, 'horoscope_subscribe', 0);
+        echo CJSON::encode(array('success' => true));
+    }
+
+    public function actionHidePopular()
+    {
+        UserAttributes::set(Yii::app()->user->id, 'popular_hide', 1);
+        echo CJSON::encode(array('success' => true));
+    }
 }

@@ -11,6 +11,9 @@ function PhotoCollectionViewModel(data) {
     self.photos = ko.utils.arrayMap(data.initialPhotos, function (photo) {
         return new CollectionPhoto(photo, self);
     });
+    self.exitUrl = null;
+    if (data.windowOptions !== null)
+        ko.utils.extend(self, data.windowOptions);
 
     self.getIndexById = function (photoId) {
         for (var photo in self.photos)
@@ -95,6 +98,13 @@ function PhotoCollectionViewModel(data) {
         else
             index = rawIndex;
         self.currentNaturalIndex(index);
+    }
+
+    self.close = function() {
+        if (self.exitUrl === null)
+            PhotoCollectionViewWidget.close();
+        else
+            window.location.href = self.exitUrl;
     }
 
     self.currentPhotoIndex.valueHasMutated();

@@ -262,21 +262,21 @@ function MessagingViewModel(data) {
 
         $.get('/messaging/interlocutors/get/', { interlocutorId : contact.user().id() }, function(response) {
             self.interlocutor(new Interlocutor(response.interlocutor, self));
-        }, 'json');
 
-        if (self.openContact().thread() === null) {
-            self.messages([]);
-        }
-        else {
-            $.get('/messaging/threads/getMessages/', { threadId : contact.thread().id() }, function(response) {
-                self.openContact().thread().changeReadStatus(1);
-                self.messages(ko.utils.arrayMap(response.messages, function(message) {
-                    return new Message(message, self);
-                }));
-                if (response.last)
-                    self.fullyLoaded(true);
-            }, 'json');
-        }
+            if (self.openContact().thread() === null) {
+                self.messages([]);
+            }
+            else {
+                $.get('/messaging/threads/getMessages/', { threadId : contact.thread().id() }, function(response) {
+                    self.openContact().thread().changeReadStatus(1);
+                    self.messages(ko.utils.arrayMap(response.messages, function(message) {
+                        return new Message(message, self);
+                    }));
+                    if (response.last)
+                        self.fullyLoaded(true);
+                }, 'json');
+            }
+        }, 'json');
     }
 
     self.addImage = function(data) {
@@ -581,7 +581,7 @@ function MessagingViewModel(data) {
 
     self.toggleShowHiddenContacts = function() {
         self.showHiddenContacts(! self.showHiddenContacts());
-        if (self.showHiddenContacts())
+        //if (self.showHiddenContacts())
             //im.hideContacts();
     }
 

@@ -152,10 +152,6 @@ function Message(data, parent) {
     }
 
     self.edit = function() {
-//        CKEDITOR.instances['im-editor'].setData(self.text(), function() {
-//            CKEDITOR.instances['im-editor'].focus();
-//        });
-
         parent.redactor.set(self.text());
         parent.redactor.focus();
 
@@ -244,15 +240,11 @@ function MessagingViewModel(data) {
 
     self.openThread = function(contact) {
         if (self.openContact() !== null) {
-//            self.openContact().draftText = CKEDITOR.instances['im-editor'].getData();
             self.openContact().draftText = self.redactor.get();
             self.openContact().draftImages = self.uploadedImages();
         }
 
         self.openContactInterlocutorId(contact.user().id());
-//        CKEDITOR.instances['im-editor'].setData(self.openContact().draftText, function() {
-//            CKEDITOR.instances['im-editor'].focus();
-//        });
         self.redactor.set(self.openContact().draftText);
         self.redactor.focus();
         self.uploadedImages(self.openContact().draftImages);
@@ -312,46 +304,7 @@ function MessagingViewModel(data) {
         });
     }, this);
 
-//    self.allContacts = ko.computed(function() {
-//        return ko.utils.arrayFilter(self.contacts(), function(contact) {
-//            return contact.thread() != null || contact.user().id() == data.interlocutorId;
-//        });
-//    }, this);
-//
-//    self.newContacts = ko.computed(function() {
-//        return ko.utils.arrayFilter(self.contacts(), function(contact) {
-//            return contact.thread() != null && contact.thread().unreadCount() > 0;
-//        });
-//    }, this);
-//
-//    self.onlineContacts = ko.computed(function() {
-//        return ko.utils.arrayFilter(self.contacts(), function(contact) {
-//            return contact.thread() != null && contact.user().online();
-//        });
-//    }, this);
-//
-//    self.friendsContacts = ko.computed(function() {
-//        return ko.utils.arrayFilter(self.contacts(), function(contact) {
-//            return contact.user().isFriend() && contact.user().online();
-//        });
-//    }, this);
-
     self.contactsToShow = ko.computed(function() {
-//        switch (self.tab()) {
-//            case 0:
-//                var contacts = self.allContacts();
-//                break;
-//            case 1:
-//                var contacts = self.newContacts();
-//                break;
-//            case 2:
-//                var contacts = self.onlineContacts();
-//                break;
-//            case 3:
-//                var contacts = self.friendsContacts();
-//                break;
-//        }
-
         var contacts = self.contacts().sort(function(l, r) {
             if (l.thread() !== null && r.thread() !== null)
                 return l.thread().updated() == r.thread().updated() ? 0 : (l.thread().updated() > r.thread().updated() ? -1 : 1);
@@ -511,7 +464,6 @@ function MessagingViewModel(data) {
 
         var data = {}
         data.interlocutorId = self.interlocutor().user().id();
-//        data.text = CKEDITOR.instances['im-editor'].getData();
         data.text = self.redactor.get();
         data.images = self.uploadedImagesIds();
         if (self.openContact().thread() !== null)
@@ -522,9 +474,6 @@ function MessagingViewModel(data) {
             self.meTyping(false);
 
             if (response.success) {
-//                CKEDITOR.instances['im-editor'].setData('', function() {
-//                    CKEDITOR.instances['im-editor'].focus();
-//                });
                 self.redactor.set('');
                 self.redactor.focus();
                 self.uploadedImages([]);
@@ -542,11 +491,9 @@ function MessagingViewModel(data) {
     }
 
     self.editMessage = function() {
-//        var text = CKEDITOR.instances['im-editor'].getData();
         var text = self.redactor.get();
         var data = {
             messageId : self.editingMessageId(),
-//            text : CKEDITOR.instances['im-editor'].getData()
             text : self.redactor.get()
         }
 
@@ -555,9 +502,6 @@ function MessagingViewModel(data) {
                 self.editingMessage().text(text);
                 self.editingMessage().edited(true);
                 self.editingMessageId(null);
-//                CKEDITOR.instances['im-editor'].setData('', function() {
-//                    CKEDITOR.instances['im-editor'].focus();
-//                });
                 self.redactor.set('');
                 self.redactor.focus();
             }
@@ -581,8 +525,7 @@ function MessagingViewModel(data) {
 
     self.toggleShowHiddenContacts = function() {
         self.showHiddenContacts(! self.showHiddenContacts());
-        //if (self.showHiddenContacts())
-            //im.hideContacts();
+        im.hideContacts();
     }
 
     soundManager.setup({
@@ -622,28 +565,6 @@ function MessagingViewModel(data) {
             },
             comments: true
         });
-
-
-//        CKEDITOR.instances['im-editor'].on('instanceReady', function() {
-//            if (data.interlocutorId !== null || self.contactsToShow().length > 0)
-//                self.openThread(data.interlocutorId == null ? self.contactsToShow()[0] : self.findByInterlocutorId(data.interlocutorId));
-//        });
-//
-//        CKEDITOR.instances['im-editor'].on('blur', function() {
-//            if (self.openContact() !== null)
-//                self.meTyping(false);
-//        });
-//
-//        CKEDITOR.instances['im-editor'].on('key', function (e) {
-//            if (e.data.keyCode == 13 && self.enterSetting())
-//                self.submit();
-//            else if (self.openContact() !== null) {
-//                self.meTyping(true);
-//                setTimeout(function() {
-//                    self.meTyping(false);
-//                }, 5000);
-//            }
-//        });
 
         Comet.prototype.receiveMessage = function (result, id) {
             var contact = self.findByInterlocutorId(result.contact.user.id);

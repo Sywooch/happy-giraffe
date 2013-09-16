@@ -27,6 +27,7 @@
 					<button class="im-sidebar_search-btn"></button>
 				</div>
 				<div class="im-user-list">
+				<div class="im-user-list_hold clearfix">
 					<div class="im-user-list_i clearfix">
 						<div class="im-user-settings">
 							<a class="ava small female" href="">
@@ -87,7 +88,8 @@
 						
 					</div>
 				</div>
-				<a href="" class="im-sidebar_hide-a" onclick="im.hideContacts();return false;">
+				</div>
+				<a href="" class="im-sidebar_hide-a">
 					<!-- On click im-sidebar_hide-a toogle class active on a-checkbox -->
 					<span class="a-checkbox"></span> 
 					<span class="im-sidebar_hide-a-tx">Показать скрытые</span>

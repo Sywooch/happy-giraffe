@@ -20,15 +20,21 @@ im.messagesHeight = function () {
  */
 im.sidebarHeight = function () {
 
-    var h = im.windowHeight - im.headerHeight - im.bottom.height() - im.contactHide.outerHeight() - 147; // 155 - отступы в блоках
+    var h = im.windowHeight - im.headerHeight - im.bottom.height() - im.contactHide.outerHeight() - 147; // 147 - отступы в блоках
+    im.userListHeight = im.userListHold.height();
     if (im.userListHeight > h ) {
-        console.log( im.userListHeight);
         im.userList.height(h);
     } else {
         im.userList.height(im.userListHeight);
     }
 }
 
+/* Пересчет sidebar после скрытия элементов в списке контактов
+ * Запускается после скрытия элементов списка
+ */
+im.hideContacts = function () {
+    im.sidebarHeight();
+}
 
 $(window).load(function() {
 
@@ -36,7 +42,8 @@ $(window).load(function() {
     im.imBlock = $(".im");
 
     im.userList = $('.im-user-list');
-    im.userListHeight = im.userList.height();
+    im.userListHold = $('.im-user-list_hold');
+    im.userListHeight = im.userListHold.height();
     im.container = $('.im-center_middle-hold');
     im.wrapper = $('.im-center_middle-w');
     im.bottom = $('.im-center_bottom');

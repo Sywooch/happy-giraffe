@@ -51,7 +51,7 @@ class UserFamilyWidget extends CWidget
                         $photoAttach = $p;
             } else
                 $photoAttach = $model->photos[0];
-            if ($photoAttach){
+            if (isset($photoAttach) && $photoAttach){
                 $photo = $photoAttach->photo;
                 $thumbUrl = $photo->getPreviewUrl(55, 55, Image::AUTO);
             }

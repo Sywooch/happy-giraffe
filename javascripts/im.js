@@ -1,14 +1,23 @@
 var im = {};
-/* Прокручивание в конец сообщений */
+
+/* Прокручивание в конец сообщений, для показа последнего сообщения
+ * Зпускать при открытии беседы
+ */
 im.scrollTop = function () {
     im.hold.scrollTop(im.wrapper.height());
 }
 
+/* Высота блока с сообщениями
+ * Запускать при начальной загрузке страницы и изменении высоты окна браузера
+ */
 im.messagesHeight = function () {
     var h = im.windowHeight - im.headerHeight - im.topHeight - im.bottom.height() - 17; // 17 - отступы в блоках
     im.hold.height(h);
 }
 
+/* Высота блока списка диалогов
+ * Запускать при начальной загрузке страницы и изменении высоты окна браузера
+ */
 im.sidebarHeight = function () {
 
     var h = im.windowHeight - im.headerHeight - im.bottom.height() - im.contactHide.outerHeight() - 147; // 155 - отступы в блоках

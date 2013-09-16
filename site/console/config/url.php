@@ -9,10 +9,6 @@ return array(
         /*************************
          *      CONTROLLERS      *
          *************************/
-        'community/<_a:(subscribe)>/' => 'community/default/<_a>',
-        'community/<forum_id:\d+>/forum/rubric/<rubric_id:\d+>' => 'community/default/forum',
-        'community/<forum_id:\d+>/forum/<content_type_slug:\w+>/<content_id:\d+>' => 'community/default/view',
-        'community/<forum_id:\d+>/forum/' => 'community/default/forum',
 
         'testupload' => 'blog/default/upload',
 

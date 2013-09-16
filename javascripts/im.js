@@ -1,14 +1,23 @@
 var im = {};
-/* Прокручивание в конец сообщений */
-im.scrollTop = function () {
-    im.hold.scrollTop(im.wrapper.height());
+
+/* Прокручивание в конец сообщений, для показа последнего сообщения
+ * Зпускать при загрузке сообщений беседы
+ */
+im.scrollBottom = function () {
+    im.container.scrollTop(im.wrapper.height());
 }
 
+/* Высота блока с сообщениями
+ * Запускать при начальной загрузке страницы и изменении высоты окна браузера
+ */
 im.messagesHeight = function () {
     var h = im.windowHeight - im.headerHeight - im.topHeight - im.bottom.height() - 17; // 17 - отступы в блоках
-    im.hold.height(h);
+    im.container.height(h);
 }
 
+/* Высота блока списка диалогов
+ * Запускать при начальной загрузке страницы и изменении высоты окна браузера
+ */
 im.sidebarHeight = function () {
 
     var h = im.windowHeight - im.headerHeight - im.bottom.height() - im.contactHide.outerHeight() - 147; // 155 - отступы в блоках
@@ -28,7 +37,7 @@ $(window).load(function() {
 
     im.userList = $('.im-user-list');
     im.userListHeight = im.userList.height();
-    im.hold = $('.im-center_middle-hold');
+    im.container = $('.im-center_middle-hold');
     im.wrapper = $('.im-center_middle-w');
     im.bottom = $('.im-center_bottom');
 
@@ -39,7 +48,7 @@ $(window).load(function() {
 
     im.messagesHeight();
     im.sidebarHeight();
-    im.scrollTop();
+    im.scrollBottom();
 
 
     $(window).resize(function() {

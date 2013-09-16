@@ -176,6 +176,8 @@ function Message(data, parent) {
     self.author = ko.computed(function() {
         return self.author_id() == parent.me.id() ? parent.me : parent.interlocutor().user();
     });
+
+    self.highlighted = self.author_id() != parent.me.id() && ! self.read();
 }
 
 function MessagingViewModel(data) {
@@ -528,6 +530,15 @@ function MessagingViewModel(data) {
         im.hideContacts();
     }
 
+    self.messageRendered = function(element, data) {
+        if (data.highlighted)
+            $(element).eq(1).addClass('im-message__new', 1500, function() {
+                setTimeout(function() {
+                    $(element).eq(1).removeClass('im-message__new', 1000);
+                }, 2000);
+            });
+    };
+
     soundManager.setup({
         url: '/swf/',
         debugMode: false,
@@ -619,10 +630,10 @@ function MessagingViewModel(data) {
 
     $(window).load(function() {
         self.messages.subscribe(function() {
-            setTimeout(function() {
-                console.log('123');
-                im.scrollBottom();
-            }, 0);
+            if (! self.loadingMessages())
+                im.container.imagesLoaded(function() {
+                    im.scrollBottom();
+                });
         });
 
         im.container.scroll(function() {

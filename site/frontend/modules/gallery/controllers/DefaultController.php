@@ -11,6 +11,7 @@ class DefaultController extends HController
 
 	public function actionWindow($collectionClass, $initialPhotoId)
 	{
+        $windowOptions = Yii::app()->request->getQuery('windowOptions');
         $collectionOptions = Yii::app()->request->getQuery('collectionOptions');
         $collection = new $collectionClass($collectionOptions);
         $initialIndex = $collection->getIndexById($initialPhotoId);
@@ -18,7 +19,7 @@ class DefaultController extends HController
         $count = $collection->count;
         $url = $collection->url;
         $userId = Yii::app()->user->id;
-        $json = compact('initialIndex', 'initialPhotos', 'initialPhotoId', 'count', 'collectionClass', 'collectionOptions', 'url', 'userId');
+        $json = compact('initialIndex', 'initialPhotos', 'initialPhotoId', 'count', 'collectionClass', 'collectionOptions', 'url', 'userId', 'windowOptions');
 
         $this->renderPartial('window', compact('json'));
 	}

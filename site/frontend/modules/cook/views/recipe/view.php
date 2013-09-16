@@ -256,7 +256,7 @@ if (empty($this->meta_description))
             </noindex>
         <?php endif; ?>
 
-        <?php $this->widget('application.widgets.newCommentWidget.NewCommentWidget', array('model' => $recipe, 'full' => true)); ?>
+        <?php $this->widget('application.widgets.newCommentWidget.NewCommentWidget', array('entity' => get_parent_class($recipe), 'entity_id' => $recipe->primaryKey, 'full' => true)); ?>
     </div>
 </div>
 

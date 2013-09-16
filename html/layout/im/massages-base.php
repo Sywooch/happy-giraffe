@@ -28,6 +28,21 @@
 				</div>
 				<div class="im-user-list">
 				<div class="im-user-list_hold clearfix">
+					
+					<div class="im-user-list_i im-user-list_i__hide clearfix">
+						<div class="im-user-settings">
+							<a class="ava small female" href="">
+								<img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg">
+							</a>
+							<div class="im-user-settings_user">
+								<a href="" class="">Арина Поплавская</a>
+							</div>
+						</div>
+						
+						<div class="im_watch powertip" title="Показать диалог"></div>
+						<div class="im_count powertip" title="Отметить как прочитанное">236</div>
+					</div>
+						
 					<div class="im-user-list_i clearfix">
 						<div class="im-user-settings">
 							<a class="ava small female" href="">
@@ -70,23 +85,21 @@
 						<div class="im_watch powertip" title="Скрыть диалог"></div>
 						<div class="im_count im_count__read powertip" title="Отметить как не прочитанное">44784</div>
 					</div>
-					<div class="im-user-list_hide-b">
-						
-						<div class="im-user-list_i clearfix">
-							<div class="im-user-settings">
-								<a class="ava small female" href="">
-									<img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg">
-								</a>
-								<div class="im-user-settings_user">
-									<a href="" class="">Арина Поплавская</a>
-								</div>
+
+					<div class="im-user-list_i im-user-list_i__hide clearfix">
+						<div class="im-user-settings">
+							<a class="ava small female" href="">
+								<img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg">
+							</a>
+							<div class="im-user-settings_user">
+								<a href="" class="">Арина Поплавская</a>
 							</div>
-							
-							<div class="im_watch powertip" title="Показать диалог"></div>
-							<div class="im_count powertip" title="Отметить как прочитанное">236</div>
 						</div>
 						
+						<div class="im_watch powertip" title="Показать диалог"></div>
+						<div class="im_count powertip" title="Отметить как прочитанное">236</div>
 					</div>
+						
 				</div>
 				</div>
 				<a href="" class="im-sidebar_hide-a">

@@ -10,7 +10,7 @@ for ($i = 1; $i <= 2; $i++) {
 }
 $i = 1;
 ?>
-<div class="block">
+<div class="block clearfix">
     <?php foreach ($days as $day): ?>
         <div class="clearfix">
             <div class="b-best<?php if ($day == date("Y-m-d")) echo ' b-best__today' ?>">

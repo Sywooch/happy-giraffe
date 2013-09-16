@@ -227,7 +227,7 @@ class CommentatorHelper
 
         $count = 0;
         foreach ($texts as $text) {
-            $length = Str::htmlTextLength($text);
+            $length = CommentatorHelper::getStringLength($text);
             if ($length >= self::COMMENT_GOOD_LIMIT)
                 $count++;
         }
@@ -279,5 +279,15 @@ class CommentatorHelper
             );
 
         return $data;
+    }
+
+    public static function getStringLength($html)
+    {
+        $html = str_replace('&nbsp;', ' ', $html);
+        $html = trim(strip_tags($html, '<p>'));
+        while (strpos($html, '  ') !== FALSE)
+            $html = str_replace('  ', ' ', $html);
+
+        return mb_strlen($html, 'UTF-8');
     }
 }

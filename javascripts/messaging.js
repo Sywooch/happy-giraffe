@@ -582,7 +582,7 @@ function MessagingViewModel(data) {
     self.toggleShowHiddenContacts = function() {
         self.showHiddenContacts(! self.showHiddenContacts());
         if (self.showHiddenContacts())
-            im.hideContacts();
+            //im.hideContacts();
     }
 
     soundManager.setup({

@@ -2,13 +2,13 @@
     <div class="float-l">
         <div class="like-control like-control__smallest clearfix">
             <?php $this->widget('Avatar', array('user' => $model->author, 'size' => 40)) ?>
-            <a class="like-control_ico like-control_ico__like powertip fancy" href="#login" title="Нравится"><?=PostRating::likesCount($model)?></a>
-            <div class="position-r">
-                <a class="like-control_ico like-control_ico__repost powertip fancy" title="Репост" href="#login"><?=$model->sourceCount?></a>
-            </div>
-            <div class="favorites-control">
-                <a class="favorites-control_a powertip fancy" href="#login" title="В избранное"><?=Favourite::model()->getCountByModel($model)?></a>
-            </div>
+            <?php $this->widget('application.modules.blog.widgets.LikeWidget', array('model' => $model)); ?>
+            <!-- ko stopBinding: true -->
+            <?php $this->widget('application.modules.blog.widgets.RepostWidget', array('model' => $model, 'right' => true)); ?>
+            <!-- /ko -->
+            <!-- ko stopBinding: true -->
+            <?php $this->widget('FavouriteWidget', array('model' => $model, 'right' => true)); ?>
+            <!-- /ko -->
         </div>
     </div>
     <div class="b-article-prev_cont clearfix">

@@ -11,7 +11,8 @@ class MyGiraffeModule extends CWebModule
 		$this->setImport(array(
 			'myGiraffe.models.*',
 			'myGiraffe.components.*',
-            'site.frontend.modules.profile.widgets.*'
+            'site.frontend.modules.profile.widgets.*',
+            'myGiraffe.widgets.*'
 		));
 	}
 

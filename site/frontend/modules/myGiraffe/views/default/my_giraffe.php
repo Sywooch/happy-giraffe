@@ -74,6 +74,10 @@
     </div>
     <div class="col-23-middle col-gray">
 
+        <?php $this->widget('HoroscopeWidget') ?>
+
+        <?php $this->widget('PopularPostsWidget') ?>
+
         <div class="clearfix textalign-r margin-20">
             <span class="color-gray-dark padding-r5">Показывать только новые </span>
             <a id="show-only-new" class="a-checkbox<?php if (UserAttributes::get(Yii::app()->user->id, 'my_giraffe_only_new')) echo ' active' ?>" href="javascript:;"></a>

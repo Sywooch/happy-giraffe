@@ -352,7 +352,7 @@ function MessagingViewModel(data) {
 //                break;
 //        }
 
-        self.contacts().sort(function(l, r) {
+        var contacts = self.contacts().sort(function(l, r) {
             if (l.thread() !== null && r.thread() !== null)
                 return l.thread().updated() == r.thread().updated() ? 0 : (l.thread().updated() > r.thread().updated() ? -1 : 1);
 
@@ -366,13 +366,18 @@ function MessagingViewModel(data) {
                 return 1;
         });
 
+        if (! self.showHiddenContacts())
+            contacts = ko.utils.arrayFilter(contacts, function(contact) {
+                return contact.thread() === null || ! contact.thread().hidden();
+            });
+
         var query = self.searchQuery();
-        return (query == '') ?
-            self.contacts()
-            :
-            ko.utils.arrayFilter(self.contacts(), function(contact) {
+        if (query == '')
+            contacts = ko.utils.arrayFilter(self.contacts(), function(contact) {
                 return contact.user().fullName().toLowerCase().indexOf(query.toLowerCase()) != -1;
             });
+
+        return contacts;
     });
 
     self.visibleContactsToShow = ko.computed(function() {
@@ -576,9 +581,8 @@ function MessagingViewModel(data) {
 
     self.toggleShowHiddenContacts = function() {
         self.showHiddenContacts(! self.showHiddenContacts());
-        if (self.showHiddenContacts()) {
+        if (self.showHiddenContacts())
             im.hideContacts();
-        }
     }
 
     soundManager.setup({
@@ -694,8 +698,7 @@ function MessagingViewModel(data) {
 
     $(window).load(function() {
         self.messages.subscribe(function() {
-            im.holdHeights();
-            im.container.scrollTop($('.layout-container').height());
+            im.scrollBottom();
         });
 
         im.container.scroll(function() {

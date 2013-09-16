@@ -41,7 +41,7 @@
 
 
         <div class="clearfix margin-r20 margin-b20">
-            <a href="<?=$this->createUrl('/cook/recipe/add')?>" class="btn-blue btn-h46 float-r">Добавить рецепт</a>
+            <a href="<?=(Yii::app()->user->isGuest) ? '#login' : $this->createUrl('/cook/recipe/form', array('section' => $this->section))?>" class="btn-blue btn-h46 float-r">Добавить рецепт</a>
         </div>
         <div class="col-gray">
 

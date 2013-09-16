@@ -112,8 +112,9 @@ return array(
                 'javascripts/knockout.mapping-latest.js',
                 'javascripts/soundmanager2.js',
                 'javascripts/wysiwyg.js',
+                'javascripts/imagesloaded.pkgd.min.js',
             ),
-            'depends' => array('knockout', 'comet'),
+            'depends' => array('knockout', 'comet', 'jquery.ui'),
         ),
         'ko_favourites' => array(
             'baseUrl' => '/',

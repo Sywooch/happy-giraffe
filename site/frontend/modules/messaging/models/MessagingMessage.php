@@ -18,7 +18,7 @@
  */
 class MessagingMessage extends HActiveRecord
 {
-    public $processed_photos;
+    public $processed_photos = array();
 
     /**
      * Returns the static model of the specified AR class.

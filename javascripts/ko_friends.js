@@ -158,7 +158,7 @@ function Friend(data, parent) {
 
     self.id = ko.observable(data.id);
     self.listId = ko.observable(data.listId);
-    self.user = new User(data.user, parent);
+    self.user = new FriendsUser(data.user, parent);
     self.pCount = ko.observable(data.pCount);
     self.bCount = ko.observable(data.bCount);
     self.removed = ko.observable(false);
@@ -229,7 +229,7 @@ function FriendRequest(data, parent) {
     var self = this;
 
     self.id = data.id;
-    self.user = new User(data.user, parent);
+    self.user = new FriendsUser(data.user, parent);
 }
 
 function IncomingFriendRequest(data, parent) {
@@ -312,7 +312,7 @@ function OutgoingFriendRequest(data, parent) {
     });
 }
 
-function User(data, parent) {
+function FriendsUser(data, parent) {
     var self = this;
 
     self.id = data.id;

@@ -92,7 +92,7 @@
                             <span class="im-message-loader_tx">Загрузка ранних сообщений</span>
                         </div>
 
-                        <!-- ko template: { name: 'message-template', foreach: messages } --><!-- /ko -->
+                        <!-- ko template: { name: 'message-template', foreach: messages, afterRender: messageRendered } --><!-- /ko -->
 
                         <div class="im_message-loader" data-bind="visible: sendingMessage()">
                             <img src="/images/ico/ajax-loader.gif" alt="">

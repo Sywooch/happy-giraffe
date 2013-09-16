@@ -160,6 +160,7 @@ return array(
         'community/<forum_id:\d+>/forum/rubric/<rubric_id:\d+>' => 'community/default/forum',
         'community/<forum_id:\d+>/forum/<content_type_slug:\w+>/<content_id:\d+>' => 'community/default/view',
         'community/<forum_id:\d+>/forum/' => 'community/default/forum',
+        'community/default/save' => 'community/default/save',
 
         //global
         '<_c:(settings|ajax|notification|profile|friendRequests|communityRubric|morning|userPopup|features|blog)>/<_a>' => '<_c>/<_a>',

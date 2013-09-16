@@ -18,6 +18,7 @@ class PhotoCollectionViewWidget extends CWidget
     public $registerScripts = false;
     public $href = null;
     public $borderSize = 5;
+    public $windowOptions = null;
 
     public function run()
     {

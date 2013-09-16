@@ -4,7 +4,7 @@ $model = AlbumPhoto::model()->findByPk($json['initialPhotoId']);
 <div class="photo-window" id="photo-window">
     <div class="photo-window_w">
         <div class="photo-window_top clearfix">
-            <a href="javascript:void(0)" class="photo-window_close" onclick="PhotoCollectionViewWidget.close()"></a>
+            <a href="javascript:void(0)" class="photo-window_close" data-bind="click: close"></a>
             <div class="b-user-small float-l">
                 <a class="ava small" data-bind="attr: { href : currentPhoto().user.url }, css: currentPhoto().user.avaCssClass"><img data-bind="visible: currentPhoto().user.ava.length > 0, attr: { src : currentPhoto().user.ava }"></a>
                 <div class="b-user-small_hold">

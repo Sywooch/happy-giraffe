@@ -174,6 +174,8 @@ return array(
          *        MODULES        *
          *************************/
 
+        'gallery/default/<_a>' => 'gallery/default/<_a>',
+
         // live
         'whatsNew/clubs' => array('whatsNew/default/clubs', 'defaultParams' => array('show' => 'all')),
         'whatsNew/clubs/my' => array('whatsNew/default/clubs', 'defaultParams' => array('show' => 'my')),

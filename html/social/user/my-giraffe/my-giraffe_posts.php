@@ -122,63 +122,102 @@
 			</div>
 			<div class="col-23-middle col-gray">
 
-				<div id="horoscope">
+				<div class="b-article-conversion clearfix">
+					<a href="" class="a-pseudo b-article-conversion_hide">Скрыть</a>
+					<div class="heading-title textalign-c clearfix"> <span class="ico-crown"></span> Популярные посты</div>
 
-					<div class="horoscope-one horoscope-one__conversion">
-					
-						<div class="block-in">
-						  	<div class="heading-title clearfix">Ваш гороскоп на сегодня</div>
-							<div class="img">
-							 
-							  <div class="in"><img src="/images/widget/horoscope/big/1.png"></div>
-							  <div class="date"><span>Весы</span>22.01 - 3.02</div>
-							  
-							</div>
-							
-							<div class="text clearfix">
-								<div class="date">
-									<span>28</span>янв
+					<div class="b-article b-article-prev clearfix">
+						<div class="float-l">
+							<div class="like-control like-control__smallest clearfix">
+								<a href="" class="ava middle">
+									<img alt="" src="http://img.happy-giraffe.ru/avatars/15292/ava/7f15174692ae858803ca7f2079f1bba0.jpg">
+								</a>
+								<a class="like-control_ico like-control_ico__like powertip" href="" title="Нравиться">0</a>
+								<div class="position-r">
+									<a class="like-control_ico like-control_ico__repost powertip" title="Репост" href="">0</a>
 								</div>
-								<div class="holder">
-									  <p>Сегодня лучше всего было бы заниматься любимым делом, творческими проектами и не попадаться на глаза людям, которым от вас что-то бесконечно нужно. Но, к сожалению, велика вероятность, что вас все равно отыщут. Воздержитесь, по крайней мере, от деловых разговоров. К тому же, этот день может преподнести приятный сюрприз в личной жизни, и вам потребуется время, чтобы побыть с любимым человеком, детьми, насладиться счастьем.</p>
-									  <p>Сегодня лучше всего было бы заниматься любимым делом, творческими проектами и не попадаться на глаза людям, которым от вас что-то бесконечно нужно. Но, к сожалению, велика вероятность, что вас все равно отыщут. Воздержитесь, по крайней мере, от деловых разговоров. К тому же, этот день может преподнести приятный сюрприз в личной жизни, и вам потребуется время, чтобы побыть с любимым человеком, детьми, насладиться счастьем.s</p>
-									  
-								</div>
-								
-							</div>
-							
-							<div class="custom-likes-b">
-								<div class="custom-likes-b_slogan">Поделитесь с друзьями! </div>
-								<a class="custom-like" href="">
-									<span class="custom-like_icon odnoklassniki"></span>
-									<span class="custom-like_value">0</span>
-								</a>
-								<a class="custom-like" href="">
-									<span class="custom-like_icon vkontakte"></span>
-									<span class="custom-like_value">1900</span>
-								</a>
-							
-								<a class="custom-like" href="">
-									<span class="custom-like_icon facebook"></span>
-									<span class="custom-like_value">150</span>
-								</a>
-							
-								<a class="custom-like" href="">
-									<span class="custom-like_icon twitter"></span>
-									<span class="custom-like_value">10</span>
-								</a>
-							</div>
-
-							<div class="margin-20 clearfix">
-								<a href="" class="float-r a-pseudo-white margin-t18">Не хочу получать гороскоп на Мой Жираф</a>
-								<div class="float-l color-white">
-									Каждое утро вас ждет <br> новый гороскоп на Веселом Жирафе!
+								<div class="favorites-control">
+									<a class="favorites-control_a powertip" href="" title="В избранное">789</a>
 								</div>
 							</div>
-							
 						</div>
-						
+						<div class="b-article-prev_cont clearfix">
+							<div class="clearfix">
+								<div class="meta-gray">
+									<a class="meta-gray_comment" href="">
+										<span class="ico-comment ico-comment__gray"></span>
+										<span class="meta-gray_tx">35</span>
+									</a>
+									<div class="meta-gray_view">
+										<span class="ico-view ico-view__gray"></span>
+										<span class="meta-gray_tx">305</span>
+									</div>
+								</div>
+								<div class="float-l">
+									<div class="clearfix">
+										<a class="b-article-prev_author" href="">Инна</a>
+									</div>
+									<span class="font-smallest color-gray">Сегодня 13:25</span>
+								</div>
+							</div>
+							<div class="b-article-prev_t clearfix">
+								<a class="b-article-prev_t-a" href="">Готовим список: что взять с собой на море с ребенком? </a>
+							</div>
+							<div class="b-article-prev_in">
+								<div class="b-article_in-img">
+									<iframe width="235" height="129" frameborder="0" allowfullscreen="" src="http://www.youtube.com/embed/pehSAUTqjRs?wmode=transparent"></iframe>
+								</div>
+							</div>
+						</div>
 					</div>
+					
+					<div class="b-article b-article-prev clearfix">
+						<div class="float-l">
+							<div class="like-control like-control__smallest clearfix">
+								<a href="" class="ava middle">
+									<span class="icon-status status-online"></span>
+									<img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg">
+								</a>
+								<a class="like-control_ico like-control_ico__like powertip" href="" title="Нравиться">5</a>
+								<div class="position-r">
+									<a class="like-control_ico like-control_ico__repost powertip" title="Репост" href="">5</a>
+								</div>
+								<div class="favorites-control">
+									<a class="favorites-control_a powertip" href="" title="В избранное">789</a>
+								</div>
+							</div>
+						</div>
+						<div class="b-article-prev_cont clearfix">
+							<div class="clearfix">
+								<div class="meta-gray">
+									<a class="meta-gray_comment" href="">
+										<span class="ico-comment ico-comment__gray"></span>
+										<span class="meta-gray_tx">35</span>
+									</a>
+									<div class="meta-gray_view">
+										<span class="ico-view ico-view__gray"></span>
+										<span class="meta-gray_tx">305</span>
+									</div>
+								</div>
+								<div class="float-l">
+									<div class="clearfix">
+										<a class="b-article-prev_author" href="">Галина</a>
+									</div>
+									<span class="font-smallest color-gray">Сегодня 13:25</span>
+								</div>
+							</div>
+							<div class="b-article-prev_t clearfix">
+								<a class="b-article-prev_t-a" href="">ГотовимсписокГотовимсписокГотовимсписок: </a>
+							</div>
+							<div class="b-article-prev_in">
+								<div class="b-article_in-img">
+									<!-- img width 235px -->
+									<img alt="Ночные гости - кто они фото 1" class="content-img" src="http://img.happy-giraffe.ru/thumbs/700x700/56/edad8d334a0b4a086a50332a2d8fd0fe.JPG" title="Ночные гости - кто они фото 1">
+								</div>
+							</div>
+						</div>
+					</div>
+
 				</div>
 
 
@@ -220,10 +259,10 @@
 								<span class="font-smallest color-gray">Сегодня 13:25</span>
 							</div>
 						</div>
-						<div class="b-article_t">
+						<h2 class="b-article_t">
 							<div class="b-article_t-new">новое</div>
 							<a href="" class="b-article_t-a">Торт без выпечки «Апельсинка» </a>
-						</div>
+						</h2>
 						<div class="b-article_in clearfix">
 							<div class="wysiwyg-content clearfix">
 								<p>	В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. 5. Выложим... </p>
@@ -278,11 +317,11 @@
 								<span class="font-smallest color-gray">Сегодня 13:25</span>
 							</div>
 						</div>
-						<div class="b-article_t">
+						<h2 class="b-article_t">
 							<div class="b-article_t-new">новое</div>
 							<a href="" class="b-article_t-a">Самое лучшее утро - просыпаюсь, а ты рядом </a>
 							
-						</div>
+						</h2>
 						<div class="b-article_in clearfix">
 							<div class="wysiwyg-content clearfix">								
 								<p>Практически нет девушки, которая не переживала бы за отношения героев "Сумерек" как в на экранах, так и в жизни. Но, к сожалению, даже несмотря на то, что недавно герои "Сумерек" радовали всех тем, что у них невероятный роман  и в рельной жизни, а не только лишь на экране, все же <a href="">Роберт Паттинсон</a>  и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.</p>

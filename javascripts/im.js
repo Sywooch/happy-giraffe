@@ -20,7 +20,7 @@ im.messagesHeight = function () {
  */
 im.sidebarHeight = function () {
 
-    var h = im.windowHeight - im.headerHeight - im.bottom.height() - im.contactHide.outerHeight() - 147; // 147 - отступы в блоках
+    var h = im.windowHeight - im.headerHeight - im.bottom.height() - im.contactHideA.outerHeight() - 147; // 147 - отступы в блоках
     im.userListHeight = im.userListHold.height();
     if (im.userListHeight > h ) {
         im.userList.height(h);
@@ -50,7 +50,7 @@ $(window).load(function() {
 
     im.headerHeight = $('.layout-header').height();
     im.topHeight = $('.im-center_top').height();
-    im.contactHide = $('.im-sidebar_hide-a');
+    im.contactHideA = $('.im-sidebar_hide-a');
 
 
     im.messagesHeight();

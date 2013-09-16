@@ -12,7 +12,7 @@ $i = 1;
 ?>
 <div class="block clearfix">
     <?php foreach ($days as $day): ?>
-        <div style="float: left">
+        <div class="clearfix">
             <div class="b-best<?php if ($day == date("Y-m-d")) echo ' b-best__today' ?>">
                 <?php if ($day == date("Y-m-d")):?>
                     <div class="b-best_t">
@@ -26,12 +26,12 @@ $i = 1;
                     </div>
                 <?php endif ?>
                 <div class="best-list best-list__mail">
-                    <ul id="sortable<?= $i ?>" class="best-list_ul" data-date="<?= $day ?>">
+                    <ul id="sortable<?= $i ?>" class="best-list_ul clearfix" data-date="<?= $day ?>">
                         <?php $models = Favourites::getListByDate(Favourites::WEEKLY_MAIL, $day) ?>
                         <?php foreach ($models as $model): ?>
                             <?php $article = $model->getArticle() ?>
                             <?php if ($article == null){var_dump($model->attributes);Yii::app()->end();} ?>
-                            <li class="best-list_li b-best_i" id="<?= $model->_id ?>">
+                            <li class="best-list_li b-best_i" id="<?= $model->_id ?>" style="float: left;">
 
                                 <div class="user-info clearfix">
                                     <a href="" class="ava"><img src="<?= SeoUser::getAvatarUrlForUser($article->author, 72) ?>"/></a>

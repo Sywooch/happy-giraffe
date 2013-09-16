@@ -372,8 +372,8 @@ function MessagingViewModel(data) {
             });
 
         var query = self.searchQuery();
-        if (query == '')
-            contacts = ko.utils.arrayFilter(self.contacts(), function(contact) {
+        if (query.length > 0)
+            contacts = ko.utils.arrayFilter(contacts, function(contact) {
                 return contact.user().fullName().toLowerCase().indexOf(query.toLowerCase()) != -1;
             });
 
@@ -698,7 +698,10 @@ function MessagingViewModel(data) {
 
     $(window).load(function() {
         self.messages.subscribe(function() {
-            im.scrollBottom();
+            setTimeout(function() {
+                console.log('123');
+                im.scrollBottom();
+            }, 0);
         });
 
         im.container.scroll(function() {

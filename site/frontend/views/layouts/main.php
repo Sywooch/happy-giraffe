@@ -176,7 +176,7 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
         <?php endif ?>
 
         <div class="layout-content clearfix<?php if ($this->route == 'messaging/default/index'): ?> margin-b0<?php endif; ?>">
-            <?php if (!Yii::app()->user->isGuest):?>
+            <?php if (! Yii::app()->user->isGuest && $this->route != 'messaging/default/index'): ?>
                 <div class="content-cols clearfix">
                     <div class="col-1">
                         <div class="sidebar-search clearfix">
@@ -228,7 +228,7 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
                         <?php endif ?>
                     </div>
                 </div>
-            <?php endif ?>
+            <?php endif; ?>
 
             <?=$content?>
         </div>

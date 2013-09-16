@@ -1,11 +1,15 @@
-var WysiwygPhotoUpload = function () {
+var WysiwygPhotoUpload = function (comments) {
     var self = this;
+    self.comments = comments;
     self.upload = ko.observable(new UploadPhotos(null, false, '#redactor-popup_b-photo'));
 
     self.add = function () {
         var html = '';
         ko.utils.arrayForEach(self.upload().photos(), function(photo) {
-            html += photo.html;
+            if (self.comments === true)
+                html += photo.comment_html;
+            else
+                html += photo.html;
         });
         redactor.insertHtmlAdvanced(html);
         redactor.sync();
@@ -109,11 +113,9 @@ var Video = function(data, parent) {
                     title: 'Вставить фото',
                     callback: function(buttonNamem, buttonDOM, buttonObject) {
                         if (typeof formWPU === 'undefined'){
-                            console.log(111);
-                            formWPU = new WysiwygPhotoUpload();
+                            formWPU = new WysiwygPhotoUpload(customOptions.comments);
                             ko.applyBindings(formWPU, document.getElementById('redactor-popup_b-photo'));
                         }else{
-                            console.log(222);
                             formWPU.upload().photos.removeAll();
                         }
                         $('.redactor-popup_b-photo').toggleClass('display-n');

@@ -615,7 +615,8 @@ function MessagingViewModel(data) {
                         self.meTyping(false);
                     }, 5000);
                 }
-            }
+            },
+            comments: true
         });
 
 

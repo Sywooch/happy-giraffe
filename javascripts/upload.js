@@ -103,6 +103,7 @@ function UploadedPhoto(name, parent, photo, error) {
     self.complete = function (response) {
         self.id(response.id);
         self.html = response.html;
+        self.comment_html = response.comment_html;
         self.status(2);
         self.url(response.url);
     };

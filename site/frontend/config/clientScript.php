@@ -47,8 +47,8 @@ return array(
             'baseUrl' => '/',
             'js' => array(
                 'javascripts/knockout.mapping-latest.js',
-                'javascripts/comments.js?4',
-                'javascripts/wysiwyg.js?2',
+                'javascripts/comments.js?5',
+                'javascripts/wysiwyg.js?3',
             ),
             'depends' => array('knockout'),
         ),
@@ -84,7 +84,7 @@ return array(
             'baseUrl' => '/',
             'js' => array(
                 'javascripts/ko_gallery.js',
-                'javascripts/ko_user_profile.js?4',
+                'javascripts/ko_user_profile.js?5',
                 'javascripts/ko_blog.js',
             ),
             'depends' => array('knockout', 'gallery', 'jcrop', 'ko_comments', 'ko_upload'),

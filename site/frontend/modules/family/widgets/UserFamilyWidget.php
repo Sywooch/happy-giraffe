@@ -43,6 +43,7 @@ class UserFamilyWidget extends CWidget
 
     protected function getThumbSrc($model)
     {
+        $thumbUrl = null;
         if (count($model->photos) > 0) {
             if ($model->main_photo_id !== null) {
                 foreach ($model->photos as $p)
@@ -50,10 +51,11 @@ class UserFamilyWidget extends CWidget
                         $photoAttach = $p;
             } else
                 $photoAttach = $model->photos[0];
-            $photo = $photoAttach->photo;
-            $thumbUrl = $photo->getPreviewUrl(55, 55, Image::AUTO);
-        } else
-            $thumbUrl = null;
+            if ($photoAttach){
+                $photo = $photoAttach->photo;
+                $thumbUrl = $photo->getPreviewUrl(55, 55, Image::AUTO);
+            }
+        }
 
         return $thumbUrl;
     }

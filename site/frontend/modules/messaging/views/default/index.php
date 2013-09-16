@@ -11,14 +11,12 @@ Yii::app()->controller->widget('site.common.extensions.imperavi-redactor-widget.
                 <button class="im-sidebar_search-btn" data-bind="click: clearSearchQuery, css: { active : searchQuery() != '' }"></button>
             </div>
             <div class="im-user-list">
-                <!-- ko template: { name: 'contact-template', foreach: visibleContactsToShow } -->
-
-                <!-- /ko -->
-                <a href="javascript:void(0)" class="im-user-list_hide-a" data-bind="visible: hiddenContactsToShow().length > 0, click: toggleShowHiddenContacts, text: showHiddenContacts() ? 'Скрыть' : 'Показать скрытые'"></a>
-                <div class="im-user-list_hide-b" data-bind="visible: showHiddenContacts(), template: { name: 'contact-template', foreach: hiddenContactsToShow }">
-
-                </div>
+                <!-- ko template: { name: 'contact-template', foreach: contactsToShow } --><!-- /ko -->
             </div>
+            <a class="im-sidebar_hide-a" data-bind="click: toggleShowHiddenContacts, css: { active : showHiddenContacts }">
+                <span class="a-checkbox"></span>
+                <span class="im-sidebar_hide-a-tx">Показать скрытые</span>
+            </a>
         </div>
         <div class="im-center">
 

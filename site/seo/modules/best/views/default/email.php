@@ -26,12 +26,12 @@ $i = 1;
                     </div>
                 <?php endif ?>
                 <div class="best-list best-list__mail">
-                    <ul id="sortable<?= $i ?>" class="best-list_ul clearfix" data-date="<?= $day ?>">
+                    <ul id="sortable<?= $i ?>" class="best-list_ul" data-date="<?= $day ?>">
                         <?php $models = Favourites::getListByDate(Favourites::WEEKLY_MAIL, $day) ?>
                         <?php foreach ($models as $model): ?>
                             <?php $article = $model->getArticle() ?>
                             <?php if ($article == null){var_dump($model->attributes);Yii::app()->end();} ?>
-                            <li class="best-list_li b-best_i" id="<?= $model->_id ?>" style="float: left;">
+                            <li class="best-list_li b-best_i" id="<?= $model->_id ?>">
 
                                 <div class="user-info clearfix">
                                     <a href="" class="ava"><img src="<?= SeoUser::getAvatarUrlForUser($article->author, 72) ?>"/></a>

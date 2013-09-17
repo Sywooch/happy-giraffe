@@ -22,6 +22,17 @@ class SiteController extends HController
 		);
 	}
 
+
+    public function filters()
+    {
+        return array(
+            array(
+                'COutputCache + index',
+                'duration' => 300,
+            ),
+        );
+    }
+
     protected function beforeAction($action)
     {
         return $action->id == 'error' ? true : parent::beforeAction($action);

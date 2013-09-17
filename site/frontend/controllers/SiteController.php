@@ -27,10 +27,11 @@ class SiteController extends HController
     {
         $filters = array();
 
-        $filters[] = array(
-            'COutputCache + index',
-            'duration' => 300,
-        );
+        if (Yii::app()->user->isGuest)
+            $filters[] = array(
+                'COutputCache + index',
+                'duration' => 300,
+            );
 
         return $filters;
     }

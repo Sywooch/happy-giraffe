@@ -27,16 +27,16 @@ class DefaultController extends HController
 
     public function actionIndex()
     {
-        $friendsCount = (int) Friend::model()->getCountByUserId(Yii::app()->user->id);
-        $friendsOnlineCount = (int) Friend::model()->getCountByUserId(Yii::app()->user->id, true);
-        $friendsNewCount = (int) Friend::model()->getCountByUserId(Yii::app()->user->id, false, true);
-        $incomingRequestsCount = (int) FriendRequest::model()->getCountByUserId(Yii::app()->user->id);
-        $outgoingRequestsCount = (int) FriendRequest::model()->getCountByUserId(Yii::app()->user->id, false);
+        $friendsCount = (int)Friend::model()->getCountByUserId(Yii::app()->user->id);
+        $friendsOnlineCount = (int)Friend::model()->getCountByUserId(Yii::app()->user->id, true);
+        $friendsNewCount = (int)Friend::model()->getCountByUserId(Yii::app()->user->id, false, true);
+        $incomingRequestsCount = (int)FriendRequest::model()->getCountByUserId(Yii::app()->user->id);
+        $outgoingRequestsCount = (int)FriendRequest::model()->getCountByUserId(Yii::app()->user->id, false);
 
-        $lists = array_map(function($list) {
+        $lists = array_map(function ($list) {
             return array(
                 'id' => $list->id,
-                'friendsCount' => (int) $list->friendsCount,
+                'friendsCount' => (int)$list->friendsCount,
                 'title' => $list->title,
             );
         }, FriendsManager::getLists(Yii::app()->user->id));
@@ -49,17 +49,19 @@ class DefaultController extends HController
 
     public function actionGet($online = false, $new = false, $listId = false, $query = false, $offset = 0)
     {
-        $friends = array_map(function($friend) {
+        $friends = array_map(function ($friend) {
             return array(
                 'id' => $friend->id,
                 'listId' => $friend->list_id,
                 'user' => array(
                     'id' => $friend->friend->id,
-                    'online' => (bool) $friend->friend->online,
+                    'online' => (bool)$friend->friend->online,
                     'firstName' => $friend->friend->first_name,
                     'lastName' => $friend->friend->last_name,
                     'ava' => $friend->friend->getAvatarUrl(Avatar::SIZE_LARGE),
                     'gender' => $friend->friend->gender,
+                    'photoCount' => (int)$friend->friend->getPhotosCount(),
+                    'blogPostsCount' => (int)$friend->friend->blogPostsCount
                 ),
                 'pCount' => $friend->pCount,
                 'bCount' => $friend->bCount,
@@ -91,7 +93,7 @@ class DefaultController extends HController
 
     public function actionRegions($countryId)
     {
-        $regions = array_map(function($region) {
+        $regions = array_map(function ($region) {
             return array(
                 'id' => $region->id,
                 'name' => $region->name,

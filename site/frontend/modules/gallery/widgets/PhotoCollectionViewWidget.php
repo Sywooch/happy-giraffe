@@ -9,16 +9,71 @@
 
 class PhotoCollectionViewWidget extends CWidget
 {
+    /**
+     * Коллекция фото
+     * @var PhotoCollection
+     */
     public $collection;
+
+    /**
+     * Ширина плитки
+     * @var int
+     */
     public $width = 580;
+
+    /**
+     * Максимальная высота ряда в плитке
+     * @var int
+     */
     public $maxHeight = 230;
+
+    /**
+     * Минимальное количество фотографий в ряду
+     * @var int
+     */
     public $minPhotos = 2;
+
+    /**
+     * Максимальное количество рядов
+     * @var mixed
+     */
     public $maxRows = false;
+
+    /**
+     * Отобразить виджет или же вернуть строку
+     * @var bool
+     */
     public $return = false;
+
+    /**
+     * Для регистрации скриптов
+     * @var bool
+     */
     public $registerScripts = false;
+
+    /**
+     * Ссылка, по которой перейдет пользователь при клике на любую фотографию
+     * @var null
+     */
     public $href = null;
+
+    /**
+     * Размер границ между фотографиями
+     * @var int
+     */
     public $borderSize = 5;
+
+    /**
+     * Дополнительные опции
+     * @var null
+     */
     public $windowOptions = null;
+
+    /**
+     * Максимальное количество фотографий для отображения
+     * @var int
+     */
+    public $maxPhotos = 50;
 
     public function run()
     {
@@ -30,7 +85,7 @@ class PhotoCollectionViewWidget extends CWidget
         $buffer = array();
         $rowsCount = 0;
         $photosCount = 0;
-        foreach ($this->collection->getAllPhotos() as $photo) {
+        foreach ($this->collection->getAllPhotos($this->maxPhotos) as $photo) {
             $photosCount++;
             $photo = get_class($photo) == 'AlbumPhoto' ? $photo : $photo->photo;
             if ($photo->width === null || $photo->height === null)

@@ -32,9 +32,9 @@ abstract class PhotoCollection extends CComponent
         return array_search($photoId, $this->photoIds);
     }
 
-    public function getAllPhotos($json = false)
+    public function getAllPhotos($limit = null, $json = false)
     {
-        return $this->populatePhotos($this->photoIds, $json);
+        return $this->populatePhotos(array_slice($this->photoIds, 0, $limit), $json);
     }
 
     public function getPhotosInRange($photoId, $before, $after, $json = true)
@@ -55,7 +55,10 @@ abstract class PhotoCollection extends CComponent
     protected function populatePhotos($ids, $json)
     {
         $models = count($ids) > 0 ? $this->generateModels($ids) : array();
-        return $json ? array_map(array($this, 'toJSON'), $models) : $models;
+        $_models = array_map(function($id) use ($models) {
+            return $models[$id];
+        }, $ids);
+        return $json ? array_map(array($this, 'toJSON'), $_models) : $_models;
     }
 
     protected function getNextPhotosIds($photoId, $after)

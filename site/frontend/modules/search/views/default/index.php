@@ -15,7 +15,7 @@ Yii::app()->clientScript->registerPackage('ko_comments');
             Я ищу
         </div>
         <div class="content-search_itx-hold">
-            <input type="text" class="content-search_itx" placeholder="Введите слово или фразу" data-bind="value: query, valueUpdate: 'keyup'">
+            <input id="search-query" type="text" class="content-search_itx" placeholder="Введите слово или фразу" data-bind="value: query, valueUpdate: 'keyup'">
             <a class="content-search_del" data-bind="visible: query().length > 0, click: clearQuery"></a>
             <button class="content-search_btn btn-gold btn-medium" data-bind="click: search">Найти</button>
         </div>
@@ -59,14 +59,12 @@ Yii::app()->clientScript->registerPackage('ko_comments');
                 <span class="menu-list_tx">Все</span>
                 <span class="menu-list_count" data-bind="text: totalCount"></span>
             </a>
-            <!-- ko if: isMenuVisible -->
-                <!-- ko foreach: menu -->
-                <a class="menu-list_i menu-list_i__post" data-bind="css: { active : $root.activeMenuRowIndex() === $root.menu.indexOf($data) }, css2: cssClass, click: select, visible: $root.totalCount() == 0 || count() > 0">
-                    <span class="menu-list_ico"></span>
-                    <span class="menu-list_tx" data-bind="text: title"></span>
-                    <span class="menu-list_count" data-bind="text: count"></span>
-                </a>
-                <!-- /ko -->
+            <!-- ko foreach: menu -->
+            <a class="menu-list_i menu-list_i__post" data-bind="css: { active : $root.activeMenuRowIndex() === $root.menu.indexOf($data) }, css2: cssClass, click: select, visible: $root.totalCount() == 0 || count() > 0">
+                <span class="menu-list_ico"></span>
+                <span class="menu-list_tx" data-bind="text: title"></span>
+                <span class="menu-list_count" data-bind="text: count"></span>
+            </a>
             <!-- /ko -->
             <div class="menu-list_overlay" data-bind="visible: totalCount() == 0"></div>
         </div>
@@ -78,7 +76,7 @@ Yii::app()->clientScript->registerPackage('ko_comments');
         <div class="cap-empty cap-empty__rel">
             <div class="cap-empty_hold">
                 <div class="cap-empty_tx">По данным параметрам ничего не найдено.</div>
-                <a href="" class="cap-empty_a">Начать новый поиск</a>
+                <a href="" class="cap-empty_a" data-bind="click: newSearch">Начать новый поиск</a>
             </div>
         </div>
         <!-- /ko -->

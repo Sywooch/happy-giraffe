@@ -92,7 +92,7 @@ return array(
         'ko_search' => array(
             'baseUrl' => '/',
             'js' => array(
-                'javascripts/ko_search.js',
+                'javascripts/ko_search.js?2',
             ),
             'depends' => array('knockout'),
         ),

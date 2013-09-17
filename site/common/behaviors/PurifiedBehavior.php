@@ -26,7 +26,7 @@ class PurifiedBehavior extends CActiveRecordBehavior
     {
         if (in_array($name, $this->attributes)) {
             $cacheId = $this->getCacheId($name);
-            $value = false;
+            $value = Yii::app()->cache->get($cacheId);
             if ($value === false) {
                 $purifier = new CHtmlPurifier;
                 $purifier->options = CMap::mergeArray($this->_defaultOptions, $this->options);

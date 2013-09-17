@@ -104,7 +104,7 @@ class FriendsSearchManager
                 ),
                 'partner',
             ),
-            'order' => 't.online DESC, t.id DESC',
+            'order' => 't.id DESC',
             'params' => array(
                 ':user_id' => $userId,
                 ':hg' => User::HAPPY_GIRAFFE,

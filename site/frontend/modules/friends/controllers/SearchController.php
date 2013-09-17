@@ -12,7 +12,7 @@ class SearchController extends HController
     {
         return array(
             'accessControl',
-            'ajaxOnly - index',
+           // 'ajaxOnly - index',
         );
     }
 
@@ -43,6 +43,8 @@ class SearchController extends HController
     public function actionGet()
     {
         $dp = FriendsSearchManager::getDataProvider(Yii::app()->user->id, $_GET);
+        $dp->data;
+        die;
         $users = array_map(function($user) {
             return array(
                 'id' => null,

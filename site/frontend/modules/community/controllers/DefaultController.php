@@ -72,7 +72,7 @@ class DefaultController extends HController
             $this->club->section->title => $this->club->section->getUrl(),
             $this->club->title => $this->club->getUrl()
         );
-        if (count($this->club->communities) > 1)
+        if (isset($this->club->communities) && count($this->club->communities) > 1)
             $this->breadcrumbs [] = $this->forum->title;
         else
             $this->breadcrumbs [] = 'Форум';
@@ -235,7 +235,7 @@ class DefaultController extends HController
     {
         $model = Community::model()->findByPk($id);
         $this->club = $model->club;
-        if ($model === null || $this->club === null)
+        if ($model === null || ($this->club === null && !in_array($model->id, array(36))))
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
         return $model;
     }

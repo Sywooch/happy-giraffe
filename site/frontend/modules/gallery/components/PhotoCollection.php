@@ -32,9 +32,9 @@ abstract class PhotoCollection extends CComponent
         return array_search($photoId, $this->photoIds);
     }
 
-    public function getAllPhotos($limit = null, $json = false)
+    public function getAllPhotos($json = false)
     {
-        return $this->populatePhotos(array_slice($this->photoIds, 0, $limit), $json);
+        return $this->populatePhotos($this->photoIds, $json);
     }
 
     public function getPhotosInRange($photoId, $before, $after, $json = true)
@@ -87,7 +87,6 @@ abstract class PhotoCollection extends CComponent
 
     protected function getPhotoIds() {
         $value = Yii::app()->cache->get($this->getIdsCacheKey());
-        $value = false;
         if ($value === false) {
             $value = $this->generateIds();
             Yii::app()->cache->set($this->getIdsCacheKey(), $value, 0, $this->getIdsCacheDependency());

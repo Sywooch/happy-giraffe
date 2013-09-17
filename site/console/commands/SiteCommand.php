@@ -11,6 +11,15 @@ class SiteCommand extends CConsoleCommand
         'lnghost@hotmail.com',
     );
 
+    public function actionStartDay()
+    {
+        Yii::import('site.common.models.mongo.*');
+        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
+
+        UserAttributes::removeAttr('popular_posts_count');
+        UserAttributes::removeAttr('horoscope_seen');
+    }
+
     public function actionCheckSeo()
     {
         //robots
@@ -293,7 +302,7 @@ class SiteCommand extends CConsoleCommand
         Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
         Yii::import('site.common.models.mongo.*');
         $se_visits = GApi::model()->visitors('/', '2012-04-12', date("Y-m-d"));
-        echo $se_visits."\n";
+        echo $se_visits . "\n";
         UserAttributes::set(1, 'all_visitors_count', $se_visits);
     }
 }

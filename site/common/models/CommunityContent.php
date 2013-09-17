@@ -31,7 +31,7 @@
  * @property CommunityPost $post
  * @property CommunityVideo $video
  * @property CommunityPhotoPost $photoPost
- * @property CommunityMorningPost $morningPost
+ * @property CommunityMorningPost $morning
  * @property CommunityContentGallery $gallery
  * @property Comment[] comments
  * @property CommunityContent source
@@ -120,7 +120,7 @@ class CommunityContent extends HActiveRecord
             'photoPost' => array(self::HAS_ONE, 'CommunityPhotoPost', 'content_id'),
             'author' => array(self::BELONGS_TO, 'User', 'author_id'),
             'remove' => array(self::HAS_ONE, 'Removed', 'entity_id', 'condition' => 'remove.entity = :entity', 'params' => array(':entity' => get_class($this))),
-            'morningPost' => array(self::HAS_ONE, 'CommunityMorningPost', 'content_id'),
+            'morning' => array(self::HAS_ONE, 'CommunityMorningPost', 'content_id'),
             'editor' => array(self::BELONGS_TO, 'User', 'editor_id'),
             'gallery' => array(self::HAS_ONE, 'CommunityContentGallery', 'content_id'),
             'favouritesCount' => array(self::STAT, 'Favourite', 'model_id', 'condition' => 'model_name=:modelName', 'params' => array(':modelName' => get_class($this))),
@@ -754,7 +754,7 @@ class CommunityContent extends HActiveRecord
                 break;
             case 4:
                 $output = $this->preview;
-                foreach ($this->morningPost->photos as $p) {
+                foreach ($this->morning->photos as $p) {
                     $output .= CHtml::tag('p', array(), CHtml::image($p->url)) . CHtml::tag('p', array(), $p->text);
                 }
                 break;

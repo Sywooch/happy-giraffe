@@ -7,14 +7,14 @@
 <br>
 <form action="" id="location-form" class="form">
     <input type="hidden" id="model_id" name="id" value="<?=$post->id ?>">
-    <?php echo CHtml::textField('location', $post->morningPost->location, array('class' => 'w-500')); ?>
+    <?php echo CHtml::textField('location', $post->morning->location, array('class' => 'w-500')); ?>
     <br>
     <a href="" onclick="showOnMap();return false;">Показать на карте</a>
 
     <div id="map_canvas" style="width:223px; height:200px"></div>
-    <input type="hidden" id="lat" name="lat" value="<?=$post->morningPost->lat ?>">
-    <input type="hidden" id="long" name="long" value="<?=$post->morningPost->long ?>">
-    <input type="hidden" id="zoom" name="zoom" value="<?=empty($post->morningPost->zoom)?'5':$post->morningPost->zoom ?>">
+    <input type="hidden" id="lat" name="lat" value="<?=$post->morning->lat ?>">
+    <input type="hidden" id="long" name="long" value="<?=$post->morning->long ?>">
+    <input type="hidden" id="zoom" name="zoom" value="<?=empty($post->morning->zoom)?'5':$post->morning->zoom ?>">
 
     <div class="row row-buttons">
         <button class="btn btn-green-medium">
@@ -30,12 +30,12 @@
     $(function () {
         geocoder = new google.maps.Geocoder();
 
-        <?php if (!empty($post->morningPost->lat) && !empty($post->morningPost->long) && !empty($post->morningPost->zoom)) {?>
+        <?php if (!empty($post->morning->lat) && !empty($post->morning->long) && !empty($post->morning->zoom)) {?>
 
             var myOptions = {
-                center:new google.maps.LatLng(<?= $post->morningPost->lat ?>, <?= $post->morningPost->long ?>),
+                center:new google.maps.LatLng(<?= $post->morning->lat ?>, <?= $post->morning->long ?>),
                 mapTypeId:google.maps.MapTypeId.ROADMAP,
-                zoom:<?= $post->morningPost->zoom ?>
+                zoom:<?= $post->morning->zoom ?>
             };
             map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
 

@@ -63,5 +63,10 @@ class FavouritesController extends HController
 
         $response = compact('success');
         echo CJSON::encode($response);
+
+        //обновляет рейтинг
+        $model = $modelName::model()->findByPk($modelId);
+        if ($model)
+            PostRating::reCalc($model);
     }
 }

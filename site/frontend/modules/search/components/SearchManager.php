@@ -16,9 +16,9 @@ class SearchManager
     );
 
     public static $scoring = array(
-        'created DESC, @relevance DESC',
-        'rate DESC, @relevance DESC',
-        'views DESC, @relevance DESC',
+        'created DESC', //, @relevance DESC',
+        'rate DESC', // @relevance DESC',
+        'views DESC', // @relevance DESC',
     );
 
     public static $fields = array('title', 'preview');
@@ -41,7 +41,7 @@ class SearchManager
         $photoCount = count($photoSearch['matches']);
 
         $pages = new CPagination();
-        $pages->pageSize = (int) $perPage;
+        $pages->pageSize = (int)$perPage;
         $pages->itemCount = $allCount;
 
         $criteria = new stdClass();
@@ -49,7 +49,7 @@ class SearchManager
         $criteria->select = '*';
         $criteria->paginator = $pages;
         $criteria->query = $_query;
-        //$criteria->orders = self::$scoring[$scoring];
+        $criteria->orders = self::$scoring[$scoring];
         $resIterator = Yii::app()->search->search($criteria);
 
         //получение необходимых id для выборки
@@ -60,15 +60,17 @@ class SearchManager
         //выборка и создание моделей
         $results = array();
         foreach ($entities as $entity => $ids) {
-            $criteria = new CDbCriteria(array(
-                'index' => 'id',
-            ));
-            $criteria->addInCondition('t.id', array_keys($ids));
-            if (isset(Yii::app()->controller->module->relatedModelCriteria[$entity]))
-                $criteria->mergeWith(new CDbCriteria(Yii::app()->controller->module->relatedModelCriteria[$entity]));
-            $models = CActiveRecord::model($entity)->findAll($criteria);
-            foreach ($models as $m)
-                $results[] = $m;
+            foreach ($ids as $id => $val) {
+                $criteria = new CDbCriteria(array(
+                    'index' => 'id',
+                ));
+                $criteria->compare('t.id', $id);
+                if (isset(Yii::app()->controller->module->relatedModelCriteria[$entity]))
+                    $criteria->mergeWith(new CDbCriteria(Yii::app()->controller->module->relatedModelCriteria[$entity]));
+                $model = CActiveRecord::model($entity)->find($criteria);
+                if ($model)
+                    $results[] = $model;
+            }
         }
 
         foreach ($results as &$r) {

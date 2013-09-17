@@ -41,18 +41,21 @@ class PostRating
      */
     public static function reCalc($model)
     {
-        if (method_exists($model, 'getIsFromBlog')){
-            if ($model->getIsFromBlog())
-                $model = BlogContent::model()->findByPk($model->id);
-            else
-                $model = CommunityContent::model()->findByPk($model->id);
-        }
-        if (get_class($model) != 'CommunityContent' && get_class($model) != 'BlogContent')
-            return ;
+        if (in_array(get_class($model), array('CommunityContent', 'BlogContent', 'AlbumPhoto'))) {
+            if (method_exists($model, 'getIsFromBlog')) {
+                if ($model->getIsFromBlog())
+                    $model = BlogContent::model()->findByPk($model->id);
+                else
+                    $model = CommunityContent::model()->findByPk($model->id);
+            } else
+                $model = AlbumPhoto::model()->findByPk($model->id);
 
-        $model->rate = round(self::repostCount($model) + self::likesCount($model) + self::favouritesCount($model)
-            + self::comments($model) + self::views($model));
-        $model->update(array('rate'));
+            if ($model) {
+                $model->rate = round(self::repostCount($model) + self::likesCount($model) + self::favouritesCount($model)
+                + self::comments($model) + self::views($model));
+                $model->update(array('rate'));
+            }
+        }
     }
 
     /**

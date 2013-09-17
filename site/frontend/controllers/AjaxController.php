@@ -542,7 +542,6 @@ class AjaxController extends HController
                 $success = Favourites::toggle($model, $index, $param);
                 $model->full = null;
                 $model->update(array('full'));
-                PostRating::reCalc($model);
             }
             echo CJSON::encode(array('status' => $success));
         }

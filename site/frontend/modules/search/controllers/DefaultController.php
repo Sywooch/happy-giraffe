@@ -2,6 +2,8 @@
 
 class DefaultController extends HController
 {
+    public $showAddBlock = false;
+
 	public function actionIndex($query = '')
 	{
         $menu = array_map(function($title, $entity) {

@@ -176,12 +176,12 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
         <?php endif ?>
 
         <div class="layout-content clearfix<?php if ($this->route == 'messaging/default/index'): ?> margin-b0<?php endif; ?>">
-            <?php if (!Yii::app()->user->isGuest):?>
+            <?php if (!Yii::app()->user->isGuest && $this->showAddBlock):?>
                 <div class="content-cols clearfix">
                     <div class="col-1">
                         <div class="sidebar-search clearfix">
                             <form action="/search/">
-                                <input type="text" placeholder="Поиск по сайту" class="sidebar-search_itx" name="query" id="site-search" onkeyup="SiteSearch.keyUp(this)">
+                                <input type="text" placeholder="Поиск по сайту" class="sidebar-search_itx" name="query" id="site-search" onkeyup="SiteSearch.keyUp(event, this)">
                                 <input type="button" class="sidebar-search_btn" id="site-search-btn" onclick="return SiteSearch.click()"/>
                             </form>
                         </div>

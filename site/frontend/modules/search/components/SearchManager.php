@@ -16,7 +16,7 @@ class SearchManager
     );
 
     public static $scoring = array(
-        '@relevance DESC',
+        'created DESC, @relevance DESC',
         'rate DESC, @relevance DESC',
         'views DESC, @relevance DESC',
     );
@@ -25,8 +25,6 @@ class SearchManager
 
     public static function search($query, $scoring, $perPage, $entity)
     {
-        $scoring = 0;
-
         $index = $entity ? self::$indexes[$entity] : 'community';
         $_query = Str::prepareForSphinxSearch($query);
 
@@ -51,7 +49,7 @@ class SearchManager
         $criteria->select = '*';
         $criteria->paginator = $pages;
         $criteria->query = $_query;
-        $criteria->orders = self::$scoring[$scoring];
+        //$criteria->orders = self::$scoring[$scoring];
         $resIterator = Yii::app()->search->search($criteria);
 
         //получение необходимых id для выборки

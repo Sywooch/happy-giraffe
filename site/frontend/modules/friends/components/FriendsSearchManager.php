@@ -80,8 +80,8 @@ class FriendsSearchManager
         return new CDbCriteria(array(
             'select' => 't.*, YEAR(CURDATE()) - YEAR(t.birthday) AS age',
             'condition' => '
-                t.id != :user_id AND
-                t.id != :hg AND
+                t.id != 12936 AND
+                t.id != 1 AND
                 t.deleted = 0 AND
                 t.blocked = 0 AND
                 f.id IS NULL AND
@@ -89,8 +89,8 @@ class FriendsSearchManager
                 t.avatar_id IS NOT NULL
             ',
             'join' => '
-                LEFT OUTER JOIN friends f ON f.user_id = :user_id AND f.friend_id = t.id
-                LEFT OUTER JOIN friend_requests fr ON fr.from_id = :user_id AND fr.to_id = t.id AND fr.status = \'pending\'
+                LEFT OUTER JOIN friends f ON f.user_id = 12936 AND f.friend_id = t.id
+                LEFT OUTER JOIN friend_requests fr ON fr.from_id = 12936 AND fr.to_id = t.id AND fr.status = \'pending\'
             ',
             'with' => array(
                 'avatar',

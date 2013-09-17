@@ -19,7 +19,7 @@ class AttachPhotoCollection extends PhotoCollection
             FROM album__photo_attaches pa
             JOIN album__photos p ON p.id = pa.photo_id
             WHERE pa.entity = :entityName AND pa.entity_id = :entityId AND p.removed = 0
-            ORDER BY pa.id DESC
+            ORDER BY pa.id ASC
         ";
         return Yii::app()->db->createCommand($sql)->queryColumn(array(':entityName' => $this->entityName, ':entityId' => $this->entityId));
     }
@@ -41,7 +41,7 @@ class AttachPhotoCollection extends PhotoCollection
     {
         $criteria = new CDbCriteria(array(
             'with' => array('author'),
-            'order' => new CDbExpression('FIELD(t.id, ' . implode(',', $ids) . ')')
+            'index' => 'id',
         ));
         $criteria->addInCondition('t.id', $ids);
         return AlbumPhoto::model()->findAll($criteria);

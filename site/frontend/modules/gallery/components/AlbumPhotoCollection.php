@@ -13,7 +13,7 @@ class AlbumPhotoCollection extends PhotoCollection
 
     public function generateIds()
     {
-        return Yii::app()->db->createCommand("SELECT id FROM album__photos WHERE album_id = :album_id AND hidden=0 AND removed=0 ORDER BY id desc")->queryColumn(array(':album_id' => $this->albumId));
+        return Yii::app()->db->createCommand("SELECT id FROM album__photos WHERE album_id = :album_id AND hidden = 0 AND removed = 0 ORDER BY id ASC")->queryColumn(array(':album_id' => $this->albumId));
     }
 
     protected function getIdsCacheDependency()
@@ -27,7 +27,7 @@ class AlbumPhotoCollection extends PhotoCollection
     {
         $criteria = new CDbCriteria(array(
             'with' => array('author'),
-            'order' => new CDbExpression('FIELD(t.id, ' . implode(',', $ids) . ')')
+            'index' => 'id',
         ));
         $criteria->addInCondition('t.id', $ids);
         return AlbumPhoto::model()->findAll($criteria);

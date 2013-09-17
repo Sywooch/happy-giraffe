@@ -1,5 +1,3 @@
-
-
 function SearchViewModel(data) {
     var self = this;
 
@@ -8,49 +6,49 @@ function SearchViewModel(data) {
     self.totalCount = ko.observable(0);
     self.resultsToShow = ko.observable('');
     self.currentPage = ko.observable(1);
-    self.menu = ko.observableArray(ko.utils.arrayMap(data.menu, function(menuRow) {
+    self.menu = ko.observableArray(ko.utils.arrayMap(data.menu, function (menuRow) {
         return new SearchMenuRow(menuRow, self);
     }));
 
     self.activeMenuRowIndex = ko.observable(null);
-    self.activeMenuRow = ko.computed(function() {
+    self.activeMenuRow = ko.computed(function () {
         return self.menu()[self.activeMenuRowIndex()];
     });
 
     self.perPageValues = [20, 50, 100];
     self.perPage = ko.observable(self.perPageValues[0]);
-    self.perPage.subscribe(function(value) {
+    self.perPage.subscribe(function (value) {
         self.load();
     });
 
     self.scoringValues = ['по дате добавления', 'по рейтингу', 'по популярности'];
     self.scoring = ko.observable(0);
-    self.scoring.subscribe(function(value) {
+    self.scoring.subscribe(function (value) {
         self.load();
     });
 
     self.query = ko.observable(data.query);
 
-    self.setPerPage = function(perPage) {
+    self.setPerPage = function (perPage) {
         self.perPage(perPage);
     };
 
-    self.search = function() {
+    self.search = function () {
         self.activeMenuRowIndex(null);
         self.load();
     };
 
-    self.clearQuery = function() {
+    self.clearQuery = function () {
         self.query('');
         $('#search-query').focus();
     };
-    self.newSearch = function() {
+    self.newSearch = function () {
         self.query('');
         $('#search-query').focus();
         self.loaded(false);
     };
 
-    self.load = function(resetPage) {
+    self.load = function (resetPage) {
         resetPage = (typeof resetPage === "undefined") ? true : resetPage;
 
         if (resetPage)
@@ -62,7 +60,7 @@ function SearchViewModel(data) {
                 perPage: self.perPage(),
                 scoring: self.scoring(),
                 query: self.query()
-            }
+            };
 
             if (self.currentPage() != 1)
                 data.page = self.currentPage();
@@ -71,7 +69,7 @@ function SearchViewModel(data) {
                 data.entity = self.activeMenuRow().entity;
 
             self.loading(true);
-            $.get('/search/default/get/', data, function(response) {
+            $.get('/search/default/get/', data, function (response) {
                 self.resultsToShow(response.results);
                 if (self.currentPage() == 1 && self.activeMenuRowIndex() === null) {
                     self.updateFacets(response.facets);
@@ -83,31 +81,33 @@ function SearchViewModel(data) {
         }
     };
 
-    self.selectPage = function(page) {
+    self.selectPage = function (page) {
         self.currentPage(page);
         self.load(false);
-    }
+    };
 
-    self.selectAll = function() {
+    self.selectAll = function () {
         self.activeMenuRowIndex(null);
         self.load();
-    }
+    };
 
-    self.pages = ko.computed(function() {
+    self.pages = ko.computed(function () {
         var count = self.activeMenuRowIndex() === null ? self.totalCount() : self.activeMenuRow().count();
         var pagesCount = Math.ceil(count / self.perPage());
         var pages = [];
-        for (var i = 1; i <= pagesCount; i++)
+        var first_page = (self.currentPage() > 5) ? self.currentPage() - 5 : 1;
+        var last_page = ((pagesCount - first_page) >= 10) ? (first_page + 9) : pagesCount;
+        for (var i = first_page; i <= last_page; i++)
             pages.push(i);
         return pages;
     });
 
-    self.isMenuVisible = ko.computed(function() {
+    self.isMenuVisible = ko.computed(function () {
         if (self.totalCount() == 0)
             return true;
         else {
             var rowsCount = 0;
-            ko.utils.arrayForEach(self.menu(), function(menuRow) {
+            ko.utils.arrayForEach(self.menu(), function (menuRow) {
                 if (menuRow.count() > 0)
                     rowsCount += 1;
             });
@@ -116,20 +116,25 @@ function SearchViewModel(data) {
         }
     });
 
-    self.getMenuRowByEntity = function(entity) {
-        return ko.utils.arrayFirst(self.menu(), function(menuRow) {
+    self.getMenuRowByEntity = function (entity) {
+        return ko.utils.arrayFirst(self.menu(), function (menuRow) {
             return menuRow.entity == entity;
         });
-    }
+    };
 
-    self.updateFacets = function(facets) {
-        ko.utils.arrayForEach(self.menu(), function(menuRow) {
+    self.updateFacets = function (facets) {
+        ko.utils.arrayForEach(self.menu(), function (menuRow) {
             menuRow.count(0);
         });
         if (facets !== null)
             for (f in facets)
                 self.getMenuRowByEntity(f).count(facets[f]);
-    }
+    };
+
+    self.keyUp = function(data, event){
+        if(event.keyCode == 13)
+            self.load();
+    };
 
     self.load();
 }
@@ -141,13 +146,11 @@ function SearchMenuRow(data, parent) {
     self.entity = data.entity;
     self.count = ko.observable(0);
 
-    self.cssClass = ko.computed(function() {
+    self.cssClass = ko.computed(function () {
         return 'menu-list_i__' + self.entity;
     });
 
-    self.select = function() {
-        console.log('sfhdh');
-        console.log(parent.menu.indexOf(self));
+    self.select = function () {
         parent.activeMenuRowIndex(parent.menu.indexOf(self));
         parent.load();
     }

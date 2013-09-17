@@ -16,8 +16,21 @@ class SiteCommand extends CConsoleCommand
         Yii::import('site.common.models.mongo.*');
         Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
 
+        //обновляет просмотры гороскопа и популных постов
         UserAttributes::removeAttr('popular_posts_count');
         UserAttributes::removeAttr('horoscope_seen');
+
+        //обновляем просмотры
+        $dataProvider = new CActiveDataProvider('CommunityContent', array('criteria' => array('order' => 'id asc')));
+        $iterator = new CDataProviderIterator($dataProvider, 1000);
+        foreach ($iterator as $content) {
+            $views = PageView::model()->viewsByPath($content->getUrl());
+            if ($views && $views != $content->views) {
+                Yii::app()->db->createCommand()->update('community__contents', array('views' => $views), 'id=' . $content->id);
+            }
+            if ($content->id % 1000 == 0)
+                echo $content->id . "\n";
+        }
     }
 
     public function actionCheckSeo()
@@ -72,23 +85,6 @@ class SiteCommand extends CConsoleCommand
             $attach->entity = 'Comment';
             $attach->entity_id = $comment->id;
             $attach->save();
-        }
-    }
-
-    public function actionGeneratePreviews()
-    {
-        Yii::import('site.frontend.extensions.image.Image');
-        Yii::import('site.frontend.extensions.helpers.CArray');
-
-        $limit = 1000;
-        $offset = 0;
-        $i = 0;
-
-        while ($photos = AlbumPhoto::model()->active()->findAll(array('order' => 'id DESC', 'limit' => $limit, 'offset' => $offset))) {
-            foreach ($photos as $p) {
-                echo ++$i . ':' . $p->getPreviewUrl(960, 627, Image::HEIGHT) . "\n";
-            }
-            $offset += $limit;
         }
     }
 
@@ -179,54 +175,6 @@ class SiteCommand extends CConsoleCommand
             }
 
             $criteria->offset += 1000;
-        }
-    }
-
-    public function actionFixImages()
-    {
-        Yii::import('site.frontend.components.*');
-        $criteria = new CDbCriteria;
-        $criteria->limit = 100;
-        $criteria->offset = 0;
-        $criteria->condition = 'content_id > 39052 AND content_id < 40000';
-
-        $models = array(0);
-        while (!empty($models)) {
-            $models = CommunityPost::model()->findAll($criteria);
-
-            foreach ($models as $model) {
-                if (strpos($model->text, '<img') !== false) {
-                    echo $model->content_id . "\n";
-                    $model->save();
-                }
-            }
-
-            $criteria->offset += 100;
-        }
-    }
-
-    public function actionFixPreviews()
-    {
-        Yii::import('site.frontend.components.*');
-        $last_id = 39000;
-        $criteria = new CDbCriteria;
-        $criteria->limit = 100;
-        $criteria->condition = 't.id > ' . $last_id . ' AND t.type_id = 1';
-        $criteria->order = 't.id';
-
-        $models = array(0);
-        while (!empty($models)) {
-            $models = CommunityContent::model()->with(array('post'))->findAll($criteria);
-
-            foreach ($models as $model) {
-                if (strpos($model->preview, '<img') !== false) {
-                    echo $model->id . "\n";
-                    $model->purify($model->post->text);
-                }
-                $last_id = $model->id;
-            }
-
-            $criteria->condition = 't.id > ' . $last_id . ' AND t.type_id = 1';
         }
     }
 

@@ -31,7 +31,7 @@ class FriendsManager
         $criteria = new CDbCriteria(array(
             'select' => '*, 0 AS pCount, 0 AS bCount',
             'with' => 'friend',
-            'order' => 't.id DESC',
+            'order' => 'friend.id DESC',
         ));
 
         $criteria->compare('t.user_id', $userId);
@@ -68,7 +68,7 @@ class FriendsManager
 
         return array(
             'id' => $user->id,
-            'online' => (bool) $user->online,
+            'online' => (bool)$user->online,
             'firstName' => $user->first_name,
             'lastName' => $user->last_name,
             'ava' => $user->getAvatarUrl(Avatar::SIZE_LARGE),

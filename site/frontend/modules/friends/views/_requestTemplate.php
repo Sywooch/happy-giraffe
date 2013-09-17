@@ -1,5 +1,5 @@
 <script type="text/html" id="request-template">
-    <div class="friends-list_i">
+    <div class="friends-list_i" data-bind="fadeVisible: userIsVisible">
         <div class="b-ava-large" >
             <div class="b-ava-large_ava-hold clearfix">
                 <a class="ava large" data-bind="attr: { href : user.url() }, css: user.avaClass()">
@@ -10,13 +10,13 @@
                     <span class="b-ava-large_ico b-ava-large_ico__mail"></span>
                     <!--<span class="b-ava-large_bubble-tx">+5</span>-->
                 </a>
-                <a class="b-ava-large_bubble b-ava-large_bubble__photo" data-bind="attr: { href : user.albumsUrl() }, tooltip: 'Фотографии'">
+                <a class="b-ava-large_bubble b-ava-large_bubble__photo" data-bind="attr: { href : user.albumsUrl() }, tooltip: 'Фотографии', visible: user.hasPhotos">
                     <span class="b-ava-large_ico b-ava-large_ico__photo"></span>
-                    <!--<span class="b-ava-large_bubble-tx">+50</span>-->
+                    <span class="b-ava-large_bubble-tx" data-bind="text: user.photoCount"></span>
                 </a>
-                <a class="b-ava-large_bubble b-ava-large_bubble__blog" data-bind="attr: { href : user.blogUrl() }, tooltip: 'Записи в блоге'">
+                <a class="b-ava-large_bubble b-ava-large_bubble__blog" data-bind="attr: { href : user.blogUrl() }, tooltip: 'Записи в блоге', visible: user.hasBlog">
                     <span class="b-ava-large_ico b-ava-large_ico__blog"></span>
-                    <!--<span class="b-ava-large_bubble-tx">+999</span>-->
+                    <span class="b-ava-large_bubble-tx" data-bind="text: user.blogPostsCount"></span>
                 </a>
                 <!-- ko if: $data.constructor.name == 'IncomingFriendRequest' -->
             <span class="b-ava-large_bubble b-ava-large_bubble__friend">
@@ -52,6 +52,14 @@
                 <div class="clearfix">
                     <a class="a-pseudo" data-bind="click: restore">Восстановить?</a>
                 </div>
+            </div>
+        </div>
+        <!-- /ko -->
+
+        <!-- ko if: $data.constructor.name == 'OutgoingFriendRequest' && invited() -->
+        <div class="cap-empty cap-empty__smile">
+            <div class="cap-empty_hold">
+                <div class="cap-empty_tx">Приглашение <br> отправлено </div>
             </div>
         </div>
         <!-- /ko -->

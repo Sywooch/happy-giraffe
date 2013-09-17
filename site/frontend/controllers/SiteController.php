@@ -25,12 +25,14 @@ class SiteController extends HController
 
     public function filters()
     {
-        return array(
-            array(
-                'COutputCache + index',
-                'duration' => 300,
-            ),
+        $filters = array();
+
+        $filters[] = array(
+            'COutputCache + index',
+            'duration' => 300,
         );
+
+        return $filters;
     }
 
     protected function beforeAction($action)

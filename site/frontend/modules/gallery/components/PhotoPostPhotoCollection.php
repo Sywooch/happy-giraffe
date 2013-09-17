@@ -11,7 +11,7 @@ class PhotoPostPhotoCollection extends PhotoCollection
 
     protected function getIdsCacheDependency()
     {
-        $dependency = new CDbCacheDependency("SELECT COUNT(*) FROM community__content_gallery_items i INNER JOIN community__content_gallery g ON i.gallery_id = g.id WHERE g.content_id = :content_id");
+        $dependency = new CDbCacheDependency("SELECT COUNT(*), MAX(i.photo_id) FROM community__content_gallery_items i INNER JOIN community__content_gallery g ON i.gallery_id = g.id WHERE g.content_id = :content_id");
         $dependency->params = array(':content_id' => $this->contentId);
         return $dependency;
     }

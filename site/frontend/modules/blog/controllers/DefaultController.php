@@ -12,10 +12,20 @@ class DefaultController extends HController
 
     public function filters()
     {
-        return array(
+        $filters = array(
             'accessControl',
             'ajaxOnly - index, view, save',
         );
+
+        if (Yii::app()->user->isGuest) {
+            $filters [] = array(
+                'COutputCache + view',
+                'duration' => 300,
+                'varyByParam' => array('content_id', 'Comment_page'),
+            );
+        }
+
+        return $filters;
     }
 
     public function accessRules()

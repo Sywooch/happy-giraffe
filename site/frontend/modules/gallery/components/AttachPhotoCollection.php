@@ -27,7 +27,7 @@ class AttachPhotoCollection extends PhotoCollection
     protected function getIdsCacheDependency()
     {
         $sql = "
-            SELECT COUNT(*)
+            SELECT COUNT(*), MAX(p.id)
             FROM album__photo_attaches pa
             JOIN album__photos p ON p.id = pa.photo_id
             WHERE pa.entity = :entityName AND pa.entity_id = :entityId AND p.removed = 0

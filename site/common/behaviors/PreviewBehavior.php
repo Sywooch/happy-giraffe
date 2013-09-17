@@ -32,6 +32,7 @@ class PreviewBehavior extends CActiveRecordBehavior
     {
         include_once Yii::getPathOfAlias('site.frontend.vendor.simplehtmldom_1_5') . DIRECTORY_SEPARATOR . 'simple_html_dom.php';
         $text = trim(preg_replace('/\t+/', ' ', $text));
+        preg_replace('#<!-- widget: (.*) -->(.*)<!-- /widget -->#sU', '', $text);
         $doc = str_get_html($text);
 
         if (Str::htmlTextLength($text) == 0)

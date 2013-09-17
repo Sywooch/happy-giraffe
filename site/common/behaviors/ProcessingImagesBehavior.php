@@ -33,7 +33,7 @@ class ProcessingImagesBehavior extends CActiveRecordBehavior
         $attributes = array_keys($this->owner->getAttributes($this->attributes));
         foreach ($attributes as $attr) {
             if (strpos($this->owner->$attr, '<!-- widget') !== false)
-                continue;
+                return parent::beforeSave($event);
 
             $doc = str_get_html($this->owner->$attr);
 

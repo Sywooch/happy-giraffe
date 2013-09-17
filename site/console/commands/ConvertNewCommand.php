@@ -8,10 +8,8 @@ class ConvertNewCommand extends CConsoleCommand
 
     public function actionFix($id)
     {
-        $models = CommunityContent::model()->findAllByPk(array($id));
-        foreach ($models as $model) {
-            $model->save();
-        }
+        $model = CommunityPost::model()->find('content_id='.$id);
+        $model->save();
     }
 
     /**

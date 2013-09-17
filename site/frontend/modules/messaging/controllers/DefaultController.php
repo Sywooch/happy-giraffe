@@ -12,6 +12,7 @@ class DefaultController extends HController
 
     //public $layout = '//layouts/common_new';
     public $tempLayout = true;
+    public $showAddBlock = false;
 
     public function filters()
     {

@@ -4,7 +4,7 @@ Yii::app()->clientScript->registerPackage('ko_friends'); ?>
 
 <div class="content-cols">
     <div class="col-1">
-        <?php $this->widget('Avatar', array('user' => Yii::app()->user->model, 'size' => 200, 'message_link' => false, 'blog_link' => false, 'location' => true, 'age' => true)); ?>
+        <?php $this->widget('Avatar', array('user' => Yii::app()->user->model, 'size' => 200, 'message_link' => false, 'location' => true, 'age' => true)); ?>
 
         <div class="menu-list">
             <a class="menu-list_i active" data-bind="click: selectAll, css: { active : selectedListId() === null && activeTab() == 0 && newSelected() === false }">

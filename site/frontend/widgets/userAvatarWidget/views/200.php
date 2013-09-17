@@ -19,10 +19,12 @@
             </a>
         <?php endif ?>
 
-        <a href="<?=$this->user->getPhotosUrl()?>" class="b-ava-large_bubble b-ava-large_bubble__photo powertip" title="Фотографии">
-            <span class="b-ava-large_ico b-ava-large_ico__photo"></span>
-            <span class="b-ava-large_bubble-tx"><?=$this->user->getPhotosCount() ?></span>
-        </a>
+        <?php if ($this->user->getPhotosCount() > 1):?>
+            <a href="<?=$this->user->getPhotosUrl()?>" class="b-ava-large_bubble b-ava-large_bubble__photo powertip" title="Фотографии">
+                <span class="b-ava-large_ico b-ava-large_ico__photo"></span>
+                <span class="b-ava-large_bubble-tx"><?=$this->user->getPhotosCount() ?></span>
+            </a>
+        <?php endif ?>
 
         <?php if ($this->blog_link && $this->user->hasBlogPosts()): ?>
             <?php $blogUrl = $this->user->getBlogUrl(); if ($blogUrl !== false): ?>

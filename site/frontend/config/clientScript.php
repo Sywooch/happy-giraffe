@@ -92,14 +92,14 @@ return array(
         'ko_search' => array(
             'baseUrl' => '/',
             'js' => array(
-                'javascripts/ko_search.js?2',
+                'javascripts/ko_search.js?3',
             ),
             'depends' => array('knockout'),
         ),
         'ko_friends' => array(
             'baseUrl' => '/',
             'js' => array(
-                'javascripts/ko_friends.js',
+                'javascripts/ko_friends.js?2',
                 'javascripts/ko_friendsSearch.js',
             ),
             'depends' => array('knockout'),

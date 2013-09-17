@@ -25,6 +25,7 @@
 					<button class="im-sidebar_search-btn active"></button>
 				</div>
 				<div class="im-user-list">
+				<div class="im-user-list_hold clearfix">
 					<div class="im-user-list_i clearfix active">
 						<div class="im-user-settings">
 							<a class="ava small female" href="">
@@ -39,6 +40,7 @@
 						<div class="im_count powertip" title="Отметить как прочитанное">2</div>
 					</div>
 					
+				</div>
 				</div>
 			</div>
 			<div class="im-center">

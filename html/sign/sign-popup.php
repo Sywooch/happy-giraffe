@@ -69,12 +69,12 @@
 									<li class="b-social-big">
 										<a href="" class="b-social-big_ico vkontakte"></a>
 									</li>
-									<li class="b-social-big">
+									<!-- <li class="b-social-big">
 										<a href="" class="b-social-big_ico facebook"></a>
 									</li>
 									<li class="b-social-big">
 										<a href="" class="b-social-big_ico twitter"></a>
-									</li>
+									</li> -->
 								</ul>
 							</div>
 							
@@ -471,12 +471,12 @@
 									<a class="b-social-big" href="">
 										<span class="b-social-big_ico vkontakte"></span>
 									</a>
-									<a class="b-social-big" href="">
+									<!-- <a class="b-social-big" href="">
 										<span class="b-social-big_ico facebook"></span>
 									</a>
 									<a class="b-social-big" href="">
 										<span class="b-social-big_ico twitter"></span>
-									</a>
+									</a> -->
 								</div>
 							</div>
 							

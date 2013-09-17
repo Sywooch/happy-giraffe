@@ -87,6 +87,7 @@ abstract class PhotoCollection extends CComponent
 
     protected function getPhotoIds() {
         $value = Yii::app()->cache->get($this->getIdsCacheKey());
+        $value = false;
         if ($value === false) {
             $value = $this->generateIds();
             Yii::app()->cache->set($this->getIdsCacheKey(), $value, 0, $this->getIdsCacheDependency());

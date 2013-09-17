@@ -11,13 +11,13 @@
                     <span class="b-ava-large_ico b-ava-large_ico__mail"></span>
                     <!--<span class="b-ava-large_bubble-tx">+5</span>-->
                 </a>
-                <a class="b-ava-large_bubble b-ava-large_bubble__photo" data-bind="attr: { href : user.albumsUrl() }, tooltip: 'Фотографии'">
+                <a class="b-ava-large_bubble b-ava-large_bubble__photo" data-bind="attr: { href : user.albumsUrl() }, tooltip: 'Фотографии', visible: user.hasPhotos">
                     <span class="b-ava-large_ico b-ava-large_ico__photo"></span>
-                    <!--<span class="b-ava-large_bubble-tx">+50</span>-->
+                    <span class="b-ava-large_bubble-tx" data-bind="text: user.photoCount"></span>
                 </a>
-                <a class="b-ava-large_bubble b-ava-large_bubble__blog" data-bind="attr: { href : user.blogUrl() }, tooltip: 'Записи в блоге'">
+                <a class="b-ava-large_bubble b-ava-large_bubble__blog" data-bind="attr: { href : user.blogUrl() }, tooltip: 'Записи в блоге', visible: user.hasBlog">
                     <span class="b-ava-large_ico b-ava-large_ico__blog"></span>
-                    <!--<span class="b-ava-large_bubble-tx">+999</span>-->
+                    <span class="b-ava-large_bubble-tx" data-bind="text: user.blogPostsCount"></span>
                 </a>
             <span class="b-ava-large_bubble b-ava-large_bubble__friend">
                 <span class="b-ava-large_ico b-ava-large_ico__friend"></span>

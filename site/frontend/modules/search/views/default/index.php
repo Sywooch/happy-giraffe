@@ -15,7 +15,7 @@ Yii::app()->clientScript->registerPackage('ko_comments');
             Я ищу
         </div>
         <div class="content-search_itx-hold">
-            <input id="search-query" type="text" class="content-search_itx" placeholder="Введите слово или фразу" data-bind="value: query, valueUpdate: 'keyup'">
+            <input id="search-query" type="text" class="content-search_itx" placeholder="Введите слово или фразу" data-bind="value: query, valueUpdate: 'keyup', event: {keyup: keyUp}">
             <a class="content-search_del" data-bind="visible: query().length > 0, click: clearQuery"></a>
             <button class="content-search_btn btn-gold btn-medium" data-bind="click: search">Найти</button>
         </div>
@@ -88,11 +88,11 @@ Yii::app()->clientScript->registerPackage('ko_comments');
             <div id="infscr-loading"><img src="/images/ico/ajax-loader.gif" alt="Loading..."><div>Загрузка</div></div>
         </div>
 
-        <div class="pagination pagination-center clearfix" data-bind="visible: ! loading() && pages().length > 1">
+        <div class="yiipagination" data-bind="visible: ! loading() && pages().length > 1">
             <div class="pager">
-                <ul class="yiiPager" id="">
+                <ul class="yiiPager">
                     <!-- ko foreach: pages -->
-                    <li class="page selected" data-bind="css: { selected : $root.currentPage() == $data }"><a data-bind="text: $data, click: $root.selectPage"></a><img src="/images/pagination_tale.png" data-bind="visible: $root.currentPage() == $data"></li>
+                    <li class="page selected" data-bind="css: { selected : $root.currentPage() == $data }"><a data-bind="text: $data, click: $root.selectPage"></a></li>
                     <!-- /ko -->
                 </ul>
             </div>

@@ -9,7 +9,7 @@ function SearchViewModel(data) {
     self.resultsToShow = ko.observable('');
     self.currentPage = ko.observable(1);
     self.menu = ko.observableArray(ko.utils.arrayMap(data.menu, function(menuRow) {
-        return new MenuRow(menuRow, self);
+        return new SearchMenuRow(menuRow, self);
     }));
 
     self.activeMenuRowIndex = ko.observable(null);
@@ -42,7 +42,13 @@ function SearchViewModel(data) {
 
     self.clearQuery = function() {
         self.query('');
-    }
+        $('#search-query').focus();
+    };
+    self.newSearch = function() {
+        self.query('');
+        $('#search-query').focus();
+        self.loaded(false);
+    };
 
     self.load = function(resetPage) {
         resetPage = (typeof resetPage === "undefined") ? true : resetPage;
@@ -128,7 +134,7 @@ function SearchViewModel(data) {
     self.load();
 }
 
-function MenuRow(data, parent) {
+function SearchMenuRow(data, parent) {
     var self = this;
 
     self.title = data.title;
@@ -139,8 +145,10 @@ function MenuRow(data, parent) {
         return 'menu-list_i__' + self.entity;
     });
 
-    self.select = function(row) {
-        parent.activeMenuRowIndex(parent.menu.indexOf(row));
+    self.select = function() {
+        console.log('sfhdh');
+        console.log(parent.menu.indexOf(self));
+        parent.activeMenuRowIndex(parent.menu.indexOf(self));
         parent.load();
     }
 }

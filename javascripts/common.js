@@ -942,11 +942,15 @@ var SiteSearch = {
         if ($('#site-search').val() != '')
             $('#site-search-btn').addClass('active');
     },
-    keyUp: function(el){
-        if ($(el).val() != '')
-            $('#site-search-btn').addClass('active');
-        else
-            $('#site-search-btn').removeClass('active');
+    keyUp: function(event, el){
+        if(event.keyCode == 13){
+            SiteSearch.click();
+        }else{
+            if ($(el).val() != '')
+                $('#site-search-btn').addClass('active');
+            else
+                $('#site-search-btn').removeClass('active');
+        }
     },
     click:function(){
         if ($('#site-search').val() != ''){

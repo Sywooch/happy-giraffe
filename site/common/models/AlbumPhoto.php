@@ -542,7 +542,7 @@ class AlbumPhoto extends HActiveRecord
     public function getAvatarUrl($size)
     {
         return implode('/', array(
-            Yii::app()->params['photos_url'],
+            YII_DEBUG ? Yii::app()->params['photos_url'] : $this->getCdnHost(),
             $this->avatars_folder,
             $this->author_id,
             $size,
@@ -564,7 +564,7 @@ class AlbumPhoto extends HActiveRecord
     public function getBlogUrl()
     {
         return implode('/', array(
-            Yii::app()->params['photos_url'],
+            YII_DEBUG ? Yii::app()->params['photos_url'] : $this->getCdnHost(),
             $this->blogs_folder,
             $this->author_id,
             $this->fs_name

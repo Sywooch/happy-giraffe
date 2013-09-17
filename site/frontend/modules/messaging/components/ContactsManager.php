@@ -273,7 +273,8 @@ class ContactsManager
 
     protected static function populateContact($row)
     {
-        $avatarModel = AlbumPhoto::model();
+        $user = User::model();
+        $user->id = $row['uId'];
 
         return array(
             'user' => array(
@@ -281,10 +282,7 @@ class ContactsManager
                 'firstName' => $row['first_name'],
                 'lastName' => $row['last_name'],
                 'gender' => (int) $row['gender'],
-                'avatar' => $avatarModel->populateRecord(array(
-                    'author_id' => $row['uId'],
-                    'fs_name' => $row['fs_name'],
-                ))->getAvatarUrl(Avatar::SIZE_MICRO),
+                'avatar' => $user->getAvatarUrl(Avatar::SIZE_MICRO),
                 'online' => (bool) $row['online'],
                 'isFriend' => (bool) $row['isFriend'],
             ),

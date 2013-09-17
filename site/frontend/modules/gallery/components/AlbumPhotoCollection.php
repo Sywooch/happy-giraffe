@@ -18,7 +18,7 @@ class AlbumPhotoCollection extends PhotoCollection
 
     protected function getIdsCacheDependency()
     {
-        $dependency = new CDbCacheDependency("SELECT COUNT(*) FROM album__photos WHERE album_id = :album_id");
+        $dependency = new CDbCacheDependency("SELECT COUNT(*), MAX(id) FROM album__photos WHERE album_id = :album_id");
         $dependency->params = array(':album_id' => $this->albumId);
         return $dependency;
     }

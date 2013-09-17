@@ -32,7 +32,7 @@ class UserPhotoCollection extends PhotoCollection
 
     protected function getIdsCacheDependency()
     {
-        $dependency = new CDbCacheDependency("SELECT COUNT(*) FROM album__photos WHERE author_id = :userId");
+        $dependency = new CDbCacheDependency("SELECT COUNT(*), MAX(id) FROM album__photos WHERE author_id = :userId");
         $dependency->params = array(':userId' => $this->userId);
         return $dependency;
     }

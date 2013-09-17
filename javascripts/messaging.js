@@ -205,6 +205,7 @@ function MessagingViewModel(data) {
     self.showHiddenContacts = ko.observable(false);
     self.fullyLoaded = ko.observable(false);
 
+    self.typingTimer = null;
     self.meTyping = ko.observable(false);
     self.meTyping.subscribe(function(a) {
         $.post('/messaging/interlocutors/typing/', { typingStatus : a ? 1 : 0, interlocutorId : self.interlocutor().user().id() });
@@ -569,7 +570,9 @@ function MessagingViewModel(data) {
                     self.submit();
                 else if (self.openContact() !== null) {
                     self.meTyping(true);
-                    setTimeout(function() {
+                    if (self.typingTimer !== null)
+                        clearTimeout(self.typingTimer);
+                    self.typingTimer = setTimeout(function() {
                         self.meTyping(false);
                     }, 5000);
                 }

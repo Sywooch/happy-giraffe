@@ -16,8 +16,8 @@ class UserPhotoCollection extends PhotoCollection
         return Yii::app()->db->createCommand()
             ->select('id')
             ->from('album__photos')
-            ->where(array('and', 'author_id = :userId AND hidden=0 AND removed=0', array('not in', 'album_id', Album::model()->getUserSystemAlbumIds($this->userId))))
-            ->order('id desc')
+            ->where(array('and', 'author_id = :userId AND hidden = 0 AND removed = 0', array('NOT IN', 'album_id', Album::model()->getUserSystemAlbumIds($this->userId))))
+            ->order('id DESC')
             ->queryColumn(array(':userId' => $this->userId));
     }
 
@@ -26,7 +26,7 @@ class UserPhotoCollection extends PhotoCollection
         return null != Yii::app()->db->createCommand()
             ->select('id')
             ->from('album__photos')
-            ->where(array('and', 'author_id = :userId AND hidden=0 AND removed=0', array('not in', 'album_id', Album::model()->getUserSystemAlbumIds($this->userId))))
+            ->where(array('and', 'author_id = :userId AND hidden = 0 AND removed = 0', array('NOT IN', 'album_id', Album::model()->getUserSystemAlbumIds($this->userId))))
             ->queryScalar(array(':userId' => $this->userId));
     }
 
@@ -41,7 +41,7 @@ class UserPhotoCollection extends PhotoCollection
     {
         $criteria = new CDbCriteria(array(
             'with' => array('author'),
-            'order' => new CDbExpression('FIELD(t.id, ' . implode(',', $ids) . ')')
+            'index' => 'id',
         ));
         $criteria->addInCondition('t.id', $ids);
         return AlbumPhoto::model()->findAll($criteria);

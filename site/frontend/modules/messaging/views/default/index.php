@@ -1,7 +1,3 @@
-<?php
-Yii::app()->controller->widget('site.common.extensions.imperavi-redactor-widget.ImperaviRedactorWidget', array('onlyRegisterScript' => true));
-?>
-
 <div class="im" data-bind="css: { im__cap : me.avatar() === false }">
     <div class="im_hold clearfix">
         <div class="im-sidebar">
@@ -11,14 +7,12 @@ Yii::app()->controller->widget('site.common.extensions.imperavi-redactor-widget.
                 <button class="im-sidebar_search-btn" data-bind="click: clearSearchQuery, css: { active : searchQuery() != '' }"></button>
             </div>
             <div class="im-user-list">
-                <!-- ko template: { name: 'contact-template', foreach: visibleContactsToShow } -->
-
-                <!-- /ko -->
-                <a href="javascript:void(0)" class="im-user-list_hide-a" data-bind="visible: hiddenContactsToShow().length > 0, click: toggleShowHiddenContacts, text: showHiddenContacts() ? 'Скрыть' : 'Показать скрытые'"></a>
-                <div class="im-user-list_hide-b" data-bind="visible: showHiddenContacts(), template: { name: 'contact-template', foreach: hiddenContactsToShow }">
-
-                </div>
+                <div class="im-user-list_hold clearfix" data-bind="template: { name: 'contact-template', foreach: contactsToShow }"></div>
             </div>
+            <a class="im-sidebar_hide-a" data-bind="click: toggleShowHiddenContacts">
+                <span class="a-checkbox" data-bind="css: { active : showHiddenContacts }"></span>
+                <span class="im-sidebar_hide-a-tx">Показать скрытые</span>
+            </a>
         </div>
         <div class="im-center">
 
@@ -98,9 +92,7 @@ Yii::app()->controller->widget('site.common.extensions.imperavi-redactor-widget.
                             <span class="im-message-loader_tx">Загрузка ранних сообщений</span>
                         </div>
 
-                        <!-- ko template: { name: 'message-template', foreach: messages } -->
-
-                        <!-- /ko -->
+                        <!-- ko template: { name: 'message-template', foreach: messages, afterRender: messageRendered } --><!-- /ko -->
 
                         <div class="im_message-loader" data-bind="visible: sendingMessage()">
                             <img src="/images/ico/ajax-loader.gif" alt="">
@@ -163,26 +155,8 @@ Yii::app()->controller->widget('site.common.extensions.imperavi-redactor-widget.
     </div>
 </div>
 
-<?php
-$this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
-    'registerScripts' => true,
-));
-?>
-
-<div style="display: none;">
-    <div class="upload-btn">
-        <?php
-        $fileAttach = $this->beginWidget('application.widgets.fileAttach.FileAttachWidget', array(
-            'entity' => 'MessagingMessage',
-        ));
-        $fileAttach->button();
-        $this->endWidget();
-        ?>
-    </div>
-</div>
-
 <script type="text/html" id="contact-template">
-    <div class="im-user-list_i clearfix" data-bind="click: $root.openThread, css: { active : user().id() == $root.openContactInterlocutorId() }">
+    <div class="im-user-list_i clearfix" data-bind="click: $root.openThread, css: { active : user().id() == $root.openContactInterlocutorId(), 'im-user-list_i__hide' : thread().hidden }">
         <div class="im-user-settings">
             <a class="ava small" data-bind="css: user().avatarClass">
                 <span class="icon-status status-online" data-bind="visible: user().online()"></span>
@@ -283,102 +257,8 @@ $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
     </div>
 </script>
 
-<script type="text/html" id="message-old-template">
-    <div class="im-message clearfix" data-bind="visible: deleted() === false, css: { 'im-message__edited' : edited }">
-        <div class="im-message_icons" data-bind="css: { active : showAbuse() }">
-            <div class="im-message_icons-i" data-bind="if: author().id() != $root.me.id(), css: { active : showAbuse() }">
-                <a href="javascript:void(0)" class="im-message_ico im-message_ico__warning im-tooltipsy" data-bind="click: toggleShowAbuse, tooltip: 'Пожаловаться'"></a>
-
-                <div class="im-tooltip-popup">
-                    <div class="im-tooltip-popup_t">Укажите вид нарушения:</div>
-                    <label for="im-tooltip-popup_radio" class="im-tooltip-popup_label clearfix">
-                        <input type="radio" name="im-tooltip-popup_radio" id="im-tooltip-popup_radio" class="im-tooltip-popup_radio">
-                        Спам или реклама
-                    </label>
-                    <label for="" class="im-tooltip-popup_label clearfix">
-                        <input type="radio" name="im-tooltip-popup_radio" id="" class="im-tooltip-popup_radio">
-                        Мошенничество
-                    </label>
-                    <label for="" class="im-tooltip-popup_label clearfix">
-                        <input type="radio" name="im-tooltip-popup_radio" id="" class="im-tooltip-popup_radio">
-                        Грубость, угрозы
-                    </label>
-                    <label for="" class="im-tooltip-popup_label clearfix">
-                        <input type="radio" name="im-tooltip-popup_radio" id="" class="im-tooltip-popup_radio">
-                        Интимный характер
-                    </label>
-                    <label for="" class="im-tooltip-popup_label clearfix">
-                        <input type="radio" name="im-tooltip-popup_radio" id="" class="im-tooltip-popup_radio">
-                        <input type="text" name="" id="" class="im-tooltip-popup_itx" placeholder="Другое">
-                    </label>
-                    <div class="clearfix textalign-c">
-                        <button class="btn-green" data-bind="click: markAsSpam">Пожаловаться</button>
-                        <button class="btn-gray" data-bind="click: toggleShowAbuse">Отменить</button>
-                    </div>
-                </div>
-            </div>
-            <div class="im-message_icons-i">
-                <a href="javascript:void(0)" class="im-message_ico im-message_ico__del im-tooltipsy" data-bind="click: $data.delete, tooltip: 'Удалить'"></a>
-            </div>
-        </div>
-        <a class="ava small" href="javascript:void(0)" data-bind="css: author().avatarClass()">
-            <img alt="" data-bind="attr : { src : author().avatar() }">
-        </a>
-        <div class="im-message_hold">
-            <div class="im-message_t">
-                <a href="javascript: void(0)" class="im-message_user" data-bind="text: author().firstName()"></a>
-                <em class="im-message_date" data-bind="text: created()"></em>
-                <div class="im-message_status" data-bind="visible: ($root.me.id() == author().id() && (! read() || $data == $root.lastReadMessage())), css: read() ? 'im-message_status__read' : 'im-message_status__noread', text: read() ? 'Сообщение прочитано' : 'Сообщение не прочитано'"></div>
-                <a href="javascript:void(0)" class="im-message_ico im-message_ico__edit im-tooltipsy" data-bind="visible: $root.me.id() == author().id() && ! read(), tooltip: 'Редактировать', click: $data.edit"></a>
-            </div>
-            <div class="im-message_tx" data-bind="html: text()">
-
-            </div>
-            <div class="im-message_tx-img clearfix" data-bind="foreach: images, gallery: id()">
-                <a href="javascript:void(0)" class="im-message_img" data-bind="attr: { 'data-id' : id() }">
-                    <img alt="" data-bind="attr: { src : preview }">
-                </a>
-            </div>
-        </div>
-    </div>
-    <div class="im-message clearfix" data-bind="visible: deleted() === true">
-        <a class="ava small" href="javascript:void(0)" data-bind="css: author().avatarClass()">
-            <img alt="" data-bind="attr : { src : author().avatar() }">
-        </a>
-        <div class="im-message_hold">
-            <div class="im-message_t">
-                <a href="javascript: void(0)" class="im-message_user" data-bind="text: author().firstName()"></a>
-                <em class="im-message_date" data-bind="text: created()"></em>
-            </div>
-            <div class="im-message_tx">
-                <span data-bind="text: isSpam() ? 'Это сообщение помечено как спам и удалено.' : 'Это сообщение удалено.'"></span> <a href="javascript:void(0)" data-bind="click: restore">Восстановить</a>
-            </div>
-        </div>
-    </div>
-</script>
-
 <script type="text/javascript">
     $(function() {
-        ko.bindingHandlers.gallery = {
-            init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-                $(element).find('a').pGallery({'singlePhoto':false,'entity':'MessagingMessage','entity_id':valueAccessor(),'entity_url':null});
-            },
-            update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-                $(element).find('a').pGallery({'singlePhoto':false,'entity':'MessagingMessage','entity_id':valueAccessor(),'entity_url':null});
-            }
-        };
-
-        ko.bindingHandlers.mirror = {
-            init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-                $(element).hide();
-                $('#cke_uploadedImages').html($(element).html());
-            },
-            update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-                $('#cke_uploadedImages').html($(element).html());
-            }
-        };
-
-
         vm = new MessagingViewModel(<?=$data?>);
         ko.applyBindings(vm);
     });

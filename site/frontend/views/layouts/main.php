@@ -228,7 +228,7 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
                         <?php endif ?>
                     </div>
                 </div>
-            <?php endif ?>
+            <?php endif; ?>
 
             <?=$content?>
         </div>

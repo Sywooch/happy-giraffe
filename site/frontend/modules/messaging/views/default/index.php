@@ -94,16 +94,20 @@
 
                         <!-- ko template: { name: 'message-template', foreach: messages, afterRender: messageRendered } --><!-- /ko -->
 
-                        <div class="im_message-loader" data-bind="visible: sendingMessage()">
-                            <img src="/images/ico/ajax-loader.gif" alt="">
-                            <span class="im-message-loader_tx">Отправляем сообщение</span>
-                        </div>
-                        <div class="im_message-loader" data-bind="if: interlocutor() != '', visible: interlocutorTyping()">
-                            <span class="im-message-loader_tx" data-bind="text: interlocutor().user().firstName() + ' печатает вам сообщение'"></span>
-                            <img src="/images/im/im_message-write-loader.png" alt="" class="im_message-loader-anim">
-                        </div>
-                        <div class="im_message-loader" data-bind="visible: editingMessageId() !== null">
-                            Вы можете  <a href="javascript:void(0)" data-bind="click: $root.cancelMessage">Отменить</a>  данное сообщение или отредактировать его ниже
+                        <div class="im_message-loader">
+                            <div class="im_message-loader-hold" data-bind="visible: sendingMessage()">
+                                <img src="/images/ico/ajax-loader.gif" alt="">
+                                <span class="im-message-loader_tx">Отправляем сообщение</span>
+                            </div>
+                            <!-- ko if: interlocutor() != '' && interlocutorTyping() -->
+                            <div class="im_message-loader-hold">
+                                <span class="im-message-loader_tx" data-bind="text: interlocutor().user().firstName() + ' печатает вам сообщение'"></span>
+                                <img src="/images/im/im_message-write-loader.png" alt="" class="im_message-loader-anim">
+                            </div>
+                            <!-- /ko -->
+                            <div class="im_message-loader-hold" data-bind="visible: editingMessageId() !== null">
+                                Вы можете  <a href="javascript:void(0)" data-bind="click: $root.cancelMessage">Отменить</a>  данное сообщение или отредактировать его ниже
+                            </div>
                         </div>
                     </div>
                     <!-- ko if: interlocutor() !== null && interlocutor().isBlocked() -->
@@ -156,7 +160,7 @@
 </div>
 
 <script type="text/html" id="contact-template">
-    <div class="im-user-list_i clearfix" data-bind="click: $root.openThread, css: { active : user().id() == $root.openContactInterlocutorId(), 'im-user-list_i__hide' : thread().hidden }">
+    <div class="im-user-list_i clearfix" data-bind="click: $root.openThread, css: { active : user().id() == $root.openContactInterlocutorId(), 'im-user-list_i__hide' :  thread() !== null && thread().hidden() }">
         <div class="im-user-settings">
             <a class="ava small" data-bind="css: user().avatarClass">
                 <span class="icon-status status-online" data-bind="visible: user().online()"></span>

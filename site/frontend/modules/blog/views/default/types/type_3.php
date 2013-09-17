@@ -53,11 +53,14 @@ $collection = new PhotoPostPhotoCollection(array('contentId' => $data->id));
             'collection' => $collection,
             'width' => 580,
             'maxRows' => 2,
+            'windowOptions' => array(
+                'exitUrl' => $data->getUrl(),
+            ),
         ));
         ?>
     </div>
 
     <div class="textalign-r margin-15">
-        <a href="<?=$data->getUrl() ?>" class="b-article_more">Смотреть <?=$collection->count?> фото</a>
+        <a href="javascript:void(0)" class="b-article_more" onclick="PhotoCollectionViewWidget.open(<?=CJavaScript::encode(get_class($collection))?>, <?=CJavaScript::encode($collection->options)?>, <?=CJavaScript::encode($collection->photoIds[0])?>, <?=CJavaScript::encode(array('exitUrl' => $data->getUrl()))?>)">Смотреть <?=$collection->count?> фото</a>
     </div>
 <?php endif ?>

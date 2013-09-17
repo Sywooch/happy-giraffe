@@ -5,11 +5,14 @@
  */
 class ConvertNewCommand extends CConsoleCommand
 {
-
-    public function actionFix($id)
+    public function actionFix()
     {
-        $model = CommunityPost::model()->find('content_id='.$id);
-        $model->save();
+        $criteria = new CDbCriteria;
+        $criteria->limit = 2000;
+        $criteria->order = 'id desc';
+        $models = CommunityPost::model()->findAll($criteria);
+        foreach($models as $model)
+            $model->save();
     }
 
     /**

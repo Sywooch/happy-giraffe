@@ -6,7 +6,7 @@ class PhotoPostPhotoCollection extends PhotoCollection
 
     public function generateIds()
     {
-        return Yii::app()->db->createCommand("SELECT i.photo_id FROM community__content_gallery_items i INNER JOIN community__content_gallery g ON i.gallery_id = g.id WHERE g.content_id = :content_id")->queryColumn(array(':content_id' => $this->contentId));
+        return Yii::app()->db->createCommand("SELECT i.photo_id FROM community__content_gallery_items i INNER JOIN community__content_gallery g ON i.gallery_id = g.id WHERE g.content_id = :content_id ORDER BY i.photo_id ASC")->queryColumn(array(':content_id' => $this->contentId));
     }
 
     protected function getIdsCacheDependency()
@@ -24,7 +24,7 @@ class PhotoPostPhotoCollection extends PhotoCollection
                     'with' => array('author'),
                 ),
             ),
-            'order' => new CDbExpression('FIELD(t.photo_id, ' . implode(',', $ids) . ')')
+            'index' => 'photo_id',
         ));
         $criteria->addInCondition('t.photo_id', $ids);
         return CommunityContentGalleryItem::model()->findAll($criteria);

@@ -109,4 +109,9 @@ class HActiveRecord extends CActiveRecord
     {
         return $this->_entities[$this->entity];
     }
+
+    public function getCacheId($keyword)
+    {
+        return __CLASS__ . $this->primaryKey . $keyword;
+    }
 }

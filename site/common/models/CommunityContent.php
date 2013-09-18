@@ -428,12 +428,12 @@ class CommunityContent extends HActiveRecord
     public function getContents($forum_id, $rubric_id)
     {
         $criteria = new CDbCriteria();
-        $criteria->order = 't.created DESC';
+        $criteria->order = 'created DESC';
+        $criteria->with = array('rubric');
         $criteria->compare('community_id', $forum_id);
         $criteria->scopes = array('active');
 
         if ($rubric_id !== null) {
-            $criteria->with = array('rubric');
             $criteria->addCondition('rubric.id = :rubric_id OR rubric.parent_id = :rubric_id');
             $criteria->params[':rubric_id'] = $rubric_id;
         }
@@ -481,6 +481,7 @@ class CommunityContent extends HActiveRecord
         $criteria->order = 't.created DESC';
         $criteria->compare('club_id', $club_id);
         $criteria->scopes = array('active');
+        $criteria->with = array('rubric', 'rubric.community');
         $totalItemsCount = $this->count($criteria);
 
         $criteria->with = array('rubric', 'rubric.community', 'type', 'commentsCount', 'sourceCount');

@@ -7,7 +7,7 @@ class WebUser extends CWebUser
     public function getModel()
     {
         if (!$this->isGuest && $this->_model === null) {
-            $this->_model = CActiveRecord::model($this->modelName)->with('avatar')->findByPk($this->id);
+            $this->_model = CActiveRecord::model($this->modelName)->findByPk($this->id);
         }
         return $this->_model;
     }

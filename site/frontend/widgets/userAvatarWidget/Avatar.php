@@ -19,8 +19,8 @@ class Avatar extends CWidget
     public $message_link = true;
     public $blog_link = true;
 
-	public function run()
-	{
+    public function run()
+    {
         $this->render($this->size);
-	}
+    }
 }

@@ -115,7 +115,6 @@ class NewCommentWidget extends CWidget
         $criteria->params = array(':entity' => $this->entity, ':entity_id' => $this->entity_id);
         $criteria->with = array('author' => array(
             'select' => 'id, gender, first_name, last_name, online, avatar_id, deleted',
-            'with' => 'avatar',
         ));
         return $criteria;
     }

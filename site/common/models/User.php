@@ -556,14 +556,6 @@ class User extends HActiveRecord
         return $user;
     }
 
-    public static function clearCache($id)
-    {
-        $cacheKey = 'yii:dbquery' . Yii::app()->db->connectionString . ':' . Yii::app()->db->username;
-        $cacheKey .= ':' . 'SELECT * FROM `users` `t` WHERE `t`.`id`=\'' . $id . '\' LIMIT 1:a:0:{}';
-        if (isset(Yii::app()->cache))
-            Yii::app()->cache->delete($cacheKey);
-    }
-
     public function getBlogPhoto()
     {
         return $this->blogPhoto === null ? null : array(
@@ -1378,24 +1370,56 @@ class User extends HActiveRecord
         if (empty($this->avatar_id))
             return false;
 
-        //новая схема хранения аватарок
-        if (!empty($this->avatar->userAvatar))
-            return $this->avatar->getPreviewUrl($size, $size, Image::INVERT, true, AlbumPhoto::CROP_SIDE_TOP);
-
-        //временная проверка для выдачи старых аватарок
-        #TODO когда большая часть перейдет на новые авы есть смысл удалить старый механизм вместе с авами
-        switch ($size) {
-            case 200:
-                return $this->avatar->getPreviewUrl(200, 200, Image::INVERT, true, AlbumPhoto::CROP_SIDE_TOP);
-            case 72:
-                return $this->avatar->getAvatarUrl('ava');
-            case 40:
-                return $this->avatar->getAvatarUrl('ava');
-            case 24:
-                return $this->avatar->getAvatarUrl('small');
+        $url = Yii::app()->cache->get(self::getAvatarCacheId($size, $this->id));
+        if ($url === false) {
+            //новая схема хранения аватарок
+            if (!empty($this->avatar->userAvatar))
+                $url = $this->avatar->getPreviewUrl($size, $size, Image::INVERT, true, AlbumPhoto::CROP_SIDE_TOP);
+            else{
+                //временная проверка для выдачи старых аватарок
+                #TODO когда большая часть перейдет на новые авы есть смысл удалить старый механизм вместе с авами
+                switch ($size) {
+                    case 72:
+                        $url = $this->avatar->getAvatarUrl('ava');
+                        break;
+                    case 40:
+                        $url = $this->avatar->getAvatarUrl('ava');
+                        break;
+                    case 24:
+                        $url = $this->avatar->getAvatarUrl('small');
+                        break;
+                    default:
+                        $url = $this->avatar->getPreviewUrl(200, 200, Image::INVERT, true, AlbumPhoto::CROP_SIDE_TOP);
+                }
+            }
+            Yii::app()->cache->set(self::getAvatarCacheId($size, $this->id), $url, 36000);
         }
 
-        return '';
+        return $url;
+    }
+
+    /**
+     * Id кэша для аватарки
+     * @param int $size
+     * @param $user_id
+     * @return string
+     */
+    public static function getAvatarCacheId($size, $user_id)
+    {
+        return 'user_avatar_' . $size . '_' . $user_id;
+    }
+
+    /**
+     * Очитстка кэша
+     * @param int $user_id
+     */
+    public static function clearCache($user_id = null)
+    {
+        if ($user_id === null)
+            $user_id = Yii::app()->user->id;
+        Yii::app()->cache->delete(self::getAvatarCacheId(24, $user_id));
+        Yii::app()->cache->delete(self::getAvatarCacheId(40, $user_id));
+        Yii::app()->cache->delete(self::getAvatarCacheId(72, $user_id));
     }
 
     /**

@@ -93,6 +93,7 @@ class SettingsController extends HController
         if (in_array($attr, array('first_name', 'last_name', 'birthday', 'gender'))) {
             $this->user->$attr = $value;
             $success = $this->user->save();
+            User::clearCache();
             echo CJSON::encode(array(
                 'status' => $success,
                 'error' => $this->user->getErrorsText()
@@ -111,6 +112,7 @@ class SettingsController extends HController
         FriendEvent::userDeleted($this->user);
         $this->user->deleted = 1;
         $this->user->update(array('deleted'));
+        User::clearCache();
         Yii::app()->user->logout();
         $this->redirect('/');
     }

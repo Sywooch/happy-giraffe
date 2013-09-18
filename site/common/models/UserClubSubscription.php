@@ -63,7 +63,7 @@ class UserClubSubscription extends HActiveRecord
         $criteria = new CDbCriteria;
         $criteria->condition = 'club_id = :club_id AND user_id != 1';
         $criteria->params = array(':club_id' => $club_id);
-        $criteria->with = array('clubSubscriber', 'avatar', 'avatar.userAvatar');
+        $criteria->with = array('clubSubscriber');
         $criteria->order = 'online desc';
         $criteria->limit = $limit;
         return User::model()->cache(300)->findAll($criteria);

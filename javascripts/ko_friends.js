@@ -260,8 +260,12 @@ function IncomingFriendRequest(data, parent) {
     self.decline = function() {
         $.post('/friends/requests/decline/', { requestId : self.id }, function(response) {
             if (response.success) {
-                self.removed(true);
                 parent.incomingRequestsCount(parent.incomingRequestsCount() - 1);
+                self.removed(true);
+                setTimeout(function () {
+                    if (self.removed())
+                        self.userIsVisible(false);
+                }, 2000);
             }
         }, 'json');
     }
@@ -270,6 +274,7 @@ function IncomingFriendRequest(data, parent) {
         $.post('/friends/requests/restore/', { requestId : self.id }, function(response) {
             if (response.success) {
                 self.removed(false);
+                self.userIsVisible(true);
                 parent.incomingRequestsCount(parent.incomingRequestsCount() + 1);
             }
         }, 'json');
@@ -289,7 +294,7 @@ function OutgoingFriendRequest(data, parent) {
                 self.invited(true);
                 setTimeout(function () {
                     self.userIsVisible(false);
-                }, 1000);
+                }, 2000);
             }
         }, 'json');
     }

@@ -36,7 +36,7 @@ class NewCommentWidget extends CWidget
     {
         if ($this->model) {
             $this->entity = get_class($this->model);
-            if ($this->entity == 'CommunityContent' || $this->entity == 'BlogContent'){
+            if ($this->entity == 'CommunityContent' || $this->entity == 'BlogContent') {
                 if ($this->model->getIsFromBlog())
                     $this->entity = 'BlogContent';
                 else
@@ -55,11 +55,10 @@ class NewCommentWidget extends CWidget
 
         if ($this->registerScripts === false) {
             $this->objectName = 'new_comment_' . $this->entity . $this->entity_id . time();
-
             if ($this->gallery)
-                $this->render('gallery_view', array('comments' => $this->getComments()));
+                $this->render('gallery_view');
             else
-                $this->render('view', array('comments' => $this->getComments()));
+                $this->render('view');
         }
     }
 
@@ -67,7 +66,7 @@ class NewCommentWidget extends CWidget
      * Возвращает информацию о комментариях
      * @return array
      */
-    private function getComments()
+    public function getComments()
     {
         if ($this->isAlbumComments())
             $criteria = $this->getAlbumComments();
@@ -76,18 +75,33 @@ class NewCommentWidget extends CWidget
             $criteria = $this->getCommentsCriteria();
 
         if ($this->full) {
-            $dataProvider = new CActiveDataProvider('Comment', array(
-                'criteria' => $criteria,
-                'pagination' => array(
-                    'pageSize' => 1000,
-                ),
-            ));
-            return $dataProvider->getData();
+            return Comment::model()->findAll($criteria);
         } else {
             $criteria->order = 't.created DESC';
             $criteria->limit = 3;
             return array_reverse(Comment::model()->findAll($criteria));
         }
+    }
+
+    /**
+     * @return CDbCacheDependency
+     */
+    public function getCacheDependency()
+    {
+        $cacheDependency = new CDbCacheDependency('select GREATEST(MAX(created),MAX(updated)) from comments WHERE entity=:entity AND entity_id=:entity_id');
+
+        if ($this->isAlbumComments()) {
+            $photoIds = $this->getAlbumsPhotoIds();
+            if (!empty($photoIds))
+                $cacheDependency = new CDbCacheDependency('select GREATEST(MAX(created),MAX(updated)) from comments WHERE entity=:entity AND entity_id=:entity_id OR entity="AlbumPhoto" AND entity_id IN (' . implode(',', $photoIds) . ')');
+        } elseif ($this->isPhotoPost()) {
+            $photoIds = $this->getGalleryPhotoIds();
+            if (!empty($photoIds))
+                $cacheDependency = new CDbCacheDependency('select GREATEST(MAX(created),MAX(updated)) from comments WHERE entity=:entity AND entity_id=:entity_id OR entity="AlbumPhoto" AND entity_id IN (' . implode(',', $photoIds) . ')');
+        }
+        $cacheDependency->params = array(':entity' => $this->entity, ':entity_id' => $this->entity_id);
+
+        return $cacheDependency;
     }
 
     /**
@@ -112,12 +126,19 @@ class NewCommentWidget extends CWidget
      */
     private function getAlbumComments()
     {
-        $photoIds = Yii::app()->db->createCommand()
+        return $this->getCriteriaWithPhotos($this->getAlbumsPhotoIds());
+    }
+
+    /**
+     * @return int[]
+     */
+    private function getAlbumsPhotoIds()
+    {
+        return Yii::app()->db->createCommand()
             ->select('id')
             ->from('album__photos')
             ->where('album_id = :album_id', array(':album_id' => $this->entity_id))
             ->queryColumn();
-        return $this->getCriteriaWithPhotos($photoIds);
     }
 
     /**
@@ -126,12 +147,19 @@ class NewCommentWidget extends CWidget
      */
     private function getGalleryComments()
     {
-        $photoIds = Yii::app()->db->createCommand()
+        return $this->getCriteriaWithPhotos($this->getGalleryPhotoIds());
+    }
+
+    /**
+     * @return int[]
+     */
+    private function getGalleryPhotoIds()
+    {
+        return Yii::app()->db->createCommand()
             ->select('photo_id')
             ->from('community__content_gallery_items')
             ->where('gallery_id = :gallery_id', array(':gallery_id' => $this->model->gallery->id))
             ->queryColumn();
-        return $this->getCriteriaWithPhotos($photoIds);
     }
 
     /**

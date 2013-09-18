@@ -228,6 +228,7 @@ class HController extends CController
     public function getLayoutData()
     {
         $user = Yii::app()->user->getModel();
+
         $newNotificationsCount = (int) Notification::model()->getUnreadCount();
         $newMessagesCount = (int) MessagingManager::unreadMessagesCount($user->id);
         $newFriendsCount = (int) FriendRequest::model()->getUserCount($user->id);

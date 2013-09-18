@@ -131,12 +131,15 @@ class ViewedPost extends HMongoModel
      */
     public function newPostCount($user_id, $type, $param = null)
     {
+        TimeLogger::model()->startTimer('new posts count');
         $dp = SubscribeDataProvider::getDataProvider($user_id, $type, $param);
         $dp->criteria->addCondition('t.id > :min_id');
         $dp->criteria->addNotInCondition('t.id', $this->viewed_ids);
         $dp->criteria->params[':min_id'] = $this->min_id;
 
-        return CommunityContent::model()->count($dp->criteria);
+        $count = CommunityContent::model()->count($dp->criteria);
+        TimeLogger::model()->endTimer();
+        return $count;
     }
 
     /**

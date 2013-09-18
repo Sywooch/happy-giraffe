@@ -6,5 +6,3 @@
  */
 
 $this->renderPartial('blog.views.default.view', array('full' => true, 'data' => $content));
-
-

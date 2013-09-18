@@ -1,3 +1,18 @@
+Array.prototype.roundSlice = function(start, quantity) {
+    if (quantity > 0) {
+        if ((this.length - start) < quantity)
+            return this.slice(start).concat(this.slice(0, quantity - (self.length - start)));
+        else
+            return this.slice(start, start + quantity);
+    } else {
+        quantity = Math.abs(quantity);
+        if (start < (quantity + 1))
+            return this.slice(start - quantity).concat(this.slice(0, start));
+        else
+            return this.slice(start - quantity + 1, start + 1);
+    }
+}
+
 function PhotoCollectionViewModel(data) {
     var self = this;
 
@@ -65,6 +80,12 @@ function PhotoCollectionViewModel(data) {
         var next = self.photos[self.currentPhotoIndex() != self.photos.length - 1 ? self.currentPhotoIndex() + 1 : 0];
         var prev = self.photos[self.currentPhotoIndex() != 0 ? self.currentPhotoIndex() - 1 : self.photos.length - 1];
         self.preload([next.src, prev.src]);
+
+//        var next = self.photos.roundSlice(self.currentPhotoIndex, 2);
+//        var prev = self.photos.roundSlice(self.currentPhotoIndex, -2);
+//        self.preload(ko.utils.arrayMap(next.concat(prev), function(photo) {
+//            return photo.src;
+//        }));
     }
 
     self.preload = function (arrayOfImages) {

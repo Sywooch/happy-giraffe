@@ -238,6 +238,7 @@ function IncomingFriendRequest(data, parent) {
 
     self.fromId = ko.observable(data.fromId);
     self.removed = ko.observable(false);
+    self.userIsVisible = ko.observable(true);
 
     self.accept = function() {
         $.post('/friends/requests/accept/', { requestId : self.id }, function(response) {

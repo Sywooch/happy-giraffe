@@ -19,6 +19,7 @@ class SiteCommand extends CConsoleCommand
         //обновляет просмотры гороскопа и популных постов
         UserAttributes::removeAttr('popular_posts_count');
         UserAttributes::removeAttr('horoscope_seen');
+        UserAttributes::removeAttr('popular_hide');
 
         //обновляем просмотры
         $dataProvider = new CActiveDataProvider('CommunityContent', array('criteria' => array('order' => 'id asc')));

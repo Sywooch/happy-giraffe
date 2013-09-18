@@ -99,7 +99,7 @@ return array(
         'ko_friends' => array(
             'baseUrl' => '/',
             'js' => array(
-                'javascripts/ko_friends.js?3',
+                'javascripts/ko_friends.js?4',
                 'javascripts/ko_friendsSearch.js',
             ),
             'depends' => array('knockout'),

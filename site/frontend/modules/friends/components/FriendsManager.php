@@ -31,7 +31,7 @@ class FriendsManager
         $criteria = new CDbCriteria(array(
             'select' => '*, 0 AS pCount, 0 AS bCount',
             'with' => 'friend',
-            'order' => 'friend.id DESC',
+            'order' => 't.id ASC',
         ));
 
         $criteria->compare('t.user_id', $userId);
@@ -62,6 +62,11 @@ class FriendsManager
         return FriendList::model()->with('friendsCount')->findAllByAttributes(array('user_id' => $userId));
     }
 
+    /**
+     * @param User $user
+     * @param bool $isFriend
+     * @return array
+     */
     public static function userToJson($user, $isFriend = false)
     {
         $family = Yii::app()->controller->widget('application.modules.family.widgets.UserFamilyWidget', array('user' => $user), true);
@@ -75,7 +80,10 @@ class FriendsManager
             'age' => $user->normalizedAge,
             'location' => ($user->address->country_id !== null) ? Yii::app()->controller->renderPartial('application.modules.friends.views._location', array('data' => $user), true) : null,
             'family' => $family !== '' ? $family : null,
-            'isFriend' => $isFriend
+            'isFriend' => $isFriend,
+            'gender' => $user->gender,
+            'photoCount' => (int)$user->getPhotosCount(),
+            'blogPostsCount' => (int)$user->blogPostsCount
         );
     }
 }

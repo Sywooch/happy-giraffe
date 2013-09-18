@@ -44,16 +44,26 @@
         <!-- ko if: user.family !== null -->
         <div class="b-family" data-bind="html: user.family"></div>
         <!-- /ko -->
-        <!-- ko if: $data.constructor.name == 'IncomingFriendRequest' && removed() -->
+
+        <!-- ko if: $root.constructor.name == 'FriendsSearchViewModel' && invited() -->
+        <div class="cap-empty cap-empty__smile">
+            <div class="cap-empty_hold">
+                <div class="cap-empty_tx">Приглашение <br> отправлено </div>
+            </div>
+        </div>
+        <!-- /ko -->
+
+        <!-- ko if: ($root.constructor.name == 'FriendsViewModel' && removed()) -->
         <div class="cap-empty">
             <div class="cap-empty_hold">
-                <div class="cap-empty_tx">Вы отклонили предложение дружбы</div>
+                <div class="cap-empty_tx">Вы отклонили <br> предложение</div>
                 <span class="cap-empty_gray">Пользователь успешно <br> удален из этого списка</span>
                 <div class="clearfix">
-                    <a class="a-pseudo" data-bind="click: restore">Восстановить?</a>
+                    <a href="" class="a-pseudo" data-bind="click: restore">Восстановить?</a>
                 </div>
             </div>
         </div>
         <!-- /ko -->
+
     </div>
 </script>

@@ -95,11 +95,10 @@ class DefaultController extends HController
      */
     public function actionForum($forum_id, $rubric_id = null)
     {
-        $forum = $this->loadForum($forum_id);
-        $this->pageTitle = $forum->title;
+        $this->forum = $this->loadForum($forum_id);
+        $this->pageTitle = $this->forum->title;
         $this->layout = ($forum_id == Community::COMMUNITY_NEWS) ? '//layouts/news' : '//layouts/forum';
         $this->rubric_id = $rubric_id;
-        $this->forum = $forum;
 
         $this->breadcrumbs = ($forum_id == Community::COMMUNITY_NEWS) ? array() : array(
             $this->club->section->title => $this->club->section->getUrl(),
@@ -111,7 +110,7 @@ class DefaultController extends HController
             $this->breadcrumbs [] = 'Форум';
 
         Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
-        $dp = CommunityContent::model()->getContents($forum->id, $rubric_id);
+        $dp = CommunityContent::model()->getContents($this->forum->id, $rubric_id);
 
         $this->render('list', compact('dp'));
     }
@@ -121,9 +120,8 @@ class DefaultController extends HController
      */
     public function actionView($forum_id, $content_type_slug, $content_id)
     {
-        $forum = $this->loadForum($forum_id);
+        $this->forum = $this->loadForum($forum_id);
         $this->layout = ($forum_id == Community::COMMUNITY_NEWS) ? '//layouts/news' : '//layouts/forum';
-        $this->forum = $forum;
         $content = $this->loadContent($content_id, $content_type_slug);
         if (!empty($content->uniqueness) && $content->uniqueness < 50)
             Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
@@ -266,7 +264,7 @@ class DefaultController extends HController
      */
     public function loadForum($id)
     {
-        $model = Community::model()->findByPk($id);
+        $model = Community::model()->cache(3600)->with('rubrics')->findByPk($id);
         $this->club = $model->club;
         if ($model === null || ($this->club === null && !in_array($model->id, array(36))))
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');

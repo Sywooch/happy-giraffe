@@ -3,6 +3,12 @@
  * @var CActiveDataProvider $dataProvider
  * @var $this NewCommentWidget
  */
+if (!Yii::app()->user->isGuest || $this->beginCache('comments'. $this->entity . $this->entity_id, array(
+    'duration' => 36000,
+    'dependency' => $this->getCacheDependency(),
+))){
+
+    $comments = $this->getComments();
 NotificationRead::getInstance()->SetVisited();
 $allCount = ($this->full) ? count($comments) : $this->model->commentsCount;
 $data = array(
@@ -177,13 +183,17 @@ NotificationRead::getInstance()->SetVisited();
 
 </div>
 <!-- /ko -->
+
+    <script type="text/javascript">
+        $(function() {
+            var viewModel = new CommentViewModel(<?=CJSON::encode($data)?>);
+            $('.'+'<?=$this->objectName ?>').each(function(index, el) {
+                ko.applyBindings(viewModel, el);
+            });
+        });
+    </script>
+
+<?php if (Yii::app()->user->isGuest) $this->endCache();} ?>
 <script type="text/javascript">
     var CURRENT_USER_ID = '<?=Yii::app()->user->id ?>';
-    $(function () {
-        var viewModel = new CommentViewModel(<?=CJSON::encode($data)?>);
-
-        $('.'+'<?=$this->objectName ?>').each(function(index, el) {
-            ko.applyBindings(viewModel, el);
-        });
-    });
 </script>

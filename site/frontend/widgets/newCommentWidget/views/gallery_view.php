@@ -1,4 +1,4 @@
-<div class="photo-window_right">
+<?php $comments = $this->getComments(); ?><div class="photo-window_right">
 
     <div class="photo-window_banner-hold clearfix">
         <!-- R-87026-5 ﬂÌ‰ÂÍÒ.RTB-·ÎÓÍ  -->

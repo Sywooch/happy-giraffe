@@ -1,4 +1,3 @@
-<?php if ($this->beginCache($data->getCacheId('view'), array('dependency' => $data->getCacheDependency()))) { ?>
 <?php
 /**
  * @var $this DefaultController
@@ -101,4 +100,3 @@ if ($full) {
     });
 </script>
 <?php endif; ?>
-<?php $this->endCache(); } ?>

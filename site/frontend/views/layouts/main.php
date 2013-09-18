@@ -60,6 +60,7 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
                             <li class="header-menu_li">
                                 <a href="<?=$user->getUrl() ?>" class="header-menu_a">
                                     <span class="ava middle <?=($user->gender == 0)?'female':'male'?>">
+                                        <?php if ($user->online):?><span class="icon-status status-online"></span><?php endif ?>
                                         <?=CHtml::image($user->getAvatarUrl(40)) ?>
                                     </span>
                                     <span class="header-menu_tx">Моя <br> страница</span>

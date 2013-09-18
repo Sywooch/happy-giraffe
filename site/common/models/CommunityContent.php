@@ -1109,4 +1109,13 @@ class CommunityContent extends HActiveRecord
         }
         return true;
     }
+
+    public function getCacheDependency()
+    {
+        $contentDependency = new CDbCacheDependency('SELECT updated FROM community__contents WHERE id = :content_id;');
+        $contentDependency->params = array(':content_id' => $this->id);
+        $commentsDependency = new CDbCacheDependency('SELECT COUNT(*) FROM comments WHERE entity = \'CommunityContent\' AND entity_id = :content_id');
+        $commentsDependency->params = array(':content_id' => $this->id);
+        return new CChainedCacheDependency(array($contentDependency, $commentsDependency));
+    }
 }

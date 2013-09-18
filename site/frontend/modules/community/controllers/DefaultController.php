@@ -11,20 +11,20 @@ class DefaultController extends HController
     public $rubric_id;
     public $forum;
 
-    public function filters()
-    {
-        $filters = array();
-
-        if (Yii::app()->user->isGuest) {
-            $filters [] = array(
-                'COutputCache + view',
-                'duration' => 300,
-                'varyByParam' => array('content_id'),
-            );
-        }
-
-        return $filters;
-    }
+//    public function filters()
+//    {
+//        $filters = array();
+//
+//        if (Yii::app()->user->isGuest) {
+//            $filters [] = array(
+//                'COutputCache + view',
+//                'duration' => 300,
+//                'varyByParam' => array('content_id'),
+//            );
+//        }
+//
+//        return $filters;
+//    }
 
     protected function afterAction($action)
     {

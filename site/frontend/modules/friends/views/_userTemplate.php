@@ -46,5 +46,6 @@
                 <a class="a-pseudo" data-bind="click: restore">Восстановить?</a>
             </div>
         </div>
+
     </div>
 </script>

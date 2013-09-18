@@ -63,10 +63,10 @@ class UserClubSubscription extends HActiveRecord
         $criteria = new CDbCriteria;
         $criteria->condition = 'club_id = :club_id AND user_id != 1';
         $criteria->params = array(':club_id' => $club_id);
-        $criteria->with = array('clubSubscriber');
+        $criteria->with = array('clubSubscriber', 'avatar', 'avatar.userAvatar');
         $criteria->order = 'online desc';
         $criteria->limit = $limit;
-        return User::model()->findAll($criteria);
+        return User::model()->cache(300)->findAll($criteria);
     }
 
     /**
@@ -101,7 +101,7 @@ class UserClubSubscription extends HActiveRecord
             21 => 4600,
             22 => 10000,
         );
-        $count = Yii::app()->db->createCommand()
+        $count = Yii::app()->db->cache(10)->createCommand()
             ->select('count(*)')
             ->from($this->tableName())
             ->where('club_id=:club_id', array(':club_id' => $club_id))

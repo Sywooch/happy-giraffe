@@ -9,7 +9,7 @@ class FavouritesWidget extends CWidget
 
     public function run()
     {
-        if (!Yii::app()->user->isGuest && Yii::app()->user->model->checkAuthItem('manageFavourites')) {
+        if (!Yii::app()->user->isGuest && Yii::app()->user->model->group != UserGroup::USER && Yii::app()->user->model->checkAuthItem('manageFavourites')) {
 
             $this->registerScripts();
             $this->render('view', array(

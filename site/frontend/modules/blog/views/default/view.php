@@ -86,11 +86,7 @@ if ($full) {
             </div>
         <?php endif; ?>
 
-        <?php
-        TimeLogger::model()->startTimer('comments');
-        $this->widget('application.widgets.newCommentWidget.NewCommentWidget', array('model' => $data, 'full' => $full));
-        TimeLogger::model()->endTimer();
-        ?>
+        <?php $this->widget('application.widgets.newCommentWidget.NewCommentWidget', array('model' => $data, 'full' => $full)); ?>
         <!-- /ko -->
     </div>
 

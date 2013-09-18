@@ -178,6 +178,7 @@ class DefaultController extends HController
         $coordinates = Yii::app()->request->getPost('coordinates');
         $ava = UserAvatar::createUserAvatar(Yii::app()->user->id, $source_id,
             $coordinates['x'], $coordinates['y'], $coordinates['w'], $coordinates['h']);
+        User::clearCache();
 
         echo CJSON::encode(array('status' => true, 'url' => $ava->getOriginalUrl()));
     }

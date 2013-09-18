@@ -11,27 +11,35 @@ class RecipeController extends HController
     public $section;
     public $club;
 
-//    public function filters()
-//    {
-//        return array(
-//            'accessControl',
+    public function filters()
+    {
+        $filters = array(
+            'accessControl',
 //            array(
 //                'CHttpCacheFilter + view',
 //                'lastModified' => $this->lastModified(),
 //            ),
-//            //'ajaxOnly + ac, searchByIngredientsResult, advancedSearchResult, autoSelect'
-//        );
-//    }
-//
-//    public function accessRules()
-//    {
-//        return array(
-//            array('deny',
-//                'actions' => array('form', 'random'),
-//                'users' => array('?'),
-//            ),
-//        );
-//    }
+            'ajaxOnly + ac, searchByIngredientsResult, advancedSearchResult, autoSelect'
+        );
+
+        if (Yii::app()->user->isGuest) {
+            $filters [] = array(
+                'COutputCache + view',
+                'duration' => 300,
+                'varyByParam' => array('id'),
+            );
+        }
+    }
+
+    public function accessRules()
+    {
+        return array(
+            array('deny',
+                'actions' => array('form', 'random'),
+                'users' => array('?'),
+            ),
+        );
+    }
 
     protected function beforeAction($action)
     {

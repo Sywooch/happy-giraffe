@@ -158,7 +158,7 @@
         <!-- ko if: users().length == 0 && loading() === false -->
         <div class="cap-empty cap-empty__rel">
             <div class="cap-empty_hold">
-                <div class="cap-empty_tx">По данным параметрам ничего не найдено.а</div>
+                <div class="cap-empty_tx">По данным параметрам ничего не найдено.</div>
                 <span class="color-gray">Измените параметры поиска</span>
             </div>
         </div>

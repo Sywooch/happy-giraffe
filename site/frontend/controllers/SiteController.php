@@ -22,6 +22,20 @@ class SiteController extends HController
 		);
 	}
 
+
+    public function filters()
+    {
+        $filters = array();
+
+        if (Yii::app()->user->isGuest)
+            $filters[] = array(
+                'COutputCache + index',
+                'duration' => 300,
+            );
+
+        return $filters;
+    }
+
     protected function beforeAction($action)
     {
         return $action->id == 'error' ? true : parent::beforeAction($action);

@@ -19,7 +19,7 @@ class DefaultController extends HController
             $filters [] = array(
                 'COutputCache + view',
                 'duration' => 300,
-                'varyByParam' => array('content_id', 'Comment_page'),
+                'varyByParam' => array('content_id'),
             );
         }
 

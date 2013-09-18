@@ -33,44 +33,40 @@ class FriendsSearchManager
     {
         $criteria = self::getDefaultCriteria($userId);
 
-//        if (isset($params['query']))
-//            $criteria->mergeWith(self::getQueryCriteria($params['query']));
-//
-//        if (isset($params['gender']))
-//            $criteria->compare('t.gender', $params['gender']);
-//
-//        if (isset($params['countryId']))
-//            $criteria->compare('address.country_id', $params['countryId']);
-//
-//        if (isset($params['regionId']))
-//            $criteria->compare('address.region_id', $params['regionId']);
-//
-//        if  (isset($params['ageMin'])) {
-//            $criteria->having = (empty($criteria->having)) ? 'age >= :ageMin' : ' AND age => :ageMin';
-//            $criteria->params[':ageMin'] = $params['ageMin'];
-//        }
-//
-//        if  (isset($params['ageMax'])) {
-//            $criteria->having .= (empty($criteria->having)) ? 'age <= :ageMax' : ' AND age <= :ageMax';
-//            $criteria->params[':ageMax'] = $params['ageMax'];
-//        }
-//
-//        if (isset($params['childrenType'])) {
-//            switch ($params['childrenType']) {
-//                case 1:
-//                    $criteria->mergeWith(self::getPregnancyWeekCriteria($params['pregnancyWeekMin'], $params['pregnancyWeekMax']));
-//                    break;
-//                case 2:
-//                    $criteria->mergeWith(self::getChildAgeCriteria($params['childAgeMin'], $params['childAgeMax']));
-//                    break;
-//                case 3:
-//                    $criteria->mergeWith(self::getLargeFamilyCriteria());
-//                    break;
-//            }
-//        }
-//
-//        if (isset($params['relationshipStatus']))
-//            $criteria->compare('t.relationship_status', $params['relationshipStatus']);
+        if (isset($params['query']))
+            $criteria->mergeWith(self::getQueryCriteria($params['query']));
+
+        if (isset($params['gender']))
+            $criteria->compare('t.gender', $params['gender']);
+
+        if (isset($params['countryId']))
+            $criteria->compare('address.country_id', $params['countryId']);
+
+        if (isset($params['regionId']))
+            $criteria->compare('address.region_id', $params['regionId']);
+
+        if  (isset($params['ageMin']))
+            $criteria->mergeWith(self::getAgeMinCriteria($params['ageMin']));
+
+        if  (isset($params['ageMax']))
+            $criteria->mergeWith(self::getAgeMinCriteria($params['ageMax']));
+
+        if (isset($params['childrenType'])) {
+            switch ($params['childrenType']) {
+                case 1:
+                    $criteria->mergeWith(self::getPregnancyWeekCriteria($params['pregnancyWeekMin'], $params['pregnancyWeekMax']));
+                    break;
+                case 2:
+                    $criteria->mergeWith(self::getChildAgeCriteria($params['childAgeMin'], $params['childAgeMax']));
+                    break;
+                case 3:
+                    $criteria->mergeWith(self::getLargeFamilyCriteria());
+                    break;
+            }
+        }
+
+        if (isset($params['relationshipStatus']))
+            $criteria->compare('t.relationship_status', $params['relationshipStatus']);
 
         return $criteria;
     }
@@ -102,7 +98,6 @@ class FriendsSearchManager
                         'city',
                     ),
                 ),
-                'partner',
             ),
             'order' => 't.online DESC, t.id DESC',
             'params' => array(
@@ -153,6 +148,26 @@ class FriendsSearchManager
             'join' => 'LEFT OUTER JOIN user__users_babies b ON b.parent_id = t.id AND type IS NULL',
             'having' => 'childrenCount >= 3',
             'group' => 't.id',
+        ));
+    }
+
+    protected static function getAgeMinCriteria($ageMin)
+    {
+        return new CDbCriteria(array(
+            'having' => 'age >= :ageMin',
+            'params' => array(
+                ':ageMin' => $ageMin,
+            ),
+        ));
+    }
+
+    protected static function getAgeMaxCriteria($ageMax)
+    {
+        return new CDbCriteria(array(
+            'having' => 'age <= :ageMax',
+            'params' => array(
+                ':ageMax' => $ageMax,
+            ),
         ));
     }
 }

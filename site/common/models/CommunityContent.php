@@ -427,21 +427,22 @@ class CommunityContent extends HActiveRecord
      */
     public function getContents($forum_id, $rubric_id)
     {
-        $criteria = new CDbCriteria(array(
-            'order' => 't.created DESC',
-            'with' => array('rubric', 'type')
-        ));
-
+        $criteria = new CDbCriteria();
+        $criteria->order = 't.created DESC';
         $criteria->compare('community_id', $forum_id);
         $criteria->scopes = array('active');
 
         if ($rubric_id !== null) {
+            $criteria->with = array('rubric');
             $criteria->addCondition('rubric.id = :rubric_id OR rubric.parent_id = :rubric_id');
             $criteria->params[':rubric_id'] = $rubric_id;
         }
+        $totalItemsCount = $this->count($criteria);
 
+        $criteria->with = array('rubric', 'type', 'commentsCount', 'sourceCount');
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
+            'totalItemCount' => $totalItemsCount
         ));
     }
 
@@ -453,17 +454,18 @@ class CommunityContent extends HActiveRecord
      */
     public function getSectionContents($section_id)
     {
-        $criteria = new CDbCriteria(array(
-            'order' => 't.created DESC',
-            'with' => array('rubric', 'rubric.community', 'rubric.community.club')
-        ));
-
+        $criteria = new CDbCriteria();
+        $criteria->order = 't.created DESC';
         $criteria->addCondition('club.id != 21 AND club.id != 22 AND club.id != 19');
         $criteria->compare('section_id', $section_id);
         $criteria->scopes = array('active');
+        $criteria->with = array('rubric', 'rubric.community', 'rubric.community.club');
+        $totalItemsCount = $this->count($criteria);
 
+        $criteria->with = array('rubric', 'rubric.community', 'rubric.community.club', 'type', 'commentsCount', 'sourceCount');
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
+            'totalItemCount' => $totalItemsCount
         ));
     }
 
@@ -475,16 +477,16 @@ class CommunityContent extends HActiveRecord
      */
     public function getClubContents($club_id)
     {
-        $criteria = new CDbCriteria(array(
-            'order' => 't.created DESC',
-            'with' => array('rubric', 'rubric.community')
-        ));
-
+        $criteria = new CDbCriteria();
+        $criteria->order = 't.created DESC';
         $criteria->compare('club_id', $club_id);
         $criteria->scopes = array('active');
+        $totalItemsCount = $this->count($criteria);
 
+        $criteria->with = array('rubric', 'rubric.community', 'type', 'commentsCount', 'sourceCount');
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
+            'totalItemCount' => $totalItemsCount
         ));
     }
 
@@ -510,7 +512,7 @@ class CommunityContent extends HActiveRecord
         $criteria = $this->addPrivacyCondition($user_id, $criteria);
 
         $totalItemsCount = $this->resetScope()->active()->count($criteria);
-        $criteria->with = array('rubric', 'author', 'author.avatar', 'commentsCount', 'type', 'sourceCount', 'favouritesCount');
+        $criteria->with = array('rubric', 'author', 'author.avatar', 'type', 'commentsCount', 'sourceCount');
 
         return new CActiveDataProvider($this->resetScope()->active(), array(
             'criteria' => $criteria,

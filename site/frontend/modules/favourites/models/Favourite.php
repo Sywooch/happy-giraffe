@@ -218,7 +218,7 @@ class Favourite extends CActiveRecord
         return $this->exists('model_name = :model_name AND model_id = :model_id AND user_id = :user_id', array(':model_name' => $modelName, ':model_id' => $model->id, ':user_id' => $userId));
     }
 
-    public function getEntityByModel($modelName, $modelId)
+    public function getEntityByModelNameId($modelName, $modelId)
     {
         switch ($modelName) {
             case 'CookRecipe':
@@ -231,6 +231,25 @@ class Favourite extends CActiveRecord
             case 'BlogContent':
                 $model = CActiveRecord::model($modelName)->resetScope()->findByPk($modelId);
                 return $model->type_id == 1 ? 'post' : 'video';
+            default:
+                return '';
+        }
+    }
+
+    public function getEntityByModel($model)
+    {
+        switch (get_class($model)) {
+            case 'CookRecipe':
+            case 'SimpleRecipe':
+            case 'MultivarkaRecipe':
+                return 'cook';
+            case 'AlbumPhoto':
+                return 'photo';
+            case 'CommunityContent':
+            case 'BlogContent':
+                return $model->type_id == 1 ? 'post' : 'video';
+            default:
+                return '';
         }
     }
 

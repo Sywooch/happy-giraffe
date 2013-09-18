@@ -27,7 +27,7 @@ class RepostWidget extends CWidget
             $modelName = 'CommunityContent';
 
         $modelId = $this->model->id;
-        $entity = Favourite::model()->getEntityByModel($modelName, $modelId);
+        $entity = Favourite::model()->getEntityByModel($this->model);
         if (! Yii::app()->user->isGuest) {
             $id = 'Repost_' . get_class($this->model) . '_' . $this->model->id;
             $active = (bool) $this->model->userReposted(Yii::app()->user->id);

@@ -107,7 +107,7 @@ class DefaultController extends HController
 
     public function actionGetEntityData($modelName, $modelId)
     {
-        $entity = Favourite::model()->getEntityByModel($modelName, $modelId);
+        $entity = Favourite::model()->getEntityByModelNameId($modelName, $modelId);
 
         switch ($entity) {
             case 'post':

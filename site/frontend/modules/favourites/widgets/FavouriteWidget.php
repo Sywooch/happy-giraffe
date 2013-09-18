@@ -30,7 +30,7 @@ class FavouriteWidget extends CWidget
             $modelName = 'CommunityContent';
 
         $modelId = $this->model->id;
-        $entity = Favourite::model()->getEntityByModel($modelName, $modelId);
+        $entity = Favourite::model()->getEntityByModel($this->model);
         if (! Yii::app()->user->isGuest) {
             $id = 'Favourites_' . get_class($this->model) . '_' . $this->model->id;
             $active = (bool) Favourite::model()->getUserHas(Yii::app()->user->id, $this->model);

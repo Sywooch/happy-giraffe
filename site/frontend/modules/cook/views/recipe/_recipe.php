@@ -19,6 +19,6 @@
             <a href="<?=$data->url?>" class="b-article_more">Смотреть далее</a>
         </div>
 
-        <?php $this->widget('application.widgets.newCommentWidget.NewCommentWidget', array('entity' => get_parent_class($data), 'entity_id' => $data->primaryKey, 'full' => false)); ?>
+        <?php $this->widget('application.widgets.newCommentWidget.NewCommentWidget', array('entity' => 'CookRecipe', 'entity_id' => $data->primaryKey, 'full' => false)); ?>
     </div>
 </div>

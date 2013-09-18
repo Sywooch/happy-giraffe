@@ -499,7 +499,7 @@ class CommunityContent extends HActiveRecord
     {
         $criteria = new CDbCriteria(array(
             'order' => 't.created DESC',
-            'condition' => '(rubric.user_id IS NOT NULL OR t.type_id IN (5,6)) AND t.author_id = :user_id',
+            'condition' => 'rubric.user_id IS NOT NULL AND t.author_id = :user_id',
             'params' => array(':user_id' => $user_id),
             'with' => array('rubric'),
         ));

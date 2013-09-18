@@ -323,7 +323,7 @@ class User extends HActiveRecord
             'partner' => array(self::HAS_ONE, 'UserPartner', 'user_id', 'condition' => 'partner.removed = 0'),
 
             'blog_rubrics' => array(self::HAS_MANY, 'CommunityRubric', 'user_id', 'order' => 'sort ASC, blog_rubrics.id DESC'),
-            'blogPostsCount' => array(self::STAT, 'CommunityContent', 'author_id', 'join' => 'JOIN community__rubrics ON t.rubric_id = community__rubrics.id', 'condition' => 'community__rubrics.user_id = t.author_id'),
+            //'blogPostsCount' => array(self::STAT, 'CommunityContent', 'author_id', 'join' => 'JOIN community__rubrics ON t.rubric_id = community__rubrics.id', 'condition' => 'community__rubrics.user_id = t.author_id'),
             'communityPostsCount' => array(self::STAT, 'CommunityContent', 'author_id', 'join' => 'JOIN community__rubrics ON t.rubric_id = community__rubrics.id', 'condition' => 'community__rubrics.user_id IS NULL'),
             'communityContentsCount' => array(self::STAT, 'CommunityContent', 'author_id'),
             'cookRecipesCount' => array(self::STAT, 'CookRecipe', 'author_id'),
@@ -1525,5 +1525,19 @@ class User extends HActiveRecord
     public function getAva()
     {
         return '';
+    }
+
+    public function getBlogPostsCount()
+    {
+        $criteria = new CDbCriteria(array(
+            'condition' => 'rubric.user_id IS NOT NULL AND t.author_id = :user_id',
+            'params' => array(':user_id' => $this->id),
+            'with' => array('rubric'),
+        ));
+
+        if (Yii::app()->user->isGuest || !Friend::model()->areFriends($this->id, Yii::app()->user->id) && $this->id != Yii::app()->user->id)
+            $criteria->addCondition('privacy = 0');
+
+        return CommunityContent::model()->resetScope()->active()->count($criteria);
     }
 }

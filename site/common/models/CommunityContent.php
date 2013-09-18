@@ -684,15 +684,11 @@ class CommunityContent extends HActiveRecord
      */
     public function canEdit()
     {
-        if ($this->rubric->community_id == Community::COMMUNITY_NEWS) {
+        if ($this->rubric->community_id == Community::COMMUNITY_NEWS)
             return Yii::app()->authManager->checkAccess('news', Yii::app()->user->id);
-        }
 
-        if (Yii::app()->user->model->role == 'user') {
-            if ($this->author_id == Yii::app()->user->id)
-                return true;
-            return false;
-        }
+        if (Yii::app()->user->model->group == UserGroup::USER)
+            return $this->author_id == Yii::app()->user->id;
         return (Yii::app()->user->checkAccess('editCommunityContent', array('community_id' => $this->isFromBlog ? null : $this->rubric->community->id, 'user_id' => $this->author->id)));
     }
 
@@ -702,15 +698,11 @@ class CommunityContent extends HActiveRecord
      */
     public function canRemove()
     {
-        if ($this->rubric->community_id == Community::COMMUNITY_NEWS) {
+        if ($this->rubric->community_id == Community::COMMUNITY_NEWS)
             return Yii::app()->authManager->checkAccess('news', Yii::app()->user->id);
-        }
 
-        if (Yii::app()->user->model->role == 'user') {
-            if ($this->author_id == Yii::app()->user->id)
-                return true;
-            return false;
-        }
+        if (Yii::app()->user->model->group == UserGroup::USER)
+            return $this->author_id == Yii::app()->user->id;
         return (Yii::app()->user->checkAccess('removeCommunityContent', array('community_id' => $this->isFromBlog ? null : $this->rubric->community->id, 'user_id' => $this->author->id)));
     }
 

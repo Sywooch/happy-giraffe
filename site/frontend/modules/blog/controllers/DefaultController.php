@@ -23,6 +23,12 @@ class DefaultController extends HController
                 'duration' => 300,
                 'varyByParam' => array('content_id'),
             );
+
+            $filters [] = array(
+                'COutputCache + index',
+                'duration' => 300,
+                'varyByParam' => array('user_id', 'rubric_id'),
+            );
         }
 
         return $filters;

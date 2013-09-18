@@ -28,7 +28,15 @@ class RecipeController extends HController
                 'duration' => 300,
                 'varyByParam' => array('id'),
             );
+
+            $filters [] = array(
+                'COutputCache + index',
+                'duration' => 300,
+                'varyByParam' => array('type', 'section'),
+            );
         }
+
+        return $filters;
     }
 
     public function accessRules()

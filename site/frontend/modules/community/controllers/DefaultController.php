@@ -21,6 +21,24 @@ class DefaultController extends HController
                 'duration' => 300,
                 'varyByParam' => array('content_id'),
             );
+
+            $filters [] = array(
+                'COutputCache + forum',
+                'duration' => 300,
+                'varyByParam' => array('forum_id', 'rubric_id'),
+            );
+
+            $filters [] = array(
+                'COutputCache + club',
+                'duration' => 300,
+                'varyByParam' => array('club'),
+            );
+
+            $filters [] = array(
+                'COutputCache + section',
+                'duration' => 300,
+                'varyByParam' => array('section_id'),
+            );
         }
 
         return $filters;

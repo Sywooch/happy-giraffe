@@ -55,13 +55,5 @@
             </div>
         </div>
         <!-- /ko -->
-
-        <!-- ko if: $data.constructor.name == 'OutgoingFriendRequest' && invited() -->
-        <div class="cap-empty cap-empty__smile">
-            <div class="cap-empty_hold">
-                <div class="cap-empty_tx">Приглашение <br> отправлено </div>
-            </div>
-        </div>
-        <!-- /ko -->
     </div>
 </script>

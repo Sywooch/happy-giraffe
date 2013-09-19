@@ -102,7 +102,9 @@ class DefaultController extends HController
         if ($type == 'award')
             $award = ScoreUserAward::model()->findByPk($id);
         elseif ($type == 'achievement')
-            $award = ScoreUserAchievement::model()->findByPk($id); else
+            $award = ScoreUserAchievement::model()->findByPk($id);
+
+        if ($award === null)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
         $this->pageTitle = $this->user->getFullName() . ' - ' . $award->getTitle();

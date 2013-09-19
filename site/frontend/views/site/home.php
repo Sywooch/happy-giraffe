@@ -36,10 +36,14 @@ Yii::app()->clientScript
 		<div class="start-page_hold">
 			<div class="start-page_articles">
 
-                <?php foreach ($models as $model): ?>
+                <?php
+                if ($this->beginCache(300)):
+                $models = Favourites::getArticlesByDate(Favourites::BLOCK_INTERESTING, date("Y-m-d"), 6);
+
+                foreach ($models as $model): ?>
                     <?php $this->renderPartial('_article', array('model' => $model)); ?>
                 <?php endforeach; ?>
-
+                <?php $this->endCache();endif; ?>
 			</div>
 		</div>
 	</div>

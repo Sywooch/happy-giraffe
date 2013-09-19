@@ -21,8 +21,8 @@ class RegisterWidget extends CWidget
 //                    $this->form_type = 'odnoklassniki';
 //                    $this->show_form = true;
                 } elseif (!empty(Yii::app()->getRequest()->urlReferrer)) {
-                    $this->show_form = true;
                 }
+                $this->show_form = true;
             }
 
             if ($this->show_form)

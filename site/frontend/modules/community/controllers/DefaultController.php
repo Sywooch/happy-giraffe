@@ -264,7 +264,7 @@ class DefaultController extends HController
      */
     public function loadForum($id)
     {
-        $model = Community::model()->cache(3600)->with('rubrics')->findByPk($id);
+        $model = Community::model()->cache(3600)->with('rootRubrics', 'rootRubrics.childs')->findByPk($id);
         $this->club = $model->club;
         if ($model === null || ($this->club === null && !in_array($model->id, array(36))))
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');

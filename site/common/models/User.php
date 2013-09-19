@@ -1406,7 +1406,7 @@ class User extends HActiveRecord
      */
     public static function getAvatarCacheId($size, $user_id)
     {
-        return 'user_avatar_' . $size . '_' . $user_id;
+        return 'user_avatar2_' . $size . '_' . $user_id;
     }
 
     /**
@@ -1420,6 +1420,7 @@ class User extends HActiveRecord
         Yii::app()->cache->delete(self::getAvatarCacheId(24, $user_id));
         Yii::app()->cache->delete(self::getAvatarCacheId(40, $user_id));
         Yii::app()->cache->delete(self::getAvatarCacheId(72, $user_id));
+        Yii::app()->cache->delete(self::getAvatarCacheId(200, $user_id));
     }
 
     /**

@@ -3,7 +3,7 @@
  * @var $this ClubsWidget
  */
 ?>
-<div class="club-list club-list__big clearfix" id="user-clubs-<?=$this->uniqid?>">
+<div class="club-list club-list__big clearfix" id="user-clubs-<?=$this->uniqid?>" style="display: none" data-bind="visible: true">
     <ul class="club-list_ul clearfix">
         <!-- ko foreach: TopClubs -->
         <li class="club-list_li" data-bind="css: {'club-list_li__in': have()}">

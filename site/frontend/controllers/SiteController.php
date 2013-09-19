@@ -22,20 +22,6 @@ class SiteController extends HController
 		);
 	}
 
-
-    public function filters()
-    {
-        $filters = array();
-
-        if (Yii::app()->user->isGuest)
-            $filters[] = array(
-                'COutputCache + index',
-                'duration' => 300,
-            );
-
-        return $filters;
-    }
-
     protected function beforeAction($action)
     {
         return $action->id == 'error' ? true : parent::beforeAction($action);
@@ -101,11 +87,9 @@ class SiteController extends HController
         if (! Yii::app()->user->isGuest)
             $this->redirect(array('myGiraffe/default/index', 'type' => 1));
 
-        $models = Favourites::getArticlesByDate(Favourites::BLOCK_INTERESTING, date("Y-m-d"), 6);
-
         $this->layout = '//layouts/common';
 		$this->pageTitle = 'Веселый Жираф - сайт для всей семьи';
-        $this->render('home', compact('models'));
+        $this->render('home');
 	}
 
 	/**

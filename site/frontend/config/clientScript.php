@@ -99,8 +99,8 @@ return array(
         'ko_friends' => array(
             'baseUrl' => '/',
             'js' => array(
-                'javascripts/ko_friends.js?4',
-                'javascripts/ko_friendsSearch.js',
+                'javascripts/ko_friends.js?5',
+                'javascripts/ko_friendsSearch.js?2',
             ),
             'depends' => array('knockout'),
         ),
@@ -133,7 +133,7 @@ return array(
         'ko_upload' => array(
             'baseUrl' => '/',
             'js' => array(
-                'javascripts/upload.js?2',
+                'javascripts/upload.js?3',
                 'jQuery-File-Upload/js/vendor/jquery.ui.widget.js',
                 'jQuery-File-Upload/js/jquery.iframe-transport.js',
                 'jQuery-File-Upload/js/jquery.fileupload.js',

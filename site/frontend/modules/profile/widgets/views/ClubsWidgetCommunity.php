@@ -3,7 +3,7 @@
  * @var $this ClubsWidget
  */
 ?>
-<div class="club-list margin-t20 clearfix" id="user-clubs">
+<div class="club-list margin-t20 clearfix" id="user-clubs" style="display: none" data-bind="visible: true">
     <div class="clearfix textalign-c">
         <span class="heading-medium">Выбери свой клуб </span>
     </div>

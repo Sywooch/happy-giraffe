@@ -53,7 +53,7 @@
         </div>
         <!-- /ko -->
 
-        <!-- ko if: ($root.constructor.name == 'FriendsViewModel' && removed()) -->
+        <!-- ko if: ($parent.constructor.name == 'IncomingFriendRequest' && removed()) -->
         <div class="cap-empty">
             <div class="cap-empty_hold">
                 <div class="cap-empty_tx">Вы отклонили <br> предложение</div>

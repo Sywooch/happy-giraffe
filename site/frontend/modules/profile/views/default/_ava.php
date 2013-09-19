@@ -62,7 +62,7 @@ if (Yii::app()->user->id != $user->id):
     </div>
 
     <div style="display: none;">
-        <div id="popup-upload-ava" class="popup-upload-ava">
+        <div id="popup-upload-ava" class="popup-upload-ava" style="display: none" data-bind="visible: true">
             <a href="" class="popup-transparent-close powertip" data-bind="click: cancel" title="Закрыть"></a>
 
             <div class="clearfix">

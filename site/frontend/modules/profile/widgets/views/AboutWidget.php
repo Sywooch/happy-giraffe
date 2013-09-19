@@ -3,7 +3,7 @@
  * @var User $user
  */
 ?><?php if ($this->isMyProfile):?>
-    <div class="about-self" id="user-about">
+    <div class="about-self" id="user-about" style="display: none" data-bind="visible: true">
         <h3 class="heading-small margin-b5">О себе
             <!-- ko if: canEdit() -->
             <a href="" class="a-pseudo-icon powertip" data-bind="click: edit, tooltip: 'Редактировать'"><span class="ico-edit"></span><span class="a-pseudo-icon_tx"></span></a>

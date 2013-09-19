@@ -3,7 +3,7 @@
  * @var $this InterestsWidget
  */
 ?>
-<div class="b-interest" id="user-interests" data-bind="css: {'b-interest__addition': adding()}">
+<div class="b-interest" id="user-interests" data-bind="css: {'b-interest__addition': adding()}" style="display: none" data-bind="visible: true">
     <h3 class="heading-small margin-b10">Мои интересы
         <span class="color-gray" data-bind="visible:!adding()">(<!--ko text: interests().length-->  <!--/ko-->)</span>
         <div class="float-r color-gray font-small margin-t5" data-bind="visible: adding()">Добавлено <!--ko text: interests().length--><!--/ko--> из 25</div>

@@ -3,7 +3,7 @@
  * @var $this ClubsWidget
  */
 ?>
-<div class="club-list clearfix" id="user-clubs">
+<div class="club-list clearfix" id="user-clubs" style="display: none" data-bind="visible: true">
     <div class="clearfix">
         <span class="heading-small">Мои клубы <span class="color-gray">(<!-- ko text: count --><!-- /ko -->)</span> </span>
     </div>

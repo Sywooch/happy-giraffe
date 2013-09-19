@@ -14,8 +14,7 @@ $params = array(
     'user_id' => $user->id
 );
 ?>
-<div id="js-blog-subs-<?= $user->id ?>" class="blog-preview"<?php
-if (!$params['subscribed']) echo ' data-bind="visible: !isSubscribed()"' ?>>
+<div id="js-blog-subs-<?= $user->id ?>" class="blog-preview"  style="display: none" <?php if (!$params['subscribed']) echo ' data-bind="visible: !isSubscribed()"' ?>>
     <div class="blog-preview_ava-hold">
         <?php $this->widget('Avatar', array('user' => $user)); ?>
     </div>

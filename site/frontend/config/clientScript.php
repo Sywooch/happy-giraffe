@@ -133,7 +133,7 @@ return array(
         'ko_upload' => array(
             'baseUrl' => '/',
             'js' => array(
-                'javascripts/upload.js?2',
+                'javascripts/upload.js?3',
                 'jQuery-File-Upload/js/vendor/jquery.ui.widget.js',
                 'jQuery-File-Upload/js/jquery.iframe-transport.js',
                 'jQuery-File-Upload/js/jquery.fileupload.js',

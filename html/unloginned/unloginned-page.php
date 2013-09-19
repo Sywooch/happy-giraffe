@@ -203,6 +203,7 @@
 				<div class="menu-simple">
 					<ul class="menu-simple_ul">
 						<li class="menu-simple_li menu-simple_li__with-drop">
+							<a href="" class="menu-simple_a-drop"></a>
 							<a class="menu-simple_a" href="">Вышивка</a>
 						</li>
 						<li class="menu-simple_li">
@@ -236,6 +237,7 @@
 							<a class="menu-simple_a" href="">Фотокружок </a>
 						</li>
 						<li class="menu-simple_li menu-simple_li__with-drop active">
+							<a href="" class="menu-simple_a-drop"></a>
 							<a class="menu-simple_a" href="">Роспись </a>
 							<ul class="menu-simple_ul">
 								<li class="menu-simple_li">

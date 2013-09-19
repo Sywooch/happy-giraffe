@@ -392,6 +392,7 @@ class RecipeController extends HController
             return compact('id', 'title');
         }, array_keys($_durations), $_durations);
         $json = compact('types', 'cuisines', 'durations', 'query');
+        Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
         $this->render('search', compact('json'));
     }
 

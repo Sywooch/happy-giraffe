@@ -58,7 +58,7 @@ function PhotoCollectionViewModel(data) {
         if ((self.currentPhotoIndex() != self.photos.length - 1) || self.isFullyLoaded()) {
             self.currentPhotoIndex(self.currentPhotoIndex() != self.photos.length - 1 ? self.currentPhotoIndex() + 1 : 0);
             self.incNaturalIndex(true);
-            self.preloadImages();
+            self.preloadImages(3, 0);
             if (!self.isFullyLoaded() && self.currentPhotoIndex() >= self.photos.length - 3)
                 self.preloadMetaNext();
             self.currentPhoto().loadComments();
@@ -69,23 +69,19 @@ function PhotoCollectionViewModel(data) {
         if ((self.currentPhotoIndex() != 0) || self.isFullyLoaded()) {
             self.currentPhotoIndex(self.currentPhotoIndex() != 0 ? self.currentPhotoIndex() - 1 : self.photos.length - 1);
             self.incNaturalIndex(false);
-            self.preloadImages();
+            self.preloadImages(0, 3);
             if (!self.isFullyLoaded() && self.currentPhotoIndex() <= 2)
                 self.preloadMetaPrev();
             self.currentPhoto().loadComments();
         }
     }
 
-    self.preloadImages = function () {
-        var next = self.photos[self.currentPhotoIndex() != self.photos.length - 1 ? self.currentPhotoIndex() + 1 : 0];
-        var prev = self.photos[self.currentPhotoIndex() != 0 ? self.currentPhotoIndex() - 1 : self.photos.length - 1];
-        self.preload([next.src, prev.src]);
-
-//        var next = self.photos.roundSlice(self.currentPhotoIndex, 2);
-//        var prev = self.photos.roundSlice(self.currentPhotoIndex, -2);
-//        self.preload(ko.utils.arrayMap(next.concat(prev), function(photo) {
-//            return photo.src;
-//        }));
+    self.preloadImages = function (nextCount, prevCount) {
+        var next = self.photos.roundSlice(self.currentPhotoIndex() + 1, nextCount);
+        var prev = self.photos.roundSlice(self.currentPhotoIndex() - 1, -prevCount);
+        self.preload(ko.utils.arrayMap(next.concat(prev), function(photo) {
+            return photo.src;
+        }));
     }
 
     self.preload = function (arrayOfImages) {
@@ -129,7 +125,7 @@ function PhotoCollectionViewModel(data) {
     }
 
     self.currentPhotoIndex.valueHasMutated();
-    self.preloadImages();
+    self.preloadImages(2, 2);
 }
 
 function CollectionPhoto(data, parent) {

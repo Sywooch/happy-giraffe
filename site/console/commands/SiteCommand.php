@@ -11,6 +11,9 @@ class SiteCommand extends CConsoleCommand
         'lnghost@hotmail.com',
     );
 
+    /**
+     * Запускается в 00:01 каждый день
+     */
     public function actionStartDay()
     {
         Yii::import('site.common.models.mongo.*');
@@ -58,44 +61,6 @@ class SiteCommand extends CConsoleCommand
 
         if (!($robotsResult && $sitemapResult)) {
             mail(implode(', ', $this->recipients), 'happy-giraffe.ru seo check failure', $output);
-        }
-    }
-
-    public $moderators = array(23, 83, 10023, 10264, 10064);
-    public $smo = array(12998, 13093, 13130, 13094, 13217);
-    public $editors = array(10379, 10378, 10265, 12949, 10385, 10384, 13361, 13107, 12950, 13096,
-        13235, 13122, 10433, 13002, 13105, 13099, 12411, 13101, 13103, 13098, 10358, 13136, 10359, 13137, 10391);
-
-    public function actionSendCard($photo_id)
-    {
-        $users = Yii::app()->db->createCommand()
-            ->select('id')
-            ->from('users')
-            ->where('deleted = 0 AND blocked = 0')
-            ->queryAll();
-
-        foreach ($users as $u) {
-            $comment = new Comment('giraffe');
-            $comment->author_id = 1;
-            $comment->entity = 'User';
-            $comment->entity_id = $u['id'];
-            $comment->save();
-
-            $attach = new AttachPhoto;
-            $attach->photo_id = $photo_id;
-            $attach->entity = 'Comment';
-            $attach->entity_id = $comment->id;
-            $attach->save();
-        }
-    }
-
-    public function actionHoroscope()
-    {
-        Yii::import('site.frontend.modules.services.modules.horoscope.models.*');
-        $models = Horoscope::model()->findAll('date IS NOT NULL');
-        foreach ($models as $model) {
-            $m = new HoroscopeLink();
-            $m->generateLinks($model);
         }
     }
 

@@ -10,7 +10,7 @@ if (!Yii::app()->user->isGuest || $this->beginCache('comments'. $this->entity . 
 
     $comments = $this->getComments();
 NotificationRead::getInstance()->SetVisited();
-$allCount = ($this->full) ? count($comments) : $this->model->commentsCount;
+$allCount = ($this->full) ? count($comments) : $this->model->getCommentsCount();
 $data = array(
     'entity' => $this->entity,
     'entity_id' => (int)$this->entity_id,

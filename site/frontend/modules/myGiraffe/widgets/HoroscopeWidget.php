@@ -19,7 +19,7 @@ class HoroscopeWidget extends CWidget
         $horoscope_seen = UserAttributes::get($this->user->id, 'horoscope_seen');
         $horoscope_subscribe = UserAttributes::get($this->user->id, 'horoscope_subscribe', 1);
 
-        if (!$horoscope_seen && $horoscope_subscribe && !empty($this->user->birthday) && date("H") < 12) {
+        if (!$horoscope_seen && $horoscope_subscribe && !empty($this->user->birthday) && date("H") < 13) {
             Yii::import('application.modules.services.modules.horoscope.models.*');
             $user_zodiac = Horoscope::model()->getDateZodiac($this->user->birthday);
 

@@ -111,20 +111,20 @@ class CommentatorDayWork extends EMongoEmbeddedDocument
                     $day_index = $_index;
 
             $modifier = new EMongoModifier();
-            $modifier->addModifier('days.'.$day_index.'.friends.requests', 'set', $this->friends['requests']);
-            $modifier->addModifier('days.'.$day_index.'.friends.friends', 'set', $this->friends['friends']);
+            $modifier->addModifier('days.' . $day_index . '.friends.requests', 'set', $this->friends['requests']);
+            $modifier->addModifier('days.' . $day_index . '.friends.friends', 'set', $this->friends['friends']);
 
-            $modifier->addModifier('days.'.$day_index.'.im.out', 'set', $this->im['out']);
-            $modifier->addModifier('days.'.$day_index.'.im.in', 'set', $this->im['in']);
-            $modifier->addModifier('days.'.$day_index.'.im.interlocutors_in', 'set', $this->im['interlocutors_in']);
-            $modifier->addModifier('days.'.$day_index.'.im.interlocutors_out', 'set', $this->im['interlocutors_out']);
+            $modifier->addModifier('days.' . $day_index . '.im.out', 'set', $this->im['out']);
+            $modifier->addModifier('days.' . $day_index . '.im.in', 'set', $this->im['in']);
+            $modifier->addModifier('days.' . $day_index . '.im.interlocutors_in', 'set', $this->im['interlocutors_in']);
+            $modifier->addModifier('days.' . $day_index . '.im.interlocutors_out', 'set', $this->im['interlocutors_out']);
 
-            $modifier->addModifier('days.'.$day_index.'.status', 'set', $this->status);
-            $modifier->addModifier('days.'.$day_index.'.created', 'set', $this->created);
-            $modifier->addModifier('days.'.$day_index.'.closed', 'set', $this->closed);
+            $modifier->addModifier('days.' . $day_index . '.status', 'set', $this->status);
+            $modifier->addModifier('days.' . $day_index . '.created', 'set', $this->created);
+            $modifier->addModifier('days.' . $day_index . '.closed', 'set', $this->closed);
 
-            $modifier->addModifier('days.'.$day_index.'.blog_posts', 'set', (int)$this->blog_posts);
-            $modifier->addModifier('days.'.$day_index.'.club_posts', 'set', (int)$this->club_posts);
+            $modifier->addModifier('days.' . $day_index . '.blog_posts', 'set', (int)$this->blog_posts);
+            $modifier->addModifier('days.' . $day_index . '.club_posts', 'set', (int)$this->club_posts);
 
             CommentatorWork::model()->updateAll($modifier, $criteria);
         }
@@ -150,9 +150,9 @@ class CommentatorDayWork extends EMongoEmbeddedDocument
                 $day_index = $_index;
 
         $modifier = new EMongoModifier();
-        $modifier->addModifier('days.'.$day_index.'.status', 'set', $this->status);
-        $modifier->addModifier('days.'.$day_index.'.blog_posts', 'set', (int)$this->blog_posts);
-        $modifier->addModifier('days.'.$day_index.'.club_posts', 'set', (int)$this->club_posts);
+        $modifier->addModifier('days.' . $day_index . '.status', 'set', $this->status);
+        $modifier->addModifier('days.' . $day_index . '.blog_posts', 'set', (int)$this->blog_posts);
+        $modifier->addModifier('days.' . $day_index . '.club_posts', 'set', (int)$this->club_posts);
 
         CommentatorWork::model()->updateAll($modifier, $criteria);
     }
@@ -188,7 +188,7 @@ class CommentatorDayWork extends EMongoEmbeddedDocument
     public function addAllPosts($user_id)
     {
         $criteria = new CDbCriteria;
-        $criteria->condition = 'created >= :day_start AND created <= :day_end AND author_id=:author_id AND rubric.user_id=:author_id AND type_id NOT IN (5,6)';
+        $criteria->condition = 'created >= :day_start AND created <= :day_end AND author_id=:author_id AND rubric.user_id=:author_id AND type_id NOT IN (5,6) AND removed=0';
         $criteria->with = array('rubric');
         $criteria->params = array(
             ':day_start' => $this->date . ' 00:00:00',
@@ -198,7 +198,7 @@ class CommentatorDayWork extends EMongoEmbeddedDocument
         $this->blog_posts = CommunityContent::model()->count($criteria);
 
         $criteria = new CDbCriteria;
-        $criteria->condition = 'created >= :day_start AND created <= :day_end AND author_id=:author_id AND rubric.user_id IS NULL AND type_id NOT IN (5,6)';
+        $criteria->condition = 'created >= :day_start AND created <= :day_end AND author_id=:author_id AND rubric.user_id IS NULL AND type_id NOT IN (5,6) AND removed=0';
         $criteria->with = array('rubric');
         $criteria->params = array(
             ':day_start' => $this->date . ' 00:00:00',
@@ -208,7 +208,7 @@ class CommentatorDayWork extends EMongoEmbeddedDocument
         $this->club_posts = CommunityContent::model()->count($criteria);
 
         $criteria = new CDbCriteria;
-        $criteria->condition = 'created >= :day_start AND created <= :day_end AND author_id=:author_id';
+        $criteria->condition = 'created >= :day_start AND created <= :day_end AND author_id=:author_id AND removed=0';
         $criteria->params = array(
             ':day_start' => $this->date . ' 00:00:00',
             ':day_end' => $this->date . ' 23:59:59',
@@ -270,7 +270,8 @@ class CommentatorDayWork extends EMongoEmbeddedDocument
      * @param $commentator CommentatorWork работа комментатора
      * @param $fields string поле для обновления
      */
-    public function updateFields($commentator, $fields){
+    public function updateFields($commentator, $fields)
+    {
         $criteria = new EMongoCriteria();
         $criteria->addCond('user_id', '==', $commentator->user_id);
 
@@ -281,8 +282,8 @@ class CommentatorDayWork extends EMongoEmbeddedDocument
                 $day_index = $_index;
 
         $modifier = new EMongoModifier();
-        foreach($fields as $field)
-            $modifier->addModifier('days.'.$day_index.'.'.$field, 'set', $this->$field);
+        foreach ($fields as $field)
+            $modifier->addModifier('days.' . $day_index . '.' . $field, 'set', $this->$field);
 
         CommentatorWork::model()->updateAll($modifier, $criteria);
     }

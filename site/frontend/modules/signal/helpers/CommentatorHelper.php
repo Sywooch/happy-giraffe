@@ -167,7 +167,7 @@ class CommentatorHelper
     public static function recordsCount($user_id, $month)
     {
         return CommunityContent::model()->resetScope()->count(
-            'author_id=:author_id AND created >= :start_time AND created <= :end_time AND removed=0',
+            'author_id=:author_id AND created >= :start_time AND created <= :end_time AND removed=0 AND type_id NOT IN (5, 6)',
             array(
                 'author_id' => $user_id,
                 ':start_time' => $month . '-01 00:00:00',

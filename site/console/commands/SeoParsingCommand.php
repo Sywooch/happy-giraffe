@@ -66,7 +66,7 @@ class SeoParsingCommand extends CConsoleCommand
      * Парсинг статистики сайтов конкурентов liveinternet.ru для модуля http://seo.happy-giraffe.ru/competitors/
      * @param int $site id сайта если хотим спарсить только один сайт
      */
-    public function actionLi($site)
+    public function actionLi($site = null)
     {
         $last_parsed = SeoUserAttributes::getAttribute('last_li_parsed_' . date("Y-m"), 1);
         if (empty($site)) {
@@ -92,7 +92,7 @@ class SeoParsingCommand extends CConsoleCommand
      * Парсинг статистики сайтов конкурентов mail.ru для модуля http://seo.happy-giraffe.ru/competitors/
      * @param int $site id сайта если хотим спарсить только один сайт
      */
-    public function actionMailru($site)
+    public function actionMailru($site = null)
     {
         $last_parsed = SeoUserAttributes::getAttribute('last_mailru_parsed_' . date("Y-m"), 1);
         if (empty($site)) {

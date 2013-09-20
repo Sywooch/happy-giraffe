@@ -189,7 +189,7 @@ class CommentatorHelper
             ->from('community__contents')
             ->where('author_id=:author_id AND created >= :start_time AND created <= :end_time AND removed=0',
                 array(
-                    'author_id' => $user_id,
+                    ':author_id' => $user_id,
                     ':start_time' => $month . '-01 00:00:00',
                     ':end_time' => $month . '-31 23:59:59',
                 )
@@ -197,7 +197,7 @@ class CommentatorHelper
 
         $max = 0;
         foreach ($recordIds as $recordId) {
-            $comments_count = Comment::model()->count('(entity="BlogContent" OR entity="CommunityContent") AND entity_id=:id',
+            $comments_count = Comment::model()->with('author')->count('(entity="BlogContent" OR entity="CommunityContent") AND entity_id=:id AND removed=0 AND author.`group` = 0',
                 array(':id' => $recordId));
             if ($comments_count > $max)
                 $max = $comments_count;

@@ -70,7 +70,7 @@ class SeoParsingCommand extends CConsoleCommand
     {
         $last_parsed = SeoUserAttributes::getAttribute('last_li_parsed_' . date("Y-m"), 1);
         if (empty($site)) {
-            $parser = new LiParser(false, true);
+            $parser = new LiParser();
 
             if (!empty($last_parsed))
                 $sites = Site::model()->findAll('id > ' . $last_parsed . ' AND type = 1 AND url != ""');
@@ -83,7 +83,7 @@ class SeoParsingCommand extends CConsoleCommand
                 SeoUserAttributes::setAttribute('last_li_parsed_' . date("Y-m"), $site->id, 1);
             }
         } else {
-            $parser = new LiParser(true, true);
+            $parser = new LiParser();
             $parser->start($site, $this->prev_year, $this->prev_month, $this->prev_month);
         }
     }
@@ -96,7 +96,7 @@ class SeoParsingCommand extends CConsoleCommand
     {
         $last_parsed = SeoUserAttributes::getAttribute('last_mailru_parsed_' . date("Y-m"), 1);
         if (empty($site)) {
-            $parser = new MailruParser(false, true);
+            $parser = new MailruParser();
 
             if (!empty($last_parsed))
                 $sites = Site::model()->findAll('id > ' . $last_parsed . ' AND type=2');
@@ -108,7 +108,7 @@ class SeoParsingCommand extends CConsoleCommand
                 SeoUserAttributes::setAttribute('last_mailru_parsed_' . date("Y-m"), $site->id, 1);
             }
         } else {
-            $parser = new MailruParser(false, true);
+            $parser = new MailruParser();
             $parser->start($site, $this->prev_year, $this->prev_month, $this->prev_month);
         }
     }

@@ -77,4 +77,10 @@ class UserPhotoCollection extends PhotoCollection
         $user = User::model()->findByPk($this->userId);
         return $user->url;
     }
+
+    public function getTitle()
+    {
+        $user = User::model()->findByPk($this->userId);
+        return 'Фотографии пользователя ' . $user->getFullName();
+    }
 }

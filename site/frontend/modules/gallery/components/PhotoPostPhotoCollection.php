@@ -60,4 +60,10 @@ class PhotoPostPhotoCollection extends PhotoCollection
         $post = CommunityContent::model()->findByPk($this->contentId);
         return $post->url;
     }
+
+    public function getTitle()
+    {
+        $post = CommunityContent::model()->findByPk($this->contentId);
+        return $post->title;
+    }
 }

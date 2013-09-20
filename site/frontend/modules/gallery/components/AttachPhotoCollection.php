@@ -86,4 +86,21 @@ class AttachPhotoCollection extends PhotoCollection
                 return $user->getFamilyUrl();
         }
     }
+
+    public function getTitle()
+    {
+        switch ($this->entityName) {
+            case 'User':
+                $user = User::model()->findByPk($this->entityId);
+                break;
+            case 'UserPartner':
+                $user = UserPartner::model()->findByPk($this->entityId)->user;
+                break;
+            case 'Baby':
+                $user = Baby::model()->findByPk($this->entityId)->parent;
+                break;
+        }
+
+        return 'Семейный альбом пользователя ' . $user->getFullName();
+    }
 }

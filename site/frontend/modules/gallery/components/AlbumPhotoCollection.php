@@ -63,4 +63,10 @@ class AlbumPhotoCollection extends PhotoCollection
         $album = Album::model()->findByPk($this->albumId);
         return $album->url;
     }
+
+    public function getTitle()
+    {
+        $album = Album::model()->findByPk($this->albumId);
+        return $album->title;
+    }
 }

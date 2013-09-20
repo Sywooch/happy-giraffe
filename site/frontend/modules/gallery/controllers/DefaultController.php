@@ -14,12 +14,13 @@ class DefaultController extends HController
         $windowOptions = Yii::app()->request->getQuery('windowOptions');
         $collectionOptions = Yii::app()->request->getQuery('collectionOptions');
         $collection = new $collectionClass($collectionOptions);
+        $collectionTitle = $collection->title;
         $initialIndex = $collection->getIndexById($initialPhotoId);
         $initialPhotos = $collection->getPhotosInRange($initialPhotoId, 5, 5);
         $count = $collection->count;
         $url = $collection->url;
         $userId = Yii::app()->user->id;
-        $json = compact('initialIndex', 'initialPhotos', 'initialPhotoId', 'count', 'collectionClass', 'collectionOptions', 'url', 'userId', 'windowOptions');
+        $json = compact('initialIndex', 'initialPhotos', 'initialPhotoId', 'count', 'collectionClass', 'collectionOptions', 'url', 'userId', 'windowOptions', 'collectionTitle');
 
         $this->renderPartial('window', compact('json'));
 	}

@@ -110,9 +110,8 @@ class CRouteLinking
             $this->route = Route::model()->findByPk($this->routes[$index]);
             $index++;
 
-            if ($this->route->inLinksCount > 0){
+            if ($this->route->inLinksCount > 0)
                 continue;
-            }
 
             $this->createRouteLinks();
 
@@ -124,6 +123,10 @@ class CRouteLinking
         }
     }
 
+    /**
+     * Ставим ссылки только с первым городом маршрута, так как есть
+     * обратный маршрут, в котором не должны совпасть ключевые слова
+     */
     private function createRouteLinks()
     {
         $this->createCityLinks($this->route->city_from_id);

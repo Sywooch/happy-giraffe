@@ -188,8 +188,7 @@ class CommentatorDayWork extends EMongoEmbeddedDocument
     public function addAllPosts($user_id)
     {
         $criteria = new CDbCriteria;
-        $criteria->condition = 'created >= :day_start AND created <= :day_end
-        AND author_id=:author_id AND rubric.user_id=:author_id';
+        $criteria->condition = 'created >= :day_start AND created <= :day_end AND author_id=:author_id AND rubric.user_id=:author_id AND type_id NOT IN (5,6)';
         $criteria->with = array('rubric');
         $criteria->params = array(
             ':day_start' => $this->date . ' 00:00:00',
@@ -199,7 +198,7 @@ class CommentatorDayWork extends EMongoEmbeddedDocument
         $this->blog_posts = CommunityContent::model()->count($criteria);
 
         $criteria = new CDbCriteria;
-        $criteria->condition = 'created >= :day_start AND created <= :day_end AND author_id=:author_id AND rubric.user_id IS NULL';
+        $criteria->condition = 'created >= :day_start AND created <= :day_end AND author_id=:author_id AND rubric.user_id IS NULL AND type_id NOT IN (5,6)';
         $criteria->with = array('rubric');
         $criteria->params = array(
             ':day_start' => $this->date . ' 00:00:00',

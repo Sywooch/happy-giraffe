@@ -1,7 +1,10 @@
 <?php
 /**
- * Author: alexk984
- * Date: 14.12.12
+ * Class LiSitesParser
+ *
+ * Сбор всех сайтов из liveinternet
+ *
+ * @author Alex Kireev <alexk984@gmail.com>
  */
 class LiSitesParser extends LiBaseParser
 {

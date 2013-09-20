@@ -18,11 +18,11 @@
         <?php
         $cs = Yii::app()->clientScript;
         $cs
-            ->registerCssFile('/redactor/redactor.css?' . $this->r)
-            ->registerCssFile('/stylesheets/common.css?' . $this->r)
-            ->registerCssFile('/stylesheets/global.css?' . $this->r)
-            ->registerCssFile('/stylesheets/user.css?' . $this->r)
-            ->registerCssFile('/stylesheets/baby.css?' . $this->r)
+            ->registerCssFile('/redactor/redactor.css')
+            ->registerCssFile('/stylesheets/common.css')
+            ->registerCssFile('/stylesheets/global.css')
+            ->registerCssFile('/stylesheets/user.css')
+            ->registerCssFile('/stylesheets/baby.css')
             ->registerCssFile('http://fonts.googleapis.com/css?family=Roboto:300&subset=latin,cyrillic-ext')
 
             ->registerCoreScript('jquery')
@@ -34,7 +34,7 @@
             ->registerCssFile('/stylesheets/jquery.fancybox-1.3.4.css')
             ->registerScriptFile('/javascripts/jquery.fancybox-1.3.4.js')
             ->registerScriptFile('/javascripts/base64.js')
-            ->registerScriptFile('/javascripts/common.js?' . $this->r)
+            ->registerScriptFile('/javascripts/common.js')
             ;
         if (!empty($this->meta_description))
             $cs->registerMetaTag(trim($this->meta_description), 'description');

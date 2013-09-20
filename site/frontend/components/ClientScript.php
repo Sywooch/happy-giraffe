@@ -35,6 +35,11 @@ class ClientScript extends CClientScript
         return parent::registerScriptFile($this->addReleaseId($url), $position, $htmlOptions);
     }
 
+    public function registerCssFile($url,$media='')
+    {
+        return parent::registerCssFile($this->addReleaseId($url), $media);
+    }
+
     public function renderCoreScripts()
     {
         if($this->coreScripts===null)

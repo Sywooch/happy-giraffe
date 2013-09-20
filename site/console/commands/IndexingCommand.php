@@ -1,9 +1,4 @@
 <?php
-/**
- * Author: alexk984
- * Date: 13.03.12
- */
-
 Yii::import('site.seo.models.*');
 Yii::import('site.seo.models.mongo.*');
 Yii::import('site.seo.components.*');
@@ -12,6 +7,13 @@ Yii::import('site.seo.modules.writing.models.*');
 Yii::import('site.seo.modules.promotion.models.*');
 Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
 
+/**
+ * Class IndexingCommand
+ *
+ * Модулить индексации - не используется более года
+ *
+ * @author Alex Kireev <alexk984@gmail.com>
+ */
 class IndexingCommand extends CConsoleCommand
 {
 

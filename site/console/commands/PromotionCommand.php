@@ -16,19 +16,21 @@ Yii::import('site.common.models.mongo.*');
 
 class PromotionCommand extends CConsoleCommand
 {
-    /** Парсим статистику по ключевым словам с метрики **/
+    /**
+     * Парсит статистику по ключевым словам с метрики
+     * и пересчитывает трафик по ключевым словам за последний месяц на Веселый Жираф
+     * @param null $date
+     */
     public function actionParseVisits($date = null)
     {
         $metrica = new YandexMetrica();
         $metrica->parseQueries($date);
-    }
-
-    public function actionCalcMonthTraffic()
-    {
         GiraffeLastMonthTraffic::calcMonthTraffic();
     }
 
-    /** Готовим парсинг позиций слов по которым заходили за последнюю неделю **/
+    /**
+     * Готовим парсинг позиций слов по которым заходили за последнюю неделю
+     */
     public function actionPrepare()
     {
         ParsingPosition::model()->deleteAll();
@@ -40,14 +42,21 @@ class PromotionCommand extends CConsoleCommand
         ParsingPosition::collectCompetitorsKeywords();
     }
 
-    /** Парсинг позиций в Яндексе **/
+    /**
+     * Парсинг позиций в Яндексе
+     *
+     * @param int $debug
+     */
     public function actionYandex($debug = 0)
     {
         $parser = new PositionParserThread(PositionParserThread::SE_YANDEX, $debug);
         $parser->start();
     }
 
-    /** Парсинг позиций в Google **/
+    /**
+     * Парсинг позиций в Google
+     * @param int $debug
+     */
     public function actionGoogle($debug = 0)
     {
         $parser = new PositionParserThread(PositionParserThread::SE_GOOGLE, $debug);

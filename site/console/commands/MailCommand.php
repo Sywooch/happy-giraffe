@@ -130,25 +130,4 @@ class MailCommand extends CConsoleCommand
             Yii::app()->email->send((int)$work->user_id, 'contest_continue', array('user' => $work->author, 'work' => $work), $this);
         }
     }
-
-    public function actionExport()
-    {
-        $users = Yii::app()->db_seo->createCommand()
-            ->select('email, name')
-            ->from('mailru__users')
-            ->where('id > 534973')
-            ->queryAll();
-
-        $fp = fopen('f:/file2.csv', 'w');
-
-        fputcsv($fp, array('Email', 'First Name'));
-        foreach ($users as $fields) {
-            foreach ($fields as $key => $field)
-                $fields[$key] = trim($field);
-
-            fputcsv($fp, $fields);
-        }
-
-        fclose($fp);
-    }
 }

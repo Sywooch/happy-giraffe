@@ -1,17 +1,23 @@
 <?php
-/**
- * Author: alexk984
- * Date: 05.10.12
- */
-
 Yii::import('site.seo.models.*');
 Yii::import('site.seo.components.*');
 Yii::import('site.seo.models.mongo.*');
 Yii::import('site.seo.modules.promotion.models.*');
 Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
 
+/**
+ * Class LinkingCommand
+ *
+ * Внутренняя перелинковка
+ *
+ * @author Alex Kireev <alexk984@gmail.com>
+ */
 class LinkingCommand extends CConsoleCommand
 {
+    /**
+     * Подготовка парсинга страниц нашего сайта в яндексе по ключевым словам
+     * нужно для поиска похожих страниц, чтобы использовать их в качестве доноров ссылок
+     */
     public function actionPrepareParsing()
     {
         Yii::app()->db_seo->createCommand()->delete('yandex_search_results');
@@ -20,7 +26,6 @@ class LinkingCommand extends CConsoleCommand
         $keywords = Yii::app()->db_seo->createCommand()
             ->selectDistinct('keyword_id')
             ->from('pages_search_phrases')
-            ->where('last_yandex_position < 1000 OR google_traffic > 0')
             ->queryColumn();
 
         foreach ($keywords as $keyword) {
@@ -30,34 +35,20 @@ class LinkingCommand extends CConsoleCommand
         }
     }
 
-    public function actionAddPhrases()
-    {
-        $keywords = Yii::app()->db_seo->createCommand()
-            ->selectDistinct('keyword_id')
-            ->from('pages_search_phrases')
-            ->queryColumn();
-
-        foreach ($keywords as $keyword) {
-            $keyword_model = Keyword::model()->findByPk($keyword);
-            if ($keyword_model === null) {
-                PagesSearchPhrase::model()->deleteAll('keyword_id=' . $keyword);
-                echo 'deleted' . "\n";
-            } elseif (YandexSearchKeyword::model()->findByPk($keyword) === null) {
-                $model = new YandexSearchKeyword;
-                $model->keyword_id = $keyword;
-                $model->save();
-            }
-        }
-    }
-
+    /**
+     * Парсинг страниц нашего сайта в яндексе по ключевым словам, нужно для поиска
+     * похожих страниц, чтобы использовать их в качестве доноров ссылок
+     */
     public function actionParse()
     {
-        Config::setAttribute('stop_threads', 0);
-
         $parser = new SearchResultsParser();
         $parser->start();
     }
 
+    /**
+     * Проставление внутренних ссылок на сервисы определения пола ребенка
+     * со страниц найденных в сфинксе по запросу "определение пола"
+     */
     public function actionServiceLinks()
     {
         $urls = array(
@@ -110,6 +101,10 @@ class LinkingCommand extends CConsoleCommand
         }
     }
 
+    /**
+     * Проставление внутренних ссылок на сервис гороскоп
+     * со страниц найденных в сфинксе по запросу "гороскоп"
+     */
     public function actionHoroscopeLinks()
     {
         $url = 'http://www.happy-giraffe.ru/horoscope/';
@@ -178,6 +173,11 @@ class LinkingCommand extends CConsoleCommand
         return CommunityContent::model()->findAll($criteria);
     }
 
+    /**
+     * Синхронизация внутренних ссылок из таблицы inner_linking__links в сео-бд и
+     * документами InnerLinksBlock в монго-бд. Дублирование нужно на случай если
+     * сео-бд будет недоступна и для ускорения выборки
+     */
     public function actionSync()
     {
         Yii::import('site.common.models.mongo.*');
@@ -185,40 +185,9 @@ class LinkingCommand extends CConsoleCommand
         InnerLinksBlock::model()->Sync($this);
     }
 
-    public function actionSyncRemoved()
-    {
-        Yii::import('site.common.models.mongo.*');
-        InnerLinksBlock::model()->RemoveDeleted();
-    }
-
-    public function actionCalcLinksCount()
-    {
-        $criteria = new CDbCriteria;
-        $criteria->limit = 100;
-        $criteria->offset = 0;
-
-        $models = array(0);
-        while (!empty($models)) {
-            $models = PagesSearchPhrase::model()->findAll($criteria);
-
-            foreach ($models as $model) {
-                $model->calculateLinksCount();
-            }
-
-            $criteria->offset += 100;
-
-            echo $criteria->offset . "\n";
-        }
-    }
-
-    public function actionCheckBadLinks()
-    {
-        $links = InnerLink::model()->findAll('page_id=page_to_id');
-        echo count($links) . "\n";
-        foreach ($links as $link)
-            $link->delete();
-    }
-
+    /**
+     * Запуск внутренней перелинковки статей
+     */
     public function actionLinks()
     {
         Yii::import('site.seo.modules.promotion.components.*');
@@ -226,6 +195,9 @@ class LinkingCommand extends CConsoleCommand
         $c->start();
     }
 
+    /**
+     * Добавление названий рецептов на парсинг в вордстат
+     */
     public function actionAddRecipesToParsing()
     {
         Yii::import('site.frontend.modules.cook.models.*');
@@ -242,6 +214,9 @@ class LinkingCommand extends CConsoleCommand
         }
     }
 
+    /**
+     * Перелинковка рецептов
+     */
     public function actionRecipes(){
         Yii::import('site.seo.modules.promotion.components.*');
         Yii::import('site.frontend.modules.cook.models.*');
@@ -250,6 +225,9 @@ class LinkingCommand extends CConsoleCommand
         $p->start();
     }
 
+    /**
+     * Удаление ссылок настатью / со статьи если она была удалена
+     */
     public function actionDeleteRemoved(){
         Yii::import('site.frontend.modules.cook.models.*');
         $pageIds = Yii::app()->db_seo->createCommand()

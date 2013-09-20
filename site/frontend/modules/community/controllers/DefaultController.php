@@ -25,19 +25,19 @@ class DefaultController extends HController
             $filters [] = array(
                 'COutputCache + forum',
                 'duration' => 300,
-                'varyByParam' => array('forum_id', 'rubric_id'),
+                'varyByParam' => array('forum_id', 'rubric_id', 'CommunityContent_page'),
             );
 
             $filters [] = array(
                 'COutputCache + club',
                 'duration' => 300,
-                'varyByParam' => array('club'),
+                'varyByParam' => array('club', 'CommunityContent_page'),
             );
 
             $filters [] = array(
                 'COutputCache + section',
                 'duration' => 300,
-                'varyByParam' => array('section_id'),
+                'varyByParam' => array('section_id', 'CommunityContent_page'),
             );
         }
 

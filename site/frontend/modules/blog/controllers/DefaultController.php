@@ -27,7 +27,7 @@ class DefaultController extends HController
             $filters [] = array(
                 'COutputCache + index',
                 'duration' => 300,
-                'varyByParam' => array('user_id', 'rubric_id'),
+                'varyByParam' => array('user_id', 'rubric_id', 'BlogContent_page'),
             );
         }
 

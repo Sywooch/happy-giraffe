@@ -196,6 +196,7 @@ class CommentatorHelper
             )->queryColumn();
 
         $max = 0;
+        echo $user_id . ': ' . implode(',', $recordIds) . "\n";
         foreach ($recordIds as $recordId) {
             $comments_count = Comment::model()->with('author')->count('(entity="BlogContent" OR entity="CommunityContent") AND entity_id=:id AND removed=0 AND author.`group` = 0',
                 array(':id' => $recordId));

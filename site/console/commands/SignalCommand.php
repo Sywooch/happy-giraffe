@@ -58,7 +58,7 @@ class SignalCommand extends CConsoleCommand
         foreach ($commentators as $commentator) {
             $model = $this->getCommentator($commentator);
             if ($model) {
-                for ($i = 1; $i < 20; $i++) {
+                for ($i = 1; $i < 22; $i++) {
                     $date = date("Y-m-d", strtotime('-' . $i . ' days'));
                     $day = $model->getDay($date);
                     if ($day)

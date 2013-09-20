@@ -20,6 +20,7 @@ function PhotoCollectionViewModel(data) {
 
     self.collectionClass = data.collectionClass;
     self.collectionOptions = data.collectionOptions;
+    self.collectionTitle = data.collectionTitle;
     self.userId = data.userId;
     self.count = data.count;
     self.url = data.url;
@@ -44,12 +45,6 @@ function PhotoCollectionViewModel(data) {
         return self.photos[self.currentPhotoIndex()];
     });
 
-    self.currentPhoto.subscribe(function () {
-        History.pushState(self.currentPhoto(), "Photo " + self.currentPhoto().id, self.currentPhoto().url());
-        _gaq.push(['_trackPageview', self.currentPhoto().url()]);
-        yaCounter11221648.hit(self.currentPhoto().url());
-    });
-
     self.isFullyLoaded = function () {
         return self.count == self.photos.length;
     };
@@ -62,6 +57,10 @@ function PhotoCollectionViewModel(data) {
             if (!self.isFullyLoaded() && self.currentPhotoIndex() >= self.photos.length - 3)
                 self.preloadMetaNext();
             self.currentPhoto().loadComments();
+
+            History.pushState(self.currentPhoto(), self.currentPhoto().title().length > 0 ? self.currentPhoto().title() : self.collectionTitle + ' - фото ' + self.currentNaturalIndex(), self.currentPhoto().url());
+            _gaq.push(['_trackPageview', self.currentPhoto().url()]);
+            yaCounter11221648.hit(self.currentPhoto().url());
         }
     }
 
@@ -73,6 +72,10 @@ function PhotoCollectionViewModel(data) {
             if (!self.isFullyLoaded() && self.currentPhotoIndex() <= 2)
                 self.preloadMetaPrev();
             self.currentPhoto().loadComments();
+
+            History.pushState(self.currentPhoto(), self.currentPhoto().title().length > 0 ? self.currentPhoto().title() : self.collectionTitle + ' - фото ' + self.currentNaturalIndex(), self.currentPhoto().url());
+            _gaq.push(['_trackPageview', self.currentPhoto().url()]);
+            yaCounter11221648.hit(self.currentPhoto().url());
         }
     }
 
@@ -125,6 +128,9 @@ function PhotoCollectionViewModel(data) {
     }
 
     self.currentPhotoIndex.valueHasMutated();
+    History.pushState(self.currentPhoto(), self.currentPhoto().title().length > 0 ? self.currentPhoto().title() : self.collectionTitle + ' - фото ' + self.currentNaturalIndex(), self.currentPhoto().url());
+    _gaq.push(['_trackPageview', self.currentPhoto().url()]);
+    yaCounter11221648.hit(self.currentPhoto().url());
     self.preloadImages(2, 2);
 }
 

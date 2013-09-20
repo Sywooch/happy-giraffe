@@ -23,12 +23,18 @@ class PromotionCommand extends CConsoleCommand
         $metrica->parseQueries($date);
     }
 
+    /**
+     * Трафик по ключевым словам за последний месяц на Веселый Жираф
+     * используется в модуле полуавтоматической перелинковки
+     */
     public function actionCalcMonthTraffic()
     {
         GiraffeLastMonthTraffic::calcMonthTraffic();
     }
 
-    /** Готовим парсинг позиций слов по которым заходили за последнюю неделю **/
+    /**
+     * Готовим парсинг позиций слов по которым заходили за последнюю неделю
+     */
     public function actionPrepare()
     {
         ParsingPosition::model()->deleteAll();
@@ -40,14 +46,21 @@ class PromotionCommand extends CConsoleCommand
         ParsingPosition::collectCompetitorsKeywords();
     }
 
-    /** Парсинг позиций в Яндексе **/
+    /**
+     * Парсинг позиций в Яндексе
+     *
+     * @param int $debug
+     */
     public function actionYandex($debug = 0)
     {
         $parser = new PositionParserThread(PositionParserThread::SE_YANDEX, $debug);
         $parser->start();
     }
 
-    /** Парсинг позиций в Google **/
+    /**
+     * Парсинг позиций в Google
+     * @param int $debug
+     */
     public function actionGoogle($debug = 0)
     {
         $parser = new PositionParserThread(PositionParserThread::SE_GOOGLE, $debug);

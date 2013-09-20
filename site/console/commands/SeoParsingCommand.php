@@ -71,10 +71,11 @@ class SeoParsingCommand extends CConsoleCommand
     {
         if (empty($last))
             $last = SeoUserAttributes::getAttribute('last_li_parsed_' . date("Y-m"), 1);
+
         if (empty($site)) {
             $parser = new LiParser();
 
-            if (!empty($last_parsed))
+            if (!empty($last))
                 $sites = Site::model()->findAll('id > ' . $last . ' AND type = 1 AND url != ""');
             else
                 $sites = Site::model()->findAll('type = 1 AND url != ""');
@@ -97,7 +98,9 @@ class SeoParsingCommand extends CConsoleCommand
      */
     public function actionMailru($site = null, $last = null)
     {
-        $last = SeoUserAttributes::getAttribute('last_mailru_parsed_' . date("Y-m"), 1);
+        if (empty($last))
+            $last = SeoUserAttributes::getAttribute('last_mailru_parsed_' . date("Y-m"), 1);
+
         if (empty($site)) {
             $parser = new MailruParser();
 

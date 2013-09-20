@@ -187,7 +187,10 @@ class CommentatorHelper
         $recordIds = Yii::app()->db->createCommand()
             ->select('id')
             ->from('community__contents')
-            ->where('author_id=:author_id AND created >= :start_time AND created <= :end_time AND removed=0',
+            ->where('author_id=:author_id AND
+                (created >= :start_time AND created <= :end_time OR
+                real_time >= :start_time AND real_time <= :end_time
+                ) AND removed=0',
                 array(
                     ':author_id' => $user_id,
                     ':start_time' => $month . '-01 00:00:00',
@@ -196,7 +199,6 @@ class CommentatorHelper
             )->queryColumn();
 
         $max = 0;
-        echo $user_id . ': ' . implode(',', $recordIds) . "\n";
         foreach ($recordIds as $recordId) {
             $comments_count = Comment::model()->with('author')->count('(entity="BlogContent" OR entity="CommunityContent") AND entity_id=:id AND removed=0 AND author.`group` = 0',
                 array(':id' => $recordId));

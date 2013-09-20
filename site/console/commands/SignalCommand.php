@@ -62,7 +62,7 @@ class SignalCommand extends CConsoleCommand
                     $date = date("Y-m-d", strtotime('-' . $i . ' days'));
                     $day = $model->getDay($date);
                     if ($day)
-                        $day->updatePosts($model);
+                        $day->updatePostsCount($model);
                 }
             }
         }

@@ -74,7 +74,7 @@
 						<div class="b-family_top b-family_top__white"></div>
 						<ul class="b-family_ul">
 							<li class="b-family_li">
-								<a href="">
+								<a href="" class="b-family_a">
 									<span class="b-family_img-hold">
 										<!-- Размеры изображений 55*55пк -->
 										<img src="/images/example/w41-h49-1.jpg" alt="" class="b-family_img">
@@ -86,7 +86,7 @@
 								</a>
 							</li>
 							<li class="b-family_li">
-								<a href="">
+								<a href=""  class="b-family_a">
 									<span class="b-family_img-hold">
 										<!-- Размеры изображений 55*55пк -->
 										<img src="/images/example/w60-h40.jpg" alt="" class="b-family_img">
@@ -98,7 +98,7 @@
 								</a>
 							</li>
 							<li class="b-family_li">
-								<a href="">
+								<a href=""  class="b-family_a">
 									<span class="b-family_img-hold">
 										<div class="ico-family ico-family__wife"></div>
 									</span>
@@ -109,7 +109,7 @@
 								</a>
 							</li>
 							<li class="b-family_li">
-								<a href="">
+								<a href=""  class="b-family_a">
 									<span class="b-family_img-hold">
 										<div class="ico-family ico-family__baby-plan"></div>
 									</span>
@@ -119,7 +119,7 @@
 								</a>
 							</li>
 							<li class="b-family_li">
-								<a href="">
+								<a href=""  class="b-family_a">
 									<span class="b-family_img-hold">
 										<div class="ico-family ico-family__girl-3"></div>
 									</span>
@@ -131,7 +131,7 @@
 								</a>
 							</li>
 							<li class="b-family_li">
-								<a href="">
+								<a href=""  class="b-family_a">
 									<span class="b-family_img-hold">
 										<div class="ico-family ico-family__girl-small"></div>
 									</span>
@@ -142,7 +142,7 @@
 								</a>
 							</li>
 							<li class="b-family_li">
-								<a href="">
+								<a href=""  class="b-family_a">
 									<span class="b-family_img-hold">
 										<div class="ico-family ico-family__girl-small"></div>
 									</span>
@@ -153,7 +153,7 @@
 								</a>
 							</li>
 							<li class="b-family_li">
-								<a href="">
+								<a href=""  class="b-family_a">
 									<span class="b-family_img-hold">
 										<div class="ico-family ico-family__girl-small"></div>
 									</span>
@@ -164,7 +164,7 @@
 								</a>
 							</li>
 							<li class="b-family_li">
-								<a href="">
+								<a href=""  class="b-family_a">
 									<span class="b-family_img-hold">
 										<div class="ico-family ico-family__girl-small"></div>
 									</span>

@@ -243,7 +243,7 @@ class GoogleAnalytics {
 		//send the data by curl
 		$ch = curl_init();
         if ($url != 'https://www.google.com/accounts/ClientLogin')
-            $url .= '&key=AIzaSyDqPaKSO0X7H4HVGInbMinKehAv9TmftiY';
+            $url .= '&key=AIzaSyDiQpmi-7EN9_qN--L3TGzCE6lTStkNPGE';
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);

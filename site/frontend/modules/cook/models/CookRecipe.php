@@ -1079,4 +1079,9 @@ class CookRecipe extends CActiveRecord
     {
         return 'CookRecipe';
     }
+
+    public function getCommentsCount()
+    {
+        return $this->getUnknownClassCommentsCount();
+    }
 }

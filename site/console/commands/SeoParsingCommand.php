@@ -65,15 +65,18 @@ class SeoParsingCommand extends CConsoleCommand
     /**
      * Парсинг статистики сайтов конкурентов liveinternet.ru для модуля http://seo.happy-giraffe.ru/competitors/
      * @param int $site id сайта если хотим спарсить только один сайт
+     * @param null $last id сайта с которого начинаем парсинг
      */
-    public function actionLi($site)
+    public function actionLi($site = null, $last = null)
     {
-        $last_parsed = SeoUserAttributes::getAttribute('last_li_parsed_' . date("Y-m"), 1);
-        if (empty($site)) {
-            $parser = new LiParser(false, true);
+        if (empty($last))
+            $last = SeoUserAttributes::getAttribute('last_li_parsed_' . date("Y-m"), 1);
 
-            if (!empty($last_parsed))
-                $sites = Site::model()->findAll('id > ' . $last_parsed . ' AND type = 1 AND url != ""');
+        if (empty($site)) {
+            $parser = new LiParser();
+
+            if (!empty($last))
+                $sites = Site::model()->findAll('id > ' . $last . ' AND type = 1 AND url != ""');
             else
                 $sites = Site::model()->findAll('type = 1 AND url != ""');
 
@@ -83,7 +86,7 @@ class SeoParsingCommand extends CConsoleCommand
                 SeoUserAttributes::setAttribute('last_li_parsed_' . date("Y-m"), $site->id, 1);
             }
         } else {
-            $parser = new LiParser(true, true);
+            $parser = new LiParser();
             $parser->start($site, $this->prev_year, $this->prev_month, $this->prev_month);
         }
     }
@@ -91,15 +94,18 @@ class SeoParsingCommand extends CConsoleCommand
     /**
      * Парсинг статистики сайтов конкурентов mail.ru для модуля http://seo.happy-giraffe.ru/competitors/
      * @param int $site id сайта если хотим спарсить только один сайт
+     * @param null $last id сайта с которого начинаем парсинг
      */
-    public function actionMailru($site)
+    public function actionMailru($site = null, $last = null)
     {
-        $last_parsed = SeoUserAttributes::getAttribute('last_mailru_parsed_' . date("Y-m"), 1);
-        if (empty($site)) {
-            $parser = new MailruParser(false, true);
+        if (empty($last))
+            $last = SeoUserAttributes::getAttribute('last_mailru_parsed_' . date("Y-m"), 1);
 
-            if (!empty($last_parsed))
-                $sites = Site::model()->findAll('id > ' . $last_parsed . ' AND type=2');
+        if (empty($site)) {
+            $parser = new MailruParser();
+
+            if (!empty($last))
+                $sites = Site::model()->findAll('id > ' . $last . ' AND type=2');
             else
                 $sites = Site::model()->findAll('type=2');
 
@@ -108,7 +114,7 @@ class SeoParsingCommand extends CConsoleCommand
                 SeoUserAttributes::setAttribute('last_mailru_parsed_' . date("Y-m"), $site->id, 1);
             }
         } else {
-            $parser = new MailruParser(false, true);
+            $parser = new MailruParser();
             $parser->start($site, $this->prev_year, $this->prev_month, $this->prev_month);
         }
     }

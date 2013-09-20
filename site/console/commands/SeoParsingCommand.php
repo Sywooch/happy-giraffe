@@ -65,15 +65,17 @@ class SeoParsingCommand extends CConsoleCommand
     /**
      * Парсинг статистики сайтов конкурентов liveinternet.ru для модуля http://seo.happy-giraffe.ru/competitors/
      * @param int $site id сайта если хотим спарсить только один сайт
+     * @param null $last id сайта с которого начинаем парсинг
      */
-    public function actionLi($site = null)
+    public function actionLi($site = null, $last = null)
     {
-        $last_parsed = SeoUserAttributes::getAttribute('last_li_parsed_' . date("Y-m"), 1);
+        if (empty($last))
+            $last = SeoUserAttributes::getAttribute('last_li_parsed_' . date("Y-m"), 1);
         if (empty($site)) {
             $parser = new LiParser();
 
             if (!empty($last_parsed))
-                $sites = Site::model()->findAll('id > ' . $last_parsed . ' AND type = 1 AND url != ""');
+                $sites = Site::model()->findAll('id > ' . $last . ' AND type = 1 AND url != ""');
             else
                 $sites = Site::model()->findAll('type = 1 AND url != ""');
 
@@ -91,15 +93,16 @@ class SeoParsingCommand extends CConsoleCommand
     /**
      * Парсинг статистики сайтов конкурентов mail.ru для модуля http://seo.happy-giraffe.ru/competitors/
      * @param int $site id сайта если хотим спарсить только один сайт
+     * @param null $last id сайта с которого начинаем парсинг
      */
-    public function actionMailru($site = null)
+    public function actionMailru($site = null, $last = null)
     {
-        $last_parsed = SeoUserAttributes::getAttribute('last_mailru_parsed_' . date("Y-m"), 1);
+        $last = SeoUserAttributes::getAttribute('last_mailru_parsed_' . date("Y-m"), 1);
         if (empty($site)) {
             $parser = new MailruParser();
 
-            if (!empty($last_parsed))
-                $sites = Site::model()->findAll('id > ' . $last_parsed . ' AND type=2');
+            if (!empty($last))
+                $sites = Site::model()->findAll('id > ' . $last . ' AND type=2');
             else
                 $sites = Site::model()->findAll('type=2');
 

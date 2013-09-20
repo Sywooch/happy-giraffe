@@ -18,16 +18,17 @@ Yii::import('site.frontend.helpers.*');
 
 class SeoCommand extends CConsoleCommand
 {
-    public function actionStopThreads()
-    {
-        Config::setAttribute('stop_threads', 1);
-    }
-
+    /**
+     * Обновление актуальных прокси для работы, запускается по крону раз в 5 минут
+     */
     public function actionProxy()
     {
         ProxyRefresher::executeMongo();
     }
 
+    /**
+     * Удаление дубликатов страниц в таблице pages
+     */
     public function actionDeletePageDuplicates()
     {
         Yii::import('site.common.behaviors.*');
@@ -47,25 +48,8 @@ class SeoCommand extends CConsoleCommand
                 if (count($samePages) > 1) {
                     echo $model->url . ' - ' . count($samePages) . "\n";
 
-                    $first = true;
                     foreach ($samePages as $samePage) {
-                        echo $samePage->outputLinksCount . ' : ' . $samePage->inputLinksCount
-                            . ' : ' . $samePage->taskCount . ' : ' . $samePage->phrasesCount
-                            . ' : ' . $samePage->keywordGroup->taskCount
-                            . ' : ' . count($samePage->keywordGroup->keywords) . "\n";
-
-//                        if ($samePage->outputLinksCount == 0
-//                            && $samePage->inputLinksCount == 0
-//                            && $samePage->taskCount == 0
-//                            && $samePage->phrasesCount == 0
-//                            && empty($samePage->keywordGroup->keywords)
-//                            && $samePage->keywordGroup->taskCount == 0
-//                        ) {
-                        if (!$first)
-                            $samePage->delete();
-//                        }
-
-                        $first = false;
+                        $samePage->delete();
                     }
                 }
             }
@@ -75,6 +59,9 @@ class SeoCommand extends CConsoleCommand
         }
     }
 
+    /**
+     * Проверка правильности entity в таблицу pages
+     */
     public function actionCheckEntities()
     {
         $criteria = new CDbCriteria;
@@ -100,161 +87,27 @@ class SeoCommand extends CConsoleCommand
         }
     }
 
-    public function actionPopular()
-    {
-        $criteria = new EMongoCriteria();
-        $criteria->limit(100);
-        $criteria->sort('views', EMongoCriteria::SORT_DESC);
-
-        $models = PageView::model()->findAll($criteria);
-        $res = array();
-        foreach ($models as $model) {
-            $se_visits = GApi::model()->organicSearches($model->_id, '2013-03-21', '2013-06-21', false);
-            if ($se_visits > 100)
-                echo 'http://www.happy-giraffe.ru' . $model->_id . ' - ' . $se_visits . "\n";
-
-            $res[$model->_id] = (int)$se_visits;
-        }
-
-        arsort($res);
-        foreach ($res as $key => $val)
-            echo $key . "\n";
-    }
-
-    function cmp($a, $b)
-    {
-        if ($a['views'] == $b['views'])
-            return 0;
-        return ($a['views'] > $b['views']) ? -1 : 1;
-    }
-
+    /**
+     * Парсинг ежедневного трафика на разделы/модули сайта (сео-модуль "Трафик")
+     * http://seo.happy-giraffe.ru/traffic/default/index/
+     */
     public function actionParseTraffic()
     {
         TrafficStatisctic::model()->parse();
     }
 
-    public function actionParseSeTraffic()
-    {
-        Yii::import('site.frontend.helpers.*');
-        Yii::import('site.frontend.extensions.*');
-        PageStatistics::model()->parseSe();
-    }
-
-    public function actionExport()
-    {
-        Yii::import('site.frontend.helpers.*');
-        Yii::import('site.frontend.extensions.*');
-        PageStatistics::model()->export();
-    }
-
-    public function excel($data)
-    {
-        $file_name = 'f:/file.xlsx';
-
-        $phpExcelPath = Yii::getPathOfAlias('site.common.extensions.phpExcel');
-        spl_autoload_unregister(array('YiiBase', 'autoload'));
-        include($phpExcelPath . DIRECTORY_SEPARATOR . 'PHPExcel.php');
-
-        // Create new PHPExcel object
-        $objPHPExcel = new PHPExcel();
-
-        // Set properties
-        $objPHPExcel->getProperties()->setCreator("Alex")
-            ->setLastModifiedBy("Alex")
-            ->setTitle("Articles")
-            ->setSubject("Articles")
-            ->setDescription("Articles");
-
-        // Add some data
-        $letters = array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O');
-
-        $sheet = $objPHPExcel->setActiveSheetIndex(0);
-        $j = 1;
-        foreach ($data as $fields) {
-            for ($i = 0; $i < count($fields); $i++) {
-                if (is_array($fields[$i])) {
-                    $sheet->setCellValue($letters[$i] . $j, $fields[$i][1]);
-                    $sheet->getCell($letters[$i] . $j)->getHyperlink()->setUrl($fields[$i][0]);
-                } else
-                    $sheet->setCellValue($letters[$i] . $j, $fields[$i]);
-            }
-            $j++;
-        }
-
-        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
-        $objWriter->save($file_name);
-
-        spl_autoload_register(array('YiiBase', 'autoload'));
-
-        return $file_name;
-    }
-
-    public function actionAddSites()
-    {
-        $sites = 'http://www.turizm.ru/
-http://auto.dmir.ru/
-http://calend.ru
-http://www.razumniki.ru/
-http://9months.ru/
-http://detskiysad.ru/
-http://www.best-mother.ru/
-http://vokrugsveta.ru/
-http://www.tvoyrebenok.ru/
-http://medinfa.ru/
-http://best-woman.ru/
-http://www.ufamama.ru/
-http://detstvo.ru/
-http://sport.ru/
-http://www.pitomec.ru/
-http://glavsport.ru
-http://mastera-rukodeliya.ru/
-http://detochka.ru/
-http://дошкольник.рф
-http://mama12.ru/
-http://www.hochusobaku.ru/
-http://avto-avto.ru/
-http://svadba.net.ru/
-http://www.doctorspb.ru/
-http://puzyaka.ru/
-http://radosvet.net/
-http://hobby-rukodelie.ru/
-http://domashn-maski.ru/
-http://mamapluspapa.ru/
-http://www.test-drive.ru/
-http://www.portal-woman.ru
-http://www.automania.ru
-http://www.medprof.ru/
-http://med-info.ru/
-http://www.med39.ru/
-http://autotechnica.ru/
-http://chudetstvo.ru/forum/
-http://supermams.ru/
-http://www.nevestushka.ru/';
-        $sites = explode("\n", $sites);
-        foreach ($sites as $site) {
-            $site = trim($site);
-            $res = Yii::app()->db_seo->createCommand()
-                ->select('*')
-                ->from('li_sites')
-                ->where('site_url LIKE "' . $site . '"')
-                ->queryAll();
-            if (!empty($res)) {
-                Yii::app()->db_seo->createCommand()->insert('sites__sites', array(
-                    'name' => $res[0]['url'],
-                    'url' => $res[0]['url'],
-                    'password' => $res[0]['password'],
-                    'section' => 11,
-                    'type' => 1,
-                ));
-            }
-        }
-    }
-
-    public function actionTest(){
-        for($i=0;$i<70;$i++){
-            Yii::app()->db_keywords->createCommand()->delete('keywords', 'id > 80000000 order by id asc limit 100000');
-            echo $i."\n";
-        }
-    }
+//    public function actionParseSeTraffic()
+//    {
+//        Yii::import('site.frontend.helpers.*');
+//        Yii::import('site.frontend.extensions.*');
+//        PageStatistics::model()->parseSe();
+//    }
+//
+//    public function actionExport()
+//    {
+//        Yii::import('site.frontend.helpers.*');
+//        Yii::import('site.frontend.extensions.*');
+//        PageStatistics::model()->export();
+//    }
 }
 

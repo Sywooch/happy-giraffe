@@ -38,67 +38,6 @@ class SignalCommand extends CConsoleCommand
         $commentator->setTeam($team);
     }
 
-    public function getModerator($user_id)
-    {
-        shuffle($this->moderators);
-
-        $friends = Yii::app()->db->createCommand()
-            ->select('user1_id')
-            ->from('friends')
-            ->where('user2_id = :user_id', array(':user_id' => $user_id))
-            ->union(
-                Yii::app()->db->createCommand()
-                    ->select('user2_id')
-                    ->from('friends')
-                    ->where('user1_id = :user_id', array(':user_id' => $user_id))
-                    ->text
-            )
-            ->queryColumn();
-
-        foreach ($this->moderators as $moder_id) {
-            if (!in_array($moder_id, $friends))
-                return $moder_id;
-        }
-
-        return null;
-    }
-
-    public function loadModerators()
-    {
-        $this->moderators = Yii::app()->db->createCommand()
-            ->select('userid')
-            ->from('auth__assignments')
-            ->where('itemname = "moderator"')
-            ->queryColumn();
-    }
-
-    public function actionCommentatorsEndMonth()
-    {
-        $month = CommentatorsMonth::model()->findByPk(date("Y-m", strtotime('-10 days')));
-        $month->calculateMonth();
-    }
-
-    public function actionAddCommentatorsToSeo()
-    {
-        $commentators = CommentatorWork::getWorkingCommentators();
-        foreach ($commentators as $commentator) {
-            $user = User::getUserById($commentator->user_id);
-
-            try {
-                $seo_user = new SeoUser;
-                $seo_user->email = $user->email;
-                $seo_user->name = $user->getFullName();
-                $seo_user->id = $user->id;
-                $seo_user->password = '33';
-                $seo_user->owner_id = '33';
-                $seo_user->related_user_id = $user->id;
-                $seo_user->save();
-            } catch (Exception $e) {
-
-            }
-        }
-    }
-
     /**
      * Синхронизировать кол-во заходов из поисковиков c mysql-базой
      * и пересчитать места и рейтинг комментаторов
@@ -110,22 +49,9 @@ class SignalCommand extends CConsoleCommand
         $month->calculateMonth();
     }
 
-    public function actionRecalcPosts()
-    {
-        $commentators = CommentatorHelper::getCommentatorIdList();
-        foreach ($commentators as $commentator) {
-            $model = $this->getCommentator($commentator);
-            if ($model) {
-                for ($i = 1; $i < 3; $i++) {
-                    $date = date("Y-m-d", strtotime('-' . $i . ' days'));
-                    $day = $model->getDay($date);
-                    if ($day)
-                        $day->updatePostsCount($model);
-                }
-            }
-        }
-    }
-
+    /**
+     * Пересчет статистики комментаторов за последние 20 дней
+     */
     public function actionRecalc()
     {
         $commentators = CommentatorHelper::getCommentatorIdList();
@@ -143,7 +69,7 @@ class SignalCommand extends CConsoleCommand
     }
 
     /**
-     * @param $commentator_id
+     * @param int $commentator_id
      * @return CommentatorWork
      */
     public function getCommentator($commentator_id)

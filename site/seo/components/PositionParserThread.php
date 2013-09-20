@@ -90,12 +90,11 @@ class PositionParserThread extends ProxyParserThread
             }
             $this->success_loads++;
 
-            foreach ($links as $key => $link) {
+            foreach ($links as $key => $link)
                 if ($this->startsWith($link, 'http://www.happy-giraffe.ru/')) {
                     $this->savePosition($link, $this->perPage() * $i + $key + 1);
                     $found = true;
                 }
-            }
 
             if ($found)
                 break;

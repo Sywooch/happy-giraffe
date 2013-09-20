@@ -16,19 +16,15 @@ Yii::import('site.common.models.mongo.*');
 
 class PromotionCommand extends CConsoleCommand
 {
-    /** Парсим статистику по ключевым словам с метрики **/
+    /**
+     * Парсит статистику по ключевым словам с метрики
+     * и пересчитывает трафик по ключевым словам за последний месяц на Веселый Жираф
+     * @param null $date
+     */
     public function actionParseVisits($date = null)
     {
         $metrica = new YandexMetrica();
         $metrica->parseQueries($date);
-    }
-
-    /**
-     * Трафик по ключевым словам за последний месяц на Веселый Жираф
-     * используется в модуле полуавтоматической перелинковки
-     */
-    public function actionCalcMonthTraffic()
-    {
         GiraffeLastMonthTraffic::calcMonthTraffic();
     }
 

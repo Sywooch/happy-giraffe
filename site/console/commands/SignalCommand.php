@@ -88,15 +88,16 @@ class SignalCommand extends CConsoleCommand
         $commentators = CommentatorHelper::getCommentatorIdList();
         $result = array_map(function($cId) {
             $user = User::model()->findByPk($cId);
-            $commentsCount = CommentatorHelper::commentsCount($cId, '09');
-            $goodCommentsCount = CommentatorHelper::commentsCount($cId, '09', true);
+            $userUrl = $user->getUrl(true);
+            $commentsCount = CommentatorHelper::commentsCount($cId, '2013-09');
+            $goodCommentsCount = CommentatorHelper::commentsCount($cId, '2013-09', true);
             $imStats = CommentatorHelper::imStats($cId, '2013-09-01', '2013-09-30');
             $messagesInCount = $imStats['in'];
             $messagesOutCount = $imStats['out'];
             $blogUniqueVisitors = GApi::model()->uniquePageViews($user->getBlogUrl(), '2013-09-01', '2013-09-30');
-            $postsCount = CommentatorHelper::recordsCount($cId, '09');
+            $postsCount = CommentatorHelper::recordsCount($cId, '2013-09');
 
-            return compact('commentsCount', 'goodCommentsCount', 'messagesOutCount', 'messagesInCount', 'blogUniqueVisitors', 'postsCount');
+            return compact('cId', 'userUrl', 'commentsCount', 'goodCommentsCount', 'messagesOutCount', 'messagesInCount', 'blogUniqueVisitors', 'postsCount');
         }, $commentators);
 
         foreach ($result as $row)

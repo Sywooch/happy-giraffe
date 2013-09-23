@@ -89,6 +89,7 @@ class SignalCommand extends CConsoleCommand
         $result = array_map(function($cId) {
             $user = User::model()->findByPk($cId);
             $userUrl = $user->getUrl(true);
+            $userName = $user->fullName();
             $commentsCount = CommentatorHelper::commentsCount($cId, '2013-09');
             $goodCommentsCount = CommentatorHelper::commentsCount($cId, '2013-09', true);
             $imStats = CommentatorHelper::imStats($cId, '2013-09-01', '2013-09-30');
@@ -97,10 +98,10 @@ class SignalCommand extends CConsoleCommand
             $blogUniqueVisitors = GApi::model()->uniquePageViews($user->getBlogUrl(), '2013-09-01', '2013-09-30');
             $postsCount = CommentatorHelper::recordsCount($cId, '2013-09');
 
-            return compact('cId', 'userUrl', 'commentsCount', 'goodCommentsCount', 'messagesOutCount', 'messagesInCount', 'blogUniqueVisitors', 'postsCount');
+            return compact('cId', 'userUrl', 'userName', 'commentsCount', 'goodCommentsCount', 'messagesOutCount', 'messagesInCount', 'blogUniqueVisitors', 'postsCount');
         }, $commentators);
 
         foreach ($result as $row)
-            echo implode(' | ', $row) . "\n";
+            echo implode(',', $row) . "\n";
     }
 }

@@ -14,18 +14,18 @@ class CacheCommand extends CConsoleCommand
         $dp = new CActiveDataProvider('CommunityContent');
         $iterator = new CDataProviderIterator($dp);
         foreach ($iterator as $c)
-            $c->fix();
+            $this->fix($c);
 
         $dp = new CActiveDataProvider('Comment');
         $iterator = new CDataProviderIterator($dp);
         foreach ($iterator as $c)
-            $c->fix();
+            $this->fix($c);
     }
 
     public function actionFixCdnImagesTest()
     {
         $model = CommunityContent::model()->findByPk(94302);
-        $model->fix();
+        $this->fix($model);
     }
 
     protected function fix($model)

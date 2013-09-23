@@ -8,7 +8,7 @@ $ownArticle = $model->author_id == Yii::app()->user->id;
 ?><div class="like-control like-control__small-indent clearfix">
     <?php if ($model->isPampers()): ?>
         <span class="ava">
-            <img src="/images/banners/ava-Pampers.jpg" alt="">
+            <img src="/images/banners/ava-Pampers.jpg" alt="Pampers">
         </span>
     <?php else: ?>
         <?php $this->widget('Avatar', array('user' => $model->by_happy_giraffe ? User::model()->findByPk(1) : $model->author)) ?>

@@ -1,7 +1,13 @@
 <div class="b-article b-article-prev clearfix">
     <div class="float-l">
         <div class="like-control like-control__smallest clearfix">
-            <?php $this->widget('Avatar', array('user' => $model->author, 'size' => 40)) ?>
+            <?php if ($model->isPampers()): ?>
+                <span class="ava middle">
+                    <img src="/images/banners/ava-Pampers.jpg" alt="Pampers">
+                </span>
+            <?php else: ?>
+                <?php $this->widget('Avatar', array('user' => $model->author, 'size' => 40)) ?>
+            <?php endif; ?>
             <?php $this->widget('application.modules.blog.widgets.LikeWidget', array('model' => $model)); ?>
             <!-- ko stopBinding: true -->
             <?php $this->widget('application.modules.blog.widgets.RepostWidget', array('model' => $model, 'right' => true)); ?>
@@ -25,7 +31,11 @@
             </div>
             <div class="float-l">
                 <div class="clearfix">
-                    <a class="b-article-prev_author" href="<?=$model->author->getUrl() ?>"><?=$model->author->first_name ?></a>
+                    <?php if ($model->isPampers()): ?>
+                        <span class="b-article-prev_author" style="color: #289fd7;">Pampers</span>
+                    <?php else: ?>
+                        <a class="b-article-prev_author" href="<?=$model->author->getUrl() ?>"><?=$model->author->first_name ?></a>
+                    <?php endif; ?>
                 </div>
                 <span class="font-smallest color-gray"><?=HDate::GetFormattedTime($model->created)?></span>
             </div>

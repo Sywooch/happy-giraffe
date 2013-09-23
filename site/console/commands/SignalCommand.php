@@ -87,7 +87,6 @@ class SignalCommand extends CConsoleCommand
     {
         $commentators = CommentatorHelper::getCommentatorIdList();
         $result = array_map(function($cId) {
-            $commentator = $this->getCommentator($cId);
             $user = User::model()->findByPk($cId);
             $commentsCount = CommentatorHelper::commentsCount($cId, '09');
             $goodCommentsCount = CommentatorHelper::commentsCount($cId, '09', true);

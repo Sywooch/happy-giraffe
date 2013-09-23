@@ -168,7 +168,7 @@ class Favourites extends EMongoDocument
         );
         $criteria->select = array('t.*');
         $criteria->compare('t.id', $ids);
-        $criteria->order = 't.id';
+        $criteria->order = 't.id ASC';
         $models = CommunityContent::model()->findAll($criteria);
 
         $sorted_models = array();

@@ -82,4 +82,23 @@ class SignalCommand extends CConsoleCommand
 
         return $model;
     }
+
+    public function actionStats()
+    {
+        $commentators = CommentatorHelper::getCommentatorIdList();
+        $result = array_map(function($cId) {
+            $commentator = $this->getCommentator($cId);
+            $user = User::model()->findByPk($cId);
+            $commentsCount = CommentatorHelper::commentsCount($cId, '09');
+            $goodCommentsCount = CommentatorHelper::commentsCount($cId, '09', true);
+            list($messagesOutCount, $messagesInCount) = CommentatorHelper::imStats($cId, '2013-09-01', '2013-09-30');
+            $blogUniqueVisitors = GApi::model()->uniquePageViews($user->getBlogUrl(), '2013-09-01', '2013-09-30');
+            $postsCount = CommentatorHelper::recordsCount($cId, '09');
+
+            return compact('commentsCount', 'goodCommentsCount', 'messagesOutCount', 'messagesInCount', 'blogUniqueVisitors', 'postsCount');
+        }, $commentators);
+
+        foreach ($result as $row)
+            echo implode(' | ', $row) . "\n";
+    }
 }

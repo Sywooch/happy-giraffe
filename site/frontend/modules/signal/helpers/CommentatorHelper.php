@@ -217,6 +217,11 @@ class CommentatorHelper
      */
     public static function goodCommentsCount($user_id, $month)
     {
+        return self::commentsCount($user_id, $month, $good = false);
+    }
+
+    public static function commentsCount($user_id, $month, $good = false)
+    {
         $texts = Yii::app()->db->createCommand()
             ->select('text')
             ->from('comments')
@@ -227,6 +232,9 @@ class CommentatorHelper
                     ':end_time' => $month . '-31 23:59:59',
                 )
             )->queryColumn();
+
+        if ($good === false)
+            return count($texts);
 
         $count = 0;
         foreach ($texts as $text) {

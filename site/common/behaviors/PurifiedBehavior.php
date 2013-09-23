@@ -91,7 +91,7 @@ class PurifiedBehavior extends CActiveRecordBehavior
 
             if (!isset($parsed_url['host'])) {
                 $link->outertext = '';
-            } elseif (strpos($parsed_url['host'], $_SERVER["HTTP_HOST"]) === false) {
+            } elseif (strpos($parsed_url['host'], $_SERVER["HTTP_HOST"]) === false && strpos($parsed_url['host'], 'adriver') === false) {
                 //внешние ссылки ставим в nofollow, _black, меняет url на /site/out/?url=
                 $link->rel = 'nofollow';
                 $link->target = '_blank';

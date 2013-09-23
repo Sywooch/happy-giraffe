@@ -1113,4 +1113,9 @@ class CommunityContent extends HActiveRecord
         $commentsDependency->params = array(':content_id' => $this->id);
         return new CChainedCacheDependency(array($contentDependency, $commentsDependency));
     }
+
+    public function isPampers()
+    {
+        return $this->id == 101319;
+    }
 }

@@ -89,7 +89,7 @@ class SignalCommand extends CConsoleCommand
         $result = array_map(function($cId) {
             $user = User::model()->findByPk($cId);
             $userUrl = $user->getUrl(true);
-            $userName = $user->fullName();
+            $userName = $user->getFullName();
             $commentsCount = CommentatorHelper::commentsCount($cId, '2013-09');
             $goodCommentsCount = CommentatorHelper::commentsCount($cId, '2013-09', true);
             $imStats = CommentatorHelper::imStats($cId, '2013-09-01', '2013-09-30');

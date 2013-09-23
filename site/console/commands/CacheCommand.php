@@ -32,6 +32,5 @@ class CacheCommand extends CConsoleCommand
     {
         $text = preg_replace('/img(?:\d+).happy-giraffe.ru/', 'img.happy-giraffe.ru', $model->text);
         $model->updateByPk($model->id, array('text' => $text));
-        $model->purified->clearCache();
     }
 }

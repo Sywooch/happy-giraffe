@@ -11,7 +11,7 @@ class CacheCommand extends CConsoleCommand
 {
     public function actionFixCdnImages()
     {
-        $dp = new CActiveDataProvider('CommunityContent');
+        $dp = new CActiveDataProvider('CommunityPost');
         $iterator = new CDataProviderIterator($dp);
         foreach ($iterator as $c)
             $this->fix($c);

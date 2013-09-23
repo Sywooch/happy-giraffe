@@ -20,7 +20,11 @@ if ($model->by_happy_giraffe)
         </div>
     </div>
     <div class="float-l">
-        <a href="<?=$author->getUrl() ?>" class="b-article_author"><?=$author->getFullName() ?></a>
+        <?php if ($model->isPampers()): ?>
+            <span class="b-article_author" style="text-decoration: none;">Pampers</span>
+        <?php else: ?>
+            <a href="<?=$author->getUrl() ?>" class="b-article_author"><?=$author->getFullName() ?></a>
+        <?php endif; ?>
         <span class="font-smallest color-gray"><?=Yii::app()->dateFormatter->format("d MMMM yyyy, H:mm", $model->created)?></span>
     </div>
 </div>

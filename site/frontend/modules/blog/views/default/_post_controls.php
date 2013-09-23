@@ -6,7 +6,13 @@ $ViewModelData = $model->getSettingsViewModel();
 $ownArticle = $model->author_id == Yii::app()->user->id;
 
 ?><div class="like-control like-control__small-indent clearfix">
-    <?php $this->widget('Avatar', array('user' => $model->by_happy_giraffe ? User::model()->findByPk(1) : $model->author)) ?>
+    <?php if ($model->isPampers()): ?>
+        <span class="ava">
+            <img src="/images/banners/ava-Pampers.jpg" alt="">
+        </span>
+    <?php else: ?>
+        <?php $this->widget('Avatar', array('user' => $model->by_happy_giraffe ? User::model()->findByPk(1) : $model->author)) ?>
+    <?php endif; ?>
 </div>
 <div class="js-like-control<?php if ($ownArticle) echo ' like-control__self' ?>" data-bind="visible: ! removed()">
     <div class="like-control like-control__pinned clearfix">

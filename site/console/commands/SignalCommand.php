@@ -90,7 +90,9 @@ class SignalCommand extends CConsoleCommand
             $user = User::model()->findByPk($cId);
             $commentsCount = CommentatorHelper::commentsCount($cId, '09');
             $goodCommentsCount = CommentatorHelper::commentsCount($cId, '09', true);
-            list($messagesOutCount, $messagesInCount) = CommentatorHelper::imStats($cId, '2013-09-01', '2013-09-30');
+            $imStats = CommentatorHelper::imStats($cId, '2013-09-01', '2013-09-30');
+            $messagesInCount = $imStats['in'];
+            $messagesOutCount = $imStats['out'];
             $blogUniqueVisitors = GApi::model()->uniquePageViews($user->getBlogUrl(), '2013-09-01', '2013-09-30');
             $postsCount = CommentatorHelper::recordsCount($cId, '09');
 

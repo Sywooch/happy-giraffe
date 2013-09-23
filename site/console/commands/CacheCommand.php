@@ -24,7 +24,7 @@ class CacheCommand extends CConsoleCommand
 
     public function actionFixCdnImagesTest()
     {
-        $model = CommunityContent::model()->findByPk(94302);
+        $model = CommunityPost::model()->find('content_id = :content_id', array(':content_id' => 94302));
         $this->fix($model);
     }
 

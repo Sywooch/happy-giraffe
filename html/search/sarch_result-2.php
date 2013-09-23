@@ -76,6 +76,11 @@
 							<span class="menu-list_tx">Видео</span>
 							<span class="menu-list_count">685</span>
 						</a>
+						<a href="" class="menu-list_i menu-list_i__cook">
+							<span class="menu-list_ico"></span>
+							<span class="menu-list_tx">Кулинарная книга</span>
+							<span class="menu-list_count">685</span>
+						</a>
 					</div>
 				</div>
 				

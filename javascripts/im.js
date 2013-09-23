@@ -11,7 +11,9 @@ im.scrollBottom = function () {
  * Запускать при начальной загрузке страницы и изменении высоты окна браузера
  */
 im.messagesHeight = function () {
-    var h = im.windowHeight - im.headerHeight - im.topHeight - im.bottom.height() - 17; // 17 - отступы в блоках
+    // 17 - отступы в блоках, 
+    // 130 высота .im-center_top
+    var h = im.windowHeight - im.headerHeight - 130 - im.bottom.height() - 17; 
     im.container.height(h);
 }
 
@@ -49,7 +51,6 @@ $(window).load(function() {
     im.bottom = $('.im-center_bottom');
 
     im.headerHeight = $('.layout-header').height();
-    im.topHeight = $('.im-center_top').height();
     im.contactHideA = $('.im-sidebar_hide-a');
 
 

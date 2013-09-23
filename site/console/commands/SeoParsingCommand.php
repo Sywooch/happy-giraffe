@@ -69,12 +69,8 @@ class SeoParsingCommand extends CConsoleCommand
      */
     public function actionLi($site = null, $last = null)
     {
-        if (empty($last))
-            $last = SeoUserAttributes::getAttribute('last_li_parsed_' . date("Y-m"), 1);
-
         if (empty($site)) {
-            $parser = new LiParser();
-
+            $parser = new LiParser(true, true);
             if (!empty($last))
                 $sites = Site::model()->findAll('id > ' . $last . ' AND type = 1 AND url != ""');
             else
@@ -83,7 +79,6 @@ class SeoParsingCommand extends CConsoleCommand
             foreach ($sites as $site) {
                 echo $site->id . "\n";
                 $parser->start($site->id, $this->prev_year, $this->prev_month, $this->prev_month);
-                SeoUserAttributes::setAttribute('last_li_parsed_' . date("Y-m"), $site->id, 1);
             }
         } else {
             $parser = new LiParser();
@@ -98,21 +93,16 @@ class SeoParsingCommand extends CConsoleCommand
      */
     public function actionMailru($site = null, $last = null)
     {
-        if (empty($last))
-            $last = SeoUserAttributes::getAttribute('last_mailru_parsed_' . date("Y-m"), 1);
-
         if (empty($site)) {
-            $parser = new MailruParser();
+            $parser = new MailruParser(true, true);
 
             if (!empty($last))
                 $sites = Site::model()->findAll('id > ' . $last . ' AND type=2');
             else
                 $sites = Site::model()->findAll('type=2');
 
-            foreach ($sites as $site) {
+            foreach ($sites as $site)
                 $parser->start($site->id, $this->prev_year, $this->prev_month, $this->prev_month);
-                SeoUserAttributes::setAttribute('last_mailru_parsed_' . date("Y-m"), $site->id, 1);
-            }
         } else {
             $parser = new MailruParser();
             $parser->start($site, $this->prev_year, $this->prev_month, $this->prev_month);
@@ -195,21 +185,22 @@ class SeoParsingCommand extends CConsoleCommand
      * Добавить конкурента в модуль конкурентов
      * @param $id
      */
-    public function actionAddLiSite($id){
+    public function actionAddLiSite($id)
+    {
         $site = LiSite::model()->findByPk($id);
-        $exist = Site::model()->findByAttributes(array('url'=>$site->url));
-        if ($exist){
+        $exist = Site::model()->findByAttributes(array('url' => $site->url));
+        if ($exist) {
             echo "exist\n";
             Yii::app()->end();
         }
-        $site2= new Site;
-        $site2->name =$site->url;
-        $site2->url =$site->url;
-        $site2->password =$site->password;
+        $site2 = new Site;
+        $site2->name = $site->url;
+        $site2->url = $site->url;
+        $site2->password = $site->password;
         $site2->type = Site::TYPE_LI;
-        if ($site2->save()){
-            echo $site2->id."\n";
-        }else
+        if ($site2->save()) {
+            echo $site2->id . "\n";
+        } else
             echo "error\n";
     }
 }

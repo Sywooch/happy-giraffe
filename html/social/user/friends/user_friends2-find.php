@@ -246,34 +246,40 @@
 							<div class="b-family">
 								<ul class="b-family_ul">
 									<li class="b-family_li">
-										<div class="b-family_img-hold">
-											<!-- Размеры изображений 55*55пк -->
-											<img class="b-family_img" alt="" src="/images/example/w41-h49-1.jpg">
-										</div>
-										<div class="b-family_tx">
-											<span>Жена</span> <br>
-											<span>Елена</span>
-										</div>
+										<a href="" class="b-family_a">
+											<span class="b-family_img-hold">
+												<!-- Размеры изображений 55*55пк -->
+												<img class="b-family_img" alt="" src="/images/example/w41-h49-1.jpg">
+											</span>
+											<span class="b-family_tx">
+												<span>Жена</span> <br>
+												<span>Елена</span>
+											</span>
+										</a>
 									</li>
 									<li class="b-family_li">
-										<div class="b-family_img-hold">
-											<div class="ico-family ico-family__boy-19"></div>
-										</div>
-										<div class="b-family_tx">
-											<span>Сын</span> <br>
-											<span>Алекс</span> <br>
-											<span>18 лет</span>
-										</div>
+										<a href="" class="b-family_a">
+											<span class="b-family_img-hold">
+												<span class="ico-family ico-family__boy-19"></span>
+											</span>
+											<span class="b-family_tx">
+												<span>Сын</span> <br>
+												<span>Алекс</span> <br>
+												<span>18 лет</span>
+											</span>
+										</a>
 									</li>
 									<li class="b-family_li">
-										<div class="b-family_img-hold">
-											<div class="ico-family ico-family__boy-small"></div>
-										</div>
-										<div class="b-family_tx">
-											<span>Дочь</span> <br>
-											<span>Снежана</span> <br>
-											<span>2,5 года</span>
-										</div>
+										<a href="" class="b-family_a">
+											<span class="b-family_img-hold">
+												<span class="ico-family ico-family__boy-small"></span>
+											</span>
+											<span class="b-family_tx">
+												<span>Дочь</span> <br>
+												<span>Снежана</span> <br>
+												<span>2,5 года</span>
+											</span>
+										</a>
 									</li>
 								</ul>
 							</div>
@@ -352,24 +358,40 @@
 							<div class="b-family">
 								<ul class="b-family_ul">
 									<li class="b-family_li">
-										<div class="b-family_img-hold">
-											<!-- Размеры изображений 55*55пк -->
-											<img class="b-family_img" alt="" src="/images/example/w41-h49-1.jpg">
-										</div>
-										<div class="b-family_tx">
-											<span>Жена</span> <br>
-											<span>Елена</span>
-										</div>
+										<a href="" class="b-family_a">
+											<span class="b-family_img-hold">
+												<!-- Размеры изображений 55*55пк -->
+												<img class="b-family_img" alt="" src="/images/example/w41-h49-1.jpg">
+											</span>
+											<span class="b-family_tx">
+												<span>Жена</span> <br>
+												<span>Елена</span>
+											</span>
+										</a>
 									</li>
 									<li class="b-family_li">
-										<div class="b-family_img-hold">
-											<img class="b-family_img" alt="" src="/images/example/w60-h40.jpg">
-										</div>
-										<div class="b-family_tx">
-											<span>Сын</span> <br>
-											<span>Александр</span> <br>
-											<span>10 лет</span>
-										</div>
+										<a href="" class="b-family_a">
+											<span class="b-family_img-hold">
+												<span class="ico-family ico-family__boy-19"></span>
+											</span>
+											<span class="b-family_tx">
+												<span>Сын</span> <br>
+												<span>Алекс</span> <br>
+												<span>18 лет</span>
+											</span>
+										</a>
+									</li>
+									<li class="b-family_li">
+										<a href="" class="b-family_a">
+											<span class="b-family_img-hold">
+												<span class="ico-family ico-family__boy-small"></span>
+											</span>
+											<span class="b-family_tx">
+												<span>Дочь</span> <br>
+												<span>Снежана</span> <br>
+												<span>2,5 года</span>
+											</span>
+										</a>
 									</li>
 								</ul>
 							</div>
@@ -410,61 +432,64 @@
 							<div class="b-family">
 								<ul class="b-family_ul">
 									<li class="b-family_li">
-										<div class="b-family_img-hold">
-											<!-- Размеры изображений 55*55пк -->
-											<img class="b-family_img" alt="" src="/images/example/w41-h49-1.jpg">
-										</div>
-										<div class="b-family_tx">
-											<span>Жена</span> <br>
-											<span>Елена</span>
-										</div>
+										<a href="" class="b-family_a">
+											<span class="b-family_img-hold">
+												<!-- Размеры изображений 55*55пк -->
+												<img class="b-family_img" alt="" src="/images/example/w41-h49-1.jpg">
+											</span>
+											<span class="b-family_tx">
+												<span>Жена</span> <br>
+												<span>Елена</span>
+											</span>
+										</a>
 									</li>
 									<li class="b-family_li">
-										<div class="b-family_img-hold">
-											<div class="ico-family ico-family__boy-19"></div>
-										</div>
-										<div class="b-family_tx">
-											<span>Сын</span> <br>
-											<span>Алекс</span> <br>
-											<span>18 лет</span>
-										</div>
+										<a href="" class="b-family_a">
+											<span class="b-family_img-hold">
+												<span class="ico-family ico-family__boy-19"></span>
+											</span>
+											<span class="b-family_tx">
+												<span>Сын</span> <br>
+												<span>Алекс</span> <br>
+												<span>18 лет</span>
+											</span>
+										</a>
 									</li>
 									<li class="b-family_li">
-										<div class="b-family_img-hold">
-											<img class="b-family_img" alt="" src="/images/example/w64-h61-1.jpg">
-										</div>
-										<div class="b-family_tx">
-											<span>Дочь</span> <br>
-											<span>Снежана</span> <br>
-											<span>2,5 года</span>
-										</div>
+										<a href="" class="b-family_a">
+											<span class="b-family_img-hold">
+												<span class="ico-family ico-family__boy-small"></span>
+											</span>
+											<span class="b-family_tx">
+												<span>Дочь</span> <br>
+												<span>Снежана</span> <br>
+												<span>2,5 года</span>
+											</span>
+										</a>
 									</li>
 									<li class="b-family_li">
-										<div class="b-family_img-hold">
-											<div class="ico-family ico-family__girl-small"></div>
-										</div>
-										<div class="b-family_tx">
-											<span>Дочь</span> <br>
-											<span>Снежана</span> <br>
-											<span>2,5 года</span>
-										</div>
+										<a href="" class="b-family_a">
+											<span class="b-family_img-hold">
+												<span class="ico-family ico-family__boy-19"></span>
+											</span>
+											<span class="b-family_tx">
+												<span>Сын</span> <br>
+												<span>Алекс</span> <br>
+												<span>18 лет</span>
+											</span>
+										</a>
 									</li>
 									<li class="b-family_li">
-										<div class="b-family_img-hold">
-											<div class="ico-family ico-family__boy-small"></div>
-										</div>
-										<div class="b-family_tx">
-											<span>Дочь</span> <br>
-											<span>Снежана</span> <br>
-											<span>2,5 года</span>
-										</div>
-									</li>
-									<li class="b-family_li">
-										<div class="b-family_img-hold">
-											<a class="b-family_more" href="">еще 3</a>
-										</div>
-										<div class="b-family_tx">
-										</div>
+										<a href="" class="b-family_a">
+											<span class="b-family_img-hold">
+												<span class="ico-family ico-family__boy-small"></span>
+											</span>
+											<span class="b-family_tx">
+												<span>Дочь</span> <br>
+												<span>Снежана</span> <br>
+												<span>2,5 года</span>
+											</span>
+										</a>
 									</li>
 								</ul>
 							</div>
@@ -504,24 +529,28 @@
 							<div class="b-family">
 								<ul class="b-family_ul">
 									<li class="b-family_li">
-										<div class="b-family_img-hold">
-											<!-- Размеры изображений 55*55пк -->
-											<img class="b-family_img" alt="" src="/images/example/w41-h49-1.jpg">
-										</div>
-										<div class="b-family_tx">
-											<span>Жена</span> <br>
-											<span>Елена</span>
-										</div>
+										<a href="" class="b-family_a">
+											<span class="b-family_img-hold">
+												<!-- Размеры изображений 55*55пк -->
+												<img class="b-family_img" alt="" src="/images/example/w41-h49-1.jpg">
+											</span>
+											<span class="b-family_tx">
+												<span>Жена</span> <br>
+												<span>Елена</span>
+											</span>
+										</a>
 									</li>
 									<li class="b-family_li">
-										<div class="b-family_img-hold">
-											<div class="ico-family ico-family__boy-19"></div>
-										</div>
-										<div class="b-family_tx">
-											<span>Сын</span> <br>
-											<span>Алекс</span> <br>
-											<span>18 лет</span>
-										</div>
+										<a href="" class="b-family_a">
+											<span class="b-family_img-hold">
+												<span class="ico-family ico-family__boy-small"></span>
+											</span>
+											<span class="b-family_tx">
+												<span>Дочь</span> <br>
+												<span>Снежана</span> <br>
+												<span>2,5 года</span>
+											</span>
+										</a>
 									</li>
 								</ul>
 							</div>
@@ -561,34 +590,40 @@
 							<div class="b-family">
 								<ul class="b-family_ul">
 									<li class="b-family_li">
-										<div class="b-family_img-hold">
-											<!-- Размеры изображений 55*55пк -->
-											<img class="b-family_img" alt="" src="/images/example/w41-h49-1.jpg">
-										</div>
-										<div class="b-family_tx">
-											<span>Жена</span> <br>
-											<span>Елена</span>
-										</div>
+										<a href="" class="b-family_a">
+											<span class="b-family_img-hold">
+												<!-- Размеры изображений 55*55пк -->
+												<img class="b-family_img" alt="" src="/images/example/w41-h49-1.jpg">
+											</span>
+											<span class="b-family_tx">
+												<span>Жена</span> <br>
+												<span>Елена</span>
+											</span>
+										</a>
 									</li>
 									<li class="b-family_li">
-										<div class="b-family_img-hold">
-											<img class="b-family_img" alt="" src="/images/example/w64-h61-1.jpg">
-										</div>
-										<div class="b-family_tx">
-											<span>Дочь</span> <br>
-											<span>Снежана</span> <br>
-											<span>2,5 года</span>
-										</div>
+										<a href="" class="b-family_a">
+											<span class="b-family_img-hold">
+												<span class="ico-family ico-family__boy-19"></span>
+											</span>
+											<span class="b-family_tx">
+												<span>Сын</span> <br>
+												<span>Алекс</span> <br>
+												<span>18 лет</span>
+											</span>
+										</a>
 									</li>
 									<li class="b-family_li">
-										<div class="b-family_img-hold">
-											<div class="ico-family ico-family__girl-small"></div>
-										</div>
-										<div class="b-family_tx">
-											<span>Дочь</span> <br>
-											<span>Снежана</span> <br>
-											<span>2,5 года</span>
-										</div>
+										<a href="" class="b-family_a">
+											<span class="b-family_img-hold">
+												<span class="ico-family ico-family__boy-small"></span>
+											</span>
+											<span class="b-family_tx">
+												<span>Дочь</span> <br>
+												<span>Снежана</span> <br>
+												<span>2,5 года</span>
+											</span>
+										</a>
 									</li>
 								</ul>
 							</div>

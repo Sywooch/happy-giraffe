@@ -350,7 +350,7 @@ class AlbumPhoto extends HActiveRecord
     public function getOriginalUrl()
     {
         return implode('/', array(
-            YII_DEBUG ? Yii::app()->params['photos_url'] : $this->getCdnHost(),
+            $this->getHost(),
             $this->original_folder,
             $this->author_id,
             $this->fs_name,
@@ -492,7 +492,7 @@ class AlbumPhoto extends HActiveRecord
     {
         $this->getPreviewPath($width, $height, $master, $crop, $crop_side);
         return implode('/', array(
-            YII_DEBUG ? Yii::app()->params['photos_url'] : $this->getCdnHost(),
+            $this->getHost(),
             $this->thumb_folder,
             $width . 'x' . $height,
             $this->author_id,
@@ -542,7 +542,7 @@ class AlbumPhoto extends HActiveRecord
     public function getAvatarUrl($size)
     {
         return implode('/', array(
-            YII_DEBUG ? Yii::app()->params['photos_url'] : $this->getCdnHost(),
+            $this->getHost(),
             $this->avatars_folder,
             $this->author_id,
             $size,
@@ -564,7 +564,7 @@ class AlbumPhoto extends HActiveRecord
     public function getBlogUrl()
     {
         return implode('/', array(
-            YII_DEBUG ? Yii::app()->params['photos_url'] : $this->getCdnHost(),
+            $this->getHost(),
             $this->blogs_folder,
             $this->author_id,
             $this->fs_name
@@ -810,18 +810,20 @@ class AlbumPhoto extends HActiveRecord
         return null;
     }
 
-    protected function getCdnHost()
+    protected function getHost()
     {
-        $hosts = array(
-            'http://img1.happy-giraffe.ru',
-            'http://img2.happy-giraffe.ru',
-            'http://img3.happy-giraffe.ru',
-            'http://img4.happy-giraffe.ru',
-            'http://img5.happy-giraffe.ru',
-            'http://img6.happy-giraffe.ru',
-            'http://img7.happy-giraffe.ru',
-        );
-
-        return $hosts[array_rand($hosts)];
+        return Yii::app()->params['photos_url'];
+//
+//        $hosts = array(
+//            'http://img1.happy-giraffe.ru',
+//            'http://img2.happy-giraffe.ru',
+//            'http://img3.happy-giraffe.ru',
+//            'http://img4.happy-giraffe.ru',
+//            'http://img5.happy-giraffe.ru',
+//            'http://img6.happy-giraffe.ru',
+//            'http://img7.happy-giraffe.ru',
+//        );
+//
+//        return $hosts[array_rand($hosts)];
     }
 }

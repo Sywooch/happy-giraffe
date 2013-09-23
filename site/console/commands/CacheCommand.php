@@ -11,12 +11,22 @@ class CacheCommand extends CConsoleCommand
 {
     public function actionFixCdnImages()
     {
-        $dp = new CActiveDataProvider('CommunityPost');
+        $dp = new CActiveDataProvider('CommunityPost', array(
+            'criteria' => array(
+                'condition' => 'id > :id',
+                'params' => array(':id' => 100000),
+            ),
+        ));
         $iterator = new CDataProviderIterator($dp);
         foreach ($iterator as $c)
             $this->fix($c);
 
-        $dp = new CActiveDataProvider('Comment');
+        $dp = new CActiveDataProvider('Comment', array(
+            'criteria' => array(
+                'condition' => 'id > :id',
+                'params' => array(':id' => 1080000),
+            ),
+        ));
         $iterator = new CDataProviderIterator($dp);
         foreach ($iterator as $c)
             $this->fix($c);

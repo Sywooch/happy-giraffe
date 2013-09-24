@@ -5,7 +5,7 @@
  */
 class YandexMetrica
 {
-    public $token = 'b1cb78403f76432b8a6803dc5e6631b5';
+    public $token = 'c8720ae2bfc44beba789390da3a1248b';
     private $counter_id = '11221648';
     const SE_GOOGLE = 3;
     const SE_YANDEX = 2;

@@ -105,7 +105,8 @@ class SeoCommand extends CConsoleCommand
     public function actionCompare($date1, $date2)
     {
         $metrika = new YandexMetrica();
-        $metrika->compareDates($date1, $date2);
+        $stats = $metrika->compareDates($date1, $date2);
+        var_dump($stats);
     }
 
 //    public function actionParseSeTraffic()

@@ -96,6 +96,12 @@ class SeoCommand extends CConsoleCommand
         TrafficStatisctic::model()->parse();
     }
 
+    public function actionParseMetrika($date)
+    {
+        $metrika = new YandexMetrica();
+        $metrika->parseDate($date);
+    }
+
 //    public function actionParseSeTraffic()
 //    {
 //        Yii::import('site.frontend.helpers.*');

@@ -98,8 +98,8 @@ class YandexMetrica
 
         echo "$count\n";
 
-//        foreach ($this->se as $se)
-//            $this->parseDataForSE($se, $date);
+        foreach ($this->se as $se)
+            $this->parseDataForSE($se, $date);
     }
 
     public function parseDataForSE($se_id, $date)

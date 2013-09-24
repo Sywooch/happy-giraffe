@@ -54,6 +54,7 @@ class YandexMetrica
     {
         $count = 0;
         $next = 'http://api-metrika.yandex.ru/stat/sources/phrases?id=' . $this->counter_id . '&oauth_token=' . $this->token . '&per_page=1000&date1=' . $date . '&date2=' . $date;
+        echo $next . "\n";
 
         while (!empty($next)) {
             $val = $this->loadPage($next);

@@ -102,6 +102,12 @@ class SeoCommand extends CConsoleCommand
         $metrika->parseDate($date);
     }
 
+    public function actionCompare($date1, $date2)
+    {
+        $metrika = new YandexMetrica();
+        $metrika->compareDates($date1, $date2);
+    }
+
 //    public function actionParseSeTraffic()
 //    {
 //        Yii::import('site.frontend.helpers.*');

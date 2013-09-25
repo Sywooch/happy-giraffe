@@ -272,7 +272,7 @@ class YandexMetrica
         return ($a[2] < $b[2]) ? 1 : -1;
     }
 
-    function compare2($date1, $date2)
+    function compareDates2($date1, $date2)
     {
         $data = array();
 

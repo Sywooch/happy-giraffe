@@ -296,9 +296,9 @@ class YandexMetrica
                         'visits1' => $query->visits
                     );
                 }
+                else
+                    $data[$phraseUrl]['visits1'] += $query->visits;
             }
-            else
-                $data[$phraseUrl]['visits1'] += $query->visits;
         }
 
         echo "Iterating second date.\n";
@@ -311,14 +311,16 @@ class YandexMetrica
         $iterator = new CDataProviderIterator($dataProvider, 100);
         foreach ($iterator as $query) {
             $phrase = $this->getPhrase($query->keyword_id);
-            $phraseUrl = $phrase->page->url;
-            if (isset($data[$phraseUrl])) {
-                $data[$phraseUrl]['visits2'] = $query->visits;
-                $percent = $data[$phraseUrl]['visits2'] / $data[$phraseUrl]['visits1'] * 100;
-                $dynamic = $percent > 1;
-                $dynamicText = $dynamic ? '+' . $percent - 100 : '-' . 100 - $percent;
-                $data[$phraseUrl]['dynamic'] = $dynamic;
-                $data[$phraseUrl]['dynamicText'] = $dynamicText;
+            if ($phrase !== null) {
+                $phraseUrl = $phrase->page->url;
+                if (isset($data[$phraseUrl])) {
+                    $data[$phraseUrl]['visits2'] = $query->visits;
+                    $percent = $data[$phraseUrl]['visits2'] / $data[$phraseUrl]['visits1'] * 100;
+                    $dynamic = $percent > 1;
+                    $dynamicText = $dynamic ? '+' . $percent - 100 : '-' . 100 - $percent;
+                    $data[$phraseUrl]['dynamic'] = $dynamic;
+                    $data[$phraseUrl]['dynamicText'] = $dynamicText;
+                }
             }
         }
 

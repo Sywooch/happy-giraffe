@@ -464,6 +464,12 @@
 	}
 	&_i:hover {background: #e8e8e8;}
 	&_i:hover .ico-close{display: block;}
+	&_i.disabled {color: #777;}
+	&_i.disabled:hover {
+		background: #f9f9f9;
+		color: #777;
+		font-weight: normal;
+	}
 	&_i.active {
 		background: #5e93d5;
 		color: #fff;
@@ -562,7 +568,7 @@
 		right: 0;
 		bottom: 0;
 		left: 0;
-		background: #f0f0f0;
+		background: #fff;
 		background: rgba(240,240,240,.75);
 	}
 	&_row {padding: 15px 20px 15px;}

@@ -137,10 +137,9 @@
 							</a>
 						</li>
 						<li class="menu-list_li">
-							<a href="" class="menu-list_i">
+							<span href="" class="menu-list_i disabled">
 								<span class="menu-list_tx">Контакты </span>
-							</a>
-							<div class="menu-list_overlay"></div>
+							</span>
 						</li>
 					</ul>
 				</div>

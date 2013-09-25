@@ -305,6 +305,15 @@ a.pseudo:hover,
 	height: 55px;
 	background: url(/images/ico/ico-family.png) no-repeat 0 -605px;
 
+
+	@media only screen and (-webkit-min-device-pixel-ratio: 1.5),
+    only screen and (min-resolution: 144dpi) {
+		& {
+			background:url(/images/ico-family2x.png) no-repeat 0 -605px;
+			background-size: 220px;
+		}
+    }
+
 	&__baby-plan     {background-position: 0 -605px;}
 	&__baby          {background-position: 0 0;}
 	&__baby-two      {background-position: -55px 0;}
@@ -686,6 +695,13 @@ a.pseudo:hover,
 		text-indent:-9999px;
 		margin:0 auto;
 	}
+	@media only screen and (-webkit-min-device-pixel-ratio: 1.5),
+    only screen and (min-resolution: 144dpi) {
+		&_i {
+			background:url(/images/logo2x.png) no-repeat;
+			background-size: 181px;
+		}
+    }
 	&_slogan {
 		position: absolute;
 		left: -9000px;

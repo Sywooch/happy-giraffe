@@ -13,11 +13,10 @@
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/top-line-menu.php'; ?>
 	
 <div class="layout-container">
-<div class="layout-container_hold">
 	<div class="layout-wrapper">
 		<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/header-new.php'; ?>
 			
-		<div id="content" class="layout-content clearfix">
+		<div class="layout-content clearfix">
 			<div class="content-cols">
 				<div class="col-1"> 
 					&nbsp;
@@ -639,7 +638,6 @@
 		<div class="footer-push"></div>
 	</div>
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/footer.php'; ?>
-</div>
 </div>
 
 

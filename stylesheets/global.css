@@ -2638,6 +2638,9 @@ color:#dcdcdc;
   -moz-box-shadow: none;
   box-shadow: none;
 }
+.redactor_box .smile {
+  vertical-align: middle;
+}
 .redactor_editor .a-imitation,
 .redactor_editor a {
   color: #319fe4 !important;
@@ -12653,6 +12656,9 @@ color:#dcdcdc;
   color: #0D0D0D;
   font-size: 20px;
 }
+.wysiwyg-content .smile {
+  vertical-align: middle;
+}
 .wysiwyg-content h2 {
   margin: 40px 0 15px;
   font-size: 18px;
@@ -13672,6 +13678,13 @@ table.fr_recipe_tb td {
   font-size: 9px;
   background: url(/images/b-article_control-ico__smallest.png) no-repeat;
 }
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-resolution: 144dpi) {
+  .like-control__smallest .favorites-control_a,
+  .like-control__smallest .like-control_ico {
+    background: url(/images/b-article_control-ico__smallest2x.png) no-repeat;
+    background-size: 75px;
+  }
+}
 .like-control__smallest .like-control_ico.active,
 .like-control__smallest .like-control_ico:hover {
   background-position: 0 -100px;
@@ -13714,6 +13727,12 @@ table.fr_recipe_tb td {
   color: #828281;
   background: url(/images/b-article_control-ico.png) no-repeat;
   text-decoration: none;
+}
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-resolution: 144dpi) {
+  .like-control_ico {
+    background: url(/images/b-article_control-ico2x.png) no-repeat;
+    background-size: 135px;
+  }
 }
 .like-control_ico.active,
 .like-control_ico:hover {

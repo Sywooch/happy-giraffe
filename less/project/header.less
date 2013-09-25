@@ -75,6 +75,13 @@
 		margin: 0 auto 5px;
 		background: url(/images/header-menu_ico.png) no-repeat;
 	}
+	@media only screen and (-webkit-min-device-pixel-ratio: 1.5),
+    only screen and (min-resolution: 144dpi) {
+		&_ico {
+			background: url(/images/header-menu_ico2x.png) no-repeat;
+			background-size: 100px;
+		}
+    }
 	&_ico__giraffe   {background-position: 0 0;}
 	&_ico__notice    {background-position: 0 -50px;}
 	&_ico__favorite  {background-position: 0 -100px;}

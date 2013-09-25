@@ -188,6 +188,9 @@ body {
   word-wrap: break-word;
   background: #fff;
 }
+html {
+  height: 100%;
+}
 html.top-nav-fixed {
   overflow-y: hidden;
 }
@@ -1118,6 +1121,12 @@ a.pseudo:hover,
   height: 55px;
   background: url(/images/ico/ico-family.png) no-repeat 0 -605px;
 }
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-resolution: 144dpi) {
+  .ico-family {
+    background: url(/images/ico-family2x.png) no-repeat 0 -605px;
+    background-size: 220px;
+  }
+}
 .ico-family__baby-plan {
   background-position: 0 -605px;
 }
@@ -1672,6 +1681,12 @@ a.pseudo:hover,
   background: url(../images/logo.png) no-repeat;
   text-indent: -9999px;
   margin: 0 auto;
+}
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-resolution: 144dpi) {
+  .logo_i {
+    background: url(/images/logo2x.png) no-repeat;
+    background-size: 181px;
+  }
 }
 .logo_slogan {
   position: absolute;
@@ -11653,6 +11668,12 @@ textarea.error,
   margin: 0 auto 5px;
   background: url(/images/header-menu_ico.png) no-repeat;
 }
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-resolution: 144dpi) {
+  .header-menu_ico {
+    background: url(/images/header-menu_ico2x.png) no-repeat;
+    background-size: 100px;
+  }
+}
 .header-menu_ico__giraffe {
   background-position: 0 0;
 }
@@ -16761,6 +16782,12 @@ textarea.error,
   width: 50px;
   height: 50px;
   background: url(/images/ico/career-achievement-ico.png) no-repeat;
+}
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-resolution: 144dpi) {
+  .career-achievement-ico {
+    background: url(/images/career-achievement-ico2x.png) no-repeat;
+    background-size: 360px 50px;
+  }
 }
 .career-achievement-ico__comment {
   background-position: 0 0;

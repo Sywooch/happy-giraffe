@@ -256,6 +256,7 @@
         color: #0D0D0D;
         font-size: 20px;
     }
+    .smile {vertical-align: middle;}
     
     h2 {
         margin: 40px 0 15px;
@@ -973,6 +974,14 @@ table.fr_recipe_tb td { width: 50%;}
         min-width: 25px;
         font-size: 9px;
         background: url(/images/b-article_control-ico__smallest.png) no-repeat;
+
+        @media only screen and (-webkit-min-device-pixel-ratio: 1.5),
+        only screen and (min-resolution: 144dpi) {
+            & {
+                background:url(/images/b-article_control-ico__smallest2x.png) no-repeat;
+                background-size: 75px;
+            }
+        }
     }
     &__smallest &_ico.active,
     &__smallest &_ico:hover {background-position: 0 -100px;}
@@ -999,6 +1008,14 @@ table.fr_recipe_tb td { width: 50%;}
         color: #828281;
         background: url(/images/b-article_control-ico.png) no-repeat;
         text-decoration: none;
+
+        @media only screen and (-webkit-min-device-pixel-ratio: 1.5),
+        only screen and (min-resolution: 144dpi) {
+            & {
+                background:url(/images/b-article_control-ico2x.png) no-repeat;
+                background-size: 135px;
+            }
+        }
     }
     &_ico.active,
     &_ico:hover {background-position: 0 -100px;}

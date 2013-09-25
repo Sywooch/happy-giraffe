@@ -239,11 +239,89 @@ class YandexMetrica
         return '';
     }
 
+    private function getPhrase($keyword_id)
+    {
+        $phrases = Yii::app()->db_seo->createCommand()
+            ->select('id')
+            ->from('pages_search_phrases')
+            ->where('keyword_id=' . $keyword_id)
+            ->queryColumn();
+
+        if (! empty($phrases)) {
+            $best_phrase = Yii::app()->db_seo->createCommand()
+                ->select('search_phrase_id')
+                ->from('pages_search_phrases_positions')
+                ->where('search_phrase_id IN (' . implode(',', $phrases) . ')')
+                ->order('date desc')
+                ->limit(1)
+                ->queryScalar();
+            if (!empty($best_phrase)) {
+                $phrase = PagesSearchPhrase::model()->findByPk($best_phrase);
+                return $phrase;
+            }
+        }
+
+        return null;
+    }
+
     function cmp2($a, $b)
     {
         if ($a[2] == $b[2]) {
             return 0;
         }
         return ($a[2] < $b[2]) ? 1 : -1;
+    }
+
+    function compare2($date1, $date2)
+    {
+        $data = array();
+
+        $dataProvider = new CActiveDataProvider('Query', array(
+            'criteria' => array(
+                'condition' => 'date = :date1',
+                'params' => array(':date1' => $date1),
+            ),
+        ));
+        $iterator = new CDataProviderIterator($dataProvider, 100);
+
+        foreach ($iterator as $query) {
+            $phrase = $this->getPhrase($query->keyword_id);
+            $phraseUrl = $phrase->page->url;
+            $phraseTitle = $phrase->page->getArticleTitle();
+            if (! isset($data[$phraseUrl])) {
+                $data[$phraseUrl] = array(
+                    'title' => $phraseTitle,
+                    'visits1' => $query->visits
+                );
+            }
+            else
+                $data[$phraseUrl]['visits1'] += $query->visits;
+        }
+
+        $dataProvider = new CActiveDataProvider('Query', array(
+            'criteria' => array(
+                'condition' => 'date = :date2',
+                'params' => array(':date2' => $date2),
+            ),
+        ));
+        $iterator = new CDataProviderIterator($dataProvider, 100);
+        foreach ($iterator as $query) {
+            $phrase = $this->getPhrase($query->keyword_id);
+            $phraseUrl = $phrase->page->url;
+            if (isset($data[$phraseUrl])) {
+                $data[$phraseUrl]['visits2'] = $query->visits;
+                $percent = $data[$phraseUrl]['visits2'] / $data[$phraseUrl]['visits1'] * 100;
+                $dynamic = $percent > 1;
+                $dynamicText = $dynamic ? '+' . $percent - 100 : '-' . 100 - $percent;
+                $data[$phraseUrl]['dynamic'] = $dynamic;
+                $data[$phraseUrl]['dynamicText'] = $dynamicText;
+            }
+        }
+
+        foreach ($data as $i) {
+            $doc = new MetrikaComparison();
+            $doc->attributes = $i;
+            $doc->save(false);
+        }
     }
 }

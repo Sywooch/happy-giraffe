@@ -2,11 +2,11 @@
     <div class="layout-footer_hold">
 
         <ul class="footer-list">
-            <li class="footer-list_li"><span>Мобильная версия</span></li>
+            <li class="footer-list_li"><a href="http://m.happy-giraffe.ru" class="footer-list_a">Мобильная версия</a></li>
             <li class="footer-list_li"><span>О проекте</span></li>
             <li class="footer-list_li"><span>Правила</span></li>
             <li class="footer-list_li"><span>Задать вопрос</span></li>
-            <li class="footer-list_li"><span>Реклама </span></li>
+            <li class="footer-list_li"><a href="<?=$this->createUrl('site/page', array('view' => 'advertiser'))?>" class="footer-list_a">Реклама </a></li>
             <li class="footer-list_li"><span>Контакты </span></li>
             <li class="footer-list_li"><noindex><a href="http://www.rambler.ru/" class="footer-list_a" target="_blank" rel="nofollow">Партнер "Рамблера"</a></noindex></li>
         </ul>

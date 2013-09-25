@@ -300,6 +300,7 @@ class YandexMetrica
                     $data[$phraseUrl]['visits1'] += $query->visits;
             }
         }
+        echo "Found " . count($data) . " \n";
 
         echo "Iterating second date.\n";
         $dataProvider = new CActiveDataProvider('Query', array(

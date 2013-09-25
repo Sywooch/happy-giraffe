@@ -276,6 +276,7 @@ class YandexMetrica
     {
         $data = array();
 
+        echo "Iterating first date.\n";
         $dataProvider = new CActiveDataProvider('Query', array(
             'criteria' => array(
                 'condition' => 'date = :date1',
@@ -298,6 +299,7 @@ class YandexMetrica
                 $data[$phraseUrl]['visits1'] += $query->visits;
         }
 
+        echo "Iterating second date.\n";
         $dataProvider = new CActiveDataProvider('Query', array(
             'criteria' => array(
                 'condition' => 'date = :date2',
@@ -318,6 +320,7 @@ class YandexMetrica
             }
         }
 
+        echo "Saving data.\n";
         foreach ($data as $i) {
             $doc = new MetrikaComparison();
             $doc->attributes = $i;

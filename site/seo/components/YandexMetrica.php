@@ -287,13 +287,15 @@ class YandexMetrica
 
         foreach ($iterator as $query) {
             $phrase = $this->getPhrase($query->keyword_id);
-            $phraseUrl = $phrase->page->url;
-            $phraseTitle = $phrase->page->getArticleTitle();
-            if (! isset($data[$phraseUrl])) {
-                $data[$phraseUrl] = array(
-                    'title' => $phraseTitle,
-                    'visits1' => $query->visits
-                );
+            if ($phrase !== null) {
+                $phraseUrl = $phrase->page->url;
+                $phraseTitle = $phrase->page->getArticleTitle();
+                if (! isset($data[$phraseUrl])) {
+                    $data[$phraseUrl] = array(
+                        'title' => $phraseTitle,
+                        'visits1' => $query->visits
+                    );
+                }
             }
             else
                 $data[$phraseUrl]['visits1'] += $query->visits;

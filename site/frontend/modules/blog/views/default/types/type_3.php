@@ -30,6 +30,12 @@ $collection = new PhotoPostPhotoCollection(array('contentId' => $data->id));
             <a class="b-article_more" href="javascript:void(0)" onclick="PhotoCollectionViewWidget.open(<?=CJavaScript::encode(get_class($collection))?>, <?=CJavaScript::encode($collection->options)?>, <?=CJavaScript::encode($collection->photoIds[0])?>)">Смотреть <?=$collection->count?> фото</a>
         </div>
     </div>
+
+    <?php if (Yii::app()->request->getQuery('openGallery') !== null): ?>
+        <script type="text/javascript">
+            PhotoCollectionViewWidget.open(<?=CJavaScript::encode(get_class($collection))?>, <?=CJavaScript::encode($collection->options)?>, <?=CJavaScript::encode($collection->photoIds[0])?>);
+        </script>
+    <?php endif; ?>
 <?php else: ?>
     <?php if ($showTitle):?>
         <div class="b-article_t">

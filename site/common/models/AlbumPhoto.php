@@ -826,4 +826,9 @@ class AlbumPhoto extends HActiveRecord
 //
 //        return $hosts[array_rand($hosts)];
     }
+
+    public function getCommentsCount()
+    {
+        return $this->commentsCount;
+    }
 }

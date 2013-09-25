@@ -37,7 +37,7 @@
 						</a>
 					</div>
 				</div>
-				<div class="col-23">
+				<div class="col-23-middle">
 					<div class="col-white-hoar">
 						<h1 class="heading-title margin-t20 clearfix">Реклама на сайте</h1>
 						<div class="margin-20 padding-b20">

@@ -70,7 +70,7 @@ return array(
         ),
         'mongodb_parsing' => array(
             'class' => 'EMongoDB',
-            'connectionString' => 'mongodb://178.63.88.2',
+            'connectionString' => 'mongodb://176.9.101.213',
             'dbName' => 'parsing',
             'fsyncFlag' => true,
             'safeFlag' => true,

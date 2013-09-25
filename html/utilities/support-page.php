@@ -17,7 +17,7 @@
 		<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/header-new.php'; ?>
 
 		<div class="layout-content clearfix">
-			<div class="content-cols">
+			<div class="content-cols padding-t20">
 				<div class="col-1"> 
 					<div class="menu-list menu-list__favorites margin-t10">
 						<a href="" class="menu-list_i">

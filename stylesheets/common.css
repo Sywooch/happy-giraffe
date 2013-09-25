@@ -16320,6 +16320,10 @@ textarea.error,
   -moz-border-radius: 4px;
   border-radius: 4px;
 }
+.menu-list_li {
+  position: relative;
+  margin: 0;
+}
 .menu-list_i {
   display: block;
   position: relative;

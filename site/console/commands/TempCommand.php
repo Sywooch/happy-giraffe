@@ -11,7 +11,7 @@ class TempCommand extends CConsoleCommand
 {
     public function actionCheatPampers()
     {
-        Yii::app()->import('common.models.mongo.PageView');
+        Yii::import('common.models.mongo.PageView');
         while (true) {
             PageView::model()->cheat('http://www.happy-giraffe.ru/community/10/forum/post/101319/', 0, 1);
             sleep(60);

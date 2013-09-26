@@ -14,7 +14,7 @@ class TempCommand extends CConsoleCommand
         Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
         Yii::import('site.common.models.mongo.PageView');
         while (true) {
-            PageView::model()->cheat('http://www.happy-giraffe.ru/community/10/forum/post/101319/', 0, 1);
+            PageView::model()->cheat('http://www.happy-giraffe.ru/community/10/forum/post/101319/', 0, 2);
             sleep(60);
         }
     }

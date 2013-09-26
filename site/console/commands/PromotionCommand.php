@@ -28,6 +28,11 @@ class PromotionCommand extends CConsoleCommand
         GiraffeLastMonthTraffic::calcMonthTraffic();
     }
 
+    public function actionCalc($date = null)
+    {
+        GiraffeLastMonthTraffic::calcMonthTraffic($date);
+    }
+
     /**
      * Готовим парсинг позиций слов по которым заходили за последнюю неделю
      */

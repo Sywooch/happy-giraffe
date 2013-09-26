@@ -65,9 +65,9 @@ class GiraffeLastMonthTraffic extends HActiveRecord
     /**
      * Вычисляет месяцный трафик по всем словам на Веселый Жираф
      */
-    public static function calcMonthTraffic()
+    public static function calcMonthTraffic($date = null)
     {
-        $date = date("Y-m-d", strtotime('-31 days'));
+        $date = $date === null ? date("Y-m-d", strtotime('-31 days')) : $date;
         Yii::app()->db_seo->createCommand()->update(self::model()->tableName(), array('active' => 0));
 
         $keywordIds = 1;

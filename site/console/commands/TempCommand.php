@@ -26,4 +26,10 @@ class TempCommand extends CConsoleCommand
         foreach ($iterator as $baby)
             $baby->save(false);
     }
+
+    public function actionHh()
+    {
+        $hh = new HhParser();
+        $hh->run();
+    }
 }

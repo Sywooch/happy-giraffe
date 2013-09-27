@@ -747,7 +747,7 @@ class CommunityContent extends HActiveRecord
                     $output = $this->video->link . "<br>" . $this->video->text;
                 break;
             case 3:
-                $output = CHtml::image($this->post->photo->getPreviewUrl(200, 200)) . $this->post->text;
+                $output = CHtml::image($this->photoPost->photo->getPreviewUrl(200, 200)) . $this->post->text;
                 break;
             case 4:
                 $output = $this->preview;

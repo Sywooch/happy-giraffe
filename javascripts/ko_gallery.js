@@ -1,15 +1,15 @@
-Array.prototype.roundSlice = function(start, quantity) {
+function roundSlice(array, start, quantity) {
     if (quantity > 0) {
-        if ((this.length - start) < quantity)
-            return this.slice(start).concat(this.slice(0, quantity - (self.length - start)));
+        if ((array.length - start) < quantity)
+            return array.slice(start).concat(array.slice(0, quantity - (self.length - start)));
         else
-            return this.slice(start, start + quantity);
+            return array.slice(start, start + quantity);
     } else {
         quantity = Math.abs(quantity);
         if (start < (quantity + 1))
-            return this.slice(start - quantity).concat(this.slice(0, start));
+            return array.slice(start - quantity).concat(array.slice(0, start));
         else
-            return this.slice(start - quantity + 1, start + 1);
+            return array.slice(start - quantity + 1, start + 1);
     }
 }
 
@@ -80,8 +80,8 @@ function PhotoCollectionViewModel(data) {
     }
 
     self.preloadImages = function (nextCount, prevCount) {
-        var next = self.photos.roundSlice(self.currentPhotoIndex() + 1, nextCount);
-        var prev = self.photos.roundSlice(self.currentPhotoIndex() - 1, -prevCount);
+        var next = roundSlice(self.photos, self.currentPhotoIndex() + 1, nextCount);
+        var prev = roundSlice(self.photos, self.currentPhotoIndex() - 1, -prevCount);
         self.preload(ko.utils.arrayMap(next.concat(prev), function(photo) {
             return photo.src;
         }));

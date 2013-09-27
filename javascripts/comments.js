@@ -124,7 +124,7 @@ function CommentViewModel(data) {
     self.Reply = function (comment) {
         self.response(comment);
         self.goBottom();
-        self.editor.html('<p><a href="/user/' + comment.author.id() + '/">' + comment.author.firstName() + ',</a>&nbsp;</p>');
+        self.editor.html('<p><a href="/user/' + comment.author.id() + '/">' + comment.author.firstName() + '</a>,&nbsp;</p>');
     };
 }
 

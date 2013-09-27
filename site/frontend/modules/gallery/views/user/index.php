@@ -4,6 +4,8 @@
  * @var $data Album
  * @var $full bool
  */
+
+Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
 ?>
 <div class="photo-preview-row clearfix margin-t30">
     <?php $this->widget('UserPhotosWidget', array('userId' => $user_id));?>

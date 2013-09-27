@@ -1,5 +1,8 @@
 <?php
 $collection = new AlbumPhotoCollection(array('albumId' => $data->id));
+
+if ($full)
+    Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
 ?>
 
 <div class="b-article clearfix">

@@ -45,7 +45,7 @@ class DefaultController extends HController
             $dataProvider = new CActiveDataProvider('Friend', array(
                 'criteria' => array(
                     'condition' => 'user_id = :user_id',
-                    'with' => array('friend', 'friend.blogPostsCount'),
+                    'with' => array('friend'),
                     'params' => array(':user_id' => $user_id)
                 ),
                 'pagination' => array(

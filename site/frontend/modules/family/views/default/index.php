@@ -3,6 +3,7 @@ Yii::app()->clientScript
     ->registerPackage('ko_family')
 ;
 $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
+Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
 ?>
 
 <div class="content-cols clearfix" data-bind="with: mainVM">

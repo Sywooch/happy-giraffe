@@ -2,6 +2,7 @@
 Yii::app()->clientScript
     ->registerPackage('ko_family')
 ;
+Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
 ?>
 
 <div class="b-registration">

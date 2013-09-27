@@ -48,7 +48,7 @@ return array(
         '/' => 'site/index',
         'js_dynamics/<hash:\w+>.js' => 'site/seoHide',
         'moderation' => 'site/moderationRules',
-        'site/<_a:(confirmEmail|resendConfirmEmail|passwordRecovery|passwordRecoveryForm|login|logout|link)>' => 'site/<_a>',
+        'site/<_a:(confirmEmail|resendConfirmEmail|passwordRecovery|passwordRecoveryForm|login|logout|link|out)>' => 'site/<_a>',
         'advertiser' => array('site/page', 'defaultParams' => array('view' => 'advertiser')),
 
 

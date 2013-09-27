@@ -6,7 +6,7 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
 Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
 ?>
 
-<div class="content-cols clearfix" data-bind="with: mainVM">
+<div class="content-cols clearfix" style="display: none;" data-bind="with: mainVM, visible: true" id="family">
     <div class="col-1">
         <?php $this->widget('Avatar', array('user' => $user, 'size' => 200, 'location' => true, 'age' => true)); ?>
 
@@ -62,7 +62,7 @@ Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
 
     $(function() {
         familyVM = new FamilyVM(<?=CJSON::encode($json)?>);
-        ko.applyBindings(familyVM);
+        ko.applyBindings(familyVM, document.getElementById('family'));
     });
 </script>
 
@@ -174,7 +174,7 @@ Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
                             <!-- ko if: notice().length > 0 -->
                                 <div class="family-settings_about clearfix" data-bind="text: notice"></div>
                             <!-- /ko -->
-                            <!-- ko if: notice().length == 0 -->
+                            <!-- ko if: $parent.canEdit && notice().length == 0 -->
                                 <div class="family-settings_about clearfix"><a class="a-pseudo-gray" data-bind="text: noticePlaceholderLabel(), click: editNotice"></a></div>
                             <!-- /ko -->
                         <!-- /ko -->

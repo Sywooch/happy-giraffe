@@ -160,7 +160,7 @@ class Favourite extends CActiveRecord
             Yii::app()->db->createCommand()->delete('favourites__tags_favourites', 'favourite_id = :favourite_id', array(':favourite_id' => $this->id));
 
         if ($this->isNewRecord)
-            $this->entity = $this->getEntityByModel($this->model_name, $this->model_id);
+            $this->entity = $this->getEntityByModelNameId($this->model_name, $this->model_id);
 
         return parent::beforeSave();
     }

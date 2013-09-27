@@ -194,6 +194,3 @@ NotificationRead::getInstance()->SetVisited();
     </script>
 
 <?php if (Yii::app()->user->isGuest) $this->endCache();} ?>
-<script type="text/javascript">
-    var CURRENT_USER_ID = '<?=Yii::app()->user->id ?>';
-</script>

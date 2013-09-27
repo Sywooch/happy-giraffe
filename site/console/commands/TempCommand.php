@@ -18,4 +18,12 @@ class TempCommand extends CConsoleCommand
             sleep(60);
         }
     }
+
+    public function actionBabies()
+    {
+        $dp = new CActiveDataProvider('Baby');
+        $iterator = new CDataProviderIterator($dp, 1000);
+        foreach ($iterator as $baby)
+            $baby->save(false);
+    }
 }

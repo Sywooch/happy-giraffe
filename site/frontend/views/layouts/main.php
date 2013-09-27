@@ -235,7 +235,10 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
         </div>
 
         <a href="#layout" id="btn-up-page"></a>
-        <div class="footer-push"></div>
+
+        <?php if ($this->route != 'messaging/default/index'): ?>
+            <div class="footer-push"></div>
+        <?php endif; ?>
     </div>
     <?php if ($this->route != 'messaging/default/index'): ?>
         <?php $this->renderPartial('//_footer'); ?>

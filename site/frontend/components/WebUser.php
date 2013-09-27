@@ -25,4 +25,9 @@ class WebUser extends CWebUser
     {
         return 0.03;
     }
+
+    public function login($identity)
+    {
+        return parent::login($identity, 60 * 60 * 24 * 14); // 2 недели
+    }
 }

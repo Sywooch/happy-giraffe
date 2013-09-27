@@ -34,7 +34,7 @@ class UserController extends HController
     public function actionView($user_id, $album_id)
     {
         $data = Album::model()->findByPk($album_id);
-        if ($data->author_id != $user_id)
+        if ($data === null || $data->author_id != $user_id)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
         $this->render('_album', array('data' => $data, 'full' => true));

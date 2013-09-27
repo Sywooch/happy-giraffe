@@ -413,4 +413,17 @@ class SiteController extends HController
     {
         $this->redirect($url);
     }
+
+    public function actionHh($code)
+    {
+        $hh = new HhParser($code);
+        $data = $hh->run();
+
+        $fp = fopen(Yii::getPathOfAlias('site.common.data') . '/hh.csv', 'w');
+
+        foreach ($data as $fields)
+            fputcsv($fp, $fields);
+
+        fclose($fp);
+    }
 }

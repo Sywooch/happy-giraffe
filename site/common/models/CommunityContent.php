@@ -747,7 +747,7 @@ class CommunityContent extends HActiveRecord
                     $output = $this->video->link . "<br>" . $this->video->text;
                 break;
             case 3:
-                $output = CHtml::image($this->photoPost->photo->getPreviewUrl(200, 200)) . $this->post->text;
+                $output = CHtml::image($this->photoPost->photo->getPreviewUrl(200, 200)) . $this->photoPost->text;
                 break;
             case 4:
                 $output = $this->preview;
@@ -758,6 +758,8 @@ class CommunityContent extends HActiveRecord
             case 5:
                 $output = $this->status->text;
                 break;
+            case 6:
+                $output = $this->preview . "<br>" . $this->source->getRssContent();
         }
 
         return $output;

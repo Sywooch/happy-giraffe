@@ -247,7 +247,8 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
 </div>
 
 <script type="text/javascript">
-    var userIsGuest = <?=Yii::app()->user->isGuest?'true':'false' ?>;
+    var userIsGuest = <?=CJavaScript::encode(Yii::app()->user->isGuest)?>;
+    var CURRENT_USER_ID = <?=CJavaScript::encode(Yii::app()->user->id)?>;
     <?php if (! Yii::app()->user->isGuest): ?>
         var layoutVM = new LayoutViewModel(<?=CJSON::encode($this->getLayoutData())?>);
         $(".layout-binding").each(function(index, el) {

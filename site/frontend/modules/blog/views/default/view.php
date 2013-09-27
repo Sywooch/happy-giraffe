@@ -11,9 +11,6 @@ if (empty($data->source_id))
 else
     $source = $data->source;
 
-if ($full && $data->type_id == CommunityContent::TYPE_STATUS)
-    Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
-
 if ($full) {
     if (empty($this->meta_description)){
         if (empty($data->meta_description))

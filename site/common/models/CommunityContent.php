@@ -755,6 +755,9 @@ class CommunityContent extends HActiveRecord
                     $output .= CHtml::tag('p', array(), CHtml::image($p->url)) . CHtml::tag('p', array(), $p->text);
                 }
                 break;
+            case 5:
+                $output = $this->status->text;
+                break;
         }
 
         return $output;

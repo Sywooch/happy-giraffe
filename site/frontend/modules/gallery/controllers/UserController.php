@@ -1,4 +1,4 @@
-e<?php
+<?php
 /**
  * Created by JetBrains PhpStorm.
  * User: mikita

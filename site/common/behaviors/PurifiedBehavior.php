@@ -32,10 +32,8 @@ class PurifiedBehavior extends CActiveRecordBehavior
                 $purifier = new CHtmlPurifier;
                 $purifier->options = CMap::mergeArray($this->_defaultOptions, $this->options);
                 $value = $this->getOwner()->$name;
-                if ($this->show_video) {
-                    $value = $this->linkifyYouTubeURLs($value);
-                    $value = $this->linkifyVimeo($value);
-                }
+                if ($this->show_video)
+                    $value = $this->linkifyVideos($value);
                 $value = $purifier->purify($value);
                 $value = $this->setWidgets($value);
                 $value = $this->fixUrls($value);
@@ -114,67 +112,67 @@ class PurifiedBehavior extends CActiveRecordBehavior
         return $doc->save();
     }
 
-    public function fetchHtml($matches)
-    {
-        $url = 'http://www.youtube.com/oembed?url=' . $matches[0] . '&format=json&maxwidth=580';
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $response = curl_exec($ch);
-        $httpStatus = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        curl_close($ch);
+//    public function fetchHtml($matches)
+//    {
+//        $url = 'http://www.youtube.com/oembed?url=' . $matches[0] . '&format=json&maxwidth=580';
+//        $ch = curl_init();
+//        curl_setopt($ch, CURLOPT_URL, $url);
+//        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+//        $response = curl_exec($ch);
+//        $httpStatus = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+//        curl_close($ch);
+//
+//        $json = CJSON::decode($response);
+//        return ($httpStatus == 200) ? $this->wrapVideo($json['html']) : $matches[0];
+//    }
 
-        $json = CJSON::decode($response);
-        return ($httpStatus == 200) ? $this->wrapVideo($json['html']) : $matches[0];
-    }
+//    public function vimeo($matches)
+//    {
+//        $url = 'http://vimeo.com/api/oembed.xml?url=' . $matches[0] . '&format=json&maxwidth=580';
+//        $ch = curl_init();
+//        curl_setopt($ch, CURLOPT_URL, $url);
+//        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+//        $response = curl_exec($ch);
+//        $httpStatus = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+//        curl_close($ch);
+//
+//        $json = CJSON::decode($response);
+//        return ($httpStatus == 200) ? $this->wrapVideo($json['html']) : $matches[0];
+//    }
 
-    public function vimeo($matches)
-    {
-        $url = 'http://vimeo.com/api/oembed.xml?url=' . $matches[0] . '&format=json&maxwidth=580';
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $response = curl_exec($ch);
-        $httpStatus = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        curl_close($ch);
+//    public function linkifyYouTubeURLs($text)
+//    {
+//        $text = preg_replace_callback('~
+//        # Match non-linked youtube URL in the wild. (Rev:20111012)
+//        https?://         # Required scheme. Either http or https.
+//        (?:[0-9A-Z-]+\.)? # Optional subdomain.
+//        (?:               # Group host alternatives.
+//          youtu\.be/      # Either youtu.be,
+//        | youtube\.com    # or youtube.com followed by
+//          \S*             # Allow anything up to VIDEO_ID,
+//          [^\w\-\s]       # but char before ID is non-ID char.
+//        )                 # End host alternatives.
+//        ([\w\-]{11})      # $1: VIDEO_ID is exactly 11 chars.
+//        (?=[^\w\-]|$)     # Assert next char is non-ID or EOS.
+//        (?!               # Assert URL is not pre-linked.
+//          [?=&+%\w]*      # Allow URL (query) remainder.
+//          (?:             # Group pre-linked alternatives.
+//            [\'"][^<>]*>  # Either inside a start tag,
+//          | </a>          # or inside <a> element text contents.
+//          )               # End recognized pre-linked alts.
+//        )                 # End negative lookahead assertion.
+//        [?=&+%\w-;]*        # Consume any URL (query) remainder.
+//        ~ix',
+//            array($this, 'fetchHtml'),
+//            $text);
+//        return $text;
+//    }
 
-        $json = CJSON::decode($response);
-        return ($httpStatus == 200) ? $this->wrapVideo($json['html']) : $matches[0];
-    }
-
-    public function linkifyYouTubeURLs($text)
-    {
-        $text = preg_replace_callback('~
-        # Match non-linked youtube URL in the wild. (Rev:20111012)
-        https?://         # Required scheme. Either http or https.
-        (?:[0-9A-Z-]+\.)? # Optional subdomain.
-        (?:               # Group host alternatives.
-          youtu\.be/      # Either youtu.be,
-        | youtube\.com    # or youtube.com followed by
-          \S*             # Allow anything up to VIDEO_ID,
-          [^\w\-\s]       # but char before ID is non-ID char.
-        )                 # End host alternatives.
-        ([\w\-]{11})      # $1: VIDEO_ID is exactly 11 chars.
-        (?=[^\w\-]|$)     # Assert next char is non-ID or EOS.
-        (?!               # Assert URL is not pre-linked.
-          [?=&+%\w]*      # Allow URL (query) remainder.
-          (?:             # Group pre-linked alternatives.
-            [\'"][^<>]*>  # Either inside a start tag,
-          | </a>          # or inside <a> element text contents.
-          )               # End recognized pre-linked alts.
-        )                 # End negative lookahead assertion.
-        [?=&+%\w-;]*        # Consume any URL (query) remainder.
-        ~ix',
-            array($this, 'fetchHtml'),
-            $text);
-        return $text;
-    }
-
-    public function linkifyVimeo($text)
-    {
-        $text = preg_replace_callback('~https?://vimeo\.com/\d+~ix', array($this, 'vimeo'), $text);
-        return $text;
-    }
+//    public function linkifyVimeo($text)
+//    {
+//        $text = preg_replace_callback('~https?://vimeo\.com/\d+~ix', array($this, 'vimeo'), $text);
+//        return $text;
+//    }
 
     private function wrapVideo($text)
     {
@@ -207,5 +205,36 @@ class PurifiedBehavior extends CActiveRecordBehavior
             }
         }
         return '';
+    }
+
+    protected function linkifyVideos($text)
+    {
+        include_once Yii::getPathOfAlias('site.frontend.vendor.simplehtmldom_1_5') . DIRECTORY_SEPARATOR . 'simple_html_dom.php';
+
+        // process links
+        $html = str_get_html($text);
+        foreach ($html->find('a') as $link) {
+            $href = $link->href;
+            try {
+                $v = Video::factory($href);
+                $link->outertext = '<div class="b-article_in-img">' . $v->embed . '</div>';
+            } catch (CException $e) {}
+        }
+
+        foreach ($html->find('iframe') as $iframe) {
+            $parent = $iframe->parent();
+            if ($parent->tag != 'div' || $parent->class != 'b-article_in-img')
+                $iframe->outertext = '<div class="b-article_in-img">'. $iframe->outertext . '</div>';
+        }
+
+        // process text
+        return preg_replace_callback('/((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)/', function($matches) {
+            try {
+                $v = Video::factory($matches[0]);
+                return '<div class="b-article_in-img">' . $v->embed . '</div>';
+            } catch (CException $e) {
+                return $matches[0];
+            }
+        }, $html);
     }
 }

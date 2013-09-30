@@ -83,7 +83,7 @@
                 </div>
             </div>
 
-            <div class="im-center_middle" data-bind="visible: openContact() !== null">
+            <div class="im-center_middle">
                 <div class="im-center_middle-hold">
 
                     <div class="im-center_middle-w" data-bind="if: interlocutor() !== null && ! interlocutor().isBlocked()">

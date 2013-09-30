@@ -239,7 +239,8 @@ class SignupController extends HController
         $attributes = array('email', 'avatar', 'photo', 'first_name', 'last_name', 'gender');
         foreach ($attributes as $attribute)
             $model->$attribute = Yii::app()->request->getPost($attribute);
-        if (($birthday = Yii::app()->request->getPost('birthday')) !== null) {
+        $birthday = Yii::app()->request->getPost('birthday', '');
+        if (! empty($birthday)) {
             if (strpos($birthday, '-') !== false) {
                 $_birthday = explode('-', $birthday);
                 $model->day = ltrim($_birthday[2], '0');

@@ -47,8 +47,8 @@ return array(
             'baseUrl' => '/',
             'js' => array(
                 'javascripts/knockout.mapping-latest.js',
-                'javascripts/comments.js?5',
-                'javascripts/wysiwyg.js?3',
+                'javascripts/comments.js',
+                'javascripts/wysiwyg.js',
             ),
             'depends' => array('knockout'),
         ),
@@ -84,7 +84,7 @@ return array(
             'baseUrl' => '/',
             'js' => array(
                 'javascripts/ko_gallery.js',
-                'javascripts/ko_user_profile.js?5',
+                'javascripts/ko_user_profile.js',
                 'javascripts/ko_blog.js',
             ),
             'depends' => array('knockout', 'gallery', 'jcrop', 'ko_comments', 'ko_upload'),
@@ -92,15 +92,15 @@ return array(
         'ko_search' => array(
             'baseUrl' => '/',
             'js' => array(
-                'javascripts/ko_search.js?3',
+                'javascripts/ko_search.js',
             ),
             'depends' => array('knockout'),
         ),
         'ko_friends' => array(
             'baseUrl' => '/',
             'js' => array(
-                'javascripts/ko_friends.js?5',
-                'javascripts/ko_friendsSearch.js?2',
+                'javascripts/ko_friends.js',
+                'javascripts/ko_friendsSearch.js',
             ),
             'depends' => array('knockout'),
         ),
@@ -133,7 +133,7 @@ return array(
         'ko_upload' => array(
             'baseUrl' => '/',
             'js' => array(
-                'javascripts/upload.js?3',
+                'javascripts/upload.js',
                 'jQuery-File-Upload/js/vendor/jquery.ui.widget.js',
                 'jQuery-File-Upload/js/jquery.iframe-transport.js',
                 'jQuery-File-Upload/js/jquery.fileupload.js',

@@ -217,7 +217,7 @@ class CommentatorHelper
      */
     public static function goodCommentsCount($user_id, $month)
     {
-        return self::commentsCount($user_id, $month, $good = false);
+        return self::commentsCount($user_id, $month, $good = true);
     }
 
     public static function commentsCount($user_id, $month, $good = false)

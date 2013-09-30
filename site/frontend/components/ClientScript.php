@@ -80,7 +80,7 @@ class ClientScript extends CClientScript
 
     protected function addReleaseId($url)
     {
-        $r = YII_DEBUG === true ? time() : Yii::app()->params['releaseId'];
+        $r = Yii::app()->params['releaseId'];
         $url .= (strpos($url, '?') === false) ? '?r=' . $r : '&r=' . $r;
         return $url;
     }

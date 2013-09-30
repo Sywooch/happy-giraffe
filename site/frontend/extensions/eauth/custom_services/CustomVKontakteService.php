@@ -25,7 +25,7 @@ class CustomVKontakteService extends VKontakteOAuthService {
         $info = $info['response'][0];
 
         $this->attributes['id'] = $info->uid;
-        $this->attributes['birthday'] = $info->bdate;
+        $this->attributes['birthday'] = (isset ($info->bdate)) ? $info->bdate : '';
         $this->attributes['name'] = $info->first_name.' '.$info->last_name;
         $this->attributes['first_name'] = $info->first_name;
         $this->attributes['last_name'] = $info->last_name;

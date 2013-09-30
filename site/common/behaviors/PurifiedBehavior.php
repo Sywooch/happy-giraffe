@@ -112,68 +112,6 @@ class PurifiedBehavior extends CActiveRecordBehavior
         return $doc->save();
     }
 
-//    public function fetchHtml($matches)
-//    {
-//        $url = 'http://www.youtube.com/oembed?url=' . $matches[0] . '&format=json&maxwidth=580';
-//        $ch = curl_init();
-//        curl_setopt($ch, CURLOPT_URL, $url);
-//        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-//        $response = curl_exec($ch);
-//        $httpStatus = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-//        curl_close($ch);
-//
-//        $json = CJSON::decode($response);
-//        return ($httpStatus == 200) ? $this->wrapVideo($json['html']) : $matches[0];
-//    }
-
-//    public function vimeo($matches)
-//    {
-//        $url = 'http://vimeo.com/api/oembed.xml?url=' . $matches[0] . '&format=json&maxwidth=580';
-//        $ch = curl_init();
-//        curl_setopt($ch, CURLOPT_URL, $url);
-//        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-//        $response = curl_exec($ch);
-//        $httpStatus = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-//        curl_close($ch);
-//
-//        $json = CJSON::decode($response);
-//        return ($httpStatus == 200) ? $this->wrapVideo($json['html']) : $matches[0];
-//    }
-
-//    public function linkifyYouTubeURLs($text)
-//    {
-//        $text = preg_replace_callback('~
-//        # Match non-linked youtube URL in the wild. (Rev:20111012)
-//        https?://         # Required scheme. Either http or https.
-//        (?:[0-9A-Z-]+\.)? # Optional subdomain.
-//        (?:               # Group host alternatives.
-//          youtu\.be/      # Either youtu.be,
-//        | youtube\.com    # or youtube.com followed by
-//          \S*             # Allow anything up to VIDEO_ID,
-//          [^\w\-\s]       # but char before ID is non-ID char.
-//        )                 # End host alternatives.
-//        ([\w\-]{11})      # $1: VIDEO_ID is exactly 11 chars.
-//        (?=[^\w\-]|$)     # Assert next char is non-ID or EOS.
-//        (?!               # Assert URL is not pre-linked.
-//          [?=&+%\w]*      # Allow URL (query) remainder.
-//          (?:             # Group pre-linked alternatives.
-//            [\'"][^<>]*>  # Either inside a start tag,
-//          | </a>          # or inside <a> element text contents.
-//          )               # End recognized pre-linked alts.
-//        )                 # End negative lookahead assertion.
-//        [?=&+%\w-;]*        # Consume any URL (query) remainder.
-//        ~ix',
-//            array($this, 'fetchHtml'),
-//            $text);
-//        return $text;
-//    }
-
-//    public function linkifyVimeo($text)
-//    {
-//        $text = preg_replace_callback('~https?://vimeo\.com/\d+~ix', array($this, 'vimeo'), $text);
-//        return $text;
-//    }
-
     private function wrapVideo($text)
     {
         return '<div class="b-article_in-img">' . $text . '</div>';

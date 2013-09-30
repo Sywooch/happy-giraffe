@@ -577,6 +577,13 @@ function MessagingViewModel(data) {
                     }, 5000);
                 }
             },
+            changeCallback: function(html)
+            {
+                im.messagesHeight();
+                if((im.hold.scrollTop() + im.wrapper.height()) < im.hold.height() + 30) {
+                    im.scrollTop();
+                }
+            },
             comments: true
         });
 

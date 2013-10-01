@@ -1119,8 +1119,24 @@ class CommunityContent extends HActiveRecord
         return new CChainedCacheDependency(array($contentDependency, $commentsDependency));
     }
 
-    public function isPampers()
+    public function isAd()
     {
-        return $this->id == 101319;
+        if ($this->id == 101319) {
+            return array(
+                'text' => 'Pampers',
+                'img' => '/images/banners/ava-Pampers.jpg',
+                'pix' => '<img src="http://ad.adriver.ru/cgi-bin/rle.cgi?sid=1&bt=21&ad=414017&pid=1250434&bid=2757529&bn=2757529&rnd=681016377" border="0" width="1" height="1">',
+            );
+        }
+
+        if ($this->id == 106365) {
+            return array(
+                'text' => 'Heinz',
+                'img' => '/images/banners/ava-Heinz-2.jpg',
+                'pix' => '',
+            );
+        }
+
+        return null;
     }
 }

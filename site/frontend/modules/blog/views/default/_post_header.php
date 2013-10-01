@@ -20,8 +20,8 @@ if ($model->by_happy_giraffe)
         </div>
     </div>
     <div class="float-l">
-        <?php if ($model->isPampers()): ?>
-            <span class="b-article_author" style="text-decoration: none;">Pampers</span>
+        <?php if ($ad = $model->isAd()): ?>
+            <span class="b-article_author" style="text-decoration: none;"><?=$ad['text']?></span>
         <?php else: ?>
             <a href="<?=$author->getUrl() ?>" class="b-article_author"><?=$author->getFullName() ?></a>
         <?php endif; ?>

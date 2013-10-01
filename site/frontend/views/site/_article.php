@@ -1,9 +1,9 @@
 <div class="b-article b-article-prev clearfix">
     <div class="float-l">
         <div class="like-control like-control__smallest clearfix">
-            <?php if ($model->isPampers()): ?>
+            <?php if ($ad = $model->isAd()): ?>
                 <span class="ava middle">
-                    <img src="/images/banners/ava-Pampers.jpg" alt="Pampers">
+                    <?=CHtml::image($ad['img'], $ad['text'])?>
                 </span>
             <?php else: ?>
                 <?php $this->widget('Avatar', array('user' => $model->author, 'size' => 40)) ?>
@@ -31,8 +31,8 @@
             </div>
             <div class="float-l">
                 <div class="clearfix">
-                    <?php if ($model->isPampers()): ?>
-                        <span class="b-article-prev_author" style="color: #289fd7;">Pampers</span>
+                    <?php if ($ad = $model->isAd()): ?>
+                        <span class="b-article-prev_author" style="color: #289fd7;"><?=$ad['text']?></span>
                     <?php else: ?>
                         <a class="b-article-prev_author" href="<?=$model->author->getUrl() ?>"><?=$model->author->first_name ?></a>
                     <?php endif; ?>

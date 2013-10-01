@@ -29,15 +29,17 @@ class PurifiedBehavior extends CActiveRecordBehavior
             $value = Yii::app()->cache->get($cacheId);
             $value = false;
             if ($value === false) {
-                $purifier = new CHtmlPurifier;
-                $purifier->options = CMap::mergeArray($this->_defaultOptions, $this->options);
                 $value = $this->getOwner()->$name;
-                if ($this->show_video)
-                    $value = $this->linkifyVideos($value);
-                $value = $purifier->purify($value);
-                $value = $this->setWidgets($value);
-                $value = $this->fixUrls($value);
-                Yii::app()->cache->set($cacheId, $value);
+                if (! empty($value)) {
+                    $purifier = new CHtmlPurifier;
+                    $purifier->options = CMap::mergeArray($this->_defaultOptions, $this->options);
+                    if ($this->show_video)
+                        $value = $this->linkifyVideos($value);
+                    $value = $purifier->purify($value);
+                    $value = $this->setWidgets($value);
+                    $value = $this->fixUrls($value);
+                    Yii::app()->cache->set($cacheId, $value);
+                }
             }
             return $value;
         } else {

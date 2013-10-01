@@ -107,8 +107,8 @@ return array(
         'ko_im' => array(
             'baseUrl' => '/',
             'js' => array(
-                'javascripts/messaging.js',
                 'javascripts/im.js',
+                'javascripts/messaging.js',
                 'javascripts/knockout.mapping-latest.js',
                 'javascripts/soundmanager2.js',
                 'javascripts/wysiwyg.js',

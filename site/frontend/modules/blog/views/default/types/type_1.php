@@ -35,7 +35,7 @@ $photo = $data->getPhoto()
 
     <div class="b-article_in clearfix">
         <div class="wysiwyg-content clearfix">
-            <?=$data->preview ?>
+            <?=$data->purified->preview ?>
             <?php if (!empty($post->video)):?>
                 <div class="b-article_in-img"><?=$post->video ?></div>
             <?php elseif ($photo && $photo->width >= 580):?>

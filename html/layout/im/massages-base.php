@@ -441,8 +441,8 @@ $(document).ready(function () {
       changeCallback: function(html)
 		{	
 			im.messagesHeight();
-			if((im.hold.scrollTop() - im.wrapper.height()) * (-1) < im.hold.height() + 30) {
-				im.scrollTop();
+			if((im.wrapper.height() - im.container.scrollTop()) < im.container.height() + 30) {
+				im.scrollBottom();
 			}
 		}
   });

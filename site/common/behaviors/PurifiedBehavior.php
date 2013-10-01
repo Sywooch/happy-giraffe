@@ -147,6 +147,8 @@ class PurifiedBehavior extends CActiveRecordBehavior
 
     protected function linkifyVideos($text)
     {
+        return $text;
+
         include_once Yii::getPathOfAlias('site.frontend.vendor.simplehtmldom_1_5') . DIRECTORY_SEPARATOR . 'simple_html_dom.php';
 
         // process links

@@ -548,7 +548,7 @@ function MessagingViewModel(data) {
         }
     });
 
-    $(function() {
+    $(window).load(function() {
         self.redactor = $('.redactor').redactorHG({
             minHeight: 17,
             autoresize: true,
@@ -575,6 +575,13 @@ function MessagingViewModel(data) {
                     self.typingTimer = setTimeout(function() {
                         self.meTyping(false);
                     }, 5000);
+                }
+            },
+            changeCallback: function(html)
+            {
+                im.messagesHeight();
+                if((im.wrapper.height() - im.container.scrollTop()) < im.container.height() + 30) {
+                    im.scrollBottom();
                 }
             },
             comments: true

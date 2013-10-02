@@ -79,7 +79,6 @@
             var _gaq = _gaq || [];
             _gaq.push(['_setAccount', '<?=Yii::app()->params['gaCode']  ?>']);
             _gaq.push(['_trackPageview']);
-            console.log('123');
 
             (function() {
                 var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;

@@ -853,6 +853,9 @@ table.fr_recipe_tb td { width: 50%;}
     }
     &_t {
         margin: 8px 0 2px;
+        position: relative;
+        overflow: hidden;
+        top: -4px;
     }
     &_t-img {
         float: left;
@@ -860,12 +863,21 @@ table.fr_recipe_tb td { width: 50%;}
         max-width: 65px;
     }
     &_t-a {
-        position: relative;
-        display: block;
-        overflow: hidden;
-        top: -4px;
+        /*display: block;*/
+        /*.inline-block();
+        max-width: 100%;
+        white-space:pre-line;*/
+        margin-right: 4px;
         font: bold 11px/15px Tahoma, Arial, Verdana, sans-serif;
         color: #3782c1;
+    }
+    &_t-count {
+        .inline-block();
+        padding: 0 4px;
+        color: #fff;
+        font-size: 12px;
+        font-weight: normal;
+        background: #fb0202;
     }
     &_tx {
         font-size: 12px;
@@ -3831,7 +3843,7 @@ table.fr_recipe_tb td { width: 50%;}
 .cover-clearblue {
     margin-top: 471px;
     background:#0270b5 url(/images/branding/clearblue/cover-clearblue.jpg) no-repeat 50% 0px;
-    
+.body-guest & {margin-top: 414px;}
     &_b {
         position: absolute;
         bottom: 210px;

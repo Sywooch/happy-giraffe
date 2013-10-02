@@ -107,16 +107,14 @@ foreach ($test->testQuestions as $question):?>
 
                 <?php echo $result->text ?>
 
-                <?php if ($test->slug == 'pregnancy'): ?>
-                    <div class="textalign-c margin-t20">
-                        <div class="margin-10">
-                            <a href="http://ad.adriver.ru/cgi-bin/click.cgi?sid=1&bt=21&ad=420214&pid=1313272&bid=2833663&bn=2833663&rnd=<?=mt_rand(1000000000, 9999999999)?>" target="_blank">
-                                <img src="/images/branding/clearblue/img-test.jpg" alt="">
-                            </a>
-                        </div>
-                        Подробнее на <a href="http://ad.adriver.ru/cgi-bin/click.cgi?sid=1&bt=21&ad=420214&pid=1313272&bid=2833663&bn=2833663&rnd=<?=mt_rand(1000000000, 9999999999)?>">www.clearblue.com</a>
+                <div class="textalign-c margin-t20">
+                    <div class="margin-10">
+                        <a href="http://ad.adriver.ru/cgi-bin/click.cgi?sid=1&bt=21&ad=420214&pid=1313272&bid=2833663&bn=2833663&rnd=<?=mt_rand(1000000000, 9999999999)?>" target="_blank">
+                            <img src="/images/branding/clearblue/img-test.jpg" alt="">
+                        </a>
                     </div>
-                <?php endif; ?>
+                    Подробнее на <a href="http://ad.adriver.ru/cgi-bin/click.cgi?sid=1&bt=21&ad=420214&pid=1313272&bid=2833663&bn=2833663&rnd=<?=mt_rand(1000000000, 9999999999)?>">www.clearblue.com</a>
+                </div>
 
 			</div>
 
@@ -143,3 +141,5 @@ foreach ($test->testQuestions as $question):?>
         </div>
     </div>
 </div>
+
+<img src="http://ad.adriver.ru/cgi-bin/rle.cgi?sid=1&bt=21&ad=420214&pid=1313272&bid=2833663&bn=2833663&rnd=<?=mt_rand(1000000000, 9999999999)?>" border="0" width="1" height="1" id="pix">

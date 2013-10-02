@@ -29,8 +29,8 @@ class TempCommand extends CConsoleCommand
 
     public function actionClearblue()
     {
-        $views = GApi::model()->pageViews('/test/pregnancy/', '2013-01-01');
-        $uniqueVisitors = GApi::model()->uniquePageViews('/test/pregnancy/', '2013-01-01');
+        $views = GApi::model()->pageViews('/test/pregnancy', '2013-01-01');
+        $uniqueVisitors = GApi::model()->uniquePageViews('/test/pregnancy', '2013-01-01');
         echo 'Views: ' . $views . "\n";
         echo 'Unique visitors: ' . $uniqueVisitors . "\n";
     }

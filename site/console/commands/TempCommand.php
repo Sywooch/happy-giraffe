@@ -32,6 +32,6 @@ class TempCommand extends CConsoleCommand
         $views = GApi::model()->pageViews('/test/pregnancy/', '2013-10-02');
         $uniqueVisitors = GApi::model()->uniquePageViews('/test/pregnancy/', '2013-10-02');
         echo 'Views: ' . $views . "\n";
-        echo 'Unique visitors' . $uniqueVisitors . "\n";
+        echo 'Unique visitors: ' . $uniqueVisitors . "\n";
     }
 }

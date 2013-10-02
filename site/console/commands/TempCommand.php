@@ -27,9 +27,11 @@ class TempCommand extends CConsoleCommand
             $baby->save(false);
     }
 
-    public function actionHh()
+    public function actionClearblue()
     {
-        $hh = new HhParser();
-        $hh->run();
+        $views = GApi::model()->pageViews('/test/pregnancy', '2013-10-02');
+        $uniqueVisitors = GApi::model()->uniquePageViews('/test/pregnancy', '2013-10-02');
+        echo 'Views: ' . $views . "\n";
+        echo 'Unique visitors' . $uniqueVisitors . "\n";
     }
 }

@@ -86,7 +86,7 @@
 				</div>
 			</div>
 		</div>
-		
+
 		<div class="content-cols clearfix">
 			<div class="col-1">
 				<div class="b-ava-large">

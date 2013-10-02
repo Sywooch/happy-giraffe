@@ -42,9 +42,9 @@ class SignalCommand extends CConsoleCommand
      * Синхронизировать кол-во заходов из поисковиков c mysql-базой
      * и пересчитать места и рейтинг комментаторов
      */
-    public function actionSync()
+    public function actionSync($date = null)
     {
-        $month = date("Y-m");
+        $month = $date === null ? date("Y-m") : $date;
         $month = CommentatorsMonth::get($month);
         $month->calculateMonth();
     }

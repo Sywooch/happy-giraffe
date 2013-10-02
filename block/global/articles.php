@@ -669,7 +669,7 @@ $(document).ready(function () {
 </div>
 
 
-<div class="yiipagination">
+<div class="yiipagination margin-l100">
     <div class="pager">
         <ul class="yiiPager" id="yw1">
             <li class="page"><a href="">1</a></li>

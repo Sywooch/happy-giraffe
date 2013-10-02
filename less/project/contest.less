@@ -566,18 +566,18 @@
 .contest-prizes-list-10_color-beige {color: #afa493;}
 .contest-prizes-list-10_color-pink {color: #f78bd5;}
 .contest-prizes-list-10_color-blue {color: #5dd0ff;}
-.contest .place {display:block;height:34px;margin:10px auto;}
-.contest .place-1 {background:url(/images/contest/prize_place_1.png) 50% 0 no-repeat;}
-.contest .place-1-1 {background:url(/images/contest/prize_place_1-1.png) 50% 0 no-repeat;}
-.contest .place-1-2-3 {background:url(/images/contest/prize_place_1-2-3.png) 50% 0 no-repeat;}
-.contest .place-1-2-3-2 {background:url(/images/contest/prize_place_1-2-3-2.png) 50% 0 no-repeat;}
-.contest .place-2 {background:url(/images/contest/prize_place_2.png) 50% 0 no-repeat;}
-.contest .place-2-3 {background:url(/images/contest/prize_place_2-3.png) 50% 0 no-repeat;}
-.contest .place-2-5 {background:url(/images/contest/prize_place_2-5.png) 50% 0 no-repeat;}
-.contest .place-3 {background:url(/images/contest/prize_place_3.png) 50% 0 no-repeat;}
-.contest .place-4 {background:url(/images/contest/prize_place_4.png) 50% 0 no-repeat;}
-.contest .place-4-5 {background:url(/images/contest/prize_place_4-5.png) 50% 0 no-repeat;}
-.contest .place-5 {background:url(/images/contest/prize_place_5.png) 50% 0 no-repeat;}
+.place {display:block;height:34px;margin:10px auto;}
+.place-1 {background:url(/images/contest/prize_place_1.png) 50% 0 no-repeat;}
+.place-1-1 {background:url(/images/contest/prize_place_1-1.png) 50% 0 no-repeat;}
+.place-1-2-3 {background:url(/images/contest/prize_place_1-2-3.png) 50% 0 no-repeat;}
+.place-1-2-3-2 {background:url(/images/contest/prize_place_1-2-3-2.png) 50% 0 no-repeat;}
+.place-2 {background:url(/images/contest/prize_place_2.png) 50% 0 no-repeat;}
+.place-2-3 {background:url(/images/contest/prize_place_2-3.png) 50% 0 no-repeat;}
+.place-2-5 {background:url(/images/contest/prize_place_2-5.png) 50% 0 no-repeat;}
+.place-3 {background:url(/images/contest/prize_place_3.png) 50% 0 no-repeat;}
+.place-4 {background:url(/images/contest/prize_place_4.png) 50% 0 no-repeat;}
+.place-4-5 {background:url(/images/contest/prize_place_4-5.png) 50% 0 no-repeat;}
+.place-5 {background:url(/images/contest/prize_place_5.png) 50% 0 no-repeat;}
 
 .contest-prizes-desc {margin:40px 0;}
 .contest-prizes-desc ul {list-style:none;}
@@ -1080,6 +1080,7 @@
     background: #f8eee4;
 
     .b-article-prev_t-a {
+        display: inline;
         color: #186FB8;
         font: bold 17px/20px Tahoma,Arial,Verdana,sans-serif;
     }
@@ -1089,10 +1090,122 @@
         margin-right: 20px;
     }
     &_t {
-        margin: 0 0 15px;
+        margin: 0 0 20px;
         font-size: 15px;
         text-align: center;
         color: #a49585;
     }
 }
 /* /article-contest-conversion */
+
+/* b-contest-advert */
+.b-contest-advert {
+    padding: 20px 20px 30px;
+    background: #f3e7db;
+    text-align: center;
+
+    &_ico {
+        .inline-block();
+        vertical-align: middle;
+        margin: 0 25px 0 20px;
+    }
+    &_hold {
+        .inline-block();
+        vertical-align: middle;
+    }
+    &_t {
+        font-size: 11px;
+        color: #563f37;
+    }
+    &_name {
+        font-size: 25px;
+        color: #000;
+        margin: 0 0 15px;
+    }
+}
+/* /b-contest-advert */
+
+/* contest-meter */
+.contest-meter {
+    position: relative;
+    margin: 5px 0 0;
+
+    &_count {
+        margin: 0;
+        padding: 4px 0;
+        background: #fb0202;
+        text-align: center;
+        color: #fff;
+        position: relative;
+        z-index: 10;
+    }
+    &_count-num {
+        font: 30px/30px 'Roboto', 'Helvetica Neue', Helvetica, Arial, Tahoma, sans-serif;
+    }
+    &_a-vote {
+        display: block;
+        padding: 5px 0;
+        text-align: center;
+        color: #fff;
+        font-size: 11px;
+        text-decoration: none;
+        background: #30b347;
+    }
+    &_vote {
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 400px;
+        background: #fff;
+        z-index: 5;
+        .box-shadow(0 0 4px rgba(0,0,0,0.13));
+        .border-radius(5px);
+    }
+    &_vote .fast-like-block .box-1 {
+        min-width: 0;
+        text-align: left;
+    }
+    &_vote .fast-like-block .share_button {
+        margin-bottom: 23px;
+        margin-right: 20px;
+    }
+    &_vote-tx {
+        float: left;
+        margin: 65px 25px 15px 10px;
+        width: 90px;
+        font-size: 11px;
+        line-height: 14px;
+        text-align: center;
+    }
+    &_vote-hold {
+        float: left;
+        width: 245px;
+        margin: 25px 25px 0 0;
+    }
+}
+/* /contest-meter */
+
+/* contest-aside-prizes */
+.contest-aside-prizes {
+    margin: 20px 0 85px;
+    padding: 10px;
+    background: #eeecf0;
+    background: rgba(255,255,255,.9);
+    text-align: center;
+    .border-radius(5px);
+
+    &_t {
+        margin: 10px 0 15px;
+        font-size: 15px;
+        color: #000;
+    }
+    &_li {
+        margin-bottom: 20px;
+    }
+    &_name {
+        color: #3380b6;
+    }
+    &_name strong {color: #0575ca;}
+}
+/* /contest-aside-prizes */

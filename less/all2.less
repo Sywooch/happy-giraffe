@@ -863,10 +863,7 @@ table.fr_recipe_tb td { width: 50%;}
         max-width: 65px;
     }
     &_t-a {
-        /*display: block;*/
-        /*.inline-block();
-        max-width: 100%;
-        white-space:pre-line;*/
+        display: block;
         margin-right: 4px;
         font: bold 11px/15px Tahoma, Arial, Verdana, sans-serif;
         color: #3782c1;
@@ -907,7 +904,8 @@ table.fr_recipe_tb td { width: 50%;}
         vertical-align: top;
     }
     .b-article-prev_t-a {
-        font: bold 17px/20px Tahoma, Arial, Verdana, sans-serif;
+        display: inline;
+        font: bold 17px/17px Tahoma, Arial, Verdana, sans-serif;
         color: #186FB8;
     }
     &_hide {
@@ -958,7 +956,10 @@ table.fr_recipe_tb td { width: 50%;}
     }
     .favorites-control_a.active,
     .favorites-control_a:hover {background-position: -90px -100px;}
-    &__small-indent {padding: 10px 14px;}
+    &__small-indent {
+        padding: 10px 14px;
+        margin-bottom: -4px;
+    }
     &__repost {
         background: #a17dc4;
         padding: 10px 14px 5px;
@@ -3320,6 +3321,33 @@ table.fr_recipe_tb td { width: 50%;}
         font: 60px/1em 'Roboto', 'Helvetica Neue', Helvetica, Arial, Tahoma, sans-serif;
         color: #fff;
     }
+
+    /* contest */
+    &_contest {margin: 0 20px 10px;}
+    &_t-contest {
+        font: 45px/45px 'Roboto', 'Helvetica Neue', Helvetica, Arial, Tahoma, sans-serif;
+        color: #000;
+    }
+    &_t-contest-small {
+        .inline-block();
+        margin-right: 20px;
+        font-size: 17px;
+        font-family: Arial, Tahoma, Verdana, sans-serif;
+        color: #2a2a2a;
+    }
+    &_contest-rule {
+        .inline-block();
+        margin-top: 14px;
+        color: #593d39;
+        font-size: 12px;
+    }
+    &_contest-tx {
+        font-size: 13px;
+        line-height: 17px;
+        color: #333;
+        margin: 0 0 15px;
+    }
+    /* /contest */
 }
 /* /b-section */
 
@@ -3821,6 +3849,25 @@ table.fr_recipe_tb td { width: 50%;}
 }
 /* /club-services */
 
+/* b-club-back */
+.b-club-back {
+    position: relative;
+    top: -10px;
+    margin: -5px 0 -20px;
+
+    &_ico {
+        float: left;
+        margin-right: 5px;
+    }
+    &_i {
+        float: left;
+        margin-top: 20px;
+        padding-left: 23px;
+        background: url(/images/i-more__left.png) no-repeat 0 5px;
+    }
+}
+/* /b-club-back */
+
 /* branding pages */
 .theme {
 
@@ -3828,7 +3875,18 @@ table.fr_recipe_tb td { width: 50%;}
     &__clearblue .b-section {margin-bottom: 30px;}
     &__clearblue .b-section {margin-bottom: 30px;}
 
-    &_cont {position: relative;}
+}
+.theme-contest {
+    
+    .b-section {
+        background: rgba(220,216,226,.8);
+    }
+    .fast-articles2 {background: rgba(255,255,255,.4);}
+    .col-gray {background: rgba(0,0,0,.15);}
+    .readers2 {background: rgba(255,255,255,.9);}
+    .yiipagination .page {background: rgba(255,255,255,.1);}
+    .yiipagination .page:hover,
+    .yiipagination .page.selected {background: #6accff;}
 }
 .cover {
     position: absolute;
@@ -3839,11 +3897,20 @@ table.fr_recipe_tb td { width: 50%;}
     left: 0;
 }
 
+/* cover-contest */
+.cover-contest {
+    margin: 288px 0 210px;
+    .body-guest & {margin-top: 209px;}
+
+    &__pets1 {background:#4e4064 url(/images/contest/club/pets1/cover-contest__pets1.jpg) no-repeat 50% 0;}
+}
+/* /cover-contest */
+
 /* clearblue */
 .cover-clearblue {
     margin-top: 471px;
     background:#0270b5 url(/images/branding/clearblue/cover-clearblue.jpg) no-repeat 50% 0px;
-.body-guest & {margin-top: 414px;}
+    .body-guest & {margin-top: 409px;}
     &_b {
         position: absolute;
         bottom: 210px;
@@ -3898,7 +3965,12 @@ table.fr_recipe_tb td { width: 50%;}
         padding: 8px 0 0;
         text-align: center;
     }
-    &_btn-hold .btn-green {line-height: 14px;}
+    &_btn-hold .btn-green {
+        line-height: 14px;
+        padding: 7px 20px 8px;
+        margin-left: 10px;
+        text-align: center;
+    }
 }
 .clearblue-aside2 {
     width: 167px;
@@ -3911,6 +3983,11 @@ table.fr_recipe_tb td { width: 50%;}
     .border-radius(5px);
 
     &_tx {margin-bottom: 15px;}
+    .btn-green {
+        font-size: 15px;
+        line-height: 20px;
+        padding: 4px 20px 6px;
+    }
 }
 /* /clearblue */
 /* /branding pages*/

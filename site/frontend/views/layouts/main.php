@@ -243,6 +243,12 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
     <?php if ($this->route != 'messaging/default/index'): ?>
         <?php $this->renderPartial('//_footer'); ?>
     <?php endif; ?>
+
+    <?php if ($this->route == 'services/test/default/view' && $_GET['slug'] == 'pregnancy'): ?>
+        <a href="" class="cover cover-clearblue">
+            <div class="cover-clearblue_b"></div>
+        </a>
+    <?php endif; ?>
 </div>
 <div class="display-n">
     <?php $sql_stats = YII::app()->db->getStats();

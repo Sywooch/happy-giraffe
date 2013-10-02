@@ -31,6 +31,8 @@ class DefaultController extends ServiceController
         Yii::app()->clientScript->registerScriptFile($baseUrl . "/" . $test->getTypeName() . ".js?3", CClientScript::POS_HEAD);
         $this->meta_description = $test->meta_description;
 
+        if ($test->slug == 'pregnancy')
+            $this->bodyClass = 'theme theme__clearblue';
         $this->render($test->getTypeName() . '_' . $test->slug, array(
             'test' => $test
         ));

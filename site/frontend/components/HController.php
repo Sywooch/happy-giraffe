@@ -19,6 +19,7 @@ class HController extends CController
     public $broadcast = false;
 
     public $body_class = 'body-club';
+    public $bodyClass = null;
 
     public $tempLayout = false;
     public $showLikes = false;

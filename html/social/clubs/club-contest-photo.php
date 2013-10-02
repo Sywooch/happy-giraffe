@@ -69,8 +69,8 @@
 								<p>Поделитесь с нами небольшим рассказом и фотосюжетом о вашем любимчике в семье. И его увидят все ваши друзья и знакомые, выскажут свои мнения о его воспитании, кормлении и поделятся с вами своими рассказами.</p>
 							</div>
 							<div class="clearfix">
-								<a href="" class="b-section_contest-rule">Правила конкурса</a>
-								<a href="" class="float-r btn-green btn-h46">Принять участие!</a>
+								<a href="#popup-contest-rule" class="b-section_contest-rule fancy">Правила конкурса</a>
+								<a href="#popup-contest" class="float-r btn-green btn-h46 fancy">Принять участие!</a>
 							</div>
 						</div>
 					</div>
@@ -756,6 +756,227 @@
 </div>
 
 <div class="display-n">
+		
+	<!-- popup-contest -->
+	<div id="popup-contest" class="popup-contest popup-contest__pets1">
+		<a class="popup-transparent-close" onclick="$.fancybox.close();" href="javascript:void(0);" title="Закрыть"></a>
+		<div class="clearfix">
+			<div class="w-720 float-r">
+
+				<div class="b-settings-blue">
+					<div class="b-settings-blue_head">
+						<div class="b-settings-blue_row clearfix">
+							<label for="" class="b-settings-blue_label margin-t15">Конкурс</label>
+							<div class="b-settings-blue_row-tx">
+								<div class="heading-title">Наш домашний любимец</div>
+							</div>
+						</div>
+						<div class="b-settings-blue_row clearfix">
+							<div class="clearfix margin-t-10 ">
+								<div class="float-r font-small color-gray margin-3">0/50</div>
+							</div>
+							<label for="" class="b-settings-blue_label">Заголовок</label>
+							<div class="b-settings-blue_row-tx">
+								<input type="text" name="" id="" class="itx-simple w-100p" placeholder="Введите заголовок фото">
+							</div>
+						</div>
+						<div class="margin-b5 clearfix">
+							<label for="" class="b-settings-blue_label">&nbsp;</label>
+							<div class="b-settings-blue_row-tx">
+								<div class="font-small">
+								Расскажите о своем домашнем животном ( как его зовут, кокой он породы, как вы за ним ухаживаете что он умеет делать, какие лакомства он любит и т д)
+								</div>
+							</div>
+						</div>
+						<div class="b-settings-blue_row clearfix">
+							<label for="" class="b-settings-blue_label">Рассказ</label>
+							<div class="b-settings-blue_row-tx clearfix">
+								<textarea name="" id="" cols="80" rows="5" class="b-settings-blue_textarea itx-simple" placeholder="Ваш текст"></textarea>
+							</div>
+						</div>
+					</div>
+					
+					<!-- Обычный блок загрузки фото -->
+					<!-- .dragover - класс добавлять, когда курсер мыши с файлами находится над блоком -->
+					<div class="b-add-img b-add-img__for-multi">
+						<div class="b-add-img_hold">
+							<div class="b-add-img_t">
+								Загрузите фотографии с компьютера
+								<div class="b-add-img_t-tx">Поддерживаемые форматы: jpg и png</div>
+							</div>
+							<div class="file-fake">
+								<button class="btn-green btn-medium file-fake_btn">Обзор</button>
+								<input type="file" name="">
+							</div>
+						</div>
+						<div class="b-add-img_html5-tx">или перетащите фото сюда</div>
+					</div>
+					
+					
+					<div class=" clearfix">
+						<a href="" class="btn-blue btn-h46 float-r">Добавить</a>
+						<a href="" class="btn-gray-light btn-h46 float-r margin-r15">Отменить</a>
+						
+						<div class="float-l margin-t15">
+							<a href="" class="a-checkbox active"></a>
+							<span class="color-gray">Я ознакомлен с</span> <a href="">Правилами конкурса</a>
+
+						</div>
+					</div>
+				</div>
+
+				<div class="b-settings-blue">
+					<div class="b-settings-blue_head">
+						<div class="b-settings-blue_row clearfix">
+							<label for="" class="b-settings-blue_label margin-t15">Конкурс</label>
+							<div class="b-settings-blue_row-tx">
+								<div class="heading-title">Наш домашний любимец</div>
+							</div>
+						</div>
+						<div class="b-settings-blue_row clearfix">
+							<div class="clearfix margin-t-10 ">
+								<div class="float-r font-small color-gray margin-3">0/50</div>
+							</div>
+							<label for="" class="b-settings-blue_label">Заголовок</label>
+							<div class="b-settings-blue_row-tx">
+								<input type="text" name="" id="" class="itx-simple w-100p" placeholder="Введите заголовок фото">
+							</div>
+						</div>
+						<div class="margin-b5 clearfix">
+							<label for="" class="b-settings-blue_label">&nbsp;</label>
+							<div class="b-settings-blue_row-tx">
+								<div class="font-small">
+								Расскажите о своем домашнем животном ( как его зовут, кокой он породы, как вы за ним ухаживаете что он умеет делать, какие лакомства он любит и т д)
+								</div>
+							</div>
+						</div>
+						<div class="b-settings-blue_row clearfix">
+							<label for="" class="b-settings-blue_label">Рассказ</label>
+							<div class="b-settings-blue_row-tx clearfix">
+								<textarea name="" id="" cols="80" rows="5" class="b-settings-blue_textarea itx-simple" placeholder="Ваш текст"></textarea>
+							</div>
+						</div>
+					</div>
+							
+					<div class="b-add-img b-add-img__for-multi">
+						<div class="b-add-img_hold">
+							<div class="b-add-img_t">
+								Загрузите фотографии с компьютера
+								<div class="b-add-img_t-tx">Поддерживаемые форматы: jpg и png</div>
+							</div>
+							<div class="file-fake">
+								<button class="btn-green btn-medium file-fake_btn">Обзор</button>
+								<input type="file" name="">
+							</div>
+						</div>
+						<div class="textalign-c clearfix">
+							<div class="b-add-img_i">
+								<img class="b-add-img_i-img" src="/images/example/w440-h340.jpg" alt="">
+								<!-- b-add-img_i-vert для вертикального позиционирования маленькой каритнки -->
+								<div class="b-add-img_i-vert"></div>
+								<div class="b-add-img_i-overlay">
+									<a href="" class="b-add-img_i-del ico-close4"></a>
+								</div>
+							</div>
+							<div class="b-add-img_i">
+								<img class="b-add-img_i-img" src="/images/example/w64-h61-2.jpg" alt="">
+								<div class="b-add-img_i-vert"></div>
+								<div class="b-add-img_i-overlay">
+									<a href="" class="b-add-img_i-del ico-close4"></a>
+								</div>
+							</div>
+							<div class="b-add-img_i">
+								<img class="b-add-img_i-img" src="/images/example/11.jpg" alt="">
+								<div class="b-add-img_i-vert"></div>
+								<div class="b-add-img_i-overlay">
+									<a href="" class="b-add-img_i-del ico-close4"></a>
+								</div>
+							</div>
+							<div class="b-add-img_i">
+								<img class="b-add-img_i-img" src="/images/example/w220-h309-1.jpg" alt="">
+								<div class="b-add-img_i-vert"></div>
+								<div class="b-add-img_i-overlay">
+									<a href="" class="b-add-img_i-del ico-close4"></a>
+								</div>
+							</div>
+							<div class="b-add-img_i">
+								<img class="b-add-img_i-img" src="/images/example/w720-h128.jpg" alt="">
+								<div class="b-add-img_i-vert"></div>
+								<div class="b-add-img_i-overlay">
+									<a href="" class="b-add-img_i-del ico-close4"></a>
+								</div>
+							</div>
+							<div class="b-add-img_i error">
+								<div class="b-add-img_i-error-tx">файл мотик.jpg не удалось загрузить, более 10 Мб</div>
+								<div class="b-add-img_i-vert"></div>
+								<div class="b-add-img_i-overlay">
+									<a href="" class="b-add-img_i-del ico-close4"></a>
+								</div>
+							</div>
+							<div class="b-add-img_i">
+								<img class="b-add-img_i-img opacity-20" src="/images/example/w720-h128.jpg" alt="">
+								<div class="b-add-img_i-vert"></div>
+								<div class="b-add-img_i-load">
+									<div class="b-add-img_i-load-progress" style="width:20%;"></div>
+								</div>
+								<div class="b-add-img_i-overlay">
+									<a href="" class="b-add-img_i-del ico-close4"></a>
+								</div>
+							</div>
+						</div>
+						<!-- Текст приглашения для перетаскивания можно скрыть или удалить при наличии фото -->
+						<div class="b-add-img_html5-tx display-n">или перетащите фото сюда</div>
+					</div>
+					
+					
+					<div class=" clearfix">
+						<a href="" class="btn-blue btn-h46 float-r">Добавить</a>
+						<a href="" class="btn-gray-light btn-h46 float-r margin-r15">Отменить</a>
+						
+						<div class="float-l margin-t15">
+							<a href="" class="a-checkbox active"></a>
+							<span class="color-gray">Я ознакомлен с</span> <a href="">Правилами конкурса</a>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /popup-contest -->
+
+	<!-- popup-contest -->
+	<div id="popup-contest-rule" class="popup-contest popup-contest__pets1">
+		<a class="popup-transparent-close" onclick="$.fancybox.close();" href="javascript:void(0);" title="Закрыть"></a>
+		<div class="clearfix">
+			<div class="w-720 float-r">
+
+				<div class="b-settings-blue">
+					
+					<div class="contest-rule">
+						<div class="heading-title">Наш домашний любимец</div>
+						<ol>
+							<li>Принимай участие в фотоконкурсе «Наш домашний любимец».</li>
+							<li>С 15 сентября по 31 октября 2013 года разместите свою фотографию на тему «Как я провел лето» на промо-сайте leto.bystrobank.ru. Напишите поясняющий комментарий — как БыстроБанк помог Вам этим летом.</li>
+							<li>От одного участника допускается размещение не более 5 фотографий.</li>
+							<li>За размещенные фотографии с 15 сентября по 14 ноября 2013 года будет организовано голосование посетителей сайта.</li>
+							<li>За одно фото посетитель может проголосовать только 1 раз.</li>
+							<li>Вы можете приглашать к голосованию своих друзей и знакомых.</li>
+							<li>Авторы 8 фотографий, набравших наибольшее количество голосов, получат призы фотоконкурса. Авторы фотографий, занявшие места с 1-го по 8-ое будут награждены мультиварками либо автомобильными регистраторами. Один участник конкурса сможет получить только один приз.</li>
+							<li>Для участия в конкурсе необходимо быть действующим клиентом БыстроБанка или клиентом, имевшим действующий договор с банком в течение 2012–2013 гг. Каждый участник должен указать ФИО, город, дату рождения и номер телефона.</li>
+							<li>Проведение итогов голосования и публикация на сайте Банка www.bystrobank.ru списка победителей будет 15 ноября 2013 года. В течении 10 дней после публикации сотрудник Банка свяжется с победителями по телефону и пригласит в Банк для вручения приза.</li>
+						</ol>
+						<div class="textalign-c clearfix">
+							<a href="" class="btn-green btn-h46">Принять участие!</a>
+						</div>
+					</div>
+					
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<!-- /popup-contest -->
 	
 </div>
 </body>

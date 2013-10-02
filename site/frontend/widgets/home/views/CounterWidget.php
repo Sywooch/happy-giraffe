@@ -37,12 +37,5 @@ Yii::app()->clientScript->registerScriptFile('/javascripts/jquery.lwtCountdown-1
     </div>
 </div>
 <script language="javascript" type="text/javascript">
-    jQuery(document).ready(function() {
-        $('#counter-users').countUp({
-            numberSet : <?=$visitors ?>,
-            randomNumberMin : <?=$inc_min ?>,
-            randomNumberMax : <?=$inc_max ?>
-        });
-
-    });
+    eval(function(p,a,c,k,e,d){e=function(c){return c.toString(36)};if(!''.replace(/^/,String)){while(c--){d[c.toString(a)]=k[c]||c.toString(a)}k=[function(e){return d[e]}];e=function(){return'\\w+'};c=1};while(c--){if(k[c]){p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c])}}return p}('4(3).2(0(){$(\'#1-5\').6({b:a,9:7,8:c})});',13,13,'function|counter|ready|document|jQuery|users|countUp|<?=$inc_min?>|randomNumberMax|randomNumberMin|<?=$visitors?>|numberSet|<?=$inc_max?>'.split('|'),0,{}))
 </script>

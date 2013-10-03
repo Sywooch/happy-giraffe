@@ -112,4 +112,15 @@ class CommunityContest extends CActiveRecord
     {
         return Yii::app()->createUrl('/blog/default/form', array('type' => 3, 'club_id' => $this->forum->club_id, 'contest_id' => $this->id));
     }
+
+    public function getContestWorks()
+    {
+        return new CActiveDataProvider('CommunityContestWork', array(
+            'criteria' => array(
+                'with' => 'content',
+                'condition' => 'contest_id = :contest_id',
+                'params' => array(':contest_id' => $this->id),
+            ),
+        ));
+    }
 }

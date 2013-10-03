@@ -14,7 +14,7 @@
  * @property CommunityContestWorks[] $communityContestWorks
  * @property CommunityForum $forum
  */
-class CommunityContest extends CActiveRecord
+class CommunityContest extends HActiveRecord
 {
 	/**
 	 * @return string the associated database table name

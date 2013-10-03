@@ -13,7 +13,7 @@
  * @property CommunityContents $content
  * @property CommunityContests $contest
  */
-class CommunityContestWork extends CActiveRecord
+class CommunityContestWork extends HActiveRecord
 {
 	/**
 	 * @return string the associated database table name
@@ -103,4 +103,9 @@ class CommunityContestWork extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+
+    public function getUrl()
+    {
+        return $this->content->getUrl();
+    }
 }

@@ -14,6 +14,7 @@ class AjaxController extends HController
         Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
         Yii::import('site.frontend.modules.contest.models.*');
         Yii::import('site.frontend.modules.cook.models.*');
+        Yii::import('site.frontend.modules.community.models.*');
 
         if ($service !== null) {
             $authIdentity = Yii::app()->eauth->getIdentity($service);
@@ -21,7 +22,7 @@ class AjaxController extends HController
             $authIdentity->redirectUrl = $model->getShare($service);
             $inc = false;
 
-            if ($model->contest->status == Contest::STATUS_ACTIVE) {
+            if (! isset ($model->contest->status) || $model->contest->status == Contest::STATUS_ACTIVE) {
                 if ($authIdentity->authenticate()) {
                     $vote = new SocialVote;
                     $vote->entity = $entity;

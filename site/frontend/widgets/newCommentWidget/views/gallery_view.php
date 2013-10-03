@@ -1,7 +1,7 @@
 <?php $comments = $this->getComments(); ?><div class="photo-window_right">
 
     <div class="photo-window_banner-hold clearfix">
-        <iframe src="/rtb3.html?<?=$mt_rand(1000000000, 9999999999)?>" width="300" height="250" marginwidth="0" marginheight="0" scrolling="no" frameborder="0"></iframe>
+        <iframe src="/rtb3.html?<?=mt_rand(1000000000, 9999999999)?>" width="300" height="250" marginwidth="0" marginheight="0" scrolling="no" frameborder="0"></iframe>
     </div>
 
     <?php $this->render('view', array('comments' => $comments)); ?>

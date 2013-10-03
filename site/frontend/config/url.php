@@ -339,5 +339,7 @@ return array(
         'user/<userId:\d+>/family' => 'family/default/index',
         'family/<_a>' => 'family/default/<_a>',
         'family/<_c>/<_a>' => 'family/<_c>/<_a>',
+
+        'community/contest<contestId:\d+>' => 'community/contest/index',
     ),
 );

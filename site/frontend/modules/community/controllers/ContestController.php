@@ -11,7 +11,7 @@ class ContestController extends HController
 {
     public function actionIndex($contestId)
     {
-        $contest = CommunityContest::model()->with('club')->findByPk($contestId);
+        $contest = CommunityContest::model()->with('forum')->findByPk($contestId);
         if ($contest === null)
             throw new CHttpException(404);
 

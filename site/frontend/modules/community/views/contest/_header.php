@@ -6,10 +6,10 @@
 
 <div class="b-club-back clearfix">
     <div class="b-club-back_ico">
-        <img src="/images/club/<?=$contest->club->id?>-w40.png" alt="">
+        <img src="/images/club/<?=$contest->forum->club_id?>-w40.png" alt="">
     </div>
     <div class="b-club-back_i">
-        <a href="<?=$contest->club->getUrl()?>" class="b-club-back_a">В клуб <?=$contest->club->title?></a>
+        <a href="<?=$contest->forum->club->getUrl()?>" class="b-club-back_a">В клуб <?=$contest->forum->club->title?></a>
     </div>
 </div>
 

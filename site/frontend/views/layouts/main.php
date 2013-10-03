@@ -249,6 +249,10 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
             <div class="cover-clearblue_b"></div>
         </a>
     <?php endif; ?>
+
+    <?php if ($this->id == 'contest'): ?>
+        <div class="cover cover-contest cover-contest__pets1"></div>
+    <?php endif; ?>
 </div>
 <div class="display-n">
     <?php $sql_stats = YII::app()->db->getStats();

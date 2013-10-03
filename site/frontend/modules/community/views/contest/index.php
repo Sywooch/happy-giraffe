@@ -209,7 +209,7 @@ Yii::app()->clientScript->registerPackage('ko_community');
                     </div>
                 ',
                 'emptyText' => '',
-                'viewData' => array('full' => false),
+                'viewData' => array('full' => false, 'isContestWork' => true),
             ));
             ?>
 

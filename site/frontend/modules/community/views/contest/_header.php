@@ -32,7 +32,7 @@
                     </div>
                     <div class="clearfix">
                         <a href="#popup-contest-rule" class="b-section_contest-rule fancy">Правила конкурса</a>
-                        <a href="#popup-contest" class="float-r btn-green btn-h46 fancy">Принять участие!</a>
+                        <a href="<?=$contest->getParticipateUrl()?>" class="float-r btn-green btn-h46 fancy">Принять участие!</a>
                     </div>
                 </div>
             </div>

@@ -107,4 +107,9 @@ class CommunityContest extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+
+    public function getParticipateUrl()
+    {
+        return Yii::app()->createUrl('/blog/default/form', array('type' => 3, 'club_id' => $this->club_id, 'contest_id' => $this->id));
+    }
 }

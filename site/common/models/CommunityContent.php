@@ -124,6 +124,7 @@ class CommunityContent extends HActiveRecord
             'editor' => array(self::BELONGS_TO, 'User', 'editor_id'),
             'gallery' => array(self::HAS_ONE, 'CommunityContentGallery', 'content_id'),
             'favouritesCount' => array(self::STAT, 'Favourite', 'model_id', 'condition' => 'model_name=:modelName', 'params' => array(':modelName' => get_class($this))),
+            'contestWork' => array(self::HAS_ONE, 'CommunityContestWork', 'content_id'),
         );
     }
 

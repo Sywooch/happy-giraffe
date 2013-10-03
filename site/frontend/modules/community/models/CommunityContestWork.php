@@ -31,7 +31,7 @@ class CommunityContestWork extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('contest_id, content_id, rate', 'required'),
+			array('contest_id', 'required'),
 			array('contest_id, content_id, rate', 'length', 'max'=>11),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.

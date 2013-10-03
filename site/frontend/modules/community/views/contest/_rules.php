@@ -15,7 +15,7 @@
                     <div class="heading-title"><?=$contest->title?></div>
                     <?=$contest->rules?>
                     <div class="textalign-c clearfix">
-                        <a href="" class="btn-green btn-h46">Принять участие!</a>
+                        <a href="<?=$contest->getParticipateUrl()?>" class="btn-green btn-h46 fancy">Принять участие!</a>
                     </div>
                 </div>
 

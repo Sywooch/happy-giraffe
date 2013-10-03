@@ -185,7 +185,17 @@ class DefaultController extends HController
         $slaveModel->attributes = $_POST[$slaveModelName];
         $this->performAjaxValidation(array($model, $slaveModel));
         $model->$slug = $slaveModel;
-        $success = $model->withRelated->save(true, array($slug));
+        if (($contest_id = Yii::app()->request->getPost('contest_id')) !== null) {
+            $contestWork = new CommunityContestWork();
+            $contestWork->contest_id = $contest_id;
+            $model->contestWork = $contestWork;
+            $success = $model->withRelated->save(true, array(
+                $slug,
+                'contestWork',
+            ));
+        }
+        else
+            $success = $model->withRelated->save(true, array($slug));
 
         if ($success) {
             if (isset($_POST['redirect']))

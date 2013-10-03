@@ -1,0 +1,1 @@
+<?php $this->renderPartial('blog.views.default.view', array('full' => true, 'data' => $data->content, 'contestWork' => $data)); ?>

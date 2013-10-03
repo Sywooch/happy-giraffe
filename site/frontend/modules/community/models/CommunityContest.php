@@ -11,8 +11,9 @@
  * @property string $forum_id
  *
  * The followings are the available model relations:
- * @property CommunityContestWorks[] $communityContestWorks
- * @property CommunityForum $forum
+ * @property Community $forum
+ * @property CommunityContestWork[] $contestWorks
+ * @property int $contestWorksCount
  */
 class CommunityContest extends HActiveRecord
 {
@@ -49,8 +50,9 @@ class CommunityContest extends HActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'communityContestWorks' => array(self::HAS_MANY, 'CommunityContestWorks', 'contest_id'),
 			'forum' => array(self::BELONGS_TO, 'Community', 'forum_id'),
+            'contestWorks' => array(self::HAS_MANY, 'CommunityContestWork', 'contest_id'),
+            'contestWorksCount' => array(self::STAT, 'CommunityContestWork', 'contest_id'),
 		);
 	}
 
@@ -113,14 +115,40 @@ class CommunityContest extends HActiveRecord
         return Yii::app()->createUrl('/blog/default/form', array('type' => 3, 'club_id' => $this->forum->club_id, 'contest_id' => $this->id));
     }
 
-    public function getContestWorks()
+    public function getContestWorks($sort)
     {
         return new CActiveDataProvider('CommunityContestWork', array(
             'criteria' => array(
                 'with' => 'content',
+                'order' => $sort == ContestController::SORT_CREATED ? 't.id DESC' : 't.rate DESC',
                 'condition' => 'contest_id = :contest_id',
                 'params' => array(':contest_id' => $this->id),
             ),
         ));
+    }
+
+    public function getParticipants($limit, $order)
+    {
+        return CommunityContestWork::model()->findAll(array(
+            'condition' => 'contest_id = :contest_id',
+            'params' => array(':contest_id' => $this->id),
+            'order' => $order,
+            'limit' => $limit,
+            'with' => array(
+                'content' => array(
+                    'with' => 'author',
+                ),
+            ),
+        ));
+    }
+
+    public function getLastParticipants($limit)
+    {
+        return $this->getParticipants($limit, 't.id DESC');
+    }
+
+    public function getTopParticipants($limit)
+    {
+        return $this->getParticipants($limit, 't.rate DESC');
     }
 }

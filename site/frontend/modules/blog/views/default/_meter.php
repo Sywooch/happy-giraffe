@@ -1,6 +1,12 @@
+<?php
+/**
+ * @var CommunityContestWork @contestWork
+ */
+?>
+
 <div class="contest-meter">
     <div class="contest-meter_count">
-        <div class="contest-meter_count-num">356</div>
+        <div class="contest-meter_count-num"><?=$contestWork->rate?></div>
         <div class="contest-meter_count-tx">баллов</div>
     </div>
     <a href="" class="contest-meter_a-vote">Голосовать</a>

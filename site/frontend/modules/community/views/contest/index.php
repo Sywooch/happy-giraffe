@@ -199,7 +199,7 @@ Yii::app()->clientScript->registerPackage('ko_community');
                 'cssFile' => false,
                 'ajaxUpdate' => false,
                 'dataProvider' => $works,
-                'itemView' => 'blog.views.default.view',
+                'itemView' => 'view',
                 'pager' => array(
                     'class' => 'HLinkPager',
                 ),

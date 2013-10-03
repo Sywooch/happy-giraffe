@@ -28,6 +28,9 @@ $ownArticle = $model->author_id == Yii::app()->user->id;
         <!-- /ko -->
 
     </div>
+    <?php if ($contestWork !== null): ?>
+        <?php $this->renderPartial('application.modules.blog.views.default._meter', compact('contestWork')); ?>
+    <?php endif; ?>
     <?php if (!Yii::app()->user->isGuest && ($model->canEdit() || $model->canRemove()) && !$isRepost): ?>
         <div class="article-settings">
             <div class="article-settings_i">

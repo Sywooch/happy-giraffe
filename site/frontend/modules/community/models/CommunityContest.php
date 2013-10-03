@@ -8,11 +8,11 @@
  * @property string $title
  * @property string $description
  * @property string $rules
- * @property string $club_id
+ * @property string $forum_id
  *
  * The followings are the available model relations:
  * @property CommunityContestWorks[] $communityContestWorks
- * @property CommunityClubs $club
+ * @property CommunityForum $forum
  */
 class CommunityContest extends CActiveRecord
 {
@@ -32,12 +32,12 @@ class CommunityContest extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('description, rules, club_id', 'required'),
+			array('description, rules, forum_id', 'required'),
 			array('title', 'length', 'max'=>255),
-			array('club_id', 'length', 'max'=>11),
+			array('forum_id', 'length', 'max'=>11),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, title, description, rules, club_id', 'safe', 'on'=>'search'),
+			array('id, title, description, rules, forum_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -50,7 +50,7 @@ class CommunityContest extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'communityContestWorks' => array(self::HAS_MANY, 'CommunityContestWorks', 'contest_id'),
-			'club' => array(self::BELONGS_TO, 'CommunityClub', 'club_id'),
+			'forum' => array(self::BELONGS_TO, 'Community', 'forum_id'),
 		);
 	}
 
@@ -64,7 +64,7 @@ class CommunityContest extends CActiveRecord
 			'title' => 'Title',
 			'description' => 'Description',
 			'rules' => 'Rules',
-			'club_id' => 'Club',
+			'forum_id' => 'Forum',
 		);
 	}
 
@@ -90,7 +90,7 @@ class CommunityContest extends CActiveRecord
 		$criteria->compare('title',$this->title,true);
 		$criteria->compare('description',$this->description,true);
 		$criteria->compare('rules',$this->rules,true);
-		$criteria->compare('club_id',$this->club_id,true);
+		$criteria->compare('forum_id',$this->forum_id,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -110,6 +110,6 @@ class CommunityContest extends CActiveRecord
 
     public function getParticipateUrl()
     {
-        return Yii::app()->createUrl('/blog/default/form', array('type' => 3, 'club_id' => $this->club_id, 'contest_id' => $this->id));
+        return Yii::app()->createUrl('/blog/default/form', array('type' => 3, 'club_id' => $this->forum->club_id, 'contest_id' => $this->id));
     }
 }

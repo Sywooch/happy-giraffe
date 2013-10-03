@@ -16,7 +16,7 @@ $user_count = $service->getUsersCount();
             </li>
         <?php endforeach; ?>
         <?php if ($user_count > 20):?>
-            <span class="assistance-users_other">и еще <?=($user_count - 20) ?></span>
+            <span class="assistance-users_other">и еще <?=($count - 20) ?></span>
         <?php endif ?>
     </ul>
 </div>

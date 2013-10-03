@@ -13,74 +13,17 @@ Yii::app()->clientScript->registerPackage('ko_community');
 
         <div class="readers2 margin-t0">
             <div class="clearfix">
-                <div class="heading-small textalign-c margin-b10">Участники <span class="color-gray">(156)</span> </div>
+                <div class="heading-small textalign-c margin-b10">Участники <span class="color-gray">(<?=$contest->contestWorksCount?>)</span> </div>
             </div>
+            <?php $lastParticipants = $contest->getLastParticipants(10); if ($lastParticipants): ?>
             <ul class="readers2_ul clearfix">
-                <li class="readers2_li clearfix">
-                    <a class="ava female small" href="">
-                        <span class="icon-status status-online"></span>
-                        <img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
-                    </a>
-                </li>
-                <li class="readers2_li clearfix">
-                    <a class="ava female small" href="">
-                        <img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
-                    </a>
-                </li>
-                <li class="readers2_li clearfix">
-                    <a class="ava female small" href="">
-                        <span class="icon-status status-online"></span>
-                        <img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
-                    </a>
-                </li>
-                <li class="readers2_li clearfix">
-                    <a class="ava female small" href="">
-                    </a>
-                </li>
-                <li class="readers2_li clearfix">
-                    <a class="ava female small" href="">
-                        <span class="icon-status status-online"></span>
-                        <img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
-                    </a>
-                </li>
-                <li class="readers2_li clearfix">
-                    <a class="ava male small" href="">
-                        <span class="icon-status status-online"></span>
-                    </a>
-                </li>
-                <li class="readers2_li clearfix">
-                    <a class="ava female small" href="">
-                        <span class="icon-status status-online"></span>
-                        <img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
-                    </a>
-                </li>
-                <li class="readers2_li clearfix">
-                    <a class="ava female small" href="">
-                        <img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
-                    </a>
-                </li>
-                <li class="readers2_li clearfix">
-                    <a class="ava female small" href="">
-                        <span class="icon-status status-online"></span>
-                        <img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
-                    </a>
-                </li>
-                <li class="readers2_li clearfix">
-                    <a class="ava female small" href="">
-                    </a>
-                </li>
-                <li class="readers2_li clearfix">
-                    <a class="ava female small" href="">
-                        <span class="icon-status status-online"></span>
-                        <img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
-                    </a>
-                </li>
-                <li class="readers2_li clearfix">
-                    <a class="ava male small" href="">
-                        <span class="icon-status status-online"></span>
-                    </a>
-                </li>
+                <?php foreach ($lastParticipants as $contestWork): ?>
+                    <li class="readers2_li clearfix">
+                        <?php $this->widget('Avatar', array('user' => $contestWork->content->author, 'size' => Avatar::SIZE_MICRO)); ?>
+                    </li>
+                <?php endforeach; ?>
             </ul>
+            <?php endif; ?>
             <a class="btn-green btn-medium readers2_btn-inline" href="<?=$contest->getParticipateUrl()?>" class="fancy">Принять участие!</a>
         </div>
 
@@ -121,61 +64,14 @@ Yii::app()->clientScript->registerPackage('ko_community');
         </div>
 
 
+        <?php $topParticipants = $contest->getTopParticipants(3); if ($topParticipants): ?>
         <div class="fast-articles2 js-fast-articles2">
             <div class="fast-articles2_t-ico"></div>
-            <div class="fast-articles2_i">
-                <div class="fast-articles2_header clearfix">
-
-                    <div class="meta-gray">
-                        <a href="" class="meta-gray_comment">
-                            <span class="ico-comment ico-comment__gray"></span>
-                            <span class="meta-gray_tx">35</span>
-                        </a>
-                        <div class="meta-gray_view">
-                            <span class="ico-view ico-view__gray"></span>
-                            <span class="meta-gray_tx">305</span>
-                        </div>
-                    </div>
-
-                    <div class="float-l">
-                        <span class="font-smallest color-gray">Сегодня 13:25</span>
-                    </div>
-                </div>
-                <div class="fast-articles2_i-t">
-                    <a href="" class="fast-articles2_i-t-a"> О моем первом бойфренде</a>
-                </div>
-                <div class="fast-articles2_i-desc">Практически нет девушки, которая не переживала </div>
-                <div class="fast-articles2_i-img-hold">
-                    <a href=""><img src="/images/example/w190-h166.jpg" alt="" class="fast-articles2_i-img"></a>
-                </div>
-            </div>
-            <div class="fast-articles2_i">
-                <div class="fast-articles2_header clearfix">
-
-                    <div class="meta-gray">
-                        <a href="" class="meta-gray_comment">
-                            <span class="ico-comment ico-comment__gray"></span>
-                            <span class="meta-gray_tx">35</span>
-                        </a>
-                        <div class="meta-gray_view">
-                            <span class="ico-view ico-view__gray"></span>
-                            <span class="meta-gray_tx">305</span>
-                        </div>
-                    </div>
-
-                    <div class="float-l">
-                        <span class="font-smallest color-gray">Сегодня 13:25</span>
-                    </div>
-                </div>
-                <div class="fast-articles2_i-t">
-                    <a href="" class="fast-articles2_i-t-a"> Как мне предлагали руку и сердце</a>
-                </div>
-                <div class="fast-articles2_i-desc">Практически нет девушки, которая не переживала </div>
-                <div class="fast-articles2_i-img-hold">
-                    <a href=""><img src="/images/example/w190-h166.jpg" alt="" class="fast-articles2_i-img"></a>
-                </div>
-            </div>
+            <?php foreach ($topParticipants as $contestWork): ?>
+                <?php $this->renderPartial('application.modules.blog.views.default._popular_one', array('b' => $contestWork->content)); ?>
+            <?php endforeach; ?>
         </div>
+        <?php endif; ?>
 
     </div>
     <div class="col-23-middle ">
@@ -184,11 +80,13 @@ Yii::app()->clientScript->registerPackage('ko_community');
             <div class="clearfix">
                 <div class="float-r margin-t20 margin-r20">
                     <div class="chzn-itx-simple chzn-itx-simple__small">
-                        <select name="" id="" class="chzn">
-                            <!-- список option не точный -->
-                            <option value="">По дате добавления</option>
-                            <option value="">По количеству голосов</option>
-                        </select>
+                        <?=CHtml::dropDownList('sort', $_GET['sort'], array(
+                            '0' => 'По дате добавления',
+                            '1' => 'По количеству голосов',
+                        ), array(
+                            'class' => 'chzn',
+                            'onchange' => 'document.location.href = \'' . $this->createUrl('/community/contest/index', array('contestId' => $contest->id)) . '?sort=\' + $(this).val();',
+                        ))?>
                     </div>
 
                 </div>

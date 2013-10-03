@@ -15,6 +15,8 @@
                 ),
             )); ?>
             <?=$form->hiddenField($model, 'type_id')?>
+            <?=$form->hiddenField($model, 'rubric_id')?>
+            <?=CHtml::hiddenField('contest_id', $contest->id)?>
             <div class="b-settings-blue">
                 <div class="b-settings-blue_head">
                     <div class="b-settings-blue_row clearfix">
@@ -56,12 +58,12 @@
                 </div>
 
                 <div class=" clearfix">
-                    <button data-bind="click: add, css: { 'btn-inactive': upload().photos().length < 3}" class="btn-blue btn-h46 float-r"><?=$model->isNewRecord ? 'Добавить' : 'Редактировать'?></button>
+                    <button data-bind="click: add, css: { 'btn-inactive': upload().photos().length < 3 || rulesAccepted() === false }" class="btn-blue btn-h46 float-r"><?=$model->isNewRecord ? 'Добавить' : 'Редактировать'?></button>
                     <a href="javascript:void(0)" class="btn-gray-light btn-h46 float-r margin-r15" onclick="$.fancybox.close()">Отменить</a>
 
                     <div class="float-l margin-t15">
-                        <a href="" class="a-checkbox active"></a>
-                        <span class="color-gray">Я ознакомлен с</span> <a href="">Правилами конкурса</a>
+                        <a class="a-checkbox" data-bind="css: { active : rulesAccepted }, click: toggleRulesAccepted"></a>
+                        <span class="color-gray">Я ознакомлен с</span> <a href="#popup-contest-rule" class="fancy">Правилами конкурса</a>
 
                     </div>
                 </div>
@@ -80,6 +82,12 @@
         self.add = function () {
             $('#CommunityPhotoPost_photos').val(self.upload().getPhotoIds());
             $('#blog-form').submit();
+        }
+
+        self.rulesAccepted = ko.observable(false);
+
+        self.toggleRulesAccepted = function() {
+            self.rulesAccepted(! self.rulesAccepted());
         }
     };
     var formVM1 = new PhotoPostViewModel(<?=CJSON::encode($json)?>);

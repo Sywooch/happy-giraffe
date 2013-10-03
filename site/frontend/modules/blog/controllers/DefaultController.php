@@ -14,7 +14,7 @@ class DefaultController extends HController
     {
         $filters = array(
             'accessControl',
-            'ajaxOnly - index, view, save',
+            //'ajaxOnly - index, view, save',
         );
 
         if (Yii::app()->user->isGuest) {
@@ -166,7 +166,7 @@ class DefaultController extends HController
         }
     }
 
-    public function actionForm($id = null, $type = null, $club_id = false)
+    public function actionForm($id = null, $type = null, $club_id = false, $contest_id = null)
     {
         $this->user = $this->loadUser(Yii::app()->user->id);
         if ($id === null) {
@@ -243,7 +243,12 @@ class DefaultController extends HController
             }
         }
 
-        if (Yii::app()->request->getPost('short'))
+        if ($contest_id !== null) {
+            Yii::import('application.modules.community.models.*');
+            $contest = CommunityContest::model()->findByPk($contest_id);
+            $this->renderPartial('form/contest/' . $contest_id, compact('model', 'slaveModel', 'json', 'club_id', 'contest_id', 'contest'), false, true);
+        }
+        elseif (Yii::app()->request->getPost('short'))
             $this->renderPartial('form/' . $model->type_id, compact('model', 'slaveModel', 'json', 'club_id'), false, true);
         else
             $this->renderPartial('form', compact('model', 'slaveModel', 'json', 'club_id'), false, true);

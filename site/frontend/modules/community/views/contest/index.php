@@ -2,6 +2,8 @@
 /**
  * @var CommunityContest $contest
  */
+
+Yii::app()->clientScript->registerPackage('ko_community');
 ?>
 
 <?php $this->renderPartial('_header', compact('contest')); ?>
@@ -79,7 +81,7 @@
                     </a>
                 </li>
             </ul>
-            <a class="btn-green btn-medium readers2_btn-inline" href="">Принять участие!</a>
+            <a class="btn-green btn-medium readers2_btn-inline" href="<?=$contest->getParticipateUrl()?>" class="fancy">Принять участие!</a>
         </div>
 
         <div class="contest-aside-prizes">
@@ -672,5 +674,5 @@
 </div>
 
 <div class="display-n">
-    <?php $this->renderPartial('_rules', compact('contest')); ?>
+<?php $this->renderPartial('_rules', compact('contest')); ?>
 </div>

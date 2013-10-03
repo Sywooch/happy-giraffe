@@ -7,41 +7,111 @@
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/head.php'; ?>
 	
 </head>
-<body class="body-gray theme-contest theme-contest__pets1">
+<body class="body-gray theme-contest theme-contest__pets1 body-guest">
 
 <div class="layout-container">
 	<div class="layout-wrapper">
-		<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/header-new.php'; ?>
+		<div class="layout-header layout-header__nologin clearfix">
+			<div class="content-cols clearfix">
+				<div class="col-1">
+					<h1 class="logo">
+						<a href="/" class="logo_i" title="Веселый жираф - сайт для все семьи">Веселый жираф - сайт для все семьи</a>
+						<strong class="logo_slogan">САЙТ ДЛЯ ВСЕЙ СЕМЬИ</strong>
+					</h1>
+					<div class="sidebar-search clearfix">
+						<input type="text" placeholder="Поиск по сайту" class="sidebar-search_itx" id="" name="">
+						<!-- 
+						В начале ввода текста, скрыть sidebar-search_btn добавить класс active"
+						 -->
+						<button class="sidebar-search_btn"></button>
+					</div>
+				</div>
+				<div class="col-23">
+					<div class="b-join clearfix">
+						<div class="b-join_left">
+							<div class="b-join_tx"> Более <span class="b-join_tx-big"> 20 000 000</span> мам и пап</div>
+							<div class="b-join_slogan">уже посетили Веселый Жираф!</div>
+						</div>
+						<div class="b-join_right">
+							<a href="" class="btn-green btn-big">Присоединяйтесь!</a>
+							<div class="clearfix">
+								<a href="" class="display-ib verticalalign-m">Войти</a>
+								<span class="i-or">или</span>
+								<ul class="display-ib verticalalign-m">
+									<li class="display-ib">
+										<a class="custom-like" href="">
+											<span class="custom-like_icon odnoklassniki"></span>
+										</a>
+									</li>
+									<li class="display-ib">
+										<a class="custom-like" href="">
+											<span class="custom-like_icon vkontakte"></span>
+										</a>
+									</li>
+									<li class="display-ib">
+										<a class="custom-like" href="">
+											<span class="custom-like_icon facebook"></span>
+										</a>
+									</li>
+									<li class="display-ib">
+										<a class="custom-like" href="">
+											<span class="custom-like_icon twitter"></span>
+										</a>
+									</li>
+								</ul>
+								
+							
+								
+							
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<script>
+			$(window).load(function() {
+				/*
+				block - элемент, что фиксируется
+				elementStop - до какого элемента фиксируется
+				blockIndent - отступ
+				*/
+				function bJoinRowFixed() {
+
+					var block = $('.js-b-join-row');
+					var blockTop = block.offset().top;
+
+					var startTop = $('.layout-header').height();
+					
+
+					$(window).scroll(function() {
+				        var windowScrollTop = $(window).scrollTop();
+				        if (windowScrollTop > startTop) {
+				        	block.fadeIn();
+				        } else {
+
+							block.fadeOut();
+
+				        }
+				    });
+				}
+
+				bJoinRowFixed('.js-b-join-row');
+			})
+			</script>
+			<div class="b-join-row js-b-join-row">
+				<div class="b-join-row_hold">
+					<div class="b-join-row_logo"></div>
+					<div class="b-join-row_tx">Более <span class="b-join-row_tx-big"> 20 000 000</span> мам и пап</div>
+					<div class="b-join-row_slogan">уже посетили Веселый Жираф!</div>
+					<a href="" class="btn-green btn-h46">Присоединяйтесь!</a>
+				</div>
+			</div>
+
+
+		</div>
 		
 		<div class="layout-content clearfix">
-		<div class="content-cols clearfix">
-			<div class="col-1">
-				<div class="sidebar-search clearfix">
-					<input type="text" placeholder="Поиск по сайту" class="sidebar-search_itx" id="" name="">
-					<!-- 
-					В начале ввода текста, скрыть sidebar-search_btn добавить класс active"
-					 -->
-					<button class="sidebar-search_btn"></button>
-				</div>
-			</div>
-			<div class="col-23-middle">
-				<div class="user-add-record user-add-record__small clearfix">
-					<div class="user-add-record_ava-hold">
-						<a href="" class="ava male middle">
-							<span class="icon-status status-online"></span>
-							<img alt="" src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg">
-						</a>
-					</div>
-					<div class="user-add-record_hold">
-						<div class="user-add-record_tx">Я хочу добавить</div>
-						<a href="#popup-user-add-article"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__article fancy powertip" title="Статью"></a>
-						<a href="#popup-user-add-photo"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__photo fancy powertip" title="Фото"></a>
-						<a href="#popup-user-add-video"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__video fancy active powertip" title="Видео"></a>
-						<a href="#popup-user-add-status"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__status fancy powertip" title="Статус"></a>
-					</div>
-				</div>
-			</div>
-		</div>
+
 		<div class="b-club-back clearfix">
 			<div class="b-club-back_ico">
 				<img src="/images/club/11-w40.png" alt="">
@@ -193,6 +263,8 @@
 
 				<div class="fast-articles2 js-fast-articles2">
 					<div class="fast-articles2_t-ico"></div>
+					<div class="fast-articles2_t">Тройка лидеров</div>
+
 					<div class="fast-articles2_i">
 						<div class="fast-articles2_header clearfix">
 						
@@ -213,6 +285,7 @@
 						</div>
 						<div class="fast-articles2_i-t">
 							<a href="" class="fast-articles2_i-t-a"> О моем первом бойфренде</a>
+							<span class="fast-articles2_i-t-count">456</span>
 						</div>
 						<div class="fast-articles2_i-desc">Практически нет девушки, которая не переживала </div>
 						<div class="fast-articles2_i-img-hold">
@@ -239,6 +312,7 @@
 						</div>
 						<div class="fast-articles2_i-t">
 							<a href="" class="fast-articles2_i-t-a"> Как мне предлагали руку и сердце</a>
+							<span class="fast-articles2_i-t-count">456</span>
 						</div>
 						<div class="fast-articles2_i-desc">Практически нет девушки, которая не переживала </div>
 						<div class="fast-articles2_i-img-hold">

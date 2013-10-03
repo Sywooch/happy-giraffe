@@ -1214,26 +1214,39 @@
 .theme-contest {
     
     .b-section {
-        background: rgba(220,216,226,.8);
+        background: rgba(255,255,255,.7);
         margin-bottom: 35px;
     }
-    .fast-articles2 {background: rgba(255,255,255,.4);}
-    .col-gray {background: rgba(0,0,0,.15);}
     .readers2 {background: rgba(255,255,255,.9);}
+    .fast-articles2 {background: rgba(255,255,255,.35);}
     .yiipagination .page {background: rgba(255,255,255,.1);}
     .yiipagination .page:hover,
     .yiipagination .page.selected {background: #6accff;}
+    
+    &__pets1 .col-gray {background: rgba(0,0,0,.15);}
+    &__pets1 .b-section {background: rgba(220,216,226,.8);}
+    &__pets1 .b-section_contest-rule {color: #593d39;}
 
+    &__birth1 .col-gray {background: rgba(255,255,255,.3);}
+    &__birth1 .b-section_contest-rule {color: #ce557d;}
+    &__birth1 .chzn-itx-simple__small .chzn-single {border-color: #dabbbd;}
+    &__birth1 .chzn-itx-simple__small .chzn-container-active .chzn-single {border-color: #A5DAF9;}
+    &__birth1 .chzn-itx-simple__small .chzn-single  div b {background-image: url(/images/arrow-d-maroon.png);}
+    &__birth1 .chzn-itx-simple__small .chzn-container-active div b {background: url(/images/arrow-d.png) no-repeat;}
+    &__birth1 .yiipagination .page a {color: #c0889c;}
 }
 
 /* popup */
 .popup-contest {
+    .b-settings-blue_head {width: auto;}
+    .b-settings-blue_head .heading-title {margin: -5px 0 0;}
+    
+    /* .popup-contest__pets1 */
     &__pets1 .b-settings-blue  {
         background: #f4e8db;
         border-color: #b8a692;
     }
-    &__pets1 .b-settings-blue_head {width: auto;color: #baa083;}
-    &__pets1 .b-settings-blue_head .heading-title {margin: -5px 0 0;}
+    &__pets1 .b-settings-blue_head {color: #baa083;}
     &__pets1 .b-settings-blue_label {color: #6e4f44;}
     &__pets1 .itx-simple {border-color: #e1d6cb;}
     &__pets1 .itx-simple:focus {border-color: #a3cfeb;}
@@ -1246,6 +1259,16 @@
         border-color: #cdb092;
     }
     &__pets1 .b-add-img_html5-tx {color: #dcc6ae;}
+    
+    /* .popup-contest__birth1 */
+    &__birth1 .b-settings-blue  {
+        background: #fef0f1;
+        border-color: #edc4d4;
+    }
+    &__birth1 .b-settings-blue_head {color: #d388ad;}
+    &__birth1 .b-settings-blue_label {color: #b54883;}
+    &__birth1 .itx-simple {border-color: #f9e0e8;}
+    &__birth1 .itx-simple:focus {border-color: #a3cfeb;}
 }
 /* /popup */
 

@@ -10,7 +10,7 @@ if (isset($_GET['Comment_page']))
 ?>
 <div class="col-white">
     <div class="assistance clearfix">
-        <?php $this->render('_assistance_users', compact('service')); ?>
+        <?php $this->render('_assistance_users', array('service' => $service, 'count' => $service->using_count)); ?>
         <?php $this->render('_assistance_count', array('count' => $service->using_count)); ?>
     </div>
 </div>

@@ -47,8 +47,8 @@ class CommunityContestWork extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'content' => array(self::BELONGS_TO, 'CommunityContents', 'content_id'),
-			'contest' => array(self::BELONGS_TO, 'CommunityContests', 'contest_id'),
+			'content' => array(self::BELONGS_TO, 'CommunityContent', 'content_id'),
+			'contest' => array(self::BELONGS_TO, 'CommunityContest', 'contest_id'),
 		);
 	}
 

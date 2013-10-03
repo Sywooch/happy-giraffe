@@ -15,9 +15,11 @@ class ContestController extends HController
         if ($contest === null)
             throw new CHttpException(404);
 
+        $works = $contest->getContestWorks();
+
         $this->bodyClass = 'theme-contest theme-contest__pets1';
         if (Yii::app()->user->isGuest)
             $this->bodyClass .= 'body-guest';
-        $this->render('index', compact('contest'));
+        $this->render('index', compact('contest', 'works'));
     }
 }

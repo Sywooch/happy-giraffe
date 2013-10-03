@@ -671,4 +671,6 @@
     </div>
 </div>
 
-<?php $this->renderPartial('_rules', compact('contest')); ?>
+<div class="display-n">
+    <?php $this->renderPartial('_rules', compact('contest')); ?>
+</div>

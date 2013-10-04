@@ -109,7 +109,7 @@ if ($full) {
             </div>
         <?php endif; ?>
 
-        <?php if (false && $full): ?>
+        <?php if ($full): ?>
             <?php $this->widget('CommunityGalleryWidget', array('content' => $data)); ?>
         <?php endif; ?>
 

@@ -1,5 +1,13 @@
 .content-cols {
+	position: relative;
 	&:after {display:block;content:'.';height:0;clear:both;line-height:0;font-size:0;}
+	&_a-abs {
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+	}
 	/* col-1 */
 	.col-1 {
 		width:240px;

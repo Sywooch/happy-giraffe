@@ -433,5 +433,7 @@ class SiteController extends HController
         Yii::app()->db->schema->getTables();
         // clear the cache of all loaded tables
         Yii::app()->db->schema->refresh();
+
+        Yii::app()->db->schema->getTable('myTable',true);
     }
 }

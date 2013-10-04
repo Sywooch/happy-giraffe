@@ -4,6 +4,19 @@ class m131003_073307_community_contest extends CDbMigration
 {
 	public function up()
 	{
+        $this->execute("DROP TABLE IF EXISTS `community__contests`;
+
+CREATE TABLE `community__contests` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) NOT NULL DEFAULT '',
+  `description` text NOT NULL,
+  `rules` text NOT NULL,
+  `forum_id` int(11) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `Forum` (`forum_id`),
+  CONSTRAINT `Forum` FOREIGN KEY (`forum_id`) REFERENCES `community__forums` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
+
         $this->execute("DROP TABLE IF EXISTS `community__contest_works`;
 
 CREATE TABLE `community__contest_works` (
@@ -16,18 +29,6 @@ CREATE TABLE `community__contest_works` (
   KEY `Content` (`content_id`),
   CONSTRAINT `Content` FOREIGN KEY (`content_id`) REFERENCES `community__contents` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `Contest` FOREIGN KEY (`contest_id`) REFERENCES `community__contests` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
-        $this->execute("DROP TABLE IF EXISTS `community__contests`;
-
-CREATE TABLE `community__contests` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) NOT NULL DEFAULT '',
-  `description` text NOT NULL,
-  `rules` text NOT NULL,
-  `forum_id` int(11) unsigned NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `Forum` (`forum_id`),
-  CONSTRAINT `Forum` FOREIGN KEY (`forum_id`) REFERENCES `community__forums` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
         $this->execute("INSERT INTO `community__contests` (`id`, `title`, `description`, `rules`, `forum_id`)
 VALUES

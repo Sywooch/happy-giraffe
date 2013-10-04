@@ -162,6 +162,8 @@ return array(
         'community/<forum_id:\d+>/forum/<content_type_slug:\w+>/<content_id:\d+>' => 'community/default/view',
         'community/<forum_id:\d+>/forum/' => 'community/default/forum',
         'community/default/save' => 'community/default/save',
+        'community/default/photoWidgetSave' => 'community/default/photoWidgetSave',
+        'community/default/photoWidget' => 'community/default/photoWidget',
 
         //global
         '<_c:(settings|ajax|notification|profile|friendRequests|communityRubric|morning|userPopup|features|blog)>/<_a>' => '<_c>/<_a>',

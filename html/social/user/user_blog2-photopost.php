@@ -414,17 +414,28 @@
 						</div>
 						
 						<div class="gallery-widget">
-							<a href="" class="gallery-widget_a">
-								<span class="gallery-widget_t">15 самых красивых пар мира</span>
-								<span class="gallery-widget_img">
-									<img border="0" title="" alt="" src="/images/example/w580-h313.jpg">
-									<span class="ico-play-big"></span>
-								</span>
-								<span class="gallery-widget_count">
-									смотреть
-									<span class="gallery-widget_count-big">25 ФОТО</span>
-								</span>
+							<div class="gallery-widget_top">
+								<div class="gallery-widget_top-tx">еще рекомендуем посмотреть</div>
+								<div class="gallery-widget_t"> 15 самых красивых пар мира</div>
+							</div>
+							<a href="" class="gallery-widget_img">
+								<img border="0" title="" alt="" src="/images/example/w580-h313.jpg">
+								<span class="ico-play-big"></span>
+								<span class="gallery-widget_count">25 ФОТО</span>
 							</a>
+							<div class="gallery-widget_bottom clearfix">
+								<a href="" class="float-r btn-blue-light btn-medium">Смотреть галерею</a>
+								<div class="meta-gray">
+									<a href="" class="meta-gray_comment">
+										<span class="ico-comment ico-comment__white"></span>
+										<span class="meta-gray_tx">35</span>
+									</a>
+									<span class="meta-gray_view">
+										<span class="ico-view ico-view__white"></span>
+										<span class="meta-gray_tx">305</span>
+									</span>
+								</div>
+							</div>
 							<div class="article-settings">
 								<div class="article-settings_i">
 									<a class="article-settings_a article-settings_a__settings powertip" href="" title="Настройки виджета"></a>

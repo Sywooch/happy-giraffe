@@ -88,6 +88,8 @@
 				</div>
 			</div>
 			<div class="content-cols clearfix">
+				
+				<a href="" class="content-cols_a-abs"></a>
 				<div class="col-1">
 					<div class="clearblue-aside1">
 						<a href="" class="clearblue-aside1_t"></a>

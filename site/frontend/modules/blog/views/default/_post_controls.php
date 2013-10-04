@@ -77,7 +77,7 @@ $ownArticle = $model->author_id == Yii::app()->user->id;
             });
         </script>
     <?php endif ?>
-    <?php if (false && $model->type_id == CommunityContent::TYPE_PHOTO_POST && Yii::app()->authManager->checkAccess('communityPhotoWidgets', Yii::app()->user->id)): ?>
+    <?php if ($model->type_id == CommunityContent::TYPE_PHOTO_POST && Yii::app()->authManager->checkAccess('communityPhotoWidgets', Yii::app()->user->id)): ?>
         <div class="textalign-c">
             <a href="<?=$this->createUrl('photoWidget', array('contentId' => $model->id))?>" class="add-photo-widget powertip fancy" title="<?=($model->gallery->widget === null ? 'Создать фотовиджет' : 'Изменить фотовиджет')?>"></a>
         </div>

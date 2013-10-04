@@ -1,4 +1,12 @@
+<?php
+/**
+ * @var CommunityContent $model
+ * @var bool $showLikes
+ */
+?>
+
 <div class="b-article b-article-prev clearfix">
+    <?php if ($showLikes): ?>
     <div class="float-l">
         <div class="like-control like-control__smallest clearfix">
             <?php if ($ad = $model->isAd()): ?>
@@ -17,6 +25,7 @@
             <!-- /ko -->
         </div>
     </div>
+    <?php endif; ?>
     <div class="b-article-prev_cont clearfix">
         <div class="clearfix">
             <div class="meta-gray">
@@ -42,6 +51,9 @@
         </div>
         <div class="b-article-prev_t clearfix">
             <a class="b-article-prev_t-a" href="<?=$model->url?>"><?=$model->title?></a>
+            <?php if ($model->contestWork !== null): ?>
+                <span class="b-article-prev_t-count"><?=$model->contestWork->rate?></span>
+            <?php endif; ?>
         </div>
         <div class="b-article-prev_in">
             <?php if ($model->type_id == CommunityContent::TYPE_POST): ?>

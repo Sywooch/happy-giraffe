@@ -1,17 +1,20 @@
 <div id="photo-widget" class="popup-user-add-record">
-    <a class="popup-transparent-close" onclick="$.fancybox.close();" href="javascript:void(0);" title="Закрыть"></a>
+    <a class="popup-transparent-close" onclick="$.fancybox.close()" href="javascript:void(0);" title="Закрыть"></a>
     <div class="clearfix">
         <div class="w-720 float-r">
             <div class="b-settings-blue b-settings-blue__photo-widget">
-                <div class="b-settings-blue_head">
-                    <div class="b-settings-blue_row clearfix">
-                        <label for="" class="b-settings-blue_label">Название виджета</label>
-                        <div class="w-400 float-l">
-                            <input type="text" class="itx-simple" data-bind="value: title">
-                        </div>
+                <div class="b-settings-blue_row clearfix">
+                    <div class="float-r">
+                        <span class="b-settings-blue_row-desc">скрыть виджет - </span> <a class="a-checkbox" data-bind="click: toggleHidden, css: { active : hidden }"></a>
                     </div>
                 </div>
-                <div class="textalign-c clearfix margin-b10">
+                <div class="b-settings-blue_row clearfix">
+                    <label for="" class="b-settings-blue_label">Название виджета</label>
+                    <div class="b-settings-blue_row-tx">
+                        <input type="text" class="itx-simple w-100p" value="Самое лучшее утро - просыпаюсь, а ты рядом" data-bind="value: title">
+                    </div>
+                </div>
+                <div class="clearfix margin-b5 margin-t20">
                     <div class="b-settings-blue_label float-n w-100p">Выберите главное фото для виджета</div>
                 </div>
                 <div class="b-add-img b-add-img__for-multi">
@@ -29,17 +32,8 @@
                         <!-- /ko -->
                     </div>
                 </div>
-                <div class="b-settings-blue_head">
-                    <div class="b-settings-blue_row clearfix">
-                        <a class="a-checkbox" data-bind="click: toggleHidden, css: { active : hidden }"></a> <span class="color-gray">- скрыть виджет</span>
-                        <!-- <label for="" class="b-settings-blue_label">Название виджета</label>
-                        <div class="w-400 float-l">
-                            <input type="text" name="" id="" class="itx-simple" value="Самое лучшее утро - просыпаюсь, а ты рядом">
-                        </div> -->
-                    </div>
-                </div>
                 <div class="textalign-c clearfix">
-                    <a href="javascript:void(0)" class="btn-gray-light btn-h46 margin-r15" onclick="$.fancybox.close();">Отменить</a>
+                    <a href="javascript:void(0)" class="btn-gray-light btn-h46 margin-r15" onclick="$.fancybox.close()">Отменить</a>
                     <a class="btn-blue btn-h46" data-bind="click: save">Сохранить</a>
 
                 </div>

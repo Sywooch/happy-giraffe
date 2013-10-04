@@ -426,4 +426,12 @@ class SiteController extends HController
 
         fclose($fp);
     }
+
+    public function actionFlushSchema()
+    {
+        // Load all tables of the application in the schema
+        Yii::app()->db->schema->getTables();
+        // clear the cache of all loaded tables
+        Yii::app()->db->schema->refresh();
+    }
 }

@@ -28,7 +28,7 @@ class CommunityGalleryWidget extends CWidget
                 ),
                 'item',
             ),
-            'condition' => 't.club_id = :clubId AND content.id != :contentId',
+            'condition' => 't.club_id = :clubId AND content.id != :contentId AND t.hidden = 0',
             'params' => array(':clubId' => $this->content->rubric->community->club_id, ':contentId' => $this->content->id),
         ));
         if ($widgets) {

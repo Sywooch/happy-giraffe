@@ -436,7 +436,7 @@
 									</span>
 								</div>
 							</div>
-							<div class="article-settings">
+							<!-- <div class="article-settings">
 								<div class="article-settings_i">
 									<a class="article-settings_a article-settings_a__settings powertip" href="" title="Настройки виджета"></a>
 								</div>
@@ -444,7 +444,7 @@
 									<div class="article-settings_i">
 										<a class="article-settings_a article-settings_a__edit powertip" href="" title="Редактировать"></a>
 									</div>
-									<!-- Показываем только один нужный глаз -->
+									
 									<div class="article-settings_i">
 										<a class="article-settings_a article-settings_a__eye powertip" href="" title="Скрыть виджет"></a>
 									</div>
@@ -452,7 +452,8 @@
 										<a class="article-settings_a article-settings_a__eye-close powertip" href="" title="Отобразить виджет"></a>
 									</div>
 								</div>
-							</div>
+							</div> -->
+							<a href="#photo-widget" class="add-photo-widget active powertip fancy" title="Изменить виджет"></a>
 						</div>
 						
 						<div class="comments-gray">
@@ -683,10 +684,16 @@
 								</div>
 							</div>
 						</div>
-						<!-- Текст приглашения для перетаскивания можно скрыть или удалить при наличии фото -->
-						<div class="b-add-img_html5-tx display-n">или перетащите фото сюда</div>
 					</div>
-					
+					<div class="b-settings-blue_head">
+						<div class="b-settings-blue_row clearfix">
+							<a href="" class="a-checkbox"></a> <span class="color-gray">- скрыть виджет</span>
+							<!-- <label for="" class="b-settings-blue_label">Название виджета</label>
+							<div class="w-400 float-l">
+								<input type="text" name="" id="" class="itx-simple" value="Самое лучшее утро - просыпаюсь, а ты рядом">
+							</div> -->
+						</div>
+					</div>
 					<div class="textalign-c clearfix">
 						<a href="" class="btn-gray-light btn-h46 margin-r15">Отменить</a>
 						<a href="" class="btn-blue btn-h46">Сохранить</a>

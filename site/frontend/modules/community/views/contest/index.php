@@ -80,7 +80,7 @@ Yii::app()->clientScript->registerPackage('ko_community');
             <div class="clearfix">
                 <div class="float-r margin-t20 margin-r20">
                     <div class="chzn-itx-simple chzn-itx-simple__small">
-                        <?=CHtml::dropDownList('sort', $_GET['sort'], array(
+                        <?=CHtml::dropDownList('sort', $sort, array(
                             '0' => 'По дате добавления',
                             '1' => 'По количеству голосов',
                         ), array(

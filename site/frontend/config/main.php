@@ -66,6 +66,7 @@ return array(
         'application.modules.gallery.widgets.*',
         'application.modules.myGiraffe.models.*',
         'application.modules.myGiraffe.components.*',
+        'application.modules.community.models.*',
     ),
 
 	'sourceLanguage' => 'en',

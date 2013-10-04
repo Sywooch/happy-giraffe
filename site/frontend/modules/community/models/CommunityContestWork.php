@@ -108,4 +108,19 @@ class CommunityContestWork extends HActiveRecord
     {
         return $this->content->getUrl();
     }
+
+    public function getOtherParticipants($limit)
+    {
+        return CommunityContestWork::model()->findAll(array(
+            'limit' => $limit,
+            'condition' => 't.id != :currentId',
+            'params' => array(':currentId' => $this->id),
+            'order' => new CDbExpression('RAND()'),
+            'with' => array(
+                'content' => array(
+                    'with' => 'author',
+                ),
+            ),
+        ));
+    }
 }

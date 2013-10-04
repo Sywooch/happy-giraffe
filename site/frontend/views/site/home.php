@@ -41,7 +41,7 @@ Yii::app()->clientScript
                 $models = Favourites::getArticlesByDate(Favourites::BLOCK_INTERESTING, date("Y-m-d"), 6);
 
                 foreach ($models as $model): ?>
-                    <?php $this->renderPartial('_article', array('model' => $model)); ?>
+                    <?php $this->renderPartial('application.modules.blog.views.default._b_article', array('model' => $model, 'showLikes' => true)); ?>
                 <?php endforeach; ?>
                 <?php $this->endCache();endif; ?>
 			</div>

@@ -151,9 +151,4 @@ class CommunityContest extends HActiveRecord
     {
         return $this->getParticipants($limit, 't.rate DESC');
     }
-
-    public function getRandomParticipants($limit)
-    {
-        return $this->getParticipants($limit, new CDbExpression('RAND()'));
-    }
 }

@@ -77,4 +77,7 @@ $ownArticle = $model->author_id == Yii::app()->user->id;
             });
         </script>
     <?php endif ?>
+    <div class="textalign-c">
+        <a href="<?=$this->createUrl('photoWidget', array('contentId' => $model->id))?>" class="add-photo-widget powertip fancy" title="<?=($model->gallery->widget === null ? 'Создать фотовиджет' : 'Редактировать фотовиджет')?>"></a>
+    </div>
 </div>

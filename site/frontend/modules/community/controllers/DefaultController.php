@@ -210,6 +210,48 @@ class DefaultController extends HController
         }
     }
 
+    public function actionPhotoWidget($contentId)
+    {
+        $content = CommunityContent::model()->with('gallery', 'gallery.widget')->findByPk($contentId);
+        if ($content === null)
+            throw new CHttpException(404);
+
+        $title = $content->gallery->widget === null ? $content->title : $content->gallery->widget->title;
+        $photos = array_map(function($item) {
+            return array(
+                'id' => $item->id,
+                'url' =>  $item->photo->getPreviewUrl(480, 250),
+            );
+        }, $content->gallery->items);
+        $checkedPhoto = $content->gallery->widget === null ? null : $content->gallery->widget->item->id;
+        $hidden = $content->gallery->widget === null ? false : (bool) $content->gallery->widget->hidden;
+        $widgetId = $content->gallery->widget === null ? null : $content->gallery->widget->id;
+        $contentId = $content->id;
+
+        $json = compact('title', 'photos', 'hidden', 'checkedPhoto', 'widgetId', 'contentId');
+        $this->renderPartial('photoWidget', compact('json'));
+    }
+
+    public function actionPhotoWidgetSave()
+    {
+        $widgetId = Yii::app()->request->getPost('widgetId');
+        if ($widgetId === null) {
+            $contentId = Yii::app()->request->getPost('contentId');
+            $content = CommunityContent::model()->findByPk($contentId);
+            $widget = new CommunityContentGalleryWidget();
+            $widget->gallery_id = $content->gallery->id;
+            $widget->club_id = $content->rubric->community->club_id;
+        } else
+            $widget = CommunityContentGalleryWidget::model()->findByPk($widgetId);
+        $widget->hidden = (int) CJSON::decode(Yii::app()->request->getPost('hidden'));
+        $widget->item_id = Yii::app()->request->getPost('item_id');
+        $widget->title = Yii::app()->request->getPost('title');
+        $success = $widget->save();
+
+        $response = compact('success');
+        echo CJSON::encode($response);
+    }
+
     protected function performAjaxValidation($models)
     {
         if (isset($_POST['ajax']) && $_POST['ajax'] === 'blog-form') {

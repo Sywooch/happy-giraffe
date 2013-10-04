@@ -77,6 +77,7 @@ return array(
             'baseUrl' => '/',
             'js' => array(
                 'javascripts/ko_community.js',
+                'javascripts/ko_photoWidget.js',
             ),
             'depends' => array('ko_blog', 'ko_upload'),
         ),

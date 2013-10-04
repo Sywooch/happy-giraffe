@@ -83,7 +83,7 @@ if ($full) {
             </div>
         <?php endif; ?>
 
-        <?php if ($data->contestWork !== null): ?>
+        <?php if (false && $data->contestWork !== null): ?>
             <?php $randomParticipants = $data->contestWork->getOtherParticipants(2); if ($randomParticipants): ?>
             <div class="article-contest-conversion">
                 <div class="article-contest-conversion_t">

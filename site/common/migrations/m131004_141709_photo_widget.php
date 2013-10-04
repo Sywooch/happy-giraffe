@@ -21,6 +21,7 @@ CREATE TABLE `community__content_gallery_widgets` (
   CONSTRAINT `Gallery` FOREIGN KEY (`gallery_id`) REFERENCES `community__content_gallery` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `Item` FOREIGN KEY (`item_id`) REFERENCES `community__content_gallery_items` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
+        $this->execute("INSERT INTO `auth__items` (`name`, `type`, `description`, `bizrule`, `data`) VALUES ('communityPhotoWidgets', '0', 'Управление фото-виджетами в клубах', NULL, NULL);");
 	}
 
 	public function down()

@@ -416,7 +416,7 @@
 						<div class="gallery-widget">
 							<div class="gallery-widget_top">
 								<div class="gallery-widget_top-tx">еще рекомендуем посмотреть</div>
-								<div class="gallery-widget_t"> 15 самых красивых пар мира</div>
+								<div class="gallery-widget_t"> 15 самых красивых пар мира$$^R TYT YTYT YYTY</div>
 							</div>
 							<a href="" class="gallery-widget_img">
 								<img border="0" title="" alt="" src="/images/example/w580-h313.jpg">
@@ -436,23 +436,6 @@
 									</span>
 								</div>
 							</div>
-							<!-- <div class="article-settings">
-								<div class="article-settings_i">
-									<a class="article-settings_a article-settings_a__settings powertip" href="" title="Настройки виджета"></a>
-								</div>
-								<div class="article-settings_hold display-b">
-									<div class="article-settings_i">
-										<a class="article-settings_a article-settings_a__edit powertip" href="" title="Редактировать"></a>
-									</div>
-									
-									<div class="article-settings_i">
-										<a class="article-settings_a article-settings_a__eye powertip" href="" title="Скрыть виджет"></a>
-									</div>
-									<div class="article-settings_i">
-										<a class="article-settings_a article-settings_a__eye-close powertip" href="" title="Отобразить виджет"></a>
-									</div>
-								</div>
-							</div> -->
 							<a href="#photo-widget" class="add-photo-widget active powertip fancy" title="Изменить виджет"></a>
 						</div>
 						
@@ -631,15 +614,18 @@
 		<div class="clearfix">
 			<div class="w-720 float-r">
 				<div class="b-settings-blue b-settings-blue__photo-widget">
-					<div class="b-settings-blue_head">
-						<div class="b-settings-blue_row clearfix">
-							<label for="" class="b-settings-blue_label">Название виджета</label>
-							<div class="w-400 float-l">
-								<input type="text" name="" id="" class="itx-simple" value="Самое лучшее утро - просыпаюсь, а ты рядом">
-							</div>
+					<div class="b-settings-blue_row clearfix">
+						<div class="float-r">
+							<span class="b-settings-blue_row-desc">скрыть виджет - </span> <a href="" class="a-checkbox"></a> 
 						</div>
 					</div>
-					<div class="textalign-c clearfix margin-b10">
+					<div class="b-settings-blue_row clearfix">
+						<label for="" class="b-settings-blue_label">Название виджета</label>
+						<div class="b-settings-blue_row-tx">
+							<input type="text" name="" id="" class="itx-simple w-100p" value="Самое лучшее утро - просыпаюсь, а ты рядом">
+						</div>
+					</div>
+					<div class="clearfix margin-b5 margin-t20">
 						<div class="b-settings-blue_label float-n w-100p">Выберите главное фото для виджета</div>
 					</div>		
 					<div class="b-add-img b-add-img__for-multi">
@@ -683,15 +669,6 @@
 									<a href="" class="b-add-img_i-check a-checkbox"></a>
 								</div>
 							</div>
-						</div>
-					</div>
-					<div class="b-settings-blue_head">
-						<div class="b-settings-blue_row clearfix">
-							<a href="" class="a-checkbox"></a> <span class="color-gray">- скрыть виджет</span>
-							<!-- <label for="" class="b-settings-blue_label">Название виджета</label>
-							<div class="w-400 float-l">
-								<input type="text" name="" id="" class="itx-simple" value="Самое лучшее утро - просыпаюсь, а ты рядом">
-							</div> -->
 						</div>
 					</div>
 					<div class="textalign-c clearfix">

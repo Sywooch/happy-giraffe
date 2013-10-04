@@ -221,7 +221,7 @@ return array(
 		),
 		'urlManager'=>require_once(dirname(__FILE__).'/url.php'),
 		'db' => array(
-            'schemaCachingDuration' => 3600,
+            'schemaCachingDuration' => 300,
             'tablePrefix'=> '',
         ),
         'db_seo' => array(

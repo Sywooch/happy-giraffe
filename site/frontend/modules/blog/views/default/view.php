@@ -109,6 +109,10 @@ if ($full) {
             </div>
         <?php endif; ?>
 
+        <?php if (false && $full): ?>
+            <?php $this->widget('CommunityGalleryWidget', array('content' => $data)); ?>
+        <?php endif; ?>
+
         <?php $this->widget('application.widgets.newCommentWidget.NewCommentWidget', array('model' => $data, 'full' => $full)); ?>
         <!-- /ko -->
     </div>

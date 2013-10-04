@@ -11,6 +11,7 @@ class CommunityModule extends CWebModule
 		$this->setImport(array(
 			'community.models.*',
 			'community.components.*',
+            'community.widgets.*',
 			'application.modules.profile.widgets.UserCoreWidget',
 			'application.modules.profile.widgets.ClubsWidget',
 		));

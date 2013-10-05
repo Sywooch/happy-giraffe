@@ -46,6 +46,7 @@ class CommunityGalleryWidget extends CWidget
                 $shownWidgets[$widgetToShow->id] = 1;
             else
                 $shownWidgets[$widgetToShow->id] += 1;
+            Yii::app()->user->setState('shownWidgets', array());
 
             $this->render('CommunityGalleryWidget', compact('widgetToShow'));
         }

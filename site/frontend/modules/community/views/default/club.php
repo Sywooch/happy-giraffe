@@ -7,7 +7,7 @@ Yii::app()->clientScript->registerPackage('ko_community');
                 <div class="club-list club-list__large clearfix">
                     <ul class="club-list_ul textalign-c clearfix">
                         <li class="club-list_li">
-                            <a href="<?=$this->createUrl('/community/default/club', array('club_id'=>$this->club->id)) ?>" class="club-list_i">
+                            <a href="<?=$this->club->url?>" class="club-list_i">
                                 <span class="club-list_img-hold">
                                     <img src="/images/club/<?=$this->club->id ?>-w240.png" alt="" class="club-list_img">
                                 </span>

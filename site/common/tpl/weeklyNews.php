@@ -13,11 +13,11 @@ $i = 0;
             <table cellpadding="0" cellspacing="0" style="margin-bottom:8px;">
                 <tbody>
                 <tr>
-                    <td valign="middle"><img src="<?php echo $model->isPampers() ? 'http://www.happy-giraffe.ru/images/banners/ava-Pampers.jpg' : $model->author->getAvatarUrl() ?>"
+                    <td valign="middle"><img src="<?php echo ($ad = $model->isAd()) ? $ad['img'] : $model->author->getAvatarUrl() ?>"
                                              style="display:block;margin-top:-40px;-moz-border-radius:36px;-webkit-border-radius:36px;border-radius:36px;">
                     </td>
                     <td valign="top">
-                        <span style="color:#38a5f4;font:12px arial, helvetica, sans-serif;margin-left:10px;"><?php echo $model->isPampers() ? 'Pampers' : $model->author->first_name ?></span>
+                        <span style="color:#38a5f4;font:12px arial, helvetica, sans-serif;margin-left:10px;"><?php echo ($ad = $model->isAd()) ? $ad['text'] : $model->author->first_name ?></span>
                     </td>
                 </tr>
                 </tbody>

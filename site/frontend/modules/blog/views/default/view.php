@@ -110,7 +110,9 @@ if ($full) {
         <?php endif; ?>
 
         <?php if ($full && ! $data->getIsFromBlog()): ?>
-            <?php $this->widget('CommunityGalleryWidget', array('content' => $data)); ?>
+            <?php $this->beginWidget('SeoContentWidget'); ?>
+                <?php $this->widget('CommunityGalleryWidget', array('content' => $data)); ?>
+            <?php $this->endWidget(); ?>
         <?php endif; ?>
 
         <?php $this->widget('application.widgets.newCommentWidget.NewCommentWidget', array('model' => $data, 'full' => $full)); ?>

@@ -13,7 +13,7 @@ $i = 0;
             <table cellpadding="0" cellspacing="0" style="margin-bottom:8px;">
                 <tbody>
                 <tr>
-                    <td valign="middle"><img src="<?php echo ($ad = $model->isAd()) ? $ad['img'] : $model->author->getAvatarUrl() ?>"
+                    <td valign="middle"><img src="<?php echo ($ad = $model->isAd()) ? ('http://www.happy-giraffe.ru' . $ad['img']) : $model->author->getAvatarUrl() ?>"
                                              style="display:block;margin-top:-40px;-moz-border-radius:36px;-webkit-border-radius:36px;border-radius:36px;">
                     </td>
                     <td valign="top">

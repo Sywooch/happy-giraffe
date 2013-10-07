@@ -9,11 +9,13 @@ class DefaultController extends HController
         $this->render('index');
     }
 
-	public function actionWindow($collectionClass, $initialPhotoId)
+	public function actionWindow($collectionClass, $initialPhotoId = null)
 	{
         $windowOptions = Yii::app()->request->getQuery('windowOptions');
         $collectionOptions = Yii::app()->request->getQuery('collectionOptions');
         $collection = new $collectionClass($collectionOptions);
+        if ($initialPhotoId === null)
+            $initialPhotoId = $collection->photoIds[0];
         $collectionTitle = $collection->title;
         $initialIndex = $collection->getIndexById($initialPhotoId);
         $initialPhotos = $collection->getPhotosInRange($initialPhotoId, 5, 5);

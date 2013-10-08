@@ -8,7 +8,7 @@
 	<link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,100&amp;subset=latin,cyrillic-ext,cyrillic">
 
 </head>
-<body class="body-gray">
+<body class="body-gray theme-contest theme-contest__pets1">
 
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/top-line-menu.php'; ?>
 	

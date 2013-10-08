@@ -28,6 +28,7 @@
             </a>
         </div>
 
+        <?php if (false): ?>
         <div class="share_button auth-service twitter">
             <div class="custom-like-tw">
                 <a href="<?=Yii::app()->createUrl('/'.$action, array('service' => 'twitter', 'entity_id' => $this->params['entity_id'], 'entity' => $this->params['entity']))?>" class="custom-like-tw_text">
@@ -36,6 +37,7 @@
                 <span class="custom-like-tw_value"><?=Rating::model()->countByEntity($this->params['model'], 'tw')?></span>
             </div>
         </div>
+        <?php endif; ?>
 
     <?php $this->controller->endWidget(); ?>
 <?php elseif ($this->mode == 'small'): ?>

@@ -32,37 +32,28 @@ Yii::app()->clientScript->registerPackage('ko_community');
             <ul class="contest-aside-prizes_ul">
                 <li class="contest-aside-prizes_li">
                     <div class="contest-aside-prizes_img">
-                        <img src="/images/contest/club/pets1/prize-1.jpg" alt="">
+                        <a href="#popup-contest-prize" class="fancy"><img src="/images/contest/club/pets1/prize-1.jpg" alt=""></a>
                     </div>
                     <div class="place place-1-1"></div>
                     <div class="contest-aside-prizes_name">
-                        Рацион для щенков<br>
-                        <strong>«Pedigree»</strong>
+                        Лежак-домик «Hilla»
+                        <strong>Trixie</strong>
                     </div>
+                    <a href="#popup-contest-prize" class="contest-aside-prizes_more fancy">Подробнее</a>
                 </li>
                 <li class="contest-aside-prizes_li">
                     <div class="contest-aside-prizes_img">
-                        <img src="/images/contest/club/pets1/prize-2.jpg" alt="">
+                        <a href="#popup-contest-prize" class="fancy"><img src="/images/contest/club/pets1/prize-2.jpg" alt=""></a>
                     </div>
-                    <div class="place place-2"></div>
+                    <div class="place place-2-3"></div>
                     <div class="contest-aside-prizes_name">
-                        Рацион для кошек<br>
-                        <strong>«Whiskas»</strong>
+                        Автоматическая поилка фонтан «Original»
+                        <strong>Drinkwell</strong>
                     </div>
-                </li>
-                <li class="contest-aside-prizes_li">
-                    <div class="contest-aside-prizes_img">
-                        <img src="/images/contest/club/pets1/prize-3.jpg" alt="">
-                    </div>
-                    <div class="place place-3"></div>
-                    <div class="contest-aside-prizes_name">
-                        Средства по уходу за животными<br>
-                        <strong>«C-Airlaid ZOO»</strong>
-                    </div>
+                    <a href="#popup-contest-prize" class="contest-aside-prizes_more fancy">Подробнее</a>
                 </li>
             </ul>
         </div>
-
 
         <?php $topParticipants = $contest->getTopParticipants(3); if ($topParticipants): ?>
         <div class="fast-articles2 js-fast-articles2">
@@ -117,4 +108,5 @@ Yii::app()->clientScript->registerPackage('ko_community');
 
 <div class="display-n">
 <?php $this->renderPartial('_rules', compact('contest')); ?>
+<?php $this->renderPartial('_prizes', compact('contest')); ?>
 </div>

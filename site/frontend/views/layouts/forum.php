@@ -49,8 +49,6 @@
                 </script>
             </div>
         <?php endif; ?>
-
-        <a href="http://ad.adriver.ru/cgi-bin/click.cgi?sid=1&bt=21&ad=420214&pid=1313272&bid=2833663&bn=2833663&rnd=<?=mt_rand(1000000000, 9999999999)?>" style="margin-top: 40px;" onclick="_gaq.push(['_trackEvent','Outgoing Links','www.clearblue.com'])"><img src="/images/banners/test.jpg"></a>
     </div>
 
     <div class="col-23-middle ">

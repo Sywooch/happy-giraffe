@@ -9,7 +9,7 @@
         <title><?=$this->pageTitle?></title>
         <link rel="stylesheet" href="/css/all.css?<?=$this->releaseId?>" type="text/css" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
-        <script src="'/javascripts/fox.js"></script>
+        <script src="/javascripts/fox.js"></script>
     </head>
     <body>
         <div class="layout-page">

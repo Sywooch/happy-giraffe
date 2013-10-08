@@ -8,7 +8,7 @@
 	<link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,100&amp;subset=latin,cyrillic-ext,cyrillic">
 
 </head>
-<body class="body-gray">
+<body class="body-gray theme-contest theme-contest__birth1">
 
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/top-line-menu.php'; ?>
 	
@@ -127,10 +127,10 @@
 						</li>
 					</ul>
 				</div>
-
+				
 				<div class="aside-banner">
 					<a href="">
-						<img src="/images/contest/banner-w240-pets1.png" title="">
+						<img src="/images/contest/banner-w240-birth1.png" title="">
 					</a>
 				</div>
 			</div>
@@ -249,132 +249,22 @@
 							</div>
 						</div>
 						<h2 class="b-article_t">
-							Самое лучшее утро - просыпаюсь, а ты рядом
+							Рождение моей третьей доченьки
 						</h2>
 						<div class="b-article_in clearfix">
 							<div class="wysiwyg-content clearfix">								
-								<p>Практически нет девушки, которая не переживала бы за отношения героев "Сумерек" как в на экранах, так и в жизни. Но, к сожалению, даже несмотря на то, что недавно герои "Сумерек" радовали всех тем, что у них невероятный роман  и в рельной жизни, а не только лишь на экране, все же <a href="">Роберт Паттинсон</a>  и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.</p>
+								<p>Вот и позади самые ужасные в моей жизни роды. Прошёл месяц, страсти улеглись, но почему то всякий раз передёргивает от воспоминаний. Началось всё 13 июня, в четыре утра я встала и поняла: пора. Воды отходить начали. Разбудила мужа, и в пять мы были в роддоме. Схваток не было, я была на удивление спокойна, муж же нервничал, как будто первый раз. Принимала меня тётенька, очень такая доброжелательная, что когда делала мне клизму постоянно говорила мне прибаутки, потешки, как будто клизма, это самое страшное, что мне предстояло. После всех процедур меня отвели в палату дожидаться своего часа. Привели ещё роженицу, стало как то повеселей. В общем в десять часов нам поставили капельницы, и тут началось.Я разве что стены не грызла, уж мы с моей товаркой и орали, и Бога вспоминали, но больше мужьям доставалось </p>
+								<p>Вспоминая предыдущие роды, я не помню что бы было ТАК больно. наконец меня повели рожать, и тут началось самае странное, все мои навыки в этом деле вдруг куда то улетучились. Я почемуто не могла сильно потужиться, и гоняла доченьку туда сюда. Врачи в это время слажили руки и стояли смотрели когда же я созрею.Ну в конце концов я созрела, и родила свою малышку 4330г. 60 см. Следом прибежала рожать и соседка по палате. Положили нас вместе с этой девочкой, у неё тоже третьи роды, и врачи говорили про нас, мол третьих рожают, и так хулиганят.   мы выбрали палату мать-дитя.</p>
+								<p>И тут начался реальный кошмар. У меня не пришло молоко. Первые два дня моя малышка кое как спала, слегка покрикивая ,но потом крик стал не прекращающимся, ребёнок был голодным, пришла врач детский, я попросила смесь, она сказала, что смеси лишней нет, и покормят моего ребёнка только на ночь.И разрешила поить водичкой кипячёной. мой бедный ребёнок выл белугай, у меня уже начиналась истерика, наконец на четвёртый день молоко пришло, но доча уже набаловалась хлебать из бутылочки, и грудь не брала категорически. И медсёстры приходили, не смогли помочь. В общем ждала я выписки, как ни когда. Затем на теле у дочи появились красные прыщики, с белым посередине. Соседка по палате сказала, что это стафилококк. Но детский врач отмазалась, сказав что это физиологическое и пройдёт. В добавок ко всему у нас загноился глазик, и домой мы приехали с полным букетом разных болячек. Сейчас , слава Богу всё наладилось, вот только кормлю я из бутылочки, своим молоком.Грудь так и не взяли. Вот так намучились мы с моей малышкой. Счастье , что всё закончилось, и всё хорошо.</p>
 								
 							</div>
-							<div class="textalign-c">
-                                <a class="b-article_more" href="">Смотреть 58054 фото</a>
-                            </div>
-							<div class="photo-grid clearfix">
-						        <div class="photo-grid_row clearfix" >
-						        	<!-- Ловить клик на photo-grid_i для показа увеличенного фото -->
-					                <div class="photo-grid_i">
-				                    	<img class="photo-grid_img" src="/images/example/photo-grid-1.jpg" alt="">
-				                    	<div class="photo-grid_overlay">
-				                    		<span class="photo-grid_zoom"></span>
-				                    	</div>
-					                </div>
-					                <div class="photo-grid_i">
-				                    	<img class="photo-grid_img" src="/images/example/photo-grid-2.jpg" alt="">
-				                    	<div class="photo-grid_overlay">
-				                    		<span class="photo-grid_zoom"></span>
-				                    	</div>
-					                </div>
-					                <div class="photo-grid_i">
-				                    	<img class="photo-grid_img" src="/images/example/photo-grid-3.jpg" alt="">
-				                    	<div class="photo-grid_overlay">
-				                    		<span class="photo-grid_zoom"></span>
-				                    	</div>
-					                </div>
-						        </div>
-						        <div class="photo-grid_row clearfix" >
-						        	<!-- Ловить клик на photo-grid_i для показа увеличенного фото -->
-					                <div class="photo-grid_i">
-				                    	<img class="photo-grid_img" src="/images/example/photo-grid-4.jpg" alt="">
-				                    	<div class="photo-grid_overlay">
-				                    		<span class="photo-grid_zoom"></span>
-				                    	</div>
-					                </div>
-					                <div class="photo-grid_i">
-				                    	<img class="photo-grid_img" src="/images/example/photo-grid-5.jpg" alt="">
-				                    	<div class="photo-grid_overlay">
-				                    		<span class="photo-grid_zoom"></span>
-				                    	</div>
-					                </div>
-					                <div class="photo-grid_i">
-				                    	<img class="photo-grid_img" src="/images/example/photo-grid-6.jpg" alt="">
-				                    	<div class="photo-grid_overlay">
-				                    		<span class="photo-grid_zoom"></span>
-				                    	</div>
-					                </div>
-						        </div>
-						        <div class="photo-grid_row clearfix" >
-						        	<!-- Ловить клик на photo-grid_i для показа увеличенного фото -->
-					                <div class="photo-grid_i">
-				                    	<img class="photo-grid_img" src="/images/example/photo-grid-3.jpg" alt="">
-				                    	<div class="photo-grid_overlay">
-				                    		<span class="photo-grid_zoom"></span>
-				                    	</div>
-					                </div>
-					                <div class="photo-grid_i">
-				                    	<img class="photo-grid_img" src="/images/example/photo-grid-1.jpg" alt="">
-				                    	<div class="photo-grid_overlay">
-				                    		<span class="photo-grid_zoom"></span>
-				                    	</div>
-					                </div>
-					                <div class="photo-grid_i">
-				                    	<img class="photo-grid_img" src="/images/example/photo-grid-2.jpg" alt="">
-				                    	<div class="photo-grid_overlay">
-				                    		<span class="photo-grid_zoom"></span>
-				                    	</div>
-					                </div>
-						        </div>
-						        <div class="photo-grid_row clearfix" >
-						        	<!-- Высота последней строки 105пк -->
-					                <div class="photo-grid_i">
-			                            <img alt="" src="/images/example/photo-grid-8.jpg" class="photo-grid_img">
-			                            <div class="photo-grid_overlay">
-			                                <span class="photo-grid_zoom powertip"></span>
-			                            </div>
-			                        </div>
-			                        <div class="photo-grid_i">
-			                            <img alt="" src="/images/example/photo-grid-9.jpg" class="photo-grid_img">
-			                            <div class="photo-grid_overlay">
-			                                <span class="photo-grid_zoom powertip"></span>
-			                            </div>
-			                        </div>
-			                        <div class="photo-grid_i">
-			                            <img alt="" src="/images/example/photo-grid-10.jpg" class="photo-grid_img">
-			                            <div class="photo-grid_overlay">
-			                                <span class="photo-grid_zoom powertip"></span>
-			                            </div>
-			                        </div>
-			                        <div class="photo-grid_i">
-			                            <img alt="" src="/images/example/photo-grid-11.jpg" class="photo-grid_img">
-			                            <div class="photo-grid_overlay">
-			                                <span class="photo-grid_zoom powertip"></span>
-			                            </div>
-			                        </div>
-			                        <div class="photo-grid_i">
-			                            <img alt="" src="/images/example/photo-grid-12.jpg" class="photo-grid_img">
-			                            <div class="photo-grid_overlay">
-			                                <span class="photo-grid_zoom powertip"></span>
-			                            </div>
-			                        </div>
-					                <!-- 
-					                	Высота 105пк
-					                	Ширина  90пк
-					            	-->
-					                <div class="photo-grid_last">
-				                        <div class="font-small color-gray margin-b5">смотреть <br> еще фото</div>
-				                        <a class="photo-grid_last-a" href="">58054</a>
-				                    </div>
-						        </div>
-							</div>
-							<div class="textalign-c">
-                                <a class="b-article_more" href="">Смотреть 58054 фото</a>
-                            </div>
 						</div>
 
 						<div class="article-contest">
 							<div class="article-contest_col1">
-								<img src="/images/contest/club/pets1/small.png" alt="">
+								<img src="/images/contest/club/birth1/small.png" alt="">
 								<div class="article-contest_name">Запись участвует в конкурсе <br>
-									<a href="">Наш домашний любимец</a>
+									<a href="">Рассказ о родах</a>
 								</div>
 							</div>
 							<div class="article-contest_count">
@@ -467,10 +357,7 @@
 											<span class="b-article-prev_t-count">456</span>
 										</div>
 										<div class="b-article-prev_in">
-											<div class="b-article_in-img">
-												<!-- img width 235px -->
-												<img alt="Ночные гости - кто они фото 1" class="content-img" src="http://img.happy-giraffe.ru/thumbs/700x700/56/edad8d334a0b4a086a50332a2d8fd0fe.JPG" title="Ночные гости - кто они фото 1">
-											</div>
+											<p>Вот и позади самые ужасные в моей жизни роды. Прошёл месяц, страсти улеглись, но почему то всякий раз передёргивает от воспоминаний. Началось всё 13 июня, в четыре утра я встала и ... </p>
 										</div>
 									</div>
 								</div>
@@ -506,6 +393,7 @@
 											<span class="b-article-prev_t-count">4556</span>
 										</div>
 										<div class="b-article-prev_in">
+											<p>Вот и позади самые ужасные в моей жизни роды... </p>
 											<div class="b-article_in-img">
 												<!-- img width 235px -->
 												<img alt="Ночные гости - кто они фото 1" class="content-img" src="http://img.happy-giraffe.ru/thumbs/700x700/56/edad8d334a0b4a086a50332a2d8fd0fe.JPG" title="Ночные гости - кто они фото 1">
@@ -518,11 +406,11 @@
 
 						<div class="b-contest-advert">
 							<div class="b-contest-advert_ico">
-								<img src="/images/contest/club/pets1/medium.png" alt="" class="b-contest-advert_img">
+								<img src="/images/contest/club/birth1/medium.png" alt="" class="b-contest-advert_img">
 							</div>
 							<div class="b-contest-advert_hold">
 								<div class="b-contest-advert_t">КОНКУРС</div>
-								<div class="b-contest-advert_name">Наш домашний любимец</div>
+								<div class="b-contest-advert_name">Рассказ о родах</div>
 								<a href="" class="btn-green btn-h46">Принять участие!</a>
 							</div>
 						</div>

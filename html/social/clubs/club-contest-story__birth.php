@@ -7,7 +7,7 @@
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/head.php'; ?>
 	
 </head>
-<body class="body-gray theme-contest theme-contest__pets1 body-guest">
+<body class="body-gray theme-contest theme-contest__birth1 body-guest">
 
 <div class="layout-container">
 	<div class="layout-wrapper">
@@ -114,10 +114,10 @@
 
 		<div class="b-club-back clearfix">
 			<div class="b-club-back_ico">
-				<img src="/images/club/11-w40.png" alt="">
+				<img src="/images/club/2-w40.png" alt="">
 			</div>
 			<div class="b-club-back_i">
-				<a href="" class="b-club-back_a">В клуб Наши питомцы</a>
+				<a href="" class="b-club-back_a">В клуб Беременность и роды</a>
 			</div>
 		</div>
 		
@@ -126,14 +126,14 @@
 				<div class="content-cols clearfix">
 					<div class="col-1">
 						<div class="textalign-c">
-							<img src="/images/contest/club/pets1/big.png" alt="">
+							<img src="/images/contest/club/birth1/big.png" alt="">
 						</div>
 					</div>
 					<div class="col-23-middle">
 						<div class="b-section_contest">
 							<div class="b-section_t-contest clearfix">
 								<span class="b-section_t-contest-small">Конкурс</span>
-								Наш домашний любимец
+								Рассказ о родах
 							</div>
 							<div class="b-section_contest-tx clearfix">
 								<p>Поделитесь с нами небольшим рассказом и фотосюжетом о вашем любимчике в семье. И его увидят все ваши друзья и знакомые, выскажут свои мнения о его воспитании, кормлении и поделятся с вами своими рассказами.</p>
@@ -226,26 +226,40 @@
 							
 				<div class="contest-aside-prizes">
 					<div class="contest-aside-prizes_t">Призы конкурса</div>
+					<a href="" class="contest-aside-prizes_sponsor">
+						<img src="/images/contest/club/birth1/aside-sponsor-logo.png" alt="">
+					</a>
 					<ul class="contest-aside-prizes_ul">
 						<li class="contest-aside-prizes_li">
 							<div class="contest-aside-prizes_img">
-								<a href="#popup-contest-prize" class="fancy"><img src="/images/contest/club/pets1/prize-1.jpg" alt=""></a>
+								<a href="#popup-contest-prize" class="fancy"><img src="/images/contest/club/birth1/prize-1.png" alt=""></a>
 							</div>
 							<div class="place place-1-1"></div>
 							<div class="contest-aside-prizes_name">
-								Лежак-домик «Hilla» 
-								<strong>Trixie</strong>
+								Детский автомобиль<br>
+								<strong>Neo Trike Mini Porshe</strong>
 							</div>
 							<a href="#popup-contest-prize" class="contest-aside-prizes_more fancy">Подробнее</a>
 						</li>
 						<li class="contest-aside-prizes_li">
 							<div class="contest-aside-prizes_img">
-								<a href="#popup-contest-prize" class="fancy"><img src="/images/contest/club/pets1/prize-2.jpg" alt=""></a>
+								<a href="#popup-contest-prize" class="fancy"><img src="/images/contest/club/birth1/prize-2.png" alt=""></a>
 							</div>
-							<div class="place place-2-3"></div>
+							<div class="place place-2"></div>
 							<div class="contest-aside-prizes_name">
-								Автоматическая поилка фонтан «Original»
-								<strong>Drinkwell</strong>
+								Развивающая игрушка<br>
+								<strong>Обучающий глобус VTech</strong>
+							</div>
+							<a href="#popup-contest-prize" class="contest-aside-prizes_more fancy">Подробнее</a>
+						</li>
+						<li class="contest-aside-prizes_li">
+							<div class="contest-aside-prizes_img">
+								<a href="#popup-contest-prize" class="fancy"><img src="/images/contest/club/birth1/prize-3.png" alt=""></a>
+							</div>
+							<div class="place place-3"></div>
+							<div class="contest-aside-prizes_name">
+								Развивающая игрушка<br>
+								<strong>Веселый автомобиль VTech</strong>
 							</div>
 							<a href="#popup-contest-prize" class="contest-aside-prizes_more fancy">Подробнее</a>
 						</li>
@@ -279,10 +293,7 @@
 							<a href="" class="fast-articles2_i-t-a"> О моем первом бойфренде</a>
 							<span class="fast-articles2_i-t-count">456</span>
 						</div>
-						<div class="fast-articles2_i-desc">Практически нет девушки, которая не переживала </div>
-						<div class="fast-articles2_i-img-hold">
-							<a href=""><img src="/images/example/w190-h166.jpg" alt="" class="fast-articles2_i-img"></a>
-						</div>
+						<div class="fast-articles2_i-desc">Практически нет девушки, которая не переживала я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных. </div>
 					</div>
 					<div class="fast-articles2_i">
 						<div class="fast-articles2_header clearfix">
@@ -312,6 +323,7 @@
 						</div>
 					</div>
 				</div>
+				
 				
 			</div>
 			<div class="col-23-middle ">
@@ -816,7 +828,7 @@
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/footer.php'; ?>
 
 	<!-- Задний фон  -->
-	<div class="cover cover-contest cover-contest__pets1">
+	<div class="cover cover-contest cover-contest__birth1">
 		
 	</div>
 </div>
@@ -824,7 +836,7 @@
 <div class="display-n">
 		
 	<!-- popup-contest -->
-	<div id="popup-contest" class="popup-contest popup-contest__pets1">
+	<div id="popup-contest" class="popup-contest popup-contest__birth1">
 		<a class="popup-transparent-close" onclick="$.fancybox.close();" href="javascript:void(0);" title="Закрыть"></a>
 		<div class="clearfix">
 			<div class="w-720 float-r">
@@ -834,7 +846,7 @@
 						<div class="b-settings-blue_row clearfix">
 							<label for="" class="b-settings-blue_label margin-t15">Конкурс</label>
 							<div class="b-settings-blue_row-tx">
-								<div class="heading-title">Наш домашний любимец</div>
+								<div class="heading-title">Рассказ о родах</div>
 							</div>
 						</div>
 						<div class="b-settings-blue_row clearfix">
@@ -847,151 +859,254 @@
 							</div>
 						</div>
 						<div class="margin-b5 clearfix">
-							<label for="" class="b-settings-blue_label">&nbsp;</label>
+							<label for="" class="b-settings-blue_label">Рассказ</label>
 							<div class="b-settings-blue_row-tx">
-								<div class="font-small">
+								<div class="font-small margin-l5">
 								Расскажите о своем домашнем животном ( как его зовут, кокой он породы, как вы за ним ухаживаете что он умеет делать, какие лакомства он любит и т д)
 								</div>
 							</div>
 						</div>
-						<div class="b-settings-blue_row clearfix">
-							<label for="" class="b-settings-blue_label">Рассказ</label>
-							<div class="b-settings-blue_row-tx clearfix">
-								<textarea name="" id="" cols="80" rows="5" class="b-settings-blue_textarea itx-simple" placeholder="Ваш текст"></textarea>
-							</div>
-						</div>
-					</div>
-					
-					<!-- Обычный блок загрузки фото -->
-					<!-- .dragover - класс добавлять, когда курсер мыши с файлами находится над блоком -->
-					<div class="b-add-img b-add-img__for-multi">
-						<div class="b-add-img_hold">
-							<div class="b-add-img_t">
-								Загрузите фотографии с компьютера
-								<div class="b-add-img_t-tx">Поддерживаемые форматы: jpg и png</div>
-							</div>
-							<div class="file-fake">
-								<button class="btn-green btn-medium file-fake_btn">Обзор</button>
-								<input type="file" name="">
-							</div>
-						</div>
-						<div class="b-add-img_html5-tx">или перетащите фото сюда</div>
-					</div>
 					
 					
-					<div class=" clearfix">
-						<a href="" class="btn-blue btn-h46 float-r">Добавить</a>
-						<a href="" class="btn-gray-light btn-h46 float-r margin-r15">Отменить</a>
-						
-						<div class="float-l margin-t15">
-							<a href="" class="a-checkbox active"></a>
-							<span class="color-gray">Я ознакомлен с</span> <a href="">Правилами конкурса</a>
+						<div class="wysiwyg-v wysiwyg-pink clearfix">
+	<script src="/redactor/plugins/toolbarVerticalFixed/toolbarVerticalFixed.js"></script>	
+							<script>
+	$(document).ready(function () { 
+	  $('.wysiwyg-redactor-v').redactor({
+	      plugins: ['toolbarVerticalFixed'],
+	      minHeight: 410,
+	      autoresize: true,
+	      toolbarExternal: '.wysiwyg-toolbar-btn',
 
-						</div>
-					</div>
-				</div>
-
-				<div class="b-settings-blue">
-					<div class="b-settings-blue_head">
-						<div class="b-settings-blue_row clearfix">
-							<label for="" class="b-settings-blue_label margin-t15">Конкурс</label>
-							<div class="b-settings-blue_row-tx">
-								<div class="heading-title">Наш домашний любимец</div>
-							</div>
-						</div>
-						<div class="b-settings-blue_row clearfix">
-							<div class="clearfix margin-t-10 ">
-								<div class="float-r font-small color-gray margin-3">0/50</div>
-							</div>
-							<label for="" class="b-settings-blue_label">Заголовок</label>
-							<div class="b-settings-blue_row-tx">
-								<input type="text" name="" id="" class="itx-simple w-100p" placeholder="Введите заголовок фото">
-							</div>
-						</div>
-						<div class="margin-b5 clearfix">
-							<label for="" class="b-settings-blue_label">&nbsp;</label>
-							<div class="b-settings-blue_row-tx">
-								<div class="font-small">
-								Расскажите о своем домашнем животном ( как его зовут, кокой он породы, как вы за ним ухаживаете что он умеет делать, какие лакомства он любит и т д)
+	      /* В базовом варианте нет кнопок 'h2', 'h3', 'link_add', 'link_del' но их функции реализованы с помощью выпадающих списков */
+	      buttons: ['bold', 'italic', 'underline', 'deleted', 'h2', 'h3', 'unorderedlist', 'orderedlist', 'link_add', 'link_del', 'image', 'video', 'smile'],
+	      buttonsCustom: {
+	          smile: {
+	              title: 'smile',
+	              callback: function(buttonName, buttonDOM, buttonObject) {
+	                  // your code, for example - getting code
+	                  var html = this.get();
+	              }
+	          },
+	          link_add: {
+	              title: 'link_add',
+	              callback: function(buttonName, buttonDOM, buttonObject) {
+	                  // your code, for example - getting code
+	                  var html = this.get();
+	              }
+	          },
+	          link_del: {
+	              title: 'link_del',
+	              callback: function(buttonName, buttonDOM, buttonObject) {
+	                  // your code, for example - getting code
+	                  var html = this.get();
+	              }
+	          },
+	          h2: {
+	              title: 'h2',
+	              callback: function(buttonName, buttonDOM, buttonObject) {
+	                  // your code, for example - getting code
+	                  var html = this.get();
+	              }
+	          },
+	          h3: {
+	              title: 'h3',
+	              callback: function(buttonName, buttonDOM, buttonObject) {
+	                  // your code, for example - getting code
+	                  var html = this.get();
+	              }
+	          }
+	      }
+	  });
+	});
+							</script>
+						<div class="wysiwyg-toolbar">
+							<div class="wysiwyg-toolbar-btn"></div>
+							<div class="redactor-popup redactor-popup_b-photo display-n" >
+								<a href="" class="redactor-popup_close ico-close3 powertip" title="Закрыть"></a>
+								<div class="redactor-popup_tale"></div>
+								<div class="redactor-popup_t">Загрузите фото</div>
+								<div class="b-add-img b-add-img__single">
+									<div class="b-add-img_hold">
+										<div class="b-add-img_t">
+											Загрузите фотографии с компьютера
+											<div class="b-add-img_t-tx">Поддерживаемые форматы: jpg и png</div>
+										</div>
+										<div class="file-fake">
+											<button class="btn-green btn-medium file-fake_btn btn-inactive">Обзор</button>
+											<input type="file" name="">
+										</div>
+									</div>
+									<div class="textalign-c clearfix">
+										<div class="b-add-img_i b-add-img_i__single">
+											<img class="b-add-img_i-img" src="/images/example/w440-h340.jpg" alt="">
+											<div class="b-add-img_i-vert"></div>
+											<div class="b-add-img_i-overlay">
+												<a href="" class="b-add-img_i-del ico-close4"></a>
+											</div>
+										</div>
+									</div>
+									<!-- Текст приглашения для перетаскивания можно скрыть или удалить при наличии фото -->
+									<div class="b-add-img_html5-tx display-n">или перетащите фото сюда</div>
+								</div>
+								<div class="textalign-c margin-t15">
+									<a href="" class="btn-gray-light btn-medium margin-r10">Отменить</a>
+									<a href="" class="btn-green btn-medium">Добавить видео</a>
 								</div>
 							</div>
-						</div>
-						<div class="b-settings-blue_row clearfix">
-							<label for="" class="b-settings-blue_label">Рассказ</label>
-							<div class="b-settings-blue_row-tx clearfix">
-								<textarea name="" id="" cols="80" rows="5" class="b-settings-blue_textarea itx-simple" placeholder="Ваш текст"></textarea>
-							</div>
-						</div>
-					</div>
 							
-					<div class="b-add-img b-add-img__for-multi">
-						<div class="b-add-img_hold">
-							<div class="b-add-img_t">
-								Загрузите фотографии с компьютера
-								<div class="b-add-img_t-tx">Поддерживаемые форматы: jpg и png</div>
+							
+							<div class="redactor-popup redactor-popup_b-video display-n" >
+								<a href="" class="redactor-popup_close ico-close3 powertip" title="Закрыть"></a>
+								<div class="redactor-popup_tale"></div>
+								<div class="redactor-popup_t">Загрузите видео</div>
+								<div class="redactor-popup_add-video active">
+									<div class="redactor-popup_add-video-hold">
+										<!-- При вводе текста убрать класс .btn-inactive с кнопки для ее активирования -->
+										<input type="text" name="" id="" class="itx-simple w-350 float-l" placeholder="Введите ссылку на видео">
+										<button class="btn-green btn-medium btn-inactive">Загрузить  видео</button>
+									</div>
+									<div class="redactor-popup_add-video-error">
+										Не удалось загрузить видео. <br>
+										Возможно, URL указан неправильно либо ведет на неподдерживаемый сайт.
+									</div>
+								</div>
+								<div class="textalign-c margin-t15">
+									<a href="" class="btn-gray-light btn-medium margin-r10">Отменить</a>
+									<a href="" class="btn-green btn-medium btn-inactive">Добавить видео</a>
+								</div>
 							</div>
-							<div class="file-fake">
-								<button class="btn-green btn-medium file-fake_btn">Обзор</button>
-								<input type="file" name="">
+							
+							<div class="redactor-popup redactor-popup_b-smile display-n">
+								<a href="" class="redactor-popup_close ico-close3 powertip" title="Закрыть"></a>
+								<div class="redactor-popup_tale"></div>
+								<div class="redactor-popup_t">Выберите смайл</div>
+								<table class="redactor-popup_smiles">
+									<tbody>
+										<tr>
+											<td><a href=""><img src="/images/widget/smiles/acute (1).gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/acute.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/air_kiss.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/angel.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/bad.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/beach.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/beee.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/blush2.gif"></a></td>
+										</tr>
+										<tr>
+											<td><a href=""><img src="/images/widget/smiles/Cherna-girl_on_weight.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/connie_1.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/connie_33.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/connie_36.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/connie_6.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/connie_feedbaby.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/cray.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/dance.gif"></a></td>
+										</tr>
+										<tr>
+											<td><a href=""><img src="/images/widget/smiles/dash2.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/diablo.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/dirol.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/dntknw.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/drinks.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/d_coffee.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/d_lovers.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/facepalm.gif"></a></td>
+										</tr>
+										<tr>
+											<td><a href=""><img src="/images/widget/smiles/fie.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/first_move.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/fool.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/girl_cray2.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/girl_dance.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/girl_drink1.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/girl_hospital.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/girl_prepare_fish.gif"></a></td>
+										</tr>
+										<tr>
+											<td><a href=""><img src="/images/widget/smiles/girl_sigh.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/girl_wink.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/girl_witch.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/give_rose.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/good.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/help.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/JC_hiya.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/JC_hulahoop-girl.gif"></a></td>
+										</tr>
+										<tr>
+											<td><a href=""><img src="/images/widget/smiles/kirtsun_05.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/kuzya_01.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/LaieA_052.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/Laie_16.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/Laie_50.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/Laie_7.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/lazy2.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/l_moto.gif"></a></td>
+										</tr>
+										<tr>
+											<td><a href=""><img src="/images/widget/smiles/mail1.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/Mauridia_21.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/mosking.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/music2.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/negative.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/pardon.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/phil_05.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/phil_35.gif"></a></td>
+										</tr>
+										<tr>
+											<td><a href=""><img src="/images/widget/smiles/popcorm1.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/preved.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/rofl.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/sad.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/scratch_one-s_head.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/secret.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/shok.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/smile3.gif"></a></td>
+										</tr>
+										<tr>
+											<td><a href=""><img src="/images/widget/smiles/sorry.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/tease.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/to_become_senile.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/viannen_10.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/wacko2.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/wink.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/yahoo.gif"></a></td>
+											<td><a href=""><img src="/images/widget/smiles/yes3.gif"></a></td>
+										</tr>
+									</tbody>
+								</table>
 							</div>
+							
+							<div class="redactor-popup redactor-popup_b-link">
+									<a href="" class="redactor-popup_close ico-close3 powertip" title="Закрыть"></a>
+									<div class="redactor-popup_tale"></div>
+									<div class="redactor-popup_t">Ссылка</div>
+									
+									<div class="redactor-popup_holder-blue">
+										<div class="margin-b10 clearfix">
+											<label class="redactor-popup_label" for="">Отображаемый текст</label>
+											<div class="float-l w-350">
+												<input type="text" placeholder="Введите текст" class="itx-simple" id="" name="" value="Выделенный текст">
+											</div>
+										</div>
+										<div class="clearfix">
+											<label class="redactor-popup_label" for="">Ссылка на</label>
+											<div class="float-l w-350 error">
+												<input type="text" placeholder="Введите URL страницы" class="itx-simple" id="" name="">
+												<div class="errorMessage">Необходимо заполнить поле URL страницы.</div>
+											</div>
+										</div>
+									</div>
+									
+									<div class="textalign-c margin-t15">
+										<a href="" class="btn-gray-light btn-medium margin-r10">Отменить</a>
+										<a href="" class="btn-green btn-medium">Добавить ссылку</a>
+									</div>
+								</div>
 						</div>
-						<div class="textalign-c clearfix">
-							<div class="b-add-img_i">
-								<img class="b-add-img_i-img" src="/images/example/w440-h340.jpg" alt="">
-								<!-- b-add-img_i-vert для вертикального позиционирования маленькой каритнки -->
-								<div class="b-add-img_i-vert"></div>
-								<div class="b-add-img_i-overlay">
-									<a href="" class="b-add-img_i-del ico-close4"></a>
-								</div>
-							</div>
-							<div class="b-add-img_i">
-								<img class="b-add-img_i-img" src="/images/example/w64-h61-2.jpg" alt="">
-								<div class="b-add-img_i-vert"></div>
-								<div class="b-add-img_i-overlay">
-									<a href="" class="b-add-img_i-del ico-close4"></a>
-								</div>
-							</div>
-							<div class="b-add-img_i">
-								<img class="b-add-img_i-img" src="/images/example/11.jpg" alt="">
-								<div class="b-add-img_i-vert"></div>
-								<div class="b-add-img_i-overlay">
-									<a href="" class="b-add-img_i-del ico-close4"></a>
-								</div>
-							</div>
-							<div class="b-add-img_i">
-								<img class="b-add-img_i-img" src="/images/example/w220-h309-1.jpg" alt="">
-								<div class="b-add-img_i-vert"></div>
-								<div class="b-add-img_i-overlay">
-									<a href="" class="b-add-img_i-del ico-close4"></a>
-								</div>
-							</div>
-							<div class="b-add-img_i">
-								<img class="b-add-img_i-img" src="/images/example/w720-h128.jpg" alt="">
-								<div class="b-add-img_i-vert"></div>
-								<div class="b-add-img_i-overlay">
-									<a href="" class="b-add-img_i-del ico-close4"></a>
-								</div>
-							</div>
-							<div class="b-add-img_i error">
-								<div class="b-add-img_i-error-tx">файл мотик.jpg не удалось загрузить, более 10 Мб</div>
-								<div class="b-add-img_i-vert"></div>
-								<div class="b-add-img_i-overlay">
-									<a href="" class="b-add-img_i-del ico-close4"></a>
-								</div>
-							</div>
-							<div class="b-add-img_i">
-								<img class="b-add-img_i-img opacity-20" src="/images/example/w720-h128.jpg" alt="">
-								<div class="b-add-img_i-vert"></div>
-								<div class="b-add-img_i-load">
-									<div class="b-add-img_i-load-progress" style="width:20%;"></div>
-								</div>
-								<div class="b-add-img_i-overlay">
-									<a href="" class="b-add-img_i-del ico-close4"></a>
-								</div>
-							</div>
+							<textarea name="" class="wysiwyg-redactor-v"></textarea>
 						</div>
-						<!-- Текст приглашения для перетаскивания можно скрыть или удалить при наличии фото -->
-						<div class="b-add-img_html5-tx display-n">или перетащите фото сюда</div>
+					
 					</div>
 					
 					
@@ -999,20 +1114,21 @@
 						<a href="" class="btn-blue btn-h46 float-r">Добавить</a>
 						<a href="" class="btn-gray-light btn-h46 float-r margin-r15">Отменить</a>
 						
-						<div class="float-l margin-t15">
+						<div class="float-l margin-t15 margin-l90">
 							<a href="" class="a-checkbox active"></a>
 							<span class="color-gray">Я ознакомлен с</span> <a href="">Правилами конкурса</a>
 
 						</div>
 					</div>
 				</div>
+
 			</div>
 		</div>
 	</div>
 	<!-- /popup-contest -->
 
 	<!-- popup-contest -->
-	<div id="popup-contest-rule" class="popup-contest popup-contest__pets1">
+	<div id="popup-contest-rule" class="popup-contest popup-contest__birth1">
 		<a class="popup-transparent-close" onclick="$.fancybox.close();" href="javascript:void(0);" title="Закрыть"></a>
 		<div class="clearfix">
 			<div class="w-720 float-r">
@@ -1020,9 +1136,9 @@
 				<div class="b-settings-blue">
 					
 					<div class="contest-rule">
-						<div class="heading-title">Наш домашний любимец</div>
+						<div class="heading-title">Правила конкурса</div>
 						<ol>
-							<li>Принимай участие в фотоконкурсе «Наш домашний любимец».</li>
+							<li>Принимай участие в фотоконкурсе «Рассказ о родах».</li>
 							<li>С 15 сентября по 31 октября 2013 года разместите свою фотографию на тему «Как я провел лето» на промо-сайте leto.bystrobank.ru. Напишите поясняющий комментарий — как БыстроБанк помог Вам этим летом.</li>
 							<li>От одного участника допускается размещение не более 5 фотографий.</li>
 							<li>За размещенные фотографии с 15 сентября по 14 ноября 2013 года будет организовано голосование посетителей сайта.</li>
@@ -1045,7 +1161,7 @@
 	<!-- /popup-contest -->
 
 	<!-- popup-contest -->
-	<div id="popup-contest-prize" class="popup-contest popup-contest__pets1">
+	<div id="popup-contest-prize" class="popup-contest popup-contest__birth1">
 		<a class="popup-transparent-close" onclick="$.fancybox.close();" href="javascript:void(0);" title="Закрыть"></a>
 		<div class="clearfix">
 
@@ -1056,19 +1172,22 @@
 						<div class="contest-prizes_i clearfix">
 							<div class="contest-prizes_l">
 								<div class="contest-prizes_img">
-									<img src="/images/contest/club/pets1/prize-1-big.jpg" alt="">
+									<img src="/images/contest/club/birth1/prize-1-big.jpg" alt="">
 								</div>
 								<div class="place place-1-1"></div>
 							</div>
 							<div class="contest-prizes_r">
 								<div class="contest-prizes_i-top">
 									<span class="contest-prizes_heart"></span>
-									<span class="contest-prizes_i-t">Лежак-Домик "Hilla" Trixie( 35х30х40 см) </span>
+									<span class="contest-prizes_i-t">Детский электромобиль <strong>NeoTrike Mini Porsche</strong> </span>
 								</div>
 								<div class="contest-prizes_desc">
-									<p>Благодаря интересной и забавной форме и ткани под замшу такой домик для Вашего питомца станет отличным ярким дополнением в интерьере. Он подойдет как ля кошек, так и для маленьких собак.Trixie Лежак-Домик "Hilla"  может стать отличным подарком, как для домашнего питомца, так и для любого владельца маленького четвероного друга, ведь этот оригинальный домик - все, что нужно питомцу для отдыха и сна.</p>
-									<p>Он выполнен из качественного полиэстера, который не потускнеет и не деформируется от времени, благодаря поролону стенки отлично держат форму,  а внутренняя двусторонняя  подушка с наполнением из полиэфирной ваты подарит Вашей кошечке или собачке невероятный комфорт и уют. Trixie Лежак-Домик "Hilla" надежно защитит Вашего питомца от сквозняков на холодном полу и поможет уберечь вашу мебель от ненужной шерсти, ведь теперь у животного будет свой собственный дом.За таким домиком очень легко ухаживать, ведь передняя и задняя стенки прикреплены застежкой молнией, а при необходимости Вы без труда даже можете постирать его.</p>
-									<p>Этот подарок станет незаменимым для вашего домашнего любимца!</p>
+									<p>NeoTrike Mini Porsche - стильный белый Порше, новая модель 2013 года. Автомашину NeoTrike Mini Порше можно использовать и как электромобиль, а также в виде игрушки-каталки, при этом кроха будет катить ее впереди себя. Еще один вариант использования машинки - залезть верхом, оттолкнуться от плоскости ногами и вперед! Резиновые накладки колес машинки не только сделают езду тихой и бесшумной, но и защитят покрытие пола от механических царапин, если вы будете кататься прямо дома.</p>
+									<p>Этот подарок станет незаменимой игрушкой для вашего ребенка! </p>
+									<p>
+										<span class="contest-color">Подробнее: </span> 
+										<a href="http://www.neopod.ru/products/neotrike_mini_porsche_white/">www.neopod.ru/products/neotrike_mini_porsche_white/</a>
+									</p>
 								</div>
 							</div>
 						</div>
@@ -1076,47 +1195,66 @@
 						<div class="contest-prizes_i clearfix">
 							<div class="contest-prizes_l">
 								<div class="contest-prizes_img">
-									<img src="/images/contest/club/pets1/prize-2-1-big.jpg" alt="">
+									<img src="/images/contest/club/birth1/prize-2-big.jpg" alt="">
 								</div>
-								<div class="clearfix">
-									<a href="" class="contest-prizes_img">
-										<img src="/images/contest/club/pets1/prize-2-1-small.jpg" alt="">
-									</a>
-									<a href="" class="contest-prizes_img">
-										<img src="/images/contest/club/pets1/prize-2-2-small.jpg" alt="">
-									</a>
-									<a href="" class="contest-prizes_img">
-										<img src="/images/contest/club/pets1/prize-2-3-small.jpg" alt="">
-									</a>
-								</div>
-								<div class="place place-2-3"></div>
+								<div class="place place-2"></div>
 							</div>
 							<div class="contest-prizes_r">
 								<div class="contest-prizes_i-top">
 									<span class="contest-prizes_heart"></span>
-									<span class="contest-prizes_i-t">Автоматическая поилка фонтан "Original" Drinkwell </span>
+									<span class="contest-prizes_i-t">Развивающая игрушка <strong>Обучающий глобус VTech </strong> </span>
 								</div>
 								<div class="contest-prizes_desc">
-									<p>Поилка Drinkwell Original разработана ветеринарами и поможет обеспечить вашего домашнего питомца свежей фильтрованной водой в объеме 1,5л. Запатентованный ручеёк привлекает кошек и собак пить больше и постоянно обогащает воду кислородом. Угольный фильтр удаляет неприятный привкус и запах. Ваш любимец всегда будет иметь запас свежей воды.</p>
+									<p>Развивающий глобус от Vtech может помочь молодым исследователям и искателям приключений, не выходя из жилищу, осуществить кругосветное странствие. Занятный самолёт, джойстик и лупа будут его ассистентами в этом странствии. Ребенок сумеет узреть новые города и державы, он познакомится с традициями различных народов и выяснит о нашем мире большое количество нового и увлекательного.</p>
+									<p>5 обучающих программ познакомят молодого странника с океанами, континентами, народами различных государств и наиболее знаменитыми достопримечательностями. Режим вопросов может помочь малышу укрепить познания. </p>
+									<p>Этот подарок станет незаменимой игрушкой для вашего ребенка! </p>
 									<p>
-									- Ручеек привлекает животных и приглашает их пить больше <br>
-									- Специальный выступ снижает брызги от падающей воды <br>
-									- Регулируемая подача воды <br>
-									- Возможность полной разборки для легкого мытья <br>
-									- Для использования внутри помещений <br>
-									- Для кошек и собак мелких и средних пород <br>
-									- Объем 1,5л. <br>
-									- Питание от сети.</p>
-									<p>Этот подарок станет незаменимым для вашего домашнего любимца!</p>
+										<span class="contest-color">Подробнее: </span>
+										<a href="http://www.neopod.ru/products/vtech_globus/">wwww.neopod.ru/products/vtech_globus/</a>
+									</p>
 								</div>
 							</div>
+						</div>
+
+						<div class="contest-prizes_i clearfix">
+							<div class="contest-prizes_l">
+								<div class="contest-prizes_img">
+									<img src="/images/contest/club/birth1/prize-3-big.jpg" alt="">
+								</div>
+								<div class="place place-3"></div>
+							</div>
+							<div class="contest-prizes_r">
+								<div class="contest-prizes_i-top">
+									<span class="contest-prizes_heart"></span>
+									<span class="contest-prizes_i-t">Развивающая игрушка <strong>Веселый автомобиль VTech </strong> </span>
+								</div>
+								<div class="contest-prizes_desc">
+									<p>С помощью двух обучающих программ эта яркая интерактивная игрушка "Веселый автомобиль" проведет Вашего ребенка в увлекательный мир знаний. Она научит малыша различать цвета и геометрические фигуры, познакомит с цифрами и правилами дорожного движения. Обучение не будет скучным: игрушка умеет проигрывать забавные мелодии, издавать веселые звуки и даже мигать фарами. Кроме того, яркие клавиши и геометрический сортер привлекут внимание и вызывут интерес у ребенка. Также эту машинку легко взять с собой в дорогу или на прогулку - ее можно везти за собой при помощи шнурка для катания. </p>
+									<p>Этот подарок станет незаменимой игрушкой для вашего ребенка! </p>
+									<p>
+										<span class="contest-color">Подробнее: </span> 
+										<a href="http://www.neopod.ru/products/avtomob_umka_katalka/">wwww.neopod.ru/products/avtomob_umka_katalka/</a>
+									</p>
+								</div>
+							</div>
+						</div>
+
+						<div class="contest-prizes_sponsor-tx">
+							<p><a href="" class="display-ib verticalalign-m"><img src="/images/contest/club/birth1/sponsor-logo.png" alt=""></a> - детский интернет-магазин c широким ассортиментом игрушек и товаров для детей от 0 до 9 лет.</p>
+							<p><strong class="contest-color">Neopod</strong> работает напрямую с производителями и за счет постоянного наличия товаров обеспечивает очень быструю доставку и отличные цены.Все товары сертифицированы и тщательно отбираются по качеству и безопасности.Развивающие игрушки, детские ноутбуки, куклы, конструкторы из экологически чистых материалов, детский транспорт, одежда и средства гигиены для малышей, лучшие европейские производители. <br>
+							<b class="contest-color">Все игрушки и товары для детей – в одном магазине!</b> <br>
+							<b class="contest-color">Наши преимущества:</b> надежная репутация, качественные игрушки, выгодные условия для покупки, удобный выбор товара, быстрая доставка.</p>
+							<p>
+								<span class="contest-color">Подробнее: </span>
+								<a href="http://www.neopod.ru/">www.neopod.ru/</a>
+							</p>
 						</div>
 
 						<div class="contest-prizes_bottom clearfix">
 							<div class="contest-prizes_bottom-tx clearfix">
 								<span class="ico-giraffe-r"></span>
 								<span class="">
-									Будьте активны! Расскажите о ваших питомцах
+									Будьте активны! Ваш рассказ будет лучшим.
 								</span>
 							</div>
 							<a href="" class="btn-green btn-h46">Принять участие!</a>
@@ -1128,6 +1266,7 @@
 		</div>
 	</div>
 	<!-- /popup-contest -->
+	
 	
 </div>
 </body>

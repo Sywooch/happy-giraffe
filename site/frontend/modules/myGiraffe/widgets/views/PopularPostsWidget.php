@@ -3,7 +3,7 @@
     <div class="heading-title textalign-c clearfix"> <span class="ico-crown"></span> Популярные посты</div>
 
     <?php foreach($posts as $post)
-              $this->render('application.modules.blog.views.default._b_article', array('model' => $post)) ?>
+              $this->render('application.modules.blog.views.default._b_article', array('model' => $post, 'showLikes' => true)) ?>
 </div>
 <script type="text/javascript">
     var HidePopular = function () {

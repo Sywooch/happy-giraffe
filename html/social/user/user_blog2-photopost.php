@@ -190,7 +190,7 @@
 					<h1 class="blog-title-b_t">Блог о красивой любви </h1>
 				</div>
 				
-				<div class="b-article clearfix">
+				<div class="b-article b-article__photopost clearfix">
 					<div class="float-l">
 						<div class="like-control like-control__small-indent clearfix">
 							<a href="" class="ava male">
@@ -402,14 +402,16 @@
 								<span class="custom-like_value">10</span>
 							</a>
 						</div>
-						<div class="nav-article clearfix">
-							<div class="nav-article_left">
-								<a href="" class="nav-article_arrow nav-article_arrow__left"></a>
-								<a href="" class="nav-article_a">Очень красивые пропорции у нашего ведущего</a>
-							</div>
-							<div class="nav-article_right">
-								<a href="" class="nav-article_arrow nav-article_arrow__right"></a>
-								<a href="" class="nav-article_a">Очень красивые пропорции Очень красивые пропорции у нашего ведущего у нашего ведущего</a>
+						<div class="bg-white">
+							<div class="nav-article clearfix">
+								<div class="nav-article_left">
+									<a href="" class="nav-article_arrow nav-article_arrow__left"></a>
+									<a href="" class="nav-article_a">Очень красивые пропорции у нашего ведущего</a>
+								</div>
+								<div class="nav-article_right">
+									<a href="" class="nav-article_arrow nav-article_arrow__right"></a>
+									<a href="" class="nav-article_a">Очень красивые пропорции Очень красивые пропорции у нашего ведущего у нашего ведущего</a>
+								</div>
 							</div>
 						</div>
 						
@@ -619,7 +621,7 @@
 							<span class="b-settings-blue_row-desc">скрыть виджет - </span> <a href="" class="a-checkbox"></a> 
 						</div>
 					</div>
-					<div class="b-settings-blue_row clearfix">
+					<div class="b-settings-blue_row margin-b30 clearfix">
 						<label for="" class="b-settings-blue_label">Название виджета</label>
 						<div class="b-settings-blue_row-tx">
 							<input type="text" name="" id="" class="itx-simple w-100p" value="Самое лучшее утро - просыпаюсь, а ты рядом">

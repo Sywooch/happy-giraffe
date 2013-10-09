@@ -59,6 +59,6 @@
     <div class="b-contest-advert_hold">
         <div class="b-contest-advert_t">КОНКУРС</div>
         <div class="b-contest-advert_name"><?=$data->contestWork->contest->title?></div>
-        <a href="<?=$data->contestWork->contest->getExternalParticipateUrl()?>" class="btn-green btn-h46">Принять участие!</a>
+        <a href="<?=$data->contestWork->contest->getExternalParticipateUrl()?>" class="btn-green btn-h46<?php if (Yii::app()->user->isGuest): ?> fancy<?php endif; ?>">Принять участие!</a>
     </div>
 </div>

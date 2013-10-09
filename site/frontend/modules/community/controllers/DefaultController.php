@@ -100,14 +100,19 @@ class DefaultController extends HController
         $this->layout = ($forum_id == Community::COMMUNITY_NEWS) ? '//layouts/news' : '//layouts/forum';
         $this->rubric_id = $rubric_id;
 
-        $this->breadcrumbs = ($forum_id == Community::COMMUNITY_NEWS) ? array() : array(
-            $this->club->section->title => $this->club->section->getUrl(),
-            $this->club->title => $this->club->getUrl()
-        );
-        if (isset($this->club->communities) && count($this->club->communities) > 1)
-            $this->breadcrumbs [] = $this->forum->title;
-        else
-            $this->breadcrumbs [] = 'Форум';
+        if ($forum_id != Community::COMMUNITY_NEWS) {
+            $this->breadcrumbs = array(
+                $this->club->section->title => $this->club->section->getUrl(),
+                $this->club->title => $this->club->getUrl()
+            );
+            $forumTitle = (isset($this->club->communities) && count($this->club->communities) > 1) ? $this->forum->title : 'Форум';
+            if ($rubric_id !== null) {
+                $rubric = CommunityRubric::model()->findByPk($rubric_id);
+                $this->breadcrumbs[$forumTitle] = $this->forum->getUrl();
+                $this->breadcrumbs[] = $rubric->title;
+            } else
+                $this->breadcrumbs[] = $forumTitle;
+        }
 
         Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
         $dp = CommunityContent::model()->getContents($this->forum->id, $rubric_id);
@@ -129,18 +134,14 @@ class DefaultController extends HController
         $this->pageTitle = $content->title;
         $this->rubric_id = $content->rubric_id;
 
-        if ($forum_id != Community::COMMUNITY_NEWS) {
+        if ($forum_id != Community::COMMUNITY_NEWS)
             $this->breadcrumbs = array(
                 $this->club->section->title => $this->club->section->getUrl(),
                 $this->club->title => $this->club->getUrl(),
+                (isset($this->club->communities) && count($this->club->communities) > 1) ? $this->forum->title : 'Форум' => $this->forum->getUrl(),
+                $content->rubric->title => $content->rubric->getUrl(),
+                $content->title,
             );
-            if ($this->club->communities !== null)
-                if (count($this->club->communities) > 1)
-                    $this->breadcrumbs [$this->forum->title] = $this->forum->getUrl();
-                else
-                    $this->breadcrumbs ['Форум'] = $this->forum->getUrl();
-            $this->breadcrumbs [] = $content->title;
-        }
 
         if (!Yii::app()->user->isGuest) {
             NotificationRead::getInstance()->setContentModel($content);

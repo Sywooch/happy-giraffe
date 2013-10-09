@@ -30,6 +30,8 @@ class ContestController extends HController
             'Конкурс «' . $contest->title . '»',
         );
 
+        $this->pageTitle = 'Конкурс «' . $contest->title . '»';
+
         $this->render('index', compact('contest', 'works', 'sort', 'takePart'));
     }
 }

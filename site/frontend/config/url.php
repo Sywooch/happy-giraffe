@@ -342,6 +342,6 @@ return array(
         'family/<_a>' => 'family/default/<_a>',
         'family/<_c>/<_a>' => 'family/<_c>/<_a>',
 
-        'community/contest<contestId:\d+>' => 'community/contest/index',
+        'pets/contest' => array('community/contest/index', 'defaultParams' => array('contestId' => 1)),
     ),
 );

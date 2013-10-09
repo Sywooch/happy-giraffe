@@ -78,7 +78,10 @@ class DefaultController extends HController
 
         $this->layout = '//layouts/main';
         $this->loadClub($club);
-        $this->breadcrumbs = array($this->club->section->title => $this->club->section->getUrl(), $this->club->title);
+        $this->breadcrumbs = array(
+            $this->club->section->title => $this->club->section->getUrl(),
+            $this->club->title,
+        );
 
         $this->pageTitle = $this->club->title;
         $moderators = $this->club->getModerators();
@@ -108,8 +111,10 @@ class DefaultController extends HController
             $forumTitle = (isset($this->club->communities) && count($this->club->communities) > 1) ? $this->forum->title : 'Форум';
             if ($rubric_id !== null) {
                 $rubric = CommunityRubric::model()->findByPk($rubric_id);
-                $this->breadcrumbs[$forumTitle] = $this->forum->getUrl();
-                $this->breadcrumbs[] = $rubric->title;
+                $this->breadcrumbs += array(
+                    $forumTitle => $this->forum->getUrl(),
+                    $rubric->title,
+                );
             } else
                 $this->breadcrumbs[] = $forumTitle;
         }

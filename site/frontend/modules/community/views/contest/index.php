@@ -28,7 +28,7 @@ Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
                     <?php endforeach; ?>
                 </ul>
                 <?php endif; ?>
-                <a class="btn-green btn-medium readers2_btn-inline" href="<?=$contest->getParticipateUrl()?>" class="fancy">Принять участие!</a>
+                <a class="btn-green btn-medium readers2_btn-inline fancy" href="<?=$contest->getParticipateUrl()?>">Принять участие!</a>
             </div>
         <?php endif; ?>
 

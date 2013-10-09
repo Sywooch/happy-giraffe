@@ -1050,13 +1050,14 @@
     &_col3 {
         .inline-block();
         vertical-align: middle;
-        width: 190px;
+        width: 195px;
     }
     &_name {
         .inline-block();
         vertical-align: middle;
         width: 160px;
     }
+    &_name a {font-size: 12px;}
     &_count {
         .inline-block();
         vertical-align: middle;
@@ -1154,25 +1155,19 @@
     &_vote {
         display: none;
         position: absolute;
-        top: 0;
+        top: 56px;
         left: 0;
         width: 400px;
         background: #fff;
         z-index: 5;
         .box-shadow(0 0 4px rgba(0,0,0,0.13));
-        .border-radius(5px);
+        .border-radius(0 5px 5px 5px);
     }
-    &_vote .fast-like-block .box-1 {
-        min-width: 0;
-        text-align: left;
-    }
-    &_vote .fast-like-block .share_button {
-        margin-bottom: 23px;
-        margin-right: 20px;
-    }
+    &_vote .fast-like-block .box-1 {min-width: 0;}
+    &_vote .fast-like-block .share_button {margin:0 5px 5px;}
     &_vote-tx {
         float: left;
-        margin: 65px 25px 15px 10px;
+        margin: 9px 19px 15px 10px;
         width: 90px;
         font-size: 11px;
         line-height: 14px;
@@ -1180,8 +1175,8 @@
     }
     &_vote-hold {
         float: left;
-        width: 245px;
-        margin: 25px 25px 0 0;
+        width: 255px;
+        margin: 15px 25px 0 0;
     }
 }
 /* /contest-meter */

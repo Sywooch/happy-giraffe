@@ -377,6 +377,15 @@
                             </div>
 						</div>
 
+						<div class="sharelink-friends">
+							<div class="clearfix">
+								<div class="sharelink-friends_t">Cсылка на рассказ</div>
+								<input type="text" name="" id="" class="sharelink-friends_itx" value="http://www.happy-giraffe.ru/community/39/forum/post/107762/" onclick="$(this).select();">
+								
+							</div>
+							<div class="sharelink-friends_desc">Хочешь победить в конкурсе? Разошли эту ссылку друзьям и знакомым, сделай подписью в скайпе, аське и статусом в социальных сетях. Чем больше человек проголосует за твой рассказ, тем выше шансы на победу!</div>
+						</div>
+
 						<div class="article-contest">
 							<div class="article-contest_col1">
 								<img src="/images/contest/club/pets1/small.png" alt="">

@@ -94,6 +94,18 @@ class RecipeController extends HController
                 CookRecipe::model()->types[$type],
             );
 
+        $this->breadcrumbs = array(
+            $this->club->section->title => $this->club->section->getUrl(),
+            $this->club->title => $this->club->getUrl(),
+        );
+        if ($type != 0) {
+            $this->breadcrumbs += array(
+                ($this->section == 0 ? 'Рецепты' : 'Для мультиварки') => array('/cook/recipe/index', 'section' => $this->section),
+                CookRecipe::model()->types[$type],
+            );
+        } else
+            $this->breadcrumbs[] = $this->section == 0 ? 'Рецепты' : 'Для мультиварки';
+
         if (isset($_GET['SimpleRecipe_page']) || isset($_GET['MultivarkaRecipe_page']) || $type != 0)
             Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
 
@@ -339,8 +351,9 @@ class RecipeController extends HController
         NotificationRead::getInstance()->setContentModel($recipe);
 
         $this->breadcrumbs = array(
-            'Кулинария' => array('/cook'),
-            ($this->section == 0 ? 'Кулинарные рецепты' : 'Рецепты для мультиварок') => array('/cook/recipe/index', 'section' => $this->section),
+            $this->club->section->title => $this->club->section->getUrl(),
+            $this->club->title => $this->club->getUrl(),
+            ($this->section == 0 ? 'Рецепты' : 'Для мультиварки') => array('/cook/recipe/index', 'section' => $this->section),
             $recipe->typeString => array('/cook/recipe/index', 'type' => $recipe->type, 'section' => $this->section),
             $recipe->title,
         );

@@ -1,10 +1,9 @@
 <div class="sharelink-friends">
     <div class="clearfix">
-        <div class="sharelink-friends_t">Cсылка на рассказ</div>
-        <input type="text" class="sharelink-friends_itx" value="<?=$data->getUrl(false, true)?>" onclick="$(this).select();">
+        <div class="sharelink-friends_t">Cсылка</div>
+        <input type="text" class="sharelink-friends_itx" value="<?=$data->getUrl(false, true)?>" onclick="$(this).select();" style="width: 450px;">
 
     </div>
-    <div class="sharelink-friends_desc">Хочешь победить в конкурсе? Разошли эту ссылку друзьям и знакомым, сделай подписью в скайпе, аське и статусом в социальных сетях. Чем больше человек проголосует за твой рассказ, тем выше шансы на победу!</div>
 </div>
 
 <div class="article-contest">

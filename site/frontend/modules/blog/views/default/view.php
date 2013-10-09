@@ -48,6 +48,10 @@ if ($full) {
         <?php if ($full) $this->renderPartial('blog.views.default._prev_next', compact('data')); ?>
         <?php if ($data->type_id == CommunityContent::TYPE_STATUS): ?></div><?php endif; ?>
 
+        <?php if ($full && $data->contestWork !== null): ?>
+            <?php $this->renderPartial('application.modules.blog.views.default._contest', compact('data')); ?>
+        <?php endif; ?>
+
         <?php if ($full): ?>
             <!-- ﬂÌ‰ÂÍÒ.ƒËÂÍÚ -->
             <div id="yandex_ad" style="padding: 20px 20px 30px; background: #fffff0; margin-top: -20px;">
@@ -81,10 +85,6 @@ if ($full) {
                     })(window, document, "yandex_context_callbacks");
                 </script>
             </div>
-        <?php endif; ?>
-
-        <?php if ($full && $data->contestWork !== null): ?>
-            <?php $this->renderPartial('application.modules.blog.views.default._contest', compact('data')); ?>
         <?php endif; ?>
 
         <?php if ($full && ! $data->getIsFromBlog()): ?>

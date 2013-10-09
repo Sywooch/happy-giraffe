@@ -71,6 +71,14 @@ class DefaultController extends HController
         if ($this->user->hasRssContent())
             $this->rssFeed = $this->createUrl('rss/user', array('user_id' => $user_id));
 
+        $this->breadcrumbs = array($this->user->getFullName() => $this->user->getUrl());
+        if ($rubric_id !== null) {
+            $rubric = CommunityRubric::model()->findByPk($rubric_id);
+            $this->breadcrumbs['Блог'] = $this->user->getBlogUrl();
+            $this->breadcrumbs[] = $rubric->title;
+        } else
+            $this->breadcrumbs[] = 'Блог';
+
         $this->render('list', array('contents' => $contents));
     }
 
@@ -104,6 +112,14 @@ class DefaultController extends HController
 
         //сохраняем просматриваемую модель
         NotificationRead::getInstance()->setContentModel($content);
+
+        $this->breadcrumbs = array(
+            $this->user->getFullName() => $this->user->getUrl(),
+            'Блог' => $this->user->getBlogUrl(),
+            $content->rubric->title => $content->rubric->getUrl(),
+            $content->title,
+        );
+
         $this->render('view', array('data' => $content, 'full' => true));
     }
 

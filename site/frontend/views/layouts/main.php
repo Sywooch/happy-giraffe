@@ -222,6 +222,7 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
                             <div class="padding-l20">
                                 <div class="crumbs-small clearfix">
                                     <?php $this->widget('HBreadcrumbs', array(
+                                        'homeLink' => Yii::app()->user->isGuest ? null : false,
                                         'links' => $this->breadcrumbs,
                                     )); ?>
                                 </div>

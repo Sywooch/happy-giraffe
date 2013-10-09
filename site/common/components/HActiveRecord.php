@@ -48,14 +48,8 @@ class HActiveRecord extends CActiveRecord
             case 'vkontakte':
                 $url = 'http://vk.com/share.php?title={title}&description={description}&url={url}&image={image}';
                 break;
-            case 'facebook':
-                $url = 'http://www.facebook.com/sharer.php?s=100&p[url]={url}&p[title]={title}&p[summary]={description}&p[images][0]={image}';
-                break;
             case 'odnoklassniki':
-                $url = 'http://www.odnoklassniki.ru/dk?st.cmd=addShare&st.s=1&st.comments={title} {description}&st._surl={url}';
-                break;
-            case 'twitter':
-                $url = 'https://twitter.com/intent/tweet?text={title} {description}&url={url}';
+                $url = 'http://www.odnoklassniki.ru/dk?st.cmd=addShare&st.s=1&st.comments={description}&st._surl={url}';
                 break;
         }
 

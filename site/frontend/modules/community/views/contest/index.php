@@ -72,47 +72,43 @@ Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
 
     </div>
     <div class="col-23-middle ">
-        <div class="col-gray col-gray__contest">
+        <?php if ($works->totalItemCount > 0): ?>
+            <div class="col-gray col-gray__contest">
+                <div class="clearfix">
+                    <div class="float-r margin-t20 margin-r20">
+                        <div class="chzn-itx-simple chzn-itx-simple__small">
+                            <?=CHtml::dropDownList('sort', $sort, array(
+                                '0' => 'По дате добавления',
+                                '1' => 'По количеству голосов',
+                            ), array(
+                                'class' => 'chzn',
+                                'onchange' => 'document.location.href = \'' . $this->createUrl('/community/contest/index', array('contestId' => $contest->id)) . '?sort=\' + $(this).val();',
+                            ))?>
+                        </div>
 
-            <?php if ($works->totalItemCount > 0): ?>
-
-            <div class="clearfix">
-                <div class="float-r margin-t20 margin-r20">
-                    <div class="chzn-itx-simple chzn-itx-simple__small">
-                        <?=CHtml::dropDownList('sort', $sort, array(
-                            '0' => 'По дате добавления',
-                            '1' => 'По количеству голосов',
-                        ), array(
-                            'class' => 'chzn',
-                            'onchange' => 'document.location.href = \'' . $this->createUrl('/community/contest/index', array('contestId' => $contest->id)) . '?sort=\' + $(this).val();',
-                        ))?>
                     </div>
-
                 </div>
+
+
+                <?php $this->widget('zii.widgets.CListView', array(
+                    'cssFile' => false,
+                    'ajaxUpdate' => false,
+                    'dataProvider' => $works,
+                    'itemView' => 'view',
+                    'pager' => array(
+                        'class' => 'HLinkPager',
+                    ),
+                    'template' => '{items}
+                        <div class="yiipagination">
+                            {pager}
+                        </div>
+                    ',
+                    'emptyText' => '',
+                    'viewData' => array('full' => false, 'isContestWork' => true),
+                ));
+                ?>
             </div>
-
-
-            <?php $this->widget('zii.widgets.CListView', array(
-                'cssFile' => false,
-                'ajaxUpdate' => false,
-                'dataProvider' => $works,
-                'itemView' => 'view',
-                'pager' => array(
-                    'class' => 'HLinkPager',
-                ),
-                'template' => '{items}
-                    <div class="yiipagination">
-                        {pager}
-                    </div>
-                ',
-                'emptyText' => '',
-                'viewData' => array('full' => false, 'isContestWork' => true),
-            ));
-            ?>
-
-            <?php endif; ?>
-
-        </div>
+        <?php endif; ?>
     </div>
 </div>
 

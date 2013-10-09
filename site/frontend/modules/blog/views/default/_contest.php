@@ -15,7 +15,7 @@
         </div>
     </div>
     <div class="article-contest_count">
-        <div class="article-contest_count-num"><?=$data->contestWork->rate?></div>
+        <div class="article-contest_count-num contest-counter"><?=$data->contestWork->rate?></div>
         <div class="article-contest_count-desc"><?=Str::GenerateNoun(array('балл', 'балла', 'баллов'), $data->contestWork->rate)?></div>
     </div>
     <div class="article-contest_col3">

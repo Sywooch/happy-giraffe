@@ -8,9 +8,9 @@
 
                 var inc = " . CJSON::encode($inc) . ";
                 window.location = '" . addslashes($url) . "';
-                if (inc) {
+                if (inc || true) {
                     var parentEl = window.opener.$('#blog_settings_" . $pk . "');
-                    var el = parentEl.find('.contest-meter_count-num');
+                    var el = parentEl.find('.contest-counter');
                     el.text(parseInt(el.first().text()) + 1);
                     parentEl.find('.contest-meter_vote').removeClass('display-b');
 

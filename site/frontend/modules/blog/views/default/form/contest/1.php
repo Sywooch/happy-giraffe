@@ -20,33 +20,19 @@
             <div class="b-settings-blue">
                 <div class="b-settings-blue_head">
                     <div class="b-settings-blue_row clearfix">
-                        <label for="" class="b-settings-blue_label margin-t15">Конкурс</label>
-                        <div class="b-settings-blue_row-tx">
-                            <div class="heading-title"><?=$contest->title?></div>
-                        </div>
-                    </div>
-                    <div class="b-settings-blue_row clearfix">
                         <div class="clearfix margin-t-10 ">
                             <div class="float-r font-small color-gray margin-3" data-bind="length: { attribute : title, maxLength : 50 }"></div>
                         </div>
                         <label for="" class="b-settings-blue_label">Заголовок</label>
                         <div class="b-settings-blue_row-tx">
-                            <?=$form->textField($model, 'title', array('class' => 'itx-simple w-100p', 'placeholder' => 'Введите заголовок фото', 'data-bind' => 'value: title, valueUpdate: \'keydown\'')) ?>
+                            <?=$form->textField($model, 'title', array('class' => 'itx-simple w-100p', 'placeholder' => 'Введите заголовок рассказа', 'data-bind' => 'value: title, valueUpdate: \'keydown\'')) ?>
                             <?=$form->error($model, 'title') ?>
-                        </div>
-                    </div>
-                    <div class="margin-b5 clearfix">
-                        <label for="" class="b-settings-blue_label">&nbsp;</label>
-                        <div class="b-settings-blue_row-tx">
-                            <div class="font-small">
-                                Расскажите о своем домашнем животном ( как его зовут, кокой он породы, как вы за ним ухаживаете что он умеет делать, какие лакомства он любит и т д)
-                            </div>
                         </div>
                     </div>
                     <div class="b-settings-blue_row clearfix">
                         <label for="" class="b-settings-blue_label">Рассказ</label>
                         <div class="b-settings-blue_row-tx clearfix">
-                            <?=$form->textArea($slaveModel, 'text', array('class' => 'b-settings-blue_textarea itx-simple', 'placeholder' => 'Ваш текст', 'cols' => 80, 'rows' => 5)) ?>
+                            <?=$form->textArea($slaveModel, 'text', array('class' => 'b-settings-blue_textarea itx-simple', 'placeholder' => 'Расскажите о своем домашнем животном ( как его зовут, кокой он породы, как вы за ним ухаживаете что он умеет делать, какие лакомства он любит и т д)', 'cols' => 80, 'rows' => 9)) ?>
                         </div>
                     </div>
                 </div>

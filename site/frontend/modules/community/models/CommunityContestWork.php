@@ -123,4 +123,24 @@ class CommunityContestWork extends HActiveRecord
             ),
         ));
     }
+
+    public function getShareTitle()
+    {
+        return $this->content->title;
+    }
+
+    public function getShareImage()
+    {
+        return $this->content->gallery->items[0]->photo->getPreviewUrl(580, null, Image::WIDTH);
+    }
+
+    public function getShareDescription()
+    {
+        return 'Я участвую в конкурсе «' . $this->contest->title . '»';
+    }
+
+    public function getShareUrl()
+    {
+        return $this->content->getUrl(false, true);
+    }
 }

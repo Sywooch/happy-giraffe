@@ -845,13 +845,13 @@
 							</div>
 							<label for="" class="b-settings-blue_label">Заголовок</label>
 							<div class="b-settings-blue_row-tx">
-								<input type="text" name="" id="" class="itx-simple w-100p" placeholder="Введите заголовок фото">
+								<input type="text" name="" id="" class="itx-simple w-100p" placeholder="Введите заголовок рассказа">
 							</div>
 						</div>
 						<div class="b-settings-blue_row clearfix">
 							<label for="" class="b-settings-blue_label">Рассказ</label>
 							<div class="b-settings-blue_row-tx clearfix">
-								<textarea name="" id="" cols="80" rows="9" class="b-settings-blue_textarea itx-simple" placeholder="Расскажите о своем домашнем животном (как его зовут, кокой он породы, как вы за ним ухаживаете что он умеет делать, какие лакомства он любит и т.д)"></textarea>
+								<textarea name="" id="" cols="80" rows="9" class="b-settings-blue_textarea itx-simple" placeholder="Расскажите о своем домашнем животном (как его зовут, какой он породы, как вы за ним ухаживаете, что он умеет делать, какие лакомства он любит и т.д)"></textarea>
 							</div>
 						</div>
 					</div>
@@ -894,13 +894,13 @@
 							</div>
 							<label for="" class="b-settings-blue_label">Заголовок</label>
 							<div class="b-settings-blue_row-tx">
-								<input type="text" name="" id="" class="itx-simple w-100p" placeholder="Введите заголовок фото">
+								<input type="text" name="" id="" class="itx-simple w-100p" placeholder="Введите заголовок рассказа">
 							</div>
 						</div>
 						<div class="b-settings-blue_row clearfix">
 							<label for="" class="b-settings-blue_label">Рассказ</label>
 							<div class="b-settings-blue_row-tx clearfix">
-								<textarea name="" id="" cols="80" rows="9" class="b-settings-blue_textarea itx-simple" placeholder="Расскажите о своем домашнем животном (как его зовут, кокой он породы, как вы за ним ухаживаете что он умеет делать, какие лакомства он любит и т.д)"></textarea>
+								<textarea name="" id="" cols="80" rows="9" class="b-settings-blue_textarea itx-simple" placeholder="Расскажите о своем домашнем животном (как его зовут, какой он породы, как вы за ним ухаживаете, что он умеет делать, какие лакомства он любит и т.д)"></textarea>
 							</div>
 						</div>
 					</div>

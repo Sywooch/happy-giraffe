@@ -9,11 +9,13 @@
  * @property string $description
  * @property string $rules
  * @property string $forum_id
+ * @property string $rubric_id
  *
  * The followings are the available model relations:
  * @property Community $forum
  * @property CommunityContestWork[] $contestWorks
  * @property int $contestWorksCount
+ * @property CommunityRubric $rubric
  */
 class CommunityContest extends HActiveRecord
 {
@@ -33,12 +35,12 @@ class CommunityContest extends HActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('description, rules, forum_id', 'required'),
+			array('description, rules, forum_id, rubric_id', 'required'),
 			array('title', 'length', 'max'=>255),
-			array('forum_id', 'length', 'max'=>11),
+			array('forum_id, rubric_id', 'length', 'max'=>11),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, title, description, rules, forum_id', 'safe', 'on'=>'search'),
+			array('id, title, description, rules, forum_id, rubric_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -50,6 +52,7 @@ class CommunityContest extends HActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+            'rubric' => array(self::BELONGS_TO, 'CommunityRubric', 'rubric_id'),
 			'forum' => array(self::BELONGS_TO, 'Community', 'forum_id'),
             'contestWorks' => array(self::HAS_MANY, 'CommunityContestWork', 'contest_id'),
             'contestWorksCount' => array(self::STAT, 'CommunityContestWork', 'contest_id'),
@@ -67,6 +70,7 @@ class CommunityContest extends HActiveRecord
 			'description' => 'Description',
 			'rules' => 'Rules',
 			'forum_id' => 'Forum',
+            'rubric_id' => 'Rubric',
 		);
 	}
 
@@ -93,6 +97,7 @@ class CommunityContest extends HActiveRecord
 		$criteria->compare('description',$this->description,true);
 		$criteria->compare('rules',$this->rules,true);
 		$criteria->compare('forum_id',$this->forum_id,true);
+        $criteria->compare('rubric_id',$this->rubric_id,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

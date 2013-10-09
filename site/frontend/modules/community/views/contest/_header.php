@@ -4,16 +4,7 @@
  */
 ?>
 
-<div class="b-club-back clearfix">
-    <div class="b-club-back_ico">
-        <img src="/images/club/<?=$contest->forum->club_id?>-w40.png" alt="">
-    </div>
-    <div class="b-club-back_i">
-        <a href="<?=$contest->forum->club->getUrl()?>" class="b-club-back_a">В клуб <?=$contest->forum->club->title?></a>
-    </div>
-</div>
-
-<div class="b-section">
+<div class="b-section b-section__contest">
     <div class="b-section_hold">
         <div class="content-cols clearfix">
             <div class="col-1">

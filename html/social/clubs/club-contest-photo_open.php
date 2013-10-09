@@ -17,7 +17,14 @@
 		<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/header-new.php'; ?>
 		
 		<div class="layout-content clearfix">
-
+		<div class="crumbs-small clearfix">
+			<ul class="crumbs-small_ul">  
+				<li class="crumbs-small_li">Я здесь:</li>
+				<li class="crumbs-small_li"><a href="" class="crumbs-small_a">Главная</a></li> &gt;
+				<li class="crumbs-small_li"><a href="" class="crumbs-small_a">Наши питомцы</a></li> &gt;
+				<li class="crumbs-small_li"><span class="crumbs-small_last">Конкурс</span></li>
+			</ul>
+		</div>
 		<div class="b-section b-section__club b-section__club-3">
 			<div class="b-section_hold">
 				<div class="content-cols clearfix">

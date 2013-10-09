@@ -111,7 +111,7 @@
 		</div>
 		
 		<div class="layout-content clearfix">
-
+<!-- 
 		<div class="b-club-back clearfix">
 			<div class="b-club-back_ico">
 				<img src="/images/club/11-w40.png" alt="">
@@ -119,9 +119,17 @@
 			<div class="b-club-back_i">
 				<a href="" class="b-club-back_a">В клуб Наши питомцы</a>
 			</div>
+		</div> -->
+		<div class="crumbs-small clearfix">
+			<ul class="crumbs-small_ul">  
+				<li class="crumbs-small_li">Я здесь:</li>
+				<li class="crumbs-small_li"><a href="" class="crumbs-small_a">Главная</a></li> &gt;
+				<li class="crumbs-small_li"><a href="" class="crumbs-small_a">Наши питомцы</a></li> &gt;
+				<li class="crumbs-small_li"><span class="crumbs-small_last">Конкурс</span></li>
+			</ul>
 		</div>
 		
-		<div class="b-section">
+		<div class="b-section b-section__contest">
 			<div class="b-section_hold">
 				<div class="content-cols clearfix">
 					<div class="col-1">
@@ -315,7 +323,7 @@
 				
 			</div>
 			<div class="col-23-middle ">
-				<div class="col-gray">
+				<div class="col-gray col-gray__contest">
 					
 					<div class="clearfix">
 						<div class="float-r margin-t20 margin-r20">
@@ -832,12 +840,6 @@
 				<div class="b-settings-blue">
 					<div class="b-settings-blue_head">
 						<div class="b-settings-blue_row clearfix">
-							<label for="" class="b-settings-blue_label margin-t15">Конкурс</label>
-							<div class="b-settings-blue_row-tx">
-								<div class="heading-title">Наш домашний любимец</div>
-							</div>
-						</div>
-						<div class="b-settings-blue_row clearfix">
 							<div class="clearfix margin-t-10 ">
 								<div class="float-r font-small color-gray margin-3">0/50</div>
 							</div>
@@ -846,18 +848,10 @@
 								<input type="text" name="" id="" class="itx-simple w-100p" placeholder="Введите заголовок фото">
 							</div>
 						</div>
-						<div class="margin-b5 clearfix">
-							<label for="" class="b-settings-blue_label">&nbsp;</label>
-							<div class="b-settings-blue_row-tx">
-								<div class="font-small">
-								Расскажите о своем домашнем животном ( как его зовут, кокой он породы, как вы за ним ухаживаете что он умеет делать, какие лакомства он любит и т д)
-								</div>
-							</div>
-						</div>
 						<div class="b-settings-blue_row clearfix">
 							<label for="" class="b-settings-blue_label">Рассказ</label>
 							<div class="b-settings-blue_row-tx clearfix">
-								<textarea name="" id="" cols="80" rows="5" class="b-settings-blue_textarea itx-simple" placeholder="Ваш текст"></textarea>
+								<textarea name="" id="" cols="80" rows="9" class="b-settings-blue_textarea itx-simple" placeholder="Расскажите о своем домашнем животном (как его зовут, кокой он породы, как вы за ним ухаживаете что он умеет делать, какие лакомства он любит и т.д)"></textarea>
 							</div>
 						</div>
 					</div>
@@ -892,13 +886,8 @@
 				</div>
 
 				<div class="b-settings-blue">
+					
 					<div class="b-settings-blue_head">
-						<div class="b-settings-blue_row clearfix">
-							<label for="" class="b-settings-blue_label margin-t15">Конкурс</label>
-							<div class="b-settings-blue_row-tx">
-								<div class="heading-title">Наш домашний любимец</div>
-							</div>
-						</div>
 						<div class="b-settings-blue_row clearfix">
 							<div class="clearfix margin-t-10 ">
 								<div class="float-r font-small color-gray margin-3">0/50</div>
@@ -908,18 +897,10 @@
 								<input type="text" name="" id="" class="itx-simple w-100p" placeholder="Введите заголовок фото">
 							</div>
 						</div>
-						<div class="margin-b5 clearfix">
-							<label for="" class="b-settings-blue_label">&nbsp;</label>
-							<div class="b-settings-blue_row-tx">
-								<div class="font-small">
-								Расскажите о своем домашнем животном ( как его зовут, кокой он породы, как вы за ним ухаживаете что он умеет делать, какие лакомства он любит и т д)
-								</div>
-							</div>
-						</div>
 						<div class="b-settings-blue_row clearfix">
 							<label for="" class="b-settings-blue_label">Рассказ</label>
 							<div class="b-settings-blue_row-tx clearfix">
-								<textarea name="" id="" cols="80" rows="5" class="b-settings-blue_textarea itx-simple" placeholder="Ваш текст"></textarea>
+								<textarea name="" id="" cols="80" rows="9" class="b-settings-blue_textarea itx-simple" placeholder="Расскажите о своем домашнем животном (как его зовут, кокой он породы, как вы за ним ухаживаете что он умеет делать, какие лакомства он любит и т.д)"></textarea>
 							</div>
 						</div>
 					</div>

@@ -647,14 +647,18 @@ table.fr_recipe_tb td { width: 50%;}
     &__user-status &_cont {background: #cdecff;}
     &__user-status &_cont-tale {border-right-color: #cdecff;}
 
+    &__photopost .custom-likes-b {margin: 0 0 30px;}
+    &__photopost .custom-likes-b_slogan {color: #f7f3f3;}
+    &__photopost .nav-article {padding: 25px 0 30px;margin-bottom: 0;}
+    &__photopost .gallery-widget {margin-top: 0;}
     &__photopost &_cont {background: #523d64;}
-    &__photopost &_t {color: #fff;}
-    &__photopost .wysiwyg-content {color: #fff;}
-    &__photopost .wysiwyg-content a {color: #fff;}
+    &__photopost &_cont-tale {border-right-color: #523d64; }
+    &__photopost &_t,
+    &__photopost &_t-a,
+    &__photopost &_in .wysiwyg-content {color: #fff;}
+    /*&__photopost &_in .wysiwyg-content a {color: #fff;}*/
     
-    .wysiwyg-content {
-        padding: 0 20px;
-    }
+    .wysiwyg-content {padding: 0 20px;}
     &_in {
         min-height:81px;
         word-wrap: break-word;
@@ -825,6 +829,32 @@ table.fr_recipe_tb td { width: 50%;}
         border-bottom:1px dotted #289FD7;
     }
     &_removed-a:hover {border-bottom: none;}
+    &_photo-control {
+        .inline-block();
+        position: relative;
+        margin: 7px 0 0 11px;
+        width: 28px;
+        height: 20px;
+        background-color: #a99eb2;
+    }
+    &_photo-control:hover,
+    &_photo-control.active {background-color: #309df0;}
+    &_photo-control__grid:before,
+    &_photo-control__grid:after, {
+        content:' ';
+        position: absolute;
+        width: 2px;
+        height: 100%;
+        left: 13px;
+        top: 0;
+        background-color: #523d64;
+    }
+    &_photo-control__grid:after {
+        width: 100%;
+        height: 2px;
+        left: 0;
+        top: 9px;
+    }
 }
 /* /b-article */
 
@@ -1155,6 +1185,16 @@ table.fr_recipe_tb td { width: 50%;}
         height: 38px;
         background: url(/images/photo-grid_zoom.png) no-repeat;
     }
+    &_tip {
+        position: absolute;
+        top: 8px;
+        right: 0;
+        padding: 5px 12px 8px 17px;
+        color: #fff;
+        font-size: 25px;
+        line-height: 30px;
+        background: #fe2d2d;
+    }
     &_last {
         display: table-cell;
         vertical-align: middle;
@@ -1166,7 +1206,7 @@ table.fr_recipe_tb td { width: 50%;}
     &_last .font-small {line-height: 12px;}
     &_last-a {font-size: 16px;}
 
-    /* style for contest */
+    /* for contest */
     &_ball {
         position: absolute;
         top: 10px;
@@ -1179,9 +1219,7 @@ table.fr_recipe_tb td { width: 50%;}
         color: #fff;
         z-index: 25;
     }
-    &_ball-count {
-        font: 30px/30px 'Roboto', 'Helvetica Neue', Helvetica, Arial, Tahoma, sans-serif;
-    }
+    &_ball-count {font: 30px/30px 'Roboto', 'Helvetica Neue', Helvetica, Arial, Tahoma, sans-serif;}
     &_author {
         position: absolute;
         top: 0;
@@ -1203,6 +1241,7 @@ table.fr_recipe_tb td { width: 50%;}
         text-decoration: none;
     }
     &_author-name:hover {text-decoration: underline;}
+    /* /for contest */
 }
 /* /photo-grid */
 
@@ -2210,7 +2249,7 @@ table.fr_recipe_tb td { width: 50%;}
         width: 100%;
         max-width: 100%;
         min-width: 100%;
-        height: 80px;
+        /*height: 80px;*/
         min-height: 80px;
         .box-sizing(border-box);
     }
@@ -3228,6 +3267,10 @@ table.fr_recipe_tb td { width: 50%;}
     &__club-18 {background:#5a4072 url(/images/club/18-header.jpg) no-repeat 50% 0;}
     &__club-19 {background:#5a4072 url(/images/club/19-header.jpg) no-repeat 50% 0;}
     &__club-20 {background:#5a4072 url(/images/club/20-header.jpg) no-repeat 50% 0;}
+    &__contest {
+        background: rgba(255,255,255,.7);
+        margin-bottom: 35px;
+    }
 
     .club-list,
     .club-list_ul,
@@ -3897,7 +3940,7 @@ table.fr_recipe_tb td { width: 50%;}
 /* cover-contest */
 .cover-contest {
     margin: 288px 0 209px;
-    .body-guest & {margin-top: 240px;}
+    .body-guest & {margin-top: 235px;}
 
     &__pets1  {background:#4e4064 url(/images/contest/club/pets1/cover-contest__pets1.jpg) no-repeat 50% 0;}
     &__birth1 {background:#f392b4 url(/images/contest/club/birth1/cover-contest.jpg) no-repeat 50% 0;}

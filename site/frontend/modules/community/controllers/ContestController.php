@@ -22,7 +22,7 @@ class ContestController extends HController
 
         $this->bodyClass = 'theme-contest theme-contest__pets1';
         if (Yii::app()->user->isGuest)
-            $this->bodyClass .= 'body-guest';
+            $this->bodyClass .= ' body-guest';
 
         $this->breadcrumbs = array(
             $contest->forum->club->section->title => $contest->forum->club->section->getUrl(),

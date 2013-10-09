@@ -596,45 +596,17 @@
 										<div class="like-block fast-like-block">
 														
 											<div class="box-1">
+
 												<div class="share_button">
-													<div class="fb-custom-like">
-														<a href="http://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fdev.happy-giraffe.ru%2Fuser%2F13217%2Fblog%2Fpost22589%2F"
-														   onclick="return Social.showFacebookPopup(this);" class="fb-custom-text">
-															<i class="pluginButtonIcon img sp_like sx_like_fav"></i>Мне нравится</a>
-														<div class="fb-custom-share-count">0</div>
-														<script type="text/javascript">
-															$.getJSON("http://graph.facebook.com", { id : document.location.href }, function(json){
-																$('.fb-custom-share-count').html(json.shares || '0');
-															});
-														</script>
+													<a href=""><img src="/images/share_button__odkl.png" alt=""></a>
+												</div>
+												
+												<div class="share_button">
+													<div class="vk_share_button">
+														<a href=""><img src="/images/share_button__vk.png" alt=""></a>
 													</div>
 												</div>
 												
-												<div class="share_button">
-													<div class="vk_share_button"></div>
-												</div>
-												
-												<div class="share_button">
-													<a class="odkl-klass-oc"
-													   href="http://dev.happy-giraffe.ru/user/13217/blog/post22589/"
-													   onclick="Social.updateLikesCount('ok'); ODKL.Share(this);return false;"><span>0</span></a>
-												</div>
-												
-												<div class="share_button">
-													<div class="tw_share_button">
-														<a href="https://twitter.com/share" class="twitter-share-button" data-lang="ru" data-url="http://dev.happy-giraffe.ru/user/13217/blog/post22589/">Твитнуть</a>
-														<script type="text/javascript" charset="utf-8">
-																if (typeof twttr == 'undefined')
-																	window.twttr = (function (d,s,id) {
-																		var t, js, fjs = d.getElementsByTagName(s)[0];
-																		if (d.getElementById(id)) return; js=d.createElement(s); js.id=id;
-																		js.src="//platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs);
-																		return window.twttr || (t = { _e: [], ready: function(f){ t._e.push(f) } });
-																	}(document, "script", "twitter-wjs"));
-														</script>
-													</div>
-												</div>
-																		
 											</div>
 											
 										</div>

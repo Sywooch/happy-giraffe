@@ -74,6 +74,8 @@ Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
     <div class="col-23-middle ">
         <div class="col-gray col-gray__contest">
 
+            <?php if ($works->totalItemsCount > 0): ?>
+
             <div class="clearfix">
                 <div class="float-r margin-t20 margin-r20">
                     <div class="chzn-itx-simple chzn-itx-simple__small">
@@ -108,7 +110,9 @@ Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
             ));
             ?>
 
-            </div>
+            <?php endif; ?>
+
+        </div>
     </div>
 </div>
 

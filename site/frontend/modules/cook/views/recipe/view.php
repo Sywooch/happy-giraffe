@@ -237,7 +237,7 @@ if (empty($this->meta_description))
                         <?php foreach ($recipe->more as $m): ?>
                             <li class="cook-more_li">
                                 <div class="cook-more_author clearfix">
-                                    <?php $this->widget('Avatar', array('user' => $recipe->author, 'size' => 24)) ?>
+                                    <?php $this->widget('Avatar', array('user' => $m->author, 'size' => 24)) ?>
                                     <div class="clearfix">
                                         <a class="textdec-onhover" href="<?=$m->author->getUrl() ?>"><?=$m->author->getFullName() ?></a>
                                         <div class="color-gray font-smallest"><?=Yii::app()->dateFormatter->format("d MMMM yyyy, H:mm", $m->created)?></div>

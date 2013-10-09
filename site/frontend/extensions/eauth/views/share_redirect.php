@@ -8,27 +8,30 @@
 
                 var inc = " . CJSON::encode($inc) . ";
                 window.location = '" . addslashes($url) . "';
-                if (inc) {
-                    var el =  window.opener.$('.rating span');
+                if (inc || true) {
+                    var parentEl = window.opener.$('#blog_settings_" . $pk . "');
+                    var el = parentEl.find('.contest-meter_count-num');
                     el.text(parseInt(el.first().text()) + 1);
+                    parentEl.find('.contest-meter_vote').removeClass('display-b');
 
                     var service = " . CJSON::encode($service) . ";
                     var counter;
                     switch (service) {
                         case 'facebook':
-                            counter = window.opener.$('.custom-like-fb-share-count');
+                            counter = parentEl.find('.custom-like-fb-share-count');
                             break;
                         case 'vkontakte':
-                            counter = window.opener.$('.custom-like-vk_value');
+                            counter = parentEl.find('.custom-like-vk_value');
                             break;
                         case 'odnoklassniki':
-                            counter = window.opener.$('.custom-like-odkl_value');
+                            counter = parentEl.find('.custom-like-odkl_value');
                             break;
                         case 'twitter':
-                            counter = window.opener.$('.custom-like-tw_value');
+                            counter = parentEl.find('.custom-like-tw_value');
                             break;
                     }
 
+                    console.log(counter);
                     counter.text(parseInt(counter.first().text()) + 1);
                 }
 

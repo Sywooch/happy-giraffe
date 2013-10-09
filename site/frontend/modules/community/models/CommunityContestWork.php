@@ -109,12 +109,12 @@ class CommunityContestWork extends HActiveRecord
         return $this->content->getUrl();
     }
 
-    public function getOtherParticipants($limit)
+    public function getOtherParticipants($limit, $minRate)
     {
         return CommunityContestWork::model()->findAll(array(
             'limit' => $limit,
-            'condition' => 't.id != :currentId',
-            'params' => array(':currentId' => $this->id),
+            'condition' => 't.id != :currentId AND t.rate > :minRate',
+            'params' => array(':currentId' => $this->id, ':minRate' => $minRate),
             'order' => new CDbExpression('RAND()'),
             'with' => array(
                 'content' => array(

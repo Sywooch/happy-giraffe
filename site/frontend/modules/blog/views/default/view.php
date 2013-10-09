@@ -83,8 +83,8 @@ if ($full) {
             </div>
         <?php endif; ?>
 
-        <?php if (false && $data->contestWork !== null): ?>
-            <?php $randomParticipants = $data->contestWork->getOtherParticipants(2); if ($randomParticipants): ?>
+        <?php if ($full && $data->contestWork !== null): ?>
+            <?php $randomParticipants = $data->contestWork->getOtherParticipants(2, 2); if ($randomParticipants): ?>
             <div class="article-contest-conversion">
                 <div class="article-contest-conversion_t">
                     Другие участники конкурса
@@ -104,7 +104,7 @@ if ($full) {
                 <div class="b-contest-advert_hold">
                     <div class="b-contest-advert_t">КОНКУРС</div>
                     <div class="b-contest-advert_name"><?=$data->contestWork->contest->title?></div>
-                    <a href="<?=$data->contestWork->contest->getParticipateUrl()?>" class="btn-green btn-h46 fancy">Принять участие!</a>
+                    <a href="<?=$data->contestWork->contest->getExternalParticipateUrl()?>" class="btn-green btn-h46">Принять участие!</a>
                 </div>
             </div>
         <?php endif; ?>

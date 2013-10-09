@@ -13,7 +13,7 @@
             </div>
         <?php endif; ?>
 
-        <div class="share_button auth-service vkontakte" style="margin-left: 140px;">
+        <div class="share_button auth-service vkontakte">
             <a href="<?=Yii::app()->createUrl('/'.$action, array('service' => 'vkontakte', 'entity_id' => $this->params['entity_id'], 'entity' => $this->params['entity']))?>" class="custom-like-vk">
                 <span class="custom-like-vk_text">Мне нравится</span>
                 <span class="custom-like-vk_logo"></span>

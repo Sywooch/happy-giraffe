@@ -12,7 +12,7 @@ class ContestController extends HController
     const SORT_CREATED = 0;
     const SORT_RATE = 1;
 
-    public function actionIndex($contestId, $sort = self::SORT_CREATED)
+    public function actionIndex($contestId, $sort = self::SORT_CREATED, $takePart = null)
     {
         $contest = CommunityContest::model()->with('forum', 'contestWorks')->findByPk($contestId);
         if ($contest === null)
@@ -30,6 +30,6 @@ class ContestController extends HController
             'Конкурс «' . $contest->title . '»',
         );
 
-        $this->render('index', compact('contest', 'works', 'sort'));
+        $this->render('index', compact('contest', 'works', 'sort', 'takePart'));
     }
 }

@@ -115,9 +115,19 @@ class CommunityContest extends HActiveRecord
 		return parent::model($className);
 	}
 
+    public function getUrl()
+    {
+        return Yii::app()->createUrl('/community/contest/index');
+    }
+
     public function getParticipateUrl()
     {
         return Yii::app()->createUrl('/blog/default/form', array('type' => 3, 'club_id' => $this->forum->club_id, 'contest_id' => $this->id));
+    }
+
+    public function getExternalParticipateUrl()
+    {
+        return Yii::app()->createUrl('/community/contest/index', array('contestId' => $this->id, 'takePart' => 1));
     }
 
     public function getContestWorks($sort)

@@ -1,9 +1,12 @@
 <?php
 /**
  * @var CommunityContest $contest
+ * @var bool $takePart
  */
 
+
 Yii::app()->clientScript->registerPackage('ko_community');
+Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
 ?>
 
 <?php $this->renderPartial('_header', compact('contest')); ?>
@@ -16,7 +19,7 @@ Yii::app()->clientScript->registerPackage('ko_community');
                 <div class="clearfix">
                     <div class="heading-small textalign-c margin-b10">Участники <span class="color-gray">(<?=$contest->contestWorksCount?>)</span> </div>
                 </div>
-                <?php $lastParticipants = $contest->getLastParticipants(10); if ($lastParticipants): ?>
+                <?php $lastParticipants = $contest->getLastParticipants(12); if ($lastParticipants): ?>
                 <ul class="readers2_ul clearfix">
                     <?php foreach ($lastParticipants as $contestWork): ?>
                         <li class="readers2_li clearfix">
@@ -113,3 +116,11 @@ Yii::app()->clientScript->registerPackage('ko_community');
 <?php $this->renderPartial('_rules', compact('contest')); ?>
 <?php $this->renderPartial('_prizes', compact('contest')); ?>
 </div>
+
+<?php if ($takePart !== null): ?>
+<script type="text/javascript">
+    $(function() {
+        $('#takePartButton').click();
+    });
+</script>
+<?php endif; ?>

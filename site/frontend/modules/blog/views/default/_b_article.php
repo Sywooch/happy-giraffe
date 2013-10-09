@@ -51,7 +51,7 @@
         </div>
         <div class="b-article-prev_t clearfix">
             <a class="b-article-prev_t-a" href="<?=$model->url?>"><?=$model->title?></a>
-            <?php if (false && $model->contestWork !== null): ?>
+            <?php if ($model->contestWork !== null): ?>
                 <span class="b-article-prev_t-count"><?=$model->contestWork->rate?></span>
             <?php endif; ?>
         </div>

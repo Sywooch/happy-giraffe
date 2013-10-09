@@ -136,7 +136,7 @@ class CommunityContest extends HActiveRecord
             'criteria' => array(
                 'with' => 'content',
                 'order' => $sort == ContestController::SORT_CREATED ? 't.id DESC' : 't.rate DESC',
-                'condition' => 'contest_id = :contest_id',
+                'condition' => 'contest_id = :contest_id AND content.removed = 0',
                 'params' => array(':contest_id' => $this->id),
             ),
         ));

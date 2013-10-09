@@ -71,11 +71,15 @@ class DefaultController extends HController
         if ($this->user->hasRssContent())
             $this->rssFeed = $this->createUrl('rss/user', array('user_id' => $user_id));
 
-        $this->breadcrumbs = array($this->user->getFullName() => $this->user->getUrl());
+        if (! Yii::app()->user->isGuest)
+            $this->breadcrumbs['Люди на сайте'] = $this->createUrl('/friends/search/index');
+        $this->breadcrumbs[$this->user->getFullName()] = $this->user->getUrl();
         if ($rubric_id !== null) {
             $rubric = CommunityRubric::model()->findByPk($rubric_id);
-            $this->breadcrumbs['Блог'] = $this->user->getBlogUrl();
-            $this->breadcrumbs[] = $rubric->title;
+            $this->breadcrumbs += array(
+                'Блог' => $this->user->getBlogUrl(),
+                $rubric->title,
+            );
         } else
             $this->breadcrumbs[] = 'Блог';
 
@@ -113,7 +117,9 @@ class DefaultController extends HController
         //сохраняем просматриваемую модель
         NotificationRead::getInstance()->setContentModel($content);
 
-        $this->breadcrumbs = array(
+        if (! Yii::app()->user->isGuest)
+            $this->breadcrumbs['Люди на сайте'] = $this->createUrl('/friends/search/index');
+        $this->breadcrumbs += array(
             $this->user->getFullName() => $this->user->getUrl(),
             'Блог' => $this->user->getBlogUrl(),
             $content->rubric->title => $content->rubric->getUrl(),

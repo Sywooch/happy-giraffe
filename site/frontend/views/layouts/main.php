@@ -217,18 +217,16 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
                                 </div>
                             <?php endif ?>
                         <?php endif ?>
-
-                        <?php if (!empty($this->breadcrumbs)):?>
-                            <div class="padding-l20">
-                                <div class="crumbs-small clearfix">
-                                    <?php $this->widget('HBreadcrumbs', array(
-                                        'homeLink' => Yii::app()->user->isGuest ? null : false,
-                                        'links' => $this->breadcrumbs,
-                                    )); ?>
-                                </div>
-                            </div>
-                        <?php endif ?>
                     </div>
+                </div>
+            <?php endif; ?>
+
+            <?php if ($this->breadcrumbs): ?>
+                <div class="crumbs-small clearfix">
+                    <?php $this->widget('HBreadcrumbs', array(
+                        'homeLink' => Yii::app()->user->isGuest ? null : false,
+                        'links' => $this->breadcrumbs,
+                    )); ?>
                 </div>
             <?php endif; ?>
 

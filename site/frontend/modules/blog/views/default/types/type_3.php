@@ -17,7 +17,7 @@ $collection = new PhotoPostPhotoCollection(array('contentId' => $data->id));
 
     <div class="b-article_in clearfix">
         <div class="wysiwyg-content clearfix">
-            <p><?=nl2br($data->photoPost->purified->text)?></p>
+            <p><?=nl2br(CHtml::encode($data->photoPost->text))?></p>
         </div>
         <div class="textalign-c">
             <a class="b-article_more" href="javascript:void(0)" onclick="PhotoCollectionViewWidget.open(<?=CJavaScript::encode(get_class($collection))?>, <?=CJavaScript::encode($collection->options)?>, <?=CJavaScript::encode($collection->photoIds[0])?>)">Смотреть <?=$collection->count?> фото</a>

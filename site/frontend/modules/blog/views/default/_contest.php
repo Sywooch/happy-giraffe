@@ -1,84 +1,65 @@
-<div class="article-contest-conversion">
-    <div class="article-contest-conversion_t">
-        Другие участники конкурса
+<div class="sharelink-friends">
+    <div class="clearfix">
+        <div class="sharelink-friends_t">Cсылка на рассказ</div>
+        <input type="text" class="sharelink-friends_itx" value="<?=$data->getUrl(false, true)?>" onclick="$(this).select();">
+
     </div>
-    <div class="article-contest-conversion_hold">
-        <div class="b-article b-article-prev clearfix">
-            <div class="b-article-prev_cont clearfix">
-                <div class="clearfix">
-                    <div class="meta-gray">
-                        <a class="meta-gray_comment" href="">
-                            <span class="ico-comment ico-comment__gray"></span>
-                            <span class="meta-gray_tx">35</span>
-                        </a>
-                        <div class="meta-gray_view">
-                            <span class="ico-view ico-view__gray"></span>
-                            <span class="meta-gray_tx">305</span>
-                        </div>
-                    </div>
-                    <div class="float-l margin-r5">
-                        <a href="" class="ava middle">
-                            <span class="icon-status status-online"></span>
-                            <img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg">
-                        </a>
-                    </div>
-                    <div class="float-l">
-                        <div class="clearfix">
-                            <a class="b-article-prev_author" href="">Галина</a>
-                        </div>
-                        <span class="font-smallest color-gray">Сегодня 13:25</span>
-                    </div>
-                </div>
-                <div class="b-article-prev_t clearfix">
-                    <a class="b-article-prev_t-a" href="">Наши любимчики Лесси и Арон</a>
-                    <span class="b-article-prev_t-count">456</span>
-                </div>
-                <div class="b-article-prev_in">
-                    <div class="b-article_in-img">
-                        <!-- img width 235px -->
-                        <img alt="Ночные гости - кто они фото 1" class="content-img" src="http://img.happy-giraffe.ru/thumbs/700x700/56/edad8d334a0b4a086a50332a2d8fd0fe.JPG" title="Ночные гости - кто они фото 1">
-                    </div>
-                </div>
-            </div>
+    <div class="sharelink-friends_desc">Хочешь победить в конкурсе? Разошли эту ссылку друзьям и знакомым, сделай подписью в скайпе, аське и статусом в социальных сетях. Чем больше человек проголосует за твой рассказ, тем выше шансы на победу!</div>
+</div>
+
+<div class="article-contest">
+    <div class="article-contest_col1">
+        <img src="/images/contest/club/pets1/small.png" alt="">
+        <div class="article-contest_name">Запись участвует в конкурсе <br>
+            <a href="<?=$data->contestWork->contest->getUrl()?>"><?=$data->contestWork->contest->title?></a>
         </div>
-        <div class="b-article b-article-prev clearfix">
-            <div class="b-article-prev_cont clearfix">
-                <div class="clearfix">
-                    <div class="meta-gray">
-                        <a class="meta-gray_comment" href="">
-                            <span class="ico-comment ico-comment__gray"></span>
-                            <span class="meta-gray_tx">35</span>
-                        </a>
-                        <div class="meta-gray_view">
-                            <span class="ico-view ico-view__gray"></span>
-                            <span class="meta-gray_tx">305</span>
-                        </div>
-                    </div>
-                    <div class="float-l margin-r5">
-                        <a href="" class="ava middle">
-                            <span class="icon-status status-online"></span>
-                            <img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg">
-                        </a>
-                    </div>
-                    <div class="float-l">
-                        <div class="clearfix">
-                            <a class="b-article-prev_author" href="">Галина</a>
-                        </div>
-                        <span class="font-smallest color-gray">Сегодня 13:25</span>
-                    </div>
-                </div>
-                <div class="b-article-prev_t clearfix">
-                    <a class="b-article-prev_t-a" href="">ГотовимсписокГотовимсписокГотовимсписок:
-                    </a>
-                    <span class="b-article-prev_t-count">4556</span>
-                </div>
-                <div class="b-article-prev_in">
-                    <div class="b-article_in-img">
-                        <!-- img width 235px -->
-                        <img alt="Ночные гости - кто они фото 1" class="content-img" src="http://img.happy-giraffe.ru/thumbs/700x700/56/edad8d334a0b4a086a50332a2d8fd0fe.JPG" title="Ночные гости - кто они фото 1">
-                    </div>
-                </div>
-            </div>
+    </div>
+    <div class="article-contest_count">
+        <div class="article-contest_count-num"><?=$data->contestWork->rate?></div>
+        <div class="article-contest_count-desc"><?=Str::GenerateNoun(array('балл', 'балла', 'баллов'), $data->contestWork->rate)?></div>
+    </div>
+    <div class="article-contest_col3">
+        Вы можете проголосовать за участника нажав на кнопки соцсетей
+    </div>
+</div>
+<div class="like-block fast-like-block">
+
+    <div class="box-1">
+        <?php
+        Yii::app()->eauth->renderWidget(array(
+            'action' => '/ajax/socialVote',
+            'params' => array(
+                'entity' => get_class($data->contestWork),
+                'entity_id' => $data->contestWork->id,
+                'model' => $data->contestWork
+            ),
+            'mode' => 'vote',
+        ));
+        ?>
+
+    </div>
+
+</div>
+<?php $randomParticipants = $data->contestWork->getOtherParticipants(2, 2); if ($randomParticipants): ?>
+    <div class="article-contest-conversion">
+        <div class="article-contest-conversion_t">
+            Другие участники конкурса
         </div>
+        <div class="article-contest-conversion_hold">
+            <?php foreach ($randomParticipants as $contestWork): ?>
+                <?php $this->renderPartial('application.modules.blog.views.default._b_article', array('model' => $contestWork->content, 'showLikes' => false)); ?>
+            <?php endforeach; ?>
+        </div>
+    </div>
+<?php endif; ?>
+
+<div class="b-contest-advert">
+    <div class="b-contest-advert_ico">
+        <img src="/images/contest/club/pets1/medium.png" alt="" class="b-contest-advert_img">
+    </div>
+    <div class="b-contest-advert_hold">
+        <div class="b-contest-advert_t">КОНКУРС</div>
+        <div class="b-contest-advert_name"><?=$data->contestWork->contest->title?></div>
+        <a href="<?=$data->contestWork->contest->getExternalParticipateUrl()?>" class="btn-green btn-h46">Принять участие!</a>
     </div>
 </div>

@@ -42,7 +42,7 @@ if ($full) {
 
         <?php $this->renderPartial('blog.views.default.types/type_' . $source->type_id, array('data' => $source, 'full' => $full, 'showTitle' => empty($data->source_id) ? true : false, 'show_new' => isset($show_new) ? true : false)); ?>
 
-        <?php if ($full) $this->renderPartial('blog.views.default._likes', array('data' => $source)); ?>
+        <?php if ($full && $data->contestWork === null) $this->renderPartial('blog.views.default._likes', array('data' => $source)); ?>
 
         <?php if ($data->type_id == CommunityContent::TYPE_STATUS): ?><div class="bg-white clearfix"><?php endif; ?>
         <?php if ($full) $this->renderPartial('blog.views.default._prev_next', compact('data')); ?>
@@ -84,29 +84,7 @@ if ($full) {
         <?php endif; ?>
 
         <?php if ($full && $data->contestWork !== null): ?>
-            <?php $randomParticipants = $data->contestWork->getOtherParticipants(2, 2); if ($randomParticipants): ?>
-            <div class="article-contest-conversion">
-                <div class="article-contest-conversion_t">
-                    Другие участники конкурса
-                </div>
-                <div class="article-contest-conversion_hold">
-                    <?php foreach ($randomParticipants as $contestWork): ?>
-                    <?php $this->renderPartial('application.modules.blog.views.default._b_article', array('model' => $contestWork->content, 'showLikes' => false)); ?>
-                    <?php endforeach; ?>
-                </div>
-            </div>
-            <?php endif; ?>
-
-            <div class="b-contest-advert">
-                <div class="b-contest-advert_ico">
-                    <img src="/images/contest/club/pets1/medium.png" alt="" class="b-contest-advert_img">
-                </div>
-                <div class="b-contest-advert_hold">
-                    <div class="b-contest-advert_t">КОНКУРС</div>
-                    <div class="b-contest-advert_name"><?=$data->contestWork->contest->title?></div>
-                    <a href="<?=$data->contestWork->contest->getExternalParticipateUrl()?>" class="btn-green btn-h46">Принять участие!</a>
-                </div>
-            </div>
+            <?php $this->renderPartial('application.modules.blog.views.default._contest', compact('data')); ?>
         <?php endif; ?>
 
         <?php if ($full && ! $data->getIsFromBlog()): ?>

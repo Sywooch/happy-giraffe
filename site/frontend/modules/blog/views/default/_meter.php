@@ -7,7 +7,7 @@
 <div class="contest-meter">
     <div class="contest-meter_count">
         <div class="contest-meter_count-num"><?=$contestWork->rate?></div>
-        <div class="contest-meter_count-tx">баллов</div>
+        <div class="contest-meter_count-tx"><?=Str::GenerateNoun(array('балл', 'балла', 'баллов'), $contestWork->rate)?></div>
     </div>
     <a href="javascript:void(0)" class="contest-meter_a-vote" onclick="$(this).next().toggleClass('display-b')">Голосовать</a>
     <div class="contest-meter_vote">
@@ -26,7 +26,6 @@
                             'model' => $contestWork
                         ),
                         'mode' => 'vote',
-                        'predefinedServices' => array('facebook' => 'facebook', 'vkontakte' => 'vkontakte', 'odnoklassniki', 'twitter'),
                     ));
                     ?>
 

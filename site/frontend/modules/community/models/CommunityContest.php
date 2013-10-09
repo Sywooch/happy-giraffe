@@ -117,7 +117,7 @@ class CommunityContest extends HActiveRecord
 
     public function getUrl()
     {
-        return Yii::app()->createUrl('/community/contest/index');
+        return Yii::app()->createUrl('/community/contest/index', array('contestId' => $this->id));
     }
 
     public function getParticipateUrl()

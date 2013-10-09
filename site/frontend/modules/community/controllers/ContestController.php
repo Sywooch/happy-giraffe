@@ -23,6 +23,13 @@ class ContestController extends HController
         $this->bodyClass = 'theme-contest theme-contest__pets1';
         if (Yii::app()->user->isGuest)
             $this->bodyClass .= 'body-guest';
+
+        $this->breadcrumbs = array(
+            $contest->forum->club->section->title => $contest->forum->club->section->getUrl(),
+            $contest->forum->club->title => $contest->forum->club->getUrl(),
+            'Конкурс «' . $contest->title . '»',
+        );
+
         $this->render('index', compact('contest', 'works', 'sort'));
     }
 }

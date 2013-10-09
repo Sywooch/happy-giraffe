@@ -268,7 +268,7 @@ class DefaultController extends HController
         if ($contest_id !== null) {
             Yii::import('application.modules.community.models.*');
             $contest = CommunityContest::model()->with('forum')->findByPk($contest_id);
-            $model->rubric_id = $contest->forum->rubrics[0]->id;
+            $model->rubric_id = $contest->rubric_id;
             $this->renderPartial('form/contest/' . $contest_id, compact('model', 'slaveModel', 'json', 'club_id', 'contest_id', 'contest'), false, true);
         }
         elseif (Yii::app()->request->getPost('short'))

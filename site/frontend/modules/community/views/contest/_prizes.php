@@ -3,7 +3,6 @@
  * @var CommunityContest $contest
  */
 ?>
-
 <div id="popup-contest-prize" class="popup-contest popup-contest__pets1">
     <a class="popup-transparent-close" onclick="$.fancybox.close();" href="javascript:void(0);" title="Закрыть"></a>
     <div class="clearfix">
@@ -34,20 +33,27 @@
 
                 <div class="contest-prizes_i clearfix">
                     <div class="contest-prizes_l">
-                        <div class="contest-prizes_img">
-                            <img src="/images/contest/club/pets1/prize-2-1-big.jpg" alt="">
+                        <div class="contest-prizes_img  contest-prizes_img-recipient">
+                            <img src="/images/contest/club/pets1/prize-2-0-big.jpg" alt="" data-pos="0" >
+                            <img src="/images/contest/club/pets1/prize-2-1-big.jpg" alt="" style="display: none;" data-pos="1">
+                            <img src="/images/contest/club/pets1/prize-2-2-big.jpg" alt="" style="display: none;" data-pos="2">
+                            <img src="/images/contest/club/pets1/prize-2-3-big.jpg" alt="" style="display: none;" data-pos="3">
                         </div>
                         <div class="clearfix">
-                            <a href="" class="contest-prizes_img">
+                            <a class="contest-prizes_img js-contest-prizes_img" data-pos="0" href="javascript:void(0)" style="display:none;">
+                                <img src="/images/contest/club/pets1/prize-2-0-small.jpg" alt="">
+                            </a>
+                            <a class="contest-prizes_img js-contest-prizes_img"  data-pos="1" href="javascript:void(0)">
                                 <img src="/images/contest/club/pets1/prize-2-1-small.jpg" alt="">
                             </a>
-                            <a href="" class="contest-prizes_img">
+                            <a class="contest-prizes_img js-contest-prizes_img"  data-pos="2" href="javascript:void(0)">
                                 <img src="/images/contest/club/pets1/prize-2-2-small.jpg" alt="">
                             </a>
-                            <a href="" class="contest-prizes_img">
+                            <a class="contest-prizes_img js-contest-prizes_img"  data-pos="3" href="javascript:void(0)">
                                 <img src="/images/contest/club/pets1/prize-2-3-small.jpg" alt="">
                             </a>
                         </div>
+
                         <div class="place place-2-3"></div>
                     </div>
                     <div class="contest-prizes_r">
@@ -86,3 +92,17 @@
 
     </div>
 </div>
+
+<script type="text/javascript">
+    $(function() {
+        $('.js-contest-prizes_img').click(function(){
+            $this = $(this);
+            var num = $this.data('pos');
+            $('.contest-prizes_img-recipient img').css('display','none');
+            $(".contest-prizes_img-recipient").find("[data-pos='" + num + "']").css('display', 'block');
+            $('.js-contest-prizes_img').css('display', 'inline-block');
+            $this.css('display','none');
+            return false
+        })
+    });
+</script>

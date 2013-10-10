@@ -136,7 +136,7 @@ class CommunityContestWork extends HActiveRecord
 
     public function getShareDescription()
     {
-        return 'Я участвую в конкурсе «' . $this->contest->title . '»';
+        return $this->content->author_id == Yii::app()->user->id ? 'Я участвую в конкурсе «' . $this->contest->title . '»' : $this->content->author->getFullName() . ' участвует в конкурсе «' . $this->contest->title . '»';
     }
 
     public function getShareUrl()

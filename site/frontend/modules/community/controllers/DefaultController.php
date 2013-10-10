@@ -180,6 +180,7 @@ class DefaultController extends HController
 
     public function actionSave($id = null)
     {
+        $contest_id = Yii::app()->request->getPost('contest_id');
         $model = ($id === null) ? new CommunityContent() : CommunityContent::model()->findByPk($id);
         $model->scenario = 'default_club';
         $model->attributes = $_POST['CommunityContent'];
@@ -189,9 +190,11 @@ class DefaultController extends HController
         $slaveModelName = 'Community' . ucfirst($slug);
         $slaveModel = ($id === null) ? new $slaveModelName() : $model->content;
         $slaveModel->attributes = $_POST[$slaveModelName];
+        if ($contest_id !== null)
+            $slaveModel->isContestWork = true;
         $this->performAjaxValidation(array($model, $slaveModel));
         $model->$slug = $slaveModel;
-        if (($contest_id = Yii::app()->request->getPost('contest_id')) !== null) {
+        if ($contest_id !== null) {
             $contestWork = new CommunityContestWork();
             $contestWork->contest_id = $contest_id;
             $model->contestWork = $contestWork;

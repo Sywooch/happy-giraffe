@@ -16,6 +16,7 @@
 class CommunityPhotoPost extends HActiveRecord
 {
     public $photos;
+    public $isContestWork = false;
 
     /**
      * Returns the static model of the specified AR class.
@@ -80,7 +81,7 @@ class CommunityPhotoPost extends HActiveRecord
     public function beforeValidate()
     {
         $this->photos = explode(',', $this->photos);
-        if (count($this->photos) < 3)
+        if (count($this->photos) < 3 && $this->isContestWork === false)
             $this->addError('photos', 'Добавьте хотя бы 3 фото');
 
         return parent::beforeValidate();

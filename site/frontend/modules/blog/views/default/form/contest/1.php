@@ -44,7 +44,7 @@
                 </div>
 
                 <div class=" clearfix">
-                    <button data-bind="click: add, css: { 'btn-inactive': upload().photos().length < 3 || rulesAccepted() === false }" class="btn-blue btn-h46 float-r"><?=$model->isNewRecord ? 'Добавить' : 'Редактировать'?></button>
+                    <button data-bind="click: add, css: { 'btn-inactive': upload().photos().length == 0 || rulesAccepted() === false }" class="btn-blue btn-h46 float-r"><?=$model->isNewRecord ? 'Добавить' : 'Редактировать'?></button>
                     <a href="javascript:void(0)" class="btn-gray-light btn-h46 float-r margin-r15" onclick="$.fancybox.close()">Отменить</a>
 
                     <div class="float-l margin-t15">

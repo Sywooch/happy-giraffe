@@ -1,10 +1,12 @@
-<div class="sharelink-friends">
-    <div class="clearfix">
-        <div class="sharelink-friends_t">Cсылка</div>
-        <input type="text" class="sharelink-friends_itx" value="<?=$data->getUrl(false, true)?>" onclick="$(this).select();" style="width: 450px;">
+<?php if ($data->author_id == Yii::app()->user->id): ?>
+    <div class="sharelink-friends">
+        <div class="clearfix">
+            <div class="sharelink-friends_t">Cсылка</div>
+            <input type="text" class="sharelink-friends_itx" value="<?=$data->getUrl(false, true)?>" onclick="$(this).select();" style="width: 450px;">
 
+        </div>
     </div>
-</div>
+<?php endif; ?>
 
 <div class="article-contest">
     <div class="article-contest_col1">

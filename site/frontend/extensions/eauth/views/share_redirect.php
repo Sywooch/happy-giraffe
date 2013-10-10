@@ -8,7 +8,7 @@
 
                 var inc = " . CJSON::encode($inc) . ";
                 window.location = '" . addslashes($url) . "';
-                if (inc || true) {
+                if (inc) {
                     var parentEl = window.opener.$('#blog_settings_" . $pk . "');
                     var el = parentEl.find('.contest-counter');
                     el.text(parseInt(el.first().text()) + 1);

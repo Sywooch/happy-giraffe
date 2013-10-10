@@ -1,7 +1,7 @@
 <?php if ($this->href === null): ?>
 <div class="photo-grid clearfix">
     <?php foreach ($grid as $row): ?>
-    <div class="photo-grid_row clearfix" style="margin-bottom: <?=$borderSize?>px;">
+    <div class="photo-grid_row clearfix" style="margin-bottom: <?=$this->borderSize?>px;">
         <?php foreach ($row['photos'] as $p): ?>
         <div class="photo-grid_i" style="margin-right: <?=$borderSize?>px;" onclick="PhotoCollectionViewWidget.open(<?=CJavaScript::encode(get_class($this->collection))?>, <?=CJavaScript::encode($this->collection->options)?>, <?=CJavaScript::encode($p->id)?><?php if ($this->windowOptions !== null): ?>, <?=CJavaScript::encode($this->windowOptions)?><?php endif; ?>)">
             <?=CHtml::image($p->getPreviewUrl(null, $row['height'], Image::HEIGHT), '', array('class' => 'photo-grid_img'))?>
@@ -16,7 +16,7 @@
 <?php else: ?>
 <div class="photo-grid clearfix">
     <?php foreach ($grid as $row): ?>
-        <div class="photo-grid_row clearfix" style="margin-bottom: <?=$borderSize?>px;">
+        <div class="photo-grid_row clearfix" style="margin-bottom: <?=$this->borderSize?>px;">
             <?php foreach ($row['photos'] as $p): ?>
                 <div class="photo-grid_i" style="margin-right: <?=$borderSize?>px;">
                     <a href="<?=$this->href?>">

@@ -180,7 +180,36 @@
 						</div>
 						<div class="fast-articles2_i-desc">Практически нет девушки, которая не переживала </div>
 						<div class="fast-articles2_i-img-hold">
-							<a href=""><img src="/images/example/w190-h166.jpg" alt="" class="fast-articles2_i-img"></a>
+							<div class="photo-grid photo-grid__indent-sm clearfix">
+								<div class="photo-grid_row clearfix">
+									<div class="photo-grid_i" >
+										<img class="photo-grid_img" src="http://img.happy-giraffe.ru/thumbs/x93/159841/fc78476c9f5ef91684257aa1bf0ab307.jpg" alt="">
+										<div class="photo-grid_overlay">
+											<span class="photo-grid_zoom"></span>
+										</div>
+									</div>
+									<div class="photo-grid_i">
+										<img class="photo-grid_img" src="http://img.happy-giraffe.ru/thumbs/x93/159841/537a0df1f7c1aaa46fed45c036144365.jpg" alt="">
+										<div class="photo-grid_overlay">
+											<span class="photo-grid_zoom"></span>
+										</div>
+									</div>
+								</div>
+								<div class="photo-grid_row clearfix">
+									<div class="photo-grid_i">
+										<img class="photo-grid_img" src="http://img.happy-giraffe.ru/thumbs/x83/159841/f339bac1aef5919a08bdb43474431326.jpg" alt="">
+										<div class="photo-grid_overlay">
+											<span class="photo-grid_zoom"></span>
+										</div>
+									</div>
+									<div class="photo-grid_i" >
+										<img class="photo-grid_img" src="http://img.happy-giraffe.ru/thumbs/x83/159841/94b7650e47db01298d38d96f15a5ab3b.jpg" alt="">
+										<div class="photo-grid_overlay">
+											<span class="photo-grid_zoom"></span>
+										</div>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>

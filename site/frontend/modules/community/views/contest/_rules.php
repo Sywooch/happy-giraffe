@@ -12,7 +12,7 @@
             <div class="b-settings-blue">
 
                 <div class="contest-rule">
-                    <div class="heading-title"><?=$contest->title?></div>
+                    <div class="heading-title">Правила конкурса</div>
                     <?=$contest->rules?>
                     <div class="textalign-c clearfix">
                         <a href="<?=$contest->getParticipateUrl()?>" class="btn-green btn-h46 fancy">Принять участие!</a>

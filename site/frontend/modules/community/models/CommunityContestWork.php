@@ -143,4 +143,12 @@ class CommunityContestWork extends HActiveRecord
     {
         return $this->content->getUrl(false, true);
     }
+
+    protected function afterSave()
+    {
+        if (! UserClubSubscription::subscribed($this->content->author_id, $this->contest->forum->club_id))
+            UserClubSubscription::add($this->contest->forum->club_id, $this->content->author_id);
+
+        parent::afterSave();
+    }
 }

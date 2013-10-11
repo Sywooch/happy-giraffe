@@ -7,119 +7,41 @@
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/head.php'; ?>
 	
 </head>
-<body class="body-gray theme-contest theme-contest__pets1 body-guest">
+<body class="body-gray theme-contest theme-contest__pets1">
 
 <div class="layout-container">
 	<div class="layout-wrapper">
-		<div class="layout-header layout-header__nologin clearfix">
-			<div class="content-cols clearfix">
-				<div class="col-1">
-					<h1 class="logo">
-						<a href="/" class="logo_i" title="Веселый жираф - сайт для все семьи">Веселый жираф - сайт для все семьи</a>
-						<strong class="logo_slogan">САЙТ ДЛЯ ВСЕЙ СЕМЬИ</strong>
-					</h1>
-					<div class="sidebar-search clearfix">
-						<input type="text" placeholder="Поиск по сайту" class="sidebar-search_itx" id="" name="">
-						<!-- 
-						В начале ввода текста, скрыть sidebar-search_btn добавить класс active"
-						 -->
-						<button class="sidebar-search_btn"></button>
-					</div>
-				</div>
-				<div class="col-23">
-					<div class="b-join clearfix">
-						<div class="b-join_left">
-							<div class="b-join_tx"> Более <span class="b-join_tx-big"> 20 000 000</span> мам и пап</div>
-							<div class="b-join_slogan">уже посетили Веселый Жираф!</div>
-						</div>
-						<div class="b-join_right">
-							<a href="" class="btn-green btn-big">Присоединяйтесь!</a>
-							<div class="clearfix">
-								<a href="" class="display-ib verticalalign-m">Войти</a>
-								<span class="i-or">или</span>
-								<ul class="display-ib verticalalign-m">
-									<li class="display-ib">
-										<a class="custom-like" href="">
-											<span class="custom-like_icon odnoklassniki"></span>
-										</a>
-									</li>
-									<li class="display-ib">
-										<a class="custom-like" href="">
-											<span class="custom-like_icon vkontakte"></span>
-										</a>
-									</li>
-									<li class="display-ib">
-										<a class="custom-like" href="">
-											<span class="custom-like_icon facebook"></span>
-										</a>
-									</li>
-									<li class="display-ib">
-										<a class="custom-like" href="">
-											<span class="custom-like_icon twitter"></span>
-										</a>
-									</li>
-								</ul>
-								
-							
-								
-							
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<script>
-			$(window).load(function() {
-				/*
-				block - элемент, что фиксируется
-				elementStop - до какого элемента фиксируется
-				blockIndent - отступ
-				*/
-				function bJoinRowFixed() {
-
-					var block = $('.js-b-join-row');
-					var blockTop = block.offset().top;
-
-					var startTop = $('.layout-header').height();
-					
-
-					$(window).scroll(function() {
-				        var windowScrollTop = $(window).scrollTop();
-				        if (windowScrollTop > startTop) {
-				        	block.fadeIn();
-				        } else {
-
-							block.fadeOut();
-
-				        }
-				    });
-				}
-
-				bJoinRowFixed('.js-b-join-row');
-			})
-			</script>
-			<div class="b-join-row js-b-join-row">
-				<div class="b-join-row_hold">
-					<div class="b-join-row_logo"></div>
-					<div class="b-join-row_tx">Более <span class="b-join-row_tx-big"> 20 000 000</span> мам и пап</div>
-					<div class="b-join-row_slogan">уже посетили Веселый Жираф!</div>
-					<a href="" class="btn-green btn-h46">Присоединяйтесь!</a>
-				</div>
-			</div>
-
-
-		</div>
+		<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/header-new.php'; ?>
 		
 		<div class="layout-content clearfix">
-<!-- 
-		<div class="b-club-back clearfix">
-			<div class="b-club-back_ico">
-				<img src="/images/club/11-w40.png" alt="">
+		<div class="content-cols clearfix">
+			<div class="col-1">
+				<div class="sidebar-search clearfix">
+					<input type="text" placeholder="Поиск по сайту" class="sidebar-search_itx" id="" name="">
+					<!-- 
+					В начале ввода текста, скрыть sidebar-search_btn добавить класс active"
+					 -->
+					<button class="sidebar-search_btn"></button>
+				</div>
 			</div>
-			<div class="b-club-back_i">
-				<a href="" class="b-club-back_a">В клуб Наши питомцы</a>
+			<div class="col-23-middle">
+				<div class="user-add-record user-add-record__small clearfix">
+					<div class="user-add-record_ava-hold">
+						<a href="" class="ava male middle">
+							<span class="icon-status status-online"></span>
+							<img alt="" src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg">
+						</a>
+					</div>
+					<div class="user-add-record_hold">
+						<div class="user-add-record_tx">Я хочу добавить</div>
+						<a href="#popup-user-add-article"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__article fancy powertip" title="Статью"></a>
+						<a href="#popup-user-add-photo"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__photo fancy powertip" title="Фото"></a>
+						<a href="#popup-user-add-video"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__video fancy active powertip" title="Видео"></a>
+						<a href="#popup-user-add-status"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__status fancy powertip" title="Статус"></a>
+					</div>
+				</div>
 			</div>
-		</div> -->
+		</div>
 		<div class="crumbs-small clearfix">
 			<ul class="crumbs-small_ul">  
 				<li class="crumbs-small_li">Я здесь:</li>
@@ -975,15 +897,18 @@
 					<div class="contest-rule">
 						<div class="heading-title">Наш домашний любимец</div>
 						<ol>
-							<li>Принимай участие в фотоконкурсе «Наш домашний любимец».</li>
-							<li>С 15 сентября по 31 октября 2013 года разместите свою фотографию на тему «Как я провел лето» на промо-сайте leto.bystrobank.ru. Напишите поясняющий комментарий — как БыстроБанк помог Вам этим летом.</li>
-							<li>От одного участника допускается размещение не более 5 фотографий.</li>
-							<li>За размещенные фотографии с 15 сентября по 14 ноября 2013 года будет организовано голосование посетителей сайта.</li>
-							<li>За одно фото посетитель может проголосовать только 1 раз.</li>
-							<li>Вы можете приглашать к голосованию своих друзей и знакомых.</li>
-							<li>Авторы 8 фотографий, набравших наибольшее количество голосов, получат призы фотоконкурса. Авторы фотографий, занявшие места с 1-го по 8-ое будут награждены мультиварками либо автомобильными регистраторами. Один участник конкурса сможет получить только один приз.</li>
-							<li>Для участия в конкурсе необходимо быть действующим клиентом БыстроБанка или клиентом, имевшим действующий договор с банком в течение 2012–2013 гг. Каждый участник должен указать ФИО, город, дату рождения и номер телефона.</li>
-							<li>Проведение итогов голосования и публикация на сайте Банка www.bystrobank.ru списка победителей будет 15 ноября 2013 года. В течении 10 дней после публикации сотрудник Банка свяжется с победителями по телефону и пригласит в Банк для вручения приза.</li>
+							<li>Конкурс “Наш домашний любимец” будет проведен в период с 11 по 31 октября 2013 года.</li>
+							<li>Для участия в конкурсе разместите одну или несколько фотографий вашего домашнего питомца и напишите рассказ о нем. Расскажите как его зовут, какой он породы, как вы за ним ухаживаете, что он умеет делать, какие лакомства он любит и др. </li>
+							<li>За размещенные работы будет организовано голосование авторизованных через свою учетную запись социальной сети (ВКонтакте, Одноклассники)  посетителей сайта.</li>
+							<li>За одну конкурсную работу посетитель может проголосовать только 1 раз из каждой социальной сети.</li>
+							<li>Авторы 3 работ,  набравших наибольшее количество голосов, получат призы: <br>
+								- 1 место - Лежак-пещера "Hilla" <br>
+								- 2 место - Автоматическая поилка фонтан Drinkwell <br>
+								- 3 место -  Автоматическая поилка фонтан Drinkwell 
+							</li>
+							<li>Для участия в конкурсе необходимо быть зарегистрированным пользователем сайта.</li>
+							<li>Итоги конкурса будут подведены 7 ноября 2013 года.</li>
+
 						</ol>
 						<div class="textalign-c clearfix">
 							<a href="" class="btn-green btn-h46">Принять участие!</a>

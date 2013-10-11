@@ -883,7 +883,7 @@ table.fr_recipe_tb td { width: 50%;}
         .border-radius(3px);
     }
     &_author {
-        .inline-block();
+        display: block;
         margin-bottom: -2px;
     }
     &_t {
@@ -932,6 +932,14 @@ table.fr_recipe_tb td { width: 50%;}
     background: #f8f2ca;
     .border-radius(10px);
 
+    &__contest {}
+    &__pets1 {
+        border-color: #e8d9c9;
+        background-color: #f4e8db;
+    }
+    &__pets1 &_tx-bottom,
+    &__pets1 &_tx-top {color: #90765d;}
+
     .b-article-prev {
         .inline-block();
         margin: 25px 0 25px 25px;
@@ -946,6 +954,14 @@ table.fr_recipe_tb td { width: 50%;}
         position: absolute;
         top: 10px;
         right: 15px;
+    }
+    &_tx-top {
+        margin: 2px 0 -5px;
+        text-align: center;
+    }
+    &_tx-bottom {
+        text-align: center;
+        margin: 0 0 5px;
     }
 }
 /* /b-article-conversion */
@@ -1142,6 +1158,7 @@ table.fr_recipe_tb td { width: 50%;}
     &__contest {margin: 20px 25px;}
     &__contest &_i {margin-right: 20px;}
     &__contest &_row {margin: 0 -35px 25px 0;}
+
     &_row {
         margin: 0 -20px 5px 0;
     }
@@ -1151,7 +1168,6 @@ table.fr_recipe_tb td { width: 50%;}
         margin:0 5px 0 0;
         cursor: pointer;
     }
-    &_i:first-child {margin-left: 0;}
     &_i:hover &_overlay {
         z-index: 10;
         opacity: 1;
@@ -1351,7 +1367,6 @@ table.fr_recipe_tb td { width: 50%;}
     &_right:hover &_a {background-position: 100% -600px;}
     &_a {
         display: table-cell;
-        width: 260px;
         height: 55px;
         vertical-align: middle;
         font: 11px/15px Tahoma, Arial, Verdana, sans-serif;
@@ -3843,7 +3858,7 @@ table.fr_recipe_tb td { width: 50%;}
 /* crumbs-small */
 .crumbs-small {
     margin: 0 0 15px;
-    font: 11px Tahoma, Arial, Verdana, sans-serif;
+    font: 11px/15px Tahoma, Arial, Verdana, sans-serif;
     color: #9c9b9b;
 
     &_li {
@@ -3974,7 +3989,7 @@ table.fr_recipe_tb td { width: 50%;}
 
 /* cover-contest */
 .cover-contest {
-    margin: 288px 0 209px;
+    margin: 278px 0 209px;
     .body-guest & {margin-top: 235px;}
 
     &__pets1  {background:#4e4064 url(/images/contest/club/pets1/cover-contest__pets1.jpg) no-repeat 50% 0;}

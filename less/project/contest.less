@@ -1032,7 +1032,26 @@
 }
 .contest-error-hint > h4 {margin-bottom:6px;color:#f95708;font-size:14px;font-weight:bold;}
 
+/* article-contest-member */
+.article-contest-member {
+    margin: 0 20px 10px;
 
+    &__pets1 &_hold {background-color: #f8eee4;}
+    &_hold {
+        .inline-block();
+        padding: 5px 15px 5px 8px;
+    }
+    &_ico {
+        .inline-block();
+        vertical-align: middle;
+        margin: 0 5px 0 0;
+    }
+    &_tx {
+        .inline-block();
+        vertical-align: middle;
+    }
+}
+/* /article-contest-member */
 
 /* article-contest */
 .article-contest {
@@ -1054,11 +1073,6 @@
         .inline-block();
         vertical-align: middle;
         width: 195px;
-    }
-    &_col3 .ava {
-        .inline-block();
-        float: none;
-        margin: 0 3px;
     }
     &_name {
         .inline-block();

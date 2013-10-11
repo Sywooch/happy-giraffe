@@ -246,6 +246,64 @@
 							<a href="" class="like-control_ico like-control_ico__repost">5</a>
 							<a href="" class="like-control_ico like-control_ico__favorites active">123865</a>
 						</div>
+						<div class="contest-meter">
+							<div class="contest-meter_count">
+								<div class="contest-meter_count-num">356</div>
+								<div class="contest-meter_count-tx">баллов</div>
+							</div>
+							<a href="" class="contest-meter_a-vote">Голосовать</a>
+							<div class="contest-meter_vote">
+								<div class="contest-meter_vote-tx">Вы можете проголосовать за участника нажав на кнопки соцсетей</div>
+								<div class="contest-meter_vote-hold">
+									<div class="like-block fast-like-block">
+													
+										<div class="box-1">
+											<div class="share_button">
+												<div class="fb-custom-like">
+													<a href="http://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fdev.happy-giraffe.ru%2Fuser%2F13217%2Fblog%2Fpost22589%2F"
+													   onclick="return Social.showFacebookPopup(this);" class="fb-custom-text">
+														<i class="pluginButtonIcon img sp_like sx_like_fav"></i>Мне нравится</a>
+													<div class="fb-custom-share-count">0</div>
+													<script type="text/javascript">
+														$.getJSON("http://graph.facebook.com", { id : document.location.href }, function(json){
+															$('.fb-custom-share-count').html(json.shares || '0');
+														});
+													</script>
+												</div>
+											</div>
+											
+											<div class="share_button">
+												<div class="vk_share_button"></div>
+											</div>
+											
+											<div class="share_button">
+												<a class="odkl-klass-oc"
+												   href="http://dev.happy-giraffe.ru/user/13217/blog/post22589/"
+												   onclick="Social.updateLikesCount('ok'); ODKL.Share(this);return false;"><span>0</span></a>
+											</div>
+											
+											<div class="share_button">
+												<div class="tw_share_button">
+													<a href="https://twitter.com/share" class="twitter-share-button" data-lang="ru" data-url="http://dev.happy-giraffe.ru/user/13217/blog/post22589/">Твитнуть</a>
+													<script type="text/javascript" charset="utf-8">
+															if (typeof twttr == 'undefined')
+																window.twttr = (function (d,s,id) {
+																	var t, js, fjs = d.getElementsByTagName(s)[0];
+																	if (d.getElementById(id)) return; js=d.createElement(s); js.id=id;
+																	js.src="//platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs);
+																	return window.twttr || (t = { _e: [], ready: function(f){ t._e.push(f) } });
+																}(document, "script", "twitter-wjs"));
+													</script>
+												</div>
+											</div>
+																	
+										</div>
+										
+									</div>
+					
+								</div>
+							</div>
+						</div>
 					</div>
 					<div class="b-article_cont clearfix">
 						<div class="b-article_cont-tale"></div>
@@ -269,39 +327,12 @@
 							<div class="b-article_t-new">новое</div>
 							<a href="" class="b-article_t-a">Торт без выпечки «Апельсинка» </a>
 						</div>
-
-						<div class="article-contest article-contest__pets1">
-							<div class="article-contest_col1">
-								<img src="/images/contest/club/pets1/small.png" alt="">
-								<div class="article-contest_name">Запись участвует в конкурсе <br>
+						<div class="article-contest-member article-contest-member__pets1">
+							<div class="article-contest-member_hold">
+								<img src="/images/contest/club/pets1/small.png" alt="" class="article-contest-member_ico">
+								<div class="article-contest-member_tx">
+									Запись участвует в конкурсе 
 									<a href="">Наш домашний любимец</a>
-								</div>
-							</div>
-							<div class="article-contest_count">
-								<div class="article-contest_count-num">453</div>
-								<div class="article-contest_count-desc">балла</div>
-							</div>
-							<div class="article-contest_col3">
-								<div class="textalign-c">
-								<div class="margin-b5">Участники конкурса (56)</div>
-								<a href="" class="ava female small">
-									<span class="icon-status status-online"></span>
-									<img alt="" src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG">
-								</a>
-								<a href="" class="ava female small">
-									<span class="icon-status status-online"></span>
-								</a>
-								<a href="" class="ava female small">
-									<span class="icon-status status-online"></span>
-									<img alt="" src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG">
-								</a>
-								<a href="" class="ava female small">
-									<span class="icon-status status-online"></span>
-									<img alt="" src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG">
-								</a>
-								<a href="" class="ava female small">
-									<span class="icon-status status-online"></span>
-								</a>
 								</div>
 							</div>
 						</div>

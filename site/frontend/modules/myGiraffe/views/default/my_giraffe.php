@@ -74,11 +74,11 @@
     </div>
     <div class="col-23-middle col-gray">
 
+        <?php $this->widget('CommunityContestWidget'); ?>
+
         <?php $this->widget('HoroscopeWidget') ?>
 
         <?php $this->widget('PopularPostsWidget') ?>
-
-        <?php $this->widget('CommunityContestWidget'); ?>
 
         <div class="clearfix textalign-r margin-20">
             <span class="color-gray-dark padding-r5">Показывать только новые </span>

@@ -166,6 +166,7 @@
 							</div>
 							<div class="b-article-prev_t clearfix">
 								<a class="b-article-prev_t-a" href="">Готовим список: что взять с собой на море с ребенком? </a>
+								<span class="b-article-prev_t-count">456</span>
 							</div>
 							<div class="b-article-prev_in">
 								<div class="b-article_in-img">
@@ -212,6 +213,7 @@
 							</div>
 							<div class="b-article-prev_t clearfix">
 								<a class="b-article-prev_t-a" href="">ГотовимсписокГотовимсписокГотовимсписок: </a>
+								<span class="b-article-prev_t-count">456</span>
 							</div>
 							<div class="b-article-prev_in">
 								<div class="b-article_in-img">

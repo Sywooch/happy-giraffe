@@ -1,0 +1,2 @@
+<li class="b-section_li"><a href="<?=$this->createUrl('/community/default/forum', array('forum_id' => 39))?>" class="b-section_li-a">Форум</a></li>
+<li class="b-section_li"><a href="<?=$this->createUrl('/community/contest/index', array('contestId' => 1))?>" class="b-section_li-a"><img src="/images/contest/club/pets1/club-menu-btn.png" alt=""></a></li>

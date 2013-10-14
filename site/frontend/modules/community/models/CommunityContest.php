@@ -10,6 +10,7 @@
  * @property string $rules
  * @property string $forum_id
  * @property string $rubric_id
+ * @property integer $status
  *
  * The followings are the available model relations:
  * @property Community $forum
@@ -19,6 +20,9 @@
  */
 class CommunityContest extends HActiveRecord
 {
+    const STATUS_ACTIVE = 0;
+    const STATUS_FINISHED = 1;
+
 	/**
 	 * @return string the associated database table name
 	 */
@@ -36,11 +40,12 @@ class CommunityContest extends HActiveRecord
 		// will receive user inputs.
 		return array(
 			array('description, rules, forum_id, rubric_id', 'required'),
+            array('status', 'numerical', 'integerOnly'=>true),
 			array('title', 'length', 'max'=>255),
 			array('forum_id, rubric_id', 'length', 'max'=>11),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, title, description, rules, forum_id, rubric_id', 'safe', 'on'=>'search'),
+			array('id, title, description, rules, forum_id, rubric_id, status', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -71,6 +76,7 @@ class CommunityContest extends HActiveRecord
 			'rules' => 'Rules',
 			'forum_id' => 'Forum',
             'rubric_id' => 'Rubric',
+            'status' => 'Status',
 		);
 	}
 
@@ -98,6 +104,7 @@ class CommunityContest extends HActiveRecord
 		$criteria->compare('rules',$this->rules,true);
 		$criteria->compare('forum_id',$this->forum_id,true);
         $criteria->compare('rubric_id',$this->rubric_id,true);
+        $criteria->compare('status',$this->status);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -165,5 +172,15 @@ class CommunityContest extends HActiveRecord
     public function getTopParticipants($limit)
     {
         return $this->getParticipants($limit, 't.rate DESC');
+    }
+
+    public function scopes()
+    {
+        return array(
+            'active' => array(
+                'condition' => 'status = :active',
+                'params' => array(':active' => self::STATUS_ACTIVE),
+            ),
+        );
     }
 }

@@ -1,4 +1,4 @@
-<?php if (!in_array($this->club->id, array(7))):?>
+<?php if (!in_array($this->club->id, array(7,11))):?>
     <?php if (count($this->club->communities) > 1):?>
         <?php foreach ($this->club->communities as $community): ?>
             <li class="b-section_li">

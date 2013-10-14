@@ -14,6 +14,7 @@ $collection = new PhotoPostPhotoCollection(array('contentId' => $data->id));
         <?=$data->title ?>
         <?php $this->widget('site.frontend.widgets.favoritesWidget.FavouritesWidget', array('model' => $data)); ?>
     </h1>
+    <?php if ($data->contestWork !== null && $this->id != 'contest') $this->renderPartial('application.modules.blog.views.default._contest_post', array('contest' => $data->contestWork->contest)); ?>
 
     <div class="b-article_in clearfix">
         <div class="wysiwyg-content clearfix">
@@ -46,7 +47,7 @@ $collection = new PhotoPostPhotoCollection(array('contentId' => $data->id));
             <?php $this->widget('site.frontend.widgets.favoritesWidget.FavouritesWidget', array('model' => $data)); ?>
         </div>
     <?php endif ?>
-
+    <?php if ($data->contestWork !== null && $this->id != 'contest') $this->renderPartial('application.modules.blog.views.default._contest_post', array('contest' => $data->contestWork->contest)); ?>
 
     <div class="b-article_in clearfix">
         <?php //if (!empty($data->preview)):?>

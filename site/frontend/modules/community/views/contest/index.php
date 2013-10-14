@@ -104,7 +104,7 @@ Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
                         </div>
                     ',
                     'emptyText' => '',
-                    'viewData' => array('full' => false, 'isContestWork' => true),
+                    'viewData' => array('full' => false),
                 ));
                 ?>
             </div>

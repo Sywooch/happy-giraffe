@@ -183,8 +183,8 @@ class CommunityContest extends HActiveRecord
     {
         return array(
             'active' => array(
-                'condition' => 'status = :active',
-                'params' => array(':active' => self::STATUS_ACTIVE),
+//                'condition' => 'status = :active',
+//                'params' => array(':active' => self::STATUS_ACTIVE),
             ),
         );
     }

@@ -123,10 +123,10 @@ color:#dcdcdc;
 	background-image: url(/images/valentine-day/btn-download-valentine.png);
 }
 
-#photo-window #photo-content .sharelink-friends {background:#feefbb;padding:15px 35px;margin:0 0 10px;}
+/*#photo-window #photo-content .sharelink-friends {background:#feefbb;padding:15px 35px;margin:0 0 10px;}
 #photo-window #photo-content .sharelink-friends .title-row {font-size:13px;color:#414041;margin-bottom:3px;}
 #photo-window #photo-content .sharelink-friends .title-row .text {display:inline-block;*zoom:1;*display:inline;width:300px;padding:0 5px;border:1px solid #f7e39d;margin:0 5px;background:#fff;}
-#photo-window #photo-content .sharelink-friends p {color:#2a2a2a;font:11px/16px Tahoma, Arial, Verdana, sans-serif;}
+#photo-window #photo-content .sharelink-friends p {color:#2a2a2a;font:11px/16px Tahoma, Arial, Verdana, sans-serif;}*/
 
 #photo-window .album-end {text-align:center;padding:40px 0;}
 #photo-window .album-end .block-title {color:#fff;font-size:18px;margin-bottom:25px;}
@@ -373,7 +373,7 @@ color:#dcdcdc;
 		min-height:17px;
 	}
 	&_bottom .w-500 {width: 540px !important;} //// КОСТЫЛЬ!!
-	&_bottom .verticalalign-b {margin: 5px 0;}
+	/*&_bottom .verticalalign-b {margin: 5px 0;}*/
 	&_bottom &_edit {
 		position: absolute;
 		bottom: 0;
@@ -562,3 +562,89 @@ color:#dcdcdc;
 	}
 }
 /* /re-watch */
+
+
+
+/****** */
+.test {
+.photo-window {
+	.b-user-small {
+		margin: 5px 0 0 20px;
+		max-width: 180px;
+	}
+	.like-control {
+		top: auto;
+		bottom: 30px;
+	}
+	.itx-simple {
+		padding: 3px 6px;
+	}
+	&_img-hold {
+		.inline-block();
+		vertical-align: middle;
+		max-height:100%;
+		height: auto;
+		position: relative;
+	}
+	&_img {
+		position: relative;
+		display: inline-block;
+	}
+	&_img > img {
+		display: inline-block;
+		max-height:100%;
+		max-width:100%;
+		vertical-align: middle;
+	}
+	&_bottom {
+		top: 58px;
+		left: 0;
+		bottom: auto;
+		right: 340px;
+		margin: 0 10%;
+		max-width:none;
+	}
+	&_bottom__edit {
+		width: 50%;
+	}
+	&_bottom .itx-simple {
+		min-width:100px;
+		min-height:17px;
+		max-width: none;
+	}
+	&_bottom-textarea-hold {
+		.box-sizing(border-box);
+		.inline-block();
+		vertical-align: bottom;
+		width: 100%;
+		padding-right: 58px;
+		margin-right: -50px;
+	}
+	&_desc {
+		height: 27px;
+	}
+	&_desc__full {height: auto;}
+	&_c {
+		top: 115px;
+		bottom: 20px;
+		left: 0;
+	}
+	&_top-hold {
+		overflow: hidden;
+		padding: 5px 70px 0 30px;
+	}
+	&_t {
+		.inline-block();
+		vertical-align: middle;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+
+		.box-sizing(border-box);
+		width: 100%;
+		padding-right: 35px;
+		margin-right: -25px;
+	}
+}
+}
+

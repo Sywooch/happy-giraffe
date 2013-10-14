@@ -844,12 +844,6 @@
 				<div class="b-settings-blue">
 					<div class="b-settings-blue_head">
 						<div class="b-settings-blue_row clearfix">
-							<label for="" class="b-settings-blue_label margin-t15">Конкурс</label>
-							<div class="b-settings-blue_row-tx">
-								<div class="heading-title">Рассказ о родах</div>
-							</div>
-						</div>
-						<div class="b-settings-blue_row clearfix">
 							<div class="clearfix margin-t-10 ">
 								<div class="float-r font-small color-gray margin-3">0/50</div>
 							</div>
@@ -858,17 +852,10 @@
 								<input type="text" name="" id="" class="itx-simple w-100p" placeholder="Введите заголовок фото">
 							</div>
 						</div>
-						<div class="margin-b5 clearfix">
-							<label for="" class="b-settings-blue_label">Рассказ</label>
-							<div class="b-settings-blue_row-tx">
-								<div class="font-small margin-l5">
-								Расскажите о своем домашнем животном ( как его зовут, кокой он породы, как вы за ним ухаживаете что он умеет делать, какие лакомства он любит и т д)
-								</div>
-							</div>
-						</div>
 					
 					
 						<div class="wysiwyg-v wysiwyg-pink clearfix">
+							<label for="" class="b-settings-blue_label">Рассказ</label>
 	<script src="/redactor/plugins/toolbarVerticalFixed/toolbarVerticalFixed.js"></script>	
 							<script>
 	$(document).ready(function () { 
@@ -1104,7 +1091,7 @@
 									</div>
 								</div>
 						</div>
-							<textarea name="" class="wysiwyg-redactor-v"></textarea>
+							<textarea name="" class="wysiwyg-redactor-v" placeholder="Расскажите о своих родах"></textarea>
 						</div>
 					
 					</div>

@@ -53,7 +53,7 @@
 							<ul class="b-section_ul b-section_ul__white clearfix">
 								<li class="b-section_li"><a href="" class="b-section_li-a">Форум</a></li>
 								<li class="b-section_li"><a href="" class="b-section_li-a">Сервисы</a></li>
-								<li class="b-section_li"><a href="" class="b-section_li-a">Конкурс</a></li>
+								<li class="b-section_li"><a href="" class="b-section_li-a"><img src="/images/contest/club/pets1/club-menu-btn.png" alt=""></a></li>
 							</ul>
 						</div>
 					</div>

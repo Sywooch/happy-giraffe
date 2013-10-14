@@ -3,7 +3,7 @@
     <div class="col-1">
         <?php $this->renderPartial('_users2'); ?>
 
-        <?php if ($this->action->id == 'view' || $content->forum->club_id == 11): ?>
+        <?php if ($this->action->id == 'view' || $this->forum->club_id == 11): ?>
             <div class="banner">
                 <!--AdFox START-->
                 <!--giraffe-->

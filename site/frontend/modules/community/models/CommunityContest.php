@@ -145,7 +145,7 @@ class CommunityContest extends HActiveRecord
     public function getParticipants($limit, $order)
     {
         return CommunityContestWork::model()->findAll(array(
-            'condition' => 'contest_id = :contest_id',
+            'condition' => 'contest_id = :contest_id AND content.removed = 0',
             'params' => array(':contest_id' => $this->id),
             'order' => $order,
             'limit' => $limit,

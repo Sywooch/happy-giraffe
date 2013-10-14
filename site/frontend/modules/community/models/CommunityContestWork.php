@@ -113,7 +113,7 @@ class CommunityContestWork extends HActiveRecord
     {
         return CommunityContestWork::model()->findAll(array(
             'limit' => $limit,
-            'condition' => 't.id != :currentId AND t.rate > :minRate',
+            'condition' => 't.id != :currentId AND t.rate > :minRate AND content.removed = 0',
             'params' => array(':currentId' => $this->id, ':minRate' => $minRate),
             'order' => new CDbExpression('RAND()'),
             'with' => array(

@@ -86,6 +86,8 @@ Yii::app()->clientScript->registerPackage('ko_profile');
             </div>
         <?php endif ?>
 
+        <?php $this->widget('CommunityContestWidget', compact('user')); ?>
+
         <div class="col-23-middle">
 
         </div>

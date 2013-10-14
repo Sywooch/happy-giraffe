@@ -16,14 +16,16 @@ class CommunityContestWidget extends CWidget
         $work = CommunityContestWork::model()->find(array(
             'with' => array(
                 'content',
-                'contest',
+                'contest' => array(
+                    'scopes' => array('active'),
+                ),
             ),
-            'scopes' => array('active'),
-            'condition' => 'content.user_id = :user_id',
+            'condition' => 'content.author_id = :user_id AND content.removed = 0',
             'params' => array(':user_id' => $this->user->id),
             'order' => new CDbExpression('RAND()'),
         ));
 
-        $this->render('')
+        if ($work !== null)
+            $this->render('CommunityContestWidget', compact('work'));
     }
 }

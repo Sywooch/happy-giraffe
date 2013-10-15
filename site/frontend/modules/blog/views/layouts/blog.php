@@ -10,6 +10,8 @@ $data['currentRubricId'] = $this->rubric_id;
 <?php $this->beginContent('//layouts/main'); ?>
     <div class="content-cols clearfix">
         <div class="col-1">
+            <?php $this->widget('Avatar', array('user' => $this->user, 'size' => 200, 'blog_link' => false, 'location' => true, 'age' => true)); ?>
+
             <?php if ($this->action->id == 'view'): ?>
                 <!--AdFox START-->
                 <!--giraffe-->
@@ -41,8 +43,6 @@ $data['currentRubricId'] = $this->rubric_id;
                 </script>
                 <!-- _________________________AdFox Asynchronous code END___________________________ -->
             <?php endif; ?>
-
-            <?php $this->widget('Avatar', array('user' => $this->user, 'size' => 200, 'blog_link' => false, 'location' => true, 'age' => true)); ?>
 
             <div class="aside-blog-desc blogInfo" data-bind="visible: descriptionToShow().length > 0">
                 <div class="aside-blog-desc_tx" data-bind="html: descriptionToShow"><?=$data['description']?></div>

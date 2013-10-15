@@ -4,7 +4,7 @@
 	<script type="text/javascript">
 		<?php
             $code = "
-                //document.domain = document.location.host;
+                document.domain = document.location.host;
 
                 var inc = " . CJSON::encode($inc) . ";
                 window.location = '" . addslashes($url) . "';

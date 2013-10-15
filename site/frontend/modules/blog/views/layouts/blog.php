@@ -12,6 +12,12 @@ $data['currentRubricId'] = $this->rubric_id;
         <div class="col-1">
             <?php $this->widget('Avatar', array('user' => $this->user, 'size' => 200, 'blog_link' => false, 'location' => true, 'age' => true)); ?>
 
+            <div class="aside-blog-desc blogInfo" data-bind="visible: descriptionToShow().length > 0">
+                <div class="aside-blog-desc_tx" data-bind="html: descriptionToShow"><?=$data['description']?></div>
+            </div>
+
+            <?php $this->renderPartial('_subscribers'); ?>
+
             <?php if ($this->action->id == 'view'): ?>
                 <!--AdFox START-->
                 <!--giraffe-->
@@ -44,11 +50,6 @@ $data['currentRubricId'] = $this->rubric_id;
                 <!-- _________________________AdFox Asynchronous code END___________________________ -->
             <?php endif; ?>
 
-            <div class="aside-blog-desc blogInfo" data-bind="visible: descriptionToShow().length > 0">
-                <div class="aside-blog-desc_tx" data-bind="html: descriptionToShow"><?=$data['description']?></div>
-            </div>
-
-            <?php $this->renderPartial('_subscribers'); ?>
             <div class="menu-simple blogInfo" id="rubricsList" data-bind="visible: showRubrics">
                 <?php $this->renderPartial('_rubric_list', array('currentRubricId' => $this->rubric_id)); ?>
             </div>

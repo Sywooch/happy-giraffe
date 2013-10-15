@@ -9,7 +9,7 @@
     <?php endif ?>
 
     <ul class="readers2_ul clearfix">
-        <?php $subscribers = UserBlogSubscription::model()->getSubscribers($this->user->id); ?>
+        <?php $subscribers = UserBlogSubscription::model()->getSubscribers($this->user->id, 6); ?>
         <?php foreach ($subscribers as $subscriber): ?>
             <li class="readers2_li clearfix">
                 <?php $this->widget('Avatar', array('user' => $subscriber, 'size' => 24)); ?>

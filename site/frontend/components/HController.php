@@ -54,6 +54,9 @@ class HController extends CController
             }
             unset($_GET['token']);
         }
+
+        $viewsCount = Yii::app()->user->getState('viewsCount', 0);
+        Yii::app()->user->setState('viewsCount', $viewsCount + 1);
     }
 
     protected function beforeAction($action)

@@ -26,7 +26,8 @@ class PurifiedBehavior extends CActiveRecordBehavior
     {
         if (in_array($name, $this->attributes)) {
             $cacheId = $this->getCacheId($name);
-            $value = Yii::app()->cache->get($cacheId);
+            //$value = Yii::app()->cache->get($cacheId);
+            $value = false;
             if ($value === false) {
                 $value = $this->getOwner()->$name;
                 if (! empty($value)) {
@@ -37,6 +38,7 @@ class PurifiedBehavior extends CActiveRecordBehavior
                     $value = $purifier->purify($value);
                     $value = $this->setWidgets($value);
                     $value = $this->fixUrls($value);
+                    $value = $this->clean($value);
                     Yii::app()->cache->set($cacheId, $value);
                 }
             }
@@ -175,5 +177,19 @@ class PurifiedBehavior extends CActiveRecordBehavior
                 return $matches[0];
             }
         }, $html);
+    }
+
+    protected function clean($text)
+    {
+        include_once Yii::getPathOfAlias('site.frontend.vendor.simplehtmldom_1_5') . DIRECTORY_SEPARATOR . 'simple_html_dom.php';
+
+        $html = str_get_html($text);
+        foreach ($html->find('p') as $p) {
+            $v = str_replace('​', '', $p->innertext);
+            if (empty($v))
+                $p->outertext = '';
+        }
+
+        return (string) $html;
     }
 }

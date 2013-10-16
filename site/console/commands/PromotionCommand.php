@@ -94,30 +94,30 @@ class PromotionCommand extends CConsoleCommand
 //        }
 //    }
 //
-//    public function actionAddToParsing()
-//    {
-//        $pages = PagePromotion::model()->findAll();
-//        foreach ($pages as $page) {
-//            $page2 = Page::model()->findByAttributes(array('url' => $page->url));
-//            if ($page2 === null) {
-//                $page2 = new Page;
-//                $page2->url = $page->url;
-//                $page2->save();
-//            }
-//            $phrase = PagesSearchPhrase::model()->findByAttributes(array(
-//                'page_id' => $page2->id,
-//                'keyword_id' => $page->keyword_id,
-//            ));
-//            if ($phrase === null) {
-//                $phrase = new PagesSearchPhrase;
-//                $phrase->page_id = $page2->id;
-//                $phrase->keyword_id = $page->keyword_id;
-//                $phrase->save();
-//            }
-//            $model = new ParsingPosition;
-//            $model->keyword_id = $page->keyword_id;
-//            $model->save();
-//
-//        }
-//    }
+    public function actionAddToParsing()
+    {
+        $pages = PagePromotion::model()->findAll();
+        foreach ($pages as $page) {
+            $page2 = Page::model()->findByAttributes(array('url' => $page->url));
+            if ($page2 === null) {
+                $page2 = new Page;
+                $page2->url = $page->url;
+                $page2->save();
+            }
+            $phrase = PagesSearchPhrase::model()->findByAttributes(array(
+                'page_id' => $page2->id,
+                'keyword_id' => $page->keyword_id,
+            ));
+            if ($phrase === null) {
+                $phrase = new PagesSearchPhrase;
+                $phrase->page_id = $page2->id;
+                $phrase->keyword_id = $page->keyword_id;
+                $phrase->save();
+            }
+            $model = new ParsingPosition;
+            $model->keyword_id = $page->keyword_id;
+            $model->save();
+
+        }
+    }
 }

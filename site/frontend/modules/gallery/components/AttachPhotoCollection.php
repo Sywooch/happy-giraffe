@@ -92,15 +92,15 @@ class AttachPhotoCollection extends PhotoCollection
         switch ($this->entityName) {
             case 'User':
                 $user = User::model()->findByPk($this->entityId);
-                break;
+                return 'Семейный альбом пользователя ' . $user->getFullName();
             case 'UserPartner':
                 $user = UserPartner::model()->findByPk($this->entityId)->user;
-                break;
+                return 'Семейный альбом пользователя ' . $user->getFullName();
             case 'Baby':
                 $user = Baby::model()->findByPk($this->entityId)->parent;
-                break;
+                return 'Семейный альбом пользователя ' . $user->getFullName();
+            case 'Comment':
+                return 'Иллюстрации к комментарию';
         }
-
-        return 'Семейный альбом пользователя ' . $user->getFullName();
     }
 }

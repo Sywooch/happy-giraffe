@@ -34,8 +34,8 @@ function removeA(arr) {
 }
 
 $(document).ready(function () {
-    $('.js-like-control').blockFixed({'posTop':120});
-    $('.js-fast-articles2').blockFixed({'posTop': 60, 'minPosBottom':250});
+/*    $('.js-like-control').blockFixed({'posTop':120});
+    $('.js-fast-articles2').blockFixed({'posTop': 60, 'minPosBottom':250});*/
 
     $(".wysiwyg-content").addtocopy({htmlcopytxt:'<br /><br />Подробнее: <a href="' + window.location.href + '">' + window.location.href + '</a>'});
 

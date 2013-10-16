@@ -218,25 +218,6 @@
 #wysiwygRemoveLink {width:260px;}
 #wysiwygRemoveLink .title {margin:20px 0 30px;text-align:center;}
 
-/*
-.wysiwyg-content {font-size:13px;line-height:19px;color:#000;}
-.wysiwyg-content h2 {color:#0281b0;font-size:18px;line-height:normal;margin:0 0 10px;}
-.wysiwyg-content h3 {line-height:normal;font-size:14px;line-height:normal;color:#2e2e2e;margin:0 0 10px;}
-.wysiwyg-content p {margin-bottom:15px;}
-.wysiwyg-content ul {list-style:disc inside;padding-left:5px;padding-bottom:12px;}
-.wysiwyg-content ol {list-style:decimal inside;padding-left:5px;padding-bottom:12px;}
-.wysiwyg-content ol li,
-.wysiwyg-content ul li {margin-bottom:9px;}
-.wysiwyg-content a {text-decoration:none;}
-.wysiwyg-content a:hover {text-decoration:underline;}
-.wysiwyg-content .content-img {margin-right:20px;float:left;}
-.wysiwyg-content .content-img-left {margin-right:20px;float:left;max-width:300px;}
-.wysiwyg-content .content-img-right {margin-left:20px;float:right;max-width:300px;}
-.wysiwyg-content img {margin-top:10px;}
-.wysiwyg-content .brushed{ background: none repeat scroll 0 0 #FCFBD5; margin: 20px 0; padding: 10px;}
-.wysiwyg-content.side {margin-left:330px;padding-top:15px;}
-*/
-
 .wysiwyg-content {
     padding: 0;
     font-size: 14px;
@@ -270,7 +251,7 @@
         font-weight: bold;
         color: #333;
     }
-    & &_t-sub {
+    &_t-sub {
         font: 26px/30px Arial, Tahoma, Verdana, sans-serif;
         color: #0d0d0d;
         margin: 20px 0 15px;
@@ -642,7 +623,7 @@ table.fr_recipe_tb td { width: 50%;}
 /* b-article */
 .b-article {
     position: relative;
-    margin:20px 20px 50px;
+    margin:20px 20px 40px;
 
     &__user-status &_cont {background: #cdecff;}
     &__user-status &_cont-tale {border-right-color: #cdecff;}
@@ -651,16 +632,32 @@ table.fr_recipe_tb td { width: 50%;}
     &__photopost .custom-likes-b_slogan {color: #f7f3f3;}
     &__photopost .nav-article {padding: 25px 0 30px;margin-bottom: 0;}
     &__photopost .gallery-widget {margin-top: 0;}
-    &__photopost &_cont {background: #523d64;}
+    &__photopost &_bg {background: #523d64;}
     &__photopost &_cont-tale {border-right-color: #523d64; }
+    &__photopost &_date {color: #D9D9D9;}
     &__photopost &_t,
     &__photopost &_t-a,
     &__photopost &_in .wysiwyg-content {color: #fff;}
-    /*&__photopost &_in .wysiwyg-content a {color: #fff;}*/
+
+    &__wide &_cont {
+        float: none;
+        width: auto;
+        padding: 0;
+    }
+    &__wide &_user-status {
+        display: block;
+        width: auto;
+        max-width:none;
+        height: auto;
+    }
     
     .wysiwyg-content {padding: 0 20px;}
+    &_bg { 
+        .inline-block(); // hack for Uncollapsing Margins 
+        width: 100%;
+    }
     &_in {
-        min-height:81px;
+        min-height:144px;
         word-wrap: break-word;
     }
     &_in-img {
@@ -727,22 +724,33 @@ table.fr_recipe_tb td { width: 50%;}
         border: 10px solid transparent;
         border-right-color: #fff;
     }
+    &_bg {
+        padding: 12px 0 0;
+        -webkit-border-top-left-radius: 5px;
+        -moz-border-top-left-radius: 5px;
+        border-top-left-radius: 5px;
+        -webkit-border-top-right-radius: 5px;
+        -moz-border-top-right-radius: 5px;
+        border-top-right-radius: 5px;
+    }
     &_header {
         margin: 0 20px 10px;
     }
+    &_header .ava {margin: 0 10px 0 0;}
     &_author {
         color: #289fd7;
         text-decoration: none;
         padding-right: 5px;
     }
     &_author:hover {text-decoration: underline;}
+    &_date {
+        font: 9px/11px Tahoma, Arial, Verdana, sans-serif;
+        color: #737575;
+    }
     &_t {
         margin: 0 20px 15px;
-        font-size: 30px;
-        line-height: 30px;
-        font-weight: bold;
+        font: bold 35px/35px 'Helvetica Neue', Helvetica, Arial, sans-serif;
         color: #186fb8;
-        font-family: Helvetica, Arial, Tahoma, sans-serif;
     }
     &_t-a {color: #186fb8;}
     &_t-new {
@@ -1032,11 +1040,11 @@ table.fr_recipe_tb td { width: 50%;}
         height: 18px;
         padding: 45px 0 0;
         color: #828281;
-        background: url(/images/b-article_control-ico.png) no-repeat  -90px 0;
+        background: url(/images/like-control_ico.png) no-repeat  -400px 0;
         text-decoration: none;
     }
     .favorites-control_a.active,
-    .favorites-control_a:hover {background-position: -90px -100px;}
+    .favorites-control_a:hover {background-position: -400px -400px;}
     &__small-indent {
         padding: 10px 14px;
         margin-bottom: -4px;
@@ -1067,12 +1075,12 @@ table.fr_recipe_tb td { width: 50%;}
         margin: 0 auto;
         min-width: 25px;
         font-size: 9px;
-        background: url(/images/b-article_control-ico__smallest.png) no-repeat;
+        background: url(/images/like-control_ico__smallest.png) no-repeat;
 
         @media only screen and (-webkit-min-device-pixel-ratio: 1.5),
         only screen and (min-resolution: 144dpi) {
             & {
-                background:url(/images/b-article_control-ico__smallest2x.png) no-repeat;
+                background:url(/images/like-control_ico__smallest2x.png) no-repeat;
                 background-size: 75px;
             }
         }
@@ -1091,39 +1099,75 @@ table.fr_recipe_tb td { width: 50%;}
     &__smallest .favorites-add-popup {left: 35px;top: -13px;}
 
     &__self &_ico__like:hover {background-position: 0 0;}
-    &__self &_ico__repost:hover {background-position: -45px 0;}
-    &__self .favorites-control_a:hover {background-position: -90px 0;}
-
+    &__self &_ico__repost:hover {background-position: -200px 0;}
+    &__self .favorites-control_a:hover {background-position: -400px 0;}
+    
+    &__circle {
+        width: auto;
+        margin: 10px 20px 35px;
+        padding: 0;
+        background: none;
+    }
+    &__circle .favorites-control_a,
+    &__circle &_ico {
+        margin: 0 5px;
+        padding: 61px 0 13px;
+        width: 92px;
+        background-color: #ffe535;
+        .border-radius(46px);
+    }
+    &__circle &_ico__like {background-position: 26px 15px;}
+    &__circle &_ico__like:hover {background-position: 26px -384px;}
+    &__circle &_ico__repost {background-position: -174px 15px;}
+    &__circle &_ico__repost:hover {background-position: -174px -385px;}
+    &__circle .favorites-control_a {background-position: -374px 15px;}
+    &__circle .favorites-control_a:hover {background-position: -374px -385px;}
+    &__circle .favorites-add-popup {
+        top: 100px;
+        left: 50%;
+        margin-left: -150px;
+        display: none;
+    }
+    &__circle .favorites-add-popup:after {
+        margin: -5px -5px 0 0;
+        right: 50%;
+        top: 0;
+        transform: rotate(135deg);
+    }
+    &_i {
+        position: relative;
+        .inline-block();
+    }
     &_ico {
         .inline-block();
         min-width: 45px;
         height: 18px;
         padding: 45px 0 0;
         color: #828281;
-        background: url(/images/b-article_control-ico.png) no-repeat;
+        background: url(/images/like-control_ico.png) no-repeat;
         text-decoration: none;
 
         @media only screen and (-webkit-min-device-pixel-ratio: 1.5),
         only screen and (min-resolution: 144dpi) {
             & {
-                background:url(/images/b-article_control-ico2x.png) no-repeat;
+                background:url(/images/like-control_ico2x.png) no-repeat;
                 background-size: 135px;
             }
         }
     }
     &_ico.active,
-    &_ico:hover {background-position: 0 -100px;}
-    &_ico__repost {background-position: -45px 0;}
+    &_ico:hover {background-position: 0 -400px;}
+    &_ico__repost {background-position: -200px 0;}
     &_ico__repost.active,
-    &_ico__repost:hover {background-position: -45px -100px;}
-    &_ico__favorites {background-position: -90px 0;}
+    &_ico__repost:hover {background-position: -200px -400px;}
+    &_ico__favorites {background-position: -400px 0;}
     &_ico__favorites.active,
-    &_ico__favorites:hover {background-position: -90px -100px;}
+    &_ico__favorites:hover {background-position: -400px -400px;}
     &_ico__cook {
         width: 72px;
         margin: 10px -14px -20px;
         padding: 100px 14px 20px;
-        background:#b7ce4a url(/images/b-article_control-ico__cook.png) no-repeat 14px 20px;
+        background:#b7ce4a url(/images/like-control_ico__cook.png) no-repeat 14px 20px;
         -webkit-border-bottom-left-radius: 3px;
         -moz-border-bottom-left-radius: 3px;
         border-bottom-left-radius: 3px;
@@ -1148,6 +1192,11 @@ table.fr_recipe_tb td { width: 50%;}
     background: url(/images/add-photo-wiget.png) no-repeat;
     &.active,
     &:hover {background-position: -50px 0;}
+
+    &__float-r {
+        float: right;
+        margin: -5px 0 0;
+    }
 }
 /* /add-photo-widget */
 
@@ -1399,6 +1448,7 @@ table.fr_recipe_tb td { width: 50%;}
     &_a {
         display: table-cell;
         height: 55px;
+        width:260px;
         vertical-align: middle;
         font: 11px/15px Tahoma, Arial, Verdana, sans-serif;
         background: url(/images/nav-article_arrow.png) no-repeat;
@@ -1407,6 +1457,56 @@ table.fr_recipe_tb td { width: 50%;}
     &_a {color: #59a4de;}
 }
 /* /nav-article */
+
+/* article-nearby */
+.article-nearby {
+    position: relative;
+    padding: 20px 20px 30px;
+    background-color: #fff;
+    -webkit-border-bottom-left-radius: 5px;
+    -moz-border-bottom-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    -webkit-border-bottom-right-radius: 5px;
+    -moz-border-bottom-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    
+    &:before {
+        content:'';
+        position: absolute;
+        top: 0;
+        left: 50%;
+        margin: -10px 0 0 -10px;
+        width: 20px;
+        height: 20px;
+        background: #ebebeb;
+        .rotate(45deg);
+    }
+    &_i {
+        float: left;
+        width: 50%;
+    }
+    &_i__right {text-align: right;}
+    &_hint {
+        font-size: 14px;
+        color: #232323;
+    }
+    &_a {
+        display: block;
+        margin: 10px 0 0;
+    }
+    &_img-hold {
+        display: table-cell;
+        vertical-align: middle;
+    }
+    &_tx {
+        display: table-cell;
+        vertical-align: middle;
+        padding: 0 10px;
+        font: bold 11px/15px Tahoma, Arial, Verdana, sans-serif;
+        color: #3782c1;
+    }
+}
+/* /article-nearby */
 
 .article-banner {
     margin: 25px 20px;
@@ -1665,6 +1765,7 @@ table.fr_recipe_tb td { width: 50%;}
     .a-imitation {color: #319FE4}
     &__map-route {padding: 20px 180px 20px 0;}
     &_t {margin: 15px 30px 10px;}
+    &_t .a-pseudo-icon {margin: 5px 0 0;}
     &_t-a {
         .inline-block();
         padding:0 20px 0 5px;
@@ -1675,7 +1776,9 @@ table.fr_recipe_tb td { width: 50%;}
     &_t-a:hover &_t-a-tx {text-decoration: none;}
     &_t-a-tx {
         .inline-block();
+        vertical-align: middle;
         margin-right: 15px;
+        font-size: 16px;
     }
     &_hold {
         padding: 0;
@@ -1888,9 +1991,14 @@ table.fr_recipe_tb td { width: 50%;}
 
 /* article-settings */
 .article-settings {
+    position: relative;
     margin: 15px 15px;
     
     &.active &_a__settings {background-position: 0 -30px;}
+    &__float-r {
+        float: right;
+        margin: -5px -10px 0 0;
+    }
 
     &_i {
         text-align: center;
@@ -1898,9 +2006,13 @@ table.fr_recipe_tb td { width: 50%;}
     }
     &_hold {
         display: none;
+        position: absolute;
+        top: 35px;
+        left: 0;
         background: #f0f0f0;
         padding: 5px 0 5px;
         .border-radius(5px);
+        z-index: 200;
     }
     &_a {
         .inline-block();
@@ -1935,7 +2047,7 @@ table.fr_recipe_tb td { width: 50%;}
 
     &_drop {
         position: absolute;
-        left: 60px;
+        left: 40px;
         top: 0;
         width: 190px;
         border: 1px solid #dcecf6;
@@ -4116,3 +4228,116 @@ table.fr_recipe_tb td { width: 50%;}
 }
 /* /clearblue */
 /* /branding pages*/
+
+/* such-post */
+.such-post {
+    margin: 30px 20px 35px 20px;
+
+    &_i {
+        .inline-block();
+        vertical-align: top;
+        margin-left: 6px;
+    }
+    &_i:first-child {margin-left: 0;}
+
+    &_i__photopost {
+        width: 49%;
+        margin-left: 1.5%;
+    }
+    &_i__photopost &_cont {background-color: #523d64;}
+    &_i__photopost &_t {color: #fff;}
+    &_i__photopost &_date {color: #D9D9D9;}
+
+    &_i__medium {
+        width: 32%;
+        margin-left: 1.5%;
+    }
+
+    &_img-hold {
+        display: block;
+        position: relative;
+        -webkit-border-top-left-radius: 5px;
+        -moz-border-top-left-radius: 5px;
+        border-top-left-radius: 5px;
+        -webkit-border-top-right-radius: 5px;
+        -moz-border-top-right-radius: 5px;
+        border-top-right-radius: 5px;
+    }
+    &_img-hold:hover &_img-overlay {display: block;}
+    &_img {
+        display: block;
+        -webkit-border-top-left-radius: 5px;
+        -moz-border-top-left-radius: 5px;
+        border-top-left-radius: 5px;
+        -webkit-border-top-right-radius: 5px;
+        -moz-border-top-right-radius: 5px;
+        border-top-right-radius: 5px;
+    }
+    &_img-overlay {
+        display: none;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 81px;
+        height: 81px;
+        margin: -40px 0 0 -40px;
+        background: url(/images/such-post_img-overlay.png) no-repeat;
+    }
+    &_tip {
+        background: #FE2D2D;
+        color: #FFFFFF;
+        font-size: 20px;
+        line-height: 22px;
+        padding: 5px 10px 6px 13px;
+        position: absolute;
+        right: 0;
+        top: 12px;
+    }
+    &_type-hold {position: relative;}
+    &_type {
+        position: absolute;
+        left: 50%;
+        top: 0;
+        margin: -43px 0 0 -43px;
+        width: 87px;
+        height: 87px;
+    }
+    &_type__post {background: url(/images/such-post_type__post.png) no-repeat;}
+    &_type__photopost {background: url(/images/such-post_type__photopost.png) no-repeat;}
+    &_type__video {background: url(/images/such-post_type__video.png) no-repeat;}
+    &_cont {
+        padding: 12px;
+        background-color: #fff;
+        -webkit-border-bottom-left-radius: 5px;
+        -moz-border-bottom-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+        -webkit-border-bottom-right-radius: 5px;
+        -moz-border-bottom-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+    }
+    &_cont .meta-gray_view {margin: 0 0 15px;}
+    &_cont .meta-gray_comment {margin: 0 0 20px;}
+    &_author {
+        float: left;
+        clear: left;
+    }
+    &_author-name {
+        .inline-block();
+        margin: 5px 5px 0;
+        text-decoration: none;
+    }
+    &_author-name:hover {text-decoration: underline;}
+    &_date {
+        float: right;
+        clear: right;
+        font-size: 9px;
+        color: #9f9e9d;
+    }
+    &_t {
+        display: block;
+        margin: 8px 0 10px;
+        font: bold 17px/20px Tahoma, Arial, Verdana, sans-serif;
+        color: #186fb8;
+    }
+}
+/* /such-post */

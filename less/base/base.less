@@ -103,6 +103,11 @@ hr,
 .msg-error {color: #ff8686;font-size: 13px;}
 
 /* links */
+/*.b-link {
+	text-decoration: none;
+
+	&_tx {text-decoration: underline;}
+}*/
 /* @todo избавляться от .pseudo, .info */
 .a-info,
 a.info {display:inline-block;*zoom:1;*display:inline;width:13px;height:13px;background:url(../images/common.png) no-repeat -267px -101px;}
@@ -123,7 +128,7 @@ a.pseudo:hover,
 	.inline-block();
 	margin: 0 10px;
 	text-decoration: none;
-
+	
 	&:hover .ico-edit {background-position: 0 -15px;}
 	&:hover .ico-close2 {
 		vertical-align: middle;
@@ -134,6 +139,13 @@ a.pseudo:hover,
 		border-bottom-color:#2c95d6;
 		color: #2c95d6;
 	}
+/*
+	&__blue &_tx {
+		color: #289FD7;
+		border-color: #289FD7;
+	}
+	&__blue:hover &_tx {border-color: transparent;}
+*/
 	.ico-edit {position: relative;top:-2px;}
 	&_tx {
 		font-size: 12px;
@@ -288,6 +300,12 @@ a.pseudo:hover,
 		z-index: 10;
 	}
 }
+/*.i-arrow-t {
+	.inline-block();
+	width: 7px;
+	height: 13px;
+	background: url(/images/arrow-t.png) no-repeat;
+}*/
 /* single items */
 
 /* icons */
@@ -593,6 +611,15 @@ a.pseudo:hover,
 }
 .icon-status.status-online  {background: #0fc612;}
 .icon-status.status-offline {background: #b8b8b8;}
+.ico-status {
+	.inline-block();
+	width: 13px;
+	height: 11px;
+	background: url(/images/ico/ico-status.png) no-repeat;
+
+	&__offline {background-position: 0 0;}
+	&__online {background-position: 0 -11px;}
+}
 .ico-comment{
 	.inline-block();
 	width:16px;

@@ -154,9 +154,9 @@
 /* fast-articles2 */
 .fast-articles2 {
 	position: relative;
-	width: 190px;
-	margin: 60px 30px 20px 0;
-	padding: 15px 10px 10px;
+	width: 205px;
+	margin: 60px 10px 20px 0;
+	padding: 15px 0 0;
 	background: #ddd;
 	.border-radius(5px);
 	
@@ -174,13 +174,19 @@
 		margin: 10px 10px 15px;
 		text-align: center;
 		font-size: 16px;
-		color: #fff;
+		color: #252525;
 	}
 	&_i {
-		margin: 10px 0 20px;
+		margin: 10px 0 30px;
 		padding: 10px 10px 5px;
 		background: #fff;
-		.border-radius(5px);
+	}
+	&_author {text-decoration: none;}
+	&_author:hover &_author-tx {text-decoration: underline;}
+	&_author-tx {
+		color: #289fd7;
+		font-size: 12px;
+		line-height: 12px;
 	}
 	&_i-t {
 		margin: 8px 0;
@@ -333,6 +339,8 @@
 	
 	&__after-article {margin: 30px 0 60px 150px;}
 	&__after-article &_li {padding: 0;}
+	&__after-article2 {margin: 30px 20px 50px;}
+	&__after-article2 &_li {padding: 0;}
 
 	&_li {
 		position: relative;

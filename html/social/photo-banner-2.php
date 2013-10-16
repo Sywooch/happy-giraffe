@@ -54,7 +54,7 @@
 								</div>
 								<div class="float-l">
 									<a href="" class="b-article_author">Ангелина Богоявленская</a>
-									<span class="font-smallest color-gray">Сегодня 13:25</span>
+									<span class="b-article_date">Сегодня 13:25</span>
 								</div>
 							</div>
 							<div class="b-article_album-header">

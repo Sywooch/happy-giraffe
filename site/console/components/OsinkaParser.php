@@ -7,7 +7,7 @@
  * To change this template use File | Settings | File Templates.
  */
 
-class OsinkaParser
+class OsinkaParser extends ProxyParserThread
 {
     public function start()
     {
@@ -75,13 +75,18 @@ class OsinkaParser
         return $model->save();
     }
 
-    public function query($url)
-    {
-        $ch = curl_init($url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.101 Safari/537.36');
-        $response = curl_exec($ch);
-        curl_close($ch);
-        return $response;
-    }
+//    public function query($url)
+//    {
+//        $ch = curl_init($url);
+//        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+//        curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.101 Safari/537.36');
+//        curl_setopt($ch, CURLOPT_PROXY, '95.211.189.194');
+//        curl_setopt($ch, CURLOPT_PROXYPORT, '41659');
+//        curl_setopt($ch, CURLOPT_PROXYUSERPWD, "nikitahg:GsB84twqiGvuVz");
+//        curl_setopt($ch, CURLOPT_PROXYAUTH, 1);
+//        $response = curl_exec($ch);
+//        curl_close($ch);
+//        echo $response;
+//        return $response;
+//    }
 }

@@ -29,9 +29,6 @@ class OsinkaParser
 
     public function processQuery($response, $source)
     {
-        echo $response;
-        die;
-
         $html = str_get_html(iconv('Windows-1251', 'UTF-8', $response));
 
         if ($html->find('.messagebox', 0) !== null && $html->find('.messagebox', 0)->innertext == 'Извините, такого пользователя не существует')
@@ -83,6 +80,7 @@ class OsinkaParser
     {
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.101 Safari/537.36');
         $response = curl_exec($ch);
         curl_close($ch);
         return $response;

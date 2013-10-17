@@ -7,11 +7,11 @@
  * To change this template use File | Settings | File Templates.
  */
 
-class SiteEmail extends EMongoDocument
+class SiteEmail extends EMongoSoftDocument
 {
     public function getCollectionName()
     {
-        return 'rating_users';
+        return 'site_emails';
     }
 
     public static function model($className=__CLASS__)

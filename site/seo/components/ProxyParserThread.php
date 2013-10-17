@@ -35,6 +35,7 @@ class ProxyParserThread
         Yii::import('site.frontend.extensions.phpQuery.phpQuery');
         $this->thread_id = rand(1, 1000000);
         $this->removeCookieFile();
+        die('123');
         $this->getProxy();
     }
 

@@ -13,16 +13,11 @@ class OsinkaParser
     {
         SiteEmail::model()->deleteAll();
 
-        $i = 0;
-        $failsInRow = 0;
-        while (true) {
-            $i++;
+        for ($i = 1; $i < 331750; $i++) {
             $url = 'http://club.osinka.ru/profile.php?mode=viewprofile&u=' . $i;
             $response = $this->query($url);
-            $success = $this->processQuery($response, $url);
-            $failsInRow = $success ? 0 : ++$failsInRow;
-            if ($failsInRow == 100)
-                Yii::app()->end();
+            $this->processQuery($response, $url);
+
             echo $i . "\n";
         }
     }
@@ -36,6 +31,19 @@ class OsinkaParser
 
         $table = $html->find('table.forumline', 0);
         $name = str_replace('Профиль пользователя ', '', $table->find('th', 0)->innertext);
+
+        //contacts
+        $contactsTable = end($table->find('table'));
+
+        $emailVal = $contactsTable->find('td', 1)->find('b', 0);
+        $email = $emailVal->innertext == '&nbsp;' ? null : str_replace('mailto:', '', $emailVal->find('a', 0)->getAttribute('href'));
+        if ($email === null)
+            return true;
+
+        $icqVal = $contactsTable->find('td', 5)->find('b', 0);
+        $icq = $icqVal->innertext = '&nbsp;' ? null : $icqVal->innerText;
+
+        //profile
         $profileTable = $table->find('table', 0);
         $registered = $profileTable->find('td', 1)->find('b', 0)->innertext;
         $messagesCount = $profileTable->find('td', 3)->find('b', 0)->innertext;
@@ -59,21 +67,12 @@ class OsinkaParser
 
         $avatar = $html->find('img.bdr', 0)->getAttribute('src');
 
-        $contactsTable = end($table->find('table'));
-
-        $emailVal = $contactsTable->find('td', 1)->find('b', 0);
-        $email = $emailVal->innertext == '&nbsp;' ? null : str_replace('mailto:', '', $emailVal->find('a', 0)->getAttribute('href'));
-
-        $icqVal = $contactsTable->find('td', 5)->find('b', 0);
-        $icq = $icqVal->innertext = '&nbsp;' ? null : $icqVal->innerText;
-
         $model = new SiteEmail();
         $attributes = compact('name', 'registered', 'messagesCount', 'from', 'occupation', 'site', 'interests', 'birthday', 'zodiac', 'avatar', 'email', 'icq', 'source');
         $model->initSoftAttributes(array_keys($attributes));
         foreach ($attributes as $a => $v)
             $model->$a = $v;
-        $model->save();
-        return true;
+        return $model->save();
     }
 
     public function query($url)

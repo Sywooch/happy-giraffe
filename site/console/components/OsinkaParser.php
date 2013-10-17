@@ -7,10 +7,12 @@
  * To change this template use File | Settings | File Templates.
  */
 
-class OsinkaParser extends ProxyParserThread
+class OsinkaParser
 {
     public function start()
     {
+        SiteEmail::model()->deleteAll();
+
         $i = 0;
         $failsInRow = 0;
         while (true) {
@@ -57,7 +59,7 @@ class OsinkaParser extends ProxyParserThread
 
         $avatar = $html->find('img.bdr', 0)->getAttribute('src');
 
-        $contactsTable = $table->find('table', 1);
+        $contactsTable = end($table->find('table'));
 
         $emailVal = $contactsTable->find('td', 1)->find('b', 0);
         $email = $emailVal->innertext == '&nbsp;' ? null : str_replace('mailto:', '', $emailVal->find('a', 0)->getAttribute('href'));
@@ -66,8 +68,20 @@ class OsinkaParser extends ProxyParserThread
         $icq = $icqVal->innertext = '&nbsp;' ? null : $icqVal->innerText;
 
         $model = new SiteEmail();
-        $model->attributes = compact('name', 'registered', 'messagesCount', 'from', 'occupation', 'site', 'interests', 'birthday', 'zodiac', 'avatar', 'email', 'icq');
+        $attributes = compact('name', 'registered', 'messagesCount', 'from', 'occupation', 'site', 'interests', 'birthday', 'zodiac', 'avatar', 'email', 'icq');
+        $model->initSoftAttributes(array_keys($attributes));
+        foreach ($attributes as $a => $v)
+            $model->$a = $v;
         $model->save();
         return true;
+    }
+
+    public function query($url)
+    {
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $response = curl_exec($ch);
+        curl_close($ch);
+        return $response;
     }
 }

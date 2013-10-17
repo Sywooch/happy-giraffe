@@ -19,7 +19,7 @@ class OsinkaParser
             $i++;
             $url = 'http://club.osinka.ru/profile.php?mode=viewprofile&u=' . $i;
             $response = $this->query($url);
-            $success = $this->processQuery($response);
+            $success = $this->processQuery($response, $url);
             $failsInRow = $success ? 0 : ++$failsInRow;
             if ($failsInRow == 100)
                 Yii::app()->end();
@@ -27,8 +27,11 @@ class OsinkaParser
         }
     }
 
-    public function processQuery($response)
+    public function processQuery($response, $source)
     {
+        echo $response;
+        die;
+
         $html = str_get_html(iconv('Windows-1251', 'UTF-8', $response));
 
         if ($html->find('.messagebox', 0) !== null && $html->find('.messagebox', 0)->innertext == 'Извините, такого пользователя не существует')
@@ -68,7 +71,7 @@ class OsinkaParser
         $icq = $icqVal->innertext = '&nbsp;' ? null : $icqVal->innerText;
 
         $model = new SiteEmail();
-        $attributes = compact('name', 'registered', 'messagesCount', 'from', 'occupation', 'site', 'interests', 'birthday', 'zodiac', 'avatar', 'email', 'icq');
+        $attributes = compact('name', 'registered', 'messagesCount', 'from', 'occupation', 'site', 'interests', 'birthday', 'zodiac', 'avatar', 'email', 'icq', 'source');
         $model->initSoftAttributes(array_keys($attributes));
         foreach ($attributes as $a => $v)
             $model->$a = $v;

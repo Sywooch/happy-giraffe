@@ -40,14 +40,14 @@ class ProxyParserThread
 
     protected function getProxy()
     {
-        //$this->startTimer('find proxy');
+        $this->startTimer('find proxy');
         $this->proxy = ProxyMongo::model()->getProxy();
-        //$this->endTimer();
+        $this->endTimer();
     }
 
     protected function query($url, $ref = null, $post = false, $attempt = 0)
     {
-        //$this->log('start curl');
+        $this->log('start curl');
         if ($ch = curl_init($url)) {
             curl_setopt($ch, CURLOPT_USERAGENT, 'User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:18.0) Gecko/20100101 Firefox/18.0');
             if ($post) {
@@ -99,7 +99,7 @@ class ProxyParserThread
                     $this->changeBadProxy(0);
                     return $this->query($url, $ref, $post, $attempt);
                 }
-                //$this->log('page loaded by curl');
+                $this->log('page loaded by curl');
                 return $content;
             }
         }
@@ -109,7 +109,7 @@ class ProxyParserThread
 
     protected function changeBadProxy($rank = null)
     {
-        //$this->log('Change bad proxy');
+        $this->log('Change bad proxy');
         if (!$rank)
             $rank = floor((($this->proxy['rank'] + $this->success_loads) / 5) * 4);
 
@@ -125,7 +125,7 @@ class ProxyParserThread
 
     protected function changeBannedProxy()
     {
-        //$this->log('Change proxy');
+        $this->log('Change proxy');
         ProxyMongo::model()->updateProxyRank($this->proxy, 0);
         $this->getProxy();
         $this->success_loads = 0;

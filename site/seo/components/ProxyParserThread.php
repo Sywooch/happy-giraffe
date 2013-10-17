@@ -47,8 +47,6 @@ class ProxyParserThread
 
     protected function query($url, $ref = null, $post = false, $attempt = 0)
     {
-        die;
-        //$this->log('start curl');
         if ($ch = curl_init($url)) {
             curl_setopt($ch, CURLOPT_USERAGENT, 'User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:18.0) Gecko/20100101 Firefox/18.0');
             if ($post) {
@@ -80,6 +78,9 @@ class ProxyParserThread
                 curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
             }
             $content = curl_exec($ch);
+
+            var_dump($content);
+            die;
 
             if ($content === false) {
                 $attempt += 1;

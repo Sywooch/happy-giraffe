@@ -23,8 +23,6 @@ class OsinkaParser extends ProxyParserThread
             $url = 'http://club.osinka.ru/profile.php?mode=viewprofile&u=' . $i;
             $response = $this->query($url);
             $this->processQuery($response, $url);
-
-            echo $i . "\n";
         }
     }
 

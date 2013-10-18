@@ -9,6 +9,11 @@
 
 class OsinkaParser extends ProxyParserThread
 {
+    public function __construct()
+    {
+        $this->getProxy();
+    }
+
     public function start()
     {
         SiteEmail::model()->deleteAll();

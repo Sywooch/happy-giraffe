@@ -16,9 +16,9 @@ require_once(Yii::getPathOfAlias('site.frontend.vendor.simplehtmldom_1_5') . DIR
 
 class EmailParsingCommand extends CConsoleCommand
 {
-    public function actionOsinka()
+    public function actionOsinka($threadId)
     {
-        $parser = new OsinkaParser();
+        $parser = new OsinkaParser($threadId);
         $parser->start();
     }
 }

@@ -9,16 +9,17 @@
 
 class OsinkaParser extends ProxyParserThread
 {
-    public function __construct()
+    public $threadId;
+
+    public function __construct($threadId)
     {
+        $this->threadId = $threadId;
         $this->getProxy();
     }
 
     public function start()
     {
-        SiteEmail::model()->deleteAll();
-
-        for ($i = 1; $i < 331750; $i++) {
+        for ($i = $this->threadId; $i < 331750; $i += 100) {
             $url = 'http://club.osinka.ru/profile.php?mode=viewprofile&u=' . $i;
             $response = $this->query($url);
             $this->processQuery($response, $url);

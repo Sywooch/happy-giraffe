@@ -28,59 +28,57 @@ class OsinkaParser extends ProxyParserThread
 
     public function processQuery($response, $source)
     {
-        try {
-            $html = str_get_html(iconv('Windows-1251', 'UTF-8', $response));
+        $html = str_get_html(iconv('Windows-1251', 'UTF-8', $response));
 
-            if ($html->find('.messagebox', 0) !== null && $html->find('.messagebox', 0)->innertext == 'Извините, такого пользователя не существует')
-                return false;
+        if ($html->find('.messagebox', 0) !== null && $html->find('.messagebox', 0)->innertext == 'Извините, такого пользователя не существует')
+            return false;
 
-            $table = $html->find('table.forumline', 0);
-            $name = str_replace('Профиль пользователя ', '', $table->find('th', 0)->innertext);
+        $table = $html->find('table.forumline', 0);
+        if ($table->find('th', 0) === null)
+            return false;
+        $name = str_replace('Профиль пользователя ', '', $table->find('th', 0)->innertext);
 
-            //contacts
-            $contactsTable = end($table->find('table'));
+        //contacts
+        $contactsTable = end($table->find('table'));
 
-            $emailVal = $contactsTable->find('td', 1)->find('b', 0);
-            $email = $emailVal->innertext == '&nbsp;' ? null : str_replace('mailto:', '', $emailVal->find('a', 0)->getAttribute('href'));
-            if ($email === null)
-                return true;
+        $emailVal = $contactsTable->find('td', 1)->find('b', 0);
+        $email = $emailVal->innertext == '&nbsp;' ? null : str_replace('mailto:', '', $emailVal->find('a', 0)->getAttribute('href'));
+        if ($email === null)
+            return true;
 
-            $icqVal = $contactsTable->find('td', 5)->find('b', 0);
-            $icq = $icqVal->innertext = '&nbsp;' ? null : $icqVal->innerText;
+        $icqVal = $contactsTable->find('td', 5)->find('b', 0);
+        $icq = $icqVal->innertext = '&nbsp;' ? null : $icqVal->innerText;
 
-            //profile
-            $profileTable = $table->find('table', 0);
-            $registered = $profileTable->find('td', 1)->find('b', 0)->innertext;
-            $messagesCount = $profileTable->find('td', 3)->find('b', 0)->innertext;
+        //profile
+        $profileTable = $table->find('table', 0);
+        $registered = $profileTable->find('td', 1)->find('b', 0)->innertext;
+        $messagesCount = $profileTable->find('td', 3)->find('b', 0)->innertext;
 
-            $fromVal = $profileTable->find('td', 7)->find('b', 0)->find('a', 0);
-            $from = $fromVal->innertext == '&nbsp;' ? null : $fromVal->innertext;
+        $fromVal = $profileTable->find('td', 7)->find('b', 0)->find('a', 0);
+        $from = $fromVal->innertext == '&nbsp;' ? null : $fromVal->innertext;
 
-            $occupationVal = $profileTable->find('td', 9)->find('b', 0);
-            $occupation = $occupationVal->innertext == '&nbsp;' ? null : $occupationVal->innertext;
+        $occupationVal = $profileTable->find('td', 9)->find('b', 0);
+        $occupation = $occupationVal->innertext == '&nbsp;' ? null : $occupationVal->innertext;
 
-            $siteVal = $profileTable->find('td', 11)->find('b', 0);
-            $site = $siteVal->innertext == '&nbsp;' ? null : $siteVal->find('a', 0)->innertext;
+        $siteVal = $profileTable->find('td', 11)->find('b', 0);
+        $site = $siteVal->innertext == '&nbsp;' ? null : $siteVal->find('a', 0)->innertext;
 
-            $interests = $profileTable->find('td', 13)->innertext == '&nbsp;' ? null : $profileTable->find('td', 13)->innertext;
+        $interests = $profileTable->find('td', 13)->innertext == '&nbsp;' ? null : $profileTable->find('td', 13)->innertext;
 
-            $birthdayVal = $profileTable->find('td', 15)->find('b', 0)->find('span', 0);
-            $birthday = $birthdayVal->innertext == 'Не указан' ? null : $birthdayVal->innertext;
+        $birthdayVal = $profileTable->find('td', 15)->find('b', 0)->find('span', 0);
+        $birthday = $birthdayVal->innertext == 'Не указан' ? null : $birthdayVal->innertext;
 
-            $zodiacVal = $profileTable->find('td', 17)->find('b', 0);
-            $zodiac = $zodiacVal->innertext == '&nbsp;' ? null : $zodiacVal->find('img', 0)->getAttribute('alt');
+        $zodiacVal = $profileTable->find('td', 17)->find('b', 0);
+        $zodiac = $zodiacVal->innertext == '&nbsp;' ? null : $zodiacVal->find('img', 0)->getAttribute('alt');
 
-            $avatar = $html->find('img.bdr', 0)->getAttribute('src');
+        $avatar = $html->find('img.bdr', 0)->getAttribute('src');
 
-            $model = new SiteEmail();
-            $attributes = compact('name', 'registered', 'messagesCount', 'from', 'occupation', 'site', 'interests', 'birthday', 'zodiac', 'avatar', 'email', 'icq', 'source');
-            $model->initSoftAttributes(array_keys($attributes));
-            foreach ($attributes as $a => $v)
-                $model->$a = $v;
-            return $model->save();
-        } catch (Exception $e) {
-            $this->log($source . "\n");
-        }
+        $model = new SiteEmail();
+        $attributes = compact('name', 'registered', 'messagesCount', 'from', 'occupation', 'site', 'interests', 'birthday', 'zodiac', 'avatar', 'email', 'icq', 'source');
+        $model->initSoftAttributes(array_keys($attributes));
+        foreach ($attributes as $a => $v)
+            $model->$a = $v;
+        return $model->save();
     }
 
 //    public function query($url)

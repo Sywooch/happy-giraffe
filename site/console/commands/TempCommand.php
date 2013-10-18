@@ -37,6 +37,7 @@ class TempCommand extends CConsoleCommand
 
     public function actionAddProxy()
     {
+        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
         Yii::import('site.seo.models.mongo.*');
 
         $a = array (

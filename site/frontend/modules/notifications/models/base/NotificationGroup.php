@@ -176,7 +176,14 @@ class NotificationGroup extends Notification
         if (!isset($comment_id))
             return '';
 
+        if ($this->entity_id == 103562 && $this->entity == 'BlogContent')
+            var_dump('comment_id: ' . $comment_id);
+
         $comment = Comment::model()->findByPk($comment_id);
+
+        if ($this->entity_id == 103562 && $this->entity == 'BlogContent')
+            var_dump($comment);
+
         if ($comment === null)
             return '';
         return $comment->getUrl();

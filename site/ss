@@ -904,3 +904,10 @@ source albumPhotoSource : src
  11 Disallow: /search
  12 Disallow: /messaging
  13 Sitemap: http://www.happy-giraffe.ru/sitemap.xml
+
+#!/bin/bash
+
+for i in {0..100}
+do
+    /var/www/happy-giraffe.ru/deploy/test/site/yiic emailParsing --threadId=$i &
+done

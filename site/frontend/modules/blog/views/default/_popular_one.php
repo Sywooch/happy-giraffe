@@ -29,7 +29,7 @@
     <div class="fast-articles2_i-desc"><?= $b->getContentText(100, '') ?></div>
     <?php if ($b->type_id == 3): ?>
         <div class="fast-articles2_i-img-hold">
-            <?php $this->widget('PhotoCollectionViewWidget', array('width' => 190, 'maxHeight' => 100, 'maxRows' => 2, 'minPhotos' => 1, 'borderSize' => 1, 'collection' => new PhotoPostPhotoCollection(array('contentId' => $b->id)))); ?>
+            <?php $this->widget('PhotoCollectionViewWidget', array('width' => 205, 'maxHeight' => 100, 'maxRows' => 2, 'minPhotos' => 1, 'borderSize' => 1, 'collection' => new PhotoPostPhotoCollection(array('contentId' => $b->id)))); ?>
         </div>
     <?php else: ?>
         <?php $photo = $b->getPhoto() ?>

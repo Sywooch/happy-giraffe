@@ -31,7 +31,7 @@ class ProxyParserThread
 
     function __construct()
     {
-        //time_nanosleep(rand(0, 30), rand(0, 1000000000));
+        time_nanosleep(rand(0, 30), rand(0, 1000000000));
         Yii::import('site.frontend.extensions.phpQuery.phpQuery');
         $this->thread_id = rand(1, 1000000);
         $this->removeCookieFile();
@@ -78,9 +78,6 @@ class ProxyParserThread
                 curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
             }
             $content = curl_exec($ch);
-
-            var_dump($content);
-            die;
 
             if ($content === false) {
                 $attempt += 1;

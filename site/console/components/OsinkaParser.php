@@ -34,15 +34,16 @@ class OsinkaParser extends ProxyParserThread
             return false;
 
         $table = $html->find('table.forumline', 0);
-        if ($table->find('th', 0) === null)
+        if ($table === null)
             return false;
+
         $name = str_replace('Профиль пользователя ', '', $table->find('th', 0)->innertext);
 
         //contacts
         $contactsTable = end($table->find('table'));
 
         $emailVal = $contactsTable->find('td', 1)->find('b', 0);
-        $email = $emailVal->innertext == '&nbsp;' ? null : str_replace('mailto:', '', $emailVal->find('a', 0)->getAttribute('href'));
+        $email = $emailVal->innertext == '&nbsp;' || $emailVal === null ? null : str_replace('mailto:', '', $emailVal->find('a', 0)->getAttribute('href'));
         if ($email === null)
             return true;
 
@@ -69,7 +70,7 @@ class OsinkaParser extends ProxyParserThread
         $birthday = $birthdayVal->innertext == 'Не указан' ? null : $birthdayVal->innertext;
 
         $zodiacVal = $profileTable->find('td', 17)->find('b', 0);
-        $zodiac = $zodiacVal->innertext == '&nbsp;' ? null : $zodiacVal->find('img', 0)->getAttribute('alt');
+        $zodiac = $zodiacVal->innertext == '&nbsp;' || $zodiacVal->find('img', 0) === null ? null : $zodiacVal->find('img', 0)->getAttribute('alt');
 
         $avatar = $html->find('img.bdr', 0)->getAttribute('src');
 

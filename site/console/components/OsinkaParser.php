@@ -34,7 +34,7 @@ class OsinkaParser extends ProxyParserThread
             return false;
 
         $table = $html->find('table.forumline', 0);
-        if ($table->find('th', 0) === null)
+        if ($table === null || $table->find('th', 0) === null)
             return false;
         $name = str_replace('Профиль пользователя ', '', $table->find('th', 0)->innertext);
 

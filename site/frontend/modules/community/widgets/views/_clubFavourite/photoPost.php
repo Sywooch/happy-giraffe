@@ -28,7 +28,7 @@
             <div class="such-post_author">
                 <?php $this->widget('Avatar', array('user' => $post->by_happy_giraffe ? User::model()->findByPk(1) : $post->author, 'size' => 40)); ?>
                 <a href="<?=$post->author->getUrl()?>" class="such-post_author-name"><?=$post->author->getFullName()?></a>
-                <div class="such-post_date"><?=HDate::GetFormattedTime($date->created)?></div>
+                <div class="such-post_date"><?=HDate::GetFormattedTime($post->created)?></div>
             </div>
 
         </div>

@@ -528,12 +528,13 @@ class AjaxController extends HController
 
     public function actionToggleFavourites()
     {
-        if (Yii::app()->user->checkAccess('manageFavourites')) {
+        $modelName = Yii::app()->request->getPost('entity');
+        $modelPk = Yii::app()->request->getPost('entity_id');
+        $index = Yii::app()->request->getPost('num');
+        $param = Yii::app()->request->getPost('param');
+
+        if ((Yii::app()->user->checkAccess('clubFavourites') && $index == Favourites::CLUB_MORE) || Yii::app()->user->checkAccess('manageFavourites') && $index != Favourites::CLUB_MORE) {
             Yii::import('site.frontend.modules.cook.components.*');
-            $modelName = Yii::app()->request->getPost('entity');
-            $modelPk = Yii::app()->request->getPost('entity_id');
-            $index = Yii::app()->request->getPost('num');
-            $param = Yii::app()->request->getPost('param');
 
             $model = $modelName::model()->findByPk($modelPk);
             $success = false;

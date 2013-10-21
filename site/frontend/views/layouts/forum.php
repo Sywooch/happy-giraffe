@@ -39,9 +39,7 @@
 
         <?php $this->renderPartial('_rubrics', array('rubrics'=>$this->forum->rootRubrics)); ?>
 
-        <?php if (false): ?>
-            <?php $this->widget('CommunityPopularWidget', array('club' => $this->club)); ?>
-        <?php endif; ?>
+        <?php $this->widget('CommunityPopularWidget', array('club' => $this->club)); ?>
 
         <?php if ($this->action->id == 'view'): ?>
             <div class="banner">

@@ -96,11 +96,12 @@ if ($full) {
         <?php $this->widget('application.widgets.newCommentWidget.NewCommentWidget', array('model' => $data, 'full' => $full)); ?>
         <!-- /ko -->
     </div>
-
-    <?php if ($full): ?>
-        <?php $this->widget('CommunityMoreWidget', array('content' => $data)); ?>
-    <?php endif; ?>
 </div>
+
+<?php if (false && $full): ?>
+    <?php $this->widget('CommunityMoreWidget', array('content' => $data)); ?>
+<?php endif; ?>
+
 <?php $this->widget('application.widgets.seo.SeoLinksWidget'); ?>
 
 <?php if ($full): ?>

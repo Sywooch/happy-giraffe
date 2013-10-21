@@ -140,7 +140,7 @@ class CommunityClub extends HActiveRecord
         return User::model()->findAllByPk($club_moders);
     }
 
-    public function getFavourites($type)
+    public function getFavourites($type = null)
     {
         $criteria = new CDbCriteria();
         $criteria->order = 't.created DESC';

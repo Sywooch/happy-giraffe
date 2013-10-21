@@ -36,7 +36,7 @@
         <?php if ($photo !== null): ?>
             <div class="fast-articles2_i-img-hold">
                 <a href="<?= $b->url ?>">
-                    <img src="<?= $photo->getPreviewUrl(190, 300, Image::WIDTH) ?>"alt="" class="fast-articles2_i-img">
+                    <img src="<?= $photo->getPreviewUrl(205, 300, Image::WIDTH) ?>"alt="" class="fast-articles2_i-img">
                 </a>
             </div>
         <?php endif ?>

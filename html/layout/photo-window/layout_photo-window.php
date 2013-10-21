@@ -6,6 +6,54 @@
 <head>
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/head.php'; ?>
 
+
+
+<script>
+/* Height block comment scroll in photo-window */
+function commentSrcH () {
+	var comment = $(".comments-gray_hold");
+	var bannerH = document.getElementById('photo-window_banner').offsetHeight;
+	comment.height($(window).height() - bannerH - 93);
+
+}
+
+/* Позиция блока с лайками */
+function likePos () {
+	var likeBottom = ($('.photo-window_img-hold').height() - $('.photo-window_img').height()) / 2 + 30;
+	$('.like-control').css({'bottom' : likeBottom});
+}
+
+$(document).ready(function () {
+	commentSrcH();
+	likePos();
+
+	/* Сворачивается блок с рекламой, подгружаются оосбщения, обновляется позиция скролла */
+	$('.comments-gray_t .a-pseudo-icon__blue').click(function(){
+		$('.photo-window_banner').slideToggle("slow", function() {
+			commentSrcH();
+			});
+		
+		return false;
+	})
+});
+$(window).resize(function () {
+	commentSrcH();
+	likePos();
+});
+
+/* Кастомный скролл */
+window.onload = function() {
+  /* custom scroll */
+  var scroll = $('.scroll').baron({
+    scroller: '.scroll_scroller',
+    container: '.scroll_cont',
+    track: '.scroll_bar-hold',
+    bar: '.scroll_bar'
+  });
+  
+}
+
+</script>
 </head>
 <body class="body-club" style="overflow:hidden;">
 
@@ -31,17 +79,46 @@
 		<div class="b-user-small float-l">
 			<a href="" class="ava small male"></a>
 			<div class="b-user-small_hold">
-				<a href="" class="b-user-small_name">Регина <br>Поплавская</a>
+				<a href="" class="b-user-small_name">Регина</a>
 				<div class="b-user-small_date">16 июн 2013</div>
 			</div>
 		</div>
 		<div class="photo-window_top-hold">
+			<div class="photo-window_edit">
+				<a class="ico-edit ico-edit__light powertip" href=""></a>
+			</div>
+			<div class="photo-window_t">
 			<div class="photo-window_count">25 фото из 52</div>
-			<div class="photo-window_t">Детский лагерь «Зеркальный». Ленинградская область. Ленинградская область. Ленинградская область. Ленинградская область. Ленинградская область.</div>
+			Детский лагерь «Зеркальный». Ленинградская область. Ленинградская область. Ленинградская область. Ленинградская область. Ленинградская область.
+			</div>
+		</div>
+		<div class="photo-window_desc-hold">
+			<script type="text/javascript">
+			$(document).ready(function () {
+				$('.photo-window_desc-hold').click(function(){
+					$(this).toggleClass('active');
+				});
+			});
+			</script>
+			<div class="photo-window_desc clearfix">
+				<span class="photo-window_edit">
+					<a class="ico-edit ico-edit__light powertip" href=""></a>
+				</span>
+				<div class="photo-window_desc-tx">
+					<p>В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, спокойные игры  В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, эстафеты, соревнования В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, эстафеты и спокойные игры.</p>
+				</div>
+				<span class="photo-window_desc-more"> <a href="javascript:void(0)" >Читать полностью</a></span>
+
+				
+			</div>
+			<div class="photo-window_desc photo-window_desc__full clearfix">
+				<p>В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, спокойные игры  В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, эстафеты, соревнования В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, эстафеты и спокойные игры.  </p>
+				<span class="photo-window_desc-more"> <a href="javascript:void(0)" >Кратко</a></span>
+			</div>
 		</div>
 		
 	</div>
-	<!-- Обрабатывать клик на юphoto-window_c для листания следующего изображения -->
+	<!-- Обрабатывать клик на .photo-window_c для листания следующего изображения -->
 	<div class="photo-window_c">
 		<div class="photo-window_img-hold">
 			<img src="/images/example/w960-h537-1.jpg" alt="" class="photo-window_img">
@@ -93,159 +170,130 @@
         </div>
 	</div>
 	
-	<div class="photo-window_bottom">
-		<script type="text/javascript">
-		$(document).ready(function () {
-			$('.photo-window_bottom').click(function(){
-				$(this).toggleClass('active');
-			});
-		});
-		</script>
-		<div class="photo-window_desc">
-			<p>В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, спокойные игры <span class="photo-window_desc-more"> ... <a href="javascript:void(0)" >Читать полностью</a> <br></span> В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, эстафеты, соревнования</p>
-			<p>В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, эстафеты и спокойные игры.  <a href="javascript:void(0)" class="">Кратко</a> </p>
-		</div>
-	</div>
+
 
 	<div class="photo-window_r">
-		
+		<div id="photo-window_banner" class="photo-window_banner clearfix">
+			<img src="/images/example/w300-h250.jpg" alt="">
+		</div>
 		<div class="comments-gray">
 			<div class="comments-gray_t">
+				<div class="float-r">
+					<a href="" class="a-pseudo-icon a-pseudo-icon__blue">
+						<span class="a-pseudo-icon_tx">Показать все</span>
+						<span class="i-arrow-t"></span>
+					</a>
+				</div>
 				<span class="comments-gray_t-a-tx">Все комментарии (28)</span>
 			</div>
-			<div class="comments-gray_hold">
-				<div class="comments-gray_i comments-gray_i__self">
-					<div class="comments-gray_ava">
-						<a href="" class="ava small male"></a>
-					</div>
-					<div class="comments-gray_frame">
-						<div class="comments-gray_header clearfix">
-							<a href="" class="comments-gray_author">Ангелина Богоявленская </a>
-							<span class="font-smallest color-gray">Сегодня 13:25</span>
-						</div>
-						<div class="comments-gray_cont wysiwyg-content">
-							<p>	Мне безумно жалко всех женщин, но особенно Тину Кароль, я просто представить себе не могу <a href="">как она все это переживет</a> как она все это переживет(</p>
-							<p>я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.  я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически </p>
-						</div>
-					</div>
-					<div class="comments-gray_control comments-gray_control__self">
-						<div class="comments-gray_control-hold">
-							<div class="clearfix">
+			<div class="scroll ">
+				<div class="scroll_scroller comments-gray_hold">
+				
+				
+					<div class="scroll_cont">
+						<div class="comments-gray_i comments-gray_i__self">
+							<div class="comments-gray_ava">
+								<a href="" class="ava small male"></a>
+							</div>
+							<div class="comments-gray_control">
 								<a href="" class="message-ico message-ico__edit powertip" title="Редактировать"></a>
-							</div>
-							<div class="clearfix">
 								<a href="" class="message-ico message-ico__del powertip" title="Удалить"></a>
 							</div>
-						</div>
-					</div>
-				</div>
-				<div class="comments-gray_i">
-					<a href="" class="comments-gray_like like-hg-small powertip" title="Нравится">78</a>
-					<div class="comments-gray_ava">
-						<a href="" class="ava small female"></a>
-					</div>
-					<div class="comments-gray_frame">
-						<div class="comments-gray_header clearfix">
-							<a href="" class="comments-gray_author">Анг Богоявлен </a>
-							<span class="font-smallest color-gray">Сегодня 14:25</span>
-						</div>
-						<div class="comments-gray_cont wysiwyg-content">
-							<p>я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.  я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически </p>
-						</div>
-					</div>
-					
-					<div class="comments-gray_control">
-						<div class="comments-gray_control-hold">
-							<div class="clearfix">
-								<a href="" class="comments-gray_quote-ico powertip" title="Ответить"></a>
+							<div class="comments-gray_frame">
+								<div class="comments-gray_header clearfix">
+									<a href="" class="comments-gray_author">Ангелина Богоявленская </a> <br>
+									<span class="font-smallest color-gray">Сегодня 13:25</span>
+									<a href="" class="comments-gray_like like-hg-small powertip" title="Нравится">78</a>
+								</div>
+								<div class="comments-gray_cont wysiwyg-content">
+									<p>	Мне безумно жалко всех женщин, но особенно Тину Кароль, я просто представить себе не могу <a href="">как она все это переживет</a> как она все это переживет(</p>
+									<p>я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.  я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически </p>
+								</div>
 							</div>
-							<div class="clearfix">
+						</div>
+						<div class="comments-gray_i">
+							<div class="comments-gray_ava">
+								<a href="" class="ava small female"></a>
+							</div>
+							<div class="comments-gray_control">
+								<a href="" class="comments-gray_quote-ico powertip" title="Ответить"></a>
 								<a href="" class="message-ico message-ico__del powertip" title="Удалить"></a>
+								<a href="" class="message-ico message-ico__warning powertip" title="Пожаловаться"></a>
+							</div>
+							<div class="comments-gray_frame">
+								<div class="comments-gray_header clearfix">
+									<a href="" class="comments-gray_author">Анг Богоявлен </a> <br>
+									<span class="font-smallest color-gray">Сегодня 14:25</span>
+									<a href="" class="comments-gray_like like-hg-small powertip" title="Нравится">78</a>
+								</div>
+								<div class="comments-gray_cont wysiwyg-content">
+									<p>я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.  я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически </p>
+								</div>
 							</div>
 						</div>
-						<div class="clearfix">
-							<a href="" class="message-ico message-ico__warning powertip" title="Пожаловаться"></a>
-						</div>
-					</div>
-				</div>
-				<div class="comments-gray_i">
-					<a href="" class="comments-gray_like like-hg-small powertip" title="Нравится">7918</a>
-					<div class="comments-gray_ava">
-						<a href="" class="ava small female"></a>
-					</div>
-					<div class="comments-gray_frame">
-						<div class="comments-gray_header clearfix">
-							<a href="" class="comments-gray_author">Анг Богоявлен </a>
-							<span class="font-smallest color-gray">Сегодня 14:25</span>
-						</div>
-						<div class="comments-gray_cont wysiwyg-content">
-							<p>я не нашел, где можно поменять название трека. </p>
-						</div>
-					</div>
-					
-					<div class="comments-gray_control">
-						<div class="comments-gray_control-hold">
-							<div class="clearfix">
+						<div class="comments-gray_i">
+							<div class="comments-gray_ava">
+								<a href="" class="ava small female"></a>
+							</div>
+							<div class="comments-gray_control">
 								<a href="" class="comments-gray_quote-ico powertip" title="Ответить"></a>
+								<a href="" class="message-ico message-ico__warning powertip" title="Пожаловаться"></a>
 							</div>
-							<div class="clearfix">
-								<a href="" class="message-ico message-ico__del powertip" title="Удалить"></a>
+							<div class="comments-gray_frame">
+								<div class="comments-gray_header clearfix">
+									<a href="" class="comments-gray_author">Анг Богоявлен </a> <br>
+									<span class="font-smallest color-gray">Сегодня 14:25</span>
+									<a href="" class="comments-gray_like like-hg-small powertip" title="Нравится">78</a>
+								</div>
+								<div class="comments-gray_cont wysiwyg-content">
+									<p>я не нашел, где можно поменять название трека. </p>
+								</div>
+							</div>
+							
+						</div>
+						
+						<div class="comments-gray_i comments-gray_i__recovery">
+							<div class="comments-gray_ava">
+								<a href="" class="ava small female"></a>
+							</div>
+							<div class="comments-gray_frame">
+								<div class="comments-gray_header clearfix">
+									<a href="" class="comments-gray_author">Анг Богоявлен </a> <br>
+									<span class="font-smallest color-gray">Сегодня 14:25</span>
+								</div>
+								<div class="comments-gray_cont wysiwyg-content">
+									<p>Комментарий успешно удален.<a href="" class="comments-gray_a-recovery">Восстановить?</a> </p>
+								</div>
 							</div>
 						</div>
-						<div class="clearfix">
-							<a href="" class="message-ico message-ico__warning powertip" title="Пожаловаться"></a>
-						</div>
-					</div>
-				</div>
-				
-				<div class="comments-gray_i comments-gray_i__recovery">
-					<div class="comments-gray_ava">
-						<a href="" class="ava small female"></a>
-					</div>
-					<div class="comments-gray_frame">
-						<div class="comments-gray_header clearfix">
-							<a href="" class="comments-gray_author">Анг Богоявлен </a>
-							<span class="font-smallest color-gray">Сегодня 14:25</span>
-						</div>
-						<div class="comments-gray_cont wysiwyg-content">
-							<p>Комментарий успешно удален.<a href="" class="comments-gray_a-recovery">Восстановить?</a> </p>
-						</div>
-					</div>
-				</div>
-				
-				<div class="comments-gray_i">
-					<a href="" class="comments-gray_like like-hg-small powertip" title="Нравится">78</a>
-					<div class="comments-gray_ava">
-						<a href="" class="ava small female"></a>
-					</div>
-					<div class="comments-gray_frame">
-						<div class="comments-gray_header clearfix">
-							<a href="" class="comments-gray_author">Анг Богоявлен </a>
-							<span class="font-smallest color-gray">Сегодня 14:25</span>
-						</div>
-						<div class="comments-gray_cont wysiwyg-content">
-							<p>я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически производит поиск по сайту </p>
-							<p>и подцепляет естественно студийные версии песен вместо нужных.  я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически </p>
-						</div>
-					</div>
-					
-					<div class="comments-gray_control">
-						<div class="comments-gray_control-hold">
-							<div class="clearfix">
+						
+						<div class="comments-gray_i">
+							<div class="comments-gray_ava">
+								<a href="" class="ava small female"></a>
+							</div>
+							<div class="comments-gray_control">
 								<a href="" class="comments-gray_quote-ico powertip" title="Ответить"></a>
+								<a href="" class="message-ico message-ico__warning powertip" title="Пожаловаться"></a>
 							</div>
-						</div>
-						<div class="clearfix">
-							<a href="" class="message-ico message-ico__warning powertip" title="Пожаловаться"></a>
+							<div class="comments-gray_frame">
+								<div class="comments-gray_header clearfix">
+									<a href="" class="comments-gray_author">Анг Богоявлен </a> <br>
+									<span class="font-smallest color-gray">Сегодня 14:25</span>
+									<a href="" class="comments-gray_like like-hg-small powertip" title="Нравится">78</a>
+								</div>
+								<div class="comments-gray_cont wysiwyg-content">
+									<p>я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически производит поиск по сайту </p>
+									<p>и подцепляет естественно студийные версии песен вместо нужных.  я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически </p>
+								</div>
+							</div>
+							
 						</div>
 					</div>
 				</div>
+				<div class="scroll_bar-hold">
+		            <div class="scroll_bar"></div>
+		        </div>
 			</div>
-		</div>
-	</div>
-	<div class="photo-window_banner">
-		
-		<div class="comments-gray">
 			<div class="comments-gray_add clearfix">
 				
 				<div class="comments-gray_ava">
@@ -256,11 +304,8 @@
 				</div>
 			</div>
 		</div>
-		
-		<div class="photo-window_banner-hold clearfix">
-			<img src="/images/example/w300-h250.jpg" alt="">
-		</div>
 	</div>
+
 </div>
 </div>
 

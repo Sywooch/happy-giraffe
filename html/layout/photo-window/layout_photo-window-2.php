@@ -5,7 +5,53 @@
 <!--[if gt IE 9]><!--> <html class=""> <!--<![endif]-->
 <head>
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/head.php'; ?>
+	
+<script>
+/* Height block comment scroll in photo-window */
+function commentSrcH () {
+	var comment = $(".comments-gray_hold");
+	var bannerH = document.getElementById('photo-window_banner').offsetHeight;
+	comment.height($(window).height() - bannerH - 93);
+}
 
+/* Позиция блока с лайками */
+function likePos () {
+	var likeBottom = ($('.photo-window_img-hold').height() - $('.photo-window_img').height()) / 2 + 30;
+	$('.like-control').css({'bottom' : likeBottom});
+	console.log(likeBottom);
+}
+
+$(document).ready(function () {
+	commentSrcH();
+	likePos();
+
+	/* Сворачивается блок с рекламой, подгружаются оосбщения, обновляется позиция скролла */
+	$('.comments-gray_t .a-pseudo-icon__blue').click(function(){
+		$('.photo-window_banner').slideToggle("slow", function() {
+			commentSrcH();
+			});
+		
+		return false;
+	})
+});
+$(window).resize(function () {
+	commentSrcH();
+	likePos();
+});
+
+/* Кастомный скролл */
+window.onload = function() {
+  /* custom scroll */
+  var scroll = $('.scroll').baron({
+    scroller: '.scroll_scroller',
+    container: '.scroll_cont',
+    track: '.scroll_bar-hold',
+    bar: '.scroll_bar'
+  });
+  
+}
+
+</script>
 </head>
 <body class="body-club" style="overflow:hidden;">
 
@@ -31,40 +77,45 @@
 		<div class="b-user-small float-l">
 			<a href="" class="ava small male"></a>
 			<div class="b-user-small_hold">
-				<a href="" class="b-user-small_name">Регина <br>Поплавская</a>
+				<a href="" class="b-user-small_name">Регина</a>
 				<div class="b-user-small_date">16 июн 2013</div>
 			</div>
 		</div>
 		<div class="photo-window_top-hold">
-			<div class="photo-window_count">25 фото из 52</div>
-			<div class="photo-window_t clearfix">
-				<div class="display-ib w-50p margin-t5">
-					<input type="text" class="itx-simple" id="" name="" placeholder="Введите заголовок фото">
-				</div>
-				<!--  
-				Если нужно ограничение в количестве символов
-				<div class="display-ib color-gray font-small">5/50</div>
-				-->
-				<button class="btn-green btn-small margin-l10">Ok</button>
+			<div class="photo-window_t">
+				<input type="text" name="" id="" class="itx-simple" placeholder="Введите заголовок фото, и нажмите Enter">
 			</div>
+		</div>
+		<div class="photo-window_desc-hold">
+			
+			<textarea name="" id="" cols="30" rows="1" class="itx-simple photo-window_desc-text" id="photo-window_desc-text" placeholder="Введите описание фото, и нажмите Enter"></textarea>
+			<script>
+$(document).ready(function () { 
+  $('.photo-window_desc-text').redactor({
+      minHeight: 37,
+      autoresize: true,
+      buttons: [],
+      focus: true
+  });
+});
+			</script>
 		</div>
 		
 	</div>
-	<!-- Обрабатывать клик на юphoto-window_c для листания следующего изображения -->
+	<!-- Обрабатывать клик на .photo-window_c для листания следующего изображения -->
 	<div class="photo-window_c">
 		<div class="photo-window_img-hold">
-			<img src="/images/example/photo-window-1.jpg" alt="" class="photo-window_img">
+			<img src="/images/example/w960-h537-1.jpg" alt="" class="photo-window_img">
 			<div class="verticalalign-m-help"></div>
 		</div>
 		<a href="#photo-window-end" class="photo-window_arrow photo-window_arrow__l fancy" data-theme="white-simple"></a>
 		<a href="#photo-window-end" class="photo-window_arrow photo-window_arrow__r fancy" data-theme="white-simple"></a>
 		
-		
         <div class="like-control clearfix">
             <a href="" class="like-control_ico like-control_ico__like">865</a>
             <div class="position-rel float-l">
 				<a class="favorites-control_a" href="">12365</a>
-				<!-- <div class="favorites-add-popup favorites-add-popup__right">
+				<div class="favorites-add-popup favorites-add-popup__br">
 					<div class="favorites-add-popup_t">Добавить запись в избранное</div>
 					<div class="favorites-add-popup_i clearfix">
 						<img src="/images/example/w60-h40.jpg" alt="" class="favorites-add-popup_i-img">
@@ -98,177 +149,135 @@
 						<a href="" class="btn-gray-light">Отменить</a>
 						<a href="" class="btn-green">Добавить</a>
 					</div>
-				</div> -->
+				</div>
 			</div>
         </div>
 	</div>
 	
-	<div class="photo-window_bottom">
-		<div class="display-ib w-500 verticalalign-b">
-			
-			<textarea name="" id="" cols="30" rows="2" class="itx-simple" placeholder="Введите описание фото"></textarea>
-		</div>
-		<button class="btn-green btn-small margin-l10 verticalalign-b">Ok</button>
-		<!--
-		<script type="text/javascript">
-		$(document).ready(function () {
-			$('.photo-window_bottom').click(function(){
-				$(this).toggleClass('active');
-			});
-		});
-		</script>
-		-->
-		<!-- <div class="photo-window_desc">
-			<p>В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, спокойные игры <span class="photo-window_desc-more"> ... <a href="javascript:void(0)" >Читать полностью</a> </span></p>
-		</div>
-		<div class="photo-window_desc photo-window_desc__full">
-			<p>В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, спокойные игры В круглогодичном лечебно-развлекательном лагере</p>
-			<p>В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, эстафеты и спокойные игры.  <a href="javascript:void(0)" class="">Кратко</a> </p>
-		</div> -->
-	</div>
 
-	<div class="photo-window_right">
-		
-		<div class="photo-window_banner-hold clearfix">
+
+	<div class="photo-window_r">
+		<div id="photo-window_banner" class="photo-window_banner clearfix">
 			<img src="/images/example/w300-h250.jpg" alt="">
 		</div>
 		<div class="comments-gray">
 			<div class="comments-gray_t">
+				<div class="float-r">
+					<a href="" class="a-pseudo-icon a-pseudo-icon__blue">
+						<span class="a-pseudo-icon_tx">Показать все</span>
+						<span class="i-arrow-t"></span>
+					</a>
+				</div>
 				<span class="comments-gray_t-a-tx">Все комментарии (28)</span>
 			</div>
-			<div class="comments-gray_hold">
-				<div class="comments-gray_i comments-gray_i__self">
-					<div class="comments-gray_ava">
-						<a href="" class="ava small male"></a>
-					</div>
-					<div class="comments-gray_frame">
-						<div class="comments-gray_header clearfix">
-							<a href="" class="comments-gray_author">Ангелина Богоявленская </a>
-							<span class="font-smallest color-gray">Сегодня 13:25</span>
-						</div>
-						<div class="comments-gray_cont wysiwyg-content">
-							<p>	Мне безумно жалко всех женщин, но особенно Тину Кароль, я просто представить себе не могу <a href="">как она все это переживет</a> как она все это переживет(</p>
-							<p>я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.  я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически </p>
-						</div>
-					</div>
-					<div class="comments-gray_control comments-gray_control__self">
-						<div class="comments-gray_control-hold">
-							<div class="clearfix">
+			<div class="scroll ">
+				<div class="scroll_scroller comments-gray_hold">
+				
+				
+					<div class="scroll_cont">
+						<div class="comments-gray_i comments-gray_i__self">
+							<div class="comments-gray_ava">
+								<a href="" class="ava small male"></a>
+							</div>
+							<div class="comments-gray_control">
 								<a href="" class="message-ico message-ico__edit powertip" title="Редактировать"></a>
-							</div>
-							<div class="clearfix">
 								<a href="" class="message-ico message-ico__del powertip" title="Удалить"></a>
 							</div>
-						</div>
-					</div>
-				</div>
-				<div class="comments-gray_i">
-					<a href="" class="comments-gray_like like-hg-small powertip" title="Нравится">78</a>
-					<div class="comments-gray_ava">
-						<a href="" class="ava small female"></a>
-					</div>
-					<div class="comments-gray_frame">
-						<div class="comments-gray_header clearfix">
-							<a href="" class="comments-gray_author">Анг Богоявлен </a>
-							<span class="font-smallest color-gray">Сегодня 14:25</span>
-						</div>
-						<div class="comments-gray_cont wysiwyg-content">
-							<p>я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.  я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически </p>
-						</div>
-					</div>
-					
-					<div class="comments-gray_control">
-						<div class="comments-gray_control-hold">
-							<div class="clearfix">
-								<a href="" class="comments-gray_quote-ico powertip" title="Ответить"></a>
+							<div class="comments-gray_frame">
+								<div class="comments-gray_header clearfix">
+									<a href="" class="comments-gray_author">Ангелина Богоявленская </a> <br>
+									<span class="font-smallest color-gray">Сегодня 13:25</span>
+									<a href="" class="comments-gray_like like-hg-small powertip" title="Нравится">78</a>
+								</div>
+								<div class="comments-gray_cont wysiwyg-content">
+									<p>	Мне безумно жалко всех женщин, но особенно Тину Кароль, я просто представить себе не могу <a href="">как она все это переживет</a> как она все это переживет(</p>
+									<p>я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.  я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически </p>
+								</div>
 							</div>
-							<div class="clearfix">
+						</div>
+						<div class="comments-gray_i">
+							<div class="comments-gray_ava">
+								<a href="" class="ava small female"></a>
+							</div>
+							<div class="comments-gray_control">
+								<a href="" class="comments-gray_quote-ico powertip" title="Ответить"></a>
 								<a href="" class="message-ico message-ico__del powertip" title="Удалить"></a>
+								<a href="" class="message-ico message-ico__warning powertip" title="Пожаловаться"></a>
+							</div>
+							<div class="comments-gray_frame">
+								<div class="comments-gray_header clearfix">
+									<a href="" class="comments-gray_author">Анг Богоявлен </a> <br>
+									<span class="font-smallest color-gray">Сегодня 14:25</span>
+									<a href="" class="comments-gray_like like-hg-small powertip" title="Нравится">78</a>
+								</div>
+								<div class="comments-gray_cont wysiwyg-content">
+									<p>я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.  я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически </p>
+								</div>
 							</div>
 						</div>
-						<div class="clearfix">
-							<a href="" class="message-ico message-ico__warning powertip" title="Пожаловаться"></a>
-						</div>
-					</div>
-				</div>
-				<div class="comments-gray_i">
-					<a href="" class="comments-gray_like like-hg-small powertip" title="Нравится">7918</a>
-					<div class="comments-gray_ava">
-						<a href="" class="ava small female"></a>
-					</div>
-					<div class="comments-gray_frame">
-						<div class="comments-gray_header clearfix">
-							<a href="" class="comments-gray_author">Анг Богоявлен </a>
-							<span class="font-smallest color-gray">Сегодня 14:25</span>
-						</div>
-						<div class="comments-gray_cont wysiwyg-content">
-							<p>я не нашел, где можно поменять название трека. </p>
-						</div>
-					</div>
-					
-					<div class="comments-gray_control">
-						<div class="comments-gray_control-hold">
-							<div class="clearfix">
+						<div class="comments-gray_i">
+							<div class="comments-gray_ava">
+								<a href="" class="ava small female"></a>
+							</div>
+							<div class="comments-gray_control">
 								<a href="" class="comments-gray_quote-ico powertip" title="Ответить"></a>
+								<a href="" class="message-ico message-ico__warning powertip" title="Пожаловаться"></a>
 							</div>
-							<div class="clearfix">
-								<a href="" class="message-ico message-ico__del powertip" title="Удалить"></a>
+							<div class="comments-gray_frame">
+								<div class="comments-gray_header clearfix">
+									<a href="" class="comments-gray_author">Анг Богоявлен </a> <br>
+									<span class="font-smallest color-gray">Сегодня 14:25</span>
+									<a href="" class="comments-gray_like like-hg-small powertip" title="Нравится">78</a>
+								</div>
+								<div class="comments-gray_cont wysiwyg-content">
+									<p>я не нашел, где можно поменять название трека. </p>
+								</div>
+							</div>
+							
+						</div>
+						
+						<div class="comments-gray_i comments-gray_i__recovery">
+							<div class="comments-gray_ava">
+								<a href="" class="ava small female"></a>
+							</div>
+							<div class="comments-gray_frame">
+								<div class="comments-gray_header clearfix">
+									<a href="" class="comments-gray_author">Анг Богоявлен </a> <br>
+									<span class="font-smallest color-gray">Сегодня 14:25</span>
+								</div>
+								<div class="comments-gray_cont wysiwyg-content">
+									<p>Комментарий успешно удален.<a href="" class="comments-gray_a-recovery">Восстановить?</a> </p>
+								</div>
 							</div>
 						</div>
-						<div class="clearfix">
-							<a href="" class="message-ico message-ico__warning powertip" title="Пожаловаться"></a>
-						</div>
-					</div>
-				</div>
-				
-				<div class="comments-gray_i comments-gray_i__recovery">
-					<div class="comments-gray_ava">
-						<a href="" class="ava small female"></a>
-					</div>
-					<div class="comments-gray_frame">
-						<div class="comments-gray_header clearfix">
-							<a href="" class="comments-gray_author">Анг Богоявлен </a>
-							<span class="font-smallest color-gray">Сегодня 14:25</span>
-						</div>
-						<div class="comments-gray_cont wysiwyg-content">
-							<p>Комментарий успешно удален.<a href="" class="comments-gray_a-recovery">Восстановить?</a> </p>
-						</div>
-					</div>
-				</div>
-				
-				<div class="comments-gray_i">
-					<a href="" class="comments-gray_like like-hg-small powertip" title="Нравится">78</a>
-					<div class="comments-gray_ava">
-						<a href="" class="ava small female"></a>
-					</div>
-					<div class="comments-gray_frame">
-						<div class="comments-gray_header clearfix">
-							<a href="" class="comments-gray_author">Анг Богоявлен </a>
-							<span class="font-smallest color-gray">Сегодня 14:25</span>
-						</div>
-						<div class="comments-gray_cont wysiwyg-content">
-							<p>я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически производит поиск по сайту </p>
-							<p>и подцепляет естественно студийные версии песен вместо нужных.  я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически </p>
-						</div>
-					</div>
-					
-					<div class="comments-gray_control">
-						<div class="comments-gray_control-hold">
-							<div class="clearfix">
+						
+						<div class="comments-gray_i">
+							<div class="comments-gray_ava">
+								<a href="" class="ava small female"></a>
+							</div>
+							<div class="comments-gray_control">
 								<a href="" class="comments-gray_quote-ico powertip" title="Ответить"></a>
+								<a href="" class="message-ico message-ico__warning powertip" title="Пожаловаться"></a>
 							</div>
-						</div>
-						<div class="clearfix">
-							<a href="" class="message-ico message-ico__warning powertip" title="Пожаловаться"></a>
+							<div class="comments-gray_frame">
+								<div class="comments-gray_header clearfix">
+									<a href="" class="comments-gray_author">Анг Богоявлен </a> <br>
+									<span class="font-smallest color-gray">Сегодня 14:25</span>
+									<a href="" class="comments-gray_like like-hg-small powertip" title="Нравится">78</a>
+								</div>
+								<div class="comments-gray_cont wysiwyg-content">
+									<p>я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически производит поиск по сайту </p>
+									<p>и подцепляет естественно студийные версии песен вместо нужных.  я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически </p>
+								</div>
+							</div>
+							
 						</div>
 					</div>
 				</div>
+				<div class="scroll_bar-hold">
+		            <div class="scroll_bar"></div>
+		        </div>
 			</div>
-		</div>
-
-	</div>
-	<div class="photo-window_right-bottom">
-		<div class="comments-gray comments-gray__photo-add">
 			<div class="comments-gray_add clearfix">
 				
 				<div class="comments-gray_ava">
@@ -280,6 +289,7 @@
 			</div>
 		</div>
 	</div>
+
 </div>
 </div>
 
@@ -318,13 +328,13 @@
 			</div>
 		</div>
 		<div class="photo-window-end_hold clearfix">
-			<div class="textalign-c margin-b30">
+			<div class="textalign-c">
 				Другие альбомы  -  <a href="">Регина Поплавская </a>
 			</div>
 				
             <div class="photo-preview-row clearfix">
             	<div class="textalign-l clearfix">
-            		<a href="" class="photo-preview-row_t">Style Me Pretty - Цветы и свадьбы</a>
+            		<a class="photo-preview-row_t">Style Me Pretty - Цветы и свадьбы</a>
             	</div>
                 <div class="photo-preview-row_hold">
 	                <div class="photo-grid clearfix">
@@ -376,7 +386,7 @@
 				
             <div class="photo-preview-row clearfix">
             	<div class="textalign-l clearfix">
-            		<a  href="" class="photo-preview-row_t">Style Me Pretty - Цветы и свадьбы</a>
+            		<a class="photo-preview-row_t">Style Me Pretty - Цветы и свадьбы</a>
             	</div>
                 <div class="photo-preview-row_hold">
 	                <div class="photo-grid clearfix">

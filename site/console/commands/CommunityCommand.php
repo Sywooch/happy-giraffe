@@ -680,7 +680,7 @@ class CommunityCommand extends CConsoleCommand
         $clubs = CommunityClub::model()->findAll();
         foreach ($clubs as $club) {
             $postToRate = array();
-            $data = CommunityContent::model()->findAll(array(
+            $data = CommunityContent::model()->active()->findAll(array(
                 'with' => array('rubric', 'rubric.community'),
                 'condition' => 'club_id = :clubId AND created BETWEEN SUBDATE(CURRENT_DATE(), 1) AND CURRENT_DATE()',
                 'params' => array(':clubId' => $club->id),

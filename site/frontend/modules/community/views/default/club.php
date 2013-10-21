@@ -49,6 +49,8 @@ Yii::app()->clientScript->registerPackage('ko_community');
         <?php $this->renderPartial('_users'); ?>
         <?php if (count($this->club->communities) == 1)
             $this->renderPartial('_rubrics', array('rubrics' => $this->club->communities[0]->rootRubrics)); ?>
+
+        <?php $this->widget('CommunityPopularWidget', array('club' => $this->club)); ?>
     </div>
     <div class="col-23-middle ">
 

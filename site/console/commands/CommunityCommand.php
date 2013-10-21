@@ -673,6 +673,10 @@ class CommunityCommand extends CConsoleCommand
 
     public function actionSetPopular()
     {
+        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
+        Yii::import('site.frontend.modules.favourites.models.*');
+        Yii::import('site.common.models.mongo.ClubPopular');
+
         $clubs = CommunityClub::model()->findAll();
         foreach ($clubs as $club) {
             $postToRate = array();
@@ -687,17 +691,26 @@ class CommunityCommand extends CConsoleCommand
                 $comments = $post->commentsCount;
                 $favourites = Favourite::model()->getCountByModel($post);
                 $rate = $views * 0.1 + $likes * 0.6 + $comments + $favourites;
-                $result[$post->id] = $rate;
+                $postToRate[$post->id] = $rate;
             }
 
-            sort($postToRate);
+            asort($postToRate);
 
             $result = array_slice($postToRate, -2, 2, true);
 
             if ($result) {
-                $model = new ClubPopular();
-                $model->date = date('Y-m-d');
-                $model->clubId = $club->id;
+                $model = ClubPopular::model()->findByAttributes(array(
+                    'date' => date('Y-m-d'),
+                    'clubId' => (int) $club->id,
+                ));
+
+                if ($model === null) {
+                    $model = new ClubPopular();
+                    $model->date = date('Y-m-d');
+                    $model->clubId = (int) $club->id;
+                    $model->contents = array_keys($result);
+                }
+
                 $model->contents = array_keys($result);
                 $model->save();
             }

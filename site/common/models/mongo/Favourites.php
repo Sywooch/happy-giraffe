@@ -12,6 +12,7 @@ class Favourites extends EMongoDocument
     const BLOCK_VIDEO = 5;
     const WEEKLY_MAIL = 6;
     const BLOCK_SOCIAL_NETWORKS = 7;
+    const CLUB_MORE = 8;
 
     public $block;
     public $entity;
@@ -282,5 +283,16 @@ class Favourites extends EMongoDocument
     public function getArticle()
     {
         return CActiveRecord::model($this->entity)->resetScope()->findByPk($this->entity_id);
+    }
+
+    public static  function getIdListByBlock($block)
+    {
+        $criteria = new EMongoCriteria();
+        $criteria->addCond('block', '==', $block);
+        $models = self::model()->findAll($criteria);
+        $modelsIds = array_map(function($model) {
+            return $model->entity_id;
+        }, $models);
+        return $modelsIds;
     }
 }

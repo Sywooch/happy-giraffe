@@ -28,6 +28,15 @@
             <a href="<?=$this->createUrl('/community/default/services', array('club'=>$this->club->slug)) ?>" class="b-section_li-a<?php if (Yii::app()->controller->action->id == 'services' ) echo ' active' ?>">Сервисы</a>
         </li>
     <?php endif ?>
+
+    <?php if (! Yii::app()->user->isGuest && Yii::app()->user->model->group != UserGroup::USER && Yii::app()->user->model->checkAuthItem('manageFavourites')): ?>
+        <li class="b-section_li">
+            <a href="<?=$this->createUrl('/community/default/clubFavourites', array('clubId' => $this->club->id)) ?>" class="b-section_li-a<?php if (Yii::app()->controller->action->id == 'clubFavourites' ) echo ' active' ?>">Избранное</a>
+        </li>
+        <li class="b-section_li">
+            <a href="<?=$this->createUrl('/community/default/clubPhotoPosts', array('clubId' => $this->club->id)) ?>" class="b-section_li-a<?php if (Yii::app()->controller->action->id == 'clubPhotoPosts' ) echo ' active' ?>">Фото-посты</a>
+        </li>
+    <?php endif; ?>
 <?php else: ?>
     <?php $this->renderPartial('application.modules.community.views.default.club_specific._links_' . $this->club->id); ?>
 <?php endif ?>

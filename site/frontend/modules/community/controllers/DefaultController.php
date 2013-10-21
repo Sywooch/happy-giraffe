@@ -261,6 +261,32 @@ class DefaultController extends HController
         echo CJSON::encode($response);
     }
 
+    public function actionClubFavourites($clubId, $type = null)
+    {
+        if (Yii::app()->user->isGuest || Yii::app()->user->model->group == UserGroup::USER || ! Yii::app()->user->model->checkAuthItem('manageFavourites'))
+            throw new CHttpException(404);
+
+        $this->club = CommunityClub::model()->findByPk($clubId);
+        if ($this->club === null)
+            throw new CHttpException(404);
+
+        $dp = $this->club->getFavourites($type);
+
+        Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
+        $this->render('clubFavourites', compact('dp', 'type'));
+    }
+
+    public function actionClubPhotoPosts($clubId)
+    {
+        $this->club = CommunityClub::model()->findByPk($clubId);
+        if ($this->club === null)
+            throw new CHttpException(404);
+
+        $dp = CommunityContent::model()->getClubContents($clubId, CommunityContent::TYPE_PHOTO_POST);
+
+        $this->render('clubPhotoPosts', compact('dp'));
+    }
+
     protected function performAjaxValidation($models)
     {
         if (isset($_POST['ajax']) && $_POST['ajax'] === 'blog-form') {

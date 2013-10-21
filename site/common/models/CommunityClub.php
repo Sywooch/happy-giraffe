@@ -139,4 +139,20 @@ class CommunityClub extends HActiveRecord
 
         return User::model()->findAllByPk($club_moders);
     }
+
+    public function getFavourites($type)
+    {
+        $criteria = new CDbCriteria();
+        $criteria->order = 't.created DESC';
+        $criteria->compare('club_id', $this->id);
+        $criteria->scopes = array('active');
+        $criteria->with = array('rubric', 'rubric.community', 'type', 'commentsCount', 'sourceCount');
+        $criteria->addInCondition('t.id', Favourites::getIdListByBlock(Favourites::CLUB_MORE));
+        if ($type !== null)
+            $criteria->compare('t.type_id', $type);
+
+        return new CActiveDataProvider('CommunityContent', array(
+            'criteria' => $criteria,
+        ));
+    }
 }

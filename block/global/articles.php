@@ -8,12 +8,12 @@
 			</a>
 		</div>
 		<div class="like-control clearfix">
-			<a href="" class="like-control_ico like-control_ico__like">865</a>
+			<a href="" class="like-control_ico like-control_ico__like powertip" title="Нравится">865</a>
 			<div class="position-rel">
-				<a href="" class="like-control_ico like-control_ico__repost">5</a>
+				<a href="" class="like-control_ico like-control_ico__repost powertip" title="Репост">5</a>
 			</div>
 			<div class="position-rel">
-				<a href="" class="favorites-control_a active">123865</a>
+				<a href="" class="favorites-control_a active powertip" title="В избранное">123865</a>
 				
 			</div>
 		</div>

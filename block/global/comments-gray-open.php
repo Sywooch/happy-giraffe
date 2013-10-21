@@ -192,7 +192,7 @@
 				<div class="wysiwyg-toolbar">
 					<div class="wysiwyg-toolbar-btn"></div>
 					
-					<div class="redactor-popup redactor-popup_b-photo" >
+					<div class="redactor-popup redactor-popup_b-photo  display-n" >
 						<a href="" class="redactor-popup_close ico-close3 powertip" title="Закрыть"></a>
 						<div class="redactor-popup_tale"></div>
 						<div class="redactor-popup_t">Загрузите фото</div>

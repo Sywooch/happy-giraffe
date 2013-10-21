@@ -15,7 +15,14 @@
         </div>
 
         <div class="float-l">
-            <span class="font-smallest color-gray"><?= HDate::GetFormattedTime($b->created) ?></span>
+            <?php if ($b->getIsFromBlog()): ?>
+                <span class="font-smallest color-gray"><?= HDate::GetFormattedTime($b->created) ?></span>
+            <?php else: ?>
+                <a href="<?=$b->author->getUrl()?>" class="fast-articles2_author">
+                    <span class="ico-status ico-status__<?=((bool) $b->author->online ? 'online' : 'offline')?>"></span>
+                    <span class="fast-articles2_author-tx"><?=$b->author->first_name?></span>
+                </a>
+            <?php endif; ?>
         </div>
     </div>
 

@@ -670,4 +670,37 @@ class CommunityCommand extends CConsoleCommand
             $post->update(array('views'));
         }
     }
+
+    public function actionSetPopular()
+    {
+        $clubs = CommunityClub::model()->findAll();
+        foreach ($clubs as $club) {
+            $postToRate = array();
+            $data = CommunityContent::model()->findAll(array(
+                'with' => array('rubric', 'rubric.community'),
+                'condition' => 'club_id = :clubId AND created BETWEEN SUBDATE(CURRENT_DATE(), 1) AND CURRENT_DATE()',
+                'params' => array(':clubId' => $club->id),
+            ));
+            foreach ($data as $post) {
+                $views = $post->views;
+                $likes = $post->rate;
+                $comments = $post->commentsCount;
+                $favourites = Favourite::model()->getCountByModel($post);
+                $rate = $views * 0.1 + $likes * 0.6 + $comments + $favourites;
+                $result[$post->id] = $rate;
+            }
+
+            sort($postToRate);
+
+            $result = array_slice($postToRate, -2, 2, true);
+
+            if ($result) {
+                $model = new ClubPopular();
+                $model->date = date('Y-m-d');
+                $model->clubId = $club->id;
+                $model->contents = array_keys($result);
+                $model->save();
+            }
+        }
+    }
 }

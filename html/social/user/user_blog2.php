@@ -698,10 +698,9 @@
 
 					</div>
 				</div>
-
-
-				<div class="menu-simple menu-simple__after-article">
-					<h3 class="margin-b15">Вам может быть интересно</h3>
+				
+				<div class="menu-simple menu-simple__after-article2">
+					<div class="menu-simple_t-sub">Вам может быть интересно</div>
 					<ul class="menu-simple_ul">
 						<li class="menu-simple_li">
 							<a class="menu-simple_a" href="">Как правильно встречать мужа с работы</a>
@@ -714,6 +713,28 @@
 						</li>
 					</ul>
 				</div>
+
+				<div class="article-nearby clearfix">
+					<div class="article-nearby_i article-nearby_i__left">
+						<div class="article-nearby_hint">Предыдущая запись</div>
+						<a class="article-nearby_a clearfix" href="">
+							<span class="article-nearby_img-hold">
+								<img alt="" src="/images/example/w64-h61-2.jpg">
+							</span>
+							<span class="article-nearby_tx">Как приготовить Монастыпскую избу</span>
+						</a>
+					</div>
+					<div class="article-nearby_i article-nearby_i__right">
+						<div class="article-nearby_hint">Следующая запись</div>
+						<a class="article-nearby_a clearfix" href="">
+							<span class="article-nearby_tx">Готовим  Торт Сметанник в домашних условиях</span>
+							<span class="article-nearby_img-hold">
+								<img alt="" src="/images/example/w64-h61-1.jpg">
+							</span>
+						</a>
+					</div>
+				</div>
+
 
 			</div>
 		</div>

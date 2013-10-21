@@ -4,6 +4,7 @@
  */
 ?>
 
+<?php $this->beginWidget('SeoContentWidget'); ?>
 <?php if ($posts): ?>
     <div class="such-post">
         <div class="such-post_title">Смотрите также</div>
@@ -14,3 +15,4 @@
         </div>
     </div>
 <?php endif; ?>
+<?php $this->endWidget(); ?>

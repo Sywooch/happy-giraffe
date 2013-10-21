@@ -98,7 +98,7 @@ if ($full) {
     </div>
 </div>
 
-<?php if (false && $full): ?>
+<?php if ($full && $data->rubric->community->club_id == 14): ?>
     <?php $this->widget('CommunityMoreWidget', array('content' => $data)); ?>
 <?php endif; ?>
 

@@ -54,6 +54,7 @@ hr,
 	.transition(all 0.4s ease);
 }
 .itx-gray:focus {border-color: #a0ceee;}
+.redactor_itx-simple,
 .itx-simple {
 	width: 100%;
 	border: 1px solid #daebf5;
@@ -128,7 +129,7 @@ a.pseudo:hover,
 	.inline-block();
 	margin: 0 10px;
 	text-decoration: none;
-	
+
 	&:hover .ico-edit {background-position: 0 -15px;}
 	&:hover .ico-close2 {
 		vertical-align: middle;
@@ -139,13 +140,13 @@ a.pseudo:hover,
 		border-bottom-color:#2c95d6;
 		color: #2c95d6;
 	}
-/*
+
 	&__blue &_tx {
 		color: #289FD7;
 		border-color: #289FD7;
 	}
 	&__blue:hover &_tx {border-color: transparent;}
-*/
+
 	.ico-edit {position: relative;top:-2px;}
 	&_tx {
 		font-size: 12px;
@@ -300,12 +301,12 @@ a.pseudo:hover,
 		z-index: 10;
 	}
 }
-/*.i-arrow-t {
+.i-arrow-t {
 	.inline-block();
 	width: 7px;
 	height: 13px;
 	background: url(/images/arrow-t.png) no-repeat;
-}*/
+}
 /* single items */
 
 /* icons */
@@ -757,6 +758,58 @@ textarea.error,
 /* /errors */
 
 /* js plugin class */
+
+/* scroll custom */
+.scroll {
+    position: relative;
+    overflow: hidden;
+    &__none {height: auto !important;}
+    &:hover &_bar {
+    	opacity: 0.7;
+    	width: 4px;
+    }
+
+    &_scroller {
+        overflow-y: scroll;
+        height: 100%;
+        -webkit-overflow-scrolling: touch;
+    }
+    &_scroller::-webkit-scrollbar { /* Preventing webkit bug of horizontal scrolling */
+        width: 0;
+    }
+    &_cont {overflow: hidden;}
+    &_bar-hold {
+        position: absolute;    
+        z-index: 1;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        width: 15px;
+        .border-radius(4px);
+    }
+    &_bar-hold:hover &_bar {width: 10px;}
+    &_bar { /* The bar. You should define width, right and background */
+	    position: absolute;
+	    z-index: 1;
+	    right: 5px;
+	    width: 0px;
+	    border-radius: 3px;
+	    background: #b9b9b9;
+	    opacity: 0.5;
+	    -webkit-transition: all .2s linear;
+	    transition: all .2s linear;
+	    pointer-events: auto;
+	}
+/*    &_bar-inner {
+        height: 100%;
+        background: #5e8dbc;
+        width: 6px;
+    }*/
+}
+/* /scroll custom */
+
+
+
 .ui-autocomplete {
 	z-index: 11100 !important;
 	max-height: 200px;

@@ -17,5 +17,10 @@
         <a class="ico-redactor ico-redactor__mail js-tooltipsy<?php if (Favourites::inFavourites($model, Favourites::WEEKLY_MAIL)) echo ' active'; ?>" href="#"
            onclick="Favourites.toggle(this, <?=Favourites::WEEKLY_MAIL ?>);return false;" title="Посты в рассылку"></a>
 
+        <?php if (! $model->getIsFromBlog()): ?>
+            <a class="ico-redactor ico-redactor__interest js-tooltipsy<?php if (Favourites::inFavourites($model, Favourites::CLUB_MORE)) echo ' active'; ?>" href="#"
+               onclick="Favourites.toggle(this, <?=Favourites::CLUB_MORE ?>);return false;" title="Интересное в клубах"></a>
+        <?php endif; ?>
+
     <?php endif; ?>
 </div>

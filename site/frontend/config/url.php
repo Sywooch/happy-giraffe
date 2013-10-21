@@ -164,6 +164,8 @@ return array(
         'community/default/save' => 'community/default/save',
         'community/default/photoWidgetSave' => 'community/default/photoWidgetSave',
         'community/default/photoWidget' => 'community/default/photoWidget',
+        'community/clubFavourites/<clubId:\d+>' => 'community/default/clubFavourites',
+        'community/clubPhotoPosts/<clubId:\d+>' => 'community/default/clubPhotoPosts',
 
         //global
         '<_c:(settings|ajax|notification|profile|friendRequests|communityRubric|morning|userPopup|features|blog)>/<_a>' => '<_c>/<_a>',

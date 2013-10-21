@@ -476,13 +476,15 @@ class CommunityContent extends HActiveRecord
      * @param int $club_id id раздела
      * @return CActiveDataProvider
      */
-    public function getClubContents($club_id)
+    public function getClubContents($club_id, $typeId = null)
     {
         $criteria = new CDbCriteria();
         $criteria->order = 't.created DESC';
         $criteria->compare('club_id', $club_id);
         $criteria->scopes = array('active');
         $criteria->with = array('rubric', 'rubric.community');
+        if ($typeId !== null)
+            $criteria->compare('t.type_id', $typeId);
         $totalItemsCount = $this->count($criteria);
 
         $criteria->with = array('rubric', 'rubric.community', 'type', 'commentsCount', 'sourceCount');

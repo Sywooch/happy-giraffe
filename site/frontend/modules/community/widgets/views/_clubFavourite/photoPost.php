@@ -6,7 +6,7 @@
 
 <div class="such-post_i such-post_i__photopost">
     <a href="javascript:void(0)" class="such-post_img-hold" onclick="PhotoCollectionViewWidget.open(<?=CJavaScript::encode('PhotoPostPhotoCollection')?>, <?=CJavaScript::encode(array('contentId' => $post->id))?>, <?=CJavaScript::encode(null)?>, <?=CJavaScript::encode(array('exitUrl' => $post->getUrl()))?>)">
-        <?=CHtml::image($post->gallery->items[0]->photo->getPreviewUrl(335, null, Image::WIDTH), $post->title, array('class' => 'such-post_img'))?>
+        <?=CHtml::image($post->gallery->items[0]->photo->getPreviewUrl(335, 230, Image::INVERT, true, AlbumPhoto::CROP_SIDE_TOP), $post->title, array('class' => 'such-post_img'))?>
         <span class="such-post_img-overlay"></span>
         <span class="such-post_tip"><?=$post->gallery->count?> фото</span>
     </a>
@@ -28,7 +28,7 @@
             <div class="such-post_author">
                 <?php $this->widget('Avatar', array('user' => $post->by_happy_giraffe ? User::model()->findByPk(1) : $post->author, 'size' => 40)); ?>
                 <a href="<?=$post->author->getUrl()?>" class="such-post_author-name"><?=$post->author->getFullName()?></a>
-                <div class="such-post_date"><?=Yii::app()->dateFormatter->format("d MMMM yyyy, H:mm", $post->created)?></div>
+                <div class="such-post_date"><?=HDate::GetFormattedTime($date->created)?></div>
             </div>
 
         </div>

@@ -97,6 +97,9 @@ if ($full) {
         <!-- /ko -->
     </div>
 
+    <?php if ($full): ?>
+        <?php $this->widget('CommunityMoreWidget', array('content' => $data)); ?>
+    <?php endif; ?>
 </div>
 <?php $this->widget('application.widgets.seo.SeoLinksWidget'); ?>
 

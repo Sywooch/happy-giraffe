@@ -32,6 +32,6 @@
             </div>
 
         </div>
-        <a href="<?=$post->getUrl()?>" class="such-post_t"><?=$post->title?></a>
+        <a href="javascript:void(0)" class="such-post_t" onclick="PhotoCollectionViewWidget.open(<?=CJavaScript::encode('PhotoPostPhotoCollection')?>, <?=CJavaScript::encode(array('contentId' => $post->id))?>, <?=CJavaScript::encode(null)?>, <?=CJavaScript::encode(array('exitUrl' => $post->getUrl()))?>)"><?=$post->title?></a>
     </div>
 </div>

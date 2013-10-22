@@ -17,7 +17,7 @@ class CommunityMoreWidget extends CWidget
 
         $photoPosts = array();
         $posts = array();
-        foreach ($favourites->data as $f) {
+        foreach ($favourites as $f) {
             if ($f->id == $this->content->id)
                 continue;
 

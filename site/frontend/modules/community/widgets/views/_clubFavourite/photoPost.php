@@ -2,11 +2,21 @@
 /**
  * @var CommunityContent $post
  */
+
+foreach ($post->gallery->items as $i) {
+    if ($i->photo->width > $i->photo->height) {
+        $photoUrl = $i->photo->getPreviewUrl(335, null, Image::WIDTH);
+        break;
+    }
+}
+
+if (! isset($photoUrl))
+    $photoUrl = $post->gallery->items[0]->photo->getPreviewUrl(335, 230, Image::INVERT, true, AlbumPhoto::CROP_SIDE_TOP);
 ?>
 
 <div class="such-post_i such-post_i__photopost">
     <a href="javascript:void(0)" class="such-post_img-hold" onclick="PhotoCollectionViewWidget.open(<?=CJavaScript::encode('PhotoPostPhotoCollection')?>, <?=CJavaScript::encode(array('contentId' => $post->id))?>, <?=CJavaScript::encode(null)?>, <?=CJavaScript::encode(array('exitUrl' => $post->getUrl()))?>)">
-        <?=CHtml::image($post->gallery->items[0]->photo->getPreviewUrl(335, 230, Image::INVERT, true, AlbumPhoto::CROP_SIDE_TOP), $post->title, array('class' => 'such-post_img'))?>
+        <?=CHtml::image($photoUrl), $post->title, array('class' => 'such-post_img'))?>
         <span class="such-post_img-overlay"></span>
         <span class="such-post_tip"><?=$post->gallery->count?> фото</span>
     </a>

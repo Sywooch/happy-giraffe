@@ -80,11 +80,10 @@
                     <td align="center">
                         <a href="<?=$work->url?>?utm_source=email&utm_campaign=pets1" style=" position:relative;text-decoration:none;">
                             <!--  -->
-                            <img src="/images/mail/contest/pets1/img1.jpg" alt="" width="471" height="354" border="0">
-                            <?=CHtml::image($photo->getPreviewUrl(471, null, Image::WIDTH), '', array('border' => 0, 'width' => '471', 'height' => 471 / $photo->width * $photo->height ))?>
+                            <?=CHtml::image('http://www.happy-giraffe.ru/' . $photo->getPreviewUrl(471, null, Image::WIDTH), '', array('border' => 0, 'width' => '471', 'height' => 471 / $photo->width * $photo->height ))?>
                             <div style="margin: 15px 10px 0 12px; position:absolute; bottom:12px; left: 0;">
                                 <!--  -->
-                                <img src="/images/mail/contest/pets1/logo.png" alt="" width="86" height="86" border="0">
+                                <img src="http://www.happy-giraffe.ru/images/mail/contest/pets1/logo.png" alt="" width="86" height="86" border="0">
                             </div>
                             <?php if ($work->rate > 0): ?>
                                 <div  style="margin: 25px 10px 0 12px; position:absolute; bottom:24px; right: 20px;width:120px;background:#fb0202; text-align:center;padding:7px 0;">

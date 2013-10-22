@@ -2,11 +2,13 @@
 /**
  * @var CommunityContent $post
  */
+
+$photoUrl = ($post->getPhoto()->width > $post->getPhoto()->height) ? $photo->getPreviewUrl(335, null, Image::WIDTH) : $photo->getPreviewUrl(335, 230, Image::INVERT, true, AlbumPhoto::CROP_SIDE_TOP);
 ?>
 
 <div class="such-post_i">
     <a href="<?=$post->getUrl()?>" class="such-post_img-hold">
-        <?=CHtml::image($post->getPhoto()->getPreviewUrl(335, 230, Image::INVERT, true, $post->type_id == 1 ? AlbumPhoto::CROP_SIDE_TOP : AlbumPhoto::CROP_SIDE_CENTER), $post->title, array('class' => 'such-post_img'))?>
+        <?=CHtml::image($photoUrl, $post->title, array('class' => 'such-post_img'))?>
     </a>
     <div class="such-post_type-hold">
         <div class="such-post_type such-post_type__<?=$post->type_id == 1 ? 'post' : 'video'?>"></div>

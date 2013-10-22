@@ -27,10 +27,6 @@ class CommunityMoreWidget extends CWidget
                 $posts[] = $f;
         }
 
-        echo '<!-- total count: ' . count($favourites->data) . ' -->';
-        echo '<!-- photoPosts count: ' . count($photoPosts) . ' -->';
-        echo '<!-- posts count: ' . count($posts) . ' -->';
-
         $resultPosts = array();
         if (! empty($photoPosts))
             $resultPosts[] = $photoPosts[array_rand($photoPosts)];

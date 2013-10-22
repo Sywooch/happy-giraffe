@@ -263,7 +263,7 @@ class DefaultController extends HController
 
     public function actionClubFavourites($clubId, $type = null)
     {
-        if (Yii::app()->user->isGuest || Yii::app()->user->model->group == UserGroup::USER || ! Yii::app()->user->model->checkAuthItem('manageFavourites'))
+        if (Yii::app()->user->isGuest || Yii::app()->user->model->group == UserGroup::USER || ! Yii::app()->user->model->checkAuthItem('clubFavourites'))
             throw new CHttpException(404);
 
         $this->club = CommunityClub::model()->findByPk($clubId);
@@ -278,12 +278,16 @@ class DefaultController extends HController
 
     public function actionClubPhotoPosts($clubId)
     {
+        if (Yii::app()->user->isGuest || Yii::app()->user->model->group == UserGroup::USER || ! Yii::app()->user->model->checkAuthItem('clubFavourites'))
+            throw new CHttpException(404);
+
         $this->club = CommunityClub::model()->findByPk($clubId);
         if ($this->club === null)
             throw new CHttpException(404);
 
         $dp = CommunityContent::model()->getClubContents($clubId, CommunityContent::TYPE_PHOTO_POST);
 
+        Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
         $this->render('clubPhotoPosts', compact('dp'));
     }
 

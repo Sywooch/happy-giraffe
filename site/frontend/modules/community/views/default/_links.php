@@ -29,7 +29,7 @@
         </li>
     <?php endif ?>
 
-    <?php if (! Yii::app()->user->isGuest && Yii::app()->user->model->group != UserGroup::USER && Yii::app()->user->model->checkAuthItem('manageFavourites')): ?>
+    <?php if (! Yii::app()->user->isGuest && Yii::app()->user->model->group != UserGroup::USER && Yii::app()->user->model->checkAuthItem('clubFavourites')): ?>
         <li class="b-section_li">
             <a href="<?=$this->createUrl('/community/default/clubFavourites', array('clubId' => $this->club->id)) ?>" class="b-section_li-a<?php if (Yii::app()->controller->action->id == 'clubFavourites' ) echo ' active' ?>">Избранное</a>
         </li>

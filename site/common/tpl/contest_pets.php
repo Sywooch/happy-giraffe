@@ -78,23 +78,33 @@
                 </tr>
                 <tr>
                     <td align="center">
-                        <a href="<?=$work->getUrl(false, true)?>?utm_source=email&utm_campaign=pets1" style="text-decoration:none;">
-                            <span style="display:block;">
+                        <a href="<?=$work->getUrl(false, true)?>?utm_source=email&utm_campaign=pets1" style="text-decoration:none;display:block;">
+                            <!--  -->
                             <?=CHtml::image($photo->getPreviewUrl(471, null, Image::WIDTH), '', array('border' => 0, 'width' => '471', 'height' => 471 / $photo->width * $photo->height ))?>
-
-                            </span>
-
-                            <span style="margin: -99px 10px 0 12px;display:inline-block;vertical-align:top;">
-
-                                <img src="http://www.happy-giraffe.ru/images/mail/contest/pets1/logo.png" alt="" width="86" height="86" border="0">
-                            </span>
-                            <?php if ($work->rate > 0): ?>
-                                <span  style="margin:-85px 18px 12px 215px;width:120px;background:#fb0202; text-align:center;padding:7px 0;display:inline-block;vertical-align:top;">
-                                    <span style="margin:"><font face="Roboto, Helvetica, Arial, sans-serif" size="2" color="#ffffff" style="font-size: 35px;line-height:32px;">15</font></span> <br>
-                                    <span style="color: #ffffff; font-size:13px; line-height:13px;font-family:Arial, Helvetica,sans-serif;">баллов</span>
-                                </span>
-                            <?php endif; ?>
                         </a>
+
+                        <table width="471" style="margin:0 auto;border-collapse: collapse; background: #f4e8db;line-height:auto;" align="center" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td align="left" style="background:#f4e8db;">
+                                    <div style="margin: 0 10px 0 12px;">
+
+                                        <!--  -->
+                                        <img src="http://www.happy-giraffe.ru/images/mail/contest/pets1/logo.png" alt="" width="50" height="50" border="0">
+                                    </div>
+                                </td>
+                                <td align="left"  style="background:#f4e8db;">
+                                    <font face="Arial, Helvetica, sans-serif" size="3" color="#4e3a33" style="font-size: 17px;line-height:20px; ">Наш домашний <br> любимец</font>
+                                </td>
+                                <td align="right" style="background:#f4e8db;">
+                                    <?php if ($work->rate > 0): ?>
+                                        <div  style="margin: 10px 12px 10px 50px;width:120px;background:#fb0202; text-align:center;padding:7px 0;">
+                                            <div><font face="Roboto, Helvetica, Arial, sans-serif" size="2" color="#ffffff" style="font-size: 35px;line-height:32px;"><?=$work->rate?></font></div>
+                                            <div style="color: #ffffff; font-size:13px; line-height:13px;font-family:Arial, Helvetica,sans-serif;">баллов</div>
+                                        </div>
+                                    <?php endif; ?>
+                                </td>
+                            </tr>
+                        </table>
                     </td>
                 </tr>
 
@@ -139,7 +149,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <a href="<?=$work->getUrl(false, true)?>?utm_source=email&utm_campaign=pets1" style="color:#4a98d3; "><font face="Arial, Helvetica, sans-serif" size="2" color="#4a98d3" style="font-size: 16px;line-height:18px;"><?=$work->getUrl(false, true)?></font></a>
+                                    <a href="<?=$work->getUrl(false, true)?>?utm_source=email&utm_campaign=pets1" style="color:#559ef8; "><font face="Arial, Helvetica, sans-serif" size="2" color="#559ef8" style="font-size: 16px;line-height:18px;"><?=$work->getUrl(false, true)?></font></a>
                                 </td>
                             </tr>
 

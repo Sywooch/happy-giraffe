@@ -81,16 +81,26 @@
                         <a href="<?=$work->getUrl(false, true)?>?utm_source=email&utm_campaign=pets1" style=" position:relative;text-decoration:none;">
                             <!--  -->
                             <?=CHtml::image($photo->getPreviewUrl(471, null, Image::WIDTH), '', array('border' => 0, 'width' => '471', 'height' => 471 / $photo->width * $photo->height ))?>
-                            <div style="margin: 15px 10px 0 12px; position:absolute; bottom:12px; left: 0;">
-                                <!--  -->
-                                <img src="http://www.happy-giraffe.ru/images/mail/contest/pets1/logo.png" alt="" width="86" height="86" border="0">
-                            </div>
-                            <?php if ($work->rate > 0): ?>
-                                <div  style="margin: 25px 10px 0 12px; position:absolute; bottom:24px; right: 20px;width:120px;background:#fb0202; text-align:center;padding:7px 0;">
-                                    <div style="margin:"><font face="Roboto, Helvetica, Arial, sans-serif" size="2" color="#ffffff" style="font-size: 35px;line-height:32px;"><?=$work->rate?></font></div>
-                                    <div style="color: #ffffff; font-size:13px; line-height:13px;font-family:Arial, Helvetica,sans-serif;">баллов</div>
-                                </div>
-                            <?php endif; ?>
+
+                            <table width="470" style="margin:0 auto;border-collapse: collapse; background: #ffffff;line-height:auto;" align="center" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td align="left">
+                                        <div style="margin: -100px 10px 0 12px; bottom:12px; left: 0;f">
+
+                                            <!--  -->
+                                            <img src="/images/mail/contest/pets1/logo.png" alt="" width="86" height="86" border="0">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <?php if ($work->rate > 0): ?>
+                                            <div  style="margin: -85px 0 223px 12px;width:120px;background:#fb0202; text-align:center;padding:7px 0;">
+                                                <div style="margin:"><font face="Roboto, Helvetica, Arial, sans-serif" size="2" color="#ffffff" style="font-size: 35px;line-height:32px;"><?=$work->rate?></font></div>
+                                                <div style="color: #ffffff; font-size:13px; line-height:13px;font-family:Arial, Helvetica,sans-serif;">баллов</div>
+                                            </div>
+                                        <?php endif; ?>
+                                    </td>
+                                </tr>
+                            </table>
                         </a>
                     </td>
                 </tr>

@@ -104,9 +104,9 @@ class CommunityContestWork extends HActiveRecord
 		return parent::model($className);
 	}
 
-    public function getUrl()
+    public function getUrl($comments = false, $absolute = false)
     {
-        return $this->content->getUrl();
+        return $this->content->getUrl($comments, $absolute);
     }
 
     public function getOtherParticipants($limit, $minRate)

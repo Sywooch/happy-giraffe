@@ -3,6 +3,7 @@
  * @var CommunityContent $post
  */
 
+$photo = $post->getPhoto();
 $photoUrl = ($post->getPhoto()->width > $post->getPhoto()->height) ? $photo->getPreviewUrl(335, null, Image::WIDTH) : $photo->getPreviewUrl(335, 230, Image::INVERT, true, AlbumPhoto::CROP_SIDE_TOP);
 ?>
 

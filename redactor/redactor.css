@@ -13,7 +13,7 @@ body .redactor_air {
 	border-bottom: none;
 	z-index: 2;
 }
-
+.redactor_placeholder { color: #ccc;font-weight: normal;}
 /*
 	Fullscreen
 */

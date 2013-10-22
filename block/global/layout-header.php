@@ -10,19 +10,19 @@
 					<li class="header-menu_li">
 						<a href="" class="header-menu_a">
 							<span class="header-menu_ico header-menu_ico__giraffe"></span>
-							<span class="header-menu_tx">Мой <br> Жираф</span>
+							<span class="header-menu_tx">Мой<br>Жираф</span>
 						</a>
 					</li>
 					<li class="header-menu_li active">
 						<a href="" class="header-menu_a">
 							<span class="header-menu_ico header-menu_ico__notice"></span>
-							<span class="header-menu_tx">Мои <br> уведомления</span>
+							<span class="header-menu_tx">Мои<br>уведомления</span>
 						</a>
 					</li>
 					<li class="header-menu_li">
 						<a href="" class="header-menu_a">
 							<span class="header-menu_ico header-menu_ico__favorite"></span>
-							<span class="header-menu_tx">Мое <br> избранное</span>
+							<span class="header-menu_tx">Мое<br>избранное</span>
 						</a>
 					</li>
 					<li class="header-menu_li header-menu_li__sepor"></li>
@@ -31,13 +31,13 @@
 							<span class="ava middle">
 								<img src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" alt="">
 							</span>
-							<span class="header-menu_tx">Моя <br> страница</span>
+							<span class="header-menu_tx">Моя<br>страница</span>
 						</a>
 					</li>
 					<li class="header-menu_li">
 						<a href="" class="header-menu_a">
 							<span class="header-menu_ico header-menu_ico__family"></span>
-							<span class="header-menu_tx">Моя <br> семья</span>
+							<span class="header-menu_tx">Моя<br>семья</span>
 						</a>
 					</li>
 					<li class="header-menu_li">
@@ -55,7 +55,7 @@
 					<li class="header-menu_li">
 						<a href="" class="header-menu_a">
 							<span class="header-menu_ico header-menu_ico__award"></span>
-							<span class="header-menu_tx">Мои <br> успехи</span>
+							<span class="header-menu_tx">Мои<br>успехи</span>
 						</a>
 					</li>
 				</ul>

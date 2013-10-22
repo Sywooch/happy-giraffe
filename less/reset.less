@@ -1,9 +1,3 @@
-// Управдение объеденения файлов с помощью less 
-// Переменные и миксы
-@import "/include/variables.less";
-@import "/include/mixins.less";
-
-
 /* @layout reset
 ---------------------------------------------*/
 
@@ -100,25 +94,22 @@ h2 { font-size: 23px;line-height: normal;font-weight: normal;margin-bottom: 15px
 h3 { font-size: 16px;}
 h4 { font-size: 12px}
 
-html,
 body {
+	height: 100%;
+	min-width:1000px;
 	margin: 0;
 	padding: 0;
-	font-family:Arial, Tahoma, Verdana, sans-serif;;
-	font-size:12px;
-	line-height:18px;
-	min-width:1000px;
+	font: 12px/18px Arial, Tahoma, Verdana, sans-serif;
 	color: #1f1f1f;
 	word-wrap: break-word;
 	background: #fff;
-	font-size:12px;
-	line-height:18px;;
 }
 html {height: 100%;}
 html.top-nav-fixed {overflow-y:hidden;}
 .top-nav-fixed body {overflow-y:hidden;overflow-x:hidden;height:100%;}
 
-.body-gray {background:#f0f0f0 url(/images/body-gray.png) repeat-x;}
+.body-gray {background:#f0f0f0;}
+.body-gray .layout-container{background: url(/images/body-gray.png) repeat-x;}
 .body-club {background:#f0f0f0;}
 
 .body-gray #layout,

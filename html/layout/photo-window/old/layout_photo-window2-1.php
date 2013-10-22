@@ -37,14 +37,23 @@
 		</div>
 		<div class="photo-window_top-hold">
 			<div class="photo-window_count">25 фото из 52</div>
-			<div class="photo-window_t">Детский лагерь «Зеркальный». Ленинградская область. Ленинградская область. Ленинградская область. Ленинградская область. Ленинградская область.</div>
+			<div class="photo-window_t clearfix">
+				<div class="display-ib w-50p margin-t5">
+					<input type="text" class="itx-simple" id="" name="" placeholder="Введите заголовок фото">
+				</div>
+				<!--  
+				Если нужно ограничение в количестве символов
+				<div class="display-ib color-gray font-small">5/50</div>
+				-->
+				<button class="btn-green btn-small margin-l10">Ok</button>
+			</div>
 		</div>
 		
 	</div>
 	<!-- Обрабатывать клик на юphoto-window_c для листания следующего изображения -->
 	<div class="photo-window_c">
 		<div class="photo-window_img-hold">
-			<img src="/images/example/photo-window-2.jpg" alt="" class="photo-window_img">
+			<img src="/images/example/photo-window-1.jpg" alt="" class="photo-window_img">
 			<div class="verticalalign-m-help"></div>
 		</div>
 		<a href="#photo-window-end" class="photo-window_arrow photo-window_arrow__l fancy" data-theme="white-simple"></a>
@@ -95,6 +104,12 @@
 	</div>
 	
 	<div class="photo-window_bottom">
+		<div class="display-ib w-500 verticalalign-b">
+			
+			<textarea name="" id="" cols="30" rows="2" class="itx-simple" placeholder="Введите описание фото"></textarea>
+		</div>
+		<button class="btn-green btn-small margin-l10 verticalalign-b">Ok</button>
+		<!--
 		<script type="text/javascript">
 		$(document).ready(function () {
 			$('.photo-window_bottom').click(function(){
@@ -102,10 +117,14 @@
 			});
 		});
 		</script>
-		<div class="photo-window_desc">
-			<p>В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, спокойные игры <span class="photo-window_desc-more"> ... <a href="javascript:void(0)" >Читать полностью</a> <br></span> В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, эстафеты, соревнования</p>
-			<p>В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, эстафеты и спокойные игры.  <a href="javascript:void(0)" class="">Кратко</a> </p>
+		-->
+		<!-- <div class="photo-window_desc">
+			<p>В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, спокойные игры <span class="photo-window_desc-more"> ... <a href="javascript:void(0)" >Читать полностью</a> </span></p>
 		</div>
+		<div class="photo-window_desc photo-window_desc__full">
+			<p>В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, спокойные игры В круглогодичном лечебно-развлекательном лагере</p>
+			<p>В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, эстафеты и спокойные игры.  <a href="javascript:void(0)" class="">Кратко</a> </p>
+		</div> -->
 	</div>
 
 	<div class="photo-window_right">
@@ -266,6 +285,7 @@
 
 <div class="display-n">
 	<div class="photo-window-end" id="photo-window-end">
+		<a class="photo-window-end_close powertip" onclick="$.fancybox.close();" href="javascript:void(0);" title="Закрыть"></a>
 		<div class="photo-window-end_top">
 			<div class="photo-window-end_desc">Это последнее фото из альбома</div>
 			<a class="photo-window-end_t" href="javascript:void(0)">
@@ -298,13 +318,13 @@
 			</div>
 		</div>
 		<div class="photo-window-end_hold clearfix">
-			<div class="textalign-c">
+			<div class="textalign-c margin-b30">
 				Другие альбомы  -  <a href="">Регина Поплавская </a>
 			</div>
 				
             <div class="photo-preview-row clearfix">
             	<div class="textalign-l clearfix">
-            		<a class="photo-preview-row_t">Style Me Pretty - Цветы и свадьбы</a>
+            		<a href="" class="photo-preview-row_t">Style Me Pretty - Цветы и свадьбы</a>
             	</div>
                 <div class="photo-preview-row_hold">
 	                <div class="photo-grid clearfix">
@@ -356,7 +376,7 @@
 				
             <div class="photo-preview-row clearfix">
             	<div class="textalign-l clearfix">
-            		<a class="photo-preview-row_t">Style Me Pretty - Цветы и свадьбы</a>
+            		<a  href="" class="photo-preview-row_t">Style Me Pretty - Цветы и свадьбы</a>
             	</div>
                 <div class="photo-preview-row_hold">
 	                <div class="photo-grid clearfix">

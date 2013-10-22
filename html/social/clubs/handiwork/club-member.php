@@ -64,7 +64,7 @@
 					</div>
 					<div class="col-23-middle clearfix">
 						<div class="b-section_transp">
-							<h1 class="b-section_transp-t">Рукоделие</h1>
+							<div class="b-section_transp-t">Рукоделие</div>
 							<div class="b-section_transp-desc">Здесь собрано все что нужно для цветоводов. Растения, удобрения <br>чувство юмора имеется, на шею не сажусь, проблемами не загружаю. </div>
 							<div class="b-section_club-moder">
 								<span class="b-section_club-moder-tx">Модераторы <br> клуба</span>
@@ -133,6 +133,7 @@
 				<div class="menu-simple">
 					<ul class="menu-simple_ul">
 						<li class="menu-simple_li menu-simple_li__with-drop">
+							<a href="" class="menu-simple_a-drop"></a>
 							<a class="menu-simple_a" href="">Вышивка</a>
 						</li>
 						<li class="menu-simple_li">
@@ -166,6 +167,7 @@
 							<a class="menu-simple_a" href="">Фотокружок </a>
 						</li>
 						<li class="menu-simple_li menu-simple_li__with-drop active">
+							<a href="" class="menu-simple_a-drop"></a>
 							<a class="menu-simple_a" href="">Роспись </a>
 							<ul class="menu-simple_ul">
 								<li class="menu-simple_li">

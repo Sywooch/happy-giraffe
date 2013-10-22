@@ -1,11 +1,15 @@
-var WysiwygPhotoUpload = function () {
+var WysiwygPhotoUpload = function (comments) {
     var self = this;
+    self.comments = comments;
     self.upload = ko.observable(new UploadPhotos(null, false, '#redactor-popup_b-photo'));
 
     self.add = function () {
         var html = '';
         ko.utils.arrayForEach(self.upload().photos(), function(photo) {
-            html += photo.html;
+            if (self.comments === true)
+                html += photo.comment_html;
+            else
+                html += photo.html;
         });
         redactor.insertHtmlAdvanced(html);
         redactor.sync();
@@ -27,8 +31,6 @@ var WysiwygLink = function(data) {
     }
 
     self.processLink = function() {
-        console.log('process');
-
         var link = '', text = '';
 
         link = self.url();
@@ -45,9 +47,9 @@ var WysiwygLink = function(data) {
         var re = new RegExp('^(http|ftp|https)://' + pattern, 'i');
         var re2 = new RegExp('^' + pattern, 'i');
 
-        if (link.search(re) == -1 && link.search(re2) == 0 && this.opts.linkProtocol)
+        if (link.search(re) == -1 && link.search(re2) == 0 && redactor.opts.linkProtocol)
         {
-            link = this.opts.linkProtocol + link;
+            link = redactor.opts.linkProtocol + link;
         }
 
         redactor.linkInsert('<a href="' + link + '">' + text + '</a>', $.trim(text), link, '');
@@ -65,12 +67,12 @@ var Video = function(data, parent) {
     self.check = function() {
         self.previewError(false);
         self.previewLoading(true);
-        $.get('/newblog/videoPreview/', { url : self.link() }, function(html) {
+        $.get('/newblog/videoPreview/', { url : self.link() }, function(response) {
             self.previewLoading(false);
-            if (html === false)
+            if (response.success === false)
                 self.previewError(true);
             else
-                self.embed(html);
+                self.embed(response.html);
         }, 'json');
     };
 
@@ -111,11 +113,9 @@ var Video = function(data, parent) {
                     title: 'Вставить фото',
                     callback: function(buttonNamem, buttonDOM, buttonObject) {
                         if (typeof formWPU === 'undefined'){
-                            console.log(111);
-                            formWPU = new WysiwygPhotoUpload();
+                            formWPU = new WysiwygPhotoUpload(customOptions.comments);
                             ko.applyBindings(formWPU, document.getElementById('redactor-popup_b-photo'));
                         }else{
-                            console.log(222);
                             formWPU.upload().photos.removeAll();
                         }
                         $('.redactor-popup_b-photo').toggleClass('display-n');

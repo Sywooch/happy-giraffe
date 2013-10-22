@@ -132,6 +132,14 @@
 									<ul class="b-family_ul">
 										<li class="b-family_li">
 											<div class="b-family_img-hold">
+												<div class="ico-family ico-family__baby-plan"></div>
+											</div>
+											<div class="b-family_tx">
+												<span>Планируем ребенка</span> 
+											</div>
+										</li>
+										<li class="b-family_li">
+											<div class="b-family_img-hold">
 												<div class="ico-family ico-family__boy-wait"></div>
 											</div>
 											<div class="b-family_tx">

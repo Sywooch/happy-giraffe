@@ -6,7 +6,6 @@ function UserAboutWidget(about) {
     self.editMode = ko.observable(false);
 
     self.edit = function () {
-        console.log('sfahshf');
         self.new_about(self.about());
         self.editMode(true);
     };
@@ -40,26 +39,42 @@ function UserInterestsWidget(data) {
     self.interests = ko.observableArray(ko.utils.arrayMap(data.interests, function (interest) {
         return new UserInterest(interest, self);
     }));
+    self.user_interests = ko.observableArray(ko.utils.arrayMap(data.user_interests, function (interest) {
+        return new Interest(interest, self);
+    }));
     self.categories = ko.observableArray(ko.utils.arrayMap(data.categories, function (category) {
         return new InterestCategory(category, self);
     }));
-    self.allInterests = ko.observable([]);
+
+    /*********************** gather all interests in one array *************************/
+    var allInterests = [];
+    ko.utils.arrayForEach(self.categories(), function (category) {
+        ko.utils.arrayForEach(category.interests(), function (interest) {
+            allInterests.push(interest);
+        });
+    });
+    ko.utils.arrayForEach(self.user_interests(), function (interest) {
+        allInterests.push(interest);
+    });
+    self.allInterests = ko.observableArray(allInterests);
+    self.allInterests.sort(function (left, right) {
+        return left.count() == right.count() ? 0 : (left.count() < right.count() ? 1 : -1)
+    });
+
 
     self.categoryInterests = ko.computed(function () {
         if (self.selectedCategory() != null) {
             return self.selectedCategory().interests;
         } else {
-            self.allInterests([]);
-            ko.utils.arrayForEach(self.categories(), function (category) {
-                ko.utils.arrayForEach(category.interests(), function (interest) {
-                    if (self.allInterests().length <= self.pageSize())
-                        self.allInterests().push(interest);
-                });
+            var first = [];
+            ko.utils.arrayForEach(self.allInterests(), function (interest) {
+                if (first.length <= self.pageSize())
+                    first.push(interest);
             });
-
-            return self.allInterests();
+            return first;
         }
     });
+
     self.hasMore = ko.computed(function () {
         return self.categoryInterests().length > self.pageSize();
     });
@@ -100,8 +115,11 @@ function InterestCategory(data, parent) {
     self.id = ko.observable(data.id);
     self.title = ko.observable(data.title);
     self.interests = ko.observableArray(ko.utils.arrayMap(data.interests, function (interest) {
-        return new Interest(interest, self);
+        return new Interest(interest, parent);
     }));
+    self.interests.sort(function (left, right) {
+        return left.count() == right.count() ? 0 : (left.count() < right.count() ? 1 : -1)
+    });
 
     self.select = function () {
         self.parent.selectedCategory(self);
@@ -114,9 +132,10 @@ function Interest(data, parent) {
     self.parent = parent;
     self.id = ko.observable(data.id);
     self.title = ko.observable(data.title);
+    self.count = ko.observable(data.count);
     self.active = ko.computed(function () {
         var active = false;
-        ko.utils.arrayForEach(self.parent.parent.interests(), function (interest) {
+        ko.utils.arrayForEach(self.parent.interests(), function (interest) {
             if (interest.id() == self.id())
                 active = true;
         });
@@ -125,15 +144,15 @@ function Interest(data, parent) {
     });
 
     self.add = function () {
-        if (!self.active() && (self.parent.parent.interests().length < 25)) {
+        if (!self.active() && (self.parent.interests().length < 25)) {
             $.post('/profile/toggleInterest/', {id: self.id()}, function (response) {
                 if (response.status) {
-                    var vm = self.parent.parent;
+                    var vm = self.parent;
                     vm.interests.push(new UserInterest({
                         id: self.id(),
                         title: self.title(),
                         active: true
-                    }, self.parent.parent));
+                    }, self.parent));
                 }
             }, 'json');
         }
@@ -174,7 +193,7 @@ function UserInterest(data, parent) {
     };
 
     self.loadDetails = function () {
-        if (self.detailsLoad() == 0){
+        if (self.detailsLoad() == 0) {
             self.detailsLoad(1);
             $.post('/profile/interestData/', {id: self.id()}, function (response) {
                 if (response.status) {
@@ -227,10 +246,21 @@ var UserClubsWidget = function (data, params) {
     self.clubs = ko.observableArray(ko.utils.arrayMap(data, function (club) {
         return new UserClub(club, self.size, self);
     }));
+    self.clubs.sort(function (left, right) {
+        return left.id == right.id ? 0 : (left.id < right.id ? -1 : 1)
+    });
     self.count = ko.computed(function () {
         return self.clubs().length;
     });
     self.TopClubs = ko.computed(function () {
+        var shortList = [];
+        ko.utils.arrayForEach(self.clubs(), function (club) {
+            if (self.clubs().indexOf(club) >= self.offset && shortList.length < self.limit)
+                shortList.push(club);
+        });
+        return shortList;
+    });
+    self.SingupClubs = ko.computed(function () {
         var shortList = [];
         ko.utils.arrayForEach(self.clubs(), function (club) {
             if (self.clubs().indexOf(club) >= self.offset && shortList.length < self.limit)
@@ -247,25 +277,22 @@ var UserClub = function (data, size, parent) {
     self.id = ko.observable(data.id);
     self.title = ko.observable(data.title);
     self.have = ko.observable(data.have);
+    self.url = ko.observable(data.url);
 
-    self.url = ko.computed(function () {
-        return '/community/' + self.id() + '/';
-    });
     self.src = ko.computed(function () {
         return '/images/club/' + self.id() + '-w130.png';
     });
     self.tooltipText = ko.computed(function () {
-        return self.have() ? 'Покинуть клуб': 'Вступить в клуб';
+        return self.have() ? 'Покинуть клуб' : 'Вступить в клуб';
     });
     self.toggle = function () {
         if (userIsGuest)
             $('a[href=#login]').trigger('click');
         else
             $.post('/ajaxSimple/clubToggle/', {club_id: self.id()}, function (response) {
-                if (response.status){
+                if (response.status) {
                     self.have(!self.have());
-                    if (self.parent.deleteClub && self.have()){
-                        console.log('remove');
+                    if (self.parent.deleteClub && self.have()) {
                         self.parent.clubs.remove(self);
                     }
                 }
@@ -319,7 +346,7 @@ var UserAva = function (data, container_selector) {
     self.cancel = function () {
         self.image_url(self.old_url());
         $.fancybox.close();
-        window.setTimeout(function(){
+        window.setTimeout(function () {
             self.status(0);
             if (self.jcrop_api != null)
                 self.jcrop_api.destroy();
@@ -349,7 +376,7 @@ var UserAva = function (data, container_selector) {
         return self._progress() + '%';
     });
 
-    self.complete = function(response){
+    self.complete = function (response) {
         self.width = response.width;
         self.height = response.height;
         self.id(response.id);
@@ -373,7 +400,7 @@ var UserAva = function (data, container_selector) {
         }, 200);
     };
 
-    self.remove = function(){
+    self.remove = function () {
         if (self.jcrop_api !== null)
             self.jcrop_api.destroy();
         self.image_url(null);
@@ -403,7 +430,7 @@ var UserAva = function (data, container_selector) {
         }
     });
 
-    $(container_selector+' .js-upload-files-multiple').bind('fileuploadprogress', function (e, data) {
+    $(container_selector + ' .js-upload-files-multiple').bind('fileuploadprogress', function (e, data) {
         self._progress(data.loaded * 100 / data.total);
     });
 

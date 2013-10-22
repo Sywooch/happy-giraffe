@@ -158,7 +158,7 @@ function Friend(data, parent) {
 
     self.id = ko.observable(data.id);
     self.listId = ko.observable(data.listId);
-    self.user = new User(data.user, parent);
+    self.user = new FriendsUser(data.user, parent);
     self.pCount = ko.observable(data.pCount);
     self.bCount = ko.observable(data.bCount);
     self.removed = ko.observable(false);
@@ -229,7 +229,7 @@ function FriendRequest(data, parent) {
     var self = this;
 
     self.id = data.id;
-    self.user = new User(data.user, parent);
+    self.user = new FriendsUser(data.user, parent);
 }
 
 function IncomingFriendRequest(data, parent) {
@@ -238,6 +238,7 @@ function IncomingFriendRequest(data, parent) {
 
     self.fromId = ko.observable(data.fromId);
     self.removed = ko.observable(false);
+    self.userIsVisible = ko.observable(true);
 
     self.accept = function() {
         $.post('/friends/requests/accept/', { requestId : self.id }, function(response) {
@@ -259,8 +260,12 @@ function IncomingFriendRequest(data, parent) {
     self.decline = function() {
         $.post('/friends/requests/decline/', { requestId : self.id }, function(response) {
             if (response.success) {
-                self.removed(true);
                 parent.incomingRequestsCount(parent.incomingRequestsCount() - 1);
+                self.removed(true);
+                setTimeout(function () {
+                    if (self.removed())
+                        self.userIsVisible(false);
+                }, 2000);
             }
         }, 'json');
     }
@@ -269,6 +274,7 @@ function IncomingFriendRequest(data, parent) {
         $.post('/friends/requests/restore/', { requestId : self.id }, function(response) {
             if (response.success) {
                 self.removed(false);
+                self.userIsVisible(true);
                 parent.incomingRequestsCount(parent.incomingRequestsCount() + 1);
             }
         }, 'json');
@@ -280,11 +286,16 @@ function OutgoingFriendRequest(data, parent) {
     ko.utils.extend(self, new FriendRequest(data, parent));
 
     self.invited = ko.observable(data.invited);
+    self.userIsVisible = ko.observable(true);
 
     self.invite = function() {
         $.post('/friendRequests/send/', { to_id : self.user.id }, function(response) {
-            if (response.status)
+            if (response.status){
                 self.invited(true);
+                setTimeout(function () {
+                    self.userIsVisible(false);
+                }, 2000);
+            }
         }, 'json');
     }
 
@@ -312,7 +323,7 @@ function OutgoingFriendRequest(data, parent) {
     });
 }
 
-function User(data, parent) {
+function FriendsUser(data, parent) {
     var self = this;
 
     self.id = data.id;
@@ -324,6 +335,15 @@ function User(data, parent) {
     self.age = data.age;
     self.location = data.location;
     self.family = data.family;
+    self.blogPostsCount = data.blogPostsCount;
+    self.photoCount = data.photoCount;
+
+    self.hasBlog = ko.computed(function () {
+        return self.blogPostsCount > 0;
+    });
+    self.hasPhotos = ko.computed(function () {
+        return self.photoCount > 1;
+    });
 
     self.fullName = function() {
         return self.firstName + ' ' + self.lastName;

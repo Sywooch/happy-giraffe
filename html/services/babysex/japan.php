@@ -79,7 +79,7 @@
 						
 						<div class="child_sex_japan_banner">
 							<!-- Заголовок -->
-							<h1 class="child_sex_t">Определение пола ребенка <br> по группе крови родителей</h1>
+							<h1 class="child_sex_t">Определение пола ребенка <br>по японскому календарю</h1>
 							<form action="">
 								<div class="dad_bd">
 									<span class="title_pt_bn">Месяц рождения отца:</span>

@@ -15,7 +15,7 @@
 	<div class="layout-wrapper">
 		<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/header-new.php'; ?>
 		
-		<div class="layout-content">	
+		<div class="layout-content margin-b0">	
 		<div class="im im__cap">
 		<div class="im_hold clearfix">
 			<div class="im-sidebar">
@@ -25,6 +25,7 @@
 					<button class="im-sidebar_search-btn active"></button>
 				</div>
 				<div class="im-user-list">
+				<div class="im-user-list_hold clearfix">
 					<div class="im-user-list_i clearfix active">
 						<div class="im-user-settings">
 							<a class="ava small female" href="">
@@ -39,6 +40,7 @@
 						<div class="im_count powertip" title="Отметить как прочитанное">2</div>
 					</div>
 					
+				</div>
 				</div>
 			</div>
 			<div class="im-center">

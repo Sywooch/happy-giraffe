@@ -50,6 +50,39 @@
 				</div>
 			</div>
 		</div>
+
+		<div class="location-add">
+			<div class="location-add_t">Укажите ваше местожительство</div>
+			<div class="location-add_row clearfix">
+				<label for="" class="location-add_label">Страна</label>
+				<div class="location-add_it w-200">
+					<div class="chzn-itx-simple">
+					<select class="chzn" data-placeholder="Страна">
+						<option></option>
+						<option>Россия</option>
+						<option>Украина</option>
+					</select>
+					</div>
+				</div>
+				<label for="" class="location-add_label">Регион</label>
+				<div class="location-add_it w-240">
+					<div class="chzn-itx-simple">
+					<select class="chzn" data-placeholder="Регион">
+						<option></option>
+						<option>Россия</option>
+						<option>Украина</option>
+					</select>
+					</div>
+				</div>
+				<label for="" class="location-add_label">Населенный <br> пункт</label>
+				<div class="location-add_it w-240">
+					<input type="text" name="" id="" class="itx-simple">
+				</div>
+			</div>
+			<div class="textalign-c">
+				<a href="" class="btn-blue btn-h46">Сохранить</a>
+			</div>
+		</div>
 		
 		<div class="content-cols clearfix">
 			<div class="col-1">
@@ -101,8 +134,13 @@
 				<div class="b-interest">
 					<h3 class="heading-small margin-b10">Мои интересы</h3>
 					<div class="clearfix">
-						<span class="color-gray">У вас пока нет интересов</span>
-						<a href="" class="b-interest_add"></a>
+						<span class="color-gray float-l">У вас пока нет интересов</span>
+						
+						<ul class="b-interest_ul clearfix">
+							<li class="b-interest_li">
+								<a href="" class="b-interest_add"></a>
+							</li>
+						</ul>
 					</div>
 				</div>
 				
@@ -113,13 +151,13 @@
 						<div class="float-r color-gray font-small margin-t5">Добавлено 0 из 25</div>
 					</h3>
 					<ul class="b-interest_ul clearfix">
-							<li class="b-interest_li">
-								<span class="color-gray">Выберите категорию и добавьте интерес просто кликнув по ему,  или </span>
-							</li>
-							<li class="b-interest_li">
-								<a href="" class="b-interest_i b-interest_i__green">Добавить свой интерес <span class="ico-plus margin-l3"></span> </a>
-							</li>
-						</ul>
+						<li class="b-interest_li">
+							<span class="color-gray">Выберите категорию и добавьте интерес просто кликнув по ему,  или </span>
+						</li>
+						<li class="b-interest_li">
+							<a href="" class="b-interest_i b-interest_i__green">Добавить свой интерес <span class="ico-plus margin-l3"></span> </a>
+						</li>
+					</ul>
 					
 					<div class="b-interest_section">
 						<div class="b-interest_section-hold clearfix">

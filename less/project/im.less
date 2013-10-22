@@ -1,21 +1,6 @@
-/*.im-fixed {
-	#header-new {
-		position: fixed;
-		top:42px;
-	}
-	.im-sidebar {
-		position: fixed;
-		top: 200px;
-	}
-	.im-center_top {
-		position: fixed;
-		top: 211px;
-	}
-}*/
-
 .im {
 	position: relative;
-	margin: 0px 0 0px -20px;
+	margin: -5px 0 0 -20px;
 	/*min-height: 470px;*/
 	background: #fff;
 	.border-radius(10px);
@@ -109,7 +94,7 @@
 	}
 	&_sound {
 		position: absolute;
-		top: 10px;
+		top: 15px;
 		right: 0;
 		width: 20px;
 		height: 20px;
@@ -142,40 +127,31 @@
 		/*margin-top: 0;*/
 	}
 	&_top {
-		position: absolute;
-		top: 11px;
-		width: 685px;
-		z-index: 101;
-		background: #fff;
+		position: relative;
+		padding-top: 2px;
 		-moz-user-select: -moz-none;
 		-o-user-select: none;
 		-khtml-user-select: none;
 		-webkit-user-select: none;
 		user-select: none;
 	}
-	.ie8 &_top {margin-top: -11px;padding-top: 11px;}
-	&_middle {
-		padding: 150px 0 110px;	
+	&_middle {padding: 0;}
+	&_middle-hold {
+		overflow: hidden;
+		overflow-y: auto;
+		height: 300px;
 	}
-	&_middle-hold {position: relative;}
 	&_middle-w {
-		position: absolute;
-		width: 685px;
-		bottom: 0;
+		position: relative;
 	}
 	&_bottom {
-		position: fixed;
-		bottom: 0;
-		width: 685px;
-		min-height: 117px;
-		z-index: 102;
-		background:#fff url(/images/im/im.png) repeat-x -15px 100%;
+		position: relative;
 	}
 	&_bottom-hold {padding-bottom: 30px;}
 }
 
 .im-tabs {
-	margin:25px 10px 20px;
+	margin:30px 10px 20px;
 
 	&_i {
 		.inline-block();
@@ -203,6 +179,7 @@
 
 .im-panel {
 	padding: 7px 15px;
+	min-height:40px;
 	background: #ebf4ff;
 	position: relative;
 
@@ -333,10 +310,10 @@
 	height: 100%;
 
 	&_t {
-		margin: 35px 10px 18px;
-		font-size: 24px;
+		margin: 18px 16px 15px;
+		font-size: 35px;
+		font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, Tahoma, sans-serif;
 		color: #000;
-		text-align: center;
 	}
 	&_search {
 		position: relative;
@@ -363,6 +340,18 @@
 		width: 40px;
 	}
 	&_search-btn.active { background: url(/images/ico/ico-close.png) no-repeat 50% 50%;}
+	&_hide-a {
+		.inline-block();
+		padding: 10px 12px 5px;
+		text-decoration: none;
+	}
+	&_hide-a:hover .a-checkbox {background-position: -20px 0;}
+	&_hide-a-tx {
+		.inline-block();
+		margin-left: 5px;
+		line-height: 15px;
+		color: #B6B6B6;
+	}
 }
 
 .im-user-list {
@@ -402,26 +391,17 @@
 	}
 	&_i:hover {background: #f8fbff;}
 	&_i:hover .im_count__read {display: block;}
+	&_i:hover .im_watch {display: block;}
 	&_i.active {background: #5e93d5;}
 	&_i.active a {color: #fff;font-weight: bold;}
 	&_i.active .im_watch {background-position: -40px 0;} 
 	&_i.active .im_watch:hover {background-position: -40px -10px;}
 	&_i a {text-decoration: none;}
 	&_i .im_watch {display: none;}
-	&_i:hover .im_watch {display: block;}
-	&_hide-a {
-		.inline-block();
-		margin: 10px 25px 30px;
-		border-bottom: 1px dashed #838383;
-		line-height: 15px;
-		color: #838383;
-		text-decoration: none;
-	}
-	/*&_hide-b {display: none;}*/
-	&_hide-b .im_watch {background-position: -20px 0;}
-	&_hide-b .im_watch:hover {background-position: -20px -10px;}
-	&_hide-b &_i {background: #f8fbff;}
-	&_hide-b &_i:hover {background: #ebf4ff;}
+	&_i__hide .im_watch {background-position: -20px 0;}
+	&_i__hide .im_watch:hover {background-position: -20px -10px;}
+	&_i__hide {background: #f8fbff;}
+	&_i__hide:hover {background: #ebf4ff;}
 }
 
 .im-editor-b {
@@ -522,9 +502,9 @@
 .im-cap {
 	position: fixed;
 	width: 685px;
-	bottom: 30px;
+	bottom: 50px;
 	top: 154px; // высота шапки 
-	margin: 80px 0 0;
+	margin: 73px 0 0;
 	border: 1px solid #cce2f1;
 	background: #ebf4ff;
 	background: rgba(235,244,255, 0.7);
@@ -659,3 +639,29 @@
 	}
 }
 /* /message-fast */
+
+
+/****** */
+.test {
+	margin: 0 !important;
+	.im-center_middle-hold {
+		width: 685px;
+		padding-right: 20px;
+	}
+	.im-center_middle-w {width: 685px;}
+	.im-center_middle {position: relative;}
+	.im-user-list {
+		position: relative;
+		padding-right: 20px;
+		width: 265px;
+	}
+	/* новый div */
+	.im_scroll-overlay {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		right: -20px;
+		width: 20px;
+		background: #fff;
+	}
+}

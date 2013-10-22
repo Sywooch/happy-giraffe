@@ -419,6 +419,12 @@
 																
 							</div>
 						</div>
+						
+						<div class="hr"></div>
+						<div class="clearfix margin-15">
+							<a class="a-checkbox active" href=""></a>
+							<span class="color-gray-dark padding-l5">Показывать ежедневный гороскоп от Веселого Жирафа </span>
+						</div>
 					</div>
 				</div>
 			</div>

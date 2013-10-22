@@ -36,10 +36,13 @@
 @import "/project/sidebar.less";
 @import "/project/signals.less";
 @import "/project/user-career.less";
+
+/* old style
 @import "/project/user-dialogs.less";
 @import "/project/user-friends.less";
 @import "/project/user-notifications.less";
 @import "/project/user-settings.less";
+*/
 
 
 // Стили ниже нужно проверить на использование и разнести по файлам
@@ -57,18 +60,26 @@
 }
 .layout-container {
 	width: 100%;
-	overflow:hidden;
+	min-height: 100%;
+	overflow: hidden;
+	position: relative;
 }
 .layout-container_hold {}
-/* @todo delete #layout, #layout .push */
+/* @todo delete #layout,  .push */
 #layout,
-.layout-wrapper {width:1000px;margin:0 auto;min-height:100%;background:#fff;position: relative;}
+.layout-wrapper {
+	position: relative;
+	width:1000px;
+	margin:0 auto;
+	background:#fff;
+}
 .push,
-.footer-push {height:0px;}
+.footer-push {height:209px;}
 
 .layout-footer {
 	position: relative;
-	margin:0px 0 0;
+	z-index: 2;
+	margin:-210px 0 0;
 	padding:10px 0 40px;
 	border-top: 1px solid #e7e7e7;
 	background: #fafafa;
@@ -148,7 +159,7 @@
 #body-overlay {position:fixed;height:100%;width:100%;top:0;left:0;z-index:98;background:url(/images/bg_black_alpha_40.png);}
 .popup-container {position:absolute;top:0;bottom:0;left:0;right:0;z-index:100;overflow: hidden;display:none;}
 
-#btn-up-page {position:fixed;z-index: 5;bottom: 65px;right:30px;width: 91px;height: 86px;background: url(/images/btn-up.png) no-repeat;display: none;}
+#btn-up-page {position:fixed;z-index: 15;bottom: 65px;right:30px;width: 91px;height: 86px;background: url(/images/btn-up.png) no-repeat;display: none;}
 #btn-up-page:hover {background-position: 0 -86px;}
 
 #crumbs {color:#51afc3;font:11px/18px tahoma, arial, sans-serif;position:relative;z-index:5;margin-bottom:15px;}
@@ -361,6 +372,21 @@
 	background: url(../images/radio.png) no-repeat;
 	background-position: 0 -24px;
 }
+
+.b-banners {
+	overflow:hidden;
+	padding-bottom:15px;
+
+	&__wide {margin: 0 20px;}
+}
+
+.banner-colored {
+	margin: 30px 0;
+	padding: 20px;
+	border-left: 3px solid #e5e5e5;
+	background: #fffff0;
+}
+
 .settings .RadioLabelClass, 
 .dialog .CheckBoxLabelClass {
     background: url(../images/radio.png) no-repeat;
@@ -377,6 +403,7 @@
     background: url(../images/radio.png) no-repeat;
     background-position: 0 -78px;
 }
+
 
 /* form */
 .form {color:#575757;}
@@ -459,6 +486,64 @@
 .gallery-box .img .count span {font-size:40px;}
 
 .gallery-box .img .icon-play {display:block;width:190px;height:190px;background:url(/images/gallery_box_icon_play.png) no-repeat;position:absolute;top:50%;left:50%;margin:-85px 0 0 -95px;}
+
+/* gallery-widget */
+.gallery-widget {
+	position: relative;
+	margin: 20px 0 0;
+	color: #fff;
+	background: #8f67b5;
+	
+	.ico-play-big {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		margin: -75px 0 0 -75px;
+	}
+	.add-photo-widget {
+		position: absolute;
+		margin: 0;
+		top: 5px;
+		right: 5px;
+		.scale(0.8);
+	}
+	&_top {
+		display: block;
+		text-align: center;
+		padding: 10px 10px 5px;
+	}
+	&_t {
+		display: block;
+		padding: 0 20px 10px;
+		font: bold 25px/25px Tahoma, Arial, Verdana, sans-serif;
+		color: #fff;
+	}
+	&_img {
+		position: relative;
+		display: block;
+	}
+	&_img:hover .ico-play-big {background-position: 0 -151px;}
+	&_img > img {display: block;}
+	&_count {
+		position: absolute;
+		top: 7px;
+		right: 0;
+		padding: 8px 12px 10px 18px;
+		font: 25px/1em  Arial, Tahoma, Verdana, sans-serif;
+		color: #f5f5f5;
+		background: #fe2d2d;
+	}
+	&_bottom {
+		padding: 15px 20px 20px 30px;
+	}
+	&_bottom .meta-gray {
+		float: left;
+		margin: 7px 0 0;
+		color: #dfd3ea;
+	}
+	&_bottom .meta-gray_comment {color: #dfd3ea;}
+}
+/* /gallery-widget */
 
 
 /* steps */
@@ -828,14 +913,15 @@
 .new-capability img {vertical-align:middle;}
 
 /* assistance */
-.assistance {margin:30px 0 50px;}
+.assistance {margin:30px 0 50px 20px;}
 .assistance-count {
 	float:left;
-	width:265px;
+	width:260px;
+	height: 116px;
 	position:relative;
-	background:#fcf9c7;
+	background:#c7e7ff;
 	text-align:center;
-	padding:5px 0 5px 10px;
+	padding:2px 0 2px 20px;
 }
 .assistance-count:after{
 	content:"";
@@ -847,14 +933,15 @@
 	height:0;
 	border:1px solid #fff;
 	border-width:60px 0 60px 43px;
-	border-left-color:#fcf9c7;
+	border-left-color:#c7e7ff;
 }
-.assistance_text {color:#666768;font:italic 16px/18px 'Times New Roman', Georgia, Times, serif;margin:7px 0;}
-.assistance-count_all {margin:4px auto;display:inline-block;border:1px solid #e8e1f1;*display:inline;*zoom:1;}
-.assistance-count_item { background: url("/images/bg-counter.png") no-repeat 0 -32px;border: 1px solid #FFFFFF; color: #FFFFFF; float: left; font-size: 30px; font-weight: bold; line-height: 34px; padding: 0 4px;}
-.assistance-count_item.active {background-position:0 -66px;}
+/* bg-counter */
+.assistance_text {color:#666768;font: 13px/18px Arial, Tahoma, Verdana, sans-serif;margin:7px 0;}
+.assistance-count_all {margin:4px auto;}
+.assistance-count_item {.inline-block();width: 38px; background: url("/images/assistance-count_item.png") no-repeat; color: #333; float: left; font-size: 43px;  line-height: 47px; margin: 0; text-align: center;}
+.assistance-count_dash {.inline-block();margin-right: 5px;}
 
-.assistance-users {float:right;position:relative;text-align:center;padding:5px 25px 5px 10px;width:335px;}
+.assistance-users {float:right;position:relative;text-align:center;padding:2px 25px 5px 10px;width:335px;}
 .assistance-users_list {list-style:none;margin: 0 auto;}
 .assistance-users_list-item {float:left;margin:0 5px 6px 4px;}
 .assistance-users_other {color:#a9a6a6;}
@@ -970,20 +1057,19 @@
 
 	&__square &_li {
 		width: 85px;
-		margin: 20px 15px 20px;
-		padding: 10px 3px;
+		height: 82px;
+		margin: 15px 15px 15px;
+		padding: 10px 3px 5px;
 		border: 2px solid #9ecde3;
 		.border-radius(6px);
 	}
 	&__square &_li.dragover {border-color: #9be498;}
 	&__square &_li.dragover-error {border-color: #f8bdbd;}
 	&__square &_li__empty {
-		height: 70px;
 		border: 2px dashed #95d0e6;
 	}
 	&__square &_img-hold {
 		display: block;
-		height: 50px;
 		width: auto;
 		max-width: none;
 		background: none;
@@ -1022,6 +1108,7 @@
 		margin: 0 7px 13px;
 	}
 	&_li:hover &_del {display: block;}
+	&_li > a {text-decoration: none;display: block;}
 	&_img-hold {
 		display: table-cell;
 		vertical-align: middle;
@@ -1248,7 +1335,7 @@
 -------------------------------------------------------------------- */
 
 /* calculator calories daily */
-#calories-calculator-daily {}
+/*#calories-calculator-daily {}
 
 #calories-calculator-daily .block-title {height:195px;background:url(/images/bg_calories_calculator_daily_title.jpg) no-repeat right top;border:1px solid #ebe1f5;padding-left:40px;padding-top:25px;font-weight:normal;margin-bottom:30px;padding-bottom:25px;}
 #calories-calculator-daily .block-title h1 {font-size:54px;color:#464546;font-weight:normal;line-height:1;}
@@ -1288,6 +1375,6 @@
 #calories-calculator-daily .result ul li.n-bread {margin-top:-10px;}
 #calories-calculator-daily .result ul li.n-bread .icon {position:relative;top:10px;}
 #calories-calculator-daily .result ul li.n-bread .icon i {background-color:#ff7854;color:#fff;width:30px;height:30px;line-height:30px;font-size:14px; -moz-border-radius:15px;-webkit-border-radius:15px;border-radius:15px;behavior: url(/stylesheets/PIE.htc);}
-#calories-calculator-daily .result ul li .gray {font-size:11px;color:#9e9d9d;font-family:tahoma, arial, helvetica, sans-serif;}
+#calories-calculator-daily .result ul li .gray {font-size:11px;color:#9e9d9d;font-family:tahoma, arial, helvetica, sans-serif;}*/
 /* /calculator calories daily */
 

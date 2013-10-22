@@ -17,34 +17,6 @@
 		<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/header-new.php'; ?>
 		
 		<div class="layout-content margin-b0">
-			<div class="content-cols clearfix">
-				<div class="col-1">
-					<div class="sidebar-search clearfix">
-						<input type="text" placeholder="Поиск по сайту" class="sidebar-search_itx" id="" name="">
-						<!-- 
-						В начале ввода текста, скрыть sidebar-search_btn добавить класс active"
-						 -->
-						<button class="sidebar-search_btn"></button>
-					</div>
-				</div>
-				<div class="col-23-middle">
-					<div class="user-add-record user-add-record__small clearfix">
-						<div class="user-add-record_ava-hold">
-							<a href="" class="ava male middle">
-								<span class="icon-status status-online"></span>
-								<img alt="" src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg">
-							</a>
-						</div>
-						<div class="user-add-record_hold">
-							<div class="user-add-record_tx">Я хочу добавить</div>
-							<a href="#popup-user-add-article"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__article fancy powertip" title="Статью"></a>
-							<a href="#popup-user-add-photo"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__photo fancy powertip" title="Фото"></a>
-							<a href="#popup-user-add-video"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__video fancy active powertip" title="Видео"></a>
-							<a href="#popup-user-add-status"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__status fancy powertip" title="Статус"></a>
-						</div>
-					</div>
-				</div>
-			</div>
 
 		<div class="im">
 		<div class="im_hold clearfix">
@@ -55,6 +27,22 @@
 					<button class="im-sidebar_search-btn"></button>
 				</div>
 				<div class="im-user-list">
+				<div class="im-user-list_hold clearfix">
+					
+					<div class="im-user-list_i im-user-list_i__hide clearfix">
+						<div class="im-user-settings">
+							<a class="ava small female" href="">
+								<img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg">
+							</a>
+							<div class="im-user-settings_user">
+								<a href="" class="">Арина Поплавская</a>
+							</div>
+						</div>
+						
+						<div class="im_watch powertip" title="Показать диалог"></div>
+						<div class="im_count powertip" title="Отметить как прочитанное">236</div>
+					</div>
+						
 					<div class="im-user-list_i clearfix">
 						<div class="im-user-settings">
 							<a class="ava small female" href="">
@@ -97,25 +85,28 @@
 						<div class="im_watch powertip" title="Скрыть диалог"></div>
 						<div class="im_count im_count__read powertip" title="Отметить как не прочитанное">44784</div>
 					</div>
-					<a href="" class="im-user-list_hide-a" onclick="im.hideContacts();return false;">Показать скрытые</a>
-					<div class="im-user-list_hide-b">
-						
-						<div class="im-user-list_i clearfix">
-							<div class="im-user-settings">
-								<a class="ava small female" href="">
-									<img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg">
-								</a>
-								<div class="im-user-settings_user">
-									<a href="" class="">Арина Поплавская</a>
-								</div>
+
+					<div class="im-user-list_i im-user-list_i__hide clearfix">
+						<div class="im-user-settings">
+							<a class="ava small female" href="">
+								<img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg">
+							</a>
+							<div class="im-user-settings_user">
+								<a href="" class="">Арина Поплавская</a>
 							</div>
-							
-							<div class="im_watch powertip" title="Показать диалог"></div>
-							<div class="im_count powertip" title="Отметить как прочитанное">236</div>
 						</div>
 						
+						<div class="im_watch powertip" title="Показать диалог"></div>
+						<div class="im_count powertip" title="Отметить как прочитанное">236</div>
 					</div>
+						
 				</div>
+				</div>
+				<a href="" class="im-sidebar_hide-a">
+					<!-- On click im-sidebar_hide-a toogle class active on a-checkbox -->
+					<span class="a-checkbox"></span> 
+					<span class="im-sidebar_hide-a-tx">Показать скрытые</span>
+				</a>
 			</div>
 			<div class="im-center">
 			
@@ -446,7 +437,14 @@ $(document).ready(function () {
                   var html = this.get();
               }
           }
-      }
+      },
+      changeCallback: function(html)
+		{	
+			im.messagesHeight();
+			if((im.wrapper.height() - im.container.scrollTop()) < im.container.height() + 30) {
+				im.scrollBottom();
+			}
+		}
   });
 });
 						</script>		

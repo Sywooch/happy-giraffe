@@ -75,7 +75,7 @@
 						</div>
 						<div class="col-23-middle">
 							<div class="padding-l20">
-								<h1 class="b-section_t">Гороскопы <br> от Веселого Жирафа</h1>
+								<div class="b-section_t">Гороскопы <br> от Веселого Жирафа</div>
 								<div class="margin-t10 color-gray-dark clearfix">
 									Здесь собрано все что нужно для цветоводов. Растения, удобрения <br> чувство юмора имеется, на шею не сажусь, проблемами не загружаю. 
 								</div>

@@ -46,7 +46,7 @@
 		</div>
 		
 		
-		<div class="b-section b-section__club b-section__club-1">
+		<div class="b-section b-section__club b-section__club-2">
 			<div class="b-section_hold">
 				<div class="content-cols clearfix">
 					<div class="col-1">
@@ -55,7 +55,7 @@
 								<li class="club-list_li  club-list_li__in">
 									<a href="" class="club-list_i">
 										<span class="club-list_img-hold">
-											<img src="/images/club/17-w240.png" alt="" class="club-list_img">
+											<img src="/images/club/2-w240.png" alt="" class="club-list_img">
 										</span>
 									</a>
 								</li>
@@ -64,7 +64,7 @@
 					</div>
 					<div class="col-23-middle clearfix">
 						<div class="b-section_transp">
-							<h1 class="b-section_transp-t">Беременность и роды</h1>
+							<div class="b-section_transp-t">Беременность и роды</div>
 							<div class="b-section_transp-desc">Здесь собрано все что нужно для цветоводов. Растения, удобрения чувство юмора имеется, на шею не сажусь, проблемами не загружаю. </div>
 							<div class="b-section_club-moder">
 								<span class="b-section_club-moder-tx">Модераторы <br> клуба</span>
@@ -76,6 +76,23 @@
 								<a href="" class="ava female"></a>
 							</div>
 						</div>
+						<ul class="b-section_ul b-section_ul__white clearfix">
+							<li class="b-section_li">
+								<a class="b-section_li-a" href="">Здоровье и питание</a>
+							</li>
+							<li class="b-section_li">
+								<a class="b-section_li-a" href="">Ясли и няни</a>
+							</li>
+							<li class="b-section_li">
+								<a class="b-section_li-a" href="">Раннее развитие и обучение</a>
+							</li>
+							<li class="b-section_li">
+								<a class="b-section_li-a" href="">Психология и воспитание</a>
+							</li>
+							<li class="b-section_li">
+								<a class="b-section_li-a" href="">Справочник детских болезней</a>
+							</li>
+						</ul>
 					</div>
 				</div>
 			</div>

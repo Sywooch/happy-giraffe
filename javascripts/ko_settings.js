@@ -249,8 +249,12 @@ function UserLocation(data) {
     };
     self.text = ko.computed(function () {
         var region = self.getRegionById(self.region_id());
-        if (region)
-            return self.getRegionById(self.region_id()).name + ' <br> ' + self.city().name();
+        if (region){
+            if (region.isCity)
+                return self.getRegionById(self.region_id()).name;
+            else
+                return self.getRegionById(self.region_id()).name + ' <br> ' + self.city().name();
+        }
         return '';
     });
     self.CountryChanged = function () {
@@ -311,4 +315,16 @@ function pad(str, max) {
         return '';
     str = str.toString();
     return str.length < max ? pad("0" + str, max) : str;
+}
+
+function removeSocialService(el, id, service) {
+    $.post('/profile/settings/removeService/', { id : id }, function(response) {
+        if (response) {
+            if ($(el).siblings().length > 1)
+                $(el).parents('tr').remove();
+            else
+                $(el).parents('table').remove();
+            $('.auth-service.' + service + ' a').show();
+        }
+    });
 }

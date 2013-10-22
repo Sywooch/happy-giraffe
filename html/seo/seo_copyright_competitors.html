@@ -13,7 +13,7 @@
 		
 		$(function(){
 			
-			var tr = '<tr>\
+			/*var tr = '<tr>\
 						<th rowspan="2" class="col-1">Ключевое слово или фраза</th>\
 						<th rowspan="2"><i class="icon-yandex"></i></th>\
 						<th rowspan="2"><i class="icon-freq"></i></th>\
@@ -21,7 +21,7 @@
 						<th rowspan="2"></th>\
 					</tr>'
 					
-			$('#table-result-1').prepend(tr);
+			$('#table-result-1').prepend(tr);*/
 			
 			
 		})
@@ -33,27 +33,69 @@
 	<div id="seo" class="wrapper">
 		
 		<div class="clearfix">
-			<div class="default-nav">
-				<ul>
-					<li class="active"><a href="">Ключевые слова или фразы</a><span class="tale"><img src="/images/default_nav_active.gif"></span></li>
-					<li class="active">
-						<a href="">Раздача заданий</a>
-						<span class="tale"><img src="/images/default_nav_active.gif"></span>
-						<div class="count"><a href="">25</a></div>
-					</li>
-					<li><a href="">Отчеты</a></li>
-				</ul>
+			<div class="clearfix">
+				<div class="default-nav">
+					<ul>
+						<li class="active"><a href="">Ключевые слова или фразы</a><span class="tale"><img src="/images/default_nav_active.gif"></span></li>
+						<li class="active">
+							<a href="">Раздача заданий</a>
+							<span class="tale"><img src="/images/default_nav_active.gif"></span>
+							<div class="count"><a href="">25</a></div>
+						</li>
+						<li><a href="">Отчеты</a></li>
+					</ul>
+				</div>
+				
+				<div class="title">
+					<i class="img"></i><span>SEO-<span>жираф</span></span> копирайт
+				</div>
 			</div>
-			
-			<div class="title">
-				<i class="img"></i><span>SEO-<span>жираф</span></span> копирайт
+			<div class="clearfix">
+				<div class="fast-nav">
+					<span class="fast-nav_t">Выбрать тематику:</span>
+					<ul>
+						<li><a href="">Женская</a></li>
+						<li><a href="">Рукоделие</a></li>
+						<li><a href="">Интерьер</a></li>
+						<li><a href="">Сад, огород</a></li>
+						<li><a href="">Женская</a></li>
+						<li><a href="">Рукоделие</a></li>
+						<li><a href="">Интерьер</a></li>
+						<li><a href="">Сад, огород</a></li>
+						<li><a href="">Рукоделие</a></li>
+						<li><a href="">Интерьер</a></li>
+						<li class="active"><a href="">Без тематики</a></li>
+					</ul>
+				</div>
 			</div>
-			
-			<div class="fast-nav">
-				<ul>
-					<li class="active"><a href="">baby.ru</a></li>
-					<li><a href="">babyblog</a></li>
-				</ul>
+			<div class="clearfix">
+				<div class="fast-nav">
+					<span class="fast-nav_t">Выбрать сайт:</span>
+					<select name="" id="">
+						<option value="">baby.ru</option>
+						<option value="">babyblog.ru</option>
+						<option value="">yandex-baby.ru</option>
+						<option value="">google-baby.ru</option>
+						<option value="">baby.ru</option>
+						<option value="">babyblog.ru</option>
+						<option value="">yandex-baby.ru</option>
+						<option value="">google-baby.ru</option>
+						<option value="">baby.ru</option>
+					</select>
+					&nbsp;
+					&nbsp;
+					<!-- При клике сслыка заменятся на select -->
+					<a href="" class="pseudo">Задать тематику сайта</a>
+					<!-- 
+					<select name="" id="">
+						<option value="">Без тематики</option>
+						<option value="">Женская</option>
+						<option value="">Рукоделие</option>
+						<option value="">Интерьер</option>
+						<option value="">Интерьер</option>
+					</select>
+					 -->
+				</div>
 			</div>
 			
 		</div>
@@ -78,7 +120,13 @@
 			</div>
 			
 			<div class="result-filter">
-				<label>не показывать<br/>используемые<br/><input type="checkbox" /></label>
+				<label for="">Сортировать по</label>
+				<select name="" id="" width="200">
+					<option value="">Все</option>
+					<option value="">Нет статей</option>
+					<option value="">Есть статьи, нет трафика</option>
+					<option value="">Есть статьи и трафик</option>
+				</select>
 			</div>
 			
 		</div>
@@ -97,6 +145,17 @@
 			<div class="table-box">
 				<table id="table-result-1">
 					<tr>
+						<th rowspan="2" class="col-1">Ключевое слово или фраза</th>
+						<th rowspan="2"><i class="icon-yandex"></i></th>
+						<th rowspan="2"><i class="icon-freq"></i></th>
+						<th colspan="3">Трафик Веселый жираф</select></th>
+						<th colspan="12">Трафик конкурентов &nbsp;&nbsp;&nbsp; Год <select><option>2012</option></select></th>
+						<th rowspan="2"></th>
+					</tr>
+					<tr>
+						<th>Всего</th>
+						<th><i class="icon-yandex"></i></th>
+						<th><i class="icon-google"></i></th>
 						<th>Янв</th>
 						<th>Фев</th>
 						<th>Мар</th>
@@ -114,6 +173,9 @@
 						<td class="col-1">кесарева сечение</td>
 						<td>106 664</td>
 						<td><span><i class="icon-freq-1"></i></span></td>
+						<td>39025</td>
+						<td>39025</td>
+						<td>39025</td>
 						<td>39025</td>
 						<td>39025</td>
 						<td>39025</td>
@@ -154,6 +216,9 @@
 						<td>39025</td>
 						<td>39025</td>
 						<td>39025</td>
+						<td>39025</td>
+						<td>39025</td>
+						<td>39025</td>
 						<td></td>
 						
 					</tr>
@@ -161,6 +226,9 @@
 						<td class="col-1">роды кесарева сечение <i class="icon-article"></i></td>
 						<td>106 664</td>
 						<td><span><i class="icon-freq-2"></i></span></td>
+						<td>39025</td>
+						<td>39025</td>
+						<td>39025</td>
 						<td>39025</td>
 						<td>39025</td>
 						<td>39025</td>
@@ -199,6 +267,9 @@
 						<td>39025</td>
 						<td>39025</td>
 						<td>39025</td>
+						<td>39025</td>
+						<td>39025</td>
+						<td>39025</td>
 						<td>
 							<a href="" class="icon-add"></a>
 						</td>
@@ -220,6 +291,9 @@
 						<td>39025</td>
 						<td>39025</td>
 						<td>39025</td>
+						<td>39025</td>
+						<td>39025</td>
+						<td>39025</td>
 						<td> <a href="" class="icon-remove"></a></td>
 						
 					</tr>
@@ -227,6 +301,9 @@
 						<td class="col-1">питание после кесарева сечения</td>
 						<td>106 664</td>
 						<td><span><i class="icon-freq-4"></i></span></td>
+						<td>39025</td>
+						<td>39025</td>
+						<td>39025</td>
 						<td>39025</td>
 						<td>39025</td>
 						<td>39025</td>

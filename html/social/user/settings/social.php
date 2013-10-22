@@ -140,20 +140,20 @@
 							
 							<div class="form-settings_t">Добавить профиль</div>
 							
-							<div class="margin-b30 clearfix">
-								<a href="" class="b-social-big">
-									<span class="b-social-big_ico odnoklassniki"></span>
-								</a>
-								<a href="" class="b-social-big">
-									<span class="b-social-big_ico vkontakte"></span>
-								</a>
-								<a href="" class="b-social-big">
-									<span class="b-social-big_ico facebook"></span>
-								</a>
-								<a href="" class="b-social-big">
-									<span class="b-social-big_ico twitter"></span>
-								</a>
-							</div>
+							<ul class="margin-b30 clearfix">
+								<li class="b-social-big">
+									<a href="" class="b-social-big_ico odnoklassniki"></a>
+								</li>
+								<li class="b-social-big">
+									<a href=""  class="b-social-big_ico vkontakte"></a>
+								</li>
+								<li class="b-social-big">
+									<a href=""  class="b-social-big_ico facebook"></a>
+								</li>
+								<li class="b-social-big">
+									<a href=""  class="b-social-big_ico twitter"></a>
+								</li>
+							</ul>
 							
 						</div>
 						

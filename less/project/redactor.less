@@ -9,6 +9,7 @@
 .redactor_editor:focus {
 	.box-shadow(none);
 }
+.redactor_box .smile {vertical-align: middle;}
 .redactor_editor .a-imitation,
 .redactor_editor a {
 	color: #319fe4 !important;
@@ -56,6 +57,11 @@
     font-size: 13px;
     font-weight: bold;
     color: #333;
+}
+.redactor_editor iframe,
+.redactor_editor object,
+.redactor_editor hr {
+    margin-bottom: 0px !important;
 }
 
 .wysiwyg-h {
@@ -113,6 +119,19 @@
 }
 /* /wysiwyg-blue */
 
+/* wysiwyg-pink */
+.wysiwyg-pink {
+    .redactor_editor,
+    .redactor_editor:focus {
+        border: 1px solid #f9e0e8;
+        box-shadow: none;
+        color: #1F1F1F;
+    }
+    .redactor_redactor:focus {border-color: #a3cff4;}
+    .redactor_toolbar a {background: url(/redactor/redactor-pink.png) no-repeat;}
+}
+/* /wysiwyg-pink */
+
 /* wysiwyg-v */
 .wysiwyg-v {
 	position: relative;
@@ -142,11 +161,9 @@
 		padding: 0;
 		margin: 3px 4px !important;
 	}
-	.redactor_editor,
-	.redactor_editor:focus {
-		margin-left: 65px !important;
+	.redactor_editor{
+		margin-left: 60px !important;
 		width: 540px;
-		border: 1px solid #daebf5;
 		padding: 10px 20px !important;
 		.box-shadow(none);
 		.border-radius(4px);

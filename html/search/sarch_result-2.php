@@ -76,6 +76,11 @@
 							<span class="menu-list_tx">Видео</span>
 							<span class="menu-list_count">685</span>
 						</a>
+						<a href="" class="menu-list_i menu-list_i__cook">
+							<span class="menu-list_ico"></span>
+							<span class="menu-list_tx">Кулинарная книга</span>
+							<span class="menu-list_count">685</span>
+						</a>
 					</div>
 				</div>
 				
@@ -110,7 +115,7 @@
 								</div>
 								<div class="float-l">
 									<a href="" class="b-article_author">Ангелина Богоявленская</a>
-									<span class="font-smallest color-gray">Сегодня 13:25</span>
+									<span class="b-article_date">Сегодня 13:25</span>
 								</div>
 							</div>
 							<h2 class="b-article_t">
@@ -274,7 +279,7 @@
 								</div>
 								<div class="float-l">
 									<a href="" class="b-article_author">Ангелина Богоявленская</a>
-									<span class="font-smallest color-gray">Сегодня 13:25</span>
+									<span class="b-article_date">Сегодня 13:25</span>
 								</div>
 							</div>
 							<div class="b-article_in clearfix">

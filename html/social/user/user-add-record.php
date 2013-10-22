@@ -25,7 +25,7 @@
 	            var scTop = $(document).scrollTop();
 	            var box = $('#fancybox-wrap');
 
-	            boxTop = parseInt(Math.max(scTop + 20));
+	            boxTop = parseInt(Math.max(scTop + 40));
 	            box
 	                .stop()
 	                .animate({
@@ -38,6 +38,7 @@
 	            overlayColor:'#2d1a3f',
 	            overlayOpacity:'0.6',
 	            padding:0,
+	            hideOnOverlayClick:false,
 	            showCloseButton:false,
 	            centerOnScroll:false,
 	            onComplete:onComplete_function
@@ -85,7 +86,7 @@
 				</div>
 			</div>
 		</div>
-		
+
 		<div class="content-cols clearfix">
 			<div class="col-1">
 				<div class="b-ava-large">
@@ -175,7 +176,7 @@
 							</div>
 							<div class="float-l">
 								<a href="" class="b-article_author">Ангелина Богоявленская</a>
-								<span class="font-smallest color-gray">Сегодня 13:25</span>
+								<span class="b-article_date">Сегодня 13:25</span>
 							</div>
 						</div>
 						

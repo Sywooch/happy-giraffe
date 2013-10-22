@@ -1,3 +1,18 @@
+function roundSlice(array, start, quantity) {
+    if (quantity > 0) {
+        if ((array.length - start) < quantity)
+            return array.slice(start).concat(array.slice(0, quantity - (self.length - start)));
+        else
+            return array.slice(start, start + quantity);
+    } else {
+        quantity = Math.abs(quantity);
+        if (start < (quantity + 1))
+            return array.slice(start - quantity).concat(array.slice(0, start));
+        else
+            return array.slice(start - quantity + 1, start + 1);
+    }
+}
+
 function PhotoCollectionViewModel(data) {
     var self = this;
 
@@ -5,11 +20,16 @@ function PhotoCollectionViewModel(data) {
 
     self.collectionClass = data.collectionClass;
     self.collectionOptions = data.collectionOptions;
+    self.collectionTitle = data.collectionTitle;
+    self.userId = data.userId;
     self.count = data.count;
     self.url = data.url;
     self.photos = ko.utils.arrayMap(data.initialPhotos, function (photo) {
         return new CollectionPhoto(photo, self);
     });
+    self.exitUrl = null;
+    if (data.windowOptions !== null)
+        ko.utils.extend(self, data.windowOptions);
 
     self.getIndexById = function (photoId) {
         for (var photo in self.photos)
@@ -25,10 +45,6 @@ function PhotoCollectionViewModel(data) {
         return self.photos[self.currentPhotoIndex()];
     });
 
-    self.currentPhoto.subscribe(function () {
-        History.pushState(self.currentPhoto(), "Photo " + self.currentPhoto().id, self.currentPhoto().url());
-    });
-
     self.isFullyLoaded = function () {
         return self.count == self.photos.length;
     };
@@ -37,10 +53,14 @@ function PhotoCollectionViewModel(data) {
         if ((self.currentPhotoIndex() != self.photos.length - 1) || self.isFullyLoaded()) {
             self.currentPhotoIndex(self.currentPhotoIndex() != self.photos.length - 1 ? self.currentPhotoIndex() + 1 : 0);
             self.incNaturalIndex(true);
-            self.preloadImages();
+            self.preloadImages(3, 0);
             if (!self.isFullyLoaded() && self.currentPhotoIndex() >= self.photos.length - 3)
                 self.preloadMetaNext();
             self.currentPhoto().loadComments();
+
+            History.pushState(self.currentPhoto(), self.currentPhoto().title().length > 0 ? self.currentPhoto().title() : self.collectionTitle + ' - фото ' + self.currentNaturalIndex(), self.currentPhoto().url());
+            _gaq.push(['_trackPageview', self.currentPhoto().url()]);
+            yaCounter11221648.hit(self.currentPhoto().url());
         }
     }
 
@@ -48,17 +68,23 @@ function PhotoCollectionViewModel(data) {
         if ((self.currentPhotoIndex() != 0) || self.isFullyLoaded()) {
             self.currentPhotoIndex(self.currentPhotoIndex() != 0 ? self.currentPhotoIndex() - 1 : self.photos.length - 1);
             self.incNaturalIndex(false);
-            self.preloadImages();
+            self.preloadImages(0, 3);
             if (!self.isFullyLoaded() && self.currentPhotoIndex() <= 2)
                 self.preloadMetaPrev();
             self.currentPhoto().loadComments();
+
+            History.pushState(self.currentPhoto(), self.currentPhoto().title().length > 0 ? self.currentPhoto().title() : self.collectionTitle + ' - фото ' + self.currentNaturalIndex(), self.currentPhoto().url());
+            _gaq.push(['_trackPageview', self.currentPhoto().url()]);
+            yaCounter11221648.hit(self.currentPhoto().url());
         }
     }
 
-    self.preloadImages = function () {
-        var next = self.photos[self.currentPhotoIndex() != self.photos.length - 1 ? self.currentPhotoIndex() + 1 : 0];
-        var prev = self.photos[self.currentPhotoIndex() != 0 ? self.currentPhotoIndex() - 1 : self.photos.length - 1];
-        self.preload([next.src, prev.src]);
+    self.preloadImages = function (nextCount, prevCount) {
+        var next = roundSlice(self.photos, self.currentPhotoIndex() + 1, nextCount);
+        var prev = roundSlice(self.photos, self.currentPhotoIndex() - 1, -prevCount);
+        self.preload(ko.utils.arrayMap(next.concat(prev), function(photo) {
+            return photo.src;
+        }));
     }
 
     self.preload = function (arrayOfImages) {
@@ -94,15 +120,25 @@ function PhotoCollectionViewModel(data) {
         self.currentNaturalIndex(index);
     }
 
+    self.close = function() {
+        if (self.exitUrl === null)
+            PhotoCollectionViewWidget.close();
+        else
+            window.location.href = self.exitUrl;
+    }
+
     self.currentPhotoIndex.valueHasMutated();
-    self.preloadImages();
+    History.pushState(self.currentPhoto(), self.currentPhoto().title().length > 0 ? self.currentPhoto().title() : self.collectionTitle + ' - фото ' + self.currentNaturalIndex(), self.currentPhoto().url());
+    _gaq.push(['_trackPageview', self.currentPhoto().url()]);
+    yaCounter11221648.hit(self.currentPhoto().url());
+    self.preloadImages(2, 2);
 }
 
 function CollectionPhoto(data, parent) {
     var self = this;
     self.id = data.id;
-    self.title = data.title;
-    self.description = data.description;
+    self.title = ko.observable(data.title);
+    self.description = ko.observable(data.description);
     self.src = data.src;
     self.date = data.date;
     self.user = new CollectionPhotoUser(data.user);
@@ -123,11 +159,11 @@ function CollectionPhoto(data, parent) {
     }
 
     self.hasLongDescription = function () {
-        return self.description.split(" ").length > parent.DESCRIPTION_MAX_WORDS;
+        return self.description().split(" ").length > parent.DESCRIPTION_MAX_WORDS;
     }
 
     self.shortenDescription = function () {
-        var array = self.description.split(' ');
+        var array = self.description().split(' ');
         var result = ' ';
         for (var i = 0; i < parent.DESCRIPTION_MAX_WORDS; i++)
             result += array[i] += ' ';
@@ -135,7 +171,7 @@ function CollectionPhoto(data, parent) {
     }
 
     self.url = function () {
-        return parent.url + 'photo/' + self.id + '/';
+        return parent.url + 'photo' + self.id + '/';
     }
 
     self.loadComments = function () {
@@ -156,6 +192,38 @@ function CollectionPhoto(data, parent) {
                 }
             }
         }, 'json');
+    }
+
+    self.isEditable = parent.collectionClass == 'PhotoPostPhotoCollection' && self.user.id == parent.userId;
+
+    self.titleBeingEdited = ko.observable(data.title.length == 0);
+    self.titleValue = ko.observable(data.title);
+    self.saveTitle = function() {
+        if (self.titleValue().length > 0)
+            $.post('/gallery/default/updateTitle/', { id : self.id, title : self.titleValue() }, function(response) {
+                if (response.success) {
+                    self.title(self.titleValue());
+                    self.titleBeingEdited(false);
+                }
+            }, 'json');
+    }
+    self.editTitle = function() {
+        self.titleBeingEdited(true);
+    }
+
+    self.descriptionBeingEdited = ko.observable(data.description.length == 0);
+    self.descriptionValue = ko.observable(data.description);
+    self.saveDescription = function() {
+        if (self.descriptionValue().length > 0)
+            $.post('/gallery/default/updateDescription/', { id : self.id, contentId : parent.collectionOptions.contentId, description : self.descriptionValue() }, function(response) {
+                if (response.success) {
+                    self.description(self.descriptionValue());
+                    self.descriptionBeingEdited(false);
+                }
+            }, 'json');
+    }
+    self.editDescription = function() {
+        self.descriptionBeingEdited(true);
     }
 }
 

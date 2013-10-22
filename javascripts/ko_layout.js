@@ -17,7 +17,7 @@ var LayoutViewModel = function(data) {
         };
 
         Comet.prototype.incNewNotificationsCount = function(result, id) {
-            self.incNewNotificationsCount(self.incNewNotificationsCount() + 1);
+            self.newNotificationsCount(self.newNotificationsCount() + 1);
         };
 
         Comet.prototype.incScoresCount = function(result, id) {

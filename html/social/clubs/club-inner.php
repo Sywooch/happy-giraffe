@@ -42,18 +42,17 @@
 						<a href="#popup-user-add-status"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__status fancy powertip" title="Статус"></a>
 					</div>
 				</div>
-				<div class="padding-l20">
-					<div class="crumbs-small clearfix">
-						<ul class="crumbs-small_ul">  
-							<li class="crumbs-small_li">Я здесь:</li>
-							<li class="crumbs-small_li"><a href="" class="crumbs-small_a">Главная</a></li> &gt;
-							<li class="crumbs-small_li"><a href="" class="crumbs-small_a">Наш дом</a></li> &gt;
-							<li class="crumbs-small_li"><a href="" class="crumbs-small_a">Цветы в доме</a></li> &gt;
-							<li class="crumbs-small_li"><span class="crumbs-small_last">Форум</span></li>
-						</ul>
-					</div>
-				</div>
 			</div>
+		</div>
+		
+		<div class="crumbs-small clearfix">
+			<ul class="crumbs-small_ul">  
+				<li class="crumbs-small_li">Я здесь:</li>
+				<li class="crumbs-small_li"><a href="" class="crumbs-small_a">Главная</a></li> &gt;
+				<li class="crumbs-small_li"><a href="" class="crumbs-small_a">Наш дом</a></li> &gt;
+				<li class="crumbs-small_li"><a href="" class="crumbs-small_a">Цветы в доме</a></li> &gt;
+				<li class="crumbs-small_li"><span class="crumbs-small_last">Форум</span></li>
+			</ul>
 		</div>
 		
 		<div class="b-section">
@@ -74,7 +73,7 @@
 					</div>
 					<div class="col-23-middle">
 						<div class="padding-l20">
-							<h1 class="b-section_t"><a href="">Цветы в доме</a></h1>
+							<div class="b-section_t"><a href="">Цветы в доме</a></div>
 							<div class="clearfix">
 								<ul class="b-section_ul clearfix">
 									<li class="b-section_li"><span class="b-section_li-a active">Форум</span></li>

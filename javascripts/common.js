@@ -34,8 +34,8 @@ function removeA(arr) {
 }
 
 $(document).ready(function () {
-    $('.js-like-control').blockFixed({'posTop':120});
-    $('.js-fast-articles2').blockFixed({'posTop': 60, 'minPosBottom':250});
+/*    $('.js-like-control').blockFixed({'posTop':120});
+    $('.js-fast-articles2').blockFixed({'posTop': 60, 'minPosBottom':250});*/
 
     $(".wysiwyg-content").addtocopy({htmlcopytxt:'<br /><br />Подробнее: <a href="' + window.location.href + '">' + window.location.href + '</a>'});
 
@@ -914,6 +914,27 @@ $(function() {
         $(this).next().fadeIn(200).delay(2000).fadeOut(200);
         e.preventDefault();
     });
+
+    $('body').delegate('a.fancy-top', 'click', function (e) {
+    var onComplete_function2 = function () {
+        var scTop = $(document).scrollTop();
+        var box = $('#fancybox-wrap');
+
+        boxTop = parseInt(Math.max(scTop + 40));
+        box.stop().animate({'top' : boxTop}, 200);
+    };
+
+    $(this).clone().fancybox({
+        overlayColor:'#2d1a3f',
+        overlayOpacity:'0.6',
+        padding:0,
+        showCloseButton:false,
+        centerOnScroll:false,
+        hideOnOverlayClick:false,
+        onComplete:onComplete_function2
+    }).trigger('click');
+        e.preventDefault();
+    });
 });
 
 var SiteSearch = {
@@ -921,11 +942,15 @@ var SiteSearch = {
         if ($('#site-search').val() != '')
             $('#site-search-btn').addClass('active');
     },
-    keyUp: function(el){
-        if ($(el).val() != '')
-            $('#site-search-btn').addClass('active');
-        else
-            $('#site-search-btn').removeClass('active');
+    keyUp: function(event, el){
+        if(event.keyCode == 13){
+            SiteSearch.click();
+        }else{
+            if ($(el).val() != '')
+                $('#site-search-btn').addClass('active');
+            else
+                $('#site-search-btn').removeClass('active');
+        }
     },
     click:function(){
         if ($('#site-search').val() != ''){
@@ -934,6 +959,21 @@ var SiteSearch = {
             return false;
         }
         return true;
+    }
+}
+
+var AddMenu = {
+    select: function (el, type, club) {
+        if (club == '')
+            var url = '/blog/form/type' + type + '/';
+        else
+            var url = '/blog/form/type' + type + '/?club_id='+club;
+        $.post(url, {short: 1}, function (response) {
+            $('#add_form_container').html(response);
+            $('.js_add_menu a').removeClass('active');
+            $(el).addClass('active');
+        });
+        return false;
     }
 }
 

@@ -21,7 +21,7 @@ function CommentViewModel(data) {
     self.sending = ko.observable(false);
     self.focusEditor = function () {
         setTimeout(function () {
-            self.editor.redactor('focusEnd');
+            self.editor.redactor('focus');
         }, 100);
         return true;
     };
@@ -31,7 +31,7 @@ function CommentViewModel(data) {
     });
 
     self.openComment = function () {
-        if (!self.opened()){
+        if (!self.opened()) {
             self.opened(true);
             ko.utils.arrayForEach(self.comments(), function (comment) {
                 if (comment.editMode())
@@ -68,21 +68,25 @@ function CommentViewModel(data) {
         }
     };
     self.goBottom = function () {
+        if (userIsGuest)
+            $('a[href=#login]').trigger('click');
+
         if (self.full())
-            $('body').stop().animate({scrollTop: $('#content').height()}, "normal");
+            $('body').stop().animate({scrollTop: $('.layout-wrapper').height()}, "normal");
         self.openComment();
     };
     self.initEditor = function (id) {
         self.editor = $('#' + id);
         if (!self.gallery()) {
             $('#' + id).redactorHG({
-                initCallback: function() {
+                initCallback: function () {
                     redactor = this;
                     self.focusEditor();
                 },
                 minHeight: 68,
                 autoresize: true,
-                buttons: ['bold', 'italic', 'underline', 'image', 'video', 'smile']
+                buttons: ['bold', 'italic', 'underline', 'image', 'video', 'smile'],
+                comments: true
             });
         }
     };
@@ -109,10 +113,10 @@ function CommentViewModel(data) {
         else
             return '';
     });
-    self.removeResponse = function(){
+    self.removeResponse = function () {
         var str = self.editor.html();
-        str = str.replace('<span data-redactor="verified" class="a-imitation">' + self.response().author.firstName() + ',</span>','');
-        str = str.replace('<span class="a-imitation">' + self.response().author.firstName() + ',</span>','');
+        str = str.replace('<span data-redactor="verified" class="a-imitation">' + self.response().author.firstName() + ',</span>', '');
+        str = str.replace('<span class="a-imitation">' + self.response().author.firstName() + ',</span>', '');
         self.editor.html(str);
         self.response(false);
     };
@@ -120,7 +124,7 @@ function CommentViewModel(data) {
     self.Reply = function (comment) {
         self.response(comment);
         self.goBottom();
-        self.editor.html('<span class="a-imitation">' + comment.author.firstName() + ',</span>&nbsp;');
+        self.editor.html('<p><a href="/user/' + comment.author.id() + '/">' + comment.author.firstName() + '</a>,&nbsp;</p>');
     };
 }
 
@@ -162,24 +166,27 @@ function NewComment(data, parent) {
 
     self.GoEdit = function () {
         self.editMode(true);
-        $('#text' + self.id()).val(self.html());
+        $('#text' + self.id()).val(self.editHtml());
         self.parent.initEditor('text' + self.id());
         ko.utils.arrayForEach(self.parent.comments(), function (comment) {
             if (comment.id() != self.id())
                 if (comment.editMode())
                     comment.editMode(false);
-            self.parent.opened(false);
         });
+        self.parent.opened(false);
     };
 
     self.Edit = function () {
         var text = self.parent.getMessageText();
         $.post('/ajaxSimple/editComment/', {id: self.id(), text: text}, function (response) {
             if (response.status) {
-                if (!self.parent.gallery())
+                if (!self.parent.gallery()) {
                     self.parent.editor.redactor('destroy');
+                    self.parent.editor = null;
+                }
                 self.editMode(false);
                 self.html(response.text);
+                self.editHtml(response.editHtml);
             }
         }, 'json');
     };
@@ -216,6 +223,25 @@ function NewComment(data, parent) {
         }
         return true;
     };
+
+    self.openGallery = function() {
+        var collection;
+        var collectionOptions;
+
+        switch(parent.entity()) {
+            case 'CommunityContent':
+            case 'BlogContent':
+                collection = 'PhotoPostPhotoCollection';
+                collectionOptions = { contentId : parent.entity_id };
+                break;
+            case 'Album':
+                collection = 'AlbumPhotoCollection';
+                collectionOptions = { albumId : parent.entity_id };
+                break;
+        }
+
+        PhotoCollectionViewWidget.open(collection, collectionOptions, self.photoId());
+    }
 }
 
 function User(data) {

@@ -1,5 +1,11 @@
 <div class="comments-gray">
 	<div class="comments-gray_t">
+		<!-- <div class="float-r">
+			<a href="" class="a-pseudo-icon a-pseudo-icon__blue">
+				<span class="a-pseudo-icon_tx">Предыдущие 20</span>
+				<span class="i-arrow-t"></span>
+			</a>
+		</div> -->
 		<span class="comments-gray_t-a-tx">Все комментарии (28)</span>
 		<a href="" class="btn-green">Добавить</a>
 	</div>
@@ -186,7 +192,7 @@
 				<div class="wysiwyg-toolbar">
 					<div class="wysiwyg-toolbar-btn"></div>
 					
-					<div class="redactor-popup redactor-popup_b-photo" >
+					<div class="redactor-popup redactor-popup_b-photo  display-n" >
 						<a href="" class="redactor-popup_close ico-close3 powertip" title="Закрыть"></a>
 						<div class="redactor-popup_tale"></div>
 						<div class="redactor-popup_t">Загрузите фото</div>

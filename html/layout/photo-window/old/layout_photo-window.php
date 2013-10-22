@@ -44,12 +44,11 @@
 	<!-- Обрабатывать клик на юphoto-window_c для листания следующего изображения -->
 	<div class="photo-window_c">
 		<div class="photo-window_img-hold">
-			<img src="/images/example/photo-window-1.jpg" alt="" class="photo-window_img">
+			<img src="/images/example/w960-h537-1.jpg" alt="" class="photo-window_img">
 			<div class="verticalalign-m-help"></div>
 		</div>
 		<a href="#photo-window-end" class="photo-window_arrow photo-window_arrow__l fancy" data-theme="white-simple"></a>
 		<a href="#photo-window-end" class="photo-window_arrow photo-window_arrow__r fancy" data-theme="white-simple"></a>
-		
 		
         <div class="like-control clearfix">
             <a href="" class="like-control_ico like-control_ico__like">865</a>
@@ -103,19 +102,13 @@
 		});
 		</script>
 		<div class="photo-window_desc">
-			<p>В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, спокойные игры <span class="photo-window_desc-more"> ... <a href="javascript:void(0)" >Читать полностью</a> </span></p>
-		</div>
-		<div class="photo-window_desc photo-window_desc__full">
-			<p>В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, спокойные игры В круглогодичном лечебно-развлекательном лагере</p>
+			<p>В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, спокойные игры <span class="photo-window_desc-more"> ... <a href="javascript:void(0)" >Читать полностью</a> <br></span> В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, эстафеты, соревнования</p>
 			<p>В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, эстафеты и спокойные игры.  <a href="javascript:void(0)" class="">Кратко</a> </p>
 		</div>
 	</div>
 
-	<div class="photo-window_right">
+	<div class="photo-window_r">
 		
-		<div class="photo-window_banner-hold clearfix">
-			<img src="/images/example/w300-h250.jpg" alt="">
-		</div>
 		<div class="comments-gray">
 			<div class="comments-gray_t">
 				<span class="comments-gray_t-a-tx">Все комментарии (28)</span>
@@ -249,10 +242,10 @@
 				</div>
 			</div>
 		</div>
-
 	</div>
-	<div class="photo-window_right-bottom">
-		<div class="comments-gray comments-gray__photo-add">
+	<div class="photo-window_banner">
+		
+		<div class="comments-gray">
 			<div class="comments-gray_add clearfix">
 				
 				<div class="comments-gray_ava">
@@ -262,6 +255,10 @@
 					<input type="text" name="" id="" class="comments-gray_add-itx itx-gray" placeholder="Ваш комментарий">
 				</div>
 			</div>
+		</div>
+		
+		<div class="photo-window_banner-hold clearfix">
+			<img src="/images/example/w300-h250.jpg" alt="">
 		</div>
 	</div>
 </div>
@@ -302,13 +299,13 @@
 			</div>
 		</div>
 		<div class="photo-window-end_hold clearfix">
-			<div class="textalign-c margin-b30">
+			<div class="textalign-c">
 				Другие альбомы  -  <a href="">Регина Поплавская </a>
 			</div>
 				
             <div class="photo-preview-row clearfix">
             	<div class="textalign-l clearfix">
-            		<a href="" class="photo-preview-row_t">Style Me Pretty - Цветы и свадьбы</a>
+            		<a class="photo-preview-row_t">Style Me Pretty - Цветы и свадьбы</a>
             	</div>
                 <div class="photo-preview-row_hold">
 	                <div class="photo-grid clearfix">
@@ -360,7 +357,7 @@
 				
             <div class="photo-preview-row clearfix">
             	<div class="textalign-l clearfix">
-            		<a  href="" class="photo-preview-row_t">Style Me Pretty - Цветы и свадьбы</a>
+            		<a class="photo-preview-row_t">Style Me Pretty - Цветы и свадьбы</a>
             	</div>
                 <div class="photo-preview-row_hold">
 	                <div class="photo-grid clearfix">

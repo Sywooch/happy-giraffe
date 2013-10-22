@@ -75,7 +75,7 @@
 					</div>
 					<div class="col-23-middle">
 						<div class="padding-l20">
-							<h1 class="b-section_t"><a href="">Готовим на кухне</a></h1>
+							<div class="b-section_t"><a href="">Готовим на кухне</a></div>
 							<div class="clearfix">
 								<ul class="b-section_ul clearfix">
 									<li class="b-section_li"><span class="b-section_li-a active">Рецепты</span></li>
@@ -247,7 +247,7 @@
 								</div>
 								<div class="float-l">
 									<a href="" class="b-article_author">Ангелина Богоявленская</a>
-									<span class="font-smallest color-gray">Сегодня 13:25</span>
+									<span class="b-article_date">Сегодня 13:25</span>
 								</div>
 							</div>
 							<!-- Название блюда должно иметь класс fn  для микроформатов -->

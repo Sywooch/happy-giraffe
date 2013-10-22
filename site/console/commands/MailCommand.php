@@ -130,4 +130,16 @@ class MailCommand extends CConsoleCommand
             Yii::app()->email->send((int)$work->user_id, 'contest_continue', array('user' => $work->author, 'work' => $work), $this);
         }
     }
+
+    public function actionContestPets()
+    {
+        Yii::import('site.frontend.modules.community.models.*');
+        $works = CommunityContestWork::model()->findAll(array(
+            'condition' => 'contest_id = 1',
+            'limit' => 1,
+        ));
+
+        foreach ($works as $work)
+            Yii::app()->email->send(12936, 'contest_pets', array('work' => $work, 'photo' => $work->content->gallery->items[0]->photo), $this);
+    }
 }

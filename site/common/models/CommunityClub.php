@@ -140,7 +140,7 @@ class CommunityClub extends HActiveRecord
         return User::model()->findAllByPk($club_moders);
     }
 
-    public function getFavourites($type = null)
+    public function getFavourites($type = null, $dataProvider = true)
     {
         $criteria = new CDbCriteria();
         $criteria->order = 't.created DESC';
@@ -151,8 +151,8 @@ class CommunityClub extends HActiveRecord
         if ($type !== null)
             $criteria->compare('t.type_id', $type);
 
-        return new CActiveDataProvider('CommunityContent', array(
+        return ($dataProvider) ? new CActiveDataProvider('CommunityContent', array(
             'criteria' => $criteria,
-        ));
+        )) : CommunityContent::model()->findAll($criteria);
     }
 }

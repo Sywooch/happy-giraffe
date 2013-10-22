@@ -13,7 +13,7 @@ class CommunityMoreWidget extends CWidget
 
     public function run()
     {
-        $favourites = $this->content->rubric->community->club->getFavourites();
+        $favourites = $this->content->rubric->community->club->getFavourites(null, false);
 
         $photoPosts = array();
         $posts = array();

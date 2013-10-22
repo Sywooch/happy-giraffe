@@ -88,7 +88,7 @@
                                         <div style="margin: -100px 10px 0 12px; bottom:12px; left: 0;f">
 
                                             <!--  -->
-                                            <img src="/images/mail/contest/pets1/logo.png" alt="" width="86" height="86" border="0">
+                                            <img src="http://www.happy-giraffe.ru/images/mail/contest/pets1/logo.png" alt="" width="86" height="86" border="0">
                                         </div>
                                     </td>
                                     <td>

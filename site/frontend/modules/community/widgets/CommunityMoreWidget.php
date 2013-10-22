@@ -27,7 +27,7 @@ class CommunityMoreWidget extends CWidget
                 $posts[] = $f;
         }
 
-        echo '<!-- total count: ' . count($favourites) . ' -->';
+        echo '<!-- total count: ' . count($favourites->date) . ' -->';
         echo '<!-- photoPosts count: ' . count($photoPosts) . ' -->';
         echo '<!-- posts count: ' . count($posts) . ' -->';
 

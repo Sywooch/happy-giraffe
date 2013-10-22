@@ -139,7 +139,9 @@ class MailCommand extends CConsoleCommand
             'limit' => 1,
         ));
 
-        foreach ($works as $work)
-            Yii::app()->email->send(12936, 'contest_pets', array('work' => $work, 'photo' => $work->content->gallery->items[0]->photo), $this);
+        foreach ($works as $work) {
+            Yii::app()->email->send(12936, 'contest_pets', array('work' => $work, 'photo' => $work->content->gallery->items[0]->photo, 'author' => $work->content->author), $this);
+            Yii::app()->email->send(16534, 'contest_pets', array('work' => $work, 'photo' => $work->content->gallery->items[0]->photo, 'author' => $work->content->author), $this);
+        }
     }
 }

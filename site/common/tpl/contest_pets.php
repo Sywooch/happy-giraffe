@@ -38,7 +38,7 @@
                                 <td ><img width="12" src="http://www.happy-giraffe.ru/images/mail/blank.gif" height="100%" border="0" /></td>
                                 <td width="680" align="center" style="background: #c8ebff;">
 
-                                    <div style="font: normal 15px/1 arial, sans-serif; color: #232323; padding: 3px 5px;">Добрый день, {firstname}! Конкурс &laquo;Наш домашний любимец&raquo; в самом разгаре!</div>
+                                    <div style="font: normal 15px/1 arial, sans-serif; color: #232323; padding: 3px 5px;">Добрый день, <?=$author->first_name?>! Конкурс &laquo;Наш домашний любимец&raquo; в самом разгаре!</div>
 
                                 </td>
                                 <td ><img width="12" src="http://www.happy-giraffe.ru/images/mail/blank.gif" height="100%" border="0" /></td>

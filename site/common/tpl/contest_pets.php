@@ -66,7 +66,7 @@
             <table width="680" style="margin:0 auto;border-collapse: collapse; background: #ffffff;line-height:auto;" align="center" cellpadding="0" cellspacing="0">
                 <tr>
                     <td align="center">
-                        <a href="<?=$work->url?>?utm_source=email&utm_campaign=pets1" style="color:#186fb8;">
+                        <a href="<?=$work->getUrl(false, true)?>?utm_source=email&utm_campaign=pets1" style="color:#186fb8;">
                             <font face="Arial, Helvetica,sans-serif" size="2" color="#186fb8" style="font-size: 30px;line-height:35px; font-weight:bold;"><?=$work->content->title?></font>
                         </a>
                     </td>
@@ -78,7 +78,7 @@
                 </tr>
                 <tr>
                     <td align="center">
-                        <a href="<?=$work->url?>?utm_source=email&utm_campaign=pets1" style=" position:relative;text-decoration:none;">
+                        <a href="<?=$work->getUrl(false, true)?>?utm_source=email&utm_campaign=pets1" style=" position:relative;text-decoration:none;">
                             <!--  -->
                             <?=CHtml::image($photo->getPreviewUrl(471, null, Image::WIDTH), '', array('border' => 0, 'width' => '471', 'height' => 471 / $photo->width * $photo->height ))?>
                             <div style="margin: 15px 10px 0 12px; position:absolute; bottom:12px; left: 0;">
@@ -136,7 +136,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <a href="<?=$work->url?>?utm_source=email&utm_campaign=pets1" style="color:#4a98d3; "><font face="Arial, Helvetica, sans-serif" size="2" color="#4a98d3" style="font-size: 16px;line-height:18px;"><?=$work->url?></font></a>
+                                    <a href="<?=$work->getUrl(false, true)?>?utm_source=email&utm_campaign=pets1" style="color:#4a98d3; "><font face="Arial, Helvetica, sans-serif" size="2" color="#4a98d3" style="font-size: 16px;line-height:18px;"><?=$work->getUrl(false, true)?></font></a>
                                 </td>
                             </tr>
 

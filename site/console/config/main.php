@@ -126,6 +126,12 @@ return array(
         'email'=>array(
             'class' => 'site.common.components.HEmailSender',
         ),
+        'phpThumb' => array(
+            'class' => 'site.frontend.extensions.EPhpThumb.EPhpThumb',
+            'options' => array(
+                'resizeUp' => true,
+            ),
+        ),
     ),
     'params'=>array(
         'photos_url'=>'http://img.happy-giraffe.ru',

@@ -293,7 +293,6 @@ class Favourites extends EMongoDocument
         $modelsIds = array_map(function($model) {
             return $model->entity_id;
         }, $models);
-        echo '<!-- mongo ids: ' . $modelsIds . ' -->';
         return $modelsIds;
     }
 }

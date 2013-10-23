@@ -133,14 +133,19 @@ class MailCommand extends CConsoleCommand
 
     public function actionContestPets()
     {
+        $users = array();
+
         Yii::import('site.frontend.modules.community.models.*');
         $works = CommunityContestWork::model()->with('content')->findAll(array(
-            'condition' => 't.contest_id = 1 AND content.removed = 0 AND t.id >= 19',
+            'condition' => 't.contest_id = 1 AND content.removed = 0',
         ));
 
         foreach ($works as $work) {
-            echo $work->id . "\n";
-            Yii::app()->email->send($work->content->author->id, 'contest_pets', array('work' => $work, 'photo' => $work->content->gallery->items[0]->photo, 'author' => $work->content->author), $this);
+            if (! isset($users[$work->content->author->id])) {
+                echo $work->id . "\n";
+                Yii::app()->email->send((int)$work->content->author->id, 'contest_pets', array('work' => $work, 'photo' => $work->content->gallery->items[0]->photo, 'author' => $work->content->author), $this);
+                $users[] = $work->content->author->id;
+            }
         }
     }
 }

@@ -136,13 +136,11 @@ class MailCommand extends CConsoleCommand
         Yii::import('site.frontend.modules.community.models.*');
         $works = CommunityContestWork::model()->findAll(array(
             'condition' => 'contest_id = 1',
-            'limit' => 1,
-            'order' => new CDbExpression('RAND()'),
         ));
 
         foreach ($works as $work) {
-            Yii::app()->email->send(12936, 'contest_pets', array('work' => $work, 'photo' => $work->content->gallery->items[0]->photo, 'author' => $work->content->author), $this);
-            Yii::app()->email->send(16534, 'contest_pets', array('work' => $work, 'photo' => $work->content->gallery->items[0]->photo, 'author' => $work->content->author), $this);
+            echo $work->id . "\n";
+            Yii::app()->email->send($work->content->author->id, 'contest_pets', array('work' => $work, 'photo' => $work->content->gallery->items[0]->photo, 'author' => $work->content->author), $this);
         }
     }
 }

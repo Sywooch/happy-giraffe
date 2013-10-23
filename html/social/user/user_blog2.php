@@ -238,21 +238,27 @@
 							elementStop - до какого элемента фиксируется
 							blockIndent - отступ
 							*/
-							function likeControlFixed(block, elementStop, blockIndent) {
+							function likeControlFixedInBlock(block, inBlock, blockIndent) {
 
 								var block = $(block);
 								var blockTop = block.offset().top;
-								var blockHeight = block.height();
-
-								var stopTop = $(elementStop).offset().top;
-								var blockStopTop = stopTop - blockTop - blockHeight - blockIndent;
+								var blockHeight = block.outerHeight();
+								/*
+									var stopTop = $(elementStop).offset().top;
+									var blockStopTop = stopTop - blockTop - blockHeight - blockIndent;
+								*/
+								var inBlock = $(inBlock);
+								var blockStopBottom = inBlock.offset().top + inBlock.outerHeight();
 								
-
-								if (stopTop-blockTop-blockHeight-blockIndent > 0) {
+								console.log(inBlock.offset().top);
+								if (blockStopBottom-blockTop-blockHeight-blockIndent > 20) {
 
 									$(window).scroll(function() {
 								        var windowScrollTop = $(window).scrollTop();
-								        if (windowScrollTop > blockTop-blockIndent && windowScrollTop+blockHeight < stopTop-blockIndent) {
+								        if (
+								        	windowScrollTop > blockTop-blockIndent && 
+								        	windowScrollTop + blockHeight < blockStopBottom - blockIndent
+								        	) {
 								        	block.css({
 												'position': 'fixed', 
 												'top'     : blockIndent+'px'
@@ -264,17 +270,18 @@
 												'top'     : 'auto'
 											});
 
-								        	if (windowScrollTop + blockHeight > stopTop - blockIndent) {
+								        	if (windowScrollTop + blockHeight > blockStopBottom - blockIndent) {
 								        		block.css({ 
-												'top'     : blockStopTop
-											});
+								        			/* 92 - высота блока над едущими лайками */
+													'top'     : inBlock.outerHeight() - blockHeight - 92 
+												});
 								        	}
 								        }
 								    });
 								}
 							}
 
-							likeControlFixed('.js-like-control', '.comments-gray', 20);
+							likeControlFixedInBlock('.js-like-control', '.b-article', 20);
 						})
 						</script>
 						<div class="js-like-control" >
@@ -599,8 +606,8 @@
 							</div>
 						</div>
 						
-						<div class="bg-white clearfix">
-							<div class="custom-likes-b custom-likes-b__like-white">
+						<div class=" clearfix">
+							<div class="custom-likes-b">
 								<div class="custom-likes-b_slogan">Поделитесь с друзьями!</div>
 								<a href="" class="custom-like">
 									<span class="custom-like_icon odnoklassniki"></span>
@@ -621,14 +628,6 @@
 									<span class="custom-like_value">10</span>
 								</a>
 							
-							</div>
-							<div class="nav-article clearfix">
-								<div class="nav-article_left">
-									<a href="" class="nav-article_a">Очень красивые пропорции у нашего ведущего</a>
-								</div>
-								<div class="nav-article_right">
-									<a href="" class="nav-article_a">Очень красивые пропорции Очень красивые пропорции у нашего ведущего у нашего ведущего</a>
-								</div>
 							</div>
 						</div>
 						

@@ -1,4 +1,21 @@
 <div class="comments-gray comments-gray__wide">
+	<!-- Заглушка для ввода комментария, при клике в любом месте блока (кроме аватара) работает так же как в нижнем блоке -->
+	<!-- А именно  -->
+	<!-- 1. добавляется класс .active на .comments-gray_add -->
+	<!-- 2. скрывается/удаляется .comments-gray_add-itx -->
+	<!-- 3. Инициализируется визвиг -->
+	<div class="comments-gray_add comments-gray_add__top clearfix">
+		
+		<div class="comments-gray_ava">
+			<a href="" class="ava middle female"></a>
+		</div>
+		
+		<div class="comments-gray_frame">
+			<!-- input hidden -->
+			<input type="text" name="" id="" class="comments-gray_add-itx itx-gray" placeholder="Добавьте комментарий">
+
+		</div>
+	</div>
 	<div class="comments-gray_t">
 		<span class="comments-gray_t-tx">Все комментарии <span class="color-gray">(28)</span></span>
 		<a href="" class="a-pseudo font-small">Показать все  </a>

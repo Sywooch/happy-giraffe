@@ -215,7 +215,7 @@
 				</div>
 				
 			</div>
-			<div class="col-23-middle col-gray">
+			<div class="col-23-middle">
 				<div class="blog-title-b">
 					<div class="blog-title-b_img-hold">
 						<img src="/images/example/w720-h128.jpg" alt="" class="blog-title-b_img">
@@ -538,9 +538,15 @@
 							</a>
 						</div>
 						
-						<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/comments-gray-open.php'; ?>
 					</div>
 				</div>
+				<div class="article-banner">
+					<a href="">
+						<img border="0" title="" alt="" src="/images/example/yandex-direct_wide.jpg">
+					</a>
+				</div>
+				
+				<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/comments-gray-open.php'; ?>
 
 				
 				<!-- Пример открытого статуса юзера -->
@@ -630,75 +636,6 @@
 
 					</div>
 				</div>
-
-
-				<div class="b-article clearfix">
-					<div class="float-l">
-						<div class="like-control like-control__small-indent clearfix">
-							<a href="" class="ava male">
-								<span class="icon-status status-online"></span>
-								<img alt="" src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg">
-							</a>
-						</div>
-						<div class="like-control clearfix">
-							<a href="" class="like-control_ico like-control_ico__like">865</a>
-							<div class="position-rel">
-								<a href="" class="like-control_ico like-control_ico__repost">5</a>
-								
-							</div>
-							<div class="position-rel">
-								<a href="" class="favorites-control_a active">123865</a>
-								
-							</div>
-						</div>
-					</div>
-					<div class="b-article_cont clearfix">
-						<div class="b-article_cont-tale"></div>
-						<div class="b-article_header clearfix">
-							<div class="meta-gray">
-								<a href="" class="meta-gray_comment">
-									<span class="ico-comment ico-comment__gray"></span>
-									<span class="meta-gray_tx">35</span>
-								</a>
-								<div class="meta-gray_view">
-									<span class="ico-view ico-view__gray"></span>
-									<span class="meta-gray_tx">305</span>
-								</div>
-							</div>
-							<div class="float-l">
-								<a href="" class="b-article_author">Ангелина Богоявленская</a>
-								<span class="font-smallest color-gray">Сегодня 13:25</span>
-							</div>
-						</div>
-						<h2 class="b-article_t">
-							<a href="" class="b-article_t-a">Самое лучшее утро </a>
-						</h2>
-						<div class="b-article_in clearfix">
-							<div class="wysiwyg-content clearfix">
-								<p>	Недавно посмотрел фильм </p>
-							</div>
-								
-						</div>
-						<div class="textalign-r margin-15">
-					        <a class="b-article_more" href="">Смотреть далее</a>
-					    </div>
-						<div class="comments-gray">
-							<div class="comments-gray_t"></div>
-							<div class="comments-gray_add clearfix">
-								
-								<div class="comments-gray_ava">
-									<a href="" class="ava small female"></a>
-								</div>
-								<div class="comments-gray_frame">
-									<input type="text" name="" id="" class="comments-gray_add-itx itx-gray" placeholder="Ваш комментарий">
-								</div>
-							</div>
-						</div>
-
-
-					</div>
-				</div>
-
 
 				<div class="such-post">
 					<div class="such-post_title">Смотрите также</div>

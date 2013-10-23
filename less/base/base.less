@@ -763,14 +763,14 @@ textarea.error,
 .scroll {
     position: relative;
     overflow: hidden;
-    &__none {height: auto !important;}
+   &__on &_bar-hold {display: block;}
     &:hover &_bar {
     	opacity: 0.7;
     	width: 4px;
     }
 
     &_scroller {
-        overflow-y: scroll;
+        overflow-y: auto;
         height: 100%;
         -webkit-overflow-scrolling: touch;
     }
@@ -779,6 +779,7 @@ textarea.error,
     }
     &_cont {overflow: hidden;}
     &_bar-hold {
+    	display: none;
         position: absolute;    
         z-index: 1;
         top: 0;

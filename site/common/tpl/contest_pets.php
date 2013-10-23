@@ -80,7 +80,7 @@
                     <td align="center">
                         <a href="<?=$work->getUrl(false, true)?>?utm_source=email&utm_campaign=pets1" style="text-decoration:none;display:block;">
                             <!--  -->
-                            <?=CHtml::image($photo->getPreviewUrl(471, null, Image::WIDTH), '', array('border' => 0, 'width' => '471', 'height' => 471 / $photo->width * $photo->height ))?>
+                            <?=CHtml::image($photo->getPreviewUrl(471, null, Image::WIDTH), '', array('border' => 0, 'width' => '471', 'height' => round(471 / $photo->width * $photo->height)))?>
                         </a>
 
                         <table width="471" style="margin:0 auto;border-collapse: collapse; background: #f4e8db;line-height:auto;" align="center" cellpadding="0" cellspacing="0">

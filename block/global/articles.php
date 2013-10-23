@@ -487,9 +487,7 @@ $(document).ready(function () {
 	                <div class="photo-grid_i">
                     	<img class="photo-grid_img" src="/images/example/w580-h369.jpg" alt="">
                     	<div class="photo-grid_tip">25 фото</div>
-                    	<div class="photo-grid_overlay">
-                    		<span class="photo-grid_zoom"></span>
-                    	</div>
+                    	<span class="ico-play-big"></span>
 	                </div>
 		        </div>
 			</div>

@@ -183,7 +183,7 @@
                 </div>
                 
             </div>
-            <div class="col-23-middle col-gray">
+            <div class="col-23-middle">
                 <div class="blog-title-b">
                     <div class="blog-title-b_img-hold">
                         <img src="/images/example/w720-h128.jpg" alt="" class="blog-title-b_img">
@@ -274,17 +274,15 @@
                                     <div class="photo-grid_i">
                                         <img class="photo-grid_img" src="/images/example/w580-h369.jpg" alt="">
                                         <div class="photo-grid_tip">25 фото</div>
-                                        <div class="photo-grid_overlay">
-                                            <span class="photo-grid_zoom"></span>
-                                        </div>
+                                        <span class="ico-play-big"></span>
                                     </div>
                                 </div>
                             </div>
                             <div class="margin-20 clearfix">
                                 <a href="" class="float-r btn-blue-light btn-medium">Смотреть галерею</a>
                                 <div class="float-l">
-                                    <a href="" class="b-article_photo-control b-article_photo-control__single active"></a>
-                                    <a href="" class="b-article_photo-control b-article_photo-control__grid"></a>
+                                    <a href="" class="b-article_photo-control b-article_photo-control__single powertip" title="Обложка"></a>
+                                    <a href="" class="b-article_photo-control b-article_photo-control__grid active powertip" title="Плитка"></a>
                                 </div>
                             </div>
                         </div>
@@ -337,75 +335,63 @@
                                 
                             </div>
                         </div>
+                    </div>
+                </div>
 
-                        <div class="bg-white">
-                            <div class="nav-article clearfix">
-                                <div class="nav-article_left">
-                                    <a href="" class="nav-article_arrow nav-article_arrow__left"></a>
-                                    <a href="" class="nav-article_a">Очень красивые пропорции у нашего ведущего</a>
+                <div class="comments-gray comments-gray__wide">
+                    <div class="comments-gray_t">
+                        <span class="comments-gray_t-a-tx">Все комментарии (28)</span>
+                        <a href="" class="btn-green">Добавить</a>
+                    </div>
+                    <div class="comments-gray_hold">
+                        <div class="comments-gray_i comments-gray_i__self">
+                            <div class="comments-gray_ava">
+                                <a href="" class="ava small male"></a>
+                            </div>
+                            <div class="comments-gray_frame">
+                                <div class="comments-gray_header clearfix">
+                                    <a href="" class="comments-gray_author">Ангелина Богоявленская </a>
+                                    <span class="font-smallest color-gray">Сегодня 13:25</span>
                                 </div>
-                                <div class="nav-article_right">
-                                    <a href="" class="nav-article_arrow nav-article_arrow__right"></a>
-                                    <a href="" class="nav-article_a">Очень красивые пропорции Очень красивые пропорции у нашего ведущего у нашего ведущего</a>
+                                <div class="comments-gray_cont wysiwyg-content">
+                                    <p> Мне безумно жалко всех женщин, но особенно Тину Кароль, я просто представить себе не могу <a href="">как она все это переживет</a> как она все это переживет(</p>
+                                    <p>я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.  я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически </p>
+                                </div>
+                            </div>
+                            <div class="comments-gray_control comments-gray_control__self">
+                                <div class="comments-gray_control-hold">
+                                    <div class="clearfix">
+                                        <a href="" class="message-ico message-ico__edit powertip" title="Редактировать"></a>
+                                    </div>
+                                    <div class="clearfix">
+                                        <a href="" class="message-ico message-ico__del powertip" title="Удалить"></a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="comments-gray">
-                            <div class="comments-gray_t">
-                                <span class="comments-gray_t-a-tx">Все комментарии (28)</span>
-                                <a href="" class="btn-green">Добавить</a>
+                        
+                        <div class="comments-gray_i comments-gray_i__recovery">
+                            <div class="comments-gray_ava">
+                                <a href="" class="ava small female"></a>
                             </div>
-                            <div class="comments-gray_hold">
-                                <div class="comments-gray_i comments-gray_i__self">
-                                    <div class="comments-gray_ava">
-                                        <a href="" class="ava small male"></a>
-                                    </div>
-                                    <div class="comments-gray_frame">
-                                        <div class="comments-gray_header clearfix">
-                                            <a href="" class="comments-gray_author">Ангелина Богоявленская </a>
-                                            <span class="font-smallest color-gray">Сегодня 13:25</span>
-                                        </div>
-                                        <div class="comments-gray_cont wysiwyg-content">
-                                            <p> Мне безумно жалко всех женщин, но особенно Тину Кароль, я просто представить себе не могу <a href="">как она все это переживет</a> как она все это переживет(</p>
-                                            <p>я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.  я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически </p>
-                                        </div>
-                                    </div>
-                                    <div class="comments-gray_control comments-gray_control__self">
-                                        <div class="comments-gray_control-hold">
-                                            <div class="clearfix">
-                                                <a href="" class="message-ico message-ico__edit powertip" title="Редактировать"></a>
-                                            </div>
-                                            <div class="clearfix">
-                                                <a href="" class="message-ico message-ico__del powertip" title="Удалить"></a>
-                                            </div>
-                                        </div>
-                                    </div>
+                            <div class="comments-gray_frame">
+                                <div class="comments-gray_header clearfix">
+                                    <a href="" class="comments-gray_author">Анг Богоявлен </a>
+                                    <span class="font-smallest color-gray">Сегодня 14:25</span>
                                 </div>
-                                
-                                <div class="comments-gray_i comments-gray_i__recovery">
-                                    <div class="comments-gray_ava">
-                                        <a href="" class="ava small female"></a>
-                                    </div>
-                                    <div class="comments-gray_frame">
-                                        <div class="comments-gray_header clearfix">
-                                            <a href="" class="comments-gray_author">Анг Богоявлен </a>
-                                            <span class="font-smallest color-gray">Сегодня 14:25</span>
-                                        </div>
-                                        <div class="comments-gray_cont wysiwyg-content">
-                                            <p>Комментарий успешно удален.<a href="" class="comments-gray_a-recovery">Восстановить?</a> </p>
-                                        </div>
-                                    </div>
+                                <div class="comments-gray_cont wysiwyg-content">
+                                    <p>Комментарий успешно удален.<a href="" class="comments-gray_a-recovery">Восстановить?</a> </p>
                                 </div>
                             </div>
-                            <div class="comments-gray_add clearfix">
-                                
-                                <div class="comments-gray_ava">
-                                    <a href="" class="ava small female"></a>
-                                </div>
-                                <div class="comments-gray_frame">
-                                    <input type="text" name="" id="" class="comments-gray_add-itx itx-gray" placeholder="Ваш комментарий">
-                                </div>
-                            </div>
+                        </div>
+                    </div>
+                    <div class="comments-gray_add clearfix">
+                        
+                        <div class="comments-gray_ava">
+                            <a href="" class="ava small female"></a>
+                        </div>
+                        <div class="comments-gray_frame">
+                            <input type="text" name="" id="" class="comments-gray_add-itx itx-gray" placeholder="Ваш комментарий">
                         </div>
                     </div>
                 </div>
@@ -606,19 +592,7 @@
                                 
                             </div>
                         </div>
-                        <div class="bg-white">
-                            <div class="nav-article clearfix">
-                                <div class="nav-article_left">
-                                    <a href="" class="nav-article_arrow nav-article_arrow__left"></a>
-                                    <a href="" class="nav-article_a">Очень красивые пропорции у нашего ведущего</a>
-                                </div>
-                                <div class="nav-article_right">
-                                    <a href="" class="nav-article_arrow nav-article_arrow__right"></a>
-                                    <a href="" class="nav-article_a">Очень красивые пропорции Очень красивые пропорции у нашего ведущего у нашего ведущего</a>
-                                </div>
-                            </div>
-                        </div>
-                        
+<!-- 
                         <div class="gallery-widget">
                             <div class="gallery-widget_top">
                                 <div class="gallery-widget_top-tx">еще рекомендуем посмотреть</div>
@@ -644,78 +618,78 @@
                             </div>
                             <a href="#photo-widget" class="add-photo-widget active powertip fancy" title="Изменить виджет"></a>
                         </div>
+                         -->
+                    </div>
+                </div>
+                <div class="comments-gray  comments-gray__wide">
+                    <div class="comments-gray_t">
+                        <span class="comments-gray_t-a-tx">Все комментарии (28)</span>
+                        <a href="" class="btn-green">Добавить</a>
+                    </div>
+                    <div class="comments-gray_hold">
+                        <div class="comments-gray_i comments-gray_i__self">
+                            <div class="comments-gray_ava">
+                                <a href="" class="ava small male"></a>
+                            </div>
+                            <div class="comments-gray_frame">
+                                <div class="comments-gray_header clearfix">
+                                    <a href="" class="comments-gray_author">Ангелина Богоявленская </a>
+                                    <span class="font-smallest color-gray">Сегодня 13:25</span>
+                                </div>
+                                <div class="comments-gray_cont wysiwyg-content">
+                                    <p> Мне безумно жалко всех женщин, но особенно Тину Кароль, я просто представить себе не могу <a href="">как она все это переживет</a> как она все это переживет(</p>
+                                    <p>я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.  я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически </p>
+                                </div>
+                            </div>
+                            <div class="comments-gray_control comments-gray_control__self">
+                                <div class="comments-gray_control-hold">
+                                    <div class="clearfix">
+                                        <a href="" class="message-ico message-ico__edit powertip" title="Редактировать"></a>
+                                    </div>
+                                    <div class="clearfix">
+                                        <a href="" class="message-ico message-ico__del powertip" title="Удалить"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="comments-gray_i">
+                            <a href="" class="comments-gray_like like-hg-small powertip" title="Нравится">7918</a>
+                            <div class="comments-gray_ava">
+                                <a href="" class="ava small female"></a>
+                            </div>
+                            <div class="comments-gray_frame">
+                                <div class="comments-gray_header clearfix">
+                                    <a href="" class="comments-gray_author">Анг Богоявлен </a>
+                                    <span class="font-smallest color-gray">Сегодня 14:25</span>
+                                </div>
+                                <div class="comments-gray_cont wysiwyg-content">
+                                    <p>я не нашел, где можно поменять название трека. </p>
+                                </div>
+                            </div>
+                            
+                            <div class="comments-gray_control">
+                                <div class="comments-gray_control-hold">
+                                    <div class="clearfix">
+                                        <a href="" class="comments-gray_quote-ico powertip" title="Ответить"></a>
+                                    </div>
+                                    <div class="clearfix">
+                                        <a href="" class="message-ico message-ico__del powertip" title="Удалить"></a>
+                                    </div>
+                                </div>
+                                <div class="clearfix">
+                                    <a href="" class="message-ico message-ico__warning powertip" title="Пожаловаться"></a>
+                                </div>
+                            </div>
+                        </div>
                         
-                        <div class="comments-gray">
-                            <div class="comments-gray_t">
-                                <span class="comments-gray_t-a-tx">Все комментарии (28)</span>
-                                <a href="" class="btn-green">Добавить</a>
-                            </div>
-                            <div class="comments-gray_hold">
-                                <div class="comments-gray_i comments-gray_i__self">
-                                    <div class="comments-gray_ava">
-                                        <a href="" class="ava small male"></a>
-                                    </div>
-                                    <div class="comments-gray_frame">
-                                        <div class="comments-gray_header clearfix">
-                                            <a href="" class="comments-gray_author">Ангелина Богоявленская </a>
-                                            <span class="font-smallest color-gray">Сегодня 13:25</span>
-                                        </div>
-                                        <div class="comments-gray_cont wysiwyg-content">
-                                            <p> Мне безумно жалко всех женщин, но особенно Тину Кароль, я просто представить себе не могу <a href="">как она все это переживет</a> как она все это переживет(</p>
-                                            <p>я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.  я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически </p>
-                                        </div>
-                                    </div>
-                                    <div class="comments-gray_control comments-gray_control__self">
-                                        <div class="comments-gray_control-hold">
-                                            <div class="clearfix">
-                                                <a href="" class="message-ico message-ico__edit powertip" title="Редактировать"></a>
-                                            </div>
-                                            <div class="clearfix">
-                                                <a href="" class="message-ico message-ico__del powertip" title="Удалить"></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="comments-gray_i">
-                                    <a href="" class="comments-gray_like like-hg-small powertip" title="Нравится">7918</a>
-                                    <div class="comments-gray_ava">
-                                        <a href="" class="ava small female"></a>
-                                    </div>
-                                    <div class="comments-gray_frame">
-                                        <div class="comments-gray_header clearfix">
-                                            <a href="" class="comments-gray_author">Анг Богоявлен </a>
-                                            <span class="font-smallest color-gray">Сегодня 14:25</span>
-                                        </div>
-                                        <div class="comments-gray_cont wysiwyg-content">
-                                            <p>я не нашел, где можно поменять название трека. </p>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="comments-gray_control">
-                                        <div class="comments-gray_control-hold">
-                                            <div class="clearfix">
-                                                <a href="" class="comments-gray_quote-ico powertip" title="Ответить"></a>
-                                            </div>
-                                            <div class="clearfix">
-                                                <a href="" class="message-ico message-ico__del powertip" title="Удалить"></a>
-                                            </div>
-                                        </div>
-                                        <div class="clearfix">
-                                            <a href="" class="message-ico message-ico__warning powertip" title="Пожаловаться"></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                            </div>
-                            <div class="comments-gray_add clearfix">
-                                
-                                <div class="comments-gray_ava">
-                                    <a href="" class="ava small female"></a>
-                                </div>
-                                <div class="comments-gray_frame">
-                                    <input type="text" name="" id="" class="comments-gray_add-itx itx-gray" placeholder="Ваш комментарий">
-                                </div>
-                            </div>
+                    </div>
+                    <div class="comments-gray_add clearfix">
+                        
+                        <div class="comments-gray_ava">
+                            <a href="" class="ava small female"></a>
+                        </div>
+                        <div class="comments-gray_frame">
+                            <input type="text" name="" id="" class="comments-gray_add-itx itx-gray" placeholder="Ваш комментарий">
                         </div>
                     </div>
                 </div>

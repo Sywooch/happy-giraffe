@@ -215,7 +215,7 @@
 				</div>
 				
 			</div>
-			<div class="col-23-middle col-gray">
+			<div class="col-23-middle">
 				<div class="blog-title-b">
 					<div class="blog-title-b_img-hold">
 						<img src="/images/example/w720-h128.jpg" alt="" class="blog-title-b_img">
@@ -393,7 +393,27 @@
 								</ul>
 							</div>
 						</div>
-						
+
+						<div class="b-photopost">
+							<h2 class="b-photopost_t">Цветы из бумаги объемные</h2>
+                            <div class="photo-grid clearfix">
+                                <div class="photo-grid_row clearfix" >
+                                    <!-- Ловить клик на photo-grid_i для показа увеличенного фото -->
+                                    <div class="photo-grid_i">
+                                        <img class="photo-grid_img" src="/images/example/w580-h369.jpg" alt="">
+                                        <div class="photo-grid_tip">25 фото</div>
+                                        <span class="ico-play-big"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="margin-20 clearfix">
+                                <a href="" class="float-r btn-blue-light btn-medium">Смотреть галерею</a>
+                                <div class="float-l">
+                                    <a href="" class="b-article_photo-control b-article_photo-control__single powertip" title="Обложка"></a>
+                                    <a href="" class="b-article_photo-control b-article_photo-control__grid active powertip" title="Плитка"></a>
+                                </div>
+                            </div>
+						</div>
 						<div class="b-photopost">
 							<h2 class="b-photopost_t">Цветы из бумаги объемные</h2>
 							<div class="photo-grid clearfix">
@@ -403,30 +423,18 @@
                                         <img alt="" src="/images/example/photo-grid-1.jpg" class="photo-grid_img">
                                         <div class="photo-grid_overlay">
                                             <span class="photo-grid_zoom powertip"></span>
-                                            <div class="like-control like-control__smallest clearfix">
-                                                <a class="like-control_ico like-control_ico__like powertip" href="">865</a>
-                                                <a class="like-control_ico like-control_ico__favorites powertip" href="">55</a>
-                                            </div>
                                         </div>
                                     </div>
                                     <div class="photo-grid_i">
                                         <img alt="" src="/images/example/photo-grid-2.jpg" class="photo-grid_img">
                                         <div class="photo-grid_overlay">
                                             <span class="photo-grid_zoom powertip"></span>
-                                            <div class="like-control like-control__smallest clearfix">
-                                                <a class="like-control_ico like-control_ico__like powertip" href="">865</a>
-                                                <a class="like-control_ico like-control_ico__favorites powertip" href="">55</a>
-                                            </div>
                                         </div>
                                     </div>
                                     <div class="photo-grid_i">
                                         <img alt="" src="/images/example/photo-grid-3.jpg" class="photo-grid_img">
                                         <div class="photo-grid_overlay">
                                             <span class="photo-grid_zoom powertip"></span>
-                                            <div class="like-control like-control__smallest clearfix">
-                                                <a class="like-control_ico like-control_ico__like powertip" href="">865</a>
-                                                <a class="like-control_ico like-control_ico__favorites powertip" href="">55</a>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -436,30 +444,18 @@
                                         <img alt="" src="/images/example/photo-grid-4.jpg" class="photo-grid_img">
                                         <div class="photo-grid_overlay">
                                             <span class="photo-grid_zoom powertip"></span>
-                                            <div class="like-control like-control__smallest clearfix">
-                                                <a class="like-control_ico like-control_ico__like powertip" href="">865</a>
-                                                <a class="like-control_ico like-control_ico__favorites powertip" href="">55</a>
-                                            </div>
                                         </div>
                                     </div>
                                     <div class="photo-grid_i">
                                         <img alt="" src="/images/example/photo-grid-5.jpg" class="photo-grid_img">
                                         <div class="photo-grid_overlay">
                                             <span class="photo-grid_zoom powertip"></span>
-                                            <div class="like-control like-control__smallest clearfix">
-                                                <a class="like-control_ico like-control_ico__like powertip" href="">865</a>
-                                                <a class="like-control_ico like-control_ico__favorites powertip" href="">55</a>
-                                            </div>
                                         </div>
                                     </div>
                                     <div class="photo-grid_i">
                                         <img alt="" src="/images/example/photo-grid-6.jpg" class="photo-grid_img">
                                         <div class="photo-grid_overlay">
                                             <span class="photo-grid_zoom powertip"></span>
-                                            <div class="like-control like-control__smallest clearfix">
-                                                <a class="like-control_ico like-control_ico__like powertip" href="">865</a>
-                                                <a class="like-control_ico like-control_ico__favorites powertip" href="">55</a>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -469,36 +465,28 @@
                                         <img alt="" src="/images/example/photo-grid-3.jpg" class="photo-grid_img">
                                         <div class="photo-grid_overlay">
                                             <span class="photo-grid_zoom powertip"></span>
-                                            <div class="like-control like-control__smallest clearfix">
-                                                <a class="like-control_ico like-control_ico__like powertip" href="">865</a>
-                                                <a class="like-control_ico like-control_ico__favorites powertip" href="">55</a>
-                                            </div>
                                         </div>
                                     </div>
                                     <div class="photo-grid_i">
                                         <img alt="" src="/images/example/photo-grid-1.jpg" class="photo-grid_img">
                                         <div class="photo-grid_overlay">
                                             <span class="photo-grid_zoom powertip"></span>
-                                            <div class="like-control like-control__smallest clearfix">
-                                                <a class="like-control_ico like-control_ico__like powertip" href="">865</a>
-                                                <a class="like-control_ico like-control_ico__favorites powertip" href="">55</a>
-                                            </div>
                                         </div>
                                     </div>
                                     <div class="photo-grid_i">
                                         <img alt="" src="/images/example/photo-grid-2.jpg" class="photo-grid_img">
                                         <div class="photo-grid_overlay">
                                             <span class="photo-grid_zoom powertip"></span>
-                                            <div class="like-control like-control__smallest clearfix">
-                                                <a class="like-control_ico like-control_ico__like powertip" href="">865</a>
-                                                <a class="like-control_ico like-control_ico__favorites powertip" href="">55</a>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-							<div class="textalign-r">                 
-                                <a class="b-article_more b-article_more__white" href="">Смотреть 25 фото</a>
+                            <div class="margin-20 clearfix">
+                                <a href="" class="float-r btn-blue-light btn-medium">Смотреть галерею</a>
+                                <div class="float-l">
+                                    <a href="" class="b-article_photo-control b-article_photo-control__single powertip" title="Обложка"></a>
+                                    <a href="" class="b-article_photo-control b-article_photo-control__grid active powertip" title="Плитка"></a>
+                                </div>
                             </div>
 						</div>
 						

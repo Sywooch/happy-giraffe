@@ -137,6 +137,7 @@ class MailCommand extends CConsoleCommand
         $works = CommunityContestWork::model()->findAll(array(
             'condition' => 'contest_id = 1',
             'limit' => 1,
+            'order' => new CDbExpression('RAND()'),
         ));
 
         foreach ($works as $work) {

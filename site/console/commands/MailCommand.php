@@ -134,8 +134,8 @@ class MailCommand extends CConsoleCommand
     public function actionContestPets()
     {
         Yii::import('site.frontend.modules.community.models.*');
-        $works = CommunityContestWork::model()->findAll(array(
-            'condition' => 'contest_id = 1',
+        $works = CommunityContestWork::model()->with('content')->findAll(array(
+            'condition' => 't.contest_id = 1 AND content.removed = 0 AND t.id >= 19',
         ));
 
         foreach ($works as $work) {

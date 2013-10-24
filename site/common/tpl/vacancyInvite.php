@@ -43,7 +43,7 @@
                                 <td ><img width="12" src="http://www.happy-giraffe.ru/images/mail/blank.gif" height="100%" border="0" /></td>
                                 <td width="600" align="center" style="background: #c8ebff;">
 
-                                    <div style="font: normal 15px/1 arial, sans-serif; color: #232323; padding: 3px 5px;">Добрый день, <?=$firstName?>! Команда Веселого Жирафа ищет PHP-разработчика.</div>
+                                    <div style="font: normal 15px/1 arial, sans-serif; color: #232323; padding: 3px 5px;">Добрый день, <?php echo $firstName; ?>! Команда Веселого Жирафа ищет PHP-разработчика.</div>
 
                                 </td>
                                 <td ><img width="12" src="http://www.happy-giraffe.ru/images/mail/blank.gif" height="100%" border="0" /></td>
@@ -103,7 +103,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <font face="Arial, Helvetica, sans-serif" size="3" color="#2a2a2a" style="font-size: 14px;line-height:21px;"><?=$firstName?>, если вас заинтересовала вакансия, пройдите по ссылке</font>
+                                    <font face="Arial, Helvetica, sans-serif" size="3" color="#2a2a2a" style="font-size: 14px;line-height:21px;"><?php echo $firstName; ?>, если вас заинтересовала вакансия, пройдите по ссылке</font>
                                 </td>
                             </tr>
                             <tr>
@@ -120,7 +120,7 @@
                             <tr>
                                 <td align="center">
                                     <a href="http://www.happy-giraffe.ru/job/php-developer/">
-                                        <img src="/images/mail/vacancy.jpg" alt="" width="330" height="67" title="Хочу в Веселый Жираф">
+                                        <img src="http://www.happy-giraffe.ru/images/mail/vacancy.jpg" alt="" width="330" height="67" title="Хочу в Веселый Жираф">
                                     </a>
                                 </td>
                             </tr>

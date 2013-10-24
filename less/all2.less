@@ -16,6 +16,7 @@
 @import "/project/sections.less";
 @import "/project/social.less";
 @import "/project/user-notice.less";
+@import "/project/vacancy.less";
 
 /// services
 @import "/project/services/cook.less";
@@ -547,6 +548,17 @@ table.fr_recipe_tb td { width: 50%;}
     padding: 0 0 15px 20px;
 }
 /* /end baby_handbook_add_recipe.html */
+
+/* list-simple */
+.list-simple {
+    margin: 5px 0;
+
+    &_li {
+        padding: 0 0 0 15px;
+        background: url(/images/list-simple_li.gif) no-repeat 0 11px;
+    }
+}
+/* /list-simple */
 
 /* blog-title-b */
 .blog-title-b {
@@ -2869,6 +2881,16 @@ table.fr_recipe_tb td { width: 50%;}
 }
 /* /heading-medium */
 
+/* title-small */
+.title-small {
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 23px;
+    margin: 5px 0;
+    color: #333;
+}
+/* title-small */
+
 /* cap-empty */
 .cap-empty {
     position: absolute;
@@ -4313,3 +4335,26 @@ table.fr_recipe_tb td { width: 50%;}
     }
 }
 /* /such-post */
+
+/* f-about */
+.f-about {
+    margin: 20px 0 65px;
+    padding: 3% 3.2% 1%;
+    background-color: #f5f5f5;
+    line-height: 18px;
+
+    &_col-l {
+        .inline-block();
+        vertical-align: middle;
+        width: 25%;
+    }
+    &_col-r {
+        .inline-block();
+        vertical-align: middle;
+        width: 74%;
+    }
+    &_row {
+        margin: 0 0 25px;
+    }
+}
+/* /f-about */

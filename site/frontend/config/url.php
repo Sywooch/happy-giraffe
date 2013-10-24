@@ -345,5 +345,7 @@ return array(
         'family/<_c>/<_a>' => 'family/<_c>/<_a>',
 
         'contest/pets<contestId:\d+>' => 'community/contest/index',
+
+        'job/php-developer' => 'site/vacancy',
     ),
 );

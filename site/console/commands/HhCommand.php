@@ -19,7 +19,7 @@ class HhCommand extends CConsoleCommand
     public function actionSync($code)
     {
         $i = 0;
-        //$parser = new HhParser($code);
+        $parser = new HhParser($code);
         $models = HhResume::model()->findAll();
         foreach ($models as $m) {
             echo $m->_id;
@@ -28,6 +28,7 @@ class HhCommand extends CConsoleCommand
             $data = $parser->parseResume($m->_id);
             foreach ($data as $attribute => $value)
                 $m->$attribute = $value;
+            $m->parsed = true;
             $m->save();
         }
     }

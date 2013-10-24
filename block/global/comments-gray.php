@@ -1,6 +1,6 @@
 		<div class="comments-gray">
 			<div class="comments-gray_t">
-				<span class="comments-gray_t-tx">Все комментарии <span class="color-gray">(28)</span></span>
+				<span class="comments-gray_t-tx">Комментарии <span class="color-gray">(28)</span></span>
 				<a href="" class="a-pseudo font-small">Показать все  </a>
 			</div>
 			<div class="scroll">
@@ -10,7 +10,7 @@
 							<a href="" class="ava middle male"></a>
 						</div>
 						<div class="comments-gray_r">
-							<div class="font-smallest color-gray">Сегодня 13:25</div>
+							<div class="comments-gray_date">Сегодня 13:25</div>
 							<div class="comments-gray_control">
 								<div class="comments-gray_control-hold">
 									<a href="" class="message-ico message-ico__edit powertip" title="Редактировать"></a>
@@ -36,7 +36,7 @@
 						</div>
 
 						<div class="comments-gray_r">
-							<div class="font-smallest color-gray">Сегодня 13:25</div>
+							<div class="comments-gray_date">Сегодня 13:25</div>
 												
 							<div class="comments-gray_control">
 								<div class="comments-gray_control-hold">
@@ -65,7 +65,7 @@
 							<a href="" class="ava middle female"></a>
 						</div>
 						<div class="comments-gray_r">
-							<div class="font-smallest color-gray">Сегодня 13:25</div>
+							<div class="comments-gray_date">Сегодня 13:25</div>
 							
 							<!-- В удаленном сообщении не должно быть кнопок управления -->				
 							<!-- <div class="comments-gray_control">
@@ -83,7 +83,7 @@
 								<a href="" class="comments-gray_like like-hg-small powertip" title="Нравится">78</a>
 							</div>
 							<div class="comments-gray_cont wysiwyg-content">
-								<p>Комментарий успешно удален. <a href="" class="comments-gray_a-recovery"> Восстановить?</a> </p>
+								<p>Комментарий успешно удален. <a href="" class="comments-gray_a-recovery">Восстановить?</a> </p>
 							</div>
 						</div>
 					</div>
@@ -93,7 +93,7 @@
 							<a href="" class="ava middle female"></a>
 						</div>
 						<div class="comments-gray_r">
-							<div class="font-smallest color-gray">Сегодня 13:25</div>
+							<div class="comments-gray_date">Сегодня 13:25</div>
 							
 							<div class="comments-gray_control">
 								<div class="comments-gray_control-hold">
@@ -119,6 +119,8 @@
 										<img src="/images/example/w220-h309-1.jpg" alt="">
 									</a>
 									<a href="" class="comments-gray_cont-img-w">
+										<span class="comments-gray_cont-img-overlay">4:56</span>
+										<span class="comments-gray_cont-play"></span>
 										<img src="/images/example/w200-h133-1.jpg" alt="">
 									</a>
 								</p>
@@ -148,7 +150,7 @@ $(document).ready(function () {
   $('.wysiwyg-redactor').redactor({
       autoresize: true,
       toolbarExternal: '.wysiwyg-toolbar-btn',
-
+      minHeight: 45,
       buttons: ['bold', 'italic', 'underline', '|', 'image', 'video', 'smile'],
       buttonsCustom: {
           smile: {

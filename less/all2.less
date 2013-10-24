@@ -625,7 +625,7 @@ table.fr_recipe_tb td { width: 50%;}
 /* b-article */
 .b-article {
     position: relative;
-    margin:20px 20px 40px;
+    margin:20px 20px 30px;
 
     &__user-status &_cont {background: #cdecff;}
     &__user-status &_cont-tale {border-right-color: #cdecff;}
@@ -986,7 +986,7 @@ table.fr_recipe_tb td { width: 50%;}
 .b-photopost {
     margin: 20px 0 30px;
     padding: 1px 0;
-    background: #57aef1;
+    background: #523D64;
 
     &_t {
         margin: 15px;
@@ -1230,6 +1230,12 @@ table.fr_recipe_tb td { width: 50%;}
         opacity: 1;
     }
     .ie8 &_i:hover &_overlay {display: block;filter: alpha(opacity=80);}
+    &_i .ico-play-big {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin: -75px 0 0 -75px;;
+    }
     &_img {display: block;}
     &_overlay {
         position: absolute;
@@ -1243,6 +1249,7 @@ table.fr_recipe_tb td { width: 50%;}
         opacity: 0;
     }
     .ie8 &_overlay {display: none;filter: alpha(opacity=0);}
+    &_overlay__none {background: none;}
     &_overlay-row {
         padding: 4px 6px 6px;
         line-height: 14px;
@@ -1438,13 +1445,11 @@ table.fr_recipe_tb td { width: 50%;}
 /* article-nearby */
 .article-nearby {
     position: relative;
+    width: 95%;
     margin: 20px;
 
-    &_i {
-        float: left;
-        width: 50%;
-    }
-    &_i__right {text-align: right;}
+    &_r {text-align: right;}
+    &_r &_img-hold {margin: 0 0 0 10px;}
     &_hint {
         font-size: 14px;
         color: #232323;
@@ -1456,13 +1461,14 @@ table.fr_recipe_tb td { width: 50%;}
     }
     &_a:hover &_tx {text-decoration: none;}
     &_img-hold {
-        display: table-cell;
+        .inline-block();
         vertical-align: middle;
+        margin-right: 10px;
     }
     &_tx {
-        display: table-cell;
+        .inline-block();
         vertical-align: middle;
-        padding: 0 10px;
+        padding: 0;
         font: bold 11px/15px Tahoma, Arial, Verdana, sans-serif;
         color: #3782c1;
         text-decoration: underline;
@@ -1757,7 +1763,8 @@ table.fr_recipe_tb td { width: 50%;}
 
 .like-hg-small {
     .inline-block();
-    padding: 4px 0 0 17px;
+    padding: 5px 0 0 17px;
+    height: 11px;
     text-align: center;
     font-size: 9px;
     line-height: 11px;
@@ -1823,7 +1830,7 @@ table.fr_recipe_tb td { width: 50%;}
 
     &_drop {
         position: absolute;
-        left: 40px;
+        left: 50px;
         top: 0;
         width: 190px;
         border: 1px solid #dcecf6;
@@ -4115,3 +4122,61 @@ table.fr_recipe_tb td { width: 50%;}
     }
 }
 /* /such-post */
+
+/* ava-list */
+.ava-list {
+    margin: 10px 0;
+    &_ul {}
+    &_li {
+        .inline-block();
+        vertical-align: middle;
+        margin: 0 8px 14px 0;
+    }
+    &_li .ava {float: none;}
+    &_last {
+        .inline-block();
+        padding: 4px 8px 6px;
+        text-decoration: none;
+        color: #909090;
+        font-size: 11px;
+        line-height: 21px;
+        background: #ffe535;
+        .border-radius(4px);
+    }
+    &_like-hg {
+        margin: 0 3px 0 0;
+        .inline-block();
+        vertical-align: bottom;
+        width: 21px;
+        height: 25px;
+        background: url(/images/ava-list_last.png) no-repeat;
+    }
+    &_like-hg.active {background-position: -21px 0;}
+    &_favorite {
+        margin: 0 3px 0 0;
+        .inline-block();
+        vertical-align: bottom;
+        width: 21px;
+        height: 25px;
+        background: url(/images/ava-list_last.png) no-repeat 0 -25px;
+    }
+    &_favorite.active {background-position: -21px -25px;}
+}
+/* /ava-list */
+
+/* article-users */
+.article-users {
+    margin: 20px 20px;
+    padding: 20px 25px;
+    background: #fff;
+    .border-radius(5px);
+    
+    /*.ava-list {margin-bottom: 20px;} */
+    &_t {
+        margin: 0 0 10px;
+        font-size: 16px;
+        line-height: 22px;
+        color: #8c8c8c;
+    }
+}
+/* /article-users */

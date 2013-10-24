@@ -192,18 +192,16 @@
 			</div>
 			<div class="col-23-middle">
 			
-				<div class="col-gray">
-					<div class="blog-title-b">
-						<a href="#popup-blog-set" data-theme="transparent" class="blog-settings fancy powertip" title="Настройки блога"></a>
-						<div class="blog-title-b_img-hold">
-							<img src="/images/example/w720-h128.jpg" alt="" class="blog-title-b_img">
-						</div>
-						<h1 class="blog-title-b_t">Блог о красивой любви </h1>
+				<div class="blog-title-b">
+					<a href="#popup-blog-set" data-theme="transparent" class="blog-settings fancy powertip" title="Настройки блога"></a>
+					<div class="blog-title-b_img-hold">
+						<img src="/images/example/w720-h128.jpg" alt="" class="blog-title-b_img">
 					</div>
-					
-					<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/articles.php'; ?>
-					
+					<h1 class="blog-title-b_t">Блог о красивой любви </h1>
 				</div>
+				
+				<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/articles.php'; ?>
+					
 			</div>
 		</div>
 		</div>

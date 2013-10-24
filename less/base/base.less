@@ -763,10 +763,10 @@ textarea.error,
 .scroll {
     position: relative;
     overflow: hidden;
-   &__on &_bar-hold {display: block;}
-    &:hover &_bar {
-    	opacity: 0.7;
-    	width: 4px;
+    &__on &_bar-hold {display: block;}
+    &:hover &_bar-in {
+    	display: block;
+    	opacity: 0.55;
     }
 
     &_scroller {
@@ -788,24 +788,24 @@ textarea.error,
         width: 15px;
         .border-radius(4px);
     }
-    &_bar-hold:hover &_bar {width: 10px;}
     &_bar { /* The bar. You should define width, right and background */
 	    position: absolute;
 	    z-index: 1;
-	    right: 5px;
-	    width: 0px;
-	    border-radius: 3px;
+	    right: 0;
+	    width: 15px;
+	    cursor: pointer;
+	}
+    &_bar-in {
+    	display: none;
+    	position: relative;
+    	left: 6px;
+        height: 100%;
+        width: 4px;
 	    background: #b9b9b9;
 	    opacity: 0.5;
 	    -webkit-transition: all .2s linear;
 	    transition: all .2s linear;
-	    pointer-events: auto;
-	}
-/*    &_bar-inner {
-        height: 100%;
-        background: #5e8dbc;
-        width: 6px;
-    }*/
+    }
 }
 /* /scroll custom */
 

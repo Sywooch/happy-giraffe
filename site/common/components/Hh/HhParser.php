@@ -49,31 +49,6 @@ class HhParser
         $response = curl_exec($ch);
         $response = CJSON::decode($response);
 
-        $name = $response['last_name'] . ' ' . $response['first_name'] . ' ' . $response['middle_name'];
-        $salary = $response['salary']['amount'] . ' ' . $response['salary']['currency'];
-        $city = $response['area']['name'];
-        if (! empty($response['birth_date'])) {
-            $years = DateTime::createFromFormat('Y-m-d', $response['birth_date'])->diff(new DateTime('now'))->y;
-            $age = $years . ' ' . Str::GenerateNoun(array('год', 'года', 'лет'), $years);
-        } else
-            $age = '';
-        $contacts1 = array_reduce($response['contact'], function($a, $b) {
-            switch ($b['type']['id']) {
-                case 'cell':
-                    $value = '+' . $b['value']['country'] . ' (' . $b['value']['city'] . ') ' . $b['value']['number'];
-                    break;
-                default:
-                    $value = $b['value'];
-            }
-
-            return $a . $b['type']['name'] . ': ' . $value . "\n";
-        }, '');
-        $contacts2 = array_reduce($response['site'], function($a, $b) {
-            return $a . $b['type']['name'] . ': ' . $b['url'] . "\n";
-        }, '');
-        $contacts = $contacts1 . $contacts2;
-
-
         $firstName = $response['first_name'];
         $lastName = $response['last_name'];
         $middleName = $response['middle_name'];

@@ -151,11 +151,12 @@ class MailCommand extends CConsoleCommand
 
     public function actionVacancy()
     {
-        $name = 'Никита';
+        $firstName = 'Никита';
         $email = 'nikita@happy-giraffe.ru';
-        $subject = $name . ', мы ищем опытных разработчиков для Веселого Жирафа';
+        $subject = $firstName . ', мы ищем опытных разработчиков для Веселого Жирафа';
 
-        $html = Yii::app()->controller->renderFile(Yii::getPathOfAlias('site.common.tpl') . DIRECTORY_SEPARATOR . 'vacancyInvite.php', $_POST, true);
+        $html = $this->renderFile(Yii::getPathOfAlias('site.common.tpl') . DIRECTORY_SEPARATOR . 'vacancyInvite.php', compact('firstName'), true);
+
         ElasticEmail::send($email, $subject, $html, 'noreply@happy-giraffe.ru', 'Весёлый Жираф');
     }
 }

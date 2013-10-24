@@ -18,6 +18,8 @@ class HhResume extends EMongoDocument
     public $age;
     public $contacts = array();
     public $keyword;
+    public $parsed = false;
+    public $send = false;
 
     public function getCollectionName()
     {

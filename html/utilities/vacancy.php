@@ -142,7 +142,7 @@
 						</div>
 						<div class="f-about_row clearfix">
 							<div class="f-about_col-l">
-								<lable class="f-about_label">E-mail</lable>
+								<lable class="f-about_label">E-mail *</lable>
 							</div>
 							<div class="f-about_col-r">
 								<input type="text" name="" id="" class="itx-gray w-70p">
@@ -174,8 +174,15 @@
 						</div>
 					</div>
 
+					<div class="textalign-c margin-b10">
+						<div class="msg-error">Заполните обязательные поля *</div>
+					</div>
 					<div class="textalign-c margin-b70">
 						<a href="" class="btn-green btn-large">ОТПРАВИТЬ</a>
+					</div>
+					<!-- При удачном отправлении -->
+					<div class="textalign-c margin-b70">
+						 Спасибо за проявленный интерес к работе в нашей компании.  Мы с вами скоро свяжемся.
 					</div>
 					<div class="textalign-c margin-b70">
 						Вы можете написать нам <a href="mailto:info@happy-giraffe.ru" class="padding-l5">info@happy-giraffe.ru</a>

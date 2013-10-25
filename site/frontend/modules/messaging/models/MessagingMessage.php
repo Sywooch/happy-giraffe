@@ -16,8 +16,10 @@
  * @property MessagingThread $thread
  * @property User[] $users
  */
-class MessagingMessage extends CActiveRecord
+class MessagingMessage extends HActiveRecord
 {
+    public $processed_photos = array();
+
     /**
      * Returns the static model of the specified AR class.
      * @param string $className active record class name.
@@ -96,6 +98,17 @@ class MessagingMessage extends CActiveRecord
                 'createAttribute' => 'created',
                 'updateAttribute' => 'updated',
                 'setUpdateOnCreate' => true,
+            ),
+            'purified' => array(
+                'class' => 'site.common.behaviors.PurifiedBehavior',
+                'attributes' => array('text'),
+                'options' => array(
+                    'AutoFormat.Linkify' => true,
+                ),
+            ),
+            'processingImages' => array(
+                'class' => 'site.common.behaviors.ProcessingImagesBehavior',
+                'attributes' => array('text'),
             ),
         );
     }
@@ -184,7 +197,7 @@ class MessagingMessage extends CActiveRecord
         return array(
             'id' => (int) $this->id,
             'author_id' => (int) $this->author_id,
-            'text' => $this->text,
+            'text' => $this->purified->text,
             'created' => Yii::app()->dateFormatter->format("d MMMM yyyy, H:mm", ($this->created instanceof CDbExpression) ? time() : $this->created),
             'read' => (bool) $this->isReadByInterlocutor,
             'images' => $images,
@@ -210,5 +223,6 @@ class MessagingMessage extends CActiveRecord
             'photos' => $photos,
         );
     }
+
 
 }

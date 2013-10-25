@@ -8,6 +8,23 @@
  */
 class InterlocutorsController extends HController
 {
+    public function filters()
+    {
+        return array(
+            'accessControl',
+            'ajaxOnly',
+        );
+    }
+
+    public function accessRules()
+    {
+        return array(
+            array('deny',
+                'users' => array('?'),
+            ),
+        );
+    }
+
     public function actionGet($interlocutorId)
     {
         $interlocutorModel = User::model()->with('avatar')->findByPk($interlocutorId);
@@ -16,7 +33,7 @@ class InterlocutorsController extends HController
                 'id' => (int) $interlocutorModel->id,
                 'firstName' => $interlocutorModel->first_name,
                 'lastName' => $interlocutorModel->last_name,
-                'avatar' => $interlocutorModel->getAva(),
+                'avatar' => $interlocutorModel->getAvatarUrl(),
                 'online' => (bool) $interlocutorModel->online,
                 'isFriend' => (bool) Friend::model()->areFriends(Yii::app()->user->id, $interlocutorId),
                 'gender' => (bool) $interlocutorModel->gender,

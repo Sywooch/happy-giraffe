@@ -11,7 +11,7 @@ CookRecipe.selectServings = function(el)
 
 CookRecipe.selectIngredient = function (el, item)
 {
-    el.next('input').val(item.id);
+    el.nextAll('input').val(item.id);
     var div = el.parents('tr').find('div.drp-list');
     div.children('ul').html($('#unitTmpl').tmpl(item.units_titles));
     div.children('a.trigger').text(item.unit);

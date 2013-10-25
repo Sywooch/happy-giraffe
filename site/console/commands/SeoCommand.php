@@ -18,16 +18,17 @@ Yii::import('site.frontend.helpers.*');
 
 class SeoCommand extends CConsoleCommand
 {
-    public function actionStopThreads()
-    {
-        Config::setAttribute('stop_threads', 1);
-    }
-
+    /**
+     * Обновление актуальных прокси для работы, запускается по крону раз в 5 минут
+     */
     public function actionProxy()
     {
         ProxyRefresher::executeMongo();
     }
 
+    /**
+     * Удаление дубликатов страниц в таблице pages
+     */
     public function actionDeletePageDuplicates()
     {
         Yii::import('site.common.behaviors.*');
@@ -47,25 +48,8 @@ class SeoCommand extends CConsoleCommand
                 if (count($samePages) > 1) {
                     echo $model->url . ' - ' . count($samePages) . "\n";
 
-                    $first = true;
                     foreach ($samePages as $samePage) {
-                        echo $samePage->outputLinksCount . ' : ' . $samePage->inputLinksCount
-                            . ' : ' . $samePage->taskCount . ' : ' . $samePage->phrasesCount
-                            . ' : ' . $samePage->keywordGroup->taskCount
-                            . ' : ' . count($samePage->keywordGroup->keywords) . "\n";
-
-//                        if ($samePage->outputLinksCount == 0
-//                            && $samePage->inputLinksCount == 0
-//                            && $samePage->taskCount == 0
-//                            && $samePage->phrasesCount == 0
-//                            && empty($samePage->keywordGroup->keywords)
-//                            && $samePage->keywordGroup->taskCount == 0
-//                        ) {
-                        if (!$first)
-                            $samePage->delete();
-//                        }
-
-                        $first = false;
+                        $samePage->delete();
                     }
                 }
             }
@@ -75,6 +59,9 @@ class SeoCommand extends CConsoleCommand
         }
     }
 
+    /**
+     * Проверка правильности entity в таблицу pages
+     */
     public function actionCheckEntities()
     {
         $criteria = new CDbCriteria;
@@ -100,133 +87,39 @@ class SeoCommand extends CConsoleCommand
         }
     }
 
-    public function actionPopular()
-    {
-        $criteria = new EMongoCriteria();
-        $criteria->limit(100);
-
-        $result = array();
-        $models = array(0);
-        while (!empty($models)) {
-            $models = PageView::model()->findAll($criteria);
-
-            foreach ($models as $model)
-                if (strpos($model->_id, '/cook/recipe/') !== false
-                    || strpos($model->_id, '/cook/multivarka/') !== false
-                )
-                    $result [] = array('path' => $model->_id, 'views' => $model->views);
-
-            $criteria->setOffset($criteria->getOffset() + 100);
-        }
-
-        //sort array
-        usort($result, array($this, 'cmp'));
-        $result = array_slice($result, 0, 100);
-        foreach ($result as $model)
-            echo 'http://www.happy-giraffe.ru' . $model['path'] . "\n";
-    }
-
-    function cmp($a, $b)
-    {
-        if ($a['views'] == $b['views'])
-            return 0;
-        return ($a['views'] > $b['views']) ? -1 : 1;
-    }
-
+    /**
+     * Парсинг ежедневного трафика на разделы/модули сайта (сео-модуль "Трафик")
+     * http://seo.happy-giraffe.ru/traffic/default/index/
+     */
     public function actionParseTraffic()
     {
         TrafficStatisctic::model()->parse();
     }
 
-    public function actionParseSeTraffic()
+    public function actionParseMetrika($date)
     {
-        Yii::import('site.frontend.helpers.*');
-        Yii::import('site.frontend.extensions.*');
-        PageStatistics::model()->parseSe();
+        $metrika = new YandexMetrica();
+        $metrika->parseDate($date);
     }
 
-    public function actionExport()
+    public function actionCompare($date1, $date2)
     {
-        Yii::import('site.frontend.helpers.*');
-        Yii::import('site.frontend.extensions.*');
-        PageStatistics::model()->export();
+        $metrika = new YandexMetrica();
+        $metrika->compareDates2($date1, $date2);
     }
 
-    public function excel($data)
-    {
-        $file_name = 'f:/file.xlsx';
-
-        $phpExcelPath = Yii::getPathOfAlias('site.common.extensions.phpExcel');
-        spl_autoload_unregister(array('YiiBase', 'autoload'));
-        include($phpExcelPath . DIRECTORY_SEPARATOR . 'PHPExcel.php');
-
-        // Create new PHPExcel object
-        $objPHPExcel = new PHPExcel();
-
-        // Set properties
-        $objPHPExcel->getProperties()->setCreator("Alex")
-            ->setLastModifiedBy("Alex")
-            ->setTitle("Articles")
-            ->setSubject("Articles")
-            ->setDescription("Articles");
-
-        // Add some data
-        $letters = array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O');
-
-        $sheet = $objPHPExcel->setActiveSheetIndex(0);
-        $j = 1;
-        foreach ($data as $fields) {
-            for ($i = 0; $i < count($fields); $i++) {
-                if (is_array($fields[$i])) {
-                    $sheet->setCellValue($letters[$i] . $j, $fields[$i][1]);
-                    $sheet->getCell($letters[$i] . $j)->getHyperlink()->setUrl($fields[$i][0]);
-                } else
-                    $sheet->setCellValue($letters[$i] . $j, $fields[$i]);
-            }
-            $j++;
-        }
-
-        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
-        $objWriter->save($file_name);
-
-        spl_autoload_register(array('YiiBase', 'autoload'));
-
-        return $file_name;
-    }
-
-    public function actionTest()
-    {
-        $names = array('лосини', 'воронеж', 'база отдыха связист петровское', 'затока базы отдыха',
-            'базы отдыха благовещенская', 'купить газонную траву в рулонах', 'перевозка рулонов',
-            'заполнение нулевой отчетности');
-        foreach ($names as $name) {
-            $t = microtime(true);
-            $model = Yii::app()->db_keywords->createCommand()
-                ->select('*')
-                ->from('keywords')
-                ->where('name=:name', array(':name' => $name))
-                ->limit(1)
-                ->queryAll();
-            echo strlen($name) . ': ' . (microtime(true) - $t) . "\n";
-        }
-
-        $ids = range(434583146, 434583159);
-        foreach ($ids as $id) {
-            $t = microtime(true);
-            $model = Yii::app()->db_keywords->createCommand()
-                ->select('*')
-                ->from('keywords')
-                ->where('id=:id', array(':id' => $id))
-                ->limit(1)
-                ->queryAll();
-            echo (microtime(true) - $t) . "\n";
-        }
-    }
-
-    public function actionTest2()
-    {
-        $c = new MonthStats();
-        $c->photo();
-    }
+//    public function actionParseSeTraffic()
+//    {
+//        Yii::import('site.frontend.helpers.*');
+//        Yii::import('site.frontend.extensions.*');
+//        PageStatistics::model()->parseSe();
+//    }
+//
+//    public function actionExport()
+//    {
+//        Yii::import('site.frontend.helpers.*');
+//        Yii::import('site.frontend.extensions.*');
+//        PageStatistics::model()->export();
+//    }
 }
 

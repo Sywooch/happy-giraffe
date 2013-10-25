@@ -29,14 +29,9 @@ class FriendsManager
     protected static function getCriteria($userId, $online, $new, $listId, $query)
     {
         $criteria = new CDbCriteria(array(
-            'select' => '*, COUNT(p.id) AS pCount, 0 AS bCount',
+            'select' => '*, 0 AS pCount, 0 AS bCount',
             'with' => 'friend',
-            'join' => '
-                LEFT OUTER JOIN visits va ON va.user_id = t.user_id AND va.url = CONCAT(\'/user/\', t.friend_id, \'/albums/\')
-                LEFT OUTER JOIN album__photos p ON p.author_id = t.friend_id AND (va.id IS NULL OR p.created > va.last_visit)
-            ',
-            'order' => 't.id DESC',
-            'group' => 't.friend_id',
+            'order' => 't.id ASC',
         ));
 
         $criteria->compare('t.user_id', $userId);
@@ -65,5 +60,30 @@ class FriendsManager
     public static function getLists($userId)
     {
         return FriendList::model()->with('friendsCount')->findAllByAttributes(array('user_id' => $userId));
+    }
+
+    /**
+     * @param User $user
+     * @param bool $isFriend
+     * @return array
+     */
+    public static function userToJson($user, $isFriend = false)
+    {
+        $family = Yii::app()->controller->widget('application.modules.family.widgets.UserFamilyWidget', array('user' => $user), true);
+
+        return array(
+            'id' => $user->id,
+            'online' => (bool)$user->online,
+            'firstName' => $user->first_name,
+            'lastName' => $user->last_name,
+            'ava' => $user->getAvatarUrl(Avatar::SIZE_LARGE),
+            'age' => $user->normalizedAge,
+            'location' => ($user->address->country_id !== null) ? Yii::app()->controller->renderPartial('application.modules.friends.views._location', array('data' => $user), true) : null,
+            'family' => $family !== '' ? $family : null,
+            'isFriend' => $isFriend,
+            'gender' => $user->gender,
+            'photoCount' => (int)$user->getPhotosCount(),
+            'blogPostsCount' => (int)$user->blogPostsCount
+        );
     }
 }

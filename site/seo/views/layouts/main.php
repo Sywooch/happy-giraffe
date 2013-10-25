@@ -8,7 +8,7 @@
     <?php
     echo CHtml::linkTag('shortcut icon', null, '/favicon.bmp');
 
-    $release_id = 36;
+    $release_id = 37;
     Yii::app()->clientScript
         ->registerCssFile('/css/seo.css?'.$release_id)
         ->registerCssFile('/css/form.css?'.$release_id)
@@ -120,6 +120,10 @@
                 array(
                     'label' => 'Внешние ссылки - задания',
                     'url' => array('/externalLinks/admin/task/admin/'),
+                ),
+                array(
+                    'label' => 'Тематики',
+                    'url' => array('/admin/sitesGroup/admin/'),
                 ),
 
             )));

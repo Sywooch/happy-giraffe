@@ -84,8 +84,7 @@
         </div>
 
         <div class="col-23 clearfix">
-            <?php if ($user->id != Yii::app()->user->id || $user->score->full == 2): ?>
-
+            <?php if ($user->id != Yii::app()->user->id): ?>
             <div class="user-top-block clearfix">
 
                 <?php $showFamily = true;$this->renderPartial('_user_menu',compact('user', 'showFamily')); ?>
@@ -110,9 +109,6 @@
                 <?php endif ?>
 
             </div>
-
-            <?php else: ?>
-            <?php $this->widget('BonusWidget', array('user' => $user)); ?>
             <?php endif; ?>
 
             <div class="clearfix">

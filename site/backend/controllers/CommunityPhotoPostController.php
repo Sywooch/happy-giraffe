@@ -1,6 +1,6 @@
 <?php
 
-class CommunityPhotoPostController extends BController
+class CommunityMorningPostController extends BController
 {
 	public $defaultAction='admin';
 
@@ -17,14 +17,14 @@ class CommunityPhotoPostController extends BController
 	 */
 	public function actionCreate()
 	{
-		$model=new CommunityPhotoPost;
+		$model=new CommunityMorningPost;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['CommunityPhotoPost']))
+		if(isset($_POST['CommunityMorningPost']))
 		{
-			$model->attributes=$_POST['CommunityPhotoPost'];
+			$model->attributes=$_POST['CommunityMorningPost'];
 			if($model->save())
 				$this->redirect(array('admin'));
 		}
@@ -46,9 +46,9 @@ class CommunityPhotoPostController extends BController
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['CommunityPhotoPost']))
+		if(isset($_POST['CommunityMorningPost']))
 		{
-			$model->attributes=$_POST['CommunityPhotoPost'];
+			$model->attributes=$_POST['CommunityMorningPost'];
 			if($model->save())
 				$this->redirect(array('admin'));
 		}
@@ -83,10 +83,10 @@ class CommunityPhotoPostController extends BController
 	 */
 	public function actionAdmin()
 	{
-		$model=new CommunityPhotoPost('search');
+		$model=new CommunityMorningPost('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['CommunityPhotoPost']))
-			$model->attributes=$_GET['CommunityPhotoPost'];
+		if(isset($_GET['CommunityMorningPost']))
+			$model->attributes=$_GET['CommunityMorningPost'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -100,7 +100,7 @@ class CommunityPhotoPostController extends BController
 	 */
 	public function loadModel($id)
 	{
-		$model=CommunityPhotoPost::model()->findByPk((int)$id);
+		$model=CommunityMorningPost::model()->findByPk((int)$id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;

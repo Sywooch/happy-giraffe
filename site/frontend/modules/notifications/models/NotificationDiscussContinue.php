@@ -80,21 +80,6 @@ class NotificationDiscussContinue extends NotificationGroup
     }
 
     /**
-     * Создает модель уведомления для удобой работы с ним
-     *
-     * @param $object array объект, который вернул компонент работы с базой
-     * @return NotificationDiscussContinue
-     */
-    public static function createModel($object)
-    {
-        $model = new NotificationDiscussContinue;
-        foreach ($object as $key => $value)
-            $model->$key = $value;
-
-        return $model;
-    }
-
-    /**
      * Найти удалить или изменить уведомление, связанное с удаленным комментарием
      * @param $comment
      */

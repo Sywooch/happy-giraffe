@@ -153,6 +153,8 @@ class SeoUser extends HActiveRecord
             'email' => 'Логин',
             'password' => 'Пароль',
             'gender' => 'Пол',
+            'owner_id' => 'Родитель',
+            'related_user_id' => 'id на жирафе',
             'active' => 'Активен',
         );
     }
@@ -206,20 +208,46 @@ class SeoUser extends HActiveRecord
         return null;
     }
 
-    public function getAva($size = 'small')
+    public function getAvatarUrl($size = 72)
     {
+        Yii::import('site.frontend.extensions.*');
+        Yii::import('site.frontend.widgets.userAvatarWidget.Avatar');
         $user = $this->getRelatedUser();
-        if ($user != null) {
-            return $user->getAva($size);
+        if ($user != null && isset($user->avatar)) {
+            return implode('/', array(
+                Yii::app()->params['photos_url'],
+                'thumbs',
+                $size . 'x' . $size,
+                $user->id,
+                $user->avatar->fs_name,
+            ));
         }
         return '';
     }
 
-    public function getUrl(){
-        return 'http://www.happy-giraffe.ru/user/'.$this->related_user_id.'/';
+    public static function getAvatarUrlForUser($user, $size)
+    {
+        Yii::import('site.frontend.extensions.*');
+        Yii::import('site.frontend.widgets.userAvatarWidget.Avatar');
+        if (isset($user->avatar)) {
+            return implode('/', array(
+                Yii::app()->params['photos_url'],
+                'thumbs',
+                $size . 'x' . $size,
+                $user->id,
+                $user->avatar->fs_name,
+            ));
+        }
+        return '';
     }
 
-    public function getFullName(){
+    public function getUrl()
+    {
+        return 'http://www.happy-giraffe.ru/user/' . $this->related_user_id . '/';
+    }
+
+    public function getFullName()
+    {
         return $this->getRelatedUser()->getFullName();
     }
 
@@ -234,7 +262,7 @@ class SeoUser extends HActiveRecord
 
     public function getTasksCount()
     {
-        if ($this->task_count === null){
+        if ($this->task_count === null) {
             $this->task_count = SeoTask::model()->count('executor_id=' . $this->id . ' AND status >= ' . SeoTask::STATUS_READY
             . ' AND status <= ' . SeoTask::STATUS_TAKEN);
             return $this->task_count;
@@ -264,15 +292,40 @@ class SeoUser extends HActiveRecord
         return SeoUser::model()->findAllByPk($users);
     }
 
+    /**
+     * Возвращает подчиненных сотрудников определенной роли
+     * @param string $role
+     * @return SeoUser[]
+     */
     public function getWorkers($role = 'cook-author')
     {
+        $authorIds = Yii::app()->db_seo->createCommand()
+            ->select('userid')
+            ->from('auth__assignments')
+            ->where('itemname = :role', array(':role' => $role))
+            ->queryColumn();
         $result = array();
-        $users = SeoUser::model()->active()->findAll('owner_id = '.Yii::app()->user->id);
+        $users = SeoUser::model()->active()->findAll('owner_id = ' . Yii::app()->user->id);
         foreach ($users as $author)
-            if (Yii::app()->authManager->checkAccess($role, $author->id)){
+            if (in_array($author->id, $authorIds)) {
                 $result [] = $author;
             }
 
         return $result;
+    }
+
+    /**
+     * Возвращает шеф-редакторов
+     * @return SeoUser[]
+     */
+    public static function getEditors()
+    {
+        $users = Yii::app()->db_seo->createCommand()
+            ->select('userId')
+            ->from('auth__assignments')
+            ->where('itemname = "editor"')
+            ->queryColumn();
+
+        return SeoUser::model()->findAllByPk($users);
     }
 }

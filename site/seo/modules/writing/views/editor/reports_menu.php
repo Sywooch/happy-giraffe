@@ -3,10 +3,6 @@
         <a href="<?=$this->createUrl('reports', array('status' => 1)) ?>">Новое</a>
         <span class="count"><?=SeoTask::getTaskCount(1, SeoTask::SECTION_MAIN, $this->rewrite) ?></span>
     </li>
-    <li class="new correction<?php if ($status == 2) echo ' active' ?>">
-        <a href="<?=$this->createUrl('reports', array('status' => 2)) ?>">Коррекция</a>
-        <span class="count"><?=SeoTask::getTaskCount(2, SeoTask::SECTION_MAIN, $this->rewrite) ?></span>
-    </li>
     <li class="new publish<?php if ($status == 3) echo ' active' ?>">
         <a href="<?=$this->createUrl('reports', array('status' => 3)) ?>">Публикация</a>
         <span class="count"><?=SeoTask::getTaskCount(3, SeoTask::SECTION_MAIN, $this->rewrite) ?></span>

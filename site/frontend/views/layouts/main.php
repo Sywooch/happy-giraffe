@@ -1,405 +1,271 @@
-﻿<?php $this->beginContent('//layouts/common'); ?>
+﻿<?php
+Yii::app()->clientScript
+    ->registerCoreScript('yiiactiveform')
+    ->registerPackage('ko_layout')
+    ->registerPackage('ko_post')
+;
 
-    <div id="header-new" class="<?php if (Yii::app()->user->isGuest): ?>guest <?php endif; ?>clearfix">
+if (! Yii::app()->user->isGuest)
+    Yii::app()->clientScript
+        ->registerPackage('comet')
+        ->registerScript('Realplexor-reg', 'comet.connect(\'http://' . Yii::app()->comet->host . '\', \'' . Yii::app()->comet->namespace . '\', \'' . UserCache::GetCurrentUserCache() . '\');')
+    ;
 
-        <div class="header-in">
-            <div class="clearfix">
+$user = Yii::app()->user->getModel();
 
-                <?php if (! Yii::app()->user->isGuest): ?>
-                    <div class="search-box clearfix">
-                        <form action="<?php echo $this->createUrl('/search'); ?>">
-                            <div class="input">
-                                <input type="text" name="text" />
-                            </div>
-                            <button class="btn btn-green-medium"><span><span>Поиск</span></span></button>
-                        </form>
-                    </div>
-                <?php endif; ?>
+$this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
+?>
 
-                <div class="logo-box">
-                    <?=HHtml::link('', '/', array('class'=>'logo', 'title'=>'Веселый Жираф - сайт для всей семьи'), true)?>
-                    <span>САЙТ ДЛЯ ВСЕЙ СЕМЬИ</span>
-                </div>
-
-                <div class="banner-box">
-                    <?php if (! Yii::app()->user->isGuest): ?>
-                        <?php $contest_id = 11; ?>
-                        <a href="<?=$this->createUrl('/contest/default/view', array('id' => $contest_id)) ?>"><img src="/images/contest/banner-w300-<?=$contest_id?>.jpg" /></a>
-                    <?php else: ?>
-                        <?php if (false): ?>
-                        <?=CHtml::link(CHtml::image('/images/banner_06.png'), '#register', array('class'=>'fancy', 'data-theme'=>'white-square'))?>
-                        <?php else: ?>
-                        <script type="text/javascript"><!--
-                            google_ad_client = "ca-pub-3807022659655617";
-                            /* 728_90 */
-                            google_ad_slot = "4343272887";
-                            google_ad_width = 728;
-                            google_ad_height = 90;
-                            //-->
-                        </script>
-                        <script type="text/javascript"
-                                src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
-                        </script>
-                        <?php endif; ?>
-                    <?php endif; ?>
-                </div>
-
-            </div>
-<?php if (! $this->tempLayout): ?>
-            <div class="nav">
-                <ul class="width-2 clearfix">
-                    <?php if (false): ?>
-                        <li class="morning">
-                            <a href="<?=$this->createUrl('/morning/index') ?>"><i class="text"></i></a>
-                        </li>
-                    <?php endif; ?>
-                    <li class="kids navdrp">
-                        <a href="javascript:void(0);" onclick="navDrpOpen(this);"><i class="text"></i></a>
-
-                        <?php $this->beginWidget('application.widgets.SeoContentWidget'); ?>
-                        <div class="drp">
-                            <div class="in">
-
-                                <ul class="cols cols-5">
-                                    <li class="col">
-
-                                        <div class="col-in bg-img-11">
-                                            <div class="title">Беременность и роды</div>
-                                            <ul>
-                                                <li><a href="<?= Yii::app()->createUrl('/community/list', array('community_id' => 1))?>">Планирование</a></li>
-                                                <li><a href="<?= Yii::app()->createUrl('/community/list', array('community_id' => 2))?>">Беременность</a></li>
-                                                <li><a href="<?= Yii::app()->createUrl('/community/list', array('community_id' => 3))?>">Подготовка и роды</a></li>
-                                            </ul>
-                                        </div>
-
-                                    </li>
-                                    <li class="col">
-
-                                        <div class="col-in bg-img-12">
-                                            <div class="title">Дети до года</div>
-                                            <ul>
-                                                <li><a href="<?= Yii::app()->createUrl('/community/list', array('community_id' => 4))?>">Здоровье</a></li>
-                                                <li><a href="<?= Yii::app()->createUrl('/community/list', array('community_id' => 5))?>">Питание малыша</a></li>
-                                                <li><a href="<?= Yii::app()->createUrl('/community/list', array('community_id' => 6))?>">Развитие ребенка</a></li>
-                                                <li><a href="<?= Yii::app()->createUrl('/community/list', array('community_id' => 7))?>">Режим и уход</a></li>
-                                            </ul>
-                                        </div>
-
-                                    </li>
-                                    <li class="col">
-
-                                        <div class="col-in bg-img-13">
-                                            <div class="title">Дети старше года</div>
-                                            <ul>
-                                                <li><a href="<?= Yii::app()->createUrl('/community/list', array('community_id' => 8))?>">Здоровье и питание</a></li>
-                                                <li><a href="<?= Yii::app()->createUrl('/community/list', array('community_id' => 9))?>">Ясли и няни</a></li>
-                                                <li><a href="<?= Yii::app()->createUrl('/community/list', array('community_id' => 10))?>">Раннее развитие и обучение</a></li>
-                                                <li><a href="<?= Yii::app()->createUrl('/community/list', array('community_id' => 11))?>">Психология и воспитание</a></li>
-                                            </ul>
-                                        </div>
-
-                                    </li>
-                                    <li class="col">
-
-                                        <div class="col-in bg-img-14">
-                                            <div class="title">Дошкольники</div>
-                                            <ul>
-                                                <li><a href="<?= Yii::app()->createUrl('/community/list', array('community_id' => 12))?>">Детский сад</a></li>
-                                                <li><a href="<?= Yii::app()->createUrl('/community/list', array('community_id' => 13))?>">Готовимся к школе</a></li>
-                                                <li><a href="<?= Yii::app()->createUrl('/community/list', array('community_id' => 14))?>">Игры и развлечения</a></li>
-                                            </ul>
-                                        </div>
-
-                                    </li>
-                                    <li class="col">
-
-                                        <div class="col-in bg-img-15">
-                                            <div class="title">Школьники</div>
-                                            <ul>
-                                                <li><a href="<?= Yii::app()->createUrl('/community/list', array('community_id' => 15))?>">Здоровье и питание</a></li>
-                                                <li><a href="<?= Yii::app()->createUrl('/community/list', array('community_id' => 16))?>">Учимся в школе</a></li>
-                                                <li><a href="<?= Yii::app()->createUrl('/community/list', array('community_id' => 17))?>">Спорт и досуг</a></li>
-                                                <li><a href="<?= Yii::app()->createUrl('/community/list', array('community_id' => 18))?>">Подростковая психология</a></li>
-                                            </ul>
-                                        </div>
-
-                                    </li>
-
-                                </ul>
-
-                            </div>
-                        </div>
-                        <?php $this->endWidget();?>
-
-                    </li>
-                    <li class="manwoman navdrp">
-                        <a href="javascript:void(0);" onclick="navDrpOpen(this);"><i class="text"></i></a>
-
-                        <?php $this->beginWidget('application.widgets.SeoContentWidget'); ?>
-                        <div class="drp">
-                            <div class="in">
-
-                                <ul class="cols cols-2">
-                                    <li class="col wedding">
-                                        <a class="big-link bg-img-21" href="<?= Yii::app()->createUrl('/community/list', array('community_id' => 32))?>">
-                                            <span class="title">Свадьба</span>
-                                            <span class="text">Всё об этом важном событии – от планов и составления списка гостей до проведения торжества.</span>
-                                        </a>
-                                    </li>
-                                    <li class="col relationships">
-                                        <div class="col-in bg-img-22">
-                                            <div class="title">Отношения</div>
-                                            <ul>
-                                                <li><a href="<?= Yii::app()->createUrl('/community/list', array('community_id' => 31, 'rubric_id'=>239))?>">Отношения мужчины и женщины</a></li>
-                                                <li><a href="<?= Yii::app()->createUrl('/community/list', array('community_id' => 31, 'rubric_id'=>242))?>">Непонимание в семье</a></li>
-                                                <li><a href="<?= Yii::app()->createUrl('/community/list', array('community_id' => 31, 'rubric_id'=>243))?>">Ревность и измена</a></li>
-                                                <li><a href="<?= Yii::app()->createUrl('/community/list', array('community_id' => 31, 'rubric_id'=>246))?>">Развод</a></li>
-                                                <li><a href="<?= Yii::app()->createUrl('/community/list', array('community_id' => 31, 'rubric_id'=>248))?>">Психология мужчин</a></li>
-                                                <li><a href="<?= Yii::app()->createUrl('/community/list', array('community_id' => 31, 'rubric_id'=>249))?>">Психология женщин</a></li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                </ul>
-
-                            </div>
-                        </div>
-                        <?php $this->endWidget();?>
-
-                    </li>
-                    <li class="beauty navdrp">
-                        <a href="javascript:void(0);" onclick="navDrpOpen(this);"><i class="text"></i></a>
-
-                        <?php $this->beginWidget('application.widgets.SeoContentWidget'); ?>
-                        <div class="drp">
-                            <div class="in">
-
-                                <ul class="cols cols-3">
-                                    <li class="col">
-                                        <a class="big-link bg-img-31" href="<?= Yii::app()->createUrl('/community/list', array('community_id' => 29))?>">
-                                            <span class="title">Красота</span>
-                                            <span class="text">Как сохранить красоту и продлить молодость - проверенные рецепты, советы экспертов и новые технологии.</span>
-                                        </a>
-                                    </li>
-                                    <li class="col">
-                                        <a class="big-link bg-img-32" href="<?= Yii::app()->createUrl('/community/list', array('community_id' => 30))?>">
-                                            <span class="title">Мода и шоппинг</span>
-                                            <span class="text">Что нужно купить в этом сезоне? Где это продаётся? Есть ли скидки и акции? Для женщин, мужчин и детей – всё интересное о моде и покупках.</span>
-                                        </a>
-                                    </li>
-                                    <li class="col">
-                                        <a class="big-link bg-img-33" href="<?= Yii::app()->createUrl('/community/list', array('community_id' => 33))?>">
-                                            <span class="title">Здоровье родителей</span>
-                                            <span class="text">Вся информация о заболеваниях, их лечении и профилактике, народные советы и адреса клиник.</span>
-                                        </a>
-                                    </li>
-                                </ul>
-
-                            </div>
-                        </div>
-                        <?php $this->endWidget();?>
-
-                    </li>
-                    <li class="home navdrp">
-                        <a href="javascript:void(0);" onclick="navDrpOpen(this);"><i class="text"></i></a>
-
-                        <?php $this->beginWidget('application.widgets.SeoContentWidget'); ?>
-                        <div class="drp">
-                            <div class="in">
-
-                                <ul class="cols cols-5">
-                                    <li class="col">
-                                        <a class="big-link bg-img-41" href="<?= Yii::app()->createUrl('/cook')?>">
-                                            <span class="title">Кулинарные рецепты</span>
-                                            <span class="text">Рецепты на все случаи жизни: простые и сложные, диетические и многие другие.</span>
-                                        </a>
-                                    </li>
-                                    <li class="col">
-                                        <a class="big-link bg-img-42" href="<?= Yii::app()->createUrl('/community/list', array('community_id' => 23))?>">
-                                            <span class="title">Детские рецепты</span>
-                                            <span class="text">Готовим блюда, которые придутся по вкусу даже самому большому привереде.</span>
-                                        </a>
-                                    </li>
-                                    <li class="col">
-                                        <a class="big-link bg-img-43" href="<?= Yii::app()->createUrl('/community/list', array('community_id' => 26))?>">
-                                            <span class="title">Интерьер и дизайн</span>
-                                            <span class="text">Советы о том, как превратить свое жилье в уютное гнездышко.</span>
-                                        </a>
-                                    </li>
-                                    <li class="col">
-                                        <a class="big-link bg-img-44" href="<?= Yii::app()->createUrl('/community/list', array('community_id' => 28))?>">
-                                            <span class="title">Домашние хлопоты</span>
-                                            <span class="text">Превращаем самую тяжелую домашнюю работу в приятные хлопоты.</span>
-                                        </a>
-                                    </li>
-                                    <li class="col">
-                                        <a class="big-link bg-img-45"  href="<?= Yii::app()->createUrl('/community/list', array('community_id' => 34))?>">
-                                            <span class="title">Загородная жизнь</span>
-                                            <span class="text">Как рационально использовать загородный участок: посадки, строительство, отдых.</span>
-                                        </a>
-                                    </li>
-                                </ul>
-
-                            </div>
-                        </div>
-                        <?php $this->endWidget();?>
-
-                    </li>
-                    <li class="hobbies navdrp">
-                        <a href="javascript:void(0);" onclick="navDrpOpen(this);"><i class="text"></i></a>
-
-                        <?php $this->beginWidget('application.widgets.SeoContentWidget'); ?>
-                        <div class="drp">
-                            <div class="in">
-
-                                <ul class="cols cols-4">
-                                    <li class="col">
-                                        <a class="big-link bg-img-51" href="<?= Yii::app()->createUrl('/community/list', array('community_id' => 24))?>">
-                                            <span class="title">Своими руками</span>
-                                            <span class="text">Здесь всегда можно найти нужную информацию и поделиться своими идеями по  рукоделию и творчеству.</span>
-                                        </a>
-                                    </li>
-                                    <li class="col">
-                                        <a class="big-link bg-img-52" href="<?= Yii::app()->createUrl('/community/list', array('community_id' => 25))?>">
-                                            <span class="title">Мастерим детям</span>
-                                            <span class="text">Мастер-классы и схемы по вязанию и шитью, для создания удивительных вещей вашими руками для детей.</span>
-                                        </a>
-                                    </li>
-                                    <li class="col">
-                                        <a class="big-link bg-img-53" href="<?= Yii::app()->createUrl('/community/list', array('community_id' => 27))?>">
-                                            <span class="title">За рулем</span>
-                                            <span class="text">Здесь вы узнаете все тонкости покупки и содержания авто, а также оформления на него документов.</span>
-                                        </a>
-                                    </li>
-                                    <li class="col">
-                                        <a class="big-link bg-img-54" href="<?= Yii::app()->createUrl('/community/list', array('community_id' => 35))?>">
-                                            <span class="title">Цветоводство</span>
-                                            <span class="text">Как выбрать комнатные цветы, куда поставить и что с ними делать – читайте в этом разделе.</span>
-                                        </a>
-                                    </li>
-                                </ul>
-
-
-                            </div>
-                        </div>
-                        <?php $this->endWidget();?>
-
-                    </li>
-                    <li class="rest navdrp">
-                        <a href="javascript:void(0);" onclick="navDrpOpen(this);"><i class="text"></i></a>
-
-                        <?php $this->beginWidget('application.widgets.SeoContentWidget'); ?>
-                        <div class="drp">
-                            <div class="in">
-
-                                <ul class="cols cols-3">
-                                    <li class="col">
-                                        <a class="big-link bg-img-61" href="<?= Yii::app()->createUrl('/community/list', array('community_id' => 19))?>">
-                                            <span class="title">Выходные с ребенком</span>
-                                            <span class="text">Информация о том, где происходят самые интересные события, которые можно посетить вместе с ребенком. Отзывы тех, кто там уже был.</span>
-                                        </a>
-                                    </li>
-                                    <li class="col">
-                                        <a class="big-link bg-img-62" href="<?= Yii::app()->createUrl('/community/list', array('community_id' => 21))?>">
-                                            <span class="title">Путешествия семьей</span>
-                                            <span class="text">Планируем путешествие для всей семьи: выбираем маршрут, оформляем документы, едем, а потом делимся впечатлениями и фотографиями.</span>
-                                        </a>
-                                    </li>
-                                    <li class="col">
-                                        <a class="big-link bg-img-63" href="<?= Yii::app()->createUrl('/community/list', array('community_id' => 20))?>">
-                                            <span class="title">Праздники</span>
-                                            <span class="text">Как устроить потрясающий праздник для детей и взрослых. Как правильно выбирать подарки. Особенности религиозных праздников.</span>
-                                        </a>
-                                    </li>
-                                </ul>
-
-                            </div>
-                        </div>
-                        <?php $this->endWidget();?>
-
-                    </li>
-                </ul>
-            </div>
-<?php endif; ?>
-
-        </div>
-
+<?php $this->beginContent('//layouts/common'); ?>
+<?php if (!Yii::app()->user->isGuest && Yii::app()->user->model->group != UserGroup::USER && Yii::app()->user->checkAccess('commentator_panel')):?>
+    <div id="commentator-link" style="position: fixed;top:70px;left: 0;z-index: 200;background:#42ff4c;">
+        <a target="_blank" href="<?=$this->createUrl('/signal/commentator/index') ?>" style="color: #333;font-weight:bold;">Панель для работы</a>
     </div>
+<?php endif ?>
+<div class="layout-container">
+    <div class="layout-wrapper">
 
-    <div id="content" class="layout-content<?php if (! $this->tempLayout): ?> clearfix<?php endif; ?>">
-        <?php
-            $this->widget('zii.widgets.CBreadcrumbs', array(
-                'links' => $this->breadcrumbs,
-                'separator' => ' &gt; ',
-                'htmlOptions' => array(
-                    'id' => 'crumbs',
-                    'class' => null,
-                ),
-            ));
-        ?>
+        <?php if (!Yii::app()->user->isGuest):?>
+        <div class="layout-header clearfix">
+            <div class="layout-header_hold clearfix">
 
-        <?= $content; ?>
+                <div class="logo">
+                    <?=HHtml::link('Веселый жираф - сайт для всей семьи', '/', array('class' => 'logo_i', 'title' => 'Веселый жираф - сайт для всей семьи'), true)?>
+                    <span class="logo_slogan">САЙТ ДЛЯ ВСЕЙ СЕМЬИ</span>
+                </div>
+                    <!-- ko stopBinding: true -->
+                    <div class="header-menu layout-binding">
+                        <ul class="header-menu_ul clearfix">
+                            <li class="header-menu_li" data-bind="css: { active : newPostsCount() > 0 && activeModule() != 'myGiraffe' }">
+                                <a href="<?=$this->createUrl('/myGiraffe/default/index', array('type'=>1))?>" class="header-menu_a">
+                                    <span class="header-menu_ico header-menu_ico__giraffe"></span>
+                                    <span class="header-menu_tx">Мой <br> Жираф</span>
+                                    <span class="header-menu_count" data-bind="text: newPostsCount"></span>
+                                </a>
+                            </li>
+                            <li class="header-menu_li" data-bind="css: { active : newNotificationsCount() > 0 && activeModule() != 'notifications' }">
+                                <a href="<?=$this->createUrl('/notifications/default/index')?>" class="header-menu_a">
+                                    <span class="header-menu_ico header-menu_ico__notice"></span>
+                                    <span class="header-menu_tx">Мои <br> уведомления</span>
+                                    <span class="header-menu_count" data-bind="text: newNotificationsCount"></span>
+                                </a>
+                            </li>
+                            <li class="header-menu_li">
+                                <a href="<?=$this->createUrl('/favourites/default/index')?>" class="header-menu_a">
+                                    <span class="header-menu_ico header-menu_ico__favorite"></span>
+                                    <span class="header-menu_tx">Мое <br> избранное</span>
+                                </a>
+                            </li>
+                            <li class="header-menu_li header-menu_li__sepor"></li>
+                            <li class="header-menu_li">
+                                <a href="<?=$user->getUrl() ?>" class="header-menu_a">
+                                    <span class="ava middle <?=($user->gender == 0)?'female':'male'?>">
+                                        <?php if ($user->online):?><span class="icon-status status-online"></span><?php endif ?>
+                                        <?=CHtml::image($user->getAvatarUrl(40)) ?>
+                                    </span>
+                                    <span class="header-menu_tx">Моя <br> страница</span>
+                                </a>
+                            </li>
+                            <li class="header-menu_li">
+                                <a href="<?=Yii::app()->user->model->getFamilyUrl()?>" class="header-menu_a">
+                                    <span class="header-menu_ico header-menu_ico__family"></span>
+                                    <span class="header-menu_tx">Моя <br> семья</span>
+                                </a>
+                            </li>
+                            <li class="header-menu_li" data-bind="css: { active : newMessagesCount() > 0 && activeModule() != 'messaging' }">
+                                <a href="<?=$this->createUrl('/messaging/default/index')?>" class="header-menu_a">
+                                    <span class="header-menu_ico header-menu_ico__im"></span>
+                                    <span class="header-menu_tx">Мои <br> сообщения</span>
+                                    <span class="header-menu_count" data-bind="text: newMessagesCount"></span>
+                                </a>
+                            </li>
+                            <li class="header-menu_li" data-bind="css: { active : newFriendsCount() > 0 && activeModule() != 'friends' }">
+                                <a href="<?=$this->createUrl('/friends/default/index')?>" class="header-menu_a">
+                                    <span class="header-menu_ico header-menu_ico__friend"></span>
+                                    <span class="header-menu_tx">Мои <br> друзья</span>
+                                    <span class="header-menu_count" data-bind="text: newFriendsCount"></span>
+                                </a>
+                            </li>
+                            <li class="header-menu_li" data-bind="css: { active : newScoreCount() > 0 && activeModule() != 'scores' }">
+                                <a href="<?=$this->createUrl('/scores/default/index')?>" class="header-menu_a">
+                                    <span class="header-menu_ico header-menu_ico__award"></span>
+                                    <span class="header-menu_tx">Мои <br> успехи</span>
+                                    <span class="header-menu_count" data-bind="text: newScoreCount"></span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- /ko -->
+                    <a href="<?=Yii::app()->createUrl('/site/logout')?>" class="layout-header_logout">Выход</a>
+            </div>
+        </div>
+        <?php else: ?>
+            <div class="layout-header layout-header__nologin clearfix">
+                <div class="content-cols clearfix">
+                    <div class="col-1">
+                        <div class="logo">
+                            <a href="/" class="logo_i" title="Веселый жираф - сайт для все семьи">Веселый жираф - сайт для все семьи</a>
+                            <strong class="logo_slogan">САЙТ ДЛЯ ВСЕЙ СЕМЬИ</strong>
+                        </div>
+                        <div class="sidebar-search clearfix">
+                            <form action="/search/">
+                                <input type="text" placeholder="Поиск по сайту" class="sidebar-search_itx" name="query" id="site-search" onkeyup="SiteSearch.keyUp(this)">
+                                <input type="button" class="sidebar-search_btn" id="site-search-btn" onclick="return SiteSearch.click()"/>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-23">
+                        <div class="b-join clearfix">
+                            <div class="b-join_left">
+                                <div class="b-join_tx"> Более <span class="b-join_tx-big"> 20 000 000</span> мам и пап</div>
+                                <div class="b-join_slogan">уже посетили Веселый Жираф!</div>
+                            </div>
+                            <div class="b-join_right">
+                                <a href="#register" class="btn-green btn-big fancy">Присоединяйтесь!</a>
+                                <div class="clearfix">
+                                    <a href="#login" class="display-ib verticalalign-m fancy">Войти</a>
+                                    <span class="i-or">или</span>
+                                    <?php Yii::app()->eauth->renderWidget(array('action' => 'site/login', 'mode' => 'home')); ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <script>
+                    $(window).load(function() {
+                        /*
+                         block - элемент, что фиксируется
+                         elementStop - до какого элемента фиксируется
+                         blockIndent - отступ
+                         */
+                        function bJoinRowFixed() {
 
-        <?php if ($this->showLikes): ?>
-            <div class="fast-like-block fast-like-block__hg">
+                            var block = $('.js-b-join-row');
+                            var blockTop = block.offset().top;
 
-                <div class="box-2">
-                    <span class="btn-icon heart active"></span>
-                    <div class="fast-like-block_t-hg">Вам нравится Веселый Жираф?</div>
+                            var startTop = $('.layout-header').height();
+
+
+                            $(window).scroll(function() {
+                                var windowScrollTop = $(window).scrollTop();
+                                if (windowScrollTop > startTop) {
+                                    block.fadeIn();
+                                } else {
+
+                                    block.fadeOut();
+
+                                }
+                            });
+                        }
+
+                        bJoinRowFixed('.js-b-join-row');
+                    })
+                </script>
+                <div class="b-join-row js-b-join-row">
+                    <div class="b-join-row_hold">
+                        <div class="b-join-row_logo"></div>
+                        <div class="b-join-row_tx">Более <span class="b-join-row_tx-big"> 20 000 000</span> мам и пап</div>
+                        <div class="b-join-row_slogan">уже посетили Веселый Жираф!</div>
+                        <a href="#register" class="btn-green btn-h46 fancy">Присоединяйтесь!</a>
+                    </div>
                 </div>
 
-                <div class="box-1">
+                <?php $this->widget('application.widgets.registerWidget.RegisterWidget');
+                $this->widget('application.widgets.loginWidget.LoginWidget'); ?>
 
-                    <div class="share_button">
-                        <iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.happy-giraffe.ru&amp;send=false&amp;layout=button_count&amp;width=129&amp;show_faces=true&amp;font&amp;colorscheme=light&amp;action=like&amp;height=21&amp;locale=ru_RU" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:110px; height:21px;" allowTransparency="true"></iframe>
+            </div>
+        <?php endif ?>
+
+        <div class="layout-content clearfix<?php if ($this->route == 'messaging/default/index'): ?> margin-b0<?php endif; ?>">
+            <?php if (!Yii::app()->user->isGuest && $this->showAddBlock):?>
+                <div class="content-cols clearfix">
+                    <div class="col-1">
+                        <div class="sidebar-search clearfix">
+                            <form action="/search/">
+                                <input type="text" placeholder="Поиск по сайту" class="sidebar-search_itx" name="query" id="site-search" onkeyup="SiteSearch.keyUp(event, this)">
+                                <input type="button" class="sidebar-search_btn" id="site-search-btn" onclick="return SiteSearch.click()"/>
+                            </form>
+                        </div>
                     </div>
-
-
-                    <div class="share_button">
-                        <div id="ok_shareWidget"></div>
-                        <script>
-                            !function (d, id, did, st) {
-                                var js = d.createElement("script");
-                                js.src = "http://connect.ok.ru/connect.js";
-                                js.onload = js.onreadystatechange = function () {
-                                    if (!this.readyState || this.readyState == "loaded" || this.readyState == "complete") {
-                                        if (!this.executed) {
-                                            this.executed = true;
-                                            setTimeout(function () {
-                                                OK.CONNECT.insertShareWidget(id,did,st);
-                                            }, 0);
-                                        }
-                                    }};
-                                d.documentElement.appendChild(js);
-                            }(document,"ok_shareWidget","http://www.happy-giraffe.ru","{width:145,height:30,st:'straight',sz:20,ck:1}");
-                        </script>
+                    <div class="col-23-middle">
+                        <?php if (!Yii::app()->user->isGuest):?>
+                            <?php if (isset($this->user) && $this->user->id == Yii::app()->user->id):?>
+                                <div class="user-add-record clearfix">
+                                    <div class="user-add-record_ava-hold">
+                                        <?php $this->widget('Avatar', array('user' => Yii::app()->user->getModel())); ?>
+                                    </div>
+                                    <div class="user-add-record_hold">
+                                        <div class="user-add-record_tx">Я хочу добавить</div>
+                                        <a href="<?=$this->createUrl('/blog/default/form', array('type' => 1))?>"  class="user-add-record_ico user-add-record_ico__article fancy-top">Статью</a>
+                                        <a href="<?=$this->createUrl('/blog/default/form', array('type' => 3))?>"  class="user-add-record_ico user-add-record_ico__photo fancy-top">Фото</a>
+                                        <a href="<?=$this->createUrl('/blog/default/form', array('type' => 2))?>"  class="user-add-record_ico user-add-record_ico__video fancy-top">Видео</a>
+                                        <a href="<?=$this->createUrl('/blog/default/form', array('type' => 5))?>"  class="user-add-record_ico user-add-record_ico__status fancy-top">Статус</a>
+                                    </div>
+                                </div>
+                            <?php else: ?>
+                                <div class="user-add-record user-add-record__small clearfix">
+                                    <div class="user-add-record_ava-hold">
+                                        <?php $this->widget('Avatar', array('user' => Yii::app()->user->getModel(), 'size' => 40)); ?>
+                                    </div>
+                                    <div class="user-add-record_hold">
+                                        <div class="user-add-record_tx">Я хочу добавить</div>
+                                        <a href="<?= $this->createUrl('/blog/default/form', array('type' => 1)) ?>" class="user-add-record_ico user-add-record_ico__article fancy-top powertip" title="Статью"></a>
+                                        <a href="<?= $this->createUrl('/blog/default/form', array('type' => 3)) ?>" class="user-add-record_ico user-add-record_ico__photo fancy-top powertip" title="Фото"></a>
+                                        <a href="<?= $this->createUrl('/blog/default/form', array('type' => 2)) ?>" class="user-add-record_ico user-add-record_ico__video fancy-top powertip" title="Видео"></a>
+                                        <a href="<?= $this->createUrl('/blog/default/form', array('type' => 5)) ?>" class="user-add-record_ico user-add-record_ico__status fancy-top powertip" title="Статус"></a>
+                                    </div>
+                                </div>
+                            <?php endif ?>
+                        <?php endif ?>
                     </div>
-
-                    <div class="share_button">
-                        <div id="vk_like"></div>
-                        <script type="text/javascript">
-                            VK.Widgets.Like("vk_like", {
-                                type: "full",
-                                width: "105",
-                                pageUrl: "http://www.happy-giraffe.ru"
-                            });
-                        </script>
-                    </div>
-
-
                 </div>
             <?php endif; ?>
 
+            <?php if ($this->breadcrumbs): ?>
+                <div class="crumbs-small clearfix">
+                    <?php $this->widget('HBreadcrumbs', array(
+                        'homeLink' => Yii::app()->user->isGuest ? null : false,
+                        'links' => $this->breadcrumbs,
+                    )); ?>
+                </div>
+            <?php endif; ?>
+
+            <?=$content?>
         </div>
+
+        <a href="#layout" id="btn-up-page"></a>
+
+        <?php if ($this->route != 'messaging/default/index'): ?>
+            <div class="footer-push"></div>
+        <?php endif; ?>
     </div>
-
-
-    <?php if (false): ?>
-        <noindex><?php $this->widget('WhatsNewWidget') ?></noindex>
+    <?php if ($this->route != 'messaging/default/index'): ?>
+        <?php $this->renderPartial('//_footer'); ?>
     <?php endif; ?>
 
-    <a href="#layout" id="btn-up-page"></a>
-<?php if (! $this->tempLayout): ?>
-    <div class="push"></div>
-<?php endif; ?>
+    <?php if ($this->route == 'services/test/default/view' && $_GET['slug'] == 'pregnancy'): ?>
+        <a href="http://ad.adriver.ru/cgi-bin/click.cgi?sid=1&bt=21&ad=420214&pid=1313272&bid=2833663&bn=2833663&rnd=<?=mt_rand(1000000000, 9999999999)?>" class="cover cover-clearblue" target="_blank" onclick="_gaq.push(['_trackEvent','Outgoing Links','www.clearblue.com'])">
+            <div class="cover-clearblue_b"></div>
+        </a>
+    <?php endif; ?>
 
+    <?php if ($this->id == 'contest'): ?>
+        <div class="cover cover-contest cover-contest__pets1"></div>
+    <?php endif; ?>
+</div>
+<div class="display-n">
+    <?php $sql_stats = YII::app()->db->getStats();
+    echo $sql_stats[0] . ' запросов к БД, время выполнения запросов - ' . sprintf('%0.5f', $sql_stats[1]) . ' c.'; ?>
+</div>
+
+<script type="text/javascript">
+    var userIsGuest = <?=CJavaScript::encode(Yii::app()->user->isGuest)?>;
+    var CURRENT_USER_ID = <?=CJavaScript::encode(Yii::app()->user->id)?>;
+    <?php if (! Yii::app()->user->isGuest): ?>
+        var layoutVM = new LayoutViewModel(<?=CJSON::encode($this->getLayoutData())?>);
+        $(".layout-binding").each(function(index, el) {
+            ko.applyBindings(layoutVM, el);
+        });
+    <?php endif; ?>
+</script>
 <?php $this->endContent(); ?>

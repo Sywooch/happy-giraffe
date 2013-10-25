@@ -13,11 +13,11 @@ $i = 0;
             <table cellpadding="0" cellspacing="0" style="margin-bottom:8px;">
                 <tbody>
                 <tr>
-                    <td valign="middle"><img src="<?php echo $model->contentAuthor->getAva() ?>"
+                    <td valign="middle"><img src="<?php echo ($ad = $model->isAd()) ? ('http://www.happy-giraffe.ru' . $ad['img']) : $model->author->getAvatarUrl() ?>"
                                              style="display:block;margin-top:-40px;-moz-border-radius:36px;-webkit-border-radius:36px;border-radius:36px;">
                     </td>
                     <td valign="top">
-                        <span style="color:#38a5f4;font:12px arial, helvetica, sans-serif;margin-left:10px;"><?php echo $model->contentAuthor->first_name ?></span>
+                        <span style="color:#38a5f4;font:12px arial, helvetica, sans-serif;margin-left:10px;"><?php echo ($ad = $model->isAd()) ? $ad['text'] : $model->author->first_name ?></span>
                     </td>
                 </tr>
                 </tbody>
@@ -33,7 +33,7 @@ $i = 0;
             </div>
 
             <?php
-            $image_url = $model->getContentImage();
+            $image_url = $model->getContentImage(580, 1000);
             if (!empty($image_url))
                 $image_size = getimagesize($image_url);
             else
@@ -67,14 +67,14 @@ $i = 0;
                     <span style="color:#31a4f6;font:12px arial, helvetica, sans-serif;">
                         <a href="http://www.happy-giraffe.ru<?php echo ltrim($model->getUrl(), '.') ?>?utm_source=email#comment_list" target="_blank" style="color:#31a4f6;font:12px arial, helvetica, sans-serif;"><img
                             src="http://www.happy-giraffe.ru/images/mail/icon_comments.gif"
-                            style="margin-right:5px;vertical-align:top;"><?php echo $model->getUnknownClassCommentsCount() ?></a></span>
+                            style="margin-right:5px;vertical-align:top;"><?php echo $model->getCommentsCount() ?></a></span>
                     </td>
                     <td>
                         <?php $used = array(); ?>
                         <?php $j = 0; foreach ($model->getUnknownClassComments() as $comment): ?>
                         <?php if (!empty($comment->author->avatar_id) && !in_array($comment->author->avatar_id, $used)):?>
                             <?php $j++;$used[] = $comment->author->avatar_id ?>
-                            <img src="<?php echo $comment->author->getAva('small') ?>"
+                            <img src="<?php echo $comment->author->getAvatarUrl(Avatar::SIZE_MICRO) ?>"
                                  style="margin-right:5px;-moz-border-radius:12px;-webkit-border-radius:12px;border-radius:12px;">
                             <?php if ($j == 5) break; ?>
                             <?php endif ?>

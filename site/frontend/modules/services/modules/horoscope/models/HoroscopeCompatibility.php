@@ -37,8 +37,8 @@ class HoroscopeCompatibility extends HActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('zodiac1', 'required', 'message'=>'Укажите 1-й знак зодиака'),
-            array('zodiac2', 'required', 'message'=>'Укажите 2-й знак зодиака'),
+			array('zodiac1', 'required', 'message'=>'Укажите свой знак Зодиака'),
+            array('zodiac2', 'required', 'message'=>'Укажите знак Зодиака своего партнера'),
 			array('zodiac1, zodiac2', 'numerical', 'integerOnly'=>true),
 			array('text', 'safe'),
 			// The following rule is used by search().

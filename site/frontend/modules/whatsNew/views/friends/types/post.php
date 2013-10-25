@@ -2,9 +2,10 @@
     <?=CHtml::link($data->content->title, $data->content->url)?>
 </h3>
 <?php if (! $data->content->isFromBlog): ?>
-    <div class="clearfix">
-        <a href="<?=$data->content->rubric->community->url?>" class="club-category <?=$data->content->rubric->community->css_class?>"><?=$data->content->rubric->community->shortTitle?></a>
-    </div>
+    <?php if (!isset($data->content->rubric) || isset($data->content->rubric->community)) $data->delete(); ?>
+        <div class="clearfix">
+            <a href="<?=$data->content->rubric->community->url?>" class="club-category <?=$data->content->rubric->community->css_class?>"><?=$data->content->rubric->community->shortTitle?></a>
+        </div>
 <?php else: ?>
     <div class="clearfix">
         <span class="sub-category"><span class="icon-blog"></span>Личный блог</span>

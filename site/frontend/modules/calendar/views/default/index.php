@@ -203,12 +203,7 @@
                             <li>
                                 <?php if ($period->calendar != 0): ?>
                                     <div class="user clearfix">
-                                        <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
-                                        'user' => $c->author,
-                                        'size' => 'small',
-                                        'location' => false,
-                                        'sendButton' => false,
-                                    )); ?>
+                                        <?php $this->widget('Avatar', array('user' => $c->author, 'size' => Avatar::SIZE_MICRO)); ?>
                                     </div>
                                 <?php endif; ?>
                                 <div class="item-title"><?=CHtml::link($c->title, $c->url)?></div>

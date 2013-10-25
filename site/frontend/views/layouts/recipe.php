@@ -1,95 +1,54 @@
-<?php $this->beginContent('//layouts/main'); ?>
+<?php $this->beginContent('//layouts/community'); ?>
 
-<div id="cook-recipe">
+<div class="content-cols clearfix">
+    <div class="col-1">
 
-    <?php if ($this->section == 1): ?>
-        <div class="title title-recipes-1">
-            <h1>Рецепты для <span>МУЛЬТИВАРОК</span></h1>
-        </div>
-    <?php endif; ?>
+        <?php $this->renderPartial('application.modules.community.views.default._users2'); ?>
 
-    <div class="clearfix">
-
-        <div class="main">
-
-            <div class="main-in">
-
-                <?=$content?>
-
-            </div>
-
+        <div class="sidebar-search sidebar-search__gray clearfix">
+            <?=CHtml::beginForm(array('search'), 'get')?>
+            <input type="text" placeholder="Поиск из <?=CookRecipe::model()->count()?> рецептов" class="sidebar-search_itx" name="query">
+            <button class="sidebar-search_btn"></button>
+            <?=CHtml::endForm()?>
         </div>
 
-        <div class="side-left">
-
-            <div style="margin-bottom: 40px;">
-                <?php $this->renderPartial('//banners/adfox'); ?>
-            </div>
-
-            <div class="recipe-search clearfix">
-                <?=CHtml::beginForm('/cook/recipe/search', 'get')?>
-                    <input type="text" name="text" value="<?php if (isset($_GET['text'])) echo urldecode($_GET['text']) ?>" class="text" placeholder="Поиск из <?=$count = CookRecipe::model()->cache(3600)->count() ?> <?=HDate::GenerateNoun(array('рецепта', 'рецептов', 'рецептов'), $count) ?>">
-                    <input type="submit" value="" class="submit">
-                <?=CHtml::endForm()?>
-            </div>
-
-            <div class="recipe-menu">
-                <ul>
-                    <li>
-                        <a href="<?=(Yii::app()->user->isGuest) ? '#login' : $this->createUrl('/cook/recipe/form', array('section' => $this->section))?>"
-                           data-theme="white-square"<?php if (Yii::app()->user->isGuest) echo 'class="fancy"'?>>
-                                <span class="icon-holder">
-                                    <i class="icon-cook-add"></i>
-                                </span><span class="link-holder">
-                                    <span class="link">Добавить рецепт</span>
-                                </span>
-                        </a>
+        <div class="menu-simple">
+            <ul class="menu-simple_ul">
+                <?php foreach (CActiveRecord::model($this->modelName)->types as $id => $label): ?>
+                    <li class="menu-simple_li<?php if ($this->currentType == $id): ?> active<?php endif; ?>">
+                        <?=HHtml::link($label, $this->getTypeUrl($id), array('class' => 'menu-simple_a'), true)?>
+                        <div class="menu-simple_count"><?=isset($this->counts[$id]) ? $this->counts[$id] : 0?></div>
                     </li>
-                    <li>
-                        <a href="<?=(Yii::app()->user->isGuest) ? '#login' : $this->createUrl('/favourites/default/index', array('entity' => 'cook'))?>"
-                           data-theme="white-square"<?php if (Yii::app()->user->isGuest) echo 'class="fancy"'?>>
-                                <span class="icon-holder">
-                                    <i class="icon-cook-book"></i>
-                                </span><span class="link-holder">
-                                    <span class="link">Моя кулинарная книга</span>
-                                    <span id="cookbook-recipe-count" class="pink"><?=$count = (Yii::app()->user->isGuest) ? 0 : FavouritesManager::getCountByUserId(Yii::app()->user->id, 'cook') ?> <?=HDate::GenerateNoun(array('рецепт', 'рецепта', 'рецептов'), $count) ?></span>
-                                </span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="recipe-categories">
-                <ul>
-                    <?php foreach (CActiveRecord::model($this->modelName)->types as $id => $label): ?>
-                        <li<?php if ($this->currentType == $id): ?> class="active"<?php endif; ?>>
-                            <?php
-                            $count = isset($this->counts[$id]) ? $this->counts[$id] : 0;
-                            $text = '<span class="cook-cat-holder"><i class="icon-cook-cat icon-recipe-'.$id.'"></i></span>
-                                <span class="cook-cat-frame">
-                                    <span>'.$label.'</span>
-                                    <span class="count">' . $count . '</span>
-                                </span>';
-                                    echo HHtml::link($text, $this->getTypeUrl($id), array('class'=>($this->currentType == $id)?'cook-cat active':'cook-cat'), true)
-                            ?>
-                            <img src="/images/recipe-categories-arrow.png" alt="" class="tale">
-                        </li>
-                    <?php endforeach; ?>
-                </ul>
-
-                <div class="banner-box">
-                    <?php $this->renderPartial('//banners/cooking'); ?>
-                </div>
-
-            </div>
-
+                <?php endforeach; ?>
+            </ul>
         </div>
 
+        <?php if ($this->action->id == 'view'): ?>
+            <div class="banner">
+                <script async src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                <!-- Giraffe - new -->
+                <ins class="adsbygoogle"
+                     style="display:inline-block;width:240px;height:400px"
+                     data-ad-client="ca-pub-3807022659655617"
+                     data-ad-slot="4550457687"></ins>
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+        <?php endif; ?>
     </div>
+    <div class="col-23-middle ">
 
-    <?php //$sql_stats = YII::app()->db->getStats();
-    //echo $sql_stats[0] . ' запросов к БД, время выполнения запросов - ' . sprintf('%0.5f', $sql_stats[1]) . ' c.'; ?>
 
+        <div class="clearfix margin-r20 margin-b20">
+            <a href="<?=(Yii::app()->user->isGuest) ? '#login' : $this->createUrl('/cook/recipe/form', array('section' => $this->section))?>" class="btn-blue btn-h46 float-r">Добавить рецепт</a>
+        </div>
+        <div class="col-gray">
+
+            <?=$content?>
+
+        </div>
+    </div>
 </div>
 
 <?php $this->endContent(); ?>

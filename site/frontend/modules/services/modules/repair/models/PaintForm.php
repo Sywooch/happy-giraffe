@@ -63,7 +63,7 @@ class PaintForm extends HFormModel
         }
         $volume = ceil($sq * $this->paintsK[$this->paintType]);
         $result['volume'] = ($volume <= 0) ? 0 : $volume;
-        $result['noun'] = HDate::GenerateNoun(array('литр', 'литра', 'литров'), $result['volume']);
+        $result['noun'] = Str::GenerateNoun(array('литр', 'литра', 'литров'), $result['volume']);
 
         return $result;
     }

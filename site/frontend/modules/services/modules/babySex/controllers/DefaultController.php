@@ -1,8 +1,8 @@
 <?php
 
-class DefaultController extends HController
+class DefaultController extends ServiceController
 {
-    public $layout = '//layouts/new';
+    public $service_id = 8;
 
     public function filters()
     {

@@ -68,7 +68,7 @@
                         <?php endforeach; ?>
                     </ul>
                     <?php if ($answers[$i]->votes > 20): ?>
-                        <div class="more-votes">еще <?=($answers[$i]->votes - 20)?> <?=HDate::GenerateNoun(array('голос', 'голоса', 'голосов'), $answers[$i]->votes - 20)?></div>
+                        <div class="more-votes">еще <?=($answers[$i]->votes - 20)?> <?=Str::GenerateNoun(array('голос', 'голоса', 'голосов'), $answers[$i]->votes - 20)?></div>
                     <?php endif; ?>
                 </div>
             <?php endforeach; ?>

@@ -11,7 +11,8 @@ class CommunityPopularWidget extends CWidget
 {
     public function run()
     {
-        $communityContents = CommunityContent::model()->full()->findAll(array(
+        $communityContents = CommunityContent::model()->findAll(array(
+            'with'=>array('rubric'),
             'limit' => 3,
             'order' => 'rate DESC',
             'condition' => 'rubric.community_id IS NOT NULL AND DATE_SUB(CURDATE(), INTERVAL 3 DAY) <= created AND author_id != :happy_giraffe',

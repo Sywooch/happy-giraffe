@@ -11,11 +11,7 @@
     <div class="entry-header">
 
         <?php
-            $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
-                'user' => $data->author,
-                'friendButton' => true,
-                'location' => false,
-            ));
+        $this->widget('Avatar', array('user' => $data->author));
 
             if (Yii::app()->request->getParam('Comment_page', null) !== null) {
                 Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
@@ -97,10 +93,7 @@
 
 </div>
 
-<?php
-    $this->widget('application.widgets.commentWidget.CommentWidget', array(
-        'model' => $data,
-    ));
-?>
+<?php $this->widget('application.widgets.newCommentWidget.NewCommentWidget', array('model' => $data, 'full' => true)); ?>
+
 
 <?php $this->widget('application.widgets.seo.SeoLinksWidget'); ?>

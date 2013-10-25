@@ -22,17 +22,17 @@
             <div class="views"><span class="icon"></span> <span><?=($full) ? $this->getViews() : PageView::model()->viewsByPath($model->url)?></span></div>
             <div class="comments">
                 <a href="#" class="icon"></a>
-                <?php if ($model->getUnknownClassCommentsCount() > 0): ?>
+                <?php if ($model->commentsCount > 0): ?>
                 <?php $lastComments = $model->lastCommentators;
                     foreach ($lastComments as $lc): ?>
                     <?php
                     $class = 'ava small';
                     if ($lc->author->gender !== null) $class .= ' ' . (($lc->author->gender) ? 'male' : 'female');
                     ?>
-                    <?=HHtml::link(CHtml::image($lc->author->getAva('small')), ($lc->author->deleted)?'#':$lc->author->url, array('class' => $class), true)?>
+                    <?=HHtml::link(CHtml::image($lc->author->getAvatarUrl(Avatar::SIZE_MICRO)), ($lc->author->deleted)?'#':$lc->author->url, array('class' => $class), true)?>
                     <?php endforeach; ?>
-                <?php if ($model->getUnknownClassCommentsCount() > count($lastComments)): ?>
-                    <?=CHtml::link('и еще ' . ($model->getUnknownClassCommentsCount() - count($lastComments)), $model->getUrl(true))?>
+                <?php if ($model->commentsCount > count($lastComments)): ?>
+                    <?=CHtml::link('и еще ' . ($model->commentsCount - count($lastComments)), $model->getUrl(true))?>
                     <?php endif; ?>
                 <?php else: ?>
                 <?=CHtml::link('Добавить комментарий', $model->getUrl(true))?>

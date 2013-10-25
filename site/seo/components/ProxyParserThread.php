@@ -47,7 +47,6 @@ class ProxyParserThread
 
     protected function query($url, $ref = null, $post = false, $attempt = 0)
     {
-        //$this->log('start curl');
         if ($ch = curl_init($url)) {
             curl_setopt($ch, CURLOPT_USERAGENT, 'User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:18.0) Gecko/20100101 Firefox/18.0');
             if ($post) {
@@ -62,7 +61,7 @@ class ProxyParserThread
                 curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
                 curl_setopt($ch, CURLOPT_PROXY, $this->proxy['value']);
                 if (Yii::app()->params['use_proxy_auth']) {
-                    curl_setopt($ch, CURLOPT_PROXYUSERPWD, "alexhg:Nokia1111");
+                    curl_setopt($ch, CURLOPT_PROXYUSERPWD, "nikitahg:GsB84twqiGvuVz");
                     curl_setopt($ch, CURLOPT_PROXYAUTH, 1);
                 }
             }

@@ -26,7 +26,7 @@ class RatingCommand extends CConsoleCommand
 
     public function actionShowLikes($work)
     {
-        $models = RatingYohoho::model()->findAllByAttributes(array(
+        $models = HGLike::model()->findAllByAttributes(array(
             'entity_name' => 'ContestWork',
             'entity_id' => (int)$work
         ));
@@ -44,7 +44,7 @@ class RatingCommand extends CConsoleCommand
 
     public function actionShowUserLikes($user)
     {
-        $models = RatingYohoho::model()->findAllByAttributes(array(
+        $models = HGLike::model()->findAllByAttributes(array(
             'user_id' => (int)$user,
         ));
 
@@ -81,7 +81,7 @@ class RatingCommand extends CConsoleCommand
             $criteria = new EMongoCriteria();
             $criteria->entity_id('==', (int)$model->id);
             $criteria->entity_name('==', 'ContestWork');
-            $yohoho_models = RatingYohoho::model()->findAll($criteria);
+            $yohoho_models = HGLike::model()->findAll($criteria);
 
             $likes = array();
             foreach ($yohoho_models as $yohoho_model)

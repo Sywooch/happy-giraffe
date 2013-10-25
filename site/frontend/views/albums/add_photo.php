@@ -1,3 +1,7 @@
+<script>
+    document.domain = 'www.virtual-giraffe.ru';
+</script>
+
 <div id="galleryUploadPhotos" class="popup">
     <a href="javascript:void(0);" class="popup-close" onclick="$.fancybox.close();">закрыть</a>
 

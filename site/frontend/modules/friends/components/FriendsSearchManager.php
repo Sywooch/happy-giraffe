@@ -45,15 +45,11 @@ class FriendsSearchManager
         if (isset($params['regionId']))
             $criteria->compare('address.region_id', $params['regionId']);
 
-        if  (isset($params['ageMin'])) {
-            $criteria->having = (empty($criteria->having)) ? 'age >= :ageMin' : ' AND age => :ageMin';
-            $criteria->params[':ageMin'] = $params['ageMin'];
-        }
+        if (isset($params['ageMin']))
+            $criteria->mergeWith(self::getAgeMinCriteria($params['ageMin']));
 
-        if  (isset($params['ageMax'])) {
-            $criteria->having .= (empty($criteria->having)) ? 'age <= :ageMax' : ' AND age <= :ageMax';
-            $criteria->params[':ageMax'] = $params['ageMax'];
-        }
+        if (isset($params['ageMax']))
+            $criteria->mergeWith(self::getAgeMaxCriteria($params['ageMax']));
 
         if (isset($params['childrenType'])) {
             switch ($params['childrenType']) {
@@ -78,7 +74,7 @@ class FriendsSearchManager
     protected static function getDefaultCriteria($userId)
     {
         return new CDbCriteria(array(
-            'select' => 't.*, YEAR(CURDATE()) - YEAR(t.birthday) AS age',
+            'select' => 't.*',
             'condition' => '
                 t.id != :user_id AND
                 t.id != :hg AND
@@ -86,7 +82,8 @@ class FriendsSearchManager
                 t.blocked = 0 AND
                 f.id IS NULL AND
                 fr.id IS NULL AND
-                t.avatar_id IS NOT NULL
+                t.avatar_id IS NOT NULL AND
+                t.birthday IS NOT NULL
             ',
             'join' => '
                 LEFT OUTER JOIN friends f ON f.user_id = :user_id AND f.friend_id = t.id
@@ -102,9 +99,8 @@ class FriendsSearchManager
                         'city',
                     ),
                 ),
-                'partner',
             ),
-            'order' => 't.id DESC',
+            'order' => 't.online DESC, t.id ASC',
             'params' => array(
                 ':user_id' => $userId,
                 ':hg' => User::HAPPY_GIRAFFE,
@@ -153,6 +149,26 @@ class FriendsSearchManager
             'join' => 'LEFT OUTER JOIN user__users_babies b ON b.parent_id = t.id AND type IS NULL',
             'having' => 'childrenCount >= 3',
             'group' => 't.id',
+        ));
+    }
+
+    protected static function getAgeMinCriteria($ageMin)
+    {
+        return new CDbCriteria(array(
+            'condition' => 't.birthday <= :birthdayMin',
+            'params' => array(
+                ':birthdayMin' => (date("Y") - $ageMin) . '-' . date("m-d H:i:s"),
+            ),
+        ));
+    }
+
+    protected static function getAgeMaxCriteria($ageMax)
+    {
+        return new CDbCriteria(array(
+            'condition' => 't.birthday >= :birthdayMax',
+            'params' => array(
+                ':birthdayMax' => (date("Y") - $ageMax - 1) . '-' . date("m-d H:i:s"),
+            ),
         ));
     }
 }

@@ -1,84 +1,71 @@
 <?php
 /**
- * @var $this DefaultController
+ * @var $this CommentatorController
  * @var $month string
- * @var $commentators CommentatorWork[]
  * @author Alex Kireev <alexk984@gmail.com>
  */
+$commentatorMonth = CommentatorsMonth::get($month);
+$commentator = CommentatorWork::getCurrentUser();
+?><div class="block">
+    <?php $this->renderPartial('_month_list', array('month' => $month, 'params'=>array('type'=>'me'))); ?>
 
-$criteria = new EMongoCriteria();
-$criteria->setSort(array('user_id'=>EMongoCriteria::SORT_ASC));
-$commentators = CommentatorWork::model()->findAll($criteria);
+    <div class="award-me clearfix">
+        <?php $place = $commentatorMonth->getTeamPlace($commentator->team, CommentatorsMonth::NEW_FRIENDS) ?>
+        <div class="award-me_i award-me_i__1"<?php if ($place < 4) echo ' win' ?>>
+            <div class="award-me_t">Новые <br>друзья</div>
+            <div class="award-me_value"><?=$commentatorMonth->getTeamStatValue($commentator->team, CommentatorsMonth::NEW_FRIENDS) ?></div>
+            <div class="award-me_place">
+                <?=$commentatorMonth->getPlaceView($commentator->user_id, CommentatorsMonth::NEW_FRIENDS, true) ?>
+            </div>
+            <div class="award-me_desc">
+                <div class="ico-info"></div> <br>
+                <a href="/commentator/secrets/#friends">Как завести наибольшее количество дружеских связей (болше всего друзей на сайте)</a>
+            </div>
+        </div>
 
-?>
-<?php $this->renderPartial('menu', array('month' => $month, 'active'=>null, 'url'=>'team')); ?>
-<div class="block">
 
-    <?php $this->renderPartial('_month_list', array('month' => $month)); ?>
+        <?php $place = $commentatorMonth->getTeamPlace($commentator->team, CommentatorsMonth::IM_MESSAGES) ?>
+        <div class="award-me_i award-me_i__3<?php if ($place < 4) echo ' win' ?>">
+            <div class="award-me_t">Личная <br> переписка</div>
+            <div class="award-me_value"><?=$commentatorMonth->getTeamStatValue($commentator->team, CommentatorsMonth::IM_MESSAGES) ?></div>
+            <div class="award-me_place">
+                <?=$commentatorMonth->getPlaceView($commentator->user_id, CommentatorsMonth::IM_MESSAGES, true) ?>
+            </div>
+            <div class="award-me_desc">
+                <div class="ico-info"></div> <br>
+                <a href="/commentator/secrets/#messages">Самый коммуникабельный сотрудник (тот, кто больше всего отправил сообщений по внутренней почте) – входящие и исходящие сообщения</a>
+            </div>
+        </div>
 
-    <div class="report report__center">
-        <table class="report_table">
-            <thead>
-            <tr>
-                <th>Комментаторы</th>
-                <th>Записей в блог</th>
-                <th>Записей в клуб</th>
-                <th>Комментариев</th>
-                <th>План</th>
-            </tr>
-            </thead>
-            <tbody>
-            <?php foreach ($commentators as $commentator): ?>
-                <?php $user = $commentator->getUserModel() ?>
-                <tr class="report_odd">
-                    <td class="report_td-user">
-                        <div class="user-info clearfix">
-                            <?php $url = $this->createUrl('/signal/commentator/team/', array('month'=>$month, 'user_id'=>$user->id))?>
-                            <a href="<?=$url ?>" class="ava small"><?=CHtml::image($user->getAva('small')) ?></a>
-                            <div class="user-info_details">
-                                <a href="<?=$url ?>" class="user-info_username"><?=$user->fullName ?></a>
-                            </div>
-                        </div>
-                    </td>
-                    <?php
-                    $blog_stats = $commentator->getEntitiesCount('blog_posts', $month, $commentator->getBlogPostsLimit());
-                    $club_stats = $commentator->getEntitiesCount('club_posts', $month, $commentator->getClubPostsLimit());
-                    $comments_stats = $commentator->getEntitiesCount('comments', $month, $commentator->getCommentsLimit());
-                    ?>
-                    <td class="report_td-count">
-                        <div class="report_count"><?=$blog_stats[0] ?></div>
-                        <div class="report_percent color-<?=($blog_stats[1]>=100)?'green':'red' ?>">
-                            <img src="http://www.happy-giraffe.ru/images/seo2/ico/blog-<?=($blog_stats[1]>=100)?'green':'red' ?>-small.png" alt="" class="report_count-ico">
-                            <?=$blog_stats[1] ?>%
-                        </div>
-                    </td>
-                    <td class="report_td-count">
-                        <div class="report_count"><?=$club_stats[0] ?></div>
-                        <div class="report_percent color-<?=($club_stats[1]>=100)?'green':'red' ?>">
-                            <img src="http://www.happy-giraffe.ru/images/seo2/ico/club-<?=($club_stats[1]>=100)?'green':'red' ?>-small.png" alt="" class="report_count-ico">
-                            <?=$club_stats[1] ?>%
-                        </div>
-                    </td>
-                    <td class="report_td-count">
-                        <div class="report_count"><?=$comments_stats[0] ?></div>
-                        <div class="report_percent color-<?=($comments_stats[1]>=100)?'green':'red' ?>">
-                            <img src="http://www.happy-giraffe.ru/images/seo2/ico/comment-<?=($comments_stats[1]>=100)?'green':'red' ?>-small.png" alt="" class="report_count-ico">
-                            <?=$comments_stats[1] ?>%
-                        </div>
-                    </td>
-                    <td class="report_td-status">
-                        <?php if ($blog_stats[1] >= 100 && $club_stats[1] >= 100 && $comments_stats[1] >= 100):?>
-                            <div class="report_status color-green">Выполнен</div>
-                        <?php else: ?>
-                            <div class="report_status color-alizarin">Не выполнен</div>
-                        <?php endif ?>
-                    </td>
-                </tr>
-            <?php endforeach; ?>
-            </tbody>
-        </table>
+
+        <?php $place = $commentatorMonth->getTeamPlace($commentator->team, CommentatorsMonth::RECORDS_COUNT) ?>
+        <div class="award-me_i award-me_i__2<?php if ($place < 4) echo ' win' ?>">
+            <div class="award-me_t">Количество <br> записей</div>
+            <div class="award-me_value"><?=$commentatorMonth->getTeamStatValue($commentator->team, CommentatorsMonth::RECORDS_COUNT) ?></div>
+            <div class="award-me_place">
+                <?=$commentatorMonth->getPlaceView($commentator->user_id, CommentatorsMonth::RECORDS_COUNT, true) ?>
+            </div>
+        </div>
+
+
+        <?php $place = $commentatorMonth->getTeamPlace($commentator->team, CommentatorsMonth::MOST_COMMENTED_POST) ?>
+        <div class="award-me_i award-me_i__2<?php if ($place < 4) echo ' win' ?>">
+            <div class="award-me_t">Наибольшее кол-во <br> комментариев <br> к посту</div>
+            <div class="award-me_value"><?=$commentatorMonth->getTeamStatValue($commentator->team, CommentatorsMonth::MOST_COMMENTED_POST) ?></div>
+            <div class="award-me_place">
+                <?=$commentatorMonth->getPlaceView($commentator->user_id, CommentatorsMonth::MOST_COMMENTED_POST, true) ?>
+            </div>
+        </div>
+
+
+        <?php $place = $commentatorMonth->getTeamPlace($commentator->team, CommentatorsMonth::GOOD_COMMENTS_COUNT) ?>
+        <div class="award-me_i award-me_i__2<?php if ($place < 4) echo ' win' ?>">
+            <div class="award-me_t">Кол-во <br>развернутых<br> комментариев</div>
+            <div class="award-me_value"><?=$commentatorMonth->getTeamStatValue($commentator->team, CommentatorsMonth::GOOD_COMMENTS_COUNT) ?></div>
+            <div class="award-me_place">
+                <?=$commentatorMonth->getPlaceView($commentator->user_id, CommentatorsMonth::GOOD_COMMENTS_COUNT, true) ?>
+            </div>
+        </div>
     </div>
+
 </div>
-<script type="text/javascript">
-    refreshOdd('table.report_table tr', 'report_odd');
-</script>

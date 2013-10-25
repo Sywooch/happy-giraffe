@@ -20,7 +20,7 @@ class PurifyCommand extends CConsoleCommand
             $criteria->compare('by_happy_giraffe', $by_happy_giraffe);
         }
 
-        $contents = CommunityContent::model()->full()->findAll($criteria);
+        $contents = CommunityContent::model()->findAll($criteria);
         $count = count($contents);
 
         foreach ($contents as $k => $c) {

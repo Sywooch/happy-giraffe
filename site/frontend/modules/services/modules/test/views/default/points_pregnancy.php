@@ -1,3 +1,5 @@
+<div class="col-white-hoar">
+
 <div class="test" id="test-pregnancy">
 
 <div class="step splash">
@@ -14,7 +16,7 @@
 
         <div class="text">Онлайн-тест на беременность – прекрасная возможность подтвердить или опровергнуть свои мысли по поводу возможной беременности, особенно если под рукой нет экспресс-теста, а приём гинеколога состоится не раньше чем завтра.</div>
 
-        <div class="btn"><button class="test_begin" onclick="Test.Start();">ПРОЙТИ ТЕСТ</button></div>
+        <div class="btn"><button class="btn-gold btn-large" onclick="Test.Start();">ПРОЙТИ ТЕСТ</button></div>
 
     </div>
 
@@ -80,7 +82,7 @@ foreach ($test->testQuestions as $question):?>
 
 		</div>
 
-		<div class="btn"><button class="test_begin">ПРОЙТИ ТЕСТ</button></div>
+		<div class="btn"><button class="btn-gold btn-large">ПРОЙТИ ТЕСТ</button></div>
 
     </div>
 </div>
@@ -105,26 +107,39 @@ foreach ($test->testQuestions as $question):?>
 
                 <?php echo $result->text ?>
 
+                <div class="textalign-c margin-t20">
+                    <div class="margin-10">
+                        <a href="http://ad.adriver.ru/cgi-bin/click.cgi?sid=1&bt=21&ad=420214&pid=1313272&bid=2833663&bn=2833663&rnd=<?=mt_rand(1000000000, 9999999999)?>" target="_blank" onclick="_gaq.push(['_trackEvent','Outgoing Links','www.clearblue.com'])">
+                            <img src="/images/branding/clearblue/img-test.jpg" alt="">
+                        </a>
+                    </div>
+                    Подробнее на <a href="http://ad.adriver.ru/cgi-bin/click.cgi?sid=1&bt=21&ad=420214&pid=1313272&bid=2833663&bn=2833663&rnd=<?=mt_rand(1000000000, 9999999999)?>" target="_blank" onclick="_gaq.push(['_trackEvent','Outgoing Links','www.clearblue.com'])">www.clearblue.com</a>
+                </div>
+
 			</div>
 
 		</div>
 
-		<div class="btn"><button class="test_begin" onclick="Test.Restart(); return false;">ПРОЙТИ ЕЩЕ РАЗ</button></div>
+		<div class="btn-holder"><button class="btn-gold btn-large" onclick="Test.Restart(); return false;">ПРОЙТИ ЕЩЕ РАЗ</button></div>
 
     </div>
 </div>
 <?php endforeach; ?>
 </div>
 
-<?php $this->widget('application.widgets.serviceSocial.serviceSocialWidget', array(
-    'service' => Service::model()->findByPk(9),
-    'image' => '/images/test/3/bg_test_pregnancy.jpg',
-    'description' => 'Онлайн-тест на беременность – прекрасная возможность подтвердить или опровергнуть свои мысли по поводу возможной беременности, особенно если под рукой нет экспресс-теста, а приём гинеколога состоится не раньше чем завтра.',
-    'counter_title'=>array('Тест на беременность прошли уже', array('пользователь','пользователя','пользователей'))
-)); ?>
+    <?php $this->widget('application.widgets.serviceSocial.serviceSocialWidget', array(
+        'service' => Service::model()->findByPk(9),
+        'image' => '/images/test/3/bg_test_pregnancy.jpg',
+        'description' => 'Онлайн-тест на беременность – прекрасная возможность подтвердить или опровергнуть свои мысли по поводу возможной беременности, особенно если под рукой нет экспресс-теста, а приём гинеколога состоится не раньше чем завтра.',
+        'counter_title'=>array('Тест попробовали уже', array('будущая мама','будущие мамы','будущих мам'))
+    )); ?>
 
-<br><br>
-<div class="wysiwyg-content">
-    <h1><?php echo $test->title ?></h1>
-    <?php echo $test->text ?>
+    <div class="margin-20">
+        <div class="wysiwyg-content">
+            <h1><?php echo $test->title ?></h1>
+            <?php echo $test->text ?>
+        </div>
+    </div>
 </div>
+
+<img src="http://ad.adriver.ru/cgi-bin/rle.cgi?sid=1&bt=21&ad=420214&pid=1313272&bid=2833663&bn=2833663&rnd=<?=mt_rand(1000000000, 9999999999)?>" border="0" width="1" height="1" id="pix">

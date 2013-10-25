@@ -141,39 +141,6 @@ class DefaultController extends HController
         $this->renderPartial('location', compact('user'), false, true);
     }
 
-    public function actionSaveLocation()
-    {
-        $country_id = Yii::app()->request->getPost('country_id');
-        $city_id = Yii::app()->request->getPost('city_id');
-        $region_id = Yii::app()->request->getPost('region_id');
-
-        $user = Yii::app()->user->getModel();
-        $address = $user->address;
-        $address->country_id = empty($country_id) ? null : $country_id;
-        $address->region_id = empty($region_id) ? null : $region_id;
-        $address->city_id = empty($city_id) ? null : $city_id;
-
-        Yii::import('site.frontend.widgets.user.*');
-        if ($address->save()) {
-            $response = array(
-                'status' => true,
-                'weather' => $this->widget('WeatherWidget', array('user' => $user), true),
-                'main' => $this->widget('LocationWidget', array('user' => $user), true),
-                'location' => $user->address->getFlag(true, 'span') . '<span class="location-tx">' . $user->address->getUserFriendlyLocation() . '</span>',
-                'mapsLocation' => $address->fullTextLocation()
-            );
-            UserAction::model()->add($user->id, UserAction::USER_ACTION_ADDRESS_UPDATED, array('model' => $address));
-            UserScores::checkProfileScores(Yii::app()->user->id);
-        } else {
-            $response = array(
-                'status' => false,
-                'full' => ($user->score->full == 0) ? false : true
-            );
-        }
-
-        echo CJSON::encode($response);
-    }
-
     public function actionRegionIsCity()
     {
         $id = Yii::app()->request->getPost('id');

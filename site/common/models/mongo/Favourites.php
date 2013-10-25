@@ -12,6 +12,7 @@ class Favourites extends EMongoDocument
     const BLOCK_VIDEO = 5;
     const WEEKLY_MAIL = 6;
     const BLOCK_SOCIAL_NETWORKS = 7;
+    const CLUB_MORE = 8;
 
     public $block;
     public $entity;
@@ -166,8 +167,9 @@ class Favourites extends EMongoDocument
             'post',
             'video'
         );
-        $criteria->select = array('t.id', 't.title', 't.type_id', 't.rubric_id', 't.author_id');
+        $criteria->select = array('t.*');
         $criteria->compare('t.id', $ids);
+        $criteria->order = 't.id ASC';
         $models = CommunityContent::model()->findAll($criteria);
 
         $sorted_models = array();
@@ -211,12 +213,21 @@ class Favourites extends EMongoDocument
      */
     public static function getListForCommentators($index)
     {
+        if ($index == self::WEEKLY_MAIL){
+            return self::getIdsByDate($index, date("next monday"));
+        }else{
+            return array_merge(
+                self::getIdsByDate($index, date("Y-m-d")),
+                self::getIdsByDate($index, date("Y-m-d", strtotime('+1 day')))
+            );
+        }
+    }
+
+    public static function getIdsByDate($index, $date)
+    {
         $criteria = new EMongoCriteria;
         $criteria->block('==', (int)$index);
-        if ($index == self::WEEKLY_MAIL)
-            $criteria->date('==', date("Y-m-d", strtotime('next monday')));
-        else
-            $criteria->date('==', date("Y-m-d", strtotime('+1 day')));
+        $criteria->date('==', $date);
 
         $models = self::model()->findAll($criteria);
         $ids = array();
@@ -271,6 +282,17 @@ class Favourites extends EMongoDocument
      */
     public function getArticle()
     {
-        return CActiveRecord::model($this->entity)->resetScope()->full()->findByPk($this->entity_id);
+        return CActiveRecord::model($this->entity)->resetScope()->findByPk($this->entity_id);
+    }
+
+    public static  function getIdListByBlock($block)
+    {
+        $criteria = new EMongoCriteria();
+        $criteria->addCond('block', '==', $block);
+        $models = self::model()->findAll($criteria);
+        $modelsIds = array_map(function($model) {
+            return $model->entity_id;
+        }, $models);
+        return $modelsIds;
     }
 }

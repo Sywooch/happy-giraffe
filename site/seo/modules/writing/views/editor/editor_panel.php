@@ -27,8 +27,6 @@ Yii::app()->clientScript->registerCoreScript('jquery.ui'); ?>
                     <?php endforeach; ?>
                 </ul>
             </div>
-            <a href="javascript:;" class="btn-moderators" onclick="TaskDistribution.addGroup(1, '', 0)"></a>
-            <a href="javascript:;" class="btn-commentators" onclick="TaskDistribution.addGroup(3, '', 0)"></a>
         </div>
 
     </div>
@@ -52,12 +50,6 @@ Yii::app()->clientScript->registerCoreScript('jquery.ui'); ?>
                     <td>
                         <a href="javascript:;" class="btn-green-small" onclick="TaskDistribution.addToGroup($(this))">Ok</a>
                         <a href="javascript:;" class="icon-remove" onclick="TaskDistribution.removeFromSelected(this)"></a>
-                        <br>
-                        <a href="javascript:;" onclick="TaskDistribution.changeSection(this, <?=$tempKeyword->keyword->id ?>, 2)">Асе в Кулинарию</a>&nbsp;
-                        <br>
-                        <a href="javascript:;" onclick="TaskDistribution.changeSection(this, <?=$tempKeyword->keyword->id ?>, 3)">Асе в Рукоделие</a>
-                        <br>
-                        <a href="javascript:;" onclick="TaskDistribution.changeSection(this, <?=$tempKeyword->keyword->id ?>, 4)">Асе в Интерьеры</a>
                     </td>
                 </tr>
                 <?php endforeach; ?>

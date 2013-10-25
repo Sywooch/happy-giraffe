@@ -7,8 +7,6 @@
 
     <div class="block-in">
 
-        <h1><?=$this->title ?></h1>
-
         <div class="img">
 
             <div class="in"><img src="/images/widget/horoscope/big/<?=$model->zodiac ?>.png"></div>

@@ -10,10 +10,10 @@ var MaternityLeave = {
         var result = new Date(birth.getTime() - (86400000 * (offset + vacation)));
         //$('div#decree-time div.recommendation div.left span').text(result.toLocaleDateString());
 
-        $('div#decree-time div.recommendation div').fadeOut(200, function(){
+        $('div#decree-time div.recommendation').fadeOut(200, function(){
             $('div#decree-time div.recommendation div.left span').text(result.getDate() + ' ' + m_names[result.getMonth()]);
-            $('div#decree-time div.recommendation div').fadeIn(200);
-        })
+            $('div#decree-time div.recommendation').fadeIn(200);
+        });
 
         service_used(10);
     }

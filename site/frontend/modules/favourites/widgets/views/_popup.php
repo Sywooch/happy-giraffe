@@ -1,5 +1,5 @@
 <!-- ko if: adding -->
-<div class="favorites-add-popup" data-bind="with: adding">
+<div class="favorites-add-popup<?php if ($this->right) echo ' favorites-add-popup__right' ?>" data-bind="with: adding">
     <div class="favorites-add-popup_t">Добавить запись в избранное</div>
     <div class="favorites-add-popup_i clearfix">
         <img class="favorites-add-popup_i-img" data-bind="visible: image !== false, attr: { src : image, alt: title }">
@@ -31,8 +31,8 @@
         <textarea name="" id="" cols="25" rows="2" class="favorites-add-popup_textarea" placeholder="Введите комментарий" data-bind="value: note, valueUpdate: 'keyup'" maxlength="150"></textarea>
     </div>
     <div class="favorites-add-popup_row textalign-c margin-t15">
-        <a href="javascript:void(0)" class="btn-gray-light" data-bind="click: $root.cancel">Отменить</a>
-        <a href="javascript:void(0)" class="btn-green" data-bind="click: $root.add">Добавить</a>
+        <a href="javascript:void(0)" class="btn-gray-light" data-bind="click: $parent.cancel">Отменить</a>
+        <a href="javascript:void(0)" class="btn-green" data-bind="click: $parent.add">Добавить</a>
     </div>
 </div>
 <!-- /ko -->

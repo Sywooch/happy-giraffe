@@ -17,7 +17,7 @@ var UserNotification = {
                 setTimeout(function () {
                     if (!UserNotification.stop) {
                         $(el).parents('.user-notice-list_i').fadeOut(1000);
-                        NotificationsUpdateCounter(-count);
+                        NotificationsUpdateCounter(-1);
                     }
                 }, 3000);
             }
@@ -47,13 +47,13 @@ var UserNotification = {
             UserNotification.loading = true;
             UserNotification.page++;
             $.post('?page=' + UserNotification.page, function (response) {
-                if (response == '') {
+                if (response.empty) {
                     UserNotification.disableLoading();
                 } else {
-                    $('#user-notice-list_inner').append(response);
+                    $('#user-notice-list_inner').append(response.html);
                     UserNotification.loading = false;
                 }
-            });
+            }, 'json');
         }
     },
     disableLoading: function () {
@@ -71,8 +71,8 @@ var UserNotification = {
 };
 
 $(function () {
-    $('.layout-container').scroll(function () {
-        if (($('#user-notice-list_inner').height() - 500) < $(this).scrollTop())
+    $(window).scroll(function () {
+        if (($('#user-notice-list_inner').height() - 1000) < $(this).scrollTop())
             UserNotification.loadMore();
     });
 });

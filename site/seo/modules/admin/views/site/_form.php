@@ -27,12 +27,6 @@ echo CHtml::link('К таблице', array('/admin/site/admin')) ?><div class="
 	</div>
 
      <div class="row">
-         <?php echo $form->labelEx($model,'section'); ?>
-         <?php echo $form->textField($model,'section',array('size'=>60,'maxlength'=>255)); ?>
-         <?php echo $form->error($model,'section'); ?>
-     </div>
-
-     <div class="row">
          <?php echo $form->labelEx($model,'password'); ?>
          <?php echo $form->textField($model,'password',array('size'=>60,'maxlength'=>255)); ?>
          <?php echo $form->error($model,'password'); ?>

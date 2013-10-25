@@ -57,7 +57,7 @@ class CookCommand extends CConsoleCommand
                 $ingredient = $recipe->addChild('ingredient');
                 switch ($i->unit->type) {
                     case 'qty':
-                        $ingredient->addChild('name', HDate::GenerateNoun(array($i->unit->title, $i->unit->title2, $i->unit->title3), $i->value));
+                        $ingredient->addChild('name', Str::GenerateNoun(array($i->unit->title, $i->unit->title2, $i->unit->title3), $i->value));
                         $ingredient->addChild('quantity', $i->display_value);
                         break;
                     case 'undefined':
@@ -65,7 +65,7 @@ class CookCommand extends CConsoleCommand
                         break;
                     default:
                         $ingredient->addChild('name', $i->title);
-                        $ingredient->addChild('type', HDate::GenerateNoun(array($i->unit->title, $i->unit->title2, $i->unit->title3), $i->value));
+                        $ingredient->addChild('type', Str::GenerateNoun(array($i->unit->title, $i->unit->title2, $i->unit->title3), $i->value));
                         $ingredient->addChild('value', $i->display_value);
                 }
             }

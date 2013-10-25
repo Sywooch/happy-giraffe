@@ -11,7 +11,6 @@ $this->widget('zii.widgets.grid.CGridView', array(
 		'name',
 		'url',
 		'password',
-		'section',
 		array(
 		    'name'=>'type',
 		    'value'=>'$data->GetTypeName()',

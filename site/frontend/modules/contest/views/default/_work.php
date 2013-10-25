@@ -1,18 +1,14 @@
 <li>
     <div class="contest-ball clearfix">
         <div class="user-info clearfix">
-            <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
-                'user' => $data->author,
-                'size' => 'small',
-                'small' => true,
-            )); ?>
+            <?php $this->widget('Avatar', array('user' => $data->author, 'size' => Avatar::SIZE_MICRO)); ?>
             <div class="details">
                 <?=HHtml::link(CHtml::encode($data->author->fullName), $data->author->url, array('class'=>'username'), true)?>
             </div>
             <?php if ($this->action->id != 'results'): ?>
                 <div class="ball">
                     <div class="ball-count"><?=$data->rate?></div>
-                    <div class="ball-text"><?=HDate::GenerateNoun(array('балл', 'балла', 'баллов'), $data->rate)?></div>
+                    <div class="ball-text"><?=Str::GenerateNoun(array('балл', 'балла', 'баллов'), $data->rate)?></div>
                 </div>
             <?php endif; ?>
         </div>

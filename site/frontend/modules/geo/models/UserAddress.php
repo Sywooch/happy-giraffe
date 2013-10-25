@@ -112,12 +112,12 @@ class UserAddress extends HActiveRecord
     {
         if (!empty($this->city_id)) {
             if (!empty($this->region_id) && $this->region->center_id != $this->city_id) {
-                return $this->city->name . '<br>' . str_replace('область', 'обл', $this->region->name);
+                return str_replace('область', 'обл.', $this->region->name) . '<br>' . $this->city->name;
             } else
                 return $this->city->name;
 
         } elseif (!empty($this->region_id))
-            return str_replace('область', 'обл', $this->region->name);
+            return str_replace('область', 'обл.', $this->region->name);
 
         return '';
     }

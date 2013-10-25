@@ -67,16 +67,7 @@ class SignupController extends HController
             }
             $model->register_date = date('Y-m-d H:i:s');
 
-            $transaction = Yii::app()->db->beginTransaction();
-            try {
-                $result = $model->save(true, array('first_name', 'last_name', 'password', 'email', 'gender', 'birthday'));
-                $transaction->commit();
-            } catch (Exception $e) {
-                $transaction->rollback();
-                $result = false;
-            }
-
-            if ($result) {
+            if ($model->save(true, array('first_name', 'last_name', 'password', 'email', 'gender', 'birthday'))) {
                 UserRegister::create($model->id);
 
                 if (!empty($model->baby_birthday)) {
@@ -156,17 +147,17 @@ class SignupController extends HController
                 $model->last_ip = $_SERVER['REMOTE_ADDR'];
                 $model->save(false);
 
-                $redirectUrl = Yii::app()->user->getState('redirectUrl');
-                if (!empty($redirectUrl)) {
-                    $url = $redirectUrl;
-                    Yii::app()->user->setState('redirectUrl', null);
-                } else
-                    $url = Yii::app()->createAbsoluteUrl('user/profile', array('user_id' => $model->id));
+//                $redirectUrl = Yii::app()->user->getState('redirectUrl');
+//                if (!empty($redirectUrl)) {
+//                    $url = $redirectUrl;
+//                    Yii::app()->user->setState('redirectUrl', null);
+//                } else
+//                    $url = Yii::app()->createAbsoluteUrl('profile/default/index', array('user_id' => $model->id));
 
 
                 echo CJSON::encode(array(
                     'status' => true,
-                    'profile' => $url
+                    'url' => $this->createUrl('/profile/default/signup'),
                 ));
                 Yii::app()->end();
             }
@@ -178,7 +169,7 @@ class SignupController extends HController
     {
         $steps = array(
             array('email'),
-            array('first_name', 'last_name', 'password', 'gender', 'email', 'birthday', 'baby_birthday'),
+            array('first_name', 'last_name', 'password', 'passwordRepeat', 'gender', 'email', 'birthday', 'baby_birthday'),
         );
 
         if (isset($_POST['form_type']) && $_POST['form_type'] == 'horoscope') {
@@ -187,7 +178,7 @@ class SignupController extends HController
             $model = new User('signup');
 
         $model->setAttributes($_POST['User']);
-        if (isset($_POST['User']['day']) && isset($_POST['User']['month']) && isset($_POST['User']['year']))
+        if (! empty($_POST['User']['day']) && ! empty($_POST['User']['month']) && ! empty($_POST['User']['year']))
             $model->birthday = $_POST['User']['year'] . '-' . str_pad($_POST['User']['month'], 2, '0', STR_PAD_LEFT) . '-' . str_pad($_POST['User']['day'], 2, '0', STR_PAD_LEFT);
 
         $model->validate($steps[$step - 1]);
@@ -245,9 +236,24 @@ class SignupController extends HController
             Yii::app()->user->setState('gotoComment', '1');
 
         $model = new User;
-        $attributes = array('email', 'birthday', 'avatar', 'photo', 'first_name', 'last_name');
+        $attributes = array('email', 'avatar', 'photo', 'first_name', 'last_name', 'gender');
         foreach ($attributes as $attribute)
             $model->$attribute = Yii::app()->request->getPost($attribute);
+        $birthday = Yii::app()->request->getPost('birthday', '');
+        if (! empty($birthday)) {
+            if (strpos($birthday, '-') !== false) {
+                $_birthday = explode('-', $birthday);
+                $model->day = ltrim($_birthday[2], '0');
+                $model->month = ltrim($_birthday[1], '0');
+                $model->year = $_birthday[0];
+            } else {
+                $_birthday = explode('.', $birthday);
+                $model->day = ltrim($_birthday[0], '0');
+                $model->month = ltrim($_birthday[1], '0');
+                if (isset($_birthday[2]))
+                    $model->year = $_birthday[2];
+            }
+        }
 
         $type = Yii::app()->request->getPost('type');
         Yii::app()->user->setState('register_type', $type);

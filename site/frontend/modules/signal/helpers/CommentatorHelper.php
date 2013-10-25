@@ -11,6 +11,15 @@
 class CommentatorHelper
 {
     /**
+     * Лимит кол-ва символов в комментариях, меньше которого комментарии не учитываются
+     */
+    const COMMENT_LIMIT = 50;
+    /**
+     * Лимит кол-ва символов в хороших комментариях
+     */
+    const COMMENT_GOOD_LIMIT = 200;
+
+    /**
      * Возвращает массив статистикой личных сообщения за период время от date1 до date2
      * массив имеет вид: array('out' => 0, 'in' => 0, 'users' => 0)
      * out - кол-во исходящих сообщений
@@ -54,11 +63,10 @@ class CommentatorHelper
                 $in = false;
                 $out = false;
                 foreach ($dialog->messages as $message)
-                    if ($message->author_id == $user_id){
+                    if ($message->author_id == $user_id) {
                         $out = true;
                         $stats['out']++;
-                    }
-                    else {
+                    } else {
                         $stats['in']++;
                         $in = true;
                     }
@@ -151,27 +159,91 @@ class CommentatorHelper
     }
 
     /**
-     * Вычисляет статистику посещения анкеты пользователя, возвращает массив в котором
-     * 'main' => посещений профиля
-     * 'blog' => количество посещений блога
-     * 'photo' => количество посещений фотогалерей
-     * 'visits' => количество просмотров всех разделов
-     * 'visitors' => количество поситителей
-     * @param $user_id
-     * @param $date1
-     * @param null $date2
-     * @return array массив со статистикой посещения анкеты
+     * Кол-во записей в блог и клуб за месяц
+     * @param int $user_id id пользователя
+     * @param string $month год и месяц за который считаем
+     * @return int
      */
-    public static function visits($user_id, $date1, $date2 = null)
+    public static function recordsCount($user_id, $month)
     {
-        $stats = array('main' => 0, 'blog' => 0, 'photo' => 0, 'visits' => 0, 'visitors' => 0);
-        $stats['main'] = GApi::model()->visitors('/user/' . $user_id . '/', $date1, $date2, false);
-        $stats['blog'] = GApi::model()->visitors('/user/' . $user_id . '/blog/', $date1, $date2);
-        $stats['photo'] = GApi::model()->visitors('/user/' . $user_id . '/albums/', $date1, $date2);
-        $stats['visits'] = GApi::model()->uniquePageviews('/user/' . $user_id . '/', $date1, $date2);
-        $stats['visitors'] = GApi::model()->visitors('/user/' . $user_id . '/', $date1, $date2);
+        return CommunityContent::model()->resetScope()->count(
+            'author_id=:author_id AND created >= :start_time AND created <= :end_time AND removed=0 AND type_id NOT IN (5, 6)',
+            array(
+                'author_id' => $user_id,
+                ':start_time' => $month . '-01 00:00:00',
+                ':end_time' => $month . '-31 23:59:59',
+            )
+        );
+    }
 
-        return $stats;
+    /**
+     * Масимальное кол-во комментариев к посту за месяц
+     * @param int $user_id id пользователя
+     * @param string $month год и месяц за который считаем
+     * @return int
+     */
+    public static function maxCommentsCount($user_id, $month)
+    {
+        $recordIds = Yii::app()->db->createCommand()
+            ->select('id')
+            ->from('community__contents')
+            ->where('author_id=:author_id AND
+                (created >= :start_time AND created <= :end_time OR
+                real_time >= :start_time AND real_time <= :end_time
+                ) AND removed=0',
+                array(
+                    ':author_id' => $user_id,
+                    ':start_time' => $month . '-01 00:00:00',
+                    ':end_time' => $month . '-31 23:59:59',
+                )
+            )->queryColumn();
+
+        $max = 0;
+        foreach ($recordIds as $recordId) {
+            $comments_count = Comment::model()->with('author')->count('(entity="BlogContent" OR entity="CommunityContent") AND entity_id=:id AND removed=0 AND author.`group` = 0',
+                array(':id' => $recordId));
+            if ($comments_count > $max)
+                $max = $comments_count;
+        }
+
+        return $max;
+    }
+
+    /**
+     * Кол-во развернутых комментариев за месяц
+     * @param int $user_id id пользователя
+     * @param string $month год и месяц за который считаем
+     * @return int
+     */
+    public static function goodCommentsCount($user_id, $month)
+    {
+        return self::commentsCount($user_id, $month, $good = true);
+    }
+
+    public static function commentsCount($user_id, $month, $good = false)
+    {
+        $texts = Yii::app()->db->createCommand()
+            ->select('text')
+            ->from('comments')
+            ->where('author_id=:author_id AND created >= :start_time AND created <= :end_time AND removed=0',
+                array(
+                    'author_id' => $user_id,
+                    ':start_time' => $month . '-01 00:00:00',
+                    ':end_time' => $month . '-31 23:59:59',
+                )
+            )->queryColumn();
+
+        if ($good === false)
+            return count($texts);
+
+        $count = 0;
+        foreach ($texts as $text) {
+            $length = CommentatorHelper::getStringLength($text);
+            if ($length >= self::COMMENT_GOOD_LIMIT)
+                $count++;
+        }
+
+        return $count;
     }
 
     /**
@@ -181,9 +253,8 @@ class CommentatorHelper
     public static function getCommentatorIdList()
     {
         $cache_id = 'commentators_id_list';
-        $value=Yii::app()->cache->get($cache_id);
-        if($value===false)
-        {
+        $value = Yii::app()->cache->get($cache_id);
+        if ($value === false) {
             $ids = Yii::app()->db->createCommand()
                 ->selectDistinct('id')
                 ->from('users')
@@ -195,13 +266,13 @@ class CommentatorHelper
                 $exist = Yii::app()->db->createCommand()
                     ->select('userid')
                     ->from('auth__assignments')
-                    ->where('userid = :user_id AND itemname="commentator"', array(':user_id'=>$id))
+                    ->where('userid = :user_id AND itemname="commentator"', array(':user_id' => $id))
                     ->queryScalar();
                 if (!empty($exist))
                     $value[] = $id;
             }
 
-            Yii::app()->cache->set($cache_id,$value, 1000);
+            Yii::app()->cache->set($cache_id, $value, 1000);
         }
 
         return $value;
@@ -211,13 +282,23 @@ class CommentatorHelper
     {
         $users = User::model()->findAll('`group`=' . UserGroup::COMMENTATOR);
         $data = array();
-        foreach($users as $user)
+        foreach ($users as $user)
             $data[$user->id] = array(
-                'id'=>$user->id,
-                'name'=>$user->fullName,
-                'ava'=>$user->getAva('small'),
+                'id' => $user->id,
+                'name' => $user->fullName,
+                'ava' => SeoUser::getAvatarUrlForUser($user, 24),
             );
 
         return $data;
+    }
+
+    public static function getStringLength($html)
+    {
+        $html = str_replace('&nbsp;', ' ', $html);
+        $html = trim(strip_tags($html, '<p>'));
+        while (strpos($html, '  ') !== FALSE)
+            $html = str_replace('  ', ' ', $html);
+
+        return mb_strlen($html, 'UTF-8');
     }
 }

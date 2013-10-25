@@ -138,8 +138,9 @@ class CommentatorController extends CController
         echo CJSON::encode($response);
     }
 
-    public function actionAward($type = 'me', $month = null)
+    public function actionAward($month = null)
     {
+        $type = 'me';
         if (empty($month))
             $month = date("Y-m");
         $this->render('award/' . $type, compact('month'));

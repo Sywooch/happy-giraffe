@@ -97,7 +97,8 @@ class RssController extends HController
             'height' => 144,
         ));
 
-        $contents = CommunityContent::model()->active()->full()->findAll(array(
+        $contents = CommunityContent::model()->active()->findAll(array(
+            'with'=>array('rubric'),
             'condition' => 'rubric.community_id = :community_id',
             'params' => array(':community_id' => Community::COMMUNITY_NEWS),
             'order' => 'created DESC',
@@ -132,7 +133,7 @@ class RssController extends HController
     public function actionUser($user_id, $page = 1)
     {
         $user = User::model()->active()->findByPk($user_id);
-        if ($user === null)
+        if ($user === null || $user_id == 1)
             throw new CHttpException(404, 'Пользователь не найден');
 
         Yii::import('ext.EFeed.*');
@@ -144,7 +145,7 @@ class RssController extends HController
         $feed->addChannelTag('generator', 'MyBlogEngine 1.1');
         $feed->addChannelTag('wfw:commentRss', $this->createAbsoluteUrl('rss/comments', array('user_id' => $user->id)));
         $feed->addChannelTag('ya:more', $this->createAbsoluteUrl('rss/user', array('user_id' => $user->id, 'page' => $page + 1)));
-        $feed->addChannelTag('image', array('url' => $user->getAva(), 'width' => 72, 'height' => 72));
+        $feed->addChannelTag('image', array('url' => $user->getAvatarUrl(), 'width' => 72, 'height' => 72));
 
         if ($user->id == User::HAPPY_GIRAFFE) {
             $sql = "(SELECT id, created, 'CommunityContent' AS entity FROM community__contents WHERE type_id = 4 OR by_happy_giraffe = 1)
@@ -276,7 +277,7 @@ class RssController extends HController
             $criteria->addInCondition('t.id', $ids);
             switch ($entity) {
                 case 'CommunityContent':
-                    $_contents = CActiveRecord::model($entity)->full()->findAll($criteria);
+                    $_contents = CActiveRecord::model($entity)->findAll($criteria);
                     break;
                 default:
                     $_contents = CActiveRecord::model($entity)->findAll($criteria);

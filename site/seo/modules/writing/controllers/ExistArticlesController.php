@@ -10,7 +10,7 @@ class ExistArticlesController extends SController
 
     public function beforeAction($action)
     {
-        if (!Yii::app()->user->checkAccess('input-old-articles', 'editor', 'cook-manager'))
+        if (!Yii::app()->user->checkAccess('input-old-articles', 'main-editor', 'cook-manager'))
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
         return true;
     }

@@ -2,31 +2,32 @@
 /**
  * @var string $id
  * @var $json
+ * @var int $count
  */
 ?>
 
 <?php if (! Yii::app()->user->isGuest): ?>
 
-<div class="cook-book-info" id="<?=$id?>">
-    <a href="javascript:void(0)" data-bind="click: clickHandler">
-        <span data-bind="html: active() ? 'Рецепт в моей <br />кулинарной книге' : 'Добавить в мою <br />кулинарную книгу'"></span>
-        <i data-bind="css: active() ? 'icon-exist' : 'icon-add'"></i>
-    </a>
+    <div<?php if (!$this->right) echo ' class="favorites-control"'; else echo ' class="position-rel"'; ?> id="<?=$id?>">
+        <?php if ($this->model->author_id == Yii::app()->user->id):?>
+            <a class="like-control_ico like-control_ico__cook js-hg_alert" data-bind="text: count"></a>
+            <div class="favorites-add-popup favorites-add-popup__right" style="display: none;">
+                <div>Вы не можете добавлять свою запись в Избранное</div>
+            </div>
+        <?php else: ?>
+            <a class="like-control_ico like-control_ico__cook" data-bind="text: count, css: { active : active }, tooltip: active() ? 'Удалить из избранного' : 'В избранное', click: clickHandler"></a>
+            <?php $this->render('_popup'); ?>
+        <?php endif ?>
+    </div>
 
-    <?php $this->render('_popup'); ?>
-</div>
-
-<script type="text/javascript">
-    ko.applyBindings(new FavouriteWidget(<?=CJSON::encode($json)?>), document.getElementById('<?=$id?>'));
-</script>
+    <?php if ($this->applyBindings):?>
+        <script type="text/javascript">
+            ko.applyBindings(new FavouriteWidget(<?=CJSON::encode($json)?>), document.getElementById('<?=$id?>'));
+        </script>
+    <?php endif ?>
 
 <?php else: ?>
 
-    <div class="cook-book-info">
-        <a href="#login" class="fancy">
-            <span>Добавить в мою <br />кулинарную книгу</span>
-            <i class="icon-add"></i>
-        </a>
-    </div>
+    <a href="#login" class="like-control_ico like-control_ico__cook"><?=$count?></a>
 
 <?php endif; ?>

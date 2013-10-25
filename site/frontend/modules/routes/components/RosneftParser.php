@@ -148,7 +148,7 @@ class RosneftParser
 
             curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
             curl_setopt($ch, CURLOPT_PROXY, $this->proxy->value);
-            curl_setopt($ch, CURLOPT_PROXYUSERPWD, "alexhg:Nokia1111");
+            curl_setopt($ch, CURLOPT_PROXYUSERPWD, "nikitahg:GsB84twqiGvuVz");
             curl_setopt($ch, CURLOPT_PROXYAUTH, 1);
 
             curl_setopt($ch, CURLOPT_HEADER, 1);

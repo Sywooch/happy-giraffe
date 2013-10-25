@@ -1,4 +1,4 @@
-<?php $this->beginContent('//layouts/common'); ?>
+<?php $this->beginContent('//layouts/common_new'); ?>
 <div id="header-new" class="clearfix">
     <div class="header-in">
         <div class="clearfix">

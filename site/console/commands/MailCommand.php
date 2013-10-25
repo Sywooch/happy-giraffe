@@ -11,6 +11,7 @@ class MailCommand extends CConsoleCommand
         Yii::import('site.frontend.modules.messaging.models.*');
         Yii::import('site.frontend.modules.messaging.components.*');
         Yii::import('site.frontend.modules.geo.models.*');
+        Yii::import('site.frontend.widgets.userAvatarWidget.Avatar');
         Yii::import('site.common.models.mongo.*');
 
         return true;
@@ -31,6 +32,14 @@ class MailCommand extends CConsoleCommand
         $contents = $this->renderFile(Yii::getPathOfAlias('site.common.tpl.weeklyNews') . '.php', array('models' => $articles), true);
 
         Yii::app()->email->sendCampaign($contents, HEmailSender::LIST_OUR_USERS);
+    }
+
+    public function actionTestWeekly()
+    {
+        $articles = Favourites::model()->getWeekPosts();
+        $contents = $this->renderFile(Yii::getPathOfAlias('site.common.tpl.weeklyNews') . '.php', array('models' => $articles), true);
+
+        Yii::app()->email->sendCampaign($contents, HEmailSender::LIST_TEST_LIST);
     }
 
     public function actionNewMessages()
@@ -122,24 +131,41 @@ class MailCommand extends CConsoleCommand
         }
     }
 
-    public function actionExport()
+    public function actionContestPets()
     {
-        $users = Yii::app()->db_seo->createCommand()
-            ->select('email, name')
-            ->from('mailru__users')
-            ->where('id > 534973')
-            ->queryAll();
+        $users = array();
 
-        $fp = fopen('f:/file2.csv', 'w');
+        Yii::import('site.frontend.modules.community.models.*');
+        $works = CommunityContestWork::model()->with('content')->findAll(array(
+            'condition' => 't.contest_id = 1 AND content.removed = 0',
+        ));
 
-        fputcsv($fp, array('Email', 'First Name'));
-        foreach ($users as $fields) {
-            foreach ($fields as $key => $field)
-                $fields[$key] = trim($field);
-
-            fputcsv($fp, $fields);
+        foreach ($works as $work) {
+            if (! isset($users[$work->content->author->id])) {
+                echo $work->id . "\n";
+                Yii::app()->email->send((int)$work->content->author->id, 'contest_pets', array('work' => $work, 'photo' => $work->content->gallery->items[0]->photo, 'author' => $work->content->author), $this);
+                $users[] = $work->content->author->id;
+            }
         }
+    }
 
-        fclose($fp);
+    public function actionVacancy()
+    {
+        $criteria = new EMongoCriteria();
+        $criteria->parsed('==', true);
+        $criteria->send('==', false);
+        $models = HhResume::model()->findAll($criteria);
+        foreach ($models as $m) {
+            if (isset($m->contacts['Эл. почта'])) {
+                $email = $m->contacts['Эл. почта'];
+                $firstName = $m->firstName;
+                $subject = $firstName . ', мы ищем опытных разработчиков для Веселого Жирафа';
+                $html = $this->renderFile(Yii::getPathOfAlias('site.common.tpl') . DIRECTORY_SEPARATOR . 'vacancyInvite.php', compact('firstName'), true);
+                if (ElasticEmail::send($email, $subject, $html, 'noreply@happy-giraffe.ru', 'Весёлый Жираф')) {
+                    $m->send = true;
+                    $m->save();
+                }
+            }
+        }
     }
 }

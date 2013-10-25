@@ -87,19 +87,4 @@ class NotificationReplyComment extends NotificationGroup
                 $this->removeCommentId($exist, 'unread_model_ids', $comment->id);
         }
     }
-
-    /**
-     * Создает модель уведомления для удобой работы с ним
-     *
-     * @param $object array объект, который вернул компонент работы с базой
-     * @return NotificationReplyComment
-     */
-    public static function createModel($object)
-    {
-        $model = new NotificationReplyComment;
-        foreach ($object as $key => $value)
-            $model->$key = $value;
-
-        return $model;
-    }
 }

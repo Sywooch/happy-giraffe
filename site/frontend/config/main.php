@@ -25,6 +25,7 @@ return array(
 		'ext.ufile.UFiles',
 		'application.models.*',
 		'application.components.*',
+        'application.components.video.*',
 		'application.helpers.*',
         'application.widgets.*',
         'application.vendor.*',
@@ -33,20 +34,11 @@ return array(
 		'ext.lightopenid.*',
 		'ext.eauth.services.*',
 		'ext.eauth.custom_services.*',
-		'ext.blocks.*',
-		'ext.blocks.blocks.*',
-		'ext.shoppingCart.*',
 		'ext.Captcha',
 		'ext.CaptchaAction',
 		'ext.LinkPager',
-		'ext.wr.WithRelatedBehavior',
 		'ext.image.Image',
-		'ext.CAdvancedArBehavior',
-		'ext.EGMap.*',
         'ext.YiiMongoDbSuite.*',
-        'application.modules.attribute.models.*',
-        'application.modules.im.models.*',
-        'application.modules.im.components.*',
         'application.modules.geo.models.*',
         'application.modules.scores.models.*',
         'application.modules.calendar.models.*',
@@ -62,9 +54,19 @@ return array(
         'application.modules.notifications.models.base.*',
         'application.modules.notifications.models.*',
         'application.modules.notifications.components.*',
+        'application.modules.scores.components.*',
+        'application.modules.scores.models.*',
+        'application.modules.scores.models.input.*',
         'application.modules.favourites.models.*',
         'application.modules.favourites.widgets.*',
         'application.modules.favourites.components.*',
+        'site.common.extensions.imperavi-redactor-widget.ImperaviRedactorWidget',
+        'application.widgets.userAvatarWidget.*',
+        'application.modules.gallery.components.*',
+        'application.modules.gallery.widgets.*',
+        'application.modules.myGiraffe.models.*',
+        'application.modules.myGiraffe.components.*',
+        'application.modules.community.models.*',
     ),
 
 	'sourceLanguage' => 'en',
@@ -107,34 +109,21 @@ return array(
         'notifications',
         'friends',
         'favourites',
+        'scores',
+        'blog',
+        'gallery',
+        'profile',
+        'search',
+        'community',
+        'myGiraffe',
+        'family',
 	),
 	// application components
 	'components'=>array(
-        'clientScript' => array(
-//            'scriptMap'=>array(
-//                'jquery'=>'http://code.jquery.com/jquery-1.8.0.min.js',
-//            ),
-            'packages' => array(
-                'comet' => array(
-                    'baseUrl' => '/',
-                    'js' => array(
-                        'javascripts/comet.js',
-                        'javascripts/dklab_realplexor.js',
-                    ),
-                ),
-                'user' => array(
-                    'baseUrl' => '/',
-                    'js' => array(
-                        'javascripts/user_common.js',
-                        'javascripts/messages.js',
-                        'javascripts/friends.js',
-                        'javascripts/settings.js',
-                        'javascripts/wantToChat.js',
-                    ),
-                    'depends' => array('comet'),
-                )
-            ),
+        'coreMessages' => array(
+            'basePath' => null,
         ),
+        'clientScript' => require_once(dirname(__FILE__) . '/clientScript.php'),
 		'widgetFactory' => array(
 			'widgets' => array(
 				'LinkPager' => array(
@@ -166,38 +155,42 @@ return array(
 			'popup' => true, // Use the popup window instead of redirecting.
             'cache' => false,
 			'services' => array( // You can change the providers and their classes.
-                'mailru' => array(
-                    'class' => 'CustomMailruService',
-                    'client_id' => '667969',
-                    'client_secret' => '3a0e2674098641394a8e5e0b4328e594',
-                ),
+//                'mailru' => array(
+//                    'class' => 'CustomMailruService',
+//                    'client_id' => '667969',
+//                    'client_secret' => '3a0e2674098641394a8e5e0b4328e594',
+//                    'title' => 'Mail.ru',
+//                ),
                 'odnoklassniki' => array(
                     'class' => 'CustomOdnoklassnikiService',
                     'client_id' => '93721600',
                     'client_secret' => '4E774EFE678A1ECF3D4625F3',
                     'client_public' => 'CBAFBHJGABABABABA',
-                    'title' => 'Odnokl.',
+                    'title' => 'Одноклассники',
                 ),
                 'vkontakte' => array(
                     'class' => 'CustomVKontakteService',
                     'client_id' => '2855330',
                     'client_secret' => 'T9pHwkodkssoEjswy2fw',
+                    'title' => 'Вконтакте',
                 ),
-                'facebook' => array(
-                    'class' => 'CustomFacebookService',
-                    'client_id' => '412497558776154',
-                    'client_secret' => 'dc98234daa8c7a0d943a92423793590d',
-                ),
+//                'facebook' => array(
+//                    'class' => 'CustomFacebookService',
+//                    'client_id' => '412497558776154',
+//                    'client_secret' => 'dc98234daa8c7a0d943a92423793590d',
+//                    'title' => 'Facebook',
+//                ),
                 /*'google' => array(
                     'class' => 'CustomGoogleService',
                     'client_id' => '999100941078.apps.googleusercontent.com',
                     'client_secret' => '6fDvpI0FO0lmhdDTMCl-I8gD',
                 ),*/
-                'twitter' => array(
-                    'class' => 'CustomTwitterService',
-                    'key' => '9NY9gDqPgU2DMIYrEv2pCA',
-                    'secret' => '2Lk4Q34fINqSrx5BlpKz6qtyCsofI3M9FHRYCElceE',
-                ),
+//                'twitter' => array(
+//                    'class' => 'CustomTwitterService',
+//                    'key' => '9NY9gDqPgU2DMIYrEv2pCA',
+//                    'secret' => '2Lk4Q34fINqSrx5BlpKz6qtyCsofI3M9FHRYCElceE',
+//                    'title' => 'Twitter',
+//                ),
 			),
 		),
 		'format' => array(
@@ -228,7 +221,7 @@ return array(
 		),
 		'urlManager'=>require_once(dirname(__FILE__).'/url.php'),
 		'db' => array(
-            'schemaCachingDuration' => 3600,
+            'schemaCachingDuration' => 300,
             'tablePrefix'=> '',
         ),
         'db_seo' => array(
@@ -328,11 +321,23 @@ return array(
         'email'=>array(
             'class' => 'site.common.components.HEmailSender',
         ),
+        'piwik' => array(
+            'class' => 'site.common.components.Piwik',
+            'token_auth' => '2e20e09969eb34201467c8339dce749d',
+            'idSite' => 1,
+        ),
+        'phpThumb' => array(
+            'class' => 'ext.EPhpThumb.EPhpThumb',
+            'options' => array(
+                'resizeUp' => true,
+            ),
+        ),
 	),
 
 	// application-level parameters that can be accessed
 	// using Yii::app()->params['paramName']
 	'params'=>array(
+        'releaseId' => 13,
         'valentinesAlbum' => '41340',
 		// this is used in contact page
 		'adminEmail'=>'webmaster@example.com',
@@ -356,43 +361,28 @@ return array(
         'combineMap' => array(
             '/javascripts/all.js' => array(
                 'jquery.min.js',
-                'jquery.yiiactiveform.js',
-                'jquery.ba-bbq.js',
-                'jquery.fancybox-1.3.4.js',
-                'jquery.iframe-post-form.js',
-                'jquery.placeholder.min.js',
+
                 'chosen.jquery.min.js',
-                'checkbox.js',
-                'common.js',
-                'base64.js',
-                'jquery.tooltip.pack.js',
-                'jquery.dataSelector.js',
-                'jquery.jcarousel.js',
-                'jquery.jcarousel.control.js',
-                'jquery.tmpl.min.js',
-                'login.js',
-                'auth.js',
-                'jquery.yiilistview.js',
+                'jquery.powertip.js',
+                'tooltipsy.min.js',
+                'jquery.placeholder.min.js',
                 'addtocopy.js',
+                'jquery.fancybox-1.3.4.js',
+                'base64.js',
+                'ko_blog.js',
+                'ko_community.js',
+                'ko_family.js',
+                'ko_favourites.js',
+                'ko_friendsSearch.js',
+                'ko_gallery.js',
+                'ko_layout.js',
+                'ko_library.js',
+                'ko_post.js',
+                'ko_recipes_search.js',
+                'ko_search.js',
+                'ko_settings.js',
+                'ko_user_profile.js',
             ),
-            '/javascripts/all_user.js' => array(
-                'comet.js',
-                'dklab_realplexor.js',
-                'user_common.js',
-                'messages.js',
-                'friends.js',
-                //'notifications.js',
-                'settings.js',
-                'wantToChat.js',
-            ),
-            /*'/stylesheets/all.css' => array(
-                'baby.css',
-                'common.css',
-                'global.css',
-                'jquery.fancybox-1.3.4.css',
-                'user.css',
-                'auth.css',
-            ),*/
         ),
 	),
 
@@ -408,12 +398,12 @@ return array(
                     ),
                     'sitemapCommunity.xml' => array(
                         'aliases' => array(
-                            'application.controllers.CommunityController',
+                            'application.modules.community.controllers.DefaultController',
                         ),
                     ),
                     'sitemapBlog.xml' => array(
                         'aliases' => array(
-                            'application.controllers.BlogController',
+                            'application.modules.blog.controllers.DefaultController',
 
                         ),
                     ),

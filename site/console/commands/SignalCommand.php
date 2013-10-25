@@ -25,94 +25,83 @@ class SignalCommand extends CConsoleCommand
         return true;
     }
 
-    public function getModerator($user_id)
-    {
-        shuffle($this->moderators);
-
-        $friends = Yii::app()->db->createCommand()
-            ->select('user1_id')
-            ->from('friends')
-            ->where('user2_id = :user_id', array(':user_id' => $user_id))
-            ->union(
-            Yii::app()->db->createCommand()
-                ->select('user2_id')
-                ->from('friends')
-                ->where('user1_id = :user_id', array(':user_id' => $user_id))
-                ->text
-        )
-            ->queryColumn();
-
-        foreach ($this->moderators as $moder_id) {
-            if (!in_array($moder_id, $friends))
-                return $moder_id;
-        }
-
-        return null;
-    }
-
-    public function loadModerators()
-    {
-        $this->moderators = Yii::app()->db->createCommand()
-            ->select('userid')
-            ->from('auth__assignments')
-            ->where('itemname = "moderator"')
-            ->queryColumn();
-    }
-
-    public function actionCommentatorsEndMonth()
-    {
-        $month = CommentatorsMonth::model()->findByPk(date("Y-m", strtotime('-10 days')));
-        $month->calculateMonth();
-    }
-
-    public function actionAddCommentatorsToSeo()
-    {
-        $commentators = CommentatorWork::getWorkingCommentators();
-        foreach ($commentators as $commentator) {
-            $user = User::getUserById($commentator->user_id);
-
-            try {
-                $seo_user = new SeoUser;
-                $seo_user->email = $user->email;
-                $seo_user->name = $user->getFullName();
-                $seo_user->id = $user->id;
-                $seo_user->password = '33';
-                $seo_user->owner_id = '33';
-                $seo_user->related_user_id = $user->id;
-                $seo_user->save();
-            } catch (Exception $e) {
-
-            }
-        }
-    }
-
     /**
-     * Синхронизировать кол-во заходов из поисковиков с Google Analytics
+     * Задать команду пользователя
+     * ./yiic signal team --user_id= --team=2
+     *
+     * @param int $user_id
+     * @param int $team
      */
-    public function actionSyncGaVisits()
+    public function actionTeam($user_id, $team)
     {
-        CommentatorsMonth::model()->SyncGaVisits();
+        $commentator = CommentatorWork::getUser($user_id);
+        $commentator->setTeam($team);
     }
 
     /**
      * Синхронизировать кол-во заходов из поисковиков c mysql-базой
      * и пересчитать места и рейтинг комментаторов
      */
-    public function actionSync()
+    public function actionSync($date = null)
     {
-        echo "sync\n";
-        $month = date("Y-m");
-        PageSearchView::model()->sync($month);
-        if (date("d") == 1)
-            PageSearchView::model()->sync(date("Y-m", strtotime('-2 days')));
-
-        echo "update stats\n";
+        $month = $date === null ? date("Y-m") : $date;
         $month = CommentatorsMonth::get($month);
         $month->calculateMonth();
     }
 
-    public function actionTest(){
-        $result = CommentatorHelper::friendStats(10, '2013-05-22');
-        var_dump($result);
+    /**
+     * Пересчет статистику комментаторов за последние 20 дней
+     */
+    public function actionRecalc()
+    {
+        $commentators = CommentatorHelper::getCommentatorIdList();
+        foreach ($commentators as $commentator) {
+            $model = $this->getCommentator($commentator);
+            if ($model) {
+                for ($i = 1; $i < 20; $i++) {
+                    $date = date("Y-m-d", strtotime('-' . $i . ' days'));
+                    $day = $model->getDay($date);
+                    if ($day)
+                        $day->updatePostsCount($model);
+                }
+            }
+        }
+    }
+
+    /**
+     * @param int $commentator_id
+     * @return CommentatorWork
+     */
+    public function getCommentator($commentator_id)
+    {
+        $criteria = new EMongoCriteria;
+        $criteria->user_id('==', (int)$commentator_id);
+        $model = CommentatorWork::model()->find($criteria);
+        if ($model === null || $model->isNotWorkingAlready())
+            return null;
+
+        return $model;
+    }
+
+    public function actionStats()
+    {
+        $commentators = CommentatorHelper::getCommentatorIdList();
+        $result = array_map(function($cId) {
+            $user = User::model()->findByPk($cId);
+            $userUrl = $user->getUrl(true);
+            $userName = $user->getFullName();
+            $commentsCount = CommentatorHelper::commentsCount($cId, '2013-09');
+            $goodCommentsCount = CommentatorHelper::commentsCount($cId, '2013-09', true);
+            $imStats = CommentatorHelper::imStats($cId, '2013-09-01', '2013-09-30');
+            $messagesInCount = $imStats['in'];
+            $messagesOutCount = $imStats['out'];
+            $blogUniqueVisitors = GApi::model()->uniquePageViews($user->getBlogUrl(), '2013-09-01', '2013-09-30');
+            $postsCount = CommentatorHelper::recordsCount($cId, '2013-09');
+
+            return compact('cId', 'userUrl', 'userName', 'commentsCount', 'goodCommentsCount', 'messagesOutCount', 'messagesInCount', 'blogUniqueVisitors', 'postsCount');
+        }, $commentators);
+
+        foreach ($result as $row)
+            echo implode(',', $row) . "\n";
     }
 }

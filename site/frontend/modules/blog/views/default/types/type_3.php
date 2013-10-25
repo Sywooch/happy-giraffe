@@ -18,18 +18,10 @@ $collection = new PhotoPostPhotoCollection(array('contentId' => $data->id));
 
     <div class="b-article_in clearfix">
         <div class="wysiwyg-content clearfix">
-            <p><?=nl2br(CHtml::encode($data->photoPost->text))?></p>
+            <p>Практически нет девушки, которая не переживала бы за отношения героев "Сумерек" как в на экранах, так и в жизни. Но, к сожалению, даже несмотря на то, что недавно герои "Сумерек" радовали всех тем, что у них невероятный роман  и в рельной жизни, а не только лишь на экране, все же <a href="">Роберт Паттинсон</a>  и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.</p>
+
         </div>
-        <div class="textalign-c">
-            <a class="b-article_more" href="javascript:void(0)" onclick="PhotoCollectionViewWidget.open(<?=CJavaScript::encode(get_class($collection))?>, <?=CJavaScript::encode($collection->options)?>, <?=CJavaScript::encode($collection->photoIds[0])?>)">Смотреть <?=$collection->count?> фото</a>
-        </div>
-        <?php $this->widget('PhotoCollectionViewWidget', array(
-            'collection' => $collection,
-            'width' => 580,
-        )); ?>
-        <div class="textalign-c">
-            <a class="b-article_more" href="javascript:void(0)" onclick="PhotoCollectionViewWidget.open(<?=CJavaScript::encode(get_class($collection))?>, <?=CJavaScript::encode($collection->options)?>, <?=CJavaScript::encode($collection->photoIds[0])?>)">Смотреть <?=$collection->count?> фото</a>
-        </div>
+        <?php $this->widget('blog.widgets.PhotoPostWidget', array('post' => $data)); ?>
     </div>
 
     <?php if (Yii::app()->request->getQuery('openGallery') !== null): ?>

@@ -238,21 +238,27 @@
 							elementStop - до какого элемента фиксируется
 							blockIndent - отступ
 							*/
-							function likeControlFixed(block, elementStop, blockIndent) {
+							function likeControlFixedInBlock(block, inBlock, blockIndent) {
 
 								var block = $(block);
 								var blockTop = block.offset().top;
-								var blockHeight = block.height();
-
-								var stopTop = $(elementStop).offset().top;
-								var blockStopTop = stopTop - blockTop - blockHeight - blockIndent;
+								var blockHeight = block.outerHeight();
+								/*
+									var stopTop = $(elementStop).offset().top;
+									var blockStopTop = stopTop - blockTop - blockHeight - blockIndent;
+								*/
+								var inBlock = $(inBlock);
+								var blockStopBottom = inBlock.offset().top + inBlock.outerHeight();
 								
-
-								if (stopTop-blockTop-blockHeight-blockIndent > 0) {
+								console.log(inBlock.offset().top);
+								if (blockStopBottom-blockTop-blockHeight-blockIndent > 20) {
 
 									$(window).scroll(function() {
 								        var windowScrollTop = $(window).scrollTop();
-								        if (windowScrollTop > blockTop-blockIndent && windowScrollTop+blockHeight < stopTop-blockIndent) {
+								        if (
+								        	windowScrollTop > blockTop-blockIndent && 
+								        	windowScrollTop + blockHeight < blockStopBottom - blockIndent
+								        	) {
 								        	block.css({
 												'position': 'fixed', 
 												'top'     : blockIndent+'px'
@@ -264,17 +270,18 @@
 												'top'     : 'auto'
 											});
 
-								        	if (windowScrollTop + blockHeight > stopTop - blockIndent) {
+								        	if (windowScrollTop + blockHeight > blockStopBottom - blockIndent) {
 								        		block.css({ 
-												'top'     : blockStopTop
-											});
+								        			/* 92 - высота блока над едущими лайками */
+													'top'     : inBlock.outerHeight() - blockHeight - 92 
+												});
 								        	}
 								        }
 								    });
 								}
 							}
 
-							likeControlFixed('.js-like-control', '.comments-gray', 20);
+							likeControlFixedInBlock('.js-like-control', '.b-article', 80);
 						})
 						</script>
 						<div class="js-like-control" >
@@ -526,10 +533,370 @@
 							</a>
 						</div>
 						
-						<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/comments-gray-open.php'; ?>
 					</div>
 				</div>
-
+				<div class="article-banner">
+					<a href="">
+						<img border="0" title="" alt="" src="/images/example/yandex-direct_wide.jpg">
+					</a>
+				</div>
+				
+				<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/comments-gray-open.php'; ?>
+				
+				<div class="article-users">
+					<div class="article-users_t">Запись понравилась </div>
+					<div class="ava-list">
+						<ul class="ava-list clearfix">
+							<li class="ava-list_li">
+								<a href="" class="ava small"></a>
+							</li>
+							<li class="ava-list_li">
+								<a href="" class="ava small">
+									<img src="http://img.happy-giraffe.ru/thumbs/24x24/24525/ava0c20b2a907729c1f6b671ebf2e31eac3.JPG" alt="">
+								</a>
+							</li>
+							<li class="ava-list_li">
+								<a href="" class="ava small">
+									<span class="icon-status"></span>
+									<img src="http://img.happy-giraffe.ru/avatars/162805/small/b54f360d2dde78da71753933930b03b0.jpg" alt="">
+								</a>
+							</li>
+							<li class="ava-list_li">
+								<a href="" class="ava small"></a>
+							</li>
+							<li class="ava-list_li">
+								<a href="" class="ava small">
+									<img src="http://img.happy-giraffe.ru/avatars/162805/small/b54f360d2dde78da71753933930b03b0.jpg" alt="">
+								</a>
+							</li>
+							<li class="ava-list_li">
+								<a href="" class="ava small">
+									<span class="icon-status"></span>
+									<img src="http://img.happy-giraffe.ru/thumbs/24x24/24525/ava0c20b2a907729c1f6b671ebf2e31eac3.JPG" alt="">
+								</a>
+							</li>
+							<li class="ava-list_li">
+								<a href="" class="ava small"></a>
+							</li>
+							<li class="ava-list_li">
+								<a href="" class="ava small">
+									<img src="http://img.happy-giraffe.ru/avatars/162805/small/b54f360d2dde78da71753933930b03b0.jpg" alt="">
+								</a>
+							</li>
+							<li class="ava-list_li">
+								<a href="" class="ava small">
+									<span class="icon-status"></span>
+									<img src="http://img.happy-giraffe.ru/avatars/162805/small/b54f360d2dde78da71753933930b03b0.jpg" alt="">
+								</a>
+							</li>
+							<li class="ava-list_li">
+								<a href="" class="ava small">
+									<span class="icon-status"></span>
+									<img src="http://img.happy-giraffe.ru/thumbs/24x24/24525/ava0c20b2a907729c1f6b671ebf2e31eac3.JPG" alt="">
+								</a>
+							</li>
+							<li class="ava-list_li">
+								<a href="" class="ava small"></a>
+							</li>
+							<li class="ava-list_li">
+								<a href="" class="ava small">
+									<img src="http://img.happy-giraffe.ru/thumbs/24x24/204378/avaa0ef048c9ef438ec6dd90b42018a6723.jpg" alt="">
+								</a>
+							</li>
+							<li class="ava-list_li">
+								<a href="" class="ava small">
+									<span class="icon-status"></span>
+									<img src="http://img.happy-giraffe.ru/avatars/162805/small/b54f360d2dde78da71753933930b03b0.jpg" alt="">
+								</a>
+							</li>
+							<li class="ava-list_li">
+								<a href="" class="ava small">
+									<span class="icon-status"></span>
+									<img src="http://img.happy-giraffe.ru/thumbs/24x24/24525/ava0c20b2a907729c1f6b671ebf2e31eac3.JPG" alt="">
+								</a>
+							</li>
+							<li class="ava-list_li">
+								<a href="" class="ava small"></a>
+							</li>
+							<li class="ava-list_li">
+								<a href="" class="ava small">
+									<img src="http://img.happy-giraffe.ru/avatars/162805/small/b54f360d2dde78da71753933930b03b0.jpg" alt="">
+								</a>
+							</li>
+							<li class="ava-list_li">
+								<a href="" class="ava small">
+									<span class="icon-status"></span>
+									<img src="http://img.happy-giraffe.ru/thumbs/24x24/204378/avaa0ef048c9ef438ec6dd90b42018a6723.jpg" alt="">
+								</a>
+							</li>
+							<li class="ava-list_li">
+								<a href="" class="ava small">
+									<span class="icon-status"></span>
+									<img src="http://img.happy-giraffe.ru/thumbs/24x24/24525/ava0c20b2a907729c1f6b671ebf2e31eac3.JPG" alt="">
+								</a>
+							</li>
+							<li class="ava-list_li">
+								<a href="" class="ava small"></a>
+							</li>
+							<li class="ava-list_li">
+								<a href="" class="ava small">
+									<img src="http://img.happy-giraffe.ru/avatars/162805/small/b54f360d2dde78da71753933930b03b0.jpg" alt="">
+								</a>
+							</li>
+							<li class="ava-list_li">
+								<a href="" class="ava small">
+									<span class="icon-status"></span>
+									<img src="http://img.happy-giraffe.ru/thumbs/24x24/24525/ava0c20b2a907729c1f6b671ebf2e31eac3.JPG" alt="">
+								</a>
+							</li>
+							<li class="ava-list_li">
+								<a href="" class="ava small"></a>
+							</li>
+							<li class="ava-list_li">
+								<a href="" class="ava small">
+									<img src="http://img.happy-giraffe.ru/avatars/162805/small/b54f360d2dde78da71753933930b03b0.jpg" alt="">
+								</a>
+							</li>
+							<li class="ava-list_li">
+								<a href="" class="ava small">
+									<span class="icon-status"></span>
+									<img src="http://img.happy-giraffe.ru/avatars/162805/small/b54f360d2dde78da71753933930b03b0.jpg" alt="">
+								</a>
+							</li>
+							<li class="ava-list_li">
+								<a href="" class="ava small">
+									<span class="icon-status"></span>
+									<img src="http://img.happy-giraffe.ru/thumbs/24x24/24525/ava0c20b2a907729c1f6b671ebf2e31eac3.JPG" alt="">
+								</a>
+							</li>
+							<li class="ava-list_li">
+								<a href="" class="ava small"></a>
+							</li>
+							<li class="ava-list_li">
+								<a href="" class="ava small">
+									<img src="http://img.happy-giraffe.ru/thumbs/24x24/204378/avaa0ef048c9ef438ec6dd90b42018a6723.jpg" alt="">
+								</a>
+							</li>
+							<li class="ava-list_li">
+								<a href="" class="ava small">
+									<span class="icon-status"></span>
+									<img src="http://img.happy-giraffe.ru/avatars/162805/small/b54f360d2dde78da71753933930b03b0.jpg" alt="">
+								</a>
+							</li>
+							<li class="ava-list_li">
+								<a href="" class="ava small">
+									<span class="icon-status"></span>
+									<img src="http://img.happy-giraffe.ru/thumbs/24x24/24525/ava0c20b2a907729c1f6b671ebf2e31eac3.JPG" alt="">
+								</a>
+							</li>
+							<li class="ava-list_li">
+								<a href="" class="ava small"></a>
+							</li>
+							<li class="ava-list_li">
+								<a href="" class="ava small">
+									<img src="http://img.happy-giraffe.ru/avatars/162805/small/b54f360d2dde78da71753933930b03b0.jpg" alt="">
+								</a>
+							</li>
+							<li class="ava-list_li">
+								<a href="" class="ava small">
+									<span class="icon-status"></span>
+									<img src="http://img.happy-giraffe.ru/thumbs/24x24/204378/avaa0ef048c9ef438ec6dd90b42018a6723.jpg" alt="">
+								</a>
+							</li>
+							<li class="ava-list_li">
+								<a href="" class="ava small">
+									<span class="icon-status"></span>
+									<img src="http://img.happy-giraffe.ru/thumbs/24x24/24525/ava0c20b2a907729c1f6b671ebf2e31eac3.JPG" alt="">
+								</a>
+							</li>
+							<li class="ava-list_li">
+								<a href="" class="ava-list_last">
+									<span class="ava-list_like-hg"></span>
+									3251
+								</a>
+							</li>
+						</ul>
+					</div>
+					<div class="article-users_t">Запись добавили в избранное </div>
+					<div class="ava-list">
+						<ul class="ava-list clearfix">
+							<li class="ava-list_li">
+								<a href="" class="ava small"></a>
+							</li>
+							<li class="ava-list_li">
+								<a href="" class="ava small">
+									<img src="http://img.happy-giraffe.ru/thumbs/24x24/24525/ava0c20b2a907729c1f6b671ebf2e31eac3.JPG" alt="">
+								</a>
+							</li>
+							<li class="ava-list_li">
+								<a href="" class="ava small">
+									<span class="icon-status"></span>
+									<img src="http://img.happy-giraffe.ru/avatars/162805/small/b54f360d2dde78da71753933930b03b0.jpg" alt="">
+								</a>
+							</li>
+							<li class="ava-list_li">
+								<a href="" class="ava small"></a>
+							</li>
+							<li class="ava-list_li">
+								<a href="" class="ava small">
+									<img src="http://img.happy-giraffe.ru/avatars/162805/small/b54f360d2dde78da71753933930b03b0.jpg" alt="">
+								</a>
+							</li>
+							<li class="ava-list_li">
+								<a href="" class="ava small">
+									<span class="icon-status"></span>
+									<img src="http://img.happy-giraffe.ru/thumbs/24x24/24525/ava0c20b2a907729c1f6b671ebf2e31eac3.JPG" alt="">
+								</a>
+							</li>
+							<li class="ava-list_li">
+								<a href="" class="ava small"></a>
+							</li>
+							<li class="ava-list_li">
+								<a href="" class="ava small">
+									<img src="http://img.happy-giraffe.ru/avatars/162805/small/b54f360d2dde78da71753933930b03b0.jpg" alt="">
+								</a>
+							</li>
+							<li class="ava-list_li">
+								<a href="" class="ava small">
+									<span class="icon-status"></span>
+									<img src="http://img.happy-giraffe.ru/avatars/162805/small/b54f360d2dde78da71753933930b03b0.jpg" alt="">
+								</a>
+							</li>
+							<li class="ava-list_li">
+								<a href="" class="ava small">
+									<span class="icon-status"></span>
+									<img src="http://img.happy-giraffe.ru/thumbs/24x24/24525/ava0c20b2a907729c1f6b671ebf2e31eac3.JPG" alt="">
+								</a>
+							</li>
+							<li class="ava-list_li">
+								<a href="" class="ava small"></a>
+							</li>
+							<li class="ava-list_li">
+								<a href="" class="ava small">
+									<img src="http://img.happy-giraffe.ru/thumbs/24x24/204378/avaa0ef048c9ef438ec6dd90b42018a6723.jpg" alt="">
+								</a>
+							</li>
+							<li class="ava-list_li">
+								<a href="" class="ava small">
+									<span class="icon-status"></span>
+									<img src="http://img.happy-giraffe.ru/avatars/162805/small/b54f360d2dde78da71753933930b03b0.jpg" alt="">
+								</a>
+							</li>
+							<li class="ava-list_li">
+								<a href="" class="ava small">
+									<span class="icon-status"></span>
+									<img src="http://img.happy-giraffe.ru/thumbs/24x24/24525/ava0c20b2a907729c1f6b671ebf2e31eac3.JPG" alt="">
+								</a>
+							</li>
+							<li class="ava-list_li">
+								<a href="" class="ava small"></a>
+							</li>
+							<li class="ava-list_li">
+								<a href="" class="ava small">
+									<img src="http://img.happy-giraffe.ru/avatars/162805/small/b54f360d2dde78da71753933930b03b0.jpg" alt="">
+								</a>
+							</li>
+							<li class="ava-list_li">
+								<a href="" class="ava small">
+									<span class="icon-status"></span>
+									<img src="http://img.happy-giraffe.ru/thumbs/24x24/204378/avaa0ef048c9ef438ec6dd90b42018a6723.jpg" alt="">
+								</a>
+							</li>
+							<li class="ava-list_li">
+								<a href="" class="ava small">
+									<span class="icon-status"></span>
+									<img src="http://img.happy-giraffe.ru/thumbs/24x24/24525/ava0c20b2a907729c1f6b671ebf2e31eac3.JPG" alt="">
+								</a>
+							</li>
+							<li class="ava-list_li">
+								<a href="" class="ava small"></a>
+							</li>
+							<li class="ava-list_li">
+								<a href="" class="ava small">
+									<img src="http://img.happy-giraffe.ru/avatars/162805/small/b54f360d2dde78da71753933930b03b0.jpg" alt="">
+								</a>
+							</li>
+							<li class="ava-list_li">
+								<a href="" class="ava small">
+									<span class="icon-status"></span>
+									<img src="http://img.happy-giraffe.ru/thumbs/24x24/24525/ava0c20b2a907729c1f6b671ebf2e31eac3.JPG" alt="">
+								</a>
+							</li>
+							<li class="ava-list_li">
+								<a href="" class="ava small"></a>
+							</li>
+							<li class="ava-list_li">
+								<a href="" class="ava small">
+									<img src="http://img.happy-giraffe.ru/avatars/162805/small/b54f360d2dde78da71753933930b03b0.jpg" alt="">
+								</a>
+							</li>
+							<li class="ava-list_li">
+								<a href="" class="ava small">
+									<span class="icon-status"></span>
+									<img src="http://img.happy-giraffe.ru/avatars/162805/small/b54f360d2dde78da71753933930b03b0.jpg" alt="">
+								</a>
+							</li>
+							<li class="ava-list_li">
+								<a href="" class="ava small">
+									<span class="icon-status"></span>
+									<img src="http://img.happy-giraffe.ru/thumbs/24x24/24525/ava0c20b2a907729c1f6b671ebf2e31eac3.JPG" alt="">
+								</a>
+							</li>
+							<li class="ava-list_li">
+								<a href="" class="ava small"></a>
+							</li>
+							<li class="ava-list_li">
+								<a href="" class="ava small">
+									<img src="http://img.happy-giraffe.ru/thumbs/24x24/204378/avaa0ef048c9ef438ec6dd90b42018a6723.jpg" alt="">
+								</a>
+							</li>
+							<li class="ava-list_li">
+								<a href="" class="ava small">
+									<span class="icon-status"></span>
+									<img src="http://img.happy-giraffe.ru/avatars/162805/small/b54f360d2dde78da71753933930b03b0.jpg" alt="">
+								</a>
+							</li>
+							<li class="ava-list_li">
+								<a href="" class="ava small">
+									<span class="icon-status"></span>
+									<img src="http://img.happy-giraffe.ru/thumbs/24x24/24525/ava0c20b2a907729c1f6b671ebf2e31eac3.JPG" alt="">
+								</a>
+							</li>
+							<li class="ava-list_li">
+								<a href="" class="ava small"></a>
+							</li>
+							<li class="ava-list_li">
+								<a href="" class="ava small">
+									<img src="http://img.happy-giraffe.ru/avatars/162805/small/b54f360d2dde78da71753933930b03b0.jpg" alt="">
+								</a>
+							</li>
+							<li class="ava-list_li">
+								<a href="" class="ava small">
+									<span class="icon-status"></span>
+									<img src="http://img.happy-giraffe.ru/thumbs/24x24/204378/avaa0ef048c9ef438ec6dd90b42018a6723.jpg" alt="">
+								</a>
+							</li>
+							<li class="ava-list_li">
+								<a href="" class="ava small">
+									<span class="icon-status"></span>
+									<img src="http://img.happy-giraffe.ru/thumbs/24x24/24525/ava0c20b2a907729c1f6b671ebf2e31eac3.JPG" alt="">
+								</a>
+							</li>
+							<li class="ava-list_li">
+								<a href="" class="ava-list_last">
+									<span class="ava-list_favorite active"></span>
+									3251 и вы 
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<!-- На будущее для авторов -->
+				<!-- <div class="clearfix margin-r20">
+					<div class="float-r">
+						<a href="" class="a-pseudo-gray">Полная статистика действий</a>
+					</div>
+				</div> -->
 				
 				<!-- Пример открытого статуса юзера -->
 				<div class="b-article b-article__user-status clearfix">
@@ -604,89 +971,15 @@
 								</a>
 							
 							</div>
-							<div class="nav-article clearfix">
-								<div class="nav-article_left">
-									<a href="" class="nav-article_a">Очень красивые пропорции у нашего ведущего</a>
-								</div>
-								<div class="nav-article_right">
-									<a href="" class="nav-article_a">Очень красивые пропорции Очень красивые пропорции у нашего ведущего у нашего ведущего</a>
-								</div>
-							</div>
 						</div>
 						
-						<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/comments-gray-empty.php'; ?>
-
 					</div>
 				</div>
-
-
-				<div class="b-article clearfix">
-					<div class="float-l">
-						<div class="like-control like-control__small-indent clearfix">
-							<a href="" class="ava male">
-								<span class="icon-status status-online"></span>
-								<img alt="" src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg">
-							</a>
-						</div>
-						<div class="like-control clearfix">
-							<a href="" class="like-control_ico like-control_ico__like">865</a>
-							<div class="position-rel">
-								<a href="" class="like-control_ico like-control_ico__repost">5</a>
-								
-							</div>
-							<div class="position-rel">
-								<a href="" class="favorites-control_a active">123865</a>
-								
-							</div>
-						</div>
-					</div>
-					<div class="b-article_cont clearfix">
-						<div class="b-article_cont-tale"></div>
-						<div class="b-article_header clearfix">
-							<div class="meta-gray">
-								<a href="" class="meta-gray_comment">
-									<span class="ico-comment ico-comment__gray"></span>
-									<span class="meta-gray_tx">35</span>
-								</a>
-								<div class="meta-gray_view">
-									<span class="ico-view ico-view__gray"></span>
-									<span class="meta-gray_tx">305</span>
-								</div>
-							</div>
-							<div class="float-l">
-								<a href="" class="b-article_author">Ангелина Богоявленская</a>
-								<span class="font-smallest color-gray">Сегодня 13:25</span>
-							</div>
-						</div>
-						<h2 class="b-article_t">
-							<a href="" class="b-article_t-a">Самое лучшее утро </a>
-						</h2>
-						<div class="b-article_in clearfix">
-							<div class="wysiwyg-content clearfix">
-								<p>	Недавно посмотрел фильм </p>
-							</div>
-								
-						</div>
-						<div class="textalign-r margin-15">
-					        <a class="b-article_more" href="">Смотреть далее</a>
-					    </div>
-						<div class="comments-gray">
-							<div class="comments-gray_t"></div>
-							<div class="comments-gray_add clearfix">
-								
-								<div class="comments-gray_ava">
-									<a href="" class="ava small female"></a>
-								</div>
-								<div class="comments-gray_frame">
-									<input type="text" name="" id="" class="comments-gray_add-itx itx-gray" placeholder="Ваш комментарий">
-								</div>
-							</div>
-						</div>
-
-
-					</div>
+				
+				<!-- Для примера, так не прикручивать верстку -->
+				<div class="margin-20">
+					<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/comments-gray-empty.php'; ?>
 				</div>
-
 
 				<div class="such-post">
 					<div class="such-post_title">Смотрите также</div>
@@ -775,6 +1068,33 @@
 						</li>
 					</ul>
 				</div>
+
+
+				<table class="article-nearby clearfix" ellpadding="0" cellspacing="0">
+					<tr>
+						<td>
+							<div class="article-nearby_hint">Предыдущая запись</div>
+						</td>
+						<td class="article-nearby_r">
+							<div class="article-nearby_hint">Следующая запись</div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<a href="" class="article-nearby_a clearfix">
+								<span class="article-nearby_img-hold">
+									<img src="/images/example/w64-h61-2.jpg" alt="">
+								</span>
+								<span class="article-nearby_tx">Как приготовить Монастыпскую избу</span>
+							</a>
+						</td>
+						<td class="article-nearby_r">
+							<a href="" class="article-nearby_a clearfix">
+								<span class="article-nearby_tx">Готовим  Торт Сметанник в домашних условиях</span>
+							</a>
+						</td>
+					</tr>
+				</table>
 
 			</div>
 		</div>

@@ -1,0 +1,177 @@
+/* comments-gray */
+.comments-gray {
+    background: #fff;
+    padding: 5px 0 20px;
+    
+    &__wide {
+        margin: 20px;
+        border-top: none;
+        .border-radius(5px);
+    }
+    &__wide &_t {margin-left: 30px;}
+    &__wide &_i {
+        padding-left: 30px;
+    }
+    &__wide &_add {margin: 0 30px;}
+    &__wide &_add__top {margin: 15px 20px;}
+    .a-imitation {color: #319FE4}
+    &__map-route {padding: 20px 180px 20px 0;}
+    & &_i .wysiwyg-content {
+        padding: 0;
+        font-size: 12px;
+        line-height: 16px;
+        color: #333;
+    }
+    &_t {margin: 15px 20px 15px;}
+
+    &_t-tx {
+        .inline-block();
+        margin-right: 15px;
+        font-size: 16px;
+    }
+    &_hold {}
+    &_hold__scroll {max-height:500px;}
+    &_i {
+        position: relative;
+        margin: 0;
+        padding: 15px 20px;
+    }
+    &_i:hover &_admin,
+    &_i:hover &_control {display: block;}
+    &_i:first-child {padding-top: 5px;}
+    &_i:last-child {padding-bottom: 5px;}
+    &_i__self .like-hg-small:hover {background-position: 0 0;}
+    &_i__recovery:hover,
+    &_i__recovery {background: #fff;}
+    &_i__recovery p {color: #ccc;}
+    &_i__pink &_frame {
+        margin: -12px 75px 0 50px;
+        padding: 10px 10px;
+        border: 1px solid #fecce7;
+        border-width: 1px 0;
+        background: #fff6fb;
+    }
+    &_i__pink &_spec {color: #da559d;}
+    &_i .wysiwyg-content p{margin: 0 0 6px;}
+    &_i .wysiwyg-content img{margin: 0;}
+    &_ava {
+        float: left;
+        margin-right: 10px;
+    }
+    &_r {
+        float: right;
+        width: 70px;
+        text-align: right;
+        margin-top: 4px;
+    }
+    &_date {
+        font-size: 9px;
+        line-height: 11px;
+        color: #ccc;
+    }
+    &_frame {margin: 0 75px 0 50px;}
+    &_header {
+        overflow: hidden;
+        line-height: 14px;
+        margin: 0 0 5px;
+    }
+    &_author {
+        color: #289fd7;
+        text-decoration: none;
+        padding-right: 5px;
+    }
+    &_author:hover {text-decoration: underline;}
+    &_spec {
+        .inline-block();
+        margin: 0 10px 0 0;
+    }
+    &_cont {
+        padding: 0;
+        font-size: 12px;
+        line-height: 16px;
+        color: #555;
+    }
+    &_cont-img-w {
+        position: relative;
+        .inline-block();
+        margin: 5px 10px 5px 0;
+        max-width: 170px;
+        max-height: 110px;
+        .border-radius(4px);
+    }
+    &_cont-img-w > img {
+        display: block;
+        max-width: 170px;
+        max-height: 110px;
+        .border-radius(4px);
+    }
+    &_cont-img-overlay {
+        position: absolute;
+        right: 0;
+        bottom: 4px;
+        left: 0;
+        padding: 4px 10px;
+        font-size: 11px;
+        background: #999;
+        background: rgba(0,0,0,.5);
+        color: #fff;
+        text-align: right;
+    }
+    &_cont-play {
+        position: absolute;
+        bottom: 4px;
+        left: 0;
+        width: 35px;
+        height: 29px;
+        background: url(/images/comments-gray_cont-play.png) no-repeat;
+    }
+    &_add {
+        padding: 15px 0 0;
+        margin: 0 20px;
+    }
+    &_add__top {
+        margin: 15px 20px 25px;
+        border: 1px solid #dedede;
+        padding: 10px;
+    }
+    &_add__top.active {border-color: transparent;}
+    &_add__top .ava {margin-bottom: 15px;}
+    &_add__top &_add-itx {
+        border: none;
+        font-size: 14px;
+    }
+    &_add.active {padding-bottom: 33px;}
+    &_add.active &_ava {margin-top: 33px;}
+    &_add-itx {
+        margin: 0;
+        padding: 7px 10px 17px;
+        border: 1px solid #D9D9D9;
+        .border-radius(0);
+    }
+
+    &_control {
+        display: none;
+        margin: 8px 0 0;
+        text-align: right;
+        line-height: 16px;
+    }
+    &_control .message-ico {
+        margin: 2px auto;
+    }
+
+    &_quote-ico {
+        .inline-block();
+        width: 15px;
+        height: 11px;
+        margin: 1px 0 3px;
+        background: url(/images/comments-gray_quote-ico.png) no-repeat;
+    }
+    &_quote-ico.active,
+    &_quote-ico:hover {background-position: 0 -50px;}
+    &_a-recovery {
+        font-size: 11px;
+        border-bottom: 1px dotted #289FD7;
+        text-decoration: none;
+    }
+}
+/* /comments-gray */

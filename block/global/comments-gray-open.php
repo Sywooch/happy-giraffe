@@ -1,118 +1,132 @@
-<div class="comments-gray">
-	<div class="comments-gray_t">
-		<!-- <div class="float-r">
-			<a href="" class="a-pseudo-icon a-pseudo-icon__blue">
-				<span class="a-pseudo-icon_tx">Предыдущие 20</span>
-				<span class="i-arrow-t"></span>
+<div class="comments-gray comments-gray__wide">
+	<!-- Заглушка для ввода комментария, при клике в любом месте блока (кроме аватара) работает так же как в нижнем блоке -->
+	<!-- А именно  -->
+	<!-- 1. добавляется класс .active на .comments-gray_add -->
+	<!-- 2. скрывается/удаляется .comments-gray_add-itx -->
+	<!-- 3. Инициализируется визвиг -->
+	<div class="comments-gray_add comments-gray_add__top clearfix">
+		
+		<div class="comments-gray_ava">
+			<a href="" class="ava middle female">
+				<img src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" alt="">
 			</a>
-		</div> -->
-		<span class="comments-gray_t-a-tx">Все комментарии (28)</span>
-		<a href="" class="btn-green">Добавить</a>
+		</div>
+		
+		<div class="comments-gray_frame">
+			<!-- input hidden -->
+			<input type="text" name="" id="" class="comments-gray_add-itx itx-gray" placeholder="Добавьте комментарий">
+
+		</div>
+	</div>
+	<div class="comments-gray_t">
+		<span class="comments-gray_t-tx">Комментарии <span class="color-gray">(28)</span></span>
+		<a href="" class="a-pseudo font-small">Показать все  </a>
 	</div>
 	<div class="comments-gray_hold">
 		<div class="comments-gray_i comments-gray_i__self">
-			<a href="" class="comments-gray_like like-hg-small" title="Нравится">78</a>
 			<div class="comments-gray_ava">
-				<a href="" class="ava small male"></a>
+				<a href="" class="ava middle male"></a>
+			</div>
+			<div class="comments-gray_r">
+				<div class="comments-gray_date">Сегодня 13:25</div>
+				<div class="comments-gray_control">
+					<div class="comments-gray_control-hold">
+						<a href="" class="message-ico message-ico__edit powertip" title="Редактировать"></a>
+						<a href="" class="message-ico message-ico__del powertip" title="Удалить"></a>
+					</div>
+				</div>
+				
 			</div>
 			<div class="comments-gray_frame">
 				<div class="comments-gray_header clearfix">
 					<a href="" class="comments-gray_author">Ангелина Богоявленская </a>
-					<span class="font-smallest color-gray">Сегодня 13:25</span>
+					<a href="" class="comments-gray_like like-hg-small powertip" title="Нравится">78</a>
 				</div>
 				<div class="comments-gray_cont wysiwyg-content">
-					<p><span class="a-imitation">Вася Пупкин,</span> 	Мне безумно жалко всех женщин, но особенно Тину Кароль, я просто представить себе не могу <a href="">как она все это переживет</a> как она все это переживет(</p>
+					<p>	<a href="">Вася Пупкин,</a> Мне безумно жалко всех женщин, но особенно Тину Кароль, я просто представить себе не могу <a href="">как она все это переживет</a> как она все это переживет(</p>
 					<p>я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.  я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически </p>
-				</div>
-			</div>
-			<div class="comments-gray_control comments-gray_control__self">
-				<div class="comments-gray_control-hold">
-					<div class="clearfix">
-						<a href="" class="message-ico message-ico__edit powertip" title="Редактировать"></a>
-					</div>
-					<div class="clearfix">
-						<a href="" class="message-ico message-ico__del powertip" title="Удалить"></a>
-					</div>
 				</div>
 			</div>
 		</div>
 		<div class="comments-gray_i">
-			<a href="" class="comments-gray_like like-hg-small powertip" title="Нравится">78</a>
 			<div class="comments-gray_ava">
-				<a href="" class="ava small female"></a>
+				<a href="" class="ava middle female">
+					<img src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" alt="">
+				</a>
 			</div>
-			<div class="comments-gray_frame">
-				<div class="comments-gray_header clearfix">
-					<a href="" class="comments-gray_author">Анг Богоявлен </a>
-					<span class="font-smallest color-gray">Сегодня 14:25</span>
-				</div>
-				<div class="comments-gray_cont wysiwyg-content">
-					<p>я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.  я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически </p>
-				</div>
-			</div>
-			
-			<div class="comments-gray_control comments-gray_control__one">
-				<div class="comments-gray_control-hold">
-					<div class="clearfix">
+
+			<div class="comments-gray_r">
+				<div class="comments-gray_date">Сегодня 13:25</div>
+									
+				<div class="comments-gray_control">
+					<div class="comments-gray_control-hold">
 						<a href="" class="comments-gray_quote-ico powertip" title="Ответить"></a>
+						<a href="" class="message-ico message-ico__del powertip" title="Удалить"></a>
+						<a href="" class="message-ico message-ico__warning powertip" title="Пожаловаться"></a>
 					</div>
 				</div>
+				
 			</div>
-		</div>
-		<div class="comments-gray_i">
-			<a href="" class="comments-gray_like like-hg-small powertip" title="Нравится">7918</a>
-			<div class="comments-gray_ava">
-				<a href="" class="ava small female"></a>
-			</div>
+
 			<div class="comments-gray_frame">
 				<div class="comments-gray_header clearfix">
 					<a href="" class="comments-gray_author">Анг Богоявлен </a>
-					<span class="font-smallest color-gray">Сегодня 14:25</span>
+					<a href="" class="comments-gray_like like-hg-small powertip" title="Нравится">78</a>
 				</div>
 				<div class="comments-gray_cont wysiwyg-content">
 					<p>я не нашел, где можно поменять название трека. </p>
 				</div>
 			</div>
-			
-			<div class="comments-gray_control">
-				<div class="comments-gray_control-hold">
-					<div class="clearfix">
-						<a href="" class="comments-gray_quote-ico powertip" title="Ответить"></a>
-					</div>
-					<div class="clearfix">
-						<a href="" class="message-ico message-ico__del powertip" title="Удалить"></a>
-					</div>
-				</div>
-				<div class="clearfix">
-					<a href="" class="message-ico message-ico__warning powertip" title="Пожаловаться"></a>
-				</div>
-			</div>
+
 		</div>
 		
 		<div class="comments-gray_i comments-gray_i__recovery">
 			<div class="comments-gray_ava">
-				<a href="" class="ava small female"></a>
+				<a href="" class="ava middle female"></a>
+			</div>
+			<div class="comments-gray_r">
+				<div class="comments-gray_date">Сегодня 13:25</div>
+				
+				<!-- В удаленном сообщении не должно быть кнопок управления -->				
+				<!-- <div class="comments-gray_control">
+					<div class="comments-gray_control-hold">
+						<a href="" class="comments-gray_quote-ico powertip" title="Ответить"></a>
+						<a href="" class="message-ico message-ico__del powertip" title="Удалить"></a>
+						<a href="" class="message-ico message-ico__warning powertip" title="Пожаловаться"></a>
+					</div>
+				</div> -->
+				
 			</div>
 			<div class="comments-gray_frame">
 				<div class="comments-gray_header clearfix">
 					<a href="" class="comments-gray_author">Анг Богоявлен </a>
-					<span class="font-smallest color-gray">Сегодня 14:25</span>
+					<a href="" class="comments-gray_like like-hg-small powertip" title="Нравится">78</a>
 				</div>
 				<div class="comments-gray_cont wysiwyg-content">
-					<p>Комментарий успешно удален.<a href="" class="comments-gray_a-recovery">Восстановить?</a> </p>
+					<p>Комментарий успешно удален. <a href="" class="comments-gray_a-recovery">Восстановить?</a> </p>
 				</div>
 			</div>
 		</div>
 		
 		<div class="comments-gray_i">
-			<a href="" class="comments-gray_like like-hg-small powertip" title="Нравится">78</a>
 			<div class="comments-gray_ava">
-				<a href="" class="ava small female"></a>
+				<a href="" class="ava middle female"></a>
+			</div>
+			<div class="comments-gray_r">
+				<div class="comments-gray_date">Сегодня 13:25</div>
+				
+				<div class="comments-gray_control">
+					<div class="comments-gray_control-hold">
+						<a href="" class="comments-gray_quote-ico powertip" title="Ответить"></a>
+						<a href="" class="message-ico message-ico__warning powertip" title="Пожаловаться"></a>
+					</div>
+				</div>
+				
 			</div>
 			<div class="comments-gray_frame">
 				<div class="comments-gray_header clearfix">
 					<a href="" class="comments-gray_author">Анг Богоявлен </a>
-					<span class="font-smallest color-gray">Сегодня 14:25</span>
+					<a href="" class="comments-gray_like like-hg-small powertip" title="Нравится">78</a>
 				</div>
 				<div class="comments-gray_cont wysiwyg-content">
 					<p>я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически производит поиск по сайту </p>
@@ -132,23 +146,15 @@
 				</div>
 			</div>
 			
-			<div class="comments-gray_control">
-				<div class="comments-gray_control-hold">
-					<div class="clearfix">
-						<a href="" class="comments-gray_quote-ico powertip" title="Ответить"></a>
-					</div>
-				</div>
-				<div class="clearfix">
-					<a href="" class="message-ico message-ico__warning powertip" title="Пожаловаться"></a>
-				</div>
-			</div>
 		</div>
 	</div>
 	
 	<div class="comments-gray_add active clearfix">
 
 		<div class="comments-gray_ava">
-			<a class="ava small female" href=""></a>
+			<a class="ava middle female" href="">
+				<img src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" alt="">
+			</a>
 		</div>
 		
 		<div class="comments-gray_frame">
@@ -160,7 +166,7 @@
 			  $('.wysiwyg-redactor').redactor({
 			      autoresize: true,
 			      toolbarExternal: '.wysiwyg-toolbar-btn',
-
+			      minHeight: 45,
 			      buttons: ['bold', 'italic', 'underline', '|', 'image', 'video', 'smile'],
 			      buttonsCustom: {
 			          smile: {
@@ -376,6 +382,12 @@
 				</div>
 				<textarea name="" class="wysiwyg-redactor" ></textarea>
 				<div class="redactor-control clearfix">
+
+					<div class="redactor-control_quote">
+						<span class="font-smallest color-gray">Ответ для</span>
+						<span class="redactor-control_quote-tx">Вася Пупкин</span>
+						<a href="" class="a-pseudo-gray font-small" title="Отменить ответ">Отмена</a>
+					</div>
 					<div class="float-r">
 						<div class="redactor-control_key">
 							<input type="checkbox" class="redactor-control_key-checkbox" id="redactor-control_key-checkbox" name="">

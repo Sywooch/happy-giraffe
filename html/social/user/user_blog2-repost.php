@@ -191,7 +191,7 @@
 				</div>
 				
 				<div class="b-article clearfix">
-				<div class="clearfix">
+				<div class="b-article_repost clearfix">
 					<div class="float-l">
 						<div class="like-control like-control__repost clearfix">
 							<a href="" class="ava male">

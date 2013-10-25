@@ -20,8 +20,18 @@ if ($full) {
     }
 }
 
+switch ($data->type_id) {
+    case CommunityContentType::TYPE_STATUS:
+        $cssClass = 'b-article__user-status';
+        break;
+    case CommunityContentType::TYPE_PHOTO:
+        $cssClass = 'b-article__photopost';
+        break;
+    default:
+        $cssClass = null;
+}
 ?>
-<div class="b-article clearfix<?php if ($data->type_id == CommunityContentType::TYPE_STATUS) echo ' b-article__user-status' ?>" id="blog_settings_<?=$data->id ?>">
+<div class="b-article clearfix<?php if ($cssClass !== null): ?> <?=$cssClass?><?php endif; ?>" id="blog_settings_<?=$data->id ?>">
     <?php if ($data->source_id) $this->renderPartial('blog.views.default._repost', array('data' => $data)); ?>
     <div class="float-l">
         <?php $this->renderPartial('blog.views.default._post_controls', array('model' => $data->getSourceContent(), 'isRepost' => !empty($data->source_id))); ?>

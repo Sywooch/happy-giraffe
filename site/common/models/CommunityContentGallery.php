@@ -99,4 +99,13 @@ class CommunityContentGallery extends HActiveRecord
 
         return $result;
     }
+
+    public function getHorizontalOrFirst()
+    {
+        foreach ($this->items as $item) {
+            if ($item->photo->width > $item->photo->height)
+                return $item;
+        }
+        return $this->items[0];
+    }
 }

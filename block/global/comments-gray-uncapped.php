@@ -99,7 +99,9 @@
 				
 				<div class="comments-gray_i">
 					<div class="comments-gray_ava">
-						<a href="" class="ava middle female"></a>
+						<a href="" class="ava middle female">
+							<img src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" alt="">
+						</a>
 					</div>
 					<div class="comments-gray_r">
 						<div class="comments-gray_date">Сегодня 13:25</div>

@@ -7,7 +7,9 @@
 	<div class="comments-gray_add comments-gray_add__top clearfix">
 		
 		<div class="comments-gray_ava">
-			<a href="" class="ava middle female"></a>
+			<a href="" class="ava middle female">
+				<img src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" alt="">
+			</a>
 		</div>
 		
 		<div class="comments-gray_frame">
@@ -48,7 +50,9 @@
 		</div>
 		<div class="comments-gray_i">
 			<div class="comments-gray_ava">
-				<a href="" class="ava middle female"></a>
+				<a href="" class="ava middle female">
+					<img src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" alt="">
+				</a>
 			</div>
 
 			<div class="comments-gray_r">
@@ -148,7 +152,9 @@
 	<div class="comments-gray_add active clearfix">
 
 		<div class="comments-gray_ava">
-			<a class="ava middle female" href=""></a>
+			<a class="ava middle female" href="">
+				<img src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" alt="">
+			</a>
 		</div>
 		
 		<div class="comments-gray_frame">
@@ -378,7 +384,7 @@
 				<div class="redactor-control clearfix">
 
 					<div class="redactor-control_quote">
-						<span class="font-small color-gray">Ответ для</span>
+						<span class="font-smallest color-gray">Ответ для</span>
 						<span class="redactor-control_quote-tx">Вася Пупкин</span>
 						<a href="" class="a-pseudo-gray font-small" title="Отменить ответ">Отмена</a>
 					</div>

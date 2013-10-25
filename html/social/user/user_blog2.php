@@ -281,7 +281,7 @@
 								}
 							}
 
-							likeControlFixedInBlock('.js-like-control', '.b-article', 20);
+							likeControlFixedInBlock('.js-like-control', '.b-article', 80);
 						})
 						</script>
 						<div class="js-like-control" >
@@ -710,10 +710,10 @@
 								</a>
 							</li>
 							<li class="ava-list_li">
-								<div class="ava-list_last">
+								<a href="" class="ava-list_last">
 									<span class="ava-list_like-hg"></span>
 									3251
-								</div>
+								</a>
 							</li>
 						</ul>
 					</div>
@@ -883,10 +883,10 @@
 								</a>
 							</li>
 							<li class="ava-list_li">
-								<div class="ava-list_last">
+								<a href="" class="ava-list_last">
 									<span class="ava-list_favorite active"></span>
 									3251 и вы 
-								</div>
+								</a>
 							</li>
 						</ul>
 					</div>

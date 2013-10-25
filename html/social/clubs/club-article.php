@@ -612,26 +612,31 @@
 					</ul>
 				</div>
 
-				<div class="article-nearby clearfix">
-					<div class="article-nearby_i article-nearby_i__left">
-						<div class="article-nearby_hint">Предыдущая запись</div>
-						<a href="" class="article-nearby_a clearfix">
-							<span class="article-nearby_img-hold">
-								<img src="/images/example/w64-h61-2.jpg" alt="">
-							</span>
-							<span class="article-nearby_tx">Как приготовить Монастыпскую избу</span>
-						</a>
-					</div>
-					<div class="article-nearby_i article-nearby_i__right">
-						<div class="article-nearby_hint">Следующая запись</div>
-						<a href="" class="article-nearby_a clearfix">
-							<span class="article-nearby_tx">Готовим  Торт Сметанник в домашних условиях</span>
-							<span class="article-nearby_img-hold">
-								<img src="/images/example/w64-h61-1.jpg" alt="">
-							</span>
-						</a>
-					</div>
-				</div>
+				<table class="article-nearby clearfix" ellpadding="0" cellspacing="0">
+					<tr>
+						<td>
+							<div class="article-nearby_hint">Предыдущая запись</div>
+						</td>
+						<td class="article-nearby_r">
+							<div class="article-nearby_hint">Следующая запись</div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<a href="" class="article-nearby_a clearfix">
+								<span class="article-nearby_img-hold">
+									<img src="/images/example/w64-h61-2.jpg" alt="">
+								</span>
+								<span class="article-nearby_tx">Как приготовить Монастыпскую избу</span>
+							</a>
+						</td>
+						<td class="article-nearby_r">
+							<a href="" class="article-nearby_a clearfix">
+								<span class="article-nearby_tx">Готовим  Торт Сметанник в домашних условиях</span>
+							</a>
+						</td>
+					</tr>
+				</table>
 
 			</div>
 		</div>

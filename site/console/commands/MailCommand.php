@@ -151,16 +151,21 @@ class MailCommand extends CConsoleCommand
 
     public function actionVacancy()
     {
-        $r = array(
-            'nikita@happy-giraffe.ru' => 'Никита',
-            'tantalid@gmail.com' => 'Андрей',
-            'tantalid@mail.ru' => 'Андрей',
-        );
-
-        foreach ($r as $email => $firstName) {
-            $subject = $firstName . ', мы ищем опытных разработчиков для Веселого Жирафа';
-            $html = $this->renderFile(Yii::getPathOfAlias('site.common.tpl') . DIRECTORY_SEPARATOR . 'vacancyInvite.php', compact('firstName'), true);
-            ElasticEmail::send($email, $subject, $html, 'noreply@happy-giraffe.ru', 'Весёлый Жираф');
+        $criteria = new EMongoCriteria();
+        $criteria->parsed('==', true);
+        $criteria->send('==', false);
+        $models = HhResume::model()->findAll($criteria);
+        foreach ($models as $m) {
+            if (isset($m->contacts['Эл. почта'])) {
+                $email = $m->contacts['Эл. почта'];
+                $firstName = $m->firstName;
+                $subject = $firstName . ', мы ищем опытных разработчиков для Веселого Жирафа';
+                $html = $this->renderFile(Yii::getPathOfAlias('site.common.tpl') . DIRECTORY_SEPARATOR . 'vacancyInvite.php', compact('firstName'), true);
+                if (ElasticEmail::send($email, $subject, $html, 'noreply@happy-giraffe.ru', 'Весёлый Жираф')) {
+                    $m->send = true;
+                    $m->save();
+                }
+            }
         }
     }
 }

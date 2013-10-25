@@ -20,10 +20,10 @@ class HhCommand extends CConsoleCommand
     {
         $i = 0;
         $parser = new HhParser($code);
-        $models = HhResume::model()->findAll();
+        $criteria = new EMongoCriteria();
+        $criteria->parsed('==', false);
+        $models = HhResume::model()->findAll($criteria);
         foreach ($models as $m) {
-            echo $m->_id;
-            die;
             echo ++$i . "\n";
             $data = $parser->parseResume($m->_id);
             foreach ($data as $attribute => $value)

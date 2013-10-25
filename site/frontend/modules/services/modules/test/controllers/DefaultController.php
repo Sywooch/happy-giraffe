@@ -1,26 +1,11 @@
 <?php
 
-class DefaultController extends HController
+class DefaultController extends ServiceController
 {
+    public $service_id = 9;
     /**
      * @todo добавить в sitemap
      */
-    public $layout = '//layouts/new';
-
-    public function filters()
-    {
-        return array(
-//            array(
-//                'COutputCache + view',
-//                'duration' => 10,
-//                'varyByParam' => array('slug'),
-//            ),
-//            array(
-//                'COutputCache + index',
-//                'duration' => 10,
-//            ),
-        );
-    }
 
     public function actionIndex()
     {
@@ -46,6 +31,10 @@ class DefaultController extends HController
         Yii::app()->clientScript->registerScriptFile($baseUrl . "/" . $test->getTypeName() . ".js?3", CClientScript::POS_HEAD);
         $this->meta_description = $test->meta_description;
 
+        if ($test->slug == 'pregnancy') {
+            $this->bodyClass = 'theme theme__clearblue' . ((Yii::app()->user->isGuest) ? ' body-guest' : '');
+            $this->layout = 'clearblue';
+        }
         $this->render($test->getTypeName() . '_' . $test->slug, array(
             'test' => $test
         ));

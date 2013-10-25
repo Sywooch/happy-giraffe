@@ -8,7 +8,7 @@ class LinkingController extends SController
     public function beforeAction($action)
     {
         if (!Yii::app()->user->checkAccess('admin') && !Yii::app()->user->checkAccess('superuser')
-            && !Yii::app()->user->checkAccess('editor') && !Yii::app()->user->checkAccess('promotion')
+            && !Yii::app()->user->checkAccess('main-editor') && !Yii::app()->user->checkAccess('promotion')
         )
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
         return true;
@@ -159,7 +159,6 @@ class LinkingController extends SController
             TimeLogger::model()->startTimer('pages found - filter');
             $pages = $this->filterPages($phrase, $res);
             TimeLogger::model()->endTimer();
-
         } else {
             TimeLogger::model()->startTimer('pages not found - parsing');
             $parser = new SimilarArticlesParser;

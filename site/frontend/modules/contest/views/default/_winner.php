@@ -1,11 +1,5 @@
 <li class="contest-winners_list_item">
-    <?php
-        $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
-            'user' => $data->work->author,
-            'location' => false,
-            'friendButton' => true,
-        ));
-    ?>
+    <?php $this->widget('Avatar', array('user' => $data->work->author)); ?>
 
     <div class="contest-winners_place place-<?=$data->place?>">
         <?php if ($isConsolationPrize): ?>

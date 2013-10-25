@@ -27,7 +27,7 @@ class ProxyMongo extends EMongoDocument
 
     public function getCollectionName()
     {
-        return 'proxy';
+        return 'proxy_new';
     }
 
     /**

@@ -19,11 +19,12 @@ class HController extends CController
     public $broadcast = false;
 
     public $body_class = 'body-club';
+    public $bodyClass = null;
 
     public $tempLayout = false;
     public $showLikes = false;
-
-    protected $r = 173;
+    public $showAddBlock = true;
+    public $r = 1378549348;
 
     public function filterAjaxOnly($filterChain)
     {
@@ -42,11 +43,7 @@ class HController extends CController
     {
         parent::init();
 
-        $this->combineStatic();
-        Yii::app()->clientScript
-            ->registerCssFile('/stylesheets/common.css?'.$this->r)
-            ->registerCssFile('/stylesheets/global.css?'.$this->r)
-        ;
+        //$this->combineStatic();
 
         // авторизация
         if (isset($this->actionParams['token'])) {
@@ -57,6 +54,9 @@ class HController extends CController
             }
             unset($_GET['token']);
         }
+
+        $viewsCount = Yii::app()->user->getState('viewsCount', 0);
+        Yii::app()->user->setState('viewsCount', $viewsCount + 1);
     }
 
     protected function beforeAction($action)
@@ -70,7 +70,7 @@ class HController extends CController
         $this->_mobileRedirect();
 
         // отключение повторной подгрузки jquery
-        /* if (Yii::app()->request->isAjaxRequest) {
+        if (Yii::app()->request->isAjaxRequest) {
             Yii::app()->clientScript->scriptMap = array(
                 'jquery.js' => false,
                 'jquery.min.js' => false,
@@ -78,12 +78,14 @@ class HController extends CController
                 'jquery.ba-bbq.js' => false,
                 'jquery.yiilistview.js' => false,
             );
-        } */
+        }
 
         // noindex для дева
         if ($_SERVER['HTTP_HOST'] == 'dev.happy-giraffe.ru') {
             Yii::app()->clientScript->registerMetaTag('noindex,nofollow', 'robots');
         }
+        if (isset($_GET['CommunityContent_page']) || isset($_GET['BlogContent_page']) || isset($_GET['Comment_page']))
+            Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
 
         if (!Yii::app()->user->isGuest && (Yii::app()->user->model->blocked == 1 || Yii::app()->user->model->deleted == 1))
             Yii::app()->user->logout();
@@ -194,25 +196,17 @@ class HController extends CController
 
     protected function combineStatic()
     {
-        if (YII_DEBUG === false && false) {
+        if (YII_DEBUG === false) {
             $wwwPath = Yii::getPathOfAlias('application.www-submodule');
 
             foreach (Yii::app()->params['combineMap'] as $all => $filesArray) {
                 if (file_exists($wwwPath . $all)) {
-                    $to = Yii::app()->request->isAjaxRequest ? false : $all . '?r=' . $this->r;
+                    $to = Yii::app()->request->isAjaxRequest ? false : $all . '?' . $this->r;
                     foreach ($filesArray as $f)
                         Yii::app()->clientScript->scriptMap[$f] = $to;
                 }
             }
         }
-    }
-
-    /**
-     * Считает заходы из ПС для модуля комментаторов
-     */
-    public function registerCounter()
-    {
-        Yii::app()->clientScript->registerScript('se_counter', 'SeCounter();');
     }
 
     private function _mobileRedirect()
@@ -233,5 +227,19 @@ class HController extends CController
 
         if ($newMobile == 1)
             $this->redirect('http://m.happy-giraffe.ru' . $_SERVER['REQUEST_URI']);
+    }
+
+    public function getLayoutData()
+    {
+        $user = Yii::app()->user->getModel();
+
+        $newNotificationsCount = (int) Notification::model()->getUnreadCount();
+        $newMessagesCount = (int) MessagingManager::unreadMessagesCount($user->id);
+        $newFriendsCount = (int) FriendRequest::model()->getUserCount($user->id);
+        $newPostsCount = (int) ViewedPost::getInstance()->newPostCount($user->id, SubscribeDataProvider::TYPE_ALL);
+        $newScoreCount = (int) ($user->score->scores - $user->score->seen_scores);
+        $activeModule = $this->module ? $this->module->id : null;
+
+        return compact('newNotificationsCount', 'newMessagesCount', 'newFriendsCount', 'newPostsCount', 'newScoreCount', 'activeModule');
     }
 }

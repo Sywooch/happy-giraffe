@@ -29,6 +29,10 @@ return array(
         )
     ),
     'components' => array(
+        'indexden' => array(
+            'class' => 'site.common.components.IndexDen',
+            'apiUrl' => 'http://:tebadytarure@nygeme.api.indexden.com',
+        ),
         'gearman' => array(
             'class' => 'site.common.components.Gearman',
             'servers'=>array(),
@@ -66,7 +70,7 @@ return array(
         ),
         'mongodb_parsing' => array(
             'class' => 'EMongoDB',
-            'connectionString' => 'mongodb://178.63.88.2',
+            'connectionString' => 'mongodb://5.9.7.81',
             'dbName' => 'parsing',
             'fsyncFlag' => true,
             'safeFlag' => true,
@@ -109,7 +113,7 @@ return array(
                 'keywords' => 100,
             ),
         ),
-        'urlManager'=> include(Yii::getPathOfAlias('site.frontend.config') . DIRECTORY_SEPARATOR . 'url.php'),
+        'urlManager'=>require_once(dirname(__FILE__).'/url.php'),
         'mc' => array(
             'class' => 'site.common.extensions.mailchimp.MailChimp',
             'apiKey' => 'c0ff51b36480912260a410258b64af5f-us5',
@@ -121,6 +125,12 @@ return array(
         ),
         'email'=>array(
             'class' => 'site.common.components.HEmailSender',
+        ),
+        'phpThumb' => array(
+            'class' => 'site.frontend.extensions.EPhpThumb.EPhpThumb',
+            'options' => array(
+                'resizeUp' => true,
+            ),
         ),
     ),
     'params'=>array(

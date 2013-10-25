@@ -7,7 +7,7 @@ class WebUser extends CWebUser
     public function getModel()
     {
         if (!$this->isGuest && $this->_model === null) {
-            $this->_model = CActiveRecord::model($this->modelName)->with('avatar')->findByPk($this->id);
+            $this->_model = CActiveRecord::model($this->modelName)->findByPk($this->id);
         }
         return $this->_model;
     }
@@ -24,5 +24,10 @@ class WebUser extends CWebUser
     public function getRate()
     {
         return 0.03;
+    }
+
+    public function login($identity)
+    {
+        return parent::login($identity, 60 * 60 * 24 * 14); // 2 недели
     }
 }

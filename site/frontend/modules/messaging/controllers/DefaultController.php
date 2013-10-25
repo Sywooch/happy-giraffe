@@ -10,23 +10,23 @@ class DefaultController extends HController
 {
     const CONTACTS_PER_PAGE = 50;
 
+    //public $layout = '//layouts/common_new';
     public $tempLayout = true;
+    public $showAddBlock = false;
 
     public function filters()
     {
         return array(
             'accessControl',
+            'ajaxOnly - index',
         );
     }
 
     public function accessRules()
     {
         return array(
-            array('allow',
-                'users' => array('@'),
-            ),
             array('deny',
-                'users' => array('*'),
+                'users' => array('?'),
             ),
         );
     }
@@ -57,7 +57,7 @@ class DefaultController extends HController
                         'firstName' => $interlocutor->first_name,
                         'lastName' => $interlocutor->last_name,
                         'gender' => $interlocutor->gender,
-                        'avatar' => $interlocutor->getAva('small'),
+                        'avatar' => $interlocutor->getAvatarUrl(Avatar::SIZE_MICRO),
                         'online' => (bool) $interlocutor->online,
                         'isFriend' => (bool) Friend::model()->areFriends(Yii::app()->user->id, $interlocutorId),
                     ),
@@ -72,7 +72,7 @@ class DefaultController extends HController
             'firstName' => Yii::app()->user->model->first_name,
             'lastName' => Yii::app()->user->model->last_name,
             'gender' => (bool) Yii::app()->user->model->gender,
-            'avatar' => Yii::app()->user->model->getAva('small'),
+            'avatar' => Yii::app()->user->model->getAvatarUrl(Avatar::SIZE_MICRO),
             'online' => (bool) Yii::app()->user->model->online,
             'isFriend' => null,
         );
@@ -95,98 +95,4 @@ class DefaultController extends HController
         $data = compact('contacts');
         echo CJSON::encode($data);
     }
-
-//    public function actionTest()
-//    {
-//        $randomUsers = User::model()->findAll(array(
-//            'limit' => 1000,
-//            'order' => new CDbExpression('RAND()'),
-//            'condition' => 'id != :me',
-//            'params' => array(':me' => 12936),
-//        ));
-//
-//        foreach ($randomUsers as $u) {
-//            $thread = new MessagingThread();
-//            $threadUser1 = new MessagingThreadUser();
-//            $threadUser1->user_id = 12936;
-//            $threadUser2 = new MessagingThreadUser();
-//            $threadUser2->user_id = $u->id;
-//            $thread->threadUsers = array($threadUser1, $threadUser2);
-//
-//            $thread->withRelated->save(true, array('threadUsers'));
-//        }
-//    }
-//
-//    public function actionTest2()
-//    {
-//        $text = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
-//
-//        for ($i = 0; $i < 41; $i++)
-//            MessagingMessage::model()->create($i . '. ' . $text, 6558, $i % 2 == 0 ? 10245 : 12936, array());
-//    }
-//
-//    public function actionTest3($id)
-//    {
-//        $dialog = Dialog::model()->with('dialogUsers', 'messages')->findByPk($id);
-//
-//        if (! empty($dialog->messages)) {
-//            $thread = new MessagingThread();
-//            $thread->detachBehavior('CTimestampBehavior');
-//
-//            $result = array_reduce($dialog->messages, function($l, $r) {
-//                $created = strtotime($r->created);
-//
-//                if ($created < $l['created'])
-//                    $l['created'] = $created;
-//                if ($created > $l['updated'])
-//                    $l['updated'] = $created;
-//                return $l;
-//            }, array('created' => time(), 'updated' => 0));
-//
-//            $thread->created = date("Y-m-d H:i:s", $result['created']);
-//            $thread->updated = date("Y-m-d H:i:s", $result['updated']);
-//
-//            $threadUsers = array();
-//            foreach ($dialog->dialogUsers as $dialogUser) {
-//                $threadUser = new MessagingThreadUser();
-//                $threadUser->user_id = $dialogUser->user_id;
-//                $threadUsers[] = $threadUser;
-//            }
-//            $thread->threadUsers = $threadUsers;
-//
-//            $messages = array();
-//            foreach ($dialog->messages as $m) {
-//                $message = new MessagingMessage();
-//                $message->detachBehavior('CTimestampBehavior');
-//                $message->author_id = $m->user_id;
-//                $message->text = $m->text;
-//                $message->created = $m->created;
-//                $message->updated = $m->created;
-//                $messageUsers = array();
-//                foreach ($dialog->dialogUsers as $dialogUser) {
-//                    $messageUser = new MessagingMessageUser();
-//                    $messageUser->user_id = $dialogUser->user_id;
-//                    $messageUser->read = $dialogUser->user_id == $m->user_id ? null : 1;
-//                    $messageUsers[] = $messageUser;
-//                }
-//                $message->messageUsers = $messageUsers;
-//                $messages[] = $message;
-//            }
-//            $thread->messages = $messages;
-//
-//            $thread->withRelated->save(true, array(
-//                'threadUsers',
-//                'messages' => array(
-//                    'messageUsers',
-//                ),
-//            ));
-//        }
-//    }
-//
-//    public function actionTest4()
-//    {
-//        $id = Yii::app()->request->getQuery('id');
-//        $message = MessagingMessage::model()->findByPk($id);
-//        var_dump($message->json);
-//    }
 }

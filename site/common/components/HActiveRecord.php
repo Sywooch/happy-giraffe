@@ -5,9 +5,30 @@
  */
 class HActiveRecord extends CActiveRecord
 {
+    private $_entities = array(
+        'post' => 'Пост',
+        'video' => 'Видео',
+        'photo' => 'Фото',
+    );
+
     public function getPhotoCollection()
     {
         return $this->photos;
+    }
+
+    public function getPhotoCollectionDependency()
+    {
+        $sql = "
+            SELECT MAX(p.created) FROM album__photo_attaches pa
+            INNER JOIN album__photos p ON pa.photo_id = p.id
+            WHERE pa.entity = :entity AND pa.entity_id = :entity_id;
+        ";
+
+        return array(
+            'class'=>'system.caching.dependencies.CDbCacheDependency',
+            'sql' => $sql,
+            'params' => array(':entity' => get_class($this), ':entity_id' => $this->id),
+        );
     }
 
     public function getErrorsText()
@@ -27,14 +48,8 @@ class HActiveRecord extends CActiveRecord
             case 'vkontakte':
                 $url = 'http://vk.com/share.php?title={title}&description={description}&url={url}&image={image}';
                 break;
-            case 'facebook':
-                $url = 'http://www.facebook.com/sharer.php?s=100&p[url]={url}&p[title]={title}&p[summary]={description}&p[images][0]={image}';
-                break;
             case 'odnoklassniki':
-                $url = 'http://www.odnoklassniki.ru/dk?st.cmd=addShare&st.s=1&st.comments={title} {description}&st._surl={url}';
-                break;
-            case 'twitter':
-                $url = 'https://twitter.com/intent/tweet?text={title} {description}&url={url}';
+                $url = 'http://www.odnoklassniki.ru/dk?st.cmd=addShare&st.s=1&st.comments={description}&st._surl={url}';
                 break;
         }
 
@@ -68,6 +83,29 @@ class HActiveRecord extends CActiveRecord
 
     public function getRelatedModel($condition = '', $params = array())
     {
-        return ($this->hasAttribute('entity') && $this->hasAttribute('entity_id')) ? CActiveRecord::model($this->entity)->findByPk($this->entity_id, $condition, $params) : null;
+        return ($this->hasAttribute('entity') && $this->hasAttribute('entity_id')) ? CActiveRecord::model($this->entity)->resetScope()->findByPk($this->entity_id, $condition, $params) : null;
+    }
+
+    public function getEntity()
+    {
+        switch (get_class($this)) {
+            case 'AlbumPhoto':
+                return 'photo';
+            case 'CookRecipe':
+                return 'cook';
+            case 'CommunityContent':
+            case 'BlogContent':
+                return $this->type_id == 1 ? 'post' : 'video';
+        }
+    }
+
+    public function getEntityTitle()
+    {
+        return $this->_entities[$this->entity];
+    }
+
+    public function getCacheId($keyword)
+    {
+        return __CLASS__ . $this->primaryKey . $keyword;
     }
 }

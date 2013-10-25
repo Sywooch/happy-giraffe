@@ -23,7 +23,7 @@
 
             <div class="block-title">
                 <div class="in">Гороскоп<br>на сегодня</div>
-                <div class="date"><b><?=Yii::app()->dateFormatter->format('d', time()) ?></b><br><?=Yii::app()->dateFormatter->format('MMMM', time()) ?></div>
+                <div class="date"><b><?=Yii::app()->dateFormatter->format('d', time()) ?></b><br><?=HDate::ruMonthShort(date('n'))?></div>
             </div>
 
             <ul>

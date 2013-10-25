@@ -10,18 +10,15 @@ class DefaultController extends HController
     {
         return array(
             'accessControl',
-            'ajaxOnly - index',
+           // 'ajaxOnly - index',
         );
     }
 
     public function accessRules()
     {
         return array(
-            array('allow',
-                'users' => array('@'),
-            ),
             array('deny',
-                'users' => array('*'),
+                'users' => array('?'),
             ),
         );
     }
@@ -48,7 +45,7 @@ class DefaultController extends HController
             switch ($favourite->model_name) {
                 case 'CommunityContent':
                 case 'BlogContent':
-                    $html = Yii::app()->controller->renderPartial('//community/_post', array(
+                    $html = Yii::app()->controller->renderPartial('blog.views.default.view', array(
                         'full' => false,
                         'data' => $favourite->relatedModel,
                     ), true);
@@ -110,12 +107,12 @@ class DefaultController extends HController
 
     public function actionGetEntityData($modelName, $modelId)
     {
-        $entity = Favourite::model()->getEntityByModel($modelName, $modelId);
+        $entity = Favourite::model()->getEntityByModelNameId($modelName, $modelId);
 
         switch ($entity) {
             case 'post':
             case 'video':
-                $model = CActiveRecord::model($modelName)->full()->findByPk($modelId);
+                $model = CActiveRecord::model($modelName)->findByPk($modelId);
                 if ($model === null)
                     throw new CHttpException(400);
 

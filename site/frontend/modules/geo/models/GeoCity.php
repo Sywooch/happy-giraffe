@@ -14,6 +14,7 @@
  * @property string $type
  * @property string $auto_created
  * @property string $declension_checked
+ * @property string $show_region
  *
  * The followings are the available model relations:
  * @property GeoCountry $country
@@ -229,5 +230,18 @@ class GeoCity extends HActiveRecord
         $parser = new GoogleCoordinatesParser(false, false);
         $parser->city = $this;
         $parser->parseCity();
+    }
+
+    public function getLabel($cities){
+        $showDistrict = false;
+        foreach ($cities as $city2) {
+            if ($city2->name == $this->name && $city2->id != $this->id)
+                $showDistrict = true;
+        }
+        if ($showDistrict)
+            $label = $this->district ? $this->name . ' (' . $this->district->name . ' р-н)' : $this->name;
+        else
+            $label = $this->name;
+        return $label;
     }
 }

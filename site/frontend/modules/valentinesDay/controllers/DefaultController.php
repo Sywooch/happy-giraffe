@@ -71,7 +71,8 @@ class DefaultController extends HController
     {
         $criteria = new CDbCriteria;
         $criteria->compare('rubric.community_id', Community::COMMUNITY_VALENTINE);
-        return CommunityContent::model()->full()->find($criteria);
+        $criteria->with = array('rubric');
+        return CommunityContent::model()->find($criteria);
     }
 
     public function actionVimeoSync()

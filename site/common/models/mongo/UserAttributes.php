@@ -81,4 +81,14 @@ class UserAttributes extends EMongoDocument
 
         return false;
     }
+
+    /**
+     * Удаляет свойство
+     * @param string $name
+     */
+    public static function removeAttr($name)
+    {
+        $modifier = new EMongoModifier(array('attributes.'.$name => array('unset' => 1)));
+        self::model()->updateAll($modifier);
+    }
 }

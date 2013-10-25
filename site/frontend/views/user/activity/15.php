@@ -1,5 +1,5 @@
 <?php
-    $content = BlogContent::model()->full()->findByPk($action->data['id']);
+    $content = BlogContent::model()->findByPk($action->data['id']);
 ?>
 
 <?php if ($content !== null): ?>

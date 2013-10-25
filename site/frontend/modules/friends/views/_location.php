@@ -1,0 +1,1 @@
+<?=$data->address->flag?> <?=$data->address->getUserFriendlyLocation()?>

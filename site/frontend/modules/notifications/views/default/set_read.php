@@ -3,10 +3,10 @@
  * @var $model Notification
  * @var $check bool
  */
-if ($check){
+if (!$read){
 ?>
 <div class="user-notice-list_check">
-    <a href="javascript:;" class="user-notice-list_check-a powertip" onclick="UserNotification.read(this, '<?=$model->getId() ?>', <?=$model->count ?>)"></a>
+    <a href="javascript:;" class="user-notice-list_check-a powertip" onclick="UserNotification.read(this, '<?=$model->getId() ?>', <?=$model->count ?>)" title="Прочитано"></a>
 </div>
 <div class="user-notice-list_markread" style="display: none;">
     <div class="user-notice-list_markread-hold">

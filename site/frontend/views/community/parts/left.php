@@ -35,7 +35,6 @@
         <ul class="leftadd">
             <? foreach ($content_types as $ct): ?>
             <?
-            if ($ct->slug == 'travel' && $community->id != 21) break;
             $add_params = array('community_id' => $community->id, 'content_type_slug' => $ct->slug);
             if (!is_null($current_rubric)) $add_params['rubric_id'] = $current_rubric;
             if (Yii::app()->user->isGuest) {
@@ -44,7 +43,7 @@
             }
             else
             {
-                $url = ($ct->slug == 'travel') ? CController::createUrl('community/addTravel') : CController::createUrl('community/add', $add_params);
+                $url = CController::createUrl('community/add', $add_params);
                 $htmlOptions = array();
             }
 

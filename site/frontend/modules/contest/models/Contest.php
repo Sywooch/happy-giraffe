@@ -13,8 +13,8 @@
  * @property integer $status
  *
  * The followings are the available model relations:
- * @property ContestPrizes[] $contestPrizes
- * @property ContestWorks[] $contestWorks
+ * @property ContestPrize[] $contestPrizes
+ * @property ContestWork[] $contestWorks
  */
 class Contest extends HActiveRecord
 {
@@ -235,6 +235,15 @@ class Contest extends HActiveRecord
             'photos' => $photos,
             'currentIndex' => $currentIndex,
             'count' => $count,
+        );
+    }
+
+    public function getPhotoCollectionDependency()
+    {
+        return array(
+            'class'=>'system.caching.dependencies.CDbCacheDependency',
+            'sql' => 'SELECT MAX(created) FROM contest__works WHERE contest_id = :contest_id',
+            'params' => array(':contest_id' => $this->id),
         );
     }
 

@@ -3,11 +3,10 @@
  * @var $model Horoscope
  */
 ?><?php $time = strtotime($model->date);?>
+
 <div class="horoscope-one">
 
     <div class="block-in">
-
-        <h1><?=$this->title ?></h1>
 
         <div class="img">
 
@@ -35,22 +34,22 @@
                 <div class="dates clearfix">
                     <?php $prev = strtotime('-1 day',strtotime($model->date)); ?>
                     <?php if ($model->dateHoroscopeExist($prev)):?>
-                        <span class="a-left"><?=$model->getDateLink($prev) ?> ←</span>
+                        <span class="a-left"><?=$model->getDateLink($prev) ?></span>
                     <?php endif ?>
                     <?php $next = strtotime('+1 day',strtotime($model->date)); ?>
                     <?php if ($model->dateHoroscopeExist($next)):?>
-                    <span class="a-right">→ <?=$model->getDateLink($next) ?></span>
+                    <span class="a-right"><?=$model->getDateLink($next) ?></span>
                     <?php endif ?>
 
 
                     <?php $prev = strtotime('-2 days',strtotime($model->date)); ?>
                     <?php if ($model->dateHoroscopeExist($prev)):?>
-                    <span class="a-left"><?=$model->getDateLink($prev) ?> ←</span>
+                    <span class="a-left"><?=$model->getDateLink($prev) ?></span>
                     <?php endif ?>
 
                     <?php $next = strtotime('+2 days',strtotime($model->date)); ?>
                     <?php if ($model->dateHoroscopeExist($next)):?>
-                    <span class="a-right">→ <?=$model->getDateLink($next) ?></span>
+                    <span class="a-right"><?=$model->getDateLink($next) ?></span>
                     <?php endif ?>
                 </div>
                 <?php endif ?>

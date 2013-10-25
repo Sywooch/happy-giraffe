@@ -9,11 +9,11 @@
 
         <h1><?=$article->title ?></h1>
 
-        <?php if (!empty($article->photoPost->location_image)):?>
+        <?php if (!empty($article->morning->location_image)):?>
             <div class="where">
                 <span>Где:</span>
 
-                <div class="map-box"><a target="_blank" href="<?=$article->photoPost->mapUrl ?>"><img src="<?=$article->photoPost->getImageUrl() ?>"></a></div>
+                <div class="map-box"><a target="_blank" href="<?=$article->morning->mapUrl ?>"><img src="<?=$article->morning->getImageUrl() ?>"></a></div>
             </div>
         <?php endif ?>
 
@@ -37,7 +37,7 @@
 
             <?=Str::strToParagraph($article->preview) ?>
 
-            <?php foreach ($article->photoPost->photos as $photo): ?>
+            <?php foreach ($article->morning->photos as $photo): ?>
             <p><img src="<?=$photo->url ?>" alt=""></p>
             <?=Str::strToParagraph($photo->text) ?>
             <br>
@@ -84,21 +84,13 @@
                 'type' => 'simple',
                 'options' => array(
                     'title' => CHtml::encode($article->title),
-                    'image' => $article->photoPost->getPhoto(),
+                    'image' => $article->morning->getPhoto(),
                     'description' => $article->preview,
                 ),
             )); ?>
             </noindex>
         </div>
-        <br><br>
-        <?php $this->widget('application.widgets.commentWidget.CommentWidget', array(
-        'model' => $article,
-        )); ?>
-        <?php
-        $remove_tmpl = $this->beginWidget('site.frontend.widgets.removeWidget.RemoveWidget');
-        $remove_tmpl->registerTemplates();
-        $this->endWidget();
-        ?>
+        <?php $this->widget('application.widgets.newCommentWidget.NewCommentWidget', array('model' => $article, 'full' => true)); ?>
 
     </div>
 </div>

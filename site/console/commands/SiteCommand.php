@@ -11,6 +11,32 @@ class SiteCommand extends CConsoleCommand
         'lnghost@hotmail.com',
     );
 
+    /**
+     * Запускается в 00:01 каждый день
+     */
+    public function actionStartDay()
+    {
+        Yii::import('site.common.models.mongo.*');
+        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
+
+        //обновляет просмотры гороскопа и популных постов
+        UserAttributes::removeAttr('popular_posts_count');
+        UserAttributes::removeAttr('horoscope_seen');
+        UserAttributes::removeAttr('popular_hide');
+
+        //обновляем просмотры
+        $dataProvider = new CActiveDataProvider('CommunityContent', array('criteria' => array('order' => 'id asc')));
+        $iterator = new CDataProviderIterator($dataProvider, 1000);
+        foreach ($iterator as $content) {
+            $views = PageView::model()->viewsByPath($content->getUrl());
+            if ($views && $views != $content->views) {
+                Yii::app()->db->createCommand()->update('community__contents', array('views' => $views), 'id=' . $content->id);
+            }
+            if ($content->id % 1000 == 0)
+                echo $content->id . "\n";
+        }
+    }
+
     public function actionCheckSeo()
     {
         //robots
@@ -31,65 +57,10 @@ class SiteCommand extends CConsoleCommand
 
         $output =
             'robots.txt - ' . ($robotsResult ? 'OK' : 'BROKEN') . "\n" .
-                'sitemap.xml - ' . ($sitemapResult ? 'OK' : 'BROKEN') . "\n";
+            'sitemap.xml - ' . ($sitemapResult ? 'OK' : 'BROKEN') . "\n";
 
         if (!($robotsResult && $sitemapResult)) {
             mail(implode(', ', $this->recipients), 'happy-giraffe.ru seo check failure', $output);
-        }
-    }
-
-    public $moderators = array(23, 83, 10023, 10264, 10064);
-    public $smo = array(12998, 13093, 13130, 13094, 13217);
-    public $editors = array(10379, 10378, 10265, 12949, 10385, 10384, 13361, 13107, 12950, 13096,
-        13235, 13122, 10433, 13002, 13105, 13099, 12411, 13101, 13103, 13098, 10358, 13136, 10359, 13137, 10391);
-
-    public function actionSendCard($photo_id)
-    {
-        $users = Yii::app()->db->createCommand()
-            ->select('id')
-            ->from('users')
-            ->where('deleted = 0 AND blocked = 0')
-            ->queryAll();
-
-        foreach ($users as $u) {
-            $comment = new Comment('giraffe');
-            $comment->author_id = 1;
-            $comment->entity = 'User';
-            $comment->entity_id = $u['id'];
-            $comment->save();
-
-            $attach = new AttachPhoto;
-            $attach->photo_id = $photo_id;
-            $attach->entity = 'Comment';
-            $attach->entity_id = $comment->id;
-            $attach->save();
-        }
-    }
-
-    public function actionGeneratePreviews()
-    {
-        Yii::import('site.frontend.extensions.image.Image');
-        Yii::import('site.frontend.extensions.helpers.CArray');
-
-        $limit = 1000;
-        $offset = 0;
-        $i = 0;
-
-        while ($photos = AlbumPhoto::model()->active()->findAll(array('order' => 'id DESC', 'limit' => $limit, 'offset' => $offset))) {
-            foreach ($photos as $p) {
-                echo ++$i . ':' . $p->getPreviewUrl(960, 627, Image::HEIGHT) . "\n";
-            }
-            $offset += $limit;
-        }
-    }
-
-    public function actionHoroscope()
-    {
-        Yii::import('site.frontend.modules.services.modules.horoscope.models.*');
-        $models = Horoscope::model()->findAll('date IS NOT NULL');
-        foreach ($models as $model) {
-            $m = new HoroscopeLink();
-            $m->generateLinks($model);
         }
     }
 
@@ -173,54 +144,6 @@ class SiteCommand extends CConsoleCommand
         }
     }
 
-    public function actionFixImages()
-    {
-        Yii::import('site.frontend.components.*');
-        $criteria = new CDbCriteria;
-        $criteria->limit = 100;
-        $criteria->offset = 0;
-        $criteria->condition = 'content_id > 39052 AND content_id < 40000';
-
-        $models = array(0);
-        while (!empty($models)) {
-            $models = CommunityPost::model()->findAll($criteria);
-
-            foreach ($models as $model) {
-                if (strpos($model->text, '<img') !== false) {
-                    echo $model->content_id . "\n";
-                    $model->save();
-                }
-            }
-
-            $criteria->offset += 100;
-        }
-    }
-
-    public function actionFixPreviews()
-    {
-        Yii::import('site.frontend.components.*');
-        $last_id = 39000;
-        $criteria = new CDbCriteria;
-        $criteria->limit = 100;
-        $criteria->condition = 't.id > ' . $last_id . ' AND t.type_id = 1';
-        $criteria->order = 't.id';
-
-        $models = array(0);
-        while (!empty($models)) {
-            $models = CommunityContent::model()->with(array('post'))->findAll($criteria);
-
-            foreach ($models as $model) {
-                if (strpos($model->preview, '<img') !== false) {
-                    echo $model->id . "\n";
-                    $model->purify($model->post->text);
-                }
-                $last_id = $model->id;
-            }
-
-            $criteria->condition = 't.id > ' . $last_id . ' AND t.type_id = 1';
-        }
-    }
-
     public function actionYandexVideo(array $queries, $pages = 50)
     {
         Yii::import('site.frontend.extensions.phpQuery.phpQuery');
@@ -247,58 +170,53 @@ class SiteCommand extends CConsoleCommand
         echo 'Total: ' . array_sum($res);
     }
 
-    public function actionTest()
+    public function actionStats()
     {
-        Yii::import('site.frontend.modules.notification.models.base.*');
-        Yii::import('site.frontend.modules.notification.models.*');
-        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
+        Yii::import('site.frontend.modules.friends.models.*');
+        $criteria = new CDbCriteria;
+        $criteria->condition = 'last_active >= "' . date("Y-m-d H:i:s", strtotime('-3 month')) . '" and deleted = 0 AND `group`=0';
+        $criteria->limit = 100;
+        $criteria->order = 'last_active desc';
+        $criteria->offset = 0;
 
-        for ($i=1;$i< 1000 ;$i++ ) {
-            $comments = Comment::model()->findAll(new CDbCriteria(array('limit' => 100)));
-            $t1 = microtime(true);
-            //Notification::model()->getUnreadCount(10);
+        $models = 1;
+        $fp = fopen('/home/beryllium/file.csv', 'w');
+        while (!empty($models)) {
+            $models = User::model()->findAll($criteria);
 
-            foreach ($comments as $comment)
-                NotificationNewComment::model()->create(rand(1, 1000), $comment);
+            foreach ($models as $model) {
+                $posts_count = CommunityContent::model()->count('author_id=:author_id and removed = 0 and created > :last_month',
+                    array(':author_id' => $model->id, ':last_month' => date("Y-m-d H:i:s", strtotime('-3 month'))));
+                $comments_count = Comment::model()->count('author_id=:author_id and removed = 0 and entity != "ContestWork" and created > :last_month',
+                    array(':author_id' => $model->id, ':last_month' => date("Y-m-d H:i:s", strtotime('-3 month'))));
 
-            echo microtime(true) - $t1 . "\n";
+                if ($comments_count > 0 && $posts_count > 0) {
+                    $result = array(
+                        $model->getFullName(),
+                        'http://www.happy-giraffe.ru/user/' . $model->id . '/',
+                        date("Y-m-d", strtotime($model->register_date)),
+                        date("Y-m-d", strtotime($model->last_active)),
+                        $posts_count,
+                        $comments_count,
+                        Friend::model()->getCountByUserId($model->id)
+                    );
+                    fputcsv($fp, $result);
+                }
+            }
+
+            $criteria->offset = $criteria->offset + 100;
         }
     }
 
-    public function actionTest2(){
-        Yii::import('site.frontend.modules.notification.models.base.*');
-        Yii::import('site.frontend.modules.notification.models.*');
+    /**
+     * Запуск каждый час
+     */
+    public function actionCounter()
+    {
         Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
-
-        $comment = Comment::model()->findByPk(279);
-        NotificationDiscussSubscription::model();
-        $t1 = microtime(true);
-//        Notification::model()->getNotificationsList(6085);
-        NotificationDiscussSubscription::model()->subscribeCommentAuthor($comment);
-//        NotificationNewComment::model()->read(8846, 'CommunityContent', 98);
-        echo microtime(true) - $t1;
-    }
-
-    public function actionCheckFull(){
-        Yii::import('site.frontend.modules.scores.models.*');
-        Yii::import('site.frontend.modules.geo.models.*');
-        Yii::import('site.common.models.interest.*');
-        for($i=49000;$i<200000;$i++){
-            $user = User::model()->with('score')->findByPk($i);
-            if ($user === null)
-                continue;
-            if ($user->score === null){
-                $scores = new UserScores();
-                $scores->user_id = $i;
-                $scores->save();
-                $user->score = $scores;
-            }
-            if ($user !== null && $user->score->full == 0){
-                $user->score->checkFull();
-            }
-
-            if ($i % 1000 == 0)
-                echo $i."\n";
-        }
+        Yii::import('site.common.models.mongo.*');
+        $se_visits = GApi::model()->visitors('/', '2012-04-12', date("Y-m-d"));
+        echo $se_visits . "\n";
+        UserAttributes::set(1, 'all_visitors_count', $se_visits);
     }
 }

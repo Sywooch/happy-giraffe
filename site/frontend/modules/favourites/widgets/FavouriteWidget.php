@@ -9,18 +9,28 @@
 class FavouriteWidget extends CWidget
 {
     public $registerScripts = false;
+    public $right = false;
+    /**
+     * @var CommunityContent
+     */
     public $model;
+    public $applyBindings = true;
 
     public function run()
     {
         $this->registerScripts();
         if ($this->registerScripts)
-            return;
+            return true;
 
         $count = (int) Favourite::model()->getCountByModel($this->model);
         $modelName = get_class($this->model);
+        if ($modelName == 'CommunityContent' && $this->model->getIsFromBlog())
+            $modelName = 'BlogContent';
+        elseif($modelName == 'BlogContent' && !$this->model->getIsFromBlog())
+            $modelName = 'CommunityContent';
+
         $modelId = $this->model->id;
-        $entity = Favourite::model()->getEntityByModel($modelName, $modelId);
+        $entity = Favourite::model()->getEntityByModel($this->model);
         if (! Yii::app()->user->isGuest) {
             $id = 'Favourites_' . get_class($this->model) . '_' . $this->model->id;
             $active = (bool) Favourite::model()->getUserHas(Yii::app()->user->id, $this->model);
@@ -37,7 +47,6 @@ class FavouriteWidget extends CWidget
         $basePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR;
         $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
         Yii::app()->clientScript
-            ->registerScriptFile('/javascripts/knockout-2.2.1.js')
             ->registerScriptFile($baseUrl . '/FavouriteWidget.js')
         ;
     }

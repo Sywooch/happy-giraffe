@@ -22,6 +22,7 @@ class Baby extends HActiveRecord
 {
     const TYPE_WAIT = 1;
     const TYPE_PLANNING = 2;
+    const TYPE_TWINS = 3;
 
     const SEX_GIRL = 0;
     const SEX_BOY = 1;
@@ -50,14 +51,23 @@ class Baby extends HActiveRecord
     public function rules()
     {
         return array(
-            array('parent_id', 'required'),
-            array('name', 'required', 'on'=>'realBaby'),
-            array('birthday', 'type', 'type' => 'date', 'message' => '{attribute}: is not a date!', 'dateFormat' => 'yyyy-MM-dd'),
-            array('parent_id, age_group', 'numerical', 'integerOnly'=>true),
+            array('age_group', 'numerical', 'integerOnly' => true, 'min' => 0, 'max' => 5),
+            array('name', 'length', 'max' => 50),
+            array('birthday', 'date', 'format' => 'yyyy-MM-dd'),
+            array('birthday', 'babyBirthday'),
             array('sex', 'numerical', 'integerOnly' => true, 'min' => 0, 'max' => 2),
-            array('name', 'length', 'max'=>255),
-            array('notice', 'length', 'max'=>100),
-            array('birthday', 'safe'),
+            array('notice', 'length', 'max' => 100),
+            array('type', 'numerical', 'integerOnly' => true, 'min' => 1, 'max' => 3),
+            array('main_photo_id', 'exist', 'className' => 'AlbumPhoto', 'attributeName' => 'id'),
+
+//            array('parent_id', 'required'),
+//            array('name', 'required', 'on'=>'realBaby'),
+//            array('birthday', 'type', 'type' => 'date', 'message' => '{attribute}: is not a date!', 'dateFormat' => 'yyyy-MM-dd'),
+//            array('parent_id, age_group', 'numerical', 'integerOnly'=>true),
+//            array('sex', 'numerical', 'integerOnly' => true, 'min' => 0, 'max' => 2),
+//            array('name', 'length', 'max'=>255),
+//            array('notice', 'length', 'max'=>100),
+//            array('birthday', 'safe'),
         );
     }
 
@@ -83,21 +93,36 @@ class Baby extends HActiveRecord
         return $interval->y;
     }*/
 
-    public function getTextAge($bold = true)
+    public function getTextAge()
     {
-        if ($this->birthday === null) return null;
+        if ($this->birthday === null)
+            return '';
+
+        if ($this->type == self::TYPE_WAIT || $this->type == self::TYPE_TWINS)
+            return $this->getPregnancyWeeks();
 
         $date1 = new DateTime($this->birthday);
         $date2 = new DateTime(date('Y-m-d'));
         $interval = $date1->diff($date2);
 
-        $years_text = ($bold?$interval->y.' ':$interval->y.' ').HDate::GenerateNoun(array('год', 'года', 'лет'), $interval->y);
-        $month_text = ($bold?$interval->m.' ':$interval->m.' ').'мес.';
+        if ($interval->days == 0)
+            return 'Сегодня';
+
+        if ($interval->days < 7)
+            return $interval->d . ' ' . Str::GenerateNoun(array('день', 'дня', 'дней'), $interval->d);
+
+        if ($interval->m == 0 && $interval->y == 0) {
+            $weeks = floor($interval->d / 7);
+            return $weeks . ' ' . Str::GenerateNoun(array('неделя', 'недели', 'недель'), $weeks);
+        }
+
         if ($interval->y == 0)
-            return $month_text;
-        if ($interval->y <= 3)
-            return $years_text.' '.$month_text;
-        return $years_text;
+            return $interval->m . ' ' . Str::GenerateNoun(array('месяц', 'месяца', 'месяцев'), $interval->m);
+
+        if ($interval->y < 3)
+            return $interval->y . ' ' . Str::GenerateNoun(array('год', 'года', 'лет'), $interval->y) . ' ' . ($interval->m > 0 ? $interval->m . ' ' . Str::GenerateNoun(array('месяц', 'месяца', 'месяцев'), $interval->m) : '');
+
+        return $interval->y . ' ' . Str::GenerateNoun(array('год', 'года', 'лет'), $interval->y);
     }
 
     public function getAgeImageUrl()
@@ -137,7 +162,7 @@ class Baby extends HActiveRecord
         $date1 = new DateTime($this->birthday);
         $date2 = new DateTime(date('Y-m-d'));
         $interval = $date1->diff($date2);
-        return $interval->y.' '.HDate::GenerateNoun(array('год', 'года', 'лет'), $interval->y);*/
+        return $interval->y.' '.Str::GenerateNoun(array('год', 'года', 'лет'), $interval->y);*/
         return $this->getTextAge();
     }
 
@@ -155,6 +180,29 @@ class Baby extends HActiveRecord
 
         $i = rand(0, count($this->photos)-1);
         return $this->photos[$i]->photo->getPreviewUrl(180, 180);
+    }
+
+    protected function beforeSave()
+    {
+        if ($this->birthday !== null) {
+            $date1 = new DateTime($this->birthday);
+            $date2 = new DateTime(date('Y-m-d'));
+            $interval = $date1->diff($date2);
+            if ($interval->y < 1)
+                $this->age_group = 0;
+            if ($interval->y >= 1 && $interval->y < 3)
+                $this->age_group = 1;
+            if ($interval->y >= 3 && $interval->y < 6)
+                $this->age_group = 2;
+            if ($interval->y >= 6 && $interval->y < 12)
+                $this->age_group = 3;
+            if ($interval->y >= 12 && $interval->y < 18)
+                $this->age_group = 4;
+            if ($interval->y >= 18)
+                $this->age_group = 5;
+        }
+
+        return parent::beforeSave();
     }
 
     protected function afterSave()
@@ -191,5 +239,23 @@ class Baby extends HActiveRecord
         $bd = new DateTime($this->birthday);
         $interval = $now->diff($bd);
         return $interval->y;
+    }
+
+    public function babyBirthday($attribute, $params)
+    {
+        if ($this->type === null) {
+            $date1 = new DateTime($this->birthday);
+            $date2 = new DateTime(date('Y-m-d'));
+            $interval = $date1->diff($date2);
+            if ($interval->invert == 1)
+                $this->addError($attribute, 'Неверная дата рождения.');
+        }
+        if ($this->type == self::TYPE_WAIT || $this->type == self::TYPE_TWINS) {
+            $date1 = new DateTime(date('Y-m-d'));
+            $date2 = new DateTime($this->birthday);
+            $interval = $date1->diff($date2);
+            if ($interval->invert == 1 || $interval->y !== 0 || $interval->m > 9)
+                $this->addError($attribute, 'Неверная планируемая дата родов.');
+        }
     }
 }

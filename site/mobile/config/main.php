@@ -19,6 +19,7 @@ return array(
         'site.frontend.modules.geo.models.*',
 
         'site.frontend.components.*',
+        'site.frontend.components.video.*',
         'site.common.components.*',
         'site.common.helpers.*',
         'site.common.models.*',
@@ -26,9 +27,17 @@ return array(
         'site.common.models.mobile.*',
         'application.components.*',
         'application.widgets.*',
+        'site.frontend.extensions.directmongosuite.*',
 	),
 
-	'modules'=>array(
+    'behaviors' => array(
+        'edms' => array(
+            'class'=>'EDMSBehavior',
+            'connectionId' => 'mongodb',
+        )
+    ),
+
+    'modules'=>array(
 		// uncomment the following to enable the Gii tool
 		/*
 		'gii'=>array(

@@ -13,6 +13,15 @@ class CompatibilityController extends HController
         );
     }
 
+    public function beforeAction($action)
+    {
+        $this->breadcrumbs = array(
+            'Гороскопы'
+        );
+
+        return parent::beforeAction($action);
+    }
+
     /**
      * @sitemap dataSource=sitemapCompatibility
      */

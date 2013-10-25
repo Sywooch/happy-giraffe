@@ -15,7 +15,7 @@ class MonthStats
         Yii::import('site.frontend.modules.messaging.models.*');
         Yii::import('site.frontend.modules.friends.models.*');
         echo "clubs\n";
-        for ($i = 9; $i > 0; $i--) {
+        for ($i = 6; $i > 0; $i--) {
             $this->dates($i);
             $criteria = $this->getCriteria();
             $criteria->with = array('rubric');
@@ -35,7 +35,7 @@ class MonthStats
 //        echo "likes\n";
 //        for ($i = 9; $i > 0; $i--) {
 //            $this->dates($i);
-//            $count = RatingYohoho::model()->DateLikes($this->date1, $this->date2);
+//            $count = HGLike::model()->DateLikes($this->date1, $this->date2);
 //            echo $count . "\n";
 //        }
 //

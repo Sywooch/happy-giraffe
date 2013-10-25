@@ -18,6 +18,39 @@
     <div class="user-cols clearfix">
 
         <div class="col-1">
+            <?php if ($this->action->id == 'view'): ?>
+                <div class="banner">
+                    <!--AdFox START-->
+                    <!--giraffe-->
+                    <!--Площадка: Весёлый Жираф / * / *-->
+                    <!--Тип баннера: Безразмерный 240x400-->
+                    <!--Расположение: &lt;сайдбар&gt;-->
+                    <!-- ________________________AdFox Asynchronous code START__________________________ -->
+                    <script type="text/javascript">
+                        <!--
+                        if (typeof(pr) == 'undefined') { var pr = Math.floor(Math.random() * 1000000); }
+                        if (typeof(document.referrer) != 'undefined') {
+                            if (typeof(afReferrer) == 'undefined') {
+                                afReferrer = escape(document.referrer);
+                            }
+                        } else {
+                            afReferrer = '';
+                        }
+                        var addate = new Date();
+
+
+                        var dl = escape(document.location);
+                        var pr1 = Math.floor(Math.random() * 1000000);
+
+                        document.write('<div id="AdFox_banner_'+pr1+'"><\/div>');
+                        document.write('<div style="visibility:hidden; position:absolute;"><iframe id="AdFox_iframe_'+pr1+'" width=1 height=1 marginwidth=0 marginheight=0 scrolling=no frameborder=0><\/iframe><\/div>');
+
+                        AdFox_getCodeScript(1,pr1,'http://ads.adfox.ru/211012/prepareCode?pp=dey&amp;ps=bkqy&amp;p2=etcx&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a&amp;pr=' + pr +'&amp;pt=b&amp;pd=' + addate.getDate() + '&amp;pw=' + addate.getDay() + '&amp;pv=' + addate.getHours() + '&amp;prr=' + afReferrer + '&amp;dl='+dl+'&amp;pr1='+pr1);
+                        // -->
+                    </script>
+                    <!-- _________________________AdFox Asynchronous code END___________________________ -->
+                </div>
+            <?php endif; ?>
 
             <div class="clearfix user-info-big">
                 <?php
@@ -42,7 +75,7 @@
             <?php endif; ?>
 
             <?php if($this->beginCache('blog-rubrics', array(
-                'duration' => 600,
+                'duration' => 3600,
                 'dependency' => array(
                     'class' => 'CDbCacheDependency',
                     'sql' => 'SELECT MAX(updated) FROM community__contents c
@@ -84,6 +117,31 @@
                 //));
             ?>
 
+            <?php if (false): ?>
+            <div style="width: 160px; margin: 40px auto;">
+                <!-- R-87026-2 ﬂÌ‰ÂÍÒ.RTB-·ÎÓÍ  -->
+                <div id="yandex_ad_R-87026-2"></div>
+                <script type="text/javascript">
+                    (function(w, d, n, s, t) {
+                        w[n] = w[n] || [];
+                        w[n].push(function() {
+                            Ya.Context.AdvManager.render({
+                                blockId: "R-87026-2",
+                                renderTo: "yandex_ad_R-87026-2",
+                                async: true
+                            });
+                        });
+                        t = d.getElementsByTagName("script")[0];
+                        s = d.createElement("script");
+                        s.type = "text/javascript";
+                        s.src = "//an.yandex.ru/system/context.js";
+                        s.async = true;
+                        t.parentNode.insertBefore(s, t);
+                    })(this, this.document, "yandexContextAsyncCallbacks");
+                </script>
+            </div>
+            <?php endif; ?>
+
             <?php if($this->beginCache('blog-popular', array(
                 'duration' => 600,
                 'varyByParam' => array('user_id'),
@@ -115,6 +173,20 @@
 
             <?php $this->endCache(); endif;  ?>
 
+            <?php if ($this->action->id == 'view'): ?>
+                <div style="width: 160px; margin: 40px auto;">
+                    <script async src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                    <!-- ÕÂ·ÓÒÍÂ· -->
+                    <ins class="adsbygoogle"
+                         style="display:inline-block;width:160px;height:600px"
+                         data-ad-client="ca-pub-3807022659655617"
+                         data-ad-slot="7252172488"></ins>
+                    <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+            <?php endif; ?>
+
             <?php if($this->beginCache('blog-readers', array(
                 'duration' => 600,
                 'dependency' => array(
@@ -141,7 +213,7 @@
                             $class = 'ava small';
                             if ($u->gender !== null) $class .= ' ' . (($u->gender) ? 'male' : 'female');
                             ?>
-                            <li><?=CHtml::link(CHtml::image($u->getAva('small')), $u->url, array('class' => $class))?></li>
+                            <li><?=CHtml::link(CHtml::image($u->getAvatarUrl(Avatar::SIZE_MICRO)), $u->url, array('class' => $class))?></li>
                         <?php endforeach; ?>
 
                     </ul>
@@ -157,7 +229,7 @@
                     'duration' => 600,
                     'dependency' => array(
                         'class' => 'CDbCacheDependency',
-                        'sql' => 'SELECT MAX(p.created) FROM album__photos p
+                        'sql' => 'SELECT MAX(p.id) FROM album__photos p
                             JOIN album__albums a ON p.album_id = a.id
                             WHERE a.type = 0 AND p.author_id = ' . $this->user->id,
                     ),
@@ -274,7 +346,7 @@
 
             </div>
 
-            <div class="rubrics tab-box tab-box-2">
+            <div class="rubrics tab-box tab-box-2" id="rubrics">
 
                 <div class="note">Редактируйте рубрики. Вы можете: создать новую, удалить, изменить название, переместить рубрику на другое место <span>*</span></div>
 
@@ -470,7 +542,7 @@
 
     var allData = <?=CJSON::encode($this->user->blog_rubrics)?>;
     var BlogRubrics = new BlogRubricsViewModel(allData);
-    ko.applyBindings(BlogRubrics);
+    ko.applyBindings(BlogRubrics, document.getElementById('rubrics'));
 
     $(function() {
         $(".sortable").sortable({

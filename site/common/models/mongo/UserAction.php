@@ -37,6 +37,10 @@ class UserAction extends EMongoDocument
     public $data;
     public $blockData = null;
 
+    /**
+     * @param string $className
+     * @return UserAction
+     */
     public static function model($className = __CLASS__)
     {
         return parent::model($className);

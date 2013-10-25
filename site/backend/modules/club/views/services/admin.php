@@ -17,8 +17,13 @@
             'type' => 'raw'
         ),
         array(
-            'name' => 'category_id',
-            'value' => '$data->category->title',
+            'name' => 'community_id',
+            'value' => '($data->community) ? $data->community->title : ""',
+            'type' => 'raw'
+        ),
+        array(
+            'name' => 'community_id',
+            'value' => '$data->CommunitiesText()',
             'type' => 'raw'
         ),
         array(

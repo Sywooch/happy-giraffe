@@ -92,7 +92,6 @@ var CookModule = {
                 $(el).parents('td').addClass('seo-status-publish-2').text('На публикации');
 
                 $('#publish-table').append(row.remove());
-                calcTaskCount();
             }
         }, 'json');
     },

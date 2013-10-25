@@ -2,6 +2,7 @@
 
 class SiteController extends HController
 {
+    public $layout = '//layouts/main';
 	/**
 	 * Declares class-based actions.
 	 */
@@ -21,17 +22,15 @@ class SiteController extends HController
 		);
 	}
 
-    public function actionServices($category_id = null)
+    protected function beforeAction($action)
     {
-        $categories = ServiceCategory::model()->with('servicesCount')->findAll();
+        return $action->id == 'error' ? true : parent::beforeAction($action);
+    }
 
-        $criteria = new CDbCriteria;
-        $criteria->compare('t.id', $category_id);
-
-        $services = ServiceCategory::model()->with('services')->findAll($criteria);
-
-        $this->pageTitle = 'Полезные сервисы для всей семьи';
-        $this->render('services', compact('categories', 'services', 'category_id'));
+    protected function afterRender($view, &$output)
+    {
+        if ($this->action->id != 'error')
+            parent::afterRender($view, $output);
     }
 
     public function actionSeoHide($hash)
@@ -68,15 +67,15 @@ class SiteController extends HController
         $videoCount = count($videoSearch['matches']);
 
         $criteria = new CDbCriteria;
-        $criteria->with = array('travel', 'video', 'post');
+        $criteria->with = array('video', 'post');
 
         $dataProvider = new CArrayDataProvider($resIterator->getRawData(), array(
             'keyField' => 'id',
         ));
 
-            $viewData = compact('dataProvider', 'criteria', 'index', 'text', 'allCount', 'textCount', 'videoCount', 'travelCount');
+            $viewData = compact('dataProvider', 'criteria', 'index', 'text', 'allCount', 'textCount', 'videoCount');
         }else
-            $viewData = array('dataProvider'=>null, 'criteria'=>null, 'index'=>$index, 'text'=>'', 'allCount'=>0, 'textCount'=>0, 'videoCount'=>0, 'travelCount'=>0);
+            $viewData = array('dataProvider'=>null, 'criteria'=>null, 'index'=>$index, 'text'=>'', 'allCount'=>0, 'textCount'=>0, 'videoCount'=>0);
         $this->render('search', $viewData);
     }
 
@@ -85,11 +84,12 @@ class SiteController extends HController
 	 */
 	public function actionIndex()
 	{
+        if (! Yii::app()->user->isGuest)
+            $this->redirect(array('myGiraffe/default/index', 'type' => 1));
+
+        $this->layout = '//layouts/common';
 		$this->pageTitle = 'Веселый Жираф - сайт для всей семьи';
-        Yii::import('site.frontend.widgets.*');
-        Yii::import('site.frontend.widgets.home.*');
-        $user = Yii::app()->user->getModel();
-        $this->render('home', compact('user'));
+        $this->render('home');
 	}
 
 	/**
@@ -333,7 +333,6 @@ class SiteController extends HController
         if (!$user->email_confirmed){
             $user->email_confirmed = 1;
             $user->update(array('email_confirmed'));
-            Yii::app()->user->getModel()->score->checkFull();
         }
 
         $identity = new SafeUserIdentity($user_id);
@@ -383,17 +382,9 @@ class SiteController extends HController
         $password = $user->createPassword(12);
         $user->password = $user->hashPassword($password);
 
-        if (! ($user->save() &&  Yii::app()->email->send($user, 'passwordRecovery', array('password' => $password)))) {
-            echo CJSON::encode(array(
-                'status' => 'error',
-                'message' => '<span>Произошла неизвестная ошибка. Попробуйте ещё раз.</span>',
-            ));
-        } else {
-            echo CJSON::encode(array(
-                'status' => 'ok',
-                'message' => '<span>На ваш e-mail адрес было выслано письмо с вашим паролем</span><br/><span>(также проверьте, пожалуйста, папку «Спам»)</span>',
-            ));
-        }
+        $success = $user->save() &&  Yii::app()->email->send($user, 'passwordRecovery', array('password' => $password));
+        $response = compact('success');
+        echo CJSON::encode($response);
     }
 
     public function actionFixPhoto($id)
@@ -411,8 +402,54 @@ class SiteController extends HController
 
     public function actionTest()
     {
-        $galleries = CommunityContentGallery::model()->with('content')->findAll(array('condition' => 'content.removed = 0'));
-        foreach ($galleries as $g)
-            echo CHtml::link($g->content->title, $g->content->url) . '<br />';
+        Yii::import('site.frontend.extensions.phpQuery.phpQuery');
+        $url = 'http://habrahabr.ru/post/183598/';
+        $res = LinkParser::getInstance()->parse($url);
+
+        var_dump($res);
+    }
+
+    public function actionOut($url)
+    {
+        $this->redirect($url);
+    }
+
+    public function actionHh($code)
+    {
+        $hh = new HhParser($code);
+        $data = $hh->run();
+
+        $fp = fopen(Yii::getPathOfAlias('site.common.data') . '/hh.csv', 'w');
+
+        foreach ($data as $fields)
+            fputcsv($fp, $fields);
+
+        fclose($fp);
+    }
+
+    public function actionFlushSchema()
+    {
+        // Load all tables of the application in the schema
+        Yii::app()->db->schema->getTables();
+        // clear the cache of all loaded tables
+        Yii::app()->db->schema->refresh();
+
+        Yii::app()->db->schema->getTable('myTable',true);
+    }
+
+    public function actionVacancy()
+    {
+        $this->layout = '//layouts/common';
+        $this->pageTitle = 'Вакансия «PHP-разработчик»';
+        $this->render('vacancy');
+    }
+
+    public function actionVacancySend()
+    {
+        $emails = array('nikita@happy-giraffe.ru', 'info@happy-giraffe.ru');
+        foreach ($emails as $e) {
+            $html = $this->renderFile(Yii::getPathOfAlias('site.common.tpl') . DIRECTORY_SEPARATOR . 'vacancy.php', $_POST, true);
+            ElasticEmail::send($e, 'Отклик на вакансию', $html, $_POST['email'], $_POST['name']);
+        }
     }
 }

@@ -1,7 +1,12 @@
 <?php
 /**
- * Author: alexk984
- * Date: 11.03.13
+ * Class WordstatQueryModify
+ *
+ * Добавление + перед предлогами к ключевому слову, для более корректного парсинга wordstat
+ *
+ * работа у меня => работа +у +меня
+ *
+ * @author Alex Kireev <alexk984@gmail.com>
  */
 class WordstatQueryModify
 {

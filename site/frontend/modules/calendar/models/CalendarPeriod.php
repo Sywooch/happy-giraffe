@@ -125,8 +125,10 @@ class CalendarPeriod extends HActiveRecord
 
     public function behaviors()
     {
-        return array('CAdvancedArBehavior',
-            array('class' => 'site.frontend.extensions.CAdvancedArBehavior')
+        return array(
+            'CAdvancedArBehavior' => array(
+                'class' => 'site.frontend.extensions.CAdvancedArBehavior',
+            ),
         );
     }
 
@@ -158,7 +160,7 @@ class CalendarPeriod extends HActiveRecord
             $urls = explode("\n", $this->contentsText);
             $ids = array();
             foreach ($urls as $url) {
-                if (preg_match('#\/community\/(?:\d+)\/forum\/(?:video|post|travel)\/(\d+)#', $url, $matches))
+                if (preg_match('#\/community\/(?:\d+)\/forum\/(?:video|post)\/(\d+)#', $url, $matches))
                     $ids[] = $matches[1];
             }
             $this->contents = $ids;

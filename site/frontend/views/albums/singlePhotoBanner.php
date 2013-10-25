@@ -53,12 +53,7 @@
 
                     <div class="user clearfix">
 
-                        <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
-                            'user' => $photo->author,
-                            'size' => 'small',
-                            'sendButton' => false,
-                            'location' => false
-                        )); ?>
+                        <?php $this->widget('Avatar', array('user' => $photo->author, 'size' => Avatar::SIZE_MICRO)); ?>
 
                         <?php $this->widget('FavouriteWidget', array('model' => $photo)); ?>
 
@@ -119,15 +114,10 @@ if (isset($model->content) && method_exists($model->content, 'isValentinePost') 
         ),
     ));
 
-    $this->widget('site.frontend.widgets.commentWidget.CommentWidget', array(
-        'model' => $post,
-        'photoContainer'=>true
-    ));
+    $this->widget('application.widgets.newCommentWidget.NewCommentWidget', array('model' => $photo, 'full' => true));
 }
 else {
     $this->widget('site.frontend.widgets.socialLike.SocialLikeWidget', array(
-        'title' => 'Вам понравилось фото?',
-        'notice' => (get_class($model) == 'Contest') ? '<big>Это конкурсные баллы</big><p>Нажатие на кнопку социальных сетей +1 балл.<br />Нажатие сердечка от Весёлого Жирафа +2 балла.</p>' : '<big>Рейтинг фото</big><p>Он показывает, насколько нравится ваше фото другим пользователям. Если фото интересное, то пользователи его смотрят, комментируют, увеличивают лайки социальных сетей.</p>',
         'model' => (get_class($model) == 'Contest') ? $photo->getAttachByEntity('ContestWork')->model : $photo,
         'type' => 'simple',
         'options' => array(
@@ -148,8 +138,5 @@ else {
     </div>
     <?php }
 
-    $this->widget('site.frontend.widgets.commentWidget.CommentWidget', array(
-        'model' => $photo,
-        'photoContainer'=>true
-    ));
+    $this->widget('application.widgets.newCommentWidget.NewCommentWidget', array('model' => $photo, 'full' => true));
 }

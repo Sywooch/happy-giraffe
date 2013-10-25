@@ -18,6 +18,8 @@ return array(
         'site.frontend.helpers.CArray',
         'site.frontend.helpers.*',
         'site.frontend.extensions.YiiMongoDbSuite.*',
+        'site.frontend.extensions.image.*',
+        'site.frontend.extensions.directmongosuite.*',
 
         'application.models.*',
         'application.models.mongo.*',
@@ -37,6 +39,12 @@ return array(
     /*'catchAllRequest' => (in_array($_SERVER['REMOTE_ADDR'], array('188.233.179.142')))?null:array(
         '/site/maintenance',
     ),*/
+    'behaviors' => array(
+        'edms' => array(
+            'class'=>'EDMSBehavior',
+            'connectionId' => 'mongodb',
+        )
+    ),
 
     'modules' => array(
         'competitors',

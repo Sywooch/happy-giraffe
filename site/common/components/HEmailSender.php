@@ -15,6 +15,7 @@ class HEmailSender extends CApplicationComponent
         'confirmEmail' => 'Подтверждение e-mail - Весёлый Жираф',
         'resendConfirmEmail' => 'Подтверждение e-mail - Весёлый Жираф',
         'contest_continue'=>'Новости фотоконкурса «Мой друг» на «Веселом Жирафе»',
+        'contest_pets' => '',
     );
 
     public function send($user, $action, $params = array(), $controller = null)

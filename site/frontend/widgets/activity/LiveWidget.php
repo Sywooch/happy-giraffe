@@ -23,11 +23,10 @@ class LiveWidget extends CWidget
             'post' => array(
                 'select' => array('text', 'content_id', 'photo_id')
             ),
-            'contentAuthor' => array(
+            'author' => array(
                 'select' => array('id', 'first_name', 'last_name', 'avatar_id', 'online', 'blocked', 'deleted')
             ),
             'video',
-            'travel'
         );
 
         $criteria->order = 'created DESC';

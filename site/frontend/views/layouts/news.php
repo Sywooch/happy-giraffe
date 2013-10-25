@@ -28,12 +28,12 @@
 
                 $items[] = array(
                     'label' => 'Все новости',
-                    'url' => array('community/list', 'community_id' => $this->community->id),
+                    'url' => array('community/default/forum', 'forum_id' => $this->forum->id),
                     'template' => '<span>{menu}</span>',//<div class="count">' . $this->community->count . '</div>',
                     'active' => ! (in_array($this->action->id, array('contacts', 'authors'))) && $this->rubric_id === null,
                 );
 
-                foreach ($this->community->rubrics as $rubric) {
+                foreach ($this->forum->rubrics as $rubric) {
                     $params = array('rubric_id' => $rubric->id);
                     if ($this->action->id == 'view')
                         $params['content_type_slug'] = null;

@@ -36,14 +36,10 @@ class UserMailSub extends HActiveRecord
 	 */
 	public function rules()
 	{
-		// NOTE: you should only define rules for those attributes that
-		// will receive user inputs.
 		return array(
 			array('user_id', 'required'),
 			array('weekly_news, new_messages', 'numerical', 'integerOnly'=>true),
 			array('user_id', 'length', 'max'=>11),
-			// The following rule is used by search().
-			// Please remove those attributes that should not be searched.
 			array('user_id, weekly_news, new_messages', 'safe', 'on'=>'search'),
 		);
 	}
@@ -53,42 +49,8 @@ class UserMailSub extends HActiveRecord
 	 */
 	public function relations()
 	{
-		// NOTE: you may need to adjust the relation name and the related
-		// class name for the relations automatically generated below.
 		return array(
 			'user' => array(self::BELONGS_TO, 'User', 'user_id'),
 		);
-	}
-
-	/**
-	 * @return array customized attribute labels (name=>label)
-	 */
-	public function attributeLabels()
-	{
-		return array(
-			'user_id' => 'User',
-			'weekly_news' => 'Weekly News',
-			'new_messages' => 'New Messages',
-		);
-	}
-
-	/**
-	 * Retrieves a list of models based on the current search/filter conditions.
-	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
-	 */
-	public function search()
-	{
-		// Warning: Please modify the following code to remove attributes that
-		// should not be searched.
-
-		$criteria=new CDbCriteria;
-
-		$criteria->compare('user_id',$this->user_id,true);
-		$criteria->compare('weekly_news',$this->weekly_news);
-		$criteria->compare('new_messages',$this->new_messages);
-
-		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-		));
 	}
 }

@@ -10,6 +10,8 @@ return array(
          *      CONTROLLERS      *
          *************************/
 
+        'testupload' => 'blog/default/upload',
+
         // global
         '.*/index' => 404,
 
@@ -19,7 +21,20 @@ return array(
         'findFriends/byStatus' => array('friends/find', 'defaultParams' => array('type' => 3)),
 
         // photo view
-        'community/<community_id:\d+>/forum/post/<content_id:\d+>/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'CommunityContentGallery')),
+        //'user/<user_id:\d+>/blog/post<content_id:\w+>/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'CommunityContentGallery')),
+        array(
+            'class' => 'application.components.PhotoUrlRule',
+            'pattern' => 'user/<user_id:\d+>/blog/post<content_id:\w+>/photo<photo_id:\d+>',
+            'route' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'CommunityContentGallery')),
+            'blog' => true,
+        ),
+        //'community/<community_id:\d+>/forum/(post|photoPost)/<content_id:\d+>/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'CommunityContentGallery')),
+        array(
+            'class' => 'application.components.PhotoUrlRule',
+            'pattern' => 'community/<community_id:\d+>/forum/(post|photoPost)/<content_id:\d+>/photo<photo_id:\d+>',
+            'route' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'CommunityContentGallery')),
+            'blog' => false,
+        ),
         'user/<user_id:\d+>/albums/<album_id:\d+>/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'Album')),
         'cook/recipe/<recipe_id:\d+>/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'SimpleRecipe')),
         'cook/multivarka/<recipe_id:\d+>/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'MultivarkaRecipe')),
@@ -32,17 +47,23 @@ return array(
         // site controller
         '/' => 'site/index',
         'js_dynamics/<hash:\w+>.js' => 'site/seoHide',
-        'search' => 'site/search',
-        'moderation'=>'site/moderationRules',
-        'site/<_a:(confirmEmail|resendConfirmEmail|passwordRecovery|passwordRecoveryForm|login|logout|link|fixPhoto)>' => 'site/<_a>',
-        //'contest' => 'site/contest',
-        'services/<category_id:\d+>' => 'site/services',
-        'services' => 'site/services',
+        'moderation' => 'site/moderationRules',
+        'site/<_a:(confirmEmail|resendConfirmEmail|passwordRecovery|passwordRecoveryForm|login|logout|link|out|hh|flushSchema|vacancySend)>' => 'site/<_a>',
+        'advertiser' => array('site/page', 'defaultParams' => array('view' => 'advertiser')),
+        'job/php-developer' => 'site/vacancy',
+
+        //===================== Subscribes =========================//
+        'subscribes' => 'myGiraffe/default/subscribes',
+        'recommends' => 'myGiraffe/default/recommends',
+        'my/friends' => array('myGiraffe/default/index', 'defaultParams' => array('type' => 2)),
+        'my/blogs' => array('myGiraffe/default/index', 'defaultParams' => array('type' => 3)),
+        'my/community/<community_id:\d+>' => array('myGiraffe/default/index', 'defaultParams' => array('type' => 4)),
+        'my' => array('myGiraffe/default/index', 'defaultParams' => array('type' => 1)),
+        'my/<_a>' => 'myGiraffe/default/<_a>',
 
         // ajax controller
-        'ajax/duelShow/question_id/<question_id:\d+>' => 'ajax/duelShow',
-        'counter'=>'ajaxSimple/counter',
-        'ajaxSimple/<_a>'=>'ajaxSimple/<_a>',
+        //'ajax/duelShow/question_id/<question_id:\d+>' => 'ajax/duelShow',
+        'ajaxSimple/<_a>' => 'ajaxSimple/<_a>',
 
         // signup controller
         'signup' => 'signup/index',
@@ -72,21 +93,33 @@ return array(
         'albums/addPhoto/a/<a:\d+>' => 'albums/addPhoto',
         'albums/addPhoto' => 'albums/addPhoto',
         'albums/redirect/<id:\d+>' => 'albums/redirect',
-        'albums/<_a:(attach|wPhoto|attachView|editDescription|editPhotoTitle|changeTitle|changePermission|removeUploadPhoto|communityContentEdit|communityContentSave|partnerPhoto|recipePhoto|cookDecorationPhoto|cookDecorationCategory|commentPhoto|crop|changeAvatar|humorPhoto|albumSettings|updatePhoto|postLoad|updateAlbum|messagingMessagePhoto)>' => 'albums/<_a>',
+        'albums/<_a:(attach|wPhoto|attachView|editDescription|editPhotoTitle|changeTitle|changePermission|removeUploadPhoto|communityContentEdit|communityContentSave|partnerPhoto|recipePhoto|cookDecorationPhoto|cookDecorationCategory|commentPhoto|crop|changeAvatar|humorPhoto|albumSettings|updatePhoto|postLoad|updateAlbum|messagingMessagePhoto|uploadPhoto)>' => 'albums/<_a>',
 
         // user/*
-        'user/<user_id:\d+>' => 'user/profile',
-        'user/<user_id:\d+>/clubs' => 'user/clubs',
-        'user/<user_id:\d+>/friends' => 'user/friends',
-        'user/<user_id:\d+>/blog/rubric<rubric_id:\d+>' => 'blog/list',
-        'user/<user_id:\d+>/blog' => 'blog/list',
-        'user/<user_id:\d+>/blog/post<content_id:\d+>' => 'blog/view',
+
+        'blog/form/type<type:\d+>' => 'blog/default/form',
+        'blog/settings/<_a>' => 'blog/settings/<_a>',
+
+        'user/settings/' => 'profile/settings/personal',
+        'user/settings/<_a>' => 'profile/settings/<_a>',
+        'user/<user_id:\d+>/blog/rubric<rubric_id:\d+>' => 'blog/default/index',
+        'user/<user_id:\d+>/blog/post<content_id:\d+>' => 'blog/default/view',
+        'user/<user_id:\d+>/blog' => 'blog/default/index',
+        'newblog/<_a:>' => 'blog/default/<_a>',
+
+        'user/<user_id:\d+>' => 'profile/default/index',
+        'user/<user_id:\d+>/friends' => 'profile/default/friends',
+        'user/<user_id:\d+>/award/<id:\d+>' => array('profile/default/award', 'defaultParams' => array('type' => 'award')),
+        'user/<user_id:\d+>/achievement/<id:\d+>' => array('profile/default/award', 'defaultParams' => array('type' => 'achievement')),
+        'user/<user_id:\d+>/awards' => 'profile/default/awards',
+        'profile/<_a>' => 'profile/default/<_a>',
+
         'user/<user_id:\d+>/rss/page<page:\d+>' => 'rss/user',
         'user/<user_id:\d+>/rss' => 'rss/user',
         'user/<user_id:\d+>/comments/rss/page<page:\d+>' => 'rss/comments',
         'user/<user_id:\d+>/comments/rss' => 'rss/comments',
-        'user/<id:\d+>/albums' => 'albums/user',
-        'user/<user_id:\d+>/albums/<id:\d+>' => 'albums/view',
+        'user/<user_id:\d+>/albums' => 'gallery/user/index',
+        'user/<user_id:\d+>/albums/<album_id:\d+>' => 'gallery/user/view',
         'user/<user_id:\d+>/albums/<album_id:\d+>/photo<id:\d+>' => 'albums/photo',
         'user/<_a:(updateMood|activityAll)>' => 'user/<_a>',
         'user/createRelated/relation/<relation:\w+>/' => 'user/createRelated',
@@ -98,30 +131,45 @@ return array(
         'blog/add/content_type_slug/<content_type_slug>/rubric_id/<rubric_id:\d+>' => 'blog/add',
         'blog/<_a:(add|empty)>' => 'blog/<_a>',
 
+
+        /************************************************* community  *************************************************/
+        array(
+            'class' => 'application.components.ClubUrlRule',
+            'pattern' => '<club:[\w-]+>',
+            'route' => 'community/default/club',
+        ),
+        array(
+            'class' => 'application.components.ClubUrlRule',
+            'pattern' => '<club:[\w-]+>/services',
+            'route' => 'community/default/services',
+        ),
+
         // community/*
         'community/36.*' => 404,
-        'news/rubric<rubric_id:\d+>' => array('community/list', 'defaultParams' => array('community_id' => 36)),
-        'news' => array('community/list', 'defaultParams' => array('community_id' => 36)),
-        'news/<content_type_slug:[a-z]+><content_id:\d+>' => array('community/view', 'defaultParams' => array('community_id' => 36)),
+        'news/rubric<rubric_id:\d+>' => array('community/default/forum', 'defaultParams' => array('forum_id' => 36)),
+        'news' => array('community/default/forum', 'defaultParams' => array('forum_id' => 36)),
+        'news/<content_type_slug:[a-z]+><content_id:\d+>' => array('community/default/view', 'defaultParams' => array('forum_id' => 36)),
 
-        'community/<community_id:\d+>/forum/rubric/<rubric_id:\d+>/<content_type_slug:\w+>' => 'community/list',
-        'community/<community_id:\d+>/forum/rubric/<rubric_id:\d+>' => 'community/list',
-        'community/<community_id:\d+>/forum/<content_type_slug:\w+>' => 'community/list',
-        'community/<community_id:\d+>/forum' => 'community/list',
-        'community/<community_id:\d+>/forum/<content_type_slug:\w+>/<content_id:\d+>' => 'community/view',
-        'community/<community_id:\d+>/forum/<content_type_slug:\w+>/<content_id:\d+>/uploadImage' => 'community/uploadImage',
+        'pregnancy-and-children' => array('community/default/section', 'defaultParams' => array('section_id' => 1)),
+        'home' => array('community/default/section', 'defaultParams' => array('section_id' => 2)),
+        'beauty-and-health' => array('community/default/section', 'defaultParams' => array('section_id' => 3)),
+        'husband-and-wife' => array('community/default/section', 'defaultParams' => array('section_id' => 4)),
+        'interests-and-hobby' => array('community/default/section', 'defaultParams' => array('section_id' => 5)),
+        'family-holiday' => array('community/default/section', 'defaultParams' => array('section_id' => 6)),
 
-        'community/edit/content_id/<content_id:\d+>' => 'community/edit',
-        'community/add/community_id/<community_id:\d+>/rubric_id/<rubric_id:\d+>/content_type_slug/<content_type_slug>' => 'community/add',
-        'community/add/community_id/<community_id:\d+>/rubric_id/<rubric_id:\d+>' => 'community/add',
-        'community/add/community_id/<community_id:\d+>/content_type_slug/<content_type_slug>' => 'community/add',
-        'community/add/community_id/<community_id:\d+>' => 'community/add',
-        'community/recent/community_id/<community_id:\d+>' => 'community/recent',
-        'community/<_a:(join|add|transfer|edit|editTravel|weeklyMail)>' => 'community/<_a>',
+        'community/<_a:(subscribe)>/' => 'community/default/<_a>',
+        'community/<forum_id:\d+>/forum/rubric/<rubric_id:\d+>' => 'community/default/forum',
+        'community/<forum_id:\d+>/forum/<content_type_slug:\w+>/<content_id:\d+>' => 'community/default/view',
+        'community/<forum_id:\d+>/forum/' => 'community/default/forum',
+        'community/default/save' => 'community/default/save',
+        'community/default/photoWidgetSave' => 'community/default/photoWidgetSave',
+        'community/default/photoWidget' => 'community/default/photoWidget',
+        'community/clubFavourites/<clubId:\d+>' => 'community/default/clubFavourites',
+        'community/clubPhotoPosts/<clubId:\d+>' => 'community/default/clubPhotoPosts',
 
         //global
-        '<_c:(settings|ajax|notification|profile|friendRequests|communityRubric|family|morning|userPopup|features|blog)>/<_a>' => '<_c>/<_a>',
-        '<_c:(settings|profile|rss|family|morning|community|happyBirthdayMira)>' => '<_c>/index',
+        '<_c:(settings|ajax|notification|profile|friendRequests|communityRubric|morning|userPopup|features|blog)>/<_a>' => '<_c>/<_a>',
+        '<_c:(settings|profile|rss|morning|community|happyBirthdayMira)>' => '<_c>/index',
 
         //others
         'news/about' => 'community/contacts',
@@ -132,16 +180,18 @@ return array(
          *        MODULES        *
          *************************/
 
+        'gallery/default/<_a>' => 'gallery/default/<_a>',
+
         // live
-        'whatsNew/clubs' => array('whatsNew/default/clubs', 'defaultParams' => array('show' => 'all')),
-        'whatsNew/clubs/my' => array('whatsNew/default/clubs', 'defaultParams' => array('show' => 'my')),
-        'whatsNew/blogs' => array('whatsNew/default/blogs', 'defaultParams' => array('show' => 'all')),
-        'whatsNew/blogs/my' => array('whatsNew/default/blogs', 'defaultParams' => array('show' => 'my')),
-        'whatsNew/page<page:\d+>' => 'whatsNew/default/index',
-        'whatsNew' => 'whatsNew/default/index',
-        'whatsNew/friends' => 'whatsNew/friends/index',
-        'whatsNew/friends/page<page:\d+>' => 'whatsNew/friends/index',
-        'whatsNew/<_a:(ajax|moreItems)>' => 'whatsNew/default/<_a>',
+//        'whatsNew/clubs' => array('whatsNew/default/clubs', 'defaultParams' => array('show' => 'all')),
+//        'whatsNew/clubs/my' => array('whatsNew/default/clubs', 'defaultParams' => array('show' => 'my')),
+//        'whatsNew/blogs' => array('whatsNew/default/blogs', 'defaultParams' => array('show' => 'all')),
+//        'whatsNew/blogs/my' => array('whatsNew/default/blogs', 'defaultParams' => array('show' => 'my')),
+//        'whatsNew/page<page:\d+>' => 'whatsNew/default/index',
+//        'whatsNew' => 'whatsNew/default/index',
+//        'whatsNew/friends' => 'whatsNew/friends/index',
+//        'whatsNew/friends/page<page:\d+>' => 'whatsNew/friends/index',
+//        'whatsNew/<_a:(ajax|moreItems)>' => 'whatsNew/default/<_a>',
 
         'contest/<id:\d+>' => 'contest/default/view',
         'contest/<id:\d+>/rules' => 'contest/default/rules',
@@ -153,8 +203,7 @@ return array(
         'contest/work<id:\d+>' => 'contest/default/work',
         'contest/<_a>/<id:\d+>' => 'contest/default/<_a>',
 
-        '<_m:(geo|im|signal|scores|cook|contest)>/' => '<_m>/default/index',
-        '<_m:(geo|im|signal)>/<_a>' => '<_m>/default/<_a>',
+        '<_m:(scores|cook|contest)>/' => '<_m>/default/index',
         'commentator' => 'signal/commentator/index',
         'commentator/links/<month:\d\d\d\d-\d\d>' => 'signal/commentator/links',
         'commentator/award/<type:\w+>' => 'signal/commentator/award',
@@ -174,8 +223,8 @@ return array(
         'cook/decor/page<page:\d+>' => 'cook/decor/index',
         'cook/decor' => 'cook/decor/index',
 
-        'cook/recipe/tag/valentinesDay/type/<type:\d+>' => array('cook/recipe/tag', 'defaultParams' => array('section' => 0, 'tag'=>97)),
-        'cook/recipe/tag/valentinesDay' => array('cook/recipe/tag', 'defaultParams' => array('section' => 0, 'tag'=>97)),
+        'cook/recipe/tag/valentinesDay/type/<type:\d+>' => array('cook/recipe/tag', 'defaultParams' => array('section' => 0, 'tag' => 97)),
+        'cook/recipe/tag/valentinesDay' => array('cook/recipe/tag', 'defaultParams' => array('section' => 0, 'tag' => 97)),
 
         'cook/recipe/tag/<tag:\d+>/type/<type:\d+>' => array('cook/recipe/tag', 'defaultParams' => array('section' => 0)),
         'cook/recipe/tag/<tag:\d+>' => array('cook/recipe/tag', 'defaultParams' => array('section' => 0)),
@@ -204,7 +253,7 @@ return array(
         'cook/multivarka/searchByIngredientsResult' => array('cook/recipe/searchByIngredientsResult', 'defaultParams' => array('section' => 1)),
 
         'cook/recipe/feed.xml' => 'cook/recipe/feed',
-        'cook/recipe/<_a:(ac|import|search|test|autoSelect|addTag|removeTag|book)>' => 'cook/recipe/<_a>',
+        'cook/recipe/<_a:(ac|import|search|searchResult|test|autoSelect|addTag|removeTag|book)>' => 'cook/recipe/<_a>',
 
         'cook/spices/category/<id:[\w_]+>' => 'cook/spices/category',
         'cook/spices/<id:[\w_]+>' => 'cook/spices/view',
@@ -266,10 +315,10 @@ return array(
         'services/<_m:(dailyCalories|weightLoss|idealWeight|bodyFat)>/default/<_c>' => 'services/<_m>/default/<_c>',
         'services/lines/<id:[\d]+>.jpeg' => 'services/lines/default/index',
 
-        'auto/routes/<id:[\d]+>'=>'routes/default/index',
-        'auto/routes/'=>'routes/default/index',
-        'auto/routes/<_a>'=>'routes/default/<_a>',
-        'auto/routes/<_a>/<id:[\d]+>'=>'routes/default/<_a>',
+        'auto/routes/<id:[\d]+>' => 'routes/default/index',
+        'auto/routes/' => 'routes/default/index',
+        'auto/routes/<_a>' => 'routes/default/<_a>',
+        'auto/routes/<_a>/<id:[\d]+>' => 'routes/default/<_a>',
 
         'ValentinesDay' => 'valentinesDay/default/index',
         'ValentinesDay/<_a>' => 'valentinesDay/default/<_a>',
@@ -287,5 +336,14 @@ return array(
         'favourites/default/<_a:(search|getEntityData|get|test)>' => 'favourites/default/<_a>',
         'favourites/favourites/<_a:\w+>' => 'favourites/favourites/<_a>',
         'favourites' => 'favourites/default/index',
+
+        'search' => 'search/default/index',
+        'search/default/get' => 'search/default/get',
+
+        'user/<userId:\d+>/family' => 'family/default/index',
+        'family/<_a>' => 'family/default/<_a>',
+        'family/<_c>/<_a>' => 'family/<_c>/<_a>',
+
+        'contest/pets<contestId:\d+>' => 'community/contest/index',
     ),
 );

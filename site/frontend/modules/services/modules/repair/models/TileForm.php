@@ -50,6 +50,6 @@ class TileForm extends HFormModel
         if ($tiles < 0)
             $tiles = 0;
 
-        return array('qty' => $tiles, 'noun' => HDate::GenerateNoun(array('штука', 'штуки', 'штук'), $tiles));
+        return array('qty' => $tiles, 'noun' => Str::GenerateNoun(array('штука', 'штуки', 'штук'), $tiles));
     }
 }

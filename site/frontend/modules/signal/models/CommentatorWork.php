@@ -12,7 +12,7 @@ class CommentatorWork extends EMongoDocument
     /**
      * Максимальное количество пропусков статей для комментирования
      */
-    const MAX_SKIPS = 30;
+    const MAX_SKIPS = 50;
 
     /**
      * @var int id комментатора
@@ -46,6 +46,11 @@ class CommentatorWork extends EMongoDocument
      * @var int является ли главным в группе комментаторов
      */
     public $chief = 0;
+
+    /**
+     * @var int номер команды
+     */
+    public $team = 1;
 
     public static function model($className = __CLASS__)
     {
@@ -362,12 +367,9 @@ class CommentatorWork extends EMongoDocument
      */
     public function getNextComment()
     {
-        if ($this->comment_entity !== 'CookRecipe')
-            $model = CActiveRecord::model($this->comment_entity)->resetScope()->full()->findByPk($this->comment_entity_id);
-        else
-            $model = CActiveRecord::model($this->comment_entity)->resetScope()->findByPk($this->comment_entity_id);
+        $model = CActiveRecord::model($this->comment_entity)->resetScope()->findByPk($this->comment_entity_id);
 
-        if ($model->removed) {
+        if ($model !== null && $model->removed) {
             $model->full = 1;
             $model->update(array('full'));
             $model = null;
@@ -623,22 +625,12 @@ class CommentatorWork extends EMongoDocument
         return CommentatorHelper::imStats($this->user_id, $month . '-01', $month . '-31');
     }
 
-    public function visitors($month)
-    {
-        $month = CommentatorsMonth::get($month);
-        if (isset($month->commentators_stats[(int)$this->user_id][CommentatorsMonth::PROFILE_VIEWS]))
-            return $month->commentators_stats[(int)$this->user_id][CommentatorsMonth::PROFILE_VIEWS];
-
-        return array(0, 0);
-    }
-
-    public function seVisits($month)
-    {
-        $month = CommentatorsMonth::get($month);
-        if (isset($month->commentators_stats[(int)$this->user_id][CommentatorsMonth::SE_VISITS]))
-            return $month->commentators_stats[(int)$this->user_id][CommentatorsMonth::SE_VISITS];
-
-        return 0;
+    /******************************************************************************************************************/
+    /************************************************** Команда *******************************************************/
+    /******************************************************************************************************************/
+    public function setTeam($team){
+        $this->team = (int)$team;
+        $this->update(array('team'), true);
     }
 
     /******************************************************************************************************************/
@@ -717,41 +709,6 @@ class CommentatorWork extends EMongoDocument
         return User::model()->findByPk($this->user_id);
     }
 
-    /**
-     * Возвращает все статьи пользователя с
-     * @param CommentatorsMonth $month
-     * @return array
-     */
-    public function getPostsTraffic($month)
-    {
-        $sort_order = UserAttributes::get($this->user_id, 'commentators_se_visits_sort', 1);
-        $criteria = new CDbCriteria;
-        $criteria->condition = 'created < :month_start';
-        $criteria->params = array(':month_start' => $month->period . '-32 00:00:00');
-        $criteria->compare('author_id', $this->user_id);
-        $criteria->order = 'created desc';
-        $criteria->with = array('rubric', 'rubric.community', 'type');
-
-        //сортирока по заходам
-        $posts = CommunityContent::model()->findAll($criteria);
-        if ($sort_order)
-            return $posts;
-
-        foreach ($posts as $post)
-            $post->visits = $month->getPageVisitsCount($post->url);
-        usort($posts, array($this, "compareSeVisits"));
-
-        return $posts;
-    }
-
-    function compareSeVisits($a, $b)
-    {
-        if ($a->visits == $b->visits) {
-            return 0;
-        }
-        return ($a->visits > $b->visits) ? -1 : 1;
-    }
-
     public function getCommentatorGroups()
     {
         $criteria = new EMongoCriteria();
@@ -812,7 +769,7 @@ class CommentatorWork extends EMongoDocument
     }
 
     /**
-     * @param CommentatorDayWork $day
+     * @param string $day
      * @return CommentatorDayWork|null
      */
     public function getDay($day)

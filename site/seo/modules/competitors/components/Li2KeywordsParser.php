@@ -133,7 +133,7 @@ class Li2KeywordsParser extends LiBaseParser
                         if ($i < 2)
                             continue;
                         $keyword = trim(pq($tr)->find('td:eq(1)')->text());
-                        if (empty($keyword) || $keyword == 'Не определена' || $keyword == 'Другие' || $keyword == 'сумма выбранных' || $keyword == 'всего')
+                        if (empty($keyword) || $keyword == 'Не определена' || $keyword == 'Другие' || $keyword == 'сумма выбранных' || $keyword == 'всего' || $keyword == 'быстрый поиск')
                             continue;
 
                         Keyword::GetKeyword($keyword);
@@ -146,7 +146,7 @@ class Li2KeywordsParser extends LiBaseParser
                 if (strstr($text, 'в среднемза 7 дней') !== FALSE) {
                     foreach (pq($table)->find('tr') as $tr) {
                         $keyword = trim(pq($tr)->find('td:eq(1)')->text());
-                        if (empty($keyword) || $keyword == 'Не определена' || $keyword == 'Другие' || $keyword == 'сумма выбранных' || $keyword == 'всего')
+                        if (empty($keyword) || $keyword == 'Не определена' || $keyword == 'Другие' || $keyword == 'сумма выбранных' || $keyword == 'всего' || $keyword == 'быстрый поиск')
                             continue;
 
                         Keyword::GetKeyword($keyword);

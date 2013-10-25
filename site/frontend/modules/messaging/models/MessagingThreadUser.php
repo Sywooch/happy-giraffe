@@ -11,7 +11,7 @@
  * Relations
  * @property User $user
  */
-class MessagingThreadUser extends CActiveRecord
+class MessagingThreadUser extends HActiveRecord
 {
     /**
      * Returns the static model of the specified AR class.

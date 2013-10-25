@@ -7,6 +7,7 @@
 Yii::import('site.seo.models.*');
 Yii::import('site.seo.models.mongo.*');
 Yii::import('site.seo.components.*');
+Yii::import('site.seo.components.wordstat.*');
 Yii::import('site.seo.modules.competitors.models.*');
 Yii::import('site.seo.modules.writing.models.*');
 Yii::import('site.seo.modules.promotion.models.*');
@@ -15,82 +16,84 @@ Yii::import('site.common.models.mongo.*');
 
 class PromotionCommand extends CConsoleCommand
 {
-    /** Парсим статистику по ключевым словам с метрики **/
-    public function actionParseVisits()
+    /**
+     * Парсит статистику по ключевым словам с метрики
+     * и пересчитывает трафик по ключевым словам за последний месяц на Веселый Жираф
+     * @param null $date
+     */
+    public function actionParseVisits($date = null)
     {
         $metrica = new YandexMetrica();
-        $metrica->parseQueries();
+        $metrica->parseQueries($date);
+        GiraffeLastMonthTraffic::calcMonthTraffic();
     }
 
-    public function actionTest()
+    public function actionCalc($date = null)
     {
-        PageStatistics::model()->parseSe();
+        GiraffeLastMonthTraffic::calcMonthTraffic($date);
     }
 
-    public function actionParseDepth()
-    {
-        $metrica = new YandexMetrica();
-        $metrica->parseDepthFirstRows();
-    }
-
-    public function actionExport(){
-        PageStatistics::model()->export();
-    }
-
-    /** Готовим парсинг позиций слов по которым заходили за последнюю неделю **/
+    /**
+     * Готовим парсинг позиций слов по которым заходили за последнюю неделю
+     */
     public function actionPrepare()
     {
         ParsingPosition::model()->deleteAll();
-        ParsingPosition::collectKeywords();
-    }
-
-    /** Готовим парсинг позиций **/
-    public function actionCollectPagesKeywords()
-    {
-        ParsingPosition::model()->deleteAll();
+        echo "collect traffic keywords\n";
+        ParsingPosition::collectTrafficKeywords();
+        echo "collect pages keywords\n";
         ParsingPosition::collectPagesKeywords();
+        echo "collect competitors keywords\n";
+        ParsingPosition::collectCompetitorsKeywords();
     }
 
-    /** Парсинг позиций в Яндексе **/
+    /**
+     * Парсинг позиций в Яндексе
+     *
+     * @param int $debug
+     */
     public function actionYandex($debug = 0)
     {
         $parser = new PositionParserThread(PositionParserThread::SE_YANDEX, $debug);
         $parser->start();
     }
 
-    /** Парсинг позиций в Google **/
+    /**
+     * Парсинг позиций в Google
+     * @param int $debug
+     */
     public function actionGoogle($debug = 0)
     {
         $parser = new PositionParserThread(PositionParserThread::SE_GOOGLE, $debug);
         $parser->start();
     }
 
-    public function actionPageViews()
-    {
-        Yii::import('site.frontend.helpers.*');
-        $pages = PagePromotion::model()->findAll();
-        foreach ($pages as $page) {
-            $url = str_replace('http://www.happy-giraffe.ru', '', $page->url);
-            $page->views = GApi::model()->uniquePageViews($url, '2012-01-01', '2013-04-12', false);
-            echo $url . ' - ' . $page->views . "\n";
-            $page->save();
-        }
-    }
-
-    public function actionViews()
-    {
-        Yii::import('site.frontend.helpers.*');
-        $criteria = new EMongoCriteria();
-        $criteria->addCond('views', '==', null);
-        $pages = PagePromotion::model()->findAll($criteria);
-        foreach ($pages as $page) {
-            $url = str_replace('http://www.happy-giraffe.ru', '', $page->url);
-            $page->views = GApi::model()->uniquePageViews($url, '2011-01-01', '2013-04-12', false);
-            echo $url . ' - ' . $page->views . "\n";
-            $page->update(array('views'));
-        }
-    }
-
+//    public function actionPageViews()
+//    {
+//        Yii::import('site.frontend.helpers.*');
+//        $pages = PagePromotion::model()->findAll();
+//        foreach ($pages as $page) {
+//            $url = str_replace('http://www.happy-giraffe.ru', '', $page->url);
+//            $page->views = GApi::model()->uniquePageViews($url, '2012-01-01', '2013-04-12', false);
+//            echo $url . ' - ' . $page->views . "\n";
+//            $page->save();
+//        }
+//    }
+//
+//    public function actionViews()
+//    {
+//        Yii::import('site.frontend.helpers.*');
+//        $criteria = new EMongoCriteria();
+//        $criteria->addCond('views', '==', null);
+//        $pages = PagePromotion::model()->findAll($criteria);
+//        foreach ($pages as $page) {
+//            $url = str_replace('http://www.happy-giraffe.ru', '', $page->url);
+//            $page->views = GApi::model()->uniquePageViews($url, '2011-01-01', '2013-04-12', false);
+//            echo $url . ' - ' . $page->views . "\n";
+//            $page->update(array('views'));
+//        }
+//    }
+//
     public function actionAddToParsing()
     {
         $pages = PagePromotion::model()->findAll();

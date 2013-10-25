@@ -2,7 +2,6 @@
 
 class DefaultController extends HController
 {
-
     /**
      * @sitemap dataSource=sitemapIndex
      */

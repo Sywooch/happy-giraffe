@@ -13,6 +13,7 @@ class LiParser extends LiBaseParser
 
     public function start($site_id, $year, $month_from, $month_to)
     {
+        $this->removeCookieFile();
         $this->site = $this->loadModel($site_id);
         $this->log('Start parsing site ' . $this->site->id . ' ' . $this->site->name);
 
@@ -26,9 +27,9 @@ class LiParser extends LiBaseParser
 
         $found = $this->parseStats($year, $month_from, $month_to);
         $this->log($site_id . ' - ' . $found);
-        Yii::app()->email->sendEmail('alexk984@gmail.com', 'парсинг статистики liveinternet',
-            $this->site->url . ' - спарсено:<br><br>' . $found,
-            'webmaster@happy-giraffe.ru', 'Парсинг на Веселом Жирафе');
+//        Yii::app()->email->sendEmail('alexk984@gmail.com', 'парсинг статистики liveinternet',
+//            $this->site->url . ' - спарсено:<br><br>' . $found,
+//            'webmaster@happy-giraffe.ru', 'Парсинг на Веселом Жирафе');
     }
 
 
@@ -116,7 +117,7 @@ class LiParser extends LiBaseParser
                         continue;
                     $keyword = trim(pq($tr)->find('td:eq(1)')->text());
                     if (empty($keyword) || $keyword == 'Не определена' || $keyword == 'Другие'
-                        || $keyword == 'сумма выбранных' || $keyword == 'всего'
+                        || $keyword == 'сумма выбранных' || $keyword == 'всего' || $keyword == 'быстрый поиск'
                     )
                         continue;
 

@@ -9,17 +9,34 @@ class RecipeController extends HController
     public $currentType = null;
     public $modelName;
     public $section;
+    public $club;
 
     public function filters()
     {
-        return array(
+        $filters = array(
             'accessControl',
-            array(
-                'CHttpCacheFilter + view',
-                'lastModified' => $this->lastModified(),
-            ),
-            //'ajaxOnly + ac, searchByIngredientsResult, advancedSearchResult, autoSelect'
+//            array(
+//                'CHttpCacheFilter + view',
+//                'lastModified' => $this->lastModified(),
+//            ),
+            'ajaxOnly + ac, searchByIngredientsResult, advancedSearchResult, autoSelect'
         );
+
+        if (Yii::app()->user->isGuest) {
+            $filters [] = array(
+                'COutputCache + view',
+                'duration' => 300,
+                'varyByParam' => array('id'),
+            );
+
+            $filters [] = array(
+                'COutputCache + index',
+                'duration' => 300,
+                'varyByParam' => array('type', 'section'),
+            );
+        }
+
+        return $filters;
     }
 
     public function accessRules()
@@ -34,6 +51,8 @@ class RecipeController extends HController
 
     protected function beforeAction($action)
     {
+        $this->club = CommunityClub::model()->findByPk(7);
+
         if (isset($this->actionParams['section']) && isset(CookRecipe::model()->sectionsMap[$this->actionParams['section']])) {
             $this->modelName = CookRecipe::model()->sectionsMap[$this->actionParams['section']];
             $this->section = $this->actionParams['section'];
@@ -74,6 +93,18 @@ class RecipeController extends HController
                 ($this->section == 0 ? 'Кулинарные рецепты' : 'Рецепты для мультиварок') => array('/cook/recipe/index', 'section' => $this->section),
                 CookRecipe::model()->types[$type],
             );
+
+        $this->breadcrumbs = array(
+            $this->club->section->title => $this->club->section->getUrl(),
+            $this->club->title => $this->club->getUrl(),
+        );
+        if ($type != 0) {
+            $this->breadcrumbs += array(
+                ($this->section == 0 ? 'Рецепты' : 'Для мультиварки') => array('/cook/recipe/index', 'section' => $this->section),
+                CookRecipe::model()->types[$type],
+            );
+        } else
+            $this->breadcrumbs[] = $this->section == 0 ? 'Рецепты' : 'Для мультиварки';
 
         if (isset($_GET['SimpleRecipe_page']) || isset($_GET['MultivarkaRecipe_page']) || $type != 0)
             Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
@@ -228,7 +259,7 @@ class RecipeController extends HController
      */
     public function actionImport($content_id)
     {
-        $content = CommunityContent::model()->full()->findByPk($content_id);
+        $content = CommunityContent::model()->findByPk($content_id);
         if ($content === null)
             throw new CHttpException(404, 'Статья не существует или уже перенесена в рецепты');
 
@@ -320,12 +351,12 @@ class RecipeController extends HController
         NotificationRead::getInstance()->setContentModel($recipe);
 
         $this->breadcrumbs = array(
-            'Кулинария' => array('/cook'),
-            ($this->section == 0 ? 'Кулинарные рецепты' : 'Рецепты для мультиварок') => array('/cook/recipe/index', 'section' => $this->section),
+            $this->club->section->title => $this->club->section->getUrl(),
+            $this->club->title => $this->club->getUrl(),
+            ($this->section == 0 ? 'Рецепты' : 'Для мультиварки') => array('/cook/recipe/index', 'section' => $this->section),
             $recipe->typeString => array('/cook/recipe/index', 'type' => $recipe->type, 'section' => $this->section),
             $recipe->title,
         );
-        $this->registerCounter();
 
         //проверяем переход с других сайтов по ссылкам комментаторов
         Yii::import('site.frontend.modules.signal.models.CommentatorLink');
@@ -334,22 +365,67 @@ class RecipeController extends HController
         $this->render('view', compact('recipe'));
     }
 
-    public function actionSearch($type = null, $text = false)
+//    public function actionSearch($type = null, $text = false)
+//    {
+//        $this->layout = '//layouts/recipe';
+//        $this->pageTitle = 'Поиск рецептов';
+//        $this->currentType = $type;
+//        $text = urldecode($text);
+//        Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
+//
+//        $this->breadcrumbs = array(
+//            'Кулинария' => array('/cook'),
+//            ($this->section == 0 ? 'Кулинарные рецепты' : 'Рецепты для мультиварок') => array('/cook/recipe/index', 'section' => $this->section),
+//            'Поиск',
+//        );
+//
+//        list($dataProvider, $this->counts) = CookRecipe::model()->searchByName($text, $type);
+//        $this->render('search', compact('dataProvider', 'text', 'type'));
+//    }
+
+    public function actionSearch($query = '')
     {
-        $this->layout = '//layouts/recipe';
-        $this->pageTitle = 'Поиск рецептов';
-        $this->currentType = $type;
-        $text = urldecode($text);
+        $this->layout = '//layouts/community';
+        $_types = CookRecipe::model()->types;
+        $types = array_map(function($id, $title) {
+            if ($id == 0) {
+                $id = null;
+                $title = 'Любой';
+            }
+            return compact('id', 'title');
+        }, array_keys($_types), $_types);
+        $cuisines = array_map(function($cuisine) {
+            return array(
+                'id' => $cuisine->id,
+                'title' => $cuisine->title,
+            );
+        }, CookCuisine::model()->findAll());
+        $_durations = CookRecipe::model()->getDurationLabels();
+        $durations = array_map(function($id, $title) {
+            return compact('id', 'title');
+        }, array_keys($_durations), $_durations);
+        $json = compact('types', 'cuisines', 'durations', 'query');
         Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
+        $this->render('search', compact('json'));
+    }
 
-        $this->breadcrumbs = array(
-            'Кулинария' => array('/cook'),
-            ($this->section == 0 ? 'Кулинарные рецепты' : 'Рецепты для мультиварок') => array('/cook/recipe/index', 'section' => $this->section),
-            'Поиск',
-        );
+    public function actionSearchResult($query = '', $type = null, $cuisine = null, $duration = null, $lowFat = false, $forDiabetics = false, $lowCal = false)
+    {
+        $query = Yii::app()->request->getPost('query', '');
+        $type = Yii::app()->request->getPost('type');
+        $cuisine = Yii::app()->request->getPost('cuisine');
+        $duration = Yii::app()->request->getPost('duration');
+        $lowFat = Yii::app()->request->getPost('lowFat', false);
+        $forDiabetics = Yii::app()->request->getPost('forDiabetics', false);
+        $lowCal = Yii::app()->request->getPost('lowCal', false);
+        $page = Yii::app()->request->getPost('page', 0);
 
-        list($dataProvider, $this->counts) = CookRecipe::model()->searchByName($text, $type);
-        $this->render('search', compact('dataProvider', 'text', 'type'));
+        $dp = SearchManager::getDataProvider($query, $type, $cuisine, $duration, $lowFat, $forDiabetics, $lowCal, $page);
+
+        $posts = $this->renderPartial('searchResult', compact('dp'), true);
+        $count = $dp->totalItemCount;
+        $response = compact('posts', 'count');
+        echo CJSON::encode($response);
     }
 
     public function actionSearchByIngredients()
@@ -481,7 +557,7 @@ class RecipeController extends HController
             $recipes = CookRecipe::model()->with('cuisine', 'author', 'ingredients', 'ingredients.ingredient', 'ingredients.unit')->findAll(array(
                 'order' => 'created DESC',
                 'condition' => 't.id != 16589',
-                'limit' => 3000,
+                'limit' => 100,
             ));
 
             $xml = new SimpleXMLElement('<?xml version="1.0" encoding="utf-8"?><entities/>');
@@ -503,7 +579,7 @@ class RecipeController extends HController
                     $ingredient = $recipe->addChild('ingredient');
                     switch ($i->unit->type) {
                         case 'qty':
-                            $ingredient->addChild('name', HDate::GenerateNoun(array($i->unit->title, $i->unit->title2, $i->unit->title3), $i->value));
+                            $ingredient->addChild('name', Str::GenerateNoun(array($i->unit->title, $i->unit->title2, $i->unit->title3), $i->value));
                             $ingredient->addChild('quantity', $i->display_value);
                             break;
                         case 'undefined':
@@ -511,7 +587,7 @@ class RecipeController extends HController
                             break;
                         default:
                             $ingredient->addChild('name', $i->title);
-                            $ingredient->addChild('type', HDate::GenerateNoun(array($i->unit->title, $i->unit->title2, $i->unit->title3), $i->value));
+                            $ingredient->addChild('type', Str::GenerateNoun(array($i->unit->title, $i->unit->title2, $i->unit->title3), $i->value));
                             $ingredient->addChild('value', $i->display_value);
                     }
                 }
@@ -586,7 +662,7 @@ class RecipeController extends HController
         } else {
             $result = $recipe->book();
             $count = CookRecipe::userBookCount();
-            $count = $count . ' ' . HDate::GenerateNoun(array('рецепт', 'рецепта', 'рецептов'), $count);
+            $count = $count . ' ' . Str::GenerateNoun(array('рецепт', 'рецепта', 'рецептов'), $count);
 
             echo CJSON::encode(array('status' => true, 'result' => $result, 'count' => $count));
         }

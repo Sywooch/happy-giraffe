@@ -102,7 +102,7 @@ class UrlCollector
             echo 'community ' . $community->id . "\n";
             $types = array(1 => 'post', 2 => 'video');
             foreach ($types as $key => $type) {
-                $posts = CommunityContent::model()->full()->findAll('community.id=' . $community->id . ' AND type.id = ' . $key);
+                $posts = CommunityContent::model()->with('rubric', 'rubric.community')->findAll('community.id=' . $community->id . ' AND type.id = ' . $key);
                 if (count($posts) > 0) {
                     $this->addUrl('http://www.happy-giraffe.ru/community/' . $community->id . '/forum/' . $type . '/', 1);
 

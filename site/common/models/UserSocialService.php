@@ -101,22 +101,18 @@ class UserSocialService extends HActiveRecord
 
     public function getUrlString()
     {
-        if (empty($this->url)) {
-            switch ($this->service) {
-                case 'vkontakte':
-                    $url = 'http://vk.com/id' . $this->service_id;
-                    break;
-                case 'facebook':
-                    $url = 'http://www.facebook.com/profile.php?id=' . $this->service_id;
-                    break;
-                case 'odnoklassniki':
-                    $url = 'http://www.odnoklassniki.ru/profile/' . $this->service_id;
-                    break;
-                default:
-                    $url = '';
-            }
-        } else {
-            $url = $this->url;
+        switch ($this->service) {
+            case 'vkontakte':
+                $url = 'http://vk.com/id' . $this->service_id;
+                break;
+            case 'facebook':
+                $url = 'http://www.facebook.com/profile.php?id=' . $this->service_id;
+                break;
+            case 'odnoklassniki':
+                $url = 'http://www.odnoklassniki.ru/profile/' . $this->service_id;
+                break;
+            default:
+                $url = '';
         }
 
         return $url;

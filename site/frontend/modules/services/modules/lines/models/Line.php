@@ -114,10 +114,10 @@ class Line extends HActiveRecord
             case self::TYPE_PREGNANCY:
                 $days_count = round(time() - strtotime($this->date)) / 86400;
                 if ($days_count > 6) {
-                    $result .= floor($days_count / 7) . ' ' . HDate::GenerateNoun(array('неделя', 'недели', 'недель'), floor($days_count / 7)) . ' и ';
+                    $result .= floor($days_count / 7) . ' ' . Str::GenerateNoun(array('неделя', 'недели', 'недель'), floor($days_count / 7)) . ' и ';
                     $days_count = $days_count % 7;
                 }
-                return $result . $days_count . ' ' . HDate::GenerateNoun(array('день', 'дня', 'дней'), $days_count);
+                return $result . $days_count . ' ' . Str::GenerateNoun(array('день', 'дня', 'дней'), $days_count);
 
             case self::TYPE_BABY:
             case self::TYPE_LOVE:
@@ -148,19 +148,19 @@ class Line extends HActiveRecord
         $month_len = 29.5305882;
         $days_count = floor((time() - strtotime($this->date)) / 86400);
         if ($days_count < 30)
-            return $days_count . ' ' . HDate::GenerateNoun(array('день', 'дня', 'дней'), $days_count);
+            return $days_count . ' ' . Str::GenerateNoun(array('день', 'дня', 'дней'), $days_count);
 
         $month_count = floor($days_count / $month_len);
         if ($month_count < 12) {
             $days_count = floor($days_count - $month_count * $month_len);
 
-            return $month_count . ' ' . HDate::GenerateNoun(array('месяц', 'месяца', 'месяцев'), $month_count) . ' и '
-                . $days_count . ' ' . HDate::GenerateNoun(array('день', 'дня', 'дней'), $days_count);
+            return $month_count . ' ' . Str::GenerateNoun(array('месяц', 'месяца', 'месяцев'), $month_count) . ' и '
+                . $days_count . ' ' . Str::GenerateNoun(array('день', 'дня', 'дней'), $days_count);
         }
 
         $years_count = floor($month_count / 12);
         $month_count = $month_count % 12;
-        return $years_count . ' ' . HDate::GenerateNoun(array('год', 'года', 'лет'), $years_count) . ' и '
-            . $month_count . ' ' . HDate::GenerateNoun(array('месяц', 'месяца', 'месяцев'), $month_count);
+        return $years_count . ' ' . Str::GenerateNoun(array('год', 'года', 'лет'), $years_count) . ' и '
+            . $month_count . ' ' . Str::GenerateNoun(array('месяц', 'месяца', 'месяцев'), $month_count);
     }
 }

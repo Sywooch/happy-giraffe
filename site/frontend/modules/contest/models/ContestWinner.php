@@ -9,7 +9,7 @@
  * @property string $work_id
  *
  * The followings are the available model relations:
- * @property ContestWorks $work
+ * @property ContestWork $work
  */
 class ContestWinner extends HActiveRecord
 {
@@ -18,7 +18,7 @@ class ContestWinner extends HActiveRecord
      * @param string $className active record class name.
      * @return ContestWinner the static model class
      */
-    public static function model($className=__CLASS__)
+    public static function model($className = __CLASS__)
     {
         return parent::model($className);
     }
@@ -40,11 +40,11 @@ class ContestWinner extends HActiveRecord
         // will receive user inputs.
         return array(
             array('place, work_id', 'required'),
-            array('place', 'numerical', 'integerOnly'=>true),
-            array('work_id', 'length', 'max'=>10),
+            array('place', 'numerical', 'integerOnly' => true),
+            array('work_id', 'length', 'max' => 10),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, place, work_id', 'safe', 'on'=>'search'),
+            array('id, place, work_id', 'safe', 'on' => 'search'),
         );
     }
 
@@ -81,14 +81,22 @@ class ContestWinner extends HActiveRecord
         // Warning: Please modify the following code to remove attributes that
         // should not be searched.
 
-        $criteria=new CDbCriteria;
+        $criteria = new CDbCriteria;
 
-        $criteria->compare('id',$this->id,true);
-        $criteria->compare('place',$this->place);
-        $criteria->compare('work_id',$this->work_id,true);
+        $criteria->compare('id', $this->id, true);
+        $criteria->compare('place', $this->place);
+        $criteria->compare('work_id', $this->work_id, true);
 
         return new CActiveDataProvider($this, array(
-            'criteria'=>$criteria,
+            'criteria' => $criteria,
         ));
+    }
+
+    public function afterSave()
+    {
+        if ($this->isNewRecord)
+            ScoreInputContestPrize::getInstance()->add($this->work->user_id, $this->work->contest_id, $this->place);
+
+        parent::afterSave();
     }
 }

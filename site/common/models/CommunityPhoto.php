@@ -10,7 +10,7 @@
  * @property string $post_id
  *
  * The followings are the available model relations:
- * @property CommunityPhotoPost $post
+ * @property CommunityMorningPost $post
  */
 class CommunityPhoto extends HActiveRecord
 {
@@ -58,7 +58,7 @@ class CommunityPhoto extends HActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'post' => array(self::BELONGS_TO, 'CommunityPhotoPost', 'post_id'),
+			'post' => array(self::BELONGS_TO, 'CommunityMorningPost', 'post_id'),
 		);
 	}
 

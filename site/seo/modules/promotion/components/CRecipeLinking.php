@@ -38,10 +38,10 @@ class CRecipeLinking
                 $this->page = Page::getPage('http://www.happy-giraffe.ru' . $this->recipe->getUrl());
 
                 //1 ссылку по названию
-                //$this->createLinkByName();
+                $this->createLinkByName();
                 //1 ссылку по тем на которые рассчитывали
-                //$this->createPlannedKeywordLink();
-                //ставим 3 ссылки с ключевыми словами из wordstat
+                $this->createPlannedKeywordLink();
+                //ставим 10 ссылок с ключевыми словами из wordstat
                 $this->createFoundKeywordsLinks();
             }
             $criteria->offset += 100;
@@ -109,7 +109,7 @@ class CRecipeLinking
         $good_keywords = array();
         foreach ($keywords as $keyword) {
             //если в слове есть "мультиварк" но рецепт не для мультиварок - пропускаем
-            if ($this->recipe->section != 1 && strpos($keyword['name'], 'мульварк') !== false)
+            if ($this->recipe->section != 1 && strpos($keyword['name'], 'мультиварк') !== false)
                 continue;
 
             //если слово уже использовалось в перелинковке - пропускаем
@@ -170,18 +170,16 @@ class CRecipeLinking
      */
     private function createLink($keyword)
     {
-        if ($keyword !== null) {
-            //проверяем нет ли ссылки на этот рецепт с таким анкором
-            $already = InnerLink::model()->find('page_to_id=' . $this->page->id . ' AND keyword_id=' . $keyword->id);
-            if ($already !== null) {
-                $this->counts[3]++;
-                return;
-            }
-
-            //получаем страницу с которых можно проставить ссылки
-            $page = $this->getSimilarArticles($keyword->name);
-            $this->saveLink($keyword, $page);
+        //проверяем нет ли ссылки на этот рецепт с таким анкором
+        $already = InnerLink::model()->find('page_to_id=' . $this->page->id . ' AND keyword_id=' . $keyword->id);
+        if ($already !== null) {
+            $this->counts[3]++;
+            return;
         }
+
+        //получаем страницу с которых можно проставить ссылки
+        $page = $this->getSimilarArticles($keyword->name);
+        $this->saveLink($keyword, $page);
     }
 
     /**
@@ -237,19 +235,13 @@ class CRecipeLinking
                 continue;
 
             //если ссылка с нее уже стоит
-            if ($page->id == 18106 && $this->page->id == 49276)
-                echo 'check link exist';
-
             if (InnerLink::model()->exists('page_id = :page_from and page_to_id=:page_to',
                 array(':page_from' => $page->id, ':page_to' => $this->page->id))
             )
                 continue;
-            else{
-                if ($page->id == 18106 && $this->page->id == 49276)
-                    echo ' link  not exist ';
-            }
 
             $good = true;
+            //проверяем ссылки в блоке "Еще рецепты"
             $links_from_page = $model->getMore();
             foreach ($links_from_page as $link_from_page)
                 if ($link_from_page->id == $this->recipe->id)
@@ -291,19 +283,6 @@ class CRecipeLinking
 
         return $ids;
     }
-
-    public function testGetArticlesFromSphinx()
-    {
-        $this->recipe = CookRecipe::model()->find(array('limit' => 100, 'order' => 'rand()'));
-        echo $this->recipe->title . '<br>';
-        $recipes = $this->getArticlesFromSphinx($this->recipe->title);
-        foreach ($recipes as $recipe_id) {
-            $recipe = CookRecipe::model()->findByPk($recipe_id);
-            echo $recipe->title . ' - ';
-        }
-        echo '<br>';
-    }
-
 
     /**
      * Проверяем заголовки всех рецептов - нет ли в них ключевого слова, которое мы хотим использовать
@@ -372,6 +351,9 @@ class CRecipeLinking
         $this->counts[0]++;
     }
 
+    /**
+     * Фильтрация ключевых слов
+     */
     public function deleteWithBadKeywords()
     {
         $bad_list = array('реферат', 'база отдыха', 'аллергия', 'ВИДЕО', 'кроссворд');
@@ -387,21 +369,6 @@ class CRecipeLinking
             }
 
             echo '<br><br>';
-        }
-    }
-
-    public function showResultLinks()
-    {
-        $criteria = new CDbCriteria;
-        $criteria->condition = 'date >= "2013-03-17"';
-        $criteria->order = 'rand()';
-        $criteria->limit = 10;
-        $links = InnerLink::model()->findAll($criteria);
-
-        foreach ($links as $link) {
-            echo CHtml::link($link->page->getArticleTitle(), $link->page->url) . ' - ';
-            echo $link->keyword->name . ' - ';
-            echo CHtml::link($link->pageTo->getArticleTitle(), $link->pageTo->url) . '<br>';
         }
     }
 }

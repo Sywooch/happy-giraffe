@@ -8,6 +8,23 @@
  */
 class ListsController extends HController
 {
+    public function filters()
+    {
+        return array(
+            'accessControl',
+            'ajaxOnly',
+        );
+    }
+
+    public function accessRules()
+    {
+        return array(
+            array('deny',
+                'users' => array('?'),
+            ),
+        );
+    }
+
     public function actionBind()
     {
         $friendId = Yii::app()->request->getPost('friendId');

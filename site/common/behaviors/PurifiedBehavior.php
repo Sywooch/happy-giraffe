@@ -7,6 +7,7 @@ class PurifiedBehavior extends CActiveRecordBehavior
 {
     public $attributes = array();
     public $options = array();
+    public $show_video = true;
 
     private $_defaultOptions = array(
         'URI.AllowedSchemes' => array(
@@ -15,8 +16,9 @@ class PurifiedBehavior extends CActiveRecordBehavior
         ),
         'Attr.AllowedFrameTargets' => array('_blank' => true),
         'Attr.AllowedRel' => array('nofollow'),
+        'HTML.AllowedCommentsRegexp' => '/widget/',
         'HTML.SafeIframe' => true,
-        'URI.SafeIframeRegexp' => '%^(http://www.youtube.com/embed/|http://player.vimeo.com/video/|https://w.soundcloud.com/)%',
+        'URI.SafeIframeRegexp' => '%.*%',
         'HTML.SafeObject' => true,
     );
 
@@ -24,16 +26,20 @@ class PurifiedBehavior extends CActiveRecordBehavior
     {
         if (in_array($name, $this->attributes)) {
             $cacheId = $this->getCacheId($name);
-            $value = false;
+            $value = Yii::app()->cache->get($cacheId);
             if ($value === false) {
-                $purifier = new CHtmlPurifier;
-                $purifier->options = CMap::mergeArray($this->_defaultOptions, $this->options);
                 $value = $this->getOwner()->$name;
-                $value = $this->linkifyYouTubeURLs($value);
-                $value = $this->linkifyVimeo($value);
-                $value = $purifier->purify($value);
-                $value = $this->fixUrls($value);
-                Yii::app()->cache->set($cacheId, $value);
+                if (! empty($value)) {
+                    $purifier = new CHtmlPurifier;
+                    $purifier->options = CMap::mergeArray($this->_defaultOptions, $this->options);
+                    if ($this->show_video)
+                        $value = $this->linkifyVideos($value);
+                    $value = $purifier->purify($value);
+                    $value = $this->setWidgets($value);
+                    $value = $this->fixUrls($value);
+                    $value = $this->clean($value);
+                    Yii::app()->cache->set($cacheId, $value);
+                }
             }
             return $value;
         } else {
@@ -69,110 +75,48 @@ class PurifiedBehavior extends CActiveRecordBehavior
 
     private function fixUrls($text)
     {
-        Yii::import('site.frontend.extensions.phpQuery.phpQuery');
+        include_once Yii::getPathOfAlias('site.frontend.vendor.simplehtmldom_1_5') . DIRECTORY_SEPARATOR . 'simple_html_dom.php';
 
-        $doc = phpQuery::newDocumentXHTML($text, $charset = 'utf-8');
+        $doc = str_get_html($text);
+        if ($doc == false)
+            return $text;
+
         $links = $doc->find('a');
 
         foreach ($links as $link) {
-            $url = pq($link)->attr('href');
+            $url = $link->href;
+            if (strpos($url, '/user/') === 0 || empty($url) || strpos($url, '/site/out/?') === 0)
+                continue;
+
             $parsed_url = parse_url($url);
 
-            if (!isset($parsed_url['host'])){
-                pq($link)->remove();
+            if (!isset($parsed_url['host'])) {
+                $link->outertext = '';
             } elseif (strpos($parsed_url['host'], $_SERVER["HTTP_HOST"]) === false) {
-                //внешние ссылки ставим в noindex
-                if (!pq($link)->parent()->is('noindex'))
-                    pq($link)->wrap('<noindex></noindex>');
-
-                if (pq($link)->attr('rel') != 'nofollow')
-                    pq($link)->attr('rel', 'nofollow');
-
-                if (pq($link)->attr('target') != '_blank')
-                    pq($link)->attr('target', '_blank');
-
+                //внешние ссылки ставим в nofollow, _black, меняет url на /site/out/?url=
+                $link->rel = 'nofollow';
+                $link->target = '_blank';
+                $link->href = strpos($parsed_url['host'], 'adriver') === false ? '/site/out/?url=' . $link->href : $link->href;
             } else {
                 //внутренние ссылки обрабатываем дополнительно
-                pq($link)->removeAttr('target');
-
+                $link->target = '';
                 //убираем из конца ссылки лишние символы
-                $url = pq($link)->attr('href');
+                $url = $link->href;
                 $url = str_replace('%C2%A0', '', $url);
-                for($i=0;$i<10;$i++){
+                for ($i = 0; $i < 10; $i++) {
                     $url = trim($url, "., /");
                 }
-                $url = $url.'/';
-
-                pq($link)->attr('href', $url);
+                $url = $url . '/';
+                $link->href = $url;
             }
         }
 
-        $text = $doc->html();
-        $doc->unloadDocument();
-
-        return $text;
+        return $doc->save();
     }
 
-    public function fetchHtml($matches)
+    private function wrapVideo($text)
     {
-        $url = 'http://www.youtube.com/oembed?url=' . $matches[0] . '&format=json&maxwidth=700';
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $response = curl_exec($ch);
-        $httpStatus = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        curl_close($ch);
-
-        $json = CJSON::decode($response);
-        return ($httpStatus == 200) ? $json['html'] : $matches[0];
-    }
-
-    public function vimeo($matches)
-    {
-        $url = 'http://vimeo.com/api/oembed.xml?url=' . $matches[0] . '&format=json&maxwidth=700';
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $response = curl_exec($ch);
-        $httpStatus = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        curl_close($ch);
-
-        $json = CJSON::decode($response);
-        return ($httpStatus == 200) ? $json['html'] : $matches[0];
-    }
-
-    public function linkifyYouTubeURLs($text) {
-        $text = preg_replace_callback('~
-        # Match non-linked youtube URL in the wild. (Rev:20111012)
-        https?://         # Required scheme. Either http or https.
-        (?:[0-9A-Z-]+\.)? # Optional subdomain.
-        (?:               # Group host alternatives.
-          youtu\.be/      # Either youtu.be,
-        | youtube\.com    # or youtube.com followed by
-          \S*             # Allow anything up to VIDEO_ID,
-          [^\w\-\s]       # but char before ID is non-ID char.
-        )                 # End host alternatives.
-        ([\w\-]{11})      # $1: VIDEO_ID is exactly 11 chars.
-        (?=[^\w\-]|$)     # Assert next char is non-ID or EOS.
-        (?!               # Assert URL is not pre-linked.
-          [?=&+%\w]*      # Allow URL (query) remainder.
-          (?:             # Group pre-linked alternatives.
-            [\'"][^<>]*>  # Either inside a start tag,
-          | </a>          # or inside <a> element text contents.
-          )               # End recognized pre-linked alts.
-        )                 # End negative lookahead assertion.
-        [?=&+%\w-;]*        # Consume any URL (query) remainder.
-        ~ix',
-            array($this, 'fetchHtml'),
-            $text);
-        return $text;
-    }
-
-    public function linkifyVimeo($text) {
-        $text = preg_replace_callback('~https?://vimeo\.com/\d+~ix',
-            array($this, 'vimeo'),
-            $text);
-        return $text;
+        return '<div class="b-article_in-img">' . $text . '</div>';
     }
 
     private function endsWith($haystack, $needle)
@@ -183,5 +127,68 @@ class PurifiedBehavior extends CActiveRecordBehavior
         }
 
         return (substr($haystack, -$length) === $needle);
+    }
+
+    private function setWidgets($text)
+    {
+        return preg_replace_callback('#<!-- widget: (.*) -->(.*)<!-- /widget -->#sU', array($this, 'replaceWidgets'), $text);
+    }
+
+    private function replaceWidgets($matches)
+    {
+        $data = CJSON::decode($matches[1]);
+        extract($data);
+        if (isset($entity) && isset($entity_id)) {
+            $model = CActiveRecord::model($entity)->findByPk($entity_id);
+            if ($model) {
+                return $model->getWidget(false, $this->getOwner());
+            }
+        }
+        return '';
+    }
+
+    protected function linkifyVideos($text)
+    {
+        include_once Yii::getPathOfAlias('site.frontend.vendor.simplehtmldom_1_5') . DIRECTORY_SEPARATOR . 'simple_html_dom.php';
+
+        // process links
+        $html = str_get_html($text);
+        foreach ($html->find('a') as $link) {
+            $href = $link->href;
+            try {
+                $v = Video::factory($href);
+                $link->outertext = '<div class="b-article_in-img">' . $v->embed . '</div>';
+            } catch (CException $e) {}
+        }
+
+        foreach ($html->find('iframe') as $iframe) {
+            $parent = $iframe->parent();
+            if ($parent->tag != 'div' || $parent->class != 'b-article_in-img')
+                $iframe->outertext = '<div class="b-article_in-img">'. $iframe->outertext . '</div>';
+        }
+
+        // process text
+        return preg_replace_callback('/((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)/', function($matches) {
+            try {
+                $v = Video::factory($matches[0]);
+                return '<div class="b-article_in-img">' . $v->embed . '</div>';
+            } catch (CException $e) {
+                return $matches[0];
+            }
+        }, $html);
+    }
+
+    protected function clean($text)
+    {
+        include_once Yii::getPathOfAlias('site.frontend.vendor.simplehtmldom_1_5') . DIRECTORY_SEPARATOR . 'simple_html_dom.php';
+
+        $html = str_get_html($text);
+        foreach ($html->find('p') as $p) {
+            $v = str_replace('​', '', $p->innertext);
+            if (empty($v))
+                $p->outertext = '';
+        }
+
+        return (string) $html;
     }
 }

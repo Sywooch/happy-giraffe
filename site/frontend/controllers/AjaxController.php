@@ -5,7 +5,7 @@ class AjaxController extends HController
     public function filters()
     {
         return array(
-            'ajaxOnly - socialVote, test',
+            'ajaxOnly - socialVote',
         );
     }
 
@@ -14,6 +14,7 @@ class AjaxController extends HController
         Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
         Yii::import('site.frontend.modules.contest.models.*');
         Yii::import('site.frontend.modules.cook.models.*');
+        Yii::import('site.frontend.modules.community.models.*');
 
         if ($service !== null) {
             $authIdentity = Yii::app()->eauth->getIdentity($service);
@@ -21,82 +22,23 @@ class AjaxController extends HController
             $authIdentity->redirectUrl = $model->getShare($service);
             $inc = false;
 
-            if ($model->contest->status == Contest::STATUS_ACTIVE) {
-                if ($authIdentity->authenticate()) {
-                    $vote = new SocialVote;
-                    $vote->entity = $entity;
-                    $vote->entity_id = $entity_id;
-                    $vote->service_key = $service;
-                    $vote->service_id = $authIdentity->getAttribute('id');
-                    try {
-                        $vote->save();
-                        Rating::model()->saveByEntity($model, Rating::getShort($service), 1, true);
-                        $inc = true;
-                    } catch (MongoCursorException $e) {
-                    }
-
+            if ($authIdentity->authenticate()) {
+                $vote = new SocialVote;
+                $vote->entity = $entity;
+                $vote->entity_id = $entity_id;
+                $vote->service_key = $service;
+                $vote->service_id = $authIdentity->getAttribute('id');
+                try {
+                    $vote->save();
+                    Rating::model()->saveByEntity($model, Rating::getShort($service), 1, true);
+                    $inc = true;
+                } catch (MongoCursorException $e) {
                 }
+
             }
 
-            $authIdentity->redirect(null, 'share_redirect', $inc);
+            $authIdentity->redirect(null, 'share_redirect', $inc, $model->content->id);
         }
-    }
-
-    public function actionSetValue()
-    {
-        if (!Yii::app()->request->isAjaxRequest)
-            Yii::app()->end();
-        $modelName = Yii::app()->request->getPost('entity');
-        $modelPk = Yii::app()->request->getPost('entity_id');
-        $attribute = Yii::app()->request->getPost('attribute');
-        $value = Yii::app()->request->getPost('value');
-
-        if ($modelName == 'CookDecoration' && $attribute == 'description') {
-            Yii::import('site.frontend.modules.cook.models.*');
-            $model = $modelName::model()->findByAttributes(array('photo_id' => $modelPk));
-        } else {
-            $model = $modelName::model()->findByPk($modelPk);
-        }
-        $model->setAttribute($attribute, $value);
-        if ($model->update($attribute))
-            echo '1';
-
-        if ($modelName == 'User' && $attribute == 'relationship_status')
-            UserScores::checkProfileScores(Yii::app()->user->id);
-    }
-
-    public function actionSetValues()
-    {
-        if (isset($_POST['Album']['title']))
-            $_POST['Album']['title'] = str_replace('Введите название альбома', '', $_POST['Album']['title']);
-
-        $modelName = Yii::app()->request->getPost('entity');
-        $modelPk = Yii::app()->request->getPost('entity_id');
-        $model = CActiveRecord::model($modelName)->findByPk($modelPk);
-
-        if (isset($_POST['ajax'])) {
-            echo CActiveForm::validate($model);
-            Yii::app()->end();
-        }
-
-        $model->attributes = $_POST[$modelName];
-
-        echo $model->save();
-        if (!empty($model->attach)) {
-            try {
-                $attach = $model->attach->getModel();
-                if (isset($attach->title) && get_class($attach) == 'ContestWork'){
-                    $attach->title = $model->title;
-                    $attach->update(array('title'));
-                }
-            } catch (Exception $e) {
-            }
-        }
-    }
-
-    protected function performAjaxValidation($model)
-    {
-
     }
 
     public function actionSetDate()
@@ -258,13 +200,6 @@ class AjaxController extends HController
         }
     }
 
-    public function actionSavePhoto()
-    {
-        if (!isset($_FILES))
-            Yii::app()->end();
-        $model = new AlbumPhoto();
-    }
-
     public function actionImageUpload()
     {
         $dir = Yii::getPathOfAlias('webroot') . '/upload/images/';
@@ -325,18 +260,6 @@ class AjaxController extends HController
             );
         }
         echo CJSON::encode($response);
-    }
-
-    public function actionUserViaCommunity()
-    {
-        $user = User::model()->findByPk(Yii::app()->user->id);
-        $communities = $user->communities;
-        $_communities = array();
-        foreach ($communities as $c) {
-            if ($c->id != 2) $_communities[] = $c->id;
-        }
-        $user->communities = $_communities;
-        $user->saveRelated('communities');
     }
 
     public function actionRemoveEntity()
@@ -489,16 +412,6 @@ class AjaxController extends HController
         echo json_encode($baby->getAttributes());
     }
 
-    public function actionSettlements()
-    {
-        $data = GeoRusSettlement::model()->findAll('region_id=:region_id', array(':region_id' => (int)$_POST['region_id']));
-
-        $data = CHtml::listData($data, 'id', 'name');
-        foreach ($data as $value => $name) {
-            echo CHtml::tag('option', array('value' => $value), CHtml::encode($name), TRUE);
-        }
-    }
-
     public function actionRubrics()
     {
         $rubrics = CommunityRubric::model()->findAll('community_id = :community_id AND parent_id IS NULL', array(':community_id' => Yii::app()->request->getPost('community_id')));
@@ -615,12 +528,13 @@ class AjaxController extends HController
 
     public function actionToggleFavourites()
     {
-        if (Yii::app()->user->checkAccess('manageFavourites')) {
+        $modelName = Yii::app()->request->getPost('entity');
+        $modelPk = Yii::app()->request->getPost('entity_id');
+        $index = Yii::app()->request->getPost('num');
+        $param = Yii::app()->request->getPost('param');
+
+        if ((Yii::app()->user->checkAccess('clubFavourites') && $index == Favourites::CLUB_MORE) || Yii::app()->user->checkAccess('manageFavourites') && $index != Favourites::CLUB_MORE) {
             Yii::import('site.frontend.modules.cook.components.*');
-            $modelName = Yii::app()->request->getPost('entity');
-            $modelPk = Yii::app()->request->getPost('entity_id');
-            $index = Yii::app()->request->getPost('num');
-            $param = Yii::app()->request->getPost('param');
 
             $model = $modelName::model()->findByPk($modelPk);
             $success = false;
@@ -645,7 +559,7 @@ class AjaxController extends HController
 
     public function actionContentsLive($id, $containerClass)
     {
-        $model = CommunityContent::model()->full()->findByPk($id);
+        $model = CommunityContent::model()->findByPk($id);
         $data = array('data' => $model);
         switch ($containerClass) {
             case 'short':
@@ -750,37 +664,6 @@ class AjaxController extends HController
         return $model;
     }
 
-    public function actionBirthday()
-    {
-        Yii::import('site.common.models.forms.DateForm');
-        Yii::import('site.frontend.widgets.user.*');
-        $date = new DateForm();
-        $date->attributes = $_POST['DateForm'];
-        if (isset($_POST['ajax'])) {
-            echo CActiveForm::validate($date);
-            Yii::app()->end();
-        }
-
-        $date->validate();
-        $user = Yii::app()->user->getModel();
-        $user->birthday = trim($date->date);
-
-        if ($user->save('birthday')) {
-            ob_start();
-            $this->widget('HoroscopeWidget', array('user' => $user));
-            $horoscope = ob_get_clean();
-            UserScores::checkProfileScores(Yii::app()->user->id);
-
-            echo CJSON::encode(array(
-                'status' => true,
-                'text' => '<span>День рождения:</span>' . Yii::app()->dateFormatter->format("d MMMM", $user->birthday) . ' (' . $user->normalizedAge . ')',
-                'horoscope' => $horoscope,
-                'full' => ($user->score->full == 0) ? false : true
-            ));
-        } else
-            echo CJSON::encode(array('status' => false));
-    }
-
     public function actionLink($text = null)
     {
         Yii::import('site.common.models.forms.*');
@@ -815,14 +698,6 @@ class AjaxController extends HController
         $service->userUsedService();
     }
 
-    public function actionTest()
-    {
-        $ids = array_merge(Favourites::getIdList(Favourites::BLOCK_INTERESTING, 4),
-            Favourites::getIdList(Favourites::BLOCK_BLOGS, 12),
-            Favourites::getIdList(Favourites::BLOCK_SOCIAL_NETWORKS, 5));
-        var_dump($ids);
-    }
-
     public function actionSetUserAttribute()
     {
         $key = Yii::app()->request->getPost('key');
@@ -831,5 +706,10 @@ class AjaxController extends HController
         $success = UserAttributes::set(Yii::app()->user->id, $key, $value);
         $response = compact('success');
         echo CJSON::encode($response);
+    }
+
+    public function actionRedactor()
+    {
+        $this->renderPartial('redactor');
     }
 }

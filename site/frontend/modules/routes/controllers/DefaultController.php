@@ -1,7 +1,9 @@
 <?php
 
-class DefaultController extends HController
+class DefaultController extends ServiceController
 {
+    public $service_id = 26;
+
     public function filters()
     {
         return array(
@@ -10,20 +12,12 @@ class DefaultController extends HController
         );
     }
 
-    public function actions()
-    {
-        return array(
-            'captcha' => array(
-                'class' => 'CCaptchaAction',
-            ),
-        );
-    }
-
     /**
      * @sitemap dataSource=sitemap
      */
     public function actionIndex($id = null)
     {
+        $this->layout = '//layouts/community';
         $this->meta_title = 'Составь маршрут для автомобиля';
 
         if (empty($id)) {
@@ -98,23 +92,6 @@ class DefaultController extends HController
         } else {
             var_dump($model->getErrors());
         }
-    }
-
-    public function actionTest()
-    {
-//        $city = GeoCity::model()->findByPk(14798);
-//        echo $city->getFullName()."<br>";
-//        $parser = new GoogleCoordinatesParser;
-//        $parser->city = $city;
-//        $parser->parseCity();
-//
-//        var_dump($parser->coordinates->attributes);
-
-//        $r = GoogleRouteParser::getUrl(Route::model()->findByPk(2634));
-//        var_dump($r);
-
-//        $p = new GoogleRouteParser;
-//        $p->parseRoute(Route::model()->findByPk(2634));
     }
 
     public function actionReparseGoogle($id)

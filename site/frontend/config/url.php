@@ -48,9 +48,9 @@ return array(
         '/' => 'site/index',
         'js_dynamics/<hash:\w+>.js' => 'site/seoHide',
         'moderation' => 'site/moderationRules',
-        'site/<_a:(confirmEmail|resendConfirmEmail|passwordRecovery|passwordRecoveryForm|login|logout|link|out|hh|flushSchema)>' => 'site/<_a>',
+        'site/<_a:(confirmEmail|resendConfirmEmail|passwordRecovery|passwordRecoveryForm|login|logout|link|out|hh|flushSchema|vacancySend)>' => 'site/<_a>',
         'advertiser' => array('site/page', 'defaultParams' => array('view' => 'advertiser')),
-
+        'job/php-developer' => 'site/vacancy',
 
         //===================== Subscribes =========================//
         'subscribes' => 'myGiraffe/default/subscribes',
@@ -345,7 +345,5 @@ return array(
         'family/<_c>/<_a>' => 'family/<_c>/<_a>',
 
         'contest/pets<contestId:\d+>' => 'community/contest/index',
-
-        'job/php-developer' => 'site/vacancy',
     ),
 );

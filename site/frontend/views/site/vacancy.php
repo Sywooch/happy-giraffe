@@ -7,8 +7,7 @@
 
             <div class="layout-thin clearfix">
                 <div class="b-avacancy">
-                    <?php if (! $_POST && false): ?>
-                    <?=CHtml::beginForm()?>
+                    <?=CHtml::beginForm(array('site/vacancySend'), 'post', array('id' => 'vacancyForm'))?>
                     <div class="hg-about">
                         <div class="hg-about_logo"></div>
                         <div class="hg-about_desc">
@@ -165,18 +164,19 @@
                         </div>
                     </div>
 
+                    <div class="textalign-c margin-b10">
+                        <div class="msg-error">Заполните обязательные поля *</div>
+                    </div>
                     <div class="textalign-c margin-b70">
-                        <a href="javascript:void(0)" class="btn-green btn-large" onclick="submit();">ОТПРАВИТЬ</a>
+                        <a href="javascript:void(0)" class="btn-green btn-large" onclick="processForm(this)">ОТПРАВИТЬ</a>
+                    </div>
+                    <div class="textalign-c margin-b70" style="display: none;">
+                        Спасибо за проявленный интерес к работе в нашей компании.  Мы с вами скоро свяжемся.
                     </div>
                     <div class="textalign-c margin-b70">
                         Вы можете написать нам <a href="mailto:info@happy-giraffe.ru" class="padding-l5">info@happy-giraffe.ru</a>
                     </div>
                     <?php CHtml::endForm(); ?>
-                    <?php else: ?>
-                        <div class="margin-b40">
-                            <p>Спасибо за проявленный интерес к работе в нашей компании.  Мы с вами скоро свяжемся.</p>
-                        </div>
-                    <?php endif; ?>
                 </div>
 
             </div>
@@ -187,3 +187,18 @@
     <div class="footer-push"></div>
     <?php $this->renderPartial('//_footer'); ?>
 </div>
+
+<script type="text/javascript">
+    function processForm(el) {
+        var email = $('input[name=email]');
+        if (email.val().length > 0) {
+            email.parent().removeClass('error');
+            $.post($('#vacancyForm').attr('action'), $('#vacancyForm').serialize(), function() {
+                $(el).parent().hide();
+                $(el).parent().next().show();
+                $(el).parent().prev().hide();
+            });
+        } else
+            email.parent().addClass('error');
+    }
+</script>

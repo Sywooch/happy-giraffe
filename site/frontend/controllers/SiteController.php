@@ -439,13 +439,16 @@ class SiteController extends HController
 
     public function actionVacancy()
     {
+        $this->layout = '//layouts/common';
+        $this->pageTitle = 'Вакансия «PHP-разработчик»';
+        $this->render('vacancy');
+    }
+
+    public function actionVacancySend()
+    {
         if ($_POST) {
             $html = $this->renderFile(Yii::getPathOfAlias('site.common.tpl') . DIRECTORY_SEPARATOR . 'vacancy.php', $_POST, true);
             ElasticEmail::send('nikita@happy-giraffe.ru', 'Отклик на вакансию', $html, $_POST['email'], $_POST['name']);
         }
-
-        $this->layout = '//layouts/common';
-        $this->pageTitle = 'Вакансия «PHP-разработчик»';
-        $this->render('vacancy');
     }
 }

@@ -241,16 +241,6 @@ function BlogRecordSettings(data) {
     }
 }
 
-function PhotoPostWidget() {
-    var self = this;
-
-    self.state = ko.observable(0);
-
-    self.setState = function(state) {
-        self.state(state);
-    };
-}
-
 function likeControlFixed(block, elementStop, blockIndent) {
 
     var block = $(block);

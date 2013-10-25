@@ -144,7 +144,7 @@
 							<div class="f-about_col-l">
 								<lable class="f-about_label">E-mail *</lable>
 							</div>
-							<div class="f-about_col-r">
+							<div class="f-about_col-r error">
 								<input type="text" name="" id="" class="itx-gray w-70p">
 							</div>
 						</div>

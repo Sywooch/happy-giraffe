@@ -25,7 +25,8 @@ switch ($data->type_id) {
         $cssClass = 'b-article__user-status';
         break;
     case CommunityContentType::TYPE_PHOTO:
-        $cssClass = 'b-article__photopost';
+        //$cssClass = 'b-article__photopost';
+        $cssClass = null;
         break;
     default:
         $cssClass = null;

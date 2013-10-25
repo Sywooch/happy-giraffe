@@ -11,7 +11,7 @@ if ($source == null){
     $data->delete();
 }else{
 ?>
-<div class="clearfix">
+<div class="b-article_repost clearfix">
     <div class="float-l">
         <div class="like-control like-control__repost clearfix">
             <?php $this->widget('Avatar', array('user' => $data->author)) ?>

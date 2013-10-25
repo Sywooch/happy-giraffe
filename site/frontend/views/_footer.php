@@ -10,7 +10,7 @@
             <li class="footer-list_li"><span>Контакты </span></li>
             <li class="footer-list_li"><noindex><a href="http://www.rambler.ru/" class="footer-list_a" target="_blank" rel="nofollow">Партнер "Рамблера"</a></noindex></li>
         </ul>
-        <?php if ($this->route != 'site/index'): ?>
+        <?php if ($this->route != 'site/index' && $this->route != 'site/vacancy'): ?>
             <ul class="footer-ul-bold">
                 <li class="footer-ul-bold_li"><a href="<?=$this->createUrl('/community/default/section', array('section_id'=>1)) ?>" class="footer-ul-bold_a">Беременность и дети</a></li>
                 <li class="footer-ul-bold_li"><a href="<?=$this->createUrl('/community/default/section', array('section_id'=>2)) ?>" class="footer-ul-bold_a">Наш дом</a></li>

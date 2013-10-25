@@ -164,7 +164,7 @@
                         </div>
                     </div>
 
-                    <div class="textalign-c margin-b10">
+                    <div class="textalign-c margin-b10" style="display: none;">
                         <div class="msg-error">Заполните обязательные поля *</div>
                     </div>
                     <div class="textalign-c margin-b70">
@@ -198,7 +198,9 @@
                 $(el).parent().next().show();
                 $(el).parent().prev().hide();
             });
-        } else
+        } else {
             email.parent().addClass('error');
+            $(el).parent().prev().show();
+        }
     }
 </script>

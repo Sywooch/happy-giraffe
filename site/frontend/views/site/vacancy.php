@@ -132,7 +132,7 @@
                         </div>
                         <div class="f-about_row clearfix">
                             <div class="f-about_col-l">
-                                <lable class="f-about_label">E-mail</lable>
+                                <lable class="f-about_label">E-mail *</lable>
                             </div>
                             <div class="f-about_col-r">
                                 <input type="text" name="email" class="itx-gray w-70p">

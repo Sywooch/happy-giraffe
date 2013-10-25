@@ -16,6 +16,7 @@
 @import "/project/sections.less";
 @import "/project/social.less";
 @import "/project/user-notice.less";
+@import "/project/vacancy.less";
 
 /// services
 @import "/project/services/cook.less";
@@ -548,6 +549,17 @@ table.fr_recipe_tb td { width: 50%;}
 }
 /* /end baby_handbook_add_recipe.html */
 
+/* list-simple */
+.list-simple {
+    margin: 5px 0;
+
+    &_li {
+        padding: 0 0 0 15px;
+        background: url(/images/list-simple_li.gif) no-repeat 0 11px;
+    }
+}
+/* /list-simple */
+
 /* blog-title-b */
 .blog-title-b {
     position: relative;
@@ -624,7 +636,7 @@ table.fr_recipe_tb td { width: 50%;}
 /* b-article */
 .b-article {
     position: relative;
-    margin:20px 20px 40px;
+    margin:20px 20px 30px;
 
     &__user-status &_cont {background: #cdecff;}
     &__user-status &_cont-tale {border-right-color: #cdecff;}
@@ -641,6 +653,7 @@ table.fr_recipe_tb td { width: 50%;}
 
     .wysiwyg-content {padding: 0 20px;}
     .custom-likes-b {margin: 0 0 30px;}
+    &_repost &_cont {min-height: 115px;}
     &_in {
         min-height:144px;
         word-wrap: break-word;
@@ -985,7 +998,7 @@ table.fr_recipe_tb td { width: 50%;}
 .b-photopost {
     margin: 20px 0 30px;
     padding: 1px 0;
-    background: #57aef1;
+    background: #523D64;
 
     &_t {
         margin: 15px;
@@ -1229,6 +1242,12 @@ table.fr_recipe_tb td { width: 50%;}
         opacity: 1;
     }
     .ie8 &_i:hover &_overlay {display: block;filter: alpha(opacity=80);}
+    &_i .ico-play-big {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin: -75px 0 0 -75px;;
+    }
     &_img {display: block;}
     &_overlay {
         position: absolute;
@@ -1242,6 +1261,7 @@ table.fr_recipe_tb td { width: 50%;}
         opacity: 0;
     }
     .ie8 &_overlay {display: none;filter: alpha(opacity=0);}
+    &_overlay__none {background: none;}
     &_overlay-row {
         padding: 4px 6px 6px;
         line-height: 14px;
@@ -2014,7 +2034,7 @@ table.fr_recipe_tb td { width: 50%;}
 
     &_drop {
         position: absolute;
-        left: 40px;
+        left: 50px;
         top: 0;
         width: 190px;
         border: 1px solid #dcecf6;
@@ -2861,6 +2881,16 @@ table.fr_recipe_tb td { width: 50%;}
     font-weight: normal;
 }
 /* /heading-medium */
+
+/* title-small */
+.title-small {
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 23px;
+    margin: 5px 0;
+    color: #333;
+}
+/* title-small */
 
 /* cap-empty */
 .cap-empty {
@@ -4306,3 +4336,26 @@ table.fr_recipe_tb td { width: 50%;}
     }
 }
 /* /such-post */
+
+/* f-about */
+.f-about {
+    margin: 20px 0 65px;
+    padding: 3% 3.2% 1%;
+    background-color: #f5f5f5;
+    line-height: 18px;
+
+    &_col-l {
+        .inline-block();
+        vertical-align: middle;
+        width: 25%;
+    }
+    &_col-r {
+        .inline-block();
+        vertical-align: middle;
+        width: 74%;
+    }
+    &_row {
+        margin: 0 0 25px;
+    }
+}
+/* /f-about */

@@ -115,8 +115,8 @@ function CommentViewModel(data) {
     });
     self.removeResponse = function () {
         var str = self.editor.html();
-        str = str.replace('<span data-redactor="verified" class="a-imitation">' + self.response().author.firstName() + ',</span>', '');
-        str = str.replace('<span class="a-imitation">' + self.response().author.firstName() + ',</span>', '');
+        str = str.replace('<span data-redactor="verified" class="a-imitation">' + self.response().author.fullName() + ',</span>', '');
+        str = str.replace('<span class="a-imitation">' + self.response().author.fullName() + ',</span>', '');
         self.editor.html(str);
         self.response(false);
     };
@@ -124,7 +124,7 @@ function CommentViewModel(data) {
     self.Reply = function (comment) {
         self.response(comment);
         self.goBottom();
-        self.editor.html('<p><a href="/user/' + comment.author.id() + '/">' + comment.author.firstName() + '</a>,&nbsp;</p>');
+        self.editor.html('<p><a href="/user/' + comment.author.id() + '/">' + comment.author.fullName() + '</a>,&nbsp;</p>');
     };
 }
 
@@ -249,7 +249,10 @@ function User(data) {
     ko.mapping.fromJS(data, {}, self);
 
     self.fullName = ko.computed(function () {
-        return self.firstName() + ' ' + self.lastName();
+        var fullName = self.firstName();
+        if (self.lastName().length > 0)
+            fullName += ' ' + self.lastName();
+        return fullName;
     }, this);
 
     self.avatarClass = ko.computed(function () {

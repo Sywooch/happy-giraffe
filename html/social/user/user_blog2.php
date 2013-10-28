@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
-<!--[if lt IE 8]>      <html class="top-nav-fixed ie7"> <![endif]-->
-<!--[if IE 8]>         <html class="top-nav-fixed ie8"> <![endif]-->
-<!--[if IE 9]>         <html class="top-nav-fixed ie9"> <![endif]-->
+<!--[if lt IE 8]>      <html class="ie7"> <![endif]-->
+<!--[if IE 8]>         <html class="ie8"> <![endif]-->
+<!--[if IE 9]>         <html class="ie9"> <![endif]-->
 <!--[if gt IE 9]><!--> <html class=""> <!--<![endif]-->
 <head>
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/head.php'; ?>
@@ -249,8 +249,7 @@
 								*/
 								var inBlock = $(inBlock);
 								var blockStopBottom = inBlock.offset().top + inBlock.outerHeight();
-								
-								console.log(inBlock.offset().top);
+
 								if (blockStopBottom-blockTop-blockHeight-blockIndent > 20) {
 
 									$(window).scroll(function() {

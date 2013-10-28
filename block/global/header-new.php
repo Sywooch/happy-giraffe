@@ -44,18 +44,15 @@
 							<span class="header-menu_tx">Мои<br>успехи</span>
 						</a>
 					</li>
-					<li class="header-menu_li header-menu_li__ava">
+					<li class="header-menu_li header-menu_li__dropin">
 						<a href="" class="header-menu_a">
+
 							<span class="ava middle">
 								<img src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" alt="">
 							</span>
-						</a>
-					</li>
-					<li class="header-menu_li header-menu_li__dropin">
-						<a href="" class="header-menu_a">
 							<span class="header-menu_ico header-menu_ico__dropin"></span>
 						</a>
-						<div class="header-drop" style="display:block;">
+						<div class="header-drop" style="display:block;" >
 							<div class="header-menu clearfix">
 								<ul class="header-menu_ul">
 									<li class="header-menu_li">
@@ -167,6 +164,12 @@
 
 <div class="header-fix">
 	<div class="header-fix_hold clearfix">
+		<a href="" class="header-fix_logo"></a>
+
+		<a href="" class="header-fix_scrolltop">
+			<span class="a-pseudo">Наверх</span>
+			<span class="i-arrow-t"></span>
+		</a>
 		<div class="header-fix-menu">
 			<ul class="header-menu_ul clearfix">
 				<li class="header-fix-menu_li">
@@ -200,18 +203,15 @@
 						<span class="header-fix-menu_ico header-fix-menu_ico__award"></span>
 					</a>
 				</li>
-				<li class="header-fix-menu_li header-fix-menu_li__ava">
+				<li class="header-fix-menu_li header-fix-menu_li__dropin">
 					<a href="" class="header-fix-menu_a">
+
 						<span class="ava small">
 							<img src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" alt="">
 						</span>
-					</a>
-				</li>
-				<li class="header-fix-menu_li header-fix-menu_li__dropin">
-					<a href="" class="header-fix-menu_a">
 						<span class="header-fix-menu_ico header-fix-menu_ico__dropin"></span>
 					</a>
-					<div class="header-drop">
+					<div class="header-drop" >
 						<div class="header-menu clearfix">
 							<ul class="header-menu_ul">
 								<li class="header-menu_li">
@@ -317,12 +317,6 @@
 
 			</ul>
 		</div>
-		<a href="" class="header-fix_logo"></a>
-
-		<a href="" class="header-fix_scrolltop">
-			<span class="a-pseudo">Наверх</span>
-			<span class="i-arrow-t"></span>
-		</a>
 	</div>
 </div>
 
@@ -331,9 +325,9 @@ $(document).ready(function () {
 	$(window).scroll(function () {
         var contanerScroll = $(window).scrollTop();
         if (contanerScroll > $('.layout-header').height()) {
-            $('.header-fix').fadeIn(600);
+            $('.header-fix').fadeIn(400);
         } else {
-            $('.header-fix').fadeOut(600);
+            $('.header-fix').fadeOut(400);
         }
     });
 

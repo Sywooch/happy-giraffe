@@ -47,6 +47,8 @@ class HhParser
         ));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $response = curl_exec($ch);
+        if (curl_getinfo($ch, CURLINFO_HTTP_CODE) != 200)
+            return false;
         $response = CJSON::decode($response);
 
         $firstName = $response['first_name'];

@@ -74,13 +74,7 @@ class NewCommentWidget extends CWidget
             $criteria = $this->getGalleryComments(); else
             $criteria = $this->getCommentsCriteria();
 
-        if ($this->full) {
-            return Comment::model()->findAll($criteria);
-        } else {
-            $criteria->order = 't.created DESC';
-            $criteria->limit = 3;
-            return array_reverse(Comment::model()->findAll($criteria));
-        }
+        return Comment::model()->findAll($criteria);
     }
 
     /**

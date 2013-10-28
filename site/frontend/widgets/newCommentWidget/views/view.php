@@ -132,7 +132,7 @@ NotificationRead::getInstance()->SetVisited();
     <?php if (!Yii::app()->user->isGuest && !$this->gallery):?>
         <div class="comments-gray_add clearfix" data-bind="css: {active: opened}">
             <div class="comments-gray_ava">
-                <?php $this->widget('Avatar', array('user' => Yii::app()->user->getModel(), 'size' => 24)) ?>
+                <?php $this->widget('Avatar', array('user' => Yii::app()->user->getModel(), 'size' => 40)) ?>
             </div>
             <div class="comments-gray_frame">
                 <input type="text" class="comments-gray_add-itx itx-gray" placeholder="Ваш комментарий" data-bind="click:openComment, visible: !opened()">

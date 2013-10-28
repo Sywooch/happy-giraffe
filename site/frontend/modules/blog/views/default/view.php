@@ -74,6 +74,10 @@ switch ($data->type_id) {
     <?php $this->renderPartial('blog.views.default._article_banner'); ?>
 <?php endif; ?>
 
+<?php if ($full): ?>
+    <?php $this->renderPartial('blog.views.default._article_users', compact('data')); ?>
+<?php endif; ?>
+
 <?php if ($full && ! $data->getIsFromBlog() && in_array($data->rubric->community->club_id, array(8, 10, 14))): ?>
     <?php $this->widget('CommunityMoreWidget', array('content' => $data)); ?>
 <?php endif; ?>

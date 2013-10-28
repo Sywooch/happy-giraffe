@@ -59,18 +59,29 @@ NotificationRead::getInstance()->SetVisited();
             <!-- ko foreach: commentsToShow -->
             <div class="comments-gray_i" data-bind="css: {'comments-gray_i__self': ownComment(), 'comments-gray_i__recovery': removed()}, attr: {id: 'comment_'+id()}">
 
-                <a class="comments-gray_like like-hg-small powertip" href="" data-bind="text:likesCount, css:{active: userLikes, hide: (likesCount() == 0)}, click:Like, tooltip: 'Нравится'"></a>
-
                 <div class="comments-gray_ava">
-                    <a class="ava small" href="" data-bind="css: author.avatarClass(), attr:{href: author.url()}">
+                    <a class="ava middle" href="" data-bind="css: author.avatarClass(), attr:{href: author.url()}">
                         <img data-bind="attr : { src : author.avatar() }">
                     </a>
+                </div>
+
+                <div class="comments-gray_r">
+                    <div class="comments-gray_date" data-bind="text: created"></div>
+
+                    <div class="comments-gray_control" data-bind="css: {'comments-gray_control__self': ownComment()}, visible: (!editMode() && !removed())">
+                        <div class="comments-gray_control-hold">
+                            <a class="comments-gray_quote-ico powertip" data-bind="visible: (!ownComment() && !$parent.gallery() && !photoUrl()), click: Reply, tooltip: 'Ответить'"></a>
+                            <a class="message-ico message-ico__edit powertip" data-bind="visible: canEdit() && !$parent.gallery() && !photoUrl(), click: GoEdit, tooltip: 'Редактировать'"></a>
+                            <a class="message-ico message-ico__del powertip" data-bind="visible: canRemove(), click: Remove, tooltip: 'Удалить'"></a>
+                        </div>
+                    </div>
+
                 </div>
 
                 <div class="comments-gray_frame">
                     <div class="comments-gray_header clearfix">
                         <a href="" class="comments-gray_author" data-bind="text: author.fullName(), attr:{href: author.url()}"></a>
-                        <span class="font-smallest color-gray" data-bind="text: created"></span>
+                        <a class="comments-gray_like like-hg-small powertip" href="" data-bind="text:likesCount, css:{active: userLikes, hide: (likesCount() == 0)}, click:Like, tooltip: 'Нравится'"></a>
                     </div>
 
                     <div class="comments-gray_cont wysiwyg-content" data-bind="visible: !removed() && !editMode()">
@@ -108,24 +119,6 @@ NotificationRead::getInstance()->SetVisited();
                     <?php endif ?>
                     <!-- /ko -->
 
-                </div>
-
-                <div class="comments-gray_control" data-bind="css: {'comments-gray_control__self': ownComment()}, visible: (!editMode() && !removed())">
-                    <div class="comments-gray_control-hold">
-
-                        <div class="clearfix" data-bind="visible: (!ownComment() && !$parent.gallery() && !photoUrl())">
-                            <a href="" class="comments-gray_quote-ico powertip" data-bind="click: Reply, tooltip: 'Ответить'"></a>
-                        </div>
-
-                        <div class="clearfix" data-bind="visible: canEdit() && !$parent.gallery() && !photoUrl()">
-                            <a href="" class="message-ico message-ico__edit powertip" data-bind="click: GoEdit, tooltip: 'Редактировать'"></a>
-                        </div>
-
-                        <div class="clearfix" data-bind="visible: canRemove()">
-                            <a href="" class="message-ico message-ico__del powertip" data-bind="click: Remove, tooltip: 'Удалить'"></a>
-                        </div>
-
-                    </div>
                 </div>
 
             </div>

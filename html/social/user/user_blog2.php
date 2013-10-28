@@ -546,7 +546,7 @@
 				<div class="article-users">
 					<div class="article-users_t">Запись понравилась </div>
 					<div class="ava-list">
-						<ul class="ava-list clearfix">
+						<ul class="ava-list_ul clearfix">
 							<li class="ava-list_li">
 								<a href="" class="ava small"></a>
 							</li>
@@ -719,7 +719,7 @@
 					</div>
 					<div class="article-users_t">Запись добавили в избранное </div>
 					<div class="ava-list">
-						<ul class="ava-list clearfix">
+						<ul class="ava-list_ul clearfix">
 							<li class="ava-list_li">
 								<a href="" class="ava small"></a>
 							</li>

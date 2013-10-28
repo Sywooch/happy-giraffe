@@ -12,7 +12,7 @@
         <?=($full) ? $data->content->purified->text : $data->purified->preview?>
         <?php if ($data->type_id == CommunityContent::TYPE_VIDEO): ?>
             <div class="video-fluid">
-                <?=$data->video->getEmbed()?>
+                <?=$data->video->embed?>
             </div>
         <?php endif; ?>
     </div>

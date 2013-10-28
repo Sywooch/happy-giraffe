@@ -1142,4 +1142,22 @@ class CommunityContent extends HActiveRecord
 
         return null;
     }
+
+    public function getLikedUsers()
+    {
+        $likes = HGLike::model()->findAllByEntity($this);
+        $usersIds = array_map(function($like) {
+            return $like->user_id;
+        }, $likes);
+
+        $criteria = new CDbCriteria();
+        $criteria->addInCondition('t.id', $usersIds);
+        $users = User::model()->findAll($criteria);
+        return $users;
+    }
+
+    public function getFavouritedUsers()
+    {
+
+    }
 }

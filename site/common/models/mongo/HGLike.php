@@ -275,4 +275,20 @@ class HGLike extends HMongoModel
             ), array('$set' => array('entity_name' => 'BlogContent')));
         }
     }
+
+    public function findAllByEntity($entity)
+    {
+        $entity_id = (int)$entity->primaryKey;
+        $entity_name = get_class($entity);
+
+        $cursor = $this->getCollection()->find(array(
+            'entity_id' => $entity_id,
+            'entity_name' => $entity_name,
+        ));
+
+        $list = array();
+        while ($cursor->hasNext())
+            $list[] = $cursor->getNext();
+        return $list;
+    }
 }

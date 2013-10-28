@@ -27,11 +27,13 @@ class HoroscopeWidget extends CWidget
             $criteria->compare('zodiac', $user_zodiac);
             $criteria->compare('`date`', date("Y-m-d"));
             $horoscope = Horoscope::model()->find($criteria);
-            $this->title = 'Гороскоп ' . $horoscope->zodiacText2() . ' на сегодня ';;
+            if ($horoscope !== null) {
+                $this->title = 'Гороскоп ' . $horoscope->zodiacText2() . ' на сегодня ';;
 
-            UserAttributes::set(Yii::app()->user->id, 'horoscope_seen', 1);
+                UserAttributes::set(Yii::app()->user->id, 'horoscope_seen', 1);
 
-            $this->render('HoroscopeWidget', array('user' => $this->user, 'horoscope' => $horoscope));
+                $this->render('HoroscopeWidget', array('user' => $this->user, 'horoscope' => $horoscope));
+            }
         }
     }
 }

@@ -2,6 +2,7 @@ var ENTER_KEY_SEND = 1;
 function CommentViewModel(data) {
     var self = this;
     ko.mapping.fromJS(data, {}, self);
+    self.extended = ko.observable(false);
     self.opened = ko.observable(false);
     self.gallery = ko.observable(data.gallery);
     self.objectName = ko.observable(data.objectName);
@@ -126,6 +127,17 @@ function CommentViewModel(data) {
         self.goBottom();
         self.editor.html('<p><a href="/user/' + comment.author.id() + '/">' + comment.author.fullName() + '</a>,&nbsp;</p>');
     };
+
+    self.toggleExtended = function() {
+        self.extended(! self.extended());
+    };
+
+    self.commentsToShow = ko.computed(function() {
+        if (self.full() || self.extended())
+            return self.comments();
+
+        return self.comments().slice(self.comments.length - 3, self.comments().length);
+    });
 }
 
 function NewComment(data, parent) {

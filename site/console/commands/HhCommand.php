@@ -24,12 +24,14 @@ class HhCommand extends CConsoleCommand
         $criteria->parsed('==', false);
         $models = HhResume::model()->findAll($criteria);
         foreach ($models as $m) {
-            echo ++$i . "\n";
+            echo ++$i . ' : ' . $m->_id . "\n";
             $data = $parser->parseResume($m->_id);
-            foreach ($data as $attribute => $value)
-                $m->$attribute = $value;
-            $m->parsed = true;
-            $m->save();
+            if ($data !== false) {
+                foreach ($data as $attribute => $value)
+                    $m->$attribute = $value;
+                $m->parsed = true;
+                $m->save();
+            }
         }
     }
 

@@ -16,11 +16,13 @@ class CommunityContestWidget extends CWidget
             'order' => 'id DESC',
         ));
 
-        $contestShown = UserAttributes::get(Yii::app()->user->id, 'contestShow' . $contest->id, false);
+        if ($contest !== null) {
+            $contestShown = UserAttributes::get(Yii::app()->user->id, 'contestShow' . $contest->id, false);
 
-        if ($contestShown === false) {
-            $this->render('CommunityContestWidget', compact('contest'));
-            UserAttributes::set(Yii::app()->user->id, 'contestShow' . $contest->id, true);
+            if ($contestShown === false) {
+                $this->render('CommunityContestWidget', compact('contest'));
+                UserAttributes::set(Yii::app()->user->id, 'contestShow' . $contest->id, true);
+            }
         }
     }
 }

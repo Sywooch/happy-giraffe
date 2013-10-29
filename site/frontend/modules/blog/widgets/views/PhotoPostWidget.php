@@ -28,13 +28,15 @@
     ?>
     <!-- /ko -->
 
-    <div class="margin-20 clearfix">
-        <a href="" class="float-r btn-blue-light btn-medium">Смотреть галерею</a>
-        <div class="float-l">
-            <a class="b-article_photo-control b-article_photo-control__single powertip" data-bind="css: { active : state() == 0 }, click: function() {setState(0)}"></a>
-            <a class="b-article_photo-control b-article_photo-control__grid powertip" data-bind="css: { active : state() == 1 }, click: function() {setState(1)}"></a>
+    <?php if ($this->full): ?>
+        <div class="margin-20 clearfix">
+            <a href="" class="float-r btn-blue-light btn-medium">Смотреть галерею</a>
+            <div class="float-l">
+                <a class="b-article_photo-control b-article_photo-control__single powertip" data-bind="css: { active : state() == 0 }, click: function() {setState(0)}"></a>
+                <a class="b-article_photo-control b-article_photo-control__grid powertip" data-bind="css: { active : state() == 1 }, click: function() {setState(1)}"></a>
+            </div>
         </div>
-    </div>
+    <?php endif; ?>
 </div>
 
 <script type="text/javascript">

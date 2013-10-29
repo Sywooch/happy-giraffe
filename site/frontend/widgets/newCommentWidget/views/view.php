@@ -29,7 +29,7 @@ NotificationRead::getInstance()->SetVisited();
 
 ?>
 <!-- ko stopBinding: true -->
-<div class="comments-gray <?=$this->objectName ?>" id="<?=$this->objectName ?>" style="display: none" data-bind="visible: true">
+<div class="comments-gray <?=$this->objectName ?><?php if ($this->full): ?> comments-gray__wide<?php endif; ?>" id="<?=$this->objectName ?>" style="display: none" data-bind="visible: true">
     <div id="comment_list"></div>
     <div class="comments-gray_t">
 

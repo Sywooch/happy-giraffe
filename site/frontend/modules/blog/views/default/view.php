@@ -64,13 +64,19 @@ switch ($data->type_id) {
             <?php $this->endWidget(); ?>
         <?php endif; ?>
 
-        <?php $this->widget('application.widgets.newCommentWidget.NewCommentWidget', array('model' => $data, 'full' => $full)); ?>
+        <?php if (! $full): ?>
+            <?php $this->widget('application.widgets.newCommentWidget.NewCommentWidget', array('model' => $data, 'full' => $full)); ?>
+        <?php endif; ?>
         <!-- /ko -->
     </div>
 </div>
 
 <?php if ($full): ?>
     <?php $this->renderPartial('blog.views.default._article_banner'); ?>
+<?php endif; ?>
+
+<?php if ($full): ?>
+    <?php $this->widget('application.widgets.newCommentWidget.NewCommentWidget', array('model' => $data, 'full' => $full)); ?>
 <?php endif; ?>
 
 <?php if ($full): ?>

@@ -89,7 +89,9 @@ switch ($data->type_id) {
 
 <?php $this->widget('application.widgets.seo.SeoLinksWidget'); ?>
 
-<?php $this->renderPartial('blog.views.default._prev_next', compact('data')); ?>
+<?php if ($full): ?>
+    <?php $this->widget('blog.widgets.PrevNextWidget', array('post' => $data)); ?>
+<?php endif; ?>
 
 <?php if ($full): ?>
 <script type="text/javascript">

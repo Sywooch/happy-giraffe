@@ -867,6 +867,20 @@ function HgLike(el, entity, entity_id){
     }, 'json');
 }
 
+function HgLikeSmall(el, entity, entity_id){
+    $.post('/ajaxSimple/like/', {entity: entity, entity_id: entity_id}, function (response) {
+        if (response.status) {
+            if ($(el).find('.ava-list_like-hg').hasClass('active')){
+                $(el).find('.count').text(parseInt($(el).text()) - 1);
+            }else{
+                $(el).find('.count').text(parseInt($(el).text()) + 1);
+            }
+            $(el).find('.ava-list_like-hg').toggleClass('active');
+            $(el).find('.andyou').toggle();
+        }
+    }, 'json');
+}
+
 (function($) {
 
     var defaults = {

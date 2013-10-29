@@ -29,14 +29,14 @@ NotificationRead::getInstance()->SetVisited();
 
 ?>
 <!-- ko stopBinding: true -->
-<div class="comments-gray <?=$this->objectName ?><?php if ($this->full): ?> comments-gray__wide<?php endif; ?>" id="<?=$this->objectName ?>" style="display: none" data-bind="visible: true">
+<div class="comments-gray <?=$this->objectName ?><?php if ($this->full): ?> comments-gray__wide<?php endif; ?>" id="<?=$this->objectName ?>" style="display: none" data-bind="visible: true, baron: extended">
     <div id="comment_list"></div>
     <div class="comments-gray_t">
 
         <span class="comments-gray_t-tx">Комментарии <span class="color-gray" data-bind="text: '(' + allCount() + ')'"></span></span>
-        <?php if ($allCount > 3): ?>
+        <!-- ko if: ! full() && comments().length > 3 -->
             <a class="a-pseudo font-small" data-bind="click: toggleExtended, text: extended() ? 'Скрыть все' : 'Показать все'"></a>
-        <?php endif; ?>
+        <!-- /ko -->
 
     </div>
 
@@ -125,7 +125,9 @@ NotificationRead::getInstance()->SetVisited();
             <!-- /ko -->
         </div>
         <div class="scroll_bar-hold">
-            <div class="scroll_bar"></div>
+            <div class="scroll_bar">
+                <div class="scroll_bar-in"></div>
+            </div>
         </div>
     </div>
 
@@ -165,6 +167,11 @@ NotificationRead::getInstance()->SetVisited();
         </div>
     <?php endif ?>
 
+    <!-- ko if: ! full() && comments().length > 3 && extended() -->
+    <div class="textalign-c margin-t10">
+        <a class="a-pseudo font-small" data-bind="click: toggleExtended">Скрыть все</a>
+    </div>
+    <!-- /ko -->
 </div>
 <!-- /ko -->
 

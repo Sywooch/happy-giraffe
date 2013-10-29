@@ -1,27 +1,3 @@
-ko.bindingHandlers.baron = {
-    update: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
-        var value = ko.utils.unwrapObservable(valueAccessor());
-
-        if (value) {
-            viewModel.scroll = $(element).find('.scroll').baron({
-                scroller: '.scroll_scroller',
-                container: '.scroll_cont',
-                track: '.scroll_bar-hold',
-                bar: '.scroll_bar'
-            });
-
-            setTimeout(function() {
-                $(element).find('.scroll_scroller').scrollTop($(element).find('.scroll_scroller')[0].scrollHeight);
-            }, 0);
-
-            console.log($(element).find('.scroll_scroller')[0].scrollHeight);
-        }
-        else
-            if (viewModel.scroll !== null)
-                viewModel.scroll.dispose();
-    }
-};
-
 var ENTER_KEY_SEND = 1;
 function CommentViewModel(data) {
     var self = this;
@@ -155,6 +131,19 @@ function CommentViewModel(data) {
 
     self.toggleExtended = function() {
         self.extended(! self.extended());
+
+        if (self.extended()) {
+            self.scroll = $('#' + self.objectName()).find('.scroll').baron({
+                scroller: '.scroll_scroller',
+                container: '.scroll_cont',
+                track: '.scroll_bar-hold',
+                bar: '.scroll_bar'
+            });
+
+            $('#' + self.objectName()).find('.scroll_scroller').scrollTop($('#' + self.objectName()).find('.scroll_scroller')[0].scrollHeight);
+        }
+        else
+            self.scroll.dispose();
     };
 
     self.commentsToShow = ko.computed(function() {

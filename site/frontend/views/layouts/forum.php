@@ -34,23 +34,6 @@
                     // -->
                 </script>
                 <!-- _________________________AdFox Asynchronous code END___________________________ -->
-
-                <!--AdFox START-->
-                <!--giraffe-->
-                <!--Площадка: Весёлый Жираф / * / *-->
-                <!--Тип баннера: 240x400-->
-                <!--Расположение: &lt;сайдбар&gt;-->
-                <script type="text/javascript">
-                    <!--
-                    if (typeof(pr) == 'undefined') { var pr = Math.floor(Math.random() * 1000000); }
-                    var addate = new Date();
-                    document.write('<iframe src="http://ads.adfox.ru/211012/getCode?pp=dey&amp;ps=bkqy&amp;p2=u&amp;p3=b&amp;p4=a&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a&amp;pr=' + pr + '&amp;pt=b&amp;pd=' + addate.getDate() + '&amp;pw=' + addate.getDay() + '&amp;pv=' + addate.getHours() + '" frameBorder="0" width="240" height="400" marginWidth="0" marginHeight="0" scrolling="no" style="border: 0px; margin: 0px; padding: 0px;"><a href="http://ads.adfox.ru/211012/goDefaultLink?pp=dey&amp;ps=bkqy&amp;p2=u&amp;" target="_blank"><img src="http://ads.adfox.ru/211012/getDefaultImage?pp=dey&amp;ps=bkqy&amp;p2=u" border="0" alt=""><\/a><\/iframe>');
-                    //-->
-                </script>
-                <noscript>
-                    <iframe src="http://ads.adfox.ru/211012/getCode?pp=dey&amp;ps=bkqy&amp;p2=u&amp;p3=b&amp;p4=a&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a&amp;pr=' + pr + '&amp;pt=b&amp;pd=' + addate.getDate() + '&amp;pw=' + addate.getDay() + '&amp;pv=' + addate.getHours() + '" frameBorder="0" width="240" height="400" marginWidth="0" marginHeight="0" scrolling="no" style="border: 0px; margin: 0px; padding: 0px;"><a href="http://ads.adfox.ru/211012/goDefaultLink?pp=dey&amp;ps=bkqy&amp;p2=u&amp;" target="_blank"><img src="http://ads.adfox.ru/211012/getDefaultImage?pp=dey&amp;ps=bkqy&amp;p2=u" border="0" alt=""></a></iframe>
-                </noscript>
-                <!--AdFox END-->
             </div>
         <?php endif; ?>
 

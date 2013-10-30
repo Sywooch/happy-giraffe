@@ -10,7 +10,7 @@ class RegisterWidget extends CWidget
             //for tests
             //Yii::app()->user->setState('register_window_shown', 0);
 
-            if (! Yii::app()->request->cookies->contains('registerWindowShown') && ! Yii::app()->request->cookies->contains('not_guest') && Yii::app()->user->getState('viewsCount') > 1) {
+            if (! Yii::app()->request->cookies->contains('registerWindowShown') && ! Yii::app()->request->cookies->contains('not_guest') && Yii::app()->user->getState('viewsCount') == 3) {
                 if (!empty(Yii::app()->getRequest()->urlReferrer) && $this->inHoroscopeArea()) {
 //                    $this->show_form = true;
 //                    $this->form_type = 'horoscope';

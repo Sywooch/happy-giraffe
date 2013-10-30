@@ -87,7 +87,7 @@ function CommentViewModel(data) {
                     self.focusEditor();
                 },
                 changeCallback: function(html) {
-                    if (self.response() !== false && html.indexOf(self.response().treatmentHtml()))
+                    if (self.response() !== false && html.indexOf(self.response().treatmentHtml()) == -1)
                         self.removeResponse();
                 },
                 minHeight: 68,

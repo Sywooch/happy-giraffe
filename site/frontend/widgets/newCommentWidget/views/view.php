@@ -140,17 +140,12 @@ NotificationRead::getInstance()->SetVisited();
                 <input type="text" class="comments-gray_add-itx itx-gray" placeholder="Ваш комментарий" data-bind="click:openComment, visible: !opened()">
                 <!-- ko if: opened() -->
                 <div class="wysiwyg-h">
+                    <!-- ko if: response() -->
+                        <a class="wysiwyg-toolbar_close ico-close3" data-bind="click: removeResponse, tooltip: 'Отменить ответ'"></a>
+                    <!-- /ko -->
                     <div id="add_<?=$this->objectName ?>" data-bind="enterKey: Enter"></div>
                 </div>
                 <div class="redactor-control clearfix">
-
-                    <!-- ko if: response() -->
-                    <div class="redactor-control_quote">
-                        <span class="font-smallest color-gray">Ответ для</span>
-                        <span class="redactor-control_quote-tx" data-bind="text: response().author.fullName"></span>
-                        <a class="a-pseudo-gray font-small" data-bind="click: removeResponse, tooltip: 'Отменить ответ'">Отмена</a>
-                    </div>
-                    <!-- /ko -->
 
                     <div class="float-r">
                         <div class="redactor-control_key">

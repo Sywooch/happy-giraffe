@@ -23,7 +23,7 @@ function CommentViewModel(data) {
     self.sending = ko.observable(false);
     self.focusEditor = function () {
         setTimeout(function () {
-            self.editor.redactor('focus');
+            self.editor.redactor('focusEnd');
         }, 100);
         return true;
     };

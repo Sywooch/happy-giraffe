@@ -114,16 +114,13 @@
 								<p>я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически производит поиск по сайту </p>
 								<p>
 									<a href="" class="comments-gray_cont-img-w">
-										<!--    max-width: 170px;  max-height: 110px; -->
-										<img src="/images/example/w170-h110.jpg" alt="">
+										<!--    max-width: 395px;  max-height: 400px; -->
+										<iframe width="395" height="296" frameborder="0" allowfullscreen="" src="http://www.youtube.com/embed/q5LaIQQ8Qt0?wmode=transparent&amp;feature=oembed"></iframe>
 									</a>
+								</p>
+								<p>
 									<a href="" class="comments-gray_cont-img-w">
-										<img src="/images/example/w220-h309-1.jpg" alt="">
-									</a>
-									<a href="" class="comments-gray_cont-img-w">
-										<span class="comments-gray_cont-img-overlay">4:56</span>
-										<span class="comments-gray_cont-play"></span>
-										<img src="/images/example/w200-h133-1.jpg" alt="">
+										<img src="/images/example/photo-window-2.jpg" alt="">
 									</a>
 								</p>
 								<p>и подцепляет естественно студийные версии песен вместо нужных.  я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически </p>

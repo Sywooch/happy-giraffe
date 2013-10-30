@@ -7,6 +7,7 @@ function CommentViewModel(data) {
     self.gallery = ko.observable(data.gallery);
     self.objectName = ko.observable(data.objectName);
     self.editor = null;
+    self.scroll = null;
 
     self.comments = ko.observableArray([]);
     self.comments(ko.utils.arrayMap(data.comments, function (comment) {
@@ -22,7 +23,7 @@ function CommentViewModel(data) {
     self.sending = ko.observable(false);
     self.focusEditor = function () {
         setTimeout(function () {
-            self.editor.redactor('focus');
+            self.editor.redactor('focusEnd');
         }, 100);
         return true;
     };
@@ -130,6 +131,19 @@ function CommentViewModel(data) {
 
     self.toggleExtended = function() {
         self.extended(! self.extended());
+
+        if (self.extended()) {
+            self.scroll = $('#' + self.objectName()).find('.scroll').baron({
+                scroller: '.scroll_scroller',
+                container: '.scroll_cont',
+                track: '.scroll_bar-hold',
+                bar: '.scroll_bar'
+            });
+
+            $('#' + self.objectName()).find('.scroll_scroller').scrollTop($('#' + self.objectName()).find('.scroll_scroller')[0].scrollHeight);
+        }
+        else
+            self.scroll.dispose();
     };
 
     self.commentsToShow = ko.computed(function() {

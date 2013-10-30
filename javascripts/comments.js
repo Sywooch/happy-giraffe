@@ -7,7 +7,7 @@ function CommentViewModel(data) {
     self.gallery = ko.observable(data.gallery);
     self.objectName = ko.observable(data.objectName);
     self.editor = null;
-    self.scroll = null;
+    self.wysiwygVal = ko.observable('');
 
     self.comments = ko.observableArray([]);
     self.comments(ko.utils.arrayMap(data.comments, function (comment) {
@@ -87,8 +87,9 @@ function CommentViewModel(data) {
                     self.focusEditor();
                 },
                 changeCallback: function(html) {
-                    if (self.response() !== false && html.indexOf(self.response().treatmentHtml()) == -1)
-                        self.removeResponse();
+                    self.wysiwygVal(html);
+                    if (self.response() !== false && html.indexOf(self.response().replyUserLink()) == -1)
+                        self.response(false);
                 },
                 minHeight: 68,
                 autoresize: true,
@@ -134,6 +135,11 @@ function CommentViewModel(data) {
         return self.comments().slice(self.comments.length - 3, self.comments().length);
     });
 
+    self.cancel = function() {
+        self.response(false);
+        self.editor.redactor('set', '');
+    }
+
     /*************************************** reply ****************************************/
     self.response = ko.observable(false);
     self.responseId = ko.computed(function () {
@@ -142,17 +148,11 @@ function CommentViewModel(data) {
         else
             return '';
     });
-    self.removeResponse = function () {
-        var str = self.editor.html();
-        str = str.replace(self.response().treatmentHtml(), '');
-        self.editor.html(str);
-        self.response(false);
-    };
 
     self.Reply = function (comment) {
         self.response(comment);
         self.goBottom();
-        self.editor.html(self.response().treatmentHtml());
+        self.editor.html(self.response().replyTreatmentHtml());
     };
 }
 
@@ -271,8 +271,12 @@ function NewComment(data, parent) {
         PhotoCollectionViewWidget.open(collection, collectionOptions, self.photoId());
     }
 
-    self.treatmentHtml = function() {
-        return '<p><a href="/user/' + self.author.id() + '/">' + self.author.fullName() + '</a>,&nbsp;</p>';
+    self.replyUserLink = function() {
+        return '<a href="/user/' + self.author.id() + '/">' + self.author.fullName() + '</a>';
+    }
+
+    self.replyTreatmentHtml = function() {
+        return '<p>' + self.replyUserLink() + ',&nbsp;</p>'
     }
 }
 

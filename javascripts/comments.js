@@ -86,6 +86,10 @@ function CommentViewModel(data) {
                     redactor = this;
                     self.focusEditor();
                 },
+                changeCallback: function(html) {
+                    if (self.response() !== false && html.indexOf(self.response().treatmentHtml()))
+                        self.removeResponse();
+                },
                 minHeight: 68,
                 autoresize: true,
                 buttons: ['bold', 'italic', 'underline', 'image', 'video', 'smile'],
@@ -106,28 +110,6 @@ function CommentViewModel(data) {
                 return self.editor.val();
         } else
             return self.editor.html();
-    };
-
-    /*************************************** reply ****************************************/
-    self.response = ko.observable(false);
-    self.responseId = ko.computed(function () {
-        if (self.response())
-            return self.response().id;
-        else
-            return '';
-    });
-    self.removeResponse = function () {
-        var str = self.editor.html();
-        str = str.replace('<span data-redactor="verified" class="a-imitation">' + self.response().author.fullName() + ',</span>', '');
-        str = str.replace('<span class="a-imitation">' + self.response().author.fullName() + ',</span>', '');
-        self.editor.html(str);
-        self.response(false);
-    };
-
-    self.Reply = function (comment) {
-        self.response(comment);
-        self.goBottom();
-        self.editor.html('<p><a href="/user/' + comment.author.id() + '/">' + comment.author.fullName() + '</a>,&nbsp;</p>');
     };
 
     self.toggleExtended = function() {
@@ -151,6 +133,27 @@ function CommentViewModel(data) {
 
         return self.comments().slice(self.comments.length - 3, self.comments().length);
     });
+
+    /*************************************** reply ****************************************/
+    self.response = ko.observable(false);
+    self.responseId = ko.computed(function () {
+        if (self.response())
+            return self.response().id;
+        else
+            return '';
+    });
+    self.removeResponse = function () {
+        var str = self.editor.html();
+        str = str.replace(self.response().treatmentHtml(), '');
+        self.editor.html(str);
+        self.response(false);
+    };
+
+    self.Reply = function (comment) {
+        self.response(comment);
+        self.goBottom();
+        self.editor.html(self.response().treatmentHtml());
+    };
 }
 
 function NewComment(data, parent) {
@@ -266,6 +269,10 @@ function NewComment(data, parent) {
         }
 
         PhotoCollectionViewWidget.open(collection, collectionOptions, self.photoId());
+    }
+
+    self.treatmentHtml = function() {
+        return '<p><a href="/user/' + self.author.id() + '/">' + self.author.fullName() + '</a>,&nbsp;</p>';
     }
 }
 

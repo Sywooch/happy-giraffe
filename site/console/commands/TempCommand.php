@@ -68,7 +68,7 @@ class TempCommand extends CConsoleCommand
     public function actionLikes($date1, $date2)
     {
         Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
-        Yii::import('site.common.models.mongo.PageView');
+        Yii::import('site.common.models.mongo.HGLike');
         echo HGLike::model()->DateLikes($date1, $date2);
     }
 }

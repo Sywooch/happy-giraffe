@@ -81,6 +81,7 @@ function CommentViewModel(data) {
         self.editor = $('#' + id);
         if (!self.gallery()) {
             $('#' + id).redactorHG({
+                pastePlainText: true,
                 initCallback: function () {
                     redactor = this;
                     self.focusEditor();
@@ -139,8 +140,6 @@ function CommentViewModel(data) {
                 track: '.scroll_bar-hold',
                 bar: '.scroll_bar'
             });
-
-            $('#' + self.objectName()).find('.scroll_scroller').scrollTop($('#' + self.objectName()).find('.scroll_scroller')[0].scrollHeight);
         }
         else
             self.scroll.dispose();

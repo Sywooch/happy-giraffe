@@ -11,7 +11,7 @@
 			<a href="" class="a-pseudo font-small">Скрыть все</a>
 		</div>
 
-		<div class="scroll scroll__on">
+		<div class="scroll">
 			<div class="comments-gray_hold comments-gray_hold__scroll scroll_scroller">
 				<div class="comments-gray_i comments-gray_i__self">
 					<div class="comments-gray_ava">
@@ -168,6 +168,7 @@ window.onload = function() {
     scroller: '.scroll_scroller',
     container: '.scroll_cont',
     track: '.scroll_bar-hold',
+    barOnCls: 'scroll__on',
     bar: '.scroll_bar'
   });
   

@@ -272,8 +272,8 @@
 
 								        	if (windowScrollTop + blockHeight > blockStopBottom - blockIndent) {
 								        		block.css({ 
-								        			/* 92 - высота блока над едущими лайками */
-													'top'     : inBlock.outerHeight() - blockHeight - 92 
+								        			/* 89 - высота блока над едущими лайками */
+													'top'     : inBlock.outerHeight() - blockHeight - 89 
 												});
 								        	}
 								        }

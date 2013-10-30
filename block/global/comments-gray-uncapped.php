@@ -11,7 +11,7 @@
 			<a href="" class="a-pseudo font-small">Скрыть все</a>
 		</div>
 
-		<div class="scroll scroll__on">
+		<div class="scroll">
 			<div class="comments-gray_hold comments-gray_hold__scroll scroll_scroller">
 				<div class="comments-gray_i comments-gray_i__self">
 					<div class="comments-gray_ava">
@@ -64,6 +64,11 @@
 						</div>
 						<div class="comments-gray_cont wysiwyg-content">
 							<p>я не нашел, где можно поменять название трека. </p>
+							<p>
+								<a href="" class="comments-gray_cont-img-w">
+									<img src="/images/example/photo-window-2.jpg" alt="">
+								</a>
+							</p>
 						</div>
 					</div>
 
@@ -121,18 +126,11 @@
 						</div>
 						<div class="comments-gray_cont wysiwyg-content">
 							<p>я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически производит поиск по сайту </p>
-							<p>
-								<a href="" class="comments-gray_cont-img-w">
-									<!--    max-width: 170px;  max-height: 110px; -->
-									<img src="/images/example/w170-h110.jpg" alt="">
-								</a>
-								<a href="" class="comments-gray_cont-img-w">
-									<img src="/images/example/w220-h309-1.jpg" alt="">
-								</a>
-								<a href="" class="comments-gray_cont-img-w">
-									<img src="/images/example/w200-h133-1.jpg" alt="">
-								</a>
-							</p>
+								<p>
+									<a href="" class="comments-gray_cont-img-w">
+										<img src="/images/example/photo-window-1.jpg" alt="">
+									</a>
+								</p>
 							<p>и подцепляет естественно студийные версии песен вместо нужных.  я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически </p>
 						</div>
 					</div>
@@ -170,6 +168,7 @@ window.onload = function() {
     scroller: '.scroll_scroller',
     container: '.scroll_cont',
     track: '.scroll_bar-hold',
+    barOnCls: 'scroll__on',
     bar: '.scroll_bar'
   });
   

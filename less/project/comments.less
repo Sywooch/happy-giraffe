@@ -14,8 +14,22 @@
     }
     &__wide &_add {margin: 0 30px;}
     &__wide &_add__top {margin: 15px 20px;}
-    .a-imitation {color: #319FE4}
+
+    &__small {padding: 5px 0 5px;}
+    &__small &_t {margin: 10px 0;}
+    &__small &_t-tx {font-size: 13px;}
+    &__small &_r {width: auto;}
+    &__small &_control {top: 8px;}
+    &__small &_i {padding: 10px 0;}
+    &__small &_frame {margin: 0 15px 0 32px;}
+    &__small &_author {display: block;}
+    &__small &_add {margin: 0;}
+    &__small &_add.active &_ava {margin-top: 3px;}
+    &__small .wysiwyg-toolbar-btn {display: none;}
+
+
     &__map-route {padding: 20px 180px 20px 0;}
+    .a-imitation {color: #319FE4}
     & &_i .wysiwyg-content {
         padding: 0;
         font-size: 12px;
@@ -59,6 +73,7 @@
         margin-right: 10px;
     }
     &_r {
+        position: relative;
         float: right;
         width: 70px;
         text-align: right;
@@ -75,6 +90,7 @@
         line-height: 14px;
         margin: 0 0 5px;
     }
+    &_header &_date {padding-right: 7px;}
     &_author {
         color: #289fd7;
         text-decoration: none;
@@ -140,7 +156,7 @@
         border: none;
         font-size: 14px;
     }
-    &_add.active {padding-bottom: 33px;}
+    &_add.active {padding-bottom: 5px;}
     &_add.active &_ava {margin-top: 33px;}
     &_add-itx {
         margin: 0;
@@ -151,7 +167,11 @@
 
     &_control {
         display: none;
-        margin: 8px 0 0;
+        position: absolute;
+        top: 19px;
+        right: 0;
+        margin: 0;
+        width: 55px;
         text-align: right;
         line-height: 16px;
     }

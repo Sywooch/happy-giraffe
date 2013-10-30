@@ -763,6 +763,7 @@ textarea.error,
 .scroll {
     position: relative;
     overflow: hidden;
+
     &__on &_bar-hold {display: block;}
     &:hover &_bar-in {
     	display: block;
@@ -770,7 +771,7 @@ textarea.error,
     }
 
     &_scroller {
-        overflow-y: auto;
+        overflow-y: auto !important;
         height: 100%;
         -webkit-overflow-scrolling: touch;
     }
@@ -808,8 +809,6 @@ textarea.error,
     }
 }
 /* /scroll custom */
-
-
 
 .ui-autocomplete {
 	z-index: 11100 !important;

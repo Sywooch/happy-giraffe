@@ -10,48 +10,55 @@
 
 <script>
 /* Height block comment scroll in photo-window */
-function commentSrcH () {
-	var comment = $(".comments-gray_hold");
+function photoWindColH () {
+	var colCont = $(".photo-window_cont");
 	var bannerH = document.getElementById('photo-window_banner').offsetHeight;
-	comment.height($(window).height() - bannerH - 93);
+	colCont.height($(window).height() - bannerH - 24);
 
 }
 
 /* Позиция блока с лайками */
 function likePos () {
 	var likeBottom = ($('.photo-window_img-hold').height() - $('.photo-window_img').height()) / 2 + 30;
+	/*console.log(likeBottom);*/
 	$('.like-control').css({'bottom' : likeBottom});
 }
 
 $(document).ready(function () {
-	commentSrcH();
+	photoWindColH();
 	likePos();
 
-	/* Сворачивается блок с рекламой, подгружаются оосбщения, обновляется позиция скролла */
-	$('.comments-gray_t .a-pseudo-icon__blue').click(function(){
-		$('.photo-window_banner').slideToggle("slow", function() {
-			commentSrcH();
-			});
-		
-		return false;
-	})
-});
-$(window).resize(function () {
-	commentSrcH();
-	likePos();
-});
-
-/* Кастомный скролл */
-window.onload = function() {
   /* custom scroll */
   var scroll = $('.scroll').baron({
     scroller: '.scroll_scroller',
+    barOnCls: 'scroll__on',
     container: '.scroll_cont',
     track: '.scroll_bar-hold',
     bar: '.scroll_bar'
   });
-  
-}
+
+	/* Сворачивается блок с рекламой, подгружаются оосбщения, обновляется позиция скролла */
+	$('.comments-gray_show-all').click(function(){
+		var banner = $('#photo-window_banner');
+		console.log(banner.css('display'));
+		if(banner.css('display') == 'block') {
+			colH = $(".photo-window_cont").height() + banner.height();
+		} else {
+			colH = $(".photo-window_cont").height() - banner.height();
+		}
+		$(".photo-window_cont").height(colH);
+		banner.toggle(0);
+		photoWindColH();
+		scroll.update();
+
+		return false;
+	})
+
+});
+$(window).resize(function () {
+	photoWindColH();
+	likePos();
+});
 
 </script>
 </head>
@@ -74,23 +81,14 @@ window.onload = function() {
 	
 <div class="photo-window">
 <div class="photo-window_w">
-	<div class="photo-window_top clearfix">
-		<a href="" class="photo-window_close"></a>
-		<div class="b-user-small float-l">
-			<a href="" class="ava small male"></a>
-			<div class="b-user-small_hold">
-				<a href="" class="b-user-small_name">Регина</a>
-				<div class="b-user-small_date">16 июн 2013</div>
-			</div>
-		</div>
+	<a href="" class="photo-window_close"></a>
+	<!-- <div class="photo-window_top clearfix">
+		
 		<div class="photo-window_top-hold">
 			<div class="photo-window_edit">
 				<a class="ico-edit ico-edit__light powertip" href=""></a>
 			</div>
-			<div class="photo-window_t">
-			<div class="photo-window_count">25 фото из 52</div>
-			Детский лагерь «Зеркальный». Ленинградская область. Ленинградская область. Ленинградская область. Ленинградская область. Ленинградская область.
-			</div>
+			<div class="photo-window_t">Детский лагерь «Зеркальный». Ленинградская область. Ленинградская область. Ленинградская область. Ленинградская область. Ленинградская область.</div>
 		</div>
 		<div class="photo-window_desc-hold">
 			<script type="text/javascript">
@@ -117,7 +115,7 @@ window.onload = function() {
 			</div>
 		</div>
 		
-	</div>
+	</div> -->
 	<!-- Обрабатывать клик на .photo-window_c для листания следующего изображения -->
 	<div class="photo-window_c">
 		<div class="photo-window_img-hold">
@@ -172,137 +170,71 @@ window.onload = function() {
 	
 
 
-	<div class="photo-window_r">
-		<div id="photo-window_banner" class="photo-window_banner clearfix">
-			<img src="/images/example/w300-h250.jpg" alt="">
-		</div>
-		<div class="comments-gray">
-			<div class="comments-gray_t">
-				<div class="float-r">
-					<a href="" class="a-pseudo-icon a-pseudo-icon__blue">
-						<span class="a-pseudo-icon_tx">Показать все</span>
-						<span class="i-arrow-t"></span>
-					</a>
-				</div>
-				<span class="comments-gray_t-a-tx">Все комментарии (28)</span>
-			</div>
-			<div class="scroll ">
-				<div class="scroll_scroller comments-gray_hold">
-				
-				
-					<div class="scroll_cont">
-						<div class="comments-gray_i comments-gray_i__self">
-							<div class="comments-gray_ava">
-								<a href="" class="ava small male"></a>
-							</div>
-							<div class="comments-gray_control">
-								<a href="" class="message-ico message-ico__edit powertip" title="Редактировать"></a>
-								<a href="" class="message-ico message-ico__del powertip" title="Удалить"></a>
-							</div>
-							<div class="comments-gray_frame">
-								<div class="comments-gray_header clearfix">
-									<a href="" class="comments-gray_author">Ангелина Богоявленская </a> <br>
-									<span class="font-smallest color-gray">Сегодня 13:25</span>
-									<a href="" class="comments-gray_like like-hg-small powertip" title="Нравится">78</a>
-								</div>
-								<div class="comments-gray_cont wysiwyg-content">
-									<p>	Мне безумно жалко всех женщин, но особенно Тину Кароль, я просто представить себе не могу <a href="">как она все это переживет</a> как она все это переживет(</p>
-									<p>я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.  я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически </p>
-								</div>
-							</div>
-						</div>
-						<div class="comments-gray_i">
-							<div class="comments-gray_ava">
-								<a href="" class="ava small female"></a>
-							</div>
-							<div class="comments-gray_control">
-								<a href="" class="comments-gray_quote-ico powertip" title="Ответить"></a>
-								<a href="" class="message-ico message-ico__del powertip" title="Удалить"></a>
-								<a href="" class="message-ico message-ico__warning powertip" title="Пожаловаться"></a>
-							</div>
-							<div class="comments-gray_frame">
-								<div class="comments-gray_header clearfix">
-									<a href="" class="comments-gray_author">Анг Богоявлен </a> <br>
-									<span class="font-smallest color-gray">Сегодня 14:25</span>
-									<a href="" class="comments-gray_like like-hg-small powertip" title="Нравится">78</a>
-								</div>
-								<div class="comments-gray_cont wysiwyg-content">
-									<p>я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.  я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически </p>
-								</div>
-							</div>
-						</div>
-						<div class="comments-gray_i">
-							<div class="comments-gray_ava">
-								<a href="" class="ava small female"></a>
-							</div>
-							<div class="comments-gray_control">
-								<a href="" class="comments-gray_quote-ico powertip" title="Ответить"></a>
-								<a href="" class="message-ico message-ico__warning powertip" title="Пожаловаться"></a>
-							</div>
-							<div class="comments-gray_frame">
-								<div class="comments-gray_header clearfix">
-									<a href="" class="comments-gray_author">Анг Богоявлен </a> <br>
-									<span class="font-smallest color-gray">Сегодня 14:25</span>
-									<a href="" class="comments-gray_like like-hg-small powertip" title="Нравится">78</a>
-								</div>
-								<div class="comments-gray_cont wysiwyg-content">
-									<p>я не нашел, где можно поменять название трека. </p>
-								</div>
-							</div>
-							
-						</div>
-						
-						<div class="comments-gray_i comments-gray_i__recovery">
-							<div class="comments-gray_ava">
-								<a href="" class="ava small female"></a>
-							</div>
-							<div class="comments-gray_frame">
-								<div class="comments-gray_header clearfix">
-									<a href="" class="comments-gray_author">Анг Богоявлен </a> <br>
-									<span class="font-smallest color-gray">Сегодня 14:25</span>
-								</div>
-								<div class="comments-gray_cont wysiwyg-content">
-									<p>Комментарий успешно удален.<a href="" class="comments-gray_a-recovery">Восстановить?</a> </p>
-								</div>
-							</div>
-						</div>
-						
-						<div class="comments-gray_i">
-							<div class="comments-gray_ava">
-								<a href="" class="ava small female"></a>
-							</div>
-							<div class="comments-gray_control">
-								<a href="" class="comments-gray_quote-ico powertip" title="Ответить"></a>
-								<a href="" class="message-ico message-ico__warning powertip" title="Пожаловаться"></a>
-							</div>
-							<div class="comments-gray_frame">
-								<div class="comments-gray_header clearfix">
-									<a href="" class="comments-gray_author">Анг Богоявлен </a> <br>
-									<span class="font-smallest color-gray">Сегодня 14:25</span>
-									<a href="" class="comments-gray_like like-hg-small powertip" title="Нравится">78</a>
-								</div>
-								<div class="comments-gray_cont wysiwyg-content">
-									<p>я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически производит поиск по сайту </p>
-									<p>и подцепляет естественно студийные версии песен вместо нужных.  я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически </p>
-								</div>
-							</div>
-							
+	<div class="photo-window_col">
+	
+	<div class="photo-window_col-hold scroll">
+		<div class="scroll_scroller  photo-window_cont">
+			<div class="scroll_cont">
+				<div class="photo-window_cont-t clearfix">
+					<div class="meta-gray">
+						<a class="meta-gray_comment" href="">
+							<span class="ico-comment ico-comment__gray"></span>
+							<span class="meta-gray_tx">35</span>
+						</a>
+						<div class="meta-gray_view">
+							<span class="ico-view ico-view__gray"></span>
+							<span class="meta-gray_tx">305</span>
 						</div>
 					</div>
+					<div class="b-user-info b-user-info__middle float-l">
+						<a href="" class="ava middle female"></a>
+						<div class="b-user-info_hold">
+							<a href="" class="b-user-info_name">Ангелина Богоявленская</a>
+							<div class="b-user-info_date">16 июн 2013</div>
+						</div>
+					</div>
+
+					<div class="photo-window_count">25 фото из 52</div>
 				</div>
-				<div class="scroll_bar-hold">
-		            <div class="scroll_bar"></div>
-		        </div>
-			</div>
-			<div class="comments-gray_add clearfix">
+				<div class="photo-window_t">Детский лагерь «Зеркальный». Ленинградская область. Ghfg Ленинградская <a class="ico-edit powertip" href=""></a></div>
+
+				<div class="photo-window_desc-hold">
+					<script type="text/javascript">
+					$(document).ready(function () {
+						$('.photo-window_desc-hold').click(function(){
+							$(this).toggleClass('active');
+						});
+					});
+					</script>
+					<div class="photo-window_desc clearfix">
+						<div class="photo-window_desc-tx">
+							<p>В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические... <a class="ico-edit powertip" href=""></a>
+								<span class="photo-window_desc-more"> <a href="javascript:void(0)" >Развернуть</a></span>
+							</p>
+						</div>
+						
+
+						
+					</div>
+					<div class="photo-window_desc photo-window_desc__full clearfix">
+						<p>В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, спокойные игры  В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, эстафеты, соревнования В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, эстафеты и спокойные игры.  </p>
+						<span class="photo-window_desc-more"> <a href="javascript:void(0)" >Кратко</a></span>
+					</div>
+				</div>
+
+				<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/comments-gray__small.php'; ?>
 				
-				<div class="comments-gray_ava">
-					<a href="" class="ava small female"></a>
-				</div>
-				<div class="comments-gray_frame">
-					<input type="text" name="" id="" class="comments-gray_add-itx itx-gray" placeholder="Ваш комментарий">
-				</div>
 			</div>
+		</div>
+		<div class="scroll_bar-hold">
+            <div class="scroll_bar">
+            	<div class="scroll_bar-in"></div>
+            </div>
+        </div>
+	</div>
+
+		<div id="photo-window_banner" class="photo-window_banner clearfix">
+			<img src="/images/example/w300-h250.jpg" alt="">
 		</div>
 	</div>
 
@@ -323,134 +255,127 @@ window.onload = function() {
 			<div class="photo-window-end_like-t"></div>
 			<div class="custom-likes-b">
 				<div class="custom-likes-b_slogan">Понравилось?  Поделитесь с друзьями! </div>
-				<a href="" class="custom-like">
-					<span class="custom-like_icon odnoklassniki"></span>
-					<span class="custom-like_value">0</span>
-				</a>
-				<a href="" class="custom-like">
-					<span class="custom-like_icon vkontakte"></span>
-					<span class="custom-like_value">1900</span>
-				</a>
-			
-				<a href="" class="custom-like">
-					<span class="custom-like_icon facebook"></span>
-					<span class="custom-like_value">150</span>
-				</a>
-			
-				<a href="" class="custom-like">
-					<span class="custom-like_icon twitter"></span>
-					<span class="custom-like_value">10</span>
-				</a>
+				<div class="like-block fast-like-block">
+														
+					<div class="box-1">
+						<div class="share_button">
+							<a href=""><img alt="" src="/images/share_button__odkl.png"></a>
+						</div>
+						<div class="share_button">
+							<div class="vk_share_button">
+								<a href=""><img alt="" src="/images/share_button__vk.png"></a>
+							</div>
+						</div>
+
+						<div class="share_button">
+							<div class="fb-custom-like">
+								<a class="fb-custom-text" onclick="return Social.showFacebookPopup(this);" href="http://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fdev.happy-giraffe.ru%2Fuser%2F13217%2Fblog%2Fpost22589%2F">
+									<i class="pluginButtonIcon img sp_like sx_like_fav"></i>Мне нравится</a>
+								<div class="fb-custom-share-count">0</div>
+								<script type="text/javascript">
+									$.getJSON("http://graph.facebook.com", { id : document.location.href }, function(json){
+										$('.fb-custom-share-count').html(json.shares || '0');
+									});
+								</script>
+							</div>
+						</div>
+						
+						<div class="share_button">
+							<div class="tw_share_button">
+								<iframe scrolling="no" frameborder="0" id="twitter-widget-0" allowtransparency="true" src="http://platform.twitter.com/widgets/tweet_button.1381275758.html#_=1381902509957&amp;count=horizontal&amp;id=twitter-widget-0&amp;lang=ru&amp;original_referer=http%3A%2F%2F109.87.248.203%2Fhtml%2Fsocial%2Fclubs%2Fclub-contest-photo_open.php&amp;size=m&amp;text=Happy%20Giraffe&amp;url=http%3A%2F%2Fdev.happy-giraffe.ru%2Fuser%2F13217%2Fblog%2Fpost22589%2F" class="twitter-share-button twitter-tweet-button twitter-count-horizontal" title="Twitter Tweet Button" data-twttr-rendered="true" style="width: 138px; height: 20px;"></iframe>
+								<script charset="utf-8" type="text/javascript">
+										if (typeof twttr == 'undefined')
+											window.twttr = (function (d,s,id) {
+												var t, js, fjs = d.getElementsByTagName(s)[0];
+												if (d.getElementById(id)) return; js=d.createElement(s); js.id=id;
+												js.src="//platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs);
+												return window.twttr || (t = { _e: [], ready: function(f){ t._e.push(f) } });
+											}(document, "script", "twitter-wjs"));
+								</script>
+							</div>
+						</div>
+												
+					</div>
+				
+				</div>
 			</div>
 		</div>
 		<div class="photo-window-end_hold clearfix">
 			<div class="textalign-c">
-				Другие альбомы  -  <a href="">Регина Поплавская </a>
+				<div class="photo-window-end_t-other">Посмотрите еще альбомы</div>
 			</div>
 				
-            <div class="photo-preview-row clearfix">
-            	<div class="textalign-l clearfix">
-            		<a class="photo-preview-row_t">Style Me Pretty - Цветы и свадьбы</a>
-            	</div>
-                <div class="photo-preview-row_hold">
-	                <div class="photo-grid clearfix">
-	                    <div class="photo-grid_row clearfix" >
-	                        <!-- Ловить клик на photo-grid_i для показа увеличенного фото -->
-	                        <div class="photo-grid_i">
-	                            <img class="photo-grid_img" src="/images/example/photo-grid-7.jpg" alt="">
-	                            <div class="photo-grid_overlay">
-	                                <span class="photo-grid_zoom powertip" title="Смотреть фото"></span>
-	                            </div>
-	                        </div>
-	                        <div class="photo-grid_i">
-	                            <img class="photo-grid_img" src="/images/example/photo-grid-8.jpg" alt="">
-	                            <div class="photo-grid_overlay">
-	                                <span class="photo-grid_zoom powertip" title="Смотреть фото"></span>
-	                            </div>
-	                        </div>
-	                        <div class="photo-grid_i">
-	                            <img class="photo-grid_img" src="/images/example/photo-grid-9.jpg" alt="">
-	                            <div class="photo-grid_overlay">
-	                                <span class="photo-grid_zoom powertip" title="Смотреть фото"></span>
-	                            </div>
-	                        </div>
-	                        <div class="photo-grid_i">
-	                            <img class="photo-grid_img" src="/images/example/photo-grid-10.jpg" alt="">
-	                            <div class="photo-grid_overlay">
-	                                <span class="photo-grid_zoom powertip" title="Смотреть фото"></span>
-	                            </div>
-	                        </div>
-	                        <div class="photo-grid_i">
-	                            <img class="photo-grid_img" src="/images/example/photo-grid-11.jpg" alt="">
-	                            <div class="photo-grid_overlay">
-	                                <span class="photo-grid_zoom powertip" title="Смотреть фото"></span>
-	                            </div>
-	                        </div>
-	                        <div class="photo-grid_i">
-	                            <img class="photo-grid_img" src="/images/example/photo-grid-12.jpg" alt="">
-	                            <div class="photo-grid_overlay">
-	                                <span class="photo-grid_zoom powertip" title="Смотреть фото"></span>
-	                            </div>
-	                        </div>
-	                    </div>
-	                </div>
-	                <div class="photo-preview-row_last">
-	                    <a href="" class="photo-preview-row_a">18 558 <br> <span class="font-middle">фото</span></a>
-	                </div>
-                </div>
-            </div>
-				
-            <div class="photo-preview-row clearfix">
-            	<div class="textalign-l clearfix">
-            		<a class="photo-preview-row_t">Style Me Pretty - Цветы и свадьбы</a>
-            	</div>
-                <div class="photo-preview-row_hold">
-	                <div class="photo-grid clearfix">
-	                    <div class="photo-grid_row clearfix" >
-	                        <!-- Ловить клик на photo-grid_i для показа увеличенного фото -->
-	                        <div class="photo-grid_i">
-	                            <img class="photo-grid_img" src="/images/example/photo-grid-7.jpg" alt="">
-	                            <div class="photo-grid_overlay">
-	                                <span class="photo-grid_zoom powertip" title="Смотреть фото"></span>
-	                            </div>
-	                        </div>
-	                        <div class="photo-grid_i">
-	                            <img class="photo-grid_img" src="/images/example/photo-grid-8.jpg" alt="">
-	                            <div class="photo-grid_overlay">
-	                                <span class="photo-grid_zoom powertip" title="Смотреть фото"></span>
-	                            </div>
-	                        </div>
-	                        <div class="photo-grid_i">
-	                            <img class="photo-grid_img" src="/images/example/photo-grid-9.jpg" alt="">
-	                            <div class="photo-grid_overlay">
-	                                <span class="photo-grid_zoom powertip" title="Смотреть фото"></span>
-	                            </div>
-	                        </div>
-	                        <div class="photo-grid_i">
-	                            <img class="photo-grid_img" src="/images/example/photo-grid-10.jpg" alt="">
-	                            <div class="photo-grid_overlay">
-	                                <span class="photo-grid_zoom powertip" title="Смотреть фото"></span>
-	                            </div>
-	                        </div>
-	                        <div class="photo-grid_i">
-	                            <img class="photo-grid_img" src="/images/example/photo-grid-11.jpg" alt="">
-	                            <div class="photo-grid_overlay">
-	                                <span class="photo-grid_zoom powertip" title="Смотреть фото"></span>
-	                            </div>
-	                        </div>
-	                        <div class="photo-grid_i">
-	                            <img class="photo-grid_img" src="/images/example/photo-grid-12.jpg" alt="">
-	                            <div class="photo-grid_overlay">
-	                                <span class="photo-grid_zoom powertip" title="Смотреть фото"></span>
-	                            </div>
-	                        </div>
-	                    </div>
-	                </div>
-	                <div class="photo-preview-row_last">
-	                    <a href="" class="photo-preview-row_a">18 558 <br> <span class="font-middle">фото</span></a>
-	                </div>
-                </div>
-            </div>
+			<div class="such-post">
+				<div class="clearfix">
+					<div class="such-post_i such-post_i__photopost">
+						<a href="" class="such-post_img-hold">
+							<img src="/images/example/w335-h230.jpg" alt="" class="such-post_img">
+							<span class="such-post_img-overlay"></span>
+							<span class="such-post_tip">25 фото</span>
+						</a>
+						<div class="such-post_type-hold">
+							<div class="such-post_type such-post_type__photopost"></div>
+						</div>
+						<div class="such-post_cont">
+							<div class="clearfix">
+								<div class="meta-gray">
+									<a class="meta-gray_comment" href="">
+										<span class="ico-comment ico-comment__white"></span>
+										<span class="meta-gray_tx color-gray-light">35</span>
+									</a>
+									<div class="meta-gray_view">
+										<span class="ico-view ico-view__white"></span>
+										<span class="meta-gray_tx color-gray-light">305</span>
+									</div>
+								</div>
+								<div class="such-post_author">
+									<a href="" class="ava female middle">
+										<span class="icon-status status-online"></span>
+										<img src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" alt="">
+									</a>
+									<a href="" class="such-post_author-name">Татьяна</a>
+									<div class="such-post_date">Сегодня 13:25</div>
+								</div>
+								
+							</div>
+							<a href="" class="such-post_t">Креативная сервисная</a>
+						</div>
+					</div>
+					<div class="such-post_i">
+						<a href="" class="such-post_img-hold">
+							<img src="/images/example/w335-h230.jpg" alt="" class="such-post_img">
+						</a>
+						<div class="such-post_type-hold">
+							<div class="such-post_type such-post_type__post"></div>
+						</div>
+						<div class="such-post_cont">
+							<div class="clearfix">
+								<div class="meta-gray">
+									<a class="meta-gray_comment" href="">
+										<span class="ico-comment ico-comment__gray"></span>
+										<span class="meta-gray_tx">35</span>
+									</a>
+									<div class="meta-gray_view">
+										<span class="ico-view ico-view__gray"></span>
+										<span class="meta-gray_tx">305</span>
+									</div>
+								</div>
+								<div class="such-post_author">
+									<a href="" class="ava female middle">
+										<span class="icon-status status-online"></span>
+										<img src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" alt="">
+									</a>
+									<a href="" class="such-post_author-name">ТатьянаАлександровна</a>
+									<div class="such-post_date">Сегодня 13:25</div>
+								</div>
+								
+							</div>
+							<a href="" class="such-post_t">Готовим  Торт Сметанник в домашних условиях</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
                 
 		</div>
 	</div>

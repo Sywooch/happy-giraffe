@@ -64,4 +64,11 @@ class TempCommand extends CConsoleCommand
         foreach ($a as $proxy)
             ProxyMongo::model()->addNewProxy($proxy);
     }
+
+    public function actionLikes($date1, $date2)
+    {
+        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
+        Yii::import('site.common.models.mongo.PageView');
+        echo HGLike::model()->DateLikes($date1, $date2);
+    }
 }

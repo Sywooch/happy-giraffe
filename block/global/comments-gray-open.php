@@ -132,14 +132,7 @@
 					<p>я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически производит поиск по сайту </p>
 					<p>
 						<a href="" class="comments-gray_cont-img-w">
-							<!--    max-width: 170px;  max-height: 110px; -->
-							<img src="/images/example/w170-h110.jpg" alt="">
-						</a>
-						<a href="" class="comments-gray_cont-img-w">
-							<img src="/images/example/w220-h309-1.jpg" alt="">
-						</a>
-						<a href="" class="comments-gray_cont-img-w">
-							<img src="/images/example/w200-h133-1.jpg" alt="">
+							<img src="/images/example/photo-window-2.jpg" alt="">
 						</a>
 					</p>
 					<p>и подцепляет естественно студийные версии песен вместо нужных.  я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически </p>
@@ -196,6 +189,7 @@
 			</script>
 			<div class="wysiwyg-h">
 				<div class="wysiwyg-toolbar">
+					<a href="" class="wysiwyg-toolbar_close ico-close3"></a>
 					<div class="wysiwyg-toolbar-btn"></div>
 					
 					<div class="redactor-popup redactor-popup_b-photo  display-n" >
@@ -383,11 +377,11 @@
 				<textarea name="" class="wysiwyg-redactor" ></textarea>
 				<div class="redactor-control clearfix">
 
-					<div class="redactor-control_quote">
+					<!-- <div class="redactor-control_quote">
 						<span class="font-smallest color-gray">Ответ для</span>
 						<span class="redactor-control_quote-tx">Вася Пупкин</span>
 						<a href="" class="a-pseudo-gray font-small" title="Отменить ответ">Отмена</a>
-					</div>
+					</div> -->
 					<div class="float-r">
 						<div class="redactor-control_key">
 							<input type="checkbox" class="redactor-control_key-checkbox" id="redactor-control_key-checkbox" name="">

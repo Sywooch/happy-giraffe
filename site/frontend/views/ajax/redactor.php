@@ -123,7 +123,7 @@
         </div>
         <div class="redactor-popup_add-video" data-bind="visible: embed() === null, css: { active : previewLoading() || previewError() }">
             <div class="redactor-popup_add-video-hold">
-                <input type="text" class="itx-simple w-350 float-l" placeholder="Введите ссылку на видео" data-bind="value: link, valueUpdate: 'keyup'">
+                <input type="text" class="itx-simple w-350 float-l" placeholder="Введите ссылку на видео" data-bind="value: link, valueUpdate: ['afterkeydown','propertychange','input']">
                 <button class="btn-green btn-medium" data-bind="css: { 'btn-inactive' : link().length == 0 }, click: check">Загрузить  видео</button>
             </div>
             <div class="redactor-popup_add-video-load" data-bind="visible: previewLoading">

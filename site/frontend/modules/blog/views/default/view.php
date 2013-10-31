@@ -128,7 +128,7 @@ switch ($data->type_id) {
 <?php endif; ?>
 
 <?php if ($this->route == 'myGiraffe/default/index' && $index == 2 && ! isset($_GET['page'])): ?>
-    <div style="margin: 40px auto;">
+    <div style="margin: 40px 20px;">
         <script type="text/javascript">
             <!--
             if (typeof(pr) == 'undefined') { var pr = Math.floor(Math.random() * 1000000); }

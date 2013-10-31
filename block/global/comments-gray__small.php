@@ -53,7 +53,7 @@ $(document).ready(function () {
 
 			<div class="comments-gray_t">
 				<span class="comments-gray_t-tx">Комментарии <span class="color-gray">(28)</span></span>
-				<a href="" class="a-pseudo font-small">Показать все  </a>
+				<a href="" class="a-pseudo font-small" id="comments-show">Показать все  </a>
 				<!-- <a href="" class="float-r font-small">Статистика (14)</a> -->
 			</div>
 			<div class="">
@@ -78,7 +78,7 @@ $(document).ready(function () {
 								<a href="" class="comments-gray_like like-hg-small powertip" title="Нравится">78</a>
 							</div>
 							<div class="comments-gray_cont wysiwyg-content">
-								<p>	<a href="">Вася Пупкин,</a> Мне безумно </p>
+								<p>	<a href="">Вася Пупкин,</a> Мне безумно, безумно тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, спокойные игры </p>
 							</div>
 						</div>
 					</div>
@@ -142,12 +142,6 @@ $(document).ready(function () {
 						</div>
 					</div>
 					
-					<div class="comments-gray_i">
-						<div class="comments-gray_frame">
-							<a href="javascript:void(0);" class="comments-gray_show-all font-small">Показать все</a>
-						</div>
-						
-					</div>
 				</div>
 			</div>
 		</div>

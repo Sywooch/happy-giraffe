@@ -38,7 +38,7 @@ $(document).ready(function () {
   });
 
 	/* Сворачивается блок с рекламой, подгружаются оосбщения, обновляется позиция скролла */
-	$('.comments-gray_show-all').click(function(){
+	$('#comments-show').click(function(){
 		var banner = $('#photo-window_banner');
 		console.log(banner.css('display'));
 		if(banner.css('display') == 'block') {
@@ -82,40 +82,7 @@ $(window).resize(function () {
 <div class="photo-window">
 <div class="photo-window_w">
 	<a href="" class="photo-window_close"></a>
-	<!-- <div class="photo-window_top clearfix">
-		
-		<div class="photo-window_top-hold">
-			<div class="photo-window_edit">
-				<a class="ico-edit ico-edit__light powertip" href=""></a>
-			</div>
-			<div class="photo-window_t">Детский лагерь «Зеркальный». Ленинградская область. Ленинградская область. Ленинградская область. Ленинградская область. Ленинградская область.</div>
-		</div>
-		<div class="photo-window_desc-hold">
-			<script type="text/javascript">
-			$(document).ready(function () {
-				$('.photo-window_desc-hold').click(function(){
-					$(this).toggleClass('active');
-				});
-			});
-			</script>
-			<div class="photo-window_desc clearfix">
-				<span class="photo-window_edit">
-					<a class="ico-edit ico-edit__light powertip" href=""></a>
-				</span>
-				<div class="photo-window_desc-tx">
-					<p>В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, спокойные игры  В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, эстафеты, соревнования В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, эстафеты и спокойные игры.</p>
-				</div>
-				<span class="photo-window_desc-more"> <a href="javascript:void(0)" >Читать полностью</a></span>
 
-				
-			</div>
-			<div class="photo-window_desc photo-window_desc__full clearfix">
-				<p>В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, спокойные игры  В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, эстафеты, соревнования В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, эстафеты и спокойные игры.  </p>
-				<span class="photo-window_desc-more"> <a href="javascript:void(0)" >Кратко</a></span>
-			</div>
-		</div>
-		
-	</div> -->
 	<!-- Обрабатывать клик на .photo-window_c для листания следующего изображения -->
 	<div class="photo-window_c">
 		<div class="photo-window_img-hold">
@@ -196,7 +163,10 @@ $(window).resize(function () {
 
 					<div class="photo-window_count">25 фото из 52</div>
 				</div>
-				<div class="photo-window_t">Детский лагерь «Зеркальный». Ленинградская область. Ghfg Ленинградская <a class="ico-edit powertip" href=""></a></div>
+				<div class="photo-window_t">
+					<input type="text" name="" id="" class="itx-gray" placeholder="Введите название фото и нажмите Enter">
+					<!-- Детский лагерь «Зеркальный». Ленинградская область. Ghfg Ленинградская <a class="ico-edit powertip" href=""></a> -->
+				</div>
 
 				<div class="photo-window_desc-hold">
 					<script type="text/javascript">
@@ -212,8 +182,6 @@ $(window).resize(function () {
 								<span class="photo-window_desc-more"> <a href="javascript:void(0)" >Развернуть</a></span>
 							</p>
 						</div>
-						
-
 						
 					</div>
 					<div class="photo-window_desc photo-window_desc__full clearfix">

@@ -13,6 +13,7 @@ var WysiwygPhotoUpload = function (comments) {
         });
         redactor.insertHtmlAdvanced(html);
         redactor.sync();
+        redactor.set(redactor.get() + '<p></p>');
         self.close();
     };
     self.close = function(){

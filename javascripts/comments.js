@@ -57,6 +57,8 @@ function CommentViewModel(data) {
             $.post('/ajaxSimple/addComment/', {entity: self.entity(), entity_id: self.entity_id(), response_id: self.responseId(), text: self.getMessageText()},
                 function (response) {
                     if (response.status) {
+                        if (self.response() !== false)
+                            self.cancelReply();
                         self.opened(false);
                         self.comments.push(new NewComment(response.data, self));
                         self.allCount(self.allCount() + 1);
@@ -85,11 +87,12 @@ function CommentViewModel(data) {
                 initCallback: function () {
                     redactor = this;
                     self.focusEditor();
+                    self.wysiwygVal(self.editor.html());
                 },
                 changeCallback: function(html) {
                     self.wysiwygVal(html);
                     if (self.response() !== false && html.indexOf(self.response().replyUserLink()) == -1)
-                        self.response(false);
+                        self.cancelReply();
                 },
                 minHeight: 68,
                 autoresize: true,
@@ -136,7 +139,8 @@ function CommentViewModel(data) {
     });
 
     self.cancel = function() {
-        self.response(false);
+        if (self.response() !== false)
+            self.cancelReply();
         self.editor.redactor('set', '');
     }
 
@@ -152,8 +156,20 @@ function CommentViewModel(data) {
     self.Reply = function (comment) {
         self.response(comment);
         self.goBottom();
-        self.editor.html(self.response().replyTreatmentHtml());
+        try {
+            self.editor.redactor('set', self.response().replyTreatmentHtml());
+        } catch(err) {
+            self.editor.html(self.response().replyTreatmentHtml());
+        }
+        self.editor.parents('.comments-gray_add').appendTo('#comment_' + comment.id());
     };
+
+    self.cancelReply = function() {
+        self.response(false);
+        console.log(self.editor.parents('.comments-gray_add'));
+        console.log(self.editor.parents('.scroll'));
+        self.editor.parents('.comments-gray_add').insertAfter(self.editor.parents('.scroll'));
+    }
 }
 
 function NewComment(data, parent) {

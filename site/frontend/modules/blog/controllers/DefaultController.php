@@ -76,6 +76,9 @@ class DefaultController extends HController
         $this->breadcrumbs[$this->user->getFullName()] = $this->user->getUrl();
         if ($rubric_id !== null) {
             $rubric = CommunityRubric::model()->findByPk($rubric_id);
+            if ($rubric === null)
+                throw new CHttpException(404);
+
             $this->breadcrumbs += array(
                 'Блог' => $this->user->getBlogUrl(),
                 $rubric->title,

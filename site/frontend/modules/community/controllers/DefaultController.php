@@ -111,6 +111,9 @@ class DefaultController extends HController
             $forumTitle = (isset($this->club->communities) && count($this->club->communities) > 1) ? $this->forum->title : 'Форум';
             if ($rubric_id !== null) {
                 $rubric = CommunityRubric::model()->findByPk($rubric_id);
+                if ($rubric === null)
+                    throw new CHttpException(404);
+
                 $this->breadcrumbs += array(
                     $forumTitle => $this->forum->getUrl(),
                     $rubric->title,

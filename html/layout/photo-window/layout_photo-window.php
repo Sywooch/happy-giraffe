@@ -309,23 +309,23 @@ $(window).resize(function () {
 							<a href="" class="such-post_t">Креативная сервисная</a>
 						</div>
 					</div>
-					<div class="such-post_i">
+					<div class="such-post_i  such-post_i__photopost">
 						<a href="" class="such-post_img-hold">
 							<img src="/images/example/w335-h230.jpg" alt="" class="such-post_img">
 						</a>
 						<div class="such-post_type-hold">
-							<div class="such-post_type such-post_type__post"></div>
+							<div class="such-post_type  such-post_type__photopost"></div>
 						</div>
 						<div class="such-post_cont">
 							<div class="clearfix">
 								<div class="meta-gray">
 									<a class="meta-gray_comment" href="">
-										<span class="ico-comment ico-comment__gray"></span>
-										<span class="meta-gray_tx">35</span>
+										<span class="ico-comment ico-comment__white"></span>
+										<span class="meta-gray_tx color-gray-light">35</span>
 									</a>
 									<div class="meta-gray_view">
-										<span class="ico-view ico-view__gray"></span>
-										<span class="meta-gray_tx">305</span>
+										<span class="ico-view ico-view__white"></span>
+										<span class="meta-gray_tx color-gray-light">305</span>
 									</div>
 								</div>
 								<div class="such-post_author">

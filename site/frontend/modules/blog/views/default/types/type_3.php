@@ -20,7 +20,7 @@ $collection = new PhotoPostPhotoCollection(array('contentId' => $data->id));
         <div class="wysiwyg-content clearfix">
             <p><?=nl2br(CHtml::encode($data->photoPost->text))?></p>
         </div>
-        <?php $this->widget('blog.widgets.PhotoPostWidget', array('post' => $data)); ?>
+        <?php $this->widget('blog.widgets.PhotoPostWidget', array('post' => $data, 'full' => true)); ?>
     </div>
 
     <?php if (Yii::app()->request->getQuery('openGallery') !== null): ?>
@@ -46,7 +46,7 @@ $collection = new PhotoPostPhotoCollection(array('contentId' => $data->id));
                 <?= $data->purified->preview ?>
             </div>
         <?php //endif ?>
-        <?php $this->widget('blog.widgets.PhotoPostWidget', array('post' => $data)); ?>
+        <?php $this->widget('blog.widgets.PhotoPostWidget', array('post' => $data, 'full' => false)); ?>
     </div>
 
 <?php endif ?>

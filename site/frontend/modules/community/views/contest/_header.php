@@ -23,7 +23,14 @@
                     </div>
                     <div class="clearfix">
                         <a href="#popup-contest-rule" class="b-section_contest-rule fancy">Правила конкурса</a>
-                        <a href="<?=$contest->getParticipateUrl()?>" class="float-r btn-green btn-h46 fancy" id="takePartButton">Принять участие!</a>
+                        <?php if ($contest->status == CommunityContest::STATUS_ACTIVE): ?>
+                            <a href="<?=$contest->getParticipateUrl()?>" class="float-r btn-green btn-h46 fancy" id="takePartButton">Принять участие!</a>
+                        <?php else: ?>
+                            <div class="b-section_contest-end">
+                                <div class="b-section_contest-end-t"> Конкурс завершен. Идет подсчет голосов.</div>
+                                Итоги кокурса будут опубликованы 7 ноября 2013 г.
+                            </div>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>

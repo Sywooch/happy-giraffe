@@ -28,7 +28,9 @@ Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
                     <?php endforeach; ?>
                 </ul>
                 <?php endif; ?>
-                <a class="btn-green btn-medium readers2_btn-inline fancy" href="<?=$contest->getParticipateUrl()?>">Принять участие!</a>
+                <?php if ($contest->status == CommunityContest::STATUS_ACTIVE): ?>
+                    <a class="btn-green btn-medium readers2_btn-inline fancy" href="<?=$contest->getParticipateUrl()?>">Принять участие!</a>
+                <?php endif; ?>
             </div>
         <?php endif; ?>
 

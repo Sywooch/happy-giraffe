@@ -20,27 +20,29 @@
         <div class="article-contest_count-desc"><?=Str::GenerateNoun(array('балл', 'балла', 'баллов'), $data->contestWork->rate)?></div>
     </div>
     <div class="article-contest_col3">
-        Вы можете проголосовать за участника нажав на кнопки соцсетей
+        <?=($data->contestWork->contest->status == CommunityContest::STATUS_ACTIVE) ? 'Вы можете проголосовать за участника нажав на кнопки соцсетей' : 'Конкурс завершен. Идет подсчет голосов.'?>
     </div>
 </div>
-<div class="like-block fast-like-block">
+<?php if ($data->contestWork->contest->status == CommunityContest::STATUS_ACTIVE): ?>
+    <div class="like-block fast-like-block">
 
-    <div class="box-1">
-        <?php
-        Yii::app()->eauth->renderWidget(array(
-            'action' => '/ajax/socialVote',
-            'params' => array(
-                'entity' => get_class($data->contestWork),
-                'entity_id' => $data->contestWork->id,
-                'model' => $data->contestWork
-            ),
-            'mode' => 'vote',
-        ));
-        ?>
+        <div class="box-1">
+            <?php
+            Yii::app()->eauth->renderWidget(array(
+                'action' => '/ajax/socialVote',
+                'params' => array(
+                    'entity' => get_class($data->contestWork),
+                    'entity_id' => $data->contestWork->id,
+                    'model' => $data->contestWork
+                ),
+                'mode' => 'vote',
+            ));
+            ?>
+
+        </div>
 
     </div>
-
-</div>
+<?php endif; ?>
 <?php $randomParticipants = $data->contestWork->getOtherParticipants(2, 2); if ($randomParticipants): ?>
     <div class="article-contest-conversion">
         <div class="article-contest-conversion_t">
@@ -61,6 +63,8 @@
     <div class="b-contest-advert_hold">
         <div class="b-contest-advert_t">КОНКУРС</div>
         <div class="b-contest-advert_name"><?=$data->contestWork->contest->title?></div>
+        <?php if ($data->contestWork->contest->status == CommunityContest::STATUS_ACTIVE): ?>
         <a href="<?=$data->contestWork->contest->getExternalParticipateUrl()?>" class="btn-green btn-h46<?php if (Yii::app()->user->isGuest): ?> fancy<?php endif; ?>">Принять участие!</a>
+        <?php endif; ?>
     </div>
 </div>

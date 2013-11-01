@@ -14,9 +14,11 @@
                 <div class="contest-rule">
                     <div class="heading-title">Правила конкурса</div>
                     <?=$contest->rules?>
-                    <div class="textalign-c clearfix">
-                        <a href="<?=$contest->getParticipateUrl()?>" class="btn-green btn-h46 fancy">Принять участие!</a>
-                    </div>
+                    <?php if ($contest->status == CommunityContest::STATUS_ACTIVE): ?>
+                        <div class="textalign-c clearfix">
+                            <a href="<?=$contest->getParticipateUrl()?>" class="btn-green btn-h46 fancy">Принять участие!</a>
+                        </div>
+                    <?php endif; ?>
                 </div>
 
             </div>

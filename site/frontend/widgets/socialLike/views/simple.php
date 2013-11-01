@@ -81,7 +81,7 @@
         ->registerScript('vklike', $js);
     ;
     ?>
-    <div class="custom-likes-b custom-likes-b__like-white">
+    <div class="custom-likes-b custom-likes-b__like">
     <div class="custom-likes-b_slogan">Поделитесь с друзьями!</div>
     <div class="like-block fast-like-block">
         <div class="box-1">

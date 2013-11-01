@@ -21,9 +21,13 @@ class BasicVideo extends CComponent
         $this->oembed = new OEmbed($url, $this->oembedParams, $this->oembedProvider);
     }
 
-    public function getEmbed()
+    public function getEmbed($width = 580)
     {
-        return $this->oembed->html;
+        if ($width === 580)
+            return $this->oembed->html;
+
+        $oembed = new OEmbed($this->url, array('maxwidth' => $width), $this->oembedProvider);
+        return $oembed->html;
     }
 
     public function getThumbnail()

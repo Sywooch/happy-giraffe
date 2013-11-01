@@ -71,4 +71,38 @@ class TempCommand extends CConsoleCommand
         Yii::import('site.common.models.mongo.HGLike');
         echo HGLike::model()->DateLikes($date1, $date2);
     }
+
+    public function actionVicks()
+    {
+        Yii::import('site.frontend.modules.messaging.models.*');
+        $lastUserId = Yii::app()->getGlobalState('lastUser', 0);
+        $criteria = new CDbCriteria();
+        $criteria->condition = 'id > :lastUserId AND blocked = 0 AND deleted = 0';
+        $criteria->params = array(':lastUserId' => $lastUserId);
+        $criteria->limit = 1000;
+        $criteria->order = 'id ASC';
+        $users = User::model()->findAll($criteria);
+        $text = '<a href="http://ad.adriver.ru/cgi-bin/click.cgi?sid=1&bt=21&ad=420520&pid=1314853&bid=2835781&bn=2835781&rnd=%random%" onclick="_gaq.push([\'_trackEvent\',\'Outgoing Links\',\'www.vicks.ru\'])"><img src="http://banners.adfox.ru/131031/adfox/309734/881537.png" alt="Vicks"></a>';
+
+        foreach ($users as $u) {
+            $thread = MessagingThread::model()->findOrCreate(1, $u->id);
+            MessagingMessage::model()->create($text, $thread->id, 1, array(), true);
+        }
+
+        Yii::app()->setGlobalState('lastUser', end($users)->id);
+    }
+
+    public function actionVicksTest()
+    {
+        Yii::import('site.frontend.modules.messaging.models.*');
+        $criteria = new CDbCriteria();
+        $criteria->addInCondition('id', array(12936, 56, 16534));
+        $users = User::model()->findAll($criteria);
+        $text = '<a href="http://ad.adriver.ru/cgi-bin/click.cgi?sid=1&bt=21&ad=420520&pid=1314853&bid=2835781&bn=2835781&rnd=%random%" onclick="_gaq.push([\'_trackEvent\',\'Outgoing Links\',\'www.vicks.ru\'])"><img src="http://banners.adfox.ru/131031/adfox/309734/881537.png" alt="Vicks"></a>';
+
+        foreach ($users as $u) {
+            $thread = MessagingThread::model()->findOrCreate(1, $u->id);
+            MessagingMessage::model()->create($text, $thread->id, 1, array(), true);
+        }
+    }
 }

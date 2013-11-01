@@ -138,12 +138,6 @@ function CommentViewModel(data) {
         return self.comments().slice(self.comments.length - 3, self.comments().length);
     });
 
-    self.cancel = function() {
-        if (self.response() !== false)
-            self.cancelReply();
-        self.editor.redactor('set', '');
-    }
-
     /*************************************** reply ****************************************/
     self.response = ko.observable(false);
     self.responseId = ko.computed(function () {
@@ -166,9 +160,8 @@ function CommentViewModel(data) {
 
     self.cancelReply = function() {
         self.response(false);
-        console.log(self.editor.parents('.comments-gray_add'));
-        console.log(self.editor.parents('.scroll'));
         self.editor.parents('.comments-gray_add').insertAfter(self.editor.parents('.scroll'));
+        self.editor.redactor('set', '');
     }
 }
 

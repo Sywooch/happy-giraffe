@@ -75,7 +75,7 @@ class TempCommand extends CConsoleCommand
     public function actionVicks()
     {
         Yii::import('site.frontend.modules.messaging.models.*');
-        $lastUserId = Yii::app()->getGlobalState('lastUser', 0);
+        $lastUserId = UserAttributes::get(1, 'lastUser', 0);
         $criteria = new CDbCriteria();
         $criteria->condition = 'id > :lastUserId AND blocked = 0 AND deleted = 0';
         $criteria->params = array(':lastUserId' => $lastUserId);
@@ -89,7 +89,7 @@ class TempCommand extends CConsoleCommand
             MessagingMessage::model()->create($text, $thread->id, 1, array(), true);
         }
 
-        Yii::app()->setGlobalState('lastUser', end($users)->id);
+        UserAttributes::set(1, 'lastUser', end($users)->id);
     }
 
     public function actionVicksTest()

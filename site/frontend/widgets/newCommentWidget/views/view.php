@@ -141,7 +141,7 @@ NotificationRead::getInstance()->SetVisited();
                 <!-- ko if: opened() -->
                 <div class="wysiwyg-h">
                     <!-- ko if: wysiwygVal().length > 0 -->
-                        <a class="wysiwyg-toolbar_close ico-close3" data-bind="click: cancel, tooltip: 'Отмена'"></a>
+                        <a class="wysiwyg-toolbar_close ico-close3" data-bind="click: cancelReply, tooltip: 'Отменить ответ'"></a>
                     <!-- /ko -->
                     <div id="add_<?=$this->objectName ?>" data-bind="enterKey: Enter"></div>
                 </div>

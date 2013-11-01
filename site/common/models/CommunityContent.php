@@ -614,6 +614,7 @@ class CommunityContent extends HActiveRecord
                     'condition' => 'rubric_id = :rubric_id AND t.id < :current_id',
                     'params' => array(':rubric_id' => $this->rubric_id, ':current_id' => $this->id),
                     'order' => 't.id DESC',
+                    'with' => array('source'),
                 )
             );
         } else {
@@ -629,6 +630,7 @@ class CommunityContent extends HActiveRecord
                             'condition' => 'user_id = :user_id',
                             'params' => array(':user_id' => $this->rubric->user_id),
                         ),
+                        'source',
                     ),
                 )
             );

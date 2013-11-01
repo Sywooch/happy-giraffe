@@ -74,6 +74,8 @@ class TempCommand extends CConsoleCommand
 
     public function actionVicks()
     {
+        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
+        Yii::import('site.common.models.mongo.UserAttributes');
         Yii::import('site.frontend.modules.messaging.models.*');
         $lastUserId = UserAttributes::get(1, 'lastUser', 0);
         $criteria = new CDbCriteria();

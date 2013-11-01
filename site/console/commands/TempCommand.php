@@ -82,7 +82,7 @@ class TempCommand extends CConsoleCommand
         $criteria->limit = 1000;
         $criteria->order = 'id ASC';
         $users = User::model()->findAll($criteria);
-        $text = 'Весёлый Жираф рекомендует Vicks:<a href="http://ad.adriver.ru/cgi-bin/click.cgi?sid=1&bt=21&ad=420520&pid=1314853&bid=2835781&bn=2835781&rnd=%random%" onclick="_gaq.push([\'_trackEvent\',\'Outgoing Links\',\'www.vicks.ru\'])"><img src="http://banners.adfox.ru/131101/adfox/309734/551.jpg" alt="Vicks"></a>';
+        $text = 'Весёлый Жираф рекомендует Vicks:<a href="http://ad.adriver.ru/cgi-bin/click.cgi?sid=1&bt=21&ad=420520&pid=1314853&bid=2835781&bn=2835781&rnd=%random%" onclick="_gaq.push([\'_trackEvent\',\'Outgoing Links\',\'www.vicks.ru\'])"><br><br><img src="http://banners.adfox.ru/131101/adfox/309734/551.jpg" alt="Vicks"></a>';
 
         foreach ($users as $u) {
             $thread = MessagingThread::model()->findOrCreate(1, $u->id);

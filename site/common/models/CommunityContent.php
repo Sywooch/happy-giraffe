@@ -776,8 +776,8 @@ class CommunityContent extends HActiveRecord
     public function getContent()
     {
         if ($this->type->id == self::TYPE_REPOST) {
+            var_dump($this->id);
             var_dump($this->source_id);
-            var_dump($this->getRelated('source'));
             return $this->source->getContent();
         }
         return $this->{$this->type->slug};

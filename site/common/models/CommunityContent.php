@@ -610,17 +610,16 @@ class CommunityContent extends HActiveRecord
         if (!$this->getIsFromBlog()) {
             $prev = self::model()->cache(300)->find(
                 array(
-                    'select' => array('t.id', 't.title', 't.author_id', 't.rubric_id', 't.type_id'),
+                    'select' => array('t.id', 't.title', 't.author_id', 't.rubric_id', 't.type_id', 't.source_id'),
                     'condition' => 'rubric_id = :rubric_id AND t.id < :current_id',
                     'params' => array(':rubric_id' => $this->rubric_id, ':current_id' => $this->id),
                     'order' => 't.id DESC',
-                    'with' => array('source'),
                 )
             );
         } else {
             $prev = self::model()->cache(300)->find(
                 array(
-                    'select' => array('t.id', 't.title', 't.author_id', 't.rubric_id', 't.type_id'),
+                    'select' => array('t.id', 't.title', 't.author_id', 't.rubric_id', 't.type_id', 't.source_id'),
                     'condition' => 't.id < :current_id',
                     'params' => array(':current_id' => $this->id),
                     'order' => 't.id DESC',
@@ -630,7 +629,6 @@ class CommunityContent extends HActiveRecord
                             'condition' => 'user_id = :user_id',
                             'params' => array(':user_id' => $this->rubric->user_id),
                         ),
-                        'source',
                     ),
                 )
             );
@@ -648,7 +646,7 @@ class CommunityContent extends HActiveRecord
         if (!$this->getIsFromBlog()) {
             $next = self::model()->cache(300)->find(
                 array(
-                    'select' => array('t.id', 't.title', 't.author_id', 't.rubric_id', 't.type_id'),
+                    'select' => array('t.id', 't.title', 't.author_id', 't.rubric_id', 't.type_id', 't.source_id'),
                     'condition' => 'rubric_id = :rubric_id AND t.id > :current_id',
                     'params' => array(':rubric_id' => $this->rubric_id, ':current_id' => $this->id),
                     'order' => 't.id',
@@ -657,7 +655,7 @@ class CommunityContent extends HActiveRecord
         } else {
             $next = self::model()->cache(300)->find(
                 array(
-                    'select' => array('t.id', 't.title', 't.author_id', 't.rubric_id', 't.type_id'),
+                    'select' => array('t.id', 't.title', 't.author_id', 't.rubric_id', 't.type_id', 't.source_id'),
                     'condition' => 't.id > :current_id',
                     'params' => array(':current_id' => $this->id),
                     'order' => 't.id',

@@ -7,7 +7,6 @@ function CommentViewModel(data) {
     self.gallery = ko.observable(data.gallery);
     self.objectName = ko.observable(data.objectName);
     self.editor = null;
-    self.wysiwygVal = ko.observable('');
 
     self.comments = ko.observableArray([]);
     self.comments(ko.utils.arrayMap(data.comments, function (comment) {
@@ -35,6 +34,8 @@ function CommentViewModel(data) {
     self.openComment = function () {
         if (!self.opened()) {
             self.opened(true);
+            if (self.response() !== false)
+                self.cancelReply();
             ko.utils.arrayForEach(self.comments(), function (comment) {
                 if (comment.editMode())
                     comment.editMode(false);
@@ -87,12 +88,12 @@ function CommentViewModel(data) {
                 initCallback: function () {
                     redactor = this;
                     self.focusEditor();
-                    self.wysiwygVal(self.editor.html());
                 },
                 changeCallback: function(html) {
-                    self.wysiwygVal(html);
-                    if (self.response() !== false && html.indexOf(self.response().replyUserLink()) == -1)
+                    if (self.response() !== false && html.indexOf(self.response().replyUserLink()) == -1) {
                         self.cancelReply();
+                        self.goBottom();
+                    }
                 },
                 minHeight: 68,
                 autoresize: true,
@@ -138,12 +139,6 @@ function CommentViewModel(data) {
         return self.comments().slice(self.comments.length - 3, self.comments().length);
     });
 
-    self.cancel = function() {
-        if (self.response() !== false)
-            self.cancelReply();
-        self.editor.redactor('set', '');
-    }
-
     /*************************************** reply ****************************************/
     self.response = ko.observable(false);
     self.responseId = ko.computed(function () {
@@ -154,21 +149,15 @@ function CommentViewModel(data) {
     });
 
     self.Reply = function (comment) {
+        if (self.opened())
+            self.opened(false);
         self.response(comment);
-        self.goBottom();
-        try {
-            self.editor.redactor('set', self.response().replyTreatmentHtml());
-        } catch(err) {
-            self.editor.html(self.response().replyTreatmentHtml());
-        }
-        self.editor.parents('.comments-gray_add').appendTo('#comment_' + comment.id());
+        self.initEditor('reply_' + self.response().id());
+        self.editor.html(comment.replyTreatmentHtml());
     };
 
     self.cancelReply = function() {
         self.response(false);
-        console.log(self.editor.parents('.comments-gray_add'));
-        console.log(self.editor.parents('.scroll'));
-        self.editor.parents('.comments-gray_add').insertAfter(self.editor.parents('.scroll'));
     }
 }
 

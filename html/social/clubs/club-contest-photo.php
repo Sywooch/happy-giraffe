@@ -70,7 +70,11 @@
 							</div>
 							<div class="clearfix">
 								<a href="#popup-contest-rule" class="b-section_contest-rule fancy">Правила конкурса</a>
-								<a href="#popup-contest" class="float-r btn-green btn-h46 fancy">Принять участие!</a>
+								<!-- <a href="#popup-contest" class="float-r btn-green btn-h46 fancy">Принять участие!</a> -->
+								<div class="b-section_contest-end">
+									<div class="b-section_contest-end-t"> Конкурс завершен. Идет подсчет голосов.</div>
+									Итоги кокурса будут опубликованы 7 ноября 2013 г.
+								</div>
 							</div>
 						</div>
 					</div>

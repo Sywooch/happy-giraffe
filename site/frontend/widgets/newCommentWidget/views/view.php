@@ -121,6 +121,32 @@ NotificationRead::getInstance()->SetVisited();
 
                 </div>
 
+                <!-- ko if: $data == $root.response() -->
+                <div class="comments-gray_add clearfix">
+                    <div class="comments-gray_ava">
+                        <?php $this->widget('Avatar', array('user' => Yii::app()->user->getModel(), 'size' => 40)) ?>
+                    </div>
+                    <div class="comments-gray_frame">
+                        <div class="wysiwyg-h">
+                            <a class="wysiwyg-toolbar_close ico-close3" data-bind="click: $root.cancelReply, tooltip: 'Отменить ответ'"></a>
+                            <div data-bind="enterKey: $root.Enter, attr: { id : 'reply_' + id() }"></div>
+                        </div>
+                        <div class="redactor-control clearfix">
+
+                            <div class="float-r">
+                                <div class="redactor-control_key">
+                                    <input type="checkbox" class="redactor-control_key-checkbox" id="redactor-control_key-checkbox"  data-bind="checked: $root.enterSetting, click: $root.focusEditor">
+                                    <label class="redactor-control_key-label" for="redactor-control_key-checkbox">Enter - отправить</label>
+                                </div>
+
+                                <button class="btn-green" data-bind="click: $root.addComment">Отправить</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- /ko -->
+
             </div>
             <!-- /ko -->
         </div>
@@ -140,9 +166,6 @@ NotificationRead::getInstance()->SetVisited();
                 <input type="text" class="comments-gray_add-itx itx-gray" placeholder="Ваш комментарий" data-bind="click:openComment, visible: !opened()">
                 <!-- ko if: opened() -->
                 <div class="wysiwyg-h">
-                    <!-- ko if: wysiwygVal().length > 0 -->
-                        <a class="wysiwyg-toolbar_close ico-close3" data-bind="click: cancelReply, tooltip: 'Отменить ответ'"></a>
-                    <!-- /ko -->
                     <div id="add_<?=$this->objectName ?>" data-bind="enterKey: Enter"></div>
                 </div>
                 <div class="redactor-control clearfix">

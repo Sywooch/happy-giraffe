@@ -93,7 +93,8 @@ var Video = function(data, parent) {
     };
 
     self.embed.subscribe(function() {
-        setPopupPosition($('.redactor_btn_video'), $('.redactor-popup_b-video'));
+        if ($('.redactor_btn_video').length > 0)
+            setPopupPosition($('.redactor_btn_video'), $('.redactor-popup_b-video'));
     });
 };
 

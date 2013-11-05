@@ -38,6 +38,74 @@
 						</div>
 					</div>
 				</div>
+				<div class="comments-gray_add active clearfix">
+
+					<div class="comments-gray_ava">
+						<a class="ava middle female" href="">
+						</a>
+					</div>
+					
+					<div class="comments-gray_frame">
+						<!-- input hidden -->
+						<input type="text" name="" id="" class="comments-gray_add-itx itx-gray display-n" placeholder="Ваш комментарий">
+						
+						<script>
+						$(document).ready(function () { 
+						  $('.wysiwyg-redactor1').redactor({
+						      autoresize: true,
+						      toolbarExternal: '.wysiwyg-toolbar-btn1',
+						      minHeight: 45,
+						      buttons: ['bold', 'italic', 'underline', '|', 'image', 'video', 'smile'],
+						      buttonsCustom: {
+						          smile: {
+						              title: 'smile',
+						              callback: function(buttonName, buttonDOM, buttonObject) {
+						                  // your code, for example - getting code
+						                  var html = this.get();
+						              }
+						          },
+						          h2: {
+						              title: 'h2',
+						              callback: function(buttonName, buttonDOM, buttonObject) {
+						                  // your code, for example - getting code
+						                  var html = this.get();
+						              }
+						          },
+						          h3: {
+						              title: 'h3',
+						              callback: function(buttonName, buttonDOM, buttonObject) {
+						                  // your code, for example - getting code
+						                  var html = this.get();
+						              }
+						          }
+						      }
+						  });
+						});
+						</script>
+						<div class="wysiwyg-h">
+							<div class="wysiwyg-toolbar">
+								<a href="" class="wysiwyg-toolbar_close ico-close3"></a>
+								<div class="wysiwyg-toolbar-btn1"></div>
+							</div>
+							<textarea name="" class="wysiwyg-redactor1" ></textarea>
+							<div class="redactor-control clearfix">
+
+								<!-- <div class="redactor-control_quote">
+									<span class="font-smallest color-gray">Ответ для</span>
+									<span class="redactor-control_quote-tx">Вася Пупкин</span>
+									<a href="" class="a-pseudo-gray font-small" title="Отменить ответ">Отмена</a>
+								</div> -->
+								<div class="float-r">
+									<div class="redactor-control_key">
+										<input type="checkbox" class="redactor-control_key-checkbox" id="redactor-control_key-checkbox" name="">
+										<label class="redactor-control_key-label" for="redactor-control_key-checkbox">Enter - отправить</label>
+									</div>
+									<button class="btn-green">Отправить</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 				<div class="comments-gray_i comments-gray_i__pink">
 					<div class="comments-gray_ava">
 						<a href="" class="ava middle female"></a>

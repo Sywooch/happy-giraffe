@@ -193,7 +193,7 @@ NotificationRead::getInstance()->SetVisited();
 
     <!-- /ko -->
 
-    <!-- ko if: !(full() && (comments().length == 0 || comments().length > 10)) -->
+    <!-- ko if: ! full() || comments().length > 0 -->
     <?php if (!Yii::app()->user->isGuest && !$this->gallery):?>
         <div class="comments-gray_add clearfix" data-bind="css: {active: opened === $root.OPENED_BOT}">
             <div class="comments-gray_ava">

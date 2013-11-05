@@ -120,8 +120,9 @@ NotificationRead::getInstance()->SetVisited();
                     <!-- /ko -->
 
                 </div>
+            </div>
 
-                <?php if (!Yii::app()->user->isGuest && !$this->gallery):?>
+            <?php if (!Yii::app()->user->isGuest && !$this->gallery):?>
                 <!-- ko if: $data == $root.response() -->
                 <div class="comments-gray_add clearfix">
                     <div class="comments-gray_ava">
@@ -147,9 +148,7 @@ NotificationRead::getInstance()->SetVisited();
                     </div>
                 </div>
                 <!-- /ko -->
-                <?php endif; ?>
-
-            </div>
+            <?php endif; ?>
             <!-- /ko -->
         </div>
         <div class="scroll_bar-hold">

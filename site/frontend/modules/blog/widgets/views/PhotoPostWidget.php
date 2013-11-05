@@ -10,7 +10,7 @@
     <div class="photo-grid clearfix">
         <div class="photo-grid_row clearfix">
             <!-- Ловить клик на photo-grid_i для показа увеличенного фото -->
-            <div class="photo-grid_i">
+            <div class="photo-grid_i" onclick="PhotoCollectionViewWidget.open(<?=CJavaScript::encode(get_class($collection))?>, <?=CJavaScript::encode($collection->options)?>)">
                 <?=CHtml::image($coverPhoto->getPreviewUrl('580', null, Image::WIDTH), $this->post->title)?>
                 <div class="photo-grid_tip"><?=$collection->count?> фото</div>
                 <span class="ico-play-big"></span>
@@ -28,12 +28,15 @@
     ?>
     <!-- /ko -->
 
+
     <div class="margin-20 clearfix">
-        <a href="" class="float-r btn-blue-light btn-medium">Смотреть галерею</a>
-        <div class="float-l">
-            <a class="b-article_photo-control b-article_photo-control__single powertip" data-bind="css: { active : state() == 0 }, click: function() {setState(0)}"></a>
-            <a class="b-article_photo-control b-article_photo-control__grid powertip" data-bind="css: { active : state() == 1 }, click: function() {setState(1)}"></a>
-        </div>
+        <a href="javascript:void(0)" class="float-r btn-blue-light btn-medium" onclick="PhotoCollectionViewWidget.open(<?=CJavaScript::encode(get_class($collection))?>, <?=CJavaScript::encode($collection->options)?>)">Смотреть галерею</a>
+        <?php if ($this->full): ?>
+            <div class="float-l">
+                <a class="b-article_photo-control b-article_photo-control__single powertip" data-bind="css: { active : state() == 0 }, click: function() {setState(0)}"></a>
+                <a class="b-article_photo-control b-article_photo-control__grid powertip" data-bind="css: { active : state() == 1 }, click: function() {setState(1)}"></a>
+            </div>
+        <?php endif; ?>
     </div>
 </div>
 

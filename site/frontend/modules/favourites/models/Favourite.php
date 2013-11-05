@@ -208,6 +208,24 @@ class Favourite extends CActiveRecord
         return $this->count('model_name = :model_name AND model_id = :model_id', array(':model_name' => $modelName, ':model_id' => $model->id));
     }
 
+    public function getAllByModel($model, $limit)
+    {
+        $modelName = get_class($model);
+        if ($modelName == 'CommunityContent' && $model->getIsFromBlog())
+            $modelName = 'BlogContent';
+        elseif($modelName == 'BlogContent' && !$model->getIsFromBlog())
+            $modelName = 'CommunityContent';
+
+        $criteria = new CDbCriteria();
+        $criteria->condition = 'model_name = :model_name AND model_id = :model_id';
+        $criteria->params = array(':model_name' => $modelName, ':model_id' => $model->id);
+        $criteria->limit = $limit;
+        if (! Yii::app()->user->isGuest)
+            $criteria->compare('user_id', '<>' . Yii::app()->user->id);
+
+        return $this->findAll($criteria);
+    }
+
     public function getUserHas($userId, $model)
     {
         $modelName = get_class($model);

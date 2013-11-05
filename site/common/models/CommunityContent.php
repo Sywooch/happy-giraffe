@@ -610,7 +610,7 @@ class CommunityContent extends HActiveRecord
         if (!$this->getIsFromBlog()) {
             $prev = self::model()->cache(300)->find(
                 array(
-                    'select' => array('t.id', 't.title', 't.author_id', 't.rubric_id', 't.type_id'),
+                    'select' => array('t.id', 't.title', 't.author_id', 't.rubric_id', 't.type_id', 't.source_id'),
                     'condition' => 'rubric_id = :rubric_id AND t.id < :current_id',
                     'params' => array(':rubric_id' => $this->rubric_id, ':current_id' => $this->id),
                     'order' => 't.id DESC',
@@ -619,7 +619,7 @@ class CommunityContent extends HActiveRecord
         } else {
             $prev = self::model()->cache(300)->find(
                 array(
-                    'select' => array('t.id', 't.title', 't.author_id', 't.rubric_id', 't.type_id'),
+                    'select' => array('t.id', 't.title', 't.author_id', 't.rubric_id', 't.type_id', 't.source_id'),
                     'condition' => 't.id < :current_id',
                     'params' => array(':current_id' => $this->id),
                     'order' => 't.id DESC',
@@ -646,7 +646,7 @@ class CommunityContent extends HActiveRecord
         if (!$this->getIsFromBlog()) {
             $next = self::model()->cache(300)->find(
                 array(
-                    'select' => array('t.id', 't.title', 't.author_id', 't.rubric_id', 't.type_id'),
+                    'select' => array('t.id', 't.title', 't.author_id', 't.rubric_id', 't.type_id', 't.source_id'),
                     'condition' => 'rubric_id = :rubric_id AND t.id > :current_id',
                     'params' => array(':rubric_id' => $this->rubric_id, ':current_id' => $this->id),
                     'order' => 't.id',
@@ -655,7 +655,7 @@ class CommunityContent extends HActiveRecord
         } else {
             $next = self::model()->cache(300)->find(
                 array(
-                    'select' => array('t.id', 't.title', 't.author_id', 't.rubric_id', 't.type_id'),
+                    'select' => array('t.id', 't.title', 't.author_id', 't.rubric_id', 't.type_id', 't.source_id'),
                     'condition' => 't.id > :current_id',
                     'params' => array(':current_id' => $this->id),
                     'order' => 't.id',
@@ -1149,5 +1149,32 @@ class CommunityContent extends HActiveRecord
         }
 
         return null;
+    }
+
+    public function getLikedUsers($limit)
+    {
+        $likes = HGLike::model()->findAllByEntity($this);
+
+        $usersIds = array_map(function($like) {
+            return $like['user_id'];
+        }, $likes);
+
+        $criteria = new CDbCriteria();
+        $criteria->limit = $limit;
+        if (! Yii::app()->user->isGuest)
+            $criteria->compare('t.id', '<>' . Yii::app()->user->id);
+        $criteria->addInCondition('t.id', $usersIds);
+        $users = User::model()->findAll($criteria);
+
+        return $users;
+    }
+
+    public function getFavouritedUsers($limit)
+    {
+        $favourites = Favourite::model()->getAllByModel($this, $limit);
+        $users = array_map(function($favourite) {
+            return $favourite->user;
+        }, $favourites);
+        return $users;
     }
 }

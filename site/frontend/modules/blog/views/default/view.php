@@ -25,8 +25,7 @@ switch ($data->type_id) {
         $cssClass = 'b-article__user-status';
         break;
     case CommunityContentType::TYPE_PHOTO:
-        //$cssClass = 'b-article__photopost';
-        $cssClass = null;
+        $cssClass = 'b-article__photopost';
         break;
     default:
         $cssClass = null;
@@ -55,47 +54,8 @@ switch ($data->type_id) {
 
         <?php if ($full && $data->contestWork === null) $this->renderPartial('blog.views.default._likes', array('data' => $source)); ?>
 
-        <?php if ($data->type_id == CommunityContent::TYPE_STATUS): ?><div class="bg-white clearfix"><?php endif; ?>
-        <?php if ($full) $this->renderPartial('blog.views.default._prev_next', compact('data')); ?>
-        <?php if ($data->type_id == CommunityContent::TYPE_STATUS): ?></div><?php endif; ?>
-
         <?php if ($full && $data->contestWork !== null): ?>
             <?php $this->renderPartial('application.modules.blog.views.default._contest', compact('data')); ?>
-        <?php endif; ?>
-
-        <?php if ($full): ?>
-            <!-- ﬂÌ‰ÂÍÒ.ƒËÂÍÚ -->
-            <div id="yandex_ad" style="padding: 20px 20px 30px; background: #fffff0; margin-top: -20px;">
-                <!-- ﬂÌ‰ÂÍÒ.ƒËÂÍÚ -->
-                <div id="yandex_ad"></div>
-                <script type="text/javascript">
-                    (function(w, d, n, s, t) {
-                        w[n] = w[n] || [];
-                        w[n].push(function() {
-                            Ya.Direct.insertInto(87026, "yandex_ad", {
-                                site_charset: "utf-8",
-                                ad_format: "direct",
-                                font_size: 1.2,
-                                type: "vertical",
-                                limit: 2,
-                                title_font_size: 3,
-                                site_bg_color: "FFFFFF",
-                                title_color: "0066CC",
-                                url_color: "006600",
-                                text_color: "000000",
-                                hover_color: "0066FF",
-                                favicon: true
-                            });
-                        });
-                        t = d.getElementsByTagName('head')[0];
-                        s = d.createElement("script");
-                        s.type = "text/javascript";
-                        s.src = "http://an.yandex.ru/system/context.js";
-                        s.setAttribute("async", "true");
-                        t.insertBefore(s, t.firstChild);
-                    })(window, document, "yandex_context_callbacks");
-                </script>
-            </div>
         <?php endif; ?>
 
         <?php if ($full && ! $data->getIsFromBlog()): ?>
@@ -104,36 +64,23 @@ switch ($data->type_id) {
             <?php $this->endWidget(); ?>
         <?php endif; ?>
 
-        <?php $this->widget('application.widgets.newCommentWidget.NewCommentWidget', array('model' => $data, 'full' => $full)); ?>
+        <?php if (! $full): ?>
+            <?php $this->widget('application.widgets.newCommentWidget.NewCommentWidget', array('model' => $data, 'full' => $full)); ?>
+        <?php endif; ?>
         <!-- /ko -->
     </div>
 </div>
 
 <?php if ($full): ?>
-    <div style="margin: 40px 20px;">
-        <script type="text/javascript">
-            <!--
-            if (typeof(pr) == 'undefined') { var pr = Math.floor(Math.random() * 1000000); }
-            if (typeof(document.referrer) != 'undefined') {
-                if (typeof(afReferrer) == 'undefined') {
-                    afReferrer = escape(document.referrer);
-                }
-            } else {
-                afReferrer = '';
-            }
-            var addate = new Date();
+    <?php $this->renderPartial('blog.views.default._article_banner'); ?>
+<?php endif; ?>
 
+<?php if ($full): ?>
+    <?php $this->widget('application.widgets.newCommentWidget.NewCommentWidget', array('model' => $data, 'full' => $full)); ?>
+<?php endif; ?>
 
-            var dl = escape(document.location);
-            var pr1 = Math.floor(Math.random() * 1000000);
-
-            document.write('<div id="AdFox_banner_'+pr1+'"><\/div>');
-            document.write('<div style="visibility:hidden; position:absolute;"><iframe id="AdFox_iframe_'+pr1+'" width=1 height=1 marginwidth=0 marginheight=0 scrolling=no frameborder=0><\/iframe><\/div>');
-
-            AdFox_getCodeScript(1,pr1,'http://ads.adfox.ru/211012/prepareCode?pp=i&amp;ps=bkqy&amp;p2=evor&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a&amp;pr=' + pr +'&amp;pt=b&amp;pd=' + addate.getDate() + '&amp;pw=' + addate.getDay() + '&amp;pv=' + addate.getHours() + '&amp;prr=' + afReferrer + '&amp;dl='+dl+'&amp;pr1='+pr1);
-            // -->
-        </script>
-    </div>
+<?php if ($full): ?>
+    <?php $this->widget('blog.widgets.PostUsersWidget', array('post' => $data)); ?>
 <?php endif; ?>
 
 <?php if ($full && ! $data->getIsFromBlog() && in_array($data->rubric->community->club_id, array(8, 10, 14))): ?>
@@ -143,9 +90,13 @@ switch ($data->type_id) {
 <?php $this->widget('application.widgets.seo.SeoLinksWidget'); ?>
 
 <?php if ($full): ?>
+    <?php $this->widget('blog.widgets.PrevNextWidget', array('post' => $data)); ?>
+<?php endif; ?>
+
+<?php if ($full): ?>
 <script type="text/javascript">
-    $(function() {
-        likeControlFixed('.js-like-control', '.comments-gray', 20);
+    $(window).load(function() {
+        likeControlFixedInBlock('.js-like-control', '.b-article', 80);
     });
 </script>
 <?php endif; ?>

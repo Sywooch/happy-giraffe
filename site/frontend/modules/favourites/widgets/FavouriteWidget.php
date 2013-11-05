@@ -15,6 +15,7 @@ class FavouriteWidget extends CWidget
      */
     public $model;
     public $applyBindings = true;
+    public $small = false;
 
     public function run()
     {
@@ -52,6 +53,11 @@ class FavouriteWidget extends CWidget
     }
 
     protected function getViewByEntity($entity) {
-        return ($entity == 'cook') ? 'cook' : 'index';
+        if ($entity == 'cook')
+            return 'cook';
+        elseif ($this->small)
+            return 'small';
+        else
+            return 'index';
     }
 }

@@ -43,7 +43,7 @@ $form = $this->beginWidget('CActiveForm', array(
     </div>
     <!-- ko with: video -->
     <div class="b-settings-blue_add-video clearfix" data-bind="visible: embed() === null">
-        <?=$form->textField($slaveModel, 'link', array('class' => 'itx-simple w-400 float-l', 'placeholder' => 'Введите ссылку на видео', 'data-bind' => 'value: link, valueUpdate: \'keyup\''))?>
+        <?=$form->textField($slaveModel, 'link', array('class' => 'itx-simple w-400 float-l', 'placeholder' => 'Введите ссылку на видео', 'data-bind' => 'value: link, valueUpdate: [\'afterkeydown\',\'propertychange\',\'input\']'))?>
         <button class="btn-green" data-bind="css: { 'btn-inactive' : link().length == 0 }, click: check">Загрузить  видео</button>
         <div class="b-settings-blue_add-video-load" data-bind="visible: previewLoading">
             <img src="/images/ico/ajax-loader.gif" alt=""> <br>

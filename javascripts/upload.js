@@ -78,6 +78,10 @@ function UploadPhotos(data, multi, container_selector) {
     $(container_selector+' .js-upload-files-multiple').bind('fileuploadprogress', function (e, data) {
         self.findPhotoByName(data.files[0].name)._progress(data.loaded * 100 / data.total);
     });
+
+    self.photos.subscribe(function() {
+        setPopupPosition($('.redactor_btn_image'), $('.redactor-popup_b-photo'));
+    });
 }
 
 function UploadedPhoto(name, parent, photo, error) {

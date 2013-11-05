@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 Yii::app()->clientScript
     ->registerCoreScript('yiiactiveform')
     ->registerPackage('ko_layout')
@@ -50,28 +50,6 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
                                     <span class="header-menu_count" data-bind="text: newNotificationsCount"></span>
                                 </a>
                             </li>
-                            <li class="header-menu_li">
-                                <a href="<?=$this->createUrl('/favourites/default/index')?>" class="header-menu_a">
-                                    <span class="header-menu_ico header-menu_ico__favorite"></span>
-                                    <span class="header-menu_tx">Мое <br> избранное</span>
-                                </a>
-                            </li>
-                            <li class="header-menu_li header-menu_li__sepor"></li>
-                            <li class="header-menu_li">
-                                <a href="<?=$user->getUrl() ?>" class="header-menu_a">
-                                    <span class="ava middle <?=($user->gender == 0)?'female':'male'?>">
-                                        <?php if ($user->online):?><span class="icon-status status-online"></span><?php endif ?>
-                                        <?=CHtml::image($user->getAvatarUrl(40)) ?>
-                                    </span>
-                                    <span class="header-menu_tx">Моя <br> страница</span>
-                                </a>
-                            </li>
-                            <li class="header-menu_li">
-                                <a href="<?=Yii::app()->user->model->getFamilyUrl()?>" class="header-menu_a">
-                                    <span class="header-menu_ico header-menu_ico__family"></span>
-                                    <span class="header-menu_tx">Моя <br> семья</span>
-                                </a>
-                            </li>
                             <li class="header-menu_li" data-bind="css: { active : newMessagesCount() > 0 && activeModule() != 'messaging' }">
                                 <a href="<?=$this->createUrl('/messaging/default/index')?>" class="header-menu_a">
                                     <span class="header-menu_ico header-menu_ico__im"></span>
@@ -93,10 +71,253 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
                                     <span class="header-menu_count" data-bind="text: newScoreCount"></span>
                                 </a>
                             </li>
+                            <li class="header-menu_li header-menu_li__dropin">
+                                <a href="javascript:void(0)" class="header-menu_a" onclick="$(this).next().toggle()">
+                                    <span class="ava middle <?=($user->gender == 0)?'female':'male'?>">
+                                        <span class="icon-status status-online"></span>
+                                        <?=CHtml::image($user->getAvatarUrl(40))?>
+                                    </span>
+                                    <span class="header-menu_ico header-menu_ico__dropin"></span>
+                                </a>
+                                <div class="header-drop">
+                                    <div class="header-menu clearfix">
+                                        <ul class="header-menu_ul">
+                                            <li class="header-menu_li">
+                                                <a href="<?=$user->getUrl()?>" class="header-menu_a">
+                                                    <span class="header-menu_ico header-menu_ico__profile"></span>
+                                                    <span class="header-menu_tx">Моя страница</span>
+                                                </a>
+                                            </li>
+                                            <li class="header-menu_li">
+                                                <a href="<?=Yii::app()->user->model->getFamilyUrl()?>" class="header-menu_a">
+                                                    <span class="header-menu_ico header-menu_ico__family"></span>
+                                                    <span class="header-menu_tx">Моя семья</span>
+                                                </a>
+                                            </li>
+
+                                            <li class="header-menu_li">
+                                                <a href="<?=Yii::app()->user->model->getBlogUrl()?>" class="header-menu_a">
+                                                    <span class="header-menu_ico header-menu_ico__blog"></span>
+                                                    <span class="header-menu_tx">Мой блог</span>
+                                                </a>
+                                            </li>
+                                            <li class="header-menu_li">
+                                                <a href="<?=Yii::app()->user->model->getPhotosUrl()?>" class="header-menu_a">
+                                                    <span class="header-menu_ico header-menu_ico__photo"></span>
+                                                    <span class="header-menu_tx">Мои фото</span>
+                                                </a>
+                                            </li>
+                                            <li class="header-menu_li">
+                                                <a href="<?=$this->createUrl('/favourites/default/index')?>" class="header-menu_a">
+                                                    <span class="header-menu_ico header-menu_ico__favorite"></span>
+                                                    <span class="header-menu_tx">Избранное</span>
+                                                </a>
+                                            </li>
+                                            <li class="header-menu_li">
+                                                <a href="/user/settings/" class="header-menu_a">
+                                                    <span class="header-menu_ico header-menu_ico__settings"></span>
+                                                    <span class="header-menu_tx">Мои настройки</span>
+                                                </a>
+                                            </li>
+                                            <li class="header-menu_li">
+                                                <a href="<?=Yii::app()->createUrl('/site/logout')?>" class="header-menu_a">
+                                                    <span class="header-menu_ico header-menu_ico__logout"></span>
+                                                    <span class="header-menu_tx"></span>
+                                                </a>
+                                            </li>
+
+
+
+                                        </ul>
+                                    </div>
+                                    <?php if ($user->clubSubscriptionsCount > 0): ?>
+                                        <div class="header-drop_b">
+                                            <div class="float-r margin-t3">
+                                                <a href="<?=$this->createUrl('/myGiraffe/default/recommends')?>">Жираф рекомендует</a>
+                                            </div>
+                                            <div class="heading-small">Мои клубы <span class="color-gray">(<?=$user->clubSubscriptionsCount?>)</span> </div>
+
+
+                                            <div class="club-list club-list__small clearfix">
+                                                <ul class="club-list_ul clearfix">
+                                                    <?php foreach ($user->clubSubscriptions as $cs): ?>
+                                                    <li class="club-list_li">
+                                                        <a href="<?=$cs->club->getUrl()?>" class="club-list_i">
+                                                            <span class="club-list_img-hold">
+                                                                <img src="/images/club/<?=$cs->club_id?>-w50.png" alt="" class="club-list_img">
+                                                            </span>
+                                                        </a>
+                                                    </li>
+                                                    <?php endforeach; ?>
+                                                </ul>
+                                            </div>
+
+                                        </div>
+                                    <?php endif; ?>
+                                </div>
+
+                            </li>
                         </ul>
                     </div>
                     <!-- /ko -->
-                    <a href="<?=Yii::app()->createUrl('/site/logout')?>" class="layout-header_logout">Выход</a>
+            </div>
+        </div>
+
+        <div class="header-fix">
+            <div class="header-fix_hold clearfix">
+                <a href="" class="header-fix_logo"></a>
+
+                <a href="" class="header-fix_scrolltop">
+                    <span class="a-pseudo">Наверх</span>
+                    <span class="i-arrow-t"></span>
+                </a>
+                <div class="header-fix-menu">
+                    <ul class="header-menu_ul clearfix">
+                        <li class="header-fix-menu_li">
+                            <a href="" class="header-fix-menu_a">
+                                <span class="header-fix-menu_ico header-fix-menu_ico__giraffe"></span>
+                            </a>
+                        </li>
+                        <li class="header-fix-menu_li active">
+                            <a href="" class="header-fix-menu_a">
+                                <span class="header-fix-menu_ico header-fix-menu_ico__notice"></span>
+                                <span class="header-fix-menu_count">256</span>
+                            </a>
+                        </li>
+
+                        <li class="header-fix-menu_li active">
+                            <a href="" class="header-fix-menu_a">
+                                <span class="header-fix-menu_ico header-fix-menu_ico__im"></span>
+                                <span class="header-fix-menu_count">25456</span>
+                            </a>
+                        </li>
+
+                        <li class="header-fix-menu_li active">
+                            <a href="" class="header-fix-menu_a">
+                                <span class="header-fix-menu_ico header-fix-menu_ico__friend"></span>
+                                <span class="header-fix-menu_count">2</span>
+                            </a>
+                        </li>
+
+                        <li class="header-fix-menu_li">
+                            <a href="" class="header-fix-menu_a">
+                                <span class="header-fix-menu_ico header-fix-menu_ico__award"></span>
+                            </a>
+                        </li>
+                        <li class="header-fix-menu_li header-fix-menu_li__dropin">
+                            <a href="" class="header-fix-menu_a">
+
+                    <span class="ava small">
+                        <img src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" alt="">
+                    </span>
+                                <span class="header-fix-menu_ico header-fix-menu_ico__dropin"></span>
+                            </a>
+                            <div class="header-drop" >
+                                <div class="header-menu clearfix">
+                                    <ul class="header-menu_ul">
+                                        <li class="header-menu_li">
+                                            <a href="" class="header-menu_a">
+                                                <span class="header-menu_ico header-menu_ico__profile"></span>
+                                                <span class="header-menu_tx">Моя страница</span>
+                                            </a>
+                                        </li>
+                                        <li class="header-menu_li">
+                                            <a href="" class="header-menu_a">
+                                                <span class="header-menu_ico header-menu_ico__family"></span>
+                                                <span class="header-menu_tx">Моя семья</span>
+                                            </a>
+                                        </li>
+
+                                        <li class="header-menu_li">
+                                            <a href="" class="header-menu_a">
+                                                <span class="header-menu_ico header-menu_ico__blog"></span>
+                                                <span class="header-menu_tx">Мой блог</span>
+                                            </a>
+                                        </li>
+                                        <li class="header-menu_li">
+                                            <a href="" class="header-menu_a">
+                                                <span class="header-menu_ico header-menu_ico__photo"></span>
+                                                <span class="header-menu_tx">Мои фото</span>
+                                            </a>
+                                        </li>
+                                        <li class="header-menu_li">
+                                            <a href="" class="header-menu_a">
+                                                <span class="header-menu_ico header-menu_ico__favorite"></span>
+                                                <span class="header-menu_tx">Избранное</span>
+                                            </a>
+                                        </li>
+                                        <li class="header-menu_li">
+                                            <a href="" class="header-menu_a">
+                                                <span class="header-menu_ico header-menu_ico__settings"></span>
+                                                <span class="header-menu_tx">Мои настройки</span>
+                                            </a>
+                                        </li>
+                                        <li class="header-menu_li">
+                                            <a href="" class="header-menu_a">
+                                                <span class="header-menu_ico header-menu_ico__logout"></span>
+                                                <span class="header-menu_tx"></span>
+                                            </a>
+                                        </li>
+
+
+
+                                    </ul>
+                                </div>
+                                <div class="header-drop_b">
+                                    <div class="float-r margin-t3">
+                                        <a href="">Жираф рекомендует</a>
+                                    </div>
+                                    <div class="heading-small">Мои клубы <span class="color-gray">(5)</span> </div>
+
+
+                                    <div class="club-list club-list__small clearfix">
+                                        <ul class="club-list_ul clearfix">
+                                            <li class="club-list_li">
+                                                <a href="" class="club-list_i">
+                                        <span class="club-list_img-hold">
+                                            <img src="/images/club/2-w50.png" alt="" class="club-list_img">
+                                        </span>
+                                                </a>
+                                            </li>
+                                            <li class="club-list_li">
+                                                <a href="" class="club-list_i">
+                                        <span class="club-list_img-hold">
+                                            <img src="/images/club/5-w50.png" alt="" class="club-list_img">
+                                        </span>
+                                                </a>
+                                            </li>
+                                            <li class="club-list_li">
+                                                <a href="" class="club-list_i">
+                                        <span class="club-list_img-hold">
+                                            <img src="/images/club/7-w50.png" alt="" class="club-list_img">
+                                        </span>
+                                                </a>
+                                            </li>
+                                            <li class="club-list_li">
+                                                <a href="" class="club-list_i">
+                                        <span class="club-list_img-hold">
+                                            <img src="/images/club/8-w50.png" alt="" class="club-list_img">
+                                        </span>
+                                                </a>
+                                            </li>
+                                            <li class="club-list_li">
+                                                <a href="" class="club-list_i">
+                                        <span class="club-list_img-hold">
+                                            <img src="/images/club/9-w50.png" alt="" class="club-list_img">
+                                        </span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </li>
+
+
+                    </ul>
+                </div>
             </div>
         </div>
         <?php else: ?>

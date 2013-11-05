@@ -1,3 +1,13 @@
+function setPopupPosition(a, popup) {
+    var top = a.offset().top;
+    var left = a.offset().left;
+
+    popup.css({
+        'top': top - popup.height() - 55,
+        'left': left - 18
+    });
+}
+
 var WysiwygPhotoUpload = function (comments) {
     var self = this;
     self.comments = comments;
@@ -81,6 +91,10 @@ var Video = function(data, parent) {
         self.link('');
         self.embed(null);
     };
+
+    self.embed.subscribe(function() {
+        setPopupPosition($('.redactor_btn_video'), $('.redactor-popup_b-video'));
+    });
 };
 
 (function($) {
@@ -107,7 +121,13 @@ var Video = function(data, parent) {
                         this.selectionSave();
                         video = new Video({ link : '', embed : null });
                         ko.applyBindings(video, document.getElementById('redactor-popup_b-video'));
-                        $('.redactor-popup_b-video').toggleClass('display-n');
+
+                        if ($('.redactor-popup_b-video').is(':visible'))
+                            $('.redactor-popup_b-video').addClass('display-n');
+                        else {
+                            $('.redactor-popup_b-video').removeClass('display-n');
+                            setPopupPosition($(buttonDOM), $('.redactor-popup_b-video'));
+                        }
                     }
                 },
                 image : {
@@ -119,13 +139,24 @@ var Video = function(data, parent) {
                         }else{
                             formWPU.upload().photos.removeAll();
                         }
-                        $('.redactor-popup_b-photo').toggleClass('display-n');
+
+                        if ($('.redactor-popup_b-photo').is(':visible'))
+                            $('.redactor-popup_b-photo').addClass('display-n');
+                        else {
+                            $('.redactor-popup_b-photo').removeClass('display-n');
+                            setPopupPosition($(buttonDOM), $('.redactor-popup_b-photo'));
+                        }
                     }
                 },
                 smile: {
                     title: 'Смайлы',
                     callback: function(buttonName, buttonDOM, buttonObject) {
-                        $('.redactor-popup_b-smile').toggleClass('display-n');
+                        if ($('.redactor-popup_b-smile').is(':visible'))
+                            $('.redactor-popup_b-smile').addClass('display-n');
+                        else {
+                            $('.redactor-popup_b-smile').removeClass('display-n');
+                            setPopupPosition($(buttonDOM), $('.redactor-popup_b-smile'));
+                        }
                     }
                 },
                 link_add: {
@@ -188,7 +219,8 @@ var Video = function(data, parent) {
         var toolbarVerticalFixed = options.hasOwnProperty('plugins') && options.plugins.indexOf('toolbarVerticalFixed') != -1;
 
         $.get('/ajax/redactor/', {}, function(response) {
-            textarea.before(response);
+            $('body').append(response);
+            textarea.before('<div class="wysiwyg-toolbar"><div class="wysiwyg-toolbar-btn"></div>');
 
             $.extend($.Redactor.opts.langs['ru'], {
                 bold: 'Жирный',

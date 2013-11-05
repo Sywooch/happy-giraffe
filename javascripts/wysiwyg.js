@@ -13,6 +13,7 @@ var WysiwygPhotoUpload = function (comments) {
         });
         redactor.insertHtmlAdvanced(html);
         redactor.sync();
+        redactor.set(redactor.get() + '<p></p>');
         self.close();
     };
     self.close = function(){
@@ -67,7 +68,7 @@ var Video = function(data, parent) {
     self.check = function() {
         self.previewError(false);
         self.previewLoading(true);
-        $.get('/newblog/videoPreview/', { url : self.link() }, function(response) {
+        $.get('/newblog/videoPreview/', { url : self.link(), width : 395 }, function(response) {
             self.previewLoading(false);
             if (response.success === false)
                 self.previewError(true);

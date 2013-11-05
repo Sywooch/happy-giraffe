@@ -241,21 +241,26 @@ function BlogRecordSettings(data) {
     }
 }
 
-function likeControlFixed(block, elementStop, blockIndent) {
+function likeControlFixedInBlock(block, inBlock, blockIndent) {
 
     var block = $(block);
     var blockTop = block.offset().top;
-    var blockHeight = block.height();
+    var blockHeight = block.outerHeight();
+    /*
+     var stopTop = $(elementStop).offset().top;
+     var blockStopTop = stopTop - blockTop - blockHeight - blockIndent;
+     */
+    var inBlock = $(inBlock);
+    var blockStopBottom = inBlock.offset().top + inBlock.outerHeight();
 
-    var stopTop = $(elementStop).offset().top;
-    var blockStopTop = stopTop - blockTop - blockHeight - blockIndent;
-
-
-    if (stopTop-blockTop-blockHeight-blockIndent > 0) {
+    if (blockStopBottom-blockTop-blockHeight-blockIndent > 20) {
 
         $(window).scroll(function() {
             var windowScrollTop = $(window).scrollTop();
-            if (windowScrollTop > blockTop-blockIndent && windowScrollTop+blockHeight < stopTop-blockIndent) {
+            if (
+                windowScrollTop > blockTop-blockIndent &&
+                    windowScrollTop + blockHeight < blockStopBottom - blockIndent
+                ) {
                 block.css({
                     'position': 'fixed',
                     'top'     : blockIndent+'px'
@@ -267,12 +272,23 @@ function likeControlFixed(block, elementStop, blockIndent) {
                     'top'     : 'auto'
                 });
 
-                if (windowScrollTop + blockHeight > stopTop - blockIndent) {
+                if (windowScrollTop + blockHeight > blockStopBottom - blockIndent) {
                     block.css({
-                        'top'     : blockStopTop
+                        /* 92 - высота блока над едущими лайками */
+                        'top'     : inBlock.outerHeight() - blockHeight - 92
                     });
                 }
             }
         });
     }
+}
+
+function PhotoPostWidget() {
+    var self = this;
+
+    self.state = ko.observable(0);
+
+    self.setState = function(state) {
+        self.state(state);
+    };
 }

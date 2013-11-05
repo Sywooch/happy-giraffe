@@ -10,6 +10,7 @@
 class PhotoPostWidget extends CWidget
 {
     public $post;
+    public $full;
 
     public function run()
     {

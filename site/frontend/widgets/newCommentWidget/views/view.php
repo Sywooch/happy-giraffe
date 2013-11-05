@@ -29,126 +29,138 @@ NotificationRead::getInstance()->SetVisited();
 
 ?>
 <!-- ko stopBinding: true -->
-<div class="comments-gray <?=$this->objectName ?>" id="<?=$this->objectName ?>" style="display: none" data-bind="visible: true">
+<div class="comments-gray <?=$this->objectName ?><?php if ($this->full): ?> comments-gray__wide<?php endif; ?>" id="<?=$this->objectName ?>" style="display: none" data-bind="visible: true, baron: extended">
     <div id="comment_list"></div>
     <div class="comments-gray_t">
 
-        <?php if ($this->full || $allCount <= 3): ?>
-            <span class="comments-gray_t-a-tx" data-bind="visible: allCount() > 0">Все комментарии (<span data-bind="text:allCount"></span>)</span>
-            <?php if ($this->full):?>
-                <a href="" class="btn-green" data-bind="click: goBottom, visible: allCount() > 10">Добавить</a>
-            <?php endif ?>
-        <?php else: ?>
-            <a href="<?= $this->model->getUrl(true) ?>" class="comments-gray_t-a">
-                <span class="comments-gray_t-a-tx">Все комментарии (<span data-bind="text:allCount"></span>)</span>
-                <?php if ($this->full):?>
-                    <a href="" class="btn-green" data-bind="click: goBottom">Добавить</a>
-                <?php endif ?>
-            </a>
-        <?php endif ?>
-
-        <?php if (!empty($this->notice)):?>
-            <div class="color-gray fontstyle-i margin-b5 margin-t10"><?=$this->notice ?></div>
-        <?php endif ?>
+        <span class="comments-gray_t-tx">Комментарии <span class="color-gray" data-bind="text: '(' + allCount() + ')'"></span></span>
+        <!-- ko if: ! full() && comments().length > 3 -->
+            <a class="a-pseudo font-small" data-bind="click: toggleExtended, text: extended() ? 'Скрыть все' : 'Показать все'"></a>
+        <!-- /ko -->
 
     </div>
 
+    <div class="scroll" data-bind="css: { 'scroll__on' : extended }">
+        <div class="comments-gray_hold scroll_scroller" data-bind="visible: comments().length > 0, css: { 'comments-gray_hold__scroll' : extended }">
 
-    <div class="comments-gray_hold" data-bind="visible: comments().length > 0">
-
-        <div data-bind="visible: false">
-        <?php foreach ($comments as $comment): ?>
-            <div class="comments-gray_i">
-                <div class="comments-gray_frame">
-                    <div class="comments-gray_header clearfix"><?=$comment->author->getFullName() ?></div>
-                    <div class="comments-gray_cont wysiwyg-content">
-                        <div><?=$comment->purified->text ?></div>
+            <div data-bind="visible: false">
+            <?php foreach ($comments as $comment): ?>
+                <div class="comments-gray_i">
+                    <div class="comments-gray_frame">
+                        <div class="comments-gray_header clearfix"><?=$comment->author->getFullName() ?></div>
+                        <div class="comments-gray_cont wysiwyg-content">
+                            <div><?=$comment->purified->text ?></div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        <?php endforeach; ?>
-        </div>
-
-        <!-- ko foreach: comments -->
-        <div class="comments-gray_i" data-bind="css: {'comments-gray_i__self': ownComment(), 'comments-gray_i__recovery': removed()}, attr: {id: 'comment_'+id()}">
-
-            <a class="comments-gray_like like-hg-small powertip" href="" data-bind="text:likesCount, css:{active: userLikes, hide: (likesCount() == 0)}, click:Like, tooltip: 'Нравится'"></a>
-
-            <div class="comments-gray_ava">
-                <a class="ava small" href="" data-bind="css: author.avatarClass(), attr:{href: author.url()}">
-                    <img data-bind="attr : { src : author.avatar() }">
-                </a>
+            <?php endforeach; ?>
             </div>
 
-            <div class="comments-gray_frame">
-                <div class="comments-gray_header clearfix">
-                    <a href="" class="comments-gray_author" data-bind="text: author.fullName(), attr:{href: author.url()}"></a>
-                    <span class="font-smallest color-gray" data-bind="text: created"></span>
+            <!-- ko foreach: commentsToShow -->
+            <div class="comments-gray_i" data-bind="css: {'comments-gray_i__self': ownComment(), 'comments-gray_i__recovery': removed()}, attr: {id: 'comment_'+id()}">
+
+                <div class="comments-gray_ava">
+                    <a class="ava middle" href="" data-bind="css: author.avatarClass(), attr:{href: author.url()}">
+                        <img data-bind="attr : { src : author.avatar() }">
+                    </a>
                 </div>
 
-                <div class="comments-gray_cont wysiwyg-content" data-bind="visible: !removed() && !editMode()">
-                    <div class="clearfix" data-bind="visible: albumPhoto()">
-                        <div class="comments-gray_photo">
-                            <img src="" class="comments-gray_photo-img" data-bind="attr: {src: photoUrl}">
-                            <div class="comments-gray_photo-overlay">
-                                <span class="comments-gray_photo-zoom" data-bind="click: openGallery"></span>
+                <div class="comments-gray_r">
+                    <div class="comments-gray_date" data-bind="text: created"></div>
+
+                    <div class="comments-gray_control" data-bind="css: {'comments-gray_control__self': ownComment()}, visible: (!editMode() && !removed())">
+                        <div class="comments-gray_control-hold">
+                            <a class="comments-gray_quote-ico powertip" data-bind="visible: (!ownComment() && !$parent.gallery() && !photoUrl()), click: Reply, tooltip: 'Ответить'"></a>
+                            <a class="message-ico message-ico__edit powertip" data-bind="visible: canEdit() && !$parent.gallery() && !photoUrl(), click: GoEdit, tooltip: 'Редактировать'"></a>
+                            <a class="message-ico message-ico__del powertip" data-bind="visible: canRemove(), click: Remove, tooltip: 'Удалить'"></a>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="comments-gray_frame">
+                    <div class="comments-gray_header clearfix">
+                        <a href="" class="comments-gray_author" data-bind="text: author.fullName(), attr:{href: author.url()}"></a>
+                        <a class="comments-gray_like like-hg-small powertip" href="" data-bind="text:likesCount, css:{active: userLikes, hide: (likesCount() == 0)}, click:Like, tooltip: 'Нравится'"></a>
+                    </div>
+
+                    <div class="comments-gray_cont wysiwyg-content" data-bind="visible: !removed() && !editMode()">
+                        <div class="clearfix" data-bind="visible: albumPhoto()">
+                            <div class="comments-gray_photo">
+                                <img src="" class="comments-gray_photo-img" data-bind="attr: {src: photoUrl}">
+                                <div class="comments-gray_photo-overlay">
+                                    <span class="comments-gray_photo-zoom" data-bind="click: openGallery"></span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div data-bind="html: html"></div>
-                </div>
-
-                <div class="comments-gray_cont wysiwyg-content" data-bind="visible: removed()">
-                    <p>Комментарий успешно удален. <a href="" class="comments-gray_a-recovery" data-bind="click: Restore">Восстановить?</a> </p>
-                </div>
-
-                <!-- ko if: editMode() -->
-                <?php if (!$this->gallery):?>
-
-                    <div class="wysiwyg-h">
-                        <div class="js-edit-field" data-bind="attr: {id: 'text' + id()}, html: editHtml, enterKey: Enter"></div>
+                        <div data-bind="html: html"></div>
                     </div>
 
-                    <div class="redactor-control clearfix">
-                        <div class="redactor-control_key">
-                            <input type="checkbox" class="redactor-control_key-checkbox" id="redactor-control_key-checkbox"  data-bind="checked: $parent.enterSetting, click: $parent.focusEditor">
-                            <label class="redactor-control_key-label" for="redactor-control_key-checkbox">Enter - отправить</label>
+                    <div class="comments-gray_cont wysiwyg-content" data-bind="visible: removed()">
+                        <p>Комментарий успешно удален. <a href="" class="comments-gray_a-recovery" data-bind="click: Restore">Восстановить?</a> </p>
+                    </div>
+
+                    <!-- ko if: editMode() -->
+                    <?php if (!$this->gallery):?>
+
+                        <div class="wysiwyg-h">
+                            <div class="js-edit-field" data-bind="attr: {id: 'text' + id()}, html: editHtml, enterKey: Enter"></div>
                         </div>
-                        <button class="btn-green" data-bind="click: Edit">Отправить</button>
+
+                        <div class="redactor-control clearfix">
+                            <div class="redactor-control_key">
+                                <input type="checkbox" class="redactor-control_key-checkbox" id="redactor-control_key-checkbox"  data-bind="checked: $parent.enterSetting, click: $parent.focusEditor">
+                                <label class="redactor-control_key-label" for="redactor-control_key-checkbox">Enter - отправить</label>
+                            </div>
+                            <button class="btn-green" data-bind="click: Edit">Отправить</button>
+                        </div>
+                    <?php else: ?>
+                        <input type="text" class="comments-gray_add-itx itx-gray" data-bind="attr: {id: 'text' + id()}, html: html, enterKey: Enter">
+                    <?php endif ?>
+                    <!-- /ko -->
+
+                </div>
+
+                <!-- ko if: $data == $root.response() -->
+                <div class="comments-gray_add clearfix">
+                    <div class="comments-gray_ava">
+                        <?php $this->widget('Avatar', array('user' => Yii::app()->user->getModel(), 'size' => 40)) ?>
                     </div>
-                <?php else: ?>
-                    <input type="text" class="comments-gray_add-itx itx-gray" data-bind="attr: {id: 'text' + id()}, html: html, enterKey: Enter">
-                <?php endif ?>
+                    <div class="comments-gray_frame">
+                        <div class="wysiwyg-h">
+                            <a class="wysiwyg-toolbar_close ico-close3" data-bind="click: $root.cancelReply, tooltip: 'Отменить ответ'"></a>
+                            <div data-bind="enterKey: $root.Enter, attr: { id : 'reply_' + id() }"></div>
+                        </div>
+                        <div class="redactor-control clearfix">
+
+                            <div class="float-r">
+                                <div class="redactor-control_key">
+                                    <input type="checkbox" class="redactor-control_key-checkbox" id="redactor-control_key-checkbox"  data-bind="checked: $root.enterSetting, click: $root.focusEditor">
+                                    <label class="redactor-control_key-label" for="redactor-control_key-checkbox">Enter - отправить</label>
+                                </div>
+
+                                <button class="btn-green" data-bind="click: $root.addComment">Отправить</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
                 <!-- /ko -->
 
             </div>
-
-            <div class="comments-gray_control" data-bind="css: {'comments-gray_control__self': ownComment()}, visible: (!editMode() && !removed())">
-                <div class="comments-gray_control-hold">
-
-                    <div class="clearfix" data-bind="visible: (!ownComment() && !$parent.gallery() && !photoUrl())">
-                        <a href="" class="comments-gray_quote-ico powertip" data-bind="click: Reply, tooltip: 'Ответить'"></a>
-                    </div>
-
-                    <div class="clearfix" data-bind="visible: canEdit() && !$parent.gallery() && !photoUrl()">
-                        <a href="" class="message-ico message-ico__edit powertip" data-bind="click: GoEdit, tooltip: 'Редактировать'"></a>
-                    </div>
-
-                    <div class="clearfix" data-bind="visible: canRemove()">
-                        <a href="" class="message-ico message-ico__del powertip" data-bind="click: Remove, tooltip: 'Удалить'"></a>
-                    </div>
-
-                </div>
-            </div>
-
+            <!-- /ko -->
         </div>
-        <!-- /ko -->
+        <div class="scroll_bar-hold">
+            <div class="scroll_bar">
+                <div class="scroll_bar-in"></div>
+            </div>
+        </div>
     </div>
 
     <?php if (!Yii::app()->user->isGuest && !$this->gallery):?>
         <div class="comments-gray_add clearfix" data-bind="css: {active: opened}">
             <div class="comments-gray_ava">
-                <?php $this->widget('Avatar', array('user' => Yii::app()->user->getModel(), 'size' => 24)) ?>
+                <?php $this->widget('Avatar', array('user' => Yii::app()->user->getModel(), 'size' => 40)) ?>
             </div>
             <div class="comments-gray_frame">
                 <input type="text" class="comments-gray_add-itx itx-gray" placeholder="Ваш комментарий" data-bind="click:openComment, visible: !opened()">
@@ -157,14 +169,6 @@ NotificationRead::getInstance()->SetVisited();
                     <div id="add_<?=$this->objectName ?>" data-bind="enterKey: Enter"></div>
                 </div>
                 <div class="redactor-control clearfix">
-
-                    <!-- ko if: response() -->
-                    <div class="redactor-control_quote">
-                        <span class="comments-gray_quote-ico active"></span>
-                        <span class="redactor-control_quote-tx" data-bind="text: response().author.fullName"></span>
-                        <a href="" class="ico-close3 powertip" data-bind="click: removeResponse"></a>
-                    </div>
-                    <!-- /ko -->
 
                     <div class="float-r">
                         <div class="redactor-control_key">
@@ -181,6 +185,11 @@ NotificationRead::getInstance()->SetVisited();
         </div>
     <?php endif ?>
 
+    <!-- ko if: ! full() && comments().length > 3 && extended() -->
+    <div class="textalign-c margin-t10">
+        <a class="a-pseudo font-small" data-bind="click: toggleExtended">Скрыть все</a>
+    </div>
+    <!-- /ko -->
 </div>
 <!-- /ko -->
 

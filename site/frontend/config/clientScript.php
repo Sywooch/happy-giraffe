@@ -63,6 +63,7 @@ return array(
             'baseUrl' => '/',
             'js' => array(
                 'javascripts/ko_post.js',
+                'javascripts/baron.js',
             ),
             'depends' => array('knockout', 'ko_favourites', 'ko_upload'),
         ),

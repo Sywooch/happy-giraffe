@@ -310,13 +310,13 @@ class DefaultController extends HController
         }
     }
 
-    public function actionVideoPreview($url)
+    public function actionVideoPreview($url, $width = 580)
     {
         try {
             $video = Video::factory($url);
             $response = array(
                 'success' => true,
-                'html' => $video->embed,
+                'html' => $video->getEmbed($width),
             );
         }
         catch (CException $e) {

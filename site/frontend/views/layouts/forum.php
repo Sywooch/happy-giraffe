@@ -65,9 +65,7 @@
             </div>
         <?php endif ?>
 
-        <div class="col-gray">
-            <?=$content ?>
-        </div>
+        <?=$content ?>
 
     </div>
 

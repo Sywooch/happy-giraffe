@@ -91,6 +91,10 @@ var Video = function(data, parent) {
         self.link('');
         self.embed(null);
     };
+
+    self.embed.subscribe(function() {
+        setPopupPosition($('.redactor_btn_video'), $('.redactor-popup_b-video'));
+    });
 };
 
 (function($) {
@@ -147,7 +151,12 @@ var Video = function(data, parent) {
                 smile: {
                     title: 'Смайлы',
                     callback: function(buttonName, buttonDOM, buttonObject) {
-                        $('.redactor-popup_b-smile').toggleClass('display-n');
+                        if ($('.redactor-popup_b-smile').is(':visible'))
+                            $('.redactor-popup_b-smile').addClass('display-n');
+                        else {
+                            $('.redactor-popup_b-smile').removeClass('display-n');
+                            setPopupPosition($(buttonDOM), $('.redactor-popup_b-smile'));
+                        }
                     }
                 },
                 link_add: {

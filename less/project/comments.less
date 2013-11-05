@@ -10,6 +10,8 @@
         text-align: left;
     }
     .a-imitation {color: #319FE4}
+    .redactor_editor {max-height: 300px;}
+    .redactor_editor:focus {border-color: #a3cff4;}
     &__wide {
         margin: 20px;
         border-top: none;
@@ -19,7 +21,7 @@
     &__wide &_i {
         padding-left: 30px;
     }
-    &__wide &_add {margin: 0 30px;}
+    &__wide &_add {margin: 0 20px 0 30px;}
     &__wide &_add__top {margin: 15px 20px;}
     &__map-route {padding: 20px 180px 20px 0;}
     & &_i .wysiwyg-content {
@@ -127,7 +129,9 @@
         font-size: 14px;
     }
     &_add.active {padding-bottom: 33px;}
-    &_add.active &_ava {margin-top: 33px;}
+    &_add.active &_ava {margin-top: 35px;}
+    &_add.active .redactor_editor {padding-right: 10px !important;}
+    &_add &_frame {margin-right: 50px;}
     &_add-itx {
         margin: 0;
         padding: 7px 10px 17px;

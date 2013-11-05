@@ -34,7 +34,7 @@ NotificationRead::getInstance()->SetVisited();
 
     <!-- ko if: full() && (comments().length == 0 || comments().length > 10) -->
     <?php if (!Yii::app()->user->isGuest && !$this->gallery):?>
-        <div class="comments-gray_add clearfix" data-bind="css: {active: opened() === $root.OPENED_TOP}">
+        <div class="comments-gray_add comments-gray_add__top clearfix" data-bind="css: {active: opened() === $root.OPENED_TOP}">
             <div class="comments-gray_ava">
                 <?php $this->widget('Avatar', array('user' => Yii::app()->user->getModel(), 'size' => 40)) ?>
             </div>

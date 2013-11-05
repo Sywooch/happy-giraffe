@@ -31,6 +31,39 @@ NotificationRead::getInstance()->SetVisited();
 <!-- ko stopBinding: true -->
 <div class="comments-gray <?=$this->objectName ?><?php if ($this->full): ?> comments-gray__wide<?php endif; ?>" id="<?=$this->objectName ?>" style="display: none" data-bind="visible: true, baron: extended">
     <div id="comment_list"></div>
+
+    <!-- ko if: full() && (comments().length == 0 || comments().length > 10) -->
+    <?php if (!Yii::app()->user->isGuest && !$this->gallery):?>
+        <div class="comments-gray_add clearfix" data-bind="css: {active: opened() === $root.OPENED_TOP}">
+            <div class="comments-gray_ava">
+                <?php $this->widget('Avatar', array('user' => Yii::app()->user->getModel(), 'size' => 40)) ?>
+            </div>
+            <div class="comments-gray_frame">
+                <input type="text" class="comments-gray_add-itx itx-gray" placeholder="Ваш комментарий" data-bind="click: function() {openComment($root.OPENED_TOP)}, visible: opened() !== $root.OPENED_TOP">
+                <!-- ko if: opened() === $root.OPENED_TOP -->
+                <div class="wysiwyg-h">
+                    <div id="add_top_<?=$this->objectName ?>" data-bind="enterKey: Enter"></div>
+                </div>
+                <div class="redactor-control clearfix">
+
+                    <div class="float-r">
+                        <div class="redactor-control_key">
+                            <input type="checkbox" class="redactor-control_key-checkbox" id="redactor-control_key-checkbox"  data-bind="checked: enterSetting, click: focusEditor">
+                            <label class="redactor-control_key-label" for="redactor-control_key-checkbox">Enter - отправить</label>
+                        </div>
+
+                        <button class="btn-green" data-bind="click: addComment">Отправить</button>
+                    </div>
+
+                </div>
+                <!-- /ko -->
+            </div>
+        </div>
+    <?php endif ?>
+    <!-- /ko -->
+
+    <!-- ko if: comments().length > 0 -->
+
     <div class="comments-gray_t">
 
         <span class="comments-gray_t-tx">Комментарии <span class="color-gray" data-bind="text: '(' + allCount() + ')'"></span></span>
@@ -158,14 +191,17 @@ NotificationRead::getInstance()->SetVisited();
         </div>
     </div>
 
+    <!-- /ko -->
+
+    <!-- ko if: !(full() && (comments().length == 0 || comments().length > 10)) -->
     <?php if (!Yii::app()->user->isGuest && !$this->gallery):?>
-        <div class="comments-gray_add clearfix" data-bind="css: {active: opened}">
+        <div class="comments-gray_add clearfix" data-bind="css: {active: opened === $root.OPENED_BOT}">
             <div class="comments-gray_ava">
                 <?php $this->widget('Avatar', array('user' => Yii::app()->user->getModel(), 'size' => 40)) ?>
             </div>
             <div class="comments-gray_frame">
-                <input type="text" class="comments-gray_add-itx itx-gray" placeholder="Ваш комментарий" data-bind="click:openComment, visible: !opened()">
-                <!-- ko if: opened() -->
+                <input type="text" class="comments-gray_add-itx itx-gray" placeholder="Ваш комментарий" data-bind="click: function() {openComment($root.OPENED_BOT)}, visible: opened() !== $root.OPENED_BOT">
+                <!-- ko if: opened() === $root.OPENED_BOT -->
                 <div class="wysiwyg-h">
                     <div id="add_<?=$this->objectName ?>" data-bind="enterKey: Enter"></div>
                 </div>
@@ -185,6 +221,7 @@ NotificationRead::getInstance()->SetVisited();
             </div>
         </div>
     <?php endif ?>
+    <!-- /ko -->
 
     <!-- ko if: ! full() && comments().length > 3 && extended() -->
     <div class="textalign-c margin-t10">

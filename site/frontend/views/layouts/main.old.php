@@ -26,15 +26,15 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
     <div class="layout-wrapper">
 
         <?php if (!Yii::app()->user->isGuest):?>
-        <!-- ko stopBinding: true -->
-        <div class="layout-header clearfix layout-binding">
+        <div class="layout-header clearfix">
             <div class="layout-header_hold clearfix">
 
                 <div class="logo">
                     <?=HHtml::link('Веселый жираф - сайт для всей семьи', '/', array('class' => 'logo_i', 'title' => 'Веселый жираф - сайт для всей семьи'), true)?>
                     <span class="logo_slogan">САЙТ ДЛЯ ВСЕЙ СЕМЬИ</span>
                 </div>
-                    <div class="header-menu">
+                    <!-- ko stopBinding: true -->
+                    <div class="header-menu layout-binding">
                         <ul class="header-menu_ul clearfix">
                             <li class="header-menu_li" data-bind="css: { active : newPostsCount() > 0 && activeModule() != 'myGiraffe' }">
                                 <a href="<?=$this->createUrl('/myGiraffe/default/index', array('type'=>1))?>" class="header-menu_a">
@@ -48,6 +48,28 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
                                     <span class="header-menu_ico header-menu_ico__notice"></span>
                                     <span class="header-menu_tx">Мои <br> уведомления</span>
                                     <span class="header-menu_count" data-bind="text: newNotificationsCount"></span>
+                                </a>
+                            </li>
+                            <li class="header-menu_li">
+                                <a href="<?=$this->createUrl('/favourites/default/index')?>" class="header-menu_a">
+                                    <span class="header-menu_ico header-menu_ico__favorite"></span>
+                                    <span class="header-menu_tx">Мое <br> избранное</span>
+                                </a>
+                            </li>
+                            <li class="header-menu_li header-menu_li__sepor"></li>
+                            <li class="header-menu_li">
+                                <a href="<?=$user->getUrl() ?>" class="header-menu_a">
+                                    <span class="ava middle <?=($user->gender == 0)?'female':'male'?>">
+                                        <?php if ($user->online):?><span class="icon-status status-online"></span><?php endif ?>
+                                        <?=CHtml::image($user->getAvatarUrl(40)) ?>
+                                    </span>
+                                    <span class="header-menu_tx">Моя <br> страница</span>
+                                </a>
+                            </li>
+                            <li class="header-menu_li">
+                                <a href="<?=Yii::app()->user->model->getFamilyUrl()?>" class="header-menu_a">
+                                    <span class="header-menu_ico header-menu_ico__family"></span>
+                                    <span class="header-menu_tx">Моя <br> семья</span>
                                 </a>
                             </li>
                             <li class="header-menu_li" data-bind="css: { active : newMessagesCount() > 0 && activeModule() != 'messaging' }">
@@ -71,83 +93,12 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
                                     <span class="header-menu_count" data-bind="text: newScoreCount"></span>
                                 </a>
                             </li>
-                            <li class="header-menu_li header-menu_li__dropin">
-                                <a href="javascript:void(0)" class="header-menu_a">
-                                    <span class="ava middle <?=($user->gender == 0)?'female':'male'?>">
-                                        <span class="icon-status status-online"></span>
-                                        <?=CHtml::image($user->getAvatarUrl(40))?>
-                                    </span>
-                                    <span class="header-menu_ico header-menu_ico__dropin"></span>
-                                </a>
-                                <?php $this->renderPartial('//_header_drop', compact('user')); ?>
-
-                            </li>
                         </ul>
                     </div>
+                    <!-- /ko -->
+                    <a href="<?=Yii::app()->createUrl('/site/logout')?>" class="layout-header_logout">Выход</a>
             </div>
         </div>
-
-        <div class="header-fix layout-binding">
-            <div class="header-fix_hold clearfix">
-                <a href="/" class="header-fix_logo"></a>
-
-                <a href="javascript:void(0)" class="header-fix_scrolltop" onclick="$('html, body').animate({scrollTop:0}, "normal")">
-                    <span class="a-pseudo">Наверх</span>
-                    <span class="i-arrow-t"></span>
-                </a>
-                <div class="header-fix-menu">
-                    <ul class="header-menu_ul clearfix">
-                        <li class="header-fix-menu_li" data-bind="css: { active : newPostsCount() > 0 && activeModule() != 'myGiraffe' }">
-                            <a href="<?=$this->createUrl('/myGiraffe/default/index', array('type'=>1))?>" class="header-fix-menu_a">
-                                <span class="header-fix-menu_ico header-fix-menu_ico__giraffe"></span>
-                                <span class="header-fix-menu_count" data-bind="text: newPostsCount"></span>
-                            </a>
-                        </li>
-                        <li class="header-fix-menu_li" data-bind="css: { active : newNotificationsCount() > 0 && activeModule() != 'notifications' }">
-                            <a href="<?=$this->createUrl('/notifications/default/index')?>" class="header-fix-menu_a">
-                                <span class="header-fix-menu_ico header-fix-menu_ico__notice"></span>
-                                <span class="header-fix-menu_count" data-bind="text: newNotificationsCount"></span>
-                            </a>
-                        </li>
-
-                        <li class="header-fix-menu_li" data-bind="css: { active : newMessagesCount() > 0 && activeModule() != 'messaging' }">
-                            <a href="<?=$this->createUrl('/messaging/default/index')?>" class="header-fix-menu_a">
-                                <span class="header-fix-menu_ico header-fix-menu_ico__im"></span>
-                                <span class="header-fix-menu_count" data-bind="text: newMessagesCount"></span>
-                            </a>
-                        </li>
-
-                        <li class="header-fix-menu_li" data-bind="css: { active : newFriendsCount() > 0 && activeModule() != 'friends' }">
-                            <a href="<?=$this->createUrl('/friends/default/index')?>" class="header-fix-menu_a">
-                                <span class="header-fix-menu_ico header-fix-menu_ico__friend"></span>
-                                <span class="header-fix-menu_count" data-bind="text: newFriendsCount"></span>
-                            </a>
-                        </li>
-
-                        <li class="header-fix-menu_li" data-bind="css: { active : newScoreCount() > 0 && activeModule() != 'scores' }">
-                            <a href="<?=$this->createUrl('/scores/default/index')?>" class="header-fix-menu_a">
-                                <span class="header-fix-menu_ico header-fix-menu_ico__award"></span>
-                                <span class="header-fix-menu_count" data-bind="text: newScoreCount"></span>
-                            </a>
-                        </li>
-                        <li class="header-fix-menu_li header-fix-menu_li__dropin">
-                            <a href="javascript:void(0)" class="header-fix-menu_a">
-                                <span class="ava small <?=($user->gender == 0)?'female':'male'?>">
-                                    <span class="icon-status status-online"></span>
-                                    <?=CHtml::image($user->getAvatarUrl(24))?>
-                                </span>
-                                <span class="header-fix-menu_ico header-fix-menu_ico__dropin"></span>
-                            </a>
-                            <?php $this->renderPartial('//_header_drop', compact('user')); ?>
-
-                        </li>
-
-
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <!-- /ko -->
         <?php else: ?>
             <div class="layout-header layout-header__nologin clearfix">
                 <div class="content-cols clearfix">
@@ -314,30 +265,6 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
         var layoutVM = new LayoutViewModel(<?=CJSON::encode($this->getLayoutData())?>);
         $(".layout-binding").each(function(index, el) {
             ko.applyBindings(layoutVM, el);
-        });
-
-        $(document).ready(function () {
-            $(window).scroll(function () {
-                var contanerScroll = $(window).scrollTop();
-                if (contanerScroll > $('.layout-header').height()) {
-                    $('.header-fix').fadeIn(400);
-                } else {
-                    $('.header-fix').fadeOut(400);
-                }
-            });
-
-            $('html').click(function() {
-                $('.header-drop').hide();
-            });
-
-            $('.header-drop').click(function(event) {
-                event.stopPropagation();
-            });
-
-            $('.header-menu_a, .header-fix-menu_a').click(function(event) {
-                $(this).next().toggle();
-                event.stopPropagation();
-            });
         });
     <?php endif; ?>
 </script>

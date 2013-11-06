@@ -49,8 +49,8 @@
 
         </ul>
     </div>
-    <?php if ($user->clubSubscriptionsCount > 0): ?>
-        <div class="header-drop_b">
+    <div class="header-drop_b">
+        <?php if ($user->clubSubscriptionsCount > 0): ?>
             <div class="float-r margin-t3">
                 <a href="<?=$this->createUrl('/myGiraffe/default/recommends')?>">Жираф рекомендует</a>
             </div>
@@ -66,7 +66,12 @@
                     <?php endforeach; ?>
                 </ul>
             </div>
-
-        </div>
-    <?php endif; ?>
+        <?php else: ?>
+            <div class="heading-small">Мои клубы <span class="color-gray">(0)</span> </div>
+            <div class="header-drop_b-empty clearfix">
+                <span class="color-gray padding-r5">Какие клубы выбрать?</span>
+                <a href="<?=$this->createUrl('/myGiraffe/default/recommends')?>">Жираф рекомендует</a>
+            </div>
+        <?php endif; ?>
+    </div>
 </div>

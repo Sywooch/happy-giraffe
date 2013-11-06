@@ -91,7 +91,7 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
             <div class="header-fix_hold clearfix">
                 <a href="/" class="header-fix_logo"></a>
 
-                <a href="javascript:void(0)" class="header-fix_scrolltop" onclick="$('html, body').animate({scrollTop:0}, 'normal')">
+                <a href="javascript:void(0)" class="layout-header_scrolltop" onclick="$('html, body').animate({scrollTop:0}, 'normal')">
                     <span class="a-pseudo">Наверх</span>
                     <span class="i-arrow-t"></span>
                 </a>

@@ -39,7 +39,7 @@ $photo = $data->getPhoto()
             <?php if (! empty($post->video)):?>
                 <div class="b-article_in-img"><?=$post->video ?></div>
             <?php elseif ($photo):?>
-                <div class="clearfix">
+                <div class="<?=($photo->width < 580) ? 'clearfix' : 'b-article_in-img'?>">
                     <img src="<?=$photo->getPreviewUrl(580, 1100) ?>" class="content-img"<?php if ($photo->title) echo ' alt="'.$photo->title.'" title="'.$photo->title.'"'?>>
                 </div>
             <?php endif ?>

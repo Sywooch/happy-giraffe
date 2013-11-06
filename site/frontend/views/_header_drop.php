@@ -60,9 +60,11 @@
             <div class="club-list club-list__small clearfix">
                 <ul class="club-list_ul clearfix">
                     <?php foreach ($user->clubSubscriptions as $cs): ?>
-                    <li class="club-list_li">
-                        <a href="<?=$cs->club->getUrl()?>" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/<?=$cs->club_id?>-w50.png" alt="" class="club-list_img"></span></a>
-                    </li>
+                        <?php if ($cs->club_id != 21 && $cs->club_id != 22): ?>
+                            <li class="club-list_li">
+                                <a href="<?=$cs->club->getUrl()?>" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/<?=$cs->club_id?>-w50.png" alt="" class="club-list_img"></span></a>
+                            </li>
+                        <?php endif; ?>
                     <?php endforeach; ?>
                 </ul>
             </div>

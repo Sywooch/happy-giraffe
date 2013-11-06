@@ -99,7 +99,7 @@ class MessagesController extends HController
 
         $newThread = false;
         if ($threadId === null) {
-            $thread = MessagingThread::model()->createThreadWith($interlocutorId);
+            $thread = MessagingThread::model()->findOrCreate(Yii::app()->user->id, $interlocutorId);
             $threadId = $thread->id;
             $newThread = true;
         }

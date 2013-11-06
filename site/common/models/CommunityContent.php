@@ -1140,6 +1140,14 @@ class CommunityContent extends HActiveRecord
             );
         }
 
+        if ($this->id == 112996) {
+            return array(
+                'text' => 'Clearblue',
+                'img' => '/images/banners/ava-Clearblue.jpg',
+                'pix' => '',
+            );
+        }
+
         return null;
     }
 

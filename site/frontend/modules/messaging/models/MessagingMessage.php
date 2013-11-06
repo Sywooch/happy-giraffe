@@ -151,11 +151,13 @@ class MessagingMessage extends HActiveRecord
         ));
     }
 
-    public function create($text, $threadId, $authorId, $images)
+    public function create($text, $threadId, $authorId, $images, $raw = false)
     {
         $thread = MessagingThread::model()->with('threadUsers')->findByPk($threadId);
 
         $message = new MessagingMessage();
+        if ($raw)
+            $message->detachBehavior('processingImages');
         $message->author_id = $authorId;
         $message->thread_id = $threadId;
         $message->text = $text;

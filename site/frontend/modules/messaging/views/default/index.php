@@ -120,7 +120,7 @@
                     <!-- /ko -->
                 </div>
             </div>
-            <div class="im-center_bottom" data-bind="visible: openContact() !== null">
+            <div class="im-center_bottom" data-bind="visible: openContact() !== null && openContactInterlocutorId() != 1">
                 <div class="im-center_bottom-hold">
 
                     <div class="im-editor-b">

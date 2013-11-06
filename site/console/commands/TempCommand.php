@@ -64,4 +64,47 @@ class TempCommand extends CConsoleCommand
         foreach ($a as $proxy)
             ProxyMongo::model()->addNewProxy($proxy);
     }
+
+    public function actionLikes($date1, $date2)
+    {
+        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
+        Yii::import('site.common.models.mongo.HGLike');
+        echo HGLike::model()->DateLikes($date1, $date2);
+    }
+
+    public function actionVicks()
+    {
+        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
+        Yii::import('site.common.models.mongo.UserAttributes');
+        Yii::import('site.frontend.modules.messaging.models.*');
+        $lastUserId = UserAttributes::get(1, 'lastUser', 0);
+        $criteria = new CDbCriteria();
+        $criteria->condition = 'id > :lastUserId AND blocked = 0 AND deleted = 0';
+        $criteria->params = array(':lastUserId' => $lastUserId);
+        $criteria->limit = 1000;
+        $criteria->order = 'id ASC';
+        $users = User::model()->findAll($criteria);
+        $text = 'Весёлый Жираф рекомендует Vicks:<a href="http://ad.adriver.ru/cgi-bin/click.cgi?sid=1&bt=21&ad=420520&pid=1314853&bid=2835781&bn=2835781&rnd=%random%" onclick="_gaq.push([\'_trackEvent\',\'Outgoing Links\',\'www.vicks.ru\'])"><br><br><img src="http://banners.adfox.ru/131101/adfox/309734/551.jpg" alt="Vicks"></a>';
+
+        foreach ($users as $u) {
+            $thread = MessagingThread::model()->findOrCreate(1, $u->id);
+            MessagingMessage::model()->create($text, $thread->id, 1, array(), true);
+        }
+
+        UserAttributes::set(1, 'lastUser', end($users)->id);
+    }
+
+    public function actionVicksTest()
+    {
+        Yii::import('site.frontend.modules.messaging.models.*');
+        $criteria = new CDbCriteria();
+        $criteria->addInCondition('id', array(12936, 56, 16534));
+        $users = User::model()->findAll($criteria);
+        $text = 'Весёлый Жираф рекомендует Vicks:<a href="http://ad.adriver.ru/cgi-bin/click.cgi?sid=1&bt=21&ad=420520&pid=1314853&bid=2835781&bn=2835781&rnd=%random%" onclick="_gaq.push([\'_trackEvent\',\'Outgoing Links\',\'www.vicks.ru\'])"><br><br><img src="http://banners.adfox.ru/131101/adfox/309734/551.jpg" alt="Vicks"></a>';
+
+        foreach ($users as $u) {
+            $thread = MessagingThread::model()->findOrCreate(1, $u->id);
+            MessagingMessage::model()->create($text, $thread->id, 1, array(), true);
+        }
+    }
 }

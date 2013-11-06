@@ -446,10 +446,10 @@ class SiteController extends HController
 
     public function actionVacancySend()
     {
-        $emails = array('nikita@happy-giraffe.ru', 'info@happy-giraffe.ru');
+        $emails = array('nikita@happy-giraffe.ru', 'info@happy-giraffe.ru', 'mira.smurkov@gmail.com');
         foreach ($emails as $e) {
             $html = $this->renderFile(Yii::getPathOfAlias('site.common.tpl') . DIRECTORY_SEPARATOR . 'vacancy.php', $_POST, true);
-            ElasticEmail::send($e, 'Отклик на вакансию', $html, $_POST['email'], $_POST['name']);
+            ElasticEmail::send($e, 'Отклик на вакансию', $html, 'noreply@happy-giraffe.ru', 'Веселый Жираф');
         }
     }
 }

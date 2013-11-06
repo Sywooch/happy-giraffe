@@ -84,7 +84,9 @@
 									Будьте активны! Расскажите о ваших питомцах
 								</span>
                     </div>
-                    <a href="<?=$contest->getParticipateUrl()?>" class="btn-green btn-h46 fancy">Принять участие!</a>
+                    <?php if ($contest->status == CommunityContest::STATUS_ACTIVE): ?>
+                        <a href="<?=$contest->getParticipateUrl()?>" class="btn-green btn-h46 fancy">Принять участие!</a>
+                    <?php endif; ?>
                 </div>
             </div>
 

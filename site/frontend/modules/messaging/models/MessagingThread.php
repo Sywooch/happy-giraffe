@@ -239,11 +239,15 @@ class MessagingThread extends HActiveRecord
         return $command->queryScalar();
     }
 
-    public function createThreadWith($interlocutorId)
+    public function findOrCreate($userId, $interlocutorId)
     {
+        $thread = $this->findByInterlocutorsIds($userId, $interlocutorId);
+        if ($thread !== null)
+            return $thread;
+
         $thread = new MessagingThread();
         $threadUser1 = new MessagingThreadUser();
-        $threadUser1->user_id = Yii::app()->user->id;
+        $threadUser1->user_id = $userId;
         $threadUser2 = new MessagingThreadUser();
         $threadUser2->user_id = $interlocutorId;
         $thread->threadUsers = array($threadUser1, $threadUser2);
@@ -284,5 +288,18 @@ class MessagingThread extends HActiveRecord
         }
 
         return false;
+    }
+
+    public function findByInterlocutorsIds($userId, $interlocutorId)
+    {
+        $criteria = new CDbCriteria();
+        $criteria->join = 'JOIN messaging__threads_users tu1 ON t.id = tu1.thread_id JOIN messaging__threads_users tu2 ON tu1.thread_id = tu2.thread_id';
+        $criteria->condition = 'tu1.user_id = :userId AND tu2.user_id = :interlocutorId';
+        $criteria->params = array(
+            ':userId' => $userId,
+            ':interlocutorId' => $interlocutorId,
+        );
+
+        return MessagingThread::model()->find($criteria);
     }
 }

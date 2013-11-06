@@ -80,7 +80,7 @@
 
             <?=$content?>
 
-            <div style="text-align: center">
+            <div style="text-align: center; margin: 20px 0;">
                 <!--AdFox START-->
                 <!--giraffe-->
                 <!--Площадка: Весёлый Жираф / * / *-->
@@ -111,18 +111,6 @@
                     // -->
                 </script>
                 <!--AdFox END-->
-            </div>
-
-            <div style="width: 300px; margin: 20px auto;">
-                <script async src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                <!-- Mobile -->
-                <ins class="adsbygoogle"
-                     style="display:inline-block;width:300px;height:250px"
-                     data-ad-client="ca-pub-3807022659655617"
-                     data-ad-slot="8868506484"></ins>
-                <script>
-                    (adsbygoogle = window.adsbygoogle || []).push({});
-                </script>
             </div>
 
             <div class="footer">

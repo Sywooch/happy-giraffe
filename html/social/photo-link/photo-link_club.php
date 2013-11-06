@@ -101,7 +101,7 @@
 				</div>
 			</div>
 			<div class="col-23-middle ">
-				<div class="col-white padding-l20 padding-r20">
+				<div class="col-white margin-l20 margin-r20">
 					<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/articles.php'; ?>
 
 				</div>

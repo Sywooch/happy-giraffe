@@ -102,9 +102,10 @@
 			</div>
 			<div class="col-23-middle ">
 				<div class="col-white margin-l20 margin-r20">
-					<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/articles.php'; ?>
 
 				</div>
+
+				<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/comments-open.php'; ?>
 			</div>
 		</div>
 		</div>

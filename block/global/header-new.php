@@ -166,7 +166,7 @@
 	<div class="header-fix_hold clearfix">
 		<a href="" class="header-fix_logo"></a>
 
-		<a href="" class="header-fix_scrolltop">
+		<a href="" class="layout-header_scrolltop">
 			<span class="a-pseudo">Наверх</span>
 			<span class="i-arrow-t"></span>
 		</a>

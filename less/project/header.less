@@ -42,7 +42,7 @@
 		position: relative;
 		float: left;
 		margin: 5px 23px;
-		width: 74px;
+		width: 70px;
 		text-align: center;
 	}
 	&_li.active &_ico__notice    {background-position: -50px -50px;}
@@ -53,7 +53,7 @@
 	&_li.active &_count {.inline-block();}
 	&_li__dropin {
 		width: auto;
-		margin: 5px 0;
+		margin-right: 0;
 	}
 	&_a {
 		.inline-block();
@@ -113,8 +113,10 @@
 /* .header-fix-menu */
 .header-fix-menu {
 	float: right;
-	margin: 0 10px 0 0;
-	
+	margin: 0;
+	@media screen and (max-width: 1000px) {
+	    & {float: left;}
+	}
 	.header-drop {
 		right: -8px;
 		top: 63px;
@@ -130,13 +132,16 @@
 		position: relative;
 		text-align: center;
 		margin: 0 5px;
-		width: 110px;
+		width: 112px;
+	}
+	@media screen and (max-width: 1000px) {
+	    &_li {width: auto;}
 	}
 	&_li.active &_ico__notice    {background-position: -35px -35px;}
 	&_li.active &_ico__im        {background-position: -35px -140px;}
 	&_li.active &_count {.inline-block();}
 	&_li__dropin {
-		margin: 0 5px 0 0;
+		margin: 0 0 0 3px;
 	}
 	&_li__dropin &_a {padding: 12px 10px 12px;}
 	&_a {
@@ -146,6 +151,10 @@
 	}
 	&_a:hover {background: #f5f5f5;}
 	&_a:hover &_ico__dropin {background-position: -35px -420px;}
+
+	@media screen and (max-width: 1000px) {
+	    &_a {padding: 11px 15px 13px;}
+	}
 	&_ico {
 		display: inline-block;
 		vertical-align: middle;
@@ -229,7 +238,7 @@
 	right: 0;
 	left: 0;
 	background: #fff;
-	.box-shadow(0 0 2px rgba(0,0,0,0.1));
+	.box-shadow(0 0 3px rgba(0,0,0,0.15));
 	z-index: 700;
 
 	&_hold {
@@ -242,7 +251,9 @@
 		width: 32px;
 		height: 37px;
 		background: url(/images/header-fix_logo.png) no-repeat;
-
+	}
+	@media screen and (max-width: 1000px) {
+	    &_logo {margin-left: 20px;}
 	}
 }
 /* /header-fix */

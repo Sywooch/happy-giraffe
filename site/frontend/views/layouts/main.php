@@ -211,6 +211,10 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
                     })
                 </script>
                 <div class="b-join-row js-b-join-row">
+                    <a class="layout-header_scrolltop" href="javascript:void(0)" onclick="$('html, body').animate({scrollTop:0}, 'normal')">
+                        <span class="a-pseudo">Наверх</span>
+                        <span class="i-arrow-t"></span>
+                    </a>
                     <div class="b-join-row_hold">
                         <div class="b-join-row_logo"></div>
                         <div class="b-join-row_tx">Более <span class="b-join-row_tx-big"> 20 000 000</span> мам и пап</div>

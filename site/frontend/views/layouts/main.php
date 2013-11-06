@@ -72,14 +72,14 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
                                 </a>
                             </li>
                             <li class="header-menu_li header-menu_li__dropin">
-                                <a href="javascript:void(0)" class="header-menu_a" onclick="$(this).next().toggle()">
+                                <a href="javascript:void(0)" class="header-menu_a">
                                     <span class="ava middle <?=($user->gender == 0)?'female':'male'?>">
                                         <span class="icon-status status-online"></span>
                                         <?=CHtml::image($user->getAvatarUrl(40))?>
                                     </span>
                                     <span class="header-menu_ico header-menu_ico__dropin"></span>
                                 </a>
-                                <?php $this->renderPartial('/_header_drop', compact('user')); ?>
+                                <?php $this->renderPartial('//_header_drop', compact('user')); ?>
 
                             </li>
                         </ul>
@@ -89,9 +89,9 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
 
         <div class="header-fix layout-binding">
             <div class="header-fix_hold clearfix">
-                <a href="" class="header-fix_logo"></a>
+                <a href="/" class="header-fix_logo"></a>
 
-                <a href="" class="header-fix_scrolltop">
+                <a href="javascript:void(0)" class="header-fix_scrolltop" onclick="$('html, body').animate({scrollTop:0}, "normal")">
                     <span class="a-pseudo">Наверх</span>
                     <span class="i-arrow-t"></span>
                 </a>
@@ -131,14 +131,14 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
                             </a>
                         </li>
                         <li class="header-fix-menu_li header-fix-menu_li__dropin">
-                            <a href="javascript:void(0)" class="header-fix-menu_a" onclick="$(this).next().toggle()">
+                            <a href="javascript:void(0)" class="header-fix-menu_a">
                                 <span class="ava small <?=($user->gender == 0)?'female':'male'?>">
                                     <span class="icon-status status-online"></span>
                                     <?=CHtml::image($user->getAvatarUrl(24))?>
                                 </span>
                                 <span class="header-fix-menu_ico header-fix-menu_ico__dropin"></span>
                             </a>
-                            <?php $this->renderPartial('/_header_drop', compact('user')); ?>
+                            <?php $this->renderPartial('//_header_drop', compact('user')); ?>
 
                         </li>
 
@@ -326,9 +326,17 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
                 }
             });
 
-            $('.header-fix_scrolltop').click(function () {
-                $('html, body').animate({scrollTop:0}, "normal");
-                return false
+            $('html').click(function() {
+                $('.header-drop').hide();
+            });
+
+            $('.header-drop').click(function(event) {
+                event.stopPropagation();
+            });
+
+            $('.header-menu_a, .header-fix-menu_a').click(function(event) {
+                $(this).next().toggle();
+                event.stopPropagation();
             });
         });
     <?php endif; ?>

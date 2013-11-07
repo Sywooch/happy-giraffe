@@ -378,6 +378,10 @@
 				</div>
 
 			</div>
+			<div class="start-page-heinz-contest">
+				<a href="" class="start-page-heinz-contest_logo"></a>
+				<a href="" class="start-page-heinz-contest_a">Компания Heinz проверила знания родителей о безопасности детского питания</a>
+			</div>
 		</div>
 	</div>
 

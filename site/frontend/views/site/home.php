@@ -45,6 +45,10 @@ Yii::app()->clientScript
                 <?php endforeach; ?>
                 <?php $this->endCache();endif; ?>
 			</div>
+            <div class="start-page-heinz-contest">
+                <a href="/community/5/forum/post/114026/" class="start-page-heinz-contest_logo"></a>
+                <a href="/community/5/forum/post/114026/" class="start-page-heinz-contest_a">Компания Heinz проверила знания родителей о безопасности детского питания</a>
+            </div>
 		</div>
 	</div>
 

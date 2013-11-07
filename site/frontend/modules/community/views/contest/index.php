@@ -74,10 +74,30 @@ Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
 
     </div>
     <div class="col-23-middle ">
+        <?php if ($contest->status == CommunityContest::STATUS_WINNERS_ANNOUNCED && $contest->winners): ?>
+            <div class="contest-win">
+                <div class="col-gray col-gray__contest">
+                    <div class="contest-win_t">Победители конкурса</div>
+                    <div class="contest-win_hold">
+                        <?php foreach ($contest->winners as $winner): ?>
+                        <div class="contest-win_col">
+
+                            <div class="contest-win_place contest-win_place__<?=$winner->place?>"></div>
+                            <div class="fast-articles2 ">
+                                <?php $this->renderPartial('application.modules.blog.views.default._popular_one', array('b' => $winner->work->content)); ?>
+                            </div>
+
+                        </div>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            </div>
+        <?php endif; ?>
+
         <?php if ($works->totalItemCount > 0): ?>
             <div class="col-gray col-gray__contest">
                 <div class="clearfix">
-                    <div class="float-r margin-t20 margin-r20">
+                    <div class="float-r margin-t10 margin-r20">
                         <div class="chzn-itx-simple chzn-itx-simple__small">
                             <?=CHtml::dropDownList('sort', $sort, array(
                                 '0' => 'По дате добавления',

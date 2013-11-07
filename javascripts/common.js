@@ -113,6 +113,7 @@ $(document).ready(function () {
             padding:0,
             showCloseButton:false,
             centerOnScroll:true,
+            titleShow:false,
             onComplete:onComplete_function
         }).trigger('click');
         return false;

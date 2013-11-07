@@ -1246,6 +1246,12 @@
     &__pets1 .b-section__contest {background: rgba(220,216,226,.8);}
     &__pets1 .b-section_contest-rule,
     &__pets1 .b-section_contest-end {color: #593d39;}
+    &__pets1 .heading-title {
+        color: #fff;
+        margin-bottom: 0;
+        font-size: 30px;
+        line-height: 40px;
+    }
 
     &__birth1 .col-gray__contest {background: rgba(255,255,255,.3);}
     &__birth1 .b-section_contest-rule {color: #ce557d;}
@@ -1388,3 +1394,55 @@
     }
 }
 /* /contest-prizes */
+
+/* contest-win */
+.contest-win {
+    margin: 0 0 20px;
+    
+    .fast-articles2 {
+        margin: 15px 10px 10px;
+        padding: 0;
+        text-align: left;
+    }
+    .fast-articles2_i {
+
+        -webkit-border-top-left-radius: 5px;
+        -moz-border-top-left-radius: 5px;
+        border-top-left-radius: 5px;
+        -webkit-border-top-right-radius: 5px;
+        -moz-border-top-right-radius: 5px;
+        border-top-right-radius: 5px;
+    }
+    .fast-articles2_i-t {margin-top: 3px;}
+    &_t {
+        padding: 8px 10px 14px;
+        font: 40px/44px 'Roboto', 'Helvetica Neue', Helvetica, Arial, Tahoma, sans-serif;
+        background: #f4312f;
+        color: #fff;
+        text-align: center;
+        -webkit-border-top-left-radius: 5px;
+        -moz-border-top-left-radius: 5px;
+        border-top-left-radius: 5px;
+        -webkit-border-top-right-radius: 5px;
+        -moz-border-top-right-radius: 5px;
+        border-top-right-radius: 5px;
+    }
+    &_hold {
+        text-align: center;
+        padding: 20px 0;
+    }
+    &_col {
+        .inline-block();
+        vertical-align: top;
+    }
+    &_place {
+        margin: 0 auto 18px;
+        width: 150px;
+        height: 60px;
+        background: url(/images/contest-win_place.png) no-repeat;
+    }
+    &_place__1 {background-position: 0 0;}
+    &_place__2 {background-position: 0 -60px;}
+    &_place__3 {background-position: 0 -120px;}
+}
+/* /contest-win */

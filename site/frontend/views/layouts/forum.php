@@ -1,8 +1,6 @@
 <?php $this->beginContent('//layouts/community'); ?>
 
     <div class="col-1">
-        <?php $this->renderPartial('_users2'); ?>
-
         <?php if ($this->action->id == 'view' || $this->forum->club_id == 11): ?>
             <div class="banner">
                 <!--AdFox START-->
@@ -36,6 +34,8 @@
                 <!-- _________________________AdFox Asynchronous code END___________________________ -->
             </div>
         <?php endif; ?>
+
+        <?php $this->renderPartial('_users2'); ?>
 
         <?php $this->renderPartial('_rubrics', array('rubrics'=>$this->forum->rootRubrics)); ?>
 

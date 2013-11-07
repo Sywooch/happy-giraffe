@@ -1,6 +1,7 @@
 <?php
 /**
  * @var $model BlogContent
+ * @var $full bool
  */
 $ViewModelData = $model->getSettingsViewModel();
 $ownArticle = $model->author_id == Yii::app()->user->id;
@@ -28,7 +29,7 @@ $ownArticle = $model->author_id == Yii::app()->user->id;
         <!-- /ko -->
 
     </div>
-    <?php if ($model->contestWork !== null): ?>
+    <?php if ($model->contestWork !== null && ! $full): ?>
         <?php $this->renderPartial('application.modules.blog.views.default._meter', compact('model')); ?>
     <?php endif; ?>
     <?php if (!Yii::app()->user->isGuest && ($model->canEdit() || $model->canRemove()) && !$isRepost): ?>

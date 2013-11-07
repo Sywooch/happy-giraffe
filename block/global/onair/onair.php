@@ -142,7 +142,12 @@
 									</span>
 								</a>
 							</li>
-							
+							<li>
+								<div class="margin-15">
+									<a href="" class="ico-friends-small"></a>
+									<a href="" class="font-small">Найти друзей</a>
+								</div>
+							</li>
 						</ul>
 					</div>
 				</div>

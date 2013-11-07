@@ -22,6 +22,7 @@ class CommunityContest extends HActiveRecord
 {
     const STATUS_ACTIVE = 0;
     const STATUS_FINISHED = 1;
+    const STATUS_WINNERS_ANNOUNCED = 2;
 
 	/**
 	 * @return string the associated database table name
@@ -61,6 +62,7 @@ class CommunityContest extends HActiveRecord
 			'forum' => array(self::BELONGS_TO, 'Community', 'forum_id'),
             'contestWorks' => array(self::HAS_MANY, 'CommunityContestWork', 'contest_id'),
             'contestWorksCount' => array(self::STAT, 'CommunityContestWork', 'contest_id'),
+            'winners' => array(self::HAS_MANY, 'CommunityContestWinner', 'contest_id'),
 		);
 	}
 

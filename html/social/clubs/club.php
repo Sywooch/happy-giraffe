@@ -168,11 +168,12 @@
 		</div>
 		</div>
 		
-		<a href="#layout" id="btn-up-page"></a>
 		<div class="footer-push"></div>
 	</div>
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/footer.php'; ?>
 </div>
+
+<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/onair/onair.php'; ?>
 
 <div class="display-n">
 	

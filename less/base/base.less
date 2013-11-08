@@ -244,6 +244,45 @@ a.pseudo:hover,
 /* /ava avatar */
 
 /* single items */
+
+/* heading-title */
+.heading-title {
+    margin: 5px 20px 10px;
+    font: normal 35px/35px 'Roboto', 'Helvetica Neue', Helvetica, Arial, Tahoma, sans-serif;
+    color: #2b2b2b;
+}
+/* /heading-title */
+
+/* heading-small */
+.heading-small {
+    margin: 0;
+    font-size: 17px;
+    line-height: 22px;
+    color: #111;
+    font-weight: normal;
+}
+/* /heading-small */
+
+/* heading-medium */
+.heading-medium {
+    margin: 0;
+    font-size: 20px;
+    line-height: 22px;
+    color: #111;
+    font-weight: normal;
+}
+/* /heading-medium */
+
+/* title-small */
+.title-small {
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 23px;
+    margin: 5px 0;
+    color: #333;
+}
+/* title-small */
+
 .i-highlight {
 	padding: 2px 6px;
 	background: #fdf48f;
@@ -612,9 +651,16 @@ a.pseudo:hover,
 	top:2px;
 	margin-right:2px;
 	.border-radius(6px);
+
+	&__small {
+		vertical-align: middle;
+		width: 6px;
+		height: 6px;
+		top: 0;
+	}
+	&.status-online  {background: #0fc612;}
+	&.status-offline {background: #b8b8b8;}
 }
-.icon-status.status-online  {background: #0fc612;}
-.icon-status.status-offline {background: #b8b8b8;}
 .ico-status {
 	.inline-block();
 	width: 13px;

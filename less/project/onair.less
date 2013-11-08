@@ -5,7 +5,7 @@
 	top: 154px;
 	right: 0;
 	bottom: 40px;
-	width: 180px;
+	width: 170px;
 	border: 2px solid #e5dfeb;
 	border-right-width: 0;
 	background: #fafafa;
@@ -16,6 +16,10 @@
 	-moz-border-bottom-left-radius: 5px;
 	border-bottom-left-radius: 5px;
 	z-index: 10;
+
+	@media all and (max-width: 1340px) {
+       & {display: none;}
+    }
 
 	.icon-status {
 		top: 0;
@@ -60,12 +64,12 @@
 		border-width: 1px 0;
 	}
 	&_hold {
-		margin: 1px 17px 1px 0;
+		margin: 1px 0;
 	}
 	&_news-hold {}
 	&_news {
 		margin: 2px 0;
-		padding: 7px 10px;
+		padding: 7px 17px 7px 10px;
 		line-height: 14px;
 	}
 	&_news__new {background: #fdfad8;}
@@ -106,7 +110,7 @@
 	&_friend-a {
 		display: block;
 		text-decoration: none;
-		padding: 5px 13px 8px;
+		padding: 5px 17px 8px 13px;
 		background: #ebf4ff;
 	}
 	&_friend-a:hover {background: #f8fbff;}

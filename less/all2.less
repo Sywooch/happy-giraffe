@@ -653,6 +653,24 @@ table.fr_recipe_tb td { width: 50%;}
     &__photopost &_t-a,
     &__photopost &_in .wysiwyg-content {color: #fff;}
 
+    &__day-answer &_cont {background: #daf3dd;}
+    &__day-answer &_cont-tale {border-right-color: #daf3dd; }
+    &__day-answer &_date {color: #5e9364;}
+    &__day-answer .meta-gray_tx {color: #5e9364;}
+
+    &__question &_cont {background: #85d28d;}
+    &__question &_cont-tale {border-right-color: #85d28d; }
+    &__question &_date {color: #5e9364;}
+    &__question .meta-gray_tx {color: #5e9364;}
+    &__question &_t {
+        margin-left: 10px;
+        padding: 3px 20px 3px 85px;
+        background: url(/images/b-article__question_t.png) no-repeat;
+    }
+    &__question &_more:hover,
+    &__question &_more {color: #fff;}
+    &__question &_t-a {color: #fff;}
+
     .wysiwyg-content {padding: 0 20px;}
     .custom-likes-b {margin: 0 0 30px;}
     &_repost &_cont {min-height: 115px;}
@@ -1873,17 +1891,18 @@ table.fr_recipe_tb td { width: 50%;}
 
 /* user-add-record */
 .user-add-record {
-    margin: 0 0 20px;
-    padding: 8px 10px 8px 25px;
+    margin: 0 20px 20px;
+    padding: 8px 10px 8px 14px;
     background: #8f67b5;
     .border-radius(4px);
     &__yellow {background: #ffe535;}
     &__small {
         margin-bottom: 20px;
-        padding: 6px 7px 6px 20px;
+        padding: 6px 7px 6px 14px;
     }
-    &__small &_ico {margin: 10px 35px;}
-    &__small &_hold {width: 630px;}
+    &__small &_ava-hold {margin-left:17px;}
+    &__small &_ico {margin: 10px 27px;}
+    /*&__small &_hold {width: 580px;}*/
 
     &_ava-hold {
         float: left;
@@ -1892,7 +1911,7 @@ table.fr_recipe_tb td { width: 50%;}
     &_hold {
         position: relative;
         float: right;
-        width: 585px;
+        width: 570px;
         background: #fff;
         .border-radius(4px);
     }
@@ -1916,7 +1935,7 @@ table.fr_recipe_tb td { width: 50%;}
     &_ico {
         .inline-block();
         vertical-align: middle;
-        margin: 18px 30px;
+        margin: 18px 28px;
         width: 40px;
         padding-top: 42px;
         font-size: 11px;
@@ -1941,6 +1960,13 @@ table.fr_recipe_tb td { width: 50%;}
     &_ico__status {background-position: -300px 0;}
     &_ico__status.active,
     &_ico__status:hover {background-position: -300px -100px;}
+    &_ico__question {
+        width: 50px;
+        margin-right: 10px;
+        background-position: -390px 0;
+    }
+    &_ico__question.active,
+    &_ico__question:hover {background-position: -390px -100px;}
 }
 /* /user-add-record */
 
@@ -4211,3 +4237,121 @@ table.fr_recipe_tb td { width: 50%;}
     }
 }
 /* /article-users */
+
+/* question-day */
+.question-day {
+    margin: 0 20px 20px;
+    border: 3px solid #75c97e;
+    background: #85d28d;
+    .border-radius(7px);
+
+    &_t {
+        margin: 15px;
+        font-size: 35px;
+        font-weight: bold;
+        color: #fff;
+        text-align: center;
+    }
+    &_t-ico {
+        .inline-block();
+        margin: 0 15px 0 0;
+        width: 26px;
+        height: 35px;
+        background: url(/images/question-day_t-ico.png) no-repeat;
+    }
+    &_tx {
+        margin: 0 50px 30px 80px;
+        font-size: 28px;
+        line-height: 30px;
+        text-align: center;
+    }
+    &_answer {
+        position: relative;
+        padding: 20px 20px 22px 25px;
+        background: #daf3dd;
+    }
+    &_answer:after {
+        content: '';
+        position: absolute;
+        margin: 0 0 0 -9px;
+        left: 50%;
+        top: -9px;
+        width: 18px;
+        height: 18px;
+        background: #daf3dd;
+        transform: rotate(135deg);
+    }
+    &_answer .wysiwyg-v .redactor_editor {margin-left: 45px !important;}
+    &_answer .b-ball-add {margin-left: 45px;}
+    &_proffer {
+        padding: 25px 25px 25px;
+        background: #7acc81;
+    }
+    &_proffer-noanswer {
+        .inline-block();
+        vertical-align: middle;
+        margin: 5px 20px 0 0;
+        text-decoration: none;
+        color: #fff;
+        line-height: 12px;
+        border-bottom: 1px dotted #fff;
+    }
+    &_proffer-noanswer:hover {border-bottom: none;}
+}
+/* /question-day */
+
+/* b-ball-add */
+.b-ball-add {
+    position: relative;
+    width: 215px;
+    margin: 0 15px;
+    padding: 8px 5px 8px 15px;
+    background: #afe9a5;
+    
+    &:after {
+        content:'';
+        position: absolute;
+        top: 0;
+        right: -40px;
+        border: 25px solid transparent;
+        border-width: 23px 20px;
+        border-left-color: #afe9a5;
+    }
+    &_tx {
+        .inline-block();
+        color: #3c3e3d;
+        line-height: 14px;
+    }
+    &_count {
+        float: right;
+        width: 55px;
+        margin: -15px -5px 0 0;
+        padding: 13px 0 8px;
+        border: 2px solid #f4db26;
+        background: #fff4a6;
+        color: #fd6103;
+        text-align: center;
+        .border-radius(30px);
+    }
+    &_count-num {
+        font-size: 25px;
+    }
+}
+/* /b-ball-add */
+
+/* .question-day-art */
+.question-day-art {
+    margin: 10px 20px;
+    padding: 15px 40px 15px 55px;
+    background: #85d28d url(/images/question-day_t-ico.png) no-repeat 17px 14px;
+    font-size: 14px;
+
+    &_t {
+        font-weight: bold;
+        color: #fff;
+    }
+    &_tx {
+        color: #161616;
+    }
+}
+/* /question-day-art */

@@ -20,7 +20,6 @@
 	</div>
 	<div class="comments-gray_t">
 		<span class="comments-gray_t-tx">Комментарии <span class="color-gray">(28)</span></span>
-		<a href="" class="a-pseudo font-small">Показать все  </a>
 	</div>
 	<div class="comments-gray_hold">
 		<div class="comments-gray_i comments-gray_i__self">

@@ -11,7 +11,7 @@
  * The followings are the available model relations:
  * @property CommunityForums $forum
  */
-class Specializations extends CActiveRecord
+class Specialization extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
@@ -47,7 +47,7 @@ class Specializations extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'forum' => array(self::BELONGS_TO, 'Community', 'forum_id'),
-            'users' => array(self::MANY_MANY, 'User', 'user__specializations(specialization_id,user_id'),
+            'users' => array(self::MANY_MANY, 'User', 'user__specializations(specialization_id,user_id)'),
 		);
 	}
 

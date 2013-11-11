@@ -60,6 +60,7 @@
 								99 999
 							</div>
 						</li>
+						<div>
 						<li class="contest-top100_li">
 							<div class="contest-top100_place contest-top100_place__win">
 								2
@@ -112,6 +113,7 @@
 								2 864
 							</div>
 						</li>
+						</div>
 						<li class="contest-top100_li contest-top100_li__rise">
 							<div class="contest-top100_place contest-top100_place__win">
 								5
@@ -402,6 +404,29 @@
 								64
 							</div>
 						</li>
+
+						<!-- Как вариант -->
+						<div class="display-n">
+							<li class="contest-top100_li">
+								<div class="contest-top100_place">
+									10
+								</div>
+								<div class="contest-top100_ava clearfix">
+									<a class="ava male middle" href="">
+										<span class="icon-status status-online"></span>
+										<img src="http://img.happy-giraffe.ru/avatars/12936/ava/adba5eb2627598e185540ee8d3b87a03.JPG" alt="">
+									</a>
+								</div>
+								<div class="contest-top100_name">
+									<a href="" class="ava-name">Людмила <br> Аверьянова</a>
+								</div>
+								<div class="contest-top100_count">
+									<span class="contest-top100_arrow"></span>
+									64
+								</div>
+							</li>
+							
+						</div>
 					</ul>
 				</div>
 			</div>
@@ -413,6 +438,7 @@
 					<span class="a-pseudo-icon_tx">Скрыть Тор-100</span>
 					<span class="i-arrow-t"></span>
 				</a>
+				Показ всего списка 100 учасников лучше сделать через ajax дозагрузку li-шек, если не получается можно сделать скрытый div и показывать его содержимое по клику.
 				 -->
 				<a href="" class="a-pseudo-icon a-pseudo-icon__blue">
 					<span class="a-pseudo-icon_tx">Показать Тор-100</span>
@@ -430,7 +456,7 @@
 		<div class="contest-prize-sber_hold">
 			<div class="contest-prize-sber_t">Призы победителям! </div>
 			<div class="contest-prize-sber_img">
-				<img src="/images/contest-prize-sber_img.png" alt="">
+				<img src="/images/contest/contest-prize-sber_img.png" alt="">
 			</div>
 			<div class="contest-prize-sber_cont">Первых 5 блоггеров и 5 комментаторов ждет подарочная олимпийская карта VISA от Сбербанка с <span class="contest-prize-sber_numb">1 000</span> рублями!
 			</div>

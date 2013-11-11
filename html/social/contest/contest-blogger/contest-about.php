@@ -82,7 +82,7 @@
 		<div class="contest-prize-sber_hold">
 			<div class="contest-prize-sber_t">Призы победителям! </div>
 			<div class="contest-prize-sber_img">
-				<img src="/images/contest-prize-sber_img.png" alt="">
+				<img src="/images/contest/contest-prize-sber_img.png" alt="">
 			</div>
 			<div class="contest-prize-sber_cont">Первых 5 блоггеров и 5 комментаторов ждет подарочная олимпийская карта VISA от Сбербанка с <span class="contest-prize-sber_numb">1 000</span> рублями!
 			</div>

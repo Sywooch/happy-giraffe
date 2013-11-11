@@ -206,16 +206,58 @@
 						</div>
 						<div class="b-article_in clearfix">
 							<div class="wysiwyg-content clearfix">
-								<p>	В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. 5. Выложим... </p>
-								<div class="b-article_in-img">
-									<a href="">
-										<img src="/images/example/w580-h385.jpg" alt="">
-									</a>
-								</div>
+								
+								<p>	Недавно посмотрел фильм "Убить Дракона" снятый в 1988 году с Абдуловым в главной роли. По мотивам пьесы Евгения Шварца «Дракон». <br>
+								Практически нет девушки, которая не переживала бы за отношения героев "Сумерек" как в на экранах, так и в жизни. Но, к сожалению, даже несмотря на то, что недавно герои "Сумерек" радовали всех тем, что у них невероятный роман  и в рельной жизни, а не только лишь на экране, все же  и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.</p>
 							</div>
 						</div>
-						<div class="textalign-r">
-							<a class="b-article_more b-article_more__white" href="">Смотреть далее</a>
+						
+						<div class="custom-likes-b">
+							<div class="custom-likes-b_slogan">Поделитесь с друзьями!</div>
+						
+							<div class="like-block fast-like-block">
+														
+								<div class="box-1">
+									<div class="share_button">
+										<a href=""><img alt="" src="/images/share_button__odkl.png"></a>
+									</div>
+									<div class="share_button">
+										<div class="vk_share_button">
+											<a href=""><img alt="" src="/images/share_button__vk.png"></a>
+										</div>
+									</div>
+
+									<div class="share_button">
+										<div class="fb-custom-like">
+											<a class="fb-custom-text" onclick="return Social.showFacebookPopup(this);" href="http://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fdev.happy-giraffe.ru%2Fuser%2F13217%2Fblog%2Fpost22589%2F">
+												<i class="pluginButtonIcon img sp_like sx_like_fav"></i>Мне нравится</a>
+											<div class="fb-custom-share-count">0</div>
+											<script type="text/javascript">
+												$.getJSON("http://graph.facebook.com", { id : document.location.href }, function(json){
+													$('.fb-custom-share-count').html(json.shares || '0');
+												});
+											</script>
+										</div>
+									</div>
+									
+									<div class="share_button">
+										<div class="tw_share_button">
+											<iframe scrolling="no" frameborder="0" id="twitter-widget-0" allowtransparency="true" src="http://platform.twitter.com/widgets/tweet_button.1381275758.html#_=1381902509957&amp;count=horizontal&amp;id=twitter-widget-0&amp;lang=ru&amp;original_referer=http%3A%2F%2F109.87.248.203%2Fhtml%2Fsocial%2Fclubs%2Fclub-contest-photo_open.php&amp;size=m&amp;text=Happy%20Giraffe&amp;url=http%3A%2F%2Fdev.happy-giraffe.ru%2Fuser%2F13217%2Fblog%2Fpost22589%2F" class="twitter-share-button twitter-tweet-button twitter-count-horizontal" title="Twitter Tweet Button" data-twttr-rendered="true" style="width: 138px; height: 20px;"></iframe>
+											<script charset="utf-8" type="text/javascript">
+													if (typeof twttr == 'undefined')
+														window.twttr = (function (d,s,id) {
+															var t, js, fjs = d.getElementsByTagName(s)[0];
+															if (d.getElementById(id)) return; js=d.createElement(s); js.id=id;
+															js.src="//platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs);
+															return window.twttr || (t = { _e: [], ready: function(f){ t._e.push(f) } });
+														}(document, "script", "twitter-wjs"));
+											</script>
+										</div>
+									</div>
+															
+								</div>
+							
+							</div>
 						</div>
 						
 					</div>
@@ -229,6 +271,25 @@
 
 				<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/comments-gray-open.php'; ?>
 				
+				<div class="b-q-specialist">
+					<div class="b-q-specialist_t">
+						Задать вопрос гинекологу
+						<div class="b-q-specialist_t-sub">и опытным мамам прямо сейчас!</div>
+					</div>
+					<div class="margin-b5 clearfix">
+						<div class="b-q-specialist_itx-count">0/250</div>
+
+					</div>
+					<div class="margin-b20 clearfix">
+						<input type="text" name="" id="" class="itx-simple" placeholder="Тема вопроса">
+					</div>
+					<div class="margin-b20 clearfix">
+						<textarea name="" id="" cols="30" rows="5" class="itx-simple" placeholder="Ваш вопрос"></textarea>
+					</div>
+					<div class="clearfix">
+						<a href="" class="btn-blue btn-h46 float-r">Задать вопрос </a>
+					</div>
+				</div>
 				
 				<div class="such-post">
 					<div class="such-post_title">Смотрите также</div>
@@ -334,14 +395,67 @@
 		</div>
 		</div>
 		
-		<a href="#layout" id="btn-up-page"></a>
 		<div class="footer-push"></div>
 	</div>
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/footer.php'; ?>
 </div>
 
 <div class="display-n">
+	<!-- popup-user-add-status -->
+	<div id="popup-user-add-question" class="popup-user-add-record">
+		<a class="popup-transparent-close" onclick="$.fancybox.close();" href="javascript:void(0);" title="Закрыть"></a>
+		<div class="clearfix">
+			<div class="w-720 float-r">
+				
+				<div class="user-add-record user-add-record__yellow clearfix">
+					<div class="user-add-record_ava-hold">
+						<a href="" class="ava male">
+							<span class="icon-status status-online"></span>
+							<img alt="" src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg">
+						</a>
+					</div>
+					<div class="user-add-record_hold">
+						<div class="user-add-record_tx">Я хочу добавить</div>
+						<a href="#popup-user-add-article" class="user-add-record_ico user-add-record_ico__article fancy-top">Статью</a>
+						<a href="#popup-user-add-photo" class="user-add-record_ico user-add-record_ico__photo fancy-top">Фото</a>
+						<a href="#popup-user-add-video" class="user-add-record_ico user-add-record_ico__video fancy-top">Видео</a>
+						<a href="#popup-user-add-question"  data-theme="transparent" class="user-add-record_ico user-add-record_ico__question active fancy-top">Вопрос</a>
+					</div>
+				</div>
+				
+				<div class="b-settings-blue b-settings-blue__question">
+					<div class="b-settings-blue_tale"></div>
+					
+					<div class="b-q-specialist">
+						<div class="b-q-specialist_t b-q-specialist_t__nobg">
+							Задать вопрос гинекологу
+							<div class="b-q-specialist_t-sub">и опытным мамам прямо сейчас!</div>
+						</div>
+						<div class="margin-b5 clearfix">
+							<div class="b-q-specialist_itx-count">0/250</div>
 
+						</div>
+						<div class="margin-b20 clearfix">
+							<input type="text" name="" id="" class="itx-simple" placeholder="Тема вопроса">
+						</div>
+						<div class="margin-b20 clearfix">
+							<textarea name="" id="" cols="30" rows="9" class="itx-simple" placeholder="Ваш вопрос"></textarea>
+						</div>
+						<div class="clearfix">
+							<div class="float-r">
+								<a href="" class="btn-gray-light btn-h46 margin-r15">Отменить</a>
+								<a href="" class="btn-blue btn-h46">Задать вопрос </a>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+				
+			</div>
+		</div>
+	</div>
+	<!-- /popup-user-add-status -->
+	
 </div>
 </body>
 </html>

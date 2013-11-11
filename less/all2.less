@@ -675,7 +675,7 @@ table.fr_recipe_tb td { width: 50%;}
     .custom-likes-b {margin: 0 0 30px;}
     &_repost &_cont {min-height: 115px;}
     &_in {
-        min-height:144px;
+        min-height:159px;
         word-wrap: break-word;
     }
     &_in-img {
@@ -1895,7 +1895,11 @@ table.fr_recipe_tb td { width: 50%;}
     padding: 8px 10px 8px 14px;
     background: #8f67b5;
     .border-radius(4px);
-    &__yellow {background: #ffe535;}
+    &__yellow {
+        background: #ffe535;
+        padding-left: 25px;
+    }
+    &__yellow &_hold {width: 585px;}
     &__small {
         margin-bottom: 20px;
         padding: 6px 7px 6px 14px;
@@ -2163,6 +2167,21 @@ table.fr_recipe_tb td { width: 50%;}
     &__photo-widget &_head {width: auto;}
     &__photo-widget &_label{width: 130px;}
     &__photo-widget &_row-tx {margin-left: 140px;}
+
+    &__question {
+        padding: 30px 20px;
+        border: 3px solid #75c97e;
+        background: #85d28d;
+    }
+    &__question &_tale {right: 44px;}
+    &__question .b-q-specialist {
+        margin: 0;
+        padding-top: 0;
+        padding-bottom: 10px;
+        border: none;
+        background: none;
+    }
+    &__question &_tale {background-position: 0 -50px;}
 
     &_tale {
         position: absolute;
@@ -4279,7 +4298,7 @@ table.fr_recipe_tb td { width: 50%;}
         width: 18px;
         height: 18px;
         background: #daf3dd;
-        transform: rotate(135deg);
+        .rotate(135deg);
     }
     &_answer .wysiwyg-v .redactor_editor {margin-left: 45px !important;}
     &_answer .b-ball-add {margin-left: 45px;}
@@ -4355,3 +4374,35 @@ table.fr_recipe_tb td { width: 50%;}
     }
 }
 /* /question-day-art */
+
+/* b-q-specialist */
+.b-q-specialist {
+    margin: 30px 20px;
+    border: 3px solid #75c97e;
+    background: #85d28d;
+    padding: 20px 65px 30px;
+    .border-radius(7px);
+
+    &_t {
+        padding: 12px 10px 15px 175px;
+        background: url(/images/b-q-specialist_t.png) no-repeat 60px 0;
+        font-size: 23px;
+        line-height: 25px;
+        color: #292828;
+    }
+    &_t__nobg {
+        background: none;
+        padding: 5px 60px 15px 130px;
+    }
+    &_t-sub {
+        font-size: 18px;
+        color: #4d4d4d;
+    }
+    &_itx-count {
+        float: right;
+        margin: 0 0 3px;
+        font: 11px/13px Tahoma, Arial, Verdana, sans-serif;
+        color: #848383;
+    }
+}
+/* /b-q-specialist */

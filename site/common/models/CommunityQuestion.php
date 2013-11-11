@@ -29,7 +29,6 @@ class CommunityQuestion extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('content_id', 'required'),
 			array('content_id', 'length', 'max'=>11),
 			array('text', 'safe'),
 			// The following rule is used by search().
@@ -99,4 +98,9 @@ class CommunityQuestion extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+
+    public function getPhoto()
+    {
+        return null;
+    }
 }

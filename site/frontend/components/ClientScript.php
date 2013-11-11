@@ -52,7 +52,7 @@ class ClientScript extends CClientScript
             if(!empty($package['js']))
             {
                 foreach($package['js'] as $js)
-                    $jsFiles[$baseUrl.'/'.$this->addReleaseId($js)]=$baseUrl.'/'.$this->addReleaseId($js);
+                    $jsFiles[$baseUrl.'/'.$this->addReleaseId($js)]=$baseUrl.'/'.$js;
             }
             if(!empty($package['css']))
             {

@@ -201,9 +201,9 @@
 							</div>
 						</div>
 
-						<div class="b-article_t">
-							<a href="" class="b-article_t-a">Время, когда у малышей режутся первые зубки» </a>
-						</div>
+						<h1 class="b-article_t">
+							Время, когда у?
+						</h1>
 						<div class="b-article_in clearfix">
 							<div class="wysiwyg-content clearfix">
 								

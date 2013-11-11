@@ -72,11 +72,11 @@ class HController extends CController
         // отключение повторной подгрузки jquery
         if (Yii::app()->request->isAjaxRequest) {
             Yii::app()->clientScript->scriptMap = array(
-                'jquery.js' => false,
-                'jquery.min.js' => false,
-                'jquery.yiiactiveform.js' => false,
-                'jquery.ba-bbq.js' => false,
-                'jquery.yiilistview.js' => false,
+                'jquery.js?r=' . Yii::app()->params['releaseId'] => false,
+                'jquery.min.js?r=' . Yii::app()->params['releaseId'] => false,
+                'jquery.yiiactiveform.js?r=' . Yii::app()->params['releaseId'] => false,
+                'jquery.ba-bbq.js?r=' . Yii::app()->params['releaseId'] => false,
+                'jquery.yiilistview.js?r=' . Yii::app()->params['releaseId'] => false,
             );
         }
 

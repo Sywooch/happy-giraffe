@@ -15,7 +15,7 @@
 
 	</div>
 
-	<div class="contest-h">
+	<div class="contest-h contest-h__blogger">
 		<div class="contest-h_hold">
 			<div class="contest-h_contest">КОНКУРС</div>
 			<h1 class="contest-h_t">Комментатор и блоггер месяца</h1>
@@ -32,51 +32,49 @@
 	</div>
 
 	<div class="layout-wrapper">
-		<div class="layout-content margin-l0 clearfix">
-		<div class="content-cols ">
-			<div class="col-white">	
-				<div id="contest" class="contest contest-11">
-					<div class="contest-about clearfix">
-						<div class="contest-participant">
-							<img src="/images/contest/widget-11.jpg" alt="" calss="contest-title" />
-							<div class="img">
-								<a href="">
-									<img src="/images/example/gallery_album_img_01.jpg">
-									<span class="btn">Посмотреть</span>
-								</a>
-							<div class="item-title">Разнообразие десертов сицилийского стиля</div>
-							</div>
-							<div class="clearfix">
-								<div class="position">
-									<strong>18</strong> место
-								</div>
-								<div class="ball">
-									<div class="ball-count">186</div>
-									<div class="ball-text">баллов</div>
-								</div>
-							</div>
-						</div>
-						
-						<div class="sticker">
-							<big>Для участия в конкурсе Вам необходимо:</big>
-							<p>Для того, чтобы принять участие в конкурсе, вы должны заполнить <a href="#">свой профиль</a> и информацию о членах своей семьи!</p>
-							<center>
-								<a href="#takeapartPhotoContest" class="btn-green btn-green-medium fancy">Участвовать<i class="arr-r"></i></a>
-							</center>
-						</div>
-						
-						<div class="content-title">О конкурсе</div>
-						
-						<p>Летняя прогулка с ребенком всегда превращается в целое приключение. Маленькие сорванцы ни секунды не могут усидеть на месте, и постоянно чем-то заняты: катанием на самокатах, машинках, роликах.</p>
-						<p>Пришлите нам фотографию своего ребенка с его любимым транспортным средством и получите один из трех отличных призов! </p>
-						
+		<div class="contest-desc clearfix">
+			<div class="content-cols ">
+				<div class="col-1">
+					<div class="contest-desc_logo">
+						<img src="/images/contest/blogger/contest-desc_logo1.png" alt="">
 					</div>
-					
-	            </div>
-
-				
+				</div>
+				<div class="col-23">
+					<div class="contest-desc_t">Лучший комментатор месяца</div>
+					<div class="contest-desc_t-sub">Что нужно для участия?</div>
+					<div class="contest-desc_tx">
+						<p>Участником может быть любой зарегистрированный пользователь сайта. Для этого нужно чтобы в вашем арсенале уже было не менее 30 комментариев. </p>
+					</div>
+					<div class="contest-desc_t-sub">Как стать лидером?</div>
+					<div class="contest-desc_tx">
+						<p>Далее вы просто попадаете в систему где  отслеживается рейтинг вашей активности в данной номинации + содержание ваших комментариев. Вы просто комментируете понравившиеся посты, вступаете в диалоги в комментариях и у вас растет количество комментариев. У кого больше комментариев, тот и лидер. По окончании конкурса жюри просто выберет лучшего не только поколичеству комментариев но и по их содержанию.</p>
+					</div>
+				</div>
 			</div>
 		</div>
+
+		<div class="contest-desc clearfix">
+			<div class="content-cols ">
+				<div class="col-1">
+					<div class="contest-desc_logo">
+						<img src="/images/contest/blogger/contest-desc_logo2.png" alt="">
+					</div>
+				</div>
+				<div class="col-23">
+					<div class="contest-desc_t">Лучший блогер месяца</div>
+					<div class="contest-desc_t-sub">Что нужно для участия?</div>
+					<div class="contest-desc_tx">
+						<p>Участником может быть любой зарегистрированный пользователь сайта. Для этого нужно чтобы в вашем арсенале уже было не менее 30 комментариев. </p>
+					</div>
+					<div class="contest-desc_t-sub">Как стать лидером?</div>
+					<div class="contest-desc_tx">
+						<p>Далее вы просто попадаете в систему где  отслеживается рейтинг вашей активности в данной номинации + содержание ваших комментариев. Вы просто комментируете понравившиеся посты, вступаете в диалоги в комментариях и у вас растет количество комментариев. У кого больше комментариев, тот и лидер. По окончании конкурса жюри просто выберет лучшего не только поколичеству комментариев но и по их содержанию.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="textalign-c margin-t50 margin-b70">
+			<a href="" class="btn-green btn-large">Принять участие!</a>
 		</div>
 	</div>
 

@@ -357,6 +357,7 @@ class User extends HActiveRecord
             'clubSubscriptionsCount' => array(self::STAT, 'UserClubSubscription', 'user_id'),
 
             'blogPhoto' => array(self::BELONGS_TO, 'AlbumPhoto', 'blog_photo_id'),
+            'specializations' => array(self::MANY_MANY, 'Specialization', 'user__specializations(user_id,specialization_id'),
         );
     }
 

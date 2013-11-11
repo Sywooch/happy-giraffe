@@ -314,7 +314,7 @@ class DefaultController extends HController
         if ($content === null || $content->getIsFromBlog())
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
-        if (!empty($content_type_slug) && !in_array($content_type_slug, array('post', 'video', 'photoPost')))
+        if (!empty($content_type_slug) && !in_array($content_type_slug, array('post', 'video', 'photoPost', 'question')))
             throw new CHttpException(404, 'Страницы не существует');
 
         if ($this->club !== null && $this->club->id != $content->rubric->community->club_id || $content_type_slug != $content->type->slug) {

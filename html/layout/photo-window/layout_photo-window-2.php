@@ -86,7 +86,7 @@ $(window).resize(function () {
 	<!-- Обрабатывать клик на .photo-window_c для листания следующего изображения -->
 	<div class="photo-window_c">
 		<div class="photo-window_img-hold">
-			<img src="/images/example/w960-h537-1.jpg" alt="" class="photo-window_img">
+			<img src="/images/example/photo-window-2.jpg" alt="" class="photo-window_img">
 			<div class="verticalalign-m-help"></div>
 		</div>
 		<a href="#photo-window-end" class="photo-window_arrow photo-window_arrow__l fancy" data-theme="white-simple"></a>

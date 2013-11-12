@@ -4,8 +4,15 @@
  * @var CommunityQuestion $slaveModel
  */
 $form = $this->beginWidget('CActiveForm', array(
-    'id' => 'question-form',
+    'id' => 'blog-form',
     'action' => array('/community/default/save'),
+    'enableAjaxValidation' => true,
+    'enableClientValidation' => true,
+    'clientOptions' => array(
+        'validateOnSubmit' => true,
+        'validateOnType' => true,
+        'validationDelay' => 400,
+    ),
 ));
 ?>
 
@@ -22,26 +29,35 @@ $form = $this->beginWidget('CActiveForm', array(
 
     </div>
     <div class="margin-b20 clearfix">
-        <?=$form->textField($model, 'title', array('class' => 'itx-simple', 'placeholder' => 'Тема вопроса', 'data-bind' => 'value: title, valueUpdate: \'keyup\''))?>
+        <?=$form->textField($model, 'title', array('class' => 'itx-simple', 'placeholder' => 'Тема вопроса', 'data-bind' => 'value: title, valueUpdate: \'keyup\', click: guest'))?>
+        <?=$form->error($model, 'title')?>
     </div>
     <div class="margin-b20 clearfix">
-        <?=$form->textArea($slaveModel, 'text', array('class' => 'itx-simple', 'placeholder' => 'Ваш вопрос', 'cols' => '30', 'rows' => '5'))?>
+        <?=$form->textArea($slaveModel, 'text', array('class' => 'itx-simple', 'placeholder' => 'Ваш вопрос', 'cols' => '30', 'rows' => '5', 'data-bind' => 'click: guest'))?>
+        <?=$form->error($slaveModel, 'text')?>
     </div>
     <div class="clearfix">
-        <button class="btn-blue btn-h46 float-r">Задать вопрос </button>
+        <button class="btn-blue btn-h46 float-r" data-bind="click: guest">Задать вопрос </button>
     </div>
 </div>
+
+<?php $this->endWidget(); ?>
 
 <script type="text/javascript">
     var CommunityQuestion = function() {
         var self = this;
         self.title = ko.observable('');
+
+        self.guest = function() {
+            if (CURRENT_USER_ID === null)
+                $('[href="#login"]').trigger('click');
+            else
+                return true;
+        }
     }
 
     $(function() {
         var model = new CommunityQuestion();
-        ko.applyBindings(model, document.getElementById('question-form'));
+        ko.applyBindings(model, document.getElementById('blog-form'));
     });
 </script>
-
-<?php $this->endWidget(); ?>

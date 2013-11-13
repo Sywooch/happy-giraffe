@@ -52,7 +52,7 @@
 							</span>
 							<span class="header-menu_ico header-menu_ico__dropin"></span>
 						</a>
-						<div class="header-drop" style="display:block;" >
+						<div class="header-drop">
 							<div class="header-menu clearfix">
 								<ul class="header-menu_ul">
 									<li class="header-menu_li">

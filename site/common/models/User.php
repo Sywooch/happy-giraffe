@@ -71,6 +71,8 @@
 class User extends HActiveRecord
 {
     const HAPPY_GIRAFFE = 1;
+    const REGISTRATION_SOURCE_NORMAL = 0;
+    const REGISTRATION_SOURCE_QUESTION = 1;
 
     public $passwordRepeat;
     public $verifyCode;
@@ -229,8 +231,11 @@ class User extends HActiveRecord
             array('birthday', 'required', 'on' => 'signup,signup_full', 'message' => 'Поле является обязательным'),
             array('gender', 'required', 'on' => 'signup,signup_full', 'message' => 'укажите свой пол'),
             array('first_name, last_name, gender, birthday, photo', 'safe', 'on' => 'signup,signup_full'),
-            array('email', 'unique', 'on' => 'signup,signup_full', 'message' => 'Этот E-Mail уже используется'),
+            array('email', 'unique', 'on' => 'signup,signup_full,signupQuestion', 'message' => 'Этот E-Mail уже используется'),
             array('passwordRepeat', 'compare', 'compareAttribute' => 'password', 'on' => 'signup,signup_full'),
+
+            //signupQuestion
+            array('first_name, email', 'required', 'on' => 'signupQuestion'),
 
             //change_password
             array('current_password, new_password, new_password_repeat, verifyCode', 'required', 'on' => 'change_password'),

@@ -20,8 +20,8 @@ class CommunityQuestionWidget extends CWidget
                 $model->type_id = CommunityContentType::TYPE_QUESTION;
                 $model->rubric_id = $rubric->id;
                 $slaveModel = new CommunityQuestion();
-                $user = Yii::app()->user->isGuest ? new User('signupQuestion') : Yii::app()->user->model;
-                $this->render('CommunityQuestionWidget', compact('model', 'slaveModel', 'user'));
+                $newUser = Yii::app()->user->isGuest ? new User('signupQuestion') : null;
+                $this->render('CommunityQuestionWidget', compact('model', 'slaveModel', 'newUser'));
             }
         }
     }

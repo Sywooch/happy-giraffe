@@ -28,6 +28,8 @@
  * @property string $updated
  * @property string $blog_title
  * @property string $blog_description
+ * @property int registration_source
+ * @property int registration_finished
  *
  * The followings are the available model relations:
  * @property BagOffer[] $bagOffers
@@ -531,6 +533,9 @@ class User extends HActiveRecord
                 'class' => 'zii.behaviors.CTimestampBehavior',
                 'createAttribute' => 'register_date',
                 'updateAttribute' => 'updated',
+            ),
+            'withRelated' => array(
+                'class' => 'site.common.extensions.wr.WithRelatedBehavior',
             ),
         );
     }

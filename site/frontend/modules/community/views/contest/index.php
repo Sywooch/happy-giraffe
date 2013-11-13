@@ -62,7 +62,7 @@ Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
             </ul>
         </div>
 
-        <?php if ($contest->status != Contest::STATUS_RESULTS && ($topParticipants = $contest->getTopParticipants(3))): ?>
+        <?php if ($contest->status != CommunityContest::STATUS_WINNERS_ANNOUNCED && ($topParticipants = $contest->getTopParticipants(3))): ?>
         <div class="fast-articles2 js-fast-articles2">
             <div class="fast-articles2_t-ico"></div>
             <div class="fast-articles2_t">Тройка лидеров</div>

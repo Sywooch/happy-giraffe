@@ -222,6 +222,33 @@ class DefaultController extends HController
         }
     }
 
+    public function actionCreateQuestion()
+    {
+        if (Yii::app()->user->isGuest) {
+            $user = new User('signupQuestion');
+            $user->attributes = $_POST['User'];
+            $user->registration_finished = 0;
+            $user->save();
+        } else
+            $user = Yii::app()->user->model;
+
+        $model = new CommunityContent('default_club');
+        $model->attributes = $_POST['CommunityContent'];
+        $model->author_id = $user->id;
+        $slaveModel = new CommunityQuestion();
+        $slaveModel->attributes = $_POST['CommunityQuestion'];
+        $this->performAjaxValidation(array($user, $model, $slaveModel));
+        $success = $model->withRelated->save(true, array('question'));
+        if ($success)
+            $this->redirect($model->url);
+        else {
+            echo 'Root:<br />';
+            var_dump($model->getErrors());
+            echo 'Slave:<br />';
+            var_dump($slaveModel->getErrors());
+        }
+    }
+
     public function actionPhotoWidget($contentId)
     {
         $content = CommunityContent::model()->with('gallery', 'gallery.widget')->findByPk($contentId);

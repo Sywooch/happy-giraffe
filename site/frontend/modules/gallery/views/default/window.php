@@ -56,6 +56,10 @@ $model = AlbumPhoto::model()->findByPk($json['initialPhotoId']);
             </div>
         </div>
 
+        <?php if (get_class($model) == 'Contest'): ?>
+        <?php $this->renderPartial('_meter'); ?>
+        <?php endif; ?>
+
         <!-- ko if: currentPhoto().isEditable && currentPhoto().descriptionBeingEdited() -->
         <div class="photo-window_bottom">
             <div class="display-ib w-500 verticalalign-b">

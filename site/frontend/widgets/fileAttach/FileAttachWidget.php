@@ -138,6 +138,7 @@ class FileAttachWidget extends CWidget
         $cs = Yii::app()->clientScript;
         $cs->registerScriptFile($baseUrl . '/attaches.js?r=32', CClientScript::POS_HEAD)
             ->registerScriptFile($baseUrl . '/jquery.Jcrop.min.js')
+            ->registerScriptFile('/javascripts/jquery.iframe-post-form.js')
             ->registerCssFile($baseUrl . '/jquery.Jcrop.css');
         $cs->registerScript('attaches_entity' . $this->id, '
             var ' . $this->id . ' = new Attach();

@@ -99,7 +99,7 @@
 .contest-winners_prize {color:#3380b6;font-size:13px;margin-bottom:7px;}
 .contest-winners .gallery-photos-new {margin:0;}
 
-#takeapartPhotoContest {width:600px;}
+#takeapartPhotoContest {width:800px; margin: 0 auto;}
 #takeapartPhotoContest .upload-file {width:170px;height:200px;background:#c7ebf8;position:relative;}
 #takeapartPhotoContest .upload-file .photo {display:table-cell;vertical-align:middle;text-align:center;width:170px;height:200px;}
 #takeapartPhotoContest .upload-file .btn {margin:80px 0;}
@@ -107,6 +107,17 @@
 #takeapartPhotoContest .upload-file .remove {display:block;width:20px;height:18px;background:url(../images/common.png) no-repeat -2px -101px;position:absolute;top:0;right:0;}
 #takeapartPhotoContest input[type=text] {width:360px;}
 
+/* contest-get */
+.contest-get {
+    width: 620px;
+    margin: 20px auto 50px;
+
+    .heading-title {
+        margin: 0 0 30px;
+        text-align: center;
+    }
+}
+/* /contest-get */
 .contest-list {}
 .contest-list > h1 {font:normal 30px/36px Tahoma, Arial, Verdana, sans-serif;color:#363535;margin:42px;text-align:center;padding-left:305px;}
 .contest-list_item {margin-bottom:50px;}
@@ -129,7 +140,15 @@
 
 #contest .section-banner .button-holder {position:absolute; left:162px;top:190px;}
 #contest .section-banner .contest-error-hint {top:60px;margin-left:-130px;}
-#contest .section-banner {margin:20px -40px 0;}
+#contest .section-banner {margin:-1px -40px 0;}
+#contest .section-banner > img {
+    -webkit-border-top-left-radius: 5px;
+    -moz-border-top-left-radius: 5px;
+    border-top-left-radius: 5px;
+    -webkit-border-top-right-radius: 5px;
+    -moz-border-top-right-radius: 5px;
+    border-top-right-radius: 5px;
+}
 #contest.contest-3 .section-banner .button-holder {position:absolute; left:216px;top:204px;}
 #contest.contest-3 .section-banner .contest-error-hint {top:80px;}
 #contest.contest-3 .section-banner .contest-button {
@@ -584,7 +603,7 @@
 .contest-prizes-desc .img  {text-align: center;}
 .contest-prizes-desc .desc {
     float: left;
-    width: 550px;
+    width: 530px;
     border: 2px solid #c5e4ff;
     margin: 10px 0 0;
     padding: 14px 40px 20px 75px;
@@ -594,7 +613,6 @@
     -moz-border-radius: 7px;
     -ms-border-radius: 7px;
     border-radius: 7px;
-    behavior: url(/stylesheets/PIE.htc);
 }
 .contest-10 .contest-prizes-desc .desc {width: 455px;}
 .contest-prizes-desc .desc:after {

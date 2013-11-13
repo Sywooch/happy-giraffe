@@ -9,20 +9,32 @@
 
 class ContestPhotoCollection extends PhotoCollection
 {
+    const ORDER_CREATED = 0;
+    const ORDER_RATE = 1;
+
     public $contestId;
-    public $orderAttribute;
+    public $order;
 
     public function generateIds()
     {
-        $sql = "
-            SELECT photo_id
-            FROM contest__works w
-            JOIN album__photo_attaches a ON a.entity = 'ContestWork' AND a.entity_id = w.id
-            WHERE w.contest_id = :contestId
-            ORDER BY :orderAttribute DESC
-        ";
+        if ($this->order == self::ORDER_CREATED)
+            $sql = "
+                SELECT photo_id
+                FROM contest__works w
+                JOIN album__photo_attaches a ON a.entity = 'ContestWork' AND a.entity_id = w.id
+                WHERE w.contest_id = :contestId
+                ORDER BY w.created DESC
+            ";
+        else
+            $sql = "
+                SELECT photo_id
+                FROM contest__works w
+                JOIN album__photo_attaches a ON a.entity = 'ContestWork' AND a.entity_id = w.id
+                WHERE w.contest_id = :contestId
+                ORDER BY w.rate DESC
+            ";
 
-        return Yii::app()->db->createCommand($sql)->queryColumn(array(':contestId' => $this->contestId, ':orderAttribute' => $this->orderAttribute));
+        return Yii::app()->db->createCommand($sql)->queryColumn(array(':contestId' => $this->contestId));
     }
 
     protected function getIdsCacheDependency()

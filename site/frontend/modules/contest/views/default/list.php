@@ -54,8 +54,8 @@ $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
     Сортировать по:
     <?php echo CHtml::dropDownList('sort', $sort,
     array(
-        'created' => 'Дате',
-        'rate' => 'Рейтингу',
+        '0' => 'Дате',
+        '1' => 'Рейтингу',
     ),
     array(
         'id' => 'sort',
@@ -83,6 +83,7 @@ $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
         ',
         'viewData' => array(
             'full' => false,
+            'collection' => $collection,
         ),
     ));
 ?>

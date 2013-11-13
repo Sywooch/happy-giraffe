@@ -3,14 +3,6 @@
 
     <div class="like-block fast-like-block">
         <?php if ($this->model->contest->status == Contest::STATUS_ACTIVE): ?>
-            <div class="box-2">
-                <?php
-                    $this->render('_yh_min', array(
-                        'options' => $this->providers['yh'],
-                    ));
-                ?>
-            </div>
-
             <div class="box-1 auth-services">
 
                 <?php
@@ -28,27 +20,6 @@
 
             </div>
         <?php endif; ?>
-
-        <?php if ($this->model->contest->status == Contest::STATUS_RESULTS && $this->model->winner !== null): ?>
-            <div class="contest-winners_place place-big place-<?=$this->model->winner->place?>">
-                <?php if ($this->model->winner->place <= 3): ?>
-                    <div class="cup"></div>
-                <?php endif; ?>
-                <div class="digit"><?=$this->model->winner->place?></div>
-                <div class="text">место</div>
-            </div>
-        <?php endif; ?>
-
-        <div class="box-3">
-            <div class="rating"><span><?php echo Rating::model()->countByEntity($this->model, false) ?></span></div>
-            <?php if ($this->notice != ''): ?>
-            <div class="icon-info">
-                <div class="tip">
-                    <?php echo $this->notice; ?>
-                </div>
-            </div>
-            <?php endif; ?>
-        </div>
 
     </div>
 <?php else: ?>

@@ -61,7 +61,7 @@ class DefaultController extends HController
         $works = $works->search($sort);
         $works->pagination->pageSize = 12;
 
-        $collection = new ContestPhotoCollection(array('contestId' => $id));
+        $collection = new ContestPhotoCollection(array('contestId' => $id, 'order' => 0));
 
         $this->render('view', compact('contest', 'works', 'sort', 'collection'));
     }
@@ -79,7 +79,9 @@ class DefaultController extends HController
         $works->contest_id = $this->contest->id;
         $works = $works->search($sort);
 
-        $this->render('list', compact('contest', 'works', 'sort'));
+        $collection = new ContestPhotoCollection(array('contestId' => $id, 'order' => $sort));
+
+        $this->render('list', compact('contest', 'works', 'sort', 'collection'));
     }
 
     public function actionRules($id)

@@ -27,8 +27,7 @@
                             <a href="<?=$contest->getParticipateUrl()?>" class="float-r btn-green btn-h46 fancy" id="takePartButton">Принять участие!</a>
                         <?php else: ?>
                             <div class="b-section_contest-end">
-                                <div class="b-section_contest-end-t"> Конкурс завершен. Идет подсчет голосов.</div>
-                                Итоги кокурса будут опубликованы 7 ноября 2013 г.
+                                <div class="b-section_contest-end-t"> Конкурс завершен. Победители определены.</div>
                             </div>
                         <?php endif; ?>
                     </div>

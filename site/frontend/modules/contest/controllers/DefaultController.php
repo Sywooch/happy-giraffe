@@ -61,7 +61,9 @@ class DefaultController extends HController
         $works = $works->search($sort);
         $works->pagination->pageSize = 12;
 
-        $this->render('view', compact('contest', 'works', 'sort'));
+        $collection = new ContestPhotoCollection(array('contestId' => $id));
+
+        $this->render('view', compact('contest', 'works', 'sort', 'collection'));
     }
 
     public function actionList($id, $sort = 'created')

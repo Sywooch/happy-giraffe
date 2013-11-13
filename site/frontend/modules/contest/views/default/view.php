@@ -1,11 +1,4 @@
 <?php
-    $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
-        'selector' => '.img > a',
-        'entity' => 'Contest',
-        'entity_id' => $contest->id,
-        'query' => array('sort' => $sort),
-    ));
-
     $cs = Yii::app()->clientScript;
 
     $js = '
@@ -85,7 +78,7 @@ Yii::app()->eauth->renderWidget(array(
     <div class="gallery-photos-new cols-4 clearfix">
 
         <?php
-            $this->widget('MyListView', array(
+            $this->widget('zii.widgets.CListView', array(
                 'dataProvider' => $works,
                 'itemView' => '_work',
                 'summaryText' => 'показано: {start} - {end} из {count}',
@@ -98,6 +91,7 @@ Yii::app()->eauth->renderWidget(array(
                 'template' => '{items}',
                 'viewData' => array(
                     'currentPage' => $works->pagination->currentPage,
+                    'collection' => $collection,
                 ),
                 'emptyText'=>'В этом альбоме у вас нет фотографий'
             ));

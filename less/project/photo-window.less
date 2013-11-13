@@ -294,7 +294,7 @@ color:#dcdcdc;
 	}
 	.comments-gray_add {
 		border-top: none;
-		padding-top: 0;
+		padding: 0;
 	}
 	.b-user-small {
 		margin: 5px 0 0 20px;
@@ -332,8 +332,8 @@ color:#dcdcdc;
 		top: 0;
 		right: 340px;
 		left: 0;
-		height: 76px;
 		overflow: hidden;
+		z-index: 5;
 	}
 	&_top-hold {
 		padding: 5px 10% 0;
@@ -468,7 +468,7 @@ color:#dcdcdc;
 		position: absolute;
 		top: 0;
 		right: 0;
-		bottom: 57px;
+		bottom: 71px;
 		width: 340px;
 		background-color: #fff;
 		overflow-y: auto;
@@ -495,7 +495,11 @@ color:#dcdcdc;
 		text-align: center;
 
 	}
-
+	&_contest-logo {
+		position: absolute;
+		bottom: 30px;
+		left: 33px;
+	}
 
 
 }

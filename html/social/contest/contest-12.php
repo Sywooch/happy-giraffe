@@ -109,11 +109,7 @@
 								</div>
 								<div class="place place-1-1"></div>
 								<div class="title">
-									Стоматологический набор
-									 <br/>
-									 <b>Silver Care</b> для детей 
-									 <br>
-									 <span class="font-small">(соответствующий возрасту участника)</span>
+									Набор <b>Silver Care</b>  <br> из 7 предметов для всей семьи
 								</div>
 								<a href="" class="all">Подробнее</a>
 							</li>
@@ -123,12 +119,7 @@
 								</div>
 								<div class="place place-2"></div>
 								<div class="title">
-									
-									Стоматологический набор
-									 <br/>
-									 <b>Silver Care</b> для детей 
-									 <br>
-									 <span class="font-small">(соответствующий возрасту участника)</span>
+									Набор <b>Silver Care</b>  <br> из 5 предметов для всей семьи
 								</div>
 								<a href="" class="all">Подробнее</a>
 							</li>
@@ -138,12 +129,7 @@
 								</div>
 								<div class="place place-3"></div>
 								<div class="title">
-									
-									Стоматологический набор
-									 <br/>
-									 <b>Silver Care</b> для детей 
-									 <br>
-									 <span class="font-small">(соответствующий возрасту участника)</span>
+									Набор <b>Silver Care</b> <br>из 4 предметов для всей семьи
 								</div>
 								<a href="" class="all">Подробнее</a>
 							</li>

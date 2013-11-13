@@ -650,8 +650,6 @@
 .place-5 {background:url(/images/contest/prize_place_5.png) 50% 0 no-repeat;}
 
 .contest-prizes-desc {margin:40px 0;}
-.contest-prizes-desc ul {list-style:none;}
-.contest-prizes-desc ul li {margin-bottom: 45px;}
 .contest-prizes-desc .l-col {float: left;width: 240px;margin-right: 30px;}
 .contest-10 .contest-prizes-desc .l-col {width: 335px;}
 .contest-prizes-desc .img  {text-align: center;}
@@ -677,12 +675,19 @@
 .contest-prizes-desc .title {color: #1b81ce;margin-bottom: 10px;font-size: 15px;}
 .contest-prizes-desc b {color: #1b81ce;}
 .contest-prizes-desc p {margin: 0 0 5px;}
+.contest-prizes-desc li {margin: 0 0 45px;}
 .contest-prizes-desc .be-active {float: right;margin: -30px 0 0;color:#603386;font-size:25px;line-height:1;}
 .contest-prizes-desc .be-active .icon {display:inline-block;*zoom:1;*display:inline;width:63px;height:65px;background:url(/images/be_active.png) no-repeat;}
 .contest-prizes-desc .title-sub {
     margin: 15px 0 5px;
     color: #717171;
     font-weight: bold;
+}
+.contest-prizes-desc_ul {margin: 30px 0;}
+.contest-prizes-desc .contest-prizes-desc_li {
+    margin: 7px 0 7px -20px;
+    padding: 0 20px;
+    background: url(/images/contest-prizes-desc_li.png) no-repeat 0 6px;
 }
 
 .contest-mother-i-advert {
@@ -1525,7 +1530,7 @@
 
 /* contest-brand */
 .contest-brand {
-    margin: 50px 30px;
+    margin: 60px 30px 50px;
     border: 1px solid #b7dffa;
     padding: 20px 40px 20px 30px;
     .border-radius(5px);

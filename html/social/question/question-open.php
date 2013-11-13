@@ -286,6 +286,14 @@
 					<div class="margin-b20 clearfix">
 						<textarea name="" id="" cols="30" rows="5" class="itx-simple" placeholder="Ваш вопрос"></textarea>
 					</div>
+					<!-- Для не зарегистрированных пользователей 2 дополнительных поля -->
+					<div class="margin-b20 clearfix">
+						<input type="text" name="" id="" class="itx-simple" placeholder="Ваше имя">
+					</div>
+					<div class="margin-b20 clearfix">
+						<input type="text" name="" id="" class="itx-simple" placeholder="Ваш Email">
+					</div>
+					<!-- / -->
 					<div class="clearfix">
 						<a href="" class="btn-blue btn-h46 float-r">Задать вопрос </a>
 					</div>

@@ -21,7 +21,7 @@
 								<div class="clearfix">
 									<span class="ico-status ico-status__online"></span>
 									<a href="" class="ava-name">Света</a>
-									<span class="font-smallest color-gray">1 мин. назад</span>
+									<span class="b-onair_date">00:32</span>
 								</div>
 								<a href="" class="b-onair_news-t">Леденцы от кашля детям - делаем сами!</a>
 								<a href="" class="b-onair_news-receptacle">Дети старше года</a>
@@ -30,7 +30,7 @@
 								<div class="clearfix">
 									<span class="ico-status ico-status__online"></span>
 									<a href="" class="ava-name">Света</a>
-									<span class="font-smallest color-gray">1 мин. назад</span>
+									<span class="b-onair_date">00:27</span>
 								</div>
 								<div class="clearfix">
 									<a href="" class="b-onair_news-t">Как сохранить страсть</a>
@@ -41,7 +41,18 @@
 								<div class="clearfix">
 									<span class="ico-status ico-status__online"></span>
 									<a href="" class="ava-name">Елизаветушка</a>
-									<span class="font-smallest color-gray">1 мин. назад</span>
+									<span class="b-onair_date">00:15</span>
+								</div>
+								<div class="clearfix">
+									<a href="" class="b-onair_news-t">Как сохранить страсть</a>
+								</div>
+								<a href="" class="b-onair_news-receptacle">Дети старше года</a>
+							</li>
+							<li class="b-onair_news">
+								<div class="clearfix">
+									<span class="ico-status ico-status__online"></span>
+									<a href="" class="ava-name">Елизаветушка</a>
+									<span class="b-onair_date">00:15</span>
 								</div>
 								<div class="clearfix">
 									<a href="" class="b-onair_news-t">Как сохранить страсть</a>
@@ -52,7 +63,18 @@
 								<div class="clearfix">
 									<span class="ico-status ico-status__online"></span>
 									<a href="" class="ava-name">Света</a>
-									<span class="font-smallest color-gray">1 мин. назад</span>
+									<span class="b-onair_date">00:05</span>
+								</div>
+								<div class="clearfix">
+									<a href="" class="b-onair_news-t">Как сохранить страсть</a>
+								</div>
+								<a href="" class="b-onair_news-receptacle">Дети старше года</a>
+							</li>
+							<li class="b-onair_news">
+								<div class="clearfix">
+									<span class="ico-status ico-status__online"></span>
+									<a href="" class="ava-name">Света</a>
+									<span class="b-onair_date">00:05</span>
 								</div>
 								<div class="clearfix">
 									<a href="" class="b-onair_news-t">Как сохранить страсть</a>
@@ -63,7 +85,7 @@
 								<div class="clearfix">
 									<span class="ico-status ico-status__online"></span>
 									<a href="" class="ava-name">Никодим</a>
-									<span class="font-smallest color-gray">10 сен 2013</span>
+									<span class="b-onair_date">00:05</span>
 								</div>
 								<div class="clearfix">
 									<a href="" class="b-onair_news-t">Как сохранить страсть</a>
@@ -73,8 +95,8 @@
 							<li class="b-onair_news">
 								<div class="clearfix">
 									<span class="ico-status ico-status__online"></span>
-									<a href="" class="ava-name">Никодим</a>
-									<span class="font-smallest color-gray">10 сен 2013</span>
+									<a href="" class="ava-name">Елизаветушка</a>
+									<span class="b-onair_date">вчера 23:40</span>
 								</div>
 								<div class="clearfix">
 									<a href="" class="b-onair_news-t">Как сохранить страсть</a>
@@ -138,7 +160,7 @@
 									</span>
 									<span class="b-onair_friend-in">
 										<span class="ava-name">Катерина Вайнер</span>
-										<span class="b-onair_friend-time">02:45 на сайте</span>
+										<span class="b-onair_friend-time">92:45 на сайте</span>
 									</span>
 								</a>
 							</li>

@@ -2,10 +2,11 @@
 /* b-onair */
 .b-onair {
 	position: fixed;
-	top: 154px;
+	top: 50%;
 	right: 0;
-	bottom: 40px;
 	width: 170px;
+	height: 500px;
+	margin-top: -252px;
 	border: 2px solid #e5dfeb;
 	border-right-width: 0;
 	background: #fafafa;
@@ -73,10 +74,16 @@
 		line-height: 14px;
 	}
 	&_news__new {background: #fdfad8;}
+	&_date {
+		.inline-block();
+		font-size: 9px;
+		line-height: 11px;
+		color: #B1B1B1;
+	}
 	&_news-t {
 		.inline-block();
 		margin: 3px 0;
-		font: bold 11px/13px Tahoma, Arial, Verdana, sans-serif;
+		font: bold 12px/13px Tahoma, Arial, Verdana, sans-serif;
 		color: #3782c1;
 	}
 	&_news-receptacle {

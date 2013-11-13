@@ -37,7 +37,7 @@ class AjaxController extends HController
 
             }
 
-            $authIdentity->redirect(null, 'share_redirect', $inc, $model->content->id);
+            $authIdentity->redirect(null, 'share_redirect', $inc, $entity == 'CommunityContestWork' ? $model->content->id : null);
         }
     }
 

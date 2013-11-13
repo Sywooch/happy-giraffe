@@ -23,3 +23,7 @@
         </div>
     </div>
 </div>
+
+<?php if (($attach = $this->model->getAttachByEntity('ContestWork')) !== null): ?>
+    <?php Yii::app()->controller->renderPartial('_meter', compact('attach')); ?>
+<?php endif; ?>

@@ -7,7 +7,7 @@
 <div class="photo-window-contest-meter">
     <div class="photo-window-contest-meter_count">
         <div class="photo-window-contest-meter_num"><?=$attach->model->rate?></div>
-        <div class="photo-window-contest-meter_ball">баллов</div>
+        <div class="photo-window-contest-meter_ball"><?=Str::GenerateNoun(array('балл', 'балла', 'баллов'), $attach->model->rate)?></div>
     </div>
     <div class="photo-window-contest-meter_vote">
         <div class="photo-window-contest-meter_vote-tx">Голосовать!</div>

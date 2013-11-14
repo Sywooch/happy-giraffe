@@ -50,9 +50,9 @@ $work = $photo->getAttachByEntity('ContestWork')->model;
                         </div>
 
                         <?php if ($photo->w_title): ?>
-                            <?=CHtml::image($photo->getPreviewUrl(960, 627, Image::AUTO), $photo->w_title, array('itemprop' => 'contentURL', 'title'=>$photo->w_title))?>
+                            <?=CHtml::image($photo->getPreviewUrl(415, null, Image::WIDTH), $photo->w_title, array('itemprop' => 'contentURL', 'title'=>$photo->w_title))?>
                         <?php else: ?>
-                            <?=CHtml::image($photo->getPreviewUrl(960, 627, Image::AUTO), '', array('itemprop' => 'contentURL'))?>
+                            <?=CHtml::image($photo->getPreviewUrl(415, null, Image::WIDTH), '', array('itemprop' => 'contentURL'))?>
                         <?php endif; ?>
 
                         <meta itemprop="width" content="<?=$photo->width?> px">

@@ -229,6 +229,15 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
             </div>
         <?php endif ?>
 
+        <?php if ($this->module !== null && $this->module->id == 'contest'): ?>
+        <div class="layout-content margin-l0 clearfix">
+            <div class="content-cols">
+                <div class="col-white">
+                    <?=$content?>
+                </div>
+            </div>
+        </div>
+        <?php else: ?>
         <div class="layout-content clearfix<?php if ($this->route == 'messaging/default/index'): ?> margin-b0<?php endif; ?>">
             <?php if (!Yii::app()->user->isGuest && $this->showAddBlock):?>
                 <div class="content-cols clearfix">
@@ -285,6 +294,7 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
 
             <?=$content?>
         </div>
+        <?php endif; ?>
 
         <?php if ($this->route != 'messaging/default/index'): ?>
             <div class="footer-push"></div>

@@ -10,8 +10,6 @@ function CommentViewModel(data) {
     self.objectName = ko.observable(data.objectName);
     self.editor = null;
 
-    console.log(data.comments);
-
     self.comments = ko.observableArray([]);
     self.comments(ko.utils.arrayMap(data.comments, function (comment) {
         return new NewComment(comment, self);

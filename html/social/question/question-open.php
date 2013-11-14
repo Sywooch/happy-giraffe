@@ -287,8 +287,9 @@
 						<textarea name="" id="" cols="30" rows="5" class="itx-simple" placeholder="Ваш вопрос"></textarea>
 					</div>
 					<!-- Для не зарегистрированных пользователей 2 дополнительных поля -->
-					<div class="margin-b20 clearfix">
+					<div class="margin-b20 clearfix error">
 						<input type="text" name="" id="" class="itx-simple" placeholder="Ваше имя">
+						<div style="" id="BlogContent_title_em_" class="errorMessage">Заполните поле "Ваше имя"</div>
 					</div>
 					<div class="margin-b20 clearfix">
 						<input type="text" name="" id="" class="itx-simple" placeholder="Ваш Email">

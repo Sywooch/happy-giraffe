@@ -82,7 +82,7 @@ switch ($data->type_id) {
     <?php $this->widget('application.widgets.newCommentWidget.NewCommentWidget', array('model' => $data, 'full' => $full)); ?>
 <?php endif; ?>
 
-<?php if ($full && ! $data->getIsFromBlog() && false): ?>
+<?php if ($full && ! $data->getIsFromBlog()): ?>
     <?php $this->widget('CommunityQuestionWidget', array('forumId' => $this->forum->id)); ?>
 <?php endif; ?>
 

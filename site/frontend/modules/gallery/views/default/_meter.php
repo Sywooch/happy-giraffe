@@ -4,7 +4,7 @@
  */
 ?>
 
-<div class="photo-window-contest-meter" style="display: none;">
+<div class="photo-window-contest-meter">
     <div class="photo-window-contest-meter_count">
         <div class="photo-window-contest-meter_num"><?=$attach->model->rate?></div>
         <div class="photo-window-contest-meter_ball">баллов</div>
@@ -25,6 +25,3 @@
     </div>
 </div>
 
-<script type="text/javascript">
-    $('.photo-window-contest-meter').show().after('.photo-window_c');
-</script>

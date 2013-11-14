@@ -90,7 +90,7 @@ NotificationRead::getInstance()->SetVisited();
             </div>
 
             <!-- ko foreach: commentsToShow -->
-            <div class="comments-gray_i" data-bind="css: {'comments-gray_i__self': ownComment(), 'comments-gray_i__recovery': removed()}, attr: {id: 'comment_'+id()}">
+            <div class="comments-gray_i" data-bind="css: {'comments-gray_i__self': ownComment(), 'comments-gray_i__recovery': removed(), 'comments-gray_i__pink' : specialistLabel() !== null}, attr: {id: 'comment_'+id()}">
 
                 <div class="comments-gray_ava">
                     <a class="ava middle" href="" data-bind="css: author.avatarClass(), attr:{href: author.url()}">
@@ -114,6 +114,9 @@ NotificationRead::getInstance()->SetVisited();
                 <div class="comments-gray_frame">
                     <div class="comments-gray_header clearfix">
                         <a href="" class="comments-gray_author" data-bind="text: author.fullName(), attr:{href: author.url()}"></a>
+                        <!-- ko if: specialistLabel() !== null -->
+                        <span class="comments-gray_spec" data-bind="text: specialistLabel"></span>
+                        <!-- /ko -->
                         <a class="comments-gray_like like-hg-small powertip" href="" data-bind="text:likesCount, css:{active: userLikes, hide: (likesCount() == 0)}, click:Like, tooltip: 'Нравится'"></a>
                     </div>
 

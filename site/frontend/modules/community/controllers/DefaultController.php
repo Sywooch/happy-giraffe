@@ -228,6 +228,7 @@ class DefaultController extends HController
             $user = new User('signupQuestion');
             $user->attributes = $_POST['User'];
             $user->registration_finished = 0;
+            $user->registration_source = User::REGISTRATION_SOURCE_QUESTION;
         } else
             $user = Yii::app()->user->model;
 

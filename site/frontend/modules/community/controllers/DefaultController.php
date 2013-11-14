@@ -228,7 +228,6 @@ class DefaultController extends HController
             $user = new User('signupQuestion');
             $user->attributes = $_POST['User'];
             $user->registration_finished = 0;
-            $user->save();
         } else
             $user = Yii::app()->user->model;
 
@@ -237,8 +236,10 @@ class DefaultController extends HController
         $model->author_id = $user->id;
         $slaveModel = new CommunityQuestion();
         $slaveModel->attributes = $_POST['CommunityQuestion'];
+        $model->question = $slaveModel;
         $this->performAjaxValidation(array($user, $model, $slaveModel));
-        $success = $model->withRelated->save(true, array('question'));
+        $user->communityPosts = array($model);
+        $success = $user->withRelated->save(true, array('communityPosts' => array('question')));
         if ($success)
             $this->redirect($model->url);
         else {

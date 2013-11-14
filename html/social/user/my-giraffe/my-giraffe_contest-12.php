@@ -122,8 +122,8 @@
 			</div>
 			<div class="col-23-middle col-gray">
 
-				<div class="b-article-conversion b-article-conversion__contest b-article-conversion__12 clearfix">
-					<div class="b-article-conversion_hold">
+				<div class="b-article-conversion b-article-conversion__contest b-article-conversion__12">
+					<div class="b-article-conversion_hold clearfix">
 						<a href="" class="a-pseudo b-article-conversion_hide">Скрыть</a>
 						<div class="b-article-conversion_tx-top">Внимание! С 14 ноября стартовал</div>
 						<div class="textalign-c">
@@ -143,7 +143,6 @@
 										<a class="fast-articles2_i-t-a" href=""> О моем</a>
 										<span class="fast-articles2_i-t-count">456</span>
 									</div>
-									<div class="fast-articles2_i-desc">Практически нет девушки, которая не переживала </div>
 									<div class="fast-articles2_i-img-hold">
 										<a href=""><img class="fast-articles2_i-img" alt="" src="/images/example/w220-h165-2.jpg"></a>
 									</div>
@@ -160,7 +159,6 @@
 										<a class="fast-articles2_i-t-a" href=""> О моем первом бойфренде</a>
 										<span class="fast-articles2_i-t-count">456</span>
 									</div>
-									<div class="fast-articles2_i-desc">Практически нет девушки, которая не переживала </div>
 									<div class="fast-articles2_i-img-hold">
 										<a href=""><img class="fast-articles2_i-img" alt="" src="/images/example/w206-h132.jpg"></a>
 									</div>
@@ -177,7 +175,6 @@
 										<a class="fast-articles2_i-t-a" href=""> Окоторая не переживалае</a>
 										<span class="fast-articles2_i-t-count">456</span>
 									</div>
-									<div class="fast-articles2_i-desc">Практически нет девушки, которая не переживала </div>
 									<div class="fast-articles2_i-img-hold">
 										<a href=""><img class="fast-articles2_i-img" alt="" src="/images/example/w220-h164-1.jpg"></a>
 									</div>

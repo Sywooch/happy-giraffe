@@ -85,7 +85,7 @@ $work = $photo->getAttachByEntity('ContestWork')->model;
                     <div class="photo-window-contest-meter">
                         <div class="photo-window-contest-meter_count">
                             <div class="photo-window-contest-meter_num"><?=$work->rate?></div>
-                            <div class="photo-window-contest-meter_ball">баллов</div>
+                            <div class="photo-window-contest-meter_ball"><?=Str::GenerateNoun(array('балл', 'балла', 'баллов'), $work->rate)?></div>
                         </div>
                         <div class="photo-window-contest-meter_vote">
                             <div class="photo-window-contest-meter_vote-tx">Голосовать!</div>

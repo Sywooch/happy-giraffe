@@ -459,29 +459,32 @@ class User extends HActiveRecord
 
         /*Yii::app()->mc->saveUser($this);*/
 
-        if (($this->isNewRecord && $this->registration_finished == 1) || (! $this->isNewRecord && $this->trackable->isChanged('registration_finished') && $this->registration_finished == 1)) {
-            //рубрика для блога
-            $rubric = new CommunityRubric;
-            $rubric->title = 'Обо всём';
-            $rubric->user_id = $this->id;
-            $rubric->save();
-
-            Yii::import('site.frontend.modules.myGiraffe.models.*');
-            ViewedPost::getInstance($this->id);
-
-            Friend::model()->addCommentatorAsFriend($this->id);
-
-            //create some tables
-            Yii::app()->db->createCommand()->insert(UserPriority::model()->tableName(), array('user_id' => $this->id));
-            Yii::app()->db->createCommand()->insert(UserScores::model()->tableName(), array('user_id' => $this->id));
-            Yii::app()->db->createCommand()->insert(UserAddress::model()->tableName(), array('user_id' => $this->id));
-        } else
+        if (! $this->isNewRecord)
             self::clearCache($this->id);
 
         if ($this->trackable->isChanged('online'))
             $this->sendOnlineStatus();
 
         parent::afterSave();
+    }
+
+    public function register()
+    {
+        //рубрика для блога
+        $rubric = new CommunityRubric;
+        $rubric->title = 'Обо всём';
+        $rubric->user_id = $this->id;
+        $rubric->save();
+
+        Yii::import('site.frontend.modules.myGiraffe.models.*');
+        ViewedPost::getInstance($this->id);
+
+        Friend::model()->addCommentatorAsFriend($this->id);
+
+        //create some tables
+        Yii::app()->db->createCommand()->insert(UserPriority::model()->tableName(), array('user_id' => $this->id));
+        Yii::app()->db->createCommand()->insert(UserScores::model()->tableName(), array('user_id' => $this->id));
+        Yii::app()->db->createCommand()->insert(UserAddress::model()->tableName(), array('user_id' => $this->id));
     }
 
     public function beforeDelete()

@@ -81,18 +81,16 @@ class CommunityContent extends HActiveRecord
         // will receive user inputs.
         return array(
             array('title', 'required', 'except' => 'status'),
-            array('author_id, type_id', 'required'),
+            array('type_id', 'required'),
             array('rubric_id', 'required', 'on' => 'default_club'),
             array('title', 'length', 'max' => 100),
             array('meta_title, meta_description, meta_keywords', 'length', 'max' => 255),
-            array('author_id, rubric_id, type_id', 'length', 'max' => 11),
-            array('author_id, rubric_id, type_id', 'numerical', 'integerOnly' => true),
+            array('rubric_id, type_id', 'length', 'max' => 11),
+            array('rubric_id, type_id', 'numerical', 'integerOnly' => true),
             array('rubric_id', 'exist', 'attributeName' => 'id', 'className' => 'CommunityRubric'),
-            array('author_id', 'exist', 'attributeName' => 'id', 'className' => 'User'),
             array('by_happy_giraffe', 'boolean'),
             array('privacy', 'numerical', 'min' => 0, 'max' => 1),
             array('preview', 'safe'),
-            array('author_id', 'unsafe'),
 
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.

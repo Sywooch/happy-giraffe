@@ -365,6 +365,7 @@ class User extends HActiveRecord
 
             'blogPhoto' => array(self::BELONGS_TO, 'AlbumPhoto', 'blog_photo_id'),
             'specializations' => array(self::MANY_MANY, 'Specialization', 'user__specializations(user_id,specialization_id)'),
+            'communityPosts' => array(self::HAS_MANY, 'CommunityContent', 'author_id'),
         );
     }
 
@@ -458,7 +459,7 @@ class User extends HActiveRecord
 
         /*Yii::app()->mc->saveUser($this);*/
 
-        if ($this->isNewRecord) {
+        if (($this->isNewRecord && $this->registration_finished == 1) || (! $this->isNewRecord && $this->trackable->isChanged('registration_finished') && $this->registration_finished == 1)) {
             //рубрика для блога
             $rubric = new CommunityRubric;
             $rubric->title = 'Обо всём';
@@ -527,7 +528,7 @@ class User extends HActiveRecord
             ),
             'trackable' => array(
                 'class' => 'site.common.behaviors.TrackableBehavior',
-                'attributes' => array('mood_id', 'online'),
+                'attributes' => array('mood_id', 'online', 'registration_finished'),
             ),
             'CTimestampBehavior' => array(
                 'class' => 'zii.behaviors.CTimestampBehavior',

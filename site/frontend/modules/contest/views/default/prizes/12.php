@@ -7,11 +7,7 @@
             </div>
             <div class="place place-1-1"></div>
             <div class="title">
-                Стоматологический набор
-                <br/>
-                <b>Silver Care</b> для детей
-                <br>
-                <span class="font-small">(соответствующий возрасту участника)</span>
+                Набор <b>Silver Care</b>  <br> из 7 предметов для всей семьи
             </div>
             <a href="<?=$this->createUrl('/contest/default/prizes', array('id' => $this->contest->id, '#' => 'prize-1'))?>" class="all">Подробнее</a>
         </li>
@@ -21,12 +17,7 @@
             </div>
             <div class="place place-2"></div>
             <div class="title">
-
-                Стоматологический набор
-                <br/>
-                <b>Silver Care</b> для детей
-                <br>
-                <span class="font-small">(соответствующий возрасту участника)</span>
+                Набор <b>Silver Care</b>  <br> из 5 предметов для всей семьи
             </div>
             <a href="<?=$this->createUrl('/contest/default/prizes', array('id' => $this->contest->id, '#' => 'prize-2'))?>" class="all">Подробнее</a>
         </li>
@@ -36,12 +27,7 @@
             </div>
             <div class="place place-3"></div>
             <div class="title">
-
-                Стоматологический набор
-                <br/>
-                <b>Silver Care</b> для детей
-                <br>
-                <span class="font-small">(соответствующий возрасту участника)</span>
+                Набор <b>Silver Care</b> <br>из 4 предметов для всей семьи
             </div>
             <a href="<?=$this->createUrl('/contest/default/prizes', array('id' => $this->contest->id, '#' => 'prize-3'))?>" class="all">Подробнее</a>
         </li>

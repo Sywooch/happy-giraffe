@@ -52,7 +52,7 @@
         ->registerScript('vklike', $js);
     ;
     ?>
-    <div class="custom-likes-b<?php if ((get_class($this->model) != 'CommunityContent' && get_class($this->model) != 'BlogContent') || $this->model->type_id != CommunityContentType::TYPE_PHOTO): ?> custom-likes-b__like-white<?php endif; ?>">
+    <div class="custom-likes-b<?php if ((get_class($this->model) != 'CommunityContent' && get_class($this->model) != 'BlogContent') || in_array($this->model->type_id, array(CommunityContentType::TYPE_PHOTO, CommunityContentType::TYPE_STATUS))): ?> custom-likes-b__like-white<?php endif; ?>">
     <div class="custom-likes-b_slogan">Поделитесь с друзьями!</div>
     <div class="like-block fast-like-block">
         <div class="box-1">

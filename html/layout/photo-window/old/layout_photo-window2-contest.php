@@ -101,7 +101,7 @@
 	
 	<div class="photo-window_contest-logo">
 		<a href="">
-			<img src="/images/contest/photo-window_contest-logo_11.png" alt="">
+			<img src="/images/contest/photo-window_contest-logo_12.png" alt="">
 		</a>
 	</div>
 

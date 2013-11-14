@@ -154,7 +154,7 @@
 									<a class="ava female small"></a>
 									<div class="details">
 										<span class="icon-status status-online"></span>
-										<a href="" class="username">Александр Богоявленский</a>
+										<a href="" class="username">Александр</a>
 									</div>
 									<div class="ball">
 										<div class="ball-count">186</div>
@@ -177,7 +177,7 @@
 									<a class="ava female small"></a>
 									<div class="details">
 										<span class="icon-status status-online"></span>
-										<a href="" class="username">Александр Богоявленский</a>
+										<a href="" class="username">Богоявленский</a>
 									</div>
 									<div class="ball">
 										<div class="ball-count">186</div>

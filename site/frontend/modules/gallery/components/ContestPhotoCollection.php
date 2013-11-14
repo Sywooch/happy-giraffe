@@ -9,8 +9,8 @@
 
 class ContestPhotoCollection extends PhotoCollection
 {
-    const ORDER_CREATED = 0;
-    const ORDER_RATE = 1;
+    const ORDER_CREATED = 'created';
+    const ORDER_RATE = 'rate';
 
     public $contestId;
     public $order;

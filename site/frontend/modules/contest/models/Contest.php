@@ -137,8 +137,8 @@ class Contest extends HActiveRecord
             return self::STATEMENT_FINISHED;
         if (Yii::app()->user->isGuest)
             return self::STATEMENT_GUEST;
-        if (Yii::app()->user->model->score->full == 0)
-            return self::STATEMENT_STEPS;
+//        if (Yii::app()->user->model->score->full == 0)
+//            return self::STATEMENT_STEPS;
         return true;
     }
 

@@ -16,6 +16,7 @@ class CommunityContentType extends HActiveRecord
     const TYPE_MORNING = 4;
     const TYPE_STATUS = 5;
     const TYPE_REPOST = 6;
+    const TYPE_QUESTION = 7;
 
 	/**
 	 * Returns the static model of the specified AR class.

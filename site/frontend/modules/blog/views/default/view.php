@@ -27,6 +27,9 @@ switch ($data->type_id) {
     case CommunityContentType::TYPE_PHOTO:
         $cssClass = 'b-article__photopost';
         break;
+    case CommunityContentType::TYPE_QUESTION:
+        $cssClass = 'b-article__question';
+        break;
     default:
         $cssClass = null;
 }
@@ -77,6 +80,10 @@ switch ($data->type_id) {
 
 <?php if ($full): ?>
     <?php $this->widget('application.widgets.newCommentWidget.NewCommentWidget', array('model' => $data, 'full' => $full)); ?>
+<?php endif; ?>
+
+<?php if ($full && ! $data->getIsFromBlog()): ?>
+    <?php $this->widget('CommunityQuestionWidget', array('forumId' => $this->forum->id)); ?>
 <?php endif; ?>
 
 <?php if ($full): ?>

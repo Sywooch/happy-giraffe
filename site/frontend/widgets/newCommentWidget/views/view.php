@@ -3,10 +3,10 @@
  * @var CActiveDataProvider $dataProvider
  * @var $this NewCommentWidget
  */
-if (!Yii::app()->user->isGuest || $this->beginCache('comments'. $this->entity . $this->entity_id, array(
-    'duration' => 300,
-    'dependency' => $this->getCacheDependency(),
-))){
+//if (!Yii::app()->user->isGuest || $this->beginCache('comments'. $this->entity . $this->entity_id, array(
+//    'duration' => 36000,
+//    'dependency' => $this->getCacheDependency(),
+//))){
 
     $comments = $this->getComments();
 NotificationRead::getInstance()->SetVisited();
@@ -243,4 +243,4 @@ NotificationRead::getInstance()->SetVisited();
         });
     </script>
 
-<?php if (Yii::app()->user->isGuest) $this->endCache();} ?>
+<?php //if (Yii::app()->user->isGuest) $this->endCache();} ?>

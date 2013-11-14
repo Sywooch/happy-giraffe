@@ -1,5 +1,5 @@
 <div class="popup" id="photoPick">
-    <a onclick="$.fancybox.close();" class="popup-close" href="javascript:void(0);">закрыть</a>
+    <a onclick="$.fancybox.close();" class="popup-transparent-close" href="javascript:void(0);"></a>
     <div class="title"><?php echo $this->title; ?></div>
     <?php if(!$this->disableNavigation): ?>
         <div class="nav default-nav ajax-nav">

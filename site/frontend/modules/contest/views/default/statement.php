@@ -18,8 +18,9 @@
                 <?php
                 $fileAttach = $this->beginWidget('application.widgets.fileAttach.FileAttachWidget', array(
                     'model' => $this->contest,
+                    'first_button_class' => 'btn-blue btn-middle',
                 ));
-                    $fileAttach->button();
+                $fileAttach->button();
                 $this->endWidget();
                 ?>
                 <?php echo $form->error($model, 'file'); ?>
@@ -33,9 +34,9 @@
 
             <div class="clear"></div>
 
-            <div style="text-align:left;" class="form-bottom">
+            <div class="takeapartPhotoContest_bottom">
                 <label><input type="checkbox" onchange="$('#finish_button').toggleClass('disabled').toggleDisabled();"> Я согласен с</label> <?php echo CHtml::link('Правилами конкурса', array('/contest/default/rules', 'id' => $this->contest->primaryKey)); ?>
-                <button class="btn btn-green-medium disabled" id="finish_button" disabled="disabled"><span><span>Участвовать<i class="arr-r"></i></span></span></button>
+                <button class="btn-green btn-h46 margin-l20 disabled" id="finish_button" disabled="disabled"><span><span>Участвовать<i class="arr-r"></i></span></span></button>
             </div>
 
         </div>

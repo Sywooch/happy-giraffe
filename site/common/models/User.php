@@ -28,6 +28,8 @@
  * @property string $updated
  * @property string $blog_title
  * @property string $blog_description
+ * @property int registration_source
+ * @property int registration_finished
  *
  * The followings are the available model relations:
  * @property BagOffer[] $bagOffers
@@ -71,6 +73,8 @@
 class User extends HActiveRecord
 {
     const HAPPY_GIRAFFE = 1;
+    const REGISTRATION_SOURCE_NORMAL = 0;
+    const REGISTRATION_SOURCE_QUESTION = 1;
 
     public $passwordRepeat;
     public $verifyCode;
@@ -229,8 +233,11 @@ class User extends HActiveRecord
             array('birthday', 'required', 'on' => 'signup,signup_full', 'message' => 'Поле является обязательным'),
             array('gender', 'required', 'on' => 'signup,signup_full', 'message' => 'укажите свой пол'),
             array('first_name, last_name, gender, birthday, photo', 'safe', 'on' => 'signup,signup_full'),
-            array('email', 'unique', 'on' => 'signup,signup_full', 'message' => 'Этот E-Mail уже используется'),
+            array('email', 'unique', 'on' => 'signup,signup_full,signupQuestion', 'message' => 'Этот E-Mail уже используется'),
             array('passwordRepeat', 'compare', 'compareAttribute' => 'password', 'on' => 'signup,signup_full'),
+
+            //signupQuestion
+            array('first_name, email', 'required', 'on' => 'signupQuestion'),
 
             //change_password
             array('current_password, new_password, new_password_repeat, verifyCode', 'required', 'on' => 'change_password'),
@@ -357,6 +364,8 @@ class User extends HActiveRecord
             'clubSubscriptionsCount' => array(self::STAT, 'UserClubSubscription', 'user_id'),
 
             'blogPhoto' => array(self::BELONGS_TO, 'AlbumPhoto', 'blog_photo_id'),
+            'specializations' => array(self::MANY_MANY, 'Specialization', 'user__specializations(user_id,specialization_id)'),
+            'communityPosts' => array(self::HAS_MANY, 'CommunityContent', 'author_id'),
         );
     }
 
@@ -450,29 +459,32 @@ class User extends HActiveRecord
 
         /*Yii::app()->mc->saveUser($this);*/
 
-        if ($this->isNewRecord) {
-            //рубрика для блога
-            $rubric = new CommunityRubric;
-            $rubric->title = 'Обо всём';
-            $rubric->user_id = $this->id;
-            $rubric->save();
-
-            Yii::import('site.frontend.modules.myGiraffe.models.*');
-            ViewedPost::getInstance($this->id);
-
-            Friend::model()->addCommentatorAsFriend($this->id);
-
-            //create some tables
-            Yii::app()->db->createCommand()->insert(UserPriority::model()->tableName(), array('user_id' => $this->id));
-            Yii::app()->db->createCommand()->insert(UserScores::model()->tableName(), array('user_id' => $this->id));
-            Yii::app()->db->createCommand()->insert(UserAddress::model()->tableName(), array('user_id' => $this->id));
-        } else
+        if (! $this->isNewRecord)
             self::clearCache($this->id);
 
         if ($this->trackable->isChanged('online'))
             $this->sendOnlineStatus();
 
         parent::afterSave();
+    }
+
+    public function register()
+    {
+        //рубрика для блога
+        $rubric = new CommunityRubric;
+        $rubric->title = 'Обо всём';
+        $rubric->user_id = $this->id;
+        $rubric->save();
+
+        Yii::import('site.frontend.modules.myGiraffe.models.*');
+        ViewedPost::getInstance($this->id);
+
+        Friend::model()->addCommentatorAsFriend($this->id);
+
+        //create some tables
+        Yii::app()->db->createCommand()->insert(UserPriority::model()->tableName(), array('user_id' => $this->id));
+        Yii::app()->db->createCommand()->insert(UserScores::model()->tableName(), array('user_id' => $this->id));
+        Yii::app()->db->createCommand()->insert(UserAddress::model()->tableName(), array('user_id' => $this->id));
     }
 
     public function beforeDelete()
@@ -519,12 +531,15 @@ class User extends HActiveRecord
             ),
             'trackable' => array(
                 'class' => 'site.common.behaviors.TrackableBehavior',
-                'attributes' => array('mood_id', 'online'),
+                'attributes' => array('mood_id', 'online', 'registration_finished'),
             ),
             'CTimestampBehavior' => array(
                 'class' => 'zii.behaviors.CTimestampBehavior',
                 'createAttribute' => 'register_date',
                 'updateAttribute' => 'updated',
+            ),
+            'withRelated' => array(
+                'class' => 'site.common.extensions.wr.WithRelatedBehavior',
             ),
         );
     }
@@ -1566,5 +1581,13 @@ class User extends HActiveRecord
             $criteria->addCondition('privacy = 0');
 
         return CommunityContent::model()->resetScope()->active()->count($criteria);
+    }
+
+    public function getSpecialist($forumId)
+    {
+        foreach ($this->specializations as $spec)
+            if ($spec->forum_id == $forumId)
+                return $spec;
+        return null;
     }
 }

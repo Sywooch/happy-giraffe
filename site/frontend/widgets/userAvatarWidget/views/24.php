@@ -6,5 +6,7 @@
     <?php if ($this->user->online):?>
         <span class="icon-status status-online"></span>
     <?php endif ?>
-    <?=CHtml::image($this->user->getAvatarUrl(Avatar::SIZE_MICRO)) ?>
+    <?php if ($this->user->avatar_id): ?>
+        <?=CHtml::image($this->user->getAvatarUrl(Avatar::SIZE_MICRO)) ?>
+    <?php endif; ?>
 </a>

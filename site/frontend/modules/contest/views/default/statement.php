@@ -19,6 +19,7 @@
                 $fileAttach = $this->beginWidget('application.widgets.fileAttach.FileAttachWidget', array(
                     'model' => $this->contest,
                     'first_button_class' => 'btn-blue btn-middle',
+                    'disableNavigation' => true,
                 ));
                 $fileAttach->button();
                 $this->endWidget();

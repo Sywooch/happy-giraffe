@@ -510,13 +510,16 @@ var Register = {
             $(this).trigger("liszt:updated");
         });
     },
-    showStep2:function (email, type) {
+    showStep2:function (email, type, attributes) {
         Register.attributes['email'] = email;
         Register.attributes['type'] = type;
         if (Register.redirectUrl != '')
             Register.attributes['redirectUrl'] = Register.redirectUrl;
         if (Register.gotoComment != '')
             Register.attributes['gotoComment'] = Register.gotoComment;
+        if (typeof attributes != 'undefined')
+            for (i in attributes)
+                Register.attributes[i] = attributes[i];
         $.post('/signup/showForm/', Register.attributes, function (response) {
             var link = $('#hidden_register_link');
             link.attr('href', '#register');

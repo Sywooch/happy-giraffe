@@ -14,9 +14,13 @@
             </div>
             <div class="career-achievement_center">
                 <?php if (method_exists($model, 'getImage')):?>
+                    <?php if ($model->type == ScoreInput::TYPE_CONTEST_PARTICIPATION): ?>
+                        <?=$model->getImage() ?>
+                    <?php else: ?>
                     <div class="career-achievement_scores-ico">
                     <?=$model->getImage() ?>
                     </div>
+                    <?php endif; ?>
                 <?php else: ?>
                     <div class="career-achievement-ico <?=$model->getIcon() ?>"></div>
                 <?php endif ?>

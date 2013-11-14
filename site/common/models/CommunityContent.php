@@ -115,7 +115,7 @@ class CommunityContent extends HActiveRecord
             'status' => array(self::HAS_ONE, 'CommunityStatus', 'content_id'),
             'video' => array(self::HAS_ONE, 'CommunityVideo', 'content_id'),
             'post' => array(self::HAS_ONE, 'CommunityPost', 'content_id'),
-            //'question' => array(self::HAS_ONE, 'CommunityQuestion', 'content_id'),
+            'question' => array(self::HAS_ONE, 'CommunityQuestion', 'content_id'),
             'photoPost' => array(self::HAS_ONE, 'CommunityPhotoPost', 'content_id'),
             'author' => array(self::BELONGS_TO, 'User', 'author_id'),
             'remove' => array(self::HAS_ONE, 'Removed', 'entity_id', 'condition' => 'remove.entity = :entity', 'params' => array(':entity' => get_class($this))),

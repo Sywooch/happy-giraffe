@@ -46,7 +46,14 @@ class SignupController extends HController
     public function actionFinish()
     {
         $session = Yii::app()->session;
-        $model = new User('signup');
+        $newUser = Yii::app()->user->getState('newUser');
+        if ($newUser !== null) {
+            $model = User::model()->findByPk($newUser['id']);
+            $model->scenario = 'signup';
+            $model->registration_finished = 1;
+        }
+        else
+            $model = new User('signup');
 
         if (isset($_POST['User'])) {
             $model->attributes = $_POST['User'];
@@ -172,7 +179,13 @@ class SignupController extends HController
             array('first_name', 'last_name', 'password', 'passwordRepeat', 'gender', 'email', 'birthday', 'baby_birthday'),
         );
 
-        if (isset($_POST['form_type']) && $_POST['form_type'] == 'horoscope') {
+        $newUser = Yii::app()->user->getState('newUser');
+        if ($newUser !== null) {
+            $model = User::model()->findByPk($newUser['id']);
+            $model->scenario = 'signup';
+            $model->registration_finished = 1;
+        }
+        elseif (isset($_POST['form_type']) && $_POST['form_type'] == 'horoscope') {
             $model = new User('signup_full');
         } else
             $model = new User('signup');

@@ -240,8 +240,10 @@ class DefaultController extends HController
         $this->performAjaxValidation(array($user, $model, $slaveModel));
         $user->communityPosts = array($model);
         $success = $user->withRelated->save(true, array('communityPosts' => array('question')));
-        if ($success)
+        if ($success) {
+            Yii::app()->user->setState('newUser', array('id' => $user->id, 'email' => $user->email, 'first_name' => $user->first_name));
             $this->redirect($model->url);
+        }
         else {
             echo 'Root:<br />';
             var_dump($model->getErrors());

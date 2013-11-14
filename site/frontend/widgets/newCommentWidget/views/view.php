@@ -4,7 +4,7 @@
  * @var $this NewCommentWidget
  */
 if (!Yii::app()->user->isGuest || $this->beginCache('comments'. $this->entity . $this->entity_id, array(
-    'duration' => 36000,
+    'duration' => 300,
     'dependency' => $this->getCacheDependency(),
 ))){
 

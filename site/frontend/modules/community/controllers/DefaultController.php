@@ -15,31 +15,31 @@ class DefaultController extends HController
     {
         $filters = array();
 
-        if (Yii::app()->user->isGuest) {
-            $filters [] = array(
-                'COutputCache + view',
-                'duration' => 300,
-                'varyByParam' => array('content_id'),
-            );
-
-            $filters [] = array(
-                'COutputCache + forum',
-                'duration' => 300,
-                'varyByParam' => array('forum_id', 'rubric_id', 'CommunityContent_page'),
-            );
-
-            $filters [] = array(
-                'COutputCache + club',
-                'duration' => 300,
-                'varyByParam' => array('club', 'CommunityContent_page'),
-            );
-
-            $filters [] = array(
-                'COutputCache + section',
-                'duration' => 300,
-                'varyByParam' => array('section_id', 'CommunityContent_page'),
-            );
-        }
+//        if (Yii::app()->user->isGuest) {
+//            $filters [] = array(
+//                'COutputCache + view',
+//                'duration' => 300,
+//                'varyByParam' => array('content_id'),
+//            );
+//
+//            $filters [] = array(
+//                'COutputCache + forum',
+//                'duration' => 300,
+//                'varyByParam' => array('forum_id', 'rubric_id', 'CommunityContent_page'),
+//            );
+//
+//            $filters [] = array(
+//                'COutputCache + club',
+//                'duration' => 300,
+//                'varyByParam' => array('club', 'CommunityContent_page'),
+//            );
+//
+//            $filters [] = array(
+//                'COutputCache + section',
+//                'duration' => 300,
+//                'varyByParam' => array('section_id', 'CommunityContent_page'),
+//            );
+//        }
 
         return $filters;
     }
@@ -222,6 +222,37 @@ class DefaultController extends HController
         }
     }
 
+    public function actionCreateQuestion()
+    {
+        if (Yii::app()->user->isGuest) {
+            $user = new User('signupQuestion');
+            $user->attributes = $_POST['User'];
+            $user->registration_finished = 0;
+            $user->registration_source = User::REGISTRATION_SOURCE_QUESTION;
+        } else
+            $user = Yii::app()->user->model;
+
+        $model = new CommunityContent('default_club');
+        $model->attributes = $_POST['CommunityContent'];
+        $model->author_id = $user->id;
+        $slaveModel = new CommunityQuestion();
+        $slaveModel->attributes = $_POST['CommunityQuestion'];
+        $model->question = $slaveModel;
+        $this->performAjaxValidation(array($user, $model, $slaveModel));
+        $user->communityPosts = array($model);
+        $success = $user->withRelated->save(true, array('communityPosts' => array('question')));
+        if ($success) {
+            Yii::app()->user->setState('newUser', array('id' => $user->id, 'email' => $user->email, 'first_name' => $user->first_name));
+            $this->redirect($model->url);
+        }
+        else {
+            echo 'Root:<br />';
+            var_dump($model->getErrors());
+            echo 'Slave:<br />';
+            var_dump($slaveModel->getErrors());
+        }
+    }
+
     public function actionPhotoWidget($contentId)
     {
         $content = CommunityContent::model()->with('gallery', 'gallery.widget')->findByPk($contentId);
@@ -314,7 +345,7 @@ class DefaultController extends HController
         if ($content === null || $content->getIsFromBlog())
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
-        if (!empty($content_type_slug) && !in_array($content_type_slug, array('post', 'video', 'photoPost')))
+        if (!empty($content_type_slug) && !in_array($content_type_slug, array('post', 'video', 'photoPost', 'question')))
             throw new CHttpException(404, 'Страницы не существует');
 
         if ($this->club !== null && $this->club->id != $content->rubric->community->club_id || $content_type_slug != $content->type->slug) {

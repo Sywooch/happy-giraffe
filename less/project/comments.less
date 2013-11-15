@@ -1,4 +1,3 @@
-/* comments-gray */
 .comments-gray {
     background: #fff;
     padding: 5px 0 20px;
@@ -10,6 +9,7 @@
         text-align: left;
     }
     .a-imitation {color: #319FE4}
+    &__map-route {padding: 20px 180px 20px 0;}
     &__wide {
         margin: 20px;
         border-top: none;
@@ -21,7 +21,29 @@
     }
     &__wide &_add {margin: 0 30px;}
     &__wide &_add__top {margin: 15px 20px;}
-    &__map-route {padding: 20px 180px 20px 0;}
+    &__activity {
+        margin: 20px;
+        border-top: none;
+        .border-radius(5px);
+    }
+    &__activity &_i {padding-left: 14px;}
+    &__activity &_frame {margin-left: 86px;}
+    &__activity &_cont {
+        position: relative;
+        padding: 7px 12px !important;
+        background: #e0f3ff;
+        .border-radius(4px);
+    }
+    &__activity &_cont:before {
+        content:'';
+        position: absolute;
+        top: 12px;
+        left: -10px;
+        width: 10px;
+        height: 17px;
+        background: url(/images/comments-gray__activity_cont.png) no-repeat;
+    }
+
     & &_i .wysiwyg-content {
         padding: 0;
         font-size: 12px;
@@ -159,5 +181,26 @@
         border-bottom: 1px dotted #289FD7;
         text-decoration: none;
     }
+
+    /* activity in profile */
+    &_article {
+        margin: 13px;
+    }
+    &_article-img {
+        float: left;
+        margin-right: 10px;
+    }
+    &_article-img > img {display: block;}
+    &_article-hold {
+        overflow: hidden;
+    }
+    &_article-hold .ava {margin-right: 10px;}
+    &_article-cont {
+        overflow: hidden;
+    }
+    &_article-t {
+        font: bold 17px/19px Tahoma, Arial, Verdana, sans-serif;
+        color: #186fb8;
+    }
+    &_article-t-a {color: #186fb8;}
 }
-/* /comments-gray */

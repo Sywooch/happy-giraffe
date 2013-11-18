@@ -63,34 +63,38 @@
 					</div>
 					
 					<div class="contest-about clearfix">
-						<!-- <div class="contest-participant">
-							<img src="/images/contest/widget-11.jpg" alt="" calss="contest-title" />
+						 <div class="contest-participant">
+							<img src="/images/contest/widget-12.jpg" alt="" calss="contest-title" />
 							<div class="img">
+								<div class="clearfix">
+									<div class="position">
+										<strong>18</strong> место
+									</div>
+									<div class="ball">
+										<div class="ball-count">186</div>
+										<div class="ball-text">баллов</div>
+									</div>
+								</div>
 								<a href="">
 									<img src="/images/example/gallery_album_img_01.jpg">
 									<span class="btn">Посмотреть</span>
 								</a>
 							<div class="item-title">Разнообразие десертов сицилийского стиля</div>
 							</div>
-							<div class="clearfix">
-								<div class="position">
-									<strong>18</strong> место
-								</div>
-								<div class="ball">
-									<div class="ball-count">186</div>
-									<div class="ball-text">баллов</div>
-								</div>
+							<div class="contest-participant_link">
+								Ссылка:
+								<input type="text" name="" id="" class="contest-participant_it itx-simple" value="http://www.happy-giraffe.ru/contest/12/photo653751/">
 							</div>
 						</div>
-						
+						<!-- 
 						<div class="sticker">
 							<big>Для участия в конкурсе Вам необходимо:</big>
 							<p>Для того, чтобы принять участие в конкурсе, вы должны заполнить <a href="#">свой профиль</a> и информацию о членах своей семьи!</p>
 							<center>
 								<a href="#takeapartPhotoContest" class="btn-green btn-green-medium fancy">Участвовать<i class="arr-r"></i></a>
 							</center>
-						</div>
-						 -->
+						</div> -->
+						 
 						<div class="content-title">О конкурсе</div>
 						
 						<p>Появление первых зубов - значимое событие не только для малыша, но и для всей семьи, ведь это означает, что ребенок стал еще немного взрослее.  А его лучезарная улыбка дарит тепло и радость окружающим, ведь нет ничего прекрасней счастливого малыша! </p>

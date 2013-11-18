@@ -594,7 +594,7 @@
 .contest-nav li.active a:hover {text-decoration:none;}
 .contest-about {
     margin-bottom: 25px;
-    max-width:580px;
+    /*max-width:580px;*/
 }
 
 .inner.contest .content-title{text-align:left;float:none;margin:10px 0;position:static;color:#0281b0;font:bold 25px Arial,Helvetica,sans-serif;}
@@ -1020,7 +1020,7 @@
 	position:relative;
 	border:1px solid #eeeded;
 	margin:-52px 0 55px;
-	padding:5px 20px 20px;
+	padding:5px 20px 10px;
 	text-align:center;
 }
 .contest-participant h3 {
@@ -1070,17 +1070,39 @@
 	float:left;
 	color:#727272;
 	font-size:15px;
-	line-height:30px;
-	margin-left:45px;
+	line-height:32px;
+	margin-left:1px;
 }
 .contest-participant .position strong {
 	color:#696767;
 	font-weight:normal;
 	font-size:25px;
 }
-.contest-participant .ball {float:right;margin-right:45px;}
-.contest-participant .ball .ball-count {color:#fd5807;font:italic 30px/25px 'Times New Roman', Georgia, Times, serif;float:right;}
-.contest-participant .ball .ball-text {float:right;clear:right;font-size:10px;line-height:10px;color:#737373;}
+.contest-participant .ball {
+    float:right;
+    margin-right:1px;
+    background: #FB0202;
+    color: #fff;
+    padding: 4px 5px;
+    margin: 0 0 7px;
+}
+.contest-participant .ball .ball-count {font: 30px/25px Arial, Tahoma, Verdana, sans-serif;float:right;}
+.contest-participant .ball .ball-text {float:right;clear:right;font-size:10px;line-height:10px;}
+.contest-participant_link {
+    margin: 12px 0 5px;
+    background: #C7EDFB;
+    padding: 8px;
+    color: #3097DF;
+    font-size: 11px;
+
+}
+.contest-participant_it {
+    .inline-block();
+    width: 230px;
+    margin-left: 5px;
+    color: #289FD7;
+    text-decoration: underline;
+}
 
 .contest-error-hint {
 	position:absolute;

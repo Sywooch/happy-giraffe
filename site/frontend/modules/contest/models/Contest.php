@@ -291,4 +291,14 @@ class Contest extends HActiveRecord
         $comet = new CometModel;
         $comet->send('whatsNewIndex', $params, CometModel::WHATS_NEW_UPDATE);
     }
+
+    public function scopes()
+    {
+        return array(
+            'active' => array(
+                'condition' => 'status = :active',
+                'params' => array(':active' => self::STATUS_ACTIVE),
+            ),
+        );
+    }
 }

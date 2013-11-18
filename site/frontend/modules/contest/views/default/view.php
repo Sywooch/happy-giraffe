@@ -28,6 +28,8 @@ Yii::app()->eauth->renderWidget(array(
 
 <div class="contest-about clearfix">
 
+    <?php $this->widget('MyContestWorkWidget', array('contestId' => $this->contest->id)); ?>
+
     <?php if (false): ?>
         <?php if (! Yii::app()->user->isGuest && Yii::app()->user->model->getContestWork($this->contest->id) !== null): ?>
             <?php $this->widget('site.frontend.widgets.user.ContestWidget', array(

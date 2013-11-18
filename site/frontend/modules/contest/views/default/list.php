@@ -64,10 +64,10 @@ Yii::app()->eauth->renderWidget(array(
         'itemsTagName' => 'ul',
         'summaryText' => 'Показано: {start}-{end} из {count}',
         'pager' => array(
-            'class' => 'AlbumLinkPager',
+            'class' => 'HLinkPager',
         ),
         'template' => '<div class="gallery-photos-new cols-4 clearfix">{items}</div>
-            <div class="pagination pagination-center clearfix">
+            <div class="yiipagination">
                 {pager}
             </div>
         ',

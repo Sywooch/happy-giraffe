@@ -1,3 +1,4 @@
+<?php $this->beginWidget('SeoContentWidget'); ?>
 <?php
 /**
  * @var CommunityContent $model
@@ -65,3 +66,4 @@ $form = $this->beginWidget('CActiveForm', array(
         ko.applyBindings(model, document.getElementById('blog-form'));
     });
 </script>
+<?php $this->endWidget(); ?>

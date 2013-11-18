@@ -4,6 +4,7 @@
  * @var AlbumPhoto $photo
  */
 $work = $photo->getAttachByEntity('ContestWork')->model;
+$collection = new ContestPhotoCollection(array('contestId' => $work->contest_id));
 ?>
 
 <div id="photo-inline" itemscope itemtype="http://schema.org/ImageObject">
@@ -49,14 +50,17 @@ $work = $photo->getAttachByEntity('ContestWork')->model;
                             </div> -->
                         </div>
 
-                        <?php if ($photo->w_title): ?>
-                            <?=CHtml::image($photo->getPreviewUrl(415, null, Image::WIDTH), $photo->w_title, array('itemprop' => 'contentURL', 'title'=>$photo->w_title))?>
-                        <?php else: ?>
-                            <?=CHtml::image($photo->getPreviewUrl(415, null, Image::WIDTH), '', array('itemprop' => 'contentURL'))?>
-                        <?php endif; ?>
+                        <a class="img-hold" href="javascript:void(0)" onclick="PhotoCollectionViewWidget.open(<?=CJavaScript::encode(get_class($collection))?>, <?=CJavaScript::encode($collection->options)?>, <?=CJavaScript::encode($photo->id)?>)">
+                            <?php if ($photo->w_title): ?>
+                                <?=CHtml::image($photo->getPreviewUrl(null, 550, Image::HEIGHT), $photo->w_title, array('itemprop' => 'contentURL', 'title'=>$photo->w_title))?>
+                            <?php else: ?>
+                                <?=CHtml::image($photo->getPreviewUrl(null, 550, Image::HEIGHT), '', array('itemprop' => 'contentURL'))?>
+                            <?php endif; ?>
 
-                        <meta itemprop="width" content="<?=$photo->width?> px">
-                        <meta itemprop="height" content="<?=$photo->height?> px">
+                            <meta itemprop="width" content="<?=$photo->width?> px">
+                            <meta itemprop="height" content="<?=$photo->height?> px">
+                            <span class="ico-zoom"></span>
+                        </a>
 
                     </div>
 
@@ -103,6 +107,15 @@ $work = $photo->getAttachByEntity('ContestWork')->model;
                         </div>
                     </div>
 
+                </div>
+
+                <div class="sharelink-friends">
+                    <div class="clearfix">
+                        <div class="sharelink-friends_t">Cсылка на конкурсную работу</div>
+                        <input type="text" onclick="$(this).select();" value="<?=$work->getUrl(false, true)?>" class="sharelink-friends_itx">
+
+                    </div>
+                    <div class="sharelink-friends_desc">Хочешь победить в конкурсе? Разошли эту ссылку друзьям и знакомым, сделай подписью в скайпе, аське и статусом в социальных сетях. Чем больше человек проголосует за твою работу, тем выше шансы на победу!</div>
                 </div>
 
                 <?php $this->widget('application.widgets.newCommentWidget.NewCommentWidget', array('model' => $photo, 'full' => true)); ?>

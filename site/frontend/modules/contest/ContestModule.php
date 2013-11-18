@@ -14,6 +14,7 @@ class ContestModule extends CWebModule
 			'application.models.*',
 			'contest.models.*',
 			'contest.components.*',
+            'contest.widgets.*',
 		));
 	}
 

@@ -60,12 +60,13 @@
 								</a>
 							</div> -->
 						  </div>
-						  
-						  <img src="/images/example/ex5.jpg" itemprop="contentURL">
-						  
-						  <meta itemprop="width" content="250 px">
-						  <meta itemprop="height" content="250 px">
-						  
+						  <a href="" class="img-hold">
+							  <img src="/images/example/ex5.jpg" itemprop="contentURL">
+							  
+							  <meta itemprop="width" content="250 px">
+							  <meta itemprop="height" content="250 px">
+							  <span class="ico-zoom"></span>
+						  </a>
 						</div>
 
 						<!-- <div class="photo-comment" itemprop="description">Квашеная капуста с клюквой, грибами, соусом, зеленью и еще очень длинный комментарий про это оформление блюда, да нужно двести знаков для этого комментария, уже вроде набралось или нет кто будет считать</div> -->
@@ -117,6 +118,15 @@
 							</div>
 						</div>
 
+					</div>
+
+					<div class="sharelink-friends">
+						<div class="clearfix">
+							<div class="sharelink-friends_t">Cсылка на конкурсную работу</div>
+							<input type="text" onclick="$(this).select();" value="http://www.happy-giraffe.ru/community/39/forum/post/107762/" class="sharelink-friends_itx" id="" name="">
+							
+						</div>
+						<div class="sharelink-friends_desc">Хочешь победить в конкурсе? Разошли эту ссылку друзьям и знакомым, сделай подписью в скайпе, аське и статусом в социальных сетях. Чем больше человек проголосует за твою работу, тем выше шансы на победу!</div>
 					</div>
 
 					<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/comments-gray-open.php'; ?>

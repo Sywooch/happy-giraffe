@@ -64,7 +64,7 @@
 					
 					<div class="contest-about clearfix">
 						 <div class="contest-participant">
-							<img src="/images/contest/widget-12.jpg" alt="" calss="contest-title" />
+							<div class="contest-participant_t">Моя работа в конкурсе</div>
 							<div class="img">
 								<div class="clearfix">
 									<div class="position">
@@ -80,10 +80,6 @@
 									<span class="btn">Посмотреть</span>
 								</a>
 							<div class="item-title">Разнообразие десертов сицилийского стиля</div>
-							</div>
-							<div class="contest-participant_link">
-								Ссылка:
-								<input type="text" name="" id="" class="contest-participant_it itx-simple" value="http://www.happy-giraffe.ru/contest/12/photo653751/">
 							</div>
 						</div>
 						<!-- 

@@ -190,7 +190,21 @@
 					</div>
 					<ul class="widget-friends_ul clearfix">
 						<li class="widget-friends_i">
-							<a href="" class="ava male"></a>
+							<div class="b-ava-hover clearfix">
+								<a href="" class="ava male"></a>
+								<div class="b-ava-hover_hold">
+									<div class="b-ava-hover_name">Ангелина Богоявленская </div>
+									<div class="b-ava-hover_location">
+										<div class="flag flag-ru"></div>
+										Петроково Воронежская обл.
+									</div>
+									<div class="b-ava-hover_btns">
+										<a href="" class="b-ava-hover_btn">
+											<span class="b-ava-hover_ico"></span>
+										</a>
+									</div>
+								</div>
+							</div>
 						</li>
 						<li class="widget-friends_i">
 							<a href="" class="ava"><img src="/images/user_friends_img.jpg"></a>

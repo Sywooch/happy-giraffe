@@ -911,3 +911,23 @@ for i in {0..100}
 do
     /var/www/happy-giraffe.ru/deploy/test/site/yiic emailParsing --threadId=$i &
 done
+
+var jq = document.createElement('script');
+jq.src = "//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js";
+document.getElementsByTagName('head')[0].appendChild(jq);
+setTimeout(function() {
+jQuery.noConflict();
+var links = jQuery('[onclick="cl(this)"]'); var result1 = ''; var result2 = ''; links.each(function(index, el) {result1 += jQuery(this).text() + "\n"; result2 += jQuery(this).attr('href') + "\n"}); console.log(result1); console.log(result2);
+}, 1000);
+
+
+017564e1cfe1130835c70c58194ffa18
+
+498eeaf714a000eccfeee6bf6f381a34
+
+дата создания + 7 дней < сейчас
+дата создания < сейчас - 7 дней
+
+
+дата создания + 7 дней > сейчас
+дата создания > сейчас - 7 дней

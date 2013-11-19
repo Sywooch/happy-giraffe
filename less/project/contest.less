@@ -1158,12 +1158,12 @@
     .theme-contest__pets1 & {background-color: #f8eee4;}
     
     .like-block {
-        margin-top: 20px;
+        margin-top: 10px;
     }
     &_col1 {
         .inline-block();
         vertical-align: middle;
-        width: 205px;
+        width: 212px;
     }
     &_col1 img {vertical-align: middle;}
     &_col3 {
@@ -1174,7 +1174,7 @@
     &_name {
         .inline-block();
         vertical-align: middle;
-        width: 150px;
+        width: 156px;
     }
     &_name a {font-size: 12px;}
     &_count {
@@ -1195,7 +1195,7 @@
 
 /* article-contest-conversion */
 .article-contest-conversion {
-    margin: 40px 0 0;
+    margin: 40px 20px 0;
     padding: 20px 20px 20px 45px;
     background: #f8eee4;
 
@@ -1221,7 +1221,7 @@
 
 /* b-contest-advert */
 .b-contest-advert {
-    margin: 0;
+    margin: 0 20px;
     padding: 20px 20px 50px;
     background: #f3e7db;
     text-align: center;
@@ -1306,8 +1306,7 @@
 .contest-aside-prizes {
     margin: 20px 0 85px;
     padding: 10px;
-    background: #eeecf0;
-    background: rgba(255,255,255,.9);
+    background: #fff;
     text-align: center;
     .border-radius(5px);
 
@@ -1358,6 +1357,61 @@
     &__birth1 .article-contest-conversion {background-color: #fef2f5;}
     &__birth1 .article-contest-conversion_t {color: #af8092;}
     &__birth1 .b-contest-advert {background-color: #fde4ea;}
+
+    &__birth2 .col-gray__contest {background: rgba(255,255,255,.3);}
+    &__birth2 .b-section__contest {
+        background: #8f6db0;
+        background: -moz-linear-gradient(top,  rgba(134,102,153,1) 0%, rgba(143,109,176,0.13) 100%); /* FF3.6+ */
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(134,102,153,1)), color-stop(100%,rgba(143,109,176,0.13))); /* Chrome,Safari4+ */
+        background: -webkit-linear-gradient(top,  rgba(134,102,153,1) 0%,rgba(143,109,176,0.13) 100%); /* Chrome10+,Safari5.1+ */
+        background: -o-linear-gradient(top,  rgba(134,102,153,1) 0%,rgba(143,109,176,0.13) 100%); /* Opera 11.10+ */
+        background: -ms-linear-gradient(top,  rgba(134,102,153,1) 0%,rgba(143,109,176,0.13) 100%); /* IE10+ */
+        background: linear-gradient(to bottom,  rgba(134,102,153,1) 0%,rgba(143,109,176,0.13) 100%); /* W3C */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#866699', endColorstr='#218f6db0',GradientType=0 ); /* IE6-8 */
+
+    }
+    .ie9 &__birth2 .b-section__contest {
+        background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzg2NjY5OSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM4ZjZkYjAiIHN0b3Atb3BhY2l0eT0iMC4xMyIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+    }
+    &__birth2 .b-section_t-contest-small {
+        display: block;
+        text-align: center;
+        color: #000;
+        font-size: 12px;
+        line-height: 14px;
+        color: #fff;
+    }
+    &__birth2 .b-section_t-contest-tx {
+        display: block;
+        margin: 5px -5px 3px;
+        padding: 0px 5px 3px;
+        font-size: 28px;
+        line-height: 34px;
+        color: #fff;
+        text-align: center;
+        background: #030303;
+        background: rgba(0,0,0,.45);
+    }
+    &__birth2 .b-section_contest-tx {color: #fff;}
+    &__birth2 .b-section_contest-rule {color: #fff; margin-right: 25px;}
+    &__birth2 .chzn-itx-simple__small .chzn-single {border-color: #dabbbd;}
+    &__birth2 .chzn-itx-simple__small .chzn-container-active .chzn-single {border-color: #A5DAF9;}
+    &__birth2 .chzn-itx-simple__small .chzn-single  div b {background-image: url(/images/arrow-d-maroon.png);}
+    &__birth2 .chzn-itx-simple__small .chzn-container-active div b {background: url(/images/arrow-d2.png) no-repeat;}
+    &__birth2 .yiipagination .page {background: #f6f5f5;}
+    &__birth2 .article-contest-conversion {background-color: #baa4c7;text-align: center;}
+    &__birth2 .article-contest-conversion_t {color: #eee7ea;}
+    &__birth2 .b-contest-advert {background-color: #a083b1;}
+    &__birth2 .b-contest-advert_t {color: #eee7ea;}
+    &__birth2 .b-contest-advert_name {color: #fff;line-height: 25px;}
+    &__birth2 .article-contest {
+        margin: 0 20px 20px;
+        padding-bottom: 1px;
+        padding-left: 10px;
+        background: #e7dded;
+        color: #464545;
+    }
+    &__birth2 .article-contest_name a {font-size: 11px;}
 }
 
 /* popup */
@@ -1402,11 +1456,20 @@
         margin-left: 90px !important;
         width: 510px;
     }
-    &__birth1 .wysiwyg-v .wysiwyg-toolbar {margin-left: 15px;}
+    &__birth1 .wysiwyg-v .wysiwyg-toolbar {
+        margin-left: 15px;
+        clear: left;
+    }
     &__birth1 .contest-prizes_img {border: 2px solid #f0cedb;}
     &__birth1 .contest-color,
     &__birth1 .contest-prizes_i-t,
     &__birth1 .contest-prizes_bottom-tx  {color: #b54883;}
+
+    /* .popup-contest__birth2 */
+    &__birth2 .contest-prizes_img {border: none;}
+    &__birth2 .contest-color,
+    &__birth2 .contest-prizes_i-t,
+    &__birth2 .contest-prizes_bottom-tx  {color: #418ac1;}
 }
 /* /popup */
 
@@ -1447,7 +1510,7 @@
     &_l .place {margin: 5px 0 0;}
     &_img {
         .inline-block();
-        margin: 0 4px 7px 0;
+        margin: 0 3px 7px 0;
         border: 2px solid #eee;
         .border-radius(3px);
     }
@@ -1461,13 +1524,18 @@
     }
     &_heart {
         .inline-block();
-        vertical-align: bottom;
+        vertical-align: middle;
         width: 42px;
         height: 39px;
-        margin: -23px 8px 3px -4px;
+        margin: -6px 8px 3px -4px;
         background: url(/images/icon-heart.png) no-repeat;
     }
-    &_i-t {font-size: 17px;}
+    &_i-t {
+        .inline-block();
+        font-size: 17px;
+        vertical-align: middle;
+        max-width: 450px;
+    }
     &_desc p{margin: 0 0 10px;}
     &_bottom {
         margin: 0 0 10px;

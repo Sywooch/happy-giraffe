@@ -135,7 +135,11 @@ class DefaultController extends HController
     public function actionRemove()
     {
         $id = Yii::app()->request->getPost('id');
-        BlogContent::model()->findByPk($id)->delete();
+        $post = BlogContent::model()->findByPk($id);
+        if (! $post->canEdit())
+            throw new CHttpException(403);
+
+        $post->delete();
         $success = true;
         $response = compact('success');
         echo CJSON::encode($response);
@@ -283,6 +287,8 @@ class DefaultController extends HController
     public function actionSave($id = null)
     {
         $model = ($id === null) ? new BlogContent() : BlogContent::model()->findByPk($id);
+        if (! $model->isNewRecord && ! $model->canEdit())
+            throw new CHttpException(403);
         $model->scenario = 'default';
         $model->attributes = $_POST['BlogContent'];
         if ($model->type_id == CommunityContent::TYPE_STATUS)

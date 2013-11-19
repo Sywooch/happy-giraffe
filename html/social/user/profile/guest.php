@@ -193,24 +193,98 @@
 							<div class="b-ava-hover clearfix">
 								<a href="" class="ava male"></a>
 								<div class="b-ava-hover_hold">
-									<div class="b-ava-hover_name">Ангелина Богоявленская </div>
-									<div class="b-ava-hover_location">
+									<a href="" class="b-ava-hover_name">Ангелина Богоявленская </a>
+									<div class="b-ava-hover_location clearfix">
 										<div class="flag flag-ru"></div>
-										Петроково Воронежская обл.
+										<span class="b-ava-hover_location-tx">
+											Россия
+										</span>
 									</div>
 									<div class="b-ava-hover_btns">
 										<a href="" class="b-ava-hover_btn">
-											<span class="b-ava-hover_ico"></span>
+											<span class="b-ava-hover_ico b-ava-hover_ico__addfriend"></span>
+										</a>
+										<a href="" class="b-ava-hover_btn">
+											<span class="b-ava-hover_ico b-ava-hover_ico__dialog"></span>
+										</a>
+										<div class="b-ava-hover_btns-sepor"></div>
+										<a href="" class="b-ava-hover_btn">
+											<span class="b-ava-hover_ico b-ava-hover_ico__blog"></span>
+											125
+										</a>
+										<a href="" class="b-ava-hover_btn">
+											<span class="b-ava-hover_ico b-ava-hover_ico__photo"></span>
+											1569
 										</a>
 									</div>
 								</div>
 							</div>
 						</li>
 						<li class="widget-friends_i">
-							<a href="" class="ava"><img src="/images/user_friends_img.jpg"></a>
+							<div class="b-ava-hover clearfix">
+								<a href="" class="ava">
+									<span class="icon-status"></span>
+									<img src="/images/user_friends_img.jpg">
+								</a>
+								<div class="b-ava-hover_hold">
+									<a href="" class="b-ava-hover_name">Елизаветушка Богоявленская </a>
+									<div class="b-ava-hover_location clearfix">
+										<div class="flag flag-ru"></div>
+										<span class="b-ava-hover_location-tx">
+											Воронежская обл.
+										</span>
+									</div>
+									<div class="b-ava-hover_btns">
+										<a href="" class="b-ava-hover_btn">
+											<span class="b-ava-hover_ico b-ava-hover_ico__addfriend"></span>
+										</a>
+										<a href="" class="b-ava-hover_btn">
+											<span class="b-ava-hover_ico b-ava-hover_ico__dialog"></span>
+										</a>
+										<div class="b-ava-hover_btns-sepor"></div>
+										<a href="" class="b-ava-hover_btn">
+											<span class="b-ava-hover_ico b-ava-hover_ico__blog"></span>
+											125
+										</a>
+										<a href="" class="b-ava-hover_btn">
+											<span class="b-ava-hover_ico b-ava-hover_ico__photo"></span>
+											91569
+										</a>
+									</div>
+								</div>
+							</div>
 						</li>
+
 						<li class="widget-friends_i">
-							<a href="" class="ava female"></a>
+							<div class="b-ava-hover clearfix">
+								<a href="" class="ava"><img src="/images/user_friends_img.jpg"></a>
+								<div class="b-ava-hover_hold">
+									<a href="" class="b-ava-hover_name">Ангелина Богоя </a>
+									<div class="b-ava-hover_location clearfix">
+										<div class="flag flag-ru"></div>
+										<span class="b-ava-hover_location-tx">
+											Петроково Воронежская обл. Россия
+										</span>
+									</div>
+									<div class="b-ava-hover_btns">
+										<a href="" class="b-ava-hover_btn">
+											<span class="b-ava-hover_ico b-ava-hover_ico__addfriend"></span>
+										</a>
+										<a href="" class="b-ava-hover_btn">
+											<span class="b-ava-hover_ico b-ava-hover_ico__dialog"></span>
+										</a>
+										<div class="b-ava-hover_btns-sepor"></div>
+										<a href="" class="b-ava-hover_btn">
+											<span class="b-ava-hover_ico b-ava-hover_ico__blog"></span>
+											9125
+										</a>
+										<a href="" class="b-ava-hover_btn">
+											<span class="b-ava-hover_ico b-ava-hover_ico__photo"></span>
+											9
+										</a>
+									</div>
+								</div>
+							</div>
 						</li>
 						<li class="widget-friends_i">
 							<a href="" class="ava"></a>

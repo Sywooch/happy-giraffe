@@ -6,7 +6,7 @@
  * @var User $newUser
  */
 $form = $this->beginWidget('CActiveForm', array(
-    'id' => 'blog-form',
+    'id' => 'question-form',
     'action' => array('/community/default/createQuestion'),
     'enableAjaxValidation' => true,
     'enableClientValidation' => true,

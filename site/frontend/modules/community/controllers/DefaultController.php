@@ -329,7 +329,7 @@ class DefaultController extends HController
 
     protected function performAjaxValidation($models)
     {
-        if (isset($_POST['ajax']) && $_POST['ajax'] === 'blog-form') {
+        if (isset($_POST['ajax']) && in_array($_POST['ajax'], array('blog-form', 'question-form'), true)) {
             echo CActiveForm::validate($models);
             Yii::app()->end();
         }

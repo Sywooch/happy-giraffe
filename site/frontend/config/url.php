@@ -4,7 +4,7 @@ return array(
     'urlFormat' => 'path',
     'showScriptName' => false,
     'urlSuffix' => '/',
-    //'useStrictParsing' => true,
+    'useStrictParsing' => true,
     'rules' => array(
         /*************************
          *      CONTROLLERS      *
@@ -345,5 +345,6 @@ return array(
         'family/<_c>/<_a>' => 'family/<_c>/<_a>',
 
         'contest/pets<contestId:\d+>' => 'community/contest/index',
+        'contest/birth<contestId:\d+>' => 'community/contest/index',
     ),
 );

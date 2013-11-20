@@ -14,14 +14,6 @@ function declOfNum(number, titles) {
     return titles[ (number % 100 > 4 && number % 100 < 20) ? 2 : cases[(number % 10 < 5) ? number % 10 : 5] ];
 }
 
-String.prototype.ucFirst = function () {
-    var str = this;
-    if (str.length) {
-        str = str.charAt(0).toUpperCase() + str.slice(1);
-    }
-    return str;
-};
-
 function removeA(arr) {
     var what, a = arguments, L = a.length, ax;
     while (L > 1 && arr.length) {
@@ -34,8 +26,6 @@ function removeA(arr) {
 }
 
 $(document).ready(function () {
-/*    $('.js-like-control').blockFixed({'posTop':120});
-    $('.js-fast-articles2').blockFixed({'posTop': 60, 'minPosBottom':250});*/
 
     $(".wysiwyg-content").addtocopy({htmlcopytxt:'<br /><br />Подробнее: <a href="' + window.location.href + '">' + window.location.href + '</a>'});
 
@@ -63,11 +53,6 @@ $(document).ready(function () {
         } else {
             $('#btn-up-page').fadeOut(600)
         }
-    });
-
-    $('#btn-up-page').click(function () {
-        $('html, body').animate({scrollTop:0}, "normal");
-        return false
     });
 
      /* Подсказки при наведении */

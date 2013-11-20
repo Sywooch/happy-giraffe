@@ -474,13 +474,21 @@
 <div class="display-n">
 		
 	<!-- popup-contest -->
-	<!-- <div id="popup-contest" class="popup-contest popup-contest__birth2">
+	<div id="popup-contest" class="popup-contest popup-contest__birth2">
 		<a class="popup-transparent-close" onclick="$.fancybox.close();" href="javascript:void(0);" title="Закрыть"></a>
 		<div class="clearfix">
 			<div class="w-720 float-r">
 
 				<div class="b-settings-blue">
 					<div class="b-settings-blue_head">
+						<div class="clearfix">
+							<label for="" class="b-settings-blue_label margin-t0">
+								<img src="/images/contest/club/birth2/small.png" alt="">
+							</label>
+							<div class="b-settings-blue_row-tx">
+								<div class="heading-medium">Как я рассказала своему мужу о беременности</div>
+							</div>
+						</div>
 						<div class="b-settings-blue_row clearfix">
 							<div class="clearfix margin-t-10 ">
 								<div class="float-r font-small color-gray margin-3">0/50</div>
@@ -491,19 +499,69 @@
 							</div>
 						</div>
 					
-						<div class="b-settings-blue_row">
-							<label for="" class="b-settings-blue_label">Рассказ</label>
+						<!-- <div class="b-settings-blue_row">
 							<div class="b-settings-blue_row-tx">
-								<div class="font-small padding-r5 padding-l5">Расскажите как это было, как это случилось у вас. Как ваш муж отреагировал? <br>Необходимо сопроводить свой рассказ семейной фотографией, на которой есть мама, папа и ребенок.</div>
+								<div class="font-small padding-r5 padding-l5"></div>
 							</div>
-						</div>
+						</div> -->
 
-						<div class="wysiwyg-v wysiwyg-pink clearfix">
+						<div class="wysiwyg-v wysiwyg-blue clearfix">
+							<label for="" class="b-settings-blue_label">Рассказ</label>
+	<script src="/redactor/plugins/toolbarVerticalFixed/toolbarVerticalFixed.js"></script>	
+							<script>
+	$(document).ready(function () { 
+	  $('.wysiwyg-redactor-v').redactor({
+	      plugins: ['toolbarVerticalFixed'],
+	      minHeight: 410,
+	      autoresize: true,
+	      toolbarExternal: '.wysiwyg-toolbar-btn',
 
+	      /* В базовом варианте нет кнопок 'h2', 'h3', 'link_add', 'link_del' но их функции реализованы с помощью выпадающих списков */
+	      buttons: ['bold', 'italic', 'underline', 'deleted', 'h2', 'h3', 'unorderedlist', 'orderedlist', 'link_add', 'link_del', 'image', 'video', 'smile'],
+	      buttonsCustom: {
+	          smile: {
+	              title: 'smile',
+	              callback: function(buttonName, buttonDOM, buttonObject) {
+	                  // your code, for example - getting code
+	                  var html = this.get();
+	              }
+	          },
+	          link_add: {
+	              title: 'link_add',
+	              callback: function(buttonName, buttonDOM, buttonObject) {
+	                  // your code, for example - getting code
+	                  var html = this.get();
+	              }
+	          },
+	          link_del: {
+	              title: 'link_del',
+	              callback: function(buttonName, buttonDOM, buttonObject) {
+	                  // your code, for example - getting code
+	                  var html = this.get();
+	              }
+	          },
+	          h2: {
+	              title: 'h2',
+	              callback: function(buttonName, buttonDOM, buttonObject) {
+	                  // your code, for example - getting code
+	                  var html = this.get();
+	              }
+	          },
+	          h3: {
+	              title: 'h3',
+	              callback: function(buttonName, buttonDOM, buttonObject) {
+	                  // your code, for example - getting code
+	                  var html = this.get();
+	              }
+	          }
+	      }
+	  });
+	});
+							</script>
 						<div class="wysiwyg-toolbar">
 							<div class="wysiwyg-toolbar-btn"></div>
 						</div>
-							<textarea name="" class="wysiwyg-redactor-v" placeholder="Расскажите о своих родах"></textarea>
+							<textarea name="" class="wysiwyg-redactor-v" placeholder="Расскажите как это было, как это случилось у вас. Как ваш муж отреагировал? Необходимо сопроводить свой рассказ семейной фотографией, на которой есть мама, папа и ребенок."></textarea>
 						</div>
 					
 					</div>
@@ -523,169 +581,10 @@
 
 			</div>
 		</div>
-	</div> -->
-	<!-- /popup-contest -->
-
-	<!-- popup-contest -->
-	<div id="popup-contest" class="popup-contest popup-contest__birth2">
-		<a class="popup-transparent-close" onclick="$.fancybox.close();" href="javascript:void(0);" title="Закрыть"></a>
-		<div class="clearfix">
-			<div class="w-720 float-r">
-
-				<div class="b-settings-blue">
-					<div class="b-settings-blue_head">
-						<div class="b-settings-blue_row clearfix">
-							<div class="clearfix margin-t-10 ">
-								<div class="float-r font-small color-gray margin-3">0/50</div>
-							</div>
-							<label for="" class="b-settings-blue_label">Заголовок</label>
-							<div class="b-settings-blue_row-tx">
-								<input type="text" name="" id="" class="itx-simple w-100p" placeholder="Введите заголовок рассказа">
-							</div>
-						</div>
-						<div class="b-settings-blue_row clearfix">
-							<label for="" class="b-settings-blue_label">Рассказ</label>
-							<div class="b-settings-blue_row-tx clearfix">
-								<textarea name="" id="" cols="80" rows="9" class="b-settings-blue_textarea itx-simple" placeholder="Расскажите как это было, как это случилось у вас. Как ваш муж отреагировал? Необходимо сопроводить свой рассказ семейной фотографией, на которой есть мама, папа и ребенок."></textarea>
-							</div>
-						</div>
-					</div>
-					
-					<!-- Обычный блок загрузки фото -->
-					<!-- .dragover - класс добавлять, когда курсер мыши с файлами находится над блоком -->
-					<div class="b-add-img b-add-img__for-multi">
-						<div class="b-add-img_hold">
-							<div class="b-add-img_t">
-								Загрузите фотографии с компьютера
-								<div class="b-add-img_t-tx">Поддерживаемые форматы: jpg и png</div>
-							</div>
-							<div class="file-fake">
-								<button class="btn-green btn-medium file-fake_btn">Обзор</button>
-								<input type="file" name="">
-							</div>
-						</div>
-						<div class="b-add-img_html5-tx">или перетащите фото сюда</div>
-					</div>
-					
-					
-					<div class=" clearfix">
-						<a href="" class="btn-blue btn-h46 float-r">Добавить</a>
-						<a href="" class="btn-gray-light btn-h46 float-r margin-r15">Отменить</a>
-						
-						<div class="float-l margin-t15">
-							<a href="" class="a-checkbox active"></a>
-							<span class="color-gray">Я ознакомлен с</span> <a href="">Правилами конкурса</a>
-
-						</div>
-					</div>
-				</div>
-
-				<div class="b-settings-blue">
-					
-					<div class="b-settings-blue_head">
-						<div class="b-settings-blue_row clearfix">
-							<div class="clearfix margin-t-10 ">
-								<div class="float-r font-small color-gray margin-3">0/50</div>
-							</div>
-							<label for="" class="b-settings-blue_label">Заголовок</label>
-							<div class="b-settings-blue_row-tx">
-								<input type="text" name="" id="" class="itx-simple w-100p" placeholder="Введите заголовок рассказа">
-							</div>
-						</div>
-						<div class="b-settings-blue_row clearfix">
-							<label for="" class="b-settings-blue_label">Рассказ</label>
-							<div class="b-settings-blue_row-tx clearfix">
-								<textarea name="" id="" cols="80" rows="9" class="b-settings-blue_textarea itx-simple" placeholder="Расскажите о своем домашнем животном (как его зовут, какой он породы, как вы за ним ухаживаете, что он умеет делать, какие лакомства он любит и т.д)"></textarea>
-							</div>
-						</div>
-					</div>
-							
-					<div class="b-add-img b-add-img__for-multi">
-						<div class="b-add-img_hold">
-							<div class="b-add-img_t">
-								Загрузите фотографии с компьютера
-								<div class="b-add-img_t-tx">Поддерживаемые форматы: jpg и png</div>
-							</div>
-							<div class="file-fake">
-								<button class="btn-green btn-medium file-fake_btn">Обзор</button>
-								<input type="file" name="">
-							</div>
-						</div>
-						<div class="textalign-c clearfix">
-							<div class="b-add-img_i">
-								<img class="b-add-img_i-img" src="/images/example/w440-h340.jpg" alt="">
-								<!-- b-add-img_i-vert для вертикального позиционирования маленькой каритнки -->
-								<div class="b-add-img_i-vert"></div>
-								<div class="b-add-img_i-overlay">
-									<a href="" class="b-add-img_i-del ico-close4"></a>
-								</div>
-							</div>
-							<div class="b-add-img_i">
-								<img class="b-add-img_i-img" src="/images/example/w64-h61-2.jpg" alt="">
-								<div class="b-add-img_i-vert"></div>
-								<div class="b-add-img_i-overlay">
-									<a href="" class="b-add-img_i-del ico-close4"></a>
-								</div>
-							</div>
-							<div class="b-add-img_i">
-								<img class="b-add-img_i-img" src="/images/example/11.jpg" alt="">
-								<div class="b-add-img_i-vert"></div>
-								<div class="b-add-img_i-overlay">
-									<a href="" class="b-add-img_i-del ico-close4"></a>
-								</div>
-							</div>
-							<div class="b-add-img_i">
-								<img class="b-add-img_i-img" src="/images/example/w220-h309-1.jpg" alt="">
-								<div class="b-add-img_i-vert"></div>
-								<div class="b-add-img_i-overlay">
-									<a href="" class="b-add-img_i-del ico-close4"></a>
-								</div>
-							</div>
-							<div class="b-add-img_i">
-								<img class="b-add-img_i-img" src="/images/example/w720-h128.jpg" alt="">
-								<div class="b-add-img_i-vert"></div>
-								<div class="b-add-img_i-overlay">
-									<a href="" class="b-add-img_i-del ico-close4"></a>
-								</div>
-							</div>
-							<div class="b-add-img_i error">
-								<div class="b-add-img_i-error-tx">файл мотик.jpg не удалось загрузить, более 10 Мб</div>
-								<div class="b-add-img_i-vert"></div>
-								<div class="b-add-img_i-overlay">
-									<a href="" class="b-add-img_i-del ico-close4"></a>
-								</div>
-							</div>
-							<div class="b-add-img_i">
-								<img class="b-add-img_i-img opacity-20" src="/images/example/w720-h128.jpg" alt="">
-								<div class="b-add-img_i-vert"></div>
-								<div class="b-add-img_i-load">
-									<div class="b-add-img_i-load-progress" style="width:20%;"></div>
-								</div>
-								<div class="b-add-img_i-overlay">
-									<a href="" class="b-add-img_i-del ico-close4"></a>
-								</div>
-							</div>
-						</div>
-						<!-- Текст приглашения для перетаскивания можно скрыть или удалить при наличии фото -->
-						<div class="b-add-img_html5-tx display-n">или перетащите фото сюда</div>
-					</div>
-					
-					
-					<div class=" clearfix">
-						<a href="" class="btn-blue btn-h46 float-r">Добавить</a>
-						<a href="" class="btn-gray-light btn-h46 float-r margin-r15">Отменить</a>
-						
-						<div class="float-l margin-t15">
-							<a href="" class="a-checkbox active"></a>
-							<span class="color-gray">Я ознакомлен с</span> <a href="">Правилами конкурса</a>
-
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
 	</div>
 	<!-- /popup-contest -->
+
+
 
 	<!-- popup-contest -->
 	<div id="popup-contest-rule" class="popup-contest popup-contest__birth2">

@@ -139,6 +139,9 @@ class DefaultController extends HController
         if (!empty($content->uniqueness) && $content->uniqueness < 50)
             Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
 
+        if ($content->contestWork !== null)
+            $this->bodyClass = 'theme-contest theme-contest__' . $content->contestWork->contest->cssClass;
+
         $this->pageTitle = $content->title;
         $this->rubric_id = $content->rubric_id;
 

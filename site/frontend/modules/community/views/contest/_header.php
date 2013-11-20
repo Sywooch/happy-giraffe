@@ -22,7 +22,7 @@
                         <p><?=$contest->description?></p>
                     </div>
                     <div class="clearfix">
-                        <a href="javascript:void(0)" class="b-section_contest-rule fancy">Правила конкурса</a>
+                        <a href="javascript:void(0)" class="b-section_contest-rule">Правила конкурса</a>
                         <!--<a href="#popup-contest-rule" class="b-section_contest-rule fancy">Правила конкурса</a>-->
                         <?php if ($contest->status == CommunityContest::STATUS_ACTIVE): ?>
                             <a href="<?=$contest->getParticipateUrl()?>" class="btn-green btn-h46 fancy" id="takePartButton">Принять участие!</a>

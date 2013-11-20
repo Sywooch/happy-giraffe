@@ -64,7 +64,7 @@
 						<div class="b-section_contest">
 							<div class="b-section_t-contest clearfix">
 								<span class="b-section_t-contest-small">КОНКУРС</span>
-								<div class="b-section_t-contest-tx"> «Как вы рассказали своему мужу о беременности»</div>
+								<span class="b-section_t-contest-tx"> «Как вы рассказали своему мужу о беременности»</span>
 							</div>
 							<div class="b-section_contest-tx clearfix">
 								<p>Возможно, вы организовали вкусный ужин и как-то необычно сообщили об этом волшебном событии, может быть преподнесли тест с двумя полосочками, красиво упакованный, или написали прикольную смску, может... Обязательно напишите как на это отреагировал муж? Какая у него была реакция?</p>

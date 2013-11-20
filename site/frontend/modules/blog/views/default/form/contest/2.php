@@ -44,6 +44,7 @@ $form = $this->beginWidget('CActiveForm', array(
                     </div>
 
                     <div class="wysiwyg-v wysiwyg-blue clearfix">
+                        <label for="" class="b-settings-blue_label">Рассказ</label>
                         <?php $slaveModel->text = $slaveModel->forEdit->text ?>
                         <?=$form->textArea($slaveModel, 'text', array('class' => 'wysiwyg-redactor-v'))?>
                         <?=$form->error($slaveModel, 'text')?>

@@ -276,7 +276,7 @@ class DefaultController extends HController
             Yii::import('application.modules.community.models.*');
             $contest = CommunityContest::model()->with('forum')->findByPk($contest_id);
             $model->rubric_id = $contest->rubric_id;
-            $this->renderPartial('form/contest', compact('model', 'slaveModel', 'json', 'club_id', 'contest_id', 'contest'), false, true);
+            $this->renderPartial('form/contest/' . $contest->id, compact('model', 'slaveModel', 'json', 'club_id', 'contest_id', 'contest'), false, true);
         }
         elseif (Yii::app()->request->getPost('short'))
             $this->renderPartial('form/' . $model->type_id, compact('model', 'slaveModel', 'json', 'club_id'), false, true);

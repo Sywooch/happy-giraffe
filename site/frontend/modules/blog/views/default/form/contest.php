@@ -38,7 +38,7 @@
                     <div class="b-settings-blue_row clearfix">
                         <label for="" class="b-settings-blue_label">Рассказ</label>
                         <div class="b-settings-blue_row-tx clearfix">
-                            <?=$form->textArea($slaveModel, 'text', array('class' => 'b-settings-blue_textarea itx-simple', 'placeholder' => 'Расскажите о своём домашнем животном ( как его зовут, какой он породы, как вы за ним ухаживаете? что он умеет делать, какие лакомства он любит и т.д?)', 'cols' => 80, 'rows' => 9)) ?>
+                            <?=$form->textArea($slaveModel, 'text', array('class' => 'b-settings-blue_textarea itx-simple', 'placeholder' => $contest->textHint, 'cols' => 80, 'rows' => 9)) ?>
                         </div>
                     </div>
                 </div>

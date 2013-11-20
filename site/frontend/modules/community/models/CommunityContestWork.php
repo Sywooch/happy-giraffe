@@ -131,7 +131,7 @@ class CommunityContestWork extends HActiveRecord
 
     public function getShareImage()
     {
-        return $this->content->gallery->items[0]->photo->getPreviewUrl(580, null, Image::WIDTH);
+        return $this->content->getPhoto() ? $this->content->getPhoto()->getPreviewUrl(580, null, Image::WIDTH) : '';
     }
 
     public function getShareDescription()

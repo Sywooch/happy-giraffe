@@ -9,18 +9,20 @@
 
 class ContestController extends HController
 {
+    public $contest;
+
     const SORT_CREATED = 0;
     const SORT_RATE = 1;
 
     public function actionIndex($contestId, $sort = self::SORT_CREATED, $takePart = null)
     {
-        $contest = CommunityContest::model()->with('forum', 'contestWorks')->findByPk($contestId);
+        $this->contest = $contest = CommunityContest::model()->with('forum', 'contestWorks')->findByPk($contestId);
         if ($contest === null)
             throw new CHttpException(404);
 
         $works = $contest->getContestWorks($sort);
 
-        $this->bodyClass = 'theme-contest theme-contest__pets1';
+        $this->bodyClass = 'theme-contest theme-contest__' . $contest->cssClass;
         if (Yii::app()->user->isGuest)
             $this->bodyClass .= ' body-guest';
 

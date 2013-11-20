@@ -311,7 +311,7 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
     <?php endif; ?>
 
     <?php if ($this->id == 'contest'): ?>
-        <div class="cover cover-contest cover-contest__pets1"></div>
+        <div class="cover cover-contest cover-contest__<?=$this->contest->cssClass?>"></div>
     <?php endif; ?>
 </div>
 <div class="display-n">

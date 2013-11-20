@@ -22,27 +22,27 @@
     <div class="article-contest_col3">
         <?=($data->contestWork->contest->status == CommunityContest::STATUS_ACTIVE) ? 'Вы можете проголосовать за участника нажав на кнопки соцсетей' : 'Конкурс завершен. Идет подсчет голосов.'?>
     </div>
-</div>
-<?php if ($data->contestWork->contest->status == CommunityContest::STATUS_ACTIVE): ?>
-    <div class="like-block fast-like-block">
+    <?php if ($data->contestWork->contest->status == CommunityContest::STATUS_ACTIVE): ?>
+        <div class="like-block fast-like-block">
 
-        <div class="box-1">
-            <?php
-            Yii::app()->eauth->renderWidget(array(
-                'action' => '/ajax/socialVote',
-                'params' => array(
-                    'entity' => get_class($data->contestWork),
-                    'entity_id' => $data->contestWork->id,
-                    'model' => $data->contestWork
-                ),
-                'mode' => 'vote',
-            ));
-            ?>
+            <div class="box-1">
+                <?php
+                Yii::app()->eauth->renderWidget(array(
+                    'action' => '/ajax/socialVote',
+                    'params' => array(
+                        'entity' => get_class($data->contestWork),
+                        'entity_id' => $data->contestWork->id,
+                        'model' => $data->contestWork
+                    ),
+                    'mode' => 'vote',
+                ));
+                ?>
+
+            </div>
 
         </div>
-
-    </div>
-<?php endif; ?>
+    <?php endif; ?>
+</div>
 <?php $randomParticipants = $data->contestWork->getOtherParticipants(2, 2); if ($randomParticipants): ?>
     <div class="article-contest-conversion">
         <div class="article-contest-conversion_t">

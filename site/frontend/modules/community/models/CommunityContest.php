@@ -11,6 +11,8 @@
  * @property string $forum_id
  * @property string $rubric_id
  * @property integer $status
+ * @property string $cssClass
+ * @property string $textHint
  *
  * The followings are the available model relations:
  * @property Community $forum
@@ -35,20 +37,21 @@ class CommunityContest extends HActiveRecord
 	/**
 	 * @return array validation rules for model attributes.
 	 */
-	public function rules()
-	{
-		// NOTE: you should only define rules for those attributes that
-		// will receive user inputs.
-		return array(
-			array('description, rules, forum_id, rubric_id', 'required'),
+    public function rules()
+    {
+        // NOTE: you should only define rules for those attributes that
+        // will receive user inputs.
+        return array(
+            array('description, rules, forum_id, rubric_id, textHint', 'required'),
             array('status', 'numerical', 'integerOnly'=>true),
-			array('title', 'length', 'max'=>255),
-			array('forum_id, rubric_id', 'length', 'max'=>11),
-			// The following rule is used by search().
-			// @todo Please remove those attributes that should not be searched.
-			array('id, title, description, rules, forum_id, rubric_id, status', 'safe', 'on'=>'search'),
-		);
-	}
+            array('title', 'length', 'max'=>255),
+            array('forum_id, rubric_id', 'length', 'max'=>11),
+            array('cssClass', 'length', 'max'=>32),
+            // The following rule is used by search().
+            // @todo Please remove those attributes that should not be searched.
+            array('id, title, description, rules, forum_id, rubric_id, status, cssClass, textHint', 'safe', 'on'=>'search'),
+        );
+    }
 
 	/**
 	 * @return array relational rules.
@@ -69,18 +72,20 @@ class CommunityContest extends HActiveRecord
 	/**
 	 * @return array customized attribute labels (name=>label)
 	 */
-	public function attributeLabels()
-	{
-		return array(
-			'id' => 'ID',
-			'title' => 'Title',
-			'description' => 'Description',
-			'rules' => 'Rules',
-			'forum_id' => 'Forum',
+    public function attributeLabels()
+    {
+        return array(
+            'id' => 'ID',
+            'title' => 'Title',
+            'description' => 'Description',
+            'rules' => 'Rules',
+            'forum_id' => 'Forum',
             'rubric_id' => 'Rubric',
             'status' => 'Status',
-		);
-	}
+            'cssClass' => 'Css Class',
+            'textHint' => 'Text Hint',
+        );
+    }
 
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
@@ -94,24 +99,26 @@ class CommunityContest extends HActiveRecord
 	 * @return CActiveDataProvider the data provider that can return the models
 	 * based on the search/filter conditions.
 	 */
-	public function search()
-	{
-		// @todo Please modify the following code to remove attributes that should not be searched.
+    public function search()
+    {
+        // @todo Please modify the following code to remove attributes that should not be searched.
 
-		$criteria=new CDbCriteria;
+        $criteria=new CDbCriteria;
 
-		$criteria->compare('id',$this->id,true);
-		$criteria->compare('title',$this->title,true);
-		$criteria->compare('description',$this->description,true);
-		$criteria->compare('rules',$this->rules,true);
-		$criteria->compare('forum_id',$this->forum_id,true);
+        $criteria->compare('id',$this->id,true);
+        $criteria->compare('title',$this->title,true);
+        $criteria->compare('description',$this->description,true);
+        $criteria->compare('rules',$this->rules,true);
+        $criteria->compare('forum_id',$this->forum_id,true);
         $criteria->compare('rubric_id',$this->rubric_id,true);
         $criteria->compare('status',$this->status);
+        $criteria->compare('cssClass',$this->cssClass,true);
+        $criteria->compare('textHint',$this->textHint,true);
 
-		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-		));
-	}
+        return new CActiveDataProvider($this, array(
+            'criteria'=>$criteria,
+        ));
+    }
 
 	/**
 	 * Returns the static model of the specified AR class.

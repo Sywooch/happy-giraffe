@@ -16,7 +16,7 @@
                 <div class="b-section_contest">
                     <div class="b-section_t-contest clearfix">
                         <span class="b-section_t-contest-small">Конкурс</span>
-                        <span class="b-section_t-contest-tx"><?=$contest->title?></span>
+                        <span class="b-section_t-contest-tx">&laquo;<?=$contest->title?>&raquo;</span>
                     </div>
                     <div class="b-section_contest-tx clearfix">
                         <p><?=$contest->description?></p>

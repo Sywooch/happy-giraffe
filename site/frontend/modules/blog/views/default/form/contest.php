@@ -1,4 +1,10 @@
-<div id="popup-contest" class="popup-contest popup-contest__pets1">
+<?php
+/**
+ * @var CommunityContest $contest
+ */
+?>
+
+<div id="popup-contest" class="popup-contest popup-contest__<?=$contest->cssClass?>">
     <a class="popup-transparent-close" onclick="$.fancybox.close();" href="javascript:void(0);" title="Закрыть"></a>
     <div class="clearfix">
         <div class="w-720 float-r">

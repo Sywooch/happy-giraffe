@@ -99,6 +99,7 @@ class Community extends HActiveRecord
             'usersCount' => array(self::STAT, 'User', 'user__users_communities(user_id, community_id)'),
             'mobileCommunity' => array(self::BELONGS_TO, 'MobileCommunity', 'mobile_community_id'),
             'club' => array(self::BELONGS_TO, 'CommunityClub', 'club_id'),
+            'contest' => array(self::HAS_ONE, 'CommunityContest', 'forum_id', 'order' => 'id DESC'),
         );
     }
 

@@ -37,6 +37,9 @@
             <a href="<?=$this->createUrl('/community/default/clubPhotoPosts', array('clubId' => $this->club->id)) ?>" class="b-section_li-a<?php if (Yii::app()->controller->action->id == 'clubPhotoPosts' ) echo ' active' ?>">Фото-посты</a>
         </li>
     <?php endif; ?>
+    <?php if ($this->forum !== null && $this->forum->contest !== null): ?>
+        <li class="b-section_li"><a href="<?=$this->createUrl('/community/contest/index', array('contestId' => 1))?>" class="b-section_li-a"><img src="/images/contest/club/<?=$this->forum->contest->cssClass?>/club-menu-btn.png" alt=""></a></li>
+    <?php endif; ?>
 <?php else: ?>
     <?php $this->renderPartial('application.modules.community.views.default.club_specific._links_' . $this->club->id); ?>
 <?php endif ?>

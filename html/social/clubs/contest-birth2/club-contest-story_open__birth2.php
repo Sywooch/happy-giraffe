@@ -390,7 +390,7 @@
 					</div>
 					<div class="b-contest-advert_hold">
 						<div class="b-contest-advert_t">КОНКУРС</div>
-						<div class="b-contest-advert_name">«Как вы рассказали своему мужу <br> о беременности»</div>
+						<div class="b-contest-advert_name">«Как вы рассказали своему мужу о беременности»</div>
 						<a href="" class="btn-green btn-h46">Принять участие!</a>
 					</div>
 				</div>

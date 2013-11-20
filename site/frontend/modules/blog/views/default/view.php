@@ -25,7 +25,7 @@ switch ($data->type_id) {
         $cssClass = 'b-article__user-status';
         break;
     case CommunityContentType::TYPE_PHOTO:
-        $cssClass = 'b-article__photopost';
+        $cssClass = $data->contestWork === null ? 'b-article__photopost' : null;
         break;
     case CommunityContentType::TYPE_QUESTION:
         $cssClass = 'b-article__question';
@@ -73,6 +73,10 @@ switch ($data->type_id) {
         <!-- /ko -->
     </div>
 </div>
+
+<?php if ($full && $data->contestWork !== null): ?>
+    <?php $this->renderPartial('application.modules.blog.views.default._contest_bottom', compact('data')); ?>
+<?php endif; ?>
 
 <?php if ($full): ?>
     <?php $this->renderPartial('blog.views.default._article_banner'); ?>

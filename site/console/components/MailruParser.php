@@ -78,7 +78,6 @@ class MailruParser extends ProxyParserThread
             foreach ($attributes as $k => $v)
                 $model->$k = $v;
             $model->save();
-            break;
         }
     }
 }

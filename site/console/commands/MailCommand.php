@@ -98,9 +98,9 @@ class MailCommand extends CConsoleCommand
         Yii::app()->email->updateUserList();
     }
 
-    public function actionInitGenderLists()
+    public function actionGenerateFemaleList()
     {
-        Yii::app()->email->initGenderLists();
+        Yii::app()->email->generateFemaleList();
     }
 
     public function actionDeleteUsers()

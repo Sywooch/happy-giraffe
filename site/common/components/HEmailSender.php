@@ -92,30 +92,32 @@ class HEmailSender extends CApplicationComponent
         }
     }
 
-    public static function initGenderLists()
+    public static function generateFemaleList()
     {
-        Yii::import('site.seo.models.mongo.*');
-        $last_id = SeoUserAttributes::getAttribute('import_email_last_user_id', 1);
-        echo 'last_id: ' . $last_id . "\n";
-
         $criteria = new CDbCriteria;
         $criteria->with = array('mail_subs');
         $criteria->condition = '(t.group < 5 AND t.group > 0 OR t.group = 6) OR (t.group = 0 AND t.register_date >= "2012-05-01 00:00:00")';
         $criteria->scopes = array('active');
         $criteria->limit = 100;
-        $criteria->condition = 'id <= ' . $last_id;
         $criteria->offset = 0;
 
+        $result = array(array('first', 'last', 'email'));
         $models = array(0);
         while (!empty($models)) {
             $models = User::model()->findAll($criteria);
 
-            foreach ($models as $model) {
-                Yii::app()->email->addContact($model->email, $model->first_name, $model->last_name, $model->gender == 1 ? self::LIST_MEN_LIST : self::LIST_WOMEN_LIST);
-            }
+            foreach ($models as $model)
+                $result[] = array($model->first_name, $model->last_name, $model->email);
 
             $criteria->offset += 100;
         }
+
+        $fp = fopen('/home/beryllium/elastic.csv', 'w');
+
+        foreach ($result as $fields)
+            fputcsv($fp, $fields);
+
+        fclose($fp);
     }
 
     public function deleteRegisteredFromContestList()

@@ -111,7 +111,7 @@ class HEmailSender extends CApplicationComponent
             $models = User::model()->findAll($criteria);
 
             foreach ($models as $model)
-                Yii::app()->email->addExistingContact($model->email, $model->gender == 1 ? self::LIST_MEN_LIST : self::LIST_WOMEN_LIST);
+                ElasticEmail::addExistingContact($model->email, $model->gender == 1 ? self::LIST_MEN_LIST : self::LIST_WOMEN_LIST);
 
             $criteria->offset += 100;
         }

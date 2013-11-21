@@ -1,4 +1,4 @@
-<a href="http://www.frautest.ru/" class="contest-aside-prizes_sponsor">
+<a href="http://www.frautest.ru/" class="contest-aside-prizes_sponsor" target="_blank">
     <img src="/images/contest/club/birth2/aside-sponsor-logo.png" alt="">
 </a>
 <ul class="contest-aside-prizes_ul">

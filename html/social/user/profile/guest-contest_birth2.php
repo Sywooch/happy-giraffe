@@ -611,7 +611,7 @@ $(function() {
 						<div class="b-article-conversion_crosshead">
 							<div class="b-article-conversion_crosshead-top">
 								<img src="/images/contest/club/birth2/small.png" alt="">
-								<a href="" class="b-article-conversion_crosshead-name">Как вы рассказали своему <br> мужу о беременности</a>
+								<a href="" class="b-article-conversion_crosshead-name">Как я рассказала своему <br> мужу о беременности</a>
 							</div>
 							<div class="b-article-conversion_crosshead-t">Мой рассказ <br> участвует <br> в конкурсе!</div>
 							<div class="b-article-conversion_crosshead-desc">Проголосуйте за нас. <br>Нажмите на кнопки!</div>

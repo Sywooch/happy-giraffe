@@ -46,14 +46,17 @@ class MailruParser extends ProxyParserThread
             $name = $nameElement->plaintext;
             $namePieces = explode(' ', $name);
             list($firstName, $lastName) = $namePieces;
-            $geo = (($geoElement = $user->find('.b-mypage-social__card__date__link', 0)) !== null) ? $geoElement->plaintext : null;
+            $geoElement = $user->find('.b-mypage-social__card__date__link', 0);
+            $geo = ($geoElement !== null) ? $geoElement->plaintext : null;
             $innerUrl = $nameElement->href;
             $url = 'http://deti.mail.ru' . $innerUrl;
             $email = preg_replace('#^\/(.*)\/(.*)\/$#', '$2@$1.ru', $innerUrl);
             $gender = (strpos($user->class, 'b-mypage-social__card_male')) ? 1 : 0;
-            $age = intval($user->find('.b-mypage-social__card__date', 1)->plaintext);
+            $ageElement = $user->find('.b-mypage-social__card__date', 1);
+            $age = ($ageElement !== null) ? intval($ageElement->plaintext) : null;
             $list = $this->type;
-            $pregnancyWeek = (($blob = $user->find('.i-blob', 0)) !== null) ? $blob->plaintext : null;
+            $blob = $user->find('.i-blob', 0);
+            $pregnancyWeek = ($blob !== null) ? $blob->plaintext : null;
             $kidsElement = $user->find('.b-user__kids', 0);
             if ($kidsElement !== null) {
                 $children = array_map(function($a) {

@@ -36,7 +36,11 @@ class MailruParser extends ProxyParserThread
     public function parseQuery($response)
     {
         $html = str_get_html($response);
-        foreach ($html->find('.b-mypage-social__card') as $user) {
+        $users = $html->find('.b-mypage-social__card');
+        if (count($users) == 0)
+            Yii::app()->end();
+
+        foreach ($users as $user) {
             $nameElement = $user->find('.b-mypage-social__card__name__link', 0);
             $name = $nameElement->plaintext;
             $namePieces = explode(' ', $name);

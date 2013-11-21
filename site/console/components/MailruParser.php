@@ -45,7 +45,10 @@ class MailruParser extends ProxyParserThread
             $nameElement = $user->find('.b-mypage-social__card__name__link', 0);
             $name = $nameElement->plaintext;
             $namePieces = explode(' ', $name);
-            list($firstName, $lastName) = $namePieces;
+            if (count($namePieces) == 2)
+                list($firstName, $lastName) = $namePieces;
+            else
+                $firstName = $name;
             $geoElement = $user->find('.b-mypage-social__card__date__link', 0);
             $geo = ($geoElement !== null) ? $geoElement->plaintext : null;
             $innerUrl = $nameElement->href;

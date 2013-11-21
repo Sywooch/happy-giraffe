@@ -133,7 +133,7 @@ class CommunityContest extends HActiveRecord
 
     public function getUrl()
     {
-        return Yii::app()->createUrl('/community/contest/index', array('contestId' => $this->id));
+        return Yii::app()->createUrl('/community/contest/index', array('cssClass' => $this->cssClass));
     }
 
     public function getParticipateUrl()
@@ -143,7 +143,7 @@ class CommunityContest extends HActiveRecord
 
     public function getExternalParticipateUrl()
     {
-        return Yii::app()->user->isGuest ? '#login' : Yii::app()->createUrl('/community/contest/index', array('contestId' => $this->id, 'takePart' => 1));
+        return Yii::app()->user->isGuest ? '#login' : Yii::app()->createUrl('/community/contest/index', array('cssClass' => $this->cssClass, 'takePart' => 1));
     }
 
     public function getContestWorks($sort)

@@ -14,9 +14,9 @@ class ContestController extends HController
     const SORT_CREATED = 0;
     const SORT_RATE = 1;
 
-    public function actionIndex($contestId, $sort = self::SORT_CREATED, $takePart = null)
+    public function actionIndex($cssClass, $sort = self::SORT_CREATED, $takePart = null)
     {
-        $this->contest = $contest = CommunityContest::model()->with('forum', 'contestWorks')->findByPk($contestId);
+        $this->contest = $contest = CommunityContest::model()->with('forum', 'contestWorks')->findByAttributes(array('cssClass' => $cssClass));
         if ($contest === null)
             throw new CHttpException(404);
 

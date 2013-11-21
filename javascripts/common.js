@@ -124,15 +124,6 @@ function setTab(el, num) {
     }
 }
 
-
-function setSelectBoxValue(el) {
-    $(el).parents('.select-box').find('.select-value span').html($(el).find('span').html());
-    $(el).parents('.select-box').find('.select-value input').val($(el).find('input').val());
-    $(el).parents('.select-box').find('.select-list li').removeClass('active');
-    $(el).addClass('active');
-    if (!$(el).parents().hasClass('popup-container')) toggleSelectBox(el);
-}
-
 function initSelects(block) {
     block.find('.chzn-done').next().remove();
     var chzns = block.find('.chzn-done');
@@ -145,20 +136,7 @@ function initSelects(block) {
         });
     }
 }
-function confirmMessage(el, data, callback) {
-    var d = {};
-    for (var n in data) {
-        d[data[n]['name']] = data[n]['value'];
-    }
-    if (callback)
-        callback(el, d);
-    var box = $(el).parents('.popup');
-    box.find('.confirm-after').fadeIn();
-    box.find('.confirm-before').hide();
-    setTimeout(function () {
-        $.fancybox.close()
-    }, 1000)
-}
+
 
 function cl(value) {
     console.log(value);
@@ -175,68 +153,12 @@ $.fancybox.open = function (content) {
     });
 }
 
-function navDrpOpen(el) {
-
-    var li = $(el).parent();
-
-    if (!li.hasClass('active')) {
-        navDrpClose();
-        li.addClass('active');
-    } else {
-        li.removeClass('active');
-    }
-
-}
-
-function navDrpClose(el) {
-    $('.navdrp.active').removeClass('active');
-}
-
 $.fn.toggleDisabled = function () {
     return this.each(function () {
         this.disabled = !this.disabled;
     });
 };
 
-function albumVisibilityListToggle(el) {
-    var box = $(el).parents('.visibility-picker');
-    box.find('.visibility-list').toggle();
-}
-
-function albumVisibilitySet(el, num, id) {
-
-    var box = $(el).parents('.visibility-picker');
-
-    box.find('> .album-visibility > span').each(function () {
-        if ($(this).html() == '') $(this).remove();
-    });
-
-    for (var i = 3; i > num; i--) {
-        box.find('> .album-visibility').prepend('<span></span>');
-    }
-
-    $.post(base_url + '/albums/changePermission/', {id:id, num:num});
-
-    albumVisibilityListToggle(el);
-}
-
-function initScrolledContent() {
-    var cpo = 0;
-    $(window).scroll(function () {
-        var cp = $('#checkpoint').offset().top;
-        var st = $(window).scrollTop();
-        if (!$('#morning').hasClass('morning-wide')) {
-            if (st >= cp) {
-                $('#morning').addClass('morning-wide')
-                cpo = cp;
-            }
-        } else {
-            if (st < cpo - 100) {
-                $('#morning').removeClass('morning-wide')
-            }
-        }
-    });
-}
 
 /*comet.addEvent(300, 'liveContents');
 

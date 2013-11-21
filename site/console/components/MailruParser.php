@@ -26,12 +26,11 @@ class MailruParser extends ProxyParserThread
 
     public function start()
     {
-        $i = 1;
-//        for ($i = $this->thread_id; ; $i += 100) {
+        for ($i = $this->thread_id; ; $i += 100) {
             $url = 'http://deti.mail.ru/community/?status=' . $this->types[$this->type] . '&show_all=yes&page=' . $i;
             $response = $this->query($url);
             $this->parseQuery($response);
-//        }
+        }
     }
 
     public function parseQuery($response)

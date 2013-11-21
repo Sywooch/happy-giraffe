@@ -33,4 +33,16 @@ class MailruUser extends EMongoDocument
     {
         return parent::model($className);
     }
+
+    public function indexes()
+    {
+        return array(
+            'idx' => array(
+                'key' => array(
+                    'email' => EMongoCriteria::SORT_ASC,
+                ),
+                'unique' => true,
+            ),
+        );
+    }
 }

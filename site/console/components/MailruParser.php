@@ -30,6 +30,7 @@ class MailruParser extends ProxyParserThread
             $url = 'http://deti.mail.ru/community/?status=' . $this->types[$this->type] . '&show_all=yes&page=' . $i;
             $response = $this->query($url);
             $this->parseQuery($response);
+            echo "$i\n";
         }
     }
 

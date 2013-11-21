@@ -124,32 +124,6 @@ function setTab(el, num) {
     }
 }
 
-function toggleFilterBox(el) {
-    $(el).parents('.filter-box').toggleClass('filter-box-toggled');
-}
-
-function toggleChildForm(el) {
-    $(el).parents('.child').find('.child-form').fadeToggle();
-}
-
-function toggleBudgetCategoryBox(el) {
-    $(el).parents('.category-box').find('.box-in:not(:animated)').slideToggle(function () {
-        $(this).parents('.category-box').toggleClass('toggled')
-    });
-}
-function toggleSelectBox(el) {
-    list = $(el).parents('.select-box').find('.select-list');
-    if (list.is(':visible')) {
-        list.hide();
-    }
-    else {
-        if ($('.select-list:visible').size() > 0) {
-            $('.select-list:visible').hide();
-        }
-        list.fadeIn(200);
-    }
-
-}
 
 function setSelectBoxValue(el) {
     $(el).parents('.select-box').find('.select-value span').html($(el).find('span').html());

@@ -46,7 +46,7 @@ class MailruParser extends ProxyParserThread
             $name = $nameElement->plaintext;
             $namePieces = explode(' ', $name);
             list($firstName, $lastName) = $namePieces;
-            $geo = $user->find('.b-mypage-social__card__date__link', 0)->plaintext;
+            $geo = (($geoElement = $user->find('.b-mypage-social__card__date__link', 0)) !== null) ? $geoElement->plaintext : null;
             $innerUrl = $nameElement->href;
             $url = 'http://deti.mail.ru' . $innerUrl;
             $email = preg_replace('#^\/(.*)\/(.*)\/$#', '$2@$1.ru', $innerUrl);

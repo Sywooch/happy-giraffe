@@ -210,26 +210,6 @@ var PostGallery = {
     }
 }
 
-function editPhotoTitleInWindow(link) {
-    $(link).parent().hide().siblings('.title-edit').show();
-    $(link).parent().hide().siblings('.title-edit').find('input, textarea').val($(link).siblings('.title-text').text());
-}
-
-function savePhotoTitleInWindow(button) {
-    var val = $(button).siblings('input, textarea').val();
-    if ($(button).siblings('input').size() > 0) {
-        var attr = 'title';
-        var entity = 'AlbumPhoto';
-    } else {
-        var attr = 'description';
-        var entity = 'CookDecoration';
-    }
-
-    $(button).parent().hide().siblings('.title-content').show();
-    $(button).parent().hide().siblings('.title-content').find('.title-text').text(val);
-    $.post('/ajax/setValue/', {attribute:attr, value:val, entity:entity, entity_id:$('#photo-thumbs li.active a').attr('data-id')});
-}
-
 var Register = {
     url:null,
     start:false,
@@ -324,32 +304,6 @@ function ajaxSetValues(form, callback) {
     $.post($(form).attr('action'), $(form).serialize(), callback);
 }
 
-function getScrollBarWidth() {
-    var inner = document.createElement('p');
-    inner.style.width = "100%";
-    inner.style.height = "200px";
-
-    var outer = document.createElement('div');
-    outer.style.position = "absolute";
-    outer.style.top = "0px";
-    outer.style.left = "0px";
-    outer.style.visibility = "hidden";
-    outer.style.width = "200px";
-    outer.style.height = "150px";
-    outer.style.overflow = "hidden";
-    outer.appendChild(inner);
-
-    document.body.appendChild(outer);
-    var w1 = inner.offsetWidth;
-    outer.style.overflow = 'scroll';
-    var w2 = inner.offsetWidth;
-    if (w1 == w2) w2 = outer.clientWidth;
-
-    document.body.removeChild(outer);
-
-    return (w1 - w2);
-};
-
 function slideNavToggle(el) {
 
     var li = $(el).parent();
@@ -363,31 +317,6 @@ function slideNavToggle(el) {
             li.removeClass('toggled').find('>ul').slideUp();
         }
     }
-}
-
-function firstStepsToggle(el) {
-
-    var box = $('#first-steps .block-in');
-
-    if (box.is(':animated')) return false;
-
-    if ($(el).hasClass('toggled')) {
-        box.slideUp(function () {
-            $(el).find('span').html($(el).data('title'));
-            $(el).prev('.bonus').toggle();
-            $(el).removeClass('toggled');
-            $('.user-status').removeClass('toggled');
-        });
-    } else {
-        box.slideDown(function () {
-            $(el).find('span').html($(el).data('close'));
-            $(el).prev('.bonus').toggle();
-            $(el).addClass('toggled');
-            $('.user-status').addClass('toggled');
-        });
-    }
-
-
 }
 
 var PasswordRecovery = {
@@ -430,11 +359,6 @@ var Contest = {
         }, 'json');
     }
 };
-
-function toggleRubric(el) {
-    $(this).next('ul.club-topics-list-new-drop').toggle();
-    $(this).toggleClass('minus');
-}
 
 var Horoscope = {
     zodiac_list:['aries', 'taurus', 'gemini', 'cancer', 'leo', 'virgo', 'libra', 'scorpio', 'sagittarius', 'capricorn', 'aquarius', 'pisces'],
@@ -620,45 +544,6 @@ function HgLikeSmall(el, entity, entity_id){
         }
     }, 'json');
 }
-
-(function($) {
-
-    var defaults = {
-        posTop : 42,
-        minPosBottom : 200
-    };
-     
-    // 
-
-    $.fn.blockFixed = function (params) {
-//        var options = $.extend({}, defaults, options, params);
-//        var $this = $(this),
-//            $window = $(window);
-//
-//        var blockFixedOffset = $this.offset();
-//        blockFixedOffset.top = blockFixedOffset.top - parseInt($this.css('margin-top'));
-//        var scrollTop = $window.scrollTop();
-//
-//        $window.scroll(function(e){
-//            scrollTop = $window.scrollTop();
-//            if (scrollTop > blockFixedOffset.top - options.posTop) {
-//
-//                h = $('.layout-wrapper').height() - scrollTop - $this.height();
-//                b =  options.minPosBottom;
-//                if (h <= b) {
-//                    $this.css({'position': 'fixed', 'bottom': options.minPosBottom, 'top': 'auto'});
-//                } else {
-//                    $this.css({'position': 'fixed', 'top': options.posTop, 'bottom': 'auto'});
-//                }
-//            } else {
-//                $this.css({'position': 'relative', 'top': 'auto', 'bottom': 'auto'});
-//            }
-//        });
-//        return this;
-    };
-
-})(jQuery);
-
 
 //блок поиска
 $(function() {

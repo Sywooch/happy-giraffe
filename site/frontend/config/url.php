@@ -164,6 +164,7 @@ return array(
         'community/default/save' => 'community/default/save',
         'community/default/photoWidgetSave' => 'community/default/photoWidgetSave',
         'community/default/photoWidget' => 'community/default/photoWidget',
+        'community/default/createQuestion' => 'community/default/createQuestion',
         'community/clubFavourites/<clubId:\d+>' => 'community/default/clubFavourites',
         'community/clubPhotoPosts/<clubId:\d+>' => 'community/default/clubPhotoPosts',
 

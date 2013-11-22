@@ -94,9 +94,7 @@ switch ($data->type_id) {
     <?php $this->widget('blog.widgets.PostUsersWidget', array('post' => $data)); ?>
 <?php endif; ?>
 
-<?php if ($full && ! $data->getIsFromBlog() && in_array($data->rubric->community->club_id, array(8, 10, 14))): ?>
-    <?php $this->widget('CommunityMoreWidget', array('content' => $data)); ?>
-<?php endif; ?>
+<?php $this->widget('CommunityMoreWidget', array('content' => $data)); ?>
 
 <?php $this->widget('application.widgets.seo.SeoLinksWidget'); ?>
 

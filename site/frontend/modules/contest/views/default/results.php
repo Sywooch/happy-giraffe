@@ -229,7 +229,7 @@
             <div class="contest-winners_frame clearfix">
                 <ul class="contest-winners_list clearfix">
                     <?php foreach ($this->contest->winners as $w): ?>
-                        <?php $this->renderPartial('_winner', array('data' => $w, 'prize' => $prizes[$w->place], 'isConsolationPrize' => ($this->contest->id == 6 || $this->contest->id == 7) && ($w->place == 4 || $w->place == 5))); ?>
+                        <?php $this->renderPartial('_winner', array('collection' => $collection, 'data' => $w, 'prize' => $prizes[$w->place], 'isConsolationPrize' => ($this->contest->id == 6 || $this->contest->id == 7) && ($w->place == 4 || $w->place == 5))); ?>
                     <?php endforeach; ?>
                 </ul>
             </div>

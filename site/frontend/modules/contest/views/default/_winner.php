@@ -21,7 +21,7 @@
     <div class="gallery-photos-new clearfix">
 
         <ul>
-            <?php $this->renderPartial('_work', array('data' => $data->work)); ?>
+            <?php $this->renderPartial('_work', array('data' => $data->work, 'collection' => $collection)); ?>
 
         </ul>
 

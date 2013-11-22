@@ -124,9 +124,7 @@ class DefaultController extends HController
         $this->contest = $contest;
         $this->pageTitle = 'Результаты фотоконкурса «' . $contest->title . '»';
 
-        $collection = new ContestPhotoCollection(array('contestId' => $id, 'order' => 'created'));
-
-        $this->render('results', compact('collection'));
+        $this->render('results');
     }
 
     public function actionPrizes($id)

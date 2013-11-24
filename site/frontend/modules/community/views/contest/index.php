@@ -81,7 +81,7 @@ Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
                                 '1' => 'По количеству голосов',
                             ), array(
                                 'class' => 'chzn',
-                                'onchange' => 'document.location.href = \'' . $this->createUrl('/community/contest/index', array('contestId' => $contest->id)) . '?sort=\' + $(this).val();',
+                                'onchange' => 'document.location.href = \'' . $contest->getUrl() . '?sort=\' + $(this).val();',
                             ))?>
                         </div>
 

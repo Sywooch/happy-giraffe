@@ -324,7 +324,8 @@
 $(document).ready(function () {
 	$(window).scroll(function () {
         var contanerScroll = $(window).scrollTop();
-        if (contanerScroll > $('.layout-header').height()) {
+        var header = $('.layout-header');
+        if (contanerScroll > header.height() + header.offset().top) {
             $('.header-fix').fadeIn(400);
         } else {
             $('.header-fix').fadeOut(400);

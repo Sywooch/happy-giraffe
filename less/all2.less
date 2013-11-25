@@ -4036,7 +4036,26 @@ table.fr_recipe_tb td { width: 50%;}
 
     &__clearblue {}
     &__clearblue .b-section {margin-bottom: 30px;}
-
+    
+    &__adfox {}
+    &__adfox .layout-wrapper {
+        margin: 275px auto 200px;
+        overflow: hidden;
+        background: #F0F0F0 url(/images/body-gray.png) repeat-x;
+        .box-shadow(1px 1px 7px rgba(8,94,150,0.30));
+        z-index: 1;
+    }
+    &__adfox .layout-container {background: none;}
+    
+    &__adkinder {background:#a1d9f4 url(/images/branding/kinder/theme__adkinder.jpg) no-repeat 50% 0px;}
+    @media screen and (min-width: 1029px) {
+        &__adkinder {background:#a1d9f4 url(/images/branding/kinder/theme__adkinder-1400.jpg) no-repeat 50% 0px;}
+    }
+    @media screen and (min-width: 1399px) {
+        &__adkinder {background:#a1d9f4 url(/images/branding/kinder/theme__adkinder-1920.jpg) no-repeat 50% 0px;}
+    }
+    
+    &__adkinder .layout-wrapper {min-height:2100px;}
 }
 
 .cover {
@@ -4046,6 +4065,17 @@ table.fr_recipe_tb td { width: 50%;}
     right: 0;
     bottom: 0;
     left: 0;
+    
+    &__adkinder &_b {
+        height: 550px;
+        background: url(/images/branding/kinder/cover_b.jpg) no-repeat 50% 0;
+    }
+    &_b {
+        position: absolute;
+        bottom: 209px;
+        width: 100%;
+        height: 230px;
+    }
 }
 
 /* cover-contest */

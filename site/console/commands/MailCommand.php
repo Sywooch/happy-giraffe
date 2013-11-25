@@ -184,7 +184,9 @@ class MailCommand extends CConsoleCommand
             'nikita@happy-giraffe.ru',
         );
 
+        $html = $this->renderFile(Yii::getPathOfAlias('site.common.tpl') . DIRECTORY_SEPARATOR . 'contest_12.php', array(), true);
+
         foreach ($testList as $mail)
-            Yii::app()->email->sendEmail($mail, '{firstname}, принимай участие в конкурсе «Поделись улыбкою своей»!', 'noreply@happy-giraffe.ru', 'Веселый Жираф');
+            Yii::app()->email->sendEmail($mail, '{firstname}, принимай участие в конкурсе «Поделись улыбкою своей»!', $html, 'noreply@happy-giraffe.ru', 'Веселый Жираф');
     }
 }

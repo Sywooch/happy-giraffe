@@ -191,24 +191,6 @@ class MailCommand extends CConsoleCommand
         }
     }
 
-    public function actionContestKidsMailRu()
-    {
-        $offset = 0;
-        do {
-            $criteria = new EMongoCriteria();
-            $criteria->list = (string) MailruUser::LIST_CHILD;
-            $criteria->limit(1000);
-            $criteria->offset($offset);
-            $models = MailruUser::model()->findAll($criteria);
-            foreach ($models as $model) {
-                $subject = $model->firstName . ', принимай участие в конкурсе «Поделись улыбкою своей»!';
-                $html = $this->renderFile(Yii::getPathOfAlias('site.common.tpl') . DIRECTORY_SEPARATOR . 'contest_12.php', compact('model'), true);
-                Yii::app()->email->sendEmail($model->email, $subject, $html, 'noreply@happy-giraffe.ru', 'Веселый Жираф');
-            }
-            $offset += 1000;
-        } while (! empty($models));
-    }
-
     public function actionContestPregnancyMailRuTest()
     {
         $testList = array(
@@ -226,6 +208,27 @@ class MailCommand extends CConsoleCommand
         }
     }
 
+    public function actionContestKidsMailRu()
+    {
+        $offset = 0;
+        $i = 0;
+        do {
+            $criteria = new EMongoCriteria();
+            $criteria->list = (string) MailruUser::LIST_CHILD;
+            $criteria->limit(1000);
+            $criteria->offset($offset);
+            $models = MailruUser::model()->findAll($criteria);
+            foreach ($models as $model) {
+                $subject = $model->firstName . ', принимай участие в конкурсе «Поделись улыбкою своей»!';
+                $html = $this->renderFile(Yii::getPathOfAlias('site.common.tpl') . DIRECTORY_SEPARATOR . 'contest_12.php', compact('model'), true);
+                Yii::app()->email->sendEmail($model->email, $subject, $html, 'noreply@happy-giraffe.ru', 'Веселый Жираф');
+                $i++;
+            }
+            $offset += 1000;
+        } while (! empty($models));
+        echo $i . ' sent';
+    }
+
     public function actionContestPregnancyMailRu()
     {
         $offset = 0;
@@ -238,7 +241,7 @@ class MailCommand extends CConsoleCommand
             $models = MailruUser::model()->findAll($criteria);
             foreach ($models as $model) {
                 $subject = $model->firstName . ', принимай участие в конкурсе «Как я рассказала своему мужу о беременности»!';
-                $html = $this->renderFile(Yii::getPathOfAlias('site.common.tpl') . DIRECTORY_SEPARATOR . 'contest_12.php', compact('model'), true);
+                $html = $this->renderFile(Yii::getPathOfAlias('site.common.tpl') . DIRECTORY_SEPARATOR . 'contest_birth2.php', compact('model'), true);
                 Yii::app()->email->sendEmail($model->email, $subject, $html, 'noreply@happy-giraffe.ru', 'Веселый Жираф');
                 $i++;
             }

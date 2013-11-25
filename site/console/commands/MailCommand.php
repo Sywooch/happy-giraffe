@@ -173,4 +173,18 @@ class MailCommand extends CConsoleCommand
             }
         }
     }
+
+    public function actionContestPetsMailRu()
+    {
+        $testList = array(
+            'tantalid@gmail.com',
+            'tantalid@mail.ru',
+            'tantalid@rambler.ru',
+            'tantalid@yandex.ru',
+            'nikita@happy-giraffe.ru',
+        );
+
+        foreach ($testList as $mail)
+            Yii::app()->email->sendEmail($mail, '{firstname}, принимай участие в конкурсе «Поделись улыбкою своей»!', 'noreply@happy-giraffe.ru', 'Веселый Жираф');
+    }
 }

@@ -41,9 +41,6 @@
                             <span class="contest-prizes_heart"></span>
                             <span class="contest-prizes_i-t">Подарочный сертификат <strong>Л'Этуаль </strong> на 500 рублей и 2 геля для купания <strong>BABE</strong> </span>
                         </div>
-                        <div class="contest-prizes_desc">
-                            <p>ПОДАРОК ДЛЯ САМЫХ КАПРИЗНЫХ - номинал 1000 рублей! </p>
-                        </div>
                     </div>
                 </div>
 

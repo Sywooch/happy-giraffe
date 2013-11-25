@@ -174,7 +174,7 @@ class MailCommand extends CConsoleCommand
         }
     }
 
-    public function actionContestPetsMailRu()
+    public function actionContestKidsMailRu()
     {
         $testList = array(
             'tantalid@gmail.com',

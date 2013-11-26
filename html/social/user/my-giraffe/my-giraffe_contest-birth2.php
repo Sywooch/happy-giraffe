@@ -125,7 +125,7 @@
 				<div class="b-article-conversion b-article-conversion__contest b-article-conversion__birth2 clearfix">
 					<a href="" class="a-pseudo b-article-conversion_hide">Скрыть</a>
 					<div class="b-article-conversion_tx-top">Внимание! С 19 ноября стартовал <br>конкурс рассказов о вашей беременности!     </div>
-					<div class="heading-title textalign-c clearfix"> <img src="/images/contest/club/birth2/small.png" alt=""> Как я рассказала своему мужу  <br> о беременности</div>
+					<div class="heading-title textalign-c clearfix"> <img src="/images/contest/club/birth2/small.png" alt=""> Как я рассказала своему мужу  о беременности</div>
 					<div class="textalign-c font-middle">
 						<a href="">Участники конкурса (68)</a>
 					</div>
@@ -220,10 +220,6 @@
 								<p>В идеале предыдущих параметров должно хватить для того чтобы баннер работал корректно, тем не менее, если что-то у вас работает неправильно: вы не видите фон, или при клике на фон нет перехода.
 								</p>
 								<p>Значит вам надо настроить один из следующих параметров...</p>
-								<!-- <div class="b-article_in-img">
-									
-									<img alt="Ночные гости - кто они фото 1" class="content-img" src="http://img.happy-giraffe.ru/thumbs/700x700/56/edad8d334a0b4a086a50332a2d8fd0fe.JPG" title="Ночные гости - кто они фото 1">
-								</div> -->
 							</div>
 						</div>
 					</div>

@@ -5,7 +5,6 @@
 <!--[if gt IE 9]><!--> <html class=""> <!--<![endif]-->
 <head>
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/head.php'; ?>
-	<link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,100&amp;subset=latin,cyrillic-ext,cyrillic">
 
 </head>
 <body class="body-gray theme__adfox theme__adkinder">

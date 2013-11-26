@@ -6,7 +6,7 @@
                 <img src="/images/contest/club/<?=$work->contest->cssClass?>/small.png" alt="">
                 <a href="<?=$work->contest->url?>" class="b-article-conversion_crosshead-name"><?=$work->contest->title?></a>
             </div>
-            <div class="b-article-conversion_crosshead-t">Наш домашний <br> питомец участвует <br> в конкурсе!</div>
+            <div class="b-article-conversion_crosshead-t">Мой рассказ <br> участвует <br> в конкурсе!</div>
             <div class="b-article-conversion_crosshead-desc">Проголосуйте за нас. <br>Нажмите на кнопки!</div>
             <div class="like-block fast-like-block">
 

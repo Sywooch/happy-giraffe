@@ -4,10 +4,10 @@
  */
 ?>
 
-<div class="b-article-conversion b-article-conversion__contest b-article-conversion__pets1 clearfix">
+<div class="b-article-conversion b-article-conversion__contest b-article-conversion__<?=$contest->cssClass?> clearfix">
     <a href="javascript:void(0)" class="a-pseudo b-article-conversion_hide" onclick="$(this).parent().hide();">Скрыть</a>
     <div class="b-article-conversion_tx-top">Внимание! С 11 октября стартовал <br>конкурс рассказов о вашем домашнем питомце!     </div>
-    <div class="heading-title textalign-c clearfix"> <img src="/images/contest/club/pets1/small.png" alt=""><?=$contest->title?></div>
+    <div class="heading-title textalign-c clearfix"> <img src="/images/contest/club/<?=$contest->cssClass?>/small.png" alt=""><?=$contest->title?></div>
     <div class="textalign-c font-middle">
         <a href="<?=$contest->url?>">Участники конкурса (<?=$contest->contestWorksCount?>)</a>
     </div>

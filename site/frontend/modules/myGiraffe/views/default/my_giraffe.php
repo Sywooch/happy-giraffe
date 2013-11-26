@@ -74,9 +74,7 @@
     </div>
     <div class="col-23-middle col-gray">
 
-        <?php if (false): ?>
         <?php $this->widget('CommunityContestWidget'); ?>
-        <?php endif; ?>
 
         <?php $this->widget('PhotoContestWidget'); ?>
 

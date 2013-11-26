@@ -264,6 +264,18 @@
             </div>
             <?php endif; ?>
 
+            <?php if ($this->action->id == 'view'): ?>
+                <div class="contest-tizer clearfix">
+                    <div class="contest-tizer_img">
+                        <img src="/images/contest/club/birth2/contest-tizer_img.png" alt="">
+                    </div>
+                    <div class="contest-tizer_hold">
+                        <div class="contest-tizer_tx">Внимание! с 20 ноября стартовал фотоконкурс</div>
+                        <a href="http://www.happy-giraffe.ru/contest/birth2/" class="contest-tizer_a">Как я рассказала своему мужу о беременности</a>
+                    </div>
+                </div>
+            <?php endif; ?>
+
         </div>
 
         <div class="col-23 clearfix">

@@ -127,10 +127,20 @@
 					</ul>
 				</div>
 				
-				<div class="aside-banner">
+				<!-- <div class="aside-banner">
 					<a href="">
 						<img src="/images/contest/banner-w240-birth2.png" title="">
 					</a>
+				</div> -->
+
+				<div class="contest-tizer clearfix">
+					<div class="contest-tizer_img">
+						<img src="/images/contest/club/birth2/contest-tizer_img.png" alt="">
+					</div>
+					<div class="contest-tizer_hold">
+						<div class="contest-tizer_tx">Внимание! с 20 ноября стартовал фотоконкурс</div>
+						<a href="" class="contest-tizer_a">Как я рассказала своему мужу о беременности</a>
+					</div>
 				</div>
 			</div>
 			<div class="col-23-middle">

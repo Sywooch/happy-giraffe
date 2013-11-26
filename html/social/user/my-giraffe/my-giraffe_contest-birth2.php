@@ -169,6 +169,7 @@
 								<span class="b-article-prev_t-count">456</span>
 							</div>
 							<div class="b-article-prev_in">
+								<p>В половине чашке горячей воды разведем желатин.</p>
 								<div class="b-article_in-img">
 									<iframe width="235" height="129" frameborder="0" allowfullscreen="" src="http://www.youtube.com/embed/pehSAUTqjRs?wmode=transparent"></iframe>
 								</div>
@@ -216,10 +217,13 @@
 								<span class="b-article-prev_t-count">456</span>
 							</div>
 							<div class="b-article-prev_in">
-								<div class="b-article_in-img">
-									<!-- img width 235px -->
+								<p>В идеале предыдущих параметров должно хватить для того чтобы баннер работал корректно, тем не менее, если что-то у вас работает неправильно: вы не видите фон, или при клике на фон нет перехода.
+								</p>
+								<p>Значит вам надо настроить один из следующих параметров...</p>
+								<!-- <div class="b-article_in-img">
+									
 									<img alt="Ночные гости - кто они фото 1" class="content-img" src="http://img.happy-giraffe.ru/thumbs/700x700/56/edad8d334a0b4a086a50332a2d8fd0fe.JPG" title="Ночные гости - кто они фото 1">
-								</div>
+								</div> -->
 							</div>
 						</div>
 					</div>

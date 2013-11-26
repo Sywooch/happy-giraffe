@@ -614,7 +614,7 @@ $(function() {
 								<a href="" class="b-article-conversion_crosshead-name">Как я рассказала своему <br> мужу о беременности</a>
 							</div>
 							<div class="b-article-conversion_crosshead-t">Мой рассказ <br> участвует <br> в конкурсе!</div>
-							<div class="b-article-conversion_crosshead-desc">Проголосуйте за нас. <br>Нажмите на кнопки!</div>
+							<div class="b-article-conversion_crosshead-desc">Проголосуйте. <br>Нажмите на кнопки!</div>
 							 <div class="like-block fast-like-block">
 														
 								<div class="box-1">

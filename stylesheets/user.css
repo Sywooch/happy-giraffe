@@ -13,7 +13,6 @@
 #user .user-name {padding-left:12px;width:240px;margin-bottom:20px;min-height:120px;float:left;}
 #user .user-name h1 {line-height:1;margin:0 0 7px 0;color:#0281B0;}
 
-
 #user .user-name .online-status {color:#a6a6a6;font-size:13px;margin-bottom:5px;}
 #user .user-name .online-status  .icon {display:inline-block;*zoom:1;*display:inline;width:11px;height:11px;background:url(../images/common.png) no-repeat;margin-right:5px;}
 #user .user-name .online-status.online .icon {background-position:-44px -180px;}
@@ -132,11 +131,6 @@
 #user .user-map form input[type=text] {width:310px;padding:3px 5px;border:1px solid #c9eaf1;font-family:arial, sans-serif;margin-bottom:2px;}
 #user .user-map form small {font-size:11px;color:#a3a3a3;}
 #user .user-map .w-200 {width:208px;}
-
-
-#locationEdit {width:400px;}
-
-
 
 #user .user-mood {font-size:22px;color:#252525;padding-left:15px;position:relative;margin-bottom:8px;margin-top:-33px;}
 #user .user-mood img {vertical-align:top;position:relative;margin-top:-27px;}
@@ -295,67 +289,6 @@
 #user .user-map.user-add a {font-size:45px;line-height:35px;text-decoration:none;}
 #user .user-map.user-add img {margin-top:-45px;margin-left:1px;}
 
-
-#blogSettings {width:740px;}
-#blogSettings .popup-title {text-align:left;margin:0 5px 20px;}
-#blogSettings .settings-form {margin:20px 0;}
-#blogSettings .settings-form .row {margin-bottom:20px;}
-#blogSettings .settings-form .row .row-title {font-size:16px;color:#4c4d4d;}
-#blogSettings .settings-form .row .row-title span {font-size:11px;color:#6d6d6d;font-family:tahoma, arial, helvetica, sans-serif;}
-#blogSettings .settings-form .row .row-elements {margin:8px 0;}
-#blogSettings .settings-form .row .row-elements input[type=text] {padding:5px 10px;border:1px solid #cdcdcd;background:#fff;width:308px;font-size:15px;color:#3d3d3d;vertical-align:middle;}
-#blogSettings .settings-form .row .row-elements textarea {padding:5px 10px;border:1px solid #cdcdcd;background:#fff;width:308px;font-size:13px;color:#3d3d3d;vertical-align:bottom;width:80%;height:60px;}
-#blogSettings .settings-form .row .row-elements .btn-green-small {margin-left:5px;}
-#blogSettings .settings-form .row .row-elements .item-title {font-size:18px;color:#3680cc;}
-#blogSettings .settings-form .row .row-elements .edit {display:inline-block;*zoom:1;*display:inline;width:14px;height:18px;background:url(../images/common.png) no-repeat -383px -204px;margin-left:5px;position:relative;top:2px;}
-#blogSettings .settings-form .row .row-elements .edit:hover {background-position:-341px -136px;}
-
-#blogSettings .rubrics .note {color:#616162;font-size:12px;}
-#blogSettings .rubrics .note span {font-size: 25px; font-weight: bold; color: #62a3e5; position: relative; top: 8px; margin-right: 5px;}
-
-#blogSettings .rubrics .list {margin:25px 0;}
-#blogSettings .rubrics .list .col {width:47%;padding-right:3%;float:left;}
-#blogSettings .rubrics .list .col ul {list-style:none;}
-#blogSettings .rubrics .list .col ul li {padding-bottom:6px;color:#9b9a9b;}
-#blogSettings .rubrics .list .col ul li .num {display:inline-block;*zoom:1;*display:inline;width:20px;color:#9c9d9d;font-size:16px;vertical-align:middle;}
-#blogSettings .rubrics .list .col ul li .rubric {background:#e7f4ff;display:inline-block;*zoom:1;*display:inline;height:24px;padding:0 8px 0 6px;line-height:24px;white-space:nowrap;width:auto;color:#353535;cursor:move;}
-#blogSettings .rubrics .list .col ul li .rubric span {float: left; width: 4px; height: 10px; background: url(/images/common.png) no-repeat -383px -179px; margin: 6px 6px 0 0;}
-#blogSettings .rubrics .list .col ul li .remove { width: 12px; height: 14px; background: url(/images/common.png) no-repeat -314px -135px; vertical-align: middle; position: relative;display:none;margin-left:5px;}
-#blogSettings .rubrics .list .col ul li .remove:hover {background-position:-314px -148px;}
-#blogSettings .rubrics .list .col ul li .edit {display:none;width:14px;height:18px;background:url(../images/common.png) no-repeat -383px -204px;margin-left:5px;position:relative;vertical-align:middle;}
-#blogSettings .rubrics .list .col ul li .edit:hover {background-position:-341px -136px;}
-#blogSettings .rubrics .list .col ul li:hover .remove, #blogSettings .rubrics .list .col ul li:hover .edit {display:inline-block; *zoom:1;*display:inline;}
-#blogSettings .rubrics .list .col ul li .icon-add {display:inline-block;*zoom:1;*display:inline;width:16px;height:16px;background:url(/images/common.png) no-repeat -139px -174px;position:relative;top:-2px;}
-#blogSettings .rubrics .list .col ul li input[type=text] {padding:3px 5px;border:1px solid #cbdcea;background:#fff;width:270px;color:#3d3d3d;vertical-align:middle;font-size:11px;font-family:tahoma, arial, helvetica, sans-serif;margin-top:5px;}
-#blogSettings .rubrics .list .col ul li .btn {vertical-align:middle;position:relative;top:1px;margin-left:5px;}
-
-
-
-#blogSettings .rubrics .bottom-line .note {padding-top:15px;}
-#blogSettings .rubrics .bottom-line .note .in {display:inline-block;*zoom:1;*display:inline;vertical-align:middle;margin-right:25px;font-size:13px;line-height:16px;white-space:nowrap}
-#blogSettings .rubrics .bottom-line .note span {float:left;margin-right:5px;position:relative;top:0;}
-#blogSettings .rubrics .bottom-line .note img {vertical-align:middle;}
-
-#blogSettings .rubrics .btn-box {float:right;}
-
-#blogSettings .btn-finish {display:inline-block; *zoom:1;*display:inline; height: 58px; border: 1px solid #34ac51; background: #46b14e url(/images/btn_green_60.gif) repeat-x; line-height: 58px; color: #fff; font-size: 18px; font-weight: bold; text-decoration: none; padding: 0 30px;}
-#blogSettings .btn-finish {/*css3*/ border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; behavior: url(/stylesheets/PIE.htc);}
-
-#blogSettings .headings-style {margin:40px 0 0;color:#3f3e3f;font-size:13px;}
-#blogSettings .headings-style p {margin:0 5px 4px;}
-#blogSettings .headings-style .fonts-style {float:left;width:400px;}
-#blogSettings .headings-style .fonts-style .pattern-list .pattern {font-size:18px;line-height:29px;white-space:nowrap;overflow:hidden;}
-
-#blogSettings .headings-style .color-style {float:left;}
-#blogSettings .headings-style .color-style .pattern-list .pattern {width:10px;height:8px;-webkit-box-shadow: none;-moz-box-shadow: none;-ms-box-shadow: none; box-shadow: none;background:#353535;}
-#blogSettings .headings-style .color-style .pattern-list .pattern.font-color-1 {background:#4ba923;}
-#blogSettings .headings-style .color-style .pattern-list .pattern.font-color-2 {background:#d80303;}
-#blogSettings .headings-style .color-style .pattern-list .pattern.font-color-3 {background:#d87b03;}
-#blogSettings .headings-style .color-style .pattern-list .pattern.font-color-4 {background:#038ad8;}
-#blogSettings .headings-style .color-style .pattern-list .pattern.font-color-5 {background:#813bbd;}
-
-#blogSettings .headings-style .heading-preview {margin:35px 5px;font-size:30px;}
-
 #user .user-clubs {padding-bottom:20px;padding-left:15px;}
 #user .user-clubs ul {list-style:none;}
 #user .user-clubs ul li {display: inline-block;*zoom:1;*display:inline;vertical-align: top;margin:0 15px 5px 0;}
@@ -375,151 +308,6 @@
 #user .user-albums ul li .more:hover .icon {background-position:-499px -193px;}
 #user .user-albums ul li .more:hover {color:#7abc2e;text-decoration:underline;}
 
- .user-family {margin-bottom:20px;margin-top:3px;margin-top:20px;}
- .user-family .t {height:39px;background:url(/images/bg_user_family.png) no-repeat 0 0;}
- .user-family .c {background:url(/images/bg_user_family.png) repeat-y -240px 0;padding:10px 30px 10px;}
- .user-family .b {height:18px;background:url(/images/bg_user_family.png) no-repeat 0 -42px;}
- .user-family.user-family-border-1 .t {background-position:-480px 0;}
- .user-family.user-family-border-1 .c {background-position:-720px 0;}
- .user-family.user-family-border-1 .b {background-position:-480px -42px;}
- .user-family.user-family-border-2 .t {background-position:-960px 0;}
- .user-family.user-family-border-2 .c {background-position:-1200px 0;}
- .user-family.user-family-border-2 .b {background-position:-960px -42px;}
- .user-family.user-family-border-3 .t {background-position:-1440px 0;}
- .user-family.user-family-border-3 .c {background-position:-1680px 0;}
- .user-family.user-family-border-3 .b {background-position:-1440px -42px;}
- .user-family.user-family-border-4 .t {background-position:-1920px 0;}
- .user-family.user-family-border-4 .c {background-position:-2160px 0;}
- .user-family.user-family-border-4 .b {background-position:-1920px -42px;}
- .user-family.user-family-border-5 .t {background-position:-2400px 0;}
- .user-family.user-family-border-5 .c {background-position:-2640px 0;}
- .user-family.user-family-border-5 .b {background-position:-2400px -42px;}
- .user-family.user-family-border-6 .t {background-position:-2880px 0;}
- .user-family.user-family-border-6 .c {background-position:-3120px 0;}
- .user-family.user-family-border-6 .b {background-position:-2880px -42px;}
- .user-family.user-family-border-7 .t {background-position:-3360px 0;}
- .user-family.user-family-border-7 .c {background-position:-3600px 0;}
- .user-family.user-family-border-7 .b {background-position:-3360px -42px;}
- .user-family.user-family-border-8 .t {background-position:-3840px 0;}
- .user-family.user-family-border-8 .c {background-position:-4080px 0;}
- .user-family.user-family-border-8 .b {background-position:-3840px -42px;}
- .user-family .user-family_staff {margin: -10px -13px 10px;background: #fefcbb;padding: 10px 20px;color: #494848;font-size: 13px;}
- .user-family .icon-boy{display:inline-block;*zoom:1;*display:inline;background:url(../images/common.png) no-repeat -556px -221px;width:22px;height:22px;vertical-align:middle;margin:0 1px;}
- .user-family .icon-girl{display:inline-block;*zoom:1;*display:inline;background:url(../images/common.png) no-repeat -580px -221px;width:22px;height:22px;vertical-align:middle;margin:0 1px;}
- .user-family .icon-baby{display:inline-block;*zoom:1;*display:inline;background:url(../images/common.png) no-repeat -629px -269px;width:25px;height:19px;vertical-align:middle;margin:0 1px;}
- .user-family ul {list-style:none;}
- .user-family ul li {list-style:none;margin-top:20px;}
- .user-family ul li:first-child {margin-top:0;}
- .user-family ul li big {font-size:18px;color:#4c4d4d;display:block;line-height:1;margin-bottom:5px;}
- .user-family ul li big small {font-size:11px;color:#939697;}
- .user-family ul li big span {font-size:14px;}
- .user-family ul li .img {margin-bottom:5px;}
- .user-family ul li .img img {display:block;margin:auto;max-width:180px;}
- .user-family ul li .comment {margin-bottom:8px;position:relative;color:#3c93bc;font-size:13px;font-family:times new roman, serif;font-style:italic;padding:8px 10px;line-height:14px;position:relative;background:#CDECFF;overflow:hidden;}
- .user-family ul li .comment {/*css3*/ -moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;behavior: url(/stylesheets/PIE.htc);}
- .user-family ul li .comment .tale {position:absolute;display:block;width:30px;height:23px;right:65px;top:100%;background:url(/images/common.png) no-repeat -504px -251px;}
- .user-family ul li.waiting {}
- .user-family ul li.waiting .icon {width:59px;height:45px;display:block;background:url(/images/user_family_waiting.png) no-repeat;float:left;}
- .user-family ul li.waiting .in {margin-left:70px;color:#4c4d4d;line-height:22px;}
- .user-family ul li.waiting .time {color:#f56bbf;font-size:11px;}
- .user-family ul li.waiting .gender i {display:inline-block;*zoom:1;*display:inline;width:22px;height:21px;background:url(/images/common.png) no-repeat 22px 21px;margin-right:3px;position:relative;vertical-align:middle;top:-2px;}
- .user-family ul li.waiting .gender .icon-male {background-position:-556px -221px}
- .user-family ul li.waiting .gender .icon-female {background-position:-580px -221px}
- .user-family ul li.waiting .gender .icon-question {width:11px;background-position:-623px -221px}
- .user-family .watch-album {color:#fd6c01;font-size:15px;display:block;text-align:center;margin:20px 0;}
-
- .user-family .user-family-settings {margin:25px 0 -7px;}
- .user-family .user-family-settings .pseudo {font-size:11px;}
- .user-family .tooltip-new {margin-left:10px;}
-
- .user-family.user-family-cap .c {padding:0 17px;}
- .user-family .cap {display:block;width:100%;background:#f9f5ef url(/images/bg_user_family_cap.gif) no-repeat bottom;text-align:center;padding:15px 0 215px;font-size:15px;}
- .user-family .cap:hover {text-decoration:none;}
-
-#user .user-family-borders {padding:0 10px 10px;}
-#user .user-family-borders p {font-size:14px;margin:0 7px 7px;}
-#user .user-family-borders .pattern-list {width:auto;}
-#user .user-family-borders .pattern-list li {margin: 0 8px 7px 0;}
-#user .user-family-borders .pattern {background:url(/images/bg_user_family_prev.png) no-repeat 10px 10px;padding:8px 13px 0 0;height:30px;width:42px;}
-#user .user-family-borders .pattern.user-family-border-1 {background-position:10px -50px;}
-#user .user-family-borders .pattern.user-family-border-2 {background-position:10px -110px;}
-#user .user-family-borders .pattern.user-family-border-3 {background-position:10px -170px;}
-#user .user-family-borders .pattern.user-family-border-4 {background-position:10px -230px;}
-#user .user-family-borders .pattern.user-family-border-5 {background-position:10px -290px;}
-#user .user-family-borders .pattern.user-family-border-6 {background-position:10px -350px;}
-#user .user-family-borders .pattern.user-family-border-7 {background-position:10px -410px;}
-#user .user-family-borders .pattern.user-family-border-8 {background-position:10px -470px;}
-
-
-#user .family {padding-left:20px;}
-#user .family .content-title {margin-bottom:20px;}
-
-#user .family .family-radiogroup {background:#f1e4fd;margin-left:-20px;padding:15px 20px;margin-bottom:20px;}
-#user .family .family-radiogroup .radiogroup {display:inline-block;*zoom:1;*display:inline;vertical-align:top;}
-#user .family .family-radiogroup .title {font-size:22px;color:#484747;line-height:1;margin-bottom:10px;}
-#user .family .family-radiogroup .title span.title {color:#714399;font-size:18px;margin:0 15px;}
-#user .family .family-radiogroup .title a {font-size:13px;}
-#user .family .family-radiogroup small {font-size:13px;}
-#user .family .family-radiogroup .subtitle {font-size:13px;color:#7e7b7b;line-height:1;margin-bottom:10px;}
-#user .family .family-radiogroup .radio-label {padding:0 16px;height:31px;display:inline-block;*zoom:1;*display:inline;line-height:31px;text-align:center;background:#fff;border:1px solid #dcc7ee;font-size:18px;color:#aeadad;cursor:pointer;}
-#user .family .family-radiogroup .radio-label {/*css3*/ -moz-border-radius:14px;-webkit-border-radius:14px;border-radius:14px;behavior: url(/stylesheets/PIE.htc);}
-#user .family .family-radiogroup .radio-label.checked {background:#dcc7ee;color:#714399;}
-#user .family .family-radiogroup .radio-label input {display:none;}
-#user .family .family-radiogroup .icon-waiting {display:inline-block;*zoom:1;*display:inline;width:24px;height:23px;background:url(/images/user_family_radio_waiting.png) no-repeat;vertical-align:middle;position:relative;left:5px;top:-2px;}
-#user .family .family-radiogroup .checked .icon-waiting {background-position:0 100%;}
-
-#user .family .family-member {font-size:13px;padding-bottom:20px;color:#7e7b7b;}
-
-#user .family .family-member > p {margin-bottom:1em;}
-
-#user .family .family-member .data {margin-bottom:15px;}
-
-#user .family .family-member .member-title {color:#434242;font-size:15px;margin-bottom:15px;}
-
-#user .family .family-member .data .d-text {color:#434242;float:left;font-size:15px;margin-right:10px;display:inline-block;*zoom:1;*display:inline;}
-
-#user .family .family-member .data .name {float:left;margin-right:10px;}
-#user .family .family-member .data .name .text {font-size:15px;color:#3c9cd7;font-weight:bold;display:inline-block;*zoom:1;*display:inline;}
-#user .family .family-member .data .name .input {float:left;}
-#user .family .family-member .data .name .input input {border:1px solid #badef1;font-size:15px;line-height:1;padding:2px 7px;margin:-2px 0 0 0;font-size:15px;font-weight:bold;color:#3c9cd7;}
-
-#user .family .family-member .data .gender {display:inline-block;*zoom:1;*display:inline;width:22px;height:21px;background:url(/images/common.png) no-repeat 22px 21px;margin-right:3px;position:relative;vertical-align:middle;top:-2px;}
-#user .family .family-member .data .gender.male {background-position:-556px -244px}
-#user .family .family-member .data .gender.male:hover, #user .family .family-member .data .gender.male.active {background-position:-556px -221px;}
-#user .family .family-member .data .gender.female {background-position:-580px -244px}
-#user .family .family-member .data .gender.female:hover, #user .family .family-member .data .gender.female.active {background-position:-580px -221px}
-#user .family .family-member .data .gender.question {width:11px;background-position:-623px -244px}
-#user .family .family-member .data .gender.question:hover, #user .family .family-member .data .gender.question.active {width:11px;background-position:-623px -221px}
-
-#user .family .family-member .data .age {float:left;color:#3c9cd7;font-size:15px;margin-left:5px;}
-
-#user .family .family-member .data div.date {display:inline-block;*zoom:1;*display:inline;}
-#user .family .family-member .data div.date .w-1 {width:50px;}
-#user .family .family-member .data div.date .w-2 {width:100px;}
-#user .family .family-member .data div.date .w-3 {width:70px;}
-#user .family .family-member .data div.date .text {font-size:15px;color:#3c9cd7;font-weight:bold;}
-
-
-#user .family .family-member .comment {background:#cdecff;width:292px;padding:10px 15px;text-align:right;margin-top:10px;margin-bottom:10px;-moz-border-radius:10px;-webkit-border-radius:10px;border-radius:10px;position:relative;}
-#user .family .family-member .comment .text {color:#177fb2;text-align:left;font:italic 14px times new roman, times, serif;}
-#user .family .family-member  .edit {display:inline-block;*zoom:1;*display:inline;width:14px;height:18px;background:url(/images/common.png) no-repeat -383px -204px;margin:0 auto;position:relative;text-decoration:none;font-weight:normal;z-index:3;vertical-align:middle;top:-3px;}
-#user .family .family-member  .edit:hover {background-position:-341px -136px;}
-#user .family .family-member  .remove {display:inline-block;*zoom:1;*display:inline;width:12px;height:14px;background:url(/images/common.png) no-repeat -314px -135px;position:relative;margin-right:8px;vertical-align:middle;top:-2px;}
-#user .family .family-member  .remove:hover {background-position:-314px -148px;}
-#user .family .family-member .comment .input {position:relative;}
-#user .family .family-member .comment .tale {display:block;content:'';width:11px;height:34px;background:url(/images/common.png) no-repeat -447px -274px;position:absolute;top:-6px;left:-11px;}
-#user .family .family-member .comment .input textarea {font-size:15px;line-height:1;padding:5px 5px;font-size:15px;overflow:auto;width:280px;height:50px;font-size:13px;color:#484747;vertical-align:bottom;border:1px solid #badef1;max-width:290px;resize:none;margin-bottom:5px;}
-
-#user .family .family-member .gallery-photos-new {margin-top:15px;margin-left:-30px;}
-#user .family .family-member .gallery-photos-new .add {text-align:center;}
-#user .family .family-member .gallery-photos-new .add a {text-decoration:none;display:block;padding:30px 0;}
-#user .family .family-member .gallery-photos-new .add .icon {display:block;margin:10px auto 10px;width:33px;height:33px;background:url(/images/common.png) no-repeat -464px -191px;}
-#user .family .family-member .gallery-photos-new .add a:hover .icon {background-position:-429px -191px;}
-#user .family .family-member .gallery-photos-new .add  span {border-bottom:1px dashed #238ed9;}
-
-#user .family .family-member .icon-waiting {display:inline-block;*zoom:1;*display:inline;width:47px;height:36px;background:url(/images/user_family_member_waiting.png) no-repeat;position:relative;top:3px;margin-right:5px;}
-#user .family .family-member .couple {display:inline-block;*zoom:1;*display:inline;width:16px;height:16px;background:url(/images/common.png) no-repeat -139px -174px;position:relative;top:3px;margin-right:3px;}
-
 #user .user-weather {margin-bottom:20px;padding:10px 14px;border:1px solid #e8e8e8;height: 185px;}
 #user .user-weather .box-title a.pseudo {margin-top:7px;}
 #user .user-weather .location {font-size:12px;color:#929292;}
@@ -536,26 +324,6 @@
 #user .user-weather table td {padding:6px 5px;font-size:13px;color:#2997e3;width:1%;}
 #user .user-weather table thead td {border-top:1px solid #c2e7f7;border-bottom:1px solid #c2e7f7;height:23px;line-height:23px;color:#868788;font-size:12px;padding:0 5px;}
 #user .user-weather table .hl td {background:#e8f6ff;}
-
-#user .user-duel {background:#d0e6ff;padding:15px;}
-#user .user-duel .box-title {}
-#user .user-duel .box-title span {color:#3d7cb1;}
-#user .user-duel .question {font-size:15px;color:#555455;padding:10px 10px 10px 50px;margin-bottom:10px;background:#eef6fe url(/images/icon_info_29x29.png) no-repeat 10px 10px;min-height:29px;}
-#user .user-duel .my-votes {padding-bottom:15px;}
-#user .user-duel .my-votes .ava {float:left;}
-#user .user-duel .my-votes .in {background:#ffffff;position:relative;padding:10px;text-align:center;float:left;margin-left:8px;width:210px;}
-#user .user-duel .my-votes .in {/*css3*/ -moz-border-radius:15px;-webkit-border-radius:15px;border-radius:15px;behavior: url(/stylesheets/PIE.htc);}
-#user .user-duel .my-votes .in .tale {display:block;width:28px;height:32px;position:absolute;background:url(/images/user_duel_tale.png) no-repeat;right:100%;top:25px;}
-#user .user-duel .my-votes .in .label {color:#6d6d6e;font:italic 25px/1 times new roman, serif;margin-bottom:10px;}
-#user .user-duel .my-votes .in .count {display:inline-block;*zoom:1;*display:inline;vertical-align:top;margin-left:10px;margin-bottom:10px;color:#939292;width:100px;}
-#user .user-duel .my-votes .in .count span {display:block;font:italic 60px/0.9 times new roman, serif;color:#2fa84b;}
-#user .user-duel .my-votes .in img {margin-left:15px;}
-#user .user-duel .opponent {color:#515151;padding-left:10px;}
-#user .user-duel .opponent .count {float:right;margin-top:5px;width:100px;text-align:center;margin-right:27px;color:#939292;}
-#user .user-duel .opponent .count span {color:#4992d0;display:block;font:italic 30px/0.9 times new roman, serif;}
-#user .user-duel .opponent .user-info {margin-top:5px;}
-#user .user-duel .opponent .user-info .details {margin-left:30px;}
-#user .user-duel .opponent .user-info .details .username {width:110px;}
 
 #user .friends {}
 #user .friends ul {list-style:none;padding:0 20px;}
@@ -608,22 +376,6 @@
 #user .user-joined .calendar-date {display:inline-block;*zoom:1;*display:inline;vertical-align:middle;}
 #user .user-joined span {display:inline-block;*zoom:1;*display:inline;width:140px;padding-left:10px;vertical-align:middle;font-size:13px;color:#5b5b5b;}
 
-#user-activity {}
-
-#user-activity .calendar-date {margin:0 auto 40px;}
-
-#user-activity .added-to {font-weight:bold;font-family:tahoma, arial, helvetica, sans-serif;font-size:11px;margin-bottom:10px;}
-#user-activity .added-to > span {margin-right:5px;color:#606060;}
-#user-activity .added-to .user-info {float:none;display:inline-block;*zoom:1;*display:inline;font-weight:normal;font-family:arial, helvetica, sans-serif;vertical-align:middle;}
-#user-activity .added-to .user-info .details {margin-left:30px;}
-#user-activity .added-to > a {display:inline-block;*zoom:1;*display:inline;max-width:220px;vertical-align:top;}
-#user-activity .added-date {text-align:left;color:#b6b9ba;font-size:9px;font-family:tahoma, arial, helvetica, sans-serif;margin-bottom:6px;}
-
-#user-activity .user-mood {padding:20px 15px 0;margin-top:0;white-space:nowrap;}
-
-#user-activity .user-status:after {display:none;}
-#user-activity .box .box-title {padding:0 15px;padding-bottom:10px;}
-
 #user .user-post {padding:15px 15px 0;margin-bottom:20px;border:1px solid #e8e8e8;}
 #user .user-post ul {list-style:none;}
 #user .user-post ul li {margin-bottom:15px;}
@@ -635,144 +387,6 @@
 #user .user-post ul li .comment:after {display:block;content:'';border:7px solid transparent;border-top:0;border-bottom-color:#dcf2ff;position:absolute;left:50%;top:-7px;margin-left:-7px;}
 #user .user-post ul li .img {margin-bottom:5px;}
 #user .user-post ul li .meta {margin-top:10px;}
-
-#user-activity .user-friends {padding:15px;border:1px solid #e8e8e8;margin:0 0 20px;}
-#user-activity .user-friends ul {margin-left:-5px;}
-#user-activity .user-friends ul li {margin:0 0px 5px 5px;}
-
-#user-activity .user-lvl-box {padding:15px;border:1px solid #e8e8e8;margin:0 0 20px;}
-#user-activity .user-lvl-box .user-lvl {margin:0 auto;}
-#user-activity .user-lvl-box .box-title {padding:0 0 15px;}
-
-#user-activity .user-interests-box {padding:15px;border:1px solid #e8e8e8;margin:0 0 20px;}
-#user-activity .user-interests-box .box-title {padding:0 0 15px;}
-
-#user-activity .user-purpose-box {padding:15px;border:1px solid #e8e8e8;margin:0 0 20px;}
-#user-activity .user-purpose-box .box-title {padding:0 0 15px;}
-
-#user-activity .fast-teasers-box {padding:15px;border:1px solid #e8e8e8;margin:0 0 20px;}
-#user-activity .fast-teasers-box .box-title {padding:0 0 15px;}
-#user-activity .fast-teasers-box .item-title {font-size:14px;font-weight:bold;font-family:tahoma, arial, helvetica, sans-serif;margin-bottom:5px;}
-#user-activity .fast-teasers-box .block-title {font-size:23px;color:#131312;margin-bottom:20px;}
-#user-activity .fast-teasers-box ul {list-style:none;font-size:13px;}
-#user-activity .fast-teasers-box ul li {overflow:hidden;margin-top:25px;}
-#user-activity .fast-teasers-box ul li:first-child {margin-top:0;}
-#user-activity .fast-teasers-box ul li .img {float:left;}
-#user-activity .fast-teasers-box ul li .text {margin-left:130px;}
-#user-activity .fast-teasers-box ul li .text p {line-height:19px;}
-
-
-#user-activity .user-family {text-align:center;padding:15px;border:1px solid #e8e8e8;margin:0 0 20px;}
-#user-activity .user-family .box-title {padding:0 0 15px;text-align:left;}
-#user-activity .user-family .t {height:19px;background-position:0 -20px;width:240px;margin:0 auto;}
-#user-activity .user-family .c {width:180px;margin:0 auto;text-align:left;}
-#user-activity .user-family .b {width:240px;margin:0 auto 10px;}
-#user-activity .user-family .more {color:#b9b9b9;font-size:13px;text-decoration:none;margin-left:20px;text-align:left;display:inline-block;*zoom:1;*display:inline;}
-#user-activity .user-family .more .icon {display:inline-block;*zoom:1;*display:inline;width:56px;height:56px;background:url(../images/common.png) no-repeat -499px -135px;vertical-align:middle;margin-right:10px;}
-#user-activity .user-family .more:hover .icon {background-position:-499px -193px;}
-#user-activity .user-family .more:hover {color:#7abc2e;text-decoration:underline;}
-#user-activity .user-family .more span {display:inline-block;*zoom:1;*display:inline;vertical-align:middle;}
-
-#user-activity .user-duel {width:310px !important;}
-
-#user-activity .user-map {width:322px !important;}
-
-#user-activity .user-clubs {padding:15px;border:1px solid #e8e8e8;margin:0 0 20px;}
-#user-activity .user-clubs ul {}
-#user-activity .user-clubs ul li {margin:0 25px 0 0;}
-
-#user-activity .activity-list {width:720px;padding-bottom:20px;}
-#user-activity .activity-list .list-item {float:left;margin-right:20px !important;margin-bottom:20px !important;width:308px;}
-
-#user-activity .activity-friend {padding-bottom:15px;}
-#user-activity .activity-friend .ava {margin-top:-42px;}
-
-#user-activity.user-friends-activity .list-item {margin-bottom:60px !important;}
-
-#first-steps {background:#fffce4 url(/images/bg_first_steps.gif) no-repeat top;margin-bottom:38px;padding:30px 20px 10px 30px;position:relative;top:-20px;}
-
-#first-steps .block-title {height:45px;}
-#first-steps .block-title .title-in {font-size:40px;line-height:1;color:#a97f52;}
-
-#first-steps .block-title .bonus {vertical-align:middle;margin-right:20px;font-size:13px;float:left;}
-#first-steps .block-title .bonus  img {vertical-align:middle;margin-left:10px;}
-
-#first-steps .block-title .right {float:right;}
-
-#first-steps .block-title .toggler {text-decoration:none;color:#a18969;vertical-align:top;float:left;margin-top:15px;}
-#first-steps .block-title .toggler span {border-bottom:1px dashed #a18969;}
-#first-steps .block-title .toggler .icon {display:inline-block;*zoom:1;*display:inline;width:9px;height:7px;background:url(/images/common.png) no-repeat -504px -284px;margin-left:5px;}
-#first-steps .block-title .toggler.toggled .icon {background-position:-515px -284px;}
-
-#first-steps .block-in {}
-
-#first-steps .block-in .container {padding:15px 0;height:190px;}
-
-#first-steps .block-in .steps-list {float:left;width:384px;border-right:1px solid #eddb9c;height:190px;padding-right:10px;}
-#first-steps .block-in .steps-list ul {font-size:15px;list-style:none;}
-#first-steps .block-in .steps-list ul li {margin-top:15px;}
-#first-steps .block-in .steps-list ul li:first-child {margin-top:0;}
-#first-steps .block-in .steps-list ul li .num {font-size:15px;color:#7a7a7a;padding:0 5px;display:inline-block;*zoom:1;*display:inline;width:45px;}
-#first-steps .block-in .steps-list ul li .text {padding:0 5px;display:inline-block;*zoom:1;*display:inline;color:#7a7a7a;}
-#first-steps .block-in .steps-list ul li .done {display:inline-block;*zoom:1;*display:inline;color:#3fb550;font-size:13px;}
-#first-steps .block-in .steps-list ul li .done .icon {display:inline-block;*zoom:1;*display:inline;width:11px;height:8px;background:url(/images/first_steps_done.png) no-repeat;margin-right:5px;}
-
-#first-steps .block-in .steps-list .strike {}
-#first-steps .block-in .steps-list .strike .num {text-decoration:line-through;}
-#first-steps .block-in .steps-list .strike .text {text-decoration:line-through;}
-
-#first-steps .block-in .info {float:left;width:224px;border-left:1px solid #fff;height:190px;padding-left:20px;text-align:center;}
-#first-steps .block-in .info p {margin-bottom:30px;font-size:16px;color:#5b5a5a}
-#first-steps .block-in .info p span {display:block;font-size:25px;font-weight:bold;color:#6ecc6c;}
-#first-steps .block-in .info .bonus {}
-#first-steps .block-in .info .bonus img {vertical-align:middle;}
-#first-steps .block-in .info .bonus .bonus-left {display:inline-block;*zoom:1;*display:inline;width: 140px;vertical-align:middle;font-size:16px;color:#5f5f5f;line-height:1;}
-#first-steps .block-in .info .bonus .bonus-left img {position:relative;top:-1px;}
-#first-steps .block-in .info .bonus .bonus-left span {font-size:13px;display:block;margin-top:5px;}
-
-#first-steps .finished {text-align:center;padding:30px 20px 30px 0;}
-#first-steps .finished .finished-title {font-size:40px;color:#a97f52;line-height:1;margin-bottom:20px;}
-#first-steps .finished p {margin-bottom:30px;color:#5d5d5c;font-size:20px;}
-#first-steps .finished .bonus {font-size:17px;color:#585858;}
-#first-steps .finished .bonus img {vertical-align:middle;margin:0 20px;}
-#first-steps .finished .bonus .change {text-align:left;display:inline-block;*zoom:1;*display:inline;}
-#first-steps .finished .bonus .change span {display:block;height:20px;margin-bottom:-30px;margin-top:5px;}
-#first-steps .finished .bonus .change span a {font-size:13px;} 
-
-#firstStepsBirthday {width:700px;}
-#firstStepsBirthday .left {width:240px;padding-right:20px;text-align:center;float:left;padding:30px 0;}
-#firstStepsBirthday .right {margin-left:260px;padding:30px 0;}
-#firstStepsBirthday .right .title {margin-bottom:30px;font-size:25px;}
-#firstStepsBirthday .right .select-box {background:#f6eefe;display:block;margin-bottom:30px;text-align:center;color:#6b6b6b;font-size:15px;margin-right:20px;}
-#firstStepsBirthday .right .select-box .w-1 {width:65px;}
-#firstStepsBirthday .right .select-box .w-2 {width:100px;}
-#firstStepsBirthday .right .select-box .w-3 {width:65px;}
-#firstStepsBirthday .right .hl {background:#fffbc9;padding:2px 6px;color:#5a5a5a;font-size:14px;}
-
-#firstStepsEmail {width:700px;}
-#firstStepsEmail .left {width:240px;padding-right:20px;text-align:center;float:left;padding:30px 0;}
-#firstStepsEmail .right {margin-left:260px;padding:30px 0;text-align:center;}
-#firstStepsEmail .right .title {margin-bottom:30px;font-size:25px;}
-#firstStepsEmail .right  p {color:#5a5a5a;font-size:14px;margin-bottom:30px;}
-#firstStepsEmail .right .hl {background:#fffbc9;padding:2px 6px;color:#5a5a5a;}
-#firstStepsEmail .right .hl span {color:#1577db;}
-#firstStepsEmail .note {color:#62a3e5;font-weight:bold;font-family:arial black, arial, helvetica, sans-serif;font-size:20px;position:relative;top:3px;}
-#firstStepsEmail .orange {display:inline-block;*zoom:1;*display:inline;padding:0 5px;background:#f89731;color:#fff;text-decoration:none;-moz-border-radius:10px;-webkit-border-radius:10px;border-radius:10px;behavior: url(/stylesheets/PIE.htc);font-size:12px;font-family:tahoma, arial, helvetica, sans-serif;}
-#firstStepsEmail .bottom {font-size:11px;color:#898989;font-family:tahoma, arial, helvetica, sans-serif;}
-
-#firstStepsLocation {width:700px;}
-#firstStepsLocation .left {width:240px;padding-right:20px;text-align:center;float:left;padding:30px 0;}
-#firstStepsLocation .right {margin-left:260px;padding:30px 0;text-align:center;}
-#firstStepsLocation .right .title {margin-bottom:30px;font-size:25px;}
-#firstStepsLocation .right .select-box {background:#f6eefe;display:block;margin-bottom:30px;text-align:center;color:#4c4d4d;font-size:16px;text-align:left;padding:10px 20px;}
-#firstStepsLocation .right .select-box  .row {padding:8px 0;line-height:normal;}
-#firstStepsLocation .right .select-box .w-1 {width:145px;}
-#firstStepsLocation .right .select-box .w-2 {width:225px;}
-#firstStepsLocation .right .select-box input[type=text] {padding:3px 10px;border:1px solid #9ad7fd;background:#fff;font-size:15px;color:#3d3d3d;vertical-align:middle;}
-#firstStepsLocation .right .select-box .w-3 {width:373px;}
-#firstStepsLocation .right .select-box .chzn-v2 {margin:5px 0;}
-#firstStepsLocation .right .select-box small {font-size:11px;color:#a3a3a3;}
-#firstStepsLocation .right .hl {background:#fffbc9;padding:2px 6px;color:#5a5a5a;font-size:14px;}
 
 #broadcast {margin: -20px 0 0 -20px;padding: 20px 20px 0 20px;}
 #broadcast.broadcast-all{padding-left: 30px;padding-right: 30px;position: relative;}

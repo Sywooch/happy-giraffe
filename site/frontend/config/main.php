@@ -120,6 +120,13 @@ return array(
 	),
 	// application components
 	'components'=>array(
+        'contentCompactor' => array(
+            'class' => 'ext.contentCompactor.ContentCompactor',
+            'options' => array(
+                'strip_comments' => false,
+                'compress_scripts' => false,
+            ),
+        ),
         'coreMessages' => array(
             'basePath' => null,
         ),

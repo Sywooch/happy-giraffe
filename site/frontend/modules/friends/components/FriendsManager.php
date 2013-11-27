@@ -10,23 +10,23 @@ class FriendsManager
 {
     const FRIENDS_PER_PAGE = 15;
 
-    public static function getFriends($userId, $online, $new, $listId, $query, $offset)
+    public static function getFriends($userId, $online, $onlyNew, $listId, $query, $offset)
     {
-        $criteria = self::getCriteria($userId, $online, $new, $listId, $query);
+        $criteria = self::getCriteria($userId, $online, $onlyNew, $listId, $query);
         $criteria->limit = ($offset == 0) ? self::FRIENDS_PER_PAGE - 1 : self::FRIENDS_PER_PAGE;
         $criteria->offset = $offset;
 
         return Friend::model()->findAll($criteria);
     }
 
-    public static function getFriendsCount($userId, $online, $new, $listId, $query, $offset)
+    public static function getFriendsCount($userId, $online, $onlyNew, $listId, $query, $offset)
     {
-        $criteria = self::getCriteria($userId, $online, $new, $listId, $query);
+        $criteria = self::getCriteria($userId, $online, $onlyNew, $listId, $query);
 
         return Friend::model()->count($criteria);
     }
 
-    protected static function getCriteria($userId, $online, $new, $listId, $query)
+    protected static function getCriteria($userId, $online, $onlyNew, $listId, $query)
     {
         $criteria = new CDbCriteria(array(
             'select' => '*, 0 AS pCount, 0 AS bCount',
@@ -42,7 +42,7 @@ class FriendsManager
         if ($listId)
             $criteria->compare('t.list_id', $listId);
 
-        if ($new)
+        if ($onlyNew)
             $criteria->addCondition('t.created >= DATE_ADD(CURDATE(), INTERVAL -3 DAY)');
 
         if ($query) {

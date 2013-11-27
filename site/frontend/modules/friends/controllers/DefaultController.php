@@ -47,7 +47,7 @@ class DefaultController extends HController
         $this->render('index', CJSON::encode($data));
     }
 
-    public function actionGet($online = false, $new = false, $listId = false, $query = false, $offset = 0)
+    public function actionGet($online = false, $onlyNew = false, $listId = false, $query = false, $offset = 0)
     {
         $friends = array_map(function ($friend) {
             return array(
@@ -66,8 +66,8 @@ class DefaultController extends HController
                 'pCount' => $friend->pCount,
                 'bCount' => $friend->bCount,
             );
-        }, FriendsManager::getFriends(Yii::app()->user->id, $online, $new, $listId, $query, $offset));
-        $last = FriendsManager::getFriendsCount(Yii::app()->user->id, $online, $new, $listId, $query, $offset) <= ($offset + FriendsManager::FRIENDS_PER_PAGE);
+        }, FriendsManager::getFriends(Yii::app()->user->id, $online, $onlyNew, $listId, $query, $offset));
+        $last = FriendsManager::getFriendsCount(Yii::app()->user->id, $online, $onlyNew, $listId, $query, $offset) <= ($offset + FriendsManager::FRIENDS_PER_PAGE);
 
         $data = compact('friends', 'last');
         echo CJSON::encode($data);

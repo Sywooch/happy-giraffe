@@ -14,7 +14,7 @@
         </div>
     </div>
     <div class="img">
-        <a href="javascript:void(0)" data-id="<?=$data->photoAttach->photo->id?>">
+        <a href="javascript:void(0)" onclick="PhotoCollectionViewWidget.open(<?=CJavaScript::encode(get_class($collection))?>, <?=CJavaScript::encode($collection->options)?>, <?=CJavaScript::encode($data->photoAttach->photo->id)?>)">
             <?=CHtml::image($data->photoAttach->photo->getPreviewUrl(210, null, Image::WIDTH))?>
             <span class="btn">Посмотреть</span>
         </a>

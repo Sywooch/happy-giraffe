@@ -39,7 +39,7 @@ abstract class PhotoCollection extends CComponent
 
     public function getPhotosInRange($photoId, $before, $after, $json = true)
     {
-        return $this->populatePhotos(array_merge($this->getPrevPhotosIds($photoId, $before), array($photoId), $this->getNextPhotosIds($photoId, $after)), $json);
+        return (($before + $after + 1) > $this->count) ? $this->getAllPhotos(null, true) : $this->populatePhotos(array_merge($this->getPrevPhotosIds($photoId, $before), array($photoId), $this->getNextPhotosIds($photoId, $after)), $json);
     }
 
     public function getNextPhotos($photoId, $after, $json = true)

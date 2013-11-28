@@ -693,7 +693,7 @@ class CommunityContent extends HActiveRecord
             return Yii::app()->authManager->checkAccess('news', Yii::app()->user->id);
 
         if (Yii::app()->user->model->group == UserGroup::USER)
-            return $this->author_id == Yii::app()->user->id;
+            return ($this->author_id == Yii::app()->user->id) && (strtotime($this->created) > strtotime('-1 month') || Yii::app()->user->model->communityContentsCount < 10);
         return (Yii::app()->user->checkAccess('editCommunityContent', array('community_id' => $this->isFromBlog ? null : $this->rubric->community->id, 'user_id' => $this->author->id)));
     }
 
@@ -707,7 +707,7 @@ class CommunityContent extends HActiveRecord
             return Yii::app()->authManager->checkAccess('news', Yii::app()->user->id);
 
         if (Yii::app()->user->model->group == UserGroup::USER)
-            return $this->author_id == Yii::app()->user->id;
+            return ($this->author_id == Yii::app()->user->id) && (strtotime($this->created) > strtotime('-1 month') || Yii::app()->user->model->communityContentsCount < 10);
         return (Yii::app()->user->checkAccess('removeCommunityContent', array('community_id' => $this->isFromBlog ? null : $this->rubric->community->id, 'user_id' => $this->author->id)));
     }
 
@@ -1131,7 +1131,7 @@ class CommunityContent extends HActiveRecord
             );
         }
 
-        if ($this->id == 106365) {
+        if (in_array($this->id, array(106365, 114024, 114026, 117229))) {
             return array(
                 'text' => 'Heinz',
                 'img' => '/images/banners/ava-Heinz-2.jpg',

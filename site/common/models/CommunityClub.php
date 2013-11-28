@@ -66,6 +66,7 @@ class CommunityClub extends HActiveRecord
             'section' => array(self::BELONGS_TO, 'CommunitySection', 'section_id'),
             'communities' => array(self::HAS_MANY, 'Community', 'club_id'),
             'services' => array(self::MANY_MANY, 'Service', 'services__communities(service_id, community_id)', 'condition' => '`show`=1'),
+            'contest' => array(self::HAS_ONE, 'CommunityContest', array('id' => 'forum_id'), 'through' => 'communities'),
         );
     }
 

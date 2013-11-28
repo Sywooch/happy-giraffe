@@ -1,8 +1,6 @@
 <?php $this->beginContent('//layouts/community'); ?>
 
     <div class="col-1">
-        <?php $this->renderPartial('_users2'); ?>
-
         <?php if ($this->action->id == 'view' || $this->forum->club_id == 11): ?>
             <div class="banner">
                 <!--AdFox START-->
@@ -37,6 +35,8 @@
             </div>
         <?php endif; ?>
 
+        <?php $this->renderPartial('_users2'); ?>
+
         <?php $this->renderPartial('_rubrics', array('rubrics'=>$this->forum->rootRubrics)); ?>
 
         <?php $this->widget('CommunityPopularWidget', array('club' => $this->club)); ?>
@@ -53,6 +53,18 @@
                     (adsbygoogle = window.adsbygoogle || []).push({});
                 </script>
             </div>
+
+            <?php if ($this->action->id == 'view'): ?>
+                <div class="contest-tizer clearfix">
+                    <div class="contest-tizer_img">
+                        <img src="/images/contest/club/birth2/contest-tizer_img.png" alt="">
+                    </div>
+                    <div class="contest-tizer_hold">
+                        <div class="contest-tizer_tx">Внимание! с 20 ноября стартовал фотоконкурс</div>
+                        <a href="http://www.happy-giraffe.ru/contest/birth2/" class="contest-tizer_a">Как я рассказала своему мужу о беременности</a>
+                    </div>
+                </div>
+            <?php endif; ?>
         <?php endif; ?>
     </div>
 

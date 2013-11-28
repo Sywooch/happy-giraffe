@@ -10,7 +10,7 @@
 
 <div class="article-contest">
     <div class="article-contest_col1">
-        <img src="/images/contest/club/pets1/small.png" alt="">
+        <img src="/images/contest/club/<?=$data->contestWork->contest->cssClass?>/small.png" alt="">
         <div class="article-contest_name">Запись участвует в конкурсе <br>
             <a href="<?=$data->contestWork->contest->getUrl()?>"><?=$data->contestWork->contest->title?></a>
         </div>
@@ -22,49 +22,24 @@
     <div class="article-contest_col3">
         <?=($data->contestWork->contest->status == CommunityContest::STATUS_ACTIVE) ? 'Вы можете проголосовать за участника нажав на кнопки соцсетей' : 'Конкурс завершен. Идет подсчет голосов.'?>
     </div>
-</div>
-<?php if ($data->contestWork->contest->status == CommunityContest::STATUS_ACTIVE): ?>
-    <div class="like-block fast-like-block">
+    <?php if ($data->contestWork->contest->status == CommunityContest::STATUS_ACTIVE): ?>
+        <div class="like-block fast-like-block">
 
-        <div class="box-1">
-            <?php
-            Yii::app()->eauth->renderWidget(array(
-                'action' => '/ajax/socialVote',
-                'params' => array(
-                    'entity' => get_class($data->contestWork),
-                    'entity_id' => $data->contestWork->id,
-                    'model' => $data->contestWork
-                ),
-                'mode' => 'vote',
-            ));
-            ?>
+            <div class="box-1">
+                <?php
+                Yii::app()->eauth->renderWidget(array(
+                    'action' => '/ajax/socialVote',
+                    'params' => array(
+                        'entity' => get_class($data->contestWork),
+                        'entity_id' => $data->contestWork->id,
+                        'model' => $data->contestWork
+                    ),
+                    'mode' => 'vote',
+                ));
+                ?>
+
+            </div>
 
         </div>
-
-    </div>
-<?php endif; ?>
-<?php $randomParticipants = $data->contestWork->getOtherParticipants(2, 2); if ($randomParticipants): ?>
-    <div class="article-contest-conversion">
-        <div class="article-contest-conversion_t">
-            Другие участники конкурса
-        </div>
-        <div class="article-contest-conversion_hold">
-            <?php foreach ($randomParticipants as $contestWork): ?>
-                <?php $this->renderPartial('application.modules.blog.views.default._b_article', array('model' => $contestWork->content, 'showLikes' => false)); ?>
-            <?php endforeach; ?>
-        </div>
-    </div>
-<?php endif; ?>
-
-<div class="b-contest-advert">
-    <div class="b-contest-advert_ico">
-        <img src="/images/contest/club/pets1/medium.png" alt="" class="b-contest-advert_img">
-    </div>
-    <div class="b-contest-advert_hold">
-        <div class="b-contest-advert_t">КОНКУРС</div>
-        <div class="b-contest-advert_name"><?=$data->contestWork->contest->title?></div>
-        <?php if ($data->contestWork->contest->status == CommunityContest::STATUS_ACTIVE): ?>
-        <a href="<?=$data->contestWork->contest->getExternalParticipateUrl()?>" class="btn-green btn-h46<?php if (Yii::app()->user->isGuest): ?> fancy<?php endif; ?>">Принять участие!</a>
-        <?php endif; ?>
-    </div>
+    <?php endif; ?>
 </div>

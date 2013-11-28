@@ -87,6 +87,12 @@
         </div>
     <?php endif; ?>
 
+    <?php if ($this->contest->id == 12): ?>
+        <div class="contest-sponsor">
+            <a href="http://www.silver-care.ru" title="silver-care.ru"><img src="/images/contest/contest-sponsor-12-1.jpg" alt="" class="contest-sponsor_img"></a>
+        </div>
+    <?php endif; ?>
+
     <?=$content?>
 
 </div>

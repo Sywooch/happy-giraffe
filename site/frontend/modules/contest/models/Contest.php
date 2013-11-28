@@ -137,8 +137,8 @@ class Contest extends HActiveRecord
             return self::STATEMENT_FINISHED;
         if (Yii::app()->user->isGuest)
             return self::STATEMENT_GUEST;
-        if (Yii::app()->user->model->score->full == 0)
-            return self::STATEMENT_STEPS;
+//        if (Yii::app()->user->model->score->full == 0)
+//            return self::STATEMENT_STEPS;
         return true;
     }
 
@@ -290,5 +290,15 @@ class Contest extends HActiveRecord
 
         $comet = new CometModel;
         $comet->send('whatsNewIndex', $params, CometModel::WHATS_NEW_UPDATE);
+    }
+
+    public function scopes()
+    {
+        return array(
+            'active' => array(
+                'condition' => 'status = :active',
+                'params' => array(':active' => self::STATUS_ACTIVE),
+            ),
+        );
     }
 }

@@ -120,6 +120,13 @@ return array(
 	),
 	// application components
 	'components'=>array(
+        'contentCompactor' => array(
+            'class' => 'ext.contentCompactor.ContentCompactor',
+            'options' => array(
+                'strip_comments' => false,
+                'compress_scripts' => false,
+            ),
+        ),
         'coreMessages' => array(
             'basePath' => null,
         ),
@@ -337,7 +344,7 @@ return array(
 	// application-level parameters that can be accessed
 	// using Yii::app()->params['paramName']
 	'params'=>array(
-        'releaseId' => 18,
+        'releaseId' => 30,
         'valentinesAlbum' => '41340',
 		// this is used in contact page
 		'adminEmail'=>'webmaster@example.com',
@@ -361,27 +368,42 @@ return array(
         'combineMap' => array(
             '/javascripts/all.js' => array(
                 'jquery.min.js',
-
-                'chosen.jquery.min.js',
+                'jquery.yiiactiveform.js',
                 'jquery.powertip.js',
+                'knockout-2.2.1.js',
+                'ko_library.js',
+                'history.js',
+                'ko_favourites.js',
+                'upload.js',
+                'jquery.ui.widget.js',
+                'jquery.iframe-transport.js',
+                'jquery.fileupload.js',
+                'ko_post.js',
+                'baron.js',
+                'knockout.mapping-latest.js',
+                'comments.js',
+                'wysiwyg.js',
+                'auth.js',
+                'jquery.fitvids.js',
+                'jquery.lwtCountdown-1.0.js',
+                'FavouriteWidget.js',
+                'jquery.history.js',
+                'ko_gallery.js',
+                'PhotoCollectionViewWidget.js',
+                'chosen.jquery.min.js',
                 'tooltipsy.min.js',
                 'jquery.placeholder.min.js',
                 'addtocopy.js',
                 'jquery.fancybox-1.3.4.js',
                 'base64.js',
+                'common.js',
+                'fox.js',
+                'jquery.Jcrop.min.js',
                 'ko_blog.js',
                 'ko_community.js',
-                'ko_family.js',
-                'ko_favourites.js',
-                'ko_friendsSearch.js',
-                'ko_gallery.js',
+                'ko_photoWidget.js',
                 'ko_layout.js',
-                'ko_library.js',
-                'ko_post.js',
-                'ko_recipes_search.js',
-                'ko_search.js',
-                'ko_settings.js',
-                'ko_user_profile.js',
+                'social.js',
             ),
         ),
 	),

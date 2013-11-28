@@ -11,12 +11,12 @@ if ($model->by_happy_giraffe)
 ?><div class="b-article_header clearfix">
     <div class="meta-gray">
         <a href="<?= $model->getUrl(true) ?>" class="meta-gray_comment">
-            <span class="ico-comment ico-comment__<?=($model->type_id == CommunityContentType::TYPE_PHOTO) ? 'white' : 'gray'?>"></span>
-            <span class="meta-gray_tx<?php if ($model->type_id == CommunityContentType::TYPE_PHOTO): ?> color-gray-light<?php endif; ?>"><?=$model->getCommentsCount() ?></span>
+            <span class="ico-comment ico-comment__<?=($model->type_id == CommunityContentType::TYPE_PHOTO && $model->contestWork === null) ? 'white' : 'gray'?>"></span>
+            <span class="meta-gray_tx<?php if ($model->type_id == CommunityContentType::TYPE_PHOTO && $model->contestWork === null): ?> color-gray-light<?php endif; ?>"><?=$model->getCommentsCount() ?></span>
         </a>
         <div class="meta-gray_view">
-            <span class="ico-view ico-view__<?=($model->type_id == CommunityContentType::TYPE_PHOTO) ? 'white' : 'gray'?>"></span>
-            <span class="meta-gray_tx<?php if ($model->type_id == CommunityContentType::TYPE_PHOTO): ?> color-gray-light<?php endif; ?>"><?= $full ? $this->getViews() : PageView::model()->viewsByPath($model->getUrl()) ?></span>
+            <span class="ico-view ico-view__<?=($model->type_id == CommunityContentType::TYPE_PHOTO && $model->contestWork === null) ? 'white' : 'gray'?>"></span>
+            <span class="meta-gray_tx<?php if ($model->type_id == CommunityContentType::TYPE_PHOTO && $model->contestWork === null): ?> color-gray-light<?php endif; ?>"><?= $full ? $this->getViews() : PageView::model()->viewsByPath($model->getUrl()) ?></span>
         </div>
     </div>
     <div class="float-l">

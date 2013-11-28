@@ -20,7 +20,7 @@ class CommunityContestWidget extends CWidget
                     'scopes' => array('active'),
                 ),
             ),
-            'condition' => 'content.author_id = :user_id AND content.removed = 0',
+            'condition' => 'content.author_id = :user_id AND content.removed = 0 AND contest.id IS NOT NULL',
             'params' => array(':user_id' => $this->user->id),
             'order' => new CDbExpression('RAND()'),
         ));

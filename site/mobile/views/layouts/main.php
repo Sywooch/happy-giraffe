@@ -80,16 +80,37 @@
 
             <?=$content?>
 
-            <div style="width: 300px; margin: 20px auto;">
-                <script async src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                <!-- Mobile -->
-                <ins class="adsbygoogle"
-                     style="display:inline-block;width:300px;height:250px"
-                     data-ad-client="ca-pub-3807022659655617"
-                     data-ad-slot="8868506484"></ins>
-                <script>
-                    (adsbygoogle = window.adsbygoogle || []).push({});
+            <div style="text-align: center; margin: 20px 0;">
+                <!--AdFox START-->
+                <!--giraffe-->
+                <!--Площадка: Весёлый Жираф / * / *-->
+                <!--Тип баннера: Mobile-->
+                <!--Расположение: <низ страницы>-->
+                <script type="text/javascript">
+                    <!--
+                    if (typeof(pr) == 'undefined') { var pr = Math.floor(Math.random() * 1000000); }
+                    if (typeof(document.referrer) != 'undefined') {
+                        if (typeof(afReferrer) == 'undefined') {
+                            afReferrer = escape(document.referrer);
+                        }
+                    } else {
+                        afReferrer = '';
+                    }
+                    var addate = new Date();
+                    var scrheight = '', scrwidth = '';
+                    if (self.screen) {
+                        scrwidth = screen.width;
+                        scrheight = screen.height;
+                    } else if (self.java) {
+                        var jkit = java.awt.Toolkit.getDefaultToolkit();
+                        var scrsize = jkit.getScreenSize();
+                        scrwidth = scrsize.width;
+                        scrheight = scrsize.height;
+                    }
+                    document.write('<scr' + 'ipt type="text/javascript" src="http://ads.adfox.ru/211012/prepareCode?pp=i&amp;ps=bkqy&amp;p2=evtc&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a&amp;pr=' + pr +'&amp;pt=b&amp;pd=' + addate.getDate() + '&amp;pw=' + addate.getDay() + '&amp;pv=' + addate.getHours() + '&amp;prr=' + afReferrer + '&amp;pdw=' + scrwidth + '&amp;pdh=' + scrheight + '"><\/scr' + 'ipt>');
+                    // -->
                 </script>
+                <!--AdFox END-->
             </div>
 
             <div class="footer">

@@ -20,6 +20,7 @@ class CommunityPost extends HActiveRecord
      * @var array
      */
     public $processed_photos = array();
+    public $isContestWork = false;
 
     /**
      * Returns the static model of the specified AR class.

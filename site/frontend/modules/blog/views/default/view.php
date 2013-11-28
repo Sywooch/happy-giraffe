@@ -25,7 +25,7 @@ switch ($data->type_id) {
         $cssClass = 'b-article__user-status';
         break;
     case CommunityContentType::TYPE_PHOTO:
-        $cssClass = 'b-article__photopost';
+        $cssClass = $data->contestWork === null ? 'b-article__photopost' : null;
         break;
     case CommunityContentType::TYPE_QUESTION:
         $cssClass = 'b-article__question';
@@ -37,7 +37,7 @@ switch ($data->type_id) {
 <div class="b-article clearfix<?php if ($cssClass !== null): ?> <?=$cssClass?><?php endif; ?>" id="blog_settings_<?=$data->id ?>">
     <?php if ($data->source_id) $this->renderPartial('blog.views.default._repost', array('data' => $data)); ?>
     <div class="float-l">
-        <?php $this->renderPartial('blog.views.default._post_controls', array('model' => $data->getSourceContent(), 'isRepost' => !empty($data->source_id))); ?>
+        <?php $this->renderPartial('blog.views.default._post_controls', array('model' => $data->getSourceContent(), 'isRepost' => !empty($data->source_id), 'full' => $full)); ?>
     </div>
 
     <div class="b-article_cont clearfix">
@@ -74,6 +74,10 @@ switch ($data->type_id) {
     </div>
 </div>
 
+<?php if ($full && $data->contestWork !== null): ?>
+    <?php $this->renderPartial('application.modules.blog.views.default._contest_bottom', compact('data')); ?>
+<?php endif; ?>
+
 <?php if ($full): ?>
     <?php $this->renderPartial('blog.views.default._article_banner'); ?>
 <?php endif; ?>
@@ -90,7 +94,7 @@ switch ($data->type_id) {
     <?php $this->widget('blog.widgets.PostUsersWidget', array('post' => $data)); ?>
 <?php endif; ?>
 
-<?php if ($full && ! $data->getIsFromBlog() && in_array($data->rubric->community->club_id, array(8, 10, 14))): ?>
+<?php if ($full && ! $data->getIsFromBlog()): ?>
     <?php $this->widget('CommunityMoreWidget', array('content' => $data)); ?>
 <?php endif; ?>
 

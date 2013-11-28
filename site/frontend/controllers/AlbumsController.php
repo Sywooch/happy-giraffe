@@ -798,7 +798,19 @@ class AlbumsController extends HController
         $this->layout = '//layouts/main';
 
         NotificationRead::getInstance()->setContentModel($photo);
-        $this->render(in_array($entity, array('CommunityContentGallery', 'Contest')) ? 'singlePhotoBanner' : 'singlePhoto', array_merge(compact('model', 'collection', 'photo', 'currentIndex'), $additional_params));
+
+        switch ($entity) {
+            case 'CommunityContentGallery':
+                $view = 'singlePhotoBanner';
+                break;
+            case 'Contest':
+                $view = $model->id == 12 ? 'singlePhotoContest' : 'singlePhoto';
+                break;
+            default:
+                $view = 'singlePhoto';
+        }
+
+        $this->render($view, array_merge(compact('model', 'collection', 'photo', 'currentIndex'), $additional_params));
     }
 
     public function actionPostLoad($entity, $photo_id)

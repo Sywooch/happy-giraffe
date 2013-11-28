@@ -76,6 +76,8 @@
 
         <?php $this->widget('CommunityContestWidget'); ?>
 
+        <?php $this->widget('PhotoContestWidget'); ?>
+
         <?php $this->widget('HoroscopeWidget') ?>
 
         <?php $this->widget('PopularPostsWidget') ?>

@@ -4,7 +4,6 @@
     $cs = Yii::app()->clientScript;
     $cs
         ->registerScriptFile('/javascripts/album.js')
-        ->registerCssFile('/stylesheets/user.css')
         ->registerCoreScript('jquery.ui')
         ->registerScriptFile('/javascripts/knockout-2.2.1.js')
     ;

@@ -4,7 +4,6 @@
     $cs
         ->registerScriptFile('/javascripts/jquery.masonry.min.js')
         ->registerScriptFile('/javascripts/userActivity.js')
-        ->registerCssFile('/stylesheets/user.css')
     ;
 ?>
 

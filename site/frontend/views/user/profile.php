@@ -6,7 +6,6 @@
     $cs = Yii::app()->clientScript;
     $cs
         ->registerScriptFile(Yii::app()->baseUrl . '/javascripts/jquery.jscrollpane.min.js')
-        ->registerCssFile('/stylesheets/user.css')
     ;
 
     $score = $user->score;

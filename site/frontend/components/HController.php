@@ -43,7 +43,8 @@ class HController extends CController
     {
         parent::init();
 
-        $this->combineStatic();
+        if (YII_DEBUG === false)
+            $this->combineStatic();
 
         // авторизация
         if (isset($this->actionParams['token'])) {
@@ -196,15 +197,13 @@ class HController extends CController
 
     protected function combineStatic()
     {
-        if (YII_DEBUG === false || true) {
-            $wwwPath = Yii::getPathOfAlias('application.www-submodule');
+        $wwwPath = Yii::getPathOfAlias('application.www-submodule');
 
-            foreach (Yii::app()->params['combineMap'] as $all => $filesArray) {
-                if (file_exists($wwwPath . $all)) {
-                    $to = Yii::app()->request->isAjaxRequest ? false : $all . '?r=' . Yii::app()->params['releaseId'];
-                    foreach ($filesArray as $f)
-                        Yii::app()->clientScript->scriptMap[$f . '?r=' . Yii::app()->params['releaseId']] = $to;
-                }
+        foreach (Yii::app()->params['combineMap'] as $all => $filesArray) {
+            if (file_exists($wwwPath . $all)) {
+                $to = Yii::app()->request->isAjaxRequest ? false : $all . '?r=' . Yii::app()->params['releaseId'];
+                foreach ($filesArray as $f)
+                    Yii::app()->clientScript->scriptMap[$f . '?r=' . Yii::app()->params['releaseId']] = $to;
             }
         }
     }
@@ -246,6 +245,8 @@ class HController extends CController
     public function render($view, $data = null, $return = false, $options = null)
     {
         $output = parent::render($view, $data, true);
+        if (YII_DEBUG === true)
+            return $output;
 
         $compactor = Yii::app()->contentCompactor;
         if($compactor == null)

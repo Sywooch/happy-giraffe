@@ -41,7 +41,6 @@
     ";
 
     $cs
-        ->registerCssFile('/stylesheets/user.css')
         ->registerScript('joinClub', $js);
 ?>
 

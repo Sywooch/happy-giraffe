@@ -36,6 +36,6 @@ Yii::app()->clientScript->registerScriptFile('/javascripts/jquery.lwtCountdown-1
         </div>
     </div>
 </div>
-<script language="javascript" type="text/javascript">
-    eval(function(p,a,c,k,e,d){e=function(c){return c.toString(36)};if(!''.replace(/^/,String)){while(c--){d[c.toString(a)]=k[c]||c.toString(a)}k=[function(e){return d[e]}];e=function(){return'\\w+'};c=1};while(c--){if(k[c]){p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c])}}return p}('4(3).2(0(){$(\'#1-5\').6({b:a,9:7,8:c})});',13,13,'function|counter|ready|document|jQuery|users|countUp|<?=$inc_min?>|randomNumberMax|randomNumberMin|<?=$visitors?>|numberSet|<?=$inc_max?>'.split('|'),0,{}))
+<script type="text/javascript">
+    var _0xb000=["\x63\x6F\x75\x6E\x74\x55\x70","\x23\x63\x6F\x75\x6E\x74\x65\x72\x2D\x75\x73\x65\x72\x73","\x72\x65\x61\x64\x79"];jQuery(document)[_0xb000[2]](function (){$(_0xb000[1])[_0xb000[0]]({numberSet:<?=$visitors ?>,randomNumberMin:<?=$inc_min ?>,randomNumberMax:<?=$inc_max ?>});} );
 </script>

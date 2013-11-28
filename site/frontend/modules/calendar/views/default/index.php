@@ -1,10 +1,3 @@
-<?php
-    $cs = Yii::app()->clientScript;
-    $cs
-        ->registerCssFile('/stylesheets/baby.css')
-    ;
-?>
-
 <?php if ($period->features && $period->features_heading): ?>
     <?php
         $features = explode("\n", $period->features);

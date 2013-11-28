@@ -1,6 +1,5 @@
 <?php
 Yii::app()->clientScript
-    ->registerCssFile('/stylesheets/user.css')
     ->registerPackage('ko_blog')
     ->registerPackage('ko_upload');
 

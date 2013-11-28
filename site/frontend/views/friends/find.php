@@ -10,7 +10,6 @@
         ';
 
     Yii::app()->clientScript
-        ->registerCssFile('/stylesheets/user.css')
         ->registerCssFile('/stylesheets/isotope.css')
         ->registerScriptFile('/javascripts/jquery.isotope.min.js')
         ->registerScript('findFriends-isotope', $js)

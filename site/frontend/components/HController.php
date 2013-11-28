@@ -245,8 +245,6 @@ class HController extends CController
     public function render($view, $data = null, $return = false, $options = null)
     {
         $output = parent::render($view, $data, true);
-        if (YII_DEBUG === true)
-            return $output;
 
         $compactor = Yii::app()->contentCompactor;
         if($compactor == null)

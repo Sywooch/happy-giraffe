@@ -124,7 +124,7 @@ return array(
             'class' => 'ext.contentCompactor.ContentCompactor',
             'options' => array(
                 'strip_comments' => false,
-                'compress_scripts' => true,
+                'compress_scripts' => false,
             ),
         ),
         'coreMessages' => array(

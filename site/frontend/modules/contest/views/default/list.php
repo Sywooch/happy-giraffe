@@ -32,16 +32,6 @@ Yii::app()->eauth->renderWidget(array(
 ));
 ?>
 
-<?php
-$this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
-    'selector' => '.img > a',
-    'entity' => 'Contest',
-    'entity_id' => $contest->id,
-    'entity_url' => $contest->getUrl(),
-    'query' => array('sort' => $sort),
-));
-?>
-
 <?php if ($contest->id == 5): ?>
     <p style="color: #F66161;">Уважаемые участники конкурса!<br />
         В процесс определения победителей конкурса внесены изменения! Теперь победители будут определяться экспертным жюри из числа первых ста участников, набравших наибольшее количество голосов.<br />
@@ -74,15 +64,16 @@ $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
         'itemsTagName' => 'ul',
         'summaryText' => 'Показано: {start}-{end} из {count}',
         'pager' => array(
-            'class' => 'AlbumLinkPager',
+            'class' => 'HLinkPager',
         ),
         'template' => '<div class="gallery-photos-new cols-4 clearfix">{items}</div>
-            <div class="pagination pagination-center clearfix">
+            <div class="yiipagination">
                 {pager}
             </div>
         ',
         'viewData' => array(
             'full' => false,
+            'collection' => $collection,
         ),
     ));
 ?>

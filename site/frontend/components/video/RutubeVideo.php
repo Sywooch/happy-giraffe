@@ -9,7 +9,7 @@
 
 class RutubeVideo extends BasicVideo
 {
-    public function getEmbed($width)
+    public function getEmbed($width = 580)
     {
         Yii::import('site.frontend.extensions.phpQuery.phpQuery');
 

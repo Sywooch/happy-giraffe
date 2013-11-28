@@ -14,6 +14,7 @@ $photo = $data->getPhoto()
         <?=$data->title ?>
         <?php $this->widget('site.frontend.widgets.favoritesWidget.FavouritesWidget', array('model' => $data)); ?>
     </h1>
+    <?php if ($data->contestWork !== null && $this->id != 'contest' && ! $full) $this->renderPartial('application.modules.blog.views.default._contest_post', array('contest' => $data->contestWork->contest)); ?>
 
     <div class="b-article_in clearfix">
         <div class="wysiwyg-content clearfix">
@@ -32,14 +33,15 @@ $photo = $data->getPhoto()
             <?php $this->widget('site.frontend.widgets.favoritesWidget.FavouritesWidget', array('model' => $data)); ?>
         </div>
     <?php endif ?>
+    <?php if ($data->contestWork !== null && $this->id != 'contest' && ! $full) $this->renderPartial('application.modules.blog.views.default._contest_post', array('contest' => $data->contestWork->contest)); ?>
 
     <div class="b-article_in clearfix">
         <div class="wysiwyg-content clearfix">
             <?=$data->purified->preview ?>
-            <?php if (!empty($post->video)):?>
+            <?php if (! empty($post->video)):?>
                 <div class="b-article_in-img"><?=$post->video ?></div>
-            <?php elseif ($photo && $photo->width >= 580):?>
-                <div class="b-article_in-img">
+            <?php elseif ($photo):?>
+                <div class="<?=($photo->width < 580) ? 'clearfix' : 'b-article_in-img'?>">
                     <img src="<?=$photo->getPreviewUrl(580, 1100) ?>" class="content-img"<?php if ($photo->title) echo ' alt="'.$photo->title.'" title="'.$photo->title.'"'?>>
                 </div>
             <?php endif ?>

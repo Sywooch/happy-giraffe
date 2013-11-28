@@ -15,31 +15,31 @@ class DefaultController extends HController
     {
         $filters = array();
 
-//        if (Yii::app()->user->isGuest) {
-//            $filters [] = array(
-//                'COutputCache + view',
-//                'duration' => 300,
-//                'varyByParam' => array('content_id'),
-//            );
-//
-//            $filters [] = array(
-//                'COutputCache + forum',
-//                'duration' => 300,
-//                'varyByParam' => array('forum_id', 'rubric_id', 'CommunityContent_page'),
-//            );
-//
-//            $filters [] = array(
-//                'COutputCache + club',
-//                'duration' => 300,
-//                'varyByParam' => array('club', 'CommunityContent_page'),
-//            );
-//
-//            $filters [] = array(
-//                'COutputCache + section',
-//                'duration' => 300,
-//                'varyByParam' => array('section_id', 'CommunityContent_page'),
-//            );
-//        }
+        if (Yii::app()->user->isGuest) {
+            $filters [] = array(
+                'COutputCache + view',
+                'duration' => 300,
+                'varyByParam' => array('content_id'),
+            );
+
+            $filters [] = array(
+                'COutputCache + forum',
+                'duration' => 300,
+                'varyByParam' => array('forum_id', 'rubric_id', 'CommunityContent_page'),
+            );
+
+            $filters [] = array(
+                'COutputCache + club',
+                'duration' => 300,
+                'varyByParam' => array('club', 'CommunityContent_page'),
+            );
+
+            $filters [] = array(
+                'COutputCache + section',
+                'duration' => 300,
+                'varyByParam' => array('section_id', 'CommunityContent_page'),
+            );
+        }
 
         return $filters;
     }
@@ -139,6 +139,9 @@ class DefaultController extends HController
         if (!empty($content->uniqueness) && $content->uniqueness < 50)
             Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
 
+        if ($content->contestWork !== null)
+            $this->bodyClass = 'theme-contest theme-contest__' . $content->contestWork->contest->cssClass;
+
         $this->pageTitle = $content->title;
         $this->rubric_id = $content->rubric_id;
 
@@ -185,6 +188,8 @@ class DefaultController extends HController
     {
         $contest_id = Yii::app()->request->getPost('contest_id');
         $model = ($id === null) ? new CommunityContent() : CommunityContent::model()->findByPk($id);
+        if (! $model->isNewRecord && ! $model->canEdit())
+            throw new CHttpException(403);
         $model->scenario = 'default_club';
         $model->attributes = $_POST['CommunityContent'];
         if ($id === null)
@@ -327,7 +332,7 @@ class DefaultController extends HController
 
     protected function performAjaxValidation($models)
     {
-        if (isset($_POST['ajax']) && $_POST['ajax'] === 'blog-form') {
+        if (isset($_POST['ajax']) && in_array($_POST['ajax'], array('blog-form', 'question-form'), true)) {
             echo CActiveForm::validate($models);
             Yii::app()->end();
         }

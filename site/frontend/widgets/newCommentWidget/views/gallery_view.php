@@ -23,3 +23,15 @@
         </div>
     </div>
 </div>
+
+<?php if (($attach = $this->model->getAttachByEntity('ContestWork')) !== null): ?>
+    <?php Yii::app()->controller->renderPartial('_meter', compact('attach')); ?>
+<?php endif; ?>
+
+<?php if (($attach = $this->model->getAttachByEntity('ContestWork')) !== null): ?>
+<div class="photo-window_contest-logo">
+    <a href="<?=$attach->model->contest->url?>">
+        <img src="/images/contest/photo-window_contest-logo_<?=$attach->model->contest->id?>.png" alt="">
+    </a>
+</div>
+<?php endif; ?>

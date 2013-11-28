@@ -14,7 +14,7 @@ class DefaultController extends HController
     {
         $filters = array(
             'accessControl',
-            //'ajaxOnly - index, view, save',
+            'ajaxOnly - index, view, save',
         );
 
         if (Yii::app()->user->isGuest) {
@@ -135,7 +135,11 @@ class DefaultController extends HController
     public function actionRemove()
     {
         $id = Yii::app()->request->getPost('id');
-        BlogContent::model()->findByPk($id)->delete();
+        $post = BlogContent::model()->findByPk($id);
+        if (! $post->canEdit())
+            throw new CHttpException(403);
+
+        $post->delete();
         $success = true;
         $response = compact('success');
         echo CJSON::encode($response);
@@ -272,7 +276,7 @@ class DefaultController extends HController
             Yii::import('application.modules.community.models.*');
             $contest = CommunityContest::model()->with('forum')->findByPk($contest_id);
             $model->rubric_id = $contest->rubric_id;
-            $this->renderPartial('form/contest/' . $contest_id, compact('model', 'slaveModel', 'json', 'club_id', 'contest_id', 'contest'), false, true);
+            $this->renderPartial('form/contest/' . $contest->id, compact('model', 'slaveModel', 'json', 'club_id', 'contest_id', 'contest'), false, true);
         }
         elseif (Yii::app()->request->getPost('short'))
             $this->renderPartial('form/' . $model->type_id, compact('model', 'slaveModel', 'json', 'club_id'), false, true);
@@ -283,6 +287,8 @@ class DefaultController extends HController
     public function actionSave($id = null)
     {
         $model = ($id === null) ? new BlogContent() : BlogContent::model()->findByPk($id);
+        if (! $model->isNewRecord && ! $model->canEdit())
+            throw new CHttpException(403);
         $model->scenario = 'default';
         $model->attributes = $_POST['BlogContent'];
         if ($model->type_id == CommunityContent::TYPE_STATUS)

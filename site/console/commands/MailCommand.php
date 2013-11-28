@@ -98,6 +98,11 @@ class MailCommand extends CConsoleCommand
         Yii::app()->email->updateUserList();
     }
 
+    public function actionInitGenderLists()
+    {
+        Yii::app()->email->initGenderLists();
+    }
+
     public function actionDeleteUsers()
     {
         Yii::app()->email->deleteRegisteredFromContestList();
@@ -167,5 +172,81 @@ class MailCommand extends CConsoleCommand
                 }
             }
         }
+    }
+
+    public function actionContestKidsMailRuTest()
+    {
+        $testList = array(
+            'tantalid@gmail.com',
+            'tantalid@mail.ru',
+            'tantalid@rambler.ru',
+            'tantalid@yandex.ru',
+            'nikita@happy-giraffe.ru',
+        );
+
+        foreach ($testList as $mail) {
+            $subject = 'Андрей, принимай участие в конкурсе «Поделись улыбкою своей»!';
+            $html = $this->renderFile(Yii::getPathOfAlias('site.common.tpl') . DIRECTORY_SEPARATOR . 'contest_12.php', array(), true);
+            Yii::app()->email->sendEmail($mail, $subject, $html, 'noreply@happy-giraffe.ru', 'Веселый Жираф');
+        }
+    }
+
+    public function actionContestPregnancyMailRuTest()
+    {
+        $testList = array(
+            'tantalid@gmail.com',
+            'tantalid@mail.ru',
+            'tantalid@rambler.ru',
+            'tantalid@yandex.ru',
+            'nikita@happy-giraffe.ru',
+        );
+
+        foreach ($testList as $mail) {
+            $subject = 'Андрей, принимай участие в конкурсе «Как я рассказала своему мужу о беременности»!';
+            $html = $this->renderFile(Yii::getPathOfAlias('site.common.tpl') . DIRECTORY_SEPARATOR . 'contest_12.php', array(), true);
+            Yii::app()->email->sendEmail($mail, $subject, $html, 'noreply@happy-giraffe.ru', 'Веселый Жираф');
+        }
+    }
+
+    public function actionContestKidsMailRu()
+    {
+        $offset = 0;
+        $i = 0;
+        do {
+            $criteria = new EMongoCriteria();
+            $criteria->list = (string) MailruUser::LIST_CHILD;
+            $criteria->limit(1000);
+            $criteria->offset($offset);
+            $models = MailruUser::model()->findAll($criteria);
+            foreach ($models as $model) {
+                $subject = $model->firstName . ', принимай участие в конкурсе «Поделись улыбкою своей»!';
+                $html = $this->renderFile(Yii::getPathOfAlias('site.common.tpl') . DIRECTORY_SEPARATOR . 'contest_12.php', compact('model'), true);
+                Yii::app()->email->sendEmail($model->email, $subject, $html, 'noreply@happy-giraffe.ru', 'Веселый Жираф');
+                $i++;
+            }
+            $offset += 1000;
+        } while (! empty($models));
+        echo $i . ' sent';
+    }
+
+    public function actionContestPregnancyMailRu()
+    {
+        $offset = 0;
+        $i = 0;
+        do {
+            $criteria = new EMongoCriteria();
+            $criteria->list = (string) MailruUser::LIST_CHILD;
+            $criteria->limit(1000);
+            $criteria->offset($offset);
+            $models = MailruUser::model()->findAll($criteria);
+            foreach ($models as $model) {
+                $subject = $model->firstName . ', принимай участие в конкурсе «Как я рассказала своему мужу о беременности»!';
+                $html = $this->renderFile(Yii::getPathOfAlias('site.common.tpl') . DIRECTORY_SEPARATOR . 'contest_birth2.php', compact('model'), true);
+                Yii::app()->email->sendEmail($model->email, $subject, $html, 'noreply@happy-giraffe.ru', 'Веселый Жираф');
+                $i++;
+            }
+            $offset += 1000;
+        } while (! empty($models));
+        echo $i . ' sent';
     }
 }

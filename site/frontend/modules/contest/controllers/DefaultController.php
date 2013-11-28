@@ -61,7 +61,9 @@ class DefaultController extends HController
         $works = $works->search($sort);
         $works->pagination->pageSize = 12;
 
-        $this->render('view', compact('contest', 'works', 'sort'));
+        $collection = new ContestPhotoCollection(array('contestId' => $id, 'order' => 0));
+
+        $this->render('view', compact('contest', 'works', 'sort', 'collection'));
     }
 
     public function actionList($id, $sort = 'created')
@@ -77,7 +79,9 @@ class DefaultController extends HController
         $works->contest_id = $this->contest->id;
         $works = $works->search($sort);
 
-        $this->render('list', compact('contest', 'works', 'sort'));
+        $collection = new ContestPhotoCollection(array('contestId' => $id, 'order' => $sort));
+
+        $this->render('list', compact('contest', 'works', 'sort', 'collection'));
     }
 
     public function actionRules($id)
@@ -120,7 +124,9 @@ class DefaultController extends HController
         $this->contest = $contest;
         $this->pageTitle = 'Результаты фотоконкурса «' . $contest->title . '»';
 
-        $this->render('results');
+        $collection = new ContestPhotoCollection(array('contestId' => $id, 'order' => 'created'));
+
+        $this->render('results', compact('collection'));
     }
 
     public function actionPrizes($id)

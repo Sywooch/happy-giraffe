@@ -911,3 +911,61 @@ for i in {0..100}
 do
     /var/www/happy-giraffe.ru/deploy/test/site/yiic emailParsing --threadId=$i &
 done
+
+var jq = document.createElement('script');
+jq.src = "//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js";
+document.getElementsByTagName('head')[0].appendChild(jq);
+setTimeout(function() {
+jQuery.noConflict();
+var links = jQuery('[onclick="cl(this)"]'); var result1 = ''; var result2 = ''; links.each(function(index, el) {result1 += jQuery(this).text() + "\n"; result2 += jQuery(this).attr('href') + "\n"}); console.log(result1); console.log(result2);
+}, 1000);
+
+
+017564e1cfe1130835c70c58194ffa18
+
+498eeaf714a000eccfeee6bf6f381a34
+
+дата создания + 7 дней < сейчас
+дата создания < сейчас - 7 дней
+
+
+дата создания + 7 дней > сейчас
+дата создания > сейчас - 7 дней
+
+'jquery.min.js',
+'jquery.yiiactiveform.js',
+'jquery.powertip.js',
+'knockout-2.2.1.js',
+'ko_library.js',
+'history.js',
+'ko_favourites.js',
+'upload.js',
+'jquery.ui.widget.js',
+'jquery.iframe-transport.js',
+'jquery.fileupload.js',
+'ko_post.js',
+'baron.js',
+'knockout.mapping-latest.js',
+'comments.js',
+'wysiwyg.js',
+'auth.js',
+'jquery.fitvids.js',
+'jquery.lwtCountdown-1.0.js',
+'FavouriteWidget.js',
+'jquery.history.js',
+'ko_gallery.js',
+'PhotoCollectionViewWidget.js',
+'chosen.jquery.min.js',
+'tooltipsy.min.js',
+'jquery.placeholder.min.js',
+'addtocopy.js',
+'jquery.fancybox-1.3.4.js',
+'base64.js',
+'common.js',
+'fox.js',
+
+'jquery.Jcrop.min.js',
+'ko_blog.js',
+'ko_community.js',
+'ko_photoWidget.js',
+'ko_layout.js',

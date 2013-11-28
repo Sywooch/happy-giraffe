@@ -56,7 +56,7 @@ class CommunityQuestion extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'content_id' => 'Content',
-			'text' => 'Text',
+			'text' => 'Вопрос',
 		);
 	}
 

@@ -36,33 +36,10 @@ Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
 
         <div class="contest-aside-prizes">
             <div class="contest-aside-prizes_t">Призы конкурса</div>
-            <ul class="contest-aside-prizes_ul">
-                <li class="contest-aside-prizes_li">
-                    <div class="contest-aside-prizes_img">
-                        <a href="#popup-contest-prize" class="fancy"><img src="/images/contest/club/pets1/prize-1.jpg" alt=""></a>
-                    </div>
-                    <div class="place place-1-1"></div>
-                    <div class="contest-aside-prizes_name">
-                        Лежак-домик «Hilla»
-                        <strong>Trixie</strong>
-                    </div>
-                    <a href="#popup-contest-prize" class="contest-aside-prizes_more fancy">Подробнее</a>
-                </li>
-                <li class="contest-aside-prizes_li">
-                    <div class="contest-aside-prizes_img">
-                        <a href="#popup-contest-prize" class="fancy"><img src="/images/contest/club/pets1/prize-2.jpg" alt=""></a>
-                    </div>
-                    <div class="place place-2-3"></div>
-                    <div class="contest-aside-prizes_name">
-                        Автоматическая поилка фонтан «Original»
-                        <strong>Drinkwell</strong>
-                    </div>
-                    <a href="#popup-contest-prize" class="contest-aside-prizes_more fancy">Подробнее</a>
-                </li>
-            </ul>
+            <?php $this->renderPartial('_prizes/' . $contest->id); ?>
         </div>
 
-        <?php $topParticipants = $contest->getTopParticipants(3); if ($topParticipants): ?>
+        <?php if ($contest->status != CommunityContest::STATUS_WINNERS_ANNOUNCED && ($topParticipants = $contest->getTopParticipants(3))): ?>
         <div class="fast-articles2 js-fast-articles2">
             <div class="fast-articles2_t-ico"></div>
             <div class="fast-articles2_t">Тройка лидеров</div>
@@ -74,17 +51,37 @@ Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
 
     </div>
     <div class="col-23-middle ">
+        <?php if ($contest->status == CommunityContest::STATUS_WINNERS_ANNOUNCED && $contest->winners): ?>
+            <div class="contest-win">
+                <div class="col-gray col-gray__contest">
+                    <div class="contest-win_t">Победители конкурса</div>
+                    <div class="contest-win_hold">
+                        <?php foreach ($contest->winners as $winner): ?>
+                        <div class="contest-win_col">
+
+                            <div class="contest-win_place contest-win_place__<?=$winner->place?>"></div>
+                            <div class="fast-articles2 ">
+                                <?php $this->renderPartial('application.modules.blog.views.default._popular_one', array('b' => $winner->work->content)); ?>
+                            </div>
+
+                        </div>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            </div>
+        <?php endif; ?>
+
         <?php if ($works->totalItemCount > 0): ?>
             <div class="col-gray col-gray__contest">
                 <div class="clearfix">
-                    <div class="float-r margin-t20 margin-r20">
+                    <div class="float-r margin-t10 margin-r20">
                         <div class="chzn-itx-simple chzn-itx-simple__small">
                             <?=CHtml::dropDownList('sort', $sort, array(
                                 '0' => 'По дате добавления',
                                 '1' => 'По количеству голосов',
                             ), array(
                                 'class' => 'chzn',
-                                'onchange' => 'document.location.href = \'' . $this->createUrl('/community/contest/index', array('contestId' => $contest->id)) . '?sort=\' + $(this).val();',
+                                'onchange' => 'document.location.href = \'' . $contest->getUrl() . '?sort=\' + $(this).val();',
                             ))?>
                         </div>
 
@@ -116,7 +113,7 @@ Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
 
 <div class="display-n">
 <?php $this->renderPartial('_rules', compact('contest')); ?>
-<?php $this->renderPartial('_prizes', compact('contest')); ?>
+<?php $this->renderPartial('_prizes_popup/' . $contest->id, compact('contest')); ?>
 </div>
 
 <?php if ($takePart !== null): ?>

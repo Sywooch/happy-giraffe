@@ -14,13 +14,20 @@ $collection = new PhotoPostPhotoCollection(array('contentId' => $data->id));
         <?=$data->title ?>
         <?php $this->widget('site.frontend.widgets.favoritesWidget.FavouritesWidget', array('model' => $data)); ?>
     </h1>
-    <?php if ($data->contestWork !== null && $this->id != 'contest') $this->renderPartial('application.modules.blog.views.default._contest_post', array('contest' => $data->contestWork->contest)); ?>
+    <?php if ($data->contestWork !== null && $this->id != 'contest' && ! $full) $this->renderPartial('application.modules.blog.views.default._contest_post', array('contest' => $data->contestWork->contest)); ?>
 
     <div class="b-article_in clearfix">
         <div class="wysiwyg-content clearfix">
             <p><?=nl2br(CHtml::encode($data->photoPost->text))?></p>
         </div>
-        <?php $this->widget('blog.widgets.PhotoPostWidget', array('post' => $data, 'full' => true)); ?>
+        <?php if ($data->contestWork === null): ?>
+            <?php $this->widget('blog.widgets.PhotoPostWidget', array('post' => $data, 'full' => true)); ?>
+        <?php else: ?>
+            <?php $this->widget('PhotoCollectionViewWidget', array(
+                'collection' => $collection,
+                'width' => 580,
+            )); ?>
+        <?php endif; ?>
     </div>
 
     <?php if (Yii::app()->request->getQuery('openGallery') !== null): ?>
@@ -46,7 +53,20 @@ $collection = new PhotoPostPhotoCollection(array('contentId' => $data->id));
                 <?= $data->purified->preview ?>
             </div>
         <?php //endif ?>
-        <?php $this->widget('blog.widgets.PhotoPostWidget', array('post' => $data, 'full' => false)); ?>
+        <?php if ($data->contestWork === null): ?>
+            <?php $this->widget('blog.widgets.PhotoPostWidget', array('post' => $data, 'full' => false)); ?>
+        <?php else: ?>
+            <?php
+            $this->widget('PhotoCollectionViewWidget', array(
+                'collection' => $collection,
+                'width' => 580,
+                'maxRows' => 2,
+                'windowOptions' => array(
+                    'exitUrl' => $data->getUrl(),
+                ),
+            ));
+            ?>
+        <?php endif; ?>
     </div>
 
 <?php endif ?>

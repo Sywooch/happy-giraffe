@@ -9,6 +9,17 @@
 
 class TempCommand extends CConsoleCommand
 {
+    public function actionCheatHeinz()
+    {
+        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
+        Yii::import('site.common.models.mongo.PageView');
+        while (true) {
+            $sleep = date('H') < 8 ? 72 : 36;
+            PageView::model()->cheat('/community/5/forum/post/114026/', 0, 1);
+            sleep($sleep);
+        }
+    }
+
     public function actionCheatPampers()
     {
         Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
@@ -84,7 +95,7 @@ class TempCommand extends CConsoleCommand
         $criteria->limit = 1000;
         $criteria->order = 'id ASC';
         $users = User::model()->findAll($criteria);
-        $text = 'Весёлый Жираф рекомендует Vicks:<a href="http://ad.adriver.ru/cgi-bin/click.cgi?sid=1&bt=21&ad=420520&pid=1314853&bid=2835781&bn=2835781&rnd=%random%" onclick="_gaq.push([\'_trackEvent\',\'Outgoing Links\',\'www.vicks.ru\'])"><br><br><img src="http://banners.adfox.ru/131101/adfox/309734/551.jpg" alt="Vicks"></a>';
+        $text = 'Весёлый Жираф рекомендует Vicks:<a href="http://ad.adriver.ru/cgi-bin/click.cgi?sid=1&bt=21&ad=420520&pid=1315141&bid=2835794&bn=2835794&rnd=' . mt_rand(100000000, 999999999) . '" onclick="_gaq.push([\'_trackEvent\',\'Outgoing Links\',\'www.vicks.ru\'])"><br><br><img src="http://banners.adfox.ru/131101/adfox/309734/551.jpg" alt="Vicks"></a>';
 
         foreach ($users as $u) {
             $thread = MessagingThread::model()->findOrCreate(1, $u->id);

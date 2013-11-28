@@ -25,7 +25,7 @@
 
     <div class="b-article_in clearfix">
         <div class="wysiwyg-content clearfix">
-            <?=Str::truncate($data->question->text, 200)?>
+            <?=Str::truncate($data->question->text, 700)?>
         </div>
     </div>
 

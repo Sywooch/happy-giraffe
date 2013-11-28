@@ -17,11 +17,11 @@ class CommunityContestWidget extends CWidget
         ));
 
         if ($contest !== null) {
-            $contestShown = UserAttributes::get(Yii::app()->user->id, 'contestShow' . $contest->id, false);
+            $contestShown = UserAttributes::get(Yii::app()->user->id, 'contestShown' . $contest->id, false);
 
             if ($contestShown === false) {
                 $this->render('CommunityContestWidget', compact('contest'));
-                UserAttributes::set(Yii::app()->user->id, 'contestShow' . $contest->id, true);
+                UserAttributes::set(Yii::app()->user->id, 'contestShown' . $contest->id, true);
             }
         }
     }

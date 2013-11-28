@@ -4,7 +4,7 @@ return array(
     'urlFormat' => 'path',
     'showScriptName' => false,
     'urlSuffix' => '/',
-    //'useStrictParsing' => true,
+    'useStrictParsing' => true,
     'rules' => array(
         /*************************
          *      CONTROLLERS      *
@@ -49,7 +49,7 @@ return array(
         'js_dynamics/<hash:\w+>.js' => 'site/seoHide',
         'moderation' => 'site/moderationRules',
         'site/<_a:(confirmEmail|resendConfirmEmail|passwordRecovery|passwordRecoveryForm|login|logout|link|out|hh|flushSchema|vacancySend)>' => 'site/<_a>',
-        'advertiser' => array('site/page', 'defaultParams' => array('view' => 'advertiser')),
+        '<view:(advertiser|abuse)>' => array('site/page'),
         'job/php-developer' => 'site/vacancy',
 
         //===================== Subscribes =========================//
@@ -164,6 +164,7 @@ return array(
         'community/default/save' => 'community/default/save',
         'community/default/photoWidgetSave' => 'community/default/photoWidgetSave',
         'community/default/photoWidget' => 'community/default/photoWidget',
+        'community/default/createQuestion' => 'community/default/createQuestion',
         'community/clubFavourites/<clubId:\d+>' => 'community/default/clubFavourites',
         'community/clubPhotoPosts/<clubId:\d+>' => 'community/default/clubPhotoPosts',
 
@@ -344,6 +345,6 @@ return array(
         'family/<_a>' => 'family/default/<_a>',
         'family/<_c>/<_a>' => 'family/<_c>/<_a>',
 
-        'contest/pets<contestId:\d+>' => 'community/contest/index',
+        'contest/<cssClass:\w+>' => 'community/contest/index',
     ),
 );

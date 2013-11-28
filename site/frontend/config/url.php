@@ -49,7 +49,7 @@ return array(
         'js_dynamics/<hash:\w+>.js' => 'site/seoHide',
         'moderation' => 'site/moderationRules',
         'site/<_a:(confirmEmail|resendConfirmEmail|passwordRecovery|passwordRecoveryForm|login|logout|link|out|hh|flushSchema|vacancySend)>' => 'site/<_a>',
-        'advertiser' => array('site/page', 'defaultParams' => array('view' => 'advertiser')),
+        '<view:(advertiser|abuse)>' => array('site/page'),
         'job/php-developer' => 'site/vacancy',
 
         //===================== Subscribes =========================//

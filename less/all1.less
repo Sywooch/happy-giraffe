@@ -31,6 +31,10 @@
 @import "/project/sidebar.less";
 @import "/project/user-career.less";
 
+// Стили оставшиеся с старых версий
+@import "/project/baby.less";
+@import "/project/user.less";
+
 
 // Стили ниже нужно проверить на использование и разнести по файлам
 /* ---------------------------------------*/
@@ -861,42 +865,6 @@
 	background:url(/images/bg-tooltip-new.png) no-repeat;
 }
 
-/* new-capability */
-.new-capability {
-	margin:10px 0 30px;
-	padding:18px 26px 18px 35px;
-	border:1px solid #dcf7db;
-	background:#e1fde0;
-	-webkit-border-radius: 3px;
-	-moz-border-radius: 3px;
-	-ms-border-radius: 3px;
-	border-radius: 3px;
-	font-size:13px;
-	line-height:23px;
-	color:#656566;
-}
-.new-capability-title {padding-bottom:10px;}
-.new-capability-title .tooltip-new {
-	float:left;
-	margin:0 15px 0 0;
-}
-.new-capability-title span {
-	color:#2c2c2c;
-	font-size:17px;
-	line-height:17px;
-}
-.new-capability-title .know {
-	float:right;
-	border-bottom:1px dashed #029AD2;
-	text-decoration:none;
-	line-height:normal;
-}
-.new-capability-title .know:hover {
-	border-bottom:none;
-	padding-bottom:1px;
-}
-.new-capability img {vertical-align:middle;}
-
 /* assistance */
 .assistance {margin:30px 0 50px 20px;}
 .assistance-count {
@@ -1210,83 +1178,6 @@
 	z-index: 100;
 }
 /* /b-family-add */
-
-/* valentine-banner */
-.valentine-banner {
-	position: relative;
-	height: 260px;
-	background: url(/images/valentine-day/valentine-banner.png) no-repeat;
-}
-.valentine-banner_hold {
-	float: right;
-	margin: 30px 25px 0;
-	text-align: center;
-	width: 240px;
-}
-.valentine-banner_h {
-	color: #1d1c1c;
-	font-family: Tahoma, Arial, Verdana, sans-serif;
-	font-size: 34px;
-	line-height: 34px;
-	margin-bottom: 15px;
-}
-.valentine-banner_t {font-size: 67px;line-height: 69px;}
-.valentine-banner_btn {
-	font-size: 26px;
-	font-weight: normal;
-	padding: 0 35px;
-}
-.valentine-banner_img {
-	position: absolute;
-	display: block;
-	top: 30px;
-	left: 12px;
-	-webkit-transition: all .2s ease-in-out;
-		-moz-transition: all .2s ease-in-out;
-			-o-transition: all .2s ease-in-out;
-				transition: all .2s ease-in-out; /*cssProperty, duration, effect, delay (ease, linear, ease-in, ease-out, ease-in-out, and cubic-bezier)*/
-}
-.valentine-banner_img__1 {
-	background: url(/images/valentine-day/valentine-banner_img__1.png) no-repeat;
-	width: 164px;
-	height: 192px;
-	z-index: 3;
-}
-.valentine-banner_img__1:hover {
-	-webkit-transform:scale(1.05) rotate(-4deg);
-		-moz-transform:scale(1.05) rotate(-4deg);
-			-o-transform:scale(1.05) rotate(-4deg);
-				transform:scale(1.05) rotate(-4deg);
-}
-.valentine-banner_img__2 {
-	background: url(/images/valentine-day/valentine-banner_img__2.png) no-repeat;
-	width: 175px;
-	height: 185px;
-	z-index: 2;
-	left: 135px;
-	top: 33px;
-}
-.valentine-banner_img__2:hover {
-	-webkit-transform:scale(1.05) rotate(-4deg);
-		-moz-transform:scale(1.05) rotate(-4deg);
-			-o-transform:scale(1.05) rotate(-4deg);
-				transform:scale(1.05) rotate(-4deg);
-}
-.valentine-banner_img__3 {
-	background: url(/images/valentine-day/valentine-banner_img__3.png) no-repeat;
-	width: 172px;
-	height: 183px;
-	z-index: 1;
-	left: 256px;
-	top: 28px;
-}
-.valentine-banner_img__3:hover {
-	-webkit-transform:scale(1.05) rotate(3deg);
-		-moz-transform:scale(1.05) rotate(3deg);
-			-o-transform:scale(1.05) rotate(3deg);
-				transform:scale(1.05) rotate(3deg);
-}
-/* /valentine-banner */
 
 /* 404 */
 #page-404 {text-align:center;width:800px;margin:0 auto 0;padding:150px 0 150px;font-size:20px;color:#333333;}

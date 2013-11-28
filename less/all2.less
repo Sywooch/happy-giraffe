@@ -15,7 +15,6 @@
 @import "/project/photo-window.less";
 @import "/project/redactor.less";
 @import "/project/start-page.less";
-@import "/project/sections.less";
 @import "/project/social.less";
 @import "/project/user-notice.less";
 @import "/project/vacancy.less";
@@ -32,6 +31,12 @@
 @import "/project/services/repair.less";
 @import "/project/services/test-pregnancy.less";
 @import "/project/services/test-prikorm.less";
+
+
+/* not use
+@import "/project/sections.less";
+
+*/
 
 .entry-hold {margin-bottom: 30px;}
 .entry-hold .entry {margin-bottom: 0;padding-bottom: 0;}
@@ -358,66 +363,9 @@
 .right-inner{display:block;background:#FFF;padding:25px 0 0 15px;margin:0;width:700px;float:left;}
 .right-inner.mirror{display:block;background:#FFF;padding:25px 0 0 0;margin:0;width:610px;float:left;}
 
-.photo-list{padding:20px 0;text-align:left;}
-.photo-list li{display:block;float:left;padding:5px;text-indent:0!important;color:#626161;font:italic 10px Arial, Helvetica, sans-serif;width:170px;}
-.photo-list li .img-box{text-align:center;position:relative;background:#fafafa;text-align:center;display:table-cell;width:170px;vertical-align:bottom;}
-.photo-list li .img-box img{display:block;max-width:170px;max-height:180px;margin:auto;}
-.photo-list .item-title{background:#ededed;padding:5px;display:block;text-align:center;}
-.photo-list .mark{background:#fffedf;display:block;font:10px Arial, Helvetica, sans-serif;color:#7a7b7b;text-align:right;padding:3px 12px;float:right;}
-.photo-list .mark span{font:bold 11px tahoma, sans-serif;color:#fb7a03;}
-
 .inner.contest.list .content-title{float:left;}
 
 .settings .sel .btn{margin-top:7px;margin-left:10px;}
-
-
-/* morning */
-.morning-entry {}
-.morning-entry .entry-header {overflow:hidden;}
-.morning-entry .entry-content img {max-width:100%;}
-
-.entry .morning-images {}
-.entry .morning-images img {display:block;}
-.entry .morning-images .big {}
-.entry .morning-images .big img {max-width:100%;}
-.entry .morning-images .thumbs {padding-top:4px;}
-.entry .morning-images .thumbs ul {list-style:none;}
-.entry .morning-images .thumbs ul li {float:left;padding-right:4px;}
-.entry .morning-images .thumbs ul li img {height:140px;}
-.entry .morning-images .thumbs ul li .more {color:#b9b9b9;font-size:13px;padding-top:30px;float:left;text-decoration:none;margin-left:10px;max-width:100px;text-align:center;width:100px;}
-.entry .morning-images .thumbs ul li .more .icon {display:block;width:56px;height:56px;background:url(../images/common.png) no-repeat -499px -135px;margin:0 auto;margin-bottom:10px;}
-.entry .morning-images .thumbs ul li .more:hover .icon {background-position:-499px -193px;}
-.entry .morning-images .thumbs ul li .more:hover {color:#7abc2e;text-decoration:underline;}
-
-.morning-sidebar {border:1px solid #f0eaf6;float:left;width:238px;margin-right:20px;}
-
-.morning-sidebar .banner {}
-.morning-sidebar .banner img {display:block;}
-
-.morning-sidebar .calendar {padding:15px;line-height:normal;}
-.morning-sidebar .calendar .days {float:left;width:102px;}
-.morning-sidebar .calendar .days table thead td {color:#4c4c4c;font-size:22px;text-align:center;}
-.morning-sidebar .calendar .days table tbody td {width:34px;text-align:center;height:28px;font-size:16px;line-height:28px;}
-.morning-sidebar .calendar .days table tbody td a {color:#a3a3a2;}
-.morning-sidebar .calendar .days table tbody td {color:#a3a3a2;}
-.morning-sidebar .calendar .days table tbody td a:hover {text-decoration:none;}
-.morning-sidebar .calendar .days table tbody td.active {background:#fff3a0;}
-.morning-sidebar .calendar .days table tbody td.active a {color:#5d5c5c;font-weight:bold;text-decoration:none;}
-.morning-sidebar .calendar .date {font-size:35px;color:#ba9ad9;font-weight:bold;text-align:center;text-transform:uppercase;line-height:1;margin-left:110px;}
-.morning-sidebar .calendar .date span {font-size:80px;display:block;}
-.morning-sidebar .calendar .nav {height:70px;position:relative;}
-.morning-sidebar .calendar .nav a {display:block;width:25px;height:33px;background:url(/images/common.png) no-repeat 25px 33px;position:absolute;top:50%;margin-top:-16px;}
-.morning-sidebar .calendar .nav a.prev {background-position:-186px -165px;left:25px;}
-.morning-sidebar .calendar .nav a.prev:hover {background-position:-159px -165px;}
-.morning-sidebar .calendar .nav a.next {background-position:-213px -165px;right:25px;}
-.morning-sidebar .calendar .nav a.next:hover {background-position:-240px -165px;}
-
-.morning-main {width:700px;float:right;}
-#morning.morning-wide .morning-main {width:960px;}
-#morning.morning-wide .morning-sidebar {display:none;}
-
-#morning.morning-wide .morning-main .entry .entry-content img {width: 1000px;}
-/* /morning */
 
 /* test */
 .test {margin-bottom:30px;}
@@ -1191,39 +1139,7 @@ table.fr_recipe_tb td { width: 50%;}
     &__self &_ico__like:hover {background-position: 0 0;}
     &__self &_ico__repost:hover {background-position: -200px 0;}
     &__self .favorites-control_a:hover {background-position: -400px 0;}
-/*   
-    &__circle {
-        width: auto;
-        margin: 10px 20px 35px;
-        padding: 0;
-        background: none;
-    }
-    &__circle .favorites-control_a,
-    &__circle &_ico {
-        margin: 0 5px;
-        padding: 61px 0 13px;
-        width: 92px;
-        background-color: #ffe535;
-        .border-radius(46px);
-    }
-    &__circle &_ico__like {background-position: 26px 15px;}
-    &__circle &_ico__like:hover {background-position: 26px -385px;}
-    &__circle &_ico__repost {background-position: -174px 15px;}
-    &__circle &_ico__repost:hover {background-position: -174px -385px;}
-    &__circle .favorites-control_a {background-position: -374px 15px;}
-    &__circle .favorites-control_a:hover {background-position: -374px -385px;}
-    &__circle .favorites-add-popup {
-        top: 100px;
-        left: 50%;
-        margin-left: -150px;
-        display: none;
-    }
-    &__circle .favorites-add-popup:after {
-        margin: -5px -5px 0 0;
-        right: 50%;
-        top: 0;
-        transform: rotate(135deg);
-    }*/
+
     &_i {
         position: relative;
         .inline-block();
@@ -1452,7 +1368,7 @@ table.fr_recipe_tb td { width: 50%;}
         margin: 0;
         overflow: visible;
     }
-    .photo-grid_row {margin: 0;}
+    .photo-grid_row {margin: 0 !important;}
     .photo-grid_i {}
     .photo-grid_i:hover {
         position: relative;

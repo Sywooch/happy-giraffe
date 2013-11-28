@@ -190,13 +190,101 @@
 					</div>
 					<ul class="widget-friends_ul clearfix">
 						<li class="widget-friends_i">
-							<a href="" class="ava male"></a>
+							<div class="b-ava-hover clearfix">
+								<a href="" class="ava male"></a>
+								<div class="b-ava-hover_hold">
+									<a href="" class="b-ava-hover_name">Ангелина Богоявленская </a>
+									<div class="b-ava-hover_location clearfix">
+										<div class="flag flag-ru"></div>
+										<span class="b-ava-hover_location-tx">
+											Россия
+										</span>
+									</div>
+									<div class="b-ava-hover_btns">
+										<a href="" class="b-ava-hover_btn">
+											<span class="b-ava-hover_ico b-ava-hover_ico__addfriend"></span>
+										</a>
+										<a href="" class="b-ava-hover_btn">
+											<span class="b-ava-hover_ico b-ava-hover_ico__dialog"></span>
+										</a>
+										<div class="b-ava-hover_btns-sepor"></div>
+										<a href="" class="b-ava-hover_btn">
+											<span class="b-ava-hover_ico b-ava-hover_ico__blog"></span>
+											125
+										</a>
+										<a href="" class="b-ava-hover_btn">
+											<span class="b-ava-hover_ico b-ava-hover_ico__photo"></span>
+											1569
+										</a>
+									</div>
+								</div>
+							</div>
 						</li>
 						<li class="widget-friends_i">
-							<a href="" class="ava"><img src="/images/user_friends_img.jpg"></a>
+							<div class="b-ava-hover clearfix">
+								<a href="" class="ava">
+									<span class="icon-status"></span>
+									<img src="/images/user_friends_img.jpg">
+								</a>
+								<div class="b-ava-hover_hold">
+									<a href="" class="b-ava-hover_name">Елизаветушка Богоявленская </a>
+									<div class="b-ava-hover_location clearfix">
+										<div class="flag flag-ru"></div>
+										<span class="b-ava-hover_location-tx">
+											Воронежская обл.
+										</span>
+									</div>
+									<div class="b-ava-hover_btns">
+										<a href="" class="b-ava-hover_btn">
+											<span class="b-ava-hover_ico b-ava-hover_ico__addfriend"></span>
+										</a>
+										<a href="" class="b-ava-hover_btn">
+											<span class="b-ava-hover_ico b-ava-hover_ico__dialog"></span>
+										</a>
+										<div class="b-ava-hover_btns-sepor"></div>
+										<a href="" class="b-ava-hover_btn">
+											<span class="b-ava-hover_ico b-ava-hover_ico__blog"></span>
+											125
+										</a>
+										<a href="" class="b-ava-hover_btn">
+											<span class="b-ava-hover_ico b-ava-hover_ico__photo"></span>
+											91569
+										</a>
+									</div>
+								</div>
+							</div>
 						</li>
+
 						<li class="widget-friends_i">
-							<a href="" class="ava female"></a>
+							<div class="b-ava-hover clearfix">
+								<a href="" class="ava"><img src="/images/user_friends_img.jpg"></a>
+								<div class="b-ava-hover_hold">
+									<a href="" class="b-ava-hover_name">Ангелина Богоя </a>
+									<div class="b-ava-hover_location clearfix">
+										<div class="flag flag-ru"></div>
+										<span class="b-ava-hover_location-tx">
+											Петроково Воронежская обл. Россия
+										</span>
+									</div>
+									<div class="b-ava-hover_btns">
+										<a href="" class="b-ava-hover_btn">
+											<span class="b-ava-hover_ico b-ava-hover_ico__addfriend"></span>
+										</a>
+										<a href="" class="b-ava-hover_btn">
+											<span class="b-ava-hover_ico b-ava-hover_ico__dialog"></span>
+										</a>
+										<div class="b-ava-hover_btns-sepor"></div>
+										<a href="" class="b-ava-hover_btn">
+											<span class="b-ava-hover_ico b-ava-hover_ico__blog"></span>
+											9125
+										</a>
+										<a href="" class="b-ava-hover_btn">
+											<span class="b-ava-hover_ico b-ava-hover_ico__photo"></span>
+											9
+										</a>
+									</div>
+								</div>
+							</div>
 						</li>
 						<li class="widget-friends_i">
 							<a href="" class="ava"></a>
@@ -342,7 +430,7 @@ $(function() {
 						<li class="club-list_li">
 							<a href="" class="club-list_i">
 								<span class="club-list_img-hold">
-									<img src="/images/club/1.png" alt="" class="club-list_img">
+									<img src="/images/club/1-w130.png" alt="" class="club-list_img">
 								</span>
 								<span class="club-list_i-name">Украшаем дом</span>
 							</a>
@@ -351,7 +439,7 @@ $(function() {
 						<li class="club-list_li club-list_li__in">
 							<a href="" class="club-list_i">
 								<span class="club-list_img-hold">
-									<img src="/images/club/2.png" alt="" class="club-list_img">
+									<img src="/images/club/2-w130.png" alt="" class="club-list_img">
 								</span>
 								<span class="club-list_i-name">Дети</span>
 							</a>
@@ -360,7 +448,7 @@ $(function() {
 						<li class="club-list_li">
 							<a href="" class="club-list_i">
 								<span class="club-list_img-hold">
-									<img src="/images/club/3.png" alt="" class="club-list_img">
+									<img src="/images/club/3-w130.png" alt="" class="club-list_img">
 								</span>
 								<span class="club-list_i-name">Цветы в доме</span>
 							</a>
@@ -369,7 +457,7 @@ $(function() {
 						<li class="club-list_li">
 							<a href="" class="club-list_i">
 								<span class="club-list_img-hold">
-									<img src="/images/club/4.png" alt="" class="club-list_img">
+									<img src="/images/club/4-w130.png" alt="" class="club-list_img">
 								</span>
 								<span class="club-list_i-name">Свадьба</span>
 							</a>
@@ -378,7 +466,7 @@ $(function() {
 						<li class="club-list_li">
 							<a href="" class="club-list_i">
 								<span class="club-list_img-hold">
-									<img src="/images/club/5.png" alt="" class="club-list_img">
+									<img src="/images/club/5-w130.png" alt="" class="club-list_img">
 								</span>
 								<span class="club-list_i-name">Наши питомцы</span>
 							</a>
@@ -387,7 +475,7 @@ $(function() {
 						<li class="club-list_li">
 							<a href="" class="club-list_i">
 								<span class="club-list_img-hold">
-									<img src="/images/club/6.png" alt="" class="club-list_img">
+									<img src="/images/club/6-w130.png" alt="" class="club-list_img">
 								</span>
 								<span class="club-list_i-name">Образование</span>
 							</a>
@@ -396,7 +484,7 @@ $(function() {
 						<li class="club-list_li">
 							<a href="" class="club-list_i">
 								<span class="club-list_img-hold">
-									<img src="/images/club/7.png" alt="" class="club-list_img">
+									<img src="/images/club/7-w130.png" alt="" class="club-list_img">
 								</span>
 								<span class="club-list_i-name">Выходные с семьей</span>
 							</a>
@@ -405,7 +493,7 @@ $(function() {
 						<li class="club-list_li">
 							<a href="" class="club-list_i">
 								<span class="club-list_img-hold">
-									<img src="/images/club/8.png" alt="" class="club-list_img">
+									<img src="/images/club/8-w130.png" alt="" class="club-list_img">
 								</span>
 								<span class="club-list_i-name">Красота и мода</span>
 							</a>
@@ -591,7 +679,7 @@ $(function() {
                 </div>
                     
 				<!-- Статьи -->
-				<div class="col-gray">
+				<!-- <div class="col-gray"> -->
 				
 					<div class="clearfix margin-20">
 						<!-- Отписаться btn-lightgray  -->
@@ -599,14 +687,160 @@ $(function() {
 						<h3 class="heading-small float-l margin-t5">Моя активность</h3>
 					</div>
 					
+					<div class="comments-gray comments-gray__activity">
+
+						<div class="comments-gray_hold">
+
+							<div class="comments-gray_i">
+								<div class="comments-gray_ava">
+									<a href="" class="ava female">
+										<img src="/images/user_friends_img.jpg">
+									</a>
+								</div>
+								<div class="comments-gray_r">
+									<div class="comments-gray_date">Сегодня 13:25</div>
+									
+									<div class="comments-gray_control">
+										<div class="comments-gray_control-hold">
+											<a href="" class="comments-gray_quote-ico powertip" title="Ответить"></a>
+											<a href="" class="message-ico message-ico__warning powertip" title="Пожаловаться"></a>
+										</div>
+									</div>
+									
+								</div>
+								<div class="comments-gray_frame">
+									<div class="comments-gray_header clearfix">
+										<a href="" class="comments-gray_author">Анг Богоявлен </a>
+										<a href="" class="comments-gray_like like-hg-small powertip" title="Нравится">78</a>
+									</div>
+									<div class="comments-gray_cont wysiwyg-content">
+										<p>я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически производит поиск по сайту </p>
+										<p>
+											<a href="" class="comments-gray_cont-img-w">
+												<img src="/images/example/photo-window-2.jpg" alt="">
+											</a>
+										</p>
+										<p>и подцепляет естественно студийные версии песен вместо нужных.  я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически </p>
+									</div>
+
+									<div class="comments-gray_article clearfix">
+										<div class="comments-gray_article-img">
+											<a href="">
+												<img src="/images/example/w120-h105-1.jpg" alt="">
+											</a>
+										</div>
+										<div class="comments-gray_article-hold">
+											<a href="" class="ava middle female">
+												<img src="http://img.happy-giraffe.ru/thumbs/40x40/226756/ava37c6f8cbce89e6c13d0f9622a3d5537a.JPG" alt="">
+											</a>
+											<div class="comments-gray_article-cont">
+												<div class="clearfix">
+													<div class="meta-gray">
+														<a class="meta-gray_comment" href="">
+															<span class="ico-comment ico-comment__gray"></span>
+															<span class="meta-gray_tx">35</span>
+														</a>
+														<div class="meta-gray_view">
+															<span class="ico-view ico-view__gray"></span>
+															<span class="meta-gray_tx">305</span>
+														</div>
+													</div>
+													<div class="float-l">
+														<a href="" class="ava-name">Марина Петрова</a>
+													</div>
+												</div>
+												<div class="comments-gray_article-t">
+													<a href=""  class="comments-gray_article-t-a">Как воспитать собаку: 10 простых советов</a>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								
+							</div>
+						</div>
+
+					</div>
+
+					<div class="comments-gray comments-gray__activity">
+
+						<div class="comments-gray_hold">
+
+							<div class="comments-gray_i">
+								<div class="comments-gray_ava">
+									<a href="" class="ava female">
+										<img src="/images/user_friends_img.jpg">
+									</a>
+								</div>
+								<div class="comments-gray_r">
+									<div class="comments-gray_date">Сегодня 13:25</div>
+									
+									<div class="comments-gray_control">
+										<div class="comments-gray_control-hold">
+											<a href="" class="comments-gray_quote-ico powertip" title="Ответить"></a>
+											<a href="" class="message-ico message-ico__warning powertip" title="Пожаловаться"></a>
+										</div>
+									</div>
+									
+								</div>
+								<div class="comments-gray_frame">
+									<div class="comments-gray_header clearfix">
+										<a href="" class="comments-gray_author">Анг Богоявлен </a>
+										<a href="" class="comments-gray_like like-hg-small powertip" title="Нравится">78</a>
+									</div>
+									<div class="comments-gray_cont wysiwyg-content">
+										<p>Классно подцепляет естественно студийные версии песен вместо нужных.</p>
+									</div>
+
+									<div class="comments-gray_article clearfix">
+										<!-- <div class="comments-gray_article-img">
+											<a href="">
+												<img src="/images/example/w120-h105-1.jpg" alt="">
+											</a>
+										</div> -->
+										<div class="comments-gray_article-hold">
+											<a href="" class="ava middle female">
+												<img src="http://img.happy-giraffe.ru/thumbs/40x40/226756/ava37c6f8cbce89e6c13d0f9622a3d5537a.JPG" alt="">
+											</a>
+											<div class="comments-gray_article-cont">
+												<div class="clearfix">
+													<div class="meta-gray">
+														<a class="meta-gray_comment" href="">
+															<span class="ico-comment ico-comment__gray"></span>
+															<span class="meta-gray_tx">35</span>
+														</a>
+														<div class="meta-gray_view">
+															<span class="ico-view ico-view__gray"></span>
+															<span class="meta-gray_tx">305</span>
+														</div>
+													</div>
+													<div class="float-l">
+														<a href="" class="ava-name">Марина Петрова</a>
+													</div>
+												</div>
+												<div class="comments-gray_article-t">
+													<a href=""  class="comments-gray_article-t-a">Методы контрацепции </a>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								
+							</div>
+						</div>
+
+					</div>
+
+
+
+
 					<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/articles.php'; ?>
 					
-				</div>
+				<!-- </div> -->
 			</div>
 		</div>
 		</div>
 		
-		<a href="#layout" id="btn-up-page"></a>
 		<div class="footer-push"></div>
 	</div>
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/footer.php'; ?>

@@ -380,7 +380,7 @@ class AlbumPhoto extends HActiveRecord
         // Entity file system path
         $model_dir = $thumb_path . DIRECTORY_SEPARATOR . $this->author_id;
         // Image file system path
-        $thumb = $path = $model_dir . DIRECTORY_SEPARATOR . $this->fs_name;
+        $thumb = $model_dir . DIRECTORY_SEPARATOR . $this->fs_name;
         if (!file_exists($thumb) || $force_replace) {
             if (!file_exists($thumb_path)) {
                 mkdir($thumb_path);
@@ -406,15 +406,6 @@ class AlbumPhoto extends HActiveRecord
             $this->width = $size[0];
             $this->height = $size[1];
         }
-
-        $finfo = finfo_open(FILEINFO_MIME_TYPE);
-        $mimetype = finfo_file($finfo, $dir . DIRECTORY_SEPARATOR . $path);
-        finfo_close($finfo);
-
-        if ($mimetype == 'image/jpeg')
-            shell_exec('jpegoptim --strip-all ' . $path);
-        elseif ($mimetype == 'image/png')
-            shell_exec('optipng -o2 ' . $path);
 
         return $thumb;
     }
@@ -453,6 +444,15 @@ class AlbumPhoto extends HActiveRecord
                 $image = $image->resize($width, $height);
 
             $image = $image->save($thumb);
+
+            $finfo = finfo_open(FILEINFO_MIME_TYPE);
+            $mimetype = finfo_file($finfo, $thumb);
+            finfo_close($finfo);
+
+            if ($mimetype == 'image/jpeg')
+                shell_exec('jpegoptim --strip-all ' . $thumb);
+            elseif ($mimetype == 'image/png')
+                shell_exec('optipng -o2 ' . $thumb);
         }
 
         return $thumb;

@@ -337,7 +337,7 @@ return array(
             'class' => 'ext.EPhpThumb.EPhpThumb',
             'options' => array(
                 'resizeUp' => true,
-                'jpegQuality' => 75,
+                'jpegQuality' => 70,
             ),
         ),
 	),

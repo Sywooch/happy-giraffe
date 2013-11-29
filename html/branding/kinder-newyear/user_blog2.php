@@ -376,6 +376,7 @@ document.write('<scr' + 'ipt type="text/javascript" src="http://ads.adfox.ru/211
 
 	<script>
 	$(window).load(function () {
+		$("#layout-container").append("<div id='cover' class='cover cover__adkinder'><div class='cover_b'></div></div>");
 		var container = $('.layout-wrapper');
 
 		if(container.height() < 2380) {
@@ -383,11 +384,7 @@ document.write('<scr' + 'ipt type="text/javascript" src="http://ads.adfox.ru/211
 			$('.footer-push').height(209);
 		}
 	});
-	</script> 
-	<div class="cover cover__adkinder">
-		
-		<div class="cover_b"></div>
-	</div>
+	</script>
 </div>
 
 </body>

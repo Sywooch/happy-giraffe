@@ -465,10 +465,19 @@
 	<div class="footer-push"></div>
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/footer.php'; ?>
 
-	<div class="cover cover__adkinder">
-		
-		<div class="cover_b"></div>
-	</div>
+	<script>
+	$(window).load(function () {
+		$("#layout-container").append("<div id='cover' class='cover cover__adkinder'><div class='cover_b'></div></div>");
+		$(".start-page").append("<div id='cover' class='cover cover__adkinder'><div class='cover_b'></div></div>");
+
+		var container = $('.layout-wrapper');
+
+		if(container.length > 0 && container.height() < 2380) {
+			$('.cover').css({'display':'none'});
+			$('.footer-push').height('209px');
+		}
+	});
+	</script> 
 </div>
 </body>
 </html>

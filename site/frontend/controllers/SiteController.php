@@ -455,8 +455,7 @@ class SiteController extends HController
 
     public function actionQualityTest($url = null)
     {
-        $qArray = range(0, 100, 5);
-        array_shift($qArray);
+        $qArray = range(50, 100, 5);
         foreach ($qArray as $q) {
             $phpThumb = Yii::createComponent(array(
                 'class' => 'ext.EPhpThumb.EPhpThumb',

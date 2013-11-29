@@ -464,10 +464,10 @@ class SiteController extends HController
                 ),
             ));
             $phpThumb->init();
-            $path = Yii::getPathOfAlias('site.common.uploads.photos.temp') . DIRECTORY_SEPARATOR . md5($url) . '.jpg';
+            $path = Yii::getPathOfAlias('site.common.uploads.photos.temp') . DIRECTORY_SEPARATOR . md5($url . $q) . '.jpg';
             $thumb = $phpThumb->create($url);
             $thumb->save($path);
-            echo $q . ':<br>' . CHtml::image(Yii::app()->params['photos_url'] . '/temp/' . md5($url) . '.jpg') . '<br><br><br>';
+            echo $q . ':<br>' . CHtml::image(Yii::app()->params['photos_url'] . '/temp/' . md5($url . $q) . '.jpg') . '<br><br><br>';
         }
     }
 }

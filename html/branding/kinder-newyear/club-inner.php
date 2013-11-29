@@ -71,9 +71,11 @@ document.write('<scr' + 'ipt type="text/javascript" src="http://ads.adfox.ru/211
 <!--AdFox END-->
 
 <div id="layout-container" class="layout-container">
+
+	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/header-fix.php'; ?>
+
 	<div class="layout-wrapper">
 		
-
 		<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/header-new.php'; ?>
 		<div class="layout-content clearfix">
 		<div class="content-cols clearfix">

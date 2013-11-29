@@ -465,6 +465,19 @@
 	<div class="footer-push"></div>
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/footer.php'; ?>
 
+
+	<script>
+	$(window).load(function () {
+		var container = $('.start-page_container');
+		/*var container = $('.layout-wrapper');*/
+
+			console.log(container.height())	
+		if(container.height() > 2570) {
+			$('.cover').show();
+			$('.footer-push').height(385);
+		}
+	});
+	</script>	
 	<div class="cover cover__adkinder">
 		
 		<div class="cover_b"></div>

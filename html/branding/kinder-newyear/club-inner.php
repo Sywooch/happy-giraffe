@@ -244,6 +244,18 @@ document.write('<scr' + 'ipt type="text/javascript" src="http://ads.adfox.ru/211
 	<div class="footer-push"></div>
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/footer.php'; ?>
 
+	<script>
+	$(window).load(function () {
+		var container = $('.start-page_container');
+		var container = $('.layout-wrapper');
+
+		if(container.height() > 2570) {
+			$('.cover').show();
+			console.log(container.height())	
+			$('.footer-push').height(385);
+		}
+	});
+	</script>	
 	<div class="cover cover__adkinder">
 		
 		<div class="cover_b"></div>

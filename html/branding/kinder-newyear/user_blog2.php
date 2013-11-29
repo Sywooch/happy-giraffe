@@ -8,7 +8,36 @@
 
 </head>
 <body class="body-gray theme__adfox theme__adkinder">
-
+<!--AdFox START-->
+<!--giraffe-->
+<!--Площадка: Весёлый Жираф / * / *-->
+<!--Тип баннера: Брендирование-->
+<!--Расположение: бэкграунд-->
+<script type="text/javascript">
+<!--
+if (typeof(pr) == 'undefined') { var pr = Math.floor(Math.random() * 1000000); }
+if (typeof(document.referrer) != 'undefined') {
+  if (typeof(afReferrer) == 'undefined') {
+    afReferrer = escape(document.referrer);
+  }
+} else {
+  afReferrer = '';
+}
+var addate = new Date(); 
+var scrheight = '', scrwidth = '';
+if (self.screen) {
+scrwidth = screen.width;
+scrheight = screen.height;
+} else if (self.java) {
+var jkit = java.awt.Toolkit.getDefaultToolkit();
+var scrsize = jkit.getScreenSize();
+scrwidth = scrsize.width;
+scrheight = scrsize.height;
+}
+document.write('<scr' + 'ipt type="text/javascript" src="http://ads.adfox.ru/211012/prepareCode?pp=dtx&amp;ps=bkqy&amp;p2=ewfb&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a&amp;pr=' + pr +'&amp;pt=b&amp;pd=' + addate.getDate() + '&amp;pw=' + addate.getDay() + '&amp;pv=' + addate.getHours() + '&amp;prr=' + afReferrer + '&amp;pdw=' + scrwidth + '&amp;pdh=' + scrheight + '"><\/scr' + 'ipt>');
+// -->
+</script>
+<!--AdFox END-->
 	
 <div class="layout-container">
 	<div class="layout-wrapper">
@@ -364,136 +393,9 @@
 									<iframe width="580" height="320" frameborder="0" allowfullscreen="" src="http://www.youtube.com/embed/pehSAUTqjRs?wmode=transparent"></iframe>
 								</div>
 								<p>	Недавно посмотрел фильм "Убить Дракона" снятый в 1988 году с Абдуловым в главной роли. По мотивам пьесы Евгения Шварца «Дракон».</p>
-								<ol>
-									<li>Практически нет девушки, которая не переживала бы за отношения героев "Сумерек" как в на экранах, так и в жизни. Но, к сожалению, даже несмотря на то, что недавно герои "Сумерек" радовали всех тем, что у них невероятный роман  и в рельной жизни, а не только лишь на экране, все же <a href="">Роберт Паттинсон</a>  и Кристен Стюарт расстались и пока реши</li>
-									<li>Но, к сожалению, даже несмотря на то, что недавно герои "Сумерек" радовали всех тем, что у них невероятный роман  и в рельной жизни, а не только лишь на экране, все же <a href="">Роберт Паттинсон</a>  и Кристен Стюарт расстались и пока реши</li>
-									<li> <a href="">Роберт Паттинсон</a>  и Кристен Стюарт расстались и пока реши</li>
-									<li>Практически нет девушки, которая не переживала бы за отношения героев "Сумерек" как в на экранах, так и в жизни. Но, к сожалению, даже несмотря на то, что недавно герои "Сумерек" радовали всех тем, что у них невероятный роман  и в рельной жизни, а не только лишь на экране, все же <a href="">Роберт Паттинсон</a>  и Кристен Стюарт расстались и пока реши</li>
-								</ol>
-								<p>Практически нет девушки, которая не переживала бы за отношения героев "Сумерек" как в на экранах, так и в жизни. Но, к сожалению, даже несмотря на то, что недавно герои "Сумерек" радовали всех тем, что у них невероятный роман  и в рельной жизни, а не только лишь на экране, все же <a href="">Роберт Паттинсон</a>  и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.</p>
-								
-								<div class="clearfix">
-									<img title="Убить Дракона. Фантасмагория или сказка для взрослых. фото 1" src="http://img.happy-giraffe.ru/thumbs/700x700/16534/3733dd340b221ac3052b5cef11288870.jpg" class="content-img" alt="Убить Дракона. Фантасмагория или сказка для взрослых. фото 1">
-								</div>
-								<h2>H2 Где можно поменять название трека</h2>
-								<p>	Недавно посмотрел фильм "Убить Дракона" снятый в 1988 году с Абдуловым в главной роли. По мотивам пьесы Евгения Шварца «Дракон».</p>
-								<div class="b-article_in-img">
-									<img title="Ночные гости - кто они фото 1" src="http://img.happy-giraffe.ru/thumbs/700x700/56/edad8d334a0b4a086a50332a2d8fd0fe.JPG" class="content-img" alt="Ночные гости - кто они фото 1">
-								</div>
-								<ul>
-									<li>я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.  я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически </li>
-									<li>я не нашел, где можно поменять название трека.</li>
-									<li>Меняя название трека в <strong>Меняя название трека</strong> альбоме он автоматически производит поиск <a href="">Меняя название трека </a>по сайту и подцепляет естественно студийные версии песен вместо нужных.  я не нашел, где можно поменять название трека. <b>Меняя название трека</b>  в альбоме он автоматически </li>
-								</ul>
-								<p>и подцепляет естественно студийные версии песен вместо нужных. и подцепляет естественно студийные версии песен вместо нужных.  я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически  и подцепляет естественно студийные версии песен вместо нужных.  я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически </p>
-								<h2>H2 Где можно поменять название трека</h2>
-								<p>	Недавно <i>посмотрел фильм "Убить Дракона" снятый</i>  в 1988 году с <em>Абдуловым в главной роли</em> . По мотивам <strike>пьесы Евгения Шварца</strike>  «Дракон».</p>
-								<h3>H3 Где можно поменять название трека</h3>
-								
-								<ul>
-									<li>первое </li>
-									<li>второе</li>
-									<li>третье </li>
-								</ul>
 							</div>
 						</div>
 
-						<div class="b-photopost">
-							<h2 class="b-photopost_t">Цветы из бумаги объемные</h2>
-                            <div class="photo-grid clearfix">
-                                <div class="photo-grid_row clearfix" >
-                                    <!-- Ловить клик на photo-grid_i для показа увеличенного фото -->
-                                    <div class="photo-grid_i">
-                                        <img class="photo-grid_img" src="/images/example/w580-h369.jpg" alt="">
-                                        <div class="photo-grid_tip">25 фото</div>
-                                        <span class="ico-play-big"></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="margin-20 clearfix">
-                                <a href="" class="float-r btn-blue-light btn-medium">Смотреть галерею</a>
-                                <div class="float-l">
-                                    <a href="" class="b-article_photo-control b-article_photo-control__single powertip" title="Обложка"></a>
-                                    <a href="" class="b-article_photo-control b-article_photo-control__grid active powertip" title="Плитка"></a>
-                                </div>
-                            </div>
-						</div>
-						<div class="b-photopost">
-							<h2 class="b-photopost_t">Цветы из бумаги объемные</h2>
-							<div class="photo-grid clearfix">
-                                <div class="photo-grid_row clearfix">
-                                    <!-- Ловить клик на photo-grid_i для показа увеличенного фото -->
-                                    <div class="photo-grid_i">
-                                        <img alt="" src="/images/example/photo-grid-1.jpg" class="photo-grid_img">
-                                        <div class="photo-grid_overlay">
-                                            <span class="photo-grid_zoom powertip"></span>
-                                        </div>
-                                    </div>
-                                    <div class="photo-grid_i">
-                                        <img alt="" src="/images/example/photo-grid-2.jpg" class="photo-grid_img">
-                                        <div class="photo-grid_overlay">
-                                            <span class="photo-grid_zoom powertip"></span>
-                                        </div>
-                                    </div>
-                                    <div class="photo-grid_i">
-                                        <img alt="" src="/images/example/photo-grid-3.jpg" class="photo-grid_img">
-                                        <div class="photo-grid_overlay">
-                                            <span class="photo-grid_zoom powertip"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="photo-grid_row clearfix">
-                                    <!-- Ловить клик на photo-grid_i для показа увеличенного фото -->
-                                    <div class="photo-grid_i">
-                                        <img alt="" src="/images/example/photo-grid-4.jpg" class="photo-grid_img">
-                                        <div class="photo-grid_overlay">
-                                            <span class="photo-grid_zoom powertip"></span>
-                                        </div>
-                                    </div>
-                                    <div class="photo-grid_i">
-                                        <img alt="" src="/images/example/photo-grid-5.jpg" class="photo-grid_img">
-                                        <div class="photo-grid_overlay">
-                                            <span class="photo-grid_zoom powertip"></span>
-                                        </div>
-                                    </div>
-                                    <div class="photo-grid_i">
-                                        <img alt="" src="/images/example/photo-grid-6.jpg" class="photo-grid_img">
-                                        <div class="photo-grid_overlay">
-                                            <span class="photo-grid_zoom powertip"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="photo-grid_row clearfix">
-                                    <!-- Ловить клик на photo-grid_i для показа увеличенного фото -->
-                                    <div class="photo-grid_i">
-                                        <img alt="" src="/images/example/photo-grid-3.jpg" class="photo-grid_img">
-                                        <div class="photo-grid_overlay">
-                                            <span class="photo-grid_zoom powertip"></span>
-                                        </div>
-                                    </div>
-                                    <div class="photo-grid_i">
-                                        <img alt="" src="/images/example/photo-grid-1.jpg" class="photo-grid_img">
-                                        <div class="photo-grid_overlay">
-                                            <span class="photo-grid_zoom powertip"></span>
-                                        </div>
-                                    </div>
-                                    <div class="photo-grid_i">
-                                        <img alt="" src="/images/example/photo-grid-2.jpg" class="photo-grid_img">
-                                        <div class="photo-grid_overlay">
-                                            <span class="photo-grid_zoom powertip"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="margin-20 clearfix">
-                                <a href="" class="float-r btn-blue-light btn-medium">Смотреть галерею</a>
-                                <div class="float-l">
-                                    <a href="" class="b-article_photo-control b-article_photo-control__single powertip" title="Обложка"></a>
-                                    <a href="" class="b-article_photo-control b-article_photo-control__grid active powertip" title="Плитка"></a>
-                                </div>
-                            </div>
-						</div>
-						
 						<div class="custom-likes-b">
 							<div class="custom-likes-b_slogan">Поделитесь с друзьями!</div>
 							<a href="" class="custom-like">
@@ -515,464 +417,8 @@
 								<span class="custom-like_value">10</span>
 							</a>
 						</div>
-						<div class="nav-article clearfix">
-							<div class="nav-article_left">
-								<a href="" class="nav-article_a">Очень красивые пропорции у нашего ведущего</a>
-							</div>
-							<div class="nav-article_right">
-								<a href="" class="nav-article_a">Очень красивые пропорции Очень красивые пропорции у нашего ведущего у нашего ведущего</a>
-							</div>
-						</div>
-						
-						<div class="article-banner">
-							<a href="">
-								<img border="0" title="" alt="" src="/images/example/w540-h285.jpg">
-							</a>
-						</div>
-						
 					</div>
 				</div>
-				<div class="article-banner">
-					<a href="">
-						<img border="0" title="" alt="" src="/images/example/yandex-direct_wide.jpg">
-					</a>
-				</div>
-				
-				<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/comments-gray-open.php'; ?>
-				
-				<div class="article-users">
-					<div class="article-users_t">Запись понравилась </div>
-					<div class="ava-list">
-						<ul class="ava-list_ul clearfix">
-							<li class="ava-list_li">
-								<a href="" class="ava small"></a>
-							</li>
-							<li class="ava-list_li">
-								<a href="" class="ava small">
-									<img src="http://img.happy-giraffe.ru/thumbs/24x24/24525/ava0c20b2a907729c1f6b671ebf2e31eac3.JPG" alt="">
-								</a>
-							</li>
-							<li class="ava-list_li">
-								<a href="" class="ava small">
-									<span class="icon-status"></span>
-									<img src="http://img.happy-giraffe.ru/avatars/162805/small/b54f360d2dde78da71753933930b03b0.jpg" alt="">
-								</a>
-							</li>
-							<li class="ava-list_li">
-								<a href="" class="ava small"></a>
-							</li>
-							<li class="ava-list_li">
-								<a href="" class="ava small">
-									<img src="http://img.happy-giraffe.ru/avatars/162805/small/b54f360d2dde78da71753933930b03b0.jpg" alt="">
-								</a>
-							</li>
-							<li class="ava-list_li">
-								<a href="" class="ava small">
-									<span class="icon-status"></span>
-									<img src="http://img.happy-giraffe.ru/thumbs/24x24/24525/ava0c20b2a907729c1f6b671ebf2e31eac3.JPG" alt="">
-								</a>
-							</li>
-							<li class="ava-list_li">
-								<a href="" class="ava small"></a>
-							</li>
-							<li class="ava-list_li">
-								<a href="" class="ava small">
-									<img src="http://img.happy-giraffe.ru/avatars/162805/small/b54f360d2dde78da71753933930b03b0.jpg" alt="">
-								</a>
-							</li>
-							<li class="ava-list_li">
-								<a href="" class="ava small">
-									<span class="icon-status"></span>
-									<img src="http://img.happy-giraffe.ru/avatars/162805/small/b54f360d2dde78da71753933930b03b0.jpg" alt="">
-								</a>
-							</li>
-							<li class="ava-list_li">
-								<a href="" class="ava small">
-									<span class="icon-status"></span>
-									<img src="http://img.happy-giraffe.ru/thumbs/24x24/24525/ava0c20b2a907729c1f6b671ebf2e31eac3.JPG" alt="">
-								</a>
-							</li>
-							<li class="ava-list_li">
-								<a href="" class="ava small"></a>
-							</li>
-							<li class="ava-list_li">
-								<a href="" class="ava small">
-									<img src="http://img.happy-giraffe.ru/thumbs/24x24/204378/avaa0ef048c9ef438ec6dd90b42018a6723.jpg" alt="">
-								</a>
-							</li>
-							<li class="ava-list_li">
-								<a href="" class="ava small">
-									<span class="icon-status"></span>
-									<img src="http://img.happy-giraffe.ru/avatars/162805/small/b54f360d2dde78da71753933930b03b0.jpg" alt="">
-								</a>
-							</li>
-							<li class="ava-list_li">
-								<a href="" class="ava small">
-									<span class="icon-status"></span>
-									<img src="http://img.happy-giraffe.ru/thumbs/24x24/24525/ava0c20b2a907729c1f6b671ebf2e31eac3.JPG" alt="">
-								</a>
-							</li>
-							<li class="ava-list_li">
-								<a href="" class="ava small"></a>
-							</li>
-							<li class="ava-list_li">
-								<a href="" class="ava small">
-									<img src="http://img.happy-giraffe.ru/avatars/162805/small/b54f360d2dde78da71753933930b03b0.jpg" alt="">
-								</a>
-							</li>
-							<li class="ava-list_li">
-								<a href="" class="ava small">
-									<span class="icon-status"></span>
-									<img src="http://img.happy-giraffe.ru/thumbs/24x24/204378/avaa0ef048c9ef438ec6dd90b42018a6723.jpg" alt="">
-								</a>
-							</li>
-							<li class="ava-list_li">
-								<a href="" class="ava small">
-									<span class="icon-status"></span>
-									<img src="http://img.happy-giraffe.ru/thumbs/24x24/24525/ava0c20b2a907729c1f6b671ebf2e31eac3.JPG" alt="">
-								</a>
-							</li>
-							<li class="ava-list_li">
-								<a href="" class="ava small"></a>
-							</li>
-							<li class="ava-list_li">
-								<a href="" class="ava small">
-									<img src="http://img.happy-giraffe.ru/avatars/162805/small/b54f360d2dde78da71753933930b03b0.jpg" alt="">
-								</a>
-							</li>
-							<li class="ava-list_li">
-								<a href="" class="ava small">
-									<span class="icon-status"></span>
-									<img src="http://img.happy-giraffe.ru/thumbs/24x24/24525/ava0c20b2a907729c1f6b671ebf2e31eac3.JPG" alt="">
-								</a>
-							</li>
-							<li class="ava-list_li">
-								<a href="" class="ava small"></a>
-							</li>
-							<li class="ava-list_li">
-								<a href="" class="ava small">
-									<img src="http://img.happy-giraffe.ru/avatars/162805/small/b54f360d2dde78da71753933930b03b0.jpg" alt="">
-								</a>
-							</li>
-							<li class="ava-list_li">
-								<a href="" class="ava small">
-									<span class="icon-status"></span>
-									<img src="http://img.happy-giraffe.ru/avatars/162805/small/b54f360d2dde78da71753933930b03b0.jpg" alt="">
-								</a>
-							</li>
-							<li class="ava-list_li">
-								<a href="" class="ava small">
-									<span class="icon-status"></span>
-									<img src="http://img.happy-giraffe.ru/thumbs/24x24/24525/ava0c20b2a907729c1f6b671ebf2e31eac3.JPG" alt="">
-								</a>
-							</li>
-							<li class="ava-list_li">
-								<a href="" class="ava small"></a>
-							</li>
-							<li class="ava-list_li">
-								<a href="" class="ava small">
-									<img src="http://img.happy-giraffe.ru/thumbs/24x24/204378/avaa0ef048c9ef438ec6dd90b42018a6723.jpg" alt="">
-								</a>
-							</li>
-							<li class="ava-list_li">
-								<a href="" class="ava small">
-									<span class="icon-status"></span>
-									<img src="http://img.happy-giraffe.ru/avatars/162805/small/b54f360d2dde78da71753933930b03b0.jpg" alt="">
-								</a>
-							</li>
-							<li class="ava-list_li">
-								<a href="" class="ava small">
-									<span class="icon-status"></span>
-									<img src="http://img.happy-giraffe.ru/thumbs/24x24/24525/ava0c20b2a907729c1f6b671ebf2e31eac3.JPG" alt="">
-								</a>
-							</li>
-							<li class="ava-list_li">
-								<a href="" class="ava small"></a>
-							</li>
-							<li class="ava-list_li">
-								<a href="" class="ava small">
-									<img src="http://img.happy-giraffe.ru/avatars/162805/small/b54f360d2dde78da71753933930b03b0.jpg" alt="">
-								</a>
-							</li>
-							<li class="ava-list_li">
-								<a href="" class="ava small">
-									<span class="icon-status"></span>
-									<img src="http://img.happy-giraffe.ru/thumbs/24x24/204378/avaa0ef048c9ef438ec6dd90b42018a6723.jpg" alt="">
-								</a>
-							</li>
-							<li class="ava-list_li">
-								<a href="" class="ava small">
-									<span class="icon-status"></span>
-									<img src="http://img.happy-giraffe.ru/thumbs/24x24/24525/ava0c20b2a907729c1f6b671ebf2e31eac3.JPG" alt="">
-								</a>
-							</li>
-							<li class="ava-list_li">
-								<a href="" class="ava-list_last">
-									<span class="ava-list_like-hg"></span>
-									3251
-								</a>
-							</li>
-						</ul>
-					</div>
-					<div class="article-users_t">Запись добавили в избранное </div>
-					<div class="ava-list">
-						<ul class="ava-list_ul clearfix">
-							<li class="ava-list_li">
-								<a href="" class="ava small"></a>
-							</li>
-							<li class="ava-list_li">
-								<a href="" class="ava small">
-									<img src="http://img.happy-giraffe.ru/thumbs/24x24/24525/ava0c20b2a907729c1f6b671ebf2e31eac3.JPG" alt="">
-								</a>
-							</li>
-							<li class="ava-list_li">
-								<a href="" class="ava small">
-									<span class="icon-status"></span>
-									<img src="http://img.happy-giraffe.ru/avatars/162805/small/b54f360d2dde78da71753933930b03b0.jpg" alt="">
-								</a>
-							</li>
-							<li class="ava-list_li">
-								<a href="" class="ava small"></a>
-							</li>
-							<li class="ava-list_li">
-								<a href="" class="ava small">
-									<img src="http://img.happy-giraffe.ru/avatars/162805/small/b54f360d2dde78da71753933930b03b0.jpg" alt="">
-								</a>
-							</li>
-							<li class="ava-list_li">
-								<a href="" class="ava small">
-									<span class="icon-status"></span>
-									<img src="http://img.happy-giraffe.ru/thumbs/24x24/24525/ava0c20b2a907729c1f6b671ebf2e31eac3.JPG" alt="">
-								</a>
-							</li>
-							<li class="ava-list_li">
-								<a href="" class="ava small"></a>
-							</li>
-							<li class="ava-list_li">
-								<a href="" class="ava small">
-									<img src="http://img.happy-giraffe.ru/avatars/162805/small/b54f360d2dde78da71753933930b03b0.jpg" alt="">
-								</a>
-							</li>
-							<li class="ava-list_li">
-								<a href="" class="ava small">
-									<span class="icon-status"></span>
-									<img src="http://img.happy-giraffe.ru/avatars/162805/small/b54f360d2dde78da71753933930b03b0.jpg" alt="">
-								</a>
-							</li>
-							<li class="ava-list_li">
-								<a href="" class="ava small">
-									<span class="icon-status"></span>
-									<img src="http://img.happy-giraffe.ru/thumbs/24x24/24525/ava0c20b2a907729c1f6b671ebf2e31eac3.JPG" alt="">
-								</a>
-							</li>
-							<li class="ava-list_li">
-								<a href="" class="ava small"></a>
-							</li>
-							<li class="ava-list_li">
-								<a href="" class="ava small">
-									<img src="http://img.happy-giraffe.ru/thumbs/24x24/204378/avaa0ef048c9ef438ec6dd90b42018a6723.jpg" alt="">
-								</a>
-							</li>
-							<li class="ava-list_li">
-								<a href="" class="ava small">
-									<span class="icon-status"></span>
-									<img src="http://img.happy-giraffe.ru/avatars/162805/small/b54f360d2dde78da71753933930b03b0.jpg" alt="">
-								</a>
-							</li>
-							<li class="ava-list_li">
-								<a href="" class="ava small">
-									<span class="icon-status"></span>
-									<img src="http://img.happy-giraffe.ru/thumbs/24x24/24525/ava0c20b2a907729c1f6b671ebf2e31eac3.JPG" alt="">
-								</a>
-							</li>
-							<li class="ava-list_li">
-								<a href="" class="ava small"></a>
-							</li>
-							<li class="ava-list_li">
-								<a href="" class="ava small">
-									<img src="http://img.happy-giraffe.ru/avatars/162805/small/b54f360d2dde78da71753933930b03b0.jpg" alt="">
-								</a>
-							</li>
-							<li class="ava-list_li">
-								<a href="" class="ava small">
-									<span class="icon-status"></span>
-									<img src="http://img.happy-giraffe.ru/thumbs/24x24/204378/avaa0ef048c9ef438ec6dd90b42018a6723.jpg" alt="">
-								</a>
-							</li>
-							<li class="ava-list_li">
-								<a href="" class="ava small">
-									<span class="icon-status"></span>
-									<img src="http://img.happy-giraffe.ru/thumbs/24x24/24525/ava0c20b2a907729c1f6b671ebf2e31eac3.JPG" alt="">
-								</a>
-							</li>
-							<li class="ava-list_li">
-								<a href="" class="ava small"></a>
-							</li>
-							<li class="ava-list_li">
-								<a href="" class="ava small">
-									<img src="http://img.happy-giraffe.ru/avatars/162805/small/b54f360d2dde78da71753933930b03b0.jpg" alt="">
-								</a>
-							</li>
-							<li class="ava-list_li">
-								<a href="" class="ava small">
-									<span class="icon-status"></span>
-									<img src="http://img.happy-giraffe.ru/thumbs/24x24/24525/ava0c20b2a907729c1f6b671ebf2e31eac3.JPG" alt="">
-								</a>
-							</li>
-							<li class="ava-list_li">
-								<a href="" class="ava small"></a>
-							</li>
-							<li class="ava-list_li">
-								<a href="" class="ava small">
-									<img src="http://img.happy-giraffe.ru/avatars/162805/small/b54f360d2dde78da71753933930b03b0.jpg" alt="">
-								</a>
-							</li>
-							<li class="ava-list_li">
-								<a href="" class="ava small">
-									<span class="icon-status"></span>
-									<img src="http://img.happy-giraffe.ru/avatars/162805/small/b54f360d2dde78da71753933930b03b0.jpg" alt="">
-								</a>
-							</li>
-							<li class="ava-list_li">
-								<a href="" class="ava small">
-									<span class="icon-status"></span>
-									<img src="http://img.happy-giraffe.ru/thumbs/24x24/24525/ava0c20b2a907729c1f6b671ebf2e31eac3.JPG" alt="">
-								</a>
-							</li>
-							<li class="ava-list_li">
-								<a href="" class="ava small"></a>
-							</li>
-							<li class="ava-list_li">
-								<a href="" class="ava small">
-									<img src="http://img.happy-giraffe.ru/thumbs/24x24/204378/avaa0ef048c9ef438ec6dd90b42018a6723.jpg" alt="">
-								</a>
-							</li>
-							<li class="ava-list_li">
-								<a href="" class="ava small">
-									<span class="icon-status"></span>
-									<img src="http://img.happy-giraffe.ru/avatars/162805/small/b54f360d2dde78da71753933930b03b0.jpg" alt="">
-								</a>
-							</li>
-							<li class="ava-list_li">
-								<a href="" class="ava small">
-									<span class="icon-status"></span>
-									<img src="http://img.happy-giraffe.ru/thumbs/24x24/24525/ava0c20b2a907729c1f6b671ebf2e31eac3.JPG" alt="">
-								</a>
-							</li>
-							<li class="ava-list_li">
-								<a href="" class="ava small"></a>
-							</li>
-							<li class="ava-list_li">
-								<a href="" class="ava small">
-									<img src="http://img.happy-giraffe.ru/avatars/162805/small/b54f360d2dde78da71753933930b03b0.jpg" alt="">
-								</a>
-							</li>
-							<li class="ava-list_li">
-								<a href="" class="ava small">
-									<span class="icon-status"></span>
-									<img src="http://img.happy-giraffe.ru/thumbs/24x24/204378/avaa0ef048c9ef438ec6dd90b42018a6723.jpg" alt="">
-								</a>
-							</li>
-							<li class="ava-list_li">
-								<a href="" class="ava small">
-									<span class="icon-status"></span>
-									<img src="http://img.happy-giraffe.ru/thumbs/24x24/24525/ava0c20b2a907729c1f6b671ebf2e31eac3.JPG" alt="">
-								</a>
-							</li>
-							<li class="ava-list_li">
-								<a href="" class="ava-list_last">
-									<span class="ava-list_favorite active"></span>
-									3251 и вы 
-								</a>
-							</li>
-						</ul>
-					</div>
-				</div>
-				<!-- На будущее для авторов -->
-				<!-- <div class="clearfix margin-r20">
-					<div class="float-r">
-						<a href="" class="a-pseudo-gray">Полная статистика действий</a>
-					</div>
-				</div> -->
-				
-				<!-- Пример открытого статуса юзера -->
-				<div class="b-article b-article__user-status clearfix">
-					<div class="float-l">
-						<div class="like-control like-control__small-indent clearfix">
-							<a href="" class="ava male">
-								<span class="icon-status status-online"></span>
-								<img alt="" src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg">
-							</a>
-						</div>
-						<div class="like-control clearfix">
-							<a href="" class="like-control_ico like-control_ico__like">865</a>
-							<a href="" class="like-control_ico like-control_ico__repost">5</a>
-							<a href="" class="like-control_ico like-control_ico__favorites active">123865</a>
-						</div>
-					</div>
-					<div class="b-article_cont clearfix">
-						<div class="b-article_cont-tale"></div>
-						<div class="b-article_header clearfix">
-							<div class="meta-gray">
-								<a href="" class="meta-gray_comment">
-									<span class="ico-comment ico-comment__gray"></span>
-									<span class="meta-gray_tx">35</span>
-								</a>
-								<div class="meta-gray_view">
-									<span class="ico-view ico-view__gray"></span>
-									<span class="meta-gray_tx">305</span>
-								</div>
-							</div>
-							<div class="float-l">
-								<a href="" class="b-article_author">Ангелина Богоявленская</a>
-								<span class="font-smallest color-gray">Сегодня 13:25</span>
-							</div>
-						</div>
-						<div class="b-article_in clearfix">
-							<div class="b-article_user-status clearfix">
-								<span class="b-article_user-status-a">	Говори </span>
-								
-								<div class="textalign-r clearfix">
-									<div class="b-user-mood">
-										<div class="b-user-mood_hold">
-											<div class="b-user-mood_tx">Мое настроение -</div>
-										</div>
-										<div class="b-user-mood_img">
-											<img src="/images/widget/mood/6.png">
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						
-						<div class="bg-white clearfix">
-							<div class="custom-likes-b custom-likes-b__like-white">
-								<div class="custom-likes-b_slogan">Поделитесь с друзьями!</div>
-								<a href="" class="custom-like">
-									<span class="custom-like_icon odnoklassniki"></span>
-									<span class="custom-like_value">0</span>
-								</a>
-								<a href="" class="custom-like">
-									<span class="custom-like_icon vkontakte"></span>
-									<span class="custom-like_value">1900</span>
-								</a>
-							
-								<a href="" class="custom-like">
-									<span class="custom-like_icon facebook"></span>
-									<span class="custom-like_value">150</span>
-								</a>
-							
-								<a href="" class="custom-like">
-									<span class="custom-like_icon twitter"></span>
-									<span class="custom-like_value">10</span>
-								</a>
-							
-							</div>
-						</div>
-						
-					</div>
-				</div>
-				
 				<!-- Для примера, так не прикручивать верстку -->
 				<div class="margin-20">
 					<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/comments-gray-empty.php'; ?>
@@ -1101,6 +547,20 @@
 	<div class="footer-push"></div>
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/footer.php'; ?>
 
+
+
+	<script>
+	$(window).load(function () {
+		var container = $('.start-page_container');
+		var container = $('.layout-wrapper');
+
+		if(container.height() > 2570) {
+			$('.cover').show();
+			console.log(container.height())	
+			$('.footer-push').height(385);
+		}
+	});
+	</script>	 
 	<div class="cover cover__adkinder">
 		
 		<div class="cover_b"></div>

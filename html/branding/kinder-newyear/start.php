@@ -9,7 +9,7 @@
 	<script type="text/javascript" src="/javascripts/jquery.lwtCountdown-1.0.js"></script>
 	
 </head>
-<body class="body-gray theme__adfox theme__adkinder" style="background:#a1d9f4 url(/images/branding/kinder/theme__adkinder-1920.jpg) no-repeat 50% 0px;">
+<body class="body-gray theme__adfox theme__adkinder" style="background:#b7ddf2 url(/images/branding/kinder/theme__adkinder-1920.jpg) no-repeat 50% 0px;">
 	
 <div class="start-page">
 
@@ -378,10 +378,6 @@
 						</div>
 					</div>
 
-				</div>
-				<div class="start-page-heinz-contest">
-					<a href="" class="start-page-heinz-contest_logo"></a>
-					<a href="" class="start-page-heinz-contest_a">Компания Heinz проверила знания родителей о безопасности детского питания</a>
 				</div>
 			</div>
 		</div>

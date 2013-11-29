@@ -32,4 +32,47 @@ class AlbumsCommand extends CConsoleCommand
         $thumb = $thumb->resize($width, $height);
         $thumb->save('F:/mira2.jpg');
     }
+
+    public function actionGeneratePhotoPostsViewPhotos()
+    {
+        Yii::import('site.frontend.modules.gallery.components.*');
+        $criteria = new CDbCriteria();
+        $criteria->order = 't.id ASC';
+        $criteria->compare('t.type_id', CommunityContent::TYPE_PHOTO_POST);
+        $dp = new CActiveDataProvider('CommunityContent', array('criteria' => $criteria));
+        $iterator = new CDataProviderIterator($dp, 1000);
+        $count = $dp->totalItemCount;
+        $i = 0;
+        foreach ($iterator as $photoPost) {
+            $i++;
+            $collection = new PhotoPostPhotoCollection(array('contentId' => $photoPost->id));
+            $criteria2 = new CDbCriteria();
+            $criteria2->addInCondition('t.id', $collection->photoIds);
+            $photos = AlbumPhoto::model()->findAll($criteria2);
+            foreach ($photos as $photo)
+                $photo->generatePhotoViewPhotos();
+            echo $i . '/' . $count . "\n";
+        }
+    }
+
+    public function actionGenerateAlbumsViewPhotos()
+    {
+        Yii::import('site.frontend.modules.gallery.components.*');
+        $criteria = new CDbCriteria();
+        $criteria->order = 't.id ASC';
+        $dp = new CActiveDataProvider('Album', array('criteria' => $criteria));
+        $iterator = new CDataProviderIterator($dp, 1000);
+        $count = $dp->totalItemCount;
+        $i = 0;
+        foreach ($iterator as $album) {
+            $i++;
+            $collection = new AlbumPhotoCollection(array('albumId' => $album->id));
+            $criteria2 = new CDbCriteria();
+            $criteria2->addInCondition('t.id', $collection->photoIds);
+            $photos = AlbumPhoto::model()->findAll($criteria2);
+            foreach ($photos as $photo)
+                $photo->generatePhotoViewPhotos();
+            echo $i . '/' . $count . "\n";
+        }
+    }
 }

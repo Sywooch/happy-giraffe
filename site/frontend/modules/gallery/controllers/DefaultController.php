@@ -11,6 +11,9 @@ class DefaultController extends HController
 
 	public function actionWindow($collectionClass, $initialPhotoId = null)
 	{
+        $screenWidth = Yii::app()->request->getQuery('screenWidth');
+        $dimension = $this->getUserDimension($screenWidth);
+        Yii::app()->user->setState('dimension', $dimension);
         $windowOptions = Yii::app()->request->getQuery('windowOptions');
         $collectionOptions = Yii::app()->request->getQuery('collectionOptions');
         $collection = new $collectionClass($collectionOptions);
@@ -24,7 +27,6 @@ class DefaultController extends HController
         $userId = Yii::app()->user->id;
         $json = compact('initialIndex', 'initialPhotos', 'initialPhotoId', 'count', 'collectionClass', 'collectionOptions', 'url', 'userId', 'windowOptions', 'collectionTitle');
 
-        var_dump($collectionClass == 'ContestPhotoCollection');
         $this->renderPartial('window', compact('json'), false, true);
 	}
 
@@ -75,5 +77,12 @@ class DefaultController extends HController
         $success = $item->update(array('description'));
         $response = compact('success');
         echo CJSON::encode($response);
+    }
+
+    protected function getUserDimension($screenWidth)
+    {
+        foreach (AlbumPhoto::$photoViewDimensions as $dimensionId => $dimension)
+            if (($dimension['minScreenWidth'] === null || $screenWidth >= $dimension['minScreenWidth']) && ($dimension['maxScreenWidth'] === null || $screenWidth <= $dimension['maxScreenWidth']))
+                return $dimensionId;
     }
 }

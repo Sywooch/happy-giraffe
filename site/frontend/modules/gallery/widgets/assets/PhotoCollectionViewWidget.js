@@ -8,7 +8,7 @@ PhotoCollectionViewWidget.open = function(collectionClass, collectionOptions, in
 
     this.originalState = History.getState();
 
-    var data = { collectionClass : collectionClass, collectionOptions : collectionOptions };
+    var data = { collectionClass : collectionClass, collectionOptions : collectionOptions, screenWidth : screen.width };
     if (typeof windowOptions !== null)
         data.windowOptions = windowOptions;
     if (initialPhotoId !== null)

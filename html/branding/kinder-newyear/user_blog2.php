@@ -7,7 +7,7 @@
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/head.php'; ?>
 
 </head>
-<body class="body-gray theme__adfox theme__adkinder">
+<body class="body-gray theme__adfox theme__adkinder" style="background:#b7ddf2 url(/images/branding/kinder/theme__adkinder-1920.jpg) no-repeat 50% 0px;">
 <!--AdFox START-->
 <!--giraffe-->
 <!--Площадка: Весёлый Жираф / * / *-->
@@ -41,6 +41,7 @@ document.write('<scr' + 'ipt type="text/javascript" src="http://ads.adfox.ru/211
 	
 <div class="layout-container">
 	<div class="layout-wrapper">
+	<div class="layout-wrapper_hold">
 		<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/header-new.php'; ?>
 		
 		<div class="layout-content clearfix">
@@ -154,91 +155,6 @@ document.write('<scr' + 'ipt type="text/javascript" src="http://ads.adfox.ru/211
 							<a href="" class="menu-simple_a">Воспитание детей </a>
 						</li>
 					</ul>
-				</div>
-				
-				<div class="fast-articles2 js-fast-articles2">
-					<div class="fast-articles2_t-ico"></div>
-					<div class="fast-articles2_i">
-						<div class="fast-articles2_header clearfix">
-						
-							<div class="meta-gray">
-								<a href="" class="meta-gray_comment">
-									<span class="ico-comment ico-comment__gray"></span>
-									<span class="meta-gray_tx">35</span>
-								</a>
-								<div class="meta-gray_view">
-									<span class="ico-view ico-view__gray"></span>
-									<span class="meta-gray_tx">305</span>
-								</div>
-							</div>
-							
-							<div class="float-l">
-								<span class="font-smallest color-gray">Сегодня 13:25</span>
-							</div>
-						</div>
-						<div class="fast-articles2_i-t">
-							<a href="" class="fast-articles2_i-t-a"> О моем первом бойфренде</a>
-						</div>
-						<div class="fast-articles2_i-desc">Практически нет девушки, которая не переживала </div>
-						<div class="fast-articles2_i-img-hold">
-							<a href=""><img src="/images/example/w190-h166.jpg" alt="" class="fast-articles2_i-img"></a>
-						</div>
-					</div>
-					<div class="fast-articles2_i">
-						<div class="fast-articles2_header clearfix">
-						
-							<div class="meta-gray">
-								<a href="" class="meta-gray_comment">
-									<span class="ico-comment ico-comment__gray"></span>
-									<span class="meta-gray_tx">35</span>
-								</a>
-								<div class="meta-gray_view">
-									<span class="ico-view ico-view__gray"></span>
-									<span class="meta-gray_tx">305</span>
-								</div>
-							</div>
-							
-							<div class="float-l">
-								<span class="font-smallest color-gray">Сегодня 13:25</span>
-							</div>
-						</div>
-						<div class="fast-articles2_i-t">
-							<a href="" class="fast-articles2_i-t-a"> Как мне предлагали руку и сердце</a>
-						</div>
-						<div class="fast-articles2_i-desc">Практически нет девушки, которая не переживала </div>
-						<div class="fast-articles2_i-img-hold">
-							<div class="photo-grid photo-grid__indent-sm clearfix">
-								<div class="photo-grid_row clearfix">
-									<div class="photo-grid_i" >
-										<img class="photo-grid_img" src="http://img.happy-giraffe.ru/thumbs/x93/159841/fc78476c9f5ef91684257aa1bf0ab307.jpg" alt="">
-										<div class="photo-grid_overlay">
-											<span class="photo-grid_zoom"></span>
-										</div>
-									</div>
-									<div class="photo-grid_i">
-										<img class="photo-grid_img" src="http://img.happy-giraffe.ru/thumbs/x93/159841/537a0df1f7c1aaa46fed45c036144365.jpg" alt="">
-										<div class="photo-grid_overlay">
-											<span class="photo-grid_zoom"></span>
-										</div>
-									</div>
-								</div>
-								<div class="photo-grid_row clearfix">
-									<div class="photo-grid_i">
-										<img class="photo-grid_img" src="http://img.happy-giraffe.ru/thumbs/x83/159841/f339bac1aef5919a08bdb43474431326.jpg" alt="">
-										<div class="photo-grid_overlay">
-											<span class="photo-grid_zoom"></span>
-										</div>
-									</div>
-									<div class="photo-grid_i" >
-										<img class="photo-grid_img" src="http://img.happy-giraffe.ru/thumbs/x83/159841/94b7650e47db01298d38d96f15a5ab3b.jpg" alt="">
-										<div class="photo-grid_overlay">
-											<span class="photo-grid_zoom"></span>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
 				</div>
 				
 			</div>
@@ -389,9 +305,6 @@ document.write('<scr' + 'ipt type="text/javascript" src="http://ads.adfox.ru/211
 						</h2>
 						<div class="b-article_in clearfix">
 							<div class="wysiwyg-content clearfix">
-								<div class="b-article_in-img">
-									<iframe width="580" height="320" frameborder="0" allowfullscreen="" src="http://www.youtube.com/embed/pehSAUTqjRs?wmode=transparent"></iframe>
-								</div>
 								<p>	Недавно посмотрел фильм "Убить Дракона" снятый в 1988 году с Абдуловым в главной роли. По мотивам пьесы Евгения Шварца «Дракон».</p>
 							</div>
 						</div>
@@ -424,95 +337,6 @@ document.write('<scr' + 'ipt type="text/javascript" src="http://ads.adfox.ru/211
 					<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/comments-gray-empty.php'; ?>
 				</div>
 
-				<div class="such-post">
-					<div class="such-post_title">Смотрите также</div>
-					<div class="clearfix">
-						<div class="such-post_i such-post_i__photopost">
-							<a href="" class="such-post_img-hold">
-								<img src="/images/example/w335-h230.jpg" alt="" class="such-post_img">
-								<span class="such-post_img-overlay"></span>
-								<span class="such-post_tip">25 фото</span>
-							</a>
-							<div class="such-post_type-hold">
-								<div class="such-post_type such-post_type__photopost"></div>
-							</div>
-							<div class="such-post_cont">
-								<div class="clearfix">
-									<div class="meta-gray">
-										<a class="meta-gray_comment" href="">
-											<span class="ico-comment ico-comment__white"></span>
-											<span class="meta-gray_tx color-gray-light">35</span>
-										</a>
-										<div class="meta-gray_view">
-											<span class="ico-view ico-view__white"></span>
-											<span class="meta-gray_tx color-gray-light">305</span>
-										</div>
-									</div>
-									<div class="such-post_author">
-										<a href="" class="ava female middle">
-											<span class="icon-status status-online"></span>
-											<img src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" alt="">
-										</a>
-										<a href="" class="such-post_author-name">Татьяна</a>
-										<div class="such-post_date">Сегодня 13:25</div>
-									</div>
-									
-								</div>
-								<a href="" class="such-post_t">Креативная сервисная</a>
-							</div>
-						</div>
-						<div class="such-post_i">
-							<a href="" class="such-post_img-hold">
-								<img src="/images/example/w335-h230.jpg" alt="" class="such-post_img">
-							</a>
-							<div class="such-post_type-hold">
-								<div class="such-post_type such-post_type__post"></div>
-							</div>
-							<div class="such-post_cont">
-								<div class="clearfix">
-									<div class="meta-gray">
-										<a class="meta-gray_comment" href="">
-											<span class="ico-comment ico-comment__gray"></span>
-											<span class="meta-gray_tx">35</span>
-										</a>
-										<div class="meta-gray_view">
-											<span class="ico-view ico-view__gray"></span>
-											<span class="meta-gray_tx">305</span>
-										</div>
-									</div>
-									<div class="such-post_author">
-										<a href="" class="ava female middle">
-											<span class="icon-status status-online"></span>
-											<img src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" alt="">
-										</a>
-										<a href="" class="such-post_author-name">ТатьянаАлександровна</a>
-										<div class="such-post_date">Сегодня 13:25</div>
-									</div>
-									
-								</div>
-								<a href="" class="such-post_t">Готовим  Торт Сметанник в домашних условиях</a>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				
-				<div class="menu-simple menu-simple__after-article2">
-					<div class="menu-simple_t-sub">Вам может быть интересно</div>
-					<ul class="menu-simple_ul">
-						<li class="menu-simple_li">
-							<a class="menu-simple_a" href="">Как правильно встречать мужа с работы</a>
-						</li>
-						<li class="menu-simple_li">
-							<a class="menu-simple_a" href="">Детские передачи</a>
-						</li>
-						<li class="menu-simple_li">
-							<a class="menu-simple_a" href="">Рутина отношений убивает супружество</a>
-						</li>
-					</ul>
-				</div>
-
-
 				<table class="article-nearby clearfix" ellpadding="0" cellspacing="0">
 					<tr>
 						<td>
@@ -542,6 +366,7 @@ document.write('<scr' + 'ipt type="text/javascript" src="http://ads.adfox.ru/211
 			</div>
 		</div>
 		</div>
+		</div>
 		
 	</div>
 	<div class="footer-push"></div>
@@ -551,16 +376,14 @@ document.write('<scr' + 'ipt type="text/javascript" src="http://ads.adfox.ru/211
 
 	<script>
 	$(window).load(function () {
-		var container = $('.start-page_container');
 		var container = $('.layout-wrapper');
 
-		if(container.height() > 2570) {
-			$('.cover').show();
-			console.log(container.height())	
-			$('.footer-push').height(385);
+		if(container.height() < 2380) {
+			$('.cover').css({'display':'none'});
+			$('.footer-push').height(209);
 		}
 	});
-	</script>	 
+	</script> 
 	<div class="cover cover__adkinder">
 		
 		<div class="cover_b"></div>

@@ -7,7 +7,7 @@
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/head.php'; ?>
 	
 </head>
-<body class="body-gray theme__adfox theme__adkinder">
+<body class="body-gray theme__adfox theme__adkinder" style="background:#b7ddf2 url(/images/branding/kinder/theme__adkinder-1920.jpg) no-repeat 50% 0px;">
 <!-- 
 	adFox настройки
 	1. URL перехода - полная ссылка для перехода (http://...) на сайт рекламодателя. Если не указывать ссылку для перехода, то баннер будет некликабельным.
@@ -75,6 +75,7 @@ document.write('<scr' + 'ipt type="text/javascript" src="http://ads.adfox.ru/211
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/header-fix.php'; ?>
 
 	<div class="layout-wrapper">
+	<div class="layout-wrapper_hold">
 		
 		<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/header-new.php'; ?>
 		<div class="layout-content clearfix">
@@ -238,7 +239,8 @@ document.write('<scr' + 'ipt type="text/javascript" src="http://ads.adfox.ru/211
 			</div>
 		</div>
 		</div>
-		
+
+	</div>
 	</div>
 	<!-- Перемещен -->
 	<div class="footer-push"></div>
@@ -246,17 +248,15 @@ document.write('<scr' + 'ipt type="text/javascript" src="http://ads.adfox.ru/211
 
 	<script>
 	$(window).load(function () {
-		var container = $('.start-page_container');
 		var container = $('.layout-wrapper');
 
-		if(container.height() > 2570) {
-			$('.cover').show();
-			console.log(container.height())	
-			$('.footer-push').height(385);
+		if(container.height() < 2380) {
+			$('.cover').css({'display':'none'});
+			$('.footer-push').height('209px');
 		}
 	});
-	</script>	
-	<div class="cover cover__adkinder">
+	</script> 
+	<div id="cover" class="cover cover__adkinder">
 		
 		<div class="cover_b"></div>
 	</div>

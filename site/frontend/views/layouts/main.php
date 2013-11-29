@@ -22,7 +22,7 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
         <a target="_blank" href="<?=$this->createUrl('/signal/commentator/index') ?>" style="color: #333;font-weight:bold;">Панель для работы</a>
     </div>
 <?php endif ?>
-<div class="layout-container">
+<div class="layout-container" id="layout-container">
     <?php if (!Yii::app()->user->isGuest):?>
     <!-- ko stopBinding: true -->
     <div class="header-fix layout-binding">

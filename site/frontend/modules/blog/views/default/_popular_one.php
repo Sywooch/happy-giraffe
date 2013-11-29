@@ -27,10 +27,7 @@
     </div>
 
     <div class="fast-articles2_i-t">
-        <a href="<?= $b->url ?>" class="fast-articles2_i-t-a"><?= $b->title ?></a>
-        <?php if (($contestWork = $b->contestWork) !== null): ?>
-            <span class="fast-articles2_i-t-count"><?=$contestWork->rate?></span>
-        <?php endif; ?>
+        <a href="<?= $b->url ?>" class="fast-articles2_i-t-a"><?= $b->title ?></a> <?php if (($contestWork = $b->contestWork) !== null): ?><span class="fast-articles2_i-t-count"><?=$contestWork->rate?></span><?php endif; ?>
     </div>
 
     <div class="fast-articles2_i-desc"><?= $b->getContentText(100, '') ?></div>

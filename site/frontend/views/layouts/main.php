@@ -23,6 +23,71 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
     </div>
 <?php endif ?>
 <div class="layout-container">
+    <?php if (!Yii::app()->user->isGuest):?>
+    <!-- ko stopBinding: true -->
+    <div class="header-fix layout-binding">
+        <div class="header-fix_hold clearfix">
+            <a href="/" class="header-fix_logo"></a>
+
+            <a href="javascript:void(0)" class="layout-header_scrolltop" onclick="$('html, body').animate({scrollTop:0}, 'normal')">
+                <span class="a-pseudo">Наверх</span>
+                <span class="i-arrow-t"></span>
+            </a>
+            <div class="header-fix-menu">
+                <ul class="header-menu_ul clearfix">
+                    <li class="header-fix-menu_li" data-bind="css: { active : newPostsCount() > 0 && activeModule() != 'myGiraffe' }">
+                        <a href="<?=$this->createUrl('/myGiraffe/default/index', array('type'=>1))?>" class="header-fix-menu_a">
+                            <span class="header-fix-menu_ico header-fix-menu_ico__giraffe"></span>
+                            <span class="header-fix-menu_count" data-bind="text: newPostsCount"></span>
+                        </a>
+                    </li>
+                    <li class="header-fix-menu_li" data-bind="css: { active : newNotificationsCount() > 0 && activeModule() != 'notifications' }">
+                        <a href="<?=$this->createUrl('/notifications/default/index')?>" class="header-fix-menu_a">
+                            <span class="header-fix-menu_ico header-fix-menu_ico__notice"></span>
+                            <span class="header-fix-menu_count" data-bind="text: newNotificationsCount"></span>
+                        </a>
+                    </li>
+
+                    <li class="header-fix-menu_li" data-bind="css: { active : newMessagesCount() > 0 && activeModule() != 'messaging' }">
+                        <a href="<?=$this->createUrl('/messaging/default/index')?>" class="header-fix-menu_a">
+                            <span class="header-fix-menu_ico header-fix-menu_ico__im"></span>
+                            <span class="header-fix-menu_count" data-bind="text: newMessagesCount"></span>
+                        </a>
+                    </li>
+
+                    <li class="header-fix-menu_li" data-bind="css: { active : newFriendsCount() > 0 && activeModule() != 'friends' }">
+                        <a href="<?=$this->createUrl('/friends/default/index')?>" class="header-fix-menu_a">
+                            <span class="header-fix-menu_ico header-fix-menu_ico__friend"></span>
+                            <span class="header-fix-menu_count" data-bind="text: newFriendsCount"></span>
+                        </a>
+                    </li>
+
+                    <li class="header-fix-menu_li" data-bind="css: { active : newScoreCount() > 0 && activeModule() != 'scores' }">
+                        <a href="<?=$this->createUrl('/scores/default/index')?>" class="header-fix-menu_a">
+                            <span class="header-fix-menu_ico header-fix-menu_ico__award"></span>
+                            <span class="header-fix-menu_count" data-bind="text: newScoreCount"></span>
+                        </a>
+                    </li>
+                    <li class="header-fix-menu_li header-fix-menu_li__dropin">
+                        <a href="javascript:void(0)" class="header-fix-menu_a">
+                                    <span class="ava small <?=($user->gender == 0)?'female':'male'?>">
+                                        <span class="icon-status status-online"></span>
+                                        <?=CHtml::image($user->getAvatarUrl(24))?>
+                                    </span>
+                            <span class="header-fix-menu_ico header-fix-menu_ico__dropin"></span>
+                        </a>
+                        <?php $this->renderPartial('//_header_drop', compact('user')); ?>
+
+                    </li>
+
+
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /ko -->
+    <?php endif; ?>
+
     <div class="layout-wrapper">
 
         <?php if (!Yii::app()->user->isGuest):?>
@@ -84,67 +149,6 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
                             </li>
                         </ul>
                     </div>
-            </div>
-        </div>
-
-        <div class="header-fix layout-binding">
-            <div class="header-fix_hold clearfix">
-                <a href="/" class="header-fix_logo"></a>
-
-                <a href="javascript:void(0)" class="layout-header_scrolltop" onclick="$('html, body').animate({scrollTop:0}, 'normal')">
-                    <span class="a-pseudo">Наверх</span>
-                    <span class="i-arrow-t"></span>
-                </a>
-                <div class="header-fix-menu">
-                    <ul class="header-menu_ul clearfix">
-                        <li class="header-fix-menu_li" data-bind="css: { active : newPostsCount() > 0 && activeModule() != 'myGiraffe' }">
-                            <a href="<?=$this->createUrl('/myGiraffe/default/index', array('type'=>1))?>" class="header-fix-menu_a">
-                                <span class="header-fix-menu_ico header-fix-menu_ico__giraffe"></span>
-                                <span class="header-fix-menu_count" data-bind="text: newPostsCount"></span>
-                            </a>
-                        </li>
-                        <li class="header-fix-menu_li" data-bind="css: { active : newNotificationsCount() > 0 && activeModule() != 'notifications' }">
-                            <a href="<?=$this->createUrl('/notifications/default/index')?>" class="header-fix-menu_a">
-                                <span class="header-fix-menu_ico header-fix-menu_ico__notice"></span>
-                                <span class="header-fix-menu_count" data-bind="text: newNotificationsCount"></span>
-                            </a>
-                        </li>
-
-                        <li class="header-fix-menu_li" data-bind="css: { active : newMessagesCount() > 0 && activeModule() != 'messaging' }">
-                            <a href="<?=$this->createUrl('/messaging/default/index')?>" class="header-fix-menu_a">
-                                <span class="header-fix-menu_ico header-fix-menu_ico__im"></span>
-                                <span class="header-fix-menu_count" data-bind="text: newMessagesCount"></span>
-                            </a>
-                        </li>
-
-                        <li class="header-fix-menu_li" data-bind="css: { active : newFriendsCount() > 0 && activeModule() != 'friends' }">
-                            <a href="<?=$this->createUrl('/friends/default/index')?>" class="header-fix-menu_a">
-                                <span class="header-fix-menu_ico header-fix-menu_ico__friend"></span>
-                                <span class="header-fix-menu_count" data-bind="text: newFriendsCount"></span>
-                            </a>
-                        </li>
-
-                        <li class="header-fix-menu_li" data-bind="css: { active : newScoreCount() > 0 && activeModule() != 'scores' }">
-                            <a href="<?=$this->createUrl('/scores/default/index')?>" class="header-fix-menu_a">
-                                <span class="header-fix-menu_ico header-fix-menu_ico__award"></span>
-                                <span class="header-fix-menu_count" data-bind="text: newScoreCount"></span>
-                            </a>
-                        </li>
-                        <li class="header-fix-menu_li header-fix-menu_li__dropin">
-                            <a href="javascript:void(0)" class="header-fix-menu_a">
-                                <span class="ava small <?=($user->gender == 0)?'female':'male'?>">
-                                    <span class="icon-status status-online"></span>
-                                    <?=CHtml::image($user->getAvatarUrl(24))?>
-                                </span>
-                                <span class="header-fix-menu_ico header-fix-menu_ico__dropin"></span>
-                            </a>
-                            <?php $this->renderPartial('//_header_drop', compact('user')); ?>
-
-                        </li>
-
-
-                    </ul>
-                </div>
             </div>
         </div>
         <!-- /ko -->

@@ -452,4 +452,23 @@ class SiteController extends HController
             ElasticEmail::send($e, 'Отклик на вакансию', $html, 'noreply@happy-giraffe.ru', 'Веселый Жираф');
         }
     }
+
+    public function actionQualityTest($url = null)
+    {
+        $qArray = range(0, 100, 5);
+        array_shift($qArray);
+        foreach ($qArray as $q) {
+            $phpThumb = Yii::createComponent(array(
+                'class' => 'ext.EPhpThumb.EPhpThumb',
+                'options' => array(
+                    'jpegQuality' => $q,
+                ),
+            ));
+            $phpThumb->init();
+            $path = Yii::getPathOfAlias('site.common.uploads.photos.temp') . DIRECTORY_SEPARATOR . md5($url) . '.jpg';
+            $thumb = $phpThumb->create($url);
+            $thumb->save($path);
+            echo CHtml::image(Yii::app()->params['photos_url'] . '/temp/' . md5($url) . '.jpg');
+        }
+    }
 }

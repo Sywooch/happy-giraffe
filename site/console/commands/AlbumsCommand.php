@@ -79,7 +79,7 @@ class AlbumsCommand extends CConsoleCommand
     public function actionFixWysiwygPhotosTest($id)
     {
         $post = CommunityPost::model()->findByPk($id);
-        var_dump($post);
+        $post->forEdit->text;
     }
 
     public function actionFixWysiwygPhotosPosts()

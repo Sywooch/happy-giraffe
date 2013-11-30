@@ -100,6 +100,7 @@ class DefaultController extends HController
 
         $this->user = $this->loadUser($user_id);
         $content = $this->loadPost($content_id);
+        $content->getContent()->forEdit;
 
         if (!preg_match('#^\/user\/(\d+)\/blog\/post(\d+)\/#', Yii::app()->request->requestUri)) {
             header("HTTP/1.1 301 Moved Permanently");

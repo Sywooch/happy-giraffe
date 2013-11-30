@@ -75,4 +75,26 @@ class AlbumsCommand extends CConsoleCommand
             echo $i . '/' . $count . "\n";
         }
     }
+
+    public function actionFixWysiwygPhotosTest($id)
+    {
+        $post = CommunityPost::model()->findByPk($id);
+        $post->forEdit->text;
+    }
+
+    public function actionFixWysiwygPhotosPosts()
+    {
+        $dp = new CActiveDataProvider('CommunityPost');
+        $iterator = new CDataProviderIterator($dp, 1000);
+        foreach ($iterator as $post)
+            $post->forEdit->text;
+    }
+
+    public function actionFixWysiwygPhotosComments()
+    {
+        $dp = new CActiveDataProvider('Comment');
+        $iterator = new CDataProviderIterator($dp, 1000);
+        foreach ($iterator as $comment)
+            $comment->forEdit->text;
+    }
 }

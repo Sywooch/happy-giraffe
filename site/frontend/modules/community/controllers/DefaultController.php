@@ -136,7 +136,7 @@ class DefaultController extends HController
         $this->forum = $this->loadForum($forum_id);
         $this->layout = ($forum_id == Community::COMMUNITY_NEWS) ? '//layouts/news' : '//layouts/forum';
         $content = $this->loadContent($content_id, $content_type_slug);
-        $content->getContent()->forEdit;
+        $content->getContent()->forEdit->text;
         if (!empty($content->uniqueness) && $content->uniqueness < 50)
             Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
 

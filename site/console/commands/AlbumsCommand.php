@@ -37,7 +37,7 @@ class AlbumsCommand extends CConsoleCommand
     {
         Yii::import('site.frontend.modules.gallery.components.*');
         $criteria = new CDbCriteria();
-        $criteria->order = 't.id ASC';
+        $criteria->order = 't.id DESC';
         $criteria->compare('t.type_id', CommunityContent::TYPE_PHOTO_POST);
         $dp = new CActiveDataProvider('CommunityContent', array('criteria' => $criteria));
         $iterator = new CDataProviderIterator($dp, 1000);

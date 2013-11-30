@@ -86,15 +86,25 @@ class AlbumsCommand extends CConsoleCommand
     {
         $dp = new CActiveDataProvider('CommunityPost');
         $iterator = new CDataProviderIterator($dp, 1000);
-        foreach ($iterator as $post)
+        $count = $dp->totalItemCount;
+        $i = 0;
+        foreach ($iterator as $post) {
+            $i++;
             $post->forEdit->text;
+            echo $i . '/' . $count . "\n";
+        }
     }
 
     public function actionFixWysiwygPhotosComments()
     {
         $dp = new CActiveDataProvider('Comment');
         $iterator = new CDataProviderIterator($dp, 1000);
-        foreach ($iterator as $comment)
+        $count = $dp->totalItemCount;
+        $i = 0;
+        foreach ($iterator as $comment) {
+            $i++;
             $comment->forEdit->text;
+            echo $i . '/' . $count . "\n";
+        }
     }
 }

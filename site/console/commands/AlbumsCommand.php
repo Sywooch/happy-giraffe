@@ -80,6 +80,7 @@ class AlbumsCommand extends CConsoleCommand
     {
         $post = CommunityPost::model()->findByPk($id);
         $post->forEdit->text;
+        $post->save(false);
     }
 
     public function actionFixWysiwygPhotosPosts()

@@ -729,6 +729,13 @@ class AlbumPhoto extends HActiveRecord
      */
     public function getWidget($edit = false, $parentModel = null)
     {
+        if (get_class(Yii::app()) == 'CConsoleApplication')
+            return Yii::app()->controller->renderFile('site.frontend.albums._widget', array(
+                'model' => $this,
+                'edit' => $edit,
+                'parentModel' => $parentModel
+            ), true);
+
         return Yii::app()->controller->renderPartial('//albums/_widget', array(
             'model' => $this,
             'edit' => $edit,

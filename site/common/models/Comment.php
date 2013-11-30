@@ -479,7 +479,7 @@ class Comment extends HActiveRecord
      */
     public static function getOneCommentViewData($comment, $album_comments)
     {
-        $comment->forEdit;
+        $comment->forEdit->text;
         $data = array(
             'id' => (int)$comment->id,
             'html' => $comment->purified->text,

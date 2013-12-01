@@ -37,6 +37,7 @@ class AlbumsCommand extends CConsoleCommand
     {
         Yii::import('site.frontend.modules.gallery.components.*');
         Yii::import('site.frontend.modules.notifications.components.*');
+        Yii::import('site.frontend.modules.notifications.models.base.*');
         Yii::import('site.frontend.modules.notifications.models.*');
         $criteria = new CDbCriteria();
         $criteria->order = 't.id ASC';

@@ -36,7 +36,7 @@ class AlbumsCommand extends CConsoleCommand
     public function actionGeneratePhotoPostsViewPhotos()
     {
         Yii::import('site.frontend.modules.gallery.components.*');
-        Yii::import('site.frontend.modules.notifications.models.*');
+        Yii::import('site.frontend.modules.notifications.components.*');
         $criteria = new CDbCriteria();
         $criteria->order = 't.id ASC';
         $criteria->compare('t.type_id', CommunityContent::TYPE_PHOTO_POST);

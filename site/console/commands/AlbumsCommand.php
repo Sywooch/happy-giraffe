@@ -62,7 +62,12 @@ class AlbumsCommand extends CConsoleCommand
 
     public function actionGenerateAlbumsViewPhotos()
     {
+        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
+        Yii::import('site.common.models.mongo.*');
         Yii::import('site.frontend.modules.gallery.components.*');
+        Yii::import('site.frontend.modules.notifications.components.*');
+        Yii::import('site.frontend.modules.notifications.models.base.*');
+        Yii::import('site.frontend.modules.notifications.models.*');
         $criteria = new CDbCriteria();
         $criteria->order = 't.id ASC';
         $dp = new CActiveDataProvider('Album', array('criteria' => $criteria));

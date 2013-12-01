@@ -35,6 +35,7 @@ class AlbumsCommand extends CConsoleCommand
 
     public function actionGeneratePhotoPostsViewPhotos()
     {
+        Yii::import('site.common.models.mongo.*');
         Yii::import('site.frontend.modules.gallery.components.*');
         Yii::import('site.frontend.modules.notifications.components.*');
         Yii::import('site.frontend.modules.notifications.models.base.*');

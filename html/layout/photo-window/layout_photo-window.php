@@ -85,7 +85,7 @@ $(window).resize(function () {
 
 	<div class="photo-window_top">
 		<div class="photo-window_count">25 фото из 52</div>
-		<div class="photo-window_about">фотоальбома <a href="">Места моих путешествий</a> </div>
+		<div class="photo-window_about">фотоальбома  &nbsp;&nbsp;&nbsp;<a href="">Места моих путешествий</a> </div>
 
 	</div>
 	<!-- Обрабатывать клик на .photo-window_c для листания следующего изображения -->
@@ -212,42 +212,20 @@ $(window).resize(function () {
 								<!-- input hidden -->
 								<input type="text" name="" id="" class="comments-gray_add-itx itx-gray display-n" placeholder="Ваш комментарий">
 								
-				<script>
-			$(document).ready(function () { 
-			  $('.wysiwyg-redactor').redactor({
-			      autoresize: true,
-			      toolbarExternal: '.wysiwyg-toolbar-btn',
-			      minHeight: 25,
-			      buttons: ['bold', 'italic', 'underline', '|', 'image', 'video', 'smile'],
-			      buttonsCustom: {
-			          smile: {
-			              title: 'smile',
-			              callback: function(buttonName, buttonDOM, buttonObject) {
-			                  // your code, for example - getting code
-			                  var html = this.get();
-			              }
-			          },
-			          h2: {
-			              title: 'h2',
-			              callback: function(buttonName, buttonDOM, buttonObject) {
-			                  // your code, for example - getting code
-			                  var html = this.get();
-			              }
-			          },
-			          h3: {
-			              title: 'h3',
-			              callback: function(buttonName, buttonDOM, buttonObject) {
-			                  // your code, for example - getting code
-			                  var html = this.get();
-			              }
-			          }
-			      }
-			  });
-			});
-				</script>
+								<script>
+								$(document).ready(function () { 
+								  $('.wysiwyg-redactor').redactor({
+								      autoresize: true,
+								      minHeight: 25,
+								      maxHeight: 0,
+								      toolbarExternal: '.wysiwyg-toolbar-btn',
+								      buttons: []
+								  });
+								});
+								</script>
 								<div class="wysiwyg-h">
 									<div class="wysiwyg-toolbar-btn"></div>
-									<textarea name="" class="wysiwyg-redactor" placeholder="Ваш комментарий"></textarea>
+									<textarea name="" class="wysiwyg-redactor" placeholder="Введите Ваш комментарий и нажмите Enter"></textarea>
 								</div>
 							</div>
 						</div>

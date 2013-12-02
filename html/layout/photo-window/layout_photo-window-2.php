@@ -82,7 +82,12 @@ $(window).resize(function () {
 <div class="photo-window">
 <div class="photo-window_w">
 	<a href="" class="photo-window_close"></a>
+	
+	<div class="photo-window_top">
+		<div class="photo-window_count">25 фото из 52</div>
+		<div class="photo-window_about">Фотоальбом &nbsp;&nbsp;&nbsp;<a href="">Места моих путешествий</a> </div>
 
+	</div>
 	<!-- Обрабатывать клик на .photo-window_c для листания следующего изображения -->
 	<div class="photo-window_c">
 		<div class="photo-window_img-hold">
@@ -161,17 +166,17 @@ $(window).resize(function () {
 						</div>
 					</div>
 
-					<div class="photo-window_count">25 фото из 52</div>
 				</div>
 				<div class="photo-window_t">Детский лагерь «Зеркальный». Ленинградская область. Ghfg Ленинградская <a class="ico-edit powertip" href=""></a></div>
 
-				<div class="photo-window_desc-hold">
+
+				<div class="photo-window_desc-hold active">
 					<script type="text/javascript">
-					$(document).ready(function () {
-						$('.photo-window_desc').click(function(){
+					/*$(document).ready(function () {
+						$('.photo-window_desc-hold').click(function(){
 							$(this).toggleClass('active');
 						});
-					});
+					});*/
 					</script>
 					<!-- <div class="photo-window_desc clearfix">
 						<div class="photo-window_desc-tx">
@@ -180,42 +185,67 @@ $(window).resize(function () {
 							</p>
 						</div>
 						
-					</div>
-					<div class="photo-window_desc photo-window_desc__full clearfix">
-						<p>В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, спокойные игры  В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, эстафеты, соревнования В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, эстафеты и спокойные игры.  </p>
-						<span class="photo-window_desc-more"> <a href="javascript:void(0)" >Кратко</a></span>
+					</div> -->
+					<!-- <div class="photo-window_desc photo-window_desc__full clearfix">
+						<p>В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, спокойные игры  В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, эстафеты, соревнования В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, эстафеты и спокойные игры.  <a class="ico-edit powertip" href=""></a></p>
 					</div> -->
 
-
-						<script>
-$(document).ready(function () { 
-  $('.wysiwyg-redactor').redactor({
-      autoresize: true,
-      toolbarExternal: '.wysiwyg-toolbar-btn',
-      minHeight: 45,
-      buttons: [''],
-  });
-});
-	</script>
+					<script>
+					$(document).ready(function () { 
+					  $('.wysiwyg-redactor').redactor({
+							autoresize: true,
+							minHeight: 45,
+							toolbarExternal: '.wysiwyg-toolbar-btn',
+							buttons: [''],
+					  });
+					});
+					</script>
 					<div class="wysiwyg-h">
 						<div class="wysiwyg-toolbar">
 							<div class="wysiwyg-toolbar-btn"></div>
 							
 						</div>
 						<textarea name="" class="wysiwyg-redactor" placeholder="Введите описание фото и нажмите Enter"></textarea>
-						<!-- <div class="redactor-control clearfix">
-							<div class="float-r">
-								<div class="redactor-control_key">
-									<input type="checkbox" class="redactor-control_key-checkbox" id="redactor-control_key-checkbox" name="">
-									<label class="redactor-control_key-label" for="redactor-control_key-checkbox">Enter - отправить</label>
-								</div>
-								<button class="btn-green">Отправить</button>
+						
+					</div>
+
+					<div class="comments-gray comments-gray__small">
+						<div class="comments-gray_t">
+							<span class="comments-gray_t-tx">Комментарии <span class="color-gray">(28)</span></span>
+							<a href="" class="font-small" id="comments-show">Показать </a>
+							<!-- <a href="" class="float-r font-small">Статистика (14)</a> -->
+						</div>
+						<div class="comments-gray_add active clearfix">
+							
+							<div class="comments-gray_ava">
+								<a href="" class="ava small female">
+									<img src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" alt="">
+								</a>
 							</div>
-						</div> -->
+							
+							<div class="comments-gray_frame">
+								<!-- input hidden -->
+								<input type="text" name="" id="" class="comments-gray_add-itx itx-gray display-n" placeholder="Ваш комментарий">
+								
+								<script>
+								$(document).ready(function () { 
+								  $('.wysiwyg-redactor').redactor({
+								      autoresize: true,
+								      minHeight: 25,
+								      maxHeight: 0,
+								      toolbarExternal: '.wysiwyg-toolbar-btn',
+								      buttons: []
+								  });
+								});
+								</script>
+								<div class="wysiwyg-h">
+									<div class="wysiwyg-toolbar-btn"></div>
+									<textarea name="" class="wysiwyg-redactor" placeholder="Введите Ваш комментарий и нажмите Enter"></textarea>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
-
-				<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/comments-gray__small.php'; ?>
 				
 			</div>
 		</div>

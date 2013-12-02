@@ -129,7 +129,13 @@ body.gallery {overflow:hidden;}
 		background-color: #fff;
 		overflow: hidden;
 	}
-	&_col-hold {padding: 12px 0 5px;}
+	&_col-hold {padding: 12px 0;}
+	&_banner {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+	}
 	&_banner img {display: block;}
 	&_cont {
 		/*height: 300px;*/
@@ -157,7 +163,7 @@ body.gallery {overflow:hidden;}
 
 	&_desc-hold {
 		position: relative;
-		margin: 3px auto;
+		margin: 0 auto;
 		padding: 5px 0;
 		.transition(all 0.3s ease);
 	}

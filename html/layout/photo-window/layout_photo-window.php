@@ -83,6 +83,11 @@ $(window).resize(function () {
 <div class="photo-window_w">
 	<a href="" class="photo-window_close"></a>
 
+	<div class="photo-window_top">
+		<div class="photo-window_count">25 фото из 52</div>
+		<div class="photo-window_about">фотоальбома <a href="">Места моих путешествий</a> </div>
+
+	</div>
 	<!-- Обрабатывать клик на .photo-window_c для листания следующего изображения -->
 	<div class="photo-window_c">
 		<div class="photo-window_img-hold">
@@ -161,36 +166,93 @@ $(window).resize(function () {
 						</div>
 					</div>
 
-					<div class="photo-window_count">25 фото из 52</div>
+					
 				</div>
 				<div class="photo-window_t">
 					<input type="text" name="" id="" class="itx-gray" placeholder="Введите название фото и нажмите Enter">
 					<!-- Детский лагерь «Зеркальный». Ленинградская область. Ghfg Ленинградская <a class="ico-edit powertip" href=""></a> -->
 				</div>
 
-				<div class="photo-window_desc-hold">
+				<div class="photo-window_desc-hold active">
 					<script type="text/javascript">
-					$(document).ready(function () {
+					/*$(document).ready(function () {
 						$('.photo-window_desc-hold').click(function(){
 							$(this).toggleClass('active');
 						});
-					});
+					});*/
 					</script>
-					<div class="photo-window_desc clearfix">
+					<!-- <div class="photo-window_desc clearfix">
 						<div class="photo-window_desc-tx">
 							<p>В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические... <a class="ico-edit powertip" href=""></a>
 								<span class="photo-window_desc-more"> <a href="javascript:void(0)" >Развернуть</a></span>
 							</p>
 						</div>
 						
-					</div>
+					</div> -->
 					<div class="photo-window_desc photo-window_desc__full clearfix">
-						<p>В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, спокойные игры  В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, эстафеты, соревнования В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, эстафеты и спокойные игры.  </p>
-						<span class="photo-window_desc-more"> <a href="javascript:void(0)" >Кратко</a></span>
+						<p>В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, спокойные игры  В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, эстафеты, соревнования В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, эстафеты и спокойные игры.  <a class="ico-edit powertip" href=""></a></p>
+						<!-- <span class="photo-window_desc-more"> <a href="javascript:void(0)" >Кратко</a></span> -->
+					</div>
+
+					<div class="comments-gray comments-gray__small">
+						<div class="comments-gray_t">
+							<span class="comments-gray_t-tx">Комментарии <span class="color-gray">(28)</span></span>
+							<a href="" class="font-small" id="comments-show">Показать </a>
+							<!-- <a href="" class="float-r font-small">Статистика (14)</a> -->
+						</div>
+						<div class="comments-gray_add active clearfix">
+							
+							<div class="comments-gray_ava">
+								<a href="" class="ava small female">
+									<img src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" alt="">
+								</a>
+							</div>
+							
+							<div class="comments-gray_frame">
+								<!-- input hidden -->
+								<input type="text" name="" id="" class="comments-gray_add-itx itx-gray display-n" placeholder="Ваш комментарий">
+								
+				<script>
+			$(document).ready(function () { 
+			  $('.wysiwyg-redactor').redactor({
+			      autoresize: true,
+			      toolbarExternal: '.wysiwyg-toolbar-btn',
+			      minHeight: 25,
+			      buttons: ['bold', 'italic', 'underline', '|', 'image', 'video', 'smile'],
+			      buttonsCustom: {
+			          smile: {
+			              title: 'smile',
+			              callback: function(buttonName, buttonDOM, buttonObject) {
+			                  // your code, for example - getting code
+			                  var html = this.get();
+			              }
+			          },
+			          h2: {
+			              title: 'h2',
+			              callback: function(buttonName, buttonDOM, buttonObject) {
+			                  // your code, for example - getting code
+			                  var html = this.get();
+			              }
+			          },
+			          h3: {
+			              title: 'h3',
+			              callback: function(buttonName, buttonDOM, buttonObject) {
+			                  // your code, for example - getting code
+			                  var html = this.get();
+			              }
+			          }
+			      }
+			  });
+			});
+				</script>
+								<div class="wysiwyg-h">
+									<div class="wysiwyg-toolbar-btn"></div>
+									<textarea name="" class="wysiwyg-redactor" placeholder="Ваш комментарий"></textarea>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
-
-				<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/comments-gray__small.php'; ?>
 				
 			</div>
 		</div>

@@ -170,25 +170,7 @@ $(window).resize(function () {
 				<div class="photo-window_t">Детский лагерь «Зеркальный». Ленинградская область. Ghfg Ленинградская <a class="ico-edit powertip" href=""></a></div>
 
 
-				<div class="photo-window_desc-hold active">
-					<script type="text/javascript">
-					/*$(document).ready(function () {
-						$('.photo-window_desc-hold').click(function(){
-							$(this).toggleClass('active');
-						});
-					});*/
-					</script>
-					<!-- <div class="photo-window_desc clearfix">
-						<div class="photo-window_desc-tx">
-							<p>В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические... <a class="ico-edit powertip" href=""></a>
-								<span class="photo-window_desc-more"> <a href="javascript:void(0)" >Развернуть</a></span>
-							</p>
-						</div>
-						
-					</div> -->
-					<!-- <div class="photo-window_desc photo-window_desc__full clearfix">
-						<p>В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, спокойные игры  В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, эстафеты, соревнования В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, эстафеты и спокойные игры.  <a class="ico-edit powertip" href=""></a></p>
-					</div> -->
+				<div class="photo-window_desc-hold">
 
 					<script>
 					$(document).ready(function () { 
@@ -201,10 +183,7 @@ $(window).resize(function () {
 					});
 					</script>
 					<div class="wysiwyg-h">
-						<div class="wysiwyg-toolbar">
-							<div class="wysiwyg-toolbar-btn"></div>
-							
-						</div>
+						<div class="wysiwyg-toolbar-btn"></div>
 						<textarea name="" class="wysiwyg-redactor" placeholder="Введите описание фото и нажмите Enter"></textarea>
 						
 					</div>
@@ -231,7 +210,7 @@ $(window).resize(function () {
 								$(document).ready(function () { 
 								  $('.wysiwyg-redactor').redactor({
 								      autoresize: true,
-								      minHeight: 25,
+								      minHeight: 36,
 								      maxHeight: 0,
 								      toolbarExternal: '.wysiwyg-toolbar-btn',
 								      buttons: []

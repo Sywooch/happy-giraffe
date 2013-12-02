@@ -17,7 +17,6 @@
 
     &__small {padding: 5px 0 0;}
     &__small &_t {margin: 10px 0;}
-    &__small &_t-tx {font-size: 13px;}
     &__small &_r {width: auto;}
     &__small &_control {top: 8px;}
     &__small &_i {padding: 10px 0;}
@@ -36,7 +35,21 @@
         line-height: 16px;
         color: #333;
     }
-    &_t {margin: 15px 20px 15px;}
+    &_t {
+        position: relative;
+        margin: 15px 20px 15px;
+    }
+    &_sent {
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        padding: 2px 10px;
+        background: #d9eeff;
+        color: #555;
+        .border-radius(5px);
+    }
 
     &_t-tx {
         .inline-block();

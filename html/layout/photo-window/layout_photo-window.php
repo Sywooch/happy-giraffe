@@ -85,7 +85,7 @@ $(window).resize(function () {
 
 	<div class="photo-window_top">
 		<div class="photo-window_count">25 фото из 52</div>
-		<div class="photo-window_about">фотоальбома  &nbsp;&nbsp;&nbsp;<a href="">Места моих путешествий</a> </div>
+		<div class="photo-window_about">Фотоальбом&nbsp;&nbsp;&nbsp;<a href="">Места моих путешествий моих путешествий моих путешествий моих путешествий моих путешествий моих путешествий моих путешествий моих путешествий</a> </div>
 
 	</div>
 	<!-- Обрабатывать клик на .photo-window_c для листания следующего изображения -->
@@ -151,7 +151,7 @@ $(window).resize(function () {
 					<div class="meta-gray">
 						<a class="meta-gray_comment" href="">
 							<span class="ico-comment ico-comment__gray"></span>
-							<span class="meta-gray_tx">35</span>
+							<span class="meta-gray_tx">35456</span>
 						</a>
 						<div class="meta-gray_view">
 							<span class="ico-view ico-view__gray"></span>
@@ -173,23 +173,8 @@ $(window).resize(function () {
 					<!-- Детский лагерь «Зеркальный». Ленинградская область. Ghfg Ленинградская <a class="ico-edit powertip" href=""></a> -->
 				</div>
 
-				<div class="photo-window_desc-hold active">
-					<script type="text/javascript">
-					/*$(document).ready(function () {
-						$('.photo-window_desc-hold').click(function(){
-							$(this).toggleClass('active');
-						});
-					});*/
-					</script>
-					<!-- <div class="photo-window_desc clearfix">
-						<div class="photo-window_desc-tx">
-							<p>В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические... <a class="ico-edit powertip" href=""></a>
-								<span class="photo-window_desc-more"> <a href="javascript:void(0)" >Развернуть</a></span>
-							</p>
-						</div>
-						
-					</div> -->
-					<div class="photo-window_desc photo-window_desc__full clearfix">
+				<div class="photo-window_desc-hold ">
+					<div class="photo-window_desc clearfix">
 						<p>В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, спокойные игры  В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, эстафеты, соревнования В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, эстафеты и спокойные игры.  <a class="ico-edit powertip" href=""></a></p>
 						<!-- <span class="photo-window_desc-more"> <a href="javascript:void(0)" >Кратко</a></span> -->
 					</div>
@@ -199,6 +184,7 @@ $(window).resize(function () {
 							<span class="comments-gray_t-tx">Комментарии <span class="color-gray">(28)</span></span>
 							<a href="" class="font-small" id="comments-show">Показать </a>
 							<!-- <a href="" class="float-r font-small">Статистика (14)</a> -->
+							<div class="comments-gray_sent display-b">Комментарий успешно отправлен.</div>
 						</div>
 						<div class="comments-gray_add active clearfix">
 							
@@ -216,7 +202,7 @@ $(window).resize(function () {
 								$(document).ready(function () { 
 								  $('.wysiwyg-redactor').redactor({
 								      autoresize: true,
-								      minHeight: 25,
+								      minHeight: 36,
 								      maxHeight: 0,
 								      toolbarExternal: '.wysiwyg-toolbar-btn',
 								      buttons: []

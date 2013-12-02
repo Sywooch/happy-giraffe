@@ -77,8 +77,8 @@ body.gallery {overflow:hidden;}
 	.ico-edit {margin: 0 5px;}
 	.redactor_editor,
 	.redactor_editor p {
-		font-size: 14px !important;
-		line-height: 19px !important;
+		font-size: 12px !important;
+		line-height: 18px !important;
 	}
 	.b-user-small {
 		position: absolute;
@@ -103,6 +103,7 @@ body.gallery {overflow:hidden;}
 		width: 45px;
 		margin: 0 15px;
 	}
+	.wysiwyg-toolbar {}
 	&_w {
 		position: relative;
 		top: 0;
@@ -143,16 +144,14 @@ body.gallery {overflow:hidden;}
 	&_cont .scroll_cont {
 		padding: 0 20px 0 19px;
 	}
-	&_cont-t {
-		margin-right: 10px;
-	}
 	&_t {
-		margin: 12px 0;
+		margin: 12px 0 7px;
 		font: bold 20px/22px Tahoma, Arial, Verdana, sans-serif;
 		color: #186fb8;
 	}
 	&_t .itx-gray {
 		font-size: 12px;
+		line-height: 16px;
 	}
 	&_count {
 		margin: 5px 0 0 0;
@@ -169,6 +168,7 @@ body.gallery {overflow:hidden;}
 	}
 	&_desc-hold:hover {}
 	&_desc-hold.active &_desc {display: none;}
+	&_desc-hold .wysiwyg-toolbar-btn {display: none;}
 	&_desc-hold.active &_desc__full {display: block;}
 	&_desc-hold .itx-simple {
 		min-height:48px;
@@ -189,22 +189,22 @@ body.gallery {overflow:hidden;}
 	&_desc {
 		font-size: 12px;
 		line-height: 16px;
-		cursor: pointer;
-	}
-	&_desc__full {
-		height: auto;
-		display: none;
 	}
 	&_top {
 		position: absolute;
 		top: 0;
-		left: 300px;
-		width: 80%;
+		right: 60px;
+		left: 360px;
 		text-align: center;
 		margin: 0;
 		font-size: 11px;
 		font-family: Tahoma, Arial, Verdana, sans-serif;
 		color: #bdb3c5;
+	}
+	&_about {
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		overflow: hidden;
 	}
 	&_c {
 		position: absolute;

@@ -36,7 +36,7 @@ class PhotoPostPhotoCollection extends PhotoCollection
             'id' => $model->photo_id,
             'title' => $model->photo->title,
             'description' => $model->description,
-            'src' => $model->photo->getOriginalUrl(),
+            'src' => $model->photo->getPhotoViewUrl(),
             'date' => HDate::GetFormattedTime($model->photo->created),
             'user' => array(
                 'id' => $model->photo->author->id,

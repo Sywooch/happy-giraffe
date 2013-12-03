@@ -57,7 +57,7 @@ function PhotoCollectionViewModel(data) {
                 self.preloadMetaNext();
             self.currentPhoto().loadComments();
 
-            History.pushState(self.currentPhoto(), self.currentPhoto().title().length > 0 ? self.currentPhoto().title() : self.collectionTitle + ' - фото ' + self.currentNaturalIndex(), self.currentPhoto().url());
+            History.pushState(self.currentPhoto(), self.currentPhoto().title().length > 0 ? self.currentPhoto().title() : self.properties.title + ' - фото ' + self.currentNaturalIndex(), self.currentPhoto().url());
             _gaq.push(['_trackPageview', self.currentPhoto().url()]);
             yaCounter11221648.hit(self.currentPhoto().url());
         }
@@ -72,7 +72,7 @@ function PhotoCollectionViewModel(data) {
                 self.preloadMetaPrev();
             self.currentPhoto().loadComments();
 
-            History.pushState(self.currentPhoto(), self.currentPhoto().title().length > 0 ? self.currentPhoto().title() : self.collectionTitle + ' - фото ' + self.currentNaturalIndex(), self.currentPhoto().url());
+            History.pushState(self.currentPhoto(), self.currentPhoto().title().length > 0 ? self.currentPhoto().title() : self.properties.title + ' - фото ' + self.currentNaturalIndex(), self.currentPhoto().url());
             _gaq.push(['_trackPageview', self.currentPhoto().url()]);
             yaCounter11221648.hit(self.currentPhoto().url());
         }
@@ -127,7 +127,7 @@ function PhotoCollectionViewModel(data) {
     }
 
     self.currentPhotoIndex.valueHasMutated();
-    History.pushState(self.currentPhoto(), self.currentPhoto().title().length > 0 ? self.currentPhoto().title() : self.collectionTitle + ' - фото ' + self.currentNaturalIndex(), self.currentPhoto().url());
+    History.pushState(self.currentPhoto(), self.currentPhoto().title().length > 0 ? self.currentPhoto().title() : self.properties.title + ' - фото ' + self.currentNaturalIndex(), self.currentPhoto().url());
     _gaq.push(['_trackPageview', self.currentPhoto().url()]);
     yaCounter11221648.hit(self.currentPhoto().url());
     self.preloadImages(2, 2);
@@ -170,7 +170,7 @@ function CollectionPhoto(data, parent) {
     }
 
     self.url = function () {
-        return parent.url + 'photo' + self.id + '/';
+        return parent.properties.url + 'photo' + self.id + '/';
     }
 
     self.loadComments = function () {
@@ -235,4 +235,5 @@ function CollectionPhotoUser(data, parent) {
     self.ava = data.ava;
     self.url = data.url;
     self.avaCssClass = self.gender == 1 ? 'male' : 'female';
+    self.fullName = self.firstName + ' ' + self.lastName;
 }

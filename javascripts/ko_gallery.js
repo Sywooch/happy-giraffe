@@ -18,6 +18,7 @@ function PhotoCollectionViewModel(data) {
 
     self.DESCRIPTION_MAX_WORDS = 32;
 
+    self.commentText = ko.observable('');
     self.properties = data.properties;
     self.collectionClass = data.collectionClass;
     self.collectionOptions = data.collectionOptions;
@@ -126,6 +127,18 @@ function PhotoCollectionViewModel(data) {
             window.location.href = self.exitUrl;
     }
 
+    self.addComment = function() {
+        $.post('/ajaxSimple/addComment/', { entity_id : self.currentPhoto().id, entity: 'AlbumPhoto', text: self.commentText() }, function(response) {
+            if (response.status) {
+                self.commentText('');
+                self.currentPhoto().commentsCount(self.currentPhoto().commentsCount() + 1);
+                $('.comments-gray_sent').fadeIn(1000, function() {
+                    $(this).delay(2000).fadeOut(1000);
+                });
+            }
+        }, 'json');
+    }
+
     self.currentPhotoIndex.valueHasMutated();
     History.pushState(self.currentPhoto(), self.currentPhoto().title().length > 0 ? self.currentPhoto().title() : self.properties.title + ' - фото ' + self.currentNaturalIndex(), self.currentPhoto().url());
     _gaq.push(['_trackPageview', self.currentPhoto().url()]);
@@ -151,8 +164,8 @@ function CollectionPhoto(data, parent) {
         count: data.favourites.count,
         active: data.favourites.active
     }));
-    self.views = ko.observable(data.views);
-    self.commentsCount = ko.observable(data.commentsCount);
+    self.views = data.views;
+    self.commentsCount = ko.observable(parseInt(data.commentsCount));
 
     self.toggleShowFullDescription = function () {
         if (self.hasLongDescription())
@@ -225,6 +238,10 @@ function CollectionPhoto(data, parent) {
     }
     self.editDescription = function() {
         self.descriptionBeingEdited(true);
+    }
+
+    self.commentsUrl = function() {
+        return self.url() + '#comment_list';
     }
 }
 

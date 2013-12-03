@@ -176,21 +176,7 @@ $(window).resize(function () {
 						<!-- <span class="photo-window_desc-more"> <a href="javascript:void(0)" >Кратко</a></span> -->
 					</div>
 
-					<script>
-					$(document).ready(function () { 
-					  $('.wysiwyg-redactor').redactor({
-							autoresize: true,
-							minHeight: 45,
-							toolbarExternal: '.wysiwyg-toolbar-btn',
-							buttons: [''],
-					  });
-					});
-					</script>
-					<div class="wysiwyg-h">
-						<div class="wysiwyg-toolbar-btn"></div>
-						<textarea name="" class="wysiwyg-redactor" placeholder="Введите описание фото и нажмите Enter"></textarea>
-						
-					</div>
+					<textarea name=" " id="" cols="15" rows="2" class="itx-gray" placeholder="Введите описание фото и нажмите Enter"></textarea>
 				</div>
 				<div class="comments-gray comments-gray__small">
 					
@@ -203,24 +189,7 @@ $(window).resize(function () {
 						</div>
 						
 						<div class="comments-gray_frame">
-							<!-- input hidden -->
-							<input type="text" name="" id="" class="comments-gray_add-itx itx-gray display-n" placeholder="Ваш комментарий">
-							
-							<script>
-							$(document).ready(function () { 
-							  $('.wysiwyg-redactor').redactor({
-							      autoresize: true,
-							      minHeight: 36,
-							      maxHeight: 0,
-							      toolbarExternal: '.wysiwyg-toolbar-btn',
-							      buttons: []
-							  });
-							});
-							</script>
-							<div class="wysiwyg-h">
-								<div class="wysiwyg-toolbar-btn"></div>
-								<textarea name="" class="wysiwyg-redactor" placeholder="Введите ваш комментарий и нажмите Enter"></textarea>
-							</div>
+							<textarea name=" " id="" cols="15" rows="2" class="itx-gray" placeholder="Введите ваш комментарий и нажмите Enter"></textarea>
 						</div>
 					</div>
 					<div class="comments-gray_t">

@@ -8,6 +8,8 @@ function CommentViewModel(data) {
     self.objectName = ko.observable(data.objectName);
     self.editor = null;
 
+    console.log(data.comments);
+
     self.comments = ko.observableArray([]);
     self.comments(ko.utils.arrayMap(data.comments, function (comment) {
         return new NewComment(comment, self);
@@ -22,7 +24,7 @@ function CommentViewModel(data) {
     self.sending = ko.observable(false);
     self.focusEditor = function () {
         setTimeout(function () {
-            self.editor.redactor('focus');
+            self.editor.redactor('focusEnd');
         }, 100);
         return true;
     };
@@ -34,6 +36,8 @@ function CommentViewModel(data) {
     self.openComment = function () {
         if (!self.opened()) {
             self.opened(true);
+            if (self.response() !== false)
+                self.cancelReply();
             ko.utils.arrayForEach(self.comments(), function (comment) {
                 if (comment.editMode())
                     comment.editMode(false);
@@ -56,6 +60,8 @@ function CommentViewModel(data) {
             $.post('/ajaxSimple/addComment/', {entity: self.entity(), entity_id: self.entity_id(), response_id: self.responseId(), text: self.getMessageText()},
                 function (response) {
                     if (response.status) {
+                        if (self.response() !== false)
+                            self.cancelReply();
                         self.opened(false);
                         self.comments.push(new NewComment(response.data, self));
                         self.allCount(self.allCount() + 1);
@@ -80,9 +86,16 @@ function CommentViewModel(data) {
         self.editor = $('#' + id);
         if (!self.gallery()) {
             $('#' + id).redactorHG({
+                pastePlainText: true,
                 initCallback: function () {
                     redactor = this;
                     self.focusEditor();
+                },
+                changeCallback: function(html) {
+                    if (self.response() !== false && html.indexOf(self.response().replyUserLink()) == -1) {
+                        self.cancelReply();
+                        self.goBottom();
+                    }
                 },
                 minHeight: 68,
                 autoresize: true,
@@ -106,30 +119,19 @@ function CommentViewModel(data) {
             return self.editor.html();
     };
 
-    /*************************************** reply ****************************************/
-    self.response = ko.observable(false);
-    self.responseId = ko.computed(function () {
-        if (self.response())
-            return self.response().id;
-        else
-            return '';
-    });
-    self.removeResponse = function () {
-        var str = self.editor.html();
-        str = str.replace('<span data-redactor="verified" class="a-imitation">' + self.response().author.fullName() + ',</span>', '');
-        str = str.replace('<span class="a-imitation">' + self.response().author.fullName() + ',</span>', '');
-        self.editor.html(str);
-        self.response(false);
-    };
-
-    self.Reply = function (comment) {
-        self.response(comment);
-        self.goBottom();
-        self.editor.html('<p><a href="/user/' + comment.author.id() + '/">' + comment.author.fullName() + '</a>,&nbsp;</p>');
-    };
-
     self.toggleExtended = function() {
         self.extended(! self.extended());
+
+        if (self.extended()) {
+            self.scroll = $('#' + self.objectName()).find('.scroll').baron({
+                scroller: '.scroll_scroller',
+                container: '.scroll_cont',
+                track: '.scroll_bar-hold',
+                bar: '.scroll_bar'
+            });
+        }
+        else
+            self.scroll.dispose();
     };
 
     self.commentsToShow = ko.computed(function() {
@@ -138,6 +140,27 @@ function CommentViewModel(data) {
 
         return self.comments().slice(self.comments.length - 3, self.comments().length);
     });
+
+    /*************************************** reply ****************************************/
+    self.response = ko.observable(false);
+    self.responseId = ko.computed(function () {
+        if (self.response())
+            return self.response().id;
+        else
+            return '';
+    });
+
+    self.Reply = function (comment) {
+        if (self.opened())
+            self.opened(false);
+        self.response(comment);
+        self.initEditor('reply_' + self.response().id());
+        self.editor.html(comment.replyTreatmentHtml());
+    };
+
+    self.cancelReply = function() {
+        self.response(false);
+    }
 }
 
 function NewComment(data, parent) {
@@ -253,6 +276,14 @@ function NewComment(data, parent) {
         }
 
         PhotoCollectionViewWidget.open(collection, collectionOptions, self.photoId());
+    }
+
+    self.replyUserLink = function() {
+        return '<a href="/user/' + self.author.id() + '/">' + self.author.fullName() + '</a>';
+    }
+
+    self.replyTreatmentHtml = function() {
+        return '<p>' + self.replyUserLink() + ',&nbsp;</p>'
     }
 }
 

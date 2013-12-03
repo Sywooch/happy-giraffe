@@ -1,0 +1,134 @@
+
+/* b-onair */
+.b-onair {
+	position: fixed;
+	top: 50%;
+	right: 0;
+	width: 170px;
+	height: 500px;
+	margin-top: -252px;
+	border: 2px solid #e5dfeb;
+	border-right-width: 0;
+	background: #fafafa;
+	-webkit-border-top-left-radius: 5px;
+	-moz-border-top-left-radius: 5px;
+	border-top-left-radius: 5px;
+	-webkit-border-bottom-left-radius: 5px;
+	-moz-border-bottom-left-radius: 5px;
+	border-bottom-left-radius: 5px;
+	z-index: 10;
+
+	@media all and (max-width: 1340px) {
+       & {display: none;}
+    }
+
+	.icon-status {
+		top: 0;
+		width: 6px;
+		height: 6px;
+		vertical-align: middle;
+	}
+	.tab-box {
+		height: 100%;
+		.box-sizing(border-box);
+		padding: 0 0 80px;
+	}
+	.scroll {height: 100%;}
+	/*.scroll_scroller {width: 197px !important;}*/
+	&_tab {
+		padding: 13px 5px 8px;
+		text-align: center;
+	}
+	&_tab-li {
+		.inline-block();
+		margin: 0 2px;
+	}
+	&_tab-li.active &_tab-a {
+		color: #232323;
+		background: #f7e98b;
+	}
+	&_tab-a {
+		.inline-block();
+		padding: 2px 6px;
+		color: #959495;
+		font-size: 11px;
+		text-decoration: none;
+	}
+	&_tab-a:hover {
+		color: #232323;
+		background: #f7e98b;
+	}
+	&_cont {
+		height: 100%;
+		padding: 1px 0;
+		border-top: 1px solid #efefef;
+		border-width: 1px 0;
+	}
+	&_hold {
+		margin: 1px 0;
+	}
+	&_news-hold {}
+	&_news {
+		margin: 2px 0;
+		padding: 7px 17px 7px 10px;
+		line-height: 14px;
+	}
+	&_news__new {background: #fdfad8;}
+	&_date {
+		.inline-block();
+		font-size: 9px;
+		line-height: 11px;
+		color: #B1B1B1;
+	}
+	&_news-t {
+		.inline-block();
+		margin: 3px 0;
+		font: bold 12px/13px Tahoma, Arial, Verdana, sans-serif;
+		color: #3782c1;
+	}
+	&_news-receptacle {
+		font-size: 10px;
+		font-family: Tahoma, Arial, Verdana, sans-serif;
+		color: #fd7511;
+	}
+	&_bottom {
+		border-top: 1px solid #efefef;
+		margin: 0;
+		padding: 5px 15px 10px;
+	}
+	&_new-count {
+		.inline-block();
+		margin: 0 5px;
+		padding: 0px 4px;
+		vertical-align: middle;
+		.border-radius(4px);
+		background: #0eba23;
+		color: #fff;
+		font-size: 11px;
+		line-height: 15px;
+		text-decoration: none;
+	}
+	&_friend-hold {}
+	&_friend {
+		margin: 2px 0;
+	}
+	&_friend .ava {margin-top: 4px;}
+	&_friend__new &_friend-a {background: #fdfad8;}
+	&_friend-a {
+		display: block;
+		text-decoration: none;
+		padding: 5px 17px 8px 13px;
+		background: #ebf4ff;
+	}
+	&_friend-a:hover {background: #f8fbff;}
+	&_friend-in {
+		display: block;
+		margin-left: 33px;
+	}
+	&_friend-time {
+		display: block;
+		color: #9f9e9d;
+		font: 9px/11px Tahoma, Arial, Verdana, sans-serif;
+	}
+}
+/* /b-onair */

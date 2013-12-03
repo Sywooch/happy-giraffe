@@ -36,6 +36,12 @@ abstract class PhotoCollection extends CComponent
         return array_search($photoId, $this->photoIds);
     }
 
+    public function getPhoto($id, $json = false)
+    {
+        $p = $this->populatePhotos(array($id), $json);
+        return $p[0];
+    }
+
     public function getAllPhotos($limit = null, $json = false)
     {
         return $this->populatePhotos(array_slice($this->photoIds, 0, $limit), $json);
@@ -65,7 +71,7 @@ abstract class PhotoCollection extends CComponent
         return $json ? array_map(array($this, 'toJSON'), $_models) : $_models;
     }
 
-    protected function getNextPhotosIds($photoId, $after)
+    public function getNextPhotosIds($photoId, $after)
     {
         $index = $this->getIndexById($photoId);
 
@@ -77,7 +83,7 @@ abstract class PhotoCollection extends CComponent
         return $rangeIds;
     }
 
-    protected function getPrevPhotosIds($photoId, $before)
+    public function getPrevPhotosIds($photoId, $before)
     {
         $index = $this->getIndexById($photoId);
 

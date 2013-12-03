@@ -25,14 +25,14 @@ return array(
         array(
             'class' => 'application.components.PhotoUrlRule',
             'pattern' => 'user/<user_id:\d+>/blog/post<content_id:\w+>/photo<photo_id:\d+>',
-            'route' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'CommunityContentGallery')),
+            'route' => array('gallery/default/singlePhoto', 'defaultParams' => array('entity' => 'CommunityContentGallery')),
             'blog' => true,
         ),
         //'community/<community_id:\d+>/forum/(post|photoPost)/<content_id:\d+>/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'CommunityContentGallery')),
         array(
             'class' => 'application.components.PhotoUrlRule',
             'pattern' => 'community/<community_id:\d+>/forum/(post|photoPost)/<content_id:\d+>/photo<photo_id:\d+>',
-            'route' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'CommunityContentGallery')),
+            'route' => array('gallery/default/singlePhoto', 'defaultParams' => array('entity' => 'CommunityContentGallery')),
             'blog' => false,
         ),
         'user/<user_id:\d+>/albums/<album_id:\d+>/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'Album')),

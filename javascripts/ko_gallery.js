@@ -18,12 +18,11 @@ function PhotoCollectionViewModel(data) {
 
     self.DESCRIPTION_MAX_WORDS = 32;
 
+    self.properties = data.properties;
     self.collectionClass = data.collectionClass;
     self.collectionOptions = data.collectionOptions;
-    self.collectionTitle = data.collectionTitle;
     self.userId = data.userId;
     self.count = data.count;
-    self.url = data.url;
     self.photos = ko.utils.arrayMap(data.initialPhotos, function (photo) {
         return new CollectionPhoto(photo, self);
     });

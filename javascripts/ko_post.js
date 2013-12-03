@@ -282,3 +282,13 @@ function likeControlFixedInBlock(block, inBlock, blockIndent) {
         });
     }
 }
+
+function PhotoPostWidget() {
+    var self = this;
+
+    self.state = ko.observable(0);
+
+    self.setState = function(state) {
+        self.state(state);
+    };
+}

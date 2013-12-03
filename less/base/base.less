@@ -1,8 +1,3 @@
-
-/* FONTS */
-/*@import url(://fonts.googleapis.com/css?family=Roboto:400);*/
-
-  
 /* @layout  base 
 --------------------------------------------------------*/
 hr,
@@ -154,6 +149,14 @@ a.pseudo:hover,
 		color: #bab9b9;
 	}
 }
+.ava-name {
+	.inline-block();
+	color: #289fd7;
+	text-decoration: none;
+	font-size: 12px;
+	line-height: 14px;
+	&:hover {text-decoration: underline;}
+}
 /* /links */
 
 /* ava avatar */
@@ -186,7 +189,6 @@ a.pseudo:hover,
 	top: 3px;
 	left: 3px;
 	margin: 0;
-	z-index: 1;
 }
 
 .ava.big {width:240px;height:240px;background-position:0 -480px;float:none;}
@@ -238,9 +240,121 @@ a.pseudo:hover,
 
 .ava.filled {background:none;height:auto;}
 .ava.filled .photo {display:none;}
+.b-ava-hover {
+	position: relative;
+	
+	&:hover {z-index: 10;}
+	&:hover &_hold {display: block;}
+	&:hover .ava {
+		position: relative;
+		z-index: 2;
+	}
+	&_hold {
+		display: none;
+		position: absolute;
+		z-index: 1;
+		top: -7px;
+		left: -12px;
+		padding: 8px 10px 8px 95px;
+		width: 160px;
+		background: #4279be;
+		background: rgba(66,121,190,.9);
+		color: #fff;
+		.border-radius(4px);
+		.box-shadow(0 2px 2px rgba(0,0,0,0.1));
+	}
+	&_name {
+		display: block;
+		margin: 0 0 4px;
+		font: bold 12px/16px Arial, Tahoma, Verdana, sans-serif;
+		color: #fff;
+		text-decoration: none;
+	}
+	&_name:hover {text-decoration: underline;}
+	&_location .flag {
+		float: left;
+	    margin: 0 5px 3px 0;
+	    position: relative;
+	}
+	&_location-tx {
+		display: block;
+		overflow: hidden;
+		font: 11px/12px Tahoma, Arial, Verdana, sans-serif;
+		color: #d8e2f0;
+	}
+	&_btns {
+		margin: 3px 0 0;
+	}
+	&_btns-sepor {
+		.inline-block();
+		vertical-align: top;
+		width: 1px;
+		height: 23px;
+		background: #bacde5;
+	}
+	&_btn {
+		.inline-block();
+		vertical-align: top;
+		margin: 0 3px;
+		color: #dbe6f3;
+		font-size: 10px;
+		text-decoration: none;
+		text-align: center;
+	}
+	&_btn:hover &_ico {opacity: 0.8;}
+	&_ico {
+		display: block;
+		width: 30px;
+		height: 25px;
+		background: url(/images/b-ava-hover_ico.png) no-repeat;
+	}
+	&_ico__addfriend {background-position: 0 0px;}
+	&_ico__dialog    {background-position: -30px 0;}
+	&_ico__blog      {background-position: -60px 0;}
+	&_ico__photo     {background-position: -90px 0;}
+}
 /* /ava avatar */
 
 /* single items */
+
+/* heading-title */
+.heading-title {
+    margin: 5px 20px 10px;
+    font: normal 35px/35px 'Roboto', 'Helvetica Neue', Helvetica, Arial, Tahoma, sans-serif;
+    color: #2b2b2b;
+}
+/* /heading-title */
+
+/* heading-small */
+.heading-small {
+    margin: 0;
+    font-size: 17px;
+    line-height: 22px;
+    color: #111;
+    font-weight: normal;
+}
+/* /heading-small */
+
+/* heading-medium */
+.heading-medium {
+    margin: 0;
+    font-size: 20px;
+    line-height: 22px;
+    color: #111;
+    font-weight: normal;
+}
+/* /heading-medium */
+
+/* title-small */
+.title-small {
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 23px;
+    margin: 5px 0;
+    color: #333;
+}
+/* title-small */
+
 .i-highlight {
 	padding: 2px 6px;
 	background: #fdf48f;
@@ -306,6 +420,14 @@ a.pseudo:hover,
 	width: 7px;
 	height: 13px;
 	background: url(/images/arrow-t.png) no-repeat;
+}
+.i-arrow-d {
+	.inline-block();
+	vertical-align: middle;
+	margin: 0 2px;
+	width: 7px;
+	height: 13px;
+	background: url(/images/arrow-d.png) no-repeat;
 }
 /* single items */
 
@@ -605,13 +727,21 @@ a.pseudo:hover,
 	width:12px;
 	height:12px;
 	position:relative;
+	z-index: 1;
 	background: #0fc612;
 	top:2px;
 	margin-right:2px;
 	.border-radius(6px);
+
+	&__small {
+		vertical-align: middle;
+		width: 6px;
+		height: 6px;
+		top: 0;
+	}
+	&.status-online  {background: #0fc612;}
+	&.status-offline {background: #b8b8b8;}
 }
-.icon-status.status-online  {background: #0fc612;}
-.icon-status.status-offline {background: #b8b8b8;}
 .ico-status {
 	.inline-block();
 	width: 13px;

@@ -4,8 +4,6 @@
 	<link rel="stylesheet" type="text/css" href="/redactor/redactor.css" />
 	<link rel="stylesheet" type="text/css" href="/stylesheets/common.css" />
 	<link rel="stylesheet" type="text/css" href="/stylesheets/global.css" />
-	<link rel="stylesheet" type="text/css" href="/stylesheets/user.css" />
-	<link rel="stylesheet" type="text/css" href="/stylesheets/baby.css" />
 	<!-- 
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 	 -->
@@ -14,8 +12,7 @@
 	    document.write(unescape("%3Cscript src='/javascripts/jquery-1.8.3.min.js' type='text/javascript'%3E%3C/script%3E"));
 	}
 	</script>
-	
-	<link rel="stylesheet" type="text/css" href="/stylesheets/jquery.fancybox-1.3.4.css" />
+
 	<script type="text/javascript" src="/javascripts/jquery.fancybox-1.3.4.js"></script>
 	
 	<script type="text/javascript" src="/javascripts/jquery.tooltip.pack.js"></script>

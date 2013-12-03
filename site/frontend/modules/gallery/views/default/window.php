@@ -1,6 +1,6 @@
 <div class="photo-window" id="photo-window">
     <div class="photo-window_w">
-        <a href="javascript:void(0)" class="photo-window_close" data-bind="click: close"></a>
+        <a class="photo-window_close" data-bind="click: close"></a>
 
         <div class="photo-window_top">
             <div class="photo-window_count" data-bind="text: currentNaturalIndex() + ' фото из ' + count"></div>
@@ -9,53 +9,20 @@
         </div>
         <!-- Обрабатывать клик на .photo-window_c для листания следующего изображения -->
         <div class="photo-window_c">
-            <div class="photo-window_img-hold">
-                <img src="/images/example/w960-h537-1.jpg" alt="" class="photo-window_img">
+            <div class="photo-window_img-hold" data-bind="click: nextHandler">
+                <img alt="" class="photo-window_img" data-bind="attr: { src : currentPhoto().src }">
                 <div class="verticalalign-m-help"></div>
             </div>
-            <a href="#photo-window-end" class="photo-window_arrow photo-window_arrow__l fancy" data-theme="white-simple"></a>
-            <a href="#photo-window-end" class="photo-window_arrow photo-window_arrow__r fancy" data-theme="white-simple"></a>
+            <a class="photo-window_arrow photo-window_arrow__l" data-bind="click: prevHandler"></a>
+            <a class="photo-window_arrow photo-window_arrow__r" data-bind="click: nextHandler"></a>
 
             <div class="like-control clearfix">
-                <a href="" class="like-control_ico like-control_ico__like">865</a>
-                <div class="position-rel float-l">
-                    <a class="favorites-control_a" href="">12365</a>
-                    <!-- <div class="favorites-add-popup favorites-add-popup__right">
-                        <div class="favorites-add-popup_t">Добавить запись в избранное</div>
-                        <div class="favorites-add-popup_i clearfix">
-                            <img src="/images/example/w60-h40.jpg" alt="" class="favorites-add-popup_i-img">
-                            <div class="favorites-add-popup_i-hold">Неравный брак. Смертельно опасен или жизненно необходим?</div>
-                        </div>
-                        <div class="favorites-add-popup_row">
-                            <label for="" class="favorites-add-popup_label">Теги:</label>
-                            <span class="favorites-add-popup_tag">
-                                <a href="" class="favorites-add-popup_tag-a">отношения</a>
-                                <a href="" class="ico-close"></a>
-                            </span>
-                            <span class="favorites-add-popup_tag">
-                                <a href="" class="favorites-add-popup_tag-a">любовь</a>
-                                <a href="" class="ico-close"></a>
-                            </span>
-                        </div>
-                        <div class="favorites-add-popup_row margin-b10">
-                            <a class="textdec-none" href="">
-                                <span class="ico-plus2 margin-r5"></span>
-                                <span class="a-pseudo-gray color-gray">Добавить тег</span>
-                            </a>
-                        </div>
-                        <div class="favorites-add-popup_row">
-                            <label for="" class="favorites-add-popup_label">Комментарий:</label>
-                            <div class="float-r color-gray">0/150</div>
-                        </div>
-                        <div class="favorites-add-popup_row">
-                            <textarea name="" id="" cols="25" rows="2" class="favorites-add-popup_textarea" placeholder="Введите комментарий"></textarea>
-                        </div>
-                        <div class="favorites-add-popup_row textalign-c margin-t10">
-                            <a href="" class="btn-gray-light">Отменить</a>
-                            <a href="" class="btn-green">Добавить</a>
-                        </div>
-                    </div> -->
-                </div>
+                <!-- ko with: currentPhoto() -->
+                    <a href="" class="like-control_ico like-control_ico__like" data-bind="click: like, text: likesCount, css: {active: isLiked()}, tooltip: 'Нравится'" ></a>
+                    <!-- ko with: favourites() -->
+                        <?php $this->widget('FavouriteWidget', array('model' => $collection->rootModel, 'applyBindings' => false)); ?>
+                    <!-- /ko -->
+                <!-- /ko -->
             </div>
         </div>
 
@@ -77,28 +44,46 @@
                                     <span class="meta-gray_tx">305</span>
                                 </div>
                             </div>
-                            <div class="b-user-info b-user-info__middle float-l">
-                                <a href="" class="ava middle female"></a>
+                            <div class="b-user-info b-user-info__middle float-l" data-bind="with: currentPhoto().user">
+                                <a class="ava middle" data-bind="attr: { href : url }, css: avaCssClass"><img data-bind="visible: ava.length > 0, attr: { src : ava }"></a>
                                 <div class="b-user-info_hold">
-                                    <a href="" class="b-user-info_name">Ангелина Богоявленская</a>
-                                    <div class="b-user-info_date">16 июн 2013</div>
+                                    <a class="b-user-info_name" data-bind="attr: { href : url }, text: fullName"></a>
+                                    <div class="b-user-info_date" data-bind="text: $root.currentPhoto().date"></div>
                                 </div>
                             </div>
 
 
                         </div>
+
                         <div class="photo-window_t">
-                            <input type="text" name="" id="" class="itx-gray" placeholder="Введите название фото и нажмите Enter">
-                            <!-- Детский лагерь «Зеркальный». Ленинградская область. Ghfg Ленинградская <a class="ico-edit powertip" href=""></a> -->
+                            <!-- ko if: currentPhoto().isEditable && currentPhoto().titleBeingEdited() -->
+                                <input type="text" class="itx-gray" placeholder="Введите название фото и нажмите Enter" data-bind="value: currentPhoto().titleValue, returnKey: currentPhoto().saveTitle, hasfocus: currentPhoto().titleBeingEdited()">
+                            <!-- /ko -->
+                            <!-- ko if: ! currentPhoto().titleBeingEdited() -->
+                                <span data-bind="text: currentPhoto().title()"></span>
+                                <a class="ico-edit powertip" data-bind="click: currentPhoto().editTitle, tooltip: 'Редактировать'"></a>
+                            <!-- /ko -->
                         </div>
 
                         <div class="photo-window_desc-hold ">
-                            <div class="photo-window_desc clearfix">
-                                <p>В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, спокойные игры  В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, эстафеты, соревнования В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, эстафеты и спокойные игры.  <a class="ico-edit powertip" href=""></a></p>
-                                <!-- <span class="photo-window_desc-more"> <a href="javascript:void(0)" >Кратко</a></span> -->
-                            </div>
+                            <!-- ko if: ! currentPhoto().descriptionBeingEdited() && currentPhoto().description().length > 0 -->
+                                <div class="photo-window_desc clearfix">
+                                    <p>
+                                        <span data-bind="text: currentPhoto().description"></span>
+                                        <!-- ko if: currentPhoto().isEditable -->
+                                            <a class="ico-edit powertip" data-bind="click: currentPhoto().editDescription, tooltip: 'Редактировать'"></a>
+                                        <!-- /ko -->
+                                    </p>
+                                </div>
+                            <!-- /ko -->
 
+                            <!-- ko if: currentPhoto().isEditable && currentPhoto().descriptionBeingEdited() -->
+                                <div class="wysiwyg-h">
+                                    <textarea class="wysiwyg-redactor" placeholder="Введите описание фото и нажмите Enter" data-bind="value: currentPhoto().descriptionValue, autogrow: true, returnKey: currentPhoto().saveDescription, valueUpdate: 'keyup', hasfocus: currentPhoto().descriptionBeingEdited()"></textarea>
+                                </div>
+                            <!-- /ko -->
                         </div>
+
                         <div class="comments-gray comments-gray__small">
                             <div class="comments-gray_t">
                                 <span class="comments-gray_t-tx">Комментарии <span class="color-gray">(28)</span></span>

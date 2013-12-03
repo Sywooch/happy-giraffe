@@ -26,7 +26,7 @@ class DefaultController extends HController
         $userId = Yii::app()->user->id;
         $json = compact('initialIndex', 'initialPhotos', 'initialPhotoId', 'count', 'collectionClass', 'collectionOptions', 'userId', 'windowOptions', 'properties');
 
-        $this->renderPartial('window', compact('json'), false, true);
+        $this->renderPartial('window', compact('json', 'collection'), false, true);
 	}
 
     public function actionPreloadNext($collectionClass, $photoId, $number)

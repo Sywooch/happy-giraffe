@@ -55,15 +55,13 @@ class PhotoPostPhotoCollection extends PhotoCollection
         );
     }
 
-    public function getUrl()
+    public function getLabel()
     {
-        $post = CommunityContent::model()->findByPk($this->contentId);
-        return $post->url;
+        return 'Фотопост';
     }
 
-    public function getTitle()
+    public function getRootModel()
     {
-        $post = CommunityContent::model()->findByPk($this->contentId);
-        return $post->title;
+        return CommunityContent::model()->findByPk($this->contentId);
     }
 }

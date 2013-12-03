@@ -76,14 +76,11 @@ class AttachPhotoCollection extends PhotoCollection
     {
         switch ($this->entityName) {
             case 'User':
-                $user = User::model()->findByPk($this->entityId);
-                return $user->getFamilyUrl();
+                return $this->rootModel->getFamilyUrl();
             case 'UserPartner':
-                $user = UserPartner::model()->findByPk($this->entityId)->user;
-                return $user->getFamilyUrl();
+                return $this->rootModel->user->getFamilyUrl();
             case 'Baby':
-                $user = Baby::model()->findByPk($this->entityId)->parent;
-                return $user->getFamilyUrl();
+                return $this->rootModel->parent->getFamilyUrl();
         }
     }
 
@@ -91,16 +88,32 @@ class AttachPhotoCollection extends PhotoCollection
     {
         switch ($this->entityName) {
             case 'User':
-                $user = User::model()->findByPk($this->entityId);
-                return 'Семейный альбом пользователя ' . $user->getFullName();
+                return $this->rootModel->getFullName();
             case 'UserPartner':
-                $user = UserPartner::model()->findByPk($this->entityId)->user;
-                return 'Семейный альбом пользователя ' . $user->getFullName();
+                return $this->rootModel->user->getFullName();
             case 'Baby':
-                $user = Baby::model()->findByPk($this->entityId)->parent;
-                return 'Семейный альбом пользователя ' . $user->getFullName();
+                return $this->rootModel->parent->getFullName();
+            default:
+                return null;
+        }
+    }
+
+    public function getLabel()
+    {
+        switch ($this->entityName) {
+            case 'User':
+            case 'UserPartner':
+            case 'Baby':
+                return 'Семейный альбом пользователя';
             case 'Comment':
                 return 'Иллюстрации к комментарию';
+            default:
+                return null;
         }
+    }
+
+    public function getRootModel()
+    {
+        return CActiveRecord::model($this->entityName)->findByPk($this->entityId);
     }
 }

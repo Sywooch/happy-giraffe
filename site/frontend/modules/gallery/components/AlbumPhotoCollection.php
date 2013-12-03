@@ -58,15 +58,13 @@ class AlbumPhotoCollection extends PhotoCollection
         );
     }
 
-    public function getUrl()
+    public function getLabel()
     {
-        $album = Album::model()->findByPk($this->albumId);
-        return $album->url;
+        return 'Фотоальбом';
     }
 
-    public function getTitle()
+    public function getRootModel()
     {
-        $album = Album::model()->findByPk($this->albumId);
-        return $album->title;
+        return Album::model()->findByPk($this->albumId);
     }
 }

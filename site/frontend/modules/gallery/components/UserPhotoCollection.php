@@ -72,15 +72,18 @@ class UserPhotoCollection extends PhotoCollection
         );
     }
 
-    public function getUrl()
-    {
-        $user = User::model()->findByPk($this->userId);
-        return $user->url;
-    }
-
     public function getTitle()
     {
-        $user = User::model()->findByPk($this->userId);
-        return 'Фотографии пользователя ' . $user->getFullName();
+        return $this->rootModel->getFullName();
+    }
+
+    public function getLabel()
+    {
+        return 'Фотографии пользователя';
+    }
+
+    public function getRootModel()
+    {
+        return User::model()->findByPk($this->userId);
     }
 }

@@ -33,6 +33,7 @@
             ->registerScriptFile('/javascripts/base64.js')
             ->registerScriptFile('/javascripts/common.js')
             ->registerScriptFile('/javascripts/fox.js')
+            ->registerScriptFile('/javascripts/jquery.autosize.min.js')
         ;
         if (!empty($this->meta_description))
             $cs->registerMetaTag(trim($this->meta_description), 'description');

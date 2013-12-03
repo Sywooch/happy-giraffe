@@ -132,7 +132,7 @@ function PhotoCollectionViewModel(data) {
             if (response.status) {
                 self.commentText('');
                 self.currentPhoto().commentsCount(self.currentPhoto().commentsCount() + 1);
-                $('.comments-gray_sent').fadeIn(1000, function() {
+                $('.comments-gray_sent').fadeIn(300, function() {
                     $(this).delay(2000).fadeOut(1000);
                 });
             }

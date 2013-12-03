@@ -193,11 +193,7 @@ $(window).resize(function () {
 					</div>
 				</div>
 				<div class="comments-gray comments-gray__small">
-					<div class="comments-gray_t">
-						<span class="comments-gray_t-tx">Комментарии <span class="color-gray">(28)</span></span>
-						<a href="" class="font-small" id="comments-show">Показать </a>
-						<!-- <a href="" class="float-r font-small">Статистика (14)</a> -->
-					</div>
+					
 					<div class="comments-gray_add active clearfix">
 						
 						<div class="comments-gray_ava">
@@ -226,6 +222,11 @@ $(window).resize(function () {
 								<textarea name="" class="wysiwyg-redactor" placeholder="Введите ваш комментарий и нажмите Enter"></textarea>
 							</div>
 						</div>
+					</div>
+					<div class="comments-gray_t">
+						<span class="comments-gray_t-tx">Комментарии <span class="color-gray">(28)</span></span>
+						<a href="" class="font-small" id="comments-show">Показать </a>
+						<!-- <a href="" class="float-r font-small">Статистика (14)</a> -->
 					</div>
 				</div>
 				

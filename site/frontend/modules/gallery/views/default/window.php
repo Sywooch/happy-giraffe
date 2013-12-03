@@ -1,97 +1,159 @@
-<?php
-$model = AlbumPhoto::model()->findByPk($json['initialPhotoId']);
-?>
 <div class="photo-window" id="photo-window">
     <div class="photo-window_w">
-        <div class="photo-window_top clearfix">
-            <a href="javascript:void(0)" class="photo-window_close" data-bind="click: close"></a>
-            <div class="b-user-small float-l">
-                <a class="ava small" data-bind="attr: { href : currentPhoto().user.url }, css: currentPhoto().user.avaCssClass"><img data-bind="visible: currentPhoto().user.ava.length > 0, attr: { src : currentPhoto().user.ava }"></a>
-                <div class="b-user-small_hold">
-                    <a class="b-user-small_name" data-bind="html: currentPhoto().user.firstName + ' <br>' + currentPhoto().user.lastName, attr: { href : currentPhoto().user.url }"></a>
-                    <div class="b-user-small_date" data-bind="text: currentPhoto().date"></div>
-                </div>
-            </div>
-            <div class="photo-window_top-hold">
-                <div class="photo-window_count" data-bind="text: currentNaturalIndex() + ' фото из ' + count"></div>
-                <!-- ko if: currentPhoto().isEditable && currentPhoto().titleBeingEdited() -->
-                <div class="photo-window_t clearfix">
-                    <div class="display-ib w-50p margin-t5">
-                        <input type="text" class="itx-simple" placeholder="Введите заголовок фото" data-bind="value: currentPhoto().titleValue">
-                    </div>
-                    <button class="btn-green btn-small margin-l10" data-bind="click: currentPhoto().saveTitle">Ok</button>
-                </div>
-                <!-- /ko -->
-                <!-- ko if: ! currentPhoto().titleBeingEdited() -->
-                <div class="photo-window_t">
-                    <span data-bind="text: currentPhoto().title()"></span>
-                    <!-- ko if: currentPhoto().isEditable -->
-                        <div class="photo-window_edit">
-                            <a class="ico-edit ico-edit__light" data-bind="click: currentPhoto().editTitle, tooltip: 'Редактировать'"></a>
-                        </div>
-                    <!-- /ko -->
-                </div>
-                <!-- /ko -->
-            </div>
+        <a href="javascript:void(0)" class="photo-window_close" data-bind="click: close"></a>
+
+        <div class="photo-window_top">
+            <div class="photo-window_count" data-bind="text: currentNaturalIndex() + ' фото из ' + count"></div>
+            <div class="photo-window_about"><span data-bind="text: properties.label"></span>&nbsp;&nbsp;&nbsp;<a data-bind="text: properties.title, attr: { href : properties.url }"></a> </div>
 
         </div>
-        <!-- Обрабатывать клик на юphoto-window_c для листания следующего изображения -->
+        <!-- Обрабатывать клик на .photo-window_c для листания следующего изображения -->
         <div class="photo-window_c">
             <div class="photo-window_img-hold">
-                <img alt="" class="photo-window_img" data-bind="attr: { src : currentPhoto().src }">
+                <img src="/images/example/w960-h537-1.jpg" alt="" class="photo-window_img">
                 <div class="verticalalign-m-help"></div>
             </div>
-            <a class="photo-window_arrow photo-window_arrow__l" data-theme="white-simple" data-bind="click: prevHandler"></a>
-            <a class="photo-window_arrow photo-window_arrow__r" data-theme="white-simple" data-bind="click: nextHandler"></a>
-
+            <a href="#photo-window-end" class="photo-window_arrow photo-window_arrow__l fancy" data-theme="white-simple"></a>
+            <a href="#photo-window-end" class="photo-window_arrow photo-window_arrow__r fancy" data-theme="white-simple"></a>
 
             <div class="like-control clearfix">
-
-                <!-- ko with: currentPhoto() -->
-                    <a href="" class="like-control_ico like-control_ico__like" data-bind="click: like, text: likesCount, css: {active: isLiked()}, tooltip: 'Нравится'" ></a>
-                    <!-- ko with: favourites() -->
-                        <?php $this->widget('FavouriteWidget', array('model' => $model, 'applyBindings' => false)); ?>
-                    <!-- /ko -->
-                <!-- /ko -->
+                <a href="" class="like-control_ico like-control_ico__like">865</a>
+                <div class="position-rel float-l">
+                    <a class="favorites-control_a" href="">12365</a>
+                    <!-- <div class="favorites-add-popup favorites-add-popup__right">
+                        <div class="favorites-add-popup_t">Добавить запись в избранное</div>
+                        <div class="favorites-add-popup_i clearfix">
+                            <img src="/images/example/w60-h40.jpg" alt="" class="favorites-add-popup_i-img">
+                            <div class="favorites-add-popup_i-hold">Неравный брак. Смертельно опасен или жизненно необходим?</div>
+                        </div>
+                        <div class="favorites-add-popup_row">
+                            <label for="" class="favorites-add-popup_label">Теги:</label>
+                            <span class="favorites-add-popup_tag">
+                                <a href="" class="favorites-add-popup_tag-a">отношения</a>
+                                <a href="" class="ico-close"></a>
+                            </span>
+                            <span class="favorites-add-popup_tag">
+                                <a href="" class="favorites-add-popup_tag-a">любовь</a>
+                                <a href="" class="ico-close"></a>
+                            </span>
+                        </div>
+                        <div class="favorites-add-popup_row margin-b10">
+                            <a class="textdec-none" href="">
+                                <span class="ico-plus2 margin-r5"></span>
+                                <span class="a-pseudo-gray color-gray">Добавить тег</span>
+                            </a>
+                        </div>
+                        <div class="favorites-add-popup_row">
+                            <label for="" class="favorites-add-popup_label">Комментарий:</label>
+                            <div class="float-r color-gray">0/150</div>
+                        </div>
+                        <div class="favorites-add-popup_row">
+                            <textarea name="" id="" cols="25" rows="2" class="favorites-add-popup_textarea" placeholder="Введите комментарий"></textarea>
+                        </div>
+                        <div class="favorites-add-popup_row textalign-c margin-t10">
+                            <a href="" class="btn-gray-light">Отменить</a>
+                            <a href="" class="btn-green">Добавить</a>
+                        </div>
+                    </div> -->
+                </div>
             </div>
         </div>
 
-        <!-- ko if: currentPhoto().isEditable && currentPhoto().descriptionBeingEdited() -->
-        <div class="photo-window_bottom">
-            <div class="display-ib w-500 verticalalign-b">
-                <textarea cols="30" rows="2" class="itx-simple" placeholder="Введите описание фото" data-bind="value: currentPhoto().descriptionValue"></textarea>
-            </div>
-            <button class="btn-green btn-small margin-l10 verticalalign-b" data-bind="click: currentPhoto().saveDescription">Ok</button>
-        </div>
-        <!-- /ko -->
 
-        <!-- ko if: ! currentPhoto().descriptionBeingEdited() && currentPhoto().description().length > 0 -->
-        <div class="photo-window_bottom" data-bind="click: currentPhoto().toggleShowFullDescription, css: { active : currentPhoto().showFullDescription }">
-            <div class="photo-window_desc">
-                <p><span data-bind="text: currentPhoto().hasLongDescription() ? currentPhoto().shortenDescription() : currentPhoto().description"></span> <span class="photo-window_desc-more" data-bind="visible: currentPhoto().hasLongDescription()"> ... <a href="javascript:void(0)" >Читать полностью</a> </span></p>
-            </div>
-            <div class="photo-window_desc photo-window_desc__full">
-                <p><span data-bind="text: currentPhoto().description"></span> <a href="javascript:void(0)">Кратко</a></p>
-            </div>
-            <!-- ko if: currentPhoto().isEditable -->
-            <div class="photo-window_edit">
-                <a class="ico-edit ico-edit__light" data-bind="click: currentPhoto().editDescription, tooltio: 'Редактировать'"></a>
-            </div>
-            <!-- /ko -->
-        </div>
-        <!-- /ko -->
 
-        <!-- ko stopBinding: true  -->
-        <div id="js-gallery-comment">
-            <?php $this->widget('application.widgets.newCommentWidget.NewCommentWidget', array('model' => $model, 'full' => true, 'gallery' => true)); ?>
+        <div class="photo-window_col">
+
+            <div class="photo-window_col-hold scroll">
+                <div class="scroll_scroller  photo-window_cont">
+                    <div class="scroll_cont">
+                        <div class="photo-window_cont-t clearfix">
+                            <div class="meta-gray">
+                                <a class="meta-gray_comment" href="">
+                                    <span class="ico-comment ico-comment__gray"></span>
+                                    <span class="meta-gray_tx">35456</span>
+                                </a>
+                                <div class="meta-gray_view">
+                                    <span class="ico-view ico-view__gray"></span>
+                                    <span class="meta-gray_tx">305</span>
+                                </div>
+                            </div>
+                            <div class="b-user-info b-user-info__middle float-l">
+                                <a href="" class="ava middle female"></a>
+                                <div class="b-user-info_hold">
+                                    <a href="" class="b-user-info_name">Ангелина Богоявленская</a>
+                                    <div class="b-user-info_date">16 июн 2013</div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <div class="photo-window_t">
+                            <input type="text" name="" id="" class="itx-gray" placeholder="Введите название фото и нажмите Enter">
+                            <!-- Детский лагерь «Зеркальный». Ленинградская область. Ghfg Ленинградская <a class="ico-edit powertip" href=""></a> -->
+                        </div>
+
+                        <div class="photo-window_desc-hold ">
+                            <div class="photo-window_desc clearfix">
+                                <p>В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, спокойные игры  В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, эстафеты, соревнования В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, эстафеты и спокойные игры.  <a class="ico-edit powertip" href=""></a></p>
+                                <!-- <span class="photo-window_desc-more"> <a href="javascript:void(0)" >Кратко</a></span> -->
+                            </div>
+
+                        </div>
+                        <div class="comments-gray comments-gray__small">
+                            <div class="comments-gray_t">
+                                <span class="comments-gray_t-tx">Комментарии <span class="color-gray">(28)</span></span>
+                                <a href="" class="font-small" id="comments-show">Показать </a>
+                                <!-- <a href="" class="float-r font-small">Статистика (14)</a> -->
+                                <div class="comments-gray_sent display-b">Комментарий успешно отправлен.</div>
+                            </div>
+                            <div class="comments-gray_add active clearfix">
+
+                                <div class="comments-gray_ava">
+                                    <a href="" class="ava small female">
+                                        <img src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" alt="">
+                                    </a>
+                                </div>
+
+                                <div class="comments-gray_frame">
+                                    <!-- input hidden -->
+                                    <input type="text" name="" id="" class="comments-gray_add-itx itx-gray display-n" placeholder="Ваш комментарий">
+
+                                    <script>
+                                        $(document).ready(function () {
+                                            $('.wysiwyg-redactor').redactor({
+                                                autoresize: true,
+                                                minHeight: 36,
+                                                maxHeight: 0,
+                                                toolbarExternal: '.wysiwyg-toolbar-btn',
+                                                buttons: []
+                                            });
+                                        });
+                                    </script>
+                                    <div class="wysiwyg-h">
+                                        <div class="wysiwyg-toolbar-btn"></div>
+                                        <textarea name="" class="wysiwyg-redactor" placeholder="Введите ваш комментарий и нажмите Enter"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="scroll_bar-hold">
+                    <div class="scroll_bar">
+                        <div class="scroll_bar-in"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="photo-window_banner" class="photo-window_banner clearfix">
+                <img src="/images/example/w300-h250.jpg" alt="">
+            </div>
         </div>
-        <!-- /ko -->
 
     </div>
-    <style type="text/css">
-        body {overflow: hidden !important;}
-    </style>
 </div>
+
 <script type="text/javascript">
     photoViewVM = new PhotoCollectionViewModel(<?=CJSON::encode($json)?>);
     ko.applyBindings(photoViewVM, document.getElementById('photo-window'));

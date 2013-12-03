@@ -96,15 +96,13 @@ class ContestPhotoCollection extends PhotoCollection
         );
     }
 
-    public function getUrl()
+    public function getLabel()
     {
-        $contest = Contest::model()->findByPk($this->contestId);
-        return $contest->url;
+        return 'Конкурс';
     }
 
-    public function getTitle()
+    public function getRootModel()
     {
-        $contest = Contest::model()->findByPk($this->contestId);
-        return $contest->title;
+        return Contest::model()->findByPk($this->contestId);
     }
 }

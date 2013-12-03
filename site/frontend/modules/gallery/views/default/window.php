@@ -83,12 +83,6 @@
                         </div>
 
                         <div class="comments-gray comments-gray__small">
-                            <div class="comments-gray_t">
-                                <span class="comments-gray_t-tx">Комментарии <span class="color-gray">(28)</span></span>
-                                <a href="" class="font-small" id="comments-show">Показать </a>
-                                <!-- <a href="" class="float-r font-small">Статистика (14)</a> -->
-                                <div class="comments-gray_sent display-b">Комментарий успешно отправлен.</div>
-                            </div>
                             <div class="comments-gray_add active clearfix">
 
                                 <div class="comments-gray_ava">
@@ -98,25 +92,16 @@
                                 </div>
 
                                 <div class="comments-gray_frame">
-                                    <!-- input hidden -->
-                                    <input type="text" name="" id="" class="comments-gray_add-itx itx-gray display-n" placeholder="Ваш комментарий">
-
-                                    <script>
-                                        $(document).ready(function () {
-                                            $('.wysiwyg-redactor').redactor({
-                                                autoresize: true,
-                                                minHeight: 36,
-                                                maxHeight: 0,
-                                                toolbarExternal: '.wysiwyg-toolbar-btn',
-                                                buttons: []
-                                            });
-                                        });
-                                    </script>
-                                    <div class="wysiwyg-h">
-                                        <div class="wysiwyg-toolbar-btn"></div>
-                                        <textarea name="" class="wysiwyg-redactor" placeholder="Введите ваш комментарий и нажмите Enter"></textarea>
-                                    </div>
+                                    <textarea cols="15" rows="2" class="itx-gray" placeholder="Введите ваш комментарий и нажмите Enter" data-bind="returnKey: addComment, valueUpdate: 'keyup', value: commentText"></textarea>
                                 </div>
+                            </div>
+                            <div class="comments-gray_t">
+                                <!-- ko if: currentPhoto().commentsCount() > 0 -->
+                                <span class="comments-gray_t-tx">Комментарии <span class="color-gray" data-bind="text: '(' + currentPhoto().commentsCount() + ')'"></span></span>
+                                <a class="font-small" id="comments-show" href="javascript:void(0)" data-bind="click: currentPhoto().commentsUrl">Показать </a>
+                                <!-- /ko -->
+                                <!-- <a href="" class="float-r font-small">Статистика (14)</a> -->
+                                <div class="comments-gray_sent">Комментарий успешно отправлен.</div>
                             </div>
                         </div>
 

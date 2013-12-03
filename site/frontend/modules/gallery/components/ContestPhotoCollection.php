@@ -92,7 +92,9 @@ class ContestPhotoCollection extends PhotoCollection
             'favourites'=>array(
                 'count' => (int) Favourite::model()->getCountByModel($model->photoAttach->photo),
                 'active' => (bool) Favourite::model()->getUserHas(Yii::app()->user->id, $model->photoAttach->photo),
-            )
+            ),
+            'commentsCount' => $model->photoAttach->photo->commentsCount,
+            'views' => PageView::model()->incViewsByPath($this->rootModel->url . $model->photoAttach->photo->id . '/'),
         );
     }
 

@@ -37,11 +37,11 @@
                             <div class="meta-gray">
                                 <a class="meta-gray_comment" href="">
                                     <span class="ico-comment ico-comment__gray"></span>
-                                    <span class="meta-gray_tx">35456</span>
+                                    <span class="meta-gray_tx" data-bind="text: currentPhoto().commentsCount"></span>
                                 </a>
                                 <div class="meta-gray_view">
                                     <span class="ico-view ico-view__gray"></span>
-                                    <span class="meta-gray_tx">305</span>
+                                    <span class="meta-gray_tx" data-bind="text: currentPhoto().views"></span>
                                 </div>
                             </div>
                             <div class="b-user-info b-user-info__middle float-l" data-bind="with: currentPhoto().user">

@@ -84,8 +84,8 @@ $(window).resize(function () {
 	<a href="" class="photo-window_close"></a>
 
 	<div class="photo-window_top">
-		<div class="photo-window_count">25 фото из 52</div>
-		<div class="photo-window_about">Фотоальбом&nbsp;&nbsp;&nbsp;<a href="">Места моих путешествий моих путешествий моих путешествий моих путешествий моих путешествий моих путешествий моих путешествий моих путешествий</a> </div>
+		<div class="photo-window_count">25 из 52</div>
+		<div class="photo-window_about"><a href="">Места моих путешествий моих путешествий моих путешествий моих путешествий моих путешествий моих путешествий моих путешествий моих путешествий</a> </div>
 
 	</div>
 	<!-- Обрабатывать клик на .photo-window_c для листания следующего изображения -->

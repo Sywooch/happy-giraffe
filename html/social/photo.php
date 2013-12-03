@@ -54,7 +54,7 @@
 			</div>
 			<div class="content-cols clearfix">
 				<div class="col-1">
-					<div class="b-user-info margin-t10 clearfix">
+					<div class="b-user-info margin-t15 clearfix">
 						<a class="ava male" href="">
 							<span class="icon-status status-online"></span>
 							<img src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg" alt="">

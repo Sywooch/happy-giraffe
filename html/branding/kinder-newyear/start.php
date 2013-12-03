@@ -472,7 +472,7 @@
 
 		var container = $('.layout-wrapper');
 
-		if(container.length > 0 && container.height() < 2380) {
+		if(container.length > 0 && container.height() < 2110) {
 			$('.cover').css({'display':'none'});
 			$('.footer-push').height('209px');
 		}

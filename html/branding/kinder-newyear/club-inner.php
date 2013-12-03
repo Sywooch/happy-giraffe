@@ -253,7 +253,7 @@ document.write('<scr' + 'ipt type="text/javascript" src="http://ads.adfox.ru/211
 
 		var container = $('.layout-wrapper');
 
-		if(container.length > 0 && container.height() < 2380) {
+		if(container.length > 0 && container.height() < 2110) {
 			$('.cover').css({'display':'none'});
 			$('.footer-push').height('209px');
 		}

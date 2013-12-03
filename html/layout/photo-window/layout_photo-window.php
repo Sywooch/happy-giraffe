@@ -179,40 +179,40 @@ $(window).resize(function () {
 						<!-- <span class="photo-window_desc-more"> <a href="javascript:void(0)" >Кратко</a></span> -->
 					</div>
 
-					<div class="comments-gray comments-gray__small">
-						<div class="comments-gray_t">
-							<span class="comments-gray_t-tx">Комментарии <span class="color-gray">(28)</span></span>
-							<a href="" class="font-small" id="comments-show">Показать </a>
-							<!-- <a href="" class="float-r font-small">Статистика (14)</a> -->
-							<div class="comments-gray_sent display-b">Комментарий успешно отправлен.</div>
+				</div>
+				<div class="comments-gray comments-gray__small">
+					<div class="comments-gray_t">
+						<span class="comments-gray_t-tx">Комментарии <span class="color-gray">(28)</span></span>
+						<a href="" class="font-small" id="comments-show">Показать </a>
+						<!-- <a href="" class="float-r font-small">Статистика (14)</a> -->
+						<div class="comments-gray_sent display-b">Комментарий успешно отправлен.</div>
+					</div>
+					<div class="comments-gray_add active clearfix">
+						
+						<div class="comments-gray_ava">
+							<a href="" class="ava small female">
+								<img src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" alt="">
+							</a>
 						</div>
-						<div class="comments-gray_add active clearfix">
+						
+						<div class="comments-gray_frame">
+							<!-- input hidden -->
+							<input type="text" name="" id="" class="comments-gray_add-itx itx-gray display-n" placeholder="Ваш комментарий">
 							
-							<div class="comments-gray_ava">
-								<a href="" class="ava small female">
-									<img src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" alt="">
-								</a>
-							</div>
-							
-							<div class="comments-gray_frame">
-								<!-- input hidden -->
-								<input type="text" name="" id="" class="comments-gray_add-itx itx-gray display-n" placeholder="Ваш комментарий">
-								
-								<script>
-								$(document).ready(function () { 
-								  $('.wysiwyg-redactor').redactor({
-								      autoresize: true,
-								      minHeight: 36,
-								      maxHeight: 0,
-								      toolbarExternal: '.wysiwyg-toolbar-btn',
-								      buttons: []
-								  });
-								});
-								</script>
-								<div class="wysiwyg-h">
-									<div class="wysiwyg-toolbar-btn"></div>
-									<textarea name="" class="wysiwyg-redactor" placeholder="Введите Ваш комментарий и нажмите Enter"></textarea>
-								</div>
+							<script>
+							$(document).ready(function () { 
+							  $('.wysiwyg-redactor').redactor({
+							      autoresize: true,
+							      minHeight: 36,
+							      maxHeight: 0,
+							      toolbarExternal: '.wysiwyg-toolbar-btn',
+							      buttons: []
+							  });
+							});
+							</script>
+							<div class="wysiwyg-h">
+								<div class="wysiwyg-toolbar-btn"></div>
+								<textarea name="" class="wysiwyg-redactor" placeholder="Введите ваш комментарий и нажмите Enter"></textarea>
 							</div>
 						</div>
 					</div>

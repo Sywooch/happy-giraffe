@@ -151,6 +151,8 @@ function CollectionPhoto(data, parent) {
         count: data.favourites.count,
         active: data.favourites.active
     }));
+    self.views = ko.observable(data.views);
+    self.commentsCount = ko.observable(data.commentsCount);
 
     self.toggleShowFullDescription = function () {
         if (self.hasLongDescription())

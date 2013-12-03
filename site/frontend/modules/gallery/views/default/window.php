@@ -78,9 +78,7 @@
                             <!-- /ko -->
 
                             <!-- ko if: currentPhoto().isEditable && currentPhoto().descriptionBeingEdited() -->
-                                <div class="wysiwyg-h">
-                                    <textarea class="wysiwyg-redactor" placeholder="Введите описание фото и нажмите Enter" data-bind="value: currentPhoto().descriptionValue, autogrow: true, returnKey: currentPhoto().saveDescription, valueUpdate: 'keyup', hasfocus: currentPhoto().descriptionBeingEdited()"></textarea>
-                                </div>
+                                <textarea cols="15" rows="2" class="itx-gray" placeholder="Введите описание фото и нажмите Enter" data-bind="value: currentPhoto().descriptionValue, autogrow: true, returnKey: currentPhoto().saveDescription, valueUpdate: 'keyup', hasfocus: currentPhoto().descriptionBeingEdited() && ! currentPhoto().titleBeingEdited()"></textarea>
                             <!-- /ko -->
                         </div>
 

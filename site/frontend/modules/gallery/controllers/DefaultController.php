@@ -84,4 +84,26 @@ class DefaultController extends HController
             if (($dimension['minScreenWidth'] === null || $screenWidth >= $dimension['minScreenWidth']) && ($dimension['maxScreenWidth'] === null || $screenWidth <= $dimension['maxScreenWidth']))
                 return $dimensionId;
     }
+
+    public function actionSinglePhoto($entity, $photo_id)
+    {
+        switch ($entity) {
+            case 'CommunityContentGallery':
+                $contentId = Yii::app()->request->getQuery('content_id');
+                $collection = new PhotoPostPhotoCollection(array('contentId' => $contentId));
+                break;
+            default:
+                throw new CHttpException(404);
+        }
+
+        $photo = AlbumPhoto::model()->findByPk($photo_id);
+        $photoCollectionElement = $collection->getPhoto($photo_id, true);
+        $nextPhotoId = $collection->getNextPhotosIds($photo_id, 1);
+        $nextPhotoUrl = preg_replace('#(\d+)\/$#', $nextPhotoId[0] . '/', Yii::app()->request->url);
+        $prevPhotoId = $collection->getPrevPhotosIds($photo_id, 1);
+        $prevPhotoUrl = preg_replace('#(\d+)\/$#', $prevPhotoId[0] . '/', Yii::app()->request->url);
+
+        $this->layout = '//layouts/main';
+        $this->render('singlePhoto', compact('collection', 'photo', 'photoCollectionElement', 'currentIndex', 'nextPhotoUrl', 'prevPhotoUrl'));
+    }
 }

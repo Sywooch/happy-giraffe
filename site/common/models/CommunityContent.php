@@ -1149,31 +1149,4 @@ class CommunityContent extends HActiveRecord
 
         return null;
     }
-
-    public function getLikedUsers($limit)
-    {
-        $likes = HGLike::model()->findAllByEntity($this);
-
-        $usersIds = array_map(function($like) {
-            return $like['user_id'];
-        }, $likes);
-
-        $criteria = new CDbCriteria();
-        $criteria->limit = $limit;
-        if (! Yii::app()->user->isGuest)
-            $criteria->compare('t.id', '<>' . Yii::app()->user->id);
-        $criteria->addInCondition('t.id', $usersIds);
-        $users = User::model()->findAll($criteria);
-
-        return $users;
-    }
-
-    public function getFavouritedUsers($limit)
-    {
-        $favourites = Favourite::model()->getAllByModel($this, $limit);
-        $users = array_map(function($favourite) {
-            return $favourite->user;
-        }, $favourites);
-        return $users;
-    }
 }

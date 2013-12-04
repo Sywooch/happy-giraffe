@@ -9,6 +9,8 @@
 
 abstract class PhotoCollection extends CComponent
 {
+    public $rootModel;
+    public $properties;
     public $count;
     public $photoIds;
     private $_options;
@@ -20,6 +22,8 @@ abstract class PhotoCollection extends CComponent
             $this->$name = $value;
         $this->photoIds = $this->getPhotoIds();
         $this->count = count($this->photoIds);
+        $this->rootModel = $this->getRootModel();
+        $this->properties = $this->getProperties();
     }
 
     public function getOptions()
@@ -30,6 +34,12 @@ abstract class PhotoCollection extends CComponent
     public function getIndexById($photoId)
     {
         return array_search($photoId, $this->photoIds);
+    }
+
+    public function getPhoto($id, $json = false)
+    {
+        $p = $this->populatePhotos(array($id), $json);
+        return $p[0];
     }
 
     public function getAllPhotos($limit = null, $json = false)
@@ -61,7 +71,7 @@ abstract class PhotoCollection extends CComponent
         return $json ? array_map(array($this, 'toJSON'), $_models) : $_models;
     }
 
-    protected function getNextPhotosIds($photoId, $after)
+    public function getNextPhotosIds($photoId, $after)
     {
         $index = $this->getIndexById($photoId);
 
@@ -73,7 +83,7 @@ abstract class PhotoCollection extends CComponent
         return $rangeIds;
     }
 
-    protected function getPrevPhotosIds($photoId, $before)
+    public function getPrevPhotosIds($photoId, $before)
     {
         $index = $this->getIndexById($photoId);
 
@@ -95,6 +105,25 @@ abstract class PhotoCollection extends CComponent
         return $value;
     }
 
+    protected function getProperties()
+    {
+        return array(
+            'title' => $this->getTitle(),
+            'url' => $this->getUrl(),
+            'label' => $this->getLabel(),
+        );
+    }
+
+    protected function getTitle()
+    {
+        return $this->rootModel->title;
+    }
+
+    protected function getUrl()
+    {
+        return $this->rootModel->url;
+    }
+
     protected function getIdsCacheKey() {
         return __CLASS__ . ':ids:' . serialize($this->options);
     }
@@ -103,5 +132,5 @@ abstract class PhotoCollection extends CComponent
     abstract protected function getIdsCacheDependency();
     abstract protected function generateModels($ids);
     abstract protected function toJSON($model);
-    abstract public function getUrl();
+    abstract public function getRootModel();
 }

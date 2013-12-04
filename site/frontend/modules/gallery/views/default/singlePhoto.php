@@ -45,7 +45,7 @@
             <div class="photo-view_c">
                 <div class="photo-view_img">
                     <!-- Отлавливать клик или на ссылку или на изображение (тогда ссылка не нужна) -->
-                    <a href="<?=$nextPhotoUrl?>">
+                    <a href="javascript:void(0)" onclick="PhotoCollectionViewWidget.open(<?=CJavaScript::encode(get_class($collection))?>, <?=CJavaScript::encode($collection->options)?>, <?=CJavaScript::encode($photo->id)?>)">
                         <?=CHtml::image($photo->getPreviewUrl(680, null, Image::WIDTH))?>
                     </a>
                 </div>
@@ -57,8 +57,8 @@
                 </div>
             </div>
             <div class="photo-view_row clearfix">
-                <a class="i-more float-r" onclick="PhotoCollectionViewWidget.open(<?=CJavaScript::encode(get_class($collection))?>, <?=CJavaScript::encode($collection->options)?>, <?=CJavaScript::encode($photo->id)?>)">Смотреть все</a>
-                <a class="photo-view_fullscreen" onclick="PhotoCollectionViewWidget.open(<?=CJavaScript::encode(get_class($collection))?>, <?=CJavaScript::encode($collection->options)?>, <?=CJavaScript::encode($photo->id)?>)">
+                <a href="javascript:void(0)" class="i-more float-r" onclick="PhotoCollectionViewWidget.open(<?=CJavaScript::encode(get_class($collection))?>, <?=CJavaScript::encode($collection->options)?>, <?=CJavaScript::encode($photo->id)?>)">Смотреть все</a>
+                <a href="javascript:void(0)" class="photo-view_fullscreen" onclick="PhotoCollectionViewWidget.open(<?=CJavaScript::encode(get_class($collection))?>, <?=CJavaScript::encode($collection->options)?>, <?=CJavaScript::encode($photo->id)?>)">
                     <span class="photo-view_fullscreen-in">Полный размер</span>
                 </a>
             </div>

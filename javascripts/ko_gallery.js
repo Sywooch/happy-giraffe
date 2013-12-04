@@ -150,7 +150,9 @@ function PhotoCollectionViewModel(data) {
     _gaq.push(['_trackPageview', self.currentPhoto().url()]);
     yaCounter11221648.hit(self.currentPhoto().url());
     self.preloadImages(2, 2);
-    self.setLikesPosition();
+    setTimeout(function() {
+        self.setLikesPosition();
+    }, 100);
 }
 
 function CollectionPhoto(data, parent) {

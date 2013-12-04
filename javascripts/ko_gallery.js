@@ -141,8 +141,10 @@ function PhotoCollectionViewModel(data) {
     }
 
     self.setLikesPosition = function() {
-        var likeBottom = ($('.photo-window_img-hold').height() - $('.photo-window_img').height()) / 2 + 30;
-        $('.photo-window .like-control').css({'bottom' : likeBottom});
+        setTimeout(function() {
+            var likeBottom = ($('.photo-window_img-hold').height() - $('.photo-window_img').height()) / 2 + 30;
+            $('.photo-window .like-control').css({'bottom' : likeBottom});
+        }, 100);
     }
 
     self.currentPhotoIndex.valueHasMutated();

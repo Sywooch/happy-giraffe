@@ -22,7 +22,7 @@ function PhotoCollectionViewModel(data) {
     self.properties = data.properties;
     self.collectionClass = data.collectionClass;
     self.collectionOptions = data.collectionOptions;
-    self.userId = data.userId;
+    self.user = data.user === null ? null : new CollectionPhotoUser(data.user);
     self.count = data.count;
     self.photos = ko.utils.arrayMap(data.initialPhotos, function (photo) {
         return new CollectionPhoto(photo, self);
@@ -129,15 +129,18 @@ function PhotoCollectionViewModel(data) {
     }
 
     self.addComment = function() {
-        $.post('/ajaxSimple/addComment/', { entity_id : self.currentPhoto().id, entity: 'AlbumPhoto', text: self.commentText() }, function(response) {
-            if (response.status) {
-                self.commentText('');
-                self.currentPhoto().commentsCount(self.currentPhoto().commentsCount() + 1);
-                $('.comments-gray_sent').fadeIn(300, function() {
-                    $(this).delay(2000).fadeOut(1000);
-                });
-            }
-        }, 'json');
+        if (self.user !== null)
+            $.post('/ajaxSimple/addComment/', { entity_id : self.currentPhoto().id, entity: 'AlbumPhoto', text: self.commentText() }, function(response) {
+                if (response.status) {
+                    self.commentText('');
+                    self.currentPhoto().commentsCount(self.currentPhoto().commentsCount() + 1);
+                    $('.comments-gray_sent').fadeIn(300, function() {
+                        $(this).delay(2000).fadeOut(1000);
+                    });
+                }
+            }, 'json');
+        else
+            $('[href="#login"]').trigger('click');
     }
 
     self.setLikesPosition = function() {
@@ -152,7 +155,7 @@ function PhotoCollectionViewModel(data) {
     self.preloadImages(2, 2);
     setTimeout(function() {
         self.setLikesPosition();
-    }, 100);
+    }, 200);
 }
 
 function CollectionPhoto(data, parent) {
@@ -217,7 +220,7 @@ function CollectionPhoto(data, parent) {
         }, 'json');
     }
 
-    self.isEditable = parent.collectionClass == 'PhotoPostPhotoCollection' && self.user.id == parent.userId;
+    self.isEditable = parent.collectionClass == 'PhotoPostPhotoCollection' && parent.user !== null && self.user.id == parent.user.id;
 
     self.titleBeingEdited = ko.observable(data.title.length == 0);
     self.titleValue = ko.observable(data.title);

@@ -17,7 +17,7 @@ class PhotoContestWidget extends CWidget
         ));
 
         if ($contest !== null) {
-            $contestShown = false;// UserAttributes::get(Yii::app()->user->id, 'photoContestShow' . $contest->id, false);
+            $contestShown = UserAttributes::get(Yii::app()->user->id, 'photoContestShow' . $contest->id, false);
 
             if ($contestShown === false) {
                 $criteria = new CDbCriteria();

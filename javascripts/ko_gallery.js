@@ -152,7 +152,7 @@ function PhotoCollectionViewModel(data) {
     self.preloadImages(2, 2);
     setTimeout(function() {
         self.setLikesPosition();
-    }, 100);
+    }, 200);
 }
 
 function CollectionPhoto(data, parent) {

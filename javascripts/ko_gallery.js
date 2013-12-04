@@ -56,7 +56,6 @@ function PhotoCollectionViewModel(data) {
             self.preloadImages(3, 0);
             if (!self.isFullyLoaded() && self.currentPhotoIndex() >= self.photos.length - 3)
                 self.preloadMetaNext();
-            self.currentPhoto().loadComments();
 
             History.pushState(self.currentPhoto(), self.currentPhoto().title().length > 0 ? self.currentPhoto().title() : self.properties.title + ' - фото ' + self.currentNaturalIndex(), self.currentPhoto().url());
             _gaq.push(['_trackPageview', self.currentPhoto().url()]);
@@ -74,7 +73,6 @@ function PhotoCollectionViewModel(data) {
             self.preloadImages(0, 3);
             if (!self.isFullyLoaded() && self.currentPhotoIndex() <= 2)
                 self.preloadMetaPrev();
-            self.currentPhoto().loadComments();
 
             History.pushState(self.currentPhoto(), self.currentPhoto().title().length > 0 ? self.currentPhoto().title() : self.properties.title + ' - фото ' + self.currentNaturalIndex(), self.currentPhoto().url());
             _gaq.push(['_trackPageview', self.currentPhoto().url()]);

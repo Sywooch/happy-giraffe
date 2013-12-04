@@ -136,7 +136,7 @@
 						<a href="" class="a-pseudo b-article-conversion_hide">Скрыть</a>
 						<div class="b-article-conversion_tx-top">Внимание! С 4 декабря стартовал</div>
 						<div class="textalign-c">
-							<img src="/images/contest/b-article-conversion__12-heading-title.png" alt="">
+							<img src="/images/contest/b-article-conversion__13-heading-title.png" alt="">
 						</div>
 						<div class="textalign-c font-middle">
 							<a href="">Участники конкурса (68)</a>
@@ -192,7 +192,7 @@
 						</div>
 						<div class="clearfix">
 							<a href="" class="b-article-conversion_sponsor-logo"></a>
-							<div class="b-article-conversion_tx-bottom">Покажите нам ваши улыбки!  </div>
+							<div class="b-article-conversion_tx-bottom">Покажите нам ваши любимые игрушки! </div>
 							<div class="textalign-c margin-b20">
 								<a href="" class="btn-green btn-h46">Принять участие!</a>
 							</div>

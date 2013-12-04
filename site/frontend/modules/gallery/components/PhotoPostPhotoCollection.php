@@ -51,19 +51,19 @@ class PhotoPostPhotoCollection extends PhotoCollection
             'favourites'=>array(
                 'count' => (int) Favourite::model()->getCountByModel($model->photo),
                 'active' => (bool) Favourite::model()->getUserHas(Yii::app()->user->id, $model->photo),
-            )
+            ),
+            'commentsCount' => $model->photo->commentsCount,
+            'views' => PageView::model()->incViewsByPath($this->rootModel->url . $model->photo->id . '/'),
         );
     }
 
-    public function getUrl()
+    public function getLabel()
     {
-        $post = CommunityContent::model()->findByPk($this->contentId);
-        return $post->url;
+        return 'Фотопост';
     }
 
-    public function getTitle()
+    public function getRootModel()
     {
-        $post = CommunityContent::model()->findByPk($this->contentId);
-        return $post->title;
+        return CommunityContent::model()->findByPk($this->contentId);
     }
 }

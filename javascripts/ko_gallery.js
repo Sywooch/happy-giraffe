@@ -61,7 +61,7 @@ function PhotoCollectionViewModel(data) {
             _gaq.push(['_trackPageview', self.currentPhoto().url()]);
             yaCounter11221648.hit(self.currentPhoto().url());
             self.setLikesPosition();
-
+            $('#photo-window_banner iframe').attr('src', '/rtb3.html?' + Math.floor(Math.random() * 9999999999) + 1000000000);
         }
     }
 
@@ -77,6 +77,7 @@ function PhotoCollectionViewModel(data) {
             _gaq.push(['_trackPageview', self.currentPhoto().url()]);
             yaCounter11221648.hit(self.currentPhoto().url());
             self.setLikesPosition();
+            $('#photo-window_banner iframe').attr('src', '/rtb3.html?' + Math.floor(Math.random() * 9999999999) + 1000000000);
         }
     }
 

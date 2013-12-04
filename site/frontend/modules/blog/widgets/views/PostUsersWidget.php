@@ -11,7 +11,7 @@
 
 <div class="article-users">
     <?php if ($likedUsers): ?>
-        <div class="article-users_t">Запись понравилась </div>
+        <div class="article-users_t"><?=$label?> понравилась </div>
         <div class="ava-list">
             <ul class="ava-list_ul clearfix">
                 <?php foreach ($likedUsers as $user): ?>
@@ -40,7 +40,7 @@
     <?php endif; ?>
 
     <?php if ($favouritedUsers): ?>
-        <div class="article-users_t">Запись добавили в избранное </div>
+        <div class="article-users_t"><?=$label?> добавили в избранное </div>
         <div class="ava-list">
             <ul class="ava-list_ul clearfix">
                 <?php foreach ($favouritedUsers as $user): ?>

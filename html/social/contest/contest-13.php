@@ -37,13 +37,10 @@
 			<div class="col-white">	
 				<div id="contest" class="contest contest-13">
 					<div class="section-banner">
-						<!-- .button-holder - в этом конкурсе не используется -->
+						
 						<div class="button-holder">
-							<a href=""class="contest-button">Участвовать!</a>
-							<!-- Сейчас нет шагов после регистрации -->
-							<!-- <div class="contest-error-hint" style="display:block;">
-								<h4>Oops!</h4><p>Что бы проголосовать, вам нужно пройти <a href='#'>Первые 6 шагов</a> в свой анкете </p>
-							</div> -->
+							<a href=""class="contest-button">Принять участие!</a>
+							
 						</div>
 						<img src="/images/contest/banner-w1000-13.jpg" />
 					</div>
@@ -63,7 +60,8 @@
 					</div>
 					
 					<div class="contest-about clearfix">
-						 <div class="contest-participant">
+						<a href=""class="contest-button">Принять участие!</a>
+						<div class="contest-participant">
 							<div class="contest-participant_t">Моя работа в конкурсе</div>
 							<div class="img">
 								<div class="clearfix">

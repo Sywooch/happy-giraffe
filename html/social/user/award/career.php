@@ -430,6 +430,46 @@
 							<a href="" class="career-achievement_info powertip ico-back" title="Назад"></a>
 						</div>
 					</div>
+					<div class="career-achievement-hold">
+						
+						<div class="career-achievement career-achievement__lavender">
+							<div class="career-achievement_left">
+								<div class="career-achievement_gray"> Поздравляем! <br>
+								Вы участвуете в фотоконкурсе <br>
+								 "Мы едем, едем едем..."</div>
+								<div class="career-achievement_congratulation-slogan">Вперед к победе!</div>
+							</div>
+							<div class="career-achievement_center">
+								<img src="/images/contest/contest-career-13.png" alt="">
+							</div>
+							<div class="career-achievement_right">
+								<div class="career-achievement_ball">
+									<div class="career-achievement_ball-add">+1500</div>
+								</div>
+							</div>
+							<a href="" class="career-achievement_info powertip ico-back" title="Назад"></a>
+						</div>
+					</div>
+					<div class="career-achievement-hold">
+						
+						<div class="career-achievement career-achievement__lavender">
+							<div class="career-achievement_left">
+								<div class="career-achievement_gray"> Поздравляем! <br>
+								Вы участвуете в фотоконкурсе <br>
+								 "Мы едем, едем едем..."</div>
+								<div class="career-achievement_congratulation-slogan">Вперед к победе!</div>
+							</div>
+							<div class="career-achievement_center">
+								<img src="/images/contest/contest-career-place1-13.png" alt="">
+							</div>
+							<div class="career-achievement_right">
+								<div class="career-achievement_ball">
+									<div class="career-achievement_ball-add">+1500</div>
+								</div>
+							</div>
+							<a href="" class="career-achievement_info powertip ico-back" title="Назад"></a>
+						</div>
+					</div>
 					
 					
 					<div class="infscr-loading-hold">

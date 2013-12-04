@@ -60,6 +60,20 @@ class AlbumsCommand extends CConsoleCommand
         }
     }
 
+    public function actionGenerateContestsViewPhotos()
+    {
+        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
+        Yii::import('site.common.models.mongo.*');
+        Yii::import('site.frontend.modules.gallery.components.*');
+        Yii::import('site.frontend.modules.notifications.components.*');
+        Yii::import('site.frontend.modules.notifications.models.base.*');
+        Yii::import('site.frontend.modules.notifications.models.*');
+        $contests = Contest::model()->with('works', 'works.photoAttach', 'works.photoAttach.photo')->findAll();
+        foreach ($contests as $c)
+            foreach ($c->works as $w)
+                $w->photoAttach->photo->generatePhotoViewPhotos();
+    }
+
     public function actionGenerateAlbumsViewPhotos()
     {
         Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');

@@ -4,7 +4,7 @@
  */
 ?>
 
-<div class="b-article-conversion b-article-conversion__contest b-article-conversion__12">
+<div class="b-article-conversion b-article-conversion__contest b-article-conversion__<?=$work->contest_id?>">
     <div class="b-article-conversion_hold clearfix">
         <div class="textalign-c">
             <div class="b-article b-article-prev verticalalign-m">
@@ -25,7 +25,7 @@
             <div class="b-article-conversion_crosshead">
                 <div class="b-article-conversion_crosshead-top">
                     <a href="<?=$work->contest->getUrl()?>" class="b-article-conversion_crosshead-logo">
-                        <img src="/images/contest/b-article-conversion__12_crosshead-logo.png" alt="">
+                        <img src="/images/contest/b-article-conversion__<?=$work->contest_id?>_crosshead-logo.png" alt="">
                     </a>
                 </div>
 

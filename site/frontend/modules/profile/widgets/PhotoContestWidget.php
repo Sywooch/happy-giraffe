@@ -13,7 +13,13 @@ class PhotoContestWidget extends CWidget
 
     public function run()
     {
-        $work = ContestWork::model()->with('contest')->find('t.user_id = :userId AND contest.status = :active', array(':userId' => $this->user->id, ':active' => Contest::STATUS_ACTIVE));
+        $criteria = new CDbCriteria(array(
+            'condition' => 't.user_id = :userId AND contest.status = :active',
+            'params' => array(':userId' => $this->user->id, ':active' => Contest::STATUS_ACTIVE),
+            'with' => 'contest',
+            'order' => 't.id DESC',
+        ));
+        $work = ContestWork::model()->with('contest')->find($criteria);
 
         if ($work !== null)
             $this->render('PhotoContestWidget', compact('work'));

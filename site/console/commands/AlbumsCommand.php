@@ -68,7 +68,7 @@ class AlbumsCommand extends CConsoleCommand
         Yii::import('site.frontend.modules.notifications.components.*');
         Yii::import('site.frontend.modules.notifications.models.base.*');
         Yii::import('site.frontend.modules.notifications.models.*');
-        Yii::import('site.frontend.modules.contes.models.*');
+        Yii::import('site.frontend.modules.contest.models.*');
         $contests = Contest::model()->with('works', 'works.photoAttach', 'works.photoAttach.photo')->findAll();
         foreach ($contests as $c) {
             echo $c->id . "\n";

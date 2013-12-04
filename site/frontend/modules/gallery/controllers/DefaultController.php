@@ -124,6 +124,6 @@ class DefaultController extends HController
         $contest = Contest::model()->findByPk($contestId);
         $photo = AlbumPhoto::model()->findByPk($photoId);
         $attach = $photo->getAttachByEntity('ContestWork');
-        $this->render('contestData', compact('contest', 'attach'));
+        $this->renderPartial('contestData', compact('contest', 'attach'), false, true);
     }
 }

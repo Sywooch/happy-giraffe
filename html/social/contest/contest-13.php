@@ -60,6 +60,7 @@
 					</div>
 					
 					<div class="contest-about clearfix">
+						<!-- Кнопка когда еще не учасник конкурса -->
 						<a href=""class="contest-button">Принять участие!</a>
 						<div class="contest-participant">
 							<div class="contest-participant_t">Моя работа в конкурсе</div>
@@ -80,19 +81,11 @@
 							<div class="item-title">Разнообразие десертов сицилийского стиля</div>
 							</div>
 						</div>
-						<!-- 
-						<div class="sticker">
-							<big>Для участия в конкурсе Вам необходимо:</big>
-							<p>Для того, чтобы принять участие в конкурсе, вы должны заполнить <a href="#">свой профиль</a> и информацию о членах своей семьи!</p>
-							<center>
-								<a href="#takeapartPhotoContest" class="btn-green btn-green-medium fancy">Участвовать<i class="arr-r"></i></a>
-							</center>
-						</div> -->
 						 
 						<div class="content-title">О конкурсе</div>
 						
-						<p>У каждого ребенка есть любимая игрушка, которая становится его первым другом! Плюшевый мишка или забавный зайчонок становится полноправным членом семьи - с ним малыш гуляет, кушает, доверяет свои детские тайны, и засыпает, крепко прижав друга к себе.</p>
-						<p>Присылайте фото своего малыша с любимой игрушкой и получайте замечательные призы, которые очень понравятся вашему ребенку! </p>
+						<p>Любимая игрушка есть у каждого счастливого ребенка. Быть может, это плюшевый мишка, которого ваш кроха заботливо кормит кашей. Или огромный самосвал, который так весело катать за собой на веревочке. А, может, это занимательный конструктор, из которого можно строить замки и дворцы.</p>
+						<p>Поделитесь фотографией вашего малыша с любимой игрушкой и получите замечательные призы, которые очень понравятся вашему ребенку! </p>
 						
 					</div>
 					
@@ -138,284 +131,285 @@
 					<div class="content-title">
 						<a href="" class="i-more float-r">Все участники (268)</a>
 						Последние добавленные фото
+						<!-- <a class="btn-blue-light btn-blue-light-small" href="">Показать все</a> -->
 
 					</div>
-	            </div>
 
 
-                <div class="gallery-photos-new cols-4 clearfix">
-							
-					<ul>
-						<li>
-							<div class="contest-ball clearfix">
-								<div class="user-info clearfix">
-									<a class="ava female small"></a>
-									<div class="details">
-										<span class="icon-status status-online"></span>
-										<a href="" class="username">Александр</a>
-									</div>
-									<div class="ball">
-										<div class="ball-count">186</div>
-										<div class="ball-text">баллов</div>
-									</div>
-								</div>
-							</div>
-							<div class="img">
-								<a href="">
-									<img src="/images/example/gallery_album_img_01.jpg" />
-									<span class="btn">Посмотреть</span>
-								</a>
-							</div>
-							
-							<div class="item-title">Разнообразие десертов сицилийского стиля</div>
-						</li>
-						<li>
-							<div class="contest-ball clearfix">
-								<div class="user-info clearfix">
-									<a class="ava female small"></a>
-									<div class="details">
-										<span class="icon-status status-online"></span>
-										<a href="" class="username">Богоявленский</a>
-									</div>
-									<div class="ball">
-										<div class="ball-count">186</div>
-										<div class="ball-text">баллов</div>
-									</div>
-								</div>
-							</div>
-							<div class="img">
-								<a href="">
-									<img src="/images/example/gallery_album_img_02.jpg" />
-									<span class="btn">Посмотреть</span>
-								</a>
+	                <div class="gallery-photos-new cols-4 clearfix">
 								
-							</div>
-							<div class="item-title">Разнообразие десертов сицилийского стиля</div>
-						</li>
-						<li>
-							<div class="contest-ball clearfix">
-								<div class="user-info clearfix">
-									<a class="ava female small"></a>
-									<div class="details">
-										<span class="icon-status status-online"></span>
-										<a href="" class="username">Александр Богоявленский</a>
-									</div>
-									<div class="ball">
-										<div class="ball-count">186</div>
-										<div class="ball-text">баллов</div>
-									</div>
-								</div>
-							</div>
-							<div class="img">
-								<a href="">
-									<img src="/images/example/gallery_album_img_03.jpg" />
-									<span class="btn">Посмотреть</span>
-								</a>
-							</div>
-							<div class="item-title">Разнообразие десертов сицилийского стиля</div>
-						</li>
-						<li>
-							<div class="contest-ball clearfix">
-								<div class="user-info clearfix">
-									<a class="ava female small"></a>
-									<div class="details">
-										<span class="icon-status status-online"></span>
-										<a href="" class="username">Александр Богоявленский</a>
-									</div>
-									<div class="ball">
-										<div class="ball-count">186</div>
-										<div class="ball-text">баллов</div>
+						<ul>
+							<li>
+								<div class="contest-ball clearfix">
+									<div class="user-info clearfix">
+										<a class="ava female small"></a>
+										<div class="details">
+											<span class="icon-status status-online"></span>
+											<a href="" class="username">Александр</a>
+										</div>
+										<div class="ball">
+											<div class="ball-count">186</div>
+											<div class="ball-text">баллов</div>
+										</div>
 									</div>
 								</div>
-							</div>
-							<div class="img">
-								<a href="">
-									<img src="/images/example/gallery_album_img_04.jpg" />
-									<span class="btn">Посмотреть</span>
-								</a>
-							</div>
-							<div class="item-title">Разнообразие десертов сицилийского стиля</div>
-						</li>
-						<li>
-							<div class="contest-ball clearfix">
-								<div class="user-info clearfix">
-									<a class="ava female small"></a>
-									<div class="details">
-										<span class="icon-status status-online"></span>
-										<a href="" class="username">Александр Богоявленский</a>
-									</div>
-									<div class="ball">
-										<div class="ball-count">186</div>
-										<div class="ball-text">баллов</div>
+								<div class="img">
+									<a href="">
+										<img src="/images/example/gallery_album_img_01.jpg" />
+										<span class="btn">Посмотреть</span>
+									</a>
+								</div>
+								
+								<div class="item-title">Разнообразие десертов сицилийского стиля</div>
+							</li>
+							<li>
+								<div class="contest-ball clearfix">
+									<div class="user-info clearfix">
+										<a class="ava female small"></a>
+										<div class="details">
+											<span class="icon-status status-online"></span>
+											<a href="" class="username">Богоявленский</a>
+										</div>
+										<div class="ball">
+											<div class="ball-count">186</div>
+											<div class="ball-text">баллов</div>
+										</div>
 									</div>
 								</div>
-							</div>
-							<div class="img">
-								<a href="">
-									<img src="/images/example/gallery_album_img_05.jpg" />
-									<span class="btn">Посмотреть</span>
-								</a>
-							</div>
-							<div class="item-title">Разнообразие десертов сицилийского стиля</div>
-						</li>
-						<li>
-							<div class="contest-ball clearfix">
-								<div class="user-info clearfix">
-									<a class="ava female small"></a>
-									<div class="details">
-										<span class="icon-status status-online"></span>
-										<a href="" class="username">Александр Богоявленский</a>
-									</div>
-									<div class="ball">
-										<div class="ball-count">186</div>
-										<div class="ball-text">баллов</div>
+								<div class="img">
+									<a href="">
+										<img src="/images/example/gallery_album_img_02.jpg" />
+										<span class="btn">Посмотреть</span>
+									</a>
+									
+								</div>
+								<div class="item-title">Разнообразие десертов сицилийского стиля</div>
+							</li>
+							<li>
+								<div class="contest-ball clearfix">
+									<div class="user-info clearfix">
+										<a class="ava female small"></a>
+										<div class="details">
+											<span class="icon-status status-online"></span>
+											<a href="" class="username">Александр Богоявленский</a>
+										</div>
+										<div class="ball">
+											<div class="ball-count">186</div>
+											<div class="ball-text">баллов</div>
+										</div>
 									</div>
 								</div>
-							</div>
-							<div class="img">
-								<a href="">
-									<img src="/images/example/gallery_album_img_06.jpg" />
-									<span class="btn">Посмотреть</span>
-								</a>
-							</div>
-							<div class="item-title">Разнообразие десертов сицилийского стиля</div>
-						</li>
-						<li>
-							<div class="contest-ball clearfix">
-								<div class="user-info clearfix">
-									<a class="ava female small"></a>
-									<div class="details">
-										<span class="icon-status status-online"></span>
-										<a href="" class="username">Александр Богоявленский</a>
-									</div>
-									<div class="ball">
-										<div class="ball-count">186</div>
-										<div class="ball-text">баллов</div>
+								<div class="img">
+									<a href="">
+										<img src="/images/example/gallery_album_img_03.jpg" />
+										<span class="btn">Посмотреть</span>
+									</a>
+								</div>
+								<div class="item-title">Разнообразие десертов сицилийского стиля</div>
+							</li>
+							<li>
+								<div class="contest-ball clearfix">
+									<div class="user-info clearfix">
+										<a class="ava female small"></a>
+										<div class="details">
+											<span class="icon-status status-online"></span>
+											<a href="" class="username">Александр Богоявленский</a>
+										</div>
+										<div class="ball">
+											<div class="ball-count">186</div>
+											<div class="ball-text">баллов</div>
+										</div>
 									</div>
 								</div>
-							</div>
-							<div class="img">
-								<a href="">
-									<img src="/images/example/gallery_album_img_07.jpg" />
-									<span class="btn">Посмотреть</span>
-								</a>
-							</div>
-							<div class="item-title">Разнообразие десертов сицилийского стиля</div>
-						</li>
-						<li>
-							<div class="contest-ball clearfix">
-								<div class="user-info clearfix">
-									<a class="ava female small"></a>
-									<div class="details">
-										<span class="icon-status status-online"></span>
-										<a href="" class="username">Александр Богоявленский</a>
-									</div>
-									<div class="ball">
-										<div class="ball-count">186</div>
-										<div class="ball-text">баллов</div>
+								<div class="img">
+									<a href="">
+										<img src="/images/example/gallery_album_img_04.jpg" />
+										<span class="btn">Посмотреть</span>
+									</a>
+								</div>
+								<div class="item-title">Разнообразие десертов сицилийского стиля</div>
+							</li>
+							<li>
+								<div class="contest-ball clearfix">
+									<div class="user-info clearfix">
+										<a class="ava female small"></a>
+										<div class="details">
+											<span class="icon-status status-online"></span>
+											<a href="" class="username">Александр Богоявленский</a>
+										</div>
+										<div class="ball">
+											<div class="ball-count">186</div>
+											<div class="ball-text">баллов</div>
+										</div>
 									</div>
 								</div>
-							</div>
-							<div class="img">
-								<a href="">
-									<img src="/images/example/gallery_album_img_08.jpg" />
-									<span class="btn">Посмотреть</span>
-								</a>
-							</div>
-							<div class="item-title">Разнообразие десертов сицилийского стиля</div>
-						</li>
-						<li>
-							<div class="contest-ball clearfix">
-								<div class="user-info clearfix">
-									<a class="ava female small"></a>
-									<div class="details">
-										<span class="icon-status status-online"></span>
-										<a href="" class="username">Александр Богоявленский</a>
-									</div>
-									<div class="ball">
-										<div class="ball-count">186</div>
-										<div class="ball-text">баллов</div>
+								<div class="img">
+									<a href="">
+										<img src="/images/example/gallery_album_img_05.jpg" />
+										<span class="btn">Посмотреть</span>
+									</a>
+								</div>
+								<div class="item-title">Разнообразие десертов сицилийского стиля</div>
+							</li>
+							<li>
+								<div class="contest-ball clearfix">
+									<div class="user-info clearfix">
+										<a class="ava female small"></a>
+										<div class="details">
+											<span class="icon-status status-online"></span>
+											<a href="" class="username">Александр Богоявленский</a>
+										</div>
+										<div class="ball">
+											<div class="ball-count">186</div>
+											<div class="ball-text">баллов</div>
+										</div>
 									</div>
 								</div>
-							</div>
-							<div class="img">
-								<a href="">
-									<img src="/images/example/gallery_album_img_09.jpg" />
-									<span class="btn">Посмотреть</span>
-								</a>
-							</div>
-							<div class="item-title">Разнообразие десертов сицилийского стиля</div>
-						</li>
-						<li>
-							<div class="contest-ball clearfix">
-								<div class="user-info clearfix">
-									<a class="ava female small"></a>
-									<div class="details">
-										<span class="icon-status status-online"></span>
-										<a href="" class="username">Александр Богоявленский</a>
-									</div>
-									<div class="ball">
-										<div class="ball-count">186</div>
-										<div class="ball-text">баллов</div>
+								<div class="img">
+									<a href="">
+										<img src="/images/example/gallery_album_img_06.jpg" />
+										<span class="btn">Посмотреть</span>
+									</a>
+								</div>
+								<div class="item-title">Разнообразие десертов сицилийского стиля</div>
+							</li>
+							<li>
+								<div class="contest-ball clearfix">
+									<div class="user-info clearfix">
+										<a class="ava female small"></a>
+										<div class="details">
+											<span class="icon-status status-online"></span>
+											<a href="" class="username">Александр Богоявленский</a>
+										</div>
+										<div class="ball">
+											<div class="ball-count">186</div>
+											<div class="ball-text">баллов</div>
+										</div>
 									</div>
 								</div>
-							</div>
-							<div class="img">
-								<a href="">
-									<img src="/images/example/gallery_album_img_10.jpg" />
-									<span class="btn">Посмотреть</span>
-								</a>
-							</div>
-							<div class="item-title">Разнообразие десертов сицилийского стиля</div>
-						</li>
-						<li>
-							<div class="contest-ball clearfix">
-								<div class="user-info clearfix">
-									<a class="ava female small"></a>
-									<div class="details">
-										<span class="icon-status status-online"></span>
-										<a href="" class="username">Александр Богоявленский</a>
-									</div>
-									<div class="ball">
-										<div class="ball-count">186</div>
-										<div class="ball-text">баллов</div>
+								<div class="img">
+									<a href="">
+										<img src="/images/example/gallery_album_img_07.jpg" />
+										<span class="btn">Посмотреть</span>
+									</a>
+								</div>
+								<div class="item-title">Разнообразие десертов сицилийского стиля</div>
+							</li>
+							<li>
+								<div class="contest-ball clearfix">
+									<div class="user-info clearfix">
+										<a class="ava female small"></a>
+										<div class="details">
+											<span class="icon-status status-online"></span>
+											<a href="" class="username">Александр Богоявленский</a>
+										</div>
+										<div class="ball">
+											<div class="ball-count">186</div>
+											<div class="ball-text">баллов</div>
+										</div>
 									</div>
 								</div>
-							</div>
-							<div class="img">
-								<a href="">
-									<img src="/images/example/gallery_album_img_11.jpg" />
-									<span class="btn">Посмотреть</span>
-								</a>
-							</div>
-							<div class="item-title">Разнообразие десертов сицилийского стиля</div>
-						</li>
-						<li>
-							<div class="contest-ball clearfix">
-								<div class="user-info clearfix">
-									<a class="ava female small"></a>
-									<div class="details">
-										<span class="icon-status status-online"></span>
-										<a href="" class="username">Александр Богоявленский</a>
-									</div>
-									<div class="ball">
-										<div class="ball-count">186</div>
-										<div class="ball-text">баллов</div>
+								<div class="img">
+									<a href="">
+										<img src="/images/example/gallery_album_img_08.jpg" />
+										<span class="btn">Посмотреть</span>
+									</a>
+								</div>
+								<div class="item-title">Разнообразие десертов сицилийского стиля</div>
+							</li>
+							<li>
+								<div class="contest-ball clearfix">
+									<div class="user-info clearfix">
+										<a class="ava female small"></a>
+										<div class="details">
+											<span class="icon-status status-online"></span>
+											<a href="" class="username">Александр Богоявленский</a>
+										</div>
+										<div class="ball">
+											<div class="ball-count">186</div>
+											<div class="ball-text">баллов</div>
+										</div>
 									</div>
 								</div>
-							</div>
-							<div class="img">
-								<a href="">
-									<img src="/images/example/gallery_album_img_12.jpg" />
-									<span class="btn">Посмотреть</span>
-								</a>
-							</div>
-							<div class="item-title">Разнообразие десертов сицилийского стиля</div>
-						</li>
-						
-					</ul>
-				
-				</div>
+								<div class="img">
+									<a href="">
+										<img src="/images/example/gallery_album_img_09.jpg" />
+										<span class="btn">Посмотреть</span>
+									</a>
+								</div>
+								<div class="item-title">Разнообразие десертов сицилийского стиля</div>
+							</li>
+							<li>
+								<div class="contest-ball clearfix">
+									<div class="user-info clearfix">
+										<a class="ava female small"></a>
+										<div class="details">
+											<span class="icon-status status-online"></span>
+											<a href="" class="username">Александр Богоявленский</a>
+										</div>
+										<div class="ball">
+											<div class="ball-count">186</div>
+											<div class="ball-text">баллов</div>
+										</div>
+									</div>
+								</div>
+								<div class="img">
+									<a href="">
+										<img src="/images/example/gallery_album_img_10.jpg" />
+										<span class="btn">Посмотреть</span>
+									</a>
+								</div>
+								<div class="item-title">Разнообразие десертов сицилийского стиля</div>
+							</li>
+							<li>
+								<div class="contest-ball clearfix">
+									<div class="user-info clearfix">
+										<a class="ava female small"></a>
+										<div class="details">
+											<span class="icon-status status-online"></span>
+											<a href="" class="username">Александр Богоявленский</a>
+										</div>
+										<div class="ball">
+											<div class="ball-count">186</div>
+											<div class="ball-text">баллов</div>
+										</div>
+									</div>
+								</div>
+								<div class="img">
+									<a href="">
+										<img src="/images/example/gallery_album_img_11.jpg" />
+										<span class="btn">Посмотреть</span>
+									</a>
+								</div>
+								<div class="item-title">Разнообразие десертов сицилийского стиля</div>
+							</li>
+							<li>
+								<div class="contest-ball clearfix">
+									<div class="user-info clearfix">
+										<a class="ava female small"></a>
+										<div class="details">
+											<span class="icon-status status-online"></span>
+											<a href="" class="username">Александр Богоявленский</a>
+										</div>
+										<div class="ball">
+											<div class="ball-count">186</div>
+											<div class="ball-text">баллов</div>
+										</div>
+									</div>
+								</div>
+								<div class="img">
+									<a href="">
+										<img src="/images/example/gallery_album_img_12.jpg" />
+										<span class="btn">Посмотреть</span>
+									</a>
+								</div>
+								<div class="item-title">Разнообразие десертов сицилийского стиля</div>
+							</li>
+							
+						</ul>
+					
+					</div>
+	            </div>
 				
 				
 			</div>

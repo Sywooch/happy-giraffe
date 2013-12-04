@@ -1,3 +1,6 @@
+<?php
+    $model = AlbumPhoto::model()->findByPk($json['initialPhotoId']);
+?>
 <div class="photo-window" id="photo-window">
     <div class="photo-window_w">
         <a class="photo-window_close" data-bind="click: close"></a>
@@ -20,7 +23,7 @@
                 <!-- ko with: currentPhoto() -->
                     <a href="" class="like-control_ico like-control_ico__like" data-bind="click: like, text: likesCount, css: {active: isLiked()}, tooltip: 'Нравится'" ></a>
                     <!-- ko with: favourites() -->
-                        <?php $this->widget('FavouriteWidget', array('model' => $collection->rootModel, 'applyBindings' => false)); ?>
+                        <?php $this->widget('FavouriteWidget', array('model' => $model, 'applyBindings' => false)); ?>
                     <!-- /ko -->
                 <!-- /ko -->
             </div>

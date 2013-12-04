@@ -115,6 +115,15 @@ class DefaultController extends HController
         $prevPhotoUrl = preg_replace('#(\d+)\/$#', $prevPhotoId[0] . '/', Yii::app()->request->url);
 
         $this->layout = '//layouts/main';
+        $this->pageTitle = $photoCollectionElement['title'] . ' - ' . $collection->properties['title'];
         $this->render('singlePhoto', compact('collection', 'photo', 'photoCollectionElement', 'currentIndex', 'nextPhotoUrl', 'prevPhotoUrl'));
+    }
+
+    public function actionContestData($contestId, $photoId)
+    {
+        $contest = Contest::model()->findByPk($contestId);
+        $photo = AlbumPhoto::model()->findByPk($photoId);
+        $attach = $photo->getAttachByEntity('ContestWork');
+        $this->render('contestData', compact('contest', 'attach'));
     }
 }

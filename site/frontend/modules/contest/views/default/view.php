@@ -75,7 +75,8 @@ Yii::app()->eauth->renderWidget(array(
 
 <?php if ($works->itemCount > 0): ?>
     <div class="content-title">
-        Последние добавленные фото <a href="<?=$this->createUrl('/contest/default/list', array('id' => $this->contest->id))?>" class="btn-blue-light btn-blue-light-small">Показать все</a>
+        <a href="<?=$this->createUrl('/contest/default/list', array('id' => $this->contest->id))?>" class="i-more float-r">Все участники (<?=$works->totalItemCount?>)</a>
+        Последние добавленные фото
     </div>
 
     <div class="gallery-photos-new cols-4 clearfix">

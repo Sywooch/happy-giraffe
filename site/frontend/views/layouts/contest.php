@@ -93,6 +93,12 @@
         </div>
     <?php endif; ?>
 
+    <?php if ($this->contest->id == 13): ?>
+        <div class="contest-sponsor">
+            <a href="http://www.neopod.ru" title="neopod.ru"><img src="/images/contest/contest-sponsor-13-1.jpg" alt="" class="contest-sponsor_img"></a>
+        </div>
+    <?php endif; ?>
+
     <?=$content?>
 
 </div>

@@ -39,7 +39,7 @@
                     </div>
                 </div>
                 <div class="photo-view_tx"><?=$collection->getIndexById($photo->id) + 1?> из <?=$collection->count?></div>
-                <div class="photo-view_tx"><a href="<?=$collection->properties['url']?>"><?=$collection->properties['title']?></a></div>
+                <div class="photo-view_tx"><?=$collection->properties['label']?> <a href="<?=$collection->properties['url']?>"><?=$collection->properties['title']?></a></div>
 
             </div>
             <div class="photo-view_c">

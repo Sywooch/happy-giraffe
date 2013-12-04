@@ -13,8 +13,9 @@ class TempCommand extends CConsoleCommand
     {
         Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
         Yii::import('site.common.models.mongo.PageView');
-        while (true) {
-            $sleep = date('H') < 8 ? 72 : 36;
+        $start = time();
+        while (time() < ($start + 3 * 24 * 60 * 60)) {
+            $sleep = 44;
             PageView::model()->cheat('/community/5/forum/post/114026/', 0, 1);
             sleep($sleep);
         }

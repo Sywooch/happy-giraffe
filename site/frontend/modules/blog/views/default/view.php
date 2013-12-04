@@ -94,7 +94,7 @@ switch ($data->type_id) {
     <?php $this->widget('blog.widgets.PostUsersWidget', array('post' => $data)); ?>
 <?php endif; ?>
 
-<?php if ($full && ! $data->getIsFromBlog()): ?>
+<?php if ($full && ! $data->getIsFromBlog() && $data->rubric->community_id != Community::COMMUNITY_NEWS): ?>
     <?php $this->widget('CommunityMoreWidget', array('content' => $data)); ?>
 <?php endif; ?>
 

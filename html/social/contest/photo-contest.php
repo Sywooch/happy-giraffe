@@ -143,6 +143,53 @@
 							</a>
 						</div>
 
+
+						<div class="photo-view_contest clearfix">
+							<div class="photo-window_contest-logo">
+								<a href="">
+									<img src="/images/contest/photo-window_contest-logo_13.png" alt="">
+								</a>
+							</div>
+
+
+							<div class="photo-window-contest-meter">
+								<div class="photo-window-contest-meter_count">
+									<div class="photo-window-contest-meter_num">46</div>
+									<div class="photo-window-contest-meter_ball">баллов</div>
+								</div>
+								<div class="photo-window-contest-meter_vote">
+									<div class="photo-window-contest-meter_vote-tx">Голосовать!</div>
+									<div class="like-block fast-like-block">
+																				
+										<div class="box-1">
+
+											<div class="share_button">
+												<a href=""><img alt="" src="/images/share_button__odkl.png"></a>
+											</div>
+											
+											<div class="share_button">
+												<div class="vk_share_button">
+													<a href=""><img alt="" src="/images/share_button__vk.png"></a>
+												</div>
+											</div>
+											
+										</div>
+										
+									</div>
+								</div>
+							</div>
+
+						</div>
+
+						<div class="sharelink-friends">
+							<div class="clearfix">
+								<div class="sharelink-friends_t">Cсылка на конкурсную работу</div>
+								<input type="text" onclick="$(this).select();" value="http://www.happy-giraffe.ru/community/39/forum/post/107762/" class="sharelink-friends_itx" id="" name="">
+								
+							</div>
+							<div class="sharelink-friends_desc">Хочешь победить в конкурсе? Разошли эту ссылку друзьям и знакомым, сделай подписью в скайпе, аське и статусом в социальных сетях. Чем больше человек проголосует за твою работу, тем выше шансы на победу!</div>
+						</div>
+<!-- 
 						<div class="custom-likes-b">
 							<div class="custom-likes-b_slogan">Поделитесь с друзьями!</div>
 						
@@ -190,6 +237,7 @@
 							
 							</div>
 						</div>
+							 -->
 					</div>
 					<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/comments-gray-open.php'; ?>
 

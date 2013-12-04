@@ -304,17 +304,3 @@ function User(data) {
         return self.gender() == 0 ? 'female' : 'male';
     }, this);
 }
-
-ko.bindingHandlers.enterKey = {
-    init: function (element, valueAccessor, allBindings, vm) {
-        ko.utils.registerEventHandler(element, "keypress", function (event) {
-            if (event.keyCode === 13) {
-                ko.utils.triggerEvent(element, "change");
-                valueAccessor().call(vm, vm);
-                if (ENTER_KEY_SEND)
-                    return false;
-            }
-            return true;
-        });
-    }
-};

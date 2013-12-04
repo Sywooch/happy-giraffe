@@ -2691,21 +2691,23 @@ table.fr_recipe_tb td { width: 50%;}
 /* /breadcrumbs-big */
 
 /* b-user-small */
-.b-user-small {
-    .ava {margin-top: 3px;}
-    &_hold {
-        margin-left: 32px;
-    }
+.b-user-info {
+
+    .ava.small {margin-top: 3px;}
+    &__middle &_hold {margin-left: 50px;}
+    &_hold {margin-left: 80px;}
     &_name {
         .inline-block();
         color: #289fd7;
         text-decoration: none;
         font-size: 12px;
         line-height: 14px;
+        max-width: 87px;
     }
     &_name:hover {text-decoration: underline;}
     &_date {
-        font: 9px/9px Tahoma, Arial, Verdana, sans-serif;
+        display: block;
+        font: 9px/11px Tahoma, Arial, Verdana, sans-serif;
         color: #b6b6b6;
     }
 }
@@ -4141,8 +4143,8 @@ table.fr_recipe_tb td { width: 50%;}
         .inline-block();
         vertical-align: top;
         margin-left: 6px;
-        width: 49%;
-        margin-left: 1.5%;
+        width: 330px;
+        margin-left: 2%;
     }
     &_i:first-child {margin-left: 0;}
 
@@ -4517,3 +4519,73 @@ table.fr_recipe_tb td { width: 50%;}
     }
 }
 /* /b-q-specialist */
+
+/* photo-view */
+.photo-view {
+    margin: 0 20px 15px;
+    padding-bottom: 5px;
+    background: #fff;
+    .border-radius(5px);
+    
+    .like-control {
+        position: absolute;
+        bottom: 30px;
+        left: 50%;
+        margin-left: -80px;
+        padding: 10px 5px;
+        width: auto;
+        background: rgba(255,229,53,.9);
+        opacity: 0;
+        .border-radius(4px);
+        .transition(all 0.4s ease);
+    }
+    .favorites-control_a,
+    .like-control_ico {
+        float: left;
+        width: 45px;
+        margin: 0 15px;
+    }
+    .i-more {margin-right: 0;}
+    &_top {
+        padding: 13px 20px;
+        color: #737575;
+        font: 11px/14px Tahoma, Arial, Verdana, sans-serif;
+    }
+    &_c {
+        position: relative;
+    }
+    &_c:hover &_arrow,
+    &_c:hover .like-control {
+        opacity: 1;
+    }
+    &_arrow {
+        position: absolute;
+        top: 50%;
+        left: 28px;
+        width: 59px;
+        height: 160px;
+        margin-top: -80px;
+        background: url(/images/photo-window_arrow.png) no-repeat 0 0;
+        opacity: 0;
+        .transition(opacity 0.3s ease);
+    }
+    &_arrow:hover {background-position: 0 -160px;}
+    &_arrow__r {
+        left: auto;
+        right: 28px;
+        background-position: -59px 0;
+    }
+    &_arrow__r:hover {background-position: -59px -160px;}
+    &_row {
+        margin: 10px 20px;
+    }
+    &_fullscreen {
+        .inline-block();
+        margin-top: 5px;
+        padding-left: 25px;
+        background: url(/images/photo-view_fullscreen.png) no-repeat;
+        font: 11px/18px Tahoma, Arial, Verdana, sans-serif;
+        text-decoration: underline;
+    }
+}
+/* /photo-view */

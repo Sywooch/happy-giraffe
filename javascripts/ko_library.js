@@ -76,6 +76,31 @@ ko.bindingHandlers.chosen =
     }
 };
 
+ko.bindingHandlers.returnKey = {
+    init: function(element, valueAccessor, allBindingsAccessor, viewModel) {
+        ko.utils.registerEventHandler(element, 'keydown', function(evt) {
+            if (evt.keyCode === 13) {
+                evt.preventDefault();
+                evt.target.blur();
+                valueAccessor().call(viewModel);
+            }
+        });
+    }
+};
+
+ko.bindingHandlers.autogrow = {
+
+    init: function (element, valueAccessor, allBindingsAccessor) {
+        $(element).focus(function () {
+            $(element).autosize();
+        });
+
+        $(element).change(function () {
+            $(element).autosize();
+        });
+    }
+};
+
 
 //jqAuto -- main binding (should contain additional options to pass to autocomplete)
 //jqAutoSource -- the array to populate with choices (needs to be an observableArray)

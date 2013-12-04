@@ -355,6 +355,14 @@ a.pseudo:hover,
 }
 /* title-small */
 
+/* title-blue */
+.title-blue {
+    font: bold 20px/22px Tahoma, Arial, Verdana, sans-serif;
+    margin: 10px 0;
+    color: #186fb8;
+}
+/* title-small */
+
 .i-highlight {
 	padding: 2px 6px;
 	background: #fdf48f;
@@ -830,6 +838,7 @@ a.pseudo:hover,
 	.inline-block();
 	width: 35px;
 	height: 45px;
+	margin: 0 5px;
 	background: url(/images/ico/ico-lock-big.png) no-repeat;
 }
 .ico-del {
@@ -902,15 +911,16 @@ textarea.error,
 .scroll {
     position: relative;
     overflow: hidden;
-    
+
     &__on &_bar-hold {display: block;}
-    &__on &_bar-in {
+    &__on &_bar-in,
+    &:hover &_bar-in {
     	display: block;
     	opacity: 0.55;
     }
 
     &_scroller {
-        overflow-y: auto;
+        overflow-y: auto !important;
         height: 100%;
         -webkit-overflow-scrolling: touch;
     }
@@ -948,8 +958,6 @@ textarea.error,
     }
 }
 /* /scroll custom */
-
-
 
 .ui-autocomplete {
 	z-index: 11100 !important;

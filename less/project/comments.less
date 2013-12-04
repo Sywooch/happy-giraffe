@@ -24,6 +24,21 @@
     }
     &__wide &_add {margin: 0 20px 0 30px;}
     &__wide &_add__top {margin: 15px 20px;}
+
+    &__small {padding: 10px 0 0;}
+    &__small &_t {margin: 3px 0 0;}
+    &__small &_r {width: auto;}
+    &__small &_control {top: 8px;}
+    &__small &_i {padding: 10px 0;}
+    &__small &_frame {margin: 0 0 0 34px;}
+    &__small &_author {display: block;}
+    &__small &_add {margin: 0;padding: 0;}
+    &__small &_add.active &_ava {margin-top: 3px;}
+    &__small .wysiwyg-toolbar-btn {display: none;}
+
+    &__map-route {padding: 20px 180px 20px 0;}
+    .a-imitation {color: #319FE4}
+
     &__activity {
         margin: 20px;
         border-top: none;
@@ -53,11 +68,24 @@
         line-height: 16px;
         color: #333;
     }
-    &_t {margin: 15px 20px 15px;}
+    &_t {
+        position: relative;
+        margin: 15px 20px 15px;
+    }
+    &_sent {
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        padding: 2px 0;
+        color: #47C05A;
+        background: #fff;
+    }
 
     &_t-tx {
         .inline-block();
-        margin-right: 15px;
+        margin-right: 10px;
         font-size: 16px;
     }
     &_hold {}
@@ -90,6 +118,7 @@
         margin-right: 10px;
     }
     &_r {
+        position: relative;
         float: right;
         width: 70px;
         text-align: right;
@@ -106,6 +135,7 @@
         line-height: 14px;
         margin: 0 0 5px;
     }
+    &_header &_date {padding-right: 7px;}
     &_author {
         color: #289fd7;
         text-decoration: none;
@@ -151,10 +181,9 @@
         border: none;
         font-size: 14px;
     }
-    &_add.active {padding-bottom: 33px;}
-    &_add.active &_ava {margin-top: 35px;}
-    &_add.active .redactor_editor {padding-right: 10px !important;}
-    &_add &_frame {margin-right: 50px;}
+    &_add.active {padding-bottom: 5px;}
+    &_add.active &_ava {margin-top: 33px;}
+
     &_add-itx {
         margin: 0;
         padding: 7px 10px 17px;
@@ -164,7 +193,11 @@
 
     &_control {
         display: none;
-        margin: 8px 0 0;
+        position: absolute;
+        top: 19px;
+        right: 0;
+        margin: 0;
+        width: 55px;
         text-align: right;
         line-height: 16px;
     }

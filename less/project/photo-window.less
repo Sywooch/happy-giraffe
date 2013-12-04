@@ -1,4 +1,3 @@
-// Верся на сайте, нужно переделать.
 body.gallery {overflow:hidden;}
 
 .more-albums-photopost {
@@ -70,8 +69,8 @@ body.gallery {overflow:hidden;}
 	bottom: 0;
 	left: 0;
 	z-index: 910;
-	background-color: #554464;
-	overflow: auto;
+	background-color: #524261;
+	overflow: hidden;
 	width:100%;
 	max-height:100%;
 
@@ -83,9 +82,18 @@ body.gallery {overflow:hidden;}
 		border-top: none;
 		padding: 0;
 	}
+	
+	.ico-edit {margin: 0 5px;}
+	.redactor_editor,
+	.redactor_editor p {
+		font-size: 12px !important;
+		line-height: 18px !important;
+
+	}
 	.b-user-small {
+		position: absolute;
 		margin: 5px 0 0 20px;
-		max-width: 180px;
+		max-width: 170px;
 	}
 	.like-control {
 		position: absolute;
@@ -105,6 +113,7 @@ body.gallery {overflow:hidden;}
 		width: 45px;
 		margin: 0 15px;
 	}
+	.wysiwyg-toolbar {}
 	&_w {
 		position: relative;
 		top: 0;
@@ -134,75 +143,101 @@ body.gallery {overflow:hidden;}
 		height: 26px;
 		background: url(/images/photo-window_close.png) no-repeat;
 	}
+	&_close:hover {background-position: 0 -31px;}
+
+	&_col {
+		position: absolute;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		width: 300px;
+		background-color: #fff;
+		overflow: hidden;
+	}
+	&_col-hold {padding: 12px 0;}
+	&_banner {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+	}
+	&_banner img {display: block;}
+	&_cont {
+		/*height: 300px;*/
+	}
+	&_cont .scroll_cont {padding: 0 20px 0 19px;}
+	&_cont .itx-gray {
+		resize:none;
+		line-height: 18px;
+	}
+	&_t {
+		margin: 12px 0 7px;
+		font: bold 20px/22px Tahoma, Arial, Verdana, sans-serif;
+		color: #186fb8;
+	}
+	&_t .itx-gray {
+		font-size: 12px;
+		line-height: 16px;
+	}
 	&_count {
+		margin: 5px 0 0 0;
 		font-size: 11px;
 		font-family: Tahoma, Arial, Verdana, sans-serif;
 		color: #bdb3c5;
 	}
-	&_t {
-		margin: 2px 0 0;
-		font-size: 18px;
-		line-height: 21px;
-		color: #fff;
-	}
-	&_bottom {
-		position: absolute;
-		bottom: 10px;
-		left: 20px;
-		right: 0;
-		max-width: 620px;
-		padding: 5px 10px;
-		.border-radius(5px);
+
+	&_desc-hold {
+		position: relative;
+		margin: 0 auto;
+		padding: 5px 0;
 		.transition(all 0.3s ease);
-		background: #382d42;
-		background: rgba(0,0,0,.3);
 	}
-	&_bottom:hover {}
-	&_bottom.active {
-		background: #382d42;
-		background: rgba(0,0,0,.65);
+	&_desc-hold:hover {}
+	&_desc-hold.active &_desc {display: none;}
+	&_desc-hold .wysiwyg-toolbar-btn {display: none;}
+	&_desc-hold.active &_desc__full {display: block;}
+	&_desc-hold .itx-simple {
+		min-height:48px;
 	}
-	&_bottom.active &_desc {display: none;}
-	&_bottom.active &_desc__full {display: block;}
-	&_bottom .itx-simple {
-		min-width:100px;
-		max-width:540px;
-		min-height:17px;
+	&_desc-hold &_edit {
+		float: right;
+		margin:-2px  10px 0;
 	}
-	&_bottom .w-500 {width: 540px !important;} //// КОСТЫЛЬ!!
-	&_bottom .verticalalign-b {margin: 5px 0;}
-	&_bottom &_edit {
-		position: absolute;
-		bottom: 0;
-		right: -35px;
-	}
-	&_edit {
-		.inline-block();
-		vertical-align: middle;
-		padding: 2px 5px 4px;
+	&_desc-more {
+		float: right;
 		line-height: 18px;
-		background: #382d42;
-		background: rgba(0,0,0,.3);
-		.border-radius(5px);
+	}
+	&_desc-more a {
+		.inline-block();
+		padding: 0;
+		color: #41adf8;
 	}
 	&_desc {
-		height: 43px;
-		overflow: hidden;
-		color: #e7e0ed;
 		font-size: 12px;
-		line-height: 14px;
-		cursor: pointer;
+		line-height: 16px;
 	}
-	&_desc__full {
-		height: auto;
-		display: none;
+	&_top {
+		position: absolute;
+		top: 0;
+		right: 60px;
+		left: 360px;
+		text-align: center;
+		margin: 0;
+		font-size: 11px;
+		font-family: Tahoma, Arial, Verdana, sans-serif;
+		color: #bdb3c5;
+	}
+	&_about {
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		overflow: hidden;
 	}
 	&_c {
 		position: absolute;
-		top: 75px;
-		right: 340px;
-		bottom: 70px;
-		left: 0;
+		top: 50px;
+		left: 300px;
+		bottom: 50px;
+		right: 0;
 		cursor: pointer;
 		text-align: center;
 	}
@@ -223,6 +258,7 @@ body.gallery {overflow:hidden;}
 		vertical-align: middle;
 		margin-right: -3px;
 	}
+
 	&_arrow {
 		position: absolute;
 		top: 50%;
@@ -242,77 +278,38 @@ body.gallery {overflow:hidden;}
 	}
 	&_arrow__r:hover {background-position: -59px -160px;}
 
-	&_r {
-		position: absolute;
-		top: 0;
-		right: 0;
-		bottom: 333px;
-		width: 340px;
-		background-color: #fff;
-		overflow-y: auto;
-	}
-	&_right {
-		position: absolute;
-		top: 0;
-		right: 0;
-		bottom: 71px;
-		width: 340px;
-		background-color: #fff;
-		overflow-y: auto;
-	}
-	&_right-bottom {
-		position: absolute;
-		bottom: 0;
-		right: 0;
-		width: 340px;
-        background: #fff;
-	}
-
-	&_banner {
-		position: absolute;
-		bottom: 0;
-		right: 0;
-		height: 333px;
-		width: 340px;
-		overflow: hidden;
-		background-color: #fff;
-	}
-	&_banner-hold {
-		margin: 10px 10px 10px;
-		text-align: center;
-
-	}
 	&_contest-logo {
 		position: absolute;
 		bottom: 15px;
 		left: 15px;
 	}
 	&_contest-logo img {display: block;}
-
 }
 /* /photo-window */
 
 /* photo-window-end */
 .photo-window-end {
-	width: 930px;
+	width: 860px;
 
 	.custom-likes-b_slogan {
 		font-size: 16px;
-		margin: 15px 0 25px;
+		margin: 10px 0 5px;
 	}
+	.such-post {margin: 15px 20px 25px;}
+	.such-post_i {margin-left: 42px;}
 	&_close {
 		position: absolute;
 		top: 10px;
 		right: 10px;
 	}
 	&_top {
-		padding: 35px 20px 25px;
+		padding: 20px 20px 5px;
 		background: #f5f5f5;
 		text-align: center;
 	}
 	&_desc {
-		font-size: 24px;
-		color: #5e5e5e;
+		font-size: 16px;
+		color: #363636;
 	}
 	&_t {
 		display: block;
@@ -321,12 +318,18 @@ body.gallery {overflow:hidden;}
 	}
 	&_t:hover &_t-tx {color: #5eadf0;}
 	&_t-tx {
-		font-size: 40px;
-		line-height: 50px;
+		font-size: 30px;
+		line-height: 35px;
 		color: #348ad4;
 	}
 	&_hold {
-		padding: 15px 120px 15px;
+		padding: 15px 55px 15px;
+		background: #dfd5ec;
+	}
+	&_t-other {
+		margin: 5px 0 10px;
+		font-size: 15px;
+		color: #887895;
 	}
 	&_close {
         position: absolute;
@@ -342,15 +345,14 @@ body.gallery {overflow:hidden;}
 
 /* re-watch */
 .re-watch {
-	width: 85px;
+	.inline-block();
+	width: 80px;
 	margin:0 0 0 20px;
 	padding:0 0 4px 45px;
 	background: url(/images/re-watch.png) no-repeat 0 2px;
 	text-decoration: none;
 	text-align: left;
-	line-height: 13px;
-	font-size: 11px;
-	.inline-block();
+	font: 11px/13px Tahoma, Arial, Verdana, sans-serif;
 	
 	&:hover {background-position: 0 -98px;}
 	&:hover &_tx {

@@ -6,6 +6,7 @@ PhotoCollectionViewWidget.open = function(collectionClass, collectionOptions, in
     initialPhotoId = (typeof initialPhotoId === "undefined") ? null : initialPhotoId;
     windowOptions = (typeof windowOptions === "undefined") ? null : windowOptions;
 
+    $('body').css('overflow', 'hidden');
     this.originalState = History.getState();
 
     var data = { collectionClass : collectionClass, collectionOptions : collectionOptions, screenWidth : screen.width };
@@ -19,6 +20,7 @@ PhotoCollectionViewWidget.open = function(collectionClass, collectionOptions, in
 }
 
 PhotoCollectionViewWidget.close = function() {
+    $('body').css('overflow', 'auto');
     $('#photo-window').remove();
     History.pushState(this.originalState.id, this.originalState.title, this.originalState.url);
 }

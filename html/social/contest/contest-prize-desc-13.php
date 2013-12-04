@@ -20,7 +20,7 @@
 				<div id="contest" class="contest contest-13">
 					<div class="section-banner">
 						<div class="button-holder">
-							<a href=""class="contest-button">Участвовать!</a>
+							<a href=""class="contest-button">Принять участие!</a>
 						</div>
 						<img src="/images/contest/banner-w1000-13.jpg" />
 					</div>

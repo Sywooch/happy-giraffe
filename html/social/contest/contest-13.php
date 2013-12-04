@@ -60,9 +60,9 @@
 					</div>
 					
 					<div class="contest-about clearfix">
-						<!--  -->
+						<!-- Кнопка когда еще не учасник конкурса -->
 						<a href=""class="contest-button">Принять участие!</a>
-						<!-- <div class="contest-participant">
+						<div class="contest-participant">
 							<div class="contest-participant_t">Моя работа в конкурсе</div>
 							<div class="img">
 								<div class="clearfix">
@@ -80,7 +80,7 @@
 								</a>
 							<div class="item-title">Разнообразие десертов сицилийского стиля</div>
 							</div>
-						</div> -->
+						</div>
 						 
 						<div class="content-title">О конкурсе</div>
 						

@@ -98,7 +98,7 @@
                             <div class="comments-gray_t">
                                 <!-- ko if: currentPhoto().commentsCount() > 0 -->
                                 <span class="comments-gray_t-tx">Комментарии <span class="color-gray" data-bind="text: '(' + currentPhoto().commentsCount() + ')'"></span></span>
-                                <a class="font-small" id="comments-show" href="javascript:void(0)" data-bind="attr: { href : currentPhoto().commentsUrl() }">Показать </a>
+                                <a class="font-small" id="comments-show" href="javascript:void(0)" onclick="location.reload()">Показать </a>
                                 <!-- /ko -->
                                 <!-- <a href="" class="float-r font-small">Статистика (14)</a> -->
                                 <div class="comments-gray_sent">Комментарий успешно отправлен.</div>

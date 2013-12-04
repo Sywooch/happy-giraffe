@@ -23,8 +23,15 @@ class DefaultController extends HController
         $initialPhotos = $collection->getPhotosInRange($initialPhotoId, 5, 5);
         $count = $collection->count;
         $properties = $collection->properties;
-        $userId = Yii::app()->user->id;
-        $json = compact('initialIndex', 'initialPhotos', 'initialPhotoId', 'count', 'collectionClass', 'collectionOptions', 'userId', 'windowOptions', 'properties');
+        $user = Yii::app()->user->isGuest ? null : array(
+            'id' => Yii::app()->user->id,
+            'firstName' => Yii::app()->user->model->first_name,
+            'lastName' => Yii::app()->user->model->last_name,
+            'gender' => Yii::app()->user->model->gender,
+            'ava' => Yii::app()->user->model->getAvatarUrl(Avatar::SIZE_MICRO),
+            'url' => Yii::app()->user->model->url,
+        );
+        $json = compact('initialIndex', 'initialPhotos', 'initialPhotoId', 'count', 'collectionClass', 'collectionOptions', 'user', 'windowOptions', 'properties');
 
         $this->renderPartial('window', compact('json', 'collection'), false, true);
 	}

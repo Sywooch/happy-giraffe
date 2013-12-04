@@ -48,8 +48,7 @@ NotificationRead::getInstance()->SetVisited();
 
                     <div class="float-r">
                         <div class="redactor-control_key">
-                            <input type="checkbox" class="redactor-control_key-checkbox" id="redactor-control_key-checkbox"  data-bind="checked: enterSetting, click: focusEditor">
-                            <label class="redactor-control_key-label" for="redactor-control_key-checkbox">Enter - отправить</label>
+                            <input type="checkbox" class="redactor-control_key-checkbox" id="redactor-control_key-checkbox"  data-bind="checked: enterSetting, click: focusEditor"> <label class="redactor-control_key-label" for="redactor-control_key-checkbox">Enter - отправить</label>
                         </div>
 
                         <button class="btn-green" data-bind="click: addComment">Отправить</button>
@@ -145,8 +144,7 @@ NotificationRead::getInstance()->SetVisited();
 
                         <div class="redactor-control clearfix">
                             <div class="redactor-control_key">
-                                <input type="checkbox" class="redactor-control_key-checkbox" id="redactor-control_key-checkbox"  data-bind="checked: $parent.enterSetting, click: $parent.focusEditor">
-                                <label class="redactor-control_key-label" for="redactor-control_key-checkbox">Enter - отправить</label>
+                                <input type="checkbox" class="redactor-control_key-checkbox" id="redactor-control_key-checkbox"  data-bind="checked: $parent.enterSetting, click: $parent.focusEditor"> <label class="redactor-control_key-label" for="redactor-control_key-checkbox">Enter - отправить</label>
                             </div>
                             <button class="btn-green" data-bind="click: Edit">Отправить</button>
                         </div>
@@ -173,8 +171,7 @@ NotificationRead::getInstance()->SetVisited();
 
                             <div class="float-r">
                                 <div class="redactor-control_key">
-                                    <input type="checkbox" class="redactor-control_key-checkbox" id="redactor-control_key-checkbox"  data-bind="checked: $root.enterSetting, click: $root.focusEditor">
-                                    <label class="redactor-control_key-label" for="redactor-control_key-checkbox">Enter - отправить</label>
+                                    <input type="checkbox" class="redactor-control_key-checkbox" id="redactor-control_key-checkbox"  data-bind="checked: $root.enterSetting, click: $root.focusEditor"> <label class="redactor-control_key-label" for="redactor-control_key-checkbox">Enter - отправить</label>
                                 </div>
 
                                 <button class="btn-green" data-bind="click: $root.addComment">Отправить</button>
@@ -212,8 +209,7 @@ NotificationRead::getInstance()->SetVisited();
 
                     <div class="float-r">
                         <div class="redactor-control_key">
-                            <input type="checkbox" class="redactor-control_key-checkbox" id="redactor-control_key-checkbox"  data-bind="checked: enterSetting, click: focusEditor">
-                            <label class="redactor-control_key-label" for="redactor-control_key-checkbox">Enter - отправить</label>
+                            <input type="checkbox" class="redactor-control_key-checkbox" id="redactor-control_key-checkbox"  data-bind="checked: enterSetting, click: focusEditor"> <label class="redactor-control_key-label" for="redactor-control_key-checkbox">Enter - отправить</label>
                         </div>
 
                         <button class="btn-green" data-bind="click: addComment">Отправить</button>

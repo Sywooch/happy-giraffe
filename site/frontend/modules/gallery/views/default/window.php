@@ -64,7 +64,9 @@
                             <!-- /ko -->
                             <!-- ko if: ! currentPhoto().titleBeingEdited() -->
                                 <span data-bind="text: currentPhoto().title()"></span>
-                                <a class="ico-edit powertip" data-bind="click: currentPhoto().editTitle, tooltip: 'Редактировать'"></a>
+                                <!-- ko if: currentPhoto().isEditable -->
+                                    <a class="ico-edit powertip" data-bind="click: currentPhoto().editTitle, tooltip: 'Редактировать'"></a>
+                                <!-- /ko -->
                             <!-- /ko -->
                         </div>
 
@@ -88,11 +90,13 @@
                         <div class="comments-gray comments-gray__small">
                             <div class="comments-gray_add active clearfix">
 
-                                <div class="comments-gray_ava">
-                                    <a href="" class="ava small female">
-                                        <img src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" alt="">
+                                <!-- ko if: user !== null -->
+                                <div class="comments-gray_ava" data-bind="with: user">
+                                    <a class="ava small" data-bind="attr: { href : url }, css: avaCssClass">
+                                        <img alt="" data-bind="visible: ava.length > 0, attr: { src : ava }">
                                     </a>
                                 </div>
+                                <!-- /ko -->
 
                                 <div class="comments-gray_frame">
                                     <textarea cols="15" rows="2" class="itx-gray" placeholder="Введите ваш комментарий и нажмите Enter" data-bind="returnKey: addComment, valueUpdate: 'keyup', value: commentText"></textarea>

@@ -60,8 +60,7 @@ function PhotoCollectionViewModel(data) {
             History.pushState(self.currentPhoto(), self.currentPhoto().title().length > 0 ? self.currentPhoto().title() : self.properties.title + ' - фото ' + self.currentNaturalIndex(), self.currentPhoto().url());
             _gaq.push(['_trackPageview', self.currentPhoto().url()]);
             yaCounter11221648.hit(self.currentPhoto().url());
-            var likeBottom = ($('.photo-window_img-hold').height() - $('.photo-window_img').height()) / 2 + 30;
-            $('.photo-window .like-control').css({'bottom' : likeBottom});
+            self.setLikesPosition();
 
         }
     }
@@ -77,8 +76,7 @@ function PhotoCollectionViewModel(data) {
             History.pushState(self.currentPhoto(), self.currentPhoto().title().length > 0 ? self.currentPhoto().title() : self.properties.title + ' - фото ' + self.currentNaturalIndex(), self.currentPhoto().url());
             _gaq.push(['_trackPageview', self.currentPhoto().url()]);
             yaCounter11221648.hit(self.currentPhoto().url());
-            var likeBottom = ($('.photo-window_img-hold').height() - $('.photo-window_img').height()) / 2 + 30;
-            $('.photo-window .like-control').css({'bottom' : likeBottom});
+            self.setLikesPosition();
         }
     }
 
@@ -142,11 +140,17 @@ function PhotoCollectionViewModel(data) {
         }, 'json');
     }
 
+    self.setLikesPosition = function() {
+        var likeBottom = ($('.photo-window_img-hold').height() - $('.photo-window_img').height()) / 2 + 30;
+        $('.photo-window .like-control').css({'bottom' : likeBottom});
+    }
+
     self.currentPhotoIndex.valueHasMutated();
     History.pushState(self.currentPhoto(), self.currentPhoto().title().length > 0 ? self.currentPhoto().title() : self.properties.title + ' - фото ' + self.currentNaturalIndex(), self.currentPhoto().url());
     _gaq.push(['_trackPageview', self.currentPhoto().url()]);
     yaCounter11221648.hit(self.currentPhoto().url());
     self.preloadImages(2, 2);
+    self.setLikesPosition();
 }
 
 function CollectionPhoto(data, parent) {

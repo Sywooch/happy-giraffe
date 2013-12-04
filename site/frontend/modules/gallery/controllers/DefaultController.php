@@ -92,6 +92,10 @@ class DefaultController extends HController
                 $contentId = Yii::app()->request->getQuery('content_id');
                 $collection = new PhotoPostPhotoCollection(array('contentId' => $contentId));
                 break;
+            case 'Contest':
+                $contestId = Yii::app()->request->getQuery('contest_id');
+                $collection = new ContestPhotoCollection(array('contestId' => $contestId));
+                break;
             default:
                 throw new CHttpException(404);
         }

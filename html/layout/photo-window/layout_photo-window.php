@@ -20,8 +20,7 @@ function photoWindColH () {
 /* Позиция блока с лайками */
 function likePos () {
 	var likeBottom = ($('.photo-window_img-hold').height() - $('.photo-window_img').height()) / 2 + 30;
-	/*console.log(likeBottom);*/
-	$('.like-control').css({'bottom' : likeBottom});
+	$('.photo-window .like-control').css({'bottom' : likeBottom});
 }
 
 $(document).ready(function () {

@@ -62,6 +62,7 @@ function PhotoCollectionViewModel(data) {
             yaCounter11221648.hit(self.currentPhoto().url());
             self.setLikesPosition();
             $('#photo-window_banner iframe').attr('src', '/rtb3.html?' + Math.floor(Math.random() * 9999999999) + 1000000000);
+            self.loadContestData();
         }
     }
 
@@ -78,6 +79,7 @@ function PhotoCollectionViewModel(data) {
             yaCounter11221648.hit(self.currentPhoto().url());
             self.setLikesPosition();
             $('#photo-window_banner iframe').attr('src', '/rtb3.html?' + Math.floor(Math.random() * 9999999999) + 1000000000);
+            self.loadContestData();
         }
     }
 
@@ -149,6 +151,13 @@ function PhotoCollectionViewModel(data) {
         $('.photo-window .like-control').css({'bottom' : likeBottom});
     }
 
+    self.loadContestData = function() {
+        if (self.collectionClass == 'ContestPhotoCollection')
+            $.get('/gallery/default/contestData/', { contestId : self.collectionOptions.contestId, photoId : self.currentPhoto().id }, function(response) {
+                $('.like-control').after(response);
+            });
+    }
+
     self.currentPhotoIndex.valueHasMutated();
     History.pushState(self.currentPhoto(), self.currentPhoto().title().length > 0 ? self.currentPhoto().title() : self.properties.title + ' - фото ' + self.currentNaturalIndex(), self.currentPhoto().url());
     _gaq.push(['_trackPageview', self.currentPhoto().url()]);
@@ -157,6 +166,7 @@ function PhotoCollectionViewModel(data) {
     setTimeout(function() {
         self.setLikesPosition();
     }, 200);
+    self.loadContestData();
 }
 
 function CollectionPhoto(data, parent) {

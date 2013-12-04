@@ -55,13 +55,13 @@
             </div>
 
             <?php if ($this->action->id == 'view'): ?>
-                <div class="contest-tizer clearfix">
+                <div class="contest-tizer contest-tizer__13 clearfix">
                     <div class="contest-tizer_img">
-                        <img src="/images/contest/club/birth2/contest-tizer_img.png" alt="">
+                        <img alt="" src="/images/contest/contest-tizer_img__13.jpg">
                     </div>
                     <div class="contest-tizer_hold">
-                        <div class="contest-tizer_tx">Внимание! с 20 ноября стартовал фотоконкурс</div>
-                        <a href="http://www.happy-giraffe.ru/contest/birth2/" class="contest-tizer_a">Как я рассказала своему мужу о беременности</a>
+                        <div class="contest-tizer_tx">Внимание! с 4 декабря стартовал фотоконкурс</div>
+                        <a class="contest-tizer_a" href="http://www.happy-giraffe.ru/contest/13/">Моя любимая игрушка</a>
                     </div>
                 </div>
             <?php endif; ?>

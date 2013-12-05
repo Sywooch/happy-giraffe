@@ -69,11 +69,12 @@ class AlbumsCommand extends CConsoleCommand
         Yii::import('site.frontend.modules.notifications.models.base.*');
         Yii::import('site.frontend.modules.notifications.models.*');
         Yii::import('site.frontend.modules.contest.models.*');
-        $contests = Contest::model()->with('works', 'works.photoAttach', 'works.photoAttach.photo')->findAll();
+        $contests = Contest::model()->with('works', 'works.photoAttach', 'works.photoAttach.photo')->findAll('t.id >= 12');
         foreach ($contests as $c) {
-            echo $c->id . "\n";
-            foreach ($c->works as $w)
+            foreach ($c->works as $w) {
+                echo $w->id . "\n";
                 $w->photoAttach->photo->generatePhotoViewPhotos();
+            }
         }
     }
 

@@ -154,7 +154,7 @@ function PhotoCollectionViewModel(data) {
     self.loadContestData = function() {
         if (self.collectionClass == 'ContestPhotoCollection')
             $.get('/gallery/default/contestData/', { contestId : self.collectionOptions.contestId, photoId : self.currentPhoto().id }, function(response) {
-                $('.like-control').after(response);
+                $('.contestData').html(response);
             });
     }
 

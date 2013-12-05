@@ -25,6 +25,8 @@
                     <!-- /ko -->
                 <!-- /ko -->
             </div>
+
+            <div class="contestData"></div>
         </div>
 
 

@@ -169,7 +169,7 @@ class ContestWork extends HActiveRecord
     public function getUrlParams()
     {
         return array(
-            'albums/singlePhoto',
+            '/gallery/default/singlePhoto',
             array(
                 'contest_id' => $this->contest_id,
                 'photo_id' => $this->photoAttach->photo->id,

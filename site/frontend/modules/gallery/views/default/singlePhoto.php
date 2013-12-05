@@ -63,17 +63,64 @@
                 </a>
             </div>
 
-            <?php $this->widget('site.frontend.widgets.socialLike.SocialLikeWidget', array(
-                'title' => 'Вам понравилось фото?',
-                'notice' => '<big>Это конкурсные баллы</big><p>Нажатие на кнопку социальных сетей +1 балл.<br />Нажатие сердечка от Весёлого Жирафа +2 балла.</p>',
-                'model' => $photo,
-                'type' => 'simple',
-                'options' => array(
-                    'title' => CHtml::encode($photo->w_title),
-                    'image' => $photo->getPreviewUrl(180, 180),
-                    'description' => $photo->w_description,
-                ),
-            ));  ?>
+            <?php if ($entity == 'Contest'): ?>
+                <?php $work = $photo->getAttachByEntity('ContestWork')->model; ?>
+                <div class="photo-view_contest clearfix">
+                    <div class="photo-window_contest-logo">
+                        <a href="<?=$work->contest->url?>">
+                            <img src="/images/contest/photo-window_contest-logo_<?=$work->contest_id?>.png" alt="">
+                        </a>
+                    </div>
+
+
+                    <div class="photo-window-contest-meter">
+                        <div class="photo-window-contest-meter_count">
+                            <div class="photo-window-contest-meter_num"><?=$work->rate?></div>
+                            <div class="photo-window-contest-meter_ball"><?=Str::GenerateNoun(array('балл', 'балла', 'баллов'), $work->rate)?></div>
+                        </div>
+                        <div class="photo-window-contest-meter_vote">
+                            <div class="photo-window-contest-meter_vote-tx">Голосовать!</div>
+                            <?php $this->widget('site.frontend.widgets.socialLike.SocialLikeWidget', array(
+                                'title' => 'Вам понравилось фото?',
+                                'notice' => '<big>Это конкурсные баллы</big><p>Нажатие на кнопку социальных сетей +1 балл.<br />Нажатие сердечка от Весёлого Жирафа +2 балла.</p>',
+                                'model' => $work,
+                                'type' => 'simple',
+                                'options' => array(
+                                    'title' => CHtml::encode($photo->w_title),
+                                    'image' => $photo->getPreviewUrl(180, 180),
+                                    'description' => $photo->w_description,
+                                ),
+                            ));  ?>
+                        </div>
+                    </div>
+
+                </div>
+
+                <?php if (Yii::app()->user->id == $work->user_id): ?>
+                    <?php if (Yii::app()->user->id == $work->user_id): ?>
+                        <div class="sharelink-friends">
+                            <div class="clearfix">
+                                <div class="sharelink-friends_t">Cсылка на конкурсную работу</div>
+                                <input type="text" onclick="$(this).select();" value="<?=$work->getUrl(false, true)?>" class="sharelink-friends_itx">
+
+                            </div>
+                            <div class="sharelink-friends_desc">Хочешь победить в конкурсе? Разошли эту ссылку друзьям и знакомым, сделай подписью в скайпе, аське и статусом в социальных сетях. Чем больше человек проголосует за твою работу, тем выше шансы на победу!</div>
+                        </div>
+                    <?php endif; ?>
+                <?php endif; ?>
+            <?php else: ?>
+                <?php $this->widget('site.frontend.widgets.socialLike.SocialLikeWidget', array(
+                    'title' => 'Вам понравилось фото?',
+                    'notice' => '<big>Это конкурсные баллы</big><p>Нажатие на кнопку социальных сетей +1 балл.<br />Нажатие сердечка от Весёлого Жирафа +2 балла.</p>',
+                    'model' => $photo,
+                    'type' => 'simple',
+                    'options' => array(
+                        'title' => CHtml::encode($photo->w_title),
+                        'image' => $photo->getPreviewUrl(180, 180),
+                        'description' => $photo->w_description,
+                    ),
+                ));  ?>
+            <?php endif; ?>
 
         </div>
 

@@ -208,48 +208,12 @@
 								<div class="item-title">Разнообразие десертов сицилийского стиля</div>
 							</li>
 							<li>
-								<div class="contest-ball clearfix">
-									<div class="user-info clearfix">
-										<a class="ava female small"></a>
-										<div class="details">
-											<span class="icon-status status-online"></span>
-											<a href="" class="username">Александр Богоявленский</a>
-										</div>
-										<div class="ball">
-											<div class="ball-count">186</div>
-											<div class="ball-text">баллов</div>
-										</div>
-									</div>
-								</div>
 								<div class="img">
 									<a href="">
-										<img src="/images/example/gallery_album_img_04.jpg" />
+										<img src="/images/contest/banner-masonry_13.jpg" />
 										<span class="btn">Посмотреть</span>
 									</a>
 								</div>
-								<div class="item-title">Разнообразие десертов сицилийского стиля</div>
-							</li>
-							<li>
-								<div class="contest-ball clearfix">
-									<div class="user-info clearfix">
-										<a class="ava female small"></a>
-										<div class="details">
-											<span class="icon-status status-online"></span>
-											<a href="" class="username">Александр Богоявленский</a>
-										</div>
-										<div class="ball">
-											<div class="ball-count">186</div>
-											<div class="ball-text">баллов</div>
-										</div>
-									</div>
-								</div>
-								<div class="img">
-									<a href="">
-										<img src="/images/example/gallery_album_img_05.jpg" />
-										<span class="btn">Посмотреть</span>
-									</a>
-								</div>
-								<div class="item-title">Разнообразие десертов сицилийского стиля</div>
 							</li>
 							<li>
 								<div class="contest-ball clearfix">

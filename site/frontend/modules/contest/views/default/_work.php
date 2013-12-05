@@ -21,3 +21,12 @@
     </div>
     <div class="item-title"><?=$data->title?></div>
 </li>
+<?php if ($index == 2 && $data->contest_id == 13): ?>
+<li>
+    <div class="img">
+        <a href="http://www.neopod.ru">
+            <img src="/images/contest/banner-masonry_13.jpg" alt="">
+        </a>
+    </div>
+</li>
+<?php endif; ?>

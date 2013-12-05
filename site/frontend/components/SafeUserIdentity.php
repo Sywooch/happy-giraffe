@@ -17,6 +17,7 @@ class SafeUserIdentity extends CUserIdentity
         $user = User::model()->findByPk($this->user_id);
         if ($user !== null AND $user->deleted == 0 AND $user->blocked == 0){
             $this->setNotGuestCookie();
+            $this->saveParams($user);
             return true;
         }
 
@@ -34,5 +35,11 @@ class SafeUserIdentity extends CUserIdentity
         $cookie = new CHttpCookie('not_guest', '1');
         $cookie->expire = time() + 3600*24*100;
         Yii::app()->request->cookies['not_guest'] = $cookie;
+    }
+
+    private function saveParams($user) {
+        foreach ($user as $k => $v) {
+            $this->setState($k, $v);
+        }
     }
 }

@@ -58,6 +58,17 @@ NotificationRead::getInstance()->SetVisited();
                 <!-- /ko -->
             </div>
         </div>
+    <?php else: ?>
+        <div class="comments-gray_add comments-gray_add__top clearfix">
+            <div class="comments-gray_ava">
+                <span class="ava middle">
+                    <span class="icon-status status-online"></span>
+                </span>
+            </div>
+            <div class="comments-gray_frame">
+                <input type="text" class="comments-gray_add-itx itx-gray" placeholder="Ваш комментарий" onfocus="$('[href=#login]').trigger('click')">
+            </div>
+        </div>
     <?php endif ?>
     <!-- /ko -->
 

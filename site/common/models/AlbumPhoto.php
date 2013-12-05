@@ -678,7 +678,7 @@ class AlbumPhoto extends HActiveRecord
 
     public function getAttachByEntity($entity)
     {
-        return AttachPhoto::model()->findByAttributes(array('entity' => $entity, 'photo_id' => $this->id));
+        return AttachPhoto::model()->findByAttributes(array('entity' => $entity, 'photo_id' => $this->id), array('order' => 't.id DESC'));
     }
 
     public function getRssContent()

@@ -55,12 +55,12 @@
 
     <div class="contest-brand">
         <div class="float-r margin-l30">
-            <a href="" class="">
+            <a href="http://www.neopod.ru" class="" target="_blank">
                 <img src="/images/contest/contest-brand__13.jpg" alt="">
             </a>
         </div>
         <div class="contest-brand_hold">
-            <a href="http://www.neopod.ru" class="">
+            <a href="http://www.neopod.ru" class="" target="_blank">
                 <img src="/images/contest/contest-brand_logo_13.jpg" alt="">
             </a><br>
             <p><strong>Neopod</strong> работает напрямую с производителями и за счет постоянного наличия товаров обеспечивает очень быструю доставку и отличные цены.</p>

@@ -77,7 +77,7 @@ class ContestPhotoCollection extends PhotoCollection
             'id' => $model->photoAttach->photo->id,
             'title' => $model->title,
             'description' => '',
-            'src' => $model->photoAttach->photo->getOriginalUrl(),
+            'src' => $model->photo->getPhotoViewUrl(),
             'date' => HDate::GetFormattedTime($model->photoAttach->photo->created),
             'user' => array(
                 'id' => $model->photoAttach->photo->author->id,

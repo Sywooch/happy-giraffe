@@ -116,7 +116,7 @@ class DefaultController extends HController
 
         $this->layout = '//layouts/main';
         $this->pageTitle = $photoCollectionElement['title'] . ' - ' . $collection->properties['title'];
-        $this->render('singlePhoto', compact('collection', 'photo', 'photoCollectionElement', 'currentIndex', 'nextPhotoUrl', 'prevPhotoUrl'));
+        $this->render('singlePhoto', compact('collection', 'photo', 'photoCollectionElement', 'currentIndex', 'nextPhotoUrl', 'prevPhotoUrl', 'entity'));
     }
 
     public function actionContestData($contestId, $photoId)

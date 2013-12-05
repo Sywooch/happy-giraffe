@@ -6,9 +6,7 @@
         <a class="photo-window_close" data-bind="click: close"></a>
 
         <div class="photo-window_top">
-            <div class="photo-window_count" data-bind="text: currentNaturalIndex() + ' фото из ' + count"></div>
-            <div class="photo-window_about"><span data-bind="text: properties.label"></span>&nbsp;&nbsp;&nbsp;<a data-bind="text: properties.title, attr: { href : properties.url }"></a> </div>
-
+            <div class="photo-window_count" data-bind="text: currentNaturalIndex() + ' из ' + count"></div>
         </div>
         <!-- Обрабатывать клик на .photo-window_c для листания следующего изображения -->
         <div class="photo-window_c">
@@ -57,6 +55,8 @@
 
 
                         </div>
+
+                        <div class="photo-window_about"><span data-bind="text: properties.label"></span>&nbsp;&nbsp;&nbsp;<a data-bind="text: properties.title, attr: { href : properties.url }"></a> </div>
 
                         <div class="photo-window_t">
                             <!-- ko if: currentPhoto().isEditable && currentPhoto().titleBeingEdited() -->

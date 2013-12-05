@@ -36,22 +36,6 @@ $(document).ready(function () {
     bar: '.scroll_bar'
   });
 
-	/* Сворачивается блок с рекламой, подгружаются оосбщения, обновляется позиция скролла */
-	$('#comments-show').click(function(){
-		var banner = $('#photo-window_banner');
-		console.log(banner.css('display'));
-		if(banner.css('display') == 'block') {
-			colH = $(".photo-window_cont").height() + banner.height();
-		} else {
-			colH = $(".photo-window_cont").height() - banner.height();
-		}
-		$(".photo-window_cont").height(colH);
-		banner.toggle(0);
-		photoWindColH();
-		scroll.update();
-
-		return false;
-	})
 
 });
 $(window).resize(function () {

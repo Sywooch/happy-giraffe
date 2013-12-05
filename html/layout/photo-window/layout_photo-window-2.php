@@ -36,23 +36,6 @@ $(document).ready(function () {
     bar: '.scroll_bar'
   });
 
-	/* Сворачивается блок с рекламой, подгружаются оосбщения, обновляется позиция скролла */
-	$('#comments-show').click(function(){
-		var banner = $('#photo-window_banner');
-		console.log(banner.css('display'));
-		if(banner.css('display') == 'block') {
-			colH = $(".photo-window_cont").height() + banner.height();
-		} else {
-			colH = $(".photo-window_cont").height() - banner.height();
-		}
-		$(".photo-window_cont").height(colH);
-		banner.toggle(0);
-		photoWindColH();
-		scroll.update();
-
-		return false;
-	})
-
 });
 $(window).resize(function () {
 	photoWindColH();
@@ -166,13 +149,12 @@ $(window).resize(function () {
 					</div>
 
 				</div>
-				<div class="photo-window_t">Детский лагерь «Зеркальный». Ленинградская область. Ghfg Ленинградская <a class="ico-edit powertip" href=""></a></div>
+				<div class="photo-window_t">Детский лагерь «Зеркальный». Ленинградская область. <a class="ico-edit powertip" href=""></a></div>
 
 
 				<div class="photo-window_desc-hold">
 					<div class="photo-window_desc clearfix display-n">
 						<p>В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, спокойные игры  В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, эстафеты, соревнования В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, эстафеты и спокойные игры.  <a class="ico-edit powertip" href=""></a></p>
-						<!-- <span class="photo-window_desc-more"> <a href="javascript:void(0)" >Кратко</a></span> -->
 					</div>
 
 					<textarea name=" " id="" cols="15" rows="2" class="itx-gray" placeholder="Введите описание фото и нажмите Enter"></textarea>
@@ -180,12 +162,6 @@ $(window).resize(function () {
 				<div class="comments-gray comments-gray__small">
 					
 					<div class="comments-gray_add active clearfix">
-						
-						<div class="comments-gray_ava">
-							<a href="" class="ava small female">
-								<img src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" alt="">
-							</a>
-						</div>
 						
 						<div class="comments-gray_frame">
 							<textarea name=" " id="" cols="15" rows="2" class="itx-gray" placeholder="Введите ваш комментарий и нажмите Enter"></textarea>

@@ -36,22 +36,6 @@ $(document).ready(function () {
     bar: '.scroll_bar'
   });
 
-	/* Сворачивается блок с рекламой, подгружаются оосбщения, обновляется позиция скролла */
-	$('#comments-show').click(function(){
-		var banner = $('#photo-window_banner');
-		console.log(banner.css('display'));
-		if(banner.css('display') == 'block') {
-			colH = $(".photo-window_cont").height() + banner.height();
-		} else {
-			colH = $(".photo-window_cont").height() - banner.height();
-		}
-		$(".photo-window_cont").height(colH);
-		banner.toggle(0);
-		photoWindColH();
-		scroll.update();
-
-		return false;
-	})
 
 });
 $(window).resize(function () {
@@ -84,7 +68,6 @@ $(window).resize(function () {
 
 	<div class="photo-window_top">
 		<div class="photo-window_count">25 из 52</div>
-		<div class="photo-window_about"><a href="">Места моих путешествий моих путешествий моих путешествий моих путешествий моих путешествий моих путешествий моих путешествий моих путешествий</a> </div>
 
 	</div>
 	<!-- Обрабатывать клик на .photo-window_c для листания следующего изображения -->
@@ -202,10 +185,8 @@ $(window).resize(function () {
 
 					
 				</div>
-				<div class="photo-window_t">
-					<input type="text" name="" id="" class="itx-gray" placeholder="Введите название фото и нажмите Enter">
-					<!-- Детский лагерь «Зеркальный». Ленинградская область. Ghfg Ленинградская <a class="ico-edit powertip" href=""></a> -->
-				</div>
+				<div class="photo-window_about"> Фотопост <a href="">Места моих путешествий моих путешествий моих моих путешествий моих путешествий путешествий моих путешествий моих путешествий</a> </div>
+				<div class="photo-window_t">Детский лагерь «Зеркальный». Ленинградская область. Ghfg Ленинградская <a class="ico-edit powertip" href=""></a></div>
 
 				<div class="photo-window_desc-hold ">
 					<div class="photo-window_desc clearfix">
@@ -232,7 +213,7 @@ $(window).resize(function () {
 						<span class="comments-gray_t-tx">Комментарии <span class="color-gray">(28)</span></span>
 						<a href="" class="font-small" id="comments-show">Показать </a>
 						<!-- <a href="" class="float-r font-small">Статистика (14)</a> -->
-						<div class="comments-gray_sent display-b">Комментарий успешно отправлен.</div>
+						<div class="comments-gray_sent display-n">Комментарий успешно отправлен.</div>
 					</div>
 				</div>
 				

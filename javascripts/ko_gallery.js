@@ -173,7 +173,8 @@ function PhotoCollectionViewModel(data) {
             bar: '.scroll_bar'
         });
     }, 200);
-    self.loadContestData();
+    if (self.collectionClass == 'ContestPhotoCollection')
+        self.loadContestData();
 
     $(window).resize(function () {
         self.setLikesPosition();

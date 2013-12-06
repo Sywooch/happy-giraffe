@@ -262,7 +262,7 @@ class MailCommand extends CConsoleCommand
             $models = MailruUser::model()->findAll($criteria);
             foreach ($models as $model) {
                 $subject = $model->firstName . ', принимай участие в конкурсе «Лучший вопрос о качестве и безопасности детского питания»!';
-                $html = $this->renderFile(Yii::getPathOfAlias('site.common.tpl') . DIRECTORY_SEPARATOR . 'contest_birth2.php', compact('model'), true);
+                $html = $this->renderFile(Yii::getPathOfAlias('site.common.tpl') . DIRECTORY_SEPARATOR . 'heinz.php', compact('model'), true);
                 Yii::app()->email->sendEmail($model->email, $subject, $html, 'noreply@happy-giraffe.ru', 'Веселый Жираф');
                 $i++;
             }

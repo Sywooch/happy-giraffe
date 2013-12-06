@@ -256,7 +256,7 @@ class MailCommand extends CConsoleCommand
         $i = 0;
         do {
             $criteria = new EMongoCriteria();
-            $criteria->list = (string) MailruUser::LIST_CHILD;
+            $criteria->list = (string) MailruUser::LIST_PREGNANCY;
             $criteria->limit(1000);
             $criteria->offset($offset);
             $models = MailruUser::model()->findAll($criteria);

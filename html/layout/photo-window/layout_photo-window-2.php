@@ -67,7 +67,6 @@ $(window).resize(function () {
 	
 	<div class="photo-window_top">
 		<div class="photo-window_count">25 из 52</div>
-		<div class="photo-window_about"><a href="">Места моих путешествий</a> </div>
 
 	</div>
 	<!-- Обрабатывать клик на .photo-window_c для листания следующего изображения -->
@@ -149,6 +148,7 @@ $(window).resize(function () {
 					</div>
 
 				</div>
+				<div class="photo-window_about"> Фотопост <a href="">Места моих путешествий</a> </div>
 				<div class="photo-window_t">Детский лагерь «Зеркальный». Ленинградская область. <a class="ico-edit powertip" href=""></a></div>
 
 

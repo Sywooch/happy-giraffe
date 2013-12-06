@@ -88,6 +88,12 @@ function PhotoCollectionViewModel(data) {
         $('.photo-window .like-control').css({'bottom' : likeBottom});
     }
 
+    self.photoWindColH = function() {
+        var colCont = $(".photo-window_cont");
+        var bannerH = document.getElementById('photo-window_banner').offsetHeight;
+        colCont.height($(window).height() - bannerH - 24);
+    }
+
     self.loadContestData = function() {
         $.get('/gallery/default/contestData/', { contestId : self.collectionOptions.contestId, photoId : self.currentPhoto().id }, function(response) {
             $('.contestData').html(response);
@@ -158,8 +164,21 @@ function PhotoCollectionViewModel(data) {
     self.preloadImages(2, 2);
     setTimeout(function() {
         self.setLikesPosition();
+        self.photoWindColH();
+        $('#photo-window .scroll').baron({
+            scroller: '.scroll_scroller',
+            barOnCls: 'scroll__on',
+            container: '.scroll_cont',
+            track: '.scroll_bar-hold',
+            bar: '.scroll_bar'
+        });
     }, 200);
     self.loadContestData();
+
+    $(window).resize(function () {
+        self.setLikesPosition();
+        self.photoWindColH();
+    });
 }
 
 function CollectionPhoto(data, parent) {

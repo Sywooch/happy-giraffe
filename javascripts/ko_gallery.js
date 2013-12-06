@@ -54,15 +54,10 @@ function PhotoCollectionViewModel(data) {
             self.currentPhotoIndex(self.currentPhotoIndex() != self.photos.length - 1 ? self.currentPhotoIndex() + 1 : 0);
             self.incNaturalIndex(true);
             self.preloadImages(3, 0);
-            if (!self.isFullyLoaded() && self.currentPhotoIndex() >= self.photos.length - 3)
+            if (! self.isFullyLoaded() && self.currentPhotoIndex() >= self.photos.length - 3)
                 self.preloadMetaNext();
 
-            History.pushState(self.currentPhoto(), self.currentPhoto().title().length > 0 ? self.currentPhoto().title() : self.properties.title + ' - фото ' + self.currentNaturalIndex(), self.currentPhoto().url());
-            _gaq.push(['_trackPageview', self.currentPhoto().url()]);
-            yaCounter11221648.hit(self.currentPhoto().url());
-            self.setLikesPosition();
-            $('#photo-window_banner iframe').attr('src', '/rtb3.html?' + Math.floor(Math.random() * 9999999999) + 1000000000);
-            self.loadContestData();
+            self.photoChanged();
         }
     }
 
@@ -71,24 +66,40 @@ function PhotoCollectionViewModel(data) {
             self.currentPhotoIndex(self.currentPhotoIndex() != 0 ? self.currentPhotoIndex() - 1 : self.photos.length - 1);
             self.incNaturalIndex(false);
             self.preloadImages(0, 3);
-            if (!self.isFullyLoaded() && self.currentPhotoIndex() <= 2)
+            if (! self.isFullyLoaded() && self.currentPhotoIndex() <= 2)
                 self.preloadMetaPrev();
 
-            History.pushState(self.currentPhoto(), self.currentPhoto().title().length > 0 ? self.currentPhoto().title() : self.properties.title + ' - фото ' + self.currentNaturalIndex(), self.currentPhoto().url());
-            _gaq.push(['_trackPageview', self.currentPhoto().url()]);
-            yaCounter11221648.hit(self.currentPhoto().url());
-            self.setLikesPosition();
-            $('#photo-window_banner iframe').attr('src', '/rtb3.html?' + Math.floor(Math.random() * 9999999999) + 1000000000);
-            self.loadContestData();
+            self.photoChanged();
         }
+    }
+
+    self.photoChanged = function() {
+        History.pushState(self.currentPhoto(), self.currentPhoto().title().length > 0 ? self.currentPhoto().title() : self.properties.title + ' - фото ' + self.currentNaturalIndex(), self.currentPhoto().url());
+        _gaq.push(['_trackPageview', self.currentPhoto().url()]);
+        yaCounter11221648.hit(self.currentPhoto().url());
+        self.setLikesPosition();
+        $('#photo-window_banner iframe').attr('src', '/rtb3.html?' + Math.floor(Math.random() * 9999999999) + 1000000000);
+        if (self.collectionClass == 'ContestPhotoCollection')
+            self.loadContestData();
+    }
+
+    self.setLikesPosition = function() {
+        var likeBottom = ($('.photo-window_img-hold').height() - $('.photo-window_img').height()) / 2 + 30;
+        $('.photo-window .like-control').css({'bottom' : likeBottom});
+    }
+
+    self.loadContestData = function() {
+        $.get('/gallery/default/contestData/', { contestId : self.collectionOptions.contestId, photoId : self.currentPhoto().id }, function(response) {
+            $('.contestData').html(response);
+        });
     }
 
     self.preloadImages = function (nextCount, prevCount) {
         var next = roundSlice(self.photos, self.currentPhotoIndex() + 1, nextCount);
         var prev = roundSlice(self.photos, self.currentPhotoIndex() - 1, -prevCount);
-        self.preload(ko.utils.arrayMap(next.concat(prev), function(photo) {
+        $.preload(ko.utils.arrayMap(next.concat(prev), function(photo) {
             return photo.src;
-        }));
+        }), 1);
     }
 
     self.preload = function (arrayOfImages) {
@@ -144,18 +155,6 @@ function PhotoCollectionViewModel(data) {
             }, 'json');
         else
             $('[href="#login"]').trigger('click');
-    }
-
-    self.setLikesPosition = function() {
-        var likeBottom = ($('.photo-window_img-hold').height() - $('.photo-window_img').height()) / 2 + 30;
-        $('.photo-window .like-control').css({'bottom' : likeBottom});
-    }
-
-    self.loadContestData = function() {
-        if (self.collectionClass == 'ContestPhotoCollection')
-            $.get('/gallery/default/contestData/', { contestId : self.collectionOptions.contestId, photoId : self.currentPhoto().id }, function(response) {
-                $('.contestData').html(response);
-            });
     }
 
     self.currentPhotoIndex.valueHasMutated();

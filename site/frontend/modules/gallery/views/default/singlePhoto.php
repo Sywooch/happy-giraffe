@@ -6,6 +6,7 @@
  * @var string $nextPhotoUrl
  * @var string $prevPhotoUrl
  */
+Yii::app()->clientScript->registerPackage('ko_gallery');
 ?>
 
 <div class="content-cols clearfix">

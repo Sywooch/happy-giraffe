@@ -56,6 +56,7 @@ return array(
             'baseUrl' => '/',
             'js' => array(
                 'javascripts/ko_gallery.js',
+                'javascripts/jquery.preload.min.js',
             ),
             'depends' => array('knockout', 'ko_comments'),
         ),

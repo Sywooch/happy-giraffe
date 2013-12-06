@@ -53,7 +53,7 @@ function PhotoCollectionViewModel(data) {
         if ((self.currentPhotoIndex() != self.photos.length - 1) || self.isFullyLoaded()) {
             self.currentPhotoIndex(self.currentPhotoIndex() != self.photos.length - 1 ? self.currentPhotoIndex() + 1 : 0);
             self.incNaturalIndex(true);
-            self.preloadImages(3, 0);
+            self.preloadImages(5, 0);
             if (! self.isFullyLoaded() && self.currentPhotoIndex() >= self.photos.length - 3)
                 self.preloadMetaNext();
 
@@ -65,7 +65,7 @@ function PhotoCollectionViewModel(data) {
         if ((self.currentPhotoIndex() != 0) || self.isFullyLoaded()) {
             self.currentPhotoIndex(self.currentPhotoIndex() != 0 ? self.currentPhotoIndex() - 1 : self.photos.length - 1);
             self.incNaturalIndex(false);
-            self.preloadImages(0, 3);
+            self.preloadImages(0, 5);
             if (! self.isFullyLoaded() && self.currentPhotoIndex() <= 2)
                 self.preloadMetaPrev();
 
@@ -100,12 +100,6 @@ function PhotoCollectionViewModel(data) {
         $.preload(ko.utils.arrayMap(next.concat(prev), function(photo) {
             return photo.src;
         }), 1);
-    }
-
-    self.preload = function (arrayOfImages) {
-        $(arrayOfImages).each(function () {
-            $('<img/>')[0].src = this;
-        });
     }
 
     self.preloadMetaNext = function () {

@@ -87,7 +87,7 @@ class AlbumsCommand extends CConsoleCommand
         Yii::import('site.frontend.modules.notifications.models.base.*');
         Yii::import('site.frontend.modules.notifications.models.*');
         $criteria = new CDbCriteria();
-        $criteria->order = 't.id ASC';
+        $criteria->order = 't.id DESC';
         $dp = new CActiveDataProvider('Album', array('criteria' => $criteria));
         $iterator = new CDataProviderIterator($dp, 1000);
         $count = $dp->totalItemCount;

@@ -100,7 +100,7 @@ class AlbumsCommand extends CConsoleCommand
             $photos = AlbumPhoto::model()->findAll($criteria2);
             foreach ($photos as $photo)
                 $photo->generatePhotoViewPhotos();
-            echo $i . '/' . $count . "\n";
+            echo $photo->id . ' - ' . $i . '/' . $count . "\n";
         }
     }
 

@@ -98,9 +98,11 @@ class AlbumsCommand extends CConsoleCommand
             $criteria2 = new CDbCriteria();
             $criteria2->addInCondition('t.id', $collection->photoIds);
             $photos = AlbumPhoto::model()->findAll($criteria2);
-            foreach ($photos as $photo)
+            foreach ($photos as $photo) {
                 $photo->generatePhotoViewPhotos();
-            echo $photo->id . ' - ' . $i . '/' . $count . "\n";
+                echo $photo->id . "\n";
+            }
+            echo $i . '/' . $count . "\n";
         }
     }
 

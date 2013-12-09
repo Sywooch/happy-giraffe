@@ -29,6 +29,10 @@
                         <?php endif; ?>
                         <?php if ($contest->status == CommunityContest::STATUS_ACTIVE): ?>
                             <a href="<?=$contest->getParticipateUrl()?>" class="btn-green btn-h46 fancy" id="takePartButton">Принять участие!</a>
+                        <?php elseif ($contest->status == CommunityContest::STATUS_FINISHED): ?>
+                            <div class="b-section_contest-end">
+                                <div class="b-section_contest-end-t"> Конкурс завершен. Идет подсчет голосов.</div>
+                            </div>
                         <?php else: ?>
                             <div class="b-section_contest-end">
                                 <div class="b-section_contest-end-t"> Конкурс завершен. Победители определены.</div>

@@ -105,7 +105,7 @@ class AlbumsCommand extends CConsoleCommand
                 $photo->generatePhotoViewPhotos();
                 echo $photo->id . "\n";
             }
-            echo $i . '/' . $count . "\n";
+            echo $album->id . ' - ' . $i . '/' . $count . "\n";
         }
     }
 

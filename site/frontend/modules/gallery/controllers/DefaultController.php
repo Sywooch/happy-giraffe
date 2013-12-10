@@ -107,6 +107,9 @@ class DefaultController extends HController
                 throw new CHttpException(404);
         }
 
+        if (array_search($photo_id, $collection->photoIds) === false)
+            throw new CHttpException(404);
+
         $photo = AlbumPhoto::model()->findByPk($photo_id);
         $photoCollectionElement = $collection->getPhoto($photo_id, true);
         $nextPhotoId = $collection->getNextPhotosIds($photo_id, 1);

@@ -107,6 +107,9 @@ class DefaultController extends HController
                 throw new CHttpException(404);
         }
 
+        if (Yii::app()->request->getQuery('a') !== null)
+            var_dump($collection->photoIds);
+
         if (array_search($photo_id, $collection->photoIds) === false)
             throw new CHttpException(404);
 

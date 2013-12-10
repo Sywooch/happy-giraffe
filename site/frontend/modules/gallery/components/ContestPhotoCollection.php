@@ -22,7 +22,7 @@ class ContestPhotoCollection extends PhotoCollection
                 SELECT photo_id
                 FROM contest__works w
                 JOIN album__photo_attaches a ON a.entity = 'ContestWork' AND a.entity_id = w.id
-                WHERE w.contest_id = :contestId
+                WHERE w.contest_id = :contestId AND w.removed = 0
                 ORDER BY w.created DESC
             ";
         else
@@ -30,7 +30,7 @@ class ContestPhotoCollection extends PhotoCollection
                 SELECT photo_id
                 FROM contest__works w
                 JOIN album__photo_attaches a ON a.entity = 'ContestWork' AND a.entity_id = w.id
-                WHERE w.contest_id = :contestId
+                WHERE w.contest_id = :contestId AND w.removed = 0
                 ORDER BY w.rate DESC
             ";
 

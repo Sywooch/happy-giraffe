@@ -86,6 +86,7 @@ class AlbumsCommand extends CConsoleCommand
         Yii::import('site.frontend.modules.notifications.components.*');
         Yii::import('site.frontend.modules.notifications.models.base.*');
         Yii::import('site.frontend.modules.notifications.models.*');
+        Yii::import('site.frontend.modules.scores.components.*');
         $criteria = new CDbCriteria();
         $criteria->order = 't.id DESC';
         $dp = new CActiveDataProvider('Album', array('criteria' => $criteria));

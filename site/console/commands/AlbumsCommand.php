@@ -78,7 +78,7 @@ class AlbumsCommand extends CConsoleCommand
         }
     }
 
-    public function actionGenerateAlbumsViewPhotos()
+    public function actionGenerateAlbumsViewPhotos($id)
     {
         Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
         Yii::import('site.common.models.mongo.*');
@@ -91,6 +91,8 @@ class AlbumsCommand extends CConsoleCommand
         Yii::import('site.frontend.modules.scores.models.input.*');
         $criteria = new CDbCriteria();
         $criteria->order = 't.id DESC';
+        $criteria->condition = 't.id <= :id';
+        $criteria->params = array(':id' => $id);
         $dp = new CActiveDataProvider('Album', array('criteria' => $criteria));
         $iterator = new CDataProviderIterator($dp, 1000);
         $count = $dp->totalItemCount;

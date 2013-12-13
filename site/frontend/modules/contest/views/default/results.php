@@ -207,15 +207,15 @@
     } elseif ($this->contest->id == 12) {
         $prizes = array(
             '1' => array(
-                'title' => 'Набор',
+                'title' => 'Набор из 7 предметов для всей семьи',
                 'model' => 'Silver Care',
             ),
             '2' => array(
-                'title' => 'Набор',
+                'title' => 'Набориз 5 предметов для всей семьи',
                 'model' => 'Silver Care',
             ),
             '3' => array(
-                'title' => 'Набор',
+                'title' => 'Набориз 4 предметов для всей семьи',
                 'model' => 'Silver Care',
             ),
         );

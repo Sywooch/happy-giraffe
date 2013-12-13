@@ -204,6 +204,21 @@
                 'model' => 'NeoTrike Mini Mercedes Benz',
             ),
         );
+    } elseif ($this->contest->id == 12) {
+        $prizes = array(
+            '1' => array(
+                'title' => 'Набор',
+                'model' => 'Silver Care',
+            ),
+            '2' => array(
+                'title' => 'Набор',
+                'model' => 'Silver Care',
+            ),
+            '3' => array(
+                'title' => 'Набор',
+                'model' => 'Silver Care',
+            ),
+        );
     }
 ?>
 

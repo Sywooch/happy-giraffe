@@ -39,7 +39,7 @@
                     <td width="700" align="center" style="background: #c8ebff;">
                       
                       <div style="font: normal 15px/1 arial, sans-serif; color: #232323; padding: 3px 5px;">
-                      	Добрый день, {firstname}! На нашем сайте стартовал фотоконкурс &laquo;Моя любимая игрушка&raquo;!
+                      	Добрый день, <?=$model->firstName?>! На нашем сайте стартовал фотоконкурс &laquo;Моя любимая игрушка&raquo;!
                       </div>
                       
                     </td>

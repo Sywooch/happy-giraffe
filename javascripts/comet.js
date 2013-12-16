@@ -1,6 +1,8 @@
 function Comet() {
     this.events = new Array();
     this.cache = null;
+	this.channels = new Array();
+	this.channels.push('guest');
     this.load = true;
 }
 
@@ -16,16 +18,41 @@ Comet.prototype.call = function(type, result, id) {
 Comet.prototype.connect = function(host, namespace, cache) {
     this.server = new Dklab_Realplexor(host, namespace);
     var $this = this;
-    this.cache = cache;
-    if (cache) {
-        this.server.subscribe(cache, function(result, id) {
+	if(cache) {
+		$this.channels.push(cache);
+		$this.cache = cache;
+	}
+	for(var i in this.channels) {
+        this.server.subscribe($this.channels[i], function(result, id) {
             $this.call(result.type, result, id);
         });
     }
-    this.server.subscribe('guest', function(result, id) {
-        $this.call(result.type, result, id);
-    });
     this.server.execute();
+}
+
+Comet.prototype.addChannel = function(channel) {
+	var $this = this;
+	if($this.channels.indexOf(channel) < 0) {
+		$this.channels.push(channel);
+		if($this.server) {
+			$this.server.subscribe(channel, function(result, id) {
+				$this.call(result.type, result, id);
+			});
+			$this.server.execute();
+		}
+	}
+}
+
+Comet.prototype.delChannel = function(channel) {
+	var $this = this;
+	var i = $this.channels.indexOf(channel);
+	if(i >= 0) {
+		$this.channels.splice(i,1);
+		if($this.server) {
+			$this.server.unsubscribe(channel, null);
+			$this.server.execute();
+		}
+	}
 }
 
 Comet.prototype.addEvent = function(type, event) {

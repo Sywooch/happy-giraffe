@@ -78,7 +78,7 @@ class ContactsManager
                     FROM messaging__threads_users tu
                     # Получение количества непрочитанных сообщений
                     INNER JOIN messaging__messages m ON m.thread_id = tu.thread_id AND m.author_id != tu.user_id
-                    INNER JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.read = 0 AND mu.user_id = tu.user_id
+                    INNER JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.dtime_read IS NULL AND mu.user_id = tu.user_id
                     # Получение id собеседника
                     INNER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id != tu.user_id
                     # Находится ли в чёрном списке
@@ -142,7 +142,7 @@ class ContactsManager
                     INNER JOIN messaging__threads t ON tu.thread_id = t.id
                     # Получение количества непрочитанных сообщений
                     LEFT OUTER JOIN messaging__messages m ON m.thread_id = t.id AND m.author_id != tu.user_id
-                    LEFT OUTER JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.read = 0 AND mu.user_id = tu.user_id
+                    LEFT OUTER JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.dtime_read IS NULL AND mu.user_id = tu.user_id
                     # Получение аватара
                     LEFT OUTER JOIN album__photos p ON u.avatar_id = p.id
                     # Является ли другом
@@ -180,7 +180,7 @@ class ContactsManager
                     INNER JOIN messaging__threads t ON tu.thread_id = t.id
                     # Получение количества непрочитанных сообщений
                     LEFT OUTER JOIN messaging__messages m ON m.thread_id = t.id AND m.author_id != tu.user_id
-                    LEFT OUTER JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.read = 0 AND mu.user_id = tu.user_id
+                    LEFT OUTER JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.dtime_read IS NULL AND mu.user_id = tu.user_id
                     # Получение аватара
                     LEFT OUTER JOIN album__photos p ON u.avatar_id = p.id
                     # Является ли другом
@@ -219,7 +219,7 @@ class ContactsManager
                     INNER JOIN messaging__threads t ON tu.thread_id = t.id
                     # Получение количества непрочитанных сообщений
                     LEFT OUTER JOIN messaging__messages m ON m.thread_id = t.id AND m.author_id != tu.user_id
-                    LEFT OUTER JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.read = 0 AND mu.user_id = tu.user_id
+                    LEFT OUTER JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.dtimeRead IS NULL AND mu.user_id = tu.user_id
                     # Получение аватара
                     LEFT OUTER JOIN album__photos p ON u.avatar_id = p.id
                     # Является ли другом
@@ -258,7 +258,7 @@ class ContactsManager
                     LEFT OUTER JOIN messaging__threads t ON tu.thread_id = t.id
                     # Получение количества непрочитанных сообщений
                     LEFT OUTER JOIN messaging__messages m ON m.thread_id = t.id AND m.author_id != tu.user_id
-                    LEFT OUTER JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.read = 0 AND mu.user_id = tu.user_id
+                    LEFT OUTER JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.dtime_read IS NULL AND mu.user_id = tu.user_id
                     # Получение аватара
                     LEFT OUTER JOIN album__photos p ON u.avatar_id = p.id
                     # Находится ли в черном списке

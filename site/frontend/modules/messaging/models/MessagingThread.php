@@ -118,7 +118,7 @@ class MessagingThread extends HActiveRecord
         $sql = "
             UPDATE messaging__messages_users mu
             INNER JOIN messaging__messages m ON mu.message_id = m.id
-            SET mu.read = 1
+            SET mu.dtime_read = NOW()
             WHERE m.thread_id = :thread_id AND m.author_id != :user_id AND mu.user_id = :user_id;
         ";
 
@@ -208,7 +208,7 @@ class MessagingThread extends HActiveRecord
         $messages = MessagingMessage::model()->findAll(array(
             'with' => array('images', 'messageUsers'),
             'join' => 'JOIN messaging__messages_users mu ON t.id = mu.message_id AND mu.user_id = :user_id',
-            'condition' => 'thread_id = :thread_id AND mu.deleted = 0',
+            'condition' => 'thread_id = :thread_id AND mu.dtime_delete IS NULL',
             'params' => array(':thread_id' => $this->id, ':user_id' => $userId),
             'limit' => $limit,
             'offset' => $offset,
@@ -232,7 +232,7 @@ class MessagingThread extends HActiveRecord
     {
         return MessagingMessage::model()->count(array(
             'join' => 'JOIN messaging__messages_users mu ON t.id = mu.message_id AND mu.user_id = :user_id',
-            'condition' => 'thread_id = :thread_id AND mu.deleted = 0',
+            'condition' => 'thread_id = :thread_id AND mu.dtime_delete IS NULL',
             'params' => array(':thread_id' => $this->id, ':user_id' => $userId),
         ));
     }

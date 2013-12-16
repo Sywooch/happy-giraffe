@@ -219,8 +219,8 @@ class MailCommand extends CConsoleCommand
             $criteria->offset($offset);
             $models = MailruUser::model()->findAll($criteria);
             foreach ($models as $model) {
-                $subject = $model->firstName . ', принимай участие в конкурсе «Поделись улыбкою своей»!';
-                $html = $this->renderFile(Yii::getPathOfAlias('site.common.tpl') . DIRECTORY_SEPARATOR . 'contest_12.php', compact('model'), true);
+                $subject = $model->firstName . ', принимай участие в конкурсе «Моя любимая игрушка»!';
+                $html = $this->renderFile(Yii::getPathOfAlias('site.common.tpl') . DIRECTORY_SEPARATOR . 'contest_13.php', compact('model'), true);
                 Yii::app()->email->sendEmail($model->email, $subject, $html, 'noreply@happy-giraffe.ru', 'Веселый Жираф');
                 $i++;
             }

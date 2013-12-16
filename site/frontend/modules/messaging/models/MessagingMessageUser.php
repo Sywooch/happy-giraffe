@@ -8,6 +8,8 @@
  * @property string $message_id
  * @property integer $read
  * @property integer $deleted
+ * 
+ * @property MessagingMessage $message Связанная модель сообщения
  */
 class MessagingMessageUser extends HActiveRecord
 {

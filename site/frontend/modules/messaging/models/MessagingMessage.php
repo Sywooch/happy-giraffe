@@ -10,6 +10,9 @@
  * @property string $text
  * @property string $updated
  * @property string $created
+ * @property array $json Массив данных данного объекта, для формирования JSON
+ * @property bool $isReadByInterlocutor
+ * @property array $photoCollection Массив формата array( 'title' => sting, 'photos' => AttachPhoto[] )
  *
  * The followings are the available model relations:
  * @property User $author
@@ -18,6 +21,7 @@
  */
 class MessagingMessage extends HActiveRecord
 {
+	// ??? не используется
     public $processed_photos = array();
 
     /**
@@ -54,7 +58,8 @@ class MessagingMessage extends HActiveRecord
             array('id, author_id, thread_id, text, updated, created', 'safe', 'on'=>'search'),
         );
     }
-
+	// Магия. Не используется в других моделях???
+	// TODO: Перенести валидатор в поведение ProcessingImagesBehavior
     public function requiredIfNoImages($attribute, $params)
     {
         if (empty($this->images)) {
@@ -150,7 +155,7 @@ class MessagingMessage extends HActiveRecord
             'criteria'=>$criteria,
         ));
     }
-
+	// TODO: перенести бизнес-логику в модель формы
     public function create($text, $threadId, $authorId, $images, $raw = false)
     {
         $thread = MessagingThread::model()->with('threadUsers')->findByPk($threadId);

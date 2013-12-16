@@ -211,11 +211,11 @@
                 'model' => 'Silver Care',
             ),
             '2' => array(
-                'title' => 'Набориз 5 предметов для всей семьи',
+                'title' => 'Набор из 5 предметов для всей семьи',
                 'model' => 'Silver Care',
             ),
             '3' => array(
-                'title' => 'Набориз 4 предметов для всей семьи',
+                'title' => 'Набор из 4 предметов для всей семьи',
                 'model' => 'Silver Care',
             ),
         );
@@ -223,14 +223,6 @@
 ?>
 
 <?php
-    $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
-        'selector' => '.img > a',
-        'entity' => 'Contest',
-        'entity_id' => $this->contest->id,
-        'entity_url' => $this->contest->url,
-        'query' => array('sort' => 'rate'),
-    ));
-
     Yii::app()->eauth->renderWidget(array(
         'mode' => 'assets',
     ));

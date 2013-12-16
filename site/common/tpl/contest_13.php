@@ -39,7 +39,7 @@
                     <td width="700" align="center" style="background: #c8ebff;">
                       
                       <div style="font: normal 15px/1 arial, sans-serif; color: #232323; padding: 3px 5px;">
-                      	Добрый день, <?=$model->firstName?>! На нашем сайте стартовал фотоконкурс &laquo;Моя любимая игрушка&raquo;!
+                      	Добрый день, {firstname}! На нашем сайте стартовал фотоконкурс &laquo;Моя любимая игрушка&raquo;!
                       </div>
                       
                     </td>
@@ -155,8 +155,7 @@
 									<td align="center">
 										<font color="#3380b6" style="font:13px/16px arial, helvetica, sans-serif;">
 											Развивающая игрушка <br>
-											Обучающий глобус
-											<b>VTech </b>
+											Обучающий глобус <b>VTech </b>
 										</font><br/>
 										<a href="http://www.happy-giraffe.ru/contest/13/prizes/?utm_source=email#prize-3" style="color:#fc5e03;font:13px/19px arial, helvetica, sans-serif;">Подробнее</a>
 									</td>

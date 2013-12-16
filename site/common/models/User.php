@@ -67,6 +67,7 @@
  * @property int $communityPostsCount
  * @property int $albumsCount
  * @property CommunityClub[] $clubSubscriptions
+ * @property string $publicChannel Имя публичного канала пользователя (в который отправляются события online/offline)
  *
  * @method User active()
  */
@@ -1590,4 +1591,13 @@ class User extends HActiveRecord
                 return $spec;
         return null;
     }
+	
+	/**
+	 * 
+	 * @return string Имя публичного канала пользователя (в который отправляются события online/offline)
+	 */
+	public function getPublicChannel()
+	{
+		return 'onOff' . $this->id;
+	}
 }

@@ -14,6 +14,7 @@
 class UserCache extends HActiveRecord
 {
     CONST CACHE_ID = 'user_cache_';
+	CONST CHANNEL_PREFIX = 'private_';
 
     /**
      * Returns the static model of the specified AR class.
@@ -129,7 +130,7 @@ class UserCache extends HActiveRecord
     public function UpdateCache()
     {
         do {
-            $cache = substr(md5(time() . $this->user_id), 0, 5);
+            $cache = self::CHANNEL_PREFIX . substr(md5(time() . $this->user_id), 0, 5);
         } while (UserCache::model()->count('cache="' . $cache . '"') != 0);
         $this->cache = $cache;
         Yii::app()->cache->set(self::CACHE_ID . $this->user_id, $cache);

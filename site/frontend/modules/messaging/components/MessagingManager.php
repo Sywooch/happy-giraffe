@@ -10,6 +10,6 @@ class MessagingManager
 {
     public static function unreadMessagesCount($userId)
     {
-        return MessagingMessageUser::model()->count('user_id = :user_id AND `read` = 0', array(':user_id' => $userId));
+        return MessagingMessageUser::model()->user($userId)->unread()->count();
     }
 }

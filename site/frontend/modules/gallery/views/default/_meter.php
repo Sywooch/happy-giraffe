@@ -9,6 +9,7 @@
         <div class="photo-window-contest-meter_num"><?=$attach->model->rate?></div>
         <div class="photo-window-contest-meter_ball"><?=Str::GenerateNoun(array('балл', 'балла', 'баллов'), $attach->model->rate)?></div>
     </div>
+    <?php if ($attach->model->contest->status == Contest::STATUS_ACTIVE): ?>
     <div class="photo-window-contest-meter_vote">
         <div class="photo-window-contest-meter_vote-tx">Голосовать!</div>
         <?php $this->widget('site.frontend.widgets.socialLike.SocialLikeWidget', array(
@@ -23,5 +24,6 @@
             ),
         ));  ?>
     </div>
+    <?php endif; ?>
 </div>
 

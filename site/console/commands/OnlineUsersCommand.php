@@ -4,8 +4,7 @@ class OnlineUsersCommand extends CConsoleCommand
 {
 
 	public $current_day;
-	private  $rpl;
-
+	private $rpl;
 
 	public function init()
 	{
@@ -17,6 +16,9 @@ class OnlineUsersCommand extends CConsoleCommand
 		Yii::import('site.frontend.extensions.*');
 		Yii::import('site.frontend.components.*');
 		Yii::import('site.common.models.mongo.*');
+		Yii::import('site.frontend.modules.scores.models.*');
+		Yii::import('site.frontend.modules.scores.models.input.*');
+		Yii::import('site.frontend.modules.onlineManager.widgets.OnlineManagerWidget');
 
 		// Выставляем всем пользователям оффлайн
 		Yii::app()->db->createCommand()
@@ -28,7 +30,6 @@ class OnlineUsersCommand extends CConsoleCommand
 			Yii::app()->cache->delete('User_' . $user->id);
 		}
 		// Мистика конец
-		
 		// Устанавливаем текущую дату (необходимо для достижений)
 		$this->current_day = date("Y-m-d");
 
@@ -92,6 +93,7 @@ class OnlineUsersCommand extends CConsoleCommand
 		$user->online = $online;
 		$user->last_active = date("Y-m-d H:i:s");
 		$user->save(false, array('online', 'last_active'));
+		echo $user->id . " " . $online . "\n";
 		if ($online == 1)
 		{
 			ScoreVisits::getInstance()->addTodayVisit($user->id);
@@ -121,7 +123,8 @@ class OnlineUsersCommand extends CConsoleCommand
 	private function SendOnlineNotice($user)
 	{
 		$comet = new CometModel();
-		$comet->send($user->publicChannel, OnlineManagerWidget::userToJson($user), CometModel::MESSAGING_ONLINE_STATUS_CHANGED);
+		$comet->send($user->publicChannel, array('user' => OnlineManagerWidget::userToJson($user)), CometModel::TYPE_ONLINE_STATUS_CHANGE);
+		echo 'sending ' . $user->publicChannel . ' ' . CometModel::TYPE_ONLINE_STATUS_CHANGE . "\n";
 	}
 
 	/**
@@ -137,7 +140,8 @@ class OnlineUsersCommand extends CConsoleCommand
 			foreach ($list as $user)
 			{
 				$user = $this->getUserByCache($user);
-				if (!empty($user)) {
+				if (!empty($user))
+				{
 					Scoring::visit($user->id);
 				}
 			}

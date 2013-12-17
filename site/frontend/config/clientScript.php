@@ -156,5 +156,12 @@ return array(
             ),
             'depends' => array('knockout'),
         ),
+        'ko_onlineManager' => array(
+            'baseUrl' => '/',
+            'js' => array(
+                'javascripts/ko_onlineManager.js',
+            ),
+            'depends' => array('knockout'),
+        ),
     )
 );

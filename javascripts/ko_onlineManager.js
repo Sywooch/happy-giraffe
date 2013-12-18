@@ -6,7 +6,6 @@ function OnlineManager(user, channel) {
 
 	self.addObject(self);
 	self.bindEvent();
-	console.log(this);
 }
 
 OnlineManager.prototype.objects = new Array();
@@ -18,15 +17,15 @@ OnlineManager.prototype.addObject = function(obj) {
 
 OnlineManager.prototype.bindEvent = function() {
 	var self = this;
-	if(!self.binded) {
+	if (!self.binded) {
 		Comet.prototype.onlineManagerEvent = function(result, id) {
-			console.log(result, id);
 			ko.utils.arrayForEach(self.objects, function(obj) {
-				if(obj.user().id == result.user.id) {
+				if (obj.user().id == result.user.id) {
 					obj.user(result.user);
 				}
 			});
 		};
 		comet.addEvent(3, 'onlineManagerEvent');
+		OnlineManager.prototype.binded = true;
 	}
 };

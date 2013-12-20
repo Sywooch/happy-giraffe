@@ -16,22 +16,22 @@ $this->widget('zii.widgets.grid.CGridView', array(
     'dataProvider' => $dp,
     'columns' => array(
         array(
-            'name' => 'id',
+            'name' => 'Ссылка',
             'type' => 'raw',
             'value' => 'CHtml::link(\'http://www.happy-giraffe.ru\' . $data["id"], \'http://www.happy-giraffe.ru\' . $data["id"])',
         ),
         array(
-            'name' => 'period1',
+            'name' => 'Период 1',
             'type' => 'raw',
             'value' => 'CHtml::encode($data["period1"])',
         ),
         array(
-            'name' => 'period2',
+            'name' => 'Период 2',
             'type' => 'raw',
             'value' => 'CHtml::encode($data["period2"])',
         ),
         array(
-            'name' => 'diff',
+            'name' => 'Разница',
             'type' => 'raw',
             'value' => 'CHtml::encode($data["diff"])',
         ),

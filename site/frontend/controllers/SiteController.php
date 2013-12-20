@@ -490,7 +490,7 @@ class SiteController extends HController
             $pathes1 = $ga->getReport(array(
                 'metrics' => 'ga:visits',
                 'dimensions' => 'ga:pagePath',
-                'max-results' => 100,
+                'max-results' => 10000,
                 'sort' => '-ga:visits',
                 'filters' => 'ga:source==google',
             ));
@@ -507,7 +507,7 @@ class SiteController extends HController
             $pathes2 = $ga->getReport(array(
                 'metrics' => 'ga:visits',
                 'dimensions' => 'ga:pagePath',
-                'max-results' => 100,
+                'max-results' => 10000,
                 'sort' => '-ga:visits',
                 'filters' => 'ga:source==google',
             ));

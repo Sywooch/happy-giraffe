@@ -346,5 +346,7 @@ return array(
         'family/<_c>/<_a>' => 'family/<_c>/<_a>',
 
         'contest/<cssClass:\w+>' => 'community/contest/index',
+
+        'site/seo' => 'site/seo',
     ),
 );

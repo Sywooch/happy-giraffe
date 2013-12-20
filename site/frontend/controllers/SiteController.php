@@ -470,4 +470,69 @@ class SiteController extends HController
             echo $q . ':<br>' . CHtml::image(Yii::app()->params['photos_url'] . '/temp/' . md5($url . $q) . '.jpg') . '<br><br><br>';
         }
     }
+
+    public function actionSeo()
+    {
+        Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
+        if ($_POST) {
+            $result = array();
+            Yii::import('site.frontend.extensions.GoogleAnalytics');
+
+            $ga = new GoogleAnalytics('nikita@happy-giraffe.ru', 'ummvxhwmqzkrpgzj');
+            $ga->setProfile('ga:53688414');
+
+            $ga->setDateRange($_POST['period1Start'], $_POST['period1End']);
+            $pathes1 = $ga->getReport(array(
+                'metrics' => 'ga:visits',
+                'dimensions' => 'ga:pagePath',
+                'max-results' => 10000,
+                'sort' => '-ga:visits',
+                'filters' => 'ga:source==google',
+            ));
+            foreach ($pathes1 as $path => $value) {
+                $result[$path] = array(
+                    'period1' => $value['ga:visits'],
+                    'period2' => 0,
+                    'diff' => 0,
+                );
+            }
+
+                $ga->setDateRange($_POST['period2Start'], $_POST['period2End']);
+            $pathes2 = $ga->getReport(array(
+                'metrics' => 'ga:visits',
+                'dimensions' => 'ga:pagePath',
+                'max-results' => 10000,
+                'sort' => '-ga:visits',
+                'filters' => 'ga:source==google',
+            ));
+            foreach ($pathes2 as $path => $value) {
+                if (isset($result[$path])) {
+                    $result[$path]['period2'] = $value['ga:visits'];
+                    $result[$path]['diff'] = ($result[$path]['period2'] - $result[$path]['period1']) * 100 / $result[$path]['period1'];
+                } else {
+                    $result[$path] = array(
+                        'period1' => 0,
+                        'period2' => $value['ga:visits'],
+                        'diff' => 0,
+                    );
+                }
+            }
+
+            $_result = array();
+            foreach ($result as $k => $r) {
+                $r['id'] = $k;
+                array_push($_result, $r);
+            }
+
+
+            $dp = new CArrayDataProvider($_result, array(
+                'sort' => array(
+                    'attributes' => array('id', 'period1', 'period2', 'diff'),
+                ),
+            ));
+        }
+        else
+            $dp = null;
+        $this->render('seo', compact('dp'));
+    }
 }

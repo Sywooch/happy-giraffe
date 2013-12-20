@@ -11,6 +11,7 @@
 <?=CHtml::endForm()?>
 
 <?php if ($dp !== null): ?>
+Сумма: <?=abs($s)?>
 <?php
 $this->widget('zii.widgets.grid.CGridView', array(
     'dataProvider' => $dp,
@@ -22,16 +23,25 @@ $this->widget('zii.widgets.grid.CGridView', array(
         ),
         array(
             'name' => 'period1',
+            'header' => 'Период 1',
             'type' => 'raw',
             'value' => 'CHtml::encode($data["period1"])',
         ),
         array(
             'name' => 'period2',
+            'header' => 'Период 2',
             'type' => 'raw',
             'value' => 'CHtml::encode($data["period2"])',
         ),
         array(
+            'name' => 'diffC',
+            'header' => 'Разница, кликов',
+            'type' => 'raw',
+            'value' => 'CHtml::encode($data["diffC"])',
+        ),
+        array(
             'name' => 'diff',
+            'header' => 'Разница, %',
             'type' => 'raw',
             'value' => 'CHtml::encode($data["diff"])',
         ),

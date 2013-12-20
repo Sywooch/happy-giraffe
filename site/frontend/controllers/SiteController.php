@@ -490,7 +490,7 @@ class SiteController extends HController
             $pathes1 = $ga->getReport(array(
                 'metrics' => 'ga:visits',
                 'dimensions' => 'ga:pagePath',
-                'max-results' => 10000,
+                'max-results' => 100,
                 'sort' => '-ga:visits',
                 'filters' => 'ga:source==google',
             ));
@@ -499,6 +499,7 @@ class SiteController extends HController
                     'period1' => $value['ga:visits'],
                     'period2' => 0,
                     'diff' => 0,
+                    'diffC' => 0,
                 );
             }
 
@@ -506,7 +507,7 @@ class SiteController extends HController
             $pathes2 = $ga->getReport(array(
                 'metrics' => 'ga:visits',
                 'dimensions' => 'ga:pagePath',
-                'max-results' => 10000,
+                'max-results' => 100,
                 'sort' => '-ga:visits',
                 'filters' => 'ga:source==google',
             ));
@@ -514,11 +515,13 @@ class SiteController extends HController
                 if (isset($result[$path])) {
                     $result[$path]['period2'] = $value['ga:visits'];
                     $result[$path]['diff'] = ($result[$path]['period2'] - $result[$path]['period1']) * 100 / $result[$path]['period1'];
+                    $result[$path]['diffC'] = $result[$path]['period2'] - $result[$path]['period1'];
                 } else {
                     $result[$path] = array(
                         'period1' => 0,
                         'period2' => $value['ga:visits'],
                         'diff' => 0,
+                        'diffC' => 0,
                     );
                 }
             }
@@ -526,14 +529,18 @@ class SiteController extends HController
             $_result = array();
             foreach ($result as $k => $r) {
                 $r['id'] = $k;
-                array_push($_result, $r);
+                if ($r['period1'] > 20 && $r['diff'] < -25)
+                    array_push($_result, $r);
             }
 
+            $s = 0;
+            foreach ($_result as $v)
+                $s += $v['diffC'];
 
             $dp = new CArrayDataProvider($_result, array(
                 'sort' => array(
-                    'attributes' => array('id', 'period1', 'period2', 'diff'),
-                    'defaultOrder' => array('diff'=>false),
+                    'attributes' => array('id', 'period1', 'period2', 'diffC', 'diff'),
+                    'defaultOrder' => array('period1'=>true),
                 ),
                 'pagination' => array(
                     'pageSize' => 200,
@@ -542,6 +549,6 @@ class SiteController extends HController
         }
         else
             $dp = null;
-        $this->render('seo', compact('dp'));
+        $this->render('seo', compact('dp', 's'));
     }
 }

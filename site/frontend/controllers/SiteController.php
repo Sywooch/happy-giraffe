@@ -475,13 +475,18 @@ class SiteController extends HController
     {
         Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
         if ($_POST) {
+            foreach ($_POST as $k => $val)
+                Yii::app()->user->setState($k, $val);
+        }
+
+        if (Yii::app()->user->getState('period1Start') !== null) {
             $result = array();
             Yii::import('site.frontend.extensions.GoogleAnalytics');
 
             $ga = new GoogleAnalytics('nikita@happy-giraffe.ru', 'ummvxhwmqzkrpgzj');
             $ga->setProfile('ga:53688414');
 
-            $ga->setDateRange($_POST['period1Start'], $_POST['period1End']);
+            $ga->setDateRange(Yii::app()->user->getState('period1Start'), Yii::app()->user->getState('period1End'));
             $pathes1 = $ga->getReport(array(
                 'metrics' => 'ga:visits',
                 'dimensions' => 'ga:pagePath',
@@ -497,7 +502,7 @@ class SiteController extends HController
                 );
             }
 
-                $ga->setDateRange($_POST['period2Start'], $_POST['period2End']);
+            $ga->setDateRange(Yii::app()->user->getState('period2Start'), Yii::app()->user->getState('period2End'));
             $pathes2 = $ga->getReport(array(
                 'metrics' => 'ga:visits',
                 'dimensions' => 'ga:pagePath',

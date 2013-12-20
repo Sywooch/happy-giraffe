@@ -533,6 +533,10 @@ class SiteController extends HController
             $dp = new CArrayDataProvider($_result, array(
                 'sort' => array(
                     'attributes' => array('id', 'period1', 'period2', 'diff'),
+                    'defaultOrder' => array('diff'=>false),
+                ),
+                'pagination' => array(
+                    'pageSize' => 200,
                 ),
             ));
         }

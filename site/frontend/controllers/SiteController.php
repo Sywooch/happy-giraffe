@@ -479,7 +479,7 @@ class SiteController extends HController
                 Yii::app()->user->setState($k, $val);
         }
 
-        if (Yii::app()->user->getState('period1Start') !== null) {
+        if ($_POST || Yii::app()->request->isAjaxRequest) {
             $result = array();
             Yii::import('site.frontend.extensions.GoogleAnalytics');
 

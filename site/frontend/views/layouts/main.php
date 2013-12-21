@@ -227,7 +227,7 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
                         </div>
                     </div>
 
-                    <?php $this->widget('application.widgets.registerWidget.RegisterWidget');
+                    <?php $this->renderDynamic('registerPopup');
                     $this->widget('application.widgets.loginWidget.LoginWidget'); ?>
 
                 </div>

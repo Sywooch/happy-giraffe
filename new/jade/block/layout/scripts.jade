@@ -1,0 +1,30 @@
+mixin scripts()
+    script(src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js")
+    script.
+        window.jQuery || document.write('<script src="/javascript/jquery-1.10.2.min.js"><\/script>')
+
+    script(src="/javascript/modernizr-2.7.1.min.js")
+
+    // tooltip
+    script(src="/javascript/jquery.powertip.js")
+    //- script(src="/javascript/jquery.tooltipster.min.js")
+    //- script.
+            //- $(document).ready(function () {
+            //-     /* Подсказки при наведении */
+            //-     $('.powertip').tooltipster({
+            //-         trigger: 'click',
+            //-         animation: 'fade',
+            //-         delay: 200,
+            //-         theme: '.tooltipster-default',
+            //-         touchDevices: true
+            //-     });
+            //- });
+
+    // custom scroll
+    script(src="/javascript/baron.js")
+
+    // wisywig
+    script(src="/redactor/redactor.js")
+
+    // Базовый js (вызывается на всех страницах)
+    script(src="/javascript/common.js")

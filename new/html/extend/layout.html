@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Happy Giraffe</title>
+    <!-- including .css--><link rel="stylesheet" type="text/css" href="../../../css/all1.css" />
+    <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300&amp;subset=latin,cyrillic-ext,cyrillic">
+    <!-- including other jade works-->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script>
+      window.jQuery || document.write('<script src="/javascript/jquery-1.10.2.min.js"><\/script>')
+      
+    </script>
+    <script src="/javascript/modernizr-2.7.1.min.js"></script>
+    <script src="/javascript/jquery.powertip.js"></script>
+    <script>
+      $(window).load(function () {
+          /* Подсказки при наведении */
+          $('.powertip').powerTip({
+              placement: 'n',
+              smartPlacement: true,
+              offset: 8
+          });
+      });
+      
+    </script>
+    <script src="/javascript/baron.js"></script>
+    <script>
+      $(window).load(function() {
+          /* custom scroll */
+          var scroll = $('.scroll').baron({
+              scroller: '.scroll_scroller',
+              barOnCls: 'scroll__on',
+              container: '.scroll_cont',
+              track: '.scroll_bar-hold',
+              bar: '.scroll_bar'
+          }).fullWidth();
+      });
+    </script>
+  </head>
+  <body class="body body__im">
+    <div class="layout-container">
+      <!-- header-->
+      <div class="header">
+        <div class="header_hold clearfix">
+          <!-- logo-->
+          <div class="logo"><a title="Веселый жираф - сайт для всей семьи" href="" class="logo_i">Веселый жираф - сайт для всей семьи</a><span class="logo_slogan">САЙТ ДЛЯ ВСЕЙ СЕМЬИ</span></div>
+          <!-- /logo-->
+        </div>
+      </div>
+      <!-- /header-->
+      <div class="layout-wrapper">
+        <div class="layout-wrapper_hold clearfix">
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

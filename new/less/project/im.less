@@ -1,0 +1,410 @@
+/*
+    body class
+*/
+.body__im {}
+
+/* 
+    Почта
+
+    im
+        im_hold
+*/
+.im {
+    margin: 25px auto;
+    width: 960px;
+	background: #fff;
+    .border-radius(14px);
+    border-top-right-radius: 10px;
+
+    &_hold {}
+    
+    &_loader {
+        min-height: 30px;
+        text-align: center;
+        color: #b6b6b6;
+        font-size: 14px;
+        padding: 7px;
+    }
+    &_loader-tx {
+        display: inline-block;
+        vertical-align: middle;
+        margin: 4px 5px 0;
+    }
+    &_loader-img {
+        display: inline-block;
+        vertical-align: middle;
+        margin: 0 4px;
+    }
+    &_loader-anim {
+        position: relative;
+        -webkit-animation: im_loader-anim 3s infinite; /* Safari 4+ */
+        -moz-animation:    im_loader-anim 3s infinite; /* Fx 5+ */
+        -o-animation:      im_loader-anim 3s infinite; /* Opera 12+ */
+        animation:         im_loader-anim 3s infinite; /* IE 10+ */
+        margin: 0 10px 0 0;
+    }
+    @-webkit-keyframes im_loader-anim {
+      0%   { margin: 0 10px 0 0; }
+      100% { margin: 0 0 0 10px; }
+    }
+    @-moz-keyframes im_loader-anim {
+      0%   { margin: 0 10px 0 0; }
+      100% { margin: 0 0 0 10px; }
+    }
+    @-o-keyframes im_loader-anim {
+      0%   { margin: 0 10px 0 0; }
+      100% { margin: 0 0 0 10px; }
+    }
+    @keyframes im_loader-anim {
+      0%   { margin: 0 10px 0 0; }
+      100% { margin: 0 0 0 10px; }
+    }
+}
+/* /im */
+
+/* 
+    Сайдбар почты
+
+    im-sidebar
+        im-sidebar_panel
+            im-sidebar_sound
+            im-sidebar_sound-ico
+            ...
+        im-sidebar_users
+            ...
+           im-sidebar_search
+            im-sidebar_search-itx.itx
+            im-sidebar_search_btn
+
+*/
+.im-sidebar {
+    position: relative;
+    float: left;
+    width: 339px;
+    height: 100%;
+    border-right: 1px solid #e9e9e9;
+    background: url(/images/im/im-sidebar.png) repeat-y;
+    .border-left-radius(10px);
+
+    &_panel {
+        float: left;
+        width: 80px;
+    }
+    &_sound {
+        position: absolute;
+        bottom: 23px;
+        left: 0;
+        .border-right-radius(9px);
+        background: #16b45a;
+    }
+    &_sound:hover {background: #14a653;}
+    &_sound-ico {
+        display: block;
+        width: 55px;
+        height: 62px;
+        background: url(/images/im/im-sidebar_sound-ico.png) no-repeat 0 11px;
+    }
+    &_sound-ico:hover {background-position: 0 -89px;}
+    &_users {
+        float: left;
+        width: 259px;
+    }
+    &_search {
+        position: relative;
+        padding: 14px 15px 15px;
+        background: #e0e1e2;
+    }
+    &_search-itx {
+        display: block;
+        width: 180px;
+        height: 16px;
+        padding: 6px 35px 6px 15px;
+        border: none;
+        font-size: 14px;
+        line-height: 16px;
+        background: #fff;
+        .border-radius(18px);
+        .transition(all 0.3s ease);
+    }
+    &_search-itx:focus {border-color: #afd0fb;}
+    &_search-btn {
+        background: url(/images/im/im-sidebar_search-btn.png) no-repeat 50% 50%;
+        border: 0;
+        cursor: pointer;
+        float: right;
+        height: 28px;
+        margin: -28px 5px 0 0;
+        width: 30px;
+    }
+    &_search-btn.active { background: url(/images/ico/ico-close.png) no-repeat 50% 50%;}
+}
+/* /im-sidebar */
+
+/*
+    Список диалогов
+
+    im-user-list
+        im-user-list_i
+            im-user-list_count
+            im-user-list_set
+                <ava>
+                im-user-list_set-name
+                    im-user-list_set-a
+*/
+.im-user-list {
+    position: relative;
+
+    .ava {
+        float: left;
+        margin-right: 10px;
+    }
+    .cap-empty {margin-top: 80px;}
+    &_i {
+        position: relative;
+        border-bottom: 1px solid #e6e6e6;
+        padding: 10px 15px;
+        cursor: pointer;
+    }
+    &_i:hover {background: #f7f7f7;}
+    &_i.active {background: #4fc1e9;}
+    &_i.active &_set-a {
+        color: #fff;
+    }
+    &_set {
+        overflow: hidden;
+        font-weight: bold;
+    }
+    &_set-name {
+        overflow: hidden;
+        margin-top: 12px;
+    }
+    &_set-a {
+        display: block;
+        overflow: hidden;
+        color: #242424;
+        text-decoration: none;
+        .text-overflow();
+    }
+    &_count {
+        float: right;
+        margin: 8px 3px 0 5px;
+        padding: 2px 7px;
+        background: #fa5327;
+        font-size: 13px;
+        line-height: 18px;
+        color: #fff;
+        min-width: 7px;
+        .border-radius(20px);
+        text-align: center;
+    }
+}
+/* /im-user-list */
+
+/*
+    Центральная часть окна почты
+    im-center
+        im-center_top
+            ...
+        im-center_middle
+            im-center_middle-hold
+                im-center_middle-w
+                    ...
+        im-center_bottom
+            im-center_bottom-ava
+            im-center_bottom-hold
+                im-center_bottom-itx
+*/
+.im-center {
+    float: right;
+    width: 620px;
+
+    &_top {}
+    &_middle {padding: 0;}
+    &_middle-hold {
+        overflow: hidden;
+        overflow-y: auto;
+        height: 300px;
+    }
+    &_middle-w {
+        position: relative;
+    }
+    &_bottom {
+        position: relative;
+    }
+    &_bottom-w {
+        background: #e0e1e2;
+        padding: 22px 12px;
+        border-bottom-right-radius: 10px;
+    }
+    &_bottom-ava {
+        float: left;
+        margin-right: 13px;
+    }
+    &_bottom-hold {
+        margin: 0 80px 0 55px;
+    }
+    &_bottom-itx {
+        margin: 0;
+        border: 1px solid #d6d8d9;
+        padding: 10px 10px 14px;
+        font-size: 14px;
+        width: 100%;
+        .box-sizing(padding-box);
+    }
+}
+/* /im-center */
+
+/* 
+    Панель собеседника
+
+    im-panel
+        im-panel_actions
+            im-panel_ico-hold
+                im-panel_ico    __ban   __del
+                im-panel_drop
+        im-panel_user
+            <ava>
+            im-panel_user-status
+            im-panel_user-name
+            im-panel_friend     __add   __added
+*/
+.im-panel {
+    padding: 8px 15px 8px;
+    border-bottom: 1px solid #e9e9e9;
+    
+    .ava {
+        float: left;
+        margin-right: 10px;
+    }
+    &_actions {
+        float: right;
+        position: relative;
+        z-index: 1;
+        margin: 14px 10px 0;
+    }
+    &_ico-hold {
+        float: right;
+        margin-left: 8px;
+    }
+    &_ico {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        background: url(/images/im/im-panel_ico.png) no-repeat;
+    }
+    &_ico__ban {background-position: 0 0;}
+    &_ico__ban:hover {background-position: 0 -20px;}
+    &_ico__del {background-position: -20px 0;}
+    &_ico__del:hover {background-position: -20px -20px;}
+
+    &_user {
+        position: relative;
+    }
+    &_user-status {
+        position: absolute;
+        top: 2px;
+        left: 50px;
+        color: #b6b9ba;
+        font: @font-xxs @altfont1;
+    }
+    &_user-name {
+        display: inline-block;
+        vertical-align: middle;
+        padding-top: 10px;
+        font: 25px/30px @altfont2;
+        color: #3f3053;
+    }
+    &_friend {
+        display: inline-block;
+        vertical-align: bottom;
+        text-decoration: none;
+        margin: 0 10px 2px;
+    }
+    &_friend:hover &_friend-ico {background-position: -30px -30px;}
+    &_friend:hover &_friend-tx {color: #5f5e61;}
+    &_friend__add &_friend-ico {background-position: 0 0;}
+    &_friend__add:hover &_friend-ico {background-position: 0 -30px;}
+    &_friend__added:hover {cursor: default;}
+    &_friend__added:hover &_friend-ico {background-position: -30px 0px;}
+    &_friend__added:hover &_friend-tx {color: #babdc0;}
+    &_friend-ico {
+        float: left;
+        width: 30px;
+        height: 30px;
+        margin-right: 5px;
+        background: url(/images/im/im-panel_ico-friend.png) no-repeat -30px 0;
+    }
+    &_friend-tx {
+        display: inline-block;
+        margin: 4px 0 0;
+        color: #babdc0;
+        font: @fontsmallest;
+    }
+}
+/* /im-panel */
+
+/*
+    Сообщение 
+
+    im-message  __new   __edited
+
+*/
+.im-message {
+    position: relative;
+    margin: 0;
+    padding: 15px 23px;
+    &__new {background: #e8fce6;}
+    &__edited &_tx {background: #fdfcd9;}
+    
+    &:hover .b-control {display: block;}
+    .b-control {display: none;}
+    &_ava {
+        float: left;
+        width: 30px;
+        margin-top: 3px;
+    }
+    &_r {
+        float: right;
+        width: 80px;
+        text-align: right;
+    }
+    &_date {
+        font: @fontsmallest;
+        color: @color-gray-light;
+        margin-bottom: 3px;
+    }
+    &_hold {
+        margin: 0 90px 0 40px;
+    }
+    &_t {}
+    &_t-read {
+        display: inline-block;
+        margin: 0 10px;
+        font: @fontsmall;
+        color: #47c05a;
+    }
+    &_t-read-no {
+        display: inline-block;
+        margin: 0 10px;
+        font: @fontsmall;
+        color: #3498db;
+    }
+    &_name {
+        color: #3d3d3d;
+        font-size: 11px;
+        font-weight: bold;
+        text-decoration: none;
+    }
+    &_name__friend {
+        color: #289fd7;
+        font-family: 'arial black', Arial, Tahoma, Verdana, sans-serif;
+    }
+    &_tx {
+        margin: 0;
+        padding: 1px 0;
+        line-height: 16px;
+        color: #555;
+    }
+
+}
+/* /im-message */

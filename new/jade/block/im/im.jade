@@ -1,0 +1,177 @@
+//- js для расчетов положения почты
+mixin js-im
+    // js ля расчетов положения почты 
+    script.
+        var im = []
+        im.imHeight = function () {
+            // 50 - отступы от im
+            var h = im.windowHeight - im.headerHeight - 50; 
+            if (h < 390) {
+                h = 390
+            }
+
+            im.imCenter.height(h);
+            // 57 - отступ под поле поиска
+            im.imUserList.height(h - 57);
+        }
+        im.containerHeight = function() {
+            var h = im.imCenter.height() - im.centerTop.height() - im.centerBottom.height();
+            im.container.height(h);
+        }
+        $(document).ready(function () {
+            im.windowHeight = $(window).height(); 
+            im.imCenter = $(".im-center");
+            im.imUserList = $(".im-user-list");
+
+            im.container = $('.im-center_middle-hold');
+
+            im.centerTop = $('.im-center_top');
+            im.centerBottom = $('.im-center_bottom');
+
+            im.headerHeight = $('.header').height();
+
+            im.imHeight();
+            im.containerHeight();
+
+            $(window).resize(function() {
+                im.windowHeight = $(window).height();
+                im.imHeight();
+                im.containerHeight();
+            });
+        });
+
+//- im-sidebar_search
+//- Поиск диалогов
+mixin im-sidebar_search()
+  .im-sidebar_search.clearfix
+      input.im-sidebar_search-itx(type='text', name='', placeholder='Поиск диалогов')
+      button.im-sidebar_search-btn
+
+
+//- im-user-list
+//- Список диалогов почты
+mixin im-user-list(mod, vars)
+    // im-user-list
+    .im-user-list(class=mod)
+        .scroll
+            .scroll_scroller
+                .scroll_cont
+                    if (vars.empty)
+                        +cap-empty("", {txSub: "По данному запросу <br> контактов не найдено."})
+                    else 
+                        .im-user-list_i.clearfix.active
+                                .im-user-list_count 255
+                                .im-user-list_set
+                                    +ava("ava__middle ava__female", avaVars)
+                                    .im-user-list_set-name
+                                        a.im-user-list_set-a(href='') Александр Богоявленский
+                        - for (var x = 0; x < vars.usersCount; x++)
+                            .im-user-list_i.clearfix
+                                .im-user-list_count 9
+                                .im-user-list_set
+                                    +ava("ava__middle ava__female", avaVars)
+                                    .im-user-list_set-name
+                                        a.im-user-list_set-a(href='') Арина Поплавская
+            .scroll_bar-hold
+                .scroll_bar
+                    .scroll_bar-in
+    // /im-user-list
+
+
+//- im-panel
+//- Панель собеседника диалога
+    mod =
+    vars 
+        friend = 
+                friend
+                friend__add
+                friend__added
+mixin im-panel(mod, vars)
+    // im-panel
+    .im-panel(class=mod)
+        .im-panel_actions
+            .im-panel_ico-hold
+                a.im-panel_ico.im-panel_ico__del.powertip(href="", title="Удалить диалог")
+                .im-panel_drop
+            .im-panel_ico-hold
+                a.im-panel_ico.im-panel_ico__ban.powertip(href="", title="Заблокировать")
+                .im-panel_drop
+        .im-panel_user.clearfix
+            // Если пользователь online .im-panel_user-status не нужнен, а в .ava .ico-status.ico-status__online
+            - avaVars = {icoStatus: 'ico-status__online', src: 'http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg'}
+            +ava("ava__middle ava__female", avaVars)
+            .im-panel_user-status Был на сайте 2 мин назад
+            .im-panel_user-name Александр Богоявленский
+            // У иконки 3 состояния. 
+                Друг - без моидфикатора
+                Добавить в друзья - .friend__add
+                Приглашение отправленно - .friend__added
+            - if (vars.friend == "friend") {
+                a.im-panel_friend(href="")
+                    span.im-panel_friend-ico
+                    span.im-panel_friend-tx Друг
+            - } else if (vars.friend == "friend__add") {
+                a.im-panel_friend.im-panel_friend__add(href="")
+                    span.im-panel_friend-ico
+                    span.im-panel_friend-tx Добавить <br> в друзья
+            - } else if (vars.friend == "friend__added") {
+                a.im-panel_friend.im-panel_friend__added(href="")
+                    span.im-panel_friend-ico
+                    span.im-panel_friend-tx Приглашение <br> отправленно
+            - }
+    // /im-panel
+
+
+//- im-message
+//- Сообщение диалога
+    mod = 
+    vars 
+        mod_name =  im-message_name__self
+                    im-message_name__friend
+        bControl
+
+mixin im-message(mod, vars)
+    // im-message
+    .im-message(class=mod)
+        .im-message_ava
+            +ava('ava__small ava__male', avaVars)
+        .im-message_r
+            .im-message_date Вчера 13:45
+            .im-message_control
+                - if (!vars.bControl) {vars.bControl = ""}
+                    +b-control("", vars.bControl)
+        .im-message_hold
+            .im-message_t
+                span.im-message_name(class=vars.mod_name) Александр Богоявленский
+                if (vars.messageRead == "read")
+                    span.im-message_t-read Сообщение прочитано
+                if (vars.messageRead == "read-no")
+                    span.im-message_t-read-no Сообщение не прочитано
+            case vars.msgStatus
+                when 'cancel'
+                    // Когда сообщение отменено или удалено то блок .b-control удалется из сообщения или к нему добавляется класс display-n
+                    .im-message_tx.color-gray Сообщение отменено.
+                when 'delete'
+                    .im-message_tx.color-gray Сообщение удалено. <a href="#" class="font-s">Восстановить</a>
+                default
+                    .im-message_tx 
+                        | я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.  я не нашел, где можно поменять название трека. Меняя название трека в альбоме он
+    // /im-message
+
+//- Редактор внизу почты
+//- mod
+    vars
+        wisywig
+mixin im-center_bottom(mod, vars)
+    // im-center_bottom
+    .im-center_bottom(class=mod)
+        .im-center_bottom-w.clearfix
+            .im-center_bottom-ava
+                +ava("ava__middle ava__female", avaVars );
+            .im-center_bottom-hold
+                //- - if (vars.wisywig == true)
+                //-     +redactor-control-b()
+                //- - else 
+                // По клику на input заменять на wysiwyg 
+                input.im-center_bottom-itx(type='text', placeholder="Введите ваше сообщение")
+    // /im-center_bottom

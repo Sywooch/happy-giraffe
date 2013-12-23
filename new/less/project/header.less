@@ -1,0 +1,52 @@
+/* 
+    header 
+    Главная шапка сайта
+
+    header
+        header_hold
+            <logo>
+*/
+.header {
+	background: #fff;
+
+    .logo {
+        float: left;
+        margin: 5px 40px 5px 40px;
+    }
+
+	&_hold {
+		width: 1000px;
+		margin: 0 auto;
+		padding: 30px 0 30px;
+	}
+}
+/* /header */
+
+/* 
+    logo 
+    Главное лого сайта
+    
+    logo
+        logo_i
+        logo_slogan
+*/
+.logo {
+    position: relative;
+    margin: 0 auto;
+    padding: 0;
+    overflow: hidden;
+    
+    &_i {
+        display:block;
+        width:230px;
+        height:65px;
+        text-indent:-9999px;
+        margin:0 auto;
+        .img-retina('/images/base/logo.png'; '/images/base/logo.png'; 230px; 65px);
+    }
+    &_slogan {
+        position: absolute;
+        left: -9000px;
+    }
+}
+/* /logo */

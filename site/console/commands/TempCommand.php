@@ -134,6 +134,7 @@ class TempCommand extends CConsoleCommand
         $count = $dp->totalItemCount;
         $i = 0;
         foreach ($iterator as $post) {
+            $i++;
             $post->uniqueness = (strlen($post->post->text) > 250) ? CopyScape::getUniquenessByText($post->post->text) : 1;
             $post->update(array('uniqueness'));
             echo $i . '/' . $count . "\n";

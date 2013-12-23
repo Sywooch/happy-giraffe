@@ -1,0 +1,36 @@
+include ../../block/config
+extend ../../extend/layout
+
+block layout-wrapper_hold
+    // im
+    .im
+        +js-im
+        .im_hold.clearfix
+            // im-sidebar
+            section.im-sidebar.clearfix
+                .im-sidebar_panel
+                    +side-menu("side-menu__im")
+                    .im-sidebar_sound
+                        a.im-sidebar_sound-ico(href="")
+                .im-sidebar_users
+                    +im-sidebar_search()
+                    +im-user-list("", {empty: true})
+            // /im-sidebar
+
+            // im-center
+            section.im-center
+                +cap-empty("cap-empty__abs cap-empty__im-ava", {t: 'Для того, чтобы начать диалог необходимо <br /> загрузить свое главное фото', txSub: '<div class="file-fake"><button class="file-fake_btn btn-green btn-m">Загрузить фото</button><input type="file" class="file-fake_inp"></div>'})
+                .im-center_top
+                    +im-panel("", {friend: "friend__added"})
+                .im-center_middle
+                    .scroll
+                        .im-center_middle-hold.scroll_scroller
+                            .im-center_middle-w.scroll_cont
+                                +im-message("", {mod_name: "im-message_name__friend", bControl: ['favorite', 'delete', 'spam']})
+                        .scroll_bar-hold
+                            .scroll_bar
+                                .scroll_bar-in
+                +im-center_bottom("", {wisywig: true})
+                
+            // /im-center
+    // /im

@@ -46,6 +46,12 @@
         <!--[if IE 7]>
             <link rel="stylesheet" href='/stylesheets/ie.css' type="text/css" media="screen" />
         <![endif]-->
+
+        <script type="text/javascript" src="//vk.com/js/api/openapi.js?88"></script>
+
+        <script type="text/javascript">
+            VK.init({apiId: 2855330, onlyWidgets: true});
+        </script>
     </head>
     <body class="body-gray<?php if ($this->bodyClass !== null): ?> <?=$this->bodyClass?><?php endif; ?>">
         <?=$content?>

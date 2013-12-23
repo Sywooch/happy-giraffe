@@ -1,0 +1,53 @@
+include ../../block/config
+extend ../../extend/layout
+
+block layout-wrapper_hold
+    // im
+    .im
+        +js-im
+        .im_hold.clearfix
+            // im-sidebar
+            section.im-sidebar.clearfix
+                .im-sidebar_panel
+                    +side-menu("side-menu__im")
+                    .im-sidebar_sound
+                        a.im-sidebar_sound-ico(href="")
+                .im-sidebar_users
+                    +im-sidebar_search()
+                    +im-user-list("", {usersCount: 20})
+            // /im-sidebar
+
+            // im-center
+            section.im-center
+                .im-center_top
+                    +im-panel("", {friend: "friend__add"})
+                .im-center_middle
+                    .scroll
+                        .im-center_middle-hold.scroll_scroller
+                            .im-center_middle-w.scroll_cont
+                                .im_loader
+                                    img.im_loader-img(src='/images/ico/ajax-loader.gif', alt='')
+                                    span.im_loader-tx Загрузка ранних сообщений
+                                
+                                +im-message("", {mod_name: "im-message_name__self", bControl: ['favorite', 'delete', 'spam']})
+                                +im-message("", {mod_name: "im-message_name__friend", bControl: ['favorite', 'delete', 'spam']})
+                                +im-message("", {mod_name: "im-message_name__self", bControl: ['delete']})
+                                +im-message("", {mod_name: "im-message_name__self", msgStatus: 'delete'})
+                                +im-message("", {mod_name: "im-message_name__self", msgStatus: 'cancel'})
+                                +im-message("", {mod_name: "im-message_name__self", bControl: ['delete'], messageRead: 'read'})
+                                +im-message("", {mod_name: "im-message_name__self", bControl: ['edit', 'cancel'],messageRead: 'read-no'})
+                                // im_loader есть всегда, на разные действия в нем менятеся содержимое
+                                .im_loader
+                                    img.im_loader-img(src='/images/ico/ajax-loader.gif', alt='')
+                                    span.im_loader-tx Отправляем сообщение
+                                .im_loader
+                                    span.im_loader-tx Олег печатает вам сообщение
+                                    img.im_loader-anim(src='/images/im/im-message_loader__write.png', alt='')
+                        .scroll_bar-hold
+                            .scroll_bar
+                                .scroll_bar-in
+                - var imCenter_bottom = {}
+                +im-center_bottom("", imCenter_bottom)
+            
+            // /im-center
+    // /im

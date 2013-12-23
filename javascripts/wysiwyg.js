@@ -220,6 +220,7 @@ var Video = function(data, parent) {
         var toolbarVerticalFixed = options.hasOwnProperty('plugins') && options.plugins.indexOf('toolbarVerticalFixed') != -1;
 
         $.get('/ajax/redactor/', {}, function(response) {
+            $('.wysiwyg-related').remove();
             $('body').append(response);
             textarea.before('<div class="wysiwyg-toolbar"><div class="wysiwyg-toolbar-btn"></div>');
 

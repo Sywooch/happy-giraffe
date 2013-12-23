@@ -43,7 +43,7 @@
     ";
 
     Yii::app()->clientScript
-        ->registerScriptFile('http://vk.com/js/api/share.js?11', CClientScript::POS_HEAD)
+        ->registerScriptFile('http://vk.com/js/api/share.js?11')
         ->registerMetaTag($this->options['title'], null, null, array('property' => 'og:title'))
         ->registerMetaTag($this->options['image'], null, null, array('property' => 'og:image'))
         ->registerMetaTag($this->options['description'], null, null, array('property' => 'og:description'))
@@ -117,7 +117,7 @@
             <script type="text/javascript">
                 $(function () {
                     //подписываемся на клик
-                    if (VK && VK.Share && VK.Share.click) {
+                    if (typeof VK !== 'undefined' && VK.Share && VK.Share.click) {
                         var oldShareClick = VK.Share.click;
                         VK.Share.click = function (index, el) {
                             Social.updateLikesCount('vk');

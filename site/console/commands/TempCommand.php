@@ -124,7 +124,7 @@ class TempCommand extends CConsoleCommand
     {
         $criteria = new CDbCriteria();
         $criteria->with = array('author', 'post');
-        //$criteria->condition = 'WHERE t.id > 112549 AND uniqueness IS NULL AND type_id = 1 AND (author.group = 0 OR author.group = 4)';
+        $criteria->condition = 't.id > 112549 AND uniqueness IS NULL AND type_id = 1 AND (author.group = 0 OR author.group = 4)';
 
         $dp = new CActiveDataProvider('CommunityContent', array(
             'criteria' => $criteria,

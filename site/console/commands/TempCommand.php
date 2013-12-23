@@ -119,4 +119,25 @@ class TempCommand extends CConsoleCommand
             MessagingMessage::model()->create($text, $thread->id, 1, array(), true);
         }
     }
+
+    public function actionCopyScape()
+    {
+        $criteria = new CDbCriteria();
+        $criteria->with = array('author', 'post');
+        $criteria->condition = 'WHERE c.id > 112549 AND uniqueness IS NULL AND type_id = 1 AND (u.group = 0 OR u.group = 4)';
+
+        $dp = new CActiveDataProvider('CommunityContent', array(
+            'criteria' => $criteria,
+        ));
+
+        $iterator = new CDataProviderIterator($dp);
+        $count = $dp->totalItemCount;
+        echo $count; die;
+        $i = 0;
+        foreach ($iterator as $post) {
+            $post->uniqueness = (strlen($post->post->text) > 250) ? CopyScape::getUniquenessByText($post->post->text) : 1;
+            $post->update(array('uniqueness'));
+            echo $i . '/' . $count . "\n";
+        }
+    }
 }

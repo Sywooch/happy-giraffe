@@ -74,6 +74,10 @@ switch ($data->type_id) {
     </div>
 </div>
 
+<?php if ($full): ?>
+    <?php $this->widget('blog.widgets.PrevNextWidget', array('post' => $data)); ?>
+<?php endif; ?>
+
 <?php if ($full && $data->contestWork !== null): ?>
     <?php $this->renderPartial('application.modules.blog.views.default._contest_bottom', compact('data')); ?>
 <?php endif; ?>
@@ -94,15 +98,11 @@ switch ($data->type_id) {
     <?php $this->widget('blog.widgets.PostUsersWidget', array('post' => $data)); ?>
 <?php endif; ?>
 
-<?php if ($full && ! $data->getIsFromBlog() && $data->rubric->community_id != Community::COMMUNITY_NEWS): ?>
+<?php if (false && $full && ! $data->getIsFromBlog() && $data->rubric->community_id != Community::COMMUNITY_NEWS): ?>
     <?php $this->widget('CommunityMoreWidget', array('content' => $data)); ?>
 <?php endif; ?>
 
 <?php $this->widget('application.widgets.seo.SeoLinksWidget'); ?>
-
-<?php if ($full): ?>
-    <?php $this->widget('blog.widgets.PrevNextWidget', array('post' => $data)); ?>
-<?php endif; ?>
 
 <?php if ($full): ?>
 <script type="text/javascript">

@@ -23,7 +23,7 @@
         <?php if ($prev !== null): ?>
             <td>
                 <a href="<?=$prev->url?>" class="article-nearby_a clearfix">
-                    <?php if (($prevPhoto = $prev->getPhoto()) !== null): ?>
+                    <?php if (false && (($prevPhoto = $prev->getPhoto()) !== null)): ?>
                         <span class="article-nearby_img-hold"><?=CHtml::image($prevPhoto->getPreviewUrl(null, 61, Image::HEIGHT), $prev->title)?></span>
                     <?php endif; ?>
                     <span class="article-nearby_tx"><?=$prev->title?></span>
@@ -34,7 +34,7 @@
             <td class="article-nearby_r">
                 <a href="<?=$next->url?>" class="article-nearby_a clearfix">
                     <span class="article-nearby_tx"><?=$next->title?></span>
-                    <?php if (($nextPhoto = $next->getPhoto()) !== null): ?>
+                    <?php if (false && (($nextPhoto = $next->getPhoto()) !== null)): ?>
                         <span class="article-nearby_img-hold"><?=CHtml::image($nextPhoto->getPreviewUrl(null, 61, Image::HEIGHT), $next->title)?></span>
                     <?php endif; ?>
                 </a>

@@ -132,7 +132,6 @@ class TempCommand extends CConsoleCommand
 
         $iterator = new CDataProviderIterator($dp);
         $count = $dp->totalItemCount;
-        echo $count; die;
         $i = 0;
         foreach ($iterator as $post) {
             $post->uniqueness = (strlen($post->post->text) > 250) ? CopyScape::getUniquenessByText($post->post->text) : 1;

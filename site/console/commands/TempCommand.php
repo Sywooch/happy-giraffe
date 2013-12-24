@@ -171,9 +171,9 @@ class TempCommand extends CConsoleCommand
         $ga->setDateRange('2013-09-01', '2013-12-24');
 
         $criteria = new CDbCriteria();
-//        $criteria->condition = 'created > :created';
-//        $criteria->params = array(':created' => '2013-09-01 00:00:00');
-//        $criteria->addInCondition('author_id', array(181638, 34531));
+        $criteria->condition = 'created > :created';
+        $criteria->params = array(':created' => '2013-09-01 00:00:00');
+        $criteria->addInCondition('author_id', array(181638, 34531));
 
         $dp = new CActiveDataProvider('CommunityContent', array(
             'criteria' => $criteria,
@@ -202,6 +202,7 @@ class TempCommand extends CConsoleCommand
             echo $i . '/' . $count . "\n";
         }
 
+        unlink(Yii::getPathOfAlias('site.common.data') . '/seo2.csv');
         $fp = fopen(Yii::getPathOfAlias('site.common.data') . '/seo2.csv', 'w');
 
         foreach ($result as $fields) {

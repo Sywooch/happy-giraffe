@@ -189,12 +189,20 @@ class TempCommand extends CConsoleCommand
             $i++;
 
             if (Seo2::model()->findByAttributes(array('url' => $post->url)) === null) {
-                $report = $ga->getReport(array(
-                    'metrics' => 'ga:uniquePageviews',
-                    'sort' => '-ga:uniquePageviews',
-                    'dimensions' => 'ga:source',
-                    'filters' => urlencode('ga:pagePath==' . $post->url),
-                ));
+                do {
+                    $report = null;
+                    try {
+                        $report = $ga->getReport(array(
+                            'metrics' => 'ga:uniquePageviews',
+                            'sort' => '-ga:uniquePageviews',
+                            'dimensions' => 'ga:source',
+                            'filters' => urlencode('ga:pagePath==' . $post->url),
+                        ));
+                    } catch(Exception $e) {
+                        sleep(60);
+                        echo "waiting...\n";
+                    }
+                } while ($report === null);
 
                 $google = isset($report['google']) ? $report['google']['ga:uniquePageviews'] : 0;
                 $yandex = isset($report['yandex']) ? $report['yandex']['ga:uniquePageviews'] : 0;

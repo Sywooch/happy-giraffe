@@ -109,12 +109,13 @@ return array(
         'ko_im' => array(
             'baseUrl' => '/',
             'js' => array(
-                'javascripts/im.js',
-                'javascripts/messaging.js',
+                //'javascripts/im.js',
+                'javascripts/ko_messaging.js',
                 'javascripts/knockout.mapping-latest.js',
                 'javascripts/soundmanager2.js',
                 'javascripts/wysiwyg.js',
                 'javascripts/imagesloaded.pkgd.min.js',
+				'javascripts/baron.js',
             ),
             'depends' => array('knockout', 'comet', 'jquery.ui'),
         ),

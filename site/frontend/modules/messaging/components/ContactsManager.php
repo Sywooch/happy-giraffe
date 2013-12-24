@@ -45,7 +45,7 @@ class ContactsManager
     {
         $sql = self::getSql($type);
 
-        $command = Yii::app()->db->createCommand($sql);
+		$command = Yii::app()->db->createCommand($sql);
         $command->bindValue(':user_id', $userId, PDO::PARAM_INT);
         $command->bindValue(':limit', (int) $limit, PDO::PARAM_INT);
         $command->bindValue(':offset', (int) $offset, PDO::PARAM_INT);
@@ -288,21 +288,16 @@ class ContactsManager
         ));
 
         return array(
-            'user' => array(
-                'id' => (int) $row['uId'],
-                'firstName' => $row['first_name'],
-                'lastName' => $row['last_name'],
-                'gender' => (int) $row['gender'],
-                'avatar' => $user->getAvatarUrl(Avatar::SIZE_MICRO),
-                'online' => (bool) $row['online'],
-                'isFriend' => (bool) $row['isFriend'],
-            ),
-            'thread' => ($row['tId'] === null) ? null : array(
-                'id' => (int) $row['tId'],
-                'updated' => (int) $row['updated'],
-                'unreadCount' => (int) $row['unreadCount'],
-                'hidden' => (bool) $row['hidden'],
-            ),
+			'id' => (int) $row['uId'],
+			'firstName' => $row['first_name'],
+			'lastName' => $row['last_name'],
+			'gender' => (int) $row['gender'],
+			'avatar' => $user->getAvatarUrl(Avatar::SIZE_MEDIUM),
+			'channel' => $user->publicChannel,
+			'isOnline' => (bool) $row['online'],
+			'isFriend' => (bool) $row['isFriend'],
+			'date' => (int) $row['updated'],
+			'count' => (int) $row['unreadCount'],
         );
     }
 }

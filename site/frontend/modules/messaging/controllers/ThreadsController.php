@@ -26,7 +26,7 @@ class ThreadsController extends HController
      *
      * Создает новый диалог с указанным собеседником
      */
-    public function actionCreate()
+    /*public function actionCreate()
     {
         $interlocutor_id = Yii::app()->request->getPost('interlocutor_id');
 
@@ -42,7 +42,7 @@ class ThreadsController extends HController
             'success' => $success,
         );
         echo CJSON::encode($response);
-    }
+    }*/
 
     /**
      * Изменяет статус видимости диалога
@@ -74,7 +74,7 @@ class ThreadsController extends HController
     /**
      * Изменяет статус прочитанности диалога
      */
-    public function actionChangeReadStatus()
+    /*public function actionChangeReadStatus()
     {
         $threadId = Yii::app()->request->getPost('threadId');
         $readStatus = Yii::app()->request->getPost('readStatus');
@@ -98,7 +98,7 @@ class ThreadsController extends HController
             'messagesCount' => $messagesCount,
         );
         echo CJSON::encode($response);
-    }
+    }*/
 
     /**
      * Подгружает выбранный диалог
@@ -106,15 +106,32 @@ class ThreadsController extends HController
      * @param $threadId
      * @param int $offset
      */
-    public function actionGetMessages($threadId, $offset = 0)
+    public function actionGetMessages($userId, $lastDate = false)
     {
-        $thread = MessagingThread::model();
-        $thread->id = $threadId;
-        $messages = $thread->getMessages(Yii::app()->user->id, self::MESSAGES_PER_PAGE, $offset);
-        $last = $thread->countMessages(Yii::app()->user->id) <= ($offset + self::MESSAGES_PER_PAGE);
-
-        $data = compact('messages', 'last');
-        echo CJSON::encode($data);
+		$result = array();
+		$me = Yii::app()->user->id;
+        $messages = MessagingMessage::model()->between($me, $userId)->withMyStats($me);
+		if($lastDate) {
+			$messages->older($lastDate);
+		}
+		// Загрузим на одно сообщение больше, что бы узнать последняя ли это страница
+		$messages = $messages->findAll(array( 'limit' => self::MESSAGES_PER_PAGE + 1 ));
+		$result['last'] = sizeof($messages) <= self::MESSAGES_PER_PAGE;
+		$count = min(sizeof($messages), self::MESSAGES_PER_PAGE);
+		for($i = 0; $i < $count; $i++) {
+			$message = $messages[$i];
+			$result['messages'][$i] = array(
+				'id' => $message->id,
+				'from_id' => $message->author_id,
+				'to_id' => $message->author_id == $me ? $userId : $me,
+				'text' => $message->text,
+				'created' => $message->created,
+				'dtimeRead' => $message->messageUsers[0]->dtime_read,
+				'dtimeDelete' => $message->messageUsers[0]->dtime_delete,
+			);
+		}
+		
+        echo CJSON::encode($result);
     }
 
     public function actionDeleteMessages()

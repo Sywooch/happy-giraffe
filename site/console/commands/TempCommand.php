@@ -187,6 +187,7 @@ class TempCommand extends CConsoleCommand
             $i++;
             $report = $ga->getReport(array(
                 'metrics' => 'ga:uniquePageviews',
+                'sort' => '-ga:uniquePageviews',
                 'dimensions' => 'ga:source',
                 'filters' => urlencode('ga:pagePath==' . $post->url),
             ));

@@ -215,4 +215,57 @@ class TempCommand extends CConsoleCommand
             echo $i . '/' . $count . "\n";
         }
     }
+
+    public function actionSeo3()
+    {
+        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
+        Yii::import('site.common.models.mongo.*');
+        Yii::import('site.frontend.extensions.GoogleAnalytics');
+
+        $ga = new GoogleAnalytics('nikita@happy-giraffe.ru', 'ummvxhwmqzkrpgzj');
+        $ga->setProfile('ga:53688414');
+        $ga->setDateRange('2013-01-01', '2013-12-24');
+
+        $criteria = new CDbCriteria();
+        $criteria->condition = 'removed = 1';
+        $criteria->order = 'id ASC';
+
+        $dp = new CActiveDataProvider('CommunityContent', array(
+            'criteria' => $criteria,
+        ));
+
+        $iterator = new CDataProviderIterator($dp);
+        $count = $dp->totalItemCount;
+        $i = 0;
+        foreach ($iterator as $post) {
+            $i++;
+
+            if (Seo2::model()->findByAttributes(array('url' => $post->url)) === null) {
+                do {
+                    $report = null;
+                    try {
+                        $report = $ga->getReport(array(
+                            'metrics' => 'ga:uniquePageviews',
+                            'sort' => '-ga:uniquePageviews',
+                            'dimensions' => 'ga:source',
+                            'filters' => urlencode('ga:pagePath==' . $post->url),
+                        ));
+                    } catch(Exception $e) {
+                        sleep(60);
+                        echo "waiting...\n";
+                    }
+                } while ($report === null);
+
+                $google = isset($report['google']) ? $report['google']['ga:uniquePageviews'] : 0;
+                $yandex = isset($report['yandex']) ? $report['yandex']['ga:uniquePageviews'] : 0;
+                $model = new Seo3();
+                $model->url = $post->url;
+                $model->google = $google;
+                $model->yandex = $yandex;
+                $model->save();
+            }
+
+            echo $i . '/' . $count . "\n";
+        }
+    }
 }

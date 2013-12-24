@@ -555,7 +555,14 @@ class SiteController extends HController
     public function actionSeo2()
     {
         Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
-        $dp = new EMongoDocumentDataProvider('Seo2');
+        $dp = new EMongoDocumentDataProvider('Seo2', array(
+            'sort' => array(
+                'attributes' => array('google', 'yandex'),
+            ),
+            'pagination' => array(
+                'pageSize' => 200,
+            ),
+        ));
         $this->render('seo2', compact('dp'));
     }
 }

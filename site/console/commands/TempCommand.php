@@ -176,6 +176,7 @@ class TempCommand extends CConsoleCommand
         $criteria->condition = 'created > :created';
         $criteria->params = array(':created' => '2013-09-01 00:00:00');
         $criteria->addInCondition('author_id', array(181638, 34531));
+        $criteria->order = 'id ASC';
 
         $dp = new CActiveDataProvider('CommunityContent', array(
             'criteria' => $criteria,
@@ -185,24 +186,23 @@ class TempCommand extends CConsoleCommand
         $count = $dp->totalItemCount;
         $i = 0;
         foreach ($iterator as $post) {
-            if (Seo2::model()->findByAttributes(array('url' => $post->url)) !== null)
-                continue;
+            if (Seo2::model()->findByAttributes(array('url' => $post->url)) !== null) {
+                $i++;
+                $report = $ga->getReport(array(
+                    'metrics' => 'ga:uniquePageviews',
+                    'sort' => '-ga:uniquePageviews',
+                    'dimensions' => 'ga:source',
+                    'filters' => urlencode('ga:pagePath==' . $post->url),
+                ));
 
-            $i++;
-            $report = $ga->getReport(array(
-                'metrics' => 'ga:uniquePageviews',
-                'sort' => '-ga:uniquePageviews',
-                'dimensions' => 'ga:source',
-                'filters' => urlencode('ga:pagePath==' . $post->url),
-            ));
-
-            $google = isset($report['google']) ? $report['google']['ga:uniquePageviews'] : 0;
-            $yandex = isset($report['yandex']) ? $report['yandex']['ga:uniquePageviews'] : 0;
-            $model = new Seo2();
-            $model->url = $post->url;
-            $model->google = $google;
-            $model->yandex = $yandex;
-            $model->save();
+                $google = isset($report['google']) ? $report['google']['ga:uniquePageviews'] : 0;
+                $yandex = isset($report['yandex']) ? $report['yandex']['ga:uniquePageviews'] : 0;
+                $model = new Seo2();
+                $model->url = $post->url;
+                $model->google = $google;
+                $model->yandex = $yandex;
+                $model->save();
+            }
 
             echo $i . '/' . $count . "\n";
         }

@@ -203,6 +203,7 @@ class TempCommand extends CConsoleCommand
                 $model->url = $post->url;
                 $model->google = $google;
                 $model->yandex = $yandex;
+                $model->save();
             }
 
             echo $i . '/' . $count . "\n";

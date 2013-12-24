@@ -17,7 +17,6 @@ class MyContestWorkWidget extends CWidget
         if ($work !== null) {
             $collection = new ContestPhotoCollection(array('contestId' => $this->contestId));
             $this->render('MyContestWorkWidget/work', compact('work', 'collection'));
-        } elseif ($work->contest->status == Contest::STATUS_ACTIVE)
-            $this->render('MyContestWorkWidget/button');
+        }
     }
 }

@@ -14,7 +14,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
             'value' => 'CHtml::encode($data->google)',
         ),
         array(
-            'name' => 'yande',
+            'name' => 'yandex',
             'header' => 'Яндекс',
             'type' => 'raw',
             'value' => 'CHtml::encode($data->yandex)',

@@ -165,6 +165,8 @@ class TempCommand extends CConsoleCommand
 
     public function actionSeo2()
     {
+        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
+        Yii::import('site.common.models.mongo.*');
         Yii::import('site.frontend.extensions.GoogleAnalytics');
         $ga = new GoogleAnalytics('nikita@happy-giraffe.ru', 'ummvxhwmqzkrpgzj');
         $ga->setProfile('ga:53688414');

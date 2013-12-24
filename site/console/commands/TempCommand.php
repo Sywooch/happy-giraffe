@@ -186,8 +186,9 @@ class TempCommand extends CConsoleCommand
         $count = $dp->totalItemCount;
         $i = 0;
         foreach ($iterator as $post) {
+            $i++;
+
             if (Seo2::model()->findByAttributes(array('url' => $post->url)) !== null) {
-                $i++;
                 $report = $ga->getReport(array(
                     'metrics' => 'ga:uniquePageviews',
                     'sort' => '-ga:uniquePageviews',

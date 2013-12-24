@@ -197,6 +197,9 @@ class TempCommand extends CConsoleCommand
                 isset($report['yandex']) ? $report['yandex']['ga:uniquePageviews'] : 0,
             );
 
+            if ($i == 0)
+                break;
+
             echo $i . '/' . $count . "\n";
         }
 

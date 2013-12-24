@@ -140,4 +140,26 @@ class TempCommand extends CConsoleCommand
             echo $i . '/' . $count . "\n";
         }
     }
+
+    public function actionSeo1()
+    {
+        $criteria = new CDbCriteria();
+        $criteria->with = array('post');
+        $criteria->condition = 'uniqueness IS NULL AND type_id = 1';
+        $criteria->addInCondition('author_id', array(181638, 34531));
+
+        $dp = new CActiveDataProvider('CommunityContent', array(
+            'criteria' => $criteria,
+        ));
+
+        $iterator = new CDataProviderIterator($dp);
+        $count = $dp->totalItemCount;
+        $i = 0;
+        foreach ($iterator as $post) {
+            $i++;
+            $post->uniqueness = (strlen($post->post->text) > 250) ? CopyScape::getUniquenessByText($post->post->text) : 1;
+            $post->update(array('uniqueness'));
+            echo $i . '/' . $count . "\n";
+        }
+    }
 }

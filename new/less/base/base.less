@@ -50,7 +50,7 @@
     position: relative;
     .square(72px);
     .border-radius(36px);
-    background:url(/images/base/ava.png) no-repeat -240px -480px;
+    background:url(/new/images/base/ava.png) no-repeat -240px -480px;
     
     .ico-status {
         position: absolute;
@@ -138,7 +138,7 @@
     &_ico {
         .inline-block();
         .square(18px);
-        background: url(/images/base/b-control_ico.png) no-repeat;
+        background: url(/new/images/base/b-control_ico.png) no-repeat;
 
         &__favorite {background-position: 0 0;}
         &__favorite:hover {background-position: 0 -20px;}
@@ -170,7 +170,7 @@
     @media screen and (max-height: 740px) {
         &__im &_tx {display: none;}
         &__im &_i {
-            padding: 5px 15px;
+            padding: 5px 15px 2px;
             height: 50px;
         }
         &__im &_count {top: 4px;}
@@ -178,7 +178,7 @@
     &_t {
         display: block;
         height: 57px;
-        background: url(/images/side-menu_t.png) no-repeat;
+        background: url(/new/images/side-menu_t.png) no-repeat;
     }
     &_i {
         position: relative;
@@ -211,11 +211,11 @@
         margin: 0 0 2px;
         background: url() no-repeat;
         opacity: .5;
-        .img-retina('/images/side-menu_ico.png'; '/images/side-menu_ico2x.png'; 200px; 40px);
+        .img-retina('/new/images/side-menu_ico.png'; '/new/images/side-menu_ico2x.png'; 200px; 40px);
     }
     &_ico__all    {background-position: 0 0;}
     &_ico__new    {background-position: -50px 0;}
-    &_ico__online {background-position: -100px 0;height: 35px;}
+    &_ico__online {background-position: -100px 0;height: 32px;}
     &_ico__online-friend {background-position: -150px 0;}
     &_tx {
         display: block;
@@ -240,11 +240,18 @@
 
 /*
     Заглушка 
-    cap-empty
+    cap-empty __abs     __rel   __im-b
+        cap-empty_hold
+            cap-empty_img
+            cap-empty_t
+            cap-empty_tx
+            cap-empty_tx-sub
+
 */
 .cap-empty {
     position: relative;
     z-index: 100;
+    text-align: center;
 
     &__abs {
         position: absolute;
@@ -252,24 +259,47 @@
         right: 0;
         bottom: 0;
         left: 0;
-        background: #F0F0F0;
         z-index: 100;
     }
+    &__abs &_hold {
+        display: inline-block;
+        vertical-align: middle;
+        margin: 0;
+        padding: 0;
+    }
     &__rel {}
-    &__smile &_img {background: url(/images/base/cap-empty_hold__smile.png) no-repeat 50% 0;}
+    &__gray {background: #e6e6e6;}
+    &__im-b {
+        text-align: left;
+    }
+    &__im-b &_img {
+        float: left;
+        margin: 0 30px 0 125px;
+    }
+    &__im-b &_t {padding-top: 12px;}
+    &__im-b &_tx-sub {color: #a0a09f;}
+    &__im-ava {
+        background: #c9e6fd;
+        background: rgba(187,224,252,.8);
+        .border-right-radius(10px)
+    }
+    &__im-ava .btn-green {margin-top: 8px;}
+    &__im-ava &_tx-sub {color: #a0a09f;}
 
     &_hold {
-        text-align: center;
         font-size: 12px;
         line-height: 16px;
     }
     &_img {
         display: block;
         height: 60px;
-        background: url(/images/base/cap-empty_img.png) no-repeat 50% 0;
+        width: 60px;
+        margin: 0 auto 5px;
+        background: url(/new/images/base/cap-empty_img.png) no-repeat 50% 0;
     }
     &_t {
         margin: 0 0 5px;
+        padding-top: 5px;
         color: #2d2d2d;
         font-size: 16px;
     }
@@ -283,6 +313,35 @@
 }
 /* /cap-empty */
 
+/* 
+    Скрытый input загрузки файлов
+    file-fake 
+        file-fake_btn
+        file-fake_inp
+*/
+.file-fake {
+    display:inline-block;
+    position:relative;
+    cursor:pointer;
+    overflow:hidden;
+
+    &_btn {
+        position:relative;
+        z-index:2;
+        cursor: pointer;
+    }
+    &_inp {
+        opacity:0;
+        position:absolute;
+        z-index:3;
+        right:0;
+        top:0;
+        height:100%;
+        display:block;
+        cursor:pointer;
+        filter: alpha(opacity=30);
+    }
+}
 
 
 /* 

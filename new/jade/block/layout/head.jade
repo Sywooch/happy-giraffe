@@ -1,4 +1,4 @@
-mixin head ()
+mixin head (path)
     head
         <meta charset="utf-8">
         //- <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,4 +9,4 @@ mixin head ()
         <link rel="stylesheet" type="text/css" href="../../../css/all1.css" />
         <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300&amp;subset=latin,cyrillic-ext,cyrillic">
         // including other jade works
-        +scripts
+        +scripts(path)

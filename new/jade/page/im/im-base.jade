@@ -16,7 +16,7 @@ block layout-wrapper_hold
                     +im-sidebar_search()
                     +im-user-list("", {usersCount: 20})
             // /im-sidebar
-
+    
             // im-center
             section.im-center
                 .im-center_top
@@ -42,12 +42,12 @@ block layout-wrapper_hold
                                     span.im_loader-tx Отправляем сообщение
                                 .im_loader
                                     span.im_loader-tx Олег печатает вам сообщение
-                                    img.im_loader-anim(src='/images/im/im-message_loader__write.png', alt='')
+                                    img.im_loader-anim(src='/new/images/im/im-message_loader__write.png', alt='')
                         .scroll_bar-hold
                             .scroll_bar
                                 .scroll_bar-in
                 - var imCenter_bottom = {}
                 +im-center_bottom("", imCenter_bottom)
-            
+        
             // /im-center
     // /im

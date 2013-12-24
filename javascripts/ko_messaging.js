@@ -82,11 +82,16 @@ MessagingUser.prototype = {
 	}
 }
 
-function MessagingUser(model) {
+function MessagingUser(viewModel, model) {
+	var self = this;
+	self.viewModel = viewModel;
 	// Атрибуты модели пользователя
 	self.id = model.id;
 	self.firstName = model.firstName;
 	self.lastName = model.lastName;
+	self.fullName = function() {
+		return '('+ self.id +')' + self.firstName + ' ' + self.lastName;
+	};
 	self.gender = model.gender;
 	self.avatar = model.avatar;
 	self.channel = model.channel;
@@ -112,7 +117,7 @@ function MessagingUser(model) {
 	self.date = ko.observable(model.date);
 
 	self.open = function() {
-		MessagingThread.open(self);
+		MessagingThread.prototype.open(self);
 	};
 
 	self.addObject(self);
@@ -165,14 +170,15 @@ MessagingMessage.prototype = {
 }
 
 function MessagingMessage(model) {
+	var self = this;
 	self.id = model.id;
 	self.from = null;
 	self.to = null;
 	self.text = model.text;
 	self.created = model.created;
-	self.read = ko.observable(model.read);
-	self.dtimeDelete = ko.observable(null);
-	self.images = model.images;
+	self.dtimeRead = ko.observable(model.dtimeRead);
+	self.dtimeDelete = ko.observable(self.dtimeDelete);
+	//self.images = model.images;
 
 	/**
 	 * Удаление сообщения
@@ -225,13 +231,13 @@ MessagingThread.prototype = {
 			return obj.user.id == user.id;
 		});
 		if (!thread) {
-			// загрузить диалог
+			thread = new MessagingThread(user.viewModel.me, user);
 		}
-		Messaging.currentThread(thread);
+		Messaging.prototype.currentThread(thread);
 	}
 }
 
-function MessagingThread(me, user, messages) {
+function MessagingThread(me, user) {
 	var self = this;
 	self.id = user.id;
 	self.me = me;
@@ -246,6 +252,7 @@ function MessagingThread(me, user, messages) {
 
 	// состояния
 	self.sendingMessage = ko.observable(false);
+	self.fullyLoaded = ko.observable(false);
 
 	// методы
 	self.sendMessage = function() {
@@ -298,11 +305,22 @@ function MessagingThread(me, user, messages) {
 	self.sendTyping = function() {
 		$.post('/messaging/interlocutors/typing/', {typingStatus: 1, interlocutorId: self.user.id});
 	}
+	
+	/**
+	 * Загрузка сообщений
+	 */
+	self.loadMessages = function() {
+		$.get('/messaging/threads/getMessages/', { userId : self.user.id }, function(response) {
+			self.messages(ko.utils.arrayMap(response.messages, function(message) {
+				return new MessagingMessage(message);
+			}));
+			if (response.last)
+				self.fullyLoaded(true);
+		}, 'json');
+	};
 
 	// Текст конструктора
-	self.messages = ko.utils.arrayMap(messages, function(message) {
-		return new MessagingMessage(message);
-	});
+	self.loadMessages();
 }
 
 Messaging.prototype = {
@@ -323,8 +341,8 @@ function Messaging(model) {
 	comet.addEvent(2080, 'messagingContactsUpdateCounters');
 
 	// Текст конструктора
-	ko.utils.arrayMap(model.users, function(user) {
-		return new MessagingUser(user);
+	self.users = ko.utils.arrayMap(model.contacts, function(user) {
+		return new MessagingUser(self, user);
 	});
-	self.me = new MessagingUser(model.me);
+	self.me = new MessagingUser(self, model.me);
 }

@@ -198,7 +198,7 @@ class TempCommand extends CConsoleCommand
                             'filters' => urlencode('ga:pagePath==' . $post->url),
                         ));
                     } catch(Exception $e) {
-                        sleep(60);
+                        sleep(300);
                         echo "waiting...\n";
                     }
                 } while ($report === null);
@@ -251,7 +251,7 @@ class TempCommand extends CConsoleCommand
                             'filters' => urlencode('ga:pagePath==' . $post->url),
                         ));
                     } catch(Exception $e) {
-                        sleep(60);
+                        sleep(300);
                         echo "waiting...\n";
                     }
                 } while ($report === null);

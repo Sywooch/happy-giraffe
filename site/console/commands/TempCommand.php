@@ -191,14 +191,16 @@ class TempCommand extends CConsoleCommand
                 'dimensions' => 'ga:source',
                 'filters' => urlencode('ga:pagePath==' . $post->url),
             ));
+
+            $google = isset($report['google']) ? $report['google']['ga:uniquePageviews'] : 0;
+            $yandex = isset($report['yandex']) ? $report['yandex']['ga:uniquePageviews'] : 0;
+            if ($google != 0 || $yandex != 0)
             $result[] = array(
                 'http://www.happy-giraffe.ru' . $post->url,
-                isset($report['google']) ? $report['google']['ga:uniquePageviews'] : 0,
-                isset($report['yandex']) ? $report['yandex']['ga:uniquePageviews'] : 0,
+                $google,
+                $yandex,
+                $google + $yandex,
             );
-
-            if ($i == 9)
-                break;
 
             echo $i . '/' . $count . "\n";
         }

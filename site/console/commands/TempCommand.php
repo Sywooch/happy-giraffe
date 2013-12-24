@@ -203,7 +203,6 @@ class TempCommand extends CConsoleCommand
             echo $i . '/' . $count . "\n";
         }
 
-        unlink(Yii::getPathOfAlias('site.common.data') . '/seo2.csv');
         $fp = fopen(Yii::getPathOfAlias('site.common.data') . '/seo2.csv', 'w');
 
         foreach ($result as $fields) {

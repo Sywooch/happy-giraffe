@@ -198,13 +198,11 @@ class TempCommand extends CConsoleCommand
 
             $google = isset($report['google']) ? $report['google']['ga:uniquePageviews'] : 0;
             $yandex = isset($report['yandex']) ? $report['yandex']['ga:uniquePageviews'] : 0;
-            if ($google != 0 || $yandex != 0) {
-                $model = new Seo2();
-                $model->url = $post->url;
-                $model->google = $google;
-                $model->yandex = $yandex;
-                $model->save();
-            }
+            $model = new Seo2();
+            $model->url = $post->url;
+            $model->google = $google;
+            $model->yandex = $yandex;
+            $model->save();
 
             echo $i . '/' . $count . "\n";
         }

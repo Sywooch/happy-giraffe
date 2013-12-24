@@ -5,11 +5,7 @@
  */
 class CometModel extends CComponent
 {
-    const TYPE_NEW_MESSAGE = 1;
-    const TYPE_MESSAGE_READ = 2;
     const TYPE_ONLINE_STATUS_CHANGE = 3;
-    const TYPE_USER_TYPING = 4;
-    const TYPE_DIALOG_READ = 21;
 
     //moderator signals
     const TYPE_SIGNAL_UPDATE = 5;
@@ -40,9 +36,23 @@ class CometModel extends CComponent
 
     const WHATS_NEW_UPDATE = 10000;
 
-    const MESSAGING_MESSAGE_RECEIVED = 2000;
-    const MESSAGING_INTERLOCUTOR_TYPING = 2001;
-    const MESSAGING_THREAD_READ = 2002;
+    const MESSAGING_INTERLOCUTOR_TYPING = 2010;
+    const MESSAGING_MESSAGE_READ = 2011;
+    const MESSAGING_MESSAGE_ADDED = 2020;
+    const MESSAGING_MESSAGE_DELETED = 2030;
+    const MESSAGING_MESSAGE_CANCELLED = 2040;
+    const MESSAGING_MESSAGE_RESTORED = 2050;
+    const MESSAGING_THREAD_DELETED = 2060;
+    const MESSAGING_THREAD_RESTORED = 2070;
+    const MESSAGING_CONTACT_ADDED = 2071;
+    const MESSAGING_CONTACT_DELETED = 2072;
+	/**
+	 * Добавление/удаление пользователя в список друзей, и/или в чёрный список
+	 */
+    const MESSAGING_USER_UPDATED = 2073;
+	// Обновление счётчиков
+    const MESSAGING_UPDATE_COUNTERS = 2080;
+    const MESSAGING_COUNT_CONTACT = 2083;
 
     public $attributes = array();
     public $type;

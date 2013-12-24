@@ -230,7 +230,7 @@ class TempCommand extends CConsoleCommand
         $criteria->compare('removed', 1);
         $criteria->order = 'id ASC';
 
-        $dp = new CActiveDataProvider('CommunityContent', array(
+        $dp = new CActiveDataProvider(CommunityContent::model()->resetScope(), array(
             'criteria' => $criteria,
         ));
 

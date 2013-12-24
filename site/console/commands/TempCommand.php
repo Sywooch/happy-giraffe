@@ -236,6 +236,7 @@ class TempCommand extends CConsoleCommand
 
         $iterator = new CDataProviderIterator($dp);
         $count = $dp->totalItemCount;
+        echo $count;
         $i = 0;
         foreach ($iterator as $post) {
             $i++;

@@ -179,11 +179,13 @@ class TempCommand extends CConsoleCommand
             'criteria' => $criteria,
         ));
 
-        $result = array();
         $iterator = new CDataProviderIterator($dp);
         $count = $dp->totalItemCount;
         $i = 0;
         foreach ($iterator as $post) {
+            if (Seo2::model()->findByAttributes(array('url' => $post->url)) !== null)
+                continue;
+
             $i++;
             $report = $ga->getReport(array(
                 'metrics' => 'ga:uniquePageviews',
@@ -194,22 +196,14 @@ class TempCommand extends CConsoleCommand
 
             $google = isset($report['google']) ? $report['google']['ga:uniquePageviews'] : 0;
             $yandex = isset($report['yandex']) ? $report['yandex']['ga:uniquePageviews'] : 0;
-            if ($google != 0 || $yandex != 0)
-            $result[] = array(
-                'http://www.happy-giraffe.ru' . $post->url,
-                $google,
-                $yandex,
-                $google + $yandex,
-            );
+            if ($google != 0 || $yandex != 0) {
+                $model = new Seo2();
+                $model->url = $post->url;
+                $model->google = $google;
+                $model->yandex = $yandex;
+            }
 
             echo $i . '/' . $count . "\n";
-            sleep(1);
         }
-
-        $fp = fopen(Yii::getPathOfAlias('site.common.data') . '/seo2.csv', 'w');
-        foreach ($result as $fields) {
-            fputcsv($fp, $fields);
-        }
-        fclose($fp);
     }
 }

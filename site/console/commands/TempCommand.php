@@ -141,7 +141,7 @@ class TempCommand extends CConsoleCommand
         }
     }
 
-    public function actionSeo1()
+    public function actionSeo()
     {
         $criteria = new CDbCriteria();
         $criteria->with = array('post');

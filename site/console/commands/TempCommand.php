@@ -227,7 +227,7 @@ class TempCommand extends CConsoleCommand
         $ga->setDateRange('2013-01-01', '2013-12-24');
 
         $criteria = new CDbCriteria();
-        $criteria->condition = 'removed = 1';
+        $criteria->compare('removed', 1);
         $criteria->order = 'id ASC';
 
         $dp = new CActiveDataProvider('CommunityContent', array(
@@ -236,12 +236,11 @@ class TempCommand extends CConsoleCommand
 
         $iterator = new CDataProviderIterator($dp);
         $count = $dp->totalItemCount;
-        echo $count;
         $i = 0;
         foreach ($iterator as $post) {
             $i++;
 
-            if (Seo2::model()->findByAttributes(array('url' => $post->url)) === null) {
+            if (Seo3::model()->findByAttributes(array('url' => $post->url)) === null) {
                 do {
                     $report = null;
                     try {

@@ -141,7 +141,7 @@ class TempCommand extends CConsoleCommand
         }
     }
 
-    public function actionSeo()
+    public function actionSeo1()
     {
         $criteria = new CDbCriteria();
         $criteria->with = array('post');
@@ -160,6 +160,52 @@ class TempCommand extends CConsoleCommand
             $post->uniqueness = (strlen($post->post->text) > 250) ? CopyScape::getUniquenessByText($post->post->text) : 1;
             $post->update(array('uniqueness'));
             echo $i . '/' . $count . "\n";
+        }
+    }
+
+    public function actionSeo2()
+    {
+        Yii::import('site.frontend.extensions.GoogleAnalytics');
+        $ga = new GoogleAnalytics('nikita@happy-giraffe.ru', 'ummvxhwmqzkrpgzj');
+        $ga->setProfile('ga:53688414');
+        $ga->setDateRange('2013-09-01', '2013-12-24');
+
+        $criteria = new CDbCriteria();
+//        $criteria->condition = 'created > :created';
+//        $criteria->params = array(':created' => '2013-09-01 00:00:00');
+//        $criteria->addInCondition('author_id', array(181638, 34531));
+
+        $dp = new CActiveDataProvider('CommunityContent', array(
+            'criteria' => $criteria,
+        ));
+
+        $result = array();
+        $iterator = new CDataProviderIterator($dp);
+        $count = $dp->totalItemCount;
+        $i = 0;
+        foreach ($iterator as $post) {
+            $i++;
+            $report = $ga->getReport(array(
+                'metrics' => 'ga:uniquePageviews',
+                'dimensions' => 'ga:source',
+                'filters' => urlencode('ga:pagePath==' . $post->url),
+            ));
+            $result[] = array(
+                'http://www.happy-giraffe.ru' . $post->url,
+                isset($report['google']) ? $report['google']['ga:uniquePageviews'] : 0,
+                isset($report['yandex']) ? $report['yandex']['ga:uniquePageviews'] : 0,
+            );
+
+            if ($i == 9)
+                break;
+
+            echo $i . '/' . $count . "\n";
+        }
+
+        $fp = fopen(Yii::getPathOfAlias('site.common.data') . '/seo2.csv', 'w');
+
+        foreach ($result as $fields) {
+            fputcsv($fp, $fields);
         }
     }
 }

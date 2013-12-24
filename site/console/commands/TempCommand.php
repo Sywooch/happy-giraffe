@@ -197,16 +197,13 @@ class TempCommand extends CConsoleCommand
                 isset($report['yandex']) ? $report['yandex']['ga:uniquePageviews'] : 0,
             );
 
-            if ($i == 9)
-                break;
-
             echo $i . '/' . $count . "\n";
         }
 
         $fp = fopen(Yii::getPathOfAlias('site.common.data') . '/seo2.csv', 'w');
-
         foreach ($result as $fields) {
             fputcsv($fp, $fields);
         }
+        fclose($fp);
     }
 }

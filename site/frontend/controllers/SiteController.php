@@ -554,46 +554,8 @@ class SiteController extends HController
 
     public function actionSeo2()
     {
-        Yii::import('site.frontend.extensions.GoogleAnalytics');
-        $ga = new GoogleAnalytics('nikita@happy-giraffe.ru', 'ummvxhwmqzkrpgzj');
-        $ga->setProfile('ga:53688414');
-        $ga->setDateRange('2013-09-01', '2013-12-24');
-
-        $criteria = new CDbCriteria();
-        $criteria->condition = 'created > :created';
-        $criteria->params = array(':created' => '2013-09-01 00:00:00');
-        $criteria->addInCondition('author_id', array(181638, 34531));
-
-        $dp = new CActiveDataProvider('CommunityContent', array(
-            'criteria' => $criteria,
-        ));
-
-        $result = array();
-        $iterator = new CDataProviderIterator($dp);
-        $count = $dp->totalItemCount;
-        $i = 0;
-        foreach ($iterator as $post) {
-            $report = $ga->getReport(array(
-                'metrics' => 'ga:uniquePageviews',
-                'dimensions' => 'ga:source',
-                'filters' => urlencode('ga:pagePath==' . $post->url),
-            ));
-            $google = isset($report['google']) ? $report['google']['ga:uniquePageviews'] : 0;
-            $yandex = isset($report['yandex']) ? $report['yandex']['ga:uniquePageviews'] : 0;
-            $result[] = array(
-                'http://www.happy-giraffe.ru' . $post->url,
-                $google,
-                $yandex,
-                $google + $yandex,
-            );
-
-            echo $i . '/' . $count . "\n";
-        }
-
-        $fp = fopen(Yii::getPathOfAlias('site.common.data') . '/seo2.csv', 'w');
-        foreach ($result as $fields) {
-            fputcsv($fp, $fields);
-        }
-        fclose($fp);
+        Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
+        $dp = new EMongoDocumentDataProvider('Seo2');
+        $this->render('seo2', compact('dp'));
     }
 }

@@ -348,5 +348,6 @@ return array(
         'contest/<cssClass:\w+>' => 'community/contest/index',
 
         'site/seo' => 'site/seo',
+        'site/seo2' => 'site/seo2',
     ),
 );

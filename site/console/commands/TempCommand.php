@@ -168,13 +168,12 @@ class TempCommand extends CConsoleCommand
         Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
         Yii::import('site.common.models.mongo.*');
         Yii::import('site.frontend.extensions.GoogleAnalytics');
+
         $ga = new GoogleAnalytics('nikita@happy-giraffe.ru', 'ummvxhwmqzkrpgzj');
         $ga->setProfile('ga:53688414');
         $ga->setDateRange('2013-09-01', '2013-12-24');
 
         $criteria = new CDbCriteria();
-        $criteria->condition = 'created > :created';
-        $criteria->params = array(':created' => '2013-09-01 00:00:00');
         $criteria->addInCondition('author_id', array(181638, 34531));
         $criteria->order = 'id ASC';
 

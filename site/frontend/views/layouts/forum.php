@@ -56,7 +56,7 @@
                 </script>
             </div>
 
-            <?php if ($this->action->id == 'view'): ?>
+            <?php if (false && $this->action->id == 'view'): ?>
                 <div class="contest-tizer contest-tizer__13 clearfix">
                     <div class="contest-tizer_img">
                         <img alt="" src="/images/contest/contest-tizer_img__13.jpg">

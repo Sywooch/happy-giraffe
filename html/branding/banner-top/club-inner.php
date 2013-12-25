@@ -13,7 +13,7 @@
 	
 <div class="layout-container">
 	<div class="layout-wrapper">
-		<div class="layout-wrapper_banner-t" style="height:90px;">
+		<div class="layout-wrapper_banner-t" style="height:90px;display:block;">
 			<!--AdFox START-->
 			<!--giraffe-->
 			<!--Площадка: Весёлый Жираф / * / *-->

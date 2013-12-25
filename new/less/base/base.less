@@ -36,7 +36,13 @@
     &__online  {background: #0fc612;}
     &__offline {background: #b8b8b8;}
 }
-
+.ico-cancel {
+    .inline-block();
+    vertical-align: middle;
+    width: 22px;
+    height: 22px;
+    background: url(/new/images/ico/ico-cancel.png) no-repeat;
+}
 
 /* 
     avatar 
@@ -172,10 +178,11 @@
     @media screen and (max-height: 740px) {
         &__im &_tx {display: none;}
         &__im &_i {
-            padding: 5px 15px 2px;
+            padding: 7px 15px 4px;
             height: 50px;
         }
         &__im &_count {top: 4px;}
+        &_i &_count-sub {top: 3px;}
     }
     &_t {
         display: block;
@@ -193,6 +200,7 @@
     }
     &_i.disabled:hover {background: none;}
     &_i.disabled &_ico {opacity: .1;}
+    &_i.disabled &_count-sub,
     &_i.disabled &_tx  {color: #8476a7;}
     &_i.active &_ico {opacity: 1;}
     &_i.active &_tx  {color: #fff;}
@@ -235,6 +243,14 @@
         .border-radius(10px);
         color: #fff;
         font-size: @font-xs;
+    }
+    &_count-sub {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        color: #bdb7ce;
+        font-size: @font-xs;
+        line-height: @font-xs;
     }
 
 }
@@ -314,6 +330,56 @@
     }
 }
 /* /cap-empty */
+
+/* 
+    friend-offer 
+    Блок предложения дружбы
+
+    friend-offer
+        friend-offer_hold
+            friend-offer_ava
+            friend-offer_in
+                friend-offer_name
+                friend-offer_tx
+            friend-offer_btns
+                friend-offer_btn-cancel
+*/
+.friend-offer {
+    margin: 0 auto;
+
+    .ico-cancel {margin: 0 7px;}
+    &_hold {
+        background: #fdf6d7;
+        margin: 0 auto;
+        width: 400px;
+        padding: 8px 12px;
+    }
+    &_ava {
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 10px;
+    }
+    &_in {
+        display: inline-block;
+        vertical-align: middle;
+        max-width: 190px;
+        margin-right: 15px;
+        color: #3d3e3f;
+        .text-overflow();
+    }
+    &_name {
+        text-decoration: none;
+        color: #289fd7;
+        font-weight: bold;
+    }
+    &_name:hover {text-decoration: underline;}
+    &_btns {
+        display: inline-block;
+        vertical-align: middle;
+    }
+}
+/* /friend-offer */
+
 
 /* 
     Скрытый input загрузки файлов

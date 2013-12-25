@@ -195,9 +195,9 @@ mixin im-center_bottom(mod, vars)
                 .im-center_bottom-ava
                     +ava("ava__middle ava__female", avaVars );
                 .im-center_bottom-hold
-                    //- - if (vars.wisywig == true)
-                    //-     +redactor-control-b()
-                    //- - else 
-                    // По клику на input заменять на wysiwyg 
-                    input.im-center_bottom-itx(type='text', placeholder="Введите ваше сообщение")
+                    - if (vars.wisywig == true)
+                        +redactor-control()
+                    - else 
+                        // По клику на input заменять на wysiwyg 
+                        input.im-center_bottom-itx(type='text', placeholder="Введите ваше сообщение")
     // /im-center_bottom

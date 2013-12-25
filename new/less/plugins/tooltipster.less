@@ -84,11 +84,16 @@ html {
 .tooltipster-white {
 
     .tooltipster-content {
+        position: relative;
         margin: 0 10px;
         background: #fff;
         font: 12px/16px Arial, Tahoma, Verdana, sans-serif;
         .box-shadow(0 0 4px rgba(0,0,0,0.13));
         .border-radius(5px);
+        z-index: 1;
+    }
+    .tooltipster-arrow {
+        z-index: auto;
     }
     .tooltipster-arrow span {
         position: absolute;
@@ -98,6 +103,7 @@ html {
         height: 10px;
         margin: 0 0 0 -8px;
         border: 0 !important;
+        z-index: 5;
     }
     .tooltipster-arrow-bottom span {
         background: url(/new/images/base/tooltipster-arrow-bottom.png) no-repeat;

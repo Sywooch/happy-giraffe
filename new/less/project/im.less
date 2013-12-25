@@ -219,6 +219,20 @@
         color: transparent;
         text-shadow: 0 0 5px rgba(0,0,0,0.5);
     }
+
+    .redactor_editor,
+    .redactor_editor:focus,
+    .redactor_editor div,
+    .redactor_editor p,
+    .redactor_editor ul,
+    .redactor_editor ol,
+    .redactor_editor table,
+    .redactor_editor dl,
+    .redactor_editor blockquote,
+    .redactor_editor pre {
+        font-size: 12px;
+        line-height: 16px;
+    }
     &_top {}
     &_middle {padding: 0;}
     &_middle-hold {
@@ -232,7 +246,7 @@
     }
     &_bottom-w {
         background: #e0e1e2;
-        padding: 22px 12px;
+        padding: 22px 12px 12px;
         border-bottom-right-radius: 10px;
     }
     &_bottom-ava {

@@ -15,9 +15,10 @@ $(window).load(function() {
         smartPlacement: true,
         offset: 8
     });*/
-    $('.powertip').tooltipster({
+    $('.powertip, .redactor_toolbar li a').tooltipster({
         trigger: 'hover',
         animation: 'fade',
+        offsetY: -6,
         delay: 200,
         maxWidth: 200,
         arrowColor: '#5C4B86',

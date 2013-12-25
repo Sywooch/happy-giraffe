@@ -349,5 +349,6 @@ return array(
 
         'site/seo' => 'site/seo',
         'site/seo2' => 'site/seo2',
+        'site/seo3' => 'site/seo3',
     ),
 );

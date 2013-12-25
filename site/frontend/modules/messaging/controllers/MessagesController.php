@@ -9,7 +9,7 @@ class MessagesController extends HController
     {
         return array(
             'accessControl',
-            'ajaxOnly',
+            //'ajaxOnly',
         );
     }
 
@@ -24,16 +24,24 @@ class MessagesController extends HController
 
     public function actionDelete()
     {
-        $messageId = Yii::app()->request->getPost('messageId');
+       $messageId = Yii::app()->request->getPost('messageId');
+		$me = Yii::app()->user->id;
+		// Обновим дату удаления
         MessagingMessageUser::model()->updateByPk(array(
-            'user_id' => Yii::app()->user->id,
+            'user_id' => $me,
             'message_id' => $messageId,
-        ), array('deleted' => 1));
-
+        ), array('dtime_delete' => new CDbExpression('NOW()')));
+		
         $response = array(
             'success' => true,
         );
         echo CJSON::encode($response);
+		
+		// Подготовим и отправим событие
+		$messageModel = MessagingMessage::model()->withMyStatsOnTop($me)->findByPk($messageId);
+		$message = DialogForm::messageToJson($messageModel, $me, $messageModel->messageUsers[1]->user_id);
+		$comet = new CometModel();
+		$comet->send($me, array('message' => $message), CometModel::MESSAGING_MESSAGE_DELETED);
     }
 
     public function actionRestore()

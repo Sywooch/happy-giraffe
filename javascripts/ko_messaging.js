@@ -90,7 +90,7 @@ function MessagingUser(viewModel, model) {
 	self.firstName = model.firstName;
 	self.lastName = model.lastName;
 	self.fullName = function() {
-		return '('+ self.id +')' + self.firstName + ' ' + self.lastName;
+		return self.firstName + ' ' + self.lastName;
 	};
 	self.gender = model.gender;
 	self.avatar = model.avatar;
@@ -100,6 +100,7 @@ function MessagingUser(viewModel, model) {
 	self.isFriend = ko.observable(model.isFriend);
 	self.isBanned = ko.observable(model.isBanned);
 	self.isOnline = ko.observable(model.isOnline);
+	self.lastOnline = ko.observable(model.lastOnline);
 	self.typing = ko.observable(false);
 	self.typingTimer = false;
 	self.setTyping = function() {
@@ -183,12 +184,13 @@ function MessagingMessage(model) {
 	/**
 	 * Удаление сообщения
 	 */
-	self.delete = function() {
-		$.post('/messaging/messages/delete/', {messageId: self.id()}, function(response) {
+	self.deleteMessage = function() {
+		// Просто отправим запрос, ответ придёт событием
+		$.post('/messaging/messages/delete/', {messageId: self.id}/*, function(response) {
 			if (response.success) {
 				self.dtimeDelete(response.message.dtimeDelete);
 			}
-		}, 'json');
+		}, 'json'*/);
 	}
 	/**
 	 * Восстановление сообщения
@@ -252,6 +254,7 @@ function MessagingThread(me, user) {
 
 	// состояния
 	self.sendingMessage = ko.observable(false);
+	self.loadingMessages = ko.observable(false);
 	self.fullyLoaded = ko.observable(false);
 
 	// методы
@@ -310,16 +313,20 @@ function MessagingThread(me, user) {
 	 * Загрузка сообщений
 	 */
 	self.loadMessages = function() {
+		self.loadingMessages(true);
 		$.get('/messaging/threads/getMessages/', { userId : self.user.id }, function(response) {
 			self.messages(ko.utils.arrayMap(response.messages, function(message) {
 				return new MessagingMessage(message);
 			}));
 			if (response.last)
 				self.fullyLoaded(true);
+			self.loadingMessages(false);
 		}, 'json');
 	};
 
 	// Текст конструктора
+	self.addObject(self);
+	self.bindEvents();
 	self.loadMessages();
 }
 

@@ -565,4 +565,18 @@ class SiteController extends HController
         ));
         $this->render('seo2', compact('dp'));
     }
+
+    public function actionSeo3()
+    {
+        Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
+        $dp = new EMongoDocumentDataProvider('Seo3', array(
+            'sort' => array(
+                'attributes' => array('google', 'yandex'),
+            ),
+            'pagination' => array(
+                'pageSize' => 200,
+            ),
+        ));
+        $this->render('seo2', compact('dp'));
+    }
 }

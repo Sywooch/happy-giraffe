@@ -554,7 +554,8 @@ $(function() {
         showCloseButton:false,
         centerOnScroll:false,
         hideOnOverlayClick:false,
-        onComplete:onComplete_function2
+        onComplete:onComplete_function2,
+        enableKeyboardNav:false
     }).trigger('click');
         e.preventDefault();
     });

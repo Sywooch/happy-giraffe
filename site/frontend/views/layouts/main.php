@@ -89,7 +89,7 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
     <?php endif; ?>
 
     <div class="layout-wrapper">
-        <div class="layout-wrapper_banner-t">
+        <div class="layout-wrapper_banner-t" id="layout-wrapper_banner-t">
             <!--AdFox START-->
             <!--giraffe-->
             <!--Площадка: Весёлый Жираф / * / *-->

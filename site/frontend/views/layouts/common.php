@@ -47,7 +47,7 @@
             <link rel="stylesheet" href='/stylesheets/ie.css' type="text/css" media="screen" />
         <![endif]-->
     </head>
-    <body class="body-gray<?php if ($this->bodyClass !== null): ?> <?=$this->bodyClass?><?php endif; ?>">
+    <body class="body-gray<?php if ($this->bodyClass !== null): ?> <?=$this->bodyClass?><?php endif; ?>" id="body">
         <?=$content?>
 
         <!-- Yandex.Metrika counter -->

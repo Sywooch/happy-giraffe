@@ -10,8 +10,6 @@
  * @property string $text
  * @property string $updated
  * @property string $created
- * @property string $dtime_read
- * @property string $dtime_delete
  * @property array $json Массив данных данного объекта, для формирования JSON
  * @property bool $isReadByInterlocutor
  * @property array $photoCollection Массив формата array( 'title' => sting, 'photos' => AttachPhoto[] )
@@ -281,6 +279,30 @@ class MessagingMessage extends HActiveRecord
 
 		$criteria->with['messageUsers'] = array(
 			'on' => 'messageUsers.user_id = :statsUser',
+		);
+
+		$criteria->params['statsUser'] = $userId;
+
+		return $this;
+	}
+	
+	/**
+	 * Именованное условие с параметрами.
+	 * Жадно загружает по связи все модели messageUsers, и сортирует
+	 * так, что отношение указанного пользователя к сообщению оказывается первым.
+	 * 
+	 * @param int $userId
+	 * 
+	 * @return MessagingMessage Для цепочки вызовов
+	 */
+	public function withMyStatsOnTop($userId)
+	{
+		$criteria = $this->dbCriteria;
+		$alias = $this->tableAlias;
+		$criteria->together = true;
+
+		$criteria->with['messageUsers'] = array(
+			'order' => '(messageUsers.user_id = :statsUser) DESC',
 		);
 
 		$criteria->params['statsUser'] = $userId;

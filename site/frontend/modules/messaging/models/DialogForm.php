@@ -11,7 +11,7 @@ class DialogForm extends CComponent
 	const CONTACTS_PER_PAGE = 50;
 
 	public $contacts;
-	public $interlocutor;
+	//public $interlocutor;
 	public $counters;
 	public $me;
 	public $settings;
@@ -21,47 +21,29 @@ class DialogForm extends CComponent
 		$this->contacts = ContactsManager::getContactsByUserId(Yii::app()->user->id, ContactsManager::TYPE_ALL, self::CONTACTS_PER_PAGE);
 
 		$this->counters = array(
-			(int) ContactsManager::getCountByType(Yii::app()->user->id, ContactsManager::TYPE_NEW),
-			(int) ContactsManager::getCountByType(Yii::app()->user->id, ContactsManager::TYPE_ONLINE),
-			(int) ContactsManager::getCountByType(Yii::app()->user->id, ContactsManager::TYPE_FRIENDS_ONLINE),
+			'total' => (int) ContactsManager::getCountByType(Yii::app()->user->id, ContactsManager::TYPE_NEW),
 		);
 
-		if ($interlocutorId !== null)
-		{
-			$interlocutorExist = false;
-			foreach ($contacts as $contact)
-			{
-				if ($contact['user']['id'] == $interlocutorId)
-				{
-					$interlocutorExist = true;
-					break;
-				}
-			}
-			if (!$interlocutorExist)
-			{
-				$this->interlocutor = User::model()->findByPk($interlocutorId);
-				$this->contact = array(
-					'id' => (int) $interlocutor->id,
-					'firstName' => $interlocutor->first_name,
-					'lastName' => $interlocutor->last_name,
-					'gender' => $interlocutor->gender,
-					'avatar' => $interlocutor->getAvatarUrl(Avatar::SIZE_MICRO),
-					'online' => (bool) $interlocutor->online,
-					'isFriend' => (bool) Friend::model()->areFriends(Yii::app()->user->id, $interlocutorId),
-				);
-				$this->contacts[] = $contact;
-			}
-		}
+		/* if ($interlocutorId !== null)
+		  {
+		  $interlocutorExist = false;
+		  foreach ($contacts as $contact)
+		  {
+		  if ($contact['user']['id'] == $interlocutorId)
+		  {
+		  $interlocutorExist = true;
+		  break;
+		  }
+		  }
+		  if (!$interlocutorExist)
+		  {
+		  $this->interlocutor = User::model()->findByPk($interlocutorId);
+		  $this->contact = self::userToJson($interlocutor);
+		  $this->contacts[] = $contact;
+		  }
+		  } */
 
-		$this->me = array(
-			'id' => (int) Yii::app()->user->model->id,
-			'firstName' => Yii::app()->user->model->first_name,
-			'lastName' => Yii::app()->user->model->last_name,
-			'gender' => (bool) Yii::app()->user->model->gender,
-			'avatar' => Yii::app()->user->model->getAvatarUrl(Avatar::SIZE_MICRO),
-			'online' => (bool) Yii::app()->user->model->online,
-			'isFriend' => null,
-		);
+		$this->me = self::userToJson(Yii::app()->user->model);
 
 		$this->settings = array(
 			'messaging__enter' => (bool) UserAttributes::get(Yii::app()->user->id, 'messaging__enter', false),
@@ -77,11 +59,68 @@ class DialogForm extends CComponent
 	{
 		return array(
 			'contacts' => $this->contacts,
-			'interlocutor' => $this->interlocutor,
+			//'interlocutor' => $this->interlocutor,
 			'counters' => $this->counters,
 			'me' => $this->me,
 			'settings' => $this->settings,
 		);
+	}
+
+	/**
+	 * Преобразование модели пользователя в массив, для использования
+	 * в JS-модели MessagingUser
+	 * 
+	 * @param User $user
+	 * 
+	 * @return array Массив, пригодный для преобразования в JSON
+	 */
+	public static function userToJson(User $user)
+	{
+		return array(
+			'id' => (int) $user->id,
+			'firstName' => $user->first_name,
+			'lastName' => $user->last_name,
+			'gender' => (bool) $user->gender,
+			'avatar' => $user->getAvatarUrl(Avatar::SIZE_MEDIUM),
+			'online' => (bool) $user->online,
+			'isFriend' => null,
+		);
+	}
+
+	/**
+	 * Преобразование модели сообщения в массив, для использования
+	 * в JS-модели MessagingMessage
+	 * 
+	 * @param MessagingMessage $message Модель сообщения, где в messageUsers[0]
+	 * должна находится запись отношения просматривающего пользователя к сообщению
+	 * @param int $me Id пользователя, просматривающего сообщение
+	 * @param int $interlocutor Id пользователя, с которым ведётся диалог
+	 * 
+	 * @return array Массив, пригодный для преобразования в JSON
+	 */
+	public static function messageToJson(MessagingMessage $message, $me, $interlocutor)
+	{
+		// есть $message->json, посмотреть, при работе с изображениями
+		return array(
+			'id' => $message->id,
+			'from_id' => $message->author_id,
+			'to_id' => $message->author_id == $me ? $interlocutor : $me,
+			'text' => $message->text,
+			'created' => self::parseDateTime($message->created),
+			'dtimeRead' => self::parseDateTime($message->messageUsers[0]->dtime_read),
+			'dtimeDelete' => self::parseDateTime($message->messageUsers[0]->dtime_delete),
+		);
+	}
+
+	/**
+	 * Преобразует дату, взятую из базы, в дату, пригодную для отправки в js
+	 * 
+	 * @param string|null $dtime
+	 * @return int|null
+	 */
+	public static function parseDateTime($dtime)
+	{
+		return is_null($dtime) ? null : strtotime($dtime);
 	}
 
 }

@@ -119,16 +119,7 @@ class ThreadsController extends HController
 		$result['last'] = sizeof($messages) <= self::MESSAGES_PER_PAGE;
 		$count = min(sizeof($messages), self::MESSAGES_PER_PAGE);
 		for($i = 0; $i < $count; $i++) {
-			$message = $messages[$i];
-			$result['messages'][$i] = array(
-				'id' => $message->id,
-				'from_id' => $message->author_id,
-				'to_id' => $message->author_id == $me ? $userId : $me,
-				'text' => $message->text,
-				'created' => $message->created,
-				'dtimeRead' => $message->messageUsers[0]->dtime_read,
-				'dtimeDelete' => $message->messageUsers[0]->dtime_delete,
-			);
+			$result['messages'][$i] = DialogForm::messageToJson($messages[$i], $me, $userId);
 		}
 		
         echo CJSON::encode($result);

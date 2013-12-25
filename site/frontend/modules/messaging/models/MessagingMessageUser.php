@@ -8,6 +8,8 @@
  * @property string $message_id
  * @property integer $read
  * @property integer $deleted
+ * @property string $dtime_read
+ * @property string $dtime_delete
  * 
  * @property MessagingMessage $message Связанная модель сообщения
  */

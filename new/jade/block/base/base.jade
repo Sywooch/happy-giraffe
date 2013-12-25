@@ -26,23 +26,32 @@ mixin b-control(mod, items)
                 case item
                     when "favorite"
                         .b-control_i
-                            a.b-control_ico.powertip.b-control_ico__favorite(href="", title="В избранное")
+                            span.b-control_ico.powertip.b-control_ico__favorite(title="В избранное")
                             .b-control_drop
                     when "delete"
                         .b-control_i
-                            a.b-control_ico.powertip.b-control_ico__delete(href="", title="Удалить")
+                            span.b-control_ico.powertip.b-control_ico__delete(title="Удалить")
                             .b-control_drop
                     when "spam"
-                        .b-control_i
-                            a.b-control_ico.powertip.b-control_ico__spam(href="", title="Пожаловаться")
-                            .b-control_drop
+                        .b-control_i.tooltip-click-t
+                            span.b-control_ico.powertip.b-control_ico__spam(title="Пожаловаться")
+                            .tooltip-drop
+                                .tooltip-popup
+                                    .tooltip-popup_t Вы уверены?
+                                    p.tooltip-popup_tx Пользователь из черного списка не сможет писать вам личные сообщения и комментировать ваши записи
+                                    label.tooltip-popup_label-small.clearfix(for="im-tooltip-popup_checkbox")
+                                        input.tooltip-popup_checkbox (type="checkbox" name="" id="im-tooltip-popup_checkbox")
+                                        | Больше не показывать данное предупреждение
+                                    .textalign-c.clearfix
+                                        button.btn-green Да
+                                        button.btn-gray-light Нет
                     when "edit"
                         .b-control_i
-                            a.b-control_ico.powertip.b-control_ico__edit(href="", title="Редактировать")
+                            span.b-control_ico.powertip.b-control_ico__edit(title="Редактировать")
                             .b-control_drop
                     when "cancel"
                         .b-control_i
-                            a.b-control_ico.powertip.b-control_ico__cancel(href="", title="Отменить")
+                            span.b-control_ico.powertip.b-control_ico__cancel(title="Отменить")
                             .b-control_drop
 
     // /b-control

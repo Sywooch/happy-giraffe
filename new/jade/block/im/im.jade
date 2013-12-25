@@ -91,23 +91,45 @@ mixin im-panel(mod, vars)
     .im-panel(class=mod)
         .im-panel_actions
             .im-panel_ico-hold
-                a.im-panel_ico.im-panel_ico__del.powertip(href="", title="Удалить диалог")
-                .im-panel_drop
-            .im-panel_ico-hold
-                a.im-panel_ico.im-panel_ico__ban.powertip(href="", title="Заблокировать")
-                .im-panel_drop
+                span.im-panel_ico.im-panel_ico__del.powertip(href="", title="Удалить диалог")
+                // tooltip-drop
+                .tooltip-drop
+                    .tooltip-popup
+                        .tooltip-popup_t Вы уверены?
+                        p.tooltip-popup_tx Пользователь из черного списка не сможет писать вам личные сообщения и комментировать ваши записи
+                        label.tooltip-popup_label-small.clearfix(for="im-tooltip-popup_checkbox")
+                            input.tooltip-popup_checkbox(type="checkbox" name="" id="im-tooltip-popup_checkbox")
+                            | Больше не показывать данное предупреждение
+                        .textalign-c.clearfix
+                            button.btn-green Да
+                            button.btn-gray-light Нет
+                // /tooltip-drop
+            .im-panel_ico-hold.tooltip-click-b
+                span.im-panel_ico.im-panel_ico__ban.powertip(href="", title="Заблокировать")
+                // /tooltip-drop
+                .tooltip-drop
+                    .tooltip-popup
+                        .tooltip-popup_t Вы уверены?
+                        p.tooltip-popup_tx Пользователь из черного списка не сможет писать вам личные сообщения и комментировать ваши записи
+                        label.tooltip-popup_label-small.clearfix(for="im-tooltip-popup_checkbox")
+                            input.tooltip-popup_checkbox(type="checkbox" name="" id="im-tooltip-popup_checkbox")
+                            | Больше не показывать данное предупреждение
+                        .textalign-c.clearfix
+                            button.btn-green Да
+                            button.btn-gray-light Нет
+                // /tooltip-drop
         .im-panel_user.clearfix
             // Если пользователь online .im-panel_user-status не нужнен, а в .ava .ico-status.ico-status__online
             - avaVars = {icoStatus: 'ico-status__online', src: 'http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg'}
             +ava("ava__middle ava__female", avaVars)
             .im-panel_user-status Был на сайте 2 мин назад
-            .im-panel_user-name Александр Богоявленский
+            .im-panel_user-name Александр Богоявлен Богоявленский
             // У иконки 3 состояния. 
                 Друг - без моидфикатора
                 Добавить в друзья - .friend__add
                 Приглашение отправленно - .friend__added
             - if (vars.friend == "friend") {
-                a.im-panel_friend(href="")
+                a.im-panel_friend.im-panel_friend__fr(href="")
                     span.im-panel_friend-ico
                     span.im-panel_friend-tx Друг
             - } else if (vars.friend == "friend__add") {
@@ -155,7 +177,8 @@ mixin im-message(mod, vars)
                     .im-message_tx.color-gray Сообщение удалено. <a href="#" class="font-s">Восстановить</a>
                 default
                     .im-message_tx 
-                        | я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.  я не нашел, где можно поменять название трека. Меняя название трека в альбоме он
+                        p Уважаемая Зося, добрый день! 
+                        p Прошу вас не ставить в ваши темы активные ссылки, а ставить картинки, так как правилами сайта активные ссылки на посторонние порталы запрещены, и будут удалены.
     // /im-message
 
 //- Редактор внизу почты

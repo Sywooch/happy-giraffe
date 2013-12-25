@@ -13,7 +13,7 @@
     </script>
     <script src="/new//javascript/modernizr-2.7.1.min.js"></script>
     <!-- tooltip-->
-    <script src="/new//javascript/jquery.powertip.js"></script>
+    <script src="/new//javascript/jquery.tooltipster.js"></script>
     <!-- custom scroll-->
     <script src="/new//javascript/baron.js"></script>
     <!-- wisywig-->
@@ -128,17 +128,45 @@
                   <!-- im-panel-->
                   <div class="im-panel">
                     <div class="im-panel_actions">
-                      <div class="im-panel_ico-hold"><a href="" title="Удалить диалог" class="im-panel_ico im-panel_ico__del powertip"></a>
-                        <div class="im-panel_drop"></div>
+                      <div class="im-panel_ico-hold"><span href="" title="Удалить диалог" class="im-panel_ico im-panel_ico__del powertip"></span>
+                        <!-- tooltip-drop-->
+                        <div class="tooltip-drop">
+                          <div class="tooltip-popup">
+                            <div class="tooltip-popup_t">Вы уверены?</div>
+                            <p class="tooltip-popup_tx">Пользователь из черного списка не сможет писать вам личные сообщения и комментировать ваши записи</p>
+                            <label for="im-tooltip-popup_checkbox" class="tooltip-popup_label-small clearfix">
+                              <input type="checkbox" name="" id="im-tooltip-popup_checkbox" class="tooltip-popup_checkbox"/>Больше не показывать данное предупреждение
+                            </label>
+                            <div class="textalign-c clearfix">
+                              <button class="btn-green">Да</button>
+                              <button class="btn-gray-light">Нет</button>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- /tooltip-drop-->
                       </div>
-                      <div class="im-panel_ico-hold"><a href="" title="Заблокировать" class="im-panel_ico im-panel_ico__ban powertip"></a>
-                        <div class="im-panel_drop"></div>
+                      <div class="im-panel_ico-hold tooltip-click-b"><span href="" title="Заблокировать" class="im-panel_ico im-panel_ico__ban powertip"></span>
+                        <!-- /tooltip-drop-->
+                        <div class="tooltip-drop">
+                          <div class="tooltip-popup">
+                            <div class="tooltip-popup_t">Вы уверены?</div>
+                            <p class="tooltip-popup_tx">Пользователь из черного списка не сможет писать вам личные сообщения и комментировать ваши записи</p>
+                            <label for="im-tooltip-popup_checkbox" class="tooltip-popup_label-small clearfix">
+                              <input type="checkbox" name="" id="im-tooltip-popup_checkbox" class="tooltip-popup_checkbox"/>Больше не показывать данное предупреждение
+                            </label>
+                            <div class="textalign-c clearfix">
+                              <button class="btn-green">Да</button>
+                              <button class="btn-gray-light">Нет</button>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- /tooltip-drop-->
                       </div>
                     </div>
                     <div class="im-panel_user clearfix">
                       <!-- Если пользователь online .im-panel_user-status не нужнен, а в .ava .ico-status.ico-status__online--><a href="" class="ava ava__middle ava__female"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"/></a>
                       <div class="im-panel_user-status">Был на сайте 2 мин назад</div>
-                      <div class="im-panel_user-name">Александр Богоявленский</div>
+                      <div class="im-panel_user-name">Александр Богоявлен Богоявленский</div>
                       <!-- У иконки 3 состояния. 
                       Друг - без моидфикатора
                       Добавить в друзья - .friend__add
@@ -162,14 +190,26 @@
                               <!-- b-control-->
                               <div class="b-control">
                                 <div class="b-control_hold">
-                                  <div class="b-control_i"><a href="" title="В избранное" class="b-control_ico powertip b-control_ico__favorite"></a>
+                                  <div class="b-control_i"><span title="В избранное" class="b-control_ico powertip b-control_ico__favorite"></span>
                                     <div class="b-control_drop"></div>
                                   </div>
-                                  <div class="b-control_i"><a href="" title="Удалить" class="b-control_ico powertip b-control_ico__delete"></a>
+                                  <div class="b-control_i"><span title="Удалить" class="b-control_ico powertip b-control_ico__delete"></span>
                                     <div class="b-control_drop"></div>
                                   </div>
-                                  <div class="b-control_i"><a href="" title="Пожаловаться" class="b-control_ico powertip b-control_ico__spam"></a>
-                                    <div class="b-control_drop"></div>
+                                  <div class="b-control_i tooltip-click-t"><span title="Пожаловаться" class="b-control_ico powertip b-control_ico__spam"></span>
+                                    <div class="tooltip-drop">
+                                      <div class="tooltip-popup">
+                                        <div class="tooltip-popup_t">Вы уверены?</div>
+                                        <p class="tooltip-popup_tx">Пользователь из черного списка не сможет писать вам личные сообщения и комментировать ваши записи</p>
+                                        <label for="im-tooltip-popup_checkbox" class="tooltip-popup_label-small clearfix">
+                                          <input class="tooltip-popup_checkbox"/>Больше не показывать данное предупреждение
+                                        </label>
+                                        <div class="textalign-c clearfix">
+                                          <button class="btn-green">Да</button>
+                                          <button class="btn-gray-light">Нет</button>
+                                        </div>
+                                      </div>
+                                    </div>
                                   </div>
                                 </div>
                               </div>
@@ -179,9 +219,9 @@
                           <div class="im-message_hold">
                             <div class="im-message_t"><span class="im-message_name im-message_name__self">Александр Богоявленский</span>
                             </div>
-                            <div class="im-message_tx">
-                               
-                              я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.  я не нашел, где можно поменять название трека. Меняя название трека в альбоме он
+                            <div class="im-message_tx"> 
+                              <p>Уважаемая Зося, добрый день! </p>
+                              <p>Прошу вас не ставить в ваши темы активные ссылки, а ставить картинки, так как правилами сайта активные ссылки на посторонние порталы запрещены, и будут удалены.</p>
                             </div>
                           </div>
                         </div>

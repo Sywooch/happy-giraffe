@@ -7,13 +7,13 @@
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/head.php'; ?>
 	
 </head>
-<body class="body-gray">
+<body class="body-gray body-gray__banner-t">
 
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/top-line-menu.php'; ?>
 	
 <div class="layout-container">
 	<div class="layout-wrapper">
-		<div class="layout-wrapper_banner-t">
+		<div class="layout-wrapper_banner-t" style="height:90px;">
 			<!--AdFox START-->
 			<!--giraffe-->
 			<!--Площадка: Весёлый Жираф / * / *-->

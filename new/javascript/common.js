@@ -29,7 +29,6 @@ $(window).load(function() {
 
     $('.tooltip-click-b').tooltipster({
         trigger: 'click',
-        animation: 'fade',
         delay: 0,
         onlyOne: false,
         touchDevices: true,
@@ -38,9 +37,9 @@ $(window).load(function() {
         theme: '.tooltipster-white',
         position: 'bottom',
         functionBefore: function(origin, continueTooltip) {
-            var data = 'My new content';
-            var d = $('.tooltip-click-b').find(' .tooltip-drop').html();
-            console.log(origin.tooltipster());
+            $('.tooltip-click-b').tooltipster('hide');
+            var d = $(origin.context).find(' .tooltip-drop').html();
+            console.log(origin.context.className);
             origin.tooltipster('update', d);
             continueTooltip(d);
         }

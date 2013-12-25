@@ -68,7 +68,7 @@
             ...
         im-sidebar_users
             ...
-           im-sidebar_search
+            im-sidebar_search
             im-sidebar_search-itx.itx
             im-sidebar_search_btn
 
@@ -289,6 +289,7 @@
         display: inline-block;
         width: 20px;
         height: 20px;
+        cursor: pointer;
         background: url(/new/images/im/im-panel_ico.png) no-repeat;
     }
     &_ico__ban {background-position: 0 0;}
@@ -309,9 +310,11 @@
     &_user-name {
         display: inline-block;
         vertical-align: middle;
+        max-width: 355px;
         padding-top: 10px;
         font: 25px/30px @altfont2;
         color: #3f3053;
+        .text-overflow();
     }
     &_friend {
         display: inline-block;
@@ -321,13 +324,16 @@
     }
     &_friend:hover &_friend-ico {background-position: -30px -30px;}
     &_friend:hover &_friend-tx {color: #5f5e61;}
+    &_friend__fr &_friend-ico {background-position: -30px -30px;}
+    &_friend__fr:hover &_friend-ico {background-position: -30px -30px;}
     &_friend__add &_friend-ico {background-position: 0 0;}
     &_friend__add:hover &_friend-ico {background-position: 0 -30px;}
     &_friend__added:hover {cursor: default;}
     &_friend__added:hover &_friend-ico {background-position: -30px 0px;}
     &_friend__added:hover &_friend-tx {color: #babdc0;}
     &_friend-ico {
-        float: left;
+        display: inline-block;
+        vertical-align: middle;
         width: 30px;
         height: 30px;
         margin-right: 5px;
@@ -335,7 +341,8 @@
     }
     &_friend-tx {
         display: inline-block;
-        margin: 4px 0 0;
+        vertical-align: middle;
+        margin: 0;
         color: #babdc0;
         font: @fontsmallest;
     }

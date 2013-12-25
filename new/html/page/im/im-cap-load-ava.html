@@ -13,7 +13,7 @@
     </script>
     <script src="/new//javascript/modernizr-2.7.1.min.js"></script>
     <!-- tooltip-->
-    <script src="/new//javascript/jquery.powertip.js"></script>
+    <script src="/new//javascript/jquery.tooltipster.js"></script>
     <!-- custom scroll-->
     <script src="/new//javascript/baron.js"></script>
     <!-- wisywig-->
@@ -138,17 +138,45 @@
                   <!-- im-panel-->
                   <div class="im-panel">
                     <div class="im-panel_actions">
-                      <div class="im-panel_ico-hold"><a href="" title="Удалить диалог" class="im-panel_ico im-panel_ico__del powertip"></a>
-                        <div class="im-panel_drop"></div>
+                      <div class="im-panel_ico-hold"><span href="" title="Удалить диалог" class="im-panel_ico im-panel_ico__del powertip"></span>
+                        <!-- tooltip-drop-->
+                        <div class="tooltip-drop">
+                          <div class="tooltip-popup">
+                            <div class="tooltip-popup_t">Вы уверены?</div>
+                            <p class="tooltip-popup_tx">Пользователь из черного списка не сможет писать вам личные сообщения и комментировать ваши записи</p>
+                            <label for="im-tooltip-popup_checkbox" class="tooltip-popup_label-small clearfix">
+                              <input type="checkbox" name="" id="im-tooltip-popup_checkbox" class="tooltip-popup_checkbox"/>Больше не показывать данное предупреждение
+                            </label>
+                            <div class="textalign-c clearfix">
+                              <button class="btn-green">Да</button>
+                              <button class="btn-gray-light">Нет</button>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- /tooltip-drop-->
                       </div>
-                      <div class="im-panel_ico-hold"><a href="" title="Заблокировать" class="im-panel_ico im-panel_ico__ban powertip"></a>
-                        <div class="im-panel_drop"></div>
+                      <div class="im-panel_ico-hold tooltip-click-b"><span href="" title="Заблокировать" class="im-panel_ico im-panel_ico__ban powertip"></span>
+                        <!-- /tooltip-drop-->
+                        <div class="tooltip-drop">
+                          <div class="tooltip-popup">
+                            <div class="tooltip-popup_t">Вы уверены?</div>
+                            <p class="tooltip-popup_tx">Пользователь из черного списка не сможет писать вам личные сообщения и комментировать ваши записи</p>
+                            <label for="im-tooltip-popup_checkbox" class="tooltip-popup_label-small clearfix">
+                              <input type="checkbox" name="" id="im-tooltip-popup_checkbox" class="tooltip-popup_checkbox"/>Больше не показывать данное предупреждение
+                            </label>
+                            <div class="textalign-c clearfix">
+                              <button class="btn-green">Да</button>
+                              <button class="btn-gray-light">Нет</button>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- /tooltip-drop-->
                       </div>
                     </div>
                     <div class="im-panel_user clearfix">
                       <!-- Если пользователь online .im-panel_user-status не нужнен, а в .ava .ico-status.ico-status__online--><a href="" class="ava ava__middle ava__female"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"/></a>
                       <div class="im-panel_user-status">Был на сайте 2 мин назад</div>
-                      <div class="im-panel_user-name">Александр Богоявленский</div>
+                      <div class="im-panel_user-name">Александр Богоявлен Богоявленский</div>
                       <!-- У иконки 3 состояния. 
                       Друг - без моидфикатора
                       Добавить в друзья - .friend__add

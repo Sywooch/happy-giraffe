@@ -92,13 +92,15 @@ html {
 
     .tooltipster-arrow span {
         position: absolute;
-        top: -8px;
+        top: -10px;
         left: 50%;
-        width: 11px;
-        height: 8px;
-        margin: 0 0 0 -6px;
+        width: 18px;
+        height: 10px;
+        margin: 0 0 0 -8px;
         border: 0 !important;
-        background: url(/images/im/im-tooltip-popup.png) no-repeat;
+    }
+    .tooltipster-arrow-bottom span {
+        background: url(/new/images/base/tooltipster-arrow-bottom.png) no-repeat;
     }
 }
 
@@ -117,6 +119,8 @@ html {
     pointer-events: none;
     width: auto;
     overflow: visible;
+    top: 0;
+    left: 0;
 }
 .tooltipster-base .tooltipster-content {
     overflow: hidden;

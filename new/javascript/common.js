@@ -21,11 +21,10 @@ $(window).load(function() {
         delay: 200,
         maxWidth: 200,
         arrowColor: '#5C4B86',
+        onlyOne: false,
         touchDevices: true,
         theme: '.tooltipster-default',
-        functionReady: function(origin, continueTooltip) {
-            origin.tooltipster('reposition');
-        }
+        functionReady: function(origin, continueTooltip) {}
     });
 
     $('.tooltip-click-b').tooltipster({
@@ -35,6 +34,7 @@ $(window).load(function() {
         onlyOne: false,
         touchDevices: true,
         interactive: true,
+        interactiveAutoClose: false,
         theme: '.tooltipster-white',
         position: 'bottom',
         functionBefore: function(origin, continueTooltip) {
@@ -43,9 +43,6 @@ $(window).load(function() {
             console.log(origin.tooltipster());
             origin.tooltipster('update', d);
             continueTooltip(d);
-        },
-        functionReady: function(origin, continueTooltip) {
-            origin.tooltipster('reposition');
         }
     });
 

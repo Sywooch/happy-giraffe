@@ -22,6 +22,7 @@ var WysiwygPhotoUpload = function (comments) {
                 html += photo.html;
         });
         html += '<p></p>';
+        redactor.selectionRestore();
         redactor.insertHtmlAdvanced(html, true);
         self.close();
     };
@@ -133,6 +134,7 @@ var Video = function(data, parent) {
                 image : {
                     title: 'Вставить фото',
                     callback: function(buttonNamem, buttonDOM, buttonObject) {
+                        this.selectionSave();
                         if (typeof formWPU === 'undefined'){
                             formWPU = new WysiwygPhotoUpload(customOptions.comments);
                             ko.applyBindings(formWPU, document.getElementById('redactor-popup_b-photo'));

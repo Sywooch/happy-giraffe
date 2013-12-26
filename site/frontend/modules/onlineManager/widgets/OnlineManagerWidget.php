@@ -58,6 +58,7 @@ class OnlineManagerWidget extends CWidget
 		return array(
 			'id' => $user->id,
 			'online' => (int)$user->online,
+			'lastOnline' => strtotime($user->last_active),
 			'publicChannel' => $user->publicChannel,
 		);
 	}

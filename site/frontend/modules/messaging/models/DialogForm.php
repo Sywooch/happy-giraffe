@@ -76,13 +76,15 @@ class DialogForm extends CComponent
 	 */
 	public static function userToJson(User $user)
 	{
+		/** @todo Практически идентичная функциональность с ContactsManager::populateContact */
 		return array(
 			'id' => (int) $user->id,
 			'firstName' => $user->first_name,
 			'lastName' => $user->last_name,
 			'gender' => (bool) $user->gender,
 			'avatar' => $user->getAvatarUrl(Avatar::SIZE_MEDIUM),
-			'online' => (bool) $user->online,
+			'isOnline' => (bool) $user->online,
+			'lastOnline' => self::parseDateTime($user->last_active),
 			'isFriend' => null,
 		);
 	}

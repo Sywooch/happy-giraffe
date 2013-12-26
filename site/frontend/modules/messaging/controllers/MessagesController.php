@@ -46,17 +46,25 @@ class MessagesController extends HController
 
     public function actionRestore()
     {
+		$me = Yii::app()->user->id;
         $messageId = Yii::app()->request->getPost('messageId');
         MessagingMessageUser::model()->updateByPk(array(
-            'user_id' => Yii::app()->user->id,
+            'user_id' => $me,
             'message_id' => $messageId,
-        ), array('deleted' => 0));
+        ), array('dtime_delete' => null));
 
         $response = array(
             'success' => true,
         );
         echo CJSON::encode($response);
-    }
+		
+		// Подготовим и отправим событие
+		$messageModel = MessagingMessage::model()->withMyStatsOnTop($me)->findByPk($messageId);
+		$message = DialogForm::messageToJson($messageModel, $me, $messageModel->messageUsers[1]->user_id);
+		$comet = new CometModel();
+		$comet->send($me, array('message' => $message), CometModel::MESSAGING_MESSAGE_DELETED);
+
+	}
 
     public function actionEdit()
     {

@@ -268,11 +268,13 @@ class MessagingMessage extends HActiveRecord
 	 * Не мешает использовать limit, т.к. загружает только одну запись
 	 * 
 	 * @param int $userId
+	 * @param bool $activeOnly если true, то загружает только активные сообщения (не удалённые/скрытые)
 	 * 
 	 * @return MessagingMessage Для цепочки вызовов
 	 */
-	public function withMyStats($userId)
+	public function withMyStats($userId, $activeOnly = true)
 	{
+		/** @todo Дописать для $activeOnly */
 		$criteria = $this->dbCriteria;
 		$alias = $this->tableAlias;
 		$criteria->together = true;
@@ -292,11 +294,13 @@ class MessagingMessage extends HActiveRecord
 	 * так, что отношение указанного пользователя к сообщению оказывается первым.
 	 * 
 	 * @param int $userId
+	 * @param bool $activeOnly если true, то загружает только активные сообщения (не удалённые/скрытые)
 	 * 
 	 * @return MessagingMessage Для цепочки вызовов
 	 */
-	public function withMyStatsOnTop($userId)
+	public function withMyStatsOnTop($userId, $activeOnly = true)
 	{
+		/** @todo Дописать для $activeOnly */
 		$criteria = $this->dbCriteria;
 		$alias = $this->tableAlias;
 		$criteria->together = true;

@@ -128,7 +128,7 @@
                     </div>
                     <div class="im-panel_user clearfix">
 						<a href="" class="ava ava__middle ava__female"><span class="ico-status ico-status__online" data-bind="visible: user.isOnline()"></span><img alt="" data-bind="attr: {src: user.avatar}" class="ava_img"/></a>
-						<div class="im-panel_user-status">data-bind="text: user.lastOnline"</div>
+						<div class="im-panel_user-status" data-bind="visible: !user.isOnline(),text: user.lastOnline()"></div>
 						<div class="im-panel_user-name" data-bind="text: user.fullName()"></div>
 						<!-- У иконки 3 состояния. 
 						Друг - без моидфикатора
@@ -138,7 +138,7 @@
 						<!-- ko if: user.isFriend -->
 						<a href="" class="im-panel_friend im-panel_friend__fr"><span class="im-panel_friend-ico"></span><span class="im-panel_friend-tx">Друг</span></a>
 						<!-- /ko -->
-						<!-- ko if: !user.isFriend -->
+						<!-- ko if: !user.isFriend() -->
 						<a href="" class="im-panel_friend im-panel_friend__add"><span class="im-panel_friend-ico"></span><span class="im-panel_friend-tx">Добавить <br> в друзья</span></a>
 						<!-- /ko -->
                     </div>
@@ -178,7 +178,8 @@
 								<div class="im-message_hold">
 									<div class="im-message_t"><span class="im-message_name im-message_name__self" data-bind="text: from.fullName()"></span>
 									</div>
-									<div class="im-message_tx" data-bind="html: text"></div>
+									<div class="im-message_tx" data-bind="visible: !dtimeDelete(), html: text"></div>
+									<div data-bind="visible: dtimeDelete(), click: restore">Сообщение было удалено, восстановить?</div>
 								</div>
 							</div>
 							<!-- /im-message-->

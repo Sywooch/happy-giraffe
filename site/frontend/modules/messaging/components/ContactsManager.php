@@ -126,6 +126,7 @@ class ContactsManager
                       u.last_name, # Фамилия собеседника
                       u.gender, # Пол собеседника
                       u.online, # Онлайн-статус собеседника
+                      u.last_active, # Дата последней активности
                       t.id AS tId, # ID Диалога
                       tu.hidden, # Видимость диалога
                       p.id AS pId, # ID аватара
@@ -164,6 +165,7 @@ class ContactsManager
                       u.last_name, # Фамилия собеседника
                       u.gender, # Пол собеседника
                       u.online, # Онлайн-статус собеседника
+                      u.last_active, # Дата последней активности
                       t.id AS tId, # ID Диалога
                       tu.hidden, # Видимость диалога
                       p.id AS pId, # ID аватара
@@ -203,6 +205,7 @@ class ContactsManager
                       u.last_name, # Фамилия собеседника
                       u.gender, # Пол собеседника
                       u.online, # Онлайн-статус собеседника
+                      u.last_active, # Дата последней активности
                       t.id AS tId, # ID Диалога
                       tu.hidden, # Видимость диалога
                       p.id AS pId, # ID аватара
@@ -241,6 +244,7 @@ class ContactsManager
                       u.last_name, # Фамилия собеседника
                       u.gender, # Пол собеседника
                       u.online, # Онлайн-статус собеседника
+                      u.last_active, # Дата последней активности
                       t.id AS tId, # ID Диалога
                       tu.hidden, # Видимость диалога
                       p.id AS pId, # ID аватара
@@ -277,6 +281,7 @@ class ContactsManager
 
     protected static function populateContact($row)
     {
+		/** @todo Практически идентичная функциональность с DialogForm::userToJson */
         $user = User::model()->populateRecord(array(
             'id' => $row['uId'],
             'avatar_id' => $row['pId'],
@@ -295,6 +300,7 @@ class ContactsManager
 			'avatar' => $user->getAvatarUrl(Avatar::SIZE_MEDIUM),
 			'channel' => $user->publicChannel,
 			'isOnline' => (bool) $row['online'],
+			'lastOnline' => DialogForm::parseDateTime($row['last_active']),
 			'isFriend' => (bool) $row['isFriend'],
 			'date' => (int) $row['updated'],
 			'count' => (int) $row['unreadCount'],

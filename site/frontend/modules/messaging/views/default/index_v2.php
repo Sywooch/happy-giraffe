@@ -157,7 +157,7 @@
 								</div>
 								<div class="im-message_r">
 									<div class="im-message_date" data-bind="text: created"></div>
-									<div class="im-message_control">
+									<div class="im-message_control" data-bind="visible: !dtimeDelete()">
 										<!-- b-control-->
 										<div class="b-control">
 											<div class="b-control_hold">
@@ -179,7 +179,7 @@
 									<div class="im-message_t"><span class="im-message_name im-message_name__self" data-bind="text: from.fullName()"></span>
 									</div>
 									<div class="im-message_tx" data-bind="visible: !dtimeDelete(), html: text"></div>
-									<div data-bind="visible: dtimeDelete(), click: restore">Сообщение было удалено, восстановить?</div>
+									<div class="im-message_tx color-gray" data-bind="visible: dtimeDelete()">Сообщение удалено. <a href="#" class="font-s" data-bind="click: restore">Восстановить</a></div>
 								</div>
 							</div>
 							<!-- /im-message-->

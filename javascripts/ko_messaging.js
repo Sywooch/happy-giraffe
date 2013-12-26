@@ -183,7 +183,8 @@ function MessagingMessage(model) {
 	self.text = model.text;
 	self.created = model.created;
 	self.dtimeRead = ko.observable(model.dtimeRead);
-	self.dtimeDelete = ko.observable(self.dtimeDelete);
+	self.dtimeDelete = ko.observable(model.dtimeDelete);
+	self.hidden = ko.observable(false);
 	//self.images = model.images;
 
 	/**
@@ -224,6 +225,33 @@ MessagingThread.prototype = {
 		if (!MessagingThread.prototype.binded) {
 			MessagingThread.prototype.binded = true;
 			// тут событие добавления сообщения
+			// Удаление диалога
+			Comet.prototype.messagingThreadDeleted = function(result, id) {
+				ko.utils.arrayForEach(self.objects, function(obj) {
+					if (obj.id == result.dialog.id) {
+						obj.deletedDialogs.push(result.dialog.dtimeDelete);
+						ko.utils.arrayForEach(obj.messages, function(message) {
+							// Скрываем сообщения, которые были написаны до момента удаления диалога
+							if(message.created < result.dialog.dtimeDelete) {
+								message.hidden(true);
+							}
+						});
+					}
+				});
+			};
+			comet.addEvent(2060, 'messagingThreadDeleted');
+			// Восстановление диалога
+			Comet.prototype.messagingThreadRestored = function(result, id) {
+				ko.utils.arrayForEach(self.objects, function(obj) {
+					if (obj.id == result.dialog.id) {
+						obj.deletedDialogs([]);
+						ko.utils.arrayForEach(obj.messages, function(message) {
+							message.hidden(false);
+						});
+					}
+				});
+			};
+			comet.addEvent(2070, 'messagingThreadRestored');
 		}
 	},
 	open: function(user) {
@@ -254,11 +282,24 @@ function MessagingThread(me, user) {
 	self.sendingMessage = ko.observable(false);
 	self.loadingMessages = ko.observable(false);
 	self.fullyLoaded = ko.observable(false);
+	self.editing = ko.observable(false);
+	self.deletedDialogs = ko.observableArray([]);
 
 	// методы
+	self.setEditing = function(data, event) {
+		self.editing(true);
+	};
+	self.deleteDialog = function() {
+		// Просто отправим запрос, ответ придёт событием
+		$.post('/messaging/threads/delete/', {userId: self.id});
+	};
+	self.restoreDialog = function() {
+		// Просто отправим запрос, ответ придёт событием
+		$.post('/messaging/threads/restore/', {userId: self.id, restore: self.deletedDialogs()});
+	};
 	self.sendMessage = function() {
 		self.sendingMessage(true);
-		var data = {}
+		var data = {};
 		data.interlocutorId = self.user.id();
 		data.text = self.editor();
 		data.images = self.uploadedImagesIds();
@@ -306,13 +347,13 @@ function MessagingThread(me, user) {
 	self.sendTyping = function() {
 		$.post('/messaging/interlocutors/typing/', {typingStatus: 1, interlocutorId: self.user.id});
 	}
-	
+
 	/**
 	 * Загрузка сообщений
 	 */
 	self.loadMessages = function() {
 		self.loadingMessages(true);
-		$.get('/messaging/threads/getMessages/', { userId : self.user.id }, function(response) {
+		$.get('/messaging/threads/getMessages/', {userId: self.user.id}, function(response) {
 			self.messages(ko.utils.arrayMap(response.messages, function(message) {
 				return new MessagingMessage(message);
 			}));

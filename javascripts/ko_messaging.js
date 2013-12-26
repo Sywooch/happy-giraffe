@@ -104,6 +104,10 @@ function MessagingUser(viewModel, model) {
 	self.lastOnline = ko.observable(model.lastOnline);
 	self.typing = ko.observable(false);
 	self.typingTimer = false;
+	// Открыт сейчас
+	self.isActive = ko.computed(function() {
+		return self.viewModel.currentThread() && self.viewModel.currentThread().user.id == self.id;
+	});
 	self.setTyping = function() {
 		if (self.typingTimer)
 			clearTimeout(self.typingTimer);

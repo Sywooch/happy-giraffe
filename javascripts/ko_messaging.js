@@ -43,6 +43,7 @@ MessagingUser.prototype = {
 				ko.utils.arrayForEach(self.objects, function(obj) {
 					if (obj.id == result.user.id) {
 						obj.isOnline(result.user.online);
+						obj.lastOnline(result.user.lastOnline);
 						// Применить фильтр
 					}
 				});
@@ -158,7 +159,7 @@ MessagingMessage.prototype = {
 			Comet.prototype.messagingMessageDeleted = function(result, id) {
 				ko.utils.arrayForEach(self.objects, function(obj) {
 					if (obj.id == result.message.id) {
-						obj.dtimeDelete = result.message.dtimeDelete;
+						obj.dtimeDelete(result.message.dtimeDelete);
 					}
 				});
 			}
@@ -186,21 +187,14 @@ function MessagingMessage(model) {
 	 */
 	self.deleteMessage = function() {
 		// Просто отправим запрос, ответ придёт событием
-		$.post('/messaging/messages/delete/', {messageId: self.id}/*, function(response) {
-			if (response.success) {
-				self.dtimeDelete(response.message.dtimeDelete);
-			}
-		}, 'json'*/);
+		$.post('/messaging/messages/delete/', {messageId: self.id});
 	}
 	/**
 	 * Восстановление сообщения
 	 */
 	self.restore = function() {
-		$.post('/messaging/messages/restore/', {messageId: self.id()}, function(response) {
-			if (response.success) {
-				self.dtimeDelete(response.message.dtimeDelete);
-			}
-		}, 'json');
+		// Просто отправим запрос, ответ придёт событием
+		$.post('/messaging/messages/restore/', {messageId: self.id});
 	}
 
 	// Текст конструктора

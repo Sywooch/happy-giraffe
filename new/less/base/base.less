@@ -411,6 +411,61 @@
     }
 }
 
+/* inputs */
+.itx-bluelight {
+    border: 1px solid #c7c7c7;
+    .box-shadow(inset 2px 2px 3px rgba(0,0,0,0.08));
+    padding: 4px 7px;
+    background: #fff;
+
+    &:focus {
+        border-color: #8ed2fd;
+        .box-shadow(0 0 10px rgba(128,184,242,1));
+    }
+}
+.itx-gray {
+    width: 100%;
+    border: 1px solid #e6e6e6;
+    padding: 7px 10px;
+    background: #fff;
+    color: #070707;
+    .box-sizing(border-box);
+    .border-radius(3px);
+    .transition(all 0.4s ease);
+
+    &:focus {border-color: #a0ceee;}
+}
+.itx-simple {
+    width: 100%;
+    border: 1px solid #daebf5;
+    padding: 7px 8px 7px 10px;
+    font-size: 14px;
+    line-height: 19px;
+    color: #070707;
+    background: #fff;
+    .box-sizing(border-box);
+    .border-radius(3px);
+
+    &:focus {border-color: #a0ceee;}
+    &.error {border-color: #f9cbcb;}
+}
+/* errors */
+.error input[type="text"],
+.error input[type="password"],
+.error textarea, 
+input.error[type="text"], 
+input.error[type="password"], 
+textarea.error {
+    border: 1px solid #F9CBCB !important;
+}
+.errorMessage {
+    color: #FF8888 !important;
+    font-size: 11px !important;
+    line-height: normal !important;
+    margin: 5px 0;
+    overflow: hidden;
+}
+
 
 /* 
 ------------------------------------------------------------------

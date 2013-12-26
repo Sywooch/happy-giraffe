@@ -858,6 +858,7 @@ only screen and (                min-resolution: 2dppx) {
 
 */
 
+/* redactor-control */
 .redactor-control {
     .redactor_box {border: none;}
     &_hold {
@@ -889,4 +890,131 @@ only screen and (                min-resolution: 2dppx) {
         color: #6a8599;
     }
 }
-/* /redactor-control-b */
+/* /redactor-control */
+
+
+/* redactor-popup */
+.redactor-popup {
+    position: absolute;
+    padding: 25px;
+    background: #fff;
+    .box-shadow(0 1px 6px rgba(0,0,0,0.15));
+    z-index: 5100;
+
+    .b-add-img {width: 516px;}
+
+    &_close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+    }
+    &_tale {
+        position: absolute;
+        bottom: -5px;
+        left: 25px;
+        width:10px;
+        height:10px;
+        background:#fff;
+        z-index:1;
+        box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.12);
+        .rotate(45deg);
+    }
+    .ie7 &_tale,
+    .ie8 &_tale {display: none;}
+
+    &_t {
+        margin: 10px 0;
+        font-size: 13px;
+        color: #418ac1;
+        font-weight: bold;
+    }
+
+    &_add-video {
+        position: relative;
+        margin-bottom: 15px;
+        padding: 0 20px 215px;
+        width: 505px;
+        background:#F5FBFF url(/new/images/redactor-popup_add-video.png) no-repeat 50% 78%;
+        border: 2px dashed #BBD8EC;
+        .border-radius(6px);
+    }
+    &_add-video-hold {}
+    &_add-video .btn-green {
+        margin:-2px 0 0 8px;
+        line-height: 23px;
+    }
+    &_add-video-load {
+        position: absolute;
+        top: 160px;
+        left: 75px;
+        width: 400px;
+        text-align: center;
+        font-size: 14px;
+        color: #b6b6b6;
+    }
+    &_add-video-error {
+        position: absolute;
+        top: 160px;
+        left: 55px;
+        width: 440px;
+        padding: 10px 0;
+        border: 1px solid #fdb9ac;
+        background: #fde3e3;
+        text-align: center;
+        font-size: 13px;
+        color: #db9191;
+    }
+    &_video {
+        position: relative;
+        margin-bottom: 15px;
+    }
+    &_video-del {
+        position: absolute;
+        top: -12px;
+        right: -12px;
+    }
+    &_video-serv {
+        margin: 25px 20px 15px;
+    }
+    &_video-serv-tx {
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 5px;
+        .color-gray;
+    }
+    &_video-serv-i {
+        display: inline-block;
+        vertical-align: middle;
+        margin: 0 5px;
+        width: 60px;
+        height: 30px;
+        background: url(/new/images/redactor-popup_video-serv-i.png) no-repeat;
+    }
+    &_video-serv-i.active {}
+    &_video-serv-i__youtube {background-position: 0 -30px;}
+    &_video-serv-i__youtube.active {background-position: 0 0;}
+    &_video-serv-i__rutube  {background-position: -60px -30px;}
+    &_video-serv-i__rutube.active  {background-position: -60px 0;}
+    &_video-serv-i__vimeo   {background-position: -120px -30px;}
+    &_video-serv-i__vimeo.active   {background-position: -120px 0;}
+
+    &_smiles {
+        width: 520px;
+        text-align: center;
+    }
+    &_smiles td {vertical-align: middle;}
+    &_holder-blue {
+        width: 500px;
+        padding: 15px 10px;
+        background: #f5fcff;
+    }
+    &_label {
+        float: left;
+        width: 125px;
+        margin-right: 20px;
+        line-height: 31px;
+        color: #333;
+        text-align: right;
+    }
+}
+/* /redactor-popup */

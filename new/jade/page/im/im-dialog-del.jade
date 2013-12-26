@@ -25,7 +25,10 @@ block layout-wrapper_hold
                     .scroll
                         .im-center_middle-hold.scroll_scroller
                             .im-center_middle-w.scroll_cont
-                                +cap-empty("cap-empty__abs", {t: 'Диалог с данным пользователем удален', txSub: "<a href=''>Восстановить</a>"})
+                                .im_loader
+                                .position-rel.h-300
+                                    +cap-empty("cap-empty__abs", {t: 'Диалог с данным пользователем удален', txSub: "<a href=''>Восстановить</a>"})
+                                .im_loader
                         .scroll_bar-hold
                             .scroll_bar
                                 .scroll_bar-in

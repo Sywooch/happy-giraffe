@@ -2,8 +2,8 @@
 .tooltip-popup {
     position: relative;
     display: block;
-    width:200px;
-    padding: 20px 25px;
+    width:210px;
+    padding: 20px 20px;
     margin: 0 10px;
     color: #333;
     text-align: left;
@@ -56,7 +56,6 @@ html {
 // themes
 /* This is the default Tooltipster theme (feel free to modify or duplicate and create multiple themes!): */
 .tooltipster-default {
-    padding: 0 10px;
     color: #fff;
 }
 
@@ -83,22 +82,31 @@ html {
 }
 
 .tooltipster-white {
+
     .tooltipster-content {
+        position: relative;
+        margin: 0 10px;
         background: #fff;
         font: 12px/16px Arial, Tahoma, Verdana, sans-serif;
         .box-shadow(0 0 4px rgba(0,0,0,0.13));
         .border-radius(5px);
+        z-index: 1;
     }
-
+    .tooltipster-arrow {
+        z-index: auto;
+    }
     .tooltipster-arrow span {
         position: absolute;
-        top: -8px;
+        top: -9px;
         left: 50%;
-        width: 11px;
-        height: 8px;
-        margin: 0 0 0 -6px;
+        width: 18px;
+        height: 10px;
+        margin: 0 0 0 -8px;
         border: 0 !important;
-        background: url(/images/im/im-tooltip-popup.png) no-repeat;
+        z-index: 5;
+    }
+    .tooltipster-arrow-bottom span {
+        background: url(/new/images/base/tooltipster-arrow-bottom.png) no-repeat;
     }
 }
 
@@ -117,6 +125,8 @@ html {
     pointer-events: none;
     width: auto;
     overflow: visible;
+    top: 0;
+    left: 0;
 }
 .tooltipster-base .tooltipster-content {
     overflow: hidden;

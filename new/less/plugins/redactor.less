@@ -1,0 +1,62 @@
+/*
+    redactor
+*/
+.redactor_toolbar {
+    background: none;
+    border: none;
+    padding: 5px 0 !important;
+}
+.redactor_toolbar li a:hover {
+    outline: none;
+    border-color: rgba(255, 255, 255, 0) !important;
+    background-color: rgba(255, 255, 255, 0) !important;
+}
+.redactor_toolbar li a:active,
+.redactor_toolbar li a.redactor_act {
+    outline: none;
+    border-color: rgba(255, 255, 255, 0) !important;
+    background-color: rgba(255, 255, 255, 0) !important;
+}
+.redactor_redactor {
+    border: 1px solid #e0e1e2;
+}
+.redactor_redactor:focus {
+    border: 1px solid #d6d8d9;
+}
+.redactor_editor,
+.redactor_editor:focus {
+    padding: 8px 10px;
+}
+
+/* 
+    redactor-control
+    wisywig с кнопками
+    redactor-control
+*/
+
+.redactor-control {
+    .redactor_im-redactor {max-height: 260px;}
+    .redactor_redactor p {margin: 0 !important;}
+
+    &_control {
+        float: right;
+        margin-top: -33px;
+        position: relative;
+        z-index: 99;
+    }
+    &_key {
+        float: left;
+        margin: 3px 10px 0 0;
+    }
+    &_key-checkbox {
+        .inline-block();
+        vertical-align: middle;
+        margin: -4px 4px;
+    }
+    &_key-label {
+        font-size: 9px;
+        font-family: Tahoma, Arial, Verdana, sans-serif;
+        color: #6a8599;
+    }
+}
+/* /redactor-control-b */

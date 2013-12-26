@@ -15,37 +15,34 @@ $(window).load(function() {
         smartPlacement: true,
         offset: 8
     });*/
-    $('.powertip').tooltipster({
+    $('.powertip, .redactor_toolbar li a').tooltipster({
         trigger: 'hover',
         animation: 'fade',
+        offsetY: -6,
         delay: 200,
         maxWidth: 200,
         arrowColor: '#5C4B86',
+        onlyOne: false,
         touchDevices: true,
         theme: '.tooltipster-default',
-        functionReady: function(origin, continueTooltip) {
-            origin.tooltipster('reposition');
-        }
+        functionReady: function(origin, continueTooltip) {}
     });
 
     $('.tooltip-click-b').tooltipster({
         trigger: 'click',
-        animation: 'fade',
         delay: 0,
         onlyOne: false,
         touchDevices: true,
         interactive: true,
+        interactiveAutoClose: false,
         theme: '.tooltipster-white',
         position: 'bottom',
         functionBefore: function(origin, continueTooltip) {
-            var data = 'My new content';
-            var d = $('.tooltip-click-b').find(' .tooltip-drop').html();
-            console.log(origin.tooltipster());
+            $('.tooltip-click-b').tooltipster('hide');
+            var d = $(origin.context).find(' .tooltip-drop').html();
+            console.log(origin.context.className);
             origin.tooltipster('update', d);
             continueTooltip(d);
-        },
-        functionReady: function(origin, continueTooltip) {
-            origin.tooltipster('reposition');
         }
     });
 

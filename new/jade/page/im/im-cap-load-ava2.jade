@@ -27,11 +27,13 @@ block layout-wrapper_hold
                     .scroll
                         .im-center_middle-hold.scroll_scroller
                             .im-center_middle-w.scroll_cont
+                                .im_loader
                                 +im-message("", {mod_name: "im-message_name__friend", bControl: ['favorite', 'delete', 'spam']})
+                                .im_loader
                         .scroll_bar-hold
                             .scroll_bar
                                 .scroll_bar-in
-                +im-center_bottom("", {wisywig: true})
+                +im-center_bottom("", {})
                 
             // /im-center
     // /im

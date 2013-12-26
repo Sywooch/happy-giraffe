@@ -2,7 +2,7 @@
 <html class="no-js">
   <head><meta charset="utf-8">
     <title>Happy Giraffe</title>
-    <!-- including .css--><link rel="stylesheet" type="text/css" href="/redactor/redactor.css" />
+    <!-- including .css--><link rel="stylesheet" type="text/css" href="../../../redactor/redactor.css" />
     <link rel="stylesheet" type="text/css" href="../../../css/all1.css" />
     <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300&amp;subset=latin,cyrillic-ext,cyrillic">
     <!-- including other jade works-->
@@ -84,7 +84,7 @@
                   <!-- side-menu-->
                   <div class="side-menu side-menu__im">
                     <div class="side-menu_hold">
-                      <div class="side-menu_t"></div><a href="" class="side-menu_i active"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__all"></span><span class="side-menu_tx">Все</span></span><span class="verticalalign-m-help"></span></a><a href="" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__new"></span><span class="side-menu_tx">Новые</span><span class="side-menu_count">59</span></span><span class="verticalalign-m-help"></span></a><a href="" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__online"></span><span class="side-menu_tx">Кто онлайн</span></span><span class="verticalalign-m-help"></span></a><a href="" class="side-menu_i disabled"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__online-friend"></span><span class="side-menu_tx">Друзья онлайн</span></span><span class="verticalalign-m-help"></span></a>
+                      <div class="side-menu_t"></div><a href="" class="side-menu_i active"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__all"></span><span class="side-menu_tx">Все</span></span><span class="verticalalign-m-help"></span><span class="side-menu_count-sub">9</span></a><a href="" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__new"></span><span class="side-menu_tx">Новые</span><span class="side-menu_count">96</span></span><span class="verticalalign-m-help"></span></a><a href="" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__online"></span><span class="side-menu_tx">Кто онлайн</span></span><span class="verticalalign-m-help"></span><span class="side-menu_count-sub">5945</span></a><a href="" class="side-menu_i disabled"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__online-friend"></span><span class="side-menu_tx">Друзья онлайн</span></span><span class="verticalalign-m-help"></span><span class="side-menu_count-sub">0</span></a>
                     </div>
                   </div>
                   <!-- /side-menu-->
@@ -139,12 +139,12 @@
                   <!-- im-panel-->
                   <div class="im-panel">
                     <div class="im-panel_actions">
-                      <div class="im-panel_ico-hold"><span href="" title="Удалить диалог" class="im-panel_ico im-panel_ico__del powertip"></span>
+                      <div class="im-panel_ico-hold tooltip-click-b"><span href="" title="Удалить диалог" class="im-panel_ico im-panel_ico__del powertip"></span>
                         <!-- tooltip-drop-->
                         <div class="tooltip-drop">
                           <div class="tooltip-popup">
                             <div class="tooltip-popup_t">Вы уверены?</div>
-                            <p class="tooltip-popup_tx">Пользователь из черного списка не сможет писать вам личные сообщения и комментировать ваши записи</p>
+                            <p class="tooltip-popup_tx">Все сообщения из данного диалога будут удалены.</p>
                             <label for="im-tooltip-popup_checkbox" class="tooltip-popup_label-small clearfix">
                               <input type="checkbox" name="" id="im-tooltip-popup_checkbox" class="tooltip-popup_checkbox"/>Больше не показывать данное предупреждение
                             </label>
@@ -161,7 +161,7 @@
                         <div class="tooltip-drop">
                           <div class="tooltip-popup">
                             <div class="tooltip-popup_t">Вы уверены?</div>
-                            <p class="tooltip-popup_tx">Пользователь из черного списка не сможет писать вам личные сообщения и комментировать ваши записи</p>
+                            <p class="tooltip-popup_tx">Данный пользователь и весь диалог с ним будут удалены, и он больше не сможет отправлять вам сообщения.</p>
                             <label for="im-tooltip-popup_checkbox" class="tooltip-popup_label-small clearfix">
                               <input type="checkbox" name="" id="im-tooltip-popup_checkbox" class="tooltip-popup_checkbox"/>Больше не показывать данное предупреждение
                             </label>
@@ -191,6 +191,7 @@
                   <div class="scroll">
                     <div class="im-center_middle-hold scroll_scroller">
                       <div class="im-center_middle-w scroll_cont">
+                        <div class="im_loader"></div>
                         <!-- im-message-->
                         <div class="im-message">
                           <div class="im-message_ava"><a href="" class="ava ava__small ava__male"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"/></a>
@@ -207,17 +208,33 @@
                                   <div class="b-control_i"><span title="Удалить" class="b-control_ico powertip b-control_ico__delete"></span>
                                     <div class="b-control_drop"></div>
                                   </div>
-                                  <div class="b-control_i tooltip-click-t"><span title="Пожаловаться" class="b-control_ico powertip b-control_ico__spam"></span>
+                                  <div class="b-control_i tooltip-click-b"><span title="Пожаловаться" class="b-control_ico powertip b-control_ico__spam"></span>
                                     <div class="tooltip-drop">
                                       <div class="tooltip-popup">
-                                        <div class="tooltip-popup_t">Вы уверены?</div>
-                                        <p class="tooltip-popup_tx">Пользователь из черного списка не сможет писать вам личные сообщения и комментировать ваши записи</p>
-                                        <label for="im-tooltip-popup_checkbox" class="tooltip-popup_label-small clearfix">
-                                          <input class="tooltip-popup_checkbox"/>Больше не показывать данное предупреждение
+                                        <div class="tooltip-popup_t">Укажите вид нарушения:</div>
+                                        <label for="tooltip-popup_radio" class="tooltip-popup_label clearfix"></label>
+                                        <!-- id у input должны быть все разные, приведен пример для связки label с input атрибут name у каждого выпадающего окношка должен быть разный
+                                        <input id="tooltip-popup_radio" type="radio" name="tooltip-popup_radio" class="tooltip-popup_radio"/>Спам или реклама
+                                        -->
+                                        <label for="" class="tooltip-popup_label clearfix">
+                                          <input type="radio" name="tooltip-popup_radio" class="tooltip-popup_radio"/>Мошенничество
                                         </label>
-                                        <div class="textalign-c clearfix">
-                                          <button class="btn-green">Да</button>
-                                          <button class="btn-gray-light">Нет</button>
+                                        <label for="" class="tooltip-popup_label clearfix">
+                                          <input type="radio" name="tooltip-popup_radio" class="tooltip-popup_radio"/>Грубость, угрозы
+                                        </label>
+                                        <label for="" class="tooltip-popup_label clearfix">
+                                          <input type="radio" name="tooltip-popup_radio" class="tooltip-popup_radio"/>Интимный характер
+                                        </label>
+                                        <label for="" class="tooltip-popup_label clearfix">
+                                          <input type="radio" name="tooltip-popup_radio" class="tooltip-popup_radio"/>Другое
+                                        </label>
+                                        <label for="" class="tooltip-popup_label clearfix">
+                                          <input type="radio" name="tooltip-popup_radio" class="tooltip-popup_radio"/>
+                                          <input type="text" name="" placeholder="Другое" class="tooltip-popup_itx"/>
+                                        </label>
+                                        <div class="clearfix textalign-c">
+                                          <button class="btn-green btn-inactive">Пожаловаться</button>
+                                          <button class="btn-gray-light">Отменить</button>
                                         </div>
                                       </div>
                                     </div>
@@ -237,6 +254,7 @@
                           </div>
                         </div>
                         <!-- /im-message-->
+                        <div class="im_loader"></div>
                       </div>
                     </div>
                     <div class="scroll_bar-hold">

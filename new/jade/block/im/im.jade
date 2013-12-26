@@ -150,6 +150,7 @@ mixin im-panel(mod, vars)
     vars 
         mod_name =  im-message_name__self
                     im-message_name__friend
+        imMessage_tx
         bControl
 
 mixin im-message(mod, vars)
@@ -177,6 +178,9 @@ mixin im-message(mod, vars)
                     .im-message_tx.color-gray Сообщение удалено. <a href="#" class="font-s">Восстановить</a>
                 default
                     .im-message_tx 
+                    - if (vars.imMessage_tx)
+                        = vars.imMessage_tx
+                    - else
                         p Уважаемая Зося, добрый день! 
                         p Прошу вас не ставить в ваши темы активные ссылки, а ставить картинки, так как правилами сайта активные ссылки на посторонние порталы запрещены, и будут удалены.
     // /im-message

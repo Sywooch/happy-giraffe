@@ -84,7 +84,6 @@ mixin side-menu(mod)
                     span.side-menu_ico.side-menu_ico__all
                     span.side-menu_tx Все
                 span.verticalalign-m-help
-                span.side-menu_count-sub 9
             a.side-menu_i(href="")
                 span.side-menu_i-hold
                     span.side-menu_ico.side-menu_ico__new
@@ -135,7 +134,14 @@ mixin cap-empty(mod, vars)
 //- redactor-control-b
 mixin redactor-control(mod, vars)
     .redactor-control
-        textarea.redactor(cols='40', name='redactor', rows='1', autofocus='autofocus')
+        .redactor-control_hold
+            .scroll
+                .scroll_scroller
+                    .scroll_cont
+                        textarea.redactor(cols='40', name='redactor', rows='1', autofocus='autofocus')
+                    .scroll_bar-hold
+                        .scroll_bar
+                            .scroll_bar-in
         .redactor-control_toolbar
         .redactor-control_control
             .redactor-control_key
@@ -160,9 +166,21 @@ mixin redactor-control(mod, vars)
                       }
                   }
                 },
+                focusCallback: function(e)
+                {
+                    //this.$element[0].parrent('.redactor-control_hold').addClass('redactor-control_hold__focus');
+                    //console.log(this.$box);
+                    // Нужно выбирать непосредственного родителя
+                    $('.redactor-control_hold').addClass('redactor-control_hold__focus');
+                },
                 changeCallback: function(html)
                 {   
                     im.containerHeight();
+                    // Нужно выбирать непосредственного родителя
+                    var bParrent = $('.redactor-control_hold');
+                    if(bParrent.height() >= 250) {
+                        bParrent.height(250);
+                    }
                 },
                 initCallback: function()
                 {

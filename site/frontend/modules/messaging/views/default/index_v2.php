@@ -93,7 +93,7 @@
 						<div class="scroll_scroller">
 							<div class="scroll_cont" data-bind="foreach: users">
 								<!--<div class="im-user-list_i clearfix active">-->
-								<div class="im-user-list_i clearfix" data-bind="click: open">
+								<div class="im-user-list_i clearfix" data-bind="click: open, css: { active: isActive }">
 									<div class="im-user-list_count" data-bind="visible: countNew() > 0, text: countNew"></div>
 									<div class="im-user-list_set"><a href="" class="ava ava__middle ava__female"><span class="ico-status ico-status__online" data-bind="visible: isOnline"></span><img alt="" data-bind="attr: {src: avatar}" class="ava_img"/></a>
 										<div class="im-user-list_set-name"><a href="" class="im-user-list_set-a" data-bind="text: fullName()"></a></div>

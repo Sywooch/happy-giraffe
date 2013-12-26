@@ -51,6 +51,7 @@
               }
               im.containerHeight = function() {
                   var h = im.imCenter.height() - im.centerTop.height() - im.centerBottom.height();
+                  console.log(im.centerBottom.height());
                   im.container.height(h);
               }
               $(document).ready(function () {

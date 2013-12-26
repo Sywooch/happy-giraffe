@@ -9,7 +9,7 @@ class MessagesController extends HController
     {
         return array(
             'accessControl',
-            //'ajaxOnly',
+            'ajaxOnly',
         );
     }
 

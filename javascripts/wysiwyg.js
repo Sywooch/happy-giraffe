@@ -21,9 +21,8 @@ var WysiwygPhotoUpload = function (comments) {
             else
                 html += photo.html;
         });
-        redactor.insertHtmlAdvanced(html);
-        redactor.sync();
-        redactor.set(redactor.get() + '<p></p>');
+        html += '<p></p>';
+        redactor.insertHtmlAdvanced(html, true);
         self.close();
     };
     self.close = function(){

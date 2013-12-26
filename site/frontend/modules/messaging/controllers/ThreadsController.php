@@ -2,141 +2,200 @@
 
 class ThreadsController extends HController
 {
-    const MESSAGES_PER_PAGE = 20;
 
-    public function filters()
-    {
-        return array(
-            'accessControl',
-            'ajaxOnly',
-        );
-    }
+	const MESSAGES_PER_PAGE = 20;
 
-    public function accessRules()
-    {
-        return array(
-            array('deny',
-                'users' => array('?'),
-            ),
-        );
-    }
+	public function filters()
+	{
+		return array(
+			'accessControl',
+			'ajaxOnly',
+		);
+	}
 
-    /**
-     * Создание диалога
-     *
-     * Создает новый диалог с указанным собеседником
-     */
-    /*public function actionCreate()
-    {
-        $interlocutor_id = Yii::app()->request->getPost('interlocutor_id');
+	public function accessRules()
+	{
+		return array(
+			array('deny',
+				'users' => array('?'),
+			),
+		);
+	}
 
-        $thread = new MessagingThread();
-        $threadUser1 = new MessagingThreadUser();
-        $threadUser1->user_id = Yii::app()->user->id;
-        $threadUser2 = new MessagingThreadUser();
-        $threadUser2->user_id = $interlocutor_id;
-        $thread->threadUsers = array($threadUser1, $threadUser2);
+	/**
+	 * Создание диалога
+	 *
+	 * Создает новый диалог с указанным собеседником
+	 */
+	public function actionCreate()
+	{
+		throw new CHttpException(404);
+		$interlocutor_id = Yii::app()->request->getPost('interlocutor_id');
 
-        $success = $thread->withRelated->save(true, array('threadUsers'));
-        $response = array(
-            'success' => $success,
-        );
-        echo CJSON::encode($response);
-    }*/
+		$thread = new MessagingThread();
+		$threadUser1 = new MessagingThreadUser();
+		$threadUser1->user_id = Yii::app()->user->id;
+		$threadUser2 = new MessagingThreadUser();
+		$threadUser2->user_id = $interlocutor_id;
+		$thread->threadUsers = array($threadUser1, $threadUser2);
 
-    /**
-     * Изменяет статус видимости диалога
-     *
-     * @throws CHttpException
-     */
-    public function actionChangeHiddenStatus()
-    {
-        $threadId = Yii::app()->request->getPost('threadId');
-        $hiddenStatus = Yii::app()->request->getPost('hiddenStatus');
+		$success = $thread->withRelated->save(true, array('threadUsers'));
+		$response = array(
+			'success' => $success,
+		);
+		echo CJSON::encode($response);
+	}
 
-        $threadUser = MessagingThreadUser::model()->findByAttributes(array(
-            'thread_id' => $threadId,
-            'user_id' => Yii::app()->user->id,
-        ));
+	/**
+	 * Изменяет статус видимости диалога
+	 *
+	 * @throws CHttpException
+	 */
+	public function actionChangeHiddenStatus()
+	{
+		throw new CHttpException(404);
+		$threadId = Yii::app()->request->getPost('threadId');
+		$hiddenStatus = Yii::app()->request->getPost('hiddenStatus');
 
-        if ($threadUser === null)
-            throw new CHttpException(403, 'Thread does not exists.');
+		$threadUser = MessagingThreadUser::model()->findByAttributes(array(
+			'thread_id' => $threadId,
+			'user_id' => Yii::app()->user->id,
+		));
 
-        $threadUser->hidden = $hiddenStatus;
+		if ($threadUser === null)
+			throw new CHttpException(403, 'Thread does not exists.');
 
-        $success = $threadUser->save();
-        $response = array(
-            'success' => $success,
-        );
-        echo CJSON::encode($response);
-    }
+		$threadUser->hidden = $hiddenStatus;
 
-    /**
-     * Изменяет статус прочитанности диалога
-     */
-    /*public function actionChangeReadStatus()
-    {
-        $threadId = Yii::app()->request->getPost('threadId');
-        $readStatus = Yii::app()->request->getPost('readStatus');
+		$success = $threadUser->save();
+		$response = array(
+			'success' => $success,
+		);
+		echo CJSON::encode($response);
+	}
+
+	/**
+	 * Изменяет статус прочитанности диалога
+	 */
+	public function actionChangeReadStatus()
+	{
+		throw new CHttpException(404);
+		$threadId = Yii::app()->request->getPost('threadId');
+		$readStatus = Yii::app()->request->getPost('readStatus');
 
 
-        $thread = MessagingThread::model()->with('threadUsers')->findByPk($threadId);
-        if ($readStatus == 1) {
-            $messagesCount = $thread->markAsReadFor(Yii::app()->user->id);
+		$thread = MessagingThread::model()->with('threadUsers')->findByPk($threadId);
+		if ($readStatus == 1)
+		{
+			$messagesCount = $thread->markAsReadFor(Yii::app()->user->id);
 
-            $comet = new CometModel();
-            foreach ($thread->threadUsers as $threadUser) {
-                if ($threadUser->user_id !== Yii::app()->user->id)
-                    $comet->send($threadUser->user_id, array('threadId' => $threadId), CometModel::MESSAGING_THREAD_READ);
-            }
-        }
-        else
-            $messagesCount = $thread->markAsUnReadFor(Yii::app()->user->id);
+			$comet = new CometModel();
+			foreach ($thread->threadUsers as $threadUser)
+			{
+				if ($threadUser->user_id !== Yii::app()->user->id)
+					$comet->send($threadUser->user_id, array('threadId' => $threadId), CometModel::MESSAGING_THREAD_READ);
+			}
+		}
+		else
+			$messagesCount = $thread->markAsUnReadFor(Yii::app()->user->id);
 
-        $response = array(
-            'success' => $messagesCount > 0,
-            'messagesCount' => $messagesCount,
-        );
-        echo CJSON::encode($response);
-    }*/
+		$response = array(
+			'success' => $messagesCount > 0,
+			'messagesCount' => $messagesCount,
+		);
+		echo CJSON::encode($response);
+	}
 
-    /**
-     * Подгружает выбранный диалог
-     *
-     * @param $threadId
-     * @param int $offset
-     */
-    public function actionGetMessages($userId, $lastDate = false)
-    {
+	/**
+	 * Подгружает выбранный диалог
+	 *
+	 * @param $threadId
+	 * @param int|false $lastDate
+	 */
+	public function actionGetMessages($userId, $lastDate = false)
+	{
 		$result = array();
 		$me = Yii::app()->user->id;
-        $messages = MessagingMessage::model()->between($me, $userId)->withMyStats($me);
-		if($lastDate) {
+		$messages = MessagingMessage::model()->between($me, $userId)->withMyStats($me);
+		if ($lastDate)
+		{
 			$messages->older($lastDate);
 		}
 		// Загрузим на одно сообщение больше, что бы узнать последняя ли это страница
-		$messages = $messages->findAll(array( 'limit' => self::MESSAGES_PER_PAGE + 1 ));
+		$messages = $messages->findAll(array('limit' => self::MESSAGES_PER_PAGE + 1));
 		$result['last'] = sizeof($messages) <= self::MESSAGES_PER_PAGE;
 		$count = min(sizeof($messages), self::MESSAGES_PER_PAGE);
-		for($i = 0; $i < $count; $i++) {
+		for ($i = 0; $i < $count; $i++)
+		{
 			$result['messages'][$i] = DialogForm::messageToJson($messages[$i], $me, $userId);
 		}
+
+		echo CJSON::encode($result);
+	}
+
+	public function actionDelete()
+	{
+		$me = Yii::app()->user->id;
+		$user = Yii::app()->request->getPost('userId');
+		$time = time();
+		/** @todo Перенести в модель */
+		/** @todo Не работает запрос */
+		MessagingMessageUser::model()->updateAll(array(
+			'dtime_delete' => new CDbExpression('FROM_UNIXTIME(:time)'),
+			), 'user_id = :me AND message_id IN (SELECT mm.id FROM `messaging__messages` mm JOIN `messaging__messages_users` mmu ON mm.id = mmu.message_id WHERE mmu.user_id = :user)', array(
+			':me' => $me,
+			':user' => $user,
+			':time' => $time,
+		));
+
+		$response = array(
+			'success' => true,
+		);
+		echo CJSON::encode($response);
+
+		// Подготовим и отправим событие
+		$comet = new CometModel();
+		$comet->send($me, array(
+			'dialog' => array(
+				'id' => $user,
+				'dtimeDelete' => $time,
+			)), CometModel::MESSAGING_THREAD_DELETED);
+	}
+	
+	public function actionRestore()
+	{
+		/** @todo Перенести в модель */
+		/** @todo Не работает запрос */
+		$me = Yii::app()->user->id;
+		$user = Yii::app()->request->getPost('userId');
+		$dtimes = Yii::app()->request->getPost('restore');
+		$params = array();
+		$in = array();
+		$i = 0;
+		foreach ($dtimes as $value)
+		{
+			$k = ':time' . $i;
+			$params[$k] = $value;
+			$in[] = 'FROM_UNIXTIME(' . $k . ')';
+			$i++;
+		}
 		
-        echo CJSON::encode($result);
-    }
+		$params[':me'] = $me;
+		$params[':user'] = $user;
+		MessagingMessageUser::model()->updateAll(array(
+			'dtime_delete' => null,
+			), 'user_id = :me AND thread_id IN (' . implode(', ', $in) . ') AND message_id IN (SELECT mm.id FROM `messaging__messages` mm JOIN `messaging__messages_users` mmu ON mm.id = mmu.message_id WHERE mmu.user_id = :user)', $params);
+		
+		$response = array(
+			'success' => true,
+		);
+		echo CJSON::encode($response);
 
-    public function actionDeleteMessages()
-    {
-        $threadId = Yii::app()->request->getPost('threadId');
-
-        $thread = MessagingThread::model();
-        $thread->id = $threadId;
-
-        $thread->deleteMessagesFor(Yii::app()->user->id);
-
-        $response = array(
-            'success' => true,
-        );
-        echo CJSON::encode($response);
-    }
+		// Подготовим и отправим событие
+		$comet = new CometModel();
+		$comet->send($me, array(
+			'dialog' => array(
+				'id' => $user,
+			)), CometModel::MESSAGING_THREAD_RESTORED);
+	}
 }

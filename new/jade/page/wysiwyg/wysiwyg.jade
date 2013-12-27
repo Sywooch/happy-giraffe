@@ -7,6 +7,82 @@ block layout-wrapper_hold
                 // вспомогательные br и .position-rel
                 .position-rel(style="margin: 100px 200px;")
                     br
+                    .redactor-popup()
+                        a.redactor-popup_close.ico-close3.powertip(href='', title='Закрыть')
+                        .redactor-popup_tale
+                        .redactor-popup_t Загрузите видео
+                        // Добавление видео
+                        .redactor-popup_add-video
+                            .redactor-popup_add-video-hold
+                                .redactor-popup_video-serv
+                                    .redactor-popup_video-serv-tx Поддерживаемые сервисы:
+                                    .redactor-popup_video-serv-i.redactor-popup_video-serv-i__youtube
+                                    .redactor-popup_video-serv-i.redactor-popup_video-serv-i__rutube
+                                    .redactor-popup_video-serv-i.redactor-popup_video-serv-i__vimeo
+                                // При вводе текста убрать класс .btn-inactive с кнопки для ее активирования
+                                input.itx-simple.itx-simple__blue.w-350.float-l(type='text', name='', placeholder='Введите ссылку на видео')
+                                button.btn-green.btn-medium.btn-inactive Загрузить  видео
+                        // Добавление видео с ошибкой
+                        .redactor-popup_add-video.active
+                            .redactor-popup_add-video-hold
+                                .redactor-popup_video-serv
+                                    .redactor-popup_video-serv-tx Поддерживаемые сервисы:
+                                    .redactor-popup_video-serv-i.redactor-popup_video-serv-i__youtube.active
+                                    .redactor-popup_video-serv-i.redactor-popup_video-serv-i__rutube
+                                    .redactor-popup_video-serv-i.redactor-popup_video-serv-i__vimeo
+                                // При вводе текста убрать класс .btn-inactive с кнопки для ее активирования
+                                input.itx-simple.itx-simple__blue.w-350.float-l.error(type='text', name='', placeholder='Введите ссылку на видео', value='http://www.youtube.com/embed/pehSAUTqjRs?wmode=transparent')
+                                button.btn-green.btn-medium.btn-inactive Загрузить  видео
+                            .redactor-popup_add-video-error
+                                | Ошибка загрузки видео. Попробуйте вставить другую ссылку
+                    br
+                    br
+                    br
+                    br
+                    br
+                    br
+                    br
+                    br
+                    br
+                    br
+                    br
+                    br
+                    br
+                    br
+                    br
+                    br
+                    br
+                    br
+                    br
+                    br
+                    br
+                    br
+                    br
+                    br
+                    br
+                    br
+                    br
+                    br
+                    br
+                    br
+                    br
+                    br
+                    br
+                    br
+                    br
+                    br
+                    br
+                    br
+                    br
+                    br
+                    br
+                    br
+                    br
+                    br
+                    br
+                    br
+                    br
+                    br
                     br
                     br
                     br
@@ -23,20 +99,14 @@ block layout-wrapper_hold
                                     .redactor-popup_video-serv-i.redactor-popup_video-serv-i__rutube
                                     .redactor-popup_video-serv-i.redactor-popup_video-serv-i__vimeo
                                 // При вводе текста убрать класс .btn-inactive с кнопки для ее активирования
-                                input.itx-simple.w-350.float-l(type='text', name='', placeholder='Введите ссылку на видео' value='http://www.youtube.com/watch?v=N8ev5pkIqKY')
+                                input.itx-simple.itx-simple__blue.w-350.float-l(type='text', name='', placeholder='Введите ссылку на видео' value='http://www.youtube.com/watch?v=N8ev5pkIqKY')
                                 button.btn-green.btn-medium Загрузить  видео
                             // При показе текстового сообщения на .redactor-popup_add-video добавлять класс .active
                             .redactor-popup_add-video-load
                                 img(src='/images/ico/ajax-loader.gif', alt='')
                                 br
                                 | Подождите видео загружается
-                        .textalign-c.margin-t15
-                            a.btn-gray-light.btn-medium.margin-r10(href='') Отменить
-                            a.btn-green.btn-medium.btn-inactive(href='') Добавить видео
                     // /redactor-popup
-                    br
-                    br
-                    br
                     br
                     br
                     br
@@ -73,31 +143,9 @@ block layout-wrapper_hold
                         .redactor-popup_video.clearfix
                             a.redactor-popup_video-del.ico-close.powertip(href='', title='Удалить')
                             iframe(width='540', height='300', frameborder='0', allowfullscreen='', src='http://www.youtube.com/embed/pehSAUTqjRs?wmode=transparent')
-                        .redactor-popup_add-video
-                            .redactor-popup_add-video-hold
-                                .redactor-popup_video-serv
-                                    .redactor-popup_video-serv-tx Поддерживаемые сервисы:
-                                    .redactor-popup_video-serv-i.redactor-popup_video-serv-i__youtube
-                                    .redactor-popup_video-serv-i.redactor-popup_video-serv-i__rutube
-                                    .redactor-popup_video-serv-i.redactor-popup_video-serv-i__vimeo
-                                // При вводе текста убрать класс .btn-inactive с кнопки для ее активирования
-                                input.itx-simple.w-350.float-l(type='text', name='', placeholder='Введите ссылку на видео')
-                                button.btn-green.btn-medium.btn-inactive Загрузить  видео
-                        .redactor-popup_add-video.active
-                            .redactor-popup_add-video-hold
-                                .redactor-popup_video-serv
-                                    .redactor-popup_video-serv-tx Поддерживаемые сервисы:
-                                    .redactor-popup_video-serv-i.redactor-popup_video-serv-i__youtube.active
-                                    .redactor-popup_video-serv-i.redactor-popup_video-serv-i__rutube
-                                    .redactor-popup_video-serv-i.redactor-popup_video-serv-i__vimeo
-                                // При вводе текста убрать класс .btn-inactive с кнопки для ее активирования
-                                input.itx-simple.w-350.float-l.error(type='text', name='', placeholder='Введите ссылку на видео')
-                                button.btn-green.btn-medium.btn-inactive Загрузить  видео
-                            .redactor-popup_add-video-error
-                                | Ошибка загрузки видео. Попробуйте вставить другую ссылку
                         .textalign-c.margin-t15
-                            a.btn-gray-light.btn-medium.margin-r10(href='') Отменить
-                            a.btn-green.btn-medium.btn-inactive(href='') Добавить видео
+                            a.a-pseudo(href='') Нет, загрузить другой ролик
+                            a.btn-green.btn-medium.margin-l20(href='') Добавить видео
                     br
                     br
                     br
@@ -130,61 +178,6 @@ block layout-wrapper_hold
                     br
                     br
                     br
-                    br
-                    br
-                    br
-                    br
-                    br
-                    br
-                    br
-                    br
-                    br
-                    br
-                    br
-                    br
-                    br
-                    br
-                    br
-                    br
-                    br
-                    br
-                    br
-                    br
-                    br
-                    br
-                    br
-                    br
-                    br
-                    br
-                    br
-                    br
-                    br
-                    br
-                    br
-                    br
-                    br
-                    br
-                    br
-                    br
-                    br
-                    br
-                    br
-                    br
-                    br
-                    br
-                    br
-                    br
-                    br
-                    br
-                    br
-                    br
-                    br
-                    br
-                    br
-                    br
-                    br
-                    br
-                    brd
                     br
                     br
                     br
@@ -467,34 +460,15 @@ block layout-wrapper_hold
                             .margin-b10.clearfix
                                 label.redactor-popup_label(for='') Отображаемый текст
                                 .float-l.w-350
-                                    input.itx-simple(type='text', placeholder='Введите текст', name='', value='Выделенный текст')
+                                    input.itx-simple.itx-simple__blue(type='text', placeholder='Введите текст', name='', value='Выделенный текст')
                             .clearfix
                                 label.redactor-popup_label(for='') Ссылка на
                                 .float-l.w-350.error
-                                    input.itx-simple(type='text', placeholder='Введите URL страницы', name='')
-                                    .errorMessage Необходимо заполнить поле URL страницы.
+                                    input.itx-simple.itx-simple__blue(type='text', placeholder='Введите URL страницы', name='')
+                            .errorSummary Необходимо заполнить поле URL страницы.
                         .textalign-c.margin-t15
                             a.btn-gray-light.btn-medium.margin-r10(href='') Отменить
                             a.btn-green.btn-medium(href='') Добавить ссылку
-                    br
-                    br
-                    br
-                    br
-                    br
-                    br
-                    br
-                    br
-                    br
-                    br
-                    br
-                    br
-                    br
-                    br
-                    br
-                    br
-                    br
-                    br
-                    br
                     br
                     br
                     br

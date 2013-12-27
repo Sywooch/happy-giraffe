@@ -368,7 +368,7 @@ body .redactor_air .redactor_toolbar {
     zoom: 1;
     *border: 1px solid #eee;
 
-    background-image: url(/new/images/redactor_toolbar.png);
+    background-image: url(/new/images/redactor/redactor_toolbar.png);
     background-position: 0;
     background-repeat: no-repeat;
     text-indent: -9999px;
@@ -382,7 +382,7 @@ only screen and (                min-resolution: 192dpi),
 only screen and (                min-resolution: 2dppx) {
 
     .redactor_toolbar li a {
-        background-image: url(/new/images/redactor_toolbar2x.png);
+        background-image: url(/new/images/redactor/redactor_toolbar2x.png);
         background-size: auto 25px;
     }
 
@@ -842,7 +842,7 @@ only screen and (                min-resolution: 2dppx) {
 .redactor_editor:focus {
     padding: 8px 10px;
 }
-
+/* ------------------------------------------------------------------------------------ */
 
 /* 
     redactor-control
@@ -863,7 +863,7 @@ only screen and (                min-resolution: 2dppx) {
     .redactor_box {border: none;}
     &_hold {
         border: 1px solid #e0e1e2;
-        margin-bottom: 5px;
+        margin-bottom: 2px;
         background: #fff;
     }
     &_hold__focus {
@@ -887,7 +887,7 @@ only screen and (                min-resolution: 2dppx) {
     &_key-label {
         font-size: 9px;
         font-family: Tahoma, Arial, Verdana, sans-serif;
-        color: #6a8599;
+        color: #b1b1b1;
     }
 }
 /* /redactor-control */
@@ -923,7 +923,7 @@ only screen and (                min-resolution: 2dppx) {
     .ie8 &_tale {display: none;}
 
     &_t {
-        margin: 10px 0;
+        margin: 0 0 10px;
         font-size: 13px;
         color: #418ac1;
         font-weight: bold;
@@ -934,14 +934,13 @@ only screen and (                min-resolution: 2dppx) {
         margin-bottom: 15px;
         padding: 0 20px 215px;
         width: 505px;
-        background:#F5FBFF url(/new/images/redactor-popup_add-video.png) no-repeat 50% 78%;
-        border: 2px dashed #BBD8EC;
-        .border-radius(6px);
+        background:#F5FBFF url(/new/images/redactor/redactor-popup_add-video.png) no-repeat 50% 78%;
+        border: 1px solid #e6f0f7;
     }
     &_add-video-hold {}
     &_add-video .btn-green {
-        margin:-2px 0 0 8px;
-        line-height: 23px;
+        margin:0 0 0 12px;
+        line-height: 24px;
     }
     &_add-video-load {
         position: absolute;
@@ -988,7 +987,7 @@ only screen and (                min-resolution: 2dppx) {
         margin: 0 5px;
         width: 60px;
         height: 30px;
-        background: url(/new/images/redactor-popup_video-serv-i.png) no-repeat;
+        background: url(/new/images/redactor/redactor-popup_video-serv-i.png) no-repeat;
     }
     &_video-serv-i.active {}
     &_video-serv-i__youtube {background-position: 0 -30px;}
@@ -1006,7 +1005,8 @@ only screen and (                min-resolution: 2dppx) {
     &_holder-blue {
         width: 500px;
         padding: 15px 10px;
-        background: #f5fcff;
+        background: #f5fbff ;
+        border: 1px solid #e6f0f7;
     }
     &_label {
         float: left;

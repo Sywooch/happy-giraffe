@@ -4,16 +4,18 @@
     if (!window) return; // Server side
 
 var
-    _baron = window.baron, // Stored baron value for noConflict usage
-    $ = window.jQuery, // Trying to use jQuery
+    _baron = baron, // Stored baron value for noConflict usage
+    $ = jQuery, // Trying to use jQuery
+    webkit = navigator.userAgent.indexOf('ebK') != -1,
+    pos = ['left', 'top', 'right', 'bottom', 'width', 'height'],
     origin = {
         v: { // Vertical
-            x: 'Y', pos: 'top', oppos: 'bottom', crossPos: 'left', size: 'height', crossSize: 'width',
+            x: 'Y', pos: pos[1], oppos: pos[3], crossPos: pos[0], crossOpPos: pos[2], size: pos[5], crossSize: pos[4], padding: 'paddingRight',
             client: 'clientHeight', crossClient: 'clientWidth', crossScroll: 'scrollWidth', offset: 'offsetHeight', crossOffset: 'offsetWidth', offsetPos: 'offsetTop',
             scroll: 'scrollTop', scrollSize: 'scrollHeight'
         },
         h: { // Horizontal
-            x: 'X', pos: 'left', oppos: 'right', crossPos: 'top', size: 'width', crossSize: 'height',
+            x: 'X', pos: pos[0], oppos: pos[2], crossPos: pos[1], crossOpPos: pos[3], size: pos[4], crossSize: pos[5], padding: 'paddingBottom',
             client: 'clientWidth', crossClient: 'clientHeight', crossScroll: 'scrollHeight', offset: 'offsetWidth', crossOffset: 'offsetHeight', offsetPos: 'offsetLeft',
             scroll: 'scrollLeft', scrollSize: 'scrollWidth'
         }
@@ -115,6 +117,15 @@ var
                 },
 
                 type: 'scroll'
+            }, {
+                // onKeyup (textarea): 
+                element: item.scroller,
+
+                handler: function() {
+                    item.barOn();
+                },
+
+                type: 'keyup'
             }, {
                 // onMouseDown: 
                 element: item.bar,
@@ -279,9 +290,11 @@ var
                 track,
                 resizePauseTimer,
                 scrollPauseTimer,
+                scrollingTimer,
                 pause,
                 scrollLastFire,
-                resizeLastFire;
+                resizeLastFire,
+                oldBarSize;
 
             resizeLastFire = scrollLastFire = new Date().getTime();
 
@@ -307,6 +320,7 @@ var
             this.direction = params.direction;
             this.origin = origin[this.direction];
             this.barOnCls = params.barOnCls;
+            this.scrollingCls = params.scrollingCls;
             this.barTopLimit = 0;
             pause = params.pause * 1000 || 0;
 
@@ -403,6 +417,11 @@ var
                 this.event(document, 'selectpos selectstart', dontPosSelect, enable ? 'off' : 'on');
             };
 
+            // Возвращает true если скроллер является текстарией
+            this._textarea = function() {
+                return this.scroller.tagName == 'TEXTAREA';
+            };
+
             // onResize & DOM modified handler
             this.resize = function() {
                 var self = this,
@@ -419,18 +438,22 @@ var
 
                     self.barOn();
 
-                    if (self.scroller.tagName == 'TEXTAREA') {
-                        client = self.scroller[self.origin.crossScroll];
-                    } else {
-                        client = self.scroller[self.origin.crossClient];
-                    }
+                    client = self.scroller[self.origin.crossClient];
 
                     delta = self.scroller[self.origin.crossOffset] - client;
 
                     if (params.freeze && !self.clipper.style[self.origin.crossSize]) { // Sould fire only once
                         $(self.clipper).css(self.origin.crossSize, self.clipper[self.origin.crossClient] - delta + 'px');
                     }
-                    $(self.scroller).css(self.origin.crossSize, self.clipper[self.origin.crossClient] + delta + 'px');
+
+                    if (!webkit) { /* f webkit bug  */
+                        delta = delta || 16; /* f Firefox 23+ for Mac */
+                    }
+                    if (self._textarea() || window.opera) { /* f Firefox & f Opera (scrollbar inside content box) */
+                        $(self.scroller).css(self.origin.crossSize, self.clipper[self.origin.crossClient] + delta + 'px');
+                    } else {
+                        $(self.scroller).css(self.origin.padding, delta + 'px');
+                    }
                     
                     Array.prototype.unshift.call(arguments, 'resize');
                     fire.apply(self, arguments);
@@ -447,9 +470,14 @@ var
 
             // onScroll handler
             this.scroll = function() {
-                var oldBarSize, newBarSize,
+                var newBarSize,
                     delay = 0,
                     self = this;
+
+                if (new Date().getTime() - scrollLastFire < pause) {
+                    clearTimeout(scrollPauseTimer);
+                    delay = pause;
+                }
 
                 if (new Date().getTime() - scrollLastFire < pause) {
                     clearTimeout(scrollPauseTimer);
@@ -463,7 +491,7 @@ var
                         newBarSize = (track[self.origin.client] - self.barTopLimit) * self.scroller[self.origin.client] / self.scroller[self.origin.scrollSize];
 
                         // Positioning bar
-                        if (oldBarSize != newBarSize) {
+                        if (parseInt(oldBarSize, 10) != parseInt(newBarSize, 10)) {
                             setBarSize.call(self, newBarSize);
                             oldBarSize = newBarSize;
                         }
@@ -483,6 +511,17 @@ var
                     scrollPauseTimer = setTimeout(upd, delay);
                 } else {
                     upd();
+                }
+
+                if (self.scrollingCls) {
+                    if (!scrollingTimer) {
+                        this.$(this.scroller).addClass(this.scrollingCls);
+                    }
+                    clearTimeout(scrollingTimer);
+                    scrollingTimer = setTimeout(function() {
+                        self.$(self.scroller).removeClass(self.scrollingCls);
+                        scrollingTimer = undefined;
+                    }, 300);
                 }
                 
             };
@@ -534,7 +573,7 @@ var
         return baron;
     };
 
-    baron.version = '0.6.9';
+    baron.version = '0.7.1';
 
     if ($ && $.fn) { // Adding baron to jQuery as plugin
         $.fn.baron = baron;
@@ -690,10 +729,10 @@ var
 
         this.on('init', init, userParams);
 
+        var fixFlag = [], // 1 - past, 2 - future, 3 - current (not fixed)
+            gradFlag = [];
         this.on('init scroll', function() {
-            var fixState, hTop, gradState,
-                fixFlag = [], // 1 - past, 2 - future, 3 - current (not fixed)
-                gradFlag = [];
+            var fixState, hTop, gradState;
 
             if (elements) {
                 var change;
@@ -995,6 +1034,33 @@ var
 
         while (this[i]) {
             pull.call(this[i], params);
+            i++;
+        }
+
+        return this;
+    };
+})(window);
+
+
+
+
+
+
+/* Controls plugin for baron 0.6+ */
+(function(window, undefined) {
+    var fullWidth = function(params) {
+        var self = this;
+        var delta = self.scroller[self.origin.crossOffset] - this.scroller[this.origin.crossClient];
+        /*$(self.scroller).css(self.origin.crossSize, this.scroller[this.origin.crossClient] + delta + 'px');*/
+        console.log(this.scroll());
+        
+    };
+
+    baron.fn.fullWidth = function(params) {
+        var i = 0;
+
+        while (this[i]) {
+            fullWidth.call(this[i], params);
             i++;
         }
 

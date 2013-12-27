@@ -7,7 +7,7 @@ $(window).load(function() {
         container: '.scroll_cont',
         track: '.scroll_bar-hold',
         bar: '.scroll_bar'
-    }).fullWidth();
+    });
 
     /* Подсказки при наведении */
     /*$('.powertip').powerTip({

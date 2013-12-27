@@ -26,8 +26,9 @@ block layout-wrapper_hold
                         .im-center_middle-hold.scroll_scroller
                             .im-center_middle-w.scroll_cont
                                 .im_loader
-                                .position-rel.h-300
-                                    +cap-empty("cap-empty__abs", {t: 'Диалог с данным пользователем удален', txSub: "<a href=''>Восстановить</a>"})
+                                // Когда без сообщений нужно убирать класс .cap-empty__abs
+                                +cap-empty("cap-empty__abs margin-20", {t: 'Диалог с данным пользователем удален', txSub: "<a href=''>Восстановить</a>"})
+                                +im-message("", {mod_name: "im-message_name__self", bControl: ['delete']})
                                 .im_loader
                         .scroll_bar-hold
                             .scroll_bar

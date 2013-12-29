@@ -20,7 +20,6 @@ class AjaxSimpleController extends CController
     {
         return array(
             array('deny',
-                'actions' => array('*'),
                 'users' => array('?'),
             ),
         );

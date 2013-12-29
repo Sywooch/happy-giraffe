@@ -10,6 +10,13 @@ class DefaultController extends HController
     public $user;
     public $title;
 
+    public function filters()
+    {
+        return array(
+            'accessControl',
+        );
+    }
+
     public function accessRules()
     {
         return array(

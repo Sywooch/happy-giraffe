@@ -30,6 +30,8 @@ return array(
         'site.frontend.extensions.directmongosuite.*',
 	),
 
+    'language' => 'ru',
+
     'behaviors' => array(
         'edms' => array(
             'class'=>'EDMSBehavior',

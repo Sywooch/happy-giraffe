@@ -2,6 +2,7 @@
     <?php $this->renderPartial('/_section', array('data' => $data)); ?>
     <?php $this->renderPartial('/_entry_header', array('data' => $data, 'full' => false)); ?>
     <div class="entry-content recipe-article">
+        <?php if ($data->mainPhoto): ?>
         <div class="recipe-photo">
 
             <div class="recipe-photo_hold">
@@ -9,6 +10,7 @@
             </div>
 
         </div>
+        <?php endif; ?>
         <h2 class="recipe-article_h2">Приготовление</h2>
 
         <div class="wysiwyg-content">

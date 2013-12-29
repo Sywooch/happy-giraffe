@@ -26,6 +26,12 @@ return array(
                 'javascripts/dklab_realplexor.js',
             ),
         ),
+		'moment' => array(
+			'baseUrl' => '/',
+			'js' => array(
+				'javascripts/moment.min.js',
+			),
+		),
         'knockout' => array(
             'baseUrl' => '/',
             'js' => array(
@@ -35,6 +41,7 @@ return array(
             'depends' => array(
                 'jquery',
                 'powertip',
+				'moment',
             ),
         ),
         'history' => array(

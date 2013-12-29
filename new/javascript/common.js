@@ -15,7 +15,8 @@ $(window).load(function() {
         smartPlacement: true,
         offset: 8
     });*/
-
+    
+    // tooltip
     $('.powertip, .redactor_toolbar li a').tooltipster({
         trigger: 'hover',
         offsetY: -6,
@@ -28,6 +29,7 @@ $(window).load(function() {
         functionReady: function(origin, continueTooltip) {}
     });
 
+    // tooltip
     $('.tooltip-click-b').tooltipster({
         trigger: 'click',
         delay: 0,
@@ -46,5 +48,44 @@ $(window).load(function() {
         }
     });
 
+    // popup
+/*    $(".popup-a").fancybox({
+        padding: 0,
+        modal: true,
+        closeBtn: true,
+        autoSize: false,
+        autoResize: true,
+        height: 'auto',
+        width: 'auto',
 
+
+        openEffect : 'elastic',
+        openSpeed  : 150,
+
+        closeEffect : 'elastic',
+        closeSpeed  : 150,
+
+        scrolling: 'no',
+        scrollOutside: false,
+        arrows : false,
+        helpers : {
+            overlay    : {
+                locked     : false 
+            }
+        }
+    });*/
+
+    $('.popup-a').magnificPopup({
+        type: 'inline',
+        overflowY: 'auto',
+        fixedBgPos: true,
+        
+        // When elemened is focused, some mobile browsers in some cases zoom in
+        // It looks not nice, so we disable it:
+        callbacks: {
+            beforeOpen: function() {
+                
+            }
+        }
+    });
 });

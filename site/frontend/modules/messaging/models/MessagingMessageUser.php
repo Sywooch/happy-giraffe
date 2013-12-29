@@ -6,7 +6,6 @@
  * The followings are the available columns in table 'messaging__messages_users':
  * @property string $user_id
  * @property string $message_id
- * @property integer $read
  * @property integer $deleted
  * @property string $dtime_read
  * @property string $dtime_delete
@@ -43,10 +42,10 @@ class MessagingMessageUser extends HActiveRecord
 		// will receive user inputs.
 		return array(
 			array('user_id', 'required'),
-			array('read, deleted', 'boolean'),
+			array('dtime_read, dtime_delete', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('user_id, message_id, read, deleted', 'safe', 'on' => 'search'),
+			//array('user_id, message_id, read, deleted', 'safe', 'on' => 'search'),
 		);
 	}
 

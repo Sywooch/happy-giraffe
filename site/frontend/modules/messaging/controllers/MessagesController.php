@@ -98,7 +98,7 @@ class MessagesController extends HController
 
     public function actionSend()
     {
-        /*$user = Yii::app()->request->getPost('interlocutorId');
+        $user = Yii::app()->request->getPost('interlocutorId');
         $text = Yii::app()->request->getPost('text');
 		$me = Yii::app()->user->id;
 		$thread = MessagingThread::model()->findOrCreate($me, $user);
@@ -115,96 +115,18 @@ class MessagesController extends HController
                 'message' => $message->json,
                 'time' => time(),
             );
-
-            $receiverData = array(
-                'message' => $message->json,
-                'time' => time(),
-                'contact' => array(
-                    'user' => array(
-                        'id' => (int) Yii::app()->user->model->id,
-                        'firstName' => Yii::app()->user->model->first_name,
-                        'lastName' => Yii::app()->user->model->last_name,
-                        'gender' => (int) Yii::app()->user->model->gender,
-                        'avatar' => Yii::app()->user->model->getAvatarUrl(Avatar::SIZE_MICRO),
-                        'online' => (bool) Yii::app()->user->model->online,
-                        'isFriend' => (bool) Friend::model()->areFriends(Yii::app()->user->id, $interlocutorId),
-                    ),
-                ),
-            );
 		}
 		
 		echo CJSON::encode(array(
 			'success' => true,
 		));
  		// Подготовим и отправим событие
+		$messageModel = MessagingMessage::model()->withMyStatsOnTop($me)->findByPk($message->id);
+		$message = DialogForm::messageToJson($messageModel, $me, $messageModel->messageUsers[1]->user_id);
 		$comet = new CometModel();
-		$comet->send($me, array(
-			'dialog' => array(
-				'id' => $user,
-			)), CometModel::MESSAGING_MESSAGE_ADDED);
-       /*$threadId = Yii::app()->request->getPost('threadId');
-        $interlocutorId = Yii::app()->request->getPost('interlocutorId');
-        $text = Yii::app()->request->getPost('text');
-        $images = Yii::app()->request->getPost('images', array());
-
-        if (Blacklist::model()->isBlocked($interlocutorId, Yii::app()->user->id)) {
-            $response = array(
-                'success' => false,
-                'error' => self::ERROR_BLOCKED,
-            );
-
-            echo CJSON::encode($response);
-            Yii::app()->end();
-        }
-
-        $newThread = false;
-        if ($threadId === null) {
-            $thread = MessagingThread::model()->findOrCreate(Yii::app()->user->id, $interlocutorId);
-            $threadId = $thread->id;
-            $newThread = true;
-        }
-        $message = MessagingMessage::model()->create($text, $threadId, Yii::app()->user->id, $images);
-
-        if ($message === false) {
-            $data = array(
-                'success' => false,
-                'error' => self::ERROR_VALIDATION_FAILED,
-            );
-        } else {
-            $data = array(
-                'success' => true,
-                'message' => $message->json,
-                'time' => time(),
-            );
-
-            $receiverData = array(
-                'message' => $message->json,
-                'time' => time(),
-                'contact' => array(
-                    'user' => array(
-                        'id' => (int) Yii::app()->user->model->id,
-                        'firstName' => Yii::app()->user->model->first_name,
-                        'lastName' => Yii::app()->user->model->last_name,
-                        'gender' => (int) Yii::app()->user->model->gender,
-                        'avatar' => Yii::app()->user->model->getAvatarUrl(Avatar::SIZE_MICRO),
-                        'online' => (bool) Yii::app()->user->model->online,
-                        'isFriend' => (bool) Friend::model()->areFriends(Yii::app()->user->id, $interlocutorId),
-                    ),
-                ),
-            );
-
-            if ($newThread)
-                $data['thread'] = $receiverData['contact']['thread'] = array(
-                    'id' => (int) $thread->id,
-                    'updated' => (int) time(),
-                    'unreadCount' => (int) 0,
-                    'hidden' => (bool) false,
-                );
-
-            $comet = new CometModel();
-            $comet->send($interlocutorId, $receiverData, CometModel::MESSAGING_MESSAGE_RECEIVED);
-        }
-
-        echo CJSON::encode($data);*/
+		// Событие себе
+		$comet->send($me, array('dialog' => array('id' => $user), 'message' => $message), CometModel::MESSAGING_MESSAGE_ADDED);
+		// Событие собеседнику
+		$comet->send($user, array('dialog' => array('id' => $me), 'message' => $message), CometModel::MESSAGING_MESSAGE_ADDED);
     }
 }

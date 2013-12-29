@@ -98,7 +98,51 @@ class MessagesController extends HController
 
     public function actionSend()
     {
-        $threadId = Yii::app()->request->getPost('threadId');
+        /*$user = Yii::app()->request->getPost('interlocutorId');
+        $text = Yii::app()->request->getPost('text');
+		$me = Yii::app()->user->id;
+		$thread = MessagingThread::model()->findOrCreate($me, $user);
+		$message = MessagingMessage::model()->create($text, $thread->id, $me, array());
+
+        if ($message === false) {
+            $data = array(
+                'success' => false,
+                'error' => self::ERROR_VALIDATION_FAILED,
+            );
+        } else {
+            $data = array(
+                'success' => true,
+                'message' => $message->json,
+                'time' => time(),
+            );
+
+            $receiverData = array(
+                'message' => $message->json,
+                'time' => time(),
+                'contact' => array(
+                    'user' => array(
+                        'id' => (int) Yii::app()->user->model->id,
+                        'firstName' => Yii::app()->user->model->first_name,
+                        'lastName' => Yii::app()->user->model->last_name,
+                        'gender' => (int) Yii::app()->user->model->gender,
+                        'avatar' => Yii::app()->user->model->getAvatarUrl(Avatar::SIZE_MICRO),
+                        'online' => (bool) Yii::app()->user->model->online,
+                        'isFriend' => (bool) Friend::model()->areFriends(Yii::app()->user->id, $interlocutorId),
+                    ),
+                ),
+            );
+		}
+		
+		echo CJSON::encode(array(
+			'success' => true,
+		));
+ 		// Подготовим и отправим событие
+		$comet = new CometModel();
+		$comet->send($me, array(
+			'dialog' => array(
+				'id' => $user,
+			)), CometModel::MESSAGING_MESSAGE_ADDED);
+       /*$threadId = Yii::app()->request->getPost('threadId');
         $interlocutorId = Yii::app()->request->getPost('interlocutorId');
         $text = Yii::app()->request->getPost('text');
         $images = Yii::app()->request->getPost('images', array());
@@ -161,6 +205,6 @@ class MessagesController extends HController
             $comet->send($interlocutorId, $receiverData, CometModel::MESSAGING_MESSAGE_RECEIVED);
         }
 
-        echo CJSON::encode($data);
+        echo CJSON::encode($data);*/
     }
 }

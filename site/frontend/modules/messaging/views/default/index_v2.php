@@ -1,43 +1,44 @@
 <div class="im">
 	<!-- js ля расчетов положения почты -->
 	<script type="text/javascript">
-		var im = []
-		im.imHeight = function () {
-			// 50 - отступы от im
-			var h = im.windowHeight - im.headerHeight - 50; 
-			if (h < 390) {
-				h = 390;
-			}
-
-			im.imCenter.height(h);
-			// 57 - отступ под поле поиска
-			im.imUserList.height(h - 57);
-		}
-		im.containerHeight = function() {
-			var h = im.imCenter.height() - im.centerTop.height() - im.centerBottom.height();
-			im.container.height(h);
-		}
-		$(document).ready(function () {
-			im.windowHeight = $(window).height(); 
-			im.imCenter = $(".im-center");
-			im.imUserList = $(".im-user-list");
-
-			im.container = $('.im-center_middle-hold');
-
-			im.centerTop = $('.im-center_top');
-			im.centerBottom = $('.im-center_bottom');
-
-			im.headerHeight = $('.header').height();
-
-			im.imHeight();
-			im.containerHeight();
-
-			$(window).resize(function() {
-				im.windowHeight = $(window).height();
-				im.imHeight();
-				im.containerHeight();
-			});
-		});
+              var im = []
+              im.imHeight = function () {
+                  // 50 - отступы от im
+                  var h = im.windowHeight - im.headerHeight - 50; 
+                  /*if (h < 390) {
+                      h = 390
+                  }*/
+                  
+                  im.imCenter.height(h);
+                  // 57 - отступ под поле поиска
+                  im.imUserList.height(h - 57);
+              }
+              im.containerHeight = function() {
+                  var h = im.imCenter.height() - im.centerTop.height() - im.centerBottom.height();
+                  im.container.height(h);
+              }
+              $(document).ready(function () {
+                  im.windowHeight = $(window).height(); 
+                  im.imCenter = $(".im-center");
+                  im.imUserList = $(".im-user-list");
+                  
+                  im.container = $('.im-center_middle-hold');
+                  
+                  im.centerTop = $('.im-center_top');
+				  im.centerBottom = {};
+                  im.centerBottom.height = function() { return 78;};
+                  
+                  im.headerHeight = $('.header').height();
+                  
+                  im.imHeight();
+                  im.containerHeight();
+                  
+                  $(window).resize(function() {
+                      im.windowHeight = $(window).height();
+                      im.imHeight();
+                      im.containerHeight();
+                  });
+              });
 
 	</script>
 	<div class="im_hold clearfix" id="<?=$this->id?>_messaging_module">
@@ -92,7 +93,6 @@
                     <div class="scroll">
 						<div class="scroll_scroller">
 							<div class="scroll_cont" data-bind="foreach: users">
-								<!--<div class="im-user-list_i clearfix active">-->
 								<div class="im-user-list_i clearfix" data-bind="click: open, css: { active: isActive }">
 									<div class="im-user-list_count" data-bind="visible: countNew() > 0, text: countNew"></div>
 									<div class="im-user-list_set"><a href="" class="ava ava__middle ava__female"><span class="ico-status ico-status__online" data-bind="visible: isOnline"></span><img alt="" data-bind="attr: {src: avatar}" class="ava_img"/></a>
@@ -119,7 +119,7 @@
 				<!-- im-panel-->
 				<div class="im-panel">
                     <div class="im-panel_actions">
-						<div class="im-panel_ico-hold"><a href="" title="Удалить диалог" class="im-panel_ico im-panel_ico__del powertip"></a>
+						<div class="im-panel_ico-hold"><a href="" title="Удалить диалог" class="im-panel_ico im-panel_ico__del powertip" data-bind="click: deleteDialog"></a>
 							<div class="im-panel_drop"></div>
 						</div>
 						<div class="im-panel_ico-hold"><a href="" title="Заблокировать" class="im-panel_ico im-panel_ico__ban powertip"></a>
@@ -150,39 +150,53 @@
                     <div class="im-center_middle-hold scroll_scroller">
 						<div class="im-center_middle-w scroll_cont">
 							<div class="im_loader" data-bind="visible: loadingMessages"><img src="/new/images/ico/ajax-loader.gif" alt="" class="im_loader-img"><span class="im_loader-tx">Загрузка ранних сообщений</span></div>
+							<!-- ko if: deletedDialogs().length -->
+							<!-- cap-empty-->
+							<div class="cap-empty cap-empty__abs">
+							  <div class="cap-empty_hold">
+								<div class="cap-empty_img"></div>
+								<div class="cap-empty_t">Диалог с данным пользователем удален</div>
+								<div class="cap-empty_tx-sub"><a href='' data-bind="click: restoreDialog">Восстановить</a></div>
+							  </div>
+							  <div class="verticalalign-m-help"></div>
+							</div>
+							<!-- /cap-empty-->
+							<!-- /ko -->
 							<!-- ko foreach: messages -->
-							<!-- im-message-->
-							<div class="im-message">
-								<div class="im-message_ava"><a href="" class="ava ava__small ava__male"><span class="ico-status ico-status__online" data-bind="visible: from.isOnline()"></span><img alt="" data-bind="attr: {src: from.avatar}" class="ava_img"/></a>
-								</div>
-								<div class="im-message_r">
-									<div class="im-message_date" data-bind="text: created"></div>
-									<div class="im-message_control" data-bind="visible: !dtimeDelete()">
-										<!-- b-control-->
-										<div class="b-control">
-											<div class="b-control_hold">
-												<!-- <div class="b-control_i"><a href="" title="В избранное" class="b-control_ico powertip b-control_ico__favorite"></a>
-													<div class="b-control_drop"></div>
-												</div> -->
-												<div class="b-control_i"><a href="" title="Удалить" class="b-control_ico powertip b-control_ico__delete" data-bind="click: deleteMessage"></a>
-													<div class="b-control_drop"></div>
-												</div>
-												<div class="b-control_i"><a href="" title="Пожаловаться" class="b-control_ico powertip b-control_ico__spam"></a>
-													<div class="b-control_drop"></div>
+								<!-- ko ifnot: hidden -->
+								<!-- im-message-->
+								<div class="im-message">
+									<div class="im-message_ava"><a href="" class="ava ava__small ava__male"><span class="ico-status ico-status__online" data-bind="visible: from.isOnline()"></span><img alt="" data-bind="attr: {src: from.avatar}" class="ava_img"/></a>
+									</div>
+									<div class="im-message_r">
+										<div class="im-message_date" data-bind="text: created"></div>
+										<div class="im-message_control" data-bind="visible: !dtimeDelete()">
+											<!-- b-control-->
+											<div class="b-control">
+												<div class="b-control_hold">
+													<!-- <div class="b-control_i"><a href="" title="В избранное" class="b-control_ico powertip b-control_ico__favorite"></a>
+														<div class="b-control_drop"></div>
+													</div> -->
+													<div class="b-control_i"><a href="" title="Удалить" class="b-control_ico powertip b-control_ico__delete" data-bind="click: deleteMessage"></a>
+														<div class="b-control_drop"></div>
+													</div>
+													<div class="b-control_i"><a href="" title="Пожаловаться" class="b-control_ico powertip b-control_ico__spam"></a>
+														<div class="b-control_drop"></div>
+													</div>
 												</div>
 											</div>
+											<!-- /b-control-->
 										</div>
-										<!-- /b-control-->
+									</div>
+									<div class="im-message_hold">
+										<div class="im-message_t"><span class="im-message_name im-message_name__self" data-bind="text: from.fullName()"></span>
+										</div>
+										<div class="im-message_tx" data-bind="visible: !dtimeDelete(), html: text"></div>
+										<div class="im-message_tx color-gray" data-bind="visible: dtimeDelete()">Сообщение удалено. <a href="#" class="font-s" data-bind="click: restore">Восстановить</a></div>
 									</div>
 								</div>
-								<div class="im-message_hold">
-									<div class="im-message_t"><span class="im-message_name im-message_name__self" data-bind="text: from.fullName()"></span>
-									</div>
-									<div class="im-message_tx" data-bind="visible: !dtimeDelete(), html: text"></div>
-									<div class="im-message_tx color-gray" data-bind="visible: dtimeDelete()">Сообщение удалено. <a href="#" class="font-s" data-bind="click: restore">Восстановить</a></div>
-								</div>
-							</div>
-							<!-- /im-message-->
+								<!-- /im-message-->
+								<!-- /ko -->
 							<!-- /ko -->
 							<!-- im_loader есть всегда, на разные действия в нем менятеся содержимое-->
 							<div class="im_loader">
@@ -209,7 +223,22 @@
                     </div>
                     <div class="im-center_bottom-hold">
 						<!-- По клику на input заменять на wysiwyg -->
-						<input type="text" placeholder="Введите ваше сообщение" class="im-center_bottom-itx"/>
+						<!-- ko ifnot: editing -->
+						<input type="text" placeholder="Введите ваше сообщение" class="im-center_bottom-itx" data-bind="click: setEditing" />
+						<!-- /ko -->
+						<!-- ko if: editing -->
+						<div class="redactor-control">
+							<textarea cols="40" name="redactor" rows="1" autofocus="autofocus" class="redactor" data-bind="value: editor"></textarea>
+							<div class="redactor-control_toolbar"></div>
+							<div class="redactor-control_control">
+								<div class="redactor-control_key">
+									<input type="checkbox" name="" class="redactor-control_key-checkbox"/>
+									<label for="redactor-control-b_key-checkbox" class="redactor-control_key-label">Enter - отправить</label>
+								</div>
+								<button class="btn-green" data-bind="click: sendMessage">Отправить</button>
+							</div>
+						</div>
+						<!-- /ko -->
                     </div>
 				</div>
 			</div>

@@ -128,7 +128,7 @@
                     </div>
                     <div class="im-panel_user clearfix">
 						<a href="" class="ava ava__middle ava__female"><span class="ico-status ico-status__online" data-bind="visible: user.isOnline()"></span><img alt="" data-bind="attr: {src: user.avatar}" class="ava_img"/></a>
-						<div class="im-panel_user-status" data-bind="visible: !user.isOnline(),text: user.lastOnline()"></div>
+						<div class="im-panel_user-status" data-bind="visible: !user.isOnline(), moment: {value: user.lastOnline(), timeAgo: true}"></div>
 						<div class="im-panel_user-name" data-bind="text: user.fullName()"></div>
 						<!-- У иконки 3 состояния. 
 						Друг - без моидфикатора

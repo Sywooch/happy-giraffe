@@ -177,9 +177,9 @@ class MessagingMessage extends HActiveRecord
 		{
 			$messageUser = new MessagingMessageUser();
 			$messageUser->user_id = $threadUser->user_id;
-			/** @todo Поставить дату прочтения */
-			/*if ($authorId == $threadUser->user_id)
-				$messageUser->dtime_read = ;*/
+			$messageUser->dtime_read = null;
+			if ($authorId == $threadUser->user_id)
+				$messageUser->dtime_read = new CDbExpression('NOW()');
 			$messageUsers[] = $messageUser;
 		}
 		$message->messageUsers = $messageUsers;

@@ -233,7 +233,7 @@
     }
     &_bottom-w {
         background: #e0e1e2;
-        padding: 20px 12px 18px;
+        padding: 17px 12px 17px;
         border-bottom-right-radius: 10px;
     }
     &_bottom-ava {
@@ -247,6 +247,7 @@
         margin: 0;
         border: 1px solid #d6d8d9;
         padding: 10px 10px 14px;
+        margin-bottom: 10px;
         font-size: 14px;
         width: 100%;
         .box-sizing(padding-box);
@@ -324,9 +325,11 @@
         margin: 0 10px 2px;
     }
     &_friend:hover &_friend-ico {background-position: -30px -30px;}
-    &_friend:hover &_friend-tx {color: #5f5e61;}
+    &_friend:hover &_friend-tx {color: #5f5e61;} 
     &_friend__fr &_friend-ico {background-position: -30px -30px;}
     &_friend__fr:hover &_friend-ico {background-position: -30px -30px;}
+    &_friend__fr:hover &_friend-tx,
+    &_friend__fr &_friend-tx {color: #16b45a;}
     &_friend__add &_friend-ico {background-position: 0 0;}
     &_friend__add:hover &_friend-ico {background-position: 0 -30px;}
     &_friend__added:hover {cursor: default;}

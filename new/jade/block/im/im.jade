@@ -16,8 +16,20 @@ mixin js-im
         }
         im.containerHeight = function() {
             var h = im.imCenter.height() - im.centerTop.height() - im.centerBottom.height();
-            console.log(im.centerBottom.height());
+            console.log(im.container.height());
             im.container.height(h);
+        }
+        im.msgToBottom = function(){
+            var contH = im.container.height();
+            var contWrap = $('.im-center_middle-w');
+            
+            if (contH > contWrap.height()) {
+                var h = contH - contWrap.height() - 5;
+                contWrap.css({'padding-top' : h});
+                console.log(h )
+            } else {
+                contWrap.css({'padding-top' : 0});
+            }
         }
         $(document).ready(function () {
             im.windowHeight = $(window).height(); 
@@ -25,6 +37,7 @@ mixin js-im
             im.imUserList = $(".im-user-list");
 
             im.container = $('.im-center_middle-hold');
+            //- im.msgIndent = $('.im-center_msg-to-b');
 
             im.centerTop = $('.im-center_top');
             im.centerBottom = $('.im-center_bottom');
@@ -33,11 +46,13 @@ mixin js-im
 
             im.imHeight();
             im.containerHeight();
+            im.msgToBottom();
 
             $(window).resize(function() {
                 im.windowHeight = $(window).height();
                 im.imHeight();
                 im.containerHeight();
+                im.msgToBottom();
             });
         });
 
@@ -61,7 +76,6 @@ mixin im-user-list(mod, vars)
                         +cap-empty("", {txSub: "По данному запросу <br> контактов не найдено."})
                     else 
                         .im-user-list_i.clearfix.active
-                                .im-user-list_count 255
                                 .im-user-list_set
                                     +ava("ava__middle ava__female", avaVars)
                                     .im-user-list_set-name
@@ -130,7 +144,7 @@ mixin im-panel(mod, vars)
                 Добавить в друзья - .friend__add
                 Приглашение отправленно - .friend__added
             - if (vars.friend == "friend") {
-                a.im-panel_friend.im-panel_friend__fr(href="")
+                span.im-panel_friend.im-panel_friend__fr(href="")
                     span.im-panel_friend-ico
                     span.im-panel_friend-tx Друг
             - } else if (vars.friend == "friend__add") {
@@ -174,16 +188,16 @@ mixin im-message(mod, vars)
             case vars.msgStatus
                 when 'cancel'
                     // Когда сообщение отменено или удалено то блок .b-control удалется из сообщения или к нему добавляется класс display-n
-                    .im-message_tx.color-gray Сообщение отменено.
+                    .im-message_tx.color-gray-light Сообщение отменено.
                 when 'delete'
-                    .im-message_tx.color-gray Сообщение удалено. <a href="#" class="font-s">Восстановить</a>
+                    .im-message_tx.color-gray-light Сообщение удалено. <a href="#" class="font-s">Восстановить</a>
                 default
                     .im-message_tx 
-                    - if (vars.imMessage_tx)
-                        = vars.imMessage_tx
-                    - else
-                        p Уважаемая Зося, добрый день! 
-                        p Прошу вас не ставить в ваши темы активные ссылки, а ставить картинки, так как правилами сайта активные ссылки на посторонние порталы запрещены, и будут удалены.
+                        - if (vars.imMessage_tx)
+                            = vars.imMessage_tx
+                        - else
+                            p Уважаемая Зося, добрый день! 
+                            p Прошу вас не ставить в ваши темы активные ссылки, а ставить картинки, так как правилами сайта активные ссылки на посторонние порталы запрещены, и будут удалены.
     // /im-message
 
 //- Редактор внизу почты
@@ -204,5 +218,5 @@ mixin im-center_bottom(mod, vars)
                         +redactor-control()
                     - else 
                         // По клику на input заменять на wysiwyg 
-                        input.im-center_bottom-itx(type='text', placeholder="Введите ваше сообщение")
+                        input.im-center_bottom-itx.itx-simple(type='text', placeholder="Введите ваше сообщение")
     // /im-center_bottom

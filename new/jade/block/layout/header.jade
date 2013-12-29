@@ -3,4 +3,43 @@ mixin header()
     .header
         .header_hold.clearfix
             +logo()
-    // /header
+            // header-menu
+            .header-menu
+                ul.header-menu_ul.clearfix
+                    li.header-menu_li
+                        a.header-menu_a(href='')
+                            span.header-menu_ico.header-menu_ico__giraffe
+                            span.header-menu_tx
+                                | Мой Жираф
+                    li.header-menu_li
+                        a.header-menu_a(href='')
+                            span.header-menu_ico.header-menu_ico__im
+                            span.header-menu_tx
+                                | Диалоги
+                            span.header-menu_count 25456
+                    li.header-menu_li
+                        a.header-menu_a(href='')
+                            span.header-menu_ico.header-menu_ico__friend
+                            span.header-menu_tx
+                                | Друзья
+                            span.header-menu_count 2
+                    li.header-menu_li.active
+                        a.header-menu_a(href='')
+                            span.header-menu_ico.header-menu_ico__notice
+                            span.header-menu_tx
+                                | Сигналы
+                            span.header-menu_count 2
+                    li.header-menu_li
+                        a.header-menu_a(href='')
+                            span.header-menu_ico.header-menu_ico__award
+                            span.header-menu_tx
+                                | Успехи
+                    li.header-menu_li.header-menu_li__dropin
+                        a.header-menu_a(href='')
+                            +ava("ava__middle ava__female", {avaSpan: true, icoStatus: 'ico-status__online',src: 'http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg'})
+                            span.header-menu_tx Я
+                                span.header-menu_i-arrow
+
+            // /header-menu
+
+        // /header

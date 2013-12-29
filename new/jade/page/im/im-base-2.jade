@@ -25,9 +25,13 @@ block layout-wrapper_hold
                     .scroll
                         .im-center_middle-hold.scroll_scroller
                             .im-center_middle-w.scroll_cont
+                                .im_loader
                                 +im-message("", {mod_name: "im-message_name__friend", bControl: ['favorite', 'delete', 'spam']})
                                 +im-message("", {mod_name: "im-message_name__self", bControl: ['delete'], messageRead: 'read'})
                                 +im-message("", {mod_name: "im-message_name__self", bControl: ['edit', 'cancel'],messageRead: 'read-no'})
+                                .im_loader
+                                    span.im_loader-tx Олег печатает вам сообщение
+                                    img.im_loader-anim(src='/new/images/im/im-message_loader__write.png', alt='')
                         .scroll_bar-hold
                             .scroll_bar
                                 .scroll_bar-in

@@ -7,10 +7,16 @@
             ico-status__online
             ico-status__offline
         src - путь к изобржению аватара
+        avaSpan 
 mixin ava(mod, vars)
-    a.ava(class=mod, href='')
-        span.ico-status(class=vars.icoStatus)
-        img.ava_img(alt='', src='#{vars.src}')
+    - if (vars.avaSpan)
+        span.ava(class=mod, href='')
+            span.ico-status(class=vars.icoStatus)
+            img.ava_img(alt='', src='#{vars.src}')
+    -else 
+        a.ava(class=mod, href='')
+            span.ico-status(class=vars.icoStatus)
+            img.ava_img(alt='', src='#{vars.src}')
 
 
 //- b-control
@@ -131,7 +137,7 @@ mixin cap-empty(mod, vars)
 
 
 //- wisywig редактор с кнопками утправления винзу
-//- redactor-control-b
+//- redactor-control
 mixin redactor-control(mod, vars)
     .redactor-control
         .redactor-control_hold
@@ -167,8 +173,6 @@ mixin redactor-control(mod, vars)
                 },
                 focusCallback: function(e)
                 {
-                    //this.$element[0].parrent('.redactor-control_hold').addClass('redactor-control_hold__focus');
-                    //console.log(this.$box);
                     // Нужно выбирать непосредственного родителя
                     $('.redactor-control_hold').addClass('redactor-control_hold__focus');
                 },
@@ -184,6 +188,7 @@ mixin redactor-control(mod, vars)
                 initCallback: function()
                 {
                     im.containerHeight();
+                    im.msgToBottom();
                 }
               });
             });

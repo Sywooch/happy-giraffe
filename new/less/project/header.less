@@ -7,20 +7,126 @@
             <logo>
 */
 .header {
-	background: #fff;
+    background:#fff url(/new/images/header.png) repeat-x 50% 0;
 
     .logo {
         float: left;
-        margin: 5px 40px 5px 40px;
+        margin: 5px 10px 5px 30px;
     }
 
 	&_hold {
 		width: 1000px;
 		margin: 0 auto;
-		padding: 30px 0 30px;
+		padding: 25px 0 18px;
 	}
 }
 /* /header */
+
+/* 
+    header-menu
+    меню в шапке
+    
+    header-menu
+        header-menu_ul
+            header-menu_li  active
+                header-menu_a 
+                    header-menu_ico
+                    header-menu_tx
+*/
+.header-menu {
+    float: right;
+    margin: 10px 20px 0 0;
+
+    .ava {
+        float: none;
+        .inline-block();
+        margin: 3px 5px 5px;
+    }
+    &_li {
+        position: relative;
+        float: left;
+        margin: 0 21px;
+        text-align: center;
+    }
+    &_li:hover &_ico__giraffe,
+    &_li.active &_ico__giraffe   {background-position: 0px -50px;}
+    &_li:hover &_ico__im,
+    &_li.active &_ico__im        {background-position: -50px -50px;}
+    &_li:hover &_ico__friend,
+    &_li.active &_ico__friend    {background-position: -100px -50px;}
+    &_li:hover &_ico__notice,
+    &_li.active &_ico__notice    {background-position: -150px -50px;}
+    &_li:hover &_ico__award,
+    &_li.active &_ico__award     {background-position: -200px -50px;}
+    &_li:hover &_ico__club,
+    &_li.active &_ico__club      {background-position: -250px -50px;}
+    &_li:hover &_a,
+    &_li.active &_a {
+        background: url(/new/images/header-menu_a.png) no-repeat;
+    }
+    &_li:hover &_tx,
+    &_li.active &_tx {color: #808080;}
+    &_a {
+        width: 70px;
+        .inline-block();
+        padding: 10px 0 0;
+        text-decoration: none;
+        text-align: center;
+    }
+    &_a:hover &_tx {
+        text-decoration: none;
+        color: #808080;
+    }
+    &_a:hover &_ico__dropin {background-position: -50px -600px;}
+    &_ico {
+        display: block;
+        width: 50px;
+        height: 45px;
+        margin: 0 auto 8px;
+        .img-retina('/new/images/header-menu_ico.png'; '/new/images/header-menu_ico2x.png'; '300px'; '95px')
+    }
+
+    &_ico__giraffe   {background-position: 0 0;}
+    &_ico__im        {background-position: -50px 0;}
+    &_ico__friend    {background-position: -100px 0;}
+    &_ico__notice    {background-position: -150px 0;}
+    &_ico__award     {background-position: -200px 0;}
+    &_ico__club      {background-position: -250px 0;}
+
+    &_ico__dropin    {
+        .inline-block();
+        background-position: 0 -600px;
+        width: 35px;
+    }
+    &_tx {
+        display: block;
+        font: 11px/12px Tahoma, Arial, Verdana, sans-serif;
+        color: #acacac;
+        text-transform: uppercase;
+    }
+    &_count {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 0;
+        padding: 1px 5px;
+        border: 2px solid #fff;
+        font-size: 11px;
+        line-height: 14px;
+        color: #fff;
+        background-color: #f84219;
+        .border-radius(30px);
+    }
+    &_i-arrow {
+        display: inline-block;
+        vertical-align: middle;
+        width: 12px;
+        height: 8px;
+        margin: 0 4px;
+        background: url(/new/images/header-menu_i-arrow.png) no-repeat;
+    }
+}
+
 
 /* 
     logo 

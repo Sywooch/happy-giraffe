@@ -1,7 +1,7 @@
 <?php $this->beginContent('//layouts/community'); ?>
 
     <div class="col-1">
-        <?php if ($this->action->id == 'view' || $this->forum->club_id == 11): ?>
+        <?php if (false && $this->action->id == 'view' || $this->forum->club_id == 11): ?>
             <div class="banner">
                 <!--AdFox START-->
                 <!--giraffe-->

@@ -11,6 +11,7 @@
 					<div class="side-left">
 
 						<div class="banner-box">
+                            <?php if (false): ?>
                             <div style="margin-bottom: 40px;">
                                 <!--AdFox START-->
                                 <!--giraffe-->
@@ -43,6 +44,7 @@
                                 </script>
                                 <!--AdFox END-->
                             </div>
+                            <?php endif; ?>
                             <?=$this->renderPartial('//_banner')?>
 						</div>
 						

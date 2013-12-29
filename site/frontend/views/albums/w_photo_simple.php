@@ -82,6 +82,7 @@
                 </div>
 
                 <div class="col-3">
+                    <?php if (false): ?>
                     <div class="margin-t60" id="AdfoxAjax">
                         <!--AdFox START-->
                         <!--giraffe-->
@@ -114,6 +115,7 @@
                         <!-- _________________________AdFox Asynchronous code END___________________________ -->
 
                     </div>
+                    <?php endif; ?>
 
                     <div class="margin-t60" id="yandex_ad_popup"></div>
                 </div>

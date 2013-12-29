@@ -89,6 +89,7 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
     <?php endif; ?>
 
     <div class="layout-wrapper">
+        <?php if (false): ?>
         <div class="layout-wrapper_banner-t" id="layout-wrapper_banner-t">
             <!--AdFox START-->
             <!--giraffe-->
@@ -121,6 +122,7 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
             </script>
             <!--AdFox END-->
         </div>
+        <?php endif; ?>
 
         <div class="layout-wrapper_hold">
             <?php if (!Yii::app()->user->isGuest):?>

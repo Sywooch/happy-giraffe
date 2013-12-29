@@ -286,11 +286,11 @@ return array(
 					'class'=>'CWebLogRoute',
 				),
 				*/
-                array(
-					'class'=>'CEmailLogRoute',
-					'levels'=>'error, warning',
-					'emails'=>'pavel@happy-giraffe.ru',
-				),
+//                array(
+//					'class'=>'CEmailLogRoute',
+//					'levels'=>'error, warning',
+//					'emails'=>'pavel@happy-giraffe.ru',
+//				),
 			),
 		),
 		'shoppingCart' => array(

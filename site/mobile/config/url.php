@@ -13,6 +13,7 @@ return array(
     'urlSuffix' => '/',
     'rules' => array(
         'community/<community_id:\d+>' => 'community/default/list',
+        'community/<forum_id:\d+>/forum/rubric/<rubric_id:\d+>' => 'community/default/index',
         'community/<forum_id:\d+>/forum/<content_type_slug:\w+>/<content_id:\d+>' => 'community/default/view',
         'community/<content_id:\d+>/comments' => 'community/default/comments',
 

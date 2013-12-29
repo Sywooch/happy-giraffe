@@ -101,6 +101,78 @@ ko.bindingHandlers.autogrow = {
     }
 };
 
+ko.bindingHandlers.moment = {
+	update: function(element, valueAccessor, allBindings) {
+		/*var defaults = {
+			timeAgo: false,
+			autoUpdate: true
+		};
+		var options = valueAccessor();
+		
+		if(!(options instanceof Object)) {
+			options = {
+				value: options
+			}
+		}
+		
+		console.log(options);
+		var settings = $.extend( {}, defaults, options );
+		console.log(settings);
+		
+		/*var self = ko.bindingHandlers.moment;
+		if(settings.autoUpdate) {
+			self.addElement({
+				config: settings,
+				element: element
+			});
+		}
+		$(element).text(self.formatDate(settings));*/
+	},
+	formatDate: function(settings) {
+		var result = '';
+		result = moment.unix(settings.value).fromNow();
+		
+		return result;
+	},
+	timer: false,
+	elements: new Array(),
+	addElement: function(el) {
+		var self = ko.bindingHandlers.moment;
+		self.elements.push(el);
+		if(!self.timer)
+			self.timer = setInterval(self.tick, 500);
+	},
+	tick: function() {
+		ko.utils.arrayForEach(self.elements, function(element) {
+			
+		});
+	}
+}
+
+// Добавляем событие koUpdate
+// Доп. аргументы в событии (bindingName, isVirtual)
+
+// foreach в виртуальном элементе стриггерит событие для каждого не виртуального дочернего элемента,
+// foreach в обычном элементе стриггерит событие для этого элемента.
+ko.bindingHandlers.foreach.originUpdate = ko.bindingHandlers.foreach.update;
+ko.bindingHandlers.foreach.update = function(element, valueAccessor, allBindings, viewModel, bindingContext) {
+	ko.bindingHandlers.foreach.originUpdate(element, valueAccessor, allBindings, viewModel, bindingContext);
+	//if (element.nodeName == '#comment' || element.nodeType == 8) {
+		var child = ko.virtualElements.firstChild(element);
+		console.log(element);
+		while (child) {
+			if (child.nodeName != '#comment' && child.nodeType != 8) {
+				$(child).trigger('koUpdate', ['foreach', true]);
+				console.log('triggered', 'koUpdate', ['foreach', true]);
+			}
+			child = ko.virtualElements.nextSibling(child);
+		}
+	/*} else {
+		$(element).trigger('koUpdate', ['foreach', false]);
+		console.log($('>*', element), 'triggered', 'koUpdate', ['foreach', false]);
+	}*/
+}
+
 
 //jqAuto -- main binding (should contain additional options to pass to autocomplete)
 //jqAutoSource -- the array to populate with choices (needs to be an observableArray)

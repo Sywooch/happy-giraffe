@@ -135,16 +135,16 @@ class ThreadsController extends HController
 
 	public function actionDelete()
 	{
+		/** @todo Перенести в модель */
 		$me = Yii::app()->user->id;
 		$user = Yii::app()->request->getPost('userId');
 		$time = time();
-		/** @todo Перенести в модель */
-		/** @todo Не работает запрос */
+		$thread = MessagingThread::model()->findByInterlocutorsIds($me, $user);
 		MessagingMessageUser::model()->updateAll(array(
 			'dtime_delete' => new CDbExpression('FROM_UNIXTIME(:time)'),
-			), 'user_id = :me AND message_id IN (SELECT mm.id FROM `messaging__messages` mm JOIN `messaging__messages_users` mmu ON mm.id = mmu.message_id WHERE mmu.user_id = :user)', array(
+			), 'user_id = :me AND message_id IN (SELECT mm.id FROM `messaging__messages` mm WHERE mm.thread_id = :thread)', array(
 			':me' => $me,
-			':user' => $user,
+			':thread' => $thread->id,
 			':time' => $time,
 		));
 
@@ -165,10 +165,10 @@ class ThreadsController extends HController
 	public function actionRestore()
 	{
 		/** @todo Перенести в модель */
-		/** @todo Не работает запрос */
 		$me = Yii::app()->user->id;
 		$user = Yii::app()->request->getPost('userId');
 		$dtimes = Yii::app()->request->getPost('restore');
+		$thread = MessagingThread::model()->findByInterlocutorsIds($me, $user);
 		$params = array();
 		$in = array();
 		$i = 0;
@@ -181,10 +181,10 @@ class ThreadsController extends HController
 		}
 		
 		$params[':me'] = $me;
-		$params[':user'] = $user;
+		$params[':thread'] = $thread->id;
 		MessagingMessageUser::model()->updateAll(array(
 			'dtime_delete' => null,
-			), 'user_id = :me AND thread_id IN (' . implode(', ', $in) . ') AND message_id IN (SELECT mm.id FROM `messaging__messages` mm JOIN `messaging__messages_users` mmu ON mm.id = mmu.message_id WHERE mmu.user_id = :user)', $params);
+			), 'user_id = :me AND dtime_delete IN (' . implode(', ', $in) . ') AND message_id IN (SELECT mm.id FROM `messaging__messages` mm WHERE mm.thread_id = :thread)', $params);
 		
 		$response = array(
 			'success' => true,

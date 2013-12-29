@@ -160,9 +160,10 @@ class MessagingMessage extends HActiveRecord
 		));
 	}
 
-	// TODO: перенести бизнес-логику в модель формы
 	public function create($text, $threadId, $authorId, $images, $raw = false)
 	{
+		/** @todo перенести бизнес-логику в модель формы */
+		/** @todo вместо threadId может уже передаваться модель */
 		$thread = MessagingThread::model()->with('threadUsers')->findByPk($threadId);
 
 		$message = new MessagingMessage();
@@ -176,8 +177,9 @@ class MessagingMessage extends HActiveRecord
 		{
 			$messageUser = new MessagingMessageUser();
 			$messageUser->user_id = $threadUser->user_id;
-			if ($authorId != $threadUser->user_id)
-				$messageUser->read = 0;
+			/** @todo Поставить дату прочтения */
+			/*if ($authorId == $threadUser->user_id)
+				$messageUser->dtime_read = ;*/
 			$messageUsers[] = $messageUser;
 		}
 		$message->messageUsers = $messageUsers;

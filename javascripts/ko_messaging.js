@@ -224,14 +224,23 @@ MessagingThread.prototype = {
 		var self = this;
 		if (!MessagingThread.prototype.binded) {
 			MessagingThread.prototype.binded = true;
-			// тут событие добавления сообщения
+			// Добавление сообщения
+			Comet.prototype.messagingMessageAdded = function(result, id) {
+				ko.utils.arrayForEach(self.objects, function(obj) {
+					if (obj.id == result.dialog.id) {
+						obj.messages.push(new MessagingMessage(result.message));
+					}
+				});
+			};
+			comet.addEvent(2020, 'messagingMessageAdded');
 			// Удаление диалога
 			Comet.prototype.messagingThreadDeleted = function(result, id) {
 				ko.utils.arrayForEach(self.objects, function(obj) {
 					if (obj.id == result.dialog.id) {
 						obj.deletedDialogs.push(result.dialog.dtimeDelete);
-						ko.utils.arrayForEach(obj.messages, function(message) {
+						ko.utils.arrayForEach(obj.messages(), function(message) {
 							// Скрываем сообщения, которые были написаны до момента удаления диалога
+							console.log(message.created);
 							if(message.created < result.dialog.dtimeDelete) {
 								message.hidden(true);
 							}
@@ -245,7 +254,7 @@ MessagingThread.prototype = {
 				ko.utils.arrayForEach(self.objects, function(obj) {
 					if (obj.id == result.dialog.id) {
 						obj.deletedDialogs([]);
-						ko.utils.arrayForEach(obj.messages, function(message) {
+						ko.utils.arrayForEach(obj.messages(), function(message) {
 							message.hidden(false);
 						});
 					}
@@ -300,17 +309,15 @@ function MessagingThread(me, user) {
 	self.sendMessage = function() {
 		self.sendingMessage(true);
 		var data = {};
-		data.interlocutorId = self.user.id();
+		data.interlocutorId = self.id;
 		data.text = self.editor();
-		data.images = self.uploadedImagesIds();
+		//data.images = self.uploadedImagesIds();
 
 		$.post('/messaging/messages/send/', data, function(response) {
 			self.sendingMessage(false);
-			self.meTyping(false);
 
 			if (response.success) {
 				self.editor('');
-				self.redactor.focus();
 				self.uploadedImages([]);
 			} else {
 				//

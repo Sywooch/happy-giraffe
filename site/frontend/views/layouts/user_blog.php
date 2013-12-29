@@ -17,7 +17,7 @@
     <div class="user-cols clearfix">
 
         <div class="col-1">
-            <?php if ($this->action->id == 'view'): ?>
+            <?php if (false && $this->action->id == 'view'): ?>
                 <div class="banner">
                     <!--AdFox START-->
                     <!--giraffe-->

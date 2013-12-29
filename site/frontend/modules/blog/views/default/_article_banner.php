@@ -1,4 +1,5 @@
 <div class="article-banner">
+    <?php if (false): ?>
     <!--AdFox START-->
     <!--giraffe-->
     <!--Площадка: Весёлый Жираф / * / *-->
@@ -38,6 +39,7 @@
         // -->
     </script>
     <!-- _________________________AdFox Asynchronous code END___________________________ -->
+    <?php endif; ?>
 
     <!-- ﬂÌ‰ÂÍÒ.ƒËÂÍÚ -->
     <div id="yandex_ad" style="padding: 20px 20px 30px; background: #fffff0; margin-top: 20px;">

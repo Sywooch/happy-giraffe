@@ -17,7 +17,7 @@ $data['currentRubricId'] = $this->rubric_id;
 
             <?php $this->renderPartial('_subscribers'); ?>
 
-            <?php if ($this->action->id == 'view'): ?>
+            <?php if (false && $this->action->id == 'view'): ?>
                 <!--AdFox START-->
                 <!--giraffe-->
                 <!--Площадка: Весёлый Жираф / * / *-->

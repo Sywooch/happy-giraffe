@@ -80,6 +80,7 @@
 
             <?=$content?>
 
+            <?php if (false): ?>
             <div style="text-align: center; margin: 20px 0;">
                 <!--AdFox START-->
                 <!--giraffe-->
@@ -112,6 +113,7 @@
                 </script>
                 <!--AdFox END-->
             </div>
+            <?php endif; ?>
 
             <div class="footer">
                 <div class="margin-b5">
@@ -193,6 +195,7 @@
         </noscript>
         <!--/ tns-counter.ru -->
 
+        <?php if (false): ?>
         <!--AdFox START-->
         <!--giraffe-->
         <!--Площадка: Весёлый Жираф / * / *-->
@@ -222,5 +225,6 @@
             // -->
         </script>
         <!-- _________________________AdFox Asynchronous code END___________________________ -->
+        <?php endif; ?>
     </body>
 </html>

@@ -1,44 +1,44 @@
 <div class="im">
 	<!-- js ля расчетов положения почты -->
 	<script type="text/javascript">
-              var im = []
-              im.imHeight = function () {
-                  // 50 - отступы от im
-                  var h = im.windowHeight - im.headerHeight - 50; 
-                  /*if (h < 390) {
-                      h = 390
-                  }*/
-                  
-                  im.imCenter.height(h);
-                  // 57 - отступ под поле поиска
-                  im.imUserList.height(h - 57);
-              }
-              im.containerHeight = function() {
-                  var h = im.imCenter.height() - im.centerTop.height() - im.centerBottom.height();
-                  im.container.height(h);
-              }
-              $(document).ready(function () {
-                  im.windowHeight = $(window).height(); 
-                  im.imCenter = $(".im-center");
-                  im.imUserList = $(".im-user-list");
-                  
-                  im.container = $('.im-center_middle-hold');
-                  
-                  im.centerTop = $('.im-center_top');
-				  im.centerBottom = {};
-                  im.centerBottom.height = function() { return 78;};
-                  
-                  im.headerHeight = $('.header').height();
-                  
-                  im.imHeight();
-                  im.containerHeight();
-                  
-                  $(window).resize(function() {
-                      im.windowHeight = $(window).height();
-                      im.imHeight();
-                      im.containerHeight();
-                  });
-              });
+		var im = new function() {
+			var self = this;
+			function imHeight() {
+				// 50 - отступы от im
+				var h = self.windowHeight - self.headerHeight - 50;
+				if (h < 390) {
+					h = 390
+				}
+				self.imCenter.height(h);
+				// 57 - отступ под поле поиска
+				self.imUserList.height(h - 57);
+			}
+			function containerHeight() {
+				var h = self.imCenter.height() - self.centerTop.height() - self.centerBottom.height();
+				console.log(h, self.container, self.centerTop.height(), self.centerBottom.height());
+				self.container.height(h);
+			}
+			self.renew = function() {
+				self.windowHeight = $(window).height();
+				imHeight();
+				containerHeight();
+			}
+			
+			$(window).resize(function() {
+				self.renew();
+			});
+
+			$(document).on('koUpdate', 'section.im-center', function(event) {
+				var imCenter = this;
+				self.imCenter = $(imCenter);
+				self.imUserList = $(".im-user-list");
+				self.container = $('.im-center_middle-hold', imCenter);
+				self.centerTop = $('.im-center_top', imCenter);
+				self.centerBottom = $('.im-center_bottom', imCenter);
+				self.headerHeight = $('.header').height();
+				self.renew();
+			});
+		}();
 
 	</script>
 	<div class="im_hold clearfix" id="<?=$this->id?>_messaging_module">
@@ -90,7 +90,7 @@
 				</div>
 				<!-- im-user-list-->
 				<div class="im-user-list">
-                    <div class="scroll">
+                    <div data-bind="css: {scroll: true}">
 						<div class="scroll_scroller">
 							<div class="scroll_cont" data-bind="foreach: users">
 								<div class="im-user-list_i clearfix" data-bind="click: open, css: { active: isActive }">
@@ -113,17 +113,45 @@
 		</section>
 		<!-- /im-sidebar-->
 		<!-- im-center-->
-		<!-- ko if: currentThread() -->
+		
 		<section class="im-center" data-bind="with: currentThread()">
 			<div class="im-center_top">
 				<!-- im-panel-->
 				<div class="im-panel">
                     <div class="im-panel_actions">
-						<div class="im-panel_ico-hold"><a href="" title="Удалить диалог" class="im-panel_ico im-panel_ico__del powertip" data-bind="click: deleteDialog"></a>
-							<div class="im-panel_drop"></div>
+						<div class="im-panel_ico-hold tooltip-click-b">
+							<span class="im-panel_ico im-panel_ico__del powertip" title="Удалить диалог" href=""></span>
+							<div class="tooltip-drop">
+								<div class="tooltip-popup">
+									<div class="tooltip-popup_t">Вы уверены?</div>
+									<p class="tooltip-popup_tx">Все сообщения из данного диалога будут удалены.</p>
+									<label class="tooltip-popup_label-small clearfix" for="im-tooltip-popup_checkbox">
+										<input id="im-tooltip-popup_checkbox" class="tooltip-popup_checkbox" type="checkbox" name="">
+										Больше не показывать данное предупреждение
+									</label>
+									<div class="textalign-c clearfix">
+										<button class="btn-green">Да</button>
+										<button class="btn-gray-light">Нет</button>
+									</div>
+								</div>
+							</div>
 						</div>
-						<div class="im-panel_ico-hold"><a href="" title="Заблокировать" class="im-panel_ico im-panel_ico__ban powertip"></a>
-							<div class="im-panel_drop"></div>
+						<div class="im-panel_ico-hold tooltip-click-b">
+							<span class="im-panel_ico im-panel_ico__ban powertip" title="Заблокировать"></span>
+							<div class="tooltip-drop">
+								<div class="tooltip-popup">
+									<div class="tooltip-popup_t">Вы уверены?</div>
+									<p class="tooltip-popup_tx">Данный пользователь и весь диалог с ним будут удалены, и он больше не сможет отправлять вам сообщения.</p>
+									<label class="tooltip-popup_label-small clearfix" for="im-tooltip-popup_checkbox">
+										<input id="im-tooltip-popup_checkbox" class="tooltip-popup_checkbox" type="checkbox" name="">
+										Больше не показывать данное предупреждение
+									</label>
+									<div class="textalign-c clearfix">
+										<button class="btn-green" data-bind="click: deleteDialog">Да</button>
+										<button class="btn-gray-light">Нет</button>
+									</div>
+								</div>
+							</div>
 						</div>
                     </div>
                     <div class="im-panel_user clearfix">
@@ -135,18 +163,14 @@
 						Добавить в друзья - .friend__add
 						Приглашение отправленно - .friend__added
 						-->
-						<!-- ko if: user.isFriend -->
-						<a href="" class="im-panel_friend im-panel_friend__fr"><span class="im-panel_friend-ico"></span><span class="im-panel_friend-tx">Друг</span></a>
-						<!-- /ko -->
-						<!-- ko if: !user.isFriend() -->
-						<a href="" class="im-panel_friend im-panel_friend__add"><span class="im-panel_friend-ico"></span><span class="im-panel_friend-tx">Добавить <br> в друзья</span></a>
-						<!-- /ko -->
+						<a href="" class="im-panel_friend im-panel_friend__fr" data-bind="if: user.isFriend"><span class="im-panel_friend-ico"></span><span class="im-panel_friend-tx">Друг</span></a>
+						<a href="" class="im-panel_friend im-panel_friend__add" data-bind="if: !user.isFriend()"><span class="im-panel_friend-ico"></span><span class="im-panel_friend-tx">Добавить <br> в друзья</span></a>
                     </div>
 				</div>
 				<!-- /im-panel-->
 			</div>
 			<div class="im-center_middle">
-				<div class="scroll">
+				<div data-bind="css: {scroll: true}">
                     <div class="im-center_middle-hold scroll_scroller">
 						<div class="im-center_middle-w scroll_cont">
 							<div class="im_loader" data-bind="visible: loadingMessages"><img src="/new/images/ico/ajax-loader.gif" alt="" class="im_loader-img"><span class="im_loader-tx">Загрузка ранних сообщений</span></div>
@@ -163,9 +187,8 @@
 							<!-- /cap-empty-->
 							<!-- /ko -->
 							<!-- ko foreach: messages -->
-								<!-- ko ifnot: hidden -->
 								<!-- im-message-->
-								<div class="im-message">
+								<div class="im-message" data-bind="ifnot: hidden">
 									<div class="im-message_ava"><a href="" class="ava ava__small ava__male"><span class="ico-status ico-status__online" data-bind="visible: from.isOnline()"></span><img alt="" data-bind="attr: {src: from.avatar}" class="ava_img"/></a>
 									</div>
 									<div class="im-message_r">
@@ -177,11 +200,41 @@
 													<!-- <div class="b-control_i"><a href="" title="В избранное" class="b-control_ico powertip b-control_ico__favorite"></a>
 														<div class="b-control_drop"></div>
 													</div> -->
-													<div class="b-control_i"><a href="" title="Удалить" class="b-control_ico powertip b-control_ico__delete" data-bind="click: deleteMessage"></a>
+													<div class="b-control_i">
+														<span class="b-control_ico powertip b-control_ico__delete" href="" title="Удалить" data-bind="click: deleteMessage"></span>
 														<div class="b-control_drop"></div>
 													</div>
-													<div class="b-control_i"><a href="" title="Пожаловаться" class="b-control_ico powertip b-control_ico__spam"></a>
-														<div class="b-control_drop"></div>
+													<div class="b-control_i tooltip-click-b">
+														<span class="b-control_ico powertip b-control_ico__spam" href="" title="Пожаловаться"></span>
+														<div class="tooltip-drop">
+															<div class="tooltip-popup">
+																<div class="tooltip-popup_t">Укажите вид нарушения:</div>
+																<label class="tooltip-popup_label clearfix" for="tooltip-popup_radio"></label>
+																<!-- id у input должны быть все разные, приведен пример для связки label с input атрибут name у каждого выпадающего окношка должен быть разный
+																<input id="tooltip-popup_radio" type="radio" name="tooltip-popup_radio" class="tooltip-popup_radio"/>Спам или реклама
+																-->
+																<label class="tooltip-popup_label clearfix" for="">
+																	<input type="radio" class="tooltip-popup_radio" name="tooltip-popup_radio">Мошенничество
+																</label>
+																<label class="tooltip-popup_label clearfix" for="">
+																	<input type="radio" class="tooltip-popup_radio" name="tooltip-popup_radio">Грубость, угрозы
+																</label>
+																<label class="tooltip-popup_label clearfix" for="">
+																	<input type="radio" class="tooltip-popup_radio" name="tooltip-popup_radio">Интимный характер
+																</label>
+																<label class="tooltip-popup_label clearfix" for="">
+																	<input type="radio" class="tooltip-popup_radio" name="tooltip-popup_radio">Другое
+																</label>
+																<label class="tooltip-popup_label clearfix" for="">
+																	<input type="radio" class="tooltip-popup_radio" name="tooltip-popup_radio">
+																	<input type="text" class="tooltip-popup_itx" placeholder="Другое" name="">
+																</label>
+																<div class="clearfix textalign-c">
+																	<button class="btn-green btn-inactive">Пожаловаться</button>
+																	<button class="btn-gray-light">Отменить</button>
+																</div>
+															</div>
+														</div>
 													</div>
 												</div>
 											</div>
@@ -196,7 +249,6 @@
 									</div>
 								</div>
 								<!-- /im-message-->
-								<!-- /ko -->
 							<!-- /ko -->
 							<!-- im_loader есть всегда, на разные действия в нем менятеся содержимое-->
 							<div class="im_loader">
@@ -244,7 +296,6 @@
 			</div>
 			<!-- /im-center_bottom-->
 		</section>
-		<!-- /ko -->
 		<!-- /im-center-->
 	</div>
 </div>

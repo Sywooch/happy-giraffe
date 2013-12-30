@@ -3,6 +3,8 @@
 	Yii::app()->clientScript->scriptMap['jquery.js'] = '/new/javascript/jquery-1.10.2.min.js';
 	Yii::app()->clientScript->scriptMap['jquery.powertip.js'] = '/new/javascript/jquery.powertip.js';
 	Yii::app()->clientScript->scriptMap['baron.js'] = '/new/javascript/baron.js';
+	Yii::app()->clientScript->scriptMap['knockout-2.2.1.js'] = '/new/javascript/knockout-3.0.0.js';
+	Yii::app()->clientScript->scriptMap['knockout-2.2.1.js'] = '/new/javascript/knockout-debug.3.0.0.js';
 	if (! Yii::app()->user->isGuest)
 		Yii::app()->clientScript
 			->registerPackage('comet')

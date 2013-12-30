@@ -149,30 +149,23 @@ ko.bindingHandlers.moment = {
 	}
 }
 
-// Добавляем событие koUpdate
-// Доп. аргументы в событии (bindingName, isVirtual)
-
-// foreach в виртуальном элементе стриггерит событие для каждого не виртуального дочернего элемента,
-// foreach в обычном элементе стриггерит событие для этого элемента.
-ko.bindingHandlers.foreach.originUpdate = ko.bindingHandlers.foreach.update;
-ko.bindingHandlers.foreach.update = function(element, valueAccessor, allBindings, viewModel, bindingContext) {
-	ko.bindingHandlers.foreach.originUpdate(element, valueAccessor, allBindings, viewModel, bindingContext);
-	//if (element.nodeName == '#comment' || element.nodeType == 8) {
-		var child = ko.virtualElements.firstChild(element);
-		console.log(element);
-		while (child) {
-			if (child.nodeName != '#comment' && child.nodeType != 8) {
-				$(child).trigger('koUpdate', ['foreach', true]);
-				console.log('triggered', 'koUpdate', ['foreach', true]);
-			}
-			child = ko.virtualElements.nextSibling(child);
-		}
-	/*} else {
-		$(element).trigger('koUpdate', ['foreach', false]);
-		console.log($('>*', element), 'triggered', 'koUpdate', ['foreach', false]);
-	}*/
+// Добавляем событие koUpdate и koElementAdded
+// koUpdate Срабатывает при рендере шаблона (template, with, foreach)
+//		целью является элемент, в котором произошли
+//		изменения (если виртуальный биндинг, то ближайщий родитель;
+//		иначе - элемент в котором описан биндинг)
+//		доп. аргумент в событии newElements - добавленные элементы
+// koElementAdded Срабатывает для каждого добавленного элемента
+//		целью является добавляемый элемент
+ko.updateDOMCallback = function(element, addedElemets) {
+	if (element.nodeName == '#comment' || element.nodeType == 8) {
+		element = element.parentElement;
+	}
+	for(var i in addedElemets) {
+		$(addedElemets[i]).trigger('koElementAdded');
+	}
+	$(element).trigger('koUpdate', addedElemets);
 }
-
 
 //jqAuto -- main binding (should contain additional options to pass to autocomplete)
 //jqAutoSource -- the array to populate with choices (needs to be an observableArray)

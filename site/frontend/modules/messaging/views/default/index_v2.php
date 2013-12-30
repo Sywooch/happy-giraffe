@@ -15,7 +15,6 @@
 			}
 			function containerHeight() {
 				var h = self.imCenter.height() - self.centerTop.height() - self.centerBottom.height();
-				console.log(h, self.container, self.centerTop.height(), self.centerBottom.height());
 				self.container.height(h);
 			}
 			self.renew = function() {
@@ -192,7 +191,7 @@
 									<div class="im-message_ava"><a href="" class="ava ava__small ava__male"><span class="ico-status ico-status__online" data-bind="visible: from.isOnline()"></span><img alt="" data-bind="attr: {src: from.avatar}" class="ava_img"/></a>
 									</div>
 									<div class="im-message_r">
-										<div class="im-message_date" data-bind="text: created"></div>
+										<div class="im-message_date" data-bind="moment: created"></div>
 										<div class="im-message_control" data-bind="visible: !dtimeDelete()">
 											<!-- b-control-->
 											<div class="b-control">

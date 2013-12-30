@@ -103,7 +103,7 @@ ko.bindingHandlers.autogrow = {
 
 ko.bindingHandlers.moment = {
 	update: function(element, valueAccessor, allBindings) {
-		/*var defaults = {
+		var defaults = {
 			timeAgo: false,
 			autoUpdate: true
 		};
@@ -115,22 +115,20 @@ ko.bindingHandlers.moment = {
 			}
 		}
 		
-		console.log(options);
 		var settings = $.extend( {}, defaults, options );
-		console.log(settings);
 		
-		/*var self = ko.bindingHandlers.moment;
+		var self = ko.bindingHandlers.moment;
 		if(settings.autoUpdate) {
 			self.addElement({
 				config: settings,
 				element: element
 			});
 		}
-		$(element).text(self.formatDate(settings));*/
+		$(element).text(self.formatDate(settings));
 	},
 	formatDate: function(settings) {
 		var result = '';
-		result = moment.unix(settings.value).fromNow();
+		result = moment(settings.value * 1000).fromNow();
 		
 		return result;
 	},
@@ -143,8 +141,9 @@ ko.bindingHandlers.moment = {
 			self.timer = setInterval(self.tick, 500);
 	},
 	tick: function() {
-		ko.utils.arrayForEach(self.elements, function(element) {
-			
+		var self = ko.bindingHandlers.moment;
+		ko.utils.arrayForEach(self.elements, function(data) {
+			$(data.element).text(self.formatDate(data.config));
 		});
 	}
 }

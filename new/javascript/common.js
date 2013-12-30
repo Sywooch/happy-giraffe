@@ -20,7 +20,6 @@ $(function() {
 	$(document).on('koUpdate', '.im-message', function(event, elements) {
 		// Перекроем событие обновления сообщения, потом отработает событие обновления всего блока foreach
 		event.stopPropagation();
-		//console.log(event.target);
 		$('.powertip, .redactor_toolbar li a', event.target).tooltipster({
 			trigger: 'hover',
 			offsetY: -6,
@@ -35,7 +34,6 @@ $(function() {
 	});
 
 	$(document).on('koUpdate', function(event, elements) {
-		console.log(event.target);
 		var self = event.target;
 		addBaron('.scroll');
 
@@ -63,7 +61,6 @@ $(function() {
 			functionBefore: function(origin, continueTooltip) {
 				$('.tooltip-click-b').tooltipster('hide');
 				var d = $(origin.context).find(' .tooltip-drop').html();
-				console.log(origin.context.className);
 				origin.tooltipster('update', d);
 				continueTooltip(d);
 			}

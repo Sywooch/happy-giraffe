@@ -70,7 +70,7 @@ class AttachPhotoCollection extends PhotoCollection
                 'active' => (bool) Favourite::model()->getUserHas(Yii::app()->user->id, $model),
             ),
             'commentsCount' => $model->commentsCount,
-            'views' => PageView::model()->incViewsByPath($this->rootModel->url . $model->id . '/'),
+            'views' => PageView::model()->incViewsByPath($this->getUrl()),
         );
     }
 

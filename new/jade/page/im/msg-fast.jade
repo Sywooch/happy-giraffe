@@ -4,61 +4,195 @@ extend ../../extend/layout
 block layout-wrapper_hold
     .margin-20
         h2 Быстрые сообщения
-        a.popup-a(href="#msg-fasst-base") Написание бастрого сообщения
+        a.popup-a(href="#msg-fast-base") Написание бастрого сообщения
+        br
+        br
+        a.popup-a(href="#msg-fast-post") Отправка бастрого сообщения
+        br
+        br
+        a.popup-a(href="#msg-fast-success") Сообщение отправлено
+        br
+        br
+        a.popup-a(href="#msg-fast-avacap") Заглушка при отсутсвии аватара
+        br
+        br
+        a.popup-a(href="#msg-fast-addfreind") Добавление в друзья
+        br
         br
 
 
 
 block block-hidden 
-    #msg-fasst-base.msg-fast.popup
+    // msg-fast popup
+    #msg-fast-base.msg-fast.popup
         .msg-fast_hold
             .msg-fast_top
-                .popup_close
                 .msg-fast_t Написать сообщение
-                br
-                br
-                br
-                br
-                br
-                br
-                br
-                br
-                br
-                br
-                br
-                br
-                br
-                br
-                br
-                br
-                br
-                br
-                br
-                br
-                br
-                br
-                br
-                br
-                br
-                br
-                br
-                br
-                br
-                br
-                br
-                br
-                br 
-                |234234
-                br
-                br
-                br
-                br
-                br
-                | werert
-                br
-                br
-                br
-                br
-                br
-                br
-                | werert
+                .msg-fast_row.clearfix
+                    .msg-fast_whom Кому:
+                    +im-panel('im-panel__small', {friend: "friend__added", small: true})
+                    a.i-more.i-more__small В диалоги
+            .msg-fast_b
+                +redactor-control-msg-fast()
+    // /msg-fast popup
+
+
+
+    // msg-fast popup
+    #msg-fast-post.msg-fast.popup
+        .msg-fast_hold
+            .msg-fast_top
+                .msg-fast_t Написать сообщение
+                .msg-fast_row.clearfix
+                    .msg-fast_whom Кому:
+                    +im-panel('im-panel__small', {friend: "friend__added", small: true})
+                    a.i-more.i-more__small В диалоги
+            .msg-fast_b
+                +redactor-control-msg-fast()
+        +cap-empty("cap-empty__abs cap-empty__blue", {topAbsMsg: "Отправка ..."})
+    // /msg-fast popup
+
+
+
+    // msg-fast popup
+    #msg-fast-success.msg-fast.popup
+        .msg-fast_hold
+            .msg-fast_top
+                .msg-fast_t Написать сообщение
+                .msg-fast_row.clearfix
+                    .msg-fast_whom Кому:
+                    +im-panel('im-panel__small', {friend: "friend__added", small: true})
+                    a.i-more.i-more__small В диалоги
+            .msg-fast_b
+                +redactor-control-msg-fast()
+        +cap-empty("cap-empty__abs cap-empty__blue", {topAbsMsg: "Сообщение отправлено"})
+    // /msg-fast popup
+
+
+
+    // msg-fast popup
+    #msg-fast-avacap.msg-fast.popup
+        .msg-fast_hold
+            .msg-fast_top
+                .msg-fast_t Написать сообщение
+                .msg-fast_row.clearfix
+                    .msg-fast_whom Кому:
+                    +im-panel('im-panel__small', {friend: "friend__added", small: true})
+                    a.i-more.i-more__small В диалоги
+            .msg-fast_b
+                +redactor-control-msg-fast()
+        +cap-empty("cap-empty__abs cap-empty__blue", {imgMod: 'cap-empty_img__white', txSub: 'Для того, чтобы начать пользоваться сервисом, <br>необходимо загрузить свое главное фото <br> <br><div class="file-fake"><button class="file-fake_btn btn-green btn-m">Загрузить фото</button><input type="file" class="file-fake_inp"></div>'})
+    // /msg-fast popup
+
+
+
+    // msg-fast popup
+    #msg-fast-addfreind.msg-fast.popup
+        .msg-fast_hold
+            .msg-fast_top
+                .msg-fast_t Написать сообщение
+                .msg-fast_row.clearfix
+                    .msg-fast_whom Кому:
+                    +im-panel('im-panel__small', {friend: "friend__added", small: true})
+                    a.i-more.i-more__small В диалоги
+            .msg-fast_b
+                .redactor-control
+                        .redactor-control_hold
+                                .scroll
+                                    .scroll_scroller
+                                        // Width из-за открытия в попапе, прикручивая ненужен
+                                        .scroll_cont(style="width:468px;")
+                                            .redactor_box
+                                                .redactor_redactor.redactor_editor(style='min-height: 75px;', dir='ltr', contenteditable='true')
+                                                    .friend-offer
+                                                        .friend-offer_hold
+                                                            .friend-offer_ava
+                                                                - avaVars = {icoStatus: 'ico-status__online', src: 'http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg'}
+                                                                +ava("ava__middle ava__female", avaVars)
+                                                            .friend-offer_in
+                                                                a.friend-offer_name(href="") Александра Богоявленская
+                                                                .friend-offer_tx предлагает вам дружбу!
+                                                            .friend-offer_btns
+                                                                a.btn-green-simple.btn-s Принять
+                                                                a.ico-cancel.powertip(href="",title="Отклонить") &#8211;
+
+                                                // textarea#redactor_442.redactor(style='display: none;', dir='ltr', cols='40', name='redactor', rows='1', autofocus='autofocus')
+                                        .scroll_bar-hold
+                                            .scroll_bar(style='top: 0px;')
+                                                .scroll_bar-in
+                            #redactor-control_toolbar_442.redactor-control_toolbar
+                                ul#redactor_toolbar_0.redactor_toolbar
+                                    li
+                                        a.redactor_btn.redactor_btn_smile(href='javascript:;', tabindex='-1')
+                            .redactor-control_control
+                                .redactor-control_key
+                                    input.redactor-control_key-checkbox(name='', type='checkbox')
+                                    label.redactor-control_key-label(for='redactor-control-b_key-checkbox') Enter - отправить
+                                button.btn-green Отправить
+    // /msg-fast popup
+
+
+
+
+
+
+
+//- wisywig редактор с кнопками утправления винзу
+//- redactor-control
+    mod
+    vars
+mixin redactor-control-msg-fast(mod, vars)
+
+    - var rand = Math.floor(Math.random() * (999 - 1 + 1)) + 1;
+    - var redactor_id = 'redactor_' + rand
+    - var toolbar_id = 'redactor-control_toolbar_' + rand
+
+    .redactor-control
+        .redactor-control_hold
+            .scroll
+                .scroll_scroller
+                    // Width из-за открытия в попапе, прикручивая ненужен
+                    .scroll_cont(style="width:468px;")
+                        // после открытия попапа передавать фокус на редактор
+                        textarea.redactor(cols='40', name='redactor', rows='1', autofocus='autofocus', id=redactor_id)
+                    .scroll_bar-hold
+                        .scroll_bar
+                            .scroll_bar-in
+        .redactor-control_toolbar(id=toolbar_id)
+        .redactor-control_control
+            .redactor-control_key
+                input.redactor-control_key-checkbox(type='checkbox', name='')
+                label.redactor-control_key-label(for='redactor-control-b_key-checkbox') Enter - отправить
+            button.btn-green Отправить
+        script.
+            $(document).ready(function () { 
+              $('##{redactor_id}').redactor({
+                minHeight: 75,
+                autoresize: true,
+                focus: true,
+                toolbarExternal: '##{toolbar_id}',
+                buttons: [ 'smile'],
+                buttonsCustom: {
+                  smile: {
+                      title: 'smile',
+                      callback: function(buttonName, buttonDOM, buttonObject) {
+                          // your code, for example - getting code
+                          var html = this.get();
+                      }
+                  }
+                },
+                focusCallback: function(e)
+                {
+                    // Нужно выбирать непосредственного родителя
+                    $('.redactor-control_hold').addClass('redactor-control_hold__focus');
+                },
+                changeCallback: function(html)
+                {   
+                    // обновлять скролл baron
+                },
+                initCallback: function()
+                {
+
+                }
+              });
+            });

@@ -52,59 +52,113 @@
           <div class="im">
             <!-- js ля расчетов положения почты -->
             <script>
-              var im = []
-              im.imHeight = function () {
-                  // 50 - отступы от im
-                  var h = im.windowHeight - im.headerHeight - 50; 
-                  if (h < 390) {
-                      h = 390
-                  }
-                  
-                  im.imCenter.height(h);
-                  // 57 - отступ под поле поиска
-                  im.imUserList.height(h - 57);
-              }
-              im.containerHeight = function() {
-                  var h = im.imCenter.height() - im.centerTop.height() - im.centerBottom.height();
-                  console.log(im.container.height());
-                  im.container.height(h);
-              }
-              im.msgToBottom = function(){
-                  var contH = im.container.height();
-                  var contWrap = $('.im-center_middle-w');
-                  
-                  if (contH > contWrap.height()) {
-                      var h = contH - contWrap.height() - 5;
-                      contWrap.css({'padding-top' : h});
-                      console.log(h )
-                  } else {
-                      contWrap.css({'padding-top' : 0});
-                  }
-              }
-              $(document).ready(function () {
-                  im.windowHeight = $(window).height(); 
-                  im.imCenter = $(".im-center");
-                  im.imUserList = $(".im-user-list");
-                  
-                  im.container = $('.im-center_middle-hold');
-                  //- im.msgIndent = $('.im-center_msg-to-b');
-                  
-                  im.centerTop = $('.im-center_top');
-                  im.centerBottom = $('.im-center_bottom');
-                  
-                  im.headerHeight = $('.header').height();
-                  
-                  im.imHeight();
-                  im.containerHeight();
-                  im.msgToBottom();
-                  
-                  $(window).resize(function() {
-                      im.windowHeight = $(window).height();
-                      im.imHeight();
-                      im.containerHeight();
-                      im.msgToBottom();
-                  });
-              });
+              var im = new function() {
+                      var self = this;
+                      function imHeight() {
+                              // 50 - отступы от im
+                              var h = self.windowHeight - self.headerHeight - 50;
+                              if (h < 390) {
+                                      h = 390;
+                              }
+                              self.imCenter.height(h);
+                              // 57 - отступ под поле поиска
+                              self.imUserList.height(h - 57);
+                      }
+                      function containerHeight() {
+                              var h = self.imCenter.height() - self.centerTop.height() - self.centerBottom.height();
+                              console.log(h, self.container, self.centerTop.height(), self.centerBottom.height());
+                              self.container.height(h);
+                      }
+                      self.renew = function() {
+                              self.windowHeight = $(window).height();
+                              imHeight();
+                              containerHeight();
+                      }
+                      
+                      $(window).resize(function() {
+                              self.renew();
+                      });
+                      
+                      $(document).on('koUpdate', 'section.im-center', function(event) {
+                              var imCenter = this;
+                              self.imCenter = $(imCenter);
+                              self.imUserList = $(".im-user-list");
+                              self.container = $('.im-center_middle-hold', imCenter);
+                              self.centerTop = $('.im-center_top', imCenter);
+                              self.centerBottom = $('.im-center_bottom', imCenter);
+                              self.headerHeight = $('.header').height();
+                              self.renew();
+                      });
+                      
+                      
+                      $(document).ready(function () {
+                          self.imCenter = $(imCenter);
+                          self.imUserList = $(".im-user-list");
+                          self.container = $('.im-center_middle-hold', imCenter);
+                          self.centerTop = $('.im-center_top', imCenter);
+                          self.centerBottom = $('.im-center_bottom', imCenter);
+                          self.headerHeight = $('.header').height();
+                          self.renew();
+                      });
+                      
+                      
+              }();
+              
+              
+              
+              //- var im = []
+              //- im.imHeight = function () {
+              //-     // 50 - отступы от im
+              //-     var h = im.windowHeight - im.headerHeight - 50; 
+              //-     if (h < 390) {
+              //-         h = 390
+              //-     }
+              
+              //-     im.imCenter.height(h);
+              //-     // 57 - отступ под поле поиска
+              //-     im.imUserList.height(h - 57);
+              //- }
+              //- im.containerHeight = function() {
+              //-     var h = im.imCenter.height() - im.centerTop.height() - im.centerBottom.height();
+              //-     console.log(im.container.height());
+              //-     im.container.height(h);
+              //- }
+              //- im.msgToBottom = function(){
+              //-     var contH = im.container.height();
+              //-     var contWrap = $('.im-center_middle-w');
+              
+              //-     if (contH > contWrap.height()) {
+              //-         var h = contH - contWrap.height() - 5;
+              //-         contWrap.css({'padding-top' : h});
+              //-         console.log(h )
+              //-     } else {
+              //-         contWrap.css({'padding-top' : 0});
+              //-     }
+              //- }
+              //- $(document).ready(function () {
+              //-     im.windowHeight = $(window).height(); 
+              //-     im.imCenter = $(".im-center");
+              //-     im.imUserList = $(".im-user-list");
+              
+              //-     im.container = $('.im-center_middle-hold');
+              //-     //- im.msgIndent = $('.im-center_msg-to-b');
+              
+              //-     im.centerTop = $('.im-center_top');
+              //-     im.centerBottom = $('.im-center_bottom');
+              
+              //-     im.headerHeight = $('.header').height();
+              
+              //-     im.imHeight();
+              //-     im.containerHeight();
+              //-     im.msgToBottom();
+              
+              //-     $(window).resize(function() {
+              //-         im.windowHeight = $(window).height();
+              //-         im.imHeight();
+              //-         im.containerHeight();
+              //-         im.msgToBottom();
+              //-     });
+              //- });
               
             </script>
             <div class="im_hold clearfix">
@@ -195,9 +249,11 @@
                     </div>
                     <div class="im-panel_user clearfix">
                       <!-- Если пользователь online .im-panel_user-status не нужнен, а в .ava .ico-status.ico-status__online--><a href="" class="ava ava__middle ava__female"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"/></a>
-                      <div class="im-panel_user-status">Был на сайте 2 мин назад</div>
-                      <div class="im-panel_user-name">Александр Богоявлен Богоявленский</div>
-                      <!-- У иконки 3 состояния. 
+                      <div class="im-panel_hold">
+                        <div class="im-panel_user-status">Был на сайте 2 мин назад</div>
+                        <div class="im-panel_user-name">Александр Богоявлен Богоявленский</div>
+                      </div>
+                      <!-- У иконки 3 состояния.
                       Друг - без моидфикатора
                       Добавить в друзья - .friend__add
                       Приглашение отправленно - .friend__added
@@ -307,7 +363,7 @@
         </div>
       </div>
     </div>
+    <div class="display-n"> 
+    </div>
   </body>
-  <div class="display-n"> 
-  </div>
 </html>

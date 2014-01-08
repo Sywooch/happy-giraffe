@@ -121,24 +121,32 @@ mixin side-menu(mod)
         txMod
         txSsub
         txSubMod
+        topAbsMsg
+        topAbsMsgMod
+
 mixin cap-empty(mod, vars)
     // cap-empty
     .cap-empty(class=mod)
-        .cap-empty_hold
-            .cap-empty_img(class=vars.imgMod)
-            - if (vars.t)
-                .cap-empty_t(class=vars.tMod)!= vars.t
-            - if (vars.tx)
-                .cap-empty_tx(class=vars.txMod)!= vars.tx
-            - if (vars.txSub)
-                .cap-empty_tx-sub(class=vars.txSubMod)!= vars.txSub
-        .verticalalign-m-help
+        if (vars.topAbsMsg)
+            .cap-empty_abs-msg(class=vars.topAbsMsgMod)
+                .cap-empty_abs-msg-hold!= vars.topAbsMsg
+        else 
+            .cap-empty_hold
+                .cap-empty_img(class=vars.imgMod)
+                - if (vars.t)
+                    .cap-empty_t(class=vars.tMod)!= vars.t
+                - if (vars.tx)
+                    .cap-empty_tx(class=vars.txMod)!= vars.tx
+                - if (vars.txSub)
+                    .cap-empty_tx-sub(class=vars.txSubMod)!= vars.txSub
+            .verticalalign-m-help
     // /cap-empty
 
 
 //- wisywig редактор с кнопками утправления винзу
 //- redactor-control
-mixin redactor-control(mod, vars)
+    vars
+mixin im-redactor-control(mod, vars)
     .redactor-control
         .redactor-control_hold
             .scroll
@@ -184,6 +192,7 @@ mixin redactor-control(mod, vars)
                     if(bParrent.height() >= 250) {
                         bParrent.height(250);
                     }
+                    // обновлять скролл baron
                 },
                 initCallback: function()
                 {

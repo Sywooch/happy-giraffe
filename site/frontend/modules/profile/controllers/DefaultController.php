@@ -10,22 +10,6 @@ class DefaultController extends HController
     public $user;
     public $title;
 
-    public function filters()
-    {
-        return array(
-            'accessControl',
-        );
-    }
-
-    public function accessRules()
-    {
-        return array(
-            array('deny',
-                'users' => array('?'),
-            ),
-        );
-    }
-
     /**
      * Анкета пользователя $user_id
      * @param int $user_id

@@ -128,7 +128,7 @@ ko.bindingHandlers.moment = {
 	},
 	formatDate: function(settings) {
 		var result = '';
-		result = moment(settings.value * 1000).fromNow();
+		result = moment(settings.value * 1000 - serverTimeDelta).fromNow();
 		
 		return result;
 	},

@@ -29,7 +29,7 @@ return array(
 		'moment' => array(
 			'baseUrl' => '/',
 			'js' => array(
-				'javascripts/moment.min.js',
+				'javascripts/moment.ru.min.js',
 			),
 		),
         'knockout' => array(

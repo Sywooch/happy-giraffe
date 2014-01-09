@@ -9,6 +9,13 @@ return array(
                 'javascripts/jquery.powertip.js',
             ),
         ),
+		'scrollTo' => array(
+            'baseUrl' => '/',
+            'js' => array(
+                'new/javascript/jquery.scrollTo.min.js',
+            ),
+			'depends' => array('jquery'),
+		),
         'jcrop' => array(
             'baseUrl' => '/',
             'js' => array(

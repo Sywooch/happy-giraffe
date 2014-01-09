@@ -66,13 +66,24 @@
                       }
                       function containerHeight() {
                               var h = self.imCenter.height() - self.centerTop.height() - self.centerBottom.height();
-                              console.log(h, self.container, self.centerTop.height(), self.centerBottom.height());
                               self.container.height(h);
+                      }
+                      function msgToBottom() {
+                          var contH = self.container.height();
+                          var contWrapH = self.contWrap.height();
+                          
+                          if (contH > contWrapH) {
+                              var h = contH - contWrapH - 5;
+                              self.contWrap.css({'padding-top' : h});
+                          } else {
+                              self.contWrap.css({'padding-top' : 0});
+                          }
                       }
                       self.renew = function() {
                               self.windowHeight = $(window).height();
                               imHeight();
                               containerHeight();
+                              msgToBottom();
                       }
                       
                       $(window).resize(function() {
@@ -92,12 +103,14 @@
                       
                       
                       $(document).ready(function () {
+                          var imCenter = ".im-center";
                           self.imCenter = $(imCenter);
                           self.imUserList = $(".im-user-list");
                           self.container = $('.im-center_middle-hold', imCenter);
                           self.centerTop = $('.im-center_top', imCenter);
                           self.centerBottom = $('.im-center_bottom', imCenter);
                           self.headerHeight = $('.header').height();
+                          self.contWrap = $('.im-center_middle-w', imCenter);
                           self.renew();
                       });
                       
@@ -451,7 +464,7 @@
                               },
                               changeCallback: function(html)
                               {   
-                                  im.containerHeight();
+                                  im.renew();
                                   // Нужно выбирать непосредственного родителя
                                   var bParrent = $('.redactor-control_hold');
                                   if(bParrent.height() >= 250) {
@@ -461,8 +474,7 @@
                               },
                               initCallback: function()
                               {
-                                  im.containerHeight();
-                                  im.msgToBottom();
+                                  im.renew();
                               }
                             });
                           });

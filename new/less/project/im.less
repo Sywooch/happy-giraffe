@@ -223,8 +223,6 @@
     &_top {}
     &_middle {padding: 0;}
     &_middle-hold {
-        overflow: hidden;
-        overflow-y: auto;
         height: 300px;
     }
     &_middle-w {}
@@ -315,8 +313,10 @@
         background: url(/new/images/im/im-panel_ico.png) no-repeat;
     }
     &_ico__ban {background-position: 0 0;}
+    &_ico__ban.active,
     &_ico__ban:hover {background-position: 0 -20px;}
     &_ico__del {background-position: -20px 0;}
+    &_ico__del.active,
     &_ico__del:hover {background-position: -20px -20px;}
 
     &_user {
@@ -340,8 +340,10 @@
         padding-top: 10px;
         font: 25px/30px @altfont2;
         color: #3f3053;
+        text-decoration: none;
         .text-overflow();
     }
+    &_user-name:hover {text-decoration: underline;}
     &_friend {
         display: inline-block;
         vertical-align: bottom;
@@ -463,8 +465,11 @@
     
     .cap-empty {.border-radius(5px);}
     .redactor_editor {max-height: 300px;}
+    .friend-offer {
+        margin: 15px auto;
+    }
     &_top {
-        padding: 20px 20px 10px;
+        padding: 12px 20px 10px;
 
     }
     &_top .i-more {
@@ -472,16 +477,17 @@
         float: right;
     }
     &_t {
-        margin: 0 0 5px;
-        font-size: 15px;
+        margin: 0 0 10px;
+        font-size: 13px;
+        font-weight: bold;
         color: #141414;
     }
 
     &_whom {
         position: relative;
         display: inline-block;
-        margin-right: 25px;
-        padding: 10px 14px;
+        margin-right: 20px;
+        padding: 10px 10px 10px 14px;
         background-color: #ffeb69;
         color: #45314e;
     }
@@ -490,12 +496,12 @@
         position: absolute;
         top: 0;
         right: -18px;
-        margin-right: -13px;
+        margin-right: -8px;
         width: 0;
         height: 0;
         border: 18px solid transparent;
         border-left-color: #ffeb69;
-        border-left-width: 13px;
+        border-left-width: 8px;
         z-index: 1;
     }
     &_b {

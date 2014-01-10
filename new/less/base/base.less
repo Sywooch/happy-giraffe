@@ -53,6 +53,20 @@
 
     &:hover {background: #d83e32;}
 }
+.ico-loader {
+    .inline-block();
+    vertical-align: middle;
+    margin: 0 5px 0;
+}
+.ico-close {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 100px;
+    height: 100px;
+    background: #fafafa;
+    z-index: 1000;
+}
 
 // Отдельные элементы
 .a-pseudo {text-decoration:none;border-bottom:1px dotted #2c95d6;}
@@ -66,11 +80,9 @@
     background: url(/new/images/ico/i-more.png) no-repeat 100% 50%;
     color: #24aae9;
     font: 20px/22px Tahoma, Arial, Verdana, sans-serif;
-    text-decoration: none;
 
     &:hover {
         color: #24aae9;
-        text-decoration: underline;
     }
     &__small {
         font: 11px/16px Tahoma, Arial, Verdana, sans-serif;
@@ -182,14 +194,19 @@
         background: url(/new/images/base/b-control_ico.png) no-repeat;
 
         &__favorite {background-position: 0 0;}
+        &__favorite.active,
         &__favorite:hover {background-position: 0 -20px;}
         &__delete {background-position: -18px 0;}
+        &__delete.active,
         &__delete:hover {background-position: -18px -20px;}
         &__spam {background-position: -36px 0;}
+        &__spam.actvie,
         &__spam:hover {background-position: -36px -20px;}
         &__edit {background-position: -54px 0;}
+        &__edit.active,
         &__edit:hover {background-position: -54px -20px;}
         &__cancel {background-position: -72px 0;}
+        &__cancel.active,
         &__cancel:hover {background-position: -72px -20px;}
     }
     &_drop {display: none;}
@@ -380,7 +397,7 @@
     }
     &_abs-msg-hold {
         display: inline-block;
-        padding: 2px 10px;
+        padding: 4px 10px;
         color: #171717;
         font-size: 14px;
         background-color: #fdf48f;
@@ -644,13 +661,11 @@ textarea.error {
 .popup {
     position: relative;
     margin: 20px auto;
-    
-    /*&_close {
-        position: absolute;
-        top: 5px;
-        right: 5px;
-        width: 13px;
-        height: 13px;
-        .img-retina('/new/images/ico/ico-close2.png'; '/new/images/ico/ico-close2-2x.png'; 13px; 13px);
+
+    &__close-white .mfp-close{
+        color: #fff !important;
+    }
+/*    &__close-white .mfp-close:hover {
+        color: #eee;
     }*/
 }

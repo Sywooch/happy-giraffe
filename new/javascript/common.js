@@ -17,7 +17,7 @@ $(window).load(function() {
     });*/
     
     // tooltip
-    $('.powertip, .redactor_toolbar li a').tooltipster({
+    $('.no-touch .powertip, .no-touch .redactor_toolbar li a, .mfp-close').tooltipster({
         trigger: 'hover',
         offsetY: -6,
         delay: 200,
@@ -30,6 +30,7 @@ $(window).load(function() {
     });
 
     // tooltip
+    // попап у иконки
     $('.tooltip-click-b').tooltipster({
         trigger: 'click',
         delay: 0,
@@ -78,6 +79,7 @@ $(window).load(function() {
     $('.popup-a').magnificPopup({
         type: 'inline',
         overflowY: 'auto',
+        tClose: 'Закрыть',
         fixedBgPos: true,
         
         // When elemened is focused, some mobile browsers in some cases zoom in

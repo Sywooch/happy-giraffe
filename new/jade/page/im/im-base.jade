@@ -35,7 +35,13 @@ block layout-wrapper_hold
                                 +im-message("", {mod_name: "im-message_name__self", msgStatus: 'delete'})
                                 +im-message("", {mod_name: "im-message_name__self", msgStatus: 'cancel'})
                                 +im-message("", {mod_name: "im-message_name__self", bControl: ['delete'], messageRead: 'read'})
-                                +im-message("", {mod_name: "im-message_name__self", bControl: ['edit', 'cancel'],messageRead: 'read-no'})
+                                +im-message(
+                                    "im-message__new", 
+                                    {
+                                        mod_name: "im-message_name__self", 
+                                        bControl: ['edit', 'cancel'],messageRead: 'read-no'
+                                    }
+                                )
                                 // im_loader есть всегда, на разные действия в нем менятеся содержимое
                                 .im_loader
                                     img.im_loader-img(src='/images/ico/ajax-loader.gif', alt='')
@@ -46,7 +52,10 @@ block layout-wrapper_hold
                         .scroll_bar-hold
                             .scroll_bar
                                 .scroll_bar-in
-                - var imCenter_bottom = {}
+                
+                    var imCenter_bottom = {
+                        wisywig: true
+                    }
                 +im-center_bottom("", imCenter_bottom)
         
             // /im-center

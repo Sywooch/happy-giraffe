@@ -205,14 +205,14 @@ mixin im-panel(mod, vars)
                     // /tooltip-drop
         .im-panel_user.clearfix
             // Если пользователь online .im-panel_user-status не нужнен, а в .ava .ico-status.ico-status__online
-            - avaVars = {icoStatus: 'ico-status__online', src: 'http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg'}
+            - avaVars = {src: 'http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg'}
             - if (!vars.small)
                 +ava("ava__middle ava__female", avaVars)
             - else 
                 +ava("ava__small ava__female", avaVars)
             .im-panel_hold
                 .im-panel_user-status Был на сайте 2 мин назад
-                .im-panel_user-name Александр Богоявлен Богоявленский
+                a.im-panel_user-name(href="") Александр Богоявлен Богоявленский
             // У иконки 3 состояния.
                 Друг - без моидфикатора
                 Добавить в друзья - .friend__add
@@ -268,7 +268,7 @@ mixin im-message(mod, vars)
                 default
                     .im-message_tx 
                         - if (vars.imMessage_tx)
-                            = vars.imMessage_tx
+                            != vars.imMessage_tx
                         - else
                             p Уважаемая Зося, добрый день! 
                             p Прошу вас не ставить в ваши темы активные ссылки, а ставить картинки, так как правилами сайта активные ссылки на посторонние порталы запрещены, и будут удалены.

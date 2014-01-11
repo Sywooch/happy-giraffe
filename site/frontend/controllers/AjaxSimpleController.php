@@ -116,7 +116,8 @@ class AjaxSimpleController extends CController
      */
     public function actionAddComment()
     {
-        throw new CHttpException(503);
+        if (Yii::app()->user->group != UserGroup::COMMENTATOR && ! in_array(Yii::app()->user->id, array(220231)))
+            throw new CHttpException(503);
 
         Yii::import('site.frontend.modules.services.modules.recipeBook.models.*');
         Yii::import('site.frontend.modules.route.models.*');

@@ -191,7 +191,8 @@ class DefaultController extends HController
 
     public function actionSave($id = null)
     {
-        throw new CHttpException(503);
+        if (Yii::app()->user->group != UserGroup::COMMENTATOR && ! in_array(Yii::app()->user->id, array(220231)))
+            throw new CHttpException(503);
 
         $contest_id = Yii::app()->request->getPost('contest_id');
         $model = ($id === null) ? new CommunityContent() : CommunityContent::model()->findByPk($id);

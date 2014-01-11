@@ -14,7 +14,7 @@ class DefaultController extends HController
     {
         $filters = array(
             'accessControl',
-            'ajaxOnly - index, view, save',
+            'ajaxOnly - index, view, save, live',
         );
 
         if (Yii::app()->user->isGuest) {
@@ -439,5 +439,26 @@ class DefaultController extends HController
         }
 
         return $data;
+    }
+
+    public function actionLive()
+    {
+        $this->layout = '//layouts/main';
+        Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
+
+        $criteria = new CDbCriteria(array(
+            'condition' => 'created >= :date1 AND created <= :date2',
+            'params' => array(
+                ':date1' => '2013-28-12 00:00:00',
+                ':date2' => '2013-06-01 23:59:59',
+            ),
+            'order' => 'id DESC',
+        ));
+
+        $dp = new CActiveDataProvider('BlogContent', array(
+            'criteria' => $criteria,
+        ));
+
+        $this->render('live', compact('dp'));
     }
 }

@@ -449,8 +449,8 @@ class DefaultController extends HController
         $criteria = new CDbCriteria(array(
             'condition' => 'created >= :date1 AND created <= :date2',
             'params' => array(
-                ':date1' => '2013-28-12 00:00:00',
-                ':date2' => '2014-06-01 23:59:59',
+                ':date1' => '2013-12-28 00:00:00',
+                ':date2' => '2014-01-06 23:59:59',
             ),
             'order' => 'id DESC',
         ));

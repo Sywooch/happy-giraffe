@@ -288,6 +288,8 @@ class DefaultController extends HController
 
     public function actionSave($id = null)
     {
+        throw new CHttpException(503);
+
         $model = ($id === null) ? new BlogContent() : BlogContent::model()->findByPk($id);
         if (! $model->isNewRecord && ! $model->canEdit())
             throw new CHttpException(403);

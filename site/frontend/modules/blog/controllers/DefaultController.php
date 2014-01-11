@@ -457,6 +457,9 @@ class DefaultController extends HController
 
         $dp = new CActiveDataProvider('BlogContent', array(
             'criteria' => $criteria,
+            'pagination' => array(
+                'pageSize' => 200,
+            ),
         ));
 
         $this->render('live', compact('dp'));

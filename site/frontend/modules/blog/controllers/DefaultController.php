@@ -441,26 +441,4 @@ class DefaultController extends HController
 
         return $data;
     }
-
-    public function actionLive()
-    {
-        $good = array(135309, 128489, 134087, 134294, 130651, 134492, 130380, 135526, 135471, 134370, 133406, 128595, 133838, 146583, 134027, 135313, 132109, 134383, 134090, 146930, 146615, 145537, 146914, 134317, 135721, 128447, 134467, 128519, 147678, 132256, 146657, 132925, 134501, 134362, 129297, 146924, 128596, 128469, 133630, 134304, 146662, 124716, 145287, 146634, 146610, 146904, 146625, 136440, 130063, 132940);
-
-        $this->layout = '//layouts/main';
-        Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
-
-        $criteria = new CDbCriteria(array(
-            'order' => 'id DESC',
-        ));
-        $criteria->addInCondition('t.id', $good);
-
-        $dp = new CActiveDataProvider('BlogContent', array(
-            'criteria' => $criteria,
-            'pagination' => array(
-                'pageSize' => 100,
-            ),
-        ));
-
-        $this->render('live', compact('dp'));
-    }
 }

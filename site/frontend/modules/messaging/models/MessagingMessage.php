@@ -242,7 +242,18 @@ class MessagingMessage extends HActiveRecord
 		);
 	}
 
-	/**
+	public function scopes()
+	{
+		$scopes = parent::scopes();
+		
+		$scopes['orderDesc'] = array(
+			'order' => $this->getTableAlias(true) . '.`created` DESC',
+		);
+		
+		return $scopes;
+	}
+
+		/**
 	 * Именованное условие с параметрами.
 	 * Выбирает сообщения между двумя пользователями.
 	 * 

@@ -87,6 +87,10 @@ $(window).load(function() {
         callbacks: {
             open: function() {
                 scroll.update();
+                $('html').addClass('mfp-html');
+            },
+            close: function() {
+                $('html').removeClass('mfp-html');
             }
         }
     });

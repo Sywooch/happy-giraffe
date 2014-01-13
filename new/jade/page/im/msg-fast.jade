@@ -82,7 +82,7 @@ block block-hidden
             .msg-fast_b
                 +redactor-control-msg-fast()
         // Заглушка. Для белой иконки закрытия нужен класс на родитель .popup .popup__close-white
-        +cap-empty("cap-empty__abs cap-empty__blue", {imgMod: 'cap-empty_img__white', txSub: 'Для того, чтобы начать пользоваться сервисом, <br>необходимо загрузить свое главное фото <br> <br><div class="file-fake"><button class="file-fake_btn btn-green btn-m">Загрузить фото</button><input type="file" class="file-fake_inp"></div>', icoClose: '<a href="" onclick="magnificPopup.close();" class="ico-close-white"></a>'})
+        +cap-empty("cap-empty__abs cap-empty__blue", {imgMod: 'cap-empty_img__white', txSub: 'Для того, чтобы начать пользоваться сервисом, <br>необходимо загрузить свое главное фото <br> <br><div class="file-fake"><button class="file-fake_btn btn-green btn-m">Загрузить фото</button><input type="file" class="file-fake_inp"></div>'})
     // /msg-fast popup
 
 
@@ -96,19 +96,18 @@ block block-hidden
                     .msg-fast_whom Кому:
                     +im-panel('im-panel__small', {friend: "friend__added", small: true})
                     a.i-more.i-more__small В диалоги
-            .friend-offer
-                .friend-offer_hold
-                    .friend-offer_ava
-                        - avaVars = {icoStatus: 'ico-status__online', src: 'http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg'}
-                        +ava("ava__middle ava__female", avaVars)
-                    .friend-offer_in
-                        a.friend-offer_name(href="") Александра Богоявленская
-                        .friend-offer_tx предлагает вам дружбу!
-                    .friend-offer_btns
-                        a.btn-green-simple.btn-s Принять
-                        a.ico-cancel.powertip(href="",title="Отклонить") &#8211;
-
             .msg-fast_b
+                .friend-offer
+                    .friend-offer_hold
+                        .friend-offer_ava
+                            - avaVars = {icoStatus: 'ico-status__online', src: 'http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg'}
+                            +ava("ava__middle ava__female", avaVars)
+                        .friend-offer_in
+                            a.friend-offer_name(href="") Александра Богоявленская
+                            .friend-offer_tx предлагает вам дружбу!
+                        .friend-offer_btns
+                            a.btn-green-simple.btn-s Принять
+                            a.ico-cancel.powertip(href="",title="Отклонить") &#8211;
                 +redactor-control-msg-fast()
     // /msg-fast popup
 

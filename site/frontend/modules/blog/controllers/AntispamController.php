@@ -16,7 +16,7 @@ class AntispamController extends HController
     public function actionIndex($type = self::TYPE_LIVE)
     {
         $criteria = new CDbCriteria(array(
-            'order' => 'id DESC',
+            'order' => 't.id DESC',
         ));
 
         switch ($type) {

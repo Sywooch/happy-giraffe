@@ -137,11 +137,6 @@
                         </div>
                     </div>
 
-                    <div>
-                        <?php $this->widget('CCaptcha'); ?>
-                        <input type="text" class="itx-simple">
-                    </div>
-
                     <div class="b-sign_bottom">
                         <button class="btn-blue btn-h55 b-sign_btn-reg">Регистрация</button>
                     </div>

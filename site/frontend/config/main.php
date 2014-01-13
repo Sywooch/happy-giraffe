@@ -68,6 +68,7 @@ return array(
         'application.modules.myGiraffe.components.*',
         'application.modules.community.models.*',
         'application.widgets.registerWidget.RegisterWidget',
+        'ext.captchaExtended.*',
     ),
 
 	'sourceLanguage' => 'en',

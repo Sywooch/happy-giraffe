@@ -191,7 +191,7 @@ class DefaultController extends HController
 
     public function actionSave($id = null)
     {
-        if (Yii::app()->user->group != UserGroup::COMMENTATOR && ! in_array(Yii::app()->user->id, array(220231)))
+        if (Yii::app()->user->model->register_date > '2014-01-01 00:00:00')
             throw new CHttpException(503);
 
         $contest_id = Yii::app()->request->getPost('contest_id');

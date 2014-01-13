@@ -97,16 +97,24 @@ class DefaultController extends HController
         switch ($entity) {
             case 'CommunityContentGallery':
                 $contentId = Yii::app()->request->getQuery('content_id');
-                $collection = new PhotoPostPhotoCollection(array('contentId' => $contentId));
+                $model = CommunityContent::model()->findByPk($contentId);
+                $collectionClass = 'PhotoPostPhotoCollection';
+                $collectionOptions = array('contentId' => $contentId);
                 break;
             case 'Contest':
                 $contestId = Yii::app()->request->getQuery('contest_id');
-                $collection = new ContestPhotoCollection(array('contestId' => $contestId));
+                $model = CommunityContest::model()->findByPk($contestId);
+                $collectionClass = 'ContestPhotoCollection';
+                $collectionOptions = array('contestId' => $contestId);
                 break;
             default:
                 throw new CHttpException(404);
         }
 
+        if ($model === null)
+            throw new CHttpException(404);
+
+        $collection = new $collectionClass($collectionOptions);
         if (array_search($photo_id, $collection->photoIds) === false)
             throw new CHttpException(404);
 

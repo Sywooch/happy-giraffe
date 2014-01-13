@@ -37,7 +37,7 @@ class AntispamController extends HController
         $dp = new CActiveDataProvider('BlogContent', array(
             'criteria' => $criteria,
             'pagination' => array(
-                'pageSize' => 100,
+                'pageSize' => 50,
             ),
         ));
 

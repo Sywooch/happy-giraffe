@@ -2,6 +2,15 @@
 
 class SignupController extends HController
 {
+    public function actions()
+    {
+        return array(
+            'captcha' => array(
+                'class' => 'CaptchaExtendedAction',
+            ),
+        );
+    }
+
     public function filters()
     {
         return array(

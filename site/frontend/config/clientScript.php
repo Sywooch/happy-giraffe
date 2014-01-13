@@ -16,6 +16,25 @@ return array(
             ),
 			'depends' => array('jquery'),
 		),
+		'scrollEvents' => array(
+            'baseUrl' => '/',
+            'js' => array(
+                'new/javascript/scroll-events.js',
+            ),
+			'depends' => array('jquery'),
+		),
+		'common' => array(
+            'baseUrl' => '/',
+            'js' => array(
+                'new/javascript/common.js',
+            ),
+			'depends' => array(
+				'jquery',
+				'scrollTo',
+				'scrollEvents',
+				'comet',
+			),
+		),
         'jcrop' => array(
             'baseUrl' => '/',
             'js' => array(

@@ -9,7 +9,7 @@
 		Yii::app()->clientScript
 			->registerScript('serverTime', 'var serverTime = ' . time() . '; serverTimeDelta = new Date().getTime() - (serverTime * 1000)', CClientScript::POS_HEAD)
 			->registerPackage('comet')
-			->registerPackage('scrollTo')
+			->registerPackage('common')
 			->registerScript('Realplexor-reg', 'comet.connect(\'http://' . Yii::app()->comet->host . '\', \'' . Yii::app()->comet->namespace . '\', \'' . UserCache::GetCurrentUserCache() . '\');');
 
 ?><!DOCTYPE html>
@@ -23,8 +23,6 @@
     <script src="/new/javascript/modernizr-2.7.1.min.js"></script>
     <!-- wisywig-->
     <script src="/new/redactor/redactor.js"></script>
-    <!-- Базовый js (вызывается на всех страницах)-->
-    <script src="/new/javascript/common.js"></script>
   </head>
   <body class="body body__im">
     <div class="layout-container">

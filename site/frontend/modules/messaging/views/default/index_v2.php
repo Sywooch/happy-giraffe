@@ -1,5 +1,5 @@
 <div class="im">
-	<!-- js ля расчетов положения почты -->
+	<!-- js для расчетов положения почты -->
 	<script type="text/javascript">
 		var im = new function() {
 			var self = this;
@@ -21,6 +21,10 @@
 				self.windowHeight = $(window).height();
 				imHeight();
 				containerHeight();
+				// стриггерим события прокрутки, после изменения размеров
+				self.container.find('.scroll_scroller').trigger('scroll');
+				self.imCenter.find('.scroll_scroller').trigger('scroll');
+				self.imUserList.find('.scroll_scroller').trigger('scroll');
 			}
 			
 			$(window).resize(function() {

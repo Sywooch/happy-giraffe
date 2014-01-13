@@ -148,6 +148,29 @@ ko.bindingHandlers.moment = {
 	}
 }
 
+ko.bindingHandlers.show = {
+	init: function(element, valueAccessor) {
+		var defaults = {
+			selector: false,
+		};
+		var options = valueAccessor();
+		
+		if(typeof(options) == 'function') {
+			options = {
+				callback: options
+			}
+		}
+		
+		var settings = $.extend( {}, defaults, options );
+		
+		$(element).on('show', settings.selector, function(event) {
+			if(this == event.target) {
+				settings.callback();
+			}
+		})
+	}
+}
+
 // Добавляем событие koUpdate и koElementAdded
 // koUpdate Срабатывает при рендере шаблона (template, with, foreach)
 //		целью является элемент, в котором произошли

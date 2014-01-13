@@ -359,15 +359,23 @@ function MessagingThread(me, user) {
 	 * Загрузка сообщений
 	 */
 	self.loadMessages = function() {
-		self.loadingMessages(true);
-		$.get('/messaging/threads/getMessages/', {userId: self.user.id}, function(response) {
-			self.messages(ko.utils.arrayMap(response.messages, function(message) {
-				return new MessagingMessage(message);
-			}));
-			if (response.last)
-				self.fullyLoaded(true);
-			self.loadingMessages(false);
-		}, 'json');
+		if(!self.fullyLoaded() && !self.loadingMessages()) {
+			self.loadingMessages(true);
+			var data = {userId: self.user.id};
+			if(self.messages().length > 0) {
+				data.lastDate = self.messages()[0].created;
+			}
+			
+			$.get('/messaging/threads/getMessages/', data, function(response) {
+				response.messages = response.messages.reverse();
+				self.messages(ko.utils.arrayMap(response.messages, function(message) {
+					return new MessagingMessage(message);
+				}).concat(self.messages()));
+				if (response.last)
+					self.fullyLoaded(true);
+				self.loadingMessages(false);
+			}, 'json');
+		}
 	};
 
 	// Текст конструктора

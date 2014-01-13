@@ -1,10 +1,10 @@
 $(document).on('show', '.im-user-list_i', function(event) {
-	if($(event.target).hasClass('im-user-list_i')) {
-		console.log('show', event.target);
+	if(event.target == this) {
+		//console.log('show', event.target);
 	}
 }).on('hide', '.im-user-list_i', function(event) {
-	if($(event.target).hasClass('im-user-list_i')) {
-		console.log('hide', event.target);
+	if(event.target == this) {
+		//console.log('hide', event.target);
 	}
 });
 

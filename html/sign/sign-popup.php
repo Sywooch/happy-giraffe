@@ -261,6 +261,29 @@
 								<div class="b-sign_win"></div>
 							</div>
 						</div>
+
+						<div class="margin-b40 clearfix error">
+							<div class="">
+								<div class="b-sign_label-hold">
+									<label for="" class="b-sign_label">Код</label>
+								</div>
+								<div class="b-sign_capcha-hold">
+									<div class="margin-b5">
+										<!-- Размеры капчи 128*45 -->
+										<img src="/images/captcha.png" alt="" class="b-sign_capcha">
+									</div>
+									<div class="b-sign_itx-desc">
+										Обновить картинку 
+										<a href="" class="ico-refresh"></a>
+									</div>
+								</div>
+								<div class="b-sign_itx-hold">
+									<input type="text" name="" id="" class="itx-simple margin-t12">
+									<div class="errorMessage">Неправильный код проверки.</div>
+									<div class="b-sign_itx-desc">Введите цифры, которые вы видите на картинке</div>
+								</div>
+							</div>
+						</div>
 						
 						<div class="b-sign_bottom">
 							<button class="btn-blue btn-h55 b-sign_btn-reg">Регистрация</button>

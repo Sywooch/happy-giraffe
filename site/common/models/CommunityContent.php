@@ -1131,7 +1131,7 @@ class CommunityContent extends HActiveRecord
             );
         }
 
-        if (in_array($this->id, array(106365, 114024, 114026, 117229, 147851))) {
+        if (in_array($this->id, array(106365, 114024, 114026, 117229, 147851, 147856))) {
             return array(
                 'text' => 'Heinz',
                 'img' => '/images/banners/ava-Heinz-2.jpg',

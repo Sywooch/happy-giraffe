@@ -26,7 +26,7 @@ class AntispamController extends HController
                 break;
             case self::TYPE_OLDUSERS:
                 $criteria->with = array('author');
-                $criteria->condition = 'u.register_date < :register_date AND c.created > :created';
+                $criteria->condition = 'author.register_date < :register_date AND t.created > :created';
                 $criteria->params = array(
                     ':register_date' => '2014-01-01 00:00:00',
                     ':created' => '2014-01-07 00:00:00',

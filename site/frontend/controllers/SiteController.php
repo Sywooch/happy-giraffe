@@ -492,7 +492,7 @@ class SiteController extends HController
                 'dimensions' => 'ga:pagePath',
                 'max-results' => 10000,
                 'sort' => '-ga:visits',
-                'filters' => 'ga:source==google',
+                'filters' => 'ga:source==yandex',
             ));
             foreach ($pathes1 as $path => $value) {
                 $result[$path] = array(
@@ -509,7 +509,7 @@ class SiteController extends HController
                 'dimensions' => 'ga:pagePath',
                 'max-results' => 10000,
                 'sort' => '-ga:visits',
-                'filters' => 'ga:source==google',
+                'filters' => 'ga:source==yandex',
             ));
             foreach ($pathes2 as $path => $value) {
                 if (isset($result[$path])) {

@@ -473,8 +473,6 @@ class SiteController extends HController
 
     public function actionSeo()
     {
-        print_r($_SERVER);
-
         Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
         if ($_POST) {
             foreach ($_POST as $k => $val)

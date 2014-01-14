@@ -265,7 +265,9 @@
 						<div class="margin-b40 clearfix error">
 							<div class="">
 								<div class="b-sign_label-hold">
-									<label for="" class="b-sign_label">Код</label>
+									<div class="margin-t12">
+										<label for="" class="b-sign_label">Код</label>
+									</div>
 								</div>
 								<div class="b-sign_capcha-hold">
 									<div class="margin-b5">

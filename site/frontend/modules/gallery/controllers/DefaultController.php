@@ -103,7 +103,7 @@ class DefaultController extends HController
                 break;
             case 'Contest':
                 $contestId = Yii::app()->request->getQuery('contest_id');
-                $model = CommunityContest::model()->findByPk($contestId);
+                $model = Contest::model()->findByPk($contestId);
                 $collectionClass = 'ContestPhotoCollection';
                 $collectionOptions = array('contestId' => $contestId);
                 break;

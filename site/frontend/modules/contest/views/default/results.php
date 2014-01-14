@@ -219,6 +219,21 @@
                 'model' => 'Silver Care',
             ),
         );
+    } elseif ($this->contest->id == 13) {
+        $prizes = array(
+            '1' => array(
+                'title' => 'Детский электромобиль',
+                'model' => 'NeoTrike Beetle',
+            ),
+            '2' => array(
+                'title' => 'Обучающий компьютер Винни',
+                'model' => 'VTech',
+            ),
+            '3' => array(
+                'title' => 'Обучающий глобус',
+                'model' => 'VTech',
+            ),
+        );
     }
 ?>
 

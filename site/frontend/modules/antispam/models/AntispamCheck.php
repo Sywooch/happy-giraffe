@@ -124,6 +124,10 @@ class AntispamCheck extends CActiveRecord
                 'updateAttribute' => 'updated',
                 'setUpdateOnCreate' => true,
             ),
+            'RelatedModelBehavior' => array(
+                'class' => 'site.common.behaviors.RelatedEntityBehavior',
+                'possibleRelations' => array('CommunityContent', 'BlogContent'),
+            ),
         );
     }
 }

@@ -21,6 +21,6 @@ class AntispamStatusManager
 
     static function getUserStatus($user)
     {
-
+        return self::STATUS_UNDEFINED;
     }
 }

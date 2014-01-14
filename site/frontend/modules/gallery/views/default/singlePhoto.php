@@ -79,6 +79,7 @@ Yii::app()->clientScript->registerPackage('gallery');
                             <div class="photo-window-contest-meter_num"><?=$work->rate?></div>
                             <div class="photo-window-contest-meter_ball"><?=Str::GenerateNoun(array('балл', 'балла', 'баллов'), $work->rate)?></div>
                         </div>
+                        <?php if ($work->contest == Contest::STATUS_ACTIVE): ?>
                         <div class="photo-window-contest-meter_vote">
                             <div class="photo-window-contest-meter_vote-tx">Голосовать!</div>
                             <?php $this->widget('site.frontend.widgets.socialLike.SocialLikeWidget', array(
@@ -93,6 +94,7 @@ Yii::app()->clientScript->registerPackage('gallery');
                                 ),
                             ));  ?>
                         </div>
+                        <?php endif; ?>
                     </div>
 
                 </div>

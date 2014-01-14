@@ -9,14 +9,14 @@
 
 class TempCommand extends CConsoleCommand
 {
-    public function actionCheatHeinz()
+    public function actionCheatViews($url, $perDay, $days)
     {
         Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
         Yii::import('site.common.models.mongo.PageView');
         $start = time();
-        while (time() < ($start + 3 * 24 * 60 * 60)) {
-            $sleep = 44;
-            PageView::model()->cheat('/community/5/forum/post/117229/', 0, 1);
+        while (time() < ($start + $days * 24 * 60 * 60)) {
+            $sleep = 24 * 60 * 60 / $perDay / 2;
+            PageView::model()->cheat($url, 0, 1);
             sleep($sleep);
         }
     }

@@ -175,7 +175,7 @@
 			<div class="im-center_middle">
 				<div data-bind="css: {scroll: true}">
                     <div class="im-center_middle-hold scroll_scroller">
-						<div class="im-center_middle-w scroll_cont">
+						<div class="im-center_middle-w scroll_cont" data-bind="show: {selector: '>.im-message:eq(2)', callback: loadMessages}">
 							<div class="im_loader" data-bind="visible: loadingMessages"><img src="/new/images/ico/ajax-loader.gif" alt="" class="im_loader-img"><span class="im_loader-tx">Загрузка ранних сообщений</span></div>
 							<!-- ko if: deletedDialogs().length -->
 							<!-- cap-empty-->
@@ -191,7 +191,7 @@
 							<!-- /ko -->
 							<!-- ko foreach: messages -->
 								<!-- im-message-->
-								<div class="im-message" data-bind="ifnot: hidden">
+								<div class="im-message" data-bind="ifnot: hidden, show: show, hide: hide, css: {'im-message__new': !dtimeRead()}">
 									<div class="im-message_ava"><a href="" class="ava ava__small ava__male"><span class="ico-status ico-status__online" data-bind="visible: from.isOnline()"></span><img alt="" data-bind="attr: {src: from.avatar}" class="ava_img"/></a>
 									</div>
 									<div class="im-message_r">

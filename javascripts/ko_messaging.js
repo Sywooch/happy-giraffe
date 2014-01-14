@@ -187,20 +187,40 @@ function MessagingMessage(model) {
 	self.hidden = ko.observable(false);
 	//self.images = model.images;
 
+	var timer = false;
+
 	/**
 	 * Удаление сообщения
 	 */
 	self.deleteMessage = function() {
 		// Просто отправим запрос, ответ придёт событием
 		$.post('/messaging/messages/delete/', {messageId: self.id});
-	}
+	};
 	/**
 	 * Восстановление сообщения
 	 */
 	self.restore = function() {
 		// Просто отправим запрос, ответ придёт событием
 		$.post('/messaging/messages/restore/', {messageId: self.id});
+	};
+	
+	self.markAsReaded = function() {
+		self.dtimeRead(1);
 	}
+	
+	self.show = function() {
+		if(!self.dtimeRead() && !timer && self.to.id == Messaging.prototype.currentThread().me.id) {
+			timer = setTimeout(function() {
+				self.markAsReaded();
+			}, 3000);
+		}
+	};
+	self.hide = function() {
+		if(!self.dtimeRead()) {
+			clearInterval(timer);
+			timer = false;
+		}
+	};
 
 	// Текст конструктора
 	ko.utils.arrayForEach(MessagingUser.prototype.objects, function(user) {
@@ -276,6 +296,7 @@ MessagingThread.prototype = {
 
 function MessagingThread(me, user) {
 	var self = this;
+	var scroller = '.im-center_middle-hold.scroll_scroller';
 	self.id = user.id;
 	self.me = me;
 	self.user = user;
@@ -362,11 +383,14 @@ function MessagingThread(me, user) {
 		if(!self.fullyLoaded() && !self.loadingMessages()) {
 			self.loadingMessages(true);
 			var data = {userId: self.user.id};
+			var isFirst = self.messages().length == 0;
 			if(self.messages().length > 0) {
 				data.lastDate = self.messages()[0].created;
 			}
 			
 			$.get('/messaging/threads/getMessages/', data, function(response) {
+				// Позиция скролла от низа
+				var scrollPos = $(scroller).find('.scroll_cont').height() - $(scroller).scrollTop();
 				response.messages = response.messages.reverse();
 				self.messages(ko.utils.arrayMap(response.messages, function(message) {
 					return new MessagingMessage(message);
@@ -374,6 +398,18 @@ function MessagingThread(me, user) {
 				if (response.last)
 					self.fullyLoaded(true);
 				self.loadingMessages(false);
+				var jScroller = $(scroller);
+				// Выставим скролл
+				if(isFirst) { // если первая загрузка
+					var firstUnread = jScroller.find('.im-message.im-message__new:eq(0)');
+					if(firstUnread.length > 0) { // если есть непрочитанные сообщения
+						jScroller.scrollTo(firstUnread, 0); // докрутим до непочитанного сообщения
+					} else {
+						jScroller.scrollTo('max', 0); // прокрутим в конец
+					}
+				} else { // последующие загрузки необходимо сделать так, что бы скролл не дёргался
+					jScroller.scrollTop(jScroller.find('.scroll_cont').height() - scrollPos);
+				}
 			}, 'json');
 		}
 	};

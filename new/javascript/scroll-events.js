@@ -35,7 +35,8 @@
 		offset.bottom = offset.top + self.innerHeight();
 		offset.right = offset.left + self.innerWidth();
 		// Бежим по элементам
-		self.find('*:visible').each(function() {
+		// Ограничим уровень вложенности, что бы не обсчитывались лишние элементы
+		self.find('>*:visible, >*>*:visible').each(function() {
 			var element = $(this);
 			var elementOffset = element.offset();
 			elementOffset.bottom = elementOffset.top + element.outerHeight();

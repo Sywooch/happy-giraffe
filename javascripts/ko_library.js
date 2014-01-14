@@ -149,9 +149,41 @@ ko.bindingHandlers.moment = {
 }
 
 ko.bindingHandlers.show = {
+	extend: function(options) {
+		var defaults = {
+			selector: null,
+			//timeOut: false,
+			//active: true
+		};
+		if(typeof(options) == 'function') {
+			options = {
+				callback: options
+			}
+		}
+		return $.extend( {}, defaults, options );
+	},
+	init: function(element, valueAccessor) {
+		var settings = ko.bindingHandlers.show.extend(valueAccessor());
+		$(element).on('show', settings.selector, function(event) {
+			if(this == event.target) {
+				settings.callback();
+			}
+		});
+	}/*,
+	update: function(element, valueAccessor) {
+		var settings = this.extend(valueAccessor());
+
+		$(element).on('show', settings.selector, function(event) {
+			if(this == event.target) {
+				settings.callback();
+			}
+		})
+	},*/
+}
+ko.bindingHandlers.hide = {
 	init: function(element, valueAccessor) {
 		var defaults = {
-			selector: false,
+			selector: null,
 		};
 		var options = valueAccessor();
 		
@@ -163,11 +195,14 @@ ko.bindingHandlers.show = {
 		
 		var settings = $.extend( {}, defaults, options );
 		
-		$(element).on('show', settings.selector, function(event) {
+		$(element).on('hide', settings.selector, function(event) {
 			if(this == event.target) {
 				settings.callback();
 			}
-		})
+		});
+		$(window).blur(function() {
+			settings.callback();
+		});
 	}
 }
 

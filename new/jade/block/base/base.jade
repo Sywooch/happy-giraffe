@@ -121,74 +121,25 @@ mixin side-menu(mod)
         txMod
         txSsub
         txSubMod
+        topAbsMsg
+        topAbsMsgMod
+
 mixin cap-empty(mod, vars)
     // cap-empty
     .cap-empty(class=mod)
-        .cap-empty_hold
-            .cap-empty_img(class=vars.imgMod)
-            - if (vars.t)
-                .cap-empty_t(class=vars.tMod)!= vars.t
-            - if (vars.tx)
-                .cap-empty_tx(class=vars.txMod)!= vars.tx
-            - if (vars.txSub)
-                .cap-empty_tx-sub(class=vars.txSubMod)!= vars.txSub
-        .verticalalign-m-help
+        if (vars.topAbsMsg)
+            .cap-empty_abs-msg(class=vars.topAbsMsgMod)
+                .cap-empty_abs-msg-hold!= vars.topAbsMsg
+        else 
+            .cap-empty_hold
+                .cap-empty_img(class=vars.imgMod)
+                - if (vars.t)
+                    .cap-empty_t(class=vars.tMod)!= vars.t
+                - if (vars.tx)
+                    .cap-empty_tx(class=vars.txMod)!= vars.tx
+                - if (vars.txSub)
+                    .cap-empty_tx-sub(class=vars.txSubMod)!= vars.txSub
+            .verticalalign-m-help
     // /cap-empty
 
 
-//- wisywig редактор с кнопками утправления винзу
-//- redactor-control
-mixin redactor-control(mod, vars)
-    .redactor-control
-        .redactor-control_hold
-            .scroll
-                .scroll_scroller
-                    .scroll_cont
-                        textarea.redactor(cols='40', name='redactor', rows='1', autofocus='autofocus')
-                    .scroll_bar-hold
-                        .scroll_bar
-                            .scroll_bar-in
-        .redactor-control_toolbar
-        .redactor-control_control
-            .redactor-control_key
-                input.redactor-control_key-checkbox(type='checkbox', name='')
-                label.redactor-control_key-label(for='redactor-control-b_key-checkbox') Enter - отправить
-            button.btn-green Отправить
-        script.
-            $(document).ready(function () { 
-              $('.redactor').redactor({
-                minHeight: 20,
-                autoresize: true,
-                focus: true,
-                toolbarExternal: '.redactor-control_toolbar',
-                buttons: ['image', 'video', 'smile'],
-                buttonsCustom: {
-                  smile: {
-                      title: 'smile',
-                      callback: function(buttonName, buttonDOM, buttonObject) {
-                          // your code, for example - getting code
-                          var html = this.get();
-                      }
-                  }
-                },
-                focusCallback: function(e)
-                {
-                    // Нужно выбирать непосредственного родителя
-                    $('.redactor-control_hold').addClass('redactor-control_hold__focus');
-                },
-                changeCallback: function(html)
-                {   
-                    im.containerHeight();
-                    // Нужно выбирать непосредственного родителя
-                    var bParrent = $('.redactor-control_hold');
-                    if(bParrent.height() >= 250) {
-                        bParrent.height(250);
-                    }
-                },
-                initCallback: function()
-                {
-                    im.containerHeight();
-                    im.msgToBottom();
-                }
-              });
-            });

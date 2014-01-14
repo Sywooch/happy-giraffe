@@ -291,7 +291,7 @@ MessagingThread.prototype = {
 			thread = new MessagingThread(user.viewModel.me, user);
 		}
 		Messaging.prototype.currentThread(thread);
-	}
+	},
 }
 
 function MessagingThread(me, user) {

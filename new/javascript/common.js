@@ -90,4 +90,56 @@ $(function() {
 	$(document).on('koElementAdded', function(event) {
 		event.target;
 	});
+	
+	    // tooltip
+    $('.no-touch .powertip, .no-touch .redactor_toolbar li a, .mfp-close').tooltipster({
+        trigger: 'hover',
+        offsetY: -6,
+        delay: 200,
+        maxWidth: 200,
+        arrowColor: '#5C4B86',
+        onlyOne: false,
+        touchDevices: true,
+        theme: '.tooltipster-default',
+        functionReady: function(origin, continueTooltip) {}
+    });
+
+    // tooltip
+    // попап у иконки
+    $('.tooltip-click-b').tooltipster({
+        trigger: 'click',
+        delay: 0,
+        onlyOne: false,
+        touchDevices: true,
+        interactive: true,
+        interactiveAutoClose: false,
+        theme: '.tooltipster-white',
+        position: 'bottom',
+        functionBefore: function(origin, continueTooltip) {
+            $('.tooltip-click-b').tooltipster('hide');
+            var d = $(origin.context).find(' .tooltip-drop').html();
+            console.log(origin.context.className);
+            origin.tooltipster('update', d);
+            continueTooltip(d);
+        }
+    });
+
+    $('.popup-a').magnificPopup({
+        type: 'inline',
+        overflowY: 'auto',
+        tClose: 'Закрыть',
+        fixedBgPos: true,
+        
+        // When elemened is focused, some mobile browsers in some cases zoom in
+        // It looks not nice, so we disable it:
+        callbacks: {
+            open: function() {
+                scroll.update();
+                $('html').addClass('mfp-html');
+            },
+            close: function() {
+                $('html').removeClass('mfp-html');
+            }
+        }
+    });
 });

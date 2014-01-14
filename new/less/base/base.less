@@ -53,9 +53,42 @@
 
     &:hover {background: #d83e32;}
 }
+.ico-loader {
+    .inline-block();
+    vertical-align: middle;
+    margin: 0 5px 0;
+}
+.ico-close {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 100px;
+    height: 100px;
+    background: #fafafa;
+    z-index: 1000;
+}
 
+// Отдельные элементы
 .a-pseudo {text-decoration:none;border-bottom:1px dotted #2c95d6;}
 .a-pseudo:hover {text-decoration:none !important;border-bottom-color:transparent;}
+
+
+.i-more {
+    .inline-block();
+    margin: 0;
+    padding: 0 17px 0 0;
+    background: url(/new/images/ico/i-more.png) no-repeat 100% 50%;
+    color: #24aae9;
+    font: 20px/22px Tahoma, Arial, Verdana, sans-serif;
+
+    &:hover {
+        color: #24aae9;
+    }
+    &__small {
+        font: 11px/16px Tahoma, Arial, Verdana, sans-serif;
+    }
+}
+
 
 /* 
     avatar 
@@ -161,14 +194,19 @@
         background: url(/new/images/base/b-control_ico.png) no-repeat;
 
         &__favorite {background-position: 0 0;}
+        &__favorite.active,
         &__favorite:hover {background-position: 0 -20px;}
         &__delete {background-position: -18px 0;}
+        &__delete.active,
         &__delete:hover {background-position: -18px -20px;}
         &__spam {background-position: -36px 0;}
+        &__spam.actvie,
         &__spam:hover {background-position: -36px -20px;}
         &__edit {background-position: -54px 0;}
+        &__edit.active,
         &__edit:hover {background-position: -54px -20px;}
         &__cancel {background-position: -72px 0;}
+        &__cancel.active,
         &__cancel:hover {background-position: -72px -20px;}
     }
     &_drop {display: none;}
@@ -234,7 +272,7 @@
         margin: 0 0 2px;
         background: url() no-repeat;
         opacity: .5;
-        .img-retina('/new/images/side-menu_ico.png'; '/new/images/side-menu_ico2x.png'; 200px; 40px);
+        .img-retina('/new/images/side-menu_ico.png'; '/new/images/side-menu_ico-2x.png'; 200px; 40px);
     }
     &_ico__all    {background-position: 0 0;}
     &_ico__new    {background-position: -50px 0;}
@@ -300,6 +338,12 @@
     }
     &__rel {}
     &__gray {background: #e6e6e6;}
+    &__blue {
+        background: #4772a7;
+        background: rgba(71,114,167,.75);
+    }
+    &__blue &_tx-sub {color: #fff;}
+    
     &__im-b {
         text-align: left;
     }
@@ -309,6 +353,7 @@
     }
     &__im-b &_t {padding-top: 12px;}
     &__im-b &_tx-sub {color: #a0a09f;}
+
     &__im-ava {
         background: #c9e6fd;
         background: rgba(187,224,252,.8);
@@ -325,9 +370,10 @@
         display: block;
         height: 60px;
         width: 60px;
-        margin: 0 auto 5px;
-        background: url(/new/images/base/cap-empty_img.png) no-repeat 50% 0;
+        margin: 0 auto 8px;
+        background: url(/new/images/base/cap-empty_img.png) no-repeat 0 0;
     }
+    &_img__white {background-position: -60px 0;}
     &_t {
         margin: 0 0 5px;
         padding-top: 5px;
@@ -340,6 +386,21 @@
     &_tx-sub {
         margin: 5px 0;
         color: #b3b6b7;
+    }
+    &_abs-msg {
+        position: absolute;
+        top: 20px;
+        left: 0;
+        right: 0;
+        text-align: center;
+        margin: 0 auto;
+    }
+    &_abs-msg-hold {
+        display: inline-block;
+        padding: 4px 10px;
+        color: #171717;
+        font-size: 14px;
+        background-color: #fdf48f;
     }
 }
 /* /cap-empty */
@@ -390,6 +451,10 @@
     &_btns {
         display: inline-block;
         vertical-align: middle;
+    }
+    & &_btns a {
+        color: #fff;
+        text-decoration: none;
     }
 }
 /* /friend-offer */
@@ -592,3 +657,15 @@ textarea.error {
 }
 /* powerTip */
 
+/* popup */
+.popup {
+    position: relative;
+    margin: 20px auto;
+
+    &__close-white .mfp-close{
+        color: #fff !important;
+    }
+/*    &__close-white .mfp-close:hover {
+        color: #eee;
+    }*/
+}

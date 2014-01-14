@@ -165,6 +165,9 @@ class CommunityContent extends HActiveRecord
             'pingable' => array(
                 'class' => 'site.common.behaviors.PingableBehavior',
             ),
+            'antispam' => array(
+                'class' => 'site.frontend.modules.antispam.behaviors.AntispamBehavior',
+            ),
 //            'duplicate' => array(
 //                'class' => 'site.common.behaviors.DuplicateBehavior',
 //            ),

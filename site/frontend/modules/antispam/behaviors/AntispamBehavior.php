@@ -13,6 +13,9 @@ Yii::import('site.frontend.modules.antispam.models.AntispamReport');
 
 class AntispamBehavior extends CActiveRecordBehavior
 {
+    public $interval;
+    public $maxCount;
+
     public function afterSave($event)
     {
         if ($this->owner->isNewRecord && AntispamStatusManager::getUserStatus(123) == AntispamStatusManager::STATUS_UNDEFINED) {
@@ -21,5 +24,15 @@ class AntispamBehavior extends CActiveRecordBehavior
             $check->entity_id = $this->owner->id;
             $check->save();
         }
+    }
+
+    public function beforeSave($event)
+    {
+        //if ($this->owner->isNewRecord && )
+    }
+
+    protected function limitExceed()
+    {
+        return CActiveRecord::model($this->owner->entity)->count('user');
     }
 }

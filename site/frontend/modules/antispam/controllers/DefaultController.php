@@ -4,7 +4,7 @@ class DefaultController extends HController
 {
 	public function actionTest()
 	{
-        $check = AntispamCheck::model()->with('relatedModel')->findAll();
+        $check = AntispamCheck::model()->findAll();
         foreach ($check as $c)
             echo $c->relatedModel->title;
 

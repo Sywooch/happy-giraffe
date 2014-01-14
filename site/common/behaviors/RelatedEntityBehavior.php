@@ -14,22 +14,21 @@ class RelatedEntityBehavior extends CActiveRecordBehavior
     public function beforeFind($event)
     {
         $criteria = $this->owner->getDbCriteria();
-        $relationIndex = array_search('relatedModel', $criteria->with);
-        if ($relationIndex !== false)
-        {
-            unset($criteria->with[$relationIndex]);
-            $class = CActiveRecord::BELONGS_TO;
+        $relationIndex = $criteria->with === null ? false : array_search('relatedModel', $criteria->with);
 
-            foreach ($this->possibleRelations as $entity) {
-                $relationName = 'RelatedEntity' . $entity;
-                $this->owner->getMetaData()->relations[$relationName] =
-                    new $class($relationName,
-                        $entity,
-                        'entity_id'
-                    );
+        unset($criteria->with[$relationIndex]);
+        $class = CActiveRecord::BELONGS_TO;
+
+        foreach ($this->possibleRelations as $entity) {
+            $relationName = 'RelatedEntity' . $entity;
+            $this->owner->getMetaData()->relations[$relationName] =
+                new $class($relationName,
+                    $entity,
+                    'entity_id'
+                );
+            if ($relationIndex !== false)
                 $criteria->with[] = $relationName;
-                $this->owner->setDbCriteria($criteria);
-            }
+            $this->owner->setDbCriteria($criteria);
         }
     }
 

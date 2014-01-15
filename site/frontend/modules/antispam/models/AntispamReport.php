@@ -16,8 +16,14 @@
  * The followings are the available model relations:
  * @property Users $moderator
  */
-class AntispamReport extends CActiveRecord
+class AntispamReport extends HActiveRecord
 {
+    const TYPE_LIMIT = 0;
+
+    protected $types = array(
+        self::TYPE_LIMIT => 'AntispamReportData',
+    );
+
 	/**
 	 * @return string the associated database table name
 	 */
@@ -52,7 +58,7 @@ class AntispamReport extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'moderator' => array(self::BELONGS_TO, 'Users', 'moderator_id'),
+			'moderator' => array(self::BELONGS_TO, 'User', 'moderator_id'),
 		);
 	}
 
@@ -115,4 +121,26 @@ class AntispamReport extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+
+    public function behaviors()
+    {
+        return array(
+            'CTimestampBehavior' => array(
+                'class' => 'zii.behaviors.CTimestampBehavior',
+                'createAttribute' => 'created',
+                'updateAttribute' => 'updated',
+                'setUpdateOnCreate' => true,
+            ),
+            'withRelated' => array(
+                'class' => 'site.common.extensions.wr.WithRelatedBehavior',
+            ),
+        );
+    }
+
+    protected function instantiate($attributes)
+    {
+        $class = $this->types[$attributes['status']];
+        $model=new $class(null);
+        return $model;
+    }
 }

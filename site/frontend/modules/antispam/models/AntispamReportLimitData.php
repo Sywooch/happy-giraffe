@@ -1,28 +1,21 @@
 <?php
 
 /**
- * This is the model class for table "antispam__status".
+ * This is the model class for table "antispam__report_limit_data".
  *
- * The followings are the available columns in table 'antispam__status':
+ * The followings are the available columns in table 'antispam__report_limit_data':
  * @property string $id
- * @property string $user_id
- * @property integer $status
- * @property string $moderator_id
- * @property string $created
- * @property string $updated
- *
- * The followings are the available model relations:
- * @property Users $user
- * @property Users $moderator
+ * @property string $report_id
+ * @property string $entity
  */
-class AntispamStatus extends HActiveRecord
+class AntispamReportLimitData extends AntispamReportData
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'antispam__status';
+		return 'antispam__report_limit_data';
 	}
 
 	/**
@@ -33,13 +26,12 @@ class AntispamStatus extends HActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('user_id, status', 'required'),
-			array('status', 'numerical', 'integerOnly'=>true),
-			array('user_id, moderator_id', 'length', 'max'=>10),
-			array('created, updated', 'safe'),
+			array('report_id', 'required'),
+			array('report_id', 'length', 'max'=>11),
+			array('entity', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, user_id, status, moderator_id, created, updated', 'safe', 'on'=>'search'),
+			array('id, report_id, entity', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -51,8 +43,6 @@ class AntispamStatus extends HActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'user' => array(self::BELONGS_TO, 'Users', 'user_id'),
-			'moderator' => array(self::BELONGS_TO, 'Users', 'moderator_id'),
 		);
 	}
 
@@ -63,11 +53,8 @@ class AntispamStatus extends HActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'user_id' => 'User',
-			'status' => 'Status',
-			'moderator_id' => 'Moderator',
-			'created' => 'Created',
-			'updated' => 'Updated',
+			'report_id' => 'Report',
+			'entity' => 'Entity',
 		);
 	}
 
@@ -90,11 +77,8 @@ class AntispamStatus extends HActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id,true);
-		$criteria->compare('user_id',$this->user_id,true);
-		$criteria->compare('status',$this->status);
-		$criteria->compare('moderator_id',$this->moderator_id,true);
-		$criteria->compare('created',$this->created,true);
-		$criteria->compare('updated',$this->updated,true);
+		$criteria->compare('report_id',$this->report_id,true);
+		$criteria->compare('entity',$this->entity,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -105,7 +89,7 @@ class AntispamStatus extends HActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return AntispamStatus the static model class
+	 * @return AntispamReportLimitData the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

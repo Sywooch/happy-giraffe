@@ -58,7 +58,7 @@ class AntispamCheck extends HActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'moderator' => array(self::BELONGS_TO, 'Users', 'moderator_id'),
+			'moderator' => array(self::BELONGS_TO, 'User', 'moderator_id'),
 		);
 	}
 

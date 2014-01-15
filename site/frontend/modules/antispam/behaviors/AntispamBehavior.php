@@ -29,7 +29,13 @@ class AntispamBehavior extends CActiveRecordBehavior
     public function beforeSave($event)
     {
         if ($this->owner->isNewRecord && ! $this->alreadyReported() && $this->limitExceed()) {
-
+            $report = new AntispamReportLimit();
+            $report->user_id = $this->owner->author_id;
+            $report->type = AntispamReport::TYPE_LIMIT;
+            $reportData = new AntispamReportLimitData();
+            $reportData->entity = get_class($this->owner);
+            $report->data = $reportData;
+            $report->withRelated->save(true, 'data');
         }
     }
 

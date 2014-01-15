@@ -106,7 +106,7 @@ function MessagingUser(viewModel, model) {
 	self.typingTimer = false;
 	// Открыт сейчас
 	self.isActive = ko.computed(function() {
-		return self.viewModel.currentThread() && self.viewModel.currentThread().user.id == self.id;
+		return self.viewModel && self.viewModel.currentThread() && self.viewModel.currentThread().user.id == self.id;
 	});
 	self.setTyping = function() {
 		if (self.typingTimer)

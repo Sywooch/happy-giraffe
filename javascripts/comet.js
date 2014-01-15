@@ -1,8 +1,7 @@
 function Comet() {
     this.events = new Array();
     this.cache = null;
-	this.channels = new Array();
-	this.channels.push('guest');
+	this.channels = new Array('guest');
     this.load = true;
 }
 

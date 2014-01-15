@@ -134,7 +134,6 @@ $(function() {
         // It looks not nice, so we disable it:
         callbacks: {
             open: function() {
-                scroll.update();
                 $('html').addClass('mfp-html');
             },
             close: function() {

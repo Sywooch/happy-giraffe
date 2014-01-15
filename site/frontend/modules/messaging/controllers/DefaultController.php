@@ -44,4 +44,9 @@ class DefaultController extends HController
         $data = compact('contacts');
         echo CJSON::encode($data);
     }
+	
+	public function actionGetUserInfo($id)
+	{
+		echo CJSON::encode(ContactsManager::getContactByUserId(Yii::app()->user->id, $id));
+	}
 }

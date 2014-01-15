@@ -26,6 +26,7 @@ return array(
 		'common' => array(
             'baseUrl' => '/',
             'js' => array(
+				'new/javascript/jquery.magnific-popup.js',
                 'new/javascript/common.js',
             ),
 			'depends' => array(
@@ -144,13 +145,14 @@ return array(
             'js' => array(
                 //'javascripts/im.js',
                 'javascripts/ko_messaging.js',
+                'new/javascript/fast-message.js',
                 'javascripts/knockout.mapping-latest.js',
                 'javascripts/soundmanager2.js',
                 'javascripts/wysiwyg.js',
                 'javascripts/imagesloaded.pkgd.min.js',
 				'javascripts/baron.js',
             ),
-            'depends' => array('knockout', 'comet', 'jquery.ui'),
+            'depends' => array('knockout', 'common', 'comet', 'jquery.ui'),
         ),
         'ko_favourites' => array(
             'baseUrl' => '/',

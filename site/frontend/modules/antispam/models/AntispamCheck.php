@@ -182,5 +182,8 @@ class AntispamCheck extends HActiveRecord
             $this->relatedModel->remove();
         if ($this->status == self::STATUS_BAD)
             $this->relatedModel->restore();
+        $this->status = $newStatus;
+        $this->moderator_id = Yii::app()->user->id;
+        return $this->update(array('status', 'moderator_id', 'updated'));
     }
 }

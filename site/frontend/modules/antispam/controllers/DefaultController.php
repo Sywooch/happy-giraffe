@@ -22,28 +22,29 @@ class DefaultController extends HController
 
     }
 
-    public function actionMarkGood($checkId)
+    public function actionMarkGood()
     {
-        $this->changeStatus($checkId, AntispamCheck::STATUS_GOOD);
+        $this->changeStatus(AntispamCheck::STATUS_GOOD);
     }
 
-    public function actionMarkDelete($checkId)
+    public function actionMarkBad()
     {
-        $this->changeStatus($checkId, AntispamCheck::STATUS_BAD);
+        $this->changeStatus(AntispamCheck::STATUS_BAD);
     }
 
-    public function actionMarkQuestionable($checkId)
+    public function actionMarkQuestionable()
     {
-        $this->changeStatus($checkId, AntispamCheck::STATUS_QUESTIONABLE);
+        $this->changeStatus(AntispamCheck::STATUS_QUESTIONABLE);
     }
 
-    public function actionMarkPending($checkId)
+    public function actionMarkPending()
     {
-        $this->changeStatus($checkId, AntispamCheck::STATUS_PENDING);
+        $this->changeStatus(AntispamCheck::STATUS_PENDING);
     }
 
-    protected function changeStatus($checkId, $newStatus)
+    protected function changeStatus($newStatus)
     {
+        $checkId = Yii::app()->request->getPost('checkId');
         $check = AntispamCheck::model()->findByPk($checkId);
         $success = $check->changeStatus($newStatus);
         echo CJSON::encode(array('success' => $success));

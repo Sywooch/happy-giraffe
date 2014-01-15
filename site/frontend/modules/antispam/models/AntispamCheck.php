@@ -20,6 +20,7 @@ class AntispamCheck extends HActiveRecord
     const STATUS_UNDEFINED = 0;
     const STATUS_GOOD = 1;
     const STATUS_BAD = 2;
+    const STATUS_PENDING = 3;
 
 	/**
 	 * @return string the associated database table name

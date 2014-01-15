@@ -2,12 +2,8 @@
 
 class DefaultController extends HController
 {
-	public function actionTest()
+	public function actionLive($entity)
 	{
-        $check = AntispamCheck::model()->findAll();
-        foreach ($check as $c)
-            echo $c->relatedModel->title;
 
-		$this->render('index');
 	}
 }

@@ -46,6 +46,6 @@ class AntispamBehavior extends CActiveRecordBehavior
 
     protected function alreadyReported()
     {
-        return AntispamReport::model()->exists('user_id = :user_id', array(':user_id' => $this->owner->author_id));
+        return AntispamReport::model()->exists('user_id = :user_id AND status = :status', array(':user_id' => $this->owner->author_id, ':status' => AntispamReport::STATUS_PENDING));
     }
 }

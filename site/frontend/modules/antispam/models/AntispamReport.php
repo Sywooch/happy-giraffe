@@ -19,6 +19,8 @@
 class AntispamReport extends HActiveRecord
 {
     const TYPE_LIMIT = 0;
+    const STATUS_PENDING = 10;
+    const STATUS_REPORTED = 11;
 
     protected $types = array(
         self::TYPE_LIMIT => 'AntispamReportData',

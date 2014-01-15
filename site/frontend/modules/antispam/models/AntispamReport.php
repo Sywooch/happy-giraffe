@@ -40,7 +40,7 @@ class AntispamReport extends HActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('user_id, status, type', 'required'),
+			array('user_id, type', 'required'),
 			array('status, type', 'numerical', 'integerOnly'=>true),
 			array('user_id, moderator_id', 'length', 'max'=>10),
 			array('created, updated, reason', 'safe'),

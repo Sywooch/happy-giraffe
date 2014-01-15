@@ -26,7 +26,6 @@ class AntispamReportLimitData extends AntispamReportData
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('report_id', 'required'),
 			array('report_id', 'length', 'max'=>11),
 			array('entity', 'length', 'max'=>255),
 			// The following rule is used by search().

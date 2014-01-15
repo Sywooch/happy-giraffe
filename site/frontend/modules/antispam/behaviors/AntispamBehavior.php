@@ -7,9 +7,8 @@
  * To change this template use File | Settings | File Templates.
  */
 
-Yii::import('site.frontend.modules.antispam.components.AntispamStatusManager');
-Yii::import('site.frontend.modules.antispam.models.AntispamCheck');
-Yii::import('site.frontend.modules.antispam.models.AntispamReport');
+Yii::import('site.frontend.modules.antispam.components.*');
+Yii::import('site.frontend.modules.antispam.models.*');
 
 class AntispamBehavior extends CActiveRecordBehavior
 {
@@ -18,7 +17,7 @@ class AntispamBehavior extends CActiveRecordBehavior
 
     public function afterSave($event)
     {
-        if ($this->owner->isNewRecord && AntispamStatusManager::getUserStatus(123) == AntispamStatusManager::STATUS_UNDEFINED) {
+        if ($this->owner->isNewRecord && AntispamStatusManager::getUserStatus($this->owner->author) == AntispamStatusManager::STATUS_UNDEFINED) {
             $check = new AntispamCheck();
             $check->entity = get_class($this->owner);
             $check->entity_id = $this->owner->id;
@@ -35,13 +34,13 @@ class AntispamBehavior extends CActiveRecordBehavior
             $reportData = new AntispamReportLimitData();
             $reportData->entity = get_class($this->owner);
             $report->data = $reportData;
-            $report->withRelated->save(true, 'data');
+            $report->withRelated->save(true, array('data'));
         }
     }
 
     protected function limitExceed()
     {
-        $count = CActiveRecord::model($this->owner->entity)->count('user_id = :user_id AND created > ' . new CDbExpression('DATE_SUB(NOW(), INTERVAL :interval SECOND)'), array(':user_id' => $this->owner->author_id, ':interval' => $this->interval));
+        $count = $this->owner->count('author_id = :user_id AND created > ' . new CDbExpression('DATE_SUB(NOW(), INTERVAL :interval SECOND)'), array(':user_id' => $this->owner->author_id, ':interval' => $this->interval));
         return $count >= $this->maxCount;
     }
 

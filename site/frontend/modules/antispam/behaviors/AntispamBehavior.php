@@ -28,11 +28,19 @@ class AntispamBehavior extends CActiveRecordBehavior
 
     public function beforeSave($event)
     {
-        //if ($this->owner->isNewRecord && )
+        if ($this->owner->isNewRecord && ! $this->alreadyReported() && $this->limitExceed()) {
+
+        }
     }
 
     protected function limitExceed()
     {
-        return CActiveRecord::model($this->owner->entity)->count('user');
+        $count = CActiveRecord::model($this->owner->entity)->count('user_id = :user_id AND created > ' . new CDbExpression('DATE_SUB(NOW(), INTERVAL :interval SECOND)'), array(':user_id' => $this->owner->author_id, ':interval' => $this->interval));
+        return $count >= $this->maxCount;
+    }
+
+    protected function alreadyReported()
+    {
+        return AntispamReport::model()->exists('user_id = :user_id', array(':user_id' => $this->owner->author_id));
     }
 }

@@ -21,6 +21,7 @@ class AntispamCheck extends HActiveRecord
     const STATUS_GOOD = 1;
     const STATUS_BAD = 2;
     const STATUS_PENDING = 3;
+    const STATUS_QUESTIONABLE = 4;
 
 	/**
 	 * @return string the associated database table name
@@ -173,5 +174,13 @@ class AntispamCheck extends HActiveRecord
                 'order' => 'id DESC',
             ),
         ));
+    }
+
+    public function changeStatus($newStatus)
+    {
+        if ($newStatus == self::STATUS_BAD)
+            $this->relatedModel->remove();
+        if ($this->status == self::STATUS_BAD)
+            $this->relatedModel->restore();
     }
 }

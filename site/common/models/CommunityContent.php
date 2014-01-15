@@ -167,6 +167,8 @@ class CommunityContent extends HActiveRecord
             ),
             'antispam' => array(
                 'class' => 'site.frontend.modules.antispam.behaviors.AntispamBehavior',
+                'interval' => 60 * 60,
+                'maxCount' => 2,
             ),
 //            'duplicate' => array(
 //                'class' => 'site.common.behaviors.DuplicateBehavior',

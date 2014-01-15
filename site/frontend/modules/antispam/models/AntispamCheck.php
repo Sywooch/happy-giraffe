@@ -15,8 +15,12 @@
  * The followings are the available model relations:
  * @property Users $moderator
  */
-class AntispamCheck extends CActiveRecord
+class AntispamCheck extends HActiveRecord
 {
+    const STATUS_UNDEFINED = 0;
+    const STATUS_GOOD = 1;
+    const STATUS_BAD = 2;
+
 	/**
 	 * @return string the associated database table name
 	 */
@@ -130,4 +134,22 @@ class AntispamCheck extends CActiveRecord
             ),
         );
     }
+
+    public function entity($entity)
+    {
+        $this->getDbCriteria()->mergeWith(array(
+            'condition' => 'entity = :entity',
+            'params' => array(':entity' => $entity),
+        ));
+    }
+
+    public function status($status)
+    {
+        $this->getDbCriteria()->mergeWith(array(
+            'condition' => 'status = :status',
+            'params' => array(':status' => $status),
+        ));
+    }
+
+
 }

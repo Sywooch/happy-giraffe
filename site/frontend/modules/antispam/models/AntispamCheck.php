@@ -141,6 +141,8 @@ class AntispamCheck extends HActiveRecord
             'condition' => 'entity = :entity',
             'params' => array(':entity' => $entity),
         ));
+
+        return $this;
     }
 
     public function status($status)
@@ -149,7 +151,26 @@ class AntispamCheck extends HActiveRecord
             'condition' => 'status = :status',
             'params' => array(':status' => $status),
         ));
+
+        return $this;
     }
 
+    public static function getLive($entity)
+    {
+        return self::getDp($entity, self::STATUS_UNDEFINED);
+    }
 
+    public function getRemoved($entity)
+    {
+        return self::getDp($entity, self::STATUS_BAD);
+    }
+
+    protected static function getDp($entity, $status)
+    {
+        return new CActiveDataProvider(self::model()->entity($entity)->status($status), array(
+            'criteria' => array(
+                'order' => 'id DESC',
+            ),
+        ));
+    }
 }

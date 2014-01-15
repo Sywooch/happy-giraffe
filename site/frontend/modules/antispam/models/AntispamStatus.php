@@ -8,10 +8,12 @@
  * @property string $user_id
  * @property integer $status
  * @property string $moderator_id
+ * @property string $created
+ * @property string $updated
  *
  * The followings are the available model relations:
- * @property Users $moderator
  * @property Users $user
+ * @property Users $moderator
  */
 class AntispamStatus extends CActiveRecord
 {
@@ -34,9 +36,10 @@ class AntispamStatus extends CActiveRecord
 			array('user_id, status', 'required'),
 			array('status', 'numerical', 'integerOnly'=>true),
 			array('user_id, moderator_id', 'length', 'max'=>10),
+			array('created, updated', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, user_id, status, moderator_id', 'safe', 'on'=>'search'),
+			array('id, user_id, status, moderator_id, created, updated', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -48,8 +51,8 @@ class AntispamStatus extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'moderator' => array(self::BELONGS_TO, 'Users', 'moderator_id'),
 			'user' => array(self::BELONGS_TO, 'Users', 'user_id'),
+			'moderator' => array(self::BELONGS_TO, 'Users', 'moderator_id'),
 		);
 	}
 
@@ -63,6 +66,8 @@ class AntispamStatus extends CActiveRecord
 			'user_id' => 'User',
 			'status' => 'Status',
 			'moderator_id' => 'Moderator',
+			'created' => 'Created',
+			'updated' => 'Updated',
 		);
 	}
 
@@ -88,6 +93,8 @@ class AntispamStatus extends CActiveRecord
 		$criteria->compare('user_id',$this->user_id,true);
 		$criteria->compare('status',$this->status);
 		$criteria->compare('moderator_id',$this->moderator_id,true);
+		$criteria->compare('created',$this->created,true);
+		$criteria->compare('updated',$this->updated,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

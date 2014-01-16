@@ -29,15 +29,33 @@ block layout-wrapper
                         +www-comment-single()
                     .antispam_control
                         .margin-b5.clearfix
-                            a.ico-check.margin-r5
-                            +ava("ava__small", {src: 'http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg'})
-                        .color-gray.font-sx Сегодня  23:15
+                            a.btn-green.btn-m
+                                .ico-btn-check
+                                | Хорошо
+                        .margin-b5.clearfix
+                            a.btn-red.btn-m
+                                .ico-btn-del
+                                | Удалить
+                        .margin-b5.clearfix
+                            a.btn-gray-light.btn-s
+                                | Под ?
                 // /antispam_i
 
                 // antispam_i
                 .antispam_i.clearfix
                     .antispam_cont
                         +www-article_photo()
+                    .antispam_control
+                        .margin-b5.clearfix
+                            a.ico-check.margin-r5
+                            +ava("ava__small", {src: 'http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg'})
+                        .color-gray.font-sx Сегодня  23:15
+                // /antispam_i
+    
+                // antispam_i
+                .antispam_i.clearfix
+                    .antispam_cont
+                        +www-article_photopost()
                     .antispam_control
                         .margin-b5.clearfix
                             a.ico-check.margin-r5
@@ -53,4 +71,4 @@ block layout-wrapper
                     
             // /antispam
 
-            
+    

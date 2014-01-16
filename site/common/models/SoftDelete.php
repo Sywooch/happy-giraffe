@@ -6,7 +6,7 @@
  * The followings are the available columns in table 'soft_delete':
  * @property string $id
  * @property string $entity
- * @property string $entity_id
+ * @property integer $entity_id
  * @property string $user_id
  * @property string $removed
  *
@@ -31,10 +31,11 @@ class SoftDelete extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('entity, user_id, removed', 'required'),
-			array('entity', 'length', 'max'=>11),
-			array('entity_id', 'length', 'max'=>255),
+			array('entity_id, user_id', 'required'),
+			array('entity_id', 'numerical', 'integerOnly'=>true),
+			array('entity', 'length', 'max'=>255),
 			array('user_id', 'length', 'max'=>10),
+			array('removed', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, entity, entity_id, user_id, removed', 'safe', 'on'=>'search'),
@@ -87,7 +88,7 @@ class SoftDelete extends CActiveRecord
 
 		$criteria->compare('id',$this->id,true);
 		$criteria->compare('entity',$this->entity,true);
-		$criteria->compare('entity_id',$this->entity_id,true);
+		$criteria->compare('entity_id',$this->entity_id);
 		$criteria->compare('user_id',$this->user_id,true);
 		$criteria->compare('removed',$this->removed,true);
 
@@ -112,7 +113,7 @@ class SoftDelete extends CActiveRecord
         return array(
             'CTimestampBehavior' => array(
                 'class' => 'zii.behaviors.CTimestampBehavior',
-                'createAttribute' => 'created',
+                'createAttribute' => 'removed',
                 'updateAttribute' => null,
             )
         );

@@ -186,4 +186,11 @@ class AntispamCheck extends HActiveRecord
         $this->moderator_id = Yii::app()->user->id;
         return $this->update(array('status', 'moderator_id', 'updated'));
     }
+
+    public static function changeStatusAll($entity, $userId, $newStatus)
+    {
+        $checks = self::model()->with('relatedModel')->findAll('entity = :entity AND relatedModel.author_id = :user_id', array(':entity' => $entity, ':user_id' => $userId));
+        foreach ($checks as $check)
+            $check->changeStatus($newStatus);
+    }
 }

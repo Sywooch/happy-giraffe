@@ -22,6 +22,13 @@ class DefaultController extends HController
 
     }
 
+    public function actionMarkGoodAll()
+    {
+        $entity = Yii::app()->request->getPost('entity');
+        $userId = Yii::app()->request->getPost('userId');
+        AntispamCheck::changeStatusAll($entity, $userId, AntispamCheck::STATUS_GOOD);
+    }
+
     public function actionMarkGood()
     {
         $this->changeStatus(AntispamCheck::STATUS_GOOD);

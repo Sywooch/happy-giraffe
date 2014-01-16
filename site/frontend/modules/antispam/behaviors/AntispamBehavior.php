@@ -49,4 +49,10 @@ class AntispamBehavior extends CActiveRecordBehavior
     {
         return AntispamReport::model()->exists('user_id = :user_id AND status = :status', array(':user_id' => $this->owner->author_id, ':status' => AntispamReport::STATUS_PENDING));
     }
+
+    public function attach($owner) {
+        parent::attach($owner);
+        $validators = $owner->getValidatorList();
+        $validators->add(CValidator::createValidator('SpamStatusValidator', $owner, 'author_id', array()));
+    }
 }

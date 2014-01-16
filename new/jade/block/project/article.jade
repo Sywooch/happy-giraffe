@@ -37,7 +37,45 @@ mixin www-article_text(mod)
                 a.b-article_more(href='') Смотреть далее
     // /b-article
 
+
 mixin www-article_photo(mod)
+    // b-article
+    article.b-article.clearfix(class=mod)
+        .float-l
+            .like-control.like-control__small-indent.clearfix
+                +ava("", {src: 'http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg'})
+            .like-control.clearfix
+                a.like-control_ico.like-control_ico__like.powertip(href='', title='Нравится') 865
+                .position-rel
+                    a.like-control_ico.like-control_ico__repost.powertip(href='', title='Репост') 5
+                .position-rel
+                    a.favorites-control_a.active.powertip(href='', title='В избранное') 123865
+        .b-article_cont.clearfix
+            .b-article_cont-tale
+            .b-article_header.clearfix
+                .meta-gray
+                    a.meta-gray_comment(href='')
+                        span.ico-comment.ico-comment__gray
+                        span.meta-gray_tx 35
+                    .meta-gray_view
+                        span.ico-view.ico-view__gray
+                        span.meta-gray_tx 305
+                .float-l
+                    a.b-article_author(href='') Ангелина Богоявленская
+                    span.b-article_date Сегодня 13:25
+            h2.b-article_t
+                a.b-article_t-a(href='') Фото1
+            .b-article_in.clearfix
+                .wysiwyg-content.clearfix
+                    .b-article_in-img
+                        a(href='')
+                            img(alt='', src='http://img.dev.happy-giraffe.ru/thumbs/580x/16534/f464362269821285b5b2aa67855267da.jpeg')
+            .font-s.margin-l20.margin-b30
+                | к 
+                a  Второй спооб где можно поменять название трека. Меняя название трека в альбоме
+    // /b-article
+
+mixin www-article_photopost(mod)
     // b-article
     article.b-article.b-article__photopost.clearfix(class=mod)
         .float-l

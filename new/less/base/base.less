@@ -1,7 +1,10 @@
 .body {
     min-width: 960px;
-    background:#ad9dd2 url(/new/images/body.png) repeat-y 50% 50%;
+    background:#ad9dd2;
     word-wrap: break-word;
+    
+    &__im,
+    &__snow {background:#ad9dd2 url(/new/images/body.png) repeat-y 50% 50%;}
 }
 
 .layout-container {
@@ -86,6 +89,29 @@
     width: 18px;
     height: 14px;
     .img-retina('/new/images/ico/ico-question.png'; '/new/images/ico/ico-question-2x.png'; 18px; 14px);
+}
+.ico-btn-check {
+    .inline-block();
+    vertical-align: middle;
+    width: 11px;
+    height: 11px;
+    margin-right: 4px;
+    .img-retina('/new/images/ico/ico-btn-check.png'; '/new/images/ico/ico-btn-check-2x.png'; 11px; 11px);
+}
+.ico-btn-del {
+    .inline-block();
+    vertical-align: middle;
+    width: 11px;
+    height: 11px;
+    margin-right: 4px;
+    .img-retina('/new/images/ico/ico-btn-del.png'; '/new/images/ico/ico-btn-del-2x.png'; 11px; 11px);
+}
+.ico-btn-empty {
+    .inline-block();
+    vertical-align: middle;
+    width: 11px;
+    height: 11px;
+    margin-right: 4px;
 }
 .ico-family {
     .inline-block();

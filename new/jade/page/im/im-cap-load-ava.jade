@@ -1,5 +1,5 @@
 include ../../block/config
-extend ../../extend/layout
+extend ../../extend/layout_im
 
 block layout-wrapper_hold
     // im
@@ -9,7 +9,7 @@ block layout-wrapper_hold
             // im-sidebar
             section.im-sidebar.clearfix
                 .im-sidebar_panel
-                    +side-menu("side-menu__im")
+                    +side-menu__im("side-menu__im")
                     .im-sidebar_sound
                         a.im-sidebar_sound-ico(href="")
                 .im-sidebar_users

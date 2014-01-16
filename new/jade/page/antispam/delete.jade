@@ -1,0 +1,90 @@
+include ../../block/config
+extend ../../extend/layout_frame
+
+block layout-wrapper
+    +side-menu__antispam("side-menu__antispam")
+    .page-col
+        .page-col_top
+            .page-col_t 
+                a.page-col_t-a.active(href="") Записи 54
+                a.page-col_t-a(href="") Комментарии 165
+                a.page-col_t-a(href="") Фотографии 65
+        .page-col_cont.page-col_cont__gray
+            // antispam
+            .antispam
+                .antispam_i.clearfix
+                    .antispam_cont
+                        article.b-article.clearfix
+                            .float-l
+                                .like-control.like-control__small-indent.clearfix
+                                    +ava("", {src: 'http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg'})
+                                .like-control.clearfix
+                                    a.like-control_ico.like-control_ico__like.powertip(href='', title='Нравится') 865
+                                    .position-rel
+                                        a.like-control_ico.like-control_ico__repost.powertip(href='', title='Репост') 5
+                                    .position-rel
+                                        a.favorites-control_a.active.powertip(href='', title='В избранное') 123865
+                            .b-article_cont.clearfix
+                                .b-article_cont-tale
+                                .b-article_header.clearfix
+                                    .meta-gray
+                                        a.meta-gray_comment(href='')
+                                            span.ico-comment.ico-comment__gray
+                                            span.meta-gray_tx 35
+                                        .meta-gray_view
+                                            span.ico-view.ico-view__gray
+                                            span.meta-gray_tx 305
+                                    .float-l
+                                        a.b-article_author(href='') Ангелина Богоявленская
+                                        span.b-article_date Сегодня 13:25
+                                h2.b-article_t
+                                    a.b-article_t-a(href='') Самое лучшее утро - просыпаюсь, а ты рядом
+                                .b-article_in.clearfix
+                                    .wysiwyg-content.clearfix
+                                        p
+                                            | Недавно посмотрел фильм "Убить Дракона" снятый в 1988 году с Абдуловым в главной роли. По мотивам пьесы Евгения Шварца «Дракон».
+                                        .b-article_in-img
+                                            a(href='')
+                                                img(alt='', src='http://img.dev.happy-giraffe.ru/thumbs/580x/16534/f464362269821285b5b2aa67855267da.jpeg')
+                                .textalign-r
+                                    a.b-article_more(href='') Смотреть далее
+
+                    .antispam_control
+                        .clearfix
+                            +ava("ava__small", {src: 'http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg'})
+                        .color-gray.font-sx Сегодня  23:15
+                
+                .antispam_i.clearfix
+                    .antispam_cont
+                        // paginator
+                        .yiipagination.margin-l100
+                            .pager
+                                ul.yiiPager
+                                  li.page
+                                    a(href='') 1
+                                  li.page
+                                    a(href='') 2
+                                  li.page.selected
+                                    a(href='') 3
+                                  li.page
+                                    a(href='') 4
+                                  li.page
+                                    a(href='') 5
+                                  li.page
+                                    a(href='') 6
+                                  li.page
+                                    a(href='') 7
+                                  li.page
+                                    a(href='') 8
+                                  li.page
+                                    a(href='') 9
+                                  li.page
+                                    a(href='') 10
+                        // /paginator
+                    .antispam_control
+                    
+            // /antispam
+
+
+
+            

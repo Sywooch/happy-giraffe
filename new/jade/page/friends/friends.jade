@@ -1,0 +1,76 @@
+include ../../block/config
+extend ../../extend/layout_frame
+
+block layout-wrapper
+    +side-menu__friend("side-menu__friend")
+    .page-col
+        .page-col_top
+            //+sidebar-search()
+            .page-col_t Все друзья 128
+        .page-col_cont
+            //- friend-list
+            .friends-list
+                .friends-list_i
+                        .b-ava-large
+                            .b-ava-large_ava-hold.clearfix
+                                - avaVars = {src: '/new/images/example/ava-large.jpg'}
+                                +ava("ava__large ava__male", avaVars)
+                                span.b-ava-large_online На сайте
+                                a.b-ava-large_bubble.b-ava-large_bubble__dialog.powertip(href='', title='Начать диалог')
+                                    span.b-ava-large_ico.b-ava-large_ico__mail
+                                    span.b-ava-large_bubble-tx
+                                a.b-ava-large_bubble.b-ava-large_bubble__photo.powertip(href='', title='Фотографии')
+                                    span.b-ava-large_ico.b-ava-large_ico__photo
+                                    span.b-ava-large_bubble-tx 50
+                                a.b-ava-large_bubble.b-ava-large_bubble__blog.powertip(href='', title='Записи в блоге')
+                                    span.b-ava-large_ico.b-ava-large_ico__blog
+                                    span.b-ava-large_bubble-tx 999
+                                a.b-ava-large_bubble.b-ava-large_bubble__friend-add.powertip(href='', title='Добавить в друзья')
+                                    span.b-ava-large_ico.b-ava-large_ico__friend-add
+                            .textalign-c
+                                a.b-ava-large_a(href='') Александр Богоявленский
+                                span.font-smallest.color-gray  19 лет
+                            .friends-list_location.clearfix
+                                .flag.flag-kz(title='Россия')
+                                | Казахстан, Переславль-Залесский, Астраханская область
+                            //- b-family
+                            .b-family
+                                ul.b-family_ul
+                                    li.b-family_li
+                                        a.b-family_a(href='')
+                                            span.b-family_img-hold
+                                                //- Размеры изображений 55*55пк 
+                                                img.b-family_img(alt='', src='/images/example/w41-h49-1.jpg')
+                                            span.b-family_tx
+                                                span Жена
+                                                br
+                                                span Елена
+                                    li.b-family_li
+                                        a.b-family_a(href='')
+                                            span.b-family_img-hold
+                                                span.ico-family.ico-family__boy-19
+                                            span.b-family_tx
+                                                span Сын
+                                                br
+                                                span Алекс
+                                                br
+                                                span 18 лет
+                                    li.b-family_li
+                                        a.b-family_a(href='')
+                                            span.b-family_img-hold
+                                                span.ico-family.ico-family__boy-small
+                                            span.b-family_tx
+                                                span Дочь
+                                                br
+                                                span Снежана
+                                                br
+                                                span 2,5 года
+                            //- /b-family
+                            //.cap-empty.cap-empty__smile
+                                .cap-empty_hold
+                                    .cap-empty_tx
+                                        | Приглашение
+                                        br
+                                        | отправлено
+
+            //- /friend-list

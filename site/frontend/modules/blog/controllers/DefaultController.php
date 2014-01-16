@@ -309,7 +309,6 @@ class DefaultController extends HController
         $success = $model->withRelated->save(true, array($slug));
 
         if ($success) {
-            die;
             if (isset($_POST['redirect']))
                 $this->redirect($_POST['redirect']);
             else

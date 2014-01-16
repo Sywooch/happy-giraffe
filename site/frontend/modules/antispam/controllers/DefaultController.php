@@ -2,10 +2,10 @@
 
 class DefaultController extends HController
 {
-	public function actionLive($entity)
-	{
+    public function actionLive($entity)
+    {
 
-	}
+    }
 
     public function actionRemoved($entity)
     {
@@ -40,6 +40,11 @@ class DefaultController extends HController
     public function actionMarkPending()
     {
         $this->changeStatus(AntispamCheck::STATUS_PENDING);
+    }
+
+    public function actionMarkUndefined()
+    {
+        $this->changeStatus(AntispamCheck::STATUS_UNDEFINED);
     }
 
     protected function changeStatus($newStatus)

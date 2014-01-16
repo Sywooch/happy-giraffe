@@ -106,4 +106,15 @@ class SoftDelete extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+
+    public function behaviors()
+    {
+        return array(
+            'CTimestampBehavior' => array(
+                'class' => 'zii.behaviors.CTimestampBehavior',
+                'createAttribute' => 'created',
+                'updateAttribute' => null,
+            )
+        );
+    }
 }

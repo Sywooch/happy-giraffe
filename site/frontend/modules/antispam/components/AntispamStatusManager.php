@@ -13,22 +13,18 @@ class AntispamStatusManager
     const STATUS_WHITE = 1;
     const STATUS_GRAY = 2;
     const STATUS_BLACK = 3;
-    const STATUS_SPAMER = 4;
+    const STATUS_BLOCKED = 4;
 
     public static function setUserStatus($user, $statusValue)
     {
-        if (Yii::app()->user->checkAccess('moderator')) {
-            $status = self::getUserStatusModel($user);
-            if ($status === null) {
-                $status = new AntispamStatus();
-                $status->user_id = $user->id;
-            }
-            $status->status = $statusValue;
-            $status->moderator_id = Yii::app()->user->id;
-            return $status->save();
+        $status = self::getUserStatusModel($user);
+        if ($status === null) {
+            $status = new AntispamStatus();
+            $status->user_id = $user->id;
         }
-        else
-            return false;
+        $status->status = $statusValue;
+        $status->moderator_id = Yii::app()->user->id;
+        return $status->save();
     }
 
     public static function getUserStatus($user)

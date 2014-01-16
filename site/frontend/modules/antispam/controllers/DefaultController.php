@@ -4,6 +4,11 @@ class DefaultController extends HController
 {
     public $layout = 'antispam';
 
+    /**
+     * Прямой эфир
+     *
+     * @param $entity
+     */
     public function actionLive($entity = AntispamCheck::ENTITY_POSTS)
     {
         $dp = AntispamCheck::getDp($entity, AntispamCheck::STATUS_UNDEFINED);
@@ -12,59 +17,23 @@ class DefaultController extends HController
 
     public function actionDeleted($entity = AntispamCheck::ENTITY_POSTS)
     {
-        $dp = AntispamCheck::getDp($entity, AntispamCheck::STATUS_UNDEFINED);
+        $dp = AntispamCheck::getDp($entity, AntispamCheck::STATUS_BAD);
         $this->render('list', compact('dp'));
     }
 
     public function actionQuestionable($entity = AntispamCheck::ENTITY_POSTS)
     {
-        $dp = AntispamCheck::getDp($entity, AntispamCheck::STATUS_UNDEFINED);
+        $dp = AntispamCheck::getDp($entity, AntispamCheck::STATUS_QUESTIONABLE);
         $this->render('list', compact('dp'));
     }
 
+    /**
+     * Страница анализа
+     *
+     * @param $checkId
+     */
     public function actionAnalysis($checkId)
     {
-        
-    }
 
-    public function actionMarkGoodAll()
-    {
-        $entity = Yii::app()->request->getPost('entity');
-        $userId = Yii::app()->request->getPost('userId');
-        $success = AntispamCheck::changeStatusAll($entity, $userId, AntispamCheck::STATUS_UNDEFINED, AntispamCheck::STATUS_GOOD);
-        echo CJSON::encode(array('success' => $success));
-    }
-
-    public function actionMarkGood()
-    {
-        $this->changeStatus(AntispamCheck::STATUS_GOOD);
-    }
-
-    public function actionMarkBad()
-    {
-        $this->changeStatus(AntispamCheck::STATUS_BAD);
-    }
-
-    public function actionMarkQuestionable()
-    {
-        $this->changeStatus(AntispamCheck::STATUS_QUESTIONABLE);
-    }
-
-    public function actionMarkPending()
-    {
-        $this->changeStatus(AntispamCheck::STATUS_PENDING);
-    }
-
-    public function actionMarkUndefined()
-    {
-        $this->changeStatus(AntispamCheck::STATUS_UNDEFINED);
-    }
-
-    protected function changeStatus($newStatus)
-    {
-        $checkId = Yii::app()->request->getPost('checkId');
-        $check = AntispamCheck::model()->findByPk($checkId);
-        $success = $check->changeStatus($newStatus);
-        echo CJSON::encode(array('success' => $success));
     }
 }

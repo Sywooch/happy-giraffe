@@ -136,8 +136,8 @@ class HActiveRecord extends CActiveRecord
         return $users;
     }
 
-    public function remove()
+    public function getEntityName()
     {
-        die('234');
+        return get_class($this);
     }
 }

@@ -4,7 +4,7 @@ class DefaultController extends HController
 {
     public function actionLive($entity)
     {
-
+        $dp = AntispamCheck::getLive($entity);
     }
 
     public function actionRemoved($entity)

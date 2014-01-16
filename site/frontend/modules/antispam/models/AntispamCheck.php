@@ -11,9 +11,11 @@
  * @property string $updated
  * @property integer $status
  * @property string $moderator_id
+ * @property string $user_id
  *
  * The followings are the available model relations:
- * @property Users $moderator
+ * @property User $moderator
+ * @property User $user
  */
 class AntispamCheck extends HActiveRecord
 {
@@ -39,15 +41,15 @@ class AntispamCheck extends HActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('entity_id', 'required'),
+			array('entity_id, user_id', 'required'),
 			array('status', 'numerical', 'integerOnly'=>true),
 			array('entity', 'length', 'max'=>255),
 			array('entity_id', 'length', 'max'=>11),
-			array('moderator_id', 'length', 'max'=>10),
+			array('moderator_id, user_id', 'length', 'max'=>10),
 			array('created, updated', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, entity, entity_id, created, updated, status, moderator_id', 'safe', 'on'=>'search'),
+			array('id, entity, entity_id, created, updated, status, moderator_id, user_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -60,6 +62,7 @@ class AntispamCheck extends HActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'moderator' => array(self::BELONGS_TO, 'User', 'moderator_id'),
+            'user' => array(self::BELONGS_TO, 'User', 'user_id'),
 		);
 	}
 
@@ -76,6 +79,7 @@ class AntispamCheck extends HActiveRecord
 			'updated' => 'Updated',
 			'status' => 'Status',
 			'moderator_id' => 'Moderator',
+            'user_id' => 'User',
 		);
 	}
 
@@ -104,6 +108,7 @@ class AntispamCheck extends HActiveRecord
 		$criteria->compare('updated',$this->updated,true);
 		$criteria->compare('status',$this->status);
 		$criteria->compare('moderator_id',$this->moderator_id,true);
+        $criteria->compare('user_id',$this->user_id,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -157,6 +162,16 @@ class AntispamCheck extends HActiveRecord
         return $this;
     }
 
+    public function user($userId)
+    {
+        $this->getDbCriteria()->mergeWith(array(
+            'condition' => 'user_id = :user_id',
+            'params' => array(':user_id' => $userId),
+        ));
+
+        return $this;
+    }
+
     public static function getLive($entity)
     {
         return self::getDp($entity, self::STATUS_UNDEFINED);
@@ -178,6 +193,9 @@ class AntispamCheck extends HActiveRecord
 
     public function changeStatus($newStatus)
     {
+        if ($this->status == $newStatus)
+            return false;
+
         if ($newStatus == self::STATUS_BAD)
             $this->relatedModel->delete();
         if ($this->status == self::STATUS_BAD)
@@ -187,10 +205,10 @@ class AntispamCheck extends HActiveRecord
         return $this->update(array('status', 'moderator_id', 'updated'));
     }
 
-    public static function changeStatusAll($entity, $userId, $newStatus)
+    public static function changeStatusAll($entity, $userId, $fromStatus, $toStatus)
     {
-        $checks = self::model()->with('relatedModel')->findAll('entity = :entity AND relatedModel.author_id = :user_id', array(':entity' => $entity, ':user_id' => $userId));
+        $checks = AntispamCheck::model()->entity($entity)->user($userId)->status($fromStatus);
         foreach ($checks as $check)
-            $check->changeStatus($newStatus);
+            $check->changeStatus($toStatus);
     }
 }

@@ -21,6 +21,7 @@ class AntispamBehavior extends CActiveRecordBehavior
             $check = new AntispamCheck();
             $check->entity = get_class($this->owner);
             $check->entity_id = $this->owner->id;
+            $check->user_id = Yii::app()->user->id;
             $check->save();
         }
     }

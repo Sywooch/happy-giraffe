@@ -207,8 +207,10 @@ class AntispamCheck extends HActiveRecord
 
     public static function changeStatusAll($entity, $userId, $fromStatus, $toStatus)
     {
-        $checks = AntispamCheck::model()->entity($entity)->user($userId)->status($fromStatus);
+        $success = true;
+        $checks = AntispamCheck::model()->entity($entity)->user($userId)->status($fromStatus)->findAll();
         foreach ($checks as $check)
-            $check->changeStatus($toStatus);
+            $success = $success && $check->changeStatus($toStatus);
+        return $success;
     }
 }

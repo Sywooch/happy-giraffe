@@ -22,9 +22,4 @@ class BlogContent extends CommunityContent
     {
         return parent::beforeDelete();
     }
-
-    public function getEntityName()
-    {
-        return 'CommunityContent';
-    }
 }

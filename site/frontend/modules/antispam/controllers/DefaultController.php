@@ -26,7 +26,8 @@ class DefaultController extends HController
     {
         $entity = Yii::app()->request->getPost('entity');
         $userId = Yii::app()->request->getPost('userId');
-        AntispamCheck::changeStatusAll($entity, $userId, AntispamCheck::STATUS_UNDEFINED, AntispamCheck::STATUS_GOOD);
+        $success = AntispamCheck::changeStatusAll($entity, $userId, AntispamCheck::STATUS_UNDEFINED, AntispamCheck::STATUS_GOOD);
+        echo CJSON::encode(array('success' => $success));
     }
 
     public function actionMarkGood()

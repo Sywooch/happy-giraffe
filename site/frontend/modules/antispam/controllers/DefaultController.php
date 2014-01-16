@@ -3,6 +3,20 @@
 class DefaultController extends HController
 {
     public $layout = 'antispam';
+    public $counters = array();
+
+    public function init()
+    {
+        $this->counters = array(
+            AntispamCheck::model()->status(AntispamCheck::STATUS_UNDEFINED)->count(),
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+        );
+    }
 
     /**
      * Прямой эфир
@@ -32,13 +46,13 @@ class DefaultController extends HController
      *
      * @param $checkId
      */
-    public function actionAnalysis($checkId)
-    {
-        $check = AntispamCheck::model()->with('user, user.spamStatus')->findByPk($checkId);
-        $undefinedCount = AntispamCheck::model()->user($check->user_id)->status(AntispamCheck::STATUS_UNDEFINED)->count();
-        $goodCount = AntispamCheck::model()->user($check->user_id)->status(AntispamCheck::STATUS_GOOD)->count();
-        $badCount = AntispamCheck::model()->user($check->user_id)->status(AntispamCheck::STATUS_BAD)->count();
-        $dp = AntispamCheck::getDp($check->spamEntity, null, $check->user_id);
-        $this->render('analysis', compact('dp', 'check', 'undefinedCount', 'goodCount', 'badCount'));
-    }
+//    public function actionAnalysis($userId, )
+//    {
+//        $user = User::model()->findByPk($userId);
+//        $undefinedCount = AntispamCheck::model()->user($userId)->status(AntispamCheck::STATUS_UNDEFINED)->count();
+//        $goodCount = AntispamCheck::model()->user($userId)->status(AntispamCheck::STATUS_GOOD)->count();
+//        $badCount = AntispamCheck::model()->user($userId)->status(AntispamCheck::STATUS_BAD)->count();
+//        $dp = AntispamCheck::getDp($check->spamEntity, null, $userId);
+//        $this->render('analysis', compact('dp', 'check', 'undefinedCount', 'goodCount', 'badCount'));
+//    }
 }

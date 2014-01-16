@@ -35,29 +35,12 @@ $(function() {
 			}
 		});
 	}
-	
-	
-	$(document).on('koUpdate', '.im-message', function(event, elements) {
-		// Перекроем событие обновления сообщения, потом отработает событие обновления всего блока foreach
-		event.stopPropagation();
-		$('.powertip, .redactor_toolbar li a', event.target).tooltipster({
-			trigger: 'hover',
-			offsetY: -6,
-			delay: 200,
-			maxWidth: 200,
-			arrowColor: '#5C4B86',
-			onlyOne: false,
-			touchDevices: true,
-			theme: '.tooltipster-default',
-			functionReady: function(origin, continueTooltip) {}
-		});
-	});
 
 	$(document).on('koUpdate', function(event, elements) {
 		var self = event.target;
 		addBaron('.scroll');
-
-		$('.powertip, .redactor_toolbar li a', self).tooltipster({
+		//console.log($('.powertip, .redactor_toolbar li a', self).attr('title'));
+		$('.powertip, .redactor_toolbar li a, [data-tooltip]', self).tooltipster({
 			trigger: 'hover',
 			offsetY: -6,
 			delay: 200,
@@ -66,9 +49,11 @@ $(function() {
 			onlyOne: false,
 			touchDevices: true,
 			theme: '.tooltipster-default',
-			functionReady: function(origin, continueTooltip) {}
+			functionReady: function(origin, continueTooltip) {},
+			functionInit: function(origin, content) {
+				return origin.data('tooltip');
+			}
 		});
-		
 		$('.tooltip-click-b', self).tooltipster({
 			trigger: 'click',
 			delay: 0,
@@ -92,7 +77,7 @@ $(function() {
 	});
 	
 	    // tooltip
-    $('.no-touch .powertip, .no-touch .redactor_toolbar li a, .mfp-close').tooltipster({
+/*    $('.no-touch .powertip, .no-touch .redactor_toolbar li a, .mfp-close').tooltipster({
         trigger: 'hover',
         offsetY: -6,
         delay: 200,
@@ -102,11 +87,11 @@ $(function() {
         touchDevices: true,
         theme: '.tooltipster-default',
         functionReady: function(origin, continueTooltip) {}
-    });
+    });*/
 
     // tooltip
     // попап у иконки
-    $('.tooltip-click-b').tooltipster({
+    /*$('.tooltip-click-b').tooltipster({
         trigger: 'click',
         delay: 0,
         onlyOne: false,
@@ -122,7 +107,7 @@ $(function() {
             origin.tooltipster('update', d);
             continueTooltip(d);
         }
-    });
+    });*/
 
     $('.popup-a').magnificPopup({
         type: 'inline',

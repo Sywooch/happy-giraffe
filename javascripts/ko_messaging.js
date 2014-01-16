@@ -175,19 +175,30 @@ MessagingMessage.prototype = {
 	}
 }
 
-function MessagingMessage(model) {
+function MessagingMessage(model, thread) {
 	var self = this;
+	self.thread = thread;
 	self.id = model.id;
 	self.from = null;
 	self.to = null;
+	self.isMy = (self.thread.id == model.to_id);
 	self.text = model.text;
 	self.created = model.created;
 	self.dtimeRead = ko.observable(model.dtimeRead);
 	self.dtimeDelete = ko.observable(model.dtimeDelete);
 	self.hidden = ko.observable(false);
 	//self.images = model.images;
-
 	var timer = false;
+
+	self.canEdit = ko.computed(function() {
+		return self.isMy && !self.dtimeRead();
+	});
+	self.canCancel = ko.computed(function() {
+		return self.isMy && !self.dtimeRead();
+	});
+	self.canDelete = ko.computed(function() {
+		return !self.isMy || self.dtimeRead();
+	});
 
 	/**
 	 * Удаление сообщения
@@ -393,7 +404,7 @@ function MessagingThread(me, user) {
 				var scrollPos = $(scroller).find('.scroll_cont').height() - $(scroller).scrollTop();
 				response.messages = response.messages.reverse();
 				self.messages(ko.utils.arrayMap(response.messages, function(message) {
-					return new MessagingMessage(message);
+					return new MessagingMessage(message, self);
 				}).concat(self.messages()));
 				if (response.last)
 					self.fullyLoaded(true);

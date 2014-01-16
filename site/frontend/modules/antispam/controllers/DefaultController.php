@@ -2,22 +2,12 @@
 
 class DefaultController extends HController
 {
-    public function actionLive($entity)
+    public function actionList($entity, $status)
     {
-        $dp = AntispamCheck::getLive($entity);
+        $dp = AntispamCheck::getDp($entity, $status);
     }
 
-    public function actionRemoved($entity)
-    {
-
-    }
-
-    public function actionQuestionable($entity)
-    {
-
-    }
-
-    public function actionAnalysis($userId, $checkId)
+    public function actionAnalysis($checkId)
     {
 
     }

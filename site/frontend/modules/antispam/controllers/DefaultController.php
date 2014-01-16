@@ -2,6 +2,8 @@
 
 class DefaultController extends HController
 {
+    public $layout = 'antispam';
+
     public function actionLive($entity = AntispamCheck::ENTITY_POSTS)
     {
         $dp = AntispamCheck::getDp($entity, AntispamCheck::STATUS_UNDEFINED);
@@ -22,7 +24,7 @@ class DefaultController extends HController
 
     public function actionAnalysis($checkId)
     {
-
+        
     }
 
     public function actionMarkGoodAll()

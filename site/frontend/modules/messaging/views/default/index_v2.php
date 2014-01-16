@@ -1,4 +1,4 @@
-<div class="im">
+<div class="im" style="display: none" data-bind="attr: { 'style': '' }">
 	<!-- js для расчетов положения почты -->
 	<script type="text/javascript">
 		var im = new function() {
@@ -32,14 +32,17 @@
 			});
 
 			$(document).on('koUpdate', 'section.im-center', function(event) {
-				var imCenter = this;
-				self.imCenter = $(imCenter);
-				self.imUserList = $(".im-user-list");
-				self.container = $('.im-center_middle-hold', imCenter);
-				self.centerTop = $('.im-center_top', imCenter);
-				self.centerBottom = $('.im-center_bottom', imCenter);
-				self.headerHeight = $('.header').height();
-				self.renew();
+				if(event.target == this)
+				{
+					var imCenter = this;
+					self.imCenter = $(imCenter);
+					self.imUserList = $(".im-user-list");
+					self.container = $('.im-center_middle-hold', imCenter);
+					self.centerTop = $('.im-center_top', imCenter);
+					self.centerBottom = $('.im-center_bottom', imCenter);
+					self.headerHeight = $('.header').height();
+					self.renew();
+				}
 			});
 		}();
 
@@ -204,11 +207,11 @@
 														<div class="b-control_drop"></div>
 													</div> -->
 													<div class="b-control_i">
-														<span class="b-control_ico powertip b-control_ico__delete" href="" title="Удалить" data-bind="click: deleteMessage"></span>
+														<span class="b-control_ico powertip b-control_ico__delete" href="" data-tooltip="Удалить" title="Удалить" data-bind="click: deleteMessage, css: {'display-n': !canDelete()}"></span>
 														<div class="b-control_drop"></div>
 													</div>
-													<div class="b-control_i tooltip-click-b">
-														<span class="b-control_ico powertip b-control_ico__spam" href="" title="Пожаловаться"></span>
+													<div class="b-control_i tooltip-click-b" data-bind="css: {'display-n' : isMy}">
+														<span class="b-control_ico powertip b-control_ico__spam" href="" data-tooltip="Пожаловаться" title="Пожаловаться"></span>
 														<div class="tooltip-drop">
 															<div class="tooltip-popup">
 																<div class="tooltip-popup_t">Укажите вид нарушения:</div>
@@ -238,6 +241,12 @@
 																</div>
 															</div>
 														</div>
+													</div>
+													<div class="b-control_i" data-bind="css: {'display-n' : !canEdit()}"><span data-tooltip="Редактировать" title="Редактировать" class="b-control_ico powertip b-control_ico__edit"></span>
+														<div class="b-control_drop"></div>
+													</div>
+													<div class="b-control_i" data-bind="css: {'display-n' : !canCancel()}"><span data-tooltip="Отменить" title="Отменить" class="b-control_ico powertip b-control_ico__cancel"></span>
+														<div class="b-control_drop"></div>
 													</div>
 												</div>
 											</div>

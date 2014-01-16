@@ -183,9 +183,15 @@ class AntispamCheck extends HActiveRecord
         return $this;
     }
 
-    public static function getDp($entity, $status)
+    public static function getDp($entity, $status = null, $userId = null)
     {
-        return new CActiveDataProvider(self::model()->entity($entity)->status($status)->with('relatedModel'), array(
+        $model = self::model()->entity($entity)->with('relatedModel');
+        if ($status !== null)
+            $model->status($status);
+        if ($userId !== null)
+            $model->user($userId);
+
+        return new CActiveDataProvider($model, array(
             'criteria' => array(
                 'order' => 't.id DESC',
             ),
@@ -213,5 +219,15 @@ class AntispamCheck extends HActiveRecord
         foreach ($checks as $check)
             $success = $success && $check->changeStatus($toStatus);
         return $success;
+    }
+
+    public function getSpamEntity()
+    {
+        foreach ($this->entityToModels as $entity => $models)
+            if (is_array($models)) {
+                if (array_search($this->entity, $models) !== false)
+                    return $entity;
+            } elseif ($models == $this->entity)
+                return $entity;
     }
 }

@@ -67,7 +67,6 @@ return array(
             ),
             'depends' => array(
                 'jquery',
-                'powertip',
 				'moment',
             ),
         ),

@@ -25,6 +25,15 @@ class AntispamCheck extends HActiveRecord
     const STATUS_PENDING = 3;
     const STATUS_QUESTIONABLE = 4;
 
+    const ENTITY_POSTS = 10;
+    const ENTITY_COMMENTS = 11;
+    const ENTITY_PHOTOS = 12;
+    public $entityToModels = array(
+        self::ENTITY_POSTS => array('CommunityContent', 'BlogContent'),
+        self::ENTITY_COMMENTS => 'Comment',
+        self::ENTITY_PHOTOS => 'AlbumPhoto',
+    );
+
 	/**
 	 * @return string the associated database table name
 	 */
@@ -144,11 +153,15 @@ class AntispamCheck extends HActiveRecord
 
     public function entity($entity)
     {
-        $this->getDbCriteria()->mergeWith(array(
-            'condition' => 'entity = :entity',
-            'params' => array(':entity' => $entity),
-        ));
+        $entity = $this->entityToModels[$entity];
 
+        $criteria = new CDbCriteria();
+        if (is_array($entity))
+            $criteria->addInCondition('entity', $entity);
+        else
+            $criteria->compare('entity', $entity);
+
+        $this->getDbCriteria()->mergeWith($criteria);
         return $this;
     }
 
@@ -158,7 +171,6 @@ class AntispamCheck extends HActiveRecord
             'condition' => 'status = :status',
             'params' => array(':status' => $status),
         ));
-
         return $this;
     }
 
@@ -168,7 +180,6 @@ class AntispamCheck extends HActiveRecord
             'condition' => 'user_id = :user_id',
             'params' => array(':user_id' => $userId),
         ));
-
         return $this;
     }
 

@@ -135,9 +135,4 @@ class HActiveRecord extends CActiveRecord
         }, $favourites);
         return $users;
     }
-
-    public function getEntityName()
-    {
-        return get_class($this);
-    }
 }

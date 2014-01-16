@@ -34,6 +34,8 @@ class DefaultController extends HController
      */
     public function actionAnalysis($checkId)
     {
-
+        $check = AntispamCheck::model()->findByPk($checkId);
+        $dp = AntispamCheck::getDp($check->spamEntity, null, $check->user_id);
+        $this->render('analysis');
     }
 }

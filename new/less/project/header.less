@@ -5,20 +5,45 @@
     header
         header_hold
             <logo>
+            header_t-big
+            header_user
 */
 .header {
     background:#fff url(/new/images/header.png) repeat-x 50% 0;
-
+    
+    &__small &_hold {padding: 10px 0 10px;}
     .logo {
         float: left;
         margin: 5px 10px 5px 30px;
     }
+    .logo__small {margin: 0 25px 0 35px;}
 
 	&_hold {
 		width: 1000px;
 		margin: 0 auto;
 		padding: 25px 0 18px;
 	}
+    &_t-big {
+        float: left;
+        margin: 15px 5px;
+        font: 36px/42px 'Roboto', 'Helvetica Neue', Helvetica, Arial, Tahoma, sans-serif;
+    }
+    &_user {
+        float: right;
+        margin: 20px 35px 0 20px;
+    }
+    &_user .ava {
+        vertical-align: middle;
+        margin-right: 12px;
+    }
+    &_user-name {
+        .inline-block();
+        vertical-align: middle;
+        text-decoration: none;
+        font-weight: bold;
+        color: #289fd7;
+    }
+    &_user-name:hover {text-decoration: underline;}
 }
 /* /header */
 
@@ -132,7 +157,7 @@
     logo 
     Главное лого сайта
     
-    logo
+    logo __small
         logo_i
         logo_slogan
 */
@@ -143,7 +168,9 @@
     overflow: hidden;
     
     &__small &_i {
-         
+        width: 65px;
+        height: 60px;
+         .img-retina('/new/images/base/logo__small.png'; '/new/images/base/logo__small-2x.png'; 65px; 60px;);
     }
     &_i {
         display:block;

@@ -110,4 +110,30 @@ mixin cap-empty(mod, vars)
             .verticalalign-m-help
     // /cap-empty
 
-
+// Пейджинатор
+mixin pagination(mod)
+    // paginator
+    .yiipagination(class=mod)
+        .pager
+            ul.yiiPager
+              li.page
+                a(href='') 1
+              li.page
+                a(href='') 2
+              li.page.selected
+                a(href='') 3
+              li.page
+                a(href='') 4
+              li.page
+                a(href='') 5
+              li.page
+                a(href='') 6
+              li.page
+                a(href='') 7
+              li.page
+                a(href='') 8
+              li.page
+                a(href='') 9
+              li.page
+                a(href='') 10
+    // /paginator

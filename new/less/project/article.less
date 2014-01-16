@@ -469,6 +469,15 @@
     &__gray {background-position: -182px -295px;}
     &__white {background-position: -164px -295px;}
 }
+.ico-play-big {
+    .inline-block();
+    vertical-align: middle;
+    width: 151px;
+    height: 151px;
+    background: url(/images/ico/ico-play-big.png) no-repeat;
+
+    &:hover {background-position: 0 -151px;}
+}
 /* meta-gray */
 .meta-gray {
     float: right;
@@ -531,3 +540,122 @@
     }
 }
 /* /yiipagination */
+
+
+/* photo-grid */
+.photo-grid {
+    margin: 0 0 10px;
+    overflow: hidden;
+    
+    &__contest {margin: 20px 25px;}
+    &__contest &_i {margin-right: 20px;}
+    &__contest &_row {margin: 0 -35px 25px 0;}
+
+    &_row {
+        margin: 0 -20px 5px 0;
+    }
+    &_i {
+        position: relative;
+        float: left;
+        margin:0 5px 0 0;
+        cursor: pointer;
+    }
+    &_i:hover &_overlay {
+        z-index: 10;
+        opacity: 1;
+    }
+    .ie8 &_i:hover &_overlay {display: block;filter: alpha(opacity=80);}
+    &_i .ico-play-big {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin: -75px 0 0 -75px;;
+    }
+    &_img {display: block;}
+    &_overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: #222;
+        background: rgba(78,41,114,.5);
+        .transition(all 0.4s ease);
+        opacity: 0;
+    }
+    .ie8 &_overlay {display: none;filter: alpha(opacity=0);}
+    &_overlay__none {background: none;}
+    &_overlay-row {
+        padding: 4px 6px 6px;
+        line-height: 14px;
+        background: #28163a;
+        background: rgba(40,22,58,.5);
+    }
+    &_zoom {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin: -20px 0 0 -17px;
+        width: 34px;
+        height: 38px;
+        background: url(/images/photo-grid_zoom.png) no-repeat;
+    }
+    &_tip {
+        position: absolute;
+        top: 8px;
+        right: 0;
+        padding: 5px 12px 8px 17px;
+        color: #fff;
+        font-size: 25px;
+        line-height: 30px;
+        background: #fe2d2d;
+    }
+    &_last {
+        display: table-cell;
+        vertical-align: middle;
+        width: 90px;
+        height: 102px;
+        text-align: center;
+        background: #f5f5f5;
+    }
+    &_last .font-small {line-height: 12px;}
+    &_last-a {font-size: 16px;}
+
+    /* for contest */
+    &_ball {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        padding: 3px 9px 6px;
+        background: #fb0202;
+        text-align: right;
+        font-size: 11px;
+        line-height: 11px;
+        color: #fff;
+        z-index: 25;
+    }
+    &_ball-count {font: 30px/30px 'Roboto', 'Helvetica Neue', Helvetica, Arial, Tahoma, sans-serif;}
+    &_author {
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+        height: 50px;
+        padding: 14px 100px 10px 10px;
+        background: #ffe535;
+        z-index: 20;
+    }
+    &_author .ava {
+        border: 2px solid #ffe535;
+        margin: -4px 8px 0 0;
+    }
+    &_author-name {
+        margin-top: 4px;
+        line-height: 14px;
+        color: #289fd7;
+        text-decoration: none;
+    }
+    &_author-name:hover {text-decoration: underline;}
+    /* /for contest */
+}
+/* /photo-grid */

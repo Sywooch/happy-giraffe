@@ -15,7 +15,7 @@ block layout-wrapper
                 // antispam_i
                 .antispam_i.clearfix
                     .antispam_cont
-                        +article_text()
+                        +www-article_text()
                     .antispam_control
                         .margin-b5.clearfix
                             a.ico-del.margin-r5
@@ -26,10 +26,21 @@ block layout-wrapper
                 // antispam_i
                 .antispam_i.clearfix
                     .antispam_cont
-                        +article_photo()
+                        +www-comment-single()
                     .antispam_control
                         .margin-b5.clearfix
-                            a.ico-del.margin-r5
+                            a.ico-check.margin-r5
+                            +ava("ava__small", {src: 'http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg'})
+                        .color-gray.font-sx Сегодня  23:15
+                // /antispam_i
+
+                // antispam_i
+                .antispam_i.clearfix
+                    .antispam_cont
+                        +www-article_photo()
+                    .antispam_control
+                        .margin-b5.clearfix
+                            a.ico-check.margin-r5
                             +ava("ava__small", {src: 'http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg'})
                         .color-gray.font-sx Сегодня  23:15
                 // /antispam_i

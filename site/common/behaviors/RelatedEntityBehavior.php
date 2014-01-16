@@ -11,7 +11,23 @@ class RelatedEntityBehavior extends CActiveRecordBehavior
 {
     public $possibleRelations = array();
 
+    public function beforeCount($event)
+    {
+        $this->run();
+    }
+
     public function beforeFind($event)
+    {
+        $this->run();
+    }
+
+    public function getRelatedModel()
+    {
+        $entityName = 'RelatedEntity' . $this->owner->entity;
+        return $this->owner->$entityName;
+    }
+
+    protected function run()
     {
         $criteria = $this->owner->getDbCriteria();
         $relationIndex = $criteria->with === null ? false : array_search('relatedModel', $criteria->with);
@@ -28,13 +44,7 @@ class RelatedEntityBehavior extends CActiveRecordBehavior
                 );
             if ($relationIndex !== false)
                 $criteria->with[] = $relationName;
-            $this->owner->setDbCriteria($criteria);
         }
-    }
-
-    public function getRelatedModel()
-    {
-        $entityName = 'RelatedEntity' . $this->owner->entity;
-        return $this->owner->$entityName;
+        $this->owner->setDbCriteria($criteria);
     }
 }

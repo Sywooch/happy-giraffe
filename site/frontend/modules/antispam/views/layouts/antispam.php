@@ -28,12 +28,14 @@
                             <span class="verticalalign-m-help"></span><span class="side-menu_count-sub"><?=$this->counters[0]?></span>
                         </a>
                         <a href="" class="side-menu_i">
-                            <span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__expert"></span><span class="side-menu_tx">Эксперт</span><span class="side-menu_count"><?=$this->counters[1]?></span></span><span class="verticalalign-m-help"></span></a>
+                            <span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__expert"></span><span class="side-menu_tx">Эксперт</span><span class="side-menu_count"><?=$this->counters[1]?></span></span>
+                            <span class="verticalalign-m-help"></span>
+                        </a>
                         <a href="" class="side-menu_i active">
                             <span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__deleted"></span><span class="side-menu_tx">Удалено</span></span>
                             <span class="verticalalign-m-help"></span><span class="side-menu_count-sub"><?=$this->counters[2]?></span>
                         </a>
-                        <a href="" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__ul-white"></span><span class="side-menu_tx">Белый список</span><span class="side-menu_count-sub"><?=$this->counters[3]?></span></span>
+                        <a href="" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__ul-white"></span><span class="side-menu_tx">Белый список</span><span class="≈"><?=$this->counters[3]?></span></span>
                             <span class="verticalalign-m-help"></span>
                         </a>
                         <a href="" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__question"></span><span class="side-menu_tx">Под вопросом</span><span class="side-menu_count-sub"><?=$this->counters[4]?></span></span><span class="verticalalign-m-help"></span></a>

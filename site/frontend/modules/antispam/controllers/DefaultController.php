@@ -2,9 +2,22 @@
 
 class DefaultController extends HController
 {
-    public function actionList($entity, $status)
+    public function actionLive($entity = AntispamCheck::ENTITY_POSTS)
     {
-        $dp = AntispamCheck::getDp($entity, $status);
+        $dp = AntispamCheck::getDp($entity, AntispamCheck::STATUS_UNDEFINED);
+        $this->render('list', compact('dp'));
+    }
+
+    public function actionDeleted($entity = AntispamCheck::ENTITY_POSTS)
+    {
+        $dp = AntispamCheck::getDp($entity, AntispamCheck::STATUS_UNDEFINED);
+        $this->render('list', compact('dp'));
+    }
+
+    public function actionQuestionable($entity = AntispamCheck::ENTITY_POSTS)
+    {
+        $dp = AntispamCheck::getDp($entity, AntispamCheck::STATUS_UNDEFINED);
+        $this->render('list', compact('dp'));
     }
 
     public function actionAnalysis($checkId)

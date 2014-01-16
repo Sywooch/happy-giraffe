@@ -185,9 +185,9 @@ class AntispamCheck extends HActiveRecord
 
     public static function getDp($entity, $status)
     {
-        return new CActiveDataProvider(self::model()->entity($entity)->status($status), array(
+        return new CActiveDataProvider(self::model()->entity($entity)->status($status)->with('relatedModel'), array(
             'criteria' => array(
-                'order' => 'id DESC',
+                'order' => 't.id DESC',
             ),
         ));
     }

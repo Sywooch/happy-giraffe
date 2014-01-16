@@ -135,4 +135,9 @@ class HActiveRecord extends CActiveRecord
         }, $favourites);
         return $users;
     }
+
+    public function remove()
+    {
+        die('234');
+    }
 }

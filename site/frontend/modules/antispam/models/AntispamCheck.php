@@ -179,7 +179,7 @@ class AntispamCheck extends HActiveRecord
     public function changeStatus($newStatus)
     {
         if ($newStatus == self::STATUS_BAD)
-            $this->relatedModel->remove();
+            $this->relatedModel->delete();
         if ($this->status == self::STATUS_BAD)
             $this->relatedModel->restore();
         $this->status = $newStatus;

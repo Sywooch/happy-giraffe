@@ -219,15 +219,24 @@
         .inline-block();
         margin: 19px 35px 0 0;
     }
-    &_t-a {
+
+    &_ul {}
+    &_li {
         .inline-block();
         margin: 19px 35px 0 0;
+    }
+    &_li.active &_ul-a,
+    &_li:hover &_ul-a {color: #3b3b3b;}
+    &_li.disabled &_ul-a {
+        color: #d8d7d7;
+        .disabled;
+    }
+    &_li.active &_ul-a {font-size: 14px;}
+    &_ul-a {
+        .inline-block();
         text-decoration: none;
         color: #aeadad;
     }
-    &_t-a.active,
-    &_t-a:hover {color: #3b3b3b;}
-    &_t-a.disabled {color: #d8d7d7;}
     &_cont {}
     &_cont__gray {
         background: #f0f0f0;

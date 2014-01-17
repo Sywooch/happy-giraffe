@@ -17,11 +17,15 @@ block layout-wrapper
             // antispam
             .antispam
                 .page-col_top
-                    .page-col_t.clearfix
-                        a.page-col_t-a.active(href="") Записи 54
-                        a.page-col_t-a(href="") Комментарии 165
-                        a.page-col_t-a(href="") Фотографии 65
-                        a.page-col_t-a.disabled(href="") Сообщения 0
+                    ul.page-col_ul
+                        li.page-col_li.active
+                            a.page-col_ul-a(href="") Записи 54
+                        li.page-col_li
+                            a.page-col_ul-a(href="") Комментарии 165
+                        li.page-col_li
+                            a.page-col_ul-a(href="") Фотографии 65
+                        li.page-col_li.disabled
+                            a.page-col_ul-a(href="") Сообщения 65
 
                 // antispam_i
                 .antispam_i.clearfix

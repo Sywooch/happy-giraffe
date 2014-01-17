@@ -18,12 +18,28 @@ function AntispamCheck(data, parent)
     self.mark = function(newStatus) {
         $.post('/antispam/check/mark/', { checkId : self.id, status : newStatus }, function(response) {
             if (response.success)
-                parent.check(response.check);
+                parent.check(new AntispamCheck(response.check, parent));
         }, 'json');
     }
 
     self.isMarked = ko.computed(function() {
-        return ! $.inArray(self.status, [parent.statuses.UNDEFINED, parent.statuses.QUESTIONABLE]);
+        return self.status() != parent.statuses.UNDEFINED;
+    });
+
+    self.iconClass = ko.computed(function() {
+        var cssClass;
+        switch (self.status()) {
+            case parent.statuses.GOOD:
+                cssClass = 'check';
+                break;
+            case parent.statuses.BAD:
+                cssClass = 'delete';
+                break;
+            case parent.statuses.QUESTIONABLE:
+                cssClass = 'question';
+                break;
+        }
+        return 'ico-' + cssClass;
     });
 }
 

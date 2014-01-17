@@ -1,1 +1,4 @@
-function Anti
+function MarkWidget(data) {
+    var self = this;
+
+}

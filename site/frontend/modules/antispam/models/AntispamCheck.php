@@ -235,7 +235,7 @@ class AntispamCheck extends HActiveRecord
     {
         return array(
             'id' => $this->id,
-            'status' => $this->status,
+            'status' => (int) $this->status,
             'updated' => $this->updated,
             'moderator' => $this->moderator === null ? null : array(
                 'id' => $this->moderator->id,

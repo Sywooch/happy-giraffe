@@ -1,5 +1,6 @@
 <?php
 /**
+ * @var HController $this
  * @var AntispamCheck $data
  */
 ?>

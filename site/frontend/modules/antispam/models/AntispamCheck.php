@@ -236,11 +236,13 @@ class AntispamCheck extends HActiveRecord
         return array(
             'id' => $this->id,
             'status' => (int) $this->status,
-            'updated' => $this->updated,
+            'updated' => HDate::GetFormattedTime($this->updated),
             'moderator' => $this->moderator === null ? null : array(
                 'id' => $this->moderator->id,
+                'fullName' => $this->moderator->getFullName(),
                 'ava' => $this->moderator->getAvatarUrl(24),
                 'online' => (bool) $this->moderator->online,
+                'url' => $this->moderator->getUrl(),
             ),
         );
     }

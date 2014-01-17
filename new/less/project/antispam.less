@@ -1,11 +1,18 @@
 // antispam module
+/*
+    Модуль antispam для модераторов
+
+*/
 .antispam {
     min-height: 770px;
 
     .comments-gray {min-height: 85px;}
-    &_i {
-
+    .page-col_top {
+        background: none;
+        border-bottom: none;
+        height: auto;
     }
+    &_i {}
     &_cont {
         float: left;
         width: 720px;
@@ -29,5 +36,63 @@
         padding: 0 5px;
         width: 72px;
         font-size: 12px;
+    }
+}
+
+/* 
+    Иконки действий с пользователем
+    antispam-user-act
+        antispam-user-act_i     __white     __black     __block
+*/
+.antispam-user-act {
+    .inline-block();
+    width: 300px;
+
+    &_i {
+        .inline-block();
+        width: 50px;
+        height: 40px;
+        margin: 0 15px;
+        background: url(/new/images/antispam-user-act_i.png) no-repeat;
+
+        &__white            {background-position: 0 0;}
+        &__white.active,
+        &__white:hover      {background-position: 0 -40px;}
+        &__black            {background-position: -50px 0;}
+        &__black.active,
+        &__black:hover      {background-position: -50px -40px;}
+        &__block         {background-position: -100px 0;}
+        &__block.active,
+        &__block:hover   {background-position: -100px -40px;}
+    }
+}
+
+.antispam-user {
+    
+    &_ul {}
+    &_li {
+        padding: 0 20px;
+        border-bottom: 1px solid #f0f0f0;
+        background-color: #fafafa;
+    }
+    &_li:hover {background-color: #fff;}
+    &_hold {
+        display: table-cell;
+        vertical-align: middle;
+        height: 57px;
+    }
+    &_hold .antispam-user-act,
+    &_hold .b-user {vertical-align: middle;}
+    &_ava {
+        .inline-block();
+        vertical-align: middle;
+        margin-right: 10px;
+    }
+    &_date {
+        .inline-block();
+        vertical-align: middle;
+        width: 95px;
+        margin-right: 5px;
+        .font-s;
     }
 }

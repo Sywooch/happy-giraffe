@@ -1,0 +1,45 @@
+include ../../block/config
+extend ../../extend/layout_header-small
+
+block layout-wrapper
+    +side-menu__antispam("side-menu__antispam")
+    .page-col
+        .page-col_top
+            .page-col_t
+                a.page-col_t-a.active(href="") Записи 54
+                a.page-col_t-a(href="") Комментарии 165
+                a.page-col_t-a(href="") Фотографии 65
+        .page-col_cont.page-col_cont__gray
+            // antispam
+            .antispam
+                // antispam_i
+                .antispam_i.clearfix
+                    .antispam_cont
+                        +www-article_text()
+                    .antispam_control
+                        .margin-b5.clearfix
+                            a.ico-question.margin-r5
+                            +ava("ava__small", {src: 'http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg'})
+                        .color-gray.font-sx Сегодня  23:15
+                // /antispam_i
+
+                // antispam_i
+                .antispam_i.clearfix
+                    .antispam_cont
+                        +www-article_photopost()
+                    .antispam_control
+                        .margin-b5.clearfix
+                            a.ico-question.margin-r5
+                            +ava("ava__small", {src: 'http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg'})
+                        .color-gray.font-sx Сегодня  23:15
+                // /antispam_i
+
+                // antispam_i
+                .antispam_i.clearfix
+                    .antispam_cont
+                        +pagination('margin-l100')
+                    .antispam_control
+                    
+            // /antispam
+
+        

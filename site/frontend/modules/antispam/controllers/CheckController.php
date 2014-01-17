@@ -23,45 +23,12 @@ class CheckController extends HController
     /**
      * Кнопка "Хорошо"
      */
-    public function actionMarkGood()
-    {
-        $this->changeStatus(AntispamCheck::STATUS_GOOD);
-    }
-
-    /**
-     * Кнопка "Плохо"
-     */
-    public function actionMarkBad()
-    {
-        $this->changeStatus(AntispamCheck::STATUS_BAD);
-    }
-
-    /**
-     * Кнопка "Под вопросом"
-     */
-    public function actionMarkQuestionable()
-    {
-        $this->changeStatus(AntispamCheck::STATUS_QUESTIONABLE);
-    }
-
-    /**
-     * Кнопка "Отмена"
-     */
-    public function actionMarkUndefined()
-    {
-        $this->changeStatus(AntispamCheck::STATUS_UNDEFINED);
-    }
-
-    /**
-     * Смена статуса
-     *
-     * @param $newStatus
-     */
-    protected function changeStatus($newStatus)
+    public function actionMark()
     {
         $checkId = Yii::app()->request->getPost('checkId');
+        $status = Yii::app()->request->getPost('status');
         $check = AntispamCheck::model()->findByPk($checkId);
-        $success = $check->changeStatus($newStatus);
-        echo CJSON::encode(array('success' => $success));
+        $success = $check->changeStatus($status);
+        echo CJSON::encode(array('success' => $success, 'check' => $check->toJson()));
     }
 }

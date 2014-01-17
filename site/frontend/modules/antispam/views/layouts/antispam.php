@@ -2,6 +2,8 @@
 /**
  * @var HController $this
  */
+
+Yii::app()->clientScript->registerPackage('ko_antispam');
 ?>
 
 <?php $this->beginContent('//layouts/new_main'); ?>

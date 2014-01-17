@@ -30,7 +30,7 @@
                         'items' => array(
                             array(
                                 'url' => array('/antispam/default/list', 'status' => AntispamCheck::STATUS_UNDEFINED, 'entity' => AntispamCheck::ENTITY_POSTS),
-                                'itemOptions' => array('class' => 'side-menu_li'),
+                                'itemOptions' => array('class' => 'side-menu_li' . ($this->counts[DefaultController::TAB_CHECKS_LIVE] > 0 ? '' : ' disabled')),
                                 'linkOptions' => array('class' => 'side-menu_i'),
                                 'label' => $this->renderPartial('_menu_item', array(
                                     'label' => 'Прямой эфир',
@@ -40,7 +40,7 @@
                             ),
                             array(
                                 'url' => array('/antispam/default/expert'),
-                                'itemOptions' => array('class' => 'side-menu_li'),
+                                'itemOptions' => array('class' => 'side-menu_li' . ($this->counts[DefaultController::TAB_EXPERT] > 0 ? '' : ' disabled')),
                                 'linkOptions' => array('class' => 'side-menu_i'),
                                 'label' => $this->renderPartial('_menu_item', array(
                                     'label' => 'Эксперт',
@@ -50,7 +50,7 @@
                             ),
                             array(
                                 'url' => array('/antispam/default/list', 'status' => AntispamCheck::STATUS_BAD, 'entity' => AntispamCheck::ENTITY_POSTS),
-                                'itemOptions' => array('class' => 'side-menu_li'),
+                                'itemOptions' => array('class' => 'side-menu_li' . ($this->counts[DefaultController::TAB_CHECKS_BAD] > 0 ? '' : ' disabled')),
                                 'linkOptions' => array('class' => 'side-menu_i'),
                                 'label' => $this->renderPartial('_menu_item', array(
                                     'label' => 'Удалено',
@@ -60,7 +60,7 @@
                             ),
                             array(
                                 'url' => array('/antispam/default/list', 'status' => AntispamCheck::STATUS_QUESTIONABLE, 'entity' => AntispamCheck::ENTITY_POSTS),
-                                'itemOptions' => array('class' => 'side-menu_li'),
+                                'itemOptions' => array('class' => 'side-menu_li' . ($this->counts[DefaultController::TAB_CHECKS_QUESTIONABLE] > 0 ? '' : ' disabled')),
                                 'linkOptions' => array('class' => 'side-menu_i'),
                                 'label' => $this->renderPartial('_menu_item', array(
                                     'label' => 'Под вопросом',
@@ -70,7 +70,7 @@
                             ),
                             array(
                                 'url' => array('/antispam/default/usersList', 'status' => AntispamStatusManager::STATUS_WHITE),
-                                'itemOptions' => array('class' => 'side-menu_li'),
+                                'itemOptions' => array('class' => 'side-menu_li' . ($this->counts[DefaultController::TAB_USERS_WHITE] > 0 ? '' : ' disabled')),
                                 'linkOptions' => array('class' => 'side-menu_i'),
                                 'label' => $this->renderPartial('_menu_item', array(
                                     'label' => 'Белый список',
@@ -80,7 +80,7 @@
                             ),
                             array(
                                 'url' => array('/antispam/default/usersList', 'status' => AntispamStatusManager::STATUS_BLACK),
-                                'itemOptions' => array('class' => 'side-menu_li'),
+                                'itemOptions' => array('class' => 'side-menu_li' . ($this->counts[DefaultController::TAB_USERS_BLACK] > 0 ? '' : ' disabled')),
                                 'linkOptions' => array('class' => 'side-menu_i'),
                                 'label' => $this->renderPartial('_menu_item', array(
                                     'label' => 'Черный список',
@@ -90,7 +90,7 @@
                             ),
                             array(
                                 'url' => array('/antispam/default/usersList', 'status' => AntispamStatusManager::STATUS_BLOCKED),
-                                'itemOptions' => array('class' => 'side-menu_li'),
+                                'itemOptions' => array('class' => 'side-menu_li' . ($this->counts[DefaultController::TAB_USERS_BLOCKED] > 0 ? '' : ' disabled')),
                                 'linkOptions' => array('class' => 'side-menu_i'),
                                 'label' => $this->renderPartial('_menu_item', array(
                                     'label' => 'Блок',

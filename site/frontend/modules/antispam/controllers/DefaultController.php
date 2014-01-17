@@ -44,7 +44,7 @@ class DefaultController extends HController
             AntispamCheck::ENTITY_PHOTOS => AntispamCheck::model()->entity(AntispamCheck::ENTITY_PHOTOS)->count(),
         );
         $dp = AntispamCheck::getDp($entity, $status);
-        $this->render('list', compact('dp'));
+        $this->render('list', compact('dp', 'status', 'counts'));
     }
 
     /**

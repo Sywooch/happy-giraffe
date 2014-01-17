@@ -7,29 +7,34 @@ mixin side-menu__im(mod)
     .side-menu(class=mod)
         .side-menu_hold
             .side-menu_t
-            a.side-menu_i.active(href="")
-                span.side-menu_i-hold
-                    span.side-menu_ico.side-menu_ico__all
-                    span.side-menu_tx Все
-                span.verticalalign-m-help
-            a.side-menu_i(href="")
-                span.side-menu_i-hold
-                    span.side-menu_ico.side-menu_ico__new
-                    span.side-menu_tx Новые
-                    span.side-menu_count 96
-                span.verticalalign-m-help
-            a.side-menu_i(href="")
-                span.side-menu_i-hold
-                    span.side-menu_ico.side-menu_ico__online
-                    span.side-menu_tx Кто онлайн
-                    span.side-menu_count-sub 5945
-                span.verticalalign-m-help
-            a.side-menu_i.disabled(href="")
-                span.side-menu_i-hold
-                    span.side-menu_ico.side-menu_ico__online-friend
-                    span.side-menu_tx Друзья онлайн
-                    span.side-menu_count-sub 0
-                span.verticalalign-m-help
+            ul.side-menu_ul
+                li.side-menu_li
+                    a.side-menu_i.active(href="")
+                        span.side-menu_i-hold
+                            span.side-menu_ico.side-menu_ico__all
+                            span.side-menu_tx Все
+                        span.verticalalign-m-help
+                li.side-menu_li
+                    a.side-menu_i(href="")
+                        span.side-menu_i-hold
+                            span.side-menu_ico.side-menu_ico__new
+                            span.side-menu_tx Новые
+                            span.side-menu_count 96
+                        span.verticalalign-m-help
+                li.side-menu_li
+                    a.side-menu_i(href="")
+                        span.side-menu_i-hold
+                            span.side-menu_ico.side-menu_ico__online
+                            span.side-menu_tx Кто онлайн
+                            span.side-menu_count-sub 5945
+                        span.verticalalign-m-help
+                li.side-menu_li
+                    a.side-menu_i.disabled(href="")
+                        span.side-menu_i-hold
+                            span.side-menu_ico.side-menu_ico__online-friend
+                            span.side-menu_tx Друзья онлайн
+                            span.side-menu_count-sub 0
+                        span.verticalalign-m-help
     // /side-menu
 
 
@@ -42,33 +47,39 @@ mixin side-menu__friend(mod)
     .side-menu(class=mod)
         .side-menu_hold
             .side-menu_t.side-menu_t__friends
-            a.side-menu_i.side-menu_i__find(href="")
-                span.side-menu_i-hold
-                    span.side-menu_ico.side-menu_ico__find
-                    span.side-menu_tx Найти друзей
-            a.side-menu_i.active(href="")
-                span.side-menu_i-hold
-                    span.side-menu_ico.side-menu_ico__online-friend
-                    span.side-menu_tx Все
-                span.verticalalign-m-help
-            a.side-menu_i(href="")
-                span.side-menu_i-hold
-                    span.side-menu_ico.side-menu_ico__online
-                    span.side-menu_tx Кто онлайн
-                    span.side-menu_count-sub 59
-                span.verticalalign-m-help
-            a.side-menu_i(href="")
-                span.side-menu_i-hold
-                    span.side-menu_ico.side-menu_ico__friends-new
-                    span.side-menu_tx Новые друзья
-                    span.side-menu_count 1
-                span.verticalalign-m-help
-            a.side-menu_i.disabled(href="")
-                span.side-menu_i-hold
-                    span.side-menu_ico.side-menu_ico__friend-add
-                    span.side-menu_tx Давай дружить
-                    span.side-menu_count-sub 456
-                span.verticalalign-m-help
+            ul.side-menu_ul
+                li.side-menu_li
+                    a.side-menu_i.side-menu_i__find(href="")
+                        span.side-menu_i-hold
+                            span.side-menu_ico.side-menu_ico__find
+                            span.side-menu_tx Найти друзей
+                li.side-menu_li.active
+                    a.side-menu_i(href="")
+                        span.side-menu_i-hold
+                            span.side-menu_ico.side-menu_ico__online-friend
+                            span.side-menu_tx Все
+                        span.verticalalign-m-help
+                li.side-menu_li
+                    a.side-menu_i(href="")
+                        span.side-menu_i-hold
+                            span.side-menu_ico.side-menu_ico__online
+                            span.side-menu_tx Кто онлайн
+                            span.side-menu_count-sub 59
+                        span.verticalalign-m-help
+                li.side-menu_li
+                    a.side-menu_i(href="")
+                        span.side-menu_i-hold
+                            span.side-menu_ico.side-menu_ico__friends-new
+                            span.side-menu_tx Новые друзья
+                            span.side-menu_count 1
+                        span.verticalalign-m-help
+                li.side-menu_li.disabled
+                    a.side-menu_i(href="")
+                        span.side-menu_i-hold
+                            span.side-menu_ico.side-menu_ico__friend-add
+                            span.side-menu_tx Давай дружить
+                            span.side-menu_count-sub 456
+                        span.verticalalign-m-help
     // /side-menu
 
 
@@ -81,44 +92,52 @@ mixin side-menu__antispam(mod)
     .side-menu(class=mod)
         .side-menu_hold
             .side-menu_t.side-menu_t__moderator
-            a.side-menu_i.side-menu_i__find(href="")
-                span.side-menu_i-hold
-                    span.side-menu_ico.side-menu_ico__broadcast
-                    span.side-menu_tx Прямой эфир
-            a.side-menu_i(href="")
-                span.side-menu_i-hold
-                    span.side-menu_ico.side-menu_ico__expert
-                    span.side-menu_tx Эксперт
-                    span.side-menu_count 15
-                span.verticalalign-m-help
-            a.side-menu_i.active(href="")
-                span.side-menu_i-hold
-                    span.side-menu_ico.side-menu_ico__deleted
-                    span.side-menu_tx Удалено
-                    span.side-menu_count-sub 59
-                span.verticalalign-m-help
-            a.side-menu_i(href="")
-                span.side-menu_i-hold
-                    span.side-menu_ico.side-menu_ico__question
-                    span.side-menu_tx Под вопросом
-                    span.side-menu_count-sub 7895
-                span.verticalalign-m-help
-            a.side-menu_i(href="")
-                span.side-menu_i-hold
-                    span.side-menu_ico.side-menu_ico__ul-white
-                    span.side-menu_tx Белый список
-                    span.side-menu_count-sub 7895
-                span.verticalalign-m-help
-            a.side-menu_i(href="")
-                span.side-menu_i-hold
-                    span.side-menu_ico.side-menu_ico__ul-black
-                    span.side-menu_tx Черный список
-                    span.side-menu_count-sub 456
-                span.verticalalign-m-help
-            a.side-menu_i(href="")
-                span.side-menu_i-hold
-                    span.side-menu_ico.side-menu_ico__ul-block
-                    span.side-menu_tx Блок
-                    span.side-menu_count-sub 456
-                span.verticalalign-m-help
+            ul.side-menu_ul
+                li.side-menu_li
+                    a.side-menu_i.side-menu_i__find(href="")
+                        span.side-menu_i-hold
+                            span.side-menu_ico.side-menu_ico__broadcast
+                            span.side-menu_tx Прямой эфир
+                li.side-menu_li
+                    a.side-menu_i(href="")
+                        span.side-menu_i-hold
+                            span.side-menu_ico.side-menu_ico__expert
+                            span.side-menu_tx Эксперт
+                            span.side-menu_count 15
+                        span.verticalalign-m-help
+                li.side-menu_li.active
+                    a.side-menu_i(href="")
+                        span.side-menu_i-hold
+                            span.side-menu_ico.side-menu_ico__deleted
+                            span.side-menu_tx Удалено
+                            span.side-menu_count-sub 59
+                        span.verticalalign-m-help
+                li.side-menu_li
+                    a.side-menu_i(href="")
+                        span.side-menu_i-hold
+                            span.side-menu_ico.side-menu_ico__question
+                            span.side-menu_tx Под вопросом
+                            span.side-menu_count-sub 7895
+                        span.verticalalign-m-help
+                li.side-menu_li
+                    a.side-menu_i(href="")
+                        span.side-menu_i-hold
+                            span.side-menu_ico.side-menu_ico__ul-white
+                            span.side-menu_tx Белый список
+                            span.side-menu_count-sub 7895
+                        span.verticalalign-m-help
+                li.side-menu_li
+                    a.side-menu_i(href="")
+                        span.side-menu_i-hold
+                            span.side-menu_ico.side-menu_ico__ul-black
+                            span.side-menu_tx Черный список
+                            span.side-menu_count-sub 456
+                        span.verticalalign-m-help
+                li.side-menu_li
+                    a.side-menu_i(href="")
+                        span.side-menu_i-hold
+                            span.side-menu_ico.side-menu_ico__ul-block
+                            span.side-menu_tx Блок
+                            span.side-menu_count-sub 456
+                        span.verticalalign-m-help
     // /side-menu

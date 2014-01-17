@@ -219,15 +219,24 @@
         .inline-block();
         margin: 19px 35px 0 0;
     }
-    &_t-a {
+
+    &_ul {}
+    &_li {
         .inline-block();
         margin: 19px 35px 0 0;
+    }
+    &_li.active &_ul-a,
+    &_li:hover &_ul-a {color: #3b3b3b;}
+    &_li.disabled &_ul-a {
+        color: #d8d7d7;
+        .disabled;
+    }
+    &_li.active &_ul-a {font-size: 14px;}
+    &_ul-a {
+        .inline-block();
         text-decoration: none;
         color: #aeadad;
     }
-    &_t-a.active,
-    &_t-a:hover {color: #3b3b3b;}
-    &_t-a.disabled {color: #d8d7d7;}
     &_cont {}
     &_cont__gray {
         background: #f0f0f0;
@@ -419,10 +428,12 @@
 
     side-menu __im      __antispam
         side-menu_t
-        side-menu_i
-            side-menu_ico
-            side-menu_tx
-            [side-menu_count]
+        side-menu_ul
+            side-menu_li
+                side-menu_i
+                    side-menu_ico
+                    side-menu_tx
+                    [side-menu_count]
 
 */
 .side-menu {
@@ -440,7 +451,7 @@
         &__im &_count {top: 4px;}
         &_i &_count-sub {top: 3px;}
     }
-    &__im &_i:last-child {
+    &__im &_li:last-child {
         border-bottom: 1px solid #7361a1;
         border-bottom-left-radius: none;
     }
@@ -456,29 +467,30 @@
         border-top-left-radius: 10px;
     }
     &_t__moderator {background: url(/new/images/side-menu_t__moderator.png) no-repeat;}
+    &_ul {}
+    &_li {border-bottom: 1px solid #7361a1;}
+    &_li:last-child {
+        border-bottom: none;
+        border-bottom-left-radius: 10px;
+    }
+    &_li.active,
+    &_li:hover {background: #5c4b86;}
+    &_li.disabled:hover {background: none;}
+    &_li.disabled &_ico {opacity: .1;}
+    &_li.disabled &_count-sub,
+    &_li.disabled &_tx  {color: #8476a7;}
+    &_li.active &_ico {opacity: 1;}
+    &_li.active &_tx  {color: #fff;}
+    &_li:hover &_count,
+    &_li.active &_count {border-color: #5c4b86;}
     &_i {
         position: relative;
         display: block;
         height: 70px;
         padding: 15px 15px 15px;
-        border-bottom: 1px solid #7361a1;
         text-align: center;
         text-decoration: none;
     }
-    &_i.active,
-    &_i:hover {background: #5c4b86;}
-    &_i:last-child {
-        border-bottom: none;
-        border-bottom-left-radius: 10px;
-    }
-    &_i.disabled:hover {background: none;}
-    &_i.disabled &_ico {opacity: .1;}
-    &_i.disabled &_count-sub,
-    &_i.disabled &_tx  {color: #8476a7;}
-    &_i.active &_ico {opacity: 1;}
-    &_i.active &_tx  {color: #fff;}
-    &_i:hover &_count,
-    &_i.active &_count {border-color: #5c4b86;}
 
     &_i-hold {
         display: inline-block;

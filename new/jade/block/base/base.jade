@@ -14,9 +14,14 @@ mixin ava(mod, vars)
             span.ico-status(class=vars.icoStatus)
             img.ava_img(alt='', src='#{vars.src}')
     -else 
-        a.ava(class=mod, href='')
-            span.ico-status(class=vars.icoStatus)
-            img.ava_img(alt='', src='#{vars.src}')
+        - if (vars.avaNameTitle)
+            a.ava.powertip(class=mod, href='', title=vars.avaNameTitle)
+                span.ico-status(class=vars.icoStatus)
+                img.ava_img(alt='', src='#{vars.src}')
+        - else 
+            a.ava(class=mod, href='')
+                span.ico-status(class=vars.icoStatus)
+                img.ava_img(alt='', src='#{vars.src}')
 
 
 //- b-control

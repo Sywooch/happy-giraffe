@@ -17,11 +17,15 @@ block layout-wrapper
             // antispam
             .antispam
                 .page-col_top
-                    .page-col_t.clearfix
-                        a.page-col_t-a.active(href="") Записи 54
-                        a.page-col_t-a(href="") Комментарии 165
-                        a.page-col_t-a(href="") Фотографии 65
-                        a.page-col_t-a.disabled(href="") Сообщения 0
+                    ul.page-col_ul
+                        li.page-col_li.active
+                            a.page-col_ul-a(href="") Записи 54
+                        li.page-col_li
+                            a.page-col_ul-a(href="") Комментарии 165
+                        li.page-col_li
+                            a.page-col_ul-a(href="") Фотографии 65
+                        li.page-col_li.disabled
+                            a.page-col_ul-a(href="") Сообщения 65
 
                 // antispam_i
                 .antispam_i.clearfix
@@ -29,8 +33,8 @@ block layout-wrapper
                         +www-article_text()
                     .antispam_control
                         .margin-b5.clearfix
-                            a.ico-del.margin-r5
-                            +ava("ava__small", {src: 'http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg'})
+                            a.ico-del.margin-r5.powertip(title='Изменить решение')
+                            +ava("ava__small", avaVarsTitle)
                         .color-gray.font-sx Сегодня  23:15
                 // /antispam_i
 
@@ -55,8 +59,8 @@ block layout-wrapper
                         +www-article_photo()
                     .antispam_control
                         .margin-b5.clearfix
-                            a.ico-check.margin-r5
-                            +ava("ava__small", {src: 'http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg'})
+                            a.ico-check.margin-r5.powertip(title='Изменить решение')
+                            +ava("ava__small", avaVarsTitle)
                         .color-gray.font-sx Сегодня  23:15
                 // /antispam_i
     
@@ -66,8 +70,8 @@ block layout-wrapper
                         +www-article_photopost()
                     .antispam_control
                         .margin-b5.clearfix
-                            a.ico-check.margin-r5
-                            +ava("ava__small", {src: 'http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg'})
+                            a.ico-check.margin-r5.powertip(title='Изменить решение')
+                            +ava("ava__small", avaVarsTitle)
                         .color-gray.font-sx Сегодня  23:15
                 // /antispam_i
 

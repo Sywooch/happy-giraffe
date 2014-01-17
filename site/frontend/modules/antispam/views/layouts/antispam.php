@@ -21,16 +21,86 @@
             <div class="layout-wrapper_frame clearfix">
                 <!-- side-menu-->
                 <div class="side-menu side-menu__antispam">
-                    <div class="side-menu_hold">
-                        <div class="side-menu_t side-menu_t__moderator"></div>
-                        <a href="<?=$this->createUrl('list', array('status' => AntispamCheck::STATUS_UNDEFINED))?>" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__broadcast"></span><span class="side-menu_tx">Прямой эфир</span><span class="side-menu_count-sub"><?=$this->counts[0]?></span></span><span class="verticalalign-m-help"></span></a>
-                        <a href="<?=$this->createUrl('expert')?>" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__expert"></span><span class="side-menu_tx">Эксперт</span><span class="side-menu_count"><?=$this->counts[1]?></span></span><span class="verticalalign-m-help"></span></a>
-                        <a href="<?=$this->createUrl('list', array('status' => AntispamCheck::STATUS_BAD))?>" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__deleted"></span><span class="side-menu_tx">Удалено</span><span class="side-menu_count-sub"><?=$this->counts[2]?></span></span><span class="verticalalign-m-help"></span></a>
-                        <a href="<?=$this->createUrl('list', array('status' => AntispamCheck::STATUS_QUESTIONABLE))?>" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__question"></span><span class="side-menu_tx">Под вопросом</span><span class="side-menu_count-sub"><?=$this->counts[3]?></span></span><span class="verticalalign-m-help"></span></a>
-                        <a href="<?=$this->createUrl('usersList', array('status' => AntispamStatusManager::STATUS_WHITE))?>" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__ul-white"></span><span class="side-menu_tx">Белый список</span><span class="side-menu_count-sub"><?=$this->counts[4]?></span></span><span class="verticalalign-m-help"></span></a>
-                        <a href="<?=$this->createUrl('usersList', array('status' => AntispamStatusManager::STATUS_BLACK))?>" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__ul-black"></span><span class="side-menu_tx">Черный список</span><span class="side-menu_count-sub"><?=$this->counts[5]?></span></span><span class="verticalalign-m-help"></span></a>
-                        <a href="<?=$this->createUrl('usersList', array('status' => AntispamStatusManager::STATUS_BLOCKED))?>" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__ul-block"></span><span class="side-menu_tx">Блок</span><span class="side-menu_count-sub"><?=$this->counts[6]?></span></span><span class="verticalalign-m-help"></span></a>
-                    </div>
+                    <?php
+                    $this->widget('zii.widgets.CMenu', array(
+                        'htmlOptions' => array(
+                            'class' => 'side-menu_ul',
+                        ),
+                        'encodeLabel' => false,
+                        'items' => array(
+                            array(
+                                'url' => array('/antispam/default/list', 'status' => AntispamCheck::STATUS_UNDEFINED, 'entity' => AntispamCheck::ENTITY_POSTS),
+                                'itemOptions' => array('class' => 'side-menu_li'),
+                                'linkOptions' => array('class' => 'side-menu_i'),
+                                'label' => $this->renderPartial('_menu_item', array(
+                                    'label' => 'Прямой эфир',
+                                    'ico' => 'broadcast',
+                                    'count' => $this->counts[DefaultController::TAB_CHECKS_LIVE],
+                                ), true),
+                            ),
+                            array(
+                                'url' => array('/antispam/default/expert'),
+                                'itemOptions' => array('class' => 'side-menu_li'),
+                                'linkOptions' => array('class' => 'side-menu_i'),
+                                'label' => $this->renderPartial('_menu_item', array(
+                                    'label' => 'Эксперт',
+                                    'ico' => 'expert',
+                                    'count' => $this->counts[DefaultController::TAB_EXPERT],
+                                ), true),
+                            ),
+                            array(
+                                'url' => array('/antispam/default/list', 'status' => AntispamCheck::STATUS_BAD, 'entity' => AntispamCheck::ENTITY_POSTS),
+                                'itemOptions' => array('class' => 'side-menu_li'),
+                                'linkOptions' => array('class' => 'side-menu_i'),
+                                'label' => $this->renderPartial('_menu_item', array(
+                                    'label' => 'Удалено',
+                                    'ico' => 'deleted',
+                                    'count' => $this->counts[DefaultController::TAB_CHECKS_BAD],
+                                ), true),
+                            ),
+                            array(
+                                'url' => array('/antispam/default/list', 'status' => AntispamCheck::STATUS_QUESTIONABLE, 'entity' => AntispamCheck::ENTITY_POSTS),
+                                'itemOptions' => array('class' => 'side-menu_li'),
+                                'linkOptions' => array('class' => 'side-menu_i'),
+                                'label' => $this->renderPartial('_menu_item', array(
+                                    'label' => 'Под вопросом',
+                                    'ico' => 'question',
+                                    'count' => $this->counts[DefaultController::TAB_CHECKS_QUESTIONABLE],
+                                ), true),
+                            ),
+                            array(
+                                'url' => array('/antispam/default/usersList', 'status' => AntispamStatusManager::STATUS_WHITE),
+                                'itemOptions' => array('class' => 'side-menu_li'),
+                                'linkOptions' => array('class' => 'side-menu_i'),
+                                'label' => $this->renderPartial('_menu_item', array(
+                                    'label' => 'Белый список',
+                                    'ico' => 'ul-white',
+                                    'count' => $this->counts[DefaultController::TAB_USERS_WHITE],
+                                ), true),
+                            ),
+                            array(
+                                'url' => array('/antispam/default/usersList', 'status' => AntispamStatusManager::STATUS_BLACK),
+                                'itemOptions' => array('class' => 'side-menu_li'),
+                                'linkOptions' => array('class' => 'side-menu_i'),
+                                'label' => $this->renderPartial('_menu_item', array(
+                                    'label' => 'Черный список',
+                                    'ico' => 'ul-black',
+                                    'count' => $this->counts[DefaultController::TAB_USERS_BLACK],
+                                ), true),
+                            ),
+                            array(
+                                'url' => array('/antispam/default/usersList', 'status' => AntispamStatusManager::STATUS_BLOCKED),
+                                'itemOptions' => array('class' => 'side-menu_li'),
+                                'linkOptions' => array('class' => 'side-menu_i'),
+                                'label' => $this->renderPartial('_menu_item', array(
+                                    'label' => 'Блок',
+                                    'ico' => 'block',
+                                    'count' => $this->counts[DefaultController::TAB_USERS_BLOCKED],
+                                ), true),
+                            ),
+                        ),
+                    ));
+                    ?>
                 </div>
                 <!-- /side-menu-->
                 <?=$content?>

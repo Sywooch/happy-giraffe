@@ -52,8 +52,8 @@
                 'cssFile' => false,
             ));
             ?>
-            <?php if (false): ?>
             <!-- antispam_i-->
+            <?php if (false): ?>
             <div class="antispam_i clearfix">
                 <div class="antispam_cont">
                     <!-- paginator-->

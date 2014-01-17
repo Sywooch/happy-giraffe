@@ -31,7 +31,7 @@
     <!-- /ko -->
 </div>
 
-<script>
+<script type="text/javascript">
     $(function() {
         ko.applyBindings(new MarkWidget(<?=CJSON::encode($json)?>), document.getElementById('<?=$domId?>'));
     });

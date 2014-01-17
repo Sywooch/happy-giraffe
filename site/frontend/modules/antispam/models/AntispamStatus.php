@@ -51,8 +51,8 @@ class AntispamStatus extends HActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'user' => array(self::BELONGS_TO, 'Users', 'user_id'),
-			'moderator' => array(self::BELONGS_TO, 'Users', 'moderator_id'),
+			'user' => array(self::BELONGS_TO, 'User', 'user_id'),
+			'moderator' => array(self::BELONGS_TO, 'User', 'moderator_id'),
 		);
 	}
 
@@ -111,4 +111,39 @@ class AntispamStatus extends HActiveRecord
 	{
 		return parent::model($className);
 	}
+
+    public function status($status)
+    {
+        $this->getDbCriteria()->mergeWith(array(
+            'condition' => 'status = :status',
+            'params' => array(':status' => $status),
+        ));
+        return $this;
+    }
+
+    public static function getDp($status)
+    {
+        return new CActiveDataProvider(self::model()->status($status), array(
+            'criteria' => array(
+                'order' => 't.id DESC',
+                'with' => array('user', 'moderator'),
+            ),
+        ));
+    }
+
+    public function toJson()
+    {
+        return array(
+            'id' => $this->id,
+            'status' => (int) $this->status,
+            'updated' => HDate::GetFormattedTime($this->updated),
+            'moderator' => $this->moderator === null ? null : array(
+                'id' => $this->moderator->id,
+                'fullName' => $this->moderator->getFullName(),
+                'ava' => $this->moderator->getAvatarUrl(24),
+                'online' => (bool) $this->moderator->online,
+                'url' => $this->moderator->getUrl(),
+            ),
+        );
+    }
 }

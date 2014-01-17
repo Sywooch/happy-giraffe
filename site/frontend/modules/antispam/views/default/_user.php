@@ -14,11 +14,7 @@
             </div>
         </div>
         <!-- antispam-user-act-->
-
-        <div class="antispam-user_ava"> <a href="" class="ava ava__small ava__female"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"/></a>
-        </div>
-        <div class="antispam-user_date">
-            <div class="color-gray">Сегодня  23:15</div>
-        </div><a class="btn-red btn-m">Анализ</a>
+        <?php $this->widget('UserMarkWidget', array('status' => $data)); ?>
+        <a class="btn-red btn-m">Анализ</a>
     </div>
 </li>

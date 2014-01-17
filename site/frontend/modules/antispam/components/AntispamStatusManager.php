@@ -15,16 +15,17 @@ class AntispamStatusManager
     const STATUS_BLACK = 3;
     const STATUS_BLOCKED = 4;
 
-    public static function setUserStatus($user, $statusValue)
+    public static function setUserStatus($userId, $statusValue)
     {
-        $status = self::getUserStatusModel($user);
+        $status = self::getUserStatusModel($userId);
+
         if ($status === null) {
             $status = new AntispamStatus();
-            $status->user_id = $user->id;
+            $status->user_id = $userId;
         }
         $status->status = $statusValue;
         $status->moderator_id = Yii::app()->user->id;
-        return $status->save();
+        return $status->save() ? $status : false;
     }
 
     public static function getUserStatus($user)
@@ -33,8 +34,8 @@ class AntispamStatusManager
         return $status === null ? self::STATUS_UNDEFINED : $status->status;
     }
 
-    protected static function getUserStatusModel($user)
+    protected static function getUserStatusModel($userId)
     {
-        return AntispamStatus::model()->findByAttributes(array('user_id' => $user->id));
+        return AntispamStatus::model()->findByAttributes(array('user_id' => $userId));
     }
 }

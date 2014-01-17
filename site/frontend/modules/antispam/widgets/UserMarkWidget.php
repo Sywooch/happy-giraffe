@@ -32,6 +32,6 @@ class UserMarkWidget extends CWidget
 
     protected function getDomId()
     {
-        return md5($this->check->id . __CLASS__);
+        return md5($this->status->id . __CLASS__);
     }
 }

@@ -50,4 +50,10 @@ function Moderator(data)
     self.id = data.id;
     self.ava = data.ava;
     self.online = data.online;
+    self.fullName = data.fullName;
+    self.url = data.url;
+
+    self.iconClass = function() {
+        return self.online() ? ' ico-status__online' : ' ico-status__offline';
+    }
 }

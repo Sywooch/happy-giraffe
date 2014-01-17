@@ -52,7 +52,7 @@ class DefaultController extends HController
      */
     public function actionExpert()
     {
-
+        $this->render('expert');
     }
 
     /**
@@ -65,7 +65,7 @@ class DefaultController extends HController
      */
     public function actionUsersList($status)
     {
-
+        $this->render('usersList');
     }
 
     /**

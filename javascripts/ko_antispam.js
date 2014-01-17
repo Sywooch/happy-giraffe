@@ -43,6 +43,28 @@ function AntispamCheck(data, parent)
     });
 }
 
+function UserMarkWidget(data)
+{
+    var self = this;
+
+    self.statuses = data.statuses;
+    self.check = ko.observable();
+}
+
+function AntispamStatus(data, parent)
+{
+    var self = this;
+
+    self.id = data.id;
+    self.status = ko.observable(data.status);
+    self.updated = ko.observable(data.updated);
+    self.moderator = ko.observable(data.moderator === null ? null : new Moderator(data.moderator));
+
+    self.mark = function(newStatus) {
+        $.post('/antispam/userStatus/listUser/', {  })
+    }
+}
+
 function Moderator(data)
 {
     var self = this;

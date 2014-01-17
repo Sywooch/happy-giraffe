@@ -110,7 +110,7 @@ mixin cap-empty(mod, vars)
             .verticalalign-m-help
     // /cap-empty
 
-// Пейджинатор
+//- Пейджинатор
 mixin pagination(mod)
     // paginator
     .yiipagination(class=mod)
@@ -137,3 +137,18 @@ mixin pagination(mod)
               li.page
                 a(href='') 10
     // /paginator
+
+//- Пользователь имя с аватаром
+    mod
+    vars
+mixin b-user(mod,vars)
+    .b-user(class=mod)
+        .b-user_ava
+            +ava('ava__middle ava__female', avaVars)
+        .b-user_hold
+            .b-user_row
+                a.b-user_name Ангелина Богоявленская
+            - if (vars.signpost)
+                a.b-user_view 123
+                a.b-user_check 123
+                a.b-user_del 123

@@ -5,24 +5,17 @@ block layout-wrapper
     +side-menu__antispam("side-menu__antispam")
     .page-col
         .page-col_top.clearfix
-            .antispam-user
-                .float-r.margin-t15
-                    a.textdec-none(href="")
-                        .ico-check
-                        .a-pseudo.display-ib Все хорошо
-                .antispam-user_hold
-                    +b-user('b-user__w300',{signpost: true})
-                    +antispam-user-act('', {action: 'white'})
+            .page-col_update
+                a.textdec-none(href="")
+                    .ico-update
+                    .a-pseudo.verticalalign-el Обновить
+
+            a.page-col_t-a.active(href="") Записи 54
+            a.page-col_t-a(href="") Комментарии 165
+            a.page-col_t-a(href="") Фотографии 65
         .page-col_cont.page-col_cont__gray
             // antispam
             .antispam
-                .page-col_top
-                    .page-col_t.clearfix
-                        a.page-col_t-a.active(href="") Записи 54
-                        a.page-col_t-a(href="") Комментарии 165
-                        a.page-col_t-a(href="") Фотографии 65
-                        a.page-col_t-a.disabled(href="") Сообщения 0
-
                 // antispam_i
                 .antispam_i.clearfix
                     .antispam_cont
@@ -45,8 +38,11 @@ block layout-wrapper
                                 | Хорошо
                         .margin-b5.clearfix
                             a.btn-red.btn-m
-                                .ico-btn-del
-                                | Удалить
+                                .ico-btn-empty
+                                | Анализ
+                        .margin-b5.clearfix
+                            a.btn-gray-light.btn-s
+                                | Под ?
                 // /antispam_i
 
                 // antispam_i

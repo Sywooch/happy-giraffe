@@ -22,14 +22,21 @@
 // 2. TYPOGRAPHY            
 
 .font-size(@font-size: 16){
-@rem: (@font-size / 10);
-font-size : @font-size * 1px;
-font-size : ~"@{rem}rem"; }
+    @rem: (@font-size / 10);
+    font-size : @font-size * 1px;
+    font-size : ~"@{rem}rem";
+}
 
 .text-overflow() {
-overflow : hidden;
-text-overflow : ellipsis;
-white-space : nowrap; }
+    overflow : hidden;
+    text-overflow : ellipsis;
+    white-space : nowrap;
+}
+
+.text-dec_onhover() {
+    text-decoration: none;
+    &:hover {text-decoration: underline;}
+}
 
 // gradients
 
@@ -327,15 +334,11 @@ border : 0; }
 .img-retina(@file-1x; @file-2x; @width-1x; @height-1x) {
     background-image: url("@{file-1x}");
 
-    @media
-    only screen and (-webkit-min-device-pixel-ratio: 2),
-    only screen and (   min--moz-device-pixel-ratio: 2),
-    only screen and (     -o-min-device-pixel-ratio: 2/1),
-    only screen and (        min-device-pixel-ratio: 2),
-    only screen and (                min-resolution: 192dpi),
-    only screen and (                min-resolution: 2dppx) {
-        background-image: url("@{file-2x}");
-        background-size: @width-1x @height-1x;
+    @media 
+        only screen and (-webkit-min-device-pixel-ratio: 1.5),
+        only screen and (min-resolution: 144dpi) {
+            background-image: url("@{file-2x}");
+            background-size: @width-1x @height-1x;
     }
 }
 
@@ -374,4 +377,5 @@ column-gap : @colgap;
 column-rule-color : @columnRuleColor;
 column-rule-style : @columnRuleStyle;
 column-rule-width : @columnRuleWidth; }
+
 

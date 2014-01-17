@@ -72,11 +72,18 @@
     background: #fafafa;
     z-index: 1000;
 }
+.ico-update {
+    .inline-block();
+    vertical-align: middle;
+    width: 16px;
+    height: 16px;
+    background: url(/new/images/ico/ico-update.png) no-repeat;
+}
 .ico-check {
     .inline-block();
     width: 20px;
     height: 18px;
-    .img-retina('/new/images/ico/ico-check.png'; '/new/images/ico/ico-check-2x.png'; 20px; 18px);
+    .img-retina('/new/images/ico/ico-check.png'; '/new/images/ico/ico-check-2x.png'; 35px; 18px);
 }
 .ico-del {
     .inline-block();
@@ -86,8 +93,8 @@
 }
 .ico-question {
     .inline-block();
-    width: 18px;
-    height: 14px;
+    width: 14px;
+    height: 18px;
     .img-retina('/new/images/ico/ico-question.png'; '/new/images/ico/ico-question-2x.png'; 18px; 14px);
 }
 .ico-btn-check {
@@ -156,8 +163,18 @@
 }
 
 // Отдельные элементы
-.a-pseudo {text-decoration:none;border-bottom:1px dotted #2c95d6;}
-.a-pseudo:hover {text-decoration:none !important;border-bottom-color:transparent;}
+.a-pseudo {
+    text-decoration:none;
+    border-bottom: 1px dotted #2c95d6;
+    color: #2c95d6;
+    line-height: 1em;
+    margin: 0 3px;
+
+    &:hover {
+        text-decoration:none !important;
+        border-bottom-color:transparent;
+    }
+}
 
 
 .i-more {
@@ -196,7 +213,7 @@
         height: 57px;
     }
     &_t {
-        font-size: 14px;
+        font-size: 13px;
     }
     &_t-tx {
         .inline-block();
@@ -210,10 +227,18 @@
     }
     &_t-a.active,
     &_t-a:hover {color: #3b3b3b;}
+    &_t-a.disabled {color: #d8d7d7;}
     &_cont {}
     &_cont__gray {
         background: #f0f0f0;
         .border-bottom-radius(10px);
+    }
+
+    &_update {
+        float: right;
+        margin-top: 18px;
+
+        .a-pseudo {margin-top: 2px;}
     }
 }
 /* /page-col */
@@ -667,6 +692,58 @@
 }
 /* /friend-offer */
 
+/*  
+    Блок пользователя с автаркой и именем
+    b-user
+        b-user_ava
+            <ava>
+        b-user_hold
+            b-user_name
+            b-user_view
+            b-user_check
+            b-user_del
+*/
+.b-user {
+    .inline-block();
+
+    &__w300 {width: 300px;}
+    
+    &_ava {
+        .inline-block();
+        vertical-align: top;
+        margin-right: 10px;
+    }
+    &_hold {
+        .inline-block();
+        vertical-align: top;
+    }
+    &_row {margin-bottom: 3px;}
+    &_name {
+        color: #289fd7;
+        .text-dec_onhover;
+        display: block;
+    }
+    
+    // in antispam
+    &_del,
+    &_check,
+    &_view {
+        margin-right: 17px;
+        padding-left: 20px;
+        background: url(/new/images/b-user_view.png) no-repeat;
+        background-position: 0 50%;
+        .font-s;
+    }
+    &_check {
+        padding-left: 17px;
+        background-image: url(/new/images/b-user_check.png);
+    }
+    &_del {
+        padding-left: 17px;
+        background-image: url(/new/images/b-user_del.png);
+    }
+    // /in antispam
+}
 
 /* 
     Скрытый input загрузки файлов

@@ -17,7 +17,8 @@ class AntispamBehavior extends CActiveRecordBehavior
 
     public function afterSave($event)
     {
-        if ($this->owner->isNewRecord && AntispamStatusManager::getUserStatus($this->owner->author) == AntispamStatusManager::STATUS_UNDEFINED) {
+        if ($this->owner->isNewRecord && AntispamStatusManager::getUserStatus($this->owner->author) != AntispamStatusManager::STATUS_WHITE) {
+
             $check = new AntispamCheck();
             $check->entity = get_class($this->owner);
             $check->entity_id = $this->owner->id;

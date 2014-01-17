@@ -38,6 +38,11 @@ class DefaultController extends HController
      */
     public function actionList($status, $entity = AntispamCheck::ENTITY_POSTS)
     {
+        $counts = array(
+            AntispamCheck::ENTITY_POSTS => AntispamCheck::model()->entity(AntispamCheck::ENTITY_POSTS)->count(),
+            AntispamCheck::ENTITY_COMMENTS => AntispamCheck::model()->entity(AntispamCheck::ENTITY_COMMENTS)->count(),
+            AntispamCheck::ENTITY_PHOTOS => AntispamCheck::model()->entity(AntispamCheck::ENTITY_PHOTOS)->count(),
+        );
         $dp = AntispamCheck::getDp($entity, $status);
         $this->render('list', compact('dp'));
     }

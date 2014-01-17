@@ -23,24 +23,13 @@
                 <div class="side-menu side-menu__antispam">
                     <div class="side-menu_hold">
                         <div class="side-menu_t side-menu_t__moderator"></div>
-                        <a href="<?=$this->createUrl('live')?>" class="side-menu_i side-menu_i__find">
-                            <span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__broadcast"></span><span class="side-menu_tx">Прямой эфир</span></span>
-                            <span class="verticalalign-m-help"></span><span class="side-menu_count-sub"><?=$this->counters[0]?></span>
-                        </a>
-                        <a href="" class="side-menu_i">
-                            <span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__expert"></span><span class="side-menu_tx">Эксперт</span><span class="side-menu_count"><?=$this->counters[1]?></span></span>
-                            <span class="verticalalign-m-help"></span>
-                        </a>
-                        <a href="" class="side-menu_i active">
-                            <span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__deleted"></span><span class="side-menu_tx">Удалено</span></span>
-                            <span class="verticalalign-m-help"></span><span class="side-menu_count-sub"><?=$this->counters[2]?></span>
-                        </a>
-                        <a href="" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__ul-white"></span><span class="side-menu_tx">Белый список</span><span class="≈"><?=$this->counters[3]?></span></span>
-                            <span class="verticalalign-m-help"></span>
-                        </a>
-                        <a href="" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__question"></span><span class="side-menu_tx">Под вопросом</span><span class="side-menu_count-sub"><?=$this->counters[4]?></span></span><span class="verticalalign-m-help"></span></a>
-                        <a href="" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__ul-black"></span><span class="side-menu_tx">Черный список</span></span><span class="verticalalign-m-help"></span><span class="side-menu_count-sub"><?=$this->counters[5]?></span></a>
-                        <a href="" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__ul-block"></span><span class="side-menu_tx">Блок</span></span><span class="verticalalign-m-help"></span><span class="side-menu_count-sub"><?=$this->counters[6]?></span></a>
+                        <a href="<?=$this->createUrl('list', array('status' => AntispamCheck::STATUS_UNDEFINED))?>" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__broadcast"></span><span class="side-menu_tx">Прямой эфир</span><span class="side-menu_count-sub"><?=$this->counts[0]?></span></span><span class="verticalalign-m-help"></span></a>
+                        <a href="<?=$this->createUrl('expert')?>" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__expert"></span><span class="side-menu_tx">Эксперт</span><span class="side-menu_count"><?=$this->counts[1]?></span></span><span class="verticalalign-m-help"></span></a>
+                        <a href="<?=$this->createUrl('list', array('status' => AntispamCheck::STATUS_BAD))?>" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__deleted"></span><span class="side-menu_tx">Удалено</span><span class="side-menu_count-sub"><?=$this->counts[2]?></span></span><span class="verticalalign-m-help"></span></a>
+                        <a href="<?=$this->createUrl('list', array('status' => AntispamCheck::STATUS_QUESTIONABLE))?>" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__question"></span><span class="side-menu_tx">Под вопросом</span><span class="side-menu_count-sub"><?=$this->counts[3]?></span></span><span class="verticalalign-m-help"></span></a>
+                        <a href="<?=$this->createUrl('usersList', array('status' => AntispamStatusManager::STATUS_WHITE))?>" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__ul-white"></span><span class="side-menu_tx">Белый список</span><span class="side-menu_count-sub"><?=$this->counts[4]?></span></span><span class="verticalalign-m-help"></span></a>
+                        <a href="<?=$this->createUrl('usersList', array('status' => AntispamStatusManager::STATUS_BLACK))?>" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__ul-black"></span><span class="side-menu_tx">Черный список</span><span class="side-menu_count-sub"><?=$this->counts[5]?></span></span><span class="verticalalign-m-help"></span></a>
+                        <a href="<?=$this->createUrl('usersList', array('status' => AntispamStatusManager::STATUS_BLOCKED))?>" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__ul-block"></span><span class="side-menu_tx">Блок</span><span class="side-menu_count-sub"><?=$this->counts[6]?></span></span><span class="verticalalign-m-help"></span></a>
                     </div>
                 </div>
                 <!-- /side-menu-->

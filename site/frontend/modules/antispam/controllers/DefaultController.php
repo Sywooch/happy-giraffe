@@ -2,43 +2,65 @@
 
 class DefaultController extends HController
 {
+    const TAB_CHECKS_LIVE = 0;
+    const TAB_EXPERT = 1;
+    const TAB_CHECKS_BAD = 2;
+    const TAB_CHECKS_QUESTIONABLE = 3;
+    const TAB_USERS_WHITE = 4;
+    const TAB_USERS_BLACK = 5;
+    const TAB_USERS_BLOCKED = 6;
+
     public $layout = 'antispam';
-    public $counters = array();
+    public $counts = array();
+    public $activeTab = null;
 
     public function init()
     {
-        $this->counters = array(
-            AntispamCheck::model()->status(AntispamCheck::STATUS_UNDEFINED)->count(),
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
+        $this->counts = array(
+            self::TAB_CHECKS_LIVE => AntispamCheck::model()->status(AntispamCheck::STATUS_UNDEFINED)->count(),
+            self::TAB_EXPERT => 0,
+            self::TAB_CHECKS_BAD => AntispamCheck::model()->status(AntispamCheck::STATUS_BAD)->count(),
+            self::TAB_CHECKS_QUESTIONABLE => AntispamCheck::model()->status(AntispamCheck::STATUS_QUESTIONABLE)->count(),
+            self::TAB_USERS_WHITE => 0,
+            self::TAB_USERS_BLACK => 0,
+            self::TAB_USERS_BLOCKED => 0,
         );
     }
 
     /**
-     * Прямой эфир
+     * Списки карточек:
+     * -прямой эфир;
+     * -удаленные;
+     * -под вопросом.
      *
+     * @param $status
      * @param $entity
      */
-    public function actionLive($entity = AntispamCheck::ENTITY_POSTS)
+    public function actionList($status, $entity = AntispamCheck::ENTITY_POSTS)
     {
-        $dp = AntispamCheck::getDp($entity, AntispamCheck::STATUS_UNDEFINED);
+        $dp = AntispamCheck::getDp($entity, $status);
         $this->render('list', compact('dp'));
     }
 
-    public function actionDeleted($entity = AntispamCheck::ENTITY_POSTS)
+    /**
+     * Экспертная система
+     */
+    public function actionExpert()
     {
-        $dp = AntispamCheck::getDp($entity, AntispamCheck::STATUS_BAD);
-        $this->render('list', compact('dp'));
+
     }
 
-    public function actionQuestionable($entity = AntispamCheck::ENTITY_POSTS)
+    /**
+     * Списки пользователей:
+     * -белый;
+     * -черный;
+     * -заблокированные.
+     *
+     * @param $status
+     */
+    public function actionUsersList($status)
     {
-        $dp = AntispamCheck::getDp($entity, AntispamCheck::STATUS_QUESTIONABLE);
-        $this->render('list', compact('dp'));
+
     }
 
     /**

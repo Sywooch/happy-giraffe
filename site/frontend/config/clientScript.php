@@ -31,6 +31,7 @@ return array(
             'js' => array(
                 'javascripts/knockout-2.2.1.js',
                 'javascripts/ko_library.js',
+                'javascripts/knockout.mapping-latest.js',
             ),
             'depends' => array(
                 'jquery',

@@ -9,10 +9,16 @@
 
 class UserStatusController extends HController
 {
+    /**
+     * @todo Убрать костыль с refresh
+     */
     public function actionListUser()
     {
         $userId = Yii::app()->request->getPost('userId');
-        $newStatus = Yii::app()->request->getPost('newStatus');
-        AntispamStatusManager::setUserStatus($userId, $newStatus);
+        $status = Yii::app()->request->getPost('status');
+        $status = AntispamStatusManager::setUserStatus($userId, $status);
+        $success = $status !== false;
+        $status->refresh();
+        echo CJSON::encode(array('success' => $success, 'status' => $status->toJson()));
     }
 }

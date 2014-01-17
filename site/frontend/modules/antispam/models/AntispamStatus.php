@@ -112,6 +112,18 @@ class AntispamStatus extends HActiveRecord
 		return parent::model($className);
 	}
 
+    public function behaviors()
+    {
+        return array(
+            'CTimestampBehavior' => array(
+                'class' => 'zii.behaviors.CTimestampBehavior',
+                'createAttribute' => 'created',
+                'updateAttribute' => 'updated',
+                'setUpdateOnCreate' => true,
+            ),
+        );
+    }
+
     public function status($status)
     {
         $this->getDbCriteria()->mergeWith(array(
@@ -135,6 +147,7 @@ class AntispamStatus extends HActiveRecord
     {
         return array(
             'id' => $this->id,
+            'user_id' => $this->user_id,
             'status' => (int) $this->status,
             'updated' => HDate::GetFormattedTime($this->updated),
             'moderator' => $this->moderator === null ? null : array(

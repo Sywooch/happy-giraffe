@@ -9,29 +9,10 @@
 
 class UserStatusController extends HController
 {
-    public function actionToWhiteList()
-    {
-        $this->changeStatus(AntispamStatusManager::STATUS_WHITE);
-    }
-
-    public function actionToBlackList()
-    {
-        $this->changeStatus(AntispamStatusManager::STATUS_BLACK);
-    }
-
-    public function actionToBlockedList()
-    {
-        $this->changeStatus(AntispamStatusManager::STATUS_BLOCKED);
-    }
-
-    public function actionToGrayList()
-    {
-        $this->changeStatus(AntispamStatusManager::STATUS_BLOCKED);
-    }
-
-    protected function chageUserStatus($newStatus)
+    public function actionListUser()
     {
         $userId = Yii::app()->request->getPost('userId');
+        $newStatus = Yii::app()->request->getPost('newStatus');
         AntispamStatusManager::setUserStatus($userId, $newStatus);
     }
 }

@@ -12,7 +12,6 @@ class DefaultController extends HController
 
     public $layout = 'antispam';
     public $counts = array();
-    public $activeTab = null;
 
     public function init()
     {

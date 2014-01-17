@@ -22,6 +22,7 @@ class CheckController extends HController
 
     /**
      * Кнопка "Хорошо"
+     * @todo Убрать костыль с refresh
      */
     public function actionMark()
     {
@@ -29,6 +30,7 @@ class CheckController extends HController
         $status = Yii::app()->request->getPost('status');
         $check = AntispamCheck::model()->findByPk($checkId);
         $success = $check->changeStatus($status);
+        $check->refresh();
         echo CJSON::encode(array('success' => $success, 'check' => $check->toJson()));
     }
 }

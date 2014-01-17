@@ -20,7 +20,18 @@ class MarkWidget extends CWidget
             'PENDING' => AntispamCheck::STATUS_PENDING,
             'QUESTIONABLE' => AntispamCheck::STATUS_QUESTIONABLE,
         );
+        $domId = $this->getDomId();
 
-        $this->render('MarkWidget', compact('statuses'));
+        $json = array(
+            'statuses' => $statuses,
+            'check' => $this->check->toJson(),
+        );
+
+        $this->render('MarkWidget', compact('json', 'domId'));
+    }
+
+    protected function getDomId()
+    {
+        return md5($this->check->id . __CLASS__);
     }
 }

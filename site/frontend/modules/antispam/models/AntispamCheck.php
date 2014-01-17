@@ -230,4 +230,18 @@ class AntispamCheck extends HActiveRecord
             } elseif ($models == $this->entity)
                 return $entity;
     }
+
+    public function toJson()
+    {
+        return array(
+            'id' => $this->id,
+            'status' => $this->status,
+            'updated' => $this->updated,
+            'moderator' => $this->moderator === null ? null : array(
+                'id' => $this->moderator->id,
+                'ava' => $this->moderator->getAvatarUrl(24),
+                'online' => (bool) $this->moderator->online,
+            ),
+        );
+    }
 }

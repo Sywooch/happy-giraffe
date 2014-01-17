@@ -158,5 +158,12 @@ return array(
             ),
             'depends' => array('knockout'),
         ),
+        'ko_antispam' => array(
+            'baseUrl' => '/',
+            'js' => array(
+                'javascripts/ko_antispam.js',
+            ),
+            'depends' => array('knockout'),
+        ),
     )
 );

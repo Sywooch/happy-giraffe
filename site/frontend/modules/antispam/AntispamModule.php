@@ -11,6 +11,7 @@ class AntispamModule extends CWebModule
 		$this->setImport(array(
 			'antispam.models.*',
 			'antispam.components.*',
+            'antispam.widgets.*',
 		));
 	}
 

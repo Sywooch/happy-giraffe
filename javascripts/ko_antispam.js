@@ -48,7 +48,7 @@ function UserMarkWidget(data)
     var self = this;
 
     self.statuses = data.statuses;
-    self.check = ko.observable();
+    self.status = ko.observable(new AntispamStatus(data.status, self));
 }
 
 function AntispamStatus(data, parent)
@@ -56,12 +56,23 @@ function AntispamStatus(data, parent)
     var self = this;
 
     self.id = data.id;
+    self.user_id = data.user_id;
     self.status = ko.observable(data.status);
     self.updated = ko.observable(data.updated);
     self.moderator = ko.observable(data.moderator === null ? null : new Moderator(data.moderator));
 
+    self.handle = function(newStatus) {
+        if (self.status() == newStatus)
+            self.mark(parent.statuses.GRAY);
+        else
+            self.mark(newStatus);
+    }
+
     self.mark = function(newStatus) {
-        $.post('/antispam/userStatus/listUser/', {  })
+        $.post('/antispam/userStatus/listUser/', { userId : self.user_id, status : newStatus }, function(response) {
+            if (response.success)
+                parent.status(new AntispamStatus(response.status, parent));
+        }, 'json');
     }
 }
 

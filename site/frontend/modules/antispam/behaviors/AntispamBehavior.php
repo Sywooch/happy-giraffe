@@ -17,7 +17,7 @@ class AntispamBehavior extends CActiveRecordBehavior
 
     public function afterSave($event)
     {
-        if ($this->owner->isNewRecord && AntispamStatusManager::getUserStatus($this->owner->author) != AntispamStatusManager::STATUS_WHITE) {
+        if ($this->owner->isNewRecord && AntispamStatusManager::getUserStatus($this->owner->author->id) != AntispamStatusManager::STATUS_WHITE) {
 
             $check = new AntispamCheck();
             $check->entity = get_class($this->owner);
@@ -30,11 +30,25 @@ class AntispamBehavior extends CActiveRecordBehavior
     public function beforeSave($event)
     {
         if ($this->owner->isNewRecord && ! $this->alreadyReported() && $this->limitExceed()) {
+            $models = $this->owner->findAll(array(
+                'order' => 'id DESC',
+                'limit' => $this->maxCount,
+            ));
+
             $report = new AntispamReportLimit();
             $report->user_id = $this->owner->author_id;
             $report->type = AntispamReport::TYPE_LIMIT;
             $reportData = new AntispamReportLimitData();
             $reportData->entity = get_class($this->owner);
+            $reportData->interval = $this->interval;
+            $reportData->maxCount = $this->maxCount;
+            $reportData->actualInterval = strtotime($models[0]->created) - strtotime($models[$this->maxCount - 1]->created);
+            $reportData->ids = CJSON::encode(array_map(function($model) {
+                return $model->id;
+            }, $models));
+
+
+
             $report->data = $reportData;
             $report->withRelated->save(true, array('data'));
         }

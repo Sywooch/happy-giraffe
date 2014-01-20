@@ -17,7 +17,7 @@ class DefaultController extends HController
     {
         $this->counts = array(
             self::TAB_CHECKS_LIVE => AntispamCheck::model()->status(AntispamCheck::STATUS_UNDEFINED)->count(),
-            self::TAB_EXPERT => 0,
+            self::TAB_EXPERT => AntispamReport::model()->status(AntispamReport::STATUS_PENDING)->count(),
             self::TAB_CHECKS_BAD => AntispamCheck::model()->status(AntispamCheck::STATUS_BAD)->count(),
             self::TAB_CHECKS_QUESTIONABLE => AntispamCheck::model()->status(AntispamCheck::STATUS_QUESTIONABLE)->count(),
             self::TAB_USERS_WHITE => AntispamStatus::model()->status(AntispamStatusManager::STATUS_WHITE)->count(),

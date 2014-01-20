@@ -18,8 +18,8 @@
         <div class="antispam-user_date"><?=HDate::GetFormattedTime($data->created)?></div>
         <div class="antispam-user_post-ico antispam-user_post-ico__<?=$data->data->getIconClass()?>"></div>
         <div class="antispam-user_count">
-            <div class="antispam-user_count-big">35 за 05:32</div>
-            <div class="antispam-user_count-s">10 за 05:00</div>
+            <div class="antispam-user_count-big"><?=$data->data->maxCount?> за <?=sprintf('%02d:%02d:%02d', ($data->data->actualInterval/3600),($data->data->actualInterval/60%60), $data->data->actualInterval%60)?></div>
+            <div class="antispam-user_count-s"><?=$data->data->maxCount?> за <?=sprintf('%02d:%02d:%02d', ($data->data->interval/3600),($data->data->interval/60%60), $data->data->interval%60)?></div>
         </div>
         <div class="verticalalign-el">
             <div class="margin-b5"><a class="btn-green btn-m" onclick="markReport(<?=$data->id?>, $(this).parents('.antispam-user_li'))">

@@ -16,7 +16,7 @@ class CheckController extends HController
     {
         $entity = Yii::app()->request->getPost('entity');
         $userId = Yii::app()->request->getPost('userId');
-        $success = AntispamCheck::changeStatusAll($entity, $userId, AntispamCheck::STATUS_UNDEFINED, AntispamCheck::STATUS_GOOD);
+        $success = AntispamCheck::changeStatusAll($userId, AntispamCheck::STATUS_UNDEFINED, AntispamCheck::STATUS_GOOD, $entity);
         echo CJSON::encode(array('success' => $success));
     }
 

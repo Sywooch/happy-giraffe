@@ -54,6 +54,6 @@ class AntispamBehavior extends CActiveRecordBehavior
     public function attach($owner) {
         parent::attach($owner);
         $validators = $owner->getValidatorList();
-        $validators->add(CValidator::createValidator('SpamStatusValidator', $owner, 'author_id', array()));
+        $validators->add(CValidator::createValidator('SpamStatusValidator', $owner, 'author_id'));
     }
 }

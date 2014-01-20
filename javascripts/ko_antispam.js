@@ -1,3 +1,11 @@
+function markGoodAll(entity, userId)
+{
+    $.post('/antispam/check/markGoodAll/', { entity : entity, userId : userId }, function(response) {
+        if (response.success)
+            document.location.reload();
+    }, 'json');
+}
+
 function MarkWidget(data)
 {
     var self = this;

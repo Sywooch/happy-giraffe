@@ -18,7 +18,7 @@
         <!-- /ko -->
         <!-- ko if: isMarked -->
             <div class="margin-b5 clearfix">
-                <a title="Изменить решение" class="margin-r5 powertip" data-bind="css: iconClass, click: function() {mark(<?=AntispamCheck::STATUS_UNDEFINED?>)}"></a>
+                <a title="Изменить решение" class="margin-r5 powertip" data-bind="css: iconClass(), click: function() {mark(<?=AntispamCheck::STATUS_UNDEFINED?>)}"></a>
                 <!-- ko with: moderator() -->
                 <a class="ava powertip ava__small" data-bind="attr: { title : fullName, href : url }">
                     <span class="ico-status" data-bind="css: iconClass"></span>

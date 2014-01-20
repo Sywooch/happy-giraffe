@@ -9,7 +9,7 @@
     <div class="antispam-user_hold">
         <?php $this->widget('UserInfoWidget', array('user' => $data->user)); ?>
         <!-- antispam-user-act-->
-        <?php $this->widget('UserMarkWidget', array('status' => $data)); ?>
+        <?php $this->widget('UserMarkWidget', array('status' => $data, 'extended' => true)); ?>
         <a class="btn-red btn-m" href="<?=$this->createUrl('/antispam/default/analysis', array('userId' => $data->user_id))?>">Анализ</a>
     </div>
 </li>

@@ -153,13 +153,13 @@ class AntispamCheck extends HActiveRecord
 
     public function entity($entity)
     {
-        $entity = $this->entityToModels[$entity];
+        $models = $this->entityToModels[$entity];
 
         $criteria = new CDbCriteria();
-        if (is_array($entity))
-            $criteria->addInCondition('entity', $entity);
+        if (is_array($models))
+            $criteria->addInCondition('entity', $models);
         else
-            $criteria->compare('entity', $entity);
+            $criteria->compare('entity', $models);
 
         $this->getDbCriteria()->mergeWith($criteria);
         return $this;
@@ -185,7 +185,7 @@ class AntispamCheck extends HActiveRecord
 
     public static function getDp($entity, $status = null, $userId = null)
     {
-        $model = self::model()->entity($entity)->with('relatedModel');
+        $model = self::model()->entity($entity);
         if ($status !== null)
             $model->status($status);
         if ($userId !== null)

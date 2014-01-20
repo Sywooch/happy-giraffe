@@ -10,6 +10,7 @@
 class UserMarkWidget extends CWidget
 {
     public $status;
+    public $extended;
 
     public function run()
     {

@@ -33,7 +33,7 @@ function AntispamCheck(data, parent)
                 cssClass = 'check';
                 break;
             case parent.statuses.BAD:
-                cssClass = 'delete';
+                cssClass = 'del';
                 break;
             case parent.statuses.QUESTIONABLE:
                 cssClass = 'question';

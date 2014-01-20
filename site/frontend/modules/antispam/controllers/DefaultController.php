@@ -83,7 +83,6 @@ class DefaultController extends HController
         );
         $user = User::model()->with('spamStatus')->findByPk($userId);
         $dp = AntispamCheck::getDp($entity, null, $userId);
-        $dp->getData();
         $this->render('analysis', compact('user', 'dp', 'counts', 'entity'));
     }
 }

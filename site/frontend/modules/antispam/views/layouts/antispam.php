@@ -50,6 +50,7 @@ Yii::app()->clientScript->registerPackage('ko_antispam');
                                     'label' => 'Эксперт',
                                     'ico' => 'expert',
                                     'count' => $this->counts[DefaultController::TAB_EXPERT],
+                                    'sub' => false,
                                 ), true),
                             ),
                             array(

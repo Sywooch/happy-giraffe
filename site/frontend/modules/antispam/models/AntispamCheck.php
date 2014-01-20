@@ -190,11 +190,12 @@ class AntispamCheck extends HActiveRecord
             $model->status($status);
         if ($userId !== null)
             $model->user($userId);
+        $model->getDbCriteria()->mergeWith(array(
+            'order' => 't.id DESC',
+        ));
 
-        return new CActiveDataProvider($model, array(
-            'criteria' => array(
-                'order' => 't.id DESC',
-            ),
+        return new CActiveDataProvider(__CLASS__, array(
+            'criteria' => $model->getDbCriteria(),
         ));
     }
 

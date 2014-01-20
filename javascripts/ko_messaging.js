@@ -145,7 +145,7 @@ MessagingMessage.prototype = {
 				ko.utils.arrayForEach(self.objects, function(obj) {
 					if (obj.id == result.message.id) {
 						// само сообщение прочитано
-						obj.dtimeRead(result.message.read);
+						obj.dtimeRead(result.message.dtimeRead);
 						// уменьшим счётчик у контакта
 						if(!obj.isMy)
 							obj.thread.user.countNew();
@@ -247,14 +247,14 @@ function MessagingMessage(model, thread) {
 	};
 	
 	self.markAsReaded = function() {
-		self.dtimeRead(1);
+		$.post('/messaging/messages/readed/', {messageId: self.id});
 	}
 	
 	self.show = function() {
 		if(!self.dtimeRead() && !timer && self.to.id == Messaging.prototype.currentThread().me.id) {
 			timer = setTimeout(function() {
 				self.markAsReaded();
-			}, 3000);
+			}, 2000);
 		}
 	};
 	self.hide = function() {
@@ -296,7 +296,7 @@ MessagingThread.prototype = {
 						// Обновим дату контакта и счётчик
 						obj.user.date(message.created);
 						if(!message.isMy)
-							obj.user.countNew(obj.countNew + 1);
+							obj.user.countNew(obj.user.countNew + 1);
 					}
 				});
 			};
@@ -566,7 +566,7 @@ function Messaging(model) {
 			return user.isOnline();
 		},
 		function(user) {
-			return user.isFriend();// && user.isOnline();
+			return user.isFriend() && user.isOnline();
 		},
 		function(user) {
 			// тут поиск

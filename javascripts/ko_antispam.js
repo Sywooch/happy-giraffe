@@ -1,3 +1,11 @@
+function markReport(reportId, element)
+{
+    $.post('/antispam/report/mark/', { reportId : reportId }, function(response) {
+        if (response.success)
+            element.hide();
+    }, 'json');
+}
+
 function markGoodAll(entity, userId)
 {
     $.post('/antispam/check/markGoodAll/', { entity : entity, userId : userId }, function(response) {

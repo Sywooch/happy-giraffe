@@ -5,12 +5,18 @@
 */
 .antispam {
     min-height: 770px;
+    .clearfix;
 
     .comments-gray {min-height: 85px;}
     .page-col_top {
         background: none;
         border-bottom: none;
         height: auto;
+    }
+    .btn-m {
+        padding: 0 5px;
+        width: 72px;
+        font-size: 12px;
     }
     &_i {}
     &_cont {
@@ -31,11 +37,6 @@
     &_control .btn-gray-light {
         padding: 4px 5px 5px;
         width: 72px;
-    }
-    &_control .btn-m {
-        padding: 0 5px;
-        width: 72px;
-        font-size: 12px;
     }
 }
 
@@ -68,6 +69,7 @@
 }
 
 .antispam-user {
+    &__expert &_hold {height: 95px;}
     
     &_ul {}
     &_li {
@@ -79,7 +81,7 @@
     &_hold {
         display: table-cell;
         vertical-align: middle;
-        height: 57px;
+        height: 80px;
     }
     &_hold .antispam-user-act,
     &_hold .b-user {vertical-align: middle;}
@@ -94,5 +96,32 @@
         width: 95px;
         margin-right: 5px;
         .font-s;
+    }
+    &_post-ico {
+        .inline-block();
+        vertical-align: middle;
+        width: 50px;
+        height: 50px;
+        margin: 0 30px 0 10px;
+        background: url(/new/images/antispam-user_post-ico.png) no-repeat;
+        &__msg   {background-position: 0 0;}
+        &__photo {background-position: -50px 0;}
+        &__blog  {background-position: -100px 0;}
+        &__new   {background-position: -150px 0;}
+    }
+    &_count {
+        .inline-block();
+        vertical-align: middle;
+        width: 250px;
+    }
+    &_count-big {
+        margin-bottom: 3px;
+        font-size: 18px;
+        color: #3b3b3b;
+    }
+    &_count-s {
+        padding-left: 35px;
+        .font-s;
+        .color-gray;
     }
 }

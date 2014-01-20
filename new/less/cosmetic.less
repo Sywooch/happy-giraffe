@@ -162,12 +162,14 @@
 	.bordered(#E5E4E4);
 }
 
-.clearfix:before,
-.clearfix:after {
-    content: " "; /* 1 */
-    display: table; /* 2 */
+.clearfix {
+	&:before,
+	&:after {
+	    content: " "; /* 1 */
+	    display: table; /* 2 */
+	}
+	&:after {clear: both;}
 }
-.clearfix:after {clear: both;}
 
 .disabled {cursor:default !important;}
 /* /cosmetic layout */

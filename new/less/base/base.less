@@ -1,10 +1,10 @@
 .body {
     min-width: 960px;
-    background:#ad9dd2;
+    background:#af9bd2;
     word-wrap: break-word;
     
     &__im,
-    &__snow {background:#ad9dd2 url(/new/images/body.png) repeat-y 50% 50%;}
+    &__snow {background:#af9bd2 url(/new/images/body.png) repeat-y 50% 50%;}
 }
 
 .layout-container {
@@ -207,6 +207,7 @@
     border-radius: 10px;
     border-top-left-radius:0;
 
+    .antispam-user_hold {height: 57px;}
     &_top {
         border-bottom: 1px solid #ededed;
         padding: 0 30px;
@@ -717,6 +718,11 @@
 */
 .b-user {
     .inline-block();
+
+    &__va-m {
+        .b-user_hold,
+        .b-user_ava {vertical-align: middle;}
+    }
 
     &__w300 {width: 300px;}
     

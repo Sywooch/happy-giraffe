@@ -12,23 +12,20 @@ block layout-wrapper
             .antispam
                 .antispam-user
                     ul.antispam-user_ul
-                        - for (var i = 0; i < 9; i++) {
+                        // Количество участников на одной странице определяет программист
+                        - for (var i = 0; i < 10; i++) {
                             li.antispam-user_li
                                 .antispam-user_hold
                                     +b-user('b-user__w300',{signpost: true})
                                     +antispam-user-act('', {action: 'white'})
                                     .antispam-user_ava 
-                                        +ava('ava__small ava__female', avaVars)
+                                        +ava('ava__small ava__female', avaVarsTitle)
                                     .antispam-user_date
                                         .color-gray Сегодня  23:15
                                     a.btn-red.btn-m Анализ
                         - }
 
-                // antispam_i
-                .antispam_i.clearfix
-                    .antispam_cont
-                        +pagination('margin-l100')
-                    .antispam_control
+                    +pagination()
                     
             // /antispam
 

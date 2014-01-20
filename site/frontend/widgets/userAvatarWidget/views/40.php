@@ -2,9 +2,9 @@
 /**
  * @var $this Avatar
  */
-?><a href="<?=$this->user->getUrl() ?>" class="ava middle <?=($this->user->gender == 0)?'female':'male' ?>">
+?><a href="<?=$this->user->getUrl() ?>" class="ava ava__middle ava__<?=($this->user->gender == 0)?'female':'male' ?>">
     <?php if ($this->user->online):?>
-        <span class="icon-status status-online"></span>
+        <span class="ico-status ico-status__online"></span>
     <?php endif ?>
-    <?=CHtml::image($this->user->getAvatarUrl(40)) ?>
+    <?=CHtml::image($this->user->getAvatarUrl(40), '', array('class' => 'ava_img')) ?>
 </a>

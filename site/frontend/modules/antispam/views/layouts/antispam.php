@@ -31,7 +31,7 @@ Yii::app()->clientScript->registerPackage('ko_antispam');
                         'encodeLabel' => false,
                         'items' => array(
                             array(
-                                'url' => array('/antispam/default/list', 'status' => AntispamCheck::STATUS_UNDEFINED, 'entity' => AntispamCheck::ENTITY_POSTS),
+                                'url' => array('/antispam/default/list', 'status' => AntispamCheck::STATUS_UNDEFINED),
                                 'itemOptions' => array('class' => 'side-menu_li' . ($this->counts[DefaultController::TAB_CHECKS_LIVE] > 0 ? '' : ' disabled')),
                                 'linkOptions' => array('class' => 'side-menu_i'),
                                 'label' => $this->renderPartial('_menu_item', array(
@@ -51,7 +51,7 @@ Yii::app()->clientScript->registerPackage('ko_antispam');
                                 ), true),
                             ),
                             array(
-                                'url' => array('/antispam/default/list', 'status' => AntispamCheck::STATUS_BAD, 'entity' => AntispamCheck::ENTITY_POSTS),
+                                'url' => array('/antispam/default/list', 'status' => AntispamCheck::STATUS_BAD),
                                 'itemOptions' => array('class' => 'side-menu_li' . ($this->counts[DefaultController::TAB_CHECKS_BAD] > 0 ? '' : ' disabled')),
                                 'linkOptions' => array('class' => 'side-menu_i'),
                                 'label' => $this->renderPartial('_menu_item', array(
@@ -61,7 +61,7 @@ Yii::app()->clientScript->registerPackage('ko_antispam');
                                 ), true),
                             ),
                             array(
-                                'url' => array('/antispam/default/list', 'status' => AntispamCheck::STATUS_QUESTIONABLE, 'entity' => AntispamCheck::ENTITY_POSTS),
+                                'url' => array('/antispam/default/list', 'status' => AntispamCheck::STATUS_QUESTIONABLE),
                                 'itemOptions' => array('class' => 'side-menu_li' . ($this->counts[DefaultController::TAB_CHECKS_QUESTIONABLE] > 0 ? '' : ' disabled')),
                                 'linkOptions' => array('class' => 'side-menu_i'),
                                 'label' => $this->renderPartial('_menu_item', array(

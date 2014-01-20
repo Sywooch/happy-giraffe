@@ -9,6 +9,9 @@
 
 class MarkWidget extends CWidget
 {
+    /**
+     * @var AntispamCheck $check
+     */
     public $check;
 
     public function run()

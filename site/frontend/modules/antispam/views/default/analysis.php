@@ -3,12 +3,13 @@
  * @var HController $this
  * @var User $user
  * @var CActiveDataProvider $dp
+ * @var int $entity
  */
 ?>
 <div class="page-col">
     <div class="page-col_top clearfix">
         <div class="antispam-user">
-            <div class="float-r margin-t15"><a href="" class="textdec-none">
+            <div class="float-r margin-t15"><a href="javascript:void(0)" class="textdec-none" onclick="markGoodAll(<?=$entity?>, <?=$user->id?>)">
                     <div class="ico-check"></div>
                     <div class="a-pseudo display-ib">Все хорошо</div></a></div>
             <div class="antispam-user_hold">

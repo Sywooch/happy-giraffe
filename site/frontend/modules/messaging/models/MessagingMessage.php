@@ -303,6 +303,31 @@ class MessagingMessage extends HActiveRecord
 	
 	/**
 	 * Именованное условие с параметрами.
+	 * Жадно загружает в связь messageUsers одну запись,
+	 * содержащую отношение пользователя, кому написано сообщение, к этому сообщению.
+	 * Не мешает использовать limit, т.к. загружает только одну запись
+	 * 
+	 * @param int $userId
+	 * @param bool $activeOnly если true, то загружает только активные сообщения (не удалённые/скрытые)
+	 * 
+	 * @return MessagingMessage Для цепочки вызовов
+	 */
+	public function withStats($activeOnly = true)
+	{
+		/** @todo Дописать для $activeOnly */
+		$criteria = $this->dbCriteria;
+		$alias = $this->getTableAlias(true);
+		$criteria->together = true;
+
+		$criteria->with['messageUsers'] = array(
+			'on' => '`messageUsers`.`user_id` <> ' . $alias . '.`author_id`',
+		);
+
+		return $this;
+	}
+	
+	/**
+	 * Именованное условие с параметрами.
 	 * Жадно загружает по связи все модели messageUsers, и сортирует
 	 * так, что отношение указанного пользователя к сообщению оказывается первым.
 	 * 

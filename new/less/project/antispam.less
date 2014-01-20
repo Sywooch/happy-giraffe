@@ -68,8 +68,23 @@
     }
 }
 
+/*
+    Пользователи в списках
+    antispam-user  __expert
+        antispam-user_ul
+            antispam-user_li
+
+        antispam-user_hold
+            <b-user>
+            antispam-user_date
+            antispam-user_post-ico  __photo     __blog  __msg   __new
+            antispam-user_count
+                antispam-user_count-big
+                antispam-user_count-s
+
+*/
 .antispam-user {
-    &__expert &_hold {height: 95px;}
+    &__expert &_hold {height: 105px;}
     
     &_ul {}
     &_li {
@@ -85,24 +100,22 @@
     }
     &_hold .antispam-user-act,
     &_hold .b-user {vertical-align: middle;}
-    &_ava {
-        .inline-block();
-        vertical-align: middle;
-        margin-right: 10px;
-    }
+
     &_date {
         .inline-block();
         vertical-align: middle;
         width: 95px;
         margin-right: 5px;
-        .font-s;
+        font-size: @font-xs;
+        line-height: @lineh-xs;
+        color: @color-gray;
     }
     &_post-ico {
         .inline-block();
         vertical-align: middle;
         width: 50px;
         height: 50px;
-        margin: 0 30px 0 10px;
+        margin: 0 35px 0 0;
         background: url(/new/images/antispam-user_post-ico.png) no-repeat;
         &__msg   {background-position: 0 0;}
         &__photo {background-position: -50px 0;}
@@ -115,13 +128,13 @@
         width: 250px;
     }
     &_count-big {
-        margin-bottom: 3px;
         font-size: 18px;
         color: #3b3b3b;
     }
     &_count-s {
         padding-left: 35px;
-        .font-s;
-        .color-gray;
+        line-height: @lineh-xs;
+        font-size: @font-xs;
+        color: @color-gray;
     }
 }

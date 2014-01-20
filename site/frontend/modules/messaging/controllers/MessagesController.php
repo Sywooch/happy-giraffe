@@ -153,4 +153,41 @@ class MessagesController extends HController
 		);
 		$comet->send($user, $data, CometModel::MESSAGING_MESSAGE_ADDED);
     }
+	
+	public function actionReaded()
+	{
+		$messageId = Yii::app()->request->getPost('messageId');
+		$me = Yii::app()->user->id;
+		// Выставляем дату прочтения
+		MessagingMessageUser::model()->updateByPk(array(
+			'user_id' => $me,
+			'message_id' => $messageId,
+		), array('dtime_read' => new CDbExpression('NOW()')));
+
+		$response = array(
+			'success' => true,
+		);
+		echo CJSON::encode($response);
+
+		// Подготовим и отправим событие
+		$comet = new CometModel();
+		$messageModel = MessagingMessage::model()->withMyStatsOnTop($me)->findByPk($messageId);
+		$user = $messageModel->messageUsers[1]->user_id;
+		// Событие себе
+		$data = array(
+			'dialog' => array(
+				'id' => $user,
+			),
+			'message' => DialogForm::messageToJson($messageModel, $me, $user, $messageModel->messageUsers[1]),
+		);
+		$comet->send($me, $data, CometModel::MESSAGING_MESSAGE_READ);
+		// Событие собеседнику
+		$data = array(
+			'dialog' => array(
+				'id' => $me,
+			),
+			'message' => DialogForm::messageToJson($messageModel, $user, $me, $messageModel->messageUsers[1]),
+		);
+		$comet->send($user, $data, CometModel::MESSAGING_MESSAGE_READ);
+	}
 }

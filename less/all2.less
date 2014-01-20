@@ -1441,8 +1441,12 @@ table.fr_recipe_tb td { width: 50%;}
     text-align: center;
     position: relative;
 
+    &:hover a.ava__large,
     &:hover a.ava.large {border-color: #4d85cb;}
+    &:hover a.ava__large:after,
     &:hover a.ava.large:after {display: block;}
+    .ie7 &:hover .ava__large:after,
+    .ie8 &:hover .ava__large:after,
     .ie7 &:hover .ava.large:after,
     .ie8 &:hover .ava.large:after {display: none;}
     
@@ -1451,7 +1455,8 @@ table.fr_recipe_tb td { width: 50%;}
     &:hover &_bubble {display: block;}
     &:hover &_a {text-decoration: underline;}
     &:hover &_photo-change {display: block;}
-
+    
+    .ava__large,
     .ava.large {
         float: none;
         margin: 0 auto;
@@ -1459,6 +1464,7 @@ table.fr_recipe_tb td { width: 50%;}
         position: relative;
         text-decoration: none;
     }
+    .ava__large:after,
     .ava.large:after {
         content:'';
         display: none;
@@ -2611,7 +2617,7 @@ table.fr_recipe_tb td { width: 50%;}
 
 /* b-user-small */
 .b-user-info {
-
+    .ava__small,
     .ava.small {margin-top: 3px;}
     &__middle &_hold {margin-left: 50px;}
     &_hold {margin-left: 80px;}

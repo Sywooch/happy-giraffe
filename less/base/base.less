@@ -167,10 +167,27 @@ a.pseudo:hover,
 	width:72px;
 	height:72px;
 	background:url(../images/avatar.png) no-repeat -240px -480px;
+
+	.ico-status {
+	    .inline-block();
+	    width: 12px;
+	    height: 12px;
+	    position: relative;
+	    z-index: 1;
+	    top: 2px;
+	    margin-right: 2px;
+	    .border-radius(6px);
+
+	    &__online  {background: #0fc612;}
+	    &__offline {background: #b8b8b8;}
+	}
 }
+.ava__female,
 .ava.female {background-position:-240px -240px;}
+.ava__male,
 .ava.male {background-position:-240px 0;}
 .ava,
+.ava_img,
 .ava img { 
 	position:relative;
 	width:72px;
@@ -179,11 +196,14 @@ a.pseudo:hover,
 	.box-shadow(0 1px 1px rgba(0,0,0,0.2) inset);
 }
 .ava:hover,
+.ava_img:hover,
 .ava img:hover {.box-shadow(none);} 
+.ava_img,
 .ava img {
 	margin-top: 0;
 	display:block;
 }
+.ava .ico-status,
 .ava .icon-status {
 	position: absolute;
 	top: 3px;
@@ -191,14 +211,26 @@ a.pseudo:hover,
 	margin: 0;
 }
 
-.ava.big {width:240px;height:240px;background-position:0 -480px;float:none;}
-.ava.big,
-.ava.big img {-moz-border-radius:0px;-webkit-border-radius:0px;border-radius:0px;}
-.ava.big img {width:auto;height:auto;display:block;margin:auto;}
-.ava.big.female {background-position:0 -240px;}
-.ava.big.male {background-position:0 0;}
+.ava__big,
+.ava.big {
+	width:240px;
+	height:240px;
+	background-position:0 -480px;
+	float:none;
+	.border-radius(0);
 
+	.ava_img,
+	img {width:auto;height:auto;display:block;margin:auto;}
+	&.ava__female,
+	.female {background-position:0 -240px;}
+	&.ava__male,
+	.male {background-position:0 0;}
+}
+
+.ava__large,
 .ava.large {background:url(/images/avatar-large.png) no-repeat 0 -400px;}
+.ava__large,
+.ava__large .ava_img,
 .ava.large,
 .ava.large img {
 	width:200px;
@@ -206,10 +238,15 @@ a.pseudo:hover,
 	.border-radius(106px);
 	.box-shadow(none);
 }
+.ava__large.ava__female,
 .ava.large.female {background-position:0 -200px;}
+.ava__large.ava__male,
 .ava.large.male {background-position:0 0;}
 
+.ava__middle,
 .ava.middle {background-position:-240px -696px;}
+.ava__middle,
+.ava__middle .ava_img,
 .ava.middle,
 .ava.middle img {
 	width:40px;
@@ -217,8 +254,11 @@ a.pseudo:hover,
 	.border-radius(20px);
 	background-position: -240px -580px;
 }
+.ava__middle.ava__female,
 .ava.middle.female {background-position:-240px -340px;}
+.ava__middle.ava__male,
 .ava.middle.male {background-position:-240px -100px;}
+.ava__middle .ico-status,
 .ava.middle .icon-status {
 	top: 1px;
 	left: 1px;
@@ -226,11 +266,17 @@ a.pseudo:hover,
 	height: 8px;
 }
 
+.ava__small,
 .ava.small {width:24px;height:24px;background-position:-240px -696px;}
+.ava__small,
+.ava__small .ava_img,
 .ava.small,
 .ava.small img {/*css3*/ -moz-border-radius:12px;-webkit-border-radius:12px;border-radius:12px;behavior: url(/stylesheets/PIE.htc);*behavior:url('');width:24px;height:24px;}
+.ava__small.ava__female,
 .ava.small.female {background-position:-240px -456px;}
+.ava__small.ava__male,
 .ava.small.male {background-position:-240px -216px;}
+.ava__small .ico-status,
 .ava.small .icon-status {
 	top: 0;
 	left: 0;

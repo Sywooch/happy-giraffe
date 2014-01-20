@@ -13,7 +13,7 @@
                     <div class="a-pseudo display-ib">Все хорошо</div></a></div>
             <div class="antispam-user_hold">
                 <?php $this->widget('UserInfoWidget', array('user' => $user)); ?>
-                <?php $this->widget('UserMarkWidget', array('status' => $user->spamStatus, 'extended' => false)); ?>
+                <?php $this->widget('UserMarkWidget', array('user' => $user, 'extended' => false)); ?>
             </div>
         </div>
     </div>

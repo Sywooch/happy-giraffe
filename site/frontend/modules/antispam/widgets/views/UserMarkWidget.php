@@ -7,13 +7,13 @@
 ?>
 
 <span id="<?=$domId?>">
-    <!-- ko with: status -->
     <div class="antispam-user-act">
-        <a title="В белый список" class="antispam-user-act_i antispam-user-act_i__white powertip" data-bind="click: function() {handle(<?=AntispamStatusManager::STATUS_WHITE?>)}, css: { active : status() == <?=AntispamStatusManager::STATUS_WHITE?> }"></a>
-        <a title="В черный список" class="antispam-user-act_i antispam-user-act_i__black powertip" data-bind="click: function() {handle(<?=AntispamStatusManager::STATUS_BLACK?>)}, css: { active : status() == <?=AntispamStatusManager::STATUS_BLACK?> }"></a>
-        <a title="Блок" class="antispam-user-act_i antispam-user-act_i__block powertip" data-bind="click: function() {handle(<?=AntispamStatusManager::STATUS_BLOCKED?>)}, css: { active : status() == <?=AntispamStatusManager::STATUS_BLOCKED?> }"></a>
+        <a title="В белый список" class="antispam-user-act_i antispam-user-act_i__white powertip" data-bind="click: function() {handle(<?=AntispamStatusManager::STATUS_WHITE?>)}, css: { active : status() !== null && status().status() == <?=AntispamStatusManager::STATUS_WHITE?> }"></a>
+        <a title="В черный список" class="antispam-user-act_i antispam-user-act_i__black powertip" data-bind="click: function() {handle(<?=AntispamStatusManager::STATUS_BLACK?>)}, css: { active : status() !== null && status().status() == <?=AntispamStatusManager::STATUS_BLACK?> }"></a>
+        <a title="Блок" class="antispam-user-act_i antispam-user-act_i__block powertip" data-bind="click: function() {handle(<?=AntispamStatusManager::STATUS_BLOCKED?>)}, css: { active : status() !== null && status().status() == <?=AntispamStatusManager::STATUS_BLOCKED?> }"></a>
     </div>
     <?php if ($this->extended): ?>
+        <!-- ko with: status -->
         <div class="antispam-user_ava">
             <!-- ko with: moderator() -->
             <a class="ava powertip ava__small" data-bind="attr: { title : fullName, href : url }">
@@ -25,8 +25,8 @@
         <div class="antispam-user_date">
             <div class="color-gray" data-bind="text: updated"></div>
         </div>
+        <!-- /ko -->
     <?php endif; ?>
-    <!-- /ko -->
 </span>
 
 <script type="text/javascript">

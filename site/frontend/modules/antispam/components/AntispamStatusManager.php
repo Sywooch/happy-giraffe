@@ -42,7 +42,7 @@ class AntispamStatusManager
         return $status === null ? self::STATUS_UNDEFINED : $status->status;
     }
 
-    protected static function getUserStatusModel($userId)
+    public static function getUserStatusModel($userId)
     {
         return AntispamStatus::model()->findByAttributes(array('user_id' => $userId));
     }

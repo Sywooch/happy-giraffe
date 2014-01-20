@@ -51,7 +51,8 @@ class DefaultController extends HController
      */
     public function actionExpert()
     {
-        $this->render('expert');
+        $dp = AntispamReport::getDp();
+        $this->render('expert', compact('dp'));
     }
 
     /**

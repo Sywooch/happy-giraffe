@@ -14,16 +14,17 @@
  * @property string $moderator_id
  *
  * The followings are the available model relations:
- * @property Users $moderator
+ * @property User $user
+ * @property User $moderator
  */
-class AntispamReport extends HActiveRecord
+class AntispamReport extends CActiveRecord
 {
-    const TYPE_LIMIT = 0;
-    const STATUS_PENDING = 10;
-    const STATUS_REPORTED = 11;
+    const STATUS_PENDING = 0;
+    const STATUS_CONSIDERED = 1;
+    const TYPE_LIMIT = 10;
 
     protected $types = array(
-        self::TYPE_LIMIT => 'AntispamReportData',
+        self::TYPE_LIMIT => 'AntispamReportLimit',
     );
 
 	/**
@@ -60,6 +61,7 @@ class AntispamReport extends HActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'user' => array(self::BELONGS_TO, 'User', 'user_id'),
 			'moderator' => array(self::BELONGS_TO, 'User', 'moderator_id'),
 		);
 	}
@@ -133,16 +135,31 @@ class AntispamReport extends HActiveRecord
                 'updateAttribute' => 'updated',
                 'setUpdateOnCreate' => true,
             ),
-            'withRelated' => array(
-                'class' => 'site.common.extensions.wr.WithRelatedBehavior',
-            ),
         );
     }
 
     protected function instantiate($attributes)
     {
-        $class = $this->types[$attributes['status']];
+        $class = $this->types[$attributes['type']];
         $model=new $class(null);
         return $model;
+    }
+
+    public function status($status)
+    {
+        $this->getDbCriteria()->mergeWith(array(
+            'condition' => 'status = :status',
+            'params' => array(':status' => $status),
+        ));
+        return $this;
+    }
+
+    public static function getDp()
+    {
+        return new CActiveDataProvider(self::model()->status(self::STATUS_PENDING), array(
+            'criteria' => array(
+                'order' => 'id DESC',
+            ),
+        ));
     }
 }

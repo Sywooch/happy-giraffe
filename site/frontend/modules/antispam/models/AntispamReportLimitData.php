@@ -7,6 +7,9 @@
  * @property string $id
  * @property string $report_id
  * @property string $entity
+ *
+ * The followings are the available model relations:
+ * @property AntispamReport $report
  */
 class AntispamReportLimitData extends AntispamReportData
 {
@@ -26,6 +29,7 @@ class AntispamReportLimitData extends AntispamReportData
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
+			array('report_id', 'required'),
 			array('report_id', 'length', 'max'=>11),
 			array('entity', 'length', 'max'=>255),
 			// The following rule is used by search().
@@ -42,6 +46,7 @@ class AntispamReportLimitData extends AntispamReportData
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'report' => array(self::BELONGS_TO, 'AntispamReport', 'report_id'),
 		);
 	}
 
@@ -94,4 +99,24 @@ class AntispamReportLimitData extends AntispamReportData
 	{
 		return parent::model($className);
 	}
+
+    public function getIconClass()
+    {
+        switch ($this->data->entity) {
+            case 'BlogContent':
+            case 'CommunityContent':
+                return 'blog';
+            case 'AlbumPhoto':
+                return 'photo';
+            case 'Comment':
+                return 'new';
+            case 'MessagingMessage':
+                return 'msg';
+        }
+    }
+
+    public function getAnalysisUrl()
+    {
+        return Yii::app()->createUrl('/antispam/default/analysis', array('userId' => $this->report->user_id, 'entity' => AntispamCheck::m));
+    }
 }

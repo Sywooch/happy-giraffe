@@ -15,6 +15,7 @@ class ReportController extends HController
         $report = AntispamReport::model()->findByPk($reportId);
         $report->status = AntispamReport::STATUS_CONSIDERED;
         $report->moderator_id = Yii::app()->user->id;
-        $report->update(array('status', 'moderator_id', 'updated'));
+        $success = $report->update(array('status', 'moderator_id', 'updated'));
+        echo CJSON::encode(array('success' => $success));
     }
 }

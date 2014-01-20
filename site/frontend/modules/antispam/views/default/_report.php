@@ -16,14 +16,14 @@
             </div>
         </div>
         <div class="antispam-user_date"><?=HDate::GetFormattedTime($data->created)?></div>
-        <div class="antispam-user_post-ico antispam-user_post-ico__<?=ReportIconHelper::getIconClass($data)?>"></div>
+        <div class="antispam-user_post-ico antispam-user_post-ico__<?=$data->data->getIconClass()?>"></div>
         <div class="antispam-user_count">
             <div class="antispam-user_count-big">35 за 05:32</div>
             <div class="antispam-user_count-s">10 за 05:00</div>
         </div>
         <div class="verticalalign-el">
-            <div class="margin-b5"><a class="btn-green btn-m" onclick="markReport(<?=$data->id?>, $(this).parents('antispam-user_li'))">
-                    <div class="ico-btn-check"></div>Хорошо</a></div><a class="btn-red btn-m" href="<?=$this->createUrl('/antispam/default/analysis', array('userId' => $data->user_id))?>">Анализ</a>
+            <div class="margin-b5"><a class="btn-green btn-m" onclick="markReport(<?=$data->id?>, $(this).parents('.antispam-user_li'))">
+                    <div class="ico-btn-check"></div>Хорошо</a></div><a class="btn-red btn-m" href="<?=$data->data->getAnalysisUrl()?>">Анализ</a>
         </div>
     </div>
 </li>

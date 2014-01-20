@@ -28,7 +28,7 @@ class AntispamCheck extends HActiveRecord
     const ENTITY_POSTS = 10;
     const ENTITY_COMMENTS = 11;
     const ENTITY_PHOTOS = 12;
-    public $entityToModels = array(
+    public static $entityToModels = array(
         self::ENTITY_POSTS => array('CommunityContent', 'BlogContent'),
         self::ENTITY_COMMENTS => 'Comment',
         self::ENTITY_PHOTOS => 'AlbumPhoto',
@@ -225,13 +225,18 @@ class AntispamCheck extends HActiveRecord
         return $success;
     }
 
-    public function getSpamEntity()
+    /**
+     * @todo Вынести в отдельный компонент
+     * @param $entityName
+     * @return int|string
+     */
+    public static function getSpamEntity($entityName)
     {
-        foreach ($this->entityToModels as $entity => $models)
+        foreach (self::$entityToModels as $entity => $models)
             if (is_array($models)) {
-                if (array_search($this->entity, $models) !== false)
+                if (array_search($entityName, $models) !== false)
                     return $entity;
-            } elseif ($models == $this->entity)
+            } elseif ($models == $entityName)
                 return $entity;
     }
 

@@ -3,6 +3,24 @@
  * Author: alexk984
  * Date: 12.08.13
  */
+
+ko.bindingHandlers.redactorHG = {
+	init: function(element, valueAccessor) {
+		var defaults = {
+			minHeight: 17,
+			autoresize: true,
+			focus: true,
+			toolbarExternal: '.redactor-control_toolbar',
+			buttons: ['image', 'video', 'smile']
+		};
+		var options = valueAccessor();
+		
+		var settings = $.extend( {}, defaults, options );
+		
+		$(element).redactorHG(settings);
+	}
+};
+
 ko.bindingHandlers.tooltip = {
     init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
         $(element).data('powertip', valueAccessor());

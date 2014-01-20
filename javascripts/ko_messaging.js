@@ -363,6 +363,49 @@ function MessagingThread(me, user) {
 	self.editingMessage = ko.observable(false);
 	self.deletedDialogs = ko.observableArray([]);
 	
+	// Конфигурация редактора
+	self.editorConfig = {
+		minHeight: 17,
+		autoresize: true,
+		focus: true,
+		toolbarExternal: '.redactor-control_toolbar',
+		buttons: ['image', 'video', 'smile'],
+		initCallback: function() {
+			// связь с моделью
+			var obj = this;
+			obj.set(self.editor());
+			self.editor.subscribe(function(a) {
+				if(a !== obj.get()) {
+					obj.set(a);
+				}
+			});
+			im.renew();
+		},
+		/*blurCallback: function() {
+			if (self.openContact() !== null)
+				self.meTyping(false);
+		},*/
+		keyupCallback: function(e) {
+			if (false && e.keyCode == 13 && self.enterSetting()) {
+				self.submit();
+			} else {
+				self.typing();
+			}
+		},
+		enterCallback: function() {
+			im.renew();
+		},
+		changeCallback: function(html)
+		{
+			// обратная связь с моделью
+			if(self.editor() != html) {
+				self.editor(html);
+			}
+			im.renew();
+		},
+		comments: true
+	};
+	
     self.lastReadMessage = ko.computed(function() {
         var result = null;
         ko.utils.arrayForEach(self.messages(), function(message) {

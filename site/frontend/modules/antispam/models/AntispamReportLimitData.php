@@ -102,7 +102,7 @@ class AntispamReportLimitData extends AntispamReportData
 
     public function getIconClass()
     {
-        switch ($this->data->entity) {
+        switch ($this->entity) {
             case 'BlogContent':
             case 'CommunityContent':
                 return 'blog';
@@ -117,6 +117,6 @@ class AntispamReportLimitData extends AntispamReportData
 
     public function getAnalysisUrl()
     {
-        return Yii::app()->createUrl('/antispam/default/analysis', array('userId' => $this->report->user_id, 'entity' => AntispamCheck::m));
+        return Yii::app()->createUrl('/antispam/default/analysis', array('userId' => $this->report->user_id, 'entity' => AntispamCheck::getSpamEntity($this->entity)));
     }
 }

@@ -296,7 +296,7 @@
 						<!-- /ko -->
 						<!-- ko if: editing -->
 						<div class="redactor-control">
-							<textarea cols="40" name="redactor" rows="1" autofocus="autofocus" class="redactor" data-bind="value: editor"></textarea>
+							<textarea cols="40" name="redactor" rows="1" autofocus="autofocus" class="redactor" data-bind="redactorHG: editorConfig"></textarea>
 							<div class="redactor-control_toolbar"></div>
 							<div class="redactor-control_control">
 								<div class="redactor-control_key">

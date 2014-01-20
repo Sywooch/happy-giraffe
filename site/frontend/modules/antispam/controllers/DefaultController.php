@@ -69,9 +69,9 @@ class DefaultController extends HController
     }
 
     /**
-     * Страница анализа
-     *
-     * @param $checkId
+     * @param $userId
+     * @param $entity
+     * @todo Убрать вызов $dp->getData();
      */
     public function actionAnalysis($userId, $entity = AntispamCheck::ENTITY_POSTS)
     {
@@ -82,6 +82,7 @@ class DefaultController extends HController
         );
         $user = User::model()->with('spamStatus')->findByPk($userId);
         $dp = AntispamCheck::getDp($entity, null, $userId);
+        $dp->getData();
         $this->render('analysis', compact('user', 'dp', 'counts', 'entity'));
     }
 }

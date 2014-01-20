@@ -26,7 +26,7 @@ class UserInfoWidget extends CWidget
         $statuses = array(AntispamCheck::STATUS_UNDEFINED, AntispamCheck::STATUS_GOOD, AntispamCheck::STATUS_BAD);
         $counts = array();
         foreach ($statuses as $status)
-            $counts[$status] = 0; //AntispamCheck::model()->user($this->user->id)->status($status)->count();
+            $counts[$status] = AntispamCheck::model()->user($this->user->id)->status($status)->count();
 
         return $counts;
     }

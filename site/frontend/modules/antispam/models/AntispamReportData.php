@@ -7,7 +7,8 @@
  * To change this template use File | Settings | File Templates.
  */
 
-class AntispamReportData extends HActiveRecord
+abstract class AntispamReportData extends HActiveRecord
 {
-
+    abstract public function getIconClass();
+    abstract public function getAnalysisUrl();
 }

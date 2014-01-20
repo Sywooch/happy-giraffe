@@ -18,6 +18,14 @@ class AntispamStatusManager
     public static function setUserStatus($userId, $statusValue)
     {
         $status = self::getUserStatusModel($userId);
+        if ($status !== null && $status->status == $statusValue)
+            return false;
+
+        if ($statusValue == self::STATUS_WHITE)
+            AntispamCheck::changeStatusAll($userId, AntispamCheck::STATUS_UNDEFINED, AntispamCheck::STATUS_GOOD);
+
+        if ($statusValue == self::STATUS_BLACK)
+            AntispamCheck::changeStatusAll($userId, AntispamCheck::STATUS_UNDEFINED, AntispamCheck::STATUS_BAD);
 
         if ($status === null) {
             $status = new AntispamStatus();

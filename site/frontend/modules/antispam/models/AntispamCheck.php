@@ -207,15 +207,19 @@ class AntispamCheck extends HActiveRecord
             $this->relatedModel->delete();
         if ($this->status == self::STATUS_BAD)
             $this->relatedModel->restore();
+
         $this->status = $newStatus;
         $this->moderator_id = Yii::app()->user->id;
         return $this->update(array('status', 'moderator_id', 'updated'));
     }
 
-    public static function changeStatusAll($entity, $userId, $fromStatus, $toStatus)
+    public static function changeStatusAll($userId, $fromStatus, $toStatus, $entity = null)
     {
         $success = true;
-        $checks = AntispamCheck::model()->entity($entity)->user($userId)->status($fromStatus)->findAll();
+        $model = AntispamCheck::model()->user($userId)->status($fromStatus);
+        if ($entity !== null)
+            $model->entity($entity);
+        $checks = $model->findAll();
         foreach ($checks as $check)
             $success = $success && $check->changeStatus($toStatus);
         return $success;

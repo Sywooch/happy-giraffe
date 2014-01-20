@@ -32,6 +32,11 @@
                     'itemView' => '_user',
                     'summaryText' => '',
                     'cssFile' => false,
+                    'ajaxUpdate' => false,
+                    'pager' => array(
+                        'class' => 'HLinkPager',
+                    ),
+                    'template' => '{items}<div class="yiipagination">{pager}</div>',
                 ));
                 ?>
             </ul>

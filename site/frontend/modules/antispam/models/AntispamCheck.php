@@ -146,7 +146,7 @@ class AntispamCheck extends HActiveRecord
             ),
             'RelatedModelBehavior' => array(
                 'class' => 'site.common.behaviors.RelatedEntityBehavior',
-                'possibleRelations' => array('CommunityContent', 'BlogContent'),
+                'possibleRelations' => array('CommunityContent', 'BlogContent', 'AlbumPhoto'),
             ),
         );
     }

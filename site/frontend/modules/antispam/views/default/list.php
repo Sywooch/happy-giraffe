@@ -62,9 +62,3 @@
         <!-- /antispam-->
     </div>
 </div>
-
-<script type="text/javascript">
-    $(function() {
-        $('a:not([href*="/antispam"])').attr('target', '_blank');
-    });
-</script>

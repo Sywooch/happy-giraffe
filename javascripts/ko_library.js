@@ -207,6 +207,18 @@ ko.bindingHandlers.hide = {
 	}
 }
 
+ko.bindingHandlers.scrollTo = {
+	init: function(element, valueAccessor) {
+		$(element).on(valueAccessor(), function() {
+			var self = $(this);
+			var scroll = self.parents('.scroll_scroller');
+			// Проверить формулу
+			//console.log(scroll.scrollTop() + scroll.height() - (scroll.offset().top - self.offset().top + self.height()));
+			//scroll.scrollTo( { top: scroll.scrollTop() + scroll.height() - (scroll.offset().top - self.offset().top + self.height()) }, 800);
+		});
+	}
+}
+
 // Добавляем событие koUpdate и koElementAdded
 // koUpdate Срабатывает при рендере шаблона (template, with, foreach)
 //		целью является элемент, в котором произошли

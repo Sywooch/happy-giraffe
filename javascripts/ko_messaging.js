@@ -144,33 +144,52 @@ MessagingMessage.prototype = {
 			Comet.prototype.messagingMessageRead = function(result, id) {
 				ko.utils.arrayForEach(self.objects, function(obj) {
 					if (obj.id == result.message.id) {
-						obj.read = result.message.read;
+						// само сообщение прочитано
+						obj.dtimeRead(result.message.read);
+						// уменьшим счётчик у контакта
+						if(!obj.isMy)
+							obj.thread.user.countNew();
 					}
 				});
 			};
 			comet.addEvent(2011, 'messagingMessageRead');
+			// Обновление сообщения
+			Comet.prototype.messagingMessageUpdate = function(result, id) {
+				ko.utils.arrayForEach(self.objects, function(obj) {
+					if (obj.id == result.message.id) {
+						obj.text(result.message.text);
+					}
+				});
+			};
+			comet.addEvent(2021, 'messagingMessageUpdate');
 			// Отмена сообщения
 			Comet.prototype.messagingMessageCancelled = function(result, id) {
 				for (i in self.objects) {
 					var obj = self.objects[i];
-					if (obj.id == result.message.id) {
-						obj.splice(i, 1);
+					if (obj.id == result.message.id && !obj.cancelled()) {
+						self.objects.splice(i, 1);
+						var threadMessages = obj.thread.messages();
+						for (j in threadMessages) {
+							var threadMessage = threadMessages[j];
+							if(threadMessage.id == result.message.id)
+								obj.thread.messages.splice(j, 1);
+						}
 					}
 				}
 			}
-			comet.addEvent(2011, 'messagingMessageCancelled');
+			comet.addEvent(2040, 'messagingMessageCancelled');
 			// Удаление/восстановление сообщения
 			Comet.prototype.messagingMessageDeleted = function(result, id) {
 				ko.utils.arrayForEach(self.objects, function(obj) {
 					if (obj.id == result.message.id) {
-						obj.dtimeDelete(result.message.dtimeDelete);
+							obj.dtimeDelete(result.message.dtimeDelete);
 					}
 				});
 			}
 			// Удаление
 			comet.addEvent(2030, 'messagingMessageDeleted');
 			// Восстановление
-			comet.addEvent(2040, 'messagingMessageDeleted');
+			comet.addEvent(2050, 'messagingMessageDeleted');
 		}
 	}
 }
@@ -182,11 +201,12 @@ function MessagingMessage(model, thread) {
 	self.from = null;
 	self.to = null;
 	self.isMy = (self.thread.id == model.to_id);
-	self.text = model.text;
+	self.text = ko.observable(model.text);
 	self.created = model.created;
 	self.dtimeRead = ko.observable(model.dtimeRead);
 	self.dtimeDelete = ko.observable(model.dtimeDelete);
 	self.hidden = ko.observable(false);
+	self.cancelled = ko.observable(false);
 	//self.images = model.images;
 	var timer = false;
 
@@ -208,11 +228,22 @@ function MessagingMessage(model, thread) {
 		$.post('/messaging/messages/delete/', {messageId: self.id});
 	};
 	/**
+	 * Отмена сообщения
+	 */
+	self.cancelMessage = function() {
+		self.cancelled(true);
+		$.post('/messaging/messages/cancel/', {messageId: self.id});
+	};
+	/**
 	 * Восстановление сообщения
 	 */
 	self.restore = function() {
 		// Просто отправим запрос, ответ придёт событием
 		$.post('/messaging/messages/restore/', {messageId: self.id});
+	};
+	
+	self.beginEditing = function() {
+		self.thread.beginEditing(self);
 	};
 	
 	self.markAsReaded = function() {
@@ -259,7 +290,13 @@ MessagingThread.prototype = {
 			Comet.prototype.messagingMessageAdded = function(result, id) {
 				ko.utils.arrayForEach(self.objects, function(obj) {
 					if (obj.id == result.dialog.id) {
-						obj.messages.push(new MessagingMessage(result.message));
+						var message = new MessagingMessage(result.message, obj);
+						// Добавим сообщение в диалог
+						obj.messages.push(message);
+						// Обновим дату контакта и счётчик
+						obj.user.date(message.created);
+						if(!message.isMy)
+							obj.user.countNew(obj.countNew + 1);
 					}
 				});
 			};
@@ -271,7 +308,6 @@ MessagingThread.prototype = {
 						obj.deletedDialogs.push(result.dialog.dtimeDelete);
 						ko.utils.arrayForEach(obj.messages(), function(message) {
 							// Скрываем сообщения, которые были написаны до момента удаления диалога
-							console.log(message.created);
 							if(message.created < result.dialog.dtimeDelete) {
 								message.hidden(true);
 							}
@@ -324,11 +360,27 @@ function MessagingThread(me, user) {
 	self.loadingMessages = ko.observable(false);
 	self.fullyLoaded = ko.observable(false);
 	self.editing = ko.observable(false);
+	self.editingMessage = ko.observable(false);
 	self.deletedDialogs = ko.observableArray([]);
+	
+    self.lastReadMessage = ko.computed(function() {
+        var result = null;
+        ko.utils.arrayForEach(self.messages(), function(message) {
+            if (message.dtimeRead() && message.isMy)
+                result = message;
+        });
 
+        return result;
+    });
+	
 	// методы
-	self.setEditing = function(data, event) {
+	self.setEditing = function() {
 		self.editing(true);
+	}
+	self.beginEditing = function(message) {
+		self.editingMessage(message);
+		self.editor(message.text());
+		self.setEditing();
 	};
 	self.deleteDialog = function() {
 		// Просто отправим запрос, ответ придёт событием
@@ -341,20 +393,37 @@ function MessagingThread(me, user) {
 	self.sendMessage = function() {
 		self.sendingMessage(true);
 		var data = {};
-		data.interlocutorId = self.id;
+		
 		data.text = self.editor();
 		//data.images = self.uploadedImagesIds();
 
-		$.post('/messaging/messages/send/', data, function(response) {
-			self.sendingMessage(false);
+		var message = self.editingMessage();
+		if(message) {
+			data.messageId = message.id;
+			$.post('/messaging/messages/edit/', data, function(response) {
+				self.sendingMessage(false);
 
-			if (response.success) {
-				self.editor('');
-				self.uploadedImages([]);
-			} else {
-				//
-			}
-		}, 'json');
+				if (response.success) {
+					self.editor('');
+					self.uploadedImages([]);
+				} else {
+					//
+				}
+				self.editingMessage(false);
+			}, 'json');
+		} else {
+			data.interlocutorId = self.id;
+			$.post('/messaging/messages/send/', data, function(response) {
+				self.sendingMessage(false);
+
+				if (response.success) {
+					self.editor('');
+					self.uploadedImages([]);
+				} else {
+					//
+				}
+			}, 'json');
+		}
 	}
 	self.addImage = function(data) {
 		self.uploadedImages.push(new MessagingImage(data));
@@ -437,10 +506,96 @@ Messaging.prototype = {
 
 function Messaging(model) {
 	var self = this;
-	self.users = ko.observableArray([]);
 	self.threads = ko.observableArray([]);
 	self.me = null;
 	self.countTotal = ko.observable(model.counters.total);
+	self.loadindContacts = ko.observable(false);
+	self.currentFilter = ko.observable(0);
+	
+	var filters = [
+		function(user) {
+			return true;
+		},
+		function(user) {
+			return user.countNew() > 0;
+		},
+		function(user) {
+			return user.isOnline();
+		},
+		function(user) {
+			return user.isFriend();// && user.isOnline();
+		},
+		function(user) {
+			// тут поиск
+			return false;
+		}
+	];
+	
+	self.setFilter = function(type) {
+		self.currentFilter(type);
+		self.applyFilter();
+	};
+	
+	self.filter = function(type) {
+		// отсортируем по свежести
+		self.users[0].sort(function(user1, user2) {
+			return user1.date() < user2.date() ? 1 : (user1.date() == user2.date() ? 0 : -1);
+		});
+	};
+	
+	self.applyFilter = function() {
+		// тут обновить сортировку и фильтрацию контактов
+		self.filter(self.currentFilter());
+	};
+	
+	self.users = [
+		ko.observableArray([]),
+		false,
+		false,
+		false,
+		ko.observableArray([])
+	];
+	
+	self.users[1] = ko.dependentObservable(function() {
+		self.applyFilter();
+		return ko.utils.arrayFilter(self.users[0](), function(user) {
+			return filters[1](user);
+		});
+	});
+	
+	self.users[2] = ko.dependentObservable(function() {
+		self.applyFilter();
+		return ko.utils.arrayFilter(self.users[0](), function(user) {
+			return filters[2](user);
+		});
+	});
+	
+	self.users[3] = ko.dependentObservable(function() {
+		self.applyFilter();
+		return ko.utils.arrayFilter(self.users[0](), function(user) {
+			return filters[3](user);
+		});
+	});
+	
+	self.getContactList = ko.computed(function() {
+		//console.log(self.users[self.currentFilter()]());
+		return self.users[self.currentFilter()]();
+	});
+	
+	self.loadContacts = function() {
+		if(!self.loadindContacts()) {
+			self.loadindContacts(true);
+			var type = self.currentFilter();
+			$.get('/messaging/default/getContacts/', { type: type, offset: self.users[type]().length }, function(response) {
+				var contacts = ko.utils.arrayMap(response.contacts, function(user) {
+					return new MessagingUser(self, user);
+				});
+				self.users[0].push.apply(self.users[0], contacts);
+				self.loadindContacts(false);
+			}, 'json');
+		}
+	};
+	// Текст конструктора
 
 	// Событие на обновление счётчиков новых сообщений
 	Comet.prototype.messagingUpdateCounters = function(result, id) {
@@ -448,9 +603,46 @@ function Messaging(model) {
 	};
 	comet.addEvent(2080, 'messagingContactsUpdateCounters');
 
-	// Текст конструктора
-	self.users = ko.utils.arrayMap(model.contacts, function(user) {
+	// Добавлено новое сообщение
+	Comet.prototype.messagingNewMessage = function(result, id) {
+		var user = ko.utils.arrayFirst(self.users[0](), function(user) {
+			return user.id == result.dialog.id;
+		});
+		if(!user) {
+			// Нет загруженного пользователя, запросим с сервера
+			$.get('/messaging/default/getUserInfo/', { id: result.dialog.id }, function(data) {
+				// и добавим в список
+				self.users[0].push(new MessagingUser(self, data));
+				//self.applyFilter()
+			});
+		} else {
+			// Нашли его в нашем списке, обновим счётчики
+			user.countNew(user.countNew() + 1);
+			self.countTotal(self.countTotal() + 1);
+			//self.applyFilter()
+		}
+	};
+	comet.addEvent(2020, 'messagingNewMessage');
+
+// сейчас сам должен переместиться.
+/*	// Онлайн/оффлайн пользователя
+	Comet.prototype.messagingOnline = function(result, id) {
+		var user = ko.utils.arrayFirst(self.users[0](), function(user) {
+			return user.id == result.dialog.id;
+		});
+		user.isOnline(1);
+	};
+	comet.addEvent(3, 'messagingOnline');*/
+
+	/** @todo Тут событие манипуляции с друзьями */
+	/*Comet.prototype.messagingFriendChanges = function(result, id) {
+		// обновить счётчики
+		// переместить контакт
+	};
+	comet.addEvent(3, 'messagingFriendChanges');*/
+
+	self.users[0](ko.utils.arrayMap(model.contacts, function(user) {
 		return new MessagingUser(self, user);
-	});
+	}));
 	self.me = new MessagingUser(self, model.me);
 }

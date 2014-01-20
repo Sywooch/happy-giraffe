@@ -122,7 +122,7 @@
 				eventCallback($(this));
 			}
 		});
-		// изменение размеров врезультате ресайза
+		// изменение размеров в результате ресайза
 		$(window).on('resize', function(event) {
 			var self = $('.scroll_scroller', event.target);
 			if(!timer) {

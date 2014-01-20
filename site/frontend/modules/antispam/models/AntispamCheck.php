@@ -153,7 +153,7 @@ class AntispamCheck extends HActiveRecord
 
     public function entity($entity)
     {
-        $models = $this->entityToModels[$entity];
+        $models = self::$entityToModels[$entity];
 
         $criteria = new CDbCriteria();
         if (is_array($models))

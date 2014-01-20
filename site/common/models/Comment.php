@@ -475,7 +475,7 @@ class Comment extends HActiveRecord
     /**
      * @return CActiveRecord
      */
-    private function getCommentEntity()
+    public function getCommentEntity()
     {
         return CActiveRecord::model($this->entity)->findByPk($this->entity_id);
     }

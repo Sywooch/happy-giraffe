@@ -50,6 +50,11 @@
                 'itemView' => '_check',
                 'summaryText' => '',
                 'cssFile' => false,
+                'ajaxUpdate' => false,
+                'pager' => array(
+                    'class' => 'HLinkPager',
+                ),
+                'template' => '{items}<div class="yiipagination">{pager}</div>',
             ));
             ?>
             <!-- antispam_i-->

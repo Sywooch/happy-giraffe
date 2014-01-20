@@ -116,7 +116,7 @@ class ThreadsController extends HController
 	{
 		$result = array();
 		$me = Yii::app()->user->id;
-		$messages = MessagingMessage::model()->between($me, $userId)->withMyStats($me)->orderDesc();
+		$messages = MessagingMessage::model()->between($me, $userId)->withStats()->orderDesc();
 		if ($lastDate)
 		{
 			$messages->older($lastDate);

@@ -73,13 +73,8 @@ class DefaultController extends HController
      *
      * @param $checkId
      */
-//    public function actionAnalysis($userId, )
-//    {
-//        $user = User::model()->findByPk($userId);
-//        $undefinedCount = AntispamCheck::model()->user($userId)->status(AntispamCheck::STATUS_UNDEFINED)->count();
-//        $goodCount = AntispamCheck::model()->user($userId)->status(AntispamCheck::STATUS_GOOD)->count();
-//        $badCount = AntispamCheck::model()->user($userId)->status(AntispamCheck::STATUS_BAD)->count();
-//        $dp = AntispamCheck::getDp($check->spamEntity, null, $userId);
-//        $this->render('analysis', compact('dp', 'check', 'undefinedCount', 'goodCount', 'badCount'));
-//    }
+    public function actionAnalysis($userId)
+    {
+
+    }
 }

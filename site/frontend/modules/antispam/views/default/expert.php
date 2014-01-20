@@ -1,12 +1,13 @@
 <?php
 /**
+ * @var HController $this
  * @var CActiveDataProvider $dp
  */
 ?>
 <div class="page-col">
     <div class="page-col_top">
         <div class="page-col_t">
-            <div class="page-col_t-tx">Белый список 256</div>
+            <div class="page-col_t-tx">Эксперт <?=$this->counts[DefaultController::TAB_EXPERT]?></div>
         </div>
     </div>
     <div class="page-col_cont page-col_cont__gray">

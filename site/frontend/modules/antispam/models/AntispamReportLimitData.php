@@ -7,6 +7,10 @@
  * @property string $id
  * @property string $report_id
  * @property string $entity
+ * @property string $interval
+ * @property string $maxCount
+ * @property string $actualInterval
+ * @property string $ids
  *
  * The followings are the available model relations:
  * @property AntispamReport $report
@@ -29,12 +33,13 @@ class AntispamReportLimitData extends AntispamReportData
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('report_id', 'required'),
-			array('report_id', 'length', 'max'=>11),
+			array('interval, maxCount, actualInterval', 'required'),
+			array('report_id, interval, maxCount, actualInterval', 'length', 'max'=>11),
 			array('entity', 'length', 'max'=>255),
+			array('ids', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, report_id, entity', 'safe', 'on'=>'search'),
+			array('id, report_id, entity, interval, maxCount, actualInterval, ids', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -59,6 +64,10 @@ class AntispamReportLimitData extends AntispamReportData
 			'id' => 'ID',
 			'report_id' => 'Report',
 			'entity' => 'Entity',
+			'interval' => 'Interval',
+			'maxCount' => 'Max Count',
+			'actualInterval' => 'Actual Interval',
+			'ids' => 'Ids',
 		);
 	}
 
@@ -83,6 +92,10 @@ class AntispamReportLimitData extends AntispamReportData
 		$criteria->compare('id',$this->id,true);
 		$criteria->compare('report_id',$this->report_id,true);
 		$criteria->compare('entity',$this->entity,true);
+		$criteria->compare('interval',$this->interval,true);
+		$criteria->compare('maxCount',$this->maxCount,true);
+		$criteria->compare('actualInterval',$this->actualInterval,true);
+		$criteria->compare('ids',$this->ids,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

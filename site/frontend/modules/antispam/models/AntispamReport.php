@@ -135,6 +135,9 @@ class AntispamReport extends CActiveRecord
                 'updateAttribute' => 'updated',
                 'setUpdateOnCreate' => true,
             ),
+            'withRelated' => array(
+                'class' => 'site.common.extensions.wr.WithRelatedBehavior',
+            ),
         );
     }
 

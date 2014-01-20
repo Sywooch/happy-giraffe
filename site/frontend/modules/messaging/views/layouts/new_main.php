@@ -1,10 +1,15 @@
 <?php
 	// Эти скрипты модуль рагистрирует пакетом, подменим на новые версии для нового шаблона
 	Yii::app()->clientScript->scriptMap['jquery.js'] = '/new/javascript/jquery-1.10.2.min.js';
+	Yii::app()->clientScript->scriptMap['jquery.js?r=30'] = '/new/javascript/jquery-1.10.2.min.js';
 	Yii::app()->clientScript->scriptMap['jquery.powertip.js'] = '/new/javascript/jquery.powertip.js';
+	Yii::app()->clientScript->scriptMap['jquery.powertip.js?r=30'] = '/new/javascript/jquery.powertip.js';
 	Yii::app()->clientScript->scriptMap['baron.js'] = '/new/javascript/baron.js';
+	Yii::app()->clientScript->scriptMap['baron.js?r=30'] = '/new/javascript/baron.js';
 	Yii::app()->clientScript->scriptMap['knockout-2.2.1.js'] = '/new/javascript/knockout-3.0.0.js';
+	Yii::app()->clientScript->scriptMap['knockout-2.2.1.js?r=30'] = '/new/javascript/knockout-3.0.0.js';
 	Yii::app()->clientScript->scriptMap['knockout-2.2.1.js'] = '/new/javascript/knockout-debug.3.0.0.js';
+	Yii::app()->clientScript->scriptMap['knockout-2.2.1.js?r=30'] = '/new/javascript/knockout-debug.3.0.0.js';
 	if (! Yii::app()->user->isGuest)
 		Yii::app()->clientScript
 			->registerScript('serverTime', 'var serverTime = ' . time() . '; serverTimeDelta = new Date().getTime() - (serverTime * 1000)', CClientScript::POS_HEAD)

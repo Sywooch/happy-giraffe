@@ -67,7 +67,7 @@ switch ($data->type_id) {
             <?php $this->endWidget(); ?>
         <?php endif; ?>
 
-        <?php if (! $full && false): ?>
+        <?php if (! $full): ?>
             <?php $this->widget('application.widgets.newCommentWidget.NewCommentWidget', array('model' => $data, 'full' => $full)); ?>
         <?php endif; ?>
         <!-- /ko -->

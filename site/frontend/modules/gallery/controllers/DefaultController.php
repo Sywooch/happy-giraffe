@@ -11,21 +11,29 @@ class DefaultController extends HController
 
 	public function actionWindow($collectionClass, $initialPhotoId = null)
 	{
+        $screenWidth = Yii::app()->request->getQuery('screenWidth');
+        $dimension = $this->getUserDimension($screenWidth);
+        Yii::app()->user->setState('dimension', $dimension);
         $windowOptions = Yii::app()->request->getQuery('windowOptions');
         $collectionOptions = Yii::app()->request->getQuery('collectionOptions');
         $collection = new $collectionClass($collectionOptions);
         if ($initialPhotoId === null)
             $initialPhotoId = $collection->photoIds[0];
-        $collectionTitle = $collection->title;
         $initialIndex = $collection->getIndexById($initialPhotoId);
         $initialPhotos = $collection->getPhotosInRange($initialPhotoId, 5, 5);
         $count = $collection->count;
-        $url = $collection->url;
-        $userId = Yii::app()->user->id;
-        $json = compact('initialIndex', 'initialPhotos', 'initialPhotoId', 'count', 'collectionClass', 'collectionOptions', 'url', 'userId', 'windowOptions', 'collectionTitle');
+        $properties = $collection->properties;
+        $user = Yii::app()->user->isGuest ? null : array(
+            'id' => Yii::app()->user->id,
+            'firstName' => Yii::app()->user->model->first_name,
+            'lastName' => Yii::app()->user->model->last_name,
+            'gender' => Yii::app()->user->model->gender,
+            'ava' => Yii::app()->user->model->getAvatarUrl(Avatar::SIZE_MICRO),
+            'url' => Yii::app()->user->model->url,
+        );
+        $json = compact('initialIndex', 'initialPhotos', 'initialPhotoId', 'count', 'collectionClass', 'collectionOptions', 'user', 'windowOptions', 'properties');
 
-        var_dump($collectionClass == 'ContestPhotoCollection');
-        $this->renderPartial('window', compact('json'), false, true);
+        $this->renderPartial('window', compact('json', 'collection'), false, true);
 	}
 
     public function actionPreloadNext($collectionClass, $photoId, $number)
@@ -75,5 +83,58 @@ class DefaultController extends HController
         $success = $item->update(array('description'));
         $response = compact('success');
         echo CJSON::encode($response);
+    }
+
+    protected function getUserDimension($screenWidth)
+    {
+        foreach (AlbumPhoto::$photoViewDimensions as $dimensionId => $dimension)
+            if (($dimension['minScreenWidth'] === null || $screenWidth >= $dimension['minScreenWidth']) && ($dimension['maxScreenWidth'] === null || $screenWidth <= $dimension['maxScreenWidth']))
+                return $dimensionId;
+    }
+
+    public function actionSinglePhoto($entity, $photo_id)
+    {
+        switch ($entity) {
+            case 'CommunityContentGallery':
+                $contentId = Yii::app()->request->getQuery('content_id');
+                $model = CommunityContent::model()->findByPk($contentId);
+                $collectionClass = 'PhotoPostPhotoCollection';
+                $collectionOptions = array('contentId' => $contentId);
+                break;
+            case 'Contest':
+                $contestId = Yii::app()->request->getQuery('contest_id');
+                $model = Contest::model()->findByPk($contestId);
+                $collectionClass = 'ContestPhotoCollection';
+                $collectionOptions = array('contestId' => $contestId);
+                break;
+            default:
+                throw new CHttpException(404);
+        }
+
+        if ($model === null)
+            throw new CHttpException(404);
+
+        $collection = new $collectionClass($collectionOptions);
+        if (array_search($photo_id, $collection->photoIds) === false)
+            throw new CHttpException(404);
+
+        $photo = AlbumPhoto::model()->findByPk($photo_id);
+        $photoCollectionElement = $collection->getPhoto($photo_id, true);
+        $nextPhotoId = $collection->getNextPhotosIds($photo_id, 1);
+        $nextPhotoUrl = preg_replace('#(\d+)\/$#', $nextPhotoId[0] . '/', Yii::app()->request->url);
+        $prevPhotoId = $collection->getPrevPhotosIds($photo_id, 1);
+        $prevPhotoUrl = preg_replace('#(\d+)\/$#', $prevPhotoId[0] . '/', Yii::app()->request->url);
+
+        $this->layout = '//layouts/main';
+        $this->pageTitle = $photoCollectionElement['title'] . ' - ' . $collection->properties['title'];
+        $this->render('singlePhoto', compact('collection', 'photo', 'photoCollectionElement', 'currentIndex', 'nextPhotoUrl', 'prevPhotoUrl', 'entity'));
+    }
+
+    public function actionContestData($contestId, $photoId)
+    {
+        $contest = Contest::model()->findByPk($contestId);
+        $photo = AlbumPhoto::model()->findByPk($photoId);
+        $attach = $photo->getAttachByEntity('ContestWork');
+        $this->renderPartial('contestData', compact('contest', 'attach'), false, true);
     }
 }

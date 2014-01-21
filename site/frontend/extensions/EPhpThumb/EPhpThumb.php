@@ -31,6 +31,7 @@ class EPhpThumb extends CComponent
         
     public function init()
     {
+
         self::$_phpThumbOptions=$this->options;
     }
     

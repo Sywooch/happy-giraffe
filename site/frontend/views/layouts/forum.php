@@ -39,7 +39,9 @@
 
         <?php $this->renderPartial('_rubrics', array('rubrics'=>$this->forum->rootRubrics)); ?>
 
-        <?php $this->widget('CommunityPopularWidget', array('club' => $this->club)); ?>
+        <?php if (false): ?>
+            <?php $this->widget('CommunityPopularWidget', array('club' => $this->club)); ?>
+        <?php endif; ?>
 
         <?php if ($this->action->id == 'view'): ?>
             <div class="banner">
@@ -54,14 +56,14 @@
                 </script>
             </div>
 
-            <?php if ($this->action->id == 'view'): ?>
-                <div class="contest-tizer clearfix">
+            <?php if (false && $this->action->id == 'view'): ?>
+                <div class="contest-tizer contest-tizer__13 clearfix">
                     <div class="contest-tizer_img">
-                        <img src="/images/contest/club/birth2/contest-tizer_img.png" alt="">
+                        <img alt="" src="/images/contest/contest-tizer_img__13.jpg">
                     </div>
                     <div class="contest-tizer_hold">
-                        <div class="contest-tizer_tx">Внимание! с 20 ноября стартовал фотоконкурс</div>
-                        <a href="http://www.happy-giraffe.ru/contest/birth2/" class="contest-tizer_a">Как я рассказала своему мужу о беременности</a>
+                        <div class="contest-tizer_tx">Внимание! с 4 декабря стартовал фотоконкурс</div>
+                        <a class="contest-tizer_a" href="http://www.happy-giraffe.ru/contest/13/">Моя любимая игрушка</a>
                     </div>
                 </div>
             <?php endif; ?>
@@ -72,7 +74,7 @@
 
         <?php if (!Yii::app()->user->isGuest):?>
             <div class="clearfix margin-r20 margin-b20 js-community-subscription" data-bind="visible: active">
-                <a href="<?= $this->createUrl('/blog/default/form', array('type' => 1, 'club_id' => $this->forum->id)) ?>"
+                <a href="<?=$this->createUrl('/blog/default/form', array('type' => 1, 'club_id' => $this->forum->id)) ?>"
                    class="btn-blue btn-h46 float-r fancy-top">Добавить в клуб</a>
             </div>
         <?php endif ?>

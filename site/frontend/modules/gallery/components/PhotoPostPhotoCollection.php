@@ -36,7 +36,7 @@ class PhotoPostPhotoCollection extends PhotoCollection
             'id' => $model->photo_id,
             'title' => $model->photo->title,
             'description' => $model->description,
-            'src' => $model->photo->getOriginalUrl(),
+            'src' => $model->photo->getPhotoViewUrl(),
             'date' => HDate::GetFormattedTime($model->photo->created),
             'user' => array(
                 'id' => $model->photo->author->id,
@@ -51,19 +51,19 @@ class PhotoPostPhotoCollection extends PhotoCollection
             'favourites'=>array(
                 'count' => (int) Favourite::model()->getCountByModel($model->photo),
                 'active' => (bool) Favourite::model()->getUserHas(Yii::app()->user->id, $model->photo),
-            )
+            ),
+            'commentsCount' => $model->photo->commentsCount,
+            'views' => PageView::model()->incViewsByPath($this->rootModel->url . $model->photo->id . '/'),
         );
     }
 
-    public function getUrl()
+    public function getLabel()
     {
-        $post = CommunityContent::model()->findByPk($this->contentId);
-        return $post->url;
+        return 'Фотопост';
     }
 
-    public function getTitle()
+    public function getRootModel()
     {
-        $post = CommunityContent::model()->findByPk($this->contentId);
-        return $post->title;
+        return CommunityContent::model()->findByPk($this->contentId);
     }
 }

@@ -9,13 +9,14 @@
 
 class TempCommand extends CConsoleCommand
 {
-    public function actionCheatHeinz()
+    public function actionCheatViews($url, $perDay, $days)
     {
         Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
         Yii::import('site.common.models.mongo.PageView');
-        while (true) {
-            $sleep = date('H') < 8 ? 72 : 36;
-            PageView::model()->cheat('/community/5/forum/post/114026/', 0, 1);
+        $start = time();
+        while (time() < ($start + $days * 24 * 60 * 60)) {
+            $sleep = 24 * 60 * 60 / $perDay / 2;
+            PageView::model()->cheat($url, 0, 1);
             sleep($sleep);
         }
     }
@@ -116,6 +117,155 @@ class TempCommand extends CConsoleCommand
         foreach ($users as $u) {
             $thread = MessagingThread::model()->findOrCreate(1, $u->id);
             MessagingMessage::model()->create($text, $thread->id, 1, array(), true);
+        }
+    }
+
+    public function actionCopyScape()
+    {
+        $criteria = new CDbCriteria();
+        $criteria->with = array('author', 'post');
+        $criteria->condition = 't.id > 112549 AND uniqueness IS NULL AND type_id = 1 AND (author.group = 0 OR author.group = 4)';
+
+        $dp = new CActiveDataProvider('CommunityContent', array(
+            'criteria' => $criteria,
+        ));
+
+        $iterator = new CDataProviderIterator($dp);
+        $count = $dp->totalItemCount;
+        $i = 0;
+        foreach ($iterator as $post) {
+            $i++;
+            $post->uniqueness = (strlen($post->post->text) > 250) ? CopyScape::getUniquenessByText($post->post->text) : 1;
+            $post->update(array('uniqueness'));
+            echo $i . '/' . $count . "\n";
+        }
+    }
+
+    public function actionSeo1()
+    {
+        $criteria = new CDbCriteria();
+        $criteria->with = array('post');
+        $criteria->condition = 'uniqueness IS NULL AND type_id = 1';
+        $criteria->addInCondition('author_id', array(181638, 34531));
+
+        $dp = new CActiveDataProvider('CommunityContent', array(
+            'criteria' => $criteria,
+        ));
+
+        $iterator = new CDataProviderIterator($dp);
+        $count = $dp->totalItemCount;
+        $i = 0;
+        foreach ($iterator as $post) {
+            $i++;
+            $post->uniqueness = (strlen($post->post->text) > 250) ? CopyScape::getUniquenessByText($post->post->text) : 1;
+            $post->update(array('uniqueness'));
+            echo $i . '/' . $count . "\n";
+        }
+    }
+
+    public function actionSeo2()
+    {
+        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
+        Yii::import('site.common.models.mongo.*');
+        Yii::import('site.frontend.extensions.GoogleAnalytics');
+
+        $ga = new GoogleAnalytics('nikita@happy-giraffe.ru', 'ummvxhwmqzkrpgzj');
+        $ga->setProfile('ga:53688414');
+        $ga->setDateRange('2013-09-01', '2013-12-24');
+
+        $criteria = new CDbCriteria();
+        $criteria->addInCondition('author_id', array(181638, 34531));
+        $criteria->order = 'id ASC';
+
+        $dp = new CActiveDataProvider('CommunityContent', array(
+            'criteria' => $criteria,
+        ));
+
+        $iterator = new CDataProviderIterator($dp);
+        $count = $dp->totalItemCount;
+        $i = 0;
+        foreach ($iterator as $post) {
+            $i++;
+
+            if (Seo2::model()->findByAttributes(array('url' => $post->url)) === null) {
+                do {
+                    $report = null;
+                    try {
+                        $report = $ga->getReport(array(
+                            'metrics' => 'ga:uniquePageviews',
+                            'sort' => '-ga:uniquePageviews',
+                            'dimensions' => 'ga:source',
+                            'filters' => urlencode('ga:pagePath==' . $post->url),
+                        ));
+                    } catch(Exception $e) {
+                        sleep(300);
+                        echo "waiting...\n";
+                    }
+                } while ($report === null);
+
+                $google = isset($report['google']) ? $report['google']['ga:uniquePageviews'] : 0;
+                $yandex = isset($report['yandex']) ? $report['yandex']['ga:uniquePageviews'] : 0;
+                $model = new Seo2();
+                $model->url = $post->url;
+                $model->google = $google;
+                $model->yandex = $yandex;
+                $model->save();
+            }
+
+            echo $i . '/' . $count . "\n";
+        }
+    }
+
+    public function actionSeo3()
+    {
+        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
+        Yii::import('site.common.models.mongo.*');
+        Yii::import('site.frontend.extensions.GoogleAnalytics');
+
+        $ga = new GoogleAnalytics('nikita@happy-giraffe.ru', 'ummvxhwmqzkrpgzj');
+        $ga->setProfile('ga:53688414');
+        $ga->setDateRange('2013-01-01', '2013-12-24');
+
+        $criteria = new CDbCriteria();
+        $criteria->compare('removed', 1);
+        $criteria->order = 'id ASC';
+
+        $dp = new CActiveDataProvider(CommunityContent::model()->resetScope(), array(
+            'criteria' => $criteria,
+        ));
+
+        $iterator = new CDataProviderIterator($dp);
+        $count = $dp->totalItemCount;
+        $i = 0;
+        foreach ($iterator as $post) {
+            $i++;
+
+            if (Seo3::model()->findByAttributes(array('url' => $post->url)) === null) {
+                do {
+                    $report = null;
+                    try {
+                        $report = $ga->getReport(array(
+                            'metrics' => 'ga:uniquePageviews',
+                            'sort' => '-ga:uniquePageviews',
+                            'dimensions' => 'ga:source',
+                            'filters' => urlencode('ga:pagePath==' . $post->url),
+                        ));
+                    } catch(Exception $e) {
+                        sleep(300);
+                        echo "waiting...\n";
+                    }
+                } while ($report === null);
+
+                $google = isset($report['google']) ? $report['google']['ga:uniquePageviews'] : 0;
+                $yandex = isset($report['yandex']) ? $report['yandex']['ga:uniquePageviews'] : 0;
+                $model = new Seo3();
+                $model->url = $post->url;
+                $model->google = $google;
+                $model->yandex = $yandex;
+                $model->save();
+            }
+
+            echo $i . '/' . $count . "\n";
         }
     }
 }

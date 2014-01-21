@@ -44,15 +44,7 @@ foreach ($test->testQuestions as $question):?>
 					<li>
 
 						<label for="value<?php echo $i . $answer->number ?>">
-                            <input
-                               data-points="<?php echo $answer->points ?>"
-                               onchange="Test.Next(this);"
-                               type="radio"
-                               name="v"
-                               rel="<?php echo $answer->number ?>"
-                               id="value<?php echo $i . $answer->number ?>"
-                               data-last="<?=$answer->islast?>" /> <span><?php
-							echo $answer->text ?></span></label>
+                            <input data-points="<?php echo $answer->points ?>" onchange="Test.Next(this);" type="radio" name="v" rel="<?php echo $answer->number ?>" id="value<?php echo $i . $answer->number ?>" data-last="<?=$answer->islast?>" /> <span><?php echo $answer->text ?></span></label>
 					</li>
 					<?php endforeach; ?>
 				</ul>

@@ -39,7 +39,7 @@ class AlbumPhotoCollection extends PhotoCollection
             'id' => $model->id,
             'title' => $model->title,
             'description' => '',
-            'src' => $model->getOriginalUrl(),
+            'src' => $model->photo->getPhotoViewUrl(),
             'date' => HDate::GetFormattedTime($model->created),
             'user' => array(
                 'id' => $model->author->id,
@@ -54,19 +54,19 @@ class AlbumPhotoCollection extends PhotoCollection
             'favourites'=>array(
                 'count' => (int) Favourite::model()->getCountByModel($model),
                 'active' => (bool) Favourite::model()->getUserHas(Yii::app()->user->id, $model),
-            )
+            ),
+            'commentsCount' => $model->commentsCount,
+            'views' => PageView::model()->incViewsByPath($this->rootModel->url . $model->id . '/'),
         );
     }
 
-    public function getUrl()
+    public function getLabel()
     {
-        $album = Album::model()->findByPk($this->albumId);
-        return $album->url;
+        return 'Фотоальбом';
     }
 
-    public function getTitle()
+    public function getRootModel()
     {
-        $album = Album::model()->findByPk($this->albumId);
-        return $album->title;
+        return Album::model()->findByPk($this->albumId);
     }
 }

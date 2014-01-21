@@ -14,7 +14,7 @@ class DefaultController extends HController
     {
         $filters = array(
             'accessControl',
-            'ajaxOnly - index, view, save',
+            'ajaxOnly - index, view, save, live',
         );
 
         if (Yii::app()->user->isGuest) {
@@ -100,6 +100,8 @@ class DefaultController extends HController
 
         $this->user = $this->loadUser($user_id);
         $content = $this->loadPost($content_id);
+        if ($content->type_id == 1)
+            $content->getContent()->forEdit->text;
 
         if (!preg_match('#^\/user\/(\d+)\/blog\/post(\d+)\/#', Yii::app()->request->requestUri)) {
             header("HTTP/1.1 301 Moved Permanently");
@@ -286,6 +288,9 @@ class DefaultController extends HController
 
     public function actionSave($id = null)
     {
+        if (Yii::app()->user->model->register_date > '2014-01-05 00:00:00')
+            throw new CHttpException(503);
+
         $model = ($id === null) ? new BlogContent() : BlogContent::model()->findByPk($id);
         if (! $model->isNewRecord && ! $model->canEdit())
             throw new CHttpException(403);

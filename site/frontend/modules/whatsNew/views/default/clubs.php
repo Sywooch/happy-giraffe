@@ -2,7 +2,6 @@
     $channel = ($show == EventManager::WHATS_NEW_CLUBS) ? 'whatsNewClubs' : 'whatsNewClubsUser' . Yii::app()->user->id;
 
     Yii::app()->clientScript
-        ->registerCssFile('/stylesheets/user.css')
         ->registerCssFile('/stylesheets/isotope.css')
         ->registerScriptFile('/javascripts/jquery.isotope.min.js')
         ->registerScriptFile('/javascripts/live.js')

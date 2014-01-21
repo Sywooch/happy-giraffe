@@ -137,6 +137,28 @@
                         </div>
                     </div>
 
+                    <div class="margin-b40 clearfix">
+                        <div class="">
+                            <div class="b-sign_label-hold">
+                                <label for="" class="b-sign_label">Код</label>
+                            </div>
+                            <div class="b-sign_capcha-hold">
+                                <div class="margin-b5">
+                                    <?php $this->widget('CCaptcha', array('showRefreshButton' => false, 'clickableImage' => true)); ?>
+                                </div>
+                                <div class="b-sign_itx-desc">
+                                    Обновить картинку
+                                    <a href="javascript:void(0)" class="ico-refresh" onclick="$(this).parent().prev().find('img').trigger('click');"></a>
+                                </div>
+                            </div>
+                            <div class="b-sign_itx-hold">
+                                <?=$form->textField($model, 'verifyCode', array('class' => 'itx-simple margin-t12'))?>
+                                <?=$form->error($model, 'verifyCode')?>
+                                <div class="b-sign_itx-desc">Введите цифры, которые вы видите на картинке</div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="b-sign_bottom">
                         <button class="btn-blue btn-h55 b-sign_btn-reg">Регистрация</button>
                     </div>

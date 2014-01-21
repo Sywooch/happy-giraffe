@@ -29,6 +29,31 @@ class AlbumPhoto extends HActiveRecord
     const CROP_SIDE_TOP = 'top';
     const CROP_SIDE_BOTTOM = 'bottom';
 
+    const PHOTO_VIEW_SMALL = 0;
+    const PHOTO_VIEW_MEDIUM = 1;
+    const PHOTO_VIEW_LARGE = 2;
+
+    public static  $photoViewDimensions = array(
+        self::PHOTO_VIEW_SMALL => array(
+            'width' => 724,
+            'height' => 623,
+            'minScreenWidth' => null,
+            'maxScreenWidth' => 1024,
+        ),
+        self::PHOTO_VIEW_MEDIUM => array(
+            'width' => 1140,
+            'height' => 935,
+            'minScreenWidth' => 1025,
+            'maxScreenWidth' => 1440,
+        ),
+        self::PHOTO_VIEW_LARGE => array(
+            'width' => 1620,
+            'height' => 1295,
+            'minScreenWidth' => 1441,
+            'maxScreenWidth' => null,
+        ),
+    );
+
     public $options = array();
 
     public $w_title = null;
@@ -176,6 +201,8 @@ class AlbumPhoto extends HActiveRecord
                 FriendEventManager::add(FriendEvent::TYPE_PHOTOS_ADDED, array('album_id' => $this->album->id, 'user_id' => $this->author_id));
                 Scoring::photoCreated($this);
             }
+
+            $this->generatePhotoViewPhotos();
         }
 
         parent::afterSave();
@@ -660,7 +687,7 @@ class AlbumPhoto extends HActiveRecord
 
     public function getAttachByEntity($entity)
     {
-        return AttachPhoto::model()->findByAttributes(array('entity' => $entity, 'photo_id' => $this->id));
+        return AttachPhoto::model()->findByAttributes(array('entity' => $entity, 'photo_id' => $this->id), array('order' => 't.id DESC'));
     }
 
     public function getRssContent()
@@ -711,6 +738,13 @@ class AlbumPhoto extends HActiveRecord
      */
     public function getWidget($edit = false, $parentModel = null)
     {
+        if (get_class(Yii::app()) == 'CConsoleApplication')
+            return Yii::app()->command->renderFile(Yii::getPathOfAlias('site.frontend.views.albums') . DIRECTORY_SEPARATOR . '_widget.php', array(
+                'model' => $this,
+                'edit' => $edit,
+                'parentModel' => $parentModel
+            ), true);
+
         return Yii::app()->controller->renderPartial('//albums/_widget', array(
             'model' => $this,
             'edit' => $edit,
@@ -839,5 +873,17 @@ class AlbumPhoto extends HActiveRecord
     public function getCommentsCount()
     {
         return $this->commentsCount;
+    }
+
+    public function generatePhotoViewPhotos()
+    {
+        foreach (self::$photoViewDimensions as $dimensions)
+            $this->getPreviewPath($dimensions['width'], $dimensions['height'], Image::AUTO);
+    }
+
+    public function getPhotoViewUrl()
+    {
+        $dimension = Yii::app()->user->getState('dimension', self::PHOTO_VIEW_MEDIUM);
+        return $this->getPreviewUrl(self::$photoViewDimensions[$dimension]['width'], self::$photoViewDimensions[$dimension]['height'], Image::AUTO);
     }
 }

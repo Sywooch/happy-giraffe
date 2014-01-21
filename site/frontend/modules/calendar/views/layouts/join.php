@@ -14,7 +14,6 @@
     $cs = Yii::app()->clientScript;
     $cs
         ->registerCssFile('/stylesheets/common.css')
-        ->registerCssFile('/stylesheets/jquery.fancybox-1.3.4.css')
 
         ->registerCoreScript('jquery')
         ->registerScriptFile('/javascripts/tooltipsy.min.js')

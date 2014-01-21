@@ -26,7 +26,7 @@ class CopyScape
 
         if ($res) {
             $xml = new SimpleXMLElement($res);
-            return (isset($xml->result[0]->percentmatched)) ? (100 - $xml->result[0]->percentmatched) : null;
+            return (isset($xml->result[0]->percentmatched)) ? (100 - $xml->result[0]->percentmatched) : 100;
         }else
             return null;
     }

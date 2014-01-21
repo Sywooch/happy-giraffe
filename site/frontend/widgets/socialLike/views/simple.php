@@ -117,7 +117,7 @@
             <script type="text/javascript">
                 $(function () {
                     //подписываемся на клик
-                    if (VK && VK.Share && VK.Share.click) {
+                    if (typeof VK !== 'undefined' && VK.Share && VK.Share.click) {
                         var oldShareClick = VK.Share.click;
                         VK.Share.click = function (index, el) {
                             Social.updateLikesCount('vk');

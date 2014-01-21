@@ -219,8 +219,8 @@ class MailCommand extends CConsoleCommand
             $criteria->offset($offset);
             $models = MailruUser::model()->findAll($criteria);
             foreach ($models as $model) {
-                $subject = $model->firstName . ', принимай участие в конкурсе «Поделись улыбкою своей»!';
-                $html = $this->renderFile(Yii::getPathOfAlias('site.common.tpl') . DIRECTORY_SEPARATOR . 'contest_12.php', compact('model'), true);
+                $subject = $model->firstName . ', принимай участие в конкурсе «Моя любимая игрушка»!';
+                $html = $this->renderFile(Yii::getPathOfAlias('site.common.tpl') . DIRECTORY_SEPARATOR . 'contest_13.php', compact('model'), true);
                 Yii::app()->email->sendEmail($model->email, $subject, $html, 'noreply@happy-giraffe.ru', 'Веселый Жираф');
                 $i++;
             }
@@ -242,6 +242,27 @@ class MailCommand extends CConsoleCommand
             foreach ($models as $model) {
                 $subject = $model->firstName . ', принимай участие в конкурсе «Как я рассказала своему мужу о беременности»!';
                 $html = $this->renderFile(Yii::getPathOfAlias('site.common.tpl') . DIRECTORY_SEPARATOR . 'contest_birth2.php', compact('model'), true);
+                Yii::app()->email->sendEmail($model->email, $subject, $html, 'noreply@happy-giraffe.ru', 'Веселый Жираф');
+                $i++;
+            }
+            $offset += 1000;
+        } while (! empty($models));
+        echo $i . ' sent';
+    }
+
+    public function actionHeinzMailRu()
+    {
+        $offset = 0;
+        $i = 0;
+        do {
+            $criteria = new EMongoCriteria();
+            $criteria->list = (string) MailruUser::LIST_PREGNANCY;
+            $criteria->limit(1000);
+            $criteria->offset($offset);
+            $models = MailruUser::model()->findAll($criteria);
+            foreach ($models as $model) {
+                $subject = $model->firstName . ', принимай участие в конкурсе «Лучший вопрос о качестве и безопасности детского питания»!';
+                $html = $this->renderFile(Yii::getPathOfAlias('site.common.tpl') . DIRECTORY_SEPARATOR . 'heinz.php', compact('model'), true);
                 Yii::app()->email->sendEmail($model->email, $subject, $html, 'noreply@happy-giraffe.ru', 'Веселый Жираф');
                 $i++;
             }

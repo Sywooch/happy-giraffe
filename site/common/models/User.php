@@ -252,6 +252,8 @@ class User extends HActiveRecord
             array('blog_title', 'length', 'max' => 50),
             array('blog_description', 'length', 'max' => 150),
             array('blog_photo_id', 'default', 'setOnEmpty' => true, 'value' => null),
+
+            array('verifyCode', 'CaptchaExtendedValidator', 'allowEmpty'=> ! CCaptcha::checkRequirements(), 'on' => 'signup,signup_full'),
         );
     }
 

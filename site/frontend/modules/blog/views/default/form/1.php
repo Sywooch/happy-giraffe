@@ -15,7 +15,9 @@ $form = $this->beginWidget('CActiveForm', array(
     'enableAjaxValidation' => true,
     'enableClientValidation' => true,
     'clientOptions' => array(
-        'hideErrorMessage' => true,
+        'validateOnSubmit' => true,
+        'validateOnType' => true,
+        'validationDelay' => 400,
     ),
 )); ?>
 

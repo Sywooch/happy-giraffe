@@ -72,7 +72,6 @@ class DefaultController extends HController
     /**
      * @param $userId
      * @param $entity
-     * @todo Убрать вызов $dp->getData();
      */
     public function actionAnalysis($userId, $entity = AntispamCheck::ENTITY_POSTS)
     {

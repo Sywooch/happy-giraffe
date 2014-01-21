@@ -115,6 +115,9 @@ class MessagingMessage extends HActiveRecord
                 'interval' => 60 * 60,
                 'maxCount' => 2,
             ),
+            'softDelete' => array(
+                'class' => 'site.common.behaviors.SoftDeleteBehavior',
+            ),
         );
     }
 

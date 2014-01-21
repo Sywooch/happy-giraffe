@@ -69,6 +69,8 @@ return array(
         'application.modules.community.models.*',
         'application.widgets.registerWidget.RegisterWidget',
         'ext.captchaExtended.*',
+        'application.modules.antispam.models.*',
+        'application.modules.antispam.components.*',
     ),
 
 	'sourceLanguage' => 'en',

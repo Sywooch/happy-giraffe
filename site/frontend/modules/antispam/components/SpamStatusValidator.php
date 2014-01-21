@@ -11,7 +11,9 @@ class SpamStatusValidator extends CValidator
 {
     protected function validateAttribute($object, $attribute)
     {
-        if (in_array(AntispamStatusManager::getUserStatus($object->author->id), array(AntispamStatusManager::STATUS_BLACK, AntispamStatusManager::STATUS_BLOCKED)))
-            $object->addError('author_id', 'Вы заблокированы не можете добавлять записи на сайт.');
+        $value = $object->$attribute;
+
+        if (in_array(AntispamStatusManager::getUserStatus($value), array(AntispamStatusManager::STATUS_BLACK, AntispamStatusManager::STATUS_BLOCKED)))
+            $object->addError('author_id', 'Вы заблокированы.');
     }
 }

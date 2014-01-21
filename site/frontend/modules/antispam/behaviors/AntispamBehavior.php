@@ -7,9 +7,6 @@
  * To change this template use File | Settings | File Templates.
  */
 
-Yii::import('site.frontend.modules.antispam.components.*');
-Yii::import('site.frontend.modules.antispam.models.*');
-
 class AntispamBehavior extends CActiveRecordBehavior
 {
     public $interval;

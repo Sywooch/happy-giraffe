@@ -136,7 +136,7 @@
 										Больше не показывать данное предупреждение
 									</label>
 									<div class="textalign-c clearfix">
-										<button class="btn-green">Да</button>
+										<button class="btn-green" data-bind="click: deleteDialog">Да</button>
 										<button class="btn-gray-light">Нет</button>
 									</div>
 								</div>

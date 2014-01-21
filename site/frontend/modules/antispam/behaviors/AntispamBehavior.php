@@ -19,11 +19,7 @@ class AntispamBehavior extends CActiveRecordBehavior
     {
         if ($this->owner->isNewRecord && AntispamStatusManager::getUserStatus($this->owner->author->id) != AntispamStatusManager::STATUS_WHITE) {
 
-            $check = new AntispamCheck();
-            $check->entity = get_class($this->owner);
-            $check->entity_id = $this->owner->id;
-            $check->user_id = Yii::app()->user->id;
-            $check->save();
+            $this->createCheck();
         }
     }
 
@@ -34,6 +30,8 @@ class AntispamBehavior extends CActiveRecordBehavior
                 'order' => 'id DESC',
                 'limit' => $this->maxCount,
             ));
+            foreach ($models as $m)
+                $m->antispam->createCheck();
 
             $report = new AntispamReportLimit();
             $report->user_id = $this->owner->author_id;
@@ -52,6 +50,15 @@ class AntispamBehavior extends CActiveRecordBehavior
             $report->data = $reportData;
             $report->withRelated->save(true, array('data'));
         }
+    }
+
+    protected function createCheck()
+    {
+        $check = new AntispamCheck();
+        $check->entity = get_class($this->owner);
+        $check->entity_id = $this->owner->id;
+        $check->user_id = Yii::app()->user->id;
+        $check->save();
     }
 
     protected function limitExceed()

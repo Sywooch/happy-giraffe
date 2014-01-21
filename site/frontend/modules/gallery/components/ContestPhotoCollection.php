@@ -22,7 +22,7 @@ class ContestPhotoCollection extends PhotoCollection
                 SELECT photo_id
                 FROM contest__works w
                 JOIN album__photo_attaches a ON a.entity = 'ContestWork' AND a.entity_id = w.id
-                WHERE w.contest_id = :contestId
+                WHERE w.contest_id = :contestId AND w.removed = 0
                 ORDER BY w.created DESC
             ";
         else
@@ -30,7 +30,7 @@ class ContestPhotoCollection extends PhotoCollection
                 SELECT photo_id
                 FROM contest__works w
                 JOIN album__photo_attaches a ON a.entity = 'ContestWork' AND a.entity_id = w.id
-                WHERE w.contest_id = :contestId
+                WHERE w.contest_id = :contestId AND w.removed = 0
                 ORDER BY w.rate DESC
             ";
 
@@ -77,7 +77,7 @@ class ContestPhotoCollection extends PhotoCollection
             'id' => $model->photoAttach->photo->id,
             'title' => $model->title,
             'description' => '',
-            'src' => $model->photoAttach->photo->getOriginalUrl(),
+            'src' => $model->photo->getPhotoViewUrl(),
             'date' => HDate::GetFormattedTime($model->photoAttach->photo->created),
             'user' => array(
                 'id' => $model->photoAttach->photo->author->id,
@@ -92,19 +92,19 @@ class ContestPhotoCollection extends PhotoCollection
             'favourites'=>array(
                 'count' => (int) Favourite::model()->getCountByModel($model->photoAttach->photo),
                 'active' => (bool) Favourite::model()->getUserHas(Yii::app()->user->id, $model->photoAttach->photo),
-            )
+            ),
+            'commentsCount' => $model->photoAttach->photo->commentsCount,
+            'views' => PageView::model()->incViewsByPath($this->rootModel->url . $model->photoAttach->photo->id . '/'),
         );
     }
 
-    public function getUrl()
+    public function getLabel()
     {
-        $contest = Contest::model()->findByPk($this->contestId);
-        return $contest->url;
+        return 'Конкурс';
     }
 
-    public function getTitle()
+    public function getRootModel()
     {
-        $contest = Contest::model()->findByPk($this->contestId);
-        return $contest->title;
+        return Contest::model()->findByPk($this->contestId);
     }
 }

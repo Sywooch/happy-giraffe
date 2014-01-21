@@ -20,9 +20,22 @@ class PostUsersWidget extends CWidget
         $likesCount = HGLike::model()->countByEntity($this->post) - ($hasLike ? 1 : 0);
         $favouritedCount = Favourite::model()->getCountByModel($this->post) - ($hasFavourite ? 1 : 0);
 
-        $class = $this->post->getIsFromBlog() ? 'BlogContent' : 'CommunityContent';
+        switch (get_class($this->post)) {
+            case 'CommunityContent':
+            case 'BlogContent':
+                $class = $this->post->getIsFromBlog() ? 'BlogContent' : 'CommunityContent';
+                $label = 'Запись';
+                break;
+            case 'AlbumPhoto':
+                $class = get_class($this->post);
+                $label = 'Фото';
+                break;
+            default:
+                $class = get_class($this->post);
+                $label = 'Страница';
+        }
 
         if ($likedUsers || $favouritedUsers)
-            $this->render('PostUsersWidget', compact('likedUsers', 'favouritedUsers', 'hasLike', 'hasFavourite', 'likesCount', 'favouritedCount', 'class'));
+            $this->render('PostUsersWidget', compact('likedUsers', 'favouritedUsers', 'hasLike', 'hasFavourite', 'likesCount', 'favouritedCount', 'class', 'label'));
     }
 }

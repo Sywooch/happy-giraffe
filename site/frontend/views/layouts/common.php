@@ -21,8 +21,6 @@
             ->registerCssFile('/redactor/redactor.css')
             ->registerCssFile('/stylesheets/common.css')
             ->registerCssFile('/stylesheets/global.css')
-            ->registerCssFile('/stylesheets/user.css')
-            ->registerCssFile('/stylesheets/baby.css')
             ->registerCssFile('http://fonts.googleapis.com/css?family=Roboto:300&subset=latin,cyrillic-ext')
 
             ->registerCoreScript('jquery')
@@ -31,11 +29,12 @@
             ->registerScriptFile('/javascripts/tooltipsy.min.js')
             ->registerScriptFile('/javascripts/jquery.placeholder.min.js')
             ->registerScriptFile('/javascripts/addtocopy.js')
-            ->registerCssFile('/stylesheets/jquery.fancybox-1.3.4.css')
             ->registerScriptFile('/javascripts/jquery.fancybox-1.3.4.js')
             ->registerScriptFile('/javascripts/base64.js')
             ->registerScriptFile('/javascripts/common.js')
             ->registerScriptFile('/javascripts/fox.js')
+            ->registerScriptFile('/javascripts/jquery.autosize.min.js')
+            ->registerScriptFile('/javascripts/jquery.preload.min.js')
         ;
         if (!empty($this->meta_description))
             $cs->registerMetaTag(trim($this->meta_description), 'description');
@@ -48,7 +47,7 @@
             <link rel="stylesheet" href='/stylesheets/ie.css' type="text/css" media="screen" />
         <![endif]-->
     </head>
-    <body class="body-gray<?php if ($this->bodyClass !== null): ?> <?=$this->bodyClass?><?php endif; ?>">
+    <body class="body-gray<?php if ($this->bodyClass !== null): ?> <?=$this->bodyClass?><?php endif; ?>" id="body">
         <?=$content?>
 
         <!-- Yandex.Metrika counter -->
@@ -129,5 +128,38 @@
             <img src="//www.tns-counter.ru/V13a****happygiraffe_ru/ru/UTF-8/tmsec=happygiraffe_total/" width="0" height="0" alt="" />
         </noscript>
         <!--/ tns-counter.ru -->
+
+        <?php if (false): ?>
+        <!--AdFox START-->
+        <!--giraffe-->
+        <!--Площадка: Весёлый Жираф / * / *-->
+        <!--Тип баннера: Брендирование-->
+        <!--Расположение: бэкграунд-->
+        <script type="text/javascript">
+            <!--
+            if (typeof(pr) == 'undefined') { var pr = Math.floor(Math.random() * 1000000); }
+            if (typeof(document.referrer) != 'undefined') {
+                if (typeof(afReferrer) == 'undefined') {
+                    afReferrer = escape(document.referrer);
+                }
+            } else {
+                afReferrer = '';
+            }
+            var addate = new Date();
+            var scrheight = '', scrwidth = '';
+            if (self.screen) {
+                scrwidth = screen.width;
+                scrheight = screen.height;
+            } else if (self.java) {
+                var jkit = java.awt.Toolkit.getDefaultToolkit();
+                var scrsize = jkit.getScreenSize();
+                scrwidth = scrsize.width;
+                scrheight = scrsize.height;
+            }
+            document.write('<scr' + 'ipt type="text/javascript" src="http://ads.adfox.ru/211012/prepareCode?pp=dtx&amp;ps=bkqy&amp;p2=ewfb&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a&amp;pr=' + pr +'&amp;pt=b&amp;pd=' + addate.getDate() + '&amp;pw=' + addate.getDay() + '&amp;pv=' + addate.getHours() + '&amp;prr=' + afReferrer + '&amp;pdw=' + scrwidth + '&amp;pdh=' + scrheight + '"><\/scr' + 'ipt>');
+            // -->
+        </script>
+        <!--AdFox END-->
+        <?php endif; ?>
     </body>
 </html>

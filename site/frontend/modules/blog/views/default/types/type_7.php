@@ -13,7 +13,7 @@
 
     <div class="b-article_in clearfix">
         <div class="wysiwyg-content clearfix">
-            <?=$data->question->text?>
+            <?=$data->question->purified->text?>
         </div>
     </div>
 
@@ -25,7 +25,7 @@
 
     <div class="b-article_in clearfix">
         <div class="wysiwyg-content clearfix">
-            <?=Str::truncate($data->question->text, 700)?>
+            <?=Str::truncate($data->question->purified->text, 700)?>
         </div>
     </div>
 

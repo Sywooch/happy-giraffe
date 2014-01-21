@@ -4,7 +4,6 @@
     $cs = Yii::app()->clientScript;
     $cs
         ->registerScriptFile('/javascripts/album.js')
-        ->registerCssFile('/stylesheets/user.css')
         ->registerCoreScript('jquery.ui')
         ->registerScriptFile('/javascripts/knockout-2.2.1.js')
     ;
@@ -18,7 +17,7 @@
     <div class="user-cols clearfix">
 
         <div class="col-1">
-            <?php if ($this->action->id == 'view'): ?>
+            <?php if (false && $this->action->id == 'view'): ?>
                 <div class="banner">
                     <!--AdFox START-->
                     <!--giraffe-->
@@ -265,13 +264,13 @@
             <?php endif; ?>
 
             <?php if ($this->action->id == 'view'): ?>
-                <div class="contest-tizer clearfix">
+                <div class="contest-tizer contest-tizer__13 clearfix">
                     <div class="contest-tizer_img">
-                        <img src="/images/contest/club/birth2/contest-tizer_img.png" alt="">
+                        <img alt="" src="/images/contest/contest-tizer_img__13.jpg">
                     </div>
                     <div class="contest-tizer_hold">
-                        <div class="contest-tizer_tx">Внимание! с 20 ноября стартовал фотоконкурс</div>
-                        <a href="http://www.happy-giraffe.ru/contest/birth2/" class="contest-tizer_a">Как я рассказала своему мужу о беременности</a>
+                        <div class="contest-tizer_tx">Внимание! с 4 декабря стартовал фотоконкурс</div>
+                        <a class="contest-tizer_a" href="http://www.happy-giraffe.ru/contest/13/">Моя любимая игрушка</a>
                     </div>
                 </div>
             <?php endif; ?>

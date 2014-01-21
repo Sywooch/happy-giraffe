@@ -67,6 +67,8 @@ return array(
         'application.modules.myGiraffe.models.*',
         'application.modules.myGiraffe.components.*',
         'application.modules.community.models.*',
+        'application.widgets.registerWidget.RegisterWidget',
+        'ext.captchaExtended.*',
     ),
 
 	'sourceLanguage' => 'en',
@@ -285,6 +287,11 @@ return array(
 					'class'=>'CWebLogRoute',
 				),
 				*/
+//                array(
+//					'class'=>'CEmailLogRoute',
+//					'levels'=>'error, warning',
+//					'emails'=>'pavel@happy-giraffe.ru',
+//				),
 			),
 		),
 		'shoppingCart' => array(
@@ -345,7 +352,7 @@ return array(
 	// application-level parameters that can be accessed
 	// using Yii::app()->params['paramName']
 	'params'=>array(
-        'releaseId' => 30,
+        'releaseId' => 49,
         'valentinesAlbum' => '41340',
 		// this is used in contact page
 		'adminEmail'=>'webmaster@example.com',

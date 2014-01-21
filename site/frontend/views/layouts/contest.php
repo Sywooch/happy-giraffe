@@ -89,7 +89,13 @@
 
     <?php if ($this->contest->id == 12): ?>
         <div class="contest-sponsor">
-            <a href="http://www.silver-care.ru" title="silver-care.ru"><img src="/images/contest/contest-sponsor-12-1.jpg" alt="" class="contest-sponsor_img"></a>
+            <a href="http://www.silver-care.ru" title="silver-care.ru" target="_blank"><img src="/images/contest/contest-sponsor-12-1.jpg" alt="" class="contest-sponsor_img"></a>
+        </div>
+    <?php endif; ?>
+
+    <?php if ($this->contest->id == 13): ?>
+        <div class="contest-sponsor">
+            <a href="http://www.neopod.ru" title="neopod.ru" target="_blank"><img src="/images/contest/contest-sponsor-13-1.jpg" alt="" class="contest-sponsor_img"></a>
         </div>
     <?php endif; ?>
 

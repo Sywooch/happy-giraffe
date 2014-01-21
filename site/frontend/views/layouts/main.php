@@ -22,285 +22,323 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
         <a target="_blank" href="<?=$this->createUrl('/signal/commentator/index') ?>" style="color: #333;font-weight:bold;">Панель для работы</a>
     </div>
 <?php endif ?>
-<div class="layout-container">
-    <div class="layout-wrapper">
+<div class="layout-container" id="layout-container">
+    <?php if (!Yii::app()->user->isGuest):?>
+    <!-- ko stopBinding: true -->
+    <div class="header-fix layout-binding">
+        <div class="header-fix_hold clearfix">
+            <a href="/" class="header-fix_logo"></a>
 
-        <?php if (!Yii::app()->user->isGuest):?>
-        <!-- ko stopBinding: true -->
-        <div class="layout-header clearfix layout-binding">
-            <div class="layout-header_hold clearfix">
+            <a href="javascript:void(0)" class="layout-header_scrolltop" onclick="$('html, body').animate({scrollTop:0}, 'normal')">
+                <span class="a-pseudo">Наверх</span>
+                <span class="i-arrow-t"></span>
+            </a>
+            <div class="header-fix-menu">
+                <ul class="header-menu_ul clearfix">
+                    <li class="header-fix-menu_li" data-bind="css: { active : newPostsCount() > 0 && activeModule() != 'myGiraffe' }">
+                        <a href="<?=$this->createUrl('/myGiraffe/default/index', array('type'=>1))?>" class="header-fix-menu_a">
+                            <span class="header-fix-menu_ico header-fix-menu_ico__giraffe"></span>
+                            <span class="header-fix-menu_count" data-bind="text: newPostsCount"></span>
+                        </a>
+                    </li>
+                    <li class="header-fix-menu_li" data-bind="css: { active : newNotificationsCount() > 0 && activeModule() != 'notifications' }">
+                        <a href="<?=$this->createUrl('/notifications/default/index')?>" class="header-fix-menu_a">
+                            <span class="header-fix-menu_ico header-fix-menu_ico__notice"></span>
+                            <span class="header-fix-menu_count" data-bind="text: newNotificationsCount"></span>
+                        </a>
+                    </li>
 
-                <div class="logo">
-                    <?=HHtml::link('Веселый жираф - сайт для всей семьи', '/', array('class' => 'logo_i', 'title' => 'Веселый жираф - сайт для всей семьи'), true)?>
-                    <span class="logo_slogan">САЙТ ДЛЯ ВСЕЙ СЕМЬИ</span>
-                </div>
-                    <div class="header-menu">
-                        <ul class="header-menu_ul clearfix">
-                            <li class="header-menu_li" data-bind="css: { active : newPostsCount() > 0 && activeModule() != 'myGiraffe' }">
-                                <a href="<?=$this->createUrl('/myGiraffe/default/index', array('type'=>1))?>" class="header-menu_a">
-                                    <span class="header-menu_ico header-menu_ico__giraffe"></span>
-                                    <span class="header-menu_tx">Мой <br> Жираф</span>
-                                    <span class="header-menu_count" data-bind="text: newPostsCount"></span>
-                                </a>
-                            </li>
-                            <li class="header-menu_li" data-bind="css: { active : newNotificationsCount() > 0 && activeModule() != 'notifications' }">
-                                <a href="<?=$this->createUrl('/notifications/default/index')?>" class="header-menu_a">
-                                    <span class="header-menu_ico header-menu_ico__notice"></span>
-                                    <span class="header-menu_tx">Мои <br> уведомления</span>
-                                    <span class="header-menu_count" data-bind="text: newNotificationsCount"></span>
-                                </a>
-                            </li>
-                            <li class="header-menu_li" data-bind="css: { active : newMessagesCount() > 0 && activeModule() != 'messaging' }">
-                                <a href="<?=$this->createUrl('/messaging/default/index')?>" class="header-menu_a">
-                                    <span class="header-menu_ico header-menu_ico__im"></span>
-                                    <span class="header-menu_tx">Мои <br> сообщения</span>
-                                    <span class="header-menu_count" data-bind="text: newMessagesCount"></span>
-                                </a>
-                            </li>
-                            <li class="header-menu_li" data-bind="css: { active : newFriendsCount() > 0 && activeModule() != 'friends' }">
-                                <a href="<?=$this->createUrl('/friends/default/index')?>" class="header-menu_a">
-                                    <span class="header-menu_ico header-menu_ico__friend"></span>
-                                    <span class="header-menu_tx">Мои <br> друзья</span>
-                                    <span class="header-menu_count" data-bind="text: newFriendsCount"></span>
-                                </a>
-                            </li>
-                            <li class="header-menu_li" data-bind="css: { active : newScoreCount() > 0 && activeModule() != 'scores' }">
-                                <a href="<?=$this->createUrl('/scores/default/index')?>" class="header-menu_a">
-                                    <span class="header-menu_ico header-menu_ico__award"></span>
-                                    <span class="header-menu_tx">Мои <br> успехи</span>
-                                    <span class="header-menu_count" data-bind="text: newScoreCount"></span>
-                                </a>
-                            </li>
-                            <li class="header-menu_li header-menu_li__dropin">
-                                <a href="javascript:void(0)" class="header-menu_a">
-                                    <span class="ava middle <?=($user->gender == 0)?'female':'male'?>">
+                    <li class="header-fix-menu_li" data-bind="css: { active : newMessagesCount() > 0 && activeModule() != 'messaging' }">
+                        <a href="<?=$this->createUrl('/messaging/default/index')?>" class="header-fix-menu_a">
+                            <span class="header-fix-menu_ico header-fix-menu_ico__im"></span>
+                            <span class="header-fix-menu_count" data-bind="text: newMessagesCount"></span>
+                        </a>
+                    </li>
+
+                    <li class="header-fix-menu_li" data-bind="css: { active : newFriendsCount() > 0 && activeModule() != 'friends' }">
+                        <a href="<?=$this->createUrl('/friends/default/index')?>" class="header-fix-menu_a">
+                            <span class="header-fix-menu_ico header-fix-menu_ico__friend"></span>
+                            <span class="header-fix-menu_count" data-bind="text: newFriendsCount"></span>
+                        </a>
+                    </li>
+
+                    <li class="header-fix-menu_li" data-bind="css: { active : newScoreCount() > 0 && activeModule() != 'scores' }">
+                        <a href="<?=$this->createUrl('/scores/default/index')?>" class="header-fix-menu_a">
+                            <span class="header-fix-menu_ico header-fix-menu_ico__award"></span>
+                            <span class="header-fix-menu_count" data-bind="text: newScoreCount"></span>
+                        </a>
+                    </li>
+                    <li class="header-fix-menu_li header-fix-menu_li__dropin">
+                        <a href="javascript:void(0)" class="header-fix-menu_a">
+                                    <span class="ava small <?=($user->gender == 0)?'female':'male'?>">
                                         <span class="icon-status status-online"></span>
-                                        <?=CHtml::image($user->getAvatarUrl(40))?>
+                                        <?=CHtml::image($user->getAvatarUrl(24))?>
                                     </span>
-                                    <span class="header-menu_ico header-menu_ico__dropin"></span>
-                                </a>
-                                <?php $this->renderPartial('//_header_drop', compact('user')); ?>
+                            <span class="header-fix-menu_ico header-fix-menu_ico__dropin"></span>
+                        </a>
+                        <?php $this->renderPartial('//_header_drop', compact('user')); ?>
 
-                            </li>
-                        </ul>
-                    </div>
+                    </li>
+
+
+                </ul>
             </div>
         </div>
-
-        <div class="header-fix layout-binding">
-            <div class="header-fix_hold clearfix">
-                <a href="/" class="header-fix_logo"></a>
-
-                <a href="javascript:void(0)" class="layout-header_scrolltop" onclick="$('html, body').animate({scrollTop:0}, 'normal')">
-                    <span class="a-pseudo">Наверх</span>
-                    <span class="i-arrow-t"></span>
-                </a>
-                <div class="header-fix-menu">
-                    <ul class="header-menu_ul clearfix">
-                        <li class="header-fix-menu_li" data-bind="css: { active : newPostsCount() > 0 && activeModule() != 'myGiraffe' }">
-                            <a href="<?=$this->createUrl('/myGiraffe/default/index', array('type'=>1))?>" class="header-fix-menu_a">
-                                <span class="header-fix-menu_ico header-fix-menu_ico__giraffe"></span>
-                                <span class="header-fix-menu_count" data-bind="text: newPostsCount"></span>
-                            </a>
-                        </li>
-                        <li class="header-fix-menu_li" data-bind="css: { active : newNotificationsCount() > 0 && activeModule() != 'notifications' }">
-                            <a href="<?=$this->createUrl('/notifications/default/index')?>" class="header-fix-menu_a">
-                                <span class="header-fix-menu_ico header-fix-menu_ico__notice"></span>
-                                <span class="header-fix-menu_count" data-bind="text: newNotificationsCount"></span>
-                            </a>
-                        </li>
-
-                        <li class="header-fix-menu_li" data-bind="css: { active : newMessagesCount() > 0 && activeModule() != 'messaging' }">
-                            <a href="<?=$this->createUrl('/messaging/default/index')?>" class="header-fix-menu_a">
-                                <span class="header-fix-menu_ico header-fix-menu_ico__im"></span>
-                                <span class="header-fix-menu_count" data-bind="text: newMessagesCount"></span>
-                            </a>
-                        </li>
-
-                        <li class="header-fix-menu_li" data-bind="css: { active : newFriendsCount() > 0 && activeModule() != 'friends' }">
-                            <a href="<?=$this->createUrl('/friends/default/index')?>" class="header-fix-menu_a">
-                                <span class="header-fix-menu_ico header-fix-menu_ico__friend"></span>
-                                <span class="header-fix-menu_count" data-bind="text: newFriendsCount"></span>
-                            </a>
-                        </li>
-
-                        <li class="header-fix-menu_li" data-bind="css: { active : newScoreCount() > 0 && activeModule() != 'scores' }">
-                            <a href="<?=$this->createUrl('/scores/default/index')?>" class="header-fix-menu_a">
-                                <span class="header-fix-menu_ico header-fix-menu_ico__award"></span>
-                                <span class="header-fix-menu_count" data-bind="text: newScoreCount"></span>
-                            </a>
-                        </li>
-                        <li class="header-fix-menu_li header-fix-menu_li__dropin">
-                            <a href="javascript:void(0)" class="header-fix-menu_a">
-                                <span class="ava small <?=($user->gender == 0)?'female':'male'?>">
-                                    <span class="icon-status status-online"></span>
-                                    <?=CHtml::image($user->getAvatarUrl(24))?>
-                                </span>
-                                <span class="header-fix-menu_ico header-fix-menu_ico__dropin"></span>
-                            </a>
-                            <?php $this->renderPartial('//_header_drop', compact('user')); ?>
-
-                        </li>
-
-
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <!-- /ko -->
-        <?php else: ?>
-            <div class="layout-header layout-header__nologin clearfix">
-                <div class="content-cols clearfix">
-                    <div class="col-1">
-                        <div class="logo">
-                            <a href="/" class="logo_i" title="Веселый жираф - сайт для все семьи">Веселый жираф - сайт для все семьи</a>
-                            <strong class="logo_slogan">САЙТ ДЛЯ ВСЕЙ СЕМЬИ</strong>
-                        </div>
-                        <div class="sidebar-search clearfix">
-                            <form action="/search/">
-                                <input type="text" placeholder="Поиск по сайту" class="sidebar-search_itx" name="query" id="site-search" onkeyup="SiteSearch.keyUp(this)">
-                                <input type="button" class="sidebar-search_btn" id="site-search-btn" onclick="return SiteSearch.click()"/>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="col-23">
-                        <div class="b-join clearfix">
-                            <div class="b-join_left">
-                                <div class="b-join_tx"> Более <span class="b-join_tx-big"> 20 000 000</span> мам и пап</div>
-                                <div class="b-join_slogan">уже посетили Веселый Жираф!</div>
-                            </div>
-                            <div class="b-join_right">
-                                <a href="#register" class="btn-green btn-big fancy">Присоединяйтесь!</a>
-                                <div class="clearfix">
-                                    <a href="#login" class="display-ib verticalalign-m fancy">Войти</a>
-                                    <span class="i-or">или</span>
-                                    <?php Yii::app()->eauth->renderWidget(array('action' => 'site/login', 'mode' => 'home')); ?>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <script>
-                    $(window).load(function() {
-                        /*
-                         block - элемент, что фиксируется
-                         elementStop - до какого элемента фиксируется
-                         blockIndent - отступ
-                         */
-                        function bJoinRowFixed() {
-
-                            var block = $('.js-b-join-row');
-                            var blockTop = block.offset().top;
-
-                            var startTop = $('.layout-header').height();
-
-
-                            $(window).scroll(function() {
-                                var windowScrollTop = $(window).scrollTop();
-                                if (windowScrollTop > startTop) {
-                                    block.fadeIn();
-                                } else {
-
-                                    block.fadeOut();
-
-                                }
-                            });
-                        }
-
-                        bJoinRowFixed('.js-b-join-row');
-                    })
-                </script>
-                <div class="b-join-row js-b-join-row">
-                    <a class="layout-header_scrolltop" href="javascript:void(0)" onclick="$('html, body').animate({scrollTop:0}, 'normal')">
-                        <span class="a-pseudo">Наверх</span>
-                        <span class="i-arrow-t"></span>
-                    </a>
-                    <div class="b-join-row_hold">
-                        <div class="b-join-row_logo"></div>
-                        <div class="b-join-row_tx">Более <span class="b-join-row_tx-big"> 20 000 000</span> мам и пап</div>
-                        <div class="b-join-row_slogan">уже посетили Веселый Жираф!</div>
-                        <a href="#register" class="btn-green btn-h46 fancy">Присоединяйтесь!</a>
-                    </div>
-                </div>
-
-                <?php $this->widget('application.widgets.registerWidget.RegisterWidget');
-                $this->widget('application.widgets.loginWidget.LoginWidget'); ?>
-
-            </div>
-        <?php endif ?>
-
-        <?php if ($this->module !== null && $this->module->id == 'contest'): ?>
-        <div class="layout-content margin-l0 clearfix">
-            <div class="content-cols">
-                <div class="col-white">
-                    <?=$content?>
-                </div>
-            </div>
-        </div>
-        <?php else: ?>
-        <div class="layout-content clearfix<?php if ($this->route == 'messaging/default/index'): ?> margin-b0<?php endif; ?>">
-            <?php if (!Yii::app()->user->isGuest && $this->showAddBlock):?>
-                <div class="content-cols clearfix">
-                    <div class="col-1">
-                        <div class="sidebar-search clearfix">
-                            <form action="/search/">
-                                <input type="text" placeholder="Поиск по сайту" class="sidebar-search_itx" name="query" id="site-search" onkeyup="SiteSearch.keyUp(event, this)">
-                                <input type="button" class="sidebar-search_btn" id="site-search-btn" onclick="return SiteSearch.click()"/>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="col-23-middle">
-                        <?php if (!Yii::app()->user->isGuest):?>
-                            <?php if (isset($this->user) && $this->user->id == Yii::app()->user->id):?>
-                                <div class="user-add-record clearfix">
-                                    <div class="user-add-record_ava-hold">
-                                        <?php $this->widget('Avatar', array('user' => Yii::app()->user->getModel())); ?>
-                                    </div>
-                                    <div class="user-add-record_hold">
-                                        <div class="user-add-record_tx">Я хочу добавить</div>
-                                        <a href="<?=$this->createUrl('/blog/default/form', array('type' => 1))?>"  class="user-add-record_ico user-add-record_ico__article fancy-top">Статью</a>
-                                        <a href="<?=$this->createUrl('/blog/default/form', array('type' => 3))?>"  class="user-add-record_ico user-add-record_ico__photo fancy-top">Фото</a>
-                                        <a href="<?=$this->createUrl('/blog/default/form', array('type' => 2))?>"  class="user-add-record_ico user-add-record_ico__video fancy-top">Видео</a>
-                                        <a href="<?=$this->createUrl('/blog/default/form', array('type' => 5))?>"  class="user-add-record_ico user-add-record_ico__status fancy-top">Статус</a>
-                                    </div>
-                                </div>
-                            <?php else: ?>
-                                <div class="user-add-record user-add-record__small clearfix">
-                                    <div class="user-add-record_ava-hold">
-                                        <?php $this->widget('Avatar', array('user' => Yii::app()->user->getModel(), 'size' => 40)); ?>
-                                    </div>
-                                    <div class="user-add-record_hold">
-                                        <div class="user-add-record_tx">Я хочу добавить</div>
-                                        <a href="<?= $this->createUrl('/blog/default/form', array('type' => 1)) ?>" class="user-add-record_ico user-add-record_ico__article fancy-top powertip" title="Статью"></a>
-                                        <a href="<?= $this->createUrl('/blog/default/form', array('type' => 3)) ?>" class="user-add-record_ico user-add-record_ico__photo fancy-top powertip" title="Фото"></a>
-                                        <a href="<?= $this->createUrl('/blog/default/form', array('type' => 2)) ?>" class="user-add-record_ico user-add-record_ico__video fancy-top powertip" title="Видео"></a>
-                                        <a href="<?= $this->createUrl('/blog/default/form', array('type' => 5)) ?>" class="user-add-record_ico user-add-record_ico__status fancy-top powertip" title="Статус"></a>
-                                    </div>
-                                </div>
-                            <?php endif ?>
-                        <?php endif ?>
-                    </div>
-                </div>
-            <?php endif; ?>
-
-            <?php if ($this->breadcrumbs): ?>
-                <div class="crumbs-small clearfix">
-                    <?php $this->widget('HBreadcrumbs', array(
-                        'homeLink' => Yii::app()->user->isGuest ? null : false,
-                        'links' => $this->breadcrumbs,
-                    )); ?>
-                </div>
-            <?php endif; ?>
-
-            <?=$content?>
-        </div>
-        <?php endif; ?>
-
-        <?php if ($this->route != 'messaging/default/index'): ?>
-            <div class="footer-push"></div>
-        <?php endif; ?>
     </div>
+    <!-- /ko -->
+    <?php endif; ?>
+
+    <div class="layout-wrapper">
+        <?php if (false): ?>
+        <div class="layout-wrapper_banner-t" id="layout-wrapper_banner-t">
+            <!--AdFox START-->
+            <!--giraffe-->
+            <!--Площадка: Весёлый Жираф / * / *-->
+            <!--Тип баннера: Безразмерный 990х90-->
+            <!--Расположение: <верх страницы>-->
+            <script type="text/javascript">
+                <!--
+                if (typeof(pr) == 'undefined') { var pr = Math.floor(Math.random() * 1000000); }
+                if (typeof(document.referrer) != 'undefined') {
+                    if (typeof(afReferrer) == 'undefined') {
+                        afReferrer = escape(document.referrer);
+                    }
+                } else {
+                    afReferrer = '';
+                }
+                var addate = new Date();
+                var scrheight = '', scrwidth = '';
+                if (self.screen) {
+                    scrwidth = screen.width;
+                    scrheight = screen.height;
+                } else if (self.java) {
+                    var jkit = java.awt.Toolkit.getDefaultToolkit();
+                    var scrsize = jkit.getScreenSize();
+                    scrwidth = scrsize.width;
+                    scrheight = scrsize.height;
+                }
+                document.write('<scr' + 'ipt type="text/javascript" src="http://ads.adfox.ru/211012/prepareCode?pp=g&amp;ps=bkqy&amp;p2=ewsa&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a&amp;pr=' + pr +'&amp;pt=b&amp;pd=' + addate.getDate() + '&amp;pw=' + addate.getDay() + '&amp;pv=' + addate.getHours() + '&amp;prr=' + afReferrer + '&amp;pdw=' + scrwidth + '&amp;pdh=' + scrheight + '"><\/scr' + 'ipt>');
+                // -->
+            </script>
+            <!--AdFox END-->
+        </div>
+        <?php endif; ?>
+
+        <div class="layout-wrapper_hold">
+            <?php if (!Yii::app()->user->isGuest):?>
+            <!-- ko stopBinding: true -->
+            <div class="layout-header clearfix layout-binding">
+                <div class="layout-header_hold clearfix">
+
+                    <div class="logo">
+                        <?=HHtml::link('Веселый жираф - сайт для всей семьи', '/', array('class' => 'logo_i', 'title' => 'Веселый жираф - сайт для всей семьи'), true)?>
+                        <span class="logo_slogan">САЙТ ДЛЯ ВСЕЙ СЕМЬИ</span>
+                    </div>
+                        <div class="header-menu">
+                            <ul class="header-menu_ul clearfix">
+                                <li class="header-menu_li" data-bind="css: { active : newPostsCount() > 0 && activeModule() != 'myGiraffe' }">
+                                    <a href="<?=$this->createUrl('/myGiraffe/default/index', array('type'=>1))?>" class="header-menu_a">
+                                        <span class="header-menu_ico header-menu_ico__giraffe"></span>
+                                        <span class="header-menu_tx">Мой <br> Жираф</span>
+                                        <span class="header-menu_count" data-bind="text: newPostsCount"></span>
+                                    </a>
+                                </li>
+                                <li class="header-menu_li" data-bind="css: { active : newNotificationsCount() > 0 && activeModule() != 'notifications' }">
+                                    <a href="<?=$this->createUrl('/notifications/default/index')?>" class="header-menu_a">
+                                        <span class="header-menu_ico header-menu_ico__notice"></span>
+                                        <span class="header-menu_tx">Мои <br> уведомления</span>
+                                        <span class="header-menu_count" data-bind="text: newNotificationsCount"></span>
+                                    </a>
+                                </li>
+                                <li class="header-menu_li" data-bind="css: { active : newMessagesCount() > 0 && activeModule() != 'messaging' }">
+                                    <a href="<?=$this->createUrl('/messaging/default/index')?>" class="header-menu_a">
+                                        <span class="header-menu_ico header-menu_ico__im"></span>
+                                        <span class="header-menu_tx">Мои <br> сообщения</span>
+                                        <span class="header-menu_count" data-bind="text: newMessagesCount"></span>
+                                    </a>
+                                </li>
+                                <li class="header-menu_li" data-bind="css: { active : newFriendsCount() > 0 && activeModule() != 'friends' }">
+                                    <a href="<?=$this->createUrl('/friends/default/index')?>" class="header-menu_a">
+                                        <span class="header-menu_ico header-menu_ico__friend"></span>
+                                        <span class="header-menu_tx">Мои <br> друзья</span>
+                                        <span class="header-menu_count" data-bind="text: newFriendsCount"></span>
+                                    </a>
+                                </li>
+                                <li class="header-menu_li" data-bind="css: { active : newScoreCount() > 0 && activeModule() != 'scores' }">
+                                    <a href="<?=$this->createUrl('/scores/default/index')?>" class="header-menu_a">
+                                        <span class="header-menu_ico header-menu_ico__award"></span>
+                                        <span class="header-menu_tx">Мои <br> успехи</span>
+                                        <span class="header-menu_count" data-bind="text: newScoreCount"></span>
+                                    </a>
+                                </li>
+                                <li class="header-menu_li header-menu_li__dropin">
+                                    <a href="javascript:void(0)" class="header-menu_a">
+                                        <span class="ava middle <?=($user->gender == 0)?'female':'male'?>">
+                                            <span class="icon-status status-online"></span>
+                                            <?=CHtml::image($user->getAvatarUrl(40))?>
+                                        </span>
+                                        <span class="header-menu_ico header-menu_ico__dropin"></span>
+                                    </a>
+                                    <?php $this->renderPartial('//_header_drop', compact('user')); ?>
+
+                                </li>
+                            </ul>
+                        </div>
+                </div>
+            </div>
+            <!-- /ko -->
+            <?php else: ?>
+                <div class="layout-header layout-header__nologin clearfix">
+                    <div class="content-cols clearfix">
+                        <div class="col-1">
+                            <div class="logo">
+                                <a href="/" class="logo_i" title="Веселый жираф - сайт для все семьи">Веселый жираф - сайт для все семьи</a>
+                                <strong class="logo_slogan">САЙТ ДЛЯ ВСЕЙ СЕМЬИ</strong>
+                            </div>
+                            <div class="sidebar-search clearfix">
+                                <form action="/search/">
+                                    <input type="text" placeholder="Поиск по сайту" class="sidebar-search_itx" name="query" id="site-search" onkeyup="SiteSearch.keyUp(this)">
+                                    <input type="button" class="sidebar-search_btn" id="site-search-btn" onclick="return SiteSearch.click()"/>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-23">
+                            <div class="b-join clearfix">
+                                <div class="b-join_left">
+                                    <div class="b-join_tx"> Более <span class="b-join_tx-big"> 20 000 000</span> мам и пап</div>
+                                    <div class="b-join_slogan">уже посетили Веселый Жираф!</div>
+                                </div>
+                                <div class="b-join_right">
+                                    <a href="#register" class="btn-green btn-big fancy">Присоединяйтесь!</a>
+                                    <div class="clearfix">
+                                        <a href="#login" class="display-ib verticalalign-m fancy">Войти</a>
+                                        <span class="i-or">или</span>
+                                        <?php Yii::app()->eauth->renderWidget(array('action' => 'site/login', 'mode' => 'home')); ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <script>
+                        $(window).load(function() {
+                            /*
+                             block - элемент, что фиксируется
+                             elementStop - до какого элемента фиксируется
+                             blockIndent - отступ
+                             */
+                            function bJoinRowFixed() {
+
+                                var block = $('.js-b-join-row');
+                                var blockTop = block.offset().top;
+
+                                var startTop = $('.layout-header').height();
+
+
+                                $(window).scroll(function() {
+                                    var windowScrollTop = $(window).scrollTop();
+                                    if (windowScrollTop > startTop) {
+                                        block.fadeIn();
+                                    } else {
+
+                                        block.fadeOut();
+
+                                    }
+                                });
+                            }
+
+                            bJoinRowFixed('.js-b-join-row');
+                        })
+                    </script>
+                    <div class="b-join-row js-b-join-row">
+                        <a class="layout-header_scrolltop" href="javascript:void(0)" onclick="$('html, body').animate({scrollTop:0}, 'normal')">
+                            <span class="a-pseudo">Наверх</span>
+                            <span class="i-arrow-t"></span>
+                        </a>
+                        <div class="b-join-row_hold">
+                            <div class="b-join-row_logo"></div>
+                            <div class="b-join-row_tx">Более <span class="b-join-row_tx-big"> 20 000 000</span> мам и пап</div>
+                            <div class="b-join-row_slogan">уже посетили Веселый Жираф!</div>
+                            <a href="#register" class="btn-green btn-h46 fancy">Присоединяйтесь!</a>
+                        </div>
+                    </div>
+
+                    <?php $this->renderDynamic('registerPopup');
+                    $this->widget('application.widgets.loginWidget.LoginWidget'); ?>
+
+                </div>
+            <?php endif ?>
+
+            <?php if ($this->module !== null && $this->module->id == 'contest'): ?>
+            <div class="layout-content margin-l0 clearfix">
+                <div class="content-cols">
+                    <div class="col-white">
+                        <?=$content?>
+                    </div>
+                </div>
+            </div>
+            <?php else: ?>
+            <div class="layout-content clearfix<?php if ($this->route == 'messaging/default/index'): ?> margin-b0<?php endif; ?>">
+                <?php if (!Yii::app()->user->isGuest && $this->showAddBlock):?>
+                    <div class="content-cols clearfix">
+                        <div class="col-1">
+                            <div class="sidebar-search clearfix">
+                                <form action="/search/">
+                                    <input type="text" placeholder="Поиск по сайту" class="sidebar-search_itx" name="query" id="site-search" onkeyup="SiteSearch.keyUp(event, this)">
+                                    <input type="button" class="sidebar-search_btn" id="site-search-btn" onclick="return SiteSearch.click()"/>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-23-middle">
+                            <?php if (!Yii::app()->user->isGuest):?>
+                                <?php if (isset($this->user) && $this->user->id == Yii::app()->user->id):?>
+                                    <div class="user-add-record clearfix">
+                                        <div class="user-add-record_ava-hold">
+                                            <?php $this->widget('Avatar', array('user' => Yii::app()->user->getModel())); ?>
+                                        </div>
+                                        <div class="user-add-record_hold">
+                                            <div class="user-add-record_tx">Я хочу добавить</div>
+                                            <a href="<?=$this->createUrl('/blog/default/form', array('type' => 1))?>"  class="user-add-record_ico user-add-record_ico__article fancy-top">Статью</a>
+                                            <a href="<?=$this->createUrl('/blog/default/form', array('type' => 3))?>"  class="user-add-record_ico user-add-record_ico__photo fancy-top">Фото</a>
+                                            <a href="<?=$this->createUrl('/blog/default/form', array('type' => 2))?>"  class="user-add-record_ico user-add-record_ico__video fancy-top">Видео</a>
+                                            <a href="<?=$this->createUrl('/blog/default/form', array('type' => 5))?>"  class="user-add-record_ico user-add-record_ico__status fancy-top">Статус</a>
+                                        </div>
+                                    </div>
+                                <?php else: ?>
+                                    <div class="user-add-record user-add-record__small clearfix">
+                                        <div class="user-add-record_ava-hold">
+                                            <?php $this->widget('Avatar', array('user' => Yii::app()->user->getModel(), 'size' => 40)); ?>
+                                        </div>
+                                        <div class="user-add-record_hold">
+                                            <div class="user-add-record_tx">Я хочу добавить</div>
+                                            <a href="<?=$this->createUrl('/blog/default/form', array('type' => 1)) ?>" class="user-add-record_ico user-add-record_ico__article fancy-top powertip" title="Статью"></a>
+                                            <a href="<?=$this->createUrl('/blog/default/form', array('type' => 3)) ?>" class="user-add-record_ico user-add-record_ico__photo fancy-top powertip" title="Фото"></a>
+                                            <a href="<?=$this->createUrl('/blog/default/form', array('type' => 2)) ?>" class="user-add-record_ico user-add-record_ico__video fancy-top powertip" title="Видео"></a>
+                                            <a href="<?=$this->createUrl('/blog/default/form', array('type' => 5)) ?>" class="user-add-record_ico user-add-record_ico__status fancy-top powertip" title="Статус"></a>
+                                        </div>
+                                    </div>
+                                <?php endif ?>
+                            <?php endif ?>
+                        </div>
+                    </div>
+                <?php endif; ?>
+
+                <?php if ($this->breadcrumbs): ?>
+                    <div class="crumbs-small clearfix">
+                        <?php $this->widget('HBreadcrumbs', array(
+                            'homeLink' => Yii::app()->user->isGuest ? null : false,
+                            'links' => $this->breadcrumbs,
+                        )); ?>
+                    </div>
+                <?php endif; ?>
+
+                <?=$content?>
+            </div>
+            <?php endif; ?>
+        </div>
+    </div>
+
     <?php if ($this->route != 'messaging/default/index'): ?>
+        <div class="footer-push"></div>
         <?php $this->renderPartial('//_footer'); ?>
     <?php endif; ?>
 

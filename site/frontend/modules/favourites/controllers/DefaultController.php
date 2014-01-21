@@ -126,7 +126,7 @@ class DefaultController extends HController
                 if ($model === null)
                     throw new CHttpException(400);
 
-                $image = $model->mainPhoto->getPreviewUrl(60, null, Image::WIDTH);
+                $image = $model->mainPhoto === null ? false : $model->mainPhoto->getPreviewUrl(60, null, Image::WIDTH);
                 $title = $model->title;
                 $tags = array_map(function($tag) {
                     return $tag->title;

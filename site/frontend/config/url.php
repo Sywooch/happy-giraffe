@@ -25,14 +25,14 @@ return array(
         array(
             'class' => 'application.components.PhotoUrlRule',
             'pattern' => 'user/<user_id:\d+>/blog/post<content_id:\w+>/photo<photo_id:\d+>',
-            'route' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'CommunityContentGallery')),
+            'route' => array('gallery/default/singlePhoto', 'defaultParams' => array('entity' => 'CommunityContentGallery')),
             'blog' => true,
         ),
         //'community/<community_id:\d+>/forum/(post|photoPost)/<content_id:\d+>/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'CommunityContentGallery')),
         array(
             'class' => 'application.components.PhotoUrlRule',
             'pattern' => 'community/<community_id:\d+>/forum/(post|photoPost)/<content_id:\d+>/photo<photo_id:\d+>',
-            'route' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'CommunityContentGallery')),
+            'route' => array('gallery/default/singlePhoto', 'defaultParams' => array('entity' => 'CommunityContentGallery')),
             'blog' => false,
         ),
         'user/<user_id:\d+>/albums/<album_id:\d+>/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'Album')),
@@ -40,7 +40,7 @@ return array(
         'cook/multivarka/<recipe_id:\d+>/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'MultivarkaRecipe')),
         'cook/decor/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'CookDecorationCategory')),
         'cook/decor/<category_id:\d+>/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'CookDecorationCategory')),
-        'contest/<contest_id:\d+>/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'Contest')),
+        'contest/<contest_id:\d+>/photo<photo_id:\d+>' => array('gallery/default/singlePhoto', 'defaultParams' => array('entity' => 'Contest')),
         'ValentinesDay/valentines/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'Album', 'valentines' => 1)),
         'ValentinesDay/howToSpend/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'valentinePost')),
 
@@ -48,7 +48,7 @@ return array(
         '/' => 'site/index',
         'js_dynamics/<hash:\w+>.js' => 'site/seoHide',
         'moderation' => 'site/moderationRules',
-        'site/<_a:(confirmEmail|resendConfirmEmail|passwordRecovery|passwordRecoveryForm|login|logout|link|out|hh|flushSchema|vacancySend)>' => 'site/<_a>',
+        'site/<_a:(confirmEmail|resendConfirmEmail|passwordRecovery|passwordRecoveryForm|login|logout|link|out|hh|flushSchema|vacancySend|qualityTest)>' => 'site/<_a>',
         '<view:(advertiser|abuse)>' => array('site/page'),
         'job/php-developer' => 'site/vacancy',
 
@@ -106,6 +106,8 @@ return array(
         'user/<user_id:\d+>/blog/post<content_id:\d+>' => 'blog/default/view',
         'user/<user_id:\d+>/blog' => 'blog/default/index',
         'newblog/<_a:>' => 'blog/default/<_a>',
+        'antispam' => 'blog/antispam/index',
+        'antispam/<_a>' => 'blog/antispam/index',
 
         'user/<user_id:\d+>' => 'profile/default/index',
         'user/<user_id:\d+>/friends' => 'profile/default/friends',
@@ -346,5 +348,11 @@ return array(
         'family/<_c>/<_a>' => 'family/<_c>/<_a>',
 
         'contest/<cssClass:\w+>' => 'community/contest/index',
+
+        'site/seo' => 'site/seo',
+        'site/seo2' => 'site/seo2',
+        'site/seo3' => 'site/seo3',
+
+        '<_c>/captcha' => '<_c>/captcha',
     ),
 );

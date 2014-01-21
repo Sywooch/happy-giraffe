@@ -204,18 +204,40 @@
                 'model' => 'NeoTrike Mini Mercedes Benz',
             ),
         );
+    } elseif ($this->contest->id == 12) {
+        $prizes = array(
+            '1' => array(
+                'title' => 'Набор из 7 предметов для всей семьи',
+                'model' => 'Silver Care',
+            ),
+            '2' => array(
+                'title' => 'Набор из 5 предметов для всей семьи',
+                'model' => 'Silver Care',
+            ),
+            '3' => array(
+                'title' => 'Набор из 4 предметов для всей семьи',
+                'model' => 'Silver Care',
+            ),
+        );
+    } elseif ($this->contest->id == 13) {
+        $prizes = array(
+            '1' => array(
+                'title' => 'Детский электромобиль',
+                'model' => 'NeoTrike Beetle',
+            ),
+            '2' => array(
+                'title' => 'Обучающий компьютер Винни',
+                'model' => 'VTech',
+            ),
+            '3' => array(
+                'title' => 'Обучающий глобус',
+                'model' => 'VTech',
+            ),
+        );
     }
 ?>
 
 <?php
-    $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
-        'selector' => '.img > a',
-        'entity' => 'Contest',
-        'entity_id' => $this->contest->id,
-        'entity_url' => $this->contest->url,
-        'query' => array('sort' => 'rate'),
-    ));
-
     Yii::app()->eauth->renderWidget(array(
         'mode' => 'assets',
     ));

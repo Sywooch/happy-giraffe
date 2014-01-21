@@ -2,6 +2,17 @@
 
 class SignupController extends HController
 {
+    public function actions()
+    {
+        return array(
+            'captcha' => array(
+                'class' => 'CaptchaExtendedAction',
+                'width' => 128,
+                'height' => 45,
+            ),
+        );
+    }
+
     public function filters()
     {
         return array(
@@ -177,7 +188,7 @@ class SignupController extends HController
     {
         $steps = array(
             array('email'),
-            array('first_name', 'last_name', 'password', 'passwordRepeat', 'gender', 'email', 'birthday', 'baby_birthday'),
+            array('first_name', 'last_name', 'password', 'passwordRepeat', 'gender', 'email', 'birthday', 'baby_birthday', 'verifyCode'),
         );
 
         $newUser = Yii::app()->user->getState('newUser');

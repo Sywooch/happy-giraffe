@@ -969,3 +969,866 @@ var links = jQuery('[onclick="cl(this)"]'); var result1 = ''; var result2 = ''; 
 'ko_community.js',
 'ko_photoWidget.js',
 'ko_layout.js',
+
+
+
+/*
+	Template: Background
+	Created: 22.12.11
+	Modified: 25.01.13
+	Note: Compatibility: sync embed codes;
+*/
+
+/**
+* Tracks banner loads;
+* @param {String} AdFox_%random%_s
+*/
+(function(AdFox_%random%_s){
+	var AdFox_%random%_i = document.createElement('IMG'), AdFox_%random%_b = document.body;
+	AdFox_%random%_i.style.position = 'absolute'; AdFox_%random%_i.style.width = AdFox_%random%_i.style.height = '0px';
+	AdFox_%random%_i.onload = AdFox_%random%_i.onerror = function(){AdFox_%random%_b.removeChild(AdFox_%random%_i);	AdFox_%random%_i = AdFox_%random%_b = null}
+	AdFox_%random%_i.src = AdFox_%random%_s;
+	AdFox_%random%_b.insertBefore(AdFox_%random%_i, AdFox_%random%_b.firstChild);
+})('%trackingURL%');
+
+(function(){
+
+	/**ADFOX parameters**/
+	var
+		_backgroundSettings =
+		{
+			backgroundAttachment: '%user3%',
+			backgroundColor: '%user1%',
+			backgroundPosition: '%user5% 0%',
+			backgroundPositionX: '%user5%',
+			backgroundPositionY: '0%',
+			backgroundImage: '%user2%',
+			backgroundRepeat: '%user4%'
+		},
+		_goURL = '%user11%',
+		_reference = '%reference%',
+		_websiteShift = '%user6%',
+		_resetTimer = '%user7%',
+		_backgroundElementId = '%user8%', //Body will be used by default;
+		_userExceptionsClickable = '%user9%',
+		_userExceptionsNonClickable = '%user10%',
+		_backgroundElement = null,
+		_contentShifterId = 'contentShifter',
+		CLICKABLE_ID = 'adfoxClickable';
+
+	/**ARRAY utils**/
+
+	/**
+	* @function indexOf
+	* @description Checks whether element is present in array and returns it's index or -1;
+	* @param {Array} array
+	* @param {*} element
+	* @param @optional  {Number} from
+	*/
+	function indexOf(array, element /*, from*/)
+	{
+		if(array.indexOf)
+		{
+			return array.indexOf(element);
+		}
+		else
+		{
+			var
+				index = -1,
+				len = array.length,
+				from = Number(arguments[1]) || 0;
+
+			from = (from < 0) ? Math.ceil(from): Math.floor(from);
+			if (from < 0)
+			{
+				from += len;
+			}
+
+			for (; from < len; from ++)
+			{
+				if (from in array && array[from] === element)
+				{
+					index = from;
+					break;
+				}
+			}
+			return index;
+		}
+	}
+
+	/**STYLE utils**/
+
+	/**
+	* @function getCss
+	* @description returns computed value for styleProperty;
+	* @param {String} styleProperty (camelCase notation!)
+	* @param {ElementNode} element
+	*/
+
+	function getCss(styleProperty, element)
+	{
+		if (element.currentStyle)
+		{
+			return element.currentStyle[styleProperty] || '';
+		}
+		else if (window.getComputedStyle)
+		{
+			return window.getComputedStyle(element, null)[styleProperty] || '';
+		}
+	}
+
+	function addClass(className, element)
+	{
+		if(!hasClass(className, element))
+		{
+			element.className += ' ' + className;
+		}
+	}
+
+	function removeClass(className, element)
+	{
+		var re = new RegExp('(\\s|^)('+className+')(\\s|$)', 'g');
+		element.className = element.className.replace(re, function(x, y, z, t){ return (y && t)?' ':'';});
+	}
+
+	function hasClass(className, element)
+	{
+		var re = new RegExp('(\\s|^)('+className+')(\\s|$)', 'g');
+		return (element.className && element.className.match(re));
+	}
+
+	function setDefaultCursor(element)
+	{
+		//In IE and Opera it seems 'auto' works like 'inherit';
+		if(navigator.userAgent.indexOf('MSIE') != -1 || navigator.userAgent.indexOf('Opera') != -1)
+		{
+			element.style.cursor = 'default';
+		}
+		else
+		{
+			element.style.cursor = 'auto';
+		}
+	}
+
+	/**EVENT utils**/
+
+	/**
+	* @function addEvent, removeEvent
+	* @description add/remove event listeners - crossbrowser;
+	* @param {ElementNode} elem
+	* @param {String} eventType
+	* @param {Function} eventHandler
+	*/
+
+	function addEvent(elem, eventType, eventHandler)
+	{
+		if(elem.addEventListener)
+		{
+			elem.addEventListener(eventType, eventHandler, false);
+		}
+		else if(elem.attachEvent)
+		{
+			elem.attachEvent('on'+eventType, eventHandler);
+		}
+	}
+
+	function removeEvent(elem, eventType, eventHandler)
+	{
+		if(elem.removeEventListener)
+		{
+			elem.removeEventListener(eventType, eventHandler, false);
+		}
+		else if(elem.detachEvent)
+		{
+			elem.detachEvent('on'+eventType, eventHandler);
+		}
+	}
+
+	/**ANIMATION utils**/
+
+	/**
+	* @function delta
+	* @description defines the type of animation: linear, easeIn, easeOut - using mathematical expressions;
+	* @param {Number} progress - fraction of time;
+	*/
+
+	function delta(progress)
+	{
+		 return progress; //linear
+	}
+
+	/**
+	* @function animateChange
+	* @description animates change for a certain element property;
+	* @param {ElementNode} element
+	* @param {String} parameter
+	* @param {String} paramMeasure
+	* @param {Number} startValue
+	* @param {Number} endValue
+	* @param {Number} duration - miliseconds;
+	* @param {Function} onComplete - action to perform after animation stops;
+	*/
+
+	function animateChange(element, parameter, paramMeasure, startValue, endValue, duration, onComplete)
+	{
+		var startTime = new Date().getTime();
+
+		setTimeout(function(){
+			var
+				timeElapsed = (new Date().getTime()) - startTime,
+				progress = timeElapsed / duration,
+				result = (endValue - startValue) * delta(progress) + startValue;
+
+			element.style[parameter] = result + paramMeasure;
+
+			if (progress < 1)
+			{
+				setTimeout(arguments.callee, 10);
+			}
+			else
+			{
+				element.style[parameter] = endValue + paramMeasure; //To conpensate for round operations
+				onComplete();
+			}
+		}, 10);
+	}
+
+	/**Background methods**/
+
+	/**
+	* @function setBackgroundProperties
+	* @description set background for _backgroundElement;
+	* @param {Number} propertyObject - style properties' object;
+	*/
+
+	function setBackgroundProperties(propertyObject)
+	{
+		_backgroundElement.style.backgroundColor = propertyObject.backgroundColor;
+		_backgroundElement.style.backgroundAttachment = propertyObject.backgroundAttachment;
+		_backgroundElement.style.backgroundRepeat = propertyObject.backgroundRepeat;
+		_backgroundElement.style.backgroundPosition = propertyObject.backgroundPosition;
+		_backgroundElement.style.backgroundImage = 'url(\''+propertyObject.backgroundImage +'\')';
+	}
+
+	/**
+	* @function getCurrentBackground
+	* @description save current background of _backgroundElement;
+	* @param {String} getOption - 'get', 'save';
+	*/
+
+	function getCurrentBackground()
+	{
+		var bgSettings = {};
+
+		bgSettings.backgroundAttachment = getCss('backgroundAttachment', _backgroundElement);
+		bgSettings.backgroundColor = getCss('backgroundColor', _backgroundElement);
+		bgSettings.backgroundRepeat = getCss('backgroundRepeat', _backgroundElement);
+		bgSettings.backgroundImage = getCss('backgroundImage', _backgroundElement);
+		bgSettings.backgroundPosition = getCss('backgroundPosition', _backgroundElement);
+		bgSettings.backgroundPositionX = getCss('backgroundPositionX', _backgroundElement);
+		bgSettings.backgroundPositionY = getCss('backgroundPositionY', _backgroundElement);
+
+		getCurrentBackground.bgSettings = bgSettings;
+	}
+
+	/**
+	* @function resetBackgroundProperties
+	* @description set initial saved background for _backgroundElement;
+	*/
+
+	function resetBackgroundProperties()
+	{
+		//TODO: test correct IE behaviour for backgroundPosition;
+		var propertyObject = getCurrentBackground.bgSettings;
+
+		if(propertyObject)
+		{
+			setBackgroundProperties({
+				backgroundImage : propertyObject.backgroundImage,
+				backgroundColor : propertyObject.backgroundColor,
+				backgroundAttachment : propertyObject.backgroundAttachment,
+				backgroundRepeat : propertyObject.backgroundRepeat,
+				backgroundPosition : (propertyObject.backgroundPosition)?
+					(propertyObject.backgroundPosition):
+					(propertyObject.backgroundPositionX + ' ' + propertyObject.backgroundPositionY)
+			});
+		}
+	}
+
+	/**
+	* @function createBlock
+	* @description create div with id and styles;
+	* @param {String} id
+	* @param {String} cssStyle
+	*/
+
+	function createBlock (id, cssStyle)
+	{
+		var bannerBlock = document.createElement('div');
+		bannerBlock.style.cssText = cssStyle;
+		bannerBlock.id = id;
+		return bannerBlock;
+	}
+
+	/**
+	* @function shiftWebsiteDown
+	* @description -
+	*/
+
+	function shiftWebsiteDown()
+	{
+		var shifter = createBlock(_contentShifterId,
+		                            'width:100%;'+
+									'height:' +_websiteShift+ 'px;'+
+									'clear:both;'+
+									'margin:0;');
+
+		_backgroundElement.insertBefore(shifter, _backgroundElement.firstChild);
+	}
+
+	/**
+	* @function shiftWebsiteUp
+	* @description - return website content as it were; Animated;
+	*/
+
+	function shiftWebsiteUp()
+	{
+		var shifter = document.getElementById(_contentShifterId);
+
+		animateChange(shifter, 'height', 'px', parseInt(_websiteShift), 0, 600 , function(){
+			shifter.parentNode.removeChild(shifter);
+		});
+	}
+
+	/**
+	* @function goToAdvertiser
+	* @description
+	* @param {MouseEvent} evt
+	*/
+
+
+	function goToAdvertiser(evt)
+	{
+		var target = evt.target || evt.srcElement;
+
+		if(hasClass(CLICKABLE_ID, target))
+		{
+			window.open(_reference + '@' + _goURL ,'_blank');
+		}
+	}
+
+	/**
+	* Checks whether given element id belongs to list of exceptions;
+	* Can be extended for other elements like table, form etc.
+	* @param {String} elementId
+	*/
+
+	function isClickableException(elementId)
+	{
+		return (indexOf(_userExceptionsClickable, elementId) != - 1)
+	}
+
+	/**
+	* Checks whether given element id belongs to list of exceptions;
+	* Can be extended for other elements like table, form etc.
+	* @param {String} elementId
+	*/
+
+	function isNonClickableException(elementId)
+	{
+		return (indexOf(_userExceptionsNonClickable, elementId) != - 1)
+	}
+
+	/**
+	* Checks if the element is DIV;
+	* Can be extended for other elements like table, form etc.
+	* @param {ElementNode} element
+	*/
+
+	function isAppropriateType(element)
+	{
+		var
+			nodeName = element.nodeName;
+
+		return (nodeName == 'DIV');
+	}
+
+	/**
+	* Checks if the element is visible;
+	* @param {ElementNode} element
+	*/
+
+	function isVisible(element)
+	{
+		var
+			height = getCss('height', element),
+			width = getCss('width', element),
+			display = getCss('display', element),
+			visibility = getCss('visibility', element);
+
+		return !((height == '0' || height == '0px' || height == '0%') ||
+			   (width == '0' || width == '0px' || width == '0%') ||
+			   (height == '1px' && width == '1px') ||
+			   (display == 'none') ||
+			   (visibility == 'hidden'));
+	}
+
+
+	/**
+	* Checks element for transparency;
+	* @param {ElementNode} element
+	*/
+
+	function isTransparent(element)
+	{
+		var
+			color = getCss('backgroundColor', element),
+			image = getCss('backgroundImage', element);
+		return (color == 'transparent' || color == 'rgba(0, 0, 0, 0)' || color == '' ) && (image == 'none' || image == '');
+	}
+
+
+	/**
+	* Analyses DOM tree to find transparent blocks overlapping background;
+	* @param {DomElement} element - current tree root;
+	* @static @param {array} blockArray - an array of matching blocks;
+	* @static @param {array} exceptions - an array of matching blocks specified by user input;
+	*/
+
+	function findClickableElements(element)
+	{
+		var
+			elementChildren = null,
+			currentChild = null,
+			ELEMENT_NODE = 1;
+
+		if(element == _backgroundElement)
+		{
+			element.style.cursor = 'pointer'; //display as clickable; inhereted;
+		}
+
+		addClass(CLICKABLE_ID, element); //mark as clickable;
+
+		elementChildren = element.children;
+
+		for(var i = 0, len = elementChildren.length; i < len; i ++)
+		{
+			currentChild = elementChildren[i];
+
+			if
+			(
+				currentChild.nodeType == ELEMENT_NODE &&
+				isAppropriateType(currentChild) || isClickableException(currentChild.id)
+			)
+			{
+				if
+				(
+					isVisible(currentChild) &&
+					(isTransparent(currentChild) || isClickableException(currentChild.id)) &&
+					!isNonClickableException(currentChild.id)
+				)
+				{
+					findClickableElements(currentChild);
+				}
+				else
+				{
+					setDefaultCursor(currentChild);
+				}
+			}
+		}
+	}
+
+	//execute
+
+	var getBackgroundInterval = setInterval(getBackgroundElement, 100);
+
+	function getBackgroundElement()
+	{
+		_backgroundElement = (_backgroundElementId)?
+								document.getElementById(_backgroundElementId):
+								document.getElementsByTagName('BODY')[0];
+		if(_backgroundElement)
+		{
+			clearInterval(getBackgroundInterval);
+			initBackground();
+		}
+	}
+
+	function initBackground()
+	{
+		getCurrentBackground();
+
+		if(_websiteShift != '0' && _websiteShift != '' )
+		{
+			shiftWebsiteDown();
+		}
+
+		setBackgroundProperties(_backgroundSettings);
+
+		if(document.readyState == 'complete')
+		{
+			startBackgroundScript();
+		}
+		else
+		{
+			addEvent(window, 'load', startBackgroundScript);
+		}
+	}
+
+	function startBackgroundScript(evt)
+	{
+		if(_goURL) //may be non-clickable;
+		{
+			_userExceptionsClickable = (_userExceptionsClickable != '') ? _userExceptionsClickable.split('|'):[];
+			_userExceptionsNonClickable = (_userExceptionsNonClickable != '') ? _userExceptionsNonClickable.split('|'):[];
+
+			findClickableElements(_backgroundElement);
+			addEvent(_backgroundElement, 'click', goToAdvertiser);
+		}
+
+		//if timer is not 0, return website to initial state;
+		if( _resetTimer != '0' )
+		{
+			setTimeout( function()
+			{
+				if(_websiteShift != '0' && _websiteShift != '' )
+				{
+					shiftWebsiteUp();
+				}
+
+				resetBackgroundProperties();
+
+				if(_goURL)
+				{
+					setDefaultCursor(_backgroundElement);
+					removeEvent(_backgroundElement, 'click', goToAdvertiser);
+				}
+			},  _resetTimer*1000);
+		}
+	}
+})();
+
+$(function() {
+  $('body').addClass('theme__adfox.theme__adkinder');
+});
+
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>
+      Заголовок
+    </title>
+  </head>
+  <body>
+    <table width="100%" align="center" cellpadding="0" cellspacing="0" style="border-collapse: collapse; line-height: 0;">
+      <tbody>
+        <tr>
+          <td height="20">
+            <img src="http://www.happy-giraffe.ru/images/mail/blank.gif" height="20" width="100%" border="0">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <table width="780" style="margin:0 auto;border-collapse: collapse; background: #ffffff;" align="center" cellpadding="0" cellspacing="0">
+              <tbody>
+                <tr>
+                  <td>
+                    <table width="100%" cellpadding="0" cellspacing="0" style="border-collapse: collapse;">
+                      <tbody>
+                        <tr>
+                          <td height="116" align="center">
+                            <a href="http://www.happy-giraffe.ru/?utm_source=email" target="_blank" style="text-decoration: none;">
+                              <img src="http://www.happy-giraffe.ru/images/mail/logo.png" width="194" height="116" border="0">
+                            </a>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <table width="100%" cellpadding="0" cellspacing="0" style="border-collapse: collapse;">
+                      <tbody>
+                        <tr>
+                          <td height="27">
+                            <img width="12" src="http://www.happy-giraffe.ru/images/mail/blank.gif" height="27" border="0">
+                          </td>
+                          <td width="700" height="27" align="center">
+                            <img src="http://www.happy-giraffe.ru/images/mail/welcome_top.gif" width="700" height="27" border="0">
+                          </td>
+                          <td height="27">
+                            <img width="12" src="http://www.happy-giraffe.ru/images/mail/blank.gif" height="27" border="0">
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <img width="12" src="http://www.happy-giraffe.ru/images/mail/blank.gif" height="100%" border="0">
+                          </td>
+                          <td width="700" align="center" style="background: #c8ebff;">
+                            <div style="font: normal 15px/1 arial, sans-serif; color: #232323; padding: 3px 5px;">
+                              Добрый день, {firstname}! На нашем сайте стартовал фотоконкурс «Моя любимая игрушка»!
+                            </div>
+                          </td>
+                          <td>
+                            <img width="12" src="http://www.happy-giraffe.ru/images/mail/blank.gif" height="100%" border="0">
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <img width="12" height="10" src="http://www.happy-giraffe.ru/images/mail/blank.gif" border="0">
+                          </td>
+                          <td width="700" height="10" align="center">
+                            <img src="http://www.happy-giraffe.ru/images/mail/welcome_bottom.gif" width="700" height="10" border="0">
+                          </td>
+                          <td>
+                            <img width="12" height="10" src="http://www.happy-giraffe.ru/images/mail/blank.gif" border="0">
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+                <tr>
+                  <td height="27">
+                    <img src="http://www.happy-giraffe.ru/images/mail/blank.gif" width="100%" height="10" border="0">
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <table width="780" style="margin:0 auto;border-collapse: collapse; background: #ffffff;" align="center" cellpadding="0" cellspacing="0">
+              <tbody>
+                <tr>
+                  <td>
+                    <a href="http://www.happy-giraffe.ru/contest/13/?utm_source=email">
+                      <img src="http://www.happy-giraffe.ru/images/mail/contest-13.jpg" alt="" width="778" height="272" border="0">
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding:25px 0 15px;">
+                    <b>
+                      <font face="Arial, Helvetica, sans-serif" size="2" color="#232323" style="font-size: 13px;">
+                        О конкурсе
+                      </font>
+                    </b>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p style="margin:0 0 10px;font:13px arial, helvetica, sans-serif;color:#232323;line-height:19px;">
+                      Любимая игрушка есть у каждого счастливого ребенка. Быть может, это плюшевый мишка, которого ваш кроха заботливо кормит кашей. Или огромный самосвал, который так весело катать за собой на веревочке. А, может, это занимательный конструктор, из которого можно строить замки и дворцы.
+                    </p>
+                    <p style="margin:0 0 10px;font:13px arial, helvetica, sans-serif;color:#232323;line-height:19px;">
+                      Поделитесь фотографией вашего малыша с любимой игрушкой и получите замечательные призы, которые очень понравятся вашему ребенку!
+                    </p>
+                  </td>
+                </tr>
+                <tr>
+                  <td height="10">
+                    <img src="http://www.happy-giraffe.ru/images/mail/blank.gif" width="100%" height="10" border="0">
+                  </td>
+                </tr>
+                <tr>
+                  <td align="center">
+                    <font size="2" face="Arial, Helvetica, sans-serif" color="#232323" style="font-size: 18px;">
+                      <a style="color: #3587ec;" href="http://www.happy-giraffe.ru/contest/13/?utm_source=email">
+                        Принять участие!
+                      </a>
+                    </font>
+                  </td>
+                </tr>
+                <tr>
+                  <td height="10">
+                    <img src="http://www.happy-giraffe.ru/images/mail/blank.gif" width="100%" height="10" border="0">
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding:20px 0;">
+                    <b>
+                      <font face="Arial, Helvetica, sans-serif" size="2" color="#232323" style="font-size: 13px;">
+                        Вас ждут замечательные призы:
+                      </font>
+                    </b>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <table align="center" width="100%" cellpadding="0" cellspacing="0" style="border-collapse: collapse;">
+                      <tbody>
+                        <tr>
+                          <td align="center">
+                            <img src="http://www.happy-giraffe.ru/images/prize_47.jpg" alt="" width="260">
+                          </td>
+                          <td align="center">
+                            <img src="http://www.happy-giraffe.ru/images/prize_48.jpg" alt="" width="260">
+                          </td>
+                          <td align="center">
+                            <img src="http://www.happy-giraffe.ru/images/prize_49.jpg" alt="" width="260">
+                          </td>
+                        </tr>
+                        <tr>
+                          <td style="height:10px;">
+                            <img src="http://www.happy-giraffe.ru/images/mail/blank.gif" width="100%" height="10" border="0">
+                          </td>
+                        </tr>
+                        <tr>
+                          <td align="center">
+                            <font face="Arial, Helvetica, sans-serif" size="2" color="#232323" style="font-size: 30px;line-height:36px;">
+                              <b>
+                                <a href="http://www.happy-giraffe.ru/contest/13/prizes/?utm_source=email#prize-1" style="color: #f68c02;text-decoration:none;">
+                                  1 место
+                                </a>
+                              </b>
+                            </font>
+                          </td>
+                          <td align="center">
+                            <font face="Arial, Helvetica, sans-serif" size="2" color="#232323" style="font-size: 30px;line-height:36px;">
+                              <b>
+                                <a href="http://www.happy-giraffe.ru/contest/13/prizes/?utm_source=email#prize-2" style="color: #4a98d3;text-decoration:none;">
+                                  2 место
+                                </a>
+                              </b>
+                            </font>
+                          </td>
+                          <td align="center">
+                            <font face="Arial, Helvetica, sans-serif" size="2" color="#42b528" style="font-size: 30px;line-height:36px;">
+                              <b>
+                                <a href="http://www.happy-giraffe.ru/contest/13/prizes/?utm_source=email#prize-3" style="color: #42b528;text-decoration:none;">
+                                  3 место
+                                </a>
+                              </b>
+                            </font>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td style="height:10px;">
+                            <img src="http://www.happy-giraffe.ru/images/mail/blank.gif" width="100%" height="10" border="0">
+                          </td>
+                        </tr>
+                        <tr>
+                          <td align="center">
+                            <font color="#3380b6" style="font:13px/16px arial, helvetica, sans-serif;">
+                              Детский электромобиль 
+                              <b>
+                                NeoTrike Beetle
+                              </b>
+                              <br>
+                              зеленый с пультом радиоуправления
+                            </font>
+                            <br>
+                            <a href="http://www.happy-giraffe.ru/contest/13/prizes/?utm_source=email#prize-1" style="color:#fc5e03;font:13px/19px arial, helvetica, sans-serif;">
+                              Подробнее
+                            </a>
+                          </td>
+                          <td align="center">
+                            <font color="#3380b6" style="font:13px/16px arial, helvetica, sans-serif;">
+                              Обучающий компьютер Винни 
+                              <br>
+                              <b>
+                                VTech
+                              </b>
+                            </font>
+                            <br>
+                            <a href="http://www.happy-giraffe.ru/contest/13/prizes/?utm_source=email#prize-2" style="color:#fc5e03;font:13px/19px arial, helvetica, sans-serif;">
+                              Подробнее
+                            </a>
+                          </td>
+                          <td align="center">
+                            <font color="#3380b6" style="font:13px/16px arial, helvetica, sans-serif;">
+                              Развивающая игрушка 
+                              <br>
+                              Обучающий глобус 
+                              <b>
+                                VTech
+                              </b>
+                            </font>
+                            <br>
+                            <a href="http://www.happy-giraffe.ru/contest/13/prizes/?utm_source=email#prize-3" style="color:#fc5e03;font:13px/19px arial, helvetica, sans-serif;">
+                              Подробнее
+                            </a>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <img src="http://www.happy-giraffe.ru/images/mail/blank.gif" width="100%" height="60" border="0">
+                          </td>
+                        </tr>
+                        <tr>
+                          <td align="center" colspan="4">
+                            <font face="Arial, Helvetica, sans-serif" size="2" color="#232323" style="font-size: 30px;">
+                              <a href="http://www.happy-giraffe.ru/contest/13/?utm_source=email" style="color: #3587ec;">
+                                Принять участие!
+                              </a>
+                            </font>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <img src="http://www.happy-giraffe.ru/images/mail/blank.gif" width="100%" height="70" border="0">
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div style="font:13px arial, helvetica, sans-serif;color:#232323;line-height:16px;margin-bottom:20px;">
+                      С наилучшими пожеланиями,
+                      <br>
+                      <span style="color: #3587ec;">
+                        <a href="http://www.happy-giraffe.ru/" target="_blank" style="color: #3587ec;">
+                          Веселый Жираф
+                        </a>
+                      </span>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="border-top:1px solid #e6e5e5;padding:6px 0;">
+                    <p style="font:10px tahoma, arial, sans-serif; color: #979696;">
+                      Это письмо было сгенерированно автоматически. Пожалуйста не отвечайте на него. Если вы хотите обратиться в службу поддержки сайта «Веселый Жираф», напишите нам по адресу 
+                      <span style=" color: #3587ec;">
+                        <a href="mailto:support@happy-giraffe.ru" target="_blank" style="color: #3587ec;">
+                          support@happy-giraffe.ru
+                        </a>
+                      </span>
+                      <br>
+                      <br>
+                      Вы получили это письмо, так как являетесь пользователем сайта "Веселый Жираф". 
+                      <span style=" color: #3587ec;">
+                        <a href="{unsubscribe}" target="_blank" style="color: #3587ec;">
+                          Отписаться от рассылки
+                        </a>
+                      </span>
+                    </p>
+                    <p style="font:10px tahoma,arial,sans-serif;color:#979696">
+                      {accountcontactinfo}
+                    </p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td height="20">
+            <img src="http://www.happy-giraffe.ru/images/mail/blank.gif" height="20" width="100%" border="0">
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>
+
+217829, 222763, 77573, 213587, 250163, 250162
+
+
+
+153261, 28378, 20552, 94234, 157209, 27223, 166019, 240273
+
+(post|video|photoPost|morning|status|repost|question)/?(12430[6-9]{1}|1243[1-9]{1}[0-9]{1}|124[4-9]{1}[0-9]{2}|12[5-9]{1}[0-9]{3}|1[3-9][0-9]{4})/$
+
+135309, 128489, 134087, 134294, 130651, 134492, 130380, 135526, 135471, 134370, 133406, 128595, 133838, 146583, 134027, 135313, 132109, 134383, 134090, 146930, 146615, 145537, 146914, 134317, 135721, 128447, 134467, 128519, 147678, 132256, 146657, 132925, 134501, 134362, 129297, 146924, 128596, 128469, 133630, 134304, 146662, 124716, 145287, 146634, 146610, 146904, 146625, 136440, 130063, 132940

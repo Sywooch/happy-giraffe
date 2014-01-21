@@ -121,6 +121,9 @@ class DefaultController extends ServiceController
         if (isset($_GET['m']))
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
+        if (! in_array($month, range(1, 12)))
+            $month = null;
+
         if ($month !== null) {
             $month = HDate::getMonthIndex($month);
             $data = Name::GetSaintMonthArray($month, null);

@@ -1,52 +1,23 @@
 <?php
-$model = AlbumPhoto::model()->findByPk($json['initialPhotoId']);
+    $model = AlbumPhoto::model()->findByPk($json['initialPhotoId']);
 ?>
 <div class="photo-window" id="photo-window">
     <div class="photo-window_w">
-        <div class="photo-window_top clearfix">
-            <a href="javascript:void(0)" class="photo-window_close" data-bind="click: close"></a>
-            <div class="b-user-small float-l">
-                <a class="ava small" data-bind="attr: { href : currentPhoto().user.url }, css: currentPhoto().user.avaCssClass"><img data-bind="visible: currentPhoto().user.ava.length > 0, attr: { src : currentPhoto().user.ava }"></a>
-                <div class="b-user-small_hold">
-                    <a class="b-user-small_name" data-bind="html: currentPhoto().user.firstName + ' <br>' + currentPhoto().user.lastName, attr: { href : currentPhoto().user.url }"></a>
-                    <div class="b-user-small_date" data-bind="text: currentPhoto().date"></div>
-                </div>
-            </div>
-            <div class="photo-window_top-hold">
-                <div class="photo-window_count" data-bind="text: currentNaturalIndex() + ' фото из ' + count"></div>
-                <!-- ko if: currentPhoto().isEditable && currentPhoto().titleBeingEdited() -->
-                <div class="photo-window_t clearfix">
-                    <div class="display-ib w-50p margin-t5">
-                        <input type="text" class="itx-simple" placeholder="Введите заголовок фото" data-bind="value: currentPhoto().titleValue">
-                    </div>
-                    <button class="btn-green btn-small margin-l10" data-bind="click: currentPhoto().saveTitle">Ok</button>
-                </div>
-                <!-- /ko -->
-                <!-- ko if: ! currentPhoto().titleBeingEdited() -->
-                <div class="photo-window_t">
-                    <span data-bind="text: currentPhoto().title()"></span>
-                    <!-- ko if: currentPhoto().isEditable -->
-                        <div class="photo-window_edit">
-                            <a class="ico-edit ico-edit__light" data-bind="click: currentPhoto().editTitle, tooltip: 'Редактировать'"></a>
-                        </div>
-                    <!-- /ko -->
-                </div>
-                <!-- /ko -->
-            </div>
+        <a class="photo-window_close" data-bind="click: close"></a>
 
+        <div class="photo-window_top">
+            <div class="photo-window_count" data-bind="text: currentNaturalIndex() + ' из ' + count"></div>
         </div>
-        <!-- Обрабатывать клик на юphoto-window_c для листания следующего изображения -->
+        <!-- Обрабатывать клик на .photo-window_c для листания следующего изображения -->
         <div class="photo-window_c">
-            <div class="photo-window_img-hold">
+            <div class="photo-window_img-hold" data-bind="click: nextHandler">
                 <img alt="" class="photo-window_img" data-bind="attr: { src : currentPhoto().src }">
                 <div class="verticalalign-m-help"></div>
             </div>
-            <a class="photo-window_arrow photo-window_arrow__l" data-theme="white-simple" data-bind="click: prevHandler"></a>
-            <a class="photo-window_arrow photo-window_arrow__r" data-theme="white-simple" data-bind="click: nextHandler"></a>
-
+            <a class="photo-window_arrow photo-window_arrow__l" data-bind="click: prevHandler"></a>
+            <a class="photo-window_arrow photo-window_arrow__r" data-bind="click: nextHandler"></a>
 
             <div class="like-control clearfix">
-
                 <!-- ko with: currentPhoto() -->
                     <a href="" class="like-control_ico like-control_ico__like" data-bind="click: like, text: likesCount, css: {active: isLiked()}, tooltip: 'Нравится'" ></a>
                     <!-- ko with: favourites() -->
@@ -54,44 +25,112 @@ $model = AlbumPhoto::model()->findByPk($json['initialPhotoId']);
                     <!-- /ko -->
                 <!-- /ko -->
             </div>
+
+            <div class="contestData"></div>
         </div>
 
-        <!-- ko if: currentPhoto().isEditable && currentPhoto().descriptionBeingEdited() -->
-        <div class="photo-window_bottom">
-            <div class="display-ib w-500 verticalalign-b">
-                <textarea cols="30" rows="2" class="itx-simple" placeholder="Введите описание фото" data-bind="value: currentPhoto().descriptionValue"></textarea>
-            </div>
-            <button class="btn-green btn-small margin-l10 verticalalign-b" data-bind="click: currentPhoto().saveDescription">Ok</button>
-        </div>
-        <!-- /ko -->
 
-        <!-- ko if: ! currentPhoto().descriptionBeingEdited() && currentPhoto().description().length > 0 -->
-        <div class="photo-window_bottom" data-bind="click: currentPhoto().toggleShowFullDescription, css: { active : currentPhoto().showFullDescription }">
-            <div class="photo-window_desc">
-                <p><span data-bind="text: currentPhoto().hasLongDescription() ? currentPhoto().shortenDescription() : currentPhoto().description"></span> <span class="photo-window_desc-more" data-bind="visible: currentPhoto().hasLongDescription()"> ... <a href="javascript:void(0)" >Читать полностью</a> </span></p>
-            </div>
-            <div class="photo-window_desc photo-window_desc__full">
-                <p><span data-bind="text: currentPhoto().description"></span> <a href="javascript:void(0)">Кратко</a></p>
-            </div>
-            <!-- ko if: currentPhoto().isEditable -->
-            <div class="photo-window_edit">
-                <a class="ico-edit ico-edit__light" data-bind="click: currentPhoto().editDescription, tooltio: 'Редактировать'"></a>
-            </div>
-            <!-- /ko -->
-        </div>
-        <!-- /ko -->
 
-        <!-- ko stopBinding: true  -->
-        <div id="js-gallery-comment">
-            <?php $this->widget('application.widgets.newCommentWidget.NewCommentWidget', array('model' => $model, 'full' => true, 'gallery' => true)); ?>
+        <div class="photo-window_col">
+
+            <div class="photo-window_col-hold scroll">
+                <div class="scroll_scroller  photo-window_cont">
+                    <div class="scroll_cont">
+                        <div class="photo-window_cont-t clearfix">
+                            <div class="meta-gray">
+                                <a class="meta-gray_comment" href="">
+                                    <span class="ico-comment ico-comment__gray"></span>
+                                    <span class="meta-gray_tx" data-bind="text: currentPhoto().commentsCount"></span>
+                                </a>
+                                <div class="meta-gray_view">
+                                    <span class="ico-view ico-view__gray"></span>
+                                    <span class="meta-gray_tx" data-bind="text: currentPhoto().views"></span>
+                                </div>
+                            </div>
+                            <div class="b-user-info b-user-info__middle float-l" data-bind="with: currentPhoto().user">
+                                <a class="ava middle" data-bind="attr: { href : url }, css: avaCssClass"><img data-bind="visible: ava.length > 0, attr: { src : ava }"></a>
+                                <div class="b-user-info_hold">
+                                    <a class="b-user-info_name" data-bind="attr: { href : url }, text: fullName"></a>
+                                    <div class="b-user-info_date" data-bind="text: $root.currentPhoto().date"></div>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                        <div class="photo-window_about"><span data-bind="text: properties.label"></span>&nbsp;&nbsp;&nbsp;<a data-bind="text: properties.title, attr: { href : properties.url }"></a> </div>
+
+                        <div class="photo-window_t">
+                            <!-- ko if: currentPhoto().isEditable && currentPhoto().titleBeingEdited() -->
+                                <input type="text" class="itx-gray" placeholder="Введите название фото и нажмите Enter" data-bind="value: currentPhoto().titleValue, returnKey: currentPhoto().saveTitle, hasfocus: currentPhoto().titleBeingEdited()">
+                            <!-- /ko -->
+                            <!-- ko if: ! currentPhoto().titleBeingEdited() -->
+                                <span data-bind="text: currentPhoto().title()"></span>
+                                <!-- ko if: currentPhoto().isEditable -->
+                                    <a class="ico-edit powertip" data-bind="click: currentPhoto().editTitle, tooltip: 'Редактировать'"></a>
+                                <!-- /ko -->
+                            <!-- /ko -->
+                        </div>
+
+                        <div class="photo-window_desc-hold ">
+                            <!-- ko if: ! currentPhoto().descriptionBeingEdited() && currentPhoto().description().length > 0 -->
+                                <div class="photo-window_desc clearfix">
+                                    <p>
+                                        <span data-bind="text: currentPhoto().description"></span>
+                                        <!-- ko if: currentPhoto().isEditable -->
+                                            <a class="ico-edit powertip" data-bind="click: currentPhoto().editDescription, tooltip: 'Редактировать'"></a>
+                                        <!-- /ko -->
+                                    </p>
+                                </div>
+                            <!-- /ko -->
+
+                            <!-- ko if: currentPhoto().isEditable && currentPhoto().descriptionBeingEdited() -->
+                                <textarea cols="15" rows="2" class="itx-gray" placeholder="Введите описание фото и нажмите Enter" data-bind="value: currentPhoto().descriptionValue, autogrow: true, returnKey: currentPhoto().saveDescription, valueUpdate: 'keyup', hasfocus: currentPhoto().descriptionBeingEdited() && ! currentPhoto().titleBeingEdited()"></textarea>
+                            <!-- /ko -->
+                        </div>
+
+                        <div class="comments-gray comments-gray__small">
+                            <div class="comments-gray_add active clearfix">
+
+                                <!-- ko if: user !== null -->
+                                <div class="comments-gray_ava" data-bind="with: user">
+                                    <a class="ava small" data-bind="attr: { href : url }, css: avaCssClass">
+                                        <img alt="" data-bind="visible: ava.length > 0, attr: { src : ava }">
+                                    </a>
+                                </div>
+                                <!-- /ko -->
+
+                                <div class="comments-gray_frame">
+                                    <textarea cols="15" rows="2" class="itx-gray" placeholder="Введите ваш комментарий и нажмите Enter" data-bind="returnKey: addComment, valueUpdate: 'keyup', value: commentText"></textarea>
+                                </div>
+                            </div>
+                            <div class="comments-gray_t">
+                                <!-- ko if: currentPhoto().commentsCount() > 0 -->
+                                <span class="comments-gray_t-tx">Комментарии <span class="color-gray" data-bind="text: '(' + currentPhoto().commentsCount() + ')'"></span></span>
+                                <a class="font-small" id="comments-show" href="javascript:void(0)" onclick="location.reload()">Показать </a>
+                                <!-- /ko -->
+                                <!-- <a href="" class="float-r font-small">Статистика (14)</a> -->
+                                <div class="comments-gray_sent">Комментарий успешно отправлен.</div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="scroll_bar-hold">
+                    <div class="scroll_bar">
+                        <div class="scroll_bar-in"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="photo-window_banner" class="photo-window_banner clearfix">
+                <iframe src="/rtb3.html?<?=mt_rand(1000000000, 9999999999)?>" width="300" height="250" marginwidth="0" marginheight="0" scrolling="no" frameborder="0"></iframe>
+            </div>
         </div>
-        <!-- /ko -->
 
     </div>
-    <style type="text/css">
-        body {overflow: hidden !important;}
-    </style>
 </div>
+
 <script type="text/javascript">
     photoViewVM = new PhotoCollectionViewModel(<?=CJSON::encode($json)?>);
     ko.applyBindings(photoViewVM, document.getElementById('photo-window'));

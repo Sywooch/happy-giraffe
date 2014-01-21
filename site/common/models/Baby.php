@@ -41,7 +41,7 @@ class Baby extends HActiveRecord
     public function relations()
     {
         return array(
-            'parent' => array(self::BELONGS_TO, 'User', 'id'),
+            'parent' => array(self::BELONGS_TO, 'User', 'parent_id'),
             'photos' => array(self::HAS_MANY, 'AttachPhoto', 'entity_id', 'with' => 'photo', 'on' => '`photo`.`removed` = 0 AND entity = :modelName', 'params' => array(':modelName' => get_class($this))),
             'photosCount' => array(self::STAT, 'AttachPhoto', 'entity_id', 'condition' => 'entity =: modelName', 'params' => array(':modelName' => get_class($this))),
             'randomPhoto' => array(self::HAS_ONE, 'AttachPhoto', 'entity_id', 'with' => 'photo', 'on' => '`photo`.`removed` = 0 AND entity = :modelName', 'params' => array(':modelName' => get_class($this)), 'order' => new CDbExpression('RAND()')),

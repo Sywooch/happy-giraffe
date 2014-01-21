@@ -452,4 +452,131 @@ class SiteController extends HController
             ElasticEmail::send($e, 'Отклик на вакансию', $html, 'noreply@happy-giraffe.ru', 'Веселый Жираф');
         }
     }
+
+    public function actionQualityTest($url = null)
+    {
+        $qArray = range(60, 90, 5);
+        foreach ($qArray as $q) {
+            $phpThumb = Yii::createComponent(array(
+                'class' => 'ext.EPhpThumb.EPhpThumb',
+                'options' => array(
+                    'jpegQuality' => $q,
+                ),
+            ));
+            $phpThumb->init();
+            $path = Yii::getPathOfAlias('site.common.uploads.photos.temp') . DIRECTORY_SEPARATOR . md5($url . $q) . '.jpg';
+            $thumb = $phpThumb->create($url);
+            $thumb->save($path);
+            echo $q . ':<br>' . CHtml::image(Yii::app()->params['photos_url'] . '/temp/' . md5($url . $q) . '.jpg') . '<br><br><br>';
+        }
+    }
+
+    public function actionSeo()
+    {
+        Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
+        if ($_POST) {
+            foreach ($_POST as $k => $val)
+                Yii::app()->user->setState($k, $val);
+        }
+
+        if ($_POST || Yii::app()->request->isAjaxRequest) {
+            $result = array();
+            Yii::import('site.frontend.extensions.GoogleAnalytics');
+
+            $ga = new GoogleAnalytics('nikita@happy-giraffe.ru', 'ummvxhwmqzkrpgzj');
+            $ga->setProfile('ga:53688414');
+
+            $ga->setDateRange(Yii::app()->user->getState('period1Start'), Yii::app()->user->getState('period1End'));
+            $pathes1 = $ga->getReport(array(
+                'metrics' => 'ga:visits',
+                'dimensions' => 'ga:pagePath',
+                'max-results' => 10000,
+                'sort' => '-ga:visits',
+                'filters' => 'ga:source==yandex',
+            ));
+            foreach ($pathes1 as $path => $value) {
+                $result[$path] = array(
+                    'period1' => $value['ga:visits'],
+                    'period2' => 0,
+                    'diff' => 0,
+                    'diffC' => 0,
+                );
+            }
+
+            $ga->setDateRange(Yii::app()->user->getState('period2Start'), Yii::app()->user->getState('period2End'));
+            $pathes2 = $ga->getReport(array(
+                'metrics' => 'ga:visits',
+                'dimensions' => 'ga:pagePath',
+                'max-results' => 10000,
+                'sort' => '-ga:visits',
+                'filters' => 'ga:source==yandex',
+            ));
+            foreach ($pathes2 as $path => $value) {
+                if (isset($result[$path])) {
+                    $result[$path]['period2'] = $value['ga:visits'];
+                    $result[$path]['diff'] = ($result[$path]['period2'] - $result[$path]['period1']) * 100 / $result[$path]['period1'];
+                    $result[$path]['diffC'] = $result[$path]['period2'] - $result[$path]['period1'];
+                } else {
+                    $result[$path] = array(
+                        'period1' => 0,
+                        'period2' => $value['ga:visits'],
+                        'diff' => 0,
+                        'diffC' => 0,
+                    );
+                }
+            }
+
+            $_result = array();
+            foreach ($result as $k => $r) {
+                $r['id'] = $k;
+                if ($r['period1'] > 20 && $r['diff'] < -25)
+                    array_push($_result, $r);
+            }
+
+            $s = 0;
+            foreach ($_result as $v)
+                $s += $v['diffC'];
+
+            $dp = new CArrayDataProvider($_result, array(
+                'sort' => array(
+                    'attributes' => array('id', 'period1', 'period2', 'diffC', 'diff'),
+                    'defaultOrder' => array('period1'=>true),
+                ),
+                'pagination' => array(
+                    'pageSize' => 200,
+                ),
+            ));
+        }
+        else
+            $dp = null;
+        $this->render('seo', compact('dp', 's'));
+    }
+
+    public function actionSeo2()
+    {
+        Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
+        $dp = new EMongoDocumentDataProvider('Seo2', array(
+            'sort' => array(
+                'attributes' => array('google', 'yandex'),
+            ),
+            'pagination' => array(
+                'pageSize' => 200,
+            ),
+        ));
+        $this->render('seo2', compact('dp'));
+    }
+
+    public function actionSeo3()
+    {
+        Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
+        $dp = new EMongoDocumentDataProvider('Seo3', array(
+            'sort' => array(
+                'attributes' => array('google', 'yandex'),
+            ),
+            'pagination' => array(
+                'pageSize' => 200,
+            ),
+        ));
+        $this->render('seo2', compact('dp'));
+    }
 }

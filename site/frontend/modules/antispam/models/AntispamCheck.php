@@ -28,10 +28,12 @@ class AntispamCheck extends HActiveRecord
     const ENTITY_POSTS = 10;
     const ENTITY_COMMENTS = 11;
     const ENTITY_PHOTOS = 12;
+    const ENTITY_MESSAGES = 13;
     public static $entityToModels = array(
         self::ENTITY_POSTS => array('CommunityContent', 'BlogContent'),
         self::ENTITY_COMMENTS => 'Comment',
         self::ENTITY_PHOTOS => 'AlbumPhoto',
+        self::ENTITY_MESSAGES => 'MessagingMessage',
     );
 
 	/**

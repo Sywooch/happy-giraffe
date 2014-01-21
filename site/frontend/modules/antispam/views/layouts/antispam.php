@@ -32,7 +32,7 @@ Yii::app()->clientScript->registerPackage('ko_antispam');
                     'encodeLabel' => false,
                     'items' => array(
                         array(
-                            'url' => array('/antispam/default/list', 'status' => AntispamCheck::STATUS_UNDEFINED),
+                            'url' => array('/antispam/default/live'),
                             'itemOptions' => array('class' => 'side-menu_li' . ($this->counts[DefaultController::TAB_CHECKS_LIVE] > 0 ? '' : ' disabled')),
                             'linkOptions' => array('class' => 'side-menu_i'),
                             'label' => $this->renderPartial('_menu_item', array(
@@ -53,7 +53,7 @@ Yii::app()->clientScript->registerPackage('ko_antispam');
                             ), true),
                         ),
                         array(
-                            'url' => array('/antispam/default/list', 'status' => AntispamCheck::STATUS_BAD),
+                            'url' => array('/antispam/default/deleted'),
                             'itemOptions' => array('class' => 'side-menu_li' . ($this->counts[DefaultController::TAB_CHECKS_BAD] > 0 ? '' : ' disabled')),
                             'linkOptions' => array('class' => 'side-menu_i'),
                             'label' => $this->renderPartial('_menu_item', array(
@@ -63,7 +63,7 @@ Yii::app()->clientScript->registerPackage('ko_antispam');
                             ), true),
                         ),
                         array(
-                            'url' => array('/antispam/default/list', 'status' => AntispamCheck::STATUS_QUESTIONABLE),
+                            'url' => array('/antispam/default/questionable'),
                             'itemOptions' => array('class' => 'side-menu_li' . ($this->counts[DefaultController::TAB_CHECKS_QUESTIONABLE] > 0 ? '' : ' disabled')),
                             'linkOptions' => array('class' => 'side-menu_i'),
                             'label' => $this->renderPartial('_menu_item', array(

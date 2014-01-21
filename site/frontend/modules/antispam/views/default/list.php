@@ -1,6 +1,6 @@
 <?php
 /**
- * @var HActiveController $this
+ * @var HController $this
  * @var CActiveDataProvider $dp
  * @var int $status
  * @var int[] $counts
@@ -20,19 +20,19 @@
             ),
             'items' => array(
                 array(
-                    'url' => array('/antispam/default/list', 'status' => $status, 'entity' => AntispamCheck::ENTITY_POSTS),
+                    'url' => array('/' . $this->route, 'entity' => AntispamCheck::ENTITY_POSTS),
                     'label' => 'Посты ' . $counts[AntispamCheck::ENTITY_POSTS],
                     'itemOptions' => array('class' => 'page-col_li'),
                     'linkOptions' => array('class' => 'page-col_ul-a'),
                 ),
                 array(
-                    'url' => array('/antispam/default/list', 'status' => $status, 'entity' => AntispamCheck::ENTITY_COMMENTS),
+                    'url' => array('/' . $this->route, 'entity' => AntispamCheck::ENTITY_COMMENTS),
                     'label' => 'Комментарии ' . $counts[AntispamCheck::ENTITY_COMMENTS],
                     'itemOptions' => array('class' => 'page-col_li'),
                     'linkOptions' => array('class' => 'page-col_ul-a'),
                 ),
                 array(
-                    'url' => array('/antispam/default/list', 'status' => $status, 'entity' => AntispamCheck::ENTITY_PHOTOS),
+                    'url' => array('/' . $this->route, 'entity' => AntispamCheck::ENTITY_PHOTOS),
                     'label' => 'Фото ' . $counts[AntispamCheck::ENTITY_PHOTOS],
                     'itemOptions' => array('class' => 'page-col_li'),
                     'linkOptions' => array('class' => 'page-col_ul-a'),

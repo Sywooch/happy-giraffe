@@ -48,7 +48,7 @@
                         ),
                         array(
                             'url' => array('/antispam/default/analysis', 'userId' => $user->id, 'entity' => AntispamCheck::ENTITY_MESSAGES),
-                            'label' => 'Фото ' . $counts[AntispamCheck::ENTITY_MESSAGES],
+                            'label' => 'Сообщения ' . $counts[AntispamCheck::ENTITY_MESSAGES],
                             'itemOptions' => array('class' => 'page-col_li'),
                             'linkOptions' => array('class' => 'page-col_ul-a'),
                         ),

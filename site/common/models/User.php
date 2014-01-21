@@ -275,6 +275,9 @@ class User extends HActiveRecord
                 ':password' => $this->hashPassword($_POST['User']['password']),
             )));
         if ($userModel) {
+            if (in_array(AntispamStatusManager::getUserStatus($userModel->id), array(AntispamStatusManager::STATUS_BLOCKED, AntispamStatusManager::STATUS_BLACK)))
+                $this->addError('password', 'Вы заблокированы');
+
             $identity = new UserIdentity($userModel->getAttributes());
             $identity->authenticate();
             if ($identity->errorCode == UserIdentity::ERROR_NONE) {

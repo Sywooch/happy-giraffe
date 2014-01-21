@@ -17,9 +17,9 @@ class DefaultController extends AntispamController
     {
         $this->counts = array(
             self::TAB_CHECKS_LIVE => AntispamCheck::model()->live()->count(),
-            self::TAB_EXPERT => AntispamReport::model()->status(AntispamReport::STATUS_PENDING)->count(),
             self::TAB_CHECKS_BAD => AntispamCheck::model()->deleted()->count(),
             self::TAB_CHECKS_QUESTIONABLE => AntispamCheck::model()->questionable()->count(),
+            self::TAB_EXPERT => AntispamReport::model()->status(AntispamReport::STATUS_PENDING)->count(),
             self::TAB_USERS_WHITE => AntispamStatus::model()->status(AntispamStatusManager::STATUS_WHITE)->count(),
             self::TAB_USERS_BLACK => AntispamStatus::model()->status(AntispamStatusManager::STATUS_BLACK)->count(),
             self::TAB_USERS_BLOCKED => AntispamStatus::model()->status(AntispamStatusManager::STATUS_BLOCKED)->count(),
@@ -88,7 +88,10 @@ class DefaultController extends AntispamController
             AntispamCheck::ENTITY_MESSAGES => AntispamCheck::model()->entity(AntispamCheck::ENTITY_MESSAGES)->user($userId)->count(),
         );
         $user = User::model()->with('spamStatus')->findByPk($userId);
-        $dp = AntispamCheck::getDp(AntispamCheck::model()->entity($entity)->user($userId)->getDbCriteria());
+        $dp = AntispamCheck::getDp(array('scopes' => array(
+            'user' => $userId,
+            'entity' => $entity,
+        )));
         $this->render('analysis', compact('user', 'dp', 'counts', 'entity'));
     }
 }

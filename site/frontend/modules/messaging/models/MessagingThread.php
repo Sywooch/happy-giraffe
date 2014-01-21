@@ -10,6 +10,7 @@
  *
  * The followings are the available model relations:
  * @property MessagingMessage[] $messagingMessages
+ * @property MessagingThreadUser[] $threadUsers
  */
 class MessagingThread extends HActiveRecord
 {
@@ -113,10 +114,11 @@ class MessagingThread extends HActiveRecord
      */
     public function markAsReadFor($user_id)
     {
+		// sql - не круто
         $sql = "
             UPDATE messaging__messages_users mu
             INNER JOIN messaging__messages m ON mu.message_id = m.id
-            SET mu.read = 1
+            SET mu.dtime_read = NOW()
             WHERE m.thread_id = :thread_id AND m.author_id != :user_id AND mu.user_id = :user_id;
         ";
 
@@ -133,6 +135,7 @@ class MessagingThread extends HActiveRecord
      */
     public function markAsUnReadFor($user_id)
     {
+		// sql - не круто
         $sql = "
             UPDATE messaging__messages_users mu
             SET mu.read = 0
@@ -189,14 +192,23 @@ class MessagingThread extends HActiveRecord
 //
 //        return $messages;
 //    }
-
+	/**
+     * Получение списка сообщений по текущему диалогу для конкретного пользователя
+     *
+     * @param int $userId Id пользователя, для которого формируется список сообщений
+	 * @param int $limit Limit
+	 * @param int $offset Offset
+	 * 
+	 * @return array массив данных, сформированных из массива MessagingMessage::json, для формирования ответа в виде JSON
+     */
     public function getMessages($userId, $limit, $offset = 0)
     {
         $_messages = array();
+		// полуsql - не круто
         $messages = MessagingMessage::model()->findAll(array(
             'with' => array('images', 'messageUsers'),
             'join' => 'JOIN messaging__messages_users mu ON t.id = mu.message_id AND mu.user_id = :user_id',
-            'condition' => 'thread_id = :thread_id AND mu.deleted = 0',
+            'condition' => 'thread_id = :thread_id AND mu.dtime_delete IS NULL',
             'params' => array(':thread_id' => $this->id, ':user_id' => $userId),
             'limit' => $limit,
             'offset' => $offset,
@@ -208,12 +220,19 @@ class MessagingThread extends HActiveRecord
 
         return $_messages;
     }
-
+	
+	/**
+     * Получение общего количества не удалённых сообщений по текущему диалогу для конкретного пользователя
+     *
+     * @param int $userId Id пользователя, для которого считается количество сообщений
+	 * 
+	 * @return int Количество сообщений
+     */
     public function countMessages($userId)
     {
         return MessagingMessage::model()->count(array(
             'join' => 'JOIN messaging__messages_users mu ON t.id = mu.message_id AND mu.user_id = :user_id',
-            'condition' => 'thread_id = :thread_id AND mu.deleted = 0',
+            'condition' => 'thread_id = :thread_id AND mu.dtime_delete IS NULL',
             'params' => array(':thread_id' => $this->id, ':user_id' => $userId),
         ));
     }
@@ -224,6 +243,7 @@ class MessagingThread extends HActiveRecord
      * @param $userId
      * @return mixed
      */
+	// Почему это нужно, и почему такая реализация???
     public function getInterlocutorIdFor($userId)
     {
         $sql = "
@@ -239,6 +259,7 @@ class MessagingThread extends HActiveRecord
         return $command->queryScalar();
     }
 
+	// перенести бизнес-логику в модель формы
     public function findOrCreate($userId, $interlocutorId)
     {
         $thread = $this->findByInterlocutorsIds($userId, $interlocutorId);
@@ -256,6 +277,7 @@ class MessagingThread extends HActiveRecord
         return ($result) ? $thread : false;
     }
 
+	// перенести бизнес-логику в модель формы
     public function deleteMessagesFor($userId)
     {
         $sql = "
@@ -273,6 +295,7 @@ class MessagingThread extends HActiveRecord
         ));
     }
 
+	// ??? Не используется
     public function withSimpleUser()
     {
         $user_ids = Yii::app()->db->createCommand()
@@ -290,8 +313,16 @@ class MessagingThread extends HActiveRecord
         return false;
     }
 
+    /**
+     * Возвращает модель диалога между пользователями
+     *
+     * @param $userId Id одного пользователя
+     * @param $interlocutorId Id второго пользователя
+     * @return MessagingThread
+     */
     public function findByInterlocutorsIds($userId, $interlocutorId)
     {
+		// Почему реализация не в виде scope??? Или почему не статичный метод?
         $criteria = new CDbCriteria();
         $criteria->join = 'JOIN messaging__threads_users tu1 ON t.id = tu1.thread_id JOIN messaging__threads_users tu2 ON tu1.thread_id = tu2.thread_id';
         $criteria->condition = 'tu1.user_id = :userId AND tu2.user_id = :interlocutorId';

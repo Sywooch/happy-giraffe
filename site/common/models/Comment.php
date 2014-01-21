@@ -153,6 +153,14 @@ class Comment extends HActiveRecord
                 'class' => 'site.common.behaviors.PrepareForEdit',
                 'attributes' => array('text'),
             ),
+            'antispam' => array(
+                'class' => 'site.frontend.modules.antispam.behaviors.AntispamBehavior',
+                'interval' => 60 * 60,
+                'maxCount' => 2,
+            ),
+            'softDelete' => array(
+                'class' => 'site.common.behaviors.SoftDeleteBehavior',
+            ),
         );
     }
 
@@ -467,7 +475,7 @@ class Comment extends HActiveRecord
     /**
      * @return CActiveRecord
      */
-    private function getCommentEntity()
+    public function getCommentEntity()
     {
         return CActiveRecord::model($this->entity)->findByPk($this->entity_id);
     }

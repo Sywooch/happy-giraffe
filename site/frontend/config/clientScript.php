@@ -31,6 +31,7 @@ return array(
             'js' => array(
                 'javascripts/knockout-2.2.1.js',
                 'javascripts/ko_library.js',
+                'javascripts/knockout.mapping-latest.js',
             ),
             'depends' => array(
                 'jquery',
@@ -154,6 +155,13 @@ return array(
             'baseUrl' => '/',
             'js' => array(
                 'javascripts/ko_recipes_search.js',
+            ),
+            'depends' => array('knockout'),
+        ),
+        'ko_antispam' => array(
+            'baseUrl' => '/',
+            'js' => array(
+                'javascripts/ko_antispam.js',
             ),
             'depends' => array('knockout'),
         ),

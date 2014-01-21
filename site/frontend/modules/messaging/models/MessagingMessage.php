@@ -123,6 +123,7 @@ class MessagingMessage extends HActiveRecord
                 'class' => 'site.frontend.modules.antispam.behaviors.AntispamBehavior',
                 'interval' => 60 * 60,
                 'maxCount' => 2,
+                'safe' => true,
             ),
             'softDelete' => array(
                 'class' => 'site.common.behaviors.SoftDeleteBehavior',

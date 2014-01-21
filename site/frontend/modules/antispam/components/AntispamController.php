@@ -9,22 +9,22 @@
 
 class AntispamController extends HController
 {
-    public function filters()
-    {
-        return array(
-            'accessControl',
-        );
-    }
-
-    public function accessRules()
-    {
-        return array(
-            array('allow',
-                'roles' => array('moderator'),
-            ),
-            array('deny',
-                'users' => array('*'),
-            ),
-        );
-    }
+//    public function filters()
+//    {
+//        return array(
+//            'accessControl',
+//        );
+//    }
+//
+//    public function accessRules()
+//    {
+//        return array(
+//            array('allow',
+//                'roles' => array('moderator'),
+//            ),
+//            array('deny',
+//                'users' => array('*'),
+//            ),
+//        );
+//    }
 }

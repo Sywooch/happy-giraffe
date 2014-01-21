@@ -14,6 +14,7 @@ class ContactsManager
     const TYPE_NEW = 1;
     const TYPE_ONLINE = 2;
     const TYPE_FRIENDS_ONLINE = 3;
+    const TYPE_ONE = 4;
     const LIMIT = 20;
 
     /**
@@ -57,8 +58,19 @@ class ContactsManager
 
         return $contacts;
     }
+	
+	public static function getContactByUserId($userId, $interlocutorId)
+	{
+		$sql = self::getSql(self::TYPE_ONE);
+		$command = Yii::app()->db->createCommand($sql);
+		$command->bindValue(':user_id', $userId, PDO::PARAM_INT);
+		$command->bindValue(':interlocutor_id', (int) $interlocutorId, PDO::PARAM_INT);
+		$row = $command->queryRow();
 
-    public static function getCountByType($userId, $type)
+		return $row ? self::populateContact($row) : null;
+	}
+
+	public static function getCountByType($userId, $type)
     {
         switch ($type) {
             case self::TYPE_ALL;
@@ -272,6 +284,44 @@ class ContactsManager
                     ORDER BY t.updated DESC
                     LIMIT :limit
                     OFFSET :offset;
+                ";
+                break;
+            case self::TYPE_ONE:
+                $sql = "
+                    SELECT
+                      u.id AS uId, # ID собеседника
+                      u.first_name, # Имя собеседника
+                      u.last_name, # Фамилия собеседника
+                      u.gender, # Пол собеседника
+                      u.online, # Онлайн-статус собеседника
+                      u.last_active, # Дата последней активности
+                      t.id AS tId, # ID Диалога
+                      tu.hidden, # Видимость диалога
+                      p.id AS pId, # ID аватара
+                      p.fs_name, # Аватар
+                      UNIX_TIMESTAMP(t.updated) AS updated, # Дата последнего обновления диалога
+                      COUNT(mu.message_id) AS unreadCount, # Количество непрочитанных сообщений
+                      f.id IS NOT NULL AS isFriend # Является ли другом
+                    FROM messaging__threads_users tu
+                    # Получение собеседника по id
+                    INNER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id = :interlocutor_id
+                    # Получение информации о собеседнике
+                    INNER JOIN users u ON tu2.user_id = u.id
+                    # Получение информации о диалоге
+                    INNER JOIN messaging__threads t ON tu.thread_id = t.id
+                    # Получение количества непрочитанных сообщений
+                    LEFT OUTER JOIN messaging__messages m ON m.thread_id = t.id AND m.author_id != tu.user_id
+                    LEFT OUTER JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.dtime_read IS NULL AND mu.user_id = tu.user_id
+                    # Получение аватара
+                    LEFT OUTER JOIN album__photos p ON u.avatar_id = p.id
+                    # Является ли другом
+                    LEFT OUTER JOIN friends f ON f.user_id = tu.user_id AND f.friend_id = u.id
+                    # Находится ли в черном списке
+                    LEFT OUTER JOIN blacklist b ON b.user_id = tu.user_id AND b.blocked_user_id = u.id
+                    WHERE tu.user_id = :user_id AND b.user_id IS NULL
+                    GROUP BY u.id
+                    ORDER BY t.updated DESC
+                    LIMIT 1
                 ";
                 break;
         }

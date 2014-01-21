@@ -3,7 +3,7 @@
 class ThreadsController extends HController
 {
 
-	const MESSAGES_PER_PAGE = 20;
+	const MESSAGES_PER_PAGE = 10;
 
 	public function filters()
 	{
@@ -116,7 +116,7 @@ class ThreadsController extends HController
 	{
 		$result = array();
 		$me = Yii::app()->user->id;
-		$messages = MessagingMessage::model()->between($me, $userId)->withMyStats($me);
+		$messages = MessagingMessage::model()->between($me, $userId)->withStats()->orderDesc();
 		if ($lastDate)
 		{
 			$messages->older($lastDate);

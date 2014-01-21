@@ -16,15 +16,20 @@ class SoftDeleteBehavior extends CActiveRecordBehavior
         $model->entity_id = $this->owner->id;
         $model->user_id = Yii::app()->user->id;
         $model->save();
-        $this->owner->removed = 1;
-        $this->owner->update(array('removed'));
+
+        if ($this->owner->hasAttribute('removed')) {
+            $this->owner->removed = 1;
+            $this->owner->update(array('removed'));
+        }
 
         $event->isValid = false;
     }
 
     public function restore()
     {
-        $this->owner->removed = 0;
-        $this->owner->update(array('removed'));
+        if ($this->owner->hasAttribute('removed')) {
+            $this->owner->removed = 0;
+            $this->owner->update(array('removed'));
+        }
     }
 }

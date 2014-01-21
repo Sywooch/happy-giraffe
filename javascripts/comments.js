@@ -1,14 +1,14 @@
 var ENTER_KEY_SEND = 1;
 function CommentViewModel(data) {
     var self = this;
+    self.OPENED_BOT = 0;
+    self.OPENED_TOP = 1;
     ko.mapping.fromJS(data, {}, self);
     self.extended = ko.observable(false);
     self.opened = ko.observable(false);
     self.gallery = ko.observable(data.gallery);
     self.objectName = ko.observable(data.objectName);
     self.editor = null;
-
-    console.log(data.comments);
 
     self.comments = ko.observableArray([]);
     self.comments(ko.utils.arrayMap(data.comments, function (comment) {
@@ -33,9 +33,11 @@ function CommentViewModel(data) {
         return self.allCount();
     });
 
-    self.openComment = function () {
-        if (!self.opened()) {
-            self.opened(true);
+    self.openComment = function (val) {
+        console.log(val);
+
+        if (self.opened() !== val) {
+            self.opened(val);
             if (self.response() !== false)
                 self.cancelReply();
             ko.utils.arrayForEach(self.comments(), function (comment) {
@@ -43,7 +45,7 @@ function CommentViewModel(data) {
                     comment.editMode(false);
             });
 
-            self.initEditor('add_' + self.objectName());
+            self.initEditor((val == self.OPENED_TOP ? 'add_top_' : 'add_') + self.objectName());
         }
         else
             self.focusEditor();
@@ -302,3 +304,17 @@ function User(data) {
         return self.gender() == 0 ? 'female' : 'male';
     }, this);
 }
+
+ko.bindingHandlers.enterKey = {
+    init: function (element, valueAccessor, allBindings, vm) {
+        ko.utils.registerEventHandler(element, "keypress", function (event) {
+            if (event.keyCode === 13) {
+                ko.utils.triggerEvent(element, "change");
+                valueAccessor().call(vm, vm);
+                if (ENTER_KEY_SEND)
+                    return false;
+            }
+            return true;
+        });
+    }
+};

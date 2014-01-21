@@ -364,29 +364,14 @@ body .redactor_air .redactor_toolbar {
     text-decoration: none;
     font-size: 0;
     line-height: 0;
+    .img-retina('/new/images/redactor/redactor_toolbar.png'; '/new/images/redactor/redactor_toolbar2x.png'; auto; 25px;);
+
     cursor: pointer;
     zoom: 1;
     *border: 1px solid #eee;
-
-    background-image: url(/new/images/redactor/redactor_toolbar.png);
-    background-position: 0;
-    background-repeat: no-repeat;
     text-indent: -9999px;
 }
-@media
-only screen and (-webkit-min-device-pixel-ratio: 2),
-only screen and (   min--moz-device-pixel-ratio: 2),
-only screen and (     -o-min-device-pixel-ratio: 2/1),
-only screen and (        min-device-pixel-ratio: 2),
-only screen and (                min-resolution: 192dpi),
-only screen and (                min-resolution: 2dppx) {
 
-    .redactor_toolbar li a {
-        background-image: url(/new/images/redactor/redactor_toolbar2x.png);
-        background-size: auto 25px;
-    }
-
-}
 .redactor_toolbar li a:hover {
     outline: none;
     border-color: #98a6ba;

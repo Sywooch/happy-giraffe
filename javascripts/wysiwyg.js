@@ -21,9 +21,9 @@ var WysiwygPhotoUpload = function (comments) {
             else
                 html += photo.html;
         });
-        redactor.insertHtmlAdvanced(html);
-        redactor.sync();
-        redactor.set(redactor.get() + '<p></p>');
+        html += '<p></p>';
+        redactor.selectionRestore();
+        redactor.insertHtmlAdvanced(html, true);
         self.close();
     };
     self.close = function(){
@@ -91,6 +91,11 @@ var Video = function(data, parent) {
         self.link('');
         self.embed(null);
     };
+
+    self.embed.subscribe(function() {
+        if ($('.redactor_btn_video').length > 0)
+            setPopupPosition($('.redactor_btn_video'), $('.redactor-popup_b-video'));
+    });
 };
 
 (function($) {
@@ -129,6 +134,7 @@ var Video = function(data, parent) {
                 image : {
                     title: 'Вставить фото',
                     callback: function(buttonNamem, buttonDOM, buttonObject) {
+                        this.selectionSave();
                         if (typeof formWPU === 'undefined'){
                             formWPU = new WysiwygPhotoUpload(customOptions.comments);
                             ko.applyBindings(formWPU, document.getElementById('redactor-popup_b-photo'));
@@ -147,7 +153,12 @@ var Video = function(data, parent) {
                 smile: {
                     title: 'Смайлы',
                     callback: function(buttonName, buttonDOM, buttonObject) {
-                        $('.redactor-popup_b-smile').toggleClass('display-n');
+                        if ($('.redactor-popup_b-smile').is(':visible'))
+                            $('.redactor-popup_b-smile').addClass('display-n');
+                        else {
+                            $('.redactor-popup_b-smile').removeClass('display-n');
+                            setPopupPosition($(buttonDOM), $('.redactor-popup_b-smile'));
+                        }
                     }
                 },
                 link_add: {
@@ -210,6 +221,7 @@ var Video = function(data, parent) {
         var toolbarVerticalFixed = options.hasOwnProperty('plugins') && options.plugins.indexOf('toolbarVerticalFixed') != -1;
 
         $.get('/ajax/redactor/', {}, function(response) {
+            $('.wysiwyg-related').remove();
             $('body').append(response);
             textarea.before('<div class="wysiwyg-toolbar"><div class="wysiwyg-toolbar-btn"></div>');
 

@@ -16,33 +16,39 @@ class DefaultController extends AntispamController
     public function init()
     {
         $this->counts = array(
-            self::TAB_CHECKS_LIVE => AntispamCheck::model()->status(AntispamCheck::STATUS_UNDEFINED)->count(),
+            self::TAB_CHECKS_LIVE => AntispamCheck::model()->live()->count(),
             self::TAB_EXPERT => AntispamReport::model()->status(AntispamReport::STATUS_PENDING)->count(),
-            self::TAB_CHECKS_BAD => AntispamCheck::model()->status(AntispamCheck::STATUS_BAD)->count(),
-            self::TAB_CHECKS_QUESTIONABLE => AntispamCheck::model()->status(AntispamCheck::STATUS_QUESTIONABLE)->count(),
+            self::TAB_CHECKS_BAD => AntispamCheck::model()->deleted()->count(),
+            self::TAB_CHECKS_QUESTIONABLE => AntispamCheck::model()->questionable()->count(),
             self::TAB_USERS_WHITE => AntispamStatus::model()->status(AntispamStatusManager::STATUS_WHITE)->count(),
             self::TAB_USERS_BLACK => AntispamStatus::model()->status(AntispamStatusManager::STATUS_BLACK)->count(),
             self::TAB_USERS_BLOCKED => AntispamStatus::model()->status(AntispamStatusManager::STATUS_BLOCKED)->count(),
         );
     }
 
-    /**
-     * Списки карточек:
-     * -прямой эфир;
-     * -удаленные;
-     * -под вопросом.
-     *
-     * @param $status
-     * @param $entity
-     */
-    public function actionList($status, $entity = AntispamCheck::ENTITY_POSTS)
+    public function actionLive($entity = AntispamCheck::ENTITY_POSTS)
+    {
+        $this->checks('live', $entity);
+    }
+
+    public function actionDeleted($entity = AntispamCheck::ENTITY_POSTS)
+    {
+        $this->checks('deleted', $entity);
+    }
+
+    public function actionQuestionable($entity = AntispamCheck::ENTITY_POSTS)
+    {
+        $this->checks('questionable', $entity);
+    }
+
+    protected function checks($scope, $entity)
     {
         $counts = array(
-            AntispamCheck::ENTITY_POSTS => AntispamCheck::model()->entity(AntispamCheck::ENTITY_POSTS)->status($status)->count(),
-            AntispamCheck::ENTITY_COMMENTS => AntispamCheck::model()->entity(AntispamCheck::ENTITY_COMMENTS)->status($status)->count(),
-            AntispamCheck::ENTITY_PHOTOS => AntispamCheck::model()->entity(AntispamCheck::ENTITY_PHOTOS)->status($status)->count(),
+            AntispamCheck::ENTITY_POSTS => AntispamCheck::model()->entity(AntispamCheck::ENTITY_POSTS)->$scope()->count(),
+            AntispamCheck::ENTITY_COMMENTS => AntispamCheck::model()->entity(AntispamCheck::ENTITY_COMMENTS)->$scope()->count(),
+            AntispamCheck::ENTITY_PHOTOS => AntispamCheck::model()->entity(AntispamCheck::ENTITY_PHOTOS)->$scope()->count(),
         );
-        $dp = AntispamCheck::getDp($entity, $status);
+        $dp = AntispamCheck::getDp(AntispamCheck::model()->entity($entity)->$scope()->getDbCriteria());
         $this->render('list', compact('dp', 'status', 'counts'));
     }
 
@@ -82,7 +88,7 @@ class DefaultController extends AntispamController
             AntispamCheck::ENTITY_MESSAGES => AntispamCheck::model()->entity(AntispamCheck::ENTITY_MESSAGES)->user($userId)->count(),
         );
         $user = User::model()->with('spamStatus')->findByPk($userId);
-        $dp = AntispamCheck::getDp($entity, null, $userId);
+        $dp = AntispamCheck::getDp(AntispamCheck::model()->entity($entity)->user($userId)->getDbCriteria());
         $this->render('analysis', compact('user', 'dp', 'counts', 'entity'));
     }
 }

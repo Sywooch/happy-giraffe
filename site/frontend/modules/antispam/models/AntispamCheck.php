@@ -185,19 +185,46 @@ class AntispamCheck extends HActiveRecord
         return $this;
     }
 
-    public static function getDp($entity, $status = null, $userId = null)
+    public function userStatusIsNot($status)
     {
-        $model = self::model()->entity($entity);
-        if ($status !== null)
-            $model->status($status);
-        if ($userId !== null)
-            $model->user($userId);
-        $model->getDbCriteria()->mergeWith(array(
-            'order' => 't.id DESC',
+        $this->getDbCriteria()->mergeWith(array(
+            'with' => array(
+                'user' => array(
+                    'with' => array('spamStatus'),
+                ),
+            ),
+            'condition' => 'spamStatus.status != :spamStatus',
+            'params' => array(':spamStatus' => $status),
         ));
+        return $this;
+    }
 
+    public function scopes()
+    {
+        return array(
+            'live' => array(
+                'scopes' => array(
+                    'status' => array(self::STATUS_UNDEFINED),
+                    'userStatusIsNot' => array(AntispamStatusManager::STATUS_WHITE),
+                ),
+            ),
+            'deleted' => array(
+                'scopes' => array(
+                    'status' => array(self::STATUS_BAD),
+                ),
+            ),
+            'questionable' => array(
+                'scopes' => array(
+                    'status' => array(self::STATUS_QUESTIONABLE),
+                ),
+            ),
+        );
+    }
+
+    public static function getDp($criteria)
+    {
         return new CActiveDataProvider(__CLASS__, array(
-            'criteria' => $model->getDbCriteria(),
+            'criteria' => $criteria,
         ));
     }
 

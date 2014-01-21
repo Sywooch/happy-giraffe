@@ -13,6 +13,7 @@ class MarkWidget extends CWidget
      * @var AntispamCheck $check
      */
     public $check;
+    public $analysisMode;
 
     public function run()
     {

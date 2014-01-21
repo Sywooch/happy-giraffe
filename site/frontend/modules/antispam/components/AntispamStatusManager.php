@@ -25,7 +25,10 @@ class AntispamStatusManager
             AntispamCheck::changeStatusAll($userId, AntispamCheck::STATUS_UNDEFINED, AntispamCheck::STATUS_GOOD);
 
         if ($statusValue == self::STATUS_BLACK)
-            AntispamCheck::changeStatusAll($userId, AntispamCheck::STATUS_UNDEFINED, AntispamCheck::STATUS_BAD);
+            AntispamCheck::changeStatusAll($userId, AntispamCheck::STATUS_UNDEFINED, AntispamCheck::STATUS_MASS_REMOVED);
+
+        if ($status->status == self::STATUS_BLACK)
+            AntispamCheck::changeStatusAll($userId, AntispamCheck::STATUS_MASS_REMOVED, AntispamCheck::STATUS_UNDEFINED);
 
         if ($status === null) {
             $status = new AntispamStatus();

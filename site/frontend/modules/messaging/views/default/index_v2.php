@@ -1,4 +1,4 @@
-<div class="im">
+<div class="im" style="display: none" data-bind="attr: { 'style': '' }">
 	<!-- js для расчетов положения почты -->
 	<script type="text/javascript">
 		var im = new function() {
@@ -32,14 +32,17 @@
 			});
 
 			$(document).on('koUpdate', 'section.im-center', function(event) {
-				var imCenter = this;
-				self.imCenter = $(imCenter);
-				self.imUserList = $(".im-user-list");
-				self.container = $('.im-center_middle-hold', imCenter);
-				self.centerTop = $('.im-center_top', imCenter);
-				self.centerBottom = $('.im-center_bottom', imCenter);
-				self.headerHeight = $('.header').height();
-				self.renew();
+				if(event.target == this)
+				{
+					var imCenter = this;
+					self.imCenter = $(imCenter);
+					self.imUserList = $(".im-user-list");
+					self.container = $('.im-center_middle-hold', imCenter);
+					self.centerTop = $('.im-center_top', imCenter);
+					self.centerBottom = $('.im-center_bottom', imCenter);
+					self.headerHeight = $('.header').height();
+					self.renew();
+				}
 			});
 		}();
 
@@ -52,14 +55,14 @@
 				<div class="side-menu side-menu__im">
                     <div class="side-menu_hold">
 						<div class="side-menu_t"></div>
-						<a href="" class="side-menu_i active">
+						<a href="" class="side-menu_i" data-bind="click: function() {setFilter(0);}, css: {active: currentFilter() == 0}">
 							<span class="side-menu_i-hold">
 								<span class="side-menu_ico side-menu_ico__all"></span>
 								<span class="side-menu_tx">Все</span>
 							</span>
 							<span class="verticalalign-m-help"></span>
 						</a>
-						<a href="" class="side-menu_i">
+						<a href="" class="side-menu_i" data-bind="click: function() {setFilter(1);}, css: {active: currentFilter() == 1}">
 							<span class="side-menu_i-hold">
 								<span class="side-menu_ico side-menu_ico__new"></span>
 								<span class="side-menu_tx">Новые</span>
@@ -67,14 +70,14 @@
 							</span>
 							<span class="verticalalign-m-help"></span>
 						</a>
-						<a href="" class="side-menu_i">
+						<a href="" class="side-menu_i" data-bind="click: function() {setFilter(2);}, css: {active: currentFilter() == 2}">
 							<span class="side-menu_i-hold">
 								<span class="side-menu_ico side-menu_ico__online"></span>
 								<span class="side-menu_tx">Кто онлайн</span>
 							</span>
 							<span class="verticalalign-m-help"></span>
 						</a>
-						<a href="" class="side-menu_i disabled">
+						<a href="" class="side-menu_i" data-bind="click: function() {setFilter(3);}, css: {active: currentFilter() == 3}">
 							<span class="side-menu_i-hold">
 								<span class="side-menu_ico side-menu_ico__online-friend"></span>
 								<span class="side-menu_tx">Друзья онлайн</span>
@@ -94,9 +97,9 @@
 				<!-- im-user-list-->
 				<div class="im-user-list">
                     <div data-bind="css: {scroll: true}">
-						<div class="scroll_scroller">
-							<div class="scroll_cont" data-bind="foreach: users">
-								<div class="im-user-list_i clearfix" data-bind="click: open, css: { active: isActive }">
+						<div class="scroll_scroller" data-bind="show: {selector: '.im-user-list_i:visible:gt(-20)', callback: loadContacts}">
+							<div class="scroll_cont" data-bind="foreach: getContactList">
+								<div class="im-user-list_i clearfix" data-bind="visible: isShow, click: open, css: { active: isActive }">
 									<div class="im-user-list_count" data-bind="visible: countNew() > 0, text: countNew"></div>
 									<div class="im-user-list_set"><a href="" class="ava ava__middle ava__female"><span class="ico-status ico-status__online" data-bind="visible: isOnline"></span><img alt="" data-bind="attr: {src: avatar}" class="ava_img"/></a>
 										<div class="im-user-list_set-name"><a href="" class="im-user-list_set-a" data-bind="text: fullName()"></a></div>
@@ -133,7 +136,7 @@
 										Больше не показывать данное предупреждение
 									</label>
 									<div class="textalign-c clearfix">
-										<button class="btn-green">Да</button>
+										<button class="btn-green" data-bind="click: deleteDialog">Да</button>
 										<button class="btn-gray-light">Нет</button>
 									</div>
 								</div>
@@ -159,7 +162,7 @@
                     </div>
                     <div class="im-panel_user clearfix">
 						<a href="" class="ava ava__middle ava__female"><span class="ico-status ico-status__online" data-bind="visible: user.isOnline()"></span><img alt="" data-bind="attr: {src: user.avatar}" class="ava_img"/></a>
-						<div class="im-panel_user-status" data-bind="visible: !user.isOnline(), moment: {value: user.lastOnline(), timeAgo: true}"></div>
+						<div class="im-panel_user-status" data-bind="visible: !user.isOnline()"><span data-bind="text: user.gender ? 'Был на сайте' : 'Была на сайте'"></span> <span data-bind="moment: {value: user.lastOnline(), timeAgo: true}"></span></div>
 						<div class="im-panel_user-name" data-bind="text: user.fullName()"></div>
 						<!-- У иконки 3 состояния. 
 						Друг - без моидфикатора
@@ -175,7 +178,7 @@
 			<div class="im-center_middle">
 				<div data-bind="css: {scroll: true}">
                     <div class="im-center_middle-hold scroll_scroller">
-						<div class="im-center_middle-w scroll_cont">
+						<div class="im-center_middle-w scroll_cont" data-bind="show: {selector: '>.im-message:visible:lt(2)', callback: loadMessages}">
 							<div class="im_loader" data-bind="visible: loadingMessages"><img src="/new/images/ico/ajax-loader.gif" alt="" class="im_loader-img"><span class="im_loader-tx">Загрузка ранних сообщений</span></div>
 							<!-- ko if: deletedDialogs().length -->
 							<!-- cap-empty-->
@@ -191,12 +194,12 @@
 							<!-- /ko -->
 							<!-- ko foreach: messages -->
 								<!-- im-message-->
-								<div class="im-message" data-bind="ifnot: hidden">
+								<div class="im-message" data-bind="visible: !hidden(), show: show, hide: hide, css: {'im-message__new': !isMy && !dtimeRead(), 'im-message__edited': $parent.editingMessage() == $data}">
 									<div class="im-message_ava"><a href="" class="ava ava__small ava__male"><span class="ico-status ico-status__online" data-bind="visible: from.isOnline()"></span><img alt="" data-bind="attr: {src: from.avatar}" class="ava_img"/></a>
 									</div>
 									<div class="im-message_r">
 										<div class="im-message_date" data-bind="moment: created"></div>
-										<div class="im-message_control" data-bind="visible: !dtimeDelete()">
+										<div class="im-message_control" data-bind="visible: !dtimeDelete() && !cancelled()">
 											<!-- b-control-->
 											<div class="b-control">
 												<div class="b-control_hold">
@@ -204,11 +207,11 @@
 														<div class="b-control_drop"></div>
 													</div> -->
 													<div class="b-control_i">
-														<span class="b-control_ico powertip b-control_ico__delete" href="" title="Удалить" data-bind="click: deleteMessage"></span>
+														<span class="b-control_ico powertip b-control_ico__delete" href="" data-tooltip="Удалить" title="Удалить" data-bind="click: deleteMessage, css: {'display-n': !canDelete()}"></span>
 														<div class="b-control_drop"></div>
 													</div>
-													<div class="b-control_i tooltip-click-b">
-														<span class="b-control_ico powertip b-control_ico__spam" href="" title="Пожаловаться"></span>
+													<div class="b-control_i tooltip-click-b" data-bind="css: {'display-n' : isMy}">
+														<span class="b-control_ico powertip b-control_ico__spam" href="" data-tooltip="Пожаловаться" title="Пожаловаться"></span>
 														<div class="tooltip-drop">
 															<div class="tooltip-popup">
 																<div class="tooltip-popup_t">Укажите вид нарушения:</div>
@@ -239,16 +242,26 @@
 															</div>
 														</div>
 													</div>
+													<div class="b-control_i" data-bind="click: beginEditing, scrollTo: 'click', css: {'display-n' : !canEdit()}"><span data-tooltip="Редактировать" title="Редактировать" class="b-control_ico powertip b-control_ico__edit"></span>
+														<div class="b-control_drop"></div>
+													</div>
+													<div class="b-control_i" data-bind="click: cancelMessage,css: {'display-n' : !canCancel()}"><span data-tooltip="Отменить" title="Отменить" class="b-control_ico powertip b-control_ico__cancel"></span>
+														<div class="b-control_drop"></div>
+													</div>
 												</div>
 											</div>
 											<!-- /b-control-->
 										</div>
 									</div>
 									<div class="im-message_hold">
-										<div class="im-message_t"><span class="im-message_name im-message_name__self" data-bind="text: from.fullName()"></span>
+										<div class="im-message_t">
+											<span class="im-message_name" data-bind="text: from.fullName(), css: { 'im-message_name__self': isMy, 'im-message_name__friend': !isMy}"></span>
+											<span class="im-message_t-read" data-bind="visible: isMy && dtimeRead() && $parent.lastReadMessage() == $data">Сообщение прочитано</span>
+											<span class="im-message_t-read-no" data-bind="visible: isMy && !dtimeRead() && !cancelled()">Сообщение не прочитано</span>
 										</div>
-										<div class="im-message_tx" data-bind="visible: !dtimeDelete(), html: text"></div>
+										<div class="im-message_tx" data-bind="visible: !dtimeDelete() && !cancelled(), html: text"></div>
 										<div class="im-message_tx color-gray" data-bind="visible: dtimeDelete()">Сообщение удалено. <a href="#" class="font-s" data-bind="click: restore">Восстановить</a></div>
+										<div class="im-message_tx color-gray-light" data-bind="visible: cancelled()">Сообщение отменено.</div>
 									</div>
 								</div>
 								<!-- /im-message-->
@@ -283,7 +296,7 @@
 						<!-- /ko -->
 						<!-- ko if: editing -->
 						<div class="redactor-control">
-							<textarea cols="40" name="redactor" rows="1" autofocus="autofocus" class="redactor" data-bind="value: editor"></textarea>
+							<textarea cols="40" name="redactor" rows="1" autofocus="autofocus" class="redactor" data-bind="redactorHG: editorConfig"></textarea>
 							<div class="redactor-control_toolbar"></div>
 							<div class="redactor-control_control">
 								<div class="redactor-control_key">

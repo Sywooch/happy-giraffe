@@ -52,7 +52,6 @@ class DialogForm extends CComponent
 			'messaging__blackList' => (bool) UserAttributes::get(Yii::app()->user->id, 'messaging__blackList', false),
 		);
 
-		$data = CJSON::encode(compact('contacts', 'interlocutorId', 'me', 'settings', 'counters'));
 	}
 
 	public function toJSON()
@@ -94,13 +93,15 @@ class DialogForm extends CComponent
 	 * в JS-модели MessagingMessage
 	 * 
 	 * @param MessagingMessage $message Модель сообщения, где в messageUsers[0]
-	 * должна находится запись отношения просматривающего пользователя к сообщению
+	 * должна находится запись отношения просматривающего пользователя к сообщению,
+	 * или это отношение должно быть передано в $messageUser
 	 * @param int $me Id пользователя, просматривающего сообщение
 	 * @param int $interlocutor Id пользователя, с которым ведётся диалог
+	 * @param MessagingMessageUser $messageUser модель пользователя, для которого готовятся данные
 	 * 
 	 * @return array Массив, пригодный для преобразования в JSON
 	 */
-	public static function messageToJson(MessagingMessage $message, $me, $interlocutor)
+	public static function messageToJson(MessagingMessage $message, $me, $interlocutor, $messageUser = false)
 	{
 		// есть $message->json, посмотреть, при работе с изображениями
 		return array(
@@ -109,8 +110,8 @@ class DialogForm extends CComponent
 			'to_id' => $message->author_id == $me ? $interlocutor : $me,
 			'text' => $message->text,
 			'created' => self::parseDateTime($message->created),
-			'dtimeRead' => self::parseDateTime($message->messageUsers[0]->dtime_read),
-			'dtimeDelete' => self::parseDateTime($message->messageUsers[0]->dtime_delete),
+			'dtimeRead' => $messageUser ? self::parseDateTime($messageUser->dtime_read) : self::parseDateTime($message->messageUsers[0]->dtime_read),
+			'dtimeDelete' => $messageUser ? self::parseDateTime($messageUser->dtime_delete) : self::parseDateTime($message->messageUsers[0]->dtime_delete),
 		);
 	}
 

@@ -3,6 +3,24 @@
  * Author: alexk984
  * Date: 12.08.13
  */
+
+ko.bindingHandlers.redactorHG = {
+	init: function(element, valueAccessor) {
+		var defaults = {
+			minHeight: 17,
+			autoresize: true,
+			focus: true,
+			toolbarExternal: '.redactor-control_toolbar',
+			buttons: ['image', 'video', 'smile']
+		};
+		var options = valueAccessor();
+		
+		var settings = $.extend( {}, defaults, options );
+		
+		$(element).redactorHG(settings);
+	}
+};
+
 ko.bindingHandlers.tooltip = {
     init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
         $(element).data('powertip', valueAccessor());
@@ -101,6 +119,141 @@ ko.bindingHandlers.autogrow = {
     }
 };
 
+ko.bindingHandlers.moment = {
+	update: function(element, valueAccessor, allBindings) {
+		var defaults = {
+			timeAgo: false,
+			autoUpdate: true
+		};
+		var options = valueAccessor();
+		
+		if(!(options instanceof Object)) {
+			options = {
+				value: options
+			}
+		}
+		
+		var settings = $.extend( {}, defaults, options );
+		
+		var self = ko.bindingHandlers.moment;
+		if(settings.autoUpdate) {
+			self.addElement({
+				config: settings,
+				element: element
+			});
+		}
+		$(element).text(self.formatDate(settings));
+	},
+	formatDate: function(settings) {
+		var result = '';
+		// ещё прибавим пинг
+		result = moment(settings.value * 1000 + serverTimeDelta + 1000).fromNow();
+		
+		return result;
+	},
+	timer: false,
+	elements: new Array(),
+	addElement: function(el) {
+		var self = ko.bindingHandlers.moment;
+		self.elements.push(el);
+		if(!self.timer)
+			self.timer = setInterval(self.tick, 500);
+	},
+	tick: function() {
+		var self = ko.bindingHandlers.moment;
+		ko.utils.arrayForEach(self.elements, function(data) {
+			$(data.element).text(self.formatDate(data.config));
+		});
+	}
+}
+
+ko.bindingHandlers.show = {
+	extend: function(options) {
+		var defaults = {
+			selector: null,
+			//timeOut: false,
+			//active: true
+		};
+		if(typeof(options) == 'function') {
+			options = {
+				callback: options
+			}
+		}
+		return $.extend( {}, defaults, options );
+	},
+	init: function(element, valueAccessor) {
+		var settings = ko.bindingHandlers.show.extend(valueAccessor());
+		$(element).on('show', settings.selector, function(event) {
+			if(this == event.target) {
+				settings.callback();
+			}
+		});
+	}/*,
+	update: function(element, valueAccessor) {
+		var settings = this.extend(valueAccessor());
+
+		$(element).on('show', settings.selector, function(event) {
+			if(this == event.target) {
+				settings.callback();
+			}
+		})
+	},*/
+}
+ko.bindingHandlers.hide = {
+	init: function(element, valueAccessor) {
+		var defaults = {
+			selector: null,
+		};
+		var options = valueAccessor();
+		
+		if(typeof(options) == 'function') {
+			options = {
+				callback: options
+			}
+		}
+		
+		var settings = $.extend( {}, defaults, options );
+		
+		$(element).on('hide', settings.selector, function(event) {
+			if(this == event.target) {
+				settings.callback();
+			}
+		});
+		$(window).blur(function() {
+			settings.callback();
+		});
+	}
+}
+
+ko.bindingHandlers.scrollTo = {
+	init: function(element, valueAccessor) {
+		$(element).on(valueAccessor(), function() {
+			var self = $(this);
+			var scroll = self.parents('.scroll_scroller');
+			// Проверить формулу
+			//console.log(scroll.scrollTop() + scroll.height() - (scroll.offset().top - self.offset().top + self.height()));
+			//scroll.scrollTo( { top: scroll.scrollTop() + scroll.height() - (scroll.offset().top - self.offset().top + self.height()) }, 800);
+		});
+	}
+}
+
+// Добавляем событие koUpdate и koElementAdded
+// koUpdate Срабатывает при рендере шаблона (template, with, foreach)
+//		целью является элемент, в котором произошли
+//		изменения (если виртуальный биндинг, то ближайщий родитель;
+//		иначе - элемент в котором описан биндинг)
+//		доп. аргумент в событии newElements - добавленные элементы
+// koElementAdded Срабатывает для каждого добавленного элемента
+//		целью является добавляемый элемент
+ko.updateDOMCallback = function(element, addedElemets) {
+	if (element.nodeName == '#comment' || element.nodeType == 8) {
+		element = element.parentElement;
+	}
+	for(var i in addedElemets) {
+		$(addedElemets[i]).trigger('koElementAdded');
+	}
+	$(element).trigger('koUpdate', addedElemets);
+}
 
 //jqAuto -- main binding (should contain additional options to pass to autocomplete)
 //jqAutoSource -- the array to populate with choices (needs to be an observableArray)

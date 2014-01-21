@@ -1,23 +1,83 @@
-$(window).load(function() {
+$(document).on('show', '.im-user-list_i', function(event) {
+	if(event.target == this) {
+		//console.log('show', event.target);
+	}
+}).on('hide', '.im-user-list_i', function(event) {
+	if(event.target == this) {
+		//console.log('hide', event.target);
+	}
+});
 
-    /* custom scroll */
-    var scroll = $('.scroll').baron({
-        scroller: '.scroll_scroller',
-        barOnCls: 'scroll__on',
-        container: '.scroll_cont',
-        track: '.scroll_bar-hold',
-        bar: '.scroll_bar'
-    });
+$(function() {
 
-    /* Подсказки при наведении */
-    /*$('.powertip').powerTip({
-        placement: 'n',
-        smartPlacement: true,
-        offset: 8
-    });*/
-    
-    // tooltip
-    $('.no-touch .powertip, .no-touch .redactor_toolbar li a, .mfp-close').tooltipster({
+	function addBaron(el) {
+		$(el).each(function() {
+			if (this.baron) {
+				this.baron.update();
+			} else {
+				this.baron = $(this).baron({
+					scroller: '.scroll_scroller',
+					barOnCls: 'scroll__on',
+					container: '.scroll_cont',
+					track: '.scroll_bar-hold',
+					bar: '.scroll_bar'
+				});
+				// Т.к. по спецификации у события onScroll нет bubbling'а,
+				// то обработчик надо вешать на каждый конкретный элемент
+				$('.scroll_scroller', this).scroll(function(e) {
+					// стриггерим jquery событие, у которого есть bubbling,
+					// но, что бы не уйти в цикл, проверим флаг.
+					if(!e.fake) {
+						e.fake = true;
+						$(this).trigger(e);
+					}
+				});
+			}
+		});
+	}
+
+	$(document).on('koUpdate', function(event, elements) {
+		var self = event.target;
+		addBaron('.scroll');
+		//console.log($('.powertip, .redactor_toolbar li a', self).attr('title'));
+		$('.powertip, .redactor_toolbar li a, [data-tooltip]', self).tooltipster({
+			trigger: 'hover',
+			offsetY: -6,
+			delay: 200,
+			maxWidth: 200,
+			arrowColor: '#5C4B86',
+			onlyOne: false,
+			touchDevices: true,
+			theme: '.tooltipster-default',
+			functionReady: function(origin, continueTooltip) {},
+			functionInit: function(origin, content) {
+				return origin.data('tooltip');
+			}
+		});
+		$('.tooltip-click-b', self).tooltipster({
+			trigger: 'click',
+			delay: 0,
+			onlyOne: false,
+			touchDevices: true,
+			interactive: true,
+			interactiveAutoClose: false,
+			theme: '.tooltipster-white',
+			position: 'bottom',
+			functionBefore: function(origin, continueTooltip) {
+				$('.tooltip-click-b').tooltipster('hide');
+				var d = $(origin.context).find(' .tooltip-drop').html();
+				origin.tooltipster('update', d);
+				continueTooltip(d);
+			}
+		});
+		
+	});
+	$(document).on('koElementAdded', function(event) {
+		event.target;
+	});
+	
+	    // tooltip
+/*    $('.no-touch .powertip, .no-touch .redactor_toolbar li a, .mfp-close').tooltipster({
         trigger: 'hover',
         offsetY: -6,
         delay: 200,
@@ -27,11 +87,11 @@ $(window).load(function() {
         touchDevices: true,
         theme: '.tooltipster-default',
         functionReady: function(origin, continueTooltip) {}
-    });
+    });*/
 
     // tooltip
     // попап у иконки
-    $('.tooltip-click-b').tooltipster({
+    /*$('.tooltip-click-b').tooltipster({
         trigger: 'click',
         delay: 0,
         onlyOne: false,
@@ -47,33 +107,6 @@ $(window).load(function() {
             origin.tooltipster('update', d);
             continueTooltip(d);
         }
-    });
-
-    // popup
-/*    $(".popup-a").fancybox({
-        padding: 0,
-        modal: true,
-        closeBtn: true,
-        autoSize: false,
-        autoResize: true,
-        height: 'auto',
-        width: 'auto',
-
-
-        openEffect : 'elastic',
-        openSpeed  : 150,
-
-        closeEffect : 'elastic',
-        closeSpeed  : 150,
-
-        scrolling: 'no',
-        scrollOutside: false,
-        arrows : false,
-        helpers : {
-            overlay    : {
-                locked     : false 
-            }
-        }
     });*/
 
     $('.popup-a').magnificPopup({
@@ -86,7 +119,6 @@ $(window).load(function() {
         // It looks not nice, so we disable it:
         callbacks: {
             open: function() {
-                scroll.update();
                 $('html').addClass('mfp-html');
             },
             close: function() {

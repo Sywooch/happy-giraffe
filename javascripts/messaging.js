@@ -1,7 +1,9 @@
+// Модель собеседника
 function Interlocutor(data, parent) {
     var self = this;
-
+	// Модель пользователя
     self.user = ko.observable(new User(data.user, parent));
+	// Доп. атрибуты
     self.blogPostsCount = ko.observable(data.blogPostsCount);
     self.photosCount = ko.observable(data.photosCount);
     self.inviteSent = ko.observable(data.inviteSent);
@@ -38,7 +40,7 @@ function Interlocutor(data, parent) {
     }
 
 }
-
+// Модель пользователя
 function User(data, parent) {
     var self = this;
 
@@ -52,7 +54,7 @@ function User(data, parent) {
         return self.gender() == 0 ? 'female' : 'male';
     }, this);
 }
-
+// Модель диалога
 function Thread(data, parent) {
     var self = this;
     ko.mapping.fromJS(data, {}, self);
@@ -90,24 +92,23 @@ function Thread(data, parent) {
             self.hidden(newHiddenStatus);
         }, 'json');
     }
-
+	// Счётчик непрочитанных сообщений в диалоге
     self.inc = function() {
         self.unreadCount(self.unreadCount() + 1);
     }
-
+	// Есть ли непрочитанные сообщения
     self.isRead = ko.computed(function() {
         return self.unreadCount() == 0;
     }, this);
-
+	// Заголовки для кнопок
     self.hideButtonTitle = ko.computed(function() {
         return self.hidden() ? 'Показать диалог' : 'Скрыть диалог';
     }, this);
-
     self.readButtonTitle = ko.computed(function() {
         return self.isRead() ? 'Отметить как непрочитанное' : 'Отметить как прочитанное';
     }, this);
 }
-
+// Модель контакта (разве собеседник !== контакт???)
 function Contact(data, parent) {
     var self = this;
 
@@ -116,13 +117,13 @@ function Contact(data, parent) {
     self.draftText = '';
     self.draftImages = [];
 }
-
+// Модель изображения (Почему тут, разве не общая???)
 function Image(data, parent) {
     var self = this;
 
     ko.mapping.fromJS(data, {}, self);
 }
-
+// Модель сообщения
 function Message(data, parent) {
     var self = this;
 
@@ -157,7 +158,7 @@ function Message(data, parent) {
 
         parent.editingMessageId(self.id());
     }
-
+	// Удаление сообщения
     self.delete = function() {
         $.post('/messaging/messages/delete/', { messageId : self.id() }, function(response) {
             if (response.success) {
@@ -165,62 +166,70 @@ function Message(data, parent) {
             }
         }, 'json');
     }
-
+	// Восстановление сообщения
     self.restore = function() {
         $.post('/messaging/messages/restore/', { messageId : self.id() }, function(response) {
             if (response.success)
                 self.deleted(false);
         }, 'json');
     }
-
+	// Модель пользователя из собеседника
     self.author = ko.computed(function() {
         return self.author_id() == parent.me.id() ? parent.me : parent.interlocutor().user();
     });
-
+	// Подсветка непрочитанных
     self.highlighted = self.author_id() != parent.me.id() && ! self.read();
 }
-
+// ViewModel для всего модуля
 function MessagingViewModel(data) {
     var self = this;
-
+	// Счётчики
     self.newContactsCount = ko.observable(data.counters[0]);
     self.onlineContactsCount = ko.observable(data.counters[1]);
     self.friendsContactsCount = ko.observable(data.counters[2]);
-
+	// Состояния
     self.editingMessageId = ko.observable(null);
     self.uploadedImages = ko.observableArray([]);
     self.tab = ko.observable(0);
+    self.showHiddenContacts = ko.observable(false);
+    self.clearSearchQuery = function() {
+        self.searchQuery('');
+    }
     self.searchQuery = ko.observable('');
+	// Возможно одно и то же
+		self.openContactInterlocutorId = ko.observable(null);
+		self.interlocutor = ko.observable(null);
+	// Контакты
     self.contacts = ko.observableArray(ko.utils.arrayMap(data.contacts, function(contact) {
         return new Contact(contact, self);
     }));
+	// Сообщения
     self.messages = ko.observableArray([]);
-    self.openContactInterlocutorId = ko.observable(null);
-    self.interlocutor = ko.observable(null);
+	// Модель пользователя, от которого просматривается диалог
     self.me = new User(data.me, self);
+	// Индикаторы процессов
     self.loadingMessages = ko.observable(false);
     self.loadingContacts = ko.observable(false);
     self.sendingMessage = ko.observable(false);
     self.interlocutorTyping = ko.observable(false);
-    self.showHiddenContacts = ko.observable(false);
     self.fullyLoaded = ko.observable(false);
-
+	//
     self.typingTimer = null;
     self.meTyping = ko.observable(false);
     self.meTyping.subscribe(function(a) {
         $.post('/messaging/interlocutors/typing/', { typingStatus : a ? 1 : 0, interlocutorId : self.interlocutor().user().id() });
     });
-
+	// Настройки отправки/переноса строки
     self.enterSetting = ko.observable(data.settings.messaging__enter);
     self.enterSetting.subscribe(function(a) {
         $.post('/ajax/setUserAttribute/', { key : 'messaging__enter', value : a ? 1 : 0 });
     });
-
+	// Чёрный список
     self.blackListSetting = ko.observable(false);
     self.blackListSetting.subscribe(function(a) {
         $.post('/ajax/setUserAttribute/', { key : 'messaging__blackList', value : a ? 1 : 0 });
     });
-
+	// Настройки звука
     self.soundSetting = ko.observable(data.settings.messaging__sound);
     self.soundSetting.subscribe(function(a) {
         $.post('/ajax/setUserAttribute/', { key : 'messaging__sound', value : a ? 1 : 0 });
@@ -228,7 +237,7 @@ function MessagingViewModel(data) {
     self.toggleSoundSetting = function() {
         self.soundSetting(! self.soundSetting());
     }
-
+	// ??? Расширенные настройки собеседника
     self.interlocutorExpandedSetting = ko.observable(data.settings.messaging__interlocutorExpanded);
     self.interlocutorExpandedSetting.subscribe(function(a) {
         $.post('/ajax/setUserAttribute/', { key : 'messaging__interlocutorExpanded', value : a ? 1 : 0 });
@@ -236,12 +245,9 @@ function MessagingViewModel(data) {
     self.toggleinterlocutorExpandedSetting = function() {
         self.interlocutorExpandedSetting(! self.interlocutorExpandedSetting());
     }
-
-    self.clearSearchQuery = function() {
-        self.searchQuery('');
-    }
-
+	// Открытие диалога
     self.openThread = function(contact) {
+		// Обновление состояний
         if (self.openContact() !== null) {
             self.openContact().draftText = self.redactor.get();
             self.openContact().draftImages = self.uploadedImages();
@@ -254,10 +260,10 @@ function MessagingViewModel(data) {
 
         self.interlocutorTyping(false);
         self.meTyping(false);
-
+		// Получение данных о собеседнике (скорее всего уйдёт)
         $.get('/messaging/interlocutors/get/', { interlocutorId : contact.user().id() }, function(response) {
             self.interlocutor(new Interlocutor(response.interlocutor, self));
-
+			// Получение списка сообщений
             if (self.openContact().thread() === null) {
                 self.messages([]);
             }
@@ -273,7 +279,7 @@ function MessagingViewModel(data) {
             }
         }, 'json');
     }
-
+	// Работа с изображениями
     self.addImage = function(data) {
         self.uploadedImages.push(new Image(data));
     }
@@ -287,26 +293,26 @@ function MessagingViewModel(data) {
             return image.id();
         })
     });
-
+	// Добавление в друзья (Имеет смысл вынести глобально???)
     self.addFriend = function()  {
         $.post('/friendRequests/send/', { to_id : self.interlocutor().user().id() }, function(response) {
             if (response.status)
                 self.interlocutor().inviteSent(true);
         }, 'json');
     }
-
+	// Открытый контакт (модель контакта)
     self.openContact = ko.computed(function() {
         return ko.utils.arrayFirst(self.contacts(), function(contact) {
             return contact.user().id() === self.openContactInterlocutorId();
         });
     }, this);
-
+	// Редактируемое сообщение (модель сообщения)
     self.editingMessage = ko.computed(function() {
         return ko.utils.arrayFirst(self.messages(), function(message) {
             return message.id() === self.editingMessageId();
         });
     }, this);
-
+	//
     self.contactsToShow = ko.computed(function() {
         var contacts = self.contacts().sort(function(l, r) {
             if (l.thread() !== null && r.thread() !== null)
@@ -335,25 +341,25 @@ function MessagingViewModel(data) {
 
         return contacts;
     });
-
+	// Будет переписываться
     self.visibleContactsToShow = ko.computed(function() {
         return ko.utils.arrayFilter(self.contactsToShow(), function(contact) {
             return contact.thread() === null || ! contact.thread().hidden();
         });
     });
-
+	//
     self.hiddenContactsToShow = ko.computed(function() {
         return ko.utils.arrayFilter(self.contactsToShow(), function(contact) {
             return contact.thread() !== null && contact.thread().hidden();
         });
     });
-
+	//
     self.messagesToShow = ko.computed(function() {
         return self.messages().sort(function(l, r) {
             return l.id() == r.id() ? 0 : (l.id() > r.id() ? 1 : -1);
         });
     });
-
+	// Начиная с какого сообщения загружать новые
     self.messagesOffset = ko.computed(function() {
         var result = 0;
         ko.utils.arrayForEach(self.messages(), function(message) {
@@ -362,13 +368,13 @@ function MessagingViewModel(data) {
         });
         return result;
     });
-
+	// Сообщения собеседника (не используется???)
     self.interlocutorsMessagesToShow = ko.computed(function() {
         return ko.utils.arrayFilter(self.messagesToShow(), function(message) {
             return message.author().id() != self.me.id();
         });
     });
-
+	// Последнее прочитанное сообщение (зачем???)
     self.lastReadMessage = ko.computed(function() {
         var result = null;
         ko.utils.arrayForEach(self.messagesToShow(), function(message) {
@@ -378,7 +384,7 @@ function MessagingViewModel(data) {
 
         return result;
     });
-
+	// Последнее не прочитанное сообщение (не используется???)
     self.lastUnreadMessage = ko.computed(function() {
         var result = null;
         ko.utils.arrayForEach(self.messagesToShow(), function(message) {
@@ -388,30 +394,30 @@ function MessagingViewModel(data) {
 
         return result;
     });
-
+	// Изменение статуса (вкладки)
     self.changeTab = function(tab) {
         self.tab(tab);
         self.init();
     }
-
+	// Найти модель собеседника по id
     self.findByInterlocutorId = function(interlocutorId) {
         return ko.utils.arrayFirst(self.contacts(), function(contact) {
             return contact.user().id() == interlocutorId;
         });
     }
-
+	// Найти модель диалога по id
     self.findByThreadId = function(threadId) {
         return ko.utils.arrayFirst(self.contacts(), function(contact) {
             return contact.thread() !== null && contact.thread().id() == threadId;
         });
     }
-
+	// Предзагрузка сообщений, установка позиций для прокрутки
     self.preload = function() {
         var startHeight = im.container.get(0).scrollHeight;
         var startTop = im.container.scrollTop();
         self.loadingMessages(true);
         $.get('/messaging/threads/getMessages/', { threadId : self.openContact().thread().id, offset: self.messagesOffset() }, function(response) {
-            ko.utils.arrayForEach(response.messages, function(message) {
+           ko.utils.arrayForEach(response.messages, function(message) {
                 self.messages.push(new Message(message, self));
             });
             self.loadingMessages(false);
@@ -421,7 +427,7 @@ function MessagingViewModel(data) {
                 self.fullyLoaded(true);
         }, 'json');
     }
-
+	// Загрузка списка контактов
     self.loadContacts = function(callback, offset) {
         var data = {
             type : self.tab()
@@ -435,7 +441,7 @@ function MessagingViewModel(data) {
             self.loadingContacts(false);
         }, 'json');
     }
-
+	// Инициализация после открытия вкладки (Нет необходимости выносить отдельно???)
     self.init = function() {
         self.loadContacts(function(response) {
             self.contacts(ko.utils.arrayMap(response.contacts, function(contact) {
@@ -444,7 +450,7 @@ function MessagingViewModel(data) {
             self.openThread(self.contactsToShow()[0]);
         });
     }
-
+	// Перелистывание страницы контактов
     self.nextContactsPage = function() {
         self.loadContacts(function(response) {
             var newItems = ko.utils.arrayMap(response.contacts, function(contact) {
@@ -454,14 +460,14 @@ function MessagingViewModel(data) {
             self.contacts.push.apply(self.contacts, newItems);
         }, self.contacts().length);
     }
-
+	// Отправка формы с сообщением
     self.submit = function() {
         if (self.editingMessageId() === null)
             self.sendMessage();
         else
             self.editMessage();
     }
-
+	// Новое сообщение
     self.sendMessage = function() {
         self.sendingMessage(true);
 
@@ -492,7 +498,7 @@ function MessagingViewModel(data) {
             }
         }, 'json');
     }
-
+	// Редактирование сообщения
     self.editMessage = function() {
         var text = self.redactor.get();
         var data = {
@@ -510,7 +516,7 @@ function MessagingViewModel(data) {
             }
         }, 'json');
     }
-
+	// Отмена сообщения
     self.cancelMessage = function() {
         $.post('/messaging/messages/cancel/', { messageId : self.editingMessageId() }, function(response) {
             if (response.success) {
@@ -520,17 +526,17 @@ function MessagingViewModel(data) {
             }
         }, 'json');
     }
-
+	// Установка фокуса в редактор
     self.focusEditor = function() {
         self.redactor.focus();
         return true;
     }
-
+	// Переключение видимости контактов
     self.toggleShowHiddenContacts = function() {
         self.showHiddenContacts(! self.showHiddenContacts());
         im.hideContacts();
     }
-
+	// Подсветка новых сообщний
     self.messageRendered = function(element, data) {
         if (data.highlighted)
             $(element).eq(1).addClass('im-message__new', 1500, function() {
@@ -539,7 +545,7 @@ function MessagingViewModel(data) {
                 }, 2000);
             });
     };
-
+	// Конструктор
     soundManager.setup({
         url: '/swf/',
         debugMode: false,
@@ -547,8 +553,8 @@ function MessagingViewModel(data) {
             soundManager.createSound({ id : 's', url : '/audio/1.mp3' });
         }
     });
-
     $(window).load(function() {
+		// Инициализация редактора
         self.redactor = $('.redactor').redactorHG({
             minHeight: 17,
             autoresize: true,
@@ -586,7 +592,7 @@ function MessagingViewModel(data) {
             },
             comments: true
         });
-
+		// Обработчики событий Comet-сервера
         Comet.prototype.receiveMessage = function (result, id) {
             var contact = self.findByInterlocutorId(result.contact.user.id);
 
@@ -632,20 +638,21 @@ function MessagingViewModel(data) {
                 });
             }
         }
-
+		// Добавление событий Comet-серверу
         comet.addEvent(2000, 'receiveMessage');
         comet.addEvent(2001, 'typingStatus');
         comet.addEvent(2002, 'readStatus');
     });
-
+	// зачем ещё один обработчик???
     $(window).load(function() {
+		// ??? почему именно $().load
         self.messages.subscribe(function() {
             if (! self.loadingMessages())
                 im.container.imagesLoaded(function() {
                     im.scrollBottom();
                 });
         });
-
+		// прокрутка на нужное место
         im.container.scroll(function() {
             if (self.openContact() !== null && self.openContact().thread() !== null && self.loadingMessages() === false && self.fullyLoaded() === false && im.container.scrollTop() < 200)
                 self.preload();

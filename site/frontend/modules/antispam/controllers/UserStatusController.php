@@ -7,7 +7,7 @@
  * To change this template use File | Settings | File Templates.
  */
 
-class UserStatusController extends HController
+class UserStatusController extends AntispamController
 {
     /**
      * @todo Убрать костыль с refresh

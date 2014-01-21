@@ -1,6 +1,6 @@
 <?php
 
-class DefaultController extends HController
+class DefaultController extends AntispamController
 {
     const TAB_CHECKS_LIVE = 0;
     const TAB_EXPERT = 1;

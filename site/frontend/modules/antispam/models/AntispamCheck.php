@@ -159,9 +159,9 @@ class AntispamCheck extends HActiveRecord
 
         $criteria = new CDbCriteria();
         if (is_array($models))
-            $criteria->addInCondition('entity', $models);
+            $criteria->addInCondition($this->getTableAlias() . '.entity', $models);
         else
-            $criteria->compare('entity', $models);
+            $criteria->compare($this->getTableAlias() . '.entity', $models);
 
         $this->getDbCriteria()->mergeWith($criteria);
         return $this;
@@ -170,7 +170,7 @@ class AntispamCheck extends HActiveRecord
     public function status($status)
     {
         $this->getDbCriteria()->mergeWith(array(
-            'condition' => 'status = :status',
+            'condition' => $this->getTableAlias() . '.status = :status',
             'params' => array(':status' => $status),
         ));
         return $this;
@@ -179,7 +179,7 @@ class AntispamCheck extends HActiveRecord
     public function user($userId)
     {
         $this->getDbCriteria()->mergeWith(array(
-            'condition' => 'user_id = :user_id',
+            'condition' => $this->getTableAlias() . '.user_id = :user_id',
             'params' => array(':user_id' => $userId),
         ));
         return $this;

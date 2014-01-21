@@ -8,6 +8,11 @@
 
     im
         im_hold
+            ...
+                im_loader
+                    im_loader-tx
+                    im_loader-img
+                    im_loader-anim
 */
 .im {
 
@@ -69,7 +74,7 @@
         im-sidebar_users
             ...
             im-sidebar_search
-            im-sidebar_search-itx.itx
+            im-sidebar_search-itx
             im-sidebar_search_btn
 
 */
@@ -81,7 +86,8 @@
     border-right: 1px solid #e9e9e9;
     background: url(/new/images/im/im-sidebar.png) repeat-y;
     .border-left-radius(10px);
-
+    
+    .side-menu_li:last-child{border-bottom-left-radius: 0;}
     &_panel {
         float: left;
         width: 80px;
@@ -140,7 +146,7 @@
     Список диалогов
 
     im-user-list
-        im-user-list_i
+        im-user-list_i      .active
             im-user-list_count
             im-user-list_set
                 <ava>
@@ -198,7 +204,7 @@
 
 /*
     Центральная часть окна почты
-    im-center
+    im-center   im-center__msg-blur
         im-center_top
             ...
         im-center_middle
@@ -206,9 +212,10 @@
                 im-center_middle-w
                     ...
         im-center_bottom
-            im-center_bottom-ava
-            im-center_bottom-hold
-                im-center_bottom-itx
+            im-center_bottom-w
+                im-center_bottom-ava
+                im-center_bottom-hold
+                    im-center_bottom-itx
 */
 .im-center {
     position: relative;
@@ -265,7 +272,9 @@
             <ava>
             im-panel_user-status
             im-panel_user-name
-            im-panel_friend     __add   __added
+            im-panel_friend     __add   __added     __fr
+                im-panel_friend-ico
+                im-panel_friend-tx
 */
 .im-panel {
     padding: 8px 15px 8px;
@@ -331,7 +340,7 @@
         top: 2px;
         left: 50px;
         color: #b6b9ba;
-        font: @font-xxs @altfont1;
+        font: @font-xs @altfont1;
     }
     &_user-name {
         display: inline-block;
@@ -383,6 +392,15 @@
     Сообщение 
 
     im-message  __new   __edited
+        im-message_ava
+            <ava>
+        im-message_r
+            im-message_date
+            im-message_control
+                <b-control>
+        im-message_hold
+            im-message_t
+            im-message_tx
 
 */
 .im-message {
@@ -455,7 +473,11 @@
             msg-fast_top
                 msg-fast_t
             msg-fast_t-row
-                msg-fast_
+                msg-fast_t-whom
+                <im-panel   __small>
+                <i-more>
+            msg-fast_t-b
+                ...
 */
 .msg-fast {
     width: 510px;
@@ -465,12 +487,9 @@
     
     .cap-empty {.border-radius(5px);}
     .redactor_editor {max-height: 300px;}
-    .friend-offer {
-        margin: 0px auto 15px;
-    }
+    .friend-offer {margin: 0px auto 15px;}
     &_top {
         padding: 12px 20px 10px;
-
     }
     &_top .i-more {
         margin-top: 12px;
@@ -482,7 +501,6 @@
         font-weight: bold;
         color: #141414;
     }
-
     &_whom {
         position: relative;
         display: inline-block;
@@ -511,3 +529,4 @@
     }
 
 }
+/* /msg-fast */

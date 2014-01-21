@@ -1,0 +1,48 @@
+include ../../block/config
+extend ../../extend/layout_header-small
+
+block layout-wrapper
+    +side-menu__antispam("side-menu__antispam")
+    .page-col
+        .page-col_top
+            ul.page-col_ul
+                li.page-col_li.active
+                    a.page-col_ul-a(href="") Записи 54
+                li.page-col_li
+                    a.page-col_ul-a(href="") Комментарии 165
+                li.page-col_li
+                    a.page-col_ul-a(href="") Фотографии 65
+        .page-col_cont.page-col_cont__gray
+            // antispam
+            .antispam
+                // antispam_i
+                .antispam_i.clearfix
+                    .antispam_cont
+                        +www-article_text()
+                    .antispam_control
+                        .margin-b5.clearfix
+                            a.ico-question.margin-r5.powertip(title='Изменить решение')
+                            +ava("ava__small", avaVarsTitle)
+                        .color-gray.font-sx Сегодня  23:15
+                // /antispam_i
+
+                // antispam_i
+                .antispam_i.clearfix
+                    .antispam_cont
+                        +www-article_photopost()
+                    .antispam_control
+                        .margin-b5.clearfix
+                            a.ico-question.margin-r5.powertip(title='Изменить решение')
+                            +ava("ava__small", avaVarsTitle)
+                        .color-gray.font-sx Сегодня  23:15
+                // /antispam_i
+
+                // antispam_i
+                .antispam_i.clearfix
+                    .antispam_cont
+                        +pagination('margin-l100')
+                    .antispam_control
+                    
+            // /antispam
+
+        

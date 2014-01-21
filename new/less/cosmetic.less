@@ -12,6 +12,7 @@
 .display-n{display:none !important;}
 .display-b {display:block !important;}
 .display-ib {display: inline-block !important;}
+.display-tc {display: table-cell !important;}
 
 .position-abs {position: absolute;}
 .position-rel {position: relative;}
@@ -127,14 +128,19 @@
 	margin: 0 -1px 0 0;
 	height: 100%;
 }
+.verticalalign-el {
+	.inline-block();
+	vertical-align: middle;
+}
 
 .color-carrot {color: #fe5333 !important;}
-.color-gray-light {color: #ccc !important;border-color: #ccc;}
-.color-gray {color: #B1B1B1 !important;border-color: #B1B1B1;}
+.color-gray-darken {color: #333 !important;}
 .color-gray-dark {color: #656565 !important;border-color: #656565;}
+.color-gray {color: #B1B1B1 !important;border-color: #B1B1B1;}
+.color-gray-light {color: #ccc !important;border-color: #ccc;}
 .color-white {color: #fff !important;border-color: #fff;}
 
-.font-sx  {font-size:9px !important;line-height: 11px !important;font-family: Tahoma, Arial, Verdana, sans-serif;}
+.font-xs  {font-size:9px !important;line-height: 11px !important;font-family: Tahoma, Arial, Verdana, sans-serif;}
 .font-s   {font-size:11px !important;line-height: 14px;font-family: Tahoma, Arial, Verdana, sans-serif;}
 .font-m   {font-size:14px !important;}
 .font-l   {font-size:16px !important;line-height: 20px !important;}
@@ -157,12 +163,14 @@
 	.bordered(#E5E4E4);
 }
 
-.clearfix:before,
-.clearfix:after {
-    content: " "; /* 1 */
-    display: table; /* 2 */
+.clearfix {
+	&:before,
+	&:after {
+	    content: " "; /* 1 */
+	    display: table; /* 2 */
+	}
+	&:after {clear: both;}
 }
-.clearfix:after {clear: both;}
 
 .disabled {cursor:default !important;}
 /* /cosmetic layout */

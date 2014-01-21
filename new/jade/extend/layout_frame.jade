@@ -1,0 +1,12 @@
+include ../block/config
+doctype 5
+html.no-js
+    +head(path)
+    body.body
+        .layout-container
+            +header()
+            .layout-wrapper
+                .layout-wrapper_frame.clearfix
+                    block layout-wrapper
+        .display-n  
+            block block-hidden

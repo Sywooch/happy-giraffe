@@ -1,0 +1,25 @@
+//- Иконки возможных действий с user
+    mod
+    vars
+        action: white, black, block
+mixin antispam-user-act(mod, vars)
+    // antispam-user-act
+    .antispam-user-act(class=mod)
+        // .active для активного состояния иконки
+        case vars.action
+            when 'white'
+                a.antispam-user-act_i.antispam-user-act_i__white.active.powertip(title="В белый список")
+                a.antispam-user-act_i.antispam-user-act_i__black.powertip(title="В черный список")
+                a.antispam-user-act_i.antispam-user-act_i__block.powertip(title="Блок")
+            when 'black'
+                a.antispam-user-act_i.antispam-user-act_i__white.powertip(title="В белый список")
+                a.antispam-user-act_i.antispam-user-act_i__black.active.powertip(title="В черный список")
+                a.antispam-user-act_i.antispam-user-act_i__block.powertip(title="Блок")
+            when 'block'
+                a.antispam-user-act_i.antispam-user-act_i__white.powertip(title="В белый список")
+                a.antispam-user-act_i.antispam-user-act_i__black.powertip(title="В черный список")
+                a.antispam-user-act_i.antispam-user-act_i__block.active.powertip(title="Блок")
+            default
+                a.antispam-user-act_i.antispam-user-act_i__white.powertip(title="В белый список")
+                a.antispam-user-act_i.antispam-user-act_i__black.powertip(title="В черный список")
+                a.antispam-user-act_i.antispam-user-act_i__block.powertip(title="Блок")

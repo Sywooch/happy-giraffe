@@ -14,9 +14,14 @@ mixin ava(mod, vars)
             span.ico-status(class=vars.icoStatus)
             img.ava_img(alt='', src='#{vars.src}')
     -else 
-        a.ava(class=mod, href='')
-            span.ico-status(class=vars.icoStatus)
-            img.ava_img(alt='', src='#{vars.src}')
+        - if (vars.avaNameTitle)
+            a.ava.powertip(class=mod, href='', title=vars.avaNameTitle)
+                span.ico-status(class=vars.icoStatus)
+                img.ava_img(alt='', src='#{vars.src}')
+        - else 
+            a.ava(class=mod, href='')
+                span.ico-status(class=vars.icoStatus)
+                img.ava_img(alt='', src='#{vars.src}')
 
 
 //- b-control
@@ -78,38 +83,6 @@ mixin b-control(mod, items)
 
     // /b-control
 
-//- .side-menu
-//- Фильтр пользователей
-mixin side-menu(mod)
-    // side-menu
-    .side-menu(class=mod)
-        .side-menu_hold
-            .side-menu_t
-            a.side-menu_i.active(href="")
-                span.side-menu_i-hold
-                    span.side-menu_ico.side-menu_ico__all
-                    span.side-menu_tx Все
-                span.verticalalign-m-help
-            a.side-menu_i(href="")
-                span.side-menu_i-hold
-                    span.side-menu_ico.side-menu_ico__new
-                    span.side-menu_tx Новые
-                    span.side-menu_count 96
-                span.verticalalign-m-help
-            a.side-menu_i(href="")
-                span.side-menu_i-hold
-                    span.side-menu_ico.side-menu_ico__online
-                    span.side-menu_tx Кто онлайн
-                span.verticalalign-m-help
-                span.side-menu_count-sub 5945
-            a.side-menu_i.disabled(href="")
-                span.side-menu_i-hold
-                    span.side-menu_ico.side-menu_ico__online-friend
-                    span.side-menu_tx Друзья онлайн
-                span.verticalalign-m-help
-                span.side-menu_count-sub 0
-    // /side-menu
-
 //- .b-cap
 //- Заглушка
     mod
@@ -142,4 +115,45 @@ mixin cap-empty(mod, vars)
             .verticalalign-m-help
     // /cap-empty
 
+//- Пейджинатор
+mixin pagination(mod)
+    // paginator
+    .yiipagination(class=mod)
+        .pager
+            ul.yiiPager
+              li.page
+                a(href='') 1
+              li.page
+                a(href='') 2
+              li.page.selected
+                a(href='') 3
+              li.page
+                a(href='') 4
+              li.page
+                a(href='') 5
+              li.page
+                a(href='') 6
+              li.page
+                a(href='') 7
+              li.page
+                a(href='') 8
+              li.page
+                a(href='') 9
+              li.page
+                a(href='') 10
+    // /paginator
 
+//- Пользователь имя с аватаром
+    mod
+    vars
+mixin b-user(mod,vars)
+    .b-user(class=mod)
+        .b-user_ava
+            +ava('ava__middle ava__female', avaVars)
+        .b-user_hold
+            .b-user_row
+                a.b-user_name Ангелина Богоявленская
+            - if (vars.signpost)
+                a.b-user_view 123
+                a.b-user_check 123
+                a.b-user_del 123

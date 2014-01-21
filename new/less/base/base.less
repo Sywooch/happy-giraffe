@@ -1,7 +1,10 @@
 .body {
     min-width: 960px;
-    background:#ad9dd2 url(/new/images/body.png) repeat-y 50% 50%;
-    /*&__im {background-color: #ad9dd2;}*/
+    background:#af9bd2;
+    word-wrap: break-word;
+    
+    &__im,
+    &__snow {background:#af9bd2 url(/new/images/body.png) repeat-y 50% 50%;}
 }
 
 .layout-container {
@@ -18,9 +21,11 @@
     &_hold {
         margin: 25px auto;
         background: #fff;
-        .border-radius(14px);
-        border-top-right-radius: 10px;
+        .border-radius(10px);
     }
+    &_frame {
+        margin: 25px auto;
+    } 
 }
 
 /* ico */
@@ -67,10 +72,109 @@
     background: #fafafa;
     z-index: 1000;
 }
+.ico-update {
+    .inline-block();
+    vertical-align: middle;
+    width: 16px;
+    height: 16px;
+    background: url(/new/images/ico/ico-update.png) no-repeat;
+}
+.ico-check {
+    .inline-block();
+    width: 20px;
+    height: 18px;
+    .img-retina('/new/images/ico/ico-check.png'; '/new/images/ico/ico-check-2x.png'; 35px; 18px);
+}
+.ico-del {
+    .inline-block();
+    width: 18px;
+    height: 18px;
+    .img-retina('/new/images/ico/ico-del.png'; '/new/images/ico/ico-del-2x.png'; 18px; 18px);
+}
+.ico-question {
+    .inline-block();
+    width: 14px;
+    height: 18px;
+    .img-retina('/new/images/ico/ico-question.png'; '/new/images/ico/ico-question-2x.png'; 18px; 14px);
+}
+.ico-btn-check {
+    .inline-block();
+    vertical-align: middle;
+    width: 11px;
+    height: 11px;
+    margin-right: 4px;
+    .img-retina('/new/images/ico/ico-btn-check.png'; '/new/images/ico/ico-btn-check-2x.png'; 11px; 11px);
+}
+.ico-btn-del {
+    .inline-block();
+    vertical-align: middle;
+    width: 11px;
+    height: 11px;
+    margin-right: 4px;
+    .img-retina('/new/images/ico/ico-btn-del.png'; '/new/images/ico/ico-btn-del-2x.png'; 11px; 11px);
+}
+.ico-btn-empty {
+    .inline-block();
+    vertical-align: middle;
+    width: 11px;
+    height: 11px;
+    margin-right: 4px;
+}
+.ico-family {
+    .inline-block();
+    width: 55px;
+    height: 55px;
+    background: url(/images/ico/ico-family.png) no-repeat 0 -605px;
+
+
+    @media only screen and (-webkit-min-device-pixel-ratio: 1.5),
+    only screen and (min-resolution: 144dpi) {
+        & {
+            background:url(/images/ico-family2x.png) no-repeat 0 -605px;
+            background-size: 220px;
+        }
+    }
+
+    &__baby-plan     {background-position: 0 -605px;}
+    &__baby          {background-position: 0 0;}
+    &__baby-two      {background-position: -55px 0;}
+    &__boy-wait      {background-position: 0 -55px;}
+    &__girl-wait     {background-position: -55px -55px;}
+    &__boy-small     {background-position: 0 -110px;}
+    &__girl-small    {background-position: -55px -110px;}
+    &__boy-3         {background-position: 0 -165px;}
+    &__girl-3        {background-position: -55px -165px;}
+    &__boy-5         {background-position: 0 -220px;}
+    &__girl-5        {background-position: -55px -220px;}
+    &__boy-8         {background-position: 0 -275px;}
+    &__girl-8        {background-position: -55px -275px;}
+    &__boy-14        {background-position: 0 -330px;}
+    &__girl-14       {background-position: -55px -330px;}
+    &__boy-19        {background-position: 0 -385px;}
+    &__girl-19       {background-position: -55px -385px;}
+    &__boy-friend    {background-position: 0 -440px;}
+    &__girl-friend   {background-position: -55px -440px;}
+    &__fiance        {background-position: 0 -495px;}
+    &__bride         {background-position: -55px -495px;}
+    &__husband       {background-position: 0 -550px;}
+    &__wife          {background-position: -55px -550px;}
+    &__boy           {background-position: 0 -660px;}
+    &__girl          {background-position: -55px -660px;}
+}
 
 // Отдельные элементы
-.a-pseudo {text-decoration:none;border-bottom:1px dotted #2c95d6;}
-.a-pseudo:hover {text-decoration:none !important;border-bottom-color:transparent;}
+.a-pseudo {
+    text-decoration:none;
+    border-bottom: 1px dotted #2c95d6;
+    color: #2c95d6;
+    line-height: 1em;
+    margin: 0 3px;
+
+    &:hover {
+        text-decoration:none !important;
+        border-bottom-color:transparent;
+    }
+}
 
 
 .i-more {
@@ -89,86 +193,196 @@
     }
 }
 
-
 /* 
-    avatar 
+    page-col 
 
-    ava __small __middle    __large
-        ava_img
-        <ico-status>
+    page-col __sidebar
+        page-col_top
+            page-col_t
 */
-.ava {
-    display: inline-block;
-    position: relative;
-    .square(72px);
-    .border-radius(36px);
-    background:url(/new/images/base/ava.png) no-repeat -240px -480px;
+.page-col {
+    float: left;
+    width: 880px;
+    background: #fff;
+    border-radius: 10px;
+    border-top-left-radius:0;
+
     
-    .ico-status {
-        position: absolute;
-        top: 3px;
-        left: 3px;
-        margin: 0;
-    }
-    &__female {background-position:-240px -240px;}
-    &__male {background-position:-240px 0;}
-    &_img {
-        display: block;
-        position:relative;
-        width:72px;
-        height:72px;
-        .border-radius(36px);
-        .box-shadow(0 1px 1px rgba(0,0,0,0.2) inset);
-    }
-    &_img:hover {.box-shadow(none);}
+    &_top {
+        border-bottom: 1px solid #ededed;
+        padding: 0 30px;
+        height: 57px;
 
-    &__small {
-        .square(24px);
-        background-position:-240px -696px;
-        .border-radius(12px);
+        .antispam-user_hold {height: 57px;}
     }
-    &__small&__female {background-position:-240px -456px;}
-    &__small&__male {background-position:-240px -216px;}
-    &__small .ico-status {
-        top: 0;
-        left: 0;
-        width: 6px;
-        height: 6px;
+    &_t {
+        font-size: 13px;
     }
-    &__small &_img {
-        .border-radius(12px);
-        .square(24px);
+    &_t-tx {
+        .inline-block();
+        margin: 16px 35px 0 0;
+        font-size: 17px;
     }
 
-    &__middle {background-position:-240px -696px;}
-    &__middle,
-    &__middle &_img {
-        width:40px;
-        height:40px;
-        .border-radius(20px);
-        background-position: -240px -580px;
+    &_ul {}
+    &_li {
+        .inline-block();
+        margin: 19px 35px 0 0;
     }
-    &__middle&__female {background-position:-240px -340px;}
-    &__middle&__male {background-position:-240px -100px;}
-    &__middle .ico-status {
-        top: 1px;
-        left: 1px;
-        width: 8px;
-        height: 8px;
+    &_li.active &_ul-a,
+    &_li:hover &_ul-a {color: #3b3b3b;}
+    &_li.disabled &_ul-a {
+        color: #d8d7d7;
+        .disabled;
+    }
+    &_li.active &_ul-a {font-size: 14px;}
+    &_ul-a {
+        .inline-block();
+        text-decoration: none;
+        color: #aeadad;
+    }
+    &_cont {}
+    &_cont__gray {
+        background: #f0f0f0;
+        .border-bottom-radius(10px);
     }
 
-    &__large {background-position: 0 0;}
-    &__large,
-    &__large &_img {
-        width:200px;
-        height:200px;
-        .border-radius(106px);
+    &_update {
+        float: right;
+        margin-top: 18px;
+
+        .a-pseudo {margin-top: 2px;}
+    }
+}
+/* /page-col */
+
+/* b-family */
+.b-family {
+    font-size: 9px;
+    line-height: 10px;
+    text-align: center;
+
+    &__bg-dark &_more {color: #fff;}
+    &__bg-dark &_img-hold {
+        background: #836d96;
+        background: rgba(0,0,0,.25);
+        .box-shadow(inset 0 1px 1px rgba(0,0,0,0.25));
+    }
+    &__bg-dark &_tx {
+        color: #fff;
+        background: #967cac;
+        background: rgba(0,0,0,.15);
+    }
+    &__bg-none &_img-hold {
+        background: none;
         .box-shadow(none);
     }
-    &__large&__female {background-position:0 -200px;}
-    &__large&__male {background-position:0 0;}
+    &__bg-none &_tx {background: none;}
+
+    &__square &_li {
+        width: 85px;
+        height: 82px;
+        margin: 15px 15px 15px;
+        padding: 10px 3px 5px;
+        border: 2px solid #9ecde3;
+        .border-radius(6px);
+    }
+    &__square &_li.dragover {border-color: #9be498;}
+    &__square &_li.dragover-error {border-color: #f8bdbd;}
+    &__square &_li__empty {
+        border: 2px dashed #95d0e6;
+    }
+    &__square &_img-hold {
+        display: block;
+        width: auto;
+        max-width: none;
+        background: none;
+        .box-shadow(none);
+    }
+    &__square &_tx {
+        width: auto;
+        background: none;
+        color: #1a1a1a;
+    }
+
+    &_top {
+        margin: 0 auto 15px;
+    }
+    &_top__white {
+        height: 22px;
+        width: 190px;
+        background: url(/images/b-famyli_top__white.png) no-repeat;
+    }
+    &_top__blue {
+        height: 22px;
+        width: 190px;
+        background: url(/images/b-famyli_top__blue.png) no-repeat;
+    }
+    &_top__blue-big {
+        width: 274px;
+        height: 31px;
+        margin: 20px auto 35px;
+        background: url(/images/b-famyli_top__blue-big.png) no-repeat;
+    }
+    &_ul {margin: 8px -10px 0;}
+    &_li {
+        .inline-block();
+        vertical-align: top;
+        position: relative;
+        margin: 0 7px 13px;
+    }
+    &_li:hover &_del {display: block;}
+    &_li > a {text-decoration: none;display: block;}
+    &_img-hold {
+        display: table-cell;
+        vertical-align: middle;
+        width: 55px;
+        max-width: 55px;
+        height: 55px;
+        max-height: 55px;
+        text-align: center;
+        background: #eee;
+        background: rgba(0,0,0,.05);
+        .box-shadow(inset 0 1px 1px rgba(0,0,0,0.1));
+    }
+    &_img {max-height: 100%;}
+    &_tx {
+        display: block;
+        width: 55px;
+        padding: 5px 0;
+        color: #6a6a6a;
+        background: #fff;
+        background: rgba(255,255,255,0.7);
+    }
+    &_empty {
+        font-size: 12px;
+        color: #ded2e9;
+    }
+    &_more {font-size: 12px;}
+    &_add {
+        display: block;
+        font-size: 13px;
+        color: #fff;
+    }
+    &_add-b {
+        display: block;
+        width: 55px;
+        height: 55px;
+        border: 2px dashed #fff;
+        margin: 0 auto 8px;
+        background: #927aa8;
+        background: rgba(0,0,0,.15) url(/images/b-famyli_add-b.png) no-repeat 50% 50%;
+        .border-radius(5px);
+    }
+    &_add-b:hover {background-color: rgba(0,0,0,.3);}
+    &_del {
+        display: none;
+        position: absolute;
+        top: 7px;
+        right: 7px;
+    }
 }
-/* /ava */
+/* /b-family */
 
 /*
     Кнопки управления записи
@@ -216,16 +430,22 @@
 /*
     Фильтр списка пользователей
 
-    im-filter
+    side-menu __im      __antispam
         side-menu_t
-        side-menu_i
-            side-menu_ico
-            side-menu_tx
-            [side-menu_count]
+        side-menu_ul
+            side-menu_li
+                side-menu_i
+                    side-menu_ico
+                    side-menu_tx
+                    [side-menu_count]
 
 */
 .side-menu {
-    
+    float: left;
+    width: 80px;
+    background: #675495;
+    .border-left-radius(10px);
+
     @media screen and (max-height: 740px) {
         &__im &_tx {display: none;}
         &__im &_i {
@@ -235,32 +455,47 @@
         &__im &_count {top: 4px;}
         &_i &_count-sub {top: 3px;}
     }
+    &__im &_li:last-child {
+        border-bottom: 1px solid #7361a1;
+        border-bottom-left-radius: none;
+    }
+
+    &__antispam &_ico {
+        .img-retina('/new/images/side-menu_ico__antispam.png'; '/new/images/side-menu_ico__antispam-2x.png'; 300px; 80px);
+    }
+
     &_t {
         display: block;
         height: 57px;
         background: url(/new/images/side-menu_t.png) no-repeat;
+        border-top-left-radius: 10px;
     }
+    &_t__moderator {background: url(/new/images/side-menu_t__moderator.png) no-repeat;}
+    &_ul {}
+    &_li {border-bottom: 1px solid #7361a1;}
+    &_li:last-child {
+        border-bottom: none;
+        border-bottom-left-radius: 10px;
+    }
+    &_li.active,
+    &_li:hover {background: #5c4b86;}
+    &_li.disabled:hover {background: none;}
+    &_li.disabled &_ico {opacity: .1;}
+    &_li.disabled &_count-sub,
+    &_li.disabled &_tx  {color: #8476a7;}
+    &_li.active &_ico {opacity: 1;}
+    &_li.active &_tx  {color: #fff;}
+    &_li:hover &_count,
+    &_li.active &_count {border-color: #5c4b86;}
     &_i {
         position: relative;
         display: block;
         height: 70px;
         padding: 15px 15px 15px;
-        border-bottom: 1px solid #7361a1;
         text-align: center;
         text-decoration: none;
     }
-    &_i.disabled:hover {background: none;}
-    &_i.disabled &_ico {opacity: .1;}
-    &_i.disabled &_count-sub,
-    &_i.disabled &_tx  {color: #8476a7;}
-    &_i.active &_ico {opacity: 1;}
-    &_i.active &_tx  {color: #fff;}
-    &_i:hover &_count,
-    &_i.active &_count {border-color: #5c4b86;}
-    &_i.active,
-    &_i:hover {
-        background: #5c4b86;
-    }
+
     &_i-hold {
         display: inline-block;
         vertical-align: middle;
@@ -278,6 +513,20 @@
     &_ico__new    {background-position: -50px 0;}
     &_ico__online {background-position: -100px 0;height: 32px;}
     &_ico__online-friend {background-position: -150px 0;}
+
+    // antispam модуль
+    &_ico__broadcast {background-position: 0 0;}
+    &_ico__expert    {background-position: -50px 0;}
+    &_ico__deleted   {background-position: -100px 0;}
+    &_ico__question  {background-position: -300px 0;}
+    &_ico__ul-white             {background-position: -150px 0; opacity:1;}
+    &_ico__ul-black             {background-position: -200px 0; opacity:1;}
+    &_ico__ul-block             {background-position: -250px 0; opacity:1;}
+    &_i.active &_ico__ul-black  {background-position: -200px -40px;}
+    &_i.active &_ico__ul-white  {background-position: -150px -40px;}
+    &_i.active &_ico__ul-block  {background-position: -250px -40px;}
+    // /antispam
+
     &_tx {
         display: block;
         color: #bdb7ce;
@@ -459,6 +708,63 @@
 }
 /* /friend-offer */
 
+/*  
+    Блок пользователя с автаркой и именем
+    b-user
+        b-user_ava
+            <ava>
+        b-user_hold
+            b-user_name
+            b-user_view
+            b-user_check
+            b-user_del
+*/
+.b-user {
+    .inline-block();
+
+    &__va-m {
+        .b-user_hold,
+        .b-user_ava {vertical-align: middle;}
+    }
+
+    &__w300 {width: 300px;}
+    
+    &_ava {
+        .inline-block();
+        vertical-align: top;
+        margin-right: 10px;
+    }
+    &_hold {
+        .inline-block();
+        vertical-align: top;
+    }
+    &_row {margin-bottom: 3px;}
+    &_name {
+        color: #289fd7;
+        .text-dec_onhover;
+        display: block;
+    }
+    
+    // in antispam
+    &_del,
+    &_check,
+    &_view {
+        margin-right: 17px;
+        padding-left: 20px;
+        background: url(/new/images/b-user_view.png) no-repeat;
+        background-position: 0 50%;
+        .font-s;
+    }
+    &_check {
+        padding-left: 17px;
+        background-image: url(/new/images/b-user_check.png);
+    }
+    &_del {
+        padding-left: 17px;
+        background-image: url(/new/images/b-user_del.png);
+    }
+    // /in antispam
+}
 
 /* 
     Скрытый input загрузки файлов

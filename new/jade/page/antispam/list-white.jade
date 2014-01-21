@@ -1,0 +1,32 @@
+include ../../block/config
+extend ../../extend/layout_header-small
+
+block layout-wrapper
+    +side-menu__antispam("side-menu__antispam")
+    .page-col
+        .page-col_top
+            .page-col_t
+                .page-col_t-tx Белый список 256
+        .page-col_cont.page-col_cont__gray
+            // antispam
+            .antispam
+                .antispam-user
+                    ul.antispam-user_ul
+                        // Количество участников на одной странице определяет программист
+                        - for (var i = 0; i < 10; i++) {
+                            li.antispam-user_li
+                                .antispam-user_hold
+                                    +b-user('b-user__w300',{signpost: true})
+                                    +antispam-user-act('', {action: 'white'})
+                                    .antispam-user_ava 
+                                        +ava('ava__small ava__female', avaVarsTitle)
+                                    .antispam-user_date
+                                        .color-gray Сегодня  23:15
+                                    a.btn-red.btn-m Анализ
+                        - }
+
+                    +pagination()
+                    
+            // /antispam
+
+        

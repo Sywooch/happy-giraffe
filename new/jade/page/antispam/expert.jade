@@ -1,0 +1,89 @@
+include ../../block/config
+extend ../../extend/layout_header-small
+
+block layout-wrapper
+    +side-menu__antispam("side-menu__antispam")
+    .page-col
+        .page-col_top
+            .page-col_t
+                .page-col_t-tx Белый список 256
+        .page-col_cont.page-col_cont__gray
+            // antispam
+            .antispam
+                .antispam-user.antispam-user__expert
+                    ul.antispam-user_ul
+                        // Количество участников на одной странице определяет программист
+                        // antispam-user_li
+                        li.antispam-user_li
+                            .antispam-user_hold
+                                +b-user('b-user__w300 b-user__va-m', '')
+                                .antispam-user_date Сегодня  23:15
+                                .antispam-user_post-ico.antispam-user_post-ico__msg
+                                .antispam-user_count
+                                    .antispam-user_count-big 35 за 05:32
+                                    .antispam-user_count-s 10 за 05:00
+                                .verticalalign-el
+                                    .margin-b5
+                                        a.btn-green.btn-m
+                                            .ico-btn-check
+                                            | Хорошо
+                                    a.btn-red.btn-m
+                                            | Анализ
+                        // /antispam-user_li
+                        // antispam-user_li
+                        li.antispam-user_li
+                            .antispam-user_hold
+                                +b-user('b-user__w300 b-user__va-m', '')
+                                .antispam-user_date Сегодня  23:15
+                                .antispam-user_post-ico.antispam-user_post-ico__photo
+                                .antispam-user_count
+                                    .antispam-user_count-big 35 за 05:32
+                                    .antispam-user_count-s 10 за 05:00
+                                .verticalalign-el
+                                    .margin-b5
+                                        a.btn-green.btn-m
+                                            .ico-btn-check
+                                            | Хорошо
+                                    a.btn-red.btn-m
+                                            | Анализ
+                        // /antispam-user_li
+                        // antispam-user_li
+                        li.antispam-user_li
+                            .antispam-user_hold
+                                +b-user('b-user__w300 b-user__va-m', '')
+                                .antispam-user_date Сегодня  23:15
+                                .antispam-user_post-ico.antispam-user_post-ico__blog
+                                .antispam-user_count
+                                    .antispam-user_count-big 35 за 05:32
+                                    .antispam-user_count-s 10 за 05:00
+                                .verticalalign-el
+                                    .margin-b5
+                                        a.btn-green.btn-m
+                                            .ico-btn-check
+                                            | Хорошо
+                                    a.btn-red.btn-m
+                                            | Анализ
+                        // /antispam-user_li
+                        // antispam-user_li
+                        li.antispam-user_li
+                            .antispam-user_hold
+                                +b-user('b-user__w300 b-user__va-m', '')
+                                .antispam-user_date Сегодня  23:15
+                                .antispam-user_post-ico.antispam-user_post-ico__new
+                                .antispam-user_count
+                                    .antispam-user_count-big 35 за 05:32
+                                    .antispam-user_count-s 10 за 05:00
+                                .verticalalign-el
+                                    .margin-b5
+                                        a.btn-green.btn-m
+                                            .ico-btn-check
+                                            | Хорошо
+                                    a.btn-red.btn-m
+                                            | Анализ
+
+
+                    +pagination()
+                    
+            // /antispam
+
+        

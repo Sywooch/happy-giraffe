@@ -14,10 +14,11 @@ class AntispamBehavior extends CActiveRecordBehavior
 {
     public $interval;
     public $maxCount;
+    public $safe = false;
 
     public function afterSave($event)
     {
-        if ($this->owner->isNewRecord)
+        if ($this->owner->isNewRecord && ! $this->safe)
             $this->createCheck();
     }
 
@@ -28,8 +29,10 @@ class AntispamBehavior extends CActiveRecordBehavior
                 'order' => 'id DESC',
                 'limit' => $this->maxCount,
             ));
-            foreach ($models as $m)
-                $m->antispam->createCheck();
+
+            if ($this->safe)
+                foreach ($models as $m)
+                    $m->antispam->createCheck();
 
             $report = new AntispamReportLimit();
             $report->user_id = $this->owner->author_id;

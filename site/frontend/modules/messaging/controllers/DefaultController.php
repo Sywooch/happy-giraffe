@@ -9,7 +9,7 @@
 class DefaultController extends HController
 {
 
-    public $layout = 'new_main';
+    public $layout = '//layouts/new/main';
     public $tempLayout = true;
     public $showAddBlock = false;
 

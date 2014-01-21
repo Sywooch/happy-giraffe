@@ -15,7 +15,7 @@ Yii::app()->clientScript->registerPackage('ko_antispam');
                 <div class="logo logo__small"><a title="Веселый жираф - сайт для всей семьи" href="" class="logo_i">Веселый жираф - сайт для всей семьи</a></div>
                 <div class="header_t-big">Модератор</div>
                 <div class="header_user">
-                    <?php $this->widget('site.frontend.widgets.userAvatarWidget.Avatar', array('user' => Yii::app()->user->model)); ?>
+                    <?php $this->widget('site.frontend.widgets.userAvatarWidget.Avatar', array('user' => Yii::app()->user->model, 'size' => 40)); ?>
                     <a class="header_user-name" href="<?=Yii::app()->user->model->getUrl()?>"><?=Yii::app()->user->model->getFullName()?></a>
                 </div>
             </div>

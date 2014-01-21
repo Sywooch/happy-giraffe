@@ -45,7 +45,7 @@ class ContactsManager
     {
         $sql = self::getSql($type);
 
-        $command = Yii::app()->db->createCommand($sql);
+		$command = Yii::app()->db->createCommand($sql);
         $command->bindValue(':user_id', $userId, PDO::PARAM_INT);
         $command->bindValue(':limit', (int) $limit, PDO::PARAM_INT);
         $command->bindValue(':offset', (int) $offset, PDO::PARAM_INT);
@@ -78,7 +78,7 @@ class ContactsManager
                     FROM messaging__threads_users tu
                     # Получение количества непрочитанных сообщений
                     INNER JOIN messaging__messages m ON m.thread_id = tu.thread_id AND m.author_id != tu.user_id
-                    INNER JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.read = 0 AND mu.user_id = tu.user_id
+                    INNER JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.dtime_read IS NULL AND mu.user_id = tu.user_id
                     # Получение id собеседника
                     INNER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id != tu.user_id
                     # Находится ли в чёрном списке
@@ -126,6 +126,7 @@ class ContactsManager
                       u.last_name, # Фамилия собеседника
                       u.gender, # Пол собеседника
                       u.online, # Онлайн-статус собеседника
+                      u.last_active, # Дата последней активности
                       t.id AS tId, # ID Диалога
                       tu.hidden, # Видимость диалога
                       p.id AS pId, # ID аватара
@@ -142,7 +143,7 @@ class ContactsManager
                     INNER JOIN messaging__threads t ON tu.thread_id = t.id
                     # Получение количества непрочитанных сообщений
                     LEFT OUTER JOIN messaging__messages m ON m.thread_id = t.id AND m.author_id != tu.user_id
-                    LEFT OUTER JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.read = 0 AND mu.user_id = tu.user_id
+                    LEFT OUTER JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.dtime_read IS NULL AND mu.user_id = tu.user_id
                     # Получение аватара
                     LEFT OUTER JOIN album__photos p ON u.avatar_id = p.id
                     # Является ли другом
@@ -164,6 +165,7 @@ class ContactsManager
                       u.last_name, # Фамилия собеседника
                       u.gender, # Пол собеседника
                       u.online, # Онлайн-статус собеседника
+                      u.last_active, # Дата последней активности
                       t.id AS tId, # ID Диалога
                       tu.hidden, # Видимость диалога
                       p.id AS pId, # ID аватара
@@ -180,7 +182,7 @@ class ContactsManager
                     INNER JOIN messaging__threads t ON tu.thread_id = t.id
                     # Получение количества непрочитанных сообщений
                     LEFT OUTER JOIN messaging__messages m ON m.thread_id = t.id AND m.author_id != tu.user_id
-                    LEFT OUTER JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.read = 0 AND mu.user_id = tu.user_id
+                    LEFT OUTER JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.dtime_read IS NULL AND mu.user_id = tu.user_id
                     # Получение аватара
                     LEFT OUTER JOIN album__photos p ON u.avatar_id = p.id
                     # Является ли другом
@@ -203,6 +205,7 @@ class ContactsManager
                       u.last_name, # Фамилия собеседника
                       u.gender, # Пол собеседника
                       u.online, # Онлайн-статус собеседника
+                      u.last_active, # Дата последней активности
                       t.id AS tId, # ID Диалога
                       tu.hidden, # Видимость диалога
                       p.id AS pId, # ID аватара
@@ -219,7 +222,7 @@ class ContactsManager
                     INNER JOIN messaging__threads t ON tu.thread_id = t.id
                     # Получение количества непрочитанных сообщений
                     LEFT OUTER JOIN messaging__messages m ON m.thread_id = t.id AND m.author_id != tu.user_id
-                    LEFT OUTER JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.read = 0 AND mu.user_id = tu.user_id
+                    LEFT OUTER JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.dtimeRead IS NULL AND mu.user_id = tu.user_id
                     # Получение аватара
                     LEFT OUTER JOIN album__photos p ON u.avatar_id = p.id
                     # Является ли другом
@@ -241,6 +244,7 @@ class ContactsManager
                       u.last_name, # Фамилия собеседника
                       u.gender, # Пол собеседника
                       u.online, # Онлайн-статус собеседника
+                      u.last_active, # Дата последней активности
                       t.id AS tId, # ID Диалога
                       tu.hidden, # Видимость диалога
                       p.id AS pId, # ID аватара
@@ -258,7 +262,7 @@ class ContactsManager
                     LEFT OUTER JOIN messaging__threads t ON tu.thread_id = t.id
                     # Получение количества непрочитанных сообщений
                     LEFT OUTER JOIN messaging__messages m ON m.thread_id = t.id AND m.author_id != tu.user_id
-                    LEFT OUTER JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.read = 0 AND mu.user_id = tu.user_id
+                    LEFT OUTER JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.dtime_read IS NULL AND mu.user_id = tu.user_id
                     # Получение аватара
                     LEFT OUTER JOIN album__photos p ON u.avatar_id = p.id
                     # Находится ли в черном списке
@@ -277,6 +281,7 @@ class ContactsManager
 
     protected static function populateContact($row)
     {
+		/** @todo Практически идентичная функциональность с DialogForm::userToJson */
         $user = User::model()->populateRecord(array(
             'id' => $row['uId'],
             'avatar_id' => $row['pId'],
@@ -288,21 +293,17 @@ class ContactsManager
         ));
 
         return array(
-            'user' => array(
-                'id' => (int) $row['uId'],
-                'firstName' => $row['first_name'],
-                'lastName' => $row['last_name'],
-                'gender' => (int) $row['gender'],
-                'avatar' => $user->getAvatarUrl(Avatar::SIZE_MICRO),
-                'online' => (bool) $row['online'],
-                'isFriend' => (bool) $row['isFriend'],
-            ),
-            'thread' => ($row['tId'] === null) ? null : array(
-                'id' => (int) $row['tId'],
-                'updated' => (int) $row['updated'],
-                'unreadCount' => (int) $row['unreadCount'],
-                'hidden' => (bool) $row['hidden'],
-            ),
+			'id' => (int) $row['uId'],
+			'firstName' => $row['first_name'],
+			'lastName' => $row['last_name'],
+			'gender' => (int) $row['gender'],
+			'avatar' => $user->getAvatarUrl(Avatar::SIZE_MEDIUM),
+			'channel' => $user->publicChannel,
+			'isOnline' => (bool) $row['online'],
+			'lastOnline' => DialogForm::parseDateTime($row['last_active']),
+			'isFriend' => (bool) $row['isFriend'],
+			'date' => (int) $row['updated'],
+			'count' => (int) $row['unreadCount'],
         );
     }
 }

@@ -2,157 +2,158 @@
 
 class OnlineUsersCommand extends CConsoleCommand
 {
-    public $current_day;
 
-    public function actionIndex()
-    {
-        ini_set('memory_limit', -1);
+	public $current_day;
+	private $rpl;
 
-        Yii::import('site.frontend.modules.scores.models.*');
-        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
-        Yii::import('site.frontend.extensions.*');
-        Yii::import('site.frontend.components.*');
-        Yii::import('site.common.models.mongo.*');
+	public function init()
+	{
+		parent::init();
+		ini_set('memory_limit', -1);
 
-        $rpl = Yii::app()->comet;
-        $list = $rpl->cmdOnline();
-        Yii::app()->db->createCommand()
-            ->update('users', array('online' => '0'));
+		Yii::import('site.frontend.modules.scores.models.*');
+		Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
+		Yii::import('site.frontend.extensions.*');
+		Yii::import('site.frontend.components.*');
+		Yii::import('site.common.models.mongo.*');
+		Yii::import('site.frontend.modules.scores.models.*');
+		Yii::import('site.frontend.modules.scores.models.input.*');
+		Yii::import('site.frontend.modules.onlineManager.widgets.OnlineManagerWidget');
 
-        $users = User::model()->findAll(array('select' => 'id', 'condition' => 'online=1'));
-        foreach ($users as $user) {
-            Yii::app()->cache->delete('User_' . $user->id);
-        }
+		// Выставляем всем пользователям оффлайн
+		Yii::app()->db->createCommand()
+			->update('users', array('online' => '0'));
+		// Мистика начало
+		$users = User::model()->findAll(array('select' => 'id', 'condition' => 'online=1'));
+		foreach ($users as $user)
+		{
+			Yii::app()->cache->delete('User_' . $user->id);
+		}
+		// Мистика конец
+		// Устанавливаем текущую дату (необходимо для достижений)
+		$this->current_day = date("Y-m-d");
 
-        $this->current_day = date("Y-m-d");
+		// Выставлем онлайн тем, кто сейчас онлайн
+		$this->rpl = Yii::app()->comet;
+		$list = $this->rpl->cmdOnline();
+		foreach ($list as $channel)
+		{
+			if (self::checkUserChannel($channel))
+			{
+				$user = $this->getUserByCache($channel);
+				if (!empty($user))
+				{
+					$this->updateOnline($user, 1);
+				}
+			}
+		}
+	}
 
-        foreach ($list as $user) {
-            echo "User online: {$user}\n";
-            $user = $this->getUserByCache($user);
-            if (empty($user))
-                continue;
-            $user->online = 1;
-            $user->last_active = date("Y-m-d H:i:s");
-            $user->save(false, array('online','last_active'));
-            User::clearCache($user->id);
-            ScoreVisits::getInstance()->addTodayVisit($user->id);
-        }
+	public function actionIndex()
+	{
+		// начинаем с 0
+		$pos = 0;
+		// стартуем бесконечный цикл
+		while (1)
+		{
+			// начисление достижений
+			$this->checkScoresForNewDay();
+			// смотрим все события
+			foreach ($this->rpl->cmdWatch($pos) as $event)
+			{
+				// двигаем курсор
+				$pos = $event['pos'];
+				// выводим событие и id канала
+				echo "\t" . $event['event'] . " " . $event['id'] . "\n";
+				if (self::checkUserChannel($event['id']))
+				{
+					$user = $this->getUserByCache($event['id']);
+					if (!empty($user))
+					{
+						// событие на вход/выход пользователя
+						$online = $event['event'] == 'online' ? 1 : 0;
+						// обновляем базу
+						$this->updateOnline($user, $online);
+						// рассылаем всем, что пользователь вошёл/вышел
+						$this->SendOnlineNotice($user);
+					}
+				}
+			}
+			// немого спим
+			usleep(300000);
+		}
+	}
 
-        $pos = 0;
-        while (1) {
-            $this->checkScoresForNewDay($rpl);
-            foreach ($rpl->cmdWatch($pos) as $event) {
-                echo $event['event'];
-                if ($event['event'] == 'online') {
-//                    Yii::app()->db->createCommand()
-//                        ->update('user', array('online' => '1'), "id IN (SELECT user_id from message_cache WHERE cache = \"{$event['id']}\")");
-//                    $userCache = UserCache::model()->find('cache = "'.$event['id'].'"');
-                    $user = $this->getUserByCache($event['id']);
-                    if (empty($user)) {
-                        echo "user not found: {$event['id']}\n";
-                        continue;
-                    }
-                    $user->online = 1;
-                    $user->last_active = date("Y-m-d H:i:s");
-                    $user->save(false, array('online','last_active'));
-                    User::clearCache($user->id);
-                    ScoreVisits::getInstance()->addTodayVisit($user->id);
-                    $this->SendOnlineNotice($user->id, 1);
+	/**
+	 * 
+	 * @param User $user
+	 */
+	private function updateOnline($user, $online)
+	{
+		$user->online = $online;
+		$user->last_active = date("Y-m-d H:i:s");
+		$user->save(false, array('online', 'last_active'));
+		echo $user->id . " " . $online . "\n";
+		if ($online == 1)
+		{
+			ScoreVisits::getInstance()->addTodayVisit($user->id);
+		}
+		User::clearCache($user->id);
+	}
 
-                    echo "user online: {$user->id}\n";
-                } elseif ($event['event'] == 'offline') {
-//                    Yii::app()->db->createCommand()
-//                        ->update('user', array('online' => '0'), "id IN (SELECT user_id from message_cache WHERE cache = \"{$event['id']}\")");
-                    $user = $this->getUserByCache($event['id']);
-                    if (empty($user)) {
-                        echo "user not found: {$event['id']}\n";
-                        continue;
-                    }
-                    $user->online = 0;
-                    $user->last_active = date("Y-m-d H:i:s", strtotime(' - 15 minutes'));
-                    $user->save(false, array('online','last_active'));
-                    $this->SendOnlineNotice($user->id, 0);
-                    User::clearCache($user->id);
+	/**
+	 * @param $cache
+	 * @return User|null
+	 */
+	private function getUserByCache($cache)
+	{
+		$userCache = UserCache::model()->find('cache = "' . $cache . '"');
+		if (empty($userCache))
+			return null;
+		return User::model()->find(array(
+				'condition' => 'id=' . $userCache->user_id,
+				//'select' => array('id', 'online')
+		));
+	}
 
-                    echo "user offline: {$user->id}\n";
-                }
-                $pos = $event['pos'];
-            }
-            usleep(300000);
-        }
-    }
+	/**
+	 * @param User $user
+	 * @param bool $online
+	 */
+	private function SendOnlineNotice($user)
+	{
+		$comet = new CometModel();
+		$comet->send($user->publicChannel, array('user' => OnlineManagerWidget::userToJson($user)), CometModel::TYPE_ONLINE_STATUS_CHANGE);
+		echo 'sending ' . $user->publicChannel . ' ' . CometModel::TYPE_ONLINE_STATUS_CHANGE . "\n";
+	}
 
-    /**
-     * @param $cache
-     * @return User|null
-     */
-    private function getUserByCache($cache)
-    {
-        $userCache = UserCache::model()->find('cache = "' . $cache . '"');
-        if (empty($userCache))
-            return null;
-        return User::model()->find(array(
-            'condition' => 'id=' . $userCache->user_id,
-            'select' => array('id', 'online')
-        ));
-    }
+	/**
+	 * Начисление достижений
+	 */
+	public function checkScoresForNewDay()
+	{
+		if ($this->current_day != date("Y-m-d") && date("i") >= 15)
+		{
+			$list = $this->rpl->cmdOnline();
+			echo "Add scores for " . count($list) . " users \n";
 
-    /**
-     * @param int $user_id
-     * @param bool $online
-     */
-    private function SendOnlineNotice($user_id, $online)
-    {
-/*        $friends = User::model()->findAll(User::getUserById($user_id)->getFriendSelectCriteria());
-        //id друзей
-        $friend_ids = array();
-        foreach ($friends as $friend) {
-            $friend_ids [] = $friend->id;
-        }
-        $friend_ids = array_unique($friend_ids);
+			foreach ($list as $user)
+			{
+				$user = $this->getUserByCache($user);
+				if (!empty($user))
+				{
+					Scoring::visit($user->id);
+				}
+			}
 
-        $comet = new CometModel;
-        $comet->type = CometModel::TYPE_ONLINE_STATUS_CHANGE;
+			$this->current_day = date("Y-m-d");
+		}
+	}
 
-        $dialogs = Im::model($user_id)->getDialogs();
-        foreach ($dialogs as $dialog) {
-            if (isset($dialog['users'][0])) {
-                $u_id = $dialog['users'][0];
-                if (in_array($u_id, $friend_ids)){
-                    $comet->attributes = array('dialog_id' => $dialog['id'], 'online' => $online, 'user_type' => 2);
-                    foreach($friend_ids as $key => $friend_id)
-                        if ($friend_id == $u_id)
-                            unset($friend_ids[$key]);
-                }
-                else
-                    $comet->attributes = array('dialog_id' => $dialog['id'], 'online' => $online, 'user_type' => 0);
-                $comet->send($dialog['users'][0]);
-            }
-        }
-        foreach ($friend_ids as $friend_id) {
-            $comet->attributes = array('online' => $online, 'user_type' => 1);
-            $comet->send($friend_id);
-        }*/
-    }
+	public static function checkUserChannel($channel)
+	{
+		return strpos($channel, UserCache::CHANNEL_PREFIX) === 0;
+	}
 
-    /**
-     * @param Dklab_Realplexor $rpl
-     */
-    public function checkScoresForNewDay($rpl)
-    {
-        if ($this->current_day != date("Y-m-d") && date("i") >= 15) {
-            $list = $rpl->cmdOnline();
-            echo "Add scores for " . count($list) . " users \n";
-
-            foreach ($list as $user) {
-                $user = $this->getUserByCache($user);
-                if (empty($user))
-                    continue;
-                Scoring::visit($user->id);
-            }
-
-            $this->current_day = date("Y-m-d");
-        }
-    }
 }
 

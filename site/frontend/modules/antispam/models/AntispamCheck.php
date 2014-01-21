@@ -24,6 +24,7 @@ class AntispamCheck extends HActiveRecord
     const STATUS_BAD = 2;
     const STATUS_PENDING = 3;
     const STATUS_QUESTIONABLE = 4;
+    const STATUS_MASS_REMOVED = 5;
 
     const ENTITY_POSTS = 10;
     const ENTITY_COMMENTS = 11;
@@ -242,9 +243,9 @@ class AntispamCheck extends HActiveRecord
         if ($this->status == $newStatus)
             return false;
 
-        if ($newStatus == self::STATUS_BAD)
+        if (in_array($newStatus, array(self::STATUS_BAD, self::STATUS_MASS_REMOVED)))
             $this->relatedModel->delete();
-        if ($this->status == self::STATUS_BAD)
+        if (in_array($this->status, array(self::STATUS_BAD, self::STATUS_MASS_REMOVED)))
             $this->relatedModel->restore();
 
         $this->status = $newStatus;

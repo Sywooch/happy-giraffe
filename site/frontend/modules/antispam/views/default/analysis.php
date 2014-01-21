@@ -68,6 +68,9 @@
                     'class' => 'HLinkPager',
                 ),
                 'template' => '{items}<div class="yiipagination">{pager}</div>',
+                'viewData' => array(
+                    'analysisMode' => true,
+                ),
             ));
             ?>
         </div>

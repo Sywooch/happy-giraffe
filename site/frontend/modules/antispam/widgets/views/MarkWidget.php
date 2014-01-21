@@ -10,11 +10,19 @@
 <div class="antispam_control" id="<?=$domId?>">
     <!-- ko with: check() -->
         <!-- ko if: ! isMarked() -->
-            <div class="margin-b5 clearfix"><a class="btn-green btn-m" data-bind="click: function() {mark(<?=AntispamCheck::STATUS_GOOD?>)}">
-                    <div class="ico-btn-check"></div>Хорошо</a></div>
-            <div class="margin-b5 clearfix"><a class="btn-red btn-m" href="<?=Yii::app()->controller->createUrl('/antispam/default/analysis', array('userId' => $this->check->user_id, 'entity' => AntispamCheck::getSpamEntity($this->check->entity)))?>">
-                    <div class="ico-btn-empty"></div>Анализ</a></div>
-            <div class="margin-b5 clearfix"><a class="btn-gray-light btn-s" data-bind="click: function() {mark(<?=AntispamCheck::STATUS_QUESTIONABLE?>)}">Под ?</a></div>
+            <div class="margin-b5 clearfix">
+                <a class="btn-green btn-m" data-bind="click: function() {mark(<?=AntispamCheck::STATUS_GOOD?>)}"><div class="ico-btn-check"></div>Хорошо</a>
+            </div>
+            <?php if ($this->analysisMode): ?>
+                <div class="margin-b5 clearfix">
+                    <a class="btn-red btn-m" data-bind="click: function() {mark(<?=AntispamCheck::STATUS_BAD?>)}"><div class="ico-btn-del"></div>Удалить</a>
+                </div>
+            <?php else: ?>
+                <div class="margin-b5 clearfix">
+                    <a class="btn-red btn-m" href="<?=Yii::app()->controller->createUrl('/antispam/default/analysis', array('userId' => $this->check->user_id, 'entity' => AntispamCheck::getSpamEntity($this->check->entity)))?>"><div class="ico-btn-empty"></div>Анализ</a>
+                </div>
+                <div class="margin-b5 clearfix"><a class="btn-gray-light btn-s" data-bind="click: function() {mark(<?=AntispamCheck::STATUS_QUESTIONABLE?>)}">Под ?</a></div>
+            <?php endif; ?>
         <!-- /ko -->
         <!-- ko if: isMarked -->
             <div class="margin-b5 clearfix">

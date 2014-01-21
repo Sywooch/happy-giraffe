@@ -2,6 +2,7 @@
 /**
  * @var HController $this
  * @var AntispamCheck $data
+ * @var bool $analysisMode
  */
 ?>
 
@@ -18,6 +19,6 @@
             <?php $this->renderPartial('_content/photo', array('data' => $data->relatedModel)); ?>
         <?php endif; ?>
     </div>
-    <?php $this->widget('MarkWidget', array('check' => $data)); ?>
+    <?php $this->widget('MarkWidget', array('check' => $data, 'analysisMode' => $analysisMode)); ?>
 </div>
 <!-- /antispam_i-->

@@ -199,26 +199,35 @@ class AntispamCheck extends HActiveRecord
         return $this;
     }
 
-    public function scopes()
+    public function live()
     {
-        return array(
-            'live' => array(
-                'scopes' => array(
-                    'status' => array(self::STATUS_UNDEFINED),
-                    'userStatusIsNot' => array(AntispamStatusManager::STATUS_WHITE),
-                ),
+        $this->getDbCriteria()->mergeWith(array(
+            'scopes' => array(
+                'status' => array(self::STATUS_UNDEFINED),
+                'userStatusIsNot' => array(AntispamStatusManager::STATUS_WHITE),
             ),
-            'deleted' => array(
-                'scopes' => array(
-                    'status' => array(self::STATUS_BAD),
-                ),
+        ));
+        return $this;
+    }
+
+    public function deleted()
+    {
+        $this->getDbCriteria()->mergeWith(array(
+            'scopes' => array(
+                'status' => array(self::STATUS_BAD),
             ),
-            'questionable' => array(
-                'scopes' => array(
-                    'status' => array(self::STATUS_QUESTIONABLE),
-                ),
+        ));
+        return $this;
+    }
+
+    public function questionable()
+    {
+        $this->getDbCriteria()->mergeWith(array(
+            'scopes' => array(
+                'status' => array(self::STATUS_QUESTIONABLE),
             ),
-        );
+        ));
+        return $this;
     }
 
     public static function getDp($criteria)

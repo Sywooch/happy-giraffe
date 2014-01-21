@@ -196,8 +196,8 @@ return array(
             'baseUrl' => '/',
             'js' => array(
                 'javascripts/ko_antispam.js',
-                'depends' => array('knockout'),
             ),
+            'depends' => array('knockout'),
         ),
         'ko_onlineManager' => array(
             'baseUrl' => '/',

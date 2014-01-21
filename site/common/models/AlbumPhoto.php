@@ -153,6 +153,14 @@ class AlbumPhoto extends HActiveRecord
                 'createAttribute' => 'created',
                 'updateAttribute' => 'updated',
             ),
+            'antispam' => array(
+                'class' => 'site.frontend.modules.antispam.behaviors.AntispamBehavior',
+                'interval' => 60 * 60,
+                'maxCount' => 2,
+            ),
+            'softDelete' => array(
+                'class' => 'site.common.behaviors.SoftDeleteBehavior',
+            ),
             //'pingable' => array(
             //    'class' => 'site.common.behaviors.PingableBehavior',
             //),

@@ -368,6 +368,8 @@ class User extends HActiveRecord
             'blogPhoto' => array(self::BELONGS_TO, 'AlbumPhoto', 'blog_photo_id'),
             'specializations' => array(self::MANY_MANY, 'Specialization', 'user__specializations(user_id,specialization_id)'),
             'communityPosts' => array(self::HAS_MANY, 'CommunityContent', 'author_id'),
+
+            'spamStatus' => array(self::HAS_ONE, 'AntispamStatus', 'user_id'),
         );
     }
 

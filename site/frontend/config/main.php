@@ -119,6 +119,7 @@ return array(
         'community',
         'myGiraffe',
         'family',
+        'antispam',
 	),
 	// application components
 	'components'=>array(

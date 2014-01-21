@@ -600,21 +600,21 @@ function Messaging(model) {
 	];
 	
 	self.users[1] = ko.dependentObservable(function() {
-		self.applyFilter();
+		//self.applyFilter();
 		return ko.utils.arrayFilter(self.users[0](), function(user) {
 			return filters[1](user);
 		});
 	});
 	
 	self.users[2] = ko.dependentObservable(function() {
-		self.applyFilter();
+		//self.applyFilter();
 		return ko.utils.arrayFilter(self.users[0](), function(user) {
 			return filters[2](user);
 		});
 	});
 	
 	self.users[3] = ko.dependentObservable(function() {
-		self.applyFilter();
+		//self.applyFilter();
 		return ko.utils.arrayFilter(self.users[0](), function(user) {
 			return filters[3](user);
 		});
@@ -656,8 +656,8 @@ function Messaging(model) {
 			$.get('/messaging/default/getUserInfo/', { id: result.dialog.id }, function(data) {
 				// и добавим в список
 				self.users[0].push(new MessagingUser(self, data));
-				//self.applyFilter()
-			});
+				self.applyFilter();
+			}, 'json');
 		} else {
 			// Нашли его в нашем списке, обновим счётчики
 			user.countNew(user.countNew() + 1);

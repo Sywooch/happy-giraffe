@@ -55,7 +55,7 @@
 .gallery-photos-new {padding:10px 0 20px;margin:0 -10px;}
 .gallery-photos-new.cols-2 {width:480px;}
 .gallery-photos-new.cols-3 {width:720px;}
-.gallery-photos-new.cols-4 {width:960px;margin-left:0px;}
+.gallery-photos-new.cols-4 {width:960px;margin:0 0 0 -20px;}
 .gallery-photos-new ul {list-style:none;}
 .gallery-photos-new ul li  {width:210px;padding:4px;border:1px solid #e3e2e2;color:#4a4b4b;text-decoration:none;float:left;margin:0 10px 20px;background:#fff;}
 .gallery-photos-new ul li:hover {/*css3*/ box-shadow:0 0 4px #ccc;behavior: url(/stylesheets/PIE.htc);}
@@ -75,11 +75,12 @@
 .gallery-photos-new ul li .actions .remove {display:inline-block;*zoom:1;*display:inline;width:10px;height:12px;background:url(../images/common.png) no-repeat -315px -149px !important;position:relative;top:2px;margin-right:5px;}
 .gallery-photos-new ul li .actions .edit {display:inline-block;*zoom:1;*display:inline;width:14px;height:18px;background:url(../images/common.png) no-repeat -341px -136px !important;margin:0 auto;position:relative;text-decoration:none;font-weight:normal;z-index:3;vertical-align:middle;margin-left:10px;top:-2px;margin-right:5px;}
 .gallery-photos-new ul li .count {background:#fff;background:rgba(255, 255, 255, .8);width:100%;padding:3px 0;position:absolute;left:0;bottom:0;text-align:center;}
-.gallery-photos-new ul li .contest-ball {background:#fff;background:rgba(255, 255, 255, .8);width:100%;padding:4px 0 7px;position:relative;left:0;top:0;text-align:right;}
+.gallery-photos-new ul li .contest-ball {background:#fff;background:rgba(255, 255, 255, .8);width:100%;padding:4px 0 9px;position:relative;left:0;top:0;text-align:right;}
 .gallery-photos-new ul li .contest-ball .user-info .details .username {width:110px;}
-.gallery-photos-new ul li .contest-ball .ball {position:absolute;right:0;top:1px;}
-.gallery-photos-new ul li .contest-ball .ball-count {color:#fd5807;font:italic 24px/21px 'Times New Roman', Georgia, Times, serif;float:right;}
-.gallery-photos-new ul li .contest-ball .ball-text {float:right;clear:right;font-size:10px;line-height:10px;color:#737373;}
+.gallery-photos-new ul li:hover .contest-ball .ball {display: block;}
+.gallery-photos-new ul li .contest-ball .ball {display: none;position:absolute;right:0;top:-1px;color: #fff;background: #fb0202;padding: 4px 5px;}
+.gallery-photos-new ul li .contest-ball .ball-count {font: 18px/18px 'Roboto', 'Helvetica Neue', Helvetica, Arial, Tahoma, sans-serif;float:right;}
+.gallery-photos-new ul li .contest-ball .ball-text {float:right;clear:right;font-size:10px;line-height:10px;}
 
 #gallery .gallery-photos ul li.more {color:#b9b9b9;font-size:13px;padding-top:90px;text-align:center;}
 #gallery .gallery-photos ul li.more .icon {display:block;width:56px;height:56px;background:url(../images/common.png) no-repeat -499px -135px;margin:0 auto;margin-bottom:10px;}
@@ -132,24 +133,38 @@
 /* /частично устаревший код */
 
 
-#photo-inline {text-align:center;padding:20px 0;}
-#photo-inline .photo-inline_top {margin: 0 auto;max-width: 835px;}
+#photo-inline {text-align:center;padding:10px 0;}
+#photo-inline .photo-inline_top {margin: 20px auto;max-width: 835px;}
 #photo-inline .meta {margin-top: 0;}
-#photo-inline .meta .album-title {float:left;text-align: left;}
+#photo-inline .meta .album-title {float:left;text-align: left;line-height: 16px;}
 #photo-inline .meta .count {float:right;width:40%;margin: 2px 0 0;font-size:11px;font-family:tahoma, arial, helvetia, sans-serif;text-align: right;}
 #photo-inline .meta .count .count-tx {display: inline-block;*zoom:1;*display:inline;vertical-align: middle;padding-top: 3px;}
 #photo-inline .meta .count .btn-green {margin-left:10px;}
 #photo-inline .title {margin:20px auto;width:600px;}
 #photo-inline .title h1 {font:bold 25px/1 arial, helvetica, sans-serif;color:#000;margin: 0;}
+#photo-inline .img-hold {
+	.inline-block();
+	position: relative;
+	max-width: 100%;
+}
+#photo-inline .img-hold:hover .ico-zoom{display: block;}
+#photo-inline .ico-zoom {display: none;}
 #photo-inline .img {display:inline-block;*zoom:1;*display:inline;max-width: 100%;}
-#photo-inline .user {padding-bottom:5px;}
+#photo-inline .user {padding-bottom:10px;}
 #photo-inline .user .user-info .ava {}
-#photo-inline .user .user-info .details {margin-left:30px;}
+#photo-inline .user .user-info .details {margin-left:50px;}
 #photo-inline .user .user-info .details .username {width: 140px;}
 #photo-inline .photo-comment {margin:20px auto;width:600px;font-size:11px;font-family:tahoma, arial, helvetica, sans-serif;color:#504c4c;line-height:14px;}
 #photo-inline .remove {float: right;margin:5px 5px 0;}
 #photo-inline .remove .icon {display:inline-block;*zoom:1;*display:inline;width:12px;height:14px;background:url(/images/common.png) no-repeat -314px -135px;vertical-align:middle;position:relative;top:-1px;}
 #photo-inline .remove:hover .icon {background-position:-314px -148px;}
+#photo-inline .col-23-middle {float: none;margin: 0 auto;}
+#photo-inline .photo-window_contest-logo {position: relative;bottom:auto; left:auto; float: left;}
+#photo-inline .photo-window-contest-meter {position: relative;bottom:auto; right:auto; float: right;}
+#photo-inline .bordered {margin: 0 0 20px;padding: 10px 10px 17px;}
+#photo-inline .comments-gray {margin: 20px 0 40px;}
+#photo-inline .sharelink-friends {margin: 20px 0;}
+#photo-inline .sharelink-friends_itx {width: 390px;}
 
 .pattern-list {list-style:none;width:330px;}
 .pattern-list li {float:left;margin:0 1px 1px 0;}

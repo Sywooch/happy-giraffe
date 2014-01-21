@@ -22,7 +22,7 @@ function PhotoCollectionViewModel(data) {
     self.properties = data.properties;
     self.collectionClass = data.collectionClass;
     self.collectionOptions = data.collectionOptions;
-    self.userId = data.userId;
+    self.user = data.user === null ? null : new CollectionPhotoUser(data.user);
     self.count = data.count;
     self.photos = ko.utils.arrayMap(data.initialPhotos, function (photo) {
         return new CollectionPhoto(photo, self);
@@ -53,15 +53,11 @@ function PhotoCollectionViewModel(data) {
         if ((self.currentPhotoIndex() != self.photos.length - 1) || self.isFullyLoaded()) {
             self.currentPhotoIndex(self.currentPhotoIndex() != self.photos.length - 1 ? self.currentPhotoIndex() + 1 : 0);
             self.incNaturalIndex(true);
-            self.preloadImages(3, 0);
-            if (!self.isFullyLoaded() && self.currentPhotoIndex() >= self.photos.length - 3)
+            self.preloadImages(5, 0);
+            if (! self.isFullyLoaded() && self.currentPhotoIndex() >= self.photos.length - 3)
                 self.preloadMetaNext();
 
-            History.pushState(self.currentPhoto(), self.currentPhoto().title().length > 0 ? self.currentPhoto().title() : self.properties.title + ' - фото ' + self.currentNaturalIndex(), self.currentPhoto().url());
-            _gaq.push(['_trackPageview', self.currentPhoto().url()]);
-            yaCounter11221648.hit(self.currentPhoto().url());
-            self.setLikesPosition();
-
+            self.photoChanged();
         }
     }
 
@@ -69,29 +65,47 @@ function PhotoCollectionViewModel(data) {
         if ((self.currentPhotoIndex() != 0) || self.isFullyLoaded()) {
             self.currentPhotoIndex(self.currentPhotoIndex() != 0 ? self.currentPhotoIndex() - 1 : self.photos.length - 1);
             self.incNaturalIndex(false);
-            self.preloadImages(0, 3);
-            if (!self.isFullyLoaded() && self.currentPhotoIndex() <= 2)
+            self.preloadImages(0, 5);
+            if (! self.isFullyLoaded() && self.currentPhotoIndex() <= 2)
                 self.preloadMetaPrev();
 
-            History.pushState(self.currentPhoto(), self.currentPhoto().title().length > 0 ? self.currentPhoto().title() : self.properties.title + ' - фото ' + self.currentNaturalIndex(), self.currentPhoto().url());
-            _gaq.push(['_trackPageview', self.currentPhoto().url()]);
-            yaCounter11221648.hit(self.currentPhoto().url());
-            self.setLikesPosition();
+            self.photoChanged();
         }
+    }
+
+    self.photoChanged = function() {
+        History.pushState(self.currentPhoto(), self.currentPhoto().title().length > 0 ? self.currentPhoto().title() : self.properties.title + ' - фото ' + self.currentNaturalIndex(), self.currentPhoto().url());
+        _gaq.push(['_trackPageview', self.currentPhoto().url()]);
+        yaCounter11221648.hit(self.currentPhoto().url());
+        self.setLikesPosition();
+        $('#photo-window_banner iframe').attr('src', '/rtb3.html?' + Math.floor(Math.random() * 9999999999) + 1000000000);
+        if (self.collectionClass == 'ContestPhotoCollection')
+            self.loadContestData();
+    }
+
+    self.setLikesPosition = function() {
+        var likeBottom = ($('.photo-window_img-hold').height() - $('.photo-window_img').height()) / 2 + 30;
+        $('.photo-window .like-control').css({'bottom' : likeBottom});
+    }
+
+    self.photoWindColH = function() {
+        var colCont = $(".photo-window_cont");
+        var bannerH = document.getElementById('photo-window_banner').offsetHeight;
+        colCont.height($(window).height() - bannerH - 24);
+    }
+
+    self.loadContestData = function() {
+        $.get('/gallery/default/contestData/', { contestId : self.collectionOptions.contestId, photoId : self.currentPhoto().id }, function(response) {
+            $('.contestData').html(response);
+        });
     }
 
     self.preloadImages = function (nextCount, prevCount) {
         var next = roundSlice(self.photos, self.currentPhotoIndex() + 1, nextCount);
         var prev = roundSlice(self.photos, self.currentPhotoIndex() - 1, -prevCount);
-        self.preload(ko.utils.arrayMap(next.concat(prev), function(photo) {
+        $.preload(ko.utils.arrayMap(next.concat(prev), function(photo) {
             return photo.src;
-        }));
-    }
-
-    self.preload = function (arrayOfImages) {
-        $(arrayOfImages).each(function () {
-            $('<img/>')[0].src = this;
-        });
+        }), 1);
     }
 
     self.preloadMetaNext = function () {
@@ -129,20 +143,18 @@ function PhotoCollectionViewModel(data) {
     }
 
     self.addComment = function() {
-        $.post('/ajaxSimple/addComment/', { entity_id : self.currentPhoto().id, entity: 'AlbumPhoto', text: self.commentText() }, function(response) {
-            if (response.status) {
-                self.commentText('');
-                self.currentPhoto().commentsCount(self.currentPhoto().commentsCount() + 1);
-                $('.comments-gray_sent').fadeIn(300, function() {
-                    $(this).delay(2000).fadeOut(1000);
-                });
-            }
-        }, 'json');
-    }
-
-    self.setLikesPosition = function() {
-        var likeBottom = ($('.photo-window_img-hold').height() - $('.photo-window_img').height()) / 2 + 30;
-        $('.photo-window .like-control').css({'bottom' : likeBottom});
+        if (self.user !== null)
+            $.post('/ajaxSimple/addComment/', { entity_id : self.currentPhoto().id, entity: 'AlbumPhoto', text: self.commentText() }, function(response) {
+                if (response.status) {
+                    self.commentText('');
+                    self.currentPhoto().commentsCount(self.currentPhoto().commentsCount() + 1);
+                    $('.comments-gray_sent').fadeIn(300, function() {
+                        $(this).delay(2000).fadeOut(1000);
+                    });
+                }
+            }, 'json');
+        else
+            $('[href="#login"]').trigger('click');
     }
 
     self.currentPhotoIndex.valueHasMutated();
@@ -152,7 +164,22 @@ function PhotoCollectionViewModel(data) {
     self.preloadImages(2, 2);
     setTimeout(function() {
         self.setLikesPosition();
-    }, 100);
+        self.photoWindColH();
+        $('#photo-window .scroll').baron({
+            scroller: '.scroll_scroller',
+            barOnCls: 'scroll__on',
+            container: '.scroll_cont',
+            track: '.scroll_bar-hold',
+            bar: '.scroll_bar'
+        });
+    }, 200);
+    if (self.collectionClass == 'ContestPhotoCollection')
+        self.loadContestData();
+
+    $(window).resize(function () {
+        self.setLikesPosition();
+        self.photoWindColH();
+    });
 }
 
 function CollectionPhoto(data, parent) {
@@ -217,7 +244,7 @@ function CollectionPhoto(data, parent) {
         }, 'json');
     }
 
-    self.isEditable = parent.collectionClass == 'PhotoPostPhotoCollection' && self.user.id == parent.userId;
+    self.isEditable = parent.collectionClass == 'PhotoPostPhotoCollection' && parent.user !== null && self.user.id == parent.user.id;
 
     self.titleBeingEdited = ko.observable(data.title.length == 0);
     self.titleValue = ko.observable(data.title);

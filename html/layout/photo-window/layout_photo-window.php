@@ -36,22 +36,6 @@ $(document).ready(function () {
     bar: '.scroll_bar'
   });
 
-	/* Сворачивается блок с рекламой, подгружаются оосбщения, обновляется позиция скролла */
-	$('#comments-show').click(function(){
-		var banner = $('#photo-window_banner');
-		console.log(banner.css('display'));
-		if(banner.css('display') == 'block') {
-			colH = $(".photo-window_cont").height() + banner.height();
-		} else {
-			colH = $(".photo-window_cont").height() - banner.height();
-		}
-		$(".photo-window_cont").height(colH);
-		banner.toggle(0);
-		photoWindColH();
-		scroll.update();
-
-		return false;
-	})
 
 });
 $(window).resize(function () {
@@ -84,7 +68,6 @@ $(window).resize(function () {
 
 	<div class="photo-window_top">
 		<div class="photo-window_count">25 из 52</div>
-		<div class="photo-window_about"><a href="">Места моих путешествий моих путешествий моих путешествий моих путешествий моих путешествий моих путешествий моих путешествий моих путешествий</a> </div>
 
 	</div>
 	<!-- Обрабатывать клик на .photo-window_c для листания следующего изображения -->
@@ -100,7 +83,7 @@ $(window).resize(function () {
             <a href="" class="like-control_ico like-control_ico__like">865</a>
             <div class="position-rel float-l">
 				<a class="favorites-control_a" href="">12365</a>
-				<!-- <div class="favorites-add-popup favorites-add-popup__right">
+				<div class="favorites-add-popup favorites-add-popup__right">
 					<div class="favorites-add-popup_t">Добавить запись в избранное</div>
 					<div class="favorites-add-popup_i clearfix">
 						<img src="/images/example/w60-h40.jpg" alt="" class="favorites-add-popup_i-img">
@@ -134,7 +117,7 @@ $(window).resize(function () {
 						<a href="" class="btn-gray-light">Отменить</a>
 						<a href="" class="btn-green">Добавить</a>
 					</div>
-				</div> -->
+				</div>
 			</div>
         </div>
 	</div>
@@ -167,6 +150,7 @@ $(window).resize(function () {
 
 					
 				</div>
+				<div class="photo-window_about"> Фотопост <a href="">Места моих путешествий</a> </div>
 				<div class="photo-window_t">
 					<input type="text" name="" id="" class="itx-gray" placeholder="Введите название фото и нажмите Enter">
 					<!-- Детский лагерь «Зеркальный». Ленинградская область. Ghfg Ленинградская <a class="ico-edit powertip" href=""></a> -->
@@ -175,7 +159,6 @@ $(window).resize(function () {
 				<div class="photo-window_desc-hold ">
 					<div class="photo-window_desc clearfix">
 						<p>В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, спокойные игры  В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, эстафеты, соревнования В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, эстафеты и спокойные игры.  <a class="ico-edit powertip" href=""></a></p>
-						<!-- <span class="photo-window_desc-more"> <a href="javascript:void(0)" >Кратко</a></span> -->
 					</div>
 
 				</div>

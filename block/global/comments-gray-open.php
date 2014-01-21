@@ -4,6 +4,7 @@
 	<!-- 1. добавляется класс .active на .comments-gray_add -->
 	<!-- 2. скрывается/удаляется .comments-gray_add-itx -->
 	<!-- 3. Инициализируется визвиг -->
+	<!-- Верхняя форма отличается только классом .comments-gray_add__top -->
 	<div class="comments-gray_add comments-gray_add__top clearfix">
 		
 		<div class="comments-gray_ava">

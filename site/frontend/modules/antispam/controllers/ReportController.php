@@ -7,7 +7,7 @@
  * To change this template use File | Settings | File Templates.
  */
 
-class ReportController extends HController
+class ReportController extends AntispamController
 {
     public function actionMark()
     {

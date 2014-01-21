@@ -7,7 +7,7 @@
  * To change this template use File | Settings | File Templates.
  */
 
-class CheckController extends HController
+class CheckController extends AntispamController
 {
     /**
      * Все хорошо

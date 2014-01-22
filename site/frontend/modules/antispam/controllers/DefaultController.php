@@ -87,10 +87,10 @@ class DefaultController extends AntispamController
     public function actionAnalysis($userId, $entity = AntispamCheck::ENTITY_POSTS)
     {
         $counts = array(
-            AntispamCheck::ENTITY_POSTS => AntispamCheck::model()->count(array('entity' => AntispamCheck::ENTITY_POSTS, 'user' => $userId)),
-            AntispamCheck::ENTITY_COMMENTS => AntispamCheck::model()->count(array('entity' => AntispamCheck::ENTITY_COMMENTS, 'user' => $userId)),
-            AntispamCheck::ENTITY_PHOTOS => AntispamCheck::model()->count(array('entity' => AntispamCheck::ENTITY_PHOTOS, 'user' => $userId)),
-            AntispamCheck::ENTITY_MESSAGES => AntispamCheck::model()->count(array('entity' => AntispamCheck::ENTITY_MESSAGES, 'user' => $userId)),
+            AntispamCheck::ENTITY_POSTS => AntispamCheck::model()->count(array('scopes' => array('entity' => AntispamCheck::ENTITY_POSTS, 'user' => $userId))),
+            AntispamCheck::ENTITY_COMMENTS => AntispamCheck::model()->count(array('scopes' => array('entity' => AntispamCheck::ENTITY_COMMENTS, 'user' => $userId))),
+            AntispamCheck::ENTITY_PHOTOS => AntispamCheck::model()->count(array('scopes' => array('entity' => AntispamCheck::ENTITY_PHOTOS, 'user' => $userId))),
+            AntispamCheck::ENTITY_MESSAGES => AntispamCheck::model()->count(array('scopes' => array('entity' => AntispamCheck::ENTITY_MESSAGES, 'user' => $userId))),
         );
         $user = User::model()->with('spamStatus')->findByPk($userId);
         $dp = AntispamCheck::getDp(array(

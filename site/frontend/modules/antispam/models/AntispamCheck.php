@@ -233,6 +233,9 @@ class AntispamCheck extends HActiveRecord
 
     public static function getDp($criteria)
     {
+        $criteria = new CDbCriteria($criteria);
+        $criteria->order = 't.id DESC';
+
         return new CActiveDataProvider(__CLASS__, array(
             'criteria' => $criteria,
         ));

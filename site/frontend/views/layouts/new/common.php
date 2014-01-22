@@ -113,5 +113,10 @@ if (! Yii::app()->user->isGuest)
     <img src="//www.tns-counter.ru/V13a****happygiraffe_ru/ru/UTF-8/tmsec=happygiraffe_total/" width="0" height="0" alt="" />
 </noscript>
 <!--/ tns-counter.ru -->
+
+<script type="text/javascript">
+    var userIsGuest = <?=CJavaScript::encode(Yii::app()->user->isGuest)?>;
+    var CURRENT_USER_ID = <?=CJavaScript::encode(Yii::app()->user->id)?>;
+</script>
 </body>
 </html>

@@ -18,6 +18,9 @@
         <?php if ($data->entity == 'AlbumPhoto'): ?>
             <?php $this->renderPartial('_content/photo', array('data' => $data->relatedModel)); ?>
         <?php endif; ?>
+        <?php if ($data->entity == 'MessagingMessage'): ?>
+            <?=$data->relatedModel->text?>
+        <?php endif; ?>
     </div>
     <?php $this->widget('MarkWidget', array('check' => $data, 'analysisMode' => $analysisMode)); ?>
 </div>

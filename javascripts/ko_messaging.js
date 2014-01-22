@@ -582,7 +582,7 @@ function Messaging(model) {
 	
 	var filters = [
 		function(user) {
-			return ! user.blackListed();
+			return user.blackListed();
 		},
 		function(user) {
 			return user.countNew() > 0;

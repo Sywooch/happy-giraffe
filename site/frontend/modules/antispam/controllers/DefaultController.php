@@ -88,7 +88,7 @@ class DefaultController extends AntispamController
             AntispamCheck::ENTITY_MESSAGES => AntispamCheck::model()->entity(AntispamCheck::ENTITY_MESSAGES)->user($userId)->count(),
         );
         $user = User::model()->with('spamStatus')->findByPk($userId);
-        $dp = AntispamCheck::getDp(AntispamCheck::model()->entity($entity)->user($userId));
+        $dp = AntispamCheck::getDp(AntispamCheck::model()->user($userId)->entity($entity));
         $this->render('analysis', compact('user', 'dp', 'counts', 'entity'));
     }
 }

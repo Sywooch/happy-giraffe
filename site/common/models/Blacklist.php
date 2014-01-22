@@ -97,30 +97,28 @@ class Blacklist extends HActiveRecord
         $model = new Blacklist();
         $model->user_id = $userId;
         $model->blocked_user_id = $blockedUserId;
-        return $model->save();
+        $success = $model->save();
+
+        if ($success) {
+            $comet = new CometModel();
+            $comet->send($model->user_id, array('user' => array('id' => $model->blocked_user_id)), CometModel::BLACKLIST_ADDED);
+        }
+
+        return $success;
     }
 
     public static function removeFromBlackList($userId, $blockedUserId)
     {
-        return self::model()->deleteAllByAttributes(array(
+        $success = self::model()->deleteAllByAttributes(array(
             'user_id' => $userId,
             'blocked_user_id' => $blockedUserId,
         )) > 0;
-    }
 
-    protected function afterSave()
-    {
-        if ($this->isNewRecord) {
+        if ($success) {
             $comet = new CometModel();
-            $comet->send($this->user_id, array('user' => array('id' => $this->blocked_user_id)), CometModel::BLACKLIST_ADDED);
+            $comet->send($userId, array('user' => array('id' => $blockedUserId)), CometModel::BLACKLIST_REMOVED);
         }
-        parent::afterSave();
-    }
 
-    protected function afterDelete()
-    {
-        $comet = new CometModel();
-        $comet->send($this->user_id, array('user' => array('id' => $this->blocked_user_id)), CometModel::BLACKLIST_REMOVED);
-        parent::afterDelete();
+        return $success;
     }
 }

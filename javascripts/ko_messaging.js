@@ -101,6 +101,10 @@ MessagingUser.prototype = {
 
 function MessagingUser(viewModel, model) {
 	var self = this;
+    self.FRIENDS_STATE_FRIENDS = 0;
+    self.FRIENDS_STATE_OUTGOING = 1;
+    self.FRIENDS_STATE_INCOMING = 2;
+    self.FRIENDS_STATE_NOTHING = 3;
 	self.viewModel = viewModel;
 	// Атрибуты модели пользователя
 	self.id = model.id;
@@ -137,13 +141,45 @@ function MessagingUser(viewModel, model) {
 	self.countNew = ko.observable(model.count);
 	// Дата последнего сообщения в диалоге
 	self.date = ko.observable(model.date);
+    // Черный список
     self.blackListed = ko.observable(false);
+    // Друзья
+    self.hasOutgoingRequest = ko.observable(model.hasOutgoingRequest);
+    self.hasIncomingRequest = ko.observable(model.hasIncomingRequest);
+
+    self.friendsState = ko.computed(function() {
+        if (self.isFriend())
+            return self.FRIENDS_STATE_FRIENDS;
+        if (self.hasIncomingRequest())
+            return self.FRIENDS_STATE_INCOMING;
+        if (self.hasOutgoingRequest())
+            return self.FRIENDS_STATE_OUTGOING;
+        return self.FRIENDS_STATE_NOTHING;
+    })
 
     self.blackListHandler = function() {
         if (! self.blackListed())
             $.post('/ajax/blackList/', { userId : self.id });
         else
             $.post('/ajax/unBlackList/', { userId : self.id });
+    }
+
+    self.friendsHandler = function() {
+        switch(self.friendsStatus()) {
+            case self.FRIENDS_STATE_INCOMING:
+                $.post('/friends/requests/accept/', { fromId : self.id }, function(response) {
+                    if (response.success)
+                        self.isFriend(true);
+                }, 'json');
+                break;
+            case self.FRIENDS_STATE_NOTHING:
+                $.post('/friendRequests/send/', { to_id : self.id }, function(response) {
+                    if (response.status) {
+                        self.hasOutgoingRequest(true);
+                    }
+                }, 'json');
+                break;
+        }
     }
 
 	self.open = function() {

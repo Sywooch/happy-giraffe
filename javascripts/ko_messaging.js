@@ -577,7 +577,7 @@ function Messaging(model) {
 	
 	var filters = [
 		function(user) {
-			return user.blackListed();
+			return ! user.blackListed();
 		},
 		function(user) {
 			return user.countNew() > 0;
@@ -621,7 +621,9 @@ function Messaging(model) {
 	
 	self.users[1] = ko.dependentObservable(function() {
         // применим фильтр
-        self.users[0](filters[0](self.users()));
+        self.users[0](ko.utils.arrayFilter(self.users[0](), function(user) {
+            return filters[0](user);
+        }));
 
         //self.applyFilter();
 		return ko.utils.arrayFilter(self.users[0](), function(user) {

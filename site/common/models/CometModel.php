@@ -56,6 +56,8 @@ class CometModel extends CComponent
     const MESSAGING_COUNT_CONTACT = 2083;
 
     const SETTING_UPDATED = 3000;
+    const BLACKLIST_ADDED = 3001;
+    const BLACKLIST_REMOVED = 3002;
 
     public $attributes = array();
     public $type;

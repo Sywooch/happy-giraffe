@@ -91,4 +91,36 @@ class Blacklist extends HActiveRecord
             ':blocked_user_id' => $blockedUserId,
         ));
     }
+
+    public static function addToBlackList($userId, $blockedUserId)
+    {
+        $model = new Blacklist();
+        $model->user_id = $userId;
+        $model->blocked_user_id = $blockedUserId;
+        return $model->save();
+    }
+
+    public static function removeFromBlackList($userId, $blockedUserId)
+    {
+        return self::model()->deleteAllByAttributes(array(
+            'user_id' => $userId,
+            'blocked_user_id' => $blockedUserId,
+        )) > 0;
+    }
+
+    protected function afterSave()
+    {
+        if ($this->isNewRecord) {
+            $comet = new CometModel();
+            $comet->send($this->user_id, array('blockedId' => $this->blocked_user_id), CometModel::BLACKLIST_ADDED);
+        }
+        parent::afterSave();
+    }
+
+    protected function afterDelete()
+    {
+        $comet = new CometModel();
+        $comet->send($this->user_id, array('blockedId' => $this->blocked_user_id), CometModel::BLACKLIST_REMOVED);
+        parent::afterDelete();
+    }
 }

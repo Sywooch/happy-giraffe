@@ -669,7 +669,7 @@ function Messaging(model) {
 	comet.addEvent(2020, 'messagingNewMessage');
 
     Comet.prototype.settingChanged = function(result, id) {
-        var observable = self.settings[result.key.replace('messaging__', '')];
+        var observable = self.settings[result.key];
         observable(result.value);
     }
     comet.addEvent(3000, 'settingChanged');
@@ -721,7 +721,7 @@ function MessagingSettings(data)
     $.each(data, function(key, item) {
         self[key] = ko.observable(item);
         self[key].subscribe(function(a) {
-            $.post('/ajax/setUserAttribute/', { key : 'messaging__' + key, value : a ? 1 : 0 });
+            $.post('/ajax/setUserAttribute/', { key : key, value : a ? 1 : 0 });
         });
     });
 

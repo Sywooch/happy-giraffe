@@ -16,9 +16,9 @@ class DefaultController extends AntispamController
     public function init()
     {
         $this->counts = array(
-            self::TAB_CHECKS_LIVE => AntispamCheck::model()->count(array('scopes' => 'live')),
-            self::TAB_CHECKS_BAD => AntispamCheck::model()->deleted()->count(array('scopes' => 'deleted')),
-            self::TAB_CHECKS_QUESTIONABLE => AntispamCheck::model()->questionable()->count(array('scopes' => 'questionable')),
+            self::TAB_CHECKS_LIVE => AntispamCheck::model()->live()->count(),
+            self::TAB_CHECKS_BAD => AntispamCheck::model()->deleted()->count(),
+            self::TAB_CHECKS_QUESTIONABLE => AntispamCheck::model()->questionable()->count(),
             self::TAB_EXPERT => AntispamReport::model()->status(AntispamReport::STATUS_PENDING)->count(),
             self::TAB_USERS_WHITE => AntispamStatus::model()->status(AntispamStatusManager::STATUS_WHITE)->count(),
             self::TAB_USERS_BLACK => AntispamStatus::model()->status(AntispamStatusManager::STATUS_BLACK)->count(),
@@ -44,16 +44,11 @@ class DefaultController extends AntispamController
     protected function checks($scope, $entity)
     {
         $counts = array(
-            AntispamCheck::ENTITY_POSTS => AntispamCheck::model()->count(array('scopes' => array('entity' => AntispamCheck::ENTITY_POSTS, $scope))),
-            AntispamCheck::ENTITY_COMMENTS => AntispamCheck::model()->count(array('scopes' => array('entity' => AntispamCheck::ENTITY_COMMENTS, $scope))),
-            AntispamCheck::ENTITY_PHOTOS => AntispamCheck::model()->count(array('scopes' => array('entity' => AntispamCheck::ENTITY_PHOTOS, $scope))),
+            AntispamCheck::ENTITY_POSTS => AntispamCheck::model()->$scope()->entity(AntispamCheck::ENTITY_POSTS)->count(),
+            AntispamCheck::ENTITY_COMMENTS => AntispamCheck::model()->$scope()->entity(AntispamCheck::ENTITY_COMMENTS)->count(),
+            AntispamCheck::ENTITY_PHOTOS => AntispamCheck::model()->$scope()->entity(AntispamCheck::ENTITY_PHOTOS)->count(),
         );
-        $dp = AntispamCheck::getDp(array(
-            'scopes' => array(
-                'entity' => $entity,
-                $scope,
-            ),
-        ));
+        $dp = AntispamCheck::getDp(AntispamCheck::model()->$scope()->entity($entity));
         $this->render('list', compact('dp', 'status', 'counts'));
     }
 
@@ -87,18 +82,13 @@ class DefaultController extends AntispamController
     public function actionAnalysis($userId, $entity = AntispamCheck::ENTITY_POSTS)
     {
         $counts = array(
-            AntispamCheck::ENTITY_POSTS => AntispamCheck::model()->count(array('scopes' => array('entity' => AntispamCheck::ENTITY_POSTS, 'user' => $userId))),
-            AntispamCheck::ENTITY_COMMENTS => AntispamCheck::model()->count(array('scopes' => array('entity' => AntispamCheck::ENTITY_COMMENTS, 'user' => $userId))),
-            AntispamCheck::ENTITY_PHOTOS => AntispamCheck::model()->count(array('scopes' => array('entity' => AntispamCheck::ENTITY_PHOTOS, 'user' => $userId))),
-            AntispamCheck::ENTITY_MESSAGES => AntispamCheck::model()->count(array('scopes' => array('entity' => AntispamCheck::ENTITY_MESSAGES, 'user' => $userId))),
+            AntispamCheck::ENTITY_POSTS => AntispamCheck::model()->entity(AntispamCheck::ENTITY_POSTS)->user($userId)->count(),
+            AntispamCheck::ENTITY_COMMENTS => AntispamCheck::model()->entity(AntispamCheck::ENTITY_COMMENTS)->user($userId)->count(),
+            AntispamCheck::ENTITY_PHOTOS => AntispamCheck::model()->entity(AntispamCheck::ENTITY_PHOTOS)->user($userId)->count(),
+            AntispamCheck::ENTITY_MESSAGES => AntispamCheck::model()->entity(AntispamCheck::ENTITY_MESSAGES)->user($userId)->count(),
         );
         $user = User::model()->with('spamStatus')->findByPk($userId);
-        $dp = AntispamCheck::getDp(array(
-            'scopes' => array(
-                'user' => $userId,
-                'entity' => $entity,
-            ),
-        ));
+        $dp = AntispamCheck::getDp(AntispamCheck::model()->entity($entity)->user($userId));
         $this->render('analysis', compact('user', 'dp', 'counts', 'entity'));
     }
 }

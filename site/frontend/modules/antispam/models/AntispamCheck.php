@@ -202,42 +202,25 @@ class AntispamCheck extends HActiveRecord
 
     public function live()
     {
-        $this->getDbCriteria()->mergeWith(array(
-            'scopes' => array(
-                'status' => array(self::STATUS_UNDEFINED),
-                'userStatusIsNot' => array(AntispamStatusManager::STATUS_WHITE),
-            ),
-        ));
-        return $this;
+        return $this->status(self::STATUS_UNDEFINED)->userStatusIsNot(AntispamStatusManager::STATUS_WHITE);
     }
 
     public function deleted()
     {
-        $this->getDbCriteria()->mergeWith(array(
-            'scopes' => array(
-                'status' => array(self::STATUS_BAD),
-            ),
-        ));
-        return $this;
+        return $this->status(self::STATUS_BAD);
     }
 
     public function questionable()
     {
-        $this->getDbCriteria()->mergeWith(array(
-            'scopes' => array(
-                'status' => array(self::STATUS_QUESTIONABLE),
-            ),
-        ));
-        return $this;
+        return $this->status(self::STATUS_QUESTIONABLE);
     }
 
-    public static function getDp($criteria)
+    public static function getDp($model)
     {
-        $criteria = new CDbCriteria($criteria);
-        $criteria->order = 't.id DESC';
-
-        return new CActiveDataProvider(__CLASS__, array(
-            'criteria' => $criteria,
+        return new CActiveDataProvider($model, array(
+            'criteria' => array(
+                'order' => 't.id DESC',
+            ),
         ));
     }
 

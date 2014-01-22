@@ -145,7 +145,9 @@ class ContactsManager
                       p.fs_name, # Аватар
                       UNIX_TIMESTAMP(t.updated) AS updated, # Дата последнего обновления диалога
                       COUNT(mu.message_id) AS unreadCount, # Количество непрочитанных сообщений
-                      f.id IS NOT NULL AS isFriend # Является ли другом
+                      f.id IS NOT NULL AS isFriend, # Является ли другом
+                      fr1.id IS NOT NULL AS hasOutgoingRequest, # Имеет ли исходящий запрос в друзья
+                      fr2.id IS NOT NULL AS hasIncomingRequest # Имеет ли входящий запрос в друзья
                     FROM messaging__threads_users tu
                     # Получение id собеседника
                     INNER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id != tu.user_id
@@ -162,6 +164,10 @@ class ContactsManager
                     LEFT OUTER JOIN friends f ON f.user_id = tu.user_id AND f.friend_id = u.id
                     # Находится ли в черном списке
                     LEFT OUTER JOIN blacklist b ON b.user_id = tu.user_id AND b.blocked_user_id = u.id
+                    # Имеет исходящий запрос в друзья
+                    LEFT OUTER JOIN friend_requests fr1 ON fr1.from_id = tu.user_id AND fr1.to_id = u.id
+                    # Имеет входящий запрос в друзья
+                    LEFT OUTER JOIN friend_requests fr2 ON fr2.from_id = u.id AND fr2.to_id = tu.user_id
                     WHERE tu.user_id = :user_id AND b.user_id IS NULL
                     GROUP BY u.id
                     ORDER BY t.updated DESC
@@ -376,6 +382,8 @@ class ContactsManager
 			'isFriend' => (bool) $row['isFriend'],
 			'date' => (int) $row['updated'],
 			'count' => (int) $row['unreadCount'],
+            'hasIncomingRequest' => (bool) $row['hasIncomingRequest'],
+            'hasOutgoingRequest' => (bool) $row['hasOutgoingRequest'],
         );
     }
 }

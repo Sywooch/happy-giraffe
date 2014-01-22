@@ -112,7 +112,7 @@ class Blacklist extends HActiveRecord
     {
         if ($this->isNewRecord) {
             $comet = new CometModel();
-            $comet->send($this->user_id, array('blockedId' => $this->blocked_user_id), CometModel::BLACKLIST_ADDED);
+            $comet->send($this->user_id, array('user' => array('id' => $this->blocked_user_id)), CometModel::BLACKLIST_ADDED);
         }
         parent::afterSave();
     }
@@ -120,7 +120,7 @@ class Blacklist extends HActiveRecord
     protected function afterDelete()
     {
         $comet = new CometModel();
-        $comet->send($this->user_id, array('blockedId' => $this->blocked_user_id), CometModel::BLACKLIST_REMOVED);
+        $comet->send($this->user_id, array('user' => array('id' => $this->blocked_user_id)), CometModel::BLACKLIST_REMOVED);
         parent::afterDelete();
     }
 }

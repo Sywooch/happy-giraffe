@@ -46,10 +46,10 @@ class DialogForm extends CComponent
 		$this->me = self::userToJson(Yii::app()->user->model);
 
 		$this->settings = array(
-			'messaging__enter' => (bool) UserAttributes::get(Yii::app()->user->id, 'messaging__enter', false),
-			'messaging__sound' => (bool) UserAttributes::get(Yii::app()->user->id, 'messaging__sound', true),
-			'messaging__interlocutorExpanded' => (bool) UserAttributes::get(Yii::app()->user->id, 'messaging__interlocutorExpanded', true),
-			'messaging__blackList' => (bool) UserAttributes::get(Yii::app()->user->id, 'messaging__blackList', false),
+			'enter' => (bool) UserAttributes::get(Yii::app()->user->id, 'messaging__enter', false),
+			'sound' => (bool) UserAttributes::get(Yii::app()->user->id, 'messaging__sound', true),
+			'interlocutorExpanded' => (bool) UserAttributes::get(Yii::app()->user->id, 'messaging__interlocutorExpanded', true),
+			'blackList' => (bool) UserAttributes::get(Yii::app()->user->id, 'messaging__blackList', false),
 		);
 
 	}

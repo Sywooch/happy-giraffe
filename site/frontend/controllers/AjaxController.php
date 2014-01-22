@@ -708,6 +708,10 @@ class AjaxController extends HController
 
         $success = UserAttributes::set(Yii::app()->user->id, $key, $value);
         $response = compact('success');
+
+        $comet = new CometModel();
+        $comet->send(Yii::app()->user->id, array('key' => $key, 'value' => $value), CometModel::SETTING_UPDATED);
+
         echo CJSON::encode($response);
     }
 

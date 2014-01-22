@@ -88,7 +88,7 @@
                         </div>
                     </div>
                     <!-- /side-menu-->
-                    <div class="im-sidebar_sound"><a href="" class="im-sidebar_sound-ico"></a></div>
+                    <div class="im-sidebar_sound"><a class="im-sidebar_sound-ico" data-bind="click: function() {settings.toggle('sound')}, css: { parampampam : ! settings.sound() }"></a></div>
                 </div>
                 <div class="im-sidebar_users">
                     <div class="im-sidebar_search clearfix">
@@ -319,6 +319,12 @@
 </div>
 <script type="text/javascript">
 	$(function() {
-		ko.applyBindings(new Messaging(<?=$data?>), document.getElementById(<?=$this->id?>_messaging_module));
+        messaging = new Messaging(<?=$data?>);
+		ko.applyBindings(messaging, document.getElementById(<?=$this->id?>_messaging_module));
 	});
 </script>
+<style>
+    .parampampam {
+        background-color: #ccc;
+    }
+</style>

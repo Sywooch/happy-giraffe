@@ -55,6 +55,8 @@ class CometModel extends CComponent
     const MESSAGING_UPDATE_COUNTERS = 2080;
     const MESSAGING_COUNT_CONTACT = 2083;
 
+    const SETTING_UPDATED = 3000;
+
     public $attributes = array();
     public $type;
 

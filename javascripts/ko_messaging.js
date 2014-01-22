@@ -554,7 +554,7 @@ function Messaging(model) {
 	self.countTotal = ko.observable(model.counters.total);
 	self.loadindContacts = ko.observable(false);
 	self.currentFilter = ko.observable(0);
-    self.settings = model.settings;
+    self.settings = new MessagingSettings(model.settings);
 	
 	var filters = [
 		function(user) {
@@ -668,6 +668,12 @@ function Messaging(model) {
 	};
 	comet.addEvent(2020, 'messagingNewMessage');
 
+    Comet.prototype.settingChanged = function(result, id) {
+        var observable = self.settings[result.key];
+        observable(result.value);
+    }
+    comet.addEvent(3000, 'settingChanged');
+
 // сейчас сам должен переместиться.
 /*	// Онлайн/оффлайн пользователя
 	Comet.prototype.messagingOnline = function(result, id) {
@@ -706,4 +712,21 @@ function Messaging(model) {
 			user.open();
 		}
 	}
+}
+
+function MessagingSettings(data)
+{
+    var self = this;
+
+    $.each(data, function(key, item) {
+        self[key] = ko.observable(item);
+        self[key].subscribe(function(a) {
+            $.post('/ajax/setUserAttribute/', { key : 'messaging__' + key, value : a ? 1 : 0 });
+        });
+    });
+
+    self.toggle = function(key) {
+        var observable = self[key];
+        observable(! observable());
+    }
 }

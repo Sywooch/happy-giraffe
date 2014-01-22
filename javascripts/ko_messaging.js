@@ -69,6 +69,22 @@ MessagingUser.prototype = {
 				});
 			};
 			comet.addEvent(2010, 'messagingUserTyping');
+            Comet.prototype.blacklistAdded = function(result, id) {
+                ko.utils.arrayForEach(self.objects, function(obj) {
+                    if (obj.id == result.user.id) {
+                        obj.blackListed(true);
+                    }
+                });
+            };
+            comet.addEvent(3001, 'blacklistAdded');
+            Comet.prototype.blacklistRemoved = function(result, id) {
+                ko.utils.arrayForEach(self.objects, function(obj) {
+                    if (obj.id == result.user.id) {
+                        obj.blackListed(false);
+                    }
+                });
+            };
+            comet.addEvent(3002, 'blacklistRemoved');
 		}
 	},
 	// Применить фильтр к контактам
@@ -121,6 +137,14 @@ function MessagingUser(viewModel, model) {
 	self.countNew = ko.observable(model.count);
 	// Дата последнего сообщения в диалоге
 	self.date = ko.observable(model.date);
+    self.blackListed = ko.observable(false);
+
+    self.blackListHandler = function() {
+        if (! self.blackListed())
+            $.post('/ajax/blackList/', { userId : self.id });
+        else
+            $.post('/ajax/unBlackList/', { userId : self.id });
+    }
 
 	self.open = function() {
 		MessagingThread.prototype.open(self);
@@ -553,7 +577,7 @@ function Messaging(model) {
 	
 	var filters = [
 		function(user) {
-			return true;
+			return ! user.blackListed();
 		},
 		function(user) {
 			return user.countNew() > 0;

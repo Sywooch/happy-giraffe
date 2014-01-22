@@ -664,7 +664,8 @@ function Messaging(model) {
 			if(result.message.to_id == self.me.id) {
 				user.countNew(user.countNew() + 1);
 				self.countTotal(self.countTotal() + 1);
-				soundManager.play('s');
+                if (self.settings.messaging__sound())
+				    soundManager.play('s');
 				//self.applyFilter()
 			}
 		}

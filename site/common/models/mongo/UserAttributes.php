@@ -43,6 +43,9 @@ class UserAttributes extends EMongoDocument
             $model->attributes[$key] = $value;
         }
 
+        $comet = new CometModel();
+        $comet->send($user_id, array('key' => $key, 'value' => $value), CometModel::SETTING_UPDATED);
+
         return $model->save();
     }
 

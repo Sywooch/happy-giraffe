@@ -144,7 +144,7 @@
                                 </div>
                             </div>
                             <div class="im-panel_ico-hold tooltip-click-b">
-                                <span class="im-panel_ico im-panel_ico__ban powertip" title="Заблокировать"></span>
+                                <span class="im-panel_ico im-panel_ico__ban powertip" title="Заблокировать" data-bind="click: user.blackListHandler, css: { active : user.blackListed }"></span>
                                 <div class="tooltip-drop">
                                     <div class="tooltip-popup">
                                         <div class="tooltip-popup_t">Вы уверены?</div>

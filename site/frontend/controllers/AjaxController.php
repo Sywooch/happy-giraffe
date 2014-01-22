@@ -705,18 +705,26 @@ class AjaxController extends HController
     {
         $key = Yii::app()->request->getPost('key');
         $value = Yii::app()->request->getPost('value');
-
         $success = UserAttributes::set(Yii::app()->user->id, $key, $value);
-        $response = compact('success');
-
-        $comet = new CometModel();
-        $comet->send(Yii::app()->user->id, array('key' => $key, 'value' => $value), CometModel::SETTING_UPDATED);
-
-        echo CJSON::encode($response);
+        echo CJSON::encode(compact('success'));
     }
 
     public function actionRedactor()
     {
         $this->renderPartial('redactor');
+    }
+
+    public function actionBlackList()
+    {
+        $userId = Yii::app()->request->getPost('userId');
+        $success = Blacklist::addToBlackList(Yii::app()->user->id, $userId);
+        echo CJSON::encode(compact('success'));
+    }
+
+    public function actionUnBlackList()
+    {
+        $userId = Yii::app()->request->getPost('userId');
+        $success = Blacklist::removeFromBlackList(Yii::app()->user->id, $userId);
+        echo CJSON::encode(compact('success'));
     }
 }

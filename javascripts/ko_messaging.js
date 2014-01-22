@@ -28,7 +28,7 @@ MessagingUser.prototype = {
 		if (!MessagingUser.prototype.binded) {
 			MessagingUser.prototype.binded = true;
 			// Обновление счётчика непрочитанных сообщений и даты последнего сообщения
-			Comet.prototype.messagingContactsUpdateCount = function(result, id) {
+			/*Comet.prototype.messagingContactsUpdateCount = function(result, id) {
 				ko.utils.arrayForEach(self.objects, function(obj) {
 					if (obj.id == result.user.id) {
 						obj.countNew(result.count);
@@ -37,7 +37,7 @@ MessagingUser.prototype = {
 					}
 				});
 			}
-			comet.addEvent(2083, 'messagingContactsUpdateCount');
+			comet.addEvent(2083, 'messagingContactsUpdateCount');*/
 			// Мониторинг онлайна
 			Comet.prototype.messagingUserOnline = function(result, id) {
 				ko.utils.arrayForEach(self.objects, function(obj) {
@@ -146,9 +146,6 @@ MessagingMessage.prototype = {
 					if (obj.id == result.message.id) {
 						// само сообщение прочитано
 						obj.dtimeRead(result.message.dtimeRead);
-						// уменьшим счётчик у контакта
-						if(!obj.isMy)
-							obj.thread.user.countNew();
 					}
 				});
 			};
@@ -295,8 +292,6 @@ MessagingThread.prototype = {
 						obj.messages.push(message);
 						// Обновим дату контакта и счётчик
 						obj.user.date(message.created);
-						if(!message.isMy)
-							obj.user.countNew(obj.user.countNew + 1);
 					}
 				});
 			};
@@ -672,6 +667,7 @@ function Messaging(model) {
 			// Нашли его в нашем списке, если сообщение нам, то обновим счётчики и пиликнем
 			if(result.message.to_id == self.me.id) {
 				user.countNew(user.countNew() + 1);
+				user.date(result.message.dtimeRead);
 				self.countTotal(self.countTotal() + 1);
                 if (self.settings.messaging__sound())
 				    soundManager.play('s');

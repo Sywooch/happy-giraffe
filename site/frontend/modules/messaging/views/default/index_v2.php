@@ -88,7 +88,7 @@
                         </div>
                     </div>
                     <!-- /side-menu-->
-                    <div class="im-sidebar_sound"><a class="im-sidebar_sound-ico" data-bind="click: function() {settings.toggle('sound')}, css: { parampampam : ! settings.sound() }"></a></div>
+                    <div class="im-sidebar_sound"><a class="im-sidebar_sound-ico" data-bind="click: function() {settings.toggle('messaging__sound')}, css: { parampampam : ! settings.messaging__sound() }"></a></div>
                 </div>
                 <div class="im-sidebar_users">
                     <div class="im-sidebar_search clearfix">

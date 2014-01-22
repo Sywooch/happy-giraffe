@@ -688,4 +688,21 @@ function Messaging(model) {
 		return new MessagingUser(self, user);
 	}));
 	self.me = new MessagingUser(self, model.me);
+	
+	var params = /(\?|&)interlocutorId=(\d+)/.exec(window.location.search);
+	if(params && params[2]) {
+		var id = params[2];
+		var user = ko.utils.arrayFirst(self.users[0](), function(user) {
+			return user.id == id;
+		});
+		if(!user) {
+			// Нет загруженного пользователя, запросим с сервера
+			$.get('/messaging/default/getUserInfo/', { id: id }, function(data) {
+				user = new MessagingUser(self, data);
+				user.open();
+			}, 'json');
+		} else {
+			user.open();
+		}
+	}
 }

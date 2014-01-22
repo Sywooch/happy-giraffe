@@ -620,7 +620,10 @@ function Messaging(model) {
 	];
 	
 	self.users[1] = ko.dependentObservable(function() {
-		//self.applyFilter();
+        // применим фильтр
+        self.users[0](filters[0](self.users()));
+
+        //self.applyFilter();
 		return ko.utils.arrayFilter(self.users[0](), function(user) {
 			return filters[1](user);
 		});

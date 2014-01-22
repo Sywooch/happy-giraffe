@@ -171,7 +171,7 @@
                             Приглашение отправленно - .friend__added
                             -->
                             <a class="im-panel_friend im-panel_friend__fr" data-bind="click: user.friendsHandler, if: user.friendsState() == user.FRIENDS_STATE_FRIENDS"><span class="im-panel_friend-ico"></span><span class="im-panel_friend-tx">Друг</span></a>
-                            <a class="im-panel_friend im-panel_friend__add" data-bind="click: user.friendsHandler, if: user.friendsState() == user.FRIENDS_STATE_NOTHING || user.friendsStatus() == user.FRIENDS_STATUS_INCOMING"><span class="im-panel_friend-ico"></span><span class="im-panel_friend-tx">Добавить <br> в друзья</span></a>
+                            <a class="im-panel_friend im-panel_friend__add" data-bind="click: user.friendsHandler, if: user.friendsState() == user.FRIENDS_STATE_NOTHING || user.friendsState() == user.FRIENDS_STATUS_INCOMING"><span class="im-panel_friend-ico"></span><span class="im-panel_friend-tx">Добавить <br> в друзья</span></a>
                             <a class="im-panel_friend im-panel_friend__added" data-bind="click: user.friendsHandler, if: user.friendsState() == user.FRIENDS_STATE_OUTGOING"><span class="im-panel_friend-ico"></span><span class="im-panel_friend-tx">Приглашение <br> отправлено</span></a>
                         </div>
                     </div>

@@ -88,10 +88,10 @@ MessagingUser.prototype = {
             Comet.prototype.requestSent = function(result, id) {
                 ko.utils.arrayForEach(self.objects, function(obj) {
                     if (obj.id == result.fromId) {
-                        obj.hasOutgoingRequest(true);
+                        obj.hasIncomingRequest(true);
                     }
                     if (obj.id == result.toId) {
-                        obj.hasIncomingRequest(true);
+                        obj.hasOutgoingRequest(true);
                     }
                 });
             };

@@ -554,6 +554,7 @@ function Messaging(model) {
 	self.countTotal = ko.observable(model.counters.total);
 	self.loadindContacts = ko.observable(false);
 	self.currentFilter = ko.observable(0);
+    self.settings = model.settings;
 	
 	var filters = [
 		function(user) {

@@ -85,6 +85,25 @@ MessagingUser.prototype = {
                 });
             };
             comet.addEvent(3002, 'blacklistRemoved');
+            Comet.prototype.requestSent = function(result, id) {
+                ko.utils.arrayForEach(self.objects, function(obj) {
+                    if (obj.id == result.fromId) {
+                        obj.hasOutgoingRequest(true);
+                    }
+                    if (obj.id == result.toId) {
+                        obj.hasIncomingRequest(true);
+                    }
+                });
+            };
+            comet.addEvent(4000, 'requestSent');
+            Comet.prototype.friendAdded = function(result, id) {
+                ko.utils.arrayForEach(self.objects, function(obj) {
+                    if (obj.id == result.user1Id || obj.id == result.user2Id) {
+                        obj.isFriend(true);
+                    }
+                });
+            };
+            comet.addEvent(4010, 'friendAdded');
 		}
 	},
 	// Применить фильтр к контактам
@@ -165,19 +184,12 @@ function MessagingUser(viewModel, model) {
     }
 
     self.friendsHandler = function() {
-        switch(self.friendsStatus()) {
+        switch(self.friendsState()) {
             case self.FRIENDS_STATE_INCOMING:
-                $.post('/friends/requests/accept/', { fromId : self.id }, function(response) {
-                    if (response.success)
-                        self.isFriend(true);
-                }, 'json');
+                $.post('/friends/requests/accept/', { fromId : self.id });
                 break;
             case self.FRIENDS_STATE_NOTHING:
-                $.post('/friendRequests/send/', { to_id : self.id }, function(response) {
-                    if (response.status) {
-                        self.hasOutgoingRequest(true);
-                    }
-                }, 'json');
+                $.post('/friendRequests/send/', { to_id : self.id });
                 break;
         }
     }

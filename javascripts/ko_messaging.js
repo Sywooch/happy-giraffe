@@ -660,10 +660,13 @@ function Messaging(model) {
 				self.applyFilter();
 			}, 'json');
 		} else {
-			// Нашли его в нашем списке, обновим счётчики
-			user.countNew(user.countNew() + 1);
-			self.countTotal(self.countTotal() + 1);
-			//self.applyFilter()
+			// Нашли его в нашем списке, если сообщение нам, то обновим счётчики и пиликнем
+			if(result.message.to_id == self.me.id) {
+				user.countNew(user.countNew() + 1);
+				self.countTotal(self.countTotal() + 1);
+				soundManager.play('s');
+				//self.applyFilter()
+			}
 		}
 
 	};

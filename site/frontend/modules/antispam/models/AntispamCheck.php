@@ -217,13 +217,15 @@ class AntispamCheck extends HActiveRecord
 
     public static function getDp($model)
     {
-        $dp = new CActiveDataProvider($model, array(
-            'criteria' => array(
-                'order' => 't.id DESC',
-            ),
+        $criteria = $model->getDbCriteria();
+        $criteria->mergeWith(array(
+            'order' => 't.id DESC',
         ));
-        $dp->getData();
-        return $dp;
+
+        self::model()->resetScope();
+        return new CActiveDataProvider(__CLASS__, array(
+            'criteria' => $criteria,
+        ));
     }
 
     public function changeStatus($newStatus)

@@ -125,6 +125,7 @@ class ThreadsController extends HController
 		$messages = $messages->findAll(array('limit' => self::MESSAGES_PER_PAGE + 1));
 		$result['last'] = sizeof($messages) <= self::MESSAGES_PER_PAGE;
 		$count = min(sizeof($messages), self::MESSAGES_PER_PAGE);
+		$result['messages'] = array();
 		for ($i = 0; $i < $count; $i++)
 		{
 			$result['messages'][$i] = DialogForm::messageToJson($messages[$i], $me, $userId);

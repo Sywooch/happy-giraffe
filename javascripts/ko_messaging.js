@@ -641,11 +641,20 @@ function Messaging(model) {
 	};
 	// Текст конструктора
 
-	// Событие на обновление счётчиков новых сообщений
-	Comet.prototype.messagingUpdateCounters = function(result, id) {
-		self.countTotal(result.counters.total);
+	// Прочитано сообщение
+	Comet.prototype.messagingReadMessage = function(result, id) {
+		if(result.message.to_id == self.me.id) {
+			// Если прочитанное сообщение предназначалось нам, то уменьшим счётчики
+			var user = ko.utils.arrayFirst(self.users[0](), function(user) {
+				return user.id == result.dialog.id;
+			});
+			if(user) {
+				user.countNew(Math.max(0, user.countNew() - 1));
+			}
+			self.countTotal(Math.max(0, self.countTotal() - 1));
+		}
 	};
-	comet.addEvent(2080, 'messagingContactsUpdateCounters');
+	comet.addEvent(2011, 'messagingReadMessage');
 
 	// Добавлено новое сообщение
 	Comet.prototype.messagingNewMessage = function(result, id) {

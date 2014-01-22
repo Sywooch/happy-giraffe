@@ -130,9 +130,10 @@ class MessagesController extends HController
             );
 		}
 		
-		echo CJSON::encode(array(
-			'success' => true,
-		));
+		echo CJSON::encode($data);
+		if(!$data['success'])
+			Yii::app()->end();
+
  		// Подготовим и отправим событие
 		$comet = new CometModel();
 		$messageModel = MessagingMessage::model()->withMyStatsOnTop($me)->findByPk($message->id);

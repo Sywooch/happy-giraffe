@@ -665,6 +665,7 @@ function Messaging(model) {
 			self.countTotal(self.countTotal() + 1);
 			//self.applyFilter()
 		}
+
 	};
 	comet.addEvent(2020, 'messagingNewMessage');
 
@@ -690,6 +691,14 @@ function Messaging(model) {
 		// переместить контакт
 	};
 	comet.addEvent(3, 'messagingFriendChanges');*/
+
+    soundManager.setup({
+        url: '/swf/',
+        debugMode: false,
+        onready: function() {
+            soundManager.createSound({ id : 's', url : '/audio/1.mp3' });
+        }
+    });
 
 	self.users[0](ko.utils.arrayMap(model.contacts, function(user) {
 		return new MessagingUser(self, user);

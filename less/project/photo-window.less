@@ -70,15 +70,19 @@ body.gallery {overflow:hidden;}
 	left: 0;
 	z-index: 910;
 	background-color: #524261;
-	overflow: hidden;
 	width:100%;
-	
-	.ico-edit {margin: 0 5px;}
-	.redactor_editor,
-	.redactor_editor p {
-		font-size: 12px !important;
-		line-height: 18px !important;
+	max-height:100%;
+	overflow: hidden;
+
+	.comments-gray {
+		background: none;
+		padding: 5px 0 15px;
 	}
+	.comments-gray_add {
+		border-top: none;
+		padding: 0 0 5px;
+	}
+	.ico-edit {margin: 0 5px;}
 	.b-user-small {
 		position: absolute;
 		margin: 5px 0 0 20px;
@@ -102,13 +106,32 @@ body.gallery {overflow:hidden;}
 		width: 45px;
 		margin: 0 15px;
 	}
-	.wysiwyg-toolbar {}
+	.favorites-add-popup {
+		top: auto;
+		bottom: 14px;
+	}
+	.favorites-add-popup:after {
+		top:auto;
+		bottom: 25px;
+	}
 	&_w {
 		position: relative;
 		top: 0;
 		left: 0;
 		width: 100%;
 		height: 100%;
+	}
+	&_top {
+		position: absolute;
+		top: 0;
+		right: 340px;
+		left: 0;
+		overflow: hidden;
+		z-index: 5;
+	}
+	&_top-hold {
+		padding: 5px 10% 0;
+		text-align: center;
 	}
 	&_close {
 		position: absolute;
@@ -137,17 +160,15 @@ body.gallery {overflow:hidden;}
 		width: 100%;
 	}
 	&_banner img {display: block;}
-	&_cont {
-		/*height: 300px;*/
-	}
+	&_cont {}
 	&_cont .scroll_cont {padding: 0 20px 0 19px;}
 	&_cont .itx-gray {
 		resize:none;
-		line-height: 18px;
+		line-height: 16px;
 	}
 	&_t {
-		margin: 12px 0 7px;
-		font: bold 20px/22px Tahoma, Arial, Verdana, sans-serif;
+		margin: 5px 0;
+		font: bold 22px/24px Tahoma, Arial, Verdana, sans-serif;
 		color: #186fb8;
 	}
 	&_t .itx-gray {
@@ -163,14 +184,10 @@ body.gallery {overflow:hidden;}
 
 	&_desc-hold {
 		position: relative;
-		margin: 0 auto;
-		padding: 5px 0;
+		margin: 5px auto 10px;
 		.transition(all 0.3s ease);
 	}
 	&_desc-hold:hover {}
-	&_desc-hold.active &_desc {display: none;}
-	&_desc-hold .wysiwyg-toolbar-btn {display: none;}
-	&_desc-hold.active &_desc__full {display: block;}
 	&_desc-hold .itx-simple {
 		min-height:48px;
 	}
@@ -188,8 +205,8 @@ body.gallery {overflow:hidden;}
 		color: #41adf8;
 	}
 	&_desc {
-		font-size: 12px;
-		line-height: 16px;
+		font-size: 14px;
+		line-height: 19px;
 	}
 	&_top {
 		position: absolute;
@@ -203,9 +220,9 @@ body.gallery {overflow:hidden;}
 		color: #bdb3c5;
 	}
 	&_about {
-		text-overflow: ellipsis;
-		white-space: nowrap;
-		overflow: hidden;
+		margin: 5px 0;
+		font-size: 11px;
+		color: #B6B6B6;
 	}
 	&_c {
 		position: absolute;
@@ -213,7 +230,6 @@ body.gallery {overflow:hidden;}
 		left: 300px;
 		bottom: 50px;
 		right: 0;
-		cursor: pointer;
 		text-align: center;
 	}
 	&_c:hover &_arrow,
@@ -221,6 +237,7 @@ body.gallery {overflow:hidden;}
 		opacity: 1;
 	}
 	&_img-hold {
+		cursor: pointer;
 		display: inline-block;
 		vertical-align: middle;
 		height: 100%;
@@ -252,6 +269,13 @@ body.gallery {overflow:hidden;}
 		background-position: -59px 0;
 	}
 	&_arrow__r:hover {background-position: -59px -160px;}
+
+	&_contest-logo {
+		position: absolute;
+		bottom: -50px;
+		left: 0;
+	}
+	&_contest-logo img {display: block;}
 }
 /* /photo-window */
 

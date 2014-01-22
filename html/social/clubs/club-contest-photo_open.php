@@ -141,8 +141,8 @@
 					</a>
 				</div>
 			</div>
-			<div class="col-23-middle col-gray">
-				<div class="b-article clearfix">
+			<div class="col-23-middle">
+				<div class="b-article b-article__photopost clearfix">
 					<div class="float-l">
 						<div class="like-control like-control__small-indent clearfix">
 							<a href="" class="ava male">
@@ -156,39 +156,6 @@
 								<a href="" class="like-control_ico like-control_ico__repost">5</a>
 								<a href="" class="like-control_ico like-control_ico__favorites active">123865</a>
 							</div>
-							<div class="article-settings">
-								<div class="article-settings_i">
-									<a href="" class="article-settings_a article-settings_a__settings powertip" title="Настройки"></a>
-								</div>
-								<div class="article-settings_hold">
-									<div class="article-settings_i">
-										<a href="" class="article-settings_a article-settings_a__pin powertip" title="Прикрепить вверху"></a>
-									</div>
-									<div class="article-settings_i">
-										<a href="" class="article-settings_a article-settings_a__edit powertip"  title="Редактировать"></a>
-									</div>
-									<div class="article-settings_i">
-										<a href="javascript:void(0)" class="ico-users ico-users__friend active powertip" title="Приватность"></a>
-										<div class="article-settings_drop">
-											<div class="article-settings_drop-i">
-												<a href="" class="article-settings_drop-a">
-												<span class="ico-users ico-users__all"></span>
-												Показывать всем
-												</a>
-											</div>
-											<div class="article-settings_drop-i">
-												<a href="" class="article-settings_drop-a">
-												<span class="ico-users ico-users__friend"></span>
-												Только друзьям
-												</a>
-											</div>
-										</div>
-									</div>
-									<div class="article-settings_i">
-										<a href="" class="article-settings_a article-settings_a__delete powertip"  title="Удалить"></a>
-									</div>
-								</div>
-							</div>
 						</div>
 						<script>
 						$(window).load(function() {
@@ -197,21 +164,26 @@
 							elementStop - до какого элемента фиксируется
 							blockIndent - отступ
 							*/
-							function likeControlFixed(block, elementStop, blockIndent) {
+							function likeControlFixedInBlock(block, inBlock, blockIndent) {
 
 								var block = $(block);
 								var blockTop = block.offset().top;
-								var blockHeight = block.height();
+								var blockHeight = block.outerHeight();
+								/*
+									var stopTop = $(elementStop).offset().top;
+									var blockStopTop = stopTop - blockTop - blockHeight - blockIndent;
+								*/
+								var inBlock = $(inBlock);
+								var blockStopBottom = inBlock.offset().top + inBlock.outerHeight();
 
-								var stopTop = $(elementStop).offset().top;
-								var blockStopTop = stopTop - blockTop - blockHeight - blockIndent;
-								
-
-								if (stopTop-blockTop-blockHeight-blockIndent > 0) {
+								if (blockStopBottom-blockTop-blockHeight-blockIndent > 20) {
 
 									$(window).scroll(function() {
 								        var windowScrollTop = $(window).scrollTop();
-								        if (windowScrollTop > blockTop-blockIndent && windowScrollTop+blockHeight < stopTop-blockIndent) {
+								        if (
+								        	windowScrollTop > blockTop-blockIndent && 
+								        	windowScrollTop + blockHeight < blockStopBottom - blockIndent
+								        	) {
 								        	block.css({
 												'position': 'fixed', 
 												'top'     : blockIndent+'px'
@@ -223,17 +195,18 @@
 												'top'     : 'auto'
 											});
 
-								        	if (windowScrollTop + blockHeight > stopTop - blockIndent) {
+								        	if (windowScrollTop + blockHeight > blockStopBottom - blockIndent) {
 								        		block.css({ 
-												'top'     : blockStopTop
-											});
+								        			/* 89 - высота блока над едущими лайками */
+													'top'     : inBlock.outerHeight() - blockHeight - 89 
+												});
 								        	}
 								        }
 								    });
 								}
 							}
 
-							likeControlFixed('.js-like-control', '.comments-gray', 20);
+							likeControlFixedInBlock('.js-like-control', '.b-article', 80);
 						})
 						</script>
 					</div>
@@ -242,12 +215,12 @@
 						<div class="b-article_header clearfix">
 							<div class="meta-gray">
 								<a href="" class="meta-gray_comment">
-									<span class="ico-comment ico-comment__gray"></span>
-									<span class="meta-gray_tx">35</span>
+									<span class="ico-comment ico-comment__white"></span>
+									<span class="meta-gray_tx color-gray-light">35</span>
 								</a>
 								<div class="meta-gray_view">
-									<span class="ico-view ico-view__gray"></span>
-									<span class="meta-gray_tx">305</span>
+									<span class="ico-view ico-view__white"></span>
+									<span class="meta-gray_tx color-gray-light">305</span>
 								</div>
 							</div>
 							<div class="float-l">
@@ -259,121 +232,27 @@
 							Самое лучшее утро - просыпаюсь, а ты рядом
 						</h2>
 						<div class="b-article_in clearfix">
-							<div class="wysiwyg-content clearfix">								
+							<div class="wysiwyg-content clearfix">							
 								<p>Практически нет девушки, которая не переживала бы за отношения героев "Сумерек" как в на экранах, так и в жизни. Но, к сожалению, даже несмотря на то, что недавно герои "Сумерек" радовали всех тем, что у них невероятный роман  и в рельной жизни, а не только лишь на экране, все же <a href="">Роберт Паттинсон</a>  и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.</p>
+								<p> переживала бы за отношения героев "Сумерек" как в на экранах, так и в жизни. Но, к сожалению, даже несмотря на то, что недавно герои "Сумерек" радовали всех тем, что у них невероятный роман  и в рельной жизни, а не только лишь на экране, все же <a href="">Роберт Паттинсон</a>  и Кристен Стюарт расстались и пока ре</p>
 								
 							</div>
-							<div class="textalign-c">
-                                <a class="b-article_more" href="">Смотреть 58054 фото</a>
-                            </div>
 							<div class="photo-grid clearfix">
-						        <div class="photo-grid_row clearfix" >
-						        	<!-- Ловить клик на photo-grid_i для показа увеличенного фото -->
-					                <div class="photo-grid_i">
-				                    	<img class="photo-grid_img" src="/images/example/photo-grid-1.jpg" alt="">
-				                    	<div class="photo-grid_overlay">
-				                    		<span class="photo-grid_zoom"></span>
-				                    	</div>
-					                </div>
-					                <div class="photo-grid_i">
-				                    	<img class="photo-grid_img" src="/images/example/photo-grid-2.jpg" alt="">
-				                    	<div class="photo-grid_overlay">
-				                    		<span class="photo-grid_zoom"></span>
-				                    	</div>
-					                </div>
-					                <div class="photo-grid_i">
-				                    	<img class="photo-grid_img" src="/images/example/photo-grid-3.jpg" alt="">
-				                    	<div class="photo-grid_overlay">
-				                    		<span class="photo-grid_zoom"></span>
-				                    	</div>
-					                </div>
-						        </div>
-						        <div class="photo-grid_row clearfix" >
-						        	<!-- Ловить клик на photo-grid_i для показа увеличенного фото -->
-					                <div class="photo-grid_i">
-				                    	<img class="photo-grid_img" src="/images/example/photo-grid-4.jpg" alt="">
-				                    	<div class="photo-grid_overlay">
-				                    		<span class="photo-grid_zoom"></span>
-				                    	</div>
-					                </div>
-					                <div class="photo-grid_i">
-				                    	<img class="photo-grid_img" src="/images/example/photo-grid-5.jpg" alt="">
-				                    	<div class="photo-grid_overlay">
-				                    		<span class="photo-grid_zoom"></span>
-				                    	</div>
-					                </div>
-					                <div class="photo-grid_i">
-				                    	<img class="photo-grid_img" src="/images/example/photo-grid-6.jpg" alt="">
-				                    	<div class="photo-grid_overlay">
-				                    		<span class="photo-grid_zoom"></span>
-				                    	</div>
-					                </div>
-						        </div>
-						        <div class="photo-grid_row clearfix" >
-						        	<!-- Ловить клик на photo-grid_i для показа увеличенного фото -->
-					                <div class="photo-grid_i">
-				                    	<img class="photo-grid_img" src="/images/example/photo-grid-3.jpg" alt="">
-				                    	<div class="photo-grid_overlay">
-				                    		<span class="photo-grid_zoom"></span>
-				                    	</div>
-					                </div>
-					                <div class="photo-grid_i">
-				                    	<img class="photo-grid_img" src="/images/example/photo-grid-1.jpg" alt="">
-				                    	<div class="photo-grid_overlay">
-				                    		<span class="photo-grid_zoom"></span>
-				                    	</div>
-					                </div>
-					                <div class="photo-grid_i">
-				                    	<img class="photo-grid_img" src="/images/example/photo-grid-2.jpg" alt="">
-				                    	<div class="photo-grid_overlay">
-				                    		<span class="photo-grid_zoom"></span>
-				                    	</div>
-					                </div>
-						        </div>
-						        <div class="photo-grid_row clearfix" >
-						        	<!-- Высота последней строки 105пк -->
-					                <div class="photo-grid_i">
-			                            <img alt="" src="/images/example/photo-grid-8.jpg" class="photo-grid_img">
-			                            <div class="photo-grid_overlay">
-			                                <span class="photo-grid_zoom powertip"></span>
-			                            </div>
-			                        </div>
-			                        <div class="photo-grid_i">
-			                            <img alt="" src="/images/example/photo-grid-9.jpg" class="photo-grid_img">
-			                            <div class="photo-grid_overlay">
-			                                <span class="photo-grid_zoom powertip"></span>
-			                            </div>
-			                        </div>
-			                        <div class="photo-grid_i">
-			                            <img alt="" src="/images/example/photo-grid-10.jpg" class="photo-grid_img">
-			                            <div class="photo-grid_overlay">
-			                                <span class="photo-grid_zoom powertip"></span>
-			                            </div>
-			                        </div>
-			                        <div class="photo-grid_i">
-			                            <img alt="" src="/images/example/photo-grid-11.jpg" class="photo-grid_img">
-			                            <div class="photo-grid_overlay">
-			                                <span class="photo-grid_zoom powertip"></span>
-			                            </div>
-			                        </div>
-			                        <div class="photo-grid_i">
-			                            <img alt="" src="/images/example/photo-grid-12.jpg" class="photo-grid_img">
-			                            <div class="photo-grid_overlay">
-			                                <span class="photo-grid_zoom powertip"></span>
-			                            </div>
-			                        </div>
-					                <!-- 
-					                	Высота 105пк
-					                	Ширина  90пк
-					            	-->
-					                <div class="photo-grid_last">
-				                        <div class="font-small color-gray margin-b5">смотреть <br> еще фото</div>
-				                        <a class="photo-grid_last-a" href="">58054</a>
-				                    </div>
-						        </div>
-							</div>
-							<div class="textalign-c">
-                                <a class="b-article_more" href="">Смотреть 58054 фото</a>
+                                <div class="photo-grid_row clearfix" >
+                                    <!-- Ловить клик на photo-grid_i для показа увеличенного фото -->
+                                    <div class="photo-grid_i">
+                                        <img class="photo-grid_img" src="/images/example/w580-h369.jpg" alt="">
+                                        <div class="photo-grid_tip">25 фото</div>
+                                        <span class="ico-play-big"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="margin-20 clearfix">
+                                <a href="" class="float-r btn-blue-light btn-medium">Смотреть галерею</a>
+                                <div class="float-l">
+                                    <a href="" class="b-article_photo-control b-article_photo-control__single powertip" title="Обложка"></a>
+                                    <a href="" class="b-article_photo-control b-article_photo-control__grid active powertip" title="Плитка"></a>
+                                </div>
                             </div>
 						</div>
 
@@ -387,20 +266,24 @@
 						</div>
 
 						<div class="article-contest">
-							<div class="article-contest_col1">
-								<img src="/images/contest/club/pets1/small.png" alt="">
-								<div class="article-contest_name">Запись участвует в конкурсе <br>
-									<a href="">Наш домашний любимец</a>
+							<div class="clearfix">
+								<div class="article-contest_col1">
+									<img src="/images/contest/club/pets1/small.png" alt="">
+									<div class="article-contest_name">Запись участвует в конкурсе <br>
+										<a href="">Наш домашний любимец</a>
+									</div>
+								</div>
+								<div class="article-contest_count">
+									<div class="article-contest_count-num">453</div>
+									<div class="article-contest_count-desc">балла</div>
+								</div>
+								<div class="article-contest_col3">
+									Вы можете проголосовать за участника нажав на кнопки соцсетей
 								</div>
 							</div>
-							<div class="article-contest_count">
-								<div class="article-contest_count-num">453</div>
-								<div class="article-contest_count-desc">балла</div>
-							</div>
-							<div class="article-contest_col3">
-								Вы можете проголосовать за участника нажав на кнопки соцсетей
-							</div>
+
 						</div>
+<!-- 
 						<div class="like-block fast-like-block">
 														
 							<div class="box-1">
@@ -446,262 +329,109 @@
 							</div>
 							
 						</div>
-						
-						<div class="article-contest-conversion">
-							<div class="article-contest-conversion_t">
-								Другие участники конкурса
-							</div>
-							<div class="article-contest-conversion_hold">
-								<div class="b-article b-article-prev clearfix">
-									<div class="b-article-prev_cont clearfix">
-										<div class="clearfix">
-											<div class="meta-gray">
-												<a class="meta-gray_comment" href="">
-													<span class="ico-comment ico-comment__gray"></span>
-													<span class="meta-gray_tx">35</span>
-												</a>
-												<div class="meta-gray_view">
-													<span class="ico-view ico-view__gray"></span>
-													<span class="meta-gray_tx">305</span>
-												</div>
-											</div>
-											<div class="float-l margin-r5">
-												<a href="" class="ava middle">
-													<span class="icon-status status-online"></span>
-													<img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg">
-												</a>
-											</div>
-											<div class="float-l">
-												<div class="clearfix">
-													<a class="b-article-prev_author" href="">Галина</a>
-												</div>
-												<span class="font-smallest color-gray">Сегодня 13:25</span>
-											</div>
-										</div>
-										<div class="b-article-prev_t clearfix">
-											<a class="b-article-prev_t-a" href="">Наши любимчики Лесси и Арон</a>
-											<span class="b-article-prev_t-count">456</span>
-										</div>
-										<div class="b-article-prev_in">
-											<div class="b-article_in-img">
-												<!-- img width 235px -->
-												<img alt="Ночные гости - кто они фото 1" class="content-img" src="http://img.happy-giraffe.ru/thumbs/700x700/56/edad8d334a0b4a086a50332a2d8fd0fe.JPG" title="Ночные гости - кто они фото 1">
-											</div>
+						 -->
+					</div>
+				</div>
+
+				<div class="article-contest-conversion">
+					<div class="article-contest-conversion_t">
+						Другие участники конкурса
+					</div>
+					<div class="article-contest-conversion_hold">
+						<div class="b-article b-article-prev clearfix">
+							<div class="b-article-prev_cont clearfix">
+								<div class="clearfix">
+									<div class="meta-gray">
+										<a class="meta-gray_comment" href="">
+											<span class="ico-comment ico-comment__gray"></span>
+											<span class="meta-gray_tx">35</span>
+										</a>
+										<div class="meta-gray_view">
+											<span class="ico-view ico-view__gray"></span>
+											<span class="meta-gray_tx">305</span>
 										</div>
 									</div>
-								</div>
-								<div class="b-article b-article-prev clearfix">
-									<div class="b-article-prev_cont clearfix">
+									<div class="float-l margin-r5">
+										<a href="" class="ava middle">
+											<span class="icon-status status-online"></span>
+											<img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg">
+										</a>
+									</div>
+									<div class="float-l">
 										<div class="clearfix">
-											<div class="meta-gray">
-												<a class="meta-gray_comment" href="">
-													<span class="ico-comment ico-comment__gray"></span>
-													<span class="meta-gray_tx">35</span>
-												</a>
-												<div class="meta-gray_view">
-													<span class="ico-view ico-view__gray"></span>
-													<span class="meta-gray_tx">305</span>
-												</div>
-											</div>
-											<div class="float-l margin-r5">
-												<a href="" class="ava middle">
-													<span class="icon-status status-online"></span>
-													<img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg">
-												</a>
-											</div>
-											<div class="float-l">
-												<div class="clearfix">
-													<a class="b-article-prev_author" href="">Галина</a>
-												</div>
-												<span class="font-smallest color-gray">Сегодня 13:25</span>
-											</div>
+											<a class="b-article-prev_author" href="">Галина</a>
 										</div>
-										<div class="b-article-prev_t clearfix">
-											<a class="b-article-prev_t-a" href="">ГотовимсписокГотовимсписокГотовимсписок:
-											</a>
-											<span class="b-article-prev_t-count">4556</span>
-										</div>
-										<div class="b-article-prev_in">
-											<div class="b-article_in-img">
-												<!-- img width 235px -->
-												<img alt="Ночные гости - кто они фото 1" class="content-img" src="http://img.happy-giraffe.ru/thumbs/700x700/56/edad8d334a0b4a086a50332a2d8fd0fe.JPG" title="Ночные гости - кто они фото 1">
-											</div>
-										</div>
+										<span class="font-smallest color-gray">Сегодня 13:25</span>
+									</div>
+								</div>
+								<div class="b-article-prev_t clearfix">
+									<a class="b-article-prev_t-a" href="">Наши любимчики Лесси и Арон</a>
+									<span class="b-article-prev_t-count">456</span>
+								</div>
+								<div class="b-article-prev_in">
+									<div class="b-article_in-img">
+										<!-- img width 235px -->
+										<img alt="Ночные гости - кто они фото 1" class="content-img" src="http://img.happy-giraffe.ru/thumbs/700x700/56/edad8d334a0b4a086a50332a2d8fd0fe.JPG" title="Ночные гости - кто они фото 1">
 									</div>
 								</div>
 							</div>
 						</div>
-
-						<div class="b-contest-advert">
-							<div class="b-contest-advert_ico">
-								<img src="/images/contest/club/pets1/medium.png" alt="" class="b-contest-advert_img">
-							</div>
-							<div class="b-contest-advert_hold">
-								<div class="b-contest-advert_t">КОНКУРС</div>
-								<div class="b-contest-advert_name">Наш домашний любимец</div>
-								<a href="" class="btn-green btn-h46">Принять участие!</a>
-							</div>
-						</div>
-
-						<div class="comments-gray">
-							<div class="comments-gray_t">
-								<span class="comments-gray_t-a-tx">Все комментарии (28)</span>
-								<a href="" class="btn-green">Добавить</a>
-							</div>
-							<div class="comments-gray_hold">
-								<div class="comments-gray_i comments-gray_i__self">
-									<div class="comments-gray_ava">
-										<a href="" class="ava small male"></a>
-									</div>
-									<div class="comments-gray_frame">
-										<div class="comments-gray_header clearfix">
-											<a href="" class="comments-gray_author">Ангелина Богоявленская </a>
-											<span class="font-smallest color-gray">Сегодня 13:25</span>
-										</div>
-										<div class="comments-gray_cont wysiwyg-content">
-											<p>	Мне безумно жалко всех женщин, но особенно Тину Кароль, я просто представить себе не могу <a href="">как она все это переживет</a> как она все это переживет(</p>
-											<p>я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.  я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически </p>
+						<div class="b-article b-article-prev clearfix">
+							<div class="b-article-prev_cont clearfix">
+								<div class="clearfix">
+									<div class="meta-gray">
+										<a class="meta-gray_comment" href="">
+											<span class="ico-comment ico-comment__gray"></span>
+											<span class="meta-gray_tx">35</span>
+										</a>
+										<div class="meta-gray_view">
+											<span class="ico-view ico-view__gray"></span>
+											<span class="meta-gray_tx">305</span>
 										</div>
 									</div>
-									<div class="comments-gray_control comments-gray_control__self">
-										<div class="comments-gray_control-hold">
-											<div class="clearfix">
-												<a href="" class="message-ico message-ico__edit powertip" title="Редактировать"></a>
-											</div>
-											<div class="clearfix">
-												<a href="" class="message-ico message-ico__del powertip" title="Удалить"></a>
-											</div>
-										</div>
+									<div class="float-l margin-r5">
+										<a href="" class="ava middle">
+											<span class="icon-status status-online"></span>
+											<img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg">
+										</a>
 									</div>
-								</div>
-								<div class="comments-gray_i">
-									<a href="" class="comments-gray_like like-hg-small powertip" title="Нравится">78</a>
-									<div class="comments-gray_ava">
-										<a href="" class="ava small female"></a>
-									</div>
-									<div class="comments-gray_frame">
-										<div class="comments-gray_header clearfix">
-											<a href="" class="comments-gray_author">Анг Богоявлен </a>
-											<span class="font-smallest color-gray">Сегодня 14:25</span>
-										</div>
-										<div class="comments-gray_cont wysiwyg-content">
-											<p>я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.  я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически </p>
-										</div>
-									</div>
-									
-									<div class="comments-gray_control">
-										<div class="comments-gray_control-hold">
-											<div class="clearfix">
-												<a href="" class="comments-gray_quote-ico powertip" title="Ответить"></a>
-											</div>
-											<div class="clearfix">
-												<a href="" class="message-ico message-ico__del powertip" title="Удалить"></a>
-											</div>
-										</div>
+									<div class="float-l">
 										<div class="clearfix">
-											<a href="" class="message-ico message-ico__warning powertip" title="Пожаловаться"></a>
+											<a class="b-article-prev_author" href="">Галина</a>
 										</div>
+										<span class="font-smallest color-gray">Сегодня 13:25</span>
 									</div>
 								</div>
-								<div class="comments-gray_i">
-									<a href="" class="comments-gray_like like-hg-small powertip" title="Нравится">7918</a>
-									<div class="comments-gray_ava">
-										<a href="" class="ava small female"></a>
-									</div>
-									<div class="comments-gray_frame">
-										<div class="comments-gray_header clearfix">
-											<a href="" class="comments-gray_author">Анг Богоявлен </a>
-											<span class="font-smallest color-gray">Сегодня 14:25</span>
-										</div>
-										<div class="comments-gray_cont wysiwyg-content">
-											<p>я не нашел, где можно поменять название трека. </p>
-										</div>
-									</div>
-									
-									<div class="comments-gray_control">
-										<div class="comments-gray_control-hold">
-											<div class="clearfix">
-												<a href="" class="comments-gray_quote-ico powertip" title="Ответить"></a>
-											</div>
-											<div class="clearfix">
-												<a href="" class="message-ico message-ico__del powertip" title="Удалить"></a>
-											</div>
-										</div>
-										<div class="clearfix">
-											<a href="" class="message-ico message-ico__warning powertip" title="Пожаловаться"></a>
-										</div>
-									</div>
+								<div class="b-article-prev_t clearfix">
+									<a class="b-article-prev_t-a" href="">ГотовимсписокГотовимсписокГотовимсписок:
+									</a>
+									<span class="b-article-prev_t-count">4556</span>
 								</div>
-								
-								<div class="comments-gray_i comments-gray_i__recovery">
-									<div class="comments-gray_ava">
-										<a href="" class="ava small female"></a>
+								<div class="b-article-prev_in">
+									<div class="b-article_in-img">
+										<!-- img width 235px -->
+										<img alt="Ночные гости - кто они фото 1" class="content-img" src="http://img.happy-giraffe.ru/thumbs/700x700/56/edad8d334a0b4a086a50332a2d8fd0fe.JPG" title="Ночные гости - кто они фото 1">
 									</div>
-									<div class="comments-gray_frame">
-										<div class="comments-gray_header clearfix">
-											<a href="" class="comments-gray_author">Анг Богоявлен </a>
-											<span class="font-smallest color-gray">Сегодня 14:25</span>
-										</div>
-										<div class="comments-gray_cont wysiwyg-content">
-											<p>Комментарий успешно удален.<a href="" class="comments-gray_a-recovery">Восстановить?</a> </p>
-										</div>
-									</div>
-								</div>
-								
-								<div class="comments-gray_i">
-									<a href="" class="comments-gray_like like-hg-small powertip" title="Нравится">78</a>
-									<div class="comments-gray_ava">
-										<a href="" class="ava small female"></a>
-									</div>
-									<div class="comments-gray_frame">
-										<div class="comments-gray_header clearfix">
-											<a href="" class="comments-gray_author">Анг Богоявлен </a>
-											<span class="font-smallest color-gray">Сегодня 14:25</span>
-										</div>
-										<div class="comments-gray_cont wysiwyg-content">
-											<p>я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически производит поиск по сайту </p>
-											<p>
-												<a href="" class="comments-gray_cont-img-w">
-													<!--    max-width: 170px;  max-height: 110px; -->
-													<img src="/images/example/w170-h110.jpg" alt="">
-												</a>
-												<a href="" class="comments-gray_cont-img-w">
-													<img src="/images/example/w220-h309-1.jpg" alt="">
-												</a>
-												<a href="" class="comments-gray_cont-img-w">
-													<img src="/images/example/w200-h133-1.jpg" alt="">
-												</a>
-											</p>
-											<p>и подцепляет естественно студийные версии песен вместо нужных.  я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически </p>
-										</div>
-									</div>
-									
-									<div class="comments-gray_control">
-										<div class="comments-gray_control-hold">
-											<div class="clearfix">
-												<a href="" class="comments-gray_quote-ico powertip" title="Ответить"></a>
-											</div>
-										</div>
-										<div class="clearfix">
-											<a href="" class="message-ico message-ico__warning powertip" title="Пожаловаться"></a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="comments-gray_add clearfix">
-								
-								<div class="comments-gray_ava">
-									<a href="" class="ava small female"></a>
-								</div>
-								<div class="comments-gray_frame">
-									<input type="text" name="" id="" class="comments-gray_add-itx itx-gray" placeholder="Ваш комментарий">
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 
+				<div class="b-contest-advert">
+					<div class="b-contest-advert_ico">
+						<img src="/images/contest/club/pets1/medium.png" alt="" class="b-contest-advert_img">
+					</div>
+					<div class="b-contest-advert_hold">
+						<div class="b-contest-advert_t">КОНКУРС</div>
+						<div class="b-contest-advert_name">Наш домашний любимец</div>
+						<a href="" class="btn-green btn-h46">Принять участие!</a>
+					</div>
+				</div>
+
+				<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/comments-gray-open.php'; ?>
 			</div>
+
 		</div>
 		</div>
 		

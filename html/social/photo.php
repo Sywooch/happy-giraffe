@@ -54,18 +54,21 @@
 			</div>
 			<div class="content-cols clearfix">
 				<div class="col-1">
-					<div class="b-user-info margin-t15 clearfix">
-						<a class="ava male" href="">
-							<span class="icon-status status-online"></span>
-							<img src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg" alt="">
-						</a>
-						<div class="b-user-info_hold">
-							<a class="b-user-info_name" href="">Ангелина Богоявленская</a>
-							<div class="b-user-info_date">16 июн 2013</div>
+					<div class="aside-photo-view">
+						<div class="b-user-info clearfix">
+							<a class="ava male" href="">
+								<span class="icon-status status-online"></span>
+								<img src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg" alt="">
+							</a>
+							<div class="b-user-info_hold">
+								<a class="b-user-info_name" href="">Ангелина Богоявленская</a>
+								<div class="b-user-info_date">16 июн 2013</div>
+							</div>
 						</div>
+						<div class="aside-photo-view_about">Фотопост <a href="">Места моих путешествий</a></div>
+						<div class="aside-photo-view_t">Новогодняя ночь - фото 1</div>
+						<div class="aside-photo-view_desc">Практически нет девушки, которая не переживала бы за отношения героев "Сумерек" как в на экранах, так и в жизни. Но, к сожалению, даже несмотря на то, что недавно герои "Сумерек" радовали всех тем, что у них невероятный роман и в рельной жизни, а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.</div>
 					</div>
-					<div class="title-blue">Новогодняя ночь - фото 1</div>
-					<div class="">Практически нет девушки, которая не переживала бы за отношения героев "Сумерек" как в на экранах, так и в жизни. Но, к сожалению, даже несмотря на то, что недавно герои "Сумерек" радовали всех тем, что у них невероятный роман и в рельной жизни, а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.</div>
 				</div>
 				<div class="col-23-middle">
 					<div class="photo-view clearfix">
@@ -82,7 +85,6 @@
 								</div>
 							</div>
 							<div class="photo-view_tx">18 из 56</div>
-							<div class="photo-view_tx"><a href="">Места моих путешествий</a></div>
 							
 						</div>
 						<div class="photo-view_c">
@@ -190,7 +192,6 @@
 							
 							</div>
 						</div>
-							
 					</div>
 					<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/comments-gray-open.php'; ?>
 

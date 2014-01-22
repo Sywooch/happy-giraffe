@@ -83,7 +83,7 @@ function FriendsViewModel(data) {
         if (typeof offset !== "undefined")
             data.offset = offset;
         if (self.newSelected() === true)
-            data.new = 1;
+            data.onlyNew = 1;
 
         self.loading(true);
         $.get('/friends/default/get/', data, function(response) {

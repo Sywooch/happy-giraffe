@@ -80,7 +80,8 @@ function UploadPhotos(data, multi, container_selector) {
     });
 
     self.photos.subscribe(function() {
-        setPopupPosition($('.redactor_btn_image'), $('.redactor-popup_b-photo'));
+        if ($('.redactor_btn_image').length > 0)
+            setPopupPosition($('.redactor_btn_image'), $('.redactor-popup_b-photo'));
     });
 }
 

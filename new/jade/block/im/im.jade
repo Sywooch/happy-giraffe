@@ -176,7 +176,7 @@ mixin im-panel(mod, vars)
         - if (!vars.small)
             .im-panel_actions
                 .im-panel_ico-hold.tooltip-click-b
-                    span.im-panel_ico.im-panel_ico__del.powertip(href="", title="Удалить диалог")
+                    span.im-panel_ico.im-panel_ico__del.powertip(title="Удалить диалог")
                     // tooltip-drop
                     .tooltip-drop
                         .tooltip-popup
@@ -190,7 +190,7 @@ mixin im-panel(mod, vars)
                                 button.btn-gray-light Нет
                     // /tooltip-drop
                 .im-panel_ico-hold.tooltip-click-b
-                    span.im-panel_ico.im-panel_ico__ban.powertip(href="", title="Заблокировать")
+                    span.im-panel_ico.im-panel_ico__ban.powertip(title="Заблокировать")
                     // /tooltip-drop
                     .tooltip-drop
                         .tooltip-popup
@@ -292,7 +292,7 @@ mixin im-center_bottom(mod, vars)
                         +im-redactor-control()
                     - else 
                         // По клику на input заменять на wysiwyg 
-                        input.im-center_bottom-itx.itx-simple(type='text', placeholder="Введите ваше сообщение")
+                        input.im-center_bottom-itx(type='text', placeholder="Введите ваше сообщение")
     // /im-center_bottom
 
 //- wisywig редактор с кнопками утправления винзу

@@ -65,10 +65,10 @@ function UserMarkWidget(data)
 
     self.statuses = data.statuses;
     self.user_id = data.user_id;
-    self.status = ko.observable(data.status === null ? null : new AntispamStatus(data.status, self));
+    self.antispamStatus = ko.observable(data.status === null ? null : new AntispamStatus(data.status, self));
 
     self.handle = function(newStatus) {
-        if (self.status() == newStatus)
+        if (self.antispamStatus() !== null && self.antispamStatus().status() == newStatus)
             self.mark(self.statuses.GRAY);
         else
             self.mark(newStatus);
@@ -77,7 +77,7 @@ function UserMarkWidget(data)
     self.mark = function(newStatus) {
         $.post('/antispam/userStatus/listUser/', { userId : self.user_id, status : newStatus }, function(response) {
             if (response.success)
-                self.status(new AntispamStatus(response.status, parent));
+                self.antispamStatus(new AntispamStatus(response.status, parent));
         }, 'json');
     }
 }

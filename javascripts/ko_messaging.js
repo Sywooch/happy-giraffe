@@ -669,7 +669,7 @@ function Messaging(model) {
 	comet.addEvent(2020, 'messagingNewMessage');
 
     Comet.prototype.settingChanged = function(result, id) {
-        var observable = self.settings[result.key];
+        var observable = self.settings[result.key.replace('messaging__', '')];
         observable(result.value);
     }
     comet.addEvent(3000, 'settingChanged');

@@ -120,10 +120,36 @@ ko.bindingHandlers.autogrow = {
 };
 
 ko.bindingHandlers.moment = {
+	presets: {
+		adaptive: function(date) {
+			var now = new Date().getTime();
+			date = date * 1000;
+			var value = date + serverTimeDelta;
+			var serverDate = new Date(now - serverTimeDelta);
+			var someHoursAgo = new Date(serverDate.getFullYear(), serverDate.getMonth() , serverDate.getDate(), serverDate.getHours() - 6, serverDate.getMinutes(), serverDate.getSeconds()).getTime();
+			var yesterdayMidnight = new Date(serverDate.getFullYear(), serverDate.getMonth() , serverDate.getDate() - 1).getTime();
+			var someMonthAgo = new Date(serverDate.getFullYear(), serverDate.getMonth() - 8 , serverDate.getDate()).getTime();
+			var result = '';
+			// Что-бы не получилось событие из будущего
+			if(value > now)
+				value = now;
+			if(value > someHoursAgo) {
+				result = moment(value).from(now);
+			} else if(date > yesterdayMidnight) {
+				result = 'Вчера';
+			} else if(date > someMonthAgo) {
+				result = moment(date).format('DD MMMM');
+			} else {
+				result = moment(date).format('DD MMMM YYYY');
+			}
+			return result;
+		}
+	},
 	update: function(element, valueAccessor, allBindings) {
 		var defaults = {
 			timeAgo: false,
-			autoUpdate: true
+			autoUpdate: true,
+			preset: 'adaptive'
 		};
 		var options = valueAccessor();
 		
@@ -145,9 +171,13 @@ ko.bindingHandlers.moment = {
 		$(element).text(self.formatDate(settings));
 	},
 	formatDate: function(settings) {
+		var self = ko.bindingHandlers.moment;
 		var result = '';
-		// ещё прибавим пинг
-		result = moment(settings.value * 1000 + serverTimeDelta + 1000).fromNow();
+		if(settings.preset && self.presets[settings.preset]) {
+			result = self.presets[settings.preset](settings.value);
+		} else {
+			result = moment(settings.value * 1000 + serverTimeDelta + 1000).fromNow();
+		}
 		
 		return result;
 	},
@@ -157,7 +187,7 @@ ko.bindingHandlers.moment = {
 		var self = ko.bindingHandlers.moment;
 		self.elements.push(el);
 		if(!self.timer)
-			self.timer = setInterval(self.tick, 500);
+			self.timer = setInterval(self.tick, 1000);
 	},
 	tick: function() {
 		var self = ko.bindingHandlers.moment;

@@ -47,7 +47,7 @@ mixin js-im
                         self.container = $('.im-center_middle-hold', imCenter);
                         self.centerTop = $('.im-center_top', imCenter);
                         self.centerBottom = $('.im-center_bottom', imCenter);
-                        self.headerHeight = $('.header').height();
+                        self.headerHeight = $('.header-fix').height();
                         self.renew();
                 });
 
@@ -59,7 +59,7 @@ mixin js-im
                     self.container = $('.im-center_middle-hold', imCenter);
                     self.centerTop = $('.im-center_top', imCenter);
                     self.centerBottom = $('.im-center_bottom', imCenter);
-                    self.headerHeight = $('.header').height();
+                    self.headerHeight = $('.header-fix').height();
                     self.contWrap = $('.im-center_middle-w', imCenter);
                     self.renew();
                 });
@@ -214,9 +214,9 @@ mixin im-panel(mod, vars)
                 .im-panel_user-status Был на сайте 2 мин назад
                 a.im-panel_user-name(href="") Александр Богоявлен Богоявленский
             // У иконки 3 состояния.
-                Друг - без моидфикатора
-                Добавить в друзья - .friend__add
-                Приглашение отправленно - .friend__added
+                Друг - im-panel_friend__fr
+                Добавить в друзья - .im-panel_friend__add
+                Приглашение отправленно - .im-panel_friend__added
             - if (vars.friend == "friend") {
                 span.im-panel_friend.im-panel_friend__fr(href="")
                     span.im-panel_friend-ico
@@ -262,9 +262,11 @@ mixin im-message(mod, vars)
             case vars.msgStatus
                 when 'cancel'
                     // Когда сообщение отменено или удалено то блок .b-control удалется из сообщения или к нему добавляется класс display-n
-                    .im-message_tx.color-gray-light Сообщение отменено.
+                    .im-message_tx
+                        .color-gray-light.font-s Сообщение отменено.
                 when 'delete'
-                    .im-message_tx.color-gray-light Сообщение удалено. <a href="#" class="font-s">Восстановить</a>
+                    .im-message_tx
+                        .color-gray-light.font-s Сообщение удалено. <a href="#">Восстановить</a>
                 default
                     .im-message_tx 
                         - if (vars.imMessage_tx)

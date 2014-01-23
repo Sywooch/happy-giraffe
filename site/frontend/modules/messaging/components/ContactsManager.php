@@ -371,9 +371,9 @@ class ContactsManager
                     # Находится ли в черном списке
                     LEFT OUTER JOIN blacklist b ON b.user_id = :interlocutor_id AND b.blocked_user_id = u.id
                     # Имеет исходящий запрос в друзья
-                    LEFT OUTER JOIN friend_requests fr1 ON fr1.from_id = tu.user_id AND fr1.to_id = u.id
+                    LEFT OUTER JOIN friend_requests fr1 ON fr1.from_id = :interlocutor_id AND fr1.to_id = u.id
                     # Имеет входящий запрос в друзья
-                    LEFT OUTER JOIN friend_requests fr2 ON fr2.from_id = u.id AND fr2.to_id = tu.user_id
+                    LEFT OUTER JOIN friend_requests fr2 ON fr2.from_id = u.id AND fr2.to_id = :interlocutor_id
 					WHERE u.id = :interlocutor_id
 					LIMIT 1
                 ";

@@ -168,6 +168,20 @@ class AntispamCheck extends HActiveRecord
         return $this;
     }
 
+    public function entityIsNot($entity)
+    {
+        $models = self::$entityToModels[$entity];
+
+        $criteria = new CDbCriteria();
+        if (is_array($models))
+            $criteria->addNotInCondition($this->getTableAlias() . '.entity', $models);
+        else
+            $criteria->compare($this->getTableAlias() . '.entity', '!=' . $models);
+
+        $this->getDbCriteria()->mergeWith($criteria);
+        return $this;
+    }
+
     public function status($status)
     {
         $this->getDbCriteria()->mergeWith(array(
@@ -202,7 +216,7 @@ class AntispamCheck extends HActiveRecord
 
     public function live()
     {
-        return $this->status(self::STATUS_UNDEFINED)->userStatusIsNot(AntispamStatusManager::STATUS_WHITE);
+        return $this->status(self::STATUS_UNDEFINED)->userStatusIsNot(AntispamStatusManager::STATUS_WHITE)->entityIsNot(self::ENTITY_MESSAGES);
     }
 
     public function deleted()

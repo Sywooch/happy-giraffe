@@ -127,8 +127,31 @@ $(function() {
         }
     });
 
-    $('redactor')
+    $.fn.wysiwygHG = function() {
+        new HgWysiwyg(this);
+    };
 });
+
+HgWysiwyg.prototype = {
+    loaded : false,
+    popupsViewModel : new HgPopupViewModel(),
+    load : function() {
+        var self = this;
+        if (! HgWysiwyg.prototype.loaded) {
+            $.get('/ajax/redactorNew/', function(response) {
+                $('body').append(response);
+                    ko.applyBindings(self.popupsViewModel, document.getElementById('wysiwyg-related'));
+                    //ko.applyBindings(new WysiwygVideo(), document.getElementById('redactor-popup_b-video'));
+                    $('.redactor-popup_smiles a').on('click', function() {
+                        var pic = $(this).find('img').attr('src');
+                        self.obj.insertHtml('<img class="smile" src="' + pic + '" />');
+                        $('.redactor-popup_b-smile').addClass('display-n');
+                        return false;
+                    });
+            });
+        }
+    }
+}
 
 function HgWysiwyg(element)
 {
@@ -140,16 +163,17 @@ function HgWysiwyg(element)
         focus: true,
         toolbarExternal: '.redactor-control_toolbar',
         buttons: ['image', 'video', 'smile'],
-        buttonsCustom : {
+        buttonsCustom: {
             smile: {
-                title: 'Смайлы',
+                title: 'smile',
                 callback: function(buttonName, buttonDOM, buttonObject) {
-                    if ($('.redactor-popup_b-smile').is(':visible'))
-                        $('.redactor-popup_b-smile').addClass('display-n');
-                    else {
-                        $('.redactor-popup_b-smile').removeClass('display-n');
-                        setPopupPosition($(buttonDOM), $('.redactor-popup_b-smile'));
-                    }
+                    self.popupsViewModel.togglePopup(self.popupsViewModel.POPUP_SMILE, buttonDOM, self.obj);
+                }
+            },
+            video: {
+                title: 'video',
+                callback: function(buttonName, buttonDOM, buttonObject) {
+                    self.popupsViewModel.togglePopup(self.popupsViewModel.POPUP_VIDEO, buttonDOM, self.obj);
                 }
             }
         },
@@ -160,7 +184,6 @@ function HgWysiwyg(element)
         },
         changeCallback: function(html)
         {
-            im.renew();
             // Нужно выбирать непосредственного родителя
             var bParrent = $('.redactor-control_hold');
             if(bParrent.height() >= 250) {
@@ -170,19 +193,96 @@ function HgWysiwyg(element)
         },
         initCallback: function()
         {
-            im.renew();
+            self.obj = this;
         }
     }
 
-
-    alert('123');
     self.load();
+
     $(element).redactor(self.defaultOptions);
 }
 
-function HgWysiwygViewModel()
+function HgPopupViewModel()
 {
     var self = this;
+
     self.POPUP_SMILE = 0;
+    self.POPUP_VIDEO = 1;
+
+    self.models = {};
+    self.models[self.POPUP_SMILE] = {
+        reset : function() {
+
+        }
+    };
+    self.models[self.POPUP_VIDEO] = {
+        reset : function() {
+
+        }
+    };
+
     self.activePopup = ko.observable(null);
+
+    self.togglePopup = function(popup, buttonDOM, redactor) {
+        var resultPopup = popup;
+
+        // если уже нажата - отжимаем
+        if (self.activePopup() == popup)
+            resultPopup = null;
+
+        // если есть попап - чистим
+        if (self.activePopup() !== null)
+            self.models[self.activePopup()].reset();
+
+        // сохраняем выделение
+        if (self.activePopup() === null)
+            redactor.selectionSave();
+
+        if (resultPopup === null)
+            redactor.selectionRestore();
+
+        self.activePopup(popup);
+        self.setPopupPosition(buttonDOM);
+    }
+
+    self.setPopupPosition = function(a) {
+        var top = a.offset().top;
+        var left = a.offset().left;
+
+        $('.redactor-popup:visible').css({
+            'top': top - $('.redactor-popup:visible').height() - 55,
+            'left': left - 18
+        });
+    }
 }
+
+function WysiwygVideo()
+{
+    var self = this;
+    self.link = ko.observable('');
+    self.embed = ko.observable('');
+    self.previewLoading = ko.observable(false);
+    self.previewError = ko.observable(false);
+
+    self.check = function() {
+        self.previewError(false);
+        self.previewLoading(true);
+        $.get('/newblog/videoPreview/', { url : self.link(), width : 395 }, function(response) {
+            self.previewLoading(false);
+            if (response.success === false)
+                self.previewError(true);
+            else
+                self.embed(response.html);
+        }, 'json');
+    };
+
+    self.remove = function() {
+        self.link('');
+        self.embed(null);
+    };
+
+    self.embed.subscribe(function() {
+        if ($('.redactor_btn_video').length > 0)
+            setPopupPosition($('.redactor_btn_video'), $('.redactor-popup_b-video'));
+    });
+};

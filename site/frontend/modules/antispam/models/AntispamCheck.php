@@ -221,12 +221,12 @@ class AntispamCheck extends HActiveRecord
 
     public function deleted()
     {
-        return $this->status(self::STATUS_BAD);
+        return $this->status(self::STATUS_BAD)->entityIsNot(self::ENTITY_MESSAGES);
     }
 
     public function questionable()
     {
-        return $this->status(self::STATUS_QUESTIONABLE);
+        return $this->status(self::STATUS_QUESTIONABLE)->entityIsNot(self::ENTITY_MESSAGES);
     }
 
     public static function getDp($model)

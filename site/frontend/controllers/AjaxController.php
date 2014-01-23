@@ -714,6 +714,11 @@ class AjaxController extends HController
         $this->renderPartial('redactor');
     }
 
+    public function actionRedactorNew()
+    {
+        $this->renderPartial('redactor_new');
+    }
+
     public function actionBlackList()
     {
         $userId = Yii::app()->request->getPost('userId');

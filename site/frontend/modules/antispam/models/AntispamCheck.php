@@ -194,7 +194,7 @@ class AntispamCheck extends HActiveRecord
                     'with' => array('spamStatus'),
                 ),
             ),
-            'condition' => 'spamStatus.status != :spamStatus',
+            'condition' => 'spamStatus.status != :spamStatus OR spamStatus.status IS NULL',
             'params' => array(':spamStatus' => $status),
         ));
         return $this;

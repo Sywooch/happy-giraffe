@@ -648,6 +648,10 @@ function Messaging(model) {
 	};
 	
 	self.filter = function(type) {
+        // применим фильтр
+        self.users[0](ko.utils.arrayFilter(self.users[0](), function(user) {
+            return filters[0](user);
+        }));
 		// отсортируем по свежести
 		self.users[0].sort(function(user1, user2) {
 			return user1.date() < user2.date() ? 1 : (user1.date() == user2.date() ? 0 : -1);
@@ -668,11 +672,6 @@ function Messaging(model) {
 	];
 	
 	self.users[1] = ko.dependentObservable(function() {
-        // применим фильтр
-        self.users[0](ko.utils.arrayFilter(self.users[0](), function(user) {
-            return filters[0](user);
-        }));
-
         //self.applyFilter();
 		return ko.utils.arrayFilter(self.users[0](), function(user) {
 			return filters[1](user);

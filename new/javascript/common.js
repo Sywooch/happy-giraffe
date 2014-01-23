@@ -126,4 +126,63 @@ $(function() {
             }
         }
     });
+
+    $('redactor')
 });
+
+function HgWysiwyg(element)
+{
+    var self = this;
+    self.obj = null;
+    self.defaultOptions = {
+        minHeight: 20,
+        autoresize: true,
+        focus: true,
+        toolbarExternal: '.redactor-control_toolbar',
+        buttons: ['image', 'video', 'smile'],
+        buttonsCustom : {
+            smile: {
+                title: 'Смайлы',
+                callback: function(buttonName, buttonDOM, buttonObject) {
+                    if ($('.redactor-popup_b-smile').is(':visible'))
+                        $('.redactor-popup_b-smile').addClass('display-n');
+                    else {
+                        $('.redactor-popup_b-smile').removeClass('display-n');
+                        setPopupPosition($(buttonDOM), $('.redactor-popup_b-smile'));
+                    }
+                }
+            }
+        },
+        focusCallback: function(e)
+        {
+            // Нужно выбирать непосредственного родителя
+            $('.redactor-control_hold').addClass('redactor-control_hold__focus');
+        },
+        changeCallback: function(html)
+        {
+            im.renew();
+            // Нужно выбирать непосредственного родителя
+            var bParrent = $('.redactor-control_hold');
+            if(bParrent.height() >= 250) {
+                bParrent.height(250);
+            }
+            // обновлять скролл baron
+        },
+        initCallback: function()
+        {
+            im.renew();
+        }
+    }
+
+
+    alert('123');
+    self.load();
+    $(element).redactor(self.defaultOptions);
+}
+
+function HgWysiwygViewModel()
+{
+    var self = this;
+    self.POPUP_SMILE = 0;
+    self.activePopup = ko.observable(null);
+}

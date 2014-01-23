@@ -176,7 +176,7 @@ class AntispamCheck extends HActiveRecord
         if (is_array($models))
             $criteria->addNotInCondition($this->getTableAlias() . '.entity', $models);
         else
-            $criteria->compare($this->getTableAlias() . '.entity', '!=' . $models);
+            $criteria->compare($this->getTableAlias() . '.entity', '<>' . $models);
 
         $this->getDbCriteria()->mergeWith($criteria);
         return $this;

@@ -1,3 +1,5 @@
+
+
 <!-- im-center_bottom-->
 <div class="im-center_bottom">
     <div class="im-center_bottom-w clearfix">
@@ -9,7 +11,7 @@
                     <div class="scroll">
                         <div class="scroll_scroller">
                             <div class="scroll_cont">
-                                <textarea cols="40" name="redactor" rows="1" autofocus="autofocus" class="redactor"></textarea>
+                                <textarea cols="40" name="redactor" rows="1" autofocus="autofocus" class="redactor" onfocus="new HgWysiwyg(this)"></textarea>
                             </div>
                             <div class="scroll_bar-hold">
                                 <div class="scroll_bar">
@@ -27,11 +29,6 @@
                     </div>
                     <button class="btn-green">Отправить</button>
                 </div>
-                <script>
-                    $(document).ready(function () {
-                        var redactor = new HgWysiwyg('');
-                    });
-                </script>
             </div>
         </div>
     </div>

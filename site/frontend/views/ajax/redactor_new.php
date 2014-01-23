@@ -9,7 +9,8 @@
 <script type="text/javascript" src="/redactor/plugins/toolbarVerticalFixed/toolbarVerticalFixed.js"></script>
 
 <div id="wysiwyg-related">
-    <div class="redactor-popup redactor-popup_b-smile display-n" data-bind="css: { 'display-n' : activePopup() == POPUP_SMILE }">
+    <!-- ko if: activePopup() == POPUP_SMILE -->
+    <div class="redactor-popup redactor-popup_b-smile">
         <a href="javascript:void(0)" class="redactor-popup_close ico-close3 powertip" title="Закрыть" onclick="$(this).parents('.redactor-popup').addClass('display-n');"></a>
         <div class="redactor-popup_tale"></div>
         <div class="redactor-popup_t">Выберите смайл</div>
@@ -108,35 +109,38 @@
             </tbody>
         </table>
     </div>
+    <!-- /ko -->
 
-    <!-- ko stopBinding: true -->
-    <div class="redactor-popup redactor-popup_b-video display-n" id="redactor-popup_b-video">
-        <a href="javascript:void(0)" class="redactor-popup_close ico-close3 powertip" title="Закрыть" onclick="$(this).parents('.redactor-popup').addClass('display-n');"></a>
-        <div class="redactor-popup_tale"></div>
-        <div class="redactor-popup_t">Загрузите видео</div>
-        <div class="redactor-popup_video clearfix" data-bind="visible: embed() !== null">
-            <a class="redactor-popup_video-del ico-close powertip" title="Удалить" data-bind="click: remove"></a>
-            <div data-bind="html: embed" id="embed"></div>
-        </div>
-        <div class="redactor-popup_add-video" data-bind="visible: embed() === null, css: { active : previewLoading() || previewError() }">
-            <div class="redactor-popup_add-video-hold">
-                <input type="text" class="itx-simple w-350 float-l" placeholder="Введите ссылку на видео" data-bind="value: link, valueUpdate: ['afterkeydown','propertychange','input']">
-                <button class="btn-green btn-medium" data-bind="css: { 'btn-inactive' : link().length == 0 }, click: check">Загрузить  видео</button>
+    <!-- ko if: activePopup() == POPUP_VIDEO -->
+        <!-- ko stopBinding: true -->
+            <div class="redactor-popup redactor-popup_b-video" id="redactor-popup_b-video">
+                <a href="javascript:void(0)" class="redactor-popup_close ico-close3 powertip" title="Закрыть" onclick="$(this).parents('.redactor-popup').addClass('display-n');"></a>
+                <div class="redactor-popup_tale"></div>
+                <div class="redactor-popup_t">Загрузите видео</div>
+                <div class="redactor-popup_video clearfix" data-bind="visible: embed() !== null">
+                    <a class="redactor-popup_video-del ico-close powertip" title="Удалить" data-bind="click: remove"></a>
+                    <div data-bind="html: embed" id="embed"></div>
+                </div>
+                <div class="redactor-popup_add-video" data-bind="visible: embed() === null, css: { active : previewLoading() || previewError() }">
+                    <div class="redactor-popup_add-video-hold">
+                        <input type="text" class="itx-simple w-350 float-l" placeholder="Введите ссылку на видео" data-bind="value: link, valueUpdate: ['afterkeydown','propertychange','input']">
+                        <button class="btn-green btn-medium" data-bind="css: { 'btn-inactive' : link().length == 0 }, click: check">Загрузить  видео</button>
+                    </div>
+                    <div class="redactor-popup_add-video-load" data-bind="visible: previewLoading">
+                        <img src="/images/ico/ajax-loader.gif" alt=""> <br>
+                        Подждите, видео загружается
+                    </div>
+                    <div class="redactor-popup_add-video-error" data-bind="visible: previewError">
+                        Не удалось загрузить видео. <br>
+                        Возможно, URL указан неправильно либо ведет на неподдерживаемый сайт.
+                    </div>
+                </div>
+                <div class="textalign-c margin-t15" data-bind="visible: embed() !== null">
+                    <a href="javascript:void(0)" class="btn-gray-light btn-medium margin-r10" onclick="$(this).parents('.redactor-popup').addClass('display-n');">Отменить</a>
+                    <a href="javascript:void(0)" class="btn-green btn-medium" onclick="redactor.selectionRestore(); redactor.insertHtmlAdvanced('<div class=\x22b-article_in-img\x22>' + $('#embed').html() + '</div>'); redactor.sync(); $(this).parents('.redactor-popup').addClass('display-n');">Добавить видео</a>
+                </div>
             </div>
-            <div class="redactor-popup_add-video-load" data-bind="visible: previewLoading">
-                <img src="/images/ico/ajax-loader.gif" alt=""> <br>
-                Подждите, видео загружается
-            </div>
-            <div class="redactor-popup_add-video-error" data-bind="visible: previewError">
-                Не удалось загрузить видео. <br>
-                Возможно, URL указан неправильно либо ведет на неподдерживаемый сайт.
-            </div>
-        </div>
-        <div class="textalign-c margin-t15" data-bind="visible: embed() !== null">
-            <a href="javascript:void(0)" class="btn-gray-light btn-medium margin-r10" onclick="$(this).parents('.redactor-popup').addClass('display-n');">Отменить</a>
-            <a href="javascript:void(0)" class="btn-green btn-medium" onclick="redactor.selectionRestore(); redactor.insertHtmlAdvanced('<div class=\x22b-article_in-img\x22>' + $('#embed').html() + '</div>'); redactor.sync(); $(this).parents('.redactor-popup').addClass('display-n');">Добавить видео</a>
-        </div>
-    </div>
+        <!-- /ko -->
     <!-- /ko -->
 
     <!-- ko stopBinding: true -->

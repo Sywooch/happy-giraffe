@@ -45,6 +45,13 @@ class DefaultController extends HController
         echo CJSON::encode($data);
     }
 	
+    public function actionSearch($search, $offset = 0)
+    {
+        $contacts = ContactsManager::searchContacts(Yii::app()->user->id, $search, DialogForm::CONTACTS_PER_PAGE, $offset);
+        $data = compact('contacts');
+        echo CJSON::encode($data);
+    }
+	
 	public function actionGetUserInfo($id)
 	{
 		echo CJSON::encode(ContactsManager::getContactByUserId(Yii::app()->user->id, $id));

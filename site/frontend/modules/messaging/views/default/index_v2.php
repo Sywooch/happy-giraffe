@@ -92,8 +92,8 @@
                 </div>
                 <div class="im-sidebar_users">
                     <div class="im-sidebar_search clearfix">
-                        <input type="text" name="" placeholder="Поиск диалогов" class="im-sidebar_search-itx"/>
-                        <button class="im-sidebar_search-btn"></button>
+                        <input type="text" name="" placeholder="Поиск диалогов" data-bind="value: search, valueUpdate: 'keyup'" class="im-sidebar_search-itx"/>
+                        <button class="im-sidebar_search-btn" data-bind="click: clearSearch"></button>
                     </div>
                     <!-- im-user-list-->
                     <div class="im-user-list">

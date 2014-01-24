@@ -254,7 +254,7 @@ function WysiwygVideo()
 {
     var self = this;
     self.link = ko.observable('');
-    self.embed = ko.observable('');
+    self.embed = ko.observable(null);
     self.previewLoading = ko.observable(false);
     self.previewError = ko.observable(false);
 

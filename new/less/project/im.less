@@ -1,7 +1,9 @@
 /*
     body class
 */
-.body__im {}
+.body__im {
+    .layout-wrapper_hold {margin-top: 30px;}
+}
 
 /* 
     Почта
@@ -81,7 +83,7 @@
 .im-sidebar {
     position: relative;
     float: left;
-    width: 339px;
+    width: 338px;
     height: 100%;
     border-right: 1px solid #e9e9e9;
     background: url(/new/images/im/im-sidebar.png) repeat-y;
@@ -106,10 +108,11 @@
         height: 62px;
         background: url(/new/images/im/im-sidebar_sound-ico.png) no-repeat 0 11px;
     }
+    &_sound-ico.inactive,
     &_sound-ico:hover {background-position: 0 -89px;}
     &_users {
         float: left;
-        width: 259px;
+        width: 258px;
     }
     &_search {
         position: relative;
@@ -164,7 +167,7 @@
     &_i {
         position: relative;
         border-bottom: 1px solid #e6e6e6;
-        padding: 10px 15px;
+        padding: 8px 15px;
         cursor: pointer;
     }
     &_i:hover {background: #f7f7f7;}
@@ -278,7 +281,7 @@
                 im-panel_friend-tx
 */
 .im-panel {
-    padding: 8px 15px 8px;
+    padding: 8px 15px 6px;
     border-bottom: 1px solid #e9e9e9;
     
     &__small {
@@ -302,7 +305,7 @@
 
     .ava {
         display: inline-block;
-        vertical-align: middle;
+        vertical-align: top;
         margin-right: 10px;
     }
     &_actions {
@@ -338,8 +341,8 @@
     }
     &_user-status {
         position: absolute;
-        top: 2px;
-        left: 50px;
+        top: 0px;
+        left: 53px;
         color: #b6b9ba;
         font: @font-xs @altfont1;
     }
@@ -347,7 +350,7 @@
         display: inline-block;
         vertical-align: middle;
         max-width: 340px;
-        padding-top: 10px;
+        padding-top: 12px;
         font: 25px/30px @altfont2;
         color: #3f3053;
         text-decoration: none;
@@ -358,7 +361,7 @@
         display: inline-block;
         vertical-align: bottom;
         text-decoration: none;
-        margin: 0 10px 2px;
+        margin: 0 10px;
     }
     &_friend:hover &_friend-ico {background-position: -30px -30px;}
     &_friend:hover &_friend-tx {color: #5f5e61;} 

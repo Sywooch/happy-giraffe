@@ -1,271 +1,4 @@
 
-.layout-header {
-	position:relative;
-	
-	&__nologin {
-		padding: 20px 0 20px 20px;
-	}
-	&__nologin &_scrolltop {
-		float: right;
-		margin:20px 25px 0 0;
-	}
-	&_hold .logo {
-		float: left;
-		margin:5px 40px 0 40px;
-		padding: 0;
-	}
-	&_hold {
-		padding: 20px 10px 5px;
-		margin-bottom: 20px;
-	}
-	&_scrolltop {
-		float: left;
-		margin: 23px 10px 0 0;
-		text-decoration: none;
-		font-size: 14px;
-		line-height: 11px;
-
-		&:hover .a-pseudo {border-bottom-color: transparent;}
-	}
-}
-
-.header-menu {
-	float: right;
-	margin:15px 25px 0 0;
-
-	.ava {
-		float: none;
-		.inline-block();
-		margin: 5px;
-	}
-	&_li {
-		position: relative;
-		float: left;
-		margin: 5px 23px;
-		width: 70px;
-		text-align: center;
-	}
-	&_li.active &_ico__notice    {background-position: -50px -50px;}
-	&_li.active &_ico__im        {background-position: -50px -200px;}
-	&_li.active &_ico__logout    {background-position: -50px -550px;}
-	&_li.active &_ico__dropin    {background-position: -50px -600px;}
-	&_li.active &_tx {display: none;}
-	&_li.active &_count {.inline-block();}
-	&_li__dropin {
-		width: auto;
-		margin-right: 0;
-	}
-	&_a {
-		.inline-block();
-		text-decoration: none;
-	}
-	&_a:hover &_tx {text-decoration: underline;}
-	&_a:hover &_ico__logout {background-position: -50px -550px;}
-	&_a:hover &_ico__dropin {background-position: -50px -600px;}
-	&_ico {
-		display: block;
-		width: 50px;
-		height: 50px;
-		margin: 0 auto 5px;
-		background: url(/images/header-menu_ico.png) no-repeat;
-	}
-	@media 
-		only screen and (-webkit-min-device-pixel-ratio: 1.5),
-    	only screen and (min-resolution: 144dpi) {
-		&_ico {
-			background: url(/images/header-menu_ico2x.png) no-repeat;
-			background-size: 100px;
-		}
-    }
-	&_ico__giraffe   {background-position: 0 0;}
-	&_ico__notice    {background-position: 0 -50px;}
-	&_ico__favorite  {background-position: 0 -100px;}
-	&_ico__family    {background-position: 0 -150px;}
-	&_ico__im        {background-position: 0 -200px;}
-	&_ico__friend    {background-position: 0 -250px;}
-	&_ico__award     {background-position: 0 -300px;}
-	&_ico__profile   {background-position: 0 -350px;}
-	&_ico__blog      {background-position: 0 -400px;}
-	&_ico__photo     {background-position: 0 -450px;}
-	&_ico__settings  {background-position: 0 -500px;}
-	&_ico__logout    {background-position: 0 -550px;}
-	&_ico__dropin    {
-		.inline-block();
-		background-position: 0 -600px;
-		width: 35px;
-	}
-	&_tx {
-		.inline-block();
-		font: 11px/12px Tahoma, Arial, Verdana, sans-serif;
-		color: #a187bb;
-	}
-	&_count {
-		display: none;
-		margin: 4px 0 0;
-		padding: 0 4px;
-		font-size: 11px;
-		color: #fff;
-		.gvertical(#ff1a00, #cd0000);
-		.border-radius(4px);
-	}
-}
-
-/* .header-fix-menu */
-.header-fix-menu {
-	float: right;
-	margin: 0 20px 0 0;
-	@media screen and (max-width: 950px) {
-	    & {float: left;}
-	}
-	.header-drop {
-		right: 5px;
-		top: 63px;
-	}
-	.ava {
-		float: none;
-		.inline-block();
-		vertical-align: middle;
-		margin: 0 5px;
-	}
-	&_li {
-		float: left;
-		position: relative;
-		text-align: center;
-		margin: 0 5px;
-		min-width: 100px;
-	}
-	@media screen and (max-width: 950px) {
-	    &_li {width: auto;}
-	}
-	&_li.active &_ico__notice    {background-position: -35px -35px;}
-	&_li.active &_ico__im        {background-position: -35px -140px;}
-	&_li.active &_count {.inline-block();}
-	&_li__dropin {
-		margin: 0;
-	}
-	&_li__dropin &_a {padding: 12px 10px 12px;}
-	&_a {
-		display: block;
-		text-decoration: none;
-		padding: 11px 20px 13px;
-	}
-	&_a:hover {background: #f5f5f5;}
-	&_a:hover &_ico__dropin {background-position: -35px -420px;}
-
-	@media screen and (max-width: 950px) {
-	    &_a {padding: 11px 15px 13px;}
-	}
-	&_ico {
-		display: inline-block;
-		vertical-align: middle;
-		width: 35px;
-		height: 35px;
-		background: url(/images/header-menu_ico__small.png) no-repeat;
-	}
-	@media 
-		only screen and (-webkit-min-device-pixel-ratio: 1.5),
-    	only screen and (min-resolution: 144dpi) {
-		&_ico {
-			background: url(/images/header-menu_ico__small2x.png) no-repeat;
-			background-size: 70px;
-		}
-    }
-	&_ico__giraffe   {background-position: 0 0;}
-	&_ico__notice    {background-position: 0 -35px;}
-	&_ico__favorite  {background-position: 0 -70px;}
-	&_ico__family    {background-position: 0 -105px;}
-	&_ico__im        {background-position: 0 -140px;}
-	&_ico__friend    {background-position: 0 -175px;}
-	&_ico__award     {background-position: 0 -210px;}
-	&_ico__dropin    {background-position: 0 -420px;}
-	&_count {
-		display: none;
-		margin: 4px 0 0 5px;
-		padding: 0 4px;
-		color: #fff;
-		font-size: 11px;
-		.gvertical(#ff1a00, #cd0000);
-		.border-radius(4px);
-		vertical-align: middle;
-	}
-}
-/* /header-fix-menu */
-
-/* header-drop */
-.header-drop {
-	display: none;
-	position: absolute;
-	z-index: 600;
-	top: 58px;
-	right: -14px;
-	width: 390px;
-	background: #fff;
-	text-align: left;
-	.box-shadow(0 0 4px rgba(0,0,0,0.18));
-
-	&:after {
-	    content: ' ';
-	    position: absolute;
-	    right: 26px;
-	    top: -5px;
-	    height: 10px;
-	    width: 10px;
-	    margin-left: -5px;
-	    background: #fff;
-	    z-index: 1;
-	    .rotate(45deg);
-	    .box-shadow(-2px -2px 4px rgba(0,0,0,0.1));
-	}
-
-	.header-menu {
-		float: none;
-		margin: 5px 0 15px 10px;
-	}
-	.header-menu_li {
-		margin: 5px 7px;
-		width: 80px;
-	}
-	.header-menu_tx {color: #289fd7;}
-	.heading-small {font-size: 15px;}
-	&_b {
-		padding: 15px 20px 5px;
-		background: #f5f5f5;
-		font-size: 13px;
-	}
-	&_b-empty {
-		margin: 7px 0 20px;
-	}
-}
-/* /header-drop */
-
-/* header-fix */
-.header-fix {
-	display: none;
-	position: fixed;
-	top: 0;
-	right: 0;
-	left: 0;
-	background: #fff;
-	.box-shadow(0 0 3px rgba(0,0,0,0.15));
-	z-index: 700;
-
-	&_hold {
-		margin: 0 auto;
-		width: 1000px;
-	}
-	&_logo {
-		float: left;
-		margin: 12px 25px 0 80px;
-		width: 32px;
-		height: 37px;
-		background: url(/images/header-fix_logo.png) no-repeat;
-	}
-	@media screen and (max-width: 950px) {
-	    &_logo {margin-left: 20px;}
-	}
-}
-/* /header-fix */
-
 .b-join {
 	margin-right: -20px;
 	padding: 25px 20px 35px 30px;
@@ -351,3 +84,509 @@
 
 .logo-box {margin: 0 auto;text-align:center;color:#8d5bbc;text-transform:uppercase;font-size:10px;letter-spacing:3px;line-height:25px;padding: 25px 0 15px;}
 .logo-box > .logo {display:block;width:198px;height:93px;background:url(../images/common.png) no-repeat 0 -200px;text-indent:-9999px;margin:0 auto;padding: 0;}
+
+
+
+/* 
+    logo 
+    Главное лого сайта
+    
+    logo __small
+        logo_i
+        logo_slogan
+*/
+.logo {
+    position: relative;
+    margin: 0 auto;
+    padding: 0;
+    overflow: hidden;
+    
+    &__small &_i {
+        width: 65px;
+        height: 60px;
+         .img-retina('/new/images/base/logo__small.png'; '/new/images/base/logo__small-2x.png'; 65px; 60px;);
+    }
+    &_i {
+        display:block;
+        width:230px;
+        height:65px;
+        text-indent:-9999px;
+        margin:0 auto;
+        .img-retina('/new/images/base/logo.png'; '/new/images/base/logo-2x.png'; 230px; 65px;);
+    }
+    &_slogan {
+        position: absolute;
+        left: -9000px;
+    }
+}
+/* /logo */
+
+/* 
+    header 
+    Главная шапка сайта
+
+    header  __small     __base
+        header_hold
+            <logo>
+            header_t-big
+            header_user
+                header_user-name
+            header_i-arrow
+*/
+.header {
+    margin: 0 0 20px;
+    background:#fff url(/new/images/header.png) repeat-x 50% 0;
+    
+    &__small &_hold {padding: 10px 0 10px;}
+    // desktop размер
+    &__base {
+        
+        .header-menu_li__dropin.active .header-menu_ico,
+        .header-menu_li__dropin:hover .header-menu_ico {top: 0;}
+        .header-menu_li__dropin.active .header-menu_tx,
+        .header-menu_li__dropin:hover .header-menu_tx {color: #acacac;}
+    }
+    .logo {
+        float: left;
+        margin: 5px 10px 5px 30px;
+    }
+    .logo__small {margin: 0 25px 0 35px;}
+
+	&_hold {
+		width: 1000px;
+		margin: 0 auto;
+		padding: 25px 0 18px;
+	}
+    &_t-big {
+        float: left;
+        margin: 15px 5px;
+        font: 36px/42px 'Roboto', 'Helvetica Neue', Helvetica, Arial, Tahoma, sans-serif;
+    }
+    &_user {
+        float: right;
+        margin: 20px 35px 0 20px;
+    }
+    &_user .ava {
+        vertical-align: middle;
+        margin-right: 12px;
+    }
+    &_user-name {
+        .inline-block();
+        vertical-align: middle;
+        text-decoration: none;
+        font-weight: bold;
+        color: #289fd7;
+    }
+    &_user-name:hover {text-decoration: underline;}
+    &_i-arrow {
+        display: inline-block;
+        vertical-align: middle;
+        width: 12px;
+        height: 8px;
+        margin: 0 0 0 4px;
+        background: url(/new/images/header_i-arrow.png) no-repeat;
+    }
+}
+/* /header */
+
+/* 
+    header-menu
+    меню в шапке
+    
+    header-menu
+        header-menu_ul
+            header-menu_li  active
+                header-menu_a 
+                    header-menu_ico
+                    header-menu_tx
+*/
+.header-menu {
+    float: right;
+    margin: 5px 20px 0 0;
+    
+    .ava {
+        float: none;
+        .inline-block();
+        margin: 2px auto 7px;
+    }
+    &_li {
+        position: relative;
+        .inline-block();
+        vertical-align: top;
+        margin: 0 11px;
+        text-align: center;
+    }
+    &_li__dropin &_a:hover &_ico,
+    &_li__dropin &_li.active &_ico,
+    &_li:hover &_ico,
+    &_li.active &_ico,
+    &_li:hover &_count,
+    &_li.active &_count {top: -4px;}
+
+    &_a:hover &_ico__giraffe,
+    &_li.active &_ico__giraffe   {background-position: 0px -50px;}
+    &_a:hover &_ico__im,
+    &_li.active &_ico__im        {background-position: -50px -50px;}
+    &_a:hover &_ico__friend,
+    &_li.active &_ico__friend    {background-position: -100px -50px;}
+    &_a:hover &_ico__notice,
+    &_li.active &_ico__notice    {background-position: -150px -50px;}
+    &_a:hover &_ico__award,
+    &_li.active &_ico__award     {background-position: -200px -50px;}
+    &_a:hover &_ico__club,
+    &_li.active &_ico__club      {background-position: -250px -50px;}
+    &_a:hover &_ico__broadcast,
+    &_li.active &_ico__broadcast {background-position: -300px -50px;}
+    /*&_li:hover &_ico__profile,
+    &_li.active &_ico__profile   {background-position: -350px -50px;} */
+    &_a:hover &_ico__logout      {background-position: -650px -50px;}
+    &_a:hover,
+    &_li.active &_a {
+        background: url(/new/images/header-menu_a.png) no-repeat 4px 0;
+    }
+    &_a:hover &_tx,
+    &_li.active &_tx {
+        color: #808080;
+    }
+    &_a {
+        width: 76px;
+        .inline-block();
+        padding: 13px 0 0;
+        text-decoration: none;
+        text-align: center;
+    }
+    &_a:hover &_tx {
+        text-decoration: none;
+        color: #808080;
+    }
+    &_a:hover &_ico__dropin {background-position: -50px -600px;}
+    &_ico {
+        position: relative;
+        display: block;
+        width: 50px;
+        height: 45px;
+        margin: 0 auto 2px;
+        .img-retina('/new/images/header-menu_ico.png'; '/new/images/header-menu_ico-2x.png'; 700px; 95px;);
+    }
+
+    &_ico__giraffe   {background-position: 0 0;}
+    &_ico__im        {background-position: -50px 0;}
+    &_ico__friend    {background-position: -100px 0;}
+    &_ico__notice    {background-position: -150px 0;}
+    &_ico__award     {background-position: -200px 0;}
+    &_ico__club      {background-position: -250px 0;}
+    &_ico__broadcast {background-position: -300px 0;}
+    &_ico__profile   {background-position: -350px 0;}
+    &_ico__family    {background-position: -400px 0;}
+    &_ico__blog      {background-position: -450px 0;}
+    &_ico__photo     {background-position: -500px 0;}
+    &_ico__favorite  {background-position: -550px 0;}
+    &_ico__settings  {background-position: -600px 0;}
+    &_ico__logout    {background-position: -650px 0;}
+
+    &_ico__profile .ava {
+        position: absolute;
+        top: 9px;
+        left: 1px;
+    }
+
+    &_ico__dropin    {
+        .inline-block();
+        background-position: 0 -600px;
+        width: 35px;
+    }
+    &_tx {
+        display: block;
+        font: 11px/12px Tahoma, Arial, Verdana, sans-serif;
+        color: #acacac;
+        text-transform: uppercase;
+    }
+    &_count {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 0;
+        padding: 1px 5px;
+        border: 2px solid #fff;
+        font-size: 11px;
+        line-height: 14px;
+        color: #fff;
+        background-color: #f84219;
+        .border-radius(30px);
+    }
+}
+
+
+/* header-drop 
+    Выпадающий попап в верхнем меню
+    header-drop
+        <header-menu>
+        header-drop_b
+        header-drop__b-empty
+*/
+.header-drop {
+    display: none;
+    position: absolute;
+    z-index: 600;
+    top: 70px;
+    right: 2px;
+    width: 390px;
+    background: #fff;
+    text-align: left;
+    .box-shadow(0 0 4px rgba(0,0,0,0.18));
+
+    &:after {
+        content: ' ';
+        position: absolute;
+        right: 26px;
+        top: -5px;
+        height: 10px;
+        width: 10px;
+        margin-left: -5px;
+        background: #fff;
+        z-index: 1;
+        .rotate(45deg);
+        .box-shadow(-2px -2px 4px rgba(0,0,0,0.1));
+    }
+
+    .header-menu {
+        float: none;
+        margin: 5px 0 15px 10px;
+    }
+    .header-menu_li {
+        margin: 5px 6px;
+        width: 80px;
+        vertical-align: top;
+    }
+    .header-menu_li .header-menu_a {background: none;}
+    .heading-small {font-size: 15px;}
+    &_b {
+        padding: 15px 20px 5px;
+        background: #f5f5f5;
+        font-size: 13px;
+    }
+    &_b-empty {
+        margin: 7px 0 20px;
+    }
+}
+/* /header-drop */
+
+
+/* club-list 
+    Клубы пользователя
+*/
+/*.club-list {
+    margin: 10px 0 40px;
+
+    &__small {margin: 15px -22px 5px 0;}
+    &__small &_ul {margin: 0;}
+    &__small &_li {
+        margin: 0 18px 15px 0;
+        width: auto;
+    }
+    &__small &_i:hover &_img-hold {border-color: #dbd1e8;}
+    &__small &_img-hold {
+        margin-bottom: 0;
+        border: 1px solid #eae4f1;
+        .border-radius(4px);
+    }
+
+    &_ul {margin: 20px -38px 10px 0;}
+    &_li {
+        position: relative;
+        .inline-block();
+        vertical-align: top;
+        width: 98px;
+        margin:0 30px 30px 0;
+    }
+    &_li__in &_img-hold {border-color: #04a316;}
+    &_li__in &_check {background-position: 0 -40px;}
+    &_li__in &_check:hover {background-position: -42px -40px;}
+    &_li__in &_img-overlay {display: block;}
+    &_i {
+        display: block;
+        color: #3782c1;
+        text-align: center;
+        font: bold 11px/14px Tahoma, Arial, Verdana, sans-serif;
+    }
+    &_i:hover {text-decoration: none;}
+    &_img-hold {
+        position: relative;
+        display: block;
+        border: 2px solid #8eb3e3;
+        margin: 0 0 3px;
+        overflow: hidden;
+        .border-radius(5px);
+    }
+    &_img {display: block;}
+    &_check {
+        position: absolute;
+        top: 68px;
+        right: -10px;
+        width: 38px;
+        height: 38px;
+        background: url(/images/club/club-list_check.png) no-repeat;
+    }
+    &_check:hover {background-position: -42px 0;}
+    &_add {
+        display: block;
+        width: 98px;
+        height: 100px;
+        background: url(/images/club-list_add.png) no-repeat;
+    }
+    &_add:hover {background-position: 0 -100px;}
+    &_img-overlay {
+        display: none;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background: #5695e6;
+        background: rgba(86,149,230,.65);
+    }
+}*/
+/* /club-list */
+
+
+/* header-fix 
+    Фиксировання шапка
+    header-fix  __rel
+        header-fix_hold
+            header-fix_logo
+            <header-fix-menu>
+            header-fix_dropin
+                ...
+                <header-drop>
+*/
+.header-fix {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    background: #fff;
+    .box-shadow(0 0 3px rgba(0,0,0,0.15));
+    z-index: 700;
+    height: 50px;
+    
+    &__rel {
+        position: relative;
+        display: block;
+    }
+    &_hold {
+        margin: 0 auto;
+        position: relative;
+    }
+    @media screen and (min-width: 1000px) {
+        &_hold {width: 1000px;}
+    }
+
+    &_hold:before,
+    &_hold:after {
+        content: '';
+        position: absolute;
+        top: 50px;
+        left: 20px;
+        width: 95px;
+        height: 25px;
+        background: url(/new/images/header-fix_hold__pseudo.png) no-repeat;
+    }
+    &_hold:after {
+        left: auto;
+        right: 20px;
+    }
+    &_logo {
+        position: relative;
+        z-index: 5;
+        float: left;
+        margin: 7px 5px 0 50px;
+        width: 45px;
+        height: 55px;
+        background: url() no-repeat;
+        .img-retina('/new/images/header-fix_logo.png'; '/new/images/header-fix_logo-2x.png'; 45px; 55px)
+    }
+    &_dropin {
+        float: right;
+        width: 90px;
+        position: relative;
+        z-index: 5;
+        margin: 10px 2% 0 0;
+        text-align: center;
+        .ava {
+            vertical-align: middle;
+            float: none;
+            .inline-block();
+        }
+        .header_i-arrow {
+            .inline-block();
+            vertical-align: middle;
+        }
+        .header-drop {
+            right: 19px;
+            top: 53px;
+        }
+        &_a {padding: 12px 5px 12px;}
+    }
+    &_dropin:hover .header_i-arrow {background-position: 0 -8px;}
+}
+/* /header-fix */
+
+
+/* .header-fix-menu 
+    Меню в фиксированной шапке
+    header-fix-menu
+        header-fix-menu_ul
+            header-fix-menu_li
+                header-fix-menu_a
+                    header-fix-menu_tx
+                    header-fix-menu_count
+*/
+.header-fix-menu {
+    float: right;
+    width: 60%;
+    margin: 0 auto;
+    text-align: right;
+
+    @media screen and (min-width: 630px) {
+        & {width: 66%;}
+    }
+    @media screen and (min-width: 850px) {
+        & {width: 75%;}
+    }
+
+    &_ul {display: table;}
+    &_li {
+        display: table-cell;
+        width: 1000px;
+        position: relative;
+        text-align: center;
+        vertical-align: middle;
+    }
+    
+    &_a {
+        display: block;
+        text-decoration: none;
+        padding: 15px 0 16px;
+        color: #999;
+    }
+    &_a:hover {color: #333;}
+    &_tx {
+        .inline-block();
+        vertical-align: middle;
+        font: 10px/16px Tahoma, Arial, Verdana, sans-serif;
+        text-transform: uppercase;
+    }
+    &_count {
+        .inline-block();
+        vertical-align: middle;
+        margin: 1px 0 0 5px;
+        padding: 0 4px;
+        color: #fff;
+        font-size: 11px;
+        background: #f84219;
+        .border-radius(4px);
+        vertical-align: middle;
+    }
+}
+/* /header-fix-menu */

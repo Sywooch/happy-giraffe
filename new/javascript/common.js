@@ -206,7 +206,7 @@ RedactorPlugins.smilesModal = {
         var obj = this;
 
         var callback = function(buttonDOM) {
-            obj.fixPosition(buttonDOM);
+            fixPosition(buttonDOM);
 
             $('.redactor-popup_smiles a').on('click', function() {
                 var pic = $(this).find('img').attr('src');
@@ -219,20 +219,6 @@ RedactorPlugins.smilesModal = {
         this.buttonAdd('smile', 'Смайлы', function(buttonName, buttonDOM, buttonObj, e) {
             this.modalInit('Smiles', '#redactor-popup_b-smile', 500, function() {callback(buttonDOM)});
         });
-    },
-    fixPosition : function(a) {
-        $('#redactor_modal').hide();
-
-        setTimeout(function() {
-            var top = a.offset().top;
-            var left = a.offset().left;
-
-            $('#redactor_modal').css({
-                'top': top - $('#redactor_modal').height() - 6,
-                'left': left - 18
-            });
-            $('#redactor_modal').show();
-        }, 50);
     }
 }
 
@@ -242,6 +228,8 @@ RedactorPlugins.videoModal = {
         var obj = this;
 
         var callback = function(buttonDOM) {
+            fixPosition(buttonDOM);
+
             var model = new WysiwygVideo();
             ko.applyBindings(model, document.getElementById('testok'));
         }
@@ -250,6 +238,21 @@ RedactorPlugins.videoModal = {
             this.modalInit('Video', '#redactor-popup_b-video', 500, function() {callback(buttonDOM)});
         });
     }
+}
+
+function fixPosition(a) {
+    $('#redactor_modal').hide();
+
+    setTimeout(function() {
+        var top = a.offset().top;
+        var left = a.offset().left;
+
+        $('#redactor_modal').css({
+            'top': top - $('#redactor_modal').height() - 6,
+            'left': left - 18
+        });
+        $('#redactor_modal').show();
+    }, 50);
 }
 
 function WysiwygVideo()

@@ -21,7 +21,7 @@ if (! Yii::app()->user->isGuest)
 <html class="no-js">
 <head><meta charset="utf-8">
     <title>Happy Giraffe</title>
-    <!-- including .css--><link rel="stylesheet" type="text/css" href="/new/redactor/redactor.css" />
+    <!-- including .css-->
     <link rel="stylesheet" type="text/css" href="/new/css/all1.css" />
     <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300&amp;subset=latin,cyrillic-ext,cyrillic">
     <script src="/new/javascript/jquery.tooltipster.js"></script>

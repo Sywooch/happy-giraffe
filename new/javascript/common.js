@@ -207,12 +207,7 @@ RedactorPlugins.smilesModal = {
         var obj = this;
 
         var callback = function(buttonDOM) {
-            setTimeout(function() {
-                obj.setPopupPosition(buttonDOM);
-            }, 100);
-
-
-            $('#redactor_modal a').on('click', function() {
+            $('.redactor-popup_smiles a').on('click', function() {
                 var pic = $(this).find('img').attr('src');
                 obj.insertHtml('<img class="smile" src="' + pic + '" />');
                 obj.modalClose();
@@ -221,7 +216,7 @@ RedactorPlugins.smilesModal = {
         }
 
         this.buttonAdd('smile', 'Смайлы', function(buttonName, buttonDOM, buttonObj, e) {
-            this.modalInit('Smiles', '#redactor-popup_b-smile', 500, callback(buttonDOM));
+            this.modalInit('Smiles', '#redactor-popup_b-smile', 500, function() {callback(buttonDOM)});
         });
     },
     setPopupPosition: function(a) {

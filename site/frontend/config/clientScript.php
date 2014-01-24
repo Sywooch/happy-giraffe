@@ -153,7 +153,7 @@ return array(
                 'javascripts/imagesloaded.pkgd.min.js',
 				'javascripts/baron.js',
             ),
-            'depends' => array('knockout', 'common', 'comet', 'jquery.ui'),
+            'depends' => array('knockout', 'common', 'comet', 'jquery.ui', 'redactor'),
         ),
         'ko_favourites' => array(
             'baseUrl' => '/',
@@ -206,6 +206,15 @@ return array(
                 'javascripts/ko_onlineManager.js',
             ),
             'depends' => array('knockout'),
+        ),
+        'redactor' => array(
+            'baseUrl' => '/new/',
+            'js' => array(
+                'redactor/redactor.js',
+                'redactor/lang/ru.js',
+                '/redactor/plugins/toolbarVerticalFixed/toolbarVerticalFixed.js',
+            ),
+            'depends' => array('jquery'),
         ),
     )
 );

@@ -206,10 +206,7 @@ RedactorPlugins.smilesModal = {
         var obj = this;
 
         var callback = function(buttonDOM) {
-            setTimeout(function() {
-                obj.fixPosition(buttonDOM);
-            }, 100);
-
+            obj.fixPosition(buttonDOM);
 
             $('.redactor-popup_smiles a').on('click', function() {
                 var pic = $(this).find('img').attr('src');
@@ -224,13 +221,18 @@ RedactorPlugins.smilesModal = {
         });
     },
     fixPosition : function(a) {
-        var top = a.offset().top;
-        var left = a.offset().left;
+        $('#redactor_modal').hide();
 
-        $('#redactor_modal').css({
-            'top': top - $('#redactor_modal').height() - 6,
-            'left': left - 18
-        });
+        setTimeout(function() {
+            var top = a.offset().top;
+            var left = a.offset().left;
+
+            $('#redactor_modal').css({
+                'top': top - $('#redactor_modal').height() - 6,
+                'left': left - 18
+            });
+            $('#redactor_modal').show();
+        }, 50);
     }
 }
 

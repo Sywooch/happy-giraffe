@@ -16,7 +16,7 @@
         <div class="header-fix_hold clearfix"><a href="" class="header-fix_logo"></a>
           <div class="header-fix_dropin"><a href="" class="header-fix_dropin-a"><span href="" class="ava ava__middle ava__female"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"/></span><span class="header_i-arrow"></span></a>
             <!-- header-drop-->
-            <div class="header-drop display-b">
+            <div class="header-drop">
               <div class="header-menu clearfix">
                 <ul class="header-menu_ul">
                   <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__profile"><span href="" class="ava ava__small ava__male"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"/></span></span><span class="header-menu_tx">Анкета</span></a></li>

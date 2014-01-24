@@ -134,7 +134,6 @@ $(function() {
 
 HgWysiwyg.prototype = {
     loaded : false,
-    popupsViewModel : new HgPopupViewModel(),
     load : function() {
         var self = this;
         if (! HgWysiwyg.prototype.loaded) {
@@ -165,7 +164,7 @@ function HgWysiwyg(element)
         focus: true,
         toolbarExternal: '.redactor-control_toolbar',
         buttons: ['image'],
-        plugins: ['smilesModal'],
+        plugins: ['smilesModal', 'videoModal'],
         focusCallback: function(e)
         {
             // Нужно выбирать непосредственного родителя
@@ -218,74 +217,21 @@ RedactorPlugins.smilesModal = {
         this.buttonAdd('smile', 'Смайлы', function(buttonName, buttonDOM, buttonObj, e) {
             this.modalInit('Smiles', '#redactor-popup_b-smile', 500, function() {callback(buttonDOM)});
         });
-    },
-    setPopupPosition: function(a) {
-
-
-        var top = a.offset().top;
-        var left = a.offset().left;
-
-        console.log(top);
-        console.log(left);
-
-        $('#redactor_modal').css({
-            'top': top - $('#redactor_modal').height() - 55,
-            'left': left - 18,
-            'position' : 'absolute'
-        });
     }
 }
 
-function HgPopupViewModel()
-{
-    var self = this;
+RedactorPlugins.videoModal = {
+    init: function()
+    {
+        var obj = this;
 
-    self.POPUP_SMILE = 0;
-    self.POPUP_VIDEO = 1;
-
-    self.models = {};
-    self.models[self.POPUP_SMILE] = {
-        reset : function() {
-
+        var callback = function(buttonDOM) {
+            var model = new WysiwygVideo();
+            ko.applyBindings(model, document.getElementById('testok'));
         }
-    };
-    self.models[self.POPUP_VIDEO] = {
-        reset : function() {
 
-        }
-    };
-
-    self.activePopup = ko.observable(null);
-
-    self.togglePopup = function(popup, buttonDOM, redactor) {
-        var resultPopup = popup;
-
-        // если уже нажата - отжимаем
-        if (self.activePopup() == popup)
-            resultPopup = null;
-
-        // если есть попап - чистим
-        if (self.activePopup() !== null)
-            self.models[self.activePopup()].reset();
-
-        // сохраняем выделение
-        if (self.activePopup() === null)
-            redactor.selectionSave();
-
-        if (resultPopup === null)
-            redactor.selectionRestore();
-
-        self.activePopup(popup);
-        self.setPopupPosition(buttonDOM);
-    }
-
-    self.setPopupPosition = function(a) {
-        var top = a.offset().top;
-        var left = a.offset().left;
-
-        $('.redactor-popup:visible').css({
-            'top': top - $('.redactor-popup:visible').height() - 55,
-            'left': left - 18
+        this.buttonAdd('video', 'Видео', function(buttonName, buttonDOM, buttonObj, e) {
+            this.modalInit('Video', '#redactor-popup_b-video', 500, function() {callback(buttonDOM)});
         });
     }
 }

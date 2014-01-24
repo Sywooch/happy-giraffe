@@ -14,7 +14,8 @@ class ContactsManager
     const TYPE_NEW = 1;
     const TYPE_ONLINE = 2;
     const TYPE_FRIENDS_ONLINE = 3;
-    const TYPE_ONE = 4;
+    const TYPE_SEARCH = 4;
+    const TYPE_ONE = 5;
     const LIMIT = 20;
 
     /**
@@ -44,6 +45,12 @@ class ContactsManager
      */
     public static function getContactsByUserId($userId, $type, $limit, $offset = 0)
     {
+		// Проверим, что тип разрешён для данной функции
+		if(!in_array($type, array(self::TYPE_ALL, self::TYPE_NEW, self::TYPE_ONLINE, self::TYPE_FRIENDS_ONLINE)))
+		{
+			return array();
+		}
+		
         $sql = self::getSql($type);
 
 		$command = Yii::app()->db->createCommand($sql);
@@ -58,6 +65,71 @@ class ContactsManager
 
         return $contacts;
     }
+	
+    /**
+     * Получение контактов пользователя
+     *
+     * Возвращает список контактов. Каждый контакт представлен следующим набором свойств:
+     * -ID собеседника;
+     * -имя собеседника;
+     * -фамилия собеседника;
+     * -онлайн-статус собеседника;
+     * -ID диалога;
+     * -видимость диалога;
+     * -дата последнего обновления диалога;
+     * -количество непрочитанных сообщений;
+     * -является ли собеседник другом;
+     * маленький аватар.
+     *
+     * Контактами являются:
+     * -пользователи, с которыми когда-либо была переписка;
+     * -пользователи, находящиеся в друзьях вне зависимости от наличия или отсутствия переписки с ними.
+     *
+     * Контакты возвращаются в виде единого списка, а уже на клиенте распределяются по вкладкам.
+     *
+     * @static
+     * @param $userId
+     * @return array
+     */
+	public static function searchContacts($userId, $search, $limit, $offset = 0)
+	{
+		$sql = self::getSql(self::TYPE_SEARCH);
+
+		$search = str_replace(explode(" ", "% \" ' ?"), "", $search);
+		$search = explode(" ", $search);
+		// Если слов больше двух, то мы точно ничего не найдём в базе
+		// А если их нет, то и искать смысла нет
+		if (count($search) > 2 || count($search) == 0)
+		{
+			return array();
+		}
+		elseif (count($search) == 2)
+		{
+			$regexp = '(u.first_name LIKE CONCAT(:like0, "%") AND u.last_name LIKE CONCAT(:like1, "%")) OR (u.first_name LIKE CONCAT(:like1, "%") AND u.last_name LIKE CONCAT(:like0, "%"))';
+		}
+		else
+		{
+			$regexp = 'u.first_name LIKE CONCAT(:like0, "%") OR u.last_name LIKE CONCAT(:like0, "%")';
+		}
+
+		$sql = str_replace('{searchCondition}', $regexp, $sql);
+		$command = Yii::app()->db->createCommand($sql);
+		$command->bindValue(':user_id', $userId, PDO::PARAM_INT);
+		$command->bindValue(':limit', (int) $limit, PDO::PARAM_INT);
+		$command->bindValue(':offset', (int) $offset, PDO::PARAM_INT);
+		foreach ($search as $k => $v)
+		{
+			$command->bindValue(':like' . $k, $v, PDO::PARAM_STR);
+		}
+		$rows = $command->queryAll();
+
+		$contacts = array();
+		foreach ($rows as $row)
+		{
+			$contacts[] = self::populateContact($row);
+		}
+		return $contacts;
+	}
 	
 	public static function getContactByUserId($userId, $interlocutorId)
 	{
@@ -286,6 +358,51 @@ class ContactsManager
                     # Находится ли в черном списке
                     LEFT OUTER JOIN blacklist b ON b.user_id = tu.user_id AND b.blocked_user_id = u.id
                     WHERE f.user_id = :user_id AND tu.user_id IS NOT NULL AND b.user_id IS NULL AND u.online = 1
+                    GROUP BY u.id
+                    ORDER BY t.updated DESC
+                    LIMIT :limit
+                    OFFSET :offset;
+                ";
+                break;
+            case self::TYPE_SEARCH:
+                $sql = "
+                    SELECT
+                      u.id AS uId, # ID собеседника
+                      u.first_name, # Имя собеседника
+                      u.last_name, # Фамилия собеседника
+                      u.gender, # Пол собеседника
+                      u.online, # Онлайн-статус собеседника
+                      u.last_active, # Дата последней активности
+                      t.id AS tId, # ID Диалога
+                      tu.hidden, # Видимость диалога
+                      p.id AS pId, # ID аватара
+                      p.fs_name, # Аватар
+                      UNIX_TIMESTAMP(t.updated) AS updated, # Дата последнего обновления диалога
+                      COUNT(mu.message_id) AS unreadCount, # Количество непрочитанных сообщений
+                      f.id IS NOT NULL AS isFriend, # Является ли другом
+                      fr1.id IS NOT NULL AS hasOutgoingRequest, # Имеет ли исходящий запрос в друзья
+                      fr2.id IS NOT NULL AS hasIncomingRequest # Имеет ли входящий запрос в друзья
+                    FROM messaging__threads_users tu
+                    # Получение id собеседника
+                    INNER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id != tu.user_id
+                    # Получение информации о собеседнике
+                    INNER JOIN users u ON tu2.user_id = u.id
+                    # Получение информации о диалоге
+                    INNER JOIN messaging__threads t ON tu.thread_id = t.id
+                    # Получение количества непрочитанных сообщений
+                    LEFT OUTER JOIN messaging__messages m ON m.thread_id = t.id AND m.author_id != tu.user_id
+                    LEFT OUTER JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.dtime_read IS NULL AND mu.user_id = tu.user_id
+                    # Получение аватара
+                    LEFT OUTER JOIN album__photos p ON u.avatar_id = p.id
+                    # Является ли другом
+                    LEFT OUTER JOIN friends f ON f.user_id = tu.user_id AND f.friend_id = u.id
+                    # Находится ли в черном списке
+                    LEFT OUTER JOIN blacklist b ON b.user_id = tu.user_id AND b.blocked_user_id = u.id
+                    # Имеет исходящий запрос в друзья
+                    LEFT OUTER JOIN friend_requests fr1 ON fr1.from_id = tu.user_id AND fr1.to_id = u.id
+                    # Имеет входящий запрос в друзья
+                    LEFT OUTER JOIN friend_requests fr2 ON fr2.from_id = u.id AND fr2.to_id = tu.user_id
+                    WHERE tu.user_id = :user_id AND b.user_id IS NULL AND ({searchCondition})
                     GROUP BY u.id
                     ORDER BY t.updated DESC
                     LIMIT :limit

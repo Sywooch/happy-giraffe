@@ -12,7 +12,7 @@
 	Yii::app()->clientScript->scriptMap['knockout-2.2.1.js?r=' . Yii::app()->params['releaseId']] = '/new/javascript/knockout-debug.3.0.0.js';
 	if (! Yii::app()->user->isGuest)
 		Yii::app()->clientScript
-			->registerScript('serverTime', 'var serverTime = ' . time() . '; serverTimeDelta = new Date().getTime() - (serverTime * 1000)', CClientScript::POS_HEAD)
+			->registerScript('serverTime', 'var serverTime = ' . time() . ' * 1000; serverTimeDelta = new Date().getTime() - serverTime', CClientScript::POS_HEAD)
 			->registerPackage('comet')
 			->registerPackage('common')
 			->registerScript('Realplexor-reg', 'comet.connect(\'http://' . Yii::app()->comet->host . '\', \'' . Yii::app()->comet->namespace . '\', \'' . UserCache::GetCurrentUserCache() . '\');');

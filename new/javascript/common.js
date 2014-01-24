@@ -229,7 +229,7 @@ RedactorPlugins.smilesModal = {
 
         $('#redactor_modal').css({
             'top': top - $('#redactor_modal').height() - 6,
-            'left': left - 55
+            'left': left - 18
         });
     }
 }

@@ -6323,7 +6323,7 @@
 					+ '<input type="button" class="redactor_modal_btn redactor_modal_action_btn" id="redactor_insert_video_btn" value="' + this.opts.curLang.insert + '" />'
 				+ '</footer>'
 
-			});
+	  		});
 		},
 		modalInit: function(title, content, width, callback)
 		{

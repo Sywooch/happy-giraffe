@@ -140,14 +140,14 @@ HgWysiwyg.prototype = {
         if (! HgWysiwyg.prototype.loaded) {
             $.get('/ajax/redactorNew/', function(response) {
                 $('body').append(response);
-                    ko.applyBindings(self.popupsViewModel, document.getElementById('wysiwyg-related'));
-                    //ko.applyBindings(new WysiwygVideo(), document.getElementById('redactor-popup_b-video'));
-                    $('.redactor-popup_smiles a').on('click', function() {
-                        var pic = $(this).find('img').attr('src');
-                        self.obj.insertHtml('<img class="smile" src="' + pic + '" />');
-                        $('.redactor-popup_b-smile').addClass('display-n');
-                        return false;
-                    });
+//                    ko.applyBindings(self.popupsViewModel, document.getElementById('wysiwyg-related'));
+//                    //ko.applyBindings(new WysiwygVideo(), document.getElementById('redactor-popup_b-video'));
+//                    $('.redactor-popup_smiles a').on('click', function() {
+//                        var pic = $(this).find('img').attr('src');
+//                        self.obj.insertHtml('<img class="smile" src="' + pic + '" />');
+//                        $('.redactor-popup_b-smile').addClass('display-n');
+//                        return false;
+//                    });
             });
         }
     }
@@ -156,27 +156,16 @@ HgWysiwyg.prototype = {
 function HgWysiwyg(element)
 {
     var self = this;
+    self.load();
+
     self.obj = null;
     self.defaultOptions = {
         minHeight: 20,
         autoresize: true,
         focus: true,
         toolbarExternal: '.redactor-control_toolbar',
-        buttons: ['image', 'video', 'smile'],
-        buttonsCustom: {
-            smile: {
-                title: 'smile',
-                callback: function(buttonName, buttonDOM, buttonObject) {
-                    self.popupsViewModel.togglePopup(self.popupsViewModel.POPUP_SMILE, buttonDOM, self.obj);
-                }
-            },
-            video: {
-                title: 'video',
-                callback: function(buttonName, buttonDOM, buttonObject) {
-                    self.popupsViewModel.togglePopup(self.popupsViewModel.POPUP_VIDEO, buttonDOM, self.obj);
-                }
-            }
-        },
+        buttons: ['image'],
+        plugins: ['smilesModal'],
         focusCallback: function(e)
         {
             // Нужно выбирать непосредственного родителя
@@ -197,9 +186,59 @@ function HgWysiwyg(element)
         }
     }
 
-    self.load();
+    self.openPopup = function() {
+
+    }
+
+    self.closePopup = function() {
+
+    }
+
+
+
 
     $(element).redactor(self.defaultOptions);
+}
+
+var RedactorPlugins = {};
+RedactorPlugins.smilesModal = {
+    init: function()
+    {
+        var obj = this;
+
+        var callback = function(buttonDOM) {
+            setTimeout(function() {
+                obj.setPopupPosition(buttonDOM);
+            }, 100);
+
+
+            $('#redactor_modal a').on('click', function() {
+                var pic = $(this).find('img').attr('src');
+                obj.insertHtml('<img class="smile" src="' + pic + '" />');
+                obj.modalClose();
+                return false;
+            });
+        }
+
+        this.buttonAdd('smile', 'Смайлы', function(buttonName, buttonDOM, buttonObj, e) {
+            this.modalInit('Smiles', '#redactor-popup_b-smile', 500, callback(buttonDOM));
+        });
+    },
+    setPopupPosition: function(a) {
+
+
+        var top = a.offset().top;
+        var left = a.offset().left;
+
+        console.log(top);
+        console.log(left);
+
+        $('#redactor_modal').css({
+            'top': top - $('#redactor_modal').height() - 55,
+            'left': left - 18,
+            'position' : 'absolute'
+        });
+    }
 }
 
 function HgPopupViewModel()

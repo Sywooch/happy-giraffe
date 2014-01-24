@@ -620,8 +620,10 @@ function Messaging(model) {
 	self.me = null;
 	self.countTotal = ko.observable(model.counters.total);
 	self.loadindContacts = ko.observable(false);
+	self.savedFilter = ko.observable(0);
 	self.currentFilter = ko.observable(0);
     self.settings = new MessagingSettings(model.settings);
+	self.search = ko.observable('');
 	
 	var filters = [
 		function(user) {
@@ -668,29 +670,63 @@ function Messaging(model) {
 		false,
 		false,
 		false,
-		ko.observableArray([])
+		false,
 	];
 	
-	self.users[1] = ko.dependentObservable(function() {
+	self.users[1] = ko.computed(function() {
         //self.applyFilter();
 		return ko.utils.arrayFilter(self.users[0](), function(user) {
 			return filters[1](user);
 		});
 	});
 	
-	self.users[2] = ko.dependentObservable(function() {
+	self.users[2] = ko.computed(function() {
 		//self.applyFilter();
 		return ko.utils.arrayFilter(self.users[0](), function(user) {
 			return filters[2](user);
 		});
 	});
 	
-	self.users[3] = ko.dependentObservable(function() {
+	self.users[3] = ko.computed(function() {
 		//self.applyFilter();
 		return ko.utils.arrayFilter(self.users[0](), function(user) {
 			return filters[3](user);
 		});
 	});
+	
+	self.users[4] = ko.computed(function() {
+		if(self.search().length > 0) {
+			if(self.currentFilter() !== 4) {
+				self.savedFilter(self.currentFilter());
+				self.currentFilter(4);
+			}
+			var search = self.search().split(' ', 2);
+			var regexp;
+			var error = false;
+			try {
+				if(search.length == 1) {
+					regexp = new RegExp("(^" + search[0] + ")|(^\\S+\\s" + search[0] + ")", 'i');
+				} else {
+					regexp = new RegExp("(^" + search[0] + "\\S*\\s" + search[1] + ")|(^" + search[1] + "\\S*\\s" + search[0] + ")", 'i');
+				}
+			} catch(e) {
+				error = true;
+			}
+			console.log(error, regexp);
+			
+			return error ? [] : ko.utils.arrayFilter(self.users[0](), function(user) {
+				return user.fullName().match(regexp);
+			});
+		} else {
+			self.currentFilter(self.savedFilter());
+			
+			return [];
+		}
+	});
+	
+	self.clearSearch = function() {
+		self.search('');
+	};
 	
 	self.getContactList = ko.computed(function() {
 		//console.log(self.users[self.currentFilter()]());
@@ -701,7 +737,15 @@ function Messaging(model) {
 		if(!self.loadindContacts()) {
 			self.loadindContacts(true);
 			var type = self.currentFilter();
-			$.get('/messaging/default/getContacts/', { type: type, offset: self.users[type]().length }, function(response) {
+			var url = '/messaging/default/getContacts/';
+			var data = { offset: self.users[type]().length };
+			if(type == 4) {
+				url = '/messaging/default/search/';
+				data.search = self.search();
+			} else {
+				data.type = type
+			}
+			$.get(url, data, function(response) {
 				var contacts = ko.utils.arrayMap(response.contacts, function(user) {
 					return new MessagingUser(self, user);
 				});

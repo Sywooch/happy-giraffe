@@ -17,7 +17,7 @@ class DefaultController extends HController
     {
         return array(
             'accessControl',
-            'ajaxOnly - index',
+            //'ajaxOnly - index',
         );
     }
 
@@ -56,4 +56,9 @@ class DefaultController extends HController
 	{
 		echo CJSON::encode(ContactsManager::getContactByUserId(Yii::app()->user->id, $id));
 	}
+
+    public function actionWysiwyg()
+    {
+        $this->render('wysiwyg');
+    }
 }

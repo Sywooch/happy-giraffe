@@ -33,6 +33,9 @@ switch ($data->type_id) {
     default:
         $cssClass = null;
 }
+
+if (! isset($showComments))
+    $showComments = true;
 ?>
 <div class="b-article clearfix<?php if ($cssClass !== null): ?> <?=$cssClass?><?php endif; ?>" id="blog_settings_<?=$data->id ?>">
     <?php if ($data->source_id) $this->renderPartial('blog.views.default._repost', array('data' => $data)); ?>
@@ -67,7 +70,7 @@ switch ($data->type_id) {
             <?php $this->endWidget(); ?>
         <?php endif; ?>
 
-        <?php if (! $full): ?>
+        <?php if (! $full && $showComments): ?>
             <?php $this->widget('application.widgets.newCommentWidget.NewCommentWidget', array('model' => $data, 'full' => $full)); ?>
         <?php endif; ?>
         <!-- /ko -->

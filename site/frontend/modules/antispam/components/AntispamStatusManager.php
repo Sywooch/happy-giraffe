@@ -15,38 +15,45 @@ class AntispamStatusManager
     const STATUS_BLACK = 3;
     const STATUS_BLOCKED = 4;
 
-    public static function setUserStatus($userId, $statusValue)
+    public static function setUserStatus($userId, $newStatus)
     {
-        $status = self::getUserStatusModel($userId);
-        if ($status !== null && $status->status == $statusValue)
+        $model = self::getUserStatusModel($userId);
+        $currentStatus = self::getUserStatusByModel($model);
+        
+        if ($currentStatus == $newStatus)
             return false;
 
-        if ($statusValue == self::STATUS_WHITE)
+        if ($newStatus == self::STATUS_WHITE)
             AntispamCheck::changeStatusAll($userId, AntispamCheck::STATUS_UNDEFINED, AntispamCheck::STATUS_GOOD);
 
-        if ($statusValue == self::STATUS_BLACK)
+        if ($newStatus == self::STATUS_BLACK)
             AntispamCheck::changeStatusAll($userId, AntispamCheck::STATUS_UNDEFINED, AntispamCheck::STATUS_MASS_REMOVED);
 
-        if ($status->status == self::STATUS_BLACK)
+        if ($currentStatus == self::STATUS_BLACK)
             AntispamCheck::changeStatusAll($userId, AntispamCheck::STATUS_MASS_REMOVED, AntispamCheck::STATUS_UNDEFINED);
 
-        if ($status === null) {
-            $status = new AntispamStatus();
-            $status->user_id = $userId;
+        if ($model === null) {
+            $model = new AntispamStatus();
+            $model->user_id = $userId;
         }
-        $status->status = $statusValue;
-        $status->moderator_id = Yii::app()->user->id;
-        return $status->save() ? $status : false;
+        $model->status = $newStatus;
+        $model->moderator_id = Yii::app()->user->id;
+        return $model->save() ? $model : false;
     }
 
-    public static function getUserStatus($user)
+    public static function getUserStatus($userId)
     {
-        $status = self::getUserStatusModel($user);
-        return $status === null ? self::STATUS_UNDEFINED : $status->status;
+        $status = self::getUserStatusModel($userId);
+        return self::getUserStatusByModel($status);
     }
 
     public static function getUserStatusModel($userId)
     {
         return AntispamStatus::model()->findByAttributes(array('user_id' => $userId));
+    }
+    
+    protected static function getUserStatusByModel($model)
+    {
+        return $model === null ? self::STATUS_UNDEFINED : $model->status;
     }
 }

@@ -262,7 +262,9 @@ class ContactsManager
                       p.fs_name, # Аватар
                       UNIX_TIMESTAMP(t.updated) AS updated, # Дата последнего обновления диалога
                       COUNT(mu.message_id) AS unreadCount, # Количество непрочитанных сообщений
-                      f.id IS NOT NULL AS isFriend # Является ли другом
+                      f.id IS NOT NULL AS isFriend, # Является ли другом
+                      fr1.id IS NOT NULL AS hasOutgoingRequest, # Имеет ли исходящий запрос в друзья
+                      fr2.id IS NOT NULL AS hasIncomingRequest # Имеет ли входящий запрос в друзья
                     FROM messaging__threads_users tu
                     # Получение id собеседника
                     INNER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id != tu.user_id
@@ -279,6 +281,10 @@ class ContactsManager
                     LEFT OUTER JOIN friends f ON f.user_id = tu.user_id AND f.friend_id = u.id
                     # Находится ли в черном списке
                     LEFT OUTER JOIN blacklist b ON b.user_id = tu.user_id AND b.blocked_user_id = u.id
+                    # Имеет исходящий запрос в друзья
+                    LEFT OUTER JOIN friend_requests fr1 ON fr1.from_id = tu.user_id AND fr1.to_id = u.id
+                    # Имеет входящий запрос в друзья
+                    LEFT OUTER JOIN friend_requests fr2 ON fr2.from_id = u.id AND fr2.to_id = tu.user_id
                     WHERE tu.user_id = :user_id AND b.user_id IS NULL
                     GROUP BY u.id
                     HAVING unreadCount > 0
@@ -302,7 +308,9 @@ class ContactsManager
                       p.fs_name, # Аватар
                       UNIX_TIMESTAMP(t.updated) AS updated, # Дата последнего обновления диалога
                       COUNT(mu.message_id) AS unreadCount, # Количество непрочитанных сообщений
-                      f.id IS NOT NULL AS isFriend # Является ли другом
+                      f.id IS NOT NULL AS isFriend, # Является ли другом
+                      fr1.id IS NOT NULL AS hasOutgoingRequest, # Имеет ли исходящий запрос в друзья
+                      fr2.id IS NOT NULL AS hasIncomingRequest # Имеет ли входящий запрос в друзья
                     FROM messaging__threads_users tu
                     # Получение id собеседника
                     INNER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id != tu.user_id
@@ -319,6 +327,10 @@ class ContactsManager
                     LEFT OUTER JOIN friends f ON f.user_id = tu.user_id AND f.friend_id = u.id
                     # Находится ли в черном списке
                     LEFT OUTER JOIN blacklist b ON b.user_id = tu.user_id AND b.blocked_user_id = u.id
+                    # Имеет исходящий запрос в друзья
+                    LEFT OUTER JOIN friend_requests fr1 ON fr1.from_id = tu.user_id AND fr1.to_id = u.id
+                    # Имеет входящий запрос в друзья
+                    LEFT OUTER JOIN friend_requests fr2 ON fr2.from_id = u.id AND fr2.to_id = tu.user_id
                     WHERE tu.user_id = :user_id AND b.user_id IS NULL AND u.online = 1
                     GROUP BY u.id
                     ORDER BY t.updated DESC
@@ -341,7 +353,9 @@ class ContactsManager
                       p.fs_name, # Аватар
                       UNIX_TIMESTAMP(t.updated) AS updated, # Дата последнего обновления диалога
                       COUNT(mu.message_id) AS unreadCount, # Количество непрочитанных сообщений
-                      1 AS isFriend # Является ли другом
+                      1 IS NOT NULL AS isFriend, # Является ли другом
+                      0 IS NOT NULL AS hasOutgoingRequest, # Имеет ли исходящий запрос в друзья
+                      0 IS NOT NULL AS hasIncomingRequest # Имеет ли входящий запрос в друзья
                     FROM friends f
                     # Получение информации о собеседнике
                     INNER JOIN users u ON f.friend_id = u.id
@@ -423,6 +437,8 @@ class ContactsManager
                       UNIX_TIMESTAMP(t.updated) AS updated, # Дата последнего обновления диалога
                       COUNT(mu.message_id) AS unreadCount, # Количество непрочитанных сообщений
                       f.id IS NOT NULL AS isFriend, # Является ли другом
+                      fr1.id IS NOT NULL AS hasOutgoingRequest, # Имеет ли исходящий запрос в друзья
+                      fr2.id IS NOT NULL AS hasIncomingRequest, # Имеет ли входящий запрос в друзья
 					  b.user_id IS NOT NULL AS isBlocked # Заблокирован ли
                     FROM messaging__threads_users tu
                     # Получение собеседника по id
@@ -440,6 +456,10 @@ class ContactsManager
                     LEFT OUTER JOIN friends f ON f.user_id = tu.user_id AND f.friend_id = u.id
                     # Находится ли в черном списке
                     LEFT OUTER JOIN blacklist b ON b.user_id = tu.user_id AND b.blocked_user_id = u.id
+                    # Имеет исходящий запрос в друзья
+                    LEFT OUTER JOIN friend_requests fr1 ON fr1.from_id = tu.user_id AND fr1.to_id = u.id
+                    # Имеет входящий запрос в друзья
+                    LEFT OUTER JOIN friend_requests fr2 ON fr2.from_id = u.id AND fr2.to_id = tu.user_id
                     WHERE tu.user_id = :user_id #AND b.user_id IS NULL
                     LIMIT 1
 					
@@ -457,6 +477,8 @@ class ContactsManager
                       NULL AS updated, # Дата последнего обновления диалога
                       0 AS unreadCount, # Количество непрочитанных сообщений
                       f.id IS NOT NULL AS isFriend, # Является ли другом
+                      fr1.id IS NOT NULL AS hasOutgoingRequest, # Имеет ли исходящий запрос в друзья
+                      fr2.id IS NOT NULL AS hasIncomingRequest, # Имеет ли входящий запрос в друзья
 					  b.user_id IS NOT NULL AS isBlocked # Заблокирован ли
 					FROM users u
                     # Получение аватара
@@ -465,6 +487,10 @@ class ContactsManager
                     LEFT OUTER JOIN friends f ON f.user_id = u.id AND f.friend_id = :user_id
                     # Находится ли в черном списке
                     LEFT OUTER JOIN blacklist b ON b.user_id = :interlocutor_id AND b.blocked_user_id = u.id
+                    # Имеет исходящий запрос в друзья
+                    LEFT OUTER JOIN friend_requests fr1 ON fr1.from_id = :interlocutor_id AND fr1.to_id = u.id
+                    # Имеет входящий запрос в друзья
+                    LEFT OUTER JOIN friend_requests fr2 ON fr2.from_id = u.id AND fr2.to_id = :interlocutor_id
 					WHERE u.id = :interlocutor_id
 					LIMIT 1
                 ";

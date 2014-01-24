@@ -793,11 +793,11 @@ $(function() {
 									</div>
 
 									<div class="comments-gray_article clearfix">
-										<!-- <div class="comments-gray_article-img">
+										<div class="comments-gray_article-img">
 											<a href="">
 												<img src="/images/example/w120-h105-1.jpg" alt="">
 											</a>
-										</div> -->
+										</div>
 										<div class="comments-gray_article-hold">
 											<a href="" class="ava middle female">
 												<img src="http://img.happy-giraffe.ru/thumbs/40x40/226756/ava37c6f8cbce89e6c13d0f9622a3d5537a.JPG" alt="">

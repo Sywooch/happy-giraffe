@@ -95,7 +95,7 @@
         width: 12px;
         height: 8px;
         margin: 0 0 0 4px;
-        background: url(/new/images/header-menu_i-arrow.png) no-repeat;
+        background: url(/new/images/header_i-arrow.png) no-repeat;
     }
 }
 /* /header */
@@ -118,13 +118,13 @@
     .ava {
         float: none;
         .inline-block();
-        margin: 2px 5px 7px;
+        margin: 2px auto 7px;
     }
     &_li {
         position: relative;
         .inline-block();
         vertical-align: top;
-        margin: 0 20px;
+        margin: 0 11px;
         text-align: center;
     }
     &_li__dropin &_a:hover &_ico,
@@ -153,14 +153,14 @@
     &_a:hover &_ico__logout      {background-position: -650px -50px;}
     &_a:hover,
     &_li.active &_a {
-        background: url(/new/images/header-menu_a.png) no-repeat;
+        background: url(/new/images/header-menu_a.png) no-repeat 4px 0;
     }
     &_a:hover &_tx,
     &_li.active &_tx {
         color: #808080;
     }
     &_a {
-        width: 70px;
+        width: 76px;
         .inline-block();
         padding: 13px 0 0;
         text-decoration: none;
@@ -435,8 +435,10 @@
             right: 19px;
             top: 53px;
         }
+        &_a {padding: 12px 5px 12px;}
     }
-    &_dropin &_a {padding: 12px 5px 12px;}
+    &_dropin:hover .header_i-arrow {background-position: 0 -8px;}
+
 }
 /* /header-fix */
 

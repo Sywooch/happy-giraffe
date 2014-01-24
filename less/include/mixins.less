@@ -2,48 +2,71 @@
 // В файле все комментарии делать в less стиле // 
 // ----------------------------------------------------------
 
-// 1. ROOT 					
-// 2. TYPOGRAPHY 			
+// 1. ROOT  
+// Sizing shortcuts
+.size(@width; @height) {
+    width: @width;
+    height: @height;
+}
+.square(@size) {
+    .size(@size; @size);
+}
+// Placeholder text
+.placeholder(@color: @input-color-placeholder) {
+        &:-moz-placeholder            { color: @color; } // Firefox 4-18
+        &::-moz-placeholder           { color: @color;   // Firefox 19+
+                                                                    opacity: 1; } // See https://github.com/twbs/bootstrap/pull/11526
+        &:-ms-input-placeholder       { color: @color; } // Internet Explorer 10+
+        &::-webkit-input-placeholder  { color: @color; } // Safari and Chrome
+}               
+// 2. TYPOGRAPHY            
 
 .font-size(@font-size: 16){
-@rem: (@font-size / 10);
-font-size : @font-size * 1px;
-font-size : ~"@{rem}rem"; }
+    @rem: (@font-size / 10);
+    font-size : @font-size * 1px;
+    font-size : ~"@{rem}rem";
+}
 
 .text-overflow() {
-overflow : hidden;
-text-overflow : ellipsis;
-white-space : nowrap; }
+    overflow : hidden;
+    text-overflow : ellipsis;
+    white-space : nowrap;
+}
+
+.text-dec_onhover() {
+    text-decoration: none;
+    &:hover {text-decoration: underline;}
+}
 
 // gradients
 
 .ghorizontal(@startColor : @white, @endColor : @lightergrey) {
 background-color: @endColor;
 background-image  : -webkit-gradient(linear, 0 0, 100% 0, from(@startColor), to(@endColor)); // Safari 4+, Chrome 2+
-background-image  : -webkit-linear-gradient(left, @startColor, @endColor); 					 // Safari 5.1+, Chrome 10+
-background-image  : -moz-linear-gradient(left, @startColor, @endColor); 					 // FF 3.6+
-background-image  : -ms-linear-gradient(left, @startColor, @endColor); 						 // IE10
-background-image  : -o-linear-gradient(left, @startColor, @endColor); 						 // Opera 11.10
-background-image  : linear-gradient(left, @startColor, @endColor); 							 // W3C
+background-image  : -webkit-linear-gradient(left, @startColor, @endColor);                   // Safari 5.1+, Chrome 10+
+background-image  : -moz-linear-gradient(left, @startColor, @endColor);                      // FF 3.6+
+background-image  : -ms-linear-gradient(left, @startColor, @endColor);                       // IE10
+background-image  : -o-linear-gradient(left, @startColor, @endColor);                        // Opera 11.10
+background-image  : linear-gradient(left, @startColor, @endColor);                           // W3C
 background-repeat : repeat-x; }
 
 .gvertical(@startColor : @white, @endColor:  @lightergrey) {
 background-color  : @endColor;
 background-image  : -webkit-gradient(linear, 0 0, 0 100%, from(@startColor), to(@endColor)); // Safari 4+, Chrome 2+
-background-image  : -webkit-linear-gradient(top, @startColor, @endColor); 					 // Safari 5.1+, Chrome 10+
-background-image  : -moz-linear-gradient(top, @startColor, @endColor);   					 // FF 3.6+
-background-image  : -ms-linear-gradient(top, @startColor, @endColor); 						 // IE10
-background-image  : -o-linear-gradient(top, @startColor, @endColor); 						 // Opera 11.10
-background-image  : linear-gradient(top, @startColor, @endColor); 							 // W3C
+background-image  : -webkit-linear-gradient(top, @startColor, @endColor);                    // Safari 5.1+, Chrome 10+
+background-image  : -moz-linear-gradient(top, @startColor, @endColor);                       // FF 3.6+
+background-image  : -ms-linear-gradient(top, @startColor, @endColor);                        // IE10
+background-image  : -o-linear-gradient(top, @startColor, @endColor);                         // Opera 11.10
+background-image  : linear-gradient(top, @startColor, @endColor);                            // W3C
 background-repeat : repeat-x; }
 
 .gdirectional(@startColor : @white, @endColor : @lightergrey, @deg : 45deg) {
 background-color  : @endColor;
-background-image  : -moz-linear-gradient(@deg, @startColor, @endColor); 					// FF 3.6+
-background-image  : -ms-linear-gradient(@deg, @startColor, @endColor); 						// IE10
-background-image  : -webkit-linear-gradient(@deg, @startColor, @endColor); 					// Safari 5.1+, Chrome 10+
-background-image  : -o-linear-gradient(@deg, @startColor, @endColor); 						// Opera 11.10
-background-image  : linear-gradient(@deg, @startColor, @endColor); 							// W3C
+background-image  : -moz-linear-gradient(@deg, @startColor, @endColor);                     // FF 3.6+
+background-image  : -ms-linear-gradient(@deg, @startColor, @endColor);                      // IE10
+background-image  : -webkit-linear-gradient(@deg, @startColor, @endColor);                  // Safari 5.1+, Chrome 10+
+background-image  : -o-linear-gradient(@deg, @startColor, @endColor);                       // Opera 11.10
+background-image  : linear-gradient(@deg, @startColor, @endColor);                          // W3C
 background-repeat : repeat-x; }
 
 // .bordered(COLOR, COLOR, COLOR, COLOR);
@@ -57,9 +80,9 @@ border-bottom : solid 1px @bottom-color; }
 // .box-shadow(HORIZONTAL VERTICAL BLUR COLOR)
 
 .box-shadow(@shadow: 0 1px 3px rgba(0,0,0,.25)) {
--webkit-box-shadow : @shadow;
--moz-box-shadow : @shadow;
-box-shadow : @shadow; }
+        -webkit-box-shadow : @shadow;
+        box-shadow : @shadow; 
+}
 
 // .drop-shadow(HORIZONTAL, VERTICAL, BLUR, ALPHA);
 
@@ -102,14 +125,29 @@ transform : scale(@ratio); }
 -o-transform : skew(@x, @y);
 transform : skew(@x, @y); }
 
-// .transition(PROPERTY DURATION DELAY(OPTIONAL) TIMING-FINCTION);
-
+// Transitions
 .transition(@transition) {
--webkit-transition : @transition;
--moz-transition : @transition;
--ms-transition : @transition;
--o-transition : @transition;
-transition : @transition; }
+    -webkit-transition: @transition;
+                    transition: @transition;
+}
+.transition-property(@transition-property) {
+    -webkit-transition-property: @transition-property;
+                    transition-property: @transition-property;
+}
+.transition-delay(@transition-delay) {
+    -webkit-transition-delay: @transition-delay;
+                    transition-delay: @transition-delay;
+}
+.transition-duration(@transition-duration) {
+    -webkit-transition-duration: @transition-duration;
+                    transition-duration: @transition-duration;
+}
+.transition-transform(@transition) {
+    -webkit-transition: -webkit-transform @transition;
+         -moz-transition: -moz-transform @transition;
+             -o-transition: -o-transform @transition;
+                    transition: transform @transition;
+}
 
 // .translate(VALUE, VALUE)
 
@@ -127,7 +165,60 @@ transform : translate(@x, @y); }
 -o-transform : translate(@x, @y, @z);
 transform : translate(@x, @y, @z); }
 
-// 5. ELEMENTS 				==============================
+// Transformations
+.rotate(@degrees) {
+    -webkit-transform: rotate(@degrees);
+            -ms-transform: rotate(@degrees); // IE9+
+                    transform: rotate(@degrees);
+}
+.scale(@ratio; @ratio-y...) {
+    -webkit-transform: scale(@ratio, @ratio-y);
+            -ms-transform: scale(@ratio, @ratio-y); // IE9+
+                    transform: scale(@ratio, @ratio-y);
+}
+.translate(@x; @y) {
+    -webkit-transform: translate(@x, @y);
+            -ms-transform: translate(@x, @y); // IE9+
+                    transform: translate(@x, @y);
+}
+.skew(@x; @y) {
+    -webkit-transform: skew(@x, @y);
+            -ms-transform: skewX(@x) skewY(@y); // See https://github.com/twbs/bootstrap/issues/4885; IE9+
+                    transform: skew(@x, @y);
+}
+.translate3d(@x; @y; @z) {
+    -webkit-transform: translate3d(@x, @y, @z);
+                    transform: translate3d(@x, @y, @z);
+}
+
+.rotateX(@degrees) {
+    -webkit-transform: rotateX(@degrees);
+            -ms-transform: rotateX(@degrees); // IE9+
+                    transform: rotateX(@degrees);
+}
+.rotateY(@degrees) {
+    -webkit-transform: rotateY(@degrees);
+            -ms-transform: rotateY(@degrees); // IE9+
+                    transform: rotateY(@degrees);
+}
+.perspective(@perspective) {
+    -webkit-perspective: @perspective;
+         -moz-perspective: @perspective;
+                    perspective: @perspective;
+}
+.perspective-origin(@perspective) {
+    -webkit-perspective-origin: @perspective;
+         -moz-perspective-origin: @perspective;
+                    perspective-origin: @perspective;
+}
+.transform-origin(@origin) {
+    -webkit-transform-origin: @origin;
+         -moz-transform-origin: @origin;
+                    transform-origin: @origin;
+}
+
+
+// 5. ELEMENTS              ==============================
 
 // .background-alpha(VALUE VALUE);
 
@@ -159,7 +250,7 @@ box-sizing : @boxsize; }
 
 // inline-block 
 .inline-block () {
-	display: inline-block;
+        display: inline-block;
 }
 
 // For image replacement
@@ -208,19 +299,62 @@ border : 0; }
 
 // border-radius(VALUE);
 .border-radius (@radius: 5px) {
-	-webkit-border-radius: @radius;
-	-moz-border-radius: @radius;
-	border-radius: @radius;
+        border-radius: @radius;
+}
+// Single side border-radius
+.border-top-radius(@radius) {
+    border-top-right-radius: @radius;
+     border-top-left-radius: @radius;
+}
+.border-right-radius(@radius) {
+    border-bottom-right-radius: @radius;
+         border-top-right-radius: @radius;
+}
+.border-bottom-radius(@radius) {
+    border-bottom-right-radius: @radius;
+     border-bottom-left-radius: @radius;
+}
+.border-left-radius(@radius) {
+    border-bottom-left-radius: @radius;
+         border-top-left-radius: @radius;
 }
 
 // CSS ANIMATION 
 // transition ()
 .transition (@trans: 'all 0.3s ease') {
-	-webkit-transition: @trans;
-	transition: @trans;
+        -webkit-transition: @trans;
+        transition: @trans;
 }
 
-// 6. LAYOUT 				============================== 
+
+// Retina images
+//
+// Short retina mixin for setting background-image and -size
+
+.img-retina(@file-1x; @file-2x; @width-1x; @height-1x) {
+    background-image: url("@{file-1x}");
+
+    @media 
+        only screen and (-webkit-min-device-pixel-ratio: 1.5),
+        only screen and (min-resolution: 144dpi) {
+            background-image: url("@{file-2x}");
+            background-size: @width-1x @height-1x;
+    }
+}
+
+
+// Responsive image
+//
+// Keep images from scaling beyond the width of their parents.
+
+.img-responsive(@display: block;) {
+    display: @display;
+    max-width: 100%; // Part 1: Set a maximum relative to the parent
+    height: auto; // Part 2: Scale the height according to the width, otherwise you get stretching
+}
+
+
+// 6. LAYOUT                ============================== 
 
 // .columns(250px, 0, 24px, COLOR, solid, 1px)
 
@@ -243,4 +377,5 @@ column-gap : @colgap;
 column-rule-color : @columnRuleColor;
 column-rule-style : @columnRuleStyle;
 column-rule-width : @columnRuleWidth; }
+
 

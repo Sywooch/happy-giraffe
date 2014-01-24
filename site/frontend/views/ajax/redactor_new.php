@@ -108,32 +108,35 @@
     </div>
 
     <div id="redactor-popup_b-video" class="display-n">
-        <div class="redactor-popup redactor-popup_b-video" id="testok">
-            <a href="javascript:void(0)" class="redactor-popup_close ico-close3 powertip" title="Закрыть" onclick="$(this).parents('.redactor-popup').addClass('display-n');"></a>
+        <div class="redactor-popup">
             <div class="redactor-popup_tale"></div>
             <div class="redactor-popup_t">Загрузите видео</div>
-            <div class="redactor-popup_video clearfix" data-bind="visible: embed() !== null">
-                <a class="redactor-popup_video-del ico-close powertip" title="Удалить" data-bind="click: remove"></a>
-                <div data-bind="html: embed" id="embed"></div>
-            </div>
-            <div class="redactor-popup_add-video" data-bind="visible: embed() === null, css: { active : previewLoading() || previewError() }">
+            <!-- ko if: embed() === null -->
+            <div class="redactor-popup_add-video" data-bind="css: { active : previewLoading() || previewError() }">
                 <div class="redactor-popup_add-video-hold">
-                    <input type="text" class="itx-simple w-350 float-l" placeholder="Введите ссылку на видео" data-bind="value: link, valueUpdate: ['afterkeydown','propertychange','input']">
+                    <div class="redactor-popup_video-serv">
+                        <div class="redactor-popup_video-serv-tx">Поддерживаемые сервисы:</div>
+                        <div class="redactor-popup_video-serv-i redactor-popup_video-serv-i__youtube" data-bind="css: { active : isProvider('youtube') }"></div>
+                        <div class="redactor-popup_video-serv-i redactor-popup_video-serv-i__rutube" data-bind="css: { active : isProvider('rutube') }"></div>
+                        <div class="redactor-popup_video-serv-i redactor-popup_video-serv-i__vimeo" data-bind="css: { active : isProvider('vimeo') }"></div>
+                    </div>
+                    <input placeholder="Введите ссылку на видео" class="itx-simple itx-simple__blue w-350 float-l" data-bind="value: link, valueUpdate: ['afterkeydown','propertychange','input']">
                     <button class="btn-green btn-medium" data-bind="css: { 'btn-inactive' : link().length == 0 }, click: check">Загрузить  видео</button>
                 </div>
                 <div class="redactor-popup_add-video-load" data-bind="visible: previewLoading">
-                    <img src="/images/ico/ajax-loader.gif" alt=""> <br>
-                    Подждите, видео загружается
+                    <img src="/images/ico/ajax-loader.gif" alt=""><br>Подождите видео загружается
                 </div>
                 <div class="redactor-popup_add-video-error" data-bind="visible: previewError">
-                    Не удалось загрузить видео. <br>
-                    Возможно, URL указан неправильно либо ведет на неподдерживаемый сайт.
+                    <div class="ico-error-smile"></div>Ошибка загрузки видео. Попробуйте вставить другую ссылку
                 </div>
             </div>
-            <div class="textalign-c margin-t15" data-bind="visible: embed() !== null">
-                <a href="javascript:void(0)" class="btn-gray-light btn-medium margin-r10" onclick="$(this).parents('.redactor-popup').addClass('display-n');">Отменить</a>
-                <a href="javascript:void(0)" class="btn-green btn-medium" onclick="redactor.selectionRestore(); redactor.insertHtmlAdvanced('<div class=\x22b-article_in-img\x22>' + $('#embed').html() + '</div>'); redactor.sync(); $(this).parents('.redactor-popup').addClass('display-n');">Добавить видео</a>
-            </div>
+            <!-- /ko -->
+            <!-- ko if: embed() != null -->
+                <div class="redactor-popup_video clearfix"><a title="Удалить" class="redactor-popup_video-del ico-close powertip" data-bind="click: remove"></a>
+                    <div data-bind="html: embed"></div>
+                </div>
+                <div class="textalign-c margin-t15"><a class="a-pseudo" data-bind="click: remove">Нет, загрузить другой ролик</a><a class="btn-green btn-medium margin-l20" data-bind="click: add">Добавить видео</a></div>
+            <!-- /ko -->
         </div>
     </div>
 

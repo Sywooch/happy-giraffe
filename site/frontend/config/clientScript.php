@@ -214,7 +214,7 @@ return array(
                 'redactor/lang/ru.js',
                 '/redactor/plugins/toolbarVerticalFixed/toolbarVerticalFixed.js',
             ),
-            'depends' => array('jquery'),
+            'depends' => array('jquery', 'ko_upload'),
         ),
     )
 );

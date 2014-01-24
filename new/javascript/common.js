@@ -163,8 +163,8 @@ function HgWysiwyg(element)
         autoresize: true,
         focus: true,
         toolbarExternal: '.redactor-control_toolbar',
-        buttons: ['image'],
-        plugins: ['smilesModal', 'videoModal'],
+        buttons: ['b'],
+        plugins: ['imageCustom', 'smilesModal', 'videoModal'],
         focusCallback: function(e)
         {
             // Нужно выбирать непосредственного родителя
@@ -185,21 +185,45 @@ function HgWysiwyg(element)
         }
     }
 
-    self.openPopup = function() {
-
-    }
-
-    self.closePopup = function() {
-
-    }
-
-
-
-
     $(element).redactor(self.defaultOptions);
 }
 
 var RedactorPlugins = {};
+
+RedactorPlugins.imageCustom = {
+    init: function() {
+        var obj = this;
+
+        var fake = '<form id="wysiwygImage" method="POST" enctype="multipart/form-data"><div class="file-fake">' +
+            '<div class="file-fake_btn redactor_btn_image"></div>' +
+            '<input type="file" class="file-fake_inp">' +
+            '</div></form>';
+
+        this.$toolbar.append($('<li>').append(fake));
+        $('#wysiwygImage').fileupload({
+            dataType: 'json',
+            url: '/ajaxSimple/uploadPhoto/',
+            done: function (e, data) {
+                var block = $(obj.getBlock());
+                var image = data.result.comment_html;
+                var node = $('<p>' + obj.opts.invisibleSpace + '</p>');
+                if (block.text() == '​') {
+                    block.html(image);
+                    block.after(node);
+                    obj.selectionStart(node);
+                }
+                else {
+                    block.after('<p>' + image + '</p>');
+                    block.next().after(node);
+                    obj.selectionStart(node);
+                }
+                obj.sync();
+            }
+        });
+
+    }
+}
+
 RedactorPlugins.smilesModal = {
     init: function()
     {

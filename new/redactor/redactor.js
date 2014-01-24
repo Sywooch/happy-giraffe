@@ -5180,8 +5180,7 @@
 
 			var current = this.getBlock() || this.getCurrent();
 
-			if (current && current.tagName != 'BODY') $(current).after(html)
-			else this.insertHtmlAdvanced(html, false);
+s
 
 			this.selectionRestore();
 

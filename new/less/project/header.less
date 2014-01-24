@@ -118,13 +118,13 @@
     .ava {
         float: none;
         .inline-block();
-        margin: 2px auto 7px;
+        margin: 2px auto 1px;
     }
     &_li {
         position: relative;
         .inline-block();
         vertical-align: top;
-        margin: 0 11px;
+        margin: 0 9px;
         text-align: center;
     }
     &_li__dropin &_a:hover &_ico,
@@ -158,6 +158,7 @@
     &_a:hover &_tx,
     &_li.active &_tx {
         color: #808080;
+        text-decoration: none;
     }
     &_a {
         width: 76px;
@@ -166,11 +167,7 @@
         text-decoration: none;
         text-align: center;
     }
-    &_a:hover &_tx {
-        text-decoration: none;
-        color: #808080;
-    }
-    &_a:hover &_ico__dropin {background-position: -50px -600px;}
+    &_a:hover .header_i-arrow {background-position: 0 -8px;}
     &_ico {
         position: relative;
         display: block;
@@ -198,14 +195,9 @@
     &_ico__profile .ava {
         position: absolute;
         top: 9px;
-        left: 1px;
+        left: 6px;
     }
 
-    &_ico__dropin    {
-        .inline-block();
-        background-position: 0 -600px;
-        width: 35px;
-    }
     &_tx {
         display: block;
         font: 11px/12px Tahoma, Arial, Verdana, sans-serif;
@@ -262,10 +254,10 @@
 
     .header-menu {
         float: none;
-        margin: 5px 0 15px 10px;
+        margin: 5px 0 20px 10px;
     }
     .header-menu_li {
-        margin: 5px 6px;
+        margin: 0 6px;
         width: 80px;
         vertical-align: top;
     }

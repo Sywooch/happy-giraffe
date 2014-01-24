@@ -394,6 +394,16 @@ body .redactor_air .redactor_toolbar {
     background-color: transparent !important;
     cursor: default;
 }
+.redactor_btn_image {
+    display: block;
+    width: 25px;
+    height: 25px;
+    outline: none;
+    .img-retina('/new/images/redactor/redactor_toolbar.png'; '/new/images/redactor/redactor_toolbar2x.png'; auto; 25px;);
+
+    background-position: -200px 0;
+}
+.redactor_toolbar li .file-fake:hover .redactor_btn_image {background-position: -200px -25px; }
 
 /*
     BUTTONS
@@ -408,8 +418,6 @@ body .redactor_air .redactor_toolbar {
 .redactor_toolbar li a.redactor_btn_orderedlist         { background-position: -125px 0; }
 .redactor_toolbar li a.redactor_btn_outdent         { background-position: -150px 0; }
 .redactor_toolbar li a.redactor_btn_indent              { background-position: -175px 0; }
-.redactor_toolbar li a.redactor_btn_image               { background-position: -200px 0; }
-.redactor_toolbar li a.redactor_btn_image:hover         { background-position: -200px -25px; }
 .redactor_toolbar li a.redactor_btn_video               { background-position: -225px 0; }
 .redactor_toolbar li a.redactor_btn_video:hover     { background-position: -225px -25px; }
 .redactor_toolbar li a.redactor_btn_file                { background-position: -250px 0; }

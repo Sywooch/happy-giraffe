@@ -4,8 +4,9 @@ html.no-js
     +head(path)
     body.body
         .layout-container
-            +header-fix()
-            +header('header__base')
+            .layout-header
+                +header-fix()
+                +header('header__base')
             .layout-wrapper
                 .layout-wrapper_frame.clearfix
                     block layout-wrapper

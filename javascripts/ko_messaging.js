@@ -436,7 +436,8 @@ function MessagingThread(me, user) {
 		autoresize: true,
 		focus: true,
 		toolbarExternal: '.redactor-control_toolbar',
-		buttons: ['image', 'video', 'smile'],
+        buttons: ['b'],
+        plugins: ['imageCustom', 'smilesModal', 'videoModal'],
 		initCallback: function() {
 			// связь с моделью
 			var obj = this;

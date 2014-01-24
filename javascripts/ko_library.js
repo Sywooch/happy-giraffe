@@ -17,7 +17,7 @@ ko.bindingHandlers.redactorHG = {
 		
 		var settings = $.extend( {}, defaults, options );
 		
-		$(element).redactorHG(settings);
+		new HgWysiwyg(element);
 	}
 };
 

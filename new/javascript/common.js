@@ -207,6 +207,9 @@ RedactorPlugins.smilesModal = {
 
         var callback = function(buttonDOM) {
             fixPosition(buttonDOM);
+            $('#redactor_modal').on('resize', function() {
+                fixPosition(buttonDOM);
+            });
 
             $('.redactor-popup_smiles a').on('click', function() {
                 var pic = $(this).find('img').attr('src');
@@ -229,13 +232,17 @@ RedactorPlugins.videoModal = {
 
         var callback = function(buttonDOM) {
             fixPosition(buttonDOM);
+            $('#redactor_modal').resize(function() {
+                fixPosition(buttonDOM);
+            });
 
-            var model = new WysiwygVideo();
-            ko.applyBindings(model, document.getElementById('testok'));
+            var model = new WysiwygVideo(obj);
+            ko.cleanNode($('#redactor_modal_inner')[0]);
+            ko.applyBindings(model, document.getElementById('redactor_modal_inner'));
         }
 
         this.buttonAdd('video', 'Видео', function(buttonName, buttonDOM, buttonObj, e) {
-            this.modalInit('Video', '#redactor-popup_b-video', 500, function() {callback(buttonDOM)});
+            this.modalInit('Video', $('#redactor-popup_b-video').html(), 500, function() {callback(buttonDOM)});
         });
     }
 }
@@ -255,7 +262,7 @@ function fixPosition(a) {
     }, 50);
 }
 
-function WysiwygVideo()
+function WysiwygVideo(redactor)
 {
     var self = this;
     self.link = ko.observable('');
@@ -266,7 +273,7 @@ function WysiwygVideo()
     self.check = function() {
         self.previewError(false);
         self.previewLoading(true);
-        $.get('/newblog/videoPreview/', { url : self.link(), width : 395 }, function(response) {
+        $.get('/newblog/videoPreview/', { url : self.link() }, function(response) {
             self.previewLoading(false);
             if (response.success === false)
                 self.previewError(true);
@@ -280,8 +287,21 @@ function WysiwygVideo()
         self.embed(null);
     };
 
+    self.isProvider = function(provider) {
+        return ko.computed({
+            read: function () {
+                return self.link().indexOf(provider) != -1;
+            }
+        });
+    }
+
+    self.add = function() {
+        redactor.selectionRestore();
+        redactor.insertHtml(self.embed());
+        redactor.modalClose();
+    }
+
     self.embed.subscribe(function() {
-        if ($('.redactor_btn_video').length > 0)
-            setPopupPosition($('.redactor_btn_video'), $('.redactor-popup_b-video'));
+        $('#redactor_modal').trigger('resize');
     });
 };

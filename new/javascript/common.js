@@ -8,33 +8,33 @@ $(document).on('show', '.im-user-list_i', function(event) {
 	}
 });
 
-$(function() {
+function addBaron(el) {
+    $(el).each(function() {
+        if (this.baron) {
+            this.baron.update();
+        } else {
+            this.baron = $(this).baron({
+                scroller: '.scroll_scroller',
+                barOnCls: 'scroll__on',
+                container: '.scroll_cont',
+                track: '.scroll_bar-hold',
+                bar: '.scroll_bar'
+            });
+            // Т.к. по спецификации у события onScroll нет bubbling'а,
+            // то обработчик надо вешать на каждый конкретный элемент
+            $('.scroll_scroller', this).scroll(function(e) {
+                // стриггерим jquery событие, у которого есть bubbling,
+                // но, что бы не уйти в цикл, проверим флаг.
+                if(!e.fake) {
+                    e.fake = true;
+                    $(this).trigger(e);
+                }
+            });
+        }
+    });
+}
 
-	function addBaron(el) {
-		$(el).each(function() {
-			if (this.baron) {
-				this.baron.update();
-			} else {
-				this.baron = $(this).baron({
-					scroller: '.scroll_scroller',
-					barOnCls: 'scroll__on',
-					container: '.scroll_cont',
-					track: '.scroll_bar-hold',
-					bar: '.scroll_bar'
-				});
-				// Т.к. по спецификации у события onScroll нет bubbling'а,
-				// то обработчик надо вешать на каждый конкретный элемент
-				$('.scroll_scroller', this).scroll(function(e) {
-					// стриггерим jquery событие, у которого есть bubbling,
-					// но, что бы не уйти в цикл, проверим флаг.
-					if(!e.fake) {
-						e.fake = true;
-						$(this).trigger(e);
-					}
-				});
-			}
-		});
-	}
+$(function() {
 
 	$(document).on('koUpdate', function(event, elements) {
 		var self = event.target;
@@ -299,7 +299,7 @@ function WysiwygVideo(redactor)
     self.check = function() {
         self.previewError(false);
         self.previewLoading(true);
-        $.get('/newblog/videoPreview/', { url : self.link(), width : 395 }, function(response) {
+        $.get('/newblog/videoPreview/', { url : self.link(), width }, function(response) {
             self.previewLoading(false);
             if (response.success === false)
                 self.previewError(true);

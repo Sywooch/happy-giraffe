@@ -165,13 +165,7 @@ function PhotoCollectionViewModel(data) {
     setTimeout(function() {
         self.setLikesPosition();
         self.photoWindColH();
-//        $('#photo-window .scroll').baron({
-//            scroller: '.scroll_scroller',
-//            barOnCls: 'scroll__on',
-//            container: '.scroll_cont',
-//            track: '.scroll_bar-hold',
-//            bar: '.scroll_bar'
-//        });
+        addBaron($('#photo-window .scroll'));
     }, 200);
     if (self.collectionClass == 'ContestPhotoCollection')
         self.loadContestData();

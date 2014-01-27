@@ -83,6 +83,8 @@ class AttachPhotoCollection extends PhotoCollection
                 return $this->rootModel->user->getFamilyUrl();
             case 'Baby':
                 return $this->rootModel->parent->getFamilyUrl();
+            case 'MessagingMessage':
+                return '/messaging/';
         }
     }
 

@@ -122,13 +122,7 @@ class PhotoCollectionViewWidget extends CWidget
 
     protected function registerScripts()
     {
-        $basePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR;
-        $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
-        Yii::app()->clientScript
-            ->registerScriptFile('/javascripts/jquery.history.js')
-            ->registerScriptFile('/javascripts/ko_gallery.js')
-            ->registerScriptFile($baseUrl . '/PhotoCollectionViewWidget.js')
-        ;
+        Yii::app()->clientScript->registerPackage('gallery');
 
         $this->widget('application.widgets.newCommentWidget.NewCommentWidget', array('registerScripts' => true));
         $this->widget('application.modules.favourites.widgets.FavouriteWidget', array('registerScripts' => true));

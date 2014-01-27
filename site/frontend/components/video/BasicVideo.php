@@ -7,6 +7,8 @@
  * To change this template use File | Settings | File Templates.
  */
 
+Yii::import('site.frontend.extensions.phpQuery.phpQuery');
+
 class BasicVideo extends CComponent
 {
     public $url;
@@ -23,6 +25,11 @@ class BasicVideo extends CComponent
 
     public function getEmbed($width = 580)
     {
+        return $this->addTransparent($this->_getEmbed($width));
+    }
+
+    protected function _getEmbed($width)
+    {
         if ($width === 580)
             return $this->oembed->html;
 
@@ -38,5 +45,15 @@ class BasicVideo extends CComponent
     public function __get($name)
     {
         return isset($this->oembed->data[$name]) ? $this->oembed->data[$name] : parent::__get($name);
+    }
+
+    protected function addTransparent($html)
+    {
+        $doc = phpQuery::newDocumentHTML($html, $charset = 'utf-8');
+        $iframe = $doc->find('iframe');
+        $src = $iframe->attr('src');
+        $newSrc = $src . (strpos($src, '?') === false ? '?' : '&') . 'wmode=transparent';
+        $iframe->attr('src', $newSrc);
+        return $doc->html();
     }
 }

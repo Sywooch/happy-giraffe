@@ -858,6 +858,12 @@ class AlbumPhoto extends HActiveRecord
             return AlbumPhoto::model()->findByAttributes(array('author_id' => $user_id, 'fs_name' => $photo_name));
         }
 
+        if (preg_match('/http:\/\/img.dev.happy-giraffe.ru\/thumbs\/[\d]+x[\d]+\/([\d]+)\/([^\"]+)/', $url, $m)) {
+            $user_id = $m[1];
+            $photo_name = $m[2];
+            return AlbumPhoto::model()->findByAttributes(array('author_id' => $user_id, 'fs_name' => $photo_name));
+        }
+
         return null;
     }
 

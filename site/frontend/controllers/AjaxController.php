@@ -704,7 +704,7 @@ class AjaxController extends HController
     public function actionSetUserAttribute()
     {
         $key = Yii::app()->request->getPost('key');
-        $value = Yii::app()->request->getPost('value');
+        $value = CJSON::decode(Yii::app()->request->getPost('value'));
         $success = UserAttributes::set(Yii::app()->user->id, $key, $value);
         echo CJSON::encode(compact('success'));
     }

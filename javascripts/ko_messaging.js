@@ -112,9 +112,9 @@ MessagingUser.prototype = {
 	applyFilter: function(filter) {
 		// Загрузить новые контакты, попадающие под этот фильтр
 		// И скрыть лишние
-		ko.utils.arrayForEach(self.objects, function(user) {
+		/*ko.utils.arrayForEach(self.objects, function(user) {
 			user.isShow(this[filter](user));
-		});
+		});*/
 	}
 }
 
@@ -136,13 +136,20 @@ function MessagingUser(viewModel, model) {
 	self.avatar = model.avatar;
 	self.channel = model.channel;
 	// Состояния пользователя
-	self.isShow = ko.observable(true);
+
+    // Черный список
+    self.blackListed = ko.observable(false);
+	self.isShow = ko.computed(function() {
+		return !self.blackListed();
+	});
 	self.isFriend = ko.observable(model.isFriend);
 	self.isBanned = ko.observable(model.isBanned);
 	self.isOnline = ko.observable(model.isOnline);
 	self.lastOnline = ko.observable(model.lastOnline);
 	self.typing = ko.observable(false);
 	self.typingTimer = false;
+	// Добавлен через поиск
+	self.bySearching = ko.observable(!!model.bySearching);
 	// Открыт сейчас
 	self.isActive = ko.computed(function() {
 		return self.viewModel && self.viewModel.currentThread() && self.viewModel.currentThread().user.id == self.id;
@@ -160,8 +167,6 @@ function MessagingUser(viewModel, model) {
 	self.countNew = ko.observable(model.count);
 	// Дата последнего сообщения в диалоге
 	self.date = ko.observable(model.date);
-    // Черный список
-    self.blackListed = ko.observable(false);
     // Друзья
     self.hasOutgoingRequest = ko.observable(model.hasOutgoingRequest);
     self.hasIncomingRequest = ko.observable(model.hasIncomingRequest);
@@ -625,10 +630,21 @@ function Messaging(model) {
 	self.currentFilter = ko.observable(0);
     self.settings = new MessagingSettings(model.settings);
 	self.search = ko.observable('');
+	self.loadedAllContacts = [
+		false,
+		false,
+		false,
+		false,
+		true
+	];
+	self.search.subscribe(function() {
+        self.loadedAllContacts[4] = false;
+    });
 	
 	var filters = [
 		function(user) {
-			return ! user.blackListed();
+			// Данную функциональность выполнит MessagingUser.isShow
+			//return ! user.blackListed();
 		},
 		function(user) {
 			return user.countNew() > 0;
@@ -645,25 +661,68 @@ function Messaging(model) {
 		}
 	];
 	
+	// Карта соответсвия id пользователя из контактов, его номеру в MessagingUsers.prototype.objects
+	// т.к. в MessagingUsers.prototype.objects пользователи только добавляются, то номерация не собьётся
+	self.usersMap = {};
+	
+	/**
+	 * Функция добавляет пользователя в списко контактов,
+	 * и возвращает модель пользователя, если он добавлен, и
+	 * false, если он был найден
+	 * 
+	 * @param {type} data
+	 * @returns {undefined}
+	 */
+	function addContact(data) {
+		var user = false;
+		if(user = getContactById(data.id)) {
+			// Значит пользователь уже есть в контактах
+			if(user.bySearching() && !data.bySearching) {
+				// Если имеющийся пользователь найден через поиск,
+				// а запрашиваемый пользователь найден не через поиск,
+				// то обновим флаг.
+				user.bySearching(false);
+			}
+			return false;
+		} else {
+			// Пользователя ещё нет в контактах
+			self.usersMap[data.id] = MessagingUser.prototype.objects.length;
+			user = new MessagingUser(self, data);
+			user.date.subscribe(function(val) {
+				if(val) {
+					self.sortContacts();
+				}
+			});
+			return user;
+		}
+	}
+	
+	/**
+	 * Функция вернёт модель пользователя с указанным id,
+	 * если такого пользователя нет в списке контактов,
+	 * то будет возвращено false
+	 * 
+	 * @param {int} id
+	 * @returns {MessagingUser | false}
+	 */
+	function getContactById(id) {
+		var user = false;
+		if(self.usersMap[id]) {
+			user = MessagingUser.prototype.objects[self.usersMap[id]];
+		}
+		return user;
+	}
+	
 	self.setFilter = function(type) {
 		self.currentFilter(type);
-		self.applyFilter();
+		self.search('');
 	};
 	
-	self.filter = function(type) {
-        // применим фильтр
-        self.users[0](ko.utils.arrayFilter(self.users[0](), function(user) {
-            return filters[0](user);
-        }));
+	self.sortContacts = function() {
 		// отсортируем по свежести
 		self.users[0].sort(function(user1, user2) {
 			return user1.date() < user2.date() ? 1 : (user1.date() == user2.date() ? 0 : -1);
 		});
-	};
-	
-	self.applyFilter = function() {
-		// тут обновить сортировку и фильтрацию контактов
-		self.filter(self.currentFilter());
 	};
 	
 	self.users = [
@@ -675,21 +734,18 @@ function Messaging(model) {
 	];
 	
 	self.users[1] = ko.computed(function() {
-        //self.applyFilter();
 		return ko.utils.arrayFilter(self.users[0](), function(user) {
 			return filters[1](user);
 		});
 	});
 	
 	self.users[2] = ko.computed(function() {
-		//self.applyFilter();
 		return ko.utils.arrayFilter(self.users[0](), function(user) {
 			return filters[2](user);
 		});
 	});
 	
 	self.users[3] = ko.computed(function() {
-		//self.applyFilter();
 		return ko.utils.arrayFilter(self.users[0](), function(user) {
 			return filters[3](user);
 		});
@@ -713,7 +769,6 @@ function Messaging(model) {
 			} catch(e) {
 				error = true;
 			}
-			console.log(error, regexp);
 			
 			return error ? [] : ko.utils.arrayFilter(self.users[0](), function(user) {
 				return user.fullName().match(regexp);
@@ -735,23 +790,44 @@ function Messaging(model) {
 	});
 	
 	self.loadContacts = function() {
-		if(!self.loadindContacts()) {
+		// Если загрузка не в процессе, и контакты загружены не полностью, то загружаем
+		var type = self.currentFilter();
+		if(!self.loadindContacts() && !self.loadedAllContacts[type]) {
 			self.loadindContacts(true);
-			var type = self.currentFilter();
 			var url = '/messaging/default/getContacts/';
-			var data = { offset: self.users[type]().length };
+			var data = { offset: 0 };
 			if(type == 4) {
 				url = '/messaging/default/search/';
 				data.search = self.search();
+				// Такой сдвиг покроет большинство случаев.
+				// Выявить неправильное поведение можно только
+				// при совсем искусственных тестах
+				data.offset = Math.max(0, self.users[type]().length - 20);
 			} else {
 				data.type = type
+				ko.utils.arrayForEach(self.users[type](), function(user) {
+					if(!user.bySearching())
+						data.offset ++;
+				});
 			}
 			$.get(url, data, function(response) {
 				var contacts = ko.utils.arrayMap(response.contacts, function(user) {
-					return new MessagingUser(self, user);
+					if(type == 4) {
+						user.bySearching = true;
+					}
+					return addContact(user);
+				});
+				// отфильтруем уже имеющиеся контакты
+				contacts = ko.utils.arrayFilter(contacts, function(user) {
+					return !!user;
 				});
 				self.users[0].push.apply(self.users[0], contacts);
 				self.loadindContacts(false);
+				
+				//Поставим флажок о полной загрузки контактов
+				if(response.contacts.length < 50) {
+					self.loadedAllContacts[type] = true;
+				}
 			}, 'json');
 		}
 	};
@@ -774,15 +850,13 @@ function Messaging(model) {
 
 	// Добавлено новое сообщение
 	Comet.prototype.messagingNewMessage = function(result, id) {
-		var user = ko.utils.arrayFirst(self.users[0](), function(user) {
-			return user.id == result.dialog.id;
-		});
+		var user = getContactById(result.dialog.id);
 		if(!user) {
 			// Нет загруженного пользователя, запросим с сервера
 			$.get('/messaging/default/getUserInfo/', { id: result.dialog.id }, function(data) {
 				// и добавим в список
-				self.users[0].push(new MessagingUser(self, data));
-				self.applyFilter();
+				addContact(data);
+				self.sortContacts();
 			}, 'json');
 		} else {
 			// Нашли его в нашем списке, если сообщение нам, то обновим счётчики и пиликнем
@@ -792,7 +866,6 @@ function Messaging(model) {
 				self.countTotal(self.countTotal() + 1);
                 if (self.settings.messaging__sound())
 				    soundManager.play('s');
-				//self.applyFilter()
 			}
 		}
 
@@ -831,20 +904,19 @@ function Messaging(model) {
     });
 
 	self.users[0](ko.utils.arrayMap(model.contacts, function(user) {
-		return new MessagingUser(self, user);
+		// Должны добавиться все, т.к. список контактов пустой
+		return addContact(user);
 	}));
 	self.me = new MessagingUser(self, model.me);
 	
 	var params = /(\?|&)interlocutorId=(\d+)/.exec(window.location.search);
 	if(params && params[2]) {
 		var id = params[2];
-		var user = ko.utils.arrayFirst(self.users[0](), function(user) {
-			return user.id == id;
-		});
+		var user = getContactById(id);
 		if(!user) {
 			// Нет загруженного пользователя, запросим с сервера
 			$.get('/messaging/default/getUserInfo/', { id: id }, function(data) {
-				user = new MessagingUser(self, data);
+				user = addContact(data);
 				user.open();
 			}, 'json');
 		} else {

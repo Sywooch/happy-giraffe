@@ -113,12 +113,11 @@
 	});
 	// Временная мера: вешаем обработчик только на элементы с классом scroll_scroller,
 	// т.к. пока только они являются прокручиваемыми.
-	$(document).load(function() {
+	//$(document).load(function() {
 		// обновление элементов нокаутом
 		$(document).on('koUpdate', '.scroll_scroller', function(event) {
 			var self = $(this);
 			if(self.hasClass('scroll_scroller')) {
-				console.log(self, self.innerHeight());
 				eventCallback($(this));
 			}
 		});
@@ -134,5 +133,5 @@
 				}, delay);
 			}
 		});
-	});
+	//});
 })();

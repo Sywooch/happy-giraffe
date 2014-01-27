@@ -1,8 +1,8 @@
 // комментарии с www
-/* comments-gray */
 .comments-gray {
     background: #fff;
     padding: 5px 0 20px;
+    text-align: left;
     
     .b-article_in-img {
         margin: 5px 10px 5px 0;
@@ -10,6 +10,9 @@
         max-height: 400px;
         text-align: left;
     }
+    .a-imitation {color: #319FE4}
+    .redactor_editor {max-height: 300px;}
+    .redactor_editor:focus {border-color: #a3cff4;}
     .a-imitation {color: #319FE4}
     &__map-route {padding: 20px 180px 20px 0;}
     &__wide {
@@ -21,22 +24,24 @@
     &__wide &_i {
         padding-left: 30px;
     }
-    &__wide &_add {margin: 0 30px;}
+    &__wide &_add {margin: 0 20px 0 30px;}
     &__wide &_add__top {margin: 15px 20px;}
 
     &__small {padding: 10px 0 0;}
     &__small &_t {margin: 3px 0 0;}
+    &__small &_t-tx {font-size: 14px;}
     &__small &_r {width: auto;}
     &__small &_control {top: 8px;}
     &__small &_i {padding: 10px 0;}
-    &__small &_frame {margin: 0 0 0 34px;}
+    &__small &_frame {
+        margin: 0;
+        overflow: hidden;
+    }
     &__small &_author {display: block;}
     &__small &_add {margin: 0;padding: 0;}
     &__small &_add.active &_ava {margin-top: 3px;}
-    &__small .wysiwyg-toolbar-btn {display: none;}
 
     &__map-route {padding: 20px 180px 20px 0;}
-    .a-imitation {color: #319FE4}
 
     &__activity {
         margin: 20px;
@@ -182,6 +187,7 @@
     }
     &_add.active {padding-bottom: 5px;}
     &_add.active &_ava {margin-top: 33px;}
+
     &_add-itx {
         margin: 0;
         padding: 7px 10px 17px;
@@ -240,7 +246,6 @@
     }
     &_article-t-a {color: #186fb8;}
 }
-/* /comments-gray */
 
 /* message-ico */
 .message-ico {

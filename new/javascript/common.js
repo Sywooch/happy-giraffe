@@ -152,7 +152,7 @@ HgWysiwyg.prototype = {
     }
 }
 
-function HgWysiwyg(element)
+function HgWysiwyg(element, options)
 {
     var self = this;
     self.load();
@@ -185,7 +185,9 @@ function HgWysiwyg(element)
         }
     }
 
-    $(element).redactor(self.defaultOptions);
+    var settings = $.extend({}, self.defaultOptions, options);
+
+    $(element).redactor(settings);
 }
 
 var RedactorPlugins = {};

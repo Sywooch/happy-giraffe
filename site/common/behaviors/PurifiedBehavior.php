@@ -16,7 +16,7 @@ class PurifiedBehavior extends CActiveRecordBehavior
         ),
         'Attr.AllowedFrameTargets' => array('_blank' => true),
         'Attr.AllowedRel' => array('nofollow'),
-        'HTML.AllowedCommentsRegexp' => '/.*/',
+        'HTML.AllowedCommentsRegexp' => '/widget/',
         'HTML.SafeIframe' => true,
         'URI.SafeIframeRegexp' => '%.*%',
         'HTML.SafeObject' => true,

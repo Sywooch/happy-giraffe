@@ -859,13 +859,14 @@ function MessagingSettings(data)
 
     $.each(data, function(key, item) {
         self[key] = ko.observable(item);
-        self[key].subscribe(function(a) {
-            $.post('/ajax/setUserAttribute/', { key : key, value : a ? 1 : 0 });
-        });
     });
 
     self.toggle = function(key) {
         var observable = self[key];
-        observable(! observable());
+        self.update(key, observable() ? 0 : 1);
+    }
+
+    self.update = function(key, value) {
+        $.post('/ajax/setUserAttribute/', { key : key, value : value });
     }
 }

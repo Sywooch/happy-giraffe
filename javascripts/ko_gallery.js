@@ -136,6 +136,8 @@ function PhotoCollectionViewModel(data) {
     }
 
     self.close = function() {
+        $(window).off('resize', self.resized);
+
         if (self.exitUrl === null)
             PhotoCollectionViewWidget.close();
         else
@@ -157,6 +159,12 @@ function PhotoCollectionViewModel(data) {
             $('[href="#login"]').trigger('click');
     }
 
+    self.resized = function() {
+        alert('123');
+        self.setLikesPosition();
+        self.photoWindColH();
+    }
+
     self.currentPhotoIndex.valueHasMutated();
     History.pushState(self.currentPhoto(), self.currentPhoto().title().length > 0 ? self.currentPhoto().title() : self.properties.title + ' - фото ' + self.currentNaturalIndex(), self.currentPhoto().url());
     _gaq.push(['_trackPageview', self.currentPhoto().url()]);
@@ -170,10 +178,7 @@ function PhotoCollectionViewModel(data) {
     if (self.collectionClass == 'ContestPhotoCollection')
         self.loadContestData();
 
-    $(window).resize(function () {
-        self.setLikesPosition();
-        self.photoWindColH();
-    });
+    $(window).on('resize', self.resized);
 }
 
 function CollectionPhoto(data, parent) {

@@ -219,7 +219,10 @@ RedactorPlugins.imageCustom = {
                     block.next().after(node);
                     obj.selectionStart(node);
                 }
-                obj.sync();
+                block.imagesLoaded(function() {
+                   obj.sync();
+                });
+
             }
         });
 

@@ -16,7 +16,7 @@ class PurifiedBehavior extends CActiveRecordBehavior
         ),
         'Attr.AllowedFrameTargets' => array('_blank' => true),
         'Attr.AllowedRel' => array('nofollow'),
-        'HTML.AllowedCommentsRegexp' => '%.*%',
+        'HTML.AllowedCommentsRegexp' => '/widget/',
         'HTML.SafeIframe' => true,
         'URI.SafeIframeRegexp' => '%.*%',
         'HTML.SafeObject' => true,
@@ -27,7 +27,6 @@ class PurifiedBehavior extends CActiveRecordBehavior
         if (in_array($name, $this->attributes)) {
             $cacheId = $this->getCacheId($name);
             $value = Yii::app()->cache->get($cacheId);
-            $value = false;
             if ($value === false) {
                 $value = $this->getOwner()->$name;
                 if (! empty($value)) {
@@ -35,7 +34,7 @@ class PurifiedBehavior extends CActiveRecordBehavior
                     $purifier->options = CMap::mergeArray($this->_defaultOptions, $this->options);
                     if ($this->show_video)
                         $value = $this->linkifyVideos($value);
-                    //$value = $purifier->purify($value);
+                    $value = $purifier->purify($value);
                     $value = $this->setWidgets($value);
                     $value = $this->fixUrls($value);
                     $value = $this->clean($value);

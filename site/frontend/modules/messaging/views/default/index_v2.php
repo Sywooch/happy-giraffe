@@ -98,9 +98,9 @@
                     <!-- im-user-list-->
                     <div class="im-user-list">
                         <div data-bind="css: {scroll: true}">
-                            <div class="scroll_scroller" data-bind="show: {selector: '.im-user-list_i:visible:gt(-20)', callback: loadContacts}">
+                            <div class="scroll_scroller" data-bind="show: {selector: '.im-user-list_i:not(.bySearching):visible:gt(-10), .im-user-list_i.bySearching:visible', callback: loadContacts}">
                                 <div class="scroll_cont" data-bind="foreach: getContactList">
-                                    <div class="im-user-list_i clearfix" data-bind="visible: isShow, click: open, css: { active: isActive }">
+                                    <div class="im-user-list_i clearfix" data-bind="visible: isShow, click: open, css: { active: isActive, bySearching: bySearching() && $parent.currentFilter() !== 4 }">
                                         <div class="im-user-list_count" data-bind="visible: countNew() > 0, text: countNew"></div>
                                         <div class="im-user-list_set"><a href="" class="ava ava__middle ava__female"><span class="ico-status ico-status__online" data-bind="visible: isOnline"></span><img alt="" data-bind="attr: {src: avatar}" class="ava_img"/></a>
                                             <div class="im-user-list_set-name"><a href="" class="im-user-list_set-a" data-bind="text: fullName()"></a></div>

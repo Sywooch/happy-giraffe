@@ -16,7 +16,7 @@ class PurifiedBehavior extends CActiveRecordBehavior
         ),
         'Attr.AllowedFrameTargets' => array('_blank' => true),
         'Attr.AllowedRel' => array('nofollow'),
-        'HTML.AllowedCommentsRegexp' => '/widget/',
+        'HTML.AllowedCommentsRegexp' => '/.*/',
         'HTML.SafeIframe' => true,
         'URI.SafeIframeRegexp' => '%.*%',
         'HTML.SafeObject' => true,
@@ -35,7 +35,7 @@ class PurifiedBehavior extends CActiveRecordBehavior
                     $purifier->options = CMap::mergeArray($this->_defaultOptions, $this->options);
                     if ($this->show_video)
                         $value = $this->linkifyVideos($value);
-                    //$value = $purifier->purify($value);
+                    $value = $purifier->purify($value);
                     $value = $this->setWidgets($value);
                     $value = $this->fixUrls($value);
                     $value = $this->clean($value);

@@ -1,3 +1,5 @@
+<?php $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true)); ?>
+
 <div class="layout-wrapper_hold clearfix">
     <div class="im" style="display: none" data-bind="attr: { 'style': '' }">
         <!-- js для расчетов положения почты -->

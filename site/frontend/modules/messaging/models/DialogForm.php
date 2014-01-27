@@ -108,7 +108,7 @@ class DialogForm extends CComponent
 			'id' => $message->id,
 			'from_id' => $message->author_id,
 			'to_id' => $message->author_id == $me ? $interlocutor : $me,
-			'text' => $message->text,
+			'text' => $message->purified->text,
 			'created' => self::parseDateTime($message->created),
 			'dtimeRead' => $messageUser ? self::parseDateTime($messageUser->dtime_read) : self::parseDateTime($message->messageUsers[0]->dtime_read),
 			'dtimeDelete' => $messageUser ? self::parseDateTime($messageUser->dtime_delete) : self::parseDateTime($message->messageUsers[0]->dtime_delete),

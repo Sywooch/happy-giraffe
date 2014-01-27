@@ -60,8 +60,18 @@ class HController extends CController
         Yii::app()->user->setState('viewsCount', $viewsCount + 1);
     }
 
+    protected function filterBySpamStatus()
+    {
+        if (! Yii::app()->user->isGuest) {
+            $status = AntispamStatusManager::getUserStatus(Yii::app()->user->id);
+            if ($status == AntispamStatusManager::STATUS_BLACK)
+                Yii::app()->end();
+        }
+    }
+
     protected function beforeAction($action)
     {
+        $this->filterBySpamStatus();
 //        if (Yii::app()->user->id == 12936 || Yii::app()->user->id == 56 || Yii::app()->user->id == 16534)
 //            $this->showLikes = true;
 

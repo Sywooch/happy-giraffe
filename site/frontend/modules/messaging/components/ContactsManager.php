@@ -320,7 +320,7 @@ class ContactsManager
                     INNER JOIN messaging__threads t ON tu.thread_id = t.id
                     # Получение количества непрочитанных сообщений
                     LEFT OUTER JOIN messaging__messages m ON m.thread_id = t.id AND m.author_id != tu.user_id
-                    LEFT OUTER JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.dtimeRead IS NULL AND mu.user_id = tu.user_id
+                    LEFT OUTER JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.dtime_read IS NULL AND mu.user_id = tu.user_id
                     # Получение аватара
                     LEFT OUTER JOIN album__photos p ON u.avatar_id = p.id
                     # Является ли другом

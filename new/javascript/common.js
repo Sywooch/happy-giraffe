@@ -149,6 +149,26 @@ HgWysiwyg.prototype = {
 //                    });
             });
         }
+    },
+    insertBlock : function(obj, html) {
+        var targetBlock;
+        var currentBlock = $(obj.getBlock());
+        var newNode = $('<p>' + obj.opts.invisibleSpace + '</p>');
+        if (currentBlock.text() == '​')
+            targetBlock = currentBlock;
+
+        else {
+            currentBlock.after('<p>' + obj.opts.invisibleSpace + '</p>');
+            targetBlock = currentBlock.next();
+        }
+
+        targetBlock.html(html);
+        targetBlock.after(newNode);
+        obj.selectionStart(newNode);
+
+        targetBlock.imagesLoaded(function() {
+            obj.sync();
+        });
     }
 }
 
@@ -206,23 +226,7 @@ RedactorPlugins.imageCustom = {
             dataType: 'json',
             url: '/ajaxSimple/uploadPhoto/',
             done: function (e, data) {
-                var block = $(obj.getBlock());
-                var image = data.result.comment_html;
-                var node = $('<p>' + obj.opts.invisibleSpace + '</p>');
-                if (block.text() == '​') {
-                    block.html(image);
-                    block.after(node);
-                    obj.selectionStart(node);
-                }
-                else {
-                    block.after('<p>' + image + '</p>');
-                    block.next().after(node);
-                    obj.selectionStart(node);
-                }
-                block.imagesLoaded(function() {
-                   obj.sync();
-                });
-
+                HgWysiwyg.prototype.insertBlock(obj, data.result.comment_html);
             }
         });
 
@@ -260,6 +264,7 @@ RedactorPlugins.videoModal = {
         var obj = this;
 
         var callback = function(buttonDOM) {
+            obj.selectionSave();
             fixPosition(buttonDOM);
             $('#redactor_modal').resize(function() {
                 fixPosition(buttonDOM);
@@ -326,7 +331,7 @@ function WysiwygVideo(redactor)
 
     self.add = function() {
         redactor.selectionRestore();
-        redactor.insertHtml(self.embed());
+        HgWysiwyg.prototype.insertBlock(redactor, self.embed());
         redactor.modalClose();
     }
 

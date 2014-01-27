@@ -454,8 +454,8 @@ function MessagingThread(me, user) {
 				self.meTyping(false);
 		},*/
 		keyupCallback: function(e) {
-			if (false && e.keyCode == 13 && self.enterSetting()) {
-				self.submit();
+			if (e.keyCode == 13 && me.viewModel.settings.messaging__enter()) {
+				self.sendMessage();
 			} else {
 				self.typing();
 			}

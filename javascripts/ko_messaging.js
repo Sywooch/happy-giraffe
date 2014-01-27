@@ -707,7 +707,7 @@ function Messaging(model) {
 	 */
 	function getContactById(id) {
 		var user = false;
-		if(self.usersMap[id]) {
+		if(self.usersMap[id] !== undefined) {
 			user = MessagingUser.prototype.objects[self.usersMap[id]];
 		}
 		return user;

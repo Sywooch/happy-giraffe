@@ -1,41 +1,95 @@
 ﻿include ../../block/config
 extend ../../extend/layout_frame
 
-block layout-wrapper_hold
+block layout-wrapper
     .layout-content.clearfix
         .content-cols.clearfix
+
+            .im-center_bottom
+                .im-center_bottom-w.clearfix
+                    .im-center_bottom-ava
+                        a.ava.ava__middle.ava__female(href='')
+                            span.ico-status
+                            img.ava_img(alt='', src='http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg')
+                    .im-center_bottom-hold
+                        .redactor-control
+                            .redactor-control_hold.redactor-control_hold__focus
+                                .scroll(data-baron-v='inited')
+                                    .scroll_scroller(style='width: 799px;')
+                                        .scroll_cont
+                                            .redactor_box
+                                                .redactor_redactor.redactor_editor(contenteditable='true', dir='ltr', style='min-height: 20px;')
+                                                    p
+                                                        img.smile(src='/images/widget/smiles/dntknw.gif')
+                                                        img.smile(src='/images/widget/smiles/help.gif')
+                                                textarea.redactor(cols='40', name='redactor', rows='1', autofocus='autofocus', onfocus='new HgWysiwyg(this)', dir='ltr', style='display: none;')
+                                        .scroll_bar-hold
+                                            .scroll_bar(style='height: 0px; top: 0px;')
+                                                .scroll_bar-in
+                            .redactor-control_toolbar
+                                ul#redactor_toolbar_0.redactor_toolbar
+                                    li  
+                                        a.redactor_btn.redactor_btn_image(href='javascript:;', title='Insert Image', tabindex='-1')
+                                        .file-fake
+                                            .file-fake_btn.redactor_btn_image
+                                            input.file-fake_inp(type='file')
+                                    li
+                                        a.redactor_btn.redactor_btn_smile(href='javascript:;', title='Смайлы', tabindex='-1')
+                                    li
+                                        a.redactor_btn.redactor_btn_video(href='javascript:;', title='Видео', tabindex='-1')
+                            .redactor-control_control
+                                .redactor-control_key
+                                    input.redactor-control_key-checkbox(type='checkbox', name='')
+                                    label.redactor-control_key-label(for='redactor-control-b_key-checkbox') Enter - отправить
+                                button.btn-green Отправить
+
+
+
                 // вспомогательные br и .position-rel
-                .position-rel(style="margin: 100px 200px;")
+
+            
+
+
+
+                .position-rel(style="margin: 100px 50px;width:600px;")
                     br
-                    .redactor-popup()
-                        a.redactor-popup_close.ico-close3.powertip(href='', title='Закрыть')
-                        .redactor-popup_tale
-                        .redactor-popup_t Загрузите видео
-                        // Добавление видео
-                        .redactor-popup_add-video
-                            .redactor-popup_add-video-hold
-                                .redactor-popup_video-serv
-                                    .redactor-popup_video-serv-tx Поддерживаемые сервисы:
-                                    .redactor-popup_video-serv-i.redactor-popup_video-serv-i__youtube
-                                    .redactor-popup_video-serv-i.redactor-popup_video-serv-i__rutube
-                                    .redactor-popup_video-serv-i.redactor-popup_video-serv-i__vimeo
-                                // При вводе текста убрать класс .btn-inactive с кнопки для ее активирования
-                                input.itx-simple.itx-simple__blue.w-350.float-l(type='text', name='', placeholder='Введите ссылку на видео')
-                                button.btn-green.btn-medium.btn-inactive Загрузить  видео
-                        // Добавление видео с ошибкой
-                        .redactor-popup_add-video.active
-                            .redactor-popup_add-video-hold
-                                .redactor-popup_video-serv
-                                    .redactor-popup_video-serv-tx Поддерживаемые сервисы:
-                                    .redactor-popup_video-serv-i.redactor-popup_video-serv-i__youtube.active
-                                    .redactor-popup_video-serv-i.redactor-popup_video-serv-i__rutube
-                                    .redactor-popup_video-serv-i.redactor-popup_video-serv-i__vimeo
-                                // При вводе текста убрать класс .btn-inactive с кнопки для ее активирования
-                                input.itx-simple.itx-simple__blue.w-350.float-l.error(type='text', name='', placeholder='Введите ссылку на видео', value='http://www.youtube.com/embed/pehSAUTqjRs?wmode=transparent')
-                                button.btn-green.btn-medium.btn-inactive Загрузить  видео
-                            .redactor-popup_add-video-error
-                                | Ошибка загрузки видео. Попробуйте вставить другую ссылку
+                    // style для примера
+                    #redactor_modal(style="top:0;left:0;")
+                        #redactor_modal_close ×
+                        header#redactor_modal_header(style="cursor: move;") Video
+                        #redactor_modal_inner
+                            .redactor-popup
+                                // Кнопка закрыть, можно использовать базовую от скрипта попапа
+                                // a.redactor-popup_close.ico-close3.powertip(href='', title='Закрыть')
+                                .redactor-popup_tale
+                                .redactor-popup_t Загрузите видео
+                                // Добавление видео
+                                .redactor-popup_add-video
+                                    .redactor-popup_add-video-hold
+                                        .redactor-popup_video-serv
+                                            .redactor-popup_video-serv-tx Поддерживаемые сервисы:
+                                            .redactor-popup_video-serv-i.redactor-popup_video-serv-i__youtube
+                                            .redactor-popup_video-serv-i.redactor-popup_video-serv-i__rutube
+                                            .redactor-popup_video-serv-i.redactor-popup_video-serv-i__vimeo
+                                        // При вводе текста убрать класс .btn-inactive с кнопки для ее активирования
+                                        input.itx-simple.itx-simple__blue.w-350.float-l(type='text', name='', placeholder='Введите ссылку на видео')
+                                        button.btn-green.btn-medium.btn-inactive Загрузить  видео
+                                // Добавление видео с ошибкой
+                                .redactor-popup_add-video.active
+                                    .redactor-popup_add-video-hold
+                                        .redactor-popup_video-serv
+                                            .redactor-popup_video-serv-tx Поддерживаемые сервисы:
+                                            .redactor-popup_video-serv-i.redactor-popup_video-serv-i__youtube.active
+                                            .redactor-popup_video-serv-i.redactor-popup_video-serv-i__rutube
+                                            .redactor-popup_video-serv-i.redactor-popup_video-serv-i__vimeo
+                                        // При вводе текста убрать класс .btn-inactive с кнопки для ее активирования
+                                        input.itx-simple.itx-simple__blue.w-350.float-l.error(type='text', name='', placeholder='Введите ссылку на видео', value='http://www.youtube.com/embed/pehSAUTqjRs?wmode=transparent')
+                                        button.btn-green.btn-medium.btn-inactive Загрузить  видео
+                                    .redactor-popup_add-video-error
+                                        .ico-error-smile
+                                        | Ошибка загрузки видео. Попробуйте вставить другую ссылку
                     br
+
                     br
                     br
                     br
@@ -88,7 +142,7 @@ block layout-wrapper_hold
                     br
                     // redactor-popup
                     .redactor-popup()
-                        a.redactor-popup_close.ico-close.powertip(href='', title='Закрыть')
+                        // a.redactor-popup_close.ico-close3.powertip(href='', title='Закрыть')
                         .redactor-popup_tale
                         .redactor-popup_t Загрузите видео
                         .redactor-popup_add-video.active
@@ -137,7 +191,7 @@ block layout-wrapper_hold
                     br
                     br
                     .redactor-popup()
-                        a.redactor-popup_close.ico-close3.powertip(href='', title='Закрыть')
+                        // a.redactor-popup_close.ico-close3.powertip(href='', title='Закрыть')
                         .redactor-popup_tale
                         .redactor-popup_t Загрузите видео
                         .redactor-popup_video.clearfix
@@ -186,7 +240,7 @@ block layout-wrapper_hold
                     br
                     br
                     .redactor-popup
-                        a.redactor-popup_close.ico-close3.powertip(href='', title='Закрыть')
+                        // a.redactor-popup_close.ico-close3.powertip(href='', title='Закрыть')
                         .redactor-popup_tale
                         .redactor-popup_t Выберите смайл
                         table.redactor-popup_smiles
@@ -453,7 +507,7 @@ block layout-wrapper_hold
                     br
                     br
                     .redactor-popup.redactor-popup_b-link
-                        a.redactor-popup_close.ico-close3.powertip(href='', title='Закрыть')
+                        // a.redactor-popup_close.ico-close3.powertip(href='', title='Закрыть')
                         .redactor-popup_tale
                         .redactor-popup_t Ссылка
                         .redactor-popup_holder-blue

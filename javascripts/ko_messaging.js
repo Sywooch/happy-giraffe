@@ -71,7 +71,7 @@ MessagingUser.prototype = {
 			comet.addEvent(2010, 'messagingUserTyping');
             Comet.prototype.blacklistAdded = function(result, id) {
                 ko.utils.arrayForEach(self.objects, function(obj) {
-                    if (obj.id == result.user.id) {
+                    if (obj.id == result.blockedUserId) {
                         obj.blackListed(true);
                     }
                 });
@@ -79,7 +79,7 @@ MessagingUser.prototype = {
             comet.addEvent(3001, 'blacklistAdded');
             Comet.prototype.blacklistRemoved = function(result, id) {
                 ko.utils.arrayForEach(self.objects, function(obj) {
-                    if (obj.id == result.user.id) {
+                    if (obj.id == result.blockedUserId) {
                         obj.blackListed(false);
                     }
                 });
@@ -441,7 +441,8 @@ function MessagingThread(me, user) {
 		autoresize: true,
 		focus: true,
 		toolbarExternal: '.redactor-control_toolbar',
-		buttons: ['image', 'video', 'smile'],
+        buttons: ['b'],
+        plugins: ['imageCustom', 'smilesModal', 'videoModal'],
 		initCallback: function() {
 			// связь с моделью
 			var obj = this;
@@ -930,13 +931,14 @@ function MessagingSettings(data)
 
     $.each(data, function(key, item) {
         self[key] = ko.observable(item);
-        self[key].subscribe(function(a) {
-            $.post('/ajax/setUserAttribute/', { key : key, value : a ? 1 : 0 });
-        });
     });
 
     self.toggle = function(key) {
         var observable = self[key];
-        observable(! observable());
+        self.update(key, ! observable());
+    }
+
+    self.update = function(key, value) {
+        $.post('/ajax/setUserAttribute/', { key : key, value : value });
     }
 }

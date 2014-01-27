@@ -10,6 +10,11 @@ mixin header(mod)
                 ul.header-menu_ul.clearfix
                     li.header-menu_li
                         a.header-menu_a(href='')
+                            span.header-menu_ico.header-menu_ico__broadcast
+                            span.header-menu_tx
+                                | Прямой эфир
+                    li.header-menu_li
+                        a.header-menu_a(href='')
                             span.header-menu_ico.header-menu_ico__giraffe
                             span.header-menu_tx
                                 | Мой Жираф
@@ -36,13 +41,13 @@ mixin header(mod)
                             span.header-menu_ico.header-menu_ico__award
                             span.header-menu_tx
                                 | Успехи
-                    li.header-menu_li.header-menu_li__dropin.active
+                    li.header-menu_li.header-menu_li__dropin
                         a.header-menu_a(href='')
                             +ava("ava__middle ava__female", avaVarsSpan)
                             span.header-menu_tx Я
                                 span.header_i-arrow
                         // header-drop
-                        .header-drop.display-b
+                        .header-drop
                             .header-menu.clearfix
                                 ul.header-menu_ul
                                     li.header-menu_li
@@ -145,7 +150,7 @@ mixin header-fix(mod)
                     +ava('ava__middle ava__female', avaVarsSpan)
                     span.header_i-arrow
                 // header-drop
-                .header-drop.display-b
+                .header-drop
                     .header-menu.clearfix
                         ul.header-menu_ul
                             li.header-menu_li

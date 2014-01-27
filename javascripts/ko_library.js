@@ -6,18 +6,8 @@
 
 ko.bindingHandlers.redactorHG = {
 	init: function(element, valueAccessor) {
-		var defaults = {
-			minHeight: 17,
-			autoresize: true,
-			focus: true,
-			toolbarExternal: '.redactor-control_toolbar',
-			buttons: ['image', 'video', 'smile']
-		};
 		var options = valueAccessor();
-		
-		var settings = $.extend( {}, defaults, options );
-		
-		$(element).redactorHG(settings);
+		new HgWysiwyg(element, options);
 	}
 };
 

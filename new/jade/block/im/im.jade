@@ -6,7 +6,7 @@ mixin js-im
                 var self = this;
                 function imHeight() {
                         // 50 - отступы от im
-                        var h = self.windowHeight - self.headerHeight - 50;
+                        var h = self.windowHeight - self.headerHeight - 40;
                         if (h < 390) {
                                 h = 390;
                         }
@@ -31,6 +31,7 @@ mixin js-im
                 }
                 self.renew = function() {
                         self.windowHeight = $(window).height();
+                        self.headerHeight = $('.layout-header').height();
                         imHeight();
                         containerHeight();
                         msgToBottom();
@@ -47,7 +48,7 @@ mixin js-im
                         self.container = $('.im-center_middle-hold', imCenter);
                         self.centerTop = $('.im-center_top', imCenter);
                         self.centerBottom = $('.im-center_bottom', imCenter);
-                        self.headerHeight = $('.header-fix').height();
+                        self.headerHeight = $('.layout-header').height();
                         self.renew();
                 });
 
@@ -59,7 +60,7 @@ mixin js-im
                     self.container = $('.im-center_middle-hold', imCenter);
                     self.centerTop = $('.im-center_top', imCenter);
                     self.centerBottom = $('.im-center_bottom', imCenter);
-                    self.headerHeight = $('.header-fix').height();
+                    self.headerHeight = $('.layout-header').height();
                     self.contWrap = $('.im-center_middle-w', imCenter);
                     self.renew();
                 });
@@ -133,6 +134,11 @@ mixin im-sidebar_search()
 
 //- im-user-list
 //- Список диалогов почты
+    mod
+    vars
+        empty
+        userLoad
+        usersCount
 mixin im-user-list(mod, vars)
     // im-user-list
     .im-user-list(class=mod)
@@ -154,6 +160,10 @@ mixin im-user-list(mod, vars)
                                     +ava("ava__middle ava__female", avaVars)
                                     .im-user-list_set-name
                                         a.im-user-list_set-a(href='') Арина Поплавская
+                        if (vars.userLoad)
+                            .im_loader
+                                img.im_loader-img(src='/images/ico/ajax-loader.gif', alt='')
+                                span.im_loader-tx Загрузка пользователей
             .scroll_bar-hold
                 .scroll_bar
                     .scroll_bar-in
@@ -218,7 +228,7 @@ mixin im-panel(mod, vars)
                 Добавить в друзья - .im-panel_friend__add
                 Приглашение отправленно - .im-panel_friend__added
             - if (vars.friend == "friend") {
-                span.im-panel_friend.im-panel_friend__fr(href="")
+                span.im-panel_friend.im-panel_friend__fr
                     span.im-panel_friend-ico
                     span.im-panel_friend-tx Друг
             - } else if (vars.friend == "friend__add") {
@@ -306,7 +316,7 @@ mixin im-redactor-control(mod, vars)
             .scroll
                 .scroll_scroller
                     .scroll_cont
-                        textarea.redactor(cols='40', name='redactor', rows='1', autofocus='autofocus')
+                        textarea.redactor.error(cols='40', name='redactor', rows='1', autofocus='autofocus')
                     .scroll_bar-hold
                         .scroll_bar
                             .scroll_bar-in

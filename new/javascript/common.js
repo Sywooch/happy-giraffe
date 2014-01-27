@@ -8,33 +8,33 @@ $(document).on('show', '.im-user-list_i', function(event) {
 	}
 });
 
-$(function() {
+function addBaron(el) {
+    $(el).each(function() {
+        if (this.baron) {
+            this.baron.update();
+        } else {
+            this.baron = $(this).baron({
+                scroller: '.scroll_scroller',
+                barOnCls: 'scroll__on',
+                container: '.scroll_cont',
+                track: '.scroll_bar-hold',
+                bar: '.scroll_bar'
+            });
+            // Т.к. по спецификации у события onScroll нет bubbling'а,
+            // то обработчик надо вешать на каждый конкретный элемент
+            $('.scroll_scroller', this).scroll(function(e) {
+                // стриггерим jquery событие, у которого есть bubbling,
+                // но, что бы не уйти в цикл, проверим флаг.
+                if(!e.fake) {
+                    e.fake = true;
+                    $(this).trigger(e);
+                }
+            });
+        }
+    });
+}
 
-	function addBaron(el) {
-		$(el).each(function() {
-			if (this.baron) {
-				this.baron.update();
-			} else {
-				this.baron = $(this).baron({
-					scroller: '.scroll_scroller',
-					barOnCls: 'scroll__on',
-					container: '.scroll_cont',
-					track: '.scroll_bar-hold',
-					bar: '.scroll_bar'
-				});
-				// Т.к. по спецификации у события onScroll нет bubbling'а,
-				// то обработчик надо вешать на каждый конкретный элемент
-				$('.scroll_scroller', this).scroll(function(e) {
-					// стриггерим jquery событие, у которого есть bubbling,
-					// но, что бы не уйти в цикл, проверим флаг.
-					if(!e.fake) {
-						e.fake = true;
-						$(this).trigger(e);
-					}
-				});
-			}
-		});
-	}
+$(function() {
 
 	$(document).on('koUpdate', function(event, elements) {
 		var self = event.target;
@@ -134,49 +134,57 @@ $(function() {
 
 HgWysiwyg.prototype = {
     loaded : false,
-    popupsViewModel : new HgPopupViewModel(),
     load : function() {
         var self = this;
         if (! HgWysiwyg.prototype.loaded) {
             $.get('/ajax/redactorNew/', function(response) {
                 $('body').append(response);
-                    ko.applyBindings(self.popupsViewModel, document.getElementById('wysiwyg-related'));
-                    //ko.applyBindings(new WysiwygVideo(), document.getElementById('redactor-popup_b-video'));
-                    $('.redactor-popup_smiles a').on('click', function() {
-                        var pic = $(this).find('img').attr('src');
-                        self.obj.insertHtml('<img class="smile" src="' + pic + '" />');
-                        $('.redactor-popup_b-smile').addClass('display-n');
-                        return false;
-                    });
+//                    ko.applyBindings(self.popupsViewModel, document.getElementById('wysiwyg-related'));
+//                    //ko.applyBindings(new WysiwygVideo(), document.getElementById('redactor-popup_b-video'));
+//                    $('.redactor-popup_smiles a').on('click', function() {
+//                        var pic = $(this).find('img').attr('src');
+//                        self.obj.insertHtml('<img class="smile" src="' + pic + '" />');
+//                        $('.redactor-popup_b-smile').addClass('display-n');
+//                        return false;
+//                    });
             });
         }
+    },
+    insertBlock : function(obj, html) {
+        var targetBlock;
+        var currentBlock = $(obj.getBlock());
+        var newNode = $('<p>' + obj.opts.invisibleSpace + '</p>');
+        if (currentBlock.text() == '​')
+            targetBlock = currentBlock;
+
+        else {
+            currentBlock.after('<p>' + obj.opts.invisibleSpace + '</p>');
+            targetBlock = currentBlock.next();
+        }
+
+        targetBlock.html(html);
+        targetBlock.after(newNode);
+        obj.selectionStart(newNode);
+
+        targetBlock.imagesLoaded(function() {
+            obj.sync();
+        });
     }
 }
 
-function HgWysiwyg(element)
+function HgWysiwyg(element, options)
 {
     var self = this;
+    self.load();
+
     self.obj = null;
     self.defaultOptions = {
         minHeight: 20,
         autoresize: true,
         focus: true,
         toolbarExternal: '.redactor-control_toolbar',
-        buttons: ['image', 'video', 'smile'],
-        buttonsCustom: {
-            smile: {
-                title: 'smile',
-                callback: function(buttonName, buttonDOM, buttonObject) {
-                    self.popupsViewModel.togglePopup(self.popupsViewModel.POPUP_SMILE, buttonDOM, self.obj);
-                }
-            },
-            video: {
-                title: 'video',
-                callback: function(buttonName, buttonDOM, buttonObject) {
-                    self.popupsViewModel.togglePopup(self.popupsViewModel.POPUP_VIDEO, buttonDOM, self.obj);
-                }
-            }
-        },
+        buttons: ['b'],
+        plugins: ['imageCustom', 'smilesModal', 'videoModal'],
         focusCallback: function(e)
         {
             // Нужно выбирать непосредственного родителя
@@ -197,70 +205,102 @@ function HgWysiwyg(element)
         }
     }
 
-    self.load();
+    var settings = $.extend({}, self.defaultOptions, options);
 
-    $(element).redactor(self.defaultOptions);
+    $(element).redactor(settings);
 }
 
-function HgPopupViewModel()
-{
-    var self = this;
+var RedactorPlugins = {};
 
-    self.POPUP_SMILE = 0;
-    self.POPUP_VIDEO = 1;
+RedactorPlugins.imageCustom = {
+    init: function() {
+        var obj = this;
 
-    self.models = {};
-    self.models[self.POPUP_SMILE] = {
-        reset : function() {
+        var fake = '<form id="wysiwygImage" method="POST" enctype="multipart/form-data"><div class="file-fake">' +
+            '<div class="file-fake_btn redactor_btn_image"></div>' +
+            '<input type="file" class="file-fake_inp">' +
+            '</div></form>';
 
-        }
-    };
-    self.models[self.POPUP_VIDEO] = {
-        reset : function() {
+        this.$toolbar.append($('<li>').append(fake));
+        $('#wysiwygImage').fileupload({
+            dataType: 'json',
+            url: '/ajaxSimple/uploadPhoto/',
+            done: function (e, data) {
+                HgWysiwyg.prototype.insertBlock(obj, data.result.comment_html);
+            }
+        });
 
-        }
-    };
-
-    self.activePopup = ko.observable(null);
-
-    self.togglePopup = function(popup, buttonDOM, redactor) {
-        var resultPopup = popup;
-
-        // если уже нажата - отжимаем
-        if (self.activePopup() == popup)
-            resultPopup = null;
-
-        // если есть попап - чистим
-        if (self.activePopup() !== null)
-            self.models[self.activePopup()].reset();
-
-        // сохраняем выделение
-        if (self.activePopup() === null)
-            redactor.selectionSave();
-
-        if (resultPopup === null)
-            redactor.selectionRestore();
-
-        self.activePopup(popup);
-        self.setPopupPosition(buttonDOM);
     }
+}
 
-    self.setPopupPosition = function(a) {
-        var top = a.offset().top;
-        var left = a.offset().left;
+RedactorPlugins.smilesModal = {
+    init: function()
+    {
+        var obj = this;
 
-        $('.redactor-popup:visible').css({
-            'top': top - $('.redactor-popup:visible').height() - 55,
-            'left': left - 18
+        var callback = function(buttonDOM) {
+            fixPosition(buttonDOM);
+            $('#redactor_modal').on('resize', function() {
+                fixPosition(buttonDOM);
+            });
+
+            $('.redactor-popup_smiles a').on('click', function() {
+                var pic = $(this).find('img').attr('src');
+                obj.insertHtml('<img class="smile" src="' + pic + '" />');
+                obj.modalClose();
+                return false;
+            });
+        }
+
+        this.buttonAdd('smile', 'Смайлы', function(buttonName, buttonDOM, buttonObj, e) {
+            this.modalInit('Smiles', '#redactor-popup_b-smile', 500, function() {callback(buttonDOM)});
         });
     }
 }
 
-function WysiwygVideo()
+RedactorPlugins.videoModal = {
+    init: function()
+    {
+        var obj = this;
+
+        var callback = function(buttonDOM) {
+            obj.selectionSave();
+            fixPosition(buttonDOM);
+            $('#redactor_modal').resize(function() {
+                fixPosition(buttonDOM);
+            });
+
+            var model = new WysiwygVideo(obj);
+            ko.cleanNode($('#redactor_modal_inner')[0]);
+            ko.applyBindings(model, document.getElementById('redactor_modal_inner'));
+        }
+
+        this.buttonAdd('video', 'Видео', function(buttonName, buttonDOM, buttonObj, e) {
+            this.modalInit('Video', $('#redactor-popup_b-video').html(), 500, function() {callback(buttonDOM)});
+        });
+    }
+}
+
+function fixPosition(a) {
+    $('#redactor_modal').hide();
+
+    setTimeout(function() {
+        var top = a.offset().top;
+        var left = a.offset().left;
+
+        $('#redactor_modal').css({
+            'top': top - $('#redactor_modal').height() - 6,
+            'left': left - 18
+        });
+        $('#redactor_modal').show();
+    }, 50);
+}
+
+function WysiwygVideo(redactor)
 {
     var self = this;
     self.link = ko.observable('');
-    self.embed = ko.observable('');
+    self.embed = ko.observable(null);
     self.previewLoading = ko.observable(false);
     self.previewError = ko.observable(false);
 
@@ -281,8 +321,21 @@ function WysiwygVideo()
         self.embed(null);
     };
 
+    self.isProvider = function(provider) {
+        return ko.computed({
+            read: function () {
+                return self.link().indexOf(provider) != -1;
+            }
+        });
+    }
+
+    self.add = function() {
+        redactor.selectionRestore();
+        HgWysiwyg.prototype.insertBlock(redactor, self.embed());
+        redactor.modalClose();
+    }
+
     self.embed.subscribe(function() {
-        if ($('.redactor_btn_video').length > 0)
-            setPopupPosition($('.redactor_btn_video'), $('.redactor-popup_b-video'));
+        $('#redactor_modal').trigger('resize');
     });
 };

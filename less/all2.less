@@ -12,7 +12,7 @@
 @import "/project/friends-list.less";
 @import "/project/im.less";
 @import "/project/onair.less";
-@import "/project/photo-window.less";
+@import "../new/less/project/photo-window.less";
 @import "/project/redactor.less";
 @import "/project/start-page.less";
 @import "/project/social.less";
@@ -1944,7 +1944,7 @@ table.fr_recipe_tb td { width: 50%;}
 .user-add-record {
     margin: 0 20px 20px;
     padding: 8px 10px 8px 14px;
-    background: #8f67b5;
+    background: #af9bd2;
     .border-radius(4px);
     &__yellow {
         background: #ffe535;
@@ -4679,3 +4679,26 @@ table.fr_recipe_tb td { width: 50%;}
     }
 }
 /* /aside-photo-view */
+
+/* tabs-simple */
+.tabs-simple {
+    background: #f6f6f6;
+    padding: 15px 0;
+    margin: 20px;
+
+    &_ul {}
+    &_li {
+        .inline-block();
+        margin: 0 20px;
+    }
+    &_a {
+        font-size: 13px;
+        color: #999;
+        text-decoration: none;
+    }
+    &_a:hover,
+    &_li.active &_a {
+        color: #333;
+    }
+}
+/* /tabs-simple */

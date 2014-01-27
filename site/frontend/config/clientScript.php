@@ -77,6 +77,18 @@ return array(
                 'javascripts/history.js',
             ),
         ),
+        'history2' => array(
+            'baseUrl' => '/',
+            'js' => array(
+                'javascripts/jquery.history.js',
+            ),
+        ),
+        'preload' => array(
+            'baseUrl' => '/',
+            'js' => array(
+                'javascripts/jquery.preload.min.js',
+            ),
+        ),
         'ko_comments' => array(
             'baseUrl' => '/',
             'js' => array(
@@ -90,9 +102,8 @@ return array(
             'baseUrl' => '/',
             'js' => array(
                 'javascripts/ko_gallery.js',
-                'javascripts/jquery.preload.min.js',
             ),
-            'depends' => array('knockout', 'ko_comments'),
+            'depends' => array('knockout', 'ko_comments', 'history2', 'preload', 'powertip'),
         ),
         'ko_post' => array(
             'baseUrl' => '/',

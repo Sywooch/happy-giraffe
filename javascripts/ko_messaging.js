@@ -686,8 +686,8 @@ function Messaging(model) {
 			return false;
 		} else {
 			// Пользователя ещё нет в контактах
-			self.usersMap[data.id] = MessagingUser.prototype.objects.length;
 			user = new MessagingUser(self, data);
+			self.usersMap[data.id] = MessagingUser.prototype.objects.length - 1;
 			user.date.subscribe(function(val) {
 				if(val) {
 					self.sortContacts();

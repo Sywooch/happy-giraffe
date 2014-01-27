@@ -863,7 +863,7 @@ function MessagingSettings(data)
 
     self.toggle = function(key) {
         var observable = self[key];
-        self.update(key, observable() ? 0 : 1);
+        self.update(key, ! observable());
     }
 
     self.update = function(key, value) {

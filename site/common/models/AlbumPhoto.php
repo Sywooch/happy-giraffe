@@ -836,7 +836,29 @@ class AlbumPhoto extends HActiveRecord
      */
     public static function getPhotoFromUrl($url)
     {
-        if (preg_match('/http:\/\/(img.virtual-giraffe.ru|img.happy-giraffe.ru|img.dev.happy-giraffe.ru)\/thumbs\/[\d]+x[\d]+\/([\d]+)\/([^\"]+)/', $url, $m)) {
+        if (preg_match('/http:\/\/img[\d]*.happy-giraffe.ru\/thumbs\/[\d]+x[\d]+\/([\d]+)\/([^\"]+)/', $url, $m)) {
+            $user_id = $m[1];
+            $photo_name = $m[2];
+            return AlbumPhoto::model()->findByAttributes(array('author_id' => $user_id, 'fs_name' => $photo_name));
+        }
+        //http://img.happy-giraffe.ru/thumbs/580x1000/180361/a9f680364176b722c401cd3b3e5c7dcf.jpg
+        #TODO для тестирования на другом домене
+//        if (preg_match('/http:\/\/img.dev.happy-giraffe.ru\/thumbs\/[\d]+x[\d]+\/[\d]+\/([^\"]+)/', $url, $m)) {
+//            return AlbumPhoto::model()->findByAttributes(array('fs_name' => $m[1]));
+//        }
+        if (preg_match('/http:\/\/img.happy-giraffe.com\/thumbs\/[\d]+x[\d]+\/([\d]+)\/([^\"]+)/', $url, $m)) {
+            $user_id = $m[1];
+            $photo_name = $m[2];
+            return AlbumPhoto::model()->findByAttributes(array('author_id' => $user_id, 'fs_name' => $photo_name));
+        }
+
+        if (preg_match('/http:\/\/img.virtual-giraffe.ru\/thumbs\/[\d]+x[\d]+\/([\d]+)\/([^\"]+)/', $url, $m)) {
+            $user_id = $m[1];
+            $photo_name = $m[2];
+            return AlbumPhoto::model()->findByAttributes(array('author_id' => $user_id, 'fs_name' => $photo_name));
+        }
+
+        if (preg_match('/http:\/\/img.dev.happy-giraffe.ru\/thumbs\/[\d]+x[\d]+\/([\d]+)\/([^\"]+)/', $url, $m)) {
             $user_id = $m[1];
             $photo_name = $m[2];
             return AlbumPhoto::model()->findByAttributes(array('author_id' => $user_id, 'fs_name' => $photo_name));

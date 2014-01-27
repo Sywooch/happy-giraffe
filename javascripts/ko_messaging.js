@@ -71,7 +71,7 @@ MessagingUser.prototype = {
 			comet.addEvent(2010, 'messagingUserTyping');
             Comet.prototype.blacklistAdded = function(result, id) {
                 ko.utils.arrayForEach(self.objects, function(obj) {
-                    if (obj.id == result.user.id) {
+                    if (obj.id == result.blockedUserId) {
                         obj.blackListed(true);
                     }
                 });
@@ -79,7 +79,7 @@ MessagingUser.prototype = {
             comet.addEvent(3001, 'blacklistAdded');
             Comet.prototype.blacklistRemoved = function(result, id) {
                 ko.utils.arrayForEach(self.objects, function(obj) {
-                    if (obj.id == result.user.id) {
+                    if (obj.id == result.blockedUserId) {
                         obj.blackListed(false);
                     }
                 });

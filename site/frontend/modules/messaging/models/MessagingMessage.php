@@ -296,7 +296,6 @@ class MessagingMessage extends HActiveRecord
      */
     public function withMyStats($userId, $activeOnly = true)
     {
-        /** @todo Дописать для $activeOnly */
         $criteria = $this->dbCriteria;
         $alias = $this->tableAlias;
         $criteria->together = true;
@@ -306,6 +305,11 @@ class MessagingMessage extends HActiveRecord
         );
 
         $criteria->params['statsUser'] = $userId;
+		
+		if($activeOnly)
+		{
+			$criteria->addColumnCondition(array('messageUsers.dtime_delete' => null));
+		}
 
         return $this;
     }
@@ -323,7 +327,6 @@ class MessagingMessage extends HActiveRecord
      */
     public function withStats($activeOnly = true)
     {
-        /** @todo Дописать для $activeOnly */
         $criteria = $this->dbCriteria;
         $alias = $this->getTableAlias(true);
         $criteria->together = true;
@@ -331,6 +334,12 @@ class MessagingMessage extends HActiveRecord
         $criteria->with['messageUsers'] = array(
             'on' => '`messageUsers`.`user_id` <> ' . $alias . '.`author_id`',
         );
+
+		if($activeOnly)
+		{
+			// id не должно быть в списке удалённыйх сообщений этого пользователя
+			$criteria->addCondition($alias . '.`id` NOT IN (SELECT `message_id` FROM `messaging__messages_users` WHERE `dtime_delete` IS NOT NULL)');
+		}
 
         return $this;
     }
@@ -347,7 +356,6 @@ class MessagingMessage extends HActiveRecord
      */
     public function withMyStatsOnTop($userId, $activeOnly = true)
     {
-        /** @todo Дописать для $activeOnly */
         $criteria = $this->dbCriteria;
         $alias = $this->tableAlias;
         $criteria->together = true;
@@ -358,7 +366,13 @@ class MessagingMessage extends HActiveRecord
 
         $criteria->params['statsUser'] = $userId;
 
-        return $this;
+ 		if($activeOnly)
+		{
+			// id не должно быть в списке удалённыйх сообщений этого пользователя
+			$criteria->addCondition($alias . '.`id` NOT IN (SELECT `message_id` FROM `messaging__messages_users` WHERE `dtime_delete` IS NOT NULL)');
+		}
+
+       return $this;
     }
 
     /**

@@ -36,6 +36,10 @@ function addBaron(el) {
 
 $(function() {
 
+    $(document).ajaxError(function() {
+        $(".error-serv").removeClass('display-n');
+    });
+
 	$(document).on('koUpdate', function(event, elements) {
 		var self = event.target;
 		addBaron('.scroll');

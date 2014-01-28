@@ -437,6 +437,7 @@ function MessagingThread(me, user) {
 
 	// состояния
 	self.sendingMessage = ko.observable(false);
+    self.sendingMessageError = ko.observable(false);
 	self.loadingMessages = ko.observable(false);
 	self.fullyLoaded = ko.observable(false);
 	self.editing = ko.observable(false);
@@ -516,6 +517,7 @@ function MessagingThread(me, user) {
 	};
 	self.sendMessage = function() {
 		self.sendingMessage(true);
+        self.sendingMessageError(false);
 		var data = {};
 		
 		data.text = self.editor();
@@ -544,9 +546,30 @@ function MessagingThread(me, user) {
 					self.editor('');
 					self.uploadedImages([]);
 				} else {
-					//
+			        self.sendingMessageError(true);
 				}
 			}, 'json');
+
+            $.ajax({
+                url: '/messaging/messages/send/',
+                data: data,
+                type: 'POST',
+                dataType: 'json',
+                success: function(response) {
+                    self.sendingMessage(false);
+
+                    if (response.success) {
+                        self.editor('');
+                        self.uploadedImages([]);
+                    } else {
+                        self.sendingMessageError(true);
+                    }
+                },
+                error: function() {
+                    self.sendingMessage(false);
+                    self.sendingMessageError(true);
+                }
+            });
 		}
 	}
 	self.addImage = function(data) {

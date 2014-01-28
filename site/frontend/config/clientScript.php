@@ -28,6 +28,7 @@ return array(
             'js' => array(
 				'new/javascript/jquery.magnific-popup.js',
                 'new/javascript/common.js',
+                'javascripts/base64.js',
             ),
 			'depends' => array(
 				'jquery',

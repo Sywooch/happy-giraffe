@@ -38,7 +38,7 @@ class MessagesController extends HController
         echo CJSON::encode($response);
 		
 		// Подготовим и отправим событие
-		$messageModel = MessagingMessage::model()->withMyStatsOnTop($me)->findByPk($messageId);
+		$messageModel = MessagingMessage::model()->withMyStatsOnTop($me, false)->findByPk($messageId);
 		$message = DialogForm::messageToJson($messageModel, $me, $messageModel->messageUsers[1]->user_id);
 		$comet = new CometModel();
 		$comet->send($me, array('message' => $message), CometModel::MESSAGING_MESSAGE_DELETED);
@@ -59,7 +59,7 @@ class MessagesController extends HController
         echo CJSON::encode($response);
 		
 		// Подготовим и отправим событие
-		$messageModel = MessagingMessage::model()->withMyStatsOnTop($me)->findByPk($messageId);
+		$messageModel = MessagingMessage::model()->withMyStatsOnTop($me, false)->findByPk($messageId);
 		$message = DialogForm::messageToJson($messageModel, $me, $messageModel->messageUsers[1]->user_id);
 		$comet = new CometModel();
 		$comet->send($me, array('message' => $message), CometModel::MESSAGING_MESSAGE_DELETED);
@@ -174,7 +174,7 @@ class MessagesController extends HController
 
 		// Подготовим и отправим событие
 		$comet = new CometModel();
-		$messageModel = MessagingMessage::model()->withMyStatsOnTop($me)->findByPk($messageId);
+		$messageModel = MessagingMessage::model()->withMyStatsOnTop($me, false)->findByPk($messageId);
 		$user = $messageModel->messageUsers[1]->user_id;
 		// Событие себе
 		$data = array(

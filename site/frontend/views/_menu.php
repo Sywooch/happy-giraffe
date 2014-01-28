@@ -6,6 +6,19 @@ $user = Yii::app()->user->model;
 <!-- ko stopBinding: true -->
 <div class="layout-header clearfix">
     <!-- header-fix-->
+    <script>
+        $(document).ready(function () {
+            $(window).scroll(function () {
+                var contanerScroll = $(window).scrollTop();
+                var header = $('.header');
+                if (contanerScroll > header.height() + header.offset().top) {
+                    $('.header-fix').fadeIn(400);
+                } else {
+                    $('.header-fix').fadeOut(400);
+                }
+            });
+        });
+    </script>
     <div class="header-fix">
         <div class="header-fix_hold clearfix"><a href="/" class="header-fix_logo"></a>
             <div class="header-fix_dropin"><a href="" class="header-fix_dropin-a"><span href="" class="ava ava__middle ava__female"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"/></span><span class="header_i-arrow"></span></a>

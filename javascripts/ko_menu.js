@@ -13,6 +13,16 @@ var MenuViewModel = function(data) {
             self.menuExtended(false);
         });
 
+        $(window).on('scroll',function () {
+            var contanerScroll = $(window).scrollTop();
+            var header = $('.header');
+            if (contanerScroll > header.height() + header.offset().top) {
+                $('.header-fix').fadeIn(400);
+            } else {
+                $('.header-fix').fadeOut(400);
+            }
+        });
+
         Comet.prototype.incNewFriendsCount = function(result, id) {
             self.newFriendsCount(self.newFriendsCount() + 1);
         };

@@ -288,7 +288,7 @@ function CollectionPhotoUser(data, parent) {
     self.gender = data.gender;
     self.ava = data.ava;
     self.url = data.url;
-    self.avaCssClass = self.gender == 1 ? 'male' : 'female';
+    self.avaCssClass = self.gender == 1 ? 'ava__male' : 'ava__female';
     self.fullName = self.firstName + ' ' + self.lastName;
 }
 

@@ -212,8 +212,7 @@ function MessagingUser(viewModel, model) {
     }
 
     self.friendsAccept = function() {
-        alert('123');
-        //$.post('/friends/requests/accept/', { fromId : self.id });
+        $.post('/friends/requests/accept/', { fromId : self.id });
     }
 
     self.friendsDecline = function() {

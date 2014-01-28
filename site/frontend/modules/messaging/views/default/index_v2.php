@@ -315,6 +315,9 @@
                                     <!-- ko if: user.typing -->
                                     <span class="im_loader-tx"><span data-bind="text: user.firstName"></span> печатает вам сообщение</span><img src="/new/images/im/im-message_loader__write.png" alt="" class="im_loader-anim">
                                     <!-- /ko -->
+                                    <!-- ko if: sendingMessageError -->
+                                    <span class="im_loader-tx"><span class="errorMessage">Сообщение отправить не удалось. Попробуйте повторить попытку через несколько секунд.</span></span>
+                                    <!-- /ko -->
                                 </div>
                             </div>
                         </div>

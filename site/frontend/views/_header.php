@@ -1,5 +1,6 @@
 <?php
 Yii::app()->clientScript->registerPackage('ko_menu');
+$user = Yii::app()->user->model;
 ?>
 <!-- ko stopBinding: true -->
 <div class="layout-header clearfix">
@@ -55,7 +56,7 @@ Yii::app()->clientScript->registerPackage('ko_menu');
     <div class="header header__base">
         <div class="header_hold clearfix">
             <!-- logo-->
-            <div class="logo"><a title="Веселый жираф - сайт для всей семьи" href="" class="logo_i">Веселый жираф - сайт для всей семьи</a><span class="logo_slogan">САЙТ ДЛЯ ВСЕЙ СЕМЬИ</span></div>
+            <div class="logo"><?=HHtml::link('Веселый жираф - сайт для всей семьи', '/', array('class' => 'logo_i', 'title' => 'Веселый жираф - сайт для всей семьи'), true)?><span class="logo_slogan">САЙТ ДЛЯ ВСЕЙ СЕМЬИ</span></div>
             <!-- /logo-->
             <!-- header-menu-->
             <div class="header-menu">
@@ -66,18 +67,25 @@ Yii::app()->clientScript->registerPackage('ko_menu');
                     <li class="header-menu_li" data-bind="css: { active : activeModule() == 'friends' }"><a href="<?=$this->createUrl('/friends/default/index')?>" class="header-menu_a"><span class="header-menu_ico header-menu_ico__friend"></span><span class="header-menu_tx">Друзья</span><span class="header-menu_count" data-bind="text: newFriendsCount, visible: newFriendsCount() > 0"></span></a></li>
                     <li class="header-menu_li" data-bind="css: { active : activeModule() == 'notifications' }"><a href="<?=$this->createUrl('/notifications/default/index')?>" class="header-menu_a"><span class="header-menu_ico header-menu_ico__notice"></span><span class="header-menu_tx">Сигналы</span><span class="header-menu_count" data-bind="text: newNotificationsCount, visible: newNotificationsCount() > 0"></span></a></li>
                     <li class="header-menu_li" data-bind="css: { active : activeModule() == 'scores' }"><a href="<?=$this->createUrl('/scores/default/index')?>" class="header-menu_a"><span class="header-menu_ico header-menu_ico__award"></span><span class="header-menu_tx">Успехи</span><span class="header-menu_count" data-bind="text: newScoreCount, visible: newScoreCount() > 0"></span></a></li>
-                    <li class="header-menu_li header-menu_li__dropin"><a href="" class="header-menu_a"><span href="" class="ava ava__middle ava__female"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"/></span><span class="header-menu_tx">Я<span class="header_i-arrow"></span></span></a>
+                    <li class="header-menu_li header-menu_li__dropin" data-bind="css: { active : menuExtended }, click: function(data, event) {event.stopPropagation()}">
+                        <a class="header-menu_a" data-bind="click: function() {menuExtended(! menuExtended())}">
+                            <span class="ava ava__middle ava__<?=($user->gender == 0) ? 'female' : 'male'?>">
+                                <span class="ico-status ico-status__online"></span>
+                                <?=CHtml::image($user->getAvatarUrl(40), '', array('class' => 'ava_img'))?>
+                            </span>
+                            <span class="header-menu_tx">Я<span class="header_i-arrow"></span></span>
+                        </a>
                         <!-- header-drop-->
                         <div class="header-drop">
                             <div class="header-menu clearfix">
                                 <ul class="header-menu_ul">
-                                    <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__profile"><span href="" class="ava ava__small ava__male"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"/></span></span><span class="header-menu_tx">Анкета</span></a></li>
-                                    <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__family"></span><span class="header-menu_tx">Семья</span></a></li>
-                                    <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__blog"></span><span class="header-menu_tx">Блог</span></a></li>
-                                    <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__photo"></span><span class="header-menu_tx">Фото</span></a></li>
-                                    <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__favorite"></span><span class="header-menu_tx">Избранное</span></a></li>
-                                    <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__settings"></span><span class="header-menu_tx">Настройки</span></a></li>
-                                    <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__logout"></span><span class="header-menu_tx"></span></a></li>
+                                    <li class="header-menu_li"><a href="<?=$user->getUrl()?>" class="header-menu_a"><span class="header-menu_ico header-menu_ico__profile"><span href="" class="ava ava__small ava__male"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"/></span></span><span class="header-menu_tx">Анкета</span></a></li>
+                                    <li class="header-menu_li"><a href="<?=$user->getFamilyUrl()?>" class="header-menu_a"><span class="header-menu_ico header-menu_ico__family"></span><span class="header-menu_tx">Семья</span></a></li>
+                                    <li class="header-menu_li"><a href="<?=$user->getBlogUrl()?>" class="header-menu_a"><span class="header-menu_ico header-menu_ico__blog"></span><span class="header-menu_tx">Блог</span></a></li>
+                                    <li class="header-menu_li"><a href="<?=$user->getPhotosUrl()?>" class="header-menu_a"><span class="header-menu_ico header-menu_ico__photo"></span><span class="header-menu_tx">Фото</span></a></li>
+                                    <li class="header-menu_li"><a href="<?=$this->createUrl('/favourites/default/index')?>" class="header-menu_a"><span class="header-menu_ico header-menu_ico__favorite"></span><span class="header-menu_tx">Избранное</span></a></li>
+                                    <li class="header-menu_li"><a href="/user/settings/" class="header-menu_a"><span class="header-menu_ico header-menu_ico__settings"></span><span class="header-menu_tx">Настройки</span></a></li>
+                                    <li class="header-menu_li"><a href="<?=Yii::app()->createUrl('/site/logout')?>" class="header-menu_a"><span class="header-menu_ico header-menu_ico__logout"></span><span class="header-menu_tx"></span></a></li>
                                 </ul>
                             </div>
                             <!-- header-drop_b-->

@@ -12,6 +12,7 @@ class DefaultController extends HController
     public $layout = '//layouts/new/main';
     public $tempLayout = true;
     public $showAddBlock = false;
+    public $bodyClass = 'body__im';
 
     public function filters()
     {

@@ -28,6 +28,7 @@ return array(
             'js' => array(
 				'new/javascript/jquery.magnific-popup.js',
                 'new/javascript/common.js',
+                'javascripts/base64.js',
             ),
 			'depends' => array(
 				'jquery',
@@ -190,10 +191,10 @@ return array(
             ),
             'depends' => array('knockout'),
         ),
-        'ko_layout' => array(
+        'ko_menu' => array(
             'baseUrl' => '/',
             'js' => array(
-                'javascripts/ko_layout.js',
+                'javascripts/ko_menu.js',
             ),
             'depends' => array('knockout'),
         ),

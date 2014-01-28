@@ -196,15 +196,16 @@ function MessagingUser(viewModel, model) {
             $.post('/ajax/unBlackList/', { userId : self.id });
     }
 
-    self.friendsHandler = function() {
-        switch(self.friendsState()) {
-            case self.FRIENDS_STATE_INCOMING:
-                $.post('/friends/requests/accept/', { fromId : self.id });
-                break;
-            case self.FRIENDS_STATE_NOTHING:
-                $.post('/friendRequests/send/', { to_id : self.id });
-                break;
-        }
+    self.friendsInvite = function() {
+        $.post('/friendRequests/send/', { to_id : self.id });
+    }
+
+    self.friendsAccept = function() {
+        $.post('/friends/requests/accept/', { fromId : self.id });
+    }
+
+    self.friendsDecline = function() {
+        $.post('/friends/requests/decline/', { fromId : self.id });
     }
 
 	self.open = function() {

@@ -222,10 +222,16 @@ RedactorPlugins.imageCustom = {
             '</div></form>';
 
         this.$toolbar.append($('<li>').append(fake));
+        $('#wysiwygImage .file-fake_inp').on('click', function() {
+            obj.selectionSave();
+            return true;
+        });
+
         $('#wysiwygImage').fileupload({
             dataType: 'json',
             url: '/ajaxSimple/uploadPhoto/',
             done: function (e, data) {
+                obj.selectionRestore();
                 HgWysiwyg.prototype.insertBlock(obj, data.result.comment_html);
             }
         });

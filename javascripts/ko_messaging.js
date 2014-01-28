@@ -104,6 +104,14 @@ MessagingUser.prototype = {
                 });
             };
             comet.addEvent(4010, 'friendAdded');
+            Comet.prototype.avatarUploaded = function(result, id) {
+                ko.utils.arrayForEach(self.objects, function(obj) {
+                    if (obj.id == result.userId) {
+                        obj.avatar(result.src.medium);
+                    }
+                });
+            };
+            comet.addEvent(3003, 'avatarUploaded');
 		}
 	},
 	// Применить фильтр к контактам
@@ -133,7 +141,7 @@ function MessagingUser(viewModel, model) {
 		return self.firstName + ' ' + self.lastName;
 	};
 	self.gender = model.gender;
-	self.avatar = model.avatar;
+	self.avatar = ko.observable(model.avatar);
 	self.channel = model.channel;
 	// Состояния пользователя
 

@@ -6,8 +6,13 @@ var MenuViewModel = function(data) {
     self.newPostsCount = ko.observable(data.newPostsCount);
     self.newScoreCount = ko.observable(data.newScoreCount);
     self.activeModule = ko.observable(data.activeModule);
+    self.menuExtended = ko.observable(false);
 
     $(function() {
+        $("body").on("click", function(){
+            self.menuExtended(false);
+        });
+
         Comet.prototype.incNewFriendsCount = function(result, id) {
             self.newFriendsCount(self.newFriendsCount() + 1);
         };

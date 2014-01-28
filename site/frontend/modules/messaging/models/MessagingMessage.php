@@ -320,12 +320,12 @@ class MessagingMessage extends HActiveRecord
      * содержащую отношение пользователя, кому написано сообщение, к этому сообщению.
      * Не мешает использовать limit, т.к. загружает только одну запись
      *
-     * @param int $userId
      * @param bool $activeOnly если true, то загружает только активные сообщения (не удалённые/скрытые)
+     * @param int $forUser id пользователя, от которого просматриваем
      *
      * @return MessagingMessage Для цепочки вызовов
      */
-    public function withStats($activeOnly = true)
+    public function withStats($activeOnly = true, $forUser = false)
     {
         $criteria = $this->dbCriteria;
         $alias = $this->getTableAlias(true);
@@ -337,8 +337,14 @@ class MessagingMessage extends HActiveRecord
 
 		if($activeOnly)
 		{
+			// не надо выбирать дату удаления, т.к. берём только не удалённые
+			$criteria->with['messageUsers']['select'] = array(
+				'`messageUsers`.`user_id`',
+				'`messageUsers`.`message_id`',
+				'`messageUsers`.`dtime_read`',
+			);
 			// id не должно быть в списке удалённыйх сообщений этого пользователя
-			$criteria->addCondition($alias . '.`id` NOT IN (SELECT `message_id` FROM `messaging__messages_users` WHERE `dtime_delete` IS NOT NULL)');
+			$criteria->addCondition($alias . '.`id` NOT IN (SELECT `message_id` FROM `messaging__messages_users` WHERE `dtime_delete` IS NOT NULL AND `user_id` = ' . (int)$forUser . ')');
 		}
 
         return $this;
@@ -369,7 +375,7 @@ class MessagingMessage extends HActiveRecord
  		if($activeOnly)
 		{
 			// id не должно быть в списке удалённыйх сообщений этого пользователя
-			$criteria->addCondition($alias . '.`id` NOT IN (SELECT `message_id` FROM `messaging__messages_users` WHERE `dtime_delete` IS NOT NULL)');
+			$criteria->addCondition($alias . '.`id` NOT IN (SELECT `message_id` FROM `messaging__messages_users` WHERE `dtime_delete` IS NOT NULL AND `user_id` = ' . (int)$userId . ')');
 		}
 
        return $this;

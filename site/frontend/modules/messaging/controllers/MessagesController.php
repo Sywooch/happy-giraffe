@@ -111,8 +111,6 @@ class MessagesController extends HController
 
     public function actionSend()
     {
-        throw new CHttpException(500);
-
         $user = Yii::app()->request->getPost('interlocutorId');
         $text = Yii::app()->request->getPost('text');
 		$me = Yii::app()->user->id;

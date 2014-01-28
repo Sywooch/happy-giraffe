@@ -11,11 +11,11 @@ class OnlineUsersCommand extends CConsoleCommand
 		parent::init();
 		ini_set('memory_limit', -1);
 
-		Yii::import('site.frontend.modules.scores.models.*');
 		Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
 		Yii::import('site.frontend.extensions.*');
 		Yii::import('site.frontend.components.*');
 		Yii::import('site.common.models.mongo.*');
+		Yii::import('site.frontend.modules.scores.components.*');
 		Yii::import('site.frontend.modules.scores.models.*');
 		Yii::import('site.frontend.modules.scores.models.input.*');
 		Yii::import('site.frontend.modules.onlineManager.widgets.OnlineManagerWidget');

@@ -48,7 +48,7 @@
                                 </div>
                             </div>
                             <div class="b-user-info b-user-info__middle float-l" data-bind="with: currentPhoto().user">
-                                <a class="ava middle" data-bind="attr: { href : url }, css: avaCssClass"><img data-bind="visible: ava.length > 0, attr: { src : ava }"></a>
+                                <a class="ava ava__middle" data-bind="attr: { href : url }, css: avaCssClass"><img data-bind="visible: ava.length > 0, attr: { src : ava }"></a>
                                 <div class="b-user-info_hold">
                                     <a class="b-user-info_name" data-bind="attr: { href : url }, text: fullName"></a>
                                     <div class="b-user-info_date" data-bind="text: $root.currentPhoto().date"></div>
@@ -94,7 +94,7 @@
 
                                 <!-- ko if: user !== null -->
                                 <div class="comments-gray_ava" data-bind="with: user">
-                                    <a class="ava small" data-bind="attr: { href : url }, css: avaCssClass">
+                                    <a class="ava ava__small" data-bind="attr: { href : url }, css: avaCssClass">
                                         <img alt="" data-bind="visible: ava.length > 0, attr: { src : ava }">
                                     </a>
                                 </div>

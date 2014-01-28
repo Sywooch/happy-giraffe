@@ -310,7 +310,7 @@
                 <!-- im-center_bottom-->
                 <div class="im-center_bottom">
                     <div class="im-center_bottom-w clearfix">
-                        <div class="im-center_bottom-ava"><a href="" class="ava ava__middle ava__female"><span class="ico-status ico-status__online"></span><img alt="" data-bind="attr: {src: me.avatar}" class="ava_img"/></a>
+                        <div class="im-center_bottom-ava"><a href="" class="ava ava__middle ava__female"><span class="ico-status ico-status__online"></span><img alt="" data-bind="attr: {src: me.avatar()}" class="ava_img"/></a>
                         </div>
                         <div class="im-center_bottom-hold">
                             <!-- По клику на input заменять на wysiwyg -->

@@ -313,19 +313,31 @@ mixin im-center_bottom(mod, vars)
 mixin im-redactor-control(mod, vars)
     .redactor-control
         .redactor-control_hold
-            .scroll
-                .scroll_scroller
-                    .scroll_cont
-                        textarea.redactor.error(cols='40', name='redactor', rows='1', autofocus='autofocus')
-                    .scroll_bar-hold
-                        .scroll_bar
-                            .scroll_bar-in
+            textarea.redactor.error(cols='40', name='redactor', rows='1', autofocus='autofocus')
         .redactor-control_toolbar
         .redactor-control_control
             .redactor-control_key
                 input.redactor-control_key-checkbox(type='checkbox', name='')
                 label.redactor-control_key-label(for='redactor-control-b_key-checkbox') Enter - отправить
             button.btn-green Отправить
+
+        script
+            /*  
+                Обворачивание редактора в блоки скролла 
+                Так же нужно добавить focusCallback и blurCallback, добавлять/удалять .redactor-control_hold__focus
+                focusCallback: function(e)
+                {
+                        Нужно выбирать непосредственного родителя редатора
+                        $('.redactor-control_hold').addClass('redactor-control_hold__focus');
+                }, 
+            */
+            /* Обворачиваем редактор в дополнительные блоки. Нужно выбирать текущий (инициализарующийся) редактор, а не все на странице */
+            $('.redactor').wrap('<div class="scroll"><div class="scroll_scroller"><div class="scroll_cont"></div></div></div>');
+            /* Выбор ближайшего родителя с таким классом, для добавления блоков рисующих ползунок */
+            $('.scroll_scroller').after('<div class="scroll_bar-hold"><div class="scroll_bar"><div class="scroll_bar-in"></div></div></div>');
+            /* привязать baron к созданным элементам, в верстке не работает */
+            addBaron('.redactor-control_hold .scroll');
+
         script.
             $(document).ready(function () { 
               $('.redactor').redactor({

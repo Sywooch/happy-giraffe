@@ -26,7 +26,7 @@
   </head>
   <body class="body body__im">
     <div class="layout-container">
-      <div class="error-serv">
+      <div class="error-serv display-n">
         <div class="error-serv_hold"><span class="ico-error-smile margin-r5"></span>Произошла критическая ошибка.<a class="error-serv_a">Перезагрузить страницу</a></div>
       </div>
       <div class="layout-header clearfix">
@@ -522,18 +522,7 @@
                     <div class="im-center_bottom-hold">
                       <div class="redactor-control">
                         <div class="redactor-control_hold">
-                          <div class="scroll">
-                            <div class="scroll_scroller">
-                              <div class="scroll_cont">
-                                <textarea cols="40" name="redactor" rows="1" autofocus="autofocus" class="redactor error"></textarea>
-                              </div>
-                              <div class="scroll_bar-hold">
-                                <div class="scroll_bar">
-                                  <div class="scroll_bar-in"></div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
+                          <textarea cols="40" name="redactor" rows="1" autofocus="autofocus" class="redactor error"></textarea>
                         </div>
                         <div class="redactor-control_toolbar"></div>
                         <div class="redactor-control_control">
@@ -543,6 +532,24 @@
                           </div>
                           <button class="btn-green">Отправить</button>
                         </div>
+                        <script>
+                          /*  
+                              Обворачивание редактора в блоки скролла 
+                              Так же нужно добавить focusCallback и blurCallback, добавлять/удалять .redactor-control_hold__focus
+                              focusCallback: function(e)
+                              {
+                                      Нужно выбирать непосредственного родителя редатора
+                                      $('.redactor-control_hold').addClass('redactor-control_hold__focus');
+                              }, 
+                          */
+                          /* Обворачиваем редактор в дополнительные блоки. Нужно выбирать текущий (инициализарующийся) редактор, а не все на странице */
+                          $('.redactor').wrap('<div class="scroll"><div class="scroll_scroller"><div class="scroll_cont"></div></div></div>');
+                          /* Выбор ближайшего родителя с таким классом, для добавления блоков рисующих ползунок */
+                          $('.scroll_scroller').after('<div class="scroll_bar-hold"><div class="scroll_bar"><div class="scroll_bar-in"></div></div></div>');
+                          /* привязать baron к созданным элементам, в верстке не работает */
+                          addBaron('.redactor-control_hold .scroll');
+                          
+                        </script>
                         <script>
                           $(document).ready(function () { 
                             $('.redactor').redactor({

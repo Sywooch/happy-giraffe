@@ -79,7 +79,7 @@ $user = Yii::app()->user->model;
                         <div class="header-drop">
                             <div class="header-menu clearfix">
                                 <ul class="header-menu_ul">
-                                    <li class="header-menu_li"><a href="<?=$user->getUrl()?>" class="header-menu_a"><span class="header-menu_ico header-menu_ico__profile"><span href="" class="ava ava__small ava__male"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"/></span></span><span class="header-menu_tx">Анкета</span></a></li>
+                                    <li class="header-menu_li"><a href="<?=$user->getUrl()?>" class="header-menu_a"><span class="header-menu_ico header-menu_ico__profile"><span class="ava ava__small ava__<?=($user->gender == 0) ? 'female' : 'male'?>"><span class="ico-status ico-status__online"></span><?=CHtml::image($user->getAvatarUrl(24), '', array('class' => 'ava_img'))?></span></span><span class="header-menu_tx">Анкета</span></a></li>
                                     <li class="header-menu_li"><a href="<?=$user->getFamilyUrl()?>" class="header-menu_a"><span class="header-menu_ico header-menu_ico__family"></span><span class="header-menu_tx">Семья</span></a></li>
                                     <li class="header-menu_li"><a href="<?=$user->getBlogUrl()?>" class="header-menu_a"><span class="header-menu_ico header-menu_ico__blog"></span><span class="header-menu_tx">Блог</span></a></li>
                                     <li class="header-menu_li"><a href="<?=$user->getPhotosUrl()?>" class="header-menu_a"><span class="header-menu_ico header-menu_ico__photo"></span><span class="header-menu_tx">Фото</span></a></li>
@@ -90,17 +90,27 @@ $user = Yii::app()->user->model;
                             </div>
                             <!-- header-drop_b-->
                             <div class="header-drop_b">
-                                <div class="float-r margin-t3"><a href="">Жираф рекомендует</a></div>
-                                <div class="heading-small">Мои клубы <span class="color-gray"> (5)</span></div>
-                                <div class="club-list club-list__small clearfix">
-                                    <ul class="club-list_ul clearfix">
-                                        <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/2-w50.png" alt="" class="club-list_img"/></span></a></li>
-                                        <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/5-w50.png" alt="" class="club-list_img"/></span></a></li>
-                                        <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/7-w50.png" alt="" class="club-list_img"/></span></a></li>
-                                        <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/8-w50.png" alt="" class="club-list_img"/></span></a></li>
-                                        <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/9-w50.png" alt="" class="club-list_img"/></span></a></li>
-                                    </ul>
-                                </div>
+                                <?php if ($user->clubSubscriptionsCount > 0): ?>
+                                    <div class="float-r margin-t3"><a href="<?=$this->createUrl('/myGiraffe/default/recommends')?>">Жираф рекомендует</a></div>
+                                    <div class="heading-small">Мои клубы <span class="color-gray"> (<?=$user->clubSubscriptionsCount?>)</span></div>
+                                    <div class="club-list club-list__small clearfix">
+                                        <ul class="club-list_ul clearfix">
+                                            <?php foreach ($user->clubSubscriptions as $cs): ?>
+                                                <?php if ($cs->club_id != 21 && $cs->club_id != 22): ?>
+                                                    <li class="club-list_li">
+                                                        <a href="<?=$cs->club->getUrl()?>" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/<?=$cs->club_id?>-w50.png" alt="" class="club-list_img"/></span></a>
+                                                    </li>
+                                                <?php endif; ?>
+                                            <?php endforeach; ?>
+                                        </ul>
+                                    </div>
+                                <?php else: ?>
+                                    <div class="heading-small">Мои клубы <span class="color-gray">(0)</span> </div>
+                                    <div class="header-drop_b-empty clearfix">
+                                        <span class="color-gray padding-r5">Какие клубы выбрать?</span>
+                                        <a href="<?=$this->createUrl('/myGiraffe/default/recommends')?>">Жираф рекомендует</a>
+                                    </div>
+                                <?php endif; ?>
                             </div>
                             <!-- /header-drop_b-->
                         </div>

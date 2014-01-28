@@ -51,7 +51,7 @@ $(function() {
 			maxWidth: 200,
 			arrowColor: '#5C4B86',
 			onlyOne: false,
-			touchDevices: true,
+			touchDevices: false,
 			theme: '.tooltipster-default',
 			functionReady: function(origin, continueTooltip) {},
 			functionInit: function(origin, content) {

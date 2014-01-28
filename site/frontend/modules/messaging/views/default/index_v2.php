@@ -131,11 +131,11 @@
                             <div class="cap-empty_img"></div>
                             <!-- ko if: messages().length == 0 -->
                             <div class="cap-empty_t">Для того, чтобы начать диалог необходимо <br /> загрузить свое главное фото</div>
-                            <div class="cap-empty_tx-sub"><div class="file-fake"><button class="file-fake_btn btn-green btn-m">Загрузить фото</button><input type="file" class="file-fake_inp"></div></div>
+                            <div class="cap-empty_tx-sub"><a href="<?=Yii::app()->user->model->getUrl()?>" class="file-fake_btn btn-green btn-m" target="_blank">Загрузить фото</a></div>
                             <!-- /ko -->
                             <!-- ko if: messages().length > 0 -->
                             <div class="cap-empty_t">У вас есть непрочитанные сообщения</div>
-                            <div class="cap-empty_tx-sub">Для того, чтобы начать пользоваться сервисом, <br />необходимо загрузить свое главное фото <br /><div class="file-fake"><button class="file-fake_btn btn-green btn-m">Загрузить фото</button><input type="file" class="file-fake_inp"></div></div>
+                            <div class="cap-empty_tx-sub">Для того, чтобы начать пользоваться сервисом, <br />необходимо загрузить свое главное фото <br /><a href="<?=Yii::app()->user->model->getUrl()?>" class="btn-green btn-m" target="_blank">Загрузить фото</a></div>
                             <!-- /ko -->
                         </div>
                         <div class="verticalalign-m-help"></div>

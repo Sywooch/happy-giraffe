@@ -304,7 +304,7 @@
                                 <div class="redactor-control_toolbar"></div>
                                 <div class="redactor-control_control">
                                     <div class="redactor-control_key">
-                                        <input type="checkbox" name="" class="redactor-control_key-checkbox"/>
+                                        <input type="checkbox" class="redactor-control_key-checkbox" data-bind="checked: $root.settings.messaging__enter(), click: function() {$root.settings.toggle('messaging__enter')}"/>
                                         <label for="redactor-control-b_key-checkbox" class="redactor-control_key-label">Enter - отправить</label>
                                     </div>
                                     <button class="btn-green" data-bind="click: sendMessage">Отправить</button>

@@ -92,9 +92,9 @@ class UserAvatar extends CActiveRecord
         $comet->send($user_id, array(
             'userId' => $user_id,
             'src' => array(
-                'micro' => $ava->getAvatarUrl(Avatar::SIZE_MICRO),
-                'medium' => $ava->getAvatarUrl(Avatar::SIZE_MEDIUM),
-                'large' => $ava->getAvatarUrl(Avatar::SIZE_LARGE),
+                'micro' => $ava->getPreviewUrl(Avatar::SIZE_MICRO, Avatar::SIZE_MICRO, Image::INVERT, true, AlbumPhoto::CROP_SIDE_TOP),
+                'medium' => $ava->getPreviewUrl(Avatar::SIZE_MEDIUM, Avatar::SIZE_MEDIUM, Image::INVERT, true, AlbumPhoto::CROP_SIDE_TOP),
+                'large' => $ava->getPreviewUrl(Avatar::SIZE_LARGE, Avatar::SIZE_LARGE, Image::INVERT, true, AlbumPhoto::CROP_SIDE_TOP),
             ),
         ), CometModel::AVATAR_UPLOADED);
 

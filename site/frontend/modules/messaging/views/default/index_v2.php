@@ -124,6 +124,25 @@
             <!-- im-center-->
 
             <section class="im-center" data-bind="with: currentThread()">
+                <!-- ko if: me.avatar() === false -->
+                    <!-- cap-empty-->
+                    <div class="cap-empty cap-empty__abs cap-empty__im-ava">
+                        <div class="cap-empty_hold">
+                            <div class="cap-empty_img"></div>
+                            <!-- ko if: messages().length == 0 -->
+                            <div class="cap-empty_t">Для того, чтобы начать диалог необходимо <br /> загрузить свое главное фото</div>
+                            <div class="cap-empty_tx-sub"><div class="file-fake"><button class="file-fake_btn btn-green btn-m">Загрузить фото</button><input type="file" class="file-fake_inp"></div></div>
+                            <!-- /ko -->
+                            <!-- ko if: messages().length > 0 -->
+                            <div class="cap-empty_t">У вас есть непрочитанные сообщения</div>
+                            <div class="cap-empty_tx-sub">Для того, чтобы начать пользоваться сервисом, <br />необходимо загрузить свое главное фото <br /><div class="file-fake"><button class="file-fake_btn btn-green btn-m">Загрузить фото</button><input type="file" class="file-fake_inp"></div></div>
+                            <!-- /ko -->
+                        </div>
+                        <div class="verticalalign-m-help"></div>
+                    </div>
+                    <!-- /cap-empty-->
+                <!-- /ko -->
+
                 <div class="im-center_top">
                     <!-- im-panel-->
                     <div class="im-panel">

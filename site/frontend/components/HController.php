@@ -238,7 +238,7 @@ class HController extends CController
             $this->redirect('http://m.happy-giraffe.ru' . $_SERVER['REQUEST_URI']);
     }
 
-    public function getLayoutData()
+    public function getMenuData()
     {
         $user = Yii::app()->user->getModel();
 

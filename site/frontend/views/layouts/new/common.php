@@ -31,6 +31,9 @@ if (! Yii::app()->user->isGuest)
 </head>
 <body class="body">
 <div class="layout-container">
+    <div class="error-serv display-n">
+        <div class="error-serv_hold"><span class="ico-error-smile margin-r5"></span>Произошла критическая ошибка.<a class="error-serv_a">Перезагрузить страницу</a></div>
+    </div>
     <?=$content?>
 </div>
 <div class="display-n"></div>

@@ -20,7 +20,7 @@ block layout-wrapper_hold
             // im-center
             // При показе заглушки о заругке аватара, на .im-center нужно добавить класс .im-center__msg-blur
             section.im-center.im-center__msg-blur
-                +cap-empty("cap-empty__abs cap-empty__im-ava", {t: 'У вас есть непрочитанные сообщения', txSub: 'Для того, чтобы начать пользоваться сервисом, <br />необходимо загрузить свое главное фото <br /><div class="file-fake"><button class="file-fake_btn btn-green btn-m">Загрузить фото</button><input type="file" class="file-fake_inp"></div>'})
+                +cap-empty("cap-empty__abs cap-empty__im-ava", {t: 'У вас есть непрочитанные сообщения', txSub: 'Для того, чтобы начать пользоваться сервисом, <br />необходимо загрузить свое главное фото <br /><a href="" class="btn-green btn-m">Загрузить фото</a>'})
                 .im-center_top
                     +im-panel("", {friend: "friend__added"})
                 .im-center_middle

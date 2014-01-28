@@ -190,10 +190,10 @@ return array(
             ),
             'depends' => array('knockout'),
         ),
-        'ko_layout' => array(
+        'ko_menu' => array(
             'baseUrl' => '/',
             'js' => array(
-                'javascripts/ko_layout.js',
+                'javascripts/ko_menu.js',
             ),
             'depends' => array('knockout'),
         ),

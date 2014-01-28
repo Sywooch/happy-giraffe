@@ -1,18 +1,9 @@
+<?php
+Yii::app()->clientScript->registerPackage('ko_menu');
+?>
+<!-- ko stopBinding: true -->
 <div class="layout-header clearfix">
     <!-- header-fix-->
-    <script>
-        $(document).ready(function () {
-            $(window).scroll(function () {
-                var contanerScroll = $(window).scrollTop();
-                var header = $('.header');
-                if (contanerScroll > header.height() + header.offset().top) {
-                    $('.header-fix').fadeIn(400);
-                } else {
-                    $('.header-fix').fadeOut(400);
-                }
-            });
-        });
-    </script>
     <div class="header-fix">
         <div class="header-fix_hold clearfix"><a href="" class="header-fix_logo"></a>
             <div class="header-fix_dropin"><a href="" class="header-fix_dropin-a"><span href="" class="ava ava__middle ava__female"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"/></span><span class="header_i-arrow"></span></a>
@@ -69,12 +60,12 @@
             <!-- header-menu-->
             <div class="header-menu">
                 <ul class="header-menu_ul clearfix">
-                    <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__broadcast"></span><span class="header-menu_tx">Прямой эфир</span></a></li>
-                    <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__giraffe"></span><span class="header-menu_tx">Мой Жираф</span></a></li>
-                    <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__im"></span><span class="header-menu_tx">Диалоги</span><span class="header-menu_count">25456</span></a></li>
-                    <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__friend"></span><span class="header-menu_tx">Друзья</span><span class="header-menu_count">2</span></a></li>
-                    <li class="header-menu_li active"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__notice"></span><span class="header-menu_tx">Сигналы</span><span class="header-menu_count">2</span></a></li>
-                    <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__award"></span><span class="header-menu_tx">Успехи</span></a></li>
+                    <!--<li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__broadcast"></span><span class="header-menu_tx">Прямой эфир</span></a></li>-->
+                    <li class="header-menu_li" data-bind="css: { active : activeModule() == 'myGiraffe' }"><a href="<?=$this->createUrl('/myGiraffe/default/index', array('type' => 1))?>" class="header-menu_a"><span class="header-menu_ico header-menu_ico__giraffe"></span><span class="header-menu_tx">Мой Жираф</span><span class="header-menu_count" data-bind="text: newPostsCount, visible: newPostsCount() > 0"></span></a></li>
+                    <li class="header-menu_li" data-bind="css: { active : activeModule() == 'messaging' }"><a href="<?=$this->createUrl('/messaging/default/index')?>" class="header-menu_a"><span class="header-menu_ico header-menu_ico__im"></span><span class="header-menu_tx">Диалоги</span><span class="header-menu_count" data-bind="text: newMessagesCount, visible: newMessagesCount() > 0"></span></a></li>
+                    <li class="header-menu_li" data-bind="css: { active : activeModule() == 'friends' }"><a href="<?=$this->createUrl('/friends/default/index')?>" class="header-menu_a"><span class="header-menu_ico header-menu_ico__friend"></span><span class="header-menu_tx">Друзья</span><span class="header-menu_count" data-bind="text: newFriendsCount, visible: newFriendsCount() > 0"></span></a></li>
+                    <li class="header-menu_li" data-bind="css: { active : activeModule() == 'notifications' }"><a href="<?=$this->createUrl('/notifications/default/index')?>" class="header-menu_a"><span class="header-menu_ico header-menu_ico__notice"></span><span class="header-menu_tx">Сигналы</span><span class="header-menu_count" data-bind="text: newNotificationsCount, visible: newNotificationsCount() > 0"></span></a></li>
+                    <li class="header-menu_li" data-bind="css: { active : activeModule() == 'scores' }"><a href="<?=$this->createUrl('/scores/default/index')?>" class="header-menu_a"><span class="header-menu_ico header-menu_ico__award"></span><span class="header-menu_tx">Успехи</span><span class="header-menu_count" data-bind="text: newScoreCount, visible: newScoreCount() > 0"></span></a></li>
                     <li class="header-menu_li header-menu_li__dropin"><a href="" class="header-menu_a"><span href="" class="ava ava__middle ava__female"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"/></span><span class="header-menu_tx">Я<span class="header_i-arrow"></span></span></a>
                         <!-- header-drop-->
                         <div class="header-drop">
@@ -114,3 +105,8 @@
     </div>
     <!-- /header-->
 </div>
+<!-- /ko -->
+
+<script type="text/javascript">
+    ko.applyBindings(new MenuViewModel(<?=CJSON::encode($this->menuData)?>), $('.layout-header')[0]);
+</script>

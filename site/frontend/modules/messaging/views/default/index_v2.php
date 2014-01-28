@@ -101,13 +101,31 @@
                     <div class="im-user-list">
                         <div data-bind="css: {scroll: true}">
                             <div class="scroll_scroller" data-bind="show: {selector: '.im-user-list_i:not(.bySearching):visible:gt(-10), .im-user-list_i.bySearching:visible', callback: loadContacts}">
-                                <div class="scroll_cont" data-bind="foreach: getContactList">
+                                <div class="scroll_cont">
+                                    <!-- ko foreach: getContactList -->
                                     <div class="im-user-list_i clearfix" data-bind="visible: isShow, click: open, css: { active: isActive, bySearching: bySearching() && $parent.currentFilter() !== 4 }">
                                         <div class="im-user-list_count" data-bind="visible: countNew() > 0, text: countNew"></div>
                                         <div class="im-user-list_set"><a href="" class="ava ava__middle ava__female"><span class="ico-status ico-status__online" data-bind="visible: isOnline"></span><img alt="" data-bind="attr: {src: avatar}" class="ava_img"/></a>
                                             <div class="im-user-list_set-name"><a href="" class="im-user-list_set-a" data-bind="text: fullName()"></a></div>
                                         </div>
                                     </div>
+                                    <!-- /ko -->
+                                    <!-- ko if: getContactList().length == 0 -->
+                                    <!-- cap-empty-->
+                                    <div class="cap-empty">
+                                        <div class="cap-empty_hold">
+                                            <div class="cap-empty_img"></div>
+                                            <!-- ko if: currentFilter() == 4 -->
+                                            <div class="cap-empty_tx-sub">По данному запросу <br> контактов не найдено.</div>
+                                            <!-- /ko -->
+                                            <!-- ko if: currentFilter() != 4 -->
+                                            <div class="cap-empty_tx-sub">Список пуст.</div>
+                                            <!-- /ko -->
+                                        </div>
+                                        <div class="verticalalign-m-help"></div>
+                                    </div>
+                                    <!-- /cap-empty-->
+                                    <!-- /ko -->
                                 </div>
                             </div>
                             <div class="scroll_bar-hold">

@@ -32,6 +32,12 @@ class FriendRequestsController extends HController
                     'user' => $model->to,
                 ), true),
             );
+
+            $comet = new CometModel();
+            $comet->attributes = array('fromId' => $this->from_id, 'toId' => $this->to_id);
+            $comet->type = CometModel::FRIEND_REQUEST_SENT;
+            $comet->send($this->from_id);
+            $comet->send($this->to_id);
         } else {
             $response = array(
                 'status' => false,

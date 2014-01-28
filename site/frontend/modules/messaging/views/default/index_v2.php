@@ -209,9 +209,9 @@
                             Добавить в друзья - .friend__add
                             Приглашение отправленно - .friend__added
                             -->
-                            <a class="im-panel_friend im-panel_friend__fr" data-bind="click: user.friendsHandler, if: user.friendsState() == user.FRIENDS_STATE_FRIENDS"><span class="im-panel_friend-ico"></span><span class="im-panel_friend-tx">Друг</span></a>
-                            <a class="im-panel_friend im-panel_friend__add" data-bind="click: user.friendsHandler, if: user.friendsState() == user.FRIENDS_STATE_NOTHING || user.friendsState() == user.FRIENDS_STATE_INCOMING"><span class="im-panel_friend-ico"></span><span class="im-panel_friend-tx">Добавить <br> в друзья</span></a>
-                            <a class="im-panel_friend im-panel_friend__added" data-bind="click: user.friendsHandler, if: user.friendsState() == user.FRIENDS_STATE_OUTGOING"><span class="im-panel_friend-ico"></span><span class="im-panel_friend-tx">Приглашение <br> отправлено</span></a>
+                            <a class="im-panel_friend im-panel_friend__fr" data-bind="if: user.friendsState() == user.FRIENDS_STATE_FRIENDS"><span class="im-panel_friend-ico"></span><span class="im-panel_friend-tx">Друг</span></a>
+                            <a class="im-panel_friend im-panel_friend__add" data-bind="click: user.friendsInvite, if: user.friendsState() == user.FRIENDS_STATE_NOTHING"><span class="im-panel_friend-ico"></span><span class="im-panel_friend-tx">Добавить <br> в друзья</span></a>
+                            <a class="im-panel_friend im-panel_friend__added" data-bind="if: user.friendsState() == user.FRIENDS_STATE_OUTGOING"><span class="im-panel_friend-ico"></span><span class="im-panel_friend-tx">Приглашение <br> отправлено</span></a>
                         </div>
                     </div>
                     <!-- /im-panel-->
@@ -306,6 +306,18 @@
                                         </div>
                                     </div>
                                     <!-- /im-message-->
+                                <!-- /ko -->
+                                <!-- ko if: user.friendsState() == self.FRIENDS_STATE_INCOMING -->
+                                <div class="friend-offer">
+                                    <div class="friend-offer_hold">
+                                        <div class="friend-offer_ava"><a href="" class="ava ava__middle ava__female"><span class="ico-status ico-status__online" data-bind="visible: user.isOnline()"></span><img alt="" data-bind="attr: {src: user.avatar}" class="ava_img"/></a></a>
+                                        </div>
+                                        <div class="friend-offer_in"><a class="friend-offer_name" data-bind="text: user.fullName()"></a>
+                                            <div class="friend-offer_tx">предлагает вам дружбу!</div>
+                                        </div>
+                                        <div class="friend-offer_btns"><a class="btn-green-simple btn-s" data-bind="click: user.friendsAccept">Принять</a><a title="Отклонить" class="ico-cancel powertip" data-bind="click: user.friendsInvite">&#8211;</a></div>
+                                    </div>
+                                </div>
                                 <!-- /ko -->
                                 <!-- im_loader есть всегда, на разные действия в нем менятеся содержимое-->
                                 <div class="im_loader">

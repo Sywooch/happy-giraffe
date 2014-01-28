@@ -101,13 +101,31 @@
                     <div class="im-user-list">
                         <div data-bind="css: {scroll: true}">
                             <div class="scroll_scroller" data-bind="show: {selector: '.im-user-list_i:not(.bySearching):visible:gt(-10), .im-user-list_i.bySearching:visible', callback: loadContacts}">
-                                <div class="scroll_cont" data-bind="foreach: getContactList">
+                                <div class="scroll_cont">
+                                    <!-- ko foreach: getContactList -->
                                     <div class="im-user-list_i clearfix" data-bind="visible: isShow, click: open, css: { active: isActive, bySearching: bySearching() && $parent.currentFilter() !== 4 }">
                                         <div class="im-user-list_count" data-bind="visible: countNew() > 0, text: countNew"></div>
                                         <div class="im-user-list_set"><a href="" class="ava ava__middle ava__female"><span class="ico-status ico-status__online" data-bind="visible: isOnline"></span><img alt="" data-bind="attr: {src: avatar}" class="ava_img"/></a>
                                             <div class="im-user-list_set-name"><a href="" class="im-user-list_set-a" data-bind="text: fullName()"></a></div>
                                         </div>
                                     </div>
+                                    <!-- /ko -->
+                                    <!-- ko if: getContactList().length == 0 -->
+                                    <!-- cap-empty-->
+                                    <div class="cap-empty">
+                                        <div class="cap-empty_hold">
+                                            <div class="cap-empty_img"></div>
+                                            <!-- ko if: currentFilter() == 4 -->
+                                            <div class="cap-empty_tx-sub">По данному запросу <br> контактов не найдено.</div>
+                                            <!-- /ko -->
+                                            <!-- ko if: currentFilter() != 4 -->
+                                            <div class="cap-empty_tx-sub">Список пуст.</div>
+                                            <!-- /ko -->
+                                        </div>
+                                        <div class="verticalalign-m-help"></div>
+                                    </div>
+                                    <!-- /cap-empty-->
+                                    <!-- /ko -->
                                 </div>
                             </div>
                             <div class="scroll_bar-hold">
@@ -124,6 +142,25 @@
             <!-- im-center-->
 
             <section class="im-center" data-bind="with: currentThread()">
+                <!-- ko if: me.avatar() === false -->
+                    <!-- cap-empty-->
+                    <div class="cap-empty cap-empty__abs cap-empty__im-ava">
+                        <div class="cap-empty_hold">
+                            <div class="cap-empty_img"></div>
+                            <!-- ko if: messages().length == 0 -->
+                            <div class="cap-empty_t">Для того, чтобы начать диалог необходимо <br /> загрузить свое главное фото</div>
+                            <div class="cap-empty_tx-sub"><a href="<?=Yii::app()->user->model->getUrl()?>" class="file-fake_btn btn-green btn-m" target="_blank">Загрузить фото</a></div>
+                            <!-- /ko -->
+                            <!-- ko if: messages().length > 0 -->
+                            <div class="cap-empty_t">У вас есть непрочитанные сообщения</div>
+                            <div class="cap-empty_tx-sub">Для того, чтобы начать пользоваться сервисом, <br />необходимо загрузить свое главное фото <br /><a href="<?=Yii::app()->user->model->getUrl()?>" class="btn-green btn-m" target="_blank">Загрузить фото</a></div>
+                            <!-- /ko -->
+                        </div>
+                        <div class="verticalalign-m-help"></div>
+                    </div>
+                    <!-- /cap-empty-->
+                <!-- /ko -->
+
                 <div class="im-center_top">
                     <!-- im-panel-->
                     <div class="im-panel">
@@ -278,6 +315,9 @@
                                     <!-- ko if: user.typing -->
                                     <span class="im_loader-tx"><span data-bind="text: user.firstName"></span> печатает вам сообщение</span><img src="/new/images/im/im-message_loader__write.png" alt="" class="im_loader-anim">
                                     <!-- /ko -->
+                                    <!-- ko if: sendingMessageError -->
+                                    <span class="im_loader-tx"><span class="errorMessage">Сообщение отправить не удалось. Попробуйте повторить попытку через несколько секунд.</span></span>
+                                    <!-- /ko -->
                                 </div>
                             </div>
                         </div>
@@ -291,7 +331,7 @@
                 <!-- im-center_bottom-->
                 <div class="im-center_bottom">
                     <div class="im-center_bottom-w clearfix">
-                        <div class="im-center_bottom-ava"><a href="" class="ava ava__middle ava__female"><span class="ico-status ico-status__online"></span><img alt="" data-bind="attr: {src: me.avatar}" class="ava_img"/></a>
+                        <div class="im-center_bottom-ava"><a href="" class="ava ava__middle ava__female"><span class="ico-status ico-status__online"></span><img alt="" data-bind="attr: {src: me.avatar()}" class="ava_img"/></a>
                         </div>
                         <div class="im-center_bottom-hold">
                             <!-- По клику на input заменять на wysiwyg -->

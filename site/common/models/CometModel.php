@@ -58,6 +58,7 @@ class CometModel extends CComponent
     const SETTING_UPDATED = 3000;
     const BLACKLIST_ADDED = 3001;
     const BLACKLIST_REMOVED = 3002;
+    const AVATAR_UPLOADED = 3003;
 
     const FRIEND_REQUEST_SENT = 4000;
     const FRIEND_ADDED = 4010;

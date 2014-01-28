@@ -303,7 +303,7 @@ function fixPosition(a) {
             'left': left - 18
         });
         $('#redactor_modal').show();
-    }, 50);
+    }, 100);
 }
 
 function WysiwygVideo(redactor)

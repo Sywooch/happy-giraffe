@@ -307,7 +307,7 @@
                                     </div>
                                     <!-- /im-message-->
                                 <!-- /ko -->
-                                <!-- ko if: user.friendsState() == user.FRIENDS_STATE_INCOMING -->
+                                <!-- ko if: user.friendsState() == user.FRIENDS_STATE_OUTGOING -->
                                 <div class="friend-offer">
                                     <div class="friend-offer_hold">
                                         <div class="friend-offer_ava"><a href="" class="ava ava__middle ava__female"><span class="ico-status ico-status__online" data-bind="visible: user.isOnline()"></span><img alt="" data-bind="attr: {src: user.avatar}" class="ava_img"/></a></a>

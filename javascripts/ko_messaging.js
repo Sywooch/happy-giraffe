@@ -539,17 +539,6 @@ function MessagingThread(me, user) {
 			}, 'json');
 		} else {
 			data.interlocutorId = self.id;
-			$.post('/messaging/messages/send/', data, function(response) {
-				self.sendingMessage(false);
-
-				if (response.success) {
-					self.editor('');
-					self.uploadedImages([]);
-				} else {
-			        self.sendingMessageError(true);
-				}
-			}, 'json');
-
             $.ajax({
                 url: '/messaging/messages/send/',
                 data: data,

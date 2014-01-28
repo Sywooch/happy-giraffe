@@ -158,7 +158,7 @@ class ContactsManager
                 break;
             case self::TYPE_NEW:
                 $sql = "
-                    SELECT COUNT(DISTINCT tu.thread_id)
+                    SELECT COUNT(DISTINCT mu.message_id)
                     FROM messaging__threads_users tu
                     # Получение количества непрочитанных сообщений
                     INNER JOIN messaging__messages m ON m.thread_id = tu.thread_id AND m.author_id != tu.user_id

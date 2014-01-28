@@ -36,8 +36,8 @@ class FriendRequestsController extends HController
             $comet = new CometModel();
             $comet->attributes = array('fromId' => Yii::app()->user->id, 'toId' => $to_id);
             $comet->type = CometModel::FRIEND_REQUEST_SENT;
-            $comet->send($this->from_id);
-            $comet->send($this->to_id);
+            $comet->send(Yii::app()->user->id);
+            $comet->send($to_id);
         } else {
             $response = array(
                 'status' => false,

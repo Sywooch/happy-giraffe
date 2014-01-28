@@ -88,6 +88,16 @@ class UserAvatar extends CActiveRecord
         $source->album_id = Album::getAlbumByType($user_id, Album::TYPE_PRIVATE)->id;
         $source->update(array('hidden', 'album_id'));
 
+        $comet = new CometModel();
+        $comet->send($user_id, array(
+            'userId' => $user_id,
+            'src' => array(
+                'micro' => $ava->getAvatarUrl(Avatar::SIZE_MICRO),
+                'medium' => $ava->getAvatarUrl(Avatar::SIZE_MEDIUM),
+                'large' => $ava->getAvatarUrl(Avatar::SIZE_LARGE),
+            ),
+        ), CometModel::AVATAR_UPLOADED);
+
         return $ava;
     }
 

@@ -155,6 +155,7 @@ class Friend extends CActiveRecord
             $transaction->commit();
 
             Scoring::friendAdded($user1Id, $user2Id);
+            MessagingThread::model()->findOrCreate($user1Id, $user2Id);
             $comet = new CometModel();
             $comet->attributes = array('user1Id' => $user1Id, 'user2Id' => $user2Id);
             $comet->type = CometModel::FRIEND_ADDED;

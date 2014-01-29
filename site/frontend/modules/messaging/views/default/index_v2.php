@@ -114,7 +114,7 @@
                     <!-- im-user-list-->
                     <div class="im-user-list">
                         <div data-bind="css: {scroll: true}">
-                            <div class="scroll_scroller" data-bind="show: {selector: '.im-user-list_i:not(.bySearching):visible:gt(-10), .im-user-list_i.bySearching:visible', callback: loadContacts}">
+                            <div class="scroll_scroller" data-bind="show: {selector: '.im-user-list_i:not(.bySearching):visible:gt(-10), .im-user-list_i.bySearching:visible, .cap-empty', callback: loadContacts}">
                                 <div class="scroll_cont">
                                     <!-- ko foreach: getContactList -->
                                     <div class="im-user-list_i clearfix" data-bind="visible: isShow, click: open, css: { active: isActive, bySearching: bySearching() && $parent.currentFilter() !== 4 }">

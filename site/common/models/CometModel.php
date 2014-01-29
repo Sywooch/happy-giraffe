@@ -61,6 +61,7 @@ class CometModel extends CComponent
     const AVATAR_UPLOADED = 3003;
 
     const FRIEND_REQUEST_SENT = 4000;
+    const FRIEND_REQUEST_DECLINED = 4001;
     const FRIEND_ADDED = 4010;
 
     public $attributes = array();

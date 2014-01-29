@@ -107,10 +107,10 @@ MessagingUser.prototype = {
             Comet.prototype.requestDeclined = function(result, id) {
                 ko.utils.arrayForEach(self.objects, function(obj) {
                     if (obj.id == result.fromId) {
-                        obj.hasIncomingRequest(false);
+                        obj.hasOutgoingRequest(false);
                     }
                     if (obj.id == result.toId) {
-                        obj.hasOutgoingRequest(false);
+                        obj.hasIncomingRequest(false);
                     }
                 });
             };

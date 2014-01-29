@@ -146,6 +146,7 @@ function MessagingUser(viewModel, model) {
 	self.viewModel = viewModel;
 	// Атрибуты модели пользователя
 	self.id = model.id;
+    self.profileUrl = model.profileUrl;
 	self.firstName = model.firstName;
 	self.lastName = model.lastName;
 	self.fullName = function() {

@@ -9,7 +9,7 @@ $user = Yii::app()->user->model;
     <div class="header-fix">
         <div class="header-fix_hold clearfix"><a href="/" class="header-fix_logo"></a>
             <div class="header-fix_dropin" data-bind="css: { active : menuExtended }, click: function(data, event) {event.stopPropagation(); return true;}">
-                <a class="header-menu_a" data-bind="click: function() {menuExtended(! menuExtended())}">
+                <a class="header-fix_dropin-a" data-bind="click: function() {menuExtended(! menuExtended())}">
                     <span class="ava ava__middle ava__<?=($user->gender == 0) ? 'female' : 'male'?>">
                         <span class="ico-status ico-status__online"></span>
                         <?=CHtml::image($user->getAvatarUrl(40), '', array('class' => 'ava_img'))?>

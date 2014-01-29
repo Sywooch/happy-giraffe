@@ -135,7 +135,7 @@ MessagingUser.prototype = {
 			user.isShow(this[filter](user));
 		});*/
 	}
-}
+};
 
 function MessagingUser(viewModel, model) {
 	var self = this;
@@ -287,7 +287,7 @@ MessagingMessage.prototype = {
 			comet.addEvent(2050, 'messagingMessageDeleted');
 		}
 	}
-}
+};
 
 function MessagingMessage(model, thread) {
 	var self = this;
@@ -440,8 +440,9 @@ MessagingThread.prototype = {
 			thread = new MessagingThread(user.viewModel.me, user);
 		}
 		Messaging.prototype.currentThread(thread);
-	},
-}
+		thread.opened();
+	}
+};
 
 function MessagingThread(me, user) {
 	var self = this;
@@ -654,6 +655,15 @@ function MessagingThread(me, user) {
 					jScroller.scrollTop(jScroller.find('.scroll_cont').height() - scrollPos);
 				}
 			}, 'json');
+		}
+	};
+	self.opened = function() {
+		var jScroller = $(scroller);
+		var firstUnread = jScroller.find('.im-message.im-message__new:eq(0)');
+		if(firstUnread.length > 0) { // если есть непрочитанные сообщения
+			jScroller.scrollTo(firstUnread, 0); // докрутим до непочитанного сообщения
+		} else {
+			jScroller.scrollTo('max', 0); // прокрутим в конец
 		}
 	};
 

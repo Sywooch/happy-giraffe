@@ -420,6 +420,15 @@ MessagingThread.prototype = {
 				});
 			};
 			comet.addEvent(2070, 'messagingThreadRestored');
+			// Сообщение прочитано, и если оно редактировалось, то отменить редактирование
+			Comet.prototype.messagingThreadMessageRead = function(result, id) {
+				ko.utils.arrayForEach(self.objects, function(obj) {
+					if (obj.id == result.dialog.id && obj.editingMessage() && obj.editingMessage().id == result.message.id) {
+						obj.cancelEditing();
+					}
+				});
+			};
+			comet.addEvent(2011, 'messagingThreadMessageRead');
 		}
 	},
 	open: function(user) {
@@ -519,6 +528,11 @@ function MessagingThread(me, user) {
 		self.editor(message.text());
 		self.setEditing();
 	};
+	self.cancelEditing = function() {
+		self.editingMessage(false);
+		self.editor('');
+		self.editing(false);
+	}
 	self.deleteDialog = function() {
 		// Просто отправим запрос, ответ придёт событием
 		$.post('/messaging/threads/delete/', {userId: self.id});

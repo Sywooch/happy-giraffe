@@ -10,11 +10,11 @@ $user = Yii::app()->user->model;
         <div class="header-fix_hold clearfix"><a href="/" class="header-fix_logo"></a>
             <div class="header-fix_dropin" data-bind="css: { active : menuExtended }, click: function(data, event) {event.stopPropagation(); return true;}">
                 <a class="header-menu_a" data-bind="click: function() {menuExtended(! menuExtended())}">
-                            <span class="ava ava__middle ava__<?=($user->gender == 0) ? 'female' : 'male'?>">
-                                <span class="ico-status ico-status__online"></span>
-                                <?=CHtml::image($user->getAvatarUrl(40), '', array('class' => 'ava_img'))?>
-                            </span>
-                    <span class="header-menu_tx">Я<span class="header_i-arrow"></span></span>
+                    <span class="ava ava__middle ava__<?=($user->gender == 0) ? 'female' : 'male'?>">
+                        <span class="ico-status ico-status__online"></span>
+                        <?=CHtml::image($user->getAvatarUrl(40), '', array('class' => 'ava_img'))?>
+                    </span>
+                    <span class="header_i-arrow"></span>
                 </a>
                 <?php $this->renderPartial('//_menu_drop'); ?>
             </div>

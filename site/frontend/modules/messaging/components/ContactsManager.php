@@ -237,9 +237,9 @@ class ContactsManager
                     # Находится ли в черном списке
                     LEFT OUTER JOIN blacklist b ON b.user_id = tu.user_id AND b.blocked_user_id = u.id
                     # Имеет исходящий запрос в друзья
-                    LEFT OUTER JOIN friend_requests fr1 ON fr1.from_id = tu.user_id AND fr1.to_id = u.id AND fr1.status = 'pending'
+                    LEFT OUTER JOIN friend_requests fr1 ON fr1.from_id = u.id AND fr1.to_id = tu.user_id AND fr1.status = 'pending'
                     # Имеет входящий запрос в друзья
-                    LEFT OUTER JOIN friend_requests fr2 ON fr2.from_id = u.id AND fr2.to_id = tu.user_id AND fr2.status = 'pending'
+                    LEFT OUTER JOIN friend_requests fr2 ON fr2.from_id = tu.user_id AND fr2.to_id = u.id AND fr2.status = 'pending'
                     WHERE tu.user_id = :user_id AND b.user_id IS NULL AND (mu.dtime_delete IS NULL OR f.id IS NOT NULL)
                     GROUP BY u.id
                     ORDER BY t.updated DESC
@@ -282,9 +282,9 @@ class ContactsManager
                     # Находится ли в черном списке
                     LEFT OUTER JOIN blacklist b ON b.user_id = tu.user_id AND b.blocked_user_id = u.id
                     # Имеет исходящий запрос в друзья
-                    LEFT OUTER JOIN friend_requests fr1 ON fr1.from_id = tu.user_id AND fr1.to_id = u.id AND fr1.status = 'pending'
+                    LEFT OUTER JOIN friend_requests fr1 ON fr1.from_id = u.id AND fr1.to_id = tu.user_id AND fr1.status = 'pending'
                     # Имеет входящий запрос в друзья
-                    LEFT OUTER JOIN friend_requests fr2 ON fr2.from_id = u.id AND fr2.to_id = tu.user_id AND fr2.status = 'pending'
+                    LEFT OUTER JOIN friend_requests fr2 ON fr2.from_id = tu.user_id AND fr2.to_id = u.id AND fr2.status = 'pending'
                     WHERE tu.user_id = :user_id AND b.user_id IS NULL
                     GROUP BY u.id
                     HAVING unreadCount > 0
@@ -328,9 +328,9 @@ class ContactsManager
                     # Находится ли в черном списке
                     LEFT OUTER JOIN blacklist b ON b.user_id = tu.user_id AND b.blocked_user_id = u.id
                     # Имеет исходящий запрос в друзья
-                    LEFT OUTER JOIN friend_requests fr1 ON fr1.from_id = tu.user_id AND fr1.to_id = u.id AND fr1.status = 'pending'
+                    LEFT OUTER JOIN friend_requests fr1 ON fr1.from_id = u.id AND fr1.to_id = tu.user_id AND fr1.status = 'pending'
                     # Имеет входящий запрос в друзья
-                    LEFT OUTER JOIN friend_requests fr2 ON fr2.from_id = u.id AND fr2.to_id = tu.user_id AND fr2.status = 'pending'
+                    LEFT OUTER JOIN friend_requests fr2 ON fr2.from_id = tu.user_id AND fr2.to_id = u.id AND fr2.status = 'pending'
                     WHERE tu.user_id = :user_id AND b.user_id IS NULL AND u.online = 1 AND (mu.dtime_delete IS NULL OR f.id IS NOT NULL)
                     GROUP BY u.id
                     ORDER BY t.updated DESC
@@ -413,9 +413,9 @@ class ContactsManager
                     # Находится ли в черном списке
                     LEFT OUTER JOIN blacklist b ON b.user_id = tu.user_id AND b.blocked_user_id = u.id
                     # Имеет исходящий запрос в друзья
-                    LEFT OUTER JOIN friend_requests fr1 ON fr1.from_id = tu.user_id AND fr1.to_id = u.id AND fr1.status = 'pending'
+                    LEFT OUTER JOIN friend_requests fr1 ON fr1.from_id = u.id AND fr1.to_id = tu.user_id AND fr1.status = 'pending'
                     # Имеет входящий запрос в друзья
-                    LEFT OUTER JOIN friend_requests fr2 ON fr2.from_id = u.id AND fr2.to_id = tu.user_id AND fr2.status = 'pending'
+                    LEFT OUTER JOIN friend_requests fr2 ON fr2.from_id = tu.user_id AND fr2.to_id = u.id AND fr2.status = 'pending'
                     WHERE tu.user_id = :user_id AND b.user_id IS NULL AND (mu.dtime_delete IS NULL OR f.id IS NOT NULL) AND ({searchCondition})
                     GROUP BY u.id
                     ORDER BY t.updated DESC
@@ -457,9 +457,9 @@ class ContactsManager
                     # Находится ли в черном списке
                     LEFT OUTER JOIN blacklist b ON b.user_id = tu.user_id AND b.blocked_user_id = u.id
                     # Имеет исходящий запрос в друзья
-                    LEFT OUTER JOIN friend_requests fr1 ON fr1.from_id = tu.user_id AND fr1.to_id = u.id AND fr1.status = 'pending'
+                    LEFT OUTER JOIN friend_requests fr1 ON fr1.from_id = u.id AND fr1.to_id = tu.user_id AND fr1.status = 'pending'
                     # Имеет входящий запрос в друзья
-                    LEFT OUTER JOIN friend_requests fr2 ON fr2.from_id = u.id AND fr2.to_id = tu.user_id AND fr2.status = 'pending'
+                    LEFT OUTER JOIN friend_requests fr2 ON fr2.from_id = tu.user_id AND fr2.to_id = u.id AND fr2.status = 'pending'
                     WHERE tu.user_id = :user_id #AND b.user_id IS NULL
                     LIMIT 1
 					
@@ -488,9 +488,9 @@ class ContactsManager
                     # Находится ли в черном списке
                     LEFT OUTER JOIN blacklist b ON b.user_id = :interlocutor_id AND b.blocked_user_id = u.id
                     # Имеет исходящий запрос в друзья
-                    LEFT OUTER JOIN friend_requests fr1 ON fr1.from_id = :interlocutor_id AND fr1.to_id = u.id AND fr1.status = 'pending'
+                    LEFT OUTER JOIN friend_requests fr1 ON fr1.from_id = :interlocutor_id AND fr1.to_id = :user_id AND fr1.status = 'pending'
                     # Имеет входящий запрос в друзья
-                    LEFT OUTER JOIN friend_requests fr2 ON fr2.from_id = u.id AND fr2.to_id = :interlocutor_id AND fr2.status = 'pending'
+                    LEFT OUTER JOIN friend_requests fr2 ON fr2.from_id = :user_id AND fr2.to_id = :interlocutor_id AND fr2.status = 'pending'
 					WHERE u.id = :interlocutor_id
 					LIMIT 1
                 ";

@@ -192,7 +192,7 @@
                     <!-- im-panel-->
                     <div class="im-panel">
                         <div class="im-panel_actions">
-                            <div class="im-panel_ico-hold tooltip-click-b">
+                            <!-- <div class="im-panel_ico-hold tooltip-click-b">
                                 <span class="im-panel_ico im-panel_ico__del powertip" title="Удалить диалог" href=""></span>
                                 <div class="tooltip-drop">
                                     <div class="tooltip-popup">
@@ -225,7 +225,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="im-panel_user clearfix">
                             <a class="ava ava__middle ava__female" data-bind="attr: { href : user.profileUrl }" target="_blank"><span class="ico-status ico-status__online" data-bind="visible: user.isOnline()"></span><img alt="" data-bind="attr: {src: user.avatar}" class="ava_img"/></a>
@@ -278,7 +278,7 @@
                                                             <span class="b-control_ico powertip b-control_ico__delete" href="" data-tooltip="Удалить" title="Удалить" data-bind="click: deleteMessage, css: {'display-n': !canDelete()}"></span>
                                                             <div class="b-control_drop"></div>
                                                         </div>
-                                                        <div class="b-control_i tooltip-click-b" data-bind="css: {'display-n' : isMy}">
+                                                        <!--<div class="b-control_i tooltip-click-b" data-bind="css: {'display-n' : isMy}">
                                                             <span class="b-control_ico powertip b-control_ico__spam" href="" data-tooltip="Пожаловаться" title="Пожаловаться"></span>
                                                             <div class="tooltip-drop">
                                                                 <div class="tooltip-popup">
@@ -286,7 +286,7 @@
                                                                     <label class="tooltip-popup_label clearfix" for="tooltip-popup_radio"></label>
                                                                     <!-- id у input должны быть все разные, приведен пример для связки label с input атрибут name у каждого выпадающего окношка должен быть разный
                                                                     <input id="tooltip-popup_radio" type="radio" name="tooltip-popup_radio" class="tooltip-popup_radio"/>Спам или реклама
-                                                                    -->
+                                                                    --><!--
                                                                     <label class="tooltip-popup_label clearfix" for="">
                                                                         <input type="radio" class="tooltip-popup_radio" name="tooltip-popup_radio">Мошенничество
                                                                     </label>
@@ -309,7 +309,7 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
+                                                        </div> -->
                                                         <div class="b-control_i" data-bind="click: beginEditing, scrollTo: 'click', css: {'display-n' : !canEdit()}"><span data-tooltip="Редактировать" title="Редактировать" class="b-control_ico powertip b-control_ico__edit"></span>
                                                             <div class="b-control_drop"></div>
                                                         </div>

@@ -88,10 +88,10 @@ MessagingUser.prototype = {
             Comet.prototype.requestSent = function(result, id) {
                 ko.utils.arrayForEach(self.objects, function(obj) {
                     if (obj.id == result.fromId) {
-                        obj.hasIncomingRequest(true);
+                        obj.hasOutgoingRequest(true);
                     }
                     if (obj.id == result.toId) {
-                        obj.hasOutgoingRequest(true);
+                        obj.hasIncomingRequest(true);
                     }
                 });
             };
@@ -107,14 +107,14 @@ MessagingUser.prototype = {
             Comet.prototype.requestDeclined = function(result, id) {
                 ko.utils.arrayForEach(self.objects, function(obj) {
                     if (obj.id == result.fromId) {
-                        obj.hasIncomingRequest(false);
+                        obj.hasOutgoingRequest(false);
                     }
                     if (obj.id == result.toId) {
-                        obj.hasOutgoingRequest(false);
+                        obj.hasIncomingRequest(false);
                     }
                 });
             };
-            comet.addEvent(4000, 'requestDeclined');
+            comet.addEvent(4001, 'requestDeclined');
             Comet.prototype.avatarUploaded = function(result, id) {
                 ko.utils.arrayForEach(self.objects, function(obj) {
                     if (obj.id == result.userId) {

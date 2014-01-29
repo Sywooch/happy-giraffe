@@ -8,7 +8,7 @@
                 var self = this;
                 function imHeight() {
                     // 50 - отступы от im
-                    var h = self.windowHeight - self.headerHeight - 50;
+                    var h = self.windowHeight - self.headerHeight - 40;
                     if (h < 390) {
                         h = 390
                     }
@@ -20,10 +20,23 @@
                     var h = self.imCenter.height() - self.centerTop.height() - self.centerBottom.height();
                     self.container.height(h);
                 }
+				function msgToBottom() {
+					var contH = self.container.height();
+					var contWrapH = self.contWrap.height();
+
+					if (contH > contWrapH) {
+						var h = contH - contWrapH - 5;
+						self.contWrap.css({'padding-top': h});
+					} else {
+						self.contWrap.css({'padding-top': 0});
+					}
+				}
                 self.renew = function() {
                     self.windowHeight = $(window).height();
+					self.headerHeight = $('.layout-header').height();
                     imHeight();
                     containerHeight();
+					msgToBottom();
                     // стриггерим события прокрутки, после изменения размеров
                     self.container.find('.scroll_scroller').trigger('scroll');
                     self.imCenter.find('.scroll_scroller').trigger('scroll');
@@ -43,7 +56,8 @@
                         self.container = $('.im-center_middle-hold', imCenter);
                         self.centerTop = $('.im-center_top', imCenter);
                         self.centerBottom = $('.im-center_bottom', imCenter);
-                        self.headerHeight = $('.header').height();
+                        self.headerHeight = $('.layout-header').height();
+						self.contWrap = $('.im-center_middle-w', imCenter);
                         self.renew();
                     }
                 });

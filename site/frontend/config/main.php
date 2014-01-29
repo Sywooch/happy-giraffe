@@ -356,6 +356,7 @@ return array(
 	// using Yii::app()->params['paramName']
 	'params'=>array(
         'releaseId' => 51,
+        'releaseId' => 100,
         'valentinesAlbum' => '41340',
 		// this is used in contact page
 		'adminEmail'=>'webmaster@example.com',

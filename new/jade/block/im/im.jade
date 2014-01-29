@@ -189,9 +189,10 @@ mixin js-im
 //- im-sidebar_search
 //- Поиск диалогов
 mixin im-sidebar_search()
-  .im-sidebar_search.clearfix
-      input.im-sidebar_search-itx(type='text', name='', placeholder='Поиск диалогов')
-      button.im-sidebar_search-btn
+    .im-sidebar_search.clearfix
+        input.im-sidebar_search-itx(type='text', name='', placeholder='Поиск диалогов')
+        // При начале ввода добавить класс .active на кнопку
+        button.im-sidebar_search-btn
 
 
 //- im-user-list

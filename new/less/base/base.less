@@ -495,15 +495,20 @@
     width: 80px;
     background: #675495;
     .border-left-radius(10px);
-
-    @media screen and (max-height: 670px) {
+    
+    @media screen and (max-height: 530px) {
         &__im &_tx {display: none;}
         &__im &_i {
             padding: 7px 15px 4px;
             height: 50px;
         }
         &__im &_count {top: 4px;}
-        &_i &_count-sub {top: 3px;}
+        &__im &_count-sub {top: 3px;}
+    }
+    @media screen and (max-height: 630px) {
+        &__im &_i {
+            padding: 4px 15px 2px;
+        }
     }
     &__im &_li:last-child {
         border-bottom: 1px solid #7361a1;

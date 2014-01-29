@@ -9,10 +9,20 @@
             position: relative;
             display: block !important;
             margin-bottom: 10px;
+            opacity: 1 !important;
         }
         .header {display: none !important;}
     }
     
+    @media screen and (max-height: 660px) {
+        .im-sidebar_sound {bottom: 10px;}
+        .im-sidebar_sound-ico {
+            height: 52px;
+            background-position: 0 6px;
+        }
+        .im-sidebar_sound-ico.inactive,
+        .im-sidebar_sound-ico:hover {background-position: 0 -94px;}
+    }
 }
 
 /* 

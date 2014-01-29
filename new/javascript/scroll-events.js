@@ -5,6 +5,12 @@
 	// стэк, наполняется элементами при прокрутке скриптами, в случае, когда окно не активно
 	// когда окно получает фокус, то события из стека триггерятся, а стек очищается
 	var stack = new Array();
+	
+	function log() {
+		if(window.debugScroll) {
+			console.log.apply(console, arguments);
+		}
+	}
 	/**
 	 * Функция проверки входит ли один прямоугольник в другой.
 	 * 
@@ -32,6 +38,7 @@
 		// Расчитываем видимую область
 		/** @todo если в self попадёт window, то нужно применить другие методы */
 		if(self.length > 0) {
+			log('Проверка вхождений в элемент', self);
 			var offset = self.offset();
 			offset.bottom = offset.top + self.innerHeight();
 			offset.right = offset.left + self.innerWidth();
@@ -39,6 +46,8 @@
 			// Ограничим уровень вложенности, что бы не обсчитывались лишние элементы
 			self.find('>*:visible, >*>*:visible').each(function() {
 				var element = $(this);
+				log('------------------------------------------------------');
+				log('Проверка элемента', $(this));
 				var elementOffset = element.offset();
 				elementOffset.bottom = elementOffset.top + element.outerHeight();
 				elementOffset.right = elementOffset.left + element.outerWidth();
@@ -60,6 +69,7 @@
 					//if(checkIn([elementOffset.left,elementOffset.top,elementOffset.right,elementOffset.bottom], [offset.left,offset.top,offset.right,offset.bottom])) {
 					// Условие попадания центра
 					if(checkIn([mid[0],mid[1],mid[0],mid[1]], [offset.left,offset.top,offset.right,offset.bottom])) {
+						log('Полное попадание');
 						if(windowActive) {
 							$(this).trigger('show');
 						} else {
@@ -67,8 +77,11 @@
 								stack.push(this);
 							}
 						}
+					} else {
+						log('Частичное попадание');
 					}
 				} else {
+					log('За областью видимости');
 					// Для остальных элементов триггерим событие скрытия
 					if(windowActive) {
 						$(this).trigger('hide');
@@ -79,6 +92,7 @@
 						stack.splice(index, 1);
 					}
 				}
+				log('------------------------------------------------------');
 			});
 		}
 	}
@@ -95,12 +109,16 @@
 	 */
 	// Активность окна
 	var windowActive = false;
+	log('Окно не активно');
 	$(window).blur(function() {
+		log('Окно не активно');
 		windowActive = false;
 	}).focus(function() {
+		log('Окно активно');
 		windowActive = true;
 		while(stack.length > 0) {
-			$(stack.shift()).trigger('show');
+			var e = $(stack.shift()).trigger('show');
+			log('Событие из стека: показ элемента', e);
 		}
 	});
 	$(window).scroll(function(e) {

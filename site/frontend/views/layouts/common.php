@@ -87,6 +87,7 @@
             })();
         </script>
 
+        <?php if (false): ?>
         <script type="text/javascript">
             var _top100q = _top100q || [];
 
@@ -102,7 +103,9 @@
                 var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(top100, s);
             })();
         </script>
+        <?php endif; ?>
 
+        <?php if (false): ?>
         <!-- tns-counter.ru -->
         <script type="text/javascript">
             (function(win, doc, cb){
@@ -128,6 +131,7 @@
             <img src="//www.tns-counter.ru/V13a****happygiraffe_ru/ru/UTF-8/tmsec=happygiraffe_total/" width="0" height="0" alt="" />
         </noscript>
         <!--/ tns-counter.ru -->
+        <?php endif; ?>
 
         <?php if (false): ?>
         <!--AdFox START-->

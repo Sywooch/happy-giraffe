@@ -114,7 +114,7 @@ MessagingUser.prototype = {
                     }
                 });
             };
-            comet.addEvent(4000, 'requestDeclined');
+            comet.addEvent(4001, 'requestDeclined');
             Comet.prototype.avatarUploaded = function(result, id) {
                 ko.utils.arrayForEach(self.objects, function(obj) {
                     if (obj.id == result.userId) {

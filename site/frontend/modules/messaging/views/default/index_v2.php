@@ -73,7 +73,7 @@
                         <div class="side-menu_hold">
                             <div class="side-menu_t"></div>
                             <ul class="side-menu_ul">
-                                <li class="side-menu_li">
+                                <li class="side-menu_li" data-bind="css: {active: currentFilter() == 0}">
                                     <a href="" class="side-menu_i" data-bind="click: function() {setFilter(0);}, css: {active: currentFilter() == 0}">
                                         <span class="side-menu_i-hold">
                                             <span class="side-menu_ico side-menu_ico__all"></span>
@@ -82,8 +82,8 @@
                                         <span class="verticalalign-m-help"></span>
                                     </a>
                                 </li>
-                                <li class="side-menu_li">
-                                    <a href="" class="side-menu_i" data-bind="click: function() {setFilter(1);}, css: {active: currentFilter() == 1}">
+                                <li class="side-menu_li" data-bind="css: {active: currentFilter() == 1}">
+                                    <a href="" class="side-menu_i" data-bind="click: function() {setFilter(1);}">
                                         <span class="side-menu_i-hold">
                                             <span class="side-menu_ico side-menu_ico__new"></span>
                                             <span class="side-menu_tx">Новые</span>
@@ -92,8 +92,8 @@
                                         <span class="verticalalign-m-help"></span>
                                     </a>
                                 </li>
-                                <li class="side-menu_li">
-                                    <a href="" class="side-menu_i" data-bind="click: function() {setFilter(2);}, css: {active: currentFilter() == 2}">
+                                <li class="side-menu_li" data-bind="css: {active: currentFilter() == 2}">
+                                    <a href="" class="side-menu_i" data-bind="click: function() {setFilter(2);}">
                                         <span class="side-menu_i-hold">
                                             <span class="side-menu_ico side-menu_ico__online"></span>
                                             <span class="side-menu_tx">Кто онлайн</span>
@@ -101,8 +101,8 @@
                                         <span class="verticalalign-m-help"></span>
                                     </a>
                                 </li>
-                                <li class="side-menu_li">
-                                    <a href="" class="side-menu_i" data-bind="click: function() {setFilter(3);}, css: {active: currentFilter() == 3}">
+                                <li class="side-menu_li" data-bind="css: {active: currentFilter() == 3}">
+                                    <a href="" class="side-menu_i" data-bind="click: function() {setFilter(3);}">
                                         <span class="side-menu_i-hold">
                                             <span class="side-menu_ico side-menu_ico__online-friend"></span>
                                             <span class="side-menu_tx">Друзья онлайн</span>
@@ -127,28 +127,31 @@
                             <div class="scroll_scroller" data-bind="show: {selector: '.im-user-list_i:not(.bySearching):visible:gt(-10), .im-user-list_i.bySearching:visible, .cap-empty', callback: loadContacts}">
                                 <div class="scroll_cont">
                                     <!-- ko foreach: getContactList -->
-                                    <div class="im-user-list_i clearfix" data-bind="visible: isShow, click: open, css: { active: isActive, bySearching: bySearching() && $parent.currentFilter() !== 4 }">
-                                        <div class="im-user-list_count" data-bind="visible: countNew() > 0, text: countNew"></div>
-                                        <div class="im-user-list_set"><a href="" class="ava ava__middle ava__female"><span class="ico-status ico-status__online" data-bind="visible: isOnline"></span><img alt="" data-bind="attr: {src: avatar}" class="ava_img"/></a>
-                                            <div class="im-user-list_set-name"><a href="" class="im-user-list_set-a" data-bind="text: fullName()"></a></div>
+                                        <div class="im-user-list_i clearfix" data-bind="visible: isShow, click: open, css: { active: isActive, bySearching: bySearching() && $parent.currentFilter() !== 4 }">
+                                            <div class="im-user-list_count" data-bind="visible: countNew() > 0, text: countNew"></div>
+                                            <div class="im-user-list_set"><a href="" class="ava ava__middle ava__female"><span class="ico-status ico-status__online" data-bind="visible: isOnline"></span><img alt="" data-bind="attr: {src: avatar}" class="ava_img"/></a>
+                                                <div class="im-user-list_set-name"><a href="" class="im-user-list_set-a" data-bind="text: fullName()"></a></div>
+                                            </div>
                                         </div>
-                                    </div>
+                                    <!-- /ko -->
+                                    <!-- ko if: loadindContacts -->
+                                        <div class="im_loader"><img src="/images/ico/ajax-loader.gif" alt="" class="im_loader-img"><span class="im_loader-tx">Загрузка пользователей</span></div>
                                     <!-- /ko -->
                                     <!-- ko if: getContactList().length == 0 -->
-                                    <!-- cap-empty-->
-                                    <div class="cap-empty">
-                                        <div class="cap-empty_hold">
-                                            <div class="cap-empty_img"></div>
-                                            <!-- ko if: currentFilter() == 4 -->
-                                            <div class="cap-empty_tx-sub">По данному запросу <br> контактов не найдено.</div>
-                                            <!-- /ko -->
-                                            <!-- ko if: currentFilter() != 4 -->
-                                            <div class="cap-empty_tx-sub">Список пуст.</div>
-                                            <!-- /ko -->
+                                        <!-- cap-empty-->
+                                        <div class="cap-empty">
+                                            <div class="cap-empty_hold">
+                                                <div class="cap-empty_img"></div>
+                                                <!-- ko if: currentFilter() == 4 -->
+                                                <div class="cap-empty_tx-sub">По данному запросу <br> контактов не найдено.</div>
+                                                <!-- /ko -->
+                                                <!-- ko if: currentFilter() != 4 -->
+                                                <div class="cap-empty_tx-sub">Список пуст.</div>
+                                                <!-- /ko -->
+                                            </div>
+                                            <div class="verticalalign-m-help"></div>
                                         </div>
-                                        <div class="verticalalign-m-help"></div>
-                                    </div>
-                                    <!-- /cap-empty-->
+                                        <!-- /cap-empty-->
                                     <!-- /ko -->
                                 </div>
                             </div>
@@ -225,7 +228,7 @@
                             </div> -->
                         </div>
                         <div class="im-panel_user clearfix">
-                            <a href="" class="ava ava__middle ava__female"><span class="ico-status ico-status__online" data-bind="visible: user.isOnline()"></span><img alt="" data-bind="attr: {src: user.avatar}" class="ava_img"/></a>
+                            <a class="ava ava__middle ava__female" data-bind="attr: { href : user.profileUrl }" target="_blank"><span class="ico-status ico-status__online" data-bind="visible: user.isOnline()"></span><img alt="" data-bind="attr: {src: user.avatar}" class="ava_img"/></a>
                             <div class="im-panel_user-status" data-bind="visible: !user.isOnline()"><span data-bind="text: user.gender ? 'Был на сайте' : 'Была на сайте'"></span> <span data-bind="moment: {value: user.lastOnline(), timeAgo: true}"></span></div>
                             <div class="im-panel_user-name" data-bind="text: user.fullName()"></div>
                             <!-- У иконки 3 состояния.
@@ -260,7 +263,7 @@
                                 <!-- ko foreach: messages -->
                                     <!-- im-message-->
                                     <div class="im-message" data-bind="visible: !hidden(), show: show, hide: hide, css: {'im-message__new': !isMy && !dtimeRead(), 'im-message__edited': $parent.editingMessage() == $data}">
-                                        <div class="im-message_ava"><a href="" class="ava ava__small ava__male"><span class="ico-status ico-status__online" data-bind="visible: from.isOnline()"></span><img alt="" data-bind="attr: {src: from.avatar}" class="ava_img"/></a>
+                                        <div class="im-message_ava"><a href="" class="ava ava__small ava__male" data-bind="attr: { href : from.profileUrl }" target="_blank"><span class="ico-status ico-status__online" data-bind="visible: from.isOnline()"></span><img alt="" data-bind="attr: {src: from.avatar}" class="ava_img"/></a>
                                         </div>
                                         <div class="im-message_r">
                                             <div class="im-message_date" data-bind="moment: created"></div>
@@ -367,7 +370,7 @@
                 <!-- im-center_bottom-->
                 <div class="im-center_bottom">
                     <div class="im-center_bottom-w clearfix">
-                        <div class="im-center_bottom-ava"><a href="" class="ava ava__middle ava__female"><span class="ico-status ico-status__online"></span><img alt="" data-bind="attr: {src: me.avatar()}" class="ava_img"/></a>
+                        <div class="im-center_bottom-ava"><a class="ava ava__middle ava__female" data-bind="attr: { href : me.profileUrl }" target="_blank"><span class="ico-status ico-status__online"></span><img alt="" data-bind="attr: {src: me.avatar()}" class="ava_img"/></a>
                         </div>
                         <div class="im-center_bottom-hold">
                             <!-- По клику на input заменять на wysiwyg -->

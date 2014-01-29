@@ -527,6 +527,7 @@ class ContactsManager
 			'count' => (int) $row['unreadCount'],
             'hasIncomingRequest' => (bool) $row['hasIncomingRequest'],
             'hasOutgoingRequest' => (bool) $row['hasOutgoingRequest'],
+            'profileUrl' => $user->getUrl(),
         );
     }
 }

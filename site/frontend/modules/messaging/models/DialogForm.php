@@ -85,6 +85,7 @@ class DialogForm extends CComponent
 			'isOnline' => (bool) $user->online,
 			'lastOnline' => self::parseDateTime($user->last_active),
 			'isFriend' => null,
+            'profileUrl' => $user->getUrl(),
 		);
 	}
 

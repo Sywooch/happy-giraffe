@@ -80,7 +80,6 @@
 
             <?=$content?>
 
-            <?php if (false): ?>
             <div style="text-align: center; margin: 20px 0;">
                 <!--AdFox START-->
                 <!--giraffe-->
@@ -113,7 +112,6 @@
                 </script>
                 <!--AdFox END-->
             </div>
-            <?php endif; ?>
 
             <div class="footer">
                 <div class="margin-b5">

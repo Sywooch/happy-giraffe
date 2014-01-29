@@ -216,7 +216,7 @@ class ContactsManager
                       p.id AS pId, # ID аватара
                       p.fs_name, # Аватар
                       UNIX_TIMESTAMP(t.updated) AS updated, # Дата последнего обновления диалога
-					  SUM(IF(mu.dtime_read IS NULL, 1, 0)) AS unreadCount, # Количество непрочитанных сообщений
+					  SUM(IF(mu.dtime_read IS NULL AND mu.message_id IS NOT NULL, 1, 0)) AS unreadCount, # Количество непрочитанных сообщений
                       f.id IS NOT NULL AS isFriend, # Является ли другом
                       fr1.id IS NOT NULL AS hasOutgoingRequest, # Имеет ли исходящий запрос в друзья
                       fr2.id IS NOT NULL AS hasIncomingRequest # Имеет ли входящий запрос в друзья
@@ -307,7 +307,7 @@ class ContactsManager
                       p.id AS pId, # ID аватара
                       p.fs_name, # Аватар
                       UNIX_TIMESTAMP(t.updated) AS updated, # Дата последнего обновления диалога
-                      SUM(IF(mu.dtime_read IS NULL, 1, 0)) AS unreadCount, # Количество непрочитанных сообщений
+                      SUM(IF(mu.dtime_read IS NULL AND mu.message_id IS NOT NULL, 1, 0)) AS unreadCount, # Количество непрочитанных сообщений
                       f.id IS NOT NULL AS isFriend, # Является ли другом
                       fr1.id IS NOT NULL AS hasOutgoingRequest, # Имеет ли исходящий запрос в друзья
                       fr2.id IS NOT NULL AS hasIncomingRequest # Имеет ли входящий запрос в друзья
@@ -392,7 +392,7 @@ class ContactsManager
                       p.id AS pId, # ID аватара
                       p.fs_name, # Аватар
                       UNIX_TIMESTAMP(t.updated) AS updated, # Дата последнего обновления диалога
-                      SUM(IF(mu.dtime_read IS NULL, 1, 0)) AS unreadCount, # Количество непрочитанных сообщений
+                      SUM(IF(mu.dtime_read IS NULL AND mu.message_id IS NOT NULL, 1, 0)) AS unreadCount, # Количество непрочитанных сообщений
                       f.id IS NOT NULL AS isFriend, # Является ли другом
                       fr1.id IS NOT NULL AS hasOutgoingRequest, # Имеет ли исходящий запрос в друзья
                       fr2.id IS NOT NULL AS hasIncomingRequest # Имеет ли входящий запрос в друзья

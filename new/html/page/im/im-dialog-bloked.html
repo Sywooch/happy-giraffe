@@ -149,7 +149,69 @@
         <div class="layout-wrapper_hold clearfix">
           <!-- im-->
           <div class="im">
-            <!-- js ля расчетов положения почты -->
+            <!-- js ля расчетов положения почты-->
+            <script>
+              /* 
+              var im = new function() {
+                  var self = this;
+                  function imHeight() {
+                      // 50 - отступы от im
+                      var h = self.windowHeight - self.headerHeight - 50;
+                      if (h < 390) {
+                          h = 390
+                      }
+                      self.imCenter.height(h);
+                      // 57 - отступ под поле поиска
+                      self.imUserList.height(h - 57);
+                  }
+                  function containerHeight() {
+                      var h = self.imCenter.height() - self.centerTop.height() - self.centerBottom.height();
+                      self.container.height(h);
+                  }
+                  function msgToBottom() {
+                      var contH = self.container.height();
+                      var contWrapH = self.contWrap.height();
+                      
+                      if (contH > contWrapH) {
+                          var h = contH - contWrapH - 5;
+                          self.contWrap.css({'padding-top' : h});
+                      } else {
+                          self.contWrap.css({'padding-top' : 0});
+                          
+                      }
+                  }
+                  self.renew = function() {
+                      self.windowHeight = $(window).height();
+                      imHeight();
+                      containerHeight();
+                      msgToBottom();
+                      // стриггерим события прокрутки, после изменения размеров
+                      self.container.find('.scroll_scroller').trigger('scroll');
+                      self.imCenter.find('.scroll_scroller').trigger('scroll');
+                      self.imUserList.find('.scroll_scroller').trigger('scroll');
+                  }
+                  
+                  $(window).resize(function() {
+                      self.renew();
+                  });
+                  
+                  $(document).on('koUpdate', 'section.im-center', function(event) {
+                      if(event.target == this)
+                      {
+                          var imCenter = this;
+                          self.imCenter = $(imCenter);
+                          self.imUserList = $(".im-user-list");
+                          self.container = $('.im-center_middle-hold', imCenter);
+                          self.centerTop = $('.im-center_top', imCenter);
+                          self.centerBottom = $('.im-center_bottom', imCenter);
+                          self.headerHeight = $('.layout-header').height();
+                          self.renew();
+                      }
+                  });
+              }();
+              */
+              
+            </script>
             <script>
               var im = new function() {
                       var self = this;
@@ -176,6 +238,7 @@
                               self.contWrap.css({'padding-top' : h});
                           } else {
                               self.contWrap.css({'padding-top' : 0});
+                              
                           }
                       }
                       self.renew = function() {

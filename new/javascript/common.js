@@ -51,7 +51,7 @@ $(function() {
 			maxWidth: 200,
 			arrowColor: '#5C4B86',
 			onlyOne: false,
-			touchDevices: false,
+			touchDevices: true,
 			theme: '.tooltipster-default',
 			functionReady: function(origin, continueTooltip) {},
 			functionInit: function(origin, content) {
@@ -220,7 +220,7 @@ RedactorPlugins.imageCustom = {
     init: function() {
         var obj = this;
 
-        var fake = '<form id="wysiwygImage" method="POST" enctype="multipart/form-data"><div class="file-fake">' +
+        var fake = '<form id="wysiwygImage" method="POST" enctype="multipart/form-data"><div class="file-fake powertip" title="Фото">' +
             '<div class="file-fake_btn redactor_btn_image"></div>' +
             '<input type="file" class="file-fake_inp">' +
             '</div></form>';

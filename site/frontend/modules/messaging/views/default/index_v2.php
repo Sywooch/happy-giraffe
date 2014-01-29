@@ -72,35 +72,45 @@
                     <div class="side-menu side-menu__im">
                         <div class="side-menu_hold">
                             <div class="side-menu_t"></div>
-                            <a href="" class="side-menu_i" data-bind="click: function() {setFilter(0);}, css: {active: currentFilter() == 0}">
-                                <span class="side-menu_i-hold">
-                                    <span class="side-menu_ico side-menu_ico__all"></span>
-                                    <span class="side-menu_tx">Все</span>
-                                </span>
-                                <span class="verticalalign-m-help"></span>
-                            </a>
-                            <a href="" class="side-menu_i" data-bind="click: function() {setFilter(1);}, css: {active: currentFilter() == 1}">
-                                <span class="side-menu_i-hold">
-                                    <span class="side-menu_ico side-menu_ico__new"></span>
-                                    <span class="side-menu_tx">Новые</span>
-                                    <span class="side-menu_count" data-bind="text: countTotal"></span>
-                                </span>
-                                <span class="verticalalign-m-help"></span>
-                            </a>
-                            <a href="" class="side-menu_i" data-bind="click: function() {setFilter(2);}, css: {active: currentFilter() == 2}">
-                                <span class="side-menu_i-hold">
-                                    <span class="side-menu_ico side-menu_ico__online"></span>
-                                    <span class="side-menu_tx">Кто онлайн</span>
-                                </span>
-                                <span class="verticalalign-m-help"></span>
-                            </a>
-                            <a href="" class="side-menu_i" data-bind="click: function() {setFilter(3);}, css: {active: currentFilter() == 3}">
-                                <span class="side-menu_i-hold">
-                                    <span class="side-menu_ico side-menu_ico__online-friend"></span>
-                                    <span class="side-menu_tx">Друзья онлайн</span>
-                                </span>
-                                <span class="verticalalign-m-help"></span>
-                            </a>
+                            <ul class="side-menu_ul">
+                                <li class="side-menu_li">
+                                    <a href="" class="side-menu_i" data-bind="click: function() {setFilter(0);}, css: {active: currentFilter() == 0}">
+                                        <span class="side-menu_i-hold">
+                                            <span class="side-menu_ico side-menu_ico__all"></span>
+                                            <span class="side-menu_tx">Все</span>
+                                        </span>
+                                        <span class="verticalalign-m-help"></span>
+                                    </a>
+                                </li>
+                                <li class="side-menu_li">
+                                    <a href="" class="side-menu_i" data-bind="click: function() {setFilter(1);}, css: {active: currentFilter() == 1}">
+                                        <span class="side-menu_i-hold">
+                                            <span class="side-menu_ico side-menu_ico__new"></span>
+                                            <span class="side-menu_tx">Новые</span>
+                                            <span class="side-menu_count" data-bind="text: countTotal"></span>
+                                        </span>
+                                        <span class="verticalalign-m-help"></span>
+                                    </a>
+                                </li>
+                                <li class="side-menu_li">
+                                    <a href="" class="side-menu_i" data-bind="click: function() {setFilter(2);}, css: {active: currentFilter() == 2}">
+                                        <span class="side-menu_i-hold">
+                                            <span class="side-menu_ico side-menu_ico__online"></span>
+                                            <span class="side-menu_tx">Кто онлайн</span>
+                                        </span>
+                                        <span class="verticalalign-m-help"></span>
+                                    </a>
+                                </li>
+                                <li class="side-menu_li">
+                                    <a href="" class="side-menu_i" data-bind="click: function() {setFilter(3);}, css: {active: currentFilter() == 3}">
+                                        <span class="side-menu_i-hold">
+                                            <span class="side-menu_ico side-menu_ico__online-friend"></span>
+                                            <span class="side-menu_tx">Друзья онлайн</span>
+                                        </span>
+                                        <span class="verticalalign-m-help"></span>
+                                    </a>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                     <!-- /side-menu-->
@@ -223,9 +233,9 @@
                             Добавить в друзья - .friend__add
                             Приглашение отправленно - .friend__added
                             -->
-                            <a class="im-panel_friend im-panel_friend__fr" data-bind="if: user.friendsState() == user.FRIENDS_STATE_FRIENDS"><span class="im-panel_friend-ico"></span><span class="im-panel_friend-tx">Друг</span></a>
+                            <span class="im-panel_friend im-panel_friend__fr" data-bind="if: user.friendsState() == user.FRIENDS_STATE_FRIENDS"><span class="im-panel_friend-ico"></span><span class="im-panel_friend-tx">Друг</span></span>
                             <a class="im-panel_friend im-panel_friend__add" data-bind="click: user.friendsInvite, if: user.friendsState() == user.FRIENDS_STATE_NOTHING"><span class="im-panel_friend-ico"></span><span class="im-panel_friend-tx">Добавить <br> в друзья</span></a>
-                            <a class="im-panel_friend im-panel_friend__added" data-bind="if: user.friendsState() == user.FRIENDS_STATE_INCOMING"><span class="im-panel_friend-ico"></span><span class="im-panel_friend-tx">Приглашение <br> отправлено</span></a>
+                            <span class="im-panel_friend im-panel_friend__added" data-bind="if: user.friendsState() == user.FRIENDS_STATE_INCOMING"><span class="im-panel_friend-ico"></span><span class="im-panel_friend-tx">Приглашение <br> отправлено</span></span>
                         </div>
                     </div>
                     <!-- /im-panel-->

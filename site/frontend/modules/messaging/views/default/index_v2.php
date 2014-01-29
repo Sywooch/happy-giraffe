@@ -315,7 +315,7 @@
                                         <div class="friend-offer_in"><a class="friend-offer_name" data-bind="text: user.fullName()"></a>
                                             <div class="friend-offer_tx">предлагает вам дружбу!</div>
                                         </div>
-                                        <div class="friend-offer_btns"><a class="btn-green-simple btn-s" data-bind="click: user.friendsAccept">Принять</a><a title="Отклонить" class="ico-cancel powertip" data-bind="click: user.friendsInvite">&#8211;</a></div>
+                                        <div class="friend-offer_btns"><a class="btn-green-simple btn-s" data-bind="click: user.friendsAccept">Принять</a><a title="Отклонить" class="ico-cancel powertip" data-bind="click: user.friendsDecline">&#8211;</a></div>
                                     </div>
                                 </div>
                                 <!-- /ko -->

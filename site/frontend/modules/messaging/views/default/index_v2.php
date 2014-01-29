@@ -73,7 +73,7 @@
                         <div class="side-menu_hold">
                             <div class="side-menu_t"></div>
                             <ul class="side-menu_ul">
-                                <li class="side-menu_li">
+                                <li class="side-menu_li" data-bind="css: {active: currentFilter() == 0}">
                                     <a href="" class="side-menu_i" data-bind="click: function() {setFilter(0);}, css: {active: currentFilter() == 0}">
                                         <span class="side-menu_i-hold">
                                             <span class="side-menu_ico side-menu_ico__all"></span>
@@ -82,8 +82,8 @@
                                         <span class="verticalalign-m-help"></span>
                                     </a>
                                 </li>
-                                <li class="side-menu_li">
-                                    <a href="" class="side-menu_i" data-bind="click: function() {setFilter(1);}, css: {active: currentFilter() == 1}">
+                                <li class="side-menu_li" data-bind="css: {active: currentFilter() == 1}">
+                                    <a href="" class="side-menu_i" data-bind="click: function() {setFilter(1);}">
                                         <span class="side-menu_i-hold">
                                             <span class="side-menu_ico side-menu_ico__new"></span>
                                             <span class="side-menu_tx">Новые</span>
@@ -92,8 +92,8 @@
                                         <span class="verticalalign-m-help"></span>
                                     </a>
                                 </li>
-                                <li class="side-menu_li">
-                                    <a href="" class="side-menu_i" data-bind="click: function() {setFilter(2);}, css: {active: currentFilter() == 2}">
+                                <li class="side-menu_li" data-bind="css: {active: currentFilter() == 2}">
+                                    <a href="" class="side-menu_i" data-bind="click: function() {setFilter(2);}">
                                         <span class="side-menu_i-hold">
                                             <span class="side-menu_ico side-menu_ico__online"></span>
                                             <span class="side-menu_tx">Кто онлайн</span>
@@ -101,8 +101,8 @@
                                         <span class="verticalalign-m-help"></span>
                                     </a>
                                 </li>
-                                <li class="side-menu_li">
-                                    <a href="" class="side-menu_i" data-bind="click: function() {setFilter(3);}, css: {active: currentFilter() == 3}">
+                                <li class="side-menu_li" data-bind="css: {active: currentFilter() == 3}">
+                                    <a href="" class="side-menu_i" data-bind="click: function() {setFilter(3);}">
                                         <span class="side-menu_i-hold">
                                             <span class="side-menu_ico side-menu_ico__online-friend"></span>
                                             <span class="side-menu_tx">Друзья онлайн</span>

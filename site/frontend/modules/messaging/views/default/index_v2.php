@@ -211,7 +211,7 @@
                             -->
                             <a class="im-panel_friend im-panel_friend__fr" data-bind="if: user.friendsState() == user.FRIENDS_STATE_FRIENDS"><span class="im-panel_friend-ico"></span><span class="im-panel_friend-tx">Друг</span></a>
                             <a class="im-panel_friend im-panel_friend__add" data-bind="click: user.friendsInvite, if: user.friendsState() == user.FRIENDS_STATE_NOTHING"><span class="im-panel_friend-ico"></span><span class="im-panel_friend-tx">Добавить <br> в друзья</span></a>
-                            <a class="im-panel_friend im-panel_friend__added" data-bind="if: user.friendsState() == user.FRIENDS_STATE_OUTGOING"><span class="im-panel_friend-ico"></span><span class="im-panel_friend-tx">Приглашение <br> отправлено</span></a>
+                            <a class="im-panel_friend im-panel_friend__added" data-bind="if: user.friendsState() == user.FRIENDS_STATE_INCOMING"><span class="im-panel_friend-ico"></span><span class="im-panel_friend-tx">Приглашение <br> отправлено</span></a>
                         </div>
                     </div>
                     <!-- /im-panel-->

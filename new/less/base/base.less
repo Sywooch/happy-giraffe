@@ -920,6 +920,12 @@ textarea.error {
     margin: 0;
     z-index: 900;
     
+    &__rel {
+        position: relative;
+        top: auto;
+        left: auto;
+    }
+    &__rel &_hold {left: auto;}
     &_hold {
         position: relative;
         left: -50%;
@@ -1051,4 +1057,12 @@ textarea.error {
 /*    &__close-white .mfp-close:hover {
         color: #eee;
     }*/
+    &__error {
+        width: 500px;
+        .mfp-close {
+            height: 25px;
+            width: 30px;
+            line-height: 25px;
+        }
+    }
 }

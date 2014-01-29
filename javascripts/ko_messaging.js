@@ -88,10 +88,10 @@ MessagingUser.prototype = {
             Comet.prototype.requestSent = function(result, id) {
                 ko.utils.arrayForEach(self.objects, function(obj) {
                     if (obj.id == result.fromId) {
-                        obj.hasIncomingRequest(true);
+                        obj.hasOutgoingRequest(true);
                     }
                     if (obj.id == result.toId) {
-                        obj.hasOutgoingRequest(true);
+                        obj.hasIncomingRequest(true);
                     }
                 });
             };
@@ -107,14 +107,14 @@ MessagingUser.prototype = {
             Comet.prototype.requestDeclined = function(result, id) {
                 ko.utils.arrayForEach(self.objects, function(obj) {
                     if (obj.id == result.fromId) {
-                        obj.hasIncomingRequest(false);
+                        obj.hasOutgoingRequest(false);
                     }
                     if (obj.id == result.toId) {
-                        obj.hasOutgoingRequest(false);
+                        obj.hasIncomingRequest(false);
                     }
                 });
             };
-            comet.addEvent(4000, 'requestDeclined');
+            comet.addEvent(4001, 'requestDeclined');
             Comet.prototype.avatarUploaded = function(result, id) {
                 ko.utils.arrayForEach(self.objects, function(obj) {
                     if (obj.id == result.userId) {
@@ -420,6 +420,15 @@ MessagingThread.prototype = {
 				});
 			};
 			comet.addEvent(2070, 'messagingThreadRestored');
+			// Сообщение прочитано, и если оно редактировалось, то отменить редактирование
+			Comet.prototype.messagingThreadMessageRead = function(result, id) {
+				ko.utils.arrayForEach(self.objects, function(obj) {
+					if (obj.id == result.dialog.id && obj.editingMessage() && obj.editingMessage().id == result.message.id) {
+						obj.cancelEditing();
+					}
+				});
+			};
+			comet.addEvent(2011, 'messagingThreadMessageRead');
 		}
 	},
 	open: function(user) {
@@ -519,6 +528,11 @@ function MessagingThread(me, user) {
 		self.editor(message.text());
 		self.setEditing();
 	};
+	self.cancelEditing = function() {
+		self.editingMessage(false);
+		self.editor('');
+		self.editing(false);
+	}
 	self.deleteDialog = function() {
 		// Просто отправим запрос, ответ придёт событием
 		$.post('/messaging/threads/delete/', {userId: self.id});

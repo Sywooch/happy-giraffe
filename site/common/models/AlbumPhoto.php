@@ -120,6 +120,7 @@ class AlbumPhoto extends HActiveRecord
             array('title', 'length', 'max' => 250),
             array('created, updated', 'safe'),
             array('album_id', 'unsafe', 'on' => 'update'),
+            array('width, height', 'numerical', 'integerOnly'=>true, 'min' => 200, 'on' => 'avatarUpload'),
         );
     }
 
@@ -184,7 +185,7 @@ class AlbumPhoto extends HActiveRecord
         );
     }
 
-    public function beforeSave()
+    public function beforeValidate()
     {
         if (empty($this->album_id))
             $this->album_id = Album::getAlbumByType($this->author_id, Album::TYPE_PRIVATE)->id;
@@ -763,7 +764,7 @@ class AlbumPhoto extends HActiveRecord
      * ["size"]=>
      * @return AlbumPhoto
      */
-    public function createUserTempPhoto($file, $hidden = 1)
+    public function createUserTempPhoto($file, $hidden = 1, $scenario = null)
     {
         if (is_array($file['type']))
             $file['type'] = $file['type'][0];
@@ -776,11 +777,13 @@ class AlbumPhoto extends HActiveRecord
             $file['tmp_name'] = $file['tmp_name'][0];
 
         $model = new AlbumPhoto();
+        if ($scenario !== null)
+            $model->setScenario($scenario);
         $model->author_id = Yii::app()->user->id;
         $model->fs_name = $this->copyUserFile($file['name'], $file['tmp_name'], $model->author_id);
         $model->file_name = $file['name'];
         $model->hidden = $hidden;
-        if (!$model->save(false)) {
+        if (!$model->save()) {
             var_dump($model->getErrors());
         }
 

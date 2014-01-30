@@ -4673,3 +4673,38 @@ table.fr_recipe_tb td { width: 50%;}
     }
 }
 /* /aside-photo-view */
+
+
+/* error-serv */
+.error-serv {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    margin: 0;
+    z-index: 900;
+    
+    &__rel {
+        position: relative;
+        top: auto;
+        left: auto;
+    }
+    &__rel &_hold {left: auto;}
+    &_hold {
+        position: relative;
+        left: -50%;
+        padding: 4px 30px;
+        border: 1px solid #fdb9ac;
+        background: #fde3e3;
+        text-align: center;
+        font-size: 12px;
+        color: #db9191;
+    }
+    &_a {
+        .inline-block();
+        margin: 0 0 0 10px;
+        color: #a3a3a3;
+        text-decoration: underline;
+    }
+    &_a:hover {text-decoration: none;}
+}
+/* /error-serv */

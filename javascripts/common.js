@@ -27,6 +27,17 @@ function removeA(arr) {
 
 $(document).ready(function () {
 
+    $(document).ajaxComplete(function(event, xhr, settings) {
+        var json = $.parseJSON(xhr.responseText);
+        if (json.hasOwnProperty('errors')) {
+            $('.error-serv_hold').html('');
+            jQuery.each(json.errors, function(i, val) {
+                $('.error-serv_hold').append('<p>' + val + '</p>');
+            });
+            $('#popup-error-link').trigger('click');
+        }
+    });
+
     $(".wysiwyg-content").addtocopy({htmlcopytxt:'<br /><br />Подробнее: <a href="' + window.location.href + '">' + window.location.href + '</a>'});
 
     /* видео с youtube, что б не перекрывало всплывающие окна */

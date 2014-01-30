@@ -239,6 +239,10 @@ class AjaxSimpleController extends CController
                 'width' => $width,
                 'height' => $height,
             ));
+        } else {
+            echo CJSON::encode(array(
+                'errors' => $model->errors,
+            ));
         }
     }
 

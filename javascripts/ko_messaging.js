@@ -489,7 +489,7 @@ function MessagingThread(me, user) {
                     im.renew();
                 }
             ],
-            keyip : [
+            keyup : [
                 function(e) {
                     if (e.keyCode == 13 && me.viewModel.settings.messaging__enter()) {
                         self.sendMessage();

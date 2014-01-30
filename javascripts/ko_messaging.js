@@ -902,8 +902,12 @@ function Messaging(model) {
 			// Нет загруженного пользователя, запросим с сервера
 			$.get('/messaging/default/getUserInfo/', { id: result.dialog.id }, function(data) {
 				// и добавим в список
-				addContact(data);
+				user = addContact(data);
+				self.users[0].push(user);
 				self.sortContacts();
+				if(result.message.to_id == self.me.id) {
+					self.countTotal(self.countTotal() + 1);
+				}
 			}, 'json');
 		} else {
 			// Нашли его в нашем списке, если сообщение нам, то обновим счётчики и пиликнем

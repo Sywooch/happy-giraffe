@@ -15,7 +15,7 @@ var MenuViewModel = function(data) {
 
         $(window).on('scroll',function () {
             var contanerScroll = $(window).scrollTop();
-            var header = $('.header');
+            var header = $('.layout-header');
             if (contanerScroll > header.height() + header.offset().top) {
                 $('.header-fix').fadeIn(400);
             } else {

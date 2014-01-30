@@ -19,7 +19,7 @@ block layout-wrapper_hold
         a.popup-a(href="#msg-fast-addfreind") Добавление в друзья
         br
         br
-
+        a.popup-a(href="#popup-error") Ошбика
 
 
 block block-hidden 
@@ -111,6 +111,12 @@ block block-hidden
                 +redactor-control-msg-fast()
     // /msg-fast popup
 
+    #popup-error.popup.popup__error
+        .error-serv.error-serv__rel
+            .error-serv_hold
+                | Произошла критическая ошибка.
+                a.error-serv_a Перезагрузить страницу
+
 
 
 
@@ -176,3 +182,5 @@ mixin redactor-control-msg-fast(mod, vars)
                 }
               });
             });
+
+

@@ -469,46 +469,36 @@ function MessagingThread(me, user) {
 	
 	// Конфигурация редактора
 	self.editorConfig = {
-		minHeight: 17,
-		autoresize: true,
-		focus: true,
-		toolbarExternal: '.redactor-control_toolbar',
-        buttons: ['b'],
-        plugins: ['imageCustom', 'smilesModal', 'videoModal'],
-		initCallback: function() {
-			// связь с моделью
-			var obj = this;
-			obj.set(self.editor());
-			self.editor.subscribe(function(a) {
-				if(a !== obj.get()) {
-					obj.set(a);
-				}
-			});
-			im.renew();
-		},
-		/*blurCallback: function() {
-			if (self.openContact() !== null)
-				self.meTyping(false);
-		},*/
-		keyupCallback: function(e) {
-			if (e.keyCode == 13 && me.viewModel.settings.messaging__enter()) {
-				self.sendMessage();
-			} else {
-				self.typing();
-			}
-		},
-		enterCallback: function() {
-			im.renew();
-		},
-		changeCallback: function(html)
-		{
-			// обратная связь с моделью
-			if(self.editor() != html) {
-				self.editor(html);
-			}
-			im.renew();
-		},
-		comments: true
+        options: {
+            minHeight: 17,
+            autoresize: true,
+            focus: true,
+            toolbarExternal: '.redactor-control_toolbar',
+            buttons: ['b'],
+            plugins: ['imageCustom', 'smilesModal', 'videoModal', 'callbacks'],
+            comments: true
+        },
+        callbacks: {
+            init : [
+                function() {
+                    im.renew();
+                }
+            ],
+            change : [
+                function() {
+                    im.renew();
+                }
+            ],
+            keyip : [
+                function(e) {
+                    if (e.keyCode == 13 && me.viewModel.settings.messaging__enter()) {
+                        self.sendMessage();
+                    } else {
+                        self.typing();
+                    }
+                }
+            ]
+        }
 	};
 	
     self.lastReadMessage = ko.computed(function() {

@@ -176,12 +176,25 @@ HgWysiwyg.prototype = {
     }
 }
 
-function HgWysiwyg(element, options)
+function HgWysiwyg(element, options, callbacks)
 {
     var self = this;
+    self.obj = null;
     self.load();
 
-    self.obj = null;
+    self.callbacks = callbacks;
+    self.addCallback = function(event, handler) {
+        if (! self.callbacks.hasOwnProperty(event))
+            self.callbacks[event] = [];
+
+        self.callbacks[event].push(handler);
+    }
+    self.fireCallbacks = function(event, redactor) {
+        if (redactor.callbacks.hasOwnProperty(event))
+            for (var x in redactor.callbacks[event])
+                redactor.callbacks[event][x].apply(this, arguments);
+    }
+
     self.defaultOptions = {
         minHeight: 20,
         autoresize: true,
@@ -189,10 +202,13 @@ function HgWysiwyg(element, options)
         toolbarExternal: '.redactor-control_toolbar',
         buttons: ['b'],
         plugins: ['imageCustom', 'smilesModal', 'videoModal'],
-        focusCallback: function(e)
+        initCallback: function()
         {
-            // Нужно выбирать непосредственного родителя
-            $('.redactor-control_hold').addClass('redactor-control_hold__focus');
+            for (var i in self.callbacks)
+                for (var j in self.callbacks[i])
+                    this.registerCallback(i, self.callbacks[i][j]);
+
+            self.fireCallbacks('init', this);
         },
         changeCallback: function(html)
         {
@@ -202,19 +218,42 @@ function HgWysiwyg(element, options)
                 bParrent.height(250);
             }
             // обновлять скролл baron
+
+            self.fireCallbacks('change', this);
         },
-        initCallback: function()
+        focusCallback: function(e)
         {
-            self.obj = this;
+            // Нужно выбирать непосредственного родителя
+            $('.redactor-control_hold').addClass('redactor-control_hold__focus');
+
+            self.fireCallbacks('focus', this);
+        },
+        blurCallback: function(e)
+        {
+            // Нужно выбирать непосредственного родителя
+            $('.redactor-control_hold').addClass('redactor-control_hold__focus');
+
+            self.fireCallbacks('blur', this);
         }
     }
 
-    var settings = $.extend({}, self.defaultOptions, options);
-
-    $(element).redactor(settings);
+    self.run = function() {
+        var settings = $.extend({}, self.defaultOptions, options);
+        self.obj = $(element).redactor(settings);
+    }
 }
 
 var RedactorPlugins = {};
+
+RedactorPlugins.callbacks = {
+    callbacks: {},
+    registerCallback: function(event, callback) {
+        if (! this.callbacks.hasOwnProperty(event))
+            this.callbacks[event] = [];
+
+        this.callbacks[event].push($.proxy(callback, this));
+    }
+}
 
 RedactorPlugins.imageCustom = {
     init: function() {

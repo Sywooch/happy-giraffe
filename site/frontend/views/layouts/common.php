@@ -165,5 +165,15 @@
         </script>
         <!--AdFox END-->
         <?php endif; ?>
+
+        <div style="display: none;">
+        <a href="#popup-error" id="popup-error-link" class="fancy"></a>
+            <div id="popup-error" class="popup popup__error">
+                <a class="popup-transparent-close powertip" onclick="$.fancybox.close();" href="javascript:void(0);"></a>
+                <div class="error-serv error-serv__rel">
+                    <div class="error-serv_hold"></div>
+                </div>
+            </div>
+        </div>
     </body>
 </html>

@@ -120,7 +120,8 @@ class AlbumPhoto extends HActiveRecord
             array('title', 'length', 'max' => 250),
             array('created, updated', 'safe'),
             array('album_id', 'unsafe', 'on' => 'update'),
-            array('width, height', 'numerical', 'integerOnly'=>true, 'min' => 200, 'on' => 'avatarUpload'),
+            array('width', 'numerical', 'integerOnly'=>true, 'min' => 200, 'on' => 'avatarUpload', 'tooSmall' => 'Минимальная ширина аватары составляет 200 пикселей.'),
+            array('height', 'numerical', 'integerOnly'=>true, 'min' => 200, 'on' => 'avatarUpload', 'tooSmall' => 'Минимальная высота аватары составляет 200 пикселей.'),
         );
     }
 
@@ -783,9 +784,7 @@ class AlbumPhoto extends HActiveRecord
         $model->fs_name = $this->copyUserFile($file['name'], $file['tmp_name'], $model->author_id);
         $model->file_name = $file['name'];
         $model->hidden = $hidden;
-        if (!$model->save()) {
-            var_dump($model->getErrors());
-        }
+        $model->save();
 
         return $model;
     }

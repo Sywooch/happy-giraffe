@@ -260,8 +260,8 @@ function HgWysiwyg(element, options, callbacks)
 
     self.initScroll = function(redactor) {
         $(redactor.$box).wrap('<div class="scroll"><div class="scroll_scroller"><div class="scroll_cont"></div></div></div>');
-        $(redactor.$box).find('.scroll_scroller').after('<div class="scroll_bar-hold"><div class="scroll_bar"><div class="scroll_bar-in"></div></div></div>');
-        addBaron($(redactor.$box).find('.redactor-control_hold .scroll'));
+        $(redactor.$box).parents('.scroll_scroller').after('<div class="scroll_bar-hold"><div class="scroll_bar"><div class="scroll_bar-in"></div></div></div>');
+        addBaron('.redactor-control_hold .scroll');
     }
 }
 

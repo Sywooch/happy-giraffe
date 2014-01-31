@@ -23,7 +23,6 @@ function addBaron(el) {
             // Т.к. по спецификации у события onScroll нет bubbling'а,
             // то обработчик надо вешать на каждый конкретный элемент
             $('.scroll_scroller', this).scroll(function(e) {
-                console.log('123');
                 // стриггерим jquery событие, у которого есть bubbling,
                 // но, что бы не уйти в цикл, проверим флаг.
                 if(!e.fake) {
@@ -283,6 +282,9 @@ RedactorPlugins.callbacks = {
             this.callbacks[event] = [];
 
         this.callbacks[event].push($.proxy(callback, this));
+    },
+    init: function() {
+        this.callbacks = {};
     }
 }
 

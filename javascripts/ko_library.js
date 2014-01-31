@@ -157,7 +157,6 @@ ko.bindingHandlers.fixScroll = {
 
         // добавим событие прокрутки, оно триггерится и при обновлении нокаутом, и при ресайзе
         box.scroll(function() {
-            console.log(manager);
             if(manager.fixTop) {
                 box.scrollTop(manager.scrollTop);
             }

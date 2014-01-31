@@ -481,8 +481,8 @@ function MessagingThread(me, user) {
             focus: true,
             toolbarExternal: '.redactor-control_toolbar',
             buttons: ['b'],
-            plugins: ['imageCustom', 'smilesModal', 'videoModal', 'callbacks'],
-            comments: true,
+            plugins: ['imageCustom', 'smilesModal', 'videoModal'],
+            comments: true
         },
         callbacks: {
             init : [
@@ -495,10 +495,11 @@ function MessagingThread(me, user) {
                     im.renew();
                 }
             ],
-            keyup : [
+            keydown : [
                 function(e) {
                     if (e.keyCode == 13 && me.viewModel.settings.messaging__enter() != e.ctrlKey) {
                         self.sendMessage();
+                        e.preventDefault();
                     } else {
                         self.typing();
                     }
@@ -659,7 +660,13 @@ function MessagingThread(me, user) {
 		}
 	};
 	self.opened = function() {
-		self.scrollManager.scrollTo('bottom');
+		/*var jScroller = $(scroller);
+		var firstUnread = jScroller.find('.im-message.im-message__new:eq(0)');
+		if(firstUnread.length > 0) { // если есть непрочитанные сообщения
+			jScroller.scrollTo(firstUnread, 0); // докрутим до непочитанного сообщения
+		} else {
+			jScroller.scrollTo('max', 0); // прокрутим в конец
+		}*/
 	};
 
 	// Текст конструктора

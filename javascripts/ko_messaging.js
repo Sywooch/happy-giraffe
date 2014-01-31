@@ -477,7 +477,7 @@ function MessagingThread(me, user) {
             focus: true,
             toolbarExternal: '.redactor-control_toolbar',
             buttons: ['b'],
-            plugins: ['imageCustom', 'smilesModal', 'videoModal', 'callbacks'],
+            plugins: ['imageCustom', 'smilesModal', 'videoModal'],
             comments: true
         },
         callbacks: {

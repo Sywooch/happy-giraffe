@@ -173,6 +173,20 @@ HgWysiwyg.prototype = {
         targetBlock.imagesLoaded(function() {
             obj.sync();
         });
+    },
+    fixPosition : function(a) {
+        $('#redactor_modal').hide();
+
+        setTimeout(function() {
+            var top = a.offset().top;
+            var left = a.offset().left;
+
+            $('#redactor_modal').css({
+                'top': top - $('#redactor_modal').height() - 6,
+                'left': left - 18
+            });
+            $('#redactor_modal').show();
+        }, 200);
     }
 }
 
@@ -288,9 +302,9 @@ RedactorPlugins.smilesModal = {
         var obj = this;
 
         var callback = function(buttonDOM) {
-            fixPosition(buttonDOM);
+            HgWysiwyg.prototype.fixPosition(buttonDOM);
             $('#redactor_modal').on('resize', function() {
-                fixPosition(buttonDOM);
+                HgWysiwyg.prototype.fixPosition(buttonDOM);
             });
 
             $('.redactor-popup_smiles a').on('click', function() {
@@ -314,9 +328,9 @@ RedactorPlugins.videoModal = {
 
         var callback = function(buttonDOM) {
             obj.selectionSave();
-            fixPosition(buttonDOM);
+            HgWysiwyg.prototype.fixPosition(buttonDOM);
             $('#redactor_modal').resize(function() {
-                fixPosition(buttonDOM);
+                HgWysiwyg.prototype.fixPosition(buttonDOM);
             });
 
             var model = new WysiwygVideo(obj);
@@ -328,21 +342,6 @@ RedactorPlugins.videoModal = {
             this.modalInit('Video', $('#redactor-popup_b-video').html(), 500, function() {callback(buttonDOM)});
         });
     }
-}
-
-function fixPosition(a) {
-    $('#redactor_modal').hide();
-
-    setTimeout(function() {
-        var top = a.offset().top;
-        var left = a.offset().left;
-
-        $('#redactor_modal').css({
-            'top': top - $('#redactor_modal').height() - 6,
-            'left': left - 18
-        });
-        $('#redactor_modal').show();
-    }, 100);
 }
 
 function WysiwygVideo(redactor)

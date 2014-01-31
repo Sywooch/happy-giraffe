@@ -33,6 +33,7 @@
               $(window).on('scroll',function () {
                   var contanerScroll = $(window).scrollTop();
                   var header = $('.layout-header');
+                  console.log(header.height());
                   if (contanerScroll > header.height() + header.offset().top) {
                       $('.header-fix').fadeIn(400);
                   } else {
@@ -195,203 +196,203 @@
                   </div>
                 </div>
                 <!-- вспомогательные br и .position-rel-->
-                <div style="margin: 100px 50px;width:600px;" class="position-rel"><br>
-                  <!-- style для примера-->
-                  <div id="redactor_modal" style="top:0;left:0;">
-                    <div id="redactor_modal_close">×</div>
-                    <header id="redactor_modal_header" style="cursor: move;">Video</header>
-                    <div id="redactor_modal_inner">
-                      <div class="redactor-popup">
-                        <!-- Кнопка закрыть, можно использовать базовую от скрипта попапа-->
-                        <!-- a.redactor-popup_close.ico-close3.powertip(href='', title='Закрыть')-->
-                        <div class="redactor-popup_tale"></div>
-                        <div class="redactor-popup_t">Загрузите видео</div>
-                        <!-- Добавление видео-->
-                        <div class="redactor-popup_add-video">
-                          <div class="redactor-popup_add-video-hold">
-                            <div class="redactor-popup_video-serv">
-                              <div class="redactor-popup_video-serv-tx">Поддерживаемые сервисы:</div>
-                              <div class="redactor-popup_video-serv-i redactor-popup_video-serv-i__youtube"></div>
-                              <div class="redactor-popup_video-serv-i redactor-popup_video-serv-i__rutube"></div>
-                              <div class="redactor-popup_video-serv-i redactor-popup_video-serv-i__vimeo"></div>
-                            </div>
-                            <!-- При вводе текста убрать класс .btn-inactive с кнопки для ее активирования-->
-                            <input type="text" name="" placeholder="Введите ссылку на видео" class="itx-simple itx-simple__blue w-350 float-l">
-                            <button class="btn-green btn-medium btn-inactive">Загрузить  видео</button>
+              </div>
+              <div style="margin: 100px 50px;width:600px;" class="position-rel"><br>
+                <!-- style для примера-->
+                <div id="redactor_modal" style="top:0;left:0;">
+                  <div id="redactor_modal_close">×</div>
+                  <header id="redactor_modal_header" style="cursor: move;">Video</header>
+                  <div id="redactor_modal_inner">
+                    <div class="redactor-popup">
+                      <!-- Кнопка закрыть, можно использовать базовую от скрипта попапа-->
+                      <!-- a.redactor-popup_close.ico-close3.powertip(href='', title='Закрыть')-->
+                      <div class="redactor-popup_tale"></div>
+                      <div class="redactor-popup_t">Загрузите видео</div>
+                      <!-- Добавление видео-->
+                      <div class="redactor-popup_add-video">
+                        <div class="redactor-popup_add-video-hold">
+                          <div class="redactor-popup_video-serv">
+                            <div class="redactor-popup_video-serv-tx">Поддерживаемые сервисы:</div>
+                            <div class="redactor-popup_video-serv-i redactor-popup_video-serv-i__youtube"></div>
+                            <div class="redactor-popup_video-serv-i redactor-popup_video-serv-i__rutube"></div>
+                            <div class="redactor-popup_video-serv-i redactor-popup_video-serv-i__vimeo"></div>
                           </div>
-                        </div>
-                        <!-- Добавление видео с ошибкой-->
-                        <div class="redactor-popup_add-video active">
-                          <div class="redactor-popup_add-video-hold">
-                            <div class="redactor-popup_video-serv">
-                              <div class="redactor-popup_video-serv-tx">Поддерживаемые сервисы:</div>
-                              <div class="redactor-popup_video-serv-i redactor-popup_video-serv-i__youtube active"></div>
-                              <div class="redactor-popup_video-serv-i redactor-popup_video-serv-i__rutube"></div>
-                              <div class="redactor-popup_video-serv-i redactor-popup_video-serv-i__vimeo"></div>
-                            </div>
-                            <!-- При вводе текста убрать класс .btn-inactive с кнопки для ее активирования-->
-                            <input type="text" name="" placeholder="Введите ссылку на видео" value="http://www.youtube.com/embed/pehSAUTqjRs?wmode=transparent" class="itx-simple itx-simple__blue w-350 float-l error">
-                            <button class="btn-green btn-medium btn-inactive">Загрузить  видео</button>
-                          </div>
-                          <div class="redactor-popup_add-video-error">
-                            <div class="ico-error-smile"></div>Ошибка загрузки видео. Попробуйте вставить другую ссылку
-                          </div>
+                          <!-- При вводе текста убрать класс .btn-inactive с кнопки для ее активирования-->
+                          <input type="text" name="" placeholder="Введите ссылку на видео" class="itx-simple itx-simple__blue w-350 float-l">
+                          <button class="btn-green btn-medium btn-inactive">Загрузить  видео</button>
                         </div>
                       </div>
-                    </div>
-                  </div><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-                  <!-- redactor-popup-->
-                  <div class="redactor-popup">
-                    <!-- a.redactor-popup_close.ico-close3.powertip(href='', title='Закрыть')-->
-                    <div class="redactor-popup_tale"></div>
-                    <div class="redactor-popup_t">Загрузите видео</div>
-                    <div class="redactor-popup_add-video active">
-                      <div class="redactor-popup_add-video-hold">
-                        <div class="redactor-popup_video-serv">
-                          <div class="redactor-popup_video-serv-tx">Поддерживаемые сервисы:</div>
-                          <div class="redactor-popup_video-serv-i redactor-popup_video-serv-i__youtube active"></div>
-                          <div class="redactor-popup_video-serv-i redactor-popup_video-serv-i__rutube"></div>
-                          <div class="redactor-popup_video-serv-i redactor-popup_video-serv-i__vimeo"></div>
+                      <!-- Добавление видео с ошибкой-->
+                      <div class="redactor-popup_add-video active">
+                        <div class="redactor-popup_add-video-hold">
+                          <div class="redactor-popup_video-serv">
+                            <div class="redactor-popup_video-serv-tx">Поддерживаемые сервисы:</div>
+                            <div class="redactor-popup_video-serv-i redactor-popup_video-serv-i__youtube active"></div>
+                            <div class="redactor-popup_video-serv-i redactor-popup_video-serv-i__rutube"></div>
+                            <div class="redactor-popup_video-serv-i redactor-popup_video-serv-i__vimeo"></div>
+                          </div>
+                          <!-- При вводе текста убрать класс .btn-inactive с кнопки для ее активирования-->
+                          <input type="text" name="" placeholder="Введите ссылку на видео" value="http://www.youtube.com/embed/pehSAUTqjRs?wmode=transparent" class="itx-simple itx-simple__blue w-350 float-l error">
+                          <button class="btn-green btn-medium btn-inactive">Загрузить  видео</button>
                         </div>
-                        <!-- При вводе текста убрать класс .btn-inactive с кнопки для ее активирования-->
-                        <input type="text" name="" placeholder="Введите ссылку на видео" value="http://www.youtube.com/watch?v=N8ev5pkIqKY" class="itx-simple itx-simple__blue w-350 float-l">
-                        <button class="btn-green btn-medium">Загрузить  видео</button>
+                        <div class="redactor-popup_add-video-error">
+                          <div class="ico-error-smile"></div>Ошибка загрузки видео. Попробуйте вставить другую ссылку
+                        </div>
                       </div>
-                      <!-- При показе текстового сообщения на .redactor-popup_add-video добавлять класс .active-->
-                      <div class="redactor-popup_add-video-load"><img src="/images/ico/ajax-loader.gif" alt=""><br>Подождите видео загружается</div>
                     </div>
                   </div>
-                  <!-- /redactor-popup--><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-                  <div class="redactor-popup">
-                    <!-- a.redactor-popup_close.ico-close3.powertip(href='', title='Закрыть')-->
-                    <div class="redactor-popup_tale"></div>
-                    <div class="redactor-popup_t">Загрузите видео</div>
-                    <div class="redactor-popup_video clearfix"><a href="" title="Удалить" class="redactor-popup_video-del ico-close powertip"></a>
-                      <iframe width="540" height="300" frameborder="0" allowfullscreen="" src="http://www.youtube.com/embed/pehSAUTqjRs?wmode=transparent"></iframe>
-                    </div>
-                    <div class="textalign-c margin-t15"><a href="" class="a-pseudo">Нет, загрузить другой ролик</a><a href="" class="btn-green btn-medium margin-l20">Добавить видео</a></div>
-                  </div><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-                  <div class="redactor-popup">
-                    <!-- a.redactor-popup_close.ico-close3.powertip(href='', title='Закрыть')-->
-                    <div class="redactor-popup_tale"></div>
-                    <div class="redactor-popup_t">Выберите смайл</div>
-                    <table class="redactor-popup_smiles">
-                      <tbody>
-                        <tr>
-                          <td><a href=""><img src="/images/widget/smiles/acute (1).gif"></a></td>
-                          <td><a href=""><img src="/images/widget/smiles/acute.gif"></a></td>
-                          <td><a href=""><img src="/images/widget/smiles/air_kiss.gif"></a></td>
-                          <td><a href=""><img src="/images/widget/smiles/angel.gif"></a></td>
-                          <td><a href=""><img src="/images/widget/smiles/bad.gif"></a></td>
-                          <td><a href=""><img src="/images/widget/smiles/beach.gif"></a></td>
-                          <td><a href=""><img src="/images/widget/smiles/beee.gif"></a></td>
-                          <td><a href=""><img src="/images/widget/smiles/blush2.gif"></a></td>
-                        </tr>
-                        <tr>
-                          <td><a href=""><img src="/images/widget/smiles/Cherna-girl_on_weight.gif"></a></td>
-                          <td><a href=""><img src="/images/widget/smiles/connie_1.gif"></a></td>
-                          <td><a href=""><img src="/images/widget/smiles/connie_33.gif"></a></td>
-                          <td><a href=""><img src="/images/widget/smiles/connie_36.gif"></a></td>
-                          <td><a href=""><img src="/images/widget/smiles/connie_6.gif"></a></td>
-                          <td><a href=""><img src="/images/widget/smiles/connie_feedbaby.gif"></a></td>
-                          <td><a href=""><img src="/images/widget/smiles/cray.gif"></a></td>
-                          <td><a href=""><img src="/images/widget/smiles/dance.gif"></a></td>
-                        </tr>
-                        <tr>
-                          <td><a href=""><img src="/images/widget/smiles/dash2.gif"></a></td>
-                          <td><a href=""><img src="/images/widget/smiles/diablo.gif"></a></td>
-                          <td><a href=""><img src="/images/widget/smiles/dirol.gif"></a></td>
-                          <td><a href=""><img src="/images/widget/smiles/dntknw.gif"></a></td>
-                          <td><a href=""><img src="/images/widget/smiles/drinks.gif"></a></td>
-                          <td><a href=""><img src="/images/widget/smiles/d_coffee.gif"></a></td>
-                          <td><a href=""><img src="/images/widget/smiles/d_lovers.gif"></a></td>
-                          <td><a href=""><img src="/images/widget/smiles/facepalm.gif"></a></td>
-                        </tr>
-                        <tr>
-                          <td><a href=""><img src="/images/widget/smiles/fie.gif"></a></td>
-                          <td><a href=""><img src="/images/widget/smiles/first_move.gif"></a></td>
-                          <td><a href=""><img src="/images/widget/smiles/fool.gif"></a></td>
-                          <td><a href=""><img src="/images/widget/smiles/girl_cray2.gif"></a></td>
-                          <td><a href=""><img src="/images/widget/smiles/girl_dance.gif"></a></td>
-                          <td><a href=""><img src="/images/widget/smiles/girl_drink1.gif"></a></td>
-                          <td><a href=""><img src="/images/widget/smiles/girl_hospital.gif"></a></td>
-                          <td><a href=""><img src="/images/widget/smiles/girl_prepare_fish.gif"></a></td>
-                        </tr>
-                        <tr>
-                          <td><a href=""><img src="/images/widget/smiles/girl_sigh.gif"></a></td>
-                          <td><a href=""><img src="/images/widget/smiles/girl_wink.gif"></a></td>
-                          <td><a href=""><img src="/images/widget/smiles/girl_witch.gif"></a></td>
-                          <td><a href=""><img src="/images/widget/smiles/give_rose.gif"></a></td>
-                          <td><a href=""><img src="/images/widget/smiles/good.gif"></a></td>
-                          <td><a href=""><img src="/images/widget/smiles/help.gif"></a></td>
-                          <td><a href=""><img src="/images/widget/smiles/JC_hiya.gif"></a></td>
-                          <td><a href=""><img src="/images/widget/smiles/JC_hulahoop-girl.gif"></a></td>
-                        </tr>
-                        <tr>
-                          <td><a href=""><img src="/images/widget/smiles/kirtsun_05.gif"></a></td>
-                          <td><a href=""><img src="/images/widget/smiles/kuzya_01.gif"></a></td>
-                          <td><a href=""><img src="/images/widget/smiles/LaieA_052.gif"></a></td>
-                          <td><a href=""><img src="/images/widget/smiles/Laie_16.gif"></a></td>
-                          <td><a href=""><img src="/images/widget/smiles/Laie_50.gif"></a></td>
-                          <td><a href=""><img src="/images/widget/smiles/Laie_7.gif"></a></td>
-                          <td><a href=""><img src="/images/widget/smiles/lazy2.gif"></a></td>
-                          <td><a href=""><img src="/images/widget/smiles/l_moto.gif"></a></td>
-                        </tr>
-                        <tr>
-                          <td><a href=""><img src="/images/widget/smiles/mail1.gif"></a></td>
-                          <td><a href=""><img src="/images/widget/smiles/Mauridia_21.gif"></a></td>
-                          <td><a href=""><img src="/images/widget/smiles/mosking.gif"></a></td>
-                          <td><a href=""><img src="/images/widget/smiles/music2.gif"></a></td>
-                          <td><a href=""><img src="/images/widget/smiles/negative.gif"></a></td>
-                          <td><a href=""><img src="/images/widget/smiles/pardon.gif"></a></td>
-                          <td><a href=""><img src="/images/widget/smiles/phil_05.gif"></a></td>
-                          <td><a href=""><img src="/images/widget/smiles/phil_35.gif"></a></td>
-                        </tr>
-                        <tr>
-                          <td><a href=""><img src="/images/widget/smiles/popcorm1.gif"></a></td>
-                          <td><a href=""><img src="/images/widget/smiles/preved.gif"></a></td>
-                          <td><a href=""><img src="/images/widget/smiles/rofl.gif"></a></td>
-                          <td><a href=""><img src="/images/widget/smiles/sad.gif"></a></td>
-                          <td><a href=""><img src="/images/widget/smiles/scratch_one-s_head.gif"></a></td>
-                          <td><a href=""><img src="/images/widget/smiles/secret.gif"></a></td>
-                          <td><a href=""><img src="/images/widget/smiles/shok.gif"></a></td>
-                          <td><a href=""><img src="/images/widget/smiles/smile3.gif"></a></td>
-                        </tr>
-                        <tr>
-                          <td><a href=""><img src="/images/widget/smiles/sorry.gif"></a></td>
-                          <td><a href=""><img src="/images/widget/smiles/tease.gif"></a></td>
-                          <td><a href=""><img src="/images/widget/smiles/to_become_senile.gif"></a></td>
-                          <td><a href=""><img src="/images/widget/smiles/viannen_10.gif"></a></td>
-                          <td><a href=""><img src="/images/widget/smiles/wacko2.gif"></a></td>
-                          <td><a href=""><img src="/images/widget/smiles/wink.gif"></a></td>
-                          <td><a href=""><img src="/images/widget/smiles/yahoo.gif"></a></td>
-                          <td><a href=""><img src="/images/widget/smiles/yes3.gif"></a></td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-                  <div class="redactor-popup redactor-popup_b-link">
-                    <!-- a.redactor-popup_close.ico-close3.powertip(href='', title='Закрыть')-->
-                    <div class="redactor-popup_tale"></div>
-                    <div class="redactor-popup_t">Ссылка</div>
-                    <div class="redactor-popup_holder-blue">
-                      <div class="margin-b10 clearfix">
-                        <label for="" class="redactor-popup_label">Отображаемый текст</label>
-                        <div class="float-l w-350">
-                          <input type="text" placeholder="Введите текст" name="" value="Выделенный текст" class="itx-simple itx-simple__blue">
-                        </div>
+                </div><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                <!-- redactor-popup-->
+                <div class="redactor-popup">
+                  <!-- a.redactor-popup_close.ico-close3.powertip(href='', title='Закрыть')-->
+                  <div class="redactor-popup_tale"></div>
+                  <div class="redactor-popup_t">Загрузите видео</div>
+                  <div class="redactor-popup_add-video active">
+                    <div class="redactor-popup_add-video-hold">
+                      <div class="redactor-popup_video-serv">
+                        <div class="redactor-popup_video-serv-tx">Поддерживаемые сервисы:</div>
+                        <div class="redactor-popup_video-serv-i redactor-popup_video-serv-i__youtube active"></div>
+                        <div class="redactor-popup_video-serv-i redactor-popup_video-serv-i__rutube"></div>
+                        <div class="redactor-popup_video-serv-i redactor-popup_video-serv-i__vimeo"></div>
                       </div>
-                      <div class="clearfix">
-                        <label for="" class="redactor-popup_label">Ссылка на</label>
-                        <div class="float-l w-350 error">
-                          <input type="text" placeholder="Введите URL страницы" name="" class="itx-simple itx-simple__blue">
-                        </div>
-                      </div>
-                      <div class="errorSummary">Необходимо заполнить поле URL страницы.</div>
+                      <!-- При вводе текста убрать класс .btn-inactive с кнопки для ее активирования-->
+                      <input type="text" name="" placeholder="Введите ссылку на видео" value="http://www.youtube.com/watch?v=N8ev5pkIqKY" class="itx-simple itx-simple__blue w-350 float-l">
+                      <button class="btn-green btn-medium">Загрузить  видео</button>
                     </div>
-                    <div class="textalign-c margin-t15"><a href="" class="btn-gray-light btn-medium margin-r10">Отменить</a><a href="" class="btn-green btn-medium">Добавить ссылку</a></div>
-                  </div><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                    <!-- При показе текстового сообщения на .redactor-popup_add-video добавлять класс .active-->
+                    <div class="redactor-popup_add-video-load"><img src="/images/ico/ajax-loader.gif" alt=""><br>Подождите видео загружается</div>
+                  </div>
                 </div>
+                <!-- /redactor-popup--><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                <div class="redactor-popup">
+                  <!-- a.redactor-popup_close.ico-close3.powertip(href='', title='Закрыть')-->
+                  <div class="redactor-popup_tale"></div>
+                  <div class="redactor-popup_t">Загрузите видео</div>
+                  <div class="redactor-popup_video clearfix"><a href="" title="Удалить" class="redactor-popup_video-del ico-close powertip"></a>
+                    <iframe width="540" height="300" frameborder="0" allowfullscreen="" src="http://www.youtube.com/embed/pehSAUTqjRs?wmode=transparent"></iframe>
+                  </div>
+                  <div class="textalign-c margin-t15"><a href="" class="a-pseudo">Нет, загрузить другой ролик</a><a href="" class="btn-green btn-medium margin-l20">Добавить видео</a></div>
+                </div><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                <div class="redactor-popup">
+                  <!-- a.redactor-popup_close.ico-close3.powertip(href='', title='Закрыть')-->
+                  <div class="redactor-popup_tale"></div>
+                  <div class="redactor-popup_t">Выберите смайл</div>
+                  <table class="redactor-popup_smiles">
+                    <tbody>
+                      <tr>
+                        <td><a href=""><img src="/images/widget/smiles/acute (1).gif"></a></td>
+                        <td><a href=""><img src="/images/widget/smiles/acute.gif"></a></td>
+                        <td><a href=""><img src="/images/widget/smiles/air_kiss.gif"></a></td>
+                        <td><a href=""><img src="/images/widget/smiles/angel.gif"></a></td>
+                        <td><a href=""><img src="/images/widget/smiles/bad.gif"></a></td>
+                        <td><a href=""><img src="/images/widget/smiles/beach.gif"></a></td>
+                        <td><a href=""><img src="/images/widget/smiles/beee.gif"></a></td>
+                        <td><a href=""><img src="/images/widget/smiles/blush2.gif"></a></td>
+                      </tr>
+                      <tr>
+                        <td><a href=""><img src="/images/widget/smiles/Cherna-girl_on_weight.gif"></a></td>
+                        <td><a href=""><img src="/images/widget/smiles/connie_1.gif"></a></td>
+                        <td><a href=""><img src="/images/widget/smiles/connie_33.gif"></a></td>
+                        <td><a href=""><img src="/images/widget/smiles/connie_36.gif"></a></td>
+                        <td><a href=""><img src="/images/widget/smiles/connie_6.gif"></a></td>
+                        <td><a href=""><img src="/images/widget/smiles/connie_feedbaby.gif"></a></td>
+                        <td><a href=""><img src="/images/widget/smiles/cray.gif"></a></td>
+                        <td><a href=""><img src="/images/widget/smiles/dance.gif"></a></td>
+                      </tr>
+                      <tr>
+                        <td><a href=""><img src="/images/widget/smiles/dash2.gif"></a></td>
+                        <td><a href=""><img src="/images/widget/smiles/diablo.gif"></a></td>
+                        <td><a href=""><img src="/images/widget/smiles/dirol.gif"></a></td>
+                        <td><a href=""><img src="/images/widget/smiles/dntknw.gif"></a></td>
+                        <td><a href=""><img src="/images/widget/smiles/drinks.gif"></a></td>
+                        <td><a href=""><img src="/images/widget/smiles/d_coffee.gif"></a></td>
+                        <td><a href=""><img src="/images/widget/smiles/d_lovers.gif"></a></td>
+                        <td><a href=""><img src="/images/widget/smiles/facepalm.gif"></a></td>
+                      </tr>
+                      <tr>
+                        <td><a href=""><img src="/images/widget/smiles/fie.gif"></a></td>
+                        <td><a href=""><img src="/images/widget/smiles/first_move.gif"></a></td>
+                        <td><a href=""><img src="/images/widget/smiles/fool.gif"></a></td>
+                        <td><a href=""><img src="/images/widget/smiles/girl_cray2.gif"></a></td>
+                        <td><a href=""><img src="/images/widget/smiles/girl_dance.gif"></a></td>
+                        <td><a href=""><img src="/images/widget/smiles/girl_drink1.gif"></a></td>
+                        <td><a href=""><img src="/images/widget/smiles/girl_hospital.gif"></a></td>
+                        <td><a href=""><img src="/images/widget/smiles/girl_prepare_fish.gif"></a></td>
+                      </tr>
+                      <tr>
+                        <td><a href=""><img src="/images/widget/smiles/girl_sigh.gif"></a></td>
+                        <td><a href=""><img src="/images/widget/smiles/girl_wink.gif"></a></td>
+                        <td><a href=""><img src="/images/widget/smiles/girl_witch.gif"></a></td>
+                        <td><a href=""><img src="/images/widget/smiles/give_rose.gif"></a></td>
+                        <td><a href=""><img src="/images/widget/smiles/good.gif"></a></td>
+                        <td><a href=""><img src="/images/widget/smiles/help.gif"></a></td>
+                        <td><a href=""><img src="/images/widget/smiles/JC_hiya.gif"></a></td>
+                        <td><a href=""><img src="/images/widget/smiles/JC_hulahoop-girl.gif"></a></td>
+                      </tr>
+                      <tr>
+                        <td><a href=""><img src="/images/widget/smiles/kirtsun_05.gif"></a></td>
+                        <td><a href=""><img src="/images/widget/smiles/kuzya_01.gif"></a></td>
+                        <td><a href=""><img src="/images/widget/smiles/LaieA_052.gif"></a></td>
+                        <td><a href=""><img src="/images/widget/smiles/Laie_16.gif"></a></td>
+                        <td><a href=""><img src="/images/widget/smiles/Laie_50.gif"></a></td>
+                        <td><a href=""><img src="/images/widget/smiles/Laie_7.gif"></a></td>
+                        <td><a href=""><img src="/images/widget/smiles/lazy2.gif"></a></td>
+                        <td><a href=""><img src="/images/widget/smiles/l_moto.gif"></a></td>
+                      </tr>
+                      <tr>
+                        <td><a href=""><img src="/images/widget/smiles/mail1.gif"></a></td>
+                        <td><a href=""><img src="/images/widget/smiles/Mauridia_21.gif"></a></td>
+                        <td><a href=""><img src="/images/widget/smiles/mosking.gif"></a></td>
+                        <td><a href=""><img src="/images/widget/smiles/music2.gif"></a></td>
+                        <td><a href=""><img src="/images/widget/smiles/negative.gif"></a></td>
+                        <td><a href=""><img src="/images/widget/smiles/pardon.gif"></a></td>
+                        <td><a href=""><img src="/images/widget/smiles/phil_05.gif"></a></td>
+                        <td><a href=""><img src="/images/widget/smiles/phil_35.gif"></a></td>
+                      </tr>
+                      <tr>
+                        <td><a href=""><img src="/images/widget/smiles/popcorm1.gif"></a></td>
+                        <td><a href=""><img src="/images/widget/smiles/preved.gif"></a></td>
+                        <td><a href=""><img src="/images/widget/smiles/rofl.gif"></a></td>
+                        <td><a href=""><img src="/images/widget/smiles/sad.gif"></a></td>
+                        <td><a href=""><img src="/images/widget/smiles/scratch_one-s_head.gif"></a></td>
+                        <td><a href=""><img src="/images/widget/smiles/secret.gif"></a></td>
+                        <td><a href=""><img src="/images/widget/smiles/shok.gif"></a></td>
+                        <td><a href=""><img src="/images/widget/smiles/smile3.gif"></a></td>
+                      </tr>
+                      <tr>
+                        <td><a href=""><img src="/images/widget/smiles/sorry.gif"></a></td>
+                        <td><a href=""><img src="/images/widget/smiles/tease.gif"></a></td>
+                        <td><a href=""><img src="/images/widget/smiles/to_become_senile.gif"></a></td>
+                        <td><a href=""><img src="/images/widget/smiles/viannen_10.gif"></a></td>
+                        <td><a href=""><img src="/images/widget/smiles/wacko2.gif"></a></td>
+                        <td><a href=""><img src="/images/widget/smiles/wink.gif"></a></td>
+                        <td><a href=""><img src="/images/widget/smiles/yahoo.gif"></a></td>
+                        <td><a href=""><img src="/images/widget/smiles/yes3.gif"></a></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                <div class="redactor-popup redactor-popup_b-link">
+                  <!-- a.redactor-popup_close.ico-close3.powertip(href='', title='Закрыть')-->
+                  <div class="redactor-popup_tale"></div>
+                  <div class="redactor-popup_t">Ссылка</div>
+                  <div class="redactor-popup_holder-blue">
+                    <div class="margin-b10 clearfix">
+                      <label for="" class="redactor-popup_label">Отображаемый текст</label>
+                      <div class="float-l w-350">
+                        <input type="text" placeholder="Введите текст" name="" value="Выделенный текст" class="itx-simple itx-simple__blue">
+                      </div>
+                    </div>
+                    <div class="clearfix">
+                      <label for="" class="redactor-popup_label">Ссылка на</label>
+                      <div class="float-l w-350 error">
+                        <input type="text" placeholder="Введите URL страницы" name="" class="itx-simple itx-simple__blue">
+                      </div>
+                    </div>
+                    <div class="errorSummary">Необходимо заполнить поле URL страницы.</div>
+                  </div>
+                  <div class="textalign-c margin-t15"><a href="" class="btn-gray-light btn-medium margin-r10">Отменить</a><a href="" class="btn-green btn-medium">Добавить ссылку</a></div>
+                </div><br><br><br><br><br><br><br><br><br><br><br><br><br>
               </div>
             </div>
           </div>

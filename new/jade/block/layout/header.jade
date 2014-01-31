@@ -135,6 +135,7 @@ mixin header-fix(mod)
             $(window).on('scroll',function () {
                 var contanerScroll = $(window).scrollTop();
                 var header = $('.layout-header');
+                console.log(header.height());
                 if (contanerScroll > header.height() + header.offset().top) {
                     $('.header-fix').fadeIn(400);
                 } else {

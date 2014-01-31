@@ -250,6 +250,10 @@ function HgWysiwyg(element, options, callbacks)
             $('.redactor-control_hold').addClass('redactor-control_hold__focus');
 
             self.fireCallbacks('blur', this, arguments);
+        },
+        keyupCallback: function(e)
+        {
+            self.fireCallbacks('keyup', this, arguments);
         }
     }
 

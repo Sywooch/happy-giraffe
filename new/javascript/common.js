@@ -228,6 +228,15 @@ function HgWysiwyg(element, options, callbacks)
         },
         changeCallback: function(html)
         {
+            var redactorH = this.$box.height();
+            // Выбираем непосредственного родителя
+            var bParrent = this.$box.parents('.redactor-control_hold');
+            if( redactorH >= 250) {
+                bParrent.height(250);
+            } else {
+                bParrent.height(redactorH);
+            }
+            
             self.fireCallbacks('change', this, arguments);
         },
         focusCallback: function(e)

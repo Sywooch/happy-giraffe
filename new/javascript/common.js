@@ -236,8 +236,7 @@ function HgWysiwyg(element, options, callbacks)
             } else {
                 bParrent.height(redactorH);
             }
-            // обновлять скролл baron
-
+            
             self.fireCallbacks('change', this, arguments);
         },
         focusCallback: function(e)

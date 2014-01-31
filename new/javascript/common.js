@@ -218,6 +218,8 @@ function HgWysiwyg(element, options, callbacks)
         plugins: ['imageCustom', 'smilesModal', 'videoModal'],
         initCallback: function()
         {
+            self.initScroll(this);
+
             for (var i in self.callbacks)
                 for (var j in self.callbacks[i])
                     this.registerCallback(i, self.callbacks[i][j]);
@@ -254,6 +256,12 @@ function HgWysiwyg(element, options, callbacks)
     self.run = function() {
         var settings = $.extend({}, self.defaultOptions, options);
         self.obj = $(element).redactor(settings);
+    }
+
+    self.initScroll = function(redactor) {
+        $(redactor.$box).wrap('<div class="scroll"><div class="scroll_scroller"><div class="scroll_cont"></div></div></div>');
+        $(redactor.$box).find('.scroll_scroller').after('<div class="scroll_bar-hold"><div class="scroll_bar"><div class="scroll_bar-in"></div></div></div>');
+        addBaron($(redactor.$box).find('.redactor-control_hold .scroll'));
     }
 }
 

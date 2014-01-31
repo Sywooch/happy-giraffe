@@ -203,10 +203,10 @@ function HgWysiwyg(element, options, callbacks)
 
         self.callbacks[event].push(handler);
     }
-    self.fireCallbacks = function(event, redactor) {
+    self.fireCallbacks = function(event, redactor, args) {
         if (redactor.callbacks.hasOwnProperty(event))
             for (var x in redactor.callbacks[event])
-                redactor.callbacks[event][x].apply(this, arguments);
+                redactor.callbacks[event][x].apply(this, args);
     }
 
     self.defaultOptions = {
@@ -235,21 +235,21 @@ function HgWysiwyg(element, options, callbacks)
             }
             // обновлять скролл baron
 
-            self.fireCallbacks('change', this);
+            self.fireCallbacks('change', this, arguments);
         },
         focusCallback: function(e)
         {
             // Нужно выбирать непосредственного родителя
             $('.redactor-control_hold').addClass('redactor-control_hold__focus');
 
-            self.fireCallbacks('focus', this);
+            self.fireCallbacks('focus', this, arguments);
         },
         blurCallback: function(e)
         {
             // Нужно выбирать непосредственного родителя
             $('.redactor-control_hold').addClass('redactor-control_hold__focus');
 
-            self.fireCallbacks('blur', this);
+            self.fireCallbacks('blur', this, arguments);
         }
     }
 

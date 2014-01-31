@@ -140,9 +140,7 @@ ko.bindingHandlers.fixScroll = {
         }
         manager.subsription = manager.scrollTo.subscribe(function(value) {
             if (value !== false) {
-                if(manager.scrollBot <= options.delta) {
-                    $(element).scrollTo(self.getElementByModel(manager, value));
-                }
+                $(element).scrollTo(self.getElementByModel(manager, value));
                 
                 manager.scrollTo(false);
             }
@@ -321,7 +319,7 @@ ko.bindingHandlers.show = {
 	},
 	init: function(element, valueAccessor) {
 		var settings = ko.bindingHandlers.show.extend(valueAccessor());
-		$(element).on('show', settings.selector, function(event) {
+		$(element).on('show, mousemove', settings.selector, function(event) {
 			if(this == event.target) {
 				settings.callback();
 			}

@@ -482,7 +482,7 @@ function MessagingThread(me, user) {
             toolbarExternal: '.redactor-control_toolbar',
             buttons: ['b'],
             plugins: ['imageCustom', 'smilesModal', 'videoModal', 'callbacks'],
-            comments: true
+            comments: true,
         },
         callbacks: {
             init : [
@@ -659,13 +659,7 @@ function MessagingThread(me, user) {
 		}
 	};
 	self.opened = function() {
-		/*var jScroller = $(scroller);
-		var firstUnread = jScroller.find('.im-message.im-message__new:eq(0)');
-		if(firstUnread.length > 0) { // если есть непрочитанные сообщения
-			jScroller.scrollTo(firstUnread, 0); // докрутим до непочитанного сообщения
-		} else {
-			jScroller.scrollTo('max', 0); // прокрутим в конец
-		}*/
+		self.scrollManager.scrollTo('bottom');
 	};
 
 	// Текст конструктора

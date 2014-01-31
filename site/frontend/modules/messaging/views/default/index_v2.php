@@ -347,7 +347,7 @@
                                 </div>
                                 <!-- /ko -->
                                 <!-- im_loader есть всегда, на разные действия в нем менятеся содержимое-->
-                                <div class="im_loader">
+                                <div class="im_loader" data-bind="fixScroll: {manager: scrollManager, type: 'element', model: 'bottom'}">
                                     <!-- ko if: sendingMessage -->
                                     <img src="/new/images/ico/ajax-loader.gif" alt="" class="im_loader-img"><span class="im_loader-tx">Отправляем сообщение</span>
                                     <!-- /ko -->

@@ -230,7 +230,7 @@
                         <div class="im-panel_user clearfix">
                             <a class="ava ava__middle ava__female" data-bind="attr: { href : user.profileUrl }" target="_blank"><span class="ico-status ico-status__online" data-bind="visible: user.isOnline()"></span><img alt="" data-bind="attr: {src: user.avatar}" class="ava_img"/></a>
                             <div class="im-panel_user-status" data-bind="visible: !user.isOnline()"><span data-bind="text: user.gender ? 'Был на сайте' : 'Была на сайте'"></span> <span data-bind="moment: {value: user.lastOnline(), timeAgo: true}"></span></div>
-                            <div class="im-panel_user-name" data-bind="text: user.fullName()"></div>
+                            <a class="im-panel_user-name" data-bind="text: user.fullName(), attr: { href : user.profileUrl }" target="_blank"></a>
                             <!-- У иконки 3 состояния.
                             Друг - без моидфикатора
                             Добавить в друзья - .friend__add
@@ -379,7 +379,9 @@
                             <!-- /ko -->
                             <!-- ko if: editing -->
                             <div class="redactor-control">
-                                <textarea cols="40" name="redactor" rows="1" autofocus="autofocus" class="redactor" data-bind="redactorHG: editorConfig"></textarea>
+                                <div class="redactor-control_hold">
+                                    <textarea cols="40" name="redactor" rows="1" autofocus="autofocus" class="redactor" data-bind="redactorHG: { config : editorConfig, attr : editor }"></textarea>
+                                </div>
                                 <div class="redactor-control_toolbar"></div>
                                 <div class="redactor-control_control">
                                     <div class="redactor-control_key">

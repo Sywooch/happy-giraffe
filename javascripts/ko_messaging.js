@@ -387,11 +387,15 @@ MessagingThread.prototype = {
 					if (obj.id == result.dialog.id) {
 						var message = new MessagingMessage(result.message, obj);
 						// Добавим сообщение в диалог
+                        if(self.scrollManager.scrollBot <= 40) {
+                            self.scrollManager.setFix('bot');
+                        }
 						obj.messages.push(message);
+                        self.scrollManager.setFix();
 						// Обновим дату контакта и счётчик
 						obj.user.date(message.created);
                         // Прокрутим к новому сообщению
-                        obj.scrollManager.scrollTo(message);
+                        //obj.scrollManager.scrollTo(message);
 					}
 				});
 			};

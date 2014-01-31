@@ -228,26 +228,19 @@ function HgWysiwyg(element, options, callbacks)
         },
         changeCallback: function(html)
         {
-            // Нужно выбирать непосредственного родителя
-            var bParrent = $('.redactor-control_hold');
-            if(bParrent.height() >= 250) {
-                bParrent.height(250);
-            }
-            // обновлять скролл baron
-
             self.fireCallbacks('change', this, arguments);
         },
         focusCallback: function(e)
         {
             // Нужно выбирать непосредственного родителя
-            $('.redactor-control_hold').addClass('redactor-control_hold__focus');
+            $(this.$box).find('.redactor-control_hold').addClass('redactor-control_hold__focus');
 
             self.fireCallbacks('focus', this, arguments);
         },
         blurCallback: function(e)
         {
             // Нужно выбирать непосредственного родителя
-            $('.redactor-control_hold').addClass('redactor-control_hold__focus');
+            $(this.$box).find('.redactor-control_hold').removeClass('redactor-control_hold__focus');
 
             self.fireCallbacks('blur', this, arguments);
         },

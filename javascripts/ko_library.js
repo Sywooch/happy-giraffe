@@ -96,6 +96,106 @@ ko.bindingHandlers.returnKey = {
     }
 };
 
+ko.bindingHandlers.fixScroll = {
+    init: function(element, valueAccessor, allBindingsAccessor, viewModel) {
+        //console.log(element, ko.unwrap(valueAccessor()));
+        var self = ko.bindingHandlers.fixScroll;
+        var options = valueAccessor();
+
+        if (options.type == 'box') {
+            self.initBox(element, options);
+        } else {
+            self.associate(element, options);
+        }
+    },
+    initBox: function(element, options) {
+        var self = ko.bindingHandlers.fixScroll;
+        var box = $(element);
+        var manager = options.manager;
+        
+        // погрешность для прилипания
+        options.delta = options.delta || 20;
+
+        if (manager.subscription !== false) {
+            manager.subsription.dispose();
+        }
+        manager.subsription = manager.scrollTo.subscribe(function(value) {
+            if (value !== false) {
+                if(manager.scrollBot <= options.delta) {
+                    $(element).scrollTo(self.getElementByModel(manager, value));
+                }
+                
+                manager.scrollTo(false);
+            }
+        });
+
+        // сбросим связь между моделями и домом, т.к. дом создаётся заново
+        manager.elements = [];
+        manager.models = [];
+        
+        // Прокрутим туда, где было
+        box.scrollTop(box.find('>div.scroll_cont').outerHeight() - manager.scrollBot - box.height());
+
+        // добавим событие прокрутки, оно триггерится и при обновлении нокаутом, и при ресайзе
+        box.scroll(function() {
+            console.log(manager);
+            if(manager.fixTop) {
+                box.scrollTop(manager.scrollTop);
+            }
+            if(manager.fixBot) {
+                box.scrollTop(box.find('>div.scroll_cont').outerHeight() - manager.scrollBot - box.height());
+            }
+            // запомним позицию скролла
+            manager.scrollTop = box.scrollTop();
+            manager.scrollBot = Math.max(0, box.find('>div.scroll_cont').outerHeight() - box.scrollTop() - box.height());
+        });
+
+
+    },
+    associate: function(element, options) {
+        var i = options.manager.elements.length;
+        options.manager.elements[i] = element;
+        options.manager.models[i] = options.model;
+    },
+    getElementByModel: function(manager, model) {
+        var result = false;
+        var i = manager.models.indexOf(model);
+        if (i >= 0) {
+            result = manager.elements[i];
+        }
+
+        return result;
+    },
+    getModelByElement: function(manager, element) {
+        var result = false;
+        var i = manager.elements.indexOf(element);
+        if (i >= 0) {
+            result = manager.models[i];
+        }
+
+        return result;
+    },
+    update: function(element, valueAccessor, allBindingsAccessor, viewModel) {
+        ko.unwrap(valueAccessor());
+    },
+    getNewManager: function() {
+        return {
+            fixTop: false,
+            fixBot: false,
+            scrollBot: 0,
+            scrollTop: 0,
+            setFix: function(param) {
+                this.fixTop = (param === 'top');
+                this.fixBot = (param === 'bot');
+            },
+            scrollTo: ko.observable(),
+            subscription: false,
+            elements: [],
+            models: []
+        };
+    }
+}
+
 ko.bindingHandlers.autogrow = {
 
     init: function (element, valueAccessor, allBindingsAccessor) {

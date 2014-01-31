@@ -491,7 +491,7 @@ function MessagingThread(me, user) {
             ],
             keyup : [
                 function(e) {
-                    if (e.keyCode == 13 && me.viewModel.settings.messaging__enter() && ! e.ctrlKey) {
+                    if (e.keyCode == 13 && me.viewModel.settings.messaging__enter() != e.ctrlKey) {
                         self.sendMessage();
                     } else {
                         self.typing();

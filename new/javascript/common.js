@@ -23,6 +23,7 @@ function addBaron(el) {
             // Т.к. по спецификации у события onScroll нет bubbling'а,
             // то обработчик надо вешать на каждый конкретный элемент
             $('.scroll_scroller', this).scroll(function(e) {
+                console.log('123');
                 // стриггерим jquery событие, у которого есть bubbling,
                 // но, что бы не уйти в цикл, проверим флаг.
                 if(!e.fake) {
@@ -162,7 +163,7 @@ HgWysiwyg.prototype = {
             targetBlock = currentBlock;
 
         else {
-            currentBlock.after('<p>' + obj.opts.invisibleSpace + '</p>');
+            currentBlock.after(newNode);
             targetBlock = currentBlock.next();
         }
 
@@ -236,6 +237,8 @@ function HgWysiwyg(element, options, callbacks)
             } else {
                 bParrent.height(redactorH);
             }
+
+            addBaron('.redactor-control_hold .scroll');
             
             self.fireCallbacks('change', this, arguments);
         },

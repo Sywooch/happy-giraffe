@@ -491,10 +491,11 @@ function MessagingThread(me, user) {
                     im.renew();
                 }
             ],
-            keyup : [
+            keydown : [
                 function(e) {
                     if (e.keyCode == 13 && me.viewModel.settings.messaging__enter() != e.ctrlKey) {
                         self.sendMessage();
+                        e.preventDefault();
                     } else {
                         self.typing();
                     }

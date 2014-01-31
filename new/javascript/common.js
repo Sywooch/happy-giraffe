@@ -257,9 +257,9 @@ function HgWysiwyg(element, options, callbacks)
 
             self.fireCallbacks('blur', arguments);
         },
-        keyupCallback: function(e)
+        keydownCallback: function(e)
         {
-            self.fireCallbacks('keyup', arguments);
+            self.fireCallbacks('keydown', arguments);
         }
     }
 

@@ -14,14 +14,17 @@ ko.bindingHandlers.redactorHG = {
             var obj = this;
             obj.set(attr());
             attr.subscribe(function(a) {
-                if(a !== obj.get()) {
+                if (a !== obj.get()) {
                     obj.set(a);
+
+                    if (a == '')
+                        obj.focusEnd();
                 }
             });
         });
 
         wysiwyg.addCallback('change', function(html) {
-            if(attr() != html) {
+            if (attr() != html) {
                 attr(html);
             }
         });

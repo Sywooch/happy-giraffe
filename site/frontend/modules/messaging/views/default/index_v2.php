@@ -230,7 +230,7 @@
                         <div class="im-panel_user clearfix">
                             <a class="ava ava__middle ava__female" data-bind="attr: { href : user.profileUrl }" target="_blank"><span class="ico-status ico-status__online" data-bind="visible: user.isOnline()"></span><img alt="" data-bind="attr: {src: user.avatar}" class="ava_img"/></a>
                             <div class="im-panel_user-status" data-bind="visible: !user.isOnline()"><span data-bind="text: user.gender ? 'Был на сайте' : 'Была на сайте'"></span> <span data-bind="moment: {value: user.lastOnline(), timeAgo: true}"></span></div>
-                            <div class="im-panel_user-name" data-bind="text: user.fullName()"></div>
+                            <a class="im-panel_user-name" data-bind="text: user.fullName(), attr: { href : user.profileUrl }"></a>
                             <!-- У иконки 3 состояния.
                             Друг - без моидфикатора
                             Добавить в друзья - .friend__add

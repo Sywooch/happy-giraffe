@@ -667,6 +667,7 @@ function MessagingThread(me, user) {
 		} else {
 			jScroller.scrollTo('max', 0); // прокрутим в конец
 		}*/
+        self.scrollManager.scrollTo('bottom');
 	};
 
 	// Текст конструктора

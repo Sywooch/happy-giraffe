@@ -36,6 +36,7 @@
               $(window).on('scroll',function () {
                   var contanerScroll = $(window).scrollTop();
                   var header = $('.layout-header');
+                  console.log(header.height());
                   if (contanerScroll > header.height() + header.offset().top) {
                       $('.header-fix').fadeIn(400);
                   } else {
@@ -600,6 +601,13 @@
                         </div>
                         <script>
                           $(document).ready(function () { 
+                              /* Обворачиваем редактор в дополнительные блоки. Нужно выбирать текущий (инициализарующийся) редактор, а не все на странице */
+                              $('.redactor').wrap('<div class="scroll"><div class="scroll_scroller"><div class="scroll_cont"></div></div></div>');
+                              /* Выбор ближайшего родителя с таким классом, для добавления блоков рисующих ползунок */
+                              $('.scroll_scroller').after('<div class="scroll_bar-hold"><div class="scroll_bar"><div class="scroll_bar-in"></div></div></div>');
+                              /* привязать baron к созданным элементам, в верстке не работает */
+                              addBaron('.redactor-control_hold .scroll');
+                              
                               $('.redactor').redactor({
                                   minHeight: 20,
                                   autoresize: true,
@@ -622,12 +630,14 @@
                                       $('.redactor-control_hold').addClass('redactor-control_hold__focus');
                                   },
                                   changeCallback: function(html)
-                                  {   
-                                      im.renew();
-                                      // Нужно выбирать непосредственного родителя
-                                      var bParrent = $('.redactor-control_hold');
-                                      if(bParrent.height() >= 250) {
+                                  {
+                                      var redactorH = this.$box.height();
+                                      // Выбираем непосредственного родителя
+                                      var bParrent = this.$box.parents('.redactor-control_hold');
+                                      if( redactorH >= 250) {
                                           bParrent.height(250);
+                                      } else {
+                                          bParrent.height(redactorH);
                                       }
                                       // обновлять скролл baron
                                   },

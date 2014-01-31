@@ -14,12 +14,14 @@ var MenuViewModel = function(data) {
         });
 
         $(window).on('scroll',function () {
-            var contanerScroll = $(window).scrollTop();
-            var header = $('.layout-header');
-            if (contanerScroll > header.height() + header.offset().top) {
-                $('.header-fix').fadeIn(400);
-            } else {
-                $('.header-fix').fadeOut(400);
+            if (self.activeModule() != 'messaging') {
+                var contanerScroll = $(window).scrollTop();
+                var header = $('.layout-header');
+                if (contanerScroll > header.height() + header.offset().top) {
+                    $('.header-fix').fadeIn(400);
+                } else {
+                    $('.header-fix').fadeOut(400);
+                }
             }
         });
 

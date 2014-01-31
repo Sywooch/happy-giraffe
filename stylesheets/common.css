@@ -11387,13 +11387,13 @@ textarea.error,
 .header-menu .ava {
   float: none;
   display: inline-block;
-  margin: 2px auto 7px;
+  margin: 2px auto 1px;
 }
 .header-menu_li {
   position: relative;
   display: inline-block;
   vertical-align: top;
-  margin: 0 13px;
+  margin: 0 14px;
   text-align: center;
 }
 .header-menu_li__dropin .header-menu_a:hover .header-menu_ico,

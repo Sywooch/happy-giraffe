@@ -6,8 +6,27 @@
 
 ko.bindingHandlers.redactorHG = {
 	init: function(element, valueAccessor) {
-		var options = valueAccessor();
-		new HgWysiwyg(element, options);
+		var value = valueAccessor();
+		var wysiwyg = new HgWysiwyg(element, value.config.options, value.config.callbacks);
+        var attr = value.attr;
+
+        wysiwyg.addCallback('init', function() {
+            var obj = this;
+            obj.set(attr());
+            attr.subscribe(function(a) {
+                if(a !== obj.get()) {
+                    obj.set(a);
+                }
+            });
+        });
+
+        wysiwyg.addCallback('change', function(html) {
+            if(attr() != html) {
+                attr(html);
+            }
+        });
+
+        wysiwyg.run();
 	}
 };
 

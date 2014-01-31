@@ -173,15 +173,42 @@ HgWysiwyg.prototype = {
         targetBlock.imagesLoaded(function() {
             obj.sync();
         });
+    },
+    fixPosition : function(a) {
+        $('#redactor_modal').hide();
+
+        setTimeout(function() {
+            var top = a.offset().top;
+            var left = a.offset().left;
+
+            $('#redactor_modal').css({
+                'top': top - $('#redactor_modal').height() - 6,
+                'left': left - 18
+            });
+            $('#redactor_modal').show();
+        }, 200);
     }
 }
 
-function HgWysiwyg(element, options)
+function HgWysiwyg(element, options, callbacks)
 {
     var self = this;
+    self.obj = null;
     self.load();
 
-    self.obj = null;
+    self.callbacks = callbacks;
+    self.addCallback = function(event, handler) {
+        if (! self.callbacks.hasOwnProperty(event))
+            self.callbacks[event] = [];
+
+        self.callbacks[event].push(handler);
+    }
+    self.fireCallbacks = function(event, redactor, args) {
+        if (redactor.callbacks.hasOwnProperty(event))
+            for (var x in redactor.callbacks[event])
+                redactor.callbacks[event][x].apply(this, args);
+    }
+
     self.defaultOptions = {
         minHeight: 20,
         autoresize: true,
@@ -189,32 +216,77 @@ function HgWysiwyg(element, options)
         toolbarExternal: '.redactor-control_toolbar',
         buttons: ['b'],
         plugins: ['imageCustom', 'smilesModal', 'videoModal'],
-        focusCallback: function(e)
+        initCallback: function()
         {
-            // Нужно выбирать непосредственного родителя
-            $('.redactor-control_hold').addClass('redactor-control_hold__focus');
+            self.initScroll(this);
+
+            for (var i in self.callbacks)
+                for (var j in self.callbacks[i])
+                    this.registerCallback(i, self.callbacks[i][j]);
+
+            self.fireCallbacks('init', this);
         },
         changeCallback: function(html)
         {
-            // Нужно выбирать непосредственного родителя
-            var bParrent = $('.redactor-control_hold');
-            if(bParrent.height() >= 250) {
+            var redactorH = this.$box.height();
+            // Выбираем непосредственного родителя
+            var bParrent = this.$box.parents('.redactor-control_hold');
+            if( redactorH >= 250) {
                 bParrent.height(250);
+            } else {
+                bParrent.height(redactorH);
             }
-            // обновлять скролл baron
+
+            addBaron('.redactor-control_hold .scroll');
+            
+            self.fireCallbacks('change', this, arguments);
         },
-        initCallback: function()
+        focusCallback: function(e)
         {
-            self.obj = this;
+            // Нужно выбирать непосредственного родителя
+            $(this.$box).find('.redactor-control_hold').addClass('redactor-control_hold__focus');
+
+            self.fireCallbacks('focus', this, arguments);
+        },
+        blurCallback: function(e)
+        {
+            // Нужно выбирать непосредственного родителя
+            $(this.$box).find('.redactor-control_hold').removeClass('redactor-control_hold__focus');
+
+            self.fireCallbacks('blur', this, arguments);
+        },
+        keyupCallback: function(e)
+        {
+            self.fireCallbacks('keyup', this, arguments);
         }
     }
 
-    var settings = $.extend({}, self.defaultOptions, options);
+    self.run = function() {
+        var settings = $.extend({}, self.defaultOptions, options);
+        self.obj = $(element).redactor(settings);
+    }
 
-    $(element).redactor(settings);
+    self.initScroll = function(redactor) {
+        $(redactor.$box).wrap('<div class="scroll"><div class="scroll_scroller"><div class="scroll_cont"></div></div></div>');
+        $(redactor.$box).parents('.scroll_scroller').after('<div class="scroll_bar-hold"><div class="scroll_bar"><div class="scroll_bar-in"></div></div></div>');
+        addBaron('.redactor-control_hold .scroll');
+    }
 }
 
 var RedactorPlugins = {};
+
+RedactorPlugins.callbacks = {
+    callbacks: {},
+    registerCallback: function(event, callback) {
+        if (! this.callbacks.hasOwnProperty(event))
+            this.callbacks[event] = [];
+
+        this.callbacks[event].push($.proxy(callback, this));
+    },
+    init: function() {
+        this.callbacks = {};
+    }
+}
 
 RedactorPlugins.imageCustom = {
     init: function() {
@@ -249,9 +321,9 @@ RedactorPlugins.smilesModal = {
         var obj = this;
 
         var callback = function(buttonDOM) {
-            fixPosition(buttonDOM);
+            HgWysiwyg.prototype.fixPosition(buttonDOM);
             $('#redactor_modal').on('resize', function() {
-                fixPosition(buttonDOM);
+                HgWysiwyg.prototype.fixPosition(buttonDOM);
             });
 
             $('.redactor-popup_smiles a').on('click', function() {
@@ -275,9 +347,9 @@ RedactorPlugins.videoModal = {
 
         var callback = function(buttonDOM) {
             obj.selectionSave();
-            fixPosition(buttonDOM);
+            HgWysiwyg.prototype.fixPosition(buttonDOM);
             $('#redactor_modal').resize(function() {
-                fixPosition(buttonDOM);
+                HgWysiwyg.prototype.fixPosition(buttonDOM);
             });
 
             var model = new WysiwygVideo(obj);
@@ -289,21 +361,6 @@ RedactorPlugins.videoModal = {
             this.modalInit('Video', $('#redactor-popup_b-video').html(), 500, function() {callback(buttonDOM)});
         });
     }
-}
-
-function fixPosition(a) {
-    $('#redactor_modal').hide();
-
-    setTimeout(function() {
-        var top = a.offset().top;
-        var left = a.offset().left;
-
-        $('#redactor_modal').css({
-            'top': top - $('#redactor_modal').height() - 6,
-            'left': left - 18
-        });
-        $('#redactor_modal').show();
-    }, 100);
 }
 
 function WysiwygVideo(redactor)
